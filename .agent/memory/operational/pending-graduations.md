@@ -119,3 +119,5 @@ debt register, 2026-07-08).
 <!-- Register drained to empty at the 2026-07-14 dedicated consolidation (Dolphin weaves
 Reef): both items below graduated to PDR-128 (review-conversations-are-first-class) and the
 new records-are-technical-not-emotional rule respectively — both homes verified live. -->
+
+- **Canonical heartbeat-loop recipe must bump the claims registry, not only the comms stream** `[captured: 2026-07-15 | source: napkin 2026-07-15 Barnacle calls Spray session-close loss-scan, item 2 | status: duplicate — already captured as F-92 (frictions-register.md, 2026-06-27, the "canonical loop omits the CLAIM heartbeat refresh" bullet) with the identical cure and target surface; routed per this register's tooling-gap rule. The 2026-07-15 Barnacle-tenure incident (~15h registry-stale during continuous comms heartbeats, peer-caught at succession) is recorded on F-92 as recurrence confirmation. Terminal disposition 2026-07-15, Schooner guards Whirlpool, per PR #381 review thread.]`

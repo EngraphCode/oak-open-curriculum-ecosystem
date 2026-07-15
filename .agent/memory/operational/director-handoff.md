@@ -148,21 +148,27 @@ the seat, not to any one pilot.
    continuity and health, not any one session's tidiness — a sequencing and
    altitude instruction, not a speed one). When the PDR-063 80% /
    post-commit re-evaluation fires, the FIRST wind-down move is to start the
-   handover: refresh `CURRENT HANDOFF STATE` below and **commit it** (do not
-   leave the seed uncommitted); pre-position your successor (PDR-064
-   Moment 1); require the successor's readiness gate (step 3, including the
-   pasted mechanical check) before its Moment-2; and keep your own heartbeat
-   running until the successor's Moment-2 lands — the seat never goes dark
-   between the two moments (PDR-064; the liveness rule) — stopping it only
-   once authority has transferred. Only AFTER the successor holds authority
+   handover: refresh `CURRENT HANDOFF STATE` below; pre-position your
+   successor (PDR-064 Moment 1); require the successor's readiness gate
+   (step 3, including the pasted mechanical check) before its Moment-2; and
+   keep your own heartbeat running until the successor's Moment-2 lands —
+   the seat never goes dark between the two moments (PDR-064; the liveness
+   rule) — stopping it only once authority has transferred. **Handover
+   artefacts on tracked surfaces (this brief's refresh, napkin entries,
+   continuity rows) are written locally and land BATCHED into the next
+   substantive or consolidation PR — NEVER a dedicated handover branch or
+   PR (owner ruling 2026-07-15). The handoff record itself is instance-tier
+   coordination state, untracked-by-design (ADR-199/PDR-094): it is
+   preserved on the primary checkout's disk and never lands in git at
+   all.** The handoff is complete when the record is written, the comms
+   events are posted, and the successor acknowledges; the successor reads
+   the record from the filesystem, not from a merge. (The comms stream
+   carries the pointers, so nothing load-bearing rides on the landing
+   latency.) Only AFTER the successor holds authority
    do you run your own team-member closeout; do not begin closeout
    housekeeping (consolidation, final summary) while still holding the live
    seat with no successor landed. At a genuine arc-end where the whole cast
-   dissolves there is no successor — closeout is the terminal act. The
-   continuity-commit may be blocked by pre-existing markdownlint
-   debt in shared multi-agent buffers — the proper path is a dedicated
-   consolidation pass (rotate + lint, then commit), never a destructive git
-   workaround or a narrow-commit dodge.
+   dissolves there is no successor — closeout is the terminal act.
 
 ## Standing lessons (this Director lineage)
 
@@ -256,20 +262,63 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> ### ▶ ACTIVE EFFORT: PLANNING & VISIBILITY / PLAN-CORPUS REFOUNDING — Director: Barnacle calls Spray (2026-07-14, Moment-2 20:42:46Z)
+> ### ▶ ACTIVE EFFORT: PLANNING & VISIBILITY / PLAN-CORPUS REFOUNDING — Director: Schooner guards Whirlpool (Moment-2 2026-07-15T12:04:35Z, event `35076b29`)
+>
+> **SESSION SHAPE:** n=1 — Director only (**Schooner guards Whirlpool, `82a9df`**, claude-code /
+> claude-fable-5), claim `0f4be777` ADOPTED from Barnacle calls Spray (`6d5d9c`, Director #2,
+> retired on owner instruction after full closeout; before that Quasar mends Umbra `52b4de` —
+> the claim has been continuously held, never closed, across three tenures). A Fleet Captain
+> seat (Stoat holds Warren, `2a69a1`) was opened and RETIRED by owner instruction before any
+> S1 script ran — a contained tool-contract mistake (a `--help` probe on a raw `refound-*`
+> script executed it for real; see the napkin), not corrupted work-product.
+>
+> **The one-line state:** S0 CLOSED and merged (PR #379, `SHA:68d6d232`, release 1.69.1).
+> Orphan-recovery PR #380 MERGED (`SHA:55a69ceca`, 2026-07-15T11:20:45Z) — its two proof-gated
+> worktrees (`register-rehoming`, `orphan-recovery`) verified and removed at pickup. S1 is
+> UNSTARTED: the remit (comms event 2026-07-15T11:35:42Z) stands verbatim — deterministic
+> scripts first at zero LLM cost; the `refound-reader`/`refound-locator` fleet layer is a
+> narrow calibration-gated residual, pre-declared against the cost ledger before any dispatch
+> — and re-routes to a successor fleet seat when the owner launches one. The stray sweep
+> artefact Stoat's misfire wrote was ABSENT repo-wide at 12:10Z (assumed owner-disposed;
+> confirmation pending). Remaining after S1: S2 → divergence report as Walk-A input; the r1
+> worktree is removed only after S1/S2 complete.
+>
+> **Owner rulings 2026-07-15:** (1) **no more handover branches or PRs** — handover artefacts
+> land batched (see §How to take the Director seat step 7); (2) a residue **disposition sweep**
+> over the primary's 4 stashes + ~50 local branches is commissioned — ledger with per-item
+> proofs and recommendations, one owner ruling over the batch, then execution.
+>
+> **A successor rehydrates from:** the on-disk handoff records under
+> `.agent/state/collaboration/handoffs/` (untracked-by-design per ADR-199/PDR-094 — read from
+> the primary checkout's filesystem, not from git; 2026-07-15 Barnacle→Schooner — note its §1
+> PR-#380 and S1-in-flight claims were superseded within minutes and corrected first-hand at
+> pickup; 2026-07-14 Quasar→Barnacle), the napkin's 2026-07-15 entries, `repo-continuity.md`'s
+> strategy row, and the thread record's 2026-07-15 section.
+>
+> <details><summary>Superseded: state at the Barnacle→Schooner handoff, 2026-07-15 (conserved)</summary>
+>
+> **SESSION SHAPE:** n=2 at handoff — Director (Barnacle calls Spray, `6d5d9c`, retiring),
+> incoming Director standby (Schooner guards Whirlpool, `82a9df`, no claim). S1 UNSTARTED,
+> returning to the incoming Director to re-route. Stray sweep artefact
+> (`.agent/plans-refounding/sweep/sweep-hits.v1.jsonl`, 1.4MB, primary) verified present at
+> the freeze, awaiting owner disposal. Claim `0f4be777` carried `handoff_record_path` to the
+> 2026-07-15 record; at freeze time that record's §1 named PR #380 as OPEN/blocked (merged
+> minutes later) and the S1 fleet lane as in flight (Stoat had retired).
+>
+> </details>
+>
+> <details><summary>Superseded: Director #2 (Barnacle calls Spray) state at seat-open, 2026-07-14 (conserved)</summary>
 >
 > **SESSION SHAPE:** n=1 — Director only (**Barnacle calls Spray, `6d5d9c`**, claude-code /
 > claude-fable-5), claim `0f4be777` ADOPTED from Quasar mends Umbra (`52b4de`, Director #1,
 > retired at natural boundary after full closeout). The transfer ran PDR-064 two-moments with
-> the readiness gate + a 9-agent adversarial verification of the handoff record. **The live
-> pickup surface is the handoff record**
+> the readiness gate + a 9-agent adversarial verification of the handoff record. The live
+> pickup surface was the handoff record
 > `.agent/state/collaboration/handoffs/2026-07-14-director-quasar-to-barnacle-0f4be777.md`
-> (§2 the S0 execution order; §4 deferred work + owner-item register): at transfer, **the S0
-> hard freeze window was OPEN** with S0 staged-not-started in the r1 worktree. Team protocol
+> (§2 the S0 execution order; §4 deferred work + owner-item register): at transfer, the S0
+> hard freeze window was OPEN with S0 staged-not-started in the r1 worktree. Team protocol
 > in force per **PDR-127** (team-branch coordination) and **PDR-128** (review conversations
 > are first-class), both graduated at the 2026-07-14 dedicated consolidation.
->
-> <details><summary>Superseded: Director #1 state at seat-open (conserved)</summary>
 >
 > The owner-commissioned two-objective team
 > (stakeholder-visibility proof slice; planning-estate review toward proven plans) ran ten seats
@@ -277,8 +326,6 @@ first-hand as of 2026-06-25.
 > (Tallow, Embers, Rosemary, Sardine, Weasel, Galleon, Cedar, Parsec, Foxglove). Successor
 > pre-named by the owner: **Barnacle calls Spray (`6d5d9c`)**, cold standby — PDR-064
 > two-moments plus this brief's readiness gate govern the transfer.
->
-> </details>
 >
 > **The one-line state:** both objectives reached day-one completion — objective 1's
 > GitHub/Linear/Notion proof slice ratified complete (Sentry leg OPEN, routed to TAU Stage 5 or
@@ -307,6 +354,8 @@ first-hand as of 2026-06-25.
 >
 > **Readiness gate before any Moment-2:** this brief's five questions + the pasted mechanical
 > UTC liveness check; then `claims adopt 0f4be777`, watcher move 1, heartbeat per PDR-078 §4.
+>
+> </details>
 >
 > ---
 >
