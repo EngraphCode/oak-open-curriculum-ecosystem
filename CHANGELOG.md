@@ -1,3 +1,10 @@
+# [1.69.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.68.1...v1.69.0) (2026-07-15)
+
+
+### Features
+
+* **refounding:** freeze the plan corpus at S0 (681 files, denominator + identity proof) ([e62e744](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e62e7442ce9ec65e71e17db647d7c740f668695d))
+
 ## [1.68.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.68.0...v1.68.1) (2026-07-15)
 
 
