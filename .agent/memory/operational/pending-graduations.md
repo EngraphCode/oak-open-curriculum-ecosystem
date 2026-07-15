@@ -121,3 +121,21 @@ Reef): both items below graduated to PDR-128 (review-conversations-are-first-cla
 new records-are-technical-not-emotional rule respectively — both homes verified live. -->
 
 - **Canonical heartbeat-loop recipe must bump the claims registry, not only the comms stream** `[captured: 2026-07-15 | source: napkin 2026-07-15 Barnacle calls Spray session-close loss-scan, item 2 | status: duplicate — already captured as F-92 (frictions-register.md, 2026-06-27, the "canonical loop omits the CLAIM heartbeat refresh" bullet) with the identical cure and target surface; routed per this register's tooling-gap rule. The 2026-07-15 Barnacle-tenure incident (~15h registry-stale during continuous comms heartbeats, peer-caught at succession) is recorded on F-92 as recurrence confirmation. Terminal disposition 2026-07-15, Schooner guards Whirlpool, per PR #381 review thread.]`
+
+- **No-risk-of-loss operations are absolute — a duplication proof never licenses the class** `[captured: 2026-07-15 | source: owner ruling in-session (Schooner Director tenure; napkin 2026-07-15 loss-scan item 1a) | target: .agent/rules/never-use-git-to-remove-work.md (strengthening clause) or a PDR-063-adjacent clause | trigger: next edit to that rule, or the F-145 valve design (the two must land together — the valve is the sanctioned path, the absoluteness is why no self-serve path exists) | size: small | status: pending]`
+  Owner ruling: "no operations that might risk a loss of work; relaxing that discipline is
+  what caused these problems in the first place" — ruled against a PROVEN-duplicate stash
+  proposal. The doctrine point: local proofs of safety do not license risk-class operations;
+  the discipline's value is its absoluteness. Currently doctrine-visible only in this
+  register, the napkin, and one platform's per-user memory.
+
+- **"Nothing is 'mine'" — frame blockers as constraints with unblocking options, never possession** `[captured: 2026-07-15 | source: owner ruling in-session (napkin 2026-07-15 loss-scan item 1b) | target: PDR-117 §Director role (owner-interface craft) or user-collaboration.md | trigger: next PDR-117 amendment pass (the Trawler-brief Part B queue) | size: small | status: pending]`
+  Owner: "nothing is 'mine' — the function of the team is to progress the work." Cures
+  owner-action-queue framing ("your click", "your PR"); report constraints + options, route
+  only constitutively-owner residue, and frame even that as what the work needs.
+
+- **Derived-output conservation shape for the refounding arc** `[captured: 2026-07-15 | source: S1 publication decision (owner retention question + Director ruling; PR #382; napkin 2026-07-15 loss-scan item 2) | target: plan-corpus-refounding.plan.md (a P-clause) or the S2+ remit template | trigger: before S2 execution begins | size: small | status: pending]`
+  Unique source freezes commit verbatim (S0); deterministic derived outputs commit only the
+  compact attestation (hashes, counts, calibration disclosures, exact regeneration +
+  verification contract) with bulk artefacts local/ignored. Twice-run byte-identity is the
+  reproducibility bar. Prevents re-litigating the 49MB question at S2/S3/S4.
