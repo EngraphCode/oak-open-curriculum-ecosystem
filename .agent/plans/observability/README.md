@@ -63,8 +63,8 @@ Observability plans in this directory build on that foundation.
 | [`active/`](./active/) | In-progress execution (NOW) | Plans currently being worked on this branch. |
 | [`current/`](./current/) | Queued and ready (NEXT) | Plans ready to promote to `active/` when implementation starts. |
 | [`future/`](./future/) | Strategic backlog (LATER) | Strategic briefs and post-MVP future plans with promotion triggers. |
-| [`archive/completed/`](./archive/completed/) | Completed plans | Historical record; **never updated**. |
-| [`archive/superseded/`](./archive/superseded/) | Replaced by newer plans | Historical record; **never updated**. |
+| `archive/completed/` | Completed plans | Historical record; **never updated**. |
+| `archive/superseded/` | Replaced by newer plans | Historical record; **never updated**. |
 
 ---
 

@@ -10,5 +10,5 @@ conversation as a `decision`, `joint_decision`, or `resolution` entry,
 then close the escalation by referencing that conversation entry.
 
 The schema authority is
-[`../escalation.schema.json`](../escalation.schema.json). Examples and
+[`../../../../agent-tools/src/collaboration-state/schemas/escalation.schema.json`](../../../../agent-tools/src/collaboration-state/schemas/escalation.schema.json). Examples and
 fixtures live under `../fixtures/escalations/`.

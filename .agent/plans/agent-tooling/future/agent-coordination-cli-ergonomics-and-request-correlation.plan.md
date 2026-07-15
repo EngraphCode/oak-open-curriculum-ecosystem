@@ -197,12 +197,12 @@ because the failure mode is silent and load-bearing in cross-thread work.
 - The collaboration-state CLI (`agent-tools/src/collaboration-state/`) is
   the load-bearing surface; ergonomic changes land here.
 - The comms event schema lives at
-  [`comms.event.schema.json`](../../../state/collaboration/comms.event.schema.json)
-  if present (verify at promotion); a correlation primitive is a minor-version
+  [`comms-event.schema.json`](../../../../agent-tools/src/collaboration-state/schemas/comms-event.schema.json);
+  a correlation primitive is a minor-version
   bump per the schema-versioning rules in
   [`collaboration-state-conventions.md`](../../../memory/operational/collaboration-state-conventions.md).
 - The
-  [`shared-comms-log.md`](../../../state/collaboration/shared-comms-log.md)
+  `shared-comms-log.md`
   read model rendering must preserve correlation visibility (e.g. show
   `in_response_to` as a back-link in the rendered entry).
 - `consolidate-docs` extension to enumerate open cross-thread requests

@@ -321,7 +321,7 @@ joint_decision ID in both the recorded artefact and the actor's commit
 message when that first real event occurs.
 
 This mirrors the WS1 self-application pilot
-([`a5d33519`](../../../state/collaboration/closed-claims.archive.json))
+(`a5d33519`)
 and the intent_to_commit self-application test, while keeping
 intent-to-commit out of this pass.
 

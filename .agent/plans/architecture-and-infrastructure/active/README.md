@@ -33,9 +33,9 @@ Archived:
 
 - Completed plans (Sentry child plans, knip remediation, build-tooling
   composability, search-CLI observability adoption, PR #80 merge) →
-  [archive/completed/](../archive/completed/).
+  `archive/completed/`.
 - Superseded plans (knip phase-2 exports triage; the Sentry reference
-  setup vendor-boilerplate snippet) → [archive/superseded/](../archive/superseded/).
+  setup vendor-boilerplate snippet) → `archive/superseded/`.
 - Historical review checkpoint (2026-03-27 handover bundle proof) →
   [evidence/sentry-otel-foundation.review-checkpoint-2026-03-27.md](../evidence/sentry-otel-foundation.review-checkpoint-2026-03-27.md).
 

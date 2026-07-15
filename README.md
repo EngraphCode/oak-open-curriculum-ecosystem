@@ -221,7 +221,7 @@ and
   [MCP servers for contributors](docs/engineering/mcp-servers-for-contributors.md).
 - **MCPJam** (optional, for MCP server development and validation only) —
   inspects, runs conformance checks, and authors/runs evals against the MCP
-  server; backs the optional `mcpjam` entry in [`.mcp.json`](.mcp.json). Installed
+  server; backs the optional `mcpjam` entry in `.mcp.json`. Installed
   by `pnpm install`; run commands with `pnpm exec mcpjam <command>`, the inspector
   GUI with `pnpm dlx @mcpjam/inspector@latest`, and authenticate for the hosted
   eval and project features with `pnpm exec mcpjam login`. The companion

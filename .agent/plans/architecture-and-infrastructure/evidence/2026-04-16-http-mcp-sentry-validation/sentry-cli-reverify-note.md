@@ -29,8 +29,8 @@ preview's `1.5.0` release and from the previous session's
 ## Outcome
 
 The rewritten script invoked `pnpm exec sentry-cli sourcemaps upload`
-from inside the workspace. The workspace-local
-[`.sentryclirc`](../../../../apps/oak-curriculum-mcp-streamable-http/.sentryclirc)
+from inside the workspace. The former workspace-local
+`apps/oak-curriculum-mcp-streamable-http/.sentryclirc`
 supplied `org = oak-national-academy` and
 `project = oak-open-curriculum-mcp`.
 

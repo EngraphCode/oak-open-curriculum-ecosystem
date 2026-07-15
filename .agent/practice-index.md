@@ -95,8 +95,8 @@ candidate doctrine or patterns, while open-questions captures unresolved
 decision-shapes for consolidation-time drain or owner surfacing.
 
 PDR-049 keeps the portable merge semantics in Practice Core. This host's
-concrete active-claims registry is
-[`state/collaboration/active-claims.json`](state/collaboration/active-claims.json).
+concrete active-claims registry is `state/collaboration/active-claims.json`;
+the tracked [state contract](state/README.md) describes its lifecycle.
 If per-file `merge_class` metadata stops being sufficient, the host-local
 merge policy surface belongs under operational memory and must be linked from
 this bridge index and the substrate contract, not from Practice Core.

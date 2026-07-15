@@ -18,12 +18,12 @@ related:
   - ../../../practice-core/decision-records/PDR-018-planning-discipline.md
   - ../../../../agent-tools/README.md
 design_inputs:
-  - ../suggestions/governed-repo-document-graph.semantic-model.md
-  - ../suggestions/governed-repo-document-graph.plan.md
-  - ../suggestions/service-authority-and-operating-contexts.semantic-model.md
-  - ../suggestions/context-preservation-and-intent-map.semantic-model.md
-  - ../suggestions/repo-intent-and-service-knowledge-boundaries.proposal.md
-  - ../suggestions/project-context-preservation-gap-report.md
+  - ../../../plans/product-development-governance/suggestions/governed-repo-document-graph.semantic-model.md
+  - ../../../plans/product-development-governance/suggestions/governed-repo-document-graph.plan.md
+  - ../../../plans/product-development-governance/suggestions/service-authority-and-operating-contexts.semantic-model.md
+  - ../../../plans/product-development-governance/suggestions/context-preservation-and-intent-map.semantic-model.md
+  - ../../../plans/product-development-governance/suggestions/repo-intent-and-service-knowledge-boundaries.proposal.md
+  - ../../../plans/product-development-governance/suggestions/project-context-preservation-gap-report.md
 ---
 
 # Repo Intent Graph — the agentic-first memory and intent substrate
@@ -566,4 +566,4 @@ at arm's length and read first-hand here. They converge strongly with the repo's
 doctrine; that convergence raises confidence in the model, it does not make the analysis
 authoritative. They are reconciled (absorbed or archived with disposition) when the graph work
 begins; until then they remain subordinate input under
-[`../suggestions/`](../suggestions/).
+[`../../../plans/product-development-governance/suggestions/`](../../../plans/product-development-governance/suggestions/).

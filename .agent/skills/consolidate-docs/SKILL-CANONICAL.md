@@ -653,8 +653,8 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
    Record each finding as `[thread-slug-or-path]: <observed state> (<what the rule says it should be>)`. Present the aggregated list to the owner at consolidation close. The audit's enforcement force is that this step is part of `/oak-consolidate-docs` — any agent running the consolidation ritual is obligated to walk the six checks, not remember them. The "do not silently skip" posture is the same authority as earlier steps (7a ADR/PDR scan, 7b graduation application).
 
    <a id="stale-claim-audit"></a>**7d. Audit collaboration state for protocol observability.** The
-   [`active-claims.json`](../../state/collaboration/active-claims.json),
-   [`closed-claims.archive.json`](../../state/collaboration/closed-claims.archive.json),
+   `active-claims.json`,
+   `closed-claims.archive.json`,
    and
    [`conversations/`](../../state/collaboration/conversations/) plus
    [`escalations/`](../../state/collaboration/escalations/) surfaces are
@@ -679,7 +679,7 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
       cites evidence.
    3. **Stale entries**: any claim where `staleness_threshold < now()`.
       Move each stale entry to
-      [`closed-claims.archive.json`](../../state/collaboration/closed-claims.archive.json),
+      `closed-claims.archive.json`,
       preserving the entry verbatim and adding `archived_at` plus
       `closure.kind: "stale"`, `closure.closed_at`, `closure.closed_by`,
       `closure.summary`, and one or more `closure.evidence[]`

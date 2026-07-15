@@ -66,7 +66,7 @@ Grounded first-hand from [agentskills.io/skill-creation/evaluating-skills](https
 
 ## 6. What we ARE doing now
 
-- Wired MCPJam as a stdio MCP server in [`.mcp.json`](../../.mcp.json) (fixed a misplaced-brace bug that had it outside `mcpServers`).
+- Wired MCPJam as a stdio MCP server in `.mcp.json` (fixed a misplaced-brace bug that had it outside `mcpServers`).
 - Verified the `@mcpjam/cli` command surface first-hand (this report's §5 is grounded, not assumed).
 - Probed `oak-local-dev` through MCPJam: clean, conformant OAuth posture (401 + correct `WWW-Authenticate`, PRM + authorization-server metadata resolve, PKCE S256, DCR + preregistered). Recorded as `info`, no finding.
 - Authored this report.

@@ -138,7 +138,7 @@ This repo already contains several directly adjacent ideas:
 - [`docs/architecture/architectural-decisions/157-multi-source-open-education-integration.md`](../../docs/architecture/architectural-decisions/157-multi-source-open-education-integration.md)
   formalises graph-shaped integration across Oak API, ontology, and EEF data,
   with explicit attribution.
-- [`packages/sdks/oak-curriculum-sdk/src/mcp/graph-resource-factory.ts`](../../packages/sdks/oak-curriculum-sdk/src/mcp/graph-resource-factory.ts)
+- `packages/sdks/oak-curriculum-sdk/src/mcp/graph-resource-factory.ts`
   shows the repo already knows how to expose graph-shaped resources and tools
   cleanly.
 - [`docs/architecture/architectural-decisions/062-knowledge-graph-svg-visualization.md`](../../docs/architecture/architectural-decisions/062-knowledge-graph-svg-visualization.md)
@@ -695,7 +695,7 @@ rather than the whole monorepo.
 - `eef-evidence-corpus.plan.md` (since archived)
 - [`.agent/plans/sdk-and-mcp-enhancements/active/upstream-api-reference-metadata.plan.md`](../plans/sdk-and-mcp-enhancements/active/upstream-api-reference-metadata.plan.md)
 - [`.agent/plans/agentic-engineering-enhancements/current/hallucination-and-evidence-guard-adoption.plan.md`](../plans/agentic-engineering-enhancements/current/hallucination-and-evidence-guard-adoption.plan.md)
-- [`packages/sdks/oak-curriculum-sdk/src/mcp/graph-resource-factory.ts`](../../packages/sdks/oak-curriculum-sdk/src/mcp/graph-resource-factory.ts)
+- `packages/sdks/oak-curriculum-sdk/src/mcp/graph-resource-factory.ts`
 - [`packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-prior-knowledge-graph.ts`](../../packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-prior-knowledge-graph.ts)
 - [`packages/sdks/oak-curriculum-sdk/src/mcp/source-attribution.ts`](../../packages/sdks/oak-curriculum-sdk/src/mcp/source-attribution.ts)
 - [`apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts`](../../apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts)

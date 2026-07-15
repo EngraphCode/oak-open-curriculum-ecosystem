@@ -97,7 +97,7 @@ runs overlap.
   the comms-event tag taxonomy.
 - Active-claims schema `role` field — the structural claim-schema
   surface for singleton-role visibility; see
-  [`active-claims.schema.json`](../state/collaboration/active-claims.schema.json).
+  [`active-claims.schema.json`](../../agent-tools/src/collaboration-state/schemas/active-claims.schema.json).
 
 ## Structural Cure — Landed
 

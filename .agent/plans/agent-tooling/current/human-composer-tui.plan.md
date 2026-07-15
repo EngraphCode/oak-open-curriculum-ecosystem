@@ -766,7 +766,7 @@ closeout pass that:
   reviewers (assumptions-expert, architecture-expert-wilma,
   architecture-expert-betty, docs-adr-expert) flagged the human-composer
   gap during a gap-analysis turn on this branch.
-- **Schema source**: [`.agent/state/collaboration/comms-event.schema.json`](../../../state/collaboration/comms-event.schema.json)
+- **Schema source**: [`comms-event.schema.json`](../../../../agent-tools/src/collaboration-state/schemas/comms-event.schema.json)
   (`narrative.audience`, ADR-184 `sync.participants`).
 - **Doctrine landing target**: PDR-083 (proposed, authored at WS0
   closure) in `.agent/practice-core/decision-records/`.

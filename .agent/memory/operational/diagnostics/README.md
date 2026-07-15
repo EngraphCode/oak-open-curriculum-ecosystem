@@ -9,10 +9,9 @@ across machines.
 
 - `commit-attempts.log` — TSV log of `git commit` attempts,
   recording timestamp, outcome, elapsed seconds, sha, invocation
-  mode, subject, and note. Historically appended by
-  [`scripts/log-commit-attempt.sh`](../../../../scripts/log-commit-attempt.sh)
-  after each commit attempt. Collection is currently paused; the
-  file is retained as historical data and the script is dormant.
+  mode, subject, and note. Historically appended by the retired
+  `scripts/log-commit-attempt.sh` after each commit attempt. Collection is
+  currently paused; the file is retained as historical data.
 
 ## Convention
 

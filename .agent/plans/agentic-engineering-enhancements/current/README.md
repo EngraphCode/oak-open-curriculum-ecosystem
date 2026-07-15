@@ -111,7 +111,7 @@ canonical preflight guidance, report-only anonymous identity audit, and ADR/PDR
 propagation are implemented and validated.
 
 Strategic context: [roadmap.md](../roadmap.md)
-Archived context: [../archive/completed/](../archive/completed/)
+Archived context: `../archive/completed/`
 
 In-progress execution: [active/README.md](../active/README.md)
 Later backlog: [future/README.md](../future/README.md)

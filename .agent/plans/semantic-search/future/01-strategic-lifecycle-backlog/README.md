@@ -69,5 +69,5 @@ Each boundary is a coherent domain of work with its own README explaining intent
 
 | Prerequisite | Status | Location |
 |--------------|--------|----------|
-| Ground truth foundation | ✅ Complete | [../../archive/completed/](../../archive/completed/) |
+| Ground truth foundation | ✅ Complete | `../../archive/completed/` |
 | SDK extraction | ✅ Complete | ../../../../plans-old-archive/semantic-search/archive/completed/sdk-workspace-separation.md (`../../../../plans-old-archive/semantic-search/archive/completed/sdk-workspace-separation.md`) |

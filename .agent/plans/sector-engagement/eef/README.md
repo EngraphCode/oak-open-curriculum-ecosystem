@@ -5,7 +5,7 @@
 > (impact-led D0–D7, decision-complete, in execution). The earlier
 > `eef-evidence-corpus` / `eef-delivery-restructure` / `eef-first-feature`
 > list-era estate and the 2026-05-28 graph-tooling-rebuild design docs were
-> **quarantined** to [`archive/`](archive/) as superseded broken-concept work —
+> **quarantined** to `archive/` as superseded broken-concept work —
 > do not resume or cite them.
 
 Dedicated subthread for integrating the [Education Endowment Foundation
@@ -96,7 +96,7 @@ not owned here.
 | [`future/eef-standalone-evidence-workflows.plan.md`](future/eef-standalone-evidence-workflows.plan.md) | Seed plan | EEF-only MCP-app workflows that deliver value without intersecting Oak's tools; captured 2026-05-31, gated on establishing standalone teacher value. |
 | [`future/eef-tool-metric-filter-inputs.plan.md`](future/eef-tool-metric-filter-inputs.plan.md) | Seed plan | Exact-value headline-metric filter inputs for `get-eef-evidence`, owner-deferred from the D3 v1 contract (2026-06-03); trigger: D7 green + observed agent usage. |
 | [`current/eef-revalidate-on-new-graph-tools.plan.md`](current/eef-revalidate-on-new-graph-tools.plan.md) | Seed plan (executed) | Re-validate the EEF value path (D7 round trip) against the landed graph-corpus-sdk replacements. Executed 2026-06-11: value path intact; evidence in `.agent/reports/eef-revalidation-report-2026-06-11.md`. |
-| [`archive/`](archive/) | Superseded | The quarantined list-era estate and graph-tooling-rebuild design docs. Do not resume or cite. |
+| `archive/` | Superseded | The quarantined list-era estate and graph-tooling-rebuild design docs. Do not resume or cite. |
 
 ## Read Order
 
@@ -109,7 +109,7 @@ not owned here.
 5. [`reference/oak-eef-technical-comparison.md`](reference/oak-eef-technical-comparison.md)
    — comparative context for the EEF prototype design choices
 
-To read a quarantined predecessor plan, see [`archive/`](archive/); pre-archive
+To read a quarantined predecessor plan, see `archive/`; pre-archive
 state is recoverable from git history.
 
 ## Snapshot Validation (2026-04-30, historical)

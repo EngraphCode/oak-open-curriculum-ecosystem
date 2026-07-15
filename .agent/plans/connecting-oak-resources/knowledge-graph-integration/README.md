@@ -20,7 +20,7 @@ knowledge-source ingestion live under
 [exploring-open-education-resources/](../../exploring-open-education-resources/).
 
 **Active**: [active/](active/) · **Current**: [current/](current/) ·
-**Later**: [future/](future/) · **Archive**: [archive/](archive/)
+**Later**: [future/](future/) · **Archive**: `archive/`
 
 ## Current synthesis and ratified decisions (2026-06-04)
 

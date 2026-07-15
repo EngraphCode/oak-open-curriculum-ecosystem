@@ -141,9 +141,9 @@ as `Codex` / `unknown`.
   — area-consultation tripwire.
 - [`register-active-areas-at-session-open.md`](../../rules/register-active-areas-at-session-open.md)
   — active-claim and commit-window registration discipline.
-- [`conversation.schema.json`](../../state/collaboration/conversation.schema.json)
+- [`conversation.schema.json`](../../../agent-tools/src/collaboration-state/schemas/conversation.schema.json)
   — decision-thread, sidebar, and joint-decision schema.
-- [`escalation.schema.json`](../../state/collaboration/escalation.schema.json)
+- [`escalation.schema.json`](../../../agent-tools/src/collaboration-state/schemas/escalation.schema.json)
   — owner-escalation schema.
 - [`invoke-code-experts.md`](invoke-code-experts.md) — reviewer
   dispatch routing.

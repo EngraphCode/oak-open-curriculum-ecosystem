@@ -61,15 +61,15 @@ The live operational check also included a local run of
 
 Follow-on exploration after the first draft also included the local
 Graphify repo copy under
-[`reference-local/repos/graphify/`](../../../reference-local/repos/graphify/),
+`reference-local/repos/graphify/`,
 especially its
 `README.md`,
 `ARCHITECTURE.md`,
-[graphify/__main__.py](../../../reference-local/repos/graphify/graphify/__main__.py),
-[graphify/serve.py](../../../reference-local/repos/graphify/graphify/serve.py),
-[graphify/watch.py](../../../reference-local/repos/graphify/graphify/watch.py),
-[graphify/cache.py](../../../reference-local/repos/graphify/graphify/cache.py),
-and [graphify/ingest.py](../../../reference-local/repos/graphify/graphify/ingest.py).
+`graphify/__main__.py`,
+`graphify/serve.py`,
+`graphify/watch.py`,
+`graphify/cache.py`,
+and `graphify/ingest.py`.
 
 ## System Map
 
@@ -156,7 +156,7 @@ The clearest live negative feedback mechanism is the three-zone
 fitness model in
 [ADR-144](../../../../docs/architecture/architectural-decisions/144-two-threshold-fitness-model.md)
 plus the repo-wide validator in
-[validate-practice-fitness.mjs](../../../../scripts/validate-practice-fitness.mjs).
+[`validate-practice-fitness.ts`](../../../../agent-tools/src/practice-fitness/validate-practice-fitness.ts).
 
 This loop measures:
 
@@ -292,7 +292,7 @@ architecture:
 - the live `get-curriculum-model`, prior-knowledge, thread-progression,
   and misconception graph surfaces; and
 - the reusable
-  [`graph-resource-factory.ts`](../../../../packages/sdks/oak-curriculum-sdk/src/mcp/graph-resource-factory.ts).
+  `packages/sdks/oak-curriculum-sdk/src/mcp/graph-resource-factory.ts`.
 
 So the missing capability is not "graph support" in general. The
 missing capability is a **repo-internal document / Practice topology

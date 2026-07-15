@@ -255,7 +255,7 @@ Before doing anything substantive:
   session; MVP arc parallelism is bounded by this session's outcome.
 - `2026-05-11-graph-execution-prep-opener.md` (since archived) —
   graph side of the same arc; step 4 routed there.
-- [`../../../state/collaboration/shared-comms-log.md`](../../../state/collaboration/shared-comms-log.md) —
+- `../../../state/collaboration/shared-comms-log.md` —
   primary friction-evidence source.
-- [`../../../state/collaboration/closed-claims.archive.json`](../../../state/collaboration/closed-claims.archive.json) —
+- `../../../state/collaboration/closed-claims.archive.json` —
   secondary friction-evidence source.

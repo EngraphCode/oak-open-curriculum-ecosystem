@@ -21,7 +21,10 @@ export interface ExtractedLink {
   readonly line: number;
 }
 
-/** A broken internal `.md` link with an optional auto-correction suggestion. */
+/** Why an internal link is invalid. */
+type BrokenLinkReason = 'missing-target' | 'tracked-source-to-untracked-target';
+
+/** A broken internal link with an optional auto-correction suggestion. */
 export interface BrokenLink {
   /** The raw target as written in the source markdown. */
   readonly writtenTarget: string;
@@ -29,6 +32,8 @@ export interface BrokenLink {
   readonly resolvedTarget: string;
   /** 1-based line number of the link in the source file. */
   readonly line: number;
+  /** The target is absent, or is less available than its tracked referrer. */
+  readonly reason: BrokenLinkReason;
   /**
    * Corrected target (relative to the source dir) when exactly one non-archive
    * file with the target's basename exists, else `null` (zero → deleted/renamed;

@@ -80,7 +80,7 @@ the ADR.
 > `packages/libs/sentry-node/src/config-resolution.ts`) continued to
 > return semver via `APP_VERSION` for every environment. The Sentry MCP
 > integration verification (transcript
-> [Sentry MCP integration verification](11729e08-3046-448d-af80-d00b790279a6),
+> Sentry MCP integration verification (`11729e08-3046-448d-af80-d00b790279a6`),
 > 2026-04-23) surfaced the divergence as a real attribution failure:
 > preview Sentry releases were registered under one identifier and the
 > events that landed against them were tagged with another, so

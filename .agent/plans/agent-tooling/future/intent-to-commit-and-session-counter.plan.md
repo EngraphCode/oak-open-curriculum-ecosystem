@@ -18,13 +18,13 @@ that primitive.
 **Related**:
 `archive/completed/intent-to-commit-queue.execution.plan.md` (`../../../plans-old-archive/agentic-engineering-enhancements/archive/completed/intent-to-commit-queue.execution.plan.md`);
 [`agent-collaboration.md`](../../../directives/agent-collaboration.md);
-[`active-claims.schema.json`](../../../state/collaboration/active-claims.schema.json);
-[`closed-claims.schema.json`](../../../state/collaboration/closed-claims.schema.json);
+[`active-claims.schema.json`](../../../../agent-tools/src/collaboration-state/schemas/active-claims.schema.json);
+[`closed-claims.schema.json`](../../../../agent-tools/src/collaboration-state/schemas/closed-claims.schema.json);
 [`commit/SKILL.md`](../../../skills/commit/SKILL-CANONICAL.md);
 [`register-active-areas-at-session-open.md`](../../../rules/register-active-areas-at-session-open.md);
 `consolidate-docs.md § 7e` (`../../../commands/consolidate-docs.md`);
 [`napkin.md`](../../../memory/active/napkin.md);
-[`collaboration log`](../../../state/collaboration/shared-comms-log.md)
+`collaboration log`
 
 ---
 
@@ -581,7 +581,7 @@ real primitive. Keep it future-only unless the owner deliberately promotes that
 slice.
 
 This mirrors the WS1 self-application pilot
-([`a5d33519`](.agent/state/collaboration/closed-claims.archive.json#claim-fbde22cf))
+(`a5d33519`)
 where the WS1 claim was opened and closed within the same atomic
 landing commit.
 

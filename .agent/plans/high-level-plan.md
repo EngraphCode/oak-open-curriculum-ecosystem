@@ -244,8 +244,8 @@ remain authoritative for execution.
 | `agentic-engineering-enhancements/` | Practice, governance, review, learning, evidence guards | 🔄 Active + queued execution | [README.md](agentic-engineering-enhancements/README.md) |
 | `agent-tooling/` | `agent-tools/` workspace and collaboration-state substrate | 🔄 Active + queued execution | [README.md](agent-tooling/README.md) |
 | `user-experience/` | Persona-level outcome contracts | 📋 Legacy/reference | [README.md](user-experience/README.md) |
-| `icebox/` | Deferred/low-priority ideas | ⏸ Deferred | [icebox/](icebox/) |
-| `archive/` | Historical completed/superseded plans | ✅ Reference | [archive/](archive/) |
+| `icebox/` | Deferred/low-priority ideas | ⏸ Deferred | `icebox/` |
+| `archive/` | Historical completed/superseded plans | ✅ Reference | `archive/` |
 
 ---
 

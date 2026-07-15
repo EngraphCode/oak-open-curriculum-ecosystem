@@ -96,7 +96,7 @@ first-class consumers, not as a search sub-feature.
   currently registers the curriculum model, prior knowledge graph, thread
   progressions, and misconception graph. There are no live `curriculum://oak-kg-*`
   resources yet.
-- [graph-resource-factory.ts](../../packages/sdks/oak-curriculum-sdk/src/mcp/graph-resource-factory.ts)
+- `packages/sdks/oak-curriculum-sdk/src/mcp/graph-resource-factory.ts`
   already supports the correct supplementary-surface model for ontology-backed
   resources: resource and tool creation, `_meta.attribution`, and optional
   priority.
@@ -172,7 +172,7 @@ The mismatch is bi-directional:
 - The current official ontology includes citizenship, which the current POC
   subject list does not expose.
 - The current bulk thread progression asset in
-  [thread-progression-data.ts](../../packages/sdks/oak-sdk-codegen/src/generated/vocab/thread-progression-data.ts)
+  `packages/sdks/oak-sdk-codegen/src/generated/vocab/thread-progression-data.ts`
   covers `164` threads across `16` subjects, while the official ontology
   currently defines `80` thread nodes in `data/threads.ttl`.
 
@@ -270,7 +270,7 @@ mean "records carrying the property", not necessarily the total number of edges.
 
 **Current enablers**
 
-- [graph-resource-factory.ts](../../packages/sdks/oak-curriculum-sdk/src/mcp/graph-resource-factory.ts)
+- `packages/sdks/oak-curriculum-sdk/src/mcp/graph-resource-factory.ts`
 - [source-attribution.ts](../../packages/sdks/oak-curriculum-sdk/src/mcp/source-attribution.ts)
 - [register-resources.ts](../../apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts)
 
