@@ -44,11 +44,13 @@ forward-asks remain.
   Director-owned before S2 tiling and the divergence report. Mussel rides Coral (`6f8857`)
   retains Director custody under claim `0f4be777`, adopted from the now-retired Schooner
   guards Whirlpool seat; Hedgehog tracks Eventide (`82b36c`) is Fleet
-  Captain-in-waiting under owner-directed cold pause. The five ignored bulk outputs remain
+  Captain, warm and RUNNING the signed `s1-reader-sample-b1` reader-sample batch (claim
+  `45befb32`; P12 declaration signed by the Director 2026-07-15). The five ignored bulk
+  outputs remain
   conserved only by local, unpushed commit `SHA:42b27e3eb` on
   `feat/plan-corpus-refounding-s1-zodiac`; this is safe from accidental PR inclusion but not a
-  remote backup. Next: Director verifies current base/evidence, rules the conservation-copy
-  disposition, then resumes the declared reader/fleet residual. Full pickup detail is in the
+  remote backup. Next: the batch runs to its loss-check proofs, its output feeds the J3
+  adjudication queue, then the conservation-copy re-verify and S2. Full pickup detail is in the
   [thread record](threads/strategy-and-plan-estate-holistic-review.next-session.md).
 
 - **ARCHITECTURAL FITNESS + MUTATION TESTING — decision-ready concept

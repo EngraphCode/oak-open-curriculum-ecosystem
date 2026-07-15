@@ -79,7 +79,9 @@ spot-verification of the three highest-stakes claims before any ruling was reque
 - Deleted on proof: `pilot/ws-b-explain-resource`, `pilot/ws-d-roles-doctrine`,
   `fix/observability-synclog-target`, `docs/neo-sentry-safeguard` (all contained; citations
   as above / PR #372, PR #380).
-- The 7 `remediate-main-*` bot branches (all PRs closed unmerged): agent deletion was
+- The 7 `remediate-main-*` bot branches (a generated per-finding class; individual suffixes
+  not re-enumerated here — the class name plus their closed-unmerged PRs are the record; all
+  PRs closed unmerged): agent deletion was
   rejected by a name-specific repository rule INVISIBLE to the agent token (repo rulesets
   and the effective-rules endpoint show nothing matching; ordinary branch deletion works —
   probe-proven). Owner deleted them directly. The invisible-rule surface is a real finding:

@@ -34,8 +34,9 @@ setup/repeated/verification phases, and fail-loud checksum manifest machine-read
 
 **Full S1 remains OPEN.** PR #382 proves and preserves only the deterministic layer; it does
 not discharge the declared-rate reader sample or any judgement/fleet residual. Hedgehog tracks
-Eventide is the owner-assigned Fleet Captain-in-waiting, currently in an owner-directed cold
-pause; exit requires owner resume plus Director go. The `refound-reader`/`refound-locator`
+Eventide is the owner-assigned Fleet Captain — warm-resumed 2026-07-15 ~14:27Z and now
+RUNNING the signed `s1-reader-sample-b1` batch under claim `45befb32` (P12 pre-declaration
+signed by the Director, event `3ffe6154`). The `refound-reader`/`refound-locator`
 layer remains narrow, zero-judgement, calibration-gated, pre-declared against the P12 cost
 ledger, and justified only where the scripts prove reading unavoidable. The calibration
 disclosure is evidence that this residual is necessary, not permission for blanket dispatch.
@@ -532,7 +533,7 @@ loss-scan):
 | Schooner guards Whirlpool | claude-code | claude-fable-5 | 82a9df | Director (Moment-2 2026-07-15T12:04:35Z, event `35076b29`, claim `0f4be777` adopted) — caught the registry/comms heartbeat divergence at arrival; corrected the handoff record's superseded PR-#380/S1 claims first-hand at pickup; PR #381 thread fixes; routed the S1 layers (Zodiac deterministic, Hedgehog fleet-in-waiting); ruled the compact-evidence PR shape (#382); ran the owner-ruled residue disposition sweep (4 stashes + 47 local + 11 remote branches cleared, proof-gated); authored the batched continuity landing | 2026-07-15 | 2026-07-15 |
 | Mussel rides Coral | claude-code | claude-fable-5 | 6f8857 | Director successor — live claim `0f4be777` adopted from Schooner; current custody of plan-corpus refounding, PR #382's deterministic-slice handoff, and the still-open reader/fleet residual | 2026-07-15 | 2026-07-15 |
 | Zodiac turns Solstice | codex | GPT-5 | 019f65 | Implementer (owner-joined, no subagent fleets) — r1-S1 deterministic layer, claim `124399ce`: fresh-worktree script run (verify-freeze 681/681, inventory, residue 77 candidates, sweep 3,514 hits/523 files), P4 calibration with the honest marker-free-blindness disclosure, twice-run byte-identical artefacts, full `pnpm check` green; compact-evidence PR #382 authored and landed (`SHA:de3cc54c1`); the 49MB conservation commit `SHA:42b27e3eb` held local-only pending post-merge regeneration re-verify | 2026-07-15 | 2026-07-15 |
-| Hedgehog tracks Eventide | claude | fable-5 | 82b36c | Fleet Captain-in-waiting (owner-assigned) — grounded on plan P3/P4/P12, the S1 remit, and Stoat's tool-contract traps; entered owner-directed COLD pause (watcher down, no claim, no heartbeat); exit = owner resume + Director go once fleet work starts (the reader-sample residual, now proven necessary by the S1 calibration disclosure) | 2026-07-15 | 2026-07-15 |
+| Hedgehog tracks Eventide | claude | fable-5 | 82b36c | Fleet Captain (owner-assigned) — grounded on plan P3/P4/P12, the S1 remit, and Stoat's tool-contract traps; owner-directed cold pause, then warm-resumed ~14:27Z; now RUNNING the signed `s1-reader-sample-b1` reader-sample batch under claim `45befb32` (declaration signed by Director Mussel, dispatch gated on the sealed canary key) | 2026-07-15 | 2026-07-15 |
 | Baobab lifts Topsoil | claude-code | claude-opus-4-8 | 3be248 | surveyor-synthesist | 2026-06-15 | 2026-06-15 |
 | Ocelot binds Curfew | claude-code | claude-opus-4-8[1m] | c9423b | vision-author + estate-rewiring | 2026-06-17 | 2026-06-17 |
 | Tempest spins Spire | claude-code | claude-opus-4-8[1m] | 94a5c5 | controlling-plan author + review-synthesis + hygiene | 2026-06-17 | 2026-06-17 |

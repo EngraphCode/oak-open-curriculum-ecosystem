@@ -3257,11 +3257,11 @@ commit SHA and the closing plan reference.
   commit-queue tool itself — not the underlying gates — is the thing failing repeatedly).
 - **Owner direction status**: standing (record-all-frictions).
 
-### F-144 — `commit-queue -- record-staged` dies with `spawnSync /usr/bin/git ENOBUFS` on a large staged bundle
+### F-144 — `commit-queue -- record-staged` dies with `spawnSync <system-git> ENOBUFS` on a large staged bundle
 
 - **Source**: Zodiac turns Solstice (`019f65`), 2026-07-15 r1-S1 deterministic lane, first-hand.
 - **Observed**: with a ~49 MB five-file staged bundle (996,181 inserted lines), `record-staged`
-  crashed at `spawnSync /usr/bin/git ENOBUFS` — the child-process output buffer overflowed on a
+  crashed at `spawnSync <system-git> ENOBUFS` — the child-process output buffer overflowed on a
   git invocation whose stdout scales with staged content. Intent `31a1df9a` was marked abandoned
   with that evidence; the commit then landed through the documented explicit-pathspec fallback
   (message prevalidated, hooks enabled).
