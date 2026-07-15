@@ -3,7 +3,7 @@
 **Status**: Accepted
 **Date**: 2026-05-10
 **Related**:
-[ADR-122](122-pnpm-workspace-as-package-source-of-truth.md) — pnpm
+ADR-122 (`122-pnpm-workspace-as-package-source-of-truth.md`) — pnpm
 workspaces are the package source of truth (build outputs travel with
 the workspace);
 [ADR-168](168-typescript-6-baseline-and-workspace-script-architectural-rules.md)

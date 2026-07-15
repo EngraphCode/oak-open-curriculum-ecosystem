@@ -161,12 +161,12 @@ plan, not to code.
 ## 4. The anti-pattern we are inverting (`vscode-commands-executor`)
 
 The vendored third-party extension
-([`.agent/reference-local/repos/vscode-commands-executor`](../reference-local/repos/vscode-commands-executor),
+(`.agent/reference-local/repos/vscode-commands-executor`,
 313 lines, MIT) is the cautionary baseline. Its `runCommands` verb does
 `vscode.commands.executeCommand(anyId, anyArgs)` from a `vscode://` URI handler
 that executes **silently, with no confirmation and no origin check**
-([`src/UriHandler.ts`](../reference-local/repos/vscode-commands-executor/src/UriHandler.ts),
-[`src/commands/VSCodeCommand.ts`](../reference-local/repos/vscode-commands-executor/src/commands/VSCodeCommand.ts)).
+(`src/UriHandler.ts`,
+`src/commands/VSCodeCommand.ts`).
 
 Why this is the exact inverse of what we want:
 
@@ -494,7 +494,7 @@ The owner asked for several rounds before the update. The load-bearing moves:
   terminal API from the CLI; an extension is required. The gap is upstream of all
   forks ([microsoft/vscode#184088](https://github.com/microsoft/vscode/issues/184088)).
 - Third-party source read in full under
-  [`.agent/reference-local/repos/vscode-commands-executor`](../reference-local/repos/vscode-commands-executor):
+  `.agent/reference-local/repos/vscode-commands-executor`:
   `runCommands` runs arbitrary command id + args; `handleUri` executes with no
   confirmation and no origin check; activation `onStartupFinished`. This is the
   anti-pattern (§4).

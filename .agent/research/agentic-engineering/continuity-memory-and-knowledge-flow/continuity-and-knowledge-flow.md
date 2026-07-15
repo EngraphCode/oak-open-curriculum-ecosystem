@@ -7,7 +7,7 @@ doctrine moving across sessions and eventually into permanent surfaces.
 
 - [ADR-131](../../../../docs/architecture/architectural-decisions/131-self-reinforcing-improvement-loop.md)
 - [ADR-150](../../../../docs/architecture/architectural-decisions/150-continuity-surfaces-session-handoff-and-surprise-pipeline.md)
-- [continuity-practice.md](../../../../docs/governance/continuity-practice.md)
+- [continuity-practice.md](../../../directives/continuity-practice.md)
 - [practice.md](../../../practice-core/practice.md)
 
 ## Evidence and Investigations
@@ -23,8 +23,8 @@ doctrine moving across sessions and eventually into permanent surfaces.
 
 ## Staged and Planning Sources
 
-- [plan-lifecycle-four-stage.md](../../../practice-context/outgoing/plan-lifecycle-four-stage.md)
-- [continuity-and-surprise-practice-adoption.plan.md](../../../plans/agentic-engineering-enhancements/archive/completed/continuity-and-surprise-practice-adoption.plan.md)
+- [plan-lifecycle-four-stage.md](../plan-lifecycle-four-stage.md)
+- continuity-and-surprise-practice-adoption.plan.md (`../../../plans-old-archive/agentic-engineering-enhancements/archive/completed/continuity-and-surprise-practice-adoption.plan.md`)
 
 ## Current Synthesis
 

@@ -68,8 +68,8 @@ the ontology lane.
 |---------|------|----------------|
 | [../plans/connecting-oak-resources/knowledge-graph-integration/README.md](../plans/connecting-oak-resources/knowledge-graph-integration/README.md) | Collection hub | Main discovery surface for ontology integration, direct-use baseline, platform comparison, and adjacent pedagogy work |
 | [../reports/oak-ontology-mcp-search-integration-report-2026-04-19.md](../reports/oak-ontology-mcp-search-integration-report-2026-04-19.md) | Formal report | Cross-boundary synthesis of the official Oak ontology against current MCP orientation, direct ontology surfaces, search projections, QA, and governance/update needs |
-| [../plans/connecting-oak-resources/knowledge-graph-integration/future/ontology-repo-fresh-perspective-review.plan.md](../plans/connecting-oak-resources/knowledge-graph-integration/future/ontology-repo-fresh-perspective-review.plan.md) | Future short plan | Upstream-first neutral review plan for re-reading the ontology repo and testing current local assumptions |
-| [../plans/connecting-oak-resources/knowledge-graph-integration/future/direct-ontology-use-and-graph-serving-prototypes.plan.md](../plans/connecting-oak-resources/knowledge-graph-integration/future/direct-ontology-use-and-graph-serving-prototypes.plan.md) | Future strategic plan | Direct-use-first comparison plan for testing whether Neo4j or Stardog adds enough downstream serving value to justify adoption |
+| ../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/completed/ontology-repo-fresh-perspective-review.plan.md (`../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/completed/ontology-repo-fresh-perspective-review.plan.md`) | Future short plan | Upstream-first neutral review plan for re-reading the ontology repo and testing current local assumptions |
+| ../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/superseded/direct-ontology-use-and-graph-serving-prototypes.plan.md (`../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/superseded/direct-ontology-use-and-graph-serving-prototypes.plan.md`) | Future strategic plan | Direct-use-first comparison plan for testing whether Neo4j or Stardog adds enough downstream serving value to justify adoption |
 
 ### 🤖 AI & MCP
 
@@ -315,7 +315,7 @@ of `reference/` into a curated library tier
 Material in `notes/` is awaiting per-file disposition (research
 proper, reference promotion, executive memory, archive, or delete);
 the per-file pass is tracked by
-[`reference-research-notes-rehoming.plan.md`](../plans/agentic-engineering-enhancements/archive/completed/reference-research-notes-rehoming.plan.md) (archived 2026-04-22 Session 8 with execution record).
+`reference-research-notes-rehoming.plan.md` (`../plans-old-archive/agentic-engineering-enhancements/archive/completed/reference-research-notes-rehoming.plan.md`) (archived 2026-04-22 Session 8 with execution record).
 The bay is removed when empty.
 
 ---

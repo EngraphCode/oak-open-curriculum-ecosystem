@@ -1,34 +1,36 @@
 #!/usr/bin/env node
 
+import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 
 import { glob } from 'tinyglobby';
 
 import { resolveRepoRoot } from '../../core/repo-root.js';
+import { resolveTrustedGit } from '../../core/trusted-git.js';
 import { readText } from '../portability/portability-fs.js';
 import { writeLine } from '../../core/terminal-output.js';
 
 import {
-  findBrokenLinks,
   isExcludedPath,
   type MarkdownLinkReport,
   type ScanFile,
 } from './validate-markdown-links-helpers.js';
+import { findBrokenLinks } from './validate-markdown-links-report.js';
 
 /**
  * Markdown internal-link validator. Scans the repo's doc surfaces, extracts
- * internal `.md` links (inline `](target)` and reference-def `[label]: target`,
+ * internal links (inline `](target)` and reference-def `[label]: target`,
  * ignoring URLs, mailto, pure `#anchors`, and backticked concept-names), and
- * reports any whose resolved target file does not exist. For each broken link
- * whose only fault is relative-path depth — a unique non-archive file with the
- * same basename exists elsewhere — it emits the corrected relative path as a
- * `suggestedFix`. It does NOT modify any markdown; remediation is a separate
- * planned session.
+ * reports any whose resolved file or directory does not exist. It also rejects
+ * a tracked source that links to an untracked target: the target does not travel
+ * with its referrer, so the dependency violates PDR-105 even when it is present
+ * in the current checkout. For each missing target whose only fault is
+ * relative-path depth — a unique non-archive path with the same basename exists
+ * elsewhere — it emits the corrected relative path as a `suggestedFix`. It does
+ * NOT modify Markdown.
  *
- * **Report-only / non-blocking for now.** A large pre-existing backlog (hundreds
- * of broken links) exists and remediation is deferred, so this validator always
- * exits 0. The {@link BLOCKING} constant flips to `true` after the remediation
- * session, at which point a broken link will fail the gate.
+ * Broken links fail the gate. The validator became blocking after the
+ * repository-wide broken-link backlog was repaired.
  *
  * Cross-file fragment validation (does a `#section` exist in the *target* file)
  * is a documented future enhancement and is out of scope here — markdownlint
@@ -37,28 +39,82 @@ import {
  * @packageDocumentation
  */
 
-/**
- * Non-blocking until the deferred remediation session burns the backlog down.
- * Flip to `true` after remediation so a broken internal link fails the gate.
- */
-const BLOCKING = false;
-
 const repoRoot = resolveRepoRoot(import.meta.url);
 
-/** Glob patterns for the policed markdown doc surfaces (scan *sources*). */
-const SCAN_GLOBS = ['docs/**/*.md', '.agent/**/*.md', '*.md'] as const;
+/** Null byte: the unambiguous `git ls-files -z` record separator. */
+const NUL = '\u0000';
 
-/** Globs whose matches are excluded from BOTH scanning and fix-candidate matching. */
-const IGNORE_GLOBS = ['**/node_modules/**', '**/.git/**', '**/archive/**', '**/*.original.md'];
+/** Glob patterns for every policed live Markdown source in the repository. */
+const SCAN_GLOBS = ['**/*.md'] as const;
+
+/** Globs excluded from the existence inventory because they cannot be portable targets. */
+const INVENTORY_IGNORE_GLOBS = [
+  '**/node_modules/**',
+  '**/.git/**',
+  '**/*.original.md',
+  '.agent/reference-local/**',
+] as const;
+
+/** Additional non-live or generated Markdown sources excluded from validation. */
+const SOURCE_IGNORE_GLOBS = [
+  ...INVENTORY_IGNORE_GLOBS,
+  '**/archive/**',
+  '.agents/**',
+  '.claude/**',
+  '.cursor/**',
+  '.agent/state/collaboration/shared-comms-log.md',
+  '.agent/state/collaboration/cross-worktree-work-state.md',
+] as const;
 
 /** Collect repo-relative POSIX paths matching the given globs, minus excluded paths. */
-async function collectMarkdownPaths(patterns: readonly string[]): Promise<string[]> {
+async function collectMarkdownPaths(
+  patterns: readonly string[],
+  ignoreGlobs: readonly string[],
+): Promise<string[]> {
   const matches = await glob([...patterns], {
     cwd: repoRoot,
     dot: true,
-    ignore: IGNORE_GLOBS,
+    ignore: [...ignoreGlobs],
   });
   return matches.map((m) => m.split(path.sep).join('/')).filter((p) => !isExcludedPath(p));
+}
+
+/** Collect every present, non-excluded internal file and directory target. */
+async function collectRepoPaths(): Promise<string[]> {
+  const matches = await glob(['**/*'], {
+    cwd: repoRoot,
+    dot: true,
+    ignore: [...INVENTORY_IGNORE_GLOBS],
+    onlyFiles: false,
+  });
+  return matches
+    .map((m) => m.split(path.sep).join('/').replace(/\/$/, ''))
+    .filter((p) => !isExcludedPath(p));
+}
+
+/**
+ * List versioned paths plus their implied directories.
+ *
+ * Git tracks files rather than directories, but a directory link travels with
+ * the referrer when at least one tracked entry keeps that directory present.
+ */
+function collectTrackedPaths(): ReadonlySet<string> {
+  const stdout = execFileSync(resolveTrustedGit(), ['ls-files', '-z'], {
+    cwd: repoRoot,
+    encoding: 'utf8',
+    maxBuffer: 64 * 1024 * 1024,
+  });
+  const tracked = new Set<string>();
+  for (const entry of stdout.split(NUL).filter((item) => item.length > 0)) {
+    const repoPath = entry.split(path.sep).join('/');
+    tracked.add(repoPath);
+    let parent = path.posix.dirname(repoPath);
+    while (parent !== '.') {
+      tracked.add(parent);
+      parent = path.posix.dirname(parent);
+    }
+  }
+  return tracked;
 }
 
 /** Read the scan-source files into memory as {@link ScanFile} records. */
@@ -75,10 +131,10 @@ async function readScanFiles(relPaths: readonly string[]): Promise<ScanFile[]> {
 function reportBrokenLinks(report: MarkdownLinkReport): void {
   const { totals } = report;
   writeLine(
-    `validate-markdown-links: ${String(totals.brokenLinks)} broken internal .md link(s) ` +
+    `validate-markdown-links: ${String(totals.brokenLinks)} broken internal link(s) ` +
       `across ${String(totals.filesScanned)} scanned file(s) — ` +
       `${String(totals.autoFixable)} auto-fixable (unique basename), ` +
-      `${String(totals.manual)} manual. ${BLOCKING ? 'BLOCKING.' : 'NON-BLOCKING (report-only).'}`,
+      `${String(totals.manual)} manual. BLOCKING.`,
   );
 
   if (report.byFile.length > 0) {
@@ -88,7 +144,9 @@ function reportBrokenLinks(report: MarkdownLinkReport): void {
       writeLine(`    ${group.sourcePath}:`);
       for (const link of group.links) {
         const fix = link.suggestedFix ?? '(manual — no unique match)';
-        writeLine(`      L${String(link.line)}  ${link.writtenTarget}  ->  ${fix}`);
+        writeLine(
+          `      L${String(link.line)}  ${link.writtenTarget}  ->  ${fix} [${link.reason}]`,
+        );
       }
     }
   }
@@ -96,31 +154,29 @@ function reportBrokenLinks(report: MarkdownLinkReport): void {
   writeLine('');
   writeLine(
     `  Totals: ${String(totals.filesScanned)} files scanned, ` +
-      `${String(totals.linksChecked)} internal .md links checked, ` +
+      `${String(totals.linksChecked)} internal links checked, ` +
       `${String(totals.brokenLinks)} broken, ` +
       `${String(totals.autoFixable)} auto-fixable, ${String(totals.manual)} manual.`,
   );
 }
 
 async function main(): Promise<void> {
-  const scanPaths = await collectMarkdownPaths(SCAN_GLOBS);
-  // The fix-candidate / existence inventory is every non-excluded .md file in
-  // the repo, broader than the scan set, so cross-surface and repo-root-relative
-  // links resolve and basename suggestions can point anywhere live.
-  const repoFiles = await collectMarkdownPaths(['**/*.md']);
+  const scanPaths = await collectMarkdownPaths(SCAN_GLOBS, SOURCE_IGNORE_GLOBS);
+  // The target inventory is broader than the Markdown source set: every
+  // present internal file or directory can be a valid Markdown dependency.
+  const repoPaths = await collectRepoPaths();
+  const trackedPaths = collectTrackedPaths();
   const files = await readScanFiles(scanPaths);
 
-  const report = findBrokenLinks(files, repoFiles);
+  const report = findBrokenLinks(files, repoPaths, trackedPaths);
 
   if (report.totals.brokenLinks === 0) {
-    writeLine('validate-markdown-links: OK (no broken internal .md links in scanned surfaces).');
+    writeLine('validate-markdown-links: OK (no broken internal links in scanned surfaces).');
     return;
   }
 
   reportBrokenLinks(report);
-  // Always 0 while non-blocking (report-only). When BLOCKING flips to true after
-  // the remediation session, a broken link fails the gate.
-  process.exitCode = BLOCKING ? 1 : 0;
+  process.exitCode = 1;
 }
 
 await main();

@@ -20,7 +20,7 @@
 
 ## 🔴 IMPORTANT: Data Source Architecture
 
-**ADR**: [ADR-083: Complete Lesson Enumeration Strategy](../../../../docs/architecture/architectural-decisions/083-complete-lesson-enumeration-strategy.md)
+**ADR**: [ADR-083: Complete Lesson Enumeration Strategy](../../../docs/architecture/architectural-decisions/083-complete-lesson-enumeration-strategy.md)
 
 The Oak API provides different data sources for different purposes. Using the wrong source leads to incomplete data.
 

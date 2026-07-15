@@ -208,7 +208,7 @@ direct CLI commands for inspection and recovery.
    ```
 
    Before opening: read
-   [`.agent/state/collaboration/active-claims.json`](../../state/collaboration/active-claims.json)
+   `.agent/state/collaboration/active-claims.json`
    for fresh `commit_queue` entries and any peer `git:index/head` claim.
    Inspect `git diff --staged --name-only`; if the staged set is
    non-empty and not wholly within your intended scope, pause and

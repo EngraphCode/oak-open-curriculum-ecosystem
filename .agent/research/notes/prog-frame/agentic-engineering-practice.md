@@ -6,10 +6,10 @@ note: >
 ---
 
 > **Canonical sources**: The concepts in this document are defined in
-> [ADR-119](../../../docs/architecture/architectural-decisions/119-agentic-engineering-practice.md)
+> [ADR-119](../../../../docs/architecture/architectural-decisions/119-agentic-engineering-practice.md)
 > (naming decision),
-> [ADR-124](../../../docs/architecture/architectural-decisions/124-practice-propagation-model.md)
-> (propagation model), and [practice.md](../../practice-core/practice.md)
+> [ADR-124](../../../../docs/architecture/architectural-decisions/124-practice-propagation-model.md)
+> (propagation model), and [practice.md](../../../practice-core/practice.md)
 > (operational map). Check those documents for the current definitions.
 > Active plans must propagate settled practice changes into these canonical
 > documents (plus any impacted ADRs/docs/READMEs) before closure, using the

@@ -241,10 +241,10 @@ Non-trivial protocol claims should carry a small evidence bundle:
 ## Schema-Field Provenance
 
 Field provenance is co-located with each field in
-[`active-claims.schema.json`](../../state/collaboration/active-claims.schema.json)
-and the sibling [`closed-claims.schema.json`](../../state/collaboration/closed-claims.schema.json),
-[`conversation.schema.json`](../../state/collaboration/conversation.schema.json),
-and [`escalation.schema.json`](../../state/collaboration/escalation.schema.json)
+[`active-claims.schema.json`](../../../agent-tools/src/collaboration-state/schemas/active-claims.schema.json)
+and the sibling [`closed-claims.schema.json`](../../../agent-tools/src/collaboration-state/schemas/closed-claims.schema.json),
+[`conversation.schema.json`](../../../agent-tools/src/collaboration-state/schemas/conversation.schema.json),
+and [`escalation.schema.json`](../../../agent-tools/src/collaboration-state/schemas/escalation.schema.json)
 via `$comment_provenance` annotations. Schema files are the canonical home for
 field-level metadata; this lifecycle file holds operational recipes only.
 

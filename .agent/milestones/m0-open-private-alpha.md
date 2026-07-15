@@ -50,4 +50,4 @@ engineering gates passed. Repository made public. Live at
 `curriculum-mcp-alpha.oaknational.dev`.
 
 Execution detail:
-[release-plan-m1.plan.md](../plans/archive/completed/release-plan-m1.plan.md).
+release-plan-m1.plan.md (`../plans-old-archive/archive/completed/release-plan-m1.plan.md`).

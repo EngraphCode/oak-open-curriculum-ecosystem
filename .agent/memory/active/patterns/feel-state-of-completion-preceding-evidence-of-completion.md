@@ -122,7 +122,7 @@ intervened mid-execution: *"failing to follow the plan is not
 confusion, it's a fuck up"*; directed reset of four directive
 files to HEAD; only a narrow technical micro-fix survived. The
 incident is captured at length in
-[`../../experience/2026-04-22-the-plan-was-not-the-conversation.md`](../../experience/2026-04-22-the-plan-was-not-the-conversation.md).
+[`../../../experience/2026-04-22-the-plan-was-not-the-conversation.md`](../../../experience/2026-04-22-the-plan-was-not-the-conversation.md).
 
 The Session 8 owner adjudication confirmed Instance 3 as the
 third independent instance, satisfying the trigger condition
@@ -223,7 +223,7 @@ entry.
   the routing rule that landed this pattern's graduation as
   *pattern-side* of an existing rule-side, not a new top-level
   artefact.
-- **[`../../experience/2026-04-22-the-plan-was-not-the-conversation.md`](../../experience/2026-04-22-the-plan-was-not-the-conversation.md)** —
+- **[`../../../experience/2026-04-22-the-plan-was-not-the-conversation.md`](../../../experience/2026-04-22-the-plan-was-not-the-conversation.md)** —
   the felt-sense narrative of Instance 3, written so a future
   agent can recognise the texture of the slide from "follow the
   plan" to "execute the recipe" before it happens again.

@@ -91,7 +91,7 @@ The complementary layers are, per PDR-029's 2026-04-21 Amendment Log
 (*"active means markdown-ritual, not code execution"*):
 
 - **Session-close identity-update gate** — a documentation walkthrough
-  in [`/session-handoff § Hard gate`](../commands/session-handoff.md#hard-gate)
+  in `/session-handoff § Hard gate` (`../commands/session-handoff.md#hard-gate`)
   that instructs the agent to enumerate threads from
   [`repo-continuity.md § Active threads`](../memory/operational/repo-continuity.md#active-threads)
   (authoritative source), open each touched thread's next-session

@@ -186,7 +186,7 @@ While the original design included a "tissue" level between cells and organs/sys
 
 - ADR-006: Original Cellular Architecture Pattern
 - ADR-009: Mathematical Foundation for Architecture
-- [Tissue and Organ Interfaces](../../tissue-and-organ-interfaces.md)
+- Tissue and Organ Interfaces (`../../archive/tissue-and-organ-interfaces.md`)
 
 ### Scientific Foundation
 

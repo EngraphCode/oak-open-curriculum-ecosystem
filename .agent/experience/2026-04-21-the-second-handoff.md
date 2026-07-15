@@ -65,7 +65,7 @@ record.
 - Consolidation walk findings:
   [`repo-continuity.md § Deep consolidation status`](../memory/operational/repo-continuity.md)
 - Owner-decision items:
-  [`memory-feedback.next-session.md § Post-handoff additions`](../memory/operational/threads/memory-feedback.next-session.md)
+  `memory-feedback.next-session.md § Post-handoff additions` (`../memory/operational/threads/memory-feedback.next-session.md`)
 - Pattern candidates surfaced:
   [`repo-continuity.md § Pending-graduations register`](../memory/operational/repo-continuity.md)
 - Pre-consolidation napkin entry: `napkin.md` 2026-04-21

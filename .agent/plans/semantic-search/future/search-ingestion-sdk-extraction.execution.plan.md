@@ -37,9 +37,9 @@ isProject: false
 
 ## Source Strategy
 
-- [@.agent/directives/principles.md](../../directives/principles.md)
-- [@.agent/directives/testing-strategy.md](../../directives/testing-strategy.md)
-- [@.agent/directives/schema-first-execution.md](../../directives/schema-first-execution.md)
+- [@.agent/directives/principles.md](../../../directives/principles.md)
+- [@.agent/directives/testing-strategy.md](../../../directives/testing-strategy.md)
+- [@.agent/directives/schema-first-execution.md](../../../directives/schema-first-execution.md)
 - [ADR-140: Search Ingestion SDK Boundary](../../../../docs/architecture/architectural-decisions/140-search-ingestion-sdk-boundary.md)
 - [ADR-108: SDK Workspace Decomposition](../../../../docs/architecture/architectural-decisions/108-sdk-workspace-decomposition.md)
 - [ADR-130: Zero-Downtime Blue/Green Elasticsearch Index Swapping](../../../../docs/architecture/architectural-decisions/130-blue-green-index-swapping.md)
@@ -50,10 +50,10 @@ isProject: false
 - [docs/operations/elasticsearch-ingest-lifecycle.md](../../../../docs/operations/elasticsearch-ingest-lifecycle.md)
 - [docs/agent-guidance/semantic-search-architecture.md](../../../../docs/agent-guidance/semantic-search-architecture.md)
 - [Indexing Module README](../../../../apps/oak-search-cli/src/lib/indexing/README.md)
-- [index-lifecycle-management.execution.plan.md](./index-lifecycle-management.execution.plan.md)
+- index-lifecycle-management.execution.plan.md (`../../../plans-old-archive/semantic-search/archive/completed/index-lifecycle-management.execution.plan.md`)
 - [bulk-canonical-merge-api-parity-and-validation.execution.plan.md](./bulk-canonical-merge-api-parity-and-validation.execution.plan.md)
-- [f2-closure-and-p0-ingestion.execution.plan.md](../archive/completed/f2-closure-and-p0-ingestion.execution.plan.md)
-- [sdk-workspace-separation.md](../archive/completed/sdk-workspace-separation.md)
+- f2-closure-and-p0-ingestion.execution.plan.md (`../../../plans-old-archive/semantic-search/archive/completed/f2-closure-and-p0-ingestion.execution.plan.md`)
+- sdk-workspace-separation.md (`../../../plans-old-archive/semantic-search/archive/completed/sdk-workspace-separation.md`)
 
 ## First Question
 
@@ -74,7 +74,7 @@ Today the app owns logic that another host could legitimately need:
 - [apps/oak-search-cli/src/adapters/api-supplementation.ts](../../../../apps/oak-search-cli/src/adapters/api-supplementation.ts)
 - [apps/oak-search-cli/src/adapters/category-supplementation.ts](../../../../apps/oak-search-cli/src/adapters/category-supplementation.ts)
 
-This conflicts with [@.agent/rules/apps-are-thin-interfaces.md](../../rules/apps-are-thin-interfaces.md), which requires reusable domain logic to live in packages rather than apps.
+This conflicts with @.agent/rules/apps-are-thin-interfaces.md (`../../rules/apps-are-thin-interfaces.md`), which requires reusable domain logic to live in packages rather than apps.
 
 ### Problem 2: the obvious destination is forbidden
 
@@ -249,9 +249,9 @@ The extracted architecture must preserve the current Elasticsearch safety model 
 
 This plan overlaps with active work in:
 
-- [index-lifecycle-management.execution.plan.md](./index-lifecycle-management.execution.plan.md)
+- index-lifecycle-management.execution.plan.md (`../../../plans-old-archive/semantic-search/archive/completed/index-lifecycle-management.execution.plan.md`)
 - [bulk-canonical-merge-api-parity-and-validation.execution.plan.md](./bulk-canonical-merge-api-parity-and-validation.execution.plan.md)
-- [f2-closure-and-p0-ingestion.execution.plan.md](../archive/completed/f2-closure-and-p0-ingestion.execution.plan.md)
+- f2-closure-and-p0-ingestion.execution.plan.md (`../../../plans-old-archive/semantic-search/archive/completed/f2-closure-and-p0-ingestion.execution.plan.md`)
 
 The extraction work must begin with an explicit overlap audit so that:
 
@@ -582,10 +582,10 @@ Acceptance criteria:
 
 ## References
 
-- [@.agent/directives/principles.md](../../directives/principles.md)
-- [@.agent/directives/testing-strategy.md](../../directives/testing-strategy.md)
-- [@.agent/directives/schema-first-execution.md](../../directives/schema-first-execution.md)
-- [@.agent/rules/apps-are-thin-interfaces.md](../../rules/apps-are-thin-interfaces.md)
+- [@.agent/directives/principles.md](../../../directives/principles.md)
+- [@.agent/directives/testing-strategy.md](../../../directives/testing-strategy.md)
+- [@.agent/directives/schema-first-execution.md](../../../directives/schema-first-execution.md)
+- @.agent/rules/apps-are-thin-interfaces.md (`../../rules/apps-are-thin-interfaces.md`)
 - [ADR-108: SDK Workspace Decomposition](../../../../docs/architecture/architectural-decisions/108-sdk-workspace-decomposition.md)
 - [ADR-130: Zero-Downtime Blue/Green Elasticsearch Index Swapping](../../../../docs/architecture/architectural-decisions/130-blue-green-index-swapping.md)
 - [ADR-133: CLI Resource Lifecycle Management](../../../../docs/architecture/architectural-decisions/133-cli-resource-lifecycle-management.md)
@@ -595,4 +595,4 @@ Acceptance criteria:
 - [docs/operations/elasticsearch-ingest-lifecycle.md](../../../../docs/operations/elasticsearch-ingest-lifecycle.md)
 - [docs/agent-guidance/semantic-search-architecture.md](../../../../docs/agent-guidance/semantic-search-architecture.md)
 - [Indexing Module README](../../../../apps/oak-search-cli/src/lib/indexing/README.md)
-- [sdk-workspace-separation.md](../archive/completed/sdk-workspace-separation.md)
+- sdk-workspace-separation.md (`../../../plans-old-archive/semantic-search/archive/completed/sdk-workspace-separation.md`)

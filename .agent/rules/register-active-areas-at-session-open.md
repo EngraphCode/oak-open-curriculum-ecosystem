@@ -1,8 +1,8 @@
 # Register Active Areas At Session Open
 
 Before any edit in this session, list the areas you intend to touch. For each
-area, scan
-[`.agent/state/collaboration/active-claims.json`](../state/collaboration/active-claims.json)
+area, scan `.agent/state/collaboration/active-claims.json` as defined by the
+tracked [state contract](../state/README.md)
 for overlapping entries. Then walk one of three branches and **leave an
 artefact** that proves you consulted (consultation must be observable
 post-hoc; an unwritten consultation is indistinguishable from no
@@ -31,8 +31,7 @@ Codex sessions with `CODEX_THREAD_ID` available must derive a named
   `"scanned registry: <N> active claims, no overlap with my areas"`.
   The `notes` value is the artefact.
 - **(b) Overlap with another agent's active claim** — consult the shared
-  communication log at
-  [`.agent/state/collaboration/shared-comms-log.md`](../state/collaboration/shared-comms-log.md)
+  communication log at `.agent/state/collaboration/shared-comms-log.md`
   and any open decision-thread files for context, then decide how to
   coordinate: proceed with caution, ping the other agent via the shared
   communication log through a comms event, open or append a decision thread under
@@ -179,7 +178,7 @@ silent overlap.
 ## Claim entry schema
 
 The authoritative schema is
-[`active-claims.schema.json`](../state/collaboration/active-claims.schema.json).
+[`active-claims.schema.json`](../../agent-tools/src/collaboration-state/schemas/active-claims.schema.json).
 Every entry carries: `claim_id`, `agent_id` block (PDR-027 identity), `thread`
 slug, `areas` array, `claimed_at`, `freshness_seconds` (default 14400 = 4
 hours), optional `heartbeat_at`, `sidebar_open` (whether a sidebar is
@@ -213,19 +212,19 @@ end-to-end against itself.
 
 - [`agent-collaboration.md`](../directives/agent-collaboration.md) —
   agent-to-agent working model and channel taxonomy.
-- [`active-claims.schema.json`](../state/collaboration/active-claims.schema.json)
+- [`active-claims.schema.json`](../../agent-tools/src/collaboration-state/schemas/active-claims.schema.json)
   — active-registry schema authority.
-- [`closed-claims.schema.json`](../state/collaboration/closed-claims.schema.json)
+- [`closed-claims.schema.json`](../../agent-tools/src/collaboration-state/schemas/closed-claims.schema.json)
   — closed-claim archive schema authority.
-- [`active-claims.json`](../state/collaboration/active-claims.json) —
+- `active-claims.json` —
   active registry.
-- [`closed-claims.archive.json`](../state/collaboration/closed-claims.archive.json)
+- `closed-claims.archive.json`
   — durable closure-history surface for explicit, stale, and owner-forced
   claim closure.
-- [`conversation.schema.json`](../state/collaboration/conversation.schema.json)
+- [`conversation.schema.json`](../../agent-tools/src/collaboration-state/schemas/conversation.schema.json)
   and [`conversations/`](../state/collaboration/conversations/) —
   decision-thread, sidebar, and joint-decision contract and examples.
-- [`escalation.schema.json`](../state/collaboration/escalation.schema.json)
+- [`escalation.schema.json`](../../agent-tools/src/collaboration-state/schemas/escalation.schema.json)
   and [`escalations/`](../state/collaboration/escalations/) — owner-facing
   unresolved case records.
 - [`use-agent-comms-log.md`](use-agent-comms-log.md) — shared-communication-log usage

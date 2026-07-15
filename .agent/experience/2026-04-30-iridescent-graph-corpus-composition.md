@@ -381,7 +381,7 @@ the right direction for any plan-level honesty pass.
 
 Run the type-reviewer over the current plan estate. Specific review
 questions are recorded in
-[`threads/eef.next-session.md` § First Task of Next Session](../memory/operational/threads/eef.next-session.md).
+[`threads/eef.next-session.md` § First Task of Next Session](../memory/operational/threads/paused/eef.next-session.md).
 The `NodeProjection` recursive deep-path shape and the
 `EvidenceCorpus` wrapping shape are the load-bearing review
 questions; both are owner-decided architecturally but neither has
@@ -396,9 +396,9 @@ this thread for this session.
 
 The new EEF subthread (`sector-engagement/eef/`) is registered with a
 next-session record at
-[`threads/eef.next-session.md`](../memory/operational/threads/eef.next-session.md).
+[`threads/eef.next-session.md`](../memory/operational/threads/paused/eef.next-session.md).
 Sector-engagement umbrella thread record at
-[`threads/sector-engagement.next-session.md`](../memory/operational/threads/sector-engagement.next-session.md)
+[`threads/sector-engagement.next-session.md`](../memory/operational/threads/paused/sector-engagement.next-session.md)
 unchanged in this session — the sector-engagement-wide
 narrative/scope work was settled in earlier sessions.
 

@@ -213,7 +213,7 @@ Target files:
 
 - [`agent-tools/src/collaboration-state/cli-options.ts`](/agent-tools/src/collaboration-state/cli-options.ts)
 - [`agent-tools/src/collaboration-state/cli-specs.ts`](/agent-tools/src/collaboration-state/cli-specs.ts)
-- [`agent-tools/src/collaboration-state/json.ts`](/agent-tools/src/collaboration-state/json.ts)
+- [`agent-tools/src/core/json.ts`](../../../../agent-tools/src/core/json.ts)
 - [`agent-tools/src/collaboration-state/state-io.ts`](/agent-tools/src/collaboration-state/state-io.ts)
 - [`agent-tools/src/collaboration-state/state-parsers.ts`](/agent-tools/src/collaboration-state/state-parsers.ts)
 - [`agent-tools/src/collaboration-state/cli-comms-commands.ts`](/agent-tools/src/collaboration-state/cli-comms-commands.ts)

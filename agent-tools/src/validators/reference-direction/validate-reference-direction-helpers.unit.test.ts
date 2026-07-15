@@ -226,40 +226,39 @@ describe('findReferenceDirectionViolations', () => {
   });
 });
 
-// Stable-addressed-state exemption (PDR-105 stable-index corollary, generalised):
-// a doctrine surface may link a singleton registry / log / schema whose ADDRESS is
-// fixed even though its content churns — that is a safe dependency target, the
-// abstraction the corollary's DIP rests on. The exemption is durability-only; the
-// portability axis still refuses a portable-core file citing repo-specific state.
+// Stable-addressed surfaces must also travel with their referrer. Tracked schemas,
+// indexes, and directories remain valid abstractions; untracked registries and logs do
+// not. The exemption is durability-only: the portability axis still refuses a
+// portable-core file citing repo-specific state.
 describe('findReferenceDirectionViolations — stable-addressed-state exemption', () => {
-  it('allows a rule citing the active-claims registry (stable-addressed state)', () => {
+  it('flags a rule citing the untracked active-claims registry', () => {
     const files: ScanFile[] = [
       {
         path: '.agent/rules/register-active-areas.md',
         content: 'register in [claims](../state/collaboration/active-claims.json)',
       },
     ];
-    expect(findReferenceDirectionViolations(files)).toHaveLength(0);
+    expect(findReferenceDirectionViolations(files)).toHaveLength(1);
   });
 
-  it('allows a rule citing the shared comms log (stable-addressed state)', () => {
+  it('flags a rule citing the untracked shared comms log', () => {
     const files: ScanFile[] = [
       {
         path: '.agent/rules/use-agent-comms-log.md',
         content: 'post to [comms](../state/collaboration/shared-comms-log.md)',
       },
     ];
-    expect(findReferenceDirectionViolations(files)).toHaveLength(0);
+    expect(findReferenceDirectionViolations(files)).toHaveLength(1);
   });
 
-  it('allows a doctrine file citing the closed-claims archive (stable-addressed state)', () => {
+  it('flags a doctrine file citing the untracked closed-claims archive', () => {
     const files: ScanFile[] = [
       {
         path: '.agent/rules/x.md',
         content: 'archived to [closed](../state/collaboration/closed-claims.archive.json)',
       },
     ];
-    expect(findReferenceDirectionViolations(files)).toHaveLength(0);
+    expect(findReferenceDirectionViolations(files)).toHaveLength(1);
   });
 
   it('allows a doctrine file citing a JSON schema (stable-addressed contract)', () => {

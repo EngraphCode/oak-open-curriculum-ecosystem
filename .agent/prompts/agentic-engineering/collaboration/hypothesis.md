@@ -3,7 +3,7 @@
 **Status**: First pass. Coherent enough to test; not yet validated. Evidence
 base: a single 2-agent session (Pelagic Washing Anchor ↔ Misty Ebbing Pier,
 2026-05-03), captured in
-[`first-attempts.md`](first-attempts.md) and the two reflection files at
+`first-attempts.md` (`first-attempts.md`) and the two reflection files at
 `.agent/experience/2026-05-03-pelagic-two-way-agent-communication-reflection.md`
 and `.agent/experience/2026-05-03-misty-two-agent-comms-reflection.md`.
 
@@ -32,7 +32,7 @@ never reshaped to suit the hypothesis.
 
 Concretely, on the observability-sentry-otel thread the work is the
 ARC A → ARC B → ARC C sequence in
-[`there-is-no-time-hashed-starfish.plan.md`](../../../plans/observability/current/there-is-no-time-hashed-starfish.plan.md),
+`there-is-no-time-hashed-starfish.plan.md` (`../../../plans/observability/current/there-is-no-time-hashed-starfish.plan.md`),
 ending in a merge to main. Every session on the thread serves that
 sequence first.
 
@@ -145,12 +145,12 @@ primitives enter as new failure modes are observed.
 
 ## Relationship to other artefacts
 
-- [`first-attempts.md`](first-attempts.md) — the operational brief for the
+- `first-attempts.md` (`first-attempts.md`) — the operational brief for the
   one empirical instance we have; the two opening prompts that produced
   the 2026-05-03 session.
 - [`falsification-criteria.md`](falsification-criteria.md) — per-primitive
   test conditions: what would falsify, weaken, or strengthen each.
-- [`experiments.md`](experiments.md) — proposed N≥3 stress tests and
+- `experiments.md` (`experiments.md`) — proposed N≥3 stress tests and
   adversarial probes designed to exercise specific primitives.
 - `.agent/memory/operational/pending-graduations.md` § *inter-agent
   collaboration protocol gaps* — cures (i)–(x) captured this session;

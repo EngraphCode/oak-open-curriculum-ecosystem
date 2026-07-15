@@ -16,7 +16,7 @@ agent decisions were already proven necessary; implementation proceeded.
 [`multi-agent-collaboration-sidebar-and-escalation.plan.md`](../current/multi-agent-collaboration-sidebar-and-escalation.plan.md)
 (WS3B sidebar — provides the discussion surface this plan builds decision
 semantics on top of);
-[`multi-agent-collaboration-decision-thread-and-claim-history.plan.md`](../../agentic-engineering-enhancements/archive/completed/multi-agent-collaboration-decision-thread-and-claim-history.plan.md)
+`multi-agent-collaboration-decision-thread-and-claim-history.plan.md` (`../../../plans-old-archive/agentic-engineering-enhancements/archive/completed/multi-agent-collaboration-decision-thread-and-claim-history.plan.md`)
 (WS3A — async decision threads, the substrate kind list);
 [`intent-to-commit-and-session-counter.plan.md`](intent-to-commit-and-session-counter.plan.md)
 (commit-window queue; complementary defence against the same clash
@@ -321,7 +321,7 @@ joint_decision ID in both the recorded artefact and the actor's commit
 message when that first real event occurs.
 
 This mirrors the WS1 self-application pilot
-([`a5d33519`](../../../state/collaboration/closed-claims.archive.json))
+(`a5d33519`)
 and the intent_to_commit self-application test, while keeping
 intent-to-commit out of this pass.
 
@@ -380,6 +380,6 @@ When promoted to `current/`:
       to reference this child as a WS3 family extension.
 - [ ] Update collection
       [`README.md`](../current/README.md) and
-      [`roadmap.md`](../roadmap.md) with the lane entry.
+      [`roadmap.md`] (`../roadmap.md`) with the lane entry.
 - [ ] Move this plan's listing in the [`future/README.md`](README.md)
       to "Promoted to `current/` <date>" form.

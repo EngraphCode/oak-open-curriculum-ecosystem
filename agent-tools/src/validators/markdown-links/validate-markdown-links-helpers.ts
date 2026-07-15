@@ -2,7 +2,7 @@
  * Pure helpers for the markdown-links validator.
  *
  * An internal markdown link is a dependency on a file path; if the target is
- * absent the link is broken. These functions extract internal `.md` links,
+ * absent the link is broken. These functions extract internal links,
  * resolve each target to a repo-relative path, classify it broken when the
  * target file is missing, and — where the only fault is relative-path depth —
  * suggest the corrected path. They are pure: callers supply paths, contents,
@@ -18,13 +18,7 @@
 
 import posix from 'node:path/posix';
 
-import type {
-  BrokenLink,
-  BrokenLinksByFile,
-  ExtractedLink,
-  MarkdownLinkReport,
-  ScanFile,
-} from './validate-markdown-links-types.js';
+import type { ExtractedLink } from './validate-markdown-links-types.js';
 
 // Re-exported so consumers (and tests) resolve the data shapes from the
 // validator's public helper surface; the type definitions live in the sibling
@@ -70,10 +64,6 @@ export function extractMarkdownLinks(_sourcePath: string, content: string): Extr
   const links: ExtractedLink[] = [];
   const lines = content.split('\n');
 
-  // Source only; re-created per line with the 'g' flag so `^` anchors to the
-  // start of each individual line string (no cross-line lastIndex carry-over).
-  const linkPatternSource = /\]\(([^)]+)\)|^\s*\[[^\]]+\]:\s*(\S+)/.source;
-
   // Links inside fenced code blocks (``` or ~~~) are illustrative, not
   // dependencies, so they are skipped — the same de-link reasoning as backticked
   // inline spans, extended to multi-line fences. Toggling on each fence delimiter
@@ -91,17 +81,36 @@ export function extractMarkdownLinks(_sourcePath: string, content: string): Extr
     }
     // Strip inline code spans so backticked paths are not treated as links.
     const lineText = lines[i].replaceAll(/`[^`]*`/g, '');
-    let match: RegExpExecArray | null;
-    const pattern = new RegExp(linkPatternSource, 'g');
-    while ((match = pattern.exec(lineText)) !== null) {
-      const rawTarget = (match[1] ?? match[2] ?? '').trim();
-      if (!isInternalLinkTarget(rawTarget)) {
-        continue;
-      }
-      links.push({ rawTarget, line: i + 1 });
+    links.push(...extractLinksFromLine(lineText, i + 1));
+  }
+  return links;
+}
+
+/** Extract the real path dependencies from one non-fenced, code-stripped line. */
+function extractLinksFromLine(lineText: string, line: number): ExtractedLink[] {
+  const links: ExtractedLink[] = [];
+  // Re-created per line so `^` anchors to this line and `lastIndex` cannot leak.
+  const pattern = /\]\(([^)]+)\)|^\s*\[[^\]]+\]:\s*(\S+)/g;
+  let match: RegExpExecArray | null;
+  while ((match = pattern.exec(lineText)) !== null) {
+    const rawTarget = (match[1] ?? match[2] ?? '').trim();
+    const isProseLabel = match[2] !== undefined && !isPathShapedReferenceTarget(rawTarget);
+    if (isInternalLinkTarget(rawTarget) && !isProseLabel) {
+      links.push({ rawTarget, line });
     }
   }
   return links;
+}
+
+/** Distinguish reference-definition paths from bracket-labelled prose. */
+function isPathShapedReferenceTarget(target: string): boolean {
+  const withoutDecoration = target.replaceAll(/^<|>$/g, '').split(/[?#]/)[0];
+  return (
+    withoutDecoration.startsWith('.') ||
+    withoutDecoration.startsWith('/') ||
+    withoutDecoration.includes('/') ||
+    /\.[A-Za-z0-9_-]+$/.test(withoutDecoration)
+  );
 }
 
 /** True when a target is an internal path reference (not a URL, mailto, or pure anchor). */
@@ -120,30 +129,34 @@ function isInternalLinkTarget(target: string): boolean {
 
 /**
  * Resolve a raw link target to a repo-relative POSIX path, or `null` when the
- * target is not an internal `.md` reference.
+ * target is not an internal path reference.
  *
  * Steps: strip a trailing ` "title"` and the `#fragment`, URL-decode, then
  * resolve. A leading `/` is repo-root-relative; otherwise relative to the
- * source dir. Only targets ending in `.md` resolve; anything else (image, code,
- * pure anchor) returns `null`.
+ * source dir. File, directory, image, code, JSON, and other internal targets
+ * all resolve; only pure anchors return `null`.
  */
 export function resolveLinkTarget(sourcePath: string, rawTarget: string): string | null {
   // Strip a markdown link title (`path "Title"`), then the fragment.
   const withoutTitle = rawTarget.replace(/\s+"[^"]*"$/, '').trim();
-  const withoutFragment = withoutTitle.split('#')[0];
+  const withoutAngles = withoutTitle.replace(/^<(.+)>$/, '$1');
+  const withoutFragment = withoutAngles.split('#')[0];
   if (withoutFragment === '') {
     return null;
   }
-  const decoded = decodeUrlPath(withoutFragment);
-  if (!decoded.endsWith('.md')) {
-    return null;
-  }
+  const decoded = decodeUrlPath(withoutFragment.split('?')[0]);
   if (decoded.startsWith('/')) {
     // Repo-root-relative: drop the leading slash and normalise.
-    return posix.normalize(decoded.replace(/^\/+/, ''));
+    return normaliseResolvedPath(decoded.replace(/^\/+/, ''));
   }
   const sourceDir = posix.dirname(sourcePath.replace(/^\.\//, ''));
-  return posix.normalize(posix.join(sourceDir, decoded));
+  return normaliseResolvedPath(posix.join(sourceDir, decoded));
+}
+
+/** Match directory targets to inventory paths regardless of a trailing slash. */
+function normaliseResolvedPath(value: string): string {
+  const normalised = posix.normalize(value);
+  return normalised.length > 1 ? normalised.replace(/\/$/, '') : normalised;
 }
 
 /** URL-decode a path, falling back to the raw value when it is not valid encoding. */
@@ -179,60 +192,4 @@ export function suggestFix(
   const sourceDir = posix.dirname(sourcePath.replace(/^\.\//, ''));
   const relative = posix.relative(sourceDir, matches[0]);
   return relative === '' ? basename : relative;
-}
-
-/**
- * Find every broken internal `.md` link across the supplied source files.
- *
- * A link is broken when its resolved repo-relative target is not present in
- * `repoFiles` (the live, non-excluded repo file inventory). Each broken link
- * is annotated with a {@link suggestFix} suggestion. Only `.md` targets are
- * checked; non-`.md` targets and pure anchors are not counted.
- */
-export function findBrokenLinks(
-  files: readonly ScanFile[],
-  repoFiles: readonly string[],
-): MarkdownLinkReport {
-  const repoFileSet = new Set(repoFiles);
-  const broken: BrokenLink[] = [];
-  const byFile: BrokenLinksByFile[] = [];
-  let linksChecked = 0;
-
-  for (const file of files) {
-    const fileBroken: BrokenLink[] = [];
-    for (const link of extractMarkdownLinks(file.path, file.content)) {
-      const resolved = resolveLinkTarget(file.path, link.rawTarget);
-      if (resolved === null) {
-        continue; // not an internal .md reference
-      }
-      linksChecked++;
-      if (repoFileSet.has(resolved)) {
-        continue; // target exists
-      }
-      const brokenLink: BrokenLink = {
-        writtenTarget: link.rawTarget,
-        resolvedTarget: resolved,
-        line: link.line,
-        suggestedFix: suggestFix(file.path, resolved, repoFiles),
-      };
-      fileBroken.push(brokenLink);
-      broken.push(brokenLink);
-    }
-    if (fileBroken.length > 0) {
-      byFile.push({ sourcePath: file.path, links: fileBroken });
-    }
-  }
-
-  const autoFixable = broken.filter((link) => link.suggestedFix !== null).length;
-  return {
-    broken,
-    byFile,
-    totals: {
-      filesScanned: files.length,
-      linksChecked,
-      brokenLinks: broken.length,
-      autoFixable,
-      manual: broken.length - autoFixable,
-    },
-  };
 }

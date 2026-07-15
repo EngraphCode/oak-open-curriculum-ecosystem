@@ -43,7 +43,7 @@ spans two threads — see §Threads Touched).
 **Threads Touched**:
 [`agentic-engineering-enhancements`](../../../memory/operational/threads/agentic-engineering-enhancements.next-session.md)
 (steps 1, 2, 3, and step-4 cost-of-collab lane);
-[`connecting-oak-resources`](../../../memory/operational/threads/connecting-oak-resources.next-session.md)
+[`connecting-oak-resources`](../../../memory/operational/threads/paused/connecting-oak-resources.next-session.md)
 (step-4 graph-foundations lane).
 **Authoring agent**: Riverine Swimming Hull / `claude` /
 `claude-opus-4-7-1m` / `304dde`.
@@ -202,7 +202,7 @@ coordination protocol.
 #### Lane 4B — Graph Foundations
 
 - **Owning thread**:
-  [`connecting-oak-resources`](../../../memory/operational/threads/connecting-oak-resources.next-session.md).
+  [`connecting-oak-resources`](../../../memory/operational/threads/paused/connecting-oak-resources.next-session.md).
 - **Owning plans**: the current `connecting-oak-resources/current/`
   slice plans (enumerated at lane-open time; the thread record's
   §"First Task of Next Session" names the active Increment).
@@ -324,7 +324,7 @@ step opens.
   (step 2 owning plan).
 - [`cost-of-collaboration.plan.md`](../../agent-tooling/current/cost-of-collaboration.plan.md)
   (step 3 owning plan; step 4A owning plan).
-- [`connecting-oak-resources.next-session.md`](../../../memory/operational/threads/connecting-oak-resources.next-session.md)
+- [`connecting-oak-resources.next-session.md`](../../../memory/operational/threads/paused/connecting-oak-resources.next-session.md)
   (step 4B owning thread).
 - [`agentic-engineering-enhancements.next-session.md`](../../../memory/operational/threads/agentic-engineering-enhancements.next-session.md)
   (steps 1, 2, 3, and step-4A owning thread).

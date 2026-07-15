@@ -2,7 +2,7 @@
 
 **Status**: ✅ Phase 0 complete; ES specialist ✅ complete; Sentry specialist 🔄 active; MCP specialist ✅ complete; continuity adoption ✅ complete; operational-awareness separation 🔄 active; governance-concept integration ✅ complete; incoming Practice integration ✅ complete; multi-agent lifecycle integration ✅ complete; intent-to-commit queue ✅ complete; collaboration-state write safety 🔄 active; Codex session identity plumbing ✅ complete; reviewer gateway ⏭️ queued; learning-loop negative-feedback tightening ⏭️ queued; planning specialist ⏭️ queued; practice/process structural improvements ⏭️ queued; agent infrastructure portability remediation ⏭️ queued; practice-graph payoff-peak pilot ⏭️ queued; agentic corpus discoverability ✅ complete; Codex parity ✅ complete; Practice convergence ✅ complete; graph-memory exploration 📋 strategic; collaboration-state domain model 📋 strategic; operating-model mechanism taxonomy 📋 strategic; MCP governance deep dive 📋 future; canonical-first skill pack ingestion tooling 📋 future; Phase 1 ready to start
 **Last Updated**: 2026-04-30
-**Session Entry**: [start-right-quick.md](../../commands/start-right-quick.md)
+**Session Entry**: start-right-quick.md (`../../commands/start-right-quick.md`)
 
 ---
 
@@ -46,8 +46,8 @@ Active adjacent execution sources:
 4. Clerk specialist capability — ✅ Complete (no execution plan needed; single-session delivery)
 5. ~~continuity-and-surprise-practice-adoption.plan.md~~ ✅ Complete (archived in `archive/completed/` for reference)
 6. ~~practice-convergence.plan.md~~ ✅ Complete (deleted; backup trees removed, all workstreams done)
-7. [agentic-corpus-discoverability-and-deep-dive-hub.execution.plan.md](archive/completed/agentic-corpus-discoverability-and-deep-dive-hub.execution.plan.md) (agentic corpus discoverability hub — ✅ complete)
-8. [governance-concepts-and-agentic-mechanism-integration.execution.plan.md](archive/completed/governance-concepts-and-agentic-mechanism-integration.execution.plan.md) (governance-concept routing closeout — ✅ complete)
+7. agentic-corpus-discoverability-and-deep-dive-hub.execution.plan.md (`../../plans-old-archive/agentic-engineering-enhancements/archive/completed/agentic-corpus-discoverability-and-deep-dive-hub.execution.plan.md`) (agentic corpus discoverability hub — ✅ complete)
+8. governance-concepts-and-agentic-mechanism-integration.execution.plan.md (`../../plans-old-archive/agentic-engineering-enhancements/archive/completed/governance-concepts-and-agentic-mechanism-integration.execution.plan.md`) (governance-concept routing closeout — ✅ complete)
 
 ---
 
@@ -76,7 +76,7 @@ Each phase must either:
   [.agent/memory/operational/documentation-sync-logs/agentic-engineering-enhancements.md](../../memory/operational/documentation-sync-logs/agentic-engineering-enhancements.md)
 
 Before phase closure, apply the
-[`jc-consolidate-docs` workflow](../../commands/consolidate-docs.md)
+`jc-consolidate-docs` workflow (`../../commands/consolidate-docs.md`)
 to ensure no settled documentation remains trapped in plans/prompts.
 
 ---
@@ -249,7 +249,7 @@ Adjacent:
 ### Adjacent — Elasticsearch Specialist Capability
 
 - Active plan:
-  [archive/completed/elasticsearch-specialist-capability.execution.plan.md](archive/completed/elasticsearch-specialist-capability.execution.plan.md)
+  ../../plans-old-archive/agentic-engineering-enhancements/archive/completed/elasticsearch-specialist-capability.execution.plan.md (`../../plans-old-archive/agentic-engineering-enhancements/archive/completed/elasticsearch-specialist-capability.execution.plan.md`)
 - Source strategy:
   [elasticsearch-specialist-capability.plan.md](current/elasticsearch-specialist-capability.plan.md)
 - Goal:
@@ -277,7 +277,7 @@ Adjacent:
 ### Adjacent — Continuity, Session Handoff, and Surprise Pipeline Adoption
 
 - Strategic plan:
-  [continuity-and-surprise-practice-adoption.plan.md](archive/completed/continuity-and-surprise-practice-adoption.plan.md)
+  continuity-and-surprise-practice-adoption.plan.md (`../../plans-old-archive/agentic-engineering-enhancements/archive/completed/continuity-and-surprise-practice-adoption.plan.md`)
 - Goal:
   - treat continuity as a repo engineering property rather than a vague memory
     claim
@@ -295,7 +295,7 @@ Adjacent:
 ### Adjacent — Operational Awareness and Continuity Surface Separation
 
 - Active plan:
-  [operational-awareness-and-continuity-surface-separation.plan.md](archive/completed/operational-awareness-and-continuity-surface-separation.plan.md)
+  operational-awareness-and-continuity-surface-separation.plan.md (`../../plans-old-archive/agentic-engineering-enhancements/archive/completed/operational-awareness-and-continuity-surface-separation.plan.md`)
 - Goal:
   - separate the canonical continuity contract, workstream resumption state,
     and thread-aware tactical coordination into distinct repo-local surfaces
@@ -315,7 +315,7 @@ Adjacent:
 ### Adjacent — Governance Concepts and Agentic Mechanism Integration
 
 - Active plan:
-  [governance-concepts-and-agentic-mechanism-integration.execution.plan.md](archive/completed/governance-concepts-and-agentic-mechanism-integration.execution.plan.md)
+  governance-concepts-and-agentic-mechanism-integration.execution.plan.md (`../../plans-old-archive/agentic-engineering-enhancements/archive/completed/governance-concepts-and-agentic-mechanism-integration.execution.plan.md`)
 - Source strategy:
   [governance-concepts-and-agentic-mechanism-integration.plan.md](current/governance-concepts-and-agentic-mechanism-integration.plan.md)
 - Goal:
@@ -363,7 +363,7 @@ Adjacent:
 - Strategic plan:
   [multi-agent-collaboration-protocol.plan.md](../agent-tooling/current/multi-agent-collaboration-protocol.plan.md)
 - Split execution plans:
-  - [multi-agent-collaboration-decision-thread-and-claim-history.plan.md](archive/completed/multi-agent-collaboration-decision-thread-and-claim-history.plan.md)
+  - multi-agent-collaboration-decision-thread-and-claim-history.plan.md (`../../plans-old-archive/agentic-engineering-enhancements/archive/completed/multi-agent-collaboration-decision-thread-and-claim-history.plan.md`)
     — WS3A: evidence provision, protocol observability, durable
     claim-closure history, and lightweight decision threads; complete
     and archived 2026-04-26
@@ -487,11 +487,11 @@ Adjacent:
 ### Adjacent — Agentic Corpus Discoverability Hub
 
 - Active plan:
-  [agentic-corpus-discoverability-and-deep-dive-hub.execution.plan.md](archive/completed/agentic-corpus-discoverability-and-deep-dive-hub.execution.plan.md)
+  agentic-corpus-discoverability-and-deep-dive-hub.execution.plan.md (`../../plans-old-archive/agentic-engineering-enhancements/archive/completed/agentic-corpus-discoverability-and-deep-dive-hub.execution.plan.md`)
 - Source strategy:
   [agentic-corpus-discoverability-and-deep-dive-hub.plan.md](current/agentic-corpus-discoverability-and-deep-dive-hub.plan.md)
 - Goal:
-  - add an index-only hub under `.agent/reference/agentic-engineering/` (relocated 2026-04-22 to `.agent/research/notes/agentic-engineering/` per [PDR-032](../../practice-core/decision-records/PDR-032-reference-tier-as-curated-library.md); merged into the lane README at `.agent/research/agentic-engineering/README.md` during the Session 8 rehoming pass per [rehoming plan](archive/completed/reference-research-notes-rehoming.plan.md))
+  - add an index-only hub under `.agent/reference/agentic-engineering/` (relocated 2026-04-22 to `.agent/research/notes/agentic-engineering/` per [PDR-032](../../practice-core/decision-records/PDR-032-reference-tier-as-curated-library.md); merged into the lane README at `.agent/research/agentic-engineering/README.md` during the Session 8 rehoming pass per rehoming plan (`../../plans-old-archive/agentic-engineering-enhancements/archive/completed/reference-research-notes-rehoming.plan.md`))
   - create named research and reports lanes with reciprocal README links
   - make selected `/docs/**` entry points route into the wider source corpus
     without changing canon location
@@ -509,7 +509,7 @@ Adjacent:
 ### Adjacent — Incoming Practice Context Integration and Write-Back
 
 - Archived plan:
-  [agent-collaboration-incoming-practice-context-integration.plan.md](archive/completed/agent-collaboration-incoming-practice-context-integration.plan.md)
+  agent-collaboration-incoming-practice-context-integration.plan.md (`../../plans-old-archive/agentic-engineering-enhancements/archive/completed/agent-collaboration-incoming-practice-context-integration.plan.md`)
 - Goal:
   - integrate the incoming `agent-collaboration` Practice Context batch below
     Practice Core
@@ -601,7 +601,7 @@ Adjacent:
 ### Adjacent — MCP Specialist Upgrade (MCP+)
 
 - Strategic plan:
-  [mcp-specialist-upgrade.plan.md](archive/completed/mcp-specialist-upgrade.plan.md)
+  mcp-specialist-upgrade.plan.md (`../../plans-old-archive/agentic-engineering-enhancements/archive/completed/mcp-specialist-upgrade.plan.md`)
 - Goal:
   - upgrade existing `mcp-expert` from a general reviewer to a full ADR-129
     triplet (add skill, situational rule, live-spec-first doctrine)
@@ -946,7 +946,7 @@ Adjacent:
 ### Adjacent — Staged Doctrine Consolidation and Graduation ✅ ARC CLOSED
 
 - Archived plan:
-  [archive/completed/staged-doctrine-consolidation-and-graduation.plan.md](archive/completed/staged-doctrine-consolidation-and-graduation.plan.md)
+  ../../plans-old-archive/agentic-engineering-enhancements/archive/completed/staged-doctrine-consolidation-and-graduation.plan.md (`../../plans-old-archive/agentic-engineering-enhancements/archive/completed/staged-doctrine-consolidation-and-graduation.plan.md`)
 - Final shape: eight-session arc (originally six; reshaped 6→7 at
   Session 6 close per PDR-026 §Deferral-honesty when reference-tier
   reformation became load-bearing; reshaped 7→8 at Session 7 close
@@ -973,7 +973,7 @@ Adjacent:
   - Reference tier reformation (PDR-032): 35 files relocated en
     bloc; rehoming first-drain pass executed Session 8 (22 MOVED + 4
     DELETED + 1 KEPT) — see archived
-    [reference-research-notes-rehoming.plan.md](archive/completed/reference-research-notes-rehoming.plan.md)
+    reference-research-notes-rehoming.plan.md (`../../plans-old-archive/agentic-engineering-enhancements/archive/completed/reference-research-notes-rehoming.plan.md`)
   - Pattern graduations: `feel-state-of-completion-preceding-evidence-of-completion` (3/3 Sessions 4 + 5 + 7); inherited-framing-bias; passive-guidance; plus several outgoing-triage absorptions
   - Outgoing triage closed: `practice-context/outgoing/` contains
     only `README.md`

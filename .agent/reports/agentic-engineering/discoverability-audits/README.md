@@ -16,5 +16,5 @@ evidence. Promote it here only when it becomes a stable audit artefact worth
 reading on its own.
 
 Back to the [agentic-engineering reports lane](../README.md) and the
-[hub README](../../../reference/agentic-engineering/README.md).
+[hub README](../../../research/agentic-engineering/README.md).
 

@@ -88,7 +88,7 @@ Use: `.agent/plans/release-plan-m{n}.plan.md`
 
 ### Release Plans
 
-- Milestone 1: [release-plan-m1.plan.md](../plans/archive/completed/release-plan-m1.plan.md) (archived)
+- Milestone 1: release-plan-m1.plan.md (`../plans-old-archive/archive/completed/release-plan-m1.plan.md`) (archived)
 - No active release plan at present.
 
 Release control model, snagging protocol, and go/no-go templates:

@@ -17,14 +17,14 @@ This thread record was created 2026-05-24 by Pelagic Snorkelling Sextant
 `oak-start-right-team` and `oak-consolidate-docs`.
 
 The executable plan is
-[`branch-fitness-and-push-cadence.plan.md`](../../../plans/agentic-engineering-enhancements/current/branch-fitness-and-push-cadence.plan.md),
+[`branch-fitness-and-push-cadence.plan.md`](../../../../plans/agentic-engineering-enhancements/current/branch-fitness-and-push-cadence.plan.md),
 authored by Mistbound Hiding Threshold (`claude` / `claude-opus-4-7` /
 `0e27cc`). Mistbound's directed comms on 2026-05-24T21:14Z confirmed that
 napkin Capture H and the marshal-monitoring highlight are load-bearing source
 substrate for that plan's Cycle 1.
 
 The outgoing active napkin text is preserved verbatim at
-[`napkin-2026-05-24-pelagic-hard-napkin-window.md`](../archive/napkin-2026-05-24-pelagic-hard-napkin-window.md).
+`napkin-2026-05-24-pelagic-hard-napkin-window.md` (`../../../active/archive/napkin-2026-05-24-pelagic-hard-napkin-window.md`).
 That archive is evidence, not the knowledge home. The extracted routing home is
 this thread record plus the executable plan.
 

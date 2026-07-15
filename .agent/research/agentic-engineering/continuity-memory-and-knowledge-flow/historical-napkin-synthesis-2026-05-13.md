@@ -124,7 +124,7 @@ empty meant window clear" (Sparking Charring Ash). Each of these
 is a single agent's discipline failing to bind their own next
 action even though the discipline was *visible to them at decision
 time*. The cure pattern is in the existing
-[`passive-guidance-loses-to-artefact-gravity`](../../memory/active/patterns/passive-guidance-loses-to-artefact-gravity.md);
+[`passive-guidance-loses-to-artefact-gravity`](../../../memory/active/patterns/passive-guidance-loses-to-artefact-gravity.md);
 this corpus contributes N≥6 fresh instances and elevates that
 pattern from "stable" to "loop-validated".
 
@@ -178,7 +178,7 @@ session, often within minutes:
   has since absorbed at lines 222-224).
 
 The N=6 across the corpus elevates a previously-recognised pattern
-([`passive-guidance-loses-to-artefact-gravity`](../../memory/active/patterns/passive-guidance-loses-to-artefact-gravity.md))
+([`passive-guidance-loses-to-artefact-gravity`](../../../memory/active/patterns/passive-guidance-loses-to-artefact-gravity.md))
 to a different status: it is no longer just a structural cure
 *pointer*; it is a load-bearing **operating constraint** that
 shapes how every cure should be evaluated. Cures that depend on
@@ -232,7 +232,7 @@ clean boundary between "the artefacts I produce by being
 coordinator" and "the work I am coordinating".
 
 This finding extends and complements
-[`inter-agent-sidebar-with-default-action`](../../memory/active/patterns/inter-agent-sidebar-with-default-action.md)
+[`inter-agent-sidebar-with-default-action`](../../../memory/active/patterns/inter-agent-sidebar-with-default-action.md)
 and the orchestrator-vs-gate distinction (PDR-053/ADR-176). The
 candidate substance is a pattern-shaped PDR that names the
 coordinator-as-allocator-not-gatekeeper shape positively, with
@@ -243,7 +243,7 @@ two different failure modes converging on the same root cause.
 ### F3 — Completion language is overloaded across four distinct states
 
 The corpus contains the empirical evidence that
-[`completion-claims-and-value-proof-pipeline-report.md`](../../reports/agentic-engineering/deep-dive-syntheses/completion-claims-and-value-proof-pipeline-report.md)
+[`completion-claims-and-value-proof-pipeline-report.md`](../../../reports/agentic-engineering/deep-dive-syntheses/completion-claims-and-value-proof-pipeline-report.md)
 synthesises into a four-state taxonomy:
 
 | State | Example in corpus |
@@ -333,7 +333,7 @@ declaring the handoff current.
 
 This finding has no existing pattern home; it is the kind of
 operational observation that belongs in
-[`agent-collaboration.md`](../../directives/agent-collaboration.md)
+[`agent-collaboration.md`](../../../directives/agent-collaboration.md)
 or in a new pattern about thread-record drift. Trigger is N=2
 within 24 hours; the pattern bar is met.
 
@@ -553,10 +553,10 @@ shape can absorb. The structural cure is not to compress the
 distilled-stage but to land the graduations the corpus is
 producing, which moves substance into permanent doctrine homes
 and allows distilled.md's shape to relax naturally
-([PDR-046 §Move 3](../../practice-core/decision-records/PDR-046-layered-knowledge-processing.md#move-3--a-layers-fitness-pressure-is-addressed-by-processing-the-next-layer-up-not-by-compression)).
+([PDR-046 §Move 3](../../../practice-core/decision-records/PDR-046-layered-knowledge-processing.md)).
 
 The cross-rotation rate of structural change is high in this
-window. Per [ADR-131 §Self-Referential Property](../../../docs/architecture/architectural-decisions/131-self-referential-property.md),
+window. Per ADR-131 §Self-Referential Property (`../../../docs/architecture/architectural-decisions/131-self-referential-property.md`),
 this warrants a deliberate pause-and-stabilise posture before
 further Practice Core restructuring after the candidate
 graduations from this synthesis land. The next consolidation

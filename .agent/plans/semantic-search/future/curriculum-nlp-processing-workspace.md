@@ -520,10 +520,10 @@ First question: Could it be simpler without compromising quality?
 | Document | Relationship |
 |----------|-------------|
 | [vocabulary-mining.md](03-vocabulary-and-semantic-assets/vocabulary-mining.md) | Phases 4–5 subsumed; Phases 1–3 remain independent |
-| [10-transcript-mining.md](../../archive/semantic-search-archive-dec25/part-1-search-excellence/10-transcript-mining.md) | Archived predecessor — fully superseded |
+| 10-transcript-mining.md (`../../../plans-old-archive/archive/semantic-search-archive-dec25/part-1-search-excellence/10-transcript-mining.md`) | Archived predecessor — fully superseded |
 | [bulk-metadata-opportunities.research.md](03-vocabulary-and-semantic-assets/bulk-metadata-opportunities.research.md) | Research input — signal inventory |
 | [vocabulary-glossary-and-mining-surfaces.research.md](03-vocabulary-and-semantic-assets/vocabulary-glossary-and-mining-surfaces.research.md) | Research input — asset model |
 | [curriculum-asset-opportunity-map.research.md](../curriculum-asset-opportunity-map.research.md) | Research input — opportunity tiers |
 | [Knowledge Graph Integration hub](../../connecting-oak-resources/knowledge-graph-integration/README.md) | Graph-surface coordination (the historical open-education umbrella is archived) — outputs feed MCP surfaces |
 | [evidence-integration-strategy.md](../../sector-engagement/eef/future/evidence-integration-strategy.md) | Sibling — `PEDAGOGICAL_PATTERN` entities link to EEF strands |
-| [kg-alignment-audit.execution.plan.md](../../connecting-oak-resources/knowledge-graph-integration/current/kg-alignment-audit.execution.plan.md) | Sibling — ontology alignment informs relationship extraction |
+| kg-alignment-audit.execution.plan.md (`../../../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/superseded/kg-alignment-audit.execution.plan.md`) | Sibling — ontology alignment informs relationship extraction |

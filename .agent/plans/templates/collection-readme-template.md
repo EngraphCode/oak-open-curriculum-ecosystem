@@ -2,10 +2,10 @@
 
 [One-line description of the collection mission and scope.]
 
-**Collection Roadmap**: [roadmap.md](roadmap.md)  
-**Atomic Execution Plans**: [active/README.md](active/README.md)
-**Next-Up Plans**: [current/README.md](current/README.md)  
-**Later Plans**: [future/README.md](future/README.md)
+**Collection Roadmap**: [roadmap.md] (`roadmap.md`)  
+**Atomic Execution Plans**: [active/README.md] (`active/README.md`)
+**Next-Up Plans**: [current/README.md] (`current/README.md`)  
+**Later Plans**: [future/README.md] (`future/README.md`)
 
 ## Documents
 
@@ -15,7 +15,7 @@
 | `active/README.md` | Active index | Atomic executable plans mapped one-to-one to roadmap phases |
 | `current/README.md` | Current index | Next-up plans that are queued and ready |
 | `future/README.md` | Future index | Deferred strategic plans and ideas with promotion triggers |
-| [`.agent/memory/operational/documentation-sync-logs/[collection].md`](../../memory/operational/documentation-sync-logs/[collection].md) | Tracking log | Per-phase documentation update record (operational memory, outside the plans tree) |
+| [`.agent/memory/operational/documentation-sync-logs/[collection].md`] (`../../memory/operational/documentation-sync-logs/[collection].md`) | Tracking log | Per-phase documentation update record (operational memory, outside the plans tree) |
 | `[plan-a].plan.md` | Strategic source plan | Policy intent, rationale, success criteria |
 | `[research-a].research.md` | Research | Evidence base and external context |
 | `evidence-bundle.template.md` | Template | Claim/evidence artefact format for non-trivial claims |
@@ -23,10 +23,10 @@
 
 ## Read Order
 
-1. **Roadmap first**: [roadmap.md](roadmap.md)
-2. **Now (in progress)**: [active/README.md](active/README.md)
-3. **Next (queued)**: [current/README.md](current/README.md)
-4. **Later (deferred)**: [future/README.md](future/README.md)
+1. **Roadmap first**: [roadmap.md] (`roadmap.md`)
+2. **Now (in progress)**: [active/README.md] (`active/README.md`)
+3. **Next (queued)**: [current/README.md] (`current/README.md`)
+4. **Later (deferred)**: [future/README.md] (`future/README.md`)
 5. **Strategic source plans**: `[plan-a].plan.md`, `[plan-b].plan.md`
 6. **Research evidence**: `[research-a].research.md`, `[research-b].research.md`
 

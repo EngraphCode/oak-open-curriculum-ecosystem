@@ -13,8 +13,8 @@ internal Oak KG integration into MCP, search, QA, and graph-serving layers.
 
 | Subthread | Owns |
 |---|---|
-| [../eef/](../eef/) | EEF Teaching and Learning Toolkit data, strategic brief, technical comparison, and queued MCP surface plan |
-| [../knowledge-graph-adoption/](../knowledge-graph-adoption/) | Support for external organisations using Oak's own KG assets |
+| [sector-engagement/eef](../../sector-engagement/eef/) | EEF Teaching and Learning Toolkit data, strategic brief, technical comparison, and queued MCP surface plan |
+| [../../sector-engagement/knowledge-graph-adoption/](../../sector-engagement/knowledge-graph-adoption/) | Support for external organisations using Oak's own KG assets |
 
 ## Scope
 
@@ -27,7 +27,7 @@ In scope:
 
 Out of scope:
 
-- EEF Toolkit material — see [`../eef/`](../eef/);
+- EEF Toolkit material — see [`sector-engagement/eef`](../../sector-engagement/eef/);
 - moving the Oak Curriculum Ontology repo into this monorepo;
 - deciding how external organisations should consume Oak's own KG assets;
 - long-running implementation details that belong in SDK, MCP, search, or
@@ -35,7 +35,8 @@ Out of scope:
 
 ## Current Source Plans
 
-_None currently queued. EEF was previously here and now lives in [`../eef/current/`](../eef/current/)._
+_None currently queued. EEF was previously here and now lives in
+[`sector-engagement/eef/current`](../../sector-engagement/eef/current/)._
 
 ## Future Source Plans
 
@@ -46,7 +47,7 @@ _None currently queued. EEF was previously here and now lives in [`../eef/curren
 
 ## Related Sector Sources
 
-- [../oeai/initial-review.md](../oeai/initial-review.md) records a read-only
+- [../../sector-engagement/oeai/initial-review.md](../../sector-engagement/oeai/initial-review.md) records a read-only
   review of an external education analytics architecture that may become a
   later engagement or data-model comparison thread.
 

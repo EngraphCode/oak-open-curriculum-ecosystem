@@ -85,7 +85,7 @@ Phase 4: Organisation-specific support playbooks            Future
 
 - Later strategic plans:
   [future/oak-openapi-monorepo-integration.plan.md](future/oak-openapi-monorepo-integration.plan.md),
-  [../connecting-oak-resources/knowledge-graph-integration/future/oak-curriculum-ontology-workspace-reassessment.plan.md](../connecting-oak-resources/knowledge-graph-integration/future/oak-curriculum-ontology-workspace-reassessment.plan.md)
+  ../../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/superseded/oak-curriculum-ontology-workspace-reassessment.plan.md (`../../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/superseded/oak-curriculum-ontology-workspace-reassessment.plan.md`)
 - Done when: Oak has decided how the public API repo, ontology repo, generated
   SDKs, MCP server, search service, and KG assets should relate at the repo and
   contract level.

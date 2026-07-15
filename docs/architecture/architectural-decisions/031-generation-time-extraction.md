@@ -185,4 +185,4 @@ ADR-038 takes this pattern to its logical extreme by embedding ALL validation an
 - [ADR-030: SDK as Single Source of Truth](030-sdk-single-source-truth.md)
 - [ADR-038: Compilation-Time Revolution](038-compilation-time-revolution.md) - Takes this to the extreme
 - [Programmatic Tool Generation Architecture](../programmatic-tool-generation.md)
-- [Reference Implementation](../../../reference/oak-curriculum-api-client/scripts/api-types/codegen.ts)
+- [Reference Implementation](../../../packages/sdks/oak-sdk-codegen/code-generation/codegen.ts)

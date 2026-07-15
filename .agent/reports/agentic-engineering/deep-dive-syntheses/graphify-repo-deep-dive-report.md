@@ -38,27 +38,27 @@ The most important boundary insight is this:
 ## Scope and Method
 
 This deep dive is based on source inspection of the local repo copy at
-[`reference-local/repos/graphify/`](../../../reference-local/repos/graphify/),
+`reference-local/repos/graphify/`,
 not on an abstract reading of its homepage.
 
 Primary sources inspected:
 
-- [README.md](../../../reference-local/repos/graphify/README.md)
-- [ARCHITECTURE.md](../../../reference-local/repos/graphify/ARCHITECTURE.md)
-- [pyproject.toml](../../../reference-local/repos/graphify/pyproject.toml)
-- [graphify/__main__.py](../../../reference-local/repos/graphify/graphify/__main__.py)
-- [graphify/detect.py](../../../reference-local/repos/graphify/graphify/detect.py)
-- [graphify/extract.py](../../../reference-local/repos/graphify/graphify/extract.py)
-- [graphify/build.py](../../../reference-local/repos/graphify/graphify/build.py)
-- [graphify/analyze.py](../../../reference-local/repos/graphify/graphify/analyze.py)
-- [graphify/report.py](../../../reference-local/repos/graphify/graphify/report.py)
-- [graphify/export.py](../../../reference-local/repos/graphify/graphify/export.py)
-- [graphify/serve.py](../../../reference-local/repos/graphify/graphify/serve.py)
-- [graphify/cache.py](../../../reference-local/repos/graphify/graphify/cache.py)
-- [graphify/watch.py](../../../reference-local/repos/graphify/graphify/watch.py)
-- [graphify/ingest.py](../../../reference-local/repos/graphify/graphify/ingest.py)
+- `README.md`
+- `ARCHITECTURE.md`
+- `pyproject.toml`
+- `graphify/__main__.py`
+- `graphify/detect.py`
+- `graphify/extract.py`
+- `graphify/build.py`
+- `graphify/analyze.py`
+- `graphify/report.py`
+- `graphify/export.py`
+- `graphify/serve.py`
+- `graphify/cache.py`
+- `graphify/watch.py`
+- `graphify/ingest.py`
 - representative tests in
-  [tests/](../../../reference-local/repos/graphify/tests/)
+  `tests/`
 
 This was a source-structure deep dive. I did **not** run Graphify or its
 test suite in this session.
@@ -96,13 +96,13 @@ behaviour layer**.
 ## Core Pipeline
 
 Graphify's architectural spine is explicit in
-[ARCHITECTURE.md](../../../reference-local/repos/graphify/ARCHITECTURE.md):
+`ARCHITECTURE.md`:
 
 `detect() -> extract() -> build_graph() -> cluster() -> analyze() -> report() -> export()`
 
 ### 1. Detect
 
-[detect.py](../../../reference-local/repos/graphify/graphify/detect.py)
+`detect.py`
 classifies a corpus into code, documents, papers, images, and
 video/audio.
 
@@ -119,7 +119,7 @@ question of corpus fit, not as a default assumption.
 
 ### 2. Structural extraction
 
-[extract.py](../../../reference-local/repos/graphify/graphify/extract.py)
+`extract.py`
 does a tree-sitter-based AST pass for many languages.
 
 This layer extracts:
@@ -137,7 +137,7 @@ proper structural substrate where it can.
 
 The richer semantic layer is not embedded in the Python package. It is
 orchestrated in the platform skill files, for example
-[skill-codex.md](../../../reference-local/repos/graphify/graphify/skill-codex.md).
+`skill-codex.md`.
 
 The skill files instruct the assistant to:
 
@@ -153,11 +153,11 @@ reusable even if the exact subagent orchestration is not.
 
 ### 4. Build and cluster
 
-[build.py](../../../reference-local/repos/graphify/graphify/build.py)
+`build.py`
 merges extraction fragments into a NetworkX graph, preserving edge
 direction when requested and carrying hyperedges in graph metadata.
 
-[cluster.py](../../../reference-local/repos/graphify/graphify/cluster.py)
+`cluster.py`
 then performs community detection:
 
 - Leiden via `graspologic` when available;
@@ -171,7 +171,7 @@ edges already present in the graph.
 
 ### 5. Analyse, report, export
 
-[analyze.py](../../../reference-local/repos/graphify/graphify/analyze.py)
+`analyze.py`
 extracts the human-facing interpretation layer:
 
 - god nodes;
@@ -179,10 +179,10 @@ extracts the human-facing interpretation layer:
 - suggested questions;
 - knowledge gaps.
 
-[report.py](../../../reference-local/repos/graphify/graphify/report.py)
+`report.py`
 then renders those into `GRAPH_REPORT.md`.
 
-[export.py](../../../reference-local/repos/graphify/graphify/export.py)
+`export.py`
 fans the graph out into multiple forms:
 
 - `graph.json`
@@ -208,11 +208,11 @@ and `INFERRED` edges carry a `confidence_score`.
 
 This is reinforced throughout the implementation:
 
-- [ARCHITECTURE.md](../../../reference-local/repos/graphify/ARCHITECTURE.md)
+- `ARCHITECTURE.md`
   defines the schema;
-- [report.py](../../../reference-local/repos/graphify/graphify/report.py)
+- `report.py`
   surfaces confidence breakdowns and ambiguous edges;
-- [tests/test_semantic_similarity.py](../../../reference-local/repos/graphify/tests/test_semantic_similarity.py)
+- `tests/test_semantic_similarity.py`
   verifies special handling for semantic edges.
 
 There are also richer graph constructs:
@@ -273,7 +273,7 @@ than a canonical artefact.
 
 ### Wiki outputs
 
-[wiki.py](../../../reference-local/repos/graphify/graphify/wiki.py)
+`wiki.py`
 generates a small navigable article set:
 
 - `index.md`
@@ -285,7 +285,7 @@ navigation. That maps naturally to onboarding and orientation use cases.
 
 ### MCP server and CLI query surfaces
 
-[serve.py](../../../reference-local/repos/graphify/graphify/serve.py)
+`serve.py`
 exposes graph tools such as:
 
 - `query_graph`
@@ -297,7 +297,7 @@ exposes graph tools such as:
 - `shortest_path`
 
 Meanwhile
-[__main__.py](../../../reference-local/repos/graphify/graphify/__main__.py)
+`__main__.py`
 offers CLI `query`, `path`, and `explain`.
 
 This is one of the strongest fits with Oak, because the repo already has
@@ -311,7 +311,7 @@ studying.
 
 ### Per-file cache
 
-[cache.py](../../../reference-local/repos/graphify/graphify/cache.py)
+`cache.py`
 stores semantic extraction results keyed by file hash.
 
 The most interesting detail is that for Markdown files the hash is based
@@ -323,7 +323,7 @@ very strong fit.
 
 ### Watch / update split
 
-[watch.py](../../../reference-local/repos/graphify/graphify/watch.py)
+`watch.py`
 distinguishes sharply between:
 
 - code-only changes, which can trigger a local AST rebuild immediately;
@@ -337,11 +337,11 @@ refresh is explicit.
 
 This is the most interesting and riskiest loop in the system.
 
-[ingest.py](../../../reference-local/repos/graphify/graphify/ingest.py)
+`ingest.py`
 includes `save_query_result()`, which writes question/answer records to
 `graphify-out/memory/`.
 
-[detect.py](../../../reference-local/repos/graphify/graphify/detect.py)
+`detect.py`
 then explicitly re-includes `graphify-out/memory/` on future detect runs.
 
 So Graphify can learn from prior questions and answers, not only from the
@@ -363,9 +363,9 @@ deep dive.
 Graphify is quite opinionated about agent integration.
 
 Through
-[__main__.py](../../../reference-local/repos/graphify/graphify/__main__.py)
+`__main__.py`
 and the install tests in
-[tests/test_install.py](../../../reference-local/repos/graphify/tests/test_install.py),
+`tests/test_install.py`,
 it can:
 
 - write sections to `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, Cursor rules,

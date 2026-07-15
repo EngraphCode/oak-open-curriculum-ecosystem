@@ -15,12 +15,12 @@ system stays usable.
 
 ## Staged and Reflective Sources
 
-- [reviewer-gateway-operations.md](../../../practice-context/outgoing/reviewer-gateway-operations.md)
-- [production-reviewer-scaling.md](../../../practice-context/outgoing/production-reviewer-scaling.md)
+- reviewer-gateway-operations.md (`../../../practice-context/outgoing/reviewer-gateway-operations.md`)
+- production-reviewer-scaling.md (`../../../practice-context/outgoing/production-reviewer-scaling.md`)
 - [2026-03-10-the-reviewers-as-collaborators.md](../../../experience/2026-03-10-the-reviewers-as-collaborators.md)
 
 ## Feeds
 
-- [reviewer-system deep dive](../../../reference/agentic-engineering/deep-dives/reviewer-system-and-review-operations.md)
+- [reviewer-system deep dive](reviewer-system-and-review-operations.md)
 - [formal audit lane](../../../reports/agentic-engineering/discoverability-audits/README.md)
-- [hub README](../../../reference/agentic-engineering/README.md)
+- [hub README](../README.md)

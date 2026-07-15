@@ -113,7 +113,7 @@ boundaries, not because they mirror wording from the compared corpus.
 
 ### Existing current plans to amend
 
-- [operational-awareness-and-continuity-surface-separation.plan.md](../../../plans/agentic-engineering-enhancements/archive/completed/operational-awareness-and-continuity-surface-separation.plan.md)
+- operational-awareness-and-continuity-surface-separation.plan.md (`../../../plans-old-archive/agentic-engineering-enhancements/archive/completed/operational-awareness-and-continuity-surface-separation.plan.md`)
   should absorb the supervised-execution frame, awareness-plane vocabulary, and
   clearer authority/ownership language.
 - [reviewer-gateway-upgrade.plan.md](../../../plans/agentic-engineering-enhancements/current/reviewer-gateway-upgrade.plan.md)
@@ -137,10 +137,10 @@ boundaries, not because they mirror wording from the compared corpus.
 
 ### Reference and report surfaces to strengthen
 
-- [governance-planes-trust-boundaries-and-runtime-supervision.md](../../../reference/agentic-engineering/deep-dives/governance-planes-trust-boundaries-and-runtime-supervision.md)
+- [governance-planes-trust-boundaries-and-runtime-supervision.md](../../../research/agentic-engineering/governance-planes-and-supervision/governance-planes-trust-boundaries-and-runtime-supervision.md)
   should remain the compact concept extract, including the three-plane framing
   as reference-level guidance rather than new doctrine.
-- [operating-model-and-topology.md](../../../reference/agentic-engineering/deep-dives/operating-model-and-topology.md)
+- [operating-model-and-topology.md](../../../research/agentic-engineering/operating-model-and-platforms/operating-model-and-topology.md)
   remains the broader operating-model route.
 - [agentic-mechanism-inventory-baseline.md](../../../analysis/agentic-mechanism-inventory-baseline.md)
   should remain the supporting analysis-side inventory for mechanism-family

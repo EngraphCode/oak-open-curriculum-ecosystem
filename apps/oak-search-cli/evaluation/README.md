@@ -73,5 +73,5 @@ pnpm vitest run -c vitest.experiment.config.ts
 
 ## Related Documentation
 
-- [hard-query-baseline.md](../../../.agent/evaluations/baselines/hard-query-baseline.md) - Baseline performance data
+- `hard-query-baseline.md` - Retired baseline performance record
 - [EXPERIMENT-LOG.md](../../../.agent/evaluations/EXPERIMENT-LOG.md) - Historical experiment results

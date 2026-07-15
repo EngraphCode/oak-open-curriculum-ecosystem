@@ -29,10 +29,10 @@ review.
 This taxonomy work should execute after the current coordination lanes have
 settled enough to avoid renaming unstable surfaces:
 
-- [practice-and-process-structural-improvements.plan.md](../current/practice-and-process-structural-improvements.plan.md)
+- [practice-and-process-structural-improvements.plan.md](../../agentic-engineering-enhancements/current/practice-and-process-structural-improvements.plan.md)
   decides where collaboration, planning discipline, and portability doctrine
   live permanently.
-- [planning-specialist-capability.plan.md](../current/planning-specialist-capability.plan.md)
+- [planning-specialist-capability.plan.md](../../agentic-engineering-enhancements/current/planning-specialist-capability.plan.md)
   owns the Planning expert triplet; the taxonomy rename must treat it as an
   existing capability, not recreate it.
 - [agent-infrastructure-portability-remediation.plan.md](../current/agent-infrastructure-portability-remediation.plan.md)

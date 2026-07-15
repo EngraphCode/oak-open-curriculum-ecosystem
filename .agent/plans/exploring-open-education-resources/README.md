@@ -20,10 +20,10 @@ sector-engagement and is not part of this thread.
 
 ## Thread Record
 
-[`.agent/memory/operational/threads/exploring-open-education-resources.next-session.md`](../../memory/operational/threads/exploring-open-education-resources.next-session.md)
+[`.agent/memory/operational/threads/exploring-open-education-resources.next-session.md`](../../memory/operational/threads/paused/exploring-open-education-resources.next-session.md)
 
 ## Read Order
 
 1. This README.
 2. [external-knowledge-sources/README.md](external-knowledge-sources/README.md) — current external-source plans and scope.
-3. [Thread record](../../memory/operational/threads/exploring-open-education-resources.next-session.md) — current state.
+3. [Thread record](../../memory/operational/threads/paused/exploring-open-education-resources.next-session.md) — current state.

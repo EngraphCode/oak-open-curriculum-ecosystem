@@ -31,7 +31,7 @@ skips);
 on which any doctrine-change surfacing mechanism for Mode B
 would mount; the specific mechanism is currently deferred — see
 §"Doctrine-change visibility under Mode B" below);
-[`practice-index.md`](../practice-index.md) (substrate-
+the host's `practice-index.md` (substrate-
 implementation ADR(s) carrying the repo-specific phenotype of
 this PDR when the deferred mechanisms graduate).
 
@@ -178,7 +178,7 @@ should take. Until then:
 The substrate-implementation ADR for any mechanism that
 graduates from this deferral will live at an ADR cross-
 referenced from
-[`practice-index.md`](../practice-index.md).
+the host's `practice-index.md`.
 
 ### Eligibility-signal carriage (deferred)
 
@@ -342,6 +342,6 @@ foundation-set file paths for Mode A and Mode B, the event-
 window size, the team-start broadcast format extension, and any
 mechanism that graduates from the deferred sections above — lives
 in substrate-implementation ADR(s) cross-referenced from
-[`practice-index.md`](../practice-index.md). The PDR captures the
+the host's `practice-index.md`. The PDR captures the
 principle (this document); the ADR(s) capture the repository's
 concrete realisation of it.

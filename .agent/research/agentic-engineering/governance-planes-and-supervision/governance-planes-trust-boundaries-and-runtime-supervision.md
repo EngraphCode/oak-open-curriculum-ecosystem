@@ -13,10 +13,10 @@ boundary modelling, authority, layered safeguards, and supervised execution.
 
 ## Primary Local Source Material
 
-- [workbench-agent-operating-topology.md](../workbench-agent-operating-topology.md)
-- [operating-model-and-topology.md](./operating-model-and-topology.md)
-- [operational-awareness-and-state-surfaces.md](./operational-awareness-and-state-surfaces.md)
-- [reviewer-system-and-review-operations.md](./reviewer-system-and-review-operations.md)
+- [workbench-agent-operating-topology.md](../operating-model-and-platforms/workbench-agent-operating-topology.md)
+- [operating-model-and-topology.md](../operating-model-and-platforms/operating-model-and-topology.md)
+- [operational-awareness-and-state-surfaces.md](../operational-awareness-and-state-surfaces.md)
+- [reviewer-system-and-review-operations.md](../reviewer-systems-and-discoverability/reviewer-system-and-review-operations.md)
 - [agentic-mechanism-inventory-baseline.md](../../../analysis/agentic-mechanism-inventory-baseline.md)
 - [governance-concepts-and-mechanism-gap-baseline.md](../../../analysis/governance-concepts-and-mechanism-gap-baseline.md)
 - [governance-concepts-and-integration-report.md](../../../reports/agentic-engineering/deep-dive-syntheses/governance-concepts-and-integration-report.md)
@@ -61,7 +61,7 @@ boundary modelling, authority, layered safeguards, and supervised execution.
 
 ## Best Current Routing
 
-- [operational-awareness-and-continuity-surface-separation.plan.md](../../../plans/agentic-engineering-enhancements/archive/completed/operational-awareness-and-continuity-surface-separation.plan.md)
+- operational-awareness-and-continuity-surface-separation.plan.md (`../../../plans-old-archive/agentic-engineering-enhancements/archive/completed/operational-awareness-and-continuity-surface-separation.plan.md`)
   should own short-horizon awareness surfaces and supervised execution at the
   work-plane level.
 - [reviewer-gateway-upgrade.plan.md](../../../plans/agentic-engineering-enhancements/current/reviewer-gateway-upgrade.plan.md)

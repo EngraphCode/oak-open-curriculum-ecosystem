@@ -89,7 +89,7 @@ How do we systematically evaluate and compare search approaches to ensure:
 | **Zero-Hit Rate**              | `count(no_results) / total`           | Queries returning no results                       |
 | **p95 Latency**                | 95th percentile response time         | Tail latency for worst 5% of queries               |
 
-> **Full metric definitions**: See [IR-METRICS.md](../../apps/oak-search-cli/docs/IR-METRICS.md)
+> **Full metric definitions**: See [IR-METRICS.md](../../../apps/oak-search-cli/docs/IR-METRICS.md)
 
 #### MRR Interpretation Scale
 
@@ -352,7 +352,7 @@ Every experiment must document:
 - [Next experiment or implementation task]
 ```
 
-> **Full template**: See [`.agent/evaluations/experiments/template-for-search-experiments.md`](../../.agent/evaluations/experiments/template-for-search-experiments.md)
+> **Full template**: See `.agent/evaluations/experiments/template-for-search-experiments.md` (`../../.agent/evaluations/experiments/template-for-search-experiments.md`)
 
 ## Consequences
 
@@ -413,11 +413,11 @@ When implementing query classification and pre-processing:
 
 ## Related Documents
 
-- [Research: Hybrid Retrieval and Query Routing](../../.agent/research/elasticsearch/methods/hybrid-retrieval.md)
-- [Research: Evaluation and Quality Gates](../../.agent/research/elasticsearch/methods/evaluation-quality-gates.md)
+- [Research: Hybrid Retrieval and Query Routing](../../../.agent/research/elasticsearch/methods/hybrid-retrieval.md)
+- [Research: Evaluation and Quality Gates](../../../.agent/research/elasticsearch/methods/evaluation-quality-gates.md)
 - [ADR-072: Three-Way Hybrid Search](072-three-way-hybrid-search-architecture.md) (superseded)
 - [ADR-075: Dense Vector Removal](075-dense-vector-removal.md)
-- [Phase 3 Plan](../../.agent/plans/semantic-search/phase-3-multi-index-and-fields.md)
+- Phase 3 Plan (`../../.agent/plans/semantic-search/phase-3-multi-index-and-fields.md`)
 
 ## References
 

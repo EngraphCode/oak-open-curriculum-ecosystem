@@ -10,9 +10,9 @@
 > tactical track-card filename convention has correspondingly moved from
 > `<workstream>--<agent>--<branch>.md` to
 > `<thread>--<agent>--<branch>.md`. Authoritative records:
-> [PDR-011 §Amendment Log 2026-04-21 Session 5](../../../practice-core/decision-records/PDR-011-continuity-surfaces-and-surprise-pipeline.md#amendment-log),
-> [PDR-027 §Amendment Log 2026-04-21 Session 5](../../../practice-core/decision-records/PDR-027-threads-sessions-and-agent-identity.md#amendment-log),
-> [ADR-150 §Amendment Log 2026-04-21 Session 5](../../../../docs/architecture/architectural-decisions/150-continuity-surfaces-session-handoff-and-surprise-pipeline.md#amendment-log).
+> [PDR-011 §Amendment Log 2026-04-21 Session 5](../../practice-core/decision-records/PDR-011-continuity-surfaces-and-surprise-pipeline.md),
+> [PDR-027 §Amendment Log 2026-04-21 Session 5](../../practice-core/decision-records/PDR-027-threads-sessions-and-agent-identity.md),
+> [ADR-150 §Amendment Log 2026-04-21 Session 5](../../../docs/architecture/architectural-decisions/150-continuity-surfaces-session-handoff-and-surprise-pipeline.md).
 > The body below is preserved as the original 2026-04 synthesis-at-a-time;
 > read it as historical context, not current doctrine.
 
@@ -22,22 +22,22 @@ repository.
 
 ## Canonical Anchors
 
-- [ADR-150](../../../../docs/architecture/architectural-decisions/150-continuity-surfaces-session-handoff-and-surprise-pipeline.md)
-- [continuity-practice.md](../../../../docs/governance/continuity-practice.md)
-- [practice.md](../../../practice-core/practice.md)
-- [workbench-agent-operating-topology.md](../workbench-agent-operating-topology.md)
+- [ADR-150](../../../docs/architecture/architectural-decisions/150-continuity-surfaces-session-handoff-and-surprise-pipeline.md)
+- [continuity-practice.md](../../directives/continuity-practice.md)
+- [practice.md](../../practice-core/practice.md)
+- [workbench-agent-operating-topology.md](operating-model-and-platforms/workbench-agent-operating-topology.md)
 
 ## Evidence and Investigations
 
-- [continuity-adoption-baseline.md](../../../analysis/continuity-adoption-baseline.md)
-- [continuity-adoption-evidence.md](../../../analysis/continuity-adoption-evidence.md)
-- [continuity-operational-awareness-baseline.md](../../../analysis/continuity-operational-awareness-baseline.md)
+- [continuity-adoption-baseline.md](../../analysis/continuity-adoption-baseline.md)
+- [continuity-adoption-evidence.md](../../analysis/continuity-adoption-evidence.md)
+- [continuity-operational-awareness-baseline.md](../../analysis/continuity-operational-awareness-baseline.md)
 
 ## Related Plans
 
-- [continuity-and-surprise-practice-adoption.plan.md](../../../plans/agentic-engineering-enhancements/archive/completed/continuity-and-surprise-practice-adoption.plan.md)
-- [operational-awareness-and-continuity-surface-separation.plan.md](../../../plans/agentic-engineering-enhancements/archive/completed/operational-awareness-and-continuity-surface-separation.plan.md)
-- [cross-vendor-session-sidecars.plan.md](../../../plans/agent-tooling/future/cross-vendor-session-sidecars.plan.md)
+- continuity-and-surprise-practice-adoption.plan.md (`../../plans-old-archive/agentic-engineering-enhancements/archive/completed/continuity-and-surprise-practice-adoption.plan.md`)
+- operational-awareness-and-continuity-surface-separation.plan.md (`../../plans-old-archive/agentic-engineering-enhancements/archive/completed/operational-awareness-and-continuity-surface-separation.plan.md`)
+- [cross-vendor-session-sidecars.plan.md](../../plans/agent-tooling/future/cross-vendor-session-sidecars.plan.md)
 
 ## Current Synthesis
 
@@ -132,8 +132,8 @@ This deep dive recommends a narrower sequence:
 
 ## Related Lanes
 
-- [continuity-and-knowledge-flow.md](./continuity-and-knowledge-flow.md)
-- [research continuity lane](../../../research/agentic-engineering/continuity-memory-and-knowledge-flow/README.md)
-- [analysis evidence lane](../../../analysis/README.md)
-- [future sidecars plan](../../../plans/agent-tooling/future/cross-vendor-session-sidecars.plan.md)
+- [continuity-and-knowledge-flow.md](continuity-memory-and-knowledge-flow/continuity-and-knowledge-flow.md)
+- [research continuity lane](./continuity-memory-and-knowledge-flow/README.md)
+- [analysis evidence lane](../../analysis/README.md)
+- [future sidecars plan](../../plans/agent-tooling/future/cross-vendor-session-sidecars.plan.md)
 - [hub README](../README.md)

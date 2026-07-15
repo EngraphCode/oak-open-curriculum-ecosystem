@@ -3,7 +3,7 @@
 Cross-cutting architecture, system quality, and observability plans.
 
 **Status**: 🔄 Active backlog (Milestone 2 and Milestone 3 work)
-**Last Updated**: 2026-06-28
+**Last Updated**: 2026-07-15
 
 ---
 
@@ -40,12 +40,22 @@ Documentation architecture excellence (from synthesis analysis):
 Quality gate hardening has been promoted to current (2026-04-11):
 [current/quality-gate-hardening.plan.md](current/quality-gate-hardening.plan.md).
 Knip triage child plan completed 2026-04-12 and archived to
-[archive/completed/knip-triage-and-remediation.plan.md](archive/completed/knip-triage-and-remediation.plan.md).
+../../plans-old-archive/architecture-and-infrastructure/archive/completed/knip-triage-and-remediation.plan.md (`../../plans-old-archive/architecture-and-infrastructure/archive/completed/knip-triage-and-remediation.plan.md`).
 
 Workspace layer separation audit has been promoted to current (2026-04-28):
 [current/workspace-layer-separation-audit.plan.md](current/workspace-layer-separation-audit.plan.md).
 It prepares the repo-wide migration for the ADR-154 rule that distinct
 architectural layers must live in distinct workspaces.
+
+Oak source integration workspaces are ready for execution (2026-07-15):
+[current/oak-source-integration-workspaces.plan.md](current/oak-source-integration-workspaces.plan.md).
+They are sequenced immediately after the workspace audit and define pinned,
+role-specific wrappers for Oak OpenAPI, source-first Castr, Oak Curriculum
+Ontology, and Oak Database-Tools. The Castr tranche provides rapid local
+co-development, converges OCE on the Castr core-plus-companion compiler family
+as its direct generic OpenAPI implementation boundary, and participates in the
+guarded synthetic materialised-view contract proof. The Castr amendment passed
+assumptions, architecture/security, and docs/onboarding readiness review.
 
 No-IO test boundary and DI recovery has been added to current (2026-05-13):
 [current/no-io-test-boundary-and-di-recovery.plan.md](current/no-io-test-boundary-and-di-recovery.plan.md).
@@ -81,18 +91,19 @@ Roadmap:
 
 | Plan | Status | Description |
 |------|--------|-------------|
-| [`agent-identity-derivation.plan.md`](archive/completed/agent-identity-derivation.plan.md) | ✅ Complete | Portable deterministic agent-identity CLI in `agent-tools/`; Claude Code statusline wiring landed Phase 8. Archived 2026-04-27. |
-| [`merge-main-pr76-into-otel-enhancements.plan.md`](archive/completed/merge-main-pr76-into-otel-enhancements.plan.md) | ✅ Complete | Merge main (PR #76, #78, releases 1.3.0-1.5.0) into otel branch. ADR-158 renumbering. Archived 2026-04-11. |
-| [`ci-consolidation-and-gate-parity.plan.md`](archive/completed/ci-consolidation-and-gate-parity.plan.md) | ✅ Complete | CI consolidation, ESLint rule, widget deletion, documentation. Archived after completion. |
+| `agent-identity-derivation.plan.md` (`../../plans-old-archive/architecture-and-infrastructure/archive/completed/agent-identity-derivation.plan.md`) | ✅ Complete | Portable deterministic agent-identity CLI in `agent-tools/`; Claude Code statusline wiring landed Phase 8. Archived 2026-04-27. |
+| `merge-main-pr76-into-otel-enhancements.plan.md` (`../../plans-old-archive/architecture-and-infrastructure/archive/completed/merge-main-pr76-into-otel-enhancements.plan.md`) | ✅ Complete | Merge main (PR #76, #78, releases 1.3.0-1.5.0) into otel branch. ADR-158 renumbering. Archived 2026-04-11. |
+| `ci-consolidation-and-gate-parity.plan.md` (`../../plans-old-archive/architecture-and-infrastructure/archive/completed/ci-consolidation-and-gate-parity.plan.md`) | ✅ Complete | CI consolidation, ESLint rule, widget deletion, documentation. Archived after completion. |
 
 ## Documents
 
 | File | Milestone | Description |
 |------|-----------|-------------|
-| [`codegen/`](codegen/README.md) | Post-M1 | SDK codegen workspace decomposition — [strategic plan](codegen/future/sdk-codegen-workspace-decomposition.md) + [research](codegen/sdk-codegen-architecture-analysis.md). Temporary turbo overrides applied by [turbo boundary fix](../semantic-search/archive/completed/turbo-and-codegen-boundary-fix.plan.md) until decomposition completes. |
+| [`codegen/`](codegen/README.md) | Post-M1 | SDK codegen workspace decomposition — [strategic plan](codegen/future/sdk-codegen-workspace-decomposition.md) + [research](codegen/sdk-codegen-architecture-analysis.md). Temporary turbo overrides applied by turbo boundary fix (`../../plans-old-archive/semantic-search/archive/completed/turbo-and-codegen-boundary-fix.plan.md`) until decomposition completes. |
 | `active/sentry-otel-integration.execution.plan.md` | M2 | Active execution source for the Sentry + OTel foundation |
 | `current/config-architecture-standardisation-plan.md` | M1 | Unified config DI pattern via `@oaknational/mcp-config` |
 | `current/workspace-layer-separation-audit.plan.md` | Post-M2 | Repo-wide layer/workspace audit and migration-preparation lane for ADR-154 |
+| `current/oak-source-integration-workspaces.plan.md` | Post-M2 | Source-authority-preserving local integration estate for Oak OpenAPI, source-first Castr, Curriculum Ontology, and Database-Tools |
 | `future/oak-surface-isolation-and-generic-foundation-programme.plan.md` | Post-M2 | Strategic umbrella for extracting generic foundations and making Oak workspaces thin leaves |
 | `future/architectural-budget-system-across-scales.plan.md` | Post-M2 | Strategic companion for ADR-166 architectural budgets, visibility, and staged enforcement |
 | `future/observability-and-quality-metrics.plan.md` | M2 + M3 | Strategic umbrella for the observability foundation, alerting, and quality dashboards |

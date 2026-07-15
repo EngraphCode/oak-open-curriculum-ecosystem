@@ -159,7 +159,7 @@ post-merge follow-up clean-up plan.
 
 | Document | Purpose |
 |----------|---------|
-| [phase-3a-mcp-search-integration.md](../../archive/completed/phase-3a-mcp-search-integration.md) | Search tool wiring (Phase 3a) |
+| phase-3a-mcp-search-integration.md (`../../../../plans-old-archive/semantic-search/archive/completed/phase-3a-mcp-search-integration.md`) | Search tool wiring (Phase 3a) |
 | [../roadmap.md](../../roadmap.md) | Master roadmap |
 | [@oaknational/result](../../../../../packages/core/result/) | Canonical Result type |
 | [execute-tool-call.ts](../../../../../packages/sdks/oak-curriculum-sdk/src/mcp/execute-tool-call.ts) | Current `ToolExecutionResult` definition |

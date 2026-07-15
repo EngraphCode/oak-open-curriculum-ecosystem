@@ -2,7 +2,7 @@
 
 **Status**: Accepted
 **Date**: 2026-03-07
-**Related**: [ADR-125 (Agent Artefact Portability)](125-agent-artefact-portability.md), [ADR-124 (Practice Propagation Model)](124-practice-propagation-model.md), [ADR-058 (Context Grounding)](058-context-grounding-for-ai-agents.md), [ADR-060 (Tool Metadata System)](060-agent-support-tool-metadata-system.md)
+**Related**: [ADR-125 (Agent Artefact Portability)](125-agent-artefact-portability.md), [ADR-124 (Practice Propagation Model)](124-practice-propagation-model.md), [ADR-058 (Context Grounding)](058-context-grounding-for-ai-agents.md), ADR-060 (Tool Metadata System) (`060-agent-support-tool-metadata-system.md`)
 
 ## Context
 

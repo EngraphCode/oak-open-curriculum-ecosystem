@@ -29,7 +29,7 @@ isProject: false
 **Last Updated**: 2026-03-11
 **Status**: IN PROGRESS — Phases 0–2 merged to `main` (PR #61). Phase 3 infrastructure complete (all commands wired: stage, promote, rollback, validate-aliases, count). Manual stage/promote/verify cycle underway (ingest run in progress). Phase 4 (adversarial review + documentation) not started.
 **Scope**: Unify bulk ingestion, fix layer boundaries, enable blue/green lifecycle
-**Predecessor**: [blue-green-reindex.execution.plan.md](../archive/completed/blue-green-reindex.execution.plan.md) — what went wrong and why
+**Predecessor**: blue-green-reindex.execution.plan.md (`../../../plans-old-archive/semantic-search/archive/completed/blue-green-reindex.execution.plan.md`) — what went wrong and why
 
 ---
 
@@ -66,7 +66,7 @@ The lifecycle orchestration code is **sound and tested** (172 tests pass).
 Alias operations, swap builders, promote, rollback, cleanup, and index
 creation all work correctly. The problem is **only** the ingest integration.
 
-See the [predecessor plan](../archive/completed/blue-green-reindex.execution.plan.md) for the
+See the predecessor plan (`../../../plans-old-archive/semantic-search/archive/completed/blue-green-reindex.execution.plan.md`) for the
 full timeline, root cause analysis, and completed prerequisites (migration
 fix, reviewer fixes, preflight, `remove_index` smoke test).
 
@@ -1260,7 +1260,7 @@ This atomically swaps aliases back to the previous version (recorded in
 
 ### Related Plans and Documentation
 
-- [Predecessor plan](../archive/completed/blue-green-reindex.execution.plan.md) — What went wrong (2026-03-08)
+- Predecessor plan (`../../../plans-old-archive/semantic-search/archive/completed/blue-green-reindex.execution.plan.md`) — What went wrong (2026-03-08)
 - [API gaps inventory](./bulk_data_for_semantic_search.feature_request.md) — Data not in bulk downloads
 - [INDEXING.md](../../../../apps/oak-search-cli/docs/INDEXING.md) — Ingestion field expectations
 - [High-level plan](../../high-level-plan.md) — Strategic context (step 2 of immediate intentions)

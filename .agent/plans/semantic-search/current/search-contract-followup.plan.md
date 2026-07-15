@@ -15,7 +15,7 @@ todos:
 
 # Search contract follow-up
 
-**Status**: 🔴 EXECUTING via [pre-reingest-remediation.execution.plan.md](../archive/completed/pre-reingest-remediation.execution.plan.md) (promoted to pre-reingest blocking 2026-03-22)
+**Status**: 🔴 EXECUTING via pre-reingest-remediation.execution.plan.md (`../../../plans-old-archive/semantic-search/archive/completed/pre-reingest-remediation.execution.plan.md`) (promoted to pre-reingest blocking 2026-03-22)
 **Depends on**: Work items consolidated into the active remediation plan; this document serves as the source specification for S4/S5
 
 ## Why this exists
@@ -65,7 +65,7 @@ Ingest and retrieval already validate many contracts via `@oaknational/search-co
 
 ## Relationship to other artefacts
 
-- **Findings register**: [search-tool-prod-validation-findings-2026-03-15.md](../archive/completed/search-tool-prod-validation-findings-2026-03-15.md) — optional smoke should reference the same JSON shapes for continuity.
+- **Findings register**: search-tool-prod-validation-findings-2026-03-15.md (`../../../plans-old-archive/semantic-search/archive/completed/search-tool-prod-validation-findings-2026-03-15.md`) — optional smoke should reference the same JSON shapes for continuity.
 - **Field inventory**: `packages/libs/search-contracts` — source of truth for inventory assertions in Task 1.
 
 ## Completion

@@ -47,6 +47,7 @@ Boundary definitions align with:
 ## Cross-Boundary Plans
 
 - [curriculum-nlp-processing-workspace.md](curriculum-nlp-processing-workspace.md) — Python NLP workspace for ML-based entity extraction, semantic compression, and relationship mining from bulk curriculum data. Subsumes vocabulary-mining Phases 4–5 and the archived transcript-mining plan.
+- [Reusable curriculum architecture strategic planning brief](../../connecting-oak-resources/reusable-curriculum-architecture/future/reusable-curriculum-architecture-planning.plan.md) — coordinates the conserved source model, bulk and materialised-view adapters, explicit Elastic projection family, progressive MCP exploration, and independent agent and website policy evidence across plan collections.
 
 ## Research Companions
 

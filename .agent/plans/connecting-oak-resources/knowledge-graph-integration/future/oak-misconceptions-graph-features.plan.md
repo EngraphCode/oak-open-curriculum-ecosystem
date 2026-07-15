@@ -28,7 +28,7 @@ contract or design substance is flattened away.
 
 > **Boundary moved 2026-06-04.** When the all-tools migration plan was reframed
 > from behaviour-preservation to a **value-driven redesign**
-> ([`graph-tools-value-redesign.plan.md`](./graph-tools-value-redesign.plan.md)),
+> ([`graph-tools-value-redesign.plan.md`](../current/graph-tools-value-redesign.plan.md)),
 > bounded relevant retrieval became the **core** of that redesign, not a future
 > feature. So **§1 (bounded sub-graph extraction) is folded into the redesign
 > core** — its design substance below is prior art for that plan's
@@ -49,7 +49,7 @@ misconception substrate; none of them re-authors misconception data.
 
 > **Folded into the value-redesign core 2026-06-04** (see the boundary note above).
 > This section is retained as **prior art** for
-> [`graph-tools-value-redesign.plan.md`](./graph-tools-value-redesign.plan.md), not as
+> [`graph-tools-value-redesign.plan.md`](../current/graph-tools-value-redesign.plan.md), not as
 > a separately-parked feature.
 
 **Problem** (owner direction 2026-05-07): the misconception graph is too

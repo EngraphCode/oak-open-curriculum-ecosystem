@@ -12,7 +12,7 @@ precursor to any implementer source edit.
 
 - Cohesion anchor: [`team-tooling-session-2026-06-28.plan.md`](../../plans/agent-tooling/current/team-tooling-session-2026-06-28.plan.md)
 - Lane A (O3): [`agent-spawn-flow-tool.plan.md`](../../plans/agent-tooling/current/agent-spawn-flow-tool.plan.md)
-- Lane B (O1/O2): [frictions register](../../plans/agent-tooling/frictions-register.md) (batch home for F-82/F-101/F-75/F-85 + the comms+claims batch) and [`cost-of-collaboration.plan.md`](../../plans/agent-tooling/current/cost-of-collaboration.plan.md)
+- Lane B (O1/O2): [frictions register](../../memory/operational/frictions-register.md) (batch home for F-82/F-101/F-75/F-85 + the comms+claims batch) and [`cost-of-collaboration.plan.md`](../../plans/agent-tooling/current/cost-of-collaboration.plan.md)
 - O5: [`under-the-hood-mcp-discovery-pointer.plan.md`](../../plans/sdk-and-mcp-enhancements/current/under-the-hood-mcp-discovery-pointer.plan.md)
 - Locked scope: [`cost-of-collaboration.plan.md` §Locked scope](../../plans/agent-tooling/current/cost-of-collaboration.plan.md)
 

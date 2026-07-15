@@ -230,7 +230,7 @@ Black-box evidence:
     (`runBoolPrefix`)
 
 The March 2026 predecessor pass
-([`../archive/completed/oak-preview-mcp-snagging.execution.plan.md`](../archive/completed/oak-preview-mcp-snagging.execution.plan.md))
+(`../../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/oak-preview-mcp-snagging.execution.plan.md` (`../../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/oak-preview-mcp-snagging.execution.plan.md`))
 relaxed `SearchSuggestionItemSchema` so empty strings pass validation
 (`z.string().optional().default('')`). That cured schema/runtime friction
 but did **not** populate canonical URLs.
@@ -294,8 +294,8 @@ but did **not** populate canonical URLs.
   passing to the API team verbatim):
   - [`../../sector-engagement/ooc-issues/oak-open-curriculum-api-issues-2026-04-23.md`](../../sector-engagement/ooc-issues/oak-open-curriculum-api-issues-2026-04-23.md)
 - Predecessor in-repo snagging pass (provenance):
-  - [`../archive/completed/oak-preview-mcp-snagging.execution.plan.md`](../archive/completed/oak-preview-mcp-snagging.execution.plan.md)
+  - `../../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/oak-preview-mcp-snagging.execution.plan.md` (`../../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/oak-preview-mcp-snagging.execution.plan.md`)
 - Manual UAT guide (manual black-box procedure, any server):
   - [`../../../../apps/oak-curriculum-mcp-streamable-http/docs/manual-uat-guide.md`](../../../../apps/oak-curriculum-mcp-streamable-http/docs/manual-uat-guide.md)
 - 2026-05-25 oak-preview-1 UAT evidence (thread record):
-  - [`.agent/memory/operational/threads/connecting-oak-resources.next-session.md`](../../../memory/operational/threads/connecting-oak-resources.next-session.md)
+  - [`.agent/memory/operational/threads/connecting-oak-resources.next-session.md`](../../../memory/operational/threads/paused/connecting-oak-resources.next-session.md)

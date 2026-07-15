@@ -8,7 +8,7 @@ the developer's `.env.local` (or any committed `.env*`) sets
 
 ## Plan
 
-[`.agent/plans/observability/current/fix-dev-boot-release-resolution.plan.md`](../../plans/observability/current/fix-dev-boot-release-resolution.plan.md)
+`.agent/plans/observability/current/fix-dev-boot-release-resolution.plan.md` (`../../plans-old-archive/observability/archive/completed/fix-dev-boot-release-resolution.plan.md`)
 
 Single cycle. Single function. Single test file.
 

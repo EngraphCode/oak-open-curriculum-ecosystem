@@ -215,7 +215,7 @@ rule operationalises this for cross-agent context.
 "Area" is defined as: any file path, plan, ADR, workspace, or git
 transaction surface currently named in another agent's recent
 shared-communication-log entry or in an active claim entry in
-[`active-claims.json`](../state/collaboration/active-claims.json).
+`active-claims.json` (see the tracked [state contract](../state/README.md)).
 
 The
 [`respect-active-agent-claims`](../rules/respect-active-agent-claims.md)
@@ -389,8 +389,9 @@ ADR-125 (canonical `.agent/` content with thin platform adapters).
 
 Core doctrine: [`user-collaboration.md`](user-collaboration.md),
 [`principles.md`](principles.md), and [`.agent/state/README.md`](../state/README.md).
-Core state: [log](../state/collaboration/shared-comms-log.md), [active claims][active-claims],
-[closed claims][closed-claims], [conversation schema][conversation-schema],
+Core state: the tracked [state contract](../state/README.md), which defines the
+checkout-local `shared-comms-log.md`, `active-claims.json`, and
+`closed-claims.archive.json` surfaces; [conversation schema][conversation-schema],
 [conversations][conversations-dir], [escalation schema][escalation-schema],
 and [escalations][escalations-dir]. Operational companions:
 [`collaboration-state-conventions.md`][state-conventions],
@@ -409,10 +410,8 @@ layer.
 [stage-by-explicit-pathspec]: ../rules/stage-by-explicit-pathspec.md
 [founding-pattern]: ../memory/collaboration/parallel-track-pre-commit-gate-coupling.md
 [lifecycle]: ../memory/operational/collaboration-state-lifecycle.md
-[active-claims]: ../state/collaboration/active-claims.json
-[closed-claims]: ../state/collaboration/closed-claims.archive.json
-[conversation-schema]: ../state/collaboration/conversation.schema.json
+[conversation-schema]: ../../agent-tools/src/collaboration-state/schemas/conversation.schema.json
 [conversations-dir]: ../state/collaboration/conversations/
-[escalation-schema]: ../state/collaboration/escalation.schema.json
+[escalation-schema]: ../../agent-tools/src/collaboration-state/schemas/escalation.schema.json
 [escalations-dir]: ../state/collaboration/escalations/
 [state-conventions]: ../memory/operational/collaboration-state-conventions.md

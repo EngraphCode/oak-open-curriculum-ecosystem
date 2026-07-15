@@ -37,8 +37,8 @@ export function isStableIndex(sourcePath: string): boolean {
 
 /**
  * Stable-addressed operational *targets* a doctrine surface may link without a
- * durability violation. Singleton registries and logs (fixed file address), the
- * fixed-address index/convention READMEs of permanent directories, and the permanent
+ * durability violation. The fixed-address index/convention READMEs of permanent
+ * directories and tracked
  * collaboration directories themselves (linking the directory names the stable surface;
  * a link to one file inside it is still a volatile per-item reference and stays flagged).
  *
@@ -48,10 +48,6 @@ export function isStableIndex(sourcePath: string): boolean {
  * outcome (a bare directory link is rare; the trailing-slash form is the convention).
  */
 const STABLE_ADDRESSED_STATE: ReadonlySet<string> = new Set([
-  // Singleton registries and logs.
-  '.agent/state/collaboration/active-claims.json',
-  '.agent/state/collaboration/closed-claims.archive.json',
-  '.agent/state/collaboration/shared-comms-log.md',
   // Fixed-address index/convention docs of permanent directories.
   '.agent/memory/active/patterns/README.md',
   '.agent/memory/operational/threads/README.md',
@@ -59,15 +55,14 @@ const STABLE_ADDRESSED_STATE: ReadonlySet<string> = new Set([
   // Permanent collaboration/library directories (the surface, not the items within).
   '.agent/state/collaboration/conversations/',
   '.agent/state/collaboration/escalations/',
-  '.agent/state/collaboration/comms/',
   '.agent/state/collaboration/handoffs/',
   '.agent/memory/active/patterns/',
 ]);
 
 /**
- * True when an ephemeral target is a stable-addressed surface: an allowlisted singleton,
- * directory, or index README, or any `*.schema.json` (a schema is the stable abstraction
- * volatile records conform to, in DIP terms).
+ * True when an ephemeral target is an available stable-addressed surface: an
+ * allowlisted tracked directory or index README, or any `*.schema.json` (a schema is
+ * the stable abstraction volatile records conform to, in DIP terms).
  */
 export function isStableAddressedState(repoRelPath: string): boolean {
   const p = normalise(repoRelPath);

@@ -2,7 +2,7 @@
 
 **Status**: Phase 0 ready to start
 **Last Updated**: 2026-04-14
-**Session Entry**: [start-right-quick.md](../../commands/start-right-quick.md)
+**Session Entry**: start-right-quick.md (`../../commands/start-right-quick.md`)
 
 ---
 
@@ -147,5 +147,5 @@ pnpm smoke:dev:stub
 1. [high-level-plan.md](../high-level-plan.md)
 2. [Collection README](README.md)
 3. [safety-and-security.md](../../../docs/governance/safety-and-security.md)
-4. [08-mcp-graph-tools.md (archived)](../archive/semantic-search-archive-dec25/part-1-search-excellence/08-mcp-graph-tools.md) — original graph tool size analysis
+4. 08-mcp-graph-tools.md (archived) (`../../plans-old-archive/archive/semantic-search-archive-dec25/part-1-search-excellence/08-mcp-graph-tools.md`) — original graph tool size analysis
 5. [post-merge-tidy-up.plan.md](../sdk-and-mcp-enhancements/future/post-merge-tidy-up.plan.md) — M1-S007 deferred snag

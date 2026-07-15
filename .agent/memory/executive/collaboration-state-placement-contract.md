@@ -103,8 +103,8 @@ about the surfaces themselves still lives in
 [lifecycle]: ../operational/collaboration-state-lifecycle.md
 [conventions]: ../operational/collaboration-state-conventions.md
 [directive]: ../../directives/agent-collaboration.md
-[active-schema]: ../../state/collaboration/active-claims.schema.json
-[closed-schema]: ../../state/collaboration/closed-claims.schema.json
-[conv-schema]: ../../state/collaboration/conversation.schema.json
-[esc-schema]: ../../state/collaboration/escalation.schema.json
-[consolidate-7e]: ../../commands/consolidate-docs.md#stale-claim-audit
+[active-schema]: ../../../agent-tools/src/collaboration-state/schemas/active-claims.schema.json
+[closed-schema]: ../../../agent-tools/src/collaboration-state/schemas/closed-claims.schema.json
+[conv-schema]: ../../../agent-tools/src/collaboration-state/schemas/conversation.schema.json
+[esc-schema]: ../../../agent-tools/src/collaboration-state/schemas/escalation.schema.json
+[consolidate-7e]: ../../skills/consolidate-docs/SKILL-CANONICAL.md#stale-claim-audit

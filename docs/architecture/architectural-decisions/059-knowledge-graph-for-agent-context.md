@@ -134,6 +134,6 @@ Types are derived from the data structure, ensuring compile-time validation of e
 
 ## References
 
-- [Knowledge Graph Analysis Synthesis](.agent/research/open-curriculum-knowledge-graph/knowledge-graph-analysis-synthesis.md)
-- [Optimised Graph Proposal](.agent/research/open-curriculum-knowledge-graph/optimised-graph-proposal.md)
-- [Complementary by Construction](.agent/research/open-curriculum-knowledge-graph/complementary-by-construction.md)
+- [Knowledge Graph Analysis Synthesis](../../../.agent/research/open-curriculum-concept-graph/knowledge-graph-analysis-synthesis.md)
+- [Optimised Graph Proposal](../../../.agent/research/open-curriculum-concept-graph/optimised-graph-proposal.md)
+- [Complementary by Construction](../../../.agent/research/open-curriculum-concept-graph/complementary-by-construction.md)

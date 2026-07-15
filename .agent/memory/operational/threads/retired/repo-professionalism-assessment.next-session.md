@@ -22,7 +22,7 @@ report's items as live backlog when it next runs, pulling from the report (the
 durable source) and that map. This thread is retired; the record persists as the
 routing home. No further session opens on it.
 
-[report]: ../../reports/oak-repo-professionalism-engineering-quality-report-2026-06-03.md
+[report]: ../../../../reports/oak-repo-professionalism-engineering-quality-report-2026-06-03.md
 
 ## Current Continuation (historical — superseded by the retirement above)
 
@@ -30,7 +30,7 @@ routing home. No further session opens on it.
 - Invocation pointer: `start-right-quick`, then continue this thread from this record
   (treat the opener as a hypothesis until live grounding confirms it).
 - Controlling report:
-  [`oak-repo-professionalism-engineering-quality-report-2026-06-03.md`](../../reports/oak-repo-professionalism-engineering-quality-report-2026-06-03.md)
+  [`oak-repo-professionalism-engineering-quality-report-2026-06-03.md`](../../../../reports/oak-repo-professionalism-engineering-quality-report-2026-06-03.md)
 - Controlling plan: none yet — the report is an assessment input, not an
   executable plan.
 - Next safe step: decide whether the report's roadmap can become practical plan

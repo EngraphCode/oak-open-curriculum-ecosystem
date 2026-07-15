@@ -48,7 +48,7 @@ coverage / setupFiles / e2e-timeouts / `maxWorkers` / the field-integrity manife
 - `apps/oak-search-cli/vitest.{e2e,experiment,smoke}.config.ts` — removed `isolate: true`
   (no-op; the e2e base sets no isolate, so the default `true` holds).
 
-Governed by [`tdd-for-refactoring`](../../../../rules/tdd-for-refactoring.md): behaviour-preserving,
+Governed by [`tdd-for-refactoring`](../../../rules/tdd-for-refactoring.md): behaviour-preserving,
 so the existing suite is the safety net; no new test authored.
 
 **WS-A relationship.** Deleting the base `pool:'threads'` reverts WS-A's flip to the default

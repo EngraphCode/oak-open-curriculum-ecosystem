@@ -12,7 +12,7 @@ anti-pattern. The whole smoke-tests surface is retiring.
 
 ## Plan
 
-[`.agent/plans/architecture-and-infrastructure/current/retire-smoke-tests-all-vitest-no-real-io.plan.md`](../../plans/architecture-and-infrastructure/current/retire-smoke-tests-all-vitest-no-real-io.plan.md)
+`.agent/plans/architecture-and-infrastructure/current/retire-smoke-tests-all-vitest-no-real-io.plan.md` (`../../plans-old-archive/architecture-and-infrastructure/archive/superseded/retire-smoke-tests-all-vitest-no-real-io.plan.md`)
 
 Eleven cycles total — designed for maximum parallelism.
 

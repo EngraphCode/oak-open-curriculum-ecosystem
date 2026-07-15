@@ -63,4 +63,4 @@ Adopt a complete biological architecture pattern with clear hierarchies:
 - Document the metaphor mapping clearly
 - Start with organs (major systems) and decompose
 
-For detailed interface patterns, see [Tissue and Organ Interfaces](../tissue-and-organ-interfaces.md).
+For detailed interface patterns, see Tissue and Organ Interfaces (`../../archive/tissue-and-organ-interfaces.md`).

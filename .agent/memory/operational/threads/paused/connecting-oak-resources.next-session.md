@@ -18,7 +18,7 @@ merge_class: index-narrative-tables
 ## Current State
 
 - **PROMOTED 2026-06-09.** EEF reached D6 + D7 green and shipped, so
-  [`current/graph-tools-value-redesign.plan.md`](../../../plans/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md)
+  [`current/graph-tools-value-redesign.plan.md`](../../../../plans/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md)
   was promoted to `current/` — one plan owning the migration of all three existing graph tools onto
   `graph-corpus-sdk` (mechanism-settling + executable cycles remain; see its §Remaining promotion
   work).
@@ -30,6 +30,36 @@ merge_class: index-narrative-tables
   authored (`9fab8669`). The `graph-tools-value-redesign` lane is the single owner of the
   node/edge model (one-bulk-graph + views with a deliberate identity model).
 - **Active-claims**: none on this thread. Branch `planning/graph-tooling` (planning closeout).
+- **Reusable curriculum architecture evidence (2026-07-15):** the report family at
+  [`reports/oak-reusable-curriculum-architecture/`](../../../../reports/oak-reusable-curriculum-architecture/README.md)
+  and the strategic future
+  [planning brief](../../../../plans/connecting-oak-resources/reusable-curriculum-architecture/future/reusable-curriculum-architecture-planning.plan.md)
+  now preserve the source-accounting, projection, graph, search, provenance and
+  cross-estate implications. This remains a paused evidence-and-planning lane:
+  no implementation or ontology change is authorised.
+- **Next safe step for this evidence:** owner-directed promotion begins at the
+  planning brief's promotion trigger. Revalidate the current received bundle
+  and code, disposition adjacent plans, establish known-answer agent and website
+  journeys, verify a representative public materialised-view contract and live
+  Elasticsearch Serverless capabilities, then ratify the ADR propagation path.
+- **Source integration workspaces (2026-07-15):** the
+  [`oak-integrations` report family](../../../../reports/oak-integrations/README.md) and
+  [executable plan](../../../../plans/architecture-and-infrastructure/current/oak-source-integration-workspaces.plan.md)
+  define optional, source-authority-preserving wrappers for Oak OpenAPI, Castr, Oak Curriculum
+  Ontology, and Oak Database-Tools. The public root remains complete with every submodule absent.
+  Castr's source mode is the rapid authoring path; released core and generic fetch-companion
+  packages are the ordinary post-cutover path; Oak runtime policy remains OCE-owned.
+- **Next safe step for source integration:** keep this thread paused until execution is
+  owner-directed and the P0 workspace layer-separation audit is complete. Then run the plan's
+  blocking preflight before mutation, especially source visibility/heads, branch and permission
+  policy, npm scope/package-name authority, trusted publishing/provenance, and current vendor call
+  shapes. No submodule, child branch, implementation, publication, commit, or push landed in the
+  planning session. The report, plan, and this handoff are present but uncommitted.
+- **Closeout verification:** the three specialist reviews approved; internal Markdown links,
+  Markdownlint, Prettier, scoped diff checks, all builds/tests/browser suites, and repository
+  validators passed. The aggregate `pnpm check` exited zero but emitted existing `no-throw` lint
+  warnings in unrelated product files, so the canonical warning-clean session-handoff gate remains
+  pending even though no source-integration validation failed.
 
 ## Thread Identity
 
@@ -45,6 +75,9 @@ merge_class: index-narrative-tables
 - `.agent/plans/connecting-oak-resources/knowledge-graph-integration/` — internal Oak KG work.
 - `.agent/plans/connecting-oak-resources/external-oak-references/` — external Oak repo research
   and selective adoption.
+- `.agent/plans/architecture-and-infrastructure/current/oak-source-integration-workspaces.plan.md`
+  — cross-repository implementation owner, queued after the workspace layer-separation audit.
+- `.agent/reports/oak-integrations/` — permanent concept exploration and decision rationale.
 
 ## Cross-Plan Links
 
@@ -52,6 +85,10 @@ merge_class: index-narrative-tables
   this thread (it is open-education evidence, not Oak-internal). See `eef.next-session.md`.
 - **Third-party** (non-Oak) knowledge sources live in the sibling thread
   [`exploring-open-education-resources.next-session.md`](exploring-open-education-resources.next-session.md).
+- **Castr is a scoped exception to the generic third-party-source route:** it is an OCE compiler
+  dependency under direct co-development, so its source wrapper and convergence work remain in
+  the same implementation plan as the Oak authorities. Castr changes still land upstream in
+  `EngraphCode/castr`; this repo does not become source authority.
 
 ## Adoption-Rule Summary (owner direction 2026-05-01 — live standing decision)
 
@@ -79,7 +116,7 @@ For external Oak repos:
 ## Participating Agent Identities
 
 Additive per
-[PDR-027](../../../practice-core/decision-records/PDR-027-threads-sessions-and-agent-identity.md).
+[PDR-027](../../../../practice-core/decision-records/PDR-027-threads-sessions-and-agent-identity.md).
 Recent active stretch below; the full ~56-session trail (the 2026-05 graph-core WS1–WS3 build,
 the inc-1d multi-agent team session, the PR-102/PR-108 arcs) is retained in git history.
 
@@ -95,10 +132,12 @@ the inc-1d multi-agent team session, the PR-102/PR-108 arcs) is retained in git 
 | `Opalescent Cascading Planet` | `claude` | `Opus 4.8` | `0340f9` | `graph-estate consolidation executed (c3b78eec)` | 2026-06-02 | 2026-06-02 |
 | `Galactic Glowing Prism` | `claude` | `Opus 4.8` | `cd7389` | `JC4 unified substrate-migration plan authored (9fab8669)` | 2026-06-02 | 2026-06-02 |
 | `Fragrant Spreading Sapling` | `claude` | `Fable 5` | `47f78a` | `stale-fired-trigger-fact-fix-only` | 2026-06-10 | 2026-06-10 |
+| `Codex` | `codex` | `GPT-5` | `unknown` | `reusable-curriculum-architecture synthesis and closeout` | 2026-07-15 | 2026-07-15 |
+| `Leopard tracks Dewdrop` | `codex` | `GPT-5` | `019f64` | `source-integration concept exploration, plan, readiness review, and closeout` | 2026-07-15 | 2026-07-15 |
 
 ## References
 
-- **Repo state**: [`repo-continuity.md`](../repo-continuity.md) § Current State (authoritative).
+- **Repo state**: [`repo-continuity.md`](../../repo-continuity.md) § Current State (authoritative).
 - **ADR-173** (graph stack) governs the graph-estate; `graph-tools-value-redesign` is
   🟢 DECISION-COMPLETE (2026-06-09; the EEF D6+D7 gate fired) — execution PRs follow per its
   deliverables map.

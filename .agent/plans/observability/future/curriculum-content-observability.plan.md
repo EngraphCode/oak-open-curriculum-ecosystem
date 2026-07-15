@@ -22,7 +22,7 @@ promotion_trigger: "First data-science request that requires curriculum-metadata
 ## Problem and Intent
 
 The MVP events workspace (per
-[`observability-events-workspace.plan.md`](../current/observability-strategy-restructure.plan.md))
+[`observability-events-workspace.plan.md`](../../architecture-and-infrastructure/current/observability-strategy-restructure.plan.md))
 captures categorical axes on `tool_invoked` and `search_query` —
 subject, key-stage, keyword — sufficient for first-order data-science
 questions like "what subjects are most queried." Deeper questions

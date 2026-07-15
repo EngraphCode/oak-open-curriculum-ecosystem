@@ -19,7 +19,32 @@ clearly; never delete ideas. **Scope authority is the controlling plan**
 [`vision-strategy-and-plan-estate.plan.md`](../../../plans/product-development-governance/vision-strategy-and-plan-estate.plan.md),
 reconceived to this model 2026-06-18. This record is the **pickup surface**, not scope authority.
 
-## Where We Are (2026-07-14 later, Quasar mends Umbra 52b4de Director — pre-S0 estate shaped: registers re-homed, Walk-A priors recorded; runway = consolidation session → freeze-planning sitting → S0)
+## Where We Are (2026-07-14 evening, Quasar mends Umbra 52b4de outgoing Director — RULE RATIFIED, S0 WINDOW OPEN, seat → Barnacle calls Spray)
+
+The runway completed end-to-end tonight. **The dedicated consolidation session
+executed** (Dolphin weaves Reef, ffedcf: PDR-127 team-branch protocol + PDR-128
+review-conversations, napkin rotated, graduations drained, commits
+`SHA:725749349` + `SHA:53c6b1d08`). **The freeze-planning sitting RULED** —
+the owner ratified the seven-class register-free freeze rule and ruled the
+window open (record:
+`.agent/plans-refounding/freeze-planning-sitting-2026-07-14.md`; `ratifiedBy`
+set, the mechanical S0 hold LIFTED). The reconciliation **PR #377 MERGED to
+main** (`SHA:019448a16` — the consolidation tier + the ratification). **THE S0
+HARD FREEZE WINDOW IS OPEN** (broadcast event
+`13c052a9-aad7-4aa6-87e9-699f1a2371f9`): no merges to main, no in-scope writes
+until CLOSE; reports out-of-corpus. **S0 is staged, not started**: the r1
+worktree on fresh branch `feat/plan-corpus-refounding-s0` at `SHA:019448a16`,
+stale evidence artefacts cleared (owner-named), tool ready. **The Director seat
+TRANSFERRED to Barnacle calls Spray (6d5d9c)** — PDR-064 Moment 2 at
+20:42:46Z, claim `0f4be777` adopted, their 9-agent adversarial verification
+confirmed the handoff record against ground truth. **Pickup = the handoff
+record** `.agent/state/collaboration/handoffs/2026-07-14-director-quasar-to-barnacle-0f4be777.md`
+(§2 = the S0 execution order; §4 = deferred work incl. the ONE remaining
+orphan-recovery: the 48-line compaction napkin entry from `SHA:882e82687` —
+the other two candidate orphans were RETRACTED on substance-probe verification,
+already landed via PR #372). Then S1 → S2 → divergence report as Walk-A input.
+
+## Where We Were (2026-07-14 later, Quasar mends Umbra 52b4de Director — pre-S0 estate shaped: registers re-homed, Walk-A priors recorded; runway = consolidation session → freeze-planning sitting → S0)
 
 Director custody after Cedar's terminal closeout (their block below stands as the
 r1 execution record). Landed since: **PR #370 MERGED** (`SHA:89f65108d` — the
@@ -180,7 +205,7 @@ remediation-agent question in the section below is ANSWERED: the owner turned th
 ## Where We Are (2026-07-08 close, Pelican calls Spray 55b041 — R0 COMPLETE; next = the dedicated consolidation pass, then r1)
 
 **The single pickup surface for the next session is the PDR-063 handoff record**
-[`handoffs/2026-07-08-pelican-r0-complete-and-r1-runway.md`](../../../state/collaboration/handoffs/2026-07-08-pelican-r0-complete-and-r1-runway.md)
+`handoffs/2026-07-08-pelican-r0-complete-and-r1-runway.md` (`../../../state/collaboration/handoffs/2026-07-08-pelican-r0-complete-and-r1-runway.md`)
 on claim `7b10679e` (retained; sixth runway handoff Wildfire→Stoat→Leopard→Goshawk→Rigel→Pelican→next).
 Headlines: **R0 is COMPLETE** — R0c merged truly-green via early-armed auto-merge (PR #325,
 `8385bc41a`): the consolidated owner-gate register (OG-2 in two halves — table half
@@ -203,7 +228,7 @@ F2 R1-precondition stands). Owner-gated residue in the handoff record §4.
 ## Where We Were (2026-07-08 close, Rigel turns Void c6080b — R0b MERGED `751ce9699`; next = R0c)
 
 **The single pickup surface for the next session is the PDR-063 handoff record**
-[`handoffs/2026-07-08-rigel-r0b-merged-and-r0c-runway.md`](../../../state/collaboration/handoffs/2026-07-08-rigel-r0b-merged-and-r0c-runway.md)
+`handoffs/2026-07-08-rigel-r0b-merged-and-r0c-runway.md` (`../../../state/collaboration/handoffs/2026-07-08-rigel-r0b-merged-and-r0c-runway.md`)
 on claim `7b10679e` (retained; fifth runway handoff Wildfire→Stoat→Leopard→Goshawk→Rigel→next;
 **successor owner-named: Pelican calls Spray, 55b041** — adopt on arrival, runway clean).
 Headlines: **R0b is complete on main** (PR #323 owner-merged truly-green at `751ce9699`,
@@ -223,7 +248,7 @@ clearing) live in the handoff record §3–§4.
 ## Where We Were (2026-07-07 close, Goshawk calls Sundog 970bdc — R0a MERGED `af6c285e5`; G1 DISCHARGED in-chat; next = R0b)
 
 **The single pickup surface for the next session is the PDR-063 handoff record**
-[`handoffs/2026-07-07-goshawk-g1-discharged-and-r0b-runway.md`](../../../state/collaboration/handoffs/2026-07-07-goshawk-g1-discharged-and-r0b-runway.md)
+`handoffs/2026-07-07-goshawk-g1-discharged-and-r0b-runway.md` (`../../../state/collaboration/handoffs/2026-07-07-goshawk-g1-discharged-and-r0b-runway.md`)
 on claim `7b10679e` (retained; **successor owner-named: Rigel turns Void, c6080b** — fourth
 runway handoff Wildfire→Stoat→Leopard→Goshawk→Rigel).
 Headlines: **R0a is complete on main** (PR #321 merged truly-green at `af6c285e5`: four
@@ -245,7 +270,7 @@ contracts BINDING; first truing = the `r0a-mechanical-instrument` todo still rea
 ## Where We Were (2026-07-07, Leopard spins Moonrise b07d1d — R0a COMPLETE AND MERGED (#317, `3bc698531`); cycles 3–4 on t3; next = the main→t3 merge-forward, the t3 PR, then R0b)
 
 **The single pickup surface for the next session is the PDR-063 handoff record**
-[`handoffs/2026-07-07-leopard-r0-cycles34-and-merge-forward.md`](../../../state/collaboration/handoffs/2026-07-07-leopard-r0-cycles34-and-merge-forward.md)
+`handoffs/2026-07-07-leopard-r0-cycles34-and-merge-forward.md` (`../../../state/collaboration/handoffs/2026-07-07-leopard-r0-cycles34-and-merge-forward.md`)
 on claim `7b10679e` (retained): it carries the merged-estate state with provenance marks, the
 FULLY-ANALYSED main→t3 merge-forward (three conflict resolutions — one conserved verbatim in
 `handoffs/assets/` — plus two semantic re-points and the publicly-promised census
@@ -470,6 +495,8 @@ loss-scan):
 
 | agent_name | platform | model | session_id_prefix | role | first_session | last_session |
 | --- | --- | --- | --- | --- | --- | --- |
+| Quasar mends Umbra | claude | claude-fable-5 | 52b4de | Director (first PDR-117 seat) — runway to ratified rule + open S0 window; seat → Barnacle | 2026-07-14 | 2026-07-14 |
+| Barnacle calls Spray | claude-code | claude-fable-5 | 6d5d9c | Director (Moment-2 20:42Z) — S0 execution custody | 2026-07-14 | 2026-07-14 |
 | Baobab lifts Topsoil | claude-code | claude-opus-4-8 | 3be248 | surveyor-synthesist | 2026-06-15 | 2026-06-15 |
 | Ocelot binds Curfew | claude-code | claude-opus-4-8[1m] | c9423b | vision-author + estate-rewiring | 2026-06-17 | 2026-06-17 |
 | Tempest spins Spire | claude-code | claude-opus-4-8[1m] | 94a5c5 | controlling-plan author + review-synthesis + hygiene | 2026-06-17 | 2026-06-17 |

@@ -5,7 +5,7 @@ and practice questions.
 
 ## Agentic Engineering Investigations and Evidence
 
-- [../reference/agentic-engineering/README.md](../reference/agentic-engineering/README.md)
+- [../research/agentic-engineering/README.md](../research/agentic-engineering/README.md)
   — concept hub routing back into evidence and source lanes
 - `continuity-adoption-baseline.md`
   - Pre-rollout baseline for continuity, session handoff, and deep

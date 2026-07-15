@@ -2,12 +2,12 @@ import { describe, expect, it } from 'vitest';
 
 import {
   extractMarkdownLinks,
-  findBrokenLinks,
   isExcludedPath,
   resolveLinkTarget,
   suggestFix,
   type ScanFile,
 } from './validate-markdown-links-helpers.js';
+import { findBrokenLinks } from './validate-markdown-links-report.js';
 
 describe('isExcludedPath', () => {
   it('excludes any path containing /archive/', () => {
@@ -62,11 +62,11 @@ describe('resolveLinkTarget', () => {
     expect(resolveLinkTarget(source, './my%20file.md')).toBe('docs/governance/my file.md');
   });
 
-  it('returns null for a pure fragment, an empty target, or a non-md target', () => {
+  it('returns null for a pure fragment or empty target and resolves other internal targets', () => {
     expect(resolveLinkTarget(source, '#section')).toBeNull();
     expect(resolveLinkTarget(source, '')).toBeNull();
-    expect(resolveLinkTarget(source, './image.png')).toBeNull();
-    expect(resolveLinkTarget(source, '../code/file.ts')).toBeNull();
+    expect(resolveLinkTarget(source, './image.png')).toBe('docs/governance/image.png');
+    expect(resolveLinkTarget(source, '../code/file.ts')).toBe('docs/code/file.ts');
   });
 
   it('resolves an .md target carrying only a fragment', () => {
@@ -86,6 +86,11 @@ describe('extractMarkdownLinks', () => {
   it('extracts reference-definition targets', () => {
     const links = extractMarkdownLinks(source, '[label]: ./def.md\n');
     expect(links.map((l) => l.rawTarget)).toEqual(['./def.md']);
+  });
+
+  it('ignores bracket-labelled prose that only resembles a reference definition', () => {
+    expect(extractMarkdownLinks(source, '[finding]: the evidence remains mixed')).toHaveLength(0);
+    expect(extractMarkdownLinks(source, '[source]: GitHub, accessed today')).toHaveLength(0);
   });
 
   it('ignores http(s) and mailto targets', () => {
@@ -127,11 +132,8 @@ describe('extractMarkdownLinks', () => {
     expect(links.map((l) => l.rawTarget)).toEqual(['./def.md']);
   });
 
-  it('does not resolve angle-bracket link targets (documented limitation — not checked)', () => {
-    // CommonMark `[a](<./path.md>)` is valid but rare. The bracketed target does not end in
-    // `.md`, so resolveLinkTarget returns null and the link is silently not checked. Documented
-    // so that supporting `<...>` later is a deliberate decision, not a surprise.
-    expect(resolveLinkTarget(source, '<./angled.md>')).toBeNull();
+  it('resolves CommonMark angle-bracket link targets', () => {
+    expect(resolveLinkTarget(source, '<./angled.md>')).toBe('docs/angled.md');
   });
 
   it('records 1-based line numbers', () => {
@@ -182,6 +184,7 @@ describe('findBrokenLinks', () => {
     const report = findBrokenLinks(files, repoFiles);
     expect(report.broken).toHaveLength(1);
     expect(report.broken[0].resolvedTarget).toBe('docs/missing.md');
+    expect(report.broken[0].reason).toBe('missing-target');
     expect(report.totals.brokenLinks).toBe(1);
   });
 
@@ -191,6 +194,26 @@ describe('findBrokenLinks', () => {
     const report = findBrokenLinks(files, repoFiles);
     expect(report.broken).toHaveLength(0);
     expect(report.totals.linksChecked).toBe(1);
+  });
+
+  it('flags a tracked source that links to a present but untracked target', () => {
+    const files: ScanFile[] = [{ path: 'docs/x.md', content: 'see [state](../tmp/state.json)' }];
+    const repoPaths = ['docs/x.md', 'tmp/state.json'];
+    const report = findBrokenLinks(files, repoPaths, new Set(['docs/x.md']));
+    expect(report.broken).toHaveLength(1);
+    expect(report.broken[0].reason).toBe('tracked-source-to-untracked-target');
+  });
+
+  it('allows an untracked source to link to another present untracked target', () => {
+    const files: ScanFile[] = [{ path: 'tmp/x.md', content: 'see [state](./state.json)' }];
+    const report = findBrokenLinks(files, ['tmp/x.md', 'tmp/state.json'], new Set());
+    expect(report.broken).toHaveLength(0);
+  });
+
+  it('checks directory targets as internal links', () => {
+    const files: ScanFile[] = [{ path: 'docs/x.md', content: 'see [area](../packages/area/)' }];
+    const paths = ['docs/x.md', 'packages/area'];
+    expect(findBrokenLinks(files, paths).broken).toHaveLength(0);
   });
 
   it('attaches a suggestedFix for a broken link with a unique basename elsewhere', () => {
@@ -210,13 +233,13 @@ describe('findBrokenLinks', () => {
     expect(report.totals.autoFixable).toBe(0);
   });
 
-  it('counts files scanned and only checks .md links', () => {
+  it('counts files scanned and checks every internal link target', () => {
     const files: ScanFile[] = [
       { path: 'docs/x.md', content: 'text [img](./pic.png) [doc](./y.md)' },
     ];
     const report = findBrokenLinks(files, ['docs/x.md', 'docs/y.md']);
     expect(report.totals.filesScanned).toBe(1);
-    expect(report.totals.linksChecked).toBe(1);
+    expect(report.totals.linksChecked).toBe(2);
   });
 
   it('treats a leading-slash link as repo-root-relative when checking existence', () => {

@@ -20,7 +20,7 @@ merge_class: index-narrative-tables
 *Identity: claude-code, sonnet-4-6.*
 
 **Active plan**:
-[`feat-eef-exploration-completion.plan.md`](../../../plans/observability/current/feat-eef-exploration-completion.plan.md)
+[`feat-eef-exploration-completion.plan.md`](../../../../plans/observability/current/feat-eef-exploration-completion.plan.md)
 — Steps 01–10 closed.
 
 **Step 10 closing summary**: reviewer dispatch complete (security/clerk/sentry-expert
@@ -40,25 +40,25 @@ merge-readiness declaration with release-readiness-expert synthesis).
 
 - **Focused local-startup follow-up** (active record; all phases completed, packaged in
   `d9cb54e8`):
-  [`mcp-local-startup-release-boundary.plan.md`](../../../plans/observability/archive/completed/mcp-local-startup-release-boundary.plan.md)
+  `mcp-local-startup-release-boundary.plan.md` (`../../../../plans-old-archive/observability/archive/completed/mcp-local-startup-release-boundary.plan.md`)
   (+ its `phase-0-evidence` / `phase-1-red-evidence` companions).
 - **Completed gate-recovery precondition** (complete for current branch state):
-  [`gate-recovery-cadence.plan.md`](../../../plans/observability/active/gate-recovery-cadence.plan.md)
+  [`gate-recovery-cadence.plan.md`](../../../../plans/observability/active/gate-recovery-cadence.plan.md)
   — owns the failure ledger, non-test gate restoration, RED→buildable-seam reshaping, and the
   full-gate cadence guard. (This plan is the load-bearing half of the
   `dont-break-build-without-fix-plan` ↔ plan citation pair — keep both directions resolving.)
 - **Release-identifier alignment** (next-session pickup):
-  [`sentry-release-identifier-single-source-of-truth.plan.md`](../../../plans/observability/current/sentry-release-identifier-single-source-of-truth.plan.md)
+  [`sentry-release-identifier-single-source-of-truth.plan.md`](../../../../plans/observability/current/sentry-release-identifier-single-source-of-truth.plan.md)
   — release-identifier SSoT + ADR-163 amendment + cancellation-ADR linkage.
 - **PR #87 unblock** (next-session pickup):
-  [`pr-87-quality-finding-resolution.plan.md`](../../../plans/observability/current/pr-87-quality-finding-resolution.plan.md)
+  `pr-87-quality-finding-resolution.plan.md` (`../../../../plans-old-archive/observability/archive/superseded/pr-87-quality-finding-resolution.plan.md`)
   — clear the three failing PR checks (CodeQL combined, SonarCloud QG, CI test) by phased
   remediation; Phase 0 surfaces three owner decisions (rate-limit verification, stylistic-rule
   policy, semver-extraction home) before Phase 1 mechanical work.
 - **Parent engineering lane**:
-  [`sentry-observability-maximisation-mcp.plan.md`](../../../plans/observability/active/sentry-observability-maximisation-mcp.plan.md)
+  [`sentry-observability-maximisation-mcp.plan.md`](../../../../plans/observability/active/sentry-observability-maximisation-mcp.plan.md)
   (L-8). **Separate future work** (owner-gated):
-  [`mcp-http-runtime-canonicalisation.plan.md`](../../../plans/observability/future/mcp-http-runtime-canonicalisation.plan.md).
+  [`mcp-http-runtime-canonicalisation.plan.md`](../../../../plans/observability/future/mcp-http-runtime-canonicalisation.plan.md).
 
 **Two non-conflicting next-session paths** (when reactivated): (1) **PR #87 quality-gate
 clearance** (recommended; blocks merge) — execute `pr-87-quality-finding-resolution.plan.md`;
@@ -89,7 +89,7 @@ acceptance work.
 ## Participating Agent Identities
 
 Additive per
-[PDR-027](../../../practice-core/decision-records/PDR-027-threads-sessions-and-agent-identity.md).
+[PDR-027](../../../../practice-core/decision-records/PDR-027-threads-sessions-and-agent-identity.md).
 Recent active stretch below; the full 43-session trail (2026-04-21 onward: the migration,
 startup-boundary, PR-87 architectural-cluster, and multi-sink arcs) is retained in git history.
 
@@ -121,4 +121,4 @@ startup-boundary, PR-87 architectural-cluster, and multi-sink arcs) is retained 
 - **Active plans**: see § Lane State above (authoritative).
 - **ADRs**: ADR-163 (release identifier / cancellation), ADR-170/171 (multi-sink), ADR-162
   (closure property).
-- **Repo state**: [`repo-continuity.md`](../repo-continuity.md) § Current State.
+- **Repo state**: [`repo-continuity.md`](../../repo-continuity.md) § Current State.

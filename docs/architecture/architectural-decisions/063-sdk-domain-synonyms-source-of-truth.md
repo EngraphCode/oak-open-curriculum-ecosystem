@@ -152,7 +152,7 @@ This decision is successful when:
 
 ## Synonym Mining Process
 
-This section documents the methodology for identifying and adding new synonyms, demonstrated with Maths KS4 (see [F-001 experiment](../../.agent/evaluations/experiments/comprehensive-synonym-coverage.experiment.md)).
+This section documents the methodology for identifying and adding new synonyms, demonstrated with Maths KS4 (see F-001 experiment (`../../.agent/evaluations/experiments/comprehensive-synonym-coverage.experiment.md`)).
 
 ### Step 1: Identify Vocabulary Gaps
 
@@ -232,7 +232,7 @@ Run test — it MUST pass.
 
 Re-run the hard query baseline (under the workspace's current testing
 strategy) and record before/after MRR in
-[EXPERIMENT-LOG.md](../../.agent/evaluations/EXPERIMENT-LOG.md).
+[EXPERIMENT-LOG.md](../../../.agent/evaluations/EXPERIMENT-LOG.md).
 
 ### Subject Rollout Priority
 
@@ -247,7 +247,7 @@ strategy) and record before/after MRR in
 
 ### For Full Process Documentation
 
-See [NEW-SUBJECT-GUIDE.md](../../apps/oak-search-cli/docs/NEW-SUBJECT-GUIDE.md) for the complete subject onboarding runbook.
+See [NEW-SUBJECT-GUIDE.md](../../../apps/oak-search-cli/docs/NEW-SUBJECT-GUIDE.md) for the complete subject onboarding runbook.
 
 ---
 

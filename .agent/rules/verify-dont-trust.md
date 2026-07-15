@@ -1,5 +1,10 @@
 # Verify, Do Not Trust
 
+Operationalises
+[PDR-011](../practice-core/decision-records/PDR-011-continuity-surfaces-and-surprise-pipeline.md),
+especially its separation of first-hand claim verification from
+context-holder-only loss detection at handoff.
+
 When live coordination, routing, validation, or completion depends on a claim,
 ask for artefacts and inspect them. Do not treat a peer's status statement,
 handoff prose, owner recollection, sub-agent summary, or your own prior note as
@@ -163,6 +168,26 @@ its per-class disposition when the set spans more than simple live prose —
 generated snapshots, immutable records, and peer edits each need explicit
 handling. A blanket sweep that treats every class alike corrupts the ones it
 should never have touched.
+
+## Verify Landing Containment Against the Current Target
+
+When the question is whether substance reached the current target branch or
+survived a merge, update, or rebase, use a probe that answers containment:
+
+- Do not use `git diff A...B` as a current-target containment test. Three-dot
+  diff compares one side with the merge base, so content added to the target
+  after that base can appear absent. Compare the current target blob directly,
+  for example with `git show <target>:<path>`, or use an appropriate two-dot
+  content comparison.
+- Do not make exact wrapped lines the only presence test. Formatters can reflow
+  unchanged substance. Probe for several distinctive short phrases or compare
+  the parsed/semantic content, and judge the set rather than one line shape.
+- Treat every merge, update, or rebase as invalidating pre-event containment
+  evidence. Re-run the probes for each load-bearing surface afterward; a clean
+  operation result does not prove that every intended edit survived it.
+
+These checks apply symmetrically: they prevent both false “missing” verdicts
+and silent losses being blessed as landed.
 
 Read the failure surface, never the exit code, for any wrapped, piped, or
 output-captured invocation. A pipe, redirect, or background-task wrapper reports

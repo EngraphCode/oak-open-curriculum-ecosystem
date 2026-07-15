@@ -902,8 +902,8 @@ export const {SUBJECT}_{PHASE}_{CATEGORY}_EXPECTED: ExpectedRelevance = {
 
 ### Other Documents
 
-| Document                                                                                                           | Purpose                                   |
-| ------------------------------------------------------------------------------------------------------------------ | ----------------------------------------- |
-| [Session Prompt](../../../../../../.agent/prompts/semantic-search/archive/semantic-search.prompt.md)               | Session entry point for GT work           |
-| [GT Redesign Plan](../../../../../../.agent/plans/semantic-search/archive/completed/ground-truth-redesign-plan.md) | GT redesign (completed)                   |
-| [IR-METRICS.md](../../../docs/IR-METRICS.md)                                                                       | Metric definitions (MRR, NDCG, P@3, R@10) |
+| Document                                                                       | Purpose                                   |
+| ------------------------------------------------------------------------------ | ----------------------------------------- |
+| `semantic-search.prompt.md` (retired)                                          | Former session entry point for GT work    |
+| `.agent/plans/semantic-search/archive/completed/ground-truth-redesign-plan.md` | GT redesign (completed)                   |
+| [IR-METRICS.md](../../../../docs/IR-METRICS.md)                                | Metric definitions (MRR, NDCG, P@3, R@10) |

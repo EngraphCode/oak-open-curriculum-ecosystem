@@ -22,7 +22,7 @@ commitlint).
 **Session outcome**:
 
 1. New programme file at
-   [`.agent/plans/curriculum-mcp-path-to-ga/roadmap.md`](../../../plans/curriculum-mcp-path-to-ga/roadmap.md)
+   [`.agent/plans/curriculum-mcp-path-to-ga/roadmap.md`](../../../../plans/curriculum-mcp-path-to-ga/roadmap.md)
    — thin strategic-index sequencing M1 → M2 → M3 → GA across observability,
    security-and-privacy, sdk-and-mcp-enhancements, compliance, and
    architecture-and-infrastructure collections. Owns no execution; sub-plans
@@ -31,12 +31,12 @@ commitlint).
    A3 MCP 2026-07-28 upgrade plan; A4 M4/GA milestone definition; A5
    Exploration 10 formal ruling backfill).
 2. Inbound links added at
-   [`high-level-plan.md`](../../../plans/high-level-plan.md)
+   [`high-level-plan.md`](../../../../plans/high-level-plan.md)
    §"MCP Path-to-GA coordination" and
-   [`milestones/README.md`](../../../milestones/README.md) near the milestone
+   [`milestones/README.md`](../../../../milestones/README.md) near the milestone
    sequence.
 3. Exploration file
-   [`docs/explorations/2026-05-26-mcp-analytics-identity-and-event-emission.md`](../../../../docs/explorations/2026-05-26-mcp-analytics-identity-and-event-emission.md)
+   [`docs/explorations/2026-05-26-mcp-analytics-identity-and-event-emission.md`](../../../../../docs/explorations/2026-05-26-mcp-analytics-identity-and-event-emission.md)
    committed (previously untracked at Glassy's handoff).
 4. Five substance amendments landed under exploration §15's narrow
    deferral scope (§15 defers only the events-workspace schema catalogue,
@@ -65,7 +65,7 @@ not trace-context propagation, so `traceparent` documentation belongs at
 L-3 only.
 
 **Authoritative design record**:
-[`docs/explorations/2026-05-26-mcp-analytics-identity-and-event-emission.md`](../../../../docs/explorations/2026-05-26-mcp-analytics-identity-and-event-emission.md)
+[`docs/explorations/2026-05-26-mcp-analytics-identity-and-event-emission.md`](../../../../../docs/explorations/2026-05-26-mcp-analytics-identity-and-event-emission.md)
 — design complete; **execution plan explicitly deferred** until Jim requests
 promotion (`linking.direction: outbound-only`).
 
@@ -134,5 +134,5 @@ processors other than PostHog and guarded Sentry.
 2. [`observability-sentry-otel`](observability-sentry-otel.next-session.md)
    thread for Sentry/OTel engineering context (paused).
 3. Prospective execution home:
-   [`observability-events-workspace.plan.md`](../../../plans/observability/current/observability-events-workspace.plan.md)
+   [`observability-events-workspace.plan.md`](../../../../plans/observability/current/observability-events-workspace.plan.md)
    — amend for `dependency_call` at promotion only.

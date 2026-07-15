@@ -453,7 +453,7 @@ rewrite plans.
 
 ## References
 
-- [ADR-117](../../../docs/architecture/architectural-decisions/117-plan-templates-and-components.md) —
+- [ADR-117](../../../../docs/architecture/architectural-decisions/117-plan-templates-and-components.md) —
   Plan templates and components
 - Templates:
   - `collection-readme-template.md`

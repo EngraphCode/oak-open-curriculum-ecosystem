@@ -8,7 +8,7 @@ Discipline Across Agent Boundaries.
 
 **Before operating in an area another agent has named in a recent
 rendered shared-communication-log entry or in an active claim entry in
-[`active-claims.json`](../state/collaboration/active-claims.json),
+`active-claims.json` (see the tracked [state contract](../state/README.md)),
 consult the surface and decide how to coordinate. Document your decision
 on your own claim entry or as a comms event rendered into the shared log. Do not
 proceed until you have consulted, decided, and logged.**
@@ -104,16 +104,14 @@ and Communication, Not Mechanical Refusals.
 
 Any file path, plan, ADR, workspace, or git transaction surface currently
 named in another agent's recent rendered shared-log entry or in an active
-claim entry in
-[`active-claims.json`](../state/collaboration/active-claims.json).
+claim entry in `active-claims.json`.
 
 For rendered shared-log entries, "recent" is bounded by the 24-hour
 concrete-now bridge — entries older than 24 hours are noise to be
 audited at consolidation, not blockers. For active claims, freshness is
 authoritative: the `freshness_seconds` field (default 14400 = 4 hours)
 plus optional `heartbeat_at` define the active window; expired claims
-are archived by `consolidate-docs § 7e` to
-[`closed-claims.archive.json`](../state/collaboration/closed-claims.archive.json)
+are archived by `consolidate-docs § 7e` to `closed-claims.archive.json`
 with `closure.kind: "stale"`. Normal and owner-forced closes use the
 same archive with `closure.kind: "explicit"` or `"owner_forced"`.
 
@@ -135,14 +133,13 @@ exact staged-bundle verification is the final guard before durable history.
 
 ## Discovery surfaces
 
-- **Structured claims** — read
-  [`active-claims.json`](../state/collaboration/active-claims.json)
+- **Structured claims** — read `active-claims.json`
   first; this is the queryable roster of who is working where right
   now. The
   [`register-active-areas-at-session-open`](register-active-areas-at-session-open.md)
   rule installs the registration discipline.
 - **Free-form discussion** —
-  [`.agent/state/collaboration/shared-comms-log.md`](../state/collaboration/shared-comms-log.md)
+  `.agent/state/collaboration/shared-comms-log.md`
   is the generated narrative surface for context, questions, and
   coordination notes that do not fit the claim schema. New writes append
   immutable comms events, then render the log. The
@@ -179,6 +176,6 @@ without further coordination overhead.
 - Operational guide:
   [`collaboration-state-conventions.md`](../memory/operational/collaboration-state-conventions.md).
 - Decision-thread schema:
-  [`conversation.schema.json`](../state/collaboration/conversation.schema.json).
+  [`conversation.schema.json`](../../agent-tools/src/collaboration-state/schemas/conversation.schema.json).
 - Escalation schema:
-  [`escalation.schema.json`](../state/collaboration/escalation.schema.json).
+  [`escalation.schema.json`](../../agent-tools/src/collaboration-state/schemas/escalation.schema.json).

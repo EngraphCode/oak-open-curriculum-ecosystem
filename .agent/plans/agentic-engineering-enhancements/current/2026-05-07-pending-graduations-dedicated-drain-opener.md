@@ -25,7 +25,7 @@ Step 2.
   next-audit input per the prior opener's boundary, not a session
   brake.
 - `graduated 2026-05-04|05` entries: archived in
-  [`archive/pending-graduations-archive-2026-05-06.md`](../../../memory/operational/archive/pending-graduations-archive-2026-05-06.md).
+  `archive/pending-graduations-archive-2026-05-06.md` (`../../../memory/operational/archive/pending-graduations-archive-2026-05-06.md`).
   Live register no longer carries them.
 - 8 `due` entries flagged for execution:
   - L103 — pattern surface needs polarity discipline (partial sweep

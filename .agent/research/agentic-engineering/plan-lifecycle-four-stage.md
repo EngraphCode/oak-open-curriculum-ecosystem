@@ -8,7 +8,7 @@
 > early Production scope.
 > **Routing**: relocated 2026-04-22 (Session 7, `memory-feedback` thread)
 > from `.agent/practice-context/outgoing/` to research-tier per
-> [PDR-014 §Graduation-target routing](../../../practice-core/decision-records/PDR-014-consolidation-and-knowledge-flow-discipline.md#graduation-target-routing)
+> [PDR-014 §Graduation-target routing](../../practice-core/decision-records/PDR-014-consolidation-and-knowledge-flow-discipline.md)
 > — content is reference-shape (read-to-learn for downstream repos),
 > not Practice-governance, not engineering-pattern. Lands in research
 > notes (per PDR-032's research-tier definition) rather than the

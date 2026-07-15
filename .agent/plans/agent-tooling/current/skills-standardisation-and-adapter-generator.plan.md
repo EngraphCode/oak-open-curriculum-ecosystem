@@ -268,7 +268,7 @@ Phase 1 documents already landed (attempt 1):
 - [`PDR-051-vendor-agnostic-skills-standardisation.md`](../../../practice-core/decision-records/PDR-051-vendor-agnostic-skills-standardisation.md) — portable doctrine.
 - [`ADR-125 (Amended 2026-05-09)`](../../../../docs/architecture/architectural-decisions/125-agent-artefact-portability.md) — host adoption.
 - [`F-16`](../../../memory/operational/frictions-register.md) — drift signal addressed by this plan.
-- Failed attempt-1 record: [`../archive/failed-skills-standardisation-attempt-1-2026-05-09.plan.md`](../archive/failed-skills-standardisation-attempt-1-2026-05-09.plan.md).
+- Failed attempt-1 record: `../../../plans-old-archive/agent-tooling/archive/failed-skills-standardisation-attempt-1-2026-05-09.plan.md` (`../../../plans-old-archive/agent-tooling/archive/failed-skills-standardisation-attempt-1-2026-05-09.plan.md`).
 
 This plan implements the generator, validator extensions, mass migration, and documentation propagation. It is the only artefact that adds product behaviour; the docs are unchanged from attempt 1.
 
@@ -1092,4 +1092,4 @@ After WS6 passes, run `/jc-consolidate-docs`. Update `.agent/memory/operational/
 
 **Friction closed**: F-16.
 
-**Failed predecessor**: [`../archive/failed-skills-standardisation-attempt-1-2026-05-09.plan.md`](../archive/failed-skills-standardisation-attempt-1-2026-05-09.plan.md).
+**Failed predecessor**: `../../../plans-old-archive/agent-tooling/archive/failed-skills-standardisation-attempt-1-2026-05-09.plan.md` (`../../../plans-old-archive/agent-tooling/archive/failed-skills-standardisation-attempt-1-2026-05-09.plan.md`).

@@ -66,7 +66,7 @@ The tier was reformed during the `memory-feedback` Session 6
 closing arc (2026-04-22). All previous contents were relocated to
 [`research/notes/`](../research/notes/README.md) for per-file
 disposition under the
-[reference-research-notes-rehoming plan](../plans/agentic-engineering-enhancements/archive/completed/reference-research-notes-rehoming.plan.md) (archived 2026-04-22 Session 8 with full execution record).
+reference-research-notes-rehoming plan (`../plans-old-archive/agentic-engineering-enhancements/archive/completed/reference-research-notes-rehoming.plan.md`) (archived 2026-04-22 Session 8 with full execution record).
 The first three promotions under PDR-032 (the inaugural
 applications of the gate) populate the tier:
 
@@ -98,7 +98,7 @@ decision (no SLA — owner-appetite-triggered):
   Routing tension: would need a 3+ document thematic
   subdirectory (e.g., `reference/platform-parity/`) per PDR-032
   clustering discipline. Current location: see archived
-  [rehoming plan execution record](../plans/agentic-engineering-enhancements/archive/completed/reference-research-notes-rehoming.plan.md)
+  rehoming plan execution record (`../plans-old-archive/agentic-engineering-enhancements/archive/completed/reference-research-notes-rehoming.plan.md`)
   §Open items for full disposition trace.
 - **`boundary-enforcement-with-eslint.md`** — concrete
   enforcement recipe for ADR-019 / PDR-007 / ADR-018 boundary
@@ -117,7 +117,7 @@ required.
 ## See also
 
 - [PDR-032: Reference Tier as Curated Library](../practice-core/decision-records/PDR-032-reference-tier-as-curated-library.md) — governance
-- [PDR-007: Practice Core Bounded Package Contract](../practice-core/decision-records/PDR-007-practice-core-bounded-package-contract.md) — `practice-context/outgoing/` contract; outgoing material that needs a durable home may graduate into `reference/` per PDR-032
+- PDR-007: Practice Core Bounded Package Contract (`../practice-core/decision-records/PDR-007-practice-core-bounded-package-contract.md`) — `practice-context/outgoing/` contract; outgoing material that needs a durable home may graduate into `reference/` per PDR-032
 - [PDR-014: Consolidation and Knowledge-Flow Discipline §Graduation-target routing](../practice-core/decision-records/PDR-014-consolidation-and-knowledge-flow-discipline.md) — routing logic that produces `reference/` promotion candidates
 - [`research/`](../research/README.md) — default home for fresh material; holding bay for un-promoted candidates and de-promoted formerly-reference material
 - [`reports/`](../reports/README.md) — promoted audits and formal syntheses (different lifecycle from `reference/`; reports are owner-promoted formal artefacts, reference is owner-promoted library material)

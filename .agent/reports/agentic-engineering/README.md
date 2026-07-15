@@ -9,7 +9,7 @@ It complements, rather than replaces:
   evidence
 - [research/agentic-engineering/README.md](../../research/agentic-engineering/README.md)
   for themed source-material routing
-- [reference/agentic-engineering/README.md](../../reference/agentic-engineering/README.md)
+- [reference/agentic-engineering/README.md](../../research/agentic-engineering/README.md)
   for the concept map and seed deep dives
 
 ## Sub-Lanes

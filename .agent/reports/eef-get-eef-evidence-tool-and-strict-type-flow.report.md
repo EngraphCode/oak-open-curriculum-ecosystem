@@ -5,7 +5,7 @@
 > "how it works" section are written to be promoted into `docs/` or a tool README)
 > **and** the eventual report on the tool + the further value the EEF corpus could
 > enable. Authoritative execution next-steps live in
-> [`eef-d6-execution.plan.md`](../plans/sector-engagement/eef/current/eef-d6-execution.plan.md);
+> `eef-d6-execution.plan.md` (`../plans-old-archive/sector-engagement/eef/archive/eef-d6-execution.plan.md`);
 > this report does not duplicate the cycle spec, it records the *analysis, the
 > diagram, and the correct fix*.
 >

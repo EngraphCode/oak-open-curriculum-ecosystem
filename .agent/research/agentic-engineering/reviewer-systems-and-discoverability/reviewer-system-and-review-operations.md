@@ -7,9 +7,9 @@ depth, and reintegration discipline.
 
 - [ADR-114](../../../../docs/architecture/architectural-decisions/114-layered-sub-agent-prompt-composition-architecture.md)
 - [ADR-129](../../../../docs/architecture/architectural-decisions/129-domain-specialist-capability-pattern.md)
-- [ADR-146](../../../../docs/architecture/architectural-decisions/146-assumptions-reviewer-meta-level-plan-assessment.md)
-- [ADR-149](../../../../docs/architecture/architectural-decisions/149-frontend-specialist-reviewer-gateway-cluster.md)
-- [invoke-code-reviewers.md](../../../memory/executive/invoke-code-reviewers.md)
+- ADR-146 (`../../../../docs/architecture/architectural-decisions/146-assumptions-reviewer-meta-level-plan-assessment.md`)
+- ADR-149 (`../../../../docs/architecture/architectural-decisions/149-frontend-specialist-reviewer-gateway-cluster.md`)
+- invoke-code-reviewers.md (`../../../memory/executive/invoke-code-reviewers.md`)
 
 ## Operational and Canon-Adjacent Sources
 
@@ -17,8 +17,8 @@ depth, and reintegration discipline.
 
 ## Staged and Reflective Sources
 
-- [reviewer-gateway-operations.md](../../../practice-context/outgoing/reviewer-gateway-operations.md)
-- [production-reviewer-scaling.md](../../../practice-context/outgoing/production-reviewer-scaling.md)
+- reviewer-gateway-operations.md (`../../../practice-context/outgoing/reviewer-gateway-operations.md`)
+- production-reviewer-scaling.md (`../../../practice-context/outgoing/production-reviewer-scaling.md`)
 - [2026-03-10-the-reviewers-as-collaborators.md](../../../experience/2026-03-10-the-reviewers-as-collaborators.md)
 - [phase-5-sub-agents-collaboration.md](../../../experience/phase-5-sub-agents-collaboration.md)
 

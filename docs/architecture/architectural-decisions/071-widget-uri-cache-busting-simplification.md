@@ -109,4 +109,4 @@ All quality gates passing after implementation:
 
 ## See Also
 
-- [Implementation Plan](.agent/prompts/widget-uri-cache-busting-simplification.prompt.md)
+- Implementation Plan (`../../../.agent/prompts/archive/widget-uri-cache-busting-simplification.prompt.md`)

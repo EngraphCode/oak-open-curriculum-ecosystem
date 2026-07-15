@@ -4,7 +4,8 @@ pdr_kind: governance
 
 # PDR-105: Reference-Direction Invariants — the Artefact Fundamentality Hierarchy
 
-**Status**: Accepted (owner co-design, 2026-06-19)
+**Status**: Accepted (owner co-design, 2026-06-19); amended 2026-07-15
+(stable-address availability precondition)
 **Date**: 2026-06-19
 **Related**:
 [PDR-019](PDR-019-adr-scope-by-reusability.md) (defines the ADR=specific /
@@ -92,6 +93,13 @@ move then updates one place. A stable index has a stable *address* even though i
 *content* changes; that is what makes it a safe dependency target for the identities
 it resolves.
 
+A stable address is necessary but not sufficient: the abstraction must also be
+available everywhere its referrer is available. An untracked, checkout-local generated
+surface does not out-travel a tracked document, even when its conventional path never
+changes. Tracked doctrine therefore links to a tracked index or contract that describes
+the instance surface; it may name the checkout-local path as code, but must not create a
+resolvable dependency on a target that is absent from a clean checkout.
+
 This generalises beyond an index. A **stable-addressed surface** — a singleton
 registry, a log, an index, or a schema whose *address* is fixed by construction while
 its *content* churns — is itself a safe dependency target for what it holds, for the
@@ -133,10 +141,12 @@ records under their `Lane state` substructure.
 
 The stable-addressed operational surfaces that durable doctrine may link without a
 durability violation (the corollary's generalisation, enforced by
-`validate-reference-direction`) are: the singleton registries/logs `active-claims.json`,
-`closed-claims.archive.json`, `shared-comms-log.md`; the fixed-address index/convention
-READMEs `patterns/README.md`, `threads/README.md`, `state/README.md`; the permanent
-collaboration/library directories `conversations/`, `escalations/`, `comms/`,
-`handoffs/`, `patterns/`; and any `*.schema.json`. A link names the *surface*; a link to
-one volatile item inside it (an individual pattern, thread record, plan, or a single
-file within a stable directory) stays a defect — reach it through the stable surface.
+`validate-reference-direction`) are the tracked fixed-address index/convention READMEs
+`patterns/README.md`, `threads/README.md`, and `state/README.md`; the tracked
+collaboration/library directories `conversations/`, `escalations/`, `handoffs/`, and
+`patterns/`; and tracked `*.schema.json` contracts. A link names the tracked surface; a
+link to one volatile item inside it (an individual pattern, thread record, plan, or a
+single file within a stable directory) stays a defect — reach it through the stable
+surface. Checkout-local `active-claims.json`, `closed-claims.archive.json`,
+`shared-comms-log.md`, and `comms/` are named as code and reached operationally through
+the tracked `state/README.md` contract rather than linked from versioned documentation.

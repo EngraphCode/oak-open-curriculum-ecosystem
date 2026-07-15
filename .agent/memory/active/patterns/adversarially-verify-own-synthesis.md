@@ -45,6 +45,6 @@ correctness.
 
 ## Related
 
-- [`premature-crystallization.md`](premature-crystallization.md) — resist closing into a crisp shape too early.
+- `premature-crystallization.md` (`premature-crystallization.md`) — resist closing into a crisp shape too early.
 - [`fluency-is-a-failure-vector.md`](fluency-is-a-failure-vector.md) — fluency is the trigger to ground, not confirmation.
 - `verify-dont-trust` rule — turned on your own synthesis, not just external inputs.

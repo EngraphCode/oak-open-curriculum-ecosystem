@@ -96,7 +96,7 @@ first-class consumers, not as a search sub-feature.
   currently registers the curriculum model, prior knowledge graph, thread
   progressions, and misconception graph. There are no live `curriculum://oak-kg-*`
   resources yet.
-- [graph-resource-factory.ts](../../packages/sdks/oak-curriculum-sdk/src/mcp/graph-resource-factory.ts)
+- `packages/sdks/oak-curriculum-sdk/src/mcp/graph-resource-factory.ts`
   already supports the correct supplementary-surface model for ontology-backed
   resources: resource and tool creation, `_meta.attribution`, and optional
   priority.
@@ -172,7 +172,7 @@ The mismatch is bi-directional:
 - The current official ontology includes citizenship, which the current POC
   subject list does not expose.
 - The current bulk thread progression asset in
-  [thread-progression-data.ts](../../packages/sdks/oak-sdk-codegen/src/generated/vocab/thread-progression-data.ts)
+  `packages/sdks/oak-sdk-codegen/src/generated/vocab/thread-progression-data.ts`
   covers `164` threads across `16` subjects, while the official ontology
   currently defines `80` thread nodes in `data/threads.ttl`.
 
@@ -270,7 +270,7 @@ mean "records carrying the property", not necessarily the total number of edges.
 
 **Current enablers**
 
-- [graph-resource-factory.ts](../../packages/sdks/oak-curriculum-sdk/src/mcp/graph-resource-factory.ts)
+- `packages/sdks/oak-curriculum-sdk/src/mcp/graph-resource-factory.ts`
 - [source-attribution.ts](../../packages/sdks/oak-curriculum-sdk/src/mcp/source-attribution.ts)
 - [register-resources.ts](../../apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts)
 
@@ -361,10 +361,10 @@ simple authority matrix that answers:
 | [official-api-ontology-comparison.md](../research/official-api-ontology-comparison.md) | API versus ontology framing | Still useful; now needs the newer subject-coverage and join-key caveats from this report |
 | `open-education-knowledge-surfaces.plan.md` (since archived) | MCP umbrella for multi-source surfaces | WS-4 should widen from one taxonomy slice to a small official ontology surface family |
 | [nc-knowledge-taxonomy-surface.plan.md](../plans/connecting-oak-resources/knowledge-graph-integration/future/nc-knowledge-taxonomy-surface.plan.md) | First safe MCP ontology slice | Still valid, but too narrow to stand alone as "the ontology integration plan" |
-| [ontology-integration-strategy.md](../plans/connecting-oak-resources/knowledge-graph-integration/future/ontology-integration-strategy.md) | Source-management strategy | Should be revisited explicitly to compare the current submodule-first interim path with subtree-style vendoring arguments elsewhere in the repo, rather than letting this report silently decide the source-management direction |
-| [kg-alignment-audit.execution.plan.md](../plans/connecting-oak-resources/knowledge-graph-integration/current/kg-alignment-audit.execution.plan.md) | Join-key and mismatch evidence plan | Should explicitly classify thread joins as strongest first candidate and unit/lesson/programme joins as blocked pending evidence |
-| [kg-integration-quick-wins.plan.md](../plans/connecting-oak-resources/knowledge-graph-integration/current/kg-integration-quick-wins.plan.md) | Search/graph quick-win parent plan | Quick wins should narrow around projection-safe slices before live traversal ambitions |
-| [oak-ontology-graph-opportunities.strategy.md](../plans/connecting-oak-resources/knowledge-graph-integration/oak-ontology-graph-opportunities.strategy.md) | Strategic search/graph stance | Good strategy, but this report adds stronger evidence on coverage limits, non-search consumers, and the direct-use baseline |
+| ontology-integration-strategy.md (`../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/superseded/ontology-integration-strategy.md`) | Source-management strategy | Should be revisited explicitly to compare the current submodule-first interim path with subtree-style vendoring arguments elsewhere in the repo, rather than letting this report silently decide the source-management direction |
+| kg-alignment-audit.execution.plan.md (`../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/superseded/kg-alignment-audit.execution.plan.md`) | Join-key and mismatch evidence plan | Should explicitly classify thread joins as strongest first candidate and unit/lesson/programme joins as blocked pending evidence |
+| kg-integration-quick-wins.plan.md (`../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/superseded/kg-integration-quick-wins.plan.md`) | Search/graph quick-win parent plan | Quick wins should narrow around projection-safe slices before live traversal ambitions |
+| oak-ontology-graph-opportunities.strategy.md (`../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/superseded/oak-ontology-graph-opportunities.strategy.md`) | Strategic search/graph stance | Good strategy, but this report adds stronger evidence on coverage limits, non-search consumers, and the direct-use baseline |
 | [apps/oak-search-cli/docs/SYNONYMS.md](../../apps/oak-search-cli/docs/SYNONYMS.md) | Existing service documentation | Needs wording updates once vocabulary ownership is formally split |
 
 ## What Not To Do
@@ -389,7 +389,7 @@ documentation: README, standards-compliance, Neo4j export architecture,
 and CONTRIBUTING guide.
 
 The original plan is at
-[ontology-repo-fresh-perspective-review.plan.md](../plans/connecting-oak-resources/knowledge-graph-integration/future/ontology-repo-fresh-perspective-review.plan.md).
+ontology-repo-fresh-perspective-review.plan.md (`../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/completed/ontology-repo-fresh-perspective-review.plan.md`).
 
 ### Upstream Use-Case Coverage Gap
 
@@ -527,9 +527,9 @@ report gave them:
 | Plan | Recommendation |
 | --- | --- |
 | `open-education-knowledge-surfaces.plan.md` (since archived) | **Leave alone.** WS-4 scope is appropriate for a first integration. The wider `oak-kg-*` family recommended in this report naturally follows as WS-4 proves the pattern. |
-| [ontology-integration-strategy.md](../plans/connecting-oak-resources/knowledge-graph-integration/future/ontology-integration-strategy.md) | **Widen.** Add JSON-LD GitHub Release consumption as a candidate alongside npm package and git submodule. Add a watchlist note for the SPARQL endpoint roadmap item. |
-| [kg-alignment-audit.execution.plan.md](../plans/connecting-oak-resources/knowledge-graph-integration/current/kg-alignment-audit.execution.plan.md) | **Leave alone.** The audit's Phase 0 scope lock will independently re-read the ontology from first principles. This addendum's findings should be available as context but should not pre-empt the audit's own methodology. |
-| [oak-ontology-graph-opportunities.strategy.md](../plans/connecting-oak-resources/knowledge-graph-integration/oak-ontology-graph-opportunities.strategy.md) | **Narrow framing caveat.** Keep the search-first framing as a repo-local optimisation only, with direct ontology use as the baseline and platform choice still open. |
+| ontology-integration-strategy.md (`../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/superseded/ontology-integration-strategy.md`) | **Widen.** Add JSON-LD GitHub Release consumption as a candidate alongside npm package and git submodule. Add a watchlist note for the SPARQL endpoint roadmap item. |
+| kg-alignment-audit.execution.plan.md (`../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/superseded/kg-alignment-audit.execution.plan.md`) | **Leave alone.** The audit's Phase 0 scope lock will independently re-read the ontology from first principles. This addendum's findings should be available as context but should not pre-empt the audit's own methodology. |
+| oak-ontology-graph-opportunities.strategy.md (`../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/superseded/oak-ontology-graph-opportunities.strategy.md`) | **Narrow framing caveat.** Keep the search-first framing as a repo-local optimisation only, with direct ontology use as the baseline and platform choice still open. |
 
 ## Closing Position
 

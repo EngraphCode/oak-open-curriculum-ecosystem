@@ -2,7 +2,7 @@
 
 **Status**: ✅ Milestones 0 and 1 complete. Recovery lane plans are archived; active execution is now narrowed to open production validation findings while pending follow-ons are queued in `current/`.
 **Last Updated**: 2026-03-21
-**Session Entry**: [semantic-search.prompt.md](../../prompts/semantic-search/archive/semantic-search.prompt.md)
+**Session Entry**: semantic-search.prompt.md (`../../prompts/semantic-search/archive/semantic-search.prompt.md`)
 **Metrics Authority**: [Ground Truth Protocol](../../../apps/oak-search-cli/docs/ground-truths/ground-truth-protocol.md)
 
 ---
@@ -41,12 +41,12 @@ For full milestone definitions: [high-level-plan.md](../high-level-plan.md).
 ## Current State (Compact)
 
 - No active plans. All archived:
-  - [prod-search-assessment.execution.plan.md](archive/completed/prod-search-assessment.execution.plan.md) — verified in production (2026-03-25)
-  - [f2-closure-and-p0-ingestion.execution.plan.md](archive/completed/f2-closure-and-p0-ingestion.execution.plan.md) — code + re-ingest complete (2026-03-24)
-  - [search-tool-prod-validation-findings-2026-03-15.md](archive/completed/search-tool-prod-validation-findings-2026-03-15.md) — findings register (closed 2026-03-25)
+  - prod-search-assessment.execution.plan.md (`../../plans-old-archive/semantic-search/archive/completed/prod-search-assessment.execution.plan.md`) — verified in production (2026-03-25)
+  - f2-closure-and-p0-ingestion.execution.plan.md (`../../plans-old-archive/semantic-search/archive/completed/f2-closure-and-p0-ingestion.execution.plan.md`) — code + re-ingest complete (2026-03-24)
+  - search-tool-prod-validation-findings-2026-03-15.md (`../../plans-old-archive/semantic-search/archive/completed/search-tool-prod-validation-findings-2026-03-15.md`) — findings register (closed 2026-03-25)
 - Completed authorities archived:
-  - [semantic-search-recovery-and-guardrails.execution.plan.md](archive/completed/semantic-search-recovery-and-guardrails.execution.plan.md)
-  - [semantic-search-ingest-runbook.md](archive/completed/semantic-search-ingest-runbook.md)
+  - semantic-search-recovery-and-guardrails.execution.plan.md (`../../plans-old-archive/semantic-search/archive/completed/semantic-search-recovery-and-guardrails.execution.plan.md`)
+  - semantic-search-ingest-runbook.md (`../../plans-old-archive/semantic-search/archive/completed/semantic-search-ingest-runbook.md`)
 - Pending/not-started semantic-search lanes are queued in
   [current/README.md](current/README.md), including:
   `unified-versioned-ingestion`, `sequence-retrieval-architecture-followup`,
@@ -54,9 +54,9 @@ For full milestone definitions: [high-level-plan.md](../high-level-plan.md).
   `bulk-metadata-quick-wins`, `kg-alignment-audit`, and
   `category-integration-remediation`.
 - Supporting incident history is archived in
-  [archive/completed/cli-robustness.plan.md](archive/completed/cli-robustness.plan.md).
+  ../../plans-old-archive/semantic-search/archive/completed/cli-robustness.plan.md (`../../plans-old-archive/semantic-search/archive/completed/cli-robustness.plan.md`).
 - Migration boundary doctrine evidence remains in
-  [archive/completed/search-cli-sdk-boundary-migration.execution.plan.md](archive/completed/search-cli-sdk-boundary-migration.execution.plan.md).
+  ../../plans-old-archive/semantic-search/archive/completed/search-cli-sdk-boundary-migration.execution.plan.md (`../../plans-old-archive/semantic-search/archive/completed/search-cli-sdk-boundary-migration.execution.plan.md`).
 
 Ground-truth baseline snapshot:
 
@@ -104,8 +104,8 @@ Cross-boundary strategic plans:
 Cross-stream queued references:
 
 - [current/bulk-metadata-quick-wins.execution.plan.md](current/bulk-metadata-quick-wins.execution.plan.md)
-- [../connecting-oak-resources/knowledge-graph-integration/current/kg-alignment-audit.execution.plan.md](../connecting-oak-resources/knowledge-graph-integration/current/kg-alignment-audit.execution.plan.md)
-- [../connecting-oak-resources/knowledge-graph-integration/current/kg-integration-quick-wins.plan.md](../connecting-oak-resources/knowledge-graph-integration/current/kg-integration-quick-wins.plan.md)
+- ../../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/superseded/kg-alignment-audit.execution.plan.md (`../../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/superseded/kg-alignment-audit.execution.plan.md`)
+- ../../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/superseded/kg-integration-quick-wins.plan.md (`../../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/superseded/kg-integration-quick-wins.plan.md`)
 - [current/sequence-retrieval-architecture-followup.plan.md](current/sequence-retrieval-architecture-followup.plan.md)
 
 ---
@@ -136,7 +136,7 @@ pnpm smoke:dev:stub
 
 ## Related Documents
 
-1. [semantic-search.prompt.md](../../prompts/semantic-search/archive/semantic-search.prompt.md)
+1. semantic-search.prompt.md (`../../prompts/semantic-search/archive/semantic-search.prompt.md`)
 2. [README.md](README.md)
 3. [Relocated archive (completed/superseded plans)](../../plans-old-archive/semantic-search/) — ADR-200
 4. [search-acceptance-criteria.md](search-acceptance-criteria.md)

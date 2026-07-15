@@ -80,8 +80,8 @@ disposition.
 | [agentic-engineering-enhancements/](agentic-engineering-enhancements/) | Practice/governance layer: how agents collaborate, plan, communicate, review, learn, and improve the repo | 🔄 Active + queued execution |
 | [agent-tooling/](agent-tooling/) | Implementation layer for the `agent-tools/` workspace, collaboration-state substrate, hooks, CLIs, schemas, and adapter generation | 🔄 Active + queued execution |
 | [user-experience/](user-experience/) | Persona-level outcome contracts and UX reference material | 📋 Legacy/reference |
-| [icebox/](icebox/) | Deferred/low-priority ideas with promotion triggers | ⏸ Deferred |
-| [archive/](archive/) | Historical completed/superseded plans | ✅ Reference |
+| `icebox/` | Deferred/low-priority ideas with promotion triggers | ⏸ Deferred |
+| `archive/` | Historical completed/superseded plans | ✅ Reference |
 | [templates/](templates/) | Plan templates and reusable components | 📚 Reference |
 
 ---

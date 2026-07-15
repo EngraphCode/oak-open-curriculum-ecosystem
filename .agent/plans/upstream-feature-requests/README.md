@@ -50,5 +50,5 @@ brand, tone) that route agents through Oak's MCP tools.
   — a different concern (new endpoints / `x-oak-*` extensions), not consolidated
   here.
 - The earlier exploratory API wishlist was archived to
-  [`../sector-engagement/archive/ooc-api-wishlist/`](../sector-engagement/archive/ooc-api-wishlist/) on 2026-06-08;
+  `../sector-engagement/archive/ooc-api-wishlist/` on 2026-06-08;
   carry forward only live, evidence-backed requests.

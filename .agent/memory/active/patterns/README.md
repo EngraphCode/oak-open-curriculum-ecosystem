@@ -144,7 +144,7 @@ The `use_this_when` field is the primary discovery mechanism. It describes the m
 
 ## How Patterns Differ from Rules
 
-**Rules** (in [`principles.md`](../../directives/principles.md)) are principles: "never use type-erasing `as`". **Patterns** are "how to implement the principle": replace the `as` cast with a const map lookup. Rules say what; patterns say how.
+**Rules** (in [`principles.md`](../../../directives/principles.md)) are principles: "never use type-erasing `as`". **Patterns** are "how to implement the principle": replace the `as` cast with a const map lookup. Rules say what; patterns say how.
 
 ## Empirical-to-Normative Flow
 

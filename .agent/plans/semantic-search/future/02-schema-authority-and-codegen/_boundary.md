@@ -15,4 +15,4 @@ Contained source document(s):
 
 Downstream consumers (in other collections):
 
-- [`architecture-and-infrastructure/future/search-cli-ingestion-pipeline-consolidation.plan.md`](../../../../architecture-and-infrastructure/future/search-cli-ingestion-pipeline-consolidation.plan.md) — the consolidated search-cli ingestion path consumes the schema-derived bulk Zod types this boundary produces; the consolidation is the place where single-source-of-truth becomes structurally enforced at write time.
+- [`architecture-and-infrastructure/future/search-cli-ingestion-pipeline-consolidation.plan.md`](../../../architecture-and-infrastructure/future/search-cli-ingestion-pipeline-consolidation.plan.md) — the consolidated search-cli ingestion path consumes the schema-derived bulk Zod types this boundary produces; the consolidation is the place where single-source-of-truth becomes structurally enforced at write time.

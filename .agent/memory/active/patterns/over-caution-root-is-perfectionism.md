@@ -23,7 +23,7 @@ root: a **perfectionism / fear-of-imperfection frame.** The fear of making a
 wrong call produces the paralysis, and the paralysis is itself the wrong call
 (an unmade decision is a decision not made; a growing backlog of them is debt).
 
-This is the dual of [`no-speed-pressure`](../../rules/no-speed-pressure.md):
+This is the dual of [`no-speed-pressure`](../../../rules/no-speed-pressure.md):
 that rule names invented *urgency* (rushing); this names invented *caution*
 (stalling). Both are the agent supplying a frame the work does not.
 
@@ -49,7 +49,7 @@ cautious") cannot cure it; only the reframe can.
 
 ## Related
 
-- [`no-speed-pressure`](../../rules/no-speed-pressure.md) — the anti-rush dual.
+- [`no-speed-pressure`](../../../rules/no-speed-pressure.md) — the anti-rush dual.
 - [`deferred-at-write-time-is-unmade-load-bearing-decision.md`](deferred-at-write-time-is-unmade-load-bearing-decision.md) — deferral is an unmade decision.
 - [`fabricated-gate-as-avoidance.md`](fabricated-gate-as-avoidance.md) — inventing a gate to avoid deciding.
 - [`fluency-is-a-failure-vector.md`](fluency-is-a-failure-vector.md) — the deferral arrives fluently as "prudence".

@@ -1,8 +1,8 @@
 # Use the Shared Communication Log
 
 Before starting work on any non-trivial edit, append a timestamped comms
-event that renders into
-[`.agent/state/collaboration/shared-comms-log.md`](../state/collaboration/shared-comms-log.md),
+event that renders into `.agent/state/collaboration/shared-comms-log.md` as
+defined by the tracked [state contract](../state/README.md),
 naming what you intend to touch and signing with your agent identity.
 Use UTC ISO 8601 timestamps with a trailing `Z` for shared log headings and
 structured collaboration state. Read recent entries first to discover what
@@ -18,8 +18,7 @@ and stale/fresh calculations.
 The shared communication log, structured claims registry, and decision
 threads are sibling state surfaces with distinct purposes:
 
-- **Claims-of-area live in
-  [`active-claims.json`](../state/collaboration/active-claims.json)** —
+- **Claims-of-area live in `active-claims.json`** —
   structured, queryable, freshness-tracked. Use this for *what I am
   working on right now*. Registration is governed by the
   [`register-active-areas-at-session-open`](register-active-areas-at-session-open.md)
@@ -98,10 +97,9 @@ announce intent per the write-minimum in item 3 below.
    pass after every tool batch during uninterrupted work inside your declared
    scope.
 
-2. **Read order (every pass)** — (1)
-   [`active-claims.json`](../state/collaboration/active-claims.json)
+2. **Read order (every pass)** — (1) `active-claims.json`
    (includes advisory root `commit_queue`); (2) the newest slice of
-   [`shared-comms-log.md`](../state/collaboration/shared-comms-log.md) until
+   `shared-comms-log.md` until
    recent peer intent is clear (typically the latest handful of headings,
    expanding into bodies only when overlap is plausible); (3) **only if** the
    next action depends on structured async coordination — the specific thread
@@ -151,9 +149,9 @@ worker takes the implementation slice only after the verdict lands.
   the read-side companion rule for area consultation.
 - [`register-active-areas-at-session-open.md`](register-active-areas-at-session-open.md)
   — the structured-claims rule that complements this one.
-- [`conversation.schema.json`](../state/collaboration/conversation.schema.json)
+- [`conversation.schema.json`](../../agent-tools/src/collaboration-state/schemas/conversation.schema.json)
   — decision-thread schema authority.
-- [`escalation.schema.json`](../state/collaboration/escalation.schema.json)
+- [`escalation.schema.json`](../../agent-tools/src/collaboration-state/schemas/escalation.schema.json)
   — owner-escalation schema authority.
 - `collaboration-state-write-safety.plan.md`
   — current comms-event and transaction-helper implementation plan.

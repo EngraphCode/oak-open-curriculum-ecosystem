@@ -21,7 +21,7 @@ do not propagate is the failure surface this PDR addresses);
 (mid-cycle retirement protocol — coupled: retirement events under
 rotation are exactly the moments where in-flight failure modes
 must be visible to the next agent during their session);
-[`practice-index.md`](../practice-index.md) (substrate-implementation
+the host's `practice-index.md` (substrate-implementation
 ADR carrying the repo-specific phenotype of this PDR).
 
 ## Context
@@ -299,5 +299,5 @@ paths involved — lives in an ADR (the phenotype). The PDR
 captures the principle (this document); the ADR captures the
 repository's concrete realisation of it. See the substrate
 implementation ADR referenced from
-[`practice-index.md`](../practice-index.md) for the current
+the host's `practice-index.md` for the current
 substrate state.

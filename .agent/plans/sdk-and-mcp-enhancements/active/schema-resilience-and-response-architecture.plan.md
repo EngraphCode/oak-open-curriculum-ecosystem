@@ -161,7 +161,7 @@ confirm whether the issue is fixed or latent.
 ### The control knob
 
 `.strict()` originates from `strictObjects: true` in
-[generate-zod-schemas.ts](../../packages/core/openapi-zod-client-adapter/src/generate-zod-schemas.ts)
+[generate-zod-schemas.ts](../../../../packages/core/openapi-zod-client-adapter/src/generate-zod-schemas.ts)
 (lines 80-81), with `additionalPropertiesDefaultValue: false`
 (lines 82-83). This is hardcoded — not configurable per-schema.
 All OpenAPI-derived Zod schemas get `.strict()`.
@@ -177,7 +177,7 @@ All OpenAPI-derived Zod schemas get `.strict()`.
   separate concern. See OQ2.
 - **`structuredContent`** — built from validated data in
   `mapExecutionResult`
-  ([executor.ts](../../packages/sdks/oak-curriculum-sdk/src/mcp/universal-tools/executor.ts)
+  ([executor.ts](../../../../packages/sdks/oak-curriculum-sdk/src/mcp/universal-tools/executor.ts)
   lines 61-63). With `.strip()`, only known fields reach
   `structuredContent`. No change needed.
 - **Type inference** — `z.infer<typeof LessonSummaryResponseSchema>`
@@ -192,12 +192,12 @@ All OpenAPI-derived Zod schemas get `.strict()`.
 ### Implementation
 
 Single change in
-[generate-zod-schemas.ts](../../packages/core/openapi-zod-client-adapter/src/generate-zod-schemas.ts):
+[generate-zod-schemas.ts](../../../../packages/core/openapi-zod-client-adapter/src/generate-zod-schemas.ts):
 
 - `strictObjects: true` -> `strictObjects: false`
 - Verify the adapter emits `.strip()` (not `.passthrough()`) — may
   need a post-processing step in
-  [zod-v3-to-v4-transform.ts](../../packages/core/openapi-zod-client-adapter/src/zod-v3-to-v4-transform.ts)
+  [zod-v3-to-v4-transform.ts](../../../../packages/core/openapi-zod-client-adapter/src/zod-v3-to-v4-transform.ts)
 - Run `pnpm sdk-codegen` to regenerate all schemas
 - Conditionally update JSON Schema generation (per OQ2)
 
@@ -209,7 +209,7 @@ Three layers of detection, from reactive to proactive.
 
 The server already logs validation failures via
 `logValidationFailureIfPresent` in
-[validation-logger.ts](../../apps/oak-curriculum-mcp-streamable-http/src/validation-logger.ts).
+[validation-logger.ts](../../../../apps/oak-curriculum-mcp-streamable-http/src/validation-logger.ts).
 With the Sentry integration coming online (per the
 sentry-canonical-alignment plan), these `logger.warn` calls will
 surface as Sentry issues.
@@ -239,7 +239,7 @@ reframing this as a server-side health endpoint.
      `info.version` string comparison
   3. Return a structured result: `{ drifted: boolean, summary: ... }`
 - Current cache write logic in
-  [schema-cache.ts](../../packages/sdks/oak-sdk-codegen/code-generation/schema-cache.ts)
+  [schema-cache.ts](../../../../packages/sdks/oak-sdk-codegen/code-generation/schema-cache.ts)
   (lines 32-47) only triggers on version string change — this is a
   known gap since the upstream API could add fields without bumping
   the version string. The health endpoint closes this gap.
@@ -282,10 +282,10 @@ Log stripped field counts at runtime. Lower priority than Layers 1-2.
 ### Current architecture
 
 `oakContextHint` is added in `formatToolResponse`
-([universal-tool-shared.ts](../../packages/sdks/oak-curriculum-sdk/src/mcp/universal-tool-shared.ts)
+([universal-tool-shared.ts](../../../../packages/sdks/oak-curriculum-sdk/src/mcp/universal-tool-shared.ts)
 lines 185-197). For generated tools, `includeContextHint` is wired
 from `descriptor.requiresDomainContext`
-([executor.ts](../../packages/sdks/oak-curriculum-sdk/src/mcp/universal-tools/executor.ts)
+([executor.ts](../../../../packages/sdks/oak-curriculum-sdk/src/mcp/universal-tools/executor.ts)
 line 64). There is no request-level mechanism to control this.
 
 The `{status, data}` envelope is built in `mapExecutionResult`

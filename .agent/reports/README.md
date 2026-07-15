@@ -39,6 +39,23 @@ declared contract; stylistic preference alone is not a contract failure.
 
 ## Current Structure
 
+- [architectural-fitness-functions-concept-exploration-2026-07-15.md](./architectural-fitness-functions-concept-exploration-2026-07-15.md)
+  — decision-ready exploration of replacing the unwired per-file
+  `max-files-per-dir` rule with deterministic, non-blocking, repository-level
+  architectural fitness signals whose counts are not limits
+- [mutation-testing-incremental-rollout-concept-exploration-2026-07-15.md](./mutation-testing-incremental-rollout-concept-exploration-2026-07-15.md)
+  — first-hand re-baseline and staged canary design for making Stryker
+  operational against unit and integration tests without treating mutation
+  score as an unexamined target or gate
+- [oak-integrations/README.md](./oak-integrations/README.md) — report family
+  for source-authority-preserving local integration of Oak OpenAPI, Oak
+  Curriculum Ontology, Oak Database-Tools, and the adjacent Castr compiler
+  through optional pinned submodules and role-specific workspace contracts
+- [oak-reusable-curriculum-architecture/README.md](./oak-reusable-curriculum-architecture/README.md)
+  — report family for the source-first, authority-aware reusable curriculum
+  architecture exploration: strategic synthesis plus separate issue registers
+  for this repository and the current Oak data estate, including the canonical
+  source-portable Elasticsearch Serverless curriculum-exploration direction
 - [agentic-engineering/README.md](./agentic-engineering/README.md) — formal
   report lane for agentic-engineering audits and deep-dive syntheses
 - [agentic-engineering/deep-dive-syntheses/governance-concepts-and-integration-report.md](./agentic-engineering/deep-dive-syntheses/governance-concepts-and-integration-report.md)
@@ -131,4 +148,4 @@ declared contract; stylistic preference alone is not a contract failure.
 
 - [analysis evidence lane](../analysis/README.md)
 - [research index](../research/README.md)
-- [agentic-engineering hub](../reference/agentic-engineering/README.md)
+- [agentic-engineering hub](../research/agentic-engineering/README.md)

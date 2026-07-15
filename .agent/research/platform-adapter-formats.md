@@ -1,7 +1,7 @@
 # Platform Adapter Reference
 
 Detailed format specifications for each AI platform's adapter files.
-This is a companion to [reviewer-system-guide.md](reviewer-system-guide.md).
+This is a companion to reviewer-system-guide.md (`reviewer-system-guide.md`).
 
 ---
 

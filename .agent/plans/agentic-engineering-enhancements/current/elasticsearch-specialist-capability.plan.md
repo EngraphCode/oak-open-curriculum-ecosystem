@@ -40,7 +40,7 @@ and rollout intent.
 
 Active execution lives in:
 
-- [active/elasticsearch-specialist-capability.execution.plan.md](active/elasticsearch-specialist-capability.execution.plan.md)
+- ../../../plans-old-archive/agentic-engineering-enhancements/archive/completed/elasticsearch-specialist-capability.execution.plan.md (`../../../plans-old-archive/agentic-engineering-enhancements/archive/completed/elasticsearch-specialist-capability.execution.plan.md`)
 
 ## Problem
 
@@ -128,7 +128,7 @@ Keep the reviewer and the skill distinct:
   doctrine, but it does not replace the reviewer.
 
 This capability follows the domain specialist triplet pattern defined in
-[ADR-129](../../../docs/architecture/architectural-decisions/129-domain-specialist-capability-pattern.md).
+[ADR-129](../../../../docs/architecture/architectural-decisions/129-domain-specialist-capability-pattern.md).
 
 ### When NOT to Invoke
 
@@ -156,7 +156,7 @@ deployment differences matter.
 ## Local Context
 
 Local context is tiered per
-[ADR-129](../../../docs/architecture/architectural-decisions/129-domain-specialist-capability-pattern.md)
+[ADR-129](../../../../docs/architecture/architectural-decisions/129-domain-specialist-capability-pattern.md)
 to balance thoroughness against context window consumption.
 
 ### Must-Read (always loaded)
@@ -165,10 +165,10 @@ These provide essential architectural context that every Elasticsearch review
 needs:
 
 - [`../../research/elasticsearch/README.md`](../../../research/elasticsearch/README.md)
-- [`docs/agent-guidance/semantic-search-architecture.md`](../../../docs/agent-guidance/semantic-search-architecture.md)
-- [`docs/architecture/architectural-decisions/074-elastic-native-first-philosophy.md`](../../../docs/architecture/architectural-decisions/074-elastic-native-first-philosophy.md)
-- [`docs/architecture/architectural-decisions/076-elser-only-embedding-strategy.md`](../../../docs/architecture/architectural-decisions/076-elser-only-embedding-strategy.md)
-- [`docs/architecture/architectural-decisions/067-sdk-generated-elasticsearch-mappings.md`](../../../docs/architecture/architectural-decisions/067-sdk-generated-elasticsearch-mappings.md)
+- [`docs/agent-guidance/semantic-search-architecture.md`](../../../../docs/agent-guidance/semantic-search-architecture.md)
+- [`docs/architecture/architectural-decisions/074-elastic-native-first-philosophy.md`](../../../../docs/architecture/architectural-decisions/074-elastic-native-first-philosophy.md)
+- [`docs/architecture/architectural-decisions/076-elser-only-embedding-strategy.md`](../../../../docs/architecture/architectural-decisions/076-elser-only-embedding-strategy.md)
+- [`docs/architecture/architectural-decisions/067-sdk-generated-elasticsearch-mappings.md`](../../../../docs/architecture/architectural-decisions/067-sdk-generated-elasticsearch-mappings.md)
 
 ### Consult-If-Relevant (loaded when the review touches that area)
 
@@ -182,15 +182,15 @@ retrieval methods, evaluation, ingest, or search tuning:
 - [`../../research/elasticsearch/system/semantic-search-plans-review.md`](../../../research/elasticsearch/system/semantic-search-plans-review.md)
 - [`../../research/elasticsearch/system/semantic-search-sdk-and-cli-extraction.md`](../../../research/elasticsearch/system/semantic-search-sdk-and-cli-extraction.md)
 - [`../semantic-search/research-index.md`](../../semantic-search/research-index.md)
-- [`../connecting-oak-resources/knowledge-graph-integration/archive/elasticsearch-and-graphs.research.md`](../../connecting-oak-resources/knowledge-graph-integration/archive/elasticsearch-and-graphs.research.md)
-- [`docs/architecture/architectural-decisions/081-search-approach-evaluation-framework.md`](../../../docs/architecture/architectural-decisions/081-search-approach-evaluation-framework.md)
-- [`docs/architecture/architectural-decisions/085-ground-truth-validation-discipline.md`](../../../docs/architecture/architectural-decisions/085-ground-truth-validation-discipline.md)
-- [`docs/architecture/architectural-decisions/089-index-everything-principle.md`](../../../docs/architecture/architectural-decisions/089-index-everything-principle.md)
-- [`docs/architecture/architectural-decisions/096-es-bulk-retry-strategy.md`](../../../docs/architecture/architectural-decisions/096-es-bulk-retry-strategy.md)
-- [`docs/architecture/architectural-decisions/099-transcript-aware-rrf-normalisation.md`](../../../docs/architecture/architectural-decisions/099-transcript-aware-rrf-normalisation.md)
-- [`docs/architecture/architectural-decisions/106-known-answer-first-ground-truth-methodology.md`](../../../docs/architecture/architectural-decisions/106-known-answer-first-ground-truth-methodology.md)
-- [`docs/architecture/architectural-decisions/110-thread-search-architecture.md`](../../../docs/architecture/architectural-decisions/110-thread-search-architecture.md)
-- [`docs/architecture/architectural-decisions/120-per-scope-search-tuning.md`](../../../docs/architecture/architectural-decisions/120-per-scope-search-tuning.md)
+- `../connecting-oak-resources/knowledge-graph-integration/archive/elasticsearch-and-graphs.research.md` (`../../../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/elasticsearch-and-graphs.research.md`)
+- [`docs/architecture/architectural-decisions/081-search-approach-evaluation-framework.md`](../../../../docs/architecture/architectural-decisions/081-search-approach-evaluation-framework.md)
+- [`docs/architecture/architectural-decisions/085-ground-truth-validation-discipline.md`](../../../../docs/architecture/architectural-decisions/085-ground-truth-validation-discipline.md)
+- [`docs/architecture/architectural-decisions/089-index-everything-principle.md`](../../../../docs/architecture/architectural-decisions/089-index-everything-principle.md)
+- [`docs/architecture/architectural-decisions/096-es-bulk-retry-strategy.md`](../../../../docs/architecture/architectural-decisions/096-es-bulk-retry-strategy.md)
+- [`docs/architecture/architectural-decisions/099-transcript-aware-rrf-normalisation.md`](../../../../docs/architecture/architectural-decisions/099-transcript-aware-rrf-normalisation.md)
+- [`docs/architecture/architectural-decisions/106-known-answer-first-ground-truth-methodology.md`](../../../../docs/architecture/architectural-decisions/106-known-answer-first-ground-truth-methodology.md)
+- [`docs/architecture/architectural-decisions/110-thread-search-architecture.md`](../../../../docs/architecture/architectural-decisions/110-thread-search-architecture.md)
+- [`docs/architecture/architectural-decisions/120-per-scope-search-tuning.md`](../../../../docs/architecture/architectural-decisions/120-per-scope-search-tuning.md)
 
 ## Deliverables
 
@@ -255,11 +255,11 @@ This capability is successful when:
 ## Dependencies
 
 - Domain specialist capability pattern:
-  [`docs/architecture/architectural-decisions/129-domain-specialist-capability-pattern.md`](../../../docs/architecture/architectural-decisions/129-domain-specialist-capability-pattern.md)
+  [`docs/architecture/architectural-decisions/129-domain-specialist-capability-pattern.md`](../../../../docs/architecture/architectural-decisions/129-domain-specialist-capability-pattern.md)
 - Repo artefact architecture:
-  [`docs/architecture/architectural-decisions/114-layered-sub-agent-prompt-composition-architecture.md`](../../../docs/architecture/architectural-decisions/114-layered-sub-agent-prompt-composition-architecture.md)
+  [`docs/architecture/architectural-decisions/114-layered-sub-agent-prompt-composition-architecture.md`](../../../../docs/architecture/architectural-decisions/114-layered-sub-agent-prompt-composition-architecture.md)
 - Agent artefact portability:
-  [`docs/architecture/architectural-decisions/125-agent-artefact-portability.md`](../../../docs/architecture/architectural-decisions/125-agent-artefact-portability.md)
+  [`docs/architecture/architectural-decisions/125-agent-artefact-portability.md`](../../../../docs/architecture/architectural-decisions/125-agent-artefact-portability.md)
 - Collection roadmap and indexes:
   [README.md](README.md),
-  [roadmap.md](roadmap.md)
+  [../roadmap.md](../roadmap.md)

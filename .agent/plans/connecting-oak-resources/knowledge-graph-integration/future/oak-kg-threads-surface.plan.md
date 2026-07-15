@@ -178,7 +178,7 @@ dependency.
 - Generic IRI traverser (cut-scope; new plan queued)
 - Schema/class browser (cut-scope; new plan queued)
 - SPARQL endpoint
-  ([`direct-ontology-use-and-graph-serving-prototypes.plan.md`](../future/direct-ontology-use-and-graph-serving-prototypes.plan.md);
+  (`direct-ontology-use-and-graph-serving-prototypes.plan.md` (`../../../../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/superseded/direct-ontology-use-and-graph-serving-prototypes.plan.md`);
   not part of MVP arc)
 - Forward-edge enrichment from Thread to Unit (Unit→Thread is the
   forward edge in the ontology; this slice surfaces the inverse on
@@ -323,7 +323,7 @@ Update spine
 `gate-2-threads-ships` todo to `completed`; record acceptance evidence
 (including the shape-understanding paragraph required by the MVP-arc
 gate-2 acceptance criterion); refresh
-[`connecting-oak-resources.next-session.md`](../../../../memory/operational/threads/connecting-oak-resources.next-session.md).
+[`connecting-oak-resources.next-session.md`](../../../../memory/operational/threads/paused/connecting-oak-resources.next-session.md).
 This does not gate the combinatorial-arc cross-corpus tool, which
 composes EEF and misconceptions only.
 

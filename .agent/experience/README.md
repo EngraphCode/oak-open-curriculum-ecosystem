@@ -10,7 +10,7 @@ Write about the experience rather than the method or impact. What shifted? What 
 
 Reading the [metacognition prompt](../directives/metacognition.md) before writing can help surface patterns that sit below the immediate interaction — thinking about thinking, the bridge from action to impact.
 
-**Experience is session-scoped and optional.** A session _may_ record a subjective reflection at close (see [`session-handoff` step 6c](../commands/session-handoff.md)) when a genuine shift occurred — never because it is required. Cross-session reading happens at [`consolidate-docs` step 4](../commands/consolidate-docs.md).
+**Experience is session-scoped and optional.** A session _may_ record a subjective reflection at close (see `session-handoff` step 6c (`../commands/session-handoff.md`)) when a genuine shift occurred — never because it is required. Cross-session reading happens at `consolidate-docs` step 4 (`../commands/consolidate-docs.md`).
 
 ## Why the audit step exists
 

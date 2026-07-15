@@ -66,7 +66,7 @@ narrow follow-up (one devDep, one config file, one script rewrite).
 Reviewer feedback reframed it: the per-workspace CLI ownership
 pattern it applied is exactly the shape the planned Clerk CLI
 adoption will take, and any subsequent vendor CLI after that.
-Promoting to [ADR-159](../../../docs/architecture/architectural-decisions/159-per-workspace-vendor-cli-ownership.md)
+Promoting to [ADR-159](../../../../docs/architecture/architectural-decisions/159-per-workspace-vendor-cli-ownership.md)
 made the decision discoverable, linked it back through ADR-143 /
 ADR-010 / ADR-154, and unblocked the Clerk adoption plan from
 citing a concrete authority. The ADR itself is ~200 lines — larger

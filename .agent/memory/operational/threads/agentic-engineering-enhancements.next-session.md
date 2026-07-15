@@ -23,6 +23,57 @@ feedback-mechanism arc, taxonomy work) is retained in git and in the
 work brief and the recent identity stretch, per
 [`continuity-practice.md` §Disposition](../../../directives/continuity-practice.md).
 
+## MUTATION TESTING RE-BASELINE — DECISION-READY, NO IMPLEMENTATION (2026-07-15)
+
+Session identity: Spark seeks Pumice (codex / GPT-5 / prefix `019f61`),
+standalone concept-exploration and handoff session. No team claim was opened;
+the live Director owns collaboration state and this documentation-only lane did
+not overlap it.
+
+**Current truth:** root Stryker core, Vitest runner, and TypeScript checker
+9.6.1 dependencies exist, as do `pnpm mutate`, a Turbo `mutate` task, and a
+generated base-config stub. No workspace defines a `mutate` script. A Turbo dry
+run resolved `<NONEXISTENT>` for all 26 inspected workspaces, so the root
+command is orchestration scaffolding rather than an operational capability.
+The previous source and active plans incorrectly treated the scaffold as
+absent and named deleted pilot workspaces; both now carry the re-baseline.
+
+**Decision-ready direction:** mutation testing is explicitly limited to unit
+and integration tests. Start with a dry-run-only config proof, then a pure unit
+canary (re-verify `@oaknational/type-helpers`), then an integration-only canary
+(re-verify `@oaknational/search-contracts`), then one mixed workspace. This
+sequence proves mechanics, integration inclusion, and E2E exclusion as
+separate claims. Evaluate the TypeScript checker, incremental reuse, report
+retention, and invocation cadence independently after a trusted full result.
+Expand by behavioural risk and value, not a 100% workspace-adoption target.
+
+**Score semantics:** begin report-only with no breaking threshold. Every
+survivor needs a behavioural disposition, but not every survivor needs a test.
+Equivalent mutants, unreachable/dead code, compile errors, timeouts, and
+unsuitable mutators are distinct evidence. Never add mutant-specific tests or
+exclusions merely to improve a number.
+
+**Next safe step:** read the
+[concept report](../../../reports/mutation-testing-incremental-rollout-concept-exploration-2026-07-15.md),
+the [source plan](../../../plans/agentic-engineering-enhancements/current/mutation-testing-implementation.plan.md),
+and the [active execution plan](../../../plans/agentic-engineering-enhancements/active/phase-5-mutation-testing-execution.md).
+Re-verify package names and scaffold truth immediately before implementation.
+Write RED config-contract tests and prove a dry run before creating mutants.
+Do not add CI, incremental mode, thresholds, broad workspace scripts, or a new
+shared-config workspace in the first slice.
+
+**Unresolved evidence:** current Stryker 9.6.1 sandbox handling of the relative
+root Vitest config; exact interaction of explicit `testFiles` with Vitest
+`related`; whether the repository build command is unnecessary; canary runtime
+and determinism; TypeScript-checker cost; report retention; named survivor
+triage ownership; and eventual invocation cadence. Historical sandbox failure
+on a deleted workspace is a clue, not current proof.
+
+**Durable homes:** the two plans above, the formal report, the reports index,
+the plan indexes, repo continuity, and the 2026-07-15 napkin loss/metaloss
+record. No code, package configuration, test, mutation run, CI surface, commit,
+or push occurred.
+
 ## DEDICATED CONSOLIDATION — EXECUTED (2026-07-06, evening)
 
 Session identity: Zenith wakes Perigee (claude-code / claude-fable-5 / prefix `8897eb`),
@@ -327,7 +378,7 @@ owner-observation capture ratified; the candidate PDR-122 invariant-2 amendment 
 in the recorded shape. Corrections: R1 (comms-residual removal is unexplained, not benign — see
 item 4), R2 (a fourth, behavioural leak point: `temporalCoverageReport` window-id collation), R3
 (three restored open questions). Review report:
-[`corpus-generalisation-review-2026-07-03.md`](../../reports/agentic-engineering/large-corpus-analysis-tooling/corpus-generalisation-review-2026-07-03.md).
+[`corpus-generalisation-review-2026-07-03.md`](../../../reports/agentic-engineering/large-corpus-analysis-tooling/corpus-generalisation-review-2026-07-03.md).
 Method lesson: lens `openQuestions` are the synthesis drop zone.
 
 **Further research COMPLETE (2026-07-03, same session, owner-directed — the model switch had cut

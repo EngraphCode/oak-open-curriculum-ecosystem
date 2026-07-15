@@ -228,4 +228,4 @@ pnpm build
 |----------|---------|
 | [ADR-080](../../../../../docs/architecture/architectural-decisions/080-curriculum-data-denormalization-strategy.md) | KS4 denormalisation patterns |
 | [ADR-101](../../../../../docs/architecture/architectural-decisions/101-subject-hierarchy-for-search-filtering.md) | Subject hierarchy for search |
-| [subject-hierarchy-enhancement.md](../../archive/completed/subject-hierarchy-enhancement.md) | Prior implementation baseline |
+| subject-hierarchy-enhancement.md (`../../../../plans-old-archive/semantic-search/archive/completed/subject-hierarchy-enhancement.md`) | Prior implementation baseline |

@@ -176,5 +176,6 @@ Use lesson titles as queries (e.g., query "Brackets in equations" for lesson "br
 ## References
 
 - [Ground Truth Protocol](/apps/oak-search-cli/docs/ground-truths/ground-truth-protocol.md) — Step-by-step process (all indexes)
-- [Expansion Plan](/.agent/plans/semantic-search/post-sdk/search-quality/ground-truth-expansion-plan.md) — Future work
-- [Archive](/../apps/oak-search-cli/src/lib/search-quality/ground-truth-archive/README.md) — Previous approach
+- Expansion plan — future work is recorded at
+  `.agent/plans/semantic-search/future/09-evaluation-and-evidence/ground-truth-expansion-plan.md`
+- [Archive](../../../apps/oak-search-cli/src/lib/search-quality/ground-truth-archive/README.md) — Previous approach

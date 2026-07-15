@@ -89,7 +89,7 @@ todos:
 
 # Port the Oak Curriculum Hub prototype to a live, full-fidelity demo
 
-Promoted from the [Herring→Squall handoff record](../../../state/collaboration/handoffs/2026-06-30-curriculum-hub-port-herring-holds-jetty.md)
+Promoted from the Herring→Squall handoff record (`../../../state/collaboration/handoffs/2026-06-30-curriculum-hub-port-herring-holds-jetty.md`)
 and updated with owner decisions taken after it. **Co-equal, no lanes:** Titan weaves Ether
 (data plane, render/decode) + Squall wakes Crag (styling/UI, adopting Herring's claim cf62bda9).
 

@@ -99,7 +99,7 @@ nothing here depends on that branch.
 
 ## Cross-references
 
-- Evidence: [`oak-prod-live-mcp-exercise-2026-06-11.md`](../../../reports/oak-prod-live-mcp-exercise-2026-06-11.md)
+- Evidence: `oak-prod-live-mcp-exercise-2026-06-11.md` (`../../../reports/oak-prod-live-mcp-exercise-2026-06-11.md`)
 - Finding 1 interacts with
   [`output-schemas-for-mcp-tools.plan.md`](output-schemas-for-mcp-tools.plan.md)
   (the envelope/outputSchema arc owns the long-term success-shape contract;

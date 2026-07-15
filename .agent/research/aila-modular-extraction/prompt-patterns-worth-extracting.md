@@ -447,4 +447,4 @@ This section tracks which patterns have been implemented in the Quick Wins plan.
 
 - **Fully Implemented**: 5 of 7 patterns (71%)
 - **Deferred (Generation Required)**: Voice System, Practice Task Types
-- **Related Plan**: [Plan 10: Quick Wins](../../plans/sdk-and-mcp-enhancements/10-quick-wins-from-aila-research.md)
+- **Related Plan**: Plan 10: Quick Wins (`../../plans-old-archive/sdk-and-mcp-enhancements/archive/legacy-numbered/10-quick-wins-from-aila-research.md`)

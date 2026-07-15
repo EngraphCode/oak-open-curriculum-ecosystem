@@ -21,6 +21,6 @@ institutional control surfaces around agent execution.
 
 ## Feeds
 
-- [governance planes deep dive](../../../reference/agentic-engineering/deep-dives/governance-planes-trust-boundaries-and-runtime-supervision.md)
-- [hub README](../../../reference/agentic-engineering/README.md)
+- [governance planes deep dive](governance-planes-trust-boundaries-and-runtime-supervision.md)
+- [hub README](../README.md)
 - [formal synthesis lane](../../../reports/agentic-engineering/deep-dive-syntheses/README.md)

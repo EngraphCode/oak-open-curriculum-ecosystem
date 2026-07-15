@@ -2,7 +2,7 @@
 
 **Date**: 2026-02-14
 **Produced by**: WS0 of the
-[Developer Onboarding Experience Plan](../plans/semantic-search/archive/completed/developer-onboarding-experience.plan.md)
+Developer Onboarding Experience Plan (`../plans-old-archive/semantic-search/archive/completed/developer-onboarding-experience.plan.md`)
 
 ---
 

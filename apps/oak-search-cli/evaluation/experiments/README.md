@@ -66,7 +66,7 @@ pnpm vitest -c vitest.experiment.config.ts
 
 ## Historical Experiments
 
-The `historical/` directory holds rejected or superseded experiments. Previously this included the semantic reranking experiment (B.2, rejected 2025-12-19 with -16.8% MRR regression). Code was removed in Feb 2026; findings are preserved in [ADR-082](../../../docs/architecture/architectural-decisions/082-fundamentals-first-search-strategy.md).
+The `historical/` directory holds rejected or superseded experiments. Previously this included the semantic reranking experiment (B.2, rejected 2025-12-19 with -16.8% MRR regression). Code was removed in Feb 2026; findings are preserved in [ADR-082](../../../../docs/architecture/architectural-decisions/082-fundamentals-first-search-strategy.md).
 
 ---
 
@@ -99,7 +99,7 @@ When creating a new experiment:
 
 ## Decision Criteria
 
-From [ADR-081](../../../docs/architecture/architectural-decisions/081-search-approach-evaluation-framework.md):
+From [ADR-081](../../../../docs/architecture/architectural-decisions/081-search-approach-evaluation-framework.md):
 
 | Change Type      | Accept If               | Reject If              |
 | ---------------- | ----------------------- | ---------------------- |
@@ -111,7 +111,7 @@ From [ADR-081](../../../docs/architecture/architectural-decisions/081-search-app
 
 ## Related Documentation
 
-- [ADR-081](../../../docs/architecture/architectural-decisions/081-search-approach-evaluation-framework.md) - Evaluation framework
-- [ADR-082](../../../docs/architecture/architectural-decisions/082-fundamentals-first-search-strategy.md) - Fundamentals-first strategy
-- [EXPERIMENT-LOG.md](../../../.agent/evaluations/EXPERIMENT-LOG.md) - Chronological experiment history
-- [part-1-search-excellence.md](../../../.agent/plans/semantic-search/part-1-search-excellence.md) - Current work plan
+- [ADR-081](../../../../docs/architecture/architectural-decisions/081-search-approach-evaluation-framework.md) - Evaluation framework
+- [ADR-082](../../../../docs/architecture/architectural-decisions/082-fundamentals-first-search-strategy.md) - Fundamentals-first strategy
+- [EXPERIMENT-LOG.md](../../../../.agent/evaluations/EXPERIMENT-LOG.md) - Chronological experiment history
+- `part-1-search-excellence.md` - Retired work plan

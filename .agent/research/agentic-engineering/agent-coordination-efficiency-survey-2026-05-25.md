@@ -285,7 +285,7 @@ These are not action items — they are decisions or evidence-gaps that the rank
 The ranking, reviewer dispatch, and metacognition passes that this survey
 fed produced a sibling plan:
 
-[`.agent/plans/agent-tooling/current/n2-and-coordination-efficiency-program-2026-05-25.plan.md`](../../plans/agent-tooling/current/n2-and-coordination-efficiency-program-2026-05-25.plan.md)
+`.agent/plans/agent-tooling/current/n2-and-coordination-efficiency-program-2026-05-25.plan.md` (`../../plans-old-archive/agent-tooling/archive/completed/n2-and-coordination-efficiency-program-2026-05-25.plan.md`)
 
 The plan's spine is the dependency graph, not the linear ranking the
 user requested. The linear ranking is preserved in the plan's

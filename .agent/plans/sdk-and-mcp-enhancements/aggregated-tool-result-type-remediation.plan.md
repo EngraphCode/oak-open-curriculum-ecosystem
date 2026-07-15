@@ -73,5 +73,5 @@ logging, and type safety contract regardless of origin.
 - Existing E2E tests continue to pass
 - Type system is open to new tool classes without core changes
 - The debt note in the
-  [MCP app README](../../apps/oak-curriculum-mcp-streamable-http/README.md)
+  [MCP app README](../../../apps/oak-curriculum-mcp-streamable-http/README.md)
   §Architecture Notes is resolved

@@ -8,7 +8,7 @@ interruption, handoff, or restart.
 See [`.agent/memory/README.md`](../README.md) for the three-mode
 memory taxonomy (active / operational / executive). Doctrine for the
 continuity-surface split lives in
-[`operational-awareness-and-continuity-surface-separation.plan.md`](../../plans/agentic-engineering-enhancements/archive/completed/operational-awareness-and-continuity-surface-separation.plan.md)
+`operational-awareness-and-continuity-surface-separation.plan.md` (`../../plans-old-archive/agentic-engineering-enhancements/archive/completed/operational-awareness-and-continuity-surface-separation.plan.md`)
 (the OAC lane) and
 [PDR-011](../../practice-core/decision-records/PDR-011-continuity-surfaces-and-surprise-pipeline.md)
 (portable Practice doctrine).

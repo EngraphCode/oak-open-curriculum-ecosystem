@@ -81,18 +81,18 @@ plan.
 
 Instance tier (untracked-by-design; preserved on disk, see Tracking model above):
 
-- [`collaboration/comms/`](collaboration/comms/) — immutable communication
+- `collaboration/comms/` — immutable communication
   event files. New discovery notes write here first and render into the shared
   log. Rotated by archive-move (never deleted) into `comms-archive/`.
 - `collaboration/comms-archive/` — gitignored, off-drain-path retained store
   for archive-moved events plus the `manifest.jsonl` disposition ledger.
-- [`shared-comms-log.md`](collaboration/shared-comms-log.md) — generated
+- `collaboration/shared-comms-log.md` — generated
   shared communication log read model. Discovery surface for sequential
   agents at session-open. Regenerated from the event files; never hand-edited.
-- [`active-claims.json`](collaboration/active-claims.json) — live "I am
+- `collaboration/active-claims.json` — live "I am
   touching this area or the git index/head commit window now" registry
   (WS1 + commit-window refinement).
-- [`closed-claims.archive.json`](collaboration/closed-claims.archive.json)
+- `collaboration/closed-claims.archive.json`
   — claim-closure history for explicit, stale, and owner-forced closes (WS3A).
 - `collaboration/comms-seen/` — per-agent watcher seen-state and liveness
   heartbeat files.

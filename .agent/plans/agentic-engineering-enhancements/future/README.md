@@ -16,7 +16,7 @@ more future specialists are promoted:
 - [practice-and-process-structural-improvements.plan.md](../current/practice-and-process-structural-improvements.plan.md)
   supplies process-discipline doctrine to the Planning specialist and creates
   permanent homes for collaboration and portability guidance.
-- [agent-infrastructure-portability-remediation.plan.md](../current/agent-infrastructure-portability-remediation.plan.md)
+- [agent-infrastructure-portability-remediation.plan.md](../../agent-tooling/current/agent-infrastructure-portability-remediation.plan.md)
   must keep the platform adapter and validator model healthy as the roster
   grows.
 - Future expert plans below should not create bespoke adapter or taxonomy
@@ -31,7 +31,7 @@ more future specialists are promoted:
 | ↪️ MOVED | `collaboration-state-domain-model-and-comms-reliability.plan.md` → [`../../agent-tooling/future/`](../../agent-tooling/future/collaboration-state-domain-model-and-comms-reliability.plan.md) | — | (relocated 2026-05-05) |
 | ↪️ MOVED | `agent-coordination-cli-ergonomics-and-request-correlation.plan.md` → [`../../agent-tooling/future/`](../../agent-tooling/future/agent-coordination-cli-ergonomics-and-request-correlation.plan.md) | — | (relocated 2026-05-05) |
 | Later | [pr-lifecycle-skill.plan.md](pr-lifecycle-skill.plan.md) | Create a PR lifecycle skill covering PR creation, reviewer-facing descriptions, unresolved comment harvesting, reviewer wait states, CI/Sonar/Bugbot feedback triage, and quality-gate discipline | Next branch closeout where the owner asks an agent to create or shepherd a PR, OR second repeated PR feedback/gate-management friction instance |
-| ↪️ MOVED | `codex-session-identity-plumbing.plan.md` → [`../../agent-tooling/future/`](../../agent-tooling/future/codex-session-identity-plumbing.plan.md) | — | (relocated 2026-05-05; original promotion completed at [`../archive/completed/codex-session-identity-plumbing.plan.md`](../archive/completed/codex-session-identity-plumbing.plan.md)) |
+| ↪️ MOVED | `codex-session-identity-plumbing.plan.md` → [`../../agent-tooling/future/`](../../agent-tooling/future/codex-session-identity-plumbing.plan.md) | — | (relocated 2026-05-05; original promotion completed at [`../../agent-tooling/future/codex-session-identity-plumbing.plan.md`](../../agent-tooling/future/codex-session-identity-plumbing.plan.md)) |
 | Later | [express-specialist-capability.plan.md](express-specialist-capability.plan.md) | Express 5.x reviewer, skill, and situational rule following ADR-129 | Priority after the current reviewer/capability queue |
 | Later | [cyber-security-specialist-capability.plan.md](cyber-security-specialist-capability.plan.md) | Broad-remit cyber security capability for posture, threat models, and defence in depth | Decide when broad security posture work outranks narrower security lanes |
 | Later | [web-api-security-specialist-capability.plan.md](web-api-security-specialist-capability.plan.md) | Narrow-remit web/API security capability for trust boundaries, sessions, callbacks, and API attack surfaces | Resolve sequencing with the broader cyber-security and privacy lanes |

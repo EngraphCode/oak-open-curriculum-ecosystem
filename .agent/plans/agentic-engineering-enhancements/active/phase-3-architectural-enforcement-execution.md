@@ -9,8 +9,8 @@ todos:
     content: "Phase 0: Complete ESLint strict baseline."
     status: pending
   - id: p3-phase1-max-files
-    content: "Phase 1: Record canonical delegation for the max-files-per-dir workstream."
-    status: completed
+    content: "Phase 1: Ratify or reject canonical delegation to the proposed report-only architectural-fitness workstream before wiring max-files-per-dir."
+    status: pending
   - id: p3-phase2-boundaries
     content: "Phase 2: Record canonical delegation for developer-experience execution owners."
     status: completed
@@ -34,7 +34,7 @@ todos:
 
 - [architectural-enforcement-adoption.plan.md](../current/architectural-enforcement-adoption.plan.md)
 
-## Convergence Delegation (2026-03-04)
+## Convergence Delegation (2026-03-04; proposed amendment 2026-07-15)
 
 Execution ownership changed for part of this stream:
 
@@ -42,10 +42,11 @@ Execution ownership changed for part of this stream:
    - no-console convergence
    - strictness-specific shared-config promotion work
 2. Delegated to [directory-complexity-enablement.execution.plan.md](../../developer-experience/current/directory-complexity-enablement.execution.plan.md):
-   - remediation SOP for directory-complexity breaches
-   - deterministic inventory and config tests for `max-files-per-dir`
-   - pilot calibration and staged directory-cardinality activation
-   - staged `max-files-per-dir` activation
+   - deterministic repository discovery and role classification
+   - report-only directory-concentration signal and interpretation SOP
+   - contrasting pilots and named-consumer expansion
+   - later retirement of the unwired `max-files-per-dir` implementation after
+     replacement-equivalence proof
 3. Retained in this plan:
    - evidence bundling for non-trivial enforcement claims
    - collection-level architectural-enforcement status tracking
@@ -59,7 +60,7 @@ Execution ownership changed for part of this stream:
 - Deterministic validation:
   - `pnpm lint`
 
-### Task 3.1 (Source Phase 1): Physical Modularity Rule
+### Task 3.1 (Source Phase 1): Physical Modularity Signal
 
 - Output:
   - canonical execution link to the queued directory-complexity plan is present

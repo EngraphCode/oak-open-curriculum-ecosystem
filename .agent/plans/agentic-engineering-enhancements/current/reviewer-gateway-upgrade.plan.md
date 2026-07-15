@@ -36,7 +36,7 @@ It does not create new experts itself. It must track:
 - [practice-and-process-structural-improvements.plan.md](practice-and-process-structural-improvements.plan.md)
   as the source of process-discipline and collaboration-doctrine homes that
   may create new review signals.
-- [agent-infrastructure-portability-remediation.plan.md](agent-infrastructure-portability-remediation.plan.md)
+- [../../agent-tooling/current/agent-infrastructure-portability-remediation.plan.md](../../agent-tooling/current/agent-infrastructure-portability-remediation.plan.md)
   as the platform-adapter and validator scaling lane for the expert estate.
 - [agent-classification-taxonomy.plan.md](../../agent-tooling/future/agent-classification-taxonomy.plan.md)
   as the naming/tier/mode contract that will eventually reshape gateway output.
@@ -176,7 +176,7 @@ still require a **deep** review.
 
 The gateway is also one concrete implementation of the broader operating-model
 mechanisms described in
-[`workbench-agent-operating-topology.md`](../../../reference/agentic-engineering/workbench-agent-operating-topology.md).
+[`workbench-agent-operating-topology.md`](../../../research/agentic-engineering/operating-model-and-platforms/workbench-agent-operating-topology.md).
 For review work, the gateway acts as a **posture selector** and
 **signal router**.
 

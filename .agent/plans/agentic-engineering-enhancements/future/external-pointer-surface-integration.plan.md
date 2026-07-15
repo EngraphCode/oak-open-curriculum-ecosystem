@@ -9,10 +9,10 @@ Phase 0 must be ratified before promotion to `current/`.
 - [PDR-027 — Threads, Sessions, and Agent Identity](../../../practice-core/decision-records/PDR-027-threads-sessions-and-agent-identity.md)
 - [PDR-026 — Per-Session Landing Commitment](../../../practice-core/decision-records/PDR-026-per-session-landing-commitment.md)
 - [PDR-029 — Perturbation-Mechanism Bundle](../../../practice-core/decision-records/PDR-029-perturbation-mechanism-bundle.md)
-- [PDR-009 — Platform-Agnostic Skills](../../../practice-core/decision-records/PDR-009-platform-agnostic-skills.md)
+- PDR-009 — Platform-Agnostic Skills (`../../../practice-core/decision-records/PDR-009-platform-agnostic-skills.md`)
 - [`threads/README.md`](../../../memory/operational/threads/README.md)
 - [`repo-continuity.md`](../../../memory/operational/repo-continuity.md)
-- [`session-handoff.md`](../../../commands/session-handoff.md)
+- `session-handoff.md` (`../../../commands/session-handoff.md`)
 - Pending-graduations Due item: `observability-thread-legacy-singular-path`
 
 ## Guiding principle

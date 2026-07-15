@@ -37,6 +37,6 @@ decision (2026-03-28) chose total replacement instead.
 
 | Document | Purpose |
 |----------|---------|
-| [WS3 clean-break rebuild](../../../sdk-and-mcp-enhancements/active/ws3-widget-clean-break-rebuild.plan.md) | Replacement plan |
+| WS3 clean-break rebuild (`../../../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/ws3-widget-clean-break-rebuild.plan.md`) | Replacement plan |
 | [MCP extensions roadmap](../../../sdk-and-mcp-enhancements/roadmap.md) | Strategic context |
-| [Widget search rendering (archived)](../../archive/completed/widget-search-rendering.md) | Historical context |
+| Widget search rendering (archived) (`../../../../plans-old-archive/semantic-search/archive/completed/widget-search-rendering.md`) | Historical context |

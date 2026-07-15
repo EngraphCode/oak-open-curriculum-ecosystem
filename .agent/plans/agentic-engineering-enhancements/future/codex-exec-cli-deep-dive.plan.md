@@ -8,7 +8,7 @@ second concrete consumer (the trigger condition below).
 
 - [ADR-180 — Codex-Exec Agent Delegation Pattern](../../../../docs/architecture/architectural-decisions/180-codex-exec-agent-delegation-pattern.md)
   — ships the minimal `last-message` extractor and defers richer surface to this plan
-- [ADR-125 — Skill Canonicalisation and Adapter Topology](../../../../docs/architecture/architectural-decisions/125-skill-canonicalisation-and-adapter-topology.md)
+- ADR-125 — Skill Canonicalisation and Adapter Topology (`../../../../docs/architecture/architectural-decisions/125-skill-canonicalisation-and-adapter-topology.md`)
 - [ADR-178 — Agent-Tools Build Isolation](../../../../docs/architecture/architectural-decisions/178-agent-tools-build-isolation.md)
 - [`.agent/skills/codex-helper/SKILL-CANONICAL.md`](../../../skills/codex-helper/SKILL-CANONICAL.md)
 - [`.agent/rules/consolidate-at-second-consumer.md`](../../../rules/consolidate-at-second-consumer.md)

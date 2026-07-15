@@ -440,7 +440,7 @@ to prove green.
   (future) — the strategy this arc feeds; its promotion evidence consumes this
   arc's verdict (its §Strategic Acceptance Criteria / Success Signals and
   §Promotion Trigger).
-- [worktree-pilot-coordination.plan.md](./worktree-pilot-coordination.plan.md)
+- [worktree-pilot-coordination.plan.md](../active/worktree-pilot-coordination.plan.md)
   (active) — the pilot this arc lands and archives.
 
 ---

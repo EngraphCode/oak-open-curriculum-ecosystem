@@ -20,9 +20,9 @@ Agent support tools are MCP primitives designed to help AI agents understand the
 
 See the following ADRs for architectural decisions and rationale:
 
-- [ADR-058: Context Grounding for AI Agents](../../../docs/architecture/architectural-decisions/058-context-grounding-for-ai-agents.md)
-- [ADR-059: Knowledge Graph for Agent Context](../../../docs/architecture/architectural-decisions/059-knowledge-graph-for-agent-context.md)
-- [ADR-060: Agent Support Tool Metadata System](../../../docs/architecture/architectural-decisions/060-agent-support-metadata-system.md)
+- [ADR-058: Context Grounding for AI Agents](../../docs/architecture/architectural-decisions/058-context-grounding-for-ai-agents.md)
+- [ADR-059: Knowledge Graph for Agent Context](../../docs/architecture/architectural-decisions/059-knowledge-graph-for-agent-context.md)
+- [ADR-060: Agent Support Tool Metadata System](../../docs/architecture/architectural-decisions/060-agent-support-metadata-system.md)
 
 ## Single Source of Truth: Agent Support Tool Metadata
 
@@ -572,10 +572,12 @@ All gates must pass.
 
 ## Related Documentation
 
-- [ADR-058: Context Grounding for AI Agents](../../../docs/architecture/architectural-decisions/058-context-grounding-for-ai-agents.md)
-- [ADR-059: Knowledge Graph for Agent Context](../../../docs/architecture/architectural-decisions/059-knowledge-graph-for-agent-context.md)
-- [OpenAI Apps SDK Reference](../openai-apps/openai-apps-sdk-reference.md)
-- [OpenAI Apps Build MCP Server](../openai-apps/openai-apps-sdk-build-mcp-server.md)
-- [MCP TypeScript SDK](../mcp-typescript-sdk-readme.md)
-- [Testing Strategy](../../directives/testing-strategy.md)
-- [Schema-First Execution](../../directives/schema-first-execution.md)
+- [ADR-058: Context Grounding for AI Agents](../../docs/architecture/architectural-decisions/058-context-grounding-for-ai-agents.md)
+- [ADR-059: Knowledge Graph for Agent Context](../../docs/architecture/architectural-decisions/059-knowledge-graph-for-agent-context.md)
+- OpenAI Apps SDK Reference — former local source
+  `../openai-apps/openai-apps-sdk-reference.md`
+- OpenAI Apps Build MCP Server — former local source
+  `../openai-apps/openai-apps-sdk-build-mcp-server.md`
+- MCP TypeScript SDK — former local source `../mcp-typescript-sdk-readme.md`
+- [Testing Strategy](../../.agent/directives/testing-strategy.md)
+- [Schema-First Execution](../../.agent/directives/schema-first-execution.md)

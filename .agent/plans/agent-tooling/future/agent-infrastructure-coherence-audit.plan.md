@@ -59,8 +59,8 @@ the full command/skill/rule/agent/adapter system.
 
 ## Governing ADRs
 
-- [ADR-125: Agent Artefact Portability — Three-Layer Model](../../../docs/architecture/architectural-decisions/125-agent-artefact-portability.md)
-- [ADR-135: Agent Classification Taxonomy](../../../docs/architecture/architectural-decisions/135-agent-classification-taxonomy.md)
+- [ADR-125: Agent Artefact Portability — Three-Layer Model](../../../../docs/architecture/architectural-decisions/125-agent-artefact-portability.md)
+- [ADR-135: Agent Classification Taxonomy](../../../../docs/architecture/architectural-decisions/135-agent-classification-taxonomy.md)
 
 ## Success Signals
 

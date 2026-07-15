@@ -37,8 +37,8 @@ sharpening 2026-05-05, Opalescent Threading Nebula's session, standing).
   — portable liveness contract distinct from identity; heartbeat cadence
   and stale-detection semantics that peer agents observe through the
   comms substrate.
-- [ADR-186 Comms-Event Heartbeat Lifecycle Substrate](../../docs/architecture/architectural-decisions/ADR-186-comms-event-heartbeat-lifecycle-substrate.md)
+- ADR-186 Comms-Event Heartbeat Lifecycle Substrate (`../../docs/architecture/architectural-decisions/ADR-186-comms-event-heartbeat-lifecycle-substrate.md`)
   — repo-bound phenotype implementing PDR-078 via the comms-event
   channel.
-- [ADR-183 Comms-Event Tag Namespace](../../docs/architecture/architectural-decisions/ADR-183-comms-event-tag-namespace.md)
+- ADR-183 Comms-Event Tag Namespace (`../../docs/architecture/architectural-decisions/ADR-183-comms-event-tag-namespace.md`)
   — tag taxonomy for routing and filtering inter-agent comms.

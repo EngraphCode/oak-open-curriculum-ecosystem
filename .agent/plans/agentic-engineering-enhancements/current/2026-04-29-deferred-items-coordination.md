@@ -75,7 +75,7 @@ Pre-deferral evidence:
 ### 2. multi-agent-collaboration-protocol concept-home refinement
 
 - **Location**:
-  [`multi-agent-collaboration-protocol-concept-home-refinement.plan.md`](multi-agent-collaboration-protocol-concept-home-refinement.plan.md)
+  [`../../agent-tooling/current/multi-agent-collaboration-protocol-concept-home-refinement.plan.md`](../../agent-tooling/current/multi-agent-collaboration-protocol-concept-home-refinement.plan.md)
   (current/, executable).
 - **Substance**: Concept-home refinement of
   `multi-agent-collaboration-protocol.plan.md`'s "Design Principles"

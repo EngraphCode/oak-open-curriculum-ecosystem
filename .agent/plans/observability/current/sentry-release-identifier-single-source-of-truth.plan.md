@@ -151,7 +151,8 @@ a fresh release per environment would lose the same code, different
 environment relationship that regression attribution depends on."_
 
 The MCP app's Sentry integration was end-to-end verified in the preceding
-session (transcript [Sentry MCP integration verification](11729e08-3046-448d-af80-d00b790279a6)).
+session (transcript Sentry MCP integration verification,
+`11729e08-3046-448d-af80-d00b790279a6`).
 The verification surfaced a hard divergence:
 
 | Surface                                         | Current shape                  | Example                                            |
@@ -362,7 +363,8 @@ that:
 1. Replaces §1's "release = root `package.json` semver" with the per-
    environment table above. Notes the owner direction date and that the
    amendment closes the previously-undocumented build-vs-runtime
-   divergence (transcript [Sentry MCP integration verification](11729e08-3046-448d-af80-d00b790279a6)).
+   divergence (transcript Sentry MCP integration verification,
+   `11729e08-3046-448d-af80-d00b790279a6`).
 2. Adds a new §10 (or appropriate next section) "Production builds
    require a semantic-release commit" with the cancellation truth table
    and explicit reference to

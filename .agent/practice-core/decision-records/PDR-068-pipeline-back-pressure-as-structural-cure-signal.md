@@ -15,7 +15,7 @@ this PDR prescribes.
 [PDR-014](PDR-014-consolidation-and-knowledge-flow-discipline.md)
 (capture → distil → graduate → enforce — this PDR formalises how
 to read back-pressure on that pipeline as a structural signal);
-[PDR-046](PDR-046-knowledge-layering-and-natural-homes.md)
+PDR-046 (`PDR-046-knowledge-layering-and-natural-homes.md`)
 (knowledge layering — substance routes to the surface whose
 lifecycle matches it; this PDR addresses what happens when one
 surface's substance accumulates faster than the next-stage surface
@@ -24,7 +24,7 @@ consumes);
 (surface classification — the four-surface taxonomy this PDR's
 buffer-specific framing relies on; if PDR-067 lands first, this
 PDR refines its buffer-surface guidance);
-[`practice-index.md`](../practice-index.md) (substrate-
+the host's `practice-index.md` (substrate-
 implementation ADR carrying the repo-specific phenotype of this
 PDR — the in-repo pending-graduations register that worked as the
 canonical buffer instance).

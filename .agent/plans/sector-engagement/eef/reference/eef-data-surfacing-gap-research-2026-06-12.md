@@ -15,7 +15,7 @@ live probes of `get-eef-evidence` on `oak-prod`; a 24-agent research workflow
 confirmed, three partially-true with corrections applied below, zero refuted;
 three verifiers failed on an API session limit and their claims were
 re-adjudicated first-hand by the author). Grounding follows
-[`eef-corpus-grounding`](../../../rules/eef-corpus-grounding.md): every corpus
+[`eef-corpus-grounding`](../../../../rules/eef-corpus-grounding.md): every corpus
 claim cites an `EEF_TOOLKIT_DATA` source path or file:line; items marked
 *agent-side* are the author's inference, not corpus data.
 
@@ -65,7 +65,7 @@ content/structuredContent shape is implemented at the egress
 plus `structuredContent`), so content-block-only clients receive the full
 envelope. The 2026-06-09 live assessment's "no terse projection" finding
 (§3.C of
-[`eef-evidence-workflow-live-value-assessment-2026-06-09`](../../../reports/eef-evidence-workflow-live-value-assessment-2026-06-09.md))
+[`eef-evidence-workflow-live-value-assessment-2026-06-09`](../../../../reports/eef-evidence-workflow-live-value-assessment-2026-06-09.md))
 is resolved: `detail: 'headline'` is live (probed 2026-06-12, 14 headline
 members for `keyStage: KS3`).
 

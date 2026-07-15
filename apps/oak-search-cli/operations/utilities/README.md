@@ -25,7 +25,7 @@ tsx operations/utilities/generate-synonyms.ts > tmp/synonyms.json
 
 **Related**:
 
-- [ADR-063](../../docs/architecture/architectural-decisions/063-sdk-domain-synonyms-source-of-truth.md) - SDK as source of truth for synonyms
+- [ADR-063](../../../../docs/architecture/architectural-decisions/063-sdk-domain-synonyms-source-of-truth.md) - SDK as source of truth for synonyms
 - [SYNONYMS.md](../../docs/SYNONYMS.md) - Synonym management guide
 
 ---

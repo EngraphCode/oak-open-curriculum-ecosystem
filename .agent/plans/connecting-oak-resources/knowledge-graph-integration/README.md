@@ -20,14 +20,14 @@ knowledge-source ingestion live under
 [exploring-open-education-resources/](../../exploring-open-education-resources/).
 
 **Active**: [active/](active/) · **Current**: [current/](current/) ·
-**Later**: [future/](future/) · **Archive**: [archive/](archive/)
+**Later**: [future/](future/) · **Archive**: `archive/`
 
 ## Current synthesis and ratified decisions (2026-06-04)
 
 The authoritative current synthesis is the deep-review report
 [`oak-kg-ontology-deep-review-2026-06-04.md`](../../../reports/oak-kg-ontology-deep-review-2026-06-04.md);
 thread state is in
-[`oak-kg-ontology-planning-review.next-session.md`](../../../memory/operational/threads/oak-kg-ontology-planning-review.next-session.md).
+[`oak-kg-ontology-planning-review.next-session.md`](../../../memory/operational/threads/paused/oak-kg-ontology-planning-review.next-session.md).
 Owner-ratified decisions now governing this estate:
 
 1. **Threads first** — build the ontology thread surface (`onto-threads`), a tool

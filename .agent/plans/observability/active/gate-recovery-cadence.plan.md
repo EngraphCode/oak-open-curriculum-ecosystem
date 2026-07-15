@@ -41,7 +41,7 @@ only as intentional failing behavioural tests, not as missing imports, broken
 types, lint warnings, or build failures.
 
 This plan applies to the active startup-boundary work in
-[`mcp-local-startup-release-boundary.plan.md`](mcp-local-startup-release-boundary.plan.md),
+`../../../plans-old-archive/observability/archive/completed/mcp-local-startup-release-boundary.plan.md` (`../../../plans-old-archive/observability/archive/completed/mcp-local-startup-release-boundary.plan.md`),
 while leaving the parallel WS3 lane isolated.
 
 **Status (2026-04-25)**: complete for the current branch state. The remaining
@@ -160,7 +160,7 @@ requires explicit live Sentry mode instead of raw `SENTRY_MODE !== 'off'`.
 ## Cadence Guard
 
 Before adding or changing any further RED tests in
-[`mcp-local-startup-release-boundary.plan.md`](mcp-local-startup-release-boundary.plan.md),
+`../../../plans-old-archive/observability/archive/completed/mcp-local-startup-release-boundary.plan.md` (`../../../plans-old-archive/observability/archive/completed/mcp-local-startup-release-boundary.plan.md`),
 run the always-green non-test subset one gate at a time:
 
 ```bash
@@ -206,7 +206,7 @@ continues.
   [`.agent/directives/agent-collaboration.md`](../../../directives/agent-collaboration.md).
   The bidirectional reference (rule cites plan; plan cites rule) is validated
   at consolidation time per the audit step in
-  [`.agent/commands/consolidate-docs.md`](../../../commands/consolidate-docs.md).
+  `.agent/commands/consolidate-docs.md` (`../../../commands/consolidate-docs.md`).
 
 ## Handoff Notes
 
@@ -219,7 +219,7 @@ continues.
   to remain blocked by staged WS3 lint/markdownlint residuals until the WS3 lane
   is resumed or explicitly isolated by owner direction.
 - After context compression, resume in
-  [`mcp-local-startup-release-boundary.plan.md`](mcp-local-startup-release-boundary.plan.md)
+  `../../../plans-old-archive/observability/archive/completed/mcp-local-startup-release-boundary.plan.md` (`../../../plans-old-archive/observability/archive/completed/mcp-local-startup-release-boundary.plan.md`)
   Phase 2, starting from the partial GREEN state recorded there.
 
 ## Reviewer Routing

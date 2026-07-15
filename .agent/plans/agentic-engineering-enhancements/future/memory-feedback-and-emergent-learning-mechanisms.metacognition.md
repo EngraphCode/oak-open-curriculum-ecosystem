@@ -379,7 +379,7 @@ execution plan's shape.
    graduation target, trigger condition) and binding the register
    to `session-handoff` and `jc-consolidate-docs`.
 4. **Sketch C's integration point is step 5, not step 8.**
-   [`.agent/commands/consolidate-docs.md`](../../../commands/consolidate-docs.md)
+   `.agent/commands/consolidate-docs.md` (`../../../commands/consolidate-docs.md`)
    step 5 already carries the cross-session emergence question
    (*"what do these sessions know together that none knows alone?"*
    — `patterns/cross-session-pattern-emergence.md`). What is missing

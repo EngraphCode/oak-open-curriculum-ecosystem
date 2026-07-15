@@ -3,7 +3,7 @@
 **Status**: Accepted 2026-05-12 (Lush Sprouting Thicket session, owner approval)
 **Date**: 2026-05-12
 **Related**:
-[ADR-125](125-skill-canonicalisation-and-adapter-topology.md) — skill
+ADR-125 (`125-skill-canonicalisation-and-adapter-topology.md`) — skill
 canonicalisation; the `codex-helper` skill and its adapters are generated
 under ADR-125 conventions;
 [ADR-178](178-agent-tools-build-isolation.md) — agent-tools build isolation;

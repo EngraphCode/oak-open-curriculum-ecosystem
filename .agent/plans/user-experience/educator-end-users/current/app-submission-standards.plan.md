@@ -88,7 +88,7 @@ mapping in `safety-and-security.md`, and no developer checklist for
 directory submission readiness.
 
 The graph tools dump entire datasets on every call. The
-[Dec 2025 graph tools plan](../../../archive/semantic-search-archive-dec25/part-1-search-excellence/08-mcp-graph-tools.md)
+Dec 2025 graph tools plan (`../../../../plans-old-archive/archive/semantic-search-archive-dec25/part-1-search-excellence/08-mcp-graph-tools.md`)
 already identified this and proposed filtering by `subject`/`keyStage` plus
 summary mode for large graphs. The
 [post-merge-tidy-up snag M1-S007](../../../sdk-and-mcp-enhancements/future/post-merge-tidy-up.plan.md)
@@ -953,9 +953,9 @@ before code changes reference it.
 
 **Related Plans**:
 
-- [08-mcp-graph-tools.md (archived)](../../../archive/semantic-search-archive-dec25/part-1-search-excellence/08-mcp-graph-tools.md) — original size analysis and filtering proposal (Dec 2025)
+- 08-mcp-graph-tools.md (archived) (`../../../../plans-old-archive/archive/semantic-search-archive-dec25/part-1-search-excellence/08-mcp-graph-tools.md`) — original size analysis and filtering proposal (Dec 2025)
 - [post-merge-tidy-up.plan.md](../../../sdk-and-mcp-enhancements/future/post-merge-tidy-up.plan.md) — M1-S007 snag resolved by this plan
-- [graph-resource-factory.plan.md](../../../connecting-oak-resources/knowledge-graph-integration/archive/completed/graph-resource-factory.plan.md) — factory pattern this plan extends (completed, archived)
+- graph-resource-factory.plan.md (`../../../../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/completed/graph-resource-factory.plan.md`) — factory pattern this plan extends (completed, archived)
 - The historical open-education-knowledge-surfaces umbrella (archived) — filtering applies to all factory-produced surfaces
 - [upstream-api-requests.md](../../../compliance/current/upstream-api-requests.md) — companion document for the Oak API team requesting upstream changes needed for directory compliance
 

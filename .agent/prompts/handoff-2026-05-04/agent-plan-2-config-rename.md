@@ -10,7 +10,7 @@ plan finishes the migration as a single atomic landing.
 
 ## Plan
 
-[`.agent/plans/observability/current/replace-sentry-mode-with-observability-sinks.plan.md`](../../plans/observability/current/replace-sentry-mode-with-observability-sinks.plan.md)
+`.agent/plans/observability/current/replace-sentry-mode-with-observability-sinks.plan.md` (`../../plans/observability/current/replace-sentry-mode-with-observability-sinks.plan.md`)
 
 Three cycles. Cycle 1 is the atomic rename (~30 files); cycles 2 + 3
 are doc-only and parallel-safe with cycle 1.

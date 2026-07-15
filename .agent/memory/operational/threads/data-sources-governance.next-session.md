@@ -35,11 +35,11 @@ grounding below is complete — the next seat goes straight to authoring.
 
 ## Lane State — Grounding (first-hand, complete)
 
-**The source-of-truth is [ADR-157](../../../docs/architecture/architectural-decisions/157-multi-source-open-education-integration.md)**
+**The source-of-truth is [ADR-157](../../../../docs/architecture/architectural-decisions/157-multi-source-open-education-integration.md)**
 (Multi-Source Open Education Knowledge Integration, status **Proposed**). It
 enumerates the sources + licensing + attribution; do NOT re-derive. Licensing
-detail is in [`LICENCE-DATA.md`](../../../LICENCE-DATA.md) and
-[`ATTRIBUTION.md`](../../../ATTRIBUTION.md) (both exist).
+detail is in [`LICENCE-DATA.md`](../../../../LICENCE-DATA.md) and
+[`ATTRIBUTION.md`](../../../../ATTRIBUTION.md) (both exist).
 
 **Sources the apps surface (the register's rows):**
 

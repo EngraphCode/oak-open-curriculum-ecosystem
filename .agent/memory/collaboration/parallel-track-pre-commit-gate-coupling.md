@@ -114,7 +114,7 @@ When you observe an instance of this pattern in a session:
   [`napkin.md`](../active/napkin.md) with date + agent + gate + what
   broke + how it was resolved.
 - Record the coordination event in the shared communication log
-  ([`state/collaboration/shared-comms-log.md`](../../state/collaboration/shared-comms-log.md)) so
+  (`state/collaboration/shared-comms-log.md`) so
   the parallel agent has the trace.
 - If the event happens during staging or commit, record whether a fresh
   `git:index/head` claim existed and how the commit-window claim closed.

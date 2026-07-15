@@ -101,7 +101,7 @@ addendum).
 
 ## Related Surfaces
 
-- [`never-ignore-signals`](never-ignore-signals.md) — a slow host is a
+- `never-ignore-signals` (`never-ignore-signals.md`) — a slow host is a
   signal; investigate, never work around.
 - [`check-singleton-per-window`](check-singleton-per-window.md) — the
   sibling discipline for the repo's own heavy gate chains.

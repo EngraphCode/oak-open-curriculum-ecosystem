@@ -418,7 +418,7 @@ pnpm benchmark --verbose     # Full metrics
 
 | Document | Purpose |
 |----------|---------|
-| [queries-redesigned.md](../../../apps/oak-search-cli/docs/ground-truths/queries-redesigned.md) | Query design output |
-| [GROUND-TRUTH-GUIDE.md](../../../apps/oak-search-cli/src/lib/search-quality/ground-truth/GROUND-TRUTH-GUIDE.md) | Design principles and evaluation |
-| [IR-METRICS.md](../../../apps/oak-search-cli/docs/IR-METRICS.md) | Metric definitions |
-| [ground-truth-redesign-plan.md](../active/ground-truth-redesign-plan.md) | Current strategy |
+| [queries-redesigned.md](../../../../apps/oak-search-cli/docs/ground-truths/queries-redesigned.md) | Query design output |
+| [GROUND-TRUTH-GUIDE.md](../../../../apps/oak-search-cli/src/lib/search-quality/ground-truth/GROUND-TRUTH-GUIDE.md) | Design principles and evaluation |
+| [IR-METRICS.md](../../../../apps/oak-search-cli/docs/IR-METRICS.md) | Metric definitions |
+| ground-truth-redesign-plan.md (`../../../plans-old-archive/semantic-search/archive/completed/ground-truth-redesign-plan.md`) | Current strategy |

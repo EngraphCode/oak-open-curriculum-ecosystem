@@ -81,23 +81,23 @@ Read the live workstream in this order:
 
 1. [roadmap.md](roadmap.md)
 2. [active/mcp-app-extension-migration.plan.md](active/mcp-app-extension-migration.plan.md)
-3. [active/ws3-widget-clean-break-rebuild.plan.md](active/ws3-widget-clean-break-rebuild.plan.md)
-4. [active/ws3-phase-6-docs-gates-review-commit.plan.md](active/ws3-phase-6-docs-gates-review-commit.plan.md) — **current closeout: local recovery and gates green; push/preview recheck pending**
+3. ../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/ws3-widget-clean-break-rebuild.plan.md (`../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/ws3-widget-clean-break-rebuild.plan.md`)
+4. ../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/ws3-phase-6-docs-gates-review-commit.plan.md (`../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/ws3-phase-6-docs-gates-review-commit.plan.md`) — **current closeout: local recovery and gates green; push/preview recheck pending**
 5. [active/ws3-phase-5-interactive-user-search-view.plan.md](active/ws3-phase-5-interactive-user-search-view.plan.md) — post-merge
-6. [archive/completed/ws3-phase-4.5-live-react-and-metadata-shape.plan.md](archive/completed/ws3-phase-4.5-live-react-and-metadata-shape.plan.md) — completed provenance
+6. ../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/ws3-phase-4.5-live-react-and-metadata-shape.plan.md (`../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/ws3-phase-4.5-live-react-and-metadata-shape.plan.md`) — completed provenance
 
 When touching runtime contract, metadata visibility, resource auth, or tool
 registration, also read:
 
-1. [archive/completed/auth-safety-correction.plan.md](archive/completed/auth-safety-correction.plan.md)
-2. [archive/completed/auth-boundary-type-safety.plan.md](archive/completed/auth-boundary-type-safety.plan.md)
+1. ../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/auth-safety-correction.plan.md (`../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/auth-safety-correction.plan.md`)
+2. ../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/auth-boundary-type-safety.plan.md (`../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/auth-boundary-type-safety.plan.md`)
 
 Completed dependency work is archived at:
 
-- [archive/completed/ws2-app-runtime-migration.plan.md](archive/completed/ws2-app-runtime-migration.plan.md)
-- [archive/completed/mcp-runtime-boundary-simplification.plan.md](archive/completed/mcp-runtime-boundary-simplification.plan.md)
-- [archive/completed/ws3-design-token-prerequisite.plan.md](archive/completed/ws3-design-token-prerequisite.plan.md)
-- [archive/completed/ws3-phase-4.5-live-react-and-metadata-shape.plan.md](archive/completed/ws3-phase-4.5-live-react-and-metadata-shape.plan.md)
+- ../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/ws2-app-runtime-migration.plan.md (`../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/ws2-app-runtime-migration.plan.md`)
+- ../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/mcp-runtime-boundary-simplification.plan.md (`../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/mcp-runtime-boundary-simplification.plan.md`)
+- ../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/ws3-design-token-prerequisite.plan.md (`../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/ws3-design-token-prerequisite.plan.md`)
+- ../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/ws3-phase-4.5-live-react-and-metadata-shape.plan.md (`../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/ws3-phase-4.5-live-react-and-metadata-shape.plan.md`)
 
 ## Execution Order
 
@@ -131,9 +131,9 @@ Future additive feature backlog             ⏳ blocked on remaining canonical w
 The remaining UI work is carried by the live umbrella and child plans:
 
 - [active/mcp-app-extension-migration.plan.md](active/mcp-app-extension-migration.plan.md)
-- [active/ws3-widget-clean-break-rebuild.plan.md](active/ws3-widget-clean-break-rebuild.plan.md)
-- [active/ws3-phase-6-docs-gates-review-commit.plan.md](active/ws3-phase-6-docs-gates-review-commit.plan.md)
-- [active/vercel-mcp-build-warnings-and-bootstrap.plan.md](active/vercel-mcp-build-warnings-and-bootstrap.plan.md)
+- ../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/ws3-widget-clean-break-rebuild.plan.md (`../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/ws3-widget-clean-break-rebuild.plan.md`)
+- ../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/ws3-phase-6-docs-gates-review-commit.plan.md (`../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/ws3-phase-6-docs-gates-review-commit.plan.md`)
+- ../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/vercel-mcp-build-warnings-and-bootstrap.plan.md (`../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/vercel-mcp-build-warnings-and-bootstrap.plan.md`)
 - [active/ws3-phase-5-interactive-user-search-view.plan.md](active/ws3-phase-5-interactive-user-search-view.plan.md)
 
 Detailed WS3/WS4 execution scope, sequencing, and enforcement live in the
@@ -152,8 +152,8 @@ classes (Turbo env, sdk-codegen reference, Vite deprecation).
 
 Complete on 31 March 2026. These plans remain the closure evidence:
 
-- [archive/completed/auth-safety-correction.plan.md](archive/completed/auth-safety-correction.plan.md)
-- [archive/completed/auth-boundary-type-safety.plan.md](archive/completed/auth-boundary-type-safety.plan.md)
+- ../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/auth-safety-correction.plan.md (`../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/auth-safety-correction.plan.md`)
+- ../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/auth-boundary-type-safety.plan.md (`../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/auth-boundary-type-safety.plan.md`)
 
 ### Schema resilience and response architecture — USER-REQUESTED, HIGH PRIORITY
 
@@ -198,7 +198,7 @@ scope.
 
 ### Completed design-token prerequisite
 
-[archive/completed/ws3-design-token-prerequisite.plan.md](archive/completed/ws3-design-token-prerequisite.plan.md)
+../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/ws3-design-token-prerequisite.plan.md (`../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/ws3-design-token-prerequisite.plan.md`)
 closed on 2 April 2026. It delivered the temporary-shell replacement plus the
 minimal `packages/design/` implementation and widget CSS import path that
 Phase 4 and Phase 5 now build on.
@@ -248,6 +248,6 @@ This roadmap can be treated as complete when:
 - [future/mcp-tool-token-economy-and-progressive-discovery.plan.md](future/mcp-tool-token-economy-and-progressive-discovery.plan.md) —
   strategic token-economy and progressive-discovery brief
 - [future/README.md](future/README.md) — later work beyond the active migration
-- [../agentic-engineering-enhancements/archive/completed/mcp-specialist-upgrade.plan.md](../agentic-engineering-enhancements/archive/completed/mcp-specialist-upgrade.plan.md) —
+- ../../plans-old-archive/agentic-engineering-enhancements/archive/completed/mcp-specialist-upgrade.plan.md (`../../plans-old-archive/agentic-engineering-enhancements/archive/completed/mcp-specialist-upgrade.plan.md`) —
   parallel reviewer-capability upgrade tracked in the agentic-engineering
   collection (complete; separate from product delivery scope)

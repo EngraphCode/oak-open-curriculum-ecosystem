@@ -1,8 +1,8 @@
 # Architecture and Infrastructure Roadmap
 
 **Status**: Active M2 blocker execution, queued cross-app standardisation, and an agreed next hardening promotion after the current improvement tranche.
-**Last Updated**: 2026-05-05
-**Session Entry**: [`start-right-quick`](../../skills/start-right-quick/SKILL.md) + [`memory/operational/repo-continuity.md`](../../memory/operational/repo-continuity.md)
+**Last Updated**: 2026-07-15
+**Session Entry**: [`start-right-quick`](../../skills/start-right-quick/SKILL-CANONICAL.md) + [`memory/operational/repo-continuity.md`](../../memory/operational/repo-continuity.md)
 
 ---
 
@@ -49,6 +49,13 @@ Lane indexes:
   [current/workspace-layer-separation-audit.plan.md](current/workspace-layer-separation-audit.plan.md)
   to turn ADR-154's strengthened rule into an authoritative
   layer/workspace matrix and migration tranche map.
+- Oak source integration workspaces are queued immediately after that audit in
+  [current/oak-source-integration-workspaces.plan.md](current/oak-source-integration-workspaces.plan.md).
+  They create a separate `integrations/*` layer for pinned source repositories,
+  safe role-specific wrappers, a source-first Castr/OCE development loop, and a
+  synthetic database-to-OpenAPI-to-Castr-to-client contract proof without
+  changing runtime authority boundaries. The same tranche retires OCE's legacy
+  direct OpenAPI dependency stack after Castr parity and release proof.
 - Architectural budget doctrine is now captured in
   [ADR-166](../../../docs/architecture/architectural-decisions/166-architectural-budget-system-across-scales.md)
   and the future strategic companion plan
@@ -92,6 +99,7 @@ Phase 1: Sentry + OTel foundation                     🔄 active
 Phase 2: Config + dependency standardisation          ⏳ current
 Phase 3: Workspace layer separation programme         ⏳ current/future
   Audit: repo-wide layer/workspace matrix             ⏳ current
+  P0A: Oak source integration workspaces              ⏳ current
   Companion: architectural budget visibility lens     📋 future
   Tranche 1: platform/runtime foundations             📋 future
   Tranche 2: design system                            📋 future
@@ -136,6 +144,11 @@ Phase 4: Quality/operations hardening                 📋 future
 
 - Executable audit:
   [current/workspace-layer-separation-audit.plan.md](current/workspace-layer-separation-audit.plan.md)
+- Sequenced source-integration implementation:
+  [current/oak-source-integration-workspaces.plan.md](current/oak-source-integration-workspaces.plan.md)
+  — begins after the audit records the selected `integrations/*` layer and proves
+  source-level OpenAPI, Castr, ontology, and synthetic database collaboration
+  without adding nested-source runtime coupling
 - Strategic umbrella:
   [future/oak-surface-isolation-and-generic-foundation-programme.plan.md](future/oak-surface-isolation-and-generic-foundation-programme.plan.md)
 - Companion strategic plan:
