@@ -134,7 +134,7 @@ new records-are-technical-not-emotional rule respectively — both homes verifie
   owner-action-queue framing ("your click", "your PR"); report constraints + options, route
   only constitutively-owner residue, and frame even that as what the work needs.
 
-- **Derived-output conservation shape for the refounding arc** `[captured: 2026-07-15 | source: S1 publication decision (owner retention question + Director ruling; PR #382; napkin 2026-07-15 loss-scan item 2) | target: plan-corpus-refounding.plan.md (a P-clause) or the S2+ remit template | trigger: before S2 execution begins | size: small | status: pending]`
+- **Derived-output conservation shape for the refounding arc** `[captured: 2026-07-15 | source: S1 publication decision (owner retention question + Director ruling; PR #382; napkin 2026-07-15 loss-scan item 2) | target: .agent/memory/active/patterns/ (a derived-output-conservation pattern; the plan P-clause and S2+ remit template then cite it) | trigger: before S2 execution begins | size: small | status: pending]`
   Unique source freezes commit verbatim (S0); deterministic derived outputs commit only the
   compact attestation (hashes, counts, calibration disclosures, exact regeneration +
   verification contract) with bulk artefacts local/ignored. Twice-run byte-identity is the

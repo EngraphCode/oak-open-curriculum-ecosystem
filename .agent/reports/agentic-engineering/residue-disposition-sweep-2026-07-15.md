@@ -108,6 +108,9 @@ spot-verification of the three highest-stakes claims before any ruling was reque
 ## Recoverability
 
 Every deleted local tip's SHA was recorded before deletion (session scratchpad + the comms
-broadcast "Residue disposition sweep EXECUTED", 2026-07-15) and remains reflog-recoverable
-locally for the reflog window. The stash drops printed their SHAs at drop time; all four
+broadcast "Residue disposition sweep EXECUTED", 2026-07-15). Deleting a branch also deletes
+that branch's own reflog, so recovery relies on those recorded object IDs: they can restore
+a tip while the now-unreachable commit objects remain in the local object database (until a
+future `git gc` prunes them per `gc.pruneExpire`), plus `HEAD`'s reflog for tips recently
+checked out. The stash drops printed their SHAs at drop time; all four
 matched the pre-deletion map.

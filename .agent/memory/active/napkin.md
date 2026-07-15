@@ -1098,8 +1098,8 @@ Schooner; later references to Director disposition or custody route to Mussel.
 
 - The owned lane was the r1-S1 deterministic script layer only: no subagent fleets, reader
   sample, locator work, or judgement. The freeze check, inventory, residue, sweep, and P4
-  detector-calibration ran twice from exact base `0a04617d4` with byte-identical outputs.
-- Compact evidence PR #382 merged at `de3cc54c1` (tip `766f3d5eb`). A terminal live harvest
+  detector-calibration ran twice from exact base `SHA:0a04617d4` with byte-identical outputs.
+- Compact evidence PR #382 merged at `SHA:de3cc54c1` (tip `SHA:766f3d5eb`). A terminal live harvest
   reconfirmed 18/18 checks successful, three of three review threads resolved, and the latest
   current-tip Copilot review carrying no new comment. The tip is an ancestor of `origin/main`.
 - The durable measurements are in the merged Markdown/JSON evidence twins: 681/681 frozen
@@ -1107,11 +1107,11 @@ Schooner; later references to Director disposition or custody route to Mussel.
   disclosure that the marker-free plant was invisible while the control hit. The disclosure is
   not a green sweep result; it is the proof that the declared reader residual remains necessary.
 - The five generated outputs total about 49 MB and 996,181 physical lines. They are ignored and
-  absent from the PR, while local-only commit `42b27e3eb` conserves them on
+  absent from the PR, while local-only commit `SHA:42b27e3eb` conserves them on
   `feat/plan-corpus-refounding-s1-zodiac`. The branch and worktree were verified clean and the
   branch was verified absent from the remote. This is containment, not backup: clone loss would
-  lose the copy. Director Schooner guards Whirlpool owns its later disposition; do not delete,
-  reset, push, or mistake it for ordinary untracked residue without that ruling.
+  lose the copy. The sitting Director (Mussel rides Coral at truing time) owns its later disposition; do not
+  delete, reset, push, or mistake it for ordinary untracked residue without that ruling.
 - **Verdict:** the deterministic S1 slice landed; full S1 remains pending. The declared-rate
   reader sample, any resulting zero-judgement fleet residual, S2 tiling, and the divergence
   report remain outside this seat and under Director custody.
@@ -1127,7 +1127,7 @@ Schooner; later references to Director disposition or custody route to Mussel.
   emitted change” meant “no new review”. The watcher also had an all-green exit/re-arm gap.
   Existing PR-lifecycle doctrine already required full-surface harvesting and a quiet window;
   the failure was doctrine traction, not an absent rule.
-- **Repair and behaviour change:** commit `766f3d5eb` embedded the same five-entry
+- **Repair and behaviour change:** commit `SHA:766f3d5eb` embedded the same five-entry
   `shasum -a 256 -c` manifest in JSON as Markdown; the command was executed from JSON and all
   five entries returned OK. After every push and before every PR-status statement, perform the
   compound GraphQL review-thread harvest even when the watcher reports no change; treat the
@@ -1239,8 +1239,9 @@ agent entry points; and the local Codex, Claude, Cursor, and Gemini plan/memory 
 
 - Scoped Prettier, Markdownlint, internal-link validation, and `git diff --check` all passed.
 - Informational and strict-hard fitness agreed on 10 critical, 15 hard, 12 soft, and 33 healthy
-  surfaces. Live pending-graduation decision-debt is zero; one pre-existing malformed entry remains
-  visible. The napkin and repo continuity are critical accumulation surfaces, with the dedicated
+  surfaces. Live pending-graduation decision-debt reads 3 on this branch (the three entries the
+  continuity tranche itself appends — corrected at review; the original zero was read
+  before that append); one pre-existing malformed entry remains visible. The napkin and repo continuity are critical accumulation surfaces, with the dedicated
   stable-boundary curator lane above as their explicit disposition.
 - The mandatory aggregate `pnpm check` was started in a browser-capable host after a singleton-gate
   broadcast, then cancelled immediately on the owner's explicit instruction while `gitleaks` was

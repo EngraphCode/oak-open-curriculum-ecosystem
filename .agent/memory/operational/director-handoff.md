@@ -262,13 +262,25 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> ### ▶ ACTIVE EFFORT: PLAN-CORPUS REFOUNDING — seat in transfer: Schooner guards Whirlpool → Mussel rides Coral (Moment-1 2026-07-15 ~14:22Z)
+> ### ▶ ACTIVE EFFORT: PLAN-CORPUS REFOUNDING — Director: Mussel rides Coral (Moment-2 2026-07-15T14:26:36Z, event `0f7e4907`)
+>
+> **SESSION SHAPE:** Mussel rides Coral (`6f8857`) holds the seat — claim `0f4be777`
+> adopted, dual heartbeat live (transfer from Schooner guards Whirlpool `82a9df`, Moment-1
+> ~14:22Z, Moment-2 14:26:36Z after the readiness gate + pasted mechanical UTC check).
+> Hedgehog tracks Eventide (`82b36c`) is Fleet Captain, warm, running the signed
+> `s1-reader-sample-b1` batch (claim `45befb32`). Zodiac turns Solstice (`019f65`) was
+> owner-shut-down after their S1 closeout; forensic verdict: contained, nothing rogue
+> reached origin, their deep-handoff fold rides PR #384.
+>
+> <details><summary>Superseded: seat-in-transfer state as frozen by Schooner (conserved)</summary>
 >
 > **SESSION SHAPE at handoff:** outgoing Director Schooner guards Whirlpool (`82a9df`,
 > owner-directed deep handoff then session end); incoming Director Mussel rides Coral
 > (`6f8857`, registered 14:13:43Z, standby held correctly — Moment-2 pending); Zodiac turns
 > Solstice (`019f65`) on a narrow continuity-curation claim `c4e56bb2` only (S1 lane closed
 > clean); Hedgehog tracks Eventide (`82b36c`) owner-cold-paused, Fleet-Captain-in-waiting.
+>
+> </details>
 >
 > **The live pickup surface is the handoff record**
 > `.agent/state/collaboration/handoffs/2026-07-15-director-schooner-to-mussel-0f4be777.md`

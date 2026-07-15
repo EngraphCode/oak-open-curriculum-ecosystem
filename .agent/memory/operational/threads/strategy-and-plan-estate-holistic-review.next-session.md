@@ -25,8 +25,8 @@ reconceived to this model 2026-06-18. This record is the **pickup surface**, not
 frozen conservation commit; orphan-recovery PR #380 merged at `SHA:55a69ceca`. **The S1
 deterministic script layer has now landed**: Zodiac turns Solstice ran the freeze check,
 inventory, residue, sweep, and P4 detector-calibration twice from the exact recorded base;
-the compact, recomputable evidence contract merged through PR #382 (`de3cc54c1`, tip
-`766f3d5eb`). The merged evidence records 681/681 frozen files, 77 residue candidates,
+the compact, recomputable evidence contract merged through PR #382 (`SHA:de3cc54c1`, tip
+`SHA:766f3d5eb`). The merged evidence records 681/681 frozen files, 77 residue candidates,
 3,514 sweep hits across 523 files, byte-identical repeated outputs, and the required honest
 disclosure that the marker-free plant was invisible while the control hit. All 18 checks
 passed; all three review threads are resolved. Review repairs made the exact-base requirement,
@@ -43,7 +43,7 @@ disclosure is evidence that this residual is necessary, not permission for blank
 **Custody and conservation.** Mussel rides Coral (`6f8857`) retains Director authority under
 claim `0f4be777`, adopted from the now-retired Schooner guards Whirlpool seat. The five large
 generated outputs are ignored and intentionally absent from PR #382;
-their clean 49 MB conservation commit `42b27e3eb` remains on the local-only branch
+their clean 49 MB conservation commit `SHA:42b27e3eb` remains on the local-only branch
 `feat/plan-corpus-refounding-s1-zodiac`, unpushed and untouched pending Director disposition.
 That state is safe from accidental PR inclusion but is not a remote backup; do not delete,
 reset, or reinterpret it as ordinary untracked residue. Next safe step = Director re-verifies

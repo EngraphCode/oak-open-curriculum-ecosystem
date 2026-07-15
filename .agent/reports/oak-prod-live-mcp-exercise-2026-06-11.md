@@ -56,9 +56,10 @@ three honest shapes — no soft stub observed anywhere.
   `content` blocks; an empty `content` array displays as `(omitted)` and the
   `structuredContent` is dropped. Every graph tool returns a serialised
   `TextContent` block *alongside* `structuredContent`, which is why they render.
-- **Spec context**: MCP spec advises that tools returning structured content
+- **Spec context**: the MCP spec advises that tools returning structured content
   SHOULD also return the serialised JSON in a `TextContent` block for
-  backwards compatibility. The structuredContent-only ratification predates
+  backwards compatibility
+  ([spec 2025-06-18, Tools §Structured content](https://modelcontextprotocol.io/specification/2025-06-18/server/tools#structured-content)). The structuredContent-only ratification predates
   this live evidence of a major client dropping it.
 - **Impact**: any Cursor-hosted agent (and any client with the same
   content-block-only rendering) cannot consume EEF evidence from the live

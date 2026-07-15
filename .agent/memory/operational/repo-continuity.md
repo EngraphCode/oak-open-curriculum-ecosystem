@@ -36,7 +36,7 @@ from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
 - **PLAN-CORPUS REFOUNDING r1 — S0 CLOSED; S1 DETERMINISTIC SLICE MERGED; FULL S1 OPEN
-  (2026-07-15).** PR #382 (`de3cc54c1`, evidence tip `766f3d5eb`) preserves the compact,
+  (2026-07-15).** PR #382 (`SHA:de3cc54c1`, evidence tip `SHA:766f3d5eb`) preserves the compact,
   exact-base regeneration contract for the twice-run freeze/inventory/residue/sweep/P4
   calibration evidence. All 18 checks passed and all three review threads are resolved. This
   is a partial stable point only: the marker-free plant remained invisible while its control
@@ -45,7 +45,7 @@ forward-asks remain.
   retains Director custody under claim `0f4be777`, adopted from the now-retired Schooner
   guards Whirlpool seat; Hedgehog tracks Eventide (`82b36c`) is Fleet
   Captain-in-waiting under owner-directed cold pause. The five ignored bulk outputs remain
-  conserved only by local, unpushed commit `42b27e3eb` on
+  conserved only by local, unpushed commit `SHA:42b27e3eb` on
   `feat/plan-corpus-refounding-s1-zodiac`; this is safe from accidental PR inclusion but not a
   remote backup. Next: Director verifies current base/evidence, rules the conservation-copy
   disposition, then resumes the declared reader/fleet residual. Full pickup detail is in the
