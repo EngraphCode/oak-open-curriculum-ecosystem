@@ -496,7 +496,9 @@ loss-scan):
 | agent_name | platform | model | session_id_prefix | role | first_session | last_session |
 | --- | --- | --- | --- | --- | --- | --- |
 | Quasar mends Umbra | claude | claude-fable-5 | 52b4de | Director (first PDR-117 seat) — runway to ratified rule + open S0 window; seat → Barnacle | 2026-07-14 | 2026-07-14 |
-| Barnacle calls Spray | claude-code | claude-fable-5 | 6d5d9c | Director (Moment-2 20:42Z) — S0 execution custody | 2026-07-14 | 2026-07-14 |
+| Barnacle calls Spray | claude-code | claude-fable-5 | 6d5d9c | Director (Moment-2 2026-07-14T20:42:46Z) — executed S0 (re-cut branch on owner instruction to include PR #378 arrivals, froze 681 files, PR #379 merged `SHA:68d6d232`, window CLOSE broadcast), landed the S0 orphan-recovery (PR #380, open, owner-actionable — see handoff record); routed Stoat holds Warren's S1 fleet-captain remit (scripts-first, calibration-gated fleet-dispatch discipline per P3); retired at seat-open-to-Schooner, full loss-scan in the 2026-07-15 napkin entry | 2026-07-14 | 2026-07-15 |
+| Stoat holds Warren | claude-code | claude-fable-5 | 2a69a1 | Fleet Captain (owner-designated, Director-routed) — RETIRED by owner instruction (unreliable behaviour) before any S1 script ran; the retirement was a contained tool-contract mistake (a `--help` probe executed `refound-sweep` for real, writing a stray artefact — see the 2026-07-15 napkin entry), not corrupted work-product; zero commits, S1 returns unstarted | 2026-07-15 | 2026-07-15 |
+| Schooner guards Whirlpool | claude-code | claude-fable-5 | 82a9df | incoming Director (standby, owner-named), pre-positioned via PDR-064 Moment 1 by this record; no claim yet | 2026-07-15 | 2026-07-15 |
 | Baobab lifts Topsoil | claude-code | claude-opus-4-8 | 3be248 | surveyor-synthesist | 2026-06-15 | 2026-06-15 |
 | Ocelot binds Curfew | claude-code | claude-opus-4-8[1m] | c9423b | vision-author + estate-rewiring | 2026-06-17 | 2026-06-17 |
 | Tempest spins Spire | claude-code | claude-opus-4-8[1m] | 94a5c5 | controlling-plan author + review-synthesis + hygiene | 2026-06-17 | 2026-06-17 |

@@ -256,20 +256,41 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> ### ▶ ACTIVE EFFORT: PLANNING & VISIBILITY / PLAN-CORPUS REFOUNDING — Director: Barnacle calls Spray (2026-07-14, Moment-2 20:42:46Z)
+> ### ▶ ACTIVE EFFORT: PLANNING & VISIBILITY / PLAN-CORPUS REFOUNDING — Director: Schooner guards Whirlpool (pre-positioned 2026-07-15, standby)
+>
+> **SESSION SHAPE:** n=2 at handoff — Director (Barnacle calls Spray, `6d5d9c`, retiring),
+> incoming Director standby (Schooner guards Whirlpool, `82a9df`, no claim). A Fleet Captain
+> seat (Stoat holds Warren, `2a69a1`) was opened and RETIRED by owner instruction (unreliable
+> behaviour) before any S1 script ran — a contained tool-contract mistake (a `--help` probe on
+> a raw `refound-*` script executed it for real; see the napkin), not corrupted work-product.
+> S1 is UNSTARTED and returns to the incoming Director to re-route to a successor fleet seat.
+> A stray untracked artefact (`.agent/plans-refounding/sweep/sweep-hits.v1.jsonl`, 1.4MB,
+> primary checkout) awaits owner disposal — do not delete unilaterally. Claim `0f4be777` (role: director,
+> continuously held since Quasar's original 2026-07-14 tenure, never closed across two
+> transfers) carries `handoff_record_path` to
+> `.agent/state/collaboration/handoffs/2026-07-15-director-barnacle-to-schooner-0f4be777.md` —
+> **read that record end to end before Moment-2**; it is the live pickup surface (§1 current
+> edit state incl. the open PR #380 blocker and the in-flight S1 fleet lane; §2 in-flight
+> reasoning incl. the corrected P3 scripts-first fleet-dispatch discipline and the
+> claims-heartbeat gap; §3/§4 decisions made/deferred).
+>
+> **The one-line state:** S0 CLOSED and merged (PR #379, `SHA:68d6d232`, release 1.69.1). S1
+> IN FLIGHT under Stoat (scripted inventory + residue audit + planted-orphan calibration,
+> zero-fleet-dispatch-first discipline). PR #380 (orphan recovery) OPEN, checks green, blocked
+> on code-owner review + a Claude-Code-platform merge-safety classifier — owner action needed.
+>
+> <details><summary>Superseded: Director #2 (Barnacle calls Spray) state at seat-open, 2026-07-14 (conserved)</summary>
 >
 > **SESSION SHAPE:** n=1 — Director only (**Barnacle calls Spray, `6d5d9c`**, claude-code /
 > claude-fable-5), claim `0f4be777` ADOPTED from Quasar mends Umbra (`52b4de`, Director #1,
 > retired at natural boundary after full closeout). The transfer ran PDR-064 two-moments with
-> the readiness gate + a 9-agent adversarial verification of the handoff record. **The live
-> pickup surface is the handoff record**
+> the readiness gate + a 9-agent adversarial verification of the handoff record. The live
+> pickup surface was the handoff record
 > `.agent/state/collaboration/handoffs/2026-07-14-director-quasar-to-barnacle-0f4be777.md`
-> (§2 the S0 execution order; §4 deferred work + owner-item register): at transfer, **the S0
-> hard freeze window was OPEN** with S0 staged-not-started in the r1 worktree. Team protocol
+> (§2 the S0 execution order; §4 deferred work + owner-item register): at transfer, the S0
+> hard freeze window was OPEN with S0 staged-not-started in the r1 worktree. Team protocol
 > in force per **PDR-127** (team-branch coordination) and **PDR-128** (review conversations
 > are first-class), both graduated at the 2026-07-14 dedicated consolidation.
->
-> <details><summary>Superseded: Director #1 state at seat-open (conserved)</summary>
 >
 > The owner-commissioned two-objective team
 > (stakeholder-visibility proof slice; planning-estate review toward proven plans) ran ten seats
