@@ -148,7 +148,7 @@ by **Stage 1** and consumed by the controlling plan's **Body 3** as its Anchor B
 standard) and Anchor A (the registry the `serves_strategic_choice` edge resolves against).
 
 **V0 of node-schema #1 is authored (docs):**
-[`plan-node-schema.v0.md`](../plan-node-schema.v0.md) — decision-complete as V0, explicitly
+[`plan-node-schema.v0.md`](../../../plans/product-development-governance/plan-node-schema.v0.md) — decision-complete as V0, explicitly
 pre-survey. It is the **lens the Stage-2 survey reads the estate against**: a falsifiable,
 complete, checkable shape (every field, enum, and edge stated definitely, each tagged with its
 refinement-exposure: LOCKED / SURVEY-MAY-ADD / OWNER-RESERVED). The build half of Stage 1.2 (the
@@ -373,10 +373,10 @@ the FRAME stream's measurement story, held as ambition.
 **Build gating.** No metric extractor, evidence-edge wiring, or dashboard is built here. Today lead
 time / deployment frequency / change fail rate / FDRT are derivable from git, Vercel, and Sentry
 (Sentry foundation in progress — ADR-162 Observability-First and
-[`what-the-system-emits-today`](../../observability/what-the-system-emits-today.md)); rework-rate and
+[`what-the-system-emits-today`](../../../plans/observability/what-the-system-emits-today.md)); rework-rate and
 full intent-attribution need the intent-graph extractor (Stage 1.4) plus the Linear projection (the
 `external-pointer-surface-integration` plan). The metric surfaces' home is the observability estate
-([`observability-and-quality-metrics.plan.md`](../../architecture-and-infrastructure/future/observability-and-quality-metrics.plan.md),
+([`observability-and-quality-metrics.plan.md`](../../../plans/architecture-and-infrastructure/future/observability-and-quality-metrics.plan.md),
 whose `quality-metrics` todo already names change fail rate). This section makes DORA a design
 constraint on the graph; the build is owner-gated and staged.
 
@@ -453,7 +453,7 @@ graph is precisely the substrate that lets delivery be measured coherently acros
 **Build-gated.** None of this is built here. It is the design intent the contract must serve, so
 the later, owner-gated build composes in rather than retrofits. The `validated_by` edge and the
 cost/accuracy evidence edges are reserved in node-schema #1's vocabulary
-([plan-node-schema.v0.md §5.5](../plan-node-schema.v0.md#55-closing-the-loop--returning-evidence-and-the-multi-developer-transition)).
+([plan-node-schema.v0.md §5.5](../../../plans/product-development-governance/plan-node-schema.v0.md)).
 
 ## From structure to system — the evidence-ingestion requirement (the part that makes it real)
 

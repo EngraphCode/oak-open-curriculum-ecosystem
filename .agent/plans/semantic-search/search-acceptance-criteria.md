@@ -228,7 +228,7 @@ pnpm benchmark:lessons -s maths -p primary --review  # Per-query review
 
 | Document | Purpose |
 |----------|---------|
-| [ground-truth-redesign-plan.md](archive/completed/ground-truth-redesign-plan.md) | GT strategy (complete) |
+| ground-truth-redesign-plan.md (`../../plans-old-archive/semantic-search/archive/completed/ground-truth-redesign-plan.md`) | GT strategy (complete) |
 | [ADR-081](../../../docs/architecture/architectural-decisions/081-search-approach-evaluation-framework.md) | Metrics and decision criteria |
 | [ADR-082](../../../docs/architecture/architectural-decisions/082-fundamentals-first-search-strategy.md) | Level system rationale |
 | [ADR-085](../../../docs/architecture/architectural-decisions/085-ground-truth-validation-discipline.md) | Data integrity |

@@ -75,7 +75,7 @@ This plan earns execution only if it can land all of the following:
 When this plan is promoted, it should start from:
 
 - the contract note and repo-owned follow-through outcomes recorded in
-  [`mcp-canonical-deploy-shape-and-warnings-doctrine.plan.md`](../archive/completed/mcp-canonical-deploy-shape-and-warnings-doctrine.plan.md);
+  `mcp-canonical-deploy-shape-and-warnings-doctrine.plan.md` (`../../../plans-old-archive/observability/archive/completed/mcp-canonical-deploy-shape-and-warnings-doctrine.plan.md`);
 - the real preview and Sentry evidence gathered after the owner-
   directed preview check on the repaired branch;
 - the reviewer findings already surfaced during the abandoned canonical-layout

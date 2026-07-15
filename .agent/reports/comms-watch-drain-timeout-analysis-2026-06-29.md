@@ -1,7 +1,7 @@
 # Comms-watch drain-timeout: a per-cycle full-dir read, and why this session's deaths were contention-driven (not size-driven)
 
 *Author: Kraken spins Headland (claude / claude-opus-4-8 / 3bbe48) — 4th Director, team-tooling session 2026-06-28/29.*
-*Status: analysis / friction deep-dive. Long-form companion to [F-43](../plans/agent-tooling/frictions-register.md) (Comms-watch zombie-process residuals) and [F-44](../plans/agent-tooling/frictions-register.md) (freshness≠liveness).*
+*Status: analysis / friction deep-dive. Long-form companion to [F-43](../memory/operational/frictions-register.md) (Comms-watch zombie-process residuals) and [F-44](../memory/operational/frictions-register.md) (freshness≠liveness).*
 *Verification: adversarially verified by a 4-dimension subagent workflow (mechanism / cure / citations / adversarial), every cited source re-checked first-hand. The first draft contained **two blocking errors** — a size→death causal attribution and an unsafe incremental-drain cure — both caught by the adversarial dimension and corrected here. The first draft is not preserved (no-tombstones); this is the corrected record.*
 
 ## Why this note exists
@@ -60,7 +60,7 @@ The incoming-Director **Moment-1 pre-position** (PDR-064) landed *during* a drai
 
 ## Relationships
 
-- **[F-43](../plans/agent-tooling/frictions-register.md)** — the register entry this note expands. Its cure (c) "dir-size-scaled drain budget" is palliative *and* aimed at the wrong variable for this session's deaths (contention, not size); its (a)/(b) zombie kill-tree + stale-process census remain genuinely unhomed (the hang-hardening plan's §Non-goals scopes them out). Note F-43's own phrasing pairs "growing comms dir" **with** "concurrent load" — the load half is the operative one.
+- **[F-43](../memory/operational/frictions-register.md)** — the register entry this note expands. Its cure (c) "dir-size-scaled drain budget" is palliative *and* aimed at the wrong variable for this session's deaths (contention, not size); its (a)/(b) zombie kill-tree + stale-process census remain genuinely unhomed (the hang-hardening plan's §Non-goals scopes them out). Note F-43's own phrasing pairs "growing comms dir" **with** "concurrent load" — the load half is the operative one.
 - **[`comms-watch-storage-redesign.plan.md`](../plans/agent-tooling/current/comms-watch-storage-redesign.plan.md)** — WS2 mtime-watermark; the correct home for any incremental-drain follow-on.
 - **[`comms-watch-hang-hardening.plan.md`](../plans/agent-tooling/current/comms-watch-hang-hardening.plan.md)** — c1 (fail-loud per-step deadline) + the keep-budgets-short design constraint + the routed-evidence size→death retraction.
 - **F-44** (freshness≠liveness) — adjacent: a drain-dead watcher leaves claim `freshness_status` as the only signal, and it reads "stale" for live agents, compounding blindness.

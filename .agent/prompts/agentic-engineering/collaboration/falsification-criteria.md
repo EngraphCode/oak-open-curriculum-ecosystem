@@ -33,7 +33,7 @@ roles. Mode transitions are recorded in the comms log.
   `scout`, `standby`, `consolidator`) consistently re-emerge despite the
   pressure shape changing — evidence the labels are stable enough to be
   territorial rather than transient. If this happens, the
-  [coordinator-PDR candidate in pending-graduations.md](../../memory/operational/pending-graduations.md)
+  [coordinator-PDR candidate in pending-graduations.md](../../../memory/operational/pending-graduations.md)
   becomes promotable on its own evidence (with the persistent labels
   named explicitly), but P1's claim that all coordination is mode-not-role
   is falsified for those labels.
@@ -51,7 +51,7 @@ roles. Mode transitions are recorded in the comms log.
   a single session, with each transition surfaced via comms event, and
   the peer agent reads the transition correctly without coordination
   cost. **Also strengthens (added 2026-05-14)**: across the
-  [`start-right-team`](../../skills/start-right-team/SKILL-CANONICAL.md)
+  [`start-right-team`](../../../skills/start-right-team/SKILL-CANONICAL.md)
   experiment at N≥3 multi-agent sessions, role labels chosen by agents
   emerge from the named coordination pressure each time, dissolve when
   the pressure ends, and **vary across sessions on the same thread when
@@ -61,7 +61,7 @@ roles. Mode transitions are recorded in the comms log.
   mapping protocol* PDR rather than as a fixed-role-set PDR.
 
 **Co-tested PDR candidate** (added 2026-05-14): the pending
-[coordinator-role-as-allocator-not-gatekeeper PDR candidate](../../memory/operational/pending-graduations.md#entries)
+[coordinator-role-as-allocator-not-gatekeeper PDR candidate](../../../memory/operational/pending-graduations.md)
 in the graduations register is held back from promotion until P1
 falsification criteria above produce stable evidence. Both the PDR
 candidate and P1 are claims about the same substrate phenomenon — how

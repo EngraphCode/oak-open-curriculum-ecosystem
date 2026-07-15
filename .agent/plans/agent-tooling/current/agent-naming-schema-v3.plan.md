@@ -65,7 +65,7 @@ under owner taste review.
 **Thread**: [`agent-naming`](../../../memory/operational/threads/agent-naming.next-session.md)
 **Source decision**: [`naming-v3-shape-sample-sheets-2026-06-12.md`](../../../reports/agentic-engineering/naming-v3-shape-sample-sheets-2026-06-12.md)
 (shape **C — noun + agentive**, owner-chosen 2026-06-12)
-**Predecessor**: [`agent-naming-schema-v2.plan.md`](../archive/completed/agent-naming-schema-v2.plan.md)
+**Predecessor**: `agent-naming-schema-v2.plan.md` (`../../../plans-old-archive/agent-tooling/archive/completed/agent-naming-schema-v2.plan.md`)
 (merged PR #189 `289b3e036`; registry + v1/v2 eras + `naming_schema_version`)
 
 ---
@@ -635,7 +635,7 @@ registration (WS2 checkpoint). WS1 fully landed before WS3 cycle 3.2
 **Beneficial**: none. All work is self-contained in the
 `@oaknational/agent-tools` workspace.
 
-**Related plans**: [`statusline-session-shape-indicators.plan.md`](statusline-session-shape-indicators.plan.md)
+**Related plans**: `../../../plans-old-archive/agent-tooling/archive/completed/statusline-session-shape-indicators.plan.md` (`../../../plans-old-archive/agent-tooling/archive/completed/statusline-session-shape-indicators.plan.md`)
 also touches `statusline-identity` — coordinate the statusline edit if both run
 concurrently (separate concern: shape indicators vs identity derivation). For
 the conceptual identity-substrate cross-links (the substrate, the two-layer

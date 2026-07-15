@@ -53,7 +53,7 @@ Star. The thread persists until the PR merges or is explicitly closed.
 | `Solar Threading Star` | `claude-code` | `claude-opus-4-7-1m` | `6d68d6` | `pr-90-landing-closure-and-machine-local-paths-rule` | 2026-04-29 | 2026-04-29 |
 
 Identity discipline remains additive per
-[PDR-027](../../../practice-core/decision-records/PDR-027-threads-sessions-and-agent-identity.md):
+[PDR-027](../../../../practice-core/decision-records/PDR-027-threads-sessions-and-agent-identity.md):
 new sessions add rows; matching platform/model/agent_name updates
 `last_session`.
 
@@ -114,17 +114,17 @@ closure register at
    detection gap that Cursor Bugbot caught twice on this PR.
 3. **`eslint-plugin-sonarjs` rule activation** — owned by the existing
    multi-phase plan
-   [`sonarjs-activation-and-sonarcloud-backlog.plan.md`](../../../plans/architecture-and-infrastructure/current/sonarjs-activation-and-sonarcloud-backlog.plan.md).
+   `sonarjs-activation-and-sonarcloud-backlog.plan.md` (`../../../../plans-old-archive/architecture-and-infrastructure/archive/sonarjs-activation-and-sonarcloud-backlog.plan.md`).
    The 12 Sonar fixes landed in `78718b3b` reduce the activation backlog.
 
 ## Session Shape and Grounding Order
 
-1. Read [`repo-continuity.md`](../repo-continuity.md) — especially
+1. Read [`repo-continuity.md`](../../repo-continuity.md) — especially
    `§ Active Threads` and the most recent refresh entries (Verdant
    Regrowing Pollen + Solar Threading Star).
 2. Read this thread record.
 3. Read the closure plan
-   [`pr-90-landing-closure.plan.md`](../../../plans/architecture-and-infrastructure/current/pr-90-landing-closure.plan.md).
+   [`pr-90-landing-closure.plan.md`](../../../../plans/architecture-and-infrastructure/current/pr-90-landing-closure.plan.md).
 4. Re-read `principles.md` (especially §Architectural Excellence Over
    Expediency, §Consistent Naming, §No warning toleration), and
    `testing-strategy.md` (Phase 2 Sonar fixes preserve test behaviour).
@@ -152,7 +152,7 @@ closure register at
 
 ### Owning Plan
 
-[`pr-90-landing-closure.plan.md`](../../../plans/architecture-and-infrastructure/current/pr-90-landing-closure.plan.md)
+[`pr-90-landing-closure.plan.md`](../../../../plans/architecture-and-infrastructure/current/pr-90-landing-closure.plan.md)
 
 ### Current Objective
 

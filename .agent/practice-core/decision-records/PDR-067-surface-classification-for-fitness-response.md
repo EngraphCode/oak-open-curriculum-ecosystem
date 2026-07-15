@@ -16,7 +16,7 @@ is a schema failure.
 (capture → distil → graduate → enforce — this PDR classifies the
 surfaces that pipeline runs across, so fitness signals route to
 the correct response for each surface kind);
-[PDR-046](PDR-046-knowledge-layering-and-natural-homes.md)
+PDR-046 (`PDR-046-knowledge-layering-and-natural-homes.md`)
 (knowledge layering — substance routes to the surface whose
 lifecycle matches it; this PDR adds the *fitness-response*
 classification on top of the *lifecycle* classification);
@@ -24,7 +24,7 @@ classification on top of the *lifecycle* classification);
 (directive-file context budget — directives are a doctrine surface
 where fitness pressure routes to splitting along the doctrine's
 axis, not to truncation);
-[`practice-index.md`](../practice-index.md) (substrate-
+the host's `practice-index.md` (substrate-
 implementation ADR carrying the repo-specific phenotype of this
 PDR — the in-repo rule that names the preservation discipline,
 and the per-repo surface inventory the classification applies to).

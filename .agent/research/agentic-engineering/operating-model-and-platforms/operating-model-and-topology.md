@@ -12,18 +12,18 @@ interaction planes, and local-doctrine refinements.
 
 ## Primary Source Material
 
-- [workbench-agent-operating-topology.md](../workbench-agent-operating-topology.md)
-- [cross-platform-agent-surface-matrix.md](../../cross-platform-agent-surface-matrix.md)
+- [workbench-agent-operating-topology.md](workbench-agent-operating-topology.md)
+- [cross-platform-agent-surface-matrix.md](../../../memory/executive/cross-platform-agent-surface-matrix.md)
 - [platform-adapter-formats.md](../../platform-adapter-formats.md)
-- [agentic-engineering-practice.md](../../prog-frame/agentic-engineering-practice.md)
-- [history-of-the-practice.md](../../history-of-the-practice.md)
+- [agentic-engineering-practice.md](../../notes/prog-frame/agentic-engineering-practice.md)
+- [history-of-the-practice.md](../history-of-the-practice.md)
 - [2026-02-21-cross-agent-standardisation-landscape.research.md](../../../plans/agentic-engineering-enhancements/2026-02-21-cross-agent-standardisation-landscape.research.md)
 - [openai_claude_gemini_apps_sdk_comparison.md](../../../research/openai_claude_gemini_apps_sdk_comparison.md)
 
 ## Related Baselines and Plans
 
 - [agentic-mechanism-inventory-baseline.md](../../../analysis/agentic-mechanism-inventory-baseline.md)
-- [operational-awareness-and-continuity-surface-separation.plan.md](../../../plans/agentic-engineering-enhancements/archive/completed/operational-awareness-and-continuity-surface-separation.plan.md)
+- operational-awareness-and-continuity-surface-separation.plan.md (`../../../plans-old-archive/agentic-engineering-enhancements/archive/completed/operational-awareness-and-continuity-surface-separation.plan.md`)
 - [reviewer-gateway-upgrade.plan.md](../../../plans/agentic-engineering-enhancements/current/reviewer-gateway-upgrade.plan.md)
 - [operating-model-mechanism-taxonomy.plan.md](../../../plans/agentic-engineering-enhancements/future/operating-model-mechanism-taxonomy.plan.md)
 

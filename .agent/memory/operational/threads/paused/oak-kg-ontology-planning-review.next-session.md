@@ -14,7 +14,7 @@ merge_class: index-narrative-tables
 > Oak Curriculum Ontology + our estate is done; six owner decisions ratified; the KG/ontology plan
 > estate de-cluttered from 22 live surfaces to 10. Authoritative synthesis:
 >
-[`oak-kg-ontology-deep-review-2026-06-04.md`](../../../reports/oak-kg-ontology-deep-review-2026-06-04.md).
+[`oak-kg-ontology-deep-review-2026-06-04.md`](../../../../reports/oak-kg-ontology-deep-review-2026-06-04.md).
 
 ## Ratified decisions (owner, 2026-06-04)
 

@@ -13,7 +13,7 @@ MCP and MCP Apps expose the capability to AI platforms, search retrieves from
 natural-language intent, and graph surfaces provide curriculum relationships
 and progression context.
 
-> **Note**: The workspace operates as a CLI/SDK architecture. The UI layer was retired in Feb 2026 and the search SDK was extracted to `packages/sdks/oak-search-sdk/`. See [search-sdk-cli.plan.md](../../../.agent/plans/semantic-search/archive/completed/search-sdk-cli.plan.md) for the full plan.
+> **Note**: The workspace operates as a CLI/SDK architecture. The UI layer was retired in Feb 2026 and the search SDK was extracted to `packages/sdks/oak-search-sdk/`. The historical plan was `.agent/plans/semantic-search/archive/completed/search-sdk-cli.plan.md`.
 
 ---
 

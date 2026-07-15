@@ -25,11 +25,11 @@ This document is authoritative for onboarding status and next action.
 
 Historical source snapshots are preserved for traceability:
 
-- [onboarding.report.2026-02-25.md](./archive/superseded/onboarding.report.2026-02-25.md)
-- [onboarding-review-report.2026-02-25.md](./archive/superseded/onboarding-review-report.2026-02-25.md)
-- [onboarding-governance-follow-on.plan.2026-02-25.md](./archive/superseded/onboarding-governance-follow-on.plan.2026-02-25.md)
-- [onboarding.plan.md](../semantic-search/archive/completed/onboarding.plan.md)
-- [onboarding-documentation-follow-on.plan.md](./archive/completed/onboarding-documentation-follow-on.plan.md)
+- onboarding.report.2026-02-25.md (`../../../plans-old-archive/developer-experience/archive/superseded/onboarding.report.2026-02-25.md`)
+- onboarding-review-report.2026-02-25.md (`../../../plans-old-archive/developer-experience/archive/superseded/onboarding-review-report.2026-02-25.md`)
+- onboarding-governance-follow-on.plan.2026-02-25.md (`../../../plans-old-archive/developer-experience/archive/superseded/onboarding-governance-follow-on.plan.2026-02-25.md`)
+- onboarding.plan.md (`../../../plans-old-archive/semantic-search/archive/completed/onboarding.plan.md`)
+- onboarding-documentation-follow-on.plan.md (`../../../plans-old-archive/developer-experience/archive/completed/onboarding-documentation-follow-on.plan.md`)
 
 ---
 
@@ -93,14 +93,14 @@ mechanism that keeps structure coherent over time.
 ### Track A: Merge-Blocking Onboarding Remediation
 
 - **Status**: ✅ Complete
-- **Archive**: [onboarding.plan.md](../semantic-search/archive/completed/onboarding.plan.md)
+- **Archive**: onboarding.plan.md (`../../../plans-old-archive/semantic-search/archive/completed/onboarding.plan.md`)
 - Scope: A1-A8 foundational correctness, onboarding flow, and audience-path fixes.
 
 ### Track B (Docs): Documentation Follow-On
 
 - **Status**: ✅ Complete
 - **Archive**:
-  [onboarding-documentation-follow-on.plan.md](./archive/completed/onboarding-documentation-follow-on.plan.md)
+  onboarding-documentation-follow-on.plan.md (`../../../plans-old-archive/developer-experience/archive/completed/onboarding-documentation-follow-on.plan.md`)
 - Completed items:
   - B7 non-technical curriculum domain guide
   - B8 mission framing in milestone roadmap
@@ -190,11 +190,11 @@ Run updated onboarding simulations against current repository state for:
 ### Rerun Inputs
 
 - [README.md](../../../README.md) (includes Quick Start)
-- [CONTRIBUTING.md](../../../CONTRIBUTING.md)
-- [docs/README.md](../../../docs/README.md)
+- [CONTRIBUTING.md](../../../../CONTRIBUTING.md)
+- [docs/README.md](../../../../docs/README.md)
 - [Vision](../../../../VISION.md)
-- [high-level-plan.md](../high-level-plan.md)
-- [user-experience/public-alpha-experience-contract.md](../user-experience/public-alpha-experience-contract.md)
+- [high-level-plan.md](../../high-level-plan.md)
+- [user-experience/public-alpha-experience-contract.md](../../user-experience/public-alpha-experience-contract.md)
 
 ### Rerun Output Contract
 
@@ -916,14 +916,14 @@ Run onboarding simulations against the current repository state for
 ### Rerun Inputs
 
 - [README.md](../../../README.md) (restructured; Quick Start now lives here)
-- [CONTRIBUTING.md](../../../CONTRIBUTING.md) (updated)
+- [CONTRIBUTING.md](../../../../CONTRIBUTING.md) (updated)
 - [Vision](../../../../VISION.md) (updated)
-- [docs/governance/README.md](../../../docs/governance/README.md) (enhanced)
+- [docs/governance/README.md](../../../../docs/governance/README.md) (enhanced)
 - [.agent/README.md](../../README.md) (new)
-- [.agent/experience/HUMAN.md](../../experience/HUMAN.md) (new)
-- [packages/sdks/oak-curriculum-sdk/README.md](../../../packages/sdks/oak-curriculum-sdk/README.md) (restructured)
-- [apps/oak-curriculum-mcp-stdio/README.md](../../../apps/oak-curriculum-mcp-stdio/README.md) (split)
-- [apps/oak-curriculum-mcp-streamable-http/README.md](../../../apps/oak-curriculum-mcp-streamable-http/README.md) (split)
+- [.agent/experience/HUMAN.md](../../../experience/HUMAN.md) (new)
+- [packages/sdks/oak-curriculum-sdk/README.md](../../../../packages/sdks/oak-curriculum-sdk/README.md) (restructured)
+- [apps/oak-curriculum-mcp-stdio/README.md] (`../../../apps/oak-curriculum-mcp-stdio/README.md`) (split)
+- [apps/oak-curriculum-mcp-streamable-http/README.md](../../../../apps/oak-curriculum-mcp-streamable-http/README.md) (split)
 
 ### Rerun Output Contract
 
@@ -1299,7 +1299,7 @@ review pending (4 personas: junior dev, lead dev, CTO, CEO).
 
 **Status: LANDED same day** — the skill shipped as
 `.agent/skills/onboard-me/SKILL-CANONICAL.md` (published `/oak-onboard-me`)
-via [oak-onboard-me-skill.plan.md](../archive/completed/oak-onboard-me-skill.plan.md), built to
+via oak-onboard-me-skill.plan.md (`../../../plans-old-archive/developer-experience/archive/completed/oak-onboard-me-skill.plan.md`), built to
 the design inputs below (router-not-copy; detect-first; go-ahead-gated).
 Owner-directed scope addition at build time (12 June 2026): a Practice
 branch — what the Practice is, how to work with the agents through the
@@ -1322,7 +1322,7 @@ agentic-AI-literacy lead-in — `working-with-agentic-ai` — added as the missi
 member for contributors new to working with agents in general. `onboard-me`
 Branch F now suggests it as a grounding prelude; the family routing lives in
 AGENT.md §Orientation Requests. See
-[`orientation-and-agentic-ai-literacy.plan.md`](../../../plans-old-archive/developer-experience/archive/completed/orientation-and-agentic-ai-literacy.plan.md)
+`orientation-and-agentic-ai-literacy.plan.md` (`../../../plans-old-archive/developer-experience/archive/completed/orientation-and-agentic-ai-literacy.plan.md`)
 (completed, archived).
 
 **First live run falsified the menu-shaped interaction (12 June 2026,

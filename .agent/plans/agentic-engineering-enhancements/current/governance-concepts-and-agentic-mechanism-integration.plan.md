@@ -35,20 +35,20 @@ doctrine-adjacent surfaces.
 [governance-concepts-and-mechanism-gap-baseline.md](../../../analysis/governance-concepts-and-mechanism-gap-baseline.md)
 
 **Supporting deep dive**:
-[governance-planes-trust-boundaries-and-runtime-supervision.md](../../../reference/agentic-engineering/deep-dives/governance-planes-trust-boundaries-and-runtime-supervision.md)
+[governance-planes-trust-boundaries-and-runtime-supervision.md](../../../research/agentic-engineering/governance-planes-and-supervision/governance-planes-trust-boundaries-and-runtime-supervision.md)
 
 **Formal report**:
 [governance-concepts-and-integration-report.md](../../../reports/agentic-engineering/deep-dive-syntheses/governance-concepts-and-integration-report.md)
 
 **Adjacent plans**:
-[operational-awareness-and-continuity-surface-separation.plan.md](../archive/completed/operational-awareness-and-continuity-surface-separation.plan.md) (ACTIVE, promoted 2026-04-20),
+operational-awareness-and-continuity-surface-separation.plan.md (`../../../plans-old-archive/agentic-engineering-enhancements/archive/completed/operational-awareness-and-continuity-surface-separation.plan.md`) (ACTIVE, promoted 2026-04-20),
 [reviewer-gateway-upgrade.plan.md](./reviewer-gateway-upgrade.plan.md)
 
 **Adjacent future plan**:
 [operating-model-mechanism-taxonomy.plan.md](../future/operating-model-mechanism-taxonomy.plan.md)
 
 **Execution authority**:
-[governance-concepts-and-agentic-mechanism-integration.execution.plan.md](../active/governance-concepts-and-agentic-mechanism-integration.execution.plan.md)
+governance-concepts-and-agentic-mechanism-integration.execution.plan.md (`../../../plans-old-archive/agentic-engineering-enhancements/archive/completed/governance-concepts-and-agentic-mechanism-integration.execution.plan.md`)
 
 ## Context
 
@@ -245,7 +245,7 @@ local language, it is not yet ready for durable capture.
 ### Task 2.1: Route planning-surface candidates
 
 - Minimum target surfaces:
-  - [operational-awareness-and-continuity-surface-separation.plan.md](./operational-awareness-and-continuity-surface-separation.plan.md)
+  - operational-awareness-and-continuity-surface-separation.plan.md (`../../../plans-old-archive/agentic-engineering-enhancements/archive/completed/operational-awareness-and-continuity-surface-separation.plan.md`)
   - [reviewer-gateway-upgrade.plan.md](./reviewer-gateway-upgrade.plan.md)
   - [operating-model-mechanism-taxonomy.plan.md](../future/operating-model-mechanism-taxonomy.plan.md)
   - [hallucination-and-evidence-guard-adoption.plan.md](./hallucination-and-evidence-guard-adoption.plan.md)
@@ -264,9 +264,9 @@ local language, it is not yet ready for durable capture.
 ### Task 2.2: Route reference, report, and doctrine-adjacent candidates
 
 - Minimum target surfaces:
-  - [governance-planes-trust-boundaries-and-runtime-supervision.md](../../../reference/agentic-engineering/deep-dives/governance-planes-trust-boundaries-and-runtime-supervision.md)
+  - [governance-planes-trust-boundaries-and-runtime-supervision.md](../../../research/agentic-engineering/governance-planes-and-supervision/governance-planes-trust-boundaries-and-runtime-supervision.md)
   - [agentic-engineering-system.md](../../../../docs/foundation/agentic-engineering-system.md)
-  - [operating-model-and-topology.md](../../../reference/agentic-engineering/deep-dives/operating-model-and-topology.md)
+  - [operating-model-and-topology.md](../../../research/agentic-engineering/operating-model-and-platforms/operating-model-and-topology.md)
   - [agentic-mechanism-inventory-baseline.md](../../../analysis/agentic-mechanism-inventory-baseline.md)
 - Required routing logic:
   - reference surfaces explain concepts
@@ -330,8 +330,8 @@ local language, it is not yet ready for durable capture.
 
 - Surfaces to assess:
   - [agentic-engineering-system.md](../../../../docs/foundation/agentic-engineering-system.md)
-  - [README.md](../../../reference/agentic-engineering/README.md)
-  - [README.md](../../../reference/agentic-engineering/deep-dives/README.md)
+  - [README.md](../../../research/agentic-engineering/README.md)
+  - [README.md](../../../research/agentic-engineering/README.md)
   - [README.md](../../../analysis/README.md)
   - [README.md](../../../reports/agentic-engineering/README.md)
 - Required rule:

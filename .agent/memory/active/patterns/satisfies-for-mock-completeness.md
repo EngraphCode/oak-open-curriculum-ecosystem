@@ -77,4 +77,4 @@ mock truly represents a full implementation of the interface.
 ## Related
 
 - [Interface Segregation for Test Fakes](interface-segregation-for-test-fakes.md) — complementary pattern for narrowing interfaces
-- [ADR-078: Dependency Injection for Testability](../../docs/architecture/architectural-decisions/078-dependency-injection-for-testability.md)
+- [ADR-078: Dependency Injection for Testability](../../../../docs/architecture/architectural-decisions/078-dependency-injection-for-testability.md)

@@ -43,8 +43,8 @@ not on an abstract reading of its homepage.
 
 Primary sources inspected:
 
-- [README.md](../../../reference-local/repos/graphify/README.md)
-- [ARCHITECTURE.md](../../../reference-local/repos/graphify/ARCHITECTURE.md)
+- `README.md`
+- `ARCHITECTURE.md`
 - [pyproject.toml](../../../reference-local/repos/graphify/pyproject.toml)
 - [graphify/__main__.py](../../../reference-local/repos/graphify/graphify/__main__.py)
 - [graphify/detect.py](../../../reference-local/repos/graphify/graphify/detect.py)
@@ -96,7 +96,7 @@ behaviour layer**.
 ## Core Pipeline
 
 Graphify's architectural spine is explicit in
-[ARCHITECTURE.md](../../../reference-local/repos/graphify/ARCHITECTURE.md):
+`ARCHITECTURE.md`:
 
 `detect() -> extract() -> build_graph() -> cluster() -> analyze() -> report() -> export()`
 
@@ -137,7 +137,7 @@ proper structural substrate where it can.
 
 The richer semantic layer is not embedded in the Python package. It is
 orchestrated in the platform skill files, for example
-[skill-codex.md](../../../reference-local/repos/graphify/graphify/skill-codex.md).
+`skill-codex.md`.
 
 The skill files instruct the assistant to:
 
@@ -208,7 +208,7 @@ and `INFERRED` edges carry a `confidence_score`.
 
 This is reinforced throughout the implementation:
 
-- [ARCHITECTURE.md](../../../reference-local/repos/graphify/ARCHITECTURE.md)
+- `ARCHITECTURE.md`
   defines the schema;
 - [report.py](../../../reference-local/repos/graphify/graphify/report.py)
   surfaces confidence breakdowns and ambiguous edges;

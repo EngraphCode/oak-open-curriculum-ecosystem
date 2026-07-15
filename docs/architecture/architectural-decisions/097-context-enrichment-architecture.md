@@ -122,4 +122,4 @@ Created shared utilities for DRY compliance:
 ## Related Decisions
 
 - [ADR-093](./093-bulk-first-ingestion-strategy.md) - Bulk-First Ingestion Strategy
-- [ADR-080](./080-ks4-metadata-denormalisation.md) - KS4 Metadata Denormalisation
+- ADR-080 (`./080-ks4-metadata-denormalisation.md`) - KS4 Metadata Denormalisation

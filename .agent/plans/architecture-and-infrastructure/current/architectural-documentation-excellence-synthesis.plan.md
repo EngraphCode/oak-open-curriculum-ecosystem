@@ -241,7 +241,7 @@ Three reference documents now at `.agent/research/` and
 during the reference-tier reformation per
 [PDR-032](../../../practice-core/decision-records/PDR-032-reference-tier-as-curated-library.md);
 re-homed during the Session 8 rehoming pass per the
-[rehoming plan](../../agentic-engineering-enhancements/archive/completed/reference-research-notes-rehoming.plan.md), archived 2026-04-22 Session 8 with execution record):
+rehoming plan (`../../../plans-old-archive/agentic-engineering-enhancements/archive/completed/reference-research-notes-rehoming.plan.md`), archived 2026-04-22 Session 8 with execution record):
 
 - [`research/modern-software-architecture-for-long-term-excellence.md`](../../../research/modern-software-architecture-for-long-term-excellence.md)
 - [`research/fundamentals-of-software-architecture.md`](../../../research/fundamentals-of-software-architecture.md)

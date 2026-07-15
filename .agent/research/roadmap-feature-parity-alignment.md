@@ -4,7 +4,7 @@
 **Updated**: 2025-12-10 (Recommendations incorporated into roadmap)  
 **Purpose**: Compare Phase 3+ roadmap against feature parity analysis findings
 
-> **Note**: The recommendations in this document have been incorporated into the [Semantic Search Roadmap](../../plans/semantic-search/roadmap.md). This document is retained for reference.
+> **Note**: The recommendations in this document have been incorporated into the [Semantic Search Roadmap](../plans/semantic-search/roadmap.md). This document is retained for reference.
 
 ---
 

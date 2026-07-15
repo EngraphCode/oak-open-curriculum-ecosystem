@@ -16,7 +16,7 @@ long-term.
 
 The owner-expanded Session 8 rehoming pass completed nearly all dispositions.
 Tracking plan:
-[`reference-research-notes-rehoming.plan.md`](../../plans/agentic-engineering-enhancements/archive/completed/reference-research-notes-rehoming.plan.md) (archived 2026-04-22 Session 8 with execution record).
+`reference-research-notes-rehoming.plan.md` (`../../plans-old-archive/agentic-engineering-enhancements/archive/completed/reference-research-notes-rehoming.plan.md`) (archived 2026-04-22 Session 8 with execution record).
 
 **Outcome**: 22 MOVED + 6 DELETED + 1 KEPT. Two `PROMOTE TO REFERENCE`
 proposals were placed at their failsafe `research/` homes pending owner-vet

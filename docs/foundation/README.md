@@ -35,7 +35,7 @@ Adjacent surfaces (not part of this boundary):
   — Concept-and-deep-dive map for canon routing, deep dives, research,
   evidence. (The former `research/notes/agentic-engineering/` hub was merged
   into this lane README during the Session 8 rehoming pass; see the
-  [reference-research-notes-rehoming plan](../../.agent/plans/agentic-engineering-enhancements/future/reference-research-notes-rehoming.plan.md)
+  reference-research-notes-rehoming plan (`../../.agent/plans-old-archive/agentic-engineering-enhancements/archive/completed/reference-research-notes-rehoming.plan.md`)
   for the full disposition record.)
 
 ## Usage

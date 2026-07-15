@@ -3,7 +3,7 @@
 **Status**: 📋 BACKLOG  
 **Priority**: Medium — should follow Phase 3a completion  
 **Created**: 2026-02-17  
-**Related**: [Config Architecture Standardisation](../current/config-architecture-standardisation-plan.md), [Phase 3a MCP Search Integration](../../semantic-search/archive/completed/phase-3a-mcp-search-integration.md)
+**Related**: [Config Architecture Standardisation](../current/config-architecture-standardisation-plan.md), Phase 3a MCP Search Integration (`../../../plans-old-archive/semantic-search/archive/completed/phase-3a-mcp-search-integration.md`)
 
 ---
 
@@ -96,5 +96,5 @@ Update the STDIO server to consume shared code:
 ## Notes
 
 This plan supersedes the STDIO-specific items in the
-[Config Architecture Standardisation Plan](config-architecture-standardisation-plan.md)
+[Config Architecture Standardisation Plan](../current/config-architecture-standardisation-plan.md)
 (task 2.2). The scope here is broader: not just config, but full alignment.

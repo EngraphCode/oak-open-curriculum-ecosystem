@@ -2,7 +2,7 @@
 
 **Status**: Accepted
 **Date**: 2026-02-25
-**Updated**: 2026-06-26
+**Updated**: 2026-07-15
 **Related**: [ADR-013 (Husky and lint-staged)](013-husky-and-lint-staged.md), [ADR-043 (Type Generation in Build and CI)](043-codegen-in-build-and-ci.md), [ADR-111 (Secret Scanning Quality Gate)](111-secret-scanning-quality-gate.md), [ADR-147 (Browser Accessibility)](147-browser-accessibility-as-blocking-quality-gate.md), [ADR-161 (Network-Free PR Checks)](161-network-free-pr-check-ci-boundary.md), [ADR-174 (Dependency Vulnerability Scanning)](174-dependency-vulnerability-scanning-quality-gate.md), [ADR-204 (Merge-Gate Strategy)](204-merge-gate-strategy-require-up-to-date-not-merge-queue.md)
 
 ## Context
@@ -25,10 +25,13 @@ The five surfaces are:
 4. **GitHub CI workflow** (`.github/workflows/ci.yml`) — runs on PRs and
    pushes to `main`. Canonical remote gate. Must be self-contained (no
    local tooling assumptions).
-5. **Local commands** (`pnpm check`, `pnpm make`) — developer-initiated.
+5. **Local commands** (`pnpm check`, `pnpm make`, `pnpm check:docs`) —
+   developer-initiated.
    `pnpm check` is the canonical aggregate gate and the most comprehensive;
    `pnpm make` is build-and-fix. The former `pnpm qg` verify-only surface was
-   removed because it duplicated gate narratives and created onboarding drift.
+   removed because it duplicated full-gate narratives and created onboarding
+   drift. `pnpm check:docs` is a deliberately focused, verify-only aggregate for
+   documentation work and makes no full-repository verification claim.
 
 ## Decision
 
@@ -39,38 +42,37 @@ or configuration issue, never a missing check.
 
 ### Coverage matrix
 
-| Check             | pre-commit | pre-push | CI workflow | pnpm check              |
-| ----------------- | ---------- | -------- | ----------- | ----------------------- |
-| secrets:scan      | --         | Yes      | Yes         | Yes                     |
-| clean             | --         | --       | --          | Yes                     |
-| sdk-codegen       | via build  | Yes      | Yes         | Yes                     |
-| build             | Yes        | Yes      | Yes         | Yes                     |
-| format-check      | Yes        | Yes      | Yes         | Yes (format:root)       |
-| markdownlint      | Staged     | Yes      | Yes         | Yes (markdownlint:root) |
-| subagents:check   | --         | Yes      | Yes         | Yes                     |
-| portability:check | --         | Yes      | Yes         | Yes                     |
-| knip              | Yes        | Yes      | Yes         | Yes                     |
-| depcruise         | Yes        | Yes      | Yes         | Yes                     |
-| repo-validators   | Yes        | Yes      | Yes         | Yes                     |
-| type-check        | Yes        | Yes      | Yes         | Yes                     |
-| lint              | Yes        | Yes      | Yes         | Yes (lint:fix)          |
-| lint:shell        | Yes        | Yes      | Yes         | Yes                     |
-| test              | Yes        | Yes      | Yes         | Yes                     |
-| test:widget       | --         | --       | --          | Yes                     |
-| test:widget:ui    | --         | --       | --          | Yes                     |
-| test:widget:a11y  | --         | --       | --          | Yes                     |
-| test:e2e          | --         | Yes      | Yes         | Yes                     |
-| test:ui           | --         | Yes      | Yes         | Yes                     |
-| test:a11y         | --         | --       | --          | Yes                     |
-| doc-gen           | --         | --       | --          | Yes                     |
-| SonarCloud        | --         | --       | PR analysis | --                      |
-| dependency-review | --         | --       | PR advisory | --                      |
+| Check             | pre-commit | pre-push | CI workflow | pnpm check                    |
+| ----------------- | ---------- | -------- | ----------- | ----------------------------- |
+| secrets:scan      | --         | Yes      | Yes         | Yes                           |
+| clean             | --         | --       | --          | Yes                           |
+| sdk-codegen       | via build  | Yes      | Yes         | Yes                           |
+| build             | Yes        | Yes      | Yes         | Yes                           |
+| format-check      | Yes        | Yes      | Yes         | Yes (format-check:root)       |
+| markdownlint      | Staged     | Yes      | Yes         | Yes (markdownlint-check:root) |
+| subagents:check   | --         | Yes      | Yes         | Yes                           |
+| portability:check | --         | Yes      | Yes         | Yes                           |
+| knip              | Yes        | Yes      | Yes         | Yes                           |
+| depcruise         | Yes        | Yes      | Yes         | Yes                           |
+| repo-validators   | Yes        | Yes      | Yes         | Yes                           |
+| type-check        | Yes        | Yes      | Yes         | Yes                           |
+| lint              | Yes        | Yes      | Yes         | Yes (lint)                    |
+| lint:shell        | Yes        | Yes      | Yes         | Yes                           |
+| test              | Yes        | Yes      | Yes         | Yes                           |
+| test:widget       | --         | --       | --          | Yes                           |
+| test:widget:ui    | --         | --       | --          | Yes                           |
+| test:widget:a11y  | --         | --       | --          | Yes                           |
+| test:e2e          | --         | Yes      | Yes         | Yes                           |
+| test:ui           | --         | Yes      | Yes         | Yes                           |
+| test:a11y         | --         | --       | --          | Yes                           |
+| SonarCloud        | --         | --       | PR analysis | --                            |
+| dependency-review | --         | --       | PR advisory | --                            |
 
 ### Rationale for exclusions
 
 - **Pre-commit catches what it cheaply can; it excludes only the genuinely
-  expensive or network-bound surfaces** (secret scanning, the heavier
-  `test:e2e`/`test:ui`/widget/a11y tiers, `doc-gen`). The earlier "pre-commit
+  expensive or network-bound surfaces** (secret scanning and the heavier
+  `test:e2e`/`test:ui`/widget/a11y tiers). The earlier "pre-commit
   excludes build/codegen — too slow" rule is **retired** (2026-06-05): Turbo
   caching makes `build` sub-second when warm (measured ~0.75s for the cached
   `build type-check lint test` step), and `type-check` requires built
@@ -87,8 +89,6 @@ or configuration issue, never a missing check.
   is tracked in the quality gate hardening plan (item 0d); when promoted,
   they will be added to both pre-push and CI simultaneously to preserve
   equality.
-- **Pre-push and CI exclude doc-gen**: documentation generation is a
-  build-time convenience, not a correctness gate.
 - **Pre-commit markdownlint is staged-only**: the repo still requires full
   markdownlint in pre-push, CI, and `pnpm check`, while pre-commit limits this
   one check to staged Markdown files to keep the hook proportional.
@@ -102,16 +102,15 @@ or configuration issue, never a missing check.
 ### Verify vs Mutate
 
 `pnpm check` is a developer workflow that produces a clean state then
-verifies it. It uses fix-mode commands: `format:root` (writes),
-`markdownlint:root` (writes), and `lint:fix` (writes). This is
-**intentional** — the developer sees the changes and can commit them.
+verifies it. Its formatting, Markdown, and lint stages are verify-only:
+`format-check:root`, `markdownlint-check:root`, and `lint`.
 
-Pre-commit, pre-push, and CI use check/verify-only commands. They never
-mutate files. This is also **intentional** — mutations in hooks are
-disruptive, and mutations in CI are invisible and misleading.
+Pre-commit, pre-push, and CI also use check/verify-only commands. They never
+mutate files. Developer fix workflows such as `pnpm make`, `pnpm fix`,
+`format:root`, `markdownlint:root`, and `lint:fix` are explicitly mutating.
 
-The design rule: **developer aggregate surfaces may mutate; hook and
-remote surfaces verify only.**
+The design rule: **check surfaces verify; commands explicitly named as fix or
+make surfaces may mutate.**
 
 ### Secret scanning scope
 
@@ -145,14 +144,13 @@ adds no enforcement value. It is not part of any routine gate surface.
 3. **Pre-push is comprehensive** — secret scan, full build chain, all
    non-widget test suites, sub-agent and portability validation.
 4. **`pnpm check` is exhaustive** — the only surface that runs every
-   check including clean rebuild, doc-gen, widget tests, a11y tests,
-   and fix-mode commands.
+   check including clean rebuild, widget tests, and a11y tests.
 5. **No CI-only checks except the networked external analyses named in
    principle #1** — every other CI check is reproducible locally via pre-push,
    so a developer who passes pre-push knows CI will pass (assuming equivalent
    environment). The sole exceptions are SonarCloud and the dependency-review
    gate, which cannot run locally (see principle #1).
-6. **Developer surfaces fix; hook and remote surfaces verify** — see
+6. **Check surfaces verify; explicit fix surfaces may mutate** — see
    §Verify vs Mutate above.
 
 ### Dependency vulnerability gate status
@@ -229,7 +227,11 @@ markdownlint-staged`, `repo-validators:check`, `lint:shell`, `knip`,
   and `browser-tests` (the Playwright suites, with the browser download cached and
   keyed on the Playwright version). The check set is unchanged from the prior single-job
   workflow — only the structure, caching, and gitleaks provisioning changed.
-- `pnpm check` runs the broadest set with fix-mode and clean rebuild.
+- `pnpm check` runs the broadest verify-only set after a clean rebuild.
+- `pnpm check:docs` runs root Prettier and Markdownlint checks plus the
+  documentation-specific reference-direction, machine-local-path, internal-link,
+  patterns-index, and ratified-list validators. It runs no builds, product tests,
+  browser suites, or informational fitness reports.
 - Coverage matrix maintained in this ADR and referenced from
   `docs/engineering/build-system.md` and `docs/engineering/workflow.md`.
 - ADR-043 updated to reflect the drift-check-based freshness verification
@@ -250,3 +252,4 @@ markdownlint-staged`, `repo-validators:check`, `lint:shell`, `knip`,
 | 2026-06-05 | Owner-directed fresh speed/safety re-decision of the pre-commit surface (Lanternlit curation pass). Found the live `.husky/pre-commit` hook had drifted from this ADR: it omitted knip + depcruise (mandated here) while adding build + repo-validators + lint:shell. Added knip + depcruise to the hook (the omission let unused-code and dependency-direction defects slip to pre-push, as when tsx-spawned validator entries reached `main` unregistered in `knip.config.ts`). Corrected the matrix pre-commit cells for `build`/`repo-validators`/`lint:shell` (`--` to `Yes`) and `sdk-codegen` (to `via build`) to match the hook. Retired the "no builds at pre-commit" rule: Turbo caching makes build sub-second when warm (~0.75s cached for build+type-check+lint+test) and type-check requires `^build`; knip ~1.7s, depcruise ~1.9s. Updated design principle #2, the exclusion rationale, and the Implementation pre-commit list.                                                         |
 | 2026-06-26 | Added the `dependency-review` row to the coverage matrix (CI-only, PR-advisory). Recorded the now-wired advisory dependency-review gate in §Dependency vulnerability gate status, and ADR-161's third-party-vendor scope refinement in §Network-free PR-check boundary (this ADR and ADR-161 amended in lockstep, as both require). Named dependency-review as a standing CI-only parity exception in design principle #1 alongside SonarCloud. The gate is advisory — not a required status check in the `main` ruleset (ADR-204). A full dependency-tree audit and blocking disposition per ADR-174 remain future work.                                                                                                                                                                                                                                                                                                                                                                               |
 | 2026-06-26 | CI restructured from one serial `run-quality-gates` job into parallel jobs (`secret-scan`, `install`, `static-checks`, `build`, `unit-tests`, `knip-depcruise`, `browser-tests`) gated by a `run-quality-gates` fan-in aggregator that reuses the existing required-check context (no ruleset change; every job blocks merge transitively). Updated the §Implementation CI bullet to describe the structure. The check SET is unchanged. New caching: an `install` job warms the pnpm store cache so downstream jobs install offline (no cold-start network stampede); the `build` job warms the Turbo remote cache; Playwright browsers are cached on the lockfile hash; gitleaks moved from a per-run Docker pull to a version- and SHA-256-pinned binary. Not addressed here (pre-existing #230 drift): the matrix still shows `test:widget*`/`test:a11y` as `pnpm check`-only though CI has run them since #230, and pre-push does not run them — a pre-push≠CI parity gap to reconcile separately. |
+| 2026-07-15 | Added the focused, verify-only `pnpm check:docs` aggregate for general documentation work. It composes root Prettier and Markdownlint checks with the documentation validator collection, while builds, product tests, browser suites, specialised-surface validators, and informational fitness reports remain outside this focused boundary. Reconciled adjacent stale `pnpm check` claims with executable truth: the full check uses verify-only format, Markdown, and lint commands and has no `doc-gen` stage.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |

@@ -38,7 +38,7 @@ Full text: [ADR-162](../../../docs/architecture/architectural-decisions/162-obse
 
 | Axis | MVP deliverable | Owning plan | Post-MVP | Explorations informing |
 |---|---|---|---|---|
-| **Engineering** | Error capture + tracing + release linkage + free-signal integrations (ANR, event-loop delay, Zod validation failures) + widget error capture + alert suite + runbooks | [`active/sentry-observability-maximisation-mcp.plan.md`](active/sentry-observability-maximisation-mcp.plan.md) (core engineering lanes) + [`archive/completed/mcp-canonical-deploy-shape-and-warnings-doctrine.plan.md`](archive/completed/mcp-canonical-deploy-shape-and-warnings-doctrine.plan.md) (closed repo-owned corrective lane; remaining manual validation is owner-handled separately) | [`future/cross-system-correlated-tracing.plan.md`](future/cross-system-correlated-tracing.plan.md), [`future/deployment-impact-bisection.plan.md`](future/deployment-impact-bisection.plan.md), [`future/slo-and-error-budget.plan.md`](future/slo-and-error-budget.plan.md), [`future/mcp-http-runtime-canonicalisation.plan.md`](future/mcp-http-runtime-canonicalisation.plan.md) | Exploration 2 (Sentry-as-PaaS) |
+| **Engineering** | Error capture + tracing + release linkage + free-signal integrations (ANR, event-loop delay, Zod validation failures) + widget error capture + alert suite + runbooks | [`active/sentry-observability-maximisation-mcp.plan.md`](active/sentry-observability-maximisation-mcp.plan.md) (core engineering lanes) + `../../plans-old-archive/observability/archive/completed/mcp-canonical-deploy-shape-and-warnings-doctrine.plan.md` (`../../plans-old-archive/observability/archive/completed/mcp-canonical-deploy-shape-and-warnings-doctrine.plan.md`) (closed repo-owned corrective lane; remaining manual validation is owner-handled separately) | [`future/cross-system-correlated-tracing.plan.md`](future/cross-system-correlated-tracing.plan.md), [`future/deployment-impact-bisection.plan.md`](future/deployment-impact-bisection.plan.md), [`future/slo-and-error-budget.plan.md`](future/slo-and-error-budget.plan.md), [`future/mcp-http-runtime-canonicalisation.plan.md`](future/mcp-http-runtime-canonicalisation.plan.md) | Exploration 2 (Sentry-as-PaaS) |
 | **Product** | `packages/core/observability-events/` workspace + `tool_invoked` emission + `search_query` emission + event catalog | [`current/observability-events-workspace.plan.md`](current/observability-events-workspace.plan.md), [`current/search-observability.plan.md`](current/search-observability.plan.md) | [`future/curriculum-content-observability.plan.md`](future/curriculum-content-observability.plan.md), [`future/feature-flag-provider-selection.plan.md`](future/feature-flag-provider-selection.plan.md), [`future/ai-telemetry-wiring.plan.md`](future/ai-telemetry-wiring.plan.md), [`future/second-backend-evaluation.plan.md`](future/second-backend-evaluation.plan.md) (three-sink architecture: warehouse + PostHog) | Exploration 1 (Sentry vs PostHog), Exploration 4 (event schemas), Exploration 9 (warehouse selection), Exploration 10 (Clerk-identity downstream) |
 | **Usability** | Tool-call success/failure breakdown + feedback capture (L-9) + `widget_session_outcome` events | [`active/sentry-observability-maximisation-mcp.plan.md`](active/sentry-observability-maximisation-mcp.plan.md) (L-9 and L-12 both **deferred to public beta 2026-04-20**; L-3 scope-context for tool-level attribution lands in alpha), [`current/observability-events-workspace.plan.md`](current/observability-events-workspace.plan.md) (beta-gate) | Absorbed into SLO + accessibility-phase-2 lanes | Exploration 4 (stage vocabulary for session-outcome) |
 | **Accessibility** | `a11y_preference_tag` + frustration proxies + incomplete-flow correlation + keyboard-only boolean | [`current/accessibility-observability.plan.md`](current/accessibility-observability.plan.md) | (open question; see exploration 3) | Exploration 3 (a11y at runtime — **blocks MVP**) |
@@ -52,7 +52,7 @@ owned by:
 
 External uptime-monitor creation is owner-external. The bounded
 repo-owned corrective lane is already closed in
-[`archive/completed/mcp-canonical-deploy-shape-and-warnings-doctrine.plan.md`](archive/completed/mcp-canonical-deploy-shape-and-warnings-doctrine.plan.md);
+`../../plans-old-archive/observability/archive/completed/mcp-canonical-deploy-shape-and-warnings-doctrine.plan.md` (`../../plans-old-archive/observability/archive/completed/mcp-canonical-deploy-shape-and-warnings-doctrine.plan.md`);
 any remaining manual validation is owner-handled separately.
 
 ---
@@ -111,7 +111,7 @@ Concretely:
 
 The bounded repo-owned corrective lane that had previously blocked
 preview readiness is now archived complete at
-[`archive/completed/mcp-canonical-deploy-shape-and-warnings-doctrine.plan.md`](archive/completed/mcp-canonical-deploy-shape-and-warnings-doctrine.plan.md).
+`../../plans-old-archive/observability/archive/completed/mcp-canonical-deploy-shape-and-warnings-doctrine.plan.md` (`../../plans-old-archive/observability/archive/completed/mcp-canonical-deploy-shape-and-warnings-doctrine.plan.md`).
 Remaining manual validation stages are owner-handled separately.
 
 **Post-launch (scheduled via promotion trigger)**:
@@ -135,12 +135,12 @@ vendor-independence conformance runs pre-launch rather than post-hoc.
 
 | Wave | Purpose | Work |
 |------|---------|------|
-| **1. Gates & Foundation Extractions** | Land compile-time gates and extract shared workspaces. Every line written after Wave 1 is gate-conformant at write-time. | Maximisation: L-0a / L-0b (done); L-EH initial (done 2026-04-19); L-DOC initial (done 2026-04-19); **L-12-prereq closed 2026-04-19** via the [observability-primitives-consolidation lane](../architecture-and-infrastructure/archive/completed/observability-primitives-consolidation.plan.md) — primitives folded into `@oaknational/observability` rather than extracted into a new core workspace; browser-safety structurally enforced by `no-node-only-imports.unit.test.ts`. **L-7 remains open** (release/deploy linkage scripts — blocked on owner adjudication). Restructure Phase 5 carve-out: author `require-observability-emission` ESLint rule at `warn`; flip ADR-162 Proposed → Accepted. |
+| **1. Gates & Foundation Extractions** | Land compile-time gates and extract shared workspaces. Every line written after Wave 1 is gate-conformant at write-time. | Maximisation: L-0a / L-0b (done); L-EH initial (done 2026-04-19); L-DOC initial (done 2026-04-19); **L-12-prereq closed 2026-04-19** via the observability-primitives-consolidation lane (`../../plans-old-archive/architecture-and-infrastructure/archive/completed/observability-primitives-consolidation.plan.md`) — primitives folded into `@oaknational/observability` rather than extracted into a new core workspace; browser-safety structurally enforced by `no-node-only-imports.unit.test.ts`. **L-7 remains open** (release/deploy linkage scripts — blocked on owner adjudication). Restructure Phase 5 carve-out: author `require-observability-emission` ESLint rule at `warn`; flip ADR-162 Proposed → Accepted. |
 | **2. Schema Foundation** | Event-schema contract + vendor-independence structural lint. Every downstream-analytics obligation exists as code before any consumer imports it. | Sibling plan [`observability-events-workspace.plan.md`](current/observability-events-workspace.plan.md) WS1–WS6 — creates `packages/core/observability-events/` with Zod schemas for the 7 MVP events + conformance helper + event catalog. Sibling plan [`multi-sink-vendor-independence-conformance.plan.md`](current/multi-sink-vendor-independence-conformance.plan.md) WS1 carve-out — `no-vendor-observability-import` ESLint rule landed at `warn`; the emission-persistence test itself is Wave 5. |
 | **3a. Primary Emitters (Server, alpha-gate, schema-independent)** | Server-side emission sites that do NOT consume Wave 2 schemas. Can land before the events-workspace. Transition-to-useful-Sentry phase. | Maximisation: L-1 (free-signal integrations with fixture envelope-observability prereq — emits Sentry-native vendor events), L-2 (delegates extraction — structural refactor, no event shape), L-3 (MCP request context enrichment — establishes mcp_request scope shape, not a schema-governed event). |
 | **3b. Primary Emitters (Server, beta-gate, schema-dependent)** | Emission sites that consume Wave 2 schemas by import. Gated on events-workspace. | Maximisation: L-4b (primary `Sentry.metrics.*` adapter — metric names catalogued in the events-workspace). **Deferred to public beta 2026-04-20**: L-9 (feedback pipeline — no user-facing collection surface in alpha). |
 | **4. Cross-axis & Widget** | Second emitting runtime + axis-specific plans. Can parallelise within wave. | Maximisation: L-12 (widget Sentry; composes the redaction primitives directly from `@oaknational/observability`; emits widget-session-outcome and a11y events). Sibling plan [`security-observability.plan.md`](current/security-observability.plan.md) — `auth_failure`, `rate_limit_triggered` events. Sibling plan [`accessibility-observability.plan.md`](current/accessibility-observability.plan.md) — `a11y_preference_tag`, frustration proxies, `widget_session_outcome`. |
-| **5. Operations + Conformance + Close-out** | Alerts can land because emission landscape is real. Vendor-independence conformance runs pre-launch. MVP-deferred lanes cluster for clean branch close. | Maximisation: L-13 (alerts + dashboards + runbooks), L-14 (trust-boundary ADR), L-15 (strategy close-out ADR), L-DOC final (per-loop TSDoc + ADR index + runbook propagation), L-EH final (`prefer-result-pattern` ESLint rule), MVP-deferred lanes: L-4a, L-5, L-6, L-10, L-11. Sibling plan [`multi-sink-vendor-independence-conformance.plan.md`](current/multi-sink-vendor-independence-conformance.plan.md) WS2+ — emission-persistence test runs MCP server + widget + Search CLI in `SENTRY_MODE=off`; Wave 5 escalates the ESLint rule severity to `error`. Archived closure record [`mcp-canonical-deploy-shape-and-warnings-doctrine.plan.md`](archive/completed/mcp-canonical-deploy-shape-and-warnings-doctrine.plan.md) — repo-owned corrective lane complete; any remaining manual validation is owner-handled separately. |
+| **5. Operations + Conformance + Close-out** | Alerts can land because emission landscape is real. Vendor-independence conformance runs pre-launch. MVP-deferred lanes cluster for clean branch close. | Maximisation: L-13 (alerts + dashboards + runbooks), L-14 (trust-boundary ADR), L-15 (strategy close-out ADR), L-DOC final (per-loop TSDoc + ADR index + runbook propagation), L-EH final (`prefer-result-pattern` ESLint rule), MVP-deferred lanes: L-4a, L-5, L-6, L-10, L-11. Sibling plan [`multi-sink-vendor-independence-conformance.plan.md`](current/multi-sink-vendor-independence-conformance.plan.md) WS2+ — emission-persistence test runs MCP server + widget + Search CLI in `SENTRY_MODE=off`; Wave 5 escalates the ESLint rule severity to `error`. Archived closure record `mcp-canonical-deploy-shape-and-warnings-doctrine.plan.md` (`../../plans-old-archive/observability/archive/completed/mcp-canonical-deploy-shape-and-warnings-doctrine.plan.md`) — repo-owned corrective lane complete; any remaining manual validation is owner-handled separately. |
 
 **Wave close semantics** (2026-04-18 per fred-review TO-ACTION —
 cross-plan scheduling is only a real dependency if it is named):
@@ -198,7 +198,7 @@ targets.
 | Plan | One-line summary |
 |---|---|
 | [`sentry-observability-maximisation-mcp.plan.md`](active/sentry-observability-maximisation-mcp.plan.md) | MCP server + widget: close every Sentry product loop (17 lanes) |
-| [`sentry-observability-translation-crosswalk.plan.md`](active/sentry-observability-translation-crosswalk.plan.md) | Lossless map from pre-pivot plan to current plan set |
+| `sentry-observability-translation-crosswalk.plan.md` (`../../plans-old-archive/observability/archive/completed/sentry-observability-translation-crosswalk.plan.md`) | Lossless map from pre-pivot plan to current plan set |
 
 ### `current/`
 
@@ -214,7 +214,7 @@ targets.
 
 | Plan | One-line summary |
 |---|---|
-| [`mcp-canonical-deploy-shape-and-warnings-doctrine.plan.md`](archive/completed/mcp-canonical-deploy-shape-and-warnings-doctrine.plan.md) | Closed repo-owned corrective lane for the MCP HTTP server after the root-green rerun; manual validation remains owner-handled separately |
+| `mcp-canonical-deploy-shape-and-warnings-doctrine.plan.md` (`../../plans-old-archive/observability/archive/completed/mcp-canonical-deploy-shape-and-warnings-doctrine.plan.md`) | Closed repo-owned corrective lane for the MCP HTTP server after the root-green rerun; manual validation remains owner-handled separately |
 
 ### `future/` (each with promotion trigger)
 
@@ -231,7 +231,7 @@ targets.
 | [`second-backend-evaluation.plan.md`](future/second-backend-evaluation.plan.md) | Three-sink strategic brief. **Vendor decisions**: warehouse settled as load-bearing (vendor open per Exploration 9); PostHog settled as the vendor for Sink 3 (per owner ruling 2026-04-19; timing open). **Sequencing**: warehouse adapter lands before PostHog adapter — owner-confirmed hard blocker. **Triggers**: warehouse adapter at public-beta (after warehouse-choice + identity-policy explorations close); PostHog adapter post-public-beta on a named question; alternative engineering sink only on a named Sentry gap (from exploration 1 or 2) with evidence |
 | [`customer-facing-status-page.plan.md`](future/customer-facing-status-page.plan.md) | Statuspage integration completes |
 | [`security-observability-phase-2.plan.md`](future/security-observability-phase-2.plan.md) | Exploration 6 or 7 conclusions OR first app-level security incident |
-| [`observability-config-coherence.plan.md`](future/observability-config-coherence.plan.md) | Owner-directed decisions on the four open design questions (sink registry location, locality enforcement strength, warnings-channel shape, helper placement). Resolves the dual sink-config mechanism, lifts Sentry validation to the env-resolution layer, adds local/remote sink classification, and provides the build-log + startup signal that makes Sentry wiring verifiable without opening Sentry. |
+| `observability-config-coherence.plan.md` (`future/observability-config-coherence.plan.md`) | Owner-directed decisions on the four open design questions (sink registry location, locality enforcement strength, warnings-channel shape, helper placement). Resolves the dual sink-config mechanism, lifts Sentry validation to the env-resolution layer, adds local/remote sink classification, and provides the build-log + startup signal that makes Sentry wiring verifiable without opening Sentry. |
 | [`sentry-observability-maximisation.plan.md`](future/sentry-observability-maximisation.plan.md) | (Strategic parent brief across both runtimes; remains for cross-branch context) |
 
 ### Substrate (cross-axis infrastructure)
@@ -255,13 +255,13 @@ infrastructure.
 | [`mcp-http-runtime-canonicalisation.plan.md`](future/mcp-http-runtime-canonicalisation.plan.md) | `future/` | Runtime-shape simplification that every axis emitter inherits |
 | [`feature-flag-provider-selection.plan.md`](future/feature-flag-provider-selection.plan.md) | `future/` | Provider-selection decision; substrate for any axis using flags |
 | [`second-backend-evaluation.plan.md`](future/second-backend-evaluation.plan.md) | `future/` | Three-sink architecture (Sentry / warehouse / PostHog); registry shape every axis emits onto |
-| [`observability-config-coherence.plan.md`](future/observability-config-coherence.plan.md) | `future/` | Sink registry unification + env-layer Sentry validation + build-log signal; resolves the dual-sink-mechanism debt and the verification-in-wrong-layer debt that all axes inherit |
+| `observability-config-coherence.plan.md` (`future/observability-config-coherence.plan.md`) | `future/` | Sink registry unification + env-layer Sentry validation + build-log signal; resolves the dual-sink-mechanism debt and the verification-in-wrong-layer debt that all axes inherit |
 
 ### `archive/superseded/`
 
 | Plan | Archival note |
 |---|---|
-| [`sentry-observability-expansion.plan.pre-maximisation-pivot-2026-04-17.md`](archive/superseded/sentry-observability-expansion.plan.pre-maximisation-pivot-2026-04-17.md) | Replaced by the maximisation plan 2026-04-17 |
+| `sentry-observability-expansion.plan.pre-maximisation-pivot-2026-04-17.md` (`../../plans-old-archive/observability/archive/superseded/sentry-observability-expansion.plan.pre-maximisation-pivot-2026-04-17.md`) | Replaced by the maximisation plan 2026-04-17 |
 
 ---
 

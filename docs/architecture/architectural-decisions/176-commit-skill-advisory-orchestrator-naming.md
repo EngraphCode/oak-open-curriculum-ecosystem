@@ -3,9 +3,9 @@
 **Status**: Accepted
 **Date**: 2026-05-10
 **Related**:
-[ADR-118](118-commit-skill-as-canonical-pre-commit-flow.md) — commit skill
+ADR-118 (`118-commit-skill-as-canonical-pre-commit-flow.md`) — commit skill
 as canonical pre-commit flow;
-[ADR-144](144-fitness-vocabulary-three-zone.md) — three-zone fitness
+ADR-144 (`144-fitness-vocabulary-three-zone.md`) — three-zone fitness
 vocabulary consistency;
 PDR-053 (Orchestrator-vs-Gate Structural Cure) — this ADR is the host-repo
 operational application of PDR-053's three-surface polarity discipline.
@@ -71,7 +71,7 @@ advisory orchestrator:
 A non-zero advisory orchestrator exit is **never** licence to propose
 `--no-verify`, construct a doctrinal-collision framing, or reshape the
 commit. Per
-[`no-verify-requires-fresh-authorisation`](../../.agent/rules/no-verify-requires-fresh-authorisation.md),
+[`no-verify-requires-fresh-authorisation`](../../../.agent/rules/no-verify-requires-fresh-authorisation.md),
 `--no-verify` is owner-initiated only.
 
 ## Consequences

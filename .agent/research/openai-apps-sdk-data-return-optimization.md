@@ -510,7 +510,7 @@ Ensure widget still renders correctly with optimized responses:
 
 ## 6. Related Work
 
-- [ADR-054: Tool-Level Auth Error Interception](../../../docs/architecture/architectural-decisions/054-tool-level-auth-error-interception.md)
+- [ADR-054: Tool-Level Auth Error Interception](../../docs/architecture/architectural-decisions/054-tool-level-auth-error-interception.md)
 - [OpenAI Apps SDK Metadata Optimization Guide](https://developers.openai.com/apps-sdk/guides/optimize-metadata)
 - [MCP Specification: Tool Results](https://modelcontextprotocol.io/specification/2025-06-18/server/tools#tool-result)
 

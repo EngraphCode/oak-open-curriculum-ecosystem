@@ -8,13 +8,13 @@ executable scope is clear.
 
 | Horizon | Plan | Strategic Scope | Promotion Trigger | Prerequisites |
 |---|---|---|---|---|
-| Later | [plan-x.md](plan-x.md) | [Scope summary] | [Named, testable trigger] | [What must complete first] |
-| Later | [plan-y.md](plan-y.md) | [Scope summary] | [Named, testable trigger] | [What must complete first] |
+| Later | plan-x.md (`plan-x.md`) | [Scope summary] | [Named, testable trigger] | [What must complete first] |
+| Later | plan-y.md (`plan-y.md`) | [Scope summary] | [Named, testable trigger] | [What must complete first] |
 
-Strategic context: [roadmap.md](../roadmap.md)
+Strategic context: [roadmap.md] (`../roadmap.md`)
 
-In-progress execution: [active/README.md](../active/README.md)  
-Next-up queue: [current/README.md](../current/README.md)
+In-progress execution: [active/README.md] (`../active/README.md`)  
+Next-up queue: [current/README.md] (`../current/README.md`)
 
 Documentation tracking for all phases:
-[the collection documentation-sync-log](../../../memory/operational/documentation-sync-logs/[collection].md)
+the collection documentation-sync-log (`../../../memory/operational/documentation-sync-logs/[collection].md`)

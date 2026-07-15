@@ -416,7 +416,7 @@ See:
 
 See:
 
-- [02b-vocabulary-mining.md](../../../../../.agent/plans/semantic-search/part-1-search-excellence/02b-vocabulary-mining.md) — Full plan
+- `02b-vocabulary-mining.md` — Retired vocabulary-mining plan
 - [ADR-063](../../../../../docs/architecture/architectural-decisions/063-sdk-domain-synonyms-source-of-truth.md) — Integration decisions
 
 ## Current Location (Consolidated)

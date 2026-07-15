@@ -41,7 +41,7 @@ isProject: false
 # multi-agent-collaboration-protocol — Concept-Home Refinement
 
 **Parent**:
-[`2026-04-29-deferred-items-coordination.md`](2026-04-29-deferred-items-coordination.md).
+[`../../agentic-engineering-enhancements/current/2026-04-29-deferred-items-coordination.md`](../../agentic-engineering-enhancements/current/2026-04-29-deferred-items-coordination.md).
 **Created**: 2026-04-29 (deferred from 2026-04-29 deeper convergence
 pass).
 **Status**: QUEUED — owner direction required.
@@ -226,7 +226,7 @@ Mitigations:
 ## Cross-References
 
 - Parent:
-  [`2026-04-29-deferred-items-coordination.md`](2026-04-29-deferred-items-coordination.md).
+  [`../../agentic-engineering-enhancements/current/2026-04-29-deferred-items-coordination.md`](../../agentic-engineering-enhancements/current/2026-04-29-deferred-items-coordination.md).
 - Source plan:
   [`multi-agent-collaboration-protocol.plan.md`](multi-agent-collaboration-protocol.plan.md).
 - Sub-agent report from 2026-04-29 displaced-doctrine extraction §6.

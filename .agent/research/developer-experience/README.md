@@ -29,7 +29,7 @@ meaningful homes is deferred.
 
 ## Local external research lane
 
-- [novel/README.md](./novel/README.md)
+- [novel/README.md] (`./novel/README.md`)
   Local guide to raw imports, sibling clean copies, and semantic-atlas
   material in the ignored repair lane.
 

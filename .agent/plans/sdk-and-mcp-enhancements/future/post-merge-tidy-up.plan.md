@@ -162,9 +162,9 @@ Deferred to later milestones:
 
 Collected from:
 
-- [ws1-get-curriculum-model.plan.md](../archive/completed/ws1-get-curriculum-model.plan.md) — WS5 review follow-ups
-- [merge-readiness.plan.md](../archive/completed/merge-readiness.plan.md) — post-gate items
-- [release-plan-m1.plan.md](../../archive/completed/release-plan-m1.plan.md) — M1 gates
+- ws1-get-curriculum-model.plan.md (`../../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/ws1-get-curriculum-model.plan.md`) — WS5 review follow-ups
+- merge-readiness.plan.md (`../../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/merge-readiness.plan.md`) — post-gate items
+- release-plan-m1.plan.md (`../../../plans-old-archive/archive/completed/release-plan-m1.plan.md`) — M1 gates
 - Session: [Error handling](7e822a76-e479-4943-90f1-ddb496e63e57)
 - Session: [MCP prompts rationalisation](c227c7a7-7c6d-48ee-8eab-0e5e766fc78e)
 - Session: [MCP server validation](fa8f4abf-9c53-4823-9d01-8b61b0cb2e38) — flat-to-nested entropy, year normalisation

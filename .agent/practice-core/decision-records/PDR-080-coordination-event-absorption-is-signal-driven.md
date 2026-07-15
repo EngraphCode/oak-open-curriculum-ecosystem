@@ -28,7 +28,7 @@ Buffer-class with respect to absorption pressure));
 extends 068's buffer-surface back-pressure doctrine to the
 coordination-event stream and maps 068's four-bottleneck diagnostic
 onto this surface);
-[`practice-index.md`](../practice-index.md)
+the host's `practice-index.md`
 (substrate-implementation ADR carrying the repo-specific phenotype
 of this PDR — the bin-signal tooling and host-side workflow edits
 that surface the doctrine).

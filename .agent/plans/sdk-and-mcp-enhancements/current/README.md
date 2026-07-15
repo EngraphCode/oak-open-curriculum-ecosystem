@@ -8,7 +8,7 @@ Executable plans queued or ready to resume.
 | [under-the-hood-mcp-discovery-pointer.plan.md](under-the-hood-mcp-discovery-pointer.plan.md) | One pointer sentence on the MCP discovery surface (the server instructions) directing non-curriculum / mechanism / MCP-app / repo questions to `oak-under-the-hood` — the curriculum↔orientation over-separation hid it | CURRENT — owner-directed 2026-06-28 (sticking-plaster); precursor to [mcp-tool-taxonomy-and-orientation.plan.md](mcp-tool-taxonomy-and-orientation.plan.md); part of the upcoming team session |
 | [mcp-prompt-grouping-taxonomy.plan.md](mcp-prompt-grouping-taxonomy.plan.md) | Group the seven MCP prompts by teacher job-to-be-done (curriculum planning / lesson planning / resource adaptation seed groups; planning-moment axis explicit) via a spec-legal, client-rendering-verified vehicle; align ADR-123 and outward-facing claims to the same vocabulary; surface empty-cell roadmap candidates | QUEUED — owner-directed 2026-06-12; WS2 taxonomy ratification is the owner gate |
 | [schema-change-minimal-adaptation.plan.md](schema-change-minimal-adaptation.plan.md) | Drive hand-adaptation cost of upstream schema changes (OpenAPI AND bulk schema) to the irreducible minimum: two-tier Cardinal Rule ADR, generated tool-mapping doc, inventory-iterating fixtures, codegen path classification, schema-derived sandbox fixtures, API-boundary lint, typed sequence-units rethreading | Owner-directed 2026-06-03 from the sequences-realignment evidence; bulk half gated on promoting [bulk-schema-driven-code-generation](../../semantic-search/future/02-schema-authority-and-codegen/bulk-schema-driven-code-generation.md) |
-| [canonical-url-enforcement.plan.md](canonical-url-enforcement.plan.md) | Promote URL validation from warn-only to configurable gate; validate URLs in ingestion pipeline before ES storage | Queued; dependency on naming collision remediation satisfied ([archived](../archive/completed/url-naming-collision-remediation.plan.md), ADR-145) |
+| [canonical-url-enforcement.plan.md](canonical-url-enforcement.plan.md) | Promote URL validation from warn-only to configurable gate; validate URLs in ingestion pipeline before ES storage | Queued; dependency on naming collision remediation satisfied (archived (`../../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/url-naming-collision-remediation.plan.md`), ADR-145) |
 | [output-schemas-for-mcp-tools.plan.md](output-schemas-for-mcp-tools.plan.md) | Declare a required, object-rooted `outputSchema` on EVERY tool by composing it (one `composeEnvelopeSchema` utility) over each tool's source-derived payload Zod; thread it through the universal-tools seam to `registerTool` | 🟢 DECISION-COMPLETE (owner-ratified 2026-06-09). Serial order: EEF D6/D7 → graph migration → this plan; W0 search/EEF Zod authorable now, graph-tool Zod gated on `graph-tools-value-redesign`; required field is the closing ratchet |
 | [download-asset-user-only-url.plan.md](download-asset-user-only-url.plan.md) | Move `download-asset` signed URLs out of model-visible MCP result fields and into MCP App `_meta` for user-only downloads | Queued; should run before output-schema work finalises the `download-asset` contract |
 | [oak-preview-mcp-snagging-2026-04-23.plan.md](oak-preview-mcp-snagging-2026-04-23.plan.md) | In-repo findings from black-box preview MCP validation: `explore-topic` relevance tuning, KS3-science questions empty-response investigation, consistent MCP-side response surface for empty / no-match / unsupported / failure, and suggest-scope URL population in oak-search-sdk (WS5; reconfirmed 2026-05-25) | Queued; complements the upstream issue reports under [`../../sector-engagement/ooc-issues/`](../../sector-engagement/ooc-issues/) |
@@ -33,19 +33,19 @@ Completed, awaiting archive:
 
 Recently completed and archived:
 
-- [ws3-design-token-prerequisite.plan.md](../archive/completed/ws3-design-token-prerequisite.plan.md) —
+- ws3-design-token-prerequisite.plan.md (`../../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/ws3-design-token-prerequisite.plan.md`) —
   canonical token foundation and shared shell complete on 2 April 2026
-- [url-generation-cleanup.plan.md](../archive/completed/url-generation-cleanup.plan.md) —
+- url-generation-cleanup.plan.md (`../../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/url-generation-cleanup.plan.md`) —
   retired `generateOakUrl`, made `sequenceSlug`/`unitUrl` type-safe (2026-04-01)
-- [auth-boundary-type-safety.plan.md](../archive/completed/auth-boundary-type-safety.plan.md) —
+- auth-boundary-type-safety.plan.md (`../../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/auth-boundary-type-safety.plan.md`) —
   complete (2026-03-31)
-- [auth-safety-correction.plan.md](../archive/completed/auth-safety-correction.plan.md) —
+- auth-safety-correction.plan.md (`../../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/auth-safety-correction.plan.md`) —
   complete (commit `e6574b5a`, 2026-03-31)
-- [mcp-runtime-boundary-simplification.plan.md](../archive/completed/mcp-runtime-boundary-simplification.plan.md) —
+- mcp-runtime-boundary-simplification.plan.md (`../../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/mcp-runtime-boundary-simplification.plan.md`) —
   complete and archived
-- [graph-data-integrity-snagging.execution.plan.md](../archive/completed/graph-data-integrity-snagging.execution.plan.md) —
+- graph-data-integrity-snagging.execution.plan.md (`../../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/graph-data-integrity-snagging.execution.plan.md`) —
   graph integrity defects classified and resolved
-- [search-tool-text-to-query-rename.plan.md](../archive/completed/search-tool-text-to-query-rename.plan.md) —
+- search-tool-text-to-query-rename.plan.md (`../../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/search-tool-text-to-query-rename.plan.md`) —
   full-stack `text` → `query` rename complete
 
 Active work: [active/README.md](../active/README.md)

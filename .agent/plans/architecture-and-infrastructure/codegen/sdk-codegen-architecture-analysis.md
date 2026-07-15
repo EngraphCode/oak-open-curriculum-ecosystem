@@ -589,8 +589,8 @@ plan's Phase 4 (consolidate generators) — if generators are already inside
 
 ## References
 
-- [Release Plan M1](../../archive/completed/release-plan-m1.plan.md) — §ESLint OOM Fix
-- [Session Continuation](../../../prompts/archive/session-continuation.prompt.md)
+- Release Plan M1 (`../../../plans-old-archive/archive/completed/release-plan-m1.plan.md`) — §ESLint OOM Fix
+- Session Continuation (`../../../prompts/archive/session-continuation.prompt.md`)
 - [Schema-First Execution](../../../directives/schema-first-execution.md)
 - [Rules](../../../directives/principles.md)
 - [Distilled Learnings](../../../memory/active/distilled.md) — generator duplication noted

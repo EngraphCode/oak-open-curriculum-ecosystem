@@ -11,7 +11,7 @@ merge_class: index-narrative-tables
 
 **Last refreshed**: 2026-06-12 (Forge turns Basalt / `claude-code` / Fable 5 /
 `c4b882` — DfE data SDK strategic seed authored at
-[`future/dfe-data-sdk.plan.md`](../../../plans/sector-engagement/future/dfe-data-sdk.plan.md)
+[`future/dfe-data-sdk.plan.md`](../../../../plans/sector-engagement/future/dfe-data-sdk.plan.md)
 with a future-lane README index row: thin, transport-agnostic SDK over the DfE
 Explore Education Statistics public API (Beta, anonymous, OpenAPI-documented,
 OGL v3.0; 140 of 1,085 datasets API-queryable across 22 publications —
@@ -29,7 +29,7 @@ statement.)
 **Prior refresh**: 2026-04-30 (Squally Washing Jetty / `cursor` /
 `composer` / `178e6a` — Vision structural pass: compositional thesis at
 fold, layered impact framing, reusable sector-component canon with partner
-[`sector-reusable-components-adoption.plan.md`](../../../plans/sector-engagement/current/sector-reusable-components-adoption.plan.md); README mirror of hosted vs
+[`sector-reusable-components-adoption.plan.md`](../../../../plans/sector-engagement/current/sector-reusable-components-adoption.plan.md); README mirror of hosted vs
 fabric story; sector collection indexes + roadmap Phase 4 + reciprocal KG
 future `related_plans`. Paths below; git commit queued with owner.)
 
@@ -65,7 +65,7 @@ lifecycle skill follow-up.)
 | `Forge turns Basalt` | `claude-code` | `Fable 5` | `c4b882` | `dfe-data-sdk-seed-authoring` | 2026-06-12 | 2026-06-12 |
 
 Identity discipline remains additive per
-[PDR-027](../../../practice-core/decision-records/PDR-027-threads-sessions-and-agent-identity.md):
+[PDR-027](../../../../practice-core/decision-records/PDR-027-threads-sessions-and-agent-identity.md):
 new sessions add rows; matching platform/model/agent_name updates
 `last_session`.
 
@@ -90,24 +90,24 @@ Landed additionally (2026-04-30, Cursor Composer):
    hosted surfaces; **`### Sector reusable components`** subsection; non-technical
    VISION bullet clarified; dropped `world-class` phrasing after Data Sources glue.
 3. **Sector engagement artefacts**:
-   [`sector-reusable-components-adoption.plan.md`](../../../plans/sector-engagement/current/sector-reusable-components-adoption.plan.md),
+   [`sector-reusable-components-adoption.plan.md`](../../../../plans/sector-engagement/current/sector-reusable-components-adoption.plan.md),
    collection `README.md` Impact Intent / Documents table / Read order,
    `roadmap.md` Phase 4 links,
-   KG external adoption future [`related_plans`](../../../plans/sector-engagement/knowledge-graph-adoption/future/oak-knowledge-graph-external-adoption.plan.md) cross-wire.
+   KG external adoption future [`related_plans`](../../../../plans/sector-engagement/knowledge-graph-adoption/future/oak-knowledge-graph-external-adoption.plan.md) cross-wire.
 
 Evidence (prior 2026-04-29 landing still authoritative for narrative sweep):
 
 - [Root README](../../../../README.md)
-- [Vision](../../../../VISION.md)
-- [Sector Engagement](../../../plans/sector-engagement/README.md)
-- [Sector Engagement Roadmap](../../../plans/sector-engagement/roadmap.md)
-- [SDK and MCP Enhancements](../../../plans/sdk-and-mcp-enhancements/README.md)
-- [Semantic Search](../../../plans/semantic-search/README.md)
-- [Knowledge Graph Integration](../../../plans/connecting-oak-resources/knowledge-graph-integration/README.md)
-- [MCP server README](../../../../apps/oak-curriculum-mcp-streamable-http/README.md)
-- [Curriculum SDK README](../../../../packages/sdks/oak-curriculum-sdk/README.md)
-- [Search CLI README](../../../../apps/oak-search-cli/README.md)
-- [Search SDK README](../../../../packages/sdks/oak-search-sdk/README.md)
+- [Vision](../../../../../VISION.md)
+- [Sector Engagement](../../../../plans/sector-engagement/README.md)
+- [Sector Engagement Roadmap](../../../../plans/sector-engagement/roadmap.md)
+- [SDK and MCP Enhancements](../../../../plans/sdk-and-mcp-enhancements/README.md)
+- [Semantic Search](../../../../plans/semantic-search/README.md)
+- [Knowledge Graph Integration](../../../../plans/connecting-oak-resources/knowledge-graph-integration/README.md)
+- [MCP server README](../../../../../apps/oak-curriculum-mcp-streamable-http/README.md)
+- [Curriculum SDK README](../../../../../packages/sdks/oak-curriculum-sdk/README.md)
+- [Search CLI README](../../../../../apps/oak-search-cli/README.md)
+- [Search SDK README](../../../../../packages/sdks/oak-search-sdk/README.md)
 
 Validation evidence:
 
@@ -130,22 +130,22 @@ before implementation promotion:
 2. promote Oak OpenAPI / KG convergence into an architecture decision brief;
 3. promote one external data-source demonstration into a current plan; or
 4. advance playbook work from
-   [`sector-reusable-components-adoption.plan.md`](../../../plans/sector-engagement/current/sector-reusable-components-adoption.plan.md)
+   [`sector-reusable-components-adoption.plan.md`](../../../../plans/sector-engagement/current/sector-reusable-components-adoption.plan.md)
    (maturity matrix, first adopter profile, scaffold prose) grounded in the README
    [Sector reusable components](../../../../README.md#sector-reusable-components).
 
 ## Session Shape and Grounding Order
 
 1. Read
-   [repo-continuity](../repo-continuity.md#active-threads) and this thread
+   [repo-continuity](../../repo-continuity.md) and this thread
    record.
 2. Read the sector-engagement
-   [collection README](../../../plans/sector-engagement/README.md) and
-   [roadmap](../../../plans/sector-engagement/roadmap.md).
+   [collection README](../../../../plans/sector-engagement/README.md) and
+   [roadmap](../../../../plans/sector-engagement/roadmap.md).
 3. Read the sub-thread that matches the owner-selected landing:
-   [OEAI](../../../plans/sector-engagement/oeai/README.md),
-   [external knowledge sources](../../../plans/exploring-open-education-resources/external-knowledge-sources/README.md),
-   [knowledge graph adoption](../../../plans/sector-engagement/knowledge-graph-adoption/README.md),
+   [OEAI](../../../../plans/sector-engagement/oeai/README.md),
+   [external knowledge sources](../../../../plans/exploring-open-education-resources/external-knowledge-sources/README.md),
+   [knowledge graph adoption](../../../../plans/sector-engagement/knowledge-graph-adoption/README.md),
    or the relevant `future/` brief.
 4. Re-read the owning engineering collection before writing implementation
    work. Sector engagement owns impact and support framing; engineering
@@ -158,14 +158,14 @@ before implementation promotion:
 
 ### Owning Plans
 
-- [Sector Engagement Roadmap](../../../plans/sector-engagement/roadmap.md)
-- [OEAI Thread](../../../plans/sector-engagement/oeai/README.md)
-- [External Knowledge Sources](../../../plans/exploring-open-education-resources/external-knowledge-sources/README.md)
-- [Knowledge Graph Adoption](../../../plans/sector-engagement/knowledge-graph-adoption/README.md)
-- [Sector reusable components adoption (current)](../../../plans/sector-engagement/current/sector-reusable-components-adoption.plan.md)
-- [Oak OpenAPI Monorepo Integration](../../../plans/sector-engagement/future/oak-openapi-monorepo-integration.plan.md)
-- [DfE Data SDK seed](../../../plans/sector-engagement/future/dfe-data-sdk.plan.md)
-- [Oak Curriculum Ontology Workspace Reassessment](../../../plans/connecting-oak-resources/knowledge-graph-integration/future/oak-curriculum-ontology-workspace-reassessment.plan.md)
+- [Sector Engagement Roadmap](../../../../plans/sector-engagement/roadmap.md)
+- [OEAI Thread](../../../../plans/sector-engagement/oeai/README.md)
+- [External Knowledge Sources](../../../../plans/exploring-open-education-resources/external-knowledge-sources/README.md)
+- [Knowledge Graph Adoption](../../../../plans/sector-engagement/knowledge-graph-adoption/README.md)
+- [Sector reusable components adoption (current)](../../../../plans/sector-engagement/current/sector-reusable-components-adoption.plan.md)
+- [Oak OpenAPI Monorepo Integration](../../../../plans/sector-engagement/future/oak-openapi-monorepo-integration.plan.md)
+- [DfE Data SDK seed](../../../../plans/sector-engagement/future/dfe-data-sdk.plan.md)
+- Oak Curriculum Ontology Workspace Reassessment (`../../../../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/superseded/oak-curriculum-ontology-workspace-reassessment.plan.md`)
 
 ### Current Objective
 

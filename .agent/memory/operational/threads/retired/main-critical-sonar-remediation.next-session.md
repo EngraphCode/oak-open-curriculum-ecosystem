@@ -24,7 +24,7 @@ merge_class: index-narrative-tables
 Thread: `main-critical-sonar-remediation`  
 Branch: `fix/sonar-fixes-20260506`  
 Primary plan (archived on retirement):
-[`main-critical-sonar-rebuild-from-updated-main.plan…`](../../../../plans-old-archive/architecture-and-infrastructure/archive/superseded/main-critical-sonar-rebuild-from-updated-main.plan.superseded-by-ai-profile-to-zero-2026-06-24.md)
+`main-critical-sonar-rebuild-from-updated-main.plan…` (`../../../../plans-old-archive/architecture-and-infrastructure/archive/superseded/main-critical-sonar-rebuild-from-updated-main.plan.superseded-by-ai-profile-to-zero-2026-06-24.md`)
 
 ## Participating Agent Identities
 
@@ -282,7 +282,7 @@ Sonar is used only to verify the branch does not add regressions.
   shipped with a regression-guard E2E test that pins the X-Powered-By
   absence at the application layer.
 - Slice 2 (this session) shipped the
-  [Sonar Disposition Policy](../../../../docs/governance/sonar-disposition-policy.md)
+  [Sonar Disposition Policy](../../../../../docs/governance/sonar-disposition-policy.md)
   codifying class-level dispositions for 9 hotspot rule classes.
 - HIGH-issue backlog: 133 OPEN as queried at session-open; sampling of 6
   files showed all are zombie findings from a stale main-branch
@@ -313,7 +313,7 @@ Sonar is used only to verify the branch does not add regressions.
    residual in the test-fixture classes; any new hotspots from this
    branch's commits will appear here.
 4. Apply [Sonar Disposition Policy
-   §S1313](../../../../docs/governance/sonar-disposition-policy.md#s1313--hardcoded-ip-addresses)
+   §S1313](../../../../../docs/governance/sonar-disposition-policy.md)
    to the 22 deferred sites: short rationales of the form
    `SAFE per Sonar Disposition Policy §S1313: <file>:<line> — test-
    fixture IP literal driving header-redaction/rate-limit test`.

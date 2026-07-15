@@ -99,7 +99,7 @@ mechanism (a firing tripwire and/or an automated check), not by reviewer luck.
     `error` once precision is established (below).
   - **WS2 — tripwire wiring.** Wire "type widening" as a named active interrupt;
     coordinate with
-    [`action-time-structural-interrupt-design-space.plan.md`](action-time-structural-interrupt-design-space.plan.md)
+    [`../future/action-time-structural-interrupt-design-space.plan.md`](../future/action-time-structural-interrupt-design-space.plan.md)
     (shared tripwire infrastructure) rather than minting a parallel mechanism.
 
 ## Domain boundaries and non-goals

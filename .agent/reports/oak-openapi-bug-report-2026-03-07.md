@@ -98,7 +98,7 @@ Either:
 > subject context for filtering — may still be valid; verify against live
 > responses. For thread **units** failures and the `query_root.threads` error,
 > see
-> [`.agent/plans/external/ooc-issues/oak-open-curriculum-api-issues-2026-04-23.md`](../plans/external/ooc-issues/oak-open-curriculum-api-issues-2026-04-23.md)
+> [`.agent/plans/external/ooc-issues/oak-open-curriculum-api-issues-2026-04-23.md`](../plans/sector-engagement/ooc-issues/oak-open-curriculum-api-issues-2026-04-23.md)
 > **Issue 1** (expected behaviour, impact, reproduce, and informational root
 > cause).
 

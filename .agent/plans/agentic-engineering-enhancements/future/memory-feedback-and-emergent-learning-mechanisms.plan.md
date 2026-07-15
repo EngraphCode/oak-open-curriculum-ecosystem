@@ -16,7 +16,7 @@
 > both answers exist.
 
 **Related conversation**:
-[`missing-mechanisms-lack-of-wholes.md`](../../../reference/agentic-engineering/conversations/missing-mechanisms-lack-of-wholes.md)
+[`missing-mechanisms-lack-of-wholes.md`](../../../research/agentic-engineering/conversations/missing-mechanisms-lack-of-wholes.md)
 **Related doctrine**:
 [ADR-131](../../../../docs/architecture/architectural-decisions/131-self-reinforcing-improvement-loop.md)
 (self-reinforcing improvement loop),
@@ -284,7 +284,7 @@ explicit scope and sequencing commitment.
 ## Evidence and Motivating Artefacts
 
 - Conversation source:
-  [`missing-mechanisms-lack-of-wholes.md`](../../../reference/agentic-engineering/conversations/missing-mechanisms-lack-of-wholes.md).
+  [`missing-mechanisms-lack-of-wholes.md`](../../../research/agentic-engineering/conversations/missing-mechanisms-lack-of-wholes.md).
 - Session-close napkin entry (2026-04-20 evening) with the
   inherited-framing pattern (three instances) and perturbation-
   mechanism candidates.
@@ -305,7 +305,7 @@ the improvements are tested against the use case they address.
 - [`operating-model-mechanism-taxonomy.plan.md`](operating-model-mechanism-taxonomy.plan.md)
   — adjacent mechanism-naming work; may share vocabulary on planes
   and loops but scope is broader.
-- [`cross-vendor-session-sidecars.plan.md`](cross-vendor-session-sidecars.plan.md)
+- [`../../agent-tooling/future/cross-vendor-session-sidecars.plan.md`](../../agent-tooling/future/cross-vendor-session-sidecars.plan.md)
   — relevant if the emergent-whole mechanism ever needs durable
   structured metadata across vendors.
 - [`graphify-and-graph-memory-exploration.plan.md`](graphify-and-graph-memory-exploration.plan.md)

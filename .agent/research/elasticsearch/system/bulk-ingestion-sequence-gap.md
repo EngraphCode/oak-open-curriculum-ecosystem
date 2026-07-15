@@ -57,7 +57,7 @@ The ELSER retry robustness issue is higher priority as it blocks ~50% of lesson 
 
 ## Related
 
-- [ADR-093: Bulk-First Ingestion Strategy](../../docs/architecture/architectural-decisions/093-bulk-first-ingestion-strategy.md)
+- [ADR-093: Bulk-First Ingestion Strategy](../../../../docs/architecture/architectural-decisions/093-bulk-first-ingestion-strategy.md)
 - `src/lib/indexing/sequence-bulk-helpers.ts`
 - `src/lib/indexing/sequence-facet-index.ts`
 

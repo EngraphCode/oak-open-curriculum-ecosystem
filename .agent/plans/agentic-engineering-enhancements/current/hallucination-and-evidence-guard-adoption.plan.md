@@ -41,15 +41,15 @@ This plan intentionally prioritises:
 This is a strategic source plan (intent, policy, phase design, success
 criteria). Day-to-day implementation tasks live in:
 
-- [phase-1-hallucination-guarding-execution.md](active/phase-1-hallucination-guarding-execution.md)
-- [phase-2-evidence-based-claims-execution.md](active/phase-2-evidence-based-claims-execution.md)
+- [phase-1-hallucination-guarding-execution.md](../active/phase-1-hallucination-guarding-execution.md)
+- [phase-2-evidence-based-claims-execution.md](../active/phase-2-evidence-based-claims-execution.md)
 
 It is aligned with:
 
-- [Augmented Engineering Safety (research)](augmented-engineering-safety.research.md)
-- [Augmented Engineering Practices (research)](augmented-engineering-practices.research.md)
+- [Augmented Engineering Safety (research)](../augmented-engineering-safety.research.md)
+- [Augmented Engineering Practices (research)](../augmented-engineering-practices.research.md)
 - [Architectural Enforcement Adoption](architectural-enforcement-adoption.plan.md)
-- [Evidence Bundle Template](evidence-bundle.template.md)
+- [Evidence Bundle Template](../evidence-bundle.template.md)
 
 ## 2. Scope and Priority Order
 
@@ -159,7 +159,7 @@ Create a minimal, repeatable evidence format for engineering claims:
 
 Initial template artifact:
 
-- [Evidence Bundle Template](evidence-bundle.template.md)
+- [Evidence Bundle Template](../evidence-bundle.template.md)
 
 This evidence lane also owns the distinction between:
 
@@ -219,7 +219,7 @@ If uncertain, the correct behaviour is explicit abstention and follow-up verific
 
 Apply the shared documentation-propagation contract:
 
-- [Documentation Propagation component](../templates/components/documentation-propagation.md)
+- [Documentation Propagation component](../../templates/components/documentation-propagation.md)
 - [the agentic-engineering-enhancements documentation-sync-log](../../../memory/operational/documentation-sync-logs/agentic-engineering-enhancements.md) (collection tracking)
 
 ## 9. Deferred Safety Notes (not planned now)
@@ -239,7 +239,7 @@ Revisit trigger:
 - This plan complements architectural enforcement; it does not replace structural constraints.
 - This plan complements mutation testing; mutation testing validates test quality, while this plan validates claim integrity.
 - This plan is platform-agnostic and should remain compatible with cross-agent standardisation work.
-- Shared evidence format lives in [Evidence Bundle Template](evidence-bundle.template.md).
+- Shared evidence format lives in [Evidence Bundle Template](../evidence-bundle.template.md).
 
 ## 11. Template Integration Strategy (ADR-117)
 
@@ -255,4 +255,4 @@ This document is a collection-level strategic plan. Implementation sessions shou
 
 Collection-specific addition:
 
-- [Evidence Bundle Template](evidence-bundle.template.md) acts as a specialised, reusable evidence component for claim verification.
+- [Evidence Bundle Template](../evidence-bundle.template.md) acts as a specialised, reusable evidence component for claim verification.

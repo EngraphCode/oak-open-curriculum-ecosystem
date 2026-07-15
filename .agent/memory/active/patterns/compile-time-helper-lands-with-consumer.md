@@ -50,7 +50,7 @@ each checked by tsc — no standalone test could have covered them.
 
 ## Related
 
-- [`tdd-as-design`](../../directives/tdd-as-design.md) / atomic-landing — the
+- [`tdd-as-design`](../../../directives/tdd-as-design.md) / atomic-landing — the
   test and product code co-define one act of design; here the co-defining test
   lives at the consumer.
 - [`foundations-before-consumers`](foundations-before-consumers.md) — the

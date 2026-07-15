@@ -49,5 +49,5 @@ The JSON files are gitignored to avoid committing large data files. Only the `.g
 
 ## Related
 
-- [ADR-093: Bulk-First Ingestion Strategy](../../docs/architecture/architectural-decisions/093-bulk-first-ingestion-strategy.md)
+- [ADR-093: Bulk-First Ingestion Strategy](../../../docs/architecture/architectural-decisions/093-bulk-first-ingestion-strategy.md)
 - [Download Script](../scripts/download-bulk.ts)

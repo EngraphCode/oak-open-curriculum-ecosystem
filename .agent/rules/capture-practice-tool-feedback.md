@@ -42,7 +42,7 @@ about an executive-memory catalogue or register.
 
 ## Related Surfaces
 
-- [napkin skill](../skills/napkin/SKILL.md) — active capture surface.
+- [napkin skill](../skills/napkin/SKILL-CANONICAL.md) — active capture surface.
 - [executive-memory drift rule](executive-memory-drift-capture.md) —
   required executive-plane tag guidance.
 - [agent-tools workspace](../../agent-tools/) — current host-local

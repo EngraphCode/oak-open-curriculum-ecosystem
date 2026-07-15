@@ -659,7 +659,7 @@ Add this plan to
   — receives Phase 3 forward-candidate captures (3.1 and 3.2).
 - [`future/mcp-protocol-adoption-roadmap.plan.md`](../future/mcp-protocol-adoption-roadmap.plan.md)
   — receives Phase 3 candidate 3.3 (MCP SDK 2.0 evaluation).
-- [`archive/completed/mcp-oauth-implementation-plan.archive.md`](../../archive/completed/mcp-oauth-implementation-plan.archive.md)
+- `archive/completed/mcp-oauth-implementation-plan.archive.md` (`../../../plans-old-archive/archive/completed/mcp-oauth-implementation-plan.archive.md`)
   — original `@clerk/mcp-tools` adoption rationale; provenance only.
 
 **Prerequisites**:

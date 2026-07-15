@@ -59,13 +59,13 @@ Resolution summary:
 
 ## Source Strategy
 
-- [ADR-125](../../../docs/architecture/architectural-decisions/125-agent-artefact-portability.md) —
+- [ADR-125](../../../../docs/architecture/architectural-decisions/125-agent-artefact-portability.md) —
   three-layer model
 - [agentskills.io specification](https://agentskills.io/specification) —
   cross-platform standard
-- [artefact-inventory.md](../../memory/executive/artefact-inventory.md) —
+- [artefact-inventory.md](../../../memory/executive/artefact-inventory.md) —
   operational reference
-- [cross-platform-agent-surface-matrix.md](../../memory/executive/cross-platform-agent-surface-matrix.md) —
+- [cross-platform-agent-surface-matrix.md](../../../memory/executive/cross-platform-agent-surface-matrix.md) —
   platform support matrix
 
 ## Preflight

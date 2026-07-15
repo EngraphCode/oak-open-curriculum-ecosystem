@@ -12,9 +12,9 @@ Accepted
 
 - [ADR-078](078-dependency-injection-for-testability.md) — Dependency injection
   for testability
-- [ADR-112](112-per-request-mcp-server-instances.md) — Per-request MCP server
+- ADR-112 (`112-per-request-mcp-server-instances.md`) — Per-request MCP server
   instances
-- [ADR-126](126-conditional-clerk-middleware.md) — Conditional Clerk middleware
+- ADR-126 (`126-conditional-clerk-middleware.md`) — Conditional Clerk middleware
 - [ADR-141](141-mcp-apps-standard-primary.md) — MCP Apps standard as primary
 
 ## Context

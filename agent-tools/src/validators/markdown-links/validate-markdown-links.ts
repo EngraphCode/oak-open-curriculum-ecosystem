@@ -25,10 +25,8 @@ import {
  * `suggestedFix`. It does NOT modify any markdown; remediation is a separate
  * planned session.
  *
- * **Report-only / non-blocking for now.** A large pre-existing backlog (hundreds
- * of broken links) exists and remediation is deferred, so this validator always
- * exits 0. The {@link BLOCKING} constant flips to `true` after the remediation
- * session, at which point a broken link will fail the gate.
+ * Broken links fail the gate. The validator became blocking after the
+ * repository-wide broken-link backlog was repaired.
  *
  * Cross-file fragment validation (does a `#section` exist in the *target* file)
  * is a documented future enhancement and is out of scope here — markdownlint
@@ -37,26 +35,39 @@ import {
  * @packageDocumentation
  */
 
-/**
- * Non-blocking until the deferred remediation session burns the backlog down.
- * Flip to `true` after remediation so a broken internal link fails the gate.
- */
-const BLOCKING = false;
-
 const repoRoot = resolveRepoRoot(import.meta.url);
 
-/** Glob patterns for the policed markdown doc surfaces (scan *sources*). */
-const SCAN_GLOBS = ['docs/**/*.md', '.agent/**/*.md', '*.md'] as const;
+/** Glob patterns for every policed live Markdown source in the repository. */
+const SCAN_GLOBS = ['**/*.md'] as const;
 
-/** Globs whose matches are excluded from BOTH scanning and fix-candidate matching. */
-const IGNORE_GLOBS = ['**/node_modules/**', '**/.git/**', '**/archive/**', '**/*.original.md'];
+/** Globs excluded from the existence inventory because they cannot be portable targets. */
+const INVENTORY_IGNORE_GLOBS = [
+  '**/node_modules/**',
+  '**/.git/**',
+  '**/*.original.md',
+  '.agent/reference-local/**',
+] as const;
+
+/** Additional non-live or generated Markdown sources excluded from validation. */
+const SOURCE_IGNORE_GLOBS = [
+  ...INVENTORY_IGNORE_GLOBS,
+  '**/archive/**',
+  '.agents/**',
+  '.claude/**',
+  '.cursor/**',
+  '.agent/state/collaboration/shared-comms-log.md',
+  '.agent/state/collaboration/cross-worktree-work-state.md',
+] as const;
 
 /** Collect repo-relative POSIX paths matching the given globs, minus excluded paths. */
-async function collectMarkdownPaths(patterns: readonly string[]): Promise<string[]> {
+async function collectMarkdownPaths(
+  patterns: readonly string[],
+  ignoreGlobs: readonly string[],
+): Promise<string[]> {
   const matches = await glob([...patterns], {
     cwd: repoRoot,
     dot: true,
-    ignore: IGNORE_GLOBS,
+    ignore: [...ignoreGlobs],
   });
   return matches.map((m) => m.split(path.sep).join('/')).filter((p) => !isExcludedPath(p));
 }
@@ -78,7 +89,7 @@ function reportBrokenLinks(report: MarkdownLinkReport): void {
     `validate-markdown-links: ${String(totals.brokenLinks)} broken internal .md link(s) ` +
       `across ${String(totals.filesScanned)} scanned file(s) — ` +
       `${String(totals.autoFixable)} auto-fixable (unique basename), ` +
-      `${String(totals.manual)} manual. ${BLOCKING ? 'BLOCKING.' : 'NON-BLOCKING (report-only).'}`,
+      `${String(totals.manual)} manual. BLOCKING.`,
   );
 
   if (report.byFile.length > 0) {
@@ -103,11 +114,11 @@ function reportBrokenLinks(report: MarkdownLinkReport): void {
 }
 
 async function main(): Promise<void> {
-  const scanPaths = await collectMarkdownPaths(SCAN_GLOBS);
+  const scanPaths = await collectMarkdownPaths(SCAN_GLOBS, SOURCE_IGNORE_GLOBS);
   // The fix-candidate / existence inventory is every non-excluded .md file in
   // the repo, broader than the scan set, so cross-surface and repo-root-relative
   // links resolve and basename suggestions can point anywhere live.
-  const repoFiles = await collectMarkdownPaths(['**/*.md']);
+  const repoFiles = await collectMarkdownPaths(['**/*.md'], INVENTORY_IGNORE_GLOBS);
   const files = await readScanFiles(scanPaths);
 
   const report = findBrokenLinks(files, repoFiles);
@@ -118,9 +129,7 @@ async function main(): Promise<void> {
   }
 
   reportBrokenLinks(report);
-  // Always 0 while non-blocking (report-only). When BLOCKING flips to true after
-  // the remediation session, a broken link fails the gate.
-  process.exitCode = BLOCKING ? 1 : 0;
+  process.exitCode = 1;
 }
 
 await main();

@@ -29,7 +29,7 @@ from research-brief normalisation through report, plan, and in-repo build.
 - Invocation pointer: `start-right-quick`, then this record. (`.remember`
   plugin retired 2026-06-04; the baton is this thread record + repo-continuity.)
 - Controlling plan:
-  [`school-data-search-poc.plan.md`](../../../plans/school-data-search/current/school-data-search-poc.plan.md)
+  [`school-data-search-poc.plan.md`](../../../../plans/school-data-search/current/school-data-search-poc.plan.md)
   (lifecycle `current/`; promotes to `active/` when G-1/G-2/G-3/G-8 are
   decided — **now all decided** — and the first build workstream starts).
 - **Deep review DONE 2026-06-04** (Fiery Sparking Caldera, `80d50a`):
@@ -77,7 +77,7 @@ owner may direct their removal after comparison.
 `contracts`, `sdk` (data/ingest/search modules), `client`, and `apps/api`
 workspaces under a new top-level `school-data-search/` tier; auth in apps/api;
 authored boundary rules. Full
-record: [decomposition doc](../../../plans/school-data-search/current/school-data-search-wsd1-decomposition.md)
+record: [decomposition doc](../../../../plans/school-data-search/current/school-data-search-wsd1-decomposition.md)
 (betty + fred reviewed/validated; 6-way split rejected). Remaining, in order:
 
 1. **ADR-041 amendment** — add the `school-data-search/` tier matrix row + the
@@ -156,7 +156,7 @@ in-repo consumer.
   maps onto a spec-producing service (likely ADR material — candidate, not
   decided).
 - Brief convergence is canonically recorded in the
-  [synthesis report](../../../reports/school-data-search-synthesis-report-2026-06-03.md)
+  [synthesis report](../../../../reports/school-data-search-synthesis-report-2026-06-03.md)
   §3. The report was **CORRECTED 2026-06-04** where gate decisions superseded
   brief framing: runtime is **Next.js** (G-2 — the D-16 "fork" over-extended a
   frame-audit; Next.js was always the plan); contract layer is **F-B** (G-1,

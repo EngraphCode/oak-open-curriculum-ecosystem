@@ -10,14 +10,14 @@ pdr_kind: governance
 [PDR-014](PDR-014-consolidation-and-knowledge-flow-discipline.md)
 (capture → distil → graduate → enforce — this PDR addresses
 the *enforce* stage's organising surface);
-[PDR-046](PDR-046-knowledge-layering-and-natural-homes.md)
+PDR-046 (`PDR-046-knowledge-layering-and-natural-homes.md`)
 (knowledge layering — the doctrine surface this PDR proposes
 to re-shape);
 [PDR-069](PDR-069-doctrine-first-vs-first-principles-diversity.md)
 (doctrine-first reasoning — this PDR proposes a consolidated
 heuristic that doctrine-first reasoning can apply at the moment
 of decision);
-[`practice-index.md`](../practice-index.md) (substrate-
+the host's `practice-index.md` (substrate-
 implementation ADR carrying the repo-specific phenotype — the
 rule-topology consolidation that would express this PDR's
 shape in the always-applied rule tier).

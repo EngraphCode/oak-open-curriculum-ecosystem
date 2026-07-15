@@ -13,7 +13,7 @@ guards, architectural enforcement, and related safety posture.
 
 ## Feeds
 
-- [hub README](../../../reference/agentic-engineering/README.md)
+- [hub README](../README.md)
 - [plans collection](../../../plans/agentic-engineering-enhancements/README.md)
 - [formal synthesis lane](../../../reports/agentic-engineering/deep-dive-syntheses/README.md)
 

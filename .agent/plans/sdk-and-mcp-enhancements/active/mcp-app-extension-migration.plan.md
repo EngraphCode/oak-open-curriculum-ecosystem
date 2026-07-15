@@ -114,7 +114,7 @@ Outcomes:
 
 The remaining UI work is carried by one child plan:
 
-- [ws3-widget-clean-break-rebuild.plan.md](ws3-widget-clean-break-rebuild.plan.md)
+- ../../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/ws3-widget-clean-break-rebuild.plan.md (`../../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/ws3-widget-clean-break-rebuild.plan.md`)
 
 This child plan covers:
 
@@ -205,11 +205,11 @@ This umbrella plan is complete when:
 ## Related Documents
 
 - [../roadmap.md](../roadmap.md) — strategic migration roadmap
-- [ws3-widget-clean-break-rebuild.plan.md](ws3-widget-clean-break-rebuild.plan.md) —
+- ../../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/ws3-widget-clean-break-rebuild.plan.md (`../../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/ws3-widget-clean-break-rebuild.plan.md`) —
   active implementation plan
-- [../archive/completed/ws2-app-runtime-migration.plan.md](../archive/completed/ws2-app-runtime-migration.plan.md) —
+- ../../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/ws2-app-runtime-migration.plan.md (`../../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/ws2-app-runtime-migration.plan.md`) —
   completed runtime migration
-- [../archive/completed/mcp-runtime-boundary-simplification.plan.md](../archive/completed/mcp-runtime-boundary-simplification.plan.md) —
+- ../../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/mcp-runtime-boundary-simplification.plan.md (`../../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/mcp-runtime-boundary-simplification.plan.md`) —
   completed runtime simplification
 - [../mcp-apps-support.research.md](../mcp-apps-support.research.md) —
   canonical MCP Apps research summary for this collection

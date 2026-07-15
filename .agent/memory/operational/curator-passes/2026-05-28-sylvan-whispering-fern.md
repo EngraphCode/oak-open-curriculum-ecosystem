@@ -30,7 +30,7 @@ were not touched — soft is "think about it", never a drain target.
 ## Disposition ledger — napkin rotation
 
 The full 2026-05-27/28 napkin is archived verbatim at
-[`archive/napkin-2026-05-28-sylvan-curation.md`](../../active/archive/napkin-2026-05-28-sylvan-curation.md)
+`archive/napkin-2026-05-28-sylvan-curation.md` (`../../active/archive/napkin-2026-05-28-sylvan-curation.md`)
 (evidence). Behaviour-changing lessons:
 
 | Lesson | Disposition | Durable home |

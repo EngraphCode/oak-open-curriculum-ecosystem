@@ -156,7 +156,7 @@ Primary evidence sources:
 - [../semantic-search/future/08-experience-surfaces-and-extensions/README.md](../semantic-search/future/08-experience-surfaces-and-extensions/README.md)
 - [../security-and-privacy/roadmap.md](../security-and-privacy/roadmap.md)
 - [../architecture-and-infrastructure/README.md](../architecture-and-infrastructure/README.md)
-- [../sector-engagement/ooc-api-wishlist/index.md](../sector-engagement/ooc-api-wishlist/index.md)
+- [../sector-engagement/ooc-issues/README.md](../sector-engagement/ooc-issues/README.md)
 
 ---
 
@@ -166,9 +166,9 @@ These remain owned in `sector-engagement/`, but are UX-significant constraints.
 
 | Upstream Dependency Risk | UX Impact | Source |
 |--------------------------|-----------|--------|
-| Canonical URL pattern mismatch | Teacher-facing links break in AI outputs, reducing trust | [../sector-engagement/ooc-api-wishlist/06-response-metadata-and-caching.md](../sector-engagement/ooc-api-wishlist/06-response-metadata-and-caching.md) |
-| Missing programme/tier metadata | GCSE pathway and exam-board journeys are hard to disambiguate | [../sector-engagement/ooc-api-wishlist/18-programmes-and-identifiers-examples.md](../sector-engagement/ooc-api-wishlist/18-programmes-and-identifiers-examples.md) |
-| Transcript availability inconsistency | Accessibility and search result expectations become unreliable | [../sector-engagement/ooc-api-wishlist/11-assets-and-transcripts-examples.md](../sector-engagement/ooc-api-wishlist/11-assets-and-transcripts-examples.md) |
+| Canonical URL pattern mismatch | Teacher-facing links break in AI outputs, reducing trust | ../../plans-old-archive/sector-engagement/archive/ooc-api-wishlist/06-response-metadata-and-caching.md (`../../plans-old-archive/sector-engagement/archive/ooc-api-wishlist/06-response-metadata-and-caching.md`) |
+| Missing programme/tier metadata | GCSE pathway and exam-board journeys are hard to disambiguate | ../../plans-old-archive/sector-engagement/archive/ooc-api-wishlist/18-programmes-and-identifiers-examples.md (`../../plans-old-archive/sector-engagement/archive/ooc-api-wishlist/18-programmes-and-identifiers-examples.md`) |
+| Transcript availability inconsistency | Accessibility and search result expectations become unreliable | ../../plans-old-archive/sector-engagement/archive/ooc-api-wishlist/11-assets-and-transcripts-examples.md (`../../plans-old-archive/sector-engagement/archive/ooc-api-wishlist/11-assets-and-transcripts-examples.md`) |
 
 ---
 

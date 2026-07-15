@@ -31,7 +31,7 @@ deep-consolidation trigger fired.)
 | `Glassy Ebbing Reef` | `codex` | `GPT-5` | `019dd3` | `cloudflare-mcp-security-token-economy-planning-final-handoff` | 2026-04-28 | 2026-04-28 |
 
 Identity discipline remains additive per
-[PDR-027](../../../practice-core/decision-records/PDR-027-threads-sessions-and-agent-identity.md):
+[PDR-027](../../../../practice-core/decision-records/PDR-027-threads-sessions-and-agent-identity.md):
 new sessions add rows; matching platform/model/agent_name updates
 `last_session`.
 
@@ -43,12 +43,12 @@ new sessions add rows; matching platform/model/agent_name updates
 (2026-04-28 Glassy Ebbing Reef):**
 
 - added
-  [`cloudflare-mcp-public-beta-security-gate.plan.md`](../../../plans/security-and-privacy/future/cloudflare-mcp-public-beta-security-gate.plan.md)
+  [`cloudflare-mcp-public-beta-security-gate.plan.md`](../../../../plans/security-and-privacy/future/cloudflare-mcp-public-beta-security-gate.plan.md)
   as the future strategic brief blocking MCP public beta on appropriate
   Cloudflare-side security-feature evaluation and owner-visible risk
   disposition;
 - added
-  [`mcp-tool-token-economy-and-progressive-discovery.plan.md`](../../../plans/sdk-and-mcp-enhancements/future/mcp-tool-token-economy-and-progressive-discovery.plan.md)
+  [`mcp-tool-token-economy-and-progressive-discovery.plan.md`](../../../../plans/sdk-and-mcp-enhancements/future/mcp-tool-token-economy-and-progressive-discovery.plan.md)
   as the strategic brief for Cloudflare/Anthropic Code Mode patterns,
   progressive discovery, token-footprint measurement, and Oak MCP
   applicability;
@@ -74,11 +74,11 @@ the turbo type-check/lint/test chain.
 **Owning plans**:
 
 -
-  [`../../../plans/security-and-privacy/future/cloudflare-mcp-public-beta-security-gate.plan.md`](../../../plans/security-and-privacy/future/cloudflare-mcp-public-beta-security-gate.plan.md)
+  [`../../../../plans/security-and-privacy/future/cloudflare-mcp-public-beta-security-gate.plan.md`](../../../../plans/security-and-privacy/future/cloudflare-mcp-public-beta-security-gate.plan.md)
 -
-  [`mcp-tool-token-economy-and-progressive-discovery.plan.md`](../../../plans/sdk-and-mcp-enhancements/future/mcp-tool-token-economy-and-progressive-discovery.plan.md)
+  [`mcp-tool-token-economy-and-progressive-discovery.plan.md`](../../../../plans/sdk-and-mcp-enhancements/future/mcp-tool-token-economy-and-progressive-discovery.plan.md)
   (under `plans/sdk-and-mcp-enhancements/future/`)
-- [`../../../plans/high-level-plan.md`](../../../plans/high-level-plan.md)
+- [`../../../../plans/high-level-plan.md`](../../../../plans/high-level-plan.md)
 
 **Current objective**: keep the Cloudflare public-beta security gate and token
 economy research visible without prematurely starting implementation.

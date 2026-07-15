@@ -235,11 +235,11 @@ architecture-and-infrastructure collection prior to 2026-04-18):
    branch's critical path but is the next-branch priority). Owner
    confirmed `current/` as the correct lifecycle 2026-04-18.
 3. `sentry-observability-translation-crosswalk.plan.md`
-   → [`observability/active/sentry-observability-translation-crosswalk.plan.md`](../../observability/active/sentry-observability-translation-crosswalk.plan.md).
+   → `observability/active/sentry-observability-translation-crosswalk.plan.md` (`../../../plans-old-archive/observability/archive/completed/sentry-observability-translation-crosswalk.plan.md`).
 4. `sentry-observability-maximisation.plan.md` (strategic brief)
    → [`observability/future/sentry-observability-maximisation.plan.md`](../../observability/future/sentry-observability-maximisation.plan.md).
 5. `sentry-observability-expansion.plan.pre-maximisation-pivot-2026-04-17.md`
-   → [`observability/archive/superseded/sentry-observability-expansion.plan.pre-maximisation-pivot-2026-04-17.md`](../../observability/archive/superseded/sentry-observability-expansion.plan.pre-maximisation-pivot-2026-04-17.md).
+   → `observability/archive/superseded/sentry-observability-expansion.plan.pre-maximisation-pivot-2026-04-17.md` (`../../../plans-old-archive/observability/archive/superseded/sentry-observability-expansion.plan.pre-maximisation-pivot-2026-04-17.md`).
 6. [`architecture-and-infrastructure/active/sentry-otel-integration.execution.plan.md`](../active/sentry-otel-integration.execution.plan.md)
    — **NOT MOVED** (as specified). This is the parent foundation plan
    that spans both observability and the broader OTel integration; it

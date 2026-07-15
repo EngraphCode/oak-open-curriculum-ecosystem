@@ -29,7 +29,7 @@ todos:
 # Sequence Retrieval Architecture Follow-up
 
 **Last Updated**: 2026-03-22  
-**Status**: 🔴 EXECUTING via [pre-reingest-remediation.execution.plan.md](../archive/completed/pre-reingest-remediation.execution.plan.md) (decisions locked 2026-03-21, promoted to pre-reingest blocking 2026-03-22)  
+**Status**: 🔴 EXECUTING via pre-reingest-remediation.execution.plan.md (`../../../plans-old-archive/semantic-search/archive/completed/pre-reingest-remediation.execution.plan.md`) (decisions locked 2026-03-21, promoted to pre-reingest blocking 2026-03-22)  
 **Scope**: Resolve the current sequence-search interim state. Work items
 consolidated into the active remediation plan; this document serves as the
 locked execution recipe reference.
@@ -261,8 +261,8 @@ Run the canonical quality gate chain from
 
 | Document | Purpose |
 |----------|---------|
-| [../archive/completed/pre-reingest-remediation.execution.plan.md](../archive/completed/pre-reingest-remediation.execution.plan.md) | Active remediation plan executing this recipe's work items |
-| [../archive/completed/f2-closure-and-p0-ingestion.execution.plan.md](../archive/completed/f2-closure-and-p0-ingestion.execution.plan.md) | P0 lane — Phases 1–2 complete, archived 2026-03-24 |
+| ../../../plans-old-archive/semantic-search/archive/completed/pre-reingest-remediation.execution.plan.md (`../../../plans-old-archive/semantic-search/archive/completed/pre-reingest-remediation.execution.plan.md`) | Active remediation plan executing this recipe's work items |
+| ../../../plans-old-archive/semantic-search/archive/completed/f2-closure-and-p0-ingestion.execution.plan.md (`../../../plans-old-archive/semantic-search/archive/completed/f2-closure-and-p0-ingestion.execution.plan.md`) | P0 lane — Phases 1–2 complete, archived 2026-03-24 |
 | [search-contract-followup.plan.md](search-contract-followup.plan.md) | S4/S5 source — also executing via remediation plan |
 | [thread-sequence-semantic-surfaces.execution.plan.md](thread-sequence-semantic-surfaces.execution.plan.md) | Broader enrichment plan for richer derived thread/sequence surfaces |
 | [../future/04-retrieval-quality-engine/thread-sequence-derived-surfaces.research.md](../future/04-retrieval-quality-engine/thread-sequence-derived-surfaces.research.md) | Research evidence for richer future sequence semantic fields |

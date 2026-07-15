@@ -280,7 +280,7 @@ Before the first non-planning edit:
 3. Register the active area before edits and close the claim at
    workstream-handoff.
 4. Apply
-   [`lifecycle-triggers.md`](../templates/components/lifecycle-triggers.md)
+   [`lifecycle-triggers.md`](../../templates/components/lifecycle-triggers.md)
    for any cross-workspace fix.
 
 ---

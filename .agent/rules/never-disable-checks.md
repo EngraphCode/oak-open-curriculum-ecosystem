@@ -47,7 +47,7 @@ state.
   rule already enforces this; the rule itself must never be exempted.
 - **Adding `// @ts-expect-error` / `// @ts-ignore`** to bypass a
   type error. Fix the type flow upstream — see
-  [type-expert](../sub-agents/type-expert.md) and the schema-first
+  [type-expert](../sub-agents/templates/type-expert.md) and the schema-first
   doctrine.
 - **Adding a path to `.markdownlint-cli2.jsonc` `ignores`, `.eslintignore`,
   or any ignore list** to dodge a finding. Per

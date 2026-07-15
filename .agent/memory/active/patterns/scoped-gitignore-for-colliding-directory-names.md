@@ -52,5 +52,5 @@ wrong level.
 
 ## See also
 
-- [`.agent/reference/README.md`](../../reference/README.md) — agent vs SDK
+- [`.agent/reference/README.md`](../../../reference/README.md) — agent vs SDK
   reference layout in this repo.

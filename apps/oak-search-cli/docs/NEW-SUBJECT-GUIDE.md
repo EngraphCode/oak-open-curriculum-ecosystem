@@ -235,7 +235,8 @@ Add an entry to [EXPERIMENT-LOG.md](../../../.agent/evaluations/EXPERIMENT-LOG.m
 **Experiment file**: [link if detailed experiment doc created]
 ```
 
-Update [current-state.md](../../../.agent/plans/semantic-search/current-state.md) if this is now the primary dataset.
+The retired workflow recorded the primary dataset in
+`.agent/plans/semantic-search/current-state.md`.
 
 ---
 

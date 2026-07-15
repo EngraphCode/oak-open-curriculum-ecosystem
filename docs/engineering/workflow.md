@@ -62,10 +62,17 @@ pnpm make  # install → build → type-check → lint:fix → subagents:check �
 pnpm check # canonical aggregate gate: clean rebuild + verification
 ```
 
+**Documentation verification** (for documentation-only work):
+
+```bash
+pnpm check:docs # Prettier + Markdownlint + documentation validators
+```
+
 See [Build System](./build-system.md) for the single source of truth on all command definitions.
 For AI agent execution order, directives are normative and require one gate at
-a time; `pnpm make` and `pnpm check` are the only aggregate local workflow
-commands.
+a time. `pnpm make` and `pnpm check` remain the build/fix and full-verification
+aggregates; `pnpm check:docs` is the focused verify-only aggregate for
+documentation work.
 
 ## 4. Commit
 

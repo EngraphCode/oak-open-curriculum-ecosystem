@@ -3224,7 +3224,7 @@ commit SHA and the closing plan reference.
 - **Observed**: staging and committing a 32-file bundle (a dedicated-consolidation closeout) on
   a shared primary checkout while a second, unidentified live session was actively renaming/
   recreating one tracked file
-  (`.agent/reports/oak-reusable-curriculum-architecture/oak-reusable-curriculum-architecture-cross-estate-reflection.md`).
+  (`.agent/reports/oak-reusable-curriculum-architecture/drafts/oak-reusable-curriculum-architecture-cross-estate-reflection.md`).
   Six consecutive `commit-queue -- commit` attempts all crashed at the identical point: the
   pre-commit hook's `validate-no-machine-local-paths` step ran `git ls-files -z`, got back a
   path that was at that instant absent from disk, and `readFileSync` threw (the validator's

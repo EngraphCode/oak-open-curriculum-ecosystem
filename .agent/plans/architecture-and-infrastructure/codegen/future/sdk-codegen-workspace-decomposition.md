@@ -258,7 +258,7 @@ Promote to `current/` when:
 
 Note: Turbo overrides (`@oaknational/sdk-codegen#build`, `#test`,
 `#type-check`, `#lint`, `#lint:fix`) are temporary fixes applied by the
-[turbo boundary fix plan](../../semantic-search/archive/completed/turbo-and-codegen-boundary-fix.plan.md).
+turbo boundary fix plan (`../../../../plans-old-archive/semantic-search/archive/completed/turbo-and-codegen-boundary-fix.plan.md`).
 They accurately declare within-workspace dependencies that exist because
 generators, generated output, and runtime code share a workspace. This
 decomposition eliminates the need for overrides by separating concerns
@@ -276,7 +276,7 @@ informed this plan:
 
 - [SDK Codegen Architecture Analysis](../sdk-codegen-architecture-analysis.md) —
   complete structural analysis of the current workspace
-- [Reviewer Findings and Owner Response](../sdk-codegen-expert-findings.md) —
+- Reviewer Findings and Owner Response (`../sdk-codegen-expert-findings.md`) —
   full findings from Barney, Betty, Fred, Wilma, plus three owner corrections
 
 ### Key Findings Summary
@@ -353,8 +353,8 @@ naturally into the workspace split.
 ## References
 
 - [Architecture analysis](../sdk-codegen-architecture-analysis.md)
-- [Reviewer findings](../sdk-codegen-expert-findings.md)
-- [Release Plan M1](../../../archive/completed/release-plan-m1.plan.md)
+- Reviewer findings (`../sdk-codegen-expert-findings.md`)
+- Release Plan M1 (`../../../../plans-old-archive/archive/completed/release-plan-m1.plan.md`)
 - [Rules](../../../../directives/principles.md)
 - [Schema-First Execution](../../../../directives/schema-first-execution.md)
 - [ADR-108: Workspace Decomposition](../../../../../docs/architecture/architectural-decisions/108-sdk-workspace-decomposition.md)

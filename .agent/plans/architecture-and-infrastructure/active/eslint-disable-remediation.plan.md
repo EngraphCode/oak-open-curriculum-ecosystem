@@ -34,7 +34,7 @@ todos:
 **Last Updated**: 2026-03-29
 **Status**: IN PROGRESS
 **Extracted from**: Phase 3 of
-[`../archive/completed/ci-consolidation-and-gate-parity.plan.md`](../archive/completed/ci-consolidation-and-gate-parity.plan.md)
+`../../../plans-old-archive/architecture-and-infrastructure/archive/completed/ci-consolidation-and-gate-parity.plan.md` (`../../../plans-old-archive/architecture-and-infrastructure/archive/completed/ci-consolidation-and-gate-parity.plan.md`)
 **Feeds into**: Quality Gate Hardening plan item 3 (no-eslint-disable promotion)
 
 ## Problem

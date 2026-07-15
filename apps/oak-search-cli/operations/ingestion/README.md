@@ -250,7 +250,7 @@ the 7 different curriculum structural patterns:
 ### Upstream API Pagination Bug
 
 **Issue**: The unfiltered `/lessons` endpoint returns incomplete data
-(see [ADR-083](../../docs/architecture/architectural-decisions/083-complete-lesson-enumeration-strategy.md)).
+(see [ADR-083](../../../../docs/architecture/architectural-decisions/083-complete-lesson-enumeration-strategy.md)).
 
 **Workaround**: Use `fetchAllLessonsByUnit()` which fetches lessons unit-by-unit.
 
@@ -263,4 +263,4 @@ the 7 different curriculum structural patterns:
 - [ADR-080](../../../../docs/architecture/architectural-decisions/080-curriculum-data-denormalization-strategy.md) - Curriculum patterns
 - [ADR-083](../../../../docs/architecture/architectural-decisions/083-complete-lesson-enumeration-strategy.md) - Lesson enumeration strategy
 - [ADR-087](../../../../docs/architecture/architectural-decisions/087-batch-atomic-ingestion.md) - Batch-atomic ingestion
-- [current-state.md](../../../../.agent/plans/archive/semantic-search-archive-dec25/current-state.md) - Archived system snapshot
+- `.agent/plans/archive/semantic-search-archive-dec25/current-state.md` - Archived system snapshot

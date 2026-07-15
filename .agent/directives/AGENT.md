@@ -244,6 +244,11 @@ for canonical aggregate verification. The command source of truth is
 [Build System](../../docs/engineering/build-system.md) plus root
 `package.json`.
 
+`pnpm check` always includes browser suites. Start it in a browser-capable host
+environment with the necessary process permissions on the first attempt; do
+not run it in the restricted sandbox to rediscover the known Playwright launch
+failure.
+
 When collecting evidence, keep independent command outputs attributable. Run
 independent checks separately or through the parallel tool wrapper; use shell
 chaining only when the dependency between commands is the behaviour being
@@ -260,6 +265,7 @@ pnpm lint:fix
 pnpm format:root
 pnpm markdownlint:root
 pnpm test
+pnpm check:docs
 pnpm practice:fitness:informational
 pnpm practice:vocabulary
 pnpm check

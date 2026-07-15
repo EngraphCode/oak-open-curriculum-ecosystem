@@ -23,7 +23,7 @@ This plan prioritises:
 
 ## Related Plans
 
-- **ADR**: [ADR-078: Dependency Injection for Testability](../../../docs/architecture/architectural-decisions/078-dependency-injection-for-testability.md)
+- **ADR**: [ADR-078: Dependency Injection for Testability](../../../../docs/architecture/architectural-decisions/078-dependency-injection-for-testability.md)
 - **Predecessor** (archived): Global State Elimination and Testing
   Discipline Plan — partially completed, partially superseded by
   oak-search-cli UI removal. Config DI was Phase 3 of that plan,
@@ -35,9 +35,9 @@ This plan prioritises:
 
 ## Foundation Documents (Re-read Before Starting)
 
-- [principles.md](../../directives/principles.md) - No compatibility layers, clean breaks
-- [testing-strategy.md](../../directives/testing-strategy.md) - DI for testability
-- [schema-first-execution.md](../../directives/schema-first-execution.md) - Generator is source of truth
+- [principles.md](../../../directives/principles.md) - No compatibility layers, clean breaks
+- [testing-strategy.md](../../../directives/testing-strategy.md) - DI for testability
+- [schema-first-execution.md](../../../directives/schema-first-execution.md) - Generator is source of truth
 
 ---
 

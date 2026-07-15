@@ -156,7 +156,7 @@ is fine; user exposure is gated.
 
 ## Lane state
 
-- **Owning plan**: [`orientation-lens-unification.plan.md`](../../../plans/developer-experience/current/orientation-lens-unification.plan.md) (`current/`, queued — the family-unification work). Superseded predecessor: [`orientation-and-agentic-ai-literacy.plan.md`](../../../plans-old-archive/developer-experience/archive/completed/orientation-and-agentic-ai-literacy.plan.md) (the primer + seam build, completed).
+- **Owning plan**: [`orientation-lens-unification.plan.md`](../../../plans/developer-experience/current/orientation-lens-unification.plan.md) (`current/`, queued — the family-unification work). Superseded predecessor: `orientation-and-agentic-ai-literacy.plan.md` (`../../../plans-old-archive/developer-experience/archive/completed/orientation-and-agentic-ai-literacy.plan.md`) (the primer + seam build, completed).
 - **Current objective**: WS1–WS6 complete; committed `5b3453d41`. Consolidation
   (three watchlist lessons promoted to `distilled.md`) and plan archive done this
   session. Only push remains (owner-gated); the thread may retire after push.

@@ -330,7 +330,7 @@ trinity claim is later re-examined.
   [`testing-strategy.md` §E2E test definition][testing-strategy].
 - Sub-agent report from 2026-04-29 trinity-drift review.
 
-[napkin-skill]: ../../../skills/napkin/SKILL.md#knowledge-preservation-is-absolute--fitness-is-never-a-constraint
-[consolidate-docs-pres]: ../../../commands/consolidate-docs.md#learning-preservation-overrides-fitness-pressure
+[napkin-skill]: ../../../skills/napkin/SKILL-CANONICAL.md#knowledge-preservation-is-absolute--fitness-is-never-a-constraint
+[consolidate-docs-pres]: ../../../skills/consolidate-docs/SKILL-CANONICAL.md#approach
 [respect-shared-state-rule]: ../../../rules/respect-active-agent-claims.md#shared-state-files-are-always-writable-and-always-commit-includable
 [testing-strategy]: ../../../directives/testing-strategy.md

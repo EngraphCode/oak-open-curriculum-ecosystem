@@ -702,5 +702,5 @@ No changes to: Cardinal-Rule framing, WS0 / WS1 / WS3 / WS4 step sequences, Non-
 - [`principles.md`](../../../directives/principles.md) — all-quality-gates-blocking
 - [`active/schema-resilience-and-response-architecture.plan.md`](../active/schema-resilience-and-response-architecture.plan.md) — sibling plan; broader response-architecture work the v0.7.0 alignment fits within
 - [`active/upstream-api-reference-metadata.plan.md`](../active/upstream-api-reference-metadata.plan.md) — sibling plan; upstream API reference work
-- [`.agent/memory/operational/threads/connecting-oak-resources.next-session.md`](../../../memory/operational/threads/connecting-oak-resources.next-session.md) — graph thread record (downstream consumer of cascade-clearing)
+- [`.agent/memory/operational/threads/connecting-oak-resources.next-session.md`](../../../memory/operational/threads/paused/connecting-oak-resources.next-session.md) — graph thread record (downstream consumer of cascade-clearing)
 - [`active-claims.json`](../../../state/collaboration/active-claims.json) — live claim state

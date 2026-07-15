@@ -13,14 +13,14 @@ context_budget_for_directives: <30% (standing rule — Phase 2 edits agent-colla
 # Next session opener — Collaboration-state restructure, Phase 2
 
 > **Superseded (2026-06-27).** Phase 2 was executed and
-> [`collaboration-state-surface-restructure.plan.md`](../archive/completed/collaboration-state-surface-restructure.plan.md)
+> `collaboration-state-surface-restructure.plan.md` (`../archive/completed/collaboration-state-surface-restructure.plan.md`)
 > is now archived as completed (D3). This opener is retained as historical
 > context only — do **not** re-run Phase 2; the work is done.
 
 **Thread**: `agentic-engineering-enhancements`.
 
 **Target**: execute Phase 2 of
-[`collaboration-state-surface-restructure.plan.md`](../archive/completed/collaboration-state-surface-restructure.plan.md)
+`collaboration-state-surface-restructure.plan.md` (`../archive/completed/collaboration-state-surface-restructure.plan.md`)
 under the placement contract at
 [`.agent/memory/executive/collaboration-state-placement-contract.md`](../../../memory/executive/collaboration-state-placement-contract.md).
 

@@ -64,5 +64,5 @@ definition (not scattered across dozens of test files).
 
 ## Related
 
-- [ADR-078: Dependency Injection for Testability](../../docs/architecture/architectural-decisions/078-dependency-injection-for-testability.md)
-- [TypeScript Practice: Interface Segregation for Testability](../../docs/governance/typescript-practice.md#interface-segregation-for-testability)
+- [ADR-078: Dependency Injection for Testability](../../../../docs/architecture/architectural-decisions/078-dependency-injection-for-testability.md)
+- [TypeScript Practice: Interface Segregation for Testability](../../../../docs/governance/typescript-practice.md)

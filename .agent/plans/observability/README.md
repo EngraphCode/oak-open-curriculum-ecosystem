@@ -105,13 +105,13 @@ Execution now proceeds through the five-wave MVP ordering (see
 Wave 1 foundations remain in place: L-EH initial ✅, L-DOC initial ✅,
 L-12-prereq ✅ (closed by primitives-consolidation 2026-04-19). The
 bounded post-root-green corrective lane is now closed and archived at
-[`archive/completed/mcp-canonical-deploy-shape-and-warnings-doctrine.plan.md`](./archive/completed/mcp-canonical-deploy-shape-and-warnings-doctrine.plan.md).
+`archive/completed/mcp-canonical-deploy-shape-and-warnings-doctrine.plan.md` (`../../plans-old-archive/observability/archive/completed/mcp-canonical-deploy-shape-and-warnings-doctrine.plan.md`).
 Manual preview `/healthz`, preview-release, preview-traffic, and
 preview/Sentry evidence are owner-handled separately. Broader runtime
 simplification is tracked separately in
 [`future/mcp-http-runtime-canonicalisation.plan.md`](./future/mcp-http-runtime-canonicalisation.plan.md).
 The focused local startup/release boundary follow-up is tracked in
-[`current/mcp-local-startup-release-boundary.plan.md`](./current/mcp-local-startup-release-boundary.plan.md).
+`current/mcp-local-startup-release-boundary.plan.md` (`../../plans-old-archive/observability/archive/completed/mcp-local-startup-release-boundary.plan.md`).
 
 ---
 
@@ -127,7 +127,7 @@ dated and informs either an ADR or a specific plan.
 
 Per [`high-level-observability-plan.md` §Substrate](./high-level-observability-plan.md):
 
-- [`archive/completed/fix-dev-boot-release-resolution.plan.md`](./archive/completed/fix-dev-boot-release-resolution.plan.md)
+- `archive/completed/fix-dev-boot-release-resolution.plan.md` (`../../plans-old-archive/observability/archive/completed/fix-dev-boot-release-resolution.plan.md`)
   — ✅ **COMPLETED** (Cycle 1 landed on `feat/eef_exploration`).
   `resolveDevelopmentRelease` falls through to a `local-dev`
   placeholder in development when both `VERCEL_BRANCH_URL` and
@@ -146,9 +146,9 @@ Per [`high-level-observability-plan.md` §Substrate](./high-level-observability-
   divergence analysis; step 17 owner-gated merge readiness with
   release-readiness-expert synthesis. Supersedes two predecessor
   plans:
-  [`archive/superseded/eef-branch-merge-readiness.plan.superseded-by-unified-2026-05-04.md`](./archive/superseded/eef-branch-merge-readiness.plan.superseded-by-unified-2026-05-04.md)
+  `archive/superseded/eef-branch-merge-readiness.plan.superseded-by-unified-2026-05-04.md` (`../../plans-old-archive/observability/archive/superseded/eef-branch-merge-readiness.plan.superseded-by-unified-2026-05-04.md`)
   and
-  [`../architecture-and-infrastructure/archive/superseded/smoke-test-retirement-recovery-and-completion.plan.superseded-by-unified-2026-05-04.md`](../architecture-and-infrastructure/archive/superseded/smoke-test-retirement-recovery-and-completion.plan.superseded-by-unified-2026-05-04.md)
+  `../../plans-old-archive/architecture-and-infrastructure/archive/superseded/smoke-test-retirement-recovery-and-completion.plan.superseded-by-unified-2026-05-04.md` (`../../plans-old-archive/architecture-and-infrastructure/archive/superseded/smoke-test-retirement-recovery-and-completion.plan.superseded-by-unified-2026-05-04.md`)
   whose verification work overlapped duplicatively.
 - [`current/pr-93-sonar-quality-gate-resolution.plan.md`](./current/pr-93-sonar-quality-gate-resolution.plan.md)
   — 🟢 **CURRENT.** PR 93 Sonar resolution lane for unclaimed script/env

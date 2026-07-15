@@ -118,7 +118,7 @@ Per PDR-018 §Beneficial prerequisites must not block:
 - An adapter-generation tool. Cheaper migration with it; the
   additive shape ships without it.
 - A practice-graph payoff peak pilot
-  ([practice-graph-payoff-peak-pilot.plan.md](practice-graph-payoff-peak-pilot.plan.md))
+  ([../current/practice-graph-payoff-peak-pilot.plan.md](../current/practice-graph-payoff-peak-pilot.plan.md))
   — the graph view would inform fingerprint registry shape; not
   required.
 
@@ -421,11 +421,11 @@ empirical evidence.
   — first baseline measurement (2026-05-05); evidence surface for the
   Workstream 4 promotion gate.
 - [doctrine-enforcement-quick-wins.plan.md](../current/doctrine-enforcement-quick-wins.plan.md)
-- [agent-classification-taxonomy.plan.md](agent-classification-taxonomy.plan.md)
+- [../../agent-tooling/future/agent-classification-taxonomy.plan.md](../../agent-tooling/future/agent-classification-taxonomy.plan.md)
   (the existing taxonomy-rename plan; this strategic plan does *not*
   block on it)
-- [adapter-generation.plan.md](adapter-generation.plan.md)
-- [practice-graph-payoff-peak-pilot.plan.md](practice-graph-payoff-peak-pilot.plan.md)
+- [../../agent-tooling/future/adapter-generation.plan.md](../../agent-tooling/future/adapter-generation.plan.md)
+- [../current/practice-graph-payoff-peak-pilot.plan.md](../current/practice-graph-payoff-peak-pilot.plan.md)
 
 ---
 

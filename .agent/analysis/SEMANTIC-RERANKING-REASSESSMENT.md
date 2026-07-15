@@ -17,7 +17,7 @@
 
 **Status**: REJECTED  
 **Index State**: INCOMPLETE (314/436 lessons, ~28% missing)  
-**See**: [semantic-reranking.experiment.md](../../evaluations/experiments/semantic-reranking.experiment.md)
+**See**: semantic-reranking.experiment.md (`../../evaluations/experiments/semantic-reranking.experiment.md`)
 
 ### Current State (2025-12-22)
 
@@ -67,7 +67,7 @@ From original experiment:
 
 **Answer: Explicit — AI is Tier 4, only after Tiers 1-3 plateau**
 
-From [ADR-082](../../../docs/architecture/architectural-decisions/082-fundamentals-first-search-strategy.md):
+From [ADR-082](../../docs/architecture/architectural-decisions/082-fundamentals-first-search-strategy.md):
 
 > **Tier 4: AI Enhancement (DEFERRED)**  
 > Only pursue when Tiers 1-3 show diminishing returns.  
@@ -154,10 +154,10 @@ If we do eventually return to reranking, consider:
 
 ## References
 
-- [ADR-082: Fundamentals-First Strategy](../../../docs/architecture/architectural-decisions/082-fundamentals-first-search-strategy.md)
-- [Semantic Reranking Experiment](../../evaluations/experiments/semantic-reranking.experiment.md)
-- [Part 1: Search Excellence](part-1-search-excellence.md)
-- [EXPERIMENT-PRIORITIES.md](../../evaluations/experiments/EXPERIMENT-PRIORITIES.md)
+- [ADR-082: Fundamentals-First Strategy](../../docs/architecture/architectural-decisions/082-fundamentals-first-search-strategy.md)
+- Semantic Reranking Experiment (`../../evaluations/experiments/semantic-reranking.experiment.md`)
+- Part 1: Search Excellence (`../plans-old-archive/archive/semantic-search-archive-dec25/part-1-search-excellence.md`)
+- EXPERIMENT-PRIORITIES.md (`../../evaluations/experiments/EXPERIMENT-PRIORITIES.md`)
 
 ---
 

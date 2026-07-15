@@ -33,4 +33,4 @@ Patterns extracted to permanent documentation:
 - CONTRIBUTING.md
 - Troubleshooting (`docs/operations/troubleshooting.md`)
 - Widget rendering docs
-- Code pattern: [Interface Segregation for Test Fakes](../memory/code-patterns/interface-segregation-for-test-fakes.md)
+- Code pattern: [Interface Segregation for Test Fakes](../memory/active/patterns/interface-segregation-for-test-fakes.md)

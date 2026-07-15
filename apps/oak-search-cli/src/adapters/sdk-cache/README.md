@@ -85,7 +85,7 @@ flowchart TD
 
 **Note**: Transient errors (5xx, network) are NOT cached to allow retry on next ingestion.
 
-See [ADR-092: Transcript Cache Categorization Strategy](../../../../docs/architecture/architectural-decisions/092-transcript-cache-categorization.md) for full details.
+See [ADR-092: Transcript Cache Categorization Strategy](../../../../../docs/architecture/architectural-decisions/092-transcript-cache-categorization.md) for full details.
 
 ### Cache Key Format
 
@@ -187,7 +187,7 @@ const testOps: CacheOperations = {
 };
 ```
 
-See [ADR-078: Dependency Injection for Testability](../../../../docs/architecture/architectural-decisions/078-dependency-injection-for-testability.md).
+See [ADR-078: Dependency Injection for Testability](../../../../../docs/architecture/architectural-decisions/078-dependency-injection-for-testability.md).
 
 ## Migration Notes
 
@@ -197,7 +197,7 @@ The cache previously used `__NOT_FOUND__` sentinel strings. The one-off migratio
 
 ## Related Documentation
 
-- [ADR-092: Transcript Cache Categorization Strategy](../../../../docs/architecture/architectural-decisions/092-transcript-cache-categorization.md)
-- [ADR-066: SDK Response Caching](../../../../docs/architecture/architectural-decisions/066-sdk-response-caching.md)
-- [ADR-078: Dependency Injection for Testability](../../../../docs/architecture/architectural-decisions/078-dependency-injection-for-testability.md)
+- [ADR-092: Transcript Cache Categorization Strategy](../../../../../docs/architecture/architectural-decisions/092-transcript-cache-categorization.md)
+- [ADR-066: SDK Response Caching](../../../../../docs/architecture/architectural-decisions/066-sdk-response-caching.md)
+- [ADR-078: Dependency Injection for Testability](../../../../../docs/architecture/architectural-decisions/078-dependency-injection-for-testability.md)
 - [Adapters README](../README.md)

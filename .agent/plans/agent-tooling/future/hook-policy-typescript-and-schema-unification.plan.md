@@ -4,7 +4,7 @@
 **Collection**: agent-tooling
 **Thread**: [`agentic-engineering-enhancements`](../../../memory/operational/threads/agentic-engineering-enhancements.next-session.md)
 **Related**:
-[ADR-038 (Compilation-Time Type Embedding)](../../../../docs/architecture/architectural-decisions/038-compilation-time-type-embedding.md);
+ADR-038 (Compilation-Time Type Embedding) (`../../../../docs/architecture/architectural-decisions/038-compilation-time-type-embedding.md`);
 [`principles.md` §No shims, no hacks, no workarounds](../../../directives/principles.md);
 [PDR-038 (Stated Principles Require Structural Enforcement)](../../../practice-core/decision-records/PDR-038-stated-principles-require-structural-enforcement.md);
 [`hook-policy-substring-discipline`](../../../rules/hook-policy-substring-discipline.md)

@@ -59,4 +59,4 @@ but never moved beyond PROPOSED/DRAFT status.
 ## References
 
 - [ADR-108: SDK Workspace Decomposition](../../../docs/architecture/architectural-decisions/108-sdk-workspace-decomposition.md)
-- [SDK Workspace Separation Plan](../semantic-search/archive/completed/sdk-workspace-separation.md) (archived)
+- SDK Workspace Separation Plan (`../../plans-old-archive/semantic-search/archive/completed/sdk-workspace-separation.md`) (archived)

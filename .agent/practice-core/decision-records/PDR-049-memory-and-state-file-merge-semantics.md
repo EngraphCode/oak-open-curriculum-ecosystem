@@ -19,7 +19,7 @@ cause this PDR addresses);
 transaction tripwire; this PDR specifies the *post-divergence* discipline
 when the tripwire was correctly observed but two branches still produced
 conflicts in shared state);
-[PDR-035](PDR-035-collaboration-state-ownership.md)
+PDR-035 (`PDR-035-collaboration-state-ownership.md`)
 (collaboration-state ownership — names which agents own which surfaces;
 this PDR composes by adding *merge ownership* on top of edit ownership);
 [PDR-046](PDR-046-layered-knowledge-processing.md)

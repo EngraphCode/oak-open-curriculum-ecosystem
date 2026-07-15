@@ -4,7 +4,7 @@
 > note to [`governance-plane-direction-of-travel.md`](../governance-planes-and-supervision/governance-plane-direction-of-travel.md).
 > Lives in `operating-model-and-platforms/` rather than a new lane because
 > the material is the cross-platform surface story this lane already owns
-> (see [`platform-adapter-formats.md`](../../../reference/platform-adapter-formats.md),
+> (see [`platform-adapter-formats.md`](../../platform-adapter-formats.md),
 > [`cross-platform-agent-surface-matrix.md`](../../../memory/executive/cross-platform-agent-surface-matrix.md),
 > ADR-124, ADR-125).
 
@@ -319,7 +319,7 @@ routing recommendation only.
 
 [^aaif-launch]: Agentic AI Foundation, "The Linux Foundation Announces the Formation of the Agentic AI Foundation (AAIF), Anchored by New Project Contributions Including Model Context Protocol (MCP), Goose, and AGENTS.md", launch press release, <https://aaif.io/press/linux-foundation-announces-the-formation-of-the-agentic-ai-foundation-aaif-anchored-by-new-project-contributions-including-model-context-protocol-mcp-goose-and-agents-md> (fetched 2026-04-20).
 [^openai-aaif]: OpenAI, "OpenAI co-founds the Agentic AI Foundation under the Linux Foundation" (2025-12-09), <https://openai.com/index/agentic-ai-foundation/>.
-[^agents-md-faq]: AGENTS.md project, FAQ section ("How do I use AGENTS.md?", "What if instructions conflict?", "Are there required fields?"), <https://agents.md/> (fetched 2026-04-20).
+[^agents-md-faq]: ../../../../AGENTS.md project, FAQ section ("How do I use ../../../../AGENTS.md?", "What if instructions conflict?", "Are there required fields?"), <https://agents.md/> (fetched 2026-04-20).
 [^skills-spec]: Agent Skills specification, "The complete format specification for Agent Skills", <https://agentskills.io/specification> (fetched 2026-04-20).
 [^skills-overview]: Agent Skills overview, "A simple, open format for giving agents new capabilities and expertise", <https://agentskills.io/> (fetched 2026-04-20; lists 30+ adopting products).
 [^claude-skills]: Anthropic, "Extend Claude with skills" (Claude Code documentation), <https://docs.claude.com/en/docs/claude-code/skills> (fetched 2026-04-20).

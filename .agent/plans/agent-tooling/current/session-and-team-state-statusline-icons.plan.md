@@ -329,7 +329,7 @@ All live in `agent-tooling/current/`; the canonical hub is the
   hardens the soft surface. Shares the `renderStatusline` seam with this plan;
   the two are coordinated, not dependent.
 - **Supersedes** the narrow resolver from the archived
-  [`statusline-session-shape-indicators.plan.md`](../archive/completed/statusline-session-shape-indicators.plan.md)
+  `statusline-session-shape-indicators.plan.md` (`../../../plans-old-archive/agent-tooling/archive/completed/statusline-session-shape-indicators.plan.md`)
   (solo/peer/directed and arcActive).
 - **Aligns with / extends** `PDR-095` (collaboration is multi-dimensional) — but
   authors no new doctrine during discovery.

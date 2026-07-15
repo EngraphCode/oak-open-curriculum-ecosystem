@@ -15,7 +15,7 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
 - **Invocation pointer**: continue `continuity-memory-and-knowledge-flow` from
   this record.
 - **Controlling plan**:
-  [`claude-memory-buffer-drain.plan.md`](../../../plans/agentic-engineering-enhancements/archive/completed/claude-memory-buffer-drain.plan.md)
+  `claude-memory-buffer-drain.plan.md` (`../../../plans/agentic-engineering-enhancements/archive/completed/claude-memory-buffer-drain.plan.md`)
   — **COMPLETED and archived 2026-07-05**; its §Closeout carries the
   honest verdict (complete).
 - **Next safe step**: none queued — the thread is quiescent. The drain is

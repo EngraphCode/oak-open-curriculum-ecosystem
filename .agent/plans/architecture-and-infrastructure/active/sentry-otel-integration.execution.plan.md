@@ -268,7 +268,7 @@ on this same branch before the PR opens.
      including Elastic search operation integration:
      [search-observability.plan.md](../../observability/current/search-observability.plan.md).
    - Translation completeness:
-     [sentry-observability-translation-crosswalk.plan.md](../../observability/active/sentry-observability-translation-crosswalk.plan.md).
+     sentry-observability-translation-crosswalk.plan.md (`../../../plans-old-archive/observability/archive/completed/sentry-observability-translation-crosswalk.plan.md`).
 
 Current user-directed sequence:
 
@@ -305,7 +305,7 @@ via the project's Slack integration. That proves the wiring claim the
 2026-04-16 evidence bundle was written against. Production-grade
 rule-shape hardening (env/severity gates, shorter frequency, a
 production alerts channel) is tracked as non-blocking follow-up in
-[sentry-observability-expansion.plan.md](../../observability/archive/superseded/sentry-observability-expansion.plan.pre-maximisation-pivot-2026-04-17.md)
+sentry-observability-expansion.plan.md (`../../../plans-old-archive/observability/archive/superseded/sentry-observability-expansion.plan.pre-maximisation-pivot-2026-04-17.md`)
 EXP-F. No further foundation code work is required on this branch.
 Closure record: [`evidence/2026-04-16-http-mcp-sentry-validation/alerting-baseline-enumeration-note.md`](../evidence/2026-04-16-http-mcp-sentry-validation/alerting-baseline-enumeration-note.md)
 § "Outcome (validated 2026-04-17)".
@@ -495,17 +495,17 @@ closure):**
    credential provisioning, release/source-map evidence requirements, and
    deployment-proof contract.
 2. The child plan
-   [sentry-canonical-alignment.plan.md](./sentry-canonical-alignment.plan.md)
+   sentry-canonical-alignment.plan.md (`../../../plans-old-archive/architecture-and-infrastructure/archive/completed/sentry-canonical-alignment.plan.md`)
    is authoritative for the completed HTTP MCP runtime-alignment record and its
    acceptance boundary on the live path.
 3. Companion plans are authoritative for scope intentionally removed from the
    narrowed child plan:
-   - [sentry-observability-expansion.plan.md](../../observability/archive/superseded/sentry-observability-expansion.plan.pre-maximisation-pivot-2026-04-17.md)
+   - sentry-observability-expansion.plan.md (`../../../plans-old-archive/observability/archive/superseded/sentry-observability-expansion.plan.pre-maximisation-pivot-2026-04-17.md`)
    - [search-observability.plan.md](../../observability/current/search-observability.plan.md)
-   - [sentry-observability-translation-crosswalk.plan.md](../../observability/active/sentry-observability-translation-crosswalk.plan.md)
+   - sentry-observability-translation-crosswalk.plan.md (`../../../plans-old-archive/observability/archive/completed/sentry-observability-translation-crosswalk.plan.md`)
 4. The review checkpoint is authoritative for whether the handover bundle has
    been reviewed and cleared:
-   [sentry-otel-foundation.review-checkpoint-2026-03-27.md](./sentry-otel-foundation.review-checkpoint-2026-03-27.md)
+   [sentry-otel-foundation.review-checkpoint-2026-03-27.md](../evidence/sentry-otel-foundation.review-checkpoint-2026-03-27.md)
 5. The prompt is an operational entry point only; it must not restate plan
    facts beyond minimal restart framing.
 6. The napkin records session learnings and caveats; it is not a parallel fact
@@ -1295,7 +1295,7 @@ If session context compresses again, re-ground from these files in order:
 
 1. this active plan
 2. [sentry-otel-foundation.prompt.md](../../../prompts/architecture-and-infrastructure/sentry-otel-foundation.prompt.md)
-3. [sentry-otel-foundation.review-checkpoint-2026-03-27.md](./sentry-otel-foundation.review-checkpoint-2026-03-27.md)
+3. [sentry-otel-foundation.review-checkpoint-2026-03-27.md](../evidence/sentry-otel-foundation.review-checkpoint-2026-03-27.md)
 4. [observability-and-quality-metrics.plan.md](../future/observability-and-quality-metrics.plan.md)
 5. [ADR-143](../../../../docs/architecture/architectural-decisions/143-coherent-structured-fan-out-for-observability.md)
 6. [testing-strategy.md](../../../directives/testing-strategy.md)
@@ -1332,7 +1332,7 @@ details, expand the reviewer set again with the corresponding specialists
 before recording restart clearance.
 
 Review-state authority is recorded in:
-[sentry-otel-foundation.review-checkpoint-2026-03-27.md](./sentry-otel-foundation.review-checkpoint-2026-03-27.md)
+[sentry-otel-foundation.review-checkpoint-2026-03-27.md](../evidence/sentry-otel-foundation.review-checkpoint-2026-03-27.md)
 
 ## Reference Inputs
 

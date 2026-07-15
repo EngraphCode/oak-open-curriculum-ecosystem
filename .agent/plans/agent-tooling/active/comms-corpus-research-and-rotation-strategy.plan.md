@@ -38,7 +38,7 @@ isProject: false
 
 **Created**: 2026-06-12 under owner direction (in-session to Director Firefly seeks Temper).
 **Substrate home**: the
-[`agent-collaboration-research` thread record](../../../memory/operational/threads/agent-collaboration-research.next-session.md)
+[`agent-collaboration-research` thread record](../../../memory/operational/threads/retired/agent-collaboration-research.next-session.md)
 owns the hypothesis, the four analysis vectors, seventeen seeded candidate themes, the
 preservation boundary, the rotation-strategy framing, and the dedicated-session profile. This
 plan does not duplicate that substance — it is the dispatch vehicle and execution contract.

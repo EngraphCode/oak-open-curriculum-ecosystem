@@ -107,4 +107,4 @@ about the surfaces themselves still lives in
 [closed-schema]: ../../state/collaboration/closed-claims.schema.json
 [conv-schema]: ../../state/collaboration/conversation.schema.json
 [esc-schema]: ../../state/collaboration/escalation.schema.json
-[consolidate-7e]: ../../commands/consolidate-docs.md#stale-claim-audit
+[consolidate-7e]: ../../skills/consolidate-docs/SKILL-CANONICAL.md#stale-claim-audit

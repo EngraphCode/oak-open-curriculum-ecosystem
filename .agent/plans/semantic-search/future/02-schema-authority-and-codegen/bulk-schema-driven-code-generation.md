@@ -17,7 +17,7 @@ handed upstream 2026-06-04. `schema.json` ships inside every bulk ZIP today
 fallback is immediately workable.
 **Related**:
 
-- [Config Architecture Standardisation](../../../architecture-and-infrastructure/config-architecture-standardisation-plan.md)
+- [Config Architecture Standardisation](../../../architecture-and-infrastructure/current/config-architecture-standardisation-plan.md)
 - [Subject Domain Model](move-search-domain-knowledge-to-codegen-time.md)
 - [Search-CLI Ingestion Pipeline Consolidation](../../../architecture-and-infrastructure/future/search-cli-ingestion-pipeline-consolidation.plan.md) — downstream consumer of this work; relies on the schema-derived bulk Zod types this plan produces to make single-source-of-truth ingestion structurally enforceable. Without this plan landing, the consolidation can still execute against `z.string()`-typed bulk schemas; type-level guards strengthen once the enum propagation lands.
 

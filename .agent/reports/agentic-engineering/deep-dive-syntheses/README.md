@@ -5,7 +5,7 @@ theme graduates beyond index notes and source routing.
 
 ## Current Upstream Sources
 
-- [deep-dives/README.md](../../../reference/agentic-engineering/deep-dives/README.md)
+- [deep-dives/README.md](../../../research/agentic-engineering/README.md)
 - [research/agentic-engineering/README.md](../../../research/agentic-engineering/README.md)
 - [analysis/README.md](../../../analysis/README.md)
 

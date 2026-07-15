@@ -166,4 +166,4 @@ pnpm dev
 ## Related Documentation
 
 - [Authentication Testing Strategy](../TESTING.md#two-tier-authentication-testing)
-- [Testing Strategy](../../../../.agent/directives/testing-strategy.md)
+- [Testing Strategy](../../../.agent/directives/testing-strategy.md)

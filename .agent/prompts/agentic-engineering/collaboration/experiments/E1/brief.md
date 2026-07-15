@@ -61,7 +61,7 @@ narrower.
 ## Work being done
 
 Read the operational state files at session-open. The active plan
-is [`there-is-no-time-hashed-starfish.plan.md`](../../../../../plans/observability/current/there-is-no-time-hashed-starfish.plan.md);
+is `there-is-no-time-hashed-starfish.plan.md` (`../../../../../plans/observability/current/there-is-no-time-hashed-starfish.plan.md`);
 the next safe step is ARC A1; the parallelisable lane is ARC B0
 (plan-body corrections to the prior plan body). The two agent
 prompts in this directory operationalise that work.

@@ -322,7 +322,7 @@ Recommended reviewers:
   — the observation layer this plan promotes to enforcement
 - Unified versioned ingestion plan — ingestion pipeline where URL validation
   will be integrated
-- [url-generation-cleanup.plan.md](../archive/completed/url-generation-cleanup.plan.md)
+- url-generation-cleanup.plan.md (`../../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/url-generation-cleanup.plan.md`)
   (COMPLETE) — retired `generateOakUrl`, made `sequenceSlug` and `unitUrl`
   type-safe at document-creation boundaries
 

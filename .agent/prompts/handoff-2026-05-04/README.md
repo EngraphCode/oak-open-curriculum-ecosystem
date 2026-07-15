@@ -64,7 +64,7 @@ Read these in order before picking up any of the three plans:
 
 ## After your session
 
-Read [`.agent/skills/jc-session-handoff/SKILL.md`](../../skills/jc-session-handoff/SKILL.md)
+Read [`.agent/skills/jc-session-handoff/SKILL.md`](../../skills/session-handoff/SKILL-CANONICAL.md)
 and follow the handoff protocol. Update the thread record's identity
 table with your row; update the napkin with any insights worth
 durable capture; close your active claim explicitly with a summary;

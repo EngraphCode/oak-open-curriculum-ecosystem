@@ -26,7 +26,7 @@ correct results across all indexes.
 
 | Plan | Description | Status |
 |------|-------------|--------|
-| [phase-3a-mcp-search-integration.md](../../archive/completed/phase-3a-mcp-search-integration.md) | MCP search tools delivered and archived | ✅ Complete |
+| phase-3a-mcp-search-integration.md (`../../../../plans-old-archive/semantic-search/archive/completed/phase-3a-mcp-search-integration.md`) | MCP search tools delivered and archived | ✅ Complete |
 | [mcp-result-pattern-unification.md](mcp-result-pattern-unification.md) | Strategic source for Result-pattern convergence | ✅ Promoted to active execution plan |
 
 ---

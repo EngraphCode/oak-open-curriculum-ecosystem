@@ -39,8 +39,8 @@ surfaces were:
 - [practice.md](../../../practice-core/practice.md)
 - [practice-index.md](../../../practice-index.md)
 - [memory/README.md](../../../memory/README.md)
-- [continuity-practice.md](../../../../docs/governance/continuity-practice.md)
-- [consolidate-docs.md](../../../commands/consolidate-docs.md)
+- [continuity-practice.md](../../../directives/continuity-practice.md)
+- consolidate-docs.md (`../../../commands/consolidate-docs.md`)
 - [ADR-131](../../../../docs/architecture/architectural-decisions/131-self-reinforcing-improvement-loop.md)
 - [ADR-144](../../../../docs/architecture/architectural-decisions/144-two-threshold-fitness-model.md)
 - [ADR-150](../../../../docs/architecture/architectural-decisions/150-continuity-surfaces-session-handoff-and-surprise-pipeline.md)
@@ -63,8 +63,8 @@ Follow-on exploration after the first draft also included the local
 Graphify repo copy under
 [`reference-local/repos/graphify/`](../../../reference-local/repos/graphify/),
 especially its
-[README.md](../../../reference-local/repos/graphify/README.md),
-[ARCHITECTURE.md](../../../reference-local/repos/graphify/ARCHITECTURE.md),
+`README.md`,
+`ARCHITECTURE.md`,
 [graphify/__main__.py](../../../reference-local/repos/graphify/graphify/__main__.py),
 [graphify/serve.py](../../../reference-local/repos/graphify/graphify/serve.py),
 [graphify/watch.py](../../../reference-local/repos/graphify/graphify/watch.py),
@@ -101,11 +101,11 @@ These loops are already dense, intentional, and cross-linked.
 The repo also has a layered refinement system:
 
 - **Lightweight continuity loop** in
-  [continuity-practice.md](../../../../docs/governance/continuity-practice.md):
+  [continuity-practice.md](../../../directives/continuity-practice.md):
   `session-handoff` keeps orientation, captures surprises, and
   decides whether deeper convergence is due.
 - **Deep consolidation loop** in
-  [consolidate-docs.md](../../../commands/consolidate-docs.md):
+  consolidate-docs.md (`../../../commands/consolidate-docs.md`):
   cross-session scan, pattern extraction, napkin rotation,
   distilled pruning, graduation, thread freshness audit, Practice
   Core review, fitness management, and exchange handling.

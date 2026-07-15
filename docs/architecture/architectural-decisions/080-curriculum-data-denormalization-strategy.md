@@ -744,7 +744,7 @@ The ES index keeps the parallel-array denormalisation (`tiers[]`, `exam_boards[]
 ## Related Documentation
 
 - Upstream API Wishlist - Request for flat fields
-- [Semantic Search Prompt](../../../.agent/prompts/semantic-search/semantic-search.prompt.md) - Entry point for AI sessions
+- Semantic Search Prompt (`../../../.agent/prompts/semantic-search/semantic-search.prompt.md`) - Entry point for AI sessions
 - [ADR-066: SDK Response Caching](066-sdk-response-caching.md) - Redis caching strategy
 - [ADR-079: SDK Cache TTL Jitter](079-sdk-cache-ttl-jitter.md) - Cache TTL strategy
 

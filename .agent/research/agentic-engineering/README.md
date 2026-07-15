@@ -86,7 +86,7 @@ sources without turning research notes into a second canon.
 
 - [experience/README.md](../../experience/README.md) — reflective archive;
   extract concepts, do not reorganise the source files
-- [practice-context/outgoing/README.md](../../practice-context/outgoing/README.md)
+- [practice-context/outgoing/README.md] (`../../practice-context/outgoing/README.md`)
   — staged concept packs and transfer material
 
 ## Cross-Lane Notes

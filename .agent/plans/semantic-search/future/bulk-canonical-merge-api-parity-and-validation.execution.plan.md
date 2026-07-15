@@ -53,17 +53,17 @@ isProject: false
 
 **Foundation alignment** (read at kickoff and each phase):
 
-- [@.agent/directives/principles.md](../../directives/principles.md)
-- [@.agent/directives/testing-strategy.md](../../directives/testing-strategy.md)
-- [@.agent/directives/schema-first-execution.md](../../directives/schema-first-execution.md)
+- [@.agent/directives/principles.md](../../../directives/principles.md)
+- [@.agent/directives/testing-strategy.md](../../../directives/testing-strategy.md)
+- [@.agent/directives/schema-first-execution.md](../../../directives/schema-first-execution.md)
 
 **Related active plan** (operator pipeline and F1/F2 closure — execute first where overlap):
 
-- [f2-closure-and-p0-ingestion.execution.plan.md](../archive/completed/f2-closure-and-p0-ingestion.execution.plan.md)
+- f2-closure-and-p0-ingestion.execution.plan.md (`../../../plans-old-archive/semantic-search/archive/completed/f2-closure-and-p0-ingestion.execution.plan.md`)
 
 **Findings register** (reproduction queries and evidence):
 
-- [search-tool-prod-validation-findings-2026-03-15.md](./search-tool-prod-validation-findings-2026-03-15.md)
+- search-tool-prod-validation-findings-2026-03-15.md (`../../../plans-old-archive/semantic-search/archive/completed/search-tool-prod-validation-findings-2026-03-15.md`)
 
 ---
 
@@ -147,7 +147,7 @@ Unit documents expose `sequence_ids` but the builder fills them from **unit thre
 
 ### D.1 — Tie to F2 closure
 
-Complete **operator stage → validate → promote** from [f2-closure-and-p0-ingestion.execution.plan.md](../archive/completed/f2-closure-and-p0-ingestion.execution.plan.md) before treating MCP results as proof of new data.
+Complete **operator stage → validate → promote** from f2-closure-and-p0-ingestion.execution.plan.md (`../../../plans-old-archive/semantic-search/archive/completed/f2-closure-and-p0-ingestion.execution.plan.md`) before treating MCP results as proof of new data.
 
 ### D.2 — MCP reproduction queries (from findings register)
 

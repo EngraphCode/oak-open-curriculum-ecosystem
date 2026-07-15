@@ -329,7 +329,7 @@ claiming release or source-map behaviour still holds.
   [`active/sentry-observability-maximisation-mcp.plan.md`](../../../.agent/plans/observability/active/sentry-observability-maximisation-mcp.plan.md)
   § L-IMM Sub-item 6.
 - The execution wrapper that gated closure on this verification lives in
-  [`archive/completed/sentry-immediate-next-steps.plan.md`](../../../.agent/plans/observability/archive/completed/sentry-immediate-next-steps.plan.md)
+  `.agent/plans/observability/archive/completed/sentry-immediate-next-steps.plan.md`
   Tier 3d.
 - This verification closed L-IMM Sub-item 6 on 2026-04-26.
 

@@ -129,7 +129,9 @@ for the matrix, the per-check rationale, and the verify-vs-mutate rule.
 **Key principle**: pre-push and CI run the same check set. A CI-only failure
 indicates an environmental or configuration issue, not a missing check.
 `pnpm check` is the broadest surface, adding clean rebuild, widget
-tests, a11y tests, and fix-mode commands. See ADR-121 for the full rationale.
+tests, and a11y tests. See ADR-121 for the full rationale.
+`pnpm check:docs` is the focused, verify-only aggregate for documentation work;
+it does not replace the full gate for product or tooling changes.
 
 The full gate is authoritative in both directions. A **successful push has
 already run the entire pre-push gate** — the push cannot succeed otherwise —
@@ -186,9 +188,27 @@ Secret scanning, clean rebuild, and full verification:
 pnpm check
 ```
 
-`pnpm check` is the only canonical aggregate verification command. The former
-`pnpm qg` surface was removed to avoid having two competing “full gate”
-stories.
+`pnpm check` is the only canonical **full** aggregate verification command. The
+former `pnpm qg` surface was removed to avoid having two competing full-gate
+stories. `pnpm check:docs` is deliberately narrower and makes no full-repository
+verification claim.
+
+### `pnpm check:docs` - Documentation work gate
+
+Runs the focused verify-only baseline for general documentation changes without
+builds, product tests, or browser suites:
+
+```bash
+pnpm check:docs
+```
+
+It composes root Prettier and Markdownlint checks with the documentation
+validators for reference direction, machine-local paths, internal Markdown
+links, the patterns index, and ratified lists. Fitness reports are not part of
+this gate: they remain signals and never justify deleting or compressing
+knowledge. Specialised Markdown surfaces retain their owning validators; for
+example, skill or sub-agent definition changes also require their dedicated
+checks.
 
 To inspect the many-process shape without running the full gate, use:
 
@@ -203,9 +223,10 @@ process.
 
 #### Aggregate gate doctrine
 
-- `pnpm check` is executable truth and the only canonical aggregate
-  verification command. CI, prompts, and READMEs should name this surface
-  rather than inventing alternatives.
+- `pnpm check` is executable truth and the only canonical full aggregate
+  verification command. CI, prompts, and READMEs should name this surface for
+  full-repository verification; documentation-only work should use the focused
+  `pnpm check:docs` surface.
 - Design target: a human-facing aggregate gate should own one package-graph run.
   In practice, that means extending `pnpm check` rather than adding a
   second competing full-gate surface. The underlying implementation may still

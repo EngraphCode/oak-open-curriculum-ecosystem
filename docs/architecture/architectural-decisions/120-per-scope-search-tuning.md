@@ -2,7 +2,7 @@
 
 **Status**: Accepted
 **Date**: 2026-02-23
-**Related**: [ADR-099 (Transcript-Aware RRF Normalisation)](099-transcript-aware-rrf-normalisation.md), [ADR-103 (Fuzzy Match Limitations)](103-fuzzy-match-limitations.md)
+**Related**: [ADR-099 (Transcript-Aware RRF Normalisation)](099-transcript-aware-rrf-normalisation.md), ADR-103 (Fuzzy Match Limitations) (`103-fuzzy-match-limitations.md`)
 
 ## Context
 

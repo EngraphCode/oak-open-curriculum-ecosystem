@@ -7,7 +7,7 @@ pdr_kind: governance
 **Status**: Accepted
 **Date**: 2026-05-10
 **Related**:
-[PDR-014](PDR-014-pattern-routing-discipline.md) (consolidation flow —
+PDR-014 (`PDR-014-pattern-routing-discipline.md`) (consolidation flow —
 this PDR fixes directive-file work as the final step of any consolidation
 pass);
 [PDR-026](PDR-026-per-session-landing-commitment.md) (per-session landing

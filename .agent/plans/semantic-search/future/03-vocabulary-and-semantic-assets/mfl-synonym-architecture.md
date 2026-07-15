@@ -161,7 +161,7 @@ Foreign language words in lesson titles are matched by the indexed content, not 
 | Document | Purpose |
 |----------|---------|
 | [vocabulary-mining.md](vocabulary-mining.md) | Synonym bucket classification |
-| [../../synonyms/README.md](../../../../../packages/sdks/oak-curriculum-sdk/src/mcp/synonyms/README.md) | Synonym source of truth |
+| [../../synonyms/README.md](../../../../../packages/sdks/oak-sdk-codegen/src/synonyms/README.md) | Synonym source of truth |
 | [mfl-multilingual-embeddings.md](../04-retrieval-quality-engine/mfl-multilingual-embeddings.md) | MFL search quality issues |
 
 ---

@@ -48,10 +48,10 @@ New to the repo? Read these five ADRs first for the architectural foundations:
 - [ADR-017: Use Consola for Logging](017-consola-for-logging.md)
 - [ADR-018: Complete Biological Architecture](018-complete-biological-architecture.md)
 - [ADR-019: Domain-Driven File Splitting](019-domain-driven-file-splitting.md)
-- [ADR-020: Biological Architecture Pattern](../../archive/architecture/architectural-decisions/020-biological-architecture.md) ← **Archived** (Greek ecosystem deprecated)
-- [ADR-021: Genotype/Phenotype/Chorai](../../archive/architecture/architectural-decisions/021-genotype-phenotype-chorai.md) ← **Archived** (Greek ecosystem deprecated)
+- ADR-020: Biological Architecture Pattern (`../../archive/architecture/architectural-decisions/020-biological-architecture.md`) ← **Archived** (Greek ecosystem deprecated)
+- ADR-021: Genotype/Phenotype/Chorai (`../../archive/architecture/architectural-decisions/021-genotype-phenotype-chorai.md`) ← **Archived** (Greek ecosystem deprecated)
 - [ADR-022: Conditional Dependencies in Genotype](022-conditional-dependencies-genotype.md)
-- [ADR-023: Moria/Histoi/Psycha Architecture](../../archive/architecture/architectural-decisions/023-moria-histoi-psycha-architecture.md) ← **Archived** (Greek ecosystem deprecated)
+- ADR-023: Moria/Histoi/Psycha Architecture (`../../archive/architecture/architectural-decisions/023-moria-histoi-psycha-architecture.md`) ← **Archived** (Greek ecosystem deprecated)
 - [ADR-024: Dependency Injection Pattern](024-dependency-injection-pattern.md)
 - [ADR-025: Erasable Syntax Only](025-erasable-syntax-only.md)
 - [ADR-026: OpenAPI Code Generation Strategy](026-openapi-code-generation-strategy.md)
@@ -506,7 +506,7 @@ For historical context on dense vector evaluation (superseded):
 
 For understanding the now deprecated and removed biological architecture:
 
-- **[ADR-020](../../archive/architecture/architectural-decisions/020-biological-architecture.md)** - Current biological architecture with Greek nomenclature
+- **ADR-020 (`../../archive/architecture/architectural-decisions/020-biological-architecture.md`)** - Current biological architecture with Greek nomenclature
 - **[ADR-018](018-complete-biological-architecture.md)** - Evolution to complete biological model
 - **[ADR-009](009-mathematical-foundation-for-architecture.md)** - Mathematical grounding from complex systems theory
 - **[ADR-006](006-cellular-architecture-pattern.md)** - Original cellular architecture inspiration

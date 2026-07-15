@@ -32,7 +32,7 @@ isProject: false
 - Owner feedback on systemic gaps in guidance categories
 - [Planning specialist capability](planning-specialist-capability.plan.md) —
   canonical owner for the Planning reviewer / skill / rule triplet
-- [Portability remediation plan](agent-infrastructure-portability-remediation.plan.md) —
+- [Portability remediation plan](../../agent-tooling/current/agent-infrastructure-portability-remediation.plan.md) —
   Phase 5 (ADR-125 amendments) is a dependency for the
   portability PDR/ADR work here
 
@@ -302,7 +302,7 @@ Remaining closures are outside this plan:
   owns the Planning expert triplet and deferred planning-discipline
   implementation; this plan supplies the source material and
   prevents a duplicate Planning skill from forming
-- [Portability remediation](agent-infrastructure-portability-remediation.plan.md) —
+- [Portability remediation](../../agent-tooling/current/agent-infrastructure-portability-remediation.plan.md) —
   executed alongside Phase 3 here; this plan now extends that closure
 - [sdk-codegen-workspace-decomposition](../../architecture-and-infrastructure/codegen/future/sdk-codegen-workspace-decomposition.md) —
   owns the deferred generator duplication work; no bulk/codegen DRY

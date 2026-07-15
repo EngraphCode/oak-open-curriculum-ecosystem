@@ -213,7 +213,7 @@ fields:
 [register-rule]: ../../rules/register-active-areas-at-session-open.md
 [log-rule]: ../../rules/use-agent-comms-log.md
 [respect-rule]: ../../rules/respect-active-agent-claims.md
-[consolidate-7e]: ../../commands/consolidate-docs.md#stale-claim-audit
+[consolidate-7e]: ../../skills/consolidate-docs/SKILL-CANONICAL.md#stale-claim-audit
 [founding-pattern]: ../collaboration/parallel-track-pre-commit-gate-coupling.md
 [p]: ../../plans/agent-tooling/current/multi-agent-collaboration-protocol.plan.md
 [csw-plan]: ../../plans/agent-tooling/current/collaboration-state-write-safety.plan.md

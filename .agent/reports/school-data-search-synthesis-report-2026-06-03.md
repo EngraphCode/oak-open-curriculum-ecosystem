@@ -2,7 +2,7 @@
 
 **Authored by**: Furnace Roasting Brazier (claude / Opus 4.8 / `88a769`),
 owner-directed (thread `school-data-search`; landing target recorded in
-[the thread record](../memory/operational/threads/school-data-search.next-session.md)).
+[the thread record](../memory/operational/threads/paused/school-data-search.next-session.md)).
 
 **Status**: synthesis. **This report decides nothing.** Convergence across the
 three research briefs is presented as the high-confidence foundation;

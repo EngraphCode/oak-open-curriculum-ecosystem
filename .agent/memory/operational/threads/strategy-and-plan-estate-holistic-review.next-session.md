@@ -205,7 +205,7 @@ remediation-agent question in the section below is ANSWERED: the owner turned th
 ## Where We Are (2026-07-08 close, Pelican calls Spray 55b041 — R0 COMPLETE; next = the dedicated consolidation pass, then r1)
 
 **The single pickup surface for the next session is the PDR-063 handoff record**
-[`handoffs/2026-07-08-pelican-r0-complete-and-r1-runway.md`](../../../state/collaboration/handoffs/2026-07-08-pelican-r0-complete-and-r1-runway.md)
+`handoffs/2026-07-08-pelican-r0-complete-and-r1-runway.md` (`../../../state/collaboration/handoffs/2026-07-08-pelican-r0-complete-and-r1-runway.md`)
 on claim `7b10679e` (retained; sixth runway handoff Wildfire→Stoat→Leopard→Goshawk→Rigel→Pelican→next).
 Headlines: **R0 is COMPLETE** — R0c merged truly-green via early-armed auto-merge (PR #325,
 `8385bc41a`): the consolidated owner-gate register (OG-2 in two halves — table half
@@ -228,7 +228,7 @@ F2 R1-precondition stands). Owner-gated residue in the handoff record §4.
 ## Where We Were (2026-07-08 close, Rigel turns Void c6080b — R0b MERGED `751ce9699`; next = R0c)
 
 **The single pickup surface for the next session is the PDR-063 handoff record**
-[`handoffs/2026-07-08-rigel-r0b-merged-and-r0c-runway.md`](../../../state/collaboration/handoffs/2026-07-08-rigel-r0b-merged-and-r0c-runway.md)
+`handoffs/2026-07-08-rigel-r0b-merged-and-r0c-runway.md` (`../../../state/collaboration/handoffs/2026-07-08-rigel-r0b-merged-and-r0c-runway.md`)
 on claim `7b10679e` (retained; fifth runway handoff Wildfire→Stoat→Leopard→Goshawk→Rigel→next;
 **successor owner-named: Pelican calls Spray, 55b041** — adopt on arrival, runway clean).
 Headlines: **R0b is complete on main** (PR #323 owner-merged truly-green at `751ce9699`,
@@ -248,7 +248,7 @@ clearing) live in the handoff record §3–§4.
 ## Where We Were (2026-07-07 close, Goshawk calls Sundog 970bdc — R0a MERGED `af6c285e5`; G1 DISCHARGED in-chat; next = R0b)
 
 **The single pickup surface for the next session is the PDR-063 handoff record**
-[`handoffs/2026-07-07-goshawk-g1-discharged-and-r0b-runway.md`](../../../state/collaboration/handoffs/2026-07-07-goshawk-g1-discharged-and-r0b-runway.md)
+`handoffs/2026-07-07-goshawk-g1-discharged-and-r0b-runway.md` (`../../../state/collaboration/handoffs/2026-07-07-goshawk-g1-discharged-and-r0b-runway.md`)
 on claim `7b10679e` (retained; **successor owner-named: Rigel turns Void, c6080b** — fourth
 runway handoff Wildfire→Stoat→Leopard→Goshawk→Rigel).
 Headlines: **R0a is complete on main** (PR #321 merged truly-green at `af6c285e5`: four
@@ -270,7 +270,7 @@ contracts BINDING; first truing = the `r0a-mechanical-instrument` todo still rea
 ## Where We Were (2026-07-07, Leopard spins Moonrise b07d1d — R0a COMPLETE AND MERGED (#317, `3bc698531`); cycles 3–4 on t3; next = the main→t3 merge-forward, the t3 PR, then R0b)
 
 **The single pickup surface for the next session is the PDR-063 handoff record**
-[`handoffs/2026-07-07-leopard-r0-cycles34-and-merge-forward.md`](../../../state/collaboration/handoffs/2026-07-07-leopard-r0-cycles34-and-merge-forward.md)
+`handoffs/2026-07-07-leopard-r0-cycles34-and-merge-forward.md` (`../../../state/collaboration/handoffs/2026-07-07-leopard-r0-cycles34-and-merge-forward.md`)
 on claim `7b10679e` (retained): it carries the merged-estate state with provenance marks, the
 FULLY-ANALYSED main→t3 merge-forward (three conflict resolutions — one conserved verbatim in
 `handoffs/assets/` — plus two semantic re-points and the publicly-promised census

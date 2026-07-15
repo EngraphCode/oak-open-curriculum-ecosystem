@@ -13,7 +13,7 @@ sections or the fenced pattern files — you arrive with the cold read intact.
 [`comms-corpus-research-and-rotation-strategy.plan.md`](../../plans/agent-tooling/active/comms-corpus-research-and-rotation-strategy.plan.md)
 — the execution contract (workstreams, acceptance criteria, proof contract, non-goals).
 **Substrate home**: the
-[`agent-collaboration-research` thread record](../../memory/operational/threads/agent-collaboration-research.next-session.md)
+[`agent-collaboration-research` thread record](../../memory/operational/threads/retired/agent-collaboration-research.next-session.md)
 — read it **per the plan's WS0 instruction, not end to end**: its two Candidate Themes
 sections are deliberately deferred until your WS1 surprises log is recorded. This is the
 blind-pass discipline; the record's Resume Contract authorises the exception.

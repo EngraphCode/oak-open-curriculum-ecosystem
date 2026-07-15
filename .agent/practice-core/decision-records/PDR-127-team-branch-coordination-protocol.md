@@ -8,7 +8,7 @@ pdr_kind: governance
 **Date**: 2026-07-14
 **Related**: [PDR-117](PDR-117-director-and-implementer-roles.md) (Director
 and Implementer roles — this PDR governs the shared git surface those roles
-operate against); [PDR-094](PDR-094-comms-corpus-preservation-and-retention.md)
+operate against); PDR-094 (`PDR-094-comms-corpus-preservation-and-retention.md`)
 (comms events are untracked-by-design — this PDR's clause 3 is the
 consolidation-time consequence of that design; an adopting host's own
 ADR, where one exists, is a host-local companion record, not this PDR's

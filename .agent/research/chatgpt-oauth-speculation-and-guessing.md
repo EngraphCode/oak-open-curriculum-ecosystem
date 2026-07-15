@@ -1,6 +1,6 @@
 # ChatGPT OAuth Requirements Speculation and Guessing
 
-**STATUS: SUPERSEDED** - See [MCP OAuth Security Implementation Plan](../plans/schema-first-security-implementation.md)
+**STATUS: SUPERSEDED** - See MCP OAuth Security Implementation Plan (`../plans-old-archive/archive/completed/schema-first-security-implementation.md`)
 
 This document contains useful analysis but is based on an incorrect assumption that MCP security metadata should be read from the Oak Curriculum OpenAPI schema. In reality:
 

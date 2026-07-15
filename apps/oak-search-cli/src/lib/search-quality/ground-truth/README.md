@@ -106,7 +106,7 @@ export const MATHS_SECONDARY: LessonGroundTruth = {
 
 ## Adding a Ground Truth
 
-1. Follow the protocol in [ground-truth-protocol.md](/.agent/prompts/semantic-search/ground-truth-protocol.md)
+1. Follow the protocol in [ground-truth-protocol.md](../../../../docs/ground-truths/ground-truth-protocol.md)
 2. Create a file in `entries/` named `{subject}-{phase}.ts`
 3. Export a `LessonGroundTruth` constant (e.g., `MATHS_SECONDARY`)
 4. Add the export to `index.ts`
@@ -133,7 +133,7 @@ oaksearch search threads "your query" --subject maths
 ## Future Work
 
 Phase 2 expansion opportunities are documented in:
-[ground-truth-expansion-plan.md](/.agent/plans/semantic-search/post-sdk/search-quality/ground-truth-expansion-plan.md)
+[ground-truth-expansion-plan.md](../../../../../../.agent/plans/semantic-search/future/09-evaluation-and-evidence/ground-truth-expansion-plan.md)
 
 Expansion includes:
 
@@ -160,6 +160,6 @@ See [ground-truth-archive/README.md](../ground-truth-archive/README.md) for rest
 | Document                                                                                                 | Purpose              |
 | -------------------------------------------------------------------------------------------------------- | -------------------- |
 | [ADR-106](/docs/architecture/architectural-decisions/106-known-answer-first-ground-truth-methodology.md) | Methodology decision |
-| [ground-truth-protocol.md](/.agent/prompts/semantic-search/ground-truth-protocol.md)                     | Step-by-step process |
+| [ground-truth-protocol.md](../../../../docs/ground-truths/ground-truth-protocol.md)                      | Step-by-step process |
 | [queries-redesigned.md](/apps/oak-search-cli/docs/ground-truths/queries-redesigned.md)                   | Coverage tracking    |
 | [GROUND-TRUTH-GUIDE.md](./GROUND-TRUTH-GUIDE.md)                                                         | Design principles    |

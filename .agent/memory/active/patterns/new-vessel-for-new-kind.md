@@ -61,7 +61,7 @@ splitting.
 - `consolidate-estate-decouple-execution` (the reflex this refines: consolidating
   the estate does not licence fragmenting it — and does not licence over-folding
   either).
-- [`scope-from-goal-before-approach`](../../rules/scope-from-goal-before-approach.md)
+- [`scope-from-goal-before-approach`](../../../rules/scope-from-goal-before-approach.md)
   — naming the goal's real shape surfaces whether the work is one kind or two.
 - [`fluency-is-a-failure-vector`](fluency-is-a-failure-vector.md) — "don't
   fragment → fold it in" arrives fluently as estate discipline.

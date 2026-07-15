@@ -200,9 +200,9 @@ search widget) where users browse and download lesson assets.
 
 ## Related
 
-- [server-info-branding.plan.md](server-info-branding.plan.md) — active
-- [misconception-graph-mcp-surface.plan.md](../../connecting-oak-resources/knowledge-graph-integration/archive/completed/misconception-graph-mcp-surface.plan.md) — completed, archived
-- [ws3-mcp-apps-sdk-audit.plan.md](ws3-mcp-apps-sdk-audit.plan.md) — B4 downloadFile
-- [ws3-phase-5-interactive-user-search-view.plan.md](ws3-phase-5-interactive-user-search-view.plan.md) — search UI
+- ../../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/server-info-branding.plan.md (`../../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/server-info-branding.plan.md`) — active
+- misconception-graph-mcp-surface.plan.md (`../../../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/completed/misconception-graph-mcp-surface.plan.md`) — completed, archived
+- ../../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/ws3-mcp-apps-sdk-audit.plan.md (`../../../plans-old-archive/sdk-and-mcp-enhancements/archive/completed/ws3-mcp-apps-sdk-audit.plan.md`) — B4 downloadFile
+- [../active/ws3-phase-5-interactive-user-search-view.plan.md](../active/ws3-phase-5-interactive-user-search-view.plan.md) — search UI
 - MCP spec: modelcontextprotocol.io/specification/2025-06-18
 - MCP spec: modelcontextprotocol.io/specification/2025-11-25

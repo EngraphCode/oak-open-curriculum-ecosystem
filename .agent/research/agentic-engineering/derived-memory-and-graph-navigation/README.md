@@ -15,7 +15,7 @@ repository's existing memory estate.
 
 ## Feeds
 
-- [derived-memory deep dive](../../../reference/agentic-engineering/deep-dives/derived-memory-and-graph-navigation.md)
+- [derived-memory deep dive](derived-memory-and-graph-navigation.md)
 - [formal synthesis lane](../../../reports/agentic-engineering/deep-dive-syntheses/README.md)
-- [hub README](../../../reference/agentic-engineering/README.md)
+- [hub README](../README.md)
 

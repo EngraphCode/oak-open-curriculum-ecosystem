@@ -65,7 +65,7 @@ decision to retain with the real root cause named.
 
 ## Cycles (measure-first; this is refactoring-class — the existing suite is the safety net)
 
-Governed by [`tdd-for-refactoring`](../../../../rules/tdd-for-refactoring.md): the
+Governed by [`tdd-for-refactoring`](../../../rules/tdd-for-refactoring.md): the
 change is behaviour-preserving, so the existing 630-file suite is the test. No new
 failing test is authored for the flip itself; a file that fails under `threads`
 is a latent global-state defect the rule already forbids, fixed to DI under its

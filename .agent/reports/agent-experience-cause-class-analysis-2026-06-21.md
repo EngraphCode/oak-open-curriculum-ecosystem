@@ -11,7 +11,7 @@ Optimisation Principle](../practice-core/decision-records/PDR-111-agent-experien
 ## Why this report exists
 
 The repository carries an 82-entry agent-tooling friction register
-([`frictions-register.md`](../plans/agent-tooling/frictions-register.md)) plus a
+([`frictions-register.md`](../memory/operational/frictions-register.md)) plus a
 spread of session-operations and harness reports. The owner asked which of these
 matter for **agent experience (AX)** — how well the substrate agents work in
 (CLI, comms, watchers, gates, harness) serves the agents using it — and how to

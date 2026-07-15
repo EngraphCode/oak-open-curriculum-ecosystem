@@ -7,7 +7,7 @@ trailing complement to the pre-hook `verify-staged` cure; cites
 PDR-059 (Regenerator-Output Classification Discipline) as the
 governing portable doctrine.
 **Related**:
-[ADR-118](118-commit-skill-as-canonical-pre-commit-flow.md) — commit
+ADR-118 (`118-commit-skill-as-canonical-pre-commit-flow.md`) — commit
 skill as canonical pre-commit flow;
 [ADR-176](176-commit-skill-advisory-orchestrator-naming.md) — commit-skill
 advisory orchestrator naming and surface polarity;
@@ -21,7 +21,7 @@ records the host-repo operational application of PDR-059.
 ## Context
 
 The repo's
-[`stage-by-explicit-pathspec`](../../.agent/rules/stage-by-explicit-pathspec.md)
+[`stage-by-explicit-pathspec`](../../../.agent/rules/stage-by-explicit-pathspec.md)
 rule is a behavioural cure: agents are required to invoke `git commit -- <pathspec>` so that staged files outside their intended scope (foreign
 stage from peer agents) are not absorbed into their commit. The rule is
 documented; the SKILL.md cites it; experience files and napkin entries
@@ -267,7 +267,7 @@ Discipline) for the post-hook surface. The substance of both
 failure modes is portable; the host-architectural choices land
 here. The earlier prose-only graduation of the pre-hook cure
 landed at
-[`stage-by-explicit-pathspec.md § Cure Asymmetry`](../../.agent/rules/stage-by-explicit-pathspec.md);
+[`stage-by-explicit-pathspec.md § Cure Asymmetry`](../../../.agent/rules/stage-by-explicit-pathspec.md);
 this ADR closes the asymmetry the rule's body explicitly named on
 the pre-hook surface and extends the closure to the post-hook
 surface in the 2026-05-11 amendment.

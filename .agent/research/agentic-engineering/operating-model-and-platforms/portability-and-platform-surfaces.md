@@ -7,16 +7,16 @@ surfaces exist, and where cross-vendor differences matter.
 
 - [ADR-125](../../../../docs/architecture/architectural-decisions/125-agent-artefact-portability.md)
 - [ADR-124](../../../../docs/architecture/architectural-decisions/124-practice-propagation-model.md)
-- [cross-platform-agent-surface-matrix.md](../../cross-platform-agent-surface-matrix.md)
+- [cross-platform-agent-surface-matrix.md](../../../memory/executive/cross-platform-agent-surface-matrix.md)
 - [platform-adapter-formats.md](../../platform-adapter-formats.md)
 
 ## Primary Source Material
 
 - [2026-02-21-cross-agent-standardisation-landscape.research.md](../../../plans/agentic-engineering-enhancements/2026-02-21-cross-agent-standardisation-landscape.research.md)
 - [openai_claude_gemini_apps_sdk_comparison.md](../../../research/openai_claude_gemini_apps_sdk_comparison.md)
-- [official-mcp-app-skills.md](../../official-mcp-app-skills.md)
-- [agent-support-tools-specification.md](../../internal/agent-support-tools-specification.md)
-- [workbench-agent-operating-topology.md](../workbench-agent-operating-topology.md)
+- official-mcp-app-skills.md (`../../official-mcp-app-skills.md`)
+- [agent-support-tools-specification.md](../../../../agent-tools/docs/agent-support-tools-specification.md)
+- [workbench-agent-operating-topology.md](workbench-agent-operating-topology.md)
 
 ## Current Synthesis
 

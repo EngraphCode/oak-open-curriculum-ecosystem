@@ -4,7 +4,7 @@ Ready-to-use templates for the three essential reviewer agents. Adapt
 these to your project's specific standards, ADRs, and conventions.
 
 These are the minimum viable set for a functioning reviewer system.
-See [reviewer-system-guide.md](reviewer-system-guide.md) for the full
+See reviewer-system-guide.md (`reviewer-system-guide.md`) for the full
 implementation guide.
 
 ---

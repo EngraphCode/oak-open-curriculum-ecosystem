@@ -53,11 +53,11 @@ part of the public `/read` surface and may be reused by admin consumers via publ
 
 The SDK service families are exposed via those capability surfaces:
 
-| Service                  | Purpose                                                                                                                                                                                                                                                                                                                                           |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **RetrievalService**     | Hybrid BM25 + ELSER search (lessons, units, threads) plus current lexical-only sequence retrieval, suggestions, and facets. Lessons/units use 4-way RRF; threads use 2-way RRF; sequences stay lexical-only until `sequence_semantic` is populated ([ADR-110](../../docs/architecture/architectural-decisions/110-thread-search-architecture.md)) |
-| **AdminService**         | ES setup, connection, synonyms, index metadata                                                                                                                                                                                                                                                                                                    |
-| **ObservabilityService** | Zero-hit event recording, ES persistence, telemetry queries                                                                                                                                                                                                                                                                                       |
+| Service                  | Purpose                                                                                                                                                                                                                                                                                                                                              |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **RetrievalService**     | Hybrid BM25 + ELSER search (lessons, units, threads) plus current lexical-only sequence retrieval, suggestions, and facets. Lessons/units use 4-way RRF; threads use 2-way RRF; sequences stay lexical-only until `sequence_semantic` is populated ([ADR-110](../../../docs/architecture/architectural-decisions/110-thread-search-architecture.md)) |
+| **AdminService**         | ES setup, connection, synonyms, index metadata                                                                                                                                                                                                                                                                                                       |
+| **ObservabilityService** | Zero-hit event recording, ES persistence, telemetry queries                                                                                                                                                                                                                                                                                          |
 
 ### Blue/Green Index Lifecycle (ADR-130)
 
@@ -103,7 +103,7 @@ Key properties:
 
 - **Dependency injection**: The consuming application supplies the Elasticsearch client, optional logger, and configuration. The SDK never reads `process.env`.
 - **Schema-first types**: Search request/response/index document types flow from `@oaknational/sdk-codegen` generated artefacts. No manual type definitions.
-- **Deterministic**: NL parsing and intent extraction are the responsibility of the MCP layer, not the SDK. See [ADR-107](../../docs/architecture/architectural-decisions/107-deterministic-sdk-nl-in-mcp-boundary.md).
+- **Deterministic**: NL parsing and intent extraction are the responsibility of the MCP layer, not the SDK. See [ADR-107](../../../docs/architecture/architectural-decisions/107-deterministic-sdk-nl-in-mcp-boundary.md).
 - **Evaluation belongs in the CLI, not the SDK**: Ground truths, benchmarks, validation, and experiments are operator tooling _about_ the search, not the search itself. Evaluation code lives in `apps/oak-search-cli/` and consumes SDK retrieval services via DI.
 
 ## Consumers
@@ -124,9 +124,10 @@ pnpm test         # Run tests (across 15 test files)
 
 ## Related
 
-- [Search CLI README](../../apps/oak-search-cli/README.md)
-- [Search CLI Architecture](../../apps/oak-search-cli/docs/ARCHITECTURE.md)
-- [ADR-110: Thread Search Architecture](../../docs/architecture/architectural-decisions/110-thread-search-architecture.md)
-- [ADR-107: Deterministic SDK / NL-in-MCP Boundary](../../docs/architecture/architectural-decisions/107-deterministic-sdk-nl-in-mcp-boundary.md)
-- [ADR-130: Blue/Green Index Swapping](../../docs/architecture/architectural-decisions/130-blue-green-index-swapping.md)
-- [SDK + CLI Plan](../../.agent/plans/semantic-search/archive/completed/search-sdk-cli.plan.md)
+- Search CLI workspace: `apps/oak-search-cli/`
+- [Search CLI Architecture](../../../apps/oak-search-cli/docs/ARCHITECTURE.md)
+- [ADR-110: Thread Search Architecture](../../../docs/architecture/architectural-decisions/110-thread-search-architecture.md)
+- [ADR-107: Deterministic SDK / NL-in-MCP Boundary](../../../docs/architecture/architectural-decisions/107-deterministic-sdk-nl-in-mcp-boundary.md)
+- [ADR-130: Blue/Green Index Swapping](../../../docs/architecture/architectural-decisions/130-blue-green-index-swapping.md)
+- SDK + CLI historical plan:
+  `.agent/plans/semantic-search/archive/completed/search-sdk-cli.plan.md`

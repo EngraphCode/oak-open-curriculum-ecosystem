@@ -173,7 +173,7 @@ lint 0 errors; `dist` rebuilt; rendered live). Plan:
 ## Current continuation
 
 - **Controlling plan (narrow lane, now ARCHIVED)**:
-  [`statusline-session-shape-indicators.plan.md`](../../../plans/agent-tooling/archive/completed/statusline-session-shape-indicators.plan.md)
+  `statusline-session-shape-indicators.plan.md` (`../../../plans-old-archive/agent-tooling/archive/completed/statusline-session-shape-indicators.plan.md`)
   ("Statusline Enhancements — Oak Mark + Session-Shape Indicators") — in
   `archive/completed/`, not `current/` (the earlier link here was stale).
 - **Successor plan (LIVE continuation)**:

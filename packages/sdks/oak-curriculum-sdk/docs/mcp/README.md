@@ -30,7 +30,7 @@ evidence-calibrated lesson adaptation, while preserving professional judgement
 and uncertainty.
 
 See
-[`../../src/mcp/evidence-corpus/README.md`](../../src/mcp/evidence-corpus/README.md)
+the former `../../src/mcp/evidence-corpus/README.md`
 for the EEF-specific tool and prompt guidance.
 
 ### Response handling

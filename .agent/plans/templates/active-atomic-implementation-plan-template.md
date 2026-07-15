@@ -29,9 +29,9 @@ isProject: false
 
 ## Source Strategy
 
-- [roadmap.md](../roadmap.md)
-- [[strategic-source].plan.md](../[strategic-source].plan.md)
-- [[research-source].research.md](../[research-source].research.md)
+- [roadmap.md] (`../roadmap.md`)
+- [[strategic-source].plan.md] (`../[strategic-source].plan.md`)
+- [[research-source].research.md] (`../[research-source].research.md`)
 
 ## Preflight
 

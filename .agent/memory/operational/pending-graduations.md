@@ -119,11 +119,3 @@ debt register, 2026-07-08).
 <!-- Register drained to empty at the 2026-07-14 dedicated consolidation (Dolphin weaves
 Reef): both items below graduated to PDR-128 (review-conversations-are-first-class) and the
 new records-are-technical-not-emotional rule respectively — both homes verified live. -->
-
-- **Landing-containment verification is substance-probe-shaped**
-  `[captured: 2026-07-14 | source: napkin 2026-07-14 Quasar closeout entry + distilled.md
-  same-day lesson | target: amendment to .agent/rules/verify-dont-trust.md (or a sibling
-  verification rule) naming the three failure modes: three-dot-diff-vs-merge-base,
-  exact-line wrapping sensitivity, and post-merge silent drops — with the substance-probe
-  cure | trigger: next consolidation pass, or a second post-2026-07-14 instance of a false
-  containment verdict | size: small | status: pending]`

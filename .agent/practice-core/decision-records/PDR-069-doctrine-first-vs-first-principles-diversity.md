@@ -11,10 +11,10 @@ pdr_kind: pattern
 (capture → distil → graduate → enforce — this PDR names the
 upstream cognitive shape at the *application* end of the
 pipeline, where ratified doctrine meets a live situation);
-[PDR-046](PDR-046-knowledge-layering-and-natural-homes.md)
+PDR-046 (`PDR-046-knowledge-layering-and-natural-homes.md`)
 (knowledge layering — the doctrine surface is the
 doctrine-first reasoner's primary input);
-[`practice-index.md`](../practice-index.md) (substrate-
+the host's `practice-index.md` (substrate-
 implementation ADR carrying the repo-specific phenotype — the
 pre-action first-principles checkpoint and the recurrence-
 diagnostic move when the same doctrine answer is reached for

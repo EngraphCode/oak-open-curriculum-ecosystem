@@ -24,4 +24,4 @@ Error messages are architecture. The way `buildEnvResolutionError` presented its
 ## Technical content
 
 - Permissive CORS rationale: [ADR-122](../../docs/architecture/architectural-decisions/122-permissive-cors-for-oauth-protected-mcp.md)
-- Validation error pattern: [validation-error-severity-separation](../memory/code-patterns/validation-error-severity-separation.md)
+- Validation error pattern: [validation-error-severity-separation](../memory/active/patterns/validation-error-severity-separation.md)

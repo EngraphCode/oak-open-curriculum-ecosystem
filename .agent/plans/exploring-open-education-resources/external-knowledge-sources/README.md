@@ -46,7 +46,7 @@ _None currently queued. EEF was previously here and now lives in [`../eef/curren
 
 ## Related Sector Sources
 
-- [../oeai/initial-review.md](../oeai/initial-review.md) records a read-only
+- [../../sector-engagement/oeai/initial-review.md](../../sector-engagement/oeai/initial-review.md) records a read-only
   review of an external education analytics architecture that may become a
   later engagement or data-model comparison thread.
 

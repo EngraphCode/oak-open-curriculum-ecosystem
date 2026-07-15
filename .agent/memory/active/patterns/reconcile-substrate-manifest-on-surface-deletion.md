@@ -56,7 +56,7 @@ same deletion commit once the informational report surfaced it.
 
 - [`migrate-dont-drop-on-deletion`](migrate-dont-drop-on-deletion.md) — the
   broader "deletion has obligations beyond removing the files" discipline.
-- [`validate-full-target-estate`](../../rules/validate-full-target-estate.md) —
+- [`validate-full-target-estate`](../../../rules/validate-full-target-estate.md) —
   the rule whose informational report catches this; this pattern is the
   surface-deleter's checklist that makes the report's finding moot.
 - [`governance-claim-needs-a-scanner`](governance-claim-needs-a-scanner.md) — the

@@ -201,4 +201,4 @@ pnpm check
 ## Promotion and Execution Link
 
 Execution authority lives in:
-[active/agentic-corpus-discoverability-and-deep-dive-hub.execution.plan.md](../active/agentic-corpus-discoverability-and-deep-dive-hub.execution.plan.md)
+active/agentic-corpus-discoverability-and-deep-dive-hub.execution.plan.md (`../../../plans-old-archive/agentic-engineering-enhancements/archive/completed/agentic-corpus-discoverability-and-deep-dive-hub.execution.plan.md`)

@@ -29,10 +29,10 @@ and the surviving strands are owned by their own plans:
 
 Companion follow-on plan outside this collection:
 
-- [../../connecting-oak-resources/knowledge-graph-integration/future/ontology-repo-fresh-perspective-review.plan.md](../../connecting-oak-resources/knowledge-graph-integration/future/ontology-repo-fresh-perspective-review.plan.md) —
+- ../../../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/completed/ontology-repo-fresh-perspective-review.plan.md (`../../../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/completed/ontology-repo-fresh-perspective-review.plan.md`) —
   short neutral review plan for re-reading the ontology repo without a
   search-first frame.
-- [../../connecting-oak-resources/knowledge-graph-integration/future/direct-ontology-use-and-graph-serving-prototypes.plan.md](../../connecting-oak-resources/knowledge-graph-integration/future/direct-ontology-use-and-graph-serving-prototypes.plan.md) —
+- ../../../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/superseded/direct-ontology-use-and-graph-serving-prototypes.plan.md (`../../../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/superseded/direct-ontology-use-and-graph-serving-prototypes.plan.md`) —
   strategic comparison plan that treats direct ontology use as the baseline
   and tests whether Neo4j or Stardog earns a downstream serving role.
 

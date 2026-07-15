@@ -118,7 +118,7 @@ Recommended expansion priority based on user value:
 
 | Document | Purpose |
 |----------|---------|
-| [ground-truth-redesign-plan.md](../../archive/completed/ground-truth-redesign-plan.md) | Phase 1 completion record |
+| ground-truth-redesign-plan.md (`../../../../plans-old-archive/semantic-search/archive/completed/ground-truth-redesign-plan.md`) | Phase 1 completion record |
 | [ground-truth-protocol.md](../../../../../apps/oak-search-cli/docs/ground-truths/ground-truth-protocol.md) | The protocol |
 | [ADR-106](../../../../../docs/architecture/architectural-decisions/106-known-answer-first-ground-truth-methodology.md) | Methodology decision |
 | [ground-truth-archive/README.md](../../../../../apps/oak-search-cli/src/lib/search-quality/ground-truth-archive/README.md) | Archive reference |

@@ -360,7 +360,7 @@ pre-commit's broken-code guard.
 **Evidence**: three serial deadlock iterations on 2026-05-11 — knip on
 peer-unstaged code, prettier on peer-unstaged code, markdownlint on
 coordinator-authored file written after the gatekeeper sweep. See
-[`feedback_pre_commit_hook_must_gate_staged_only`](../../../../.claude/projects/<project>/memory/feedback_pre_commit_hook_must_gate_staged_only.md)
+`feedback_pre_commit_hook_must_gate_staged_only` (`../../../../.claude/projects/<project>/memory/feedback_pre_commit_hook_must_gate_staged_only.md`)
 (claude-code agent-local memory; cross-platform mirror under owner
 direction if required).
 
@@ -812,7 +812,7 @@ session; observed friction at F-obs-A in comms-event `37ea0341`
 authored 2026-05-11T19:52:42Z.
 
 **Design**: locked in
-[`.agent/state/collaboration/sidebars/cli-comms-inbox-design-2026-05-11.md`](../../../state/collaboration/sidebars/cli-comms-inbox-design-2026-05-11.md)
+`.agent/state/collaboration/sidebars/cli-comms-inbox-design-2026-05-11.md` (`../../../state/collaboration/sidebars/cli-comms-inbox-design-2026-05-11.md`)
 across Turn 1 + Turn 2 + Turn 3 + joint decision. Summary:
 
 - New file `agent-tools/src/collaboration-state/cli-comms-messages.ts`
@@ -1636,7 +1636,7 @@ figure is an approximate metric for framework design — agents make
 their own contextual decisions, but the ceiling guides what may
 join the reliable-load tier and what must move to on-demand.
 
-[30pct-budget]: ../../rules/directive-file-context-budget.md
+[30pct-budget]: ../../../rules/directive-file-context-budget.md
 
 The current corpus violates this budget by a significant margin even
 before measurement: the 62 canonical rules alone are ~55k tokens, and
@@ -1987,7 +1987,7 @@ execution becomes input to P9 sub-WS-A and the honour-rate harness
 scenario library.
 
 **Sequencing amendment (2026-05-25)** — the sibling plan
-[`n2-and-coordination-efficiency-program-2026-05-25.plan.md`](n2-and-coordination-efficiency-program-2026-05-25.plan.md)
+`../../../plans-old-archive/agent-tooling/archive/completed/n2-and-coordination-efficiency-program-2026-05-25.plan.md` (`../../../plans-old-archive/agent-tooling/archive/completed/n2-and-coordination-efficiency-program-2026-05-25.plan.md`)
 re-evaluated P9's place in the P-order following the 2026-05-25 owner
 direction *"massively tighten coordination efficiency for teams of two
 agents, n=2"* and the four-reviewer dispatch on the resulting candidate
@@ -2033,7 +2033,7 @@ Each workstream defines its own acceptance. The plan-level validation:
 - "the intense partner sidebar is going a lot better than the
   coordinator and helpers topology" — **standing observation**;
   reflected in the structural insights and in the
-  [`peer-sidebar-beats-coordinator-helpers`](../../../../.claude/projects/<project>/memory/feedback_peer_sidebar_beats_coordinator_helpers.md)
+  `peer-sidebar-beats-coordinator-helpers` (`../../../../.claude/projects/<project>/memory/feedback_peer_sidebar_beats_coordinator_helpers.md`)
   feedback memory.
 - "any genuinely useful improvements to the agent tools CLI should be
   noted for implementation" — **standing**; comms-event `37ea0341`
@@ -2052,7 +2052,7 @@ older napkin/comms references.
 ## Pointer to design artefact
 
 The locked B-11 design lives in
-[`.agent/state/collaboration/sidebars/cli-comms-inbox-design-2026-05-11.md`](../../../state/collaboration/sidebars/cli-comms-inbox-design-2026-05-11.md).
+`.agent/state/collaboration/sidebars/cli-comms-inbox-design-2026-05-11.md` (`../../../state/collaboration/sidebars/cli-comms-inbox-design-2026-05-11.md`).
 Treat the joint-decision section at the foot of that file as P1's
 binding scope until implementation lands.
 

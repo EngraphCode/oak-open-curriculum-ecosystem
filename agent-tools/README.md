@@ -202,7 +202,7 @@ whitespace character after trimming; an empty file is rejected as
 
 Further hardening of comms body input (event-spec JSON file mode,
 write-time body sanitisation) is tracked in
-[`.agent/plans/agent-tooling/frictions-register.md`](../.agent/plans/agent-tooling/frictions-register.md)
+[`frictions-register.md`](../.agent/memory/operational/frictions-register.md)
 entry F-32.
 
 ### Human collaboration TUI

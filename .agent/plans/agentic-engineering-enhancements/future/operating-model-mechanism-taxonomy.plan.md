@@ -5,7 +5,7 @@
 **Related baseline**:
 [agentic-mechanism-inventory-baseline.md](../../../analysis/agentic-mechanism-inventory-baseline.md)
 **Related concept anchor**:
-[operating-model-and-topology.md](../../../reference/agentic-engineering/deep-dives/operating-model-and-topology.md)
+[operating-model-and-topology.md](../../../research/agentic-engineering/operating-model-and-platforms/operating-model-and-topology.md)
 
 ## Problem and Intent
 

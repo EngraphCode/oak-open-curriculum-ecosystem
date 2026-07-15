@@ -42,7 +42,7 @@ Bluebell mends Mulch (`c2ef19`) → Juno mends Plasma (`3cc9d5`), sole owner.** 
 on `feat/comms-research`: Katydid hunts Roost + Myrtle weaves Thicket (WS0–WS3) → Geyser stirs
 Bronze (WS3-forward + B/D/M2) → Kayak herds Ballast (WS4 liveness/coordination/emergent + anchor
 verification + consolidation). The companion plan
-[`comms-corpus-research-and-rotation-strategy.plan.md`](../../plans/agent-tooling/active/comms-corpus-research-and-rotation-strategy.plan.md)
+[`comms-corpus-research-and-rotation-strategy.plan.md`](../../../../plans/agent-tooling/active/comms-corpus-research-and-rotation-strategy.plan.md)
 runs under the owner's ultracode multi-wave strategy.
 
 **Session-boundary state (Gull spins Stratus / `9cf32d`, 2026-06-14 — WS7 execution OPENED, handed to a
@@ -620,33 +620,33 @@ contract + ADR for the repo phenotype is the default shape).
 ## Related Plans and Decision Records
 
 The comms/coordination plan cluster is indexed at
-[`agent-tooling/future/README.md` §Comms / coordination cluster](../../plans/agent-tooling/future/README.md#comms--coordination-cluster);
+[`agent-tooling/future/README.md` §Comms / coordination cluster](../../../../plans/agent-tooling/future/README.md#comms--coordination-cluster);
 disposition of overlapping plans routes through the rightsizing keystone's M4, not per-plan.
 Relevance to this research thread:
 
-- [`comms-corpus-research-and-rotation-strategy.plan.md`](../../plans/agent-tooling/active/comms-corpus-research-and-rotation-strategy.plan.md)
+- [`comms-corpus-research-and-rotation-strategy.plan.md`](../../../../plans/agent-tooling/active/comms-corpus-research-and-rotation-strategy.plan.md)
   — **the companion executable plan** (created 2026-06-12 under owner direction); dispatch
   vehicle for this record's research vector.
-- [`collaboration-substrate-coordination-rightsizing.plan.md`](../../plans/agent-tooling/future/collaboration-substrate-coordination-rightsizing.plan.md)
+- [`collaboration-substrate-coordination-rightsizing.plan.md`](../../../../plans/agent-tooling/future/collaboration-substrate-coordination-rightsizing.plan.md)
   — cluster keystone; this research's mechanism findings feed its M4 cull/fold list, and its
   minimal-substrate re-derivation consumes the failure-mode taxonomy.
-- [`cost-of-collaboration.plan.md`](../../plans/agent-tooling/current/cost-of-collaboration.plan.md)
+- [`cost-of-collaboration.plan.md`](../../../../plans/agent-tooling/current/cost-of-collaboration.plan.md)
   — owns cost-per-coordination-event; corpus-derived overhead/substance ratios are direct
   evidence for its P-ordered workstreams.
-- [`comms-watch-storage-redesign.plan.md`](../../plans/agent-tooling/current/comms-watch-storage-redesign.plan.md)
+- [`comms-watch-storage-redesign.plan.md`](../../../../plans/agent-tooling/current/comms-watch-storage-redesign.plan.md)
   — watcher storage shape; theme 13 (corpus growth degrades drain) is its motivating evidence
   and the rotation strategy must compose with whatever it lands.
-- [`pdr-080-comms-log-care-phenotype.plan.md`](../../plans/agent-tooling/current/pdr-080-comms-log-care-phenotype.plan.md)
+- [`pdr-080-comms-log-care-phenotype.plan.md`](../../../../plans/agent-tooling/current/pdr-080-comms-log-care-phenotype.plan.md)
   — signal-driven absorption phenotype; the rotation strategy's absorption precondition builds
   on it.
-- [`n-agent-collaboration-experiments.plan.md`](../../plans/agent-tooling/current/n-agent-collaboration-experiments.plan.md)
+- [`n-agent-collaboration-experiments.plan.md`](../../../../plans/agent-tooling/current/n-agent-collaboration-experiments.plan.md)
   — hypothesis-validation during real work; corpus analysis can confirm/refute the same
   primitives retrospectively at scale.
-- [`comms-event-write-integrity.plan.md`](../../plans/agent-tooling/current/comms-event-write-integrity.plan.md)
+- [`comms-event-write-integrity.plan.md`](../../../../plans/agent-tooling/current/comms-event-write-integrity.plan.md)
   — write-path integrity; rotation must not introduce new partial-write windows.
-- [`comms-watch-liveness-floor.plan.md`](../../plans/agent-tooling/future/comms-watch-liveness-floor.plan.md)
+- [`comms-watch-liveness-floor.plan.md`](../../../../plans/agent-tooling/future/comms-watch-liveness-floor.plan.md)
   and
-  [`claim-liveness-crash-reconciliation-and-session-forensics.plan.md`](../../plans/agent-tooling/future/claim-liveness-crash-reconciliation-and-session-forensics.plan.md)
+  [`claim-liveness-crash-reconciliation-and-session-forensics.plan.md`](../../../../plans/agent-tooling/future/claim-liveness-crash-reconciliation-and-session-forensics.plan.md)
   — liveness/forensics consumers of themes 14 and 17.
 - Decision records: PDR-066 (comms events as failure-mode channel), PDR-078 (liveness
   contract), PDR-063 / ADR-182 (mid-cycle handoff), PDR-064 (coordinator two moments),
@@ -710,9 +710,9 @@ Orbiting Satellite picked that claim up and completed the sunset on 2026-05-29
 (commits `d9225d5b` + `d1525f55`; claim closed in the archive). That work is
 **collaboration-substrate implementation**, not comms-corpus research — its
 home is the agent-tooling plan cluster
-([`future/README.md` §Comms / coordination cluster](../../plans/agent-tooling/future/README.md#comms--coordination-cluster)),
+([`future/README.md` §Comms / coordination cluster](../../../../plans/agent-tooling/future/README.md#comms--coordination-cluster)),
 keystoned by the
-[`collaboration-substrate-coordination-rightsizing`](../../plans/agent-tooling/future/collaboration-substrate-coordination-rightsizing.plan.md)
+[`collaboration-substrate-coordination-rightsizing`](../../../../plans/agent-tooling/future/collaboration-substrate-coordination-rightsizing.plan.md)
 brief. Recorded here only for identity-row honesty; the research buffer's
 dispatch contract is unchanged.
 

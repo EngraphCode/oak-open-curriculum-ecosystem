@@ -38,7 +38,7 @@ todos:
 > superseded.*
 
 **Superseded for the current branch arc by**:
-[`current/eef-branch-merge-readiness.plan.md`](../current/eef-branch-merge-readiness.plan.md)
+`current/eef-branch-merge-readiness.plan.md` (`../current/eef-branch-merge-readiness.plan.md`)
 — covers what was actually needed to ship `feat/eef_exploration`: green
 gates, dev-server boot probe, MCP tool exercise, merge readiness.
 

@@ -848,7 +848,7 @@ ENV_FILE=.env.harness.auth-disabled pnpm prod:diagnostics
 ### Related Documentation
 
 - Phase 1 instrumentation details: See "Runtime Bootstrap Diagnostics" section above
-- Production debugging workflows: See [operations/production-debugging-runbook.md](operations/production-debugging-runbook.md)
+- Production debugging workflows: See [production-debugging-runbook.md](../../../docs/operations/production-debugging-runbook.md)
 - Vercel deployment guide: See [Vercel deployment](../README.md#vercel-deployment)
 
 ## Historical Context: OAuth Metadata Workarounds

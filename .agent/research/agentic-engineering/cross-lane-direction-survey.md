@@ -178,7 +178,7 @@ been arguing for.
   transferable principle from MS Agent Framework `1.0.1`. Concrete
   applicability surface: any persisted agent transcript or checkpoint
   this repo grows. Worth flagging on the
-  [governance planes deep dive](../../reference/agentic-engineering/deep-dives/governance-planes-trust-boundaries-and-runtime-supervision.md)
+  [governance planes deep dive](governance-planes-and-supervision/governance-planes-trust-boundaries-and-runtime-supervision.md)
   as a principle to adopt when the surface materialises.
 - **Dapr's "policy engine performs no normalisation; normalise once at
   the perimeter"** is directly applicable to any policy/gating
@@ -262,7 +262,7 @@ and machine-readable handoff to a downstream-implementation agent.
   `.agent/skills/` and platform mirrors (`.claude/skills/`,
   `.cursor/skills/`, `.agents/skills/`) are aligned with the
   ecosystem's `/skill-name` convention; worth confirming on the
-  [reviewer-system deep dive](../../reference/agentic-engineering/deep-dives/reviewer-system-and-review-operations.md)
+  [reviewer-system deep dive](reviewer-systems-and-discoverability/reviewer-system-and-review-operations.md)
   that skill names are the discoverability surface, not just the
   invocation surface.
 
@@ -334,7 +334,7 @@ artefacts** elsewhere.
   scope.
 - **Worktree-isolated parallel agents** is convergent with the
   existing
-  [`worktrees` skill](../../../.agent/skills/worktrees/SKILL.md);
+  [`worktrees` skill] (`../../../.agent/skills/worktrees/SKILL.md`);
   no action indicated, the repo's direction is already aligned.
 
 ### Trajectory weakness or omissions
@@ -386,13 +386,13 @@ and entering the interop layer.
   vocabulary-alignment pass (no behaviour change) on
   [continuity-memory-and-knowledge-flow/README.md](./continuity-memory-and-knowledge-flow/README.md)
   and the
-  [napkin SKILL.md](../../skills/napkin/SKILL.md) /
+  [napkin SKILL.md](../../skills/napkin/SKILL-CANONICAL.md) /
   distilled surfaces. Not blocking.
 - **Protocol-layer durability is a watchlist item, not a near-term
   adoption target.** The continuity lane's existing surfaces are
   runtime-layer (transcripts, napkin, distilled, session handoff);
   MCP/A2A `tasks` is interop-layer. Worth tracking on the
-  [continuity deep dive](../../reference/agentic-engineering/deep-dives/continuity-and-knowledge-flow.md)
+  [continuity deep dive](continuity-memory-and-knowledge-flow/continuity-and-knowledge-flow.md)
   as the next-up substrate the lane will need to reckon with when
   this repo's MCP server grows long-running tools.
 - **Persisted-state-as-untrusted** applies to any continuity surface

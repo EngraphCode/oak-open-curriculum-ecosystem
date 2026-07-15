@@ -753,7 +753,7 @@ fitness, and update the practice exchange. Candidate graduations:
 - `graph-resource-factory.plan.md` / `misconception-graph-mcp-surface.plan.md` (completed, archived) — the live MCP graph surfaces this substrate will eventually replatform.
 - [`../../../agentic-engineering-enhancements/current/practice-graph-payoff-peak-pilot.plan.md`](../../../agentic-engineering-enhancements/current/practice-graph-payoff-peak-pilot.plan.md) — Increment 4 consumer.
 - [`../../../agentic-engineering-enhancements/future/graphify-and-graph-memory-exploration.plan.md`](../../../agentic-engineering-enhancements/future/graphify-and-graph-memory-exploration.plan.md) — strategic context for the Practice consumer.
-- [`../oak-ontology-graph-opportunities.strategy.md`](../oak-ontology-graph-opportunities.strategy.md) — strategic baseline; this spine is consistent with its search-first, graph-augmented stance and with direct ontology use as the baseline.
+- `../../../../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/superseded/oak-ontology-graph-opportunities.strategy.md` (`../../../../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/superseded/oak-ontology-graph-opportunities.strategy.md`) — strategic baseline; this spine is consistent with its search-first, graph-augmented stance and with direct ontology use as the baseline.
 
 **Authoritative research**:
 
