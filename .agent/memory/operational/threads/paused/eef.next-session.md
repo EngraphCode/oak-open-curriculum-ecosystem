@@ -81,7 +81,12 @@ merge_class: index-narrative-tables
   (4) optional annex — Codex/Gemini client probes, and a fresh-session Claude Code re-probe
   of `get-eef-evidence` against deployed 1.28.0 to complete the client matrix.
 - **2026-06-11 evening (Dawnlit Glimmering Orbit / cursor Fable 5, `50c2d1`,
-  oak-prod-live-mcp-exercise + snagging, solo). NOTE this branch lags the eef arc** — the
+  oak-prod-live-mcp-exercise + snagging, solo).** *(Discharge note, 2026-07-15: the
+  reconcile-on-merge instruction below is DISCHARGED — the June branch's substance was
+  re-homed via PR #384 with `SHA:c9ff6bb49` provenance and the branch's disposition was
+  owner-ruled in the residue sweep. The snag register's S1 owner decision was made and
+  landed 2026-06-12 via PR #191, so the "S0 probe → S1 to owner" next step is superseded;
+  see the snagging-arc entry above.)* **NOTE this branch lags the eef arc** — the
   TRACK-G completion narrative and this session's first-wave artefacts (verification record +
   thread-record entry) live on branch `docs/graph-team-direction-2026-06-10` (commits
   `ae5372e2c` + `c9ff6bb49`, pushed); reconcile on merge. This branch carries the session's

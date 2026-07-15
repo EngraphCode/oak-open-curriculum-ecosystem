@@ -47,9 +47,9 @@ generated outputs are ignored and intentionally absent from PR #382;
 their clean 49 MB conservation commit `SHA:42b27e3eb` remains on the local-only branch
 `feat/plan-corpus-refounding-s1-zodiac`, unpushed and untouched pending Director disposition.
 That state is safe from accidental PR inclusion but is not a remote backup; do not delete,
-reset, or reinterpret it as ordinary untracked residue. Next safe step = Director re-verifies
-the compact evidence/current base, resolves the conservation-copy disposition, then resumes the
-declared-rate reader sample/fleet residual before S2 tiling and the divergence report.
+reset, or reinterpret it as ordinary untracked residue. Next safe step = the running `s1-reader-sample-b1` batch closes on its declared loss-check
+proofs; its verbatim-anchored findings feed the J3 adjudication queue; the conservation-copy
+regeneration re-verify then clears the local branch; S2 tiling and the divergence report follow.
 
 ## Where We Were (2026-07-14 evening, Quasar mends Umbra 52b4de outgoing Director — RULE RATIFIED, S0 WINDOW OPEN, seat → Barnacle calls Spray)
 

@@ -100,5 +100,8 @@ three honest shapes — no soft stub observed anywhere.
   §Non-snags amendment note; the full account is §4 of the
   [cursor-visibility write-up](oak-prod-mcp-cursor-visibility-writeup-2026-06-11.md).)*
 - Live-API list tools (`get-key-stages-*`, `get-sequences-*`, `get-lessons-*`,
-  changelog, rate-limit, user-search) were not individually probed; `fetch` and
-  `search` cover the same live-API provenance path.
+  changelog, rate-limit, user-search) were not individually probed; `fetch`
+  covers the same live-API provenance path. *(Corrected at the 2026-07-15
+  re-home: `search` was originally cited alongside `fetch`, but it exercises
+  the direct-Elasticsearch search path, not the live API — see
+  `aggregated-search/tool-definition.ts`.)*
