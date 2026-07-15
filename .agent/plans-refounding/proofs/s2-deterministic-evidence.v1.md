@@ -102,11 +102,16 @@ the other outputs above are local and ignored. The machine-readable twin is
 
 - Tiling: 69,661 ledger rows; 681 files; 30 areas; exact cover (zero gaps,
   zero overlaps); GREEN in both runs.
-- Census: 6,922 records across 643 frozen Markdown files — 1,960 status
-  lines and 5,421 completion-keyword lines. Keyword line counts (v1 list
-  order): completed 1,080; complete 2,355; landed 727; closed 469; resolved
-  470; archived 349; superseded 372; done 466; merged 198; retired 192;
-  implemented 160; executed 137; shipped 88.
+- Census: 6,922 records (one per unique captured line) across 643 frozen
+  Markdown files — 1,960 status lines and 5,421 completion-keyword lines,
+  and the two captures OVERLAP: 459 lines are both a status line and a
+  keyword line (1,960 + 5,421 − 459 = 6,922; the totals are not additive).
+  Per-keyword counts overlap likewise — one line can match several
+  keywords, 1,383 lines match more than one, so the per-keyword sum
+  (7,063) exceeds the 5,421 keyword-line total. Keyword line counts (v1
+  list order): completed 1,080; complete 2,355; landed 727; closed 469;
+  resolved 470; archived 349; superseded 372; done 466; merged 198;
+  retired 192; implemented 160; executed 137; shipped 88.
 - Audit: 1,960 rows — UNMAPPED 224 (11.43%, band ≤20% not crossed),
   no-evidence 1,736, attested 0, divergence classes 0/0 (no evidence
   injected); 81 distinct unmapped status values.
@@ -120,9 +125,17 @@ closure evidence.
 Use a clean checkout at the exact recorded run base
 `1259530547de987fb37a160fa0cc577fb00aa1d8`. The frozen-tree-derived outputs
 (inventory, net-diff, ledgers, census, plan-state report) are expected stable
-at any later base while `refound-verify-freeze` stays green over an unchanged
-frozen tree and zero amendments; `arrivals.v1.report.json` is inherently
-live-tree-dependent and reproduces only at the exact base. From the
+at a later base ONLY while all three conditions hold: `refound-verify-freeze`
+stays green over an unchanged frozen tree; zero amendments; AND the
+generating toolchain is unchanged — the `refound-*` generators and their
+dependencies, the ratified status-mapping table v1, and the
+completion-keyword list v1. Verify-freeze pins the frozen INPUTS only; a
+generator, mapping-table, keyword-list, or dependency change at a later base
+alters these bytes while the freeze stays green, so the byte contract binds
+to the recorded base (matching `requiresExactRunBase` in the machine twin) —
+the later-base expectation is a conditional convenience, never part of the
+contract. `arrivals.v1.report.json` is inherently live-tree-dependent and
+reproduces only at the exact base. From the
 repository root, run this exact sequence without adding a `--help` probe
 (the raw `refound-*` scripts execute on any argv):
 

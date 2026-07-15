@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "runBaseSha": "1259530547de987fb37a160fa0cc577fb00aa1d8",
   "requiresExactRunBase": true,
-  "exactBaseNote": "arrivals.v1.report.json is live-tree-dependent and reproduces only at the exact base; the frozen-tree-derived outputs are expected stable at later bases while refound-verify-freeze stays green over an unchanged frozen tree and zero amendments",
+  "exactBaseNote": "arrivals.v1.report.json is live-tree-dependent and reproduces only at the exact base; the frozen-tree-derived outputs are expected stable at later bases ONLY while refound-verify-freeze stays green over an unchanged frozen tree, zero amendments, AND the generating toolchain is unchanged (the refound-* generators and their dependencies, the ratified status-mapping table v1, the completion-keyword list v1) — verify-freeze pins the frozen inputs only, so a generator or table change alters these bytes with the freeze still green; the byte contract binds to the recorded base per requiresExactRunBase, and the later-base expectation is a conditional convenience, never part of the contract",
   "repeatRuns": 2,
   "byteIdenticalAcrossRuns": true,
   "freezeVerification": {
@@ -21,6 +21,17 @@
     "tile": "GREEN — exact cover proven for the whole denominator: 69661 rows over 681 files in 30 areas",
     "claimCensus": "6922 records (1960 status lines, 5421 completion-keyword lines) across 643 frozen files",
     "planState": "green — no recomputation performed (1960 rows; UNMAPPED 224, no-evidence 1736, attested 0)"
+  },
+  "censusSummary": {
+    "records": 6922,
+    "recordModel": "one record per unique captured line; a line can be both a status capture and a keyword capture",
+    "statusLines": 1960,
+    "keywordLines": 5421,
+    "statusAndKeywordOverlapLines": 459,
+    "identity": "1960 + 5421 - 459 = 6922 (totals overlap; they are not additive)",
+    "linesMatchingMultipleKeywords": 1383,
+    "perKeywordCountsOverlap": true,
+    "perKeywordSum": 7063
   },
   "auditSummary": {
     "rows": 1960,
@@ -53,6 +64,12 @@
     "pnpm install",
     "pnpm build"
   ],
+  "repeatRunPreparation": {
+    "note": "refound-default-ledger refuses — nothing written — over ANY pre-existing target ledger, so a repeat run fails unless the previous run's ledger directory is removed or set aside first; run the preparation command below between runs (not before the first run, when no ledger directory exists yet)",
+    "commands": [
+      "mv .agent/plans-refounding/ledger .agent/plans-refounding/ledger.previous-run"
+    ]
+  },
   "repeatedRunCommands": [
     "pnpm --filter @oaknational/agent-tools refound-verify-freeze",
     "pnpm --filter @oaknational/agent-tools refound-merge-recheck",
