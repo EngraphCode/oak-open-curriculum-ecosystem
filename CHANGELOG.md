@@ -1,3 +1,10 @@
+## [1.68.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.68.0...v1.68.1) (2026-07-15)
+
+
+### Bug Fixes
+
+* **docs:** enforce reference availability ([ac63266](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ac6326657e794ecf8326a0d215d368fe75a5cbfc))
+
 # [1.68.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.67.2...v1.68.0) (2026-07-14)
 
 
