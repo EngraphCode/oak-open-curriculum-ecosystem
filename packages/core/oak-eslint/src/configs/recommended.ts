@@ -261,6 +261,7 @@ const oakRecommendedConfig: TSESLint.FlatConfig.Config = {
           '**/agent-tools/src/refounding/refound-default-ledger.integration.test.ts',
           '**/agent-tools/src/refounding/refound-claim-census.integration.test.ts',
           '**/agent-tools/src/refounding/refound-batch-status.integration.test.ts',
+          '**/agent-tools/src/refounding/refound-window-sample.integration.test.ts',
           // Recorded reason: plan `plan-corpus-refounding` — the read/write
           // path-resolver containment proofs need real symlinks and real
           // existence probes (a fake fs would make the symlink-escape and
