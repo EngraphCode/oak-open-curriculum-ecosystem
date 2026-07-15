@@ -44,6 +44,16 @@ description = "SHA-prefixed git commit hashes are audit references, not credenti
 regexTarget = "line"
 regexes = ['''SHA: ?[0-9a-f]{7,40}\b''']
 
+# Reproducible integration reports pin the inspected `oak-openapi` source with
+# a full Git commit SHA in YAML front matter. The `oak_openapi` key name makes
+# the generic API-key rule treat that audit reference as a credential. Keep the
+# exception constrained to the complete field shape rather than excluding the
+# report path or the commit that introduced it.
+[[allowlists]]
+description = "oak-openapi report source snapshot is a Git commit SHA"
+regexTarget = "line"
+regexes = ['''^\s*oak_openapi: [0-9a-f]{40}$''']
+
 # Commit-specific allowlist for the 2026-05-23 owner-directed wide-sweep
 # commit. The wide-sweep landed pre-existing collaboration content that
 # pre-dates the SHA-prefix rule; this allowlist narrowly exempts that
