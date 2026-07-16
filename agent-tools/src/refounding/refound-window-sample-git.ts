@@ -24,6 +24,11 @@ import { parseTreeEntry, type ByteSource } from './refound-window-sample-univers
  *   repository git reads is fully determined by `-C <repoRoot>` — `GIT_DIR`
  *   / `GIT_OBJECT_DIRECTORY` / `GIT_ALTERNATE_OBJECT_DIRECTORIES` /
  *   `GIT_CONFIG_COUNT`-`KEY`-`VALUE` injection cannot redirect it.
+ * - **Replacement refs disabled** — every invocation passes the global
+ *   `--no-replace-objects`: the env scrub cannot reach repository-local
+ *   `refs/replace/*`, which git honours even for full object ids, so
+ *   without the flag `ls-tree`/`show` could read a replacement commit or
+ *   tree while the manifest records the original `baseSha`.
  * - **NUL-delimited listing** — `-z` keeps special-character paths intact
  *   (no C-quoting), `parseTreeEntry` refuses every non-regular-file mode,
  *   and the decoded listing must round-trip as UTF-8 or the run halts
@@ -148,7 +153,7 @@ export function makeGitByteSource(
   }
   const spawn = options.spawn ?? spawnGit;
   const runGit = (gitArgs: readonly string[]): Result<Buffer, Error> => {
-    const run = spawn(gitBin.value, ['-C', repoRoot, ...gitArgs]);
+    const run = spawn(gitBin.value, ['--no-replace-objects', '-C', repoRoot, ...gitArgs]);
     if (run.error !== undefined) {
       return err(new Error(`cannot run git ${gitArgs.join(' ')}: ${run.error.message}`));
     }

@@ -101,6 +101,7 @@ async function makeFixture(options: {
   readonly hitsJsonl?: string;
   readonly expected: { scannedFiles: number; hitFiles: number; hitLines: number };
   readonly evidenceBaseSha?: string;
+  readonly sweepHitsSha256?: string;
 }): Promise<Fixture> {
   const repoRoot = await mkdtemp(path.join(tmpdir(), 'refound-window-sample-'));
   tempRoots.push(repoRoot);
@@ -117,9 +118,17 @@ async function makeFixture(options: {
       },
     ],
   };
+  const hitsJsonl = options.hitsJsonl ?? renderJsonlArtefact([...(options.hits ?? [])]);
   const evidence = {
     schemaVersion: 1,
     runBaseSha: options.evidenceBaseSha ?? BASE,
+    artifacts: [
+      {
+        path: '.agent/plans-refounding/sweep/sweep-hits.v1.jsonl',
+        bytes: Buffer.byteLength(hitsJsonl, 'utf8'),
+        sha256: options.sweepHitsSha256 ?? sha256Hex(Buffer.from(hitsJsonl, 'utf8')),
+      },
+    ],
     sweep: {
       filesScanned: options.expected.scannedFiles,
       hits: options.expected.hitLines,
@@ -131,8 +140,7 @@ async function makeFixture(options: {
     ...options.liveFiles,
     '.agent/plans-refounding/freeze-rule.json': `${JSON.stringify(rule, null, 2)}\n`,
     '.agent/plans-refounding/proofs/evidence.v1.json': `${JSON.stringify(evidence, null, 2)}\n`,
-    '.agent/plans-refounding/sweep/sweep-hits.v1.jsonl':
-      options.hitsJsonl ?? renderJsonlArtefact([...(options.hits ?? [])]),
+    '.agent/plans-refounding/sweep/sweep-hits.v1.jsonl': hitsJsonl,
   });
   return {
     repoRoot,
@@ -268,6 +276,24 @@ describe('runWindowSample — refusal chain (nothing written)', () => {
       expect(run.error.message).toContain('symlink');
     }
     expect(existsSync(path.join(decoyDirAbs, 'window-sample.v1.json'))).toBe(false);
+  });
+
+  it('refuses to write through a symlink at the manifest path itself, leaving its target untouched', async () => {
+    const fixture = await makeFixture(HAPPY);
+    const decoyAbs = path.join(fixture.repoRoot, 'decoy-manifest.json');
+    await writeFile(decoyAbs, 'sealed decoy content\n', 'utf8');
+    await symlink(decoyAbs, path.join(fixture.outDirAbs, WINDOW_SAMPLE_SEGMENT));
+    const run = await runWindowSample(fixture);
+    expect(run.ok).toBe(false);
+    if (!run.ok) {
+      expect(run.error.message).toContain('symlink');
+    }
+    expect(await readFile(decoyAbs, 'utf8')).toBe('sealed decoy content\n');
+  });
+
+  it('halts when the hits queue does not match the evidence-recorded sha256', async () => {
+    const fixture = await makeFixture({ ...HAPPY, sweepHitsSha256: 'ff'.repeat(32) });
+    await expectRefusal(fixture, 'evidence-recorded queue');
   });
 });
 

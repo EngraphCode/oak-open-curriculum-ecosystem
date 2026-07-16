@@ -1,7 +1,9 @@
-import { type Result } from '@oaknational/result';
+import { err, ok, type Result } from '@oaknational/result';
 import { z } from 'zod';
 
 import { parseWithSchema } from '../core/schema-parse.js';
+import { SWEEP_HITS_SEGMENT } from './refound-sweep-model.js';
+import { sha256HexSchema } from './refounding-artefacts.js';
 
 /**
  * Boundary contracts for `refound-window-sample` (batch
@@ -33,6 +35,22 @@ import { parseWithSchema } from '../core/schema-parse.js';
 /** Window-sample artefact path relative to the artefact home. */
 export const WINDOW_SAMPLE_SEGMENT = 'sweep/window-sample.v1.json';
 
+/**
+ * V1 window span in lines. Single-sourced HERE, at the schema boundary, and
+ * validated as a literal: a v1 manifest with any other span is an
+ * algorithm-drifted artefact, not a valid manifest
+ * (`strict-validation-at-boundary`).
+ */
+export const WINDOW_LINES = 500;
+
+/**
+ * V1 selection rule: sort the non-hit windows by `(file, window_index)` and
+ * take every 10th starting at index 0 — a fixed declared-rate rule, no
+ * randomness. Single-sourced here and validated as a literal, exactly as
+ * {@link WINDOW_LINES}.
+ */
+export const SELECTION_RULE_V1 = 'sorted-(file,window)-every-10th-from-0';
+
 /** A full 40-hex commit sha — the base-commit identity primitive. */
 export const SHA40_PATTERN = /^[0-9a-f]{40}$/;
 
@@ -52,12 +70,20 @@ export interface WindowSampleExpectations {
 }
 
 /**
- * The consumed slice of the S1 deterministic evidence: the run's base sha
- * and the sweep's machine-readable counts (see the module remarks for why
- * this shape is non-strict).
+ * The consumed slice of the S1 deterministic evidence: the evidence schema
+ * version, the run's base sha, the recorded artefact digests (the binding
+ * for the hits queue), and the sweep's machine-readable counts (see the
+ * module remarks for why this shape is non-strict).
  */
 const windowSampleEvidenceSchema = z.object({
+  schemaVersion: z.literal(1),
   runBaseSha: sha40Schema,
+  artifacts: z.array(
+    z.object({
+      path: nonEmptyString,
+      sha256: sha256HexSchema,
+    }),
+  ),
   sweep: z.object({
     filesScanned: nonNegativeInt,
     hits: nonNegativeInt,
@@ -69,6 +95,31 @@ export type WindowSampleEvidence = z.infer<typeof windowSampleEvidenceSchema>;
 /** Parse an unknown value as the consumed evidence slice at the read boundary. */
 export const parseWindowSampleEvidence = (value: unknown): Result<WindowSampleEvidence, Error> =>
   parseWithSchema({ label: 'window-sample evidence', schema: windowSampleEvidenceSchema, value });
+
+/**
+ * The evidence-recorded SHA-256 for the sweep-hits queue. Exactly one
+ * recorded artefact digest may match `sweep/sweep-hits.v1.jsonl`; zero
+ * leaves the queue unbindable and more than one leaves it ambiguous — both
+ * halt before anything is read.
+ */
+export const sweepHitsDigestFromEvidence = (
+  evidence: WindowSampleEvidence,
+): Result<string, Error> => {
+  const matches = evidence.artifacts.filter(
+    (artifact) =>
+      artifact.path === SWEEP_HITS_SEGMENT || artifact.path.endsWith(`/${SWEEP_HITS_SEGMENT}`),
+  );
+  const [only] = matches;
+  if (only === undefined || matches.length > 1) {
+    return err(
+      new Error(
+        `evidence records ${String(matches.length)} artefact digests for ` +
+          `'${SWEEP_HITS_SEGMENT}' — exactly one is required to bind the hits queue; halting`,
+      ),
+    );
+  }
+  return ok(only.sha256);
+};
 
 /** Map the evidence's sweep counts onto the computation's expectations. */
 export const expectationsFromEvidence = (
@@ -85,13 +136,34 @@ export const expectationsFromEvidence = (
  * window's own span (`end_line - start_line + 1` — the final partial window
  * of a file is shorter than the full window size).
  */
-const sampleWindowSchema = z.strictObject({
-  file: nonEmptyString,
-  window_index: nonNegativeInt,
-  start_line: positiveInt,
-  end_line: positiveInt,
-  line_count: positiveInt,
-});
+const sampleWindowSchema = z
+  .strictObject({
+    file: nonEmptyString,
+    window_index: nonNegativeInt,
+    start_line: positiveInt,
+    end_line: positiveInt,
+    line_count: positiveInt,
+  })
+  .superRefine((window, ctx) => {
+    if (window.end_line < window.start_line) {
+      ctx.addIssue({
+        code: 'custom',
+        message:
+          `end_line ${String(window.end_line)} precedes ` +
+          `start_line ${String(window.start_line)}`,
+      });
+      return;
+    }
+    const span = window.end_line - window.start_line + 1;
+    if (window.line_count !== span) {
+      ctx.addIssue({
+        code: 'custom',
+        message:
+          `line_count ${String(window.line_count)} disagrees with the ` +
+          `start/end span ${String(span)}`,
+      });
+    }
+  });
 export type SampleWindow = z.infer<typeof sampleWindowSchema>;
 
 /**
@@ -104,8 +176,8 @@ export type SampleWindow = z.infer<typeof sampleWindowSchema>;
 const windowSampleManifestSchema = z.strictObject({
   schema_version: z.literal('1'),
   base: sha40Schema,
-  window_lines: positiveInt,
-  selection_rule: nonEmptyString,
+  window_lines: z.literal(WINDOW_LINES),
+  selection_rule: z.literal(SELECTION_RULE_V1),
   universe: z.strictObject({
     files: nonNegativeInt,
     windows: nonNegativeInt,

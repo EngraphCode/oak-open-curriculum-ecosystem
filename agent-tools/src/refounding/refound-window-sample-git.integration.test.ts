@@ -62,15 +62,18 @@ function sourceWith(respond: (args: readonly string[]) => GitSpawnResult): {
 }
 
 describe('makeGitByteSource — the spawner forwarding contract', () => {
-  it('invokes ls-tree with -C <repoRoot>, -r, -z, and the base sha', () => {
+  it('invokes ls-tree with --no-replace-objects, -C <repoRoot>, -r, -z, and the base sha', () => {
     const { calls, source } = sourceWith(() => okSpawn(''));
     expect(source.listPaths().ok).toBe(true);
     expect(calls).toEqual([
-      { file: TRUSTED_GIT, args: ['-C', REPO_ROOT, 'ls-tree', '-r', '-z', BASE] },
+      {
+        file: TRUSTED_GIT,
+        args: ['--no-replace-objects', '-C', REPO_ROOT, 'ls-tree', '-r', '-z', BASE],
+      },
     ]);
   });
 
-  it('invokes show with -C <repoRoot> and <base>:<path>, returning raw bytes', () => {
+  it('invokes show with --no-replace-objects, -C <repoRoot>, and <base>:<path>, returning raw bytes', () => {
     const bytes = Buffer.from([0x00, 0x01, 0xff]);
     const { calls, source } = sourceWith(() => okSpawn(bytes));
     const read = source.readBytes('.agent/prompts/a b.md');
@@ -79,7 +82,10 @@ describe('makeGitByteSource — the spawner forwarding contract', () => {
       expect(Buffer.from(read.value).equals(bytes)).toBe(true);
     }
     expect(calls).toEqual([
-      { file: TRUSTED_GIT, args: ['-C', REPO_ROOT, 'show', `${BASE}:.agent/prompts/a b.md`] },
+      {
+        file: TRUSTED_GIT,
+        args: ['--no-replace-objects', '-C', REPO_ROOT, 'show', `${BASE}:.agent/prompts/a b.md`],
+      },
     ]);
   });
 

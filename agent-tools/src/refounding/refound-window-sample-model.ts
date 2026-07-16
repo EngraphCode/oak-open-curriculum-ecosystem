@@ -3,6 +3,8 @@ import { err, isErr, ok, type Result } from '@oaknational/result';
 import { type FreezeRule } from './freeze-rule-schema.js';
 import { type SweepHit } from './refound-sweep-model.js';
 import {
+  SELECTION_RULE_V1,
+  WINDOW_LINES,
   type SampleWindow,
   type WindowSampleExpectations,
   type WindowSampleManifest,
@@ -48,14 +50,10 @@ import {
  * @packageDocumentation
  */
 
-/** Lines per reading window (1-indexed consecutive spans). */
-export const WINDOW_LINES = 500;
-
 /** Selection stride over the sorted non-hit window list. */
 export const SAMPLE_STRIDE = 10;
 
-/** The v1 selection-rule identifier recorded in the manifest. */
-export const SELECTION_RULE_V1 = 'sorted-(file,window)-every-10th-from-0';
+export { SELECTION_RULE_V1, WINDOW_LINES } from './refound-window-sample-schema.js';
 
 /**
  * Bind the verified hits to the universe, halting on any disagreement: the
