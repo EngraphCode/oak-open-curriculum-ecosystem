@@ -139,8 +139,9 @@ select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
   `headRefOid` (the current tip every review binding is compared against) +
   `mergeStateStatus` + unresolved `reviewThreads` count +
   `statusCheckRollup` + the reviewer tip-binding read
-  (`latestReviews(first:20){totalCount nodes{author{login} commit{oid} state
-  submittedAt body}}` — the per-author latest-review connection, verified
+  (`latestReviews(first:20){totalCount pageInfo{hasNextPage endCursor}
+  nodes{author{login} commit{oid} state submittedAt body}}` — the per-author
+  latest-review connection, verified
   live on PR #391, 2026-07-16; a bounded `reviews(last:20)` read is WRONG
   here: a long review history pushes an earlier bot's latest review out of
   the window (#390 exceeded 20 review records), and omitting `body` makes a
