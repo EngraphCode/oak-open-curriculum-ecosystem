@@ -167,8 +167,10 @@ select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
   bodies or `latestReviews` — so a summary-only review does NOT change its
   snapshot. Treat its events as wake signals only, never as the state; the
   Phase 3 harvest is the authoritative read on every wake, and extending
-  pr-watch to the full compound floor is a named item in the state-machine
-  mechanisation lane. Passing checks alone are not green — an
+  pr-watch to the full compound floor is tracked as the
+  `ws6-pr-watch-compound-floor` item in
+  [`pr-merge-readiness-discipline.plan.md`](../../plans/agent-tooling/current/pr-merge-readiness-discipline.plan.md).
+  Passing checks alone are not green — an
   unresolved thread blocks merge-readiness just as hard. The Phase 3 GraphQL
   harvest remains the authoritative read for which threads and what they say.
 - **Know the watcher's designed hole: it also ENDS on ALL-GREEN.** Comments
@@ -316,15 +318,10 @@ as phase-local restatements.
    ever bound to the tip), the quiet window anchors on the checks-green
    window from item 3. MERGE-READY is a settled round that landed zero new
    findings, plus every Phase 7 gate leg.
-5. **The merge boundary — auto-merge is NEVER armed** (owner ruling,
-   2026-07-16, this PR: three validation-round findings showed an armed
-   merge persists across later pushes and can fire on a new tip with legs
-   still OWED, cannot be blocked by a late-arriving cross-round body
-   finding, and is held only by GitHub-required contexts so optional
-   external checks get skipped; riding out pending checks was arming's
-   only value and buys none of that leak surface back). Merging is ALWAYS
-   an explicit command issued at a freshly RECOMPUTED full gate: the round
-   reads SETTLED per item 4 for the current tip; zero unresolved threads;
+5. **The merge boundary.** Merging is ALWAYS an explicit
+   `gh pr merge --merge` command issued at a freshly RECOMPUTED full gate:
+   the round reads SETTLED per item 4 for the current tip; zero unresolved
+   threads;
    a finding count of ZERO on BOTH tally surfaces (threads AND review
    bodies, item 2 — zero unresolved threads alone can coexist with a
    non-zero body tally) AND zero NEWLY HARVESTED findings regardless of
@@ -409,20 +406,15 @@ one checks-green quiet window for any single reviewer. Then:
   PR #325): a seat recomputed `mergeable: MERGEABLE` three times as its
   "truly-green gate" while never once reading `mergeStateStatus`, and could
   not explain the unmerged state to the owner.
-- **NEVER arm auto-merge; merge only as the explicit command at the state
-  machine's merge boundary (item 5)** (owner ruling, 2026-07-16, this PR —
-  superseding the arm-early guidance this arc had already narrowed twice:
-  the original arm-early scheduled GitHub's CLEAN-fire merge, whose CLEAN
-  does not include the round-owed condition; the narrowed arm boundary
-  still left an armed merge persisting across pushes, unblockable by a
-  late cross-round body finding, and held only by GitHub-required
-  contexts. The supervised watch can observe but not delay a scheduled
-  merge, so no schedule at all is the NARROWEST window — not a race-free
-  one: an explicit merge after recomputation is still check-then-act,
-  review state can change between the read and the command, and GitHub
-  does not enforce the round-owed or body-finding legs. That residual race
-  is ACCEPTED and covered, never claimed away: Phase 8's post-merge
-  harvest is its named recovery). The command inherits the
+- **Merge only as the explicit command at the state machine's merge
+  boundary (item 5).** Item 5 holds the single definition of the boundary
+  and its recomputed gate; Phase 7 adds only the residual-race truth it
+  leaves open: the explicit `gh pr merge --merge` is a check-then-act step
+  — review state can change between the recomputation and the command, and
+  GitHub enforces neither the round-owed nor the body-finding leg — so the
+  gate NARROWS the merge-race window without closing it, and that residual
+  race is ACCEPTED and covered, never claimed away: Phase 8's post-merge
+  harvest is its named recovery. The command inherits the
   merge-authorisation boundary below unchanged (on a SELF-AUTHORED,
   sub-agent-reviewed PR with no in-session owner grant, broadcast
   merge-READY and leave the mechanism to the owner). A PR sitting unmerged
@@ -538,8 +530,11 @@ update continuity surfaces; close claims.
   at source.
 - Tight `gh` polling loops in place of the budgeted watcher.
 - A merge fired between "zero unresolved verified" and a composing bot
-  round binding to the tip (PR #390, 2026-07-16) — cured by the state
-  machine's reviewer-leg states and round-owed gate (items 3–4).
+  round binding to the tip (PR #390, 2026-07-16) — NARROWED, not
+  eliminated, by the state machine's reviewer-leg states and round-owed
+  gate (items 3–4): the explicit merge stays a check-then-act step, so
+  Phase 8's post-merge harvest remains an obligatory recovery, never
+  optional.
 - Eight fix-rounds shepherded one-by-one with no per-round tally, so
   non-convergence never surfaced as a signal (PR #390) — cured by the
   state machine's tally store + step-back trigger (item 2).
