@@ -12,6 +12,7 @@ import { type SweepHit } from './refound-sweep-model.js';
 import { parseWindowSampleArgs, resolveWindowSamplePaths } from './refound-window-sample.js';
 import { runWindowSample, type ByteSourceFactory } from './refound-window-sample-helpers.js';
 import { writeManifest } from './refound-window-sample-io.js';
+import { canonicaliseOutDir } from './refound-window-sample-write-guard.js';
 import {
   parseWindowSampleManifest,
   WINDOW_SAMPLE_SEGMENT,
@@ -168,6 +169,19 @@ async function readManifest(outDirAbs: string): Promise<WindowSampleManifest | u
   const parsed = parseWindowSampleManifest(json);
   expect(parsed.ok).toBe(true);
   return parsed.ok ? parsed.value : undefined;
+}
+
+/** A minimal valid manifest for exercising the write boundary in isolation. */
+function emptyManifest(): WindowSampleManifest {
+  return {
+    schema_version: '1',
+    base: BASE,
+    window_lines: 500,
+    selection_rule: 'sorted-(file,window)-every-10th-from-0',
+    universe: { files: 0, windows: 0, hit_windows: 0, non_hit_windows: 0 },
+    expectations: { scanned_files: 0, hit_files: 0, hit_lines: 0 },
+    sample: [],
+  };
 }
 
 const HAPPY = {
@@ -338,29 +352,85 @@ describe('runWindowSample — refusal chain (nothing written)', () => {
     tempRoots.push(rootAbs);
     const lockedDirAbs = path.join(rootAbs, 'locked');
     await mkdir(lockedDirAbs);
-    const emptyManifest = parseWindowSampleManifest({
-      schema_version: '1',
-      base: BASE,
-      window_lines: 500,
-      selection_rule: 'sorted-(file,window)-every-10th-from-0',
-      universe: { files: 0, windows: 0, hit_windows: 0, non_hit_windows: 0 },
-      expectations: { scanned_files: 0, hit_files: 0, hit_lines: 0 },
-      sample: [],
-    });
-    expect(emptyManifest.ok).toBe(true);
-    if (!emptyManifest.ok) {
+    const target = canonicaliseOutDir(rootAbs, lockedDirAbs);
+    expect(target.ok).toBe(true);
+    if (!target.ok) {
       return;
     }
     await chmod(lockedDirAbs, 0o000);
-    const written = await writeManifest(
-      path.join(lockedDirAbs, 'sweep', 'window-sample.v1.json'),
-      emptyManifest.value,
-    );
+    const written = await writeManifest(target.value, emptyManifest());
     await chmod(lockedDirAbs, 0o755);
     expect(written.ok).toBe(false);
     if (!written.ok) {
       expect(written.error.message).toContain('write failed');
     }
+  });
+});
+
+describe('writeManifest — TOCTOU re-canonicalisation guard (nothing written)', () => {
+  it('writes when the re-canonicalised out dir is stable and within the repository', async () => {
+    const repoRoot = await mkdtemp(path.join(tmpdir(), 'refound-window-sample-stable-'));
+    tempRoots.push(repoRoot);
+    const outDirAbs = path.join(repoRoot, '.agent/plans-refounding');
+    await mkdir(outDirAbs, { recursive: true });
+    const target = canonicaliseOutDir(repoRoot, outDirAbs);
+    expect(target.ok).toBe(true);
+    if (!target.ok) {
+      return;
+    }
+    const written = await writeManifest(target.value, emptyManifest());
+    expect(written.ok).toBe(true);
+    expect(existsSync(path.join(outDirAbs, WINDOW_SAMPLE_SEGMENT))).toBe(true);
+  });
+
+  it('refuses when an ancestor of the out dir is swapped for a symlink after canonicalisation', async () => {
+    const repoRoot = await mkdtemp(path.join(tmpdir(), 'refound-window-sample-swap-'));
+    tempRoots.push(repoRoot);
+    const outDirAbs = path.join(repoRoot, '.agent/plans-refounding');
+    await mkdir(outDirAbs, { recursive: true });
+    const target = canonicaliseOutDir(repoRoot, outDirAbs);
+    expect(target.ok).toBe(true);
+    if (!target.ok) {
+      return;
+    }
+    // Swap the `.agent` ancestor for a symlink to a decoy tree still in-repo:
+    // the re-canonicalised path drifts from the pre-scan baseline.
+    const decoyAgent = path.join(repoRoot, 'decoy-agent');
+    await mkdir(path.join(decoyAgent, 'plans-refounding'), { recursive: true });
+    await rm(path.join(repoRoot, '.agent'), { recursive: true, force: true });
+    await symlink(decoyAgent, path.join(repoRoot, '.agent'));
+    const written = await writeManifest(target.value, emptyManifest());
+    expect(written.ok).toBe(false);
+    if (!written.ok) {
+      expect(written.error.message).toContain('an ancestor was swapped');
+    }
+    expect(existsSync(path.join(decoyAgent, 'plans-refounding', WINDOW_SAMPLE_SEGMENT))).toBe(
+      false,
+    );
+  });
+
+  it('refuses when the re-canonicalised out dir resolves outside the repository', async () => {
+    const repoRoot = await mkdtemp(path.join(tmpdir(), 'refound-window-sample-escape-'));
+    tempRoots.push(repoRoot);
+    const outsideRoot = await mkdtemp(path.join(tmpdir(), 'refound-window-sample-outside-'));
+    tempRoots.push(outsideRoot);
+    const outsideOut = path.join(outsideRoot, 'plans-refounding');
+    await mkdir(outsideOut, { recursive: true });
+    // An out dir that is itself a symlink escaping the repository: (a) holds
+    // (stable canonical path) so the containment refusal (b) is exercised.
+    const outDirAbs = path.join(repoRoot, 'linked-out');
+    await symlink(outsideOut, outDirAbs);
+    const target = canonicaliseOutDir(repoRoot, outDirAbs);
+    expect(target.ok).toBe(true);
+    if (!target.ok) {
+      return;
+    }
+    const written = await writeManifest(target.value, emptyManifest());
+    expect(written.ok).toBe(false);
+    if (!written.ok) {
+      expect(written.error.message).toContain('outside the repository');
+    }
+    expect(existsSync(path.join(outsideOut, WINDOW_SAMPLE_SEGMENT))).toBe(false);
   });
 });
 

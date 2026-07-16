@@ -11,11 +11,9 @@ import {
   writeManifest,
 } from './refound-window-sample-io.js';
 import { buildWindowSample } from './refound-window-sample-model.js';
-import {
-  WINDOW_SAMPLE_SEGMENT,
-  type WindowSampleManifest,
-} from './refound-window-sample-schema.js';
+import { type WindowSampleManifest } from './refound-window-sample-schema.js';
 import { type ByteSource } from './refound-window-sample-universe.js';
+import { canonicaliseOutDir } from './refound-window-sample-write-guard.js';
 
 /**
  * The IO orchestration of `refound-window-sample`: read the ratified rule,
@@ -74,6 +72,12 @@ export interface RunWindowSampleInput {
 export async function runWindowSample(
   input: RunWindowSampleInput,
 ): Promise<Result<WindowSampleManifest, Error>> {
+  // Canonicalise the out dir BEFORE the potentially long scan; the write
+  // boundary re-canonicalises against this baseline to close the TOCTOU window.
+  const target = canonicaliseOutDir(input.repoRoot, input.outDirAbs);
+  if (isErr(target)) {
+    return target;
+  }
   const makeByteSource = input.makeByteSource ?? makeGitByteSource;
   const source = makeByteSource(input.repoRoot, input.baseSha);
   if (isErr(source)) {
@@ -104,5 +108,5 @@ export async function runWindowSample(
   if (isErr(manifest)) {
     return manifest;
   }
-  return writeManifest(path.join(input.outDirAbs, WINDOW_SAMPLE_SEGMENT), manifest.value);
+  return writeManifest(target.value, manifest.value);
 }

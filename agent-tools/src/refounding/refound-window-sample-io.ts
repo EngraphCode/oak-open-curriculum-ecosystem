@@ -11,10 +11,15 @@ import {
   expectationsFromEvidence,
   parseWindowSampleEvidence,
   sweepHitsDigestFromEvidence,
+  WINDOW_SAMPLE_SEGMENT,
   type WindowSampleExpectations,
   type WindowSampleManifest,
 } from './refound-window-sample-schema.js';
 import { type ByteSource } from './refound-window-sample-universe.js';
+import {
+  recheckOutDirContainment,
+  type ManifestWriteTarget,
+} from './refound-window-sample-write-guard.js';
 import { parseJsonDocument, renderJsonArtefact, sha256Hex } from './refounding-artefacts.js';
 
 /**
@@ -189,17 +194,25 @@ async function verifyRuleBinding(
 }
 
 /**
- * Write the manifest artefact, creating its parent directory. The fixed
- * `sweep/` segment is appended AFTER the `--out` containment check, so the
- * sink re-asserts its own integrity: a symlink at the write dir OR at the
- * manifest path itself is refused (the `refound-path-resolve.ts` posture),
- * and the write lands via an exclusive same-directory temp file plus atomic
- * rename — an interruption can never truncate an existing sealed manifest.
+ * Write the manifest artefact, creating its parent directory. The write-time
+ * TOCTOU guard re-canonicalises the out dir first
+ * ({@link recheckOutDirContainment}): an ancestor swapped for a symlink after
+ * the pre-scan canonicalisation, or an out dir that now escapes the repository,
+ * is refused before any bytes. The fixed `sweep/` segment is then re-asserted
+ * directly — a symlink at the write dir OR at the manifest path itself is
+ * refused (the `refound-path-resolve.ts` posture) — and the write lands via an
+ * exclusive same-directory temp file plus atomic rename, so an interruption can
+ * never truncate an existing sealed manifest.
  */
 export async function writeManifest(
-  manifestAbsPath: string,
+  target: ManifestWriteTarget,
   manifest: WindowSampleManifest,
 ): Promise<Result<WindowSampleManifest, Error>> {
+  const contained = recheckOutDirContainment(target);
+  if (isErr(contained)) {
+    return contained;
+  }
+  const manifestAbsPath = path.join(target.outDirAbs, WINDOW_SAMPLE_SEGMENT);
   const writeDirAbs = path.dirname(manifestAbsPath);
   const tempAbsPath = `${manifestAbsPath}.tmp-${String(process.pid)}`;
   try {
