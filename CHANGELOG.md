@@ -1,3 +1,25 @@
+# [1.73.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.72.0...v1.73.0) (2026-07-16)
+
+
+### Bug Fixes
+
+* **agent-tools:** cure restatement-audit Sonar findings (S8707, S8786, S4624) ([5efa4de](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5efa4debc200d5af3275f8c47b946f61d82f1a71)), closes [#393](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/393)
+* **agent-tools:** cure the real restatement-audit review-round classes ([1cefa3a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/1cefa3ac6e2388105306dec8737be5e0eb8206de))
+* **agent-tools:** give the reducer the grouping keys its recount enforces ([da19583](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/da195836e79c218bbfcf1f8f8a7a52a1416105a2))
+* **agent-tools:** land restatement-audit review round-1 blocking set ([5d1fde4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5d1fde4d742fcda007d6f97591baf20e786ebc68)), closes [#393](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/393)
+* **agent-tools:** round-3 review cures — coverage honesty and boundary tightening ([31962fb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/31962fb6bc4e1b07f46ee9eb73b9d4cb22fcc8e2))
+* **agent-tools:** round-5 cures — clean-corpus seedability and member conservation ([dd7cdb9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/dd7cdb957a50ca52cc6360c24afcbfd5bb6d0f15))
+* **agent-tools:** round-6 cures — id-set member conservation and CLI help contract ([d32b355](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d32b355424cca1686bb873d8e2e17647773d6887))
+* **agent-tools:** round-8 batch — evidence integrity and CLI contract ([2e0f1bd](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2e0f1bd6cb731443b84b737cdf63dbd1a676dde8))
+* **agent-tools:** use a Set for staged-name membership in the rename smoke ([cfbd19e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/cfbd19e9b24e102c4b0625c6ae619e88c80c895f)), closes [#393](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/393)
+* **refounding:** re-add refound-path-resolve deleted cross-branch-blind by Sonar cure ([cc716c9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/cc716c97a96dc4297b3540c2a4792c8c8b494bbc)), closes [#389](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/389)
+
+
+### Features
+
+* **agent-tools:** add the restatement-audit fleet module ([a278878](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a2788788f99b99f49b90d01a20a43559bc368539))
+* **agent-tools:** held rows enter the fix ledger, distinctly marked ([247ea5b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/247ea5b096a8f759fc5fa44c646a554d83784d88)), closes [#393](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/393)
+
 # [1.72.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.71.4...v1.72.0) (2026-07-16)
 
 
