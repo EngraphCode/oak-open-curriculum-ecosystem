@@ -56,9 +56,12 @@ export interface UniverseFile {
 /**
  * A `<prefix>/**` glob: a relative POSIX prefix free of glob metacharacters
  * and `..` segments, followed by exactly one `/**`. Only this shape reduces
- * to prefix matching without semantic drift from tinyglobby.
+ * to prefix matching without semantic drift from tinyglobby — which also
+ * recognises extglobs (`+(…)`, `@(a|b)`), so `+ @ ( ) |` and backslash are
+ * refused alongside the classic metacharacters: a prefix containing any of
+ * them would silently change the base universe instead of refusing.
  */
-const PREFIX_GLOB_PATTERN = /^([^*?[\]{}!]+)\/\*\*$/;
+const PREFIX_GLOB_PATTERN = /^([^*?[\]{}!+@()|\\]+)\/\*\*$/;
 
 /**
  * Reduce globs to plain path prefixes, halting on any glob whose shape is

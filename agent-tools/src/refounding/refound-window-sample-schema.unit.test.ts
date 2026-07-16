@@ -190,6 +190,60 @@ describe('parseWindowSampleManifest', () => {
     expect(parseWindowSampleManifest(window({ end_line: 1000, line_count: 500 })).ok).toBe(true);
   });
 
+  it('rejects file coordinates that escape the repository', () => {
+    const window = (file: string): Record<string, unknown> => ({
+      ...valid(),
+      sample: [{ file, window_index: 1, start_line: 501, end_line: 600, line_count: 100 }],
+    });
+    expect(parseWindowSampleManifest(window('/etc/passwd')).ok).toBe(false);
+    expect(parseWindowSampleManifest(window('../outside.md')).ok).toBe(false);
+    expect(parseWindowSampleManifest(window(String.raw`a\b.md`)).ok).toBe(false);
+  });
+
+  it('rejects impossible hit-count orderings', () => {
+    // hit_files <= files
+    expect(
+      parseWindowSampleManifest({
+        ...valid(),
+        universe: { files: 2, windows: 3, hit_windows: 2, non_hit_windows: 1 },
+        expectations: { scanned_files: 2, hit_files: 3, hit_lines: 3 },
+        sample: [
+          {
+            file: '.agent/prompts/a.md',
+            window_index: 1,
+            start_line: 501,
+            end_line: 600,
+            line_count: 100,
+          },
+        ],
+      }).ok,
+    ).toBe(false);
+    // hit_files <= hit_windows
+    expect(
+      parseWindowSampleManifest({
+        ...valid(),
+        expectations: { scanned_files: 2, hit_files: 2, hit_lines: 2 },
+      }).ok,
+    ).toBe(false);
+    // hit_windows <= hit_lines
+    expect(
+      parseWindowSampleManifest({
+        ...valid(),
+        universe: { files: 2, windows: 3, hit_windows: 2, non_hit_windows: 1 },
+        expectations: { scanned_files: 2, hit_files: 1, hit_lines: 1 },
+        sample: [
+          {
+            file: '.agent/prompts/a.md',
+            window_index: 1,
+            start_line: 501,
+            end_line: 600,
+            line_count: 100,
+          },
+        ],
+      }).ok,
+    ).toBe(false);
+  });
+
   it('rejects manifests whose denominator arithmetic is impossible', () => {
     // universe.windows must equal hit_windows + non_hit_windows.
     expect(

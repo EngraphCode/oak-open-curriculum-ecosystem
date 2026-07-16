@@ -49,7 +49,16 @@ describe('reduceGlobsToPrefixes', () => {
   });
 
   it('refuses every other glob shape, naming the offending glob', () => {
-    for (const glob of ['**', '.agent/*.md', '.agent/**/x', 'docs/**/*.md', '/abs/**', 'a/../**']) {
+    const extglobShapes = ['+(archive)/**', '@(a|b)/**', 'a|b/**', String.raw`a\b/**`];
+    for (const glob of [
+      '**',
+      '.agent/*.md',
+      '.agent/**/x',
+      'docs/**/*.md',
+      '/abs/**',
+      'a/../**',
+      ...extglobShapes,
+    ]) {
       const reduced = reduceGlobsToPrefixes([glob]);
       expect(reduced.ok).toBe(false);
       if (!reduced.ok) {

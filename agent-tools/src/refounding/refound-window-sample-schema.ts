@@ -9,7 +9,7 @@ import {
   SELECTION_RULE_V1,
   WINDOW_LINES,
 } from './refound-window-sample-invariants.js';
-import { sha256HexSchema } from './refounding-artefacts.js';
+import { relativePosixPath, sha256HexSchema } from './refounding-artefacts.js';
 
 export {
   SAMPLE_STRIDE,
@@ -28,8 +28,9 @@ export {
  * - **The evidence slice** is READ from an artefact owned by the S1
  *   evidence run (`proofs/s1-deterministic-evidence.v1.json`), so its shape
  *   here is deliberately NON-strict: only the fields this tool consumes are
- *   validated — `runBaseSha` and the three sweep counts — and unknown keys
- *   pass through unread. Those counts become the
+ *   validated — `schemaVersion`, `runBaseSha`, the artefact path/SHA-256
+ *   slice that binds the hits queue, and the three sweep counts — and
+ *   unknown keys pass through unread. Those counts become the
  *   {@link WindowSampleExpectations} that every halt in the computation
  *   binds to (H8 posture: arithmetic disagreement halts, nothing written).
  * - **The manifest** is WRITTEN by this tool and owned by it, so its shape
@@ -134,7 +135,7 @@ export const expectationsFromEvidence = (
  */
 const sampleWindowSchema = z
   .strictObject({
-    file: nonEmptyString,
+    file: relativePosixPath,
     window_index: nonNegativeInt,
     start_line: positiveInt,
     end_line: positiveInt,

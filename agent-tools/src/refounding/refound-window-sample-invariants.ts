@@ -48,7 +48,11 @@ interface ManifestShape {
     readonly hit_windows: number;
     readonly non_hit_windows: number;
   };
-  readonly expectations: { readonly scanned_files: number };
+  readonly expectations: {
+    readonly scanned_files: number;
+    readonly hit_files: number;
+    readonly hit_lines: number;
+  };
   readonly sample: readonly SampleWindowShape[];
 }
 
@@ -113,6 +117,38 @@ function checkUniverseArithmetic(manifest: ManifestShape, ctx: RefinementIssues)
   return true;
 }
 
+/**
+ * Hit-count orderings: every hit file belongs to the universe and
+ * contributes at least one hit window, and every hit window contains at
+ * least one hit row — so `hit_files <= files`,
+ * `hit_files <= hit_windows`, and `hit_windows <= hit_lines`.
+ */
+function checkHitOrderings(manifest: ManifestShape, ctx: RefinementIssues): boolean {
+  const { files, hit_windows } = manifest.universe;
+  const { hit_files, hit_lines } = manifest.expectations;
+  const orderings: readonly [name: string, holds: boolean][] = [
+    [`hit_files ${String(hit_files)} <= files ${String(files)}`, hit_files <= files],
+    [
+      `hit_files ${String(hit_files)} <= hit_windows ${String(hit_windows)}`,
+      hit_files <= hit_windows,
+    ],
+    [
+      `hit_windows ${String(hit_windows)} <= hit_lines ${String(hit_lines)}`,
+      hit_windows <= hit_lines,
+    ],
+  ];
+  for (const [name, holds] of orderings) {
+    if (!holds) {
+      ctx.addIssue({
+        code: 'custom',
+        message: `impossible hit counts: the ordering ${name} does not hold`,
+      });
+      return false;
+    }
+  }
+  return true;
+}
+
 /** Selection arithmetic: stride-derived sample length and sort order. */
 function checkSampleSelection(manifest: ManifestShape, ctx: RefinementIssues): void {
   const requiredSampleLength = Math.ceil(manifest.universe.non_hit_windows / SAMPLE_STRIDE);
@@ -153,7 +189,7 @@ function checkSampleSelection(manifest: ManifestShape, ctx: RefinementIssues): v
  * reach a downstream reader as valid.
  */
 export function refineManifest(manifest: ManifestShape, ctx: RefinementIssues): void {
-  if (checkUniverseArithmetic(manifest, ctx)) {
+  if (checkUniverseArithmetic(manifest, ctx) && checkHitOrderings(manifest, ctx)) {
     checkSampleSelection(manifest, ctx);
   }
 }
