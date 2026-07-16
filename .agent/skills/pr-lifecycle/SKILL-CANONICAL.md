@@ -138,7 +138,13 @@ select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
 - **Every PR-state read STARTS from the compound query** —
   `mergeStateStatus` + unresolved `reviewThreads` count +
   `statusCheckRollup` + the reviewer tip-binding read
-  (`reviews(last:20){nodes{author{login} commit{oid} state submittedAt}}`),
+  (`latestReviews(first:20){totalCount nodes{author{login} commit{oid} state
+  submittedAt body}}` — the per-author latest-review connection, verified
+  live on PR #391, 2026-07-16; a bounded `reviews(last:20)` read is WRONG
+  here: a long review history pushes an earlier bot's latest review out of
+  the window (#390 exceeded 20 review records), and omitting `body` makes a
+  reviewer's skip marker unreadable. Treat `totalCount > 20` as truncation
+  and page before concluding a reviewer is absent),
   in ONE call (the fourth leg added 2026-07-16, PR #390 — see Phase 7's
   round-owed gate). This is a floor, not a ceiling: the Phase 3 harvest and the
   pr-watch poll are consumers and refinements of the same compound state —
@@ -205,9 +211,15 @@ select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
   ONE fix push (each push mints a fresh round; per-finding pushes multiply
   rounds without bound). **Keep the numeric round tally** (owner correction,
   2026-07-16, PR #390: 8 rounds / ~38 findings ran unnoticed as
-  non-convergence because nothing counted): after every push record
-  `{tip SHA, count of NEW review threads since the previous round}`.
-  Convergence is that count strictly decreasing. **The step-back trigger is
+  non-convergence because nothing counted): one tally row per settled round,
+  `{round commit SHA, count of findings in reviews BOUND to that commit}` —
+  bucket every finding by its originating review's `commit.oid` (the Phase 5
+  `latestReviews` leg), NEVER by arrival order: reviews bind to the tip they
+  reviewed, and a review bound to an older tip can land after a newer push
+  (round-2 correction, 2026-07-16 — on #390 a review for `861bb8924` arrived
+  after `783c567af` was pushed; arrival-order tallying charges those findings
+  to the wrong round and can falsely trigger, or mask, non-convergence).
+  Convergence is that per-round count strictly decreasing. **The step-back trigger is
   mechanical — 2 consecutive non-decreasing rounds OR 4 total rounds: STOP
   fix-pushing.** Step back and run concept exploration over the FULL finding
   corpus for the shared generator; fix the CLASS in one pass, and consider
@@ -237,10 +249,20 @@ PR #390: the merge raced a composing Copilot round, which then posted five
 findings onto merged code). A round is OWED when any bot reviewer that has
 previously reviewed this PR has its latest review bound to an OLDER commit
 than the tip and has posted no explicit skip marker for the tip — read it
-from the compound query's `reviews` leg (latest per author vs `headRefOid`).
+from the compound query's `latestReviews` leg (latest per author vs
+`headRefOid`, with `body` included so a skip marker is actually readable).
 Owed = do not merge, regardless of green checks and zero unresolved threads;
 the >10-minute quiet window runs from the round BINDING to the tip, not from
-the push. Then:
+the push. The owed set is BOUNDED by a timeout escape (round-2 correction,
+2026-07-16: without one the gate goes permanently unsatisfiable the moment a
+reviewer stops reviewing — on #390, claude[bot] posted a spend-limit skip
+review on the first commit and nothing on any later tip, so every subsequent
+tip would read owed forever with no tip-specific marker obtainable): a
+reviewer with no review bound to the tip after one full checks-green quiet
+window (>10 min from the tip's checks reaching green) is **SKIPPED-FOR-TIP**
+— record the skip with its evidence (reviewer, tip SHA, window bounds) in
+the shepherd's working notes and proceed; the gate never waits more than one
+quiet window for any single reviewer. Then:
 
 - **`mergeable` means POSSIBLE to merge; it does NOT mean READY to merge**
   (owner, 2026-07-08). GitHub's `mergeable: MERGEABLE` asserts only
@@ -253,30 +275,34 @@ the push. Then:
   PR #325): a seat recomputed `mergeable: MERGEABLE` three times as its
   "truly-green gate" while never once reading `mergeStateStatus`, and could
   not explain the unmerged state to the owner.
-- **Arm auto-merge EARLY — at PR open, while requirements are still unmet —
-  WHERE merge authorisation is already settled.** Arming schedules the
-  merge: GitHub executes it the instant the PR goes CLEAN, with no
-  classifier, grant, or click in between. So the arm-early step inherits
-  the merge-authorisation boundary below — on a SELF-AUTHORED,
-  sub-agent-reviewed PR, arming without an in-session owner grant is
-  scheduling the exact merge the #323 boundary forbids; there, broadcast
-  merge-READY and leave the mechanism to the owner. Where authorisation is
-  settled (owner-directed arc, named grant, owner's own PR), arm at open:
-  the merge fires at genuinely green AND CLEAN. Be honest about the
-  trade-off: auto-merge fires on CLEAN, not on a settled round — the
-  supervised watch (Phase 5) observes but cannot delay it, so arming early
-  trades settled-round landing for zero-latency merge (the Phase 5
-  post-merge sweep is the backstop). On a PR that is ALREADY clean, the
-  same command executes an immediate merge — governed by the
-  merge-authorisation legs below, not by the arm-early clause. A PR that
-  sits unmerged at truly-green because nobody armed the mechanism (where
-  arming was authorised) is the shepherd's unfinished work (worked
-  instance: PR #325, 2026-07-08). If an arm attempt bundled with other
-  actions is harness-denied, retry the bare `gh pr merge <n> --auto
-  --merge` alone before concluding the capability is gated — on #325 a
-  composite arm-plus-direct-merge-fallback was denied, the denial was
-  over-generalised to the arm itself, and the permitted bare arm later
-  merged the PR.
+- **Arm auto-merge only AFTER this phase's gate — including the round-owed
+  leg — reads satisfied on the CURRENT tip** (round-2 correction,
+  2026-07-16, this PR: the previous arm-early guidance scheduled GitHub's
+  CLEAN-fire merge, and CLEAN does not include the round-owed condition —
+  arming early on a bot-reviewed PR schedules exactly the race the gate
+  exists to prevent, and the supervised watch can observe but not delay a
+  scheduled merge. On bot-reviewed PRs, arm-early is therefore dead by
+  design). Post-gate, arming's only value is riding out a still-pending
+  required check; on a PR already CLEAN the same command executes an
+  immediate merge — either way it inherits the merge-authorisation boundary
+  below unchanged (arming schedules the exact merge that boundary governs:
+  on a SELF-AUTHORED, sub-agent-reviewed PR with no in-session owner grant,
+  broadcast merge-READY and leave the mechanism to the owner). A PR sitting
+  unmerged at truly-green because nobody armed the mechanism (where arming
+  was authorised) is the shepherd's unfinished work (PR #325, 2026-07-08).
+  If an arm attempt bundled with other actions is harness-denied, retry the
+  bare `gh pr merge <n> --auto --merge` alone before concluding the
+  capability is gated — on #325 a denied composite was over-generalised to
+  the arm itself, and the permitted bare arm later merged the PR. Know when
+  an armed auto-merge can NEVER fire (worked instance PR #391, 2026-07-16):
+  a required status context that nothing posts any more (the SonarCloud
+  Code Analysis context — verified absent from docs tips, code tips, AND
+  main's own commits) leaves `mergeStateStatus: BLOCKED` permanently at
+  green-everything — recognise it by a missing required context in the
+  TIP'S statuses (not a failing one), verify against main's commits whether
+  the context posts ANYWHERE before diagnosing further, and surface it to
+  the owner: restoring the producer or amending the ruleset is repo
+  governance, never the shepherd's bypass.
 
 - **The merge gate is merge-button-active-for-a-non-admin**: a truly-green
   PR — all checks green AND every review thread resolved (fixed, or
@@ -374,3 +400,8 @@ update continuity surfaces; close claims.
 - Eight fix-rounds shepherded one-by-one with no per-round tally, so
   non-convergence never surfaced as a signal (PR #390) — cured by the
   Phase 6 numeric tally + step-back trigger.
+- An armed auto-merge waiting forever on a required status context that
+  nothing posts any more, misread as a merge mystery (PR #391, 2026-07-16:
+  the required SonarCloud context was absent from every commit including
+  main's) — cured by the Phase 7 never-fires recognition: check main for
+  the context, then surface the governance gap to the owner.
