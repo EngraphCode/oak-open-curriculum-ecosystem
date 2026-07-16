@@ -92,10 +92,11 @@ Immediately after opening — and again after every push — pull all four
 surfaces. Partial reads produce false "no problems" verdicts:
 
 1. **Review threads (the authoritative comment surface)** — GraphQL
-   `pullRequest.reviewThreads { isResolved, path, comments }`, including each
-   thread's originating review commit binding
-   (`comments.nodes[0].pullRequestReview.commit.oid`) — the field the
-   review-round state machine's tally store (item 2) is built from. REST issue
+   `pullRequest.reviewThreads`, reading per thread `isResolved`, `path`, and
+   the comments connection with each comment's body and its originating
+   review's commit binding — i.e. the first comment's
+   `pullRequestReview { commit { oid } }` — the field the review-round
+   state machine's tally store (item 2) is built from. REST issue
    comments MISS inline bot threads (Copilot, Bugbot); a REST-only read is the
    canonical way to falsely conclude "no comments". Worked failure 2026-07-02:
    two REST comments were triaged as "noise" while four unresolved Copilot
@@ -198,7 +199,8 @@ as phase-local restatements.
    pushes an earlier bot's latest review out of the window (#390 exceeded
    20 review records), and omitting `body` makes a reviewer's skip marker
    unreadable. Treat `totalCount > 20` as truncation and page before
-   concluding a reviewer is absent. `latestReviews` serves ONLY the
+   concluding a reviewer is absent (re-query with
+   `after: <pageInfo.endCursor>` until `hasNextPage` is false). `latestReviews` serves ONLY the
    reviewer-leg and settled checks (items 3–4, latest review per author);
    never the tally (item 2); it CANNOT
    reconstruct round history — rows vanish from the connection whenever a
