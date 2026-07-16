@@ -169,4 +169,19 @@ describe('metaStage (meta agent contract)', () => {
     const sourceOfTruth = propertySchema(ledgerRow, 'sourceOfTruth');
     expect(sourceOfTruth?.anyOf ?? sourceOfTruth?.type).toBeDefined();
   });
+
+  it('requires droppedMembers explicitly — a drop is expressed by naming it, an empty array by stating it', () => {
+    expect(ledgerRow?.required).toContain('droppedMembers');
+    const droppedMember = arrayItems(propertySchema(ledgerRow, 'droppedMembers'));
+    expect([...(droppedMember?.required ?? [])].sort(byAlpha)).toEqual([
+      'file',
+      'line',
+      'quote',
+      'reason',
+    ]);
+  });
+
+  it('asks the agent for NO disposition — code stamps flagged after the call', () => {
+    expect(propertySchema(ledgerRow, 'disposition')).toBeUndefined();
+  });
 });

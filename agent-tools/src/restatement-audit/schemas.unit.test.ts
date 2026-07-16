@@ -4,10 +4,8 @@ import { describe, expect, it } from 'vitest';
 import {
   clusterSchema,
   finderInstanceSchema,
-  ledgerRowSchema,
   parseCluster,
   parseFinderInstance,
-  parseLedgerRow,
   parseVoterVerdict,
   voterVerdictSchema,
 } from './schemas.js';
@@ -139,51 +137,5 @@ describe('voterVerdictSchema', () => {
     const parsed = parseVoterVerdict(valid);
     expect(isOk(parsed)).toBe(true);
     expect(unwrap(parsed).importance).toBe('high');
-  });
-});
-
-describe('ledgerRowSchema', () => {
-  const valid = {
-    id: 'L1',
-    factClass: 'status-assertion',
-    subject: 's0-window-sample',
-    predicate: 'status',
-    verdict: 'conflict',
-    instances: [
-      { file: 'a.md', line: 1, quote: 'completed', valueNorm: 'completed' },
-      { file: 'b.md', line: 2, quote: 'in progress', valueNorm: 'in-progress' },
-    ],
-    sourceOfTruth: null,
-    proposedCure: 'new-single-source',
-    severity: 'high',
-    metaNotes: 'two docs disagree on S0 status',
-  };
-
-  it('parses a well-formed ledger row with a null sourceOfTruth', () => {
-    expect(ledgerRowSchema.safeParse(valid).success).toBe(true);
-  });
-
-  it('parses a well-formed ledger row with a concrete sourceOfTruth', () => {
-    expect(
-      ledgerRowSchema.safeParse({ ...valid, sourceOfTruth: 'owner-gate-register.md' }).success,
-    ).toBe(true);
-  });
-
-  it('rejects a proposedCure outside the closed menu', () => {
-    expect(
-      ledgerRowSchema.safeParse({ ...valid, proposedCure: 'rewrite-everything' }).success,
-    ).toBe(false);
-  });
-
-  it('rejects fewer than two instances', () => {
-    expect(ledgerRowSchema.safeParse({ ...valid, instances: [valid.instances[0]] }).success).toBe(
-      false,
-    );
-  });
-
-  it('round-trips through parseLedgerRow into an ok Result', () => {
-    const parsed = parseLedgerRow(valid);
-    expect(isOk(parsed)).toBe(true);
-    expect(unwrap(parsed).proposedCure).toBe('new-single-source');
   });
 });

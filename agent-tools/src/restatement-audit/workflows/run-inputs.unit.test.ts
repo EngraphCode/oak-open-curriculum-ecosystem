@@ -226,7 +226,7 @@ describe('metaRunDataFrom', () => {
     voterVerdicts: [],
   };
 
-  it('projects only flagged clusters, with instance grounding', () => {
+  it('projects flagged clusters with instance grounding, and no held clusters when none were held', () => {
     const result = metaRunDataFrom({
       mapResult,
       reduceResult,
@@ -236,9 +236,29 @@ describe('metaRunDataFrom', () => {
     const data = unwrap(result);
     expect(data.clusters).toHaveLength(1);
     expect(data.clusters[0]?.instances).toHaveLength(2);
+    expect(data.heldClusters).toHaveLength(0);
   });
 
-  it('returns an EMPTY cluster set when no cluster is flagged — a clean audit is a valid terminal state, never an error', () => {
+  it('projects a held-for-review cluster into heldClusters with grounding — held enters the ledger, never vanishes', () => {
+    const held: ValidateResult = {
+      ...flaggedValidateResult,
+      dispositions: [
+        {
+          clusterId: 'exact:status-assertion:G1:status',
+          disposition: 'held-for-review',
+          reason: null,
+        },
+      ],
+    };
+    const result = metaRunDataFrom({ mapResult, reduceResult, validateResults: [held] });
+    expect(isOk(result)).toBe(true);
+    const data = unwrap(result);
+    expect(data.clusters).toHaveLength(0);
+    expect(data.heldClusters).toHaveLength(1);
+    expect(data.heldClusters[0]?.instances).toHaveLength(2);
+  });
+
+  it('returns EMPTY cluster sets when every cluster is dismissed — a clean audit is a valid terminal state, never an error', () => {
     const dismissed: ValidateResult = {
       ...flaggedValidateResult,
       dispositions: [
@@ -248,6 +268,7 @@ describe('metaRunDataFrom', () => {
     const result = metaRunDataFrom({ mapResult, reduceResult, validateResults: [dismissed] });
     expect(isOk(result)).toBe(true);
     expect(unwrap(result).clusters).toHaveLength(0);
+    expect(unwrap(result).heldClusters).toHaveLength(0);
   });
 
   it('accepts ZERO validate results when reduce produced zero clusters — the nothing-clustered corpus skips validate and flows to the empty ledger', () => {
@@ -255,6 +276,7 @@ describe('metaRunDataFrom', () => {
     const result = metaRunDataFrom({ mapResult, reduceResult: emptyReduce, validateResults: [] });
     expect(isOk(result)).toBe(true);
     expect(unwrap(result).clusters).toHaveLength(0);
+    expect(unwrap(result).heldClusters).toHaveLength(0);
   });
 
   it('errs when clusters exist but NO validate result was supplied at all', () => {
@@ -310,6 +332,27 @@ describe('metaRunDataFrom', () => {
     const result = metaRunDataFrom({ mapResult, reduceResult, validateResults: [first, second] });
     expect(isOk(result)).toBe(true);
     expect(unwrap(result).clusters).toHaveLength(1);
+    expect(unwrap(result).heldClusters).toHaveLength(0);
+  });
+
+  it('errs naming unresolvable member ids of HELD clusters — held grounding is as load-bearing as flagged', () => {
+    const held: ValidateResult = {
+      ...flaggedValidateResult,
+      dispositions: [
+        {
+          clusterId: 'exact:status-assertion:G1:status',
+          disposition: 'held-for-review',
+          reason: null,
+        },
+      ],
+    };
+    const result = metaRunDataFrom({
+      mapResult: shrunkMapResult,
+      reduceResult,
+      validateResults: [held],
+    });
+    expect(isErr(result)).toBe(true);
+    expect(String(!result.ok && result.error)).toContain('exact:status-assertion:G1:status:f2');
   });
 
   it('errs on a failed reduce result', () => {

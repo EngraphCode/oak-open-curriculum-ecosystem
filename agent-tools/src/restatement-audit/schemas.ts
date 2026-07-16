@@ -25,20 +25,19 @@ const nonEmptyString = z.string().min(1);
 const positiveInt = z.number().int().positive();
 
 /**
- * Qualitative confidence an agent attaches to a single judgment. Module-private: no
- * consumer needs the bare enum yet — every schema below embeds it inline. Re-export the
- * moment a second consumer (e.g. the Director's fix-application code) needs it directly
- * (`consolidate-at-second-consumer`).
+ * Qualitative confidence an agent attaches to a single judgment. Exported at its second
+ * consumer (`ledger-rows.ts` embeds it as row severity), per
+ * `consolidate-at-second-consumer`.
  */
-const confidenceSchema = z.enum(['low', 'med', 'high']);
+export const confidenceSchema = z.enum(['low', 'med', 'high']);
 
 /**
  * The eight restatement classes the fleet hunts (plan Deliverable 2). A `factKey` is
  * `(factClass, subject, predicate)` — deterministic and exact-joinable once the
- * gazetteer has resolved `subject` to a canonical id. Module-private for the same reason
- * as `confidenceSchema` above.
+ * gazetteer has resolved `subject` to a canonical id. Exported at its second consumer
+ * (`ledger-rows.ts` restates it as row identity), per `consolidate-at-second-consumer`.
  */
-const factClassSchema = z.enum([
+export const factClassSchema = z.enum([
   'status-assertion',
   'closed-set-membership',
   'count',
@@ -103,11 +102,11 @@ export const finderInstanceSchema = finderInstanceBaseSchema.refine(
 export type FinderInstance = z.infer<typeof finderInstanceSchema>;
 
 /**
- * The two restatement shapes code detects by grouping instances on their fact-key. The
- * bare schema is module-private (same reason as `confidenceSchema` above); `ClusterVerdict`
- * the type stays exported — `join.ts` names it directly.
+ * The two restatement shapes code detects by grouping instances on their fact-key.
+ * Exported at its second consumer (`ledger-rows.ts` restates it as row identity), per
+ * `consolidate-at-second-consumer`; `join.ts` names the type directly.
  */
-const clusterVerdictSchema = z.enum(['conflict', 'latent']);
+export const clusterVerdictSchema = z.enum(['conflict', 'latent']);
 export type ClusterVerdict = z.infer<typeof clusterVerdictSchema>;
 
 /**
@@ -179,48 +178,6 @@ export const voterVerdictSchema = z.strictObject({
 });
 export type VoterVerdict = z.infer<typeof voterVerdictSchema>;
 
-/**
- * The closed cure menu (plan Deliverable 2 / audit brief) — no open-ended free text.
- * Module-private for the same reason as `confidenceSchema` above.
- */
-const proposedCureSchema = z.enum([
-  'cite-register',
-  'extract-to-data',
-  'derive-from-generator',
-  'delete-restatement',
-  'mark-as-history',
-  'new-single-source',
-]);
-
-/**
- * LEDGER ROW — the meta stage's byte-verified, terminal disposition of one cluster.
- * `sourceOfTruth: null` means no single source exists yet — the row feeds prevention
- * design (Deliverable 3), not just a patch. `instances` carries the meta agent's
- * byte-verified quotes (re-grep'd against the live file), not the map agent's originals.
- */
-export const ledgerRowSchema = z.strictObject({
-  id: nonEmptyString,
-  factClass: factClassSchema,
-  subject: nonEmptyString,
-  predicate: nonEmptyString,
-  verdict: clusterVerdictSchema,
-  instances: z
-    .array(
-      z.strictObject({
-        file: nonEmptyString,
-        line: positiveInt,
-        quote: z.string().min(1).max(200),
-        valueNorm: nonEmptyString,
-      }),
-    )
-    .min(2),
-  sourceOfTruth: nonEmptyString.nullable(),
-  proposedCure: proposedCureSchema,
-  severity: confidenceSchema,
-  metaNotes: z.string(),
-});
-export type LedgerRow = z.infer<typeof ledgerRowSchema>;
-
 export const parseFinderInstance = (value: unknown): Result<FinderInstance, Error> =>
   parseWithSchema({ label: 'finder instance', schema: finderInstanceSchema, value });
 
@@ -229,6 +186,3 @@ export const parseCluster = (value: unknown): Result<Cluster, Error> =>
 
 export const parseVoterVerdict = (value: unknown): Result<VoterVerdict, Error> =>
   parseWithSchema({ label: 'voter verdict', schema: voterVerdictSchema, value });
-
-export const parseLedgerRow = (value: unknown): Result<LedgerRow, Error> =>
-  parseWithSchema({ label: 'ledger row', schema: ledgerRowSchema, value });

@@ -19,12 +19,12 @@ import type { Result } from '@oaknational/result';
 import { z } from 'zod';
 
 import { parseWithSchema } from '../../core/schema-parse.js';
+import { ledgerRowSchema } from '../ledger-rows.js';
 import {
   clusterBaseSchema,
   clusterSchema,
   finderInstanceBaseSchema,
   finderInstanceSchema,
-  ledgerRowSchema,
   voterVerdictSchema,
 } from '../schemas.js';
 import { gazetteerSchema } from './gazetteer-schema.js';
@@ -109,10 +109,21 @@ const metaRunDataSchema = z
   .strictObject({
     // Empty is VALID: a clean audit (zero flagged clusters) seeds a zero-row ledger.
     clusters: z.array(metaClusterSchema),
+    /**
+     * Voter-disagreement clusters, carried into the ledger as held-for-review rows —
+     * code-built, never agent-dispatched. Empty is the common case.
+     */
+    heldClusters: z.array(metaClusterSchema),
   })
   .refine(
-    (data) => new Set(data.clusters.map((cluster) => cluster.id)).size === data.clusters.length,
-    { error: 'meta run data contains duplicate cluster ids — the merged flagged set is malformed' },
+    (data) => {
+      const ids = [...data.clusters, ...data.heldClusters].map((cluster) => cluster.id);
+      return new Set(ids).size === ids.length;
+    },
+    {
+      error:
+        'meta run data contains duplicate cluster ids across flagged + held — the merged disposition set is malformed',
+    },
   );
 export type MetaRunData = z.infer<typeof metaRunDataSchema>;
 

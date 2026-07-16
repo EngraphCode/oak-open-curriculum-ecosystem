@@ -68,6 +68,7 @@ const groundingInstance = {
 const secondGrounding = { ...groundingInstance, id: 'W01-I02', valueNorm: 'discharged' };
 
 const ledgerRow = {
+  disposition: 'flagged',
   id: 'exact:status-assertion:G1:status',
   factClass: 'status-assertion',
   subject: 'G1',
@@ -77,10 +78,25 @@ const ledgerRow = {
     { file: 'a.md', line: 1, quote: 'G1 — DONE 2026-07-07', valueNorm: 'done' },
     { file: 'b.md', line: 2, quote: 'G1 — DISCHARGED 2026-07-07', valueNorm: 'discharged' },
   ],
+  droppedMembers: [],
   sourceOfTruth: null,
   proposedCure: 'cite-register',
   severity: 'high',
   metaNotes: '',
+};
+
+const heldLedgerRow = {
+  disposition: 'held-for-review',
+  id: 'exact:status-assertion:G1:ratification-status',
+  factClass: 'status-assertion',
+  subject: 'G1',
+  predicate: 'ratification-status',
+  verdict: 'latent',
+  instances: [
+    { file: 'a.md', line: 3, quote: 'G1 ratified', valueNorm: 'ratified' },
+    { file: 'b.md', line: 4, quote: 'G1 ratified', valueNorm: 'ratified' },
+  ],
+  heldNote: 'voters disagreed — triage via the validate checkpoint voterVerdicts',
 };
 
 describe('run-data parsers', () => {
@@ -128,11 +144,11 @@ describe('run-data parsers', () => {
     ).toBe(true);
   });
 
-  it('parseMetaRunData accepts an EMPTY cluster set — a clean audit seeds a zero-row ledger', () => {
-    expect(isOk(parseMetaRunData({ clusters: [] }))).toBe(true);
+  it('parseMetaRunData accepts EMPTY cluster sets — a clean audit seeds a zero-row ledger', () => {
+    expect(isOk(parseMetaRunData({ clusters: [], heldClusters: [] }))).toBe(true);
   });
 
-  it('parseMetaRunData accepts flagged clusters and rejects duplicate cluster ids', () => {
+  it('parseMetaRunData accepts flagged + held clusters and rejects duplicate cluster ids across both', () => {
     const metaCluster = {
       id: cluster.id,
       factClass: cluster.factClass,
@@ -141,8 +157,19 @@ describe('run-data parsers', () => {
       verdict: cluster.verdict,
       instances: [groundingInstance, secondGrounding],
     };
-    expect(isOk(parseMetaRunData({ clusters: [metaCluster] }))).toBe(true);
-    expect(isErr(parseMetaRunData({ clusters: [metaCluster, metaCluster] }))).toBe(true);
+    expect(isOk(parseMetaRunData({ clusters: [metaCluster], heldClusters: [] }))).toBe(true);
+    expect(isOk(parseMetaRunData({ clusters: [], heldClusters: [metaCluster] }))).toBe(true);
+    expect(
+      isErr(parseMetaRunData({ clusters: [metaCluster, metaCluster], heldClusters: [] })),
+    ).toBe(true);
+    // A cluster cannot be flagged AND held — the duplicate check spans both arrays.
+    expect(isErr(parseMetaRunData({ clusters: [metaCluster], heldClusters: [metaCluster] }))).toBe(
+      true,
+    );
+  });
+
+  it('parseMetaRunData rejects data missing heldClusters', () => {
+    expect(isErr(parseMetaRunData({ clusters: [] }))).toBe(true);
   });
 });
 
@@ -220,8 +247,8 @@ describe('result parsers', () => {
     ).toBe(true);
   });
 
-  it('parseMetaResult accepts ledger rows and rejects a malformed row', () => {
-    expect(isOk(parseMetaResult({ ok: true, rows: [ledgerRow] }))).toBe(true);
+  it('parseMetaResult accepts flagged AND held ledger rows, and rejects a malformed row', () => {
+    expect(isOk(parseMetaResult({ ok: true, rows: [ledgerRow, heldLedgerRow] }))).toBe(true);
     expect(
       isErr(parseMetaResult({ ok: true, rows: [{ ...ledgerRow, proposedCure: 'improvise' }] })),
     ).toBe(true);

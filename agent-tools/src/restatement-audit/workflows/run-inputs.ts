@@ -15,10 +15,14 @@
 import { err, ok, type Result } from '@oaknational/result';
 
 import { resolveResumeSeed } from '../../corpus-analysis/run-orchestration.js';
-import type { Cluster } from '../schemas.js';
+import {
+  groundingInstanceOf,
+  projectClusters,
+  resolveMembers,
+  unresolvableMembersError,
+} from './member-grounding.js';
 import type {
   Disposition,
-  GroundingInstance,
   MapResult,
   MetaRunData,
   ReduceResult,
@@ -26,54 +30,6 @@ import type {
   ValidateResult,
   ValidateRunData,
 } from './stage-io.js';
-
-/** Caller must have rejected a failed map result BEFORE building the lookup. */
-function groundingInstanceOf(
-  source: Extract<MapResult, { ok: true }>,
-): ReadonlyMap<string, GroundingInstance> {
-  const byId = new Map<string, GroundingInstance>();
-  for (const instance of source.instances) {
-    byId.set(instance.id, {
-      id: instance.id,
-      file: instance.file,
-      line: instance.line,
-      quote: instance.quote,
-      valueNorm: instance.valueNorm,
-      assertionKind: instance.assertionKind,
-    });
-  }
-  return byId;
-}
-
-interface ResolvedMembers {
-  readonly members: readonly GroundingInstance[];
-  /** `clusterId:instanceId` for every member id absent from the map result — never dropped silently. */
-  readonly missing: readonly string[];
-}
-
-function resolveMembers(
-  cluster: Cluster,
-  byId: ReadonlyMap<string, GroundingInstance>,
-): ResolvedMembers {
-  const members: GroundingInstance[] = [];
-  const missing: string[] = [];
-  for (const id of cluster.memberInstanceIds) {
-    const member = byId.get(id);
-    if (member === undefined) {
-      missing.push(`${cluster.id}:${id}`);
-    } else {
-      members.push(member);
-    }
-  }
-  return { members, missing };
-}
-
-function unresolvableMembersError(missing: readonly string[]): Error {
-  return new Error(
-    `clusters reference ${missing.length} member instance id(s) absent from the map result — ` +
-      `voters/meta would run on partial grounding: ${missing.join(', ')}`,
-  );
-}
 
 /**
  * `ok: true` is not completeness: a map/reduce envelope deliberately reports partial
@@ -187,9 +143,11 @@ function mergedDispositions(
 }
 
 /**
- * Derive META run data: the flagged clusters only, projected with byte-checkable
- * grounding. `dispositionFromVoters` is not called here — dispositions are already
- * committed in the validate checkpoint(s); this stage only filters and projects them.
+ * Derive META run data: the flagged clusters (for the byte-verifying agent) AND the
+ * held-for-review clusters (code-built into distinctly marked ledger rows — no agent),
+ * both projected with byte-checkable grounding. `dispositionFromVoters` is not called
+ * here — dispositions are already committed in the validate checkpoint(s); this stage
+ * only filters and projects them.
  *
  * A corpus whose reduce produced ZERO clusters skips validate entirely (there is
  * nothing to vote on — `validateRunDataFrom` correctly refuses an empty seed): meta
@@ -223,23 +181,24 @@ export function metaRunDataFrom(input: {
       ),
     );
   }
-  const flagged = checked.value.reduce.clusters.filter(
-    (cluster) => dispositions.get(cluster.id) === 'flagged',
+  const flagged = projectClusters(
+    checked.value.reduce.clusters.filter((cluster) => dispositions.get(cluster.id) === 'flagged'),
+    byId,
   );
-  const resolved = flagged.map((cluster) => resolveMembers(cluster, byId));
-  const missing = resolved.flatMap((entry) => entry.missing);
-  if (missing.length > 0) {
-    return err(unresolvableMembersError(missing));
+  if (!flagged.ok) {
+    return flagged;
   }
-  const clusters = flagged.map((cluster, index) => ({
-    id: cluster.id,
-    factClass: cluster.factClass,
-    subject: cluster.subject,
-    predicate: cluster.predicate,
-    verdict: cluster.verdict,
-    instances: [...(resolved[index]?.members ?? [])],
-  }));
-  // Zero flagged clusters is a VALID terminal state — a clean audit (every cluster
-  // dismissed or held) produces an empty ledger, never an error.
-  return ok({ clusters });
+  const held = projectClusters(
+    checked.value.reduce.clusters.filter(
+      (cluster) => dispositions.get(cluster.id) === 'held-for-review',
+    ),
+    byId,
+  );
+  if (!held.ok) {
+    return held;
+  }
+  // Zero flagged clusters is a VALID terminal state — a clean audit produces an empty
+  // ledger, and held clusters still enter the ledger as held-for-review rows, so an
+  // all-held audit can never read as clean.
+  return ok({ clusters: flagged.value, heldClusters: held.value });
 }

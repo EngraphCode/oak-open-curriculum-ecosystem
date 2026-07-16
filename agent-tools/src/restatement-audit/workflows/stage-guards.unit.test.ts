@@ -26,7 +26,7 @@ const validateRunData = {
   resolvedClusterIds: [],
   validateTokenCeiling: 500_000,
 };
-const metaRunData = { clusters: [{ id: 'c1' }] };
+const metaRunData = { clusters: [{ id: 'c1' }], heldClusters: [] };
 
 describe('isMapRunData', () => {
   it('accepts map-tagged data with windows and a gazetteer', () => {
@@ -77,16 +77,20 @@ describe('isValidateRunData', () => {
 });
 
 describe('isMetaRunData', () => {
-  it('accepts meta-tagged data with flagged clusters', () => {
+  it('accepts meta-tagged data with flagged and held cluster arrays', () => {
     expect(isMetaRunData(metaRunData, 'meta')).toBe(true);
   });
 
-  it('rejects the wrong stage tag and an empty cluster set', () => {
+  it('rejects the wrong stage tag and non-array cluster sets', () => {
     expect(isMetaRunData(metaRunData, 'validate')).toBe(false);
-    // Empty clusters is a VALID clean-audit seed — the workflow's zero-spend
+    // Empty arrays are a VALID clean-audit seed — the workflow's zero-spend
     // empty-ledger short-circuit must be reachable, never a false unseeded error.
-    expect(isMetaRunData({ clusters: [] }, 'meta')).toBe(true);
-    expect(isMetaRunData({ clusters: 'nope' }, 'meta')).toBe(false);
+    expect(isMetaRunData({ clusters: [], heldClusters: [] }, 'meta')).toBe(true);
+    expect(isMetaRunData({ clusters: 'nope', heldClusters: [] }, 'meta')).toBe(false);
+  });
+
+  it('rejects data missing the heldClusters array — held rows must be expressible', () => {
+    expect(isMetaRunData({ clusters: [{ id: 'c1' }] }, 'meta')).toBe(false);
   });
 });
 

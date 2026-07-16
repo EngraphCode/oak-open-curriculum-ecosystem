@@ -4,9 +4,11 @@
  *
  * @remarks
  * Pure functions — the CLI driver (`render-ledger-cli.ts`) owns reading the committed
- * meta-stage checkpoint and writing the files. `severity` ordering (high, then med, then
- * low) puts the most consequential rows first in the Markdown table, the only judgment
- * call this module makes; every other field is rendered verbatim.
+ * meta-stage checkpoint and writing the files. Flagged rows render most-severe-first
+ * (the only judgment call this module makes), then held-for-review rows; the summary
+ * line counts every disposition — held included — so a clean audit reads "0 row(s)"
+ * explicitly and an all-held audit can never be mistaken for one. Every other field is
+ * rendered verbatim.
  *
  * @packageDocumentation
  */
@@ -15,7 +17,12 @@ import type { Result } from '@oaknational/result';
 import { z } from 'zod';
 
 import { parseWithSchema } from '../core/schema-parse.js';
-import { ledgerRowSchema, type LedgerRow } from './schemas.js';
+import {
+  ledgerRowSchema,
+  type FlaggedLedgerRow,
+  type HeldLedgerRow,
+  type LedgerRow,
+} from './ledger-rows.js';
 
 /**
  * The versioned envelope `fix-ledger.v1.json` carries — the closed output contract.
@@ -45,20 +52,41 @@ export function renderLedgerJson(rows: readonly LedgerRow[]): string {
 
 const SEVERITY_ORDER = { high: 0, med: 1, low: 2 } as const;
 
-function bySeverity(a: LedgerRow, b: LedgerRow): number {
+function bySeverity(a: FlaggedLedgerRow, b: FlaggedLedgerRow): number {
   return SEVERITY_ORDER[a.severity] - SEVERITY_ORDER[b.severity];
 }
 
-function renderRow(row: LedgerRow): string {
-  const source = row.sourceOfTruth ?? '_(none — prevention-design input)_';
-  const instanceLines = row.instances
+function renderInstances(instances: FlaggedLedgerRow['instances']): string {
+  return instances
     .map(
       (instance) =>
         `  - \`${instance.file}:${instance.line}\` "${instance.quote}" -> \`${instance.valueNorm}\``,
     )
     .join('\n');
+}
+
+function renderFlaggedRow(row: FlaggedLedgerRow): string {
+  const source = row.sourceOfTruth ?? '_(none — prevention-design input)_';
+  const degradedMark = row.droppedMembers.length > 0 ? ' — DEGRADED' : '';
+  const instanceLines =
+    row.instances.length === 0
+      ? '  _(none — every member dropped at byte-verify)_'
+      : renderInstances(row.instances);
+  const droppedLines =
+    row.droppedMembers.length === 0
+      ? []
+      : [
+          '',
+          '**Dropped at byte-verify:**',
+          row.droppedMembers
+            .map(
+              (member) =>
+                `  - \`${member.file}:${member.line}\` "${member.quote}" — ${member.reason}`,
+            )
+            .join('\n'),
+        ];
   return [
-    `### ${row.id} — ${row.severity} severity — ${row.verdict}`,
+    `### ${row.id} — ${row.severity} severity — ${row.verdict}${degradedMark}`,
     '',
     `**Fact:** \`${row.factClass}\` / \`${row.subject}\` / \`${row.predicate}\``,
     `**Proposed cure:** \`${row.proposedCure}\``,
@@ -66,23 +94,48 @@ function renderRow(row: LedgerRow): string {
     '',
     '**Instances:**',
     instanceLines,
+    ...droppedLines,
     '',
     `**Notes:** ${row.metaNotes}`,
   ].join('\n');
 }
 
-/** Render the ledger as Markdown: a summary line, then one section per row, most severe first. */
+function renderHeldRow(row: HeldLedgerRow): string {
+  return [
+    `### ${row.id} — HELD FOR REVIEW — ${row.verdict}`,
+    '',
+    `**Fact:** \`${row.factClass}\` / \`${row.subject}\` / \`${row.predicate}\``,
+    '',
+    '**Instances:**',
+    renderInstances(row.instances),
+    '',
+    `**Note:** ${row.heldNote}`,
+  ].join('\n');
+}
+
+/**
+ * Render the ledger as Markdown: an every-disposition summary line, then flagged rows
+ * most-severe-first, then held-for-review rows.
+ */
 export function renderLedgerMarkdown(rows: readonly LedgerRow[]): string {
-  const sorted = [...rows].sort(bySeverity);
+  const flagged = rows.filter((row): row is FlaggedLedgerRow => row.disposition === 'flagged');
+  const held = rows.filter((row): row is HeldLedgerRow => row.disposition === 'held-for-review');
+  const degradedCount = flagged.filter((row) => row.droppedMembers.length > 0).length;
   const bySeverityCount = { high: 0, med: 0, low: 0 };
-  for (const row of rows) {
+  for (const row of flagged) {
     bySeverityCount[row.severity] += 1;
   }
   const header = [
     '# Restatement-audit fix ledger (v1)',
     '',
-    `${rows.length} row(s) — ${bySeverityCount.high} high, ${bySeverityCount.med} med, ${bySeverityCount.low} low severity.`,
+    `${rows.length} row(s) — ${flagged.length} flagged (${degradedCount} degraded), ` +
+      `${held.length} held-for-review; flagged severity: ${bySeverityCount.high} high, ` +
+      `${bySeverityCount.med} med, ${bySeverityCount.low} low.`,
     '',
   ].join('\n');
-  return `${header}${sorted.map(renderRow).join('\n\n')}\n`;
+  const sections = [
+    ...[...flagged].sort(bySeverity).map(renderFlaggedRow),
+    ...held.map(renderHeldRow),
+  ];
+  return `${header}${sections.join('\n\n')}\n`;
 }

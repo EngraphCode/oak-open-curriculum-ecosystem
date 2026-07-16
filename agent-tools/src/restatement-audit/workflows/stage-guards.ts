@@ -71,9 +71,10 @@ export function isValidateRunData(value: unknown, stage: string): value is Valid
 }
 
 /**
- * Meta run data: tagged for meta, with a clusters ARRAY — which may be EMPTY (a clean
- * audit seeds zero flagged clusters and must reach the zero-spend empty-ledger path,
- * never a false unseeded error).
+ * Meta run data: tagged for meta, with clusters and heldClusters ARRAYS — either may be
+ * EMPTY (a clean audit seeds zero flagged clusters and must reach the zero-spend
+ * empty-ledger path, never a false unseeded error; held clusters exist only when voters
+ * disagreed).
  */
 export function isMetaRunData(value: unknown, stage: string): value is MetaRunData {
   return (
@@ -81,7 +82,9 @@ export function isMetaRunData(value: unknown, stage: string): value is MetaRunDa
     typeof value === 'object' &&
     value !== null &&
     'clusters' in value &&
-    Array.isArray(value.clusters)
+    Array.isArray(value.clusters) &&
+    'heldClusters' in value &&
+    Array.isArray(value.heldClusters)
   );
 }
 

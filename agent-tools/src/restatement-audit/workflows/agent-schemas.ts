@@ -17,7 +17,8 @@
 
 import { z } from 'zod';
 
-import { finderInstanceSchema, ledgerRowSchema, voterVerdictSchema } from '../schemas.js';
+import { metaAgentRowSchema } from '../ledger-rows.js';
+import { finderInstanceSchema, voterVerdictSchema } from '../schemas.js';
 import type { DerivedJsonSchema } from '../../corpus-analysis/workflows/agent-schemas.js';
 
 /** MAP stage agent contract: the window's extracted finder instances. */
@@ -46,9 +47,13 @@ export type ClusterStageOutput = z.infer<typeof clusterStageOutputSchema>;
 const voterStageOutputSchema = voterVerdictSchema;
 export type VoterStageOutput = z.infer<typeof voterStageOutputSchema>;
 
-/** META stage agent contract: the byte-verified, terminal ledger rows. */
+/**
+ * META stage agent contract: the byte-verified flagged rows, MINUS the `disposition`
+ * discriminant code stamps after the call (the agent only ever handles flagged clusters;
+ * held-for-review rows are code-built and never pass through it).
+ */
 const metaStageOutputSchema = z.strictObject({
-  rows: z.array(ledgerRowSchema),
+  rows: z.array(metaAgentRowSchema),
 });
 export type MetaStageOutput = z.infer<typeof metaStageOutputSchema>;
 

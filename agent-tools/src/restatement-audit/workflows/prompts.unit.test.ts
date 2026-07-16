@@ -209,8 +209,16 @@ describe('metaPrompt', () => {
     expect(prompt).toContain('`null`');
   });
 
-  it('pins each row id to its cluster id (code recomputes coverage)', () => {
-    expect(prompt).toContain("Each row's `id` MUST be its cluster's `id`");
-    expect(prompt).toContain('coverage is recomputed in code');
+  it('pins each row identity to its cluster (code recomputes coverage AND field identity)', () => {
+    expect(prompt).toContain(
+      "Each row's `id`, `factClass`, `subject`, `predicate`, and `verdict` MUST be its cluster's",
+    );
+    expect(prompt).toContain('coverage AND field identity are recomputed in code');
+  });
+
+  it('routes byte-verify drops through droppedMembers, never metaNotes-only or silence', () => {
+    expect(prompt).toContain('`droppedMembers`');
+    expect(prompt).toContain('never a metaNotes-only aside, never a silent omission');
+    expect(prompt).toContain('Emit `droppedMembers: []` when nothing was dropped');
   });
 });
