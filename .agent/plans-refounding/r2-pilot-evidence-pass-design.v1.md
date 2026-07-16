@@ -153,7 +153,7 @@ lexicographically, any of the 10 closed values; falsifier 4's
 boundary-defect statistic consumes only pairs where BOTH values are seed
 lanes, with unassignable-involving pairs reported as the
 abstention-disagreement class and re-home-involving pairs as the
-kind-disagreement class, per the seed's falsifier-4 definition), `"resolvedLane"` (one of the 9 closed
+kind-disagreement class, per the seed's falsifier-4 definition), `"resolvedLane"` (one of the 10 closed
 values), and `"rationale"` (<=60 words). The dispatcher schema-validates
 the file against this envelope: EXACTLY one `lens-a` and one `lens-b` row
 per sampled file, plus exactly one `escalation` row for each file whose
