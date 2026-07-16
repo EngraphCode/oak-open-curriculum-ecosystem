@@ -196,8 +196,14 @@ Phases 5–7 drive one coupled loop over review rounds. The contract lives
 here, once; the phases reference it. Amendments land in this section, never
 as phase-local restatements.
 
-1. **The compound read.** One GraphQL selection answers every PR-state
-   question: `headRefOid` (the current tip every review binding is compared
+1. **The compound read.** One GraphQL selection is the BASELINE compound
+   state — it answers most PR-state questions, but two inputs come from
+   elsewhere and are added on top of it: the reviewer-leg SATISFIED verdict
+   (items 1 and 3: ANY Phase 3-harvested review binding the current tip —
+   the per-author `latestReviews` pointer below can point BACKWARDS when an
+   older-tip review job completes after a newer push) and the expected
+   reviewer set (item 3: from repository configuration). The selection:
+   `headRefOid` (the current tip every review binding is compared
    against) + `mergeStateStatus` + unresolved `reviewThreads` count +
    `statusCheckRollup` + `latestReviews(first:20){totalCount
    pageInfo{hasNextPage endCursor} nodes{author{login} commit{oid} state
@@ -349,19 +355,16 @@ as phase-local restatements.
   control. The canonical shape is the Phase 5 SUPERVISED terminal-condition
   watch, running from first push to MERGED/CLOSED, with an immediate full
   harvest on any event — awareness that cannot sleep through an arrival.
-  Fixed-interval settle probes are superseded by that watch. Event monitors
+  Event monitors
   give awareness of arrivals, but awareness is not convergence ownership;
   without the supervised watch the human becomes the loop operator.
   **Declare a round settled, and merge-ready after it, only per the state
-  machine's definitions (items 3–4)** — every reviewer leg SATISFIED or
-  SKIPPED for the CURRENT tip plus the quiet window, never from a
-  "0 unresolved" moment. Bundle every finding from one round into
+  machine's definitions (items 3–4)** — never from a "0 unresolved" moment.
+  Bundle every finding from one round into
   ONE fix push (each push mints a fresh round; per-finding pushes multiply
   rounds without bound). **Keep the numeric round tally exactly as the
-  state machine's item 2 defines it** — persisted rows built from the
-  Phase 3 harvest's review-commit bindings, never from `latestReviews`,
-  never by arrival order. When item 2's mechanical step-back trigger fires
-  (2 consecutive non-decreasing rounds OR 4 total rounds): **STOP
+  state machine's item 2 defines it.** When item 2's mechanical step-back
+  trigger fires: **STOP
   fix-pushing.** Step back and run concept exploration over the FULL finding
   corpus for the shared generator; fix the CLASS in one pass, and consider
   splitting the PR (on #390 the generator was authored restatement of
@@ -385,13 +388,12 @@ as phase-local restatements.
 Merge-ready means, re-verified at the declaration instant: all checks green
 AND zero unresolved review threads AND the Sonar quality gate passing AND any
 genuinely required review landed (the author-dependent leg below) AND **the
-review round SETTLED for the current tip with zero new findings — no
-reviewer leg OWED — per the review-round state machine, items 3–4** (owner
+review round SETTLED for the current tip, no reviewer leg OWED, per the
+review-round state machine, items 3–4** (owner
 correction, 2026-07-16, PR #390: the merge raced a composing Copilot round,
 which then posted five findings onto merged code). OWED = do not merge,
 regardless of green checks and zero unresolved threads; the SKIPPED timeout
-(state machine item 3) bounds the wait, so the gate never waits more than
-one checks-green quiet window for any single reviewer. Then:
+(state machine item 3) bounds the wait. Then:
 
 - **`mergeable` means POSSIBLE to merge; it does NOT mean READY to merge**
   (owner, 2026-07-08). GitHub's `mergeable: MERGEABLE` asserts only
@@ -436,8 +438,8 @@ one checks-green quiet window for any single reviewer. Then:
   governance, never the shepherd's bypass.
 
 - **The merge gate is merge-button-active-for-a-non-admin**: a truly-green
-  PR — MERGE-READY per the state machine's item 4: a settled round with
-  zero new findings, plus every gate leg above — merges via a normal
+  PR — MERGE-READY per the state machine's item 4, plus every gate leg
+  above — merges via a normal
   non-admin `gh pr merge`, SUBJECT to the merge-readiness boundary below (a
   self-authored, sub-agent-reviewed PR additionally needs an in-session
   owner grant or the owner's own merge — the gate opens the button, the
@@ -501,8 +503,8 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   server-side merge back down first — always fetch/pull immediately after
   calling it, before pushing anything else to that branch. After the
   update lands and checks re-run, the merge remains the explicit command
-  at the state machine's merge boundary (item 5) — never an armed
-  auto-merge waiting on the checks.
+  at the state machine's merge boundary (item 5), issued by hand at a
+  freshly recomputed gate.
 
 ## Phase 8 — After merge
 
