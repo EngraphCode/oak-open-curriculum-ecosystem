@@ -347,6 +347,20 @@ describe('runWindowSample — refusal chain (nothing written)', () => {
     await expectRefusal(bare, 'unreadable at the pinned base');
   });
 
+  it('does not refuse at the write guard when the out dir does not yet exist', async () => {
+    // A fresh `--out` must not be blocked by the guard (the contract allows an
+    // absent out dir); the run instead halts later at the hits read, proving
+    // the guard anchored on the nearest existing ancestor rather than throwing.
+    const fixture = await makeFixture(HAPPY);
+    const freshOutDirAbs = path.join(fixture.repoRoot, '.agent/plans-refounding-fresh');
+    const run = await runWindowSample({ ...fixture, outDirAbs: freshOutDirAbs });
+    expect(run.ok).toBe(false);
+    if (!run.ok) {
+      expect(run.error.message).toContain('cannot read sweep hits');
+      expect(run.error.message).not.toContain('canonicalise');
+    }
+  });
+
   it('returns Err rather than throwing when the write-path probe itself errors', async () => {
     const rootAbs = await mkdtemp(path.join(tmpdir(), 'refound-window-sample-io-'));
     tempRoots.push(rootAbs);
@@ -381,6 +395,49 @@ describe('writeManifest — TOCTOU re-canonicalisation guard (nothing written)',
     const written = await writeManifest(target.value, emptyManifest());
     expect(written.ok).toBe(true);
     expect(existsSync(path.join(outDirAbs, WINDOW_SAMPLE_SEGMENT))).toBe(true);
+  });
+
+  it('writes when the out dir does not yet exist — the write phase creates it from the anchor', async () => {
+    const repoRoot = await mkdtemp(path.join(tmpdir(), 'refound-window-sample-fresh-'));
+    tempRoots.push(repoRoot);
+    // The `.agent` anchor exists; `plans-refounding` is absent and must be
+    // created by the write phase (the `--out need not exist` contract).
+    await mkdir(path.join(repoRoot, '.agent'));
+    const outDirAbs = path.join(repoRoot, '.agent/plans-refounding');
+    const target = canonicaliseOutDir(repoRoot, outDirAbs);
+    expect(target.ok).toBe(true);
+    if (!target.ok) {
+      return;
+    }
+    const written = await writeManifest(target.value, emptyManifest());
+    expect(written.ok).toBe(true);
+    expect(existsSync(path.join(outDirAbs, WINDOW_SAMPLE_SEGMENT))).toBe(true);
+  });
+
+  it('refuses when the nearest existing ancestor of a fresh out dir is swapped for a symlink', async () => {
+    const repoRoot = await mkdtemp(path.join(tmpdir(), 'refound-window-sample-anchorswap-'));
+    tempRoots.push(repoRoot);
+    // `.agent` exists (the nearest existing ancestor); the out dir leaf is absent.
+    await mkdir(path.join(repoRoot, '.agent'));
+    const outDirAbs = path.join(repoRoot, '.agent/plans-refounding');
+    const target = canonicaliseOutDir(repoRoot, outDirAbs);
+    expect(target.ok).toBe(true);
+    if (!target.ok) {
+      return;
+    }
+    // Swap the nearest existing ancestor (`.agent`) for a symlink to a decoy.
+    const decoyAgent = path.join(repoRoot, 'decoy-agent');
+    await mkdir(decoyAgent);
+    await rm(path.join(repoRoot, '.agent'), { recursive: true, force: true });
+    await symlink(decoyAgent, path.join(repoRoot, '.agent'));
+    const written = await writeManifest(target.value, emptyManifest());
+    expect(written.ok).toBe(false);
+    if (!written.ok) {
+      expect(written.error.message).toContain('an ancestor was swapped');
+    }
+    expect(existsSync(path.join(decoyAgent, 'plans-refounding', WINDOW_SAMPLE_SEGMENT))).toBe(
+      false,
+    );
   });
 
   it('refuses when an ancestor of the out dir is swapped for a symlink after canonicalisation', async () => {
