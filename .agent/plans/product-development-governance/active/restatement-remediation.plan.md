@@ -97,7 +97,7 @@ plan of record:
 
 ## Deliverable 1 — pr-lifecycle skill amendments
 
-File: `.agent/skills/pr-lifecycle/SKILL-CANONICAL.md` (348 lines; wrapper
+File: `.agent/skills/pr-lifecycle/SKILL-CANONICAL.md` (wrapper
 `.claude/skills/oak-pr-lifecycle/SKILL.md` is a pointer, unchanged). House amendment
 convention: inline dated parentheticals at the phase they modify + a failure-modes bullet.
 The binding contract is the amended skill itself

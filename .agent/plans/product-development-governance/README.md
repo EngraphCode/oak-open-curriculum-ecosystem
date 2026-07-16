@@ -75,8 +75,10 @@ controlling plan and thread record hold the detail.
 - **Active (in execution)**: [active/README.md](active/README.md) — currently
   [plan-corpus-refounding](active/plan-corpus-refounding.plan.md) and
   [restatement-remediation](active/restatement-remediation.plan.md).
-- **Queued**: [current/](current/)
-- **Future backlog**: [future/](future/)
+- **Queued**: [current/README.md](current/README.md) — currently
+  [planning-estate-rewrite](current/planning-estate-rewrite.plan.md).
+- **Future backlog**: [future/README.md](future/README.md) — currently
+  [external-evidence-integration](future/external-evidence-integration.plan.md).
 
 ## Notes
 

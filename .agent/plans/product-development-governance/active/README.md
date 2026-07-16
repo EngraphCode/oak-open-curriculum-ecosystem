@@ -3,9 +3,10 @@
 In-progress execution plans for this collection.
 
 When a plan is being actively executed in a session, move it from
-[`../current/`](../current/) to this directory. Move it back to
-[`../current/`](../current/) when it pauses, or to the archive when it
-completes.
+[`../current/`](../current/README.md) to this directory. Move it to the
+archive when it completes. A plan that pauses mid-execution STAYS here
+with the pause recorded in its Status cell — `../current/` means queued
+and not yet started, so a started plan never returns there.
 
 ## Plans
 
