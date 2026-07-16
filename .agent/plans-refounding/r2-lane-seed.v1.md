@@ -40,7 +40,7 @@ Top-down, three steps:
 | # | Lane (proposed id) | Derivation edge | Oak goal | Walk-A status proposed |
 | --- | --- | --- | --- | --- |
 | 1 | `mcp-app` | Vision part 1 (teachers) → stream MCP app → `APP-1..4`, K1–K3 | Teachers | candidate (pilot evidence indirect) |
-| 2 | `engineering-tools` | Vision part 1 (ecosystem) → stream engineering tools → `TOOLS-1..4` | Ecosystem | **pilot lane**: proposed REGISTERED at Walk A if the pilot's measured evidence clears its falsifiers — the direct-evidence path the candidate/registered distinction exists for; falls back to candidate like the rest if the evidence is not in by the sitting |
+| 2 | `engineering-tools` | Vision part 1 (ecosystem) → stream engineering tools → `TOOLS-1..4` | Ecosystem | **pilot lane**: proposed REGISTERED at Walk A if the pilot's measured evidence clears its falsifiers — the direct-evidence path the candidate/registered distinction exists for; falls back to candidate whenever the measured evidence is not in by the sitting OR does not clear every falsifier — failed evidence never leaves the row status-less |
 | 3 | `agentic-framework` | Vision part 2 (outward face) → stream agentic framework → `FRAME-2`, `FRAME-4` | Ecosystem | candidate |
 | 4 | `practice-and-governance` | Vision part 2 (inward face) → `FRAME-1`, `FRAME-3` + the strategy's measured-delivery shape (ADR-207/TAU) + plan-estate governance | Inward delivery capability (maps to external goals per the settled 2026-06-20 alignment rationale) | candidate |
 | 5 | `capabilities` | Vision §Building capabilities → knowledge-as-graphs + the Oak Innovation Kit (strategy README, owner-named 2026-07-02; fourth-stream decision OPEN) | Both, via reuse | candidate, carrying the open fourth-stream decision as its promotion question |
@@ -133,7 +133,8 @@ instance of why lane assignment reads the file, never the collection name.
 `plans/README.md` index, and `milestones/**` (estate-level milestone
 surfaces — an inventory area of their own in the 30-area ledger) all map
 to the ESTATE ROADMAP, not to any lane; sampled files from those areas
-are expected `re-home-by-function` or estate-surface outcomes and carry
+receive the explicit `estate-roadmap-surface` verdict (the closed
+list's non-lane estate value — companion design §Task shape) and carry
 no lane expected-reach. Root `proposals/*` files map per the coverage
 rows above.
 
@@ -159,7 +160,15 @@ proposals for Walk A to set or adjust:
    `architecture-and-infrastructure` reassignment and is superseded by
    the recomputation; every seed lane's floor remains ≥5), so two
    implementations compute the same verdict from the same two committed
-   sources.
+   sources. The recomputation rule, exactly: a sampled file counts toward
+   a lane iff its collection names that lane in the coverage table; split
+   (†) collections count toward EVERY lane their row names;
+   `conservatory`'s expected reach counts ONLY its explicitly named
+   collections (the "anything the pilot cannot place" clause is an
+   assignment outcome, never reach); `estate-roadmap-surface` files count
+   toward no lane; `architecture-and-infrastructure` counts toward
+   `practice-and-governance` only (its product-scoped split resolves at
+   assignment time, not reach time).
 2. **Indistinct pair**: two lanes whose assignments co-occur inside the
    same source plan in >40% of the files touching either → grain too fine;
    merge candidate. (Prime candidate: `agentic-framework` vs
@@ -170,13 +179,16 @@ proposals for Walk A to set or adjust:
    `resolvedLane`) landing in `conservatory` → the seed misses a real
    lane; the holding lane is masking a taxonomy gap.
 4. **Concentrated disagreement**: 2-lens disagreement concentrated on one
-   SEED-LANE pair (>50% of the escalations whose `lanePair` holds two seed
-   lane values — pairs involving `re-home-by-function` or
-   `unassignable-to-seed` are counted separately as the
-   abstention-disagreement class and excluded from this denominator, since
-   they indicate placement uncertainty, not a lane-boundary defect) →
-   boundary definition defect; re-spec that boundary at Walk A rather than
-   trusting either lens.
+   SEED-LANE pair, aggregated as CANONICAL UNORDERED pairs (the two lane
+   ids sorted lexicographically, so (A,B) and (B,A) are one cell): >50% of
+   the escalations whose pair holds two seed lane values → boundary
+   definition defect; re-spec that boundary at Walk A rather than trusting
+   either lens. Pairs involving `unassignable-to-seed` are the
+   ABSTENTION-DISAGREEMENT class; pairs involving `re-home-by-function`
+   (a positive wrong-kind classification, not an abstention) are the
+   KIND-DISAGREEMENT class — both reported separately and excluded from
+   this denominator. Zero seed-to-seed escalations → the falsifier
+   evaluates NOT FIRED with denominator 0 disclosed; never divide.
 5. **Decomposition trigger** (`engineering-tools`): within-lane churn — if
    a majority of its assignments need a sub-lane qualifier to be usable by
    the assigning lens (recorded free-text), the SDK/SEARCH/GRAPH/EEF
