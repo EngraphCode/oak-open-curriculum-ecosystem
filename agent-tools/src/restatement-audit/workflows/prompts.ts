@@ -74,12 +74,21 @@ export function finderPrompt(window: PartitionWindow, gazetteer: Gazetteer): str
   ].join('\n');
 }
 
+/** The reducer's view of one residual instance: grounding PLUS the fields it groups by. */
+export interface ReducerViewInstance extends GroundingInstance {
+  readonly factClass: string;
+  readonly subject: string;
+  readonly predicate: string;
+}
+
 /** REDUCE — propose clusters among free-text-subject instances only; never a verdict. */
-export function reducerPrompt(freeTextInstances: readonly GroundingInstance[]): string {
+export function reducerPrompt(freeTextInstances: readonly ReducerViewInstance[]): string {
   return [
     'You are the REDUCE stage of a restatement-audit fleet. Below are finder instances whose subject did NOT match the gazetteer (free text) — the exact-key gazetteer matches are already clustered deterministically by code and are not shown here.',
     '',
     'Propose CLUSTERS: groups of instances that assert the SAME fact (the same real-world subject and the same predicate) using different subject wording. Only propose a cluster when you are confident the instances genuinely refer to the same thing — a cluster of unrelated instances is worse than no cluster.',
+    '',
+    'Every member of one cluster MUST share the SAME factClass — code rejects mixed-factClass proposals outright (no wording judgment can bridge a count and a status assertion).',
     '',
     'You NEVER emit a verdict, a conflict/latent label, or a count — code recomputes the verdict deterministically from the instances you group. Emit ONLY membership: for each proposed cluster, a temporary id and the list of instance ids you believe share one fact.',
     '',

@@ -29,17 +29,17 @@ import {
 import type { Cluster, FinderInstance } from '../schemas.js';
 import { AGENT_JSON_SCHEMAS } from './agent-schemas.js';
 import type { ClusterStageOutput } from './agent-schemas.js';
-import { reducerPrompt } from './prompts.js';
+import { reducerPrompt, type ReducerViewInstance } from './prompts.js';
 import { RUN_DATA, RUN_DATA_STAGE } from './run-data.js';
 import { isReduceRunData, unseededRunDataError } from './stage-guards.js';
-import type { GroundingInstance, ReduceResult } from './stage-io.js';
+import type { ReduceResult } from './stage-io.js';
 
 declare const agent: HarnessAgent;
 declare const parallel: HarnessParallel;
 declare const phase: HarnessPhase;
 declare const log: HarnessLog;
 
-function toGrounding(instances: readonly FinderInstance[]): GroundingInstance[] {
+function toReducerView(instances: readonly FinderInstance[]): ReducerViewInstance[] {
   return instances.map((i) => ({
     id: i.id,
     file: i.file,
@@ -47,6 +47,11 @@ function toGrounding(instances: readonly FinderInstance[]): GroundingInstance[] 
     quote: i.quote,
     valueNorm: i.valueNorm,
     assertionKind: i.assertionKind,
+    // The grouping keys the recount enforces — the reducer cannot honour a
+    // factClass-homogeneity rule it cannot see (review-round finding).
+    factClass: i.factClass,
+    subject: i.subject,
+    predicate: i.predicate,
   }));
 }
 
@@ -54,7 +59,7 @@ async function reduceChunk(
   chunkIndex: number,
   chunk: readonly FinderInstance[],
 ): Promise<ClusterStageOutput | null> {
-  return agent<ClusterStageOutput>(reducerPrompt(toGrounding(chunk)), {
+  return agent<ClusterStageOutput>(reducerPrompt(toReducerView(chunk)), {
     label: `reduce:${chunkIndex}`,
     phase: 'reduce',
     model: 'opus',

@@ -79,7 +79,7 @@ describe('finderPrompt', () => {
 });
 
 describe('reducerPrompt', () => {
-  const instances: GroundingInstance[] = [
+  const instances = [
     {
       id: 'f1',
       file: 'a.md',
@@ -87,8 +87,11 @@ describe('reducerPrompt', () => {
       quote: 'seven lanes',
       valueNorm: '7',
       assertionKind: 'authored',
+      factClass: 'count',
+      subject: 'lane-seed',
+      predicate: 'member-count',
     },
-  ];
+  ] as const;
   const prompt = reducerPrompt(instances);
 
   it('never asks for a verdict, only membership', () => {
@@ -97,6 +100,11 @@ describe('reducerPrompt', () => {
 
   it('inlines the supplied instances', () => {
     expect(prompt).toContain('seven lanes');
+  });
+
+  it('carries the factClass-homogeneity rule and the factClass field the reducer groups by', () => {
+    expect(prompt).toContain('MUST share the SAME factClass');
+    expect(prompt).toContain('"factClass":"count"');
   });
 });
 
