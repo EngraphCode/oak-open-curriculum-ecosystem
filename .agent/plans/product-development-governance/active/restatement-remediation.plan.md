@@ -1,9 +1,52 @@
 ---
+name: restatement-remediation
+overview: >-
+  Kill the authored-restatement-of-derivable-state error class across the doc
+  estate (the generator behind PR #390's eight review rounds), pin the cures
+  with prevention validators, and thereby open the settling gate for
+  plan-corpus-refounding. The evidence-grade fleet substrate is a by-product,
+  never the goal.
 lineage:
   serves_thread: strategy-and-plan-estate-holistic-review
   derives_from: >-
     PR #390 review-round evidence (8 rounds / ~38 findings, one generator) +
     the owner's remediation-before-the-push directive, 2026-07-16
+todos:
+  - id: d1-pr-lifecycle-hardening
+    content: >-
+      Land the pr-lifecycle skill amendments (round tally, step-back trigger,
+      review-round state machine, explicit-merge boundary) via their own PR,
+      shepherded under the discipline they add.
+    status: in_progress
+  - id: d2-restatement-audit-module-and-fleet
+    content: >-
+      Build the restatement-audit module (TDD, corpus-analysis substrate) and
+      run the T3+U audit fleet to a verified fix-ledger, under the v2 spec and
+      its dispatch conditions.
+    status: in_progress
+  - id: d2a-continuity-truth-pass
+    content: >-
+      True the durable coordination records to current reality, establish the
+      volatility layering (live values only in the claim's handoff record),
+      and re-home this plan in-repo.
+    status: in_progress
+  - id: v2-cycle
+    content: >-
+      Between module merge and any Job 2 dispatch: gazetteer/key v2 builds,
+      the F8 discriminating experiment, the re-pilot (all keyed rows +
+      negative-control battery), and the measured S3 cost/correctness pilot.
+    status: in_progress
+  - id: d3-cures-and-prevention
+    content: >-
+      Apply the fix-ledger cures + prevention v1 (row-envelope schema,
+      falsifier registry, gate-status validator, doctrine rule) in one PR,
+      validators red-then-green pinning the fixes.
+    status: pending
+  - id: freeze-recut-check
+    content: >-
+      After Deliverable 3 lands, run refound-verify-freeze +
+      refound-merge-recheck and rule the frozen-v2 recut per the freeze rule.
+    status: pending
 ---
 
 # PR-lifecycle hardening + restatement-audit fleet + prevention mechanisms
@@ -82,21 +125,21 @@ Lands as its own small docs PR, shepherded under the very discipline it adds.
 
 ## Deliverable 2 — the restatement-audit fleet (T3)
 
-> **STATUS 2026-07-16: the v1 fleet design below is SUPERSEDED-PENDING-V2 — do not
-> dispatch from it.** The canary pilot FAILED its acceptance gate (1/8 rows clean; the
-> corrected, adversarially-verified scorecard is the napkin entry "Owner-directed
-> re-assessment of the canary pilot" + comms events 4e96399f/c8c3f819/873028bb) and Job 2
-> is HALTED on spend arithmetic (S3 at borrowed voter costs alone breaches the 6M
-> ceiling; the measured S3 cost pilot is decision-critical). The v2 spec (Director task;
-> lands on PR #393 + the ARC channel + this file) supersedes: the finder decision
-> procedure, the S1 haiku calibration gate (incoherent under measured subject
-> divergence), the canary key (needs SHA-pinned versioning + deterministic preflight + a
-> negative-control battery across all four assertionKinds + group-(h) rows), the
-> gazetteer (needs alias/canonicalisation structure — measured join failure: 43
-> predicates over 62 instances), and the P12 arithmetic. The module (PR #393) and the
-> stage SHAPE below remain sound. **The v2 spec is DRAFTED (2026-07-16):
-> `.agent/reports/restatement-audit/v2-spec.v1.md` — binds after the compound-pair
-> refutation pass.**
+> **The v1 fleet design below is SUPERSEDED (2026-07-16) — do not dispatch from it;
+> the binding replacement is
+> [`v2-spec.v1.md`](../../../reports/restatement-audit/v2-spec.v1.md) (its FOLD blocks
+> authoritative).** The measured basis (stable): the canary pilot FAILED its acceptance
+> gate at 1/8 rows clean (the corrected, adversarially-verified scorecard is the napkin
+> entry "Owner-directed re-assessment of the canary pilot" + comms events
+> 4e96399f/c8c3f819/873028bb), and S3 at borrowed voter costs alone breached the 6M
+> ceiling — the measured S3 cost pilot is decision-critical. The v2 spec supersedes:
+> the finder decision procedure, the S1 haiku calibration gate (incoherent under
+> measured subject divergence), the canary key (SHA-pinned versioning + deterministic
+> preflight + a negative-control battery across all four assertionKinds + group-(h)
+> rows), the gazetteer (alias/canonicalisation structure — measured join failure: 43
+> predicates over 62 instances), and the P12 arithmetic. The module and the stage SHAPE
+> below remain sound. Job 2's dispatch conditions are named in the spec (§9) and their
+> CURRENT state lives in the Director claim's handoff record, never here.
 
 Reuses the proven corpus-analysis substrate; **no new agent templates** (the four `corpus-*`
 agentTypes carry capability envelopes; task instructions ride the dispatch prompts).
@@ -162,7 +205,7 @@ ledger histogram shows ≥2 recurring fact classes with no data home.
 
 ## Sequencing
 
-1. Skill amendments PR (#392, open) — plus the round-2 fix set (four designed cures in the
+1. Skill amendments PR (#392) — plus the round-2 fix set (four designed cures in the
    compaction record §3) — governs #391's merge and every PR after.
 2. `restatement-audit` module (Vole Job 1) + the T3+U run (Vole Job 2, amended corpus +
    ceiling) lands the ledger. Director inputs delivered; corpus amendment event sent.
@@ -193,7 +236,7 @@ ledger histogram shows ≥2 recurring fact classes with no data home.
 4. PR #391: DONE — merged 2026-07-16 ahead of item 1's PR landing, as the ratified
    "Independent of 1–3" allows; the new discipline was applied manually (round-owed gate
    recomputed on the tip: Copilot bound, 0 unresolved, >2h quiet) since #392 is still open
-   (merge commit `eca8fb2d6`, merge method, admin bypass; corrected diagnosis
+   (merge commit `SHA:eca8fb2d6`, merge method, admin bypass; corrected diagnosis
    2026-07-16: the permanent blocker is the required "SonarCloud Code Analysis" status
    context, which nothing posts on ANY commit — docs tips, code tips, or main — so
    auto-merge can never fire repo-wide and every merge has been riding admin bypass;

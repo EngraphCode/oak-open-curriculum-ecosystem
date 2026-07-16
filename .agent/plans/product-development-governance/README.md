@@ -70,6 +70,14 @@ controlling plan and thread record hold the detail.
   before acting. The owner was in the originating conversation, which does not make
   the analysis correct.
 
+## Lifecycle lanes
+
+- **Active (in execution)**: [active/README.md](active/README.md) — currently
+  [plan-corpus-refounding](active/plan-corpus-refounding.plan.md) and
+  [restatement-remediation](active/restatement-remediation.plan.md).
+- **Queued**: [current/](current/)
+- **Future backlog**: [future/](future/)
+
 ## Notes
 
 - The suggestion documents contain internal path references that **predate this
