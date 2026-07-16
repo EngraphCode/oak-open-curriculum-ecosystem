@@ -1,9 +1,9 @@
 # Queued Plans — Product-Development Governance
 
-Queued, executable, **not yet started** plans for this collection
-(`current/` = NEXT per the [plans lifecycle contract](../../README.md)).
-Move a plan to [`../active/`](../active/README.md) before execution
-starts, updating both indexes.
+The `current/` lane index for this collection. Lane semantics and the
+movement discipline live in the
+[plans lifecycle contract](../../README.md), not here — this index
+records contents only.
 
 ## Plans
 

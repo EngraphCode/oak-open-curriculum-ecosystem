@@ -1,8 +1,9 @@
 # Future Plans — Product-Development Governance
 
-Deferred plans for this collection (`future/` = LATER; the promotion
-discipline lives in the [plans lifecycle contract](../../README.md) and is
-not restated here).
+The `future/` lane index for this collection. Lane semantics and the
+promotion discipline live in the
+[plans lifecycle contract](../../README.md), not here — this index
+records contents only.
 
 ## Plans
 
@@ -10,11 +11,9 @@ not restated here).
 | --- | --- |
 | [external-evidence-integration.plan.md](external-evidence-integration.plan.md) | Connect the idea knowledge-graph to external systems as evidence sources (ADR-201, serving the FRAME strategic choice). |
 
-Note: the resident plan predates this index and declares `kind: executable`
-while sitting in the LATER lane; that tension is recorded here as found —
-reconciling plan kinds with lifecycle lanes is
-[planning-estate-rewrite](../current/planning-estate-rewrite.plan.md) work,
-not something this index silently normalises.
+Note: reconciling resident plans' `kind` and placement with the lifecycle
+contract is queued
+[planning-estate-rewrite](../current/planning-estate-rewrite.plan.md) work.
 
 ## Related
 
