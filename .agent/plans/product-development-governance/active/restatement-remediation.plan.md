@@ -49,13 +49,17 @@ todos:
     content: >-
       Apply the fix-ledger cures + prevention v1 (row-envelope schema,
       falsifier registry, gate-status validator, doctrine rule) in one PR,
-      validators red-then-green pinning the fixes.
+      validators red-then-green pinning the fixes; carries the
+      continuity-instrument contract amendments and the director-handoff
+      current-state extraction assigned to Deliverable 3 in the body.
     status: pending
+    depends_on: [d2-fleet-run]
   - id: freeze-recut-check
     content: >-
       After Deliverable 3 lands, run refound-verify-freeze +
       refound-merge-recheck and rule the frozen-v2 recut per the freeze rule.
     status: pending
+    depends_on: [d3-cures-and-prevention]
 ---
 
 # PR-lifecycle hardening + restatement-audit fleet + prevention mechanisms
@@ -119,7 +123,7 @@ every expected reviewer's latest review to the current tip before merge-ready; t
 compound watch floor including that tip-binding read; an explicit-merge-only boundary;
 and the PR #390 worked instance recorded in the skill's failure modes.
 
-## Deliverable 2 — the restatement-audit fleet (T3)
+## Deliverable 2 — the restatement-audit fleet (T3+U)
 
 > **The v1 fleet design below is SUPERSEDED (2026-07-16) — do not dispatch from it;
 > the binding replacement is
