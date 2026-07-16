@@ -19,7 +19,32 @@ clearly; never delete ideas. **Scope authority is the controlling plan**
 [`vision-strategy-and-plan-estate.plan.md`](../../../plans/product-development-governance/vision-strategy-and-plan-estate.plan.md),
 reconceived to this model 2026-06-18. This record is the **pickup surface**, not scope authority.
 
-## Where We Are (2026-07-15 afternoon — S1 deterministic slice MERGED; full S1 OPEN)
+## Where We Are (2026-07-16, Mussel rides Coral 6f8857 sitting Director — RESTATEMENT-REMEDIATION GATE ACTIVE; refounding lanes resume at the cures-landed gate)
+
+The r2 landing exposed the estate's dominant defect class, and the owner redirected the
+arc onto curing it before the big push. PR #390 (the r2 refounding protocol docs) took 8
+review rounds / ~38 Copilot findings traced to ONE generator — authored restatement of
+derivable state; #390 and #391 are MERGED (the r2 seed is on main). The owner-approved
+remediation plan (named in the Director current-state record below) has three
+deliverables: pr-lifecycle hardening (PR #392, round 2 in flight), the restatement-audit
+fleet (module on draft PR #393, expert review round 1 posted; the canary pilot FAILED its
+acceptance gate and Job 2 is HALTED behind named dispatch conditions — the v2 design
+cycle is running on measured evidence: precision 62/62, join fragility 43 predicates over
+62 instances), and prevention validators that pin the cures. Team Mango wound down to a
+COMPOUND PAIR (owner-directed 2026-07-16): Director Mussel rides Coral (6f8857) +
+implementer Vole hunts Perch (36c6ca) as mutual adversarial checkers via the ARC channel.
+Merges are OWNER-EXECUTED while the SonarCloud required-context outage lasts. The
+refounding lanes (S1 17-window re-dispatch, dispatcher brief staged; r2 pilot evidence
+pass, anchored on the merged seed) RESUME AT A NAMED GATE: the remediation cures landed
+(Deliverable 3) + the freeze-recut check ruled (guiding plan Sequencing 5) — then the
+owner sequences the big push.
+
+**Pickup**: the Director claim's `handoff_record_path` →
+`.agent/state/collaboration/handoffs/2026-07-16-director-current-state-mussel-6f8857.md`
+(untracked-by-design; read end-to-end first — it names the guiding plan, the halt
+conditions, and the queue); then the napkin's 2026-07-16 entries; then sweep comms.
+
+## Where We Were (2026-07-15 afternoon — S1 deterministic slice MERGED; full S1 OPEN)
 
 **S0 is CLOSED and merged**: PR #379 (`SHA:68d6d232`, release 1.69.1) landed the 681-file
 frozen conservation commit; orphan-recovery PR #380 merged at `SHA:55a69ceca`. **The S1
@@ -531,7 +556,8 @@ loss-scan):
 | Barnacle calls Spray | claude-code | claude-fable-5 | 6d5d9c | Director (Moment-2 2026-07-14T20:42:46Z) — executed S0 (re-cut branch on owner instruction to include PR #378 arrivals, froze 681 files, PR #379 merged `SHA:68d6d232`, window CLOSE broadcast), landed the S0 orphan-recovery (PR #380, merged 2026-07-15T11:20:45Z post-closeout); routed Stoat holds Warren's S1 fleet-captain remit (scripts-first, calibration-gated fleet-dispatch discipline per P3); retired at seat-open-to-Schooner, full loss-scan in the 2026-07-15 napkin entry | 2026-07-14 | 2026-07-15 |
 | Stoat holds Warren | claude-code | claude-fable-5 | 2a69a1 | Fleet Captain (owner-designated, Director-routed) — RETIRED by owner instruction (unreliable behaviour) before any S1 script ran; the retirement was a contained tool-contract mistake (a `--help` probe executed `refound-sweep` for real, writing a stray artefact — see the 2026-07-15 napkin entry), not corrupted work-product; zero commits, S1 returns unstarted | 2026-07-15 | 2026-07-15 |
 | Schooner guards Whirlpool | claude-code | claude-fable-5 | 82a9df | Director (Moment-2 2026-07-15T12:04:35Z, event `35076b29`, claim `0f4be777` adopted) — caught the registry/comms heartbeat divergence at arrival; corrected the handoff record's superseded PR-#380/S1 claims first-hand at pickup; PR #381 thread fixes; routed the S1 layers (Zodiac deterministic, Hedgehog fleet-in-waiting); ruled the compact-evidence PR shape (#382); ran the owner-ruled residue disposition sweep (4 stashes + 47 local + 11 remote branches cleared, proof-gated); authored the batched continuity landing | 2026-07-15 | 2026-07-15 |
-| Mussel rides Coral | claude-code | claude-fable-5 | 6f8857 | Director successor — live claim `0f4be777` adopted from Schooner; current custody of plan-corpus refounding, PR #382's deterministic-slice handoff, and the still-open reader/fleet residual | 2026-07-15 | 2026-07-15 |
+| Mussel rides Coral | claude-code | claude-fable-5 | 6f8857 | Director successor — live claim `0f4be777` adopted from Schooner; drove the #390 8-round lesson into the restatement-remediation gate (plan + pr-lifecycle hardening + audit fleet); compound pair with Vole (owner-directed); refounding lanes resume at the cures-landed + freeze-recut gate | 2026-07-15 | 2026-07-16 |
+| Vole hunts Perch | claude | claude-fable-5 | 36c6ca | restatement-audit seat, team Mango (claim `1fcfeb3e`): module built TDD (draft PR #393, 123 tests); canary pilot run + gate-FAIL verdict; 18-agent adversarial re-assessment correcting its own read-out; precision 62/62 measured; compound-pair adversarial checker to the Director | 2026-07-16 | 2026-07-16 |
 | Zodiac turns Solstice | codex | GPT-5 | 019f65 | Implementer (owner-joined, no subagent fleets) — r1-S1 deterministic layer, claim `124399ce`: fresh-worktree script run (verify-freeze 681/681, inventory, residue 77 candidates, sweep 3,514 hits/523 files), P4 calibration with the honest marker-free-blindness disclosure, twice-run byte-identical artefacts, full `pnpm check` green; compact-evidence PR #382 authored and landed (`SHA:de3cc54c1`); the 49MB conservation commit `SHA:42b27e3eb` held local-only pending post-merge regeneration re-verify | 2026-07-15 | 2026-07-15 |
 | Hedgehog tracks Eventide | claude | fable-5 | 82b36c | Fleet Captain (owner-assigned) — grounded on plan P3/P4/P12, the S1 remit, and Stoat's tool-contract traps; owner-directed cold pause, then warm-resumed ~14:27Z; now RUNNING the signed `s1-reader-sample-b1` reader-sample batch under claim `45befb32` (declaration signed by Director Mussel, dispatch gated on the sealed canary key) | 2026-07-15 | 2026-07-15 |
 | Baobab lifts Topsoil | claude-code | claude-opus-4-8 | 3be248 | surveyor-synthesist | 2026-06-15 | 2026-06-15 |
