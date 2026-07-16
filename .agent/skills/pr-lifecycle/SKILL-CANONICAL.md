@@ -136,8 +136,11 @@ select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
 ## Phase 5 — Wait without burning budget: the SUPERVISED terminal-condition watch
 
 - **Every PR-state read STARTS from the compound query** —
-  `mergeStateStatus` + unresolved `reviewThreads` count + `statusCheckRollup`,
-  in ONE call. This is a floor, not a ceiling: the Phase 3 harvest and the
+  `mergeStateStatus` + unresolved `reviewThreads` count +
+  `statusCheckRollup` + the reviewer tip-binding read
+  (`reviews(last:20){nodes{author{login} commit{oid} state submittedAt}}`),
+  in ONE call (the fourth leg added 2026-07-16, PR #390 — see Phase 7's
+  round-owed gate). This is a floor, not a ceiling: the Phase 3 harvest and the
   pr-watch poll are consumers and refinements of the same compound state —
   what is forbidden is reading any SINGLE field in isolation to answer a
   question, however narrow the prompting signal (owner correction, ~50th
@@ -200,8 +203,18 @@ select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
   (>10 min; 12 used on #330)**; declare merge-ready only after that settled
   round lands zero new findings. Bundle every finding from one round into
   ONE fix push (each push mints a fresh round; per-finding pushes multiply
-  rounds without bound). Expect convergence as severity decay across rounds
-  — a round that stops decaying is a signal to step back, not push faster.
+  rounds without bound). **Keep the numeric round tally** (owner correction,
+  2026-07-16, PR #390: 8 rounds / ~38 findings ran unnoticed as
+  non-convergence because nothing counted): after every push record
+  `{tip SHA, count of NEW review threads since the previous round}`.
+  Convergence is that count strictly decreasing. **The step-back trigger is
+  mechanical — 2 consecutive non-decreasing rounds OR 4 total rounds: STOP
+  fix-pushing.** Step back and run concept exploration over the FULL finding
+  corpus for the shared generator; fix the CLASS in one pass, and consider
+  splitting the PR (on #390 the generator was authored restatement of
+  derivable state — instance-by-instance fixes added prose that spawned the
+  next round). Severity decay remains the qualitative check; the tally is
+  what makes its absence visible.
   At owner-active tempo the discipline tightens: the owner may merge or push
   mid-arc, so EVERY binding moment recomputes the compound state (Phase 5) —
   a live watch beats any probe cadence.
@@ -218,7 +231,16 @@ select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
 
 Merge-ready means, re-verified at the declaration instant: all checks green
 AND zero unresolved review threads AND the Sonar quality gate passing AND any
-genuinely required review landed (the author-dependent leg below). Then:
+genuinely required review landed (the author-dependent leg below) AND **no
+review round is owed to the current tip** (owner correction, 2026-07-16,
+PR #390: the merge raced a composing Copilot round, which then posted five
+findings onto merged code). A round is OWED when any bot reviewer that has
+previously reviewed this PR has its latest review bound to an OLDER commit
+than the tip and has posted no explicit skip marker for the tip — read it
+from the compound query's `reviews` leg (latest per author vs `headRefOid`).
+Owed = do not merge, regardless of green checks and zero unresolved threads;
+the >10-minute quiet window runs from the round BINDING to the tip, not from
+the push. Then:
 
 - **`mergeable` means POSSIBLE to merge; it does NOT mean READY to merge**
   (owner, 2026-07-08). GitHub's `mergeable: MERGEABLE` asserts only
@@ -346,3 +368,9 @@ update continuity surfaces; close claims.
 - A Sonar gate treated as an opaque red badge instead of an issue list to fix
   at source.
 - Tight `gh` polling loops in place of the budgeted watcher.
+- A merge fired between "zero unresolved verified" and a composing bot
+  round binding to the tip (PR #390, 2026-07-16) — cured by the Phase 7
+  round-owed gate.
+- Eight fix-rounds shepherded one-by-one with no per-round tally, so
+  non-convergence never surfaced as a signal (PR #390) — cured by the
+  Phase 6 numeric tally + step-back trigger.
