@@ -17,25 +17,25 @@ todos:
       Land the pr-lifecycle skill amendments (round tally, step-back trigger,
       review-round state machine, explicit-merge boundary) via their own PR,
       shepherded under the discipline they add.
-    status: in_progress
+    status: pending
   - id: d2-restatement-audit-module-and-fleet
     content: >-
       Build the restatement-audit module (TDD, corpus-analysis substrate) and
       run the T3+U audit fleet to a verified fix-ledger, under the v2 spec and
       its dispatch conditions.
-    status: in_progress
+    status: pending
   - id: d2a-continuity-truth-pass
     content: >-
       True the durable coordination records to current reality, establish the
       volatility layering (live values only in the claim's handoff record),
       and re-home this plan in-repo.
-    status: in_progress
+    status: pending
   - id: v2-cycle
     content: >-
       Between module merge and any Job 2 dispatch: gazetteer/key v2 builds,
       the F8 discriminating experiment, the re-pilot (all keyed rows +
       negative-control battery), and the measured S3 cost/correctness pilot.
-    status: in_progress
+    status: pending
   - id: d3-cures-and-prevention
     content: >-
       Apply the fix-ledger cures + prevention v1 (row-envelope schema,
@@ -76,7 +76,7 @@ the owner.
 PR #390 (the r2 refounding protocol docs) took **8 review rounds / ~38 Copilot findings**, and
 the merge raced a composing review round. Concept-exploration over the full finding corpus
 identified one generator — **authored restatement of derivable state** — in three classes:
-(1) workflow/authorization status restated across documents → staleness; (2) closed sets /
+(1) workflow/authorisation status restated across documents → staleness; (2) closed sets /
 populations / denominators restated in prose at every mention → local patches mint
 contradictions; (3) shared facts copied across sibling documents → one change invalidates the
 rest. The only artefact untouched across all rounds was the *generated* one (the sample
@@ -135,7 +135,7 @@ Lands as its own small docs PR, shepherded under the very discipline it adds.
 > ceiling — the measured S3 cost pilot is decision-critical. The v2 spec supersedes:
 > the finder decision procedure, the S1 haiku calibration gate (incoherent under
 > measured subject divergence), the canary key (SHA-pinned versioning + deterministic
-> preflight + a negative-control battery across all four assertionKinds + group-(h)
+> preflight + a negative-control battery across the four non-authored assertionKinds + group-(h)
 > rows), the gazetteer (alias/canonicalisation structure — measured join failure: 43
 > predicates over 62 instances), and the P12 arithmetic. The module and the stage SHAPE
 > below remain sound. Job 2's dispatch conditions are named in the spec (§9) and their
@@ -200,7 +200,7 @@ applied from the verified ledger via PR(s) with the prevention validators pinnin
 | e | Doctrine rule naming the anti-pattern, three classes, cure menu | `.agent/rules/single-source-shared-facts.md` + the four on-disk forms (`.claude/rules/`, `.cursor/rules/*.mdc`, `RULES_INDEX.md` row) | `validators-must-recompute-not-just-record.md` |
 
 Wiring: scripts in `agent-tools/package.json` + chained into `docs-validators:check` (root
-`package.json:39`). **(d) generalized declared-fact registry: DEFERRED** — build only if the
+`package.json:39`). **(d) generalised declared-fact registry: DEFERRED** — build only if the
 ledger histogram shows ≥2 recurring fact classes with no data home.
 
 ## Sequencing
@@ -254,8 +254,11 @@ ledger histogram shows ≥2 recurring fact classes with no data home.
 
 - Skill PR: its own shepherd runs the new tally + reviewer-state gate (first worked
   instance); merged at truly-green under them.
-- Audit module: `pnpm check` green (join/normalize unit-tested); canary gate 8/8 +
-  register-row negative control before any ledger row is trusted.
+- Audit module: `pnpm check` green (join/normalize unit-tested); the two-level v2
+  acceptance gate — map-recall over the v2 keyed rows plus the text-vs-text
+  pipeline-integrity gate — passes per its binding definition in
+  [`v2-spec.v1.md`](../../../reports/restatement-audit/v2-spec.v1.md) (§3) before any
+  ledger row is trusted.
 - Prevention validators: each demonstrates red on a synthetic drift fixture and green on the
   repaired tree; `docs-validators:check` green in the fix PR; unit tests per validator.
 - Fleet run health: completeness check on zero-instance windows; gazetteer-miss rate <40%;
@@ -266,6 +269,6 @@ ledger histogram shows ≥2 recurring fact classes with no data home.
 - No fleet launches from existing sessions (the audit seat cure); my session does code/doc
   edits and PRs only.
 - The classifier may gate individual actions in my session; per the routing rule each gets
-  one attempt and a verbatim surface — plan approval is the authorization context for the
+  one attempt and a verbatim surface — plan approval is the authorisation context for the
   edits named here.
 - Handoff/coordination records stay untracked; no handover commits.
