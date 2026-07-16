@@ -26,12 +26,13 @@ arc onto curing it before the big push. PR #390 (the r2 refounding protocol docs
 review rounds / ~38 Copilot findings traced to ONE generator — authored restatement of
 derivable state; #390 and #391 are MERGED (the r2 seed is on main). The owner-approved
 remediation plan (named in the Director current-state record below) has three
-deliverables: pr-lifecycle hardening (PR #392, round 2 in flight), the restatement-audit
-fleet (module on draft PR #393, expert review round 1 posted; the canary pilot FAILED its
+deliverables: pr-lifecycle hardening (PR #392, in review), the restatement-audit
+fleet (module on draft PR #393, in expert review; the canary pilot FAILED its
 acceptance gate and Job 2 is HALTED behind named dispatch conditions — the v2 design
 cycle is running on measured evidence: grounding fidelity 62/62 with classification
 precision unmeasured, join fragility 43 predicates over 62 instances), and prevention
-validators that pin the cures. Team Mango wound down to a
+validators that pin the cures. Per-PR round state is transient — read it from the live
+handoff record and the PRs themselves, never from this section. Team Mango wound down to a
 COMPOUND PAIR (owner-directed 2026-07-16): Director Mussel rides Coral (6f8857) +
 implementer Vole hunts Perch (36c6ca) as mutual adversarial checkers via the ARC channel.
 Merges are OWNER-EXECUTED while the SonarCloud required-context outage lasts. The

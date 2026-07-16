@@ -1252,6 +1252,7 @@ agent entry points; and the local Codex, Claude, Cursor, and Gemini plan/memory 
   before repository landing: scoped evidence green, aggregate gate owner-cancelled, no hidden
   completion claim.
 
+<!-- fitness exceeded by 1867 lines; needs consolidation -->
 ## 2026-07-15 — Alder seeks Spore (4ab448), team Satsuma: S2 seat pickup + PR #386/#388 shepherd
 
 - **Surface**: `pr-lifecycle` Phase-5 supervised watch. **Signal**: new failure mode (mine),
