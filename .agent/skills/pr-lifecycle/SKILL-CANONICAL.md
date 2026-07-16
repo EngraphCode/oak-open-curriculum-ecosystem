@@ -162,7 +162,13 @@ select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
 - Run the repo's budgeted watcher in the background:
   `pnpm agent-tools:pr-watch <n> --watch --interval 60` — one line per state
   change, including new comments by author and the unresolved review-thread
-  count moving in EITHER direction. Passing checks alone are not green — an
+  count moving in EITHER direction. KNOWN SUBSET: pr-watch currently reads
+  PR-view fields, REST review comments, and thread counts — not review
+  bodies or `latestReviews` — so a summary-only review does NOT change its
+  snapshot. Treat its events as wake signals only, never as the state; the
+  Phase 3 harvest is the authoritative read on every wake, and extending
+  pr-watch to the full compound floor is a named item in the state-machine
+  mechanisation lane. Passing checks alone are not green — an
   unresolved thread blocks merge-readiness just as hard. The Phase 3 GraphQL
   harvest remains the authoritative read for which threads and what they say.
 - **Know the watcher's designed hole: it also ENDS on ALL-GREEN.** Comments
@@ -217,7 +223,16 @@ as phase-local restatements.
    observation, 2026-07-16). For this to be reproducible the Phase 3
    harvest RETAINS each review's own `commit.oid` alongside its body
    (Phase 3 surface 2), so body findings bucket by commit exactly as
-   thread findings do. NEVER derive the
+   thread findings do. ONE LOGICAL FINDING COUNTS ONCE: a body finding
+   that restates a finding already represented by an inline thread of the
+   same review does not add to the tally — dedupe within the review by
+   anchor and substance, recording the dedup in the working notes where
+   exercised. A finding whose review binds to an ALREADY-SETTLED round's
+   tip AMENDS that round's row (the tally records truth, not the order of
+   discovery); the settled round does not reopen — the late finding is
+   worked as current-round work — and the trigger arms evaluate the
+   amended history only from the CURRENT round forward, never
+   retroactively re-firing over past rounds. NEVER derive the
    tally from `latestReviews` (item 1: rows vanish), and NEVER bucket by
    arrival order: reviews bind to the tip they reviewed, and a review bound
    to an older tip can land after a newer push (round-2 correction,
@@ -225,14 +240,18 @@ as phase-local restatements.
    was pushed; arrival-order tallying charges findings to the wrong round
    and can falsely trigger, or mask, non-convergence). Convergence is the
    per-round count strictly decreasing. **The step-back trigger is
-   mechanical — 2 consecutive non-decreasing rounds OR 4 total rounds —
-   and EITHER ARM FIRES ONLY WHILE the latest settled round's count is
+   mechanical, with the exact predicate `c[n] >= c[n-1] AND
+   c[n-1] >= c[n-2]` (two consecutive non-decreasing transitions across
+   three settled counts) OR 4 total settled rounds in the epoch — and
+   EITHER ARM FIRES ONLY WHILE the latest settled round's count is
    non-zero**: a zero-finding settled round is the terminal SUCCESS state
    and takes precedence (3→2→1→0 is convergence completing, not a
    step-back; without this precedence a fourth settled round could read
    merge-ready and step-back-mandatory at once) (owner correction,
    2026-07-16, PR #390: 8 rounds / ~38 findings ran
-   unnoticed as non-convergence because nothing counted). The class-fix
+   unnoticed as non-convergence because nothing counted; predicate pinned
+   2026-07-16 after one shepherd applied two different readings in one
+   day). The class-fix
    push that answers a step-back OPENS A NEW CONVERGENCE EPOCH: the tally
    re-baselines at that push — round counting and both trigger arms restart
    within the epoch, and prior-epoch rounds stay recorded as history. A
@@ -398,8 +417,12 @@ one checks-green quiet window for any single reviewer. Then:
   still left an armed merge persisting across pushes, unblockable by a
   late cross-round body finding, and held only by GitHub-required
   contexts. The supervised watch can observe but not delay a scheduled
-  merge, so the only race-free shape is no schedule at all: recompute the
-  full gate, then merge explicitly). The command inherits the
+  merge, so no schedule at all is the NARROWEST window — not a race-free
+  one: an explicit merge after recomputation is still check-then-act,
+  review state can change between the read and the command, and GitHub
+  does not enforce the round-owed or body-finding legs. That residual race
+  is ACCEPTED and covered, never claimed away: Phase 8's post-merge
+  harvest is its named recovery). The command inherits the
   merge-authorisation boundary below unchanged (on a SELF-AUTHORED,
   sub-agent-reviewed PR with no in-session owner grant, broadcast
   merge-READY and leave the mechanism to the owner). A PR sitting unmerged
