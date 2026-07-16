@@ -103,8 +103,12 @@ Per sampled file, two INDEPENDENT lens agents, blind to each other:
 
 - **Lens A — derivation lens**: from the file's stated intent (frontmatter,
   lineage, opening framing): which seed lane does this plan SERVE? One value
-  from the closed list — the 7 seed lanes, `re-home-by-function`, or
-  `unassignable-to-seed` — no free text. `unassignable-to-seed` is the
+  from the closed list — the 7 seed lanes, `re-home-by-function`,
+  `unassignable-to-seed`, or `estate-roadmap-surface` — no free text.
+  `estate-roadmap-surface` is for estate-level index/milestone surfaces
+  (root `plans/README.md`, `milestones/**`, `high-level-plan.md`) that map
+  to the estate roadmap, not to any lane — the seed's coverage note names
+  them. `unassignable-to-seed` is the
   EXPLICIT abstention: the lens genuinely cannot place the file in any seed
   lane and says so with a warrant; its post-escalation share is what
   falsifier 6 (the global >20% re-derivation trigger) measures — without
@@ -125,7 +129,7 @@ Both lenses return schema-forced structured output:
 ```json
 {
   "file": "the exact path VERBATIM from sample-manifest.v1.json (the manifest includes milestones/**, proposals/**, collection-root READMEs, and nested paths — not only plans/<collection>/<lane>/<name>.md)",
-  "lane": "one of the 9 closed values: the 7 seed ids | re-home-by-function | unassignable-to-seed",
+  "lane": "one of the 10 closed values: the 7 seed ids | re-home-by-function | unassignable-to-seed | estate-roadmap-surface",
   "confidence": "high | medium | low",
   "warrant": "<=40-word quote-anchored justification",
   "splitFlag": false,
@@ -144,7 +148,12 @@ Every row in `lane-assignments.v1.jsonl` additionally carries the versioned
 row envelope: `"schemaVersion": "r2-lane-assignment.v1"` and
 `"rowKind": "lens-a" | "lens-b" | "escalation"`. Escalation rows carry the
 escalation-specific fields in place of the lens fields: `"lanePair"` (the
-two disagreeing lane values), `"resolvedLane"` (one of the 9 closed
+two disagreeing LENS values as a CANONICAL UNORDERED pair — sorted
+lexicographically, any of the 10 closed values; falsifier 4's
+boundary-defect statistic consumes only pairs where BOTH values are seed
+lanes, with unassignable-involving pairs reported as the
+abstention-disagreement class and re-home-involving pairs as the
+kind-disagreement class, per the seed's falsifier-4 definition), `"resolvedLane"` (one of the 10 closed
 values), and `"rationale"` (<=60 words). The dispatcher schema-validates
 the file against this envelope: EXACTLY one `lens-a` and one `lens-b` row
 per sampled file, plus exactly one `escalation` row for each file whose

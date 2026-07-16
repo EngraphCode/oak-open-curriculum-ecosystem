@@ -40,7 +40,7 @@ Top-down, three steps:
 | # | Lane (proposed id) | Derivation edge | Oak goal | Walk-A status proposed |
 | --- | --- | --- | --- | --- |
 | 1 | `mcp-app` | Vision part 1 (teachers) → stream MCP app → `APP-1..4`, K1–K3 | Teachers | candidate (pilot evidence indirect) |
-| 2 | `engineering-tools` | Vision part 1 (ecosystem) → stream engineering tools → `TOOLS-1..4` | Ecosystem | candidate; **pilot lane** (see pilot design) |
+| 2 | `engineering-tools` | Vision part 1 (ecosystem) → stream engineering tools → `TOOLS-1..4` | Ecosystem | **pilot lane**: proposed REGISTERED at Walk A if the pilot's measured evidence clears its falsifiers — the direct-evidence path the candidate/registered distinction exists for; falls back to candidate whenever the measured evidence is not in by the sitting OR does not clear every falsifier — failed evidence never leaves the row status-less |
 | 3 | `agentic-framework` | Vision part 2 (outward face) → stream agentic framework → `FRAME-2`, `FRAME-4` | Ecosystem | candidate |
 | 4 | `practice-and-governance` | Vision part 2 (inward face) → `FRAME-1`, `FRAME-3` + the strategy's measured-delivery shape (ADR-207/TAU) + plan-estate governance | Inward delivery capability (maps to external goals per the settled 2026-06-20 alignment rationale) | candidate |
 | 5 | `capabilities` | Vision §Building capabilities → knowledge-as-graphs + the Oak Innovation Kit (strategy README, owner-named 2026-07-02; fourth-stream decision OPEN) | Both, via reuse | candidate, carrying the open fourth-stream decision as its promotion question |
@@ -114,7 +114,7 @@ priors' judgement unit) rather than mapping whole:
 | Receiving lane | Collections (27 + proposals) |
 | --- | --- |
 | `mcp-app` | curriculum-mcp-path-to-ga, sdk-and-mcp-enhancements†, slack-assistants, user-experience†, telemetry-and-understanding† (product-telemetry content, per the worked correction below) |
-| `engineering-tools` | semantic-search, connecting-oak-resources, exploring-open-education-resources, school-data-search, sdk-and-mcp-enhancements†, upstream-feature-requests†, proposals/upstream-api-endpoint-additions, proposals/kg-ont-mcp-strat† |
+| `engineering-tools` | semantic-search, connecting-oak-resources, exploring-open-education-resources, school-data-search, sdk-and-mcp-enhancements†, upstream-feature-requests†, proposals/upstream-api-endpoint-additions, proposals/mcp-tool-parameter-metadata-enhancement, proposals/kg-ont-mcp-strat† |
 | `agentic-framework` | sector-engagement† (outward adoption face; its EEF-convening content splits to `engineering-tools` per TOOLS-3 and this document's own convening assignment), parts of agentic-engineering-enhancements† (outward-facing docs/exemplar) |
 | `practice-and-governance` | agent-tooling, agentic-engineering-enhancements†, architecture-and-infrastructure† (cross-cutting architecture/system-quality plans; product-scoped items split to their product lanes), product-development-governance, telemetry-and-understanding†, observability†, developer-experience, templates |
 | `capabilities` | curriculum-hub-demo, discovery†, proposals/kg-ont-mcp-strat† |
@@ -129,8 +129,14 @@ authoring (2026-07-15): its delivery plan carries
 first-hand, so the collection splits (product telemetry → `mcp-app`; the
 ADR-207 DORA/Practice projection → `practice-and-governance`) — a worked
 instance of why lane assignment reads the file, never the collection name.
-`high-level-plan.md` (an estate-level index, one status row) maps to
-the estate roadmap, not to any lane.
+`high-level-plan.md` (an estate-level index, one status row), the root
+`plans/README.md` index, and `milestones/**` (estate-level milestone
+surfaces — an inventory area of their own in the 30-area ledger) all map
+to the ESTATE ROADMAP, not to any lane; sampled files from those areas
+receive the explicit `estate-roadmap-surface` verdict (the closed
+list's non-lane estate value — companion design §Task shape) and carry
+no lane expected-reach. Root `proposals/*` files map per the coverage
+rows above.
 
 ## Falsifiers — what evidence would show a seed lane is wrong-grained
 
@@ -147,20 +153,42 @@ proposals for Walk A to set or adjust:
    parameters — because small collections feeding a lane contribute few
    files under the ceil-10%/min-2/cap-8 draw, and a low raw share can mean
    the SAMPLE under-reached the lane, not that the lane is speculative.
-   `expected_reach_files` is the lane's value in the manifest's
-   `expectedReach` block (every seed lane's floor is ≥5 by the S-B draw
-   parameters plus the compliance floor), so two implementations compute
-   the same verdict from the same manifest.
+   `expected_reach_files` is RECOMPUTED by the dispatcher at scoring time
+   from the manifest's strata and THIS document's final coverage table
+   (per the companion design §Sample design — the manifest's embedded
+   `expectedReach` block is a generation-time snapshot that predates the
+   `architecture-and-infrastructure` reassignment and is superseded by
+   the recomputation; every seed lane's floor remains ≥5), so two
+   implementations compute the same verdict from the same two committed
+   sources. The recomputation rule, exactly: a sampled file counts toward
+   a lane iff its collection names that lane in the coverage table; split
+   (†) collections count toward EVERY lane their row names;
+   `conservatory`'s expected reach counts ONLY its explicitly named
+   collections (the "anything the pilot cannot place" clause is an
+   assignment outcome, never reach); `estate-roadmap-surface` files count
+   toward no lane; `architecture-and-infrastructure` counts toward
+   `practice-and-governance` only (its product-scoped split resolves at
+   assignment time, not reach time).
 2. **Indistinct pair**: two lanes whose assignments co-occur inside the
    same source plan in >40% of the files touching either → grain too fine;
    merge candidate. (Prime candidate: `agentic-framework` vs
    `practice-and-governance` — if the two-face split cannot be assigned
    reliably at plan level, the seed re-merges them into one stream-lane.)
-3. **Holding-share**: >25% of sampled rows landing in `conservatory` → the
-   seed misses a real lane; the holding lane is masking a taxonomy gap.
+3. **Holding-share**: >25% of the 137 FINAL per-file verdicts (the same
+   population as falsifier 6: the agreed lane, else the escalation
+   `resolvedLane`) landing in `conservatory` → the seed misses a real
+   lane; the holding lane is masking a taxonomy gap.
 4. **Concentrated disagreement**: 2-lens disagreement concentrated on one
-   lane pair (>50% of all escalations) → boundary definition defect;
-   re-spec that boundary at Walk A rather than trusting either lens.
+   SEED-LANE pair, aggregated as CANONICAL UNORDERED pairs (the two lane
+   ids sorted lexicographically, so (A,B) and (B,A) are one cell): >50% of
+   the escalations whose pair holds two seed lane values → boundary
+   definition defect; re-spec that boundary at Walk A rather than trusting
+   either lens. Pairs involving `unassignable-to-seed` are the
+   ABSTENTION-DISAGREEMENT class; pairs involving `re-home-by-function`
+   (a positive wrong-kind classification, not an abstention) are the
+   KIND-DISAGREEMENT class — both reported separately and excluded from
+   this denominator. Zero seed-to-seed escalations → the falsifier
+   evaluates NOT FIRED with denominator 0 disclosed; never divide.
 5. **Decomposition trigger** (`engineering-tools`): within-lane churn — if
    a majority of its assignments need a sub-lane qualifier to be usable by
    the assigning lens (recorded free-text), the SDK/SEARCH/GRAPH/EEF
