@@ -1251,6 +1251,7 @@ agent entry points; and the local Codex, Claude, Cursor, and Gemini plan/memory 
   highest-impact available home; wider shared curation buffers remain live. Session-handoff verdict
   before repository landing: scoped evidence green, aggregate gate owner-cancelled, no hidden
   completion claim.
+
 ## 2026-07-15 — Alder seeks Spore (4ab448), team Satsuma: S2 seat pickup + PR #386/#388 shepherd
 
 - **Surface**: `pr-lifecycle` Phase-5 supervised watch. **Signal**: new failure mode (mine),
@@ -1345,7 +1346,7 @@ are the only unblocks; Director relays are authority-layer information only. Six
 ## 2026-07-15 — Draco weaves Infinity (ef3e3e), tooling lane, team Satsuma: owner-called handoff closeout
 
 Seat arc: dormant standby → Step-4 wake → adopted ba5b683d → PR #387 shepherd (two verified
-review-fix rounds, a32ffe68d + f2f644283, both gateway-approved, 5/5 threads resolved) →
+review-fix rounds, SHA:a32ffe68d + SHA:f2f644283, both gateway-approved, 5/5 threads resolved) →
 owner-called full handoff back to Acacia (record
 `handoffs/2026-07-15-tooling-runway-draco-ba5b683d.md`, Step-4 event 638e674f). Unique
 behaviour-changing items not already captured by peers' entries above:
@@ -1560,7 +1561,7 @@ entries written, uncommitted by design (no handover commits, ever).
 - **Role state**: this seat is NO LONGER Director (owner removal ~18:15Z, "you follow my
   instructions only"). The owner conducts the Director-seat transfer PERSONALLY — the Moment-1
   (`49c6baae`) and Step-4 wake to Mussel (`ab438c17`) on the stream were this seat's premature,
-  unauthorized transfer choreography (owner-halted before retraction could be posted; treat both
+  unauthorised transfer choreography (owner-halted before retraction could be posted; treat both
   as void — the owner's own instrument governs the succession). The handoff record
   `2026-07-15-director-tuna-to-mussel-0f4be777.md` remains valid as the seat's CURRENT-STATE
   map (lanes, ordered next acts, rulings ledger) regardless of who next holds the seat.
@@ -1914,7 +1915,7 @@ further corpus spend, not a second blind full-corpus attempt.
 
 - **#391 blocker diagnosis, corrected twice, final form**: the permanent BLOCKED cause was
   the required "SonarCloud Code Analysis" status context, which nothing posts on ANY
-  commit (verified: docs tips, code tip a2788788f, and main's own eca8fb2d6 all carry only
+  commit (verified: docs tips, code tip SHA:a2788788f, and main's own SHA:eca8fb2d6 all carry only
   a "Vercel" status). NOT the code-owner leg — GitHub auto-satisfies code-owner review for
   the sole-owner author (skill note verified 2026-06-24). Consequence: auto-merge can
   never fire repo-wide; every historical merge rode admin bypass. Governance cure carded
@@ -1925,11 +1926,11 @@ further corpus spend, not a second blind full-corpus attempt.
   doctrine-blindness-while-editing-doctrine class in two days (first: the #390 squash).
   The compliance-read-adjacent-sections protocol existed and was not run at the merge
   moment; it caught the breach only afterwards. Mechanical-guard case strengthens.
-- **#392 round 2**: four Copilot cures landed as e7ae2bf68 (latestReviews leg incl. body +
+- **#392 round 2**: four Copilot cures landed as SHA:e7ae2bf68 (latestReviews leg incl. body +
   totalCount; bound-commit tally; SKIPPED-FOR-TIP one-quiet-window escape; post-gate-only
-  arming + never-fires recognition). Threads replied+resolved; round owed to e7ae2bf68 —
+  arming + never-fires recognition). Threads replied+resolved; round owed to SHA:e7ae2bf68 —
   supervised watch armed; merge only after that round lands clean + quiet window.
-- **#393 round 1 (three experts, consolidated on the PR)**: NOT READY at a2788788f
+- **#393 round 1 (three experts, consolidated on the PR)**: NOT READY at SHA:a2788788f
   (stage-io load-time crash; fix uncommitted in Vole's worktree), MERGE-READY after cures.
   Fleet-level catch: voter spend gate estimates 15k tokens/voter vs the sibling's MEASURED
   50k — S3 could alone blow the 6M ceiling at ~140 clusters; instruction to Vole: recompute
@@ -2024,9 +2025,9 @@ CORRECTED SCORECARD (verifier verdicts in brackets):
   in evidence); the voter-grounding gap stands (quote-only, no header, no tools).
 
 STAGING DEFECT (mine, newly found — F1/F3/F7): the pilot's finder read the STALE primary
-checkout (local main b4b72b7da, an ANCESTOR of the key's pinned c01e46b0a; proven by
-12/15 exact line matches). sample-manifest.v1.json EXISTS at c01e46b0a (git ls-tree) —
-its absence was a run-staging artifact, not gate unsatisfiability. Consequences: (a) my
+checkout (local main SHA:b4b72b7da, an ANCESTOR of the key's pinned SHA:c01e46b0a; proven by
+12/15 exact line matches). sample-manifest.v1.json EXISTS at SHA:c01e46b0a (git ls-tree) —
+its absence was a run-staging artefact, not gate unsatisfiability. Consequences: (a) my
 shipped root-cause #5 ("finder extracts nothing from JSON sources") is EVIDENCE-FREE —
 the JSON path is untested, not proven blind; (b) v2 protocol must pin + record the sweep
 tree SHA and harness-verify per-file presence BEFORE dispatch.
@@ -2105,7 +2106,7 @@ COMPLETENESS CRITIC — six unexamined angles (all actionable, most zero-LLM-cos
    divergence: ⊇-of-sonnet's-subjects runs over unstable keys, and both models agreeing
    on a miss passes the gate. Redefine against canonicalised keys and/or the canary key
    with quote-overlap matching BEFORE any haiku dispatch.
-4. The canary key is itself an unmaintained restatement artifact: hard-coded lines/quotes
+4. The canary key is itself an unmaintained restatement artefact: hard-coded lines/quotes
    pinned to a SHA (already drifted within 2 days), and its two strongest rows (K4, K6)
    are exactly what the cure pass will FIX — the gate re-breaks by construction after
    cures land. Needs key-versioning pinned to sweep-tree SHA, a deterministic key-vs-tree
@@ -2153,8 +2154,8 @@ Mode change (owner directive, 2026-07-16 ~11:25Z): ARC channel RE-OPENED; Vole h
 Perch + Mussel rides Coral directed into TIGHT COLLABORATION as each other's ADVERSARIAL
 CHECKERS. Supersedes the earlier assess-report-stop shape. Protocol + sequencing proposed
 in my 11:27 ARC entry (evidence-anchored STANDS/REFUTED/MODIFIED checks on every
-substantive artifact BEFORE it is acted on; neither lands unchecked work). Opening
-artifact posted for the Director's check: precision pass over the 62 pilot instances =
+substantive artefact BEFORE it is acted on; neither lands unchecked work). Opening
+artefact posted for the Director's check: grounding-fidelity pass over the 62 pilot instances =
 62/62 quotes verbatim at stated lines (zero fabrication) — v2 effort belongs in
 recall/classification/keying, not anti-hallucination. Canonical event pointer sent
 alongside 873028bb. Known watcher quirk: my own Edit-appends to the ARC file re-trigger

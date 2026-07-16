@@ -279,10 +279,11 @@ first-hand as of 2026-06-25.
 > `.agent/state/collaboration/handoffs/2026-07-16-director-current-state-mussel-6f8857.md`
 > (untracked-by-design — read from the primary checkout's filesystem). It carries the
 > effort's purpose, the guiding-plan pointer, the live PR and halt state, the queue, and
-> the pickup protocol. One-line state at writing: PR #390's 8-round lesson → the
-> remediation plan (skill-hardening PR #392 in round; module PR #393 in review; audit
-> fleet Job 2 HALTED behind named dispatch conditions pending the v2 spec cycle); the
-> refounding lanes resume at the cures-landed + freeze-recut-check gate.
+> the pickup protocol. The effort's SHAPE (stable): cure the authored-restatement error
+> class — the generator behind PR #390's eight review rounds — and pin the cures with
+> prevention validators; the refounding lanes resume at the cures-landed +
+> freeze-recut-check gate. Every live value (PR states, halts, queue order) lives ONLY
+> in the pointed-to record.
 >
 > <details><summary>Superseded 2026-07-16: state at Moment-2 2026-07-15 (conserved)</summary>
 >
