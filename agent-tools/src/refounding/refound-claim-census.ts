@@ -11,7 +11,7 @@ import { decideCensusVerdict } from './refound-claim-census-report.js';
 import { runClaimCensus } from './refound-claim-census-helpers.js';
 import { entryUsageText, parseEntryArgs, prepareEntryRun } from './refound-entry-args.js';
 import { DEFAULT_OUT_DIR } from './refound-freeze-helpers.js';
-import { resolveReadPathWithinRepo } from './refound-path-resolve.js';
+import { resolveReadPathWithinRepo } from '../core/flag-path-resolve.js';
 
 /**
  * `refound-claim-census` — verbatim status-value and completion-keyword

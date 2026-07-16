@@ -22,7 +22,7 @@
 
 import { err, ok, type Result } from '@oaknational/result';
 
-import type { WorkflowMeta } from '../workflow-meta.js';
+import type { WorkflowMeta } from './workflow-meta.js';
 
 /** Single-character whitespace probe (linear scanning; no regex backtracking). */
 function isWhitespaceChar(character: string): boolean {

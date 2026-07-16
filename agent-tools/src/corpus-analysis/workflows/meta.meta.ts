@@ -5,7 +5,7 @@
  * @packageDocumentation
  */
 
-import type { WorkflowMeta } from './workflow-meta.js';
+import type { WorkflowMeta } from '../../workflow-build/workflow-meta.js';
 
 /** META stage descriptor. */
 export const meta = {

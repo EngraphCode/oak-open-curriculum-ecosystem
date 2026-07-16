@@ -9,7 +9,7 @@ import {
   nearestExistingAncestor,
   resolveReadPathWithinRepo,
   resolveWriteTargetWithinRepo,
-} from './refound-path-resolve.js';
+} from './flag-path-resolve.js';
 
 /**
  * Containment behaviours of the shared flag-path resolvers: read targets
@@ -27,7 +27,7 @@ afterEach(async () => {
 });
 
 async function makeRepoRoot(): Promise<string> {
-  const root = await mkdtemp(path.join(tmpdir(), 'refound-path-resolve-'));
+  const root = await mkdtemp(path.join(tmpdir(), 'flag-path-resolve-'));
   tempRoots.push(root);
   return root;
 }

@@ -47,7 +47,8 @@ import {
   parseValidateRunData,
 } from '../stage-io.js';
 import { metaRunDataFrom, reduceRunDataFrom, validateRunDataFrom } from '../run-inputs.js';
-import { buildStageArtefact, STAGE_DEFINITIONS, WORKFLOW_OUT_DIR } from './workflow-builder.js';
+import { buildStageArtefact } from '../../../workflow-build/workflow-builder.js';
+import { BUILD_CONFIG, STAGE_DEFINITIONS, WORKFLOW_OUT_DIR } from './build-config.js';
 
 interface CliFlags {
   readonly stage: string;
@@ -222,6 +223,7 @@ const resolved = await resolveRunData();
 
 if (resolved.ok) {
   const artefact = await buildStageArtefact({
+    config: BUILD_CONFIG,
     stage: resolved.value.stage,
     runData: resolved.value.data,
   });

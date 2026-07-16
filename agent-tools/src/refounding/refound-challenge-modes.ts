@@ -10,14 +10,17 @@ import {
   type ChallengeScore,
 } from './refound-challenge-model.js';
 import { runChallengeScore, runChallengeSeal } from './refound-challenge-scoring.js';
-import { resolveReadPathWithinRepo, resolveWriteTargetWithinRepo } from './refound-path-resolve.js';
+import {
+  resolveReadPathWithinRepo,
+  resolveWriteTargetWithinRepo,
+} from '../core/flag-path-resolve.js';
 
 /**
  * The three CLI modes of `refound-plant-challenge-canary` as
  * operator-message-producing functions, parameterised by the repo root so
  * the entry point stays thin. Every flag-supplied path is constrained to
  * the repository with read/write-appropriate resolution
- * (`refound-path-resolve.ts`): inputs must exist and canonicalise; output
+ * (`flag-path-resolve.ts`): inputs must exist and canonicalise; output
  * paths need not exist — the modes create them. The key set NEVER has a
  * default location adjacent to the stream: `--keys-out` (plant) and
  * `--keys` (seal/score) are REQUIRED, because the keys and the sealed salt

@@ -3,7 +3,7 @@ import path from 'node:path';
 
 import { err, isErr, ok, type Result } from '@oaknational/result';
 
-import { nearestExistingAncestor } from './refound-path-resolve.js';
+import { nearestExistingAncestor } from '../core/flag-path-resolve.js';
 
 /**
  * The write-time TOCTOU guard for `refound-window-sample`. The `--out`
@@ -12,7 +12,7 @@ import { nearestExistingAncestor } from './refound-path-resolve.js';
  * manifest write could redirect the temp-write/rename outside the repository.
  *
  * The out dir need not exist yet (the write phase creates it, per
- * `refound-path-resolve.ts`), so the baseline is captured from the NEAREST
+ * `core/flag-path-resolve.ts`), so the baseline is captured from the NEAREST
  * EXISTING ANCESTOR of the out dir — the deepest path that can be canonicalised
  * before the scan. The write boundary re-canonicalises that same ancestor and
  * refuses on any drift from the baseline (an ancestor was swapped) or any

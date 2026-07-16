@@ -44,9 +44,16 @@ const agentToolsDir = path.join(repoRoot, 'agent-tools');
 
 /**
  * The workspace packages agent-tools' own build depends on, in build order.
- * Leaf packages only (neither has runtime workspace deps of its own).
+ * Leaf packages only (none has runtime workspace deps of its own). A new agent-tools
+ * workspace dependency MUST be added here or every cold `pnpm install` (CI, fresh
+ * clones) fails its postinstall typecheck on the missing `dist` — warm local workspaces
+ * mask the gap (the PR #393 install/secret-scan/run-quality-gates failure, 2026-07-16).
  */
-const WORKSPACE_DEP_DIRS = ['packages/core/result', 'packages/core/safe-path'] as const;
+const WORKSPACE_DEP_DIRS = [
+  'packages/core/result',
+  'packages/core/safe-path',
+  'packages/core/type-helpers',
+] as const;
 
 /** Set the executable bit on every compiled CLI entry, mirroring the build script. */
 function markExecutableArtifacts(): void {

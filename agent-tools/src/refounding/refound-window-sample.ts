@@ -9,7 +9,10 @@ import { resolveRepoRoot } from '../core/repo-root.js';
 import { writeErrorLine, writeLine } from '../core/terminal-output.js';
 import { entryUsageText, parseEntryArgs } from './refound-entry-args.js';
 import { DEFAULT_OUT_DIR, DEFAULT_RULE_PATH } from './refound-freeze-helpers.js';
-import { resolveReadPathWithinRepo, resolveWriteTargetWithinRepo } from './refound-path-resolve.js';
+import {
+  resolveReadPathWithinRepo,
+  resolveWriteTargetWithinRepo,
+} from '../core/flag-path-resolve.js';
 import { makeGitByteSource } from './refound-window-sample-git.js';
 import { DEFAULT_EVIDENCE_PATH, runWindowSample } from './refound-window-sample-helpers.js';
 import { SHA40_PATTERN, WINDOW_SAMPLE_SEGMENT } from './refound-window-sample-schema.js';
@@ -38,7 +41,7 @@ import { SHA40_PATTERN, WINDOW_SAMPLE_SEGMENT } from './refound-window-sample-sc
  * under the artefact home) carrying the expected scanned-file / hit-file /
  * hit-line counts as machine-readable fields. All paths are constrained to the
  * repository with read/write-appropriate resolution
- * (`refound-path-resolve.ts`): the rule and the evidence must exist; the
+ * (`core/flag-path-resolve.ts`): the rule and the evidence must exist; the
  * out dir need not — the write phase creates it.
  *
  * @packageDocumentation

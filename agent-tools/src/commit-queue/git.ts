@@ -38,14 +38,42 @@ export interface GetStagedBundleInput {
  * so git filters the staged diff and the worktree short-status to the
  * intent's declared file set. Out-of-scope staged content authored by
  * peers does not appear in the returned bundle.
+ *
+ * The staged reads run rename-explicit (`--no-renames`): a staged rename
+ * reports its deletion AND its addition, never a collapsed `R` pair. The
+ * intent file list must therefore name both sides of a rename — which is
+ * what the pathspec commit needs anyway: `git commit -- <new-path-only>`
+ * builds a temporary index that still tracks the old path while the
+ * worktree no longer has it, and every tracked-file validator in the
+ * pre-commit gate then crashes on the phantom file (worked instance
+ * 2026-07-16, the flag-path-resolve consolidation commit).
  */
 export function getStagedBundle(input: GetStagedBundleInput): StagedBundle {
   const runGitBound = input.runGit ?? ((args) => runGit(input.gitRoot, args));
   const pathspecArgs = ['--', ...input.pathspec];
   return {
-    stagedNameOnly: runGitBound(['diff', '--cached', '--name-only', ...pathspecArgs]),
-    stagedNameStatus: runGitBound(['diff', '--cached', '--name-status', ...pathspecArgs]),
-    stagedPatch: runGitBound(['diff', '--cached', '--full-index', '--binary', ...pathspecArgs]),
+    stagedNameOnly: runGitBound([
+      'diff',
+      '--cached',
+      '--no-renames',
+      '--name-only',
+      ...pathspecArgs,
+    ]),
+    stagedNameStatus: runGitBound([
+      'diff',
+      '--cached',
+      '--no-renames',
+      '--name-status',
+      ...pathspecArgs,
+    ]),
+    stagedPatch: runGitBound([
+      'diff',
+      '--cached',
+      '--no-renames',
+      '--full-index',
+      '--binary',
+      ...pathspecArgs,
+    ]),
     worktreeShortStatus: runGitBound(['status', '--short', ...pathspecArgs]),
   };
 }

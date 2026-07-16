@@ -11,24 +11,26 @@ import { createWorkflowEsbuildOptions } from './esbuild-options.js';
 
 describe('createWorkflowEsbuildOptions', () => {
   const base = {
-    entryPoints: { map: 'src/corpus-analysis/workflows/map.workflow.ts' },
-    outdir: 'dist/corpus-analysis/workflows',
+    entryPoints: { map: 'src/restatement-audit/workflows/map.workflow.ts' },
+    outdir: 'dist/restatement-audit/workflows',
   };
 
   it('always installs the schema-substitution plugin', () => {
     expect(createWorkflowEsbuildOptions(base).plugins?.map((plugin) => plugin.name)).toContain(
-      'inline-derived-agent-schemas',
+      'inline-derived-restatement-audit-agent-schemas',
     );
   });
 
   it('installs the run-data plugin only when a stage-tagged seed is provided', () => {
     expect(createWorkflowEsbuildOptions(base).plugins?.map((plugin) => plugin.name)).not.toContain(
-      'inline-run-data',
+      'inline-restatement-audit-run-data',
     );
     const seeded = createWorkflowEsbuildOptions({
       ...base,
       seed: { stage: 'map', data: { windows: [] } },
     });
-    expect(seeded.plugins?.map((plugin) => plugin.name)).toContain('inline-run-data');
+    expect(seeded.plugins?.map((plugin) => plugin.name)).toContain(
+      'inline-restatement-audit-run-data',
+    );
   });
 });

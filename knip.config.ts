@@ -118,6 +118,9 @@ const config: KnipConfig = {
         // entry points in workflows/build/workflow-builder.ts (bundled into
         // self-contained harness artefacts), which knip cannot trace as imports.
         'src/corpus-analysis/workflows/*.workflow.ts',
+        // Restatement-audit workflow stage entries: same string-entry-point
+        // pattern as corpus-analysis above.
+        'src/restatement-audit/workflows/*.workflow.ts',
       ],
       project: ['src/**/*.{ts,tsx}'],
     },

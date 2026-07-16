@@ -2,11 +2,17 @@
  * Shared build core: TS stage entry → contract-checked harness artefact source.
  *
  * @remarks
- * One path for both consumers: the verification build (`build-workflows.ts`, unseeded —
- * proves every stage bundles and satisfies the output contract on every `pnpm build`)
- * and the run-artefact builder (`build-run-artefact.ts`, seeded with validated
- * checkpoint data for an actual launch). Bundling, harness emission, and the output
- * contract happen identically in both; only seeding and writing differ.
+ * One path for every consumer in every pipeline module: the verification build
+ * (`run-verification-build.ts`, unseeded — proves every stage bundles and satisfies the
+ * output contract on every `pnpm build`) and each module's run-artefact builder
+ * (seeded with validated checkpoint data for an actual launch). Bundling, harness
+ * emission, and the output contract happen identically in both; only seeding and
+ * writing differ.
+ *
+ * Module coupling arrives ONCE as a {@link WorkflowBuildConfig} — the module's out dir
+ * and its instantiated inline plugins (schemas always, run data when seeding). The
+ * stage registries, metas, and CLIs stay module-side; everything here is
+ * module-agnostic.
  *
  * @packageDocumentation
  */
@@ -14,16 +20,12 @@
 import path from 'node:path';
 
 import { err, ok, type Result } from '@oaknational/result';
-import { build } from 'esbuild';
+import { build, type Plugin } from 'esbuild';
 
-import type { WorkflowMeta } from '../workflow-meta.js';
-import { meta as mapMeta } from '../map.meta.js';
-import { meta as reduceMeta } from '../reduce.meta.js';
-import { meta as validateMeta } from '../validate.meta.js';
-import { meta as metaMeta } from '../meta.meta.js';
 import { createWorkflowEsbuildOptions } from './esbuild-options.js';
 import { emitHarnessArtefact } from './harness-emitter.js';
 import { checkHarnessArtefactContract, checkSeededArtefactShape } from './output-contract.js';
+import type { WorkflowMeta } from './workflow-meta.js';
 
 /** One buildable stage: its entry module and its statically-serialised meta literal. */
 export interface StageDefinition {
@@ -32,20 +34,15 @@ export interface StageDefinition {
   readonly meta: WorkflowMeta;
 }
 
-/** The four pipeline stages, in run order. */
-export const STAGE_DEFINITIONS: readonly StageDefinition[] = [
-  { name: 'map', entry: 'src/corpus-analysis/workflows/map.workflow.ts', meta: mapMeta },
-  { name: 'reduce', entry: 'src/corpus-analysis/workflows/reduce.workflow.ts', meta: reduceMeta },
-  {
-    name: 'validate',
-    entry: 'src/corpus-analysis/workflows/validate.workflow.ts',
-    meta: validateMeta,
-  },
-  { name: 'meta', entry: 'src/corpus-analysis/workflows/meta.workflow.ts', meta: metaMeta },
-];
-
-/** Where built workflow artefacts land (gitignored; rebuilt before every run). */
-export const WORKFLOW_OUT_DIR = 'dist/corpus-analysis/workflows';
+/** The consuming module's build coupling, instantiated once per module. */
+export interface WorkflowBuildConfig {
+  /** Where built artefacts land (shapes `outputFiles[].path`; the builder writes nothing). */
+  readonly outDir: string;
+  /** The module's agent-schemas inline plugin (always applied). */
+  readonly agentSchemasPlugin: Plugin;
+  /** Factory for the module's run-data seeding plugin (applied only when seeding). */
+  readonly makeRunDataPlugin: (stage: string, data: unknown) => Plugin;
+}
 
 /** esbuild warnings are blocking failures, never advisory output. */
 function checkNoEsbuildWarnings(
@@ -63,16 +60,20 @@ function checkNoEsbuildWarnings(
 
 /** Bundle one stage entry in memory; esbuild's thrown failures translate here. */
 async function bundleStageEntry<TData>(input: {
+  readonly config: WorkflowBuildConfig;
   readonly stage: StageDefinition;
   readonly runData?: TData;
 }): Promise<Result<string, Error>> {
-  const { stage, runData } = input;
+  const { config, stage, runData } = input;
   try {
     const result = await build(
       createWorkflowEsbuildOptions({
         entryPoints: { [stage.name]: stage.entry },
-        outdir: WORKFLOW_OUT_DIR,
-        ...(runData === undefined ? {} : { seed: { stage: stage.name, data: runData } }),
+        outdir: config.outDir,
+        plugins: [
+          config.agentSchemasPlugin,
+          ...(runData === undefined ? [] : [config.makeRunDataPlugin(stage.name, runData)]),
+        ],
       }),
     );
     const warningCheck = checkNoEsbuildWarnings(result.warnings);
@@ -112,10 +113,11 @@ async function bundleStageEntry<TData>(input: {
  * on the seeded artefact that will actually be launched.
  */
 export async function buildStageArtefact<TData>(input: {
+  readonly config: WorkflowBuildConfig;
   readonly stage: StageDefinition;
   readonly runData?: TData;
 }): Promise<Result<string, Error>> {
-  const unseededBundle = await bundleStageEntry({ stage: input.stage });
+  const unseededBundle = await bundleStageEntry({ config: input.config, stage: input.stage });
   if (!unseededBundle.ok) {
     return unseededBundle;
   }
@@ -138,6 +140,7 @@ export async function buildStageArtefact<TData>(input: {
 
 /** The seeded emission: same code, plus the inlined run data; shape-tier contract only. */
 async function buildSeededArtefact<TData>(input: {
+  readonly config: WorkflowBuildConfig;
   readonly stage: StageDefinition;
   readonly runData?: TData;
 }): Promise<Result<string, Error>> {

@@ -1,13 +1,13 @@
 /**
- * esbuild options factory for sandbox workflow bundles.
+ * esbuild options factory for restatement-audit sandbox workflow bundles.
  *
  * @remarks
- * One options shape for every stage artefact: bundle everything (local imports inlined,
- * types stripped) into one ESM file per entry, `platform: 'neutral'` so the harness
- * globals (`agent`/`parallel`/`phase`/`log`/`args`) remain free identifiers, in-memory
- * output (`write: false`) so the harness emitter and output contract run before any file
- * is written. Mirrors the MCP app's programmatic-esbuild precedent
- * (`apps/oak-curriculum-mcp-streamable-http/build-scripts/esbuild-config.ts`).
+ * Mirrors `corpus-analysis/workflows/build/esbuild-options.ts`: one options shape for
+ * every stage artefact — bundle everything (local imports inlined, types stripped) into
+ * one ESM file per entry, `platform: 'neutral'` so the harness globals
+ * (`agent`/`parallel`/`phase`/`log`/`args`) remain free identifiers, in-memory output
+ * (`write: false`) so the harness emitter and output contract run before any file is
+ * written.
  *
  * @packageDocumentation
  */
@@ -30,8 +30,8 @@ export function createWorkflowEsbuildOptions<TData>(input: {
   readonly outdir: string;
   /**
    * Seed the run-data module with stage-tagged, already-validated data. Omit for a
-   * verification build — the artefact then carries the unseeded sentinel and its
-   * stage guard fails fast if run.
+   * verification build — the artefact then carries the unseeded sentinel and its stage
+   * guard fails fast if run.
    */
   readonly seed?: RunDataSeed<TData>;
 }): BuildOptions {

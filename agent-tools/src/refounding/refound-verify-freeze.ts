@@ -24,7 +24,7 @@ import { formatViolation } from './refound-verify-freeze-model.js';
  * chain for the refounding run's duration.
  *
  * Flags: `--out <dir>` (default `.agent/plans-refounding`), constrained to
- * the repository (`refound-path-resolve`).
+ * the repository (`flag-path-resolve`).
  *
  * @packageDocumentation
  */

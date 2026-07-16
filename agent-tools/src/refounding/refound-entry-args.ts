@@ -2,7 +2,7 @@ import { err, isErr, ok, type Result } from '@oaknational/result';
 
 import { scanArgs, type ValueHandler } from '../core/cli-arg-parser.js';
 import { DEFAULT_OUT_DIR } from './refound-freeze-helpers.js';
-import { resolveReadPathWithinRepo } from './refound-path-resolve.js';
+import { resolveReadPathWithinRepo } from '../core/flag-path-resolve.js';
 
 /**
  * The shared arg-contract for every raw refounding entry script: refuse the

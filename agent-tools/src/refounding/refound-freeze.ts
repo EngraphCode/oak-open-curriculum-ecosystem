@@ -15,7 +15,10 @@ import {
   resolveTrustedGitleaks,
 } from './refound-gitleaks.js';
 import { runFreeze } from './refound-freeze-runner.js';
-import { resolveReadPathWithinRepo, resolveWriteTargetWithinRepo } from './refound-path-resolve.js';
+import {
+  resolveReadPathWithinRepo,
+  resolveWriteTargetWithinRepo,
+} from '../core/flag-path-resolve.js';
 
 /**
  * `refound-freeze` — the plan-corpus refounding's S0 conservation event
@@ -31,7 +34,7 @@ import { resolveReadPathWithinRepo, resolveWriteTargetWithinRepo } from './refou
  * Flags: `--rule <path>` (default `.agent/plans-refounding/freeze-rule.json`)
  * and `--out <dir>` (default `.agent/plans-refounding`), both constrained to
  * the repository with read/write-appropriate resolution
- * (`refound-path-resolve.ts`).
+ * (`flag-path-resolve.ts`).
  *
  * @packageDocumentation
  */

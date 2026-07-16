@@ -8,7 +8,7 @@ import { resolveRepoRoot } from '../core/repo-root.js';
 import { writeErrorLine, writeLine } from '../core/terminal-output.js';
 import { entryUsageText, parseEntryArgs } from './refound-entry-args.js';
 import { DEFAULT_OUT_DIR } from './refound-freeze-helpers.js';
-import { resolveReadPathWithinRepo } from './refound-path-resolve.js';
+import { resolveReadPathWithinRepo } from '../core/flag-path-resolve.js';
 import { runTile, type TileReport } from './refound-tile-helpers.js';
 import { formatTilingViolation } from './refound-tile-violations.js';
 

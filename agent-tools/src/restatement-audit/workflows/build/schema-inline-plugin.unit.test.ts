@@ -4,48 +4,58 @@ import { deriveAgentJsonSchemas } from '../agent-schemas.js';
 import {
   AGENT_SCHEMAS_MODULE_FILTER,
   RUN_DATA_MODULE_FILTER,
-  agentSchemasModuleSource,
   agentSchemasInlinePlugin,
-  runDataModuleSource,
+  agentSchemasModuleSource,
   runDataInlinePlugin,
+  runDataModuleSource,
 } from './schema-inline-plugin.js';
 
 /**
  * The inline plugins substitute two modules when bundling sandbox artefacts: the real
  * `agent-schemas.ts` (which value-imports zod) with a precomputed zod-free literal, and
  * the unseeded `run-data.ts` sentinel with the stage-tagged validated payload. The
- * exported filters and module-source builders ARE the substitution contract — the
- * plugins compose exactly these values, so the tests assert the product, not copies.
- * (A mis-wired substitution cannot ship regardless: the sandbox purity scan fails the
- * build if zod survives, and an unseeded artefact fails its stage guard at zero spend.)
+ * exported filters and module-source builders ARE the substitution contract.
  */
 
 describe('module filters (the substitution targets)', () => {
-  it('the schema filter matches exactly the workflows agent-schemas module', () => {
+  it('the schema filter matches exactly the restatement-audit workflows agent-schemas module', () => {
+    expect(
+      AGENT_SCHEMAS_MODULE_FILTER.test(
+        '/repo/agent-tools/src/restatement-audit/workflows/agent-schemas.ts',
+      ),
+    ).toBe(true);
+    expect(
+      AGENT_SCHEMAS_MODULE_FILTER.test('/repo/agent-tools/src/restatement-audit/schemas.ts'),
+    ).toBe(false);
+  });
+
+  it("does NOT match corpus-analysis's own agent-schemas module (scoped, no cross-package collision)", () => {
     expect(
       AGENT_SCHEMAS_MODULE_FILTER.test(
         '/repo/agent-tools/src/corpus-analysis/workflows/agent-schemas.ts',
       ),
-    ).toBe(true);
-    expect(
-      AGENT_SCHEMAS_MODULE_FILTER.test('/repo/agent-tools/src/corpus-analysis/judgment-schemas.ts'),
     ).toBe(false);
   });
 
-  it('the run-data filter matches exactly the workflows run-data module', () => {
+  it('the run-data filter matches exactly the restatement-audit workflows run-data module', () => {
     expect(
-      RUN_DATA_MODULE_FILTER.test('/repo/agent-tools/src/corpus-analysis/workflows/run-data.ts'),
+      RUN_DATA_MODULE_FILTER.test('/repo/agent-tools/src/restatement-audit/workflows/run-data.ts'),
     ).toBe(true);
     expect(
       RUN_DATA_MODULE_FILTER.test(
-        '/repo/agent-tools/src/corpus-analysis/workflows/agent-schemas.ts',
+        '/repo/agent-tools/src/restatement-audit/workflows/agent-schemas.ts',
       ),
+    ).toBe(false);
+    expect(
+      RUN_DATA_MODULE_FILTER.test('/repo/agent-tools/src/corpus-analysis/workflows/run-data.ts'),
     ).toBe(false);
   });
 
   it('the plugins carry their registered names', () => {
-    expect(agentSchemasInlinePlugin().name).toBe('inline-derived-agent-schemas');
-    expect(runDataInlinePlugin('map', { windows: [] }).name).toBe('inline-run-data');
+    expect(agentSchemasInlinePlugin().name).toBe('inline-derived-restatement-audit-agent-schemas');
+    expect(runDataInlinePlugin('map', { windows: [] }).name).toBe(
+      'inline-restatement-audit-run-data',
+    );
   });
 });
 
@@ -61,14 +71,16 @@ describe('agentSchemasModuleSource', () => {
 
   it('is zod-free source with no module system (safe for the sandbox purity scan)', () => {
     expect(source).not.toMatch(/\bzod\b|\bz\./);
-    // \b guards against schema content like the "importance" property.
     expect(source).not.toMatch(/\bimport\b/);
   });
 });
 
 describe('runDataModuleSource', () => {
   it('exports the stage discriminant and RUN_DATA as compact literals that round-trip', () => {
-    const data = { windows: [{ window: 'w01', files: ['a.md'] }] };
+    const data = {
+      windows: [{ window: 'W01', files: ['a.md'] }],
+      gazetteer: { subjects: {}, statusVocabulary: [] },
+    };
     const source = runDataModuleSource('map', data);
     if (!source.ok) {
       expect.fail(`expected generated source, got: ${source.error.message}`);
@@ -78,7 +90,6 @@ describe('runDataModuleSource', () => {
     expect(
       JSON.parse((lines[1] ?? '').replace('export const RUN_DATA = ', '').replace(/;$/, '')),
     ).toEqual(data);
-    // Compact serialisation — the payload competes with code for the harness size cap.
     expect(source.value).not.toContain('  "windows"');
   });
 
