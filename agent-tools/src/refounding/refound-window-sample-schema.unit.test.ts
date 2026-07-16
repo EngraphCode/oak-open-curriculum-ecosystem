@@ -166,4 +166,27 @@ describe('parseWindowSampleManifest', () => {
     expect(parseWindowSampleManifest(window({ line_count: 1 })).ok).toBe(false);
     expect(parseWindowSampleManifest(window({})).ok).toBe(true);
   });
+
+  it('rejects sample windows that violate the v1 window arithmetic', () => {
+    const window = (overrides: Record<string, unknown>): Record<string, unknown> => ({
+      ...valid(),
+      sample: [
+        {
+          file: '.agent/prompts/a.md',
+          window_index: 1,
+          start_line: 501,
+          end_line: 600,
+          line_count: 100,
+          ...overrides,
+        },
+      ],
+    });
+    // start_line must equal window_index * WINDOW_LINES + 1.
+    expect(parseWindowSampleManifest(window({ window_index: 0 })).ok).toBe(false);
+    expect(parseWindowSampleManifest(window({ start_line: 502, line_count: 99 })).ok).toBe(false);
+    // The span can never exceed the v1 window size.
+    expect(parseWindowSampleManifest(window({ end_line: 1001, line_count: 501 })).ok).toBe(false);
+    // A full window is exactly WINDOW_LINES lines.
+    expect(parseWindowSampleManifest(window({ end_line: 1000, line_count: 500 })).ok).toBe(true);
+  });
 });

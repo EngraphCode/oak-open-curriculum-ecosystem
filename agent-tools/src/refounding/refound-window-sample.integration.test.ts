@@ -102,6 +102,8 @@ async function makeFixture(options: {
   readonly expected: { scannedFiles: number; hitFiles: number; hitLines: number };
   readonly evidenceBaseSha?: string;
   readonly sweepHitsSha256?: string;
+  /** Rule bytes staged AT BASE; defaults to the live rule (bound). */
+  readonly baseRuleJson?: string;
 }): Promise<Fixture> {
   const repoRoot = await mkdtemp(path.join(tmpdir(), 'refound-window-sample-'));
   tempRoots.push(repoRoot);
@@ -118,6 +120,7 @@ async function makeFixture(options: {
       },
     ],
   };
+  const ruleJson = `${JSON.stringify(rule, null, 2)}\n`;
   const hitsJsonl = options.hitsJsonl ?? renderJsonlArtefact([...(options.hits ?? [])]);
   const evidence = {
     schemaVersion: 1,
@@ -138,7 +141,7 @@ async function makeFixture(options: {
   const outDirAbs = path.join(repoRoot, '.agent/plans-refounding');
   await writeTree(repoRoot, {
     ...options.liveFiles,
-    '.agent/plans-refounding/freeze-rule.json': `${JSON.stringify(rule, null, 2)}\n`,
+    '.agent/plans-refounding/freeze-rule.json': ruleJson,
     '.agent/plans-refounding/proofs/evidence.v1.json': `${JSON.stringify(evidence, null, 2)}\n`,
     '.agent/plans-refounding/sweep/sweep-hits.v1.jsonl': hitsJsonl,
   });
@@ -148,7 +151,13 @@ async function makeFixture(options: {
     outDirAbs,
     evidenceAbsPath: path.join(outDirAbs, 'proofs/evidence.v1.json'),
     baseSha: BASE,
-    makeByteSource: () => ok(sourceOf(options.baseFiles)),
+    makeByteSource: () =>
+      ok(
+        sourceOf({
+          ...options.baseFiles,
+          '.agent/plans-refounding/freeze-rule.json': options.baseRuleJson ?? ruleJson,
+        }),
+      ),
   };
 }
 
@@ -294,6 +303,33 @@ describe('runWindowSample — refusal chain (nothing written)', () => {
   it('halts when the hits queue does not match the evidence-recorded sha256', async () => {
     const fixture = await makeFixture({ ...HAPPY, sweepHitsSha256: 'ff'.repeat(32) });
     await expectRefusal(fixture, 'evidence-recorded queue');
+  });
+
+  it('halts when the live rule differs from the rule at the pinned base (same-count swap)', async () => {
+    const swappedRule = {
+      version: 1,
+      ratifiedBy: '.agent/decisions/g1.md',
+      classes: [
+        { id: 'plans', globs: ['.agent/other-plans/**'], verdict: 'in', reason: 'estate' },
+        {
+          id: 'sweep-surfaces',
+          globs: ['.agent/prompts/**'],
+          verdict: 'sweep',
+          reason: 'live operational surface',
+        },
+      ],
+    };
+    const fixture = await makeFixture({
+      ...HAPPY,
+      baseRuleJson: `${JSON.stringify(swappedRule, null, 2)}\n`,
+    });
+    await expectRefusal(fixture, 'pinned base');
+  });
+
+  it('halts when the rule is unreadable at the pinned base', async () => {
+    const fixture = await makeFixture(HAPPY);
+    const bare = { ...fixture, makeByteSource: () => ok(sourceOf(HAPPY.baseFiles)) };
+    await expectRefusal(bare, 'unreadable at the pinned base');
   });
 });
 

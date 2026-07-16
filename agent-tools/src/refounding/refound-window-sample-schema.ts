@@ -154,7 +154,25 @@ const sampleWindowSchema = z
       });
       return;
     }
+    const expectedStart = window.window_index * WINDOW_LINES + 1;
+    if (window.start_line !== expectedStart) {
+      ctx.addIssue({
+        code: 'custom',
+        message:
+          `start_line ${String(window.start_line)} disagrees with ` +
+          `window_index ${String(window.window_index)} (a v1 window starts at ` +
+          `${String(expectedStart)})`,
+      });
+      return;
+    }
     const span = window.end_line - window.start_line + 1;
+    if (span > WINDOW_LINES) {
+      ctx.addIssue({
+        code: 'custom',
+        message: `span ${String(span)} exceeds the v1 window size ${String(WINDOW_LINES)}`,
+      });
+      return;
+    }
     if (window.line_count !== span) {
       ctx.addIssue({
         code: 'custom',
