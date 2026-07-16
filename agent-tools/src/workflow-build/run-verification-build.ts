@@ -26,6 +26,28 @@ import {
  * (stdout on green, stderr on failure) via the injected writers so the caller stays the
  * only process boundary.
  */
+/**
+ * Contract canaries: each carries exactly ONE violation so each contract leg is
+ * INDEPENDENTLY proven able to go red — a combined canary stays red on its other
+ * violation even when the leg under test silently stops firing, proving nothing.
+ */
+const CONTRACT_CANARIES = [
+  {
+    label: 'harness-wrap parser leg (redeclared injected global)',
+    // Only violation: `let log` redeclares the wrap parameter — legal standalone JS,
+    // rejected only by checkCompilesUnderHarness's async-wrap compile.
+    source:
+      'export const meta = {};\nlet log = 1;\nasync function main() {\n  return 1;\n}\nreturn await main();\n',
+  },
+  {
+    label: 'module-system leg (dynamic import)',
+    // Only violation: `import("x")` — legal syntax under the wrap, rejected only by
+    // checkNoModuleSystem's self-containment scan.
+    source:
+      'export const meta = {};\nasync function main() {\n  return import("x");\n}\nreturn await main();\n',
+  },
+] as const;
+
 export async function runVerificationBuild(input: {
   readonly config: WorkflowBuildConfig;
   readonly stages: readonly StageDefinition[];
@@ -34,17 +56,16 @@ export async function runVerificationBuild(input: {
 }): Promise<boolean> {
   let green = true;
 
-  // Contract canary: prove the REAL parser leg rejects a known-bad artefact (a
-  // redeclared injected global + a dynamic import) before trusting the green verdicts
-  // below. A green gate that cannot go red proves nothing.
-  const canary = checkHarnessArtefactContract(
-    'export const meta = {};\nlet log = 1;\nasync function main() {\n  return import("x");\n}\nreturn await main();\n',
-  );
-  if (canary.ok) {
-    input.writeErr('output-contract canary FAILED: a known-bad artefact passed the contract\n');
-    green = false;
-  } else {
-    input.writeOut('output-contract canary green (known-bad artefact rejected)\n');
+  // A green gate that cannot go red proves nothing — one canary per load-bearing leg.
+  for (const canary of CONTRACT_CANARIES) {
+    if (checkHarnessArtefactContract(canary.source).ok) {
+      input.writeErr(
+        `output-contract canary FAILED: a known-bad artefact passed the contract [${canary.label}]\n`,
+      );
+      green = false;
+    } else {
+      input.writeOut(`output-contract canary green (${canary.label} rejected)\n`);
+    }
   }
 
   for (const stage of input.stages) {

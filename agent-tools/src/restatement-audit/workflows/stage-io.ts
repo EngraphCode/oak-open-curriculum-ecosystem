@@ -40,14 +40,10 @@ const partitionWindowSchema = z.strictObject({
 export type PartitionWindow = z.infer<typeof partitionWindowSchema>;
 
 /**
- * An instance projected to what a voter or the meta agent needs for grounding: enough to
- * judge `authoredNotCited` / `liveSurface` and to byte-verify the quote, never the full
- * instance record. Kept separate from `Cluster` (which carries only
- * `memberInstanceIds: string[]`) and joined by `id` at prompt-build time — mirrors
- * `corpus-analysis/workflows/stage-io.ts`'s `groundingLeafSchema` projection, which keeps
- * the seeded artefact well under the harness script size cap at full-corpus scale. Picks
- * from `finderInstanceBaseSchema`, never the refined schema — zod v4 forbids `.pick()`
- * on a refined object schema.
+ * An instance projected to what a voter or the meta agent needs for grounding, joined to
+ * `Cluster.memberInstanceIds` by `id` at prompt-build time (mirrors corpus-analysis's
+ * `groundingLeafSchema`, keeping seeded artefacts under the harness size cap). Picks
+ * from the BASE schema — zod v4 forbids `.pick()` on a refined object schema.
  */
 const groundingInstanceSchema = finderInstanceBaseSchema.pick({
   id: true,
@@ -113,10 +109,7 @@ const metaRunDataSchema = z
   .strictObject({
     // Empty is VALID: a clean audit (zero flagged clusters) seeds a zero-row ledger.
     clusters: z.array(metaClusterSchema),
-    /**
-     * Voter-disagreement clusters, carried into the ledger as held-for-review rows —
-     * code-built, never agent-dispatched. Empty is the common case.
-     */
+    /** Voter-disagreement clusters — code-built into held-for-review rows, never agent-dispatched. */
     heldClusters: z.array(metaClusterSchema),
   })
   .refine(
@@ -149,9 +142,8 @@ const mapSuccessSchema = z
     partition: z.array(z.strictObject({ window: nonEmptyString, fileCount: countInt })),
     coverage: z.array(z.strictObject({ window: nonEmptyString, instanceCount: countInt })),
     /**
-     * False only when a window's DISPATCH DIED (null agent result) — a successful
-     * window with zero instances is clean coverage, not incompleteness;
-     * `map.workflow.ts`'s `deriveCompleteness` owns the semantics.
+     * False only for a DEAD or membership-failed window (`deriveCompleteness` owns the
+     * semantics) — a successful zero-instance window is clean coverage, never a gap.
      */
     mapComplete: z.boolean(),
     incompleteWindows: z.array(nonEmptyString),
@@ -182,27 +174,40 @@ const reduceSuccessSchema = z
 const reduceResultSchema = z.discriminatedUnion('ok', [reduceSuccessSchema, stageFailureSchema]);
 export type ReduceResult = z.infer<typeof reduceResultSchema>;
 
-const validateSuccessSchema = z.strictObject({
-  ok: z.literal(true),
-  validateComplete: z.boolean(),
-  resolvedClusterIds: z.array(nonEmptyString),
-  incompleteClusterIds: z.array(nonEmptyString),
-  missingClusterIds: z.array(nonEmptyString),
-  dispositions: z.array(
-    z.strictObject({
-      clusterId: nonEmptyString,
-      disposition: dispositionSchema,
-      reason: nonEmptyString.nullable(),
-    }),
-  ),
-  voterVerdicts: z.array(
-    z.strictObject({
-      clusterId: nonEmptyString,
-      voterId: nonEmptyString,
-      verdict: voterVerdictSchema,
-    }),
-  ),
-});
+const validateSuccessSchema = z
+  .strictObject({
+    ok: z.literal(true),
+    validateComplete: z.boolean(),
+    resolvedClusterIds: z.array(nonEmptyString),
+    incompleteClusterIds: z.array(nonEmptyString),
+    missingClusterIds: z.array(nonEmptyString),
+    dispositions: z.array(
+      z.strictObject({
+        clusterId: nonEmptyString,
+        disposition: dispositionSchema,
+        reason: nonEmptyString.nullable(),
+      }),
+    ),
+    voterVerdicts: z.array(
+      z.strictObject({
+        clusterId: nonEmptyString,
+        voterId: nonEmptyString,
+        verdict: voterVerdictSchema,
+      }),
+    ),
+  })
+  .refine(
+    (result) =>
+      result.dispositions.every(
+        (entry) =>
+          result.voterVerdicts.filter((verdict) => verdict.clusterId === entry.clusterId).length >=
+          2,
+      ),
+    {
+      error:
+        'validate result carries disposition(s) without the ≥2 voter verdicts that justify them (two-independent-voter rule)',
+    },
+  );
 const validateResultSchema = z.discriminatedUnion('ok', [
   validateSuccessSchema,
   stageFailureSchema,

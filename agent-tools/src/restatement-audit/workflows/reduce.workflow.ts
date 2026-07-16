@@ -29,6 +29,7 @@ import {
 import type { Cluster, FinderInstance } from '../schemas.js';
 import { AGENT_JSON_SCHEMAS } from './agent-schemas.js';
 import type { ClusterStageOutput } from './agent-schemas.js';
+import { resolveProposalsChunkScoped } from './proposal-resolution.js';
 import { reducerPrompt, type ReducerViewInstance } from './prompts.js';
 import { RUN_DATA, RUN_DATA_STAGE } from './run-data.js';
 import { isReduceRunData, unseededRunDataError } from './stage-guards.js';
@@ -90,6 +91,15 @@ function warnOnOverlappingMembers(clusters: readonly Cluster[]): void {
   }
 }
 
+/** Loudly surface refused proposals — a bad citation is refused whole, never shrunk. */
+function warnOnRefusedProposals(refused: readonly string[]): void {
+  if (refused.length > 0) {
+    log(
+      `EVIDENCE-INTEGRITY REFUSAL — ${refused.length} proposal(s) cited unknown or out-of-chunk instance id(s) and were refused WHOLE: ${refused.join('; ')}`,
+    );
+  }
+}
+
 /** Loudly surface instances the join will drop for empty-normal-form values. */
 function warnOnEmptyNormalForms(instances: readonly FinderInstance[]): void {
   const emptyDropped = emptyNormalFormInstances(instances).length;
@@ -101,33 +111,26 @@ function warnOnEmptyNormalForms(instances: readonly FinderInstance[]): void {
 }
 
 /**
- * Recount every reducer proposal through code. Proposal ids are re-minted per
- * chunk+position — agent-invented ids are never trusted for uniqueness — and each
- * proposal survives only if `recountReducerCluster` verifies it against the actual
- * residual instances.
+ * Recount every CHUNK-SCOPED-RESOLVED reducer proposal through code (evidence
+ * integrity: `resolveProposalsChunkScoped` refuses whole any proposal citing an id its
+ * reducer never saw — cross-chunk or typo — so a bad citation can never shrink into a
+ * different cluster). Each surviving proposal then passes `recountReducerCluster`, the
+ * reducer clusters / code verdicts.
  */
 function recountProposals(
   reducerResults: readonly (ClusterStageOutput | null)[],
-  residualById: ReadonlyMap<string, FinderInstance>,
-): { readonly proposedCount: number; readonly recounted: Cluster[] } {
-  const proposals = reducerResults.flatMap(
-    (result, chunkIndex) =>
-      result?.clusters.map((proposal, proposalIndex) => ({
-        id: `reducer:c${chunkIndex}-p${proposalIndex}`,
-        memberInstanceIds: proposal.memberInstanceIds,
-      })) ?? [],
-  );
-  const recounted = proposals.flatMap((proposal) => {
-    const cluster = recountReducerCluster(
-      proposal.id,
-      proposal.memberInstanceIds.flatMap((id) => {
-        const source = residualById.get(id);
-        return source === undefined ? [] : [source];
-      }),
-    );
+  chunks: readonly (readonly FinderInstance[])[],
+): {
+  readonly proposedCount: number;
+  readonly refused: readonly string[];
+  readonly recounted: Cluster[];
+} {
+  const { proposedCount, resolved, refused } = resolveProposalsChunkScoped(reducerResults, chunks);
+  const recounted = resolved.flatMap((proposal) => {
+    const cluster = recountReducerCluster(proposal.id, proposal.members);
     return cluster === null ? [] : [cluster];
   });
-  return { proposedCount: proposals.length, recounted };
+  return { proposedCount, refused, recounted };
 }
 
 /** Run the reduce stage over the seeded map instances. */
@@ -143,7 +146,6 @@ export async function main(): Promise<ReduceResult> {
 
   phase('reduce');
   const residuals = freeTextInstances(instances);
-  const residualById = new Map(residuals.map((instance) => [instance.id, instance]));
   const chunks = chunkForReducer(residuals, 3);
   log(`free-text residuals: ${residuals.length} instances in ${chunks.length} reducer call(s)`);
 
@@ -154,7 +156,8 @@ export async function main(): Promise<ReduceResult> {
     result === null ? [index] : [],
   );
   warnOnIncompleteChunks(incompleteChunks, chunks.length);
-  const { proposedCount, recounted } = recountProposals(reducerResults, residualById);
+  const { proposedCount, refused, recounted } = recountProposals(reducerResults, chunks);
+  warnOnRefusedProposals(refused);
   log(`reducer proposals: ${proposedCount} proposed, ${recounted.length} survived recount`);
 
   const clusters = dedupeByMemberSet([...exactKeyClusters, ...recounted]);

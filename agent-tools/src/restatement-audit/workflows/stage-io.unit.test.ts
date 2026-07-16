@@ -247,7 +247,49 @@ describe('result parsers', () => {
           incompleteClusterIds: [],
           missingClusterIds: [],
           dispositions: [{ clusterId: cluster.id, disposition: 'flagged', reason: null }],
+          voterVerdicts: [
+            { clusterId: cluster.id, voterId: 'v1', verdict },
+            { clusterId: cluster.id, voterId: 'v2', verdict },
+          ],
+        }),
+      ),
+    ).toBe(true);
+  });
+
+  it('parseValidateResult rejects a disposition without its ≥2 voter verdicts — a lax checkpoint cannot bypass the two-voter rule', () => {
+    const verdict = {
+      sameFact: { pass: true, confidence: 'high' },
+      authoredNotCited: { pass: true, confidence: 'high' },
+      genuineConflict: { pass: true, confidence: 'med' },
+      liveSurface: { pass: true, confidence: 'high' },
+      importance: 'high',
+    };
+    const base = {
+      ok: true,
+      validateComplete: true,
+      resolvedClusterIds: [cluster.id],
+      incompleteClusterIds: [],
+      missingClusterIds: [],
+      dispositions: [{ clusterId: cluster.id, disposition: 'flagged', reason: null }],
+    };
+    expect(isErr(parseValidateResult({ ...base, voterVerdicts: [] }))).toBe(true);
+    expect(
+      isErr(
+        parseValidateResult({
+          ...base,
           voterVerdicts: [{ clusterId: cluster.id, voterId: 'v1', verdict }],
+        }),
+      ),
+    ).toBe(true);
+    // Verdicts for a DIFFERENT cluster never justify this cluster's disposition.
+    expect(
+      isErr(
+        parseValidateResult({
+          ...base,
+          voterVerdicts: [
+            { clusterId: 'other', voterId: 'v1', verdict },
+            { clusterId: 'other', voterId: 'v2', verdict },
+          ],
         }),
       ),
     ).toBe(true);

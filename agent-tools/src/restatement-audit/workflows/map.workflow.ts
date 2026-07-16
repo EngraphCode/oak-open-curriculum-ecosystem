@@ -28,6 +28,7 @@ import { finderPrompt } from './prompts.js';
 import { RUN_DATA, RUN_DATA_STAGE } from './run-data.js';
 import { isMapRunData, unseededRunDataError } from './stage-guards.js';
 import type { MapResult, PartitionWindow } from './stage-io.js';
+import { screenWindowMembership } from './window-membership.js';
 
 declare const agent: HarnessAgent;
 declare const parallel: HarnessParallel;
@@ -90,9 +91,10 @@ interface MapCompleteness {
 }
 
 /**
- * Completeness is DISPATCH death (a null agent result), never instance count: a
- * successfully-returned empty window is a genuinely clean file (per-file zero-count
- * honesty), not a coverage gap.
+ * Completeness is DISPATCH death (a null agent result) or an evidence-integrity
+ * failure (the membership screen nulls a window that reported files outside itself) —
+ * never instance count: a successfully-returned empty window is a genuinely clean file
+ * (per-file zero-count honesty), not a coverage gap.
  */
 function deriveCompleteness(
   windows: readonly PartitionWindow[],
@@ -133,12 +135,18 @@ export async function main(): Promise<MapResult> {
     `partition: ${windows.length} windows, ${fileCount} files; MAP_CONCURRENCY=${MAP_CONCURRENCY}, jitter<=${JITTER_MS}ms`,
   );
 
-  const mapResults = await runCapped(
+  const rawResults = await runCapped(
     windows,
     MAP_CONCURRENCY,
     (w) => mapWindow(w, gazetteer),
     parallel,
   );
+  const { screened: mapResults, violations } = screenWindowMembership(windows, rawResults);
+  for (const violation of violations) {
+    log(
+      `EVIDENCE-INTEGRITY VIOLATION — window ${violation.window} reported file(s) outside its own window: [${violation.alienFiles.join(', ')}] — the window is failed whole and must be re-run.`,
+    );
+  }
   const windowInstances = remintWindowInstances(windows, mapResults, gazetteer);
   const coverage = windowInstances.map((w) => ({
     window: w.window,
