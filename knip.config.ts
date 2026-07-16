@@ -110,6 +110,7 @@ const config: KnipConfig = {
         'src/refounding/refound-default-ledger.ts',
         'src/refounding/refound-claim-census.ts',
         'src/refounding/refound-batch-status.ts',
+        'src/refounding/refound-window-sample.ts',
         // Plan-state recomputation CLI (plan-corpus-refounding R0b):
         // invoked via `pnpm exec tsx` package scripts, not imported.
         'src/plan-state/plan-state.ts',

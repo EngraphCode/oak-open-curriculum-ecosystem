@@ -53,6 +53,7 @@
     "refound-plant-challenge-canary": "cd .. && pnpm exec tsx agent-tools/src/refounding/refound-plant-challenge-canary.ts",
     "refound-claim-census": "cd .. && pnpm exec tsx agent-tools/src/refounding/refound-claim-census.ts",
     "refound-batch-status": "cd .. && pnpm exec tsx agent-tools/src/refounding/refound-batch-status.ts",
+    "refound-window-sample": "cd .. && pnpm exec tsx agent-tools/src/refounding/refound-window-sample.ts",
     "plan-state": "cd .. && pnpm exec tsx agent-tools/src/plan-state/plan-state.ts",
     "check-blocked-patterns": "cd .. && pnpm exec tsx agent-tools/src/hook-policy/check-blocked-patterns.ts",
     "check-encoding": "cd .. && node agent-tools/dist/src/encoding/check-encoding.js",
