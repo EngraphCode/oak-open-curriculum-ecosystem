@@ -27,9 +27,10 @@ todos:
   - id: d2a-continuity-truth-pass
     content: >-
       True the durable coordination records to current reality, establish the
-      volatility layering (live values only in the claim's handoff record),
-      and re-home this plan in-repo.
-    status: pending
+      volatility layering (fast-moving operational values live in the claim's
+      handoff record; durable identity, team shape, and milestone state stay
+      in durable records), and re-home this plan in-repo.
+    status: completed
   - id: v2-cycle
     content: >-
       Between module merge and any Job 2 dispatch: gazetteer/key v2 builds,
@@ -99,29 +100,15 @@ plan of record:
 File: `.agent/skills/pr-lifecycle/SKILL-CANONICAL.md` (348 lines; wrapper
 `.claude/skills/oak-pr-lifecycle/SKILL.md` is a pointer, unchanged). House amendment
 convention: inline dated parentheticals at the phase they modify + a failure-modes bullet.
-Four edits:
-
-1. **Phase 6 (~L186–207, "Own the convergence loop")** — add the numeric round tally: after
-   every push, record `{tip SHA, count of NEW review threads since the previous round}` in
-   the PR-shepherd's working notes. Convergence = counts strictly decreasing. **Trigger — 2
-   consecutive non-decreasing rounds OR 4 total rounds: STOP fix-pushing.** Step back and run
-   concept exploration over the full finding corpus for the shared generator; fix the CLASS
-   in one pass (and consider splitting the PR). Tag `(owner correction, 2026-07-16, PR #390:
-   8 rounds / ~38 findings went unnoticed as non-convergence because nothing counted)`.
-2. **Phase 7 (~L219–221, merge-ready definition)** — add the reviewer-state gate: merge-ready
-   additionally requires that **no review round is owed to the current tip**: for every bot
-   reviewer that has previously reviewed this PR, its latest review (GraphQL
-   `reviews(last:20){nodes{author{login} commit{oid} state submittedAt}}`) is bound to the
-   CURRENT tip, or an explicit skip marker exists for the tip; then the existing >10-min
-   quiet window runs from that binding. A round owed = do not merge, regardless of green
-   checks and zero unresolved threads.
-3. **Phase 5 (~L138–139, compound watch query)** — extend the watch floor to include the
-   `reviews` tip-binding read alongside `mergeStateStatus` + `reviewThreads` +
-   `statusCheckRollup`.
-4. **Failure modes (~L337–348)** — add the #390 instance: merge raced a composing round;
-   non-convergence invisible without a per-round tally.
-
-Lands as its own small docs PR, shepherded under the very discipline it adds.
+The binding contract is the amended skill itself
+(`.agent/skills/pr-lifecycle/SKILL-CANONICAL.md`, landing via PR #392 and shepherded
+under the very discipline it adds); this plan does not restate the skill's mechanics
+(cite-not-restate — the error class this plan remediates). Stable acceptance criteria:
+a persisted per-round tally over BOTH finding surfaces (review threads AND review
+bodies) with a step-back trigger on non-convergence; a reviewer-state gate binding
+every expected reviewer's latest review to the current tip before merge-ready; the
+compound watch floor including that tip-binding read; an explicit-merge-only boundary;
+and the PR #390 worked instance recorded in the skill's failure modes.
 
 ## Deliverable 2 — the restatement-audit fleet (T3)
 
@@ -197,7 +184,7 @@ applied from the verified ledger via PR(s) with the prevention validators pinnin
 | a | Row-envelope schema-as-data: the lens-row contract becomes a real JSON Schema; the design doc's fenced block must equal the schema's pretty-printed `examples[0]`; the future dispatch consumes the schema file | `.agent/plans-refounding/r2-evidence/lane-assignment-row.schema.json`; `agent-tools/src/validators/row-envelope/` | `validate-ratified-lists.ts` |
 | b | Falsifier registry-as-data (`{id, population, formula, threshold, primeCandidate}` ×6); validator recomputes registry↔seed§Falsifiers↔any doc naming a falsifier id | `.agent/plans-refounding/falsifier-registry.v1.json`; `agent-tools/src/validators/falsifier-registry/` | `freeze-rule.json` ↔ packet bridging |
 | c | Gate-status cite-not-restate: scan `.agent/plans-refounding/**` + `.agent/memory/operational/*.md` for gate-id+status co-occurrence outside the two sanctioned homes; hits must link to `owner-gate-register.md`; "Ratification record" sections exempt | `agent-tools/src/validators/gate-status-assertions/` | `validate-reference-direction` |
-| e | Doctrine rule naming the anti-pattern, three classes, cure menu | `.agent/rules/single-source-shared-facts.md` + the four on-disk forms (`.claude/rules/`, `.cursor/rules/*.mdc`, `RULES_INDEX.md` row) | `validators-must-recompute-not-just-record.md` |
+| e | Doctrine rule naming the anti-pattern, three classes, cure menu | `.agent/rules/single-source-shared-facts.md` (canonical) + its forwarder forms (`.claude/rules/`, `.cursor/rules/*.mdc`, `.agents/`) + the `RULES_INDEX.md` row | `validators-must-recompute-not-just-record.md` |
 
 Wiring: scripts in `agent-tools/package.json` + chained into `docs-validators:check` (root
 `package.json:39`). **(d) generalised declared-fact registry: DEFERRED** — build only if the

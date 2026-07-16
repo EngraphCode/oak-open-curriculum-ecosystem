@@ -4,8 +4,9 @@ Owner-directed (this session): no follow-ups — design and guarantee excellence
 plan when the plan needs updating; untracked files are FIRST-CLASS (local because
 high-traffic and ephemeral, never because they matter less); the freeze may need recutting
 after remediation. This record captures the concept exploration and the resulting change
-set. The approved plan file (`~/.claude/plans/resilient-wobbling-hartmanis.md`) is updated
-in the same pass — this record explains; the plan binds.
+set. The approved plan file (the per-user working copy, since re-homed 2026-07-16 to
+`.agent/plans/product-development-governance/active/restatement-remediation.plan.md`)
+is updated in the same pass — this record explains; the plan binds.
 
 ## Concept exploration (compressed)
 
