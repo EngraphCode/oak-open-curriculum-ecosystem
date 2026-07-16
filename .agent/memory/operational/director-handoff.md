@@ -275,8 +275,11 @@ first-hand as of 2026-06-25.
 > pointed-to record below (never from this block; it changes with an external outage
 > window).
 >
-> **The live pickup surface** (volatile values do NOT live in this tracked file): the
-> Director claim's `handoff_record_path` →
+> **The live pickup surface**: this block carries HANDOFF-RATE state only — who holds
+> the seat, which claims, the effort's identity and shape (it changes when the seat or
+> team shape changes, per this file's CURRENT-HANDOFF-STATE contract). Anything that
+> changes FASTER than a handoff — PR and round states, halts, queue order, outage
+> windows — lives only in the record the Director claim's `handoff_record_path` names →
 > `.agent/state/collaboration/handoffs/2026-07-16-director-current-state-mussel-6f8857.md`
 > (untracked-by-design — read from the primary checkout's filesystem). It carries the
 > effort's purpose, the guiding-plan pointer, the live PR and halt state, the queue, and

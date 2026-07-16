@@ -26,8 +26,8 @@ arc onto curing it before the big push. PR #390 (the r2 refounding protocol docs
 review rounds / ~38 Copilot findings traced to ONE generator — authored restatement of
 derivable state; #390 and #391 are MERGED (the r2 seed is on main). The owner-approved
 remediation plan (named in the Director current-state record below) has three
-deliverables: pr-lifecycle hardening (PR #392, in review), the restatement-audit
-fleet (module on draft PR #393, in expert review; the canary pilot FAILED its
+deliverables: pr-lifecycle hardening (PR #392), the restatement-audit
+fleet (module on PR #393; the canary pilot FAILED its
 acceptance gate and Job 2 is HALTED behind named dispatch conditions — the v2 design
 cycle is running on measured evidence: grounding fidelity 62/62 with classification
 precision unmeasured, join fragility 43 predicates over 62 instances), and prevention
