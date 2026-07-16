@@ -542,6 +542,6 @@ update continuity surfaces; close claims.
   nothing posts any more, misread as a merge mystery (PR #391, 2026-07-16:
   the required SonarCloud context was absent from every commit including
   main's) — cured by the Phase 7 never-fires recognition: check main for
-  the context, then surface the governance gap to the owner. (Arming was
-  subsequently struck entirely — item 5 — so this mode can no longer
-  arise; the recognition stays for permanently-BLOCKED states generally.)
+  the context, then surface the governance gap to the owner. (Arming has
+  since been struck entirely, so this mode can no longer arise; the
+  recognition stays for permanently-BLOCKED states generally.)
