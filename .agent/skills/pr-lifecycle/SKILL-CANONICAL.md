@@ -136,6 +136,7 @@ select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
 ## Phase 5 — Wait without burning budget: the SUPERVISED terminal-condition watch
 
 - **Every PR-state read STARTS from the compound query** —
+  `headRefOid` (the current tip every review binding is compared against) +
   `mergeStateStatus` + unresolved `reviewThreads` count +
   `statusCheckRollup` + the reviewer tip-binding read
   (`latestReviews(first:20){totalCount nodes{author{login} commit{oid} state
@@ -204,10 +205,14 @@ select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
   Fixed-interval settle probes are superseded by that watch. Event monitors
   give awareness of arrivals, but awareness is not convergence ownership;
   without the supervised watch the human becomes the loop operator.
-  **Declare a round settled only when reviewers' latest reviews are bound to
-  the CURRENT tip AND a quiet window LONGER than the async lag has elapsed
-  (>10 min; 12 used on #330)**; declare merge-ready only after that settled
-  round lands zero new findings. Bundle every finding from one round into
+  **Declare a round settled only when every reviewer leg is satisfied for the
+  CURRENT tip — its latest review bound to the tip, OR a recorded skip for
+  the tip (an explicit skip marker, or Phase 7's SKIPPED-FOR-TIP timeout) —
+  AND a quiet window LONGER than the async lag has elapsed (>10 min; 12 used
+  on #330)** (round-3 correction, 2026-07-16: without the skip clause a
+  timed-out reviewer stays bound to an older commit and the settled state is
+  unreachable); declare merge-ready only after that settled round lands zero
+  new findings. Bundle every finding from one round into
   ONE fix push (each push mints a fresh round; per-finding pushes multiply
   rounds without bound). **Keep the numeric round tally** (owner correction,
   2026-07-16, PR #390: 8 rounds / ~38 findings ran unnoticed as
@@ -275,17 +280,20 @@ quiet window for any single reviewer. Then:
   PR #325): a seat recomputed `mergeable: MERGEABLE` three times as its
   "truly-green gate" while never once reading `mergeStateStatus`, and could
   not explain the unmerged state to the owner.
-- **Arm auto-merge only AFTER this phase's gate — including the round-owed
-  leg — reads satisfied on the CURRENT tip** (round-2 correction,
-  2026-07-16, this PR: the previous arm-early guidance scheduled GitHub's
+- **Arm auto-merge only AFTER the REVIEW legs of this phase's gate read
+  satisfied on the CURRENT tip — no round owed (per the definition above)
+  AND zero unresolved threads AND the Sonar gate not failing; required
+  status checks MAY still be pending** (round-2/round-3 corrections,
+  2026-07-16, this PR: the original arm-early guidance scheduled GitHub's
   CLEAN-fire merge, and CLEAN does not include the round-owed condition —
-  arming early on a bot-reviewed PR schedules exactly the race the gate
-  exists to prevent, and the supervised watch can observe but not delay a
-  scheduled merge. On bot-reviewed PRs, arm-early is therefore dead by
-  design). Post-gate, arming's only value is riding out a still-pending
-  required check; on a PR already CLEAN the same command executes an
-  immediate merge — either way it inherits the merge-authorisation boundary
-  below unchanged (arming schedules the exact merge that boundary governs:
+  arming before the review legs are settled schedules exactly the race the
+  gate exists to prevent, and the supervised watch can observe but not
+  delay a scheduled merge. On bot-reviewed PRs arm-early is therefore dead
+  by design; riding out still-pending CHECKS is arming's only remaining
+  value, which is why the arm boundary is the review legs, not the full
+  gate). On a PR where the full gate is already satisfied the same command
+  executes an immediate merge — either way it inherits the
+  merge-authorisation boundary below unchanged (arming schedules the exact merge that boundary governs:
   on a SELF-AUTHORED, sub-agent-reviewed PR with no in-session owner grant,
   broadcast merge-READY and leave the mechanism to the owner). A PR sitting
   unmerged at truly-green because nobody armed the mechanism (where arming
