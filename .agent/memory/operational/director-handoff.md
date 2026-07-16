@@ -282,12 +282,16 @@ first-hand as of 2026-06-25.
 > windows — lives only in the record the Director claim's `handoff_record_path` names →
 > `.agent/state/collaboration/handoffs/2026-07-16-director-current-state-mussel-6f8857.md`
 > (untracked-by-design — read from the primary checkout's filesystem). It carries the
-> effort's purpose, the guiding-plan pointer, the live PR and halt state, the queue, and
-> the pickup protocol. The effort's SHAPE (stable): cure the authored-restatement error
-> class — the generator behind PR #390's eight review rounds — and pin the cures with
-> prevention validators; the refounding lanes resume at the cures-landed +
-> freeze-recut-check gate. Every live value (PR states, halts, queue order) lives ONLY
-> in the pointed-to record.
+> effort's purpose, the resolvable guiding-plan pointer, the live PR and halt state, the
+> queue, and the pickup protocol. Per this file's contract the guiding plan is NAMED
+> here (stable): the owner-approved restatement-remediation plan — "PR-lifecycle
+> hardening + restatement-audit fleet + prevention mechanisms" — currently homed at a
+> machine-local plans path pending its tracked re-homing item, so the RESOLVABLE pointer
+> rides the pointed-to record. The effort's SHAPE (stable): cure the
+> authored-restatement error class — the generator behind PR #390's eight review
+> rounds — and pin the cures with prevention validators; the refounding lanes resume at
+> the cures-landed + freeze-recut-check gate. Every value that changes faster than a
+> handoff (PR states, halts, queue order) lives ONLY in the pointed-to record.
 >
 > <details><summary>Superseded 2026-07-16: state at Moment-2 2026-07-15 (conserved)</summary>
 >
