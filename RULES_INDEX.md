@@ -142,6 +142,7 @@ without proportional value.
 | `.agent/rules/register-identity-on-thread-join.md`                         | always-on      | —                                                                                                   |
 | `.agent/rules/replace-dont-bridge.md`                                      | always-on      | —                                                                                                   |
 | `.agent/rules/respect-active-agent-claims.md`                              | always-on      | —                                                                                                   |
+| `.agent/rules/route-blocks-and-questions-to-director.md`                   | always-on      | —                                                                                                   |
 | `.agent/rules/rules-have-no-exceptions.md`                                 | always-on      | —                                                                                                   |
 | `.agent/rules/scope-from-goal-before-approach.md`                          | always-on      | —                                                                                                   |
 | `.agent/rules/sha-prefix-in-collaboration-content.md`                      | always-on      | —                                                                                                   |
