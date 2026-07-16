@@ -277,8 +277,8 @@ as phase-local restatements.
    bot review on push (Copilot here), the first round is ALWAYS expected,
    so before any bot has reviewed, every configured bot is OWED until it
    posts or the checks-green quiet-window timeout fires. This closes the
-   vacuous-predicate hole where arming on an initial tip could merge before
-   the first bot round ever lands. The expected set's SOURCE is explicit,
+   vacuous-predicate hole where an initial tip could read merge-ready
+   before the first bot round ever lands. The expected set's SOURCE is explicit,
    never inferred from the compound read (`latestReviews` only names
    authors who have already reviewed — empty on an initial tip): the
    shepherd DECLARES it in the working notes at Phase 1, read from the
@@ -295,15 +295,23 @@ as phase-local restatements.
    ever bound to the tip), the quiet window anchors on the checks-green
    window from item 3. MERGE-READY is a settled round that landed zero new
    findings, plus every Phase 7 gate leg.
-5. **The arm boundary.** Auto-merge may be armed only when the round reads
-   SETTLED per item 4 for the current tip — no leg OWED and the quiet
-   window elapsed — plus a current-round finding count of ZERO on BOTH
-   tally surfaces (threads AND review bodies, item 2: zero unresolved
-   threads alone can coexist with a non-zero body tally) and the Sonar
-   gate not failing; required status checks MAY still be pending, and
-   riding them out is arming's only value. On a PR where the full gate
-   is already satisfied the same command executes an immediate merge —
-   either way it inherits Phase 7's merge-authorisation boundary unchanged.
+5. **The merge boundary — auto-merge is NEVER armed** (owner ruling,
+   2026-07-16, this PR: three validation-round findings showed an armed
+   merge persists across later pushes and can fire on a new tip with legs
+   still OWED, cannot be blocked by a late-arriving cross-round body
+   finding, and is held only by GitHub-required contexts so optional
+   external checks get skipped; riding out pending checks was arming's
+   only value and buys none of that leak surface back). Merging is ALWAYS
+   an explicit command issued at a freshly RECOMPUTED full gate: the round
+   reads SETTLED per item 4 for the current tip; zero unresolved threads;
+   a finding count of ZERO on BOTH tally surfaces (threads AND review
+   bodies, item 2 — zero unresolved threads alone can coexist with a
+   non-zero body tally) AND zero NEWLY HARVESTED findings regardless of
+   which round they bucket to (an out-of-order summary-only review bound
+   to an older tip lands late: it buckets to its own prior round yet still
+   blocks THIS merge moment); every Phase 7 gate leg green INCLUDING
+   checks GitHub does not enforce; the Sonar gate passing. The command
+   inherits Phase 7's merge-authorisation boundary unchanged.
 
 ## Phase 6 — After EVERY push, re-fetch; resolve only what is settled
 
@@ -380,30 +388,27 @@ one checks-green quiet window for any single reviewer. Then:
   PR #325): a seat recomputed `mergeable: MERGEABLE` three times as its
   "truly-green gate" while never once reading `mergeStateStatus`, and could
   not explain the unmerged state to the owner.
-- **Arm auto-merge only at the state machine's arm boundary (item 5) — the
-  REVIEW legs settled on the CURRENT tip; required status checks MAY still
-  be pending** (round-2/round-3 corrections, 2026-07-16, this PR: the
-  original arm-early guidance scheduled GitHub's CLEAN-fire merge, and
-  CLEAN does not include the round-owed condition — arming before the
-  review legs are settled schedules exactly the race the gate exists to
-  prevent, and the supervised watch can observe but not delay a scheduled
-  merge. On bot-reviewed PRs arm-early is therefore dead by design; riding
-  out still-pending CHECKS is arming's only remaining value, which is why
-  the arm boundary is the review legs PLUS the round's zero-new-findings
-  condition on both tally surfaces (state machine item 5), never the full
-  gate but never the review legs alone). Whether it arms
-  or merges immediately, the command inherits the merge-authorisation
-  boundary below unchanged (arming schedules the exact merge that boundary
-  governs: on a SELF-AUTHORED, sub-agent-reviewed PR with no in-session
-  owner grant, broadcast merge-READY and leave the mechanism to the owner).
-  A PR sitting unmerged at truly-green because nobody armed the mechanism
-  (where arming was authorised) is the shepherd's unfinished work (PR #325,
-  2026-07-08).
-  If an arm attempt bundled with other actions is harness-denied, retry the
-  bare `gh pr merge <n> --auto --merge` alone before concluding the
+- **NEVER arm auto-merge; merge only as the explicit command at the state
+  machine's merge boundary (item 5)** (owner ruling, 2026-07-16, this PR —
+  superseding the arm-early guidance this arc had already narrowed twice:
+  the original arm-early scheduled GitHub's CLEAN-fire merge, whose CLEAN
+  does not include the round-owed condition; the narrowed arm boundary
+  still left an armed merge persisting across pushes, unblockable by a
+  late cross-round body finding, and held only by GitHub-required
+  contexts. The supervised watch can observe but not delay a scheduled
+  merge, so the only race-free shape is no schedule at all: recompute the
+  full gate, then merge explicitly). The command inherits the
+  merge-authorisation boundary below unchanged (on a SELF-AUTHORED,
+  sub-agent-reviewed PR with no in-session owner grant, broadcast
+  merge-READY and leave the mechanism to the owner). A PR sitting unmerged
+  at truly-green because nobody issued the merge (where merging was
+  authorised) is the shepherd's unfinished work (PR #325, 2026-07-08).
+  If a merge attempt bundled with other actions is harness-denied, retry
+  the bare `gh pr merge <n> --merge` alone before concluding the
   capability is gated — on #325 a denied composite was over-generalised to
-  the arm itself, and the permitted bare arm later merged the PR. Know when
-  an armed auto-merge can NEVER fire (worked instance PR #391, 2026-07-16):
+  the command itself, and the permitted bare command later merged the PR.
+  Know when a BLOCKED state can NEVER clear (worked instance PR #391,
+  2026-07-16):
   a required status context that nothing posts any more (the SonarCloud
   Code Analysis context — verified absent from docs tips, code tips, AND
   main's own commits) leaves `mergeStateStatus: BLOCKED` permanently at
@@ -477,11 +482,10 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   (only your intended files changed). Bitten twice: the next LOCAL push to
   the same branch is then rejected non-fast-forward until you pull the
   server-side merge back down first — always fetch/pull immediately after
-  calling it, before pushing anything else to that branch. `gh pr merge
-  --auto --merge` is the safe complement: it arms cleanly on a `BLOCKED`
-  PR still waiting on checks and fires the instant the PR goes `CLEAN`, with
-  no further local action — subject, as every arm is, to the state
-  machine's arm boundary (item 5): review legs settled first.
+  calling it, before pushing anything else to that branch. After the
+  update lands and checks re-run, the merge remains the explicit command
+  at the state machine's merge boundary (item 5) — never an armed
+  auto-merge waiting on the checks.
 
 ## Phase 8 — After merge
 
@@ -518,4 +522,6 @@ update continuity surfaces; close claims.
   nothing posts any more, misread as a merge mystery (PR #391, 2026-07-16:
   the required SonarCloud context was absent from every commit including
   main's) — cured by the Phase 7 never-fires recognition: check main for
-  the context, then surface the governance gap to the owner.
+  the context, then surface the governance gap to the owner. (Arming was
+  subsequently struck entirely — item 5 — so this mode can no longer
+  arise; the recognition stays for permanently-BLOCKED states generally.)
