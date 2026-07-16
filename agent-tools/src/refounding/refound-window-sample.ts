@@ -5,9 +5,9 @@ import { pathToFileURL } from 'node:url';
 
 import { err, isErr, ok, type Result } from '@oaknational/result';
 
-import { scanArgs } from '../core/cli-arg-parser.js';
 import { resolveRepoRoot } from '../core/repo-root.js';
 import { writeErrorLine, writeLine } from '../core/terminal-output.js';
+import { entryUsageText, parseEntryArgs } from './refound-entry-args.js';
 import { DEFAULT_OUT_DIR, DEFAULT_RULE_PATH } from './refound-freeze-helpers.js';
 import { resolveReadPathWithinRepo, resolveWriteTargetWithinRepo } from './refound-path-resolve.js';
 import { makeGitByteSource } from './refound-window-sample-git.js';
@@ -55,13 +55,20 @@ interface WindowSampleScanState {
   baseSha: string | null;
 }
 
-/** The parsed flag surface with the required base proven present. */
-export interface WindowSampleArgs {
-  readonly rulePath: string;
-  readonly outDir: string;
-  readonly evidencePath: string;
-  readonly baseSha: string;
-}
+/**
+ * The parsed entry verdict: a run-nothing `help`, or the tool's flags with the
+ * required base proven present. Entries MUST short-circuit `help` BEFORE any
+ * path resolution (the shared `refound-entry-args.ts` contract).
+ */
+export type WindowSampleArgs =
+  | { readonly help: true }
+  | {
+      readonly help: false;
+      readonly rulePath: string;
+      readonly outDir: string;
+      readonly evidencePath: string;
+      readonly baseSha: string;
+    };
 
 const INITIAL_SCAN_STATE: WindowSampleScanState = {
   rulePath: DEFAULT_RULE_PATH,
@@ -70,47 +77,59 @@ const INITIAL_SCAN_STATE: WindowSampleScanState = {
   baseSha: null,
 };
 
+/** The one usage line, shared by parser errors and the `--help` verdict. */
+export function windowSampleUsageText(toolName: string): string {
+  return entryUsageText(
+    toolName,
+    '--base <40-hex sha> [--rule <path>] [--out <dir>] [--evidence <path>]',
+  );
+}
+
 /**
- * Parse `--rule` / `--out` / `--evidence` / `--base` via the shared
- * {@link scanArgs} scanner; `--base` is required and must be a full 40-hex
- * commit sha (the universe is enumerated at that commit).
+ * Parse `--rule` / `--out` / `--evidence` / `--base` (and `--help`/`-h`)
+ * through the shared {@link parseEntryArgs} contract: the `--` terminator is
+ * refused outright (so `--base <sha> -- --out x` can never silently ignore
+ * `--out`), and `--help`/`-h` is a run-nothing verdict answered BEFORE the
+ * required-base check. On a non-help parse `--base` must be present and a full
+ * 40-hex commit sha (the universe is enumerated at that commit).
  */
-export function parseWindowSampleArgs(argv: readonly string[]): Result<WindowSampleArgs, Error> {
-  const scanned = scanArgs(
+export function parseWindowSampleArgs(
+  argv: readonly string[],
+  toolName = TOOL,
+): Result<WindowSampleArgs, Error> {
+  const parsed = parseEntryArgs(
     argv,
+    windowSampleUsageText(toolName),
     { ...INITIAL_SCAN_STATE },
     {
-      flags: {},
-      valueOptions: {
-        '--rule': (state, value) => {
-          state.rulePath = value;
-        },
-        '--out': (state, value) => {
-          state.outDir = value;
-        },
-        '--evidence': (state, value) => {
-          state.evidencePath = value;
-        },
-        '--base': (state, value) => {
-          state.baseSha = value;
-        },
+      '--rule': (state, value) => {
+        state.rulePath = value;
       },
-      helpText:
-        'usage: refound-window-sample --base <40-hex sha> [--rule <path>] [--out <dir>] ' +
-        '[--evidence <path>]',
+      '--out': (state, value) => {
+        state.outDir = value;
+      },
+      '--evidence': (state, value) => {
+        state.evidencePath = value;
+      },
+      '--base': (state, value) => {
+        state.baseSha = value;
+      },
     },
   );
-  if (!scanned.ok) {
-    return err(new Error(scanned.error));
+  if (isErr(parsed)) {
+    return parsed;
   }
-  const { baseSha, ...rest } = scanned.state;
+  if (parsed.value.help) {
+    return ok({ help: true });
+  }
+  const { baseSha, rulePath, outDir, evidencePath } = parsed.value.state;
   if (baseSha === null) {
     return err(new Error('--base is required: the universe is enumerated at that commit'));
   }
   if (!SHA40_PATTERN.test(baseSha)) {
     return err(new Error(`--base must be a full 40-hex commit sha, got '${baseSha}'`));
   }
-  return ok({ ...rest, baseSha });
+  return ok({ help: false, rulePath, outDir, evidencePath, baseSha });
 }
 
 /**
@@ -143,10 +162,14 @@ export function resolveWindowSamplePaths(
 }
 
 async function main(): Promise<void> {
-  const args = parseWindowSampleArgs(process.argv.slice(2));
+  const args = parseWindowSampleArgs(process.argv.slice(2), TOOL);
   if (isErr(args)) {
     writeErrorLine(`${TOOL}: ${args.error.message}`);
     process.exitCode = 1;
+    return;
+  }
+  if (args.value.help) {
+    writeLine(windowSampleUsageText(TOOL));
     return;
   }
   const paths = resolveWindowSamplePaths(repoRoot, args.value);

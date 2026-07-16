@@ -38,10 +38,42 @@ export interface ManifestWriteTarget {
 }
 
 /**
+ * Refuse a PRE-EXISTING symlink anywhere on the existing chain from the
+ * repository root down to (and including) the nearest existing ancestor. A
+ * symlink that resolves INSIDE the repo would leave `realpathSync` recording
+ * its target as the baseline, the drift and containment rechecks seeing no
+ * change, and the write landing THROUGH the link — the exact bypass of the
+ * symlinked-write-dir refusal. The repo root is the trusted base and is not
+ * itself checked (its own symlinks, e.g. macOS `/var`, are the repo's real
+ * location).
+ */
+function refuseSymlinkInAncestorChain(
+  repoRoot: string,
+  anchorAbs: string,
+): Result<undefined, Error> {
+  const relative = path.relative(repoRoot, anchorAbs);
+  const segments = relative === '' || relative.startsWith('..') ? [] : relative.split(path.sep);
+  let current = repoRoot;
+  for (const segment of segments) {
+    current = path.join(current, segment);
+    if (lstatSync(current, { throwIfNoEntry: false })?.isSymbolicLink() === true) {
+      return err(
+        new Error(
+          `out dir ancestor '${current}' is a pre-existing symlink — a write would follow it ` +
+            'outside a verified real-directory chain; refusing',
+        ),
+      );
+    }
+  }
+  return ok(undefined);
+}
+
+/**
  * Canonicalise the out dir's nearest existing ancestor and the repository root
  * before the scan, capturing the baselines {@link recheckOutDirContainment}
- * compares against at write time. An unresolvable ancestor refuses here rather
- * than downstream.
+ * compares against at write time. Refuses a pre-existing symlink anywhere on
+ * the existing ancestor chain ({@link refuseSymlinkInAncestorChain}); an
+ * unresolvable ancestor refuses here rather than downstream.
  */
 export function canonicaliseOutDir(
   repoRoot: string,
@@ -49,6 +81,10 @@ export function canonicaliseOutDir(
 ): Result<ManifestWriteTarget, Error> {
   const anchorAbs = nearestExistingAncestor(outDirAbs);
   try {
+    const chain = refuseSymlinkInAncestorChain(repoRoot, anchorAbs);
+    if (isErr(chain)) {
+      return chain;
+    }
     return ok({
       repoRootReal: realpathSync(repoRoot),
       outDirAbs,

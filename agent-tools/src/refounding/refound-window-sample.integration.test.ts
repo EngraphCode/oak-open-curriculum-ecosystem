@@ -454,21 +454,49 @@ describe('writeManifest — TOCTOU re-canonicalisation guard (nothing written)',
     );
   });
 
-  it('refuses when the re-canonicalised out dir resolves outside the repository', async () => {
+  it('refuses a pre-existing --out symlink escaping the repository at canonicalise time', async () => {
     const repoRoot = await mkdtemp(path.join(tmpdir(), 'refound-window-sample-escape-'));
     tempRoots.push(repoRoot);
     const outsideRoot = await mkdtemp(path.join(tmpdir(), 'refound-window-sample-outside-'));
     tempRoots.push(outsideRoot);
     const outsideOut = path.join(outsideRoot, 'plans-refounding');
     await mkdir(outsideOut, { recursive: true });
-    // An out dir that is itself a symlink escaping the repository: (a) holds
-    // (stable canonical path) so the containment refusal (b) is exercised.
+    // A pre-existing --out symlink pointing outside the repo is refused when the
+    // chain is canonicalised — before any target is produced or byte written.
     const outDirAbs = path.join(repoRoot, 'linked-out');
     await symlink(outsideOut, outDirAbs);
-    const target = unwrap(canonicaliseOutDir(repoRoot, outDirAbs));
-    const written = await writeManifest(target, emptyManifest());
-    expect(unwrapErr(written).message).toContain('outside the repository');
+    expect(unwrapErr(canonicaliseOutDir(repoRoot, outDirAbs)).message).toContain('symlink');
     expect(existsSync(path.join(outsideOut, WINDOW_SAMPLE_SEGMENT))).toBe(false);
+  });
+
+  it('refuses when --out is itself a pre-existing in-repo symlink (write-through bypass)', async () => {
+    const repoRoot = await mkdtemp(path.join(tmpdir(), 'refound-window-sample-inlink-'));
+    tempRoots.push(repoRoot);
+    const realTarget = path.join(repoRoot, 'real-target');
+    await mkdir(realTarget, { recursive: true });
+    await mkdir(path.join(repoRoot, '.agent'));
+    const outDirAbs = path.join(repoRoot, '.agent/plans-refounding');
+    await symlink(realTarget, outDirAbs);
+    expect(unwrapErr(canonicaliseOutDir(repoRoot, outDirAbs)).message).toContain('symlink');
+    expect(existsSync(path.join(realTarget, WINDOW_SAMPLE_SEGMENT))).toBe(false);
+  });
+
+  it('refuses when an intermediate in-repo ancestor is a pre-existing symlink', async () => {
+    const repoRoot = await mkdtemp(path.join(tmpdir(), 'refound-window-sample-midlink-'));
+    tempRoots.push(repoRoot);
+    const realAgent = path.join(repoRoot, 'real-agent');
+    await mkdir(path.join(realAgent, 'plans-refounding'), { recursive: true });
+    await symlink(realAgent, path.join(repoRoot, '.agent'));
+    const outDirAbs = path.join(repoRoot, '.agent/plans-refounding');
+    expect(unwrapErr(canonicaliseOutDir(repoRoot, outDirAbs)).message).toContain('symlink');
+  });
+
+  it('accepts a plain nested real-directory --out chain', async () => {
+    const repoRoot = await mkdtemp(path.join(tmpdir(), 'refound-window-sample-plainchain-'));
+    tempRoots.push(repoRoot);
+    const outDirAbs = path.join(repoRoot, '.agent/plans-refounding');
+    await mkdir(outDirAbs, { recursive: true });
+    expect(unwrap(canonicaliseOutDir(repoRoot, outDirAbs)).outDirAbs).toBe(outDirAbs);
   });
 });
 
@@ -502,12 +530,27 @@ describe('readBoundRule — single-read binding (check-time == use-time)', () =>
   });
 });
 
-describe('parseWindowSampleArgs (entry-level flag surface)', () => {
+describe('parseWindowSampleArgs (shared entry contract)', () => {
   it('requires --base and rejects a non-40-hex value', () => {
     expect(parseWindowSampleArgs([]).ok).toBe(false);
     expect(parseWindowSampleArgs(['--base', 'abc123']).ok).toBe(false);
-    const parsed = unwrap(parseWindowSampleArgs(['--base', 'ab'.repeat(20)]));
-    expect(parsed.baseSha).toBe('ab'.repeat(20));
+    expect(
+      unwrap(parseWindowSampleArgs(['--base', 'ab'.repeat(20), '--out', 'custom'])),
+    ).toMatchObject({ help: false, outDir: 'custom', baseSha: 'ab'.repeat(20) });
+  });
+
+  it('answers --help and -h as a run-nothing verdict, before the required-base check', () => {
+    for (const argv of [['--help'], ['-h']]) {
+      const parsed = unwrap(parseWindowSampleArgs(argv));
+      expect(parsed.help).toBe(true);
+    }
+  });
+
+  it('refuses the -- terminator instead of silently swallowing the flags after it', () => {
+    const error = unwrapErr(
+      parseWindowSampleArgs(['--base', 'ab'.repeat(20), '--', '--out', 'custom']),
+    );
+    expect(error.message).toContain('--');
   });
 });
 
