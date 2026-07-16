@@ -17,7 +17,7 @@ todos:
       Land the pr-lifecycle skill amendments (round tally, step-back trigger,
       review-round state machine, explicit-merge boundary) via their own PR,
       shepherded under the discipline they add.
-    status: pending
+    status: completed
   - id: d2-restatement-audit-module-and-fleet
     content: >-
       Build the restatement-audit module (TDD, corpus-analysis substrate) and
@@ -222,7 +222,7 @@ ledger histogram shows ≥2 recurring fact classes with no data home.
    capture.
 4. PR #391: DONE — merged 2026-07-16 ahead of item 1's PR landing, as the ratified
    "Independent of 1–3" allows; the new discipline was applied manually (round-owed gate
-   recomputed on the tip: Copilot bound, 0 unresolved, >2h quiet) since #392 is still open
+   recomputed on the tip: Copilot bound, 0 unresolved, >2h quiet) because it preceded #392's landing
    (merge commit `SHA:eca8fb2d6`, merge method, admin bypass; corrected diagnosis
    2026-07-16: the permanent blocker is the required "SonarCloud Code Analysis" status
    context, which nothing posts on ANY commit — docs tips, code tips, or main — so
