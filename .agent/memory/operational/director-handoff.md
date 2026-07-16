@@ -262,7 +262,44 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> ### ▶ ACTIVE EFFORT: PLANNING & VISIBILITY / PLAN-CORPUS REFOUNDING — Director: Schooner guards Whirlpool (Moment-2 2026-07-15T12:04:35Z, event `35076b29`)
+> ### ▶ ACTIVE EFFORT: PLAN-CORPUS REFOUNDING — Director: Mussel rides Coral (Moment-2 2026-07-15T14:26:36Z, event `0f7e4907`)
+>
+> **SESSION SHAPE:** Mussel rides Coral (`6f8857`) holds the seat — claim `0f4be777`
+> adopted, dual heartbeat live (transfer from Schooner guards Whirlpool `82a9df`, Moment-1
+> ~14:22Z, Moment-2 14:26:36Z after the readiness gate + pasted mechanical UTC check).
+> Hedgehog tracks Eventide (`82b36c`) is Fleet Captain, warm, running the signed
+> `s1-reader-sample-b1` batch (claim `45befb32`). Zodiac turns Solstice (`019f65`) was
+> owner-shut-down after their S1 closeout; forensic verdict: contained, nothing rogue
+> reached origin, their deep-handoff fold rides PR #384.
+>
+> <details><summary>Superseded: seat-in-transfer state as frozen by Schooner (conserved)</summary>
+>
+> **SESSION SHAPE at handoff:** outgoing Director Schooner guards Whirlpool (`82a9df`,
+> owner-directed deep handoff then session end); incoming Director Mussel rides Coral
+> (`6f8857`, registered 14:13:43Z, standby held correctly — Moment-2 pending); Zodiac turns
+> Solstice (`019f65`) on a narrow continuity-curation claim `c4e56bb2` only (S1 lane closed
+> clean); Hedgehog tracks Eventide (`82b36c`) owner-cold-paused, Fleet-Captain-in-waiting.
+>
+> </details>
+>
+> **The live pickup surface is the handoff record**
+> `.agent/state/collaboration/handoffs/2026-07-15-director-schooner-to-mussel-0f4be777.md`
+> (claim `0f4be777` carries `handoff_record_path`; untracked-by-design — read from the
+> primary checkout's filesystem). §1 current state (S1 deterministic layer LANDED via
+> PR #382 with the calibration blindness disclosure proving the fleet residual necessary;
+> the decoy-comms finding; the primary's pull owner-gated by the loss-ruling — resolves
+> only by an owner-run command), §2 in-flight reasoning (the arc-wide scripts-first
+> discipline; today's owner rulings incl. no-handover-PRs, the loss-discipline absolute,
+> "nothing is 'mine'"), §3 rulings, §4 work owed (PR #384 shepherd; the owner-gated S1
+> fleet leg; S2 → divergence report → Walk-A).
+>
+> **Readiness gate before any Moment-2:** the brief's five questions + the pasted mechanical
+> UTC liveness check; the outgoing seat's heartbeats stop at its closeout broadcast — the
+> comms heartbeat-end/closeout events are the authoritative stand-down signals even while
+> the registry reads fresh. Then `claims adopt 0f4be777`, watcher move 1, DUAL heartbeat
+> (comms event AND `claims heartbeat` per tick — the F-92 gap bit two tenures running).
+>
+> <details><summary>Superseded: Director #3 (Schooner guards Whirlpool) state at Moment-2, 2026-07-15 (conserved)</summary>
 >
 > **SESSION SHAPE:** n=1 — Director only (**Schooner guards Whirlpool, `82a9df`**, claude-code /
 > claude-fable-5), claim `0f4be777` ADOPTED from Barnacle calls Spray (`6d5d9c`, Director #2,
@@ -354,6 +391,8 @@ first-hand as of 2026-06-25.
 >
 > **Readiness gate before any Moment-2:** this brief's five questions + the pasted mechanical
 > UTC liveness check; then `claims adopt 0f4be777`, watcher move 1, heartbeat per PDR-078 §4.
+>
+> </details>
 >
 > </details>
 >

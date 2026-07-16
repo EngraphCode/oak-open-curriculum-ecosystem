@@ -3256,3 +3256,45 @@ commit SHA and the closing plan reference.
   (a plain `git commit` on a pre-verified staged tree is a legitimate fallback when the
   commit-queue tool itself — not the underlying gates — is the thing failing repeatedly).
 - **Owner direction status**: standing (record-all-frictions).
+
+### F-144 — `commit-queue -- record-staged` dies with `spawnSync <system-git> ENOBUFS` on a large staged bundle
+
+- **Source**: Zodiac turns Solstice (`019f65`), 2026-07-15 r1-S1 deterministic lane, first-hand.
+- **Observed**: with a ~49 MB five-file staged bundle (996,181 inserted lines), `record-staged`
+  crashed at `spawnSync <system-git> ENOBUFS` — the child-process output buffer overflowed on a
+  git invocation whose stdout scales with staged content. Intent `31a1df9a` was marked abandoned
+  with that evidence; the commit then landed through the documented explicit-pathspec fallback
+  (message prevalidated, hooks enabled).
+- **Expected**: the commit-queue tooling either streams (or raises `maxBuffer` on) git output it
+  consumes, or degrades gracefully with a clear too-large-bundle message naming the fallback.
+- **Candidate cure**: switch the affected `execFileSync` call (commit-queue `git.ts`
+  `runGit`, which buffers `git diff --cached --full-index --binary` under a 32 MiB
+  `maxBuffer` via `STAGED_PATCH_BUFFER_BYTES`) to a streaming spawn, or raise that explicit
+  `maxBuffer` to the tool's declared bundle ceiling; add the ceiling to the tool's help
+  text. (The observed error string can still name `spawnSync` — Node surfaces it from the
+  underlying call — but the call site is `execFileSync`.)
+- **Target surface**: `agent-tools` commit-queue `record-staged` implementation.
+- **Status**: open — workaround proven (explicit-pathspec commit path).
+- **Owner direction status**: standing (record-all-frictions).
+
+### F-145 — the PreToolUse blocked-patterns hook has no per-instance owner-authorisation valve
+
+- **Source**: Schooner guards Whirlpool (`82a9df`), 2026-07-15 residue disposition sweep, first-hand.
+- **Observed**: the owner gave express per-instance permission for four proven-conserved
+  `git stash drop` operations — the exact escape `never-use-git-to-remove-work.md` §"A Block Is
+  a Question, Never a Detour" names ("proceed only on express per-instance instruction"). The
+  hook still blocked every agent invocation: verified that `hook-policy` (policy.json, the guard
+  runner, `check-blocked-patterns`) implements no authorisation mechanism at all. Every route
+  around it is separately banned (substring evasion, sibling commands, temporary policy edits),
+  so the rule's own express-permission path is mechanically unreachable for agents — the owner
+  had to run the four commands personally via `!`.
+- **Expected**: an owner's express per-instance instruction should have a mechanical meaning.
+- **Candidate cure**: a designed one-shot authorisation valve — an owner-written authorisation
+  file naming the exact command (and optionally a use-by time), consumed and invalidated by the
+  guard on first match, logged to the comms stream. Preserves the stop-and-surface moment (the
+  agent still stops and asks; the owner still explicitly authorises) while making the rule's
+  documented escape real. Never a policy-pattern removal (gate-off-fix-gate-on is banned).
+- **Target surface**: `agent-tools/src/hook-policy/` guard runner + `.agent/hooks/policy.json`
+  schema; `never-use-git-to-remove-work.md` §Block-Is-a-Question gains the valve's usage note.
+- **Status**: open.
+- **Owner direction status**: standing (record-all-frictions).
