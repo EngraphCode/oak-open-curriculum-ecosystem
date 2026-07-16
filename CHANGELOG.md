@@ -1,3 +1,23 @@
+# [1.72.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.71.4...v1.72.0) (2026-07-16)
+
+
+### Bug Fixes
+
+* **refounding:** anchor window-sample write guard on nearest existing ancestor ([407fdf2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/407fdf24aa07e49ed09daf2583d71fd292f197e2))
+* **refounding:** bind the rule to the pinned base; v1 window arithmetic ([6e6985e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/6e6985e3522ff9ef7cacdcf8e7e86a4e1797e677))
+* **refounding:** close check-time/use-time gaps in window-sample rule bind and dir create ([dd38778](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/dd387788dd4ecb0f5f2f23817fadab799f75d087))
+* **refounding:** close every manifest invariant; Err on probe errors ([2587a85](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2587a85437d99a2a39b317609dd848361a2fe4ca))
+* **refounding:** extglob refusal, path-bound coordinates, hit orderings ([3166f1c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3166f1c1442a7172b703cfa8e77028475ef1c58e))
+* **refounding:** harden window-sample glob/probe guards and convert tests to throw-guards ([53b4c89](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/53b4c897a01d201be7ac6c354f36a69798882dff))
+* **refounding:** re-canonicalise out dir at manifest write to close TOCTOU escape ([b167d71](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b167d71ec01af25a108ba861fabc57f5baa53450))
+* **refounding:** route window-sample CLI through entry contract, refuse out-dir symlinks ([4126555](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/41265554acaa19d4a4ef64fd411ae459e339b526))
+* **refounding:** window-sample review-round cures ([3db883b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3db883bb3ca68fec16efbe83639b674df7b14aa7))
+
+
+### Features
+
+* **refounding:** land the window-sample instrument + 30-window manifest (s1-reader-sample-b1) ([012632b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/012632b400500614022ca6f1900d9e960ee46f9d))
+
 ## [1.71.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.71.3...v1.71.4) (2026-07-16)
 
 ## [1.71.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.71.2...v1.71.3) (2026-07-16)
