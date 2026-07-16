@@ -37,8 +37,8 @@ function row(id: string): MetaAgentRow {
     predicate: 'status',
     verdict: 'conflict',
     instances: [
-      { file: 'a.md', line: 1, quote: 'G1 — DONE', valueNorm: 'done' },
-      { file: 'a.md', line: 2, quote: 'G1 — DISCHARGED', valueNorm: 'discharged' },
+      { id: 'W01-I01', file: 'a.md', line: 1, quote: 'G1 — DONE', valueNorm: 'done' },
+      { id: 'W01-I02', file: 'a.md', line: 2, quote: 'G1 — DISCHARGED', valueNorm: 'discharged' },
     ],
     droppedMembers: [],
     sourceOfTruth: null,
@@ -58,11 +58,11 @@ describe('heldLedgerRows', () => {
     expect(rows[0]?.verdict).toBe('conflict');
   });
 
-  it('projects instances to the ledger shape and points the note at the validate checkpoint', () => {
+  it('projects instances to the ledger shape (id carried) and points the note at the validate checkpoint', () => {
     const [built] = heldLedgerRows([cluster('h1')]);
     expect(built?.instances).toEqual([
-      { file: 'a.md', line: 1, quote: 'G1 — DONE', valueNorm: 'done' },
-      { file: 'a.md', line: 1, quote: 'G1 — DONE', valueNorm: 'discharged' },
+      { id: 'W01-I01', file: 'a.md', line: 1, quote: 'G1 — DONE', valueNorm: 'done' },
+      { id: 'W01-I02', file: 'a.md', line: 1, quote: 'G1 — DONE', valueNorm: 'discharged' },
     ]);
     expect(built?.heldNote).toContain('validate checkpoint');
   });
@@ -170,22 +170,35 @@ describe('checkLedgerCoverage', () => {
     const shedOne = row('c1');
     const message = checkLedgerCoverage([threeMember], [shedOne]);
     expect(message).toContain('member-conservation');
-    expect(message).toContain('c1 (accounted 2 ≠ cluster members 3)');
+    expect(message).toContain('missing member id(s): [W01-I03]');
   });
 
-  it('names a row that pads an extra instance beyond its cluster members', () => {
+  it('names a duplicated survivor masking an omitted member — counts match but the id-set does not', () => {
+    const duplicated = {
+      ...row('c1'),
+      instances: [
+        { id: 'W01-I01', file: 'a.md', line: 1, quote: 'G1 — DONE', valueNorm: 'done' },
+        { id: 'W01-I01', file: 'a.md', line: 1, quote: 'G1 — DONE', valueNorm: 'done' },
+      ],
+    };
+    const message = checkLedgerCoverage([cluster('c1')], [duplicated]);
+    expect(message).toContain('duplicated: [W01-I01]');
+    expect(message).toContain('missing member id(s): [W01-I02]');
+  });
+
+  it('names an instance id that belongs to no cluster member', () => {
     const padded = {
       ...row('c1'),
       instances: [
         ...row('c1').instances,
-        { file: 'd.md', line: 9, quote: 'G1 — PADDED', valueNorm: 'padded' },
+        { id: 'GHOST', file: 'd.md', line: 9, quote: 'G1 — PADDED', valueNorm: 'padded' },
       ],
     };
     const message = checkLedgerCoverage([cluster('c1')], [padded]);
-    expect(message).toContain('c1 (accounted 3 ≠ cluster members 2)');
+    expect(message).toContain('not in the cluster: [GHOST]');
   });
 
-  it('passes conservation when a drop accounts for the missing member', () => {
+  it('passes conservation when a named drop accounts for the missing member id', () => {
     const threeMember: MetaCluster = {
       ...cluster('c1'),
       instances: [
@@ -197,7 +210,13 @@ describe('checkLedgerCoverage', () => {
     const withNamedDrop = {
       ...row('c1'),
       droppedMembers: [
-        { file: 'c.md', line: 7, quote: 'G1 — DONE', reason: 'quote absent from live file' },
+        {
+          id: 'W01-I03',
+          file: 'c.md',
+          line: 7,
+          quote: 'G1 — DONE',
+          reason: 'quote absent from live file',
+        },
       ],
     };
     expect(checkLedgerCoverage([threeMember], [withNamedDrop])).toBeNull();

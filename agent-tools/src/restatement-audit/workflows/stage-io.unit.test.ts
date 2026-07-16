@@ -75,8 +75,14 @@ const ledgerRow = {
   predicate: 'status',
   verdict: 'conflict',
   instances: [
-    { file: 'a.md', line: 1, quote: 'G1 — DONE 2026-07-07', valueNorm: 'done' },
-    { file: 'b.md', line: 2, quote: 'G1 — DISCHARGED 2026-07-07', valueNorm: 'discharged' },
+    { id: 'W01-I01', file: 'a.md', line: 1, quote: 'G1 — DONE 2026-07-07', valueNorm: 'done' },
+    {
+      id: 'W01-I02',
+      file: 'b.md',
+      line: 2,
+      quote: 'G1 — DISCHARGED 2026-07-07',
+      valueNorm: 'discharged',
+    },
   ],
   droppedMembers: [],
   sourceOfTruth: null,
@@ -93,8 +99,8 @@ const heldLedgerRow = {
   predicate: 'ratification-status',
   verdict: 'latent',
   instances: [
-    { file: 'a.md', line: 3, quote: 'G1 ratified', valueNorm: 'ratified' },
-    { file: 'b.md', line: 4, quote: 'G1 ratified', valueNorm: 'ratified' },
+    { id: 'W01-I03', file: 'a.md', line: 3, quote: 'G1 ratified', valueNorm: 'ratified' },
+    { id: 'W01-I04', file: 'b.md', line: 4, quote: 'G1 ratified', valueNorm: 'ratified' },
   ],
   heldNote: 'voters disagreed — triage via the validate checkpoint voterVerdicts',
 };

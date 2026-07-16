@@ -228,4 +228,9 @@ describe('metaPrompt', () => {
       'every cluster member MUST appear as either a surviving instance or a named dropped member',
     );
   });
+
+  it('pins member ids to the cluster (conservation is an exact id-set match in code)', () => {
+    expect(prompt).toContain("every dropped member MUST carry its member's `id` copied VERBATIM");
+    expect(prompt).toContain('exact id-set match');
+  });
 });

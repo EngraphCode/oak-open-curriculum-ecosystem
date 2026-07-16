@@ -170,11 +170,12 @@ describe('metaStage (meta agent contract)', () => {
     expect(sourceOfTruth?.anyOf ?? sourceOfTruth?.type).toBeDefined();
   });
 
-  it('requires droppedMembers explicitly — a drop is expressed by naming it, an empty array by stating it', () => {
+  it('requires droppedMembers explicitly — a drop is expressed by naming it (id included), an empty array by stating it', () => {
     expect(ledgerRow?.required).toContain('droppedMembers');
     const droppedMember = arrayItems(propertySchema(ledgerRow, 'droppedMembers'));
     expect([...(droppedMember?.required ?? [])].sort(byAlpha)).toEqual([
       'file',
+      'id',
       'line',
       'quote',
       'reason',
@@ -183,5 +184,16 @@ describe('metaStage (meta agent contract)', () => {
 
   it('asks the agent for NO disposition — code stamps flagged after the call', () => {
     expect(propertySchema(ledgerRow, 'disposition')).toBeUndefined();
+  });
+
+  it('requires the member id on every surviving instance — id-set conservation depends on it', () => {
+    const instance = arrayItems(propertySchema(ledgerRow, 'instances'));
+    expect([...(instance?.required ?? [])].sort(byAlpha)).toEqual([
+      'file',
+      'id',
+      'line',
+      'quote',
+      'valueNorm',
+    ]);
   });
 });

@@ -18,8 +18,8 @@ function row(
     predicate: 'status',
     verdict: 'conflict',
     instances: [
-      { file: 'a.md', line: 1, quote: 'discharged', valueNorm: 'discharged' },
-      { file: 'b.md', line: 2, quote: 'done', valueNorm: 'done' },
+      { id: 'f1', file: 'a.md', line: 1, quote: 'discharged', valueNorm: 'discharged' },
+      { id: 'f2', file: 'b.md', line: 2, quote: 'done', valueNorm: 'done' },
     ],
     droppedMembers: [],
     sourceOfTruth: null,
@@ -38,8 +38,8 @@ function heldRow(id: string): HeldLedgerRow {
     predicate: 'status',
     verdict: 'latent',
     instances: [
-      { file: 'a.md', line: 3, quote: 'done', valueNorm: 'done' },
-      { file: 'c.md', line: 4, quote: 'done', valueNorm: 'done' },
+      { id: 'f3', file: 'a.md', line: 3, quote: 'done', valueNorm: 'done' },
+      { id: 'f4', file: 'c.md', line: 4, quote: 'done', valueNorm: 'done' },
     ],
     heldNote: 'voters disagreed — triage via the validate checkpoint voterVerdicts',
   };
@@ -95,9 +95,11 @@ describe('renderLedgerMarkdown', () => {
     const degraded = row({
       id: 'L1',
       severity: 'med',
-      instances: [{ file: 'a.md', line: 1, quote: 'discharged', valueNorm: 'discharged' }],
+      instances: [
+        { id: 'f1', file: 'a.md', line: 1, quote: 'discharged', valueNorm: 'discharged' },
+      ],
       droppedMembers: [
-        { file: 'b.md', line: 2, quote: 'done', reason: 'quote absent from live file' },
+        { id: 'f2', file: 'b.md', line: 2, quote: 'done', reason: 'quote absent from live file' },
       ],
     });
     const md = renderLedgerMarkdown([degraded]);
@@ -113,8 +115,8 @@ describe('renderLedgerMarkdown', () => {
       severity: 'low',
       instances: [],
       droppedMembers: [
-        { file: 'a.md', line: 1, quote: 'discharged', reason: 'file deleted' },
-        { file: 'b.md', line: 2, quote: 'done', reason: 'file deleted' },
+        { id: 'f1', file: 'a.md', line: 1, quote: 'discharged', reason: 'file deleted' },
+        { id: 'f2', file: 'b.md', line: 2, quote: 'done', reason: 'file deleted' },
       ],
     });
     const md = renderLedgerMarkdown([fullyDegraded]);

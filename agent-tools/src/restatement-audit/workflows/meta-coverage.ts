@@ -24,7 +24,8 @@ export function heldLedgerRows(heldClusters: readonly MetaCluster[]): HeldLedger
     subject: cluster.subject,
     predicate: cluster.predicate,
     verdict: cluster.verdict,
-    instances: cluster.instances.map(({ file, line, quote, valueNorm }) => ({
+    instances: cluster.instances.map(({ id, file, line, quote, valueNorm }) => ({
+      id,
       file,
       line,
       quote,
@@ -69,33 +70,56 @@ export function composeMetaLedger(
 const ROW_IDENTITY_FIELDS = ['factClass', 'subject', 'predicate', 'verdict'] as const;
 
 /**
- * `id (accounted X ≠ cluster members N)` for every row whose survivors + named drops do
- * not account for its cluster's members exactly — a three-member cluster cannot
- * silently shed one member (2 survivors + 0 drops passes the global floor but not
- * conservation), and a row cannot pad extras. Counts, not (file,line) identity: the
- * agent legitimately corrects drifted quotes/lines, so counts are the robust invariant.
- * Split-off members satisfy conservation as NAMED drops (the prompt instructs a split
- * reason), so a prompt-sanctioned SPLIT row never fails the stage.
+ * One row's conservation verdict: every cluster member id must appear EXACTLY ONCE
+ * across the row's surviving instances + named drops — an exact id-set match, not a
+ * count (a duplicated survivor plus an omitted member passes any count check). Ids are
+ * the stable join key; the agent legitimately corrects drifted quotes/lines, so
+ * (file,line) identity would false-positive on honest corrections. Split-off members
+ * satisfy conservation as NAMED drops (the prompt instructs a split reason).
  */
+function rowConservationProblem(cluster: MetaCluster, row: MetaAgentRow): string | null {
+  const expected = new Set(cluster.instances.map((instance) => instance.id));
+  const accounted = [
+    ...row.instances.map((instance) => instance.id),
+    ...row.droppedMembers.map((member) => member.id),
+  ];
+  const seen = new Set<string>();
+  const duplicated = new Set<string>();
+  const alien: string[] = [];
+  for (const id of accounted) {
+    if (seen.has(id)) {
+      duplicated.add(id);
+    }
+    seen.add(id);
+    if (!expected.has(id)) {
+      alien.push(id);
+    }
+  }
+  const missing = [...expected].filter((id) => !seen.has(id));
+  if (missing.length === 0 && duplicated.size === 0 && alien.length === 0) {
+    return null;
+  }
+  return (
+    `${row.id} (missing member id(s): [${missing.join(', ')}]; ` +
+    `duplicated: [${[...duplicated].join(', ')}]; ` +
+    `not in the cluster: [${alien.join(', ')}])`
+  );
+}
+
+/** Conservation problems for every row matched to a flagged cluster. */
 function memberConservationMismatches(
   clusters: readonly MetaCluster[],
   rows: readonly MetaAgentRow[],
 ): string[] {
   const byClusterId = new Map(clusters.map((cluster) => [cluster.id, cluster]));
-  const mismatches: string[] = [];
-  for (const row of rows) {
+  return rows.flatMap((row) => {
     const cluster = byClusterId.get(row.id);
     if (cluster === undefined) {
-      continue; // an orphan row is already reported by the cardinality check
+      return []; // an orphan row is already reported by the cardinality check
     }
-    const accounted = row.instances.length + row.droppedMembers.length;
-    if (accounted !== cluster.instances.length) {
-      mismatches.push(
-        `${row.id} (accounted ${accounted} ≠ cluster members ${cluster.instances.length})`,
-      );
-    }
-  }
-  return mismatches;
+    const problem = rowConservationProblem(cluster, row);
+    return problem === null ? [] : [problem];
+  });
 }
 
 /** `id.field row='x' cluster='y'` for every identity field a row disagrees with its cluster on. */

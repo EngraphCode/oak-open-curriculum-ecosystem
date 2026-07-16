@@ -3,8 +3,14 @@ import { describe, expect, it } from 'vitest';
 
 import { ledgerRowSchema, metaAgentRowSchema, parseLedgerRow } from './ledger-rows.js';
 
-const instanceA = { file: 'a.md', line: 1, quote: 'completed', valueNorm: 'completed' };
-const instanceB = { file: 'b.md', line: 2, quote: 'in progress', valueNorm: 'in-progress' };
+const instanceA = { id: 'f1', file: 'a.md', line: 1, quote: 'completed', valueNorm: 'completed' };
+const instanceB = {
+  id: 'f2',
+  file: 'b.md',
+  line: 2,
+  quote: 'in progress',
+  valueNorm: 'in-progress',
+};
 
 const agentRow = {
   id: 'L1',
@@ -21,6 +27,7 @@ const agentRow = {
 };
 
 const droppedMember = {
+  id: 'f2',
   file: 'b.md',
   line: 2,
   quote: 'in progress',
@@ -56,7 +63,7 @@ describe('metaAgentRowSchema (the meta agent contract row — no disposition)', 
     const fullyDegraded = {
       ...agentRow,
       instances: [],
-      droppedMembers: [droppedMember, { ...droppedMember, file: 'a.md', line: 1 }],
+      droppedMembers: [droppedMember, { ...droppedMember, id: 'f1', file: 'a.md', line: 1 }],
     };
     expect(metaAgentRowSchema.safeParse(fullyDegraded).success).toBe(true);
   });
@@ -86,7 +93,7 @@ describe('ledgerRowSchema (the disposition-discriminated ledger union)', () => {
     subject: 's0-window-sample',
     predicate: 'status',
     verdict: 'latent',
-    instances: [instanceA, { ...instanceA, file: 'b.md', line: 9 }],
+    instances: [instanceA, { ...instanceA, id: 'f2', file: 'b.md', line: 9 }],
     heldNote: 'voters disagreed — triage via the validate checkpoint voterVerdicts',
   };
 

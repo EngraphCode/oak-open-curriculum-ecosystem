@@ -39,9 +39,12 @@ const proposedCureSchema = z.enum([
 
 /**
  * One instance a ledger row carries: byte-verified grounding on `flagged` rows, the map
- * stage's grounding on `held-for-review` rows.
+ * stage's grounding on `held-for-review` rows. `id` is the map-minted member instance
+ * id, copied verbatim, so member conservation is recomputable as an exact id-set match
+ * (a duplicated survivor can never mask an omitted member behind a matching count).
  */
 const ledgerInstanceSchema = z.strictObject({
+  id: nonEmptyString,
   file: nonEmptyString,
   line: positiveInt,
   quote: z.string().min(1).max(200),
@@ -49,13 +52,15 @@ const ledgerInstanceSchema = z.strictObject({
 });
 
 /**
- * A member the meta agent removed from a row — the file/line/quote it was extracted
- * with and the reason it left: a byte-verify failure, or a split-off (the member
- * belongs to a different fact than the row's). Required by name so a removal is always
- * a visible ledger fact, never a metaNotes aside or a silent omission — member
- * conservation (survivors + drops = cluster members) is recomputed in code.
+ * A member the meta agent removed from a row — its map-minted `id` and the
+ * file/line/quote it was extracted with, plus the reason it left: a byte-verify
+ * failure, or a split-off (the member belongs to a different fact than the row's).
+ * Required by name so a removal is always a visible ledger fact, never a metaNotes
+ * aside or a silent omission — member conservation (the exact id-set across survivors +
+ * drops) is recomputed in code.
  */
 const droppedMemberSchema = z.strictObject({
+  id: nonEmptyString,
   file: nonEmptyString,
   line: positiveInt,
   quote: z.string().min(1).max(200),

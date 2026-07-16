@@ -32,6 +32,41 @@ import { deriveRunData, type CliFlags, type StageRunData } from './derive-stage-
 import { buildStageArtefact } from '../../../workflow-build/workflow-builder.js';
 import { BUILD_CONFIG, STAGE_DEFINITIONS, WORKFLOW_OUT_DIR } from './build-config.js';
 
+/** The full usage block the agent-tools help contract requires (README §CLI help contract). */
+const USAGE = String.raw`Usage: pnpm restatement-audit-build-run-artefact --stage <stage> [stage flags]
+
+Build one SEEDED, launchable workflow artefact from committed checkpoint files.
+Writes dist/restatement-audit/workflows/<stage>.workflow.seeded.mjs for
+Workflow({scriptPath}). All file flags take paths to committed checkpoint JSON;
+relative paths resolve against the invoking cwd (the agent-tools workspace).
+
+Required:
+  --stage <map|reduce|validate|meta>       Pipeline stage to seed (REQUIRED).
+
+Stage flags (REQUIRED per stage unless marked optional):
+  map:       --partition <partition.json> --gazetteer <gazetteer.v1.json>
+  reduce:    --map-result <instances.json>
+  validate:  --map-result <instances.json> --reduce-result <clusters.json>
+             --ceiling <positive integer, token hard-abort ceiling>
+             [--validate-result <prior.json> ...]   (repeatable; resume narrowing)
+  meta:      --map-result <instances.json> --reduce-result <clusters.json>
+             --validate-result <dispositions.json>  (repeatable)
+
+Other:
+  --help     Print this usage block and exit 0.
+
+Examples:
+  pnpm restatement-audit-build-run-artefact --stage map --partition partition.json --gazetteer gazetteer.v1.json
+  pnpm restatement-audit-build-run-artefact --stage validate --map-result instances.json \
+    --reduce-result clusters.json --ceiling 5000000
+`;
+
+/** Print the error AND the full usage block, then flag a non-zero exit (help contract). */
+function failWithUsage(message: string): void {
+  process.stderr.write(`${message}\n\n${USAGE}`);
+  process.exitCode = 1;
+}
+
 function parseCliFlags(): Result<CliFlags, Error> {
   try {
     const { values } = parseArgs({
@@ -80,26 +115,32 @@ async function resolveRunData(): Promise<
   return data.ok ? ok({ stage, data: data.value }) : data;
 }
 
-const resolved = await resolveRunData();
-
-if (resolved.ok) {
-  const artefact = await buildStageArtefact({
-    config: BUILD_CONFIG,
-    stage: resolved.value.stage,
-    runData: resolved.value.data,
-  });
-  if (artefact.ok) {
-    const outPath = path.join(WORKFLOW_OUT_DIR, `${resolved.value.stage.name}.workflow.seeded.mjs`);
-    await mkdir(WORKFLOW_OUT_DIR, { recursive: true });
-    await writeFile(outPath, artefact.value, 'utf8');
-    process.stdout.write(
-      `seeded ${outPath} (${artefact.value.length} chars, contract green) — launch with Workflow({scriptPath}) from the repo root.\n`,
-    );
-  } else {
-    process.stderr.write(`${artefact.error.message}\n`);
-    process.exitCode = 1;
-  }
+if (process.argv.includes('--help')) {
+  process.stdout.write(USAGE);
 } else {
-  process.stderr.write(`${resolved.error.message}\n`);
-  process.exitCode = 1;
+  const resolved = await resolveRunData();
+  if (resolved.ok) {
+    const artefact = await buildStageArtefact({
+      config: BUILD_CONFIG,
+      stage: resolved.value.stage,
+      runData: resolved.value.data,
+    });
+    if (artefact.ok) {
+      const outPath = path.join(
+        WORKFLOW_OUT_DIR,
+        `${resolved.value.stage.name}.workflow.seeded.mjs`,
+      );
+      await mkdir(WORKFLOW_OUT_DIR, { recursive: true });
+      await writeFile(outPath, artefact.value, 'utf8');
+      process.stdout.write(
+        `seeded ${outPath} (${artefact.value.length} chars, contract green) — launch with Workflow({scriptPath}) from the repo root.\n`,
+      );
+    } else {
+      // A failed artefact build is a runtime failure, not flag misuse — no usage block.
+      process.stderr.write(`${artefact.error.message}\n`);
+      process.exitCode = 1;
+    }
+  } else {
+    failWithUsage(resolved.error.message);
+  }
 }
