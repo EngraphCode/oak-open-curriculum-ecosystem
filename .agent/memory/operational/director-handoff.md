@@ -262,7 +262,38 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> ### ▶ ACTIVE EFFORT: PLAN-CORPUS REFOUNDING — Director: Mussel rides Coral (Moment-2 2026-07-15T14:26:36Z, event `0f7e4907`)
+> ### ▶ ACTIVE EFFORT: RESTATEMENT REMEDIATION (the settling gate for PLAN-CORPUS REFOUNDING) — Director: Mussel rides Coral (seat held since Moment-2 2026-07-15T14:26:36Z)
+>
+> **SESSION SHAPE (2026-07-16):** COMPOUND PAIR (owner-directed 2026-07-16) — Director
+> **Mussel rides Coral (`6f8857`)**, claim `0f4be777` (held continuously across tenures:
+> Quasar → Barnacle → Schooner → Mussel), and implementer **Vole hunts Perch (`36c6ca`)**,
+> claim `1fcfeb3e` (restatement-audit, both jobs). The pair are each other's ADVERSARIAL
+> CHECKERS via the ARC channel — every binding artefact passes the other seat's refutation
+> before it is acted on. Team Mango's other seats closed at the owner wind-down (2026-07-15
+> evening). Standing owner rulings: never squash; untracked files are first-class; no
+> follow-ups. The CURRENT merge-execution mode is live state — read it from the
+> pointed-to record below (never from this block; it changes with an external outage
+> window).
+>
+> **The live pickup surface**: this block carries HANDOFF-RATE state only — who holds
+> the seat, which claims, the effort's identity and shape (it changes when the seat or
+> team shape changes, per this file's CURRENT-HANDOFF-STATE contract). Anything that
+> changes FASTER than a handoff — PR and round states, halts, queue order, outage
+> windows — lives only in the record the Director claim's `handoff_record_path` names →
+> `.agent/state/collaboration/handoffs/2026-07-16-director-current-state-mussel-6f8857.md`
+> (untracked-by-design — read from the primary checkout's filesystem). It carries the
+> effort's purpose, the resolvable guiding-plan pointer, the live PR and halt state, the
+> queue, and the pickup protocol. Per this file's contract the guiding plan is NAMED
+> here (stable): the owner-approved restatement-remediation plan — "PR-lifecycle
+> hardening + restatement-audit fleet + prevention mechanisms", re-homed in-repo at
+> `.agent/plans/product-development-governance/active/restatement-remediation.plan.md`
+> (2026-07-16). The effort's SHAPE (stable): cure the
+> authored-restatement error class — the generator behind PR #390's eight review
+> rounds — and pin the cures with prevention validators; the refounding lanes resume at
+> the cures-landed + freeze-recut-check gate. Every value that changes faster than a
+> handoff (PR states, halts, queue order) lives ONLY in the pointed-to record.
+>
+> <details><summary>Superseded 2026-07-16: state at Moment-2 2026-07-15 (conserved)</summary>
 >
 > **SESSION SHAPE:** Mussel rides Coral (`6f8857`) holds the seat — claim `0f4be777`
 > adopted, dual heartbeat live (transfer from Schooner guards Whirlpool `82a9df`, Moment-1
@@ -271,6 +302,8 @@ first-hand as of 2026-06-25.
 > `s1-reader-sample-b1` batch (claim `45befb32`). Zodiac turns Solstice (`019f65`) was
 > owner-shut-down after their S1 closeout; forensic verdict: contained, nothing rogue
 > reached origin, their deep-handoff fold rides PR #384.
+>
+> </details>
 >
 > <details><summary>Superseded: seat-in-transfer state as frozen by Schooner (conserved)</summary>
 >
@@ -282,9 +315,9 @@ first-hand as of 2026-06-25.
 >
 > </details>
 >
-> **The live pickup surface is the handoff record**
+> **Prior pickup record (superseded 2026-07-16 by the current-state record above)**:
 > `.agent/state/collaboration/handoffs/2026-07-15-director-schooner-to-mussel-0f4be777.md`
-> (claim `0f4be777` carries `handoff_record_path`; untracked-by-design — read from the
+> (untracked-by-design — read from the
 > primary checkout's filesystem). §1 current state (S1 deterministic layer LANDED via
 > PR #382 with the calibration blindness disclosure proving the fleet residual necessary;
 > the decoy-comms finding; the primary's pull owner-gated by the loss-ruling — resolves
