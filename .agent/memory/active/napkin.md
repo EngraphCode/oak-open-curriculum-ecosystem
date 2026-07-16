@@ -1798,7 +1798,7 @@ four-stage harness pipeline, ledger renderer); 123 unit tests; full repo pre-com
 - OPEN QUESTION surfaced but not yet answered (flagged to the Director in the PR #393
   review-focus section, not duplicated to `open-questions.md` since the answer is cheap
   from the plan's author directly): the finder prompt's "five trigger classes" are MY OWN
-  compiled decision procedure (status/authorization; closed-set/membership; bare numeric;
+  compiled decision procedure (status/authorisation; closed-set/membership; bare numeric;
   coverage/mapping; named-entity-or-date), mapped onto the 8-value `factClass` enum — I
   do not have and did not find a verbatim canonical "five trigger classes" text the plan
   or brief may have referenced elsewhere. If one exists, Job 2's finder prompt needs it
@@ -1890,6 +1890,7 @@ flag CONFLICT correctly). Every other row failed or partially failed:
   trigger at all, not because the finder reasoned about the citation/sanctioned distinction.)
 
 Structural root causes, for whoever revises the finder prompt next:
+
 1. Subject-attribution drift when a fact is embedded in a sentence whose surrounding topic
    is something else (K4) — the finder anchors `subject` to the surrounding entity, not the
    fact's own entity. Most damaging class: breaks the join even when both instances exist.
@@ -1989,6 +1990,7 @@ journal wf_3a2050ac-831. Corrections to MY OWN two shipped directed events (4e96
 c8c3f819) — the headline verdicts survive, several supporting claims do not.
 
 CORRECTED SCORECARD (verifier verdicts in brackets):
+
 - K1 partial [CONFIRMED]: walk-a-agenda side (live line 34) genuinely missed inside a
   link-description parenthetical; factClass difference is prompt-vs-key vocabulary bias,
   not finder error (prompt trigger 2 lists "the seven lanes" as closed-set-membership
@@ -2037,8 +2039,8 @@ UNDER-SPECIFIED twice (severity clause has no comparand anywhere; "found" doesn'
 map-level vs ledger-level) and BIASED once (trigger-2 exemplars pull K1/K2/K3's facts to
 closed-set-membership while the key and the gazetteer's countsAndDenominators section —
 which literally carries knownCanonicalValues "lane-seed.lanes":"7", "sample.files":"137"
-— key them as count). Prompt-compliant count extraction is REACHABLE (multi-trigger rule
-+ trigger 3); the bias is a reliability defect, and the gazetteer's section structure is
+— key them as count). Prompt-compliant count extraction is REACHABLE (multi-trigger rule +
+trigger 3); the bias is a reliability defect, and the gazetteer's section structure is
 a concrete code-side canonicalisation hook for the v2 cure.
 
 RECALL VERDICT ROBUST (F3 MODIFIED, narrowing my own confound claim): drift ran BACKWARD
@@ -2095,6 +2097,7 @@ self-check machinery); if they vanish, the cure is capacity. Long-file tail deca
 needs per-file coverage reporting under either outcome.
 
 COMPLETENESS CRITIC — six unexamined angles (all actionable, most zero-LLM-cost):
+
 1. PRECISION never measured (only recall): byte-verify all 62 quotes in code against the
    pinned tree + hand-classify a 15-instance sample — grounds the cluster prior AND
    calibrates the confidence field, at zero spend.

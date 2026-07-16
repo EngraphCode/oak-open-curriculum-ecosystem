@@ -269,7 +269,7 @@ first-hand as of 2026-06-25.
 > Quasar → Barnacle → Schooner → Mussel), and implementer **Vole hunts Perch (`36c6ca`)**,
 > claim `1fcfeb3e` (restatement-audit, both jobs). The pair are each other's ADVERSARIAL
 > CHECKERS via the ARC channel — every binding artefact passes the other seat's refutation
-> before it acts. Team Mango's other seats closed at the owner wind-down (2026-07-15
+> before it is acted on. Team Mango's other seats closed at the owner wind-down (2026-07-15
 > evening). Standing owner rulings: never squash; untracked files are first-class; no
 > follow-ups. The CURRENT merge-execution mode is live state — read it from the
 > pointed-to record below (never from this block; it changes with an external outage
