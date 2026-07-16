@@ -49,9 +49,11 @@ const ledgerInstanceSchema = z.strictObject({
 });
 
 /**
- * A member the meta agent dropped at byte-verify — the file/line/quote it was extracted
- * with and the reason the verification failed. Required by name so a drop is always a
- * visible ledger fact, never a metaNotes aside or a silent omission.
+ * A member the meta agent removed from a row — the file/line/quote it was extracted
+ * with and the reason it left: a byte-verify failure, or a split-off (the member
+ * belongs to a different fact than the row's). Required by name so a removal is always
+ * a visible ledger fact, never a metaNotes aside or a silent omission — member
+ * conservation (survivors + drops = cluster members) is recomputed in code.
  */
 const droppedMemberSchema = z.strictObject({
   file: nonEmptyString,

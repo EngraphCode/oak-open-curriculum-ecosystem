@@ -112,9 +112,9 @@ describe('run-data parsers', () => {
     expect(isErr(parseMapRunData({ windows: [], gazetteer }))).toBe(true);
   });
 
-  it('parseReduceRunData accepts instances and rejects an empty set', () => {
+  it('parseReduceRunData accepts instances, including an EMPTY set — a complete zero-instance map is a clean corpus that must be seedable', () => {
     expect(isOk(parseReduceRunData({ instances: [finderInstance] }))).toBe(true);
-    expect(isErr(parseReduceRunData({ instances: [] }))).toBe(true);
+    expect(isOk(parseReduceRunData({ instances: [] }))).toBe(true);
   });
 
   it('parseReduceRunData rejects an instance whose value normalises to the empty string', () => {

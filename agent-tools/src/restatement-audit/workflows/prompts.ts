@@ -142,7 +142,7 @@ export function metaPrompt(clusters: readonly MetaCluster[]): string {
     '',
     "Each row's `id`, `factClass`, `subject`, `predicate`, and `verdict` MUST be its cluster's, copied verbatim — coverage AND field identity are recomputed in code and any mismatch fails the whole stage.",
     '',
-    'Resolve any SPLIT: if a cluster actually bundles two distinct facts (a false-positive join the voters missed), say so in metaNotes and still emit your best single row for it — do not silently drop a cluster.',
+    'Resolve any SPLIT: if a cluster actually bundles two distinct facts (a false-positive join the voters missed), emit your best single row for the dominant fact and record EVERY split-off member in `droppedMembers` with a reason naming the split (a split-off is not a byte-verify failure — say which it is) — never silently drop a cluster or a member. Member accounting is recomputed in code: every cluster member MUST appear as either a surviving instance or a named dropped member.',
     '',
     'Output the single required structured-output call only — one ledger row per cluster.',
     '',

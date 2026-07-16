@@ -157,4 +157,49 @@ describe('checkLedgerCoverage', () => {
     expect(message).toContain('below the ≥2 member floor');
     expect(message).toContain('c1 (1 surviving + 0 dropped)');
   });
+
+  it('names a row that silently sheds a member of a 3-member cluster — the global floor passes but conservation fails', () => {
+    const threeMember: MetaCluster = {
+      ...cluster('c1'),
+      instances: [
+        grounding,
+        { ...grounding, id: 'W01-I02', valueNorm: 'discharged' },
+        { ...grounding, id: 'W01-I03', file: 'c.md', line: 7 },
+      ],
+    };
+    const shedOne = row('c1');
+    const message = checkLedgerCoverage([threeMember], [shedOne]);
+    expect(message).toContain('member-conservation');
+    expect(message).toContain('c1 (accounted 2 ≠ cluster members 3)');
+  });
+
+  it('names a row that pads an extra instance beyond its cluster members', () => {
+    const padded = {
+      ...row('c1'),
+      instances: [
+        ...row('c1').instances,
+        { file: 'd.md', line: 9, quote: 'G1 — PADDED', valueNorm: 'padded' },
+      ],
+    };
+    const message = checkLedgerCoverage([cluster('c1')], [padded]);
+    expect(message).toContain('c1 (accounted 3 ≠ cluster members 2)');
+  });
+
+  it('passes conservation when a drop accounts for the missing member', () => {
+    const threeMember: MetaCluster = {
+      ...cluster('c1'),
+      instances: [
+        grounding,
+        { ...grounding, id: 'W01-I02', valueNorm: 'discharged' },
+        { ...grounding, id: 'W01-I03', file: 'c.md', line: 7 },
+      ],
+    };
+    const withNamedDrop = {
+      ...row('c1'),
+      droppedMembers: [
+        { file: 'c.md', line: 7, quote: 'G1 — DONE', reason: 'quote absent from live file' },
+      ],
+    };
+    expect(checkLedgerCoverage([threeMember], [withNamedDrop])).toBeNull();
+  });
 });

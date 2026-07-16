@@ -221,4 +221,11 @@ describe('metaPrompt', () => {
     expect(prompt).toContain('never a metaNotes-only aside, never a silent omission');
     expect(prompt).toContain('Emit `droppedMembers: []` when nothing was dropped');
   });
+
+  it('routes SPLIT resolutions through named drops so member conservation holds', () => {
+    expect(prompt).toContain('record EVERY split-off member in `droppedMembers`');
+    expect(prompt).toContain(
+      'every cluster member MUST appear as either a surviving instance or a named dropped member',
+    );
+  });
 });

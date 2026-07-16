@@ -90,7 +90,11 @@ const mapRunDataSchema = z.strictObject({
 export type MapRunData = z.infer<typeof mapRunDataSchema>;
 
 const reduceRunDataSchema = z.strictObject({
-  instances: z.array(finderInstanceSchema).min(1),
+  // Empty is VALID: a COMPLETE map over a corpus with no trigger-class sentences yields
+  // zero instances, and reduce then deterministically yields zero clusters at zero
+  // agent spend (chunkForReducer([]) dispatches nothing) — the clean audit must be
+  // seedable end to end, never refused at this boundary.
+  instances: z.array(finderInstanceSchema),
 });
 export type ReduceRunData = z.infer<typeof reduceRunDataSchema>;
 
@@ -144,7 +148,11 @@ const mapSuccessSchema = z
     ok: z.literal(true),
     partition: z.array(z.strictObject({ window: nonEmptyString, fileCount: countInt })),
     coverage: z.array(z.strictObject({ window: nonEmptyString, instanceCount: countInt })),
-    /** False when any window produced zero instances — a partial map must never pass silently. */
+    /**
+     * False only when a window's DISPATCH DIED (null agent result) — a successful
+     * window with zero instances is clean coverage, not incompleteness;
+     * `map.workflow.ts`'s `deriveCompleteness` owns the semantics.
+     */
     mapComplete: z.boolean(),
     incompleteWindows: z.array(nonEmptyString),
     instanceCount: countInt,

@@ -48,9 +48,12 @@ describe('isReduceRunData', () => {
     expect(isReduceRunData(reduceRunData, 'reduce')).toBe(true);
   });
 
-  it('rejects the wrong stage tag and empty instances', () => {
+  it('rejects the wrong stage tag and non-array instances', () => {
     expect(isReduceRunData(reduceRunData, 'map')).toBe(false);
-    expect(isReduceRunData({ instances: [] }, 'reduce')).toBe(false);
+    // Empty instances are a VALID clean-corpus seed — reduce yields zero clusters at
+    // zero agent spend, never a false unseeded error.
+    expect(isReduceRunData({ instances: [] }, 'reduce')).toBe(true);
+    expect(isReduceRunData({ instances: 'nope' }, 'reduce')).toBe(false);
   });
 });
 

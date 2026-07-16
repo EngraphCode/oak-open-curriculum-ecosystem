@@ -68,6 +68,36 @@ export function composeMetaLedger(
 /** The fields a row must restate VERBATIM from its cluster — identity, not judgment. */
 const ROW_IDENTITY_FIELDS = ['factClass', 'subject', 'predicate', 'verdict'] as const;
 
+/**
+ * `id (accounted X ≠ cluster members N)` for every row whose survivors + named drops do
+ * not account for its cluster's members exactly — a three-member cluster cannot
+ * silently shed one member (2 survivors + 0 drops passes the global floor but not
+ * conservation), and a row cannot pad extras. Counts, not (file,line) identity: the
+ * agent legitimately corrects drifted quotes/lines, so counts are the robust invariant.
+ * Split-off members satisfy conservation as NAMED drops (the prompt instructs a split
+ * reason), so a prompt-sanctioned SPLIT row never fails the stage.
+ */
+function memberConservationMismatches(
+  clusters: readonly MetaCluster[],
+  rows: readonly MetaAgentRow[],
+): string[] {
+  const byClusterId = new Map(clusters.map((cluster) => [cluster.id, cluster]));
+  const mismatches: string[] = [];
+  for (const row of rows) {
+    const cluster = byClusterId.get(row.id);
+    if (cluster === undefined) {
+      continue; // an orphan row is already reported by the cardinality check
+    }
+    const accounted = row.instances.length + row.droppedMembers.length;
+    if (accounted !== cluster.instances.length) {
+      mismatches.push(
+        `${row.id} (accounted ${accounted} ≠ cluster members ${cluster.instances.length})`,
+      );
+    }
+  }
+  return mismatches;
+}
+
 /** `id.field row='x' cluster='y'` for every identity field a row disagrees with its cluster on. */
 function fieldIdentityMismatches(
   clusters: readonly MetaCluster[],
@@ -111,32 +141,35 @@ export function checkLedgerCoverage(
     rowIdCounts.set(row.id, (rowIdCounts.get(row.id) ?? 0) + 1);
   }
   const clusterIds = new Set(clusters.map((cluster) => cluster.id));
-  const missingRows = [...clusterIds].filter((id) => !rowIdCounts.has(id));
-  const orphanRows = [...rowIdCounts.keys()].filter((id) => !clusterIds.has(id));
-  const duplicateRows = [...rowIdCounts.entries()]
-    .filter(([, count]) => count > 1)
-    .map(([id, count]) => `${id}×${count}`);
-  const mismatches = fieldIdentityMismatches(clusters, rows);
-  const subFloorRows = rows
-    .filter((row) => row.instances.length + row.droppedMembers.length < 2)
-    .map(
-      (row) =>
-        `${row.id} (${row.instances.length} surviving + ${row.droppedMembers.length} dropped)`,
-    );
-  if (
-    missingRows.length === 0 &&
-    orphanRows.length === 0 &&
-    duplicateRows.length === 0 &&
-    mismatches.length === 0 &&
-    subFloorRows.length === 0
-  ) {
+  const problems: readonly (readonly [string, readonly string[]])[] = [
+    ['cluster id(s) with no row', [...clusterIds].filter((id) => !rowIdCounts.has(id))],
+    [
+      'row id(s) matching no flagged cluster',
+      [...rowIdCounts.keys()].filter((id) => !clusterIds.has(id)),
+    ],
+    [
+      'cluster id(s) with duplicate rows',
+      [...rowIdCounts.entries()]
+        .filter(([, count]) => count > 1)
+        .map(([id, count]) => `${id}×${count}`),
+    ],
+    ['field-identity mismatch(es)', fieldIdentityMismatches(clusters, rows)],
+    ['member-conservation mismatch(es)', memberConservationMismatches(clusters, rows)],
+    [
+      'row(s) below the ≥2 member floor',
+      rows
+        .filter((row) => row.instances.length + row.droppedMembers.length < 2)
+        .map(
+          (row) =>
+            `${row.id} (${row.instances.length} surviving + ${row.droppedMembers.length} dropped)`,
+        ),
+    ],
+  ];
+  if (problems.every(([, entries]) => entries.length === 0)) {
     return null;
   }
-  return (
-    `meta ledger coverage mismatch — cluster id(s) with no row: [${missingRows.join(', ')}]; ` +
-    `row id(s) matching no flagged cluster: [${orphanRows.join(', ')}]; ` +
-    `cluster id(s) with duplicate rows: [${duplicateRows.join(', ')}]; ` +
-    `field-identity mismatch(es): [${mismatches.join('; ')}]; ` +
-    `row(s) below the ≥2 member floor: [${subFloorRows.join(', ')}]`
-  );
+  const rendered = problems
+    .map(([label, entries]) => `${label}: [${entries.join('; ')}]`)
+    .join('; ');
+  return `meta ledger coverage mismatch — ${rendered}`;
 }

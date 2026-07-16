@@ -31,14 +31,18 @@ export function isMapRunData(value: unknown, stage: string): value is MapRunData
   );
 }
 
-/** Reduce run data: tagged for reduce, with non-empty instances. */
+/**
+ * Reduce run data: tagged for reduce, with an instances ARRAY — which may be EMPTY (a
+ * complete zero-instance map is a clean corpus; reduce yields zero clusters at zero
+ * agent spend, never a false unseeded error).
+ */
 export function isReduceRunData(value: unknown, stage: string): value is ReduceRunData {
   return (
     stage === 'reduce' &&
     typeof value === 'object' &&
     value !== null &&
     'instances' in value &&
-    nonEmptyArray(value.instances)
+    Array.isArray(value.instances)
   );
 }
 
