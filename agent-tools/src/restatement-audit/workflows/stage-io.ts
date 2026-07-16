@@ -20,7 +20,9 @@ import { z } from 'zod';
 
 import { parseWithSchema } from '../../core/schema-parse.js';
 import {
+  clusterBaseSchema,
   clusterSchema,
+  finderInstanceBaseSchema,
   finderInstanceSchema,
   ledgerRowSchema,
   voterVerdictSchema,
@@ -43,9 +45,11 @@ export type PartitionWindow = z.infer<typeof partitionWindowSchema>;
  * instance record. Kept separate from `Cluster` (which carries only
  * `memberInstanceIds: string[]`) and joined by `id` at prompt-build time — mirrors
  * `corpus-analysis/workflows/stage-io.ts`'s `groundingLeafSchema` projection, which keeps
- * the seeded artefact well under the harness script size cap at full-corpus scale.
+ * the seeded artefact well under the harness script size cap at full-corpus scale. Picks
+ * from `finderInstanceBaseSchema`, never the refined schema — zod v4 forbids `.pick()`
+ * on a refined object schema.
  */
-const groundingInstanceSchema = finderInstanceSchema.pick({
+const groundingInstanceSchema = finderInstanceBaseSchema.pick({
   id: true,
   file: true,
   line: true,
@@ -55,8 +59,12 @@ const groundingInstanceSchema = finderInstanceSchema.pick({
 });
 export type GroundingInstance = z.infer<typeof groundingInstanceSchema>;
 
-/** One flagged cluster carried into the meta stage, projected to what it needs. */
-const metaClusterSchema = clusterSchema
+/**
+ * One flagged cluster carried into the meta stage, projected to what it needs. Picks from
+ * `clusterBaseSchema`, never `clusterSchema` — zod v4 forbids `.pick()` on a refined
+ * object schema.
+ */
+const metaClusterSchema = clusterBaseSchema
   .pick({
     id: true,
     factClass: true,
@@ -142,6 +150,10 @@ const reduceSuccessSchema = z
     ok: z.literal(true),
     instanceCount: countInt,
     clusters: z.array(clusterSchema),
+    /** False when any reducer chunk returned null — a partial reduce must never pass silently. */
+    reduceComplete: z.boolean(),
+    /** Indices of reducer chunks that died (null agent result) — mirrors the map envelope. */
+    incompleteChunks: z.array(countInt),
   })
   .refine((result) => uniqueIds(result.clusters.map((entry) => entry.id)), {
     error:

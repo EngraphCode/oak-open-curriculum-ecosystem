@@ -39,8 +39,36 @@ describe('factKeyOf', () => {
 });
 
 describe('joinInstances', () => {
+  it('emits nothing for empty input', () => {
+    expect(joinInstances([])).toEqual([]);
+  });
+
   it('emits nothing for a single unrepeated fact', () => {
     expect(joinInstances([instance({ id: 'f1' })])).toEqual([]);
+  });
+
+  it('clusters instances of mixed assertionKind sharing one fact-key (voters, not the join, weigh kinds)', () => {
+    const instances = [
+      instance({ id: 'f1', file: 'a.md', assertionKind: 'authored' }),
+      instance({ id: 'f2', file: 'b.md', assertionKind: 'citation' }),
+    ];
+    const clusters = joinInstances(instances);
+    expect(clusters).toHaveLength(1);
+    expect(clusters[0]?.verdict).toBe('latent');
+    expect(clusters[0]?.memberInstanceIds).toEqual(['f1', 'f2']);
+  });
+
+  it('drops instances whose value normalises to the empty string instead of building an invalid cluster', () => {
+    const instances = [
+      instance({ id: 'f1', file: 'a.md', valueNorm: '.' }),
+      instance({ id: 'f2', file: 'b.md', valueNorm: ',' }),
+      instance({ id: 'f3', file: 'a.md', valueNorm: 'completed' }),
+      instance({ id: 'f4', file: 'b.md', valueNorm: 'completed' }),
+    ];
+    const clusters = joinInstances(instances);
+    expect(clusters).toHaveLength(1);
+    expect(clusters[0]?.memberInstanceIds).toEqual(['f3', 'f4']);
+    expect(clusters[0]?.distinctValueNorms).toEqual(['completed']);
   });
 
   it('emits nothing when the same value repeats within one file only', () => {
@@ -185,6 +213,20 @@ describe('recountReducerCluster', () => {
     expect(recountReducerCluster('r1', [])).toBeNull();
   });
 
+  it('drops empty-normal-form members before recount (a proposal shrinking below 2 dies)', () => {
+    const members = [
+      instance({ id: 'f1', file: 'a.md', subject: 'freeform-x', subjectFromGazetteer: false }),
+      instance({
+        id: 'f2',
+        file: 'b.md',
+        subject: 'freeform-x',
+        subjectFromGazetteer: false,
+        valueNorm: '.',
+      }),
+    ];
+    expect(recountReducerCluster('r1', members)).toBeNull();
+  });
+
   it('rejects same-value repetition confined to one file (not a genuine cross-file restatement)', () => {
     const members = [
       instance({ id: 'f1', file: 'a.md', subject: 'freeform-x', subjectFromGazetteer: false }),
@@ -225,11 +267,12 @@ describe('chunkForReducer', () => {
     expect(chunks.flat()).toHaveLength(7);
   });
 
-  it('never exceeds maxChunks even for a very large residual set', () => {
+  it('never exceeds maxChunks even for a very large residual set — the cap wins over targetChunkSize', () => {
     const instances = Array.from({ length: 900 }, (_, i) => instance({ id: `f${i}` }));
     const chunks = chunkForReducer(instances, 3, 200);
     expect(chunks).toHaveLength(3);
     expect(chunks.flat()).toHaveLength(900);
+    expect(chunks.every((chunk) => chunk.length === 300)).toBe(true);
   });
 
   it('preserves instance order across chunks', () => {

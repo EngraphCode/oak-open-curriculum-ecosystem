@@ -16,14 +16,9 @@
  */
 
 import { z } from 'zod';
-import type { JSONSchema } from 'zod/v4/core';
 
-import {
-  clusterSchema,
-  finderInstanceSchema,
-  ledgerRowSchema,
-  voterVerdictSchema,
-} from '../schemas.js';
+import { finderInstanceSchema, ledgerRowSchema, voterVerdictSchema } from '../schemas.js';
+import type { DerivedJsonSchema } from '../../corpus-analysis/workflows/agent-schemas.js';
 
 /** MAP stage agent contract: the window's extracted finder instances. */
 const finderStageOutputSchema = z.strictObject({
@@ -32,12 +27,18 @@ const finderStageOutputSchema = z.strictObject({
 export type FinderStageOutput = z.infer<typeof finderStageOutputSchema>;
 
 /**
- * REDUCE stage agent contract: reducer-proposed clusters over free-text-subject
- * residuals only (`clusterKind: 'reducer'`) — the exact-key clusters are code-computed
- * by `join.ts` and never pass through an agent.
+ * REDUCE stage agent contract: MEMBERSHIP PROPOSALS ONLY, exactly what the reducer
+ * prompt instructs ("a temporary id and the list of instance ids" — never a verdict, a
+ * factClass, or a count). The full `Cluster` shape is code-computed downstream by
+ * `recountReducerCluster`; asking the agent for it contradicted the prompt and nulled
+ * every prompt-compliant chunk at schema validation.
  */
+const reducerProposalSchema = z.strictObject({
+  id: z.string().min(1),
+  memberInstanceIds: z.array(z.string().min(1)).min(2),
+});
 const clusterStageOutputSchema = z.strictObject({
-  clusters: z.array(clusterSchema),
+  clusters: z.array(reducerProposalSchema),
 });
 export type ClusterStageOutput = z.infer<typeof clusterStageOutputSchema>;
 
@@ -52,14 +53,12 @@ const metaStageOutputSchema = z.strictObject({
 export type MetaStageOutput = z.infer<typeof metaStageOutputSchema>;
 
 /**
- * A derived, fully-inlined JSON Schema ready for the harness `agent()` schema param,
- * phantom-typed with the output shape it validates: `agent()` infers its return type
- * FROM the schema, so a schema/type mismatch at a call site is uncompilable rather than
- * an unproven claim. The `_output` property never exists at runtime.
+ * The derived-schema phantom type is DECLARED ONCE, in
+ * `corpus-analysis/workflows/agent-schemas.ts` — a second local declaration survived
+ * only while both kept the same phantom property. Re-exported so this module's
+ * consumers keep a single import site.
  */
-export interface DerivedJsonSchema<T = unknown> extends JSONSchema.BaseSchema {
-  readonly _output?: T;
-}
+export type { DerivedJsonSchema } from '../../corpus-analysis/workflows/agent-schemas.js';
 
 /** The four stage agent schemas, keyed by stage contract. */
 export interface AgentJsonSchemas {

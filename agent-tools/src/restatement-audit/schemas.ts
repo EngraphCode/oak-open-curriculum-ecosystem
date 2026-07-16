@@ -2,6 +2,7 @@ import type { Result } from '@oaknational/result';
 import { z } from 'zod';
 
 import { parseWithSchema } from '../core/schema-parse.js';
+import { normalizeValue } from './normalize.js';
 
 /**
  * Zod SSOT for the restatement-audit fleet (T3 sweep).
@@ -62,8 +63,16 @@ const assertionKindSchema = z.enum(['authored', 'citation', 'history', 'generate
  * high recall. `subjectFromGazetteer` records whether `subject` matched a canonical
  * gazetteer entry (exact-joinable) or is free text (routed to reducer clustering).
  * `quote` is capped at 200 chars — grounding, not a full excerpt.
+ *
+ * The unrefined base is exported separately for the same reason as `clusterBaseSchema`
+ * below — zod v4 forbids `.pick()` on a refined object schema, and `stage-io.ts`'s
+ * grounding projection picks from the base. Every parse boundary uses the refined
+ * `finderInstanceSchema`, which additionally rejects values whose deterministic normal
+ * form is empty (`'.'`, `','` — such an instance would build a schema-invalid cluster
+ * downstream). The refinement is not representable in the derived agent JSON Schema;
+ * enforcement lives at the checkpoint re-parse.
  */
-export const finderInstanceSchema = z.strictObject({
+export const finderInstanceBaseSchema = z.strictObject({
   id: nonEmptyString,
   file: nonEmptyString,
   line: positiveInt,
@@ -76,6 +85,11 @@ export const finderInstanceSchema = z.strictObject({
   assertionKind: assertionKindSchema,
   confidence: confidenceSchema,
 });
+
+export const finderInstanceSchema = finderInstanceBaseSchema.refine(
+  (instance) => normalizeValue(instance.valueNorm) !== '',
+  { error: 'valueNorm must not normalise to the empty string' },
+);
 export type FinderInstance = z.infer<typeof finderInstanceSchema>;
 
 /**
@@ -93,18 +107,24 @@ export type ClusterVerdict = z.infer<typeof clusterVerdictSchema>;
  * two or more files. Code computes `verdict` and `distinctValueNorms`; the reducer never
  * emits either — `clusterKind: 'reducer'` clusters still route through the SAME code
  * recount once the reducer proposes membership.
+ *
+ * The unrefined base is exported separately because zod v4 forbids `.pick()` on a
+ * refined object schema — `stage-io.ts`'s `metaClusterSchema` picks fields from the base,
+ * never from `clusterSchema` itself (verified against the real seeded-build path, which
+ * unit tests never exercised: `.pick()` on the refined schema throws at module load).
  */
-export const clusterSchema = z
-  .strictObject({
-    id: nonEmptyString,
-    clusterKind: z.enum(['exact-key', 'reducer']),
-    factClass: factClassSchema,
-    subject: nonEmptyString,
-    predicate: nonEmptyString,
-    verdict: clusterVerdictSchema,
-    distinctValueNorms: z.array(nonEmptyString).min(1),
-    memberInstanceIds: z.array(nonEmptyString).min(2),
-  })
+export const clusterBaseSchema = z.strictObject({
+  id: nonEmptyString,
+  clusterKind: z.enum(['exact-key', 'reducer']),
+  factClass: factClassSchema,
+  subject: nonEmptyString,
+  predicate: nonEmptyString,
+  verdict: clusterVerdictSchema,
+  distinctValueNorms: z.array(nonEmptyString).min(1),
+  memberInstanceIds: z.array(nonEmptyString).min(2),
+});
+
+export const clusterSchema = clusterBaseSchema
   .refine(
     (cluster) => new Set(cluster.memberInstanceIds).size === cluster.memberInstanceIds.length,
     {

@@ -44,6 +44,11 @@ describe('finderPrompt', () => {
     expect(prompt).toContain('NAMED-ENTITY OR DATE CLAIM');
   });
 
+  it('wires the gazetteer statusVocabulary into the status trigger (validated AND used)', () => {
+    expect(prompt).toContain("This sweep's gazetteer status vocabulary: done, merged");
+    expect(prompt).toContain('indicative, not exhaustive');
+  });
+
   it('mandates line + verbatim quote grounding', () => {
     expect(prompt).toContain('MANDATORY GROUNDING');
     expect(prompt).toMatch(/line number/);
@@ -194,5 +199,10 @@ describe('metaPrompt', () => {
 
   it('allows sourceOfTruth to be null', () => {
     expect(prompt).toContain('`null`');
+  });
+
+  it('pins each row id to its cluster id (code recomputes coverage)', () => {
+    expect(prompt).toContain("Each row's `id` MUST be its cluster's `id`");
+    expect(prompt).toContain('coverage is recomputed in code');
   });
 });

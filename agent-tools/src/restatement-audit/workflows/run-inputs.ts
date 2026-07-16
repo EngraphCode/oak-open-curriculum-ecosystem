@@ -17,6 +17,7 @@ import { err, ok, type Result } from '@oaknational/result';
 import { resolveResumeSeed } from '../../corpus-analysis/run-orchestration.js';
 import type { Cluster } from '../schemas.js';
 import type {
+  Disposition,
   GroundingInstance,
   MapResult,
   MetaRunData,
@@ -26,11 +27,11 @@ import type {
   ValidateRunData,
 } from './stage-io.js';
 
-function groundingInstanceOf(source: MapResult): ReadonlyMap<string, GroundingInstance> {
+/** Caller must have rejected a failed map result BEFORE building the lookup. */
+function groundingInstanceOf(
+  source: Extract<MapResult, { ok: true }>,
+): ReadonlyMap<string, GroundingInstance> {
   const byId = new Map<string, GroundingInstance>();
-  if (!source.ok) {
-    return byId;
-  }
   for (const instance of source.instances) {
     byId.set(instance.id, {
       id: instance.id,
@@ -44,14 +45,34 @@ function groundingInstanceOf(source: MapResult): ReadonlyMap<string, GroundingIn
   return byId;
 }
 
-function membersOf(
+interface ResolvedMembers {
+  readonly members: readonly GroundingInstance[];
+  /** `clusterId:instanceId` for every member id absent from the map result — never dropped silently. */
+  readonly missing: readonly string[];
+}
+
+function resolveMembers(
   cluster: Cluster,
   byId: ReadonlyMap<string, GroundingInstance>,
-): readonly GroundingInstance[] {
-  return cluster.memberInstanceIds.flatMap((id) => {
+): ResolvedMembers {
+  const members: GroundingInstance[] = [];
+  const missing: string[] = [];
+  for (const id of cluster.memberInstanceIds) {
     const member = byId.get(id);
-    return member === undefined ? [] : [member];
-  });
+    if (member === undefined) {
+      missing.push(`${cluster.id}:${id}`);
+    } else {
+      members.push(member);
+    }
+  }
+  return { members, missing };
+}
+
+function unresolvableMembersError(missing: readonly string[]): Error {
+  return new Error(
+    `clusters reference ${missing.length} member instance id(s) absent from the map result — ` +
+      `voters/meta would run on partial grounding: ${missing.join(', ')}`,
+  );
 }
 
 /** Derive REDUCE run data from a successful MAP result. */
@@ -74,11 +95,19 @@ export function validateRunDataFrom(input: {
   readonly validateTokenCeiling: number;
 }): Result<ValidateRunData, Error> {
   const { mapResult, reduceResult, priorValidateResults, validateTokenCeiling } = input;
+  if (!mapResult.ok) {
+    return err(new Error(`map result was not ok: ${mapResult.error}`));
+  }
   if (!reduceResult.ok) {
     return err(new Error(`reduce result was not ok: ${reduceResult.error}`));
   }
   const byId = groundingInstanceOf(mapResult);
-  const groundingInstances = reduceResult.clusters.flatMap((cluster) => membersOf(cluster, byId));
+  const resolved = reduceResult.clusters.map((cluster) => resolveMembers(cluster, byId));
+  const missing = resolved.flatMap((entry) => entry.missing);
+  if (missing.length > 0) {
+    return err(unresolvableMembersError(missing));
+  }
+  const groundingInstances = resolved.flatMap((entry) => entry.members);
   const resolvedClusterIds = priorValidateResults.flatMap((result) =>
     result.ok ? result.resolvedClusterIds : [],
   );
@@ -100,8 +129,8 @@ export function validateRunDataFrom(input: {
  */
 function mergedDispositions(
   validateResults: readonly ValidateResult[],
-): ReadonlyMap<string, 'flagged' | 'dismissed' | 'held-for-review'> {
-  const merged = new Map<string, 'flagged' | 'dismissed' | 'held-for-review'>();
+): ReadonlyMap<string, Disposition> {
+  const merged = new Map<string, Disposition>();
   for (const result of validateResults) {
     if (!result.ok) {
       continue;
@@ -124,21 +153,30 @@ export function metaRunDataFrom(input: {
   readonly validateResults: readonly ValidateResult[];
 }): Result<MetaRunData, Error> {
   const { mapResult, reduceResult, validateResults } = input;
+  if (!mapResult.ok) {
+    return err(new Error(`map result was not ok: ${mapResult.error}`));
+  }
   if (!reduceResult.ok) {
     return err(new Error(`reduce result was not ok: ${reduceResult.error}`));
   }
   const byId = groundingInstanceOf(mapResult);
   const dispositions = mergedDispositions(validateResults);
-  const clusters = reduceResult.clusters
-    .filter((cluster) => dispositions.get(cluster.id) === 'flagged')
-    .map((cluster) => ({
-      id: cluster.id,
-      factClass: cluster.factClass,
-      subject: cluster.subject,
-      predicate: cluster.predicate,
-      verdict: cluster.verdict,
-      instances: [...membersOf(cluster, byId)],
-    }));
+  const flagged = reduceResult.clusters.filter(
+    (cluster) => dispositions.get(cluster.id) === 'flagged',
+  );
+  const resolved = flagged.map((cluster) => resolveMembers(cluster, byId));
+  const missing = resolved.flatMap((entry) => entry.missing);
+  if (missing.length > 0) {
+    return err(unresolvableMembersError(missing));
+  }
+  const clusters = flagged.map((cluster, index) => ({
+    id: cluster.id,
+    factClass: cluster.factClass,
+    subject: cluster.subject,
+    predicate: cluster.predicate,
+    verdict: cluster.verdict,
+    instances: [...(resolved[index]?.members ?? [])],
+  }));
   if (clusters.length === 0) {
     return err(new Error('meta run data has no flagged clusters — nothing to do'));
   }

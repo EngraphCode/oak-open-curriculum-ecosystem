@@ -23,6 +23,28 @@ describe('normalizeValue', () => {
     expect(normalizeValue('completed.,;:')).toBe('completed');
   });
 
+  it('strips mixed trailing whitespace-and-punctuation runs without leaving a trailing space', () => {
+    expect(normalizeValue('completed .')).toBe('completed');
+    expect(normalizeValue('completed . , ;')).toBe('completed');
+    expect(normalizeValue('done 2026-07-07 .')).toBe('done 2026-07-07');
+  });
+
+  it.each([
+    ['Completed'],
+    ['  completed  '],
+    ['in   progress'],
+    ['completed.'],
+    ['completed .'],
+    ['completed . , ;'],
+    ['8,058 files'],
+    ['~15 rows, pending'],
+    ['merged to main, PR #337, 2026-07-09'],
+    ['.'],
+    [''],
+  ])('is idempotent over %j', (raw) => {
+    expect(normalizeValue(normalizeValue(raw))).toBe(normalizeValue(raw));
+  });
+
   it('treats formatting variants of the same fact as equal', () => {
     expect(normalizeValue('  Completed. ')).toBe(normalizeValue('completed'));
   });

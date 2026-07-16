@@ -36,11 +36,15 @@ declare const log: HarnessLog;
 const VALIDATE_CONCURRENCY = 4;
 
 /**
- * First-cut token estimate per voter call, pending real calibration from a run (mirrors
- * corpus-analysis's `OBSERVED_VALIDATE_TOKENS_PER_VOTER`, which was itself an estimate
- * until measured first-hand). Deliberately conservative — this fleet has not run yet.
+ * Worst-case token estimate per voter call for the pre-dispatch hard-abort. Held at the
+ * sibling module's MEASURED figure (corpus-analysis `OBSERVED_VALIDATE_TOKENS_PER_VOTER`
+ * = 50,000, first-hand) rather than this fleet's original 15,000 guess — an
+ * under-estimate makes the abort gate under-protective and lets a ceiling-blowing run
+ * dispatch. Restatement voters ground on a handful of 200-char-capped quotes and are
+ * plausibly several-fold cheaper: REPLACE this with the S3 cost pilot's measured figure
+ * before any full dispatch; never re-derive it from priors.
  */
-const ESTIMATED_TOKENS_PER_VOTER = 15_000;
+const ESTIMATED_TOKENS_PER_VOTER = 50_000;
 
 async function voteOnCluster(
   cluster: Cluster,

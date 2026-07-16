@@ -20,6 +20,7 @@ import type {
 } from '../../corpus-analysis/workflows/harness-types.js';
 import {
   chunkForReducer,
+  emptyNormalFormInstances,
   freeTextInstances,
   joinInstances,
   recountReducerCluster,
@@ -57,8 +58,51 @@ async function reduceChunk(
     phase: 'reduce',
     model: 'opus',
     effort: 'high',
+    // Zero-tools synthesist (plan Deliverable 2 S2) — the agentType enforces what the
+    // meta literal only claimed.
+    agentType: 'corpus-reducer',
     schema: AGENT_JSON_SCHEMAS.clusterStage,
   });
+}
+
+/** Loudly surface instances the join will drop for empty-normal-form values. */
+function warnOnEmptyNormalForms(instances: readonly FinderInstance[]): void {
+  const emptyDropped = emptyNormalFormInstances(instances).length;
+  if (emptyDropped > 0) {
+    log(
+      `WARNING: ${emptyDropped} instance(s) with empty-normal-form values excluded from joining — they should have failed the map checkpoint re-parse.`,
+    );
+  }
+}
+
+/**
+ * Recount every reducer proposal through code. Proposal ids are re-minted per
+ * chunk+position — agent-invented ids are never trusted for uniqueness — and each
+ * proposal survives only if `recountReducerCluster` verifies it against the actual
+ * residual instances.
+ */
+function recountProposals(
+  reducerResults: readonly (ClusterStageOutput | null)[],
+  residualById: ReadonlyMap<string, FinderInstance>,
+): { readonly proposedCount: number; readonly recounted: Cluster[] } {
+  const proposals = reducerResults.flatMap(
+    (result, chunkIndex) =>
+      result?.clusters.map((proposal, proposalIndex) => ({
+        id: `reducer:c${chunkIndex}-p${proposalIndex}`,
+        memberInstanceIds: proposal.memberInstanceIds,
+      })) ?? [],
+  );
+  const recounted = proposals.flatMap((proposal) => {
+    const cluster = recountReducerCluster(
+      proposal.id,
+      proposal.memberInstanceIds.flatMap((id) => {
+        const source = residualById.get(id);
+        return source === undefined ? [] : [source];
+      }),
+    );
+    return cluster === null ? [] : [cluster];
+  });
+  return { proposedCount: proposals.length, recounted };
 }
 
 /** Deduplicate by cluster id, keeping the first occurrence (exact-key wins on collision). */
@@ -81,32 +125,36 @@ export async function main(): Promise<ReduceResult> {
     return { ok: false, error: unseededRunDataError('reduce') };
   }
   const { instances } = RUN_DATA;
+  warnOnEmptyNormalForms(instances);
   const exactKeyClusters = joinInstances(instances);
   log(`exact-key join: ${exactKeyClusters.length} clusters from ${instances.length} instances`);
 
   phase('reduce');
   const residuals = freeTextInstances(instances);
+  const residualById = new Map(residuals.map((instance) => [instance.id, instance]));
   const chunks = chunkForReducer(residuals, 3);
   log(`free-text residuals: ${residuals.length} instances in ${chunks.length} reducer call(s)`);
 
   const reducerResults = await parallel(
     chunks.map((chunk, index) => () => reduceChunk(index, chunk)),
   );
-  const proposedClusters = reducerResults.flatMap((result) => result?.clusters ?? []);
-  const recountedClusters = proposedClusters.flatMap((proposal) => {
-    const recounted = recountReducerCluster(
-      proposal.id,
-      proposal.memberInstanceIds.flatMap((id) => {
-        const source = residuals.find((instance) => instance.id === id);
-        return source === undefined ? [] : [source];
-      }),
-    );
-    return recounted === null ? [] : [recounted];
-  });
-  log(
-    `reducer proposals: ${proposedClusters.length} proposed, ${recountedClusters.length} survived recount`,
+  const incompleteChunks = reducerResults.flatMap((result, index) =>
+    result === null ? [index] : [],
   );
+  if (incompleteChunks.length > 0) {
+    log(
+      `REDUCE INCOMPLETE — ${incompleteChunks.length}/${chunks.length} reducer chunk(s) returned nothing: [${incompleteChunks.join(',')}] — do NOT commit this as full coverage.`,
+    );
+  }
+  const { proposedCount, recounted } = recountProposals(reducerResults, residualById);
+  log(`reducer proposals: ${proposedCount} proposed, ${recounted.length} survived recount`);
 
-  const clusters = dedupeById([...exactKeyClusters, ...recountedClusters]);
-  return { ok: true, instanceCount: instances.length, clusters };
+  const clusters = dedupeById([...exactKeyClusters, ...recounted]);
+  return {
+    ok: true,
+    instanceCount: instances.length,
+    clusters,
+    reduceComplete: incompleteChunks.length === 0,
+    incompleteChunks,
+  };
 }

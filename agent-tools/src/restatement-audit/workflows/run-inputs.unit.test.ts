@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 
 import { metaRunDataFrom, reduceRunDataFrom, validateRunDataFrom } from './run-inputs.js';
 import type { MapResult, ReduceResult, ValidateResult } from './stage-io.js';
-import type { FinderInstance } from '../schemas.js';
+import type { Cluster, FinderInstance } from '../schemas.js';
 
 function instance(overrides: Partial<FinderInstance> & Pick<FinderInstance, 'id'>): FinderInstance {
   return {
@@ -21,6 +21,15 @@ function instance(overrides: Partial<FinderInstance> & Pick<FinderInstance, 'id'
   };
 }
 
+const instanceF1 = instance({
+  id: 'f1',
+  file: 'a.md',
+  line: 1,
+  quote: 'discharged',
+  valueNorm: 'discharged',
+});
+const instanceF2 = instance({ id: 'f2', file: 'b.md', line: 2, quote: 'done', valueNorm: 'done' });
+
 const mapResult: MapResult = {
   ok: true,
   partition: [{ window: 'W01', fileCount: 1 }],
@@ -28,27 +37,37 @@ const mapResult: MapResult = {
   mapComplete: true,
   incompleteWindows: [],
   instanceCount: 2,
-  instances: [
-    instance({ id: 'f1', file: 'a.md', line: 1, quote: 'discharged', valueNorm: 'discharged' }),
-    instance({ id: 'f2', file: 'b.md', line: 2, quote: 'done', valueNorm: 'done' }),
-  ],
+  instances: [instanceF1, instanceF2],
+};
+
+/** The same map result with f2 gone — the partial-grounding fixture. */
+const shrunkMapResult: MapResult = {
+  ok: true,
+  partition: [{ window: 'W01', fileCount: 1 }],
+  coverage: [{ window: 'W01', instanceCount: 1 }],
+  mapComplete: true,
+  incompleteWindows: [],
+  instanceCount: 1,
+  instances: [instanceF1],
+};
+
+const g1StatusCluster: Cluster = {
+  id: 'exact:status-assertion:G1:status',
+  clusterKind: 'exact-key',
+  factClass: 'status-assertion',
+  subject: 'G1',
+  predicate: 'status',
+  verdict: 'conflict',
+  distinctValueNorms: ['discharged', 'done'],
+  memberInstanceIds: ['f1', 'f2'],
 };
 
 const reduceResult: ReduceResult = {
   ok: true,
   instanceCount: 2,
-  clusters: [
-    {
-      id: 'exact:status-assertion:G1:status',
-      clusterKind: 'exact-key',
-      factClass: 'status-assertion',
-      subject: 'G1',
-      predicate: 'status',
-      verdict: 'conflict',
-      distinctValueNorms: ['discharged', 'done'],
-      memberInstanceIds: ['f1', 'f2'],
-    },
-  ],
+  clusters: [g1StatusCluster],
+  reduceComplete: true,
+  incompleteChunks: [],
 };
 
 describe('reduceRunDataFrom', () => {
@@ -102,6 +121,42 @@ describe('validateRunDataFrom', () => {
     expect(isErr(result)).toBe(true);
   });
 
+  it('seeds EXACTLY the unresolved cluster on resume — the resolved one never re-votes', () => {
+    const secondCluster: Cluster = {
+      ...g1StatusCluster,
+      id: 'exact:status-assertion:G1:ratification-status',
+      predicate: 'ratification-status',
+    };
+    const twoClusterReduce: ReduceResult = {
+      ok: true,
+      instanceCount: 2,
+      clusters: [g1StatusCluster, secondCluster],
+      reduceComplete: true,
+      incompleteChunks: [],
+    };
+    const priorValidateResults: ValidateResult[] = [
+      {
+        ok: true,
+        validateComplete: false,
+        resolvedClusterIds: ['exact:status-assertion:G1:status'],
+        incompleteClusterIds: [],
+        missingClusterIds: [],
+        dispositions: [],
+        voterVerdicts: [],
+      },
+    ];
+    const result = validateRunDataFrom({
+      mapResult,
+      reduceResult: twoClusterReduce,
+      priorValidateResults,
+      validateTokenCeiling: 1000,
+    });
+    expect(isOk(result)).toBe(true);
+    expect(unwrap(result).clusters.map((cluster) => cluster.id)).toEqual([
+      'exact:status-assertion:G1:ratification-status',
+    ]);
+  });
+
   it('errs on a failed reduce result', () => {
     const result = validateRunDataFrom({
       mapResult,
@@ -110,6 +165,28 @@ describe('validateRunDataFrom', () => {
       validateTokenCeiling: 1000,
     });
     expect(isErr(result)).toBe(true);
+  });
+
+  it('errs on a failed map result instead of silently building empty grounding', () => {
+    const result = validateRunDataFrom({
+      mapResult: { ok: false, error: 'map died' },
+      reduceResult,
+      priorValidateResults: [],
+      validateTokenCeiling: 1000,
+    });
+    expect(isErr(result)).toBe(true);
+    expect(String(!result.ok && result.error)).toContain('map result was not ok');
+  });
+
+  it('errs naming the exact member ids a cluster references but the map result lacks', () => {
+    const result = validateRunDataFrom({
+      mapResult: shrunkMapResult,
+      reduceResult,
+      priorValidateResults: [],
+      validateTokenCeiling: 1000,
+    });
+    expect(isErr(result)).toBe(true);
+    expect(String(!result.ok && result.error)).toContain('exact:status-assertion:G1:status:f2');
   });
 });
 
@@ -174,5 +251,25 @@ describe('metaRunDataFrom', () => {
       validateResults: [flaggedValidateResult],
     });
     expect(isErr(result)).toBe(true);
+  });
+
+  it('errs on a failed map result instead of building rows on empty grounding', () => {
+    const result = metaRunDataFrom({
+      mapResult: { ok: false, error: 'map died' },
+      reduceResult,
+      validateResults: [flaggedValidateResult],
+    });
+    expect(isErr(result)).toBe(true);
+    expect(String(!result.ok && result.error)).toContain('map result was not ok');
+  });
+
+  it('errs naming unresolvable member ids of flagged clusters', () => {
+    const result = metaRunDataFrom({
+      mapResult: shrunkMapResult,
+      reduceResult,
+      validateResults: [flaggedValidateResult],
+    });
+    expect(isErr(result)).toBe(true);
+    expect(String(!result.ok && result.error)).toContain('exact:status-assertion:G1:status:f2');
   });
 });

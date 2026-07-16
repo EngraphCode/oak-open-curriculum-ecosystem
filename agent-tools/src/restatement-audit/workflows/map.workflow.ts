@@ -26,6 +26,7 @@ import type {
 } from '../../corpus-analysis/workflows/harness-types.js';
 import { AGENT_JSON_SCHEMAS } from './agent-schemas.js';
 import type { FinderStageOutput } from './agent-schemas.js';
+import { flattenGazetteerSubjects } from './gazetteer.js';
 import type { Gazetteer } from './gazetteer.js';
 import { finderPrompt } from './prompts.js';
 import { RUN_DATA, RUN_DATA_STAGE } from './run-data.js';
@@ -61,6 +62,32 @@ async function mapWindow(
   });
 }
 
+interface WindowInstances {
+  readonly window: string;
+  readonly instances: readonly FinderStageOutput['instances'][number][];
+}
+
+/**
+ * Code owns the two fields agents cannot be trusted with: instance ids are re-minted per
+ * window+position (uniqueness by construction, never by agent discipline), and
+ * subjectFromGazetteer is recomputed as the pure function of subject + gazetteer it is.
+ */
+function remintWindowInstances(
+  windows: readonly PartitionWindow[],
+  mapResults: readonly (FinderStageOutput | null)[],
+  gazetteer: Gazetteer,
+): WindowInstances[] {
+  const subjectIds = new Set(flattenGazetteerSubjects(gazetteer));
+  return windows.map((w, index) => ({
+    window: w.window,
+    instances: (mapResults[index]?.instances ?? []).map((instance, position) => ({
+      ...instance,
+      id: `${w.window}-I${String(position + 1).padStart(2, '0')}`,
+      subjectFromGazetteer: subjectIds.has(instance.subject),
+    })),
+  }));
+}
+
 /** Run the map stage over the seeded partition. */
 export async function main(): Promise<MapResult> {
   phase('map');
@@ -79,10 +106,7 @@ export async function main(): Promise<MapResult> {
     (w) => mapWindow(w, gazetteer),
     parallel,
   );
-  const windowInstances = windows.map((w, index) => ({
-    window: w.window,
-    instances: mapResults[index]?.instances ?? [],
-  }));
+  const windowInstances = remintWindowInstances(windows, mapResults, gazetteer);
   const coverage = windowInstances.map((w) => ({
     window: w.window,
     instanceCount: w.instances.length,

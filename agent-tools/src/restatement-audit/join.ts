@@ -115,11 +115,28 @@ export function freeTextInstances(instances: readonly FinderInstance[]): FinderI
 }
 
 /**
+ * Instances whose `valueNorm` normalises to the empty string (`'.'`, `','`, whitespace).
+ * The refined `finderInstanceSchema` rejects these at every checkpoint re-parse; this
+ * helper is the join layer's defence in depth — such an instance would otherwise build a
+ * cluster whose `distinctValueNorms` contains `''`, violating `clusterSchema` while typed
+ * as valid. Callers log the dropped count; the join never counts them.
+ */
+export function emptyNormalFormInstances(instances: readonly FinderInstance[]): FinderInstance[] {
+  return instances.filter((instance) => normalizeValue(instance.valueNorm) === '');
+}
+
+function hasUsableValue(instance: FinderInstance): boolean {
+  return normalizeValue(instance.valueNorm) !== '';
+}
+
+/**
  * Split free-text instances into contiguous chunks for the reducer, using as FEW chunks
- * as possible while keeping each at or under `targetChunkSize`, capped at `maxChunks`
+ * as possible, targeting `targetChunkSize` items per chunk but capped at `maxChunks`
  * (plan Deliverable 2 S2: "1-3 reducer calls for free-text-subject residuals only") — a
  * small residual set gets one call; only a residual set large enough to need it escalates
- * to more. Deterministic and order-preserving; no chunk is emitted empty.
+ * to more. THE CAP WINS: when `itemCount > maxChunks * targetChunkSize`, chunks exceed
+ * `targetChunkSize` rather than the call count exceeding `maxChunks`. Deterministic and
+ * order-preserving; no chunk is emitted empty.
  */
 export function chunkForReducer(
   instances: readonly FinderInstance[],
@@ -141,10 +158,14 @@ export function chunkForReducer(
 /**
  * The deterministic exact-key join: group gazetteer-resolved instances by fact-key,
  * drop unrepeated facts, and compute CONFLICT / LATENT for the rest. Instances with
- * `subjectFromGazetteer: false` are excluded — the caller routes them to the reducer.
+ * `subjectFromGazetteer: false` are excluded — the caller routes them to the reducer —
+ * and instances whose value has an empty normal form are dropped (defence in depth; see
+ * {@link emptyNormalFormInstances}).
  */
 export function joinInstances(instances: readonly FinderInstance[]): Cluster[] {
-  const gazetteerInstances = instances.filter((instance) => instance.subjectFromGazetteer);
+  const gazetteerInstances = instances.filter(
+    (instance) => instance.subjectFromGazetteer && hasUsableValue(instance),
+  );
   const clusters: Cluster[] = [];
   for (const group of groupByFactKey(gazetteerInstances)) {
     if (!isRepeated(group)) {
@@ -169,7 +190,8 @@ export function recountReducerCluster(
   id: string,
   members: readonly FinderInstance[],
 ): Cluster | null {
-  const [first, ...rest] = members;
+  const usable = members.filter(hasUsableValue);
+  const [first, ...rest] = usable;
   if (first === undefined) {
     return null;
   }
@@ -187,7 +209,7 @@ export function recountReducerCluster(
     factClass: first.factClass,
     subject: first.subject,
     predicate: first.predicate,
-    instances: members,
+    instances: usable,
   };
   if (!isRepeated(group)) {
     return null;

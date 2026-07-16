@@ -50,6 +50,21 @@ export async function main(): Promise<MetaResult> {
     };
   }
 
+  // Coverage is recomputed in code, never trusted from the agent: every flagged cluster
+  // must have exactly one row whose id IS the cluster id.
+  const clusterIds = new Set(clusters.map((cluster) => cluster.id));
+  const rowIds = new Set(output.rows.map((row) => row.id));
+  const missingRows = [...clusterIds].filter((id) => !rowIds.has(id));
+  const orphanRows = [...rowIds].filter((id) => !clusterIds.has(id));
+  if (missingRows.length > 0 || orphanRows.length > 0) {
+    return {
+      ok: false,
+      error:
+        `meta ledger coverage mismatch — cluster id(s) with no row: [${missingRows.join(', ')}]; ` +
+        `row id(s) matching no flagged cluster: [${orphanRows.join(', ')}]`,
+    };
+  }
+
   log(`meta done: ${output.rows.length} ledger row(s)`);
   return { ok: true, rows: output.rows };
 }

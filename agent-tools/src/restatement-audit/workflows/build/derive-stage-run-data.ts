@@ -16,6 +16,7 @@ import { readFile } from 'node:fs/promises';
 
 import { err, ok, type Result } from '@oaknational/result';
 
+import { parseGazetteerFile, projectGazetteer } from '../gazetteer-schema.js';
 import { metaRunDataFrom, reduceRunDataFrom, validateRunDataFrom } from '../run-inputs.js';
 import type {
   MapRunData,
@@ -87,20 +88,31 @@ async function readValidateResults(
   return ok(results);
 }
 
+/** The ONE canonical partition file shape — a bare window array is rejected, never guessed at. */
+function canonicalWindows(value: unknown): Result<unknown, Error> {
+  if (typeof value === 'object' && value !== null && !Array.isArray(value) && 'windows' in value) {
+    return ok(value.windows);
+  }
+  return err(
+    new Error(
+      '--partition must be the canonical {"windows": [...]} shape — no other shape is accepted.',
+    ),
+  );
+}
+
 async function deriveMapRunData(flags: CliFlags): Promise<Result<MapRunData, Error>> {
-  const partition = await readAnd(flags.partition, '--partition', (v) => ok(v));
+  const partition = await readAnd(flags.partition, '--partition', canonicalWindows);
   if (!partition.ok) {
     return partition;
   }
-  const gazetteer = await readAnd(flags.gazetteer, '--gazetteer', (v) => ok(v));
-  if (!gazetteer.ok) {
-    return gazetteer;
+  const gazetteerFile = await readAnd(flags.gazetteer, '--gazetteer', parseGazetteerFile);
+  if (!gazetteerFile.ok) {
+    return gazetteerFile;
   }
-  const windows =
-    typeof partition.value === 'object' && partition.value !== null && 'windows' in partition.value
-      ? partition.value.windows
-      : partition.value;
-  return parseMapRunData({ windows, gazetteer: gazetteer.value });
+  return parseMapRunData({
+    windows: partition.value,
+    gazetteer: projectGazetteer(gazetteerFile.value),
+  });
 }
 
 async function deriveValidateRunData(flags: CliFlags): Promise<Result<ValidateRunData, Error>> {

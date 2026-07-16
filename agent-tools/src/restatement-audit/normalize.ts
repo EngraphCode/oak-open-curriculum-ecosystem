@@ -17,15 +17,20 @@ function collapseWhitespace(value: string): string {
   return value.replaceAll(/\s+/g, ' ');
 }
 
-/** Strip a single trailing `.`, `,`, `;`, or `:` — punctuation, not part of the value. */
+/**
+ * Strip the whole trailing run of sentence punctuation AND whitespace as one class —
+ * `'completed .'` must normalise to `'completed'`, never `'completed '` (a trailing space
+ * surviving a punctuation-only strip minted false CONFLICTs and broke idempotence).
+ */
 function stripTrailingPunctuation(value: string): string {
-  return value.replace(/[.,;:]+$/, '');
+  return value.replace(/[\s.,;:]+$/, '');
 }
 
 /**
  * Deterministically canonicalise a raw `valueNorm` for exact-key joining: trim, collapse
- * internal whitespace, strip trailing sentence punctuation, and lowercase. Pure and
- * total — every string has a normal form, including the empty string.
+ * internal whitespace, strip the trailing whitespace-and-punctuation run, and lowercase.
+ * Pure, total (every string has a normal form, including the empty string), and
+ * idempotent: `normalizeValue(normalizeValue(x)) === normalizeValue(x)` for all `x`.
  */
 export function normalizeValue(raw: string): string {
   return stripTrailingPunctuation(collapseWhitespace(raw.trim())).toLowerCase();
