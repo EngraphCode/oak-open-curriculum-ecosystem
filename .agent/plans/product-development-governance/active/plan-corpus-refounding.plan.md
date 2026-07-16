@@ -450,9 +450,10 @@ plan-state tool join `repo-validators`; `test-expert` on the script/tool test es
 
 ## Lifecycle
 
-Lives in `current/` (executable). **Execution AUTHORISED (owner, 2026-07-06): R0 is go**,
-with WS2 proceeding in parallel; the branch push + PR were owner-approved the same sitting.
-Promotes to `active/` when R0a starts. On R6 completion this plan archives with `disposition: done`; the
+Lives in `active/` (executable; relocated from `current/` when execution began — stage
+state lives in the thread record and the Director claim's handoff record). **Execution
+AUTHORISED (owner, 2026-07-06): R0 is go**, with WS2 proceeding in parallel; the branch
+push + PR were owner-approved the same sitting. On R6 completion this plan archives with `disposition: done`; the
 learning-loop consolidation runs at every stable point close and at archive
 (`lifecycle-triggers` component applies in full).
 
