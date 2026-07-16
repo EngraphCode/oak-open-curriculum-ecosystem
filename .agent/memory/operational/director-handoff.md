@@ -270,9 +270,10 @@ first-hand as of 2026-06-25.
 > claim `1fcfeb3e` (restatement-audit, both jobs). The pair are each other's ADVERSARIAL
 > CHECKERS via the ARC channel — every binding artefact passes the other seat's refutation
 > before it acts. Team Mango's other seats closed at the owner wind-down (2026-07-15
-> evening). Owner rulings in force: merges are OWNER-EXECUTED during the SonarCloud
-> required-context outage (agents surface merge moments; never `--admin`); never squash;
-> untracked files are first-class; no follow-ups.
+> evening). Standing owner rulings: never squash; untracked files are first-class; no
+> follow-ups. The CURRENT merge-execution mode is live state — read it from the
+> pointed-to record below (never from this block; it changes with an external outage
+> window).
 >
 > **The live pickup surface** (volatile values do NOT live in this tracked file): the
 > Director claim's `handoff_record_path` →

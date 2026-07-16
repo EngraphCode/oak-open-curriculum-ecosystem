@@ -1378,8 +1378,8 @@ behaviour-changing items not already captured by peers' entries above:
 ## 2026-07-15 — Ceres guards Corona (0f6b60), team Satsuma: S1 reader-batch seat, owner-called stop closeout
 
 **Landed (PDR-026):** adopted the s1-reader-sample-b1 batch mid-cycle (Hedgehog Step-4
-21560c5a), then chain steps 1–6 end-to-end: allowlist line + plugin rebuild + zero-findings
-scoped lint; atomic commit `012632b40` truly green via the queue ceremony; push; draft PR 389;
+SHA:21560c5a), then chain steps 1–6 end-to-end: allowlist line + plugin rebuild + zero-findings
+scoped lint; atomic commit `SHA:012632b40` truly green via the queue ceremony; push; draft PR 389;
 seal event 75c1f551; briefs regenerated + proven byte-identical 30/30; P12 recount proof
 (manifest byte-stable, git-clean); reader fleet run `wf_c6bac7e8-773` (31 haiku invocations,
 969,049 worker tokens, zero nulls). Step 7 partial: 13/30 windows fully verified; H5 first
@@ -1628,7 +1628,7 @@ entries written, uncommitted by design (no handover commits, ever).
 ## 2026-07-15 — Acacia rides Bark (637ea1): tooling-seat closure — item 1 MERGED; session terrain findings
 
 **Landed**: tooling item 1 MERGED — PR #387 (merged by the owner 20:19:53Z, merge commit
-`c0aba5a5b`; final round-3 commit `23759f3ea`: `unwrapErr` promoted into
+`SHA:c0aba5a5b`; final round-3 commit `SHA:23759f3ea`: `unwrapErr` promoted into
 `@oaknational/result` behind a single private `raise()` edge with a types-module
 cycle-break (`result-type.ts`), `EntryRun<T>` nesting closing the `TResolved` spread
 unsoundness; 9/9 threads resolved with commit-cited evidence, Copilot round 4 clean,
@@ -1674,7 +1674,7 @@ for the pattern.
 **Durable-home note for the no-throw retrofit lane**: the result package's single
 tolerated `no-throw-statement` warning moved from `index.ts:131` into the consolidated
 `raise()` edge in `packages/core/result/src/unwrapping.ts` (code-expert rider, landed in
-`23759f3ea`); the SDK's `unwrapOk` remains an `unwrap` duplicate — follow-on
+`SHA:23759f3ea`); the SDK's `unwrapOk` remains an `unwrap` duplicate — follow-on
 consolidation candidate, named in the work-return event.
 
 **Loss-scan (context-holder pass)**: round-3 thread IDs + dispositions → durable in PR
@@ -1720,7 +1720,7 @@ handoff chain (Mussel→Tuna record §4.7 and successors).
 PR #391 briefly armed auto-SQUASH by this seat, against the pr-lifecycle skill's explicit
 merge-commit-never-squash rule (skill ~L306–311) — a rule sitting 60 lines below the very
 section this seat was amending the same hour. #390 is irreversible (content byte-verified
-on main; the loss is history granularity, 11 branch commits flattened); #391 was disarmed
+on main; the loss is history granularity, 12 branch commits (including two merge commits) flattened); #391 was disarmed
 and re-armed `method=MERGE` (verified). Generator named at owner direction:
 DOCTRINE-BLINDNESS WHILE EDITING DOCTRINE — treating a skill as an append target rather
 than a contract binding the editor's own live actions. Cure candidates (routed to the
@@ -1745,7 +1745,7 @@ ruleset needs identifying from repo settings.
 
 Team-member closeout (not the thread's closeout owner — Mussel rides Coral is Director);
 repo-continuity.md and the thread next-session record are the Director's to update, not
-touched here. Landed: PR #393 (draft), commit `a2788788f` — the full
+touched here. Landed: PR #393 (draft), commit `SHA:a2788788f` — the full
 `agent-tools/src/restatement-audit/` module (schemas, normalize/join, disposition, the
 four-stage harness pipeline, ledger renderer); 123 unit tests; full repo pre-commit gate
 105/105 tasks green.
