@@ -9,31 +9,22 @@
  * is written. Mirrors the MCP app's programmatic-esbuild precedent
  * (`apps/oak-curriculum-mcp-streamable-http/build-scripts/esbuild-config.ts`).
  *
+ * Module coupling (which schemas to inline, whether to seed run data) arrives as the
+ * `plugins` argument — instantiated per module from `schema-inline-plugin.ts`'s
+ * factories, composed by `workflow-builder.ts`.
+ *
  * @packageDocumentation
  */
 
-import type { BuildOptions } from 'esbuild';
-
-import { agentSchemasInlinePlugin, runDataInlinePlugin } from './schema-inline-plugin.js';
-
-/** A stage-tagged, already-validated run-data payload to inline into the bundle. */
-export interface RunDataSeed<TData> {
-  /** The stage the data was validated FOR — checked by every sandbox guard. */
-  readonly stage: string;
-  readonly data: TData;
-}
+import type { BuildOptions, Plugin } from 'esbuild';
 
 /** Build one in-memory ESM bundle per stage entry, ready for the harness emitter. */
-export function createWorkflowEsbuildOptions<TData>(input: {
+export function createWorkflowEsbuildOptions(input: {
   readonly entryPoints: Readonly<Record<string, string>>;
   /** Shapes `outputFiles[].path` (nothing is written — `write: false`). */
   readonly outdir: string;
-  /**
-   * Seed the run-data module with stage-tagged, already-validated data. Omit for a
-   * verification build — the artefact then carries the unseeded sentinel and its
-   * stage guard fails fast if run.
-   */
-  readonly seed?: RunDataSeed<TData>;
+  /** The module's inline plugins (agent-schemas always; run-data only when seeding). */
+  readonly plugins: readonly Plugin[];
 }): BuildOptions {
   return {
     entryPoints: { ...input.entryPoints },
@@ -45,9 +36,6 @@ export function createWorkflowEsbuildOptions<TData>(input: {
     write: false,
     sourcemap: false,
     legalComments: 'none',
-    plugins: [
-      agentSchemasInlinePlugin(),
-      ...(input.seed === undefined ? [] : [runDataInlinePlugin(input.seed.stage, input.seed.data)]),
-    ],
+    plugins: [...input.plugins],
   };
 }

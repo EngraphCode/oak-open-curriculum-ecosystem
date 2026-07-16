@@ -29,7 +29,8 @@ import { parseArgs } from 'node:util';
 import { err, ok, type Result } from '@oaknational/result';
 
 import { deriveRunData, type CliFlags, type StageRunData } from './derive-stage-run-data.js';
-import { buildStageArtefact, STAGE_DEFINITIONS, WORKFLOW_OUT_DIR } from './workflow-builder.js';
+import { buildStageArtefact } from '../../../workflow-build/workflow-builder.js';
+import { BUILD_CONFIG, STAGE_DEFINITIONS, WORKFLOW_OUT_DIR } from './build-config.js';
 
 function parseCliFlags(): Result<CliFlags, Error> {
   try {
@@ -83,6 +84,7 @@ const resolved = await resolveRunData();
 
 if (resolved.ok) {
   const artefact = await buildStageArtefact({
+    config: BUILD_CONFIG,
     stage: resolved.value.stage,
     runData: resolved.value.data,
   });

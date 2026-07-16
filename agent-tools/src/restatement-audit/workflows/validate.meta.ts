@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 
-import type { WorkflowMeta } from '../../corpus-analysis/workflows/workflow-meta.js';
+import type { WorkflowMeta } from '../../workflow-build/workflow-meta.js';
 
 /** VALIDATE stage descriptor. */
 export const meta = {

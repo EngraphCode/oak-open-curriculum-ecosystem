@@ -1,7 +1,7 @@
 import { isErr, isOk } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
-import type { WorkflowMeta } from '../workflow-meta.js';
+import type { WorkflowMeta } from './workflow-meta.js';
 import { emitHarnessArtefact, stripExportFooter } from './harness-emitter.js';
 
 /**
