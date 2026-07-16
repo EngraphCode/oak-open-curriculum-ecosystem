@@ -5,9 +5,12 @@
   "type": "module",
   "description": "TypeScript tooling workspace for agent operational CLIs",
   "scripts": {
-    "build": "tsc -p tsconfig.build.json && chmod +x dist/src/bin/*.js dist/src/claude/statusline-identity.js && pnpm -s build:workflows",
+    "build": "tsc -p tsconfig.build.json && chmod +x dist/src/bin/*.js dist/src/claude/statusline-identity.js && pnpm -s build:workflows && pnpm -s build:restatement-audit-workflows",
     "build:workflows": "tsx src/corpus-analysis/workflows/build/build-workflows.ts",
     "build-run-artefact": "tsx src/corpus-analysis/workflows/build/build-run-artefact.ts",
+    "build:restatement-audit-workflows": "tsx src/restatement-audit/workflows/build/build-workflows.ts",
+    "restatement-audit-build-run-artefact": "tsx src/restatement-audit/workflows/build/build-run-artefact.ts",
+    "restatement-audit-render-ledger": "tsx src/restatement-audit/render-ledger-cli.ts",
     "post-run-driver": "tsx src/corpus-analysis/post-run/post-run-driver.ts",
     "salvage-driver": "tsx src/corpus-analysis/post-run/salvage-driver.ts",
     "clean": "rm -rf dist .turbo",
@@ -90,6 +93,7 @@
   "dependencies": {
     "@oaknational/result": "workspace:*",
     "@oaknational/safe-path": "workspace:*",
+    "@oaknational/type-helpers": "workspace:*",
     "ajv": "^8.20.0",
     "ink": "^7.1.0",
     "react": "^19.2.7",
