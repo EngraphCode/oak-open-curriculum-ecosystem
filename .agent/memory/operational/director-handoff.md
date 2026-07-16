@@ -285,9 +285,9 @@ first-hand as of 2026-06-25.
 > effort's purpose, the resolvable guiding-plan pointer, the live PR and halt state, the
 > queue, and the pickup protocol. Per this file's contract the guiding plan is NAMED
 > here (stable): the owner-approved restatement-remediation plan — "PR-lifecycle
-> hardening + restatement-audit fleet + prevention mechanisms" — currently homed at a
-> machine-local plans path pending its tracked re-homing item, so the RESOLVABLE pointer
-> rides the pointed-to record. The effort's SHAPE (stable): cure the
+> hardening + restatement-audit fleet + prevention mechanisms", re-homed in-repo at
+> `.agent/plans/product-development-governance/active/restatement-remediation.plan.md`
+> (2026-07-16). The effort's SHAPE (stable): cure the
 > authored-restatement error class — the generator behind PR #390's eight review
 > rounds — and pin the cures with prevention validators; the refounding lanes resume at
 > the cures-landed + freeze-recut-check gate. Every value that changes faster than a

@@ -1733,7 +1733,8 @@ procedure or as a gh wrapper refusing `--squash`.
 **PR #390 round-tally of record** (the non-convergence evidence behind the skill
 amendments): rounds of 7, 2, 8, 5, 5, 4, 5 findings plus a 5-finding post-merge round
 that raced the merge — ~38 findings total, generator = authored restatement of derivable
-state (full analysis in the approved plan file resilient-wobbling-hartmanis.md §Context;
+state (full analysis in the approved plan §Context — re-homed 2026-07-16 to
+`.agent/plans/product-development-governance/active/restatement-remediation.plan.md`;
 prevention design in the same plan).
 
 **#391 residual**: mergeStateStatus=BLOCKED with checks green, zero unresolved, branch
@@ -1809,9 +1810,11 @@ four-stage harness pipeline, ledger renderer); 123 unit tests; full repo pre-com
   to me — WAKE 12965516, remit-confirmed eb2298fc, corpus-amendment add5f060 (T3->T3+U,
   ceiling 480/6M, verified first-hand already landed in the brief). All substance mirrored
   above or in PR #393; nothing unmirrored.
-- Platform-plan surface: `~/.claude/plans/resilient-wobbling-hartmanis.md` read in full at
-  session start, fully absorbed into the brief cross-reference and PR #393; nothing further
-  to route. Per-user Claude memory: no new durable cross-session facts beyond what this
+- Platform-plan surface: the per-user plan-mode file (resilient-wobbling-hartmanis) read
+  in full at session start, fully absorbed into the brief cross-reference and PR #393
+  (re-homed 2026-07-16: the canonical copy is
+  `.agent/plans/product-development-governance/active/restatement-remediation.plan.md`);
+  nothing further to route. Per-user Claude memory: no new durable cross-session facts beyond what this
   entry and the PR already conserve.
 - Loss-scan (from my own context, at pause — not a full session end, a compaction pause;
   resuming under the same identity/claim after): the debugging PROCESS for the gazetteer
