@@ -49,7 +49,7 @@ const nonNegativeInt = z.number().int().nonnegative();
 export const sha256HexSchema = z.string().regex(/^[0-9a-f]{64}$/);
 
 /** A relative POSIX path (path-traversal defence): no `..`, absolute, or backslash. */
-const relativePosixPath = nonEmptyString.refine((p) => {
+export const relativePosixPath = nonEmptyString.refine((p) => {
   const norm = p.replaceAll('\\', '/');
   return !norm.startsWith('/') && !norm.split('/').includes('..') && !p.includes('\\');
 }, 'must be a relative POSIX path with no .. segments');
