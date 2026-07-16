@@ -1025,3 +1025,229 @@ fact, before commit — verify-before-landing held even under closeout time pres
   armed (comms + claims, 4-min); `register-rehoming` and `orphan-recovery` worktrees removed
   proof-gated (recovered entry verified at archive line 2231 with SHA provenance; branch tip
   ancestor of origin/main); primary ff-pulled to 1.69.1.
+
+## 2026-07-15 — Schooner guards Whirlpool (82a9df): Director session close — loss scan (first-order + recursive metaloss)
+
+Scan scope: the full Director tenure (Moment-2 12:04:35Z through this owner-directed
+succession to Mussel rides Coral, 6f8857). Durable survivors verified and not re-listed:
+the sweep report + ledger (PR #384), PR #381's continuity truing, PR #382's compact S1
+evidence, F-92 recurrence, F-144/F-145, the recovered oak-prod report + eef bullet + June
+napkin entry (PR #384), Stoat's tool-contract traps (landed via #381), the executed-sweep
+comms broadcast.
+
+**First-order findings (context-only until this entry):**
+
+1. **Two owner rulings are Practice doctrine but lived only in per-user memory** (invisible
+   to Cursor/Codex seats and to the repo): (a) **no operations that might risk loss of
+   work — a duplication proof never licenses the operation class** (stash/checkout/reset;
+   "relaxing that discipline is what caused these problems in the first place" — ruled when
+   I proposed a proven-duplicate `git stash push` to unblock a pull; the ruling is the
+   absoluteness itself); (b) **"nothing is 'mine' — the function of the team is to progress
+   the work"**: frame blockers as constraints with unblocking options, never as personal
+   assignments or owner-action queues. Both captured here for the graduation pipeline;
+   pending-graduations entries added this close.
+2. **Derived-output conservation shape** (will recur at S2/S3/S4): S0's freeze conserved
+   UNIQUE SOURCE (verbatim, not regenerable) — committing it was right; S1's outputs are
+   DERIVED, twice-proven-deterministic — committing 49MB of them was wrong, and the right
+   shape is the compact attestation (hashes, counts, calibration disclosures, exact
+   regeneration+verification contract) with bulk artefacts local/ignored. I initially ruled
+   five-file publication by S0-analogy; the owner's retention question exposed the analogy
+   failure (precedent-is-not-correctness). The generator-first cardinal culture already
+   implies this; the plan-corpus arc should hold it explicitly.
+3. **Own failure mode, owner-caught: I declared "zero threads" on PR #381 from checks + the
+   REST inline-comments endpoint and skipped the GraphQL review-thread harvest** — the
+   pr-lifecycle full-surface step. 13 unresolved Copilot threads existed. The REST
+   `pulls/N/comments` returning 0 while GraphQL `reviewThreads` holds 13 is exactly why the
+   doctrine names GraphQL as the canonical harvest; a partial surface read as a complete one.
+4. **The primary's parked pull**: local main is behind origin (post-#381+) because the live
+   napkin's working-tree copy (content byte-identical to the #381-merged version, verified
+   empty diff) blocks `git pull --ff-only`, and every unblock operation is in the banned
+   risk class. Owner-ruled parked; cosmetic. The successor must NOT try to "fix" it with
+   git state operations — it resolves only by an owner-run command or by the napkin
+   working-tree copy becoming byte-equal to a future HEAD's version.
+5. **`remediate-main-*` deletions were rejected by a rule invisible to agent tokens** while
+   ordinary branch deletion works (probe-proven) and the rulesets/effective-rules APIs show
+   nothing matching — at least one push-rule layer is not enumerable by agent credentials
+   (sweep report carries it; named here because it changes how a future push-rejection gets
+   diagnosed: absence-of-visible-rule is not absence-of-rule).
+
+**Second-order recursive metaloss pass:** the scan above enumerates what this seat
+RECOGNISED; unrecognised loss is mitigated by round-trip-at-occurrence (every decision
+today produced a comms event, a PR body, or a ruling record at the moment it happened) and
+by the mandatory comms-curation edge this entry satisfies. Checked whether the first-order
+pass homogenised anything: yes, one synthesis existed nowhere — **the day's three owner
+catches of MY operating (the skipped thread-harvest, the owner-queue framing, the stash
+reflex) share one generator: under seat time-pressure I optimised for velocity-of-unblocking
+over completeness-of-protocol.** Each individual cure was already-named doctrine
+(fluency-is-a-warning; the full-surface harvest; the loss-discipline's absoluteness); the
+generator-level observation is that all three fired within four hours on a high-tempo
+coordination seat — supporting the metacognition directive's finish-line-clustering claim
+and suggesting the Director role's "minimum action" axis needs its stated complement:
+minimum action never means abbreviated protocol. Representative rejects (reconstructible,
+zero decision value): monitor task-id sequences across four watcher deaths, the duplicate
+Hedgehog remit event, comms-CLI output-format trivia. A third pass adds words, not
+information; recursion bottoms out.
+
+## 2026-07-15 — Zodiac turns Solstice (019f65): PR #382 deep handoff, loss scan, and recursive metaloss
+
+Landing truing: this entry was authored while Schooner held the Director seat. Current
+Director custody is Mussel rides Coral (`6f8857`), which adopted claim `0f4be777` from
+Schooner; later references to Director disposition or custody route to Mussel.
+
+### Outcome and verified boundary
+
+- The owned lane was the r1-S1 deterministic script layer only: no subagent fleets, reader
+  sample, locator work, or judgement. The freeze check, inventory, residue, sweep, and P4
+  detector-calibration ran twice from exact base `SHA:0a04617d4` with byte-identical outputs.
+- Compact evidence PR #382 merged at `SHA:de3cc54c1` (tip `SHA:766f3d5eb`). A terminal live harvest
+  reconfirmed 18/18 checks successful, three of three review threads resolved, and the latest
+  current-tip Copilot review carrying no new comment. The tip is an ancestor of `origin/main`.
+- The durable measurements are in the merged Markdown/JSON evidence twins: 681/681 frozen
+  files, 77 residue candidates, 3,514 sweep hits over 523 files, and the exact calibration
+  disclosure that the marker-free plant was invisible while the control hit. The disclosure is
+  not a green sweep result; it is the proof that the declared reader residual remains necessary.
+- The five generated outputs total about 49 MB and 996,181 physical lines. They are ignored and
+  absent from the PR, while local-only commit `SHA:42b27e3eb` conserves them on
+  `feat/plan-corpus-refounding-s1-zodiac`. The branch and worktree were verified clean and the
+  branch was verified absent from the remote. This is containment, not backup: clone loss would
+  lose the copy. The sitting Director (Mussel rides Coral at truing time) owns its later disposition; do not
+  delete, reset, push, or mistake it for ordinary untracked residue without that ruling.
+- **Verdict:** the deterministic S1 slice landed; full S1 remains pending. The declared-rate
+  reader sample, any resulting zero-judgement fleet residual, S2 tiling, and the divergence
+  report remain outside this seat and under Director custody.
+
+### Structured surprise — the late thread the owner had to surface
+
+- **Expected:** the supervised watcher plus repeated full review harvests would surface every
+  current-tip actionable thread before a status declaration.
+- **Observed:** after a clean snapshot, Copilot posted discussion `3587779612` at 13:46Z. The
+  watcher emitted no useful state change before the owner linked the thread directly. The
+  finding was valid: JSON printed digests but did not fail on mismatch.
+- **Cause:** a change-oriented watcher and one-minute polling cadence were treated as if “no
+  emitted change” meant “no new review”. The watcher also had an all-green exit/re-arm gap.
+  Existing PR-lifecycle doctrine already required full-surface harvesting and a quiet window;
+  the failure was doctrine traction, not an absent rule.
+- **Repair and behaviour change:** commit `SHA:766f3d5eb` embedded the same five-entry
+  `shasum -a 256 -c` manifest in JSON as Markdown; the command was executed from JSON and all
+  five entries returned OK. After every push and before every PR-status statement, perform the
+  compound GraphQL review-thread harvest even when the watcher reports no change; treat the
+  watcher as notification acceleration, never negative evidence; remain active until MERGED.
+- **Promotion disposition:** recurrence evidence for the existing PDR-098/PR-lifecycle
+  visibility-before-validation family. No duplicate rule or PDR is warranted from this one
+  recurrence. The Director's continuity tranche already records the unrelated large-bundle
+  `record-staged` ENOBUFS friction as F-144; this handoff does not duplicate it.
+
+### First-order context-loss scan
+
+Scan window: this seat's whole user-visible session through the post-merge terminal harvest.
+Sources inspected first-hand: the conversation and its compaction summary; PR #382 metadata,
+checks, reviews, and GraphQL threads; merged evidence files and git ancestry; all owned comms;
+active claims/commit queue; all relevant worktrees and local/remote branch refs; the controlling
+plan, thread record, repo continuity, napkin, distilled memory, and frictions register; root
+agent entry points; and the local Codex, Claude, Cursor, and Gemini plan/memory stores.
+
+1. **Status compression would reverse the next action.** “PR #382 merged” can easily become
+   “S1 complete”. The successor must instead resume the declared-rate reader sample/fleet
+   residual, then S2; the plan todo correctly remains pending.
+2. **The evidence altitude matters.** PR #382 proves a compact recomputable contract and its
+   exact observed results. It does not make the five bulk files repository truth, prove semantic
+   recall, discharge the marker-free blind spot, or authorize judgement.
+3. **The review repairs carry rationale, not just syntax.** Exact base was selected because a
+   descendant condition omitted live rule/sweep inputs; command phases were split so a machine
+   can reconstruct run-once/run-twice/verify sequencing; fail-loud checksum verification replaced
+   digest printing because printing exits successfully on mismatch.
+4. **Rejected alternatives are load-bearing negative knowledge.** We rejected committing the
+   five 49 MB outputs, trusting the marker-free zero, treating printed hashes as verification,
+   touching the conservation copy after merge, and expanding this seat into fleet or judgement.
+   The compact evidence shape was the conserving alternative, not an information-deletion claim.
+5. **Authority remains separate from work-product.** The Director ruled the compact-evidence
+   shape and retains plan-level residual custody. The owner merged PR #382. This seat neither
+   acquired Director authority nor changed the plan's placed-judgement map.
+6. **Local-only safety is conditional.** Gitignore and a dedicated local branch prevent accidental
+   PR inclusion; they do not survive deletion of the local clone. Future cleanup must preserve
+   the distinction between ignored generated paths and their tracked local conservation commit.
+7. **Collaboration texture was checked, then bounded.** All authored events were read. They add
+   no decision beyond the merged status, repair sequence, Director routing, and local-copy
+   custody now homed here and in the thread/plan. No conversation or escalation register exists
+   on the current substrate; the only active claims are the Director seat and this closeout lane.
+8. **Platform memory comparison found no additional session decision.** Codex holds the current
+   transcript plus user memory; Claude's repo memory/plans contain broader standing guidance but
+   no PR-#382-specific survivor; Cursor has no recent repo chat/plan state for this window; the
+   Gemini repo chat store is empty. Platform-local transcript persistence is useful recovery
+   evidence, not the consumer home for plan state.
+9. **The Practice incoming box is non-empty but not hidden completion work for this lane.** The
+   refounding synthesis is already cited by the controlling plan; the teaching and outbound
+   bundles retain their own integration-at-curator-cadence posture. None adds a PR-#382 decision,
+   and this session-completion pass neither clears nor silently adopts them.
+10. **Entry points are already truthful.** `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, and `skills.md`
+   all route to canonical `AGENT.md`; there is no repo-local `.codex/AGENTS.md`. No navigation
+   edit is justified by this handoff.
+
+### Second, recursive metaloss pass — challenge to the scan's own selection
+
+1. **The scan is recognition-bounded.** It can list only propositions that became visible to its
+   categories. I challenged that filter by comparing independently generated surfaces: chat,
+   GitHub, merged diff, comms, claims, git/worktrees, plan/thread continuity, and four platform
+   memory families. Their only decision-changing disagreement was the stale “S1 unstarted”
+   pickup text, now corrected to “deterministic slice merged; full S1 open”.
+2. **Compression can preserve facts while destroying warrants.** A list of hashes and counts
+   would not explain why exact-base, three command phases, and fail-loud manifest checks exist.
+   Those warrants are retained above and in the resolved review threads so a successor does not
+   weaken the contract while believing it equivalent.
+3. **A success narrative can erase the correction path.** The owner surfaced a missed thread;
+   describing only the final zero-unresolved state would hide the monitoring failure and prevent
+   behaviour change. Conversely, calling it a novel doctrine gap would erase that the rule already
+   existed. The durable classification is recurrence/traction evidence.
+4. **A local conservation story can invert risk.** “Safe locally and untracked” was conversational
+   shorthand. The generated paths are ignored, but the conservation copy is a tracked commit on a
+   local-only branch. Its risk is not accidental PR inclusion; it is silent loss during cleanup or
+   clone removal. That distinction is now explicit in both pickup surfaces.
+5. **An audience change can erase authority.** A future implementer may read the evidence files
+   without the Director routing context; a future Director may read continuity without the exact
+   evidence ceiling. The thread record joins both: evidence, incomplete residual, cold-paused Fleet
+   Captain, conservation-copy disposition, and next safe action.
+6. **Negative-space sampling:** considered preserving polling timestamps, watcher session IDs,
+   every intermediate PR-state snapshot, exact command order during diagnosis, shell quoting
+   attempts, and prose drafts. Rejected because they are reconstructible execution texture and do
+   not change evidence, authority, falsifier, or next action. By contrast, rejected architectural
+   alternatives and the late-thread cause were retained because they do.
+7. **Recursive stop:** a third pass rephrases the same selection limit. Decision rationale,
+   rejected alternatives, evidence altitude, authority/custody, falsifiers, and next safe actions
+   now have explicit homes. Further recursion would create new closeout state rather than recover
+   a new consumer-relevant proposition.
+
+### Consolidation disposition and remaining structural debt
+
+- Mode: `session-completion`. Permanent evidence is in PR #382's merged twins and review threads;
+  live execution/custody is in the active plan, thread record, and repo continuity; this entry
+  preserves the structured surprise, negative knowledge, first-order loss, and recursive metaloss.
+- No new ADR, PDR, pattern, rule, Practice amendment, or open-question item clears its graduation
+  bar. The late-review incident belongs to existing doctrine-traction evidence; the conservation
+  copy is an operational Director decision already represented in the plan/thread lane, not a new
+  global open question.
+- The napkin and repo-continuity surfaces were already above their critical fitness thresholds
+  before this mandatory capture. The signal is valid; deletion or compression to improve a number
+  would violate conservation. A dedicated curator needs a stable corpus boundary, bottom-up item
+  disposition, and proof that no peer entry arrived before any rotation or continuity compaction.
+  This session-completion pass does not claim that wider multi-session buffer is drained.
+- Critical-surface post-mortem: earlier zones fired but did not halt concurrent append-only capture;
+  the thresholds are not shown wrong; this session's substance is already graduated to its proper
+  evidence and execution homes, so remaining pressure is aggregate structural curation debt rather
+  than missing promotion of PR #382 knowledge.
+
+### Verification at close
+
+- Scoped Prettier, Markdownlint, internal-link validation, and `git diff --check` all passed.
+- Informational and strict-hard fitness agreed on 10 critical, 15 hard, 12 soft, and 33 healthy
+  surfaces. Live pending-graduation decision-debt reads 3 on this branch (the three entries the
+  continuity tranche itself appends — corrected at review; the original zero was read
+  before that append); one pre-existing malformed entry remains visible. The napkin and repo continuity are critical accumulation surfaces, with the dedicated
+  stable-boundary curator lane above as their explicit disposition.
+- The mandatory aggregate `pnpm check` was started in a browser-capable host after a singleton-gate
+  broadcast, then cancelled immediately on the owner's explicit instruction while `gitleaks` was
+  running. SIGINT was delivered and the command exited 1 by cancellation; no later phase completed
+  and no replacement run was started. This is cancellation evidence, not a failed quality verdict.
+- Consolidation verdict: **partial slice landed** — all PR-#382-specific knowledge reached its
+  highest-impact available home; wider shared curation buffers remain live. Session-handoff verdict
+  before repository landing: scoped evidence green, aggregate gate owner-cancelled, no hidden
+  completion claim.

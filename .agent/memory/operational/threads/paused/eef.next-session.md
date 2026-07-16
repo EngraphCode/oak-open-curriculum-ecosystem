@@ -17,6 +17,28 @@ merge_class: index-narrative-tables
 
 ## Current Continuation
 
+- **2026-06-11 evening (Dawnlit Glimmering Orbit / cursor Fable 5, `50c2d1`,
+  oak-prod-live-mcp-exercise, solo)** *(recovered 2026-07-15 from `SHA:c9ff6bb49` on
+  `docs/graph-team-direction-2026-06-10` after PR #383 closed unmergeable; landed via the
+  batched continuity PR)* — the live oak-prod MCP
+  (`curriculum-mcp-alpha.oaknational.dev`, app v1.26.1, Cursor OAuth client) was exercised
+  end-to-end against the working-with-graphs checklist: orientation, all four graph tools
+  (positive + negative probes), search, fetch, `eef://interpretation`. **Every graph response
+  satisfied the doctrine** — bounded complete subgraphs, anchors echoed, honest windows, typed
+  refusals/well-formed empties, no soft stubs; cross-provenance consistency held (fetch's
+  live-API lesson text byte-matches the bulk-corpus graph responses). **One material finding,
+  owner/Director decision needed** *(at the time — RESOLVED 2026-06-12: PR #191 landed the
+  owner-decided dual shape, released 1.28.0 and production-verified; see the snagging-arc
+  entry below)*: `get-eef-evidence` success payloads render `(omitted)` in
+  the Cursor MCP client — the owner-ratified `content: []` + structuredContent-only success
+  shape is dropped by clients that render only `content` blocks (typed refusals and all graph
+  tools render fine; root cause source-grounded in `aggregated-eef-evidence.ts`). The D7
+  teacher-value path is dead in such clients while contract behaviour stays correct. Evidence +
+  disposition options in
+  [`oak-prod-live-mcp-exercise-2026-06-11.md`](../../../../reports/oak-prod-live-mcp-exercise-2026-06-11.md)
+  (also: two corpus-data observations — cross-subject keyword description leakage on
+  `keyword:convert`, one prior-knowledge typo; prompts not agent-invocable from the Cursor
+  harness — user slash-command invocation works — named as a coverage gap).
 - **2026-06-12 (Forge turns Basalt / claude-code Fable 5, `c4b882`) — EEF DATA SURFACING-GAP
   RESEARCH LANDED.** Read-only research: corpus-vs-surfaced inventory, verified first-hand
   (full surfacing stack read; three live oak-prod probes; 24-agent workflow with adversarial
@@ -59,7 +81,12 @@ merge_class: index-narrative-tables
   (4) optional annex — Codex/Gemini client probes, and a fresh-session Claude Code re-probe
   of `get-eef-evidence` against deployed 1.28.0 to complete the client matrix.
 - **2026-06-11 evening (Dawnlit Glimmering Orbit / cursor Fable 5, `50c2d1`,
-  oak-prod-live-mcp-exercise + snagging, solo). NOTE this branch lags the eef arc** — the
+  oak-prod-live-mcp-exercise + snagging, solo).** *(Discharge note, 2026-07-15: the
+  reconcile-on-merge instruction below is DISCHARGED — the June branch's substance was
+  re-homed via PR #384 with `SHA:c9ff6bb49` provenance and the branch's disposition was
+  owner-ruled in the residue sweep. The snag register's S1 owner decision was made and
+  landed 2026-06-12 via PR #191, so the "S0 probe → S1 to owner" next step is superseded;
+  see the snagging-arc entry above.)* **NOTE this branch lags the eef arc** — the
   TRACK-G completion narrative and this session's first-wave artefacts (verification record +
   thread-record entry) live on branch `docs/graph-team-direction-2026-06-10` (commits
   `ae5372e2c` + `c9ff6bb49`, pushed); reconcile on merge. This branch carries the session's
