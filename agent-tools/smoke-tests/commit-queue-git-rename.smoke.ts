@@ -38,9 +38,9 @@ try {
 
   const bundle = getStagedBundle({ gitRoot: repo, pathspec: ['old-name.ts', 'new-name.ts'] });
 
-  const names = bundle.stagedNameOnly.split('\n').filter(Boolean);
-  assert.ok(names.includes('old-name.ts'), 'deletion side must be visible in staged names');
-  assert.ok(names.includes('new-name.ts'), 'addition side must be visible in staged names');
+  const names = new Set(bundle.stagedNameOnly.split('\n').filter(Boolean));
+  assert.ok(names.has('old-name.ts'), 'deletion side must be visible in staged names');
+  assert.ok(names.has('new-name.ts'), 'addition side must be visible in staged names');
   assert.ok(!/^R/mu.test(bundle.stagedNameStatus), 'no collapsed rename rows');
   assert.match(bundle.stagedNameStatus, /^D\told-name\.ts$/mu);
   assert.match(bundle.stagedNameStatus, /^A\tnew-name\.ts$/mu);
