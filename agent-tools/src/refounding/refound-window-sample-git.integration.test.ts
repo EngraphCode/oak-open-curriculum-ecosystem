@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
+import { unwrap, unwrapErr } from '@oaknational/result';
+
 import {
   buildScrubbedGitEnv,
   makeGitByteSource,
@@ -53,12 +55,8 @@ function sourceWith(respond: (args: readonly string[]) => GitSpawnResult): {
   readonly source: ByteSource;
 } {
   const { calls, spawn } = scriptedSpawner(respond);
-  const made = makeGitByteSource(REPO_ROOT, BASE, { spawn, exists: () => true });
-  expect(made.ok).toBe(true);
-  if (!made.ok) {
-    expect.unreachable('makeGitByteSource refused with an all-true existence probe');
-  }
-  return { calls, source: made.value };
+  const source = unwrap(makeGitByteSource(REPO_ROOT, BASE, { spawn, exists: () => true }));
+  return { calls, source };
 }
 
 describe('makeGitByteSource — the spawner forwarding contract', () => {
@@ -77,10 +75,7 @@ describe('makeGitByteSource — the spawner forwarding contract', () => {
     const bytes = Buffer.from([0x00, 0x01, 0xff]);
     const { calls, source } = sourceWith(() => okSpawn(bytes));
     const read = source.readBytes('.agent/prompts/a b.md');
-    expect(read.ok).toBe(true);
-    if (read.ok) {
-      expect(Buffer.from(read.value).equals(bytes)).toBe(true);
-    }
+    expect(Buffer.from(unwrap(read)).equals(bytes)).toBe(true);
     expect(calls).toEqual([
       {
         file: TRUSTED_GIT,
@@ -94,10 +89,7 @@ describe('makeGitByteSource — the spawner forwarding contract', () => {
       spawn: () => okSpawn(''),
       exists: () => false,
     });
-    expect(made.ok).toBe(false);
-    if (!made.ok) {
-      expect(made.error.message).toContain('No trusted git binary found');
-    }
+    expect(unwrapErr(made).message).toContain('No trusted git binary found');
   });
 });
 
@@ -106,42 +98,28 @@ describe('makeGitByteSource — NUL-delimited listing parsing', () => {
     const listing =
       '100644 blob aaaa\t.agent/prompts/a.md\0' + '100755 blob bbbb\t.agent/prompts/run me.md\0';
     const { source } = sourceWith(() => okSpawn(listing));
-    const paths = source.listPaths();
-    expect(paths.ok).toBe(true);
-    if (paths.ok) {
-      expect(paths.value).toEqual(['.agent/prompts/a.md', '.agent/prompts/run me.md']);
-    }
+    expect(unwrap(source.listPaths())).toEqual(['.agent/prompts/a.md', '.agent/prompts/run me.md']);
   });
 
   it('refuses a symlink entry loudly, naming the path and mode', () => {
     const listing = '120000 blob cccc\t.agent/prompts/link.md\0';
     const { source } = sourceWith(() => okSpawn(listing));
-    const paths = source.listPaths();
-    expect(paths.ok).toBe(false);
-    if (!paths.ok) {
-      expect(paths.error.message).toContain('.agent/prompts/link.md');
-      expect(paths.error.message).toContain('mode 120000');
-    }
+    const error = unwrapErr(source.listPaths());
+    expect(error.message).toContain('.agent/prompts/link.md');
+    expect(error.message).toContain('mode 120000');
   });
 
   it('refuses a gitlink entry loudly, naming the path and mode', () => {
     const listing = '160000 commit dddd\tvendor/sub\0';
     const { source } = sourceWith(() => okSpawn(listing));
-    const paths = source.listPaths();
-    expect(paths.ok).toBe(false);
-    if (!paths.ok) {
-      expect(paths.error.message).toContain('vendor/sub');
-      expect(paths.error.message).toContain('mode 160000');
-    }
+    const error = unwrapErr(source.listPaths());
+    expect(error.message).toContain('vendor/sub');
+    expect(error.message).toContain('mode 160000');
   });
 
   it('refuses a malformed entry with no tab separator', () => {
     const { source } = sourceWith(() => okSpawn('garbage-without-a-tab\0'));
-    const paths = source.listPaths();
-    expect(paths.ok).toBe(false);
-    if (!paths.ok) {
-      expect(paths.error.message).toContain('no tab separator');
-    }
+    expect(unwrapErr(source.listPaths()).message).toContain('no tab separator');
   });
 
   it('refuses a listing that does not round-trip as UTF-8', () => {
@@ -151,11 +129,7 @@ describe('makeGitByteSource — NUL-delimited listing parsing', () => {
       Buffer.from('.md\0', 'utf8'),
     ]);
     const { source } = sourceWith(() => okSpawn(listing));
-    const paths = source.listPaths();
-    expect(paths.ok).toBe(false);
-    if (!paths.ok) {
-      expect(paths.error.message).toContain('round-trip as UTF-8');
-    }
+    expect(unwrapErr(source.listPaths()).message).toContain('round-trip as UTF-8');
   });
 });
 
@@ -166,12 +140,9 @@ describe('makeGitByteSource — failure mapping', () => {
       stdout: Buffer.alloc(0),
       stderr: Buffer.from('fatal: bad object deadbeef', 'utf8'),
     }));
-    const paths = source.listPaths();
-    expect(paths.ok).toBe(false);
-    if (!paths.ok) {
-      expect(paths.error.message).toContain('exited 128');
-      expect(paths.error.message).toContain('bad object deadbeef');
-    }
+    const error = unwrapErr(source.listPaths());
+    expect(error.message).toContain('exited 128');
+    expect(error.message).toContain('bad object deadbeef');
   });
 
   it('maps a spawn-level failure to an error carrying its cause', () => {
@@ -181,12 +152,9 @@ describe('makeGitByteSource — failure mapping', () => {
       stdout: Buffer.alloc(0),
       stderr: Buffer.alloc(0),
     }));
-    const read = source.readBytes('.agent/prompts/a.md');
-    expect(read.ok).toBe(false);
-    if (!read.ok) {
-      expect(read.error.message).toContain('cannot run git');
-      expect(read.error.message).toContain('spawn EACCES');
-    }
+    const error = unwrapErr(source.readBytes('.agent/prompts/a.md'));
+    expect(error.message).toContain('cannot run git');
+    expect(error.message).toContain('spawn EACCES');
   });
 });
 
@@ -194,7 +162,7 @@ describe('buildScrubbedGitEnv — the spawn environment scrub', () => {
   it('keeps only PATH, HOME, LANG, and LC_*, dropping every GIT_* variable', () => {
     const scrubbed = buildScrubbedGitEnv({
       PATH: '/usr/bin',
-      HOME: '/Users/<user>',
+      HOME: '<home>',
       LANG: 'en_GB.UTF-8',
       LC_ALL: 'C',
       LC_CTYPE: 'UTF-8',
@@ -209,7 +177,7 @@ describe('buildScrubbedGitEnv — the spawn environment scrub', () => {
     });
     expect(scrubbed).toEqual({
       PATH: '/usr/bin',
-      HOME: '/Users/<user>',
+      HOME: '<home>',
       LANG: 'en_GB.UTF-8',
       LC_ALL: 'C',
       LC_CTYPE: 'UTF-8',

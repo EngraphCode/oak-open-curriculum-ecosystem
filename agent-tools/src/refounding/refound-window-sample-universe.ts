@@ -64,16 +64,30 @@ export interface UniverseFile {
 const PREFIX_GLOB_PATTERN = /^([^*?[\]{}!+@()|\\]+)\/\*\*$/;
 
 /**
+ * True when every `/`-segment of the prefix is a plain name — no empty
+ * (`a//b`), `.`, or `..` segment. tinyglobby NORMALISES `.`-bearing and
+ * doubled-slash prefixes for the live sweep (`./foo/**` becomes `foo/**`),
+ * while prefix matching compares the LITERAL string against git tree paths
+ * (which never carry `./` or `//`), so any such segment would silently drop
+ * files the sweep includes — a recall drift that MUST halt, not approximate.
+ */
+function hasCleanSegments(prefix: string): boolean {
+  return prefix
+    .split('/')
+    .every((segment) => segment !== '' && segment !== '.' && segment !== '..');
+}
+
+/**
  * Reduce globs to plain path prefixes, halting on any glob whose shape is
- * not exactly `<prefix>/**` (see the module remarks for why any other shape
- * must refuse rather than approximate).
+ * not exactly `<prefix>/**` with clean segments (see the module remarks and
+ * {@link hasCleanSegments} for why any other shape must refuse rather than
+ * approximate).
  */
 export function reduceGlobsToPrefixes(globs: readonly string[]): Result<readonly string[], Error> {
   const prefixes: string[] = [];
   for (const glob of globs) {
     const prefix = PREFIX_GLOB_PATTERN.exec(glob)?.[1];
-    const escapes = prefix === undefined || prefix.startsWith('/') || prefix.endsWith('/');
-    if (escapes || prefix.split('/').includes('..')) {
+    if (prefix === undefined || !hasCleanSegments(prefix)) {
       return err(
         new Error(
           `glob '${glob}' is not of the required '<prefix>/**' shape — prefix matching cannot ` +

@@ -1,11 +1,11 @@
 import { existsSync } from 'node:fs';
-import { chmod, mkdir, mkdtemp, readFile, rename, rm, symlink, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, rename, rm, symlink, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 
 import { afterEach, describe, expect, it } from 'vitest';
 
-import { err, ok, type Result } from '@oaknational/result';
+import { err, ok, unwrap, unwrapErr, type Result } from '@oaknational/result';
 
 import { renderJsonlArtefact, sha256Hex } from './refounding-artefacts.js';
 import { type SweepHit } from './refound-sweep-model.js';
@@ -163,12 +163,10 @@ async function makeFixture(options: {
   };
 }
 
-async function readManifest(outDirAbs: string): Promise<WindowSampleManifest | undefined> {
+async function readManifest(outDirAbs: string): Promise<WindowSampleManifest> {
   const raw = await readFile(path.join(outDirAbs, WINDOW_SAMPLE_SEGMENT), 'utf8');
   const json: unknown = JSON.parse(raw);
-  const parsed = parseWindowSampleManifest(json);
-  expect(parsed.ok).toBe(true);
-  return parsed.ok ? parsed.value : undefined;
+  return unwrap(parseWindowSampleManifest(json));
 }
 
 /** A minimal valid manifest for exercising the write boundary in isolation. */
@@ -197,21 +195,18 @@ const HAPPY = {
 describe('runWindowSample — the batch-open computation', () => {
   it('writes the every-10th non-hit window sample bound to the injected base', async () => {
     const fixture = await makeFixture(HAPPY);
-    const run = await runWindowSample(fixture);
-    expect(run.ok).toBe(true);
-    if (run.ok) {
-      expect(run.value.base).toBe(BASE);
-    }
+    const run = unwrap(await runWindowSample(fixture));
+    expect(run.base).toBe(BASE);
     const manifest = await readManifest(fixture.outDirAbs);
-    expect(manifest?.base).toBe(BASE);
-    expect(manifest?.universe).toEqual({
+    expect(manifest.base).toBe(BASE);
+    expect(manifest.universe).toEqual({
       files: 2,
       windows: 3,
       hit_windows: 1,
       non_hit_windows: 2,
     });
-    expect(manifest?.expectations).toEqual({ scanned_files: 2, hit_files: 1, hit_lines: 1 });
-    expect(manifest?.sample).toEqual([
+    expect(manifest.expectations).toEqual({ scanned_files: 2, hit_files: 1, hit_lines: 1 });
+    expect(manifest.sample).toEqual([
       {
         file: '.agent/prompts/a.md',
         window_index: 1,
@@ -234,7 +229,7 @@ describe('runWindowSample — the batch-open computation', () => {
     expect(run.ok).toBe(true);
     const manifest = await readManifest(fixture.outDirAbs);
     // live-only.md is not in the universe; b.md still counts its 3 base lines.
-    expect(manifest?.universe).toEqual({
+    expect(manifest.universe).toEqual({
       files: 2,
       windows: 3,
       hit_windows: 1,
@@ -255,10 +250,8 @@ describe('runWindowSample — the batch-open computation', () => {
 describe('runWindowSample — refusal chain (nothing written)', () => {
   async function expectRefusal(fixture: Fixture, fragment: string): Promise<void> {
     const run = await runWindowSample(fixture);
-    expect(run.ok).toBe(false);
-    if (!run.ok) {
-      expect(run.error.message).toContain(fragment);
-    }
+    const error = unwrapErr(run);
+    expect(error.message).toContain(fragment);
     expect(existsSync(path.join(fixture.outDirAbs, WINDOW_SAMPLE_SEGMENT))).toBe(false);
   }
 
@@ -288,6 +281,15 @@ describe('runWindowSample — refusal chain (nothing written)', () => {
     await expectRefusal(fixture, 'sweep hit line 1');
   });
 
+  it('refuses an interior blank hits row at its true line number (no silent drop)', async () => {
+    const row = JSON.stringify(hitRow('.agent/prompts/a.md', 2, 'todo: port the opener'));
+    // Valid row 1, a blank INTERIOR row 2, valid row 3: the blank must be a
+    // strict parse error naming line 2, never filtered away (which would both
+    // hide it and shift every later error's line number).
+    const fixture = await makeFixture({ ...HAPPY, hitsJsonl: `${row}\n\n${row}\n` });
+    await expectRefusal(fixture, 'sweep hit line 2');
+  });
+
   it('refuses to write through a symlinked sweep directory', async () => {
     const fixture = await makeFixture(HAPPY);
     const sweepDirAbs = path.join(fixture.outDirAbs, 'sweep');
@@ -295,10 +297,7 @@ describe('runWindowSample — refusal chain (nothing written)', () => {
     await rename(sweepDirAbs, decoyDirAbs);
     await symlink(decoyDirAbs, sweepDirAbs);
     const run = await runWindowSample(fixture);
-    expect(run.ok).toBe(false);
-    if (!run.ok) {
-      expect(run.error.message).toContain('symlink');
-    }
+    expect(unwrapErr(run).message).toContain('symlink');
     expect(existsSync(path.join(decoyDirAbs, 'window-sample.v1.json'))).toBe(false);
   });
 
@@ -308,10 +307,7 @@ describe('runWindowSample — refusal chain (nothing written)', () => {
     await writeFile(decoyAbs, 'sealed decoy content\n', 'utf8');
     await symlink(decoyAbs, path.join(fixture.outDirAbs, WINDOW_SAMPLE_SEGMENT));
     const run = await runWindowSample(fixture);
-    expect(run.ok).toBe(false);
-    if (!run.ok) {
-      expect(run.error.message).toContain('symlink');
-    }
+    expect(unwrapErr(run).message).toContain('symlink');
     expect(await readFile(decoyAbs, 'utf8')).toBe('sealed decoy content\n');
   });
 
@@ -354,30 +350,25 @@ describe('runWindowSample — refusal chain (nothing written)', () => {
     const fixture = await makeFixture(HAPPY);
     const freshOutDirAbs = path.join(fixture.repoRoot, '.agent/plans-refounding-fresh');
     const run = await runWindowSample({ ...fixture, outDirAbs: freshOutDirAbs });
-    expect(run.ok).toBe(false);
-    if (!run.ok) {
-      expect(run.error.message).toContain('cannot read sweep hits');
-      expect(run.error.message).not.toContain('canonicalise');
-    }
+    const error = unwrapErr(run);
+    expect(error.message).toContain('cannot read sweep hits');
+    expect(error.message).not.toContain('canonicalise');
   });
 
-  it('returns Err rather than throwing when the write-path probe itself errors', async () => {
-    const rootAbs = await mkdtemp(path.join(tmpdir(), 'refound-window-sample-io-'));
-    tempRoots.push(rootAbs);
-    const lockedDirAbs = path.join(rootAbs, 'locked');
-    await mkdir(lockedDirAbs);
-    const target = canonicaliseOutDir(rootAbs, lockedDirAbs);
-    expect(target.ok).toBe(true);
-    if (!target.ok) {
-      return;
-    }
-    await chmod(lockedDirAbs, 0o000);
-    const written = await writeManifest(target.value, emptyManifest());
-    await chmod(lockedDirAbs, 0o755);
-    expect(written.ok).toBe(false);
-    if (!written.ok) {
-      expect(written.error.message).toContain('write failed');
-    }
+  it('returns Err rather than throwing when the artefact write fails (injected seam)', async () => {
+    const repoRoot = await mkdtemp(path.join(tmpdir(), 'refound-window-sample-io-'));
+    tempRoots.push(repoRoot);
+    const outDirAbs = path.join(repoRoot, '.agent/plans-refounding');
+    await mkdir(outDirAbs, { recursive: true });
+    const target = unwrap(canonicaliseOutDir(repoRoot, outDirAbs));
+    // Hermetic write failure (no host permission semantics): the injected
+    // writer rejects, and the error boundary must convert it to a typed Err.
+    const failingWrite = (): Promise<void> => Promise.reject(new Error('injected write failure'));
+    const written = await writeManifest(target, emptyManifest(), failingWrite);
+    const error = unwrapErr(written);
+    expect(error.message).toContain('write failed');
+    expect(error.message).toContain('injected write failure');
+    expect(existsSync(path.join(outDirAbs, WINDOW_SAMPLE_SEGMENT))).toBe(false);
   });
 });
 
@@ -387,12 +378,8 @@ describe('writeManifest — TOCTOU re-canonicalisation guard (nothing written)',
     tempRoots.push(repoRoot);
     const outDirAbs = path.join(repoRoot, '.agent/plans-refounding');
     await mkdir(outDirAbs, { recursive: true });
-    const target = canonicaliseOutDir(repoRoot, outDirAbs);
-    expect(target.ok).toBe(true);
-    if (!target.ok) {
-      return;
-    }
-    const written = await writeManifest(target.value, emptyManifest());
+    const target = unwrap(canonicaliseOutDir(repoRoot, outDirAbs));
+    const written = await writeManifest(target, emptyManifest());
     expect(written.ok).toBe(true);
     expect(existsSync(path.join(outDirAbs, WINDOW_SAMPLE_SEGMENT))).toBe(true);
   });
@@ -404,12 +391,8 @@ describe('writeManifest — TOCTOU re-canonicalisation guard (nothing written)',
     // created by the write phase (the `--out need not exist` contract).
     await mkdir(path.join(repoRoot, '.agent'));
     const outDirAbs = path.join(repoRoot, '.agent/plans-refounding');
-    const target = canonicaliseOutDir(repoRoot, outDirAbs);
-    expect(target.ok).toBe(true);
-    if (!target.ok) {
-      return;
-    }
-    const written = await writeManifest(target.value, emptyManifest());
+    const target = unwrap(canonicaliseOutDir(repoRoot, outDirAbs));
+    const written = await writeManifest(target, emptyManifest());
     expect(written.ok).toBe(true);
     expect(existsSync(path.join(outDirAbs, WINDOW_SAMPLE_SEGMENT))).toBe(true);
   });
@@ -420,21 +403,14 @@ describe('writeManifest — TOCTOU re-canonicalisation guard (nothing written)',
     // `.agent` exists (the nearest existing ancestor); the out dir leaf is absent.
     await mkdir(path.join(repoRoot, '.agent'));
     const outDirAbs = path.join(repoRoot, '.agent/plans-refounding');
-    const target = canonicaliseOutDir(repoRoot, outDirAbs);
-    expect(target.ok).toBe(true);
-    if (!target.ok) {
-      return;
-    }
+    const target = unwrap(canonicaliseOutDir(repoRoot, outDirAbs));
     // Swap the nearest existing ancestor (`.agent`) for a symlink to a decoy.
     const decoyAgent = path.join(repoRoot, 'decoy-agent');
     await mkdir(decoyAgent);
     await rm(path.join(repoRoot, '.agent'), { recursive: true, force: true });
     await symlink(decoyAgent, path.join(repoRoot, '.agent'));
-    const written = await writeManifest(target.value, emptyManifest());
-    expect(written.ok).toBe(false);
-    if (!written.ok) {
-      expect(written.error.message).toContain('an ancestor was swapped');
-    }
+    const written = await writeManifest(target, emptyManifest());
+    expect(unwrapErr(written).message).toContain('an ancestor was swapped');
     expect(existsSync(path.join(decoyAgent, 'plans-refounding', WINDOW_SAMPLE_SEGMENT))).toBe(
       false,
     );
@@ -448,21 +424,14 @@ describe('writeManifest — TOCTOU re-canonicalisation guard (nothing written)',
     // `.agent` exists (the anchor); `plans-refounding` is an absent segment.
     await mkdir(path.join(repoRoot, '.agent'));
     const outDirAbs = path.join(repoRoot, '.agent/plans-refounding');
-    const target = canonicaliseOutDir(repoRoot, outDirAbs);
-    expect(target.ok).toBe(true);
-    if (!target.ok) {
-      return;
-    }
+    const target = unwrap(canonicaliseOutDir(repoRoot, outDirAbs));
     // Scan-time attack: plant a symlink AT the first absent segment pointing
     // outside the repo. A recursive mkdir would follow it and escape.
     const plantedTarget = path.join(outsideRoot, 'planted');
     await mkdir(plantedTarget, { recursive: true });
     await symlink(plantedTarget, outDirAbs);
-    const written = await writeManifest(target.value, emptyManifest());
-    expect(written.ok).toBe(false);
-    if (!written.ok) {
-      expect(written.error.message).toContain('not a real directory');
-    }
+    const written = await writeManifest(target, emptyManifest());
+    expect(unwrapErr(written).message).toContain('not a real directory');
     expect(existsSync(path.join(plantedTarget, WINDOW_SAMPLE_SEGMENT))).toBe(false);
   });
 
@@ -471,22 +440,15 @@ describe('writeManifest — TOCTOU re-canonicalisation guard (nothing written)',
     tempRoots.push(repoRoot);
     const outDirAbs = path.join(repoRoot, '.agent/plans-refounding');
     await mkdir(outDirAbs, { recursive: true });
-    const target = canonicaliseOutDir(repoRoot, outDirAbs);
-    expect(target.ok).toBe(true);
-    if (!target.ok) {
-      return;
-    }
+    const target = unwrap(canonicaliseOutDir(repoRoot, outDirAbs));
     // Swap the `.agent` ancestor for a symlink to a decoy tree still in-repo:
     // the re-canonicalised path drifts from the pre-scan baseline.
     const decoyAgent = path.join(repoRoot, 'decoy-agent');
     await mkdir(path.join(decoyAgent, 'plans-refounding'), { recursive: true });
     await rm(path.join(repoRoot, '.agent'), { recursive: true, force: true });
     await symlink(decoyAgent, path.join(repoRoot, '.agent'));
-    const written = await writeManifest(target.value, emptyManifest());
-    expect(written.ok).toBe(false);
-    if (!written.ok) {
-      expect(written.error.message).toContain('an ancestor was swapped');
-    }
+    const written = await writeManifest(target, emptyManifest());
+    expect(unwrapErr(written).message).toContain('an ancestor was swapped');
     expect(existsSync(path.join(decoyAgent, 'plans-refounding', WINDOW_SAMPLE_SEGMENT))).toBe(
       false,
     );
@@ -503,16 +465,9 @@ describe('writeManifest — TOCTOU re-canonicalisation guard (nothing written)',
     // (stable canonical path) so the containment refusal (b) is exercised.
     const outDirAbs = path.join(repoRoot, 'linked-out');
     await symlink(outsideOut, outDirAbs);
-    const target = canonicaliseOutDir(repoRoot, outDirAbs);
-    expect(target.ok).toBe(true);
-    if (!target.ok) {
-      return;
-    }
-    const written = await writeManifest(target.value, emptyManifest());
-    expect(written.ok).toBe(false);
-    if (!written.ok) {
-      expect(written.error.message).toContain('outside the repository');
-    }
+    const target = unwrap(canonicaliseOutDir(repoRoot, outDirAbs));
+    const written = await writeManifest(target, emptyManifest());
+    expect(unwrapErr(written).message).toContain('outside the repository');
     expect(existsSync(path.join(outsideOut, WINDOW_SAMPLE_SEGMENT))).toBe(false);
   });
 });
@@ -551,11 +506,8 @@ describe('parseWindowSampleArgs (entry-level flag surface)', () => {
   it('requires --base and rejects a non-40-hex value', () => {
     expect(parseWindowSampleArgs([]).ok).toBe(false);
     expect(parseWindowSampleArgs(['--base', 'abc123']).ok).toBe(false);
-    const parsed = parseWindowSampleArgs(['--base', 'ab'.repeat(20)]);
-    expect(parsed.ok).toBe(true);
-    if (parsed.ok) {
-      expect(parsed.value.baseSha).toBe('ab'.repeat(20));
-    }
+    const parsed = unwrap(parseWindowSampleArgs(['--base', 'ab'.repeat(20)]));
+    expect(parsed.baseSha).toBe('ab'.repeat(20));
   });
 });
 
@@ -570,10 +522,7 @@ describe('resolveWindowSamplePaths (entry-level path constraints)', () => {
       evidencePath: 'evidence.json',
       outDir: 'artefacts/fresh-home',
     });
-    expect(resolved.ok).toBe(true);
-    if (resolved.ok) {
-      expect(resolved.value.outDirAbs).toBe(path.join(rootAbs, 'artefacts/fresh-home'));
-    }
+    expect(unwrap(resolved).outDirAbs).toBe(path.join(rootAbs, 'artefacts/fresh-home'));
     expect(existsSync(path.join(rootAbs, 'artefacts'))).toBe(false);
   });
 
@@ -587,10 +536,7 @@ describe('resolveWindowSamplePaths (entry-level path constraints)', () => {
       evidencePath: 'evidence.json',
       outDir: '../escaped-home',
     });
-    expect(escaped.ok).toBe(false);
-    if (!escaped.ok) {
-      expect(escaped.error.message).toContain('resolves outside the repository');
-    }
+    expect(unwrapErr(escaped).message).toContain('resolves outside the repository');
     expect(
       resolveWindowSamplePaths(rootAbs, {
         rulePath: 'absent-rule.json',

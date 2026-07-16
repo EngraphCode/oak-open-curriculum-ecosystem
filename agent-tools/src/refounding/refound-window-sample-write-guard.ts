@@ -1,4 +1,4 @@
-import { lstatSync, mkdirSync, realpathSync } from 'node:fs';
+import { lstatSync, mkdirSync, realpathSync, type Stats } from 'node:fs';
 import path from 'node:path';
 
 import { err, isErr, ok, type Result } from '@oaknational/result';
@@ -134,22 +134,39 @@ export function createWriteDirSegments(
   return ok(undefined);
 }
 
+/** True when a caught value is a Node `EEXIST` error. */
+function isEexist(cause: unknown): boolean {
+  return cause instanceof Error && 'code' in cause && cause.code === 'EEXIST';
+}
+
+/** Convert a throwing filesystem probe/write into a typed write-boundary Err. */
+function writeFailed(cause: unknown): Result<undefined, Error> {
+  const message = cause instanceof Error ? cause.message : String(cause);
+  return err(new Error(`window-sample artefact write failed: ${message}`));
+}
+
 /**
  * Create a single directory segment with failure-on-exist semantics and prove
  * it is a real directory. `EEXIST` is not accepted on trust: `lstat` must show
  * a real directory (never a symlink — `mkdir` on a symlink-to-dir would succeed
- * silently via `EEXIST`), else the segment is refused.
+ * silently via `EEXIST`), else the segment is refused. The `lstat` probe is
+ * itself wrapped: an EACCES/ENOTDIR or a mkdir/lstat race returns `Err`, never
+ * a thrown rejection across the Result boundary.
  */
 function createRealDirSegment(dirAbs: string): Result<undefined, Error> {
   try {
     mkdirSync(dirAbs);
   } catch (cause: unknown) {
-    if (!(cause instanceof Error && 'code' in cause && cause.code === 'EEXIST')) {
-      const message = cause instanceof Error ? cause.message : String(cause);
-      return err(new Error(`window-sample artefact write failed: ${message}`));
+    if (!isEexist(cause)) {
+      return writeFailed(cause);
     }
   }
-  const stat = lstatSync(dirAbs, { throwIfNoEntry: false });
+  let stat: Stats | undefined;
+  try {
+    stat = lstatSync(dirAbs, { throwIfNoEntry: false });
+  } catch (cause: unknown) {
+    return writeFailed(cause);
+  }
   if (stat === undefined || !stat.isDirectory()) {
     return err(
       new Error(

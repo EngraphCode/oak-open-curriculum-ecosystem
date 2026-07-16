@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
+import { unwrap, unwrapErr } from '@oaknational/result';
+
 import {
   expectationsFromEvidence,
   parseWindowSampleEvidence,
@@ -32,16 +34,13 @@ describe('parseWindowSampleEvidence / expectationsFromEvidence', () => {
   });
 
   it('parses the S1 evidence shape and maps the sweep counts to expectations', () => {
-    const evidence = parseWindowSampleEvidence(valid());
-    expect(evidence.ok).toBe(true);
-    if (evidence.ok) {
-      expect(evidence.value.runBaseSha).toBe(BASE);
-      expect(expectationsFromEvidence(evidence.value)).toEqual({
-        scannedFiles: 694,
-        hitFiles: 523,
-        hitLines: 3514,
-      });
-    }
+    const evidence = unwrap(parseWindowSampleEvidence(valid()));
+    expect(evidence.runBaseSha).toBe(BASE);
+    expect(expectationsFromEvidence(evidence)).toEqual({
+      scannedFiles: 694,
+      hitFiles: 523,
+      hitLines: 3514,
+    });
   });
 
   it('rejects a malformed run-base sha and missing sweep counts', () => {
@@ -68,38 +67,31 @@ describe('parseWindowSampleEvidence / expectationsFromEvidence', () => {
   });
 
   it('extracts the recorded sweep-hits digest, and halts on zero or ambiguous matches', () => {
-    const parsed = parseWindowSampleEvidence(valid());
-    expect(parsed.ok).toBe(true);
-    if (parsed.ok) {
-      const digest = sweepHitsDigestFromEvidence(parsed.value);
-      expect(digest.ok).toBe(true);
-      if (digest.ok) {
-        expect(digest.value).toBe(HITS_SHA256);
-      }
-    }
-    const noEntry = parseWindowSampleEvidence({
-      ...valid(),
-      artifacts: [{ path: '.agent/plans-refounding/inventory.v1.jsonl', sha256: 'd2'.repeat(32) }],
-    });
-    expect(noEntry.ok).toBe(true);
-    if (noEntry.ok) {
-      const digest = sweepHitsDigestFromEvidence(noEntry.value);
-      expect(digest.ok).toBe(false);
-      if (!digest.ok) {
-        expect(digest.error.message).toContain('exactly one is required');
-      }
-    }
-    const twoEntries = parseWindowSampleEvidence({
-      ...valid(),
-      artifacts: [
-        { path: 'sweep/sweep-hits.v1.jsonl', sha256: 'a3'.repeat(32) },
-        { path: 'elsewhere/sweep/sweep-hits.v1.jsonl', sha256: 'b4'.repeat(32) },
-      ],
-    });
-    expect(twoEntries.ok).toBe(true);
-    if (twoEntries.ok) {
-      expect(sweepHitsDigestFromEvidence(twoEntries.value).ok).toBe(false);
-    }
+    const parsed = unwrap(parseWindowSampleEvidence(valid()));
+    expect(unwrap(sweepHitsDigestFromEvidence(parsed))).toBe(HITS_SHA256);
+
+    const noEntry = unwrap(
+      parseWindowSampleEvidence({
+        ...valid(),
+        artifacts: [
+          { path: '.agent/plans-refounding/inventory.v1.jsonl', sha256: 'd2'.repeat(32) },
+        ],
+      }),
+    );
+    expect(unwrapErr(sweepHitsDigestFromEvidence(noEntry)).message).toContain(
+      'exactly one is required',
+    );
+
+    const twoEntries = unwrap(
+      parseWindowSampleEvidence({
+        ...valid(),
+        artifacts: [
+          { path: 'sweep/sweep-hits.v1.jsonl', sha256: 'a3'.repeat(32) },
+          { path: 'elsewhere/sweep/sweep-hits.v1.jsonl', sha256: 'b4'.repeat(32) },
+        ],
+      }),
+    );
+    expect(sweepHitsDigestFromEvidence(twoEntries).ok).toBe(false);
   });
 });
 

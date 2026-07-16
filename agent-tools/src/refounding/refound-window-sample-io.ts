@@ -69,10 +69,10 @@ export async function readSweepHits(
     );
   }
   const rows: SweepHit[] = [];
-  const lines = bytes
-    .toString('utf8')
-    .split('\n')
-    .filter((line) => line !== '');
+  const rawLines = bytes.toString('utf8').split('\n');
+  // Preserve interior blank rows (each a strict parse error at its TRUE line
+  // number); strip only a single terminal empty from an optional final LF.
+  const lines = rawLines.at(-1) === '' ? rawLines.slice(0, -1) : rawLines;
   for (const [index, line] of lines.entries()) {
     const label = `sweep hit line ${String(index + 1)}`;
     const row = flatMap(parseJsonDocument(label, line), parseSweepHit);
@@ -201,21 +201,22 @@ function verifyRuleBinding(
   return ok(undefined);
 }
 
+/** Writes the rendered artefact to the temp path; injectable for a hermetic failure proof. */
+export type WriteArtefact = (tempAbsPath: string, contents: string) => Promise<void>;
+
 /**
- * Write the manifest artefact, creating its parent directory. The write-time
- * TOCTOU guard runs first: {@link recheckOutDirContainment} re-canonicalises the
- * out dir's pre-scan anchor (refusing an ancestor swapped for a symlink or an
- * out dir that now escapes the repository), then {@link createWriteDirSegments}
- * creates every segment below the validated anchor one at a time, proving each
- * is a real directory the instant it is made — a symlink planted at any absent
- * segment during the scan is refused before a byte is written. A symlink at the
- * manifest path itself is then refused directly, and the write lands via an
- * exclusive same-directory temp file plus atomic rename, so an interruption can
- * never truncate an existing sealed manifest.
+ * Write the manifest artefact. The write-time TOCTOU guard runs first:
+ * {@link recheckOutDirContainment} re-canonicalises the pre-scan anchor, then
+ * {@link createWriteDirSegments} creates each segment below it one at a time,
+ * proving each a real directory as it is made. The manifest-path symlink probe
+ * and the exclusive temp-write + atomic rename all run INSIDE the error
+ * boundary, so any throwing probe or write returns `Err`, never a rejection.
  */
 export async function writeManifest(
   target: ManifestWriteTarget,
   manifest: WindowSampleManifest,
+  writeArtefact: WriteArtefact = (tempAbsPath, contents) =>
+    writeFile(tempAbsPath, contents, { encoding: 'utf8', flag: 'wx' }),
 ): Promise<Result<WindowSampleManifest, Error>> {
   const contained = recheckOutDirContainment(target);
   if (isErr(contained)) {
@@ -227,18 +228,18 @@ export async function writeManifest(
   if (isErr(materialised)) {
     return materialised;
   }
-  const manifestStat = lstatSync(manifestAbsPath, { throwIfNoEntry: false });
-  if (manifestStat?.isSymbolicLink() === true) {
-    return err(
-      new Error(
-        `manifest path '${manifestAbsPath}' is a symlink — a write would follow it to an ` +
-          'unverifiable destination; refusing',
-      ),
-    );
-  }
   const tempAbsPath = `${manifestAbsPath}.tmp-${String(process.pid)}`;
   try {
-    await writeFile(tempAbsPath, renderJsonArtefact(manifest), { encoding: 'utf8', flag: 'wx' });
+    const manifestStat = lstatSync(manifestAbsPath, { throwIfNoEntry: false });
+    if (manifestStat?.isSymbolicLink() === true) {
+      return err(
+        new Error(
+          `manifest path '${manifestAbsPath}' is a symlink — a write would follow it to an ` +
+            'unverifiable destination; refusing',
+        ),
+      );
+    }
+    await writeArtefact(tempAbsPath, renderJsonArtefact(manifest));
     await rename(tempAbsPath, manifestAbsPath);
     return ok(manifest);
   } catch (cause: unknown) {
