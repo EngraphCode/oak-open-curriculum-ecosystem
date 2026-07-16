@@ -35,7 +35,7 @@ validators that pin the cures. Per-PR round state is transient — read it from 
 handoff record and the PRs themselves, never from this section. Team Mango wound down to a
 COMPOUND PAIR (owner-directed 2026-07-16): Director Mussel rides Coral (6f8857) +
 implementer Vole hunts Perch (36c6ca) as mutual adversarial checkers via the ARC channel.
-Merges are OWNER-EXECUTED while the SonarCloud required-context outage lasts. The
+The
 refounding lanes (S1 17-window re-dispatch, dispatcher brief staged; r2 pilot evidence
 pass, anchored on the merged seed) RESUME AT A NAMED GATE: the remediation cures landed
 (Deliverable 3) + the freeze-recut check ruled (guiding plan Sequencing 5) — then the
