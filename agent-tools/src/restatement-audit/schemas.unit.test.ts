@@ -41,6 +41,11 @@ describe('finderInstanceSchema', () => {
     );
   });
 
+  it('rejects a ":" inside subject or predicate — the fact-key join delimiter must not collide', () => {
+    expect(finderInstanceSchema.safeParse({ ...valid, subject: 'a:b' }).success).toBe(false);
+    expect(finderInstanceSchema.safeParse({ ...valid, predicate: 'b:c' }).success).toBe(false);
+  });
+
   it('rejects a non-positive line', () => {
     expect(finderInstanceSchema.safeParse({ ...valid, line: 0 }).success).toBe(false);
   });

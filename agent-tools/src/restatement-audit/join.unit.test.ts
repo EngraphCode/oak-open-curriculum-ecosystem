@@ -232,6 +232,17 @@ describe('recountReducerCluster', () => {
     expect(recountReducerCluster('r1', members)).toBeNull();
   });
 
+  it('collapses duplicate member ids before counting — [f1, f1] is one statement, not a repetition', () => {
+    const one = instance({
+      id: 'f1',
+      file: 'a.md',
+      subject: 'freeform-x',
+      subjectFromGazetteer: false,
+      valueNorm: 'completed',
+    });
+    expect(recountReducerCluster('r1', [one, one])).toBeNull();
+  });
+
   it('rejects a proposal with fewer than two members', () => {
     expect(recountReducerCluster('r1', [instance({ id: 'f1' })])).toBeNull();
   });

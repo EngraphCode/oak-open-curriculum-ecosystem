@@ -7,8 +7,10 @@
  * tests (`sameFact`, `authoredNotCited`, `genuineConflict`, `liveSurface`). `flagged`
  * requires both voters to pass all four; `dismissed` requires both voters to AGREE at
  * least one test fails (a genuine, uncontested rejection); anything else — including any
- * single test where the voters disagree — is `held-for-review`, never silently resolved
- * either way.
+ * disagreement on the OUTCOME is `held-for-review`, never silently resolved either way.
+ * The tests are CONJUNCTIVE: agreement that any ONE necessary test fails is agreement on
+ * the verdict-determining fact, and dismisses regardless of disagreement on other tests
+ * (which cannot change the outcome once a necessary condition failed with agreement).
  *
  * @packageDocumentation
  */

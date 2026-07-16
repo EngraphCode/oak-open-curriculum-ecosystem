@@ -40,6 +40,12 @@ describe('renderLedgerJson', () => {
     expect(parsed.rows[0]).toEqual(rows[0]);
   });
 
+  it('rejects an envelope whose rowCount disagrees with rows.length', () => {
+    const json = renderLedgerJson([row({ id: 'L1', severity: 'high' })]);
+    const tampered = json.replace('"rowCount": 1', '"rowCount": 5');
+    expect(parseFixLedger(JSON.parse(tampered)).ok).toBe(false);
+  });
+
   it('serialises an empty ledger', () => {
     const parsed = parseLedgerJson(renderLedgerJson([]));
     expect(parsed.rowCount).toBe(0);

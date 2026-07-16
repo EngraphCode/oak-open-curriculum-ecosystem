@@ -22,11 +22,16 @@ import { ledgerRowSchema, type LedgerRow } from './schemas.js';
  * Module-private: only `FixLedger` (the type) and `parseFixLedger` (the boundary
  * function) are consumed externally.
  */
-const fixLedgerSchema = z.strictObject({
-  version: z.literal('fix-ledger.v1'),
-  rowCount: z.number().int().nonnegative(),
-  rows: z.array(ledgerRowSchema),
-});
+const fixLedgerSchema = z
+  .strictObject({
+    version: z.literal('fix-ledger.v1'),
+    rowCount: z.number().int().nonnegative(),
+    rows: z.array(ledgerRowSchema),
+  })
+  .refine((ledger) => ledger.rowCount === ledger.rows.length, {
+    error:
+      'fix ledger rowCount disagrees with rows.length — the envelope is internally inconsistent',
+  });
 export type FixLedger = z.infer<typeof fixLedgerSchema>;
 
 export const parseFixLedger = (value: unknown): Result<FixLedger, Error> =>

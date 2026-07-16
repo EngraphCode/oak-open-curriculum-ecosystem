@@ -72,15 +72,25 @@ const assertionKindSchema = z.enum(['authored', 'citation', 'history', 'generate
  * downstream). The refinement is not representable in the derived agent JSON Schema;
  * enforcement lives at the checkpoint re-parse.
  */
+/**
+ * The fact-key components join on `:` (the gazetteer/canary-key convention), so the
+ * delimiter is BANNED inside components — `(subject:"a:b", predicate:"c")` and
+ * `(subject:"a", predicate:"b:c")` would otherwise collide into one false cluster.
+ */
+const factKeyComponent = z
+  .string()
+  .min(1)
+  .regex(/^[^:]+$/, 'fact-key components must not contain ":" (the join delimiter)');
+
 export const finderInstanceBaseSchema = z.strictObject({
   id: nonEmptyString,
   file: nonEmptyString,
   line: positiveInt,
   quote: z.string().min(1).max(200),
   factClass: factClassSchema,
-  subject: nonEmptyString,
+  subject: factKeyComponent,
   subjectFromGazetteer: z.boolean(),
-  predicate: nonEmptyString,
+  predicate: factKeyComponent,
   valueNorm: nonEmptyString,
   assertionKind: assertionKindSchema,
   confidence: confidenceSchema,

@@ -198,7 +198,10 @@ export function recountReducerCluster(
   id: string,
   members: readonly FinderInstance[],
 ): Cluster | null {
-  const usable = members.filter(hasUsableValue);
+  // Duplicate member ids in one proposal would count one statement twice (and build a
+  // cluster clusterSchema rejects at the next checkpoint re-parse) — dedupe by id first.
+  const uniqueMembers = [...new Map(members.map((member) => [member.id, member])).values()];
+  const usable = uniqueMembers.filter(hasUsableValue);
   const [first, ...rest] = usable;
   if (first === undefined) {
     return null;

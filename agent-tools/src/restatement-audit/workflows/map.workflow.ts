@@ -13,11 +13,7 @@
  * @packageDocumentation
  */
 
-import {
-  assessMapCompleteness,
-  deterministicJitterMs,
-  runCapped,
-} from '../../corpus-analysis/run-orchestration.js';
+import { deterministicJitterMs, runCapped } from '../../corpus-analysis/run-orchestration.js';
 import type {
   HarnessAgent,
   HarnessLog,
@@ -88,6 +84,43 @@ function remintWindowInstances(
   }));
 }
 
+interface MapCompleteness {
+  readonly mapComplete: boolean;
+  readonly incompleteWindows: readonly string[];
+}
+
+/**
+ * Completeness is DISPATCH death (a null agent result), never instance count: a
+ * successfully-returned empty window is a genuinely clean file (per-file zero-count
+ * honesty), not a coverage gap.
+ */
+function deriveCompleteness(
+  windows: readonly PartitionWindow[],
+  mapResults: readonly (FinderStageOutput | null)[],
+): MapCompleteness {
+  const incompleteWindows = windows.flatMap((w, index) =>
+    mapResults[index] === null ? [w.window] : [],
+  );
+  return { mapComplete: incompleteWindows.length === 0, incompleteWindows };
+}
+
+/** One loud line each for dead windows and clean (zero-instance) windows. */
+function logCoverageHonesty(
+  completeness: MapCompleteness,
+  windowCount: number,
+  coverage: readonly { readonly window: string; readonly instanceCount: number }[],
+): void {
+  if (!completeness.mapComplete) {
+    log(
+      `MAP INCOMPLETE — ${completeness.incompleteWindows.length}/${windowCount} window agent(s) died: ${completeness.incompleteWindows.join(', ')} — do NOT commit this as full coverage.`,
+    );
+  }
+  const cleanWindows = coverage.filter((c) => c.instanceCount === 0).map((c) => c.window);
+  if (cleanWindows.length > 0) {
+    log(`clean windows (agent returned, zero instances): [${cleanWindows.join(', ')}]`);
+  }
+}
+
 /** Run the map stage over the seeded partition. */
 export async function main(): Promise<MapResult> {
   phase('map');
@@ -111,14 +144,8 @@ export async function main(): Promise<MapResult> {
     window: w.window,
     instanceCount: w.instances.length,
   }));
-  const completeness = assessMapCompleteness(
-    coverage.map((c) => ({ window: c.window, leafCount: c.instanceCount })),
-  );
-  if (!completeness.mapComplete) {
-    log(
-      `MAP INCOMPLETE — ${completeness.incompleteWindows.length}/${windows.length} windows produced 0 instances: ${completeness.incompleteWindows.join(', ')} — do NOT commit this as full coverage.`,
-    );
-  }
+  const completeness = deriveCompleteness(windows, mapResults);
+  logCoverageHonesty(completeness, windows.length, coverage);
   const allInstances = windowInstances.flatMap((w) => w.instances);
   log(
     `map done: ${allInstances.length} instances; per-window=[${coverage.map((c) => c.instanceCount).join(',')}]`,
