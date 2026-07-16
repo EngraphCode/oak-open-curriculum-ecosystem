@@ -204,7 +204,12 @@ as phase-local restatements.
    count of findings in reviews bound to that commit}`, PERSISTED in the
    shepherd's working notes and built from the Phase 3 full harvest — each
    review thread's originating review carries its commit binding
-   (`comments.nodes[0].pullRequestReview.commit.oid`). NEVER derive the
+   (`comments.nodes[0].pullRequestReview.commit.oid`). Findings are counted
+   from BOTH harvest surfaces: review threads AND review bodies bound to
+   the tip — a summary-only review carrying findings in its body (a shape
+   claude[bot] posts) otherwise never enters the round count, and "settled,
+   zero new findings" can read true against a disagreeing body (pair
+   observation, 2026-07-16). NEVER derive the
    tally from `latestReviews` (item 1: rows vanish), and NEVER bucket by
    arrival order: reviews bind to the tip they reviewed, and a review bound
    to an older tip can land after a newer push (round-2 correction,
@@ -214,10 +219,33 @@ as phase-local restatements.
    per-round count strictly decreasing. **The step-back trigger is
    mechanical — 2 consecutive non-decreasing rounds OR 4 total rounds**
    (owner correction, 2026-07-16, PR #390: 8 rounds / ~38 findings ran
-   unnoticed as non-convergence because nothing counted).
+   unnoticed as non-convergence because nothing counted). The class-fix
+   push that answers a step-back OPENS A NEW CONVERGENCE EPOCH: the tally
+   re-baselines at that push — round counting and both trigger arms restart
+   within the epoch, and prior-epoch rounds stay recorded as history. A
+   second step-back firing on the same PR is terminal for fix-pushing: do
+   not attempt another class fix by default — split the PR along the
+   finding corpus's class boundaries, or route the corpus to the owner with
+   a verdict (round-6 correction, 2026-07-16: "4 total rounds" is
+   monotonic — without the epoch reset the trigger stays true after the
+   mandated class-fix push and the machine has no executable next
+   transition).
 3. **Reviewer-leg states**, computed per (reviewer, tip) from the compound
    read: **SATISFIED** — the reviewer's latest review is bound to the tip.
-   **SKIPPED** — an explicit skip marker in a review body, or the timeout:
+   **SKIPPED** — via a tip-scoped marker, or via the timeout. The MARKER
+   leg: an explicit skip marker in a review body satisfies SKIPPED only
+   when its review binds to the current tip, OR when its body declares a
+   terminal / until-re-enabled scope. A scope-declared marker is re-checked
+   each round against OBSERVABLE state and holds until its stated condition
+   ends (e.g. spend restored); each re-check RECORDS condition, observed
+   state, and verdict in the shepherd's working record alongside the skip
+   evidence below. A marker whose condition the shepherd CANNOT evaluate
+   against observable state falls through to the timeout exactly as an
+   unscoped marker does — an unevaluable scope re-checking to nothing each
+   round would readmit the unmaintained-marker disease through the scope
+   door (round-6 correction + pair fold, 2026-07-16: `latestReviews`
+   retains each author's latest body, so an unscoped early marker would
+   otherwise satisfy SKIPPED for every later tip forever). The TIMEOUT leg:
    no review bound to the tip after one full checks-green quiet window
    (>10 min from the tip's checks reaching green); record the skip with its
    evidence (reviewer, tip SHA, window bounds) in the shepherd's working
