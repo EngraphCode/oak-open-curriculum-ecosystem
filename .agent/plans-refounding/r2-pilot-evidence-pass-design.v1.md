@@ -144,7 +144,10 @@ Every row in `lane-assignments.v1.jsonl` additionally carries the versioned
 row envelope: `"schemaVersion": "r2-lane-assignment.v1"` and
 `"rowKind": "lens-a" | "lens-b" | "escalation"`. Escalation rows carry the
 escalation-specific fields in place of the lens fields: `"lanePair"` (the
-two disagreeing lane values), `"resolvedLane"` (one of the 9 closed
+two disagreeing LENS values verbatim — any of the 9 closed values; falsifier
+4's boundary-defect statistic consumes only pairs where BOTH values are seed
+lanes, with abstention-involving pairs reported separately as the
+abstention-disagreement class), `"resolvedLane"` (one of the 9 closed
 values), and `"rationale"` (<=60 words). The dispatcher schema-validates
 the file against this envelope: EXACTLY one `lens-a` and one `lens-b` row
 per sampled file, plus exactly one `escalation` row for each file whose
