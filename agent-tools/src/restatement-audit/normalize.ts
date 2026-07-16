@@ -21,9 +21,15 @@ function collapseWhitespace(value: string): string {
  * Strip the whole trailing run of sentence punctuation AND whitespace as one class —
  * `'completed .'` must normalise to `'completed'`, never `'completed '` (a trailing space
  * surviving a punctuation-only strip minted false CONFLICTs and broke idempotence).
+ * Scans from the end instead of an anchored `[...]+$` regex: the run-quantifier form
+ * backtracks super-linearly on adversarial-length inputs (typescript:S8786).
  */
 function stripTrailingPunctuation(value: string): string {
-  return value.replace(/[\s.,;:]+$/, '');
+  let end = value.length;
+  while (end > 0 && /[\s.,;:]/.test(value.charAt(end - 1))) {
+    end -= 1;
+  }
+  return value.slice(0, end);
 }
 
 /**

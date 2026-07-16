@@ -8,7 +8,10 @@ import { isErr, ok, type Result } from '@oaknational/result';
 import { resolveRepoRoot } from '../core/repo-root.js';
 import { writeErrorLine, writeLine } from '../core/terminal-output.js';
 import { freezeUsageText, parseFreezeArgs } from './refound-freeze-args.js';
-import { resolveReadPathWithinRepo, resolveWriteTargetWithinRepo } from './refound-path-resolve.js';
+import {
+  resolveReadPathWithinRepo,
+  resolveWriteTargetWithinRepo,
+} from '../core/flag-path-resolve.js';
 import { runSweep } from './refound-sweep-helpers.js';
 import { SWEEP_HITS_SEGMENT } from './refound-sweep-model.js';
 
@@ -25,7 +28,7 @@ import { SWEEP_HITS_SEGMENT } from './refound-sweep-model.js';
  * Flags: `--rule <path>` (default `.agent/plans-refounding/freeze-rule.json`)
  * and `--out <dir>` (default `.agent/plans-refounding`), both constrained to
  * the repository with read/write-appropriate resolution
- * (`refound-path-resolve.ts`): the rule must exist; the out dir need not —
+ * (`flag-path-resolve.ts`): the rule must exist; the out dir need not —
  * the sweep's write phase creates it.
  *
  * @packageDocumentation

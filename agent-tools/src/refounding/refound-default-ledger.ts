@@ -25,7 +25,7 @@ import { DEFAULT_BLOCK_DISPOSITION, LEDGER_DIR_SEGMENT } from './refound-ledger-
  * target ledger.
  *
  * Flags: `--out <dir>` (default `.agent/plans-refounding`), constrained to
- * the repository (`refound-path-resolve`).
+ * the repository (`flag-path-resolve`).
  *
  * @packageDocumentation
  */

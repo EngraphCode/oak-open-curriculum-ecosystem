@@ -9,7 +9,7 @@ import { writeErrorLine, writeLine } from '../core/terminal-output.js';
 import { freezeUsageText, parseFreezeArgs, type FreezeArgs } from './refound-freeze-args.js';
 import { runMergeRecheck, type MergeRecheckSummary } from './refound-merge-recheck-helpers.js';
 import { ARRIVALS_BASENAME } from './refound-merge-recheck-model.js';
-import { resolveReadPathWithinRepo } from './refound-path-resolve.js';
+import { resolveReadPathWithinRepo } from '../core/flag-path-resolve.js';
 
 /**
  * `refound-merge-recheck` — denominator re-derivation against the live tree
@@ -29,7 +29,7 @@ import { resolveReadPathWithinRepo } from './refound-path-resolve.js';
  * Writes `arrivals.v1.report.json` (single writer, sorted, timestamp-free);
  * refusals write nothing. Flags: `--rule <path>` and `--out <dir>` (same
  * defaults as `refound-freeze`), both constrained to the repository
- * (`refound-path-resolve`).
+ * (`flag-path-resolve`).
  *
  * @packageDocumentation
  */

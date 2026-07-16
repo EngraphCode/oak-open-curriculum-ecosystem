@@ -28,7 +28,7 @@ import { RESIDUE_BASENAME } from './refound-residue-model.js';
  * nothing written.
  *
  * Flags: `--out <dir>` (default `.agent/plans-refounding`), constrained to
- * the repository (`refound-path-resolve`).
+ * the repository (`flag-path-resolve`).
  *
  * @packageDocumentation
  */

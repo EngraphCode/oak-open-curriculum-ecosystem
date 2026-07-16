@@ -5,8 +5,10 @@ import { err, ok, type Result } from '@oaknational/result';
 import { assertPathWithinBase } from '@oaknational/safe-path';
 
 /**
- * Flag-path resolution for the refounding CLIs: constrain caller-supplied
+ * Flag-path resolution for agent-tools CLIs: constrain caller-supplied
  * paths to the repository with read/write-appropriate canonicalisation.
+ * Born in the refounding CLIs; consolidated here at the third consumer
+ * (refounding, plan-state, restatement-audit).
  *
  * Read targets must already exist, so they canonicalise with
  * {@link assertPathWithinBase} directly — `realpathSync` resolves `..` AND

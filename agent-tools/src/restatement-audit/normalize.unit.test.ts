@@ -29,6 +29,10 @@ describe('normalizeValue', () => {
     expect(normalizeValue('done 2026-07-07 .')).toBe('done 2026-07-07');
   });
 
+  it('normalises an adversarial-length trailing run', () => {
+    expect(normalizeValue(`done${' .'.repeat(50_000)}`)).toBe('done');
+  });
+
   it.each([
     ['Completed'],
     ['  completed  '],

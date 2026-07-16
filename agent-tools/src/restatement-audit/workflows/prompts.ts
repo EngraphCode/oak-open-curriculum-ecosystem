@@ -33,6 +33,9 @@ const BANNED_GAP_BRIDGING_VOCABULARY = [
   'suggests',
 ] as const;
 
+/** The banned list rendered for prompt text, hoisted so no template literal nests (S4624). */
+const bannedGapBridgingList = BANNED_GAP_BRIDGING_VOCABULARY.map((w) => `"${w}"`).join(', ');
+
 /** MAP — extract atomic, quote-anchored restatement instances from one T3 file set. */
 export function finderPrompt(window: PartitionWindow, gazetteer: Gazetteer): string {
   const subjects = flattenGazetteerSubjects(gazetteer);
@@ -53,7 +56,7 @@ export function finderPrompt(window: PartitionWindow, gazetteer: Gazetteer): str
     '  5. NAMED-ENTITY OR DATE CLAIM — a specific tool/artefact/file name asserted to have some property or behaviour, OR a specific calendar date asserted as a fact. -> factClass: named-tool-or-artefact | date-claim (pick the one that fits).',
     '',
     'MANDATORY GROUNDING — every instance MUST carry the exact 1-indexed line number and a verbatim quote (<=200 chars) copied from the file, never paraphrased or reconstructed from memory. If you cannot point to a specific line and copy its text exactly, do NOT emit the instance.',
-    `BANNED GAP-BRIDGING VOCABULARY — never ground an instance in your own inference. If your reasoning for extracting an instance leans on words like ${BANNED_GAP_BRIDGING_VOCABULARY.map((w) => `"${w}"`).join(', ')}, the source text does not actually state the fact — do not emit it.`,
+    `BANNED GAP-BRIDGING VOCABULARY — never ground an instance in your own inference. If your reasoning for extracting an instance leans on words like ${bannedGapBridgingList}, the source text does not actually state the fact — do not emit it.`,
     "NO CROSS-FILE REASONING — judge each file only against itself and the gazetteer above. Do NOT compare this window's files against each other, and do NOT reason about files outside this window's list; the join and reduce stages, not you, detect cross-file duplication.",
     '',
     'ASSERTION KIND — classify every instance:',

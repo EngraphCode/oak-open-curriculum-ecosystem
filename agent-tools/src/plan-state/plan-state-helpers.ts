@@ -11,7 +11,7 @@ import { parseJsonDocument } from '../refounding/refounding-artefacts.js';
 import {
   resolveReadPathWithinRepo,
   resolveWriteTargetWithinRepo,
-} from '../refounding/refound-path-resolve.js';
+} from '../core/flag-path-resolve.js';
 import { extractAuditClaimsRequired } from './plan-state-audit-adapter.js';
 import { extractGateClaimsAll, type PlanFileInput } from './plan-state-gate-adapter.js';
 import { type PlanStateInput } from './plan-state-engine.js';

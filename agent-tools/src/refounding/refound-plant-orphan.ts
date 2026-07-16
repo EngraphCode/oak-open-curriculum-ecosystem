@@ -9,7 +9,7 @@ import { resolveRepoRoot } from '../core/repo-root.js';
 
 import { writeErrorLine, writeLine } from '../core/terminal-output.js';
 import { freezeUsageText, parseFreezeArgs } from './refound-freeze-args.js';
-import { resolveReadPathWithinRepo } from './refound-path-resolve.js';
+import { resolveReadPathWithinRepo } from '../core/flag-path-resolve.js';
 import { DISCRIMINATION_PROOF_SEGMENT } from './refound-plant-orphan-transcript.js';
 import { runPlantOrphan } from './refound-plant-orphan-runner.js';
 
@@ -30,7 +30,7 @@ import { runPlantOrphan } from './refound-plant-orphan-runner.js';
  *
  * Flags: `--rule <path>` (default `.agent/plans-refounding/freeze-rule.json`)
  * and `--out <dir>` (default `.agent/plans-refounding`), both constrained to
- * the repository (`refound-path-resolve`).
+ * the repository (`flag-path-resolve`).
  *
  * @packageDocumentation
  */
