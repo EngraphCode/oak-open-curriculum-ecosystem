@@ -8,6 +8,8 @@ overview: >-
   never the goal.
 lineage:
   serves_thread: strategy-and-plan-estate-holistic-review
+  serves_stream: agentic-framework
+  strategic_choice: FRAME-1
   derives_from: >-
     PR #390 review-round evidence (8 rounds / ~38 findings, one generator) +
     the owner's remediation-before-the-push directive, 2026-07-16
@@ -18,12 +20,17 @@ todos:
       review-round state machine, explicit-merge boundary) via their own PR,
       shepherded under the discipline they add.
     status: completed
-  - id: d2-restatement-audit-module-and-fleet
+  - id: d2-restatement-audit-module
     content: >-
       Build the restatement-audit module (TDD, corpus-analysis substrate) and
-      run the T3+U audit fleet to a verified fix-ledger, under the v2 spec and
+      land it via its own PR.
+    status: pending
+  - id: d2-fleet-run
+    content: >-
+      Run the T3+U audit fleet to a verified fix-ledger, under the v2 spec and
       its dispatch conditions.
     status: pending
+    depends_on: [v2-cycle]
   - id: d2a-continuity-truth-pass
     content: >-
       True the durable coordination records to current reality, establish the
@@ -37,6 +44,7 @@ todos:
       the F8 discriminating experiment, the re-pilot (all keyed rows +
       negative-control battery), and the measured S3 cost/correctness pilot.
     status: pending
+    depends_on: [d2-restatement-audit-module]
   - id: d3-cures-and-prevention
     content: >-
       Apply the fix-ledger cures + prevention v1 (row-envelope schema,
@@ -89,7 +97,8 @@ Director fixes them; and design prevention mechanisms.
 Owner decisions taken: sweep scope **T3+U** (protocol + coordination + doctrine + active
 plans PLUS the untracked live coordination tier — handoff records, ARC channels, live arc
 reports; untracked files are FIRST-CLASS: local because high-traffic and ephemeral, never
-because they matter less — owner directive 2026-07-16, ~295 files); the fleet runs on a
+because they matter less — owner directive 2026-07-16; the corpus is enumerated at
+dispatch time, never frozen here); the fleet runs on a
 **dedicated fresh audit seat** (Vole hunts Perch, 36c6ca); **PR #391 merges under the new
 rules**; **no follow-ups** — remediation designs land as plan items in this arc (change
 plan of record:

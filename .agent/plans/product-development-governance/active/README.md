@@ -1,12 +1,9 @@
 # Active Plans — Product-Development Governance
 
-In-progress execution plans for this collection.
-
-When a plan is being actively executed in a session, move it from
-[`../current/`](../current/README.md) to this directory. Move it to the
-archive when it completes. A plan that pauses mid-execution STAYS here
-with the pause recorded in its Status cell — `../current/` means queued
-and not yet started, so a started plan never returns there.
+The `active/` lane index for this collection. Lane semantics and the
+movement and pause discipline live in the
+[plans lifecycle contract](../../README.md), not here — this index
+records contents only.
 
 ## Plans
 
