@@ -223,8 +223,13 @@ as phase-local restatements.
    was pushed; arrival-order tallying charges findings to the wrong round
    and can falsely trigger, or mask, non-convergence). Convergence is the
    per-round count strictly decreasing. **The step-back trigger is
-   mechanical — 2 consecutive non-decreasing rounds OR 4 total rounds**
-   (owner correction, 2026-07-16, PR #390: 8 rounds / ~38 findings ran
+   mechanical — 2 consecutive non-decreasing rounds OR 4 total rounds —
+   and EITHER ARM FIRES ONLY WHILE the latest settled round's count is
+   non-zero**: a zero-finding settled round is the terminal SUCCESS state
+   and takes precedence (3→2→1→0 is convergence completing, not a
+   step-back; without this precedence a fourth settled round could read
+   merge-ready and step-back-mandatory at once) (owner correction,
+   2026-07-16, PR #390: 8 rounds / ~38 findings ran
    unnoticed as non-convergence because nothing counted). The class-fix
    push that answers a step-back OPENS A NEW CONVERGENCE EPOCH: the tally
    re-baselines at that push — round counting and both trigger arms restart
@@ -236,8 +241,14 @@ as phase-local restatements.
    monotonic — without the epoch reset the trigger stays true after the
    mandated class-fix push and the machine has no executable next
    transition).
-3. **Reviewer-leg states**, computed per (reviewer, tip) from the compound
-   read: **SATISFIED** — the reviewer's latest review is bound to the tip.
+3. **Reviewer-leg states**, computed per (reviewer, tip): **SATISFIED** —
+   ANY harvested review by the reviewer binds to the current tip (the
+   Phase 3 harvest is the source; the compound read's `latestReviews` alone
+   can hide this when overlapping review jobs complete out of order — an
+   older-tip review landing after a current-tip one makes the author's
+   "latest" point backwards, leaving the leg falsely OWED and untouchable
+   by the timeout). The quiet window anchors to the LATEST review matching
+   the current tip, never to the author's globally latest review.
    **SKIPPED** — via a tip-scoped marker, or via the timeout. The MARKER
    leg: an explicit skip marker in a review body satisfies SKIPPED only
    when its review binds to the current tip, OR when its body declares a
@@ -267,7 +278,13 @@ as phase-local restatements.
    so before any bot has reviewed, every configured bot is OWED until it
    posts or the checks-green quiet-window timeout fires. This closes the
    vacuous-predicate hole where arming on an initial tip could merge before
-   the first bot round ever lands.
+   the first bot round ever lands. The expected set's SOURCE is explicit,
+   never inferred from the compound read (`latestReviews` only names
+   authors who have already reviewed — empty on an initial tip): the
+   shepherd DECLARES it in the working notes at Phase 1, read from the
+   repository's automatic-review configuration (the ruleset / review-app
+   config that fires bot reviews on push), and that declaration is the
+   state machine's input for every round.
 4. **Round settled; merge-ready.** A round is SETTLED when every expected
    reviewer leg reads SATISFIED or SKIPPED for the current tip AND a quiet
    window LONGER than the async lag has elapsed since the latest review
