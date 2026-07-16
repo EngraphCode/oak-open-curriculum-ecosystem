@@ -77,6 +77,12 @@ describe('reduceRunDataFrom', () => {
     expect(unwrap(result).instances).toHaveLength(2);
   });
 
+  it('errs on an INCOMPLETE map result, naming the dead windows', () => {
+    const partial: MapResult = { ...mapResult, mapComplete: false, incompleteWindows: ['W01'] };
+    const result = reduceRunDataFrom(partial);
+    expect(!result.ok && result.error.message).toContain('W01');
+  });
+
   it('errs on a failed map result', () => {
     expect(isErr(reduceRunDataFrom({ ok: false, error: 'boom' }))).toBe(true);
   });
@@ -157,6 +163,23 @@ describe('validateRunDataFrom', () => {
     ]);
   });
 
+  it('errs on an INCOMPLETE map or reduce result — dead windows/chunks must never seed voting', () => {
+    const base = {
+      priorValidateResults: [],
+      validateTokenCeiling: 500_000,
+    };
+    const partialMap: MapResult = { ...mapResult, mapComplete: false, incompleteWindows: ['W01'] };
+    expect(isErr(validateRunDataFrom({ ...base, mapResult: partialMap, reduceResult }))).toBe(true);
+    const partialReduce: ReduceResult = {
+      ...reduceResult,
+      reduceComplete: false,
+      incompleteChunks: [0],
+    };
+    expect(isErr(validateRunDataFrom({ ...base, mapResult, reduceResult: partialReduce }))).toBe(
+      true,
+    );
+  });
+
   it('errs on a failed reduce result', () => {
     const result = validateRunDataFrom({
       mapResult,
@@ -215,16 +238,61 @@ describe('metaRunDataFrom', () => {
     expect(data.clusters[0]?.instances).toHaveLength(2);
   });
 
-  it('errs when no cluster is flagged', () => {
+  it('returns an EMPTY cluster set when no cluster is flagged — a clean audit is a valid terminal state, never an error', () => {
     const dismissed: ValidateResult = {
       ...flaggedValidateResult,
       dispositions: [
         { clusterId: 'exact:status-assertion:G1:status', disposition: 'dismissed', reason: null },
       ],
     };
-    expect(isErr(metaRunDataFrom({ mapResult, reduceResult, validateResults: [dismissed] }))).toBe(
-      true,
-    );
+    const result = metaRunDataFrom({ mapResult, reduceResult, validateResults: [dismissed] });
+    expect(isOk(result)).toBe(true);
+    expect(unwrap(result).clusters).toHaveLength(0);
+  });
+
+  it('accepts ZERO validate results when reduce produced zero clusters — the nothing-clustered corpus skips validate and flows to the empty ledger', () => {
+    const emptyReduce: ReduceResult = { ...reduceResult, clusters: [], instanceCount: 0 };
+    const result = metaRunDataFrom({ mapResult, reduceResult: emptyReduce, validateResults: [] });
+    expect(isOk(result)).toBe(true);
+    expect(unwrap(result).clusters).toHaveLength(0);
+  });
+
+  it('errs when clusters exist but NO validate result was supplied at all', () => {
+    const result = metaRunDataFrom({ mapResult, reduceResult, validateResults: [] });
+    expect(!result.ok && result.error.message).toContain('exact:status-assertion:G1:status');
+  });
+
+  it('errs naming every cluster no validate attempt ever dispositioned — an undispositioned cluster must never silently vanish from the ledger', () => {
+    const empty: ValidateResult = { ...flaggedValidateResult, dispositions: [] };
+    const result = metaRunDataFrom({ mapResult, reduceResult, validateResults: [empty] });
+    expect(!result.ok && result.error.message).toContain('exact:status-assertion:G1:status');
+  });
+
+  it('errs on an INCOMPLETE map or reduce result — partial coverage must never seed meta', () => {
+    const partialMap: MapResult = { ...mapResult, mapComplete: false, incompleteWindows: ['W01'] };
+    expect(
+      isErr(
+        metaRunDataFrom({
+          mapResult: partialMap,
+          reduceResult,
+          validateResults: [flaggedValidateResult],
+        }),
+      ),
+    ).toBe(true);
+    const partialReduce: ReduceResult = {
+      ...reduceResult,
+      reduceComplete: false,
+      incompleteChunks: [1],
+    };
+    expect(
+      isErr(
+        metaRunDataFrom({
+          mapResult,
+          reduceResult: partialReduce,
+          validateResults: [flaggedValidateResult],
+        }),
+      ),
+    ).toBe(true);
   });
 
   it('keeps the LAST recorded disposition across multiple validate attempts for one cluster', () => {

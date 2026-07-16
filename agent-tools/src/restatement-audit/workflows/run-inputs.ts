@@ -75,10 +75,56 @@ function unresolvableMembersError(missing: readonly string[]): Error {
   );
 }
 
-/** Derive REDUCE run data from a successful MAP result. */
+/**
+ * `ok: true` is not completeness: a map/reduce envelope deliberately reports partial
+ * coverage (`mapComplete: false` / `reduceComplete: false`) when windows or chunks die.
+ * Seeding a later stage from a partial checkpoint silently shrinks the audit corpus —
+ * every derivation below refuses instead.
+ */
+function incompleteMapError(mapResult: Extract<MapResult, { ok: true }>): Error {
+  return new Error(
+    `map result is INCOMPLETE — dead window(s) [${mapResult.incompleteWindows.join(', ')}] ` +
+      'would silently shrink the corpus; re-run or resume map before seeding downstream stages',
+  );
+}
+
+function incompleteReduceError(reduceResult: Extract<ReduceResult, { ok: true }>): Error {
+  return new Error(
+    `reduce result is INCOMPLETE — dead chunk(s) [${reduceResult.incompleteChunks.join(', ')}] ` +
+      'would silently drop free-text clusters; re-run or resume reduce before seeding downstream stages',
+  );
+}
+
+/** The shared ok+complete gate over the map and reduce checkpoints every later stage seeds from. */
+function completeCheckpoints(
+  mapResult: MapResult,
+  reduceResult: ReduceResult,
+): Result<
+  { map: Extract<MapResult, { ok: true }>; reduce: Extract<ReduceResult, { ok: true }> },
+  Error
+> {
+  if (!mapResult.ok) {
+    return err(new Error(`map result was not ok: ${mapResult.error}`));
+  }
+  if (!mapResult.mapComplete) {
+    return err(incompleteMapError(mapResult));
+  }
+  if (!reduceResult.ok) {
+    return err(new Error(`reduce result was not ok: ${reduceResult.error}`));
+  }
+  if (!reduceResult.reduceComplete) {
+    return err(incompleteReduceError(reduceResult));
+  }
+  return ok({ map: mapResult, reduce: reduceResult });
+}
+
+/** Derive REDUCE run data from a successful, COMPLETE MAP result. */
 export function reduceRunDataFrom(mapResult: MapResult): Result<ReduceRunData, Error> {
   if (!mapResult.ok) {
     return err(new Error(`map result was not ok: ${mapResult.error}`));
+  }
+  if (!mapResult.mapComplete) {
+    return err(incompleteMapError(mapResult));
   }
   return ok({ instances: mapResult.instances });
 }
@@ -95,14 +141,12 @@ export function validateRunDataFrom(input: {
   readonly validateTokenCeiling: number;
 }): Result<ValidateRunData, Error> {
   const { mapResult, reduceResult, priorValidateResults, validateTokenCeiling } = input;
-  if (!mapResult.ok) {
-    return err(new Error(`map result was not ok: ${mapResult.error}`));
+  const checked = completeCheckpoints(mapResult, reduceResult);
+  if (!checked.ok) {
+    return checked;
   }
-  if (!reduceResult.ok) {
-    return err(new Error(`reduce result was not ok: ${reduceResult.error}`));
-  }
-  const byId = groundingInstanceOf(mapResult);
-  const resolved = reduceResult.clusters.map((cluster) => resolveMembers(cluster, byId));
+  const byId = groundingInstanceOf(checked.value.map);
+  const resolved = checked.value.reduce.clusters.map((cluster) => resolveMembers(cluster, byId));
   const missing = resolved.flatMap((entry) => entry.missing);
   if (missing.length > 0) {
     return err(unresolvableMembersError(missing));
@@ -111,7 +155,7 @@ export function validateRunDataFrom(input: {
   const resolvedClusterIds = priorValidateResults.flatMap((result) =>
     result.ok ? result.resolvedClusterIds : [],
   );
-  const seed = resolveResumeSeed(reduceResult.clusters, resolvedClusterIds);
+  const seed = resolveResumeSeed(checked.value.reduce.clusters, resolvedClusterIds);
   if (seed.length === 0) {
     return err(new Error('validate run data has no unresolved clusters to seed — nothing to do'));
   }
@@ -146,6 +190,12 @@ function mergedDispositions(
  * Derive META run data: the flagged clusters only, projected with byte-checkable
  * grounding. `dispositionFromVoters` is not called here — dispositions are already
  * committed in the validate checkpoint(s); this stage only filters and projects them.
+ *
+ * A corpus whose reduce produced ZERO clusters skips validate entirely (there is
+ * nothing to vote on — `validateRunDataFrom` correctly refuses an empty seed): meta
+ * then accepts zero validate results and the coverage gate is trivially satisfied,
+ * flowing to the empty clean-audit ledger. When clusters EXIST, missing validate
+ * coverage errs below, naming every undispositioned cluster.
  */
 export function metaRunDataFrom(input: {
   readonly mapResult: MapResult;
@@ -153,15 +203,27 @@ export function metaRunDataFrom(input: {
   readonly validateResults: readonly ValidateResult[];
 }): Result<MetaRunData, Error> {
   const { mapResult, reduceResult, validateResults } = input;
-  if (!mapResult.ok) {
-    return err(new Error(`map result was not ok: ${mapResult.error}`));
+  const checked = completeCheckpoints(mapResult, reduceResult);
+  if (!checked.ok) {
+    return checked;
   }
-  if (!reduceResult.ok) {
-    return err(new Error(`reduce result was not ok: ${reduceResult.error}`));
-  }
-  const byId = groundingInstanceOf(mapResult);
+  const byId = groundingInstanceOf(checked.value.map);
   const dispositions = mergedDispositions(validateResults);
-  const flagged = reduceResult.clusters.filter(
+  // Terminal coverage is recomputed here, never assumed: a cluster no validate attempt
+  // ever dispositioned would otherwise silently vanish from the ledger (it is neither
+  // flagged nor visibly dropped).
+  const uncovered = checked.value.reduce.clusters
+    .filter((cluster) => !dispositions.has(cluster.id))
+    .map((cluster) => cluster.id);
+  if (uncovered.length > 0) {
+    return err(
+      new Error(
+        `validate checkpoints carry no disposition for cluster id(s) [${uncovered.join(', ')}] — ` +
+          'an undispositioned cluster would silently vanish from the ledger; complete validate first',
+      ),
+    );
+  }
+  const flagged = checked.value.reduce.clusters.filter(
     (cluster) => dispositions.get(cluster.id) === 'flagged',
   );
   const resolved = flagged.map((cluster) => resolveMembers(cluster, byId));
@@ -177,8 +239,7 @@ export function metaRunDataFrom(input: {
     verdict: cluster.verdict,
     instances: [...(resolved[index]?.members ?? [])],
   }));
-  if (clusters.length === 0) {
-    return err(new Error('meta run data has no flagged clusters — nothing to do'));
-  }
+  // Zero flagged clusters is a VALID terminal state — a clean audit (every cluster
+  // dismissed or held) produces an empty ledger, never an error.
   return ok({ clusters });
 }

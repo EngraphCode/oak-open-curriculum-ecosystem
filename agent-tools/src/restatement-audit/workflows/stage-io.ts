@@ -107,7 +107,8 @@ export type ValidateRunData = z.infer<typeof validateRunDataSchema>;
 
 const metaRunDataSchema = z
   .strictObject({
-    clusters: z.array(metaClusterSchema).min(1),
+    // Empty is VALID: a clean audit (zero flagged clusters) seeds a zero-row ledger.
+    clusters: z.array(metaClusterSchema),
   })
   .refine(
     (data) => new Set(data.clusters.map((cluster) => cluster.id)).size === data.clusters.length,

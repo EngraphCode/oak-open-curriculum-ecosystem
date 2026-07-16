@@ -148,9 +148,9 @@ async function deriveMetaRunData(flags: CliFlags): Promise<Result<MetaRunData, E
   if (!reduceResult.ok) {
     return reduceResult;
   }
-  if (flags.validateResults.length === 0) {
-    return err(new Error('meta requires at least one --validate-result.'));
-  }
+  // Zero --validate-result flags is VALID for a zero-cluster reduce (validate was
+  // rightly skipped); metaRunDataFrom's coverage gate errs when clusters exist
+  // without dispositions, naming each one.
   const validateResults = await readValidateResults(flags.validateResults);
   if (!validateResults.ok) {
     return validateResults;

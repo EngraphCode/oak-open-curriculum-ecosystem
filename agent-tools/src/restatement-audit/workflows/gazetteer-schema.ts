@@ -31,7 +31,8 @@ const subjectsSchema = z.record(z.string(), z.array(z.string().min(1)));
  * moment a second consumer needs it directly (`consolidate-at-second-consumer`).
  */
 const gazetteerFileSchema = z.strictObject({
-  version: z.string().min(1),
+  // Pinned literal: a typo'd or future version must fail loudly, not ride through.
+  version: z.literal('gazetteer.v1'),
   referenceTree: z.string().min(1),
   compiledBy: z.string().min(1),
   usage: z.string().min(1),

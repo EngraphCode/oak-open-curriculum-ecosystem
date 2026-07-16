@@ -128,6 +128,10 @@ describe('run-data parsers', () => {
     ).toBe(true);
   });
 
+  it('parseMetaRunData accepts an EMPTY cluster set — a clean audit seeds a zero-row ledger', () => {
+    expect(isOk(parseMetaRunData({ clusters: [] }))).toBe(true);
+  });
+
   it('parseMetaRunData accepts flagged clusters and rejects duplicate cluster ids', () => {
     const metaCluster = {
       id: cluster.id,

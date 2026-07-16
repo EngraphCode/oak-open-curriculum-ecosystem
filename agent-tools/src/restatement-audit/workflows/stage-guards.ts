@@ -70,14 +70,18 @@ export function isValidateRunData(value: unknown, stage: string): value is Valid
   return stage === 'validate' && hasValidateArrays(value) && hasExplicitCeiling(value);
 }
 
-/** Meta run data: tagged for meta, with non-empty flagged clusters. */
+/**
+ * Meta run data: tagged for meta, with a clusters ARRAY — which may be EMPTY (a clean
+ * audit seeds zero flagged clusters and must reach the zero-spend empty-ledger path,
+ * never a false unseeded error).
+ */
 export function isMetaRunData(value: unknown, stage: string): value is MetaRunData {
   return (
     stage === 'meta' &&
     typeof value === 'object' &&
     value !== null &&
     'clusters' in value &&
-    nonEmptyArray(value.clusters)
+    Array.isArray(value.clusters)
   );
 }
 

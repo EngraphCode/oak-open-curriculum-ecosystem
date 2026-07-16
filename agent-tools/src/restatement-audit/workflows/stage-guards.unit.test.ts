@@ -83,7 +83,10 @@ describe('isMetaRunData', () => {
 
   it('rejects the wrong stage tag and an empty cluster set', () => {
     expect(isMetaRunData(metaRunData, 'validate')).toBe(false);
-    expect(isMetaRunData({ clusters: [] }, 'meta')).toBe(false);
+    // Empty clusters is a VALID clean-audit seed — the workflow's zero-spend
+    // empty-ledger short-circuit must be reachable, never a false unseeded error.
+    expect(isMetaRunData({ clusters: [] }, 'meta')).toBe(true);
+    expect(isMetaRunData({ clusters: 'nope' }, 'meta')).toBe(false);
   });
 });
 

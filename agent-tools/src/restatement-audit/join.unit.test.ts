@@ -197,10 +197,37 @@ describe('recountReducerCluster', () => {
     expect(recountReducerCluster('r1', members)?.verdict).toBe('latent');
   });
 
-  it('rejects a proposal whose members do not share one fact-key', () => {
+  it('JOINS members whose free-text subject wording differs — rejecting them would defeat the reducer entirely; the voters sameFact test owns that judgment', () => {
     const members = [
-      instance({ id: 'f1', file: 'a.md', subject: 'freeform-x', subjectFromGazetteer: false }),
-      instance({ id: 'f2', file: 'b.md', subject: 'freeform-y', subjectFromGazetteer: false }),
+      instance({
+        id: 'f1',
+        file: 'a.md',
+        subject: 'freeform-x',
+        subjectFromGazetteer: false,
+        valueNorm: 'completed',
+      }),
+      instance({
+        id: 'f2',
+        file: 'b.md',
+        subject: 'the freeform x register',
+        subjectFromGazetteer: false,
+        valueNorm: 'in progress',
+      }),
+    ];
+    const cluster = recountReducerCluster('r1', members);
+    expect(cluster?.verdict).toBe('conflict');
+    expect(cluster?.subject).toBe('freeform-x');
+  });
+
+  it('rejects a proposal whose members span DIFFERENT factClasses — no wording judgment can bridge a count and a status', () => {
+    const members = [
+      instance({ id: 'f1', file: 'a.md', subjectFromGazetteer: false, factClass: 'count' }),
+      instance({
+        id: 'f2',
+        file: 'b.md',
+        subjectFromGazetteer: false,
+        factClass: 'status-assertion',
+      }),
     ];
     expect(recountReducerCluster('r1', members)).toBeNull();
   });

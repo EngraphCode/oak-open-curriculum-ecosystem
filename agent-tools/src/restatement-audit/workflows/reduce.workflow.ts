@@ -18,6 +18,7 @@ import type {
   HarnessParallel,
   HarnessPhase,
 } from '../../corpus-analysis/workflows/harness-types.js';
+import { dedupeByMemberSet, overlappingMemberIds } from '../cluster-hygiene.js';
 import {
   chunkForReducer,
   emptyNormalFormInstances,
@@ -65,6 +66,25 @@ async function reduceChunk(
   });
 }
 
+/** Loudly surface dead reducer chunks — the envelope reports them; the operator must not commit partial coverage. */
+function warnOnIncompleteChunks(incompleteChunks: readonly number[], chunkCount: number): void {
+  if (incompleteChunks.length > 0) {
+    log(
+      `REDUCE INCOMPLETE — ${incompleteChunks.length}/${chunkCount} reducer chunk(s) returned nothing: [${incompleteChunks.join(',')}] — do NOT commit this as full coverage.`,
+    );
+  }
+}
+
+/** Loudly surface members shared across clusters — voters judge each independently. */
+function warnOnOverlappingMembers(clusters: readonly Cluster[]): void {
+  const overlapping = overlappingMemberIds(clusters);
+  if (overlapping.length > 0) {
+    log(
+      `WARNING: ${overlapping.length} instance id(s) appear in more than one cluster — voters judge each independently; expect possible duplicate ledger rows for: [${overlapping.join(', ')}]`,
+    );
+  }
+}
+
 /** Loudly surface instances the join will drop for empty-normal-form values. */
 function warnOnEmptyNormalForms(instances: readonly FinderInstance[]): void {
   const emptyDropped = emptyNormalFormInstances(instances).length;
@@ -105,19 +125,6 @@ function recountProposals(
   return { proposedCount: proposals.length, recounted };
 }
 
-/** Deduplicate by cluster id, keeping the first occurrence (exact-key wins on collision). */
-function dedupeById(clusters: readonly Cluster[]): Cluster[] {
-  const seen = new Set<string>();
-  const out: Cluster[] = [];
-  for (const cluster of clusters) {
-    if (!seen.has(cluster.id)) {
-      seen.add(cluster.id);
-      out.push(cluster);
-    }
-  }
-  return out;
-}
-
 /** Run the reduce stage over the seeded map instances. */
 export async function main(): Promise<ReduceResult> {
   phase('exact-key-join');
@@ -141,15 +148,12 @@ export async function main(): Promise<ReduceResult> {
   const incompleteChunks = reducerResults.flatMap((result, index) =>
     result === null ? [index] : [],
   );
-  if (incompleteChunks.length > 0) {
-    log(
-      `REDUCE INCOMPLETE — ${incompleteChunks.length}/${chunks.length} reducer chunk(s) returned nothing: [${incompleteChunks.join(',')}] — do NOT commit this as full coverage.`,
-    );
-  }
+  warnOnIncompleteChunks(incompleteChunks, chunks.length);
   const { proposedCount, recounted } = recountProposals(reducerResults, residualById);
   log(`reducer proposals: ${proposedCount} proposed, ${recounted.length} survived recount`);
 
-  const clusters = dedupeById([...exactKeyClusters, ...recounted]);
+  const clusters = dedupeByMemberSet([...exactKeyClusters, ...recounted]);
+  warnOnOverlappingMembers(clusters);
   return {
     ok: true,
     instanceCount: instances.length,

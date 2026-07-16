@@ -183,8 +183,16 @@ export function joinInstances(instances: readonly FinderInstance[]): Cluster[] {
  * Recount one reducer-proposed group of free-text-subject instances: the reducer only
  * ever proposes MEMBERSHIP, never a verdict — code always recomputes it here, exactly as
  * for an exact-key group. Returns `null` when the proposal does not survive recount: the
- * members do not share one `(factClass, subject, predicate)`, or the group is not
- * genuinely repeated (see {@link isRepeated} / {@link computeVerdict}).
+ * members do not share one `factClass`, or the group is not genuinely repeated (see
+ * {@link isRepeated} / {@link computeVerdict}).
+ *
+ * Homogeneity is `factClass`-ONLY, deliberately: the reducer's entire purpose is to
+ * join instances whose free-text `subject`/`predicate` WORDING differs — demanding
+ * exact string equality here would reject every cluster the reducer exists to propose
+ * (recall over precision, per the finder doctrine). Whether the members truly assert
+ * the same fact is the validate voters' `sameFact` conjunctive test — a judgment code
+ * cannot make on free text. The cluster carries the first member's subject/predicate
+ * as its representative key.
  */
 export function recountReducerCluster(
   id: string,
@@ -195,12 +203,7 @@ export function recountReducerCluster(
   if (first === undefined) {
     return null;
   }
-  const homogeneous = rest.every(
-    (member) =>
-      member.factClass === first.factClass &&
-      member.subject === first.subject &&
-      member.predicate === first.predicate,
-  );
+  const homogeneous = rest.every((member) => member.factClass === first.factClass);
   if (!homogeneous) {
     return null;
   }
