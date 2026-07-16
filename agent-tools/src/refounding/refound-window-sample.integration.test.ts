@@ -11,7 +11,7 @@ import { renderJsonlArtefact, sha256Hex } from './refounding-artefacts.js';
 import { type SweepHit } from './refound-sweep-model.js';
 import { parseWindowSampleArgs, resolveWindowSamplePaths } from './refound-window-sample.js';
 import { runWindowSample, type ByteSourceFactory } from './refound-window-sample-helpers.js';
-import { writeManifest } from './refound-window-sample-io.js';
+import { readBoundRule, writeManifest } from './refound-window-sample-io.js';
 import { canonicaliseOutDir } from './refound-window-sample-write-guard.js';
 import {
   parseWindowSampleManifest,
@@ -440,6 +440,32 @@ describe('writeManifest — TOCTOU re-canonicalisation guard (nothing written)',
     );
   });
 
+  it('refuses a symlink planted at an absent segment during the scan, writing nothing outside', async () => {
+    const repoRoot = await mkdtemp(path.join(tmpdir(), 'refound-window-sample-plant-'));
+    tempRoots.push(repoRoot);
+    const outsideRoot = await mkdtemp(path.join(tmpdir(), 'refound-window-sample-plant-out-'));
+    tempRoots.push(outsideRoot);
+    // `.agent` exists (the anchor); `plans-refounding` is an absent segment.
+    await mkdir(path.join(repoRoot, '.agent'));
+    const outDirAbs = path.join(repoRoot, '.agent/plans-refounding');
+    const target = canonicaliseOutDir(repoRoot, outDirAbs);
+    expect(target.ok).toBe(true);
+    if (!target.ok) {
+      return;
+    }
+    // Scan-time attack: plant a symlink AT the first absent segment pointing
+    // outside the repo. A recursive mkdir would follow it and escape.
+    const plantedTarget = path.join(outsideRoot, 'planted');
+    await mkdir(plantedTarget, { recursive: true });
+    await symlink(plantedTarget, outDirAbs);
+    const written = await writeManifest(target.value, emptyManifest());
+    expect(written.ok).toBe(false);
+    if (!written.ok) {
+      expect(written.error.message).toContain('not a real directory');
+    }
+    expect(existsSync(path.join(plantedTarget, WINDOW_SAMPLE_SEGMENT))).toBe(false);
+  });
+
   it('refuses when an ancestor of the out dir is swapped for a symlink after canonicalisation', async () => {
     const repoRoot = await mkdtemp(path.join(tmpdir(), 'refound-window-sample-swap-'));
     tempRoots.push(repoRoot);
@@ -488,6 +514,36 @@ describe('writeManifest — TOCTOU re-canonicalisation guard (nothing written)',
       expect(written.error.message).toContain('outside the repository');
     }
     expect(existsSync(path.join(outsideOut, WINDOW_SAMPLE_SEGMENT))).toBe(false);
+  });
+});
+
+describe('readBoundRule — single-read binding (check-time == use-time)', () => {
+  it('reads the rule file exactly once — parse input is the byte-compared buffer', async () => {
+    const repoRoot = await mkdtemp(path.join(tmpdir(), 'refound-window-sample-bind-'));
+    tempRoots.push(repoRoot);
+    const ruleRelPath = '.agent/plans-refounding/freeze-rule.json';
+    const ruleAbsPath = path.join(repoRoot, ruleRelPath);
+    const ruleJson = `${JSON.stringify(
+      {
+        version: 1,
+        ratifiedBy: '.agent/decisions/g1.md',
+        classes: [{ id: 'plans', globs: ['.agent/plans/**'], verdict: 'in', reason: 'estate' }],
+      },
+      null,
+      2,
+    )}\n`;
+    // Base source carries the SAME bytes, so the binding passes; a counting
+    // reader proves a single read backs both the parse and the comparison.
+    const source = sourceOf({ [ruleRelPath]: ruleJson });
+    let reads = 0;
+    const countingReader = async (readPath: string): Promise<Buffer> => {
+      expect(readPath).toBe(ruleAbsPath);
+      reads += 1;
+      return Buffer.from(ruleJson, 'utf8');
+    };
+    const bound = await readBoundRule(repoRoot, ruleAbsPath, source, countingReader);
+    expect(bound.ok).toBe(true);
+    expect(reads).toBe(1);
   });
 });
 

@@ -1,11 +1,10 @@
 import { lstatSync } from 'node:fs';
-import { mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises';
+import { readFile, rename, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
 import { err, flatMap, isErr, ok, type Result } from '@oaknational/result';
 
-import { readRule } from './refound-freeze-plan.js';
-import { type FreezeRule } from './freeze-rule-schema.js';
+import { parseFreezeRule, type FreezeRule } from './freeze-rule-schema.js';
 import { parseSweepHit, type SweepHit } from './refound-sweep-model.js';
 import {
   expectationsFromEvidence,
@@ -17,6 +16,7 @@ import {
 } from './refound-window-sample-schema.js';
 import { type ByteSource } from './refound-window-sample-universe.js';
 import {
+  createWriteDirSegments,
   recheckOutDirContainment,
   type ManifestWriteTarget,
 } from './refound-window-sample-write-guard.js';
@@ -128,19 +128,32 @@ export async function readEvidenceBindings(
   });
 }
 
+/** Reads a file's raw bytes; the default binds `node:fs/promises` `readFile`. */
+export type ReadFileBytes = (absPath: string) => Promise<Buffer>;
+
 /**
- * Read the freeze rule, refuse a draft, and bind the live bytes to the rule
- * at the pinned base. The evidence's counts are functions of (base tree,
- * rule): a swapped rule that keeps the same file count and every hit file
- * can still reshape the non-hit windows and change the sealed sample while
- * passing every arithmetic check. Exact bytes, or refuse.
+ * Read the freeze rule, refuse a draft, and bind the live bytes to the rule at
+ * the pinned base — a same-count rule swap can reshape the sealed sample, so
+ * exact bytes or refuse. The rule file is read EXACTLY ONCE (`readRuleBytes`,
+ * injectable for the single-read proof): the parsed rule and the byte
+ * comparison both derive from that one buffer, so no swap between two reads can
+ * pass the comparison against content never parsed (check-time == use-time).
  */
 export async function readBoundRule(
   repoRoot: string,
   ruleAbsPath: string,
   source: ByteSource,
+  readRuleBytes: ReadFileBytes = readFile,
 ): Promise<Result<FreezeRule, Error>> {
-  const rule = await readRule(ruleAbsPath);
+  let liveBytes: Buffer;
+  try {
+    liveBytes = await readRuleBytes(ruleAbsPath);
+  } catch (cause: unknown) {
+    const message = cause instanceof Error ? cause.message : String(cause);
+    return err(new Error(`cannot read freeze rule at '${ruleAbsPath}': ${message}`));
+  }
+  const ruleJson = parseJsonDocument('freeze rule', liveBytes.toString('utf8'));
+  const rule = flatMap(ruleJson, parseFreezeRule);
   if (isErr(rule)) {
     return rule;
   }
@@ -152,25 +165,20 @@ export async function readBoundRule(
       ),
     );
   }
-  const binding = await verifyRuleBinding(repoRoot, ruleAbsPath, source);
+  const binding = verifyRuleBinding(repoRoot, ruleAbsPath, liveBytes, source);
   if (isErr(binding)) {
     return binding;
   }
   return rule;
 }
 
-async function verifyRuleBinding(
+/** Bind the ALREADY-READ live bytes to the rule at the pinned base (no re-read). */
+function verifyRuleBinding(
   repoRoot: string,
   ruleAbsPath: string,
+  liveBytes: Buffer,
   source: ByteSource,
-): Promise<Result<undefined, Error>> {
-  let liveBytes: Buffer;
-  try {
-    liveBytes = await readFile(ruleAbsPath);
-  } catch (cause: unknown) {
-    const message = cause instanceof Error ? cause.message : String(cause);
-    return err(new Error(`cannot read freeze rule at '${ruleAbsPath}': ${message}`));
-  }
+): Result<undefined, Error> {
   const ruleRelPath = path.relative(repoRoot, ruleAbsPath);
   const baseBytes = source.readBytes(ruleRelPath);
   if (isErr(baseBytes)) {
@@ -195,12 +203,13 @@ async function verifyRuleBinding(
 
 /**
  * Write the manifest artefact, creating its parent directory. The write-time
- * TOCTOU guard re-canonicalises the out dir first
- * ({@link recheckOutDirContainment}): an ancestor swapped for a symlink after
- * the pre-scan canonicalisation, or an out dir that now escapes the repository,
- * is refused before any bytes. The fixed `sweep/` segment is then re-asserted
- * directly — a symlink at the write dir OR at the manifest path itself is
- * refused (the `refound-path-resolve.ts` posture) — and the write lands via an
+ * TOCTOU guard runs first: {@link recheckOutDirContainment} re-canonicalises the
+ * out dir's pre-scan anchor (refusing an ancestor swapped for a symlink or an
+ * out dir that now escapes the repository), then {@link createWriteDirSegments}
+ * creates every segment below the validated anchor one at a time, proving each
+ * is a real directory the instant it is made — a symlink planted at any absent
+ * segment during the scan is refused before a byte is written. A symlink at the
+ * manifest path itself is then refused directly, and the write lands via an
  * exclusive same-directory temp file plus atomic rename, so an interruption can
  * never truncate an existing sealed manifest.
  */
@@ -214,23 +223,21 @@ export async function writeManifest(
   }
   const manifestAbsPath = path.join(target.outDirAbs, WINDOW_SAMPLE_SEGMENT);
   const writeDirAbs = path.dirname(manifestAbsPath);
+  const materialised = createWriteDirSegments(target, writeDirAbs);
+  if (isErr(materialised)) {
+    return materialised;
+  }
+  const manifestStat = lstatSync(manifestAbsPath, { throwIfNoEntry: false });
+  if (manifestStat?.isSymbolicLink() === true) {
+    return err(
+      new Error(
+        `manifest path '${manifestAbsPath}' is a symlink — a write would follow it to an ` +
+          'unverifiable destination; refusing',
+      ),
+    );
+  }
   const tempAbsPath = `${manifestAbsPath}.tmp-${String(process.pid)}`;
   try {
-    for (const [label, checkedAbsPath] of [
-      ['write dir', writeDirAbs],
-      ['manifest path', manifestAbsPath],
-    ] as const) {
-      const stat = lstatSync(checkedAbsPath, { throwIfNoEntry: false });
-      if (stat?.isSymbolicLink() === true) {
-        return err(
-          new Error(
-            `${label} '${checkedAbsPath}' is a symlink — a write would follow it to an ` +
-              'unverifiable destination; refusing',
-          ),
-        );
-      }
-    }
-    await mkdir(writeDirAbs, { recursive: true });
     await writeFile(tempAbsPath, renderJsonArtefact(manifest), { encoding: 'utf8', flag: 'wx' });
     await rename(tempAbsPath, manifestAbsPath);
     return ok(manifest);

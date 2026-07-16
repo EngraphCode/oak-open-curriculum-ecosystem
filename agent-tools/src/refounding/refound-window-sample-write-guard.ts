@@ -1,7 +1,7 @@
-import { realpathSync } from 'node:fs';
+import { lstatSync, mkdirSync, realpathSync } from 'node:fs';
 import path from 'node:path';
 
-import { err, ok, type Result } from '@oaknational/result';
+import { err, isErr, ok, type Result } from '@oaknational/result';
 
 import { nearestExistingAncestor } from './refound-path-resolve.js';
 
@@ -100,6 +100,61 @@ export function recheckOutDirContainment(target: ManifestWriteTarget): Result<un
       new Error(
         `out dir '${target.outDirAbs}' resolves outside the repository root '${repoRootReal}'; ` +
           'refusing',
+      ),
+    );
+  }
+  return ok(undefined);
+}
+
+/**
+ * Create every path segment from the validated {@link ManifestWriteTarget.anchorAbs}
+ * down to `writeDirAbs`, ONE AT A TIME, proving each is a real directory
+ * immediately after creation (check-time == use-time). A recursive `mkdir`
+ * would silently FOLLOW a symlink planted at any absent segment during the
+ * scan and land the write outside the repository; creating with
+ * failure-on-exist semantics (`mkdirSync` without `recursive`) and `lstat`-ing
+ * each created or pre-existing segment refuses a planted link at any depth
+ * before a single byte is written. `anchorAbs` is already drift- and
+ * containment-checked by {@link recheckOutDirContainment}.
+ */
+export function createWriteDirSegments(
+  target: ManifestWriteTarget,
+  writeDirAbs: string,
+): Result<undefined, Error> {
+  const relative = path.relative(target.anchorAbs, writeDirAbs);
+  const segments = relative === '' ? [] : relative.split(path.sep);
+  let current = target.anchorAbs;
+  for (const segment of segments) {
+    current = path.join(current, segment);
+    const step = createRealDirSegment(current);
+    if (isErr(step)) {
+      return step;
+    }
+  }
+  return ok(undefined);
+}
+
+/**
+ * Create a single directory segment with failure-on-exist semantics and prove
+ * it is a real directory. `EEXIST` is not accepted on trust: `lstat` must show
+ * a real directory (never a symlink — `mkdir` on a symlink-to-dir would succeed
+ * silently via `EEXIST`), else the segment is refused.
+ */
+function createRealDirSegment(dirAbs: string): Result<undefined, Error> {
+  try {
+    mkdirSync(dirAbs);
+  } catch (cause: unknown) {
+    if (!(cause instanceof Error && 'code' in cause && cause.code === 'EEXIST')) {
+      const message = cause instanceof Error ? cause.message : String(cause);
+      return err(new Error(`window-sample artefact write failed: ${message}`));
+    }
+  }
+  const stat = lstatSync(dirAbs, { throwIfNoEntry: false });
+  if (stat === undefined || !stat.isDirectory()) {
+    return err(
+      new Error(
+        `write path segment '${dirAbs}' is not a real directory — a planted symlink or ` +
+          'non-directory would redirect the write; refusing',
       ),
     );
   }
