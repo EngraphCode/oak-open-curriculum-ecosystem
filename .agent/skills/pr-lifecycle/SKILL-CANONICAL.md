@@ -100,8 +100,11 @@ surfaces. Partial reads produce false "no problems" verdicts:
    canonical way to falsely conclude "no comments". Worked failure 2026-07-02:
    two REST comments were triaged as "noise" while four unresolved Copilot
    threads and a failed Sonar gate sat unread.
-2. **Issue comments and reviews** — full bodies, never truncated skims; a
-   Sonar gate summary or a bot capability notice lives here.
+2. **Issue comments and reviews** — full bodies, never truncated skims, AND
+   each review's own `commit.oid` retained alongside its body (the paged
+   `reviews` connection carries both) — the binding the state machine's
+   tally (item 2) buckets body findings by; a Sonar gate summary or a bot
+   capability notice lives here.
 3. **All checks** — `gh pr checks`, including the external ones (SonarCloud,
    CodeQL, Vercel, Cursor Bugbot, Codex). A failed check's *first* failure is
    the root to chase: a 20-second `install` failure cascades into skipped
@@ -209,7 +212,10 @@ as phase-local restatements.
    the tip — a summary-only review carrying findings in its body (a shape
    claude[bot] posts) otherwise never enters the round count, and "settled,
    zero new findings" can read true against a disagreeing body (pair
-   observation, 2026-07-16). NEVER derive the
+   observation, 2026-07-16). For this to be reproducible the Phase 3
+   harvest RETAINS each review's own `commit.oid` alongside its body
+   (Phase 3 surface 2), so body findings bucket by commit exactly as
+   thread findings do. NEVER derive the
    tally from `latestReviews` (item 1: rows vanish), and NEVER bucket by
    arrival order: reviews bind to the tip they reviewed, and a review bound
    to an older tip can land after a newer push (round-2 correction,
@@ -274,9 +280,11 @@ as phase-local restatements.
    findings, plus every Phase 7 gate leg.
 5. **The arm boundary.** Auto-merge may be armed only when the round reads
    SETTLED per item 4 for the current tip — no leg OWED and the quiet
-   window elapsed — plus zero unresolved threads and the Sonar gate not
-   failing; required status checks MAY still be pending, and riding them
-   out is arming's only value. On a PR where the full gate
+   window elapsed — plus a current-round finding count of ZERO on BOTH
+   tally surfaces (threads AND review bodies, item 2: zero unresolved
+   threads alone can coexist with a non-zero body tally) and the Sonar
+   gate not failing; required status checks MAY still be pending, and
+   riding them out is arming's only value. On a PR where the full gate
    is already satisfied the same command executes an immediate merge —
    either way it inherits Phase 7's merge-authorisation boundary unchanged.
 
@@ -364,7 +372,9 @@ one checks-green quiet window for any single reviewer. Then:
   prevent, and the supervised watch can observe but not delay a scheduled
   merge. On bot-reviewed PRs arm-early is therefore dead by design; riding
   out still-pending CHECKS is arming's only remaining value, which is why
-  the arm boundary is the review legs, not the full gate). Whether it arms
+  the arm boundary is the review legs PLUS the round's zero-new-findings
+  condition on both tally surfaces (state machine item 5), never the full
+  gate but never the review legs alone). Whether it arms
   or merges immediately, the command inherits the merge-authorisation
   boundary below unchanged (arming schedules the exact merge that boundary
   governs: on a SELF-AUTHORED, sub-agent-reviewed PR with no in-session
