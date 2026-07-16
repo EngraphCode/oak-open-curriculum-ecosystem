@@ -3,6 +3,7 @@ import { err, isErr, ok, type Result } from '@oaknational/result';
 import { type FreezeRule } from './freeze-rule-schema.js';
 import { type SweepHit } from './refound-sweep-model.js';
 import {
+  SAMPLE_STRIDE,
   SELECTION_RULE_V1,
   WINDOW_LINES,
   type SampleWindow,
@@ -50,10 +51,7 @@ import {
  * @packageDocumentation
  */
 
-/** Selection stride over the sorted non-hit window list. */
-export const SAMPLE_STRIDE = 10;
-
-export { SELECTION_RULE_V1, WINDOW_LINES } from './refound-window-sample-schema.js';
+export { SAMPLE_STRIDE, SELECTION_RULE_V1, WINDOW_LINES } from './refound-window-sample-schema.js';
 
 /**
  * Bind the verified hits to the universe, halting on any disagreement: the

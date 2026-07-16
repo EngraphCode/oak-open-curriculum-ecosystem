@@ -1,5 +1,5 @@
 import { existsSync } from 'node:fs';
-import { mkdir, mkdtemp, readFile, rename, rm, symlink, writeFile } from 'node:fs/promises';
+import { chmod, mkdir, mkdtemp, readFile, rename, rm, symlink, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 
@@ -11,6 +11,7 @@ import { renderJsonlArtefact, sha256Hex } from './refounding-artefacts.js';
 import { type SweepHit } from './refound-sweep-model.js';
 import { parseWindowSampleArgs, resolveWindowSamplePaths } from './refound-window-sample.js';
 import { runWindowSample, type ByteSourceFactory } from './refound-window-sample-helpers.js';
+import { writeManifest } from './refound-window-sample-io.js';
 import {
   parseWindowSampleManifest,
   WINDOW_SAMPLE_SEGMENT,
@@ -330,6 +331,36 @@ describe('runWindowSample — refusal chain (nothing written)', () => {
     const fixture = await makeFixture(HAPPY);
     const bare = { ...fixture, makeByteSource: () => ok(sourceOf(HAPPY.baseFiles)) };
     await expectRefusal(bare, 'unreadable at the pinned base');
+  });
+
+  it('returns Err rather than throwing when the write-path probe itself errors', async () => {
+    const rootAbs = await mkdtemp(path.join(tmpdir(), 'refound-window-sample-io-'));
+    tempRoots.push(rootAbs);
+    const lockedDirAbs = path.join(rootAbs, 'locked');
+    await mkdir(lockedDirAbs);
+    const emptyManifest = parseWindowSampleManifest({
+      schema_version: '1',
+      base: BASE,
+      window_lines: 500,
+      selection_rule: 'sorted-(file,window)-every-10th-from-0',
+      universe: { files: 0, windows: 0, hit_windows: 0, non_hit_windows: 0 },
+      expectations: { scanned_files: 0, hit_files: 0, hit_lines: 0 },
+      sample: [],
+    });
+    expect(emptyManifest.ok).toBe(true);
+    if (!emptyManifest.ok) {
+      return;
+    }
+    await chmod(lockedDirAbs, 0o000);
+    const written = await writeManifest(
+      path.join(lockedDirAbs, 'sweep', 'window-sample.v1.json'),
+      emptyManifest.value,
+    );
+    await chmod(lockedDirAbs, 0o755);
+    expect(written.ok).toBe(false);
+    if (!written.ok) {
+      expect(written.error.message).toContain('write failed');
+    }
   });
 });
 

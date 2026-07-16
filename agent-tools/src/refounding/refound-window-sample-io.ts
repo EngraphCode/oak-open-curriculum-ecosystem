@@ -201,22 +201,22 @@ export async function writeManifest(
   manifest: WindowSampleManifest,
 ): Promise<Result<WindowSampleManifest, Error>> {
   const writeDirAbs = path.dirname(manifestAbsPath);
-  for (const [label, checkedAbsPath] of [
-    ['write dir', writeDirAbs],
-    ['manifest path', manifestAbsPath],
-  ] as const) {
-    const stat = lstatSync(checkedAbsPath, { throwIfNoEntry: false });
-    if (stat?.isSymbolicLink() === true) {
-      return err(
-        new Error(
-          `${label} '${checkedAbsPath}' is a symlink — a write would follow it to an ` +
-            'unverifiable destination; refusing',
-        ),
-      );
-    }
-  }
   const tempAbsPath = `${manifestAbsPath}.tmp-${String(process.pid)}`;
   try {
+    for (const [label, checkedAbsPath] of [
+      ['write dir', writeDirAbs],
+      ['manifest path', manifestAbsPath],
+    ] as const) {
+      const stat = lstatSync(checkedAbsPath, { throwIfNoEntry: false });
+      if (stat?.isSymbolicLink() === true) {
+        return err(
+          new Error(
+            `${label} '${checkedAbsPath}' is a symlink — a write would follow it to an ` +
+              'unverifiable destination; refusing',
+          ),
+        );
+      }
+    }
     await mkdir(writeDirAbs, { recursive: true });
     await writeFile(tempAbsPath, renderJsonArtefact(manifest), { encoding: 'utf8', flag: 'wx' });
     await rename(tempAbsPath, manifestAbsPath);

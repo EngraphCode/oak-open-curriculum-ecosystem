@@ -3,7 +3,19 @@ import { z } from 'zod';
 
 import { parseWithSchema } from '../core/schema-parse.js';
 import { SWEEP_HITS_SEGMENT } from './refound-sweep-model.js';
+import {
+  refineManifest,
+  refineSampleWindow,
+  SELECTION_RULE_V1,
+  WINDOW_LINES,
+} from './refound-window-sample-invariants.js';
 import { sha256HexSchema } from './refounding-artefacts.js';
+
+export {
+  SAMPLE_STRIDE,
+  SELECTION_RULE_V1,
+  WINDOW_LINES,
+} from './refound-window-sample-invariants.js';
 
 /**
  * Boundary contracts for `refound-window-sample` (batch
@@ -34,22 +46,6 @@ import { sha256HexSchema } from './refounding-artefacts.js';
 
 /** Window-sample artefact path relative to the artefact home. */
 export const WINDOW_SAMPLE_SEGMENT = 'sweep/window-sample.v1.json';
-
-/**
- * V1 window span in lines. Single-sourced HERE, at the schema boundary, and
- * validated as a literal: a v1 manifest with any other span is an
- * algorithm-drifted artefact, not a valid manifest
- * (`strict-validation-at-boundary`).
- */
-export const WINDOW_LINES = 500;
-
-/**
- * V1 selection rule: sort the non-hit windows by `(file, window_index)` and
- * take every 10th starting at index 0 — a fixed declared-rate rule, no
- * randomness. Single-sourced here and validated as a literal, exactly as
- * {@link WINDOW_LINES}.
- */
-export const SELECTION_RULE_V1 = 'sorted-(file,window)-every-10th-from-0';
 
 /** A full 40-hex commit sha — the base-commit identity primitive. */
 export const SHA40_PATTERN = /^[0-9a-f]{40}$/;
@@ -144,44 +140,7 @@ const sampleWindowSchema = z
     end_line: positiveInt,
     line_count: positiveInt,
   })
-  .superRefine((window, ctx) => {
-    if (window.end_line < window.start_line) {
-      ctx.addIssue({
-        code: 'custom',
-        message:
-          `end_line ${String(window.end_line)} precedes ` +
-          `start_line ${String(window.start_line)}`,
-      });
-      return;
-    }
-    const expectedStart = window.window_index * WINDOW_LINES + 1;
-    if (window.start_line !== expectedStart) {
-      ctx.addIssue({
-        code: 'custom',
-        message:
-          `start_line ${String(window.start_line)} disagrees with ` +
-          `window_index ${String(window.window_index)} (a v1 window starts at ` +
-          `${String(expectedStart)})`,
-      });
-      return;
-    }
-    const span = window.end_line - window.start_line + 1;
-    if (span > WINDOW_LINES) {
-      ctx.addIssue({
-        code: 'custom',
-        message: `span ${String(span)} exceeds the v1 window size ${String(WINDOW_LINES)}`,
-      });
-      return;
-    }
-    if (window.line_count !== span) {
-      ctx.addIssue({
-        code: 'custom',
-        message:
-          `line_count ${String(window.line_count)} disagrees with the ` +
-          `start/end span ${String(span)}`,
-      });
-    }
-  });
+  .superRefine(refineSampleWindow);
 export type SampleWindow = z.infer<typeof sampleWindowSchema>;
 
 /**
@@ -191,24 +150,26 @@ export type SampleWindow = z.infer<typeof sampleWindowSchema>;
  * selected sample. No timestamps and no environment-dependent fields: two
  * runs over the same base and inputs are byte-identical.
  */
-const windowSampleManifestSchema = z.strictObject({
-  schema_version: z.literal('1'),
-  base: sha40Schema,
-  window_lines: z.literal(WINDOW_LINES),
-  selection_rule: z.literal(SELECTION_RULE_V1),
-  universe: z.strictObject({
-    files: nonNegativeInt,
-    windows: nonNegativeInt,
-    hit_windows: nonNegativeInt,
-    non_hit_windows: nonNegativeInt,
-  }),
-  expectations: z.strictObject({
-    scanned_files: nonNegativeInt,
-    hit_files: nonNegativeInt,
-    hit_lines: nonNegativeInt,
-  }),
-  sample: z.array(sampleWindowSchema),
-});
+const windowSampleManifestSchema = z
+  .strictObject({
+    schema_version: z.literal('1'),
+    base: sha40Schema,
+    window_lines: z.literal(WINDOW_LINES),
+    selection_rule: z.literal(SELECTION_RULE_V1),
+    universe: z.strictObject({
+      files: nonNegativeInt,
+      windows: nonNegativeInt,
+      hit_windows: nonNegativeInt,
+      non_hit_windows: nonNegativeInt,
+    }),
+    expectations: z.strictObject({
+      scanned_files: nonNegativeInt,
+      hit_files: nonNegativeInt,
+      hit_lines: nonNegativeInt,
+    }),
+    sample: z.array(sampleWindowSchema),
+  })
+  .superRefine(refineManifest);
 export type WindowSampleManifest = z.infer<typeof windowSampleManifestSchema>;
 
 /** Parse an unknown value as a {@link WindowSampleManifest} at the read boundary. */

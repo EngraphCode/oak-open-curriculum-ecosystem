@@ -189,4 +189,40 @@ describe('parseWindowSampleManifest', () => {
     // A full window is exactly WINDOW_LINES lines.
     expect(parseWindowSampleManifest(window({ end_line: 1000, line_count: 500 })).ok).toBe(true);
   });
+
+  it('rejects manifests whose denominator arithmetic is impossible', () => {
+    // universe.windows must equal hit_windows + non_hit_windows.
+    expect(
+      parseWindowSampleManifest({
+        ...valid(),
+        universe: { files: 2, windows: 4, hit_windows: 1, non_hit_windows: 2 },
+      }).ok,
+    ).toBe(false);
+    // universe.files must equal expectations.scanned_files.
+    expect(
+      parseWindowSampleManifest({
+        ...valid(),
+        universe: { files: 3, windows: 3, hit_windows: 1, non_hit_windows: 2 },
+      }).ok,
+    ).toBe(false);
+    // The sample length must match the v1 stride over the non-hit windows.
+    expect(parseWindowSampleManifest({ ...valid(), sample: [] }).ok).toBe(false);
+  });
+
+  it('rejects a sample not sorted by (file, window_index)', () => {
+    const twoWindowManifest = (first: string, second: string): Record<string, unknown> => ({
+      ...valid(),
+      universe: { files: 2, windows: 13, hit_windows: 1, non_hit_windows: 12 },
+      sample: [
+        { file: first, window_index: 0, start_line: 1, end_line: 500, line_count: 500 },
+        { file: second, window_index: 0, start_line: 1, end_line: 500, line_count: 500 },
+      ],
+    });
+    expect(
+      parseWindowSampleManifest(twoWindowManifest('.agent/prompts/b.md', '.agent/prompts/a.md')).ok,
+    ).toBe(false);
+    expect(
+      parseWindowSampleManifest(twoWindowManifest('.agent/prompts/a.md', '.agent/prompts/b.md')).ok,
+    ).toBe(true);
+  });
 });
