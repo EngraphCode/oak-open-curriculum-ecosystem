@@ -92,7 +92,10 @@ Immediately after opening — and again after every push — pull all four
 surfaces. Partial reads produce false "no problems" verdicts:
 
 1. **Review threads (the authoritative comment surface)** — GraphQL
-   `pullRequest.reviewThreads { isResolved, path, comments }`. REST issue
+   `pullRequest.reviewThreads { isResolved, path, comments }`, including each
+   thread's originating review commit binding
+   (`comments.nodes[0].pullRequestReview.commit.oid`) — the field the
+   review-round state machine's tally store (item 2) is built from. REST issue
    comments MISS inline bot threads (Copilot, Bugbot); a REST-only read is the
    canonical way to falsely conclude "no comments". Worked failure 2026-07-02:
    two REST comments were triaged as "noise" while four unresolved Copilot
@@ -135,32 +138,22 @@ select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
 
 ## Phase 5 — Wait without burning budget: the SUPERVISED terminal-condition watch
 
-- **Every PR-state read STARTS from the compound query** —
-  `headRefOid` (the current tip every review binding is compared against) +
-  `mergeStateStatus` + unresolved `reviewThreads` count +
-  `statusCheckRollup` + the reviewer tip-binding read
-  (`latestReviews(first:20){totalCount pageInfo{hasNextPage endCursor}
-  nodes{author{login} commit{oid} state submittedAt body}}` — the per-author
-  latest-review connection, verified
-  live on PR #391, 2026-07-16; a bounded `reviews(last:20)` read is WRONG
-  here: a long review history pushes an earlier bot's latest review out of
-  the window (#390 exceeded 20 review records), and omitting `body` makes a
-  reviewer's skip marker unreadable. Treat `totalCount > 20` as truncation
-  and page before concluding a reviewer is absent),
-  in ONE call (the fourth leg added 2026-07-16, PR #390 — see Phase 7's
-  round-owed gate). This is a floor, not a ceiling: the Phase 3 harvest and the
-  pr-watch poll are consumers and refinements of the same compound state —
-  what is forbidden is reading any SINGLE field in isolation to answer a
-  question, however narrow the prompting signal (owner correction, ~50th
-  instance of the class, PR #329, 2026-07-08: told "BEHIND", a seat read
-  merge-state and checks and re-armed while two fresh unresolved threads were
-  the actual blocker). Answering a named signal with just that signal's
-  fields is the recurring generator; the cure is categorical, never
-  vigilance. Read the composite AND the components: when
-  `required_review_thread_resolution` is enabled on the base branch (verify
-  it against the branch-rules API rather than assuming — true here when last
-  verified, 2026-07-08), `mergeStateStatus: CLEAN` is GitHub's own
-  conjunction of checks, threads, and currency — a composite/component
+- **Every PR-state read STARTS from the compound read — the review-round
+  state machine's item 1, below — in ONE call.** This is a floor, not a
+  ceiling: the Phase 3 harvest and the pr-watch poll are consumers and
+  refinements of the same compound state — what is forbidden is reading any
+  SINGLE field in isolation to answer a question, however narrow the
+  prompting signal (owner correction, ~50th instance of the class, PR #329,
+  2026-07-08: told "BEHIND", a seat read merge-state and checks and re-armed
+  while two fresh unresolved threads were the actual blocker). Answering a
+  named signal with just that signal's fields is the recurring generator;
+  the cure is categorical, never vigilance. Read the composite AND the
+  components: when `required_review_thread_resolution` is enabled on the
+  base branch (verify it against the branch-rules API rather than assuming —
+  true here when last verified, 2026-07-08), `mergeStateStatus: CLEAN` is
+  GitHub's own conjunction of ITS OWN merge requirements — checks, threads,
+  currency; NOT the state machine's round-owed leg, so CLEAN with an OWED
+  reviewer leg is still not merge-ready — and a composite/component
   disagreement is itself a finding to chase, never noise.
 - Run the repo's budgeted watcher in the background:
   `pnpm agent-tools:pr-watch <n> --watch --interval 60` — one line per state
@@ -185,6 +178,80 @@ select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
   `gh` polling loops (the shared 5,000/hr API budget; frictions F-110).
   Between events, continue other work or hold; the watcher wakes you.
 
+## The review-round state machine (single definition)
+
+Phases 5–7 drive one coupled loop over review rounds. The contract lives
+here, once; the phases reference it. Amendments land in this section, never
+as phase-local restatements.
+
+1. **The compound read.** One GraphQL selection answers every PR-state
+   question: `headRefOid` (the current tip every review binding is compared
+   against) + `mergeStateStatus` + unresolved `reviewThreads` count +
+   `statusCheckRollup` + `latestReviews(first:20){totalCount
+   pageInfo{hasNextPage endCursor} nodes{author{login} commit{oid} state
+   submittedAt body}}` — the per-author latest-review connection, verified
+   live on PR #391, 2026-07-16 (the leg added 2026-07-16, PR #390). A
+   bounded `reviews(last:20)` read is WRONG here: a long review history
+   pushes an earlier bot's latest review out of the window (#390 exceeded
+   20 review records), and omitting `body` makes a reviewer's skip marker
+   unreadable. Treat `totalCount > 20` as truncation and page before
+   concluding a reviewer is absent. `latestReviews` serves ONLY the
+   reviewer-leg and settled checks (items 3–4, latest review per author);
+   never the tally (item 2); it CANNOT
+   reconstruct round history — rows vanish from the connection whenever a
+   reviewer posts again.
+2. **The tally store.** One row per settled round, `{round commit SHA,
+   count of findings in reviews bound to that commit}`, PERSISTED in the
+   shepherd's working notes and built from the Phase 3 full harvest — each
+   review thread's originating review carries its commit binding
+   (`comments.nodes[0].pullRequestReview.commit.oid`). NEVER derive the
+   tally from `latestReviews` (item 1: rows vanish), and NEVER bucket by
+   arrival order: reviews bind to the tip they reviewed, and a review bound
+   to an older tip can land after a newer push (round-2 correction,
+   2026-07-16 — on #390 a review for `861bb8924` arrived after `783c567af`
+   was pushed; arrival-order tallying charges findings to the wrong round
+   and can falsely trigger, or mask, non-convergence). Convergence is the
+   per-round count strictly decreasing. **The step-back trigger is
+   mechanical — 2 consecutive non-decreasing rounds OR 4 total rounds**
+   (owner correction, 2026-07-16, PR #390: 8 rounds / ~38 findings ran
+   unnoticed as non-convergence because nothing counted).
+3. **Reviewer-leg states**, computed per (reviewer, tip) from the compound
+   read: **SATISFIED** — the reviewer's latest review is bound to the tip.
+   **SKIPPED** — an explicit skip marker in a review body, or the timeout:
+   no review bound to the tip after one full checks-green quiet window
+   (>10 min from the tip's checks reaching green); record the skip with its
+   evidence (reviewer, tip SHA, window bounds) in the shepherd's working
+   notes (round-2 correction, 2026-07-16: without the timeout the gate goes
+   permanently unsatisfiable the moment a reviewer stops reviewing — on
+   #390, claude[bot] posted a spend-limit skip review on the first commit
+   and nothing on any later tip, so every subsequent tip would read owed
+   forever with no tip-specific marker obtainable). **OWED** — otherwise.
+   The gate never waits more than one quiet window for any single reviewer.
+   CRITICAL first-round rule: the EXPECTED reviewer set is not just "bots
+   that previously reviewed this PR" — on a repo whose ruleset configures
+   bot review on push (Copilot here), the first round is ALWAYS expected,
+   so before any bot has reviewed, every configured bot is OWED until it
+   posts or the checks-green quiet-window timeout fires. This closes the
+   vacuous-predicate hole where arming on an initial tip could merge before
+   the first bot round ever lands.
+4. **Round settled; merge-ready.** A round is SETTLED when every expected
+   reviewer leg reads SATISFIED or SKIPPED for the current tip AND a quiet
+   window LONGER than the async lag has elapsed since the latest review
+   binding to the tip — never since the push (>10 min; 12 used on #330)
+   (round-3 correction, 2026-07-16: without the skip clause a timed-out
+   reviewer stays bound to an older commit and the settled state is
+   unreachable). On a tip where every leg settled via SKIPPED (no review
+   ever bound to the tip), the quiet window anchors on the checks-green
+   window from item 3. MERGE-READY is a settled round that landed zero new
+   findings, plus every Phase 7 gate leg.
+5. **The arm boundary.** Auto-merge may be armed only when the round reads
+   SETTLED per item 4 for the current tip — no leg OWED and the quiet
+   window elapsed — plus zero unresolved threads and the Sonar gate not
+   failing; required status checks MAY still be pending, and riding them
+   out is arming's only value. On a PR where the full gate
+   is already satisfied the same command executes an immediate merge —
+   either way it inherits Phase 7's merge-authorisation boundary unchanged.
+
 ## Phase 6 — After EVERY push, re-fetch; resolve only what is settled
 
 - Bots re-review each push asynchronously: **"0 unresolved" is a moment, not
@@ -206,27 +273,16 @@ select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
   Fixed-interval settle probes are superseded by that watch. Event monitors
   give awareness of arrivals, but awareness is not convergence ownership;
   without the supervised watch the human becomes the loop operator.
-  **Declare a round settled only when every reviewer leg is satisfied for the
-  CURRENT tip — its latest review bound to the tip, OR a recorded skip for
-  the tip (an explicit skip marker, or Phase 7's SKIPPED-FOR-TIP timeout) —
-  AND a quiet window LONGER than the async lag has elapsed (>10 min; 12 used
-  on #330)** (round-3 correction, 2026-07-16: without the skip clause a
-  timed-out reviewer stays bound to an older commit and the settled state is
-  unreachable); declare merge-ready only after that settled round lands zero
-  new findings. Bundle every finding from one round into
+  **Declare a round settled, and merge-ready after it, only per the state
+  machine's definitions (items 3–4)** — every reviewer leg SATISFIED or
+  SKIPPED for the CURRENT tip plus the quiet window, never from a
+  "0 unresolved" moment. Bundle every finding from one round into
   ONE fix push (each push mints a fresh round; per-finding pushes multiply
-  rounds without bound). **Keep the numeric round tally** (owner correction,
-  2026-07-16, PR #390: 8 rounds / ~38 findings ran unnoticed as
-  non-convergence because nothing counted): one tally row per settled round,
-  `{round commit SHA, count of findings in reviews BOUND to that commit}` —
-  bucket every finding by its originating review's `commit.oid` (the Phase 5
-  `latestReviews` leg), NEVER by arrival order: reviews bind to the tip they
-  reviewed, and a review bound to an older tip can land after a newer push
-  (round-2 correction, 2026-07-16 — on #390 a review for `861bb8924` arrived
-  after `783c567af` was pushed; arrival-order tallying charges those findings
-  to the wrong round and can falsely trigger, or mask, non-convergence).
-  Convergence is that per-round count strictly decreasing. **The step-back trigger is
-  mechanical — 2 consecutive non-decreasing rounds OR 4 total rounds: STOP
+  rounds without bound). **Keep the numeric round tally exactly as the
+  state machine's item 2 defines it** — persisted rows built from the
+  Phase 3 harvest's review-commit bindings, never from `latestReviews`,
+  never by arrival order. When item 2's mechanical step-back trigger fires
+  (2 consecutive non-decreasing rounds OR 4 total rounds): **STOP
   fix-pushing.** Step back and run concept exploration over the FULL finding
   corpus for the shared generator; fix the CLASS in one pass, and consider
   splitting the PR (on #390 the generator was authored restatement of
@@ -249,56 +305,45 @@ select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
 
 Merge-ready means, re-verified at the declaration instant: all checks green
 AND zero unresolved review threads AND the Sonar quality gate passing AND any
-genuinely required review landed (the author-dependent leg below) AND **no
-review round is owed to the current tip** (owner correction, 2026-07-16,
-PR #390: the merge raced a composing Copilot round, which then posted five
-findings onto merged code). A round is OWED when any bot reviewer that has
-previously reviewed this PR has its latest review bound to an OLDER commit
-than the tip and has posted no explicit skip marker for the tip — read it
-from the compound query's `latestReviews` leg (latest per author vs
-`headRefOid`, with `body` included so a skip marker is actually readable).
-Owed = do not merge, regardless of green checks and zero unresolved threads;
-the >10-minute quiet window runs from the round BINDING to the tip, not from
-the push. The owed set is BOUNDED by a timeout escape (round-2 correction,
-2026-07-16: without one the gate goes permanently unsatisfiable the moment a
-reviewer stops reviewing — on #390, claude[bot] posted a spend-limit skip
-review on the first commit and nothing on any later tip, so every subsequent
-tip would read owed forever with no tip-specific marker obtainable): a
-reviewer with no review bound to the tip after one full checks-green quiet
-window (>10 min from the tip's checks reaching green) is **SKIPPED-FOR-TIP**
-— record the skip with its evidence (reviewer, tip SHA, window bounds) in
-the shepherd's working notes and proceed; the gate never waits more than one
-quiet window for any single reviewer. Then:
+genuinely required review landed (the author-dependent leg below) AND **the
+review round SETTLED for the current tip with zero new findings — no
+reviewer leg OWED — per the review-round state machine, items 3–4** (owner
+correction, 2026-07-16, PR #390: the merge raced a composing Copilot round,
+which then posted five findings onto merged code). OWED = do not merge,
+regardless of green checks and zero unresolved threads; the SKIPPED timeout
+(state machine item 3) bounds the wait, so the gate never waits more than
+one checks-green quiet window for any single reviewer. Then:
 
 - **`mergeable` means POSSIBLE to merge; it does NOT mean READY to merge**
   (owner, 2026-07-08). GitHub's `mergeable: MERGEABLE` asserts only
   conflict-freeness and reads TRUE on a PR with failing checks and open
-  threads. The readiness field is **`mergeStateStatus`**: `CLEAN` = every
-  merge requirement satisfied; `BLOCKED`/`UNSTABLE`/`BEHIND` name what is
-  not. Every readiness read in this phase — the declaration-instant
-  recompute, the "why isn't it merging" diagnosis — queries
+  threads. The readiness field is **`mergeStateStatus`**: `CLEAN` = GitHub's
+  conjunction of ITS OWN merge requirements satisfied — it does NOT include
+  the state machine's round-owed leg, so a CLEAN read with an OWED reviewer
+  leg is still not merge-ready; `BLOCKED`/`UNSTABLE`/`BEHIND` name what
+  GitHub sees as unsatisfied. Every readiness read in this phase — the
+  declaration-instant recompute, the "why isn't it merging" diagnosis — queries
   `mergeStateStatus`, never `mergeable`. Worked instance (2026-07-08,
   PR #325): a seat recomputed `mergeable: MERGEABLE` three times as its
   "truly-green gate" while never once reading `mergeStateStatus`, and could
   not explain the unmerged state to the owner.
-- **Arm auto-merge only AFTER the REVIEW legs of this phase's gate read
-  satisfied on the CURRENT tip — no round owed (per the definition above)
-  AND zero unresolved threads AND the Sonar gate not failing; required
-  status checks MAY still be pending** (round-2/round-3 corrections,
-  2026-07-16, this PR: the original arm-early guidance scheduled GitHub's
-  CLEAN-fire merge, and CLEAN does not include the round-owed condition —
-  arming before the review legs are settled schedules exactly the race the
-  gate exists to prevent, and the supervised watch can observe but not
-  delay a scheduled merge. On bot-reviewed PRs arm-early is therefore dead
-  by design; riding out still-pending CHECKS is arming's only remaining
-  value, which is why the arm boundary is the review legs, not the full
-  gate). On a PR where the full gate is already satisfied the same command
-  executes an immediate merge — either way it inherits the
-  merge-authorisation boundary below unchanged (arming schedules the exact merge that boundary governs:
-  on a SELF-AUTHORED, sub-agent-reviewed PR with no in-session owner grant,
-  broadcast merge-READY and leave the mechanism to the owner). A PR sitting
-  unmerged at truly-green because nobody armed the mechanism (where arming
-  was authorised) is the shepherd's unfinished work (PR #325, 2026-07-08).
+- **Arm auto-merge only at the state machine's arm boundary (item 5) — the
+  REVIEW legs settled on the CURRENT tip; required status checks MAY still
+  be pending** (round-2/round-3 corrections, 2026-07-16, this PR: the
+  original arm-early guidance scheduled GitHub's CLEAN-fire merge, and
+  CLEAN does not include the round-owed condition — arming before the
+  review legs are settled schedules exactly the race the gate exists to
+  prevent, and the supervised watch can observe but not delay a scheduled
+  merge. On bot-reviewed PRs arm-early is therefore dead by design; riding
+  out still-pending CHECKS is arming's only remaining value, which is why
+  the arm boundary is the review legs, not the full gate). Whether it arms
+  or merges immediately, the command inherits the merge-authorisation
+  boundary below unchanged (arming schedules the exact merge that boundary
+  governs: on a SELF-AUTHORED, sub-agent-reviewed PR with no in-session
+  owner grant, broadcast merge-READY and leave the mechanism to the owner).
+  A PR sitting unmerged at truly-green because nobody armed the mechanism
+  (where arming was authorised) is the shepherd's unfinished work (PR #325,
+  2026-07-08).
   If an arm attempt bundled with other actions is harness-denied, retry the
   bare `gh pr merge <n> --auto --merge` alone before concluding the
   capability is gated — on #325 a denied composite was over-generalised to
@@ -314,9 +359,9 @@ quiet window for any single reviewer. Then:
   governance, never the shepherd's bypass.
 
 - **The merge gate is merge-button-active-for-a-non-admin**: a truly-green
-  PR — all checks green AND every review thread resolved (fixed, or
-  rejected as inaccurate with rationale) — merges via a normal non-admin
-  `gh pr merge`, SUBJECT to the merge-readiness boundary below (a
+  PR — MERGE-READY per the state machine's item 4: a settled round with
+  zero new findings, plus every gate leg above — merges via a normal
+  non-admin `gh pr merge`, SUBJECT to the merge-readiness boundary below (a
   self-authored, sub-agent-reviewed PR additionally needs an in-session
   owner grant or the owner's own merge — the gate opens the button, the
   boundary says who may press it). `--admin` is FORBIDDEN: it bypasses the
@@ -324,10 +369,14 @@ quiet window for any single reviewer. Then:
   once threads resolved). Notify the owner at this action moment (send the
   notification; never suppress it on inferred presence —
   `owner-attention-at-action-moments`).
-- `BLOCKED` means the gate is genuinely unsatisfied — unresolved threads, a
-  failing or pending check, or a genuinely required review that has not
-  landed. It never means "any agent merge is prohibited". The
-  required-review leg is author-dependent (verified 2026-06-24): a
+- `BLOCKED` normally means the gate is genuinely unsatisfied — unresolved
+  threads, a failing or pending check, or a genuinely required review that
+  has not landed — with two known divergences from the full gate: the
+  never-fires case above (PR #391: a required context nothing posts holds
+  `BLOCKED` at green-everything) and the converse CLEAN-with-OWED-reviewer
+  case (state machine item 3). It never means "any agent merge is
+  prohibited". The required-review leg is author-dependent (verified
+  2026-06-24): a
   bot-authored PR shows `BLOCKED` until the code-owner approval lands; a PR
   authored under the owner's own auth shows `CLEAN` and merges directly —
   GitHub auto-satisfies the code-owner requirement when the author IS the
@@ -376,7 +425,8 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   calling it, before pushing anything else to that branch. `gh pr merge
   --auto --merge` is the safe complement: it arms cleanly on a `BLOCKED`
   PR still waiting on checks and fires the instant the PR goes `CLEAN`, with
-  no further local action.
+  no further local action — subject, as every arm is, to the state
+  machine's arm boundary (item 5): review legs settled first.
 
 ## Phase 8 — After merge
 
@@ -404,11 +454,11 @@ update continuity surfaces; close claims.
   at source.
 - Tight `gh` polling loops in place of the budgeted watcher.
 - A merge fired between "zero unresolved verified" and a composing bot
-  round binding to the tip (PR #390, 2026-07-16) — cured by the Phase 7
-  round-owed gate.
+  round binding to the tip (PR #390, 2026-07-16) — cured by the state
+  machine's reviewer-leg states and round-owed gate (items 3–4).
 - Eight fix-rounds shepherded one-by-one with no per-round tally, so
   non-convergence never surfaced as a signal (PR #390) — cured by the
-  Phase 6 numeric tally + step-back trigger.
+  state machine's tally store + step-back trigger (item 2).
 - An armed auto-merge waiting forever on a required status context that
   nothing posts any more, misread as a merge mystery (PR #391, 2026-07-16:
   the required SonarCloud context was absent from every commit including
