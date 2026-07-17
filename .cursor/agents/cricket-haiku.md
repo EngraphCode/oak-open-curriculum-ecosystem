@@ -14,4 +14,7 @@ That template is the canonical role definition (the compiled decision
 procedure, banned moves, output contract). Execute the procedure exactly from
 the supplied context in a single fast pass and report only — never explore
 the repository. (On Claude this role runs Read-only by frontmatter; Cursor
-cannot enforce that envelope, so honour it behaviourally.)
+cannot enforce that envelope, so honour it behaviourally. Cursor also cannot
+pin a model per-agent here, so on Cursor this is a PROCEDURE-ONLY variant —
+the small-model half of the A/B runs on the Claude wrapper, which pins
+haiku.)

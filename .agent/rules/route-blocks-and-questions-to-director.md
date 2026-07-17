@@ -64,8 +64,8 @@ intervention trains the next seat to stage one.
 - [`owner-attention-at-action-moments.md`](owner-attention-at-action-moments.md)
   — owner attention is spent at sanction moments, not session mechanics.
 - PDR-117 (Director/Implementer roles) — owns the single-owner-interface
-  contract; the upward-escalation clause encoding this rule is queued for
-  the next consolidation.
+  contract; PDR-117 is the doctrine home for the upward-escalation clause
+  encoding this rule.
 
 ## Enforcement
 

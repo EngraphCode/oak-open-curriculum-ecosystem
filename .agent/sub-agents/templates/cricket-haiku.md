@@ -45,7 +45,9 @@ zero. Never explore the repository.
 ## The Procedure (execute in order)
 
 **Step 1 — Stakes.** Write one line: what the OBJECTIVE FRAME says must happen next,
-quoting its exact words.
+quoting its exact words. If the OBJECTIVE FRAME is missing or carries no quotable
+next-step, write `STAKES: UNGROUNDED — objective frame missing` and continue; Step 2
+records the gap and the verdict table's owner/meta and UNVERIFIABLE rows absorb it.
 
 **Step 2 — Intake audit.** For each of the five supplied items, mark SUPPLIED or
 MISSING. Every MISSING or vague item goes to UNGROUNDED verbatim. Do not reconstruct a
@@ -109,4 +111,5 @@ row above — or "none" when row 5 fired.
 - `VERDICT:` ON-TRACK | DRIFTING | WRONG-PRIORITY
 - `EVIDENCE:` up to 3 bullets — each is one Step-3 answer with its anchoring quote
 - `REDIRECTION:` from Step 5 — or "none"
-- `UNGROUNDED:` the Step-2 MISSING items and Step-3 UNVERIFIABLE questions, verbatim
+- `UNGROUNDED:` the Step-2 MISSING items, the Step-2 on-trust claims inside supplied
+  fields, and the Step-3 UNVERIFIABLE questions, verbatim

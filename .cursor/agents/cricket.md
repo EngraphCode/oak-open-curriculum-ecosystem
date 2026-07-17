@@ -14,4 +14,6 @@ That template is the canonical role definition (delegation triggers, the four
 questions, speed contract, output contract). Judge from the supplied context in
 a single fast pass and report only — never explore the repository. (On Claude
 this role runs Read-only by frontmatter; Cursor cannot enforce that envelope,
-so honour it behaviourally.)
+so honour it behaviourally. Background invocation is the Claude-side calling
+convention; on Cursor the invoker runs this check with whatever concurrency
+the platform offers and must not block its own work awaiting the verdict.)

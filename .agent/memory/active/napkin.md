@@ -4196,4 +4196,10 @@ The tension is real but the cure is rule surgery on owner-authored day-old doctr
 the rule corpus currently carries worked instances widely — a corpus-level convention
 question, not a two-file fix. ROUTED to the next curation pass: decide the worked-instance
 convention once (invariant-only rules + evidence in ADR/operational homes, per
-new-rule-vs-pdr-clause), then sweep the corpus consistently.
+new-rule-vs-pdr-clause), then sweep the corpus consistently. The round-3 additions ride
+the same route: the PDR-127 (team-branch protocol) vs no-parallel-long-lived-branches
+alignment question (the rule outlaws what the PDR governs — one of them needs a dated
+supersession or scope clause, an owner/curation call); the AIP-128/129 "as they land"
+enforcement-status phrasing; and the corpus-wide bare-SHA debt in pre-existing
+continuity content (the newly-added citations are prefixed; the historical sweep is a
+mechanical pass of its own).

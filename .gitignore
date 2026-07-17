@@ -307,6 +307,10 @@ demos/oak-curriculum-hub/demo-evidence/
 # 5612ae244 DID put the two s2 keys into reachable PR history (the PR closed
 # unmerged but its ref persists) — those v1 keys are compromised-for-audit
 # and re-plant before any canary gate consumes them. Keys live untracked
-# beside their consumers and re-plant per audit cycle.
+# beside their consumers and re-plant per audit cycle. Post-reveal
+# commit-ability (the r2 reveal step lands the key AFTER scoring) is owned by
+# the v2-cycle key work: the reveal convention (a .revealed.json rename or an
+# explicit forced add at the reveal step) is decided there, not by widening
+# these patterns pre-emptively.
 **/canary-key*.json
 **/canary-keyset*.json

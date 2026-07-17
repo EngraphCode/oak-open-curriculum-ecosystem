@@ -35,7 +35,8 @@ team optimised *within* the previous frame instead of questioning the frame:
 3. **Fix the generator** — a review round's first move is class analysis over the
    finding corpus; the fix kills the cause, never chases the merge.
 4. **Small PRs, short-lived branches, main is where code lives** — the
-   `flag-path-resolve` break was the worked instance: a module deleted
+   `refound-path-resolve` break was the worked instance (its consolidated
+   replacement is `flag-path-resolve`): a module deleted
    cross-branch-blind (its only consumers on another unmerged branch) broke main
    integration the moment both merged.
 5. **Ticket-first + DORA-tight** — a Linear ticket before work, PR linked to ticket,

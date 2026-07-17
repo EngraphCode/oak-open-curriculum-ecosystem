@@ -83,9 +83,10 @@ key-anchor recall (8/10 at the pin) is the unconfounded measurement. (4) ACCEPTE
 line (written before attempt 3 completed); bookkeeping corrected to three attempts
 across two run ids; the reliability note downgrades to three distinct classes — one
 harness-level safety-classifier block at dispatch, one genuine wedge, one
-server/API error mid-response (per the attempt breakdown above). Journals: session dir
-`subagents/workflows/wf_05320b61-258/journal.jsonl` (arm ii),
-`wf_e5d164e3-158/` and `wf_fafcd340-d6b/` (arm i attempts).
+server/API error mid-response (per the attempt breakdown above). Journals: under the invoking
+session's transcript directory (host-local, not repo-tracked), keyed by the run ids —
+`wf_05320b61-258` (arm ii), `wf_e5d164e3-158` and `wf_fafcd340-d6b` (arm i attempts);
+the run ids are the durable evidence keys.
 
 ## §6 read (FINAL, as amended)
 
