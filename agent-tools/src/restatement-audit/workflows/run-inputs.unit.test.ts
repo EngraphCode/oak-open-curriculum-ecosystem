@@ -167,6 +167,74 @@ describe('validateRunDataFrom', () => {
     ]);
   });
 
+  it('carries ONLY the unresolved seed grounding on resume — a small tail never hauls the full corpus payload', () => {
+    const instanceF3 = instance({ id: 'f3', file: 'c.md', line: 3, valueNorm: 'open' });
+    const instanceF4 = instance({ id: 'f4', file: 'd.md', line: 4, valueNorm: 'closed' });
+    const fourInstanceMap: MapResult = {
+      ...mapResult,
+      coverage: [{ window: 'W01', instanceCount: 4 }],
+      instanceCount: 4,
+      instances: [instanceF1, instanceF2, instanceF3, instanceF4],
+    };
+    const secondCluster: Cluster = {
+      ...g1StatusCluster,
+      id: 'exact:status-assertion:G1:gate-state',
+      predicate: 'gate-state',
+      distinctValueNorms: ['open', 'closed'],
+      memberInstanceIds: ['f3', 'f4'],
+    };
+    const twoClusterReduce: ReduceResult = {
+      ok: true,
+      instanceCount: 4,
+      clusters: [g1StatusCluster, secondCluster],
+      reduceComplete: true,
+      incompleteChunks: [],
+    };
+    const result = validateRunDataFrom({
+      mapResult: fourInstanceMap,
+      reduceResult: twoClusterReduce,
+      priorValidateResults: [evidencedPriorResult],
+      validateTokenCeiling: 1000,
+    });
+    expect(isOk(result)).toBe(true);
+    const data = unwrap(result);
+    expect(data.clusters.map((cluster) => cluster.id)).toEqual([
+      'exact:status-assertion:G1:gate-state',
+    ]);
+    expect(data.groundingInstances.map((i) => i.id).sort((a, b) => a.localeCompare(b))).toEqual([
+      'f3',
+      'f4',
+    ]);
+  });
+
+  it('de-duplicates grounding instances shared by two seed clusters — one instance, one grounding entry', () => {
+    const sharedMemberCluster: Cluster = {
+      ...g1StatusCluster,
+      id: 'reducer:status-assertion:G1:status-phrase',
+      clusterKind: 'reducer',
+      predicate: 'status-phrase',
+      verdict: 'latent',
+      distinctValueNorms: ['done'],
+      memberInstanceIds: ['f2', 'f1'],
+    };
+    const twoClusterReduce: ReduceResult = {
+      ok: true,
+      instanceCount: 2,
+      clusters: [g1StatusCluster, sharedMemberCluster],
+      reduceComplete: true,
+      incompleteChunks: [],
+    };
+    const result = validateRunDataFrom({
+      mapResult,
+      reduceResult: twoClusterReduce,
+      priorValidateResults: [],
+      validateTokenCeiling: 1000,
+    });
+    expect(isOk(result)).toBe(true);
+    const ids = unwrap(result).groundingInstances.map((i) => i.id);
+    expect(ids.sort((a, b) => a.localeCompare(b))).toEqual(['f1', 'f2']);
+  });
+
   it('refuses resolved cluster ids lacking disposition evidence in ANY prior checkpoint — an unevidenced id must never silently skip re-voting', () => {
     const unevidenced: ValidateResult = {
       ok: true,
