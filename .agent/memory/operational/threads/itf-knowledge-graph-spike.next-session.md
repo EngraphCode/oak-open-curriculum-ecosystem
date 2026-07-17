@@ -30,7 +30,7 @@ corrected in closeout event `95a479c9`. All registry rows are Fern spins Taproot
 ## Landing Target For Next Session
 
 **The integration pass (owner: run it in a Claude Code CLI instance).** Draft
-[PR #319](https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/319) — branch
+[PR #401](https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/401) (supersedes closed draft #319) — branch
 `claude/nifty-ramanujan-7b1623`, spike at `docs/spikes/inclusive-teaching-framework-knowledge-graph/`
 — is complete and deliberately **unmerged**. The next seat executes the integration checklist
 in the spike's `NOTES.md` (its §Integration checklist is the authoritative list): promote the
@@ -41,7 +41,7 @@ serving surface.
 
 ## Lane State — Grounded Facts (first-hand, complete)
 
-- Landed commits: `6edcb025a` (spike data + writeup), `bdf8b514f` (full preservation set +
+- Landed commits: `SHA:6edcb025a` (spike data + writeup), `SHA:bdf8b514f` (full preservation set +
   licensing ruling). Everything reproduces from the spike directory:
   `node build-itf-graph.mjs && node render-itf-svg.mjs` (only `generatedAt` varies).
 - **Owner rulings recorded in the spike (README + NOTES)**: all official repo code must be
@@ -64,6 +64,6 @@ serving surface.
 
 ## Next Safe Step
 
-Open PR #319, read the spike README + NOTES end to end (they are the handoff), then run the
+Open PR #401 (the current preservation vehicle; #319 is closed), read the spike README + NOTES end to end (they are the handoff), then run the
 NOTES §Integration checklist as the plan for a fresh branch or this one, at the owner's
 direction. Do not merge before the TypeScript promotion decision.

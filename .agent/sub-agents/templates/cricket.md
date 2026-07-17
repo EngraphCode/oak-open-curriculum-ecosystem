@@ -67,6 +67,8 @@ instead of reading to resolve them.
 
 ## Output Contract (your entire return, under 200 words)
 
+- The return OPENS with the identity component's three-line declaration
+  (`Name` / `Purpose` / `Summary`, per `subagent-identity.md`), then:
 - `VERDICT:` ON-TRACK | DRIFTING | WRONG-PRIORITY
 - `EVIDENCE:` up to 3 bullets, each citing the supplied context (or the one thing you
   Read)

@@ -1,12 +1,19 @@
 # Walk A — sitting agenda
 
-DRAFT — assembled by the sitting Director (Mussel rides Coral, team Mango) 2026-07-15.
-Becomes final when the r2 staged evidence (lane seed + pilot design, in flight) attaches.
-Walk A convenes at the owner's call.
+AGENDA FINAL as of 2026-07-16 — assembled by the sitting Director (Mussel rides Coral,
+team Mango) 2026-07-15; the decision list and its attached staged evidence (input 4,
+Director-reviewed) are complete. One evidence input remains in flight by design: the
+pilot pass's MEASURED outputs (`r2-evidence/lane-assignments.v1.jsonl` + the
+lane-evidence report) land only when the merge-anchored dispatch runs. The plan's
+REQUIRED sitting inputs (the R1 denominator and the divergence report) are on main, so
+Walk A convenes at the owner's call — with the measured pilot evidence attached, or
+before it at the owner's choice.
 
 ## What this sitting is
 
-Per the controlling plan (`plan-corpus-refounding.plan.md`, todo `r2-lanes-and-walk-a` and
+Per the controlling plan
+([`plan-corpus-refounding.plan.md`](../plans/product-development-governance/active/plan-corpus-refounding.plan.md),
+todo `r2-lanes-and-walk-a` and
 its gate table): THE binding post-refounding organisational-structure decision. The owner
 ratifies the lane taxonomy and the escalation-thinning policy tables; the R1 source
 denominator and the census/divergence report are presented as sitting inputs
@@ -37,8 +44,8 @@ denominator and the census/divergence report are presented as sitting inputs
    [`r2-pilot-evidence-pass-design.v1.md`](r2-pilot-evidence-pass-design.v1.md)
    (pilot area `connecting-oak-resources`; stratified 137-file sample of
    record with expected-reach denominators; sealed lane-assignment canaries via
-   `plant-challenge-canary` SEAL mode, key seat-authored with owner ratification
-   riding OG-3; 2-lens + escalation-only third; draft P12 declaration).
+   `refound-plant-challenge-canary` SEAL mode, key seat-authored with owner ratification
+   riding OG-3; 2-lens + escalation-only third; FINAL P12 declaration, owner-approved 2026-07-15 and anchored to the landing PR's merge-to-main).
 
 ## Decisions the sitting makes (from the plan's r2 acceptance)
 

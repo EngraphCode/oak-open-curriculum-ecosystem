@@ -45,8 +45,8 @@ isProject: false
 **Scope**: Every deterministic tool the remaining plan-corpus-refounding stages need exists, tested and registered, BEFORE its stage starts — no mid-stage tool-building stalls.
 
 > **Seat-closure addendum (2026-07-15 ~20:30Z, Acacia rides Bark 637ea1).** Item 1 is
-> MERGED — PR #387 (merge commit `c0aba5a5b`; lane commits `057a582c7`, `a32ffe68d`,
-> `f2f644283`, `23759f3ea`). The final round also promoted `unwrapErr` into
+> MERGED — PR #387 (merge commit `SHA:c0aba5a5b`; lane commits `SHA:057a582c7`, `SHA:a32ffe68d`,
+> `SHA:f2f644283`, `SHA:23759f3ea`). The final round also promoted `unwrapErr` into
 > `@oaknational/result` (single `raise()` throw-edge in `packages/core/result/src/unwrapping.ts`
 > — the no-throw retrofit lane's single tolerated warning now lives THERE) and nested
 > `prepareEntryRun`'s payload (`EntryRun<T>`). The tooling seat was then CLOSED by the owner;
@@ -136,7 +136,7 @@ at natural boundaries per `oak-session-handoff` / `oak-consolidate-docs`.
 
 ## The items (each WS = one item = one PR)
 
-### Item 1 — arg-contract / `--help` guard on every raw refound-* entry (IN FLIGHT)
+### Item 1 — arg-contract / `--help` guard on every raw refound-* entry (COMPLETE — MERGED via PR #387)
 
 **File scope**: `agent-tools/src/refounding/refound-entry-args.ts` (+ unit test, NEW);
 `refound-freeze-args.ts` (delegates); the 10 non-conformant entries (verify-freeze,

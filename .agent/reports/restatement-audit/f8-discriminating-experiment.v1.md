@@ -88,7 +88,8 @@ likely-transient API failures. Journals: session dir
 
 ## §6 read (FINAL, as amended)
 
-1. **Capacity/window-size dominates gross recall** — cure: window arithmetic (smaller
+1. **Capacity/window-size has a large measured effect on gross recall (effort
+   unmeasured — the accepted correction bars a dominance claim)** — cure: window arithmetic (smaller
    windows; per-file at the limit), with the spend consequence explicit: arm (ii) cost
    ~270k tokens vs the pilot's ~101k for the same files — ~2.7× per unit corpus.
    Extrapolated to the T3+U corpus (137 files), per-file dispatch at this rate is

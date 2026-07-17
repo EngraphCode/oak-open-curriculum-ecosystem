@@ -3,8 +3,10 @@
 Compound pair: Mussel rides Coral (6f8857, Director) + Vole hunts Perch (36c6ca,
 implementer), with three owner hand-interventions and a rotating cast of tightly-briefed
 Opus delegates. Written at session close by the Director; claims verified against the
-repo by independent subagents (their verification table is appended by reference at the
-bottom once returned).
+repo by independent subagents. (Truing 2026-07-17: the promised appended verification
+table never landed in this file; the verification outcome is recorded instead in the
+Director current-state record's final line — 14 pagination-missed threads found and
+dispositioned, two genuine defects extending AIP-126 to 8 items.)
 
 ## Outcome
 

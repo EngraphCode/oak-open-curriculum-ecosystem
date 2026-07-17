@@ -1,4 +1,4 @@
-# r2 — Pilot-area evidence pass: design (v1, DRAFT for Director review)
+# r2 — Pilot-area evidence pass: design (v1 — Director-approved 2026-07-15; declaration owner-approved, merge-anchored)
 
 Authored 2026-07-15 by Aurora guards Penumbra (2226bf), team Mango, S2 seat,
 under the Director r2 remit (wake event `72687e20`; claim `a1e8fa1a`).
@@ -73,14 +73,26 @@ evidence, not work items.
 | --- | --- | --- |
 | S-A pilot area | ALL md plan files in `plans/connecting-oak-resources/` | 16 files |
 | S-B estate spread | Per collection: ceil(10% of files), min 2, cap 8; indices floor(j·n/k) over code-unit-sorted paths — recomputable, no RNG | 86 files |
-| S-C residue hosts | The 224 unmapped-status rows live in 160 distinct host files (measured at manifest generation — the drafted "≤40" estimate was wrong by 4×). Sampling every host would breach the declared invocation ceiling, so S-C applies the SAME per-collection k-rule draw over the residue hosts not already drawn — bounded, evenly spread, recomputable | 35 files |
+| S-C residue hosts | The report's raw distinct unmapped-status hosts number 191 (the manifest's `inputs.unmappedHostFiles`); intersecting with the 643-file inventory denominator leaves 160 ELIGIBLE hosts (measured at manifest generation — the drafted "≤40" estimate was wrong by 4×). Sampling every eligible host would breach the declared invocation ceiling, so S-C applies the SAME per-collection k-rule draw over the eligible hosts not already drawn by S-A/S-B — bounded, evenly spread, recomputable | 35 files |
 | Total | | 137 files ≈ 21% of the 643-file denominator |
 
 The generated manifest (`r2-evidence/sample-manifest.v1.json`) is the
 draw of record: byte-identical on re-run (proven at generation), carrying
-the draw rule, the strata, and the per-lane expected-reach denominators
-(every seed lane reaches ≥5 sampled files; `compliance-and-readiness` is
-the floor at 5 — the small-collection effect condition 1 anticipated).
+the draw rule, the strata, and a generation-time snapshot of the per-lane
+expected-reach denominators (every seed lane reaches ≥5 sampled files;
+`compliance-and-readiness` is the floor at 5 — the small-collection effect
+condition 1 anticipated). **Falsifier-1 denominators are RECOMPUTED by the
+dispatcher at scoring time** from the two committed sources — the
+manifest's strata and the seed document's FINAL coverage table — because
+the coverage map moved after generation (`architecture-and-infrastructure`
+reassigned to `practice-and-governance` in review); the embedded
+`expectedReach` block is the generation-time snapshot and is superseded
+wherever the final coverage table differs. Both inputs are committed, so
+the recomputation is deterministic and the manifest's regeneration proof
+stays intact. Consumers never iterate the embedded block as a lane list —
+it carries generation metadata beyond the seed lanes (e.g. the
+`estate-or-unmapped` bookkeeping count); the recomputed falsifier-1
+denominators are keyed strictly by the seven seed lane ids.
 
 Every seed lane either receives assignment rows or its emptiness becomes
 recorded evidence (falsifier 1) — S-B guarantees estate-wide reach.
@@ -91,8 +103,16 @@ Per sampled file, two INDEPENDENT lens agents, blind to each other:
 
 - **Lens A — derivation lens**: from the file's stated intent (frontmatter,
   lineage, opening framing): which seed lane does this plan SERVE? One value
-  from the closed list — the 7 seed lanes plus `re-home-by-function` — no
-  free text, no abstention. `re-home-by-function` is for wrong-kind content
+  from the closed list — the 7 seed lanes, `re-home-by-function`,
+  `unassignable-to-seed`, or `estate-roadmap-surface` — no free text.
+  `estate-roadmap-surface` is for estate-level index/milestone surfaces
+  (root `plans/README.md`, `milestones/**`, `high-level-plan.md`) that map
+  to the estate roadmap, not to any lane — the seed's coverage note names
+  them. `unassignable-to-seed` is the
+  EXPLICIT abstention: the lens genuinely cannot place the file in any seed
+  lane and says so with a warrant; its post-escalation share is what
+  falsifier 6 (the global >20% re-derivation trigger) measures — without
+  it that falsifier could never fire. `re-home-by-function` is for wrong-kind content
   (operational records, evidence, research living inside the plans tree),
   which per the priors' homeless-concepts cure 1 re-homes by FUNCTION and
   never into a lane; keeping it out of `conservatory` keeps the holding
@@ -108,14 +128,38 @@ Both lenses return schema-forced structured output:
 
 ```json
 {
-  "file": "plans/<collection>/<lane>/<name>.md",
-  "lane": "one-of-7-seed-ids",
+  "file": "the exact path VERBATIM from sample-manifest.v1.json (the manifest includes milestones/**, proposals/**, collection-root READMEs, and nested paths — not only plans/<collection>/<lane>/<name>.md)",
+  "lane": "one of the 10 closed values: the 7 seed ids | re-home-by-function | unassignable-to-seed | estate-roadmap-surface",
   "confidence": "high | medium | low",
   "warrant": "<=40-word quote-anchored justification",
   "splitFlag": false,
-  "splitSpans": []
+  "splitLane": "the SECOND lane pulling, one of the SEVEN SEED LANE ids only (re-home-by-function and unassignable-to-seed are not lanes and would poison the pair matrix) — null unless splitFlag is true; feeds falsifier 2's lane-pair co-occurrence matrix",
+  "splitSpans": [],
+  "subLaneQualifier": "free-text sub-lane qualifier, recorded ONLY when lane = engineering-tools and the assignment needed one to be usable — null otherwise; feeds falsifier 5"
 }
 ```
+
+The two structured fields exist because two falsifiers need deterministic
+inputs a flag and quoted spans cannot encode: falsifier 2 computes lane-pair
+co-occurrence from `splitLane`, and falsifier 5 counts `subLaneQualifier`
+usage; the evidence report's contract (below) consumes both.
+
+Every row in `lane-assignments.v1.jsonl` additionally carries the versioned
+row envelope: `"schemaVersion": "r2-lane-assignment.v1"` and
+`"rowKind": "lens-a" | "lens-b" | "escalation"`. Escalation rows carry the
+escalation-specific fields in place of the lens fields: `"lanePair"` (the
+two disagreeing LENS values as a CANONICAL UNORDERED pair — sorted
+lexicographically, any of the 10 closed values; falsifier 4's
+boundary-defect statistic consumes only pairs where BOTH values are seed
+lanes, with unassignable-involving pairs reported as the
+abstention-disagreement class and re-home-involving pairs as the
+kind-disagreement class, per the seed's falsifier-4 definition), `"resolvedLane"` (one of the 10 closed
+values), and `"rationale"` (<=60 words). The dispatcher schema-validates
+the file against this envelope: EXACTLY one `lens-a` and one `lens-b` row
+per sampled file, plus exactly one `escalation` row for each file whose
+lens rows disagree; a file's RESOLVED assignment is the agreed lane, else
+the escalation row's `resolvedLane`. Count parity and this reconstruction
+are dispatcher-side recomputation, never sampling.
 
 - **Agreement** (same lane) → an assignment-evidence row.
 - **Disagreement** → the escalation-only-third lens (a senior-tier agent
@@ -125,7 +169,7 @@ Both lenses return schema-forced structured output:
   exploration; the dispatcher supplies untruncated file content per J8's
   decision-complete brief discipline.
 
-## Sealed lane-assignment canaries (P4; `plant-challenge-canary` SEAL mode)
+## Sealed lane-assignment canaries (P4; `refound-plant-challenge-canary` SEAL mode)
 
 > **STATUS TRUING (2026-07-17).** The 2026-07-16 v1 key artefacts
 > (`canary-key.v1.json`, `canary-keyset.v1.json`) are classified
@@ -134,9 +178,9 @@ Both lenses return schema-forced structured output:
 > readable in history can no longer prove a finder found rather than read
 > it. Before ANY dispatch consumes this section's gate, the key set and
 > evidence doc MUST be freshly re-authored and re-sealed (a new commitment;
-> never a re-seal of the exposed bytes). The "untracked until reveal"
-> contract below is unchanged and is now mechanically enforced by the
-> repo `.gitignore` canary-key patterns.
+> never a re-seal of the exposed bytes). The dispatcher-held-untracked
+> contract below is unchanged and is now mechanically enforced by the repo
+> `.gitignore` canary-key patterns.
 
 The pass's catch-machinery must prove it can fire before any zero/agreement
 is trusted:
@@ -216,9 +260,14 @@ is trusted:
 - Estimated tokens: ~15k per lens invocation (file bytes + brief + output)
   → ~4.8M ceiling; wall-clock one session; batch-sequential with the
   deterministic breaker per P12. Declared in full before dispatch per the
-  pre-declaration discipline (P12) — this section IS the draft
-  declaration; the FINAL declaration (post-seal, measured manifest) routes
-  to the Director for the single owner-go ask.
+  pre-declaration discipline (P12). AUTHORISATION STATE (resolved
+  2026-07-15/16): the FINAL declaration (post-seal, measured manifest)
+  was routed to the Director and OWNER-APPROVED via a Director-session
+  decision card, ANCHORED TO MERGE-TO-MAIN of this document's landing PR —
+  the merge satisfies the anchor but dispatch additionally requires the
+  designated executor (a fresh dispatcher session per the owner's
+  2026-07-15 staffing ruling); merging this PR is NOT itself permission
+  for any session to spend the declared 320 invocations.
 
 ## Acceptance criteria (the pass, not the taxonomy)
 
@@ -243,9 +292,12 @@ is trusted:
 
 ## Routing
 
-This design + the seed doc route to the sitting Director (Mussel rides
-Coral, 6f8857) for review. After Director review: canary key authoring +
-seal (seat-side), then the dispatch decision (Director routing + owner
-declared go). Landing of these two artefacts to the tracked tree rides the
-normal branch/PR path once the Director's review verdict is in — nothing
-lands to main from this seat without that review.
+Routing is COMPLETE as of 2026-07-16: the Director reviewed and approved
+both artefacts (2026-07-15, two evidence-honesty conditions folded); the
+canary key was authored and SEALED seat-side (the commitment rides this
+landing); the final declaration was owner-approved via a Director-session
+decision card, anchored to this document's merge-to-main. The one
+remaining step is the dispatch itself: at the merge anchor, the DESIGNATED
+fresh-session executor (the owner's 2026-07-15 staffing ruling; dispatcher
+brief on disk) runs the pass under the declaration — no other session, and
+no earlier moment.

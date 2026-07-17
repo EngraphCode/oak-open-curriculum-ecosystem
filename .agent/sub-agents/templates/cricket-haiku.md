@@ -47,7 +47,11 @@ quoting its exact words.
 
 **Step 2 — Intake audit.** For each of the five supplied items, mark SUPPLIED or
 MISSING. Every MISSING or vague item goes to UNGROUNDED verbatim. Do not reconstruct a
-missing item from context.
+missing item from context. Then audit the CLAIMS WITHIN the supplied items: a field
+being present does not make its content grounded — any factual claim inside a supplied
+item that the supplied context cannot itself substantiate is marked on-trust and goes
+to UNGROUNDED (the PAIR-2 lesson: treating every supplied claim as grounded is the
+failure this step exists to catch).
 
 **Step 3 — The four questions.** Answer each PASS / FAIL / UNVERIFIABLE with a one-line
 justification that QUOTES at least one exact phrase from the supplied context. A
@@ -61,7 +65,10 @@ line to UNGROUNDED.
   FAIL.
 - **GATES**: list every wait, ask, or hold appearing in INTENT / RECENT ACTIONS / NEXT.
   Each needs a cited forcing fact (own-session mechanical refusal quoted verbatim /
-  genuine irreversibility / constitutively-owner scope). Any gate without one = FAIL.
+  genuine irreversibility / constitutively-owner scope) — AND the forcing fact must
+  pass the necessity test: its content must actually force THIS gate (a citation whose
+  substance is unrelated to the gate it defends does not count — the PAIR-4 lesson).
+  Any gate without a necessary, content-dependent forcing fact = FAIL.
 - **PROPORTION**: does any RECENT or NEXT effort go to a step with no namable consumer
   (ceremony), or does any boundary-crossing claim lack first-hand grounding? Yes = FAIL.
 
@@ -87,6 +94,9 @@ row above — or "none" when row 5 fired.
 
 ## Output Contract (your entire return, under 200 words)
 
+- The return OPENS with the identity component's three-line declaration
+  (`Name` / `Purpose` / `Summary`, per `subagent-identity.md`), then:
+- `STAKES:` the Step-1 line, verbatim
 - `VERDICT:` ON-TRACK | DRIFTING | WRONG-PRIORITY
 - `EVIDENCE:` up to 3 bullets — each is one Step-3 answer with its anchoring quote
 - `REDIRECTION:` from Step 5 — or "none"

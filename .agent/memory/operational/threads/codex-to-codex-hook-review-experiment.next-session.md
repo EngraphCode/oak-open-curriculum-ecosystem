@@ -14,8 +14,11 @@ merge_class: index-narrative-tables
 
 - **Owner pause boundary (2026-07-16): implementation is paused.** Do not resume debugging, run
   another reviewer/model call, commit, or push until the owner explicitly resumes this lane.
-- Branch: `fix/claude-hook-hardening`, HEAD `b5d37665c`, exactly equal to its upstream at this
-  snapshot (`ahead=0`, `behind=0`). Discover its sibling worktree with `git worktree list`; do not
+- Branch: `fix/claude-hook-hardening`, HEAD `SHA:b5d37665c`, exactly equal to its upstream at this
+  snapshot (`ahead=0`, `behind=0`). **Superseded 2026-07-16 ~21:52Z (truing 2026-07-17): the
+  owner-directed preservation pass committed the working-tree state as `SHA:c4fae0b83` on the same
+  branch, pushed, and opened draft PR #403 — the "uncommitted working-tree state" claims in this
+  snapshot describe the pre-preservation moment and are no longer the live durability state.** Discover its sibling worktree with `git worktree list`; do not
   rely on a machine-local path from a handoff.
 - Invocation pointer: read this record, then the
   [pair ARC](../../../collaboration/rapid-comms/2026-07-16-codex-hook-experiment-lupin-herds-bark-and-zephyr-turns-crosswind.md),
@@ -221,7 +224,7 @@ launch concurrently, command hooks receive one JSON object on stdin, `^apply_pat
 
 ## Exact Feature-Worktree Snapshot
 
-At HEAD/upstream `b5d37665c`, the index contains the archive/index/research/README compatibility
+At HEAD/upstream `SHA:b5d37665c`, the index contains the archive/index/research/README compatibility
 bundle. Two files are `MM` because the archive-link fixes are not staged. `.codex/config.toml` is
 unstaged; the handler and schema are untracked. Preserve this state—do not reset, discard, or
 broad-stage it. Re-run `git status --short --branch`, `git diff --cached --name-status`, and
@@ -246,7 +249,7 @@ broad-stage it. Re-run `git status --short --branch`, `git diff --cached --name-
 
 - Feature HEAD is pushed, but today's probe, trial, compatibility change, documentation closeout,
   and reduction are uncommitted working-tree state.
-- Main HEAD is `b4b72b7da`. The ratified Direct Trial and Investigation Stop gates are written but
+- Main HEAD is `SHA:b4b72b7da`. The ratified Direct Trial and Investigation Stop gates are written but
   uncommitted in the canonical `oak-reason` skill and its Codex/Claude adapters. Claim
   `4c3051b8-d32e-4821-b115-c24b4bc37d16` covered that earlier change but is now historical and
   closed; it conveys no current custody. Immediately before this pause handoff closes, Lupin's live
