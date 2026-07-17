@@ -152,6 +152,10 @@ const mapSuccessSchema = z
   .refine((result) => uniqueIds(result.instances.map((entry) => entry.id)), {
     error:
       'map result contains duplicate instance ids across windows — join lookups would silently mis-attribute quotes',
+  })
+  .refine((result) => result.mapComplete === (result.incompleteWindows.length === 0), {
+    error:
+      'mapComplete must be true exactly when incompleteWindows is empty — a contradicting flag either hides a corpus gap or forces a needless re-run',
   });
 const mapResultSchema = z.discriminatedUnion('ok', [mapSuccessSchema, stageFailureSchema]);
 export type MapResult = z.infer<typeof mapResultSchema>;
@@ -169,6 +173,10 @@ const reduceSuccessSchema = z
   .refine((result) => uniqueIds(result.clusters.map((entry) => entry.id)), {
     error:
       'reduce result contains duplicate cluster ids — validate and the meta merge would double-count',
+  })
+  .refine((result) => result.reduceComplete === (result.incompleteChunks.length === 0), {
+    error:
+      'reduceComplete must be true exactly when incompleteChunks is empty — a contradicting flag either hides dropped clusters or forces a needless re-run',
   });
 const reduceResultSchema = z.discriminatedUnion('ok', [reduceSuccessSchema, stageFailureSchema]);
 export type ReduceResult = z.infer<typeof reduceResultSchema>;

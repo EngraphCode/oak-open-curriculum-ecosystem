@@ -213,6 +213,34 @@ describe('result parsers', () => {
     ).toBe(true);
   });
 
+  it('parseMapResult rejects completeness flags contradicting the incomplete-window list', () => {
+    const base = {
+      ok: true,
+      partition: [{ window: 'W01', fileCount: 1 }],
+      coverage: [{ window: 'W01', instanceCount: 2 }],
+      instanceCount: 2,
+      instances: [finderInstance, secondInstance],
+    };
+    // Complete with dead windows: the flag would hide the corpus gap.
+    expect(isErr(parseMapResult({ ...base, mapComplete: true, incompleteWindows: ['W01'] }))).toBe(
+      true,
+    );
+    // Incomplete with no dead windows: the flag would force a needless re-run loop.
+    expect(isErr(parseMapResult({ ...base, mapComplete: false, incompleteWindows: [] }))).toBe(
+      true,
+    );
+  });
+
+  it('parseReduceResult rejects completeness flags contradicting the incomplete-chunk list', () => {
+    const base = { ok: true, instanceCount: 2, clusters: [cluster] };
+    expect(isErr(parseReduceResult({ ...base, reduceComplete: true, incompleteChunks: [0] }))).toBe(
+      true,
+    );
+    expect(isErr(parseReduceResult({ ...base, reduceComplete: false, incompleteChunks: [] }))).toBe(
+      true,
+    );
+  });
+
   it('parseReduceResult requires the completeness envelope fields', () => {
     expect(
       isOk(
