@@ -1,3 +1,10 @@
+## [1.73.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.73.2...v1.73.3) (2026-07-17)
+
+
+### Bug Fixes
+
+* **coordination:** make the haiku verdict table total by construction ([36590fa](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/36590fa308a41852c2a6dacc7bd2b1eaa64ba94d))
+
 ## [1.73.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.73.1...v1.73.2) (2026-07-17)
 
 ## [1.73.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.73.0...v1.73.1) (2026-07-17)
