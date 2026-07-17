@@ -38,7 +38,8 @@ const USAGE = String.raw`Usage: pnpm restatement-audit-build-run-artefact --stag
 Build one SEEDED, launchable workflow artefact from committed checkpoint files.
 Writes dist/restatement-audit/workflows/<stage>.workflow.seeded.mjs for
 Workflow({scriptPath}). All file flags take paths to committed checkpoint JSON;
-relative paths resolve against the invoking cwd (the agent-tools workspace).
+paths resolve against the REPOSITORY ROOT (not the invoking cwd) and must stay
+within the repository — an escaping or external path is refused before any read.
 
 Required:
   --stage <map|reduce|validate|meta>       Pipeline stage to seed (REQUIRED).

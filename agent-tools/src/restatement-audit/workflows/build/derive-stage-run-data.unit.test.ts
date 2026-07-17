@@ -16,7 +16,9 @@ describe('deriveRunData path containment', () => {
     );
   });
 
-  it('refuses a ".."-escaping relative checkpoint path on every flag, not just --map-result', async () => {
+  // Every stage flag funnels through the same contained readJson, so containment is
+  // demonstrated on each stage's FIRST-read flag; later flags share the identical path.
+  it('refuses a ".."-escaping relative checkpoint path at each stage entry flag', async () => {
     const escape = '../'.repeat(12) + 'etc/hosts';
     const viaPartition = await deriveRunData({
       stage: 'map',
