@@ -4309,3 +4309,36 @@ each candidate against its would-be home:
 5. **Stop condition**: a third pass would restate the selection filter (write-at-
    occurrence + register-as-map + handoff-record-as-operating-manual). No further
    decision-changing, non-reconstructible information surfaces. Recursion ends here.
+
+## 2026-07-17 — Petrel calls Aether (d4f4b7): owner ruling — no escape hatches, ever
+
+Asked (AIP-128 card) which branch classes the Linear-ID gate exempts and what hotfix escape
+hatch the refusal message should name. Owner: exemptions = `coordination/*` + estate roll-up
+cut branches; escape hatch = **"there are no escape hatches, examine the source of the
+question, we are never in such a rush that doing things badly is a good idea."** The directive
+generalises past AIP-128: never design a bypass surface into an enforcement mechanism, and
+treat my own impulse to offer one as the thing to examine — urgency is not a licence for bad
+practice. The AIP-128 refusal message therefore instructs ticket-minting only; no bypass
+language, no env-var valve, no citation of any override path.
+
+## 2026-07-17 — Petrel calls Aether (d4f4b7): PAUSE at owner word — AIP-126 shepherd boundary
+
+State at pause: PR #409 (AIP-126, 9 commits incl. the code-expert cure round) OPEN, checks
+in progress, 2 reviews + 3 comments already arrived and UNTRIAGED — the next seat's first
+move on this lane is the full-surface harvest (threads + checks + Sonar) per pr-lifecycle,
+then threads-resolved + green + merge (small-PR path), then coordination-branch sync.
+AIP-128 worktree is cut+built at ../oak-open-curriculum-ecosystem-worktrees/aip-128 (branch
+per ticket, NO code written); owner rulings live as an AIP-128 Linear comment (exemptions:
+`coordination/*` + `chore/estate-rollup-*`; NO escape hatches — verbatim ruling in the
+earlier napkin entry). Planned test shape: spawn sh sourcing .husky/refuse-commit-on-main.sh with
+GUARD_BRANCH set per case (deterministic, no git); extend that shared script per ticket;
+skip the optional commitlint LINEAR-ID rule (it targets PR titles — AIP-129's CI job owns
+that surface; commit-title prefixes would fight conventional commitlint).
+
+Cricket A/B pair ran at lane start on identical context: cricket ON-TRACK / cricket-haiku
+ON-TRACK (convergent; both flagged the missing explicit CRITICAL-PATH-OWNER line in the
+supplied context — supply it next time). Tally update rides the next pass.
+
+Session mechanics: the exit-codes-in-band trap bit me TWICE more this session on fresh
+surfaces (`| tail` after check-commit-message, then again after git commit) before the cure
+stuck — the pattern generalises to ANY command whose exit I need, not just push.
