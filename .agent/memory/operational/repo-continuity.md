@@ -66,6 +66,23 @@ forward-asks remain.
   record, never from this index. Full pickup detail is in the
   [thread record](threads/strategy-and-plan-estate-holistic-review.next-session.md).
 
+- **CRICKET CONSCIENCE-CHECK SUBSTRATE — live, owner-mandated; the seed for future
+  decision-framework / metagovernance work (owner marker, 2026-07-17).** Every active agent
+  runs a background cricket at cycle boundaries, at least hourly (owner mandate 2026-07-15).
+  The substrate: canonical templates
+  [`cricket`](../../sub-agents/templates/cricket.md) (sonnet default — the four questions:
+  CONSUMER / DISPLACEMENT / GATES / PROPORTION) and
+  [`cricket-haiku`](../../sub-agents/templates/cricket-haiku.md) (owner-directed A/B — a
+  compiled decision procedure: quote-anchored PASS/FAIL steps, a TOTAL mechanical verdict
+  table, banned gap-bridging vocabulary, the PAIR-2 claims-within-items audit, the PAIR-4
+  forcing-fact necessity test), with Claude/Cursor/Codex adapters. Evidence and evaluation
+  state: [`cricket-ab-tally-2026-07-16.md`](../../reports/agentic-engineering/cricket-ab-tally-2026-07-16.md)
+  (divergences compiled into the procedure; flip decision at ~8–10 v3-era pairs) and
+  [`fleet-design-patterns-2026-07-16.md`](../../reports/agentic-engineering/fleet-design-patterns-2026-07-16.md)
+  (the compiled-procedure-beats-raw-capability pattern). The open doctrine questions routed
+  to the next curation pass (napkin, 2026-07-17): the rule worked-instance/portability
+  convention and the PDR-127 vs no-parallel-long-lived-branches alignment — both are
+  metagovernance decisions the cricket substrate's evolution feeds on.
 - **ARCHITECTURAL FITNESS + MUTATION TESTING — decision-ready concept
   exploration written 2026-07-15; no implementation.** The architectural-
   budget child now records a proposal to replace the unwired, externally
