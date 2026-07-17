@@ -145,3 +145,14 @@ named live lane.
   now pointing at the coordination tip), #397/#399 (refounding-restart inputs),
   #401 (ITF integration pass), #403 (codex-hook lane) — each owned by a named
   live lane.
+
+### 2026-07-17 final state — AIP-127 landed
+
+PR #405 MERGED (`SHA:2836d5d32`, 09:19Z): the coordination estate is on main; 68
+review threads dispositioned (stale-rollback restores, continuity-union superset
+refutations with probes, mechanical SHA:/lifecycle/contract cures — trail on the
+PR). The coordination branch re-synced from main post-merge. Remaining open
+drafts: #397/#399 (refounding restart), #401 (ITF integration pass), #403
+(codex-hook lane) — AIP-131's close condition is met. The superseded
+`chore/aip-131-primary-estate-snapshot` branch (closed PR #395) awaits owner
+branch-deletion at their convenience.
