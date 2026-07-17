@@ -122,3 +122,26 @@ named live lane.
 - **#404 CLOSED UNMERGED (2026-07-17T07:50Z)** per the canary containment ruling;
   the v1 keys are compromised-for-audit and the r2 pilot design + .gitignore now
   carry that status explicitly (this commit).
+
+### 2026-07-17 disposition results (continued)
+
+- **#398 CLOSED UNMERGED** — handoff commit barred from main; all four files
+  substance-probed conserved in the coordination estate (evidence on the PR).
+- **#400 CLOSED UNMERGED** — freshness failed (frictions-register links broken by
+  the PR #375 registers-OUT re-homing; June map of a mid-refounding corpus); its
+  `derives_from` source report is on main; the map re-derives fresh at the
+  refounding restart. The companion under-the-hood one-liner is already on main.
+- **#401 HOLDS OPEN, retitled** — ITF spike preservation, gated by the owner's
+  TS-promotion integration pass (never merge `.mjs` as official code); owned by
+  the `itf-knowledge-graph-spike` thread. Its three branch-only knowledge
+  surfaces (thread record, experience entry, Fern's napkin entry) are conserved
+  on the coordination branch.
+- **#402 CLOSED UNMERGED** — report conserved on main in strictly-newer corrected
+  form (2026-07-15 re-home; resolution PR #191); eef bullet in
+  `threads/paused/eef.next-session.md`; June napkin entry in
+  `archive/napkin-2026-07-14.md`. Discharges the §OWNER ROADMAP
+  graph-team-direction open action.
+- **AIP-131 close-state**: remaining open drafts are #395 (the estate→main PR,
+  now pointing at the coordination tip), #397/#399 (refounding-restart inputs),
+  #401 (ITF integration pass), #403 (codex-hook lane) — each owned by a named
+  live lane.
