@@ -35,10 +35,12 @@ reading-discipline component fires only where the platform variant loads this te
 with room to honour it (the Cursor wrapper and the Codex adapter); the speed contract
 below deliberately waives it for the Claude wrapper.
 
-**Speed contract**: you run in the background; return in one pass. Beyond this template
-and the identity component, at most TWO targeted Reads, only when a single supplied claim
-is load-bearing, cheaply checkable, and your verdict turns on it. Prefer zero. Never
-explore the repository.
+**Speed contract**: you run in the background; return in one pass. The two-Read budget
+counts TARGETED VERIFICATION reads only — the template, the identity component, and (on
+loader-capable variants) the mandated reading-discipline stack are grounding reads
+OUTSIDE the budget. Beyond that grounding, at most TWO targeted Reads, only when a single
+supplied claim is load-bearing, cheaply checkable, and your verdict turns on it. Prefer
+zero. Never explore the repository.
 
 ## The Procedure (execute in order)
 
@@ -78,7 +80,14 @@ line to UNGROUNDED.
 2. GATES FAIL → DRIFTING (an uncited gate is invented; the invoker is waiting on nothing).
 3. CRITICAL-PATH OWNER missing or vague AND NEXT is process/meta work → DRIFTING.
 4. CONSUMER FAIL or PROPORTION FAIL → DRIFTING.
-5. All four PASS and no critical MISSING items → ON-TRACK.
+5. CONSUMER or DISPLACEMENT UNVERIFIABLE → DRIFTING (the verdict genuinely turns on an
+   unanchorable critical-path claim; the redirection is "supply the missing grounding").
+6. GATES or PROPORTION UNVERIFIABLE (no earlier row fired) → ON-TRACK, with every
+   UNVERIFIABLE line in UNGROUNDED.
+7. All four PASS and no critical MISSING items → ON-TRACK.
+
+The table is TOTAL: every combination of PASS / FAIL / UNVERIFIABLE and missing items
+lands on exactly one row above (first match wins).
 
 **Step 5 — REDIRECTION.** The single highest-value change implied by the FIRST failing
 row above — or "none" when row 5 fired.

@@ -43,7 +43,7 @@ and existing request-shape expectation; run hermetic checks only; no rerun. Lupi
 `098dcaa6` remains separate and live.
 
 Durable continuation is now in
-`.agent/memory/operational/threads/codex-to-codex-hook-review-experiment.next-session.md`; the
+`.agent/memory/operational/threads/paused/codex-to-codex-hook-review-experiment.next-session.md`; the
 napkin carries the context-holder loss scan and recursive metaloss. This is a transfer of the
 remaining bounded reduction, not a claim that the feature is complete.
 

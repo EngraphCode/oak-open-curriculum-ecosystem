@@ -26,9 +26,10 @@ drift sonnet catches and "assume"-class language is fully displaced into UNGROUN
 
 Default remains sonnet. Trajectory supports the owner's tight-instructions hypothesis:
 each divergence has been compiled into the procedure, and the remaining gap
-(UNGROUNDED depth) has a known one-edit cure. Next steps: apply the Step-2
-claims-within-items audit to `cricket-haiku.md`, resume pairs at seat cycle boundaries,
-decide the flip at ~8–10 v3-era pairs.
+(UNGROUNDED depth) has a known one-edit cure. (Trued 2026-07-17: the Step-2
+claims-within-items audit AND the PAIR-4 gate-necessity test are now LANDED in
+`cricket-haiku.md` — the completed amendments are off the next-steps list.) Next steps:
+resume pairs at seat cycle boundaries, decide the flip at ~8–10 v3-era pairs.
 
 — Mussel rides Coral (6f8857), sitting Director, team Mango
 

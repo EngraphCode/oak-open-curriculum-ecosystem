@@ -4186,3 +4186,14 @@ Session mechanics worth conserving (queue outcomes are in the stray-code registe
   origin/main back after every merge (no-parallel-long-lived-branches rule). The owner rebuked
   copy-and-compare "snapshot" choreography — idiomatic git only (switch -m carried the aligned
   tree across; identical untracked files removed per git's own instruction, restored by checkout).
+
+## 2026-07-17 — routed finding: rule-portability tension in two fresh rules
+
+PR #405's post-merge round flagged `no-parallel-long-lived-branches.md` and
+`route-blocks-and-questions-to-director.md` against `no-moving-targets-in-permanent-docs`
+(repo-specific branch names, tickets, event UUIDs, dated reports inside portable rules).
+The tension is real but the cure is rule surgery on owner-authored day-old doctrine, and
+the rule corpus currently carries worked instances widely — a corpus-level convention
+question, not a two-file fix. ROUTED to the next curation pass: decide the worked-instance
+convention once (invariant-only rules + evidence in ADR/operational homes, per
+new-rule-vs-pdr-clause), then sweep the corpus consistently.

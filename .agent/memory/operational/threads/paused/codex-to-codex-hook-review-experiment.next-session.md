@@ -21,7 +21,7 @@ merge_class: index-narrative-tables
   snapshot describe the pre-preservation moment and are no longer the live durability state.** Discover its sibling worktree with `git worktree list`; do not
   rely on a machine-local path from a handoff.
 - Invocation pointer: read this record, then the
-  [pair ARC](../../../collaboration/rapid-comms/2026-07-16-codex-hook-experiment-lupin-herds-bark-and-zephyr-turns-crosswind.md),
+  [pair ARC](../../../../collaboration/rapid-comms/2026-07-16-codex-hook-experiment-lupin-herds-bark-and-zephyr-turns-crosswind.md),
   then re-read the feature and primary checkout statuses, live claims, commit queue, and recent
   comms. The primary checkout is a dirty shared coordination home; the feature implementation is
   in the sibling worktree.

@@ -81,8 +81,9 @@ key-anchor recall (8/10 at the pin) is the unconfounded measurement. (4) ACCEPTE
 "one class" was post-hoc at n=2; the drill stands, phrased as a candidate class.
 (5) PARTIAL — the 3-attempt bound's pre-declaration is this report's own draft status
 line (written before attempt 3 completed); bookkeeping corrected to three attempts
-across two run ids; the reliability note downgrades to one genuine wedge + two
-likely-transient API failures. Journals: session dir
+across two run ids; the reliability note downgrades to three distinct classes — one
+harness-level safety-classifier block at dispatch, one genuine wedge, one
+server/API error mid-response (per the attempt breakdown above). Journals: session dir
 `subagents/workflows/wf_05320b61-258/journal.jsonl` (arm ii),
 `wf_e5d164e3-158/` and `wf_fafcd340-d6b/` (arm i attempts).
 
