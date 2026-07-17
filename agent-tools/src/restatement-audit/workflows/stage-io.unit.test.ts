@@ -295,6 +295,133 @@ describe('result parsers', () => {
     ).toBe(true);
   });
 
+  it('parseValidateResult rejects duplicate voter identities — v1+v1 is one voter, not two', () => {
+    const verdict = {
+      sameFact: { pass: true, confidence: 'high' },
+      authoredNotCited: { pass: true, confidence: 'high' },
+      genuineConflict: { pass: true, confidence: 'med' },
+      liveSurface: { pass: true, confidence: 'high' },
+      importance: 'high',
+    };
+    expect(
+      isErr(
+        parseValidateResult({
+          ok: true,
+          validateComplete: true,
+          resolvedClusterIds: [cluster.id],
+          incompleteClusterIds: [],
+          missingClusterIds: [],
+          dispositions: [{ clusterId: cluster.id, disposition: 'flagged', reason: null }],
+          voterVerdicts: [
+            { clusterId: cluster.id, voterId: 'v1', verdict },
+            { clusterId: cluster.id, voterId: 'v1', verdict },
+          ],
+        }),
+      ),
+    ).toBe(true);
+  });
+
+  it('parseValidateResult recomputes each disposition from its verdicts — a contradicting stored disposition fails parsing', () => {
+    const passAll = {
+      sameFact: { pass: true, confidence: 'high' },
+      authoredNotCited: { pass: true, confidence: 'high' },
+      genuineConflict: { pass: true, confidence: 'med' },
+      liveSurface: { pass: true, confidence: 'high' },
+      importance: 'high',
+    };
+    const failsLiveSurface = {
+      ...passAll,
+      liveSurface: { pass: false, confidence: 'high' },
+    };
+    const base = {
+      ok: true,
+      validateComplete: true,
+      resolvedClusterIds: [cluster.id],
+      incompleteClusterIds: [],
+      missingClusterIds: [],
+    };
+    // Both voters pass all four tests → dispositionFromVoters says 'flagged'; a stored
+    // 'dismissed' contradicts the verdicts and must fail.
+    expect(
+      isErr(
+        parseValidateResult({
+          ...base,
+          dispositions: [{ clusterId: cluster.id, disposition: 'dismissed', reason: null }],
+          voterVerdicts: [
+            { clusterId: cluster.id, voterId: 'v1', verdict: passAll },
+            { clusterId: cluster.id, voterId: 'v2', verdict: passAll },
+          ],
+        }),
+      ),
+    ).toBe(true);
+    // Voters AGREE liveSurface fails → 'dismissed' is the only consistent disposition.
+    expect(
+      isOk(
+        parseValidateResult({
+          ...base,
+          dispositions: [{ clusterId: cluster.id, disposition: 'dismissed', reason: null }],
+          voterVerdicts: [
+            { clusterId: cluster.id, voterId: 'v1', verdict: failsLiveSurface },
+            { clusterId: cluster.id, voterId: 'v2', verdict: failsLiveSurface },
+          ],
+        }),
+      ),
+    ).toBe(true);
+    // Outcome disagreement (one passes all, one fails a test) → 'held-for-review'; a
+    // stored 'flagged' must fail.
+    expect(
+      isErr(
+        parseValidateResult({
+          ...base,
+          dispositions: [{ clusterId: cluster.id, disposition: 'flagged', reason: null }],
+          voterVerdicts: [
+            { clusterId: cluster.id, voterId: 'v1', verdict: passAll },
+            { clusterId: cluster.id, voterId: 'v2', verdict: failsLiveSurface },
+          ],
+        }),
+      ),
+    ).toBe(true);
+    expect(
+      isOk(
+        parseValidateResult({
+          ...base,
+          dispositions: [{ clusterId: cluster.id, disposition: 'held-for-review', reason: null }],
+          voterVerdicts: [
+            { clusterId: cluster.id, voterId: 'v1', verdict: passAll },
+            { clusterId: cluster.id, voterId: 'v2', verdict: failsLiveSurface },
+          ],
+        }),
+      ),
+    ).toBe(true);
+  });
+
+  it('parseValidateResult rejects a THIRD verdict for a dispositioned cluster — the two-voter model admits exactly two', () => {
+    const verdict = {
+      sameFact: { pass: true, confidence: 'high' },
+      authoredNotCited: { pass: true, confidence: 'high' },
+      genuineConflict: { pass: true, confidence: 'med' },
+      liveSurface: { pass: true, confidence: 'high' },
+      importance: 'high',
+    };
+    expect(
+      isErr(
+        parseValidateResult({
+          ok: true,
+          validateComplete: true,
+          resolvedClusterIds: [cluster.id],
+          incompleteClusterIds: [],
+          missingClusterIds: [],
+          dispositions: [{ clusterId: cluster.id, disposition: 'flagged', reason: null }],
+          voterVerdicts: [
+            { clusterId: cluster.id, voterId: 'v1', verdict },
+            { clusterId: cluster.id, voterId: 'v2', verdict },
+            { clusterId: cluster.id, voterId: 'v3', verdict },
+          ],
+        }),
+      ),
+    ).toBe(true);
+  });
+
   it('parseMetaResult accepts flagged AND held ledger rows, and rejects a malformed row', () => {
     expect(isOk(parseMetaResult({ ok: true, rows: [ledgerRow, heldLedgerRow] }))).toBe(true);
     expect(

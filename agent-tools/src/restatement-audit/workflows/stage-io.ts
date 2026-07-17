@@ -25,9 +25,9 @@ import {
   clusterSchema,
   finderInstanceBaseSchema,
   finderInstanceSchema,
-  voterVerdictSchema,
 } from '../schemas.js';
 import { gazetteerSchema } from './gazetteer-schema.js';
+import { validateSuccessSchema } from './validate-result.js';
 
 const nonEmptyString = z.string().min(1);
 const countInt = z.number().int().nonnegative();
@@ -71,9 +71,8 @@ const metaClusterSchema = clusterBaseSchema
   .extend({ instances: z.array(groundingInstanceSchema).min(2) });
 export type MetaCluster = z.infer<typeof metaClusterSchema>;
 
-/** A cluster's disposition after S3 code-computed voter aggregation. */
-const dispositionSchema = z.enum(['flagged', 'dismissed', 'held-for-review']);
-export type Disposition = z.infer<typeof dispositionSchema>;
+/** Re-exported from `schemas.ts` (its home since the cycle-free move) for existing consumers. */
+export type { Disposition } from '../schemas.js';
 
 // ---------------------------------------------------------------------------
 // Run data — validated by build-run-artefact before inlining
@@ -174,40 +173,6 @@ const reduceSuccessSchema = z
 const reduceResultSchema = z.discriminatedUnion('ok', [reduceSuccessSchema, stageFailureSchema]);
 export type ReduceResult = z.infer<typeof reduceResultSchema>;
 
-const validateSuccessSchema = z
-  .strictObject({
-    ok: z.literal(true),
-    validateComplete: z.boolean(),
-    resolvedClusterIds: z.array(nonEmptyString),
-    incompleteClusterIds: z.array(nonEmptyString),
-    missingClusterIds: z.array(nonEmptyString),
-    dispositions: z.array(
-      z.strictObject({
-        clusterId: nonEmptyString,
-        disposition: dispositionSchema,
-        reason: nonEmptyString.nullable(),
-      }),
-    ),
-    voterVerdicts: z.array(
-      z.strictObject({
-        clusterId: nonEmptyString,
-        voterId: nonEmptyString,
-        verdict: voterVerdictSchema,
-      }),
-    ),
-  })
-  .refine(
-    (result) =>
-      result.dispositions.every(
-        (entry) =>
-          result.voterVerdicts.filter((verdict) => verdict.clusterId === entry.clusterId).length >=
-          2,
-      ),
-    {
-      error:
-        'validate result carries disposition(s) without the ≥2 voter verdicts that justify them (two-independent-voter rule)',
-    },
-  );
 const validateResultSchema = z.discriminatedUnion('ok', [
   validateSuccessSchema,
   stageFailureSchema,

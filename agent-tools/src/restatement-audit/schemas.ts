@@ -150,6 +150,14 @@ export const clusterSchema = clusterBaseSchema
 export type Cluster = z.infer<typeof clusterSchema>;
 
 /**
+ * A cluster's disposition after S3 code-computed voter aggregation. Lives here (not in
+ * `stage-io.ts`) so `disposition.ts` can name the type without a module cycle —
+ * `stage-io.ts` value-imports `dispositionFromVoters` for its boundary recompute.
+ */
+export const dispositionSchema = z.enum(['flagged', 'dismissed', 'held-for-review']);
+export type Disposition = z.infer<typeof dispositionSchema>;
+
+/**
  * One apophenia-style test outcome: did it pass, and how confidently. Module-private
  * (same reason as `confidenceSchema` above) — `disposition.ts` reads `.pass` structurally
  * off `VoterVerdict` without naming this type.
