@@ -105,3 +105,20 @@ fast-forward (AIP-127) · (3) #398/#400/#401/#402 adjudications (an hour of fres
 work) · (4) #397/#399 ride the refounding restart · (5) #403 rides its lane. All
 under ticket-first; AIP-131 closes when only #397/#399/#403 remain, each owned by a
 named live lane.
+
+## 2026-07-17 adjudication updates (Foundry guards Vapor, 72fa18)
+
+- **Operating model changed (owner instruction, 2026-07-17 morning):** the primary
+  checkout now lives ON `coordination/estate-2026-07` with ZERO dirty files — live
+  fleet surfaces are tracked and committed there (no third state; canary keys stay
+  gitignored). All PRs target `main`; after each merge the coordination branch
+  updates from latest `main`. The management plan's "primary fast-forward to main"
+  end-state is superseded accordingly.
+- **#396 CLOSED UNMERGED (verdict corrected from MERGE):** the branch was a strict
+  ancestry prefix of #403 carrying the codex-hook module, not a standalone small
+  fix; the rename defect was independently cured on main at 5efa4debc; the two
+  net-new residues (worktree-smoke rename traversal; commit-skill rename-endpoint
+  contract) merged via PR #407 (2026-07-17T08:43Z). Full evidence on the PR.
+- **#404 CLOSED UNMERGED (2026-07-17T07:50Z)** per the canary containment ruling;
+  the v1 keys are compromised-for-audit and the r2 pilot design + .gitignore now
+  carry that status explicitly (this commit).
