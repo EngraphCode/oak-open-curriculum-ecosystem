@@ -2092,7 +2092,7 @@ non-interactive/config surfaces and does not establish `doctor`; the fourth invo
 tests exactly one plan-authored placement and is not a discovery search.
 
 **Private boundary.** Fixed root:
-`/private/tmp/oak-codex-hook-ws0-static-019f67-20260716T1418Z`. It must not exist before setup.
+`<system-tmp>/oak-codex-hook-ws0-static-019f67-20260716T1418Z`. It must not exist before setup.
 After release, one setup step creates `home`, `codex-home`, `cwd`, `tmp`, and `logs` beneath it at
 mode 0700. Every child uses synthetic non-repository `cwd`. Each command is wrapped once by
 `/opt/homebrew/bin/gtimeout --signal=TERM --kill-after=1s 5s`; timeout exit 124/137 stops with no
@@ -2288,7 +2288,7 @@ flag placement, tolerating the exit retroactively, or relabelling network diagno
 
 The sanitised ARC evidence is sufficient and Zephyr's private review is complete. Release only
 identity-checked removal of the exact synthetic root
-`/private/tmp/oak-codex-hook-ws0-static-019f67-20260716T1418Z`, followed by proof it is absent and
+`<system-tmp>/oak-codex-hook-ws0-static-019f67-20260716T1418Z`, followed by proof it is absent and
 feature HEAD/status remain unchanged. No other path or process is released.
 
 After cleanup, return a non-live plan-refresh proposal that reopens the owning WS0 static-preflight
@@ -2685,7 +2685,7 @@ tasks. The schema-cache drift check emitted its existing non-blocking advisory. 
 hook scan does not consume either direct experiment metadata child.
 
 **Proposed private boundary.** Fixed absent-before-setup root:
-`/private/tmp/oak-codex-hook-ws0-gitleaks-019f67-20260716T1710Z`. After explicit release, one setup
+`<system-tmp>/oak-codex-hook-ws0-gitleaks-019f67-20260716T1710Z`. After explicit release, one setup
 action creates only `home`, `cwd`, `tmp`, and `logs` beneath it at mode 0700. Each child has
 `/dev/null` stdin, synthetic non-repository `cwd`, a five-second outer timeout, and distinct
 mode-0600 `.stdout`, `.stderr`, and `.exit` records. No output is piped to another executable.
