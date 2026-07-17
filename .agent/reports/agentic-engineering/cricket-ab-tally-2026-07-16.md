@@ -63,3 +63,21 @@ externally-running work they cite. Both redirections adopted (sonnet: assert non
 branch at the commit step; haiku: state fleet evidence in-frame). Tally: this is the
 first post-amendment pair; divergences-with-correct-haiku-discipline count FOR the
 compiled-procedure hypothesis, not against it.
+
+## Owner observation (2026-07-17, at the PAIR-5 divergence)
+
+Verbatim intent: **"the Haiku cricket can be a superior option in the right
+circumstances with the right support structure."** This reframes the A/B's
+question — not merely *can the small model match the sonnet default*, but
+*under which circumstances and support structure is it the BETTER instrument*.
+Today's divergence is the evidence shape: the compiled procedure made the
+haiku REFUSE an ungrounded boundary-crossing claim the sonnet accepted as
+licensed context. The support structure that makes this superiority real:
+evidence-token-carrying frames (run ids, SHAs, event ids supplied in-frame),
+the total verdict table, the claims-within-items audit, and the banned
+gap-bridging vocabulary — i.e. the procedure does the epistemics so the model
+size stops being the binding constraint. Future pairs should record not just
+agreement/divergence but WHICH verdict was right, so the flip decision can be
+circumstance-conditional (e.g. haiku for mechanical-compliance contexts,
+sonnet where judgment must range beyond the supplied frame) rather than
+all-or-nothing.
