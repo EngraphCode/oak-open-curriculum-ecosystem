@@ -120,7 +120,7 @@ description = "Conscience check (as in Jiminy Cricket): judges from invoker-supp
 config_file = "agents/cricket.toml"
 
 [agents."cricket-haiku"]
-description = "EXPERIMENTAL small-model conscience check (owner-directed A/B, 2026-07-15): compiled decision procedure paired with cricket on identical supplied context."
+description = "EXPERIMENTAL compiled-decision-procedure conscience check (owner-directed A/B, 2026-07-15). On Codex this is a PROCEDURE-ONLY variant: no model override is configured, so it inherits the session model; the small-model half of the A/B runs on the Claude wrapper (model: haiku). Always paired with cricket on identical supplied context."
 config_file = "agents/cricket-haiku.toml"
 
 [agents."corpus-voter"]
