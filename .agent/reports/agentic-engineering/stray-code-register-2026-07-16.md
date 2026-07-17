@@ -69,3 +69,39 @@ than read it. Disposition: #404 closes unmerged; both keys re-plant in the v2-cy
 key work before any canary gate consumes them. The primary-checkout key
 (canary-key.v1.json) remains untracked and unaffected. Lupin's #403 (hook prototype)
 is clean and stands.
+
+## THE MANAGEMENT PLAN (definitive, 2026-07-16 close; supersedes the queue above)
+
+Two tickets own everything; every PR below carries its verdict and its vehicle.
+
+### The nine open PRs
+
+| PR | Verdict | Vehicle / gate |
+|---|---|---|
+| #395 estate snapshot | CURATE THEN MERGE — this branch IS AIP-127's working vehicle: author the two remaining unions (repo-continuity, strategy thread record), apply the track-vs-untracked split (coordination-record classes that stay untracked BY RULE come OFF the branch, recorded here as living untracked-by-design), undraft, merge | AIP-127; first act of the next fresh seat |
+| #396 commit-queue fixes | MERGE — small code fix; verify gates on tip, undraft, merge | AIP-131 adjudication; minutes |
+| #397 Zodiac S1 | ADJUDICATE AT REFOUNDING RESTART — lane input; fold into the restart branch or merge if self-contained | AIP-131 → refounding restart |
+| #398 Zodiac handoff record | EXTRACT AND CLOSE — handoff commits are barred from main by standing rule; conserve unique content into the continuity estate via #395, then close | AIP-131 adjudication |
+| #399 team/plan-corpus-refounding | ADJUDICATE AT REFOUNDING RESTART — as #397 | AIP-131 → refounding restart |
+| #400 operability work map | FRESHNESS-CHECK THEN MERGE-OR-CLOSE — docs; if the map still reflects reality, merge; else extract-and-close | AIP-131 adjudication |
+| #401 nifty-ramanujan | IDENTIFY FIRST — unlabelled session work; read the 3 commits, then merge-or-close on content | AIP-131 adjudication |
+| #402 graph-team-direction (June) | FRESHNESS-CHECK THEN MERGE-OR-CLOSE — five weeks old; likely extract-and-close | AIP-131 adjudication |
+| #403 Lupin hook prototype | HOLDS AS DRAFT — the codex-hook lane's own continuation gate (diagnose the masked reviewer exit-1 first, per their thread record); disposition belongs to that lane, not this sweep | codex-hook lane |
+
+(#404 CLOSED unmerged — canary-key constraint; keys re-plant in the v2 cycle.)
+
+### The dirty primary checkout
+
+All content is secured on #395; the working tree deliberately keeps its files because
+they are live fleet surfaces. End-state after #395 merges (AIP-127): `git pull
+--ff-only` succeeds content-aware; the tracked files match main; what remains
+"dirty" is exactly the by-design residue — the untracked runtime surfaces (comms,
+claims, active handoff records, ARC channels if ruled untracked) and the primary
+canary key. Target: primary status drops from 39 items to only that named residue,
+listed here at AIP-127 close as the accepted steady state.
+
+Sequencing: (1) #396 merge (minutes) · (2) #395 curation + merge, then the primary
+fast-forward (AIP-127) · (3) #398/#400/#401/#402 adjudications (an hour of fresh-seat
+work) · (4) #397/#399 ride the refounding restart · (5) #403 rides its lane. All
+under ticket-first; AIP-131 closes when only #397/#399/#403 remain, each owned by a
+named live lane.
