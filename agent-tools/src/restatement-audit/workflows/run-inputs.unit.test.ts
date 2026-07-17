@@ -106,18 +106,32 @@ describe('validateRunDataFrom', () => {
     expect(data.validateTokenCeiling).toBe(1000);
   });
 
+  const passAllVerdict = {
+    sameFact: { pass: true, confidence: 'high' },
+    authoredNotCited: { pass: true, confidence: 'high' },
+    genuineConflict: { pass: true, confidence: 'med' },
+    liveSurface: { pass: true, confidence: 'high' },
+    importance: 'high',
+  } as const;
+
+  /** A prior attempt that resolved g1StatusCluster WITH its disposition/voter evidence. */
+  const evidencedPriorResult: ValidateResult = {
+    ok: true,
+    validateComplete: false,
+    resolvedClusterIds: ['exact:status-assertion:G1:status'],
+    incompleteClusterIds: [],
+    missingClusterIds: [],
+    dispositions: [
+      { clusterId: 'exact:status-assertion:G1:status', disposition: 'flagged', reason: null },
+    ],
+    voterVerdicts: [
+      { clusterId: 'exact:status-assertion:G1:status', voterId: 'v1', verdict: passAllVerdict },
+      { clusterId: 'exact:status-assertion:G1:status', voterId: 'v2', verdict: passAllVerdict },
+    ],
+  };
+
   it('narrows to the unresolved tail on resume, using prior resolved ids', () => {
-    const priorValidateResults: ValidateResult[] = [
-      {
-        ok: true,
-        validateComplete: false,
-        resolvedClusterIds: ['exact:status-assertion:G1:status'],
-        incompleteClusterIds: [],
-        missingClusterIds: [],
-        dispositions: [],
-        voterVerdicts: [],
-      },
-    ];
+    const priorValidateResults: ValidateResult[] = [evidencedPriorResult];
     const result = validateRunDataFrom({
       mapResult,
       reduceResult,
@@ -140,17 +154,7 @@ describe('validateRunDataFrom', () => {
       reduceComplete: true,
       incompleteChunks: [],
     };
-    const priorValidateResults: ValidateResult[] = [
-      {
-        ok: true,
-        validateComplete: false,
-        resolvedClusterIds: ['exact:status-assertion:G1:status'],
-        incompleteClusterIds: [],
-        missingClusterIds: [],
-        dispositions: [],
-        voterVerdicts: [],
-      },
-    ];
+    const priorValidateResults: ValidateResult[] = [evidencedPriorResult];
     const result = validateRunDataFrom({
       mapResult,
       reduceResult: twoClusterReduce,
@@ -161,6 +165,27 @@ describe('validateRunDataFrom', () => {
     expect(unwrap(result).clusters.map((cluster) => cluster.id)).toEqual([
       'exact:status-assertion:G1:ratification-status',
     ]);
+  });
+
+  it('refuses resolved cluster ids lacking disposition evidence in ANY prior checkpoint — an unevidenced id must never silently skip re-voting', () => {
+    const unevidenced: ValidateResult = {
+      ok: true,
+      validateComplete: false,
+      resolvedClusterIds: ['exact:status-assertion:G1:status'],
+      incompleteClusterIds: [],
+      missingClusterIds: [],
+      dispositions: [],
+      voterVerdicts: [],
+    };
+    const result = validateRunDataFrom({
+      mapResult,
+      reduceResult,
+      priorValidateResults: [unevidenced],
+      validateTokenCeiling: 1000,
+    });
+    expect(isErr(result)).toBe(true);
+    expect(String(!result.ok && result.error)).toContain('exact:status-assertion:G1:status');
+    expect(String(!result.ok && result.error)).toContain('evidence');
   });
 
   it('errs on an INCOMPLETE map or reduce result — dead windows/chunks must never seed voting', () => {

@@ -111,6 +111,23 @@ export function validateRunDataFrom(input: {
   const resolvedClusterIds = priorValidateResults.flatMap((result) =>
     result.ok ? result.resolvedClusterIds : [],
   );
+  // A resolved id is only trustworthy with its evidence: some prior checkpoint must carry
+  // a disposition for it (whose exactly-two-distinct-voter backing the validate-result
+  // parse enforces). An unevidenced id would silently skip re-voting on resume.
+  const dispositionedIds = new Set(
+    priorValidateResults.flatMap((result) =>
+      result.ok ? result.dispositions.map((entry) => entry.clusterId) : [],
+    ),
+  );
+  const unevidenced = resolvedClusterIds.filter((id) => !dispositionedIds.has(id));
+  if (unevidenced.length > 0) {
+    return err(
+      new Error(
+        `resolved cluster id(s) [${unevidenced.join(', ')}] carry no disposition/voter evidence ` +
+          'in any prior validate checkpoint — re-run validate for them instead of skipping re-voting',
+      ),
+    );
+  }
   const seed = resolveResumeSeed(checked.value.reduce.clusters, resolvedClusterIds);
   if (seed.length === 0) {
     return err(new Error('validate run data has no unresolved clusters to seed — nothing to do'));
