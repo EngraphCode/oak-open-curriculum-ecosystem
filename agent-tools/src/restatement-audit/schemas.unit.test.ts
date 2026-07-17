@@ -92,6 +92,12 @@ describe('clusterSchema', () => {
     ).toBe(false);
   });
 
+  it('rejects duplicated distinctValueNorms — a repeated norm is one value, never a conflict', () => {
+    expect(
+      clusterSchema.safeParse({ ...conflict, distinctValueNorms: ['done', 'done'] }).success,
+    ).toBe(false);
+  });
+
   it('rejects duplicate member instance ids', () => {
     expect(clusterSchema.safeParse({ ...conflict, memberInstanceIds: ['f1', 'f1'] }).success).toBe(
       false,

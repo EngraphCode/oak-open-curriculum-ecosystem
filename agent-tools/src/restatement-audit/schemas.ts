@@ -141,6 +141,13 @@ export const clusterSchema = clusterBaseSchema
     },
   )
   .refine(
+    (cluster) => new Set(cluster.distinctValueNorms).size === cluster.distinctValueNorms.length,
+    {
+      error:
+        'distinctValueNorms must be a SET — a repeated norm is one value and must never widen a cluster into a conflict',
+    },
+  )
+  .refine(
     (cluster) =>
       cluster.verdict === 'conflict'
         ? cluster.distinctValueNorms.length > 1
