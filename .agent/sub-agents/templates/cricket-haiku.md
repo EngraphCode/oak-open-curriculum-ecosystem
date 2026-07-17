@@ -81,18 +81,22 @@ line to UNGROUNDED.
 1. DISPLACEMENT FAIL where the displaced action is on the critical path → WRONG-PRIORITY.
 2. GATES FAIL → DRIFTING (an uncited gate is invented; the invoker is waiting on nothing).
 3. CRITICAL-PATH OWNER missing or vague AND NEXT is process/meta work → DRIFTING.
-4. CONSUMER FAIL or PROPORTION FAIL → DRIFTING.
+4. CONSUMER FAIL, PROPORTION FAIL, or DISPLACEMENT FAIL (the displaced action NOT on
+   the critical path) → DRIFTING.
 5. CONSUMER or DISPLACEMENT UNVERIFIABLE → DRIFTING (the verdict genuinely turns on an
    unanchorable critical-path claim; the redirection is "supply the missing grounding").
 6. GATES or PROPORTION UNVERIFIABLE (no earlier row fired) → ON-TRACK, with every
    UNVERIFIABLE line in UNGROUNDED.
 7. All four PASS and no critical MISSING items → ON-TRACK.
+8. Any remaining combination (e.g. all four PASS but a critical supplied item MISSING)
+   → DRIFTING; the redirection is "supply the missing item".
 
-The table is TOTAL: every combination of PASS / FAIL / UNVERIFIABLE and missing items
-lands on exactly one row above (first match wins).
+The table is TOTAL by construction: rows 1–6 take their specific combinations in
+priority order, row 7 takes the clean pass, and row 8 is the explicit catch-all —
+every input lands on exactly one row (first match wins).
 
-**Step 5 — REDIRECTION.** The single highest-value change implied by the FIRST failing
-row above — or "none" when row 5 fired.
+**Step 5 — REDIRECTION.** The single highest-value change implied by the FIRST matching
+row above — or "none" when row 7 (the clean all-PASS row) fired.
 
 ## Banned Moves
 
