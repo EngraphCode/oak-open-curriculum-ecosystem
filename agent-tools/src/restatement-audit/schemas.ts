@@ -75,8 +75,10 @@ const assertionKindSchema = z.enum(['authored', 'citation', 'history', 'generate
  * The fact-key components join on `:` (the gazetteer/canary-key convention), so the
  * delimiter is BANNED inside components — `(subject:"a:b", predicate:"c")` and
  * `(subject:"a", predicate:"b:c")` would otherwise collide into one false cluster.
+ * Exported at its second consumer (`gazetteer-schema.ts` binds it to canonical subject
+ * ids), per `consolidate-at-second-consumer`.
  */
-const factKeyComponent = z
+export const factKeyComponent = z
   .string()
   .min(1)
   .regex(/^[^:]+$/, 'fact-key components must not contain ":" (the join delimiter)');

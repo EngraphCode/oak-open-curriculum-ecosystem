@@ -22,8 +22,14 @@ import type { Result } from '@oaknational/result';
 import { z } from 'zod';
 
 import { parseWithSchema } from '../../core/schema-parse.js';
+import { factKeyComponent } from '../schemas.js';
 
-const subjectsSchema = z.record(z.string(), z.array(z.string().min(1)));
+/**
+ * Canonical subject ids are fact-key components: the `:` join-delimiter ban that the
+ * finder schema enforces binds gazetteer ids too, or a listed id could never survive the
+ * exact-key join it exists to enable.
+ */
+const subjectsSchema = z.record(factKeyComponent, z.array(z.string().min(1)));
 
 /**
  * The strict v1 envelope of the committed gazetteer file — the file-read boundary.
