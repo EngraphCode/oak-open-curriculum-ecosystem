@@ -4159,3 +4159,47 @@ the spike session's napkin entry never reached the main napkin lineage. -->
   (books/working papers/DfE/EEF reports) — hand-verified publisher URLs with a `resolution`
   provenance marker; deterministic layered SVG + barycentre beats force-direction for
   near-multipartite graphs and stays git-diffable.
+
+## 2026-07-17 — Foundry guards Vapor (72fa18): AIP-131/127 stray-work adjudication + the coordination-branch model cutover
+
+Session mechanics worth conserving (queue outcomes are in the stray-code register + PR trails):
+
+- **The wrapped-exit false-green bit ME despite the standing memory**: `git push … 2>&1 | tail -6`
+  in a background task reported exit 0 from `tail` while the pre-push gate had failed. Recurrence
+  of the known class on a NEW surface (backgrounded pipelines). Cure applied: `git push …; echo
+  "PUSH_EXIT:$?"` — capture the status in-band, never pipe the command whose exit you need.
+- **Stale-capture-wins merge class**: a working-tree capture branch can silently REVERT approved
+  work — if main's newer version was already in the merge base, `git merge origin/main` is clean
+  and the branch's stale copy WINS (no conflict fires). Three Director-approved refounding finals
+  were rolled back this way on the estate branch; caught only by reviewer byte-comparison. Check:
+  before merging any capture branch, diff capture-copies against main for files main evolved
+  AFTER the capture was taken (probe by marker substrings, not conflict presence).
+- **Shell cwd does NOT always reset between Bash calls**: one command ran from a subdirectory
+  left by the previous call; relative-path `git add` fataled on the first pathspec while `git
+  commit -F /abs/path` succeeded → a commit landed with ONE file instead of twelve, silently.
+  Cure: `cd <repo-root> && …` on any staging/commit command; verify `--stat` after.
+- **The napkin union carried 27 duplicated section blocks** (mechanical append union applied
+  twice); disambiguated as "(union variant)" headings to clear MD024 — content untouched;
+  proper dedup belongs to a consolidation pass, not a lint cure.
+- **Model cutover recorded**: primary checkout now LIVES on coordination/estate-2026-07 (zero
+  dirty files; canary keys gitignored); all PRs target main; the coordination branch merges
+  origin/main back after every merge (no-parallel-long-lived-branches rule). The owner rebuked
+  copy-and-compare "snapshot" choreography — idiomatic git only (switch -m carried the aligned
+  tree across; identical untracked files removed per git's own instruction, restored by checkout).
+
+## 2026-07-17 — routed finding: rule-portability tension in two fresh rules
+
+PR #405's post-merge round flagged `no-parallel-long-lived-branches.md` and
+`route-blocks-and-questions-to-director.md` against `no-moving-targets-in-permanent-docs`
+(repo-specific branch names, tickets, event UUIDs, dated reports inside portable rules).
+The tension is real but the cure is rule surgery on owner-authored day-old doctrine, and
+the rule corpus currently carries worked instances widely — a corpus-level convention
+question, not a two-file fix. ROUTED to the next curation pass: decide the worked-instance
+convention once (invariant-only rules + evidence in ADR/operational homes, per
+new-rule-vs-pdr-clause), then sweep the corpus consistently. The round-3 additions ride
+the same route: the PDR-127 (team-branch protocol) vs no-parallel-long-lived-branches
+alignment question (the rule outlaws what the PDR governs — one of them needs a dated
+supersession or scope clause, an owner/curation call); the AIP-128/129 "as they land"
+enforcement-status phrasing; and the corpus-wide bare-SHA debt in pre-existing
+continuity content (the newly-added citations are prefixed; the historical sweep is a
+mechanical pass of its own).

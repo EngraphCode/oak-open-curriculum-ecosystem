@@ -47,8 +47,11 @@ than a full reading pass costs.
 
 ## Speed Contract
 
-You run in the background while the primary keeps working; your value decays fast. Beyond
-this template and the identity component, make at most TWO targeted Reads, and only when
+You run in the background while the primary keeps working; your value decays fast. The
+two-Read budget below counts TARGETED VERIFICATION reads only — the template itself, the
+identity component, and (on loader-capable variants) the reading-discipline stack it
+mandates are grounding reads OUTSIDE the budget. Beyond that grounding, make at most TWO
+targeted Reads, and only when
 one supplied claim is load-bearing, cheaply checkable, and your verdict genuinely turns on
 it. Prefer zero. Never explore the repository. This cap is a hard budget, not guidance: a
 cricket that reads more than two extra files has failed its speed contract regardless of

@@ -141,7 +141,19 @@ named live lane.
   `threads/paused/eef.next-session.md`; June napkin entry in
   `archive/napkin-2026-07-14.md`. Discharges the §OWNER ROADMAP
   graph-team-direction open action.
-- **AIP-131 close-state**: remaining open drafts are #395 (the estate→main PR,
-  now pointing at the coordination tip), #397/#399 (refounding-restart inputs),
-  #401 (ITF integration pass), #403 (codex-hook lane) — each owned by a named
-  live lane.
+- **AIP-131 close-state** *(as written mid-morning; superseded by the final-state
+  section below)*: remaining open drafts were #397/#399 (refounding-restart
+  inputs), #401 (ITF integration pass), #403 (codex-hook lane) — each owned by a
+  named live lane. #395 was owner-closed at 08:03Z; the estate→main vehicle is
+  the owner-created PR #405 (see the final state below).
+
+### 2026-07-17 final state — AIP-127 landed
+
+PR #405 MERGED (`SHA:2836d5d32`, 09:19Z): the coordination estate is on main; 68
+review threads dispositioned (stale-rollback restores, continuity-union superset
+refutations with probes, mechanical SHA:/lifecycle/contract cures — trail on the
+PR). The coordination branch re-synced from main post-merge. Remaining open
+drafts: #397/#399 (refounding restart), #401 (ITF integration pass), #403
+(codex-hook lane) — AIP-131's close condition is met. The superseded
+`chore/aip-131-primary-estate-snapshot` branch (closed PR #395) awaits owner
+branch-deletion at their convenience.

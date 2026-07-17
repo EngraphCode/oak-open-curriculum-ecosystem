@@ -9,7 +9,8 @@ tooling lane (items follow the runway plan) and the restatement-audit build.
 ## Captured so far (from the 2026-07-15/16 arc)
 
 1. **Compiled decision procedure beats raw capability for small models.** The
-   cricket-haiku A/B: haiku matched sonnet's verdicts once judgment was decomposed into
+   cricket-haiku A/B (early signal — one parity pair plus one divergence whose cure is
+   compiled in; no post-fix pair yet): haiku tracked sonnet once judgment was decomposed into
    per-item PASS/FAIL steps, mandatory quote-anchoring, a mechanical verdict-derivation
    table, and a banned-vocabulary list ("assume/likely/presumably" → UNGROUNDED instead).
    Mechanism candidate: a procedure-template library + a lintable "compiled procedure"
@@ -92,7 +93,7 @@ failure I33/I44) and found two new defects for free. Generalisation: when a flee
 produces structured artefacts, exhaust the deterministic-replay space (joins, recounts,
 byte-verification, coverage diffs against the pinned tree) BEFORE dispatching any new
 agents — the replay both grounds the failure analysis and often reshapes what the next
-spend should be. Pairs with pattern 12 (deterministic-join-before-LLM) as its post-hoc
+spend should be. Pairs with pattern 4 (deterministic-join-before-LLM) as its post-hoc
 mirror: deterministic-replay-before-re-spend.
 
 ## Pattern 16 — verdict momentum under deadline pressure; the cure is per-claim evidence class
