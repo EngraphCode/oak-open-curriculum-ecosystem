@@ -17,4 +17,7 @@ the repository. (On Claude this role runs Read-only by frontmatter; Cursor
 cannot enforce that envelope, so honour it behaviourally. Cursor also cannot
 pin a model per-agent here, so on Cursor this is a PROCEDURE-ONLY variant —
 the small-model half of the A/B runs on the Claude wrapper, which pins
-haiku.)
+haiku. Background invocation is likewise the Claude-side calling
+convention; on Cursor the invoker runs this check with whatever
+concurrency the platform offers and must not block its own work awaiting
+the verdict.)

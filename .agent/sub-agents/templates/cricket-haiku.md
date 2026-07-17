@@ -88,8 +88,8 @@ line to UNGROUNDED.
 6. GATES or PROPORTION UNVERIFIABLE (no earlier row fired) → ON-TRACK, with every
    UNVERIFIABLE line in UNGROUNDED.
 7. All four PASS and no critical MISSING items → ON-TRACK.
-8. Any remaining combination (e.g. all four PASS but a critical supplied item MISSING)
-   → DRIFTING; the redirection is "supply the missing item".
+8. Any remaining combination (e.g. all four PASS but a critical required item marked
+   MISSING at Step 2) → DRIFTING; the redirection is "supply the missing item".
 
 The table is TOTAL by construction: rows 1–6 take their specific combinations in
 priority order, row 7 takes the clean pass, and row 8 is the explicit catch-all —
