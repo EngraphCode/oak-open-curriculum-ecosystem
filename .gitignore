@@ -301,3 +301,9 @@ packages/sdks/oak-sdk-codegen/code-generation/utils/ingest-pipeline.md
 # on demand).
 demos/oak-curriculum-hub/claude-design-canonical-export/
 demos/oak-curriculum-hub/demo-evidence/
+
+# Unsealed audit canary keys: NEVER in git history (standing owner constraint,
+# 2026-07-16; mechanical enforcement after the PR #404 near-miss). Keys live
+# untracked beside their consumers and re-plant per audit cycle.
+**/canary-key*.json
+**/canary-keyset*.json
