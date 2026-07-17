@@ -46,3 +46,20 @@ resume pairs at seat cycle boundaries, decide the flip at ~8–10 v3-era pairs.
   haiku Step-2 fix should add a gate-necessity probe: "does the gated item name a
   CONTENT dependency on the gating item? If none is stated, the gate is unverified —
   do not count it as grounds for PASS."
+
+## PAIR — 2026-07-17 (Foundry guards Vapor, 72fa18; session-close context, post-amendment templates)
+
+First pair run on the amended templates (identity declaration, STAKES field, total
+verdict table, PAIR-2 claims audit, PAIR-4 necessity test — all live in this run).
+**DIVERGENCE: sonnet ON-TRACK / haiku DRIFTING.** The haiku's PROPORTION check refused
+the frame's boundary-crossing claim that "a 6-agent verification fleet is running" —
+correctly, per its compiled procedure: the frame carried no evidence token for it. The
+sonnet accepted the same claim as owner-licensed context. Adjudication: ON-TRACK on
+substance — the invoker held first-hand evidence (workflow run id `wf_6930d00c-333`)
+that the FRAME omitted; an invoker-input gap, not a procedure defect, and arguably the
+haiku surfaced exactly the discipline the A/B is testing for. Procedure lesson fed
+back: invoker frames must carry the evidence tokens (run ids, SHAs, event ids) for any
+externally-running work they cite. Both redirections adopted (sonnet: assert non-main
+branch at the commit step; haiku: state fleet evidence in-frame). Tally: this is the
+first post-amendment pair; divergences-with-correct-haiku-discipline count FOR the
+compiled-procedure hypothesis, not against it.

@@ -35,3 +35,24 @@ New napkin rotations append below; the next consolidation promotes them out.
 Perigee): every entry of the 2026-06-29→07-06 window was graduated to a verified
 permanent home or confirmed already-homed. The commits and the homes are the
 record. -->
+
+## 2026-07-17 — Foundry guards Vapor (72fa18): two behaviour-changing lessons from the AIP-131/127 arc
+
+- **Stale-capture-wins merge class.** A branch that CAPTURES working-tree copies of files
+  can silently REVERT newer approved versions on main: if main's newer version was already
+  in the merge base, `git merge origin/main` completes clean and the capture's stale copy
+  wins — no conflict ever fires. Three Director-approved refounding finals were rolled
+  back this way on the estate branch, caught only by reviewer byte-comparison. The check,
+  before merging or PR-ing any capture branch: for every captured file, probe a few
+  distinctive marker substrings of main's CURRENT version against the capture copy; a
+  missing marker means the capture predates main's evolution and must be re-based on
+  main's version (re-applying only the capture's genuine additions). Routing: pattern
+  candidate at the next dedicated consolidation (single instance suffices per PDR-100;
+  the worked instance and the check recipe are in the 2026-07-17 napkin entries).
+- **Substance-probes are the conservation check; diffs are not.** Twice today (Zodiac's
+  #398, June's #402) "is this content conserved?" was settled in minutes by grepping 3–5
+  distinctive phrases per hunk against the content's CURRENT home — where a whole-file
+  diff screamed false-loss because the home had evolved (re-wording, re-homing,
+  corrections). Third seat-independent instance of the class (Quasar's false-orphans
+  2026-07-14, Mussel's pagination blindness 2026-07-16). Graduation-ready: fold into a
+  verification-methods pattern at the next dedicated consolidation.

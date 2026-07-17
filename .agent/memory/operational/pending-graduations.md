@@ -139,3 +139,18 @@ new records-are-technical-not-emotional rule respectively — both homes verifie
   compact attestation (hashes, counts, calibration disclosures, exact regeneration +
   verification contract) with bulk artefacts local/ignored. Twice-run byte-identity is the
   reproducibility bar. Prevents re-litigating the 49MB question at S2/S3/S4.
+
+## 2026-07-17 — cut-branch roll-up practice + capture-branch verification pattern
+
+- **captured-date**: 2026-07-17
+- **source-surface**: napkin 2026-07-17 (Foundry guards Vapor entries); stray-code
+  register final state; PR #405 (109-thread treadmill) vs PR #408 (5-thread cut-branch)
+- **graduation-target**: (a) amend `no-parallel-long-lived-branches.md` — estate roll-up
+  PRs are cut as short-lived branches from the coordination tip, never opened from the
+  rolling branch itself (the merged-PR review-treadmill cure), folding in the routed
+  PDR-127-alignment and portability questions from the same rule; (b) a
+  verification-methods pattern: substance-probes over diffs + stale-capture-wins
+  marker check + paginate-past-first:100 (three seat-independent instances).
+- **trigger-condition**: the next dedicated consolidation pass (already DUE per §0a),
+  or the next touch of the rule for any reason.
+- **status**: pending

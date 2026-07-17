@@ -4203,3 +4203,109 @@ supersession or scope clause, an owner/curation call); the AIP-128/129 "as they 
 enforcement-status phrasing; and the corpus-wide bare-SHA debt in pre-existing
 continuity content (the newly-added citations are prefixed; the historical sweep is a
 mechanical pass of its own).
+
+## 2026-07-17 — Foundry guards Vapor (72fa18): full session handoff — landed outcome, loss scan, recursive metaloss
+
+### Landed outcome (PDR-026)
+
+Target: AIP-131 queue discharged + AIP-127 landed — LANDED, superset of target. Evidence:
+PR #407 MERGED (SHA:855d6ac34 merge), PR #405 MERGED (SHA:2836d5d32, 109/109 threads),
+PR #408 MERGED (SHA:de9af600e, 5/5 threads incl. post-merge tail cured at SHA:b1868182f);
+PRs #396/#398/#400/#402 closed with per-PR conservation evidence; #401 gated-hold; #404 closed
+pre-session; #397/#399/#403/#406 lane-owned drafts. The owner's mid-session model cutover
+executed in full: primary ON coordination/estate-2026-07, zero dirty files, all PRs to
+main, sync-after-merge (run 3×), roll-ups via short-lived cut branches.
+
+### Surprises and corrections (beyond the mechanics entry above)
+
+- **Owner correction (verbatim intent): "just because something already existed it doesn't
+  mean it is sane or useful"** — fired when I continued Mussel's copy-and-compare snapshot
+  choreography instead of reaching for idiomatic git. The inherited-workflow trap: a
+  predecessor's mechanism inherits unearned legitimacy from having been used once. Pair
+  with the day's twin evidence: Mussel's register misdescribed #396 (three commits carrying
+  the whole hook module, called "small code fix") and #395's vehicle was already
+  owner-closed while I curated toward it. The session's working rule: verify the PREMISE
+  of an inherited verdict before executing the verdict — both corrections came from
+  first-hand re-derivation, not from trusting the handoff.
+- **State moves under you at action moments**: #395 was closed by the owner two minutes
+  before my session opened; #405 already existed when I went to create it; review rounds
+  landed seconds after merges. Re-read the live PR state immediately before create/merge/
+  close actions — my gh pr create bounced off the existing #405, which is the cheap,
+  correct discovery path, but only because create COLLIDES; close/merge actions don't.
+- **The merged-PR review treadmill, diagnosed and cured structurally**: PR #405's head was
+  the LIVING coordination branch, so every post-merge push re-triggered bot review rounds
+  against the merged PR (47 → 68 → 84 → 109 threads). Cure: roll-up PRs cut as short-lived
+  branches from the coordination tip (#408 proved it: 5 threads total, branch deleted at
+  merge). This is the standing practice for every future estate roll-up.
+- **Compliance gap, mine**: the owner mandate says crickets are invoked PAIRED
+  (cricket + cricket-haiku on identical context). I ran two solo sonnet crickets
+  (both ON-TRACK; the register-truing redirection adopted). The unpaired runs are
+  A/B-tally-invisible — the next seat should resume PAIRED invocations per the tally's
+  next-steps line.
+
+### First-order loss scan (6e.2 — from inside this context, against the grain)
+
+Enumerating what this context holds that no durable artefact captures, after checking
+each candidate against its would-be home:
+
+1. **The adjudication evidence chains are durably homed** (each closed PR carries its own
+   first-hand evidence; the register carries the map; Linear carries the ticket state) —
+   verified by re-reading, not assumed. What is NOT written anywhere: the substance-probe
+   METHOD detail that made #398/#402 cheap — probe 3–5 distinctive phrases per hunk
+   against the CURRENT home, never diff whole files (line-wrapping and evolution make
+   diffs scream false-loss). This replays Quasar's 2026-07-14 false-orphan lesson; second
+   worked instance today. Routed: distilled.md entry this handoff.
+2. **The stale-capture-wins merge class** (a capture branch's old copy of a file silently
+   WINS a clean merge when main's newer version was already in the merge base — three
+   Director-approved finals rolled back undetected until byte-level review) — napkin
+   mechanics entry ✓ + distilled.md this handoff. The context-only remainder: the CHECK
+   that prevents it (before merging any capture branch, marker-probe capture-copies
+   against main for files main evolved after capture) is in the mechanics entry verbatim.
+3. **Operating costs of the new model, measured today**: every push to the coordination
+   branch pays the full pre-push gate (~4–6 min wall); I paid it ~9 times. Batching
+   cures into one push per round is the difference between a 20-minute and a 2-hour
+   session. The handoff record carries this as an operating note.
+4. **The 64 stale commit-queue entries** in active-claims.json remain untouched (warden-
+   lane work, not mine); my session added none (lean explicit-pathspec path throughout).
+5. **The superseded branch** `chore/aip-131-primary-estate-snapshot` still exists on
+   origin (its PR #395 closed); owner deletes at convenience — register ✓.
+6. **Two AskUserQuestion decisions this session**: the owner chose "open the AIP-127 PR
+   now" (discovery then showed the owner had already created #405 — the answer's intent
+   was honoured by shepherding #405). Owner's pause instruction and cricket-discoverability
+   marker are honoured in repo-continuity's anchor. No un-actioned owner answer remains.
+7. **Watcher/monitor lifecycle**: my comms watcher died once at its 3600s backstop and
+   was re-armed + gap-swept; it dies with this session — the next seat arms its own per
+   the canonical rule. No orphan monitors: PR watches were bounded and completed.
+8. **Lupin's lane state as I last saw it**: #403 + #406 drafts, closeout branch pushed
+   09:03Z; my two directed events to them (cures + model change) are on the canonical
+   stream, unacknowledged as of this scan — their watcher may be down; the events are
+   durable, no re-send needed.
+
+### Recursive metaloss (second pass — challenging the scan's own selection)
+
+1. **What class does my scan systematically under-weight?** Items I judged "durably
+   homed" on the strength of PR comments. PR comments are durable but LOW-DISCOVERY
+   surfaces for future sessions (nobody greps closed PRs). The load-bearing subset — the
+   verdicts and their one-line grounds — is ALSO in the stray-code register, which IS
+   discoverable (tracked, on main, linked from Linear). Checked: the register's final
+   state omitted #406 from the remaining-drafts list; cured in this handoff's commit.
+   The residue risk is judged closed.
+2. **The scan lists mechanics; the day's STRUCTURAL insight is scattered**: the
+   coordination-branch model's three failure modes discovered today (review treadmill →
+   cut-branch cure; stale-capture-wins → marker-probe check; per-push gate cost →
+   batch-per-round) belong TOGETHER as the model's operating notes, or the next seat
+   re-derives them from three separate napkin bullets. Cured at occurrence: the handoff
+   record's "Operating the model" section is written as one unit.
+3. **Selection-function blindness** (the scan can't see what I didn't think to list) is
+   mitigated the same way as prior seats': this session wrote at occurrence throughout
+   (register truings after each disposition, napkin mechanics mid-session, PR evidence
+   in the moment). The end-of-session batch is the residual, not the corpus.
+4. **The verification-method lesson repeats across seats and is now thrice-instanced**
+   (Quasar's false-orphans, Mussel's pagination blindness, today's substance-probes +
+   paginated thread reads): containment/conservation checks must be substance-probes
+   against the CURRENT home, and thread reads must paginate past first:100. Both are
+   already doctrine-adjacent (napkin 2026-07-14, distilled candidate). This session adds
+   instances, not new doctrine — the pending dedicated consolidation owns graduation.
+5. **Stop condition**: a third pass would restate the selection filter (write-at-
+   occurrence + register-as-map + handoff-record-as-operating-manual). No further
+   decision-changing, non-reconstructible information surfaces. Recursion ends here.

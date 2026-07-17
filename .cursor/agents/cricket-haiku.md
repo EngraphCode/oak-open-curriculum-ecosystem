@@ -1,6 +1,6 @@
 ---
 name: cricket-haiku
-description: EXPERIMENTAL small-model conscience check (owner-directed A/B, 2026-07-15) — a compiled decision procedure (per-question PASS/FAIL, quote-anchored evidence, mechanical verdict table) testing whether a small model can match the standard cricket. Always invoked PAIRED with cricket on identical supplied context, in the background; divergent pairs route to the Director.
+description: EXPERIMENTAL compiled-decision-procedure conscience check (owner-directed A/B, 2026-07-15). On Cursor this is a PROCEDURE-ONLY variant — Cursor cannot pin a per-agent model, so runs here are not small-model A/B data points; the small-model arm runs on the Claude wrapper (haiku). Always paired with cricket on identical supplied context; divergent pairs route to the Director.
 readonly: true
 ---
 
