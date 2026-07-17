@@ -57,3 +57,15 @@ authorship; #397/#398/#399 are refounding-lane inputs and adjudicate with that
 restart; #396/#400/#401/#402 are individually small — merge-or-close on inspection.
 
 — Mussel rides Coral (6f8857), 2026-07-16, agent under shared credentials
+
+## Post-sweep amendment (2026-07-16 ~22:0xZ): the s2 canary keys entered history via PR #404
+
+Lupin herds Bark's parallel cleanup (correctly protocol'd — their custody ask went
+unanswered because this seat's watcher was already stood down) committed the two
+s2-divergence canary JSON files as `chore/preserve-r2-canary-key` (commit 5612ae244,
+draft PR #404). Under the standing never-in-history constraint those keys are now
+COMPROMISED-FOR-AUDIT: a key readable in history cannot prove a finder found rather
+than read it. Disposition: #404 closes unmerged; both keys re-plant in the v2-cycle
+key work before any canary gate consumes them. The primary-checkout key
+(canary-key.v1.json) remains untracked and unaffected. Lupin's #403 (hook prototype)
+is clean and stands.
