@@ -16,6 +16,8 @@ import { readFile } from 'node:fs/promises';
 
 import { err, ok, type Result } from '@oaknational/result';
 
+import { resolveReadPathWithinRepo } from '../../../core/flag-path-resolve.js';
+import { resolveRepoRoot } from '../../../core/repo-root.js';
 import { parseGazetteerFile, projectGazetteer } from '../gazetteer-schema.js';
 import { metaRunDataFrom, reduceRunDataFrom, validateRunDataFrom } from '../run-inputs.js';
 import type {
@@ -49,8 +51,14 @@ export interface CliFlags {
 export type StageRunData = MapRunData | ReduceRunData | ValidateRunData | MetaRunData;
 
 async function readJson(filePath: string): Promise<Result<unknown, Error>> {
+  // Containment before I/O (the render-ledger-cli.ts precedent, AIP-126 item 7): a
+  // checkpoint flag must never read/inline JSON from outside the repository.
+  const safePath = resolveReadPathWithinRepo(resolveRepoRoot(import.meta.url), filePath);
+  if (!safePath.ok) {
+    return safePath;
+  }
   try {
-    const raw = await readFile(filePath, 'utf8');
+    const raw = await readFile(safePath.value, 'utf8');
     return ok(JSON.parse(raw));
   } catch (cause) {
     return err(
