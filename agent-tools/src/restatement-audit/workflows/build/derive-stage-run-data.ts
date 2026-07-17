@@ -31,6 +31,7 @@ import {
   parseMapResult,
   parseMapRunData,
   parseMetaRunData,
+  parsePartitionFile,
   parseReduceResult,
   parseReduceRunData,
   parseValidateResult,
@@ -96,20 +97,10 @@ async function readValidateResults(
   return ok(results);
 }
 
-/** The ONE canonical partition file shape — a bare window array is rejected, never guessed at. */
-function canonicalWindows(value: unknown): Result<unknown, Error> {
-  if (typeof value === 'object' && value !== null && !Array.isArray(value) && 'windows' in value) {
-    return ok(value.windows);
-  }
-  return err(
-    new Error(
-      '--partition must be the canonical {"windows": [...]} shape — no other shape is accepted.',
-    ),
-  );
-}
-
 async function deriveMapRunData(flags: CliFlags): Promise<Result<MapRunData, Error>> {
-  const partition = await readAnd(flags.partition, '--partition', canonicalWindows);
+  // The closed canonical {"windows": [...]} shape — parsePartitionFile rejects a typo'd
+  // key, a stray sibling key, or a bare window array (AIP-126 item 8).
+  const partition = await readAnd(flags.partition, '--partition', parsePartitionFile);
   if (!partition.ok) {
     return partition;
   }
@@ -118,7 +109,7 @@ async function deriveMapRunData(flags: CliFlags): Promise<Result<MapRunData, Err
     return gazetteerFile;
   }
   return parseMapRunData({
-    windows: partition.value,
+    windows: partition.value.windows,
     gazetteer: projectGazetteer(gazetteerFile.value),
   });
 }

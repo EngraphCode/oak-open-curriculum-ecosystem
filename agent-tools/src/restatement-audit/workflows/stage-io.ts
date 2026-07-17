@@ -40,6 +40,16 @@ const partitionWindowSchema = z.strictObject({
 export type PartitionWindow = z.infer<typeof partitionWindowSchema>;
 
 /**
+ * The ONE canonical committed partition file shape — CLOSED (AIP-126 item 8): a typo'd
+ * key like `windwos`, a stray sibling key, or a bare window array fails loudly instead of
+ * silently passing an empty or unintended corpus downstream.
+ */
+const partitionFileSchema = z.strictObject({
+  windows: z.array(partitionWindowSchema).min(1),
+});
+export type PartitionFile = z.infer<typeof partitionFileSchema>;
+
+/**
  * An instance projected to what a voter or the meta agent needs for grounding, joined to
  * `Cluster.memberInstanceIds` by `id` at prompt-build time (mirrors corpus-analysis's
  * `groundingLeafSchema`, keeping seeded artefacts under the harness size cap). Picks
@@ -197,6 +207,9 @@ export type MetaResult = z.infer<typeof metaResultSchema>;
 // ---------------------------------------------------------------------------
 // Boundary parsers — the Node side re-parses everything it reads back
 // ---------------------------------------------------------------------------
+
+export const parsePartitionFile = (value: unknown): Result<PartitionFile, Error> =>
+  parseWithSchema({ label: 'partition file', schema: partitionFileSchema, value });
 
 export const parseMapRunData = (value: unknown): Result<MapRunData, Error> =>
   parseWithSchema({ label: 'map run data', schema: mapRunDataSchema, value });

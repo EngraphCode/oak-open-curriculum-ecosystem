@@ -6,6 +6,7 @@ import {
   parseMapRunData,
   parseMetaResult,
   parseMetaRunData,
+  parsePartitionFile,
   parseReduceResult,
   parseReduceRunData,
   parseValidateResult,
@@ -116,6 +117,17 @@ describe('run-data parsers', () => {
 
   it('parseMapRunData rejects an empty partition', () => {
     expect(isErr(parseMapRunData({ windows: [], gazetteer }))).toBe(true);
+  });
+
+  it('parsePartitionFile accepts ONLY the closed canonical shape — a typo like "windwos" or a stray key fails loudly', () => {
+    const windows = [{ window: 'W01', files: ['a.md'] }];
+    expect(isOk(parsePartitionFile({ windows }))).toBe(true);
+    // The typo'd key: no `windows` field at all.
+    expect(isErr(parsePartitionFile({ windwos: windows }))).toBe(true);
+    // A stray unknown key BESIDE a valid windows field must not ride through silently.
+    expect(isErr(parsePartitionFile({ windows, windwos: windows }))).toBe(true);
+    // A bare window array is rejected, never guessed at.
+    expect(isErr(parsePartitionFile(windows))).toBe(true);
   });
 
   it('parseReduceRunData accepts instances, including an EMPTY set — a complete zero-instance map is a clean corpus that must be seedable', () => {
