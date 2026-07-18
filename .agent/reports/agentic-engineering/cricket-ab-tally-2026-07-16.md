@@ -81,3 +81,14 @@ agreement/divergence but WHICH verdict was right, so the flip decision can be
 circumstance-conditional (e.g. haiku for mechanical-compliance contexts,
 sonnet where judgment must range beyond the supplied frame) rather than
 all-or-nothing.
+
+## PAIR-6 (2026-07-17, Petrel calls Aether d4f4b7, AIP-126 lane start)
+
+**CONVERGENT: sonnet ON-TRACK / haiku ON-TRACK.** Identical supplied context (owner-set
+queue frame, AIP-126 intent, grounded recent actions, next-action = first red test). Both
+adopted zero redirections; both independently flagged the SAME frame gap — no explicit
+CRITICAL-PATH-OWNER line (the sonnet inferred it from recent actions; the haiku marked it
+UNGROUNDED-vague). Which was right: both verdicts correct on substance; the haiku's
+flag is the stricter, more useful reading under the evidence-token discipline the PAIR-5
+lesson set. Frame lesson re-confirmed: supply the critical-path owner explicitly.
+Post-amendment tally now 1 divergence (PAIR-5, haiku-correct) + 1 convergence (PAIR-6).

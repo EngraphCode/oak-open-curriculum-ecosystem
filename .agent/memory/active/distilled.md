@@ -56,3 +56,19 @@ record. -->
   corrections). Third seat-independent instance of the class (Quasar's false-orphans
   2026-07-14, Mussel's pagination blindness 2026-07-16). Graduation-ready: fold into a
   verification-methods pattern at the next dedicated consolidation.
+
+## 2026-07-18 — Petrel calls Aether (d4f4b7): enforcement mechanisms carry no escape hatches
+
+- **No escape hatches, ever — and examine the impulse to offer one.** Designing the
+  AIP-128 ticket-first branch gate, I offered the owner a menu of hotfix bypass shapes.
+  Owner verbatim: **"there are no escape hatches, examine the source of the question, we
+  are never in such a rush that doing things badly is a good idea."** The lesson has two
+  layers: (1) an enforcement mechanism must not ship with a bypass surface — urgency never
+  licenses degraded practice, and the refusal message teaches the correct path (mint the
+  ticket) rather than naming an override; (2) the impulse to design a valve is itself the
+  signal to examine — it imports a rush-assumption the estate rejects. Coheres with the
+  2026-07-15 "no-risk-of-loss operations are absolute" ruling (pending-graduations): the
+  value of a discipline is its absoluteness. Routing: pending-graduations candidate
+  (principles.md §First Principle worked-instance or a rule clause via
+  new-rule-vs-pdr-clause) at the next dedicated consolidation; owner verbatim + context in
+  the 2026-07-17 napkin entries.

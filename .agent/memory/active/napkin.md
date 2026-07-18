@@ -4342,3 +4342,46 @@ supplied context — supply it next time). Tally update rides the next pass.
 Session mechanics: the exit-codes-in-band trap bit me TWICE more this session on fresh
 surfaces (`| tail` after check-commit-message, then again after git commit) before the cure
 stuck — the pattern generalises to ANY command whose exit I need, not just push.
+
+## 2026-07-18 — Petrel calls Aether (d4f4b7): closeout loss-scan (6e.2) + metaloss
+
+First-order scan — what this context holds that no durable artefact captured, checked
+item-by-item against its would-be home:
+
+1. **Consumer-home conservation verified done**: code-expert residual analysis → PR #409
+   comment; AIP-128 executor design notes (test shape, POSIX constraint, pre-push open
+   point, commitlint-skip rationale) → AIP-128 Linear comment; owner rulings → AIP-128
+   Linear comment + napkin verbatim; cricket PAIR-6 → the A/B tally file; the queue-state
+   truing → repo-continuity §COLD PICKUP + the thread identity row.
+2. **Context-only until now — written here**: (a) depcruise's `no-circular` counts
+   TYPE-ONLY import edges — a value-import added opposite an existing type-only import
+   creates a flagged cycle even though runtime is acyclic; cure by moving the shared type
+   to the dependency-free module (worked instance: `Disposition` → `schemas.ts`, PR #409).
+   (b) Rejected alternative on AIP-128: renaming `refuse-commit-on-main.sh` to match its
+   widened duty — rejected because the ticket says EXTEND and five hooks + docs source the
+   name; revisit only if a third duty lands on the script. (c) The single-seat-pipeline
+   judgement for the tranche (per-push gate cost ~4–6 min dominates S-sized tickets, so
+   serial-with-overlapped-shepherding beats parallel worktree seats) — session-scoped
+   sizing logic, re-derivable, recorded for the next seat's convenience not as doctrine.
+3. **Out-of-repo platform-plan surface checked** (mandatory step): the approved plan-mode
+   plan file exists under the user's platform plans directory; its repo-relevant substance
+   (queue order, dependency verdicts, gate list) is now homed in §COLD PICKUP + tickets +
+   this napkin; the file itself remains as machine-local convenience. Per-user memory
+   surface checked: exit-codes memory updated with the two new recurrences;
+   no-escape-hatches feedback memory added + indexed.
+4. **Worktree residue surfaced, not disposed** (file-deletion-is-exceptional): the OLD
+   `restatement-audit` worktree (branch fully merged, 35 behind) is now redundant; the
+   `aip-126` worktree stays live until PR #409 merges; the `aip-128` worktree is ready for
+   its executor. Disposal is owner/warden work, listed in the machine-local handoff
+   supplement.
+5. **Comms curation (mandatory)**: this session authored 3 events (session-open, PAUSE,
+   closeout-to-come) + 0 directed messages received; all substance is mirrored here or in
+   tracked homes. No open conversations or escalations existed at any point (verified at
+   open and at close).
+
+Metaloss (second pass, challenging the scan's selection): the scan's weakest class is
+craft-instances-without-new-doctrine (PR-shepherd habits, AskUserQuestion option design) —
+deliberately left as instances because each already has a doctrine home that this session
+merely re-instanced; the one genuinely NEW behavioural item (never offer bypass options in
+policy questions) is triple-homed (distilled, pending-graduations, per-user memory). A
+third pass would only restate the write-at-occurrence filter; recursion ends.
