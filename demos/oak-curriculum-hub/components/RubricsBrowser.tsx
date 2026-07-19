@@ -14,7 +14,7 @@ const ALL = 'ALL';
 /** A rubric-filtered standard row: black-bordered white pill with a lemon hover shadow, deep-linking
  *  to the standard's detail on the /standards page (the same `#qs=` target the Course callouts use). */
 const rowLinkClass =
-  'flex items-center gap-3 rounded-xl border-2 border-oak-black bg-white px-4 py-3 text-oak-black no-underline transition-shadow hover:shadow-oak-lemon';
+  'flex items-center gap-3 rounded-xl border-2 border-line bg-white px-4 py-3 text-ink no-underline transition-shadow hover:shadow-accent-brand';
 
 /** One quality-standard row under the selected rubric, linking to its /standards detail. */
 function RubricStandardRow({ standard }: { readonly standard: QualityStandard }): ReactElement {
@@ -22,12 +22,12 @@ function RubricStandardRow({ standard }: { readonly standard: QualityStandard })
   const area = standard.areas[0];
   return (
     <Link href={`/standards#qs=${standard.id}`} className={rowLinkClass}>
-      <span className="shrink-0 rounded-oak-s border border-oak-navy px-2 py-0.5 text-[11px] font-bold text-oak-navy">
+      <span className="shrink-0 rounded-ctl border border-link px-2 py-0.5 text-[11px] font-bold text-link">
         {badge}
       </span>
       <span className="flex-1 text-[14px] leading-snug">{standard.text}</span>
       {area !== undefined && (
-        <span className="shrink-0 rounded-full border border-oak-grey-line px-2.5 py-1 text-[11px] font-bold text-oak-grey">
+        <span className="shrink-0 rounded-full border border-line-soft px-2.5 py-1 text-[11px] font-bold text-ink-subdued">
           {area}
         </span>
       )}
@@ -48,16 +48,16 @@ function RubricFacet({
   readonly pressed: boolean;
   readonly onSelect: () => void;
 }): ReactElement {
-  const tint = pressed ? 'bg-oak-black text-white' : 'bg-white text-oak-black';
+  const tint = pressed ? 'bg-surface-inverted text-white' : 'bg-white text-ink';
   return (
     <button
       type="button"
       aria-pressed={pressed}
       onClick={onSelect}
-      className={`flex items-center gap-2 rounded-full border-2 border-oak-black px-4 py-1.5 text-[13px] font-bold transition-colors ${tint}`}
+      className={`flex items-center gap-2 rounded-full border-2 border-line px-4 py-1.5 text-[13px] font-bold transition-colors ${tint}`}
     >
       <span>{label}</span>
-      <span className={pressed ? 'text-white/80' : 'text-oak-grey'}>
+      <span className={pressed ? 'text-white/80' : 'text-ink-subdued'}>
         {count}
         <span className="sr-only"> standards</span>
       </span>
@@ -89,7 +89,7 @@ export default function RubricsBrowser(): ReactElement {
       <PageHeader
         title="Rubrics"
         intro="The assessment rubrics behind the Oak quality standards. Filter the rubric-bearing standards by rubric to see exactly which benchmarks each one covers."
-        tint="bg-oak-aqua"
+        tint="bg-decorative-2"
       />
       <section aria-label="Rubrics results" className="mx-auto max-w-[1080px] px-6 pb-20 pt-8">
         <nav aria-label="Filter by rubric" className="mb-5 flex flex-wrap gap-2.5">
@@ -109,7 +109,7 @@ export default function RubricsBrowser(): ReactElement {
             />
           ))}
         </nav>
-        <output className="mb-4 block text-[14px] text-oak-grey">{countLabel}</output>
+        <output className="mb-4 block text-[14px] text-ink-subdued">{countLabel}</output>
         <div className="flex flex-col gap-2.5">
           {results.map((standard) => (
             <RubricStandardRow key={standard.id} standard={standard} />

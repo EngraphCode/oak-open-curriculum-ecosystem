@@ -17,9 +17,9 @@ export function CompareBlockView({ block }: { readonly block: CompareBlock }): R
           server component, so useId is unavailable and blocks carry no stable per-block id. */}
       <section
         aria-label="Example"
-        className="overflow-hidden rounded-[14px] border-2 border-oak-green bg-oak-green-subdued"
+        className="overflow-hidden rounded-[14px] border-2 border-success bg-success-subtle"
       >
-        <p className="flex items-center gap-2 bg-oak-green p-[10px_16px] text-[15px] leading-[1.3] font-bold text-white">
+        <p className="flex items-center gap-2 bg-success p-[10px_16px] text-[15px] leading-[1.3] font-bold text-white">
           <span aria-hidden="true" className="text-lg">
             ✓
           </span>{' '}
@@ -28,7 +28,7 @@ export function CompareBlockView({ block }: { readonly block: CompareBlock }): R
         <div className="p-[16px_18px]">
           <p className="mb-2.5 text-base leading-6 font-light">{block.goodText}</p>
           {block.goodNote !== undefined && (
-            <p className="mt-2.5 text-sm leading-[21px] font-light text-oak-grey">
+            <p className="mt-2.5 text-sm leading-[21px] font-light text-ink-subdued">
               {block.goodNote}
             </p>
           )}
@@ -36,9 +36,9 @@ export function CompareBlockView({ block }: { readonly block: CompareBlock }): R
       </section>
       <section
         aria-label="Non-example"
-        className="overflow-hidden rounded-[14px] border-2 border-oak-red bg-oak-red-subdued"
+        className="overflow-hidden rounded-[14px] border-2 border-error bg-error-subtle"
       >
-        <p className="flex items-center gap-2 bg-oak-red p-[10px_16px] text-[15px] leading-[1.3] font-bold text-white">
+        <p className="flex items-center gap-2 bg-error p-[10px_16px] text-[15px] leading-[1.3] font-bold text-white">
           <span aria-hidden="true" className="text-lg">
             ✕
           </span>{' '}
@@ -47,7 +47,7 @@ export function CompareBlockView({ block }: { readonly block: CompareBlock }): R
         <div className="p-[16px_18px]">
           <p className="mb-2.5 text-base leading-6 font-light">{block.badText}</p>
           {block.badNote !== undefined && (
-            <p className="mt-2.5 text-sm leading-[21px] font-light text-oak-grey">
+            <p className="mt-2.5 text-sm leading-[21px] font-light text-ink-subdued">
               {block.badNote}
             </p>
           )}

@@ -25,19 +25,21 @@ export function MediaBox({
     <div
       role="img"
       aria-label={ariaLabel ?? label}
-      className="shadow-oak-wide-lemon relative flex min-h-[230px] flex-col items-center justify-center rounded-2xl border-[3px] border-oak-black bg-[#f9f9f9] p-6 text-center"
+      className="shadow-accent-wide-brand relative flex min-h-[230px] flex-col items-center justify-center rounded-2xl border-[3px] border-line bg-[#f9f9f9] p-6 text-center"
     >
       <span
         className={`absolute top-2.5 left-2.5 rounded-full px-2.5 py-[5px] text-[11px] leading-none font-bold tracking-[0.03em] ${
           pillTone === 'lemon'
-            ? 'border-2 border-oak-black bg-oak-lemon text-oak-black'
-            : 'bg-oak-black text-white'
+            ? 'border-2 border-line bg-accent-brand text-ink'
+            : 'bg-surface-inverted text-white'
         }`}
       >
         {pill}
       </span>
       {glyph}
-      <span className="mt-2.5 max-w-[80%] text-sm leading-5 font-light text-oak-grey">{label}</span>
+      <span className="mt-2.5 max-w-[80%] text-sm leading-5 font-light text-ink-subdued">
+        {label}
+      </span>
     </div>
   );
 }

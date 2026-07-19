@@ -27,14 +27,22 @@ function toStandards(block: CalloutBlock): readonly CalloutStandard[] {
  * the stats tile palette. Quality-standard callouts override to the export's QS blue family.
  */
 const VARIANTS = {
-  tip: { accent: 'border-l-[#93e892] bg-oak-green-subdued', icon: '★', iconBg: 'bg-oak-mint' },
+  tip: { accent: 'border-l-[#93e892] bg-success-subtle', icon: '★', iconBg: 'bg-decorative-1' },
   info: {
-    accent: 'border-l-oak-lavender bg-oak-lavender-subdued',
+    accent: 'border-l-decorative-3 bg-decorative-3-subtle',
     icon: 'i',
-    iconBg: 'bg-oak-lavender',
+    iconBg: 'bg-decorative-3',
   },
-  warning: { accent: 'border-l-oak-amber bg-oak-amber-subdued', icon: '!', iconBg: 'bg-oak-amber' },
-  quote: { accent: 'border-l-oak-lemon bg-oak-lemon-subdued', icon: '“', iconBg: 'bg-oak-lemon' },
+  warning: {
+    accent: 'border-l-decorative-6 bg-decorative-6-subtle',
+    icon: '!',
+    iconBg: 'bg-decorative-6',
+  },
+  quote: {
+    accent: 'border-l-accent-brand bg-accent-subtle-brand',
+    icon: '“',
+    iconBg: 'bg-accent-brand',
+  },
 } as const;
 
 /** The export's QS blue family (#2a6fdb / #e7f0fd / #143b78 — course-export-only values). */
@@ -93,11 +101,11 @@ export function CalloutBlockView({ block }: { readonly block: CalloutBlock }): R
   return (
     <div
       data-variant={block.variant}
-      className={`flex gap-3.5 rounded-xl border-2 border-oak-black border-l-8 p-[18px_20px] ${qsLed ? QS_ACCENT : variant.accent}`}
+      className={`flex gap-3.5 rounded-xl border-2 border-line border-l-8 p-[18px_20px] ${qsLed ? QS_ACCENT : variant.accent}`}
     >
       <span
         aria-hidden="true"
-        className={`flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-full border-2 border-oak-black text-lg leading-none font-bold ${variant.iconBg}`}
+        className={`flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-full border-2 border-line text-lg leading-none font-bold ${variant.iconBg}`}
       >
         {variant.icon}
       </span>
@@ -121,7 +129,7 @@ export function CalloutBlockView({ block }: { readonly block: CalloutBlock }): R
           )
         )}
         {block.attrib !== undefined && (
-          <p className="mt-2 text-[14px] font-light text-oak-grey">
+          <p className="mt-2 text-[14px] font-light text-ink-subdued">
             <cite>— {block.attrib}</cite>
           </p>
         )}

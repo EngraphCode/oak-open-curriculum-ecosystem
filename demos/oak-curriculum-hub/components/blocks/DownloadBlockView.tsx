@@ -7,7 +7,7 @@ function FileChip(): ReactElement {
   return (
     <span
       aria-hidden="true"
-      className="flex h-[58px] w-[50px] shrink-0 flex-col items-center justify-center gap-[3px] rounded-lg border-2 border-oak-black bg-oak-lemon-subdued"
+      className="flex h-[58px] w-[50px] shrink-0 flex-col items-center justify-center gap-[3px] rounded-lg border-2 border-line bg-accent-subtle-brand"
     >
       <svg
         width="22"
@@ -39,19 +39,19 @@ export function DownloadBlockView({ block }: { readonly block: DownloadBlock }):
     <a
       href={`/${block.href}`}
       download
-      className="shadow-oak-wide-lemon flex flex-wrap items-center gap-4 rounded-[14px] border-[3px] border-oak-black bg-white p-[18px_20px] text-oak-black no-underline"
+      className="shadow-accent-wide-brand flex flex-wrap items-center gap-4 rounded-[14px] border-[3px] border-line bg-white p-[18px_20px] text-ink no-underline"
     >
       <FileChip />
       <span className="min-w-[180px] flex-1">
         <span className="block text-lg leading-6 font-bold">{block.title}</span>
-        <span className="mt-[3px] block text-[15px] leading-[22px] font-light text-oak-grey">
+        <span className="mt-[3px] block text-[15px] leading-[22px] font-light text-ink-subdued">
           {block.desc}
         </span>
-        <span className="mt-[9px] block text-[13px] leading-none font-bold text-oak-grey">
+        <span className="mt-[9px] block text-[13px] leading-none font-bold text-ink-subdued">
           {block.meta}
         </span>
       </span>
-      <span className="flex shrink-0 items-center gap-2 rounded-lg border-2 border-oak-black bg-oak-black p-[11px_16px] text-sm leading-none font-bold text-white">
+      <span className="flex shrink-0 items-center gap-2 rounded-lg border-2 border-line bg-surface-inverted p-[11px_16px] text-sm leading-none font-bold text-white">
         Download
         <svg
           width="16"

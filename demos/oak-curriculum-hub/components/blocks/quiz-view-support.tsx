@@ -30,15 +30,15 @@ function optionSuffix(answered: boolean, isSelected: boolean, isCorrect: boolean
 function optionClasses(answered: boolean, isSelected: boolean, isCorrect: boolean): string {
   const base = 'flex items-center gap-3 rounded-[10px] border-2 px-3.5 py-2.5 text-left';
   if (!answered) {
-    return `${base} border-oak-black bg-white`;
+    return `${base} border-line bg-white`;
   }
   if (isCorrect) {
-    return `${base} border-oak-green bg-oak-mint-subdued`;
+    return `${base} border-success bg-decorative-1-soft`;
   }
   if (isSelected) {
-    return `${base} border-oak-red bg-oak-red-subdued`;
+    return `${base} border-error bg-error-subtle`;
   }
-  return `${base} border-oak-black/40 bg-oak-black/[.03]`;
+  return `${base} border-line/40 bg-surface-inverted/[.03]`;
 }
 
 /** The option's leading chip: the letter before answering; ✓ / ✕ state marks after. */
@@ -57,7 +57,7 @@ function OptionChip({
     return (
       <span
         aria-hidden="true"
-        className="grid h-6 w-6 shrink-0 place-items-center rounded-full border-2 border-oak-green bg-oak-green text-[12px] font-bold text-white"
+        className="grid h-6 w-6 shrink-0 place-items-center rounded-full border-2 border-success bg-success text-[12px] font-bold text-white"
       >
         ✓
       </span>
@@ -67,7 +67,7 @@ function OptionChip({
     return (
       <span
         aria-hidden="true"
-        className="grid h-6 w-6 shrink-0 place-items-center rounded-full border-2 border-oak-red bg-oak-red text-[12px] font-bold text-white"
+        className="grid h-6 w-6 shrink-0 place-items-center rounded-full border-2 border-error bg-error text-[12px] font-bold text-white"
       >
         ✕
       </span>
@@ -76,7 +76,7 @@ function OptionChip({
   return (
     <span
       aria-hidden="true"
-      className="grid h-6 w-6 shrink-0 place-items-center rounded-full border-2 border-oak-black bg-white text-[12px] font-bold uppercase"
+      className="grid h-6 w-6 shrink-0 place-items-center rounded-full border-2 border-line bg-white text-[12px] font-bold uppercase"
     >
       {letter}
     </span>
@@ -95,7 +95,7 @@ export function QuizStem({
 }): ReactElement {
   return (
     <p id={stemId} className="mb-3 flex gap-2.5">
-      <span className="shrink-0 text-[16px] font-bold leading-6 text-oak-grey">Q{number}</span>
+      <span className="shrink-0 text-[16px] font-bold leading-6 text-ink-subdued">Q{number}</span>
       <span className="text-[18px] font-semibold leading-[25px]">{stem}</span>
     </p>
   );

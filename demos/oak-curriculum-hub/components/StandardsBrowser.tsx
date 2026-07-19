@@ -24,7 +24,7 @@ function SearchField({
 }): ReactElement {
   const id = useId();
   return (
-    <div className="flex max-w-[560px] items-center gap-2.5 rounded-full border-[3px] border-oak-black bg-white px-4 py-2.5 shadow-oak-wide-lemon">
+    <div className="flex max-w-[560px] items-center gap-2.5 rounded-full border-[3px] border-line bg-white px-4 py-2.5 shadow-accent-wide-brand">
       <svg
         aria-hidden="true"
         width="20"
@@ -34,7 +34,7 @@ function SearchField({
         stroke="currentColor"
         strokeWidth="2.2"
         strokeLinecap="round"
-        className="shrink-0 text-oak-grey"
+        className="shrink-0 text-ink-subdued"
       >
         <circle cx="11" cy="11" r="7" />
         <path d="M21 21l-4.3-4.3" />
@@ -48,7 +48,7 @@ function SearchField({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="Search standards…"
-        className="w-full border-none bg-transparent text-[17px] text-oak-black outline-none"
+        className="w-full border-none bg-transparent text-[17px] text-ink outline-none"
       />
     </div>
   );
@@ -62,15 +62,15 @@ function PageHead({
   readonly onSearch: (next: string) => void;
 }): ReactElement {
   return (
-    <header className="border-b-[3px] border-oak-black bg-oak-lavender-subdued">
+    <header className="border-b-[3px] border-line bg-decorative-3-subtle">
       <div className="mx-auto max-w-[1320px] px-7 pb-[30px] pt-[34px]">
-        <p className="mb-3 text-[12px] font-bold uppercase tracking-[0.06em] text-oak-grey">
+        <p className="mb-3 text-[12px] font-bold uppercase tracking-[0.06em] text-ink-subdued">
           Single source of truth
         </p>
         <h1 className="mb-3 text-[42px] font-semibold leading-[48px] text-balance">
           Quality standards
         </h1>
-        <p className="mb-[22px] max-w-[72ch] text-[19px] leading-[28px] text-oak-black">
+        <p className="mb-[22px] max-w-[72ch] text-[19px] leading-[28px] text-ink">
           The benchmarks every Oak lesson is held to. Browse and filter by guidance area, rubric and
           resource — each standard shows exactly where it applies. Links from training courses bring
           you straight here.
@@ -90,7 +90,7 @@ function AreaRail({
 }): ReactElement {
   return (
     <nav aria-label="Filter by guidance area" className="flex flex-col gap-0.5">
-      <p className="mb-3 text-[12px] font-bold uppercase tracking-[0.05em] text-oak-grey">
+      <p className="mb-3 text-[12px] font-bold uppercase tracking-[0.05em] text-ink-subdued">
         Guidance area
       </p>
       {items.map((item) => (
@@ -99,14 +99,14 @@ function AreaRail({
           type="button"
           aria-pressed={item.active}
           onClick={() => onPick(item.value)}
-          className={`flex items-center gap-2 rounded-oak-m2 px-3 py-2.5 text-left text-[14px] leading-[18px] ${
-            item.active ? 'bg-oak-black font-bold text-white' : 'text-oak-black hover:bg-oak-cream'
+          className={`flex items-center gap-2 rounded-card px-3 py-2.5 text-left text-[14px] leading-[18px] ${
+            item.active ? 'bg-surface-inverted font-bold text-white' : 'text-ink hover:bg-surface'
           }`}
         >
           <span className="flex-1">{item.label}</span>
           <span
             className={`shrink-0 rounded-full px-2 py-1 text-[11px] font-bold ${
-              item.active ? 'bg-white/20 text-white' : 'bg-oak-grey-line text-oak-grey'
+              item.active ? 'bg-white/20 text-white' : 'bg-line-soft text-ink-subdued'
             }`}
           >
             {item.count}
@@ -138,7 +138,7 @@ function BrowseView({
   return (
     <div className="mx-auto flex w-full max-w-[1320px] flex-col gap-0 md:flex-row">
       {/* The rail stacks above the results below md: (290px beside results reflow-fails at 320). */}
-      <aside className="self-stretch border-b-2 border-oak-grey-line px-5 pb-6 pt-[26px] md:shrink-0 md:basis-[290px] md:border-b-0 md:border-r-2 md:pb-[60px]">
+      <aside className="self-stretch border-b-2 border-line-soft px-5 pb-6 pt-[26px] md:shrink-0 md:basis-[290px] md:border-b-0 md:border-r-2 md:pb-[60px]">
         <AreaRail items={view.rail} onPick={(area) => onFilter({ area })} />
       </aside>
       {/* A labelled region (not a second <main>: layout.tsx already owns the main landmark); it is

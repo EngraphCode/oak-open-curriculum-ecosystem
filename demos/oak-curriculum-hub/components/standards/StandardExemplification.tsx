@@ -18,11 +18,11 @@ function ExampleTile({
   readonly heading: string;
   readonly caption: string;
 }): ReactElement {
-  const border = tone === 'good' ? 'border-oak-green' : 'border-oak-red';
-  const headBg = tone === 'good' ? 'bg-oak-green' : 'bg-oak-red';
-  const bodyBg = tone === 'good' ? 'bg-oak-mint-subdued' : 'bg-oak-pink-subdued';
+  const border = tone === 'good' ? 'border-success' : 'border-error';
+  const headBg = tone === 'good' ? 'bg-success' : 'bg-error';
+  const bodyBg = tone === 'good' ? 'bg-decorative-1-soft' : 'bg-decorative-4-subtle';
   return (
-    <div className={`overflow-hidden rounded-oak-l border-2 ${border}`}>
+    <div className={`overflow-hidden rounded-large border-2 ${border}`}>
       <p className={`m-0 px-4 py-3 text-[14px] font-bold text-white ${headBg}`}>{heading}</p>
       <div
         className={`flex min-h-[150px] flex-col items-center justify-center gap-2 p-4 text-center ${bodyBg}`}
@@ -31,9 +31,9 @@ function ExampleTile({
             role="img" + aria-label duplicated it for screen readers. */}
         <span
           aria-hidden="true"
-          className="block h-8 w-8 rounded-oak-s border-2 border-current opacity-70"
+          className="block h-8 w-8 rounded-ctl border-2 border-current opacity-70"
         />
-        <span className="text-[13px] leading-[19px] text-oak-grey">{caption}</span>
+        <span className="text-[13px] leading-[19px] text-ink-subdued">{caption}</span>
       </div>
     </div>
   );
@@ -46,20 +46,20 @@ export function StandardExemplification(): ReactElement {
         <h2 id="exemplification-heading" className="m-0 text-[24px] font-semibold leading-[30px]">
           Exemplification
         </h2>
-        <span className="rounded-full border-2 border-oak-lemon bg-oak-lemon-subdued px-2.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.03em] text-oak-black">
+        <span className="rounded-full border-2 border-accent-brand bg-accent-subtle-brand px-2.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.03em] text-ink">
           To be added
         </span>
       </div>
-      <p className="mb-[22px] max-w-[70ch] text-[16px] leading-[24px] text-oak-grey">
+      <p className="mb-[22px] max-w-[70ch] text-[16px] leading-[24px] text-ink-subdued">
         This is where the worked exemplification lives — what meeting this standard looks like in
         practice. The placeholders below show the shape; drop in real guidance, annotated examples
         and media as you build it out.
       </p>
-      <div className="mb-4 rounded-oak-l border-2 border-oak-black bg-oak-mint-subdued px-5 py-[18px]">
-        <p className="mb-2 text-[12px] font-bold uppercase tracking-[0.04em] text-oak-green">
+      <div className="mb-4 rounded-large border-2 border-line bg-decorative-1-soft px-5 py-[18px]">
+        <p className="mb-2 text-[12px] font-bold uppercase tracking-[0.04em] text-success">
           What good looks like
         </p>
-        <p className="m-0 text-[16px] leading-[24px] text-oak-black">
+        <p className="m-0 text-[16px] leading-[24px] text-ink">
           Add a short description of how this standard is met well — the key things a reviewer
           should see.
         </p>
@@ -72,11 +72,11 @@ export function StandardExemplification(): ReactElement {
         />
         <ExampleTile tone="bad" heading="✕ Non-example" caption="What falling short looks like" />
       </div>
-      <div className="rounded-oak-l border-2 border-dashed border-oak-grey-40 bg-white px-5 py-[18px]">
-        <p className="mb-2 text-[12px] font-bold uppercase tracking-[0.04em] text-oak-grey">
+      <div className="rounded-large border-2 border-dashed border-line-soft bg-white px-5 py-[18px]">
+        <p className="mb-2 text-[12px] font-bold uppercase tracking-[0.04em] text-ink-subdued">
           Guidance notes
         </p>
-        <p className="m-0 text-[16px] leading-[24px] text-oak-grey">
+        <p className="m-0 text-[16px] leading-[24px] text-ink-subdued">
           Add any nuance, edge cases or subject-specific notes here — and link out to relevant
           exemplar lessons or the wiki.
         </p>

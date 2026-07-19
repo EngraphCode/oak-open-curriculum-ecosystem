@@ -17,7 +17,7 @@ function areaTagStyle(colour: string): { readonly backgroundColor: string } {
 /** A row of coloured guidance-area tags, or an em-dash when there are none. */
 function AreaTags({ tags }: { readonly tags: readonly AreaTag[] }): ReactElement {
   if (tags.length === 0) {
-    return <span className="text-oak-grey">—</span>;
+    return <span className="text-ink-subdued">—</span>;
   }
   return (
     <span className="flex flex-wrap gap-1.5">
@@ -25,7 +25,7 @@ function AreaTags({ tags }: { readonly tags: readonly AreaTag[] }): ReactElement
         <span
           key={tag.label}
           style={areaTagStyle(tag.colour)}
-          className="rounded-full border-2 border-oak-black px-2.5 py-1.5 text-[13px] font-bold text-oak-black"
+          className="rounded-full border-2 border-line px-2.5 py-1.5 text-[13px] font-bold text-ink"
         >
           {tag.label}
         </span>
@@ -43,7 +43,7 @@ function ChipList({
   readonly tint: string;
 }): ReactElement {
   if (values.length === 0) {
-    return <span className="text-oak-grey">—</span>;
+    return <span className="text-ink-subdued">—</span>;
   }
   return (
     <span className="flex flex-wrap gap-1.5">
@@ -59,10 +59,10 @@ function ChipList({
 /** Pill tint per statement type (default white for the unmapped case). */
 function pillTintOf(typeVariant: StandardDetailVM['typeVariant']): string {
   if (typeVariant === 'required') {
-    return 'bg-oak-lemon';
+    return 'bg-accent-brand';
   }
   if (typeVariant === 'model') {
-    return 'bg-oak-lavender-subdued';
+    return 'bg-decorative-3-subtle';
   }
   return 'bg-white';
 }
@@ -71,23 +71,23 @@ function pillTintOf(typeVariant: StandardDetailVM['typeVariant']): string {
 function StatementHeader({ vm }: { readonly vm: StandardDetailVM }): ReactElement {
   const pillTint = pillTintOf(vm.typeVariant);
   return (
-    <div className="border-b-[3px] border-oak-black bg-oak-lavender-subdued px-[30px] py-6">
+    <div className="border-b-[3px] border-line bg-decorative-3-subtle px-[30px] py-6">
       <div className="mb-4 flex flex-wrap items-center gap-2.5">
-        <span className="rounded-oak-m2 border-2 border-oak-navy bg-white px-2.5 py-1.5 text-[13px] font-bold text-oak-navy">
+        <span className="rounded-card border-2 border-link bg-white px-2.5 py-1.5 text-[13px] font-bold text-link">
           {vm.id}
         </span>
         <span
-          className={`rounded-full border-2 border-oak-black px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.03em] text-oak-black ${pillTint}`}
+          className={`rounded-full border-2 border-line px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.03em] text-ink ${pillTint}`}
         >
           {vm.typeLabel}
         </span>
         {vm.hasCode && (
-          <span className="rounded-oak-m border-2 border-oak-grey-line bg-white px-2.5 py-1.5 text-[12px] font-bold text-oak-grey">
+          <span className="rounded-mid border-2 border-line-soft bg-white px-2.5 py-1.5 text-[12px] font-bold text-ink-subdued">
             Rubric code · {vm.code}
           </span>
         )}
       </div>
-      <p className="mb-2 text-[12px] font-bold uppercase tracking-[0.05em] text-oak-grey">
+      <p className="mb-2 text-[12px] font-bold uppercase tracking-[0.05em] text-ink-subdued">
         The standard
       </p>
       <p className="m-0 text-[26px] font-semibold leading-[34px] text-pretty">{vm.text}</p>
@@ -98,31 +98,31 @@ function StatementHeader({ vm }: { readonly vm: StandardDetailVM }): ReactElemen
 /** The three-cell meta grid: guidance area, applies-to components, assessed-in rubrics. */
 function MetaGrid({ vm }: { readonly vm: StandardDetailVM }): ReactElement {
   return (
-    <dl className="m-0 grid grid-cols-1 gap-0 border-b-2 border-oak-grey-line sm:grid-cols-3">
-      <div className="border-oak-grey-line px-[22px] py-[18px] sm:border-r-2">
-        <dt className="mb-2.5 text-[11px] font-bold uppercase tracking-[0.05em] text-oak-grey">
+    <dl className="m-0 grid grid-cols-1 gap-0 border-b-2 border-line-soft sm:grid-cols-3">
+      <div className="border-line-soft px-[22px] py-[18px] sm:border-r-2">
+        <dt className="mb-2.5 text-[11px] font-bold uppercase tracking-[0.05em] text-ink-subdued">
           Guidance area
         </dt>
         <dd className="m-0">
           <AreaTags tags={vm.areaTags} />
         </dd>
       </div>
-      <div className="border-oak-grey-line px-[22px] py-[18px] sm:border-r-2">
-        <dt className="mb-2.5 text-[11px] font-bold uppercase tracking-[0.05em] text-oak-grey">
+      <div className="border-line-soft px-[22px] py-[18px] sm:border-r-2">
+        <dt className="mb-2.5 text-[11px] font-bold uppercase tracking-[0.05em] text-ink-subdued">
           Applies to
         </dt>
         <dd className="m-0">
-          <ChipList values={vm.components} tint="border border-oak-grey-line text-oak-black" />
+          <ChipList values={vm.components} tint="border border-line-soft text-ink" />
         </dd>
       </div>
       <div className="px-[22px] py-[18px]">
-        <dt className="mb-2.5 text-[11px] font-bold uppercase tracking-[0.05em] text-oak-grey">
+        <dt className="mb-2.5 text-[11px] font-bold uppercase tracking-[0.05em] text-ink-subdued">
           Assessed in rubric
         </dt>
         <dd className="m-0">
           <ChipList
             values={vm.rubrics}
-            tint="border-2 border-oak-black bg-oak-lemon-subdued font-semibold text-oak-black"
+            tint="border-2 border-line bg-accent-subtle-brand font-semibold text-ink"
           />
         </dd>
       </div>
@@ -153,13 +153,13 @@ function RelatedStandards({
               type="button"
               aria-label={`${related.id}: ${related.text}`}
               onClick={() => onOpenRelated(related.id)}
-              className="flex w-full items-center gap-3.5 rounded-oak-l border-2 border-oak-black bg-white px-4 py-3.5 text-left shadow-oak-lemon"
+              className="flex w-full items-center gap-3.5 rounded-large border-2 border-line bg-white px-4 py-3.5 text-left shadow-accent-brand"
             >
-              <span className="shrink-0 rounded-oak-m border-2 border-oak-navy bg-oak-lavender-subdued px-2.5 py-1.5 text-[12px] font-bold text-oak-navy">
+              <span className="shrink-0 rounded-mid border-2 border-link bg-decorative-3-subtle px-2.5 py-1.5 text-[12px] font-bold text-link">
                 {related.id}
               </span>
               <span className="flex-1 text-[16px] leading-[22px]">{related.text}</span>
-              <span aria-hidden className="shrink-0 text-[20px] font-bold text-oak-grey">
+              <span aria-hidden className="shrink-0 text-[20px] font-bold text-ink-subdued">
                 ›
               </span>
             </button>
@@ -186,11 +186,11 @@ export function StandardDetail({
       <button
         type="button"
         onClick={() => onBack()}
-        className="mb-[22px] inline-flex items-center gap-2 rounded-full border-2 border-oak-black bg-white px-4 py-2.5 text-[14px] font-bold shadow-oak-lemon"
+        className="mb-[22px] inline-flex items-center gap-2 rounded-full border-2 border-line bg-white px-4 py-2.5 text-[14px] font-bold shadow-accent-brand"
       >
         <span aria-hidden>←</span> Back to results
       </button>
-      <article className="overflow-hidden rounded-oak-l border-[3px] border-oak-black bg-white shadow-oak-grey">
+      <article className="overflow-hidden rounded-large border-[3px] border-line bg-white shadow-neutral-brand">
         <StatementHeader vm={detail} />
         <MetaGrid vm={detail} />
         <StandardExemplification />

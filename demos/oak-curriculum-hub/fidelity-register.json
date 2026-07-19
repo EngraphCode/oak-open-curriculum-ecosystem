@@ -39,6 +39,16 @@
       "rationale": "Ratified requirement: six destination cards. Fold-level record so the fold pair's triage ratio reads with the known cause attached.",
       "author": "director-9",
       "date": "2026-07-03"
+    },
+    {
+      "id": "hub-global/token-source-convergence-slice1",
+      "pairId": "hub-global",
+      "kind": "visual",
+      "summary": "AIP-137 ws-hub-migration \u00a71+\u00a73: the hub's raw-hex Tailwind @theme mirror is replaced by the design system's role tokens; six value shifts follow from role convergence.",
+      "evidence": [".agent/reports/design/aip-137-stage-a-import-verification-2026-07-19.md"],
+      "disposition": "deliberate",
+      "rationale": "Convergence onto the canonical token source (ADR-213) \u2014 the mirror was the parallel token system the decision kills. Role-mapped shifts, old \u2192 new: (1) page/surface background #f4f3ef \u2192 #ffffff (bg.primary); (2) hairline borders #e0ded6 \u2192 #cacaca (border.neutral-lighter); (3) notice tint #fffdf0 \u2192 #fff7cc (color.accent-subtle); (4) amber fills #ff934e \u2192 #ffc8a6 (surface.decorative-6); (5) mid-grey borders #575757 \u2192 #808080 (border.neutral); (6) ink shadow 2px 2px 0 #222222 \u2192 0.063rem 0.125rem 0 #000000 (shadow.ink). All other mapped tokens are hex-identical (verified against the Stage-A report's resolved-role table); signature shadows/radii are value-identical with rem units replacing px (scales with root font size \u2014 an access improvement, not a divergence). Do not re-flag on export re-ingest.",
+      "author": "Salmon binds Undertow (de5c10)"
     }
   ]
 }

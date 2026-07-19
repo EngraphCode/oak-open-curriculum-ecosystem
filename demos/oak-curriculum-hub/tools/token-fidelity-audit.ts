@@ -94,9 +94,14 @@ const MAPPING: readonly TokenMapping[] = [
     authToken: 'border-radius-border-radius-l',
     cmp: 'num',
   },
-  { cat: 'shadow', demoToken: 'shadow-oak-lemon', authToken: 'shadow-lemon', cmp: 'px' },
-  { cat: 'shadow', demoToken: 'shadow-oak-wide-lemon', authToken: 'shadow-wide-lemon', cmp: 'px' },
-  { cat: 'shadow', demoToken: 'shadow-oak-grey', authToken: 'shadow-grey', cmp: 'px' },
+  { cat: 'shadow', demoToken: 'shadow-accent-brand', authToken: 'shadow-lemon', cmp: 'px' },
+  {
+    cat: 'shadow',
+    demoToken: 'shadow-accent-wide-brand',
+    authToken: 'shadow-wide-lemon',
+    cmp: 'px',
+  },
+  { cat: 'shadow', demoToken: 'shadow-neutral-brand', authToken: 'shadow-grey', cmp: 'px' },
 ];
 
 /** One report line for a mapped pair where both sides exist. */

@@ -28,12 +28,12 @@ function SectionRow({
         aria-current={active ? 'location' : undefined}
         style={active ? { backgroundColor: accent } : undefined}
         className={`ml-3.5 flex items-center gap-2.5 rounded-r-lg border-l-[3px] py-[9px] pl-3.5 pr-3 text-[14px] leading-[19px] ${
-          active ? 'border-oak-black font-semibold' : 'border-oak-grey-line font-light'
+          active ? 'border-line font-semibold' : 'border-line-soft font-light'
         }`}
       >
         <span
           aria-hidden="true"
-          className="h-5 w-5 shrink-0 rounded-full border-2 border-oak-grey-40"
+          className="h-5 w-5 shrink-0 rounded-full border-2 border-line-soft"
         />
         {title}
       </a>
@@ -67,20 +67,20 @@ function ModuleHeaderButton({
       aria-expanded={open}
       onClick={onToggle}
       className={`flex w-full items-center gap-[11px] rounded-[10px] px-3 py-[11px] text-left text-[15px] font-bold leading-[19px] ${
-        activeModule ? 'bg-oak-black/5' : 'hover:bg-oak-lemon-subdued'
+        activeModule ? 'bg-surface-inverted/5' : 'hover:bg-accent-subtle-brand'
       }`}
     >
       <span
         aria-hidden="true"
         style={{ backgroundColor: module.color }}
-        className="grid h-7 w-7 shrink-0 place-items-center rounded-full border-2 border-oak-black text-[13px] font-bold"
+        className="grid h-7 w-7 shrink-0 place-items-center rounded-full border-2 border-line text-[13px] font-bold"
       >
         {ordinal}
       </span>
       <span className="flex-1">{module.title}</span>
       <span
         aria-hidden="true"
-        className={`text-[20px] leading-none text-oak-grey transition-transform ${open ? 'rotate-90' : ''}`}
+        className={`text-[20px] leading-none text-ink-subdued transition-transform ${open ? 'rotate-90' : ''}`}
       >
         ›
       </span>
@@ -146,10 +146,10 @@ export function NavUnitGroup({
   return (
     <li className="mb-2">
       <p className="mt-1.5 flex items-center gap-2 px-1.5 pb-[7px] pt-2.5">
-        <span className="shrink-0 rounded-full bg-oak-black px-[9px] py-[5px] text-[11px] font-bold leading-none tracking-[0.04em] text-white">
+        <span className="shrink-0 rounded-full bg-surface-inverted px-[9px] py-[5px] text-[11px] font-bold leading-none tracking-[0.04em] text-white">
           {unit.label}
         </span>
-        <span className="text-[11px] font-bold uppercase leading-[15px] tracking-[0.04em] text-oak-grey">
+        <span className="text-[11px] font-bold uppercase leading-[15px] tracking-[0.04em] text-ink-subdued">
           {unit.title}
         </span>
       </p>

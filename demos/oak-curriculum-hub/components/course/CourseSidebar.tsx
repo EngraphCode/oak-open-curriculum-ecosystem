@@ -21,7 +21,7 @@ function SidebarHeader({
     <>
       <div className="px-[22px] pb-4 pt-6">
         <Image src="/oak-logo.svg" alt="" width={90} height={30} className="mb-5 h-[30px] w-auto" />
-        <p className="mb-1.5 text-[12px] font-bold uppercase tracking-[0.06em] text-oak-grey">
+        <p className="mb-1.5 text-[12px] font-bold uppercase tracking-[0.06em] text-ink-subdued">
           Professional course
         </p>
         <h1 className="text-[21px] font-semibold leading-[27px] tracking-[0.0115rem]">{title}</h1>
@@ -29,15 +29,15 @@ function SidebarHeader({
       <div className="px-[22px] pb-[18px]">
         <div className="mb-[7px] flex items-baseline justify-between">
           <span className="text-[13px] font-bold leading-none">Your progress</span>
-          <span className="text-[13px] font-light leading-none text-oak-grey">
+          <span className="text-[13px] font-light leading-none text-ink-subdued">
             0 of {sectionTotal} done
           </span>
         </div>
         <div
-          className="h-3 overflow-hidden rounded-full border-2 border-oak-black bg-white"
+          className="h-3 overflow-hidden rounded-full border-2 border-line bg-white"
           aria-hidden="true"
         >
-          <div className="h-full w-0 bg-oak-mint" />
+          <div className="h-full w-0 bg-decorative-1" />
         </div>
       </div>
     </>
@@ -60,13 +60,13 @@ function IntroItem({
       aria-current={active ? 'location' : undefined}
       className={`flex items-center gap-[11px] rounded-[10px] border-2 px-3 py-[11px] text-[15px] font-bold leading-[19px] ${
         active
-          ? 'border-oak-black bg-white shadow-oak-lemon'
-          : 'border-transparent hover:bg-oak-lemon-subdued'
+          ? 'border-line bg-white shadow-accent-brand'
+          : 'border-transparent hover:bg-accent-subtle-brand'
       }`}
     >
       <span
         aria-hidden="true"
-        className="grid h-7 w-7 shrink-0 place-items-center rounded-full border-2 border-oak-black bg-oak-lemon text-[14px] font-bold"
+        className="grid h-7 w-7 shrink-0 place-items-center rounded-full border-2 border-line bg-accent-brand text-[14px] font-bold"
       >
         ★
       </span>
@@ -100,7 +100,7 @@ export function CourseSidebar({
     });
   };
   return (
-    <div className="shrink-0 border-r-2 border-oak-black bg-white md:w-[320px]">
+    <div className="shrink-0 border-r-2 border-line bg-white md:w-[320px]">
       <SidebarHeader title={title} sectionTotal={sectionTotal} />
       <nav aria-label="Course navigation" className="px-3.5 pb-7 pt-1">
         <IntroItem
@@ -108,7 +108,7 @@ export function CourseSidebar({
           title={tree.intro.title}
           active={activeModuleId === tree.intro.id}
         />
-        <div aria-hidden="true" className="mx-1.5 mb-3 mt-2.5 h-0.5 rounded-sm bg-oak-grey-line" />
+        <div aria-hidden="true" className="mx-1.5 mb-3 mt-2.5 h-0.5 rounded-sm bg-line-soft" />
         <ol>
           {tree.units.map((unit) => (
             <NavUnitGroup
