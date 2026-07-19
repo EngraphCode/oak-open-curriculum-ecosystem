@@ -115,9 +115,9 @@ color-scheme: dark }` bridge rule because `light-dark()` resolves against `color
 boundary conditions above are corrected against the imported export and the studio's own
 contract (`packages/design/oak-design-system/DECISIONS.md` §Ecosystem convergence, the
 workspace README's file-map entry for `dtcg/`, and the
-`packages/design/oak-design-system/colors_and_type.css` §Dark structural comment; the
-explicit contract doc `dtcg/README.md` is to be re-obtained at the next studio sync — an
-import omission, tracked in the implementing plan's sync lane):
+`packages/design/oak-design-system/colors_and_type.css` §Dark structural comment; and the
+explicit contract doc `packages/design/oak-design-system/dtcg/README.md`, re-obtained
+during PR #411):
 
 - **Theme-tree completeness is a declared-base overlay model, not key-set equality** (this
   supersedes "all four semantic theme trees must define the same key set" above). The light
@@ -134,10 +134,16 @@ import omission, tracked in the implementing plan's sync lane):
 - **The colour-value boundary admits a closed grammar**: a `#rrggbb` literal, an
   `rgb(R G B / A)` alpha literal, or a full-string token reference
   (`validateColourLiterals`). Expression values (`color-mix()`, `calc()`) remain rejected
-  with a structured `Err` as above. Alpha literals are legal input that cannot yield a WCAG
-  contrast hex without compositing: the contrast gate MUST exclude them from the resolved
-  hex map, so a manifest pairing referencing one surfaces as the existing
-  `unresolved_token` error.
+  with a structured `Err` as above — a **deliberate per-consumer divergence** from the
+  export's own contract (`dtcg/README.md`: 15 expression values ride verbatim, "a
+  consuming build should pass them through untouched"). Pass-through is the CSS-emission
+  consumer's contract, where the browser evaluates the functions; the contrast-resolution
+  path cannot evaluate them (three are `currentColor`-dependent and can never be
+  statically pre-computed), so this boundary rejects them for WCAG resolution. Stage B's
+  emission lane records its own expression handling against the export contract. Alpha
+  literals are legal input that cannot yield a WCAG contrast hex without compositing: the
+  contrast gate MUST exclude them from the resolved hex map, so a manifest pairing
+  referencing one surfaces as the existing `unresolved_token` error.
 
 ### 3. The component system
 

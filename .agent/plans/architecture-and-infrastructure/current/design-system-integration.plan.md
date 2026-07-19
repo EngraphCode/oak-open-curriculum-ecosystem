@@ -30,7 +30,7 @@ todos:
     status: pending
     depends_on: [pr3-cycle-completeness]
   - id: pr3-cycle-four-theme-gate
-    content: "PR3 cycle 3: extend buildContrastReports from light/dark to all four theme trees, running the design system's contrast manifest; surface the AA-vs-AAA high-contrast gate level as the owner gate; re-baseline design-token-practice.md's two-theme wording in the same PR."
+    content: "PR3 cycle 3: extend buildContrastReports from light/dark to all four theme trees, composing light base ⊕ overlay per theme BEFORE resolution (ADR-213 §2 amendment — a sparse overlay resolved alone spuriously reports unresolved tokens) and excluding alpha-literal and expression paths from the resolved hex map; run the design system's contrast manifest; surface the AA-vs-AAA high-contrast gate level as the owner gate; re-baseline design-token-practice.md's two-theme wording in the same PR."
     status: pending
     depends_on: [pr3-cycle-boundary]
   - id: ws-hub-migration
@@ -117,10 +117,12 @@ One system, two first-class surfaces. The workspace README carries the runbook:
 - **Studio → repo**: after design sessions, changed files come back via DesignSync reads and
   land as a normal reviewed PR into the workspace (incremental, per-component — never a
   wholesale replace). The studio's `HANDOFF.md`/`CHANGELOG.md` name what changed.
-  **Standing item for the next studio → repo sync (2026-07-19)**: re-obtain
-  `dtcg/README.md` — the explicit dtcg contract doc both `DECISIONS.md` §Ecosystem
-  convergence and the workspace README cite; absent from the initial import (omission,
-  not a hold-out).
+  **Standing item (2026-07-19, revised same day)**: `dtcg/README.md` landed with PR #411.
+  The remaining obligation is the recorded per-consumer divergence: the export contract
+  passes the 15 expression values through verbatim, while ADR-213 §2 rejects them on the
+  contrast-resolution path (three are `currentColor`-dependent — never statically
+  pre-computable). Stage B's emission lane must decide its expression handling explicitly
+  against the export contract, never by silent adoption of either side.
 - **Repo → studio**: before design sessions, the studio is brought current from the repo copy
   via the design-sync flow (structural diff from `list_files`, then targeted writes).
 - **Conflict rule**: git review is the merge authority. A sync never overwrites unreviewed
