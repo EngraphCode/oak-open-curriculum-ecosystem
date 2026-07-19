@@ -414,7 +414,8 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   design-sync discipline; class-library-first consumption; Base UI default for new hard
   widgets with React Aria scoped to date/locale and Ark UI for non-React; no shared React
   component workspace until a second consumer; staged atomic token-source convergence;
-  per-file-class licensing manifest for Oak marks; Proposed 2026-07-19)
+  per-file-class licensing manifest for Oak marks; Proposed 2026-07-19; amended 2026-07-19
+  §2 — overlay completeness model and colour-value grammar, evidence-driven)
 
 ## Key Architectural Decisions
 

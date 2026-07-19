@@ -26,7 +26,8 @@
     "lint:fix": "eslint --fix ."
   },
   "dependencies": {
-    "@oaknational/result": "workspace:*"
+    "@oaknational/result": "workspace:*",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@oaknational/eslint-plugin-standards": "workspace:*",
