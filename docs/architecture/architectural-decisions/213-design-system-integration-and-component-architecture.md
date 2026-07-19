@@ -221,8 +221,10 @@ kill).
 
 ## Owner gates (named, non-blocking for Stage A)
 
-1. **Licensing manifest disposition** — reviews the per-file-class manifest; includes ruling
-   whether the hub's already-tracked `oak-logo*.svg` files are ratified practice or drift.
+1. **Licensing — RULED (owner, 2026-07-19)**: Oak material in this repo is automatically
+   correctly licensed given brand-asset separation and the licence file's BRANDING.md
+   reference (both hold). The manifest's Oak-material owner-calls are resolved: track; the
+   hub's tracked logos are ratified. Third-party social marks remain their own class.
 2. **Theme proof surface — RULED (owner, 2026-07-19)**: maximal — all four colour trees plus
    forced-colors plus the motion axis; `system` is a mechanism, not a theme: prove it
    _chooses_ a theme, prove each theme's validity once (never validate one theme twice).
