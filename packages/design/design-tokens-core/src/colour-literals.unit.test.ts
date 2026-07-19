@@ -15,18 +15,61 @@ describe('validateColourLiterals', () => {
       semantic: {
         'text-primary': { $type: 'color', $value: '{color.ink}' },
       },
+      untyped: {
+        // Untyped hex is colour-shaped, so it joins the audit ($type is heuristic).
+        accent: { $value: '#abcdef' },
+      },
       spacing: {
         // Non-colour leaves are outside this validator's scope.
         'stack-gap': { $type: 'dimension', $value: 'calc(2 * 0.25rem)' },
+      },
+      layout: {
+        // Untyped calc is indistinguishable from a dimension — documented residual.
+        gap: { $value: 'calc(2 * 4px)' },
       },
     };
 
     expect(validateColourLiterals(tree)).toEqual({
       ok: true,
       value: {
-        checkedCount: 6,
+        checkedCount: 7,
         alphaLiteralPaths: ['color.shadow-veil', 'color.veil-black', 'color.veil-full'],
       },
+    });
+  });
+
+  it('rejects untyped colour-expression values — the export declares $type heuristic', () => {
+    // Real shape: the export's state tokens carry color-mix() with no $type.
+    expect(
+      validateColourLiterals({
+        state: {
+          hover: { $value: 'color-mix(in srgb, currentColor 8%, transparent)' },
+        },
+      }),
+    ).toEqual({
+      ok: false,
+      error: {
+        kind: 'non_literal_colour_values',
+        offenders: [
+          { path: 'state.hover', value: 'color-mix(in srgb, currentColor 8%, transparent)' },
+        ],
+      },
+    });
+  });
+
+  it('rejects a malformed root: a document whose root is a token, not a group', () => {
+    expect(validateColourLiterals({ $value: '#ffffff' })).toEqual({
+      ok: false,
+      error: { kind: 'invalid_node', path: '' },
+    });
+  });
+
+  it('rejects a malformed root: a JSON document whose root is an array', () => {
+    const parseJsonTree: (json: string) => DtcgTokenTree = JSON.parse;
+
+    expect(validateColourLiterals(parseJsonTree('["#ffffff"]'))).toEqual({
+      ok: false,
+      error: { kind: 'invalid_node', path: '' },
     });
   });
 

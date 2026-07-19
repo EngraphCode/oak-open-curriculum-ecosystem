@@ -123,7 +123,9 @@ export function validateThemeOverlayCoverage(
   }
 
   const baseSet = new Set(basePaths.value);
-  const overlayKeyCounts: Record<string, number> = {};
+  // A Map keeps JSON-derived theme names like "__proto__" as real entries;
+  // plain-object assignment would silently drop them onto the prototype.
+  const overlayKeyCounts = new Map<string, number>();
   const orphans: OrphanOverride[] = [];
 
   for (const theme in overlayTrees) {
@@ -141,7 +143,7 @@ export function validateThemeOverlayCoverage(
       return audit;
     }
 
-    overlayKeyCounts[theme] = audit.value.keyCount;
+    overlayKeyCounts.set(theme, audit.value.keyCount);
 
     if (audit.value.orphanPaths.length > 0) {
       orphans.push({ theme, paths: audit.value.orphanPaths });
@@ -155,5 +157,5 @@ export function validateThemeOverlayCoverage(
     });
   }
 
-  return ok({ baseKeyCount: baseSet.size, overlayKeyCounts });
+  return ok({ baseKeyCount: baseSet.size, overlayKeyCounts: Object.fromEntries(overlayKeyCounts) });
 }

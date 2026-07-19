@@ -127,4 +127,22 @@ describe('validateThemeOverlayCoverage', () => {
       value: { baseKeyCount: 5, overlayKeyCounts: {} },
     });
   });
+
+  it('keeps a JSON-derived __proto__ theme as an own coverage entry', () => {
+    // Plain-object assignment would silently drop this theme onto the prototype.
+    const parseOverlays: (json: string) => Readonly<Record<string, DtcgTokenTree>> = JSON.parse;
+    const result = validateThemeOverlayCoverage(
+      baseTree,
+      parseOverlays(
+        '{"__proto__": {"text": {"primary": {"$type": "color", "$value": "#000000"}}}}',
+      ),
+    );
+
+    expect(result.ok).toBe(true);
+
+    const counts = result.ok ? result.value.overlayKeyCounts : {};
+
+    expect(Object.hasOwn(counts, '__proto__')).toBe(true);
+    expect(Object.getOwnPropertyDescriptor(counts, '__proto__')?.value).toBe(1);
+  });
 });

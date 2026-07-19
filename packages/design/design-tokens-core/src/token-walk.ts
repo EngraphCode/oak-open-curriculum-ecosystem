@@ -107,6 +107,12 @@ function walk(
 export function collectTokenLeaves(
   tokenTree: DtcgTokenTree,
 ): Result<readonly TokenLeafEntry[], InvalidNodeError> {
+  // The root must itself be a group: a non-array object without `$value`.
+  // JSON-derived documents can violate this even though the type forbids it.
+  if (!isTokenObjectNode(tokenTree) || '$value' in tokenTree) {
+    return err({ kind: 'invalid_node', path: '' });
+  }
+
   const entries: TokenLeafEntry[] = [];
   const invalidNode = walk(tokenTree, [], entries);
 

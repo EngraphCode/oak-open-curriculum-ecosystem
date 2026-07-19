@@ -14,7 +14,7 @@
  */
 import { type Result, err, ok } from '@oaknational/result';
 import { byCodeUnit } from './code-unit-sort.js';
-import type { DtcgTokenTree } from './dtcg-types.js';
+import type { DtcgTokenLeaf, DtcgTokenTree } from './dtcg-types.js';
 import { anchoredTokenReferencePattern } from './token-reference.js';
 import { collectTokenLeaves, type InvalidNodeError, type TokenLeafEntry } from './token-walk.js';
 
@@ -34,6 +34,31 @@ const RGB_ALPHA_LITERAL_PATTERN = new RegExp(
 );
 
 const REFERENCE_PATTERN = anchoredTokenReferencePattern();
+
+/**
+ * Value shapes that identify an UNTYPED leaf as a colour token.
+ *
+ * @remarks
+ * The export's `$type` is heuristic (`dtcg/README.md`; 131/537 leaves are
+ * untyped, including the `color-mix()` state tokens this validator exists
+ * to reject). Hex, rgb, and `color-mix()` values are unambiguously colours;
+ * untyped `calc()` and bare references stay out of scope (indistinguishable
+ * from dimension values without an ontology) — that residual is owned by
+ * the export's own schema check and the gate's checked-count assertion.
+ */
+const UNTYPED_COLOUR_VALUE_PATTERN = /^#|^rgb\(|color-mix\(/u;
+
+function isColourCandidate(leaf: DtcgTokenLeaf): boolean {
+  if (leaf.$type === 'color') {
+    return true;
+  }
+
+  return (
+    leaf.$type === undefined &&
+    typeof leaf.$value === 'string' &&
+    UNTYPED_COLOUR_VALUE_PATTERN.test(leaf.$value)
+  );
+}
 
 /** Audit evidence for a validated tree's colour values. */
 export interface ColourLiteralAudit {
@@ -75,7 +100,7 @@ function auditColourLeaves(leaves: readonly TokenLeafEntry[]): ColourFindings {
   let checkedCount = 0;
 
   for (const entry of leaves) {
-    if (entry.leaf.$type !== 'color') {
+    if (!isColourCandidate(entry.leaf)) {
       continue;
     }
 
