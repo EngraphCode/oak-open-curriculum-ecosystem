@@ -6,9 +6,11 @@
    ink-safe light for paper — dark-theme pages print light.
    ============================================================ */
 @media print {
-  html,
-  html[data-theme='dark'],
-  html[data-theme='system'] {
+  /* html:root (0,1,1) so the ink-safe flip also beats a dark-first brand's
+     bare :root { color-scheme: dark } (0,1,0) on the no-stored-theme path. */
+  html:root,
+  html:root[data-theme='dark'],
+  html:root[data-theme='system'] {
     color-scheme: light;
   }
   :root {
@@ -49,8 +51,13 @@
   .oak-modal {
     display: none;
   }
-  /* Disclosure content is part of the document on paper */
+  /* Disclosure content is part of the document on paper: hide the marker AND
+     reveal closed accordion bodies where the engine supports ::details-content
+     (progressive enhancement; a closed <details> otherwise prints empty). */
   .oak-accordion:not([open]) summary::after {
     display: none;
+  }
+  details:not([open])::details-content {
+    content-visibility: visible;
   }
 }

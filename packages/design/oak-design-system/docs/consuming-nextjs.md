@@ -65,19 +65,28 @@ Utilities built this way stay theme-live, print-correct and re-brandable. Tailwi
 
 `oak-theme.js` is the single owner of theme state. It: applies the stored choice pre-paint; auto-maps an OS `prefers-contrast: more` request to `high-contrast` when the user hasn't chosen (live-updating); leaves `data-theme` absent when there's no choice (so a brand's polarity default applies); and exposes the motion axis (`data-motion`) the same way. Dark detection needs no JS at all — `data-theme="system"` (or no attribute) rides `color-scheme` + `light-dark()`.
 
-Root layout wiring — `beforeInteractive` (no theme flash) + `suppressHydrationWarning` (the script mutates `<html>` before React hydrates):
+Root layout wiring — a **raw inline `<script>` in `<head>`** (serialised into the
+initial HTML, executes during parse, before first paint) +
+`suppressHydrationWarning` on `<html>` only (the script mutates `<html>` before
+React hydrates; the escape hatch works one level deep). Do **not** use
+`next/script` with `beforeInteractive` for the theme bootstrap: its execution
+does not block hydration, and the external fetch can let first paint precede
+theme application — a theme flash (ADR-213 §3 records this correction).
 
 ```tsx
 // app/layout.tsx
-import Script from 'next/script';
+import { readFileSync } from 'node:fs';
+
+const oakTheme = readFileSync('public/oak-theme.js', 'utf8');
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en-GB" suppressHydrationWarning>
-      <body>
-        <Script src="/oak-theme.js" strategy="beforeInteractive" />
-        {children}
-      </body>
+      <head>
+        {/* eslint-disable-next-line react/no-danger -- pre-paint theme bootstrap */}
+        <script dangerouslySetInnerHTML={{ __html: oakTheme }} />
+      </head>
+      <body>{children}</body>
     </html>
   );
 }

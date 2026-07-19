@@ -539,6 +539,50 @@ discipline as any [`never-disable-checks`][no-disable]-adjacent decision.
 - The policy is a living document. Reviewers should challenge stale
   rationales at consolidation time.
 
+## 2026-07-19 amendment: analysis-scope exclusions for non-product asset workspaces (ADR-213)
+
+Authorisation: rides PR #411 — landing this amendment and its
+`.sonarcloud.properties` counterpart in one reviewable unit; owner approval of
+that PR is the owner authorisation this policy requires. Proposed by Caracal
+wakes Tunnel (agent, session 265648), AIP-137.
+
+**New mechanism, narrowly governed.** SonarCloud automatic analysis also reads
+`sonar.exclusions` (whole-file analysis scope). This policy previously named
+only `sourceEncoding` and `sonar.cpd.exclusions` as legitimate file-based
+config; this amendment admits `sonar.exclusions` as a third, under a stricter
+discipline than CPD:
+
+- **Eligible material only**: files that are not product code paths —
+  vendored third-party copies, and _studio-instrument_ material of the
+  integrated design system (ADR-213): specimen fragments rendered inside the
+  Claude Design studio shell (which supplies the page chrome Sonar reports as
+  missing), white-label proof pages whose near-duplication _is_ the proof,
+  deliberately-commented override templates, and the studio-compiled reference
+  components that ADR-213 §3 fences off the package export surface.
+- **Never eligible**: hand-written library, app, service, or tooling code —
+  anything a repo runtime or consumer executes. The design system's
+  _consumable_ surface (the root token CSS, class library, print layer,
+  `oak-icons.css`, `oak-theme.js`) stays fully analysed.
+- **Expansion discipline** (mirrors §Duplications): policy amendment first
+  with the per-glob architectural reason, owner authorisation, then the
+  `.sonarcloud.properties` update. "The gate is failing" is not a reason.
+- Findings in anything still in scope continue to resolve per-site,
+  server-side, under the two-outcome rule. Scope exclusion is never a
+  substitute for a disposition on in-scope code.
+
+**CPD glob added under §Duplications' discipline**:
+`packages/design/oak-design-system/**` — the four theme trees repeat block
+structure by construction and the white-label proofs are byte-identical
+across brands by design (the byte-identical specimen is the white-label
+falsifiability instrument); duplication density over this workspace measures
+the design, not a defect.
+
+**`sonar.exclusions` globs added** (all within the design-system workspace):
+`preview/**`, `whitelabel/**`, `ui_kits/**`, `templates/**`,
+`integrations/revealjs/vendor/**`, `components/**`, the three root proof
+pages, and `brand.css` — per-glob reasons recorded in
+`.sonarcloud.properties` alongside the globs.
+
 ## Cross-references
 
 - [`safety-and-security.md`](./safety-and-security.md) — security baseline.

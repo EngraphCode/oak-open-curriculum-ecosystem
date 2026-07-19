@@ -23,9 +23,13 @@ const OAK_SUBJECTS = {
   drama: { icon: 'subject-drama', bg: 'var(--surface-decorative-5-soft)', name: 'Drama' },
   pe: { icon: 'subject-pe', bg: 'var(--surface-decorative-6-subtle)', name: 'PE' },
 };
-export function OakSubjectChip({ subject = 'english', size = 48, icon, bg, style }) {
-  const s = OAK_SUBJECTS[subject] || OAK_SUBJECTS.english;
+export function OakSubjectChip({ subject = 'english', size = 48, icon, bg, label, style }) {
+  const known = OAK_SUBJECTS[subject];
+  const s = known || OAK_SUBJECTS.english;
   const iconName = icon || s.icon;
+  // Accessible name: explicit label wins (empty string = decorative); an
+  // unknown subject announces as itself, never as the visual fallback.
+  const alt = label !== undefined ? label : known ? s.name : subject;
   return (
     <span
       style={{
@@ -46,7 +50,7 @@ export function OakSubjectChip({ subject = 'english', size = 48, icon, bg, style
         src={oakChipIconUrl(iconName)}
         width={Math.round(size * 0.6)}
         height={Math.round(size * 0.6)}
-        alt={s.name}
+        alt={alt}
         style={{ filter: 'var(--filter-icon)' }}
       />
     </span>

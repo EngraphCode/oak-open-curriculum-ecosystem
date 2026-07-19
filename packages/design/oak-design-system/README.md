@@ -4,7 +4,7 @@
 
 Oak National Academy is an independent, publicly funded body supported by the UK Department for Education, offering free, adaptable curriculum resources and AI tools for teachers. This design system makes anything — product UI, decks, worksheets, prototypes, marketing — feel unmistakably Oak: warm pastels, thick black borders, the signature lemon offset-shadow, Lexend, and a voice like a knowledgeable colleague in the staffroom.
 
-**Built to WCAG 2.2 AA, fully themable (light / dark / high-contrast / colour-safe), zero network dependencies.**
+**Built to WCAG 2.2 AA, fully themable (light / dark / high-contrast / colour-safe), no network dependencies for the system itself** — one exception: `colors_and_type.css` loads Roboto Mono (code contexts only) from Google Fonts; swap it for a local file for offline or strict-CSP deployments (the file's header comment says the same).
 
 ## Integration in this repository (ADR-213)
 
@@ -50,7 +50,7 @@ audit). One system, two surfaces; never a fork, never a record.
 <!-- optional: persisted theme switcher -->
 ```
 
-**No-build install (copy path):** copy `colors_and_type.css`, `components.css`, `print.css`, `oak-theme.js`, and `fonts/` — link the three CSS files in that order (equivalent to `styles.css`, which only `@import`s them; some serve contexts drop `@import`-only sheets — see `KNOWN-ISSUES.md`). Versioning and what-changed: `CHANGELOG.md`.
+**No-build install (copy path):** copy `colors_and_type.css`, `oak-icons.css`, `components.css`, `print.css`, `oak-theme.js`, `assets/icons/`, and `fonts/` — link the four CSS files in that order (equivalent to `styles.css`, which only `@import`s them; some serve contexts drop `@import`-only sheets — see `KNOWN-ISSUES.md`; `oak-icons.css` must stay root-adjacent to `components.css`). Versioning and what-changed: `CHANGELOG.md`.
 
 Then build with **classes** and **semantic tokens**:
 
@@ -183,7 +183,7 @@ Flat, stroke-based, black-on-transparent SVGs — **bundled locally in `assets/i
 
 ## Compiled components
 
-Four primitives ship as mountable React components on the design-system bundle (`components/`): **OakButton**, **OakTag**, **OakSubjectChip**, **OakIcon** — typed props, full states, theme-aware. Everything else is copy-paste HTML by design.
+Four primitives ship as mountable React components on the design-system bundle (`components/`): **OakButton**, **OakTag**, **OakSubjectChip**, **OakIcon** — typed props, full states, theme-aware. Everything else is copy-paste HTML by design — meaning the class-library markup shown in this README and the docs. The `preview/*.html` specimen cards are **visual specimens, not copy sources**: several deliberately mock structure for compact rendering (div-based textareas, non-interactive choice rows) and must not be pasted into product UI as-is.
 
 ## File index
 

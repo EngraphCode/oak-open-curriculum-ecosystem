@@ -13,6 +13,7 @@ export function OakButton({
   disabled = false,
   href,
   onClick,
+  type = 'button',
   style,
 }) {
   const [hover, setHover] = React.useState(false);
@@ -92,8 +93,12 @@ export function OakButton({
   const Tag = href ? 'a' : 'button';
   return (
     <Tag
-      href={href}
-      disabled={disabled}
+      // Anchors ignore the disabled attribute: a disabled link drops its href
+      // and announces via aria-disabled; only real buttons get native disabled.
+      href={href && !disabled ? href : undefined}
+      disabled={href ? undefined : disabled}
+      aria-disabled={href && disabled ? 'true' : undefined}
+      type={href ? undefined : type}
       onClick={disabled ? undefined : onClick}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => {
@@ -104,7 +109,15 @@ export function OakButton({
       onMouseUp={() => setPress(false)}
       onFocus={() => setFocus(true)}
       onBlur={() => setFocus(false)}
-      style={{ ...base, ...v, boxShadow: shadow, outline: 'none', ...style }}
+      // Transparent (never none) while focused, so Windows forced-colors mode
+      // draws its own visible ring over the box-shadow focus ring.
+      style={{
+        ...base,
+        ...v,
+        boxShadow: shadow,
+        outline: focus ? '2px solid transparent' : 'none',
+        ...style,
+      }}
     >
       {iconLeft ? icon(iconLeft) : null}
       <span style={{ textDecoration: hover && !disabled ? 'underline' : 'none' }}>{children}</span>

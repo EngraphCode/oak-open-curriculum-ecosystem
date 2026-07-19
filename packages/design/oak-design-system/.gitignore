@@ -1,20 +1,29 @@
 # Held-out classes per LICENSING-MANIFEST.md — these live in the Claude Design
-# studio (the re-obtain path) and are deliberately not tracked here.
+# studio (the re-obtain path) and are deliberately not tracked here. Patterns
+# are anchored to this workspace root so future legitimate paths (for example
+# docs/reference/ or a docs/HANDOFF.md) stay trackable.
+
+# Re-include the reference components' AUTHORED declaration files: the root
+# .gitignore ignores **/*.d.ts as build output, but these four are hand-written
+# prop documentation from the design studio, not generated artefacts.
+!components/**/*.d.ts
 
 # Class 15 — studio provenance (screenshots, brand toolkit PDF, note sources,
 # Figma dump, oak-components theme extracts)
-uploads/
-reference/
+/uploads/
+/reference/
 
 # Class 16 — studio infrastructure (generated bundles, thumbnails, compiler
-# output, and the studio's own session/handoff surfaces)
-_ds_bundle.js
-_ds_manifest.json
-_adherence.oxlintrc.json
+# output, and the studio's own session/handoff surfaces). `.thumbnail` stays
+# unanchored deliberately: every level's .thumbnail is a studio-generated
+# preview artefact (templates/*/.thumbnail included).
+/_ds_bundle.js
+/_ds_manifest.json
+/_adherence.oxlintrc.json
 .thumbnail
-thumbnail.html
+/thumbnail.html
 /support.js
-CLAUDE.md
-SKILL.md
-HANDOFF.md
-CLAUDE-CODE-HANDOFF.md
+/CLAUDE.md
+/SKILL.md
+/HANDOFF.md
+/CLAUDE-CODE-HANDOFF.md
