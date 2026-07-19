@@ -48,7 +48,7 @@ todos:
     content: "Follow-on (pointer; exploration step 2): fixtures-as-parity inside oak-design-system against the four compiled components — converts the no-drift claim from constructional to checked."
     status: pending
   - id: ws-gate-extension
-    content: "Follow-on (pointer; exploration step 3; HARD precondition for any first Base UI widget): ADR-147 gate extension — owner theme-cardinality ruling, per-ratified-theme axe runs, forced-colors render check, CI promotion of test:a11y; fix the checklist's theme-count inconsistency."
+    content: "Follow-on (pointer; exploration step 3; HARD precondition for any first Base UI widget): ADR-147 gate extension per the RESOLVED owner ruling — per-tree axe runs across all four colour trees, forced-colors render check, motion-axis coverage, a system-selects mechanism test (never a duplicate tree validation), CI promotion of test:a11y; fix the checklist's theme-count inconsistency; high-contrast targets AAA (confirm reading at PR3 review)."
     status: pending
   - id: ws-checklist-upgrades
     content: "Follow-on (pointer; exploration step 4; gated on the SR-operator owner fork): symmetric platform/hand-rolled checklist; rotating two-pair SR matrix; named SR operator + cadence."
@@ -169,9 +169,9 @@ One lane, sequenced PRs, each linked to AIP-137:
 | Gate | Surfaces at | Decision |
 | --- | --- | --- |
 | Licensing manifest disposition | PR2 review | Track / hold out per file class; ratify or correct the hub's tracked-logos baseline |
-| Theme cardinality + high-contrast level | PR3 review / ws-gate-extension | The ratified proof surface (2 gated / 4 colour trees / 5 themes + motion) and AA vs AAA for high-contrast — every audit obligation scales by this integer |
+| Theme cardinality + high-contrast level | RESOLVED (owner, 2026-07-19) | Verbatim: "Maximal, all of it, but 'system' isn't a theme, it's a mechanism, we only need to prove it chooses a theme, the validity of that theme is proven separately, otherwise we are simply validating one theme twice." Implementation reading: gate ALL FOUR colour trees + forced-colors + the motion axis; `system` gets a mechanism test (proves it selects), never a duplicate tree validation; high-contrast gates at AAA per "maximal, all of it" (implementer's reading of the verbatim — correct at PR3 review if this over-reads) |
 | ADR-213 ratification | PR1/PR2 review | Proposed → Accepted (now carrying the exploration's own evidentiary basis) |
-| SR audit operator + cadence | ws-checklist-upgrades | Who drives NVDA/VoiceOver and at what cadence — the estate's scarcest audit resource |
+| SR audit operator + cadence | RESOLVED (owner, 2026-07-19) | Owner-run VoiceOver/Safari at each widget ship; NVDA/Firefox alternating per widget class; batched with pin-bump re-audits; the operator named in every checklist record |
 | Native date-input chrome | first date widget | Accept un-themeable browser calendar chrome or close the row (exploration recommends: close; GDS multi-field + React Aria) |
 | Brand parity with production | after ws-parity-diff | Parity as documented vocabulary vs standing goal (recommendation: vocabulary only; a11y outranks parity) |
 | Region-contract first binding | hub convergence lane | Bind at the hub shell, or record future-surfaces-only |

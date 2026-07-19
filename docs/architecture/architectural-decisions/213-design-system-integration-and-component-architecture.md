@@ -220,8 +220,15 @@ kill).
 
 1. **Licensing manifest disposition** — reviews the per-file-class manifest; includes ruling
    whether the hub's already-tracked `oak-logo*.svg` files are ratified practice or drift.
-2. **High-contrast gate level** — does the high-contrast theme tree gate at AA (the floor) or
-   AAA? (AAA is the system's aspiration; the repo gate currently encodes AA.)
+2. **Theme proof surface — RULED (owner, 2026-07-19)**: maximal — all four colour trees plus
+   forced-colors plus the motion axis; `system` is a mechanism, not a theme: prove it
+   _chooses_ a theme, prove each theme's validity once (never validate one theme twice).
+   High-contrast targets AAA per "maximal, all of it" (implementer's reading — confirm at
+   the gate-extension review). The full verbatim ruling is recorded in the implementing
+   plan's gate table.
+3. **SR audit operator — RULED (owner, 2026-07-19)**: owner-run VoiceOver/Safari at each
+   widget ship, NVDA/Firefox alternating per widget class, batched with pin-bump re-audits,
+   operator named in every checklist record.
 
 ## Alternatives considered
 
