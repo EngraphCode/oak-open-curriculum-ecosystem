@@ -36,7 +36,23 @@ function isLeaf(node: DtcgTokenLeaf | DtcgTokenTree): node is DtcgTokenLeaf {
 
   const valueType = typeof node.$value;
 
-  return valueType === 'string' || valueType === 'number' || valueType === 'boolean';
+  if (valueType !== 'string' && valueType !== 'number' && valueType !== 'boolean') {
+    return false;
+  }
+
+  // A token carries only $-prefixed members; a hybrid leaf-with-children
+  // node is malformed, not a token (it falls through to the invalid branch).
+  for (const key in node) {
+    if (Object.hasOwn(node, key) && !key.startsWith('$')) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+function isTokenObjectNode(child: DtcgTokenTree[string]): child is DtcgTokenLeaf | DtcgTokenTree {
+  return typeof child === 'object' && child !== null && !Array.isArray(child);
 }
 
 function isTokenKey(node: DtcgTokenTree, key: string): boolean {
@@ -56,7 +72,7 @@ function walk(
     const child = node[key];
     const childPath = [...pathSegments, key];
 
-    if (typeof child !== 'object' || child === null) {
+    if (!isTokenObjectNode(child)) {
       return { kind: 'invalid_node', path: childPath.join('.') };
     }
 
@@ -66,7 +82,8 @@ function walk(
     }
 
     if ('$value' in child) {
-      // Has a `$value` that is not a token primitive — malformed, not a group.
+      // Has `$value` but is not a well-formed token (non-primitive value or
+      // hybrid leaf-with-children) — malformed, not a group.
       return { kind: 'invalid_node', path: childPath.join('.') };
     }
 

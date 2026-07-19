@@ -75,15 +75,19 @@ function auditColourLeaves(leaves: readonly TokenLeafEntry[]): ColourFindings {
   let checkedCount = 0;
 
   for (const entry of leaves) {
-    const value = entry.leaf.$value;
-
-    if (entry.leaf.$type !== 'color' || typeof value !== 'string') {
+    if (entry.leaf.$type !== 'color') {
       continue;
     }
 
     checkedCount += 1;
 
+    const value = entry.leaf.$value;
     const path = entry.path.join('.');
+
+    if (typeof value !== 'string') {
+      offenders.push({ path, value: String(value) });
+      continue;
+    }
 
     if (HEX_LITERAL_PATTERN.test(value) || REFERENCE_PATTERN.test(value)) {
       continue;
@@ -105,8 +109,8 @@ function auditColourLeaves(leaves: readonly TokenLeafEntry[]): ColourFindings {
  * @remarks
  * The Ok value carries the checked-leaf count, so an unexpectedly empty
  * scan is visible to callers rather than indistinguishable from a green
- * validation. Non-string colour `$value`s are type-level malformation
- * owned by the design system's own export schema check, not this boundary.
+ * validation. A colour token with a non-string `$value` is an offender —
+ * the closed grammar contains only string forms.
  *
  * @param tokenTree - A DTCG token tree (any tier composition)
  * @returns Ok with the audit evidence, or Err listing every offender or

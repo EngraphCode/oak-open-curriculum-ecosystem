@@ -67,6 +67,51 @@ describe('validateColourLiterals', () => {
     });
   });
 
+  it('rejects a colour token whose $value is a non-string primitive as an offender', () => {
+    expect(
+      validateColourLiterals({
+        color: {
+          bad: { $type: 'color', $value: 42 },
+          good: { $type: 'color', $value: '#ff0000' },
+        },
+      }),
+    ).toEqual({
+      ok: false,
+      error: {
+        kind: 'non_literal_colour_values',
+        offenders: [{ path: 'color.bad', value: '42' }],
+      },
+    });
+  });
+
+  it('fails fast on a hybrid node carrying both $value and non-$ children', () => {
+    expect(
+      validateColourLiterals({
+        color: {
+          hybrid: {
+            $type: 'color',
+            $value: '#ffffff',
+            nested: { $type: 'color', $value: '#000000' },
+          },
+        },
+      }),
+    ).toEqual({
+      ok: false,
+      error: { kind: 'invalid_node', path: 'color.hybrid' },
+    });
+  });
+
+  it('fails fast on an array node — arrays are not DTCG groups', () => {
+    // Arrays are inexpressible in DtcgTokenTree; they arrive only through
+    // unvalidated JSON, so the fixture enters through the same boundary.
+    const parseJsonTree: (json: string) => DtcgTokenTree = JSON.parse;
+
+    expect(validateColourLiterals(parseJsonTree('{"color":{"list":["#ffffff"]}}'))).toEqual({
+      ok: false,
+      error: { kind: 'invalid_node', path: 'color.list' },
+    });
+  });
+
   it('fails fast on a colour token whose $value is not a token primitive', () => {
     // e.g. a studio-export malformation nesting per-theme values inside $value.
     expect(
