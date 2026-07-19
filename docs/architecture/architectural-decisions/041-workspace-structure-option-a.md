@@ -59,7 +59,7 @@ Rules & relationships:
 | foundation libs | yes  | —               | no           | approved generated subpath exports only (`search-contracts` -> `@oaknational/sdk-codegen/*`) | no     | no   | no                                             | no           | No lib-to-lib back-edges; `search-contracts` is the documented generated-contract exception                                                                                                                                                                                                                                                                                                                                                                        |
 | adapter libs    | yes  | yes             | —            | no                                                                                           | no     | no   | no                                             | no           | No adapter-to-adapter imports                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | sdks            | yes  | yes             | yes          | directed only                                                                                | no     | no   | no                                             | no           | No circular SDK-to-SDK dependencies; ADR-108 requires approved package-surface imports rather than direct runtime/search back-edges                                                                                                                                                                                                                                                                                                                                |
-| design          | yes  | yes             | no           | no                                                                                           | —      | no   | no                                             | no           | CSS artefact producers; consumed via built CSS, not TS imports                                                                                                                                                                                                                                                                                                                                                                                                     |
+| design          | yes  | yes             | no           | no                                                                                           | —      | no   | no                                             | no           | CSS artefact producers; consumed via built CSS, plus the sanctioned terminal-theme TS contract (ADR-148); intra-design direction per the 2026-07-19 amendment below                                                                                                                                                                                                                                                                                                |
 | apps            | yes  | yes             | yes          | yes                                                                                          | yes    | —    | no                                             | no           | Apps consume substrate tiers; agent-tools and agent-graphs are out-of-band coordination/consumer tooling, not runtime dependencies for product applications                                                                                                                                                                                                                                                                                                        |
 | agent-tools     | yes  | yes             | no           | no                                                                                           | no     | no   | —                                              | no           | Optional TypeScript implementation of Practice-operational tooling (ADR-165 phenotype boundary). Consumed as built `dist/` per ADR-178. No adapter-libs (no product-runtime adapter need); no sdks; no apps; no agent-graphs                                                                                                                                                                                                                                       |
 | agent-graphs    | yes  | yes             | no           | `graph-corpus-sdk` only                                                                      | no     | no   | identity / collaboration plumbing exports only | —            | Agent-tooling-adjacent graph consumers. Consume graph substrate (`graph-core`, `graph-*` libs) and the typed corpus adapter (`graph-corpus-sdk`); other sdks (`curriculum-sdk`, `oak-search-sdk`, etc.) are out of scope and require an ADR-041 amendment to permit. Import from `agent-tools` is scoped to identity/collaboration plumbing exports; widening the permitted agent-tools surface requires an ADR-041 amendment. No apps; no adapter-libs; no design |
@@ -119,6 +119,36 @@ Rules & relationships:
   recorded; ADR-173's §Open Questions:1 can now resolve against this
   row. Subsequent `agent-graphs/` occupants follow the same tier
   rules without per-workspace ADR amendments.
+
+### 2026-07-19 amendment (intra-design dependency direction, ADR-213)
+
+[ADR-213](213-design-system-integration-and-component-architecture.md) adds a
+fourth workspace to the design tier (`oak-design-system`, the integrated design
+system — the estate's design source of truth; added by the implementing plan's
+Stage A) and makes the tier's internal edges explicit for the first time. Intra-design direction ("may be imported by", no back-edges):
+
+```text
+design-tokens-core → oak-design-system → oak-design-tokens → oak-design-ink
+```
+
+- `design-tokens-core` imports nothing from the monorepo; it is consumed as a
+  devDependency (build/validation) by `oak-design-system` and
+  `oak-design-tokens`.
+- `oak-design-system` has zero runtime monorepo dependencies; its public
+  surface is built CSS plus the generated DTCG export artefact — no React on
+  the export surface.
+- `oak-design-tokens` depends on `oak-design-system` (token data source, from
+  ADR-213 Stage B) and `design-tokens-core`.
+- `oak-design-ink` depends on `oak-design-tokens` only.
+
+The design row's constraint wording is also corrected: "consumed via built
+CSS, not TS imports" was already contradicted by the sanctioned
+terminal-theme TypeScript contract (ADR-148 §Output Formats) that
+`oak-design-ink` consumes; the constraint now reads "consumed via built CSS,
+plus the sanctioned terminal-theme TS contract". `depcruise` and any lint
+rules deriving allowed-import sets must be regenerated for the new workspace;
+the executable update is sequenced in the implementing plan
+(design-system-integration, AIP-137), not in this ADR.
 
 ## Links
 
