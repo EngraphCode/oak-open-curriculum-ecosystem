@@ -18,7 +18,7 @@ todos:
     status: pending
     depends_on: [pr2-manifest]
   - id: pr2-consistency-check
-    content: "PR2 step 4 (cycle): CI check that the design system's dtcg/ export is consistent with its CSS (checksum or regeneration comparison). Test + check land together; tree green."
+    content: "PR2 step 4 (handed to the PR3 lane 2026-07-19): the dtcg↔CSS consistency check as a workspace-owned repo validator chained into repo-validators:check — semantic regeneration comparison (parse both surfaces, compare token values; never a byte checksum — hashing pins bytes and proves no behaviour). Build contract: the verified Part 2 §1 of the Stage-A import verification report (two naming transforms; dark = 60 light-dark arms + 3 filters; real CSS parser; :root-scoped comparand; primitives tier; the two deliberate non-token props excluded)."
     status: pending
     depends_on: [pr2-initial-import]
   - id: pr3-cycle-completeness
