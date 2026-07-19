@@ -33,6 +33,18 @@ Oak's own repository, `BRANDING.md` already excludes Oak marks from the MIT
 licence repo-wide, and the hub demo already **tracks** `public/oak-logo*.svg`
 under exactly that posture (ratify or correct as part of this review).
 
+## Structural boundary (owner ruling, 2026-07-19)
+
+Quality-gate exemptions are legitimate "if and only if" the material is not
+used as production code AND is kept explicitly as Claude Design source
+material. The non-production classes below (specimens, proofs, reference
+build, templates, reference components, reveal.js integration, proof pages)
+therefore live under [`studio-source/`](studio-source/README.md) — the
+structural boundary the Sonar/knip/depcruise scopes bind to. Class rows keep
+their studio-relative names; in-repo they resolve under `studio-source/`.
+`brand.css` is on the package export surface — product code — and is fully
+analysed.
+
 ## Dispositions
 
 | #   | Class                             | Files                                                                                                                                                                                | Provenance / licence                                                                                                                                                                                                      | Disposition                                                                                                                                                    |

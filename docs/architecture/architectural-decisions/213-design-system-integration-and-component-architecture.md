@@ -63,6 +63,14 @@ first-class workspace.
 - Integration is real work, not a copy: the workspace scaffold, the licensing manifest, the
   sync discipline and its runbook, and the consumer convergence below are all deliverables of
   the implementing plan.
+- **The production/source boundary is structural (owner ruling 2026-07-19)**: non-production
+  Claude Design source material (specimens, proofs, reference build, templates, reference
+  components, integration examples, proof pages) lives under `studio-source/`; quality-gate
+  scope exemptions bind that path alone and only because it is not production code. Product
+  code — everything on or reachable from the export surface, including generated product
+  code — gets no gate exceptions of any kind; its findings resolve per-site. A studio-source
+  file that becomes consumed by product code moves out and under the full gate in the same
+  change.
 
 **Licensing boundary.** Oak marks (name, logo, brand imagery) are outside the MIT licence
 (BRANDING.md). The initial integration is accompanied by a per-file-class licensing manifest —
