@@ -69,7 +69,10 @@ first-class workspace.
 every file class listed with provenance, licence, and disposition (track / hold out / owner
 call) — which the owner reviews as the licensing decision. Held-out assets are **explicitly
 gitignored** with a documented re-obtain path (never loose-untracked), and the tracked subset
-must be referentially self-consistent: no tracked file may reference a held-out file.
+must be referentially self-consistent **on the repo-consumable public surface** (CSS entry
+points, tokens, docs): no such file may reference a held-out file. Studio-runtime wiring
+inside specimens/templates referencing studio-generated artefacts is the documented
+exception (workspace README + manifest).
 
 ### 2. Source of truth: the design system's CSS (supersedes ADR-148 §Source Format in part)
 

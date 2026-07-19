@@ -212,7 +212,7 @@ Identity White-Labelling.html ← byte-identical proof — one specimen, three b
 Identity Switchboard.html     ← one specimen copy + live identity/stage/theme controls
 Example Front Pages.html      ← three composed per-identity front pages, side by side
 integrations/revealjs/  ← Oak reveal.js theme + sample deck
-thumbnail.html          ← homepage tile
+thumbnail.html          ← homepage tile (studio-side; held out here — see .gitignore)
 assets/                 ← logos, brand marks, icons/ (local SVG set)
 oak-icons.css           ← icon URL token map (--i-* names + --ic-* roles; root-adjacent to components.css by design)
 fonts/                  ← Lexend variable font
@@ -222,11 +222,11 @@ templates/
 components/             ← compiled React components (.jsx + .d.ts + card)
 preview/                ← specimen cards for the Design System tab
 ui_kits/oak/            ← full homepage reference build
-reference/              ← provenance, NOT loaded at runtime:
+reference/              ← provenance, NOT loaded at runtime (studio-side; held out here):
   figma/                  raw Figma variable dump (all modes, verbatim)
   oak-components-theme/   theme source from the production library
 icons.json              ← production Cloudinary icon map (reference)
-SKILL.md                ← agent-skill descriptor
+SKILL.md                ← agent-skill descriptor (studio-side; held out here)
 ```
 
 ---

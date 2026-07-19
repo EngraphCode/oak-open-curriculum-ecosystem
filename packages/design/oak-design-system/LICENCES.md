@@ -20,10 +20,10 @@ Everything third-party this project loads, vendors, or recommends, with its lice
 
 ## Vendored & CDN-loaded code
 
-| Package                                                   | Where                                                                                                                        | Licence |
-| --------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------- |
-| reveal.js                                                 | `integrations/revealjs/vendor/reveal.js` (vendored copy; consuming repo will take it as a real dependency — KNOWN-ISSUES #9) | MIT     |
-| React 18.3.1 · ReactDOM 18.3.1 · @babel/standalone 7.29.0 | preview/specimen cards only (unpkg, pinned + SRI) — never part of the shipped kit                                            | MIT     |
+| Package                                                   | Where                                                                                                                                      | Licence |
+| --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ------- |
+| reveal.js                                                 | `integrations/revealjs/vendor/reveal.js` (vendored copy; consuming repo will take it as a real dependency — KNOWN-ISSUES #9)               | MIT     |
+| React 18.3.1 · ReactDOM 18.3.1 · @babel/standalone 7.29.0 | specimen cards, component cards, ui_kits, and templates' support.js loader (unpkg, pinned + SRI) — never part of the shipped system CSS/JS | MIT     |
 
 ## Recommended dependencies (consumers install these; not shipped here)
 
