@@ -29,7 +29,8 @@ If this is your first time here, the 5-minute reading path is:
 - [Understanding Agent References](./understanding-agent-references.md) — How to interpret and use agent-specific references
 - [Curriculum Tools, Guidance and Playbooks](./curriculum-tools-guidance-and-playbooks.md) — Categories, tags, and domain playbooks
 - [Accessibility Practice](./accessibility-practice.md) — WCAG 2.2 AA compliance, Playwright + axe-core, theme-aware testing
-- [Design Token Practice](./design-token-practice.md) — DTCG JSON source format, three-tier model, CSS custom properties output
+- [Design Token Practice](./design-token-practice.md) — DTCG JSON source format (transitioning per ADR-213), three-tier model, CSS custom properties output
+- [One HTML Structure, Many CSS Compositions](./one-html-many-css-compositions.md) — page-composition doctrine: fixed semantic DOM, shallow sibling regions at theming boundaries, CSS Grid as the outer compositional canvas, themes recompose without touching HTML
 - [MCP App Styling](./mcp-app-styling.md) — CSS custom properties, SDK variable bridges, font loading, CSP declarations
 - [Sonar Disposition Policy](./sonar-disposition-policy.md) — class-level disposition policies for SonarCloud security hotspots and HIGH issues
 - [Data Sources](./DATA-SOURCES.md) — register of the external data sources the MCP and semantic-search apps surface, with adoption dates, licence/attribution, and the review/removal governance policy (policy half owner-ratification-pending)

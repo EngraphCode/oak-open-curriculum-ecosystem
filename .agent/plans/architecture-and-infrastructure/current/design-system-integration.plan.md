@@ -1,0 +1,181 @@
+---
+name: "Design-System Integration"
+overview: "Integrate the Oak design system as a first-class workspace (packages/design/oak-design-system) with the Claude Design studio as a first-class team surface, extend the contrast gate to four themes, then converge the hub and the token pipeline onto it (ADR-213)."
+todos:
+  - id: pr1-doctrine
+    content: "PR1: land the composition doctrine note (docs/governance), ADR-213, the ADR-041/148 amendments, the design-token-practice correction, and this plan. Docs-only; tree green."
+    status: in_progress
+  - id: pr2-scaffold
+    content: "PR2 step 1: scaffold packages/design/oak-design-system as a first-class workspace (package.json with exports map fencing React components off the surface, README carrying the integration contract + the Claude Design sync runbook, .gitignore for held-out asset classes)."
+    status: pending
+    depends_on: [pr1-doctrine]
+  - id: pr2-manifest
+    content: "PR2 step 2: author the per-file-class licensing manifest (every design-system file class: provenance, licence, disposition track/hold-out/owner-call) BEFORE the initial import; include the hub tracked-logos ratification question. Owner reviews this in the PR."
+    status: pending
+    depends_on: [pr2-scaffold]
+  - id: pr2-initial-import
+    content: "PR2 step 3: initial import of the tracked file classes from the Claude Design studio (DesignSync get_file per path, or the canonical-export bundle route), verify referential self-consistency (no tracked file references a held-out file)."
+    status: pending
+    depends_on: [pr2-manifest]
+  - id: pr2-consistency-check
+    content: "PR2 step 4 (cycle): CI check that the design system's dtcg/ export is consistent with its CSS (checksum or regeneration comparison). Test + check land together; tree green."
+    status: pending
+    depends_on: [pr2-initial-import]
+  - id: pr3-cycle-completeness
+    content: "PR3 cycle 1: four-tree theme-completeness validation in design-tokens-core (all semantic trees define the same key set) — failing test + implementation, Result-typed."
+    status: pending
+    depends_on: [pr2-initial-import]
+  - id: pr3-cycle-boundary
+    content: "PR3 cycle 2: boundary validation for the design system's DTCG import — schema-validate contrast-pairings.json (no cast); reject non-literal colour $values (color-mix/calc) with a structured Err."
+    status: pending
+    depends_on: [pr3-cycle-completeness]
+  - id: pr3-cycle-four-theme-gate
+    content: "PR3 cycle 3: extend buildContrastReports from light/dark to all four theme trees, running the design system's contrast manifest; surface the AA-vs-AAA high-contrast gate level as the owner gate; re-baseline design-token-practice.md's two-theme wording in the same PR."
+    status: pending
+    depends_on: [pr3-cycle-boundary]
+  - id: ws-hub-migration
+    content: "Follow-on lane (pointer, not spec): migrate demos/oak-curriculum-hub onto the design system per its integration doc sequence — @theme-inline mapping first (kills the raw-hex mirror), then theme/motion/focus wiring (inline head script per ADR-213 §3, per-theme axe run), then components incrementally, then audit-in-CI. Flip the hub token-audit authority pointer from the untracked export to the in-repo design system."
+    status: pending
+    depends_on: [pr3-cycle-four-theme-gate]
+  - id: ws-stage-b-convergence
+    content: "Follow-on lane (pointer, not spec): ADR-213 Stage B atomic token-source switch — ONE change deletes oak-design-tokens' hand-authored trees, re-points generation at the design system's export (trees rooted color./semantic./component., dialect aliases resolved, expressions pre-computed), regenerates index.css + terminal theme, proves the 11-path terminal contract and MCP views, regenerates depcruise boundary rules, and retires design-token-practice.md's transition note in the same change. No interim dual-source landing."
+    status: pending
+    depends_on: [pr3-cycle-four-theme-gate]
+isProject: false
+---
+
+# Design-System Integration
+
+**Last Updated**: 2026-07-19
+**Status**: 🟢 EXECUTING (PR1 in flight)
+**Scope**: Integrate the Oak design system as a first-class workspace — the estate's design
+source of truth — with the Claude Design studio as a first-class team surface, and sequence
+every consumer onto it, per ADR-213.
+**Ticket**: AIP-137. **Branch model**: new branches on the primary checkout (explicit owner
+instruction, 2026-07-19 session Caracal wakes Tunnel 265648 — supersedes the worktree default
+for this lane).
+
+---
+
+## Goal · In · Out
+
+**Goal**: repo UI surfaces consume one canonical, licence-clean design system — fully part of
+this repo, with its accessibility guarantees enforced by build-time gates — while design
+iteration continues first-class in the Claude Design studio, and component authorship has an
+unambiguous decision path.
+
+**In scope**: the composition-doctrine note; ADR-213 and its companion amendments; the
+`packages/design/oak-design-system` workspace, its initial import, and the bidirectional
+design-sync discipline + runbook; the licensing manifest; the contrast-gate extension (2→4
+trees, completeness, boundary validation); the hub migration lane; the Stage B token-source
+convergence lane.
+
+**Out of scope**: new product UI features; the production `@oaknational/oak-components`
+package; white-label brand authoring beyond the integrated proofs; autonomous background sync
+(sync runs are deliberate session actions per the design-sync discipline); bulk rewrite of the
+hub's component-level arbitrary values (direction named in ADR-213, executed opportunistically).
+
+## Context
+
+The design system was built in the Claude Design project "Oak Open Curriculum Design System"
+(v1.7.0, project id `314dd517-493d-4be2-bd08-56ae0e80e780`). Owner ruling (2026-07-19): it is
+being **integrated, not vendored** — the design system is a first-class part of this repo and
+the estate's design source of truth; Claude Design is a first-class team seat whose studio
+project remains a live working surface of the same system; neither side is accessed like a
+record. The architecture — integration contract, source-of-truth inversion, component-system
+decision table, dependency direction, staged convergence, licensing boundary — is decided in
+[ADR-213](../../../../docs/architecture/architectural-decisions/213-design-system-integration-and-component-architecture.md);
+this plan sequences the execution and holds the boundary conditions ADR-213 records.
+
+Four specialist reviews shaped ADR-213 and this plan (design-system-expert,
+react-component-expert, architecture-expert-fred, assumptions-expert; all
+sound-with-revisions, 2026-07-19, absorbed — their vendoring-frame recommendations were
+superseded by the owner's integration ruling the same day). Load-bearing corrections, so
+executors do not re-derive them:
+
+- **The Stage B boundary conditions are owned by ADR-213 §2** (tree re-rooting, dialect-alias
+  resolution, expression pre-computation or boundary rejection, manifest schema-validation,
+  four-tree completeness, triads, the 11-path terminal contract) — read them there. This plan
+  adds only the mechanism specifics behind them: the design system's `dtcg/README.md` claim
+  that its `oak.color.*` paths "land on the repo convention" is **false** against
+  `design-tokens-core`'s flattener (`toCssVariable` prefixes `--oak-` itself →
+  `--oak-oak-color-*`; tier detection keys off the root segment; `validateTierReferences`
+  rejects semantic→semantic; non-hex strings crash `hexToSrgb` with a bare throw). Re-root in
+  the studio's export generator or normalise at the repo import boundary. Do not widen
+  `PALETTE_VARIABLE_PATTERN`; do not rename the system's CSS variables.
+- The theme-bootstrap pattern in the system's own Next.js guide (`beforeInteractive`) is wrong
+  for FOUC-free theming on Next 16; ADR-213 §3 records the correction (raw inline head
+  script). Feed it back into `docs/consuming-nextjs.md` through the design-sync flow.
+- The hub's licensing baseline is: logos tracked (`public/oak-logo*.svg`), vendor export
+  bundle gitignored, fonts untracked repo-wide. The manifest ask includes ratifying or
+  correcting that baseline.
+
+## The design-sync discipline (PR2 deliverable)
+
+One system, two first-class surfaces. The workspace README carries the runbook:
+
+- **Studio → repo**: after design sessions, changed files come back via DesignSync reads and
+  land as a normal reviewed PR into the workspace (incremental, per-component — never a
+  wholesale replace). The studio's `HANDOFF.md`/`CHANGELOG.md` name what changed.
+- **Repo → studio**: before design sessions, the studio is brought current from the repo copy
+  via the design-sync flow (structural diff from `list_files`, then targeted writes).
+- **Conflict rule**: git review is the merge authority. A sync never overwrites unreviewed
+  repo changes; disagreements resolve in the PR, and the studio re-syncs from the merged
+  result.
+- Sync runs are deliberate session actions (no background automation). The dtcg↔CSS
+  consistency check guards internal canonicality on both surfaces' behalf.
+
+## PR sequence
+
+One lane, sequenced PRs, each linked to AIP-137:
+
+1. **PR1 — doctrine** (this branch): the note at `docs/governance/one-html-many-css-compositions.md`,
+   ADR-213, ADR-041/148 amendments, `design-token-practice.md` correction, this plan.
+2. **PR2 — Stage A integration**: scaffold + licensing manifest + initial import + sync
+   runbook + consistency check. The workspace lands **inert as a token source** (zero
+   consumers switch yet) — per replace-dont-bridge this is not a bridge. The licensing
+   manifest in the PR body is the owner's review surface; held-out classes are explicitly
+   gitignored with a documented re-obtain path. Consumer evidence: PR3's validation gate is
+   the first consumer; the hub (ws-hub-migration) is the named second.
+3. **PR3 — validation layer**: TDD cycles extending `design-tokens-core` (completeness check,
+   boundary validation, four-theme contrast gate). Triads: author component-tier triads for
+   the design system or record their absence in the manifest run.
+4. **Follow-on lanes** (pointers by design; specs live at pickup): hub migration;
+   Stage B atomic convergence. Both gate on PR3. Between PR2 and Stage B the repo carries two
+   token systems: the convergence owner is this lane (AIP-137 successors), the retirement
+   condition is Stage B's single atomic change, and **no new consumer may adopt the
+   hand-authored `oak-design-tokens` trees during the window**.
+
+## Owner gates (named; none block PR1–PR3 execution)
+
+| Gate | Surfaces at | Decision |
+| --- | --- | --- |
+| Licensing manifest disposition | PR2 review | Track / hold out per file class; ratify or correct the hub's tracked-logos baseline |
+| High-contrast gate level | PR3 review | AA (current floor) or AAA for the high-contrast tree |
+| ADR-213 ratification | PR1 review | Proposed → Accepted |
+
+## Validation
+
+- PR1: `pnpm markdownlint-check:root`, link integrity, ADR index updated.
+- PR2: referential self-consistency check (no tracked→held-out references); dtcg↔CSS
+  consistency check green; workspace builds; `pnpm check` green.
+- PR3: new validators red→green in TDD cycles; contrast gate runs all four themes against the
+  design system's manifest; full gate chain green.
+- Follow-on lanes: per ADR-213 (Stage B proves both live consumers in the same change;
+  hub migration lands with per-theme axe runs per ADR-147).
+
+## Falsifiers
+
+- If the design system's four semantic trees do **not** define the same key set, the
+  completeness check is doing real work (expected: high-contrast/colour-safe trees are
+  sparser — the check may need a declared-subset model rather than strict equality; resolve
+  against the actual trees at PR3, and record the resolution in ADR-213 if it deviates).
+- If the tracked subset cannot be made referentially self-consistent without the held-out
+  assets, the hub's gitignored-local-assets pattern applies (tracked code, gitignored assets,
+  a documented re-obtain runbook) and the manifest records it.
+- If Stage B's 11-path terminal mapping cannot be satisfied from the design system's component
+  tree, the terminal theme keeps its own tree — a deliberate, recorded exception, not silent
+  drift.
+- If the bidirectional sync discipline produces repeated conflicts or drift between the two
+  surfaces, that is evidence the membrane needs tooling (a structural-diff helper or a
+  drift detector) — raise it as a structural cure, do not fall back to record-access.
