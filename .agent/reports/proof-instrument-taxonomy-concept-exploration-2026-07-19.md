@@ -88,7 +88,7 @@ instrument that doctrine has not yet blessed:**
 | Live-data quality gates | `oak-design-tokens/src/build.ts` contrast gate (engine unit-tested on fixtures; live data gated at build) | The same proof duplicated in `build-css.integration.test.ts` (proof-happens-once violation, unadjudicated) |
 | Owned-message / vendor-conformance assertions | Module-TSDoc-declared owned messages; ADR-142 vendor drift tripwires | Exception exists in product TSDoc only; sibling-module and vendor message pinning unadjudicated |
 
-Secondary findings the sweep surfaced (verified quotes in the workflow record):
+Secondary findings the sweep surfaced (file-level evidence in the appendix below):
 mutation testing is scaffolding-only (a root `mutate` script delegates to Turbo but zero
 workspaces define the task, so the run is a no-op — doctrine's "audits the test surface"
 is presently aspirational); red-first leaves no post-hoc artefact by design
@@ -166,3 +166,52 @@ recorded nowhere.
   artefacts); the agent-tools test corpus was sampled, not enumerated.
 - Whether the `build-css.integration.test.ts` duplicate carries chain-position value
   (proposal 5's falsifier) — resolvable when the four-theme gate work opens that file.
+
+## Evidence appendix — enumerated instances
+
+Every instance below was quote-verified by the scanner that reported it and is
+re-verifiable at the cited location. Paths are repo-relative; lines are as of the sweep's
+tree (main at `13c5fbc63` plus the merged PR #412 branch).
+
+**Config-mirror misfits (proposal 6's seven):**
+
+1. `packages/sdks/oak-sdk-codegen/code-generation/typegen/search/completion-contexts.unit.test.ts:22`
+2. `apps/oak-curriculum-mcp-streamable-http/src/test-error/test-error-route.integration.test.ts:281`
+3. `apps/oak-curriculum-mcp-streamable-http/build-scripts/esbuild-config.unit.test.ts:78`
+4. `apps/oak-search-cli/evaluation/validation/validate-ground-truth.unit.test.ts:32`
+5. `packages/sdks/oak-sdk-codegen/code-generation/typegen/search/field-definitions.unit.test.ts:170`
+6. `packages/core/oak-eslint/src/rules/lib-boundary.unit.test.ts:114`
+7. `packages/core/env/tests/root-package-version.unit.test.ts:26` (also the tautological
+   cross-artefact case — dual-listed below)
+
+**Frozen-allowlist content-scan tests (seam 3 migrations):**
+`packages/core/env/tests/root-package-version.unit.test.ts:26`;
+`packages/core/observability/src/no-node-only-imports.unit.test.ts:41`;
+`packages/core/build-metadata/tests/git-sha.unit.test.ts:54`.
+
+**Type-only `it()` blocks (banned shape, proposal 2 migrations):**
+`packages/sdks/oak-sdk-codegen/code-generation/typegen/search/generate-subject-hierarchy.unit.test.ts:198`;
+`packages/sdks/oak-sdk-codegen/code-generation/typegen/search/completion-context-alignment.unit.test.ts:192`;
+`agent-tools/tests/agent-identity/schema-registry.unit.test.ts:92`. Adjacent: the
+dummy-consuming `it()` at
+`packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/generate-types-file.unit.test.ts:36`;
+the public-API drift anchor at
+`packages/design/design-tokens-core/src/contrast-manifest-parse.ts:59`.
+
+**Other remediation-list instances:**
+test-of-a-test-helper at
+`packages/sdks/oak-curriculum-sdk/src/mcp/test-helpers/null-generated-tool-registry.unit.test.ts:14`;
+the `computedHash` presence-only check at
+`agent-tools/src/validators/portability/rules-index-checks.ts:185`;
+the `.agent/practice-core/protocol.json` read at
+`agent-tools/tests/protocol-wire/wire.unit.test.ts:487`.
+
+**Clean-precedent anchors cited in the synthesis table:**
+`packages/libs/logger/tests/logger-contract.typecheck.ts:22`;
+`agent-tools/src/plan-state/plan-state-engine.unit.test.ts:15`;
+`agent-tools/src/validators/ratified-lists/validate-ratified-lists.ts:24` (the 2026-07-07
+owner ruling verbatim); `agent-tools/src/validators/patterns-index/validate-patterns-index.ts:19`;
+`packages/core/oak-eslint/scripts/validate-boundaries.ts:48`;
+`packages/design/oak-design-tokens/src/build.ts:44` and its vitest duplicate at
+`packages/design/oak-design-tokens/src/build-css.integration.test.ts:106`;
+`apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/verify-clerk-token.unit.test.ts:70`.
