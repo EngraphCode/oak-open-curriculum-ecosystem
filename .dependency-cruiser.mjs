@@ -195,6 +195,10 @@ export default {
         // JS/JSX is browser-loaded via <link>/<script>/the studio compiler — no
         // module graph to cruise (same class as the knip scope-to-nothing entry).
         'packages/design/oak-design-system/',
+        // The hub's tracked copy of the kit's theme runtime, consumed by
+        // readFileSync in app/layout.tsx (no import edge to see; byte-parity
+        // with the package is test-enforced) — same served-asset class.
+        'demos/oak-curriculum-hub/public/oak-theme\\.js$',
         // Untracked import staging for the same system (root .gitignore) —
         // outside git and outside the analysis corpus.
         'packages/design/design-import/',

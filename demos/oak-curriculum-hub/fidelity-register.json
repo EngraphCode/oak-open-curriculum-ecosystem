@@ -49,6 +49,16 @@
       "disposition": "deliberate",
       "rationale": "Convergence onto the canonical token source (ADR-213) \u2014 the mirror was the parallel token system the decision kills. Role-mapped shifts, old \u2192 new: (1) page/surface background #f4f3ef \u2192 #ffffff (bg.primary); (2) hairline borders #e0ded6 \u2192 #cacaca (border.neutral-lighter); (3) notice tint #fffdf0 \u2192 #fff7cc (color.accent-subtle); (4) amber fills #ff934e \u2192 #ffc8a6 (surface.decorative-6); (5) mid-grey borders #575757 \u2192 #808080 (border.neutral); (6) ink shadow 2px 2px 0 #222222 \u2192 0.063rem 0.125rem 0 #000000 (shadow.ink). All other mapped tokens are hex-identical (verified against the Stage-A report's resolved-role table); signature shadows/radii are value-identical with rem units replacing px (scales with root font size \u2014 an access improvement, not a divergence). Do not re-flag on export re-ingest.",
       "author": "Salmon binds Undertow (de5c10)"
+    },
+    {
+      "id": "hub-global/theme-motion-focus-wiring-slice2",
+      "pairId": "hub-global",
+      "kind": "visual",
+      "summary": "AIP-137 ws-hub-migration \u00a74+\u00a75: pre-paint theme/motion bootstrap, five-theme + motion controls in a footer display-settings band, and the kit's double focus ring replacing the single navy ring.",
+      "evidence": [".agent/reports/design/aip-137-stage-a-import-verification-2026-07-19.md"],
+      "disposition": "deliberate",
+      "rationale": "Kit integration doc \u00a74 (theme + motion wiring: oak-theme.js inlined pre-paint from the workspace package; data-motion axis semantics on the hub's motion floor \u2014 OS default, explicit choice wins both directions) and \u00a75 (focus): the single navy :focus-visible ring is upgraded to the kit's double ring (lemon + contrast halo + transparent outline for forced-colors) \u2014 the doc names this an upgrade, not a divergence. Divergence from the doc recorded: the kit scopes rings to .oak-* classes, so the hub keeps a GLOBAL rule carrying the kit recipe until \u00a76 migrates controls onto kit classes (deleting the global rule now would strand unmigrated controls on UA-default focus). The footer display-settings band is a new feature surface (theme choice did not exist in the canonical export). Do not re-flag on export re-ingest.",
+      "author": "Salmon binds Undertow (de5c10)"
     }
   ]
 }

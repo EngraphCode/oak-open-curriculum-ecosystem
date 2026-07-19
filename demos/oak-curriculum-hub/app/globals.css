@@ -113,23 +113,39 @@ body {
   background: var(--color-accent);
 }
 
-/* Visible keyboard focus — link-role ring. Slice §4+§5 of the migration
-   replaces this with the kit's double ring + forced-colors handling. */
+/* Visible keyboard focus — the kit's double ring (lemon + contrast halo) with
+   the transparent outline that lets Windows forced-colors draw its own. The
+   kit scopes its rings to .oak-* interactive classes; this global rule covers
+   the hub's not-yet-migrated controls with the same recipe and narrows as §6
+   moves controls onto the kit classes. */
 :focus-visible {
-  outline: 3px solid var(--text-link);
-  outline-offset: 2px;
-  border-radius: 3px;
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-outline-offset);
+  box-shadow: var(--focus-ring);
 }
 
-/* Motion floor: blanket reduced-motion collapse. Slice §4 replaces this with
-   the kit's data-motion axis (OS-following default, stored user choice). */
+/* Motion floor for the hub's own (not yet token-driven) animations, wired to
+   the kit's data-motion axis semantics: OS reduced-motion is the default
+   floor, an explicit in-product choice wins in both directions
+   (data-motion="reduced" stills; data-motion="full" re-enables — permissible
+   because nothing louder than short fades exists here). Kit-token motion
+   collapses at token level; this block narrows away as §6 migrates the hub's
+   transitions onto motion tokens. */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  :root:not([data-motion='full']) *,
+  :root:not([data-motion='full']) *::before,
+  :root:not([data-motion='full']) *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+:root[data-motion='reduced'] *,
+:root[data-motion='reduced'] *::before,
+:root[data-motion='reduced'] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
 }

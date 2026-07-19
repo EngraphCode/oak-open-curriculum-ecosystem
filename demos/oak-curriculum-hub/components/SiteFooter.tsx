@@ -1,15 +1,24 @@
 import Image from 'next/image';
 import type { ReactElement } from 'react';
 
+import ThemeSwitcher from '@/components/ThemeSwitcher';
+
 /**
- * Oak Curriculum Hub footer: dark internal-hub bar with the inverted Oak mark, a
- * one-line description and an internal-use note. Faithful to the reference
- * prototype's footer. Muted text uses Oak grey40 (#cacaca) rather than the
- * prototype's lighter greys so the contrast on the dark surface meets WCAG 2.2 AA.
+ * Oak Curriculum Hub footer: a display-settings band (theme + motion controls
+ * on the default surface, so the kit-styled selects stay theme-aware) above
+ * the dark internal-hub bar with the inverted Oak mark, a one-line description
+ * and an internal-use note. Faithful to the reference prototype's footer.
+ * Muted text uses Oak grey40 (#cacaca) rather than the prototype's lighter
+ * greys so the contrast on the dark surface meets WCAG 2.2 AA.
  */
 export default function SiteFooter(): ReactElement {
   return (
     <footer className="border-t-[3px] border-line bg-surface-inverted text-white">
+      <div className="bg-surface py-4 pl-4 pr-4 text-ink md:pl-7 md:pr-7">
+        <div className="mx-auto flex max-w-[1240px] items-center justify-end">
+          <ThemeSwitcher />
+        </div>
+      </div>
       <div className="mx-auto flex max-w-[1240px] flex-wrap items-center justify-between gap-5 px-7 py-[34px]">
         <div className="flex items-center gap-3.5">
           <Image
