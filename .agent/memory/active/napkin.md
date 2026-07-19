@@ -4385,3 +4385,59 @@ deliberately left as instances because each already has a doctrine home that thi
 merely re-instanced; the one genuinely NEW behavioural item (never offer bypass options in
 policy questions) is triple-homed (distilled, pending-graduations, per-user memory). A
 third pass would only restate the write-at-occurrence filter; recursion ends.
+
+## 2026-07-19 — Caracal wakes Tunnel (265648): AIP-137 design-system kit landing
+
+- **Broken rule pointer found**: `.claude/rules/never-switch-branch-on-primary-checkout.md`
+  reads "Read and follow `.agent/rules/never-switch-branch-on-primary-checkout.md`" but that
+  target does not exist in `.agent/rules/`. Route to curation: either the rule file was
+  removed without its `.claude/` mirror, or the mirror was authored ahead of the rule.
+- **Owner-directed exception recorded**: new branch work ON the primary checkout (owner's
+  explicit words this session: "Open a new branch for this work, stay on the primary
+  checkout"). Supersedes the worktree default for this lane; noted in the session-open comms
+  event and the plan header.
+- **Kit dtcg/README claim falsified by expert review**: its "flattened output lands on the
+  repo convention" claim is wrong against design-tokens-core's toCssVariable (would emit
+  --oak-oak-color-*). Lesson instance: verify vendor/export claims against the actual
+  consuming code, not the exporter's README (verify-dont-trust; the claim was written by the
+  exporting side, which never ran the consuming flattener).
+- **Cross-branch napkin discipline**: this buffer exists because the primary checkout now
+  moves between coordination/estate-2026-07 (napkin-current) and ticket branches cut from
+  origin/main (napkin-stale). Any tracked live-fleet surface edited on a main-cut branch will
+  line-merge against the coordination copy later. Buffer + append-on-coordination is the safe
+  path.
+- **Expert-fleet worked well at plan time**: four parallel specialist reviews (design-system,
+  react-component, architecture-fred, assumptions) on a self-contained brief each returned
+  sound-with-revisions with non-overlapping load-bearing cures (export-path re-rooting;
+  inline-head-script theme bootstrap; atomic Stage B; per-file licensing manifest). One
+  genuine conflict (react expert "use the 4 components as-is" vs fred "fence off export
+  surface") resolved cleanly: fence at the exports map = the enforcement the react expert's
+  fallback asked for.
+- Cricket pair NOT yet run this session at the cycle boundary — run cricket + cricket-haiku
+  paired at next boundary (owner mandate; tally toward the flip).
+
+- **Frame correction (owner, mid-session): integration, not vendoring.** My ADR-213 draft
+  carried a vendoring contract (local-edits-forbidden, do-not-edit headers,
+  refresh-as-wholesale-reimport) inherited from the architecture reviewers' options — fred's
+  finding even posed it as a binary (external-upstream OR repo-canonical-retire-external).
+  The owner's answer was NEITHER: one system, two first-class surfaces (repo home + Claude
+  Design studio seat), bidirectional incremental sync, git review as merge authority.
+  Lesson: when an exploration inherits its option set from a reviewer's framing, re-open the
+  frame before baking it into an ADR — the vocabulary ("vendor", "kit") smuggled the record-
+  access frame in. The concept-exploration skill's Movement 3 exists exactly for this and I
+  under-ran it on the custody question while over-running it on the already-decided
+  component question.
+- **Cricket A/B pair DIVERGED (v3-era data point for the tally)**: sonnet cricket ON-TRACK;
+  cricket-haiku WRONG-PRIORITY claiming workspace creation was displaced from NEXT — but the
+  supplied context explicitly named "PR2 (scaffold + licensing manifest + kit pull via
+  DesignSync)" in NEXT. The haiku's DISPLACEMENT evidence contradicted the supplied context
+  (a claims-within-items miss on its own PAIR-2 discipline). Tally update rides the next
+  pass; divergent-pair routing to a Director is n/a in this solo session — recorded here
+  instead.
+- **Lane state at this write**: PR #410 (PR1 doctrine batch) MERGED 2026-07-19T19:33Z
+  (`SHA:02486d3c9` on the PR branch; all 15 checks green; Sonar quality gate passed, 0 issues;
+  zero review threads; Codex + claude-review bots skipped on org spend limits — noted verbatim,
+  not escalated per standing doctrine). Coordination branch synced from main post-merge. Next:
+  PR2 (Stage A integration — scaffold + licensing manifest + initial import + design-sync
+  runbook + dtcg↔CSS consistency check) per the plan; ADR-213 ratification gate rides the
+  owner's review.
