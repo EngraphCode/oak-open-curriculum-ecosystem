@@ -6,13 +6,15 @@
 uploads/
 reference/
 
-# Class 16 — studio infrastructure (generated bundles, thumbnails, and the
-# studio's own session surfaces)
+# Class 16 — studio infrastructure (generated bundles, thumbnails, compiler
+# output, and the studio's own session/handoff surfaces)
 _ds_bundle.js
 _ds_manifest.json
 _adherence.oxlintrc.json
 .thumbnail
 thumbnail.html
+/support.js
 CLAUDE.md
 SKILL.md
 HANDOFF.md
+CLAUDE-CODE-HANDOFF.md

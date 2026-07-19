@@ -191,6 +191,13 @@ export default {
         // demo visual-matches; outside git and outside the analysis corpus
         // (owner-ratified 2026-07-02; see demos/oak-curriculum-hub/.gitignore)
         'demos/oak-curriculum-hub/claude-design-canonical-export/',
+        // The integrated design system (ADR-213): a static-asset workspace whose
+        // JS/JSX is browser-loaded via <link>/<script>/the studio compiler — no
+        // module graph to cruise (same class as the knip scope-to-nothing entry).
+        'packages/design/oak-design-system/',
+        // Untracked import staging for the same system (root .gitignore) —
+        // outside git and outside the analysis corpus.
+        'packages/design/design-import/',
       ],
     },
     tsPreCompilationDeps: true,

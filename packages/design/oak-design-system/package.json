@@ -2,6 +2,19 @@
   "name": "@oaknational/oak-design-system",
   "version": "1.7.0",
   "private": true,
-  "description": "The Oak design system — the estate's design source of truth (ADR-213): token CSS, class library, print layer, brand override contract, theme switcher, DTCG export, contrast manifest, consumption docs, specimens, and white-label proofs. Exports map lands with the initial import (plan step pr2-initial-import).",
-  "license": "MIT"
+  "description": "The Oak design system — the estate's design source of truth (ADR-213): token CSS, class library, print layer, brand override contract, theme switcher, DTCG export, contrast manifest, consumption docs, specimens, and white-label proofs.",
+  "license": "MIT",
+  "exports": {
+    ".": "./styles.css",
+    "./styles.css": "./styles.css",
+    "./colors_and_type.css": "./colors_and_type.css",
+    "./components.css": "./components.css",
+    "./print.css": "./print.css",
+    "./brand.css": "./brand.css",
+    "./oak-icons.css": "./oak-icons.css",
+    "./oak-theme.js": "./oak-theme.js",
+    "./fonts/*": "./fonts/*",
+    "./assets/*": "./assets/*",
+    "./dtcg/*": "./dtcg/*"
+  }
 }
