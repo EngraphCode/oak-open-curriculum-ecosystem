@@ -100,7 +100,7 @@ function toShapeError(issue: ManifestIssue): ManifestShapeError {
   }
 
   if (issue.code === 'invalid_value') {
-    const values = issue.values.map((value) => String(value));
+    const values = issue.values.map(String);
     const message =
       values.length === 1 ? `expected ${values[0]}` : `expected one of ${values.join(' | ')}`;
 

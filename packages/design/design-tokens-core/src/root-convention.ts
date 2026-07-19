@@ -51,8 +51,8 @@ export function validateTreeRoots(
   }
 
   if (disallowed.length > 0) {
-    return err({ kind: 'disallowed_root_groups', disallowed: disallowed.sort(byCodeUnit) });
+    return err({ kind: 'disallowed_root_groups', disallowed: disallowed.toSorted(byCodeUnit) });
   }
 
-  return ok(roots.sort(byCodeUnit));
+  return ok(roots.toSorted(byCodeUnit));
 }

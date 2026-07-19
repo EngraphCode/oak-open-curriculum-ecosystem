@@ -124,7 +124,7 @@ export function validateColourLiterals(
   const findings = auditColourLeaves(leaves.value);
 
   if (findings.offenders.length > 0) {
-    const offenders = [...findings.offenders].sort((first, second) =>
+    const offenders = findings.offenders.toSorted((first, second) =>
       byCodeUnit(first.path, second.path),
     );
 
@@ -133,6 +133,6 @@ export function validateColourLiterals(
 
   return ok({
     checkedCount: findings.checkedCount,
-    alphaLiteralPaths: [...findings.alphaLiteralPaths].sort(byCodeUnit),
+    alphaLiteralPaths: findings.alphaLiteralPaths.toSorted(byCodeUnit),
   });
 }

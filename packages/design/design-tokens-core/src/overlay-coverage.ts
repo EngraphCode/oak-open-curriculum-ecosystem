@@ -94,7 +94,7 @@ function auditOverlay(
     return overlayPaths;
   }
 
-  const orphanPaths = overlayPaths.value.filter((path) => !baseSet.has(path)).sort(byCodeUnit);
+  const orphanPaths = overlayPaths.value.filter((path) => !baseSet.has(path)).toSorted(byCodeUnit);
 
   return ok({ keyCount: overlayPaths.value.length, orphanPaths });
 }
@@ -151,7 +151,7 @@ export function validateThemeOverlayCoverage(
   if (orphans.length > 0) {
     return err({
       kind: 'orphan_overrides',
-      orphans: orphans.sort((first, second) => byCodeUnit(first.theme, second.theme)),
+      orphans: orphans.toSorted((first, second) => byCodeUnit(first.theme, second.theme)),
     });
   }
 
