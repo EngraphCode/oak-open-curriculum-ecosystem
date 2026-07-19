@@ -1,0 +1,18 @@
+# Held-out classes per LICENSING-MANIFEST.md — these live in the Claude Design
+# studio (the re-obtain path) and are deliberately not tracked here.
+
+# Class 15 — studio provenance (screenshots, brand toolkit PDF, note sources,
+# Figma dump, oak-components theme extracts)
+uploads/
+reference/
+
+# Class 16 — studio infrastructure (generated bundles, thumbnails, and the
+# studio's own session surfaces)
+_ds_bundle.js
+_ds_manifest.json
+_adherence.oxlintrc.json
+.thumbnail
+thumbnail.html
+CLAUDE.md
+SKILL.md
+HANDOFF.md
