@@ -22,7 +22,7 @@ todos:
     status: pending
     depends_on: [pr2-initial-import]
   - id: pr3-cycle-completeness
-    content: "PR3 cycle 1: four-tree theme-completeness validation in design-tokens-core (all semantic trees define the same key set) — failing test + implementation, Result-typed."
+    content: "PR3 cycle 1: theme overlay-coverage validation in design-tokens-core (declared light base; every overlay key must exist in the base — orphan detection plus coverage reporting; reshaped 2026-07-19 when the falsifier fired — see ADR-213 §2 amendment) — failing test + implementation, Result-typed."
     status: pending
     depends_on: [pr2-initial-import]
   - id: pr3-cycle-boundary
@@ -117,6 +117,10 @@ One system, two first-class surfaces. The workspace README carries the runbook:
 - **Studio → repo**: after design sessions, changed files come back via DesignSync reads and
   land as a normal reviewed PR into the workspace (incremental, per-component — never a
   wholesale replace). The studio's `HANDOFF.md`/`CHANGELOG.md` name what changed.
+  **Standing item for the next studio → repo sync (2026-07-19)**: re-obtain
+  `dtcg/README.md` — the explicit dtcg contract doc both `DECISIONS.md` §Ecosystem
+  convergence and the workspace README cite; absent from the initial import (omission,
+  not a hold-out).
 - **Repo → studio**: before design sessions, the studio is brought current from the repo copy
   via the design-sync flow (structural diff from `list_files`, then targeted writes).
 - **Conflict rule**: git review is the merge authority. A sync never overwrites unreviewed
@@ -170,6 +174,9 @@ One lane, sequenced PRs, each linked to AIP-137:
   completeness check is doing real work (expected: high-contrast/colour-safe trees are
   sparser — the check may need a declared-subset model rather than strict equality; resolve
   against the actual trees at PR3, and record the resolution in ADR-213 if it deviates).
+  **FIRED AND RESOLVED 2026-07-19**: the imported trees are strict-subset overlays over
+  light (139/63/67/12 leaves, zero orphans); the declared-base overlay model is recorded in
+  the ADR-213 §2 dated amendment, and `pr3-cycle-completeness` was reshaped to match.
 - If the tracked subset cannot be made referentially self-consistent without the held-out
   assets, the hub's gitignored-local-assets pattern applies (tracked code, gitignored assets,
   a documented re-obtain runbook) and the manifest records it.
