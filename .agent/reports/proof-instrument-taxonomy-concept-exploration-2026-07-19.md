@@ -41,8 +41,12 @@ demand laundering); *verification data are test fixtures*.
 
 **Kind**: instrument-selection-and-placement over a mostly-closed set of proof kinds. Not
 a test-quality gap — the sweep confirms the doctrine's centre holds well (clean signals:
-the flag-engine rule is applied by name; no checksum misuse anywhere; no test reads
-`.agent/**`; zero `as any` in test files estate-wide; the no-real-io lint fence works).
+the flag-engine rule is applied by name; no checksum misuse anywhere; no product-workspace
+test reads `.agent/**` — though the sampled agent-tools corpus holds at least one live
+violation, `agent-tools/tests/protocol-wire/wire.unit.test.ts` reading
+`.agent/practice-core/protocol.json`, a cross-artefact conformance proof that belongs to
+the seam-3 validator kind and joins the remediation list; zero `as any` in test files
+estate-wide; the no-real-io lint fence works).
 The frictions all sit at the **seams between instruments**, where doctrine assigns no
 named home.
 
@@ -85,8 +89,9 @@ instrument that doctrine has not yet blessed:**
 | Owned-message / vendor-conformance assertions | Module-TSDoc-declared owned messages; ADR-142 vendor drift tripwires | Exception exists in product TSDoc only; sibling-module and vendor message pinning unadjudicated |
 
 Secondary findings the sweep surfaced (verified quotes in the workflow record):
-mutation testing is scaffolding-only (zero `mutate` scripts — doctrine's "audits the test
-surface" is presently aspirational); red-first leaves no post-hoc artefact by design
+mutation testing is scaffolding-only (a root `mutate` script delegates to Turbo but zero
+workspaces define the task, so the run is a no-op — doctrine's "audits the test surface"
+is presently aspirational); red-first leaves no post-hoc artefact by design
 (review is its only enforcement locus); one literal test-of-a-test-helper exists; the
 portability validator presence-checks `computedHash` without recomputing it — the worked
 example of `validators-must-recompute`, live and unfixed; `expectTypeOf` is proven only
@@ -138,7 +143,9 @@ recorded nowhere.
    was load-bearing and the adjudication inverts.
 6. **Bounded remediation list** (mechanical, low-priority lane): the seven config-mirror
    tests (most have adjacent behavioural twins — deletion-shaped); the tautological
-   package-version test; the `computedHash` recompute defect; a lint fence for `.test.ts`
+   package-version test; the `computedHash` recompute defect; the protocol-wire test's
+   `.agent/practice-core/protocol.json` read (migrate the conformance proof to a
+   validator, per the absolute no-`.agent`-reads rule); a lint fence for `.test.ts`
    under `test-helpers/**`; correct `testing-strategy.md`'s present-tense mutation-testing
    wording (misleading-docs rule). *Warrant*: every instance verified with quotes.
    *Falsifier*: per-instance — a "mirror" that is actually the only wiring-completeness

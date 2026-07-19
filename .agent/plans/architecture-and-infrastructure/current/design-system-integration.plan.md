@@ -18,7 +18,7 @@ todos:
     status: pending
     depends_on: [pr2-manifest]
   - id: pr2-consistency-check
-    content: "PR2 step 4 (handed to the PR3 lane 2026-07-19): the dtcg↔CSS consistency check as a workspace-owned repo validator chained into repo-validators:check — semantic regeneration comparison (parse both surfaces, compare token values; never a byte checksum — hashing pins bytes and proves no behaviour). Build contract: the verified Part 2 §1 of the Stage-A import verification report (two naming transforms; dark = 60 light-dark arms + 3 filters; real CSS parser; :root-scoped comparand; primitives tier; the two deliberate non-token props excluded)."
+    content: "PR2 step 4 (handed to the PR3 lane 2026-07-19): the dtcg↔CSS consistency check as a workspace-owned repo validator chained into repo-validators:check — semantic regeneration comparison (parse both surfaces, compare token values; never a byte checksum — hashing pins bytes and proves no behaviour). Build contract (verified 2026-07-19, three adversarial verifiers): two naming transforms (oak.color.x → --oak-x, font.family.x → --font-x); dark = 60 light-dark second arms + 3 filter.* overrides; real CSS parser, never brace-scanning; :root-scoped comparand; primitives tier included; the two deliberate non-token props (--canvas-rows, --icon-src) excluded. Full evidence: .agent/reports/design/aip-137-stage-a-import-verification-2026-07-19.md Part 2 §1, landing with PR #411."
     status: pending
     depends_on: [pr2-initial-import]
   - id: pr3-cycle-completeness
