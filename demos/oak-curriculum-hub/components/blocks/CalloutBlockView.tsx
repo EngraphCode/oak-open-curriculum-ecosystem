@@ -58,7 +58,7 @@ const VARIANTS = {
 /** The export's QS blue family (#2a6fdb / #e7f0fd / #143b78 — course-export-only values). */
 const QS_ACCENT = 'border-l-[#2a6fdb] bg-[#e7f0fd]';
 const QS_CHIP =
-  'shrink-0 rounded-full border-2 border-[#2a6fdb] bg-white px-[9px] py-[5px] text-[11px] leading-none font-bold tracking-[0.03em] text-[#143b78] no-underline';
+  'shrink-0 rounded-full border-2 border-[#2a6fdb] bg-surface px-[9px] py-[5px] text-[11px] leading-none font-bold tracking-[0.03em] text-[#143b78] no-underline';
 
 /** The QS-chip-led bullet list: each standard verbatim behind its deep-linking code chip. */
 function StandardsList({
@@ -88,7 +88,7 @@ function QsCta({ standards }: { readonly standards: readonly CalloutStandard[] }
   return (
     <Link
       href={`/standards#qs=${codes}`}
-      className="mt-3 inline-flex items-center gap-[7px] rounded-lg border-2 border-[#2a6fdb] bg-white p-[9px_13px] text-sm leading-none font-bold text-[#143b78] no-underline shadow-[2px_2px_0_#bcd5f7]"
+      className="mt-3 inline-flex items-center gap-[7px] rounded-lg border-2 border-[#2a6fdb] bg-surface p-[9px_13px] text-sm leading-none font-bold text-[#143b78] no-underline shadow-[2px_2px_0_#bcd5f7]"
     >
       View in quality standards <span aria-hidden="true">→</span>
     </Link>

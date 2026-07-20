@@ -24,13 +24,13 @@ function optionSuffix(answered: boolean, isSelected: boolean, isCorrect: boolean
 /**
  * The export's answered-state treatment for one option: correct = mint wash + green border and a ✓
  * mark chip; the chosen wrong answer = red-subdued wash + red border and a ✕ chip; other options
- * fade to a neutral wash. Unanswered options are white with the lettered chip. (The text suffix from
+ * fade to a neutral wash. Unanswered options take the base surface role with the lettered chip. (The text suffix from
  * {@link optionSuffix} carries the same information non-visually.)
  */
 function optionClasses(answered: boolean, isSelected: boolean, isCorrect: boolean): string {
   const base = 'flex items-center gap-3 rounded-[10px] border-2 px-3.5 py-2.5 text-left';
   if (!answered) {
-    return `${base} border-line bg-white`;
+    return `${base} border-line bg-surface`;
   }
   if (isCorrect) {
     return `${base} border-line-success bg-success-subtle`;
@@ -76,7 +76,7 @@ function OptionChip({
   return (
     <span
       aria-hidden="true"
-      className="grid h-6 w-6 shrink-0 place-items-center rounded-full border-2 border-line bg-white text-[12px] font-bold uppercase"
+      className="grid h-6 w-6 shrink-0 place-items-center rounded-full border-2 border-line bg-surface text-[12px] font-bold uppercase"
     >
       {letter}
     </span>
