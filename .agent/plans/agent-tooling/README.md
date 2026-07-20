@@ -125,8 +125,8 @@ mature into:
 
 ## Plan Index
 
-See [`current/README.md`](current/README.md) and
-[`future/README.md`](future/README.md) for the per-lane indices.
+See [`active/README.md`](active/README.md), [`current/README.md`](current/README.md),
+and [`future/README.md`](future/README.md) for the per-lane indices.
 
 ---
 
