@@ -2,7 +2,9 @@
 
 - **Status:** Proposed (owner ratification pending; drafted 2026-07-19, reframed same day on
   owner direction — integration, not vendoring; §2 amended 2026-07-19 — overlay
-  completeness model and colour-value grammar, evidence-driven; AIP-137)
+  completeness model and colour-value grammar, evidence-driven; §2 amended 2026-07-20 —
+  dual-gate window, comparand filter, fixpoint resolution, ratified gate levels (PR3
+  cycle 3); AIP-137)
 - **Supersedes in part:** [ADR-148](148-design-token-architecture.md) §Source Format (the
   source-of-truth direction only; the three-tier model, contrast gate, and delivery format
   stand)
@@ -156,6 +158,45 @@ during PR #411):
   contrast gate MUST exclude them from the resolved hex map, so a manifest pairing
   referencing one surfaces as the existing `unresolved_token` error.
 
+**Amendment (2026-07-20, PR3 cycle 3 — the four-theme gate lands as the export's first
+consumer):** four §2 clauses above are corrected or made concrete against the gate build:
+
+- **The staging carries a named dual-gate window** (this corrects the letter of "exactly
+  two shapes" / "zero consumers" above; the invariant those words protect — no shipped
+  artefact derives from two sources — holds throughout). From PR3 cycle 3, the four-theme
+  contrast gate inside `oak-design-tokens` consumes the design system's dtcg trees and
+  contrast manifest as a validator-consumer only. `dist/index.css` and the terminal theme
+  still derive solely from the hand-authored trees, which retain their own two-theme gate.
+  Both gate instances feed the build failure gate with error identities naming their
+  source, and the four-theme gate writes its own report artefact, never merged with the
+  hand-authored report. Stage B closes the window: the atomic change deletes the
+  hand-authored trees, their contrast manifest, AND their gate instance together (this
+  extends the Stage B deletion list above, which named only the trees). During the window
+  a studio sync that breaks the four-theme gate reddens the estate build over a source
+  nothing ships from — that early-warning coupling is the point of the wiring, not an
+  accident.
+- **Exclusion is post-resolution value-shape filtering** (this supersedes the per-path
+  exclusion reading of "MUST exclude them from the resolved hex map"): after references
+  resolve, the WCAG comparand admits only six-digit hex literals (`toHexComparand`).
+  Alpha literals, their resolved copies, and expression residues drop by that one closed
+  rule, and a manifest pairing on any dropped path surfaces as the existing
+  `unresolved_token` error. `validateColourLiterals`' structured-`Err` contract serves
+  trees required to be expression-free; the design system's semantic trees deliberately
+  carry the three `currentColor` state expressions, so on the contrast path the drift net
+  is the pinned expected comparand count per composed theme, not a grammar `Err`.
+- **Colour resolution is fixpoint, not tier-ordered single-pass**: the bare dialect
+  carries in-tree forward references by design (`bg.selected` → `{color.accent-subtle}`
+  precedes its target's root group), so `resolveColourTokens` iterates to a fixpoint —
+  document order is immaterial — and surfaces never-resolving references (dangling,
+  cyclic) as data rather than silently dropping them.
+- **Gate levels are ratified (owner, 2026-07-20)**: high-contrast gates at SC 1.4.6 AAA
+  thresholds (7.0 text, 4.5 large-text; non-text contrast has no AAA tier and stays at
+  3:1 per SC 1.4.11); light, dark, and colour-safe gate at the AA floor. The report
+  artefact records the level it gated at. Phrasing discipline: the gate proves "contrast
+  pairs at AAA thresholds", never "meets AAA" — conformance is a page-level property
+  across the full criteria set (SC 2.4.13 among others), which a token-pair gate cannot
+  prove.
+
 ### 3. The component system
 
 The consumption model, in decision-table form. "The pairing guides" are the design system's
@@ -271,9 +312,9 @@ kill).
 2. **Theme proof surface — RULED (owner, 2026-07-19)**: maximal — all four colour trees plus
    forced-colors plus the motion axis; `system` is a mechanism, not a theme: prove it
    _chooses_ a theme, prove each theme's validity once (never validate one theme twice).
-   High-contrast targets AAA per "maximal, all of it" (implementer's reading — confirm at
-   the gate-extension review). The full verbatim ruling is recorded in the implementing
-   plan's gate table.
+   The implementer's AAA reading was ratified 2026-07-20: high-contrast gates at AAA
+   thresholds, light/dark/colour-safe at the AA floor (§2 amendment of 2026-07-20). The
+   full verbatim ruling is recorded in the implementing plan's gate table.
 3. **SR audit operator — RULED (owner, 2026-07-19)**: owner-run VoiceOver/Safari at each
    widget ship, NVDA/Firefox alternating per widget class, batched with pin-bump re-audits,
    operator named in every checklist record.
