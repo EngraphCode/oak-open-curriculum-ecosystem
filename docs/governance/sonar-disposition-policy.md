@@ -11,7 +11,7 @@ last_reviewed: 2026-05-06
 ## Purpose
 
 This document codifies class-level dispositions for SonarCloud security
-hotspots and HIGH issues. It exists so that the same disposition reasoning is
+hotspots and security-class issues (severity HIGH and MAJOR). It exists so that the same disposition reasoning is
 not re-derived per site by every reviewer. Future hotspots in known classes
 apply this policy by reference; only sites that fall outside a documented
 class require fresh per-site judgement.
@@ -307,10 +307,12 @@ dependency lifecycle scripts can execute arbitrary code at install time.
 **Decision criteria**: FALSE_POSITIVE if and only if all hold:
 
 - The installer is **pnpm at major version ≥ 10** — pnpm 10 removed
-  automatic execution of dependency lifecycle scripts. Scripts run only
-  for packages named in an explicit allowlist: `onlyBuiltDependencies`
-  (pnpm 10) or its pnpm 11 replacement, the `allowBuilds` map in
-  `pnpm-workspace.yaml`.
+  automatic execution of dependency lifecycle scripts
+  ([pnpm 10 release notes](https://github.com/pnpm/pnpm/releases/tag/v10.0.0)).
+  Scripts run only for packages named in an explicit allowlist:
+  `onlyBuiltDependencies` (pnpm 10) or its pnpm 11 replacement, the
+  `allowBuilds` map in `pnpm-workspace.yaml`
+  ([pnpm settings: `allowBuilds`](https://pnpm.io/settings#allowbuilds)).
 - The repo pins that pnpm version authoritatively: root `package.json`
   `packageManager` field (currently `pnpm@11.8.0`) drives every CI site
   via `pnpm/action-setup` as an **exact version pin**. The field also
@@ -358,8 +360,12 @@ redirects disabled.)
 **Decision criteria**: there is no FALSE_POSITIVE disposition for
 production or CI fetch sites — resolve as **FIXED** by pinning the
 transport:
-`--proto '=https' --proto-redir '=https'` (curl), keeping any existing
-content pin (SHA-256 check) in place. The content pin alone does not
+`--proto '=https' --proto-redir '=https'` (curl —
+[`--proto`](https://curl.se/docs/manpage.html#--proto) /
+[`--proto-redir`](https://curl.se/docs/manpage.html#--proto-redir)),
+keeping any existing content pin (SHA-256 check) in place. The wget
+`--https-only` semantics above are per the
+[GNU Wget manual §HTTPS Options](https://www.gnu.org/software/wget/manual/wget.html). The content pin alone does not
 clear the finding: integrity checking and transport pinning guard
 different failure modes (tampered bytes vs downgrade interception), and
 the analyser flags the transport.
