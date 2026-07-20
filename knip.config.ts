@@ -221,12 +221,12 @@ const config: KnipConfig = {
       project: ['src/**/*.ts'],
     },
     'packages/design/oak-design-system': {
-      // The integrated design system (ADR-213) is a static-asset workspace:
-      // browser-loaded CSS/JS/JSX consumed via <link>/<script> and the studio
-      // compiler, with no TypeScript module graph for knip to trace. Scope
-      // the analysis to nothing rather than list ~290 assets as entries.
-      entry: [],
-      project: [],
+      // The consumable surface stays analysed (owner ruling 2026-07-19:
+      // production code gets no analysis exceptions): oak-theme.js is the
+      // browser-loaded entry script. studio-source/ is the explicitly
+      // separated non-production studio material (see its README) and is
+      // the only part out of scope.
+      project: ['*.js'],
     },
     'packages/design/oak-design-tokens': {
       // Source entry behind the dist-pointing `./terminal-theme` export

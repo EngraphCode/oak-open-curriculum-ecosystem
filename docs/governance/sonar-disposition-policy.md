@@ -539,49 +539,34 @@ discipline as any [`never-disable-checks`][no-disable]-adjacent decision.
 - The policy is a living document. Reviewers should challenge stale
   rationales at consolidation time.
 
-## 2026-07-19 amendment: analysis-scope exclusions for non-product asset workspaces (ADR-213)
+## 2026-07-19 amendment: the studio-source scope (ADR-213), owner-ruled
 
-Authorisation: rides PR #411 — landing this amendment and its
-`.sonarcloud.properties` counterpart in one reviewable unit; owner approval of
-that PR is the owner authorisation this policy requires. Proposed by Caracal
-wakes Tunnel (agent, session 265648), AIP-137.
+Owner ruling (2026-07-19, verbatim): "Product code gets no sonar exclusions
+for any reason (including generated product code), no quality gate
+exceptions, nothing, it all gets the full set of strict, strict
+requirements" — and scope exclusion is legitimate "if and only if they are
+not used as production code, and are organised and moved and kept explicitly
+as source material from Claude Design."
 
-**New mechanism, narrowly governed.** SonarCloud automatic analysis also reads
-`sonar.exclusions` (whole-file analysis scope). This policy previously named
-only `sourceEncoding` and `sonar.cpd.exclusions` as legitimate file-based
-config; this amendment admits `sonar.exclusions` as a third, under a stricter
-discipline than CPD:
+Implementation:
 
-- **Eligible material only**: files that are not product code paths —
-  vendored third-party copies, and _studio-instrument_ material of the
-  integrated design system (ADR-213): specimen fragments rendered inside the
-  Claude Design studio shell (which supplies the page chrome Sonar reports as
-  missing), white-label proof pages whose near-duplication _is_ the proof,
-  deliberately-commented override templates, and the studio-compiled reference
-  components that ADR-213 §3 fences off the package export surface.
-- **Never eligible**: hand-written library, app, service, or tooling code —
-  anything a repo runtime or consumer executes. The design system's
-  _consumable_ surface (the root token CSS, class library, print layer,
-  `oak-icons.css`, `oak-theme.js`) stays fully analysed.
-- **Expansion discipline** (mirrors §Duplications): policy amendment first
-  with the per-glob architectural reason, owner authorisation, then the
-  `.sonarcloud.properties` update. "The gate is failing" is not a reason.
-- Findings in anything still in scope continue to resolve per-site,
-  server-side, under the two-outcome rule. Scope exclusion is never a
-  substitute for a disposition on in-scope code.
-
-**CPD glob added under §Duplications' discipline**:
-`packages/design/oak-design-system/**` — the four theme trees repeat block
-structure by construction and the white-label proofs are byte-identical
-across brands by design (the byte-identical specimen is the white-label
-falsifiability instrument); duplication density over this workspace measures
-the design, not a defect.
-
-**`sonar.exclusions` globs added** (all within the design-system workspace):
-`preview/**`, `whitelabel/**`, `ui_kits/**`, `templates/**`,
-`integrations/revealjs/vendor/**`, `components/**`, the three root proof
-pages, and `brand.css` — per-glob reasons recorded in
-`.sonarcloud.properties` alongside the globs.
+- **The boundary is structural, not a glob list**:
+  `packages/design/oak-design-system/studio-source/` holds exactly the
+  non-production Claude Design source material (specimens, white-label
+  proofs, reference build, templates, compiled reference components,
+  vendored reveal.js, proof pages — see its README). `sonar.exclusions` and
+  the design-system `sonar.cpd.exclusions` glob bind that path alone.
+- **Everything consumable is fully analysed** — the root token CSS, class
+  library, print layer, `brand.css` (it is on the package export surface, so
+  it is product code and back in scope), `oak-icons.css`, `oak-theme.js`,
+  `dtcg/`, `assets/`, docs — under the standard gate including the
+  duplication metric. Their findings resolve per-site under the two-outcome
+  rule (e.g. `brand.css`'s commented-template findings are per-site
+  FALSE_POSITIVE adjudications, never a scope carve-out).
+- **Movement rule**: if any studio-source file becomes consumed by product
+  code, it moves out of `studio-source/` and under the full gate in the same
+  change. Expansion of the studio-source scope follows the §Duplications
+  discipline: policy amendment first, owner authorisation, then config.
 
 ## Cross-references
 

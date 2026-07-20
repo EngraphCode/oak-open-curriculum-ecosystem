@@ -22,7 +22,7 @@ todos:
     status: pending
     depends_on: [pr2-initial-import]
   - id: pr3-cycle-completeness
-    content: "PR3 cycle 1: four-tree theme-completeness validation in design-tokens-core (all semantic trees define the same key set) — failing test + implementation, Result-typed."
+    content: "PR3 cycle 1: theme overlay-coverage validation in design-tokens-core (declared light base; every overlay key must exist in the base — orphan detection plus coverage reporting; reshaped 2026-07-19 when the falsifier fired — see ADR-213 §2 amendment) — failing test + implementation, Result-typed."
     status: pending
     depends_on: [pr2-initial-import]
   - id: pr3-cycle-boundary
@@ -30,7 +30,7 @@ todos:
     status: pending
     depends_on: [pr3-cycle-completeness]
   - id: pr3-cycle-four-theme-gate
-    content: "PR3 cycle 3: extend buildContrastReports from light/dark to all four theme trees, running the design system's contrast manifest; surface the AA-vs-AAA high-contrast gate level as the owner gate; re-baseline design-token-practice.md's two-theme wording in the same PR."
+    content: "PR3 cycle 3: extend buildContrastReports from light/dark to all four theme trees, composing light base ⊕ overlay per theme BEFORE resolution (ADR-213 §2 amendment — a sparse overlay resolved alone spuriously reports unresolved tokens) and excluding alpha-literal and expression paths from the resolved hex map; run the design system's contrast manifest; surface the AA-vs-AAA high-contrast gate level as the owner gate; re-baseline design-token-practice.md's two-theme wording in the same PR."
     status: pending
     depends_on: [pr3-cycle-boundary]
   - id: ws-hub-migration
@@ -135,6 +135,12 @@ One system, two first-class surfaces. The workspace README carries the runbook:
 - **Studio → repo**: after design sessions, changed files come back via DesignSync reads and
   land as a normal reviewed PR into the workspace (incremental, per-component — never a
   wholesale replace). The studio's `HANDOFF.md`/`CHANGELOG.md` name what changed.
+  **Standing item (2026-07-19, revised same day)**: `dtcg/README.md` landed with PR #411.
+  The remaining obligation is the recorded per-consumer divergence: the export contract
+  passes the 15 expression values through verbatim, while ADR-213 §2 rejects them on the
+  contrast-resolution path (three are `currentColor`-dependent — never statically
+  pre-computable). Stage B's emission lane must decide its expression handling explicitly
+  against the export contract, never by silent adoption of either side.
 - **Repo → studio**: before design sessions, the studio is brought current from the repo copy
   via the design-sync flow (structural diff from `list_files`, then targeted writes).
 - **Conflict rule**: git review is the merge authority. A sync never overwrites unreviewed
@@ -192,6 +198,9 @@ One lane, sequenced PRs, each linked to AIP-137:
   completeness check is doing real work (expected: high-contrast/colour-safe trees are
   sparser — the check may need a declared-subset model rather than strict equality; resolve
   against the actual trees at PR3, and record the resolution in ADR-213 if it deviates).
+  **FIRED AND RESOLVED 2026-07-19**: the imported trees are strict-subset overlays over
+  light (139/63/67/12 leaves, zero orphans); the declared-base overlay model is recorded in
+  the ADR-213 §2 dated amendment, and `pr3-cycle-completeness` was reshaped to match.
 - If the tracked subset cannot be made referentially self-consistent without the held-out
   assets, the hub's gitignored-local-assets pattern applies (tracked code, gitignored assets,
   a documented re-obtain runbook) and the manifest records it.

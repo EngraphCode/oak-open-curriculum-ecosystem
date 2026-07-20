@@ -4,6 +4,18 @@
  * @packageDocumentation
  */
 
+/** Contexts a contrast pairing may declare, in declaration order. */
+export const PAIR_CONTEXTS = ['text', 'non-text', 'large-text', 'informational'] as const;
+
+/** Which WCAG criterion applies to a pairing, or `'informational'` (no gate). */
+export type PairContext = (typeof PAIR_CONTEXTS)[number];
+
+/** Contexts valid for a triad's foreground-on-middle pair (a gate always applies). */
+export const FG_MID_CONTEXTS = ['text', 'non-text', 'large-text'] as const;
+
+/** Which WCAG criterion applies to a triad's foreground-on-middle pair. */
+export type FgMidContext = (typeof FG_MID_CONTEXTS)[number];
+
 /**
  * Normalised sRGB colour with channels in the 0–1 range.
  */
@@ -28,7 +40,7 @@ export interface ContrastPair {
    * Which WCAG criterion applies to this pairing, or `'informational'` to
    * compute the ratio without applying a pass/fail gate.
    */
-  readonly context: 'text' | 'non-text' | 'large-text' | 'informational';
+  readonly context: PairContext;
 }
 
 /**
@@ -49,7 +61,7 @@ export interface ContrastTriad {
   /** Which WCAG criterion applies to each pair within the triad. */
   readonly contexts: {
     /** Foreground on middle (e.g. button text on button surface). */
-    readonly fgMid: 'text' | 'non-text' | 'large-text';
+    readonly fgMid: FgMidContext;
     /** Middle on background (e.g. button surface on page). */
     readonly midBg: 'non-text';
     /**
@@ -59,7 +71,7 @@ export interface ContrastTriad {
      * Set to a context value to apply the gate (e.g. when the middle
      * layer is translucent).
      */
-    readonly fgBg: 'text' | 'non-text' | 'large-text' | 'informational';
+    readonly fgBg: PairContext;
   };
 }
 
@@ -90,7 +102,7 @@ export interface ContrastReportEntry {
   /** The WCAG AA threshold that applies (4.5 or 3). */
   readonly requiredRatio: number;
   /** Which WCAG criterion was applied, or `'informational'` if no gate. */
-  readonly context: 'text' | 'non-text' | 'large-text' | 'informational';
+  readonly context: PairContext;
   /** Whether the pairing meets its applicable WCAG AA threshold. Always true for informational entries. */
   readonly pass: boolean;
 }

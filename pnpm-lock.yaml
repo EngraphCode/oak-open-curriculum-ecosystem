@@ -881,6 +881,9 @@ importers:
       '@oaknational/result':
         specifier: workspace:*
         version: link:../../core/result
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
     devDependencies:
       '@oaknational/eslint-plugin-standards':
         specifier: workspace:*

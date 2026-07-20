@@ -10,16 +10,9 @@
  * @packageDocumentation
  */
 import type { DtcgTokenTree } from './dtcg-types.js';
+import { anchoredTokenReferencePattern } from './token-reference.js';
 
-/**
- * Anchored DTCG token reference pattern — matches a full-string reference.
- *
- * @remarks
- * The inner pattern `[a-z0-9-]+(?:\.[a-z0-9-]+)*` is shared with
- * `TOKEN_REFERENCE_PATTERN` in `index.ts` (global search variant). Both
- * must be updated together if the DTCG reference syntax changes.
- */
-const REFERENCE_PATTERN = /^\{([a-z0-9-]+(?:\.[a-z0-9-]+)*)\}$/iu;
+const REFERENCE_PATTERN = anchoredTokenReferencePattern();
 
 /** Store a resolved hex value, following references through the accumulator. */
 function resolveColourLeaf(resolved: Map<string, string>, dotPath: string, rawValue: string): void {

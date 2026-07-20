@@ -36,6 +36,13 @@ audit). One system, two surfaces; never a fork, never a record.
   standalone deck) reference `_ds_bundle.js` / `_ds_manifest.json` — the studio's compiled
   bundle, held out here as studio-generated. That wiring renders live on the studio surface
   only; in-repo these files are sources and fidelity targets, not served pages.
+- **Structural boundary (owner ruling 2026-07-19)**: the non-production studio material
+  (specimens, proofs, reference build, templates, reference components, integrations,
+  proof pages) lives under [`studio-source/`](studio-source/README.md) — quality-gate
+  scopes bind that path alone; everything at the workspace root is product surface under
+  the full strict gate. Design-sync maps `studio:/<instrument-dirs>` ⇄
+  `repo:studio-source/<instrument-dirs>`; consumable files map root ⇄ root. The file
+  index below describes the STUDIO layout.
 - Licensing dispositions per file class: [LICENSING-MANIFEST.md](LICENSING-MANIFEST.md);
   Oak marks are outside MIT per the repo's [BRANDING.md](../../../BRANDING.md).
 - For Next.js theme bootstrap in THIS repo, ADR-213 §3 corrects `docs/consuming-nextjs.md`:
