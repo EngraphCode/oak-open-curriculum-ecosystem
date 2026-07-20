@@ -192,10 +192,14 @@ concurrently.
    emission sources carry 134 — 38 palette + 34 semantic + 62 component), so a bijective
    map reproducing `index.css` byte-for-byte cannot exist. The artefact is therefore a
    **total disposition map with reverse coverage**: every kit path maps to exactly one of
-   `emit as <--oak-* variable>` | `omit (recorded reason)`, AND every variable in the
+   `emit as <--oak-* variable>` | `omit (recorded reason)`, every variable in the
    current `index.css` is accounted for by exactly one kit path or a recorded repo-only
-   disposition. The acceptance bar is byte-stable reproduction of the **covered emission
-   set** plus zero unaccounted entries on either side — checked by a **new Stage-B
+   disposition, AND every `emit` target is unique across the whole map (epoch-2 review
+   correction: reverse coverage constrains only names already present in the old output —
+   without whole-map uniqueness two kit-only paths could emit the same new variable name,
+   pass every other check, and leave duplicate declarations where one silently wins). The
+   acceptance bar is byte-stable reproduction of the **covered emission
+   set** plus zero unaccounted entries on either side plus zero emit-target collisions — checked by a **new Stage-B
    migration-parity check that lands as part of the Stage-B change itself** (round-2
    review correction: plan task #5, the re-homed `pr2-consistency-check`, guards a
    different surface — the kit's dtcg export against the kit's own canonical CSS — with a
@@ -223,9 +227,12 @@ concurrently.
    symptom-patching.
 5. **Give the terminal its own 11-entry role→kit-path map, not the P3 name map.** The
    terminal resolves a **dot-path-keyed** map (`terminal-theme.ts` looks up
-   `component.page-background` etc. against `resolveTokenTreeToHex`'s path-keyed output),
-   so P3's kit-path→CSS-variable-name map is the wrong type for it (round-1 review
-   correction — this also restores consistency with P1's "explicit 11-path map" wording).
+   `component.page-background` etc. against the path-keyed map returned by
+   `resolveColoursOrThrow`, the post-#423 fixpoint wrapper over `resolveColourTokens` —
+   citation updated in epoch 2; the earlier-named `resolveTokenTreeToHex` was replaced on
+   #423's tip), so P3's kit-path→CSS-variable-name map is the wrong type for it (round-1
+   review correction — this also restores consistency with P1's "explicit 11-path map"
+   wording).
    The terminal artefact is an 11-entry map from terminal role (`page`, `panel`, …,
    `danger`) to kit dot-path, resolved at build; the build already fails on unresolvable
    paths, and that property is preserved while the trees stay kit-shaped. *Warrant*: O8;
