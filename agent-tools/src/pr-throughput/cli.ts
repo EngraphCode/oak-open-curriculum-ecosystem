@@ -14,6 +14,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
+import { requireIsoDateTime } from '../core/iso-date-time.js';
 import { writeErrorLine, writeLine } from '../core/terminal-output.js';
 import { resolveGhPath, type GhCommandExecutor } from '../pr-watch/gh.js';
 
@@ -118,13 +119,9 @@ function parsePositiveInteger(flag: string, value: string): number {
 }
 
 function parseIsoDate(value: string): Date {
-  const parsed = Date.parse(value);
-
-  if (Number.isNaN(parsed)) {
-    throw new Error(`--now requires an ISO date, got: ${value}`);
-  }
-
-  return new Date(parsed);
+  // Strict shape + calendar validation — Date.parse alone would let a
+  // mistyped override write a valid-looking row for a different instant.
+  return new Date(Date.parse(requireIsoDateTime(value, '--now')));
 }
 
 /**

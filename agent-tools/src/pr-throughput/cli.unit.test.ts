@@ -66,6 +66,15 @@ describe('parsePrThroughputArgs', () => {
     expect(() => parsePrThroughputArgs(['--limit', '1.5'], NOW)).toThrow(/positive integer/u);
   });
 
+  it('rejects a calendar-invalid or non-ISO --now instead of normalising it', () => {
+    expect(() => parsePrThroughputArgs(['--now', '2026-02-30T10:00:00Z'], NOW)).toThrow(
+      /invalid ISO date-time/u,
+    );
+    expect(() => parsePrThroughputArgs(['--now', 'July 20 2026'], NOW)).toThrow(
+      /invalid ISO date-time/u,
+    );
+  });
+
   it('rejects non-positive window sizes', () => {
     expect(() => parsePrThroughputArgs(['--window-days', '0'], NOW)).toThrow(/positive integer/u);
   });
