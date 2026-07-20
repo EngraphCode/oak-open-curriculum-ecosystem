@@ -7,7 +7,6 @@ const VALID_PAYLOAD = JSON.stringify([
     number: 429,
     createdAt: '2026-07-20T08:00:00Z',
     mergedAt: '2026-07-20T19:19:49Z',
-    isDraft: false,
     headRefName: 'jimcresswell/aip-137-dtcg-css-consistency-validator',
   },
 ]);
@@ -92,7 +91,6 @@ describe('assertWindowCovered', () => {
     number: 1,
     createdAt: '2026-07-19T10:00:00Z',
     mergedAt: '2026-07-19T11:00:00Z',
-    isDraft: false,
     headRefName: 'feature/a',
   };
 

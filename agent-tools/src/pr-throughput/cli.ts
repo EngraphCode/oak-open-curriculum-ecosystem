@@ -24,7 +24,7 @@ import { pathToFileURL } from 'node:url';
 import { writeErrorLine, writeLine } from '../core/terminal-output.js';
 import { resolveGhPath, type GhCommandExecutor } from '../pr-watch/gh.js';
 
-import { parsePrThroughputArgs, type PrThroughputOptions } from './cli-args.js';
+import { parsePrThroughputArgs, USAGE, type PrThroughputOptions } from './cli-args.js';
 import { assertWindowCovered, fetchMergedPrs } from './gh-fetch.js';
 import { computeThroughput, formatRegisterRow, REGISTER_HEADER } from './index.js';
 
@@ -51,12 +51,24 @@ export interface PrThroughputDeps {
  * failure text goes to stderr with the contract named so it reads loudly.
  */
 export function runPrThroughput(argv: readonly string[], deps: PrThroughputDeps): number {
+  // Help and argument errors follow the agent-tools CLI help contract
+  // (README §CLI Norms), OUTSIDE the fitness-informational path: --help
+  // prints the full usage and exits 0; invalid arguments print the error
+  // AND the full usage, then exit non-zero.
+  if (argv.includes('--help')) {
+    deps.writeLine(USAGE);
+    return 0;
+  }
+
   let options: PrThroughputOptions;
 
   try {
     options = parsePrThroughputArgs(argv, new Date());
   } catch (cause) {
-    return reportFailure(deps, cause);
+    deps.writeError(
+      `pr-throughput: ${cause instanceof Error ? cause.message : String(cause)}\n\n${USAGE}`,
+    );
+    return 2;
   }
 
   // The informational contract covers EVERYTHING downstream: a register
@@ -92,7 +104,7 @@ function runWithOptions(options: PrThroughputOptions, deps: PrThroughputDeps): n
   deps.writeLine(row);
   deps.writeLine(
     `pr-throughput: ${report.mergedCount} merges in ${report.windowDays}d ` +
-      `(${report.excludedDraftCount} draft + ${report.excludedCoordinationCount} coordination excluded)`,
+      `(${report.excludedCoordinationCount} coordination excluded)`,
   );
 
   if (options.write) {

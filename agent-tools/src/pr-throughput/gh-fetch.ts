@@ -23,12 +23,11 @@ const MERGED_PR_SCHEMA = z.array(
     number: z.number().int().positive(),
     createdAt: z.iso.datetime(),
     mergedAt: z.iso.datetime(),
-    isDraft: z.boolean(),
     headRefName: z.string().min(1),
   }),
 );
 
-export const MERGED_PR_JSON_FIELDS = 'number,createdAt,mergedAt,isDraft,headRefName';
+export const MERGED_PR_JSON_FIELDS = 'number,createdAt,mergedAt,headRefName';
 
 /**
  * List PRs merged into `main` within the inclusive `mergedSinceDate` ..

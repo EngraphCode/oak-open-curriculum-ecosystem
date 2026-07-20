@@ -1,9 +1,11 @@
 # PR throughput register (PDR-131)
 
 Fitness-informational trend register written by `pnpm agent-tools:pr-throughput`
-(always exit 0). Each row is one trailing-window reading over non-draft PRs
-merged to `main`, excluding coordination trackers (`coordination/*` head
-branches). Cycle time is open-to-merged, in minutes, nearest-rank percentiles.
+(always exit 0). Each row is one trailing-window reading over PRs merged to
+`main`, excluding coordination trackers (`coordination/*` head branches);
+a merged PR is never draft at merge, so no draft classification exists in
+this corpus. Cycle time is open-to-merged, in minutes, nearest-rank
+percentiles.
 
 Governing doctrine (both records ride the coordination branch until its next
 main reconciliation):

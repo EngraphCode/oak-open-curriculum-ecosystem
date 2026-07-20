@@ -16,14 +16,12 @@ const CORPUS = JSON.stringify([
     number: 429,
     createdAt: '2026-07-20T08:14:00Z',
     mergedAt: '2026-07-20T19:19:49Z',
-    isDraft: false,
     headRefName: 'jimcresswell/aip-137-dtcg-css-consistency-validator',
   },
   {
     number: 434,
     createdAt: '2026-07-19T08:00:00Z',
     mergedAt: '2026-07-20T18:00:00Z',
-    isDraft: false,
     headRefName: 'coordination/estate-2026-07',
   },
 ]);
@@ -128,6 +126,25 @@ describe('parsePrThroughputArgs', () => {
 });
 
 describe('runPrThroughput', () => {
+  it('prints the full usage block and exits 0 on --help', () => {
+    const { deps, outputLines } = fakeDeps();
+
+    expect(runPrThroughput(['--help'], deps)).toBe(0);
+    expect(outputLines.join('\n')).toContain('Usage: pnpm agent-tools:pr-throughput');
+    expect(outputLines.join('\n')).toContain('--window-days');
+    expect(outputLines.join('\n')).toContain('Example:');
+  });
+
+  it('prints the error AND the full usage, exiting non-zero, on an invalid argument', () => {
+    // Argument errors follow the CLI help contract, not the
+    // fitness-informational path — a typo must be loud AND non-zero.
+    const { deps, errorLines } = fakeDeps();
+
+    expect(runPrThroughput(['--windowdays', '7'], deps)).toBe(2);
+    expect(errorLines.join('\n')).toContain('unknown flag');
+    expect(errorLines.join('\n')).toContain('Usage: pnpm agent-tools:pr-throughput');
+  });
+
   it('exits 0 and appends a register row on --write, excluding the coordination tracker', () => {
     const { deps, writes } = fakeDeps();
 

@@ -17,6 +17,28 @@ export const DEFAULT_REGISTER_PATH = '.agent/reports/agentic-engineering/pr-thro
  */
 export const GH_SEARCH_RESULT_CAP = 1000;
 
+/** Full help block per the agent-tools CLI help contract (README §CLI Norms). */
+export const USAGE = `Usage: pnpm agent-tools:pr-throughput [-- <options>]
+
+PDR-131 throughput register: computes merges-to-main/day and open-to-merged
+cycle-time percentiles over a trailing window, and renders one dated register
+row. Fitness-informational: runtime/measurement failures report loudly and
+still exit 0; only argument errors exit non-zero.
+
+Options (all optional):
+  --window-days <n>   Trailing window in days (positive integer; default 7)
+  --limit <n>         Max PRs to fetch (positive integer <= ${String(GH_SEARCH_RESULT_CAP)},
+                      the gh search-result cap; default 200)
+  --write             Append the row to the tracked register (default: print only)
+  --register <path>   Register path (default ${DEFAULT_REGISTER_PATH})
+  --note <text>       Free-text note for the row (pipes/line breaks sanitised)
+  --now <iso>         ISO-8601 date-time override for the window end (default: now)
+  --gh <path>         Absolute path override for the gh binary
+  --help              Print this help and exit 0
+
+Example:
+  pnpm agent-tools:pr-throughput -- --window-days 7 --note "weekly reading" --write`;
+
 export interface PrThroughputOptions {
   readonly windowDays: number;
   readonly limit: number;

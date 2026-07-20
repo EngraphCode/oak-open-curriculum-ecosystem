@@ -8,14 +8,12 @@ function pr(input: {
   readonly number: number;
   readonly createdAt: string;
   readonly mergedAt: string;
-  readonly isDraft?: boolean;
   readonly headRefName?: string;
 }): MergedPrRecord {
   return {
     number: input.number,
     createdAt: input.createdAt,
     mergedAt: input.mergedAt,
-    isDraft: input.isDraft ?? false,
     headRefName: input.headRefName ?? `feature/pr-${input.number}`,
   };
 }
@@ -37,16 +35,10 @@ describe('computeThroughput', () => {
     expect(report.windowDays).toBe(7);
   });
 
-  it('excludes drafts and coordination-tracker branches, counting each exclusion', () => {
+  it('excludes coordination-tracker branches, counting the exclusion', () => {
     const report = computeThroughput(
       [
         pr({ number: 1, createdAt: '2026-07-20T10:00:00Z', mergedAt: '2026-07-20T11:00:00Z' }),
-        pr({
-          number: 2,
-          createdAt: '2026-07-20T10:00:00Z',
-          mergedAt: '2026-07-20T11:00:00Z',
-          isDraft: true,
-        }),
         pr({
           number: 3,
           createdAt: '2026-07-20T10:00:00Z',
@@ -58,7 +50,6 @@ describe('computeThroughput', () => {
     );
 
     expect(report.mergedCount).toBe(1);
-    expect(report.excludedDraftCount).toBe(1);
     expect(report.excludedCoordinationCount).toBe(1);
   });
 

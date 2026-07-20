@@ -11,12 +11,15 @@
  * @packageDocumentation
  */
 
-/** One merged PR as the boundary hands it over (ISO date strings). */
+/**
+ * One merged PR as the boundary hands it over (ISO date strings). No draft
+ * flag: GitHub never merges a draft, so `isDraft` is uniformly false in a
+ * merged corpus and carries no classification signal.
+ */
 export interface MergedPrRecord {
   readonly number: number;
   readonly createdAt: string;
   readonly mergedAt: string;
-  readonly isDraft: boolean;
   readonly headRefName: string;
 }
 
@@ -28,7 +31,6 @@ export interface ThroughputReport {
   readonly mergesPerDay: number;
   readonly cycleTimeP50Minutes: number | null;
   readonly cycleTimeP90Minutes: number | null;
-  readonly excludedDraftCount: number;
   readonly excludedCoordinationCount: number;
 }
 
@@ -40,9 +42,9 @@ const COORDINATION_BRANCH_PREFIX = 'coordination/';
 
 /**
  * Compute the trailing-window throughput report. Only PRs merged inside
- * `(now - windowDays, now]` count; drafts and coordination trackers are
- * excluded and COUNTED (a silent cap would read as covered-everything).
- * Empty-window percentiles are null, never fabricated zeros.
+ * `(now - windowDays, now]` count; coordination trackers are excluded and
+ * COUNTED (a silent cap would read as covered-everything). Empty-window
+ * percentiles are null, never fabricated zeros.
  */
 export function computeThroughput(
   prs: readonly MergedPrRecord[],
@@ -54,13 +56,10 @@ export function computeThroughput(
     return mergedAt > windowStart && mergedAt <= input.now.getTime();
   });
 
-  const drafts = inWindow.filter((pr) => pr.isDraft);
-  const coordination = inWindow.filter(
-    (pr) => !pr.isDraft && pr.headRefName.startsWith(COORDINATION_BRANCH_PREFIX),
+  const coordination = inWindow.filter((pr) =>
+    pr.headRefName.startsWith(COORDINATION_BRANCH_PREFIX),
   );
-  const counted = inWindow.filter(
-    (pr) => !pr.isDraft && !pr.headRefName.startsWith(COORDINATION_BRANCH_PREFIX),
-  );
+  const counted = inWindow.filter((pr) => !pr.headRefName.startsWith(COORDINATION_BRANCH_PREFIX));
 
   const cycleMinutes = counted
     .map((pr) => (Date.parse(pr.mergedAt) - Date.parse(pr.createdAt)) / MINUTE_MS)
@@ -73,7 +72,6 @@ export function computeThroughput(
     mergesPerDay: counted.length / input.windowDays,
     cycleTimeP50Minutes: nearestRankPercentile(cycleMinutes, 0.5),
     cycleTimeP90Minutes: nearestRankPercentile(cycleMinutes, 0.9),
-    excludedDraftCount: drafts.length,
     excludedCoordinationCount: coordination.length,
   };
 }
@@ -128,9 +126,11 @@ export function formatRegisterRow(
 export const REGISTER_HEADER = `# PR throughput register (PDR-131)
 
 Fitness-informational trend register written by \`pnpm agent-tools:pr-throughput\`
-(always exit 0). Each row is one trailing-window reading over non-draft PRs
-merged to \`main\`, excluding coordination trackers (\`coordination/*\` head
-branches). Cycle time is open-to-merged, in minutes, nearest-rank percentiles.
+(always exit 0). Each row is one trailing-window reading over PRs merged to
+\`main\`, excluding coordination trackers (\`coordination/*\` head branches);
+a merged PR is never draft at merge, so no draft classification exists in
+this corpus. Cycle time is open-to-merged, in minutes, nearest-rank
+percentiles.
 
 Governing doctrine (both records ride the coordination branch until its next
 main reconciliation):
