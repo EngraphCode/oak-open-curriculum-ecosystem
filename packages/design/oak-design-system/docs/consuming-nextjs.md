@@ -14,7 +14,7 @@ src/oak/components.css          ← tier 3 tokens + the .oak-* class library
 src/oak/print.css               ← print/PDF layer
 src/oak/oak-icons.css           ← icon URL tokens (--i-*) + role map (--ic-*)
 src/oak/assets/icons/*.svg      ← the official Oak icon set
-src/oak/fonts/Lexend-VariableFont_wght.ttf
+src/oak/fonts/                  ← Lexend + Roboto Mono variable fonts
 public/oak-theme.js             ← theme switcher (public/ — loaded unbundled, pre-paint)
 ```
 
@@ -34,7 +34,7 @@ Order matters twice over: Oak sheets **after** Tailwind (so role-driven classes 
 
 ## 2. Fonts
 
-The kit ships Lexend via `@font-face` in `colors_and_type.css`; the bundler serves it as-is — nothing to do. If you prefer `next/font` (zero-layout-shift, self-hosted by Next):
+The kit ships Lexend and Roboto Mono (code contexts) via `@font-face` in `colors_and_type.css`; the bundler serves both as-is — nothing to do. If you prefer `next/font` for Lexend (zero-layout-shift, self-hosted by Next):
 
 ```tsx
 // app/layout.tsx
@@ -50,7 +50,7 @@ const lexend = Lexend({ subsets: ['latin'], variable: '--font-lexend' });
 }
 ```
 
-Then delete the `@font-face` block and `fonts/` from your copy. Re-pointing `--font-sans` is the sanctioned lever — everything downstream (type classes, slots, components) follows.
+Then delete the Lexend `@font-face` block and `fonts/Lexend-VariableFont_wght.ttf` from your copy — keep the Roboto Mono `@font-face` and `fonts/RobotoMono-VariableFont_wght.ttf` (code contexts load it; a `next/font` `Roboto_Mono` variable re-pointing `--font-mono` is the same pattern if you want it). Re-pointing `--font-sans` is the sanctioned lever — everything downstream (type classes, slots, components) follows.
 
 ## 3. Map Tailwind's theme onto the roles
 
