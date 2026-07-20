@@ -1,8 +1,12 @@
 # ADR-213: Design-System Integration and Component-System Architecture
 
-- **Status:** Proposed (owner ratification pending; drafted 2026-07-19, reframed same day on
-  owner direction — integration, not vendoring; §2 amended 2026-07-19 — overlay
-  completeness model and colour-value grammar, evidence-driven; AIP-137)
+- **Status:** Accepted (owner in-session ratification 2026-07-20 — "if it is wrong the
+  system will tell us through natural use" — with the decision already landed and proven in
+  use: doctrine on PR #410, Stage A import + licensing manifest merged `dc16295bf` on
+  PR #411, PR3 validation layer merged `6631bb5ac` on PR #412). Drafted 2026-07-19,
+  reframed same day on owner direction — integration, not vendoring; §2 amended
+  2026-07-19 — overlay completeness model and colour-value grammar, evidence-driven;
+  AIP-137.
 - **Supersedes in part:** [ADR-148](148-design-token-architecture.md) §Source Format (the
   source-of-truth direction only; the three-tier model, contrast gate, and delivery format
   stand)
