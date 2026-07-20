@@ -1,4 +1,6 @@
 import { readFileSync } from 'node:fs';
+
+import { escapeInlineScript } from '@/lib/inline-script';
 import type { Metadata } from 'next';
 import type { ReactElement, ReactNode } from 'react';
 import { Lexend } from 'next/font/google';
@@ -24,7 +26,10 @@ const lexend = Lexend({
 // before first paint — next/script beforeInteractive does not block
 // hydration and its external fetch can let first paint precede theme
 // application (ADR-213 §3).
-const oakThemeSource = readFileSync('public/oak-theme.js', 'utf8');
+// escapeInlineScript: the runtime's header comment contains a literal
+// </script> which would otherwise terminate the inline element mid-comment
+// and the bootstrap after it would never execute (round-3 review finding).
+const oakThemeSource = escapeInlineScript(readFileSync('public/oak-theme.js', 'utf8'));
 
 export const metadata: Metadata = {
   title: 'Curriculum hub — Oak National Academy',

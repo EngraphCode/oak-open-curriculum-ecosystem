@@ -12,6 +12,8 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
+import { escapeInlineScript } from '@/lib/inline-script';
+
 const here = dirname(fileURLToPath(import.meta.url));
 
 describe('oak-theme.js parity', () => {
@@ -22,5 +24,14 @@ describe('oak-theme.js parity', () => {
     const copy = readFileSync(join(here, '..', 'public', 'oak-theme.js'), 'utf8');
     const source = readFileSync(packagePath, 'utf8');
     expect(copy).toBe(source);
+  });
+});
+
+describe('the inlined runtime embed', () => {
+  it('escapes to a body the HTML parser cannot terminate early, with the IIFE intact', () => {
+    const source = readFileSync(join(here, '..', 'public', 'oak-theme.js'), 'utf8');
+    const escaped = escapeInlineScript(source);
+    expect(escaped).not.toMatch(/<\/script/i);
+    expect(escaped).toContain('window.oakTheme');
   });
 });
