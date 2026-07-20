@@ -87,7 +87,7 @@ instrument that doctrine has not yet blessed:**
 | Type anchors (bidirectional, negative, exhaustiveness) | `packages/libs/logger/tests/logger-contract.typecheck.ts` (`Assert`/`AssertFalse`, off-API, tsc-proven); module-scope `expectTypeOf` (plan-state) | Public-API export with zero consumers; dummy consuming `it()`; three type-only `it()` blocks (banned shape, live) |
 | Defences against type-forbidden input | `unknown`-typed guards (strand-lookup); `parseContrastManifest` | `JSON.parse` typed alias; `Object.defineProperties` contortion (verify-clerk-token); walker hole-patch sequences |
 | Cross-artefact consistency | `validate-patterns-index` (regeneration-comparison + `--fix`); `validate-boundaries` (workspace-owned, root-chained); the owner's 2026-07-07 ruling | Three frozen-allowlist content-scan tests; a tautological package-version test; "checksum" plan wording |
-| Live-data quality gates | `oak-design-tokens/src/build.ts` contrast gate (engine unit-tested on fixtures; live data gated at build) | The same proof duplicated in `build-css.integration.test.ts` (proof-happens-once violation, unadjudicated) |
+| Live-data quality gates | `oak-design-tokens/src/build.ts` contrast gate (engine unit-tested on fixtures; live data gated at build) | The `build-css.integration.test.ts` duplicate — ADJUDICATED and cured on PR #423 (2026-07-20): the every-pairing re-proof removed, the two named checks retained as declared threshold exemplars |
 | Owned-message / vendor-conformance assertions | Module-TSDoc-declared owned messages; ADR-142 vendor drift tripwires | Exception exists in product TSDoc only; sibling-module and vendor message pinning unadjudicated |
 
 Secondary findings the sweep surfaced (file-level evidence in the appendix below):
@@ -166,8 +166,9 @@ recorded nowhere.
   proposal 2's safety) — asserted from sampled workspaces, not exhaustively verified.
 - E2E/smoke tests with `readFileSync` were not tier-audited (may legitimately read built
   artefacts); the agent-tools test corpus was sampled, not enumerated.
-- Whether the `build-css.integration.test.ts` duplicate carries chain-position value
-  (proposal 5's falsifier) — resolvable when the four-theme gate work opens that file.
+- ~~Whether the `build-css.integration.test.ts` duplicate carries chain-position value
+  (proposal 5's falsifier)~~ RESOLVED on PR #423 (2026-07-20): removed as a pure
+  re-proof; the wiring smoke and the two declared threshold exemplars stay.
 
 ## Evidence appendix — enumerated instances
 
@@ -214,6 +215,6 @@ the `.agent/practice-core/protocol.json` read at
 `agent-tools/src/validators/ratified-lists/validate-ratified-lists.ts:24` (the 2026-07-07
 owner ruling verbatim); `agent-tools/src/validators/patterns-index/validate-patterns-index.ts:19`;
 `packages/core/oak-eslint/scripts/validate-boundaries.ts:48`;
-`packages/design/oak-design-tokens/src/build.ts:44` and its vitest duplicate at
-`packages/design/oak-design-tokens/src/build-css.integration.test.ts:106`;
+`packages/design/oak-design-tokens/src/build.ts:44` and its since-removed vitest
+duplicate (formerly `build-css.integration.test.ts:106`; adjudicated on PR #423);
 `apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/verify-clerk-token.unit.test.ts:85` (the `Object.defineProperties` misfit).
