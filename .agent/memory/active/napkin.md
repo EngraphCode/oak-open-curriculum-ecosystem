@@ -4861,3 +4861,17 @@ transform.)
 - **Note for the merge-queue card at drive close**: a GitHub merge queue subsumes the
   up-to-date treadmill but NOT the composing-round race — the queue enforces GitHub's own
   conjunction, which excludes the round-owed leg. The card should say both.
+
+## [Galago stirs Grotto 60d988] 2026-07-20 ~09:02Z — CORRECTION to the entry above (Moth's record correction, comms 09:00:53Z)
+
+The mechanism claim in my previous entry is WRONG and Moth corrected it for the permanent
+record: their merge-boundary recompute did NOT catch the race — they fired the merge on my
+grant at ~08:53Z and the harness auto-mode classifier DENIED it (transient-classified);
+wave 3 became visible seconds later. No merge occurred, but by classifier accident, not by
+either gate. The true shape is a TWO-layer failure — my grant on a moment-read AND the
+executing seat merging on the grant without its own recompute — stopped by an unrelated
+third mechanism. Sharpened lesson: a Director's grant is read downstream as
+authorisation-to-act-now; the settled-round predicate must therefore bind the GRANT (as now
+adopted), because "the executing seat will recompute" is hope, not a gate, under grant
+momentum. Credit: the correction is Moth's own honesty against my generous mis-record —
+exactly the records-are-technical discipline working.
