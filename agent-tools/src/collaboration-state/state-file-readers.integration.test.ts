@@ -70,6 +70,19 @@ describe('readActiveClaimsFile on a fresh checkout', () => {
 
     expect(error).toBe(permissionFailure);
   });
+
+  it('preserves identity for a structurally-typed Error that is not an Error instance', async () => {
+    // Cross-realm and structurally-typed Error values fail `instanceof`;
+    // the identity promise must hold for them exactly as at the result
+    // package's raise edge.
+    const structural: Error = { name: 'Error', message: 'not an instance' };
+
+    const error = unwrapErr(
+      await readActiveClaimsFile('active-claims.json', () => Promise.reject(structural)),
+    );
+
+    expect(error).toBe(structural);
+  });
 });
 
 describe('readClosedClaimsFile on a fresh checkout', () => {

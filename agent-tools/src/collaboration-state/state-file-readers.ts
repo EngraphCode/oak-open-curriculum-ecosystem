@@ -96,12 +96,26 @@ async function readStateFile<T>(
 
 /**
  * Narrow a caught failure to the `Err` channel without losing anything:
- * an `Error` passes through as itself; a non-`Error` throwable — itself an
- * anomaly worth surfacing — is named as such with the original preserved
- * intact as `cause`. Never a stringified summary.
+ * an Error-shaped failure passes through as ITSELF — the discrimination is
+ * structural, not `instanceof`, so cross-realm and structurally-typed
+ * `Error` values keep their identity exactly as the result package's raise
+ * edge preserves them — while a genuinely non-Error throwable (an anomaly
+ * worth surfacing) is named as such with the original preserved intact as
+ * `cause`. Never a stringified summary.
  */
 function failureAsError(failure: unknown): Error {
-  return failure instanceof Error
+  return isErrorShaped(failure)
     ? failure
     : new Error('non-Error value thrown at the state-file read boundary', { cause: failure });
+}
+
+function isErrorShaped(failure: unknown): failure is Error {
+  return (
+    typeof failure === 'object' &&
+    failure !== null &&
+    'name' in failure &&
+    'message' in failure &&
+    typeof failure.name === 'string' &&
+    typeof failure.message === 'string'
+  );
 }

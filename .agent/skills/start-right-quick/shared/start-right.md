@@ -214,8 +214,11 @@ instance-tier state files are untracked-by-design (ADR-199 / PDR-094). The
 pieces differ in who creates them: `active-claims.json`,
 `closed-claims.archive.json`, and `comms-seen/` require EXPLICIT seeding —
 the first claims read fails loud with seeding instructions rather than
-creating them, and an absent `comms-seen/` makes a watcher re-emit every
-event silently. `comms/` alone is auto-created by the event writers and
+creating them, and an absent `comms-seen/` parent makes the watcher's
+seen-file writes fail loud — a `WATCHER ERROR` per mark-seen failure with
+the event left eligible for re-delivery, or the pre-loop auto-seed failing
+outright when events already exist. `comms/` alone is auto-created by the
+event writers and
 the watch path — which is exactly why a wrongly-homed writer can
 manufacture a decoy dir (the F-41 class) rather than failing. Seed the
 substrate — guarded, so existing state is never overwritten — before the
