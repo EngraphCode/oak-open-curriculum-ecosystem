@@ -6,10 +6,14 @@
 movements (metacognition ⇄ reason), run before Stage-B solution options are formed — the two
 open questions Caracal's handoff named ("export re-rooting vs repo-boundary normalisation";
 "the currentColor runtime-token clause") are treated as symptoms of one unshaped concept, not
-as a formed decision. Every observation below was verified first-hand on 2026-07-20 against
-the working tree at `packages/design/` (verified identical to `origin/main` for that subtree
-at 08:14Z) and against the landed `#412` validation layer. Nothing here edits ADR-213 or the
-plan; §Proposals routes the edits.
+as a formed decision. Every observation below was verified first-hand on 2026-07-20.
+Provenance (epoch-2 correction — three sources, each cited inline at its site): the
+baseline observations against the working tree at `packages/design/` (verified identical
+to `origin/main` for that subtree at 08:14Z) and the landed `#412` validation layer;
+the observations re-grounded during this PR's review rounds (O4, P1's contrast
+projection, P5's resolver citation) against **#423's tip `e6b939a89`** and, after #423
+merged (09:53:52Z, `dbfc765dd`), against post-#423 `origin/main`. Nothing here edits
+ADR-213 or the plan; §Proposals routes the edits.
 
 ## Review contract
 
@@ -170,7 +174,11 @@ concurrently.
    Contract text (ADR-213 §2 amendment, same change as P1): values whose computation is
    paint-time-contextual (`currentColor` mixes: `state.hover`, `state.pressed`) are exported
    verbatim, pass through to CSS emission, are excluded from static contrast resolution
-   **by contract**, and are barred from the terminal's 11 paths (asserted at build).
+   **by contract**, and are barred from the terminal's 11 paths. The terminal bar does NOT
+   yet exist mechanically (epoch-2 correction: `requiredColour` checks path presence only,
+   and resolution carries expressions verbatim), so it is named Stage-B work: the terminal
+   map's build check gains a value-shape leg — every mapped value must resolve to a
+   terminal-compatible static colour literal (P5 carries it in the map contract).
    The contrast-side enforcement already exists (round-4 correction — the landed #423
    mechanism): such values drop via `toHexComparand`'s post-resolution value-shape rule,
    and the pinned per-theme comparand counts are the audit trail; P2 therefore proposes
@@ -235,7 +243,10 @@ concurrently.
    wording).
    The terminal artefact is an 11-entry map from terminal role (`page`, `panel`, …,
    `danger`) to kit dot-path, resolved at build; the build already fails on unresolvable
-   paths, and that property is preserved while the trees stay kit-shaped. *Warrant*: O8;
+   paths, and that property is preserved while the trees stay kit-shaped — with one new
+   leg (epoch-2 correction, paired with P2): the build check asserts BOTH resolvability
+   AND value shape, because today's `requiredColour` rejects only missing paths and a
+   verbatim expression string would pass silently. *Warrant*: O8;
    re-rooting whole trees to stabilise 11 lookups inverts the size of cause and effect.
    *Falsifier*: if Stage B's kit trees cannot supply all 11 roles through the map,
    ADR-213's recorded exception (the terminal keeps its own tree, deliberate and recorded)
@@ -243,11 +254,11 @@ concurrently.
 
 ## Unresolved evidence that could change the synthesis
 
-- **#423's landed shape — RESOLVED in round 4 of this PR's review**: the gate was verified
-  first-hand at tip `e6b939a89` (native read confirmed; the mechanism is fixpoint
-  resolution + post-resolution hex-comparand filtering + pinned counts, per the 2026-07-20
-  ADR-213 §2 amendment), and O4/P1/P2 were re-grounded on it. The residual watch item is
-  only #423's merge landing the amendment on `main`.
+- **#423's landed shape — RESOLVED in full**: the gate was verified first-hand at tip
+  `e6b939a89` (native read confirmed; the mechanism is fixpoint resolution +
+  post-resolution hex-comparand filtering + pinned counts, per the 2026-07-20 ADR-213 §2
+  amendment), O4/P1/P2 were re-grounded on it, and #423 MERGED to `main` at 09:53:52Z
+  (`dbfc765dd`) — the amendment is landed doctrine; nothing remains open here.
 - **The MCP views' binding surface**: whether the views can bind kit CSS directly in a
   bounded follow-on determines the P3 map's lifetime — short (transitional scaffolding) or
   long (a de-facto second naming authority, which would start to smell like a bridge).
