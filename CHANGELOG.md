@@ -1,3 +1,16 @@
+# [1.75.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.74.0...v1.75.0) (2026-07-20)
+
+
+### Bug Fixes
+
+* **design:** cure the PR2 review round (19 threads, one adjudicated batch) ([85cfd97](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/85cfd9745e79c3952f39a24ceb51ef9682f27165))
+
+
+### Features
+
+* **design:** land the design system's initial import (288 files, v1.7.0) ([922f2e8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/922f2e8063b85f5c3227feec3e4b76ab8704049c))
+* **design:** scaffold the oak-design-system workspace with licensing manifest ([c90f932](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c90f932639c938605266f18672525145cedc1fc2))
+
 # [1.74.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.73.4...v1.74.0) (2026-07-19)
 
 
