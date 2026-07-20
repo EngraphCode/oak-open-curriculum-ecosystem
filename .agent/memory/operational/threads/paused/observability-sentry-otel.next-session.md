@@ -4,7 +4,8 @@ fitness_line_limit: 1100
 fitness_char_limit: 70000
 fitness_line_length: 100
 fitness_content_role: reference
-overflow_disposition: 'leave-if-live; else conserve-insight-and-delete — never archive/split/rotate/shard (see continuity-practice.md §Disposition of Continuity Surfaces)'
+overflow_disposition: 'leave-if-live; else conserve-insight-and-delete — never
+archive/split/rotate/shard (see continuity-practice.md §Disposition of Continuity Surfaces)'
 merge_class: index-narrative-tables
 ---
 # Next-Session Record — `observability-sentry-otel` thread
@@ -40,7 +41,8 @@ merge-readiness declaration with release-readiness-expert synthesis).
 
 - **Focused local-startup follow-up** (active record; all phases completed, packaged in
   `d9cb54e8`):
-  `mcp-local-startup-release-boundary.plan.md` (`../../../../plans-old-archive/observability/archive/completed/mcp-local-startup-release-boundary.plan.md`)
+  `mcp-local-startup-release-boundary.plan.md` (`../../../../plans-old-
+  archive/observability/archive/completed/mcp-local-startup-release-boundary.plan.md`)
   (+ its `phase-0-evidence` / `phase-1-red-evidence` companions).
 - **Completed gate-recovery precondition** (complete for current branch state):
   [`gate-recovery-cadence.plan.md`](../../../../plans/observability/active/gate-recovery-cadence.plan.md)
@@ -51,7 +53,8 @@ merge-readiness declaration with release-readiness-expert synthesis).
   [`sentry-release-identifier-single-source-of-truth.plan.md`](../../../../plans/observability/current/sentry-release-identifier-single-source-of-truth.plan.md)
   — release-identifier SSoT + ADR-163 amendment + cancellation-ADR linkage.
 - **PR #87 unblock** (next-session pickup):
-  `pr-87-quality-finding-resolution.plan.md` (`../../../../plans-old-archive/observability/archive/superseded/pr-87-quality-finding-resolution.plan.md`)
+  `pr-87-quality-finding-resolution.plan.md` (`../../../../plans-old-
+  archive/observability/archive/superseded/pr-87-quality-finding-resolution.plan.md`)
   — clear the three failing PR checks (CodeQL combined, SonarCloud QG, CI test) by phased
   remediation; Phase 0 surfaces three owner decisions (rate-limit verification, stylistic-rule
   policy, semver-extraction home) before Phase 1 mechanical work.

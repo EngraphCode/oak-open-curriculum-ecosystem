@@ -18,7 +18,8 @@ merge_class: index-narrative-tables
   snapshot (`ahead=0`, `behind=0`). **Superseded 2026-07-16 ~21:52Z (truing 2026-07-17): the
   owner-directed preservation pass committed the working-tree state as `SHA:c4fae0b83` on the same
   branch, pushed, and opened draft PR #403 — the "uncommitted working-tree state" claims in this
-  snapshot describe the pre-preservation moment and are no longer the live durability state.** Discover its sibling worktree with `git worktree list`; do not
+  snapshot describe the pre-preservation moment and are no longer the live durability state.**
+  Discover its sibling worktree with `git worktree list`; do not
   rely on a machine-local path from a handoff.
 - Invocation pointer: read this record, then the
   [pair ARC](../../../../collaboration/rapid-comms/2026-07-16-codex-hook-experiment-lupin-herds-bark-and-zephyr-turns-crosswind.md),
