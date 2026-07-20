@@ -14,7 +14,9 @@ interface Destination {
   readonly cta: string;
   readonly href: string;
   readonly badge: string;
-  /** Canonical card background tint (hex, from the export source). */
+  /** Card background tint: a Tailwind utility backed by an Oak decorative-subtle
+   *  role (exact-value match to the canonical export hex — see fidelity register
+   *  entry global/cards-token-roles-slice4). */
   readonly cardTint: string;
   /** Icon-tile background (Oak decorative token; matches the canonical iconBg hex). */
   readonly tileTint: string;
