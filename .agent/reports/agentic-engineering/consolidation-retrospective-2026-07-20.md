@@ -1,4 +1,4 @@
-# Why lessons waited six days for a pass a single session could have graduated
+# Why lessons waited days for a pass a single session could have graduated
 
 **Retrospective on the 2026-07-20 dedicated knowledge-consolidation session**
 (Siren lifts Trench, `af11f9`; owner-commissioned at wrap: "a retrospective
@@ -17,8 +17,8 @@ graduated.
 One session, opened 2026-07-20 ~16:33Z in a Director-staged worktree against
 an owner-staged input manifest, closed the same evening with PR #446 MERGED
 into `coordination/estate-2026-07` (merge `aabf46a86`; Phase-8 clean at
-19:20Z). The pass processed the full napkin window (2026-07-14 → 07-20, the
-whole multi-seat drive corpus), graduated the drive's seven-firing closure
+19:20Z). The pass processed the staged napkin window (dated range
+2026-07-14 → 07-20, the multi-seat drive corpus as manifested), graduated the drive's seven-firing closure
 generator into doctrine (the open-set clause + PDR-129), imported the
 Resonance wrap family (AIP-142) with PDR-130, authored one new rule and five
 patterns, amended six rules and two skills, drained three registers to empty
@@ -100,8 +100,10 @@ reference graph swept, and a single curator judgment over a frozen corpus
 (the union-duplication resolved at rotation rather than compounding). The
 session also stress-tested its own imports same-day: wrap ran the closeout,
 and the settled-round predicate governed the PR that carried it. The cost
-side is equally real: six days of graduation latency for fast-lane lessons,
-paid in recurrences.
+side is equally real: days of graduation latency for fast-lane lessons,
+paid in recurrences — the worked specimen (captured 2026-07-17, homed
+07-20) waited roughly three days; the window's earliest captures could
+wait up to six.
 
 ## Proposals (warrant + falsifier + PDR-130 lane, each)
 
@@ -114,10 +116,14 @@ paid in recurrences.
    Home: a slow-lane row in the pending-graduations register (review
    2026-10-20), promotion target `session-handoff` step 6b under the
    PDR-101 quorum. *Warrant*: the exit-code specimen above. *Falsifier /
-   prediction (PDR-130 line)*: captured-lesson recurrence between capture
-   and homing should drop to ~zero for clause-eligible lessons; if
-   per-session graduations instead produce collision or duplication churn
-   exceeding the recurrence cost within a quarter, the batching frame wins
+   prediction (PDR-130 line, pre-promotion-observable form)*: while the
+   clause stays unenacted, the register row accrues each clause-eligible
+   lesson that recurs between capture and homing — the measured cost of
+   batching; at the review, at least one accrued recurrence class promotes
+   the clause, zero accrual kills it. The post-promotion prediction
+   (recurrence drops to ~zero) binds only after enactment; if per-session
+   graduations then produce collision or duplication churn exceeding the
+   recurrence cost within a quarter, the batching frame wins
    and the clause retracts. *Lane note (2026-07-20 review round)*: first
    authored FAST-enacted; reclassified at PR review under PDR-130 §§2/4 —
    a change to graduation mechanics is a change to how the estate changes
@@ -138,7 +144,9 @@ paid in recurrences.
    `route-blocks-and-questions-to-director`. *Warrant*: the 85-minute idle
    segment against the peer's same-window ping that surfaced the Director
    gap. *Falsifier*: if pings routinely land during normal grant latency
-   (noise), lengthen the cadence or retract.
+   (noise), raise the clause's ping threshold (more unacked cadences
+   before the ping) or retract — the sweep cadence itself is canon-fixed
+   (`start-right-team`, ≤120s, tightening only) and is never the lever.
 4. **[OBSERVATION, routed not legislated] The single-owner-interface stall
    class.** A Director processing gap serialises every seat's owner-facing
    contract; PDR-063's owner-absent deadline-and-default machinery exists

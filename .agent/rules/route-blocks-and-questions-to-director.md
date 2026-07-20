@@ -82,7 +82,10 @@ Director's catch-up swept the window — the seat that silently held paid
 the full gap. Prediction (PDR-130): with this clause loaded, a routing-seat
 gap surfaces within one cadence of the contract landing and the silent
 multi-cadence hold class stops recurring; if pings routinely land during
-normal grant latency, lengthen the cadence or retract this clause.
+normal grant latency, raise this clause's ping threshold (more unacked
+cadences before the single ping) or retract this clause — the team sweep
+cadence itself is canon-fixed by `start-right-team` (at most 120 seconds
+between sweeps, tightening only) and is never this clause's lever.
 
 ## Enforcement
 
