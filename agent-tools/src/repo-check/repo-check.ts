@@ -134,21 +134,28 @@ export async function runKnipGate(runtime: RepoCheckRuntime = defaultRuntime): P
 async function main(): Promise<void> {
   const [command, ...args] = process.argv.slice(2);
 
+  // process.exitCode, never process.exit(): exit() can terminate before
+  // piped stdout/stderr flush, truncating the captured output this gate
+  // promises to re-emit.
   if (command === 'markdownlint-staged') {
-    process.exit(await runMarkdownlintStaged());
+    process.exitCode = await runMarkdownlintStaged();
+    return;
   }
   if (command === 'knip-gate') {
-    process.exit(await runKnipGate());
+    process.exitCode = await runKnipGate();
+    return;
   }
   if (command === 'prettier-staged') {
-    process.exit(await runPrettierStaged());
+    process.exitCode = await runPrettierStaged();
+    return;
   }
   if (command === 'profile') {
-    process.exit(await runProfile(args));
+    process.exitCode = await runProfile(args);
+    return;
   }
 
   writeErrorLine(usage());
-  process.exit(1);
+  process.exitCode = 1;
 }
 
 function isCliEntryPoint(): boolean {
