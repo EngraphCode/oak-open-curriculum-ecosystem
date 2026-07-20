@@ -61,13 +61,6 @@ if ! pnpm portability:check; then
   exit 1
 fi
 
-echo "🔗 Running depcruise (circular deps, orphans, layer violations)..."
-if ! pnpm depcruise; then
-  echo "❌ Dependency-cruiser found violations!"
-  echo "💡 Run 'pnpm depcruise' to see details, then fix circular dependencies or orphan modules"
-  exit 1
-fi
-
 echo "🧪 Running workspace-owned repo validators..."
 if ! pnpm repo-validators:check; then
   echo "❌ Repo validator checks failed!"
@@ -89,6 +82,16 @@ pnpm --filter @oaknational/agent-tools ci-schema-drift-check || true
 echo "🔤 Running build, type-check, lint, and tests..."
 if ! pnpm turbo run --continue sdk-codegen build type-check lint test test:e2e test:ui; then
   echo "❌ Turbo quality gate checks failed!"
+  exit 1
+fi
+
+echo "🔗 Running depcruise (circular deps, orphans, layer violations)..."
+# Runs AFTER the Turbo build for the same reason as knip below: depcruise
+# resolves package exports through built dist outputs, so a fresh checkout
+# would fail or cruise an incomplete graph before the build has run.
+if ! pnpm depcruise; then
+  echo "❌ Dependency-cruiser found violations!"
+  echo "💡 Run 'pnpm depcruise' to see details, then fix circular dependencies or orphan modules"
   exit 1
 fi
 

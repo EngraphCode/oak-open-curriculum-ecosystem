@@ -209,15 +209,16 @@ path stays forbidden. See ADR-161 §Third-party-vendor scope: GitHub's own APIs.
 ## Implementation
 
 - Pre-commit runs: `repo-check prettier-staged`, `repo-check
-markdownlint-staged`, `repo-validators:check`, `lint:shell`, `depcruise`,
-  Turbo (`build type-check lint test`), then `knip:gate` — knip loads
-  packages whose exports resolve to built `dist` files, so the gate runs
-  after the build (matching CI's restore-build-outputs-before-knip order).
+markdownlint-staged`, `repo-validators:check`, `lint:shell`, Turbo
+  (`build type-check lint test`), then `depcruise` and `knip:gate` — both
+  resolve package exports through built `dist` files, so they run after
+  the build (matching CI's restore-build-outputs-first order).
 - Pre-push runs: `secrets:scan`, `format-check:root`,
   `markdownlint-check:root`, `subagents:check`, `portability:check`,
-  `depcruise`, `repo-validators:check`, `lint:shell`, Turbo (`sdk-codegen
-build type-check lint test test:e2e test:ui`), then `knip:gate` (after
-  the build, for the same dist-resolution reason as pre-commit).
+  `repo-validators:check`, `lint:shell`, Turbo (`sdk-codegen build
+type-check lint test test:e2e test:ui`), then `depcruise` and
+  `knip:gate` (after the build, for the same dist-resolution reason as
+  pre-commit).
 - CI runs as parallel jobs gated by a `run-quality-gates` fan-in (the single
   required status check; it fails unless every job succeeded — failed, cancelled,
   and skipped results all block — so each job blocks merge without a ruleset
