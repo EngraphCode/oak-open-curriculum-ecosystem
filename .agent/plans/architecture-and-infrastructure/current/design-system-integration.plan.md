@@ -18,7 +18,7 @@ todos:
     status: completed
     depends_on: [pr2-manifest]
   - id: pr2-consistency-check
-    content: "Consistency cycle (re-homed to the PR3 lane by ARC agreement 2026-07-19 — it composes with the boundary-validation cycles in design-tokens-core, Harrier rides Updraft's boundary): CI check that the design system's dtcg/ export is consistent with its CSS. Test + check land together; tree green. Still open as of 2026-07-20: PR #412 did not include this check."
+    content: "PR2 step 4 (re-homed to the PR3 lane by ARC agreement 2026-07-19 — it composes with the boundary-validation cycles in design-tokens-core, Harrier rides Updraft's boundary): the dtcg↔CSS consistency check as a workspace-owned repo validator chained into repo-validators:check — semantic regeneration comparison (parse both surfaces, compare token values; never a byte checksum — hashing pins bytes and proves no behaviour). Test + check land together; tree green. Build contract (verified 2026-07-19, three adversarial verifiers): two naming transforms (oak.color.x → --oak-x, font.family.x → --font-x); dark = 60 light-dark second arms + 3 filter.* overrides; real CSS parser, never brace-scanning; :root-scoped comparand; primitives tier included; the two deliberate non-token props (--canvas-rows, --icon-src) excluded. Full evidence: .agent/reports/design/aip-137-stage-a-import-verification-2026-07-19.md Part 2 §1, landed with PR #411. Still open as of 2026-07-20: PR #412 did not include this check."
     status: pending
     depends_on: [pr2-initial-import]
   - id: pr3-cycle-completeness
