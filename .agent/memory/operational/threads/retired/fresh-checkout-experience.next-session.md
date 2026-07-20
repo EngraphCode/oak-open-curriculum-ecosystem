@@ -1,3 +1,9 @@
+> **RETIRED — thread completed 2026-07-20.** PR #436 merged
+> (`SHA:792c440dd`), PR #439 armed for auto-merge under the standing
+> grant, and the residual #437 work was explicitly routed out of this
+> thread. Retained as continuity history; not a live lane.
+> Not listed in `repo-continuity.md` Active or Paused threads.
+
 # Thread: fresh-checkout-experience — next-session record
 
 Deep handoff per the Resonance `wrap` programme (owner-directed, 2026-07-20).
@@ -6,8 +12,8 @@ Author seat: **Deimos tracks Perigee** (claude / Fable 5 / 73e4ab), session
 Cast: n=2 with **Vanilla binds Bough** (f3599e, retired ~14:50Z with a
 consolidated handoff on the comms stream); cross-machine coordination with
 **Forge rides Brimstone** (398e24), Director of the primary estate's checkout,
-over the owner-sanctioned SSH channel into the sibling checkout at
-`~/code/oak-open-curriculum-ecosystem` (its comms stream).
+over the owner-sanctioned SSH channel into the sibling primary-estate
+checkout (its repo-relative `.agent/state/collaboration/comms/` stream).
 
 ## Landed state (all first-hand-verified at write time)
 
@@ -32,12 +38,14 @@ over the owner-sanctioned SSH channel into the sibling checkout at
   napkin addendum. Origin branch has advanced past local (a drain-side fold —
   safe; nothing local unpushed). If it wedges on a never-fires context, that
   is ruleset governance at Forge's seat (stand-down note `96d37177` names it).
-- **PR #437 OPEN (draft), NOT this thread's work**: Vanilla's WAD projection.
-  Needs conflict fold + un-draft + review rounds. Forge's board-to-zero
-  message (19:34Z) assigned it toward this seat, but the owner's direct
-  wrap-and-stand-down instruction superseded; routed back explicitly
-  (comms event `96d37177`). **A successor picking this up: it is uncontended —
-  registry empty, primary tree clean.**
+- **PR #437 OPEN (ready for review), NOT this thread's work**: Vanilla's WAD
+  projection. Since this record was authored it has been un-drafted and
+  conflict-folded on the primary estate (merge commit `SHA:ec7d2a856`; the
+  colliding ADR renumbered to ADR-215); 29 review threads await
+  adjudication, routed on the primary estate's Director board. Forge's
+  board-to-zero message (19:34Z) assigned it toward this seat, but the
+  owner's direct wrap-and-stand-down instruction superseded; routed back
+  explicitly (comms event `96d37177`).
 - **WAD repo**: both PRs merged (verified); the optional main tag remains the
   owner's call.
 
@@ -81,10 +89,9 @@ underlying intermittent failure reproduced twice, cause unfound).
 
 - Read the comms stream in BOTH homes: this checkout's
   `.agent/state/collaboration/comms/` (the n=2 session record) and the
-  sibling checkout `~/code/oak-open-curriculum-ecosystem`'s
-  `.agent/state/collaboration/comms/` (cross-machine coordination with
-  Forge; this seat's events run team-start `dba4259f` through stand-down
-  `96d37177`).
+  sibling primary-estate checkout's `.agent/state/collaboration/comms/`
+  (cross-machine coordination with Forge; this seat's events run
+  team-start `dba4259f` through stand-down `96d37177`).
 - Fresh-checkout seeding: follow the updated
   `start-right-quick/shared/start-right.md` fresh-checkout block —
   home-derived, guarded, race-safe; the seed shapes' SSOT is
@@ -112,7 +119,7 @@ underlying intermittent failure reproduced twice, cause unfound).
   pass.
 - **Attribution inferences (flagged as inference, not observation)**: that
   the #436 cascade-merge was triggered by queue-rule removal is Forge's
-  account, not observed; that the #439 branch fold `f48b787e9` was drain-side
+  account, not observed; that the #439 branch fold `SHA:f48b787e9` was drain-side
   is inferred from timing; Vanilla's internal reasoning is known only through
   their broadcasts.
 - **Blind-spot bounds**: two comms-watcher dead-windows existed (hourly

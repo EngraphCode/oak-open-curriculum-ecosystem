@@ -40,9 +40,10 @@ forward-asks remain.
   Result doctrine (owner rulings: loud original errors; non-Error throwables crash; the one
   owner-marked allowance at `@oaknational/result`'s raise edge), race-safe home-derived
   seeding in shared start-right. PR #439 (exploration report + proposals 2–6, OWNER-GATED
-  candidates) is armed for auto-merge. PR #437 (WAD projection, draft) needs a conflict fold
-  - rounds — OPEN, unowned after this seat's directed stand-down. Full pickup:
-  [thread record](threads/fresh-checkout-experience.next-session.md); cross-machine
+  candidates) is armed for auto-merge. PR #437 (WAD projection) is OPEN and ready for
+  review — its conflict fold landed (merge commit `SHA:ec7d2a856`) and 29 review threads
+  await adjudication, routed on the primary estate's Director board. Full record:
+  [thread record (retired)](threads/retired/fresh-checkout-experience.next-session.md); cross-machine
   coordination precedent (SSH comms with the primary estate's Director) is recorded there.
 
 - **RESTATEMENT REMEDIATION — THE ACTIVE EFFORT (2026-07-16); the settling gate for

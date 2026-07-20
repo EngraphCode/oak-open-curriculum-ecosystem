@@ -4232,7 +4232,9 @@ these are the first-hand observations from bootstrapping start-right-team on a f
 
 ## 2026-07-20 — Deimos tracks Perigee (73e4ab): session close (wrap) — lessons with no other home
 
-Thread record `threads/fresh-checkout-experience.next-session.md` carries the full handoff;
+<!-- fitness exceeded by ~3970 lines; needs consolidation -->
+
+Thread record `threads/retired/fresh-checkout-experience.next-session.md` carries the full handoff;
 these are the mechanics worth conserving (owner rulings are listed there for graduation):
 
 - **The review-treadmill worked instance, end to end**: PR #436 ran TEN review rounds. The
