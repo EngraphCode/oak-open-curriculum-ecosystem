@@ -14,7 +14,7 @@ todos:
     status: completed
     depends_on: [pr2-scaffold]
   - id: pr2-initial-import
-    content: "PR2 step 3: initial import of the tracked file classes from the Claude Design studio (owner-downloaded export bundle route), verify referential self-consistency (clean on the public surface; studio-runtime wiring documented in the workspace README). Landed 922f2e806 on PR #411; merged to main dc16295bf."
+    content: "PR2 step 3: initial import of the tracked file classes from the Claude Design studio (owner-downloaded export bundle route), verify referential self-consistency (clean on the public surface; studio-runtime wiring documented in the workspace README). Landed SHA:922f2e806 on PR #411; merged to main SHA:dc16295bf."
     status: completed
     depends_on: [pr2-manifest]
   - id: pr2-consistency-check
@@ -22,11 +22,11 @@ todos:
     status: pending
     depends_on: [pr2-initial-import]
   - id: pr3-cycle-completeness
-    content: "PR3 cycle 1: theme overlay-coverage validation in design-tokens-core (declared light base; every overlay key must exist in the base — orphan detection plus coverage reporting; reshaped 2026-07-19 when the falsifier fired — see ADR-213 §2 amendment) — failing test + implementation, Result-typed. Landed on PR #412 (merged 6631bb5ac): validateThemeOverlayCoverage plus unit tests in design-tokens-core."
+    content: "PR3 cycle 1: theme overlay-coverage validation in design-tokens-core (declared light base; every overlay key must exist in the base — orphan detection plus coverage reporting; reshaped 2026-07-19 when the falsifier fired — see ADR-213 §2 amendment) — failing test + implementation, Result-typed. Landed on PR #412 (merged SHA:6631bb5ac): validateThemeOverlayCoverage plus unit tests in design-tokens-core."
     status: completed
     depends_on: [pr2-initial-import]
   - id: pr3-cycle-boundary
-    content: "PR3 cycle 2: boundary validation for the design system's DTCG import — schema-validate contrast-pairings.json (no cast); reject non-literal colour $values (color-mix/calc) with a structured Err. Landed on PR #412 (merged 6631bb5ac): contrast-manifest-parse (schema-validated, no cast) and validateColourLiterals (closed colour grammar, structured Err) plus unit tests."
+    content: "PR3 cycle 2: boundary validation for the design system's DTCG import — schema-validate contrast-pairings.json (no cast); reject non-literal colour $values (color-mix/calc) with a structured Err. Landed on PR #412 (merged SHA:6631bb5ac): contrast-manifest-parse (schema-validated, no cast) and validateColourLiterals (closed colour grammar, structured Err) plus unit tests."
     status: completed
     depends_on: [pr3-cycle-completeness]
   - id: pr3-cycle-four-theme-gate
@@ -65,9 +65,9 @@ isProject: false
 # Design-System Integration
 
 **Last Updated**: 2026-07-20
-**Status**: 🟢 EXECUTING (PR1 #410, PR2 #411 `dc16295bf`, and PR3 cycles 1–2 #412 `6631bb5ac`
-merged; ADR-213 Accepted 2026-07-20; cycle 3, the dtcg↔CSS consistency check, and the
-follow-on lanes remain open)
+**Status**: 🟢 EXECUTING (PR1 #410, PR2 #411 `SHA:dc16295bf`, and PR3 cycles 1–2 #412
+`SHA:6631bb5ac` merged; ADR-213 Accepted 2026-07-20; cycle 3, the dtcg↔CSS consistency
+check, and the follow-on lanes remain open)
 **Scope**: Integrate the Oak design system as a first-class workspace — the estate's design
 source of truth — with the Claude Design studio as a first-class team surface, and sequence
 every consumer onto it, per ADR-213.
@@ -157,14 +157,14 @@ One lane, sequenced PRs, each linked to AIP-137:
 
 1. **PR1 — doctrine** (PR #410, merged): the note at `docs/governance/one-html-many-css-compositions.md`,
    ADR-213, ADR-041/148 amendments, `design-token-practice.md` correction, this plan.
-2. **PR2 — Stage A integration** (PR #411, merged `dc16295bf`; the consistency check
-   re-homed to the PR3 lane and still open): scaffold + licensing manifest + initial import + sync
-   runbook + consistency check. The workspace lands **inert as a token source** (zero
+2. **PR2 — Stage A integration** (PR #411, merged `SHA:dc16295bf`; the consistency check
+   re-homed to the PR3 lane and still open): scaffold + licensing manifest + initial import
+   and sync runbook. The workspace lands **inert as a token source** (zero
    consumers switch yet) — per replace-dont-bridge this is not a bridge. The licensing
    manifest in the PR body is the owner's review surface; held-out classes are explicitly
    gitignored with a documented re-obtain path. Consumer evidence: PR3's validation gate is
    the first consumer; the hub (ws-hub-migration) is the named second.
-3. **PR3 — validation layer** (PR #412, merged `6631bb5ac` — cycles 1–2; cycle 3 still
+3. **PR3 — validation layer** (PR #412, merged `SHA:6631bb5ac` — cycles 1–2; cycle 3 still
    open): TDD cycles extending `design-tokens-core` (completeness check,
    boundary validation, four-theme contrast gate). Triads: author component-tier triads for
    the design system or record their absence in the manifest run.
