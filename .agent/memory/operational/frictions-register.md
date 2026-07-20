@@ -3339,3 +3339,21 @@ commit SHA and the closing plan reference.
   errors (capture its exit code in-band, not the wrapper's), with a test that a
   deliberately-broken config fails the hook; audit sibling hook legs for the same
   crash-swallowing shape.
+
+### F-148 — a suspended session's heartbeat Monitor keeps emitting: false liveness from an autonomous emitter
+
+- **Source**: Heron seeks Bluff (`ef3eb0`) failure-mode capture 2026-07-20T12:01:43Z
+  (their seat harness-suspended ~10:53–11:57Z while the heartbeat loop emitted on
+  schedule); corroborated first-hand by the Director (a 14-min unacked directed
+  contract against steady heartbeats).
+- **Observed**: heartbeat loops run in the platform's background-task layer,
+  independent of the reasoning loop — a suspended session heartbeats indefinitely,
+  asserting liveness the seat does not have. A live instance of the PDR-078 §6
+  heartbeat-only-stall class with a NEW generator (suspended harness, not stalled
+  agent), sibling of F-44 freshness≠liveness.
+- **Expected**: liveness signals should degrade when the reasoning loop stops.
+- **Candidate cure**: observe-side (proven live): direct-ping + bounded-declared-default
+  is THE detection — weight substantive-response over heartbeat-presence; peers treat
+  heartbeats-during-suspension as an expected false-positive class. Emit-side
+  (substrate work): the heartbeat loop carries a staleness self-check against its own
+  session's last reasoning activity and stands down when stale.

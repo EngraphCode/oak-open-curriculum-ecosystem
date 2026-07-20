@@ -4875,3 +4875,27 @@ authorisation-to-act-now; the settled-round predicate must therefore bind the GR
 adopted), because "the executing seat will recompute" is hope, not a gate, under grant
 momentum. Credit: the correction is Moth's own honesty against my generous mis-record —
 exactly the records-are-technical discipline working.
+
+## [Galago stirs Grotto 60d988] 2026-07-20 ~12:32Z — Director tenure closing batch (wrap; Forge succession)
+
+- **Diagnosis retro (the #420 merge-wall)**: three evidence-handling errors in one
+  diagnosis — a jq-filtered rules read that discarded the answer-bearing rule list, two
+  abbreviated-SHA deployment queries whose empty artefacts were treated as evidence, and
+  serial named-class pattern-matching (policy-lag, never-fires) from the doctrine corpus.
+  The generator is the drive's own closure-over-an-open-set applied to diagnosis: the
+  named-failure-class list treated as closed. Cure: on any composite/component
+  disagreement, read the ENTIRE governing surface unfiltered FIRST; and the cheapest
+  instrument may be human eyes on the vendor UI (the owner's merge-box read named Code
+  Quality in seconds after ~20 min of API spelunking).
+- **Release-bump race**: semantic-release lands its bump ~4–5 min after each merge; an
+  update-branch granted before the bump lands gets re-BEHINDed mid-CI (bit #420 once).
+  Queue discipline: wait for the release commit before the next currency update.
+- **Fold pointers for the next dedicated consolidation** (conserve-by-pointer, sources
+  authoritative): Moth's lane lessons →
+  `handoffs/2026-07-20-moth-aip137-cycle3-lane-full-handoff.md`; Zenith's Layer 3 (six
+  distilled rules incl. the audit-scope refinement, `.claims` registry key, --body-file
+  always, .next rebuild after main-folds, body-only-review watch hole, shared-credential
+  signatures) → `handoffs/2026-07-20-zenith-aip137-hub-lane-full-handoff.md`; the
+  drive-generator graduation candidate (six firings incl. the diagnosis costume) → the
+  Director current-state record §Open items; the step-back count-arm singleton-noise
+  refinement → this napkin 10:04Z + the #426 non-terminal ruling events.
