@@ -10,13 +10,16 @@ import type { Result } from './result-type.js';
  * The package's single sanctioned Result-to-exception edge (ADR-088
  * boundary translation). Every unwrapping failure funnels through this one
  * `throw`, so the escape hatch stays consolidated: a string failure becomes
- * a fresh `Error` carrying it, while an `Error` failure is thrown as itself
- * so its message, stack, and `cause` chain survive the edge intact. The
- * argument is a typed union, deliberately — this edge never accepts an
- * `unknown` to normalise.
+ * a fresh `Error` carrying it, while an `Error`-typed failure is thrown AS
+ * ITSELF so its message, stack, and `cause` chain survive the edge intact.
+ * The discrimination is `typeof`, not `instanceof`: `instanceof Error` is
+ * false for cross-realm errors and for structurally-typed `Error` values,
+ * and wrapping those would break the identity promise. The argument is a
+ * typed union, deliberately — this edge never accepts an `unknown` to
+ * normalise.
  */
 function raise(failure: string | Error): never {
-  throw failure instanceof Error ? failure : new Error(failure);
+  throw typeof failure === 'string' ? new Error(failure) : failure;
 }
 
 /**

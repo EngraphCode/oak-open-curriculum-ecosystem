@@ -212,30 +212,41 @@ build, AND the Playwright browser install before the browser-test gates run.
 The collaboration substrate is also unseeded on a fresh checkout: the
 instance-tier state files are untracked-by-design (ADR-199 / PDR-094), so
 `active-claims.json`, `closed-claims.archive.json`, `comms/`, and
-`comms-seen/` do not exist until first use, and the first `comms send` or
-claims read fails loud with seeding instructions. Seed the substrate —
-guarded, so existing state is never overwritten — before the first
-collaboration-state move. The block below roots every path at the PRIMARY
-checkout (the first worktree in `git worktree list --porcelain`, the same
-home `resolveCoordinationHome` derives), so it is safe to run from a linked
-worktree too. Never seed cwd-relative from a linked worktree: a
-worktree-local substrate is a decoy invisible to peers — the F-41 class.
+`comms-seen/` do not exist until explicitly seeded — first use does not
+create them; the first `comms send` or claims read fails loud with seeding
+instructions. Seed the substrate — guarded, so existing state is never
+overwritten — before the first collaboration-state move. The block below
+roots every path at THIS repository's PRIMARY checkout (the first worktree
+in `git worktree list --porcelain`, the same home `resolveCoordinationHome`
+derives), so it is safe to run from a linked worktree too. Never seed
+cwd-relative from a linked worktree: a worktree-local substrate is a decoy
+invisible to peers — the F-41 class. Scope: the block seeds only this
+repository's own canonical home. In a session whose declared coordination
+home is FOREIGN (an inter-Practice window per the join-ceremony skill),
+seed the declared home instead — running this block there would seed a
+local decoy while the foreign home stays unseeded.
 
 ```bash
 COORD_HOME="$(git worktree list --porcelain | head -1 | sed 's/^worktree //')"
-mkdir -p "$COORD_HOME/.agent/state/collaboration/comms" \
-  "$COORD_HOME/.agent/state/collaboration/comms-seen"
-# Exclusive create (noclobber): concurrent identically-prompted sessions can
-# both reach this step, and a check-then-write would let the loser truncate
-# the winner's live registry. With `set -C` the race loser fails the write
-# and keeps the winner's file; already-exists counts as success, any other
-# failure (permissions, bad COORD_HOME) still surfaces.
-( set -C; printf '%s\n' '{ "schema_version": "1.3.0", "claims": [], "commit_queue": [] }' \
-  > "$COORD_HOME/.agent/state/collaboration/active-claims.json" ) 2>/dev/null \
-  || [ -f "$COORD_HOME/.agent/state/collaboration/active-claims.json" ]
-( set -C; printf '%s\n' '{ "schema_version": "1.3.0", "claims": [] }' \
-  > "$COORD_HOME/.agent/state/collaboration/closed-claims.archive.json" ) 2>/dev/null \
-  || [ -f "$COORD_HOME/.agent/state/collaboration/closed-claims.archive.json" ]
+# Refuse an underivable home: if git fails or emits nothing, COORD_HOME is
+# empty and the paths below would target the filesystem root — a decoy.
+if [ ! -d "$COORD_HOME/.git" ] && [ ! -f "$COORD_HOME/.git" ]; then
+  echo "STOP: coordination home not derived (git worktree list failed?) — do not seed"
+else
+  mkdir -p "$COORD_HOME/.agent/state/collaboration/comms" \
+    "$COORD_HOME/.agent/state/collaboration/comms-seen"
+  # Exclusive create (noclobber): concurrent identically-prompted sessions
+  # can both reach this step, and a check-then-write would let the loser
+  # truncate the winner's live registry. With `set -C` the race loser fails
+  # the write and keeps the winner's file; already-exists counts as success,
+  # any other failure (permissions) still surfaces.
+  ( set -C; printf '%s\n' '{ "schema_version": "1.3.0", "claims": [], "commit_queue": [] }' \
+    > "$COORD_HOME/.agent/state/collaboration/active-claims.json" ) 2>/dev/null \
+    || [ -f "$COORD_HOME/.agent/state/collaboration/active-claims.json" ]
+  ( set -C; printf '%s\n' '{ "schema_version": "1.3.0", "claims": [] }' \
+    > "$COORD_HOME/.agent/state/collaboration/closed-claims.archive.json" ) 2>/dev/null \
+    || [ -f "$COORD_HOME/.agent/state/collaboration/closed-claims.archive.json" ]
+fi
 ```
 
 ## Practice Box

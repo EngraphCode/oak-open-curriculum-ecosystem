@@ -6,7 +6,7 @@ import {
   EMPTY_CLOSED_CLAIMS_ARCHIVE_JSON,
 } from './state-file-seeds.js';
 import { readActiveClaimsFile, readClosedClaimsFile } from './state-file-readers.js';
-import { updateActiveClaimsFile } from './state-io.js';
+import { updateActiveClaimsFile, updateClaimStateFiles } from './state-io.js';
 
 // On a fresh checkout or new worktree the collaboration-state files are
 // untracked-by-design (ADR-199 / PDR-094), so first contact meets ENOENT.
@@ -91,10 +91,10 @@ describe('readClosedClaimsFile on a fresh checkout', () => {
 });
 
 // The claims lifecycle commands reach the registry through the
-// transactional updaters, not the plain readers. The pre-transaction read
-// surfaces the same seed-bearing error before any lock is taken; the
-// in-transaction reads route through the SAME reader implementation, so
-// their failure contract is proven once above.
+// transactional updaters, not the plain readers. Each updater's
+// pre-transaction reads surface the same seed-bearing errors before any
+// lock is taken; the in-transaction reads route through the SAME reader
+// implementation, so the deeper failure contract is proven once above.
 
 describe('updateActiveClaimsFile on a fresh checkout', () => {
   it('rejects with the seed-bearing error before entering the transaction (the claims open path)', async () => {
@@ -105,5 +105,21 @@ describe('updateActiveClaimsFile on a fresh checkout', () => {
         readTextFile: missingFile,
       }),
     ).rejects.toThrow(EMPTY_ACTIVE_CLAIMS_REGISTRY_JSON);
+  });
+});
+
+describe('updateClaimStateFiles on a fresh checkout', () => {
+  it('rejects with the archive seed-bearing error before entering the transaction (the claims close path)', async () => {
+    await expect(
+      updateClaimStateFiles({
+        activePath: 'active-claims.json',
+        closedPath: 'closed-claims.archive.json',
+        transform: (state) => state,
+        readTextFile: (path) =>
+          path === 'active-claims.json'
+            ? Promise.resolve(EMPTY_ACTIVE_CLAIMS_REGISTRY_JSON)
+            : missingFile(path),
+      }),
+    ).rejects.toThrow(EMPTY_CLOSED_CLAIMS_ARCHIVE_JSON);
   });
 });

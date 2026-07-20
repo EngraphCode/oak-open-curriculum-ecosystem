@@ -131,6 +131,22 @@ describe('unwrapOrThrow', () => {
     // Identity: the same object, so message, stack, and cause survive intact.
     expect(thrown).toBe(original);
   });
+
+  it('preserves identity for a structurally-typed Error that is not an Error instance', () => {
+    // TypeScript's Error type is structural; cross-realm errors likewise fail
+    // `instanceof Error`. The identity promise must hold for these too.
+    const structural: Error = { name: 'Error', message: 'not an instance' };
+    const result = err(structural);
+
+    let thrown: unknown;
+    try {
+      unwrapOrThrow(result);
+    } catch (error) {
+      thrown = error;
+    }
+
+    expect(thrown).toBe(structural);
+  });
 });
 
 describe('unwrapErr', () => {

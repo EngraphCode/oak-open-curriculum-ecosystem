@@ -106,6 +106,11 @@ export async function updateActiveClaimsFile(input: {
 
 /**
  * Transactionally update the active and closed claim state together.
+ *
+ * As with {@link updateActiveClaimsFile}, the pre-transaction reads surface
+ * the fresh-checkout seeding errors before any lock is taken, and the
+ * optional `readTextFile` seam (ADR-078) makes that surfacing provable
+ * without real IO; the transaction still re-reads under its lock.
  */
 export async function updateClaimStateFiles(input: {
   readonly activePath: string;
@@ -117,7 +122,10 @@ export async function updateClaimStateFiles(input: {
     readonly active: CollaborationRegistry;
     readonly closed: ClosedClaimsArchive;
   };
+  readonly readTextFile?: ReadTextFile;
 }): Promise<void> {
+  unwrapOrThrow(await readActiveClaimsFile(input.activePath, input.readTextFile));
+  unwrapOrThrow(await readClosedClaimsFile(input.closedPath, input.readTextFile));
   await runJsonStateTransaction({
     filePaths: [input.activePath, input.closedPath],
     operation: async () => {
