@@ -1,3 +1,11 @@
+## [1.77.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.77.2...v1.77.3) (2026-07-20)
+
+
+### Bug Fixes
+
+* **design:** harden the theme runtime against embed truncation and bad persistence ([d1f8c1e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d1f8c1e6c54690d8cbf047b83cf53ed39af4b955))
+* **design:** honour the in-memory theme choice in the OS-contrast listener ([ddc6b9e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ddc6b9ef7be3bf32e5b61e7516d14a459efa1386))
+
 ## [1.77.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.77.1...v1.77.2) (2026-07-20)
 
 
