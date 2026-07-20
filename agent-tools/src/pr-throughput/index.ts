@@ -91,14 +91,16 @@ function nearestRankPercentile(sortedValues: readonly number[], quantile: number
 
 /**
  * Render one register row: date, window, merges, merges/day, p50, p90, note.
- * The note is sanitised for the Markdown table: pipes escape and line breaks
- * collapse to spaces, so a free-text note can never add columns or rows.
+ * The note is sanitised for the Markdown table: pipes encode as the HTML
+ * entity (delimiter-safe regardless of preceding backslash parity — a
+ * backslash-escape would flip meaning after `a\|`) and line breaks collapse
+ * to spaces, so a free-text note can never add columns or rows.
  */
 export function formatRegisterRow(
   report: ThroughputReport,
   input: { readonly note: string },
 ): string {
-  const note = input.note.replaceAll(/\s*[\r\n]+\s*/gu, ' ').replaceAll('|', String.raw`\|`);
+  const note = input.note.replaceAll(/\s*[\r\n]+\s*/gu, ' ').replaceAll('|', '&#124;');
   const date = report.windowEnd.slice(0, 10);
   const p50 =
     report.cycleTimeP50Minutes === null ? '-' : String(Math.round(report.cycleTimeP50Minutes));
@@ -120,6 +122,14 @@ Fitness-informational trend register written by \`pnpm agent-tools:pr-throughput
 merged to \`main\`, excluding coordination trackers (\`coordination/*\` head
 branches). Cycle time is open-to-merged, in minutes, nearest-rank percentiles.
 
+Governing doctrine (both records ride the coordination branch until its next
+main reconciliation):
+[PDR-131 — merge concurrency is free; quality binds at settled-READY](https://github.com/oaknational/oak-open-curriculum-ecosystem/blob/coordination/estate-2026-07/.agent/practice-core/decision-records/PDR-131-merge-concurrency-is-free-quality-binds-at-settled-ready.md)
+supplies the mechanics this register measures;
+[PDR-130 — two-speed learning](https://github.com/oaknational/oak-open-curriculum-ecosystem/blob/coordination/estate-2026-07/.agent/practice-core/decision-records/PDR-130-two-speed-learning.md)
+supplies the prediction form (a falsifiable prediction whose failure triggers
+investigation, never retelling).
+
 **Prediction (PDR-130 form):** under PDR-131 mechanics (settled-READY + green
 checks arm auto-merge under Director grant; concurrent landings normal) with
 the strict-currency ruleset policy dropped, the measured cycle-time p50 —
@@ -133,14 +143,3 @@ investigated instead of the claim being retold).
 | Date | Window | Merges | Merges/day | p50 (min) | p90 (min) | Note |
 | ---- | ------ | ------ | ---------- | --------- | --------- | ---- |
 `;
-
-/**
- * Compose the register's next content: the standing header when the file does
- * not yet exist, then existing rows, then the new row — append-only, one row
- * per invocation, header never duplicated.
- */
-export function buildRegisterContent(existing: string | undefined, row: string): string {
-  const base = existing === undefined || existing.trim() === '' ? REGISTER_HEADER : existing;
-
-  return `${base.trimEnd()}\n${row}\n`;
-}

@@ -10,7 +10,7 @@
  * register; without it the row prints for inspection only.
  */
 import { execFileSync } from 'node:child_process';
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { appendFileSync, mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
@@ -19,7 +19,7 @@ import { writeErrorLine, writeLine } from '../core/terminal-output.js';
 import { resolveGhPath, type GhCommandExecutor } from '../pr-watch/gh.js';
 
 import { assertWindowCovered, fetchMergedPrs } from './gh-fetch.js';
-import { buildRegisterContent, computeThroughput, formatRegisterRow } from './index.js';
+import { computeThroughput, formatRegisterRow, REGISTER_HEADER } from './index.js';
 
 export const DEFAULT_REGISTER_PATH = '.agent/reports/agentic-engineering/pr-throughput-register.md';
 
@@ -37,8 +37,10 @@ interface PrThroughputOptions {
 export interface PrThroughputDeps {
   readonly executor: GhCommandExecutor;
   readonly resolveGh: (override?: string) => string;
-  readonly readRegister: (registerPath: string) => string | undefined;
-  readonly writeRegister: (registerPath: string, content: string) => void;
+  /** Create the register with the header, exclusively; false when it already exists. */
+  readonly createRegister: (registerPath: string, header: string) => boolean;
+  /** Append one row atomically (O_APPEND — never read-modify-overwrite). */
+  readonly appendRegisterRow: (registerPath: string, row: string) => void;
 }
 
 interface MutablePrThroughputOptions {
@@ -185,8 +187,8 @@ function runWithOptions(options: PrThroughputOptions, deps: PrThroughputDeps): n
   );
 
   if (options.write) {
-    const next = buildRegisterContent(deps.readRegister(options.registerPath), row);
-    deps.writeRegister(options.registerPath, next);
+    deps.createRegister(options.registerPath, REGISTER_HEADER);
+    deps.appendRegisterRow(options.registerPath, `${row}\n`);
     writeLine(`pr-throughput: row appended to ${options.registerPath}`);
   }
 
@@ -206,11 +208,19 @@ function realDeps(): PrThroughputDeps {
   return {
     executor: (file, args, options) => execFileSync(file, [...args], options),
     resolveGh: (override) => resolveGhPath(override),
-    readRegister: (registerPath) =>
-      existsSync(registerPath) ? readFileSync(registerPath, 'utf8') : undefined,
-    writeRegister: (registerPath, content) => {
+    createRegister: (registerPath, header) => {
       mkdirSync(path.dirname(registerPath), { recursive: true });
-      writeFileSync(registerPath, content);
+      try {
+        // 'wx' is exclusive creation: a concurrent creator loses the race
+        // loudly here and falls through to append-only, never overwriting.
+        writeFileSync(registerPath, header, { flag: 'wx' });
+        return true;
+      } catch {
+        return false;
+      }
+    },
+    appendRegisterRow: (registerPath, row) => {
+      appendFileSync(registerPath, row);
     },
   };
 }

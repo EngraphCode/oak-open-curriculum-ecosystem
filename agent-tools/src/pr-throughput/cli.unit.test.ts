@@ -29,7 +29,7 @@ const CORPUS = JSON.stringify([
 
 function fakeDeps(input?: {
   readonly executor?: PrThroughputDeps['executor'];
-  readonly existing?: string;
+  readonly registerExists?: boolean;
 }): { deps: PrThroughputDeps; writes: { path: string; content: string }[] } {
   const writes: { path: string; content: string }[] = [];
 
@@ -38,9 +38,16 @@ function fakeDeps(input?: {
     deps: {
       executor: input?.executor ?? (() => CORPUS),
       resolveGh: () => '/usr/local/bin/gh',
-      readRegister: () => input?.existing,
-      writeRegister: (path, content) => {
-        writes.push({ path, content });
+      createRegister: (path, header) => {
+        if (input?.registerExists === true) {
+          return false;
+        }
+
+        writes.push({ path, content: header });
+        return true;
+      },
+      appendRegisterRow: (path, row) => {
+        writes.push({ path, content: row });
       },
     },
   };
@@ -90,14 +97,24 @@ describe('runPrThroughput', () => {
     );
 
     expect(exitCode).toBe(0);
-    expect(writes).toHaveLength(1);
+    // Header creation (register absent) then one appended row — never a
+    // read-modify-overwrite of the whole file.
+    expect(writes).toHaveLength(2);
     expect(writes[0].path).toBe(DEFAULT_REGISTER_PATH);
-    expect(writes[0].content.startsWith(REGISTER_HEADER)).toBe(true);
+    expect(writes[0].content).toBe(REGISTER_HEADER);
     // #429 counts (665.8 minutes open-to-merged, rounded); the coordination
     // tracker does not.
-    expect(writes[0].content).toContain(
-      '| 2026-07-20 | 7d | 1 | 0.14 | 666 | 666 | founding window |',
+    expect(writes[1].content).toBe(
+      '| 2026-07-20 | 7d | 1 | 0.14 | 666 | 666 | founding window |\n',
     );
+  });
+
+  it('appends WITHOUT re-writing the header when the register already exists', () => {
+    const { deps, writes } = fakeDeps({ registerExists: true });
+
+    expect(runPrThroughput(['--write', '--now', NOW.toISOString()], deps)).toBe(0);
+    expect(writes).toHaveLength(1);
+    expect(writes[0].content.endsWith('\n')).toBe(true);
   });
 
   it('exits 0 WITHOUT writing when --write is absent', () => {
@@ -111,7 +128,7 @@ describe('runPrThroughput', () => {
     const { deps } = fakeDeps();
     const throwingDeps = {
       ...deps,
-      writeRegister: () => {
+      appendRegisterRow: () => {
         throw new Error('EACCES: permission denied');
       },
     };

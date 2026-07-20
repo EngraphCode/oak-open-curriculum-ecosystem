@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
 import {
-  buildRegisterContent,
   computeThroughput,
   formatRegisterRow,
   REGISTER_HEADER,
@@ -106,12 +105,22 @@ describe('formatRegisterRow', () => {
     expect(row).toBe('| 2026-07-20 | 7d | 1 | 0.14 | 43 | 43 | founding window |');
   });
 
-  it('sanitises the note for the table: pipes escape, line breaks collapse', () => {
+  it('sanitises the note for the table: pipes encode, line breaks collapse', () => {
     const row = formatRegisterRow(computeThroughput([], { windowDays: 7, now: NOW }), {
       note: 'a|b\nc',
     });
 
-    expect(row).toBe(String.raw`| 2026-07-20 | 7d | 0 | 0.00 | - | - | a\|b c |`);
+    expect(row).toBe('| 2026-07-20 | 7d | 0 | 0.00 | - | - | a&#124;b c |');
+  });
+
+  it('neutralises a pipe regardless of preceding backslash parity', () => {
+    // `a\|b`: a backslash-escape approach would yield an EVEN backslash run
+    // before the pipe, which GFM reads as a column delimiter again.
+    const row = formatRegisterRow(computeThroughput([], { windowDays: 7, now: NOW }), {
+      note: String.raw`a\|b`,
+    });
+
+    expect(row).toBe(String.raw`| 2026-07-20 | 7d | 0 | 0.00 | - | - | a\&#124;b |`);
   });
 
   it('renders empty-window percentiles as a dash, never zero', () => {
@@ -123,26 +132,11 @@ describe('formatRegisterRow', () => {
   });
 });
 
-describe('buildRegisterContent', () => {
-  it('creates the register with the prediction header when none exists', () => {
-    const content = buildRegisterContent(
-      undefined,
-      '| 2026-07-20 | 7d | 23 | 3.29 | 40 | 90 | x |',
-    );
-
-    expect(content.startsWith(REGISTER_HEADER)).toBe(true);
-    expect(content.trimEnd().endsWith('| 2026-07-20 | 7d | 23 | 3.29 | 40 | 90 | x |')).toBe(true);
-    // The falsifiable prediction is load-bearing register content.
-    expect(content).toContain('p50');
-    expect(content).toContain('Falsifier');
-  });
-
-  it('appends a row to an existing register without duplicating the header', () => {
-    const first = buildRegisterContent(undefined, '| 2026-07-20 | 7d | 23 | 3.29 | 40 | 90 | a |');
-    const second = buildRegisterContent(first, '| 2026-07-27 | 7d | 12 | 1.71 | 35 | 80 | b |');
-
-    expect(second.split('Falsifier').length).toBe(2);
-    expect(second.trimEnd().endsWith('| 2026-07-27 | 7d | 12 | 1.71 | 35 | 80 | b |')).toBe(true);
-    expect(second).toContain('| 2026-07-20 | 7d | 23 | 3.29 | 40 | 90 | a |');
+describe('REGISTER_HEADER', () => {
+  it('carries the prediction, its falsifier, and resolvable doctrine links', () => {
+    expect(REGISTER_HEADER).toContain('Falsifier');
+    expect(REGISTER_HEADER).toContain('p50');
+    expect(REGISTER_HEADER).toContain('PDR-131-merge-concurrency-is-free');
+    expect(REGISTER_HEADER).toContain('PDR-130-two-speed-learning');
   });
 });
