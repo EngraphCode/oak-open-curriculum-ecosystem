@@ -23,6 +23,7 @@ describe('fetchMergedPrs', () => {
       ghPath: '/opt/homebrew/bin/gh',
       limit: 200,
       mergedSinceDate: '2026-07-13',
+      mergedUntilDate: '2026-07-20',
     });
 
     expect(result.ok).toBe(true);
@@ -35,7 +36,10 @@ describe('fetchMergedPrs', () => {
     expect(calls).toHaveLength(1);
     expect(calls[0].file).toBe('/opt/homebrew/bin/gh');
     expect(calls[0].args).toContain('--limit');
-    expect(calls[0].args).toContain('merged:>=2026-07-13');
+    // Bounded range, not an open `merged:>=`: a historical --now run must
+    // not let post-window merges consume the cap and trip the coverage
+    // refusal on a window that IS complete.
+    expect(calls[0].args).toContain('merged:2026-07-13..2026-07-20');
     expect(calls[0].args).toContain(MERGED_PR_JSON_FIELDS);
   });
 
@@ -45,6 +49,7 @@ describe('fetchMergedPrs', () => {
       ghPath: '/usr/bin/gh',
       limit: 10,
       mergedSinceDate: '2026-07-13',
+      mergedUntilDate: '2026-07-20',
     });
 
     expect(result.ok).toBe(false);
@@ -60,6 +65,7 @@ describe('fetchMergedPrs', () => {
       ghPath: '/usr/bin/gh',
       limit: 10,
       mergedSinceDate: '2026-07-13',
+      mergedUntilDate: '2026-07-20',
     });
 
     expect(result.ok).toBe(false);
@@ -73,6 +79,7 @@ describe('fetchMergedPrs', () => {
       ghPath: '/usr/bin/gh',
       limit: 10,
       mergedSinceDate: '2026-07-13',
+      mergedUntilDate: '2026-07-20',
     });
 
     expect(result.ok).toBe(false);

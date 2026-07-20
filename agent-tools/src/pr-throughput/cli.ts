@@ -109,6 +109,7 @@ function fetchCoveredCorpus(
     ghPath,
     limit: options.limit,
     mergedSinceDate: new Date(windowStartMs).toISOString().slice(0, 10),
+    mergedUntilDate: options.now.toISOString().slice(0, 10),
   });
 
   if (!corpus.ok) {
@@ -138,9 +139,13 @@ function realDeps(): PrThroughputDeps {
     createRegister: (registerPath, header) => {
       mkdirSync(path.dirname(registerPath), { recursive: true });
       try {
-        // 'wx' is exclusive creation: a concurrent creator loses the race
-        // here and falls through to append-only, never overwriting.
-        writeFileSync(registerPath, header, { flag: 'wx' });
+        // 'ax' is exclusive creation on an APPEND-mode fd: a concurrent
+        // creator loses the race here and falls through to append-only,
+        // and because this write is O_APPEND it lands at the live EOF —
+        // it can never clobber a row a racer appended between the create
+        // and the write (the residual anomaly is header-after-row
+        // ordering in that sub-write window, never data loss).
+        writeFileSync(registerPath, header, { flag: 'ax' });
         return true;
       } catch (cause) {
         if (cause instanceof Error && 'code' in cause && cause.code === 'EEXIST') {

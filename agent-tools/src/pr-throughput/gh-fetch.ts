@@ -31,19 +31,23 @@ const MERGED_PR_SCHEMA = z.array(
 export const MERGED_PR_JSON_FIELDS = 'number,createdAt,mergedAt,isDraft,headRefName';
 
 /**
- * List PRs merged into `main` on or after `mergedSinceDate` (day precision —
- * the window filter re-applies precisely downstream), up to `limit`. The
- * merge-date-bounded search is load-bearing: the non-search list path orders
- * by CREATED_AT, so a prefix's minimum merge time proves nothing about
- * omitted rows (a long-lived PR merged today could be silently dropped). A
- * transport or shape failure is a typed `err` the caller reports — never a
- * throw and never silently-empty data.
+ * List PRs merged into `main` within the inclusive `mergedSinceDate` ..
+ * `mergedUntilDate` day range (day precision — the window filter re-applies
+ * precisely downstream), up to `limit`. The merge-date-bounded search is
+ * load-bearing: the non-search list path orders by CREATED_AT, so a prefix's
+ * minimum merge time proves nothing about omitted rows (a long-lived PR
+ * merged today could be silently dropped). The UPPER bound is load-bearing
+ * for historical `--now` runs: an open `merged:>=` would let post-window
+ * merges consume the cap and trip the coverage refusal on a window that is
+ * actually complete. A transport or shape failure is a typed `err` the
+ * caller reports — never a throw and never silently-empty data.
  */
 export function fetchMergedPrs(input: {
   readonly executor: GhCommandExecutor;
   readonly ghPath: string;
   readonly limit: number;
   readonly mergedSinceDate: string;
+  readonly mergedUntilDate: string;
 }): Result<readonly MergedPrRecord[], Error> {
   let raw: string;
 
@@ -58,7 +62,7 @@ export function fetchMergedPrs(input: {
         '--base',
         'main',
         '--search',
-        `merged:>=${input.mergedSinceDate}`,
+        `merged:${input.mergedSinceDate}..${input.mergedUntilDate}`,
         '--limit',
         String(input.limit),
         '--json',
