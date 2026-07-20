@@ -163,14 +163,19 @@ export {
   srgbToRelativeLuminance,
   contrastRatio,
   checkWcagAA,
+  checkWcagAAA,
   checkNonTextContrast,
 } from './contrast.js';
 
-export { resolveTokenTreeToHex } from './contrast-resolve.js';
+export { resolveColourTokens, toHexComparand } from './contrast-resolve.js';
+
+export type { ColourResolution, UnresolvedColourReference } from './contrast-resolve.js';
 
 export { validateContrastPairings } from './contrast-validation.js';
 
 export type { InvalidNodeError } from './token-walk.js';
+
+export { composeThemeTree } from './compose-theme-tree.js';
 
 export { validateThemeOverlayCoverage } from './overlay-coverage.js';
 
@@ -210,4 +215,5 @@ export type {
   ContrastValidationError,
   PairContext,
   FgMidContext,
+  WcagLevel,
 } from './contrast-types.js';

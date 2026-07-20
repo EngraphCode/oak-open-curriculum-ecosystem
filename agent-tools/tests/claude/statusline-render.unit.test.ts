@@ -35,18 +35,65 @@ const lineIndexOf = (out: string, needle: string): number =>
 const ANSI_CODE = new RegExp(String.raw`${String.fromCharCode(27)}\[[0-9;]*m`, 'g');
 const stripAnsi = (text: string): string => text.replaceAll(ANSI_CODE, '');
 
-describe('renderStatusline — model and context', () => {
-  // Behaviour, not row index: model and context belong on one line, in either layout.
+describe('renderStatusline — usage on the repo-title row', () => {
+  // Usage reads alongside WHERE the session is working (owner direction
+  // 2026-07-20; provenance and upstream citation live in the
+  // locationRowsWithUsage TSDoc): the context gauge sits on the repo-title
+  // location row, not beside the model, in either layout.
   it.each(['none', 'sextant'] as const)(
-    'renders the model and the context percentage on the same line (%s layout)',
+    'renders the context percentage on the repo-title row, not the model row (%s layout)',
     (logo) => {
       const out = renderStatusline(
-        { ...base, model: 'Opus 4.8', usedPercentage: 38, branch: 'main' },
+        { ...base, model: 'Opus 4.8', usedPercentage: 38, branch: 'main', dir: 'repo' },
         { logo },
       );
-      expect(lineWith(out, 'Opus 4.8')).toContain('ctx:38%');
+      expect(lineWith(out, 'repo')).toContain('ctx:38%');
+      expect(lineWith(out, 'Opus 4.8')).not.toContain('ctx:');
     },
   );
+
+  it.each(['none', 'sextant'] as const)(
+    'renders the rate-limit gauges after the context gauge on the repo-title row (%s layout)',
+    (logo) => {
+      const out = renderStatusline(
+        {
+          ...base,
+          identity: 'Wyvern mends Draught',
+          model: 'Opus 4.8',
+          usedPercentage: 61,
+          fiveHourPercentage: 19,
+          sevenDayPercentage: 14,
+          branch: 'main',
+          dir: 'castr',
+        },
+        { logo },
+      );
+      const titleRow = stripAnsi(lineWith(out, 'castr'));
+      expect(titleRow).toContain('ctx:61%');
+      expect(titleRow.indexOf('ctx:61%')).toBeLessThan(titleRow.indexOf('s:19%'));
+      expect(titleRow.indexOf('s:19%')).toBeLessThan(titleRow.indexOf('w:14%'));
+      expect(lineWith(out, 'Wyvern mends Draught')).not.toContain('s:');
+      expect(lineWith(out, 'Opus 4.8')).not.toContain('ctx:');
+    },
+  );
+
+  it('appends usage to the primary-title row in a linked worktree, leaving branch rows clean', () => {
+    const out = renderStatusline({
+      ...base,
+      dir: 'oak-wt-eef',
+      branch: 'feat/eef',
+      worktree: 'oak-wt-eef',
+      usedPercentage: 38,
+      fiveHourPercentage: 23,
+      coordinationBranch: 'coordination/pilot',
+      coordinationPlace: 'oak-open-curriculum-ecosystem',
+    });
+    const titleRow = stripAnsi(lineWith(out, 'oak-open-curriculum-ecosystem'));
+    expect(titleRow).toContain('ctx:38%');
+    expect(titleRow).toContain('s:23%');
+    expect(lineWith(out, 'coordination/pilot')).not.toContain('ctx:');
+    expect(lineWith(out, 'feat/eef')).not.toContain('s:');
+  });
 });
 
 describe('renderStatusline — primary checkout', () => {
@@ -179,7 +226,7 @@ describe('renderStatusline — identity shows the session join key (inter-Practi
 });
 
 describe('renderStatusline — Claude.ai rate-limit gauges', () => {
-  it('shows the session (s) and week (w) consumed percentages with reset countdowns on the identity row', () => {
+  it('shows the session (s) and week (w) consumed percentages with reset countdowns on the repo-title row', () => {
     const out = renderStatusline({
       ...base,
       identity: 'Wyvern mends Draught',
@@ -188,23 +235,12 @@ describe('renderStatusline — Claude.ai rate-limit gauges', () => {
       sevenDayPercentage: 55,
       sevenDayResetSeconds: 3 * 86400,
       branch: 'main',
+      dir: 'repo',
     });
-    const topRow = stripAnsi(lineWith(out, 'Wyvern mends Draught'));
-    expect(topRow).toContain('s:33%(2h)');
-    expect(topRow).toContain('w:55%(3d)');
-  });
-
-  it('places the gauges after the collaboration icons and before the model', () => {
-    const solo = '\u{1F9CD}';
-    const out = renderStatusline({
-      ...base,
-      identity: 'Wyvern mends Draught',
-      sessionShape: { ownRole: undefined, teamShape: 'solo', arcActive: false },
-      fiveHourPercentage: 23,
-      model: 'Opus 4.8',
-    });
-    expect(out.indexOf(solo)).toBeLessThan(out.indexOf('s:'));
-    expect(out.indexOf('s:')).toBeLessThan(out.indexOf('Opus 4.8'));
+    const titleRow = stripAnsi(lineWith(out, 'repo'));
+    expect(titleRow).toContain('s:33%(2h)');
+    expect(titleRow).toContain('w:55%(3d)');
+    expect(stripAnsi(lineWith(out, 'Wyvern mends Draught'))).not.toContain('s:33%');
   });
 
   it('colour-ramps the percentage the same way as context usage', () => {

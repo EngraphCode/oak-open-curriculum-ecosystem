@@ -1,105 +1,150 @@
 /**
- * DTCG token tree colour resolution for contrast validation.
+ * DTCG colour resolution to fixpoint for contrast validation.
  *
  * @remarks
- * Walks a merged DTCG token tree and resolves all colour token references
- * to final hex values. Single-pass resolution is guaranteed by the tier
- * hierarchy (palette → semantic → component) when the tree is walked in
- * insertion order.
+ * Collects colour-candidate leaves via the shared fail-fast walker, then
+ * resolves token references to a fixpoint: document order is immaterial,
+ * because the bare dialect carries forward references by design (the real
+ * light tree's `bg.selected` → `{color.accent-subtle}` precedes its
+ * target's root group). References that never terminate in a literal —
+ * dangling targets and cycles — are surfaced as data, never silently
+ * dropped: the caller decides whether they are fatal. Non-hex literals
+ * (rgb-alpha, expressions) are carried verbatim; `toHexComparand` owns
+ * their exclusion from the WCAG comparand with one closed rule.
  *
  * @packageDocumentation
  */
+import { type Result, ok } from '@oaknational/result';
+import { byCodeUnit } from './code-unit-sort.js';
+import { isColourCandidate, isHexColourLiteral } from './colour-classification.js';
 import type { DtcgTokenTree } from './dtcg-types.js';
 import { anchoredTokenReferencePattern } from './token-reference.js';
+import { collectTokenLeaves, type InvalidNodeError, type TokenLeafEntry } from './token-walk.js';
 
 const REFERENCE_PATTERN = anchoredTokenReferencePattern();
 
-/** Store a resolved hex value, following references through the accumulator. */
-function resolveColourLeaf(resolved: Map<string, string>, dotPath: string, rawValue: string): void {
-  const refMatch = rawValue.match(REFERENCE_PATTERN);
+/** A colour reference that never reached a literal value. */
+export interface UnresolvedColourReference {
+  /** Token dot-path of the referencing leaf. */
+  readonly path: string;
+  /** The referenced dot-path that failed to resolve. */
+  readonly reference: string;
+}
 
-  if (refMatch) {
-    const resolvedHex = resolved.get(refMatch[1]);
+/** Outcome of resolving a token tree's colour leaves. */
+export interface ColourResolution {
+  /** Dot-path → final literal string (hex, rgb-alpha, or expression). */
+  readonly resolved: ReadonlyMap<string, string>;
+  /** References that never reached a literal (dangling or cyclic), sorted by path. */
+  readonly unresolvable: readonly UnresolvedColourReference[];
+}
 
-    if (resolvedHex !== undefined) {
-      resolved.set(dotPath, resolvedHex);
-    }
-  } else {
-    resolved.set(dotPath, rawValue);
-  }
+interface ColourSeed {
+  /** Paths whose values are already literals. */
+  readonly literals: Map<string, string>;
+  /** Paths whose values reference another path. */
+  readonly references: Map<string, string>;
 }
 
 /**
- * Narrow a token tree node to a colour token leaf with a string `$value`.
+ * Partition colour-candidate leaves into literals and references.
  *
  * @remarks
- * The predicate proves every property it asserts: object-ness, `$type`
- * literal, `$value` existence, and `$value` string-ness. This eliminates
- * redundant narrowing at call sites.
+ * A typed colour with a non-string `$value` seeds as `String(value)`: it
+ * can never join the hex comparand, and carrying the string form keeps the
+ * defect visible to the comparand filter and the count backstop instead of
+ * vanishing in a silent skip.
  */
-function isColourTokenLeaf(
-  node: DtcgTokenTree[string],
-): node is { readonly $type: 'color'; readonly $value: string } {
-  return (
-    typeof node === 'object' &&
-    node !== null &&
-    '$value' in node &&
-    '$type' in node &&
-    node.$type === 'color' &&
-    typeof node.$value === 'string'
-  );
-}
+function seedColourLeaves(leaves: readonly TokenLeafEntry[]): ColourSeed {
+  const literals = new Map<string, string>();
+  const references = new Map<string, string>();
 
-/** Process a single child node during the tree walk. */
-function visitChild(
-  child: DtcgTokenTree[string],
-  childPath: readonly string[],
-  resolved: Map<string, string>,
-): void {
-  if (typeof child !== 'object' || child === null) {
-    return;
-  }
-
-  if (isColourTokenLeaf(child)) {
-    resolveColourLeaf(resolved, childPath.join('.'), child.$value);
-    return;
-  }
-
-  if (!('$value' in child)) {
-    walkColourTokens(child, childPath, resolved);
-  }
-}
-
-/** Recursively walk a DTCG token tree, resolving colour leaves. */
-function walkColourTokens(
-  node: DtcgTokenTree,
-  pathSegments: readonly string[],
-  resolved: Map<string, string>,
-): void {
-  for (const key in node) {
-    if (!Object.hasOwn(node, key) || key.startsWith('$')) {
+  for (const entry of leaves) {
+    if (!isColourCandidate(entry.leaf)) {
       continue;
     }
 
-    visitChild(node[key], [...pathSegments, key], resolved);
+    const path = entry.path.join('.');
+    const value = entry.leaf.$value;
+
+    if (typeof value !== 'string') {
+      literals.set(path, String(value));
+      continue;
+    }
+
+    const referenceMatch = REFERENCE_PATTERN.exec(value);
+
+    if (referenceMatch) {
+      references.set(path, referenceMatch[1]);
+    } else {
+      literals.set(path, value);
+    }
   }
+
+  return { literals, references };
 }
 
 /**
- * Resolve all colour tokens in a merged DTCG token tree to final hex values.
+ * Resolve every colour token in a composed DTCG tree to its literal value.
+ *
+ * @param tokenTree - A composed token tree (all tiers the references span)
+ * @returns Ok with the resolution outcome, or Err naming the first
+ *   malformed node
+ */
+export function resolveColourTokens(
+  tokenTree: DtcgTokenTree,
+): Result<ColourResolution, InvalidNodeError> {
+  const leaves = collectTokenLeaves(tokenTree);
+
+  if (!leaves.ok) {
+    return leaves;
+  }
+
+  const { literals: resolved, references: pending } = seedColourLeaves(leaves.value);
+  let progressed = true;
+
+  while (progressed && pending.size > 0) {
+    progressed = false;
+
+    for (const [path, target] of pending) {
+      const literal = resolved.get(target);
+
+      if (literal !== undefined) {
+        resolved.set(path, literal);
+        pending.delete(path);
+        progressed = true;
+      }
+    }
+  }
+
+  const unresolvable = [...pending]
+    .map(([path, reference]) => ({ path, reference }))
+    .toSorted((first, second) => byCodeUnit(first.path, second.path));
+
+  return ok({ resolved, unresolvable });
+}
+
+/**
+ * Filter a colour resolution down to the WCAG hex comparand.
  *
  * @remarks
- * The tier hierarchy (palette → semantic → component) guarantees single-pass
- * resolution when the tree is walked in insertion order.
+ * One closed rule: only six-digit hex literals survive. This excludes
+ * rgb-alpha literals and their resolved copies, expression residues
+ * (`color-mix()`), and any stringified non-string value in one place — a
+ * manifest pairing that references a dropped path surfaces as the
+ * existing `unresolved_token` error downstream.
  *
- * @param tokenTree - A merged token tree containing palette, semantic, and
- *   optionally component tiers
- * @returns Map from dot-separated token path to resolved hex colour string
+ * @param resolved - The `resolved` map from a {@link ColourResolution}
+ * @returns The entries whose values are six-digit hex literals
  */
-export function resolveTokenTreeToHex(tokenTree: DtcgTokenTree): ReadonlyMap<string, string> {
-  const resolved = new Map<string, string>();
+export function toHexComparand(resolved: ReadonlyMap<string, string>): ReadonlyMap<string, string> {
+  const comparand = new Map<string, string>();
 
-  walkColourTokens(tokenTree, [], resolved);
+  for (const [path, value] of resolved) {
+    if (isHexColourLiteral(value)) {
+      comparand.set(path, value);
+    }
+  }
 
-  return resolved;
+  return comparand;
 }

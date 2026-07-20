@@ -1,3 +1,51 @@
+# [1.77.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.76.0...v1.77.0) (2026-07-20)
+
+
+### Features
+
+* **agent-tools:** relocate usage gauges to the statusline repo-title row ([7e5bf57](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/7e5bf57cb50bf51974b8a57f94598ef1eb651c23))
+
+# [1.76.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.75.4...v1.76.0) (2026-07-20)
+
+
+### Bug Fixes
+
+* **design:** close the overlay-trees key type over non-light themes ([e6b939a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e6b939a89bed2e6a78352cee249370a8baddebfd))
+* **design:** cure the cycle-3 review round (7 threads, one batch) ([57d8c16](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/57d8c164088c18b9432c10fbc4e0c32a7ab600a4))
+
+
+### Features
+
+* **design:** add a WCAG AAA threshold level to contrast validation ([68670fb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/68670fb4fd19c2ccc28ef82505e255414c56bed6))
+* **design:** add composeThemeTree for declared-base and overlay composition ([141af4e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/141af4e0a6f9e5fe009b84e3a7f9efff578fbb77))
+* **design:** gate the design-system dtcg export across four themes ([bb274cc](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bb274cc2eaf711c163642451de69604f4c239be4)), closes [hi#contrast](https://github.com/hi/issues/contrast)
+* **design:** resolve colour references to fixpoint with surfaced unresolvables ([6cab314](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/6cab31476cb2c19516220bf18372b5be9e18dd95))
+* **eslint:** declare oak-design-system in the design-boundary roster ([4f3b94e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4f3b94ebeefd9f838acd4253473ef2070f4727dd))
+
+## [1.75.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.75.3...v1.75.4) (2026-07-20)
+
+## [1.75.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.75.2...v1.75.3) (2026-07-20)
+
+## [1.75.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.75.1...v1.75.2) (2026-07-20)
+
+## [1.75.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.75.0...v1.75.1) (2026-07-20)
+
+
+### Bug Fixes
+
+* **agent-tools:** ban the ":" join delimiter in gazetteer subject ids ([75a1506](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/75a150677f41857642c659f20fdad7ef1b37d731))
+* **agent-tools:** bind the fact-key delimiter ban to gazetteer subject ids ([e10cdc5](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e10cdc59b60f8e7f960d6eac340646e016068389))
+* **agent-tools:** close the canonical partition file shape ([8adc9ea](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8adc9ea91343e66b34b50eef5313e482db506722))
+* **agent-tools:** contain checkpoint-flag reads within the repository ([d495350](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d49535040ba5b42b87a333eae1a0d1728c39fe9d))
+* **agent-tools:** narrow resume grounding to the unresolved seed ([0ed4890](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/0ed4890adc037db295fa98948f28b7f38a598710))
+* **agent-tools:** pin completeness flags to their incomplete lists ([7f2b50e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/7f2b50e22199e3433f9aa022a5a98a1a85d3eff4))
+* **agent-tools:** recompute validate dispositions from two distinct voters ([9eb5ec6](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9eb5ec6bbe64f5462146bd7366d4b5841a781ed1))
+* **agent-tools:** refine validate-checkpoint completeness against its incomplete list ([228ae86](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/228ae860a8b3c925a4508e503a52ac4e0a643912))
+* **agent-tools:** refuse resolved cluster ids lacking checkpoint evidence ([0992583](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/0992583393366230c208163f2c76ac9b2115e45f))
+* **agent-tools:** require cluster distinctValueNorms in canonical normal form ([5bd3711](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5bd37118c060a828db5f3fcc7073d9343c88d1db))
+* **agent-tools:** true the CLI usage text to the repo-root path base ([471e698](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/471e69847dd4bcef5cee0eae07a122a7d9b28262))
+* **agent-tools:** validate distinctValueNorms as a set, not an array length ([60afaf3](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/60afaf3647eda7525ec9a171eeafc4dbc236894f))
+
 # [1.75.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.74.0...v1.75.0) (2026-07-20)
 
 

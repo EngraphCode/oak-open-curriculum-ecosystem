@@ -2,24 +2,24 @@
  * Closed colour-value grammar validation at the DTCG import boundary.
  *
  * @remarks
- * ADR-213 §2 boundary condition: expression colour values (`color-mix()`,
- * `calc()`) crash the contrast resolver and are rejected with a structured
- * `Err` before resolution. The admitted grammar is closed: a `#rrggbb`
- * literal, an `rgb(R G B / A)` alpha literal, or a full-string token
- * reference. Alpha literals are legal input but cannot yield a WCAG
- * contrast hex without compositing, so their paths are reported for
- * exclusion from the resolved hex map.
+ * ADR-213 §2 boundary condition: the admitted grammar is closed — a
+ * `#rrggbb` literal, an `rgb(R G B / A)` alpha literal, or a full-string
+ * token reference; expression values (`color-mix()`, `calc()`) are
+ * rejected with a structured `Err`. This validator serves trees required
+ * to be expression-free; trees that deliberately carry expression state
+ * tokens are gated on the contrast path by `toHexComparand`'s
+ * post-resolution exclusion instead. Alpha literals are legal input but
+ * cannot yield a WCAG contrast hex without compositing, so their paths
+ * are reported for exclusion from the resolved hex map.
  *
  * @packageDocumentation
  */
 import { type Result, err, ok } from '@oaknational/result';
 import { byCodeUnit } from './code-unit-sort.js';
-import type { DtcgTokenLeaf, DtcgTokenTree } from './dtcg-types.js';
+import { isColourCandidate, isHexColourLiteral } from './colour-classification.js';
+import type { DtcgTokenTree } from './dtcg-types.js';
 import { anchoredTokenReferencePattern } from './token-reference.js';
 import { collectTokenLeaves, type InvalidNodeError, type TokenLeafEntry } from './token-walk.js';
-
-/** The only colour value form the contrast resolver can consume directly. */
-const HEX_LITERAL_PATTERN = /^#[0-9a-f]{6}$/iu;
 
 /** A single 0–255 integer rgb channel. */
 const RGB_CHANNEL = String.raw`(?:25[0-5]|2[0-4]\d|1\d\d|\d{1,2})`;
@@ -34,31 +34,6 @@ const RGB_ALPHA_LITERAL_PATTERN = new RegExp(
 );
 
 const REFERENCE_PATTERN = anchoredTokenReferencePattern();
-
-/**
- * Value shapes that identify an UNTYPED leaf as a colour token.
- *
- * @remarks
- * The export's `$type` is heuristic (`dtcg/README.md`; 131/537 leaves are
- * untyped, including the `color-mix()` state tokens this validator exists
- * to reject). Hex, rgb, and `color-mix()` values are unambiguously colours;
- * untyped `calc()` and bare references stay out of scope (indistinguishable
- * from dimension values without an ontology) — that residual is owned by
- * the export's own schema check and the gate's checked-count assertion.
- */
-const UNTYPED_COLOUR_VALUE_PATTERN = /^#|^rgb\(|color-mix\(/u;
-
-function isColourCandidate(leaf: DtcgTokenLeaf): boolean {
-  if (leaf.$type === 'color') {
-    return true;
-  }
-
-  return (
-    leaf.$type === undefined &&
-    typeof leaf.$value === 'string' &&
-    UNTYPED_COLOUR_VALUE_PATTERN.test(leaf.$value)
-  );
-}
 
 /** Audit evidence for a validated tree's colour values. */
 export interface ColourLiteralAudit {
@@ -114,7 +89,7 @@ function auditColourLeaves(leaves: readonly TokenLeafEntry[]): ColourFindings {
       continue;
     }
 
-    if (HEX_LITERAL_PATTERN.test(value) || REFERENCE_PATTERN.test(value)) {
+    if (isHexColourLiteral(value) || REFERENCE_PATTERN.test(value)) {
       continue;
     }
 
