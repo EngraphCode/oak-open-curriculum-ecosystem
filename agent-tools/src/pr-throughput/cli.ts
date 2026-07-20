@@ -17,7 +17,7 @@ import { pathToFileURL } from 'node:url';
 import { writeErrorLine, writeLine } from '../core/terminal-output.js';
 import { resolveGhPath, type GhCommandExecutor } from '../pr-watch/gh.js';
 
-import { fetchMergedPrs } from './gh-fetch.js';
+import { assertWindowCovered, fetchMergedPrs } from './gh-fetch.js';
 import { buildRegisterContent, computeThroughput, formatRegisterRow } from './index.js';
 
 export const DEFAULT_REGISTER_PATH = '.agent/reports/agentic-engineering/pr-throughput-register.md';
@@ -102,9 +102,15 @@ function applyValueFlag(options: MutablePrThroughputOptions, flag: string, value
 }
 
 function parsePositiveInteger(flag: string, value: string): number {
+  // Full-token validation: Number.parseInt would silently accept '7days',
+  // '1.5', or '1e2' and report from a wrong-looking-right window.
+  if (!/^\d+$/u.test(value)) {
+    throw new Error(`${flag} requires a positive integer, got: ${value}`);
+  }
+
   const parsed = Number.parseInt(value, 10);
 
-  if (!Number.isInteger(parsed) || parsed <= 0) {
+  if (!Number.isSafeInteger(parsed) || parsed <= 0) {
     throw new Error(`${flag} requires a positive integer, got: ${value}`);
   }
 
@@ -134,7 +140,13 @@ export function runPrThroughput(argv: readonly string[], deps: PrThroughputDeps)
     return reportFailure(cause);
   }
 
-  return runWithOptions(options, deps);
+  // The informational contract covers EVERYTHING downstream: a register
+  // write failing on permissions must still exit 0 with the loud message.
+  try {
+    return runWithOptions(options, deps);
+  } catch (cause) {
+    return reportFailure(cause);
+  }
 }
 
 function runWithOptions(options: PrThroughputOptions, deps: PrThroughputDeps): number {
@@ -152,7 +164,18 @@ function runWithOptions(options: PrThroughputOptions, deps: PrThroughputDeps): n
     return reportFailure(corpus.error);
   }
 
-  const report = computeThroughput(corpus.value, {
+  const covered = assertWindowCovered({
+    prs: corpus.value,
+    limit: options.limit,
+    windowDays: options.windowDays,
+    now: options.now,
+  });
+
+  if (!covered.ok) {
+    return reportFailure(covered.error);
+  }
+
+  const report = computeThroughput(covered.value, {
     windowDays: options.windowDays,
     now: options.now,
   });

@@ -106,6 +106,14 @@ describe('formatRegisterRow', () => {
     expect(row).toBe('| 2026-07-20 | 7d | 1 | 0.14 | 43 | 43 | founding window |');
   });
 
+  it('sanitises the note for the table: pipes escape, line breaks collapse', () => {
+    const row = formatRegisterRow(computeThroughput([], { windowDays: 7, now: NOW }), {
+      note: 'a|b\nc',
+    });
+
+    expect(row).toBe(String.raw`| 2026-07-20 | 7d | 0 | 0.00 | - | - | a\|b c |`);
+  });
+
   it('renders empty-window percentiles as a dash, never zero', () => {
     const row = formatRegisterRow(computeThroughput([], { windowDays: 7, now: NOW }), {
       note: '',

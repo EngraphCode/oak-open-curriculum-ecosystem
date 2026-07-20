@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { fetchMergedPrs, MERGED_PR_JSON_FIELDS } from './gh-fetch.js';
+import { assertWindowCovered, fetchMergedPrs, MERGED_PR_JSON_FIELDS } from './gh-fetch.js';
 
 const VALID_PAYLOAD = JSON.stringify([
   {
@@ -75,5 +75,48 @@ describe('fetchMergedPrs', () => {
     if (!result.ok) {
       expect(result.error.message).toContain('EACCES');
     }
+  });
+});
+
+describe('assertWindowCovered', () => {
+  const NOW = new Date('2026-07-20T20:00:00Z');
+  const inWindow = {
+    number: 1,
+    createdAt: '2026-07-19T10:00:00Z',
+    mergedAt: '2026-07-19T11:00:00Z',
+    isDraft: false,
+    headRefName: 'feature/a',
+  };
+  const outsideWindow = {
+    ...inWindow,
+    number: 2,
+    mergedAt: '2026-07-01T11:00:00Z',
+  };
+
+  it('refuses a full-limit fetch whose oldest merge is still inside the window', () => {
+    const result = assertWindowCovered({
+      prs: [inWindow, { ...inWindow, number: 3 }],
+      limit: 2,
+      windowDays: 7,
+      now: NOW,
+    });
+
+    expect(result.ok).toBe(false);
+
+    if (!result.ok) {
+      expect(result.error.message).toContain('--limit');
+    }
+  });
+
+  it('accepts a full-limit fetch that reaches past the window start', () => {
+    expect(
+      assertWindowCovered({ prs: [inWindow, outsideWindow], limit: 2, windowDays: 7, now: NOW }).ok,
+    ).toBe(true);
+  });
+
+  it('accepts an under-limit fetch (the corpus is complete)', () => {
+    expect(assertWindowCovered({ prs: [inWindow], limit: 200, windowDays: 7, now: NOW }).ok).toBe(
+      true,
+    );
   });
 });

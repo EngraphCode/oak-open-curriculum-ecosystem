@@ -10,7 +10,7 @@
  *
  * @packageDocumentation
  */
-import { err, type Result } from '@oaknational/result';
+import { err, ok, type Result } from '@oaknational/result';
 import { z } from 'zod';
 
 import { parseWithSchema } from '../core/schema-parse.js';
@@ -76,4 +76,36 @@ export function fetchMergedPrs(input: {
     schema: MERGED_PR_SCHEMA,
     value: parsed,
   });
+}
+
+/**
+ * Refuse a corpus that cannot prove it covers the window: when the fetch
+ * returned exactly `limit` rows AND the oldest merge still sits inside the
+ * window, older in-window merges may exist beyond the cap — a silently
+ * truncated subset would yield plausible-but-wrong metrics (the
+ * no-silent-caps discipline). The typed err names the remedy.
+ */
+export function assertWindowCovered(input: {
+  readonly prs: readonly MergedPrRecord[];
+  readonly limit: number;
+  readonly windowDays: number;
+  readonly now: Date;
+}): Result<readonly MergedPrRecord[], Error> {
+  if (input.prs.length < input.limit) {
+    return ok(input.prs);
+  }
+
+  const windowStart = input.now.getTime() - input.windowDays * 24 * 60 * 60_000;
+  const oldestMergedAt = Math.min(...input.prs.map((pr) => Date.parse(pr.mergedAt)));
+
+  if (oldestMergedAt > windowStart) {
+    return err(
+      new Error(
+        `the ${String(input.limit)}-PR fetch does not cover the ${String(input.windowDays)}d window ` +
+          `(oldest fetched merge is inside it) — re-run with a larger --limit`,
+      ),
+    );
+  }
+
+  return ok(input.prs);
 }

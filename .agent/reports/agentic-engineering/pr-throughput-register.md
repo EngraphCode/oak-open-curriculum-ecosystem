@@ -7,10 +7,13 @@ branches). Cycle time is open-to-merged, in minutes, nearest-rank percentiles.
 
 **Prediction (PDR-130 form):** under PDR-131 mechanics (settled-READY + green
 checks arm auto-merge under Director grant; concurrent landings normal) with
-the strict-currency ruleset policy dropped, single-story PR cycle-time p50
-falls below ~45 minutes. **Falsifier:** two consecutive weekly windows with
-p50 above 45 minutes means the doctrine is not being applied and the actual
-binding constraint gets investigated instead.
+the strict-currency ruleset policy dropped, the measured cycle-time p50 —
+across ALL counted PRs, since no story-size classification exists in the
+record — falls below ~45 minutes as single-story PRs stop queueing behind
+the serial treadmill. **Falsifier:** two consecutive weekly windows with p50
+above 45 minutes means the doctrine is not being applied (or the aggregate
+proxy hides the effect — either way, the actual binding constraint gets
+investigated instead of the claim being retold).
 
 | Date | Window | Merges | Merges/day | p50 (min) | p90 (min) | Note |
 | ---- | ------ | ------ | ---------- | --------- | --------- | ---- |

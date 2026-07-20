@@ -59,6 +59,13 @@ describe('parsePrThroughputArgs', () => {
     expect(() => parsePrThroughputArgs(['--windowdays', '7'], NOW)).toThrow(/unknown flag/u);
   });
 
+  it('rejects malformed integers that parseInt would silently truncate', () => {
+    expect(() => parsePrThroughputArgs(['--window-days', '7days'], NOW)).toThrow(
+      /positive integer/u,
+    );
+    expect(() => parsePrThroughputArgs(['--limit', '1.5'], NOW)).toThrow(/positive integer/u);
+  });
+
   it('rejects non-positive window sizes', () => {
     expect(() => parsePrThroughputArgs(['--window-days', '0'], NOW)).toThrow(/positive integer/u);
   });
@@ -89,6 +96,18 @@ describe('runPrThroughput', () => {
 
     expect(runPrThroughput(['--now', NOW.toISOString()], deps)).toBe(0);
     expect(writes).toHaveLength(0);
+  });
+
+  it('exits 0 when the register write itself throws — the contract covers the file edge', () => {
+    const { deps } = fakeDeps();
+    const throwingDeps = {
+      ...deps,
+      writeRegister: () => {
+        throw new Error('EACCES: permission denied');
+      },
+    };
+
+    expect(runPrThroughput(['--write', '--now', NOW.toISOString()], throwingDeps)).toBe(0);
   });
 
   it('exits 0 on a transport failure — informational contract — and writes nothing', () => {
