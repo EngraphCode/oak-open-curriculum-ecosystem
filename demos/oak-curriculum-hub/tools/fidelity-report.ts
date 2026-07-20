@@ -10,7 +10,7 @@
  */
 import { FIDELITY_PAIRS, type FidelityPair, type PairingMap } from './fidelity-pairs';
 import { entriesForPair, newEntryTemplate, type FidelityRegister } from './fidelity-register';
-import { escapeHtml } from './fidelity-html';
+import { escapeHtml, fromReportDir } from './fidelity-html';
 import { exemptSection, globalEntriesSection, orphanedEntries } from './fidelity-report-sections';
 
 interface Dimensions {
@@ -42,12 +42,6 @@ export interface RunMeta {
   readonly deviceScaleFactor: number;
   readonly serverMode: 'attached' | 'spawned';
   readonly generatedAt: string;
-}
-
-/** Resolve a demo-dir-relative evidence path from the report directory
- *  (demo-evidence/fidelity-report/ → the demo root is two levels up). */
-function fromReportDir(demoRelativePath: string): string {
-  return `../../${demoRelativePath}`;
 }
 
 function ratioLabel(result: PairResult): string {

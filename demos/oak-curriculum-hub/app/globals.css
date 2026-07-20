@@ -9,6 +9,7 @@
    is gone. Import order: Tailwind → Oak sheets.
    ============================================================ */
 @import '@oaknational/oak-design-system/colors_and_type.css';
+@import '@oaknational/oak-design-system/oak-icons.css';
 @import '@oaknational/oak-design-system/components.css';
 @import '@oaknational/oak-design-system/print.css';
 
@@ -126,7 +127,10 @@ body {
 }
 
 ::selection {
-  background: var(--color-accent);
+  /* the kit selection-state surface: accent mixed translucent, so inherited
+     text keeps its own polarity in every theme (raw --color-accent was
+     unreadable in dark and high-contrast) */
+  background: var(--state-selected);
 }
 
 /* Visible keyboard focus — the kit's double ring (lemon + contrast halo) with

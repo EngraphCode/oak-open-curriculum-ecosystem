@@ -6,7 +6,7 @@
  */
 import type { PairingMap } from './fidelity-pairs';
 import { GLOBAL_PAIR_ID, type FidelityRegister } from './fidelity-register';
-import { escapeHtml } from './fidelity-html';
+import { escapeHtml, fromReportDir } from './fidelity-html';
 
 /** Judgments recorded against the reserved global scope — they apply to every
  *  pair (a token-source migration, a repo-wide focus-ring change), so they get
@@ -22,6 +22,9 @@ export function globalEntriesSection(register: FidelityRegister): string {
       (entry) => `<li>
   <strong>[${escapeHtml(entry.disposition)}]</strong> ${escapeHtml(entry.summary)}
   <br />Rationale: ${escapeHtml(entry.rationale)}
+  <br />Evidence: ${entry.evidence
+    .map((path) => `<a href="${escapeHtml(fromReportDir(path))}">${escapeHtml(path)}</a>`)
+    .join(', ')}
   <br /><small>${escapeHtml(entry.id)} — ${escapeHtml(entry.author)}, ${escapeHtml(entry.date)}</small>
 </li>`,
     )
