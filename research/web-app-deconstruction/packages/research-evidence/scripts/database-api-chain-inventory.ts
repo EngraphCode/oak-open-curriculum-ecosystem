@@ -78,7 +78,11 @@ Options:
   --oce <path>             OCE checkout (default: sibling oak-open-curriculum-ecosystem)
   --output <path>          Write normalized JSON evidence instead of stdout`;
 
-const args = parseArgs(process.argv.slice(2));
+const args = parseArgs(
+  process.argv.slice(2),
+  [],
+  ['database-tools', 'oak-openapi', 'oce', 'output'],
+);
 
 function optionalString(value: string | boolean | undefined): string | undefined {
   return typeof value === 'string' ? value : undefined;

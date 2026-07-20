@@ -64,16 +64,28 @@ Options:
   --output <path>      Write normalized JSON evidence to this path instead of stdout`;
 
 async function main(): Promise<void> {
-  const args = parseArgs(process.argv.slice(2));
+  const args = parseArgs(
+    process.argv.slice(2),
+    [],
+    ['docs', 'owa', 'components', 'database-tools', 'oak-openapi', 'oce', 'output'],
+  );
   const markdownRoot = resolveFromCwd(stringOption(args.docs), defaultMarkdownRoot);
   const databasePortfolio = markdownRoot.split(path.sep).includes('database-tools');
+  // Projection-aware: this public projection carries NO pinned links into
+  // the private repositories (ADR-215 Decision 4 reduced them to plain-text
+  // citations), so those checkouts are validated only when a caller with
+  // access supplies them explicitly — the full pinned-link validation lives
+  // with the private master.
+  const databaseToolsRoot = stringOption(args['database-tools']);
+  const oakOpenApiRoot = stringOption(args['oak-openapi']);
   const roots: Record<string, string> = databasePortfolio
     ? {
-        'Database-Tools': resolveFromCwd(
-          stringOption(args['database-tools']),
-          defaultDatabaseToolsRoot,
-        ),
-        'oak-openapi': resolveFromCwd(stringOption(args['oak-openapi']), defaultOakOpenApiRoot),
+        ...(databaseToolsRoot === undefined
+          ? {}
+          : { 'Database-Tools': resolveFromCwd(databaseToolsRoot, defaultDatabaseToolsRoot) }),
+        ...(oakOpenApiRoot === undefined
+          ? {}
+          : { 'oak-openapi': resolveFromCwd(oakOpenApiRoot, defaultOakOpenApiRoot) }),
         'oak-open-curriculum-ecosystem': resolveFromCwd(stringOption(args.oce), defaultOceRoot),
       }
     : {

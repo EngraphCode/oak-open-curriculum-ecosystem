@@ -152,7 +152,11 @@ Options:
 Scenarios: baseline, client-oak-box, client-lesson-bottom-nav,
            server-oak-box, server-tokens`;
 
-const args = parseArgs(process.argv.slice(2), ['skip-next', 'only-next']);
+const args = parseArgs(
+  process.argv.slice(2),
+  ['skip-next', 'only-next'],
+  ['owa', 'components', 'output', 'scenarios'],
+);
 if (args['skip-next'] && args['only-next']) {
   usageError('--skip-next and --only-next cannot be combined', usage);
   process.exit(2);

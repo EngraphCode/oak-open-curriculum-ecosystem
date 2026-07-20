@@ -23,7 +23,7 @@ Options:
   --oce <path>     OCE checkout (default: sibling oak-open-curriculum-ecosystem)
   --output <path>  Write normalized JSON evidence to this path instead of stdout`;
 
-const args = parseArgs(process.argv.slice(2));
+const args = parseArgs(process.argv.slice(2), [], ['oce', 'output']);
 
 function optionalString(value: unknown): string | undefined {
   return typeof value === 'string' ? value : undefined;
@@ -163,7 +163,7 @@ async function main(): Promise<void> {
         generatedSizes:
           'Sum uncompressed working-tree bytes for tracked regular files; excludes filesystem allocation and compression',
         payloadCounts:
-          'Parse committed JSON payloads directly; do not run code generation or application schemas',
+          'Parse tracked working-tree JSON payloads directly (revision-exact only when input.clean is true); do not run code generation or application schemas',
         hubRoutes:
           'Derive routes from tracked demos/oak-curriculum-hub/app/**/page.{js,jsx,ts,tsx} paths',
         ruleCount:

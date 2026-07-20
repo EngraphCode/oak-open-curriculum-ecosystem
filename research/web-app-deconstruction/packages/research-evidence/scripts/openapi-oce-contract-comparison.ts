@@ -60,7 +60,7 @@ Options:
   --oak-openapi <path>  oak-openapi checkout (default: sibling oak-openapi)
   --oce <path>          OCE checkout (default: sibling oak-open-curriculum-ecosystem)
   --output <path>       Write normalized JSON evidence instead of stdout`;
-const args = parseArgs(process.argv.slice(2));
+const args = parseArgs(process.argv.slice(2), [], ['oak-openapi', 'oce', 'output']);
 const roots = {
   oakOpenApi: resolveFromCwd(optionalString(args['oak-openapi']), defaults.oakOpenApi),
   oce: resolveFromCwd(optionalString(args.oce), defaults.oce),

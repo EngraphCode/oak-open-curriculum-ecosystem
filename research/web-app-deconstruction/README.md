@@ -43,10 +43,15 @@ Claims in the research record are labelled as observed, inferred, unknown, or hy
 
 ## Getting started
 
-Install dependencies:
+This standalone projection is not installable (see the workspace manifest's
+historical note — the evidence package's dependencies resolve in the OCE
+workspace). Install through the OCE repository root, then drive the package
+by filter:
 
 ```bash
+# from the oak-open-curriculum-ecosystem checkout root
 pnpm install
+pnpm --filter @oaknational/research-evidence check-research
 ```
 
 ## Available scripts

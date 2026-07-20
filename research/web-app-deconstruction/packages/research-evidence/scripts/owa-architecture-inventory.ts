@@ -8,7 +8,7 @@ Options:
   --output <path>  Write JSON to this path instead of stdout`;
 
 async function main(): Promise<void> {
-  const args = parseArgs(process.argv.slice(2));
+  const args = parseArgs(process.argv.slice(2), [], ['owa', 'output']);
   const owaArgument = typeof args.owa === 'string' ? args.owa : undefined;
   const owaRoot = resolveFromCwd(owaArgument, defaultOwaRoot);
   const result = await buildOwaArchitectureInventory(owaRoot);

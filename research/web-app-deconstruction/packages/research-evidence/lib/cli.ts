@@ -15,8 +15,13 @@ export const defaultComponentsRoot = path.join(workspaceRoot, 'oak-components');
 export function parseArgs(
   argv: string[],
   booleanFlags: string[] = [],
+  valueFlags?: string[],
 ): Record<string, string | boolean> {
   const booleans = new Set(booleanFlags);
+  // When a command declares its value-option set, unknown keys REFUSE: a
+  // typo such as `--owaa` must never silently fall through to a default
+  // checkout and produce normal-looking (wrong) research evidence.
+  const allowedValues = valueFlags === undefined ? undefined : new Set(valueFlags);
   const values: Record<string, string | boolean> = {};
 
   for (let index = 0; index < argv.length; index += 1) {
@@ -32,6 +37,9 @@ export function parseArgs(
     if (booleans.has(key)) {
       values[key] = true;
       continue;
+    }
+    if (allowedValues !== undefined && !allowedValues.has(key)) {
+      throw new Error(`Unknown option: --${key}`);
     }
 
     const value = argv[index + 1];

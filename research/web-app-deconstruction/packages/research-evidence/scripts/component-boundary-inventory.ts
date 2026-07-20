@@ -92,7 +92,7 @@ Options:
   --components <path>  Oak Components checkout (default: sibling oak-components)
   --output <path>      Write JSON to this path instead of stdout`;
 
-const args = parseArgs(process.argv.slice(2));
+const args = parseArgs(process.argv.slice(2), [], ['owa', 'components', 'output']);
 const owaRoot = resolveFromCwd(typeof args.owa === 'string' ? args.owa : undefined, defaultOwaRoot);
 const componentsRoot = resolveFromCwd(
   typeof args.components === 'string' ? args.components : undefined,

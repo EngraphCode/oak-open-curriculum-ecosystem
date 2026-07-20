@@ -12,6 +12,15 @@ test('parseArgs separates boolean and value flags', () => {
   });
 });
 
+test('parseArgs rejects unknown option names when a command declares its allowed set', () => {
+  // `--owaa /checkout` must refuse, never fall through to the default OWA
+  // checkout and produce normal-looking wrong evidence.
+  expect(() => parseArgs(['--owaa', '/checkout'], [], ['owa', 'output'])).toThrow(
+    /Unknown option: --owaa/,
+  );
+  expect(parseArgs(['--owa', '/checkout'], [], ['owa', 'output'])).toEqual({ owa: '/checkout' });
+});
+
 test('parseArgs accepts a forwarded option separator', () => {
   expect(parseArgs(['--', '--output', 'result.json'])).toEqual({
     output: 'result.json',

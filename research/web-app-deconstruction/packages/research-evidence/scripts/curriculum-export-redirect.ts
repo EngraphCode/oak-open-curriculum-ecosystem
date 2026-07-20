@@ -57,7 +57,7 @@ function optionalString(value: string | boolean | undefined): string | undefined
   return typeof value === 'string' ? value : undefined;
 }
 
-const args = parseArgs(process.argv.slice(2));
+const args = parseArgs(process.argv.slice(2), [], ['owa', 'output']);
 const owaRoot = resolveFromCwd(optionalString(args.owa), defaultOwaRoot);
 
 function normalizeLog(value: string, temporaryRoot: string): string {
