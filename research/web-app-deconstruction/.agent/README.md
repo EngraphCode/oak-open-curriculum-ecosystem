@@ -11,7 +11,7 @@ remain in [`docs/`](../docs/README.md).
 2. [Oak app foundations thread](./memory/operational/threads/oak-app-foundations.next-session.md)
 3. [Distilled cross-session lessons](./memory/active/distilled.md)
 4. [Recent session napkin](./memory/active/napkin.md)
-5. [Pre-OCE-move handoff and working-tree scan](../pre-oce-move-handoff.md) — the live next-work: include-everything-by-default move manifest and the corrected publication-safe stance.
+5. [Pre-OCE-move handoff and working-tree scan](../pre-oce-move-handoff.md) — HISTORICAL (superseded 2026-07-20): the move it plans is COMPLETE — this record already lives inside OCE at `research/web-app-deconstruction/`. Do not repeat the import; live work continues from the post-import state. Retained for the move manifest and the publication-safety stance it records.
 
 ## Operational Registers
 

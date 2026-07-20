@@ -70,7 +70,7 @@ const defaults = {
   oakOpenApi: path.join(workspaceRoot, 'oak-openapi'),
   oce: path.join(workspaceRoot, 'oak-open-curriculum-ecosystem'),
 };
-const usage = `Usage: node packages/research-evidence/scripts/database-api-chain-inventory.mjs [options]
+const usage = `Usage: pnpm exec tsx scripts/database-api-chain-inventory.ts [options]
 
 Options:
   --database-tools <path>  Database-Tools checkout (default: sibling Database-Tools)

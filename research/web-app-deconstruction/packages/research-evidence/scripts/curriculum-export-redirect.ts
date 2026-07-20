@@ -47,7 +47,7 @@ const fixturePath = path.resolve(
   scriptRoot,
   '../fixtures/curriculum-export/missing-mv-refresh.test.ts.template',
 );
-const usage = `Usage: node scripts/curriculum-export-redirect.mjs [options]
+const usage = `Usage: pnpm exec tsx scripts/curriculum-export-redirect.ts [options]
 
 Options:
   --owa <path>     OWA checkout (default: sibling Oak-Web-Application)

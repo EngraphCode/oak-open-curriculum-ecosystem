@@ -25,9 +25,10 @@ conclusion. That is **withdrawn**. The evidence, from a direct secret scan plus 
   upstream" — ordinary architecture, not an access-control flaw.
 - **Nothing is blocked on Database-Tools or oak-openapi going public.** The record needs
   no reframing or keyword-scrubbing.
-- Only genuine findings: two **low**-severity non-constant-time `===` comparisons
-  (`hasura-auth/.../validate-token.ts`, `oak-openapi/src/middleware.ts`) — route to Oak
-  engineering; unrelated to publication.
+- Only genuine findings: two **low**-severity hardening opportunities in private
+  Oak middleware, routed to Oak engineering through a private channel (their
+  locations and mechanism are deliberately not recorded in this public
+  projection); unrelated to publication.
 
 ## 3. Move principle: INCLUDE EVERYTHING by default
 

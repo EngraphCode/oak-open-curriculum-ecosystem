@@ -31,16 +31,19 @@ uses only Node.js built-ins and Git and does not require OCE dependencies.
 
 ## Repository layout
 
-The default checkout layout is:
+The default checkout layout: the measured repositories are siblings of
+`oak-open-curriculum-ecosystem`, and this record is the nested projection at
+`oak-open-curriculum-ecosystem/research/web-app-deconstruction/` (defaults
+resolve five levels up from this package to the common checkout parent).
 
 ```text
-oak-deconstruction/
+<common parent>/
 |-- Oak-Web-Application/
 |-- oak-components/
 |-- Database-Tools/
 |-- oak-openapi/
-|-- oak-open-curriculum-ecosystem/
-`-- web-app-deconstruction/
+`-- oak-open-curriculum-ecosystem/
+    `-- research/web-app-deconstruction/   <- this record
 ```
 
 Override a source with `--owa <path>`, `--components <path>`,
@@ -83,7 +86,7 @@ The exact OCE inventory command used by the current-state map is dependency-free
 and may be run directly from `web-app-deconstruction`:
 
 ```sh
-node packages/research-evidence/scripts/oce-inventory.mjs \
+pnpm exec tsx packages/research-evidence/scripts/oce-inventory.ts \
   --oce ../oak-open-curriculum-ecosystem
 ```
 
@@ -94,7 +97,7 @@ result.
 The Database-Tools, oak-openapi and OCE chain inventory is also dependency-free:
 
 ```sh
-node packages/research-evidence/scripts/database-api-chain-inventory.mjs \
+pnpm exec tsx packages/research-evidence/scripts/database-api-chain-inventory.ts \
   --database-tools ../Database-Tools \
   --oak-openapi ../oak-openapi \
   --oce ../oak-open-curriculum-ecosystem

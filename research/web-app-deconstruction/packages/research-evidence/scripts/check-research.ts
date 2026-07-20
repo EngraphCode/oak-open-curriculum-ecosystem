@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import { validateConceptLensStructure } from '../lib/concept-lens-structure.js';
 import { resolveInternalLink } from '../lib/research-links.js';
@@ -9,7 +10,10 @@ interface MarkdownLink {
   rawTarget: string;
 }
 
-const root = process.cwd();
+// The record root is fixed relative to this script (scripts -> package ->
+// packages -> record root), so the gate always validates the WHOLE imported
+// research record, regardless of the caller's working directory.
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..');
 const markdownRoot = path.join(root, 'README.md');
 const excludedDirectories = new Set(['.git', 'node_modules', '.turbo', 'dist']);
 const portableExtensions = new Set([
@@ -30,6 +34,11 @@ const machineLocalPatterns = [
   /\/private\/tmp(?:\/|\b)/,
   /\/var\/folders(?:\/|\b)/,
 ];
+// Publication-safety invariant: complete URLs into the private evidence
+// repositories must not remain anywhere in the portable record (names are
+// public; full blob-URL shapes disclose private layout).
+const privateRepositoryUrlPattern =
+  /https:\/\/github\.com\/oaknational\/(?:Database-Tools|oak-openapi)\b/;
 
 function walk(directory: string): string[] {
   return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
@@ -93,6 +102,9 @@ for (const file of portableFiles) {
     }
     if (/^(?:<<<<<<<|=======|>>>>>>>)/.test(line)) {
       failures.push(`${relative(file)}:${index + 1}: merge-conflict marker`);
+    }
+    if (privateRepositoryUrlPattern.test(line)) {
+      failures.push(`${relative(file)}:${index + 1}: private-repository URL`);
     }
     for (const pattern of machineLocalPatterns) {
       const match = pattern.exec(line);

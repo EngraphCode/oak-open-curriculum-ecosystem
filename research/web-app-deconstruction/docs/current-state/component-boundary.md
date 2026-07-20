@@ -26,7 +26,7 @@ render frequency.
 No build, test, install or browser run was performed for this report.
 
 **Reproduction:** The checked-in
-[`component-boundary-inventory.mjs`](../../packages/research-evidence/scripts/component-boundary-inventory.ts)
+[`component-boundary-inventory.ts`](../../packages/research-evidence/scripts/component-boundary-inventory.ts)
 performs the TypeScript public-export resolution, working-layer classification,
 static import counts and recipe dependency counts used below:
 

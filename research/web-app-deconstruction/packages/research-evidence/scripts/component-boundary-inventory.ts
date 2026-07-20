@@ -85,7 +85,7 @@ interface CategoryStat {
   directImportAppearances: number;
 }
 
-const usage = `Usage: node scripts/component-boundary-inventory.mjs [options]
+const usage = `Usage: pnpm exec tsx scripts/component-boundary-inventory.ts [options]
 
 Options:
   --owa <path>         OWA checkout (default: sibling Oak-Web-Application)

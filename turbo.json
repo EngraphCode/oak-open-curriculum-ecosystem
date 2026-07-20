@@ -284,6 +284,19 @@
         "$TURBO_ROOT$/vitest.config.base.ts"
       ]
     },
+    "@oaknational/research-evidence#test": {
+      "dependsOn": ["^build"],
+      "cache": true,
+      "outputs": [],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "**/*.ts",
+        "vitest.config.ts",
+        "$TURBO_ROOT$/vitest.config.ts",
+        "$TURBO_ROOT$/vitest.config.base.ts",
+        "$TURBO_ROOT$/research/web-app-deconstruction/**/*.md"
+      ]
+    },
     "mutate": {
       "dependsOn": ["^build"],
       "cache": false,

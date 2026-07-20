@@ -39,7 +39,7 @@ contexts or packages.
 ## Reproducible structural evidence
 
 The checked-in
-[`owa-architecture-inventory.mjs`](../../../packages/research-evidence/scripts/owa-architecture-inventory.ts)
+[`owa-architecture-inventory.ts`](../../../packages/research-evidence/scripts/owa-architecture-inventory.ts)
 records the pinned revision and clean state, tracked source populations, router
 conventions, local dependency directions, explicit client boundaries, static
 client reachability, cycles and assurance artefacts:

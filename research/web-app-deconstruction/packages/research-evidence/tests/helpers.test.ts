@@ -19,7 +19,7 @@ test('parseArgs accepts a forwarded option separator', () => {
 });
 
 test('resolveFromCwd treats an explicit source path as caller-relative', () => {
-  expect(resolveFromCwd('../source', '/unused')).toBe(path.resolve(process.cwd(), '../source'));
+  expect(resolveFromCwd('../source', '/unused', '/work/dir')).toBe(path.resolve('/work/source'));
 });
 
 test('production filtering excludes tests, stories, mocks and snapshots', () => {

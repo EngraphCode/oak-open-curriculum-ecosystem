@@ -1,7 +1,7 @@
 import { defaultOwaRoot, emitJson, parseArgs, resolveFromCwd, usageError } from '../lib/cli.js';
 import { buildOwaArchitectureInventory } from '../lib/owa-architecture-inventory.js';
 
-const usage = `Usage: node scripts/owa-architecture-inventory.mjs [options]
+const usage = `Usage: pnpm exec tsx scripts/owa-architecture-inventory.ts [options]
 
 Options:
   --owa <path>     OWA checkout (default: sibling Oak-Web-Application)

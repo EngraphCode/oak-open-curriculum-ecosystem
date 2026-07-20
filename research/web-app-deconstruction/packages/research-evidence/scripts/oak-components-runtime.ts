@@ -139,7 +139,7 @@ function asCaughtError(error: unknown): CaughtError {
 const run = promisify(execFile);
 const scriptRoot = path.dirname(fileURLToPath(import.meta.url));
 const fixtureRoot = path.resolve(scriptRoot, '../fixtures/next-app');
-const usage = `Usage: node scripts/oak-components-runtime.mjs [options]
+const usage = `Usage: pnpm exec tsx scripts/oak-components-runtime.ts [options]
 
 Options:
   --owa <path>          OWA checkout containing the installed Components artifact
@@ -402,7 +402,7 @@ async function nextEvidence(
     const appDirectory = path.join(fixtureDirectory, 'app');
     await mkdir(appDirectory, { recursive: true });
     await Promise.all([
-      cp(path.join(fixtureRoot, 'layout.jsx'), path.join(appDirectory, 'layout.tsx')),
+      cp(path.join(fixtureRoot, 'layout.tsx'), path.join(appDirectory, 'layout.tsx')),
       cp(path.join(fixtureRoot, definition.fixture), path.join(appDirectory, 'page.tsx')),
       writeFile(
         path.join(fixtureDirectory, 'package.json'),

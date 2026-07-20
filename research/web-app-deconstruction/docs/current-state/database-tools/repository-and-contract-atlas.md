@@ -18,7 +18,7 @@ The counts and correspondence checks come from the dependency-free
 [`database-api-chain-inventory`](../../../packages/research-evidence/scripts/database-api-chain-inventory.ts).
 It reads Git `HEAD` trees and committed blobs, not working-tree source. Its pure
 parsers have focused tests in
-[`database-api-chain-inventory.test.mjs`](../../../packages/research-evidence/tests/database-api-chain-inventory.test.ts).
+[`database-api-chain-inventory.test.ts`](../../../packages/research-evidence/tests/database-api-chain-inventory.test.ts).
 The extended
 [`validate-concept-lens-links`](../../../packages/research-evidence/scripts/validate-concept-lens-links.ts)
 checks every pinned Database-Tools, oak-openapi and OCE blob path and line range

@@ -118,7 +118,14 @@ async function markdownFiles(root: string): Promise<string[]> {
 }
 
 function isSafeRepositoryPath(file: string): boolean {
-  return file !== '' && !path.posix.isAbsolute(file) && !file.split('/').includes('..');
+  // Both separator families: on Windows an encoded `..\` segment would pass
+  // a POSIX-only split and let path.resolve escape the checkout root.
+  return (
+    file !== '' &&
+    !path.posix.isAbsolute(file) &&
+    !path.win32.isAbsolute(file) &&
+    !file.split(/[\\/]/u).includes('..')
+  );
 }
 
 async function readRepositorySource(repository: RepositoryCheckout, file: string): Promise<string> {

@@ -21,7 +21,7 @@ belong after the underlying outcome and excellence contracts are established.
 release `v1.1128.0`. The worktree was clean when the inventory ran.
 
 The checked-in
-[`owa-architecture-inventory.mjs`](../../../packages/research-evidence/scripts/owa-architecture-inventory.ts)
+[`owa-architecture-inventory.ts`](../../../packages/research-evidence/scripts/owa-architecture-inventory.ts)
 measures tracked TypeScript source areas, route-convention files, static local
 imports, explicit client boundaries, cycles and assurance artefacts:
 

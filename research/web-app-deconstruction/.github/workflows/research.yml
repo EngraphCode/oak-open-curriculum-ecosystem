@@ -1,3 +1,8 @@
+# HISTORICAL: this was the standalone repository's CI. Inside the OCE
+# projection this workflow is inert (GitHub only reads the repo-root
+# .github/), and the standalone `pnpm install` path is retired — the
+# evidence package is installed and gated as an OCE workspace member.
+# Steps are kept trued to the current entry points for the record.
 name: Research integrity
 
 on:
@@ -20,5 +25,5 @@ jobs:
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
       - run: pnpm format:check
-      - run: node scripts/check-research.mjs
-      - run: node --test packages/research-evidence/test/*.test.mjs
+      - run: pnpm --filter @oaknational/research-evidence check-research
+      - run: pnpm --filter @oaknational/research-evidence test

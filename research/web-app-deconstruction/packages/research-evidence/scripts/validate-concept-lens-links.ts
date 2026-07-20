@@ -52,7 +52,7 @@ const defaultMarkdownRoot = path.join(
   workspaceRoot,
   'web-app-deconstruction/docs/current-state/owa-components-concept-lenses',
 );
-const usage = `Usage: node scripts/validate-concept-lens-links.mjs [options]
+const usage = `Usage: pnpm exec tsx scripts/validate-concept-lens-links.ts [options]
 
 Options:
   --docs <path>        Concept-lens Markdown directory

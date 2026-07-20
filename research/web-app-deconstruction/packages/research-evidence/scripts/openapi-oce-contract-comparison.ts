@@ -54,7 +54,7 @@ const defaults = {
   oakOpenApi: path.join(workspaceRoot, 'oak-openapi'),
   oce: path.join(workspaceRoot, 'oak-open-curriculum-ecosystem'),
 };
-const usage = `Usage: node packages/research-evidence/scripts/openapi-oce-contract-comparison.mjs [options]
+const usage = `Usage: pnpm exec tsx scripts/openapi-oce-contract-comparison.ts [options]
 
 Options:
   --oak-openapi <path>  oak-openapi checkout (default: sibling oak-openapi)

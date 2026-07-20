@@ -17,7 +17,7 @@ import { assertRepository } from '../lib/repository.js';
 const execFile = promisify(execFileCallback);
 const defaultOceRoot = path.join(workspaceRoot, 'oak-open-curriculum-ecosystem');
 const expectedPackage = '@oaknational/open-curriculum-ecosystem';
-const usage = `Usage: node packages/research-evidence/scripts/oce-inventory.mjs [options]
+const usage = `Usage: pnpm exec tsx scripts/oce-inventory.ts [options]
 
 Options:
   --oce <path>     OCE checkout (default: sibling oak-open-curriculum-ecosystem)

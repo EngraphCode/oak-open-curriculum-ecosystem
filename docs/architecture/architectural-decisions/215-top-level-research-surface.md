@@ -12,9 +12,9 @@ The owner directed a content-only import of the `web-app-deconstruction`
 research record — the OWA/Components/OCE/Database-Tools/oak-openapi
 deconstruction study — into this repository at
 `research/web-app-deconstruction/`. The record is a self-contained corpus:
-Markdown research documents, operational continuity surfaces, a
-dependency-free evidence package (`@oaknational/research-evidence`, node:test
-suite), and deterministic validators (`scripts/check-research.mjs`).
+Markdown research documents, operational continuity surfaces, an evidence
+package (`@oaknational/research-evidence`, TypeScript with a Vitest suite),
+and deterministic validators (`scripts/check-research.ts`).
 
 ADR-041 enumerates the permitted top-level workspace directories and
 `research/` is not among them. At the same time, the repository already treats
@@ -54,7 +54,11 @@ potential harm can be shown is withheld.
    (console, complexity, house property-access), while the type-safety rules
    stay on. The record keeps its own integrity harness (for
    `web-app-deconstruction`: `scripts/check-research.ts`, a TypeScript CLI, and
-   the vitest evidence suite).
+   the vitest evidence suite). The class boundary is by ROLE, not file
+   extension: the package's `fixtures/**` are measurement samples — source
+   text the runtime probe copies as data into a temporary app — so they
+   belong to the byte-faithful documents class above, not to the gated
+   tooling-code class.
 4. A record is imported as a public projection. Permalinks into private Oak
    repositories are reduced to plain-text citations; the citing prose (file
    name, line range, pinned revision) is kept. Each such projection points to a

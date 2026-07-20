@@ -4,7 +4,11 @@ import { fileURLToPath } from 'node:url';
 
 const packageRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
-export const workspaceRoot = path.resolve(packageRoot, '../../..');
+// The record is the nested projection oak-open-curriculum-ecosystem/research/
+// web-app-deconstruction and the measured repositories are siblings of the
+// OCE checkout, so the common checkout parent is FIVE levels above this
+// package (packages -> web-app-deconstruction -> research -> OCE -> parent).
+export const workspaceRoot = path.resolve(packageRoot, '../../../../..');
 export const defaultOwaRoot = path.join(workspaceRoot, 'Oak-Web-Application');
 export const defaultComponentsRoot = path.join(workspaceRoot, 'oak-components');
 
@@ -41,8 +45,12 @@ export function parseArgs(
   return values;
 }
 
-export function resolveFromCwd(value: string | undefined, fallback: string): string {
-  return path.resolve(process.cwd(), value ?? fallback);
+export function resolveFromCwd(
+  value: string | undefined,
+  fallback: string,
+  cwd: string = process.cwd(),
+): string {
+  return path.resolve(cwd, value ?? fallback);
 }
 
 export async function emitJson(result: unknown, outputPath?: string): Promise<void> {

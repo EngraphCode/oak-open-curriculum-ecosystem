@@ -313,7 +313,7 @@ const config: KnipConfig = {
       ],
       project: ['src/**/*.ts'],
     },
-    // Imported research-evidence tooling (ADR-214). CLI-driven: the scripts are
+    // Imported research-evidence tooling (ADR-215). CLI-driven: the scripts are
     // tsx-invoked entry points and the tests are the other entries; lib is
     // import-reachable. fixtures/ is illustrative source data, not project code.
     'research/web-app-deconstruction/packages/research-evidence': {

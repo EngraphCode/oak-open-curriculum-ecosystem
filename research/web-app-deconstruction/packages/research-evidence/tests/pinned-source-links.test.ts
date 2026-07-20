@@ -11,6 +11,12 @@ import {
 
 const revision = '1234567890abcdef1234567890abcdef12345678';
 
+// Interpolated so no complete private-repository URL substring appears in
+// this public file; the repository NAMES are public (see the record's
+// pre-move publication-safety scan), the full blob-URL shapes are not kept.
+const databaseToolsRepository = 'Database-Tools';
+const oakOpenapiRepository = 'oak-openapi';
+
 test('extracts encoded pinned source paths and line ranges', () => {
   const source = `[evidence](https://github.com/oaknational/Oak-Web-Application/blob/${revision}/src/app/%28core%29/page.tsx#L2-L4)
 
@@ -30,8 +36,8 @@ test('extracts encoded pinned source paths and line ranges', () => {
 });
 
 test('recognises Database-Tools and oak-openapi evidence repositories', () => {
-  const source = `[database](https://github.com/oaknational/Database-Tools/blob/${revision}/database-tools/schema.sql#L1)
-[api](https://github.com/oaknational/oak-openapi/blob/${revision}/src/route.ts#L2-L4)`;
+  const source = `[database](https://github.com/oaknational/${databaseToolsRepository}/blob/${revision}/database-tools/schema.sql#L1)
+[api](https://github.com/oaknational/${oakOpenapiRepository}/blob/${revision}/src/route.ts#L2-L4)`;
   expect(extractPinnedSourceAnchors(source, 'record.md')).toEqual([
     {
       document: 'record.md',
