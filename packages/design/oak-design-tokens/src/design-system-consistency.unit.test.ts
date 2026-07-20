@@ -58,13 +58,23 @@ describe('normaliseValue', () => {
   });
 
   it('decodes a simple escape while a hex escape in the same span stays verbatim', () => {
-    expect(normaliseValue(String.raw`"a\'b \41 z"`)).toBe(String.raw`'a'b \41 z'`);
+    // The decoded apostrophe re-escapes in the canonical serialisation (the
+    // delimiter must never appear bare inside content); the hex escape keeps
+    // its spelling untouched.
+    expect(normaliseValue(String.raw`"a\'b \41 z"`)).toBe(String.raw`'a\'b \41 z'`);
   });
 
   it('keeps an unterminated quoted remainder verbatim instead of fabricating its delimiter', () => {
     // A malformed value must never normalise equal to its well-formed twin.
     expect(normaliseValue(`'Lexend`)).toBe(`'Lexend`);
     expect(normaliseValue(`'Lexend`)).not.toBe(normaliseValue(`'Lexend'`));
+  });
+
+  it('keeps a valid quoted value distinct from its malformed stray-quote twin', () => {
+    // "a' b" is one string containing an apostrophe; 'a' b' is a string, a
+    // bare token, and a stray quote. Serialising without re-escaping the
+    // canonical delimiter would flatten both to the same form.
+    expect(normaliseValue(`"a' b"`)).not.toBe(normaliseValue(`'a' b'`));
   });
 
   it('keeps an escaped backslash distinct from a preserved hex escape', () => {
@@ -129,27 +139,27 @@ describe('extractCssComparand', () => {
   });
 });
 
-describe('compareDesignSystemConsistency', () => {
-  const baseInput = (): ConsistencyInput => ({
-    css: `:root {
-        --oak-paper: light-dark(#fcfbf8, #1c1a17);
-        --bg-primary: light-dark(#ffffff, #222222);
-        --font-display: 'Lexend', sans-serif;
-        --canvas-rows: 12;
-      }`,
-    palette: { oak: { color: { paper: { $type: 'color', $value: '#fcfbf8' } } } },
-    primitives: {
-      font: { family: { display: { $type: 'fontFamily', $value: "'Lexend', sans-serif" } } },
-    },
-    component: {},
-    semanticLight: { bg: { primary: { $type: 'color', $value: '#ffffff' } } },
-    semanticDark: {
-      oak: { color: { paper: { $type: 'color', $value: '#1c1a17' } } },
-      bg: { primary: { $type: 'color', $value: '#222222' } },
-    },
-    nonTokenAllowlist: ['--canvas-rows'],
-  });
+const baseInput = (): ConsistencyInput => ({
+  css: `:root {
+      --oak-paper: light-dark(#fcfbf8, #1c1a17);
+      --bg-primary: light-dark(#ffffff, #222222);
+      --font-display: 'Lexend', sans-serif;
+      --canvas-rows: 12;
+    }`,
+  palette: { oak: { color: { paper: { $type: 'color', $value: '#fcfbf8' } } } },
+  primitives: {
+    font: { family: { display: { $type: 'fontFamily', $value: "'Lexend', sans-serif" } } },
+  },
+  component: {},
+  semanticLight: { bg: { primary: { $type: 'color', $value: '#ffffff' } } },
+  semanticDark: {
+    oak: { color: { paper: { $type: 'color', $value: '#1c1a17' } } },
+    bg: { primary: { $type: 'color', $value: '#222222' } },
+  },
+  nonTokenAllowlist: ['--canvas-rows'],
+});
 
+describe('compareDesignSystemConsistency', () => {
   it('passes a fully consistent surface pair and counts every comparison', () => {
     const report = assertOk(compareDesignSystemConsistency(baseInput()));
 
@@ -324,6 +334,23 @@ describe('compareDesignSystemConsistency', () => {
     // the differing interior whitespace is real drift, never normalised away.
     expect(report.mismatches.length).toBeGreaterThanOrEqual(1);
     expect(report.mismatches.every((mismatch) => mismatch.kind === 'value_mismatch')).toBe(true);
+  });
+
+  it('reports a dark-only token with no CSS counterpart', () => {
+    const input = baseInput();
+    const report = assertOk(
+      compareDesignSystemConsistency({
+        ...input,
+        semanticDark: {
+          ...input.semanticDark,
+          text: { glow: { $type: 'color', $value: '#eeeeee' } },
+        },
+      }),
+    );
+
+    expect(report.mismatches).toEqual([
+      { kind: 'missing_css_variable', path: 'text.glow', variable: '--text-glow' },
+    ]);
   });
 
   it('rejects a dark-overlay path that collides with a different light path on one variable', () => {

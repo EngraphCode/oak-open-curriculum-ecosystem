@@ -74,7 +74,9 @@ export function normaliseValue(value: string): string {
       continue;
     }
 
-    parts.push(`'${span.content}'`);
+    // Re-escape the canonical delimiter inside decoded content: without it
+    // a valid "a' b" and a malformed 'a' b' would serialise identically.
+    parts.push(`'${span.content.replaceAll("'", String.raw`\'`)}'`);
     index = span.closingIndex + 1;
   }
 

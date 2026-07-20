@@ -153,8 +153,11 @@ function compareDarkTheme(
   return ok({
     compared: raw.compared,
     mismatches: raw.mismatches.filter(
-      (mismatch) =>
-        mismatch.kind !== 'missing_css_variable' || comparand.light.has(mismatch.variable),
+      // A missing-variable finding is a duplicate only when the LIGHT INDEX
+      // carries the variable — the light pass owns that absence report. A
+      // dark-only leaf has no light-pass reporter, so its absence must
+      // survive here or a dtcg token with no CSS counterpart passes silently.
+      (mismatch) => mismatch.kind !== 'missing_css_variable' || !lightIndex.has(mismatch.variable),
     ),
   });
 }
