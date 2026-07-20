@@ -12,6 +12,7 @@ import {
   runPrettierStaged,
   type RepoCheckRuntime,
 } from '../src/repo-check/repo-check';
+import { normaliseSpawnResult } from '../src/repo-check/repo-check-runtime';
 
 interface CommandCall {
   readonly command: string;
@@ -218,6 +219,25 @@ describe('repo-check knip gate', () => {
     });
 
     await expect(runKnipGate(runtime)).resolves.toBe(1);
+  });
+
+  it('surfaces a spawn launch failure as a diagnosable non-zero result, never null streams', () => {
+    // spawnSync sets `error` with null status and null streams when the
+    // resolved binary cannot launch; downstream stream reads must see
+    // strings and the failure message, not a TypeError.
+    const result = normaliseSpawnResult('pnpm', {
+      pid: 0,
+      output: [],
+      stdout: null,
+      stderr: null,
+      status: null,
+      signal: null,
+      error: new Error('spawn EACCES'),
+    });
+
+    expect(result.status).toBe(1);
+    expect(result.stdout).toBe('');
+    expect(result.stderr).toContain('pnpm: spawn EACCES');
   });
 
   it('passes an unrelated ERROR line on a zero exit — only the load-crash signature reds the gate', async () => {

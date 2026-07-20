@@ -82,11 +82,43 @@ export function runCapturedProcess(
     };
   }
 
-  return spawnSync(trusted.command, args, {
-    encoding: 'utf8',
-    maxBuffer: 1024 * 1024 * 50,
-    env: trusted.environment,
-  });
+  return normaliseSpawnResult(
+    command,
+    spawnSync(trusted.command, args, {
+      encoding: 'utf8',
+      maxBuffer: 1024 * 1024 * 50,
+      env: trusted.environment,
+    }),
+  );
+}
+
+/**
+ * A spawnSync result as it truthfully arrives: on a LAUNCH failure (resolved
+ * file exists but cannot be spawned — lost execute bit, missing shebang
+ * target) the streams are null at runtime even though the library type says
+ * string.
+ */
+export type RawSpawnResult = Omit<SpawnSyncReturns<string>, 'stdout' | 'stderr'> & {
+  readonly stdout: string | null;
+  readonly stderr: string | null;
+};
+
+/**
+ * Normalise a spawnSync result so a launch failure surfaces as a diagnosable
+ * non-zero result: on `error`, spawnSync returns null status and null
+ * streams, which downstream stream reads would mask with a TypeError
+ * instead of the actual failure.
+ */
+export function normaliseSpawnResult(
+  command: string,
+  result: RawSpawnResult,
+): SpawnSyncReturns<string> {
+  const stdout = result.stdout ?? '';
+  const failure = result.error === undefined ? '' : `${command}: ${result.error.message}\n`;
+  const stderr = `${failure}${result.stderr ?? ''}`;
+  const status = result.error === undefined ? result.status : (result.status ?? 1);
+
+  return { ...result, stdout, stderr, status };
 }
 
 export const defaultRuntime: RepoCheckRuntime = {
