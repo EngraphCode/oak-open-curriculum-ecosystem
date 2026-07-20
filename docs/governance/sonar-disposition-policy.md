@@ -301,18 +301,27 @@ dependency lifecycle scripts can execute arbitrary code at install time.
 **Decision criteria**: FALSE_POSITIVE if and only if all hold:
 
 - The installer is **pnpm at major version ≥ 10** — pnpm 10 removed
-  automatic execution of dependency lifecycle scripts; they run only for
-  packages named in an `onlyBuiltDependencies` allowlist.
+  automatic execution of dependency lifecycle scripts. Scripts run only
+  for packages named in an explicit allowlist: `onlyBuiltDependencies`
+  (pnpm 10) or its pnpm 11 replacement, the `allowBuilds` map in
+  `pnpm-workspace.yaml`.
 - The repo pins that pnpm version authoritatively: root `package.json`
   `packageManager` field (currently `pnpm@11.8.0`, content-hash pinned)
   drives every CI site via `pnpm/action-setup`.
-- `pnpm-workspace.yaml` declares **no `onlyBuiltDependencies` allowlist**,
-  so no dependency's scripts run at all.
+- Every allowlist entry is a **reviewed, build-requiring package** (the
+  current six: `@clerk/shared`, `@sentry/cli`, `esbuild`,
+  `unrs-resolver`, `core-js`, `sharp` — see
+  [`build-system.md`](../engineering/build-system.md) §allowBuilds). The
+  allowlist is tracked config: no arbitrary or newly added dependency
+  can execute install scripts without a reviewed change to it. This is
+  the rule's own compliant control for pnpm — the finding flags
+  _unrestricted_ script execution, which the allowlist precludes.
 
 **Canonical rationale**: "pnpm `<version>` pinned via `packageManager`;
-pnpm ≥ 10 runs no dependency lifecycle scripts by default; no
-`onlyBuiltDependencies` allowlist in `pnpm-workspace.yaml`; the flagged
-site cannot execute dependency scripts".
+pnpm ≥ 10 executes dependency lifecycle scripts only for the reviewed
+`allowBuilds` allowlist (six build-requiring packages, tracked in
+`pnpm-workspace.yaml`); arbitrary dependencies cannot execute install
+scripts at the flagged site".
 
 **FIX path** (all non-pnpm installers, and any pnpm < 10): add
 `--ignore-scripts` to the install invocation. npm and yarn execute
