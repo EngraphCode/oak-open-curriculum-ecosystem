@@ -79,3 +79,6 @@ apps/oak-search-cli/bulk-downloads/**
 .claude/skills/
 .agents/skills/
 
+
+# Design-system import staging (untracked studio export bundle — ADR-213)
+packages/design/design-import/
