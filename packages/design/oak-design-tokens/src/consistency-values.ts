@@ -127,16 +127,30 @@ const HEX_DIGIT_PATTERN = /[0-9a-f]/iu;
  * equality, masking real drift.
  */
 const CSS_WHITESPACE_RUN_PATTERN = /[ \t\n\r\f]+/gu;
-const CSS_WHITESPACE_EDGE_PATTERN = /^[ \t\n\r\f]+|[ \t\n\r\f]+$/gu;
+const CSS_WHITESPACE_CHARACTERS: ReadonlySet<string> = new Set([' ', '\t', '\n', '\r', '\f']);
 
 /** Collapse CSS whitespace runs to a single space (never JS `\s`). */
 export function collapseCssWhitespace(segment: string): string {
   return segment.replaceAll(CSS_WHITESPACE_RUN_PATTERN, ' ');
 }
 
-/** Trim CSS whitespace from both edges (never `.trim()`). */
+/**
+ * Trim CSS whitespace from both edges (never `.trim()`). Index walk, not an
+ * anchored-alternation regex — `/^[…]+|[…]+$/g` backtracks super-linearly.
+ */
 export function trimCssWhitespace(value: string): string {
-  return value.replaceAll(CSS_WHITESPACE_EDGE_PATTERN, '');
+  let start = 0;
+  let end = value.length;
+
+  while (start < end && CSS_WHITESPACE_CHARACTERS.has(value[start])) {
+    start += 1;
+  }
+
+  while (end > start && CSS_WHITESPACE_CHARACTERS.has(value[end - 1])) {
+    end -= 1;
+  }
+
+  return value.slice(start, end);
 }
 
 /** The canonical delimiter's escaped spelling, hoisted to keep templates flat. */

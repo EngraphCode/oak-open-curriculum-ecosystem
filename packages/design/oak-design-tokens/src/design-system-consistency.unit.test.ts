@@ -176,8 +176,11 @@ describe('compareDesignSystemConsistency', () => {
   it('passes a fully consistent surface pair and counts every comparison', () => {
     const report = assertOk(compareDesignSystemConsistency(baseInput()));
 
+    // Exact, not a lower bound: baseInput has three light and three dark
+    // comparisons, and a >= bound would stay green if a whole theme pass
+    // stopped contributing.
     expect(report.mismatches).toEqual([]);
-    expect(report.comparedCount).toBeGreaterThanOrEqual(3);
+    expect(report.comparedCount).toBe(6);
   });
 
   it('reports a light-value mismatch with both values named', () => {
