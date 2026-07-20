@@ -76,6 +76,20 @@ menus. A disproven design is removed or replaced with the correct design;
 it is never kept alive as an option. Type precision is one of the clearest
 concrete expressions of this tenet.
 
+**Enforcement mechanisms ship without bypass surfaces.** When designing a
+gate, guard, hook, or policy check, do not add a hotfix valve, an
+override env-var, an exemption menu, or refusal text that names an
+escape route. Owner ruling (2026-07-17, verbatim): *"there are no escape
+hatches, examine the source of the question, we are never in such a rush
+that doing things badly is a good idea."* Two layers: (1) urgency never
+licenses degraded practice — the refusal message teaches the correct
+path (e.g. mint the ticket), never an override; (2) the impulse to
+design a valve is itself the signal to examine, because it imports a
+rush-assumption this estate rejects. The same absoluteness governs
+risk-of-loss operations (`never-use-git-to-remove-work` §A Safety Proof
+Never Licenses the Class): a discipline's value is that it holds
+precisely when a locally-sound argument says it could bend.
+
 ## Architectural Excellence Over Expediency
 
 We **always, ALWAYS** choose long-term architectural excellence

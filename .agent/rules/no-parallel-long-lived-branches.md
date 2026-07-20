@@ -24,7 +24,18 @@ day or any second coordination-shaped branch.
   merges `main` back in (`git merge origin/main`, conflicts resolved as
   semantic unions — pure addition, both lineages conserved). A second
   coordination-shaped branch is a defect; supersede or merge it the day it is
-  noticed.
+  noticed. PDR-127 (the team-branch coordination protocol) governs how work
+  coordinates AROUND the one sanctioned rolling branch — scope claims,
+  reconciliation, comms sweeps; it does not license additional long-lived
+  branches, and any reading of it that would is superseded by this rule.
+- **Estate roll-up PRs are cut as short-lived branches from the coordination
+  tip, never opened from the rolling branch itself.** A PR whose head is the
+  living coordination branch re-triggers a fresh bot review round on every
+  later push to that branch — including pushes after the PR merges — and the
+  merged PR becomes a review treadmill (worked instance 2026-07-17: a
+  rolling-head roll-up accumulated 109 review threads; the cut-branch
+  equivalent the same day closed at 5). Cut a branch at the tip, PR it,
+  delete it at merge.
 - **Whole-repo judgements bind only on `main`.** Unused-code verdicts, Sonar
   cures, knip entries, dead-file deletions, and consolidations made from a
   branch's view are void for any file whose consumers may live elsewhere —
