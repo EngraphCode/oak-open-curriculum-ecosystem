@@ -72,7 +72,9 @@ intervention trains the next seat to stage one.
 A directed contract sent to the Director (a READY report awaiting a slot, a
 routed decision, a constraint surface) that sits unacknowledged for one
 team cadence gets ONE directed ping naming the unacked contract — then the
-seat holds (or works its other surfaces). The ping is awareness, never a
+seat KEEPS WORKING the surfaces its routing bundle names (the mandatory
+action above: every routed contract names what the seat can still do, and
+waiting is never a resting state). The ping is awareness, never a
 self-granted default: it does not license acting on the pending contract,
 and it is not an escalation (ping-before-escalate remains the next step
 only if the Director's own liveness comes into question). Worked evidence

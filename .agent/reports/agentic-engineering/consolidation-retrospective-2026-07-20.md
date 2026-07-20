@@ -31,8 +31,11 @@ running its own freshly-imported wrap skill as that skill's first live use.
 
 **Technical root.** The estate's single-lesson graduations were
 QUEUE-COUPLED to whole-buffer rotation. The sharpest specimen is the
-exit-code false-green class: first captured ~2026-07-17, held in per-user
-memory and napkin entries as "route to the next curation pass" — and then
+exit-code false-green class: re-surfaced in this window ~2026-07-17 —
+itself a recurrence of a class already documented in June, as the cited
+napkin entry says in its own words ("despite the standing memory") — held
+in per-user memory and napkin entries as "route to the next curation
+pass", and then
 re-bitten at least three more times by three further seats (dated napkin
 entries 2026-07-19 and two on 2026-07-20) before this pass spent roughly ten
 minutes turning it into an estate-wide rule with adapters. Graduating that
@@ -101,7 +104,7 @@ reference graph swept, and a single curator judgment over a frozen corpus
 session also stress-tested its own imports same-day: wrap ran the closeout,
 and the settled-round predicate governed the PR that carried it. The cost
 side is equally real: days of graduation latency for fast-lane lessons,
-paid in recurrences — the worked specimen (captured 2026-07-17, homed
+paid in recurrences — the worked specimen (re-surfaced 2026-07-17, homed
 07-20) waited roughly three days; the window's earliest captures could
 wait up to six.
 
@@ -140,7 +143,9 @@ wait up to six.
 3. **[FAST — enacted with this record] A READY report to a quiet routing
    seat gets one ping after one cadence.** Not a self-granted default, not
    an escape hatch — the wedge reporter's modelled move: a single directed
-   ping naming the unacked contract, then hold. Home:
+   ping naming the unacked contract, then keep working the surfaces the
+   routing bundle names (the rule's own mandatory action: waiting is never
+   a resting state). Home:
    `route-blocks-and-questions-to-director`. *Warrant*: the 85-minute idle
    segment against the peer's same-window ping that surfaced the Director
    gap. *Falsifier*: if pings routinely land during normal grant latency
