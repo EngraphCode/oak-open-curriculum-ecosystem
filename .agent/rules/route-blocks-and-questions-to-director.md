@@ -67,6 +67,21 @@ intervention trains the next seat to stage one.
   contract; PDR-117 is the doctrine home for the upward-escalation clause
   encoding this rule.
 
+## A Routing Contract to a Quiet Director Gets One Ping After One Cadence
+
+A directed contract sent to the Director (a READY report awaiting a slot, a
+routed decision, a constraint surface) that sits unacknowledged for one
+team cadence gets ONE directed ping naming the unacked contract — then the
+seat holds (or works its other surfaces). The ping is awareness, never a
+self-granted default: it does not license acting on the pending contract,
+and it is not an escalation (ping-before-escalate remains the next step
+only if the Director's own liveness comes into question). Worked evidence
+2026-07-20: an 85-minute Director processing gap serialised two seats'
+contracts; the seat that pinged after one cadence surfaced the gap and the
+Director's catch-up swept the window — the seat that silently held paid
+the full gap. If pings routinely land during normal grant latency, lengthen
+the cadence or retract this clause (its PDR-130 prediction line).
+
 ## Enforcement
 
 Behavioural at the escalation moment, Director-backed: the Director refuses

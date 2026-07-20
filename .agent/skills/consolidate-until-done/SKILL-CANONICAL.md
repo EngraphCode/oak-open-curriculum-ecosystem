@@ -70,6 +70,17 @@ Before substantive work:
    worse than soft at rest.
 5. Check active claims, comms, and git state before edits. Open narrow claims
    for touched surfaces.
+6. **Recompute any staged base first-hand.** A pre-staged session input — a
+   cut worktree, an input manifest, a pre-named branch or base — is a
+   hypothesis, and its BASE is the load-bearing part: before substantive
+   work, derive first-hand which branch carries the live memory estate
+   (napkin, registers, thread records) and reconcile the working base with
+   it. A dedicated pass run on a stale base rotates a stale napkin and sets
+   up the stale-capture-wins silent revert (worked instance 2026-07-20: a
+   staged consolidation worktree was cut from the default branch while the
+   live memory rode the coordination branch; caught only by this
+   recomputation, Director-confirmed). If the check never fires across a
+   quarter of staged sessions, fold it into the general grounding line.
 
 ## Completion Contract
 

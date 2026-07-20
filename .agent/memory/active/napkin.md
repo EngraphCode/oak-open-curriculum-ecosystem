@@ -81,3 +81,11 @@ pr-lifecycle). Genuinely new captures, conserved here for the next pass's routin
   from a reset shell cwd silently formats the wrong checkout (one pre-commit red).
 - `GID` is a zsh READONLY integer parameter — assigning a uuid to it fails as
   "bad math expression"; never use it as a shell variable name.
+
+## 2026-07-20 — Siren lifts Trench (af11f9): retrospective tail (play seed)
+
+- Play seed (from the consolidation retrospective's free-play harvest, association not
+  finding): an instrument that filters out a signal class will someday be asked about
+  exactly that class — the seat's heartbeat-filtered watcher was briefly blind to the one
+  question that arose (a liveness read), cured by a direct stream read. Rides here for a
+  future pass; no action proposed.
