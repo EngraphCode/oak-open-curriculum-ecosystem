@@ -6,6 +6,7 @@ import {
   parseMapRunData,
   parseMetaResult,
   parseMetaRunData,
+  parsePartitionFile,
   parseReduceResult,
   parseReduceRunData,
   parseValidateResult,
@@ -118,6 +119,17 @@ describe('run-data parsers', () => {
     expect(isErr(parseMapRunData({ windows: [], gazetteer }))).toBe(true);
   });
 
+  it('parsePartitionFile accepts ONLY the closed canonical shape — a typo like "windwos" or a stray key fails loudly', () => {
+    const windows = [{ window: 'W01', files: ['a.md'] }];
+    expect(isOk(parsePartitionFile({ windows }))).toBe(true);
+    // The typo'd key: no `windows` field at all.
+    expect(isErr(parsePartitionFile({ windwos: windows }))).toBe(true);
+    // A stray unknown key BESIDE a valid windows field must not ride through silently.
+    expect(isErr(parsePartitionFile({ windows, windwos: windows }))).toBe(true);
+    // A bare window array is rejected, never guessed at.
+    expect(isErr(parsePartitionFile(windows))).toBe(true);
+  });
+
   it('parseReduceRunData accepts instances, including an EMPTY set — a complete zero-instance map is a clean corpus that must be seedable', () => {
     expect(isOk(parseReduceRunData({ instances: [finderInstance] }))).toBe(true);
     expect(isOk(parseReduceRunData({ instances: [] }))).toBe(true);
@@ -213,6 +225,34 @@ describe('result parsers', () => {
     ).toBe(true);
   });
 
+  it('parseMapResult rejects completeness flags contradicting the incomplete-window list', () => {
+    const base = {
+      ok: true,
+      partition: [{ window: 'W01', fileCount: 1 }],
+      coverage: [{ window: 'W01', instanceCount: 2 }],
+      instanceCount: 2,
+      instances: [finderInstance, secondInstance],
+    };
+    // Complete with dead windows: the flag would hide the corpus gap.
+    expect(isErr(parseMapResult({ ...base, mapComplete: true, incompleteWindows: ['W01'] }))).toBe(
+      true,
+    );
+    // Incomplete with no dead windows: the flag would force a needless re-run loop.
+    expect(isErr(parseMapResult({ ...base, mapComplete: false, incompleteWindows: [] }))).toBe(
+      true,
+    );
+  });
+
+  it('parseReduceResult rejects completeness flags contradicting the incomplete-chunk list', () => {
+    const base = { ok: true, instanceCount: 2, clusters: [cluster] };
+    expect(isErr(parseReduceResult({ ...base, reduceComplete: true, incompleteChunks: [0] }))).toBe(
+      true,
+    );
+    expect(isErr(parseReduceResult({ ...base, reduceComplete: false, incompleteChunks: [] }))).toBe(
+      true,
+    );
+  });
+
   it('parseReduceResult requires the completeness envelope fields', () => {
     expect(
       isOk(
@@ -256,6 +296,31 @@ describe('result parsers', () => {
     ).toBe(true);
   });
 
+  it('parseValidateResult rejects completeness flags contradicting the incomplete-cluster list — a validate checkpoint can never be internally contradictory', () => {
+    const base = {
+      ok: true,
+      resolvedClusterIds: [],
+      missingClusterIds: [],
+      dispositions: [],
+      voterVerdicts: [],
+    };
+    // Complete with unresolved clusters: the flag would hide the unresolved tail.
+    expect(
+      isErr(parseValidateResult({ ...base, validateComplete: true, incompleteClusterIds: ['c9'] })),
+    ).toBe(true);
+    // Incomplete with no unresolved clusters: the flag would force a needless re-run.
+    expect(
+      isErr(parseValidateResult({ ...base, validateComplete: false, incompleteClusterIds: [] })),
+    ).toBe(true);
+    // Both consistent forms parse.
+    expect(
+      isOk(parseValidateResult({ ...base, validateComplete: false, incompleteClusterIds: ['c9'] })),
+    ).toBe(true);
+    expect(
+      isOk(parseValidateResult({ ...base, validateComplete: true, incompleteClusterIds: [] })),
+    ).toBe(true);
+  });
+
   it('parseValidateResult rejects a disposition without its ≥2 voter verdicts — a lax checkpoint cannot bypass the two-voter rule', () => {
     const verdict = {
       sameFact: { pass: true, confidence: 'high' },
@@ -289,6 +354,133 @@ describe('result parsers', () => {
           voterVerdicts: [
             { clusterId: 'other', voterId: 'v1', verdict },
             { clusterId: 'other', voterId: 'v2', verdict },
+          ],
+        }),
+      ),
+    ).toBe(true);
+  });
+
+  it('parseValidateResult rejects duplicate voter identities — v1+v1 is one voter, not two', () => {
+    const verdict = {
+      sameFact: { pass: true, confidence: 'high' },
+      authoredNotCited: { pass: true, confidence: 'high' },
+      genuineConflict: { pass: true, confidence: 'med' },
+      liveSurface: { pass: true, confidence: 'high' },
+      importance: 'high',
+    };
+    expect(
+      isErr(
+        parseValidateResult({
+          ok: true,
+          validateComplete: true,
+          resolvedClusterIds: [cluster.id],
+          incompleteClusterIds: [],
+          missingClusterIds: [],
+          dispositions: [{ clusterId: cluster.id, disposition: 'flagged', reason: null }],
+          voterVerdicts: [
+            { clusterId: cluster.id, voterId: 'v1', verdict },
+            { clusterId: cluster.id, voterId: 'v1', verdict },
+          ],
+        }),
+      ),
+    ).toBe(true);
+  });
+
+  it('parseValidateResult recomputes each disposition from its verdicts — a contradicting stored disposition fails parsing', () => {
+    const passAll = {
+      sameFact: { pass: true, confidence: 'high' },
+      authoredNotCited: { pass: true, confidence: 'high' },
+      genuineConflict: { pass: true, confidence: 'med' },
+      liveSurface: { pass: true, confidence: 'high' },
+      importance: 'high',
+    };
+    const failsLiveSurface = {
+      ...passAll,
+      liveSurface: { pass: false, confidence: 'high' },
+    };
+    const base = {
+      ok: true,
+      validateComplete: true,
+      resolvedClusterIds: [cluster.id],
+      incompleteClusterIds: [],
+      missingClusterIds: [],
+    };
+    // Both voters pass all four tests → dispositionFromVoters says 'flagged'; a stored
+    // 'dismissed' contradicts the verdicts and must fail.
+    expect(
+      isErr(
+        parseValidateResult({
+          ...base,
+          dispositions: [{ clusterId: cluster.id, disposition: 'dismissed', reason: null }],
+          voterVerdicts: [
+            { clusterId: cluster.id, voterId: 'v1', verdict: passAll },
+            { clusterId: cluster.id, voterId: 'v2', verdict: passAll },
+          ],
+        }),
+      ),
+    ).toBe(true);
+    // Voters AGREE liveSurface fails → 'dismissed' is the only consistent disposition.
+    expect(
+      isOk(
+        parseValidateResult({
+          ...base,
+          dispositions: [{ clusterId: cluster.id, disposition: 'dismissed', reason: null }],
+          voterVerdicts: [
+            { clusterId: cluster.id, voterId: 'v1', verdict: failsLiveSurface },
+            { clusterId: cluster.id, voterId: 'v2', verdict: failsLiveSurface },
+          ],
+        }),
+      ),
+    ).toBe(true);
+    // Outcome disagreement (one passes all, one fails a test) → 'held-for-review'; a
+    // stored 'flagged' must fail.
+    expect(
+      isErr(
+        parseValidateResult({
+          ...base,
+          dispositions: [{ clusterId: cluster.id, disposition: 'flagged', reason: null }],
+          voterVerdicts: [
+            { clusterId: cluster.id, voterId: 'v1', verdict: passAll },
+            { clusterId: cluster.id, voterId: 'v2', verdict: failsLiveSurface },
+          ],
+        }),
+      ),
+    ).toBe(true);
+    expect(
+      isOk(
+        parseValidateResult({
+          ...base,
+          dispositions: [{ clusterId: cluster.id, disposition: 'held-for-review', reason: null }],
+          voterVerdicts: [
+            { clusterId: cluster.id, voterId: 'v1', verdict: passAll },
+            { clusterId: cluster.id, voterId: 'v2', verdict: failsLiveSurface },
+          ],
+        }),
+      ),
+    ).toBe(true);
+  });
+
+  it('parseValidateResult rejects a THIRD verdict for a dispositioned cluster — the two-voter model admits exactly two', () => {
+    const verdict = {
+      sameFact: { pass: true, confidence: 'high' },
+      authoredNotCited: { pass: true, confidence: 'high' },
+      genuineConflict: { pass: true, confidence: 'med' },
+      liveSurface: { pass: true, confidence: 'high' },
+      importance: 'high',
+    };
+    expect(
+      isErr(
+        parseValidateResult({
+          ok: true,
+          validateComplete: true,
+          resolvedClusterIds: [cluster.id],
+          incompleteClusterIds: [],
+          missingClusterIds: [],
+          dispositions: [{ clusterId: cluster.id, disposition: 'flagged', reason: null }],
+          voterVerdicts: [
+            { clusterId: cluster.id, voterId: 'v1', verdict },
+            { clusterId: cluster.id, voterId: 'v2', verdict },
+            { clusterId: cluster.id, voterId: 'v3', verdict },
           ],
         }),
       ),

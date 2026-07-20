@@ -20,6 +20,7 @@ const LIB_PACKAGE_IMPORTS = [
 type DesignPackageImport =
   | '@oaknational/design-tokens-core'
   | '@oaknational/oak-design-ink'
+  | '@oaknational/oak-design-system'
   | '@oaknational/oak-design-tokens';
 
 export const SDK_PACKAGE_IMPORTS = [
@@ -321,14 +322,31 @@ export function createDesignBoundaryRules(designName: DesignPackage): Partial<Li
   const buildRestrictedDesignImportPatterns = () => {
     if (designName === 'design-tokens-core') {
       return createPackageSpecifierPatterns(
-        ['@oaknational/oak-design-ink', '@oaknational/oak-design-tokens'],
-        `Design workspace '${designName}' cannot depend on '@oaknational/oak-design-ink' or '@oaknational/oak-design-tokens'. Follow ADR-041's packages/design dependency direction.`,
+        [
+          '@oaknational/oak-design-ink',
+          '@oaknational/oak-design-system',
+          '@oaknational/oak-design-tokens',
+        ],
+        `Design workspace '${designName}' cannot depend on '@oaknational/oak-design-ink', '@oaknational/oak-design-system', or '@oaknational/oak-design-tokens'. Follow ADR-041's packages/design dependency direction.`,
       );
     }
     if (designName === 'oak-design-tokens') {
+      // The deliberate absence of an '@oaknational/oak-design-system'
+      // restriction declares the one legitimate edge: oak-design-tokens
+      // consumes the design system's dtcg export as validator input
+      // (ADR-041 §2026-07-19 amendment; ADR-213 §4).
       return createPackageSpecifierPatterns(
         ['@oaknational/oak-design-ink'],
         createDesignRestrictionMessage('@oaknational/oak-design-ink'),
+      );
+    }
+    if (designName === 'oak-design-ink') {
+      // Ink reaches design tokens through the projection layer
+      // (oak-design-tokens), never the design system directly
+      // (ADR-041 §2026-07-19 amendment; ADR-213 §4).
+      return createPackageSpecifierPatterns(
+        ['@oaknational/oak-design-system'],
+        createDesignRestrictionMessage('@oaknational/oak-design-system'),
       );
     }
     return [];
@@ -347,6 +365,11 @@ export function createDesignBoundaryRules(designName: DesignPackage): Partial<Li
           from: '../oak-design-ink/**' as const,
           message: createDesignRestrictionMessage('@oaknational/oak-design-ink'),
         },
+        {
+          target: './src/**' as const,
+          from: '../oak-design-system/**' as const,
+          message: createDesignRestrictionMessage('@oaknational/oak-design-system'),
+        },
       ];
     }
     if (designName === 'oak-design-tokens') {
@@ -355,6 +378,15 @@ export function createDesignBoundaryRules(designName: DesignPackage): Partial<Li
           target: './src/**' as const,
           from: '../oak-design-ink/**' as const,
           message: createDesignRestrictionMessage('@oaknational/oak-design-ink'),
+        },
+      ];
+    }
+    if (designName === 'oak-design-ink') {
+      return [
+        {
+          target: './src/**' as const,
+          from: '../oak-design-system/**' as const,
+          message: createDesignRestrictionMessage('@oaknational/oak-design-system'),
         },
       ];
     }

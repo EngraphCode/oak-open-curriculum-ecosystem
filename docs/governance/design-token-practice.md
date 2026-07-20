@@ -22,10 +22,10 @@ source format for the hand-authored trees in `oak-design-tokens`.
 Pre-W3C-Recommendation living document.
 
 [ADR-213](../architecture/architectural-decisions/213-design-system-integration-and-component-architecture.md)
-supersedes this direction in part (Proposed; effective on its
-acceptance): the decided end state is that the integrated design
-system's CSS is the token source of truth and DTCG JSON is a
-generated projection of it. Until ADR-213's Stage B atomic switch
+supersedes this direction in part (Accepted 2026-07-20; the
+supersession is now in force): the decided end state is that the
+integrated design system's CSS is the token source of truth and DTCG
+JSON is a generated projection of it. Until ADR-213's Stage B atomic switch
 lands (deleting the hand-authored trees and re-pointing generation at
 the design system's export), the DTCG trees described here remain the
 live mechanism.
@@ -141,8 +141,15 @@ The `:not([data-theme='light'])` specificity trick lets an explicit
 light override win over an OS dark preference. Never set `data-theme`
 eagerly on page load — let the CSS media query govern by default.
 
-Minimum requirement: light and dark themes. High-contrast and
-reduced-motion modes are future extensions.
+The hand-authored `oak-design-tokens` pipeline gates light and dark
+themes at the WCAG AA floor. Since the design-system integration's PR3
+cycle 3, a second gate over the imported design-system dtcg export
+validates all four themes (light, dark, high-contrast, colour-safe) —
+high-contrast at AAA thresholds, the rest at the AA floor (ADR-213 §2,
+2026-07-20). This dual-gate window is deliberate: both gates run during
+the staged token-source convergence. It collapses at ADR-213 Stage B,
+when the hand-authored trees and their gate are deleted and generation
+re-points onto the design system as the single token source.
 
 ## oak-components Relationship
 

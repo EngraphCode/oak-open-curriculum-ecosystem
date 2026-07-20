@@ -137,8 +137,9 @@ design-tokens-core → oak-design-system → oak-design-tokens → oak-design-in
 - `oak-design-system` has zero runtime monorepo dependencies; its public
   surface is built CSS plus the generated DTCG export artefact — no React on
   the export surface.
-- `oak-design-tokens` depends on `oak-design-system` (token data source, from
-  ADR-213 Stage B) and `design-tokens-core`.
+- `oak-design-tokens` depends on `oak-design-system` (validator consumer of
+  the DTCG export from ADR-213's PR3 dual-gate window, 2026-07-20; token data
+  source from ADR-213 Stage B) and `design-tokens-core`.
 - `oak-design-ink` depends on `oak-design-tokens` only.
 
 The design row's constraint wording is also corrected: "consumed via built
