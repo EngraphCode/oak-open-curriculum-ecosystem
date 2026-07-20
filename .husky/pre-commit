@@ -40,9 +40,11 @@ if ! pnpm lint:shell; then
 fi
 
 echo "🔗 Checking for unused code (knip)..."
-if ! pnpm knip; then
-  echo "❌ Knip found unused files, exports, or dependencies!"
-  echo "💡 Remove the unused code, or register intended entry points in knip.config.ts"
+# knip:gate (repo-check knip-gate) also fails when knip exits 0 after a
+# swallowed config-load crash — a crashed analysis can never read as a pass (F-147).
+if ! pnpm knip:gate; then
+  echo "❌ Knip found unused code, or the knip analysis itself crashed!"
+  echo "💡 Remove the unused code, register intended entry points in knip.config.ts, or fix the crash above"
   exit 1
 fi
 

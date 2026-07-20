@@ -7,6 +7,7 @@ import {
   buildCheckProfileArtifact,
   classifyCheckFailurePhase,
   profilePostTurboGateStatus,
+  runKnipGate,
   runMarkdownlintStaged,
   runPrettierStaged,
   type RepoCheckRuntime,
@@ -150,6 +151,73 @@ describe('repo-check staged scanners', () => {
       },
     ]);
     expect(inheritedCalls[0]?.args).not.toContain(ambientDirtyFile);
+  });
+});
+
+describe('repo-check knip gate', () => {
+  function knipRuntime(input: {
+    readonly status: number;
+    readonly stdout?: string;
+    readonly stderr?: string;
+  }): {
+    readonly capturedCalls: readonly CommandCall[];
+    readonly inheritedCalls: readonly CommandCall[];
+    readonly runtime: RepoCheckRuntime;
+  } {
+    const capturedCalls: CommandCall[] = [];
+    const inheritedCalls: CommandCall[] = [];
+    return {
+      capturedCalls,
+      inheritedCalls,
+      runtime: {
+        runCaptured(command, args) {
+          capturedCalls.push({ command, args });
+          return { status: input.status, stdout: input.stdout ?? '', stderr: input.stderr ?? '' };
+        },
+        runInherited(command, args) {
+          inheritedCalls.push({ command, args });
+          return Promise.resolve(0);
+        },
+      },
+    };
+  }
+
+  it('runs knip captured (never inherited) so crash signatures stay inspectable, passing a clean run through with exit 0', async () => {
+    const { capturedCalls, inheritedCalls, runtime } = knipRuntime({
+      status: 0,
+      stdout: '✂️  Excellent!\n',
+    });
+
+    await expect(runKnipGate(runtime)).resolves.toBe(0);
+
+    expect(capturedCalls).toStrictEqual([{ command: 'pnpm', args: ['exec', 'knip'] }]);
+    expect(inheritedCalls).toStrictEqual([]);
+  });
+
+  it('propagates knip findings as the blocking exit code knip chose', async () => {
+    const { runtime } = knipRuntime({ status: 1, stdout: 'Unused exports (2)\n' });
+
+    await expect(runKnipGate(runtime)).resolves.toBe(1);
+  });
+
+  it('fails loudly when knip exits 0 after swallowing a config-load crash (F-147)', async () => {
+    const { runtime } = knipRuntime({
+      status: 0,
+      stderr:
+        'ERROR: Error loading apps/oak-search-cli/vitest.smoke.config.ts ' +
+        '(No "exports" main defined in apps/oak-search-cli/node_modules/@oaknational/env-resolution/package.json)\n',
+    });
+
+    await expect(runKnipGate(runtime)).resolves.toBe(1);
+  });
+
+  it('detects the swallowed-crash signature through ANSI colour codes', async () => {
+    const { runtime } = knipRuntime({
+      status: 0,
+      stderr: '\u001b[31mERROR\u001b[39m: Error loading packages/foo/vitest.config.ts (boom)\n',
+    });
+
+    await expect(runKnipGate(runtime)).resolves.toBe(1);
   });
 });
 

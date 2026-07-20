@@ -62,9 +62,11 @@ if ! pnpm portability:check; then
 fi
 
 echo "🔬 Running knip (unused code detection)..."
-if ! pnpm knip; then
-  echo "❌ Knip found unused code, exports, or dependencies!"
-  echo "💡 Run 'pnpm knip' to see details, then fix or remove unused items"
+# knip:gate (repo-check knip-gate) also fails when knip exits 0 after a
+# swallowed config-load crash — a crashed analysis can never read as a pass (F-147).
+if ! pnpm knip:gate; then
+  echo "❌ Knip found unused code, or the knip analysis itself crashed!"
+  echo "💡 Run 'pnpm knip:gate' to see details, then fix or remove unused items"
   exit 1
 fi
 
