@@ -109,6 +109,14 @@ describe('normaliseValue', () => {
     expect(normaliseValue('a /* runs to EOF')).toBe('a');
   });
 
+  it('keeps escaped whitespace outside quotes distinct from formatting whitespace', () => {
+    // `foo\ bar` is one ident containing an escaped space; `foo\  bar` has
+    // an additional real separator — collapsing them together masks drift.
+    // A trailing escaped space is content the edge trim must keep.
+    expect(normaliseValue(String.raw`foo\ bar`)).not.toBe(normaliseValue(String.raw`foo\  bar`));
+    expect(normaliseValue(String.raw`foo\ `)).not.toBe(normaliseValue('foo'));
+  });
+
   it('treats backslash-newline as a line continuation contributing nothing', () => {
     expect(normaliseValue(`'a\\\nb'`)).toBe(normaliseValue(`'ab'`));
     expect(normaliseValue(`'a\\\r\nb'`)).toBe(normaliseValue(`'ab'`));

@@ -147,3 +147,54 @@ function lineContinuationEnd(value: string, index: number): number | undefined {
 
   return undefined;
 }
+
+/**
+ * CSS whitespace is space, tab, LF, CR, and FF only — narrower than JS `\s`,
+ * which also matches NBSP and other Unicode spaces that CSS treats as
+ * identifier content. Collapsing or trimming with JS semantics would
+ * normalise genuinely different values (`foo\u00a0bar` vs `foo bar`) to
+ * equality, masking real drift.
+ */
+const CSS_WHITESPACE_RUN_PATTERN = /[ \t\n\r\f]+/gu;
+const CSS_WHITESPACE_CHARACTERS: ReadonlySet<string> = new Set([' ', '\t', '\n', '\r', '\f']);
+
+/** Collapse CSS whitespace runs to a single space (never JS `\s`). */
+export function collapseCssWhitespace(segment: string): string {
+  return segment.replaceAll(CSS_WHITESPACE_RUN_PATTERN, ' ');
+}
+
+/**
+ * Trim CSS whitespace from both edges (never `.trim()`). Index walk, not an
+ * anchored-alternation regex — `/^[…]+|[…]+$/g` backtracks super-linearly.
+ * A trailing ESCAPED whitespace character (`foo\ `) is identifier content
+ * and stays; a leading one cannot exist (nothing precedes it to escape it).
+ */
+export function trimCssWhitespace(value: string): string {
+  let start = 0;
+  let end = value.length;
+
+  while (start < end && CSS_WHITESPACE_CHARACTERS.has(value[start])) {
+    start += 1;
+  }
+
+  while (
+    end > start &&
+    CSS_WHITESPACE_CHARACTERS.has(value[end - 1]) &&
+    !escapedAt(value, end - 1)
+  ) {
+    end -= 1;
+  }
+
+  return value.slice(start, end);
+}
+
+/** True when the character at `index` sits behind an ODD run of backslashes. */
+function escapedAt(value: string, index: number): boolean {
+  let backslashes = 0;
+
+  while (index - backslashes - 1 >= 0 && value[index - backslashes - 1] === '\\') {
+    backslashes += 1;
+  }
+
+  return backslashes % 2 === 1;
+}

@@ -14,12 +14,8 @@
  */
 import postcss, { CssSyntaxError, type Declaration, type Root, type Rule } from 'postcss';
 import { type Result, err, ok } from '@oaknational/result';
-import {
-  collapseCssWhitespace,
-  normaliseValue,
-  splitTopLevelComma,
-  trimCssWhitespace,
-} from './consistency-values.js';
+import { collapseCssWhitespace, trimCssWhitespace } from './consistency-value-strings.js';
+import { normaliseValue, splitTopLevelComma } from './consistency-values.js';
 
 /** The two per-theme `:root` comparand maps extracted from the CSS. */
 export interface CssComparand {

@@ -11,10 +11,12 @@
  */
 import { globalTokenReferencePattern } from '@oaknational/design-tokens-core';
 import {
+  collapseCssWhitespace,
   consumeComment,
   consumeQuotedSpan,
   serialiseSpanContent,
   skipQuotedSpan,
+  trimCssWhitespace,
 } from './consistency-value-strings.js';
 
 /**
@@ -68,23 +70,43 @@ export function normaliseValue(value: string): string {
     if (character === '/' && value[index + 1] === '*') {
       outside += ' ';
       index = consumeComment(value, index);
-      continue;
-    }
-
-    if (character !== '"' && character !== "'") {
+    } else if (isContentSpanStart(value, index)) {
+      parts.push(normaliseOutsideQuotes(outside));
+      outside = '';
+      index = appendContentSpan(parts, value, index);
+    } else {
       outside += character;
       index += 1;
-      continue;
     }
-
-    parts.push(normaliseOutsideQuotes(outside));
-    outside = '';
-    index = appendCanonicalSpan(parts, value, index, character);
   }
 
   parts.push(normaliseOutsideQuotes(outside));
 
   return trimCssWhitespace(parts.join(''));
+}
+
+/** A quoted span, or an escape span outside quotes — both literal content. */
+function isContentSpanStart(value: string, index: number): boolean {
+  const character = value[index];
+
+  return (character === '\\' && index + 1 < value.length) || character === '"' || character === "'";
+}
+
+/**
+ * Push the content span at `openIndex` and return the next walk index. An
+ * escape span outside quotes (`foo\ bar`) passes through verbatim, shielded
+ * from whitespace collapsing — `foo\ bar` and `foo\  bar` are genuinely
+ * different values. Quoted spans canonicalise via `appendCanonicalSpan`.
+ */
+function appendContentSpan(parts: string[], value: string, openIndex: number): number {
+  const character = value[openIndex];
+
+  if (character === '\\') {
+    parts.push(value.slice(openIndex, openIndex + 2));
+    return openIndex + 2;
+  }
+
+  return appendCanonicalSpan(parts, value, openIndex, character);
 }
 
 /**
@@ -108,40 +130,6 @@ function appendCanonicalSpan(
 
   parts.push(serialiseSpanContent(span.content));
   return span.closingIndex + 1;
-}
-
-/**
- * CSS whitespace is space, tab, LF, CR, and FF only — narrower than JS `\s`,
- * which also matches NBSP and other Unicode spaces that CSS treats as
- * identifier content. Collapsing or trimming with JS semantics would
- * normalise genuinely different values (`foo\u00a0bar` vs `foo bar`) to
- * equality, masking real drift.
- */
-const CSS_WHITESPACE_RUN_PATTERN = /[ \t\n\r\f]+/gu;
-const CSS_WHITESPACE_CHARACTERS: ReadonlySet<string> = new Set([' ', '\t', '\n', '\r', '\f']);
-
-/** Collapse CSS whitespace runs to a single space (never JS `\s`). */
-export function collapseCssWhitespace(segment: string): string {
-  return segment.replaceAll(CSS_WHITESPACE_RUN_PATTERN, ' ');
-}
-
-/**
- * Trim CSS whitespace from both edges (never `.trim()`). Index walk, not an
- * anchored-alternation regex — `/^[…]+|[…]+$/g` backtracks super-linearly.
- */
-export function trimCssWhitespace(value: string): string {
-  let start = 0;
-  let end = value.length;
-
-  while (start < end && CSS_WHITESPACE_CHARACTERS.has(value[start])) {
-    start += 1;
-  }
-
-  while (end > start && CSS_WHITESPACE_CHARACTERS.has(value[end - 1])) {
-    end -= 1;
-  }
-
-  return value.slice(start, end);
 }
 
 function normaliseOutsideQuotes(segment: string): string {
