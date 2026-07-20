@@ -4217,6 +4217,7 @@ mechanical pass of its own).
   observed live; the same design that produces the F-41 homing hazard (one-property-two-faces,
   per the fresh-checkout-experience exploration report at
   `.agent/reports/fresh-checkout-experience-concept-exploration-2026-07-20.md`).
+
 ## 2026-07-20 — Deimos tracks Perigee (73e4ab): fresh-checkout collaboration-substrate frictions
 
 Owner named this session "a good opportunity to improve the fresh checkout experience";
