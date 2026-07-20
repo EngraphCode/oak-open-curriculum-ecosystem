@@ -53,8 +53,9 @@ named home.
 **Prevalence** (sweep): confirmed misfits are bounded, not systemic, and cluster in
 named classes — sdk-codegen config-mirror tests, frozen-allowlist content-scan tests,
 type-anchor shapes, a tautological version check, and one live-data duplicate. The
-appendix is the instance inventory; counts are non-load-bearing (an open corpus makes
-any closed count a moving target). A further set of correct-but-unnamed patterns today
+appendix enumerates verified exemplars of these classes as of the sweep's tree — an
+open set, never a closed inventory; counts are non-load-bearing (an open corpus makes
+any closure claim a moving target). A further set of correct-but-unnamed patterns today
 survives on per-file self-justification and reviewer judgment.
 
 **Mechanism**: proof-kind choice happens at authoring speed under gate pressure; the
@@ -170,11 +171,13 @@ recorded nowhere.
   (proposal 5's falsifier)~~ RESOLVED on PR #423 (2026-07-20): removed as a pure
   re-proof; the wiring smoke and the two declared threshold exemplars stay.
 
-## Evidence appendix — enumerated instances
+## Evidence appendix — verified exemplars (an open set)
 
-Every instance below was quote-verified by the scanner that reported it and is
+Every exemplar below was quote-verified by the scanner that reported it and is
 re-verifiable at the cited location. Paths are repo-relative; lines are as of the sweep's
-tree (main at `13c5fbc63` plus the merged PR #412 branch).
+tree (main at `13c5fbc63` plus the merged PR #412 branch). The estate moves: this
+appendix cites verified members of each class at that tree, never a closed inventory of
+the class.
 
 **Config-mirror misfits (proposal 6's seven):**
 
@@ -200,6 +203,17 @@ dummy-consuming `it()` at
 `packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/generate-types-file.unit.test.ts:36`;
 the public-API drift anchor at
 `packages/design/design-tokens-core/src/contrast-manifest-parse.ts:59`.
+
+**Typed-`JSON.parse` alias exemplars (the synthesis's defences-seam misfit; current
+tree of this PR):** three launder type-forbidden shapes past the compiler for negative
+tests — `packages/design/design-tokens-core/src/colour-literals.unit.test.ts:68` (array
+root) and `:150` (array node), and
+`packages/design/design-tokens-core/src/contrast-resolve.unit.test.ts:195` (non-string
+`$value` object); two construct VALID own-`__proto__` keys where plain object literals
+cannot (JSON-fidelity necessity, not type-forbidden laundering — a distinct, legitimate
+purpose proposal 2's scope must carve out) —
+`packages/design/design-tokens-core/src/compose-theme-tree.unit.test.ts:163` and
+`packages/design/design-tokens-core/src/overlay-coverage.unit.test.ts:133`.
 
 **Other remediation-list instances:**
 test-of-a-test-helper at
