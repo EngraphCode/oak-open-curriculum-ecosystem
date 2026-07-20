@@ -56,7 +56,7 @@ function ChipList({
   );
 }
 
-/** Pill tint per statement type (default white for the unmapped case). */
+/** Pill tint per statement type (default: the base surface role for the unmapped case). */
 function pillTintOf(typeVariant: StandardDetailVM['typeVariant']): string {
   if (typeVariant === 'required') {
     return 'bg-decorative-5';

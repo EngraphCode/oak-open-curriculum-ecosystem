@@ -22,7 +22,7 @@ export function Notice({
   );
 }
 
-/** A clickable result row: black-bordered white pill with a lemon hover shadow, matching the
+/** A clickable result row: a line-bordered surface-role pill with an accent hover shadow, matching the
  *  card affordance elsewhere on the hub. Used by both local-search groups below. */
 const rowLinkClass =
   'flex items-center gap-3 rounded-xl border-2 border-line bg-surface px-4 py-3 text-ink no-underline transition-shadow hover:shadow-accent-brand';
