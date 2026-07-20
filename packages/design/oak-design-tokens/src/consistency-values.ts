@@ -50,12 +50,14 @@ export function normaliseValue(value: string): string {
   // different values compare equal.
   const parts: string[] = [];
   let outside = '';
+  let index = 0;
 
-  for (let index = 0; index < value.length; index += 1) {
+  while (index < value.length) {
     const character = value[index];
 
     if (character !== '"' && character !== "'") {
       outside += character;
+      index += 1;
       continue;
     }
 
@@ -64,7 +66,7 @@ export function normaliseValue(value: string): string {
 
     const span = consumeQuotedSpan(value, index + 1, character);
     parts.push(`'${span.content}'`);
-    index = span.closingIndex;
+    index = span.closingIndex + 1;
   }
 
   parts.push(normaliseOutsideQuotes(outside));
