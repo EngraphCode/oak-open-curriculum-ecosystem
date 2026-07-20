@@ -4839,3 +4839,25 @@ PR; both are docs-adr-expert follow-ups. (The type-expert's "compile-green tree 
 silently rename emitted CSS variables" Stage-B hazard is homed — it is exactly what the
 consistency-check validator, task #5, exists to guard: the `oak.color.x`→`--oak-x` naming
 transform.)
+
+## [Galago stirs Grotto 60d988] 2026-07-20 ~09:00Z — Director tenure: the moment-read slot grant, caught by defence-in-depth
+
+- **My instance of the moment-vs-state class** (the pr-lifecycle skill calls it ~50th
+  estate instance; first as a routing-layer error): granted #423's merge slot at 08:52:00Z
+  on a first-hand CLEAN + 0-threads + checks-green read — a MOMENT — where the skill's
+  review-round state machine demands a SETTLED ROUND (every reviewer leg satisfied/skipped
+  for the tip + >10-min quiet window since the latest tip-bound review). Copilot wave 3
+  landed at 08:52:21Z, 21 seconds after the grant, 3 threads on the same tip. The
+  executing seat's merge-boundary recompute (Moth) caught it — the two-layer gate held
+  exactly as designed. Rescind + failure-mode capture on comms; round converging 7→3.
+- **Routing-layer cure adopted drive-wide**: a merge slot is granted only on
+  settled-round evidence — zero threads AND zero body-tally findings on the tip, every
+  expected reviewer leg satisfied/skipped, >10 min since the latest tip-bound review,
+  checks green — and the executing seat still recomputes at the merge boundary. READY
+  reports carry the latest tip-bound review timestamp so the quiet window is checkable.
+  The generator: GitHub's composite fields are cheap and look authoritative, so every
+  layer (shepherd, Director) reaches for the moment; the cure must exist at EVERY layer
+  that makes a merge-shaped call, not just the shepherd's.
+- **Note for the merge-queue card at drive close**: a GitHub merge queue subsumes the
+  up-to-date treadmill but NOT the composing-round race — the queue enforces GitHub's own
+  conjunction, which excludes the round-owed leg. The card should say both.
