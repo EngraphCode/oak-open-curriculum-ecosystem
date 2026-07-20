@@ -31,11 +31,15 @@ const permissionFailure = Object.assign(new Error("EACCES: permission denied, op
 });
 
 describe('readActiveClaimsFile on a fresh checkout', () => {
-  it('yields an Err whose message embeds the complete registry seed', async () => {
+  it('yields an Err whose message embeds the complete registry seed behind a verify-first instruction', async () => {
     const error = unwrapErr(await readActiveClaimsFile('active-claims.json', missingFile));
 
     expect(error.message).toContain('active-claims registry not found');
     expect(error.message).toContain('untracked-by-design');
+    // Verify-then-seed: a mistyped explicit path also ENOENTs, and seeding
+    // there would create the decoy this error exists to prevent.
+    expect(error.message).toContain('FIRST verify the path');
+    expect(error.message).toContain('do NOT seed at the wrong location');
     expect(error.message).toContain(EMPTY_ACTIVE_CLAIMS_REGISTRY_JSON);
   });
 
@@ -65,11 +69,12 @@ describe('readActiveClaimsFile on a fresh checkout', () => {
 });
 
 describe('readClosedClaimsFile on a fresh checkout', () => {
-  it('yields an Err whose message embeds the complete archive seed', async () => {
+  it('yields an Err whose message embeds the complete archive seed behind a verify-first instruction', async () => {
     const error = unwrapErr(await readClosedClaimsFile('closed-claims.archive.json', missingFile));
 
     expect(error.message).toContain('closed-claims archive not found');
     expect(error.message).toContain('untracked-by-design');
+    expect(error.message).toContain('FIRST verify the path');
     expect(error.message).toContain(EMPTY_CLOSED_CLAIMS_ARCHIVE_JSON);
   });
 

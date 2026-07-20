@@ -23,6 +23,11 @@ export const EMPTY_CLOSED_CLAIMS_ARCHIVE_JSON = '{ "schema_version": "1.3.0", "c
 
 /**
  * Build the actionable missing-state-file error for a reader that met ENOENT.
+ *
+ * The instruction is verify-then-seed, never seed-unconditionally: a
+ * mistyped explicit path also ENOENTs, and seeding THERE would create a
+ * valid empty registry at the wrong location that then reports "no claims"
+ * — the exact decoy outcome this error exists to prevent.
  */
 export function missingStateFileError(input: {
   readonly label: string;
@@ -33,7 +38,11 @@ export function missingStateFileError(input: {
   return new Error(
     `${input.label} not found at ${input.path}. On a fresh checkout or new worktree this ` +
       `file is untracked-by-design (ADR-199 / PDR-094) and does not exist until seeded. ` +
-      `Seed it with exactly this content, then re-run:\n${input.seedJson}`,
+      `FIRST verify the path: the canonical home is the PRIMARY checkout (the first entry ` +
+      `in \`git worktree list --porcelain\`) under .agent/state/collaboration/. If the path ` +
+      `above is not that, correct the path — do NOT seed at the wrong location (it would ` +
+      `create a decoy that reports "no claims"). If it is the canonical path, seed it with ` +
+      `exactly this content, then re-run:\n${input.seedJson}`,
     { cause: input.cause },
   );
 }
