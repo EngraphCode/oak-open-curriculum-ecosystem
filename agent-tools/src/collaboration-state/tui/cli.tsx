@@ -1,5 +1,7 @@
 import { render } from 'ink';
 
+import { unwrapOrThrow } from '@oaknational/result';
+
 import { optional, type Options } from '../cli-options.js';
 import { cliIo, type CliRuntime, waitForCollaborationStateChange } from '../cli-runtime.js';
 
@@ -48,8 +50,8 @@ async function loadCollaborationTuiSnapshot(
 ): Promise<CollaborationTuiSnapshot> {
   const io = cliIo(runtime);
   const nowIso = config.nowIso ?? new Date().toISOString();
-  const registry = await io.readActiveClaimsFile(config.activePath);
-  const closedArchive = await io.readClosedClaimsFile(config.closedPath);
+  const registry = unwrapOrThrow(await io.readActiveClaimsFile(config.activePath));
+  const closedArchive = unwrapOrThrow(await io.readClosedClaimsFile(config.closedPath));
   const events = await io.readCommsEvents(config.commsDir);
 
   return buildCollaborationTuiSnapshot({

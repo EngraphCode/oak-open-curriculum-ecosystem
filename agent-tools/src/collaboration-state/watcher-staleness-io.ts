@@ -11,11 +11,8 @@
  */
 import { readFile, stat } from 'node:fs/promises';
 
+import { isErrnoCode } from './errno.js';
 import { type WatcherStalenessIo } from './watcher-staleness.js';
-
-function hasErrnoCode(error: unknown, code: string): boolean {
-  return typeof error === 'object' && error !== null && 'code' in error && error.code === code;
-}
 
 export const productionWatcherStalenessIo: WatcherStalenessIo = {
   readTextFile: (filePath) => readFile(filePath, 'utf8'),
@@ -24,7 +21,7 @@ export const productionWatcherStalenessIo: WatcherStalenessIo = {
       const stats = await stat(filePath);
       return stats.mtimeMs;
     } catch (error) {
-      if (hasErrnoCode(error, 'ENOENT')) {
+      if (isErrnoCode(error, 'ENOENT')) {
         return 'missing';
       }
       throw error;

@@ -1,3 +1,5 @@
+import { unwrapOrThrow, type Result } from '@oaknational/result';
+
 import { assertNoLiveIdentityRoutingCollision } from './active-agents.js';
 import { required, type Options } from './cli-options.js';
 import { readActiveClaimsFile } from './state-io.js';
@@ -11,12 +13,14 @@ export async function assertIdentityCanWrite(input: {
   readonly agentId: CollaborationAgentId;
   readonly nowIso: string;
   readonly surface: string;
-  readonly readActiveClaimsFile?: (activePath: string) => Promise<CollaborationRegistry>;
+  readonly readActiveClaimsFile?: (
+    activePath: string,
+  ) => Promise<Result<CollaborationRegistry, Error>>;
 }): Promise<void> {
   const readActive = input.readActiveClaimsFile ?? readActiveClaimsFile;
 
   assertNoLiveIdentityRoutingCollision({
-    registry: await readActive(required(input.options, 'active')),
+    registry: unwrapOrThrow(await readActive(required(input.options, 'active'))),
     nowIso: input.nowIso,
     agentId: input.agentId,
     surface: input.surface,
