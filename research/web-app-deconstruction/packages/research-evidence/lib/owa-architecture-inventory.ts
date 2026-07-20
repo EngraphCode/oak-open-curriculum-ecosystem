@@ -10,6 +10,23 @@ import type * as TypeScriptNamespace from 'typescript';
 
 type TypeScriptApi = typeof TypeScriptNamespace;
 
+/**
+ * Structural spot-check of the dynamically required compiler module — the
+ * probe uses the MEASURED checkout's TypeScript, so the module enters as
+ * unknown and is verified on the members the analysis relies on before it
+ * is trusted as the compiler API.
+ */
+function isTypeScriptApi(value: unknown): value is TypeScriptApi {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    'createSourceFile' in value &&
+    typeof value.createSourceFile === 'function' &&
+    'ScriptTarget' in value &&
+    typeof value.ScriptTarget === 'object'
+  );
+}
+
 const run = promisify(execFile);
 
 export interface ImportShapeInput {
@@ -398,7 +415,11 @@ export async function buildOwaArchitectureInventory(
   const sources = await readSources(analysedFiles);
 
   const requireFromOwa = createRequire(path.join(owaRoot, 'package.json'));
-  const ts: TypeScriptApi = requireFromOwa(await resolvePackage(requireFromOwa, 'typescript'));
+  const requiredTs: unknown = requireFromOwa(await resolvePackage(requireFromOwa, 'typescript'));
+  if (!isTypeScriptApi(requiredTs)) {
+    throw new Error('resolved "typescript" module does not expose the expected compiler API');
+  }
+  const ts: TypeScriptApi = requiredTs;
   const knownFiles = new Set(analysedFiles);
   const relative = (file: string): string => normaliseRelative(owaRoot, file);
 

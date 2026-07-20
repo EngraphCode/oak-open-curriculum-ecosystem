@@ -21,8 +21,11 @@ parsers have focused tests in
 [`database-api-chain-inventory.test.ts`](../../../packages/research-evidence/tests/database-api-chain-inventory.test.ts).
 The extended
 [`validate-concept-lens-links`](../../../packages/research-evidence/scripts/validate-concept-lens-links.ts)
-checks every pinned Database-Tools, oak-openapi and OCE blob path and line range
-against the recorded Git objects.
+checks the retained public OCE blob paths and line ranges for this tree
+against the recorded Git objects; pinned Database-Tools and oak-openapi
+anchors were reduced to plain-text citations in this public projection, so
+their full anchor validation belongs to the private master (those checkouts
+are validated only when supplied explicitly).
 
 **Evidence limit:** A tracked path establishes source structure at one revision.
 It does not establish deployed version, live database shape, endpoint traffic,

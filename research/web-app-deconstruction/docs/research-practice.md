@@ -35,11 +35,15 @@ Source-measurement experiments remain separate because they require the pinned
 sibling repositories and their installed dependencies.
 
 Run `pnpm research:concept-links` whenever either Concept Explorer portfolio or
-the Database/API/OCE authority-chain corpus changes. The command validates the
-OWA/Components portfolio and every record in the database authority-chain tree;
-it requires sibling OWA, Components, Database-Tools, oak-openapi and OCE
-checkouts whose HEADs are the revisions named by the records. It reads the
-committed Git blobs, reports working-tree cleanliness, and verifies every pinned
-source path and line range. It does not validate claim meaning. It is a local
-evidence check rather than a CI requirement because the sibling source
+the Database/API/OCE authority-chain corpus changes. In this public projection
+the command validates the OWA/Components portfolio anchors and the retained
+OCE anchors of the database authority-chain tree; it requires the sibling OWA,
+Components and OCE checkouts whose HEADs are the revisions named by the
+records. Pinned links into the private Database-Tools and oak-openapi
+repositories were reduced to plain-text citations here (ADR-215 Decision 4),
+so the full private-anchor validation runs in the private master — those
+checkouts are validated only when supplied explicitly. It reads the committed
+Git blobs, reports working-tree cleanliness, and verifies every pinned source
+path and line range it validates. It does not validate claim meaning. It is a
+local evidence check rather than a CI requirement because the sibling source
 repositories are not part of this repository checkout.

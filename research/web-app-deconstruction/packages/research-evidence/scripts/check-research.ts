@@ -22,6 +22,9 @@ const portableExtensions = new Set([
   '.json',
   '.md',
   '.mjs',
+  // path.extname of `*.ts.template` is `.template` — fixtures in template
+  // form are portable source text and take the same publication scans.
+  '.template',
   '.ts',
   '.tsx',
   '.yaml',

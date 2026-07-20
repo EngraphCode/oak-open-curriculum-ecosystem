@@ -10,6 +10,22 @@ interface PackageManifest {
   version: string;
 }
 
+/**
+ * Validate the manifest shape from unknown — the parsed JSON never assigns
+ * to the trusted interface unchecked.
+ */
+function parsePackageManifest(text: string, source: string): PackageManifest {
+  const parsed: unknown = JSON.parse(text);
+  if (typeof parsed !== 'object' || parsed === null) {
+    throw new Error(`${source}: expected a JSON object`);
+  }
+  if (!('version' in parsed) || typeof parsed.version !== 'string') {
+    throw new Error(`${source}: expected a string "version" field`);
+  }
+  const name = 'name' in parsed && typeof parsed.name === 'string' ? parsed.name : undefined;
+  return { name, version: parsed.version };
+}
+
 export interface RepositoryInfo {
   package: string;
   version: string;
@@ -23,7 +39,7 @@ export async function assertRepository(
 ): Promise<RepositoryInfo> {
   const manifestPath = path.join(root, 'package.json');
   await access(path.join(root, '.git'));
-  const manifest: PackageManifest = JSON.parse(await readFile(manifestPath, 'utf8'));
+  const manifest = parsePackageManifest(await readFile(manifestPath, 'utf8'), manifestPath);
   if (manifest.name !== expectedName) {
     throw new Error(
       `Expected ${root} to contain package ${expectedName}; found ${manifest.name ?? 'no name'}`,

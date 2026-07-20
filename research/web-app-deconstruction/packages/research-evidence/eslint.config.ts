@@ -31,10 +31,6 @@ const toolingRelaxations = {
   // Deterministic code-unit ordering is required for reproducible evidence
   // snapshots; localeCompare (what the rule wants) would change the order.
   'sonarjs/no-alphabetical-sort': 'off',
-  // The tools parse trusted local JSON (package.json, git output, OpenAPI
-  // schemas) with `const x: Interface = JSON.parse(...)`, annotating the shape
-  // at the boundary; runtime schema validation is disproportionate here.
-  '@typescript-eslint/no-unsafe-assignment': 'off',
   // Intentional ANSI-escape (\x1b) stripping of captured terminal output.
   'no-control-regex': 'off',
   // The runtime probes use the TypeScript and Node module compiler/runtime
@@ -66,6 +62,17 @@ const config = defineConfigArray(
       },
     },
     rules: toolingRelaxations,
+  },
+  {
+    // Probe tooling parses trusted local artefacts of the MEASURED sibling
+    // checkouts (their package.json, git output, OpenAPI schemas) with the
+    // shape annotated at the call site — the developer's own checkouts, the
+    // same trust class as the build-scripts relaxations above. The
+    // validation layer in lib/ keeps the rule ON.
+    files: ['scripts/**/*.ts'],
+    rules: {
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+    },
   },
   {
     files: ['tests/**/*.ts'],
