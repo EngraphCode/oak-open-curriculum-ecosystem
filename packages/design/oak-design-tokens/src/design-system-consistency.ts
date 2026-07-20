@@ -45,6 +45,10 @@ type ConsistencyMismatch =
   | {
       readonly kind: 'unaccounted_css_variable';
       readonly variable: string;
+    }
+  | {
+      readonly kind: 'unused_allowlist_entry';
+      readonly variable: string;
     };
 
 /** Failure surface of the consistency comparison itself. */
@@ -159,6 +163,19 @@ function findUnaccountedVariables(
   for (const variable of variables) {
     if (!lightIndex.has(variable) && !allowlist.has(variable)) {
       unaccounted.push({ kind: 'unaccounted_css_variable', variable });
+    }
+  }
+
+  // The allowlist is checked in BOTH directions: an entry earns its place
+  // only while it exempts a live CSS extra. A removed variable, or one that
+  // has since gained a dtcg counterpart, leaves a stale exemption that would
+  // silently re-admit the very drift the allowlist exists to declare —
+  // report it so the list is recomputed against reality, never ratified.
+  for (const entry of allowlist) {
+    const exemptsLiveExtra = variables.has(entry) && !lightIndex.has(entry);
+
+    if (!exemptsLiveExtra) {
+      unaccounted.push({ kind: 'unused_allowlist_entry', variable: entry });
     }
   }
 

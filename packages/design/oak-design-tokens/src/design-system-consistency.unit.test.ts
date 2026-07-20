@@ -287,6 +287,34 @@ describe('compareDesignSystemConsistency', () => {
     expect(report.mismatches.every((mismatch) => mismatch.kind === 'value_mismatch')).toBe(true);
   });
 
+  it('reports an allowlist entry whose CSS variable no longer exists', () => {
+    const input = baseInput();
+    const report = assertOk(
+      compareDesignSystemConsistency({
+        ...input,
+        nonTokenAllowlist: ['--canvas-rows', '--retired-plumbing'],
+      }),
+    );
+
+    expect(report.mismatches).toEqual([
+      { kind: 'unused_allowlist_entry', variable: '--retired-plumbing' },
+    ]);
+  });
+
+  it('reports an allowlist entry whose variable has gained a dtcg counterpart', () => {
+    const input = baseInput();
+    const report = assertOk(
+      compareDesignSystemConsistency({
+        ...input,
+        nonTokenAllowlist: ['--canvas-rows', '--bg-primary'],
+      }),
+    );
+
+    expect(report.mismatches).toEqual([
+      { kind: 'unused_allowlist_entry', variable: '--bg-primary' },
+    ]);
+  });
+
   it('treats an escaped quote and its unescaped double-quoted spelling as the same value', () => {
     const input = baseInput();
     const report = assertOk(
