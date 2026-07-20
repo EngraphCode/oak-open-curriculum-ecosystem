@@ -4,7 +4,8 @@ fitness_line_limit: 1100
 fitness_char_limit: 70000
 fitness_line_length: 100
 fitness_content_role: reference
-overflow_disposition: 'leave-if-live; else conserve-insight-and-delete — never archive/split/rotate/shard (see continuity-practice.md §Disposition of Continuity Surfaces)'
+overflow_disposition: 'leave-if-live; else conserve-insight-and-delete — never
+archive/split/rotate/shard (see continuity-practice.md §Disposition of Continuity Surfaces)'
 merge_class: index-narrative-tables
 ---
 
@@ -24,7 +25,9 @@ merge_class: index-narrative-tables
 Thread: `main-critical-sonar-remediation`  
 Branch: `fix/sonar-fixes-20260506`  
 Primary plan (archived on retirement):
-`main-critical-sonar-rebuild-from-updated-main.plan…` (`../../../../plans-old-archive/architecture-and-infrastructure/archive/superseded/main-critical-sonar-rebuild-from-updated-main.plan.superseded-by-ai-profile-to-zero-2026-06-24.md`)
+`main-critical-sonar-rebuild-from-updated-main.plan…` (`../../../../plans-old-archive/architecture-
+and-infrastructure/archive/superseded/main-critical-sonar-rebuild-from-updated-main.plan.superseded-
+by-ai-profile-to-zero-2026-06-24.md`)
 
 ## Participating Agent Identities
 

@@ -69,6 +69,15 @@ weight should be low so the comms stream stays scannable.
 ### Canonical invocation — platform background-task primitive
 
 Run a 4-minute-cadence loop that emits a heartbeat event each cycle.
+**A claim-holding seat's loop bumps BOTH liveness surfaces every tick**:
+the comms heartbeat event AND the claims registry
+(`claims heartbeat --active <path> --claim-id <id> …`). The two are
+distinct mechanisms — a comms-only loop leaves the registry's
+`heartbeat_at` silently stale for the whole tenure (F-92; worked
+instance 2026-07-15: a Director seat read continuously live on the
+comms stream while its claim read stale for ~15 hours, peer-caught at
+succession). Neither surface alone is liveness: the comms stream is
+authoritative for intent, the registry check for age.
 Platform-specific shapes:
 
 - **Claude Code**: the `Monitor` tool with `persistent: true` and a

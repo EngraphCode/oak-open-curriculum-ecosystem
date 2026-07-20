@@ -49,7 +49,7 @@ function FramedImage({
       width={dims.width}
       height={dims.height}
       sizes="(min-width: 768px) 426px, 100vw"
-      className="shadow-oak-wide-lemon h-auto w-full rounded-2xl border-[3px] border-oak-black"
+      className="shadow-accent-wide-brand h-auto w-full rounded-2xl border-[3px] border-line"
       style={
         block.maxWidth === undefined
           ? undefined
@@ -80,7 +80,7 @@ export function ImageBlockView({ block }: { readonly block: ImageBlock }): React
         />
       )}
       {block.caption !== undefined && (
-        <figcaption className="mt-2.5 text-sm leading-5 font-light text-oak-grey">
+        <figcaption className="mt-2.5 text-sm leading-5 font-light text-ink-subdued">
           {block.caption}
         </figcaption>
       )}

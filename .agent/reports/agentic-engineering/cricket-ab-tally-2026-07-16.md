@@ -234,3 +234,45 @@ events cited".
 
 — Galago stirs Grotto (60d988), Director, self-adjudicated with the correction executed
 before this entry (comms/record trail: the 10:00Z pair dispatch, record edit)
+
+## 2026-07-20 — Forge-tenure batch (five divergences, 13:28Z–16:02Z; class cure evolved twice)
+
+Appended at the dedicated consolidation from the Director's tally batch (the
+consolidation brief item 3 + directed adjudication events; sources first-hand-read).
+
+- **Goshawk 13:28Z + Eagle 13:32Z — DIVERGENT, one class, five minutes apart**
+  (haiku PROPORTION leg refusing to bridge grounding the invoker held but did not
+  supply). Adjudicated identically: divergence-explained (context-supply), no
+  redirection adopted. **Class cure v2, standing for all seats**: cite the
+  first-hand grounding (event ids, command outputs, SHAs) for any
+  boundary-crossing claim in a pair's supplied frame.
+- **Goshawk 15:01Z — DIVERGENT (CONSUMER leg)**; same family: the frame asserted a
+  consumer the citations did not carry.
+- **Goshawk 15:59Z — DIVERGENT; the haiku's evidence bar observably RISING**: it
+  now refuses summarised evidence and demands pointer-level artefacts. **Class
+  cure v3**: frames cite pointer-level artefacts, not summaries.
+- **Foehn 16:02Z — DIVERGENT, first substantively UNSAFE redirection**: the haiku
+  read "quiet window" in its plain-English sense and collided with the owner's
+  no-quiet-holds directive — its redirection would have breached the drive's slot
+  machinery had it been followed. Adjudication: the settled-round predicate's
+  quiet window is a mechanical review-settlement gate binding grants; the owner's
+  word targets idle seats. **Class cure v4 (final form this window)**: a frame
+  must DEFINE any drive-specific term whose plain reading collides with a
+  standing owner directive.
+
+**Running pattern after eleven 2026-07-20 pairs**: uncited frames diverge; cited
+frames converge; a cited frame with an uncited count diverged productively (the
+first substantiated haiku fact-catch, 10:00Z); and an undefined colliding term
+diverges UNSAFELY (16:02Z). The haiku leg behaves as designed throughout — every
+divergence this window traced to frame quality, not verdict quality.
+
+**Open item for the experiment's next review (evidence-bar economics)**: the
+haiku's rising evidence bar is simultaneously the experiment's chief value
+(it forces citable frames, and once caught a real fact defect the fluent judge
+bridged) and its chief cost (frame-authoring burden per pair, now including
+term-definition duty). The flip decision should weigh both sides against the
+originally-declared ~8–10 v3-era-pair threshold, which is now met or nearly met —
+route the flip call to the owner with this batch as evidence.
+
+— appended by Siren lifts Trench (af11f9), dedicated consolidation, from the
+Forge rides Brimstone (398e24) tenure batch

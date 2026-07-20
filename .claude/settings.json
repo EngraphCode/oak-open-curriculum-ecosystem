@@ -90,6 +90,10 @@
       "Skill(oak-undo-change:*)",
       "Skill(oak-curator-pass)",
       "Skill(oak-curator-pass:*)",
+      "Skill(oak-free-play)",
+      "Skill(oak-knowledge-safety-sweep)",
+      "Skill(oak-retrospective)",
+      "Skill(oak-wrap)",
       "mcp__plugin_vercel_vercel__get_project"
     ],
     "deny": [

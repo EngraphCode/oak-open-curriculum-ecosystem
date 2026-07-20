@@ -34,6 +34,46 @@ catches 7- to 40-character hexadecimal tokens (with at least one
 a-f character) at write-time. The deny payload surfaces the citation
 *"Moving targets do not belong in permanent docs"*.
 
+## Authoring-Time Open-Set Clause (any prose artefact entering review)
+
+A closure claim over an open or moving set is a moving target even when it
+contains no SHA or version number. Counts ("all 131 functional tokens"),
+closed class-sets ("the three kinds of X"), "global"/"complete" audit-scope
+assertions, appendices claiming to be *the* inventory, pinned argv or proof
+commands for work that has not yet run, and present-tense statuses of
+in-flight work are all closure-shaped claims: a per-push reviewer re-reads
+each one against the surface as it now is, and each round falsifies another
+member.
+
+The named mechanism (worked evidence 2026-07-20: seven review arcs across
+five document classes in one merge drive, every non-convergence traced to
+this one generator): **closure claims survive kills by climbing one
+abstraction level** — a falsified count becomes a closed class-set, a killed
+class-set becomes a pinned procedure, a killed procedure becomes a
+closed catalogue of named failure classes used in diagnosis. Killing the
+instance does not kill the generator; the arc cannot converge while the
+claims stay closure-shaped.
+
+The cure, applied at AUTHORING time, in any prose artefact that will be
+read against a living surface — reports, PR narratives and descriptions,
+plan proof clauses, audit appendices, review dispositions, not only the
+permanent docs this rule's hook covers:
+
+- State open sets as **classes with dated exemplars of an explicitly open
+  set**, never as exhaustive enumerations.
+- Make counts and closure claims **non-load-bearing by default**: nothing
+  downstream may depend on the count being current. A count that must be
+  load-bearing is derived at read time from its source, not authored.
+- Scope claims name what was **actually swept** (surfaces, method, date),
+  never "global"/"complete"/"the inventory".
+- Prescriptions for unrun work are **invariants plus a promotion trigger**,
+  never pinned argv, pinned proof output, or mechanics fixed at landing
+  time (see `future-work-items-are-pointers`).
+- In diagnosis, read the entire governing surface unfiltered before
+  hypothesis-matching, and treat any catalogue of named failure classes as
+  an open set — pattern-matching against a closed catalogue is this same
+  generator applied to reasoning.
+
 ## Scope: Portable Surfaces Only
 
 Per [PDR-079](../practice-core/decision-records/PDR-079-pdr-vs-adr-portability-distinction.md)

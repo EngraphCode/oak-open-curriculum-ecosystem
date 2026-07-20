@@ -15,6 +15,11 @@ import { z } from 'zod';
 
 import { describeThrown } from './support';
 
+/** Reserved `pairId` scope for judgments that apply to EVERY pair (e.g. a
+ *  token-source migration shifting values across all captures). The report
+ *  renders these in their own section; they are never orphan candidates. */
+export const GLOBAL_PAIR_ID = 'global';
+
 const DispositionSchema = z.enum(['fix', 'deliberate', 'investigate', 'matched', 'superseded']);
 
 const FindingKindSchema = z.enum(['visual', 'feature', 'content', 'token']);
@@ -23,7 +28,8 @@ const RegisterEntrySchema = z
   .object({
     /** `<pairId>/<finding-slug>` — stable across export refreshes. */
     id: z.string().regex(/^[a-z0-9-]+\/[a-z0-9-]+$/),
-    /** The pairing-map pair this finding was observed on. */
+    /** The pairing-map pair this finding was observed on, or the reserved
+     *  {@link GLOBAL_PAIR_ID} scope for findings that apply to every pair. */
     pairId: z.string().regex(/^[a-z0-9-]+$/),
     kind: FindingKindSchema,
     summary: z.string().min(1),

@@ -4,7 +4,8 @@ fitness_line_limit: 1100
 fitness_char_limit: 70000
 fitness_line_length: 100
 fitness_content_role: reference
-overflow_disposition: 'leave-if-live; else conserve-insight-and-delete — never archive/split/rotate/shard (see continuity-practice.md §Disposition of Continuity Surfaces)'
+overflow_disposition: 'leave-if-live; else conserve-insight-and-delete — never
+archive/split/rotate/shard (see continuity-practice.md §Disposition of Continuity Surfaces)'
 merge_class: index-narrative-tables
 ---
 > **RETIRED — thread completed 2026-04-29.** PR #90 (`fix/build_issues` →
@@ -114,7 +115,8 @@ closure register at
    detection gap that Cursor Bugbot caught twice on this PR.
 3. **`eslint-plugin-sonarjs` rule activation** — owned by the existing
    multi-phase plan
-   `sonarjs-activation-and-sonarcloud-backlog.plan.md` (`../../../../plans-old-archive/architecture-and-infrastructure/archive/sonarjs-activation-and-sonarcloud-backlog.plan.md`).
+   `sonarjs-activation-and-sonarcloud-backlog.plan.md` (`../../../../plans-old-archive/architecture-
+   and-infrastructure/archive/sonarjs-activation-and-sonarcloud-backlog.plan.md`).
    The 12 Sonar fixes landed in `78718b3b` reduce the activation backlog.
 
 ## Session Shape and Grounding Order
