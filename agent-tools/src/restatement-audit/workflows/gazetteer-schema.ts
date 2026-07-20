@@ -25,11 +25,14 @@ import { parseWithSchema } from '../../core/schema-parse.js';
 import { factKeyComponent } from '../schemas.js';
 
 /**
- * Canonical subject ids are fact-key components: the `:` join-delimiter ban that the
- * finder schema enforces binds gazetteer ids too, or a listed id could never survive the
- * exact-key join it exists to enable.
+ * Canonical subject ids are the record VALUES (`flattenGazetteerSubjects` iterates
+ * values; the keys are category names such as `gates` or `tools`). The ids are fact-key
+ * components, so the `:` join-delimiter ban the finder schema enforces binds each listed
+ * id — a listed id could never survive the exact-key join it exists to enable. Category
+ * keys share the ban: they are prompt-facing labels with no legitimate `:` use, and a
+ * delimiter there reads as id structure.
  */
-const subjectsSchema = z.record(factKeyComponent, z.array(z.string().min(1)));
+const subjectsSchema = z.record(factKeyComponent, z.array(factKeyComponent));
 
 /**
  * The strict v1 envelope of the committed gazetteer file — the file-read boundary.

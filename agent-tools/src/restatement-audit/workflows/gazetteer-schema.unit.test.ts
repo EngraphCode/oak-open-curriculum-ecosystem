@@ -23,18 +23,28 @@ describe('parseGazetteerFile', () => {
     expect(isErr(parseGazetteerFile({ ...file, version: 'gazeteer.v1' }))).toBe(true);
   });
 
-  it('rejects a subject id containing ":" — the fact-key join delimiter ban binds gazetteer ids too', () => {
+  it('rejects a category KEY containing ":" — a delimiter in a category label reads as id structure', () => {
     expect(isErr(parseGazetteerFile({ ...file, subjects: { 'gates:G1': ['G1'] } }))).toBe(true);
+  });
+
+  it('rejects a canonical subject id (record VALUE) containing ":" — the fact-key join delimiter ban binds every listed id, or it could never survive the exact-key join', () => {
+    expect(isErr(parseGazetteerFile({ ...file, subjects: { gates: ['G1:status'] } }))).toBe(true);
   });
 });
 
 describe('gazetteerSchema (inlined projection)', () => {
-  it('rejects a subject id containing ":" — a colliding id would corrupt every exact join built on it', () => {
+  it('rejects a category key containing ":" — a colliding id would corrupt every exact join built on it', () => {
     expect(
       gazetteerSchema.safeParse({ subjects: { 'a:b': ['x'] }, statusVocabulary: ['done'] }).success,
     ).toBe(false);
     expect(
       gazetteerSchema.safeParse({ subjects: { ab: ['x'] }, statusVocabulary: ['done'] }).success,
     ).toBe(true);
+  });
+
+  it('rejects a canonical subject id (record VALUE) containing ":" — an inlined id must be exact-joinable', () => {
+    expect(
+      gazetteerSchema.safeParse({ subjects: { ab: ['x:y'] }, statusVocabulary: ['done'] }).success,
+    ).toBe(false);
   });
 });
