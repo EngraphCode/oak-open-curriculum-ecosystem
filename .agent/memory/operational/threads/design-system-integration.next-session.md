@@ -145,3 +145,34 @@ read it first; the pointers below are hypotheses, recompute live.
   loss-scan); Director-routed, recipe in the handoff record.
 - **Claim on `packages/design/design-tokens-core/**` + `packages/design/oak-design-tokens/**`
   released at close.**
+
+## Session update 2026-07-20 ~12:30Z (Heron seeks Bluff, ef3eb0 — additive; folded by Foehn rides Flight 3e9afa under claim 8df9fbc0 at the Director's 14:40Z word)
+
+Design-system lane (Caracal succession per comms c161344b; lane handed onward to Foehn
+rides Flight 3e9afa at the owner's wrap, record
+`.agent/state/collaboration/handoffs/2026-07-20-heron-aip137-design-system-lane-full-handoff.md`).
+
+- **Stage-B concept exploration MERGED to main via PR #424** (12:17:52Z, `728974bc1`;
+  Phase-8 clean). Nine review rounds, two step-backs, one Director-authorised
+  generator-kill push, one owner-ruled open-set exit — the review arc itself validated
+  the report's central claim (closure over open surfaces fails; dispositions attach to
+  value shape). The report is the `ws-stage-b-convergence` pickup surface; the plan
+  gains its pointer at doctrine slot (c).
+- **Doctrine slot (c) queued** (after #414): ADR-213 §2 dated amendment (per-consumer
+  projections; runtime-computed class; delivery-surface window staged in-amendment;
+  falsifier severity-grading) + plan todo refinement + report pointer. Inputs recorded on
+  #424's threads/comments.
+- **PR #431 opened** (kit-robustness batch): oak-theme.js truncation comment +
+  persisted-value membership validation + get() truthfulness under storage failure;
+  consuming-nextjs.md embed escaping; CHANGELOG 1.7.1. Hub parity copy refreshes on the
+  hub branch's next currency update. The motion-cascade authority item stays on the
+  sync-back batch (comms 1d615a4b: components.css belt-and-braces defeats
+  data-motion='full' — verified, cure choice owner/studio-gated).
+  *(Fold-time truth: #431 MERGED 13:08:22Z, merge `2ef5ee3bd`, Phase-8 clean; the hub
+  parity copy refreshed byte-identically on the hub branch at 13:21Z.)*
+- **#420** completed as the Director's mechanical cycle (ping default during this seat's
+  10:53–11:57Z harness suspension — the heartbeat-during-suspension false-liveness
+  class, comms 65c1b504).
+- **Team across the session**: Director Galago (Moment-2 08:01Z); Caracal→Heron,
+  Salmon→Zenith→Eagle, Harrier→Moth→Goshawk, Herring (statusline), Heron→Foehn — every
+  lane rotated by named succession under the owner's wrap.

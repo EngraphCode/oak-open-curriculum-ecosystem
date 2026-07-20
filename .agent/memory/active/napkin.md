@@ -4899,3 +4899,27 @@ exactly the records-are-technical discipline working.
   drive-generator graduation candidate (six firings incl. the diagnosis costume) → the
   Director current-state record §Open items; the step-back count-arm singleton-noise
   refinement → this napkin 10:04Z + the #426 non-terminal ruling events.
+
+## 2026-07-20 ~14:45Z (Foehn rides Flight, 3e9afa) — Heron Layer-3 fold + own-session captures
+
+- **Heron's Layer-3 distillations folded** (source authoritative:
+  `handoffs/2026-07-20-heron-aip137-design-system-lane-full-handoff.md` §Layer 3):
+  heartbeats-during-suspension false-liveness class (capture 65c1b504; ping+bounded-default
+  is THE detection); the counting/closure generator family (closed counts → class-sets →
+  pinned argv are ONE generator; cure = value-shape dispositions with dated exemplars of an
+  open set); cricket A/B divergence tracks frame-citation gaps; tooling notes (`comms
+  direct` prints no event_id; concept gate blocks exception-shaped vocabulary;
+  `check-commit-message -F`; husky rejects over-length subjects — read the exit trail; `gh
+  pr checks | tail` hides rows); the settled-round predicate (Director-adopted, slots bind
+  GRANTS).
+- **Monitor inherits the Bash tool's persistent cwd** (own instance, ~14:14Z): a comms-watch
+  re-arm launched while the shell sat in a scratchpad clone ran `pnpm agent-tools:…` THERE —
+  pnpm's verify-deps auto-install churned the (disposable) clone and the "watcher" watched
+  nothing. Cure now in use: every Monitor arm starts with an explicit `cd <repo-root> ||
+  exit 1`. Candidate for the watcher rule's invocation block at next curation.
+- **A grep filter can hide a send failure** (own instance, ~13:05Z): piping `comms send`
+  through `grep -o '"event_id"…'` returned empty on a FAILED send (missing body-file) and the
+  first READY never landed; caught only by an inbox verification read. Standing cure applied:
+  exit codes in-band (`SEND_EXIT:$?`) + verify the event landed — the
+  exit-codes-in-band-never-piped rule generalises beyond push commands to every
+  streamed-side-effect CLI.
