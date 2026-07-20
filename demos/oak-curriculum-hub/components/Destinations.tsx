@@ -85,7 +85,7 @@ const destinations: readonly Destination[] = [
     href: '/wiki',
     badge: 'Hub',
     cardTint: 'bg-[#fff7cc]',
-    tileTint: 'bg-accent-brand',
+    tileTint: 'bg-decorative-5',
     icon: (
       <>
         <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />

@@ -75,7 +75,7 @@ export function QuizBlockView({ block }: { readonly block: QuizBlock }): ReactEl
       <p className="mb-[18px] flex items-center gap-2.5">
         <span
           aria-hidden="true"
-          className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded-full border-2 border-line bg-accent-brand text-[18px]"
+          className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded-full border-2 border-line bg-decorative-5 text-[18px]"
         >
           ?
         </span>

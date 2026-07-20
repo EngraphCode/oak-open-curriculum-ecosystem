@@ -54,8 +54,8 @@ function ChipRow({
 
 function FocusBanner({ onBrowseAll }: { readonly onBrowseAll: () => void }): ReactElement {
   return (
-    <div className="mb-[18px] flex flex-wrap items-center gap-3.5 rounded-large border-2 border-link bg-decorative-3-subtle px-[18px] py-3.5">
-      <span className="flex-1 text-[15px] font-semibold leading-[21px] text-link">
+    <div className="mb-[18px] flex flex-wrap items-center gap-3.5 rounded-large border-2 border-line bg-info-subtle px-[18px] py-3.5">
+      <span className="flex-1 text-[15px] font-semibold leading-[21px] text-ink">
         You followed a link from a training course. Showing the linked quality standard(s) below.
       </span>
       <Link

@@ -66,7 +66,7 @@ function IntroItem({
     >
       <span
         aria-hidden="true"
-        className="grid h-7 w-7 shrink-0 place-items-center rounded-full border-2 border-line bg-accent-brand text-[14px] font-bold"
+        className="grid h-7 w-7 shrink-0 place-items-center rounded-full border-2 border-line bg-decorative-5 text-[14px] font-bold"
       >
         ★
       </span>

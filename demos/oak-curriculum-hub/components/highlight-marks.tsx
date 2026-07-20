@@ -26,7 +26,7 @@ export function highlightToNodes(fragment: string): readonly ReactNode[] {
     const tail = closeAt === -1 ? '' : part.slice(closeAt + '</em>'.length);
     if (marked !== '') {
       nodes.push(
-        <mark key={keys[index]} className="rounded-ctl bg-accent-brand px-0.5 text-ink">
+        <mark key={keys[index]} className="rounded-ctl bg-selected px-0.5 text-ink">
           {marked}
         </mark>,
       );

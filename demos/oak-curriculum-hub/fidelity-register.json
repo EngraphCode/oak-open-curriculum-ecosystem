@@ -58,7 +58,7 @@
       "summary": "AIP-137 ws-hub-migration \u00a74+\u00a75: pre-paint theme/motion bootstrap, five-theme + motion controls in a footer display-settings band, and the kit's double focus ring replacing the single navy ring.",
       "evidence": ["../../.agent/reports/design/aip-137-stage-a-import-verification-2026-07-19.md"],
       "disposition": "deliberate",
-      "rationale": "Kit integration doc \u00a74 (theme + motion wiring: oak-theme.js inlined pre-paint from the workspace package; data-motion axis semantics on the hub's motion floor \u2014 OS default, explicit choice wins both directions) and \u00a75 (focus): the single navy :focus-visible ring is upgraded to the kit's double ring (lemon + contrast halo + transparent outline for forced-colors) \u2014 the doc names this an upgrade, not a divergence. Divergence from the doc recorded: the kit scopes rings to .oak-* classes, so the hub keeps a GLOBAL rule carrying the kit recipe until \u00a76 migrates controls onto kit classes (deleting the global rule now would strand unmigrated controls on UA-default focus). The footer display-settings band is a new feature surface (theme choice did not exist in the canonical export). Staged-migration note: dark/system exposure precedes the full component polarity migration — residual fixed-polarity colours (e.g. hard bg-white on cards) are §6's scope, tracked in the design-system-integration plan; the review-round cures (footer, standards rail, framework control) shrank the residual set. Do not re-flag on export re-ingest.",
+      "rationale": "Kit integration doc \u00a74 (theme + motion wiring: oak-theme.js inlined pre-paint from the workspace package; data-motion axis semantics on the hub's motion floor \u2014 OS default, explicit choice wins both directions) and \u00a75 (focus): the single navy :focus-visible ring is upgraded to the kit's double ring (lemon + contrast halo + transparent outline for forced-colors) \u2014 the doc names this an upgrade, not a divergence. Divergence from the doc recorded: the kit scopes rings to .oak-* classes, so the hub keeps a GLOBAL rule carrying the kit recipe until \u00a76 migrates controls onto kit classes (deleting the global rule now would strand unmigrated controls on UA-default focus). The footer display-settings band is a new feature surface (theme choice did not exist in the canonical export). Staged-migration note: dark/system exposure precedes the full component polarity migration \u2014 residual fixed-polarity colours (e.g. hard bg-white on cards) are \u00a76's scope, tracked in the design-system-integration plan; the review-round cures (footer, standards rail, framework control) shrank the residual set. Do not re-flag on export re-ingest.",
       "author": "Salmon binds Undertow (de5c10)",
       "date": "2026-07-19"
     },
@@ -66,10 +66,10 @@
       "id": "u1m1s4-tabs/semantic-success-roles",
       "pairId": "u1m1s4-tabs",
       "kind": "visual",
-      "summary": "The tabs example callout moves from the decorative mint (50 tint) to the functional success fill (30 tint) with the functional success border, and its label goes text-ink per the kit's text-on-pastel-fills contract — decorative surfaces are contractually non-semantic.",
+      "summary": "The tabs example callout moves from the decorative mint (50 tint) to the functional success fill (30 tint) with the functional success border, and its label goes text-ink per the kit's text-on-pastel-fills contract \u2014 decorative surfaces are contractually non-semantic.",
       "evidence": ["components/blocks/TabsBlockView.tsx"],
       "disposition": "deliberate",
-      "rationale": "Kit token contract (colors_and_type.css): decorative surfaces carry categorisation only, never meaning; functional fills exist so re-branding decoratives never moves semantics. The positive-example callout is a semantic success state, so it consumes bg-success-subtle with the --border-success border role (utility border-line-success), and the label text is --text-primary per the kit contract (tone text on the subtle fills fails 4.5:1 in light/colour-safe — design-system-expert computed). Same hue family, lighter tint — visible in the section capture; do not re-flag.",
+      "rationale": "Kit token contract (colors_and_type.css): decorative surfaces carry categorisation only, never meaning; functional fills exist so re-branding decoratives never moves semantics. The positive-example callout is a semantic success state, so it consumes bg-success-subtle with the --border-success border role (utility border-line-success), and the label text is --text-primary per the kit contract (tone text on the subtle fills fails 4.5:1 in light/colour-safe \u2014 design-system-expert computed). Same hue family, lighter tint \u2014 visible in the section capture; do not re-flag.",
       "author": "Zenith binds Plasma (8fa90f)",
       "date": "2026-07-20"
     },
@@ -77,7 +77,7 @@
       "id": "u1m1s5-quiz/semantic-success-roles",
       "pairId": "u1m1s5-quiz",
       "kind": "visual",
-      "summary": "The correct-answer wash moves from the decorative mint (50 tint) to the functional success fill (30 tint) with the functional success border, and the ✓/✕ chips move from saturated text-role fills with white marks to the subtle fills with ink marks — the answer states are semantic.",
+      "summary": "The correct-answer wash moves from the decorative mint (50 tint) to the functional success fill (30 tint) with the functional success border, and the \u2713/\u2715 chips move from saturated text-role fills with white marks to the subtle fills with ink marks \u2014 the answer states are semantic.",
       "evidence": ["components/blocks/quiz-view-support.tsx"],
       "disposition": "deliberate",
       "rationale": "Kit token contract (colors_and_type.css): a correct quiz answer is meaning, not categorisation, so it consumes bg-success-subtle with the --border-success border role (utility border-line-success) rather than the decorative mint ramp; the chips drop the text-role-as-fill misuse (bg-success/bg-error are text-polarity aliases) for the same subtle fills with --text-primary marks per the kit's text-on-pastel-fills contract. Colour-safe and theme overrides then stay aligned with the state; do not re-flag.",
@@ -91,7 +91,7 @@
       "summary": "The compare block's good/bad headers move from saturated text-role fills with white text (bg-success/bg-error + text-white) to the functional subtle fills with ink text, per the kit's functional-fill and text-on-pastel-fills contracts.",
       "evidence": ["components/blocks/CompareBlockView.tsx"],
       "disposition": "deliberate",
-      "rationale": "bg-success/bg-error alias the kit's TEXT-polarity roles (--text-success/--text-error) — used as fills they break polarity in dark theme (light text-role fill under white text). The functional meaning-bearing recipe is bg-success-subtle/bg-error-subtle with --text-primary on the pastel fill (kit components.css contract line; tone carried by fill + border + wording). Visible in the section capture as a lighter header with dark text; do not re-flag.",
+      "rationale": "bg-success/bg-error alias the kit's TEXT-polarity roles (--text-success/--text-error) \u2014 used as fills they break polarity in dark theme (light text-role fill under white text). The functional meaning-bearing recipe is bg-success-subtle/bg-error-subtle with --text-primary on the pastel fill (kit components.css contract line; tone carried by fill + border + wording). Visible in the section capture as a lighter header with dark text; do not re-flag.",
       "author": "Zenith binds Plasma (8fa90f)",
       "date": "2026-07-20"
     },
@@ -99,11 +99,25 @@
       "id": "standards-full/cta-action-roles",
       "pairId": "standards-full",
       "kind": "visual",
-      "summary": "The view-in-standards CTA moves from the link text-role used as a fill (navy pill) to the kit action pair bg-btn-primary/text-btn-primary (black pill in light theme) — text-role fills assume a contrast pairing the kit keeps independently themeable.",
+      "summary": "The view-in-standards CTA moves from the link text-role used as a fill (navy pill) to the kit action pair bg-btn-primary/text-btn-primary (black pill in light theme) \u2014 text-role fills assume a contrast pairing the kit keeps independently themeable.",
       "evidence": ["components/standards/StandardsResults.tsx"],
       "disposition": "deliberate",
-      "rationale": "Kit contract (.oak-btn, components.css): primary actions consume --bg-btn-primary with --text-btn-primary so brand overrides re-point fill and text together; --text-link is a text-only role and using it as a fill lets a brand re-point break the CTA's contrast. Visible in the standards captures as navy → black; do not re-flag on export re-ingest.",
+      "rationale": "Kit contract (.oak-btn, components.css): primary actions consume --bg-btn-primary with --text-btn-primary so brand overrides re-point fill and text together; --text-link is a text-only role and using it as a fill lets a brand re-point break the CTA's contrast. Visible in the standards captures as navy \u2192 black; do not re-flag on export re-ingest.",
       "author": "Zenith binds Plasma (8fa90f)",
+      "date": "2026-07-20"
+    },
+    {
+      "id": "global/role-semantics-class-cure-round9",
+      "pairId": "global",
+      "kind": "visual",
+      "summary": "Round-9 class cure (PR #413): ornamental/categorical lemon fills moved from the semantic accent role to surface roles. Light-mode-visible shifts: search-highlight <mark> and hotspot active marker full-lemon to selected-state lemon-subtle (--bg-selected); Live badge decorative-1 to success-subtle; focus banner decorative-3-subtle/link-text to info-subtle/ink with border-line; inactive count badge line-soft fill to surface-subtle. Same-value-in-light swaps (accent to decorative-5) have no visible shift.",
+      "evidence": [
+        "PR #413 round-9 review threads (14 findings, 2026-07-20)",
+        "packages/design/oak-design-system/colors_and_type.css high-contrast block (--color-accent and --text-primary both --oak-black-true)"
+      ],
+      "disposition": "deliberate",
+      "rationale": "High-contrast theme resolves the accent role and primary text to the same black, so semantic-accent fills carrying ornamental/categorical meaning go black-on-black; the kit reserves decorative surfaces for categorisation and --bg-selected for selected states, both contrast-manifest pairings. Fidelity capture re-run belongs to the next \u00a7D review moment.",
+      "author": "Eagle herds Cirrus (055d36)",
       "date": "2026-07-20"
     }
   ]

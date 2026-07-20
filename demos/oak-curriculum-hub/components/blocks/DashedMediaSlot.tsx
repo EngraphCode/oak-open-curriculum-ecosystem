@@ -27,7 +27,7 @@ export function DashedMediaSlot({
       }`}
     >
       {badge !== undefined && (
-        <span className="absolute left-2 top-2 rounded-full border-2 border-line bg-accent-brand px-[9px] py-1 text-[10px] font-bold tracking-[0.03em]">
+        <span className="absolute left-2 top-2 rounded-full border-2 border-line bg-decorative-5 px-[9px] py-1 text-[10px] font-bold tracking-[0.03em]">
           {badge}
         </span>
       )}

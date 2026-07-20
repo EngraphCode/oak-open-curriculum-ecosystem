@@ -59,7 +59,7 @@ function ChipList({
 /** Pill tint per statement type (default white for the unmapped case). */
 function pillTintOf(typeVariant: StandardDetailVM['typeVariant']): string {
   if (typeVariant === 'required') {
-    return 'bg-accent-brand';
+    return 'bg-decorative-5';
   }
   if (typeVariant === 'model') {
     return 'bg-decorative-3-subtle';

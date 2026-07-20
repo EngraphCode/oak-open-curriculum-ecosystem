@@ -51,7 +51,7 @@ const VARIANTS = {
   quote: {
     accent: 'border-l-accent-brand bg-accent-subtle-brand',
     icon: '“',
-    iconBg: 'bg-accent-brand',
+    iconBg: 'bg-decorative-5',
   },
 } as const;
 

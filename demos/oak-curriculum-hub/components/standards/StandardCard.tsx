@@ -19,7 +19,7 @@ function TypePill({ card }: { readonly card: StandardCardVM }): ReactElement | n
   if (card.typeVariant === 'none') {
     return null;
   }
-  const tint = card.typeVariant === 'required' ? 'bg-accent-brand' : 'bg-decorative-3-subtle';
+  const tint = card.typeVariant === 'required' ? 'bg-decorative-5' : 'bg-decorative-3-subtle';
   return (
     <span
       className={`shrink-0 rounded-full border-2 border-line px-2.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.03em] text-ink ${tint}`}

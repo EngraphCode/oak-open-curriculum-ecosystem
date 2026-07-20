@@ -36,7 +36,7 @@ function HotspotMarker({
       style={POSITIONS.at(index) ?? CENTRE}
       className={`absolute z-[2] flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-[3px] border-line text-[17px] leading-none font-bold transition-all ${
         active
-          ? 'scale-[1.15] bg-accent-brand shadow-[0_0_0_4px_rgba(255,229,85,0.6)]'
+          ? 'scale-[1.15] bg-selected shadow-[0_0_0_4px_rgba(255,229,85,0.6)]'
           : 'shadow-ink-brand bg-white'
       }`}
       onClick={onSelect}

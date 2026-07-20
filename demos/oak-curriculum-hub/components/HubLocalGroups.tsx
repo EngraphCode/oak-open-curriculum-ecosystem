@@ -46,7 +46,7 @@ export function GroupHeader({
       <span className={`h-8 w-8 shrink-0 rounded-card border-2 border-line ${tint}`} aria-hidden />
       <h3 className="text-lg font-semibold leading-none">{title}</h3>
       {live && (
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-decorative-1 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-ink">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-success-subtle px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-ink">
           <span className="h-1.5 w-1.5 rounded-full bg-success" aria-hidden />
           {/* explicit expression: no whitespace text-node ambiguity beside the dot */}
           {'Live'}

@@ -35,7 +35,7 @@ export function SummaryBlockView({ block }: { readonly block: SummaryBlock }): R
         <div className="flex gap-3.5 rounded-xl border-2 border-l-8 border-line border-l-accent-brand bg-accent-subtle-brand p-[18px_20px]">
           <span
             aria-hidden="true"
-            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-line bg-accent-brand text-lg leading-none font-bold"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-line bg-decorative-5 text-lg leading-none font-bold"
           >
             ?
           </span>

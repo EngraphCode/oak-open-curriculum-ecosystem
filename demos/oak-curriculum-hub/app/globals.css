@@ -62,6 +62,8 @@
      invisible on the inverted footer in high-contrast) */
   --color-line-inverted: var(--border-inverted);
   --color-accent-brand: var(--color-accent);
+  /* selected-state fill role (contrast-manifest pairing with text-primary) */
+  --color-selected: var(--bg-selected);
   --color-accent-soft-brand: var(--color-accent-soft);
   --color-accent-subtle-brand: var(--color-accent-subtle);
   /* decorative ramp */

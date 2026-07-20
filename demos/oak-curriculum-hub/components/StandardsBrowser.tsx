@@ -108,7 +108,7 @@ function AreaRail({
           <span className="flex-1">{item.label}</span>
           <span
             className={`shrink-0 rounded-full px-2 py-1 text-[11px] font-bold ${
-              item.active ? 'bg-surface/20 text-ink-inverted' : 'bg-line-soft text-ink-subdued'
+              item.active ? 'bg-surface/20 text-ink-inverted' : 'bg-surface-subtle text-ink-subdued'
             }`}
           >
             {item.count}
