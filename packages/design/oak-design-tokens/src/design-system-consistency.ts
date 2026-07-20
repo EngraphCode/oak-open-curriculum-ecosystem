@@ -13,7 +13,7 @@
  *
  * @packageDocumentation
  */
-import { type Result, ok } from '@oaknational/result';
+import { type Result, err, ok } from '@oaknational/result';
 import type { DtcgTokenTree } from '@oaknational/design-tokens-core';
 import { extractCssComparand, type CssParseError } from './consistency-css-comparand.js';
 import {
@@ -129,22 +129,34 @@ function compareDarkTheme(
     readonly light: ReadonlyMap<string, string>;
     readonly dark: ReadonlyMap<string, string>;
   },
-): ThemeComparison {
+): Result<ThemeComparison, TokenIndexError> {
   const darkIndex = new Map(lightIndex);
 
   for (const leaf of darkLeaves) {
-    darkIndex.set(dtcgPathToCssVariable(leaf.path), leaf);
+    const variable = dtcgPathToCssVariable(leaf.path);
+    const existing = darkIndex.get(variable);
+
+    // The overlay carries the same projected-name guard as the light index:
+    // a dark leaf may replace an entry only when it names the SAME dtcg
+    // path. A different path projecting to the same variable is a
+    // collision, never a silent replacement that matching light-dark()
+    // arms would then wave through.
+    if (existing !== undefined && existing.path !== leaf.path) {
+      return err({ kind: 'variable_collision', variable, paths: [existing.path, leaf.path] });
+    }
+
+    darkIndex.set(variable, leaf);
   }
 
   const raw = compareTheme(darkIndex, comparand.dark, 'dark');
 
-  return {
+  return ok({
     compared: raw.compared,
     mismatches: raw.mismatches.filter(
       (mismatch) =>
         mismatch.kind !== 'missing_css_variable' || comparand.light.has(mismatch.variable),
     ),
-  };
+  });
 }
 
 function findUnaccountedVariables(
@@ -216,6 +228,11 @@ export function compareDesignSystemConsistency(
 
   const lightComparison = compareTheme(lightIndex.value, comparand.value.light, 'light');
   const darkComparison = compareDarkTheme(lightIndex.value, darkLeaves.value, comparand.value);
+
+  if (!darkComparison.ok) {
+    return darkComparison;
+  }
+
   const unaccounted = findUnaccountedVariables(
     comparand.value.light,
     comparand.value.dark,
@@ -224,7 +241,7 @@ export function compareDesignSystemConsistency(
   );
 
   return ok({
-    comparedCount: lightComparison.compared + darkComparison.compared,
-    mismatches: [...lightComparison.mismatches, ...darkComparison.mismatches, ...unaccounted],
+    comparedCount: lightComparison.compared + darkComparison.value.compared,
+    mismatches: [...lightComparison.mismatches, ...darkComparison.value.mismatches, ...unaccounted],
   });
 }

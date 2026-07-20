@@ -8,6 +8,7 @@
  *
  * @packageDocumentation
  */
+import { globalTokenReferencePattern } from '@oaknational/design-tokens-core';
 
 /**
  * Map a dtcg dot-path to its CSS custom-property name.
@@ -31,8 +32,6 @@ export function dtcgPathToCssVariable(path: string): string {
 
   return `--${path.replaceAll('.', '-')}`;
 }
-
-const DTCG_REFERENCE_PATTERN = /\{(?<path>[^{}]+)\}/gu;
 
 /**
  * Collapse insignificant whitespace and normalise quote style so
@@ -95,8 +94,9 @@ function consumeQuotedSpan(
 
   while (index < value.length && value[index] !== delimiter) {
     if (value[index] === '\\' && index + 1 < value.length) {
-      content += value[index + 1];
-      index += 2;
+      const escape = consumeEscape(value, index);
+      content += escape.text;
+      index = escape.nextIndex;
       continue;
     }
 
@@ -105,6 +105,35 @@ function consumeQuotedSpan(
   }
 
   return { content, closingIndex: index };
+}
+
+const HEX_DIGIT_PATTERN = /[0-9a-f]/iu;
+
+/**
+ * Consume one backslash escape starting at `index`. A simple escape decodes
+ * to its character; a hex escape (backslash + up to six hex digits + one
+ * optional terminating space) keeps its spelling verbatim per the
+ * `consumeQuotedSpan` contract.
+ */
+function consumeEscape(
+  value: string,
+  index: number,
+): { readonly text: string; readonly nextIndex: number } {
+  if (!HEX_DIGIT_PATTERN.test(value[index + 1])) {
+    return { text: value[index + 1], nextIndex: index + 2 };
+  }
+
+  let end = index + 1;
+
+  while (end < value.length && end - index <= 6 && HEX_DIGIT_PATTERN.test(value[end])) {
+    end += 1;
+  }
+
+  if (value[end] === ' ') {
+    end += 1;
+  }
+
+  return { text: value.slice(index, end), nextIndex: end };
 }
 
 function normaliseOutsideQuotes(segment: string): string {
@@ -120,11 +149,14 @@ function normaliseOutsideQuotes(segment: string): string {
 
 /**
  * Rewrite dtcg `{a.b}` references to their CSS `var(--a-b)` projection —
- * the same semantic reference expressed in each surface's own syntax.
+ * the same semantic reference expressed in each surface's own syntax. The
+ * reference grammar is owned by design-tokens-core
+ * (consolidate-at-second-consumer): a brace chunk outside that grammar is
+ * not a reference and stays verbatim.
  */
 export function normaliseDtcgReferences(value: string): string {
   return value.replaceAll(
-    DTCG_REFERENCE_PATTERN,
+    globalTokenReferencePattern(),
     (_match, path: string) => `var(${dtcgPathToCssVariable(path)})`,
   );
 }

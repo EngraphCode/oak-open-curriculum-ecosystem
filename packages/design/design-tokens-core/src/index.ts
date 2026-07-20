@@ -173,6 +173,8 @@ export type { ColourResolution, UnresolvedColourReference } from './contrast-res
 
 export { validateContrastPairings } from './contrast-validation.js';
 
+export { anchoredTokenReferencePattern, globalTokenReferencePattern } from './token-reference.js';
+
 export { collectTokenLeaves } from './token-walk.js';
 export type { InvalidNodeError } from './token-walk.js';
 

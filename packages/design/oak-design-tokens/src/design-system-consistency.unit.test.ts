@@ -5,6 +5,7 @@ import {
   extractCssComparand,
   type ConsistencyInput,
 } from './design-system-consistency.js';
+import { normaliseDtcgReferences, normaliseValue } from './consistency-values.js';
 // dtcgPathToCssVariable and extractCssComparand are re-exported from their
 // home modules through the comparison module's public surface.
 
@@ -32,6 +33,32 @@ describe('dtcgPathToCssVariable', () => {
     expect(dtcgPathToCssVariable('bg.primary')).toBe('--bg-primary');
     expect(dtcgPathToCssVariable('text.subdued')).toBe('--text-subdued');
     expect(dtcgPathToCssVariable('space.x2')).toBe('--space-x2');
+  });
+});
+
+describe('normaliseDtcgReferences', () => {
+  it('rewrites a canonical-grammar reference to its var() projection', () => {
+    expect(normaliseDtcgReferences('{radius.s}')).toBe('var(--radius-s)');
+  });
+
+  it('leaves a brace chunk outside the canonical reference grammar verbatim', () => {
+    // The reference grammar is owned by design-tokens-core (dot-separated
+    // kebab segments); anything else is not a reference and must not be
+    // projected as one.
+    expect(normaliseDtcgReferences('{Not A.Ref}')).toBe('{Not A.Ref}');
+  });
+});
+
+describe('normaliseValue', () => {
+  it('keeps CSS hex escape spelling verbatim inside quoted content', () => {
+    // '\\41' spells the character A via a hex escape; decoding it to the
+    // digits 41 would let a literal "41" compare equal and mask real drift.
+    expect(normaliseValue(String.raw`'\41'`)).toBe(String.raw`'\41'`);
+    expect(normaliseValue(String.raw`'\41'`)).not.toBe(normaliseValue(`'41'`));
+  });
+
+  it('decodes a simple escape while a hex escape in the same span stays verbatim', () => {
+    expect(normaliseValue(String.raw`"a\'b \41 z"`)).toBe(String.raw`'a'b \41 z'`);
   });
 });
 
@@ -285,6 +312,39 @@ describe('compareDesignSystemConsistency', () => {
     // the differing interior whitespace is real drift, never normalised away.
     expect(report.mismatches.length).toBeGreaterThanOrEqual(1);
     expect(report.mismatches.every((mismatch) => mismatch.kind === 'value_mismatch')).toBe(true);
+  });
+
+  it('rejects a dark-overlay path that collides with a different light path on one variable', () => {
+    const input = baseInput();
+    const result = compareDesignSystemConsistency({
+      ...input,
+      css: `${input.css}\n:root { --oak-foo: light-dark(#111111, #222222); }`,
+      palette: {
+        oak: {
+          color: {
+            paper: { $type: 'color', $value: '#fcfbf8' },
+            foo: { $type: 'color', $value: '#111111' },
+          },
+        },
+      },
+      semanticDark: {
+        ...input.semanticDark,
+        oak: {
+          color: { paper: { $type: 'color', $value: '#1c1a17' } },
+          // oak.foo projects to --oak-foo, colliding with the palette's
+          // oak.color.foo projection of the same variable.
+          foo: { $type: 'color', $value: '#222222' },
+        },
+      },
+    });
+
+    expect(result.ok).toBe(false);
+
+    if (result.ok) {
+      throw new Error('Expected Err, got Ok');
+    }
+
+    expect(result.error.kind).toBe('variable_collision');
   });
 
   it('reports an allowlist entry whose CSS variable no longer exists', () => {
