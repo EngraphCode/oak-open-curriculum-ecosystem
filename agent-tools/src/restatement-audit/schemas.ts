@@ -149,6 +149,18 @@ export const clusterSchema = clusterBaseSchema
         'distinctValueNorms must be a SET — a repeated norm is one value and must never widen a cluster into a conflict',
     },
   )
+  // The code path computes every distinctValueNorm through normalizeValue (join.ts), so
+  // each entry must BE its own normal form. Together with the raw-set refine above this
+  // makes the entries distinct UNDER normalisation: a hand-built or drifted checkpoint
+  // like ['done', 'Done.'] is one value masquerading as two and must never pass as a
+  // conflict that seeds needless validation.
+  .refine(
+    (cluster) => cluster.distinctValueNorms.every((value) => normalizeValue(value) === value),
+    {
+      error:
+        'distinctValueNorms must be in normalizeValue normal form — a value drifting only by casing/whitespace/trailing punctuation was never produced by the join and duplicates a normalised value',
+    },
+  )
   .refine(
     (cluster) =>
       cluster.verdict === 'conflict'
