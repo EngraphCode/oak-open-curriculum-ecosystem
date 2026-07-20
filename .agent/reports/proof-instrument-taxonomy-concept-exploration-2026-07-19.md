@@ -50,10 +50,12 @@ estate-wide; the no-real-io lint fence works).
 The frictions all sit at the **seams between instruments**, where doctrine assigns no
 named home.
 
-**Prevalence** (sweep): ~12 confirmed misfits estate-wide — bounded, not systemic —
-concentrated in sdk-codegen config-mirror tests and three frozen-allowlist content-scan
-tests. Plus ~10 correct-but-unnamed patterns that today survive on per-file
-self-justification and reviewer judgment.
+**Prevalence** (sweep): confirmed misfits are bounded, not systemic, and cluster in
+named classes — sdk-codegen config-mirror tests, frozen-allowlist content-scan tests,
+type-anchor shapes, a tautological version check, and one live-data duplicate. The
+appendix is the instance inventory; counts are non-load-bearing (an open corpus makes
+any closed count a moving target). A further set of correct-but-unnamed patterns today
+survives on per-file self-justification and reviewer judgment.
 
 **Mechanism**: proof-kind choice happens at authoring speed under gate pressure; the
 fluent default is vitest; per-surface machinery (knip, `no-unused-vars`, `no-unsafe-*`)
@@ -77,7 +79,7 @@ contains zero occurrences of "validator".
 
 **The owner's four-clause statement is already the estate's live doctrine at the centre
 of each class, enforced by lint fences and review. The misfits cluster exactly at five
-unnamed seams, and for four of the five the estate already contains a worked, clean
+unnamed seams, and for each of the five the estate already contains a worked, clean
 instrument that doctrine has not yet blessed:**
 
 | Seam | Clean in-estate precedent | Current misfit shape |
@@ -206,7 +208,7 @@ the `computedHash` presence-only check at
 the `.agent/practice-core/protocol.json` read at
 `agent-tools/tests/protocol-wire/wire.unit.test.ts:487`.
 
-**Clean-precedent anchors cited in the synthesis table:**
+**Anchors cited in the synthesis table (clean precedents and current misfits):**
 `packages/libs/logger/tests/logger-contract.typecheck.ts:22`;
 `agent-tools/src/plan-state/plan-state-engine.unit.test.ts:15`;
 `agent-tools/src/validators/ratified-lists/validate-ratified-lists.ts:24` (the 2026-07-07
@@ -214,4 +216,4 @@ owner ruling verbatim); `agent-tools/src/validators/patterns-index/validate-patt
 `packages/core/oak-eslint/scripts/validate-boundaries.ts:48`;
 `packages/design/oak-design-tokens/src/build.ts:44` and its vitest duplicate at
 `packages/design/oak-design-tokens/src/build-css.integration.test.ts:106`;
-`apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/verify-clerk-token.unit.test.ts:70`.
+`apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/verify-clerk-token.unit.test.ts:85` (the `Object.defineProperties` misfit).
