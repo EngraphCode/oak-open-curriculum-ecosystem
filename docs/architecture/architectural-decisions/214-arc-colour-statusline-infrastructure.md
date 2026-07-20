@@ -1,8 +1,7 @@
 # ADR-214: ARC-Colour Statusline Infrastructure
 
-- **Status:** Proposed (drafted 2026-07-20; ws-b1 of the ARC-colour statusline
-  infrastructure plan, owner direction 2026-07-20 — bring castr's ARC feather system and
-  the usage relocation into oak as one coherent estate)
+- **Status:** Proposed (drafted 2026-07-20; owner direction 2026-07-20 — bring castr's
+  ARC feather system and the usage relocation into oak as one coherent estate)
 - **Relates to:** [ADR-183](183-comms-event-tag-namespace-substrate.md) (comms-event tag
   namespace), [ADR-186](186-comms-event-heartbeat-lifecycle-substrate.md) (heartbeat
   lifecycle substrate), PDR-111 (agent experience is first-class), PDR-027 (threads,
@@ -69,5 +68,5 @@ convention.
   port.
 
 Implementation sequencing, file paths, CLI shapes, and acceptance proofs live in the
-executable plan (`.agent/plans/agent-tooling/current/arc-colour-statusline-infrastructure.plan.md`);
-this record owns the decision.
+executable planning surface of the delivery that cites this record; this record owns the
+decision only.
