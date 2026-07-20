@@ -539,6 +539,35 @@ discipline as any [`never-disable-checks`][no-disable]-adjacent decision.
 - The policy is a living document. Reviewers should challenge stale
   rationales at consolidation time.
 
+## 2026-07-19 amendment: the studio-source scope (ADR-213), owner-ruled
+
+Owner ruling (2026-07-19, verbatim): "Product code gets no sonar exclusions
+for any reason (including generated product code), no quality gate
+exceptions, nothing, it all gets the full set of strict, strict
+requirements" — and scope exclusion is legitimate "if and only if they are
+not used as production code, and are organised and moved and kept explicitly
+as source material from Claude Design."
+
+Implementation:
+
+- **The boundary is structural, not a glob list**:
+  `packages/design/oak-design-system/studio-source/` holds exactly the
+  non-production Claude Design source material (specimens, white-label
+  proofs, reference build, templates, compiled reference components,
+  vendored reveal.js, proof pages — see its README). `sonar.exclusions` and
+  the design-system `sonar.cpd.exclusions` glob bind that path alone.
+- **Everything consumable is fully analysed** — the root token CSS, class
+  library, print layer, `brand.css` (it is on the package export surface, so
+  it is product code and back in scope), `oak-icons.css`, `oak-theme.js`,
+  `dtcg/`, `assets/`, docs — under the standard gate including the
+  duplication metric. Their findings resolve per-site under the two-outcome
+  rule (e.g. `brand.css`'s commented-template findings are per-site
+  FALSE_POSITIVE adjudications, never a scope carve-out).
+- **Movement rule**: if any studio-source file becomes consumed by product
+  code, it moves out of `studio-source/` and under the full gate in the same
+  change. Expansion of the studio-source scope follows the §Duplications
+  discipline: policy amendment first, owner authorisation, then config.
+
 ## Cross-references
 
 - [`safety-and-security.md`](./safety-and-security.md) — security baseline.

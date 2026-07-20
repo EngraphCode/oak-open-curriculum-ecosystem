@@ -37,6 +37,10 @@ export default {
           'bucket-c-analysis\\.ts',
           // Test files are standalone entry points (Vitest + Playwright)
           '\\.(test|spec)\\.(ts|js)$',
+          // Browser-loaded entry script of the design system (ADR-213):
+          // shipped via <script src>, imports nothing — an entry point, not
+          // dead code.
+          'packages/design/oak-design-system/oak-theme\\.js$',
           // Standalone scripts invoked directly via tsx
           'scripts/',
           'operations/utilities/',
@@ -191,6 +195,14 @@ export default {
         // demo visual-matches; outside git and outside the analysis corpus
         // (owner-ratified 2026-07-02; see demos/oak-curriculum-hub/.gitignore)
         'demos/oak-curriculum-hub/claude-design-canonical-export/',
+        // Design-system STUDIO SOURCE MATERIAL only (ADR-213; owner ruling
+        // 2026-07-19: production code gets no analysis exceptions — the
+        // consumable workspace root stays cruised; studio-source/ is the
+        // explicitly-separated non-production material, see its README).
+        'packages/design/oak-design-system/studio-source/',
+        // Untracked import staging for the same system (root .gitignore) —
+        // outside git and outside the analysis corpus.
+        'packages/design/design-import/',
       ],
     },
     tsPreCompilationDeps: true,

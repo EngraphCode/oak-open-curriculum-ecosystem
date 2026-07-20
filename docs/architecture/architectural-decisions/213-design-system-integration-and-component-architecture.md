@@ -64,13 +64,24 @@ first-class workspace.
 - Integration is real work, not a copy: the workspace scaffold, the licensing manifest, the
   sync discipline and its runbook, and the consumer convergence below are all deliverables of
   the implementing plan.
+- **The production/source boundary is structural (owner ruling 2026-07-19)**: non-production
+  Claude Design source material (specimens, proofs, reference build, templates, reference
+  components, integration examples, proof pages) lives under `studio-source/`; quality-gate
+  scope exemptions bind that path alone and only because it is not production code. Product
+  code — everything on or reachable from the export surface, including generated product
+  code — gets no gate exceptions of any kind; its findings resolve per-site. A studio-source
+  file that becomes consumed by product code moves out and under the full gate in the same
+  change.
 
 **Licensing boundary.** Oak marks (name, logo, brand imagery) are outside the MIT licence
 (BRANDING.md). The initial integration is accompanied by a per-file-class licensing manifest —
 every file class listed with provenance, licence, and disposition (track / hold out / owner
 call) — which the owner reviews as the licensing decision. Held-out assets are **explicitly
 gitignored** with a documented re-obtain path (never loose-untracked), and the tracked subset
-must be referentially self-consistent: no tracked file may reference a held-out file.
+must be referentially self-consistent **on the repo-consumable public surface** (CSS entry
+points, tokens, docs): no such file may reference a held-out file. Studio-runtime wiring
+inside specimens/templates referencing studio-generated artefacts is the documented
+exception (workspace README + manifest).
 
 ### 2. Source of truth: the design system's CSS (supersedes ADR-148 §Source Format in part)
 
@@ -151,14 +162,21 @@ The consumption model, in decision-table form. "The pairing guides" are the desi
 `docs/pairing-*.md`; every headless-library adoption is gated per-widget by the system's
 wrapped-widget accessibility checklist — library adoption never discharges the audit.
 
-| UI need                                         | Path                                                                     |
-| ----------------------------------------------- | ------------------------------------------------------------------------ |
-| Static / content UI                             | Semantic HTML + `.oak-*` class library + semantic tokens                 |
-| New hard widget (React app)                     | Base UI headless primitives, styled by the same classes/tokens           |
-| Date/time/locale or conformance-critical widget | React Aria (scoped; never duplicating a widget class Base UI covers)     |
-| Non-React or multi-framework surface            | Ark UI / Zag.js                                                          |
-| Radix                                           | Existing code only; no new adoption                                      |
-| Console / TUI                                   | Ink stack with a role→ANSI tone vocabulary; web headless libraries never |
+**Evidentiary basis (2026-07-19):** this table originally recorded the design studio's
+transmitted decisions; it now carries its own grounds from the adversarial exploration
+([the exploration report](../../../.agent/reports/design-system-component-architecture-concept-exploration-2026-07-19.md)
+— five refuted-or-refined counter-proposals, live vendor verification, three lenses per
+proposal). Refinements from that exploration are folded in below.
+
+| UI need                              | Path                                                                                                                                                                                                   |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Static / content UI                  | Semantic HTML + `.oak-*` class library + semantic tokens (binds in the hub only after its convergence lane lands; interim hub rule: `@theme` tokens only, no new raw values)                           |
+| New hard widget (React app)          | Base UI headless primitives, styled by the same classes/tokens — adopted **at first materialised need** (a ticket, never an anticipation), pinned exact with `package.json` as the pin source of truth |
+| Known/memorable date entry           | Multi-field text inputs (GDS pattern, `inputmode="numeric"`) styled by `.oak-*` — the default date route                                                                                               |
+| Calendar / range / locale picker     | React Aria date widgets (the scoped admission; never duplicating a widget class Base UI covers). Native `<input type="date">` is not load-bearing (un-themeable, un-auditable chrome — owner fork)     |
+| Non-React or multi-framework surface | Ark UI / Zag.js behind a **creation gate** (no package or recipe ahead of a first consumer); the no-framework binding is `@zag-js/vanilla`, light-DOM only (cross-root ARIA is a closed constraint)    |
+| Radix                                | Existing code only; no new adoption                                                                                                                                                                    |
+| Console / TUI                        | Ink stack with a role→ANSI tone vocabulary; web headless libraries never. The design-package build resolves every terminal-theme token path, so a token reorganisation fails at build, not at import   |
 
 Standing rules:
 
@@ -167,17 +185,38 @@ Standing rules:
 - **No shared React component workspace yet.** Apps compose widgets per-app. The consolidation
   trigger is a second **app** consumer needing the same **composed widget** (not merely a
   second app existing); at that moment the widget, its tests, and its checklist record move
-  together (consolidate-at-second-consumer). To keep that move a file-move: composed hard
-  widgets live in a dedicated `components/widgets/` directory and import no app-specific
-  modules (the liftable-widget convention).
+  together (consolidate-at-second-consumer), with honest **1+N audit accounting** (one
+  behavioural audit amortises; each consuming surface retains its own visual pass — focus
+  appearance, forced-colors, contrast in its real CSS context). **Grandfather patch**: a
+  second app needing a widget _class_ that already exists hand-rolled in another app counts
+  as a material touch on the grandfathered copy — the trigger fires on class convergence, so
+  hand-rolled and library constructions of the same class never coexist indefinitely. To keep
+  the move a file-move: composed hard widgets live in a dedicated `components/widgets/`
+  directory, import no app-specific modules, and style only via `.oak-*`/token classes (the
+  liftability guard covers **imports and styling** — an import-clean widget styling-coupled
+  to an app's utility pipeline is not liftable). The raw second-consumer rule also fires
+  **intra-app**: duplicated behaviour modules inside one app consolidate now.
 - **The design system's four compiled React components stay off the workspace's export
   surface**: excluded from the package `exports`/`files`, React a devDependency only. Apps
   cannot import them; they remain part of the design system (reference implementations proving
   the tier-3 contract) and seed the future component workspace at the consolidation trigger
-  (a pointer, not a spec).
+  (a pointer, not a spec). Their no-drift claim becomes **checked, not constructional**:
+  fixtures-as-parity lands against them inside the design-system workspace, where reference
+  markup and CSS update atomically.
 - **Existing hand-rolled APG widgets are grandfathered** (the hub's tabs, accordion, quiz
   keyboard handling, sortable — hand-built, tested, axe-covered). The Base UI default binds
-  new hard widgets; grandfathered widgets migrate only when next materially touched.
+  new hard widgets; grandfathered widgets migrate only when next materially touched —
+  "material touch" includes the intra-hub behaviour consolidation and the grandfather-patch
+  class convergence above. Grandfathered code is **candidate evidence, not gate-passing
+  evidence**: its current proof (jsdom axe, light-only, no screen-reader records) sits below
+  the estate's own bar until it passes the same checklist as every other path.
+- **The audit doctrine is symmetric.** The wrapped-widget checklist obligation binds every
+  construction path — library wrap, hand-rolled APG module, and platform primitive alike;
+  the browser is a vendor too. No path ships on asserted accessibility. **Sequencing
+  precondition**: the ADR-147 gate extension (owner-ratified theme cardinality, per-theme
+  axe runs, a forced-colors render check, CI promotion) lands **before** the first Base UI
+  widget ships — a ship condition without an executor is discharged by assertion, which is
+  the Radix failure mode in local colours.
 
 App-shell prerequisites for Base UI (Next 16 / React 19): `isolation: isolate` on the app root
 container (portal stacking) and `position: relative` on `body` (iOS 26+). Composed widgets are
@@ -200,7 +239,9 @@ work uses semantic utilities or `.oak-*` classes, and the component-level arbitr
 
 **Page composition** follows the region contract from the composition doctrine
 (one-html-many-css-compositions.md): page shells are sibling regions with stable identities;
-composition is theme CSS, never markup churn.
+composition is theme CSS, never markup churn. The contract currently binds no shipped
+surface; its first named binding is the hub shell at the hub's convergence lane (until then
+it is recorded as future-surfaces doctrine — owner fork if that binding should differ).
 
 ### 4. Dependency direction (recorded in the ADR-041 amendment)
 
@@ -223,10 +264,19 @@ kill).
 
 ## Owner gates (named, non-blocking for Stage A)
 
-1. **Licensing manifest disposition** — reviews the per-file-class manifest; includes ruling
-   whether the hub's already-tracked `oak-logo*.svg` files are ratified practice or drift.
-2. **High-contrast gate level** — does the high-contrast theme tree gate at AA (the floor) or
-   AAA? (AAA is the system's aspiration; the repo gate currently encodes AA.)
+1. **Licensing — RULED (owner, 2026-07-19)**: Oak material in this repo is automatically
+   correctly licensed given brand-asset separation and the licence file's BRANDING.md
+   reference (both hold). The manifest's Oak-material owner-calls are resolved: track; the
+   hub's tracked logos are ratified. Third-party social marks remain their own class.
+2. **Theme proof surface — RULED (owner, 2026-07-19)**: maximal — all four colour trees plus
+   forced-colors plus the motion axis; `system` is a mechanism, not a theme: prove it
+   _chooses_ a theme, prove each theme's validity once (never validate one theme twice).
+   High-contrast targets AAA per "maximal, all of it" (implementer's reading — confirm at
+   the gate-extension review). The full verbatim ruling is recorded in the implementing
+   plan's gate table.
+3. **SR audit operator — RULED (owner, 2026-07-19)**: owner-run VoiceOver/Safari at each
+   widget ship, NVDA/Firefox alternating per widget class, batched with pin-bump re-audits,
+   operator named in every checklist record.
 
 ## Alternatives considered
 
