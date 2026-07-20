@@ -8,9 +8,7 @@ import {
   srgbToRelativeLuminance,
 } from './contrast.js';
 import type { ContrastManifest } from './contrast-types.js';
-import { resolveTokenTreeToHex } from './contrast-resolve.js';
 import { validateContrastPairings } from './contrast-validation.js';
-import type { DtcgTokenTree } from './index.js';
 
 /** Assert a Result is Ok and return its value, or fail the test. */
 function assertOkResult<T, E>(result: Result<T, E>): T {
@@ -114,69 +112,6 @@ describe('checkNonTextContrast', () => {
 
   it('fails below 3:1', () => {
     expect(checkNonTextContrast(2.99)).toBe(false);
-  });
-});
-
-describe('resolveTokenTreeToHex', () => {
-  it('resolves palette tokens directly to their hex values', () => {
-    const tree: DtcgTokenTree = {
-      color: {
-        ink: { $type: 'color', $value: '#102033' },
-      },
-    };
-
-    const resolved = resolveTokenTreeToHex(tree);
-
-    expect(resolved.get('color.ink')).toBe('#102033');
-  });
-
-  it('resolves semantic tokens through palette references', () => {
-    const tree: DtcgTokenTree = {
-      color: {
-        'paper-050': { $type: 'color', $value: '#fcfbf8' },
-      },
-      semantic: {
-        'surface-page': { $type: 'color', $value: '{color.paper-050}' },
-      },
-    };
-
-    const resolved = resolveTokenTreeToHex(tree);
-
-    expect(resolved.get('semantic.surface-page')).toBe('#fcfbf8');
-  });
-
-  it('resolves component tokens through semantic and palette', () => {
-    const tree: DtcgTokenTree = {
-      color: {
-        'ink-950': { $type: 'color', $value: '#102033' },
-      },
-      semantic: {
-        'text-primary': { $type: 'color', $value: '{color.ink-950}' },
-      },
-      component: {
-        'shell-title-color': { $type: 'color', $value: '{semantic.text-primary}' },
-      },
-    };
-
-    const resolved = resolveTokenTreeToHex(tree);
-
-    expect(resolved.get('component.shell-title-color')).toBe('#102033');
-  });
-
-  it('ignores non-colour tokens', () => {
-    const tree: DtcgTokenTree = {
-      font: {
-        'size-300': { $type: 'dimension', $value: '1rem' },
-      },
-      color: {
-        ink: { $type: 'color', $value: '#102033' },
-      },
-    };
-
-    const resolved = resolveTokenTreeToHex(tree);
-
-    expect(resolved.has('font.size-300')).toBe(false);
-    expect(resolved.has('color.ink')).toBe(true);
   });
 });
 

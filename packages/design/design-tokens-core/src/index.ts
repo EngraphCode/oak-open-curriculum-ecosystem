@@ -166,7 +166,9 @@ export {
   checkNonTextContrast,
 } from './contrast.js';
 
-export { resolveTokenTreeToHex } from './contrast-resolve.js';
+export { resolveColourTokens, toHexComparand } from './contrast-resolve.js';
+
+export type { ColourResolution, UnresolvedColourReference } from './contrast-resolve.js';
 
 export { validateContrastPairings } from './contrast-validation.js';
 

@@ -2,7 +2,7 @@ import {
   createCssBlock,
   emitCssVariables,
   flattenDesignTokens,
-  resolveTokenTreeToHex,
+  resolveColourTokens,
   validateContrastPairings,
   validateTierReferences,
   type ContrastReport,
@@ -33,6 +33,17 @@ function mergeTokenTrees(...tokenTrees: readonly DtcgTokenTree[]): DtcgTokenTree
 }
 
 const lightTokenTree = mergeTokenTrees(paletteTokens, semanticLightTokens, componentTokens);
+
+/** Resolve the hand-authored trees' colours; malformation here is a programmer error. */
+function resolveColoursOrThrow(tokenTree: DtcgTokenTree): ReadonlyMap<string, string> {
+  const resolution = resolveColourTokens(tokenTree);
+
+  if (!resolution.ok) {
+    throw new Error(`Malformed token tree at '${resolution.error.path}'.`);
+  }
+
+  return resolution.value.resolved;
+}
 
 function inlinePaletteReferences(
   tokens: readonly FlattenedDesignToken[],
@@ -91,8 +102,8 @@ export function buildOakDesignTokensCss(): string {
 export function buildContrastReports(): Result<readonly ContrastReport[], ContrastValidationError> {
   const darkTokenTree = mergeTokenTrees(paletteTokens, semanticDarkTokens, componentTokens);
 
-  const lightResolved = resolveTokenTreeToHex(lightTokenTree);
-  const darkResolved = resolveTokenTreeToHex(darkTokenTree);
+  const lightResolved = resolveColoursOrThrow(lightTokenTree);
+  const darkResolved = resolveColoursOrThrow(darkTokenTree);
 
   const lightResult = validateContrastPairings(lightResolved, contrastPairingsManifest, 'light');
 
