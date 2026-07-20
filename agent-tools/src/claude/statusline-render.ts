@@ -101,9 +101,9 @@ export function renderStatusline(
 }
 
 /**
- * No-logo layout: a loud error first, the identity-and-context summary, then the
- * pre-composed labelled location rows. Empty lines (all their segments absent) are
- * dropped so no blank row renders.
+ * No-logo layout: a loud error first, the identity/indicator/model summary, then the
+ * labelled location rows with the usage gauges appended to the repo-title row. Empty
+ * lines (all their segments absent) are dropped so no blank row renders.
  */
 function renderNoLogo(seg: Segments): string {
   const summaryLine = joinPresent([seg.identity, seg.indicators, seg.model]);
@@ -116,9 +116,15 @@ function renderNoLogo(seg: Segments): string {
  * Location rows with the usage gauges appended to the repo-title row: the
  * context gauge after the title, then the rate-limit gauges after the context
  * gauge — e.g. `oak · ctx:61% · s:19%(5h) · w:14%(6d)` (owner direction
- * 2026-07-20, the castr usage relocation). Usage reads alongside WHERE the
- * session is working, not in the identity summary. Outside any location row
- * the gauges still render on their own line rather than being dropped.
+ * 2026-07-20). Usage reads alongside WHERE the session is working, not in the
+ * identity summary. Outside any location row the gauges still render on their
+ * own line rather than being dropped.
+ *
+ * Transplanted from castr's statusline
+ * ({@link https://github.com/EngraphCode/castr/pull/22 | castr PR #22}, main
+ * commit 63a7e675); Oak divergence: this renderer keeps Oak's logo-by-style layout
+ * (`resolveLogoRows` + `oak-logo.ts`) rather than castr's pre-resolved
+ * `logoRows` architecture — only the usage placement is adopted.
  */
 function locationRowsWithUsage(seg: Segments): readonly string[] {
   const usage = joinPresent([seg.context, seg.rateLimits]);

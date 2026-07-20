@@ -37,8 +37,9 @@ const stripAnsi = (text: string): string => text.replaceAll(ANSI_CODE, '');
 
 describe('renderStatusline — usage on the repo-title row', () => {
   // Usage reads alongside WHERE the session is working (owner direction
-  // 2026-07-20, the castr usage relocation): the context gauge sits on the
-  // repo-title location row, not beside the model, in either layout.
+  // 2026-07-20; provenance and upstream citation live in the
+  // locationRowsWithUsage TSDoc): the context gauge sits on the repo-title
+  // location row, not beside the model, in either layout.
   it.each(['none', 'sextant'] as const)(
     'renders the context percentage on the repo-title row, not the model row (%s layout)',
     (logo) => {
