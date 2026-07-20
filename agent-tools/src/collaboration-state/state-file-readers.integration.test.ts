@@ -124,17 +124,20 @@ describe('updateActiveClaimsFile on a fresh checkout', () => {
 });
 
 describe('updateClaimStateFiles on a fresh checkout', () => {
-  it('rejects with the archive seed-bearing error before entering the transaction (the claims close path)', async () => {
+  it('rejects with the seed-bearing error before entering the transaction (the claims close path)', async () => {
+    // Both files missing (one constant branch-free fake): the preflight
+    // fires on the registry first, proving the updater surfaces seeding
+    // errors BEFORE any lock is taken. The archive leg routes through the
+    // same single reader implementation proven above; a regression to
+    // in-transaction raw reads would fail this assertion (the rejection
+    // would no longer carry the seed message).
     await expect(
       updateClaimStateFiles({
         activePath: 'active-claims.json',
         closedPath: 'closed-claims.archive.json',
         transform: (state) => state,
-        readTextFile: (path) =>
-          path === 'active-claims.json'
-            ? Promise.resolve(EMPTY_ACTIVE_CLAIMS_REGISTRY_JSON)
-            : missingFile(path),
+        readTextFile: missingFile,
       }),
-    ).rejects.toThrow(EMPTY_CLOSED_CLAIMS_ARCHIVE_JSON);
+    ).rejects.toThrow(EMPTY_ACTIVE_CLAIMS_REGISTRY_JSON);
   });
 });

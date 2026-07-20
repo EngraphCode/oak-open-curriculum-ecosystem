@@ -240,24 +240,27 @@ COORD_HOME="$(git worktree list --porcelain | head -1 | sed 's/^worktree //')"
 if [ ! -d "$COORD_HOME/.git" ] && [ ! -f "$COORD_HOME/.git" ]; then
   echo "STOP: coordination home not derived (git worktree list failed?) — do not seed"
 else
-  mkdir -p "$COORD_HOME/.agent/state/collaboration/comms" \
-    "$COORD_HOME/.agent/state/collaboration/comms-seen"
   # Exclusive create (noclobber): concurrent identically-prompted sessions
   # can both reach this step, and a check-then-write would let the loser
   # truncate the winner's live registry. With `set -C` the race loser fails
   # the write and keeps the winner's file; already-exists counts as success,
-  # any other failure (permissions) still surfaces.
+  # any other failure (permissions, a path occupied by a directory) still
+  # surfaces. The steps are &&-chained so an earlier failure fails the
+  # whole block loudly instead of being masked by a later success.
   # Seed shapes: the canonical source is
   # agent-tools/src/collaboration-state/state-file-seeds.ts (and the
   # readers' own error messages, which embed it). If a reader rejects
   # these seeds, that file is truth and this block has drifted — fix it
   # here in the same change.
-  ( set -C; printf '%s\n' '{ "schema_version": "1.3.0", "claims": [], "commit_queue": [] }' \
+  mkdir -p "$COORD_HOME/.agent/state/collaboration/comms" \
+    "$COORD_HOME/.agent/state/collaboration/comms-seen" \
+  && { ( set -C; printf '%s\n' '{ "schema_version": "1.3.0", "claims": [], "commit_queue": [] }' \
     > "$COORD_HOME/.agent/state/collaboration/active-claims.json" ) 2>/dev/null \
-    || [ -f "$COORD_HOME/.agent/state/collaboration/active-claims.json" ]
-  ( set -C; printf '%s\n' '{ "schema_version": "1.3.0", "claims": [] }' \
+    || [ -f "$COORD_HOME/.agent/state/collaboration/active-claims.json" ]; } \
+  && { ( set -C; printf '%s\n' '{ "schema_version": "1.3.0", "claims": [] }' \
     > "$COORD_HOME/.agent/state/collaboration/closed-claims.archive.json" ) 2>/dev/null \
-    || [ -f "$COORD_HOME/.agent/state/collaboration/closed-claims.archive.json" ]
+    || [ -f "$COORD_HOME/.agent/state/collaboration/closed-claims.archive.json" ]; } \
+  || echo "SEEDING FAILED: inspect the failed step above — do not proceed on a half-seeded substrate"
 fi
 ```
 
