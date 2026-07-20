@@ -1,6 +1,6 @@
 ---
 name: "ARC-colour statusline infrastructure — bring the feather badges + usage relocation into oak"
-overview: "Adopt castr's ARC channel-grammar-derived truecolor feather badges and the repo-title usage relocation into oak agent-tools, as one coherent estate with in-place corpus repair — no compatibility layers, no legacy surfaces."
+overview: "Adopt castr's ARC channel-grammar-derived truecolor feather badges and the repo-title usage relocation into oak agent-tools, as one coherent estate whose grammar obligations bind from adoption forward (the owning system is replaced completely) — no compatibility layers, no legacy surfaces."
 lineage:
   serves_thread: agentic-engineering-enhancements
   serves_stream: agent-experience-substrate
@@ -12,11 +12,11 @@ todos:
     status: completed # PR #427 MERGED 2026-07-20 (merge SHA: fa0ceb4f4)
     # depends_on: []  # fully independent of Deliverable B (no ARC dependency)
   - id: ws-b1-adr
-    content: "WS-B1: author ADR-214 (docs/architecture/architectural-decisions/214-arc-colour-statusline-infrastructure.md) + its README index entry — ONE ADR, kept at WHAT level: shared ARC constants single-home in the grammar module (consumers import, never redeclare); feather colour is a projection of parsed channel content; corpus repaired in place; validator fails loud on the canonical surface; and why the strict tier preserves the reference doc's protected zero-per-message-ceremony property. Non-code."
-    status: in_progress # executing as PR #428 (ADR-214 drafted; rounds running)
+    content: "WS-B1: author ADR-214 (docs/architecture/architectural-decisions/214-arc-colour-statusline-infrastructure.md) + its README index entry — ONE ADR, kept at WHAT level: shared ARC constants single-home in the grammar module (consumers import, never redeclare); feather colour is a projection of parsed channel content; grammar obligations bind from adoption forward (owner ruling 2026-07-20); validator fails loud on the canonical surface; and why the strict tier preserves the reference doc's protected zero-per-message-ceremony property. Non-code."
+    status: completed # PR #428 MERGED 2026-07-20 (merge SHA: 3e2041e27); Decision items 3-4 amended to the adoption-forward ruling in this plan's amendment PR
     # depends_on: []
   - id: ws-b2-c1-parse-strictness
-    content: "WS-B2 cycle 1: src/arc/arc-channel-grammar.ts created with parseArcChannel + evaluateArcChannelStrictness (zod schema authority for channel shape). HAND-MERGE: DELETE the donor's adoption-date grandfather early-return in evaluateArcChannelStrictness — this estate repairs the corpus in place, so the strict tier applies to every channel (no-grandfather principle); the donor tests covering that branch are replaced by tests of the uniform strict behaviour. The grammar also DEFINES corpus membership: a channel IS a date-named markdown file under the rapid-comms root; README.md and the undated .starless-notice-body.md are non-channel infrastructure by grammar definition (a closed shape, not an exclusion list). Tests at src/arc/arc-channel-grammar.unit.test.ts (co-located per testing-strategy §Development Workflow). Red→Green→Refactor, one landing. Observable proof: the co-located grammar unit suite describes parse+strictness behaviour and passes (command shape fixed at this cycle's landing)."
+    content: "WS-B2 cycle 1: src/arc/arc-channel-grammar.ts created with parseArcChannel + evaluateArcChannelStrictness (zod schema authority for channel shape). HAND-MERGE: KEEP the donor's adoption-date semantics in evaluateArcChannelStrictness — grammar obligations bind from adoption forward (owner ruling 2026-07-20; principles.md §No-legacy-surfaces second arm: the owning system is replaced completely, channel history stays append-only); oak's adoption date is fixed at this cycle's landing; the donor tests covering the adoption-date branch port with it. The grammar also DEFINES corpus membership: a channel IS a date-named markdown file under the rapid-comms root; README.md and the undated .starless-notice-body.md are non-channel infrastructure by grammar definition (a closed shape, not an exclusion list). Tests at src/arc/arc-channel-grammar.unit.test.ts (co-located per testing-strategy §Development Workflow). Red→Green→Refactor, one landing. Observable proof: the co-located grammar unit suite describes parse+strictness behaviour and passes (command shape fixed at this cycle's landing)."
     status: pending
     depends_on: [ws-b1-adr]
   - id: ws-b2-c2-colour-roster
@@ -60,7 +60,7 @@ todos:
     status: pending
     depends_on: [ws-b2-c2-colour-roster]
   - id: ws-b6-c2-cli-wiring
-    content: "WS-B6 cycle 2: src/arc/arc-next-colour-cli.ts — an assignment REPORTER matching the pinned donor's true shape (no mutation: prints today's channels with worn colours and the next free palette index; the channel OPENER records the line, and ws-b8's batch repair imports the pure functions directly) + agent-tools package.json script via `pnpm exec tsx` on source (dominant validator/CLI precedent, no dist chmod) + 'src/arc/arc-next-colour-cli.ts' added to root knip.config.ts workspaces['agent-tools'].entry. Observable proof: pnpm knip green (entry wired) AND the reporter, run at this cycle's landing, prints the expected next free palette index for a prepared corpus state (the donor CLI scans a fixed live directory with no corpus input — how the state is prepared is fixed at the landing)."
+    content: "WS-B6 cycle 2: src/arc/arc-next-colour-cli.ts — an assignment REPORTER matching the pinned donor's true shape (no mutation: prints today's channels with worn colours and the next free palette index; the channel OPENER records the line) + agent-tools package.json script via `pnpm exec tsx` on source (dominant validator/CLI precedent, no dist chmod) + 'src/arc/arc-next-colour-cli.ts' added to root knip.config.ts workspaces['agent-tools'].entry. Observable proof: pnpm knip green (entry wired) AND the reporter, run at this cycle's landing, prints the expected next free palette index for a prepared corpus state (the donor CLI scans a fixed live directory with no corpus input — how the state is prepared is fixed at the landing)."
     status: pending
     depends_on: [ws-b6-c1-writer]
   - id: ws-b7-c1-validator-core
@@ -68,21 +68,17 @@ todos:
     status: pending
     depends_on: [ws-b2-c2-colour-roster]
   - id: ws-b7-c2-validator-wiring
-    content: "WS-B7 cycle 2: helpers + agent-tools package script (tsx pattern) + 'src/validators/arc-channels/validate-arc-channels.ts' knip entry ONLY — the blocking estate-gate wiring (root repo-validators:check chain edit) moves to the ws-b8 landing so no commit window carries a red gate over the unrepaired corpus. Proof: pnpm knip AND pnpm --filter @oaknational/agent-tools validate-arc-channels over the unrepaired corpus exits non-zero AND its output names at least one failing channel file with its violated rule (a bare non-zero — crash, missing script, trusted-git failure — does NOT satisfy; the diagnostic proves the instrument ran)"
+    content: "WS-B7 cycle 2: helpers + agent-tools package script (tsx pattern) + 'src/validators/arc-channels/validate-arc-channels.ts' knip entry + the blocking estate-gate wiring (root repo-validators:check chain edit) in this same landing — under adoption-forward semantics the live corpus is green as-is, so no red-gate window exists (owner ruling 2026-07-20). Proof: pnpm knip AND pnpm --filter @oaknational/agent-tools validate-arc-channels over the live corpus exits zero AND the integration suite proves the instrument bites (a malformed post-adoption fixture fails loud naming the file and violated rule — a bare pass over the corpus does NOT alone satisfy) AND pnpm repo-validators:check green with the new leg wired"
     status: pending
     depends_on: [ws-b7-c1-validator-core]
-  - id: ws-b8-corpus-repair
-    content: "WS-B8: REPAIR every tracked rapid-comms channel in place (count-free — the corpus at proof time) — add Channel-colour: lines (indices computed via the ws-b6 pure functions — deriveWornColours/nextFreeColourIndex; the batch write is this landing's own work, since the ws-b6 CLI is a non-mutating reporter) and conform entry headers/timestamps to the grammar's strict tier. No grandfather, no exclusion; the undated .starless-notice-body.md and README.md are outside the channel corpus by the ws-b2 grammar's membership definition (date-named files are channels), so the validator's green is over every GRAMMAR-MEMBER file — never a skip of a member. Doctrine resolution (append-only vs repair): the ARC protocol's append-only clause governs live dialogue; this repair is a ONE-TIME schema migration sanctioned by principles.md ('repair historical data in place'), recorded as such in ADR-214, with ws-b9 amending the reference doc's append-only clause to name the validator-proven grammar-migration exception BEFORE this repair lands. BLOCKING PREREQUISITE: the 4 coordination-branch-only channels (3× 2026-07-19-aip137-*, 1× 2026-07-19-design-system-integration-caracal-*) must be present on the execution branch before proof; if they land after, re-run writer+validator over them before the gate wiring merges. This landing ALSO wires validate-arc-channels into root repo-validators:check (moved from ws-b7), atomically with the green corpus. Review-verified facts (2026-07-20): the pinned validator reads channel content from the GIT INDEX (git show :<path>), so the repair must be staged/committed inside the granted window before the validator can green; a batch rewrite full-replays any live tail -F follower — coordinate the replay hazard inside the Director-granted window. Acceptance = ws-b7 validator green over every tracked channel. Proof: pnpm --filter @oaknational/agent-tools validate-arc-channels AND pnpm repo-validators:check"
-    status: pending
-    depends_on: [ws-b6-c2-cli-wiring, ws-b7-c2-validator-wiring, ws-b9-convention-doc]
   - id: ws-b9-convention-doc
-    content: "WS-B9: EXTEND the existing canonical .agent/reference/arc-rapid-communication.md (tracked on main, live doctrine — never a fresh file or duplicate home) with the channel-open colour-index convention, and wire the channel-open ceremony (comms/start-right surfaces) to invoke the ws-b6 assignment reporter (the opener records the reported index — donor-parity, no mutation). In the same touch, REPAIR the sections the code changes falsify: §Conventions item 1's resolveArcActive filename-substring wing-detection paragraphs (this plan IS the tracked structural cure) the §Known limitations reconciliation with the strict tier + Channel-colour: line, and the append-only clause amended to name the one-time validator-proven grammar-migration exception (sequenced BEFORE ws-b8's repair lands). Acceptance requires BOTH named ceremony surfaces wired (the comms channel-open path AND the start-right ArcAngel-open step both invoke the ws-b6 assignment reporter) — either one unchanged fails the criterion. Proof: rg -n 'arc-next-colour' on both ceremony surfaces + pnpm markdownlint-check:root"
+    content: "WS-B9: EXTEND the existing canonical .agent/reference/arc-rapid-communication.md (tracked on main, live doctrine — never a fresh file or duplicate home) with the channel-open colour-index convention (binding from the grammar's adoption date forward; history stays append-only, never retro-edited), and wire the channel-open ceremony (comms/start-right surfaces) to invoke the ws-b6 assignment reporter (the opener records the reported index — donor-parity, no mutation). In the same touch, REPAIR the sections the code changes falsify: §Conventions item 1's resolveArcActive filename-substring wing-detection paragraphs (this plan IS the tracked structural cure) and the §Known limitations reconciliation with the strict tier + Channel-colour: line. Acceptance requires BOTH named ceremony surfaces wired (the comms channel-open path AND the start-right ArcAngel-open step both invoke the ws-b6 assignment reporter) — either one unchanged fails the criterion. Proof: rg -n 'arc-next-colour' on both ceremony surfaces + pnpm markdownlint-check:root"
     status: pending
     depends_on: [ws-b6-c2-cli-wiring, ws-b7-c2-validator-wiring]
   - id: ws-b10-integrate-review
     content: "WS-B10: full pnpm check (knip + depcruise + repo-validators + build + test) over the integrated delivery; adversarial specialist reviews (react/type/test/config/security as applicable); ADR-214 finalisation. Doc propagation, enumerated: ADR index entry in architectural-decisions/README.md; agent-tools/README.md CLI catalogue + Structure tree entries for src/arc + the two new scripts; TSDoc on new src/arc public exports; ws-b9 reference-doc repairs verified landed. All acceptance ids proven. Proof: pnpm check"
     status: pending
-    depends_on: [ws-a-cycle-1, ws-b5-c2-composed-integration, ws-b8-corpus-repair, ws-b9-convention-doc]
+    depends_on: [ws-a-cycle-1, ws-b5-c2-composed-integration, ws-b9-convention-doc]
 isProject: false
 ---
 
@@ -124,17 +120,24 @@ sequenced as self-correcting deliverables (PDR-093).
 - **Deliverable B — the ARC-colour estate.** grammar (`ws-b2`) → palette + truecolor
   helper (`ws-b3`) → session-shape/gatherer upgrade (`ws-b4`) → feather rendering
   (`ws-b5`); colour-assignment reporter CLI (`ws-b6`) and validator (`ws-b7`) off the grammar;
-  in-place corpus repair (`ws-b8`) proven green by the validator; the channel-open
-  convention (`ws-b9`); integration + review (`ws-b10`). The ADR (`ws-b1`) leads.
+  the channel-open convention (`ws-b9`); integration + review (`ws-b10`). The ADR
+  (`ws-b1`) leads. Grammar obligations bind from the `ws-b2` adoption date forward
+  (owner ruling 2026-07-20) — there is no corpus-repair workstream.
 
 ## Why no backwards compatibility (principles.md §Core Rules — decisive)
 
 This plan deliberately **excludes** the compatibility-shaped options the seam map
 first surfaced, because `principles.md` forbids them:
 
-- **No grandfathering the legacy corpus.** *"No legacy surfaces… repair historical
-  data in place or replace the owning surface completely."* Every existing channel
-  is **repaired in place** (`ws-b8`), not exempted with a grandfather window.
+- **No legacy surface kept alive around the corpus.** *"No legacy surfaces… repair
+  historical data in place or replace the owning surface completely."* The owner
+  selected the **second arm** (ruling 2026-07-20: "we don't fix the old channel docs,
+  we just update the system"): the owning system — grammar, validator, channel-open
+  ceremony — is replaced completely, and grammar obligations bind from the adoption
+  date forward. Channel history is append-only and never retro-edited; pre-adoption
+  channels age out of the 30-minute active window naturally, and a live channel
+  without a recorded colour renders the grammar's defined invalid state (`ws-b5`),
+  never a colourless fallback or a legacy reader.
 - **No colour-less feather fallback.** *"WE DON'T HEDGE — it is worth doing or it
   doesn't exist."* A feather that renders without a real colour index is a hedge.
 - **No grammar without its validator.** *"No unused code — delete dead code."*
@@ -151,9 +154,9 @@ first surfaced, because `principles.md` forbids them:
 
 ## Prerequisites
 
-- **Blocking:** `ws-b1` ADR precedes code (records the canonical-surface + repair-in-place
-  decision the rest depends on). `ws-b2` grammar blocks `ws-b3/b4/b6/b7`. `ws-b6`+`ws-b7`
-  block `ws-b8` (the writer assigns colours; the validator proves the repair).
+- **Blocking:** `ws-b1` ADR precedes code (records the canonical-surface +
+  adoption-forward decision the rest depends on). `ws-b2` grammar blocks
+  `ws-b3/b4/b6/b7`.
 - **Beneficial:** `statusline-registry-read.ts` (castr's extracted solo-floor registry
   reader) — minimum shippable without it: keep oak's inline registry reader; the feather
   path does not require the extraction.
@@ -163,7 +166,9 @@ first surfaced, because `principles.md` forbids them:
 ## Non-goals (YAGNI + excluded hedges)
 
 - No colour-less / boolean-only feather rendering (excluded hedge).
-- No grandfather window, exclusion list, or fallback reader for the legacy corpus.
+- No retro-editing of channel history, no exclusion list, and no fallback reader for
+  pre-adoption shapes (adoption-forward obligations are the grammar's own semantics,
+  not an exemption mechanism).
 - No `subagent-statusline*` or `engraph-logo` bring — castr-adjacent, not part of the
   two named features; oak keeps `oak-logo.ts`.
 - No adoption of castr's pre-resolved-`logoRows` render architecture (castr itself flags
@@ -174,10 +179,10 @@ first surfaced, because `principles.md` forbids them:
 
 ## Sequencing is self-correcting (PDR-093)
 
-Each downstream gate breaks if its predecessor drifted: `ws-b8` proves itself by
-invoking the `ws-b7` validator over the repaired corpus (B7 is intentionally red
-before the repair — the red instrument is the baseline, the green run is B8's
-completion signal); `ws-b5` (feather render) tests fail if `ws-b4`
+Each downstream gate breaks if its predecessor drifted: `ws-b7`'s wiring proves
+itself at its own landing (the validator runs green over the live corpus under
+adoption-forward semantics while its integration suite proves it bites on a
+malformed post-adoption fixture); `ws-b5` (feather render) tests fail if `ws-b4`
 (gatherer shape) drifted; `ws-b3` palette is consumed by `ws-b5`; `ws-b2` grammar is
 consumed by b3/b4/b6/b7. Deliverable A shares no surface with B and is parallel-safe.
 
@@ -212,19 +217,15 @@ same commands as their landing gates.
   AND `pnpm knip` AND a deterministic package-script invocation over a fixture corpus
   (the reporter exits 0 and prints the expected next free palette index) so the script
   name, corpus scan, and output adapter are all executed.
-- **B7:** validator fails loud on a malformed in-memory fixture, passes a conformant one,
-  and fails loud when the canonical rapid-comms surface is ABSENT (a silently skipped
-  corpus cannot satisfy the criteria); package script + knip entry landed (estate-gate
-  wiring deferred to B8 by design). Proof:
+- **B7:** validator fails loud on a malformed post-adoption in-memory fixture, passes a
+  conformant one, and fails loud when the canonical rapid-comms surface is ABSENT (a
+  silently skipped corpus cannot satisfy the criteria); package script + knip entry +
+  the blocking `repo-validators:check` wiring land together (under adoption-forward
+  semantics the live corpus is green as-is — no red-gate window). Proof:
   `pnpm --filter @oaknational/agent-tools test -- src/validators/arc-channels/validate-arc-channels.integration.test.ts`
-  AND `pnpm knip`.
-- **B8:** `validate-arc-channels` is **green over every tracked rapid-comms channel at
-  proof time** (count-free; data repaired, not exempted; the 4 coordination-branch-only
-  channels present on the execution branch first), and the `repo-validators:check` wiring
-  lands in this same commit window. Proof:
-  `pnpm --filter @oaknational/agent-tools validate-arc-channels` green over the tracked
-  corpus AND `pnpm repo-validators:check` green with the new leg wired (the real corpus
-  passing the real gate — value-proxy).
+  AND `pnpm knip` AND `pnpm --filter @oaknational/agent-tools validate-arc-channels`
+  green over the live corpus AND `pnpm repo-validators:check` green with the new leg
+  wired (the real corpus passing the real gate — value-proxy).
 - **B9:** the existing canonical reference doc carries the channel-open colour convention,
   its falsified wing-detection sections are repaired, and BOTH named ceremony surfaces —
   the comms channel-open path AND the start-right ArcAngel-open step — invoke the ws-b6
@@ -269,14 +270,11 @@ same commands as their landing gates.
 - **identityPrefix regression** — naive wholesale copy of castr's `indicators.ts`/`segments.ts`
   drops oak's 3-arg prefix-rendering `formatIdentity` (the PDR-027 cross-repo join key display).
   Mitigation: hand-merge (`ws-b4`/`ws-b5` acceptance explicitly re-asserts the prefix).
-- **Corpus repair scale and branch-split corpus** — ~49 tracked rapid-comms files at plan time (most with
-  pre-grammar headers; the undated `.starless-notice-body.md` is non-channel infrastructure
-  by the ws-b2 membership definition), of which 4 exist ONLY on
-  `coordination/estate-2026-07` (3× `2026-07-19-aip137-*`, 1×
-  `2026-07-19-design-system-integration-caracal-*`) — a main-based worktree sees 45.
-  Mitigation: `ws-b6` writer batch-assigns colours; `ws-b8` conforms headers, is count-free,
-  and carries the coordination-channels landing prerequisite; `ws-b7` is the objective
-  done-signal.
+- **Live pre-adoption channels at the adoption landing** — a channel opened before the
+  `ws-b2` adoption date that is still inside the 30-minute active window when `ws-b5`
+  lands renders the defined invalid/uncoloured state until it ages out. Mitigation:
+  this is the designed behaviour, not a defect (the invalid state IS the honest
+  signal); the landing needs no corpus coordination because history is never edited.
 - **teamShape scope creep** — castr's session-shape also adds `observing-directed` + a director
   honesty-gate. Decision: **in scope** (part of the coherent session-shape design; excluding it
   would fork the shape — a hedge). Re-asserted in `ws-b4`.
@@ -295,8 +293,9 @@ same commands as their landing gates.
 
 - **Shape clause:** the "bring the whole estate or nothing" shape is forced by principles (no dead
   code, no hedge), not chosen for convenience — recorded in §Why-no-backwards-compatibility.
-- **Landing-path clause:** each WS lands as TDD cycle commits; the corpus repair (`ws-b8`) lands
-  only when the real validator is green over the real corpus (value-proxy, not self-authored).
+- **Landing-path clause:** each WS lands as TDD cycle commits; the validator's blocking
+  gate wiring (`ws-b7-c2`) lands only with the real validator green over the real corpus
+  (value-proxy, not self-authored).
 - **Vendor-literal clause:** no vendor integration; the only external dep (`zod`) is already present.
 
 ## Readiness reviewers (before DECISION-COMPLETE)
@@ -328,7 +327,7 @@ proceed on merge.
 ## Learning loop
 
 On completion, run `oak-consolidate-docs`: graduate the ARC-colour grammar decision into the ADR,
-conserve the corpus-repair method, and update the agentic-engineering thread record.
+conserve the adoption-forward migration shape, and update the agentic-engineering thread record.
 
 ## Source maps (authoritative context, do not re-derive)
 
