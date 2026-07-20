@@ -13,7 +13,7 @@ todos:
     # depends_on: []  # fully independent of Deliverable B (no ARC dependency)
   - id: ws-b1-adr
     content: "WS-B1: author ADR-214 (docs/architecture/architectural-decisions/214-arc-colour-statusline-infrastructure.md) + its README index entry — ONE ADR, kept at WHAT level: shared ARC constants single-home in the grammar module (consumers import, never redeclare); feather colour is a projection of parsed channel content; corpus repaired in place; validator fails loud on the canonical surface; and why the strict tier preserves the reference doc's protected zero-per-message-ceremony property. Non-code."
-    status: pending
+    status: in_progress # executing as PR #428 (ADR-214 drafted; rounds running)
     # depends_on: []
   - id: ws-b2-c1-parse-strictness
     content: "WS-B2 cycle 1: src/arc/arc-channel-grammar.ts created with parseArcChannel + evaluateArcChannelStrictness (zod schema authority for channel shape). HAND-MERGE: DELETE the donor's adoption-date grandfather early-return in evaluateArcChannelStrictness — this estate repairs the corpus in place, so the strict tier applies to every channel (no-grandfather principle); the donor tests covering that branch are replaced by tests of the uniform strict behaviour. The grammar also DEFINES corpus membership: a channel IS a date-named markdown file under the rapid-comms root; README.md and the undated .starless-notice-body.md are non-channel infrastructure by grammar definition (a closed shape, not an exclusion list). Tests at src/arc/arc-channel-grammar.unit.test.ts (co-located per testing-strategy §Development Workflow). Red→Green→Refactor, one landing. Proof: pnpm --filter @oaknational/agent-tools test -- src/arc/arc-channel-grammar.unit.test.ts"
