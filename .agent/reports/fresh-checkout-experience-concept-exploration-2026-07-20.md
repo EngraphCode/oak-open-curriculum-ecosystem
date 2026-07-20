@@ -83,12 +83,15 @@ these classes in rules and the docs did not fire (the estate's own
 
 "Auto-seed" needs a sharper cut than the draft's blanket rejection. Seed-at-a-**cwd-
 derived** location recreates the decoy class (a wrong path silently becomes a
-live-looking empty substrate — obs 3's mechanism generalised). But seed-at-a-**known
-repo root** is a *verified* location and cannot decoy — and that owner already
-exists: root `package.json` wires `postinstall` → `tsx
-agent-tools/src/bootstrap/bootstrap.ts`, which runs on every `pnpm install`,
-fresh clone included. The day-0 clone-seed gap has a natural, already-wired owner
-the first pass left unnamed.
+live-looking empty substrate — obs 3's mechanism generalised). Seeding at an
+install-time-**resolved root** is safe only under one further check: root
+resolution alone does NOT verify the location, because the bootstrap
+(`root package.json` wires `postinstall` → `tsx
+agent-tools/src/bootstrap/bootstrap.ts`) runs on every `pnpm install` — a *new
+worktree's* install included, where `resolveRepoRoot` yields the worktree's own
+root, not the canonical home. The verified form is *resolved root that IS the
+canonical primary home* (proposal 6's interlock). With that check, the day-0
+clone-seed gap has a natural, already-wired owner the first pass left unnamed.
 
 What demonstrably worked was **the cure at the failure surface** (obs 2 — proven by
 test and by live fire) and the estate's existing **mechanical gates** (F-95
@@ -117,11 +120,18 @@ substrate at an unverified, cwd-derived location.
 
 Each proposal carries a warrant and a falsifier.
 
-1. **Landed (PR #436):** actionable seeding errors for the registry + archive
-   readers, errno-code consolidation, and a guarded start-right seeding step.
-   *Warrant:* two live-fires in one session; the test proves the embedded seed is
-   sufficient. *Falsifier:* a future day-0 session still unable to self-serve past
-   first contact on these surfaces.
+1. **Realised in PR #436 (open at report time; review rounds ongoing; merge
+   owner-gated):** seed-bearing errors for the registry + archive readers on both
+   the plain-read and claims-lifecycle paths, with a verify-then-seed instruction
+   (an unconditional "seed it" at a mistyped path would itself create the decoy);
+   exactly ONE enriched failure case — ENOENT — while every other failure
+   propagates as its original self, unwrapped (owner ruling, 2026-07-20: never
+   replace information with a summary); an injectable read seam so the contract
+   is proven without real IO; and a race-safe, home-rooted start-right seeding
+   step. *Warrant:* two live-fires in one session; the tests prove the embedded
+   seed is sufficient and that non-ENOENT failures surface unmodified.
+   *Falsifier:* a future day-0 session still unable to self-serve past first
+   contact on these surfaces.
 2. **Follow-on:** the same actionable-error treatment for the remaining
    first-contact failure surfaces — `comms-seen/` parent creation (obs 4) and any
    other instance-tier reader that ENOENTs on a fresh checkout. *Warrant:* same
@@ -132,13 +142,23 @@ Each proposal carries a warrant and a falsifier.
    *Warrant:* avoidable papercut. *Falsifier:* a deliberate reason the defaults must
    differ. (Kept distinct from proposal 2: obs 5 does not fail, so the
    actionable-error framing and its falsifier do not apply.)
-3. **Wire the existing home-derivation primitive** into the read-path CLIs
-   (`comms send`/`inbox`, `claims`) so they derive and verify the canonical
-   coordination home instead of trusting cwd/`--comms-dir`. *Warrant:* silent
-   invisibility was the session's costliest failure, lived by both agents; the
-   primitive already exists, so this is a low-cost, high-value wiring slice.
-   *Falsifier:* a demonstration that current CLIs cannot mis-home events from a
-   worktree (they can — observed).
+3. **Stop defeating the existing home derivation.** The wiring largely exists:
+   `comms send` already defaults `--comms-dir` through `resolveCoordinationHome`
+   (`cli-comms-send.ts`), and the claims commands default their state paths the
+   same way. The observed decoys arose through the defeat paths: (a) doctrine
+   text — the canonical watcher/inbox invocations instruct agents to pass
+   explicit *relative* `--comms-dir`, overriding the safe default (both
+   explorers did exactly this all session); (b) entry points that *require* an
+   explicit dir (`comms inbox`, `comms watch`) instead of defaulting; (c) no
+   verification when an explicit path is given — a wrong explicit path is
+   accepted silently. The slice: sweep the doctrine's canonical invocations to
+   drop the explicit flags, align `inbox`/`watch` defaulting with `send`, and
+   verify-or-refuse explicit overrides that do not resolve to the canonical
+   home. *Warrant:* silent invisibility was the session's costliest failure,
+   lived by both agents — and every observed instance came through a defeat
+   path, not through the default. *Falsifier:* a decoy event produced through
+   the DEFAULT path (which would indicate the primitive itself mis-resolves,
+   a different defect).
 4. **Self-suppressing session-open substrate advisory:** an explicitly-run,
    `collaboration-state check`-shaped step that reports substrate state — and fires
    *only* when the substrate is unseeded OR the cwd's collaboration dir is not the
@@ -150,13 +170,20 @@ Each proposal carries a warrant and a falsifier.
    false positive — e.g. a legitimately-seeded non-default home it fails to
    recognise), adding friction without averting a real failure; OR it fires
    correctly yet the agent proceeds to the silent failure anyway (it did not change
-   the outcome). Either shows the self-suppressing fire-condition is mis-drawn. (The
-   naive "N sessions where it fires and catches nothing" cannot occur by
-   construction once self-suppression holds — if it fires, the substrate is
-   unhealthy — so it is not a valid falsifier for this form.)
+   the outcome). Either shows the self-suppressing fire-condition is mis-drawn. (A
+   count of quiet healthy sessions is not a valid falsifier for this form: once
+   self-suppression holds, a healthy checkout produces no firing at all, so
+   "fires and catches nothing on healthy checkouts" cannot occur by
+   construction.)
 5. **Route, do not solve, the adjacent finds:** env-var shell propagation (obs 6)
    to the agent-identity tooling docs/hook; the nested-workspace phantom (obs 7) to
-   the import record's own README. Neither shares this exploration's mechanism.
+   the import record's own README. *Warrant:* both were lived this session, but
+   neither shares the substrate's seeding/homing mechanism — obs 6 is
+   identity-tooling environment propagation, obs 7 is the imported record's
+   packaging — and routing them to their owning surfaces preserves this
+   exploration's mechanism boundary instead of widening it. *Falsifier:* either
+   find recurring through a seeding/homing path (which would pull it back into
+   scope as a substrate concern).
 6. **Bootstrap seeds the canonical home at install, interlocked with
    home-derivation** (new): extend the existing `postinstall` bootstrap to seed the
    substrate's registry/archive — but *only when the resolved root IS the canonical
@@ -186,7 +213,11 @@ to the read/seed paths.
 
 *Method note: this report is the four-movement `oak-concept-exploration` output.
 Movement 1 was gathered in parallel by both explorers; Deimos authored the first
-synthesis; Vanilla ran the adversarial challenge pass (sharpenings A–E above,
-concurred by Deimos and verified first-hand); Vanilla holds the pen for this
-landing. Proposal 1 is realised in PR #436; proposals 2–6 are candidates, not
-accepted architecture.*
+synthesis; Vanilla ran the adversarial challenge pass — five sharpenings: the
+one-property-two-faces framing, the install-time bootstrap owner with its
+seed-if-primary interlock, the existing-primitive rescope of proposal 3, the
+self-suppression scoping of proposal 4, and the papercut/failure severity
+split — each concurred by Deimos and verified first-hand; Deimos ran the
+reciprocal review of the fold. Vanilla held the pen for the landing; Deimos
+carried the post-handoff review rounds. Proposal 1 is realised in PR #436 (open
+at report time); proposals 2–6 are candidates, not accepted architecture.*
