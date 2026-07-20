@@ -51,7 +51,7 @@ export function DownloadBlockView({ block }: { readonly block: DownloadBlock }):
           {block.meta}
         </span>
       </span>
-      <span className="flex shrink-0 items-center gap-2 rounded-lg border-2 border-line bg-surface-inverted p-[11px_16px] text-sm leading-none font-bold text-white">
+      <span className="flex shrink-0 items-center gap-2 rounded-lg border-2 border-line bg-surface-inverted p-[11px_16px] text-sm leading-none font-bold text-ink-inverted">
         Download
         <svg
           width="16"

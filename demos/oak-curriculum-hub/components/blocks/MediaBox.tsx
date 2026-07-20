@@ -31,7 +31,7 @@ export function MediaBox({
         className={`absolute top-2.5 left-2.5 rounded-full px-2.5 py-[5px] text-[11px] leading-none font-bold tracking-[0.03em] ${
           pillTone === 'lemon'
             ? 'border-2 border-line bg-accent-brand text-ink'
-            : 'bg-surface-inverted text-white'
+            : 'bg-surface-inverted text-ink-inverted'
         }`}
       >
         {pill}

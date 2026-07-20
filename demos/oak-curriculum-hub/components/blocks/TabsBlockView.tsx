@@ -82,8 +82,8 @@ function TabPanelView({
         </p>
       ))}
       {panel.example !== undefined && (
-        <div className="mt-2 rounded-[10px] border-2 border-success bg-decorative-1-soft px-4 py-3.5">
-          <p className="mb-1.5 text-[13px] font-bold uppercase leading-none tracking-[0.04em] text-success">
+        <div className="mt-2 rounded-[10px] border-2 border-line-success bg-success-subtle px-4 py-3.5">
+          <p className="mb-1.5 text-[13px] font-bold uppercase leading-none tracking-[0.04em] text-ink">
             ✓ Example
           </p>
           <p className="text-[16px] font-light leading-6">{panel.example}</p>

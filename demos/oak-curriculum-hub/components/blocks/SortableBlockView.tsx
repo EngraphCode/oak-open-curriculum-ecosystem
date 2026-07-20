@@ -96,7 +96,7 @@ function CheckRow({
     <div className="flex flex-wrap items-center gap-3.5">
       <button
         type="button"
-        className="shadow-accent-brand rounded-lg border-2 border-line bg-surface-inverted px-5 py-[11px] text-[15px] leading-none font-bold text-white"
+        className="shadow-accent-brand rounded-lg border-2 border-line bg-surface-inverted px-5 py-[11px] text-[15px] leading-none font-bold text-ink-inverted"
         onClick={onCheck}
       >
         Check order
@@ -138,7 +138,7 @@ export function SortableBlockView({ block }: { readonly block: SortableBlock }):
       className="shadow-accent-brand rounded-[14px] border-2 border-line bg-accent-subtle-brand p-[18px_18px_20px]"
     >
       <p className="mb-1 flex items-center gap-2">
-        <span className="rounded-full bg-surface-inverted px-2.5 py-[5px] text-[11px] leading-none font-bold tracking-[0.04em] text-white">
+        <span className="rounded-full bg-surface-inverted px-2.5 py-[5px] text-[11px] leading-none font-bold tracking-[0.04em] text-ink-inverted">
           ACTIVITY
         </span>
         <span className="text-[13px] leading-none font-bold text-ink-subdued">

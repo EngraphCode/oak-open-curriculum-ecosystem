@@ -33,10 +33,10 @@ function optionClasses(answered: boolean, isSelected: boolean, isCorrect: boolea
     return `${base} border-line bg-white`;
   }
   if (isCorrect) {
-    return `${base} border-success bg-decorative-1-soft`;
+    return `${base} border-line-success bg-success-subtle`;
   }
   if (isSelected) {
-    return `${base} border-error bg-error-subtle`;
+    return `${base} border-line-error bg-error-subtle`;
   }
   return `${base} border-line/40 bg-surface-inverted/[.03]`;
 }
@@ -57,7 +57,7 @@ function OptionChip({
     return (
       <span
         aria-hidden="true"
-        className="grid h-6 w-6 shrink-0 place-items-center rounded-full border-2 border-success bg-success text-[12px] font-bold text-white"
+        className="grid h-6 w-6 shrink-0 place-items-center rounded-full border-2 border-line-success bg-success-subtle text-[12px] font-bold text-ink"
       >
         ✓
       </span>
@@ -67,7 +67,7 @@ function OptionChip({
     return (
       <span
         aria-hidden="true"
-        className="grid h-6 w-6 shrink-0 place-items-center rounded-full border-2 border-error bg-error text-[12px] font-bold text-white"
+        className="grid h-6 w-6 shrink-0 place-items-center rounded-full border-2 border-line-error bg-error-subtle text-[12px] font-bold text-ink"
       >
         ✕
       </span>

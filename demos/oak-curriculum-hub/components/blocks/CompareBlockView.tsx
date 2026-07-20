@@ -19,7 +19,7 @@ export function CompareBlockView({ block }: { readonly block: CompareBlock }): R
         aria-label="Example"
         className="overflow-hidden rounded-[14px] border-2 border-success bg-success-subtle"
       >
-        <p className="flex items-center gap-2 bg-success p-[10px_16px] text-[15px] leading-[1.3] font-bold text-white">
+        <p className="flex items-center gap-2 bg-success-subtle p-[10px_16px] text-[15px] leading-[1.3] font-bold text-ink">
           <span aria-hidden="true" className="text-lg">
             ✓
           </span>{' '}
@@ -38,7 +38,7 @@ export function CompareBlockView({ block }: { readonly block: CompareBlock }): R
         aria-label="Non-example"
         className="overflow-hidden rounded-[14px] border-2 border-error bg-error-subtle"
       >
-        <p className="flex items-center gap-2 bg-error p-[10px_16px] text-[15px] leading-[1.3] font-bold text-white">
+        <p className="flex items-center gap-2 bg-error-subtle p-[10px_16px] text-[15px] leading-[1.3] font-bold text-ink">
           <span aria-hidden="true" className="text-lg">
             ✕
           </span>{' '}

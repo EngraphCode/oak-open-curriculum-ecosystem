@@ -33,7 +33,6 @@
   --color-error-subtle: var(--bg-error-subtle);
   --color-success: var(--text-success);
   --color-success-subtle: var(--bg-success-subtle);
-  --color-warning: var(--text-warning);
   --color-info: var(--text-info, var(--text-link));
   --color-surface: var(--bg-primary);
   --color-surface-subtle: var(--bg-subtle);
@@ -45,6 +44,11 @@
   --color-line: var(--border-primary);
   --color-line-neutral: var(--border-neutral);
   --color-line-soft: var(--border-neutral-lighter);
+  /* functional border roles for meaning-bearing outlines (the kit banner
+     recipe pairs them with the -subtle fills); the text-polarity aliases
+     above (--color-success/--color-error) are for text only */
+  --color-line-success: var(--border-success);
+  --color-line-error: var(--border-error);
   --color-accent-brand: var(--color-accent);
   --color-accent-soft-brand: var(--color-accent-soft);
   --color-accent-subtle-brand: var(--color-accent-subtle);
@@ -127,10 +131,18 @@ body {
 /* Motion floor for the hub's own (not yet token-driven) animations, wired to
    the kit's data-motion axis semantics: OS reduced-motion is the default
    floor, an explicit in-product choice wins in both directions
-   (data-motion="reduced" stills; data-motion="full" re-enables — permissible
-   because nothing louder than short fades exists here). Kit-token motion
-   collapses at token level; this block narrows away as §6 migrates the hub's
-   transitions onto motion tokens. */
+   (data-motion="reduced" stills; data-motion="full" re-enables). The kit's
+   quiet-motion envelope ("full" re-enables only short fades) covers this CSS
+   floor; the JS framework walk-through is an explicit-opt-in EXTENSION of the
+   axis (visible Pause control satisfies SC 2.2.2). Scope of "full wins":
+   this floor and kit TOKEN-driven durations (colors_and_type.css re-points
+   the motion tokens under [data-motion="full"]); the kit's belt-and-braces
+   reduced-motion rules on .oak-* controls (components.css) keep those
+   micro-transitions instant under OS-reduce regardless — kit-side alignment
+   is routed to the design-system lane. The hub's JS-driven animation reads
+   the same axis via useEffectiveReducedMotion (LearningFramework.tsx).
+   Kit-token motion collapses at token level; this block narrows away as §6
+   migrates the hub's transitions onto motion tokens. */
 @media (prefers-reduced-motion: reduce) {
   :root:not([data-motion='full']) *,
   :root:not([data-motion='full']) *::before,

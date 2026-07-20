@@ -18,15 +18,17 @@ function ExampleTile({
   readonly heading: string;
   readonly caption: string;
 }): ReactElement {
-  const border = tone === 'good' ? 'border-success' : 'border-error';
-  const headBg = tone === 'good' ? 'bg-success' : 'bg-error';
-  const bodyBg = tone === 'good' ? 'bg-decorative-1-soft' : 'bg-decorative-4-subtle';
+  // Functional success/error roles, never the decorative ramp — decorative
+  // surfaces are contractually non-semantic (kit colors_and_type.css), and the
+  // subtle functional fills + border roles are the meaning-bearing recipe
+  // (the kit banner shape): fill + border + wording carry the tone; text on
+  // pastel fills stays --text-primary per the kit contract (components.css).
+  const border = tone === 'good' ? 'border-line-success' : 'border-line-error';
+  const headBg = tone === 'good' ? 'bg-success-subtle' : 'bg-error-subtle';
   return (
     <div className={`overflow-hidden rounded-large border-2 ${border}`}>
-      <p className={`m-0 px-4 py-3 text-[14px] font-bold text-white ${headBg}`}>{heading}</p>
-      <div
-        className={`flex min-h-[150px] flex-col items-center justify-center gap-2 p-4 text-center ${bodyBg}`}
-      >
+      <p className={`m-0 px-4 py-3 text-[14px] font-bold text-ink ${headBg}`}>{heading}</p>
+      <div className="flex min-h-[150px] flex-col items-center justify-center gap-2 bg-surface p-4 text-center">
         {/* Decorative swatch: the visible caption below is the single announcement —
             role="img" + aria-label duplicated it for screen readers. */}
         <span
@@ -55,8 +57,8 @@ export function StandardExemplification(): ReactElement {
         practice. The placeholders below show the shape; drop in real guidance, annotated examples
         and media as you build it out.
       </p>
-      <div className="mb-4 rounded-large border-2 border-line bg-decorative-1-soft px-5 py-[18px]">
-        <p className="mb-2 text-[12px] font-bold uppercase tracking-[0.04em] text-success">
+      <div className="mb-4 rounded-large border-2 border-line-success bg-success-subtle px-5 py-[18px]">
+        <p className="mb-2 text-[12px] font-bold uppercase tracking-[0.04em] text-ink">
           What good looks like
         </p>
         <p className="m-0 text-[16px] leading-[24px] text-ink">

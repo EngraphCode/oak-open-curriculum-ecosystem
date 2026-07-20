@@ -51,7 +51,7 @@ export function CoursePlayerControls(): ReactElement | null {
             navigate(nextId);
           }
         }}
-        className="rounded-[10px] border-2 border-line bg-surface-inverted px-5 py-2.5 text-[15px] font-bold leading-none text-white shadow-accent-brand disabled:opacity-40 disabled:shadow-none"
+        className="rounded-[10px] border-2 border-line bg-surface-inverted px-5 py-2.5 text-[15px] font-bold leading-none text-ink-inverted shadow-accent-brand disabled:opacity-40 disabled:shadow-none"
       >
         {'Complete & continue'}
         <span aria-hidden="true"> →</span>

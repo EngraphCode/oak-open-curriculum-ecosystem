@@ -15,6 +15,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { numOf, parseCssVars, toPx } from './css-token-parse';
+import { MAPPING, type TokenMapping } from './token-audit-mapping';
 
 // Repo-root-relative paths, kept relative because they ARE the report header; reads resolve them
 // against the repo root derived from this file's own location, so the tool is cwd-independent.
@@ -61,49 +62,6 @@ function parseAuthVars(files: readonly string[]): Map<string, string> {
   return merged;
 }
 
-interface TokenMapping {
-  cat: string;
-  demoToken: string;
-  authToken: string;
-  cmp: 'num' | 'px';
-}
-
-// Consumer config: demo token vs authoritative token, with how to compare.
-const MAPPING: readonly TokenMapping[] = [
-  {
-    cat: 'radius',
-    demoToken: 'radius-oak-s',
-    authToken: 'border-radius-border-radius-s',
-    cmp: 'num',
-  },
-  {
-    cat: 'radius',
-    demoToken: 'radius-oak-m',
-    authToken: 'border-radius-border-radius-m',
-    cmp: 'num',
-  },
-  {
-    cat: 'radius',
-    demoToken: 'radius-oak-m2',
-    authToken: 'border-radius-border-radius-m2',
-    cmp: 'num',
-  },
-  {
-    cat: 'radius',
-    demoToken: 'radius-oak-l',
-    authToken: 'border-radius-border-radius-l',
-    cmp: 'num',
-  },
-  { cat: 'shadow', demoToken: 'shadow-accent-brand', authToken: 'shadow-lemon', cmp: 'px' },
-  {
-    cat: 'shadow',
-    demoToken: 'shadow-accent-wide-brand',
-    authToken: 'shadow-wide-lemon',
-    cmp: 'px',
-  },
-  { cat: 'shadow', demoToken: 'shadow-neutral-brand', authToken: 'shadow-grey', cmp: 'px' },
-];
-
 /** One report line for a mapped pair where both sides exist. */
 function comparisonLine(mapping: TokenMapping, dv: string, av: string, equal: boolean): string {
   const fix = mapping.cmp === 'px' ? toPx(av) : `${numOf(av)}px`;
@@ -113,7 +71,36 @@ function comparisonLine(mapping: TokenMapping, dv: string, av: string, equal: bo
 
 interface ComparisonReport {
   matches: string[];
+  /** Demo tokens whose value is a var() alias into the kit (post-ADR-213
+   *  convergence): not literal-comparable here — the kit's own build gate and
+   *  the fidelity register's global entries govern them. */
+  aliased: string[];
   mismatches: string[];
+}
+
+/** One mapping's verdict: missing side, kit-aliased demo value (post-ADR-213
+ *  the demo tokens alias the kit's roles — a literal comparison against the
+ *  export would compare a var() reference string, so the aliasing is reported
+ *  honestly instead of a false mismatch), or a literal match/mismatch. */
+function classifyMapping(
+  mapping: TokenMapping,
+  dv: string | undefined,
+  av: string | undefined,
+): { kind: 'match' | 'mismatch' | 'aliased' | 'missing'; line: string } {
+  if (dv === undefined || av === undefined) {
+    return {
+      kind: 'missing',
+      line: `[${mapping.cat}] ${mapping.demoToken} → ${mapping.authToken}: MISSING (demo=${dv ?? 'absent'}, auth=${av ?? 'absent'})`,
+    };
+  }
+  if (dv.includes('var(')) {
+    return {
+      kind: 'aliased',
+      line: `[${mapping.cat}] ${mapping.demoToken}="${dv}" — kit-aliased; governed by the kit build gate + the register's global entries`,
+    };
+  }
+  const equal = mapping.cmp === 'num' ? numOf(dv) === numOf(av) : toPx(dv) === toPx(av);
+  return { kind: equal ? 'match' : 'mismatch', line: comparisonLine(mapping, dv, av, equal) };
 }
 
 /** Compare every mapped token pair; the returned lines are the report's fix-list surface. */
@@ -123,19 +110,22 @@ function compareMappedTokens(
 ): ComparisonReport {
   const matches: string[] = [];
   const mismatches: string[] = [];
+  const aliased: string[] = [];
   for (const mapping of MAPPING) {
-    const dv = demoVars.get(mapping.demoToken);
-    const av = authVars.get(mapping.authToken);
-    if (dv === undefined || av === undefined) {
-      mismatches.push(
-        `[${mapping.cat}] ${mapping.demoToken} → ${mapping.authToken}: MISSING (demo=${dv ?? 'absent'}, auth=${av ?? 'absent'})`,
-      );
-      continue;
+    const verdict = classifyMapping(
+      mapping,
+      demoVars.get(mapping.demoToken),
+      authVars.get(mapping.authToken),
+    );
+    if (verdict.kind === 'match') {
+      matches.push(verdict.line);
+    } else if (verdict.kind === 'aliased') {
+      aliased.push(verdict.line);
+    } else {
+      mismatches.push(verdict.line);
     }
-    const equal = mapping.cmp === 'num' ? numOf(dv) === numOf(av) : toPx(dv) === toPx(av);
-    (equal ? matches : mismatches).push(comparisonLine(mapping, dv, av, equal));
   }
-  return { matches, mismatches };
+  return { matches, mismatches, aliased };
 }
 
 /** Count of authoritative tokens whose name starts with `prefix`. */
@@ -193,6 +183,7 @@ function collectOmissions(demoVars: Map<string, string>, authVars: Map<string, s
 function printReport(
   authFiles: readonly string[],
   matches: readonly string[],
+  aliased: readonly string[],
   mismatches: readonly string[],
   omissions: readonly string[],
 ): void {
@@ -201,6 +192,12 @@ function printReport(
   );
   process.stdout.write(`## Mapped-token matches (${matches.length})\n`);
   for (const line of matches) {
+    process.stdout.write(`  ${line}\n`);
+  }
+  process.stdout.write(
+    `\n## Kit-aliased tokens (${aliased.length}) — governed by the kit build gate + register\n`,
+  );
+  for (const line of aliased) {
     process.stdout.write(`  ${line}\n`);
   }
   process.stdout.write(
@@ -232,8 +229,8 @@ function main(): void {
   }
   const demoVars = parseCssVars(path.resolve(REPO_ROOT, DEMO));
   const authVars = parseAuthVars(auth.files);
-  const { matches, mismatches } = compareMappedTokens(demoVars, authVars);
-  printReport(auth.files, matches, mismatches, collectOmissions(demoVars, authVars));
+  const { matches, mismatches, aliased } = compareMappedTokens(demoVars, authVars);
+  printReport(auth.files, matches, aliased, mismatches, collectOmissions(demoVars, authVars));
 }
 
 main();

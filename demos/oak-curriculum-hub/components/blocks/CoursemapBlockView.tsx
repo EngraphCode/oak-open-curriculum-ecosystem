@@ -40,7 +40,7 @@ export function CoursemapBlockView(): ReactElement {
             <span className="mt-auto block p-[14px_18px_16px]">
               <a
                 href={`#${module.id}`}
-                className="shadow-accent-brand flex w-full items-center justify-center gap-[7px] rounded-lg border-2 border-line bg-surface-inverted p-[11px] text-sm leading-none font-bold text-white no-underline"
+                className="shadow-accent-brand flex w-full items-center justify-center gap-[7px] rounded-lg border-2 border-line bg-surface-inverted p-[11px] text-sm leading-none font-bold text-ink-inverted no-underline"
               >
                 Start module <span aria-hidden="true">→</span>
               </a>

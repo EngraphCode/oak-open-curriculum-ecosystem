@@ -19,7 +19,7 @@ const navItems: readonly HubNavItem[] = [
 ];
 
 const navLinkClass =
-  'whitespace-nowrap rounded-card px-[13px] py-[9px] text-[15px] font-semibold leading-none text-ink no-underline transition-colors hover:bg-surface';
+  'whitespace-nowrap rounded-card px-[13px] py-[9px] text-[15px] font-semibold leading-none text-ink no-underline transition-colors hover:bg-surface-subtle';
 
 /** The inline sections nav — `md:` up only; small viewports use {@link MobileHubNav}. */
 function HubNav(): ReactElement {

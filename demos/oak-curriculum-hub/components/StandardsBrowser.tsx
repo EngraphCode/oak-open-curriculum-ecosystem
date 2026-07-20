@@ -100,13 +100,15 @@ function AreaRail({
           aria-pressed={item.active}
           onClick={() => onPick(item.value)}
           className={`flex items-center gap-2 rounded-card px-3 py-2.5 text-left text-[14px] leading-[18px] ${
-            item.active ? 'bg-surface-inverted font-bold text-white' : 'text-ink hover:bg-surface'
+            item.active
+              ? 'bg-surface-inverted font-bold text-ink-inverted'
+              : 'text-ink hover:bg-surface-subtle'
           }`}
         >
           <span className="flex-1">{item.label}</span>
           <span
             className={`shrink-0 rounded-full px-2 py-1 text-[11px] font-bold ${
-              item.active ? 'bg-white/20 text-white' : 'bg-line-soft text-ink-subdued'
+              item.active ? 'bg-surface/20 text-ink-inverted' : 'bg-line-soft text-ink-subdued'
             }`}
           >
             {item.count}

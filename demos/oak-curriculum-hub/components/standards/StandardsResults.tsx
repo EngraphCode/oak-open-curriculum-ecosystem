@@ -40,7 +40,7 @@ function ChipRow({
             onClick={() => onPick(chip.value)}
             className={`rounded-full border-2 border-line px-3.5 py-2 text-[13px] font-bold ${
               chip.active
-                ? 'bg-surface-inverted text-white'
+                ? 'bg-surface-inverted text-ink-inverted'
                 : 'bg-white text-ink hover:shadow-accent-brand'
             }`}
           >
@@ -60,7 +60,7 @@ function FocusBanner({ onBrowseAll }: { readonly onBrowseAll: () => void }): Rea
       </span>
       <Link
         href="/course"
-        className="inline-flex shrink-0 items-center gap-1.5 rounded-full border-2 border-link bg-link px-4 py-2.5 text-[13px] font-bold text-white"
+        className="inline-flex shrink-0 items-center gap-1.5 rounded-full border-2 border-link bg-link px-4 py-2.5 text-[13px] font-bold text-ink-inverted"
       >
         <span aria-hidden="true">←</span> Return to training
       </Link>
@@ -87,7 +87,7 @@ function NoResults({ onReset }: { readonly onReset: () => void }): ReactElement 
       <button
         type="button"
         onClick={() => onReset()}
-        className="rounded-full border-2 border-line bg-surface-inverted px-4 py-2.5 text-[14px] font-bold text-white"
+        className="rounded-full border-2 border-line bg-surface-inverted px-4 py-2.5 text-[14px] font-bold text-ink-inverted"
       >
         Reset filters
       </button>
@@ -157,7 +157,7 @@ function Pagination({
       <button
         type="button"
         onClick={() => onShowMore()}
-        className="rounded-full border-2 border-line bg-surface-inverted px-[22px] py-3 text-[15px] font-bold text-white shadow-accent-brand"
+        className="rounded-full border-2 border-line bg-surface-inverted px-[22px] py-3 text-[15px] font-bold text-ink-inverted shadow-accent-brand"
       >
         Show {view.nextStep} more
       </button>

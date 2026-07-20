@@ -8,7 +8,7 @@ import type { HubNavItem } from '@/components/HubNavLink';
 import { HubSearch } from '@/components/HubSearch';
 
 const menuLinkClass =
-  'block rounded-card px-[13px] py-[11px] text-[15px] font-semibold leading-none text-ink no-underline transition-colors hover:bg-surface';
+  'block rounded-card px-[13px] py-[11px] text-[15px] font-semibold leading-none text-ink no-underline transition-colors hover:bg-surface-subtle';
 
 /** The open disclosure panel: stacked section links plus the hub search. */
 function MenuPanel({

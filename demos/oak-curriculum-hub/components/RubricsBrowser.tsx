@@ -48,7 +48,7 @@ function RubricFacet({
   readonly pressed: boolean;
   readonly onSelect: () => void;
 }): ReactElement {
-  const tint = pressed ? 'bg-surface-inverted text-white' : 'bg-white text-ink';
+  const tint = pressed ? 'bg-surface-inverted text-ink-inverted' : 'bg-white text-ink';
   return (
     <button
       type="button"
@@ -57,7 +57,7 @@ function RubricFacet({
       className={`flex items-center gap-2 rounded-full border-2 border-line px-4 py-1.5 text-[13px] font-bold transition-colors ${tint}`}
     >
       <span>{label}</span>
-      <span className={pressed ? 'text-white/80' : 'text-ink-subdued'}>
+      <span className={pressed ? 'text-ink-inverted/80' : 'text-ink-subdued'}>
         {count}
         <span className="sr-only"> standards</span>
       </span>

@@ -64,7 +64,7 @@ function SpotDetail({
       <span className="mb-1.5 flex items-center gap-2.5">
         <span
           aria-hidden="true"
-          className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-surface-inverted text-sm leading-none font-bold text-white"
+          className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-surface-inverted text-sm leading-none font-bold text-ink-inverted"
         >
           {num}
         </span>

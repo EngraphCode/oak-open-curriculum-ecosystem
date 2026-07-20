@@ -146,7 +146,7 @@ export function NavUnitGroup({
   return (
     <li className="mb-2">
       <p className="mt-1.5 flex items-center gap-2 px-1.5 pb-[7px] pt-2.5">
-        <span className="shrink-0 rounded-full bg-surface-inverted px-[9px] py-[5px] text-[11px] font-bold leading-none tracking-[0.04em] text-white">
+        <span className="shrink-0 rounded-full bg-surface-inverted px-[9px] py-[5px] text-[11px] font-bold leading-none tracking-[0.04em] text-ink-inverted">
           {unit.label}
         </span>
         <span className="text-[11px] font-bold uppercase leading-[15px] tracking-[0.04em] text-ink-subdued">

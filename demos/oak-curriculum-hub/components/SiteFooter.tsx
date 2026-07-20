@@ -13,7 +13,7 @@ import ThemeSwitcher from '@/components/ThemeSwitcher';
  */
 export default function SiteFooter(): ReactElement {
   return (
-    <footer className="border-t-[3px] border-line bg-surface-inverted text-white">
+    <footer className="border-t-[3px] border-line bg-surface-inverted text-ink-inverted">
       <div className="bg-surface py-4 pl-4 pr-4 text-ink md:pl-7 md:pr-7">
         <div className="mx-auto flex max-w-[1240px] items-center justify-end">
           <ThemeSwitcher />
@@ -26,7 +26,7 @@ export default function SiteFooter(): ReactElement {
             alt="Oak National Academy"
             width={22}
             height={30}
-            className="h-[30px] w-auto brightness-0 invert"
+            className="h-[30px] w-auto [filter:var(--filter-icon-inverted)]"
             unoptimized
           />
           <span className="max-w-[46ch] text-[15px] font-light leading-[21px] text-ink-inverted-subdued">
@@ -47,7 +47,7 @@ export default function SiteFooter(): ReactElement {
             href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-semibold text-white underline"
+            className="font-semibold text-ink-inverted underline"
           >
             Open Government Licence v3.0
           </a>

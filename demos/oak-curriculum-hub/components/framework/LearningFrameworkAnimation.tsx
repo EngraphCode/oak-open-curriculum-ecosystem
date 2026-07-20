@@ -57,7 +57,7 @@ export default function LearningFrameworkAnimation(): ReactElement {
       <button
         type="button"
         onClick={() => setPlaying((previous) => !previous)}
-        className="mb-3 inline-flex items-center gap-1.5 rounded-md border-2 border-line bg-white px-3 py-1.5 text-sm font-semibold text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link"
+        className="mb-3 inline-flex items-center gap-1.5 rounded-md border-2 border-line bg-surface px-3 py-1.5 text-sm font-semibold text-ink"
       >
         {playing ? 'Pause animation' : 'Play animation'}
       </button>

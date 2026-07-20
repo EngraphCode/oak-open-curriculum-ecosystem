@@ -46,7 +46,7 @@ function HubSearchForm({
       />
       <button
         type="submit"
-        className="shrink-0 rounded-full bg-surface-inverted px-5 py-2.5 text-[15px] font-bold text-white transition-colors hover:bg-surface-inverted-hover"
+        className="shrink-0 rounded-full bg-surface-inverted px-5 py-2.5 text-[15px] font-bold text-ink-inverted transition-colors hover:bg-surface-inverted-hover"
       >
         Search
       </button>
@@ -65,7 +65,7 @@ function HubHero({
   return (
     <section className="border-b-[3px] border-line bg-accent-subtle-brand">
       <div className="mx-auto max-w-[1080px] px-6 py-12">
-        <span className="mb-5 inline-block rounded-full bg-surface-inverted px-3 py-1 text-[12px] font-bold uppercase tracking-[0.06em] text-white">
+        <span className="mb-5 inline-block rounded-full bg-surface-inverted px-3 py-1 text-[12px] font-bold uppercase tracking-[0.06em] text-ink-inverted">
           Single source of truth
         </span>
         <h1 className="mb-4 max-w-[600px] text-[44px] font-bold leading-[1.05] tracking-[-0.01em]">

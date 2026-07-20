@@ -11,16 +11,8 @@
 import { useSyncExternalStore } from 'react';
 import type { ReactElement } from 'react';
 
-import {
-  getMotion,
-  getServerSnapshot,
-  getTheme,
-  motionOptions,
-  setMotion,
-  setTheme,
-  subscribe,
-  themeOptions,
-} from '@/lib/oak-theme-store';
+import { oakThemeStore } from '@/lib/oak-theme-store';
+import type { OakThemeStore } from '@/lib/oak-theme-store';
 
 const THEME_LABELS: Record<string, string> = {
   light: 'Light',
@@ -72,9 +64,13 @@ function AxisSelect({
   );
 }
 
-export default function ThemeSwitcher(): ReactElement | null {
-  const theme = useSyncExternalStore(subscribe, getTheme, getServerSnapshot);
-  const motion = useSyncExternalStore(subscribe, getMotion, getServerSnapshot);
+export default function ThemeSwitcher({
+  store = oakThemeStore,
+}: {
+  readonly store?: OakThemeStore;
+} = {}): ReactElement | null {
+  const theme = useSyncExternalStore(store.subscribe, store.getTheme, store.getServerSnapshot);
+  const motion = useSyncExternalStore(store.subscribe, store.getMotion, store.getServerSnapshot);
 
   if (theme === undefined || motion === undefined) {
     return null; // server render / no runtime: HTML stays theme-neutral
@@ -86,17 +82,17 @@ export default function ThemeSwitcher(): ReactElement | null {
         id="oak-theme-select"
         label="Theme"
         value={theme}
-        options={themeOptions()}
+        options={store.themeOptions()}
         labels={THEME_LABELS}
-        onChange={setTheme}
+        onChange={store.setTheme}
       />
       <AxisSelect
         id="oak-motion-select"
         label="Motion"
         value={motion}
-        options={motionOptions()}
+        options={store.motionOptions()}
         labels={MOTION_LABELS}
-        onChange={setMotion}
+        onChange={store.setMotion}
       />
     </div>
   );
