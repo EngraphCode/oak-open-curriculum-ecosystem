@@ -11,6 +11,10 @@ todos:
     content: "WS-A (usage relocation) cycle 1: test asserts ctx: + s/w gauges render on the repo-title (location) row, not the identity/model rows; add locationRowsWithUsage() to oak statusline-render.ts and re-point the two row-assembly sites. Allowed surface: agent-tools/src/claude/statusline-render.ts + agent-tools/tests/claude/statusline-render.unit.test.ts (the TDD pair travels together). One commit, tree green. Proof: pnpm --filter @oaknational/agent-tools test -- tests/claude/statusline-render.unit.test.ts"
     status: completed # PR #427 MERGED 2026-07-20 (merge SHA: fa0ceb4f4)
     # depends_on: []  # fully independent of Deliverable B (no ARC dependency)
+  - id: ws-a-cycle-2
+    content: "WS-A cycle 2 (owner direction 2026-07-20, supersedes cycle 1's donor-parity placement): the ctx: + s/w usage gauges move to the MODEL row, joined after the model name; the repo-title/location row returns to plain. TDD pair agent-tools/src/claude/statusline-render.ts + agent-tools/tests/claude/statusline-render.unit.test.ts; delete locationRowsWithUsage() if it loses its last consumer. Ships as its own small PR off post-amendment main (fully independent of Deliverable B). One commit, tree green. Proof: pnpm --filter @oaknational/agent-tools test -- tests/claude/statusline-render.unit.test.ts"
+    status: pending
+    # depends_on: []  # fully independent of Deliverable B (no ARC dependency)
   - id: ws-b1-adr
     content: "WS-B1: author ADR-214 (docs/architecture/architectural-decisions/214-arc-colour-statusline-infrastructure.md) + its README index entry — ONE ADR, kept at WHAT level: shared ARC constants single-home in the grammar module (consumers import, never redeclare); feather colour is a projection of parsed channel content; grammar obligations bind from adoption forward (owner ruling 2026-07-20); validator fails loud on the canonical surface; and why the strict tier preserves the reference doc's protected zero-per-message-ceremony property. Non-code."
     status: completed # PR #428 MERGED 2026-07-20 (merge SHA: 3e2041e27); Decision items 3-4 amended to the adoption-forward ruling in this plan's amendment PR
@@ -115,7 +119,9 @@ sequenced as self-correcting deliverables (PDR-093).
   The only missing piece is **placement**: transplant castr's `locationRowsWithUsage()`
   into oak's own `statusline-render.ts` (keeping oak's logo-by-style layout and `oak-logo.ts`)
   and re-point the two row-assembly sites so `ctx:` + `s`/`w` render on the repo-title
-  location row. Zero new dependencies.
+  location row. Zero new dependencies. Cycle 2 (owner direction 2026-07-20) supersedes
+  that placement: the gauges move to the model row and the location row returns to
+  plain.
 
 - **Deliverable B — the ARC-colour estate.** grammar (`ws-b2`) → palette + truecolor
   helper (`ws-b3`) → session-shape/gatherer upgrade (`ws-b4`) → feather rendering
@@ -191,8 +197,10 @@ consumed by b3/b4/b6/b7. Deliverable A shares no surface with B and is parallel-
 Every criterion names its deterministic proof command; the per-cycle todos carry the
 same commands as their landing gates.
 
-- **A:** a render unit test asserts `ctx:` + `s`/`w` appear on the repo-title/location
-  row and NOT on the identity/model rows, across logo and no-logo layouts. Proof:
+- **A:** a render unit test asserts `ctx:` + `s`/`w` appear on the MODEL row (after
+  the model name) and NOT on the identity or location rows, across logo and no-logo
+  layouts (owner direction 2026-07-20, superseding cycle 1's repo-title placement
+  shipped in PR #427). Proof:
   `pnpm --filter @oaknational/agent-tools test -- tests/claude/statusline-render.unit.test.ts`.
 - **B2:** grammar unit tests cover parse/colour/roster/cross-host/strictness; oak's local
   `ARC_ACTIVE_WINDOW_SECONDS` is gone. Proof:
