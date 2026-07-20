@@ -10,7 +10,14 @@
  * register; without it the row prints for inspection only.
  */
 import { execFileSync } from 'node:child_process';
-import { appendFileSync, linkSync, mkdirSync, unlinkSync, writeFileSync } from 'node:fs';
+import {
+  appendFileSync,
+  linkSync,
+  mkdirSync,
+  readFileSync,
+  unlinkSync,
+  writeFileSync,
+} from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
@@ -31,6 +38,10 @@ export interface PrThroughputDeps {
   readonly createRegister: (registerPath: string, header: string) => boolean;
   /** Append one row atomically (O_APPEND — never read-modify-overwrite). */
   readonly appendRegisterRow: (registerPath: string, row: string) => void;
+  /** Read the register's first `length` characters; null when unreadable. */
+  readonly readRegisterHead: (registerPath: string, length: number) => string | null;
+  /** Output-line sink — injected so tests never touch ambient stdout. */
+  readonly writeLine: (message: string) => void;
   /** Error-line sink — injected so tests can verify failures print loudly. */
   readonly writeError: (message: string) => void;
 }
@@ -78,19 +89,42 @@ function runWithOptions(options: PrThroughputOptions, deps: PrThroughputDeps): n
   });
   const row = formatRegisterRow(report, { note: options.note });
 
-  writeLine(row);
-  writeLine(
+  deps.writeLine(row);
+  deps.writeLine(
     `pr-throughput: ${report.mergedCount} merges in ${report.windowDays}d ` +
       `(${report.excludedDraftCount} draft + ${report.excludedCoordinationCount} coordination excluded)`,
   );
 
   if (options.write) {
-    deps.createRegister(options.registerPath, REGISTER_HEADER);
-    deps.appendRegisterRow(options.registerPath, `${row}\n`);
-    writeLine(`pr-throughput: row appended to ${options.registerPath}`);
+    writeRegisterRow(options, deps, row);
   }
 
   return 0;
+}
+
+/**
+ * Append the row, creating the register when absent. Single-source contract
+ * checked where the two artefacts meet: an existing register whose head
+ * differs from REGISTER_HEADER has drifted (a correction reached only one
+ * copy). Loud, never destructive — the row still appends and the
+ * informational contract keeps exit 0.
+ */
+function writeRegisterRow(options: PrThroughputOptions, deps: PrThroughputDeps, row: string): void {
+  const created = deps.createRegister(options.registerPath, REGISTER_HEADER);
+
+  if (!created) {
+    const head = deps.readRegisterHead(options.registerPath, REGISTER_HEADER.length);
+
+    if (head !== REGISTER_HEADER) {
+      deps.writeError(
+        `pr-throughput: register header at ${options.registerPath} has DRIFTED from ` +
+          'REGISTER_HEADER — reconcile the two copies (fitness-informational contract: exit 0)',
+      );
+    }
+  }
+
+  deps.appendRegisterRow(options.registerPath, `${row}\n`);
+  deps.writeLine(`pr-throughput: row appended to ${options.registerPath}`);
 }
 
 /**
@@ -165,6 +199,14 @@ function realDeps(): PrThroughputDeps {
     appendRegisterRow: (registerPath, row) => {
       appendFileSync(registerPath, row);
     },
+    readRegisterHead: (registerPath, length) => {
+      try {
+        return readFileSync(registerPath, 'utf8').slice(0, length);
+      } catch {
+        return null;
+      }
+    },
+    writeLine,
     writeError: writeErrorLine,
   };
 }

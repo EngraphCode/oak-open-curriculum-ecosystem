@@ -4,9 +4,8 @@ const ISO_DATE_TIME_PATTERN =
 /**
  * Require a complete, calendar-valid ISO date-time string — `Date.parse`
  * alone is permissive (non-ISO forms, normalised invalid dates) and would
- * let a mistyped timestamp read as a different valid instant. Hoisted from
- * `commit-queue/time.ts` when `pr-throughput` became the second consumer
- * (`consolidate-at-second-consumer`); the original module re-exports.
+ * let a mistyped timestamp read as a different valid instant. Shared by the
+ * commit queue and `pr-throughput` (`consolidate-at-second-consumer`).
  */
 export function requireIsoDateTime(value: string, fieldName: string): string {
   if (!hasValidIsoDateTimeShape(value) || !Number.isFinite(Date.parse(value))) {
@@ -14,20 +13,6 @@ export function requireIsoDateTime(value: string, fieldName: string): string {
   }
 
   return value;
-}
-
-/**
- * Compute queue expiry seconds with invalid timestamps treated as hard errors.
- */
-export function secondsUntilExpiry(expiresAt: string, nowIso: string): number {
-  return Math.floor(
-    (parseIsoDateTime(expiresAt, 'expires_at') - parseIsoDateTime(nowIso, 'now')) / 1000,
-  );
-}
-
-function parseIsoDateTime(value: string, fieldName: string): number {
-  requireIsoDateTime(value, fieldName);
-  return Date.parse(value);
 }
 
 function hasValidIsoDateTimeShape(value: string): boolean {

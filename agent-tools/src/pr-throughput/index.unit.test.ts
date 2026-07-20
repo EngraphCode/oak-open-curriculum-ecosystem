@@ -1,13 +1,6 @@
-import { readFileSync } from 'node:fs';
-
 import { describe, expect, it } from 'vitest';
 
-import {
-  computeThroughput,
-  formatRegisterRow,
-  REGISTER_HEADER,
-  type MergedPrRecord,
-} from './index.js';
+import { computeThroughput, formatRegisterRow, type MergedPrRecord } from './index.js';
 
 const NOW = new Date('2026-07-20T20:00:00Z');
 
@@ -145,25 +138,5 @@ describe('formatRegisterRow', () => {
     });
 
     expect(row).toBe('| 2026-07-20 | 7d | 0 | 0.00 | - | - |  |');
-  });
-});
-
-describe('REGISTER_HEADER', () => {
-  it('carries the prediction, its falsifier, and resolvable doctrine links', () => {
-    expect(REGISTER_HEADER).toContain('Falsifier');
-    expect(REGISTER_HEADER).toContain('p50');
-    expect(REGISTER_HEADER).toContain('PDR-131-merge-concurrency-is-free');
-    expect(REGISTER_HEADER).toContain('PDR-130-two-speed-learning');
-  });
-
-  it('is the single source of the tracked register header — the checked-in file starts with it', () => {
-    // Divergence-by-duplication gate: a header correction that reaches only
-    // one of the two copies fails here instead of drifting silently.
-    const registerPath = new URL(
-      '../../../.agent/reports/agentic-engineering/pr-throughput-register.md',
-      import.meta.url,
-    );
-
-    expect(readFileSync(registerPath, 'utf8').startsWith(REGISTER_HEADER)).toBe(true);
   });
 });

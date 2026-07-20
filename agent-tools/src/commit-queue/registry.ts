@@ -11,7 +11,7 @@ import {
   type JsonObject,
   isCommitQueuePhase,
 } from './types.js';
-import { requireIsoDateTime } from './time.js';
+import { requireIsoDateTime } from '../core/iso-date-time.js';
 
 /**
  * Read and minimally validate the active-claims registry for queue writes.

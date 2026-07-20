@@ -31,16 +31,20 @@ const CORPUS = JSON.stringify([
 function fakeDeps(input?: {
   readonly executor?: PrThroughputDeps['executor'];
   readonly registerExists?: boolean;
+  readonly registerHead?: string;
 }): {
   deps: PrThroughputDeps;
   writes: { path: string; content: string }[];
+  outputLines: string[];
   errorLines: string[];
 } {
   const writes: { path: string; content: string }[] = [];
+  const outputLines: string[] = [];
   const errorLines: string[] = [];
 
   return {
     writes,
+    outputLines,
     errorLines,
     deps: {
       executor: input?.executor ?? (() => CORPUS),
@@ -55,6 +59,11 @@ function fakeDeps(input?: {
       },
       appendRegisterRow: (path, row) => {
         writes.push({ path, content: row });
+      },
+      readRegisterHead: (_path, length) =>
+        (input?.registerHead ?? REGISTER_HEADER).slice(0, length),
+      writeLine: (message) => {
+        outputLines.push(message);
       },
       writeError: (message) => {
         errorLines.push(message);
@@ -141,11 +150,25 @@ describe('runPrThroughput', () => {
   });
 
   it('appends WITHOUT re-writing the header when the register already exists', () => {
-    const { deps, writes } = fakeDeps({ registerExists: true });
+    const { deps, writes, errorLines } = fakeDeps({ registerExists: true });
 
     expect(runPrThroughput(['--write', '--now', NOW.toISOString()], deps)).toBe(0);
     expect(writes).toHaveLength(1);
     expect(writes[0].content.endsWith('\n')).toBe(true);
+    expect(errorLines).toHaveLength(0);
+  });
+
+  it('reports loudly when an existing register head has drifted from REGISTER_HEADER', () => {
+    // Single-source contract checked where the two copies meet: never
+    // destructive (the row still appends, exit stays 0), never silent.
+    const { deps, writes, errorLines } = fakeDeps({
+      registerExists: true,
+      registerHead: '# some drifted header\n',
+    });
+
+    expect(runPrThroughput(['--write', '--now', NOW.toISOString()], deps)).toBe(0);
+    expect(errorLines.join('\n')).toContain('DRIFTED');
+    expect(writes).toHaveLength(1);
   });
 
   it('exits 0 WITHOUT writing when --write is absent', () => {

@@ -8,7 +8,7 @@ import {
   type CommitQueuePhase,
   type MutableCommitQueueCliOptions,
 } from './types.js';
-import { requireIsoDateTime } from './time.js';
+import { requireIsoDateTime } from '../core/iso-date-time.js';
 
 const DEFAULT_REGISTRY_PATH = '.agent/state/collaboration/active-claims.json';
 

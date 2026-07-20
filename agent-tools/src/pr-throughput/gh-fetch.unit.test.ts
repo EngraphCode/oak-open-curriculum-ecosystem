@@ -26,12 +26,11 @@ describe('fetchMergedPrs', () => {
       mergedUntilDate: '2026-07-20',
     });
 
-    expect(result.ok).toBe(true);
-
-    if (result.ok) {
-      expect(result.value).toHaveLength(1);
-      expect(result.value[0].number).toBe(429);
+    if (!result.ok) {
+      throw new Error(`expected ok, got: ${result.error.message}`);
     }
+    expect(result.value).toHaveLength(1);
+    expect(result.value[0].number).toBe(429);
 
     expect(calls).toHaveLength(1);
     expect(calls[0].file).toBe('/opt/homebrew/bin/gh');
@@ -52,11 +51,10 @@ describe('fetchMergedPrs', () => {
       mergedUntilDate: '2026-07-20',
     });
 
-    expect(result.ok).toBe(false);
-
-    if (!result.ok) {
-      expect(result.error.message).toContain('non-JSON');
+    if (result.ok) {
+      throw new Error('expected err, got ok');
     }
+    expect(result.error.message).toContain('non-JSON');
   });
 
   it('returns a typed err when the payload shape drifts from the schema', () => {
@@ -82,11 +80,10 @@ describe('fetchMergedPrs', () => {
       mergedUntilDate: '2026-07-20',
     });
 
-    expect(result.ok).toBe(false);
-
-    if (!result.ok) {
-      expect(result.error.message).toContain('EACCES');
+    if (result.ok) {
+      throw new Error('expected err, got ok');
     }
+    expect(result.error.message).toContain('EACCES');
   });
 });
 
@@ -108,11 +105,10 @@ describe('assertWindowCovered', () => {
       windowDays: 7,
     });
 
-    expect(result.ok).toBe(false);
-
-    if (!result.ok) {
-      expect(result.error.message).toContain('--limit');
+    if (result.ok) {
+      throw new Error('expected err, got ok');
     }
+    expect(result.error.message).toContain('--limit');
   });
 
   it('accepts an under-cap fetch (the bounded corpus is complete)', () => {
