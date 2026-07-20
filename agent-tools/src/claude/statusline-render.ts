@@ -101,38 +101,27 @@ export function renderStatusline(
 }
 
 /**
- * No-logo layout: a loud error first, the identity/indicator/model summary, then the
- * labelled location rows with the usage gauges appended to the repo-title row. Empty
+ * No-logo layout: a loud error first, the identity/indicator summary, the model
+ * row carrying the usage gauges, then the plain labelled location rows. Empty
  * lines (all their segments absent) are dropped so no blank row renders.
  */
 function renderNoLogo(seg: Segments): string {
-  const summaryLine = joinPresent([seg.identity, seg.indicators, seg.model]);
-  return [seg.error, summaryLine, ...locationRowsWithUsage(seg)]
+  const summaryLine = joinPresent([seg.identity, seg.indicators]);
+  return [seg.error, summaryLine, modelRowWithUsage(seg), ...seg.locationRows]
     .filter((line): line is string => line !== undefined && line.length > 0)
     .join('\n');
 }
 
 /**
- * Location rows with the usage gauges appended to the repo-title row: the
- * context gauge after the title, then the rate-limit gauges after the context
- * gauge — e.g. `oak · ctx:61% · s:19%(5h) · w:14%(6d)` (owner direction
- * 2026-07-20). Usage reads alongside WHERE the session is working, not in the
- * identity summary. Outside any location row the gauges still render on their
- * own line rather than being dropped.
- *
- * Transplanted from castr's statusline
- * ({@link https://github.com/EngraphCode/castr/pull/22 | castr PR #22}, main
- * commit 63a7e675); Oak divergence: this renderer keeps Oak's logo-by-style layout
- * (`resolveLogoRows` + `oak-logo.ts`) rather than castr's pre-resolved
- * `logoRows` architecture — only the usage placement is adopted.
+ * The model row carrying the usage gauges: the model name, then the context
+ * gauge, then the rate-limit gauges — e.g.
+ * `Opus 4.8 · ctx:61% · s:19%(5h) · w:14%(6d)` (owner direction 2026-07-20,
+ * superseding the repo-title placement cycle 1 shipped). Usage reads beside
+ * WHAT is doing the work; every location row stays plain. With the model
+ * absent the gauges still own the row rather than being dropped.
  */
-function locationRowsWithUsage(seg: Segments): readonly string[] {
-  const usage = joinPresent([seg.context, seg.rateLimits]);
-  if (usage.length === 0) {
-    return seg.locationRows;
-  }
-  const [titleRow, ...rest] = seg.locationRows;
-  return titleRow === undefined ? [usage] : [joinPresent([titleRow, usage]), ...rest];
+function modelRowWithUsage(seg: Segments): string {
+  return joinPresent([seg.model, seg.context, seg.rateLimits]);
 }
 
 /**
@@ -146,8 +135,8 @@ function renderWithLogo(
 ): string {
   const rowTexts = [
     joinPresent([seg.identity, seg.indicators]),
-    joinPresent([seg.model]),
-    ...locationRowsWithUsage(seg),
+    modelRowWithUsage(seg),
+    ...seg.locationRows,
   ];
   const logoRows = resolveLogoRows(logo, options.logoFrame ?? 0);
   const content = composeWithLogo(logoRows, rowTexts);
