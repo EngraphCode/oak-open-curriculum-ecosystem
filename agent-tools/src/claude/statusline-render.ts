@@ -8,11 +8,11 @@
  * owns only the line/row layout.
  *
  * Row order puts the short, fixed-width segments first — identity (with
- * indicators) on one row, then the model on the next — and the labelled
- * git-location rows last, with the usage gauges (context %, then the Claude.ai
- * rate limits) appended to the repo-title row so usage reads alongside where the
- * session is working. A loud error token, when present, leads the output in any
- * layout so it cannot be missed.
+ * indicators) on one row, then the model with the usage gauges (context %,
+ * then the Claude.ai rate limits) on the next, so usage reads beside what is
+ * doing the work — and the labelled git-location rows last, all plain. A loud
+ * error token, when present, leads the output in any layout so it cannot be
+ * missed.
  *
  * The git-location rows come pre-composed from `statusline-segments.ts`: the
  * checkout name then its branch when the session's checkout is the only relevant
@@ -87,8 +87,8 @@ export interface StatuslineRenderOptions {
  *   coordinationPlace: 'oak-open-curriculum-ecosystem',
  *   error: undefined,
  * });
- * // → identity row, "Opus 4.7" row, then the primary name with "ctx:12%"
- * //   appended, its "coord:" branch, and the worktree's name-and-branch row.
+ * // → identity row, "Opus 4.7 · ctx:12%" row, then the plain primary name,
+ * //   its "coord:" branch, and the worktree's name-and-branch row.
  * ```
  */
 export function renderStatusline(
