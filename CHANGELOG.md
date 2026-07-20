@@ -1,3 +1,27 @@
+# [1.77.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.76.0...v1.77.0) (2026-07-20)
+
+
+### Features
+
+* **agent-tools:** relocate usage gauges to the statusline repo-title row ([7e5bf57](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/7e5bf57cb50bf51974b8a57f94598ef1eb651c23))
+
+# [1.76.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.75.4...v1.76.0) (2026-07-20)
+
+
+### Bug Fixes
+
+* **design:** close the overlay-trees key type over non-light themes ([e6b939a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e6b939a89bed2e6a78352cee249370a8baddebfd))
+* **design:** cure the cycle-3 review round (7 threads, one batch) ([57d8c16](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/57d8c164088c18b9432c10fbc4e0c32a7ab600a4))
+
+
+### Features
+
+* **design:** add a WCAG AAA threshold level to contrast validation ([68670fb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/68670fb4fd19c2ccc28ef82505e255414c56bed6))
+* **design:** add composeThemeTree for declared-base and overlay composition ([141af4e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/141af4e0a6f9e5fe009b84e3a7f9efff578fbb77))
+* **design:** gate the design-system dtcg export across four themes ([bb274cc](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bb274cc2eaf711c163642451de69604f4c239be4)), closes [hi#contrast](https://github.com/hi/issues/contrast)
+* **design:** resolve colour references to fixpoint with surfaced unresolvables ([6cab314](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/6cab31476cb2c19516220bf18372b5be9e18dd95))
+* **eslint:** declare oak-design-system in the design-boundary roster ([4f3b94e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4f3b94ebeefd9f838acd4253473ef2070f4727dd))
+
 ## [1.75.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.75.3...v1.75.4) (2026-07-20)
 
 ## [1.75.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.75.2...v1.75.3) (2026-07-20)

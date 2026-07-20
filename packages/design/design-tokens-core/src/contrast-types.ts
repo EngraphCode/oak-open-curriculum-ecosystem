@@ -17,6 +17,17 @@ export const FG_MID_CONTEXTS = ['text', 'non-text', 'large-text'] as const;
 export type FgMidContext = (typeof FG_MID_CONTEXTS)[number];
 
 /**
+ * The WCAG threshold level a validation run gates at.
+ *
+ * @remarks
+ * A level names a threshold set (SC 1.4.3 at AA; SC 1.4.6 at AAA), not a
+ * conformance claim — conformance is a page-level property across the full
+ * criteria set, which a token-pair gate cannot prove. Non-text contrast
+ * (SC 1.4.11) has no AAA tier and gates at 3:1 under both levels.
+ */
+export type WcagLevel = 'AA' | 'AAA';
+
+/**
  * Normalised sRGB colour with channels in the 0–1 range.
  */
 export interface SrgbColour {
@@ -97,13 +108,17 @@ export interface ContrastReportEntry {
   readonly foregroundHex: string;
   /** Resolved hex value of the background colour. */
   readonly backgroundHex: string;
-  /** Computed contrast ratio, rounded to two decimal places. */
+  /**
+   * Computed contrast ratio, truncated (not rounded) to two decimal places
+   * so the displayed value never overstates the gated value. The gate
+   * itself uses the unrounded ratio (a true 6.9995 fails a 7:1 threshold).
+   */
   readonly ratio: number;
-  /** The WCAG AA threshold that applies (4.5 or 3). */
+  /** The WCAG threshold that applies at the report's level (7, 4.5, 3, or 0 for informational). */
   readonly requiredRatio: number;
   /** Which WCAG criterion was applied, or `'informational'` if no gate. */
   readonly context: PairContext;
-  /** Whether the pairing meets its applicable WCAG AA threshold. Always true for informational entries. */
+  /** Whether the pairing meets its threshold at the report's level. Always true for informational entries. */
   readonly pass: boolean;
 }
 
@@ -132,6 +147,8 @@ export interface ContrastReport {
   readonly timestamp: string;
   /** Theme identifier (e.g. `"light"`, `"dark"`). */
   readonly theme: string;
+  /** The WCAG threshold level this report gated at (see {@link WcagLevel}). */
+  readonly level: WcagLevel;
   /** Individual check results for every pairing. */
   readonly results: readonly ContrastReportEntry[];
   /** Aggregate pass/fail counts. */

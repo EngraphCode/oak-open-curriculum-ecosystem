@@ -140,7 +140,11 @@ describe('validateThemeOverlayCoverage', () => {
 
     expect(result.ok).toBe(true);
 
-    const counts = result.ok ? result.value.overlayKeyCounts : {};
+    if (!result.ok) {
+      throw new Error(`Expected Ok, got Err: ${JSON.stringify(result.error)}`);
+    }
+
+    const counts = result.value.overlayKeyCounts;
 
     expect(Object.hasOwn(counts, '__proto__')).toBe(true);
     expect(Object.getOwnPropertyDescriptor(counts, '__proto__')?.value).toBe(1);
