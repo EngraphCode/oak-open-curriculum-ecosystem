@@ -8,7 +8,7 @@ lineage:
   derives_from: "Owner direction 2026-07-20: bring the feather icon enhancements and the moved usage-quota data from the Resonance→castr statusline lane into oak; the ARC feather system is a serious statusline-infrastructure upgrade. No backwards compatibility (principles.md §Core Rules)."
 todos:
   - id: ws-a-cycle-1
-    content: "WS-A (usage relocation) cycle 1: test asserts ctx: + s/w gauges render on the repo-title (location) row, not the identity/model rows; add locationRowsWithUsage() to oak statusline-render.ts and re-point the two row-assembly sites. Allowed surface: agent-tools/src/claude/statusline-render.ts + agent-tools/tests/claude/statusline-render.unit.test.ts (the TDD pair travels together). One commit, tree green. Proof: pnpm --filter @oaknational/agent-tools test -- agent-tools/tests/claude/statusline-render.unit.test.ts"
+    content: "WS-A (usage relocation) cycle 1: test asserts ctx: + s/w gauges render on the repo-title (location) row, not the identity/model rows; add locationRowsWithUsage() to oak statusline-render.ts and re-point the two row-assembly sites. Allowed surface: agent-tools/src/claude/statusline-render.ts + agent-tools/tests/claude/statusline-render.unit.test.ts (the TDD pair travels together). One commit, tree green. Proof: pnpm --filter @oaknational/agent-tools test -- tests/claude/statusline-render.unit.test.ts"
     status: in_progress # landed as PR #427 (commit SHA: 7e5bf57cb); completes at merge
     # depends_on: []  # fully independent of Deliverable B (no ARC dependency)
   - id: ws-b1-adr
@@ -36,7 +36,7 @@ todos:
     status: pending
     depends_on: [ws-b2-c2-colour-roster]
   - id: ws-b4-c1-arcchannels-shape
-    content: "WS-B4 cycle 1: replace SessionShape.arcActive:boolean with arcChannels:ArcChannelBadge[] in statusline-session-shape.ts (bounded content reads: ARC_CONTENT_READ_CAP=8 / ARC_CONTENT_BYTE_CAP=256KB, membership-first ranking). PRESERVE oak's identityPrefix path (sessionIdPrefix, oak-logo). RELOCATE the touched legacy describing tests tests/claude/statusline-session-shape.test.ts (§ARC liveness) to the co-located canonical src/claude/statusline-session-shape.unit.test.ts in the SAME landing (testing-strategy: tests live next to the code, *.unit.test.ts). Proof: pnpm --filter @oaknational/agent-tools test -- src/claude/statusline-session-shape.unit.test.ts"
+    content: "WS-B4 cycle 1: replace SessionShape.arcActive:boolean with arcChannels:ArcChannelBadge[] in statusline-session-shape.ts (bounded content reads: ARC_CONTENT_READ_CAP=8 / ARC_CONTENT_BYTE_CAP=256KB, membership-first ranking). PRESERVE oak's identityPrefix path (sessionIdPrefix, oak-logo). ATOMIC CONSUMER MIGRATION: the same landing migrates the existing arcActive consumer (statusline-indicators.ts:64 and its fixtures) to read arcChannels (interim single-wing rendering from arcChannels.length until ws-b5-c1 replaces the rendering) so every declared landing compiles and tests green. RELOCATE the touched legacy describing tests tests/claude/statusline-session-shape.test.ts (§ARC liveness) to the co-located canonical src/claude/statusline-session-shape.unit.test.ts in the SAME landing (testing-strategy: tests live next to the code, *.unit.test.ts). Proof: pnpm --filter @oaknational/agent-tools test -- src/claude/statusline-session-shape.unit.test.ts"
     status: pending
     depends_on: [ws-b2-c3-single-home-constants]
   - id: ws-b4-c2-gatherer
@@ -186,7 +186,7 @@ same commands as their landing gates.
 
 - **A:** a render unit test asserts `ctx:` + `s`/`w` appear on the repo-title/location
   row and NOT on the identity/model rows, across logo and no-logo layouts. Proof:
-  `pnpm --filter @oaknational/agent-tools test -- agent-tools/tests/claude/statusline-render.unit.test.ts`.
+  `pnpm --filter @oaknational/agent-tools test -- tests/claude/statusline-render.unit.test.ts`.
 - **B2:** grammar unit tests cover parse/colour/roster/cross-host/strictness; oak's local
   `ARC_ACTIVE_WINDOW_SECONDS` is gone. Proof:
   `pnpm --filter @oaknational/agent-tools test -- src/arc/arc-channel-grammar.unit.test.ts`
@@ -207,7 +207,10 @@ same commands as their landing gates.
   `pnpm --filter @oaknational/agent-tools test -- src/claude/statusline-indicators.unit.test.ts src/claude/statusline-render-session-shape.unit.test.ts src/claude/statusline-identity.integration.test.ts`.
 - **B6:** `arc-next-colour` CLI assigns a valid index; wired as a package script. Proof:
   `pnpm --filter @oaknational/agent-tools test -- src/arc/arc-next-colour.unit.test.ts`
-  AND `pnpm knip`.
+  AND `pnpm knip` AND a deterministic package-script invocation against a fixture channel
+  (`pnpm --filter @oaknational/agent-tools arc-next-colour -- --channel <fixture>` exits 0
+  and writes a valid index) so the script name, argument parser, and output adapter are
+  all executed.
 - **B7:** validator fails loud on a malformed in-memory fixture, passes a conformant one,
   and fails loud when the canonical rapid-comms surface is ABSENT (a silently skipped
   corpus cannot satisfy the criteria); package script + knip entry landed (estate-gate
@@ -217,8 +220,10 @@ same commands as their landing gates.
 - **B8:** `validate-arc-channels` is **green over every tracked rapid-comms channel at
   proof time** (count-free; data repaired, not exempted; the 4 coordination-branch-only
   channels present on the execution branch first), and the `repo-validators:check` wiring
-  lands in this same commit window. Proof: `value-proxy` (the real corpus passing the
-  real gate).
+  lands in this same commit window. Proof:
+  `pnpm --filter @oaknational/agent-tools validate-arc-channels` green over the tracked
+  corpus AND `pnpm repo-validators:check` green with the new leg wired (the real corpus
+  passing the real gate — value-proxy).
 - **B9:** the existing canonical reference doc carries the channel-open colour convention,
   its falsified wing-detection sections are repaired, and BOTH named ceremony surfaces —
   the comms channel-open path AND the start-right ArcAngel-open step — invoke the ws-b6
@@ -294,6 +299,11 @@ same commands as their landing gates.
 `assumptions-expert` (plan proportionality + the teamShape/observing-directed scope call),
 `config-expert` (knip/depcruise/package-script wiring for the new `src/arc` executables + validator),
 `test-expert` (TDD cycle integrity across the estate), `docs-adr-expert` (the ADR + convention doc).
+
+**Readiness status (2026-07-20): COMPLETE.** All four reviewers ran and returned
+SOUND-WITH-AMENDMENTS; every amendment is folded into this plan (commits SHA: 91da8be8f
+and SHA: 3cd84b03e on the plan PR). No unfolded readiness finding remains; execution may
+proceed on merge.
 
 ## Lifecycle triggers
 
