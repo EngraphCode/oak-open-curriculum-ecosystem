@@ -127,7 +127,7 @@
       "summary": "AIP-137 ws-hub-migration \u00a76 slice 3 (pedagogy blocks): fixed bg-white on block cards, rows, chips, and panels (quiz, sortable, hotspot, coursemap, download, columns, flip, summary, tabs, accordion, play chip, callout chips) moves to the bg-surface role, and the two raw lemon offset shadows (#ffe555 on PlayChip and QuizBlockView) keep their export geometry with the colour tokenised to var(--color-accent). Adjacent comments trued to the role-based contract. Zero visible shift in light; dark and high-contrast now theme correctly.",
       "evidence": ["../../packages/design/oak-design-system/colors_and_type.css"],
       "disposition": "deliberate",
-      "rationale": "Integration doc \u00a76. Kit block-class adoption (.oak-quiz*/.oak-accordion) stays deferred to the fidelity-capture moment, same disposition as slices 1-2. The CalloutBlockView QS-blue family (#2a6fdb/#143b78) is untouched \u2014 documented course-export-only values; only its chips' white fill moves to the role. Line anchor: --color-accent: var(--oak-lemon) at colors_and_type.css:327.",
+      "rationale": "Integration doc \u00a76. Kit block-class adoption (.oak-quiz*/.oak-accordion) stays deferred to the fidelity-capture moment, same disposition as slices 1-2. The CalloutBlockView QS-blue family (#2a6fdb/#143b78) keeps its ENTIRE fixed pairing including bg-white: the QS foreground/background is a validated fixed pair, and theming only the background fails dark-mode contrast (round-1 finding, cured by retaining the pair). The PlayChip triangle inherits ink via currentColor so it survives the dark surface. Line anchor: --color-accent: var(--oak-lemon) at colors_and_type.css:327.",
       "author": "Eagle herds Cirrus (055d36)",
       "date": "2026-07-20"
     }
