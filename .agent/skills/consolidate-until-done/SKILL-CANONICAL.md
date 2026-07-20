@@ -79,8 +79,10 @@ Before substantive work:
    up the stale-capture-wins silent revert (worked instance 2026-07-20: a
    staged consolidation worktree was cut from the default branch while the
    live memory rode the coordination branch; caught only by this
-   recomputation, Director-confirmed). If the check never fires across a
-   quarter of staged sessions, fold it into the general grounding line.
+   recomputation, Director-confirmed). Prediction (PDR-130): with this step
+   loaded, staged-base mismatches surface AT pickup and stale-base rotations
+   drop to zero; if the check never fires across a quarter of staged
+   sessions, fold it into the general grounding line.
 
 ## Completion Contract
 

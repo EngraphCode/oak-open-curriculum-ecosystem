@@ -79,8 +79,10 @@ only if the Director's own liveness comes into question). Worked evidence
 2026-07-20: an 85-minute Director processing gap serialised two seats'
 contracts; the seat that pinged after one cadence surfaced the gap and the
 Director's catch-up swept the window — the seat that silently held paid
-the full gap. If pings routinely land during normal grant latency, lengthen
-the cadence or retract this clause (its PDR-130 prediction line).
+the full gap. Prediction (PDR-130): with this clause loaded, a routing-seat
+gap surfaces within one cadence of the contract landing and the silent
+multi-cadence hold class stops recurring; if pings routinely land during
+normal grant latency, lengthen the cadence or retract this clause.
 
 ## Enforcement
 
