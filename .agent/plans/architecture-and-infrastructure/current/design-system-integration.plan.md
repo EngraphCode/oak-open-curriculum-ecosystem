@@ -4,21 +4,21 @@ overview: "Integrate the Oak design system as a first-class workspace (packages/
 todos:
   - id: pr1-doctrine
     content: "PR1: land the composition doctrine note (docs/governance), ADR-213, the ADR-041/148 amendments, the design-token-practice correction, and this plan. Docs-only; tree green."
-    status: in_progress
+    status: completed
   - id: pr2-scaffold
     content: "PR2 step 1: scaffold packages/design/oak-design-system as a first-class workspace (package.json with exports map fencing React components off the surface, README carrying the integration contract + the Claude Design sync runbook, .gitignore for held-out asset classes)."
-    status: pending
+    status: completed
     depends_on: [pr1-doctrine]
   - id: pr2-manifest
     content: "PR2 step 2: author the per-file-class licensing manifest (every design-system file class: provenance, licence, disposition track/hold-out/owner-call) BEFORE the initial import; include the hub tracked-logos ratification question. Owner reviews this in the PR."
-    status: pending
+    status: completed
     depends_on: [pr2-scaffold]
   - id: pr2-initial-import
-    content: "PR2 step 3: initial import of the tracked file classes from the Claude Design studio (DesignSync get_file per path, or the canonical-export bundle route), verify referential self-consistency (no tracked file references a held-out file)."
-    status: pending
+    content: "PR2 step 3: initial import of the tracked file classes from the Claude Design studio (owner-downloaded export bundle route), verify referential self-consistency (clean on the public surface; studio-runtime wiring documented in the workspace README). Landed 922f2e806 on PR #411."
+    status: completed
     depends_on: [pr2-manifest]
   - id: pr2-consistency-check
-    content: "PR2 step 4 (handed to the PR3 lane 2026-07-19): the dtcg↔CSS consistency check as a workspace-owned repo validator chained into repo-validators:check — semantic regeneration comparison (parse both surfaces, compare token values; never a byte checksum — hashing pins bytes and proves no behaviour). Build contract (verified 2026-07-19, three adversarial verifiers): two naming transforms (oak.color.x → --oak-x, font.family.x → --font-x); dark = 60 light-dark second arms + 3 filter.* overrides; real CSS parser, never brace-scanning; :root-scoped comparand; primitives tier included; the two deliberate non-token props (--canvas-rows, --icon-src) excluded. Full evidence: .agent/reports/design/aip-137-stage-a-import-verification-2026-07-19.md Part 2 §1, landing with PR #411."
+    content: "PR2 step 4 (re-homed to the PR3 lane by ARC agreement 2026-07-19 — it composes with the boundary-validation cycles in design-tokens-core, Harrier rides Updraft's boundary): the dtcg↔CSS consistency check as a workspace-owned repo validator chained into repo-validators:check — semantic regeneration comparison (parse both surfaces, compare token values; never a byte checksum — hashing pins bytes and proves no behaviour). Test + check land together; tree green. Build contract (verified 2026-07-19, three adversarial verifiers): two naming transforms (oak.color.x → --oak-x, font.family.x → --font-x); dark = 60 light-dark second arms + 3 filter.* overrides; real CSS parser, never brace-scanning; :root-scoped comparand; primitives tier included; the two deliberate non-token props (--canvas-rows, --icon-src) excluded. Full evidence: .agent/reports/design/aip-137-stage-a-import-verification-2026-07-19.md Part 2 §1, landed with PR #411."
     status: pending
     depends_on: [pr2-initial-import]
   - id: pr3-cycle-completeness
@@ -41,6 +41,24 @@ todos:
     content: "Follow-on lane (pointer, not spec): ADR-213 Stage B atomic token-source switch — ONE change deletes oak-design-tokens' hand-authored trees, re-points generation at the design system's export (trees rooted color./semantic./component., dialect aliases resolved, expressions pre-computed), regenerates index.css + terminal theme, proves the 11-path terminal contract and MCP views, regenerates depcruise boundary rules, and retires design-token-practice.md's transition note in the same change. No interim dual-source landing."
     status: pending
     depends_on: [pr3-cycle-four-theme-gate]
+  - id: ws-hub-behaviour-consolidation
+    content: "Follow-on (pointer; exploration step 1): consolidate the hub's duplicated roving/synthetic-key behaviour into a hub-local components/widgets/behaviour/ module preserving BOTH key-set contracts (radio incl. the any-key fall-through guard; tabs), replace-dont-bridge, SR spot-check on the migrated widgets."
+    status: pending
+  - id: ws-fixtures-parity
+    content: "Follow-on (pointer; exploration step 2): fixtures-as-parity inside oak-design-system against the four compiled components — converts the no-drift claim from constructional to checked."
+    status: pending
+  - id: ws-gate-extension
+    content: "Follow-on (pointer; exploration step 3; HARD precondition for any first Base UI widget): ADR-147 gate extension per the RESOLVED owner ruling — per-tree axe runs across all four colour trees, forced-colors render check, motion-axis coverage, a system-selects mechanism test (never a duplicate tree validation), CI promotion of test:a11y; fix the checklist's theme-count inconsistency; high-contrast targets AAA (confirm reading at PR3 review)."
+    status: pending
+  - id: ws-checklist-upgrades
+    content: "Follow-on (pointer; exploration step 4; gated on the SR-operator owner fork): symmetric platform/hand-rolled checklist; rotating two-pair SR matrix; named SR operator + cadence."
+    status: pending
+  - id: ws-design-sync-corrections
+    content: "Follow-on (pointer; exploration step 5): the studio sync-back batch — Base UI pin-note misattribution + v1.0 date, popover row behaviour-only annotation, anchor-positioning progressive-enhancement-only, customizable-select ban, GDS date row, zag-js vanilla + light-DOM-only sentence, plus this session's accumulated fixes (styles.css comment bug, print.css, OakButton/OakSubjectChip, beforeInteractive corrections, formatting pass)."
+    status: pending
+  - id: ws-parity-diff
+    content: "Follow-on (pointer; exploration step 7): one-shot throwaway diff script of estate palette vs @oaknational/oak-components 3.0.0 — owner-decision input for the brand-parity fork; no workspace, no gate, no ADR change."
+    status: pending
 isProject: false
 ---
 
@@ -157,8 +175,12 @@ One lane, sequenced PRs, each linked to AIP-137:
 | Gate | Surfaces at | Decision |
 | --- | --- | --- |
 | Licensing manifest disposition | PR2 review | Track / hold out per file class; ratify or correct the hub's tracked-logos baseline |
-| High-contrast gate level | PR3 review | AA (current floor) or AAA for the high-contrast tree |
-| ADR-213 ratification | PR1 review | Proposed → Accepted |
+| Theme cardinality + high-contrast level | RESOLVED (owner, 2026-07-19) | Verbatim: "Maximal, all of it, but 'system' isn't a theme, it's a mechanism, we only need to prove it chooses a theme, the validity of that theme is proven separately, otherwise we are simply validating one theme twice." Implementation reading: gate ALL FOUR colour trees + forced-colors + the motion axis; `system` gets a mechanism test (proves it selects), never a duplicate tree validation; high-contrast gates at AAA per "maximal, all of it" (implementer's reading of the verbatim — correct at PR3 review if this over-reads) |
+| ADR-213 ratification | PR1/PR2 review | Proposed → Accepted (now carrying the exploration's own evidentiary basis) |
+| SR audit operator + cadence | RESOLVED (owner, 2026-07-19) | Owner-run VoiceOver/Safari at each widget ship; NVDA/Firefox alternating per widget class; batched with pin-bump re-audits; the operator named in every checklist record |
+| Native date-input chrome | first date widget | Accept un-themeable browser calendar chrome or close the row (exploration recommends: close; GDS multi-field + React Aria) |
+| Brand parity with production | after ws-parity-diff | Parity as documented vocabulary vs standing goal (recommendation: vocabulary only; a11y outranks parity) |
+| Region-contract first binding | hub convergence lane | Bind at the hub shell, or record future-surfaces-only |
 
 ## Validation
 
