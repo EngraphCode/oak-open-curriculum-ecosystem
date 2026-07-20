@@ -11,6 +11,10 @@ Practice Core package.
   generator named by the 2026-07-20 merge-drive retrospective.
 - PDR-117 amendment: "nothing is 'mine'" owner ruling (blockers are
   constraints with unblocking options, never possession or owner-queues).
+- New PDR-130 (two-speed learning) imported/adapted from the Resonance
+  estate with the AIP-142 wrap-family skills (wrap, retrospective,
+  knowledge-safety-sweep, free-play) and the skill-composition reference;
+  the slow-lane register section seeded in pending-graduations.
 
 ## [oak-open-curriculum-ecosystem] 2026-07-13 — post-review truings to PDR-125, PDR-063, PDR-064 and the ceremony surfaces (Monsoon herds Airstream, PR review rounds)
 

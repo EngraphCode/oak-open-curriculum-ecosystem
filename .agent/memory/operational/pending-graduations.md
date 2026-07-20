@@ -127,3 +127,14 @@ no-parallel-long-lived-branches and the verification-methods candidate to the
 verification-method-must-answer-the-question pattern; the no-escape-hatches ruling
 graduated to principles.md §Strict and Complete. All homes verified live before this
 drain. The commits and the homes are the record. -->
+
+## Slow lane (PDR-130 — constitutional-class concepts, decided at their review date)
+
+Rows here are live deliverables under a named review gate, NOT decision-debt:
+each carries a prediction, a falsifier, and a review date, and is decided
+(promote / kill-with-reasoning) AT that date. A dedicated consolidation passes
+these by unless a review date has arrived.
+
+| Concept | Prediction (by review) | Falsifier | Review |
+| --- | --- | --- | --- |
+| Two-speed learning itself (PDR-130) | ≥3 fast-lane graduations carry prediction lines; ≥1 slow entry promoted or killed BY its review | Register untouched at review — the lane is theatre; retire the PDR by its own rule | 2026-10 |

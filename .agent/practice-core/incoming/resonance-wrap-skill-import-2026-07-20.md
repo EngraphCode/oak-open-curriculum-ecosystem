@@ -54,3 +54,25 @@ Linear **AIP-142** (scope updated 12:51Z).
   `.agent/state/collaboration/handoffs/` — four layers (corpus / programme record /
   distilled rules / continuity map, unresolved named) + the Galago record running the
   full metaloss recursion.
+
+## Integration status (2026-07-20 dedicated consolidation, Siren lifts Trench)
+
+- **IMPORTED (adapted, landed this pass)**: `wrap`, `retrospective`,
+  `knowledge-safety-sweep`, `free-play` skills (canonical + Claude +
+  cross-tool adapters); `reference/skill-composition.md`; PDR-143's
+  substance as oak **PDR-130** (two-speed learning; renumbered per the
+  sequential-identifier collision rule) with the slow-lane section seeded
+  in `pending-graduations.md`.
+- **MAPPED, not imported**: Resonance PDR-140 (we-do-not-discard-
+  information) → this estate's existing conservation doctrine
+  (`knowledge-preservation-over-fitness-warnings`,
+  `never-use-git-to-remove-work`, PDR-046 preserve-first); the adapted
+  skills cite the oak homes. Resonance PDR-066 (comms-first-capture) →
+  oak PDR-066 (failure-mode capture events) + consolidate-docs step 3.
+- **OPEN AIP-142 DECISION (recorded in `skill-composition.md`)**: whether
+  to import the `decide` workflow + `decision-matrix` rule as a
+  first-class door, versus this estate's existing decision-lens machinery
+  (principles §Decision Lenses; `present-verdicts-not-menus`). Owner call
+  at the ticket.
+- Box clearing awaits owner approval per practice-lineage; this note is
+  the record of what integration remains.
