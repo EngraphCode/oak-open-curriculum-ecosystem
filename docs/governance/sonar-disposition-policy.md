@@ -318,6 +318,12 @@ dependency lifecycle scripts can execute arbitrary code at install time.
   before `pnpm self-update` (`readTargetVersion`'s split on `+`), so CI
   enforces the version, not the content hash — and the version alone is
   what this class's script-execution property attaches to.
+- No global script re-enable is in force: `dangerouslyAllowAllBuilds`
+  is absent (or explicitly `false`) in every tracked pnpm config surface
+  (`pnpm-workspace.yaml`, any `.npmrc`) and is not passed on the flagged
+  CI invocation — the setting bypasses the allowlist wholesale, so its
+  absence is a criterion, not an assumption (verified absent in this
+  repo's tracked config, 2026-07-20).
 - Every allowlist entry is a **reviewed, build-requiring package** (the
   current six: `@clerk/shared`, `@sentry/cli`, `esbuild`,
   `unrs-resolver`, `core-js`, `sharp` — see
