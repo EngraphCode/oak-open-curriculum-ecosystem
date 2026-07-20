@@ -225,12 +225,17 @@ worktree-local substrate is a decoy invisible to peers — the F-41 class.
 COORD_HOME="$(git worktree list --porcelain | head -1 | sed 's/^worktree //')"
 mkdir -p "$COORD_HOME/.agent/state/collaboration/comms" \
   "$COORD_HOME/.agent/state/collaboration/comms-seen"
-[ -f "$COORD_HOME/.agent/state/collaboration/active-claims.json" ] || printf '%s\n' \
-  '{ "schema_version": "1.3.0", "claims": [], "commit_queue": [] }' \
-  > "$COORD_HOME/.agent/state/collaboration/active-claims.json"
-[ -f "$COORD_HOME/.agent/state/collaboration/closed-claims.archive.json" ] || printf '%s\n' \
-  '{ "schema_version": "1.3.0", "claims": [] }' \
-  > "$COORD_HOME/.agent/state/collaboration/closed-claims.archive.json"
+# Exclusive create (noclobber): concurrent identically-prompted sessions can
+# both reach this step, and a check-then-write would let the loser truncate
+# the winner's live registry. With `set -C` the race loser fails the write
+# and keeps the winner's file; already-exists counts as success, any other
+# failure (permissions, bad COORD_HOME) still surfaces.
+( set -C; printf '%s\n' '{ "schema_version": "1.3.0", "claims": [], "commit_queue": [] }' \
+  > "$COORD_HOME/.agent/state/collaboration/active-claims.json" ) 2>/dev/null \
+  || [ -f "$COORD_HOME/.agent/state/collaboration/active-claims.json" ]
+( set -C; printf '%s\n' '{ "schema_version": "1.3.0", "claims": [] }' \
+  > "$COORD_HOME/.agent/state/collaboration/closed-claims.archive.json" ) 2>/dev/null \
+  || [ -f "$COORD_HOME/.agent/state/collaboration/closed-claims.archive.json" ]
 ```
 
 ## Practice Box
