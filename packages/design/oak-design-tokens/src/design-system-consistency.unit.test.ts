@@ -221,6 +221,22 @@ describe('compareDesignSystemConsistency', () => {
     expect(report.mismatches).toEqual([]);
   });
 
+  it('rejects the same dtcg path defined in two base trees', () => {
+    const input = baseInput();
+    const result = compareDesignSystemConsistency({
+      ...input,
+      component: { bg: { primary: { $type: 'color', $value: '#ffffff' } } },
+    });
+
+    expect(result.ok).toBe(false);
+
+    if (result.ok) {
+      throw new Error('Expected Err, got Ok');
+    }
+
+    expect(result.error.kind).toBe('variable_collision');
+  });
+
   it('keeps punctuation differences inside quoted strings visible', () => {
     const input = baseInput();
     const report = assertOk(

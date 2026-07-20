@@ -75,7 +75,10 @@ export function indexLightTokens(
       const variable = dtcgPathToCssVariable(leaf.path);
       const existing = index.get(variable);
 
-      if (existing !== undefined && existing.path !== leaf.path) {
+      // The base tiers are disjoint by design: any pre-existing variable —
+      // including the same path defined twice — would let one value escape
+      // comparison, so every duplicate is a collision.
+      if (existing !== undefined) {
         return err({ kind: 'variable_collision', variable, paths: [existing.path, leaf.path] });
       }
 
