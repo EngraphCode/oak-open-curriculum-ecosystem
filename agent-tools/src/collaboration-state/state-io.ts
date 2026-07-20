@@ -1,16 +1,15 @@
 import { mkdir, readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
-import { err, ok, toError, unwrapOrThrow, type Result } from '@oaknational/result';
+import { unwrapOrThrow } from '@oaknational/result';
 
 import { createCommsEvent } from './comms.js';
-import { isErrnoCode } from './errno.js';
-import {
-  EMPTY_ACTIVE_CLAIMS_REGISTRY_JSON,
-  EMPTY_CLOSED_CLAIMS_ARCHIVE_JSON,
-  missingStateFileError,
-} from './state-file-seeds.js';
 import { validateCollaborationJsonFileText } from './collaboration-json-validation.js';
+import {
+  readActiveClaimsFile,
+  readClosedClaimsFile,
+  type ReadTextFile,
+} from './state-file-readers.js';
 import {
   parseClosedClaimsArchive,
   parseCollaborationRegistry,
@@ -30,61 +29,11 @@ import {
 } from './types.js';
 
 export { parseClosedClaimsArchive, parseCollaborationRegistry } from './state-parsers.js';
-
-/**
- * Read and parse the active claims registry.
- *
- * A missing file fails with seeding instructions rather than being treated
- * as an empty registry: silently tolerating absence would let a wrong
- * `--active` path masquerade as "no claims" (the F-41 decoy-path failure
- * class), while the fresh-checkout case genuinely needs the file seeded
- * once. All failure modes — missing file, unreadable file, invalid content —
- * surface as `Err`; callers that live behind the CLI's exception boundary
- * unwrap with `unwrapOrThrow`.
- */
-export async function readActiveClaimsFile(
-  activePath: string,
-): Promise<Result<CollaborationRegistry, Error>> {
-  return readStateFile(activePath, parseCollaborationRegistry, {
-    label: 'active-claims registry',
-    seedJson: EMPTY_ACTIVE_CLAIMS_REGISTRY_JSON,
-  });
-}
-
-/**
- * Read and parse the closed claims archive. Failure handling mirrors
- * {@link readActiveClaimsFile}.
- */
-export async function readClosedClaimsFile(
-  closedPath: string,
-): Promise<Result<ClosedClaimsArchive, Error>> {
-  return readStateFile(closedPath, parseClosedClaimsArchive, {
-    label: 'closed-claims archive',
-    seedJson: EMPTY_CLOSED_CLAIMS_ARCHIVE_JSON,
-  });
-}
-
-async function readStateFile<T>(
-  path: string,
-  parse: (text: string) => T,
-  seed: { readonly label: string; readonly seedJson: string },
-): Promise<Result<T, Error>> {
-  let text: string;
-  try {
-    text = await readFile(path, 'utf8');
-  } catch (error) {
-    return err(
-      isErrnoCode(error, 'ENOENT')
-        ? missingStateFileError({ label: seed.label, path, seedJson: seed.seedJson, cause: error })
-        : toError(error),
-    );
-  }
-  try {
-    return ok(parse(text));
-  } catch (error) {
-    return err(toError(error));
-  }
-}
+export {
+  readActiveClaimsFile,
+  readClosedClaimsFile,
+  type ReadTextFile,
+} from './state-file-readers.js';
 
 /**
  * Append an immutable communication event to the canonical comms directory by
@@ -136,13 +85,16 @@ export async function readDirectedCommsMessages(
  *
  * The pre-transaction read surfaces the fresh-checkout seeding error (see
  * {@link readActiveClaimsFile}) before the retry transaction's generic read
- * meets a bare ENOENT; the transaction still re-reads under its lock.
+ * meets a bare ENOENT; the transaction still re-reads under its lock. The
+ * optional `readTextFile` seam (ADR-078) exists so that surfacing is
+ * provable without real IO.
  */
 export async function updateActiveClaimsFile(input: {
   readonly activePath: string;
   readonly transform: (registry: CollaborationRegistry) => CollaborationRegistry;
+  readonly readTextFile?: ReadTextFile;
 }): Promise<void> {
-  unwrapOrThrow(await readActiveClaimsFile(input.activePath));
+  unwrapOrThrow(await readActiveClaimsFile(input.activePath, input.readTextFile));
   await updateJsonFileWithRetry({
     filePath: input.activePath,
     parseText: parseCollaborationRegistry,

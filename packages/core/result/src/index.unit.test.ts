@@ -13,7 +13,6 @@ import {
   map,
   flatMap,
   mapErr,
-  toError,
   unwrapOr,
   unwrapOrElse,
   unwrapOrThrow,
@@ -107,19 +106,6 @@ describe('unwrap', () => {
   it('throws for Err results', () => {
     const result = err('failed');
     expect(() => unwrap(result)).toThrow('Called unwrap on Err: failed');
-  });
-});
-
-describe('toError', () => {
-  it('returns an Error unchanged, preserving identity', () => {
-    const original = new Error('kept', { cause: new Error('root') });
-    expect(toError(original)).toBe(original);
-  });
-
-  it('wraps a non-Error failure in an Error carrying its string form', () => {
-    const wrapped = toError('plain failure');
-    expect(wrapped).toBeInstanceOf(Error);
-    expect(wrapped.message).toBe('plain failure');
   });
 });
 

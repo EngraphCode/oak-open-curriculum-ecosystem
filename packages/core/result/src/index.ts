@@ -93,7 +93,6 @@ export function isErr<T, E>(result: Result<T, E>): result is Err<E> {
   return !result.ok;
 }
 
-export { toError } from './errors.js';
 export { unwrap, unwrapErr, unwrapOr, unwrapOrElse, unwrapOrThrow } from './unwrapping.js';
 
 /**

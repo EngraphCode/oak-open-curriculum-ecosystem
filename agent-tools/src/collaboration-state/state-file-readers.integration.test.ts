@@ -1,0 +1,104 @@
+import { unwrapErr, unwrapOrThrow } from '@oaknational/result';
+import { describe, expect, it } from 'vitest';
+
+import {
+  EMPTY_ACTIVE_CLAIMS_REGISTRY_JSON,
+  EMPTY_CLOSED_CLAIMS_ARCHIVE_JSON,
+} from './state-file-seeds.js';
+import { readActiveClaimsFile, readClosedClaimsFile } from './state-file-readers.js';
+import { updateActiveClaimsFile } from './state-io.js';
+
+// On a fresh checkout or new worktree the collaboration-state files are
+// untracked-by-design (ADR-199 / PDR-094), so first contact meets ENOENT.
+// The system states these tests describe: that first contact yields an
+// error whose message embeds the COMPLETE seed content (instructions
+// sufficient on their own to cure the failure); absence is never a silent
+// empty registry; and every non-ENOENT failure surfaces as its ORIGINAL
+// self — never wrapped, summarised, or softened (owner ruling 2026-07-20).
+// The readers' text-read seam is injected (ADR-078); no test touches
+// real IO.
+
+function missingFile(path: string): Promise<string> {
+  return Promise.reject(
+    Object.assign(new Error(`ENOENT: no such file or directory, open '${path}'`), {
+      code: 'ENOENT',
+    }),
+  );
+}
+
+const permissionFailure = Object.assign(new Error("EACCES: permission denied, open 'x'"), {
+  code: 'EACCES',
+});
+
+describe('readActiveClaimsFile on a fresh checkout', () => {
+  it('yields an Err whose message embeds the complete registry seed', async () => {
+    const error = unwrapErr(await readActiveClaimsFile('active-claims.json', missingFile));
+
+    expect(error.message).toContain('active-claims registry not found');
+    expect(error.message).toContain('untracked-by-design');
+    expect(error.message).toContain(EMPTY_ACTIVE_CLAIMS_REGISTRY_JSON);
+  });
+
+  it('accepts a file seeded with exactly the content the error prescribes', async () => {
+    const registry = unwrapOrThrow(
+      await readActiveClaimsFile(
+        'active-claims.json',
+        async () => EMPTY_ACTIVE_CLAIMS_REGISTRY_JSON,
+      ),
+    );
+
+    expect(registry.claims).toEqual([]);
+    expect(registry.commit_queue).toEqual([]);
+  });
+
+  it('throws the parser error loudly for present-but-invalid content — only ENOENT is enriched', async () => {
+    await expect(
+      readActiveClaimsFile('active-claims.json', async () => 'not json at all'),
+    ).rejects.toThrow(/not valid JSON/);
+  });
+
+  it('throws a non-ENOENT read failure as its original self, never wrapped', async () => {
+    await expect(
+      readActiveClaimsFile('active-claims.json', () => Promise.reject(permissionFailure)),
+    ).rejects.toBe(permissionFailure);
+  });
+});
+
+describe('readClosedClaimsFile on a fresh checkout', () => {
+  it('yields an Err whose message embeds the complete archive seed', async () => {
+    const error = unwrapErr(await readClosedClaimsFile('closed-claims.archive.json', missingFile));
+
+    expect(error.message).toContain('closed-claims archive not found');
+    expect(error.message).toContain('untracked-by-design');
+    expect(error.message).toContain(EMPTY_CLOSED_CLAIMS_ARCHIVE_JSON);
+  });
+
+  it('accepts a file seeded with exactly the content the error prescribes', async () => {
+    const archive = unwrapOrThrow(
+      await readClosedClaimsFile(
+        'closed-claims.archive.json',
+        async () => EMPTY_CLOSED_CLAIMS_ARCHIVE_JSON,
+      ),
+    );
+
+    expect(archive.claims).toEqual([]);
+  });
+});
+
+// The claims lifecycle commands reach the registry through the
+// transactional updaters, not the plain readers. The pre-transaction read
+// surfaces the same seed-bearing error before any lock is taken; the
+// in-transaction reads route through the SAME reader implementation, so
+// their failure contract is proven once above.
+
+describe('updateActiveClaimsFile on a fresh checkout', () => {
+  it('rejects with the seed-bearing error before entering the transaction (the claims open path)', async () => {
+    await expect(
+      updateActiveClaimsFile({
+        activePath: 'active-claims.json',
+        transform: (registry) => registry,
+        readTextFile: missingFile,
+      }),
+    ).rejects.toThrow(EMPTY_ACTIVE_CLAIMS_REGISTRY_JSON);
+  });
+});
