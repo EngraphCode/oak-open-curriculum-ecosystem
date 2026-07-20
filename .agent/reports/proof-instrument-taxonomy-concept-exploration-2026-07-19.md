@@ -113,7 +113,13 @@ recorded nowhere.
 2. **Bless `tests/*.typecheck.ts` as THE home for module-scope type anchors** (logger
    precedent), migrate the four divergent surfaces onto it, and split
    `typescript-gotchas`' blanket "delete `expectTypeOf`" into declaration-mirror (delete)
-   vs derivation-proof (keep: paired-with-runtime or typecheck-surface). Record the
+   vs derivation-proof (keep: paired-with-runtime or typecheck-surface). The two
+   keep-homes do not overlap — the router is positional: *paired-with-runtime* means the
+   proof sits lexically inside the test that exercises the same derivation; an anchor at
+   module scope in a runtime test file is not paired, it is a typecheck-surface proof in
+   the wrong file and migrates (the module-scope anchor at
+   `agent-tools/src/plan-state/plan-state-engine.unit.test.ts:15` is the worked instance —
+   a current misfit under this rule, not a placement precedent). Record the
    implicit tsconfig-inclusion dependency. Retrofit: `SCHEMA_MATCHES_MANIFEST` moves off
    the design-tokens-core public API. *Warrant*: four surfaces for one proof kind; the
    negative-assignability capability exists only in the blessed form. *Falsifier*: a
@@ -139,11 +145,14 @@ recorded nowhere.
 5. **Generalise engine-not-config to live-data gates**: mechanism proofs on synthetic
    fixtures; live data through the build-time gate; expected-output baselines are
    acceptance references, never pinned fixtures; the gate owns the live-data proof
-   (proof-happens-once). Adjudicates the existing build.ts/vitest duplication — fold into
-   the four-theme gate work. *Warrant*: the gate already enacts the pattern; the
-   duplication exists today. *Falsifier*: if removing the vitest duplicate loses a
-   pre-commit signal the gate does not provide at the same chain position, the duplicate
-   was load-bearing and the adjudication inverts.
+   (proof-happens-once). The build.ts/vitest duplication this proposal adjudicated was
+   RESOLVED on PR #423 (2026-07-20): the vitest duplicate was removed as a pure re-proof
+   and no pre-commit signal was lost, so the falsifier did not fire — the general rule
+   stands with that adjudication as its worked instance. *Warrant*: the gate already
+   enacts the pattern; the duplication was live when this exploration ran. *Falsifier*
+   (for future instances): if removing a duplicate loses a pre-commit signal the gate
+   does not provide at the same chain position, that duplicate is load-bearing and the
+   adjudication inverts for it.
 6. **Bounded remediation list** (mechanical, low-priority lane): the seven config-mirror
    tests (most have adjacent behavioural twins — deletion-shaped); the tautological
    package-version test; the `computedHash` recompute defect; the protocol-wire test's
@@ -224,8 +233,11 @@ the `.agent/practice-core/protocol.json` read at
 `agent-tools/tests/protocol-wire/wire.unit.test.ts:487`.
 
 **Anchors cited in the synthesis table (clean precedents and current misfits):**
-`packages/libs/logger/tests/logger-contract.typecheck.ts:22`;
-`agent-tools/src/plan-state/plan-state-engine.unit.test.ts:15`;
+`packages/libs/logger/tests/logger-contract.typecheck.ts:22` (clean precedent — the
+blessed home);
+`agent-tools/src/plan-state/plan-state-engine.unit.test.ts:15` (current misfit — a
+module-scope anchor in a runtime test file; migrates under proposal 2's positional
+router rule);
 `agent-tools/src/validators/ratified-lists/validate-ratified-lists.ts:24` (the 2026-07-07
 owner ruling verbatim); `agent-tools/src/validators/patterns-index/validate-patterns-index.ts:19`;
 `packages/core/oak-eslint/scripts/validate-boundaries.ts:48`;
