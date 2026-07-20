@@ -19,6 +19,7 @@ import type { Result } from './result-type.js';
  * normalise.
  */
 function raise(failure: string | Error): never {
+  // eslint-disable-next-line @oaknational/no-throw-statement -- JC: this is the one place that is allowed to throw
   throw typeof failure === 'string' ? new Error(failure) : failure;
 }
 
