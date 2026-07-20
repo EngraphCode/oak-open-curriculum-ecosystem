@@ -262,47 +262,46 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> ### ▶ ACTIVE EFFORT: ALL-PRS-TO-MERGE DRIVE + DESIGN-SYSTEM INTEGRATION (AIP-137) — Director: Flame calls Basalt (seat owner-named 2026-07-19)
+> ### ▶ ACTIVE EFFORT: NET-TO-ZERO TAIL + PDR-131 ERA — Director: Tornado tracks Apex (`daace4`, seat taken 2026-07-20T21:11:51Z)
 >
-> **SESSION SHAPE (2026-07-20, refreshed ~12:33Z):** Director **Galago stirs Grotto
-> (`60d988`)**, claim `7d6b8bbf` (adopted in place at Moment-2 08:01:08Z, event
-> `35361e82`; Flame calls Basalt retired 08:02:24Z), coordination/continuity surfaces
-> only. Second-generation team after the owner's wrap directive rotated the whole
-> original cast: **Heron seeks Bluff (`ef3eb0`)** design-system lane (claim `8df9fbc0`;
-> kit-robustness batch queued; standby successor Foehn rides Flight `3e9afa`),
-> **Herring herds Channel (`9d81e5`)** ARC-colour statusline lane (claim `57d895cb`;
-> outside the AIP-137 drive), **Goshawk tracks Spire (`baafd8`)** cycle-3 lane (claim
-> `e52ee925` adopted from Moth), **Eagle herds Cirrus (`055d36`)** hub lane (claim
-> `3dbdc579` adopted from Zenith). Owner standing word unchanged: merge grant
-> whole-drive (merge commit, never squash/--admin); #401 HELD; owner decisions and
-> owner-run actions ALWAYS as immediate cards. Drive additions this tenure: the
-> settled-round slot predicate binds every grant; auto-merge arming struck; doctrine
-> slots one-writer-per-round; GitHub Code Quality re-enabled (fresh post-enable head
-> required — each PR's currency update-branch is the trigger). Guiding plan unchanged:
+> **SESSION SHAPE (2026-07-20, refreshed ~21:20Z):** Director **Tornado tracks Apex
+> (`daace4`)**, claim `7d6b8bbf` (adopted in place at Moment-2 21:11:51Z, event
+> `adbaad89`, from Forge rides Brimstone `398e24`, who retired cleanly 21:12:34Z —
+> third Director generation of the day: Galago → Forge → Tornado, all owner-initiated
+> deliberate successions under PDR-063/064). Team: **Foehn rides Flight (`3e9afa`)**
+> design lane + #450 then wrap (claim `8df9fbc0`); **Quoll mends Lair (`4020b0`)**
+> #448 → #437 → #449-routed (claims `93d540c3`/`323e7308`). Board at 6 open PRs, every
+> one owned: #434 (Director seat's own duty — the 50-thread adjudication corpus),
+> #448/#437/#449 (Quoll), #450 (Foehn), #439 (armed, self-lands). Main + Sonar gate
+> GREEN. Owner standing words verbatim (carried from Forge's record): net-to-zero;
+> Director routing autonomy (no per-action go); no-quiet-holds; no hacks; owner
+> decisions ALWAYS as immediate cards; merge grant whole-drive (merge commit, never
+> squash/--admin); PDR-131 mechanics estate-wide (arm at settled-READY under grant;
+> Phase-8 mandatory; disarm intents before rule removals); dependency updates manual.
+> Guiding plan unchanged:
 > `.agent/plans/architecture-and-infrastructure/current/design-system-integration.plan.md`.
 > Everything faster than a handoff lives ONLY in the record this claim's
 > `handoff_record_path` names →
-> `.agent/state/collaboration/handoffs/2026-07-20-galago-director-full-handoff.md`
-> (untracked-by-design — read from the primary checkout's filesystem; it carries the
-> full Resonance-wrap layers incl. the live queue, promises sweep, and loss scan).
+> `.agent/state/collaboration/handoffs/2026-07-20-forge-director-full-handoff.md`
+> (untracked-by-design — read from the primary checkout's filesystem; four wrap
+> layers, the owed-items sweep incl. §7(b) composed-pairs gate, statusline
+> Deliverable B claim `57d895cb` retained-with-record, worktree pruning owner-gated,
+> throughput weekly read ~2026-07-27).
 >
-> **SEAT HANDOFF IN PROGRESS (2026-07-20T~12:33Z):** owner-initiated deliberate
-> succession (NOT budget-triggered). Incoming Director **Forge rides Brimstone
-> (`398e24`)**, owner-named, registered on standby 12:29:48Z (watcher armed; no
-> claim/heartbeat until Moment-2), already grounded on this brief and the current-state
-> record. Galago issues PDR-064 **Moment-1 pre-positioning**; authority stays with
-> Galago until Forge broadcasts **Moment-2** (after the readiness gate below + a pasted
-> mechanical UTC liveness check), then adopts claim `7d6b8bbf` in place and arms the
-> dual heartbeat. Galago's watcher/monitors stand down only AT Moment-2 (never dark
-> between the moments). If Forge's Moment-2 does not land, coordination authority
-> returns to the **owner**; the role context rides Galago's Moment-1 event + this
-> block + the wrap record above. Merged this drive by 12:33Z: #410 #411 #412 #409
-> #417 #418 #422 (pre-tenure) + **#423 #427 #424** (this tenure); #421/#430
-> dependabot-closed (owner does dependency updates manually). Live queue at the freeze:
-> #420 (Director cycle, settlement running), then #426 → #428 (Herring READY/queued),
-> then #414/#429 (Goshawk dual-READY), #413 (Eagle recompute, outcomes owner-pre-ruled),
-> #415/#419 (Director-executed slots — transfer to the sitting Director), #406 closes
-> after #419; #401 HELD.
+> <details><summary>Superseded 2026-07-20 ~21:20Z: Galago tenure shape + Galago→Forge transition (conserved)</summary>
+>
+> Galago stirs Grotto (`60d988`) held the seat from Moment-2 08:01:08Z (event
+> `35361e82`) over the second-generation cast (Heron design lane, Herring statusline,
+> Goshawk cycle-3, Eagle hub). Forge rides Brimstone (`398e24`) took the seat at
+> Moment-2 12:46:59Z (event `b126eaa8`); Forge's tenure ran the net-to-zero drive to
+> 23+ merges (11-wide cascade via released armed intents), authored+ratified PDR-131,
+> evidenced the merge-queue vendor incompatibility, bridged the fold outage, and
+> retired at the completed Tornado succession. Tenure substance:
+> `handoffs/2026-07-20-galago-director-full-handoff.md` and
+> `handoffs/2026-07-20-director-current-state-forge-398e24.md` (both superseded as
+> live views by Forge's full handoff record named above).
+>
+> </details>
 >
 > ### ⏸ PAUSED EFFORT (resumes at its cures-landed + freeze-recut-check gate): RESTATEMENT REMEDIATION (the settling gate for PLAN-CORPUS REFOUNDING) — last Director: Mussel rides Coral (seat held from Moment-2 2026-07-15T14:26:36Z to session close 2026-07-16; claim archived)
 >
