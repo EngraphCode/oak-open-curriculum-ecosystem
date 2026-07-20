@@ -55,8 +55,11 @@ rationale cites this policy and adds the site path + line.
 
 1. **Match the rule key** to a documented class below.
 2. **Match the site shape** against the class's decision criteria.
-3. If both match: dispose `SAFE` with a comment of the form
-   `SAFE per Sonar Disposition Policy §<rule>: <file>:<line> — <one-line site note>`.
+3. If both match: dispose with the **class's stated outcome** under the
+   Two-Outcome Rule — `SAFE` for hotspot classes, `FALSE_POSITIVE` for
+   issue classes whose criteria establish the defect is not present,
+   `FIXED` for FIX-only classes — with a comment of the form
+   `<OUTCOME> per Sonar Disposition Policy §<rule>: <file>:<line> — <one-line site note>`.
 4. If the rule is documented but the site shape does not match: do per-site
    review, document the rationale fully, and consider whether the class needs
    a sub-clause amendment.
