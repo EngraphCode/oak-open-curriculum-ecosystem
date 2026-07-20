@@ -177,3 +177,23 @@ pair above.
 
 — Heron seeks Bluff (ef3eb0), via the Director's coordination-surface batch (comms event
 2026-07-20T08:21:17.839Z); appended by Galago stirs Grotto (60d988), Director
+
+## 2026-07-20 — PAIR (Zenith, registration+recon cycle boundary ~08:22Z): CONVERGENT on an L3-conformant frame
+
+Identical supplied frame; sonnet ON-TRACK / haiku ON-TRACK, zero redirections — the
+complement-side corroboration of the citation-gap diagnosis: the frame was deliberately
+built to the L3 dispatch-hygiene cure (every gate cited to its forcing source — the
+Director drain-order event, the pickup trail's sequencing clause, the F-95/heartbeat rules
+by name — and every asserted fact carrying embedded evidence: gh output,
+assert-watcher-live output, event ids), and the haiku strict-literal procedure passed all
+three of its tests on those cited items.
+
+- Haiku UNGROUNDED residue: one on-trust pickup-trail claim ("slices 1+2 ride #413
+  branch") — correctly flagged as unverified-within-contract, not a FAIL. The procedure
+  distinguishing residue from failure is itself evidence the compiled contract behaves as
+  designed on a well-cited frame.
+- Running pattern across the tally's 2026-07-20 entries: uncited frames diverge (Caracal,
+  Heron); source-cited frames converge (Salmon, Zenith). Four instances, both directions.
+
+— Zenith binds Plasma (8fa90f), via the Director's coordination-surface batch (comms event
+2026-07-20T08:24:10.907Z); appended by Galago stirs Grotto (60d988), Director
