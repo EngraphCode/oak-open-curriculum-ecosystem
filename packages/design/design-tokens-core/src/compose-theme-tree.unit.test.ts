@@ -107,6 +107,57 @@ describe('composeThemeTree', () => {
     });
   });
 
+  it('keeps the base group $-metadata when the overlay declares none', () => {
+    // The "else from the base" half of the metadata contract: a sparse
+    // overlay that only overrides values must not strip the base's
+    // group description.
+    const base: DtcgTokenTree = {
+      $description: 'Base tree',
+      bg: { page: { $type: 'color', $value: '#f7f3eb' } },
+    };
+    const overlay: DtcgTokenTree = {
+      bg: { page: { $type: 'color', $value: '#102033' } },
+    };
+
+    expect(composeThemeTree(base, overlay)).toEqual({
+      $description: 'Base tree',
+      bg: { page: { $type: 'color', $value: '#102033' } },
+    });
+  });
+
+  it('applies the metadata contract to nested groups', () => {
+    const base: DtcgTokenTree = {
+      btn: {
+        $description: 'Button tokens',
+        bg: { $type: 'color', $value: '#1a6b4a' },
+      },
+      state: {
+        $description: 'State tokens',
+        hover: { $type: 'color', $value: '#eeeeee' },
+      },
+    };
+    const overlay: DtcgTokenTree = {
+      btn: {
+        $description: 'Dark button tokens',
+        bg: { $type: 'color', $value: '#7fd0ab' },
+      },
+      state: {
+        hover: { $type: 'color', $value: '#333333' },
+      },
+    };
+
+    expect(composeThemeTree(base, overlay)).toEqual({
+      btn: {
+        $description: 'Dark button tokens',
+        bg: { $type: 'color', $value: '#7fd0ab' },
+      },
+      state: {
+        $description: 'State tokens',
+        hover: { $type: 'color', $value: '#333333' },
+      },
+    });
+  });
+
   it('keeps a JSON-derived __proto__ group as an own entry', () => {
     // Plain-object assignment would silently drop this key onto the prototype.
     const parseTree: (json: string) => DtcgTokenTree = JSON.parse;
