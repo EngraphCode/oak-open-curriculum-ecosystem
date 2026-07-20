@@ -334,10 +334,12 @@ push window each per the estate's Codex-review race discipline
 ## Landing + lifecycle
 
 This plan lands at
-`.agent/plans/architecture-and-infrastructure/current/test-purity-quick-wins-execution.plan.md`
-(its home in THIS estate after the 2026-07-20 rescue; the source-estate
-landing path was `.agent/plans/resonance/current/…` — historical). It moves
-to `active/` when the executing session starts, AFTER the adaptation pass. Completion runs
+`.agent/plans/architecture-and-infrastructure/future/test-purity-quick-wins-execution.plan.md`
+(its home in THIS estate after the 2026-07-20 rescue and the ADR-117 lane
+correction — non-executable material lives in `future/`; the source-estate
+landing path was `.agent/plans/resonance/current/…` — historical). The
+adaptation pass is the promotion trigger to `current/`; it moves to
+`active/` when the executing session starts. Completion runs
 the consolidation touchpoint per the plan architecture; the debt plan's
 matrix rows QW1–QW7/FI2/ST7-immediate flip to executed with SHA
 evidence; observed timings (C3, C7, C8) are recorded in a completion
