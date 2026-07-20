@@ -3319,3 +3319,23 @@ commit SHA and the closing plan reference.
   excluding only ADR-183-namespaced tags at the emit stage, with corpus tests proving
   pass/leak counts; documented in the watcher rule as the sanctioned reserve/awareness-seat
   configuration alongside a mandatory peer-liveness poll.
+
+### F-147 — the pre-commit knip leg reports success when knip CRASHES (not when it finds issues)
+
+- **Source**: Director-delegate worktree agent (routed by Galago stirs Grotto `60d988`),
+  2026-07-20, PR #419 cure commit, first-hand.
+- **Observed**: in a fresh agent worktree, knip errored during pre-commit —
+  `Error loading apps/oak-search-cli/vitest.smoke.config.ts (No "exports" main defined in
+  apps/oak-search-cli/node_modules/@oaknational/env-resolution/package.json)` — yet the
+  hook chain continued and reported "Pre-commit checks completed!", and the commit landed.
+  A validator that CRASHES is being treated as a validator that PASSES. The proximate
+  trigger is the known fresh-worktree unbuilt-package class (the exports map resolves to
+  an unbuilt `dist/` — start-right §8), but the gate-integrity defect is independent of
+  the trigger: any knip crash class would slip commits the same way.
+- **Expected**: a gate leg distinguishes three outcomes — pass, findings (blocking), and
+  crash (blocking, loudly) — per no-warning-toleration and never-disable-checks; a crash
+  can never read as a pass.
+- **Candidate cure**: make the pre-commit knip invocation propagate non-zero on load/crash
+  errors (capture its exit code in-band, not the wrapper's), with a test that a
+  deliberately-broken config fails the hook; audit sibling hook legs for the same
+  crash-swallowing shape.
