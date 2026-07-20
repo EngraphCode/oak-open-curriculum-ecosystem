@@ -228,8 +228,11 @@ same commands as their landing gates.
   the comms channel-open path AND the start-right ArcAngel-open step — invoke the ws-b6
   assignment reporter (either one unchanged fails this criterion). Proof: `rg -n 'arc-next-colour'`
   over both ceremony surfaces AND `pnpm markdownlint-check:root` (the check-only variant — the :root script is a fixer and proves nothing).
-- **B10:** full `pnpm check` green (knip + depcruise + repo-validators + build + test +
-  markdownlint + format); specialist reviews dispositioned; ADR finalised. Proof: `non-code` (aggregate gate).
+- **B10:** full estate gate green; specialist reviews dispositioned; ADR finalised.
+  Proof: `pnpm check` exits 0 (knip + depcruise + repo-validators + build + test +
+  markdownlint + format) AND each specialist review verdict is recorded with its
+  disposition in the delivery PR's threads AND ADR-214's status line reads Accepted with
+  the ratifying evidence named.
 
 ## oak gate/boundary constraints the port must satisfy (from the seam map, verified first-hand)
 
