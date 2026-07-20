@@ -15,10 +15,20 @@ workspace READMEs and reviewer reading requirements link to.
 **Architectural decision**:
 [ADR-148](../architecture/architectural-decisions/148-design-token-architecture.md)
 
-## Source Format: DTCG JSON
+## Source Format: DTCG JSON (transitioning per ADR-213)
 
 The W3C Design Tokens Community Group (DTCG) JSON format is the
-source format. Pre-W3C-Recommendation living document.
+source format for the hand-authored trees in `oak-design-tokens`.
+Pre-W3C-Recommendation living document.
+
+[ADR-213](../architecture/architectural-decisions/213-design-system-integration-and-component-architecture.md)
+supersedes this direction in part (Proposed; effective on its
+acceptance): the decided end state is that the integrated design
+system's CSS is the token source of truth and DTCG JSON is a
+generated projection of it. Until ADR-213's Stage B atomic switch
+lands (deleting the hand-authored trees and re-pointing generation at
+the design system's export), the DTCG trees described here remain the
+live mechanism.
 
 Key conventions: `$type` declares the token type, `$value` holds a
 resolved value or reference (`{group.name}`), groups are nested

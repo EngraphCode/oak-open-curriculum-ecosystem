@@ -1,6 +1,10 @@
 # ADR-148: Design Token Architecture
 
-**Status**: Accepted
+**Status**: Accepted; superseded in part by
+[ADR-213](213-design-system-integration-and-component-architecture.md) (2026-07-19, effective
+on ADR-213's acceptance — the §Source Format source-of-truth direction only: the integrated
+design system's CSS becomes the token source and DTCG JSON becomes a generated projection of
+it; the three-tier model, contrast gate, and CSS delivery format stand)
 **Date**: 2026-04-02
 **Related**: [ADR-041 (Workspace Structure)](041-workspace-structure-option-a.md), [ADR-129 (Domain Specialist Capability Pattern)](129-domain-specialist-capability-pattern.md), [ADR-141 (MCP Apps Standard)](141-mcp-apps-standard-primary.md), [ADR-149 (Frontend Specialist Expert Gateway Cluster)](149-frontend-specialist-expert-gateway-cluster.md)
 

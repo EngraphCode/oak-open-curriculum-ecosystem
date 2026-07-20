@@ -44,6 +44,16 @@
     "node_modules/**",
     "**/node_modules/**",
     "packages/sdks/oak-curriculum-sdk/docs/api/**",
+    // Design-system held-out studio material (ADR-213; workspace .gitignore
+    // classes 15-16): gitignored when re-obtained locally, but this tool does
+    // not read .gitignore — exclude explicitly so a local studio re-obtain
+    // cannot fail the root markdown gate. The import staging dir likewise.
+    "packages/design/oak-design-system/uploads/**",
+    "packages/design/oak-design-system/CLAUDE.md",
+    "packages/design/oak-design-system/SKILL.md",
+    "packages/design/oak-design-system/HANDOFF.md",
+    "packages/design/oak-design-system/CLAUDE-CODE-HANDOFF.md",
+    "packages/design/design-import/**",
     ".agent/state/collaboration/shared-comms-log.md",
     ".agent/state/collaboration/cross-worktree-work-state.md",
     ".agent/collaboration/rapid-comms/2026-*.md",

@@ -174,7 +174,8 @@ New to the repo? Read these five ADRs first for the architectural foundations:
 - [ADR-145: Oak URL Naming Collision Remediation](145-oak-url-naming-collision-remediation.md)
 - [ADR-146: Assumptions Expert — Meta-Level Plan Assessment](146-assumptions-expert-meta-level-plan-assessment.md)
 - [ADR-147: Browser Accessibility as a Blocking Quality Gate](147-browser-accessibility-as-blocking-quality-gate.md)
-- [ADR-148: Design Token Architecture](148-design-token-architecture.md)
+- [ADR-148: Design Token Architecture](148-design-token-architecture.md) (§Source Format
+  superseded in part by ADR-213)
 - [ADR-149: Frontend Specialist Expert Gateway Cluster](149-frontend-specialist-expert-gateway-cluster.md)
 - [ADR-150: Continuity Surfaces, Session Handoff, and Surprise Pipeline](150-continuity-surfaces-session-handoff-and-surprise-pipeline.md)
 - [ADR-151: MCP App Styling Independence from Oak Web Application and Oak Components](151-mcp-app-styling-independence.md)
@@ -406,6 +407,15 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   Sentry each serve one audience-shaped role; execution movement, delivery performance,
   operational health, usage/adoption, and value/impact evidence remain distinct; Accepted by owner
   direction 2026-07-13, recorded 2026-07-14; amended 2026-07-14)
+- [ADR-213: Design-system integration and component-system architecture](213-design-system-integration-and-component-architecture.md)
+  (the design system integrates as a first-class workspace and the estate's design source of
+  truth — its CSS the token source with DTCG a generated projection, superseding ADR-148
+  §Source Format in part; Claude Design is a first-class team surface with a bidirectional
+  design-sync discipline; class-library-first consumption; Base UI default for new hard
+  widgets with React Aria scoped to date/locale and Ark UI for non-React; no shared React
+  component workspace until a second consumer; staged atomic token-source convergence;
+  per-file-class licensing manifest for Oak marks; Proposed 2026-07-19; amended 2026-07-19
+  §2 — overlay completeness model and colour-value grammar, evidence-driven)
 
 ## Key Architectural Decisions
 
@@ -455,7 +465,7 @@ For understanding the agentic engineering practice:
 - **[ADR-150](150-continuity-surfaces-session-handoff-and-surprise-pipeline.md)** - Continuity surfaces, lightweight session handoff, conditional deep consolidation, and the surprise pipeline
 - **[ADR-181](181-agent-team-start-and-action-log.md)** - Proposed team start ritual, emergent temporary responsibilities, and future action-trace surface
 - **[ADR-147](147-browser-accessibility-as-blocking-quality-gate.md)** - Browser accessibility as a 9th blocking quality gate: WCAG 2.2 AA, Playwright + axe-core, two-level MCP App testing
-- **[ADR-148](148-design-token-architecture.md)** - Design token architecture: DTCG JSON source, three-tier model, CSS custom properties output, `packages/design/` location
+- **[ADR-148](148-design-token-architecture.md)** - Design token architecture: DTCG JSON source, three-tier model, CSS custom properties output, `packages/design/` location (§Source Format superseded in part by ADR-213)
 - **[ADR-149](149-frontend-specialist-expert-gateway-cluster.md)** - Frontend specialist expert gateway cluster: accessibility-expert, design-system-expert, react-component-expert cohort with MCP boundary rule
 - **[ADR-151](151-mcp-app-styling-independence.md)** - MCP App styling independence: CSS custom properties over styled-components, self-contained HTML resources, host theme composition
 - **[ADR-165](165-agent-work-practice-phenotype-boundary.md)** - Agent work Practice phenotype boundary: local implementation surfaces for PDR-035 agent-work authority

@@ -1,15 +1,8 @@
-/**
- * Global DTCG token reference pattern — matches `{group.token-name}` within strings.
- *
- * @remarks
- * The inner pattern `[a-z0-9-]+(?:\.[a-z0-9-]+)*` is shared with
- * `REFERENCE_PATTERN` in `contrast-validation.ts` (anchored variant). Both
- * must be updated together if the DTCG reference syntax changes.
- */
 import type { DtcgTokenLeaf, DtcgTokenTree } from './dtcg-types.js';
+import { globalTokenReferencePattern } from './token-reference.js';
 export type { DtcgTokenTree, DtcgTokenLeaf } from './dtcg-types.js';
 
-const TOKEN_REFERENCE_PATTERN = /\{([a-z0-9-]+(?:\.[a-z0-9-]+)*)\}/giu;
+const TOKEN_REFERENCE_PATTERN = globalTokenReferencePattern();
 
 export interface FlattenedDesignToken {
   readonly path: readonly string[];
@@ -177,6 +170,36 @@ export { resolveTokenTreeToHex } from './contrast-resolve.js';
 
 export { validateContrastPairings } from './contrast-validation.js';
 
+export type { InvalidNodeError } from './token-walk.js';
+
+export { validateThemeOverlayCoverage } from './overlay-coverage.js';
+
+export type {
+  InvalidThemeNodeError,
+  OrphanOverride,
+  OrphanOverridesError,
+  OverlayCoverage,
+  OverlayCoverageError,
+  ReservedThemeIdentifierError,
+} from './overlay-coverage.js';
+
+export { validateColourLiterals } from './colour-literals.js';
+
+export type {
+  ColourLiteralAudit,
+  ColourLiteralsError,
+  NonLiteralColourError,
+  NonLiteralColourOffender,
+} from './colour-literals.js';
+
+export { validateTreeRoots } from './root-convention.js';
+
+export type { DisallowedRootGroupsError } from './root-convention.js';
+
+export { parseContrastManifest, SCHEMA_MATCHES_MANIFEST } from './contrast-manifest-parse.js';
+
+export type { ManifestShapeError } from './contrast-manifest-parse.js';
+
 export type {
   SrgbColour,
   ContrastPair,
@@ -185,4 +208,6 @@ export type {
   ContrastReportEntry,
   ContrastReport,
   ContrastValidationError,
+  PairContext,
+  FgMidContext,
 } from './contrast-types.js';
