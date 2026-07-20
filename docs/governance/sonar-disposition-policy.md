@@ -333,10 +333,12 @@ pnpm ≥ 10 executes dependency lifecycle scripts only for the reviewed
 `pnpm-workspace.yaml`); arbitrary dependencies cannot execute install
 scripts at the flagged site".
 
-**FIX path** (all non-pnpm installers, and any pnpm < 10): add
-`--ignore-scripts` to the install invocation. npm and yarn execute
-dependency lifecycle scripts by default at every major version, so no
-version argument substitutes for the flag there.
+**FIX path** (all non-pnpm installers, and any pnpm < 10) — the flag is
+installer-specific: `--ignore-scripts` for npm and Yarn Classic (1.x);
+`--mode=skip-build` for Yarn Berry (2–4, whose `install` rejects
+`--ignore-scripts`); `--ignore-scripts` for pnpm < 10. npm and yarn
+execute dependency lifecycle scripts by default at every major version,
+so no version argument substitutes for the flag there.
 
 ### S6506 — Unpinned transport on downloaded artefacts
 
