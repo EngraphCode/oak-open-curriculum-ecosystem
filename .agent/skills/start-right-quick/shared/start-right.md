@@ -209,6 +209,25 @@ the worktree. Read the log before assuming a known flake — this failure is
 not the oauth-proxy concurrency flake. Full fresh-worktree setup is install,
 build, AND the Playwright browser install before the browser-test gates run.
 
+The collaboration substrate is also unseeded on a fresh checkout: the
+instance-tier state files are untracked-by-design (ADR-199 / PDR-094), so
+`active-claims.json`, `comms/`, and `comms-seen/` do not exist until first
+use, and the first `comms send` or claims read fails loud with seeding
+instructions. Seed the substrate — guarded, so an existing registry is never
+overwritten — before the first collaboration-state move:
+
+```bash
+mkdir -p .agent/state/collaboration/comms .agent/state/collaboration/comms-seen
+[ -f .agent/state/collaboration/active-claims.json ] || printf '%s\n' \
+  '{ "schema_version": "1.3.0", "claims": [], "commit_queue": [] }' \
+  > .agent/state/collaboration/active-claims.json
+```
+
+Seed only in the PRIMARY checkout's collaboration home: a linked worktree
+must NOT grow its own substrate (comms written there land in a decoy dir
+invisible to peers — the F-41 class; `resolveCoordinationHome` names the
+shared home).
+
 ## Practice Box
 
 Check `.agent/practice-core/incoming/` for practice-core files. If

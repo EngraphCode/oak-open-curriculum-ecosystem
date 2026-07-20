@@ -2,6 +2,12 @@ import { mkdir, readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
 import { createCommsEvent } from './comms.js';
+import { isErrnoCode } from './errno.js';
+import {
+  EMPTY_ACTIVE_CLAIMS_REGISTRY_JSON,
+  EMPTY_CLOSED_CLAIMS_ARCHIVE_JSON,
+  missingStateFileError,
+} from './state-file-seeds.js';
 import { validateCollaborationJsonFileText } from './collaboration-json-validation.js';
 import {
   parseClosedClaimsArchive,
@@ -25,16 +31,51 @@ export { parseClosedClaimsArchive, parseCollaborationRegistry } from './state-pa
 
 /**
  * Read and parse the active claims registry.
+ *
+ * A missing file fails loud with seeding instructions rather than being
+ * treated as an empty registry: silently tolerating absence would let a
+ * wrong `--active` path masquerade as "no claims" (the F-41 decoy-path
+ * failure class), while the fresh-checkout case genuinely needs the file
+ * seeded once.
  */
 export async function readActiveClaimsFile(activePath: string): Promise<CollaborationRegistry> {
-  return parseCollaborationRegistry(await readFile(activePath, 'utf8'));
+  let text: string;
+  try {
+    text = await readFile(activePath, 'utf8');
+  } catch (error) {
+    if (isErrnoCode(error, 'ENOENT')) {
+      throw missingStateFileError({
+        label: 'active-claims registry',
+        path: activePath,
+        seedJson: EMPTY_ACTIVE_CLAIMS_REGISTRY_JSON,
+        cause: error,
+      });
+    }
+    throw error;
+  }
+  return parseCollaborationRegistry(text);
 }
 
 /**
- * Read and parse the closed claims archive.
+ * Read and parse the closed claims archive. Missing-file handling mirrors
+ * {@link readActiveClaimsFile}.
  */
 export async function readClosedClaimsFile(closedPath: string): Promise<ClosedClaimsArchive> {
-  return parseClosedClaimsArchive(await readFile(closedPath, 'utf8'));
+  let text: string;
+  try {
+    text = await readFile(closedPath, 'utf8');
+  } catch (error) {
+    if (isErrnoCode(error, 'ENOENT')) {
+      throw missingStateFileError({
+        label: 'closed-claims archive',
+        path: closedPath,
+        seedJson: EMPTY_CLOSED_CLAIMS_ARCHIVE_JSON,
+        cause: error,
+      });
+    }
+    throw error;
+  }
+  return parseClosedClaimsArchive(text);
 }
 
 /**
