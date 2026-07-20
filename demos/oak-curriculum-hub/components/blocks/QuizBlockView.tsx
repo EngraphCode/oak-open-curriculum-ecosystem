@@ -55,7 +55,7 @@ function QuizQuestionView({
 }
 
 /**
- * Renders a {@link QuizBlock} as the export's knowledge-check card: a heavy white card (3px border,
+ * Renders a {@link QuizBlock} as the export's knowledge-check card: a heavy surface-role card (3px border,
  * 4px lemon shadow), the lemon "?" chip beside the bold title, then each question as an
  * independently answerable ARIA radio group.
  */
@@ -70,7 +70,7 @@ export function QuizBlockView({ block }: { readonly block: QuizBlock }): ReactEl
   return (
     <section
       aria-label={block.title}
-      className="rounded-2xl border-[3px] border-line bg-white p-[22px] pb-6 shadow-[4px_4px_0_#ffe555]"
+      className="rounded-2xl border-[3px] border-line bg-surface p-[22px] pb-6 shadow-[4px_4px_0_var(--color-accent)]"
     >
       <p className="mb-[18px] flex items-center gap-2.5">
         <span

@@ -35,25 +35,25 @@ const lineIndexOf = (out: string, needle: string): number =>
 const ANSI_CODE = new RegExp(String.raw`${String.fromCharCode(27)}\[[0-9;]*m`, 'g');
 const stripAnsi = (text: string): string => text.replaceAll(ANSI_CODE, '');
 
-describe('renderStatusline — usage on the repo-title row', () => {
-  // Usage reads alongside WHERE the session is working (owner direction
-  // 2026-07-20; provenance and upstream citation live in the
-  // locationRowsWithUsage TSDoc): the context gauge sits on the repo-title
-  // location row, not beside the model, in either layout.
+describe('renderStatusline — usage on the model row', () => {
+  // Usage reads beside WHAT is doing the work (owner direction 2026-07-20,
+  // superseding the repo-title placement cycle 1 shipped): the context and
+  // rate-limit gauges join the model row, after the model name, in either
+  // layout; every location row stays plain.
   it.each(['none', 'sextant'] as const)(
-    'renders the context percentage on the repo-title row, not the model row (%s layout)',
+    'renders the context percentage on the model row, not the repo-title row (%s layout)',
     (logo) => {
       const out = renderStatusline(
         { ...base, model: 'Opus 4.8', usedPercentage: 38, branch: 'main', dir: 'repo' },
         { logo },
       );
-      expect(lineWith(out, 'repo')).toContain('ctx:38%');
-      expect(lineWith(out, 'Opus 4.8')).not.toContain('ctx:');
+      expect(lineWith(out, 'Opus 4.8')).toContain('ctx:38%');
+      expect(lineWith(out, 'repo')).not.toContain('ctx:');
     },
   );
 
   it.each(['none', 'sextant'] as const)(
-    'renders the rate-limit gauges after the context gauge on the repo-title row (%s layout)',
+    'renders model then context then rate-limit gauges, in that order (%s layout)',
     (logo) => {
       const out = renderStatusline(
         {
@@ -68,18 +68,20 @@ describe('renderStatusline — usage on the repo-title row', () => {
         },
         { logo },
       );
-      const titleRow = stripAnsi(lineWith(out, 'castr'));
-      expect(titleRow).toContain('ctx:61%');
-      expect(titleRow.indexOf('ctx:61%')).toBeLessThan(titleRow.indexOf('s:19%'));
-      expect(titleRow.indexOf('s:19%')).toBeLessThan(titleRow.indexOf('w:14%'));
-      expect(lineWith(out, 'Wyvern mends Draught')).not.toContain('s:');
-      expect(lineWith(out, 'Opus 4.8')).not.toContain('ctx:');
+      const modelRow = stripAnsi(lineWith(out, 'Opus 4.8'));
+      expect(modelRow).toContain('ctx:61%');
+      expect(modelRow.indexOf('Opus 4.8')).toBeLessThan(modelRow.indexOf('ctx:61%'));
+      expect(modelRow.indexOf('ctx:61%')).toBeLessThan(modelRow.indexOf('s:19%'));
+      expect(modelRow.indexOf('s:19%')).toBeLessThan(modelRow.indexOf('w:14%'));
+      expect(lineWith(out, 'castr')).not.toContain('ctx:');
+      expect(lineWith(out, 'castr')).not.toContain('s:');
     },
   );
 
-  it('appends usage to the primary-title row in a linked worktree, leaving branch rows clean', () => {
+  it('keeps every location row plain in a linked worktree, carrying usage on the model row', () => {
     const out = renderStatusline({
       ...base,
+      model: 'Opus 4.8',
       dir: 'oak-wt-eef',
       branch: 'feat/eef',
       worktree: 'oak-wt-eef',
@@ -88,11 +90,18 @@ describe('renderStatusline — usage on the repo-title row', () => {
       coordinationBranch: 'coordination/pilot',
       coordinationPlace: 'oak-open-curriculum-ecosystem',
     });
-    const titleRow = stripAnsi(lineWith(out, 'oak-open-curriculum-ecosystem'));
-    expect(titleRow).toContain('ctx:38%');
-    expect(titleRow).toContain('s:23%');
+    const modelRow = stripAnsi(lineWith(out, 'Opus 4.8'));
+    expect(modelRow).toContain('ctx:38%');
+    expect(modelRow).toContain('s:23%');
+    expect(lineWith(out, 'oak-open-curriculum-ecosystem')).not.toContain('ctx:');
     expect(lineWith(out, 'coordination/pilot')).not.toContain('ctx:');
     expect(lineWith(out, 'feat/eef')).not.toContain('s:');
+  });
+
+  it('still renders usage when the model is absent (the gauges own the row)', () => {
+    const out = renderStatusline({ ...base, usedPercentage: 42, branch: 'main', dir: 'repo' });
+    expect(stripAnsi(out)).toContain('ctx:42%');
+    expect(lineWith(out, 'repo')).not.toContain('ctx:');
   });
 });
 
@@ -226,10 +235,11 @@ describe('renderStatusline — identity shows the session join key (inter-Practi
 });
 
 describe('renderStatusline — Claude.ai rate-limit gauges', () => {
-  it('shows the session (s) and week (w) consumed percentages with reset countdowns on the repo-title row', () => {
+  it('shows the session (s) and week (w) consumed percentages with reset countdowns on the model row', () => {
     const out = renderStatusline({
       ...base,
       identity: 'Wyvern mends Draught',
+      model: 'Opus 4.8',
       fiveHourPercentage: 33,
       fiveHourResetSeconds: 2 * 3600 + 14 * 60,
       sevenDayPercentage: 55,
@@ -237,9 +247,10 @@ describe('renderStatusline — Claude.ai rate-limit gauges', () => {
       branch: 'main',
       dir: 'repo',
     });
-    const titleRow = stripAnsi(lineWith(out, 'repo'));
-    expect(titleRow).toContain('s:33%(2h)');
-    expect(titleRow).toContain('w:55%(3d)');
+    const modelRow = stripAnsi(lineWith(out, 'Opus 4.8'));
+    expect(modelRow).toContain('s:33%(2h)');
+    expect(modelRow).toContain('w:55%(3d)');
+    expect(stripAnsi(lineWith(out, 'repo'))).not.toContain('s:33%');
     expect(stripAnsi(lineWith(out, 'Wyvern mends Draught'))).not.toContain('s:33%');
   });
 

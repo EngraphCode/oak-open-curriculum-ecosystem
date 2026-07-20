@@ -39,19 +39,6 @@ if ! pnpm lint:shell; then
   exit 1
 fi
 
-echo "🔗 Checking for unused code (knip)..."
-if ! pnpm knip; then
-  echo "❌ Knip found unused files, exports, or dependencies!"
-  echo "💡 Remove the unused code, or register intended entry points in knip.config.ts"
-  exit 1
-fi
-
-echo "🧱 Checking dependency boundaries (depcruise)..."
-if ! pnpm depcruise; then
-  echo "❌ Dependency-boundary violations found!"
-  exit 1
-fi
-
 echo "🧪 Running build, type-check, lint, and unit tests..."
 # Gate output is teed to a gitignored log so a one-off failure (e.g. a
 # flake) stays characterisable after a re-run instead of evaporating
@@ -71,6 +58,27 @@ mkdir -p .turbo
 gate_status="$(cat .turbo/last-gate.status 2>/dev/null || echo 1)"
 if [ "$gate_status" != "0" ]; then
   echo "❌ Build, type-check, lint, or unit tests failed! (full output: .turbo/last-gate.log)"
+  exit 1
+fi
+
+echo "🧱 Checking dependency boundaries (depcruise)..."
+# Runs AFTER the Turbo build for the same reason as knip below: depcruise
+# resolves package exports through built dist outputs, so a fresh checkout
+# would fail or cruise an incomplete graph before the build has run.
+if ! pnpm depcruise; then
+  echo "❌ Dependency-boundary violations found!"
+  exit 1
+fi
+
+echo "🔗 Checking for unused code (knip)..."
+# knip:gate (repo-check knip-gate) also fails when knip exits 0 after a
+# swallowed config-load crash — a crashed analysis can never read as a pass (F-147).
+# Runs AFTER the Turbo build: knip loads packages whose exports resolve to
+# generated dist files, so a fresh checkout would fail closed here before
+# the build has run (CI restores build outputs before knip for the same reason).
+if ! pnpm knip:gate; then
+  echo "❌ Knip found unused code, or the knip analysis itself crashed!"
+  echo "💡 Remove the unused code, register intended entry points in knip.config.ts, or fix the crash above"
   exit 1
 fi
 

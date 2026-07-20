@@ -142,7 +142,7 @@ describe('renderStatusline — session-shape indicators', () => {
     ).toBe(`${IDENTITY} ${COMPASS}${SEP}${FAMILY} ${FEATHER}\n${PLACE}`);
   });
 
-  it('keeps indicators in the single-line layout, before the model segment', () => {
+  it('keeps indicators on the summary row, ordered before the model row and the branch', () => {
     const rendered = renderStatusline({
       ...parts(shape({ teamShape: 'peer', arcActive: true })),
       model: 'Fable 5',

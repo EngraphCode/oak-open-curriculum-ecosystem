@@ -581,7 +581,7 @@ artefacts it actually resolved:
 
 ## Serial Gate Chains Unmask Downstream Failures
 
-`pnpm check`'s serial chain (e.g. knip → depcruise → markdownlint →
+`pnpm check`'s serial chain (e.g. knip:gate → depcruise → markdownlint →
 format-check) hides downstream failures behind upstream ones: a gate
 that exits red stops the chain, so everything after it is unobserved,
 and clearing one gate routinely unmasks previously-latent failures in

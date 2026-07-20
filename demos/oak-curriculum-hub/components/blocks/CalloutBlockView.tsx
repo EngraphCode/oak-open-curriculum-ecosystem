@@ -55,7 +55,9 @@ const VARIANTS = {
   },
 } as const;
 
-/** The export's QS blue family (#2a6fdb / #e7f0fd / #143b78 — course-export-only values). */
+/** The export's QS blue family (#2a6fdb / #e7f0fd / #143b78 — course-export-only values).
+ *  These chips keep fixed bg-white deliberately: the QS foreground/background is a
+ *  validated fixed PAIR — theming only the background breaks dark-mode contrast. */
 const QS_ACCENT = 'border-l-[#2a6fdb] bg-[#e7f0fd]';
 const QS_CHIP =
   'shrink-0 rounded-full border-2 border-[#2a6fdb] bg-white px-[9px] py-[5px] text-[11px] leading-none font-bold tracking-[0.03em] text-[#143b78] no-underline';
