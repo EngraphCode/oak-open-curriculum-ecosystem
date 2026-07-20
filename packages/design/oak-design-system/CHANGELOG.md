@@ -1,5 +1,23 @@
 # Changelog — Oak Open Curriculum Design System
 
+## 1.7.1 — 2026-07-20
+
+**Fixed — theme-runtime robustness (three consumer-reported defects, one review arc).**
+`oak-theme.js`: (1) the header comment no longer contains a literal closing-script
+sequence — the old wording HTML-truncated every INLINE embed at that line (the parser ends
+an inline script element at the first such sequence regardless of JS context), so
+`window.oakTheme` silently never installed for consumers following the documented
+`consuming-nextjs.md` recipe; a guard comment records the invariant. (2) Persisted values
+are membership-validated on read for BOTH axes — a stored value from another version (or
+corruption) is treated as absent instead of reaching `data-theme`/`data-motion` verbatim.
+(3) `get()`/`motion.get()` stay truthful when persistence fails (private mode, quota):
+the applied-this-session value is tracked in memory, so a throwing `localStorage.setItem`
+can no longer desync reported state from applied state. `docs/consuming-nextjs.md`: the
+inline-embed recipe now escapes closing-script sequences at embed time
+(defence-in-depth for any future file content). Consumer note: the hub's parity copy
+(`public/oak-theme.js`, in flight on its migration branch) refreshes byte-identically at
+its next currency update.
+
 ## 1.7.0 — 2026-07-19
 
 **Added — pairing guides ×3 + integration readiness.** Behaviour-library docs go multi-library per direction: `docs/pairing-base-ui.md` (the default; v1.3-pinned; data-attribute styling map, §7b as worked example), `docs/pairing-react-aria.md` (React Aria admitted as a documented non-default, scoped to date/time + locale widgets and conformance-critical surfaces — worked Oak-tokened DateField, `en-GB` I18nProvider gotcha), `docs/pairing-ark-ui.md` (the non-React/multi-framework/web-component option over Zag machines — worked Tabs styled via `[data-scope][data-part]`, chosen as third over Ariakit which overlaps Base UI ~90%). §5b reworked as a chooser table linking the three. **New `docs/integration-oak-curriculum-hub.md`**: grounded read of the live consumer (Next 16/React 19/Tailwind v4; today it mirrors ~30 token values as raw `@theme` hex literals, hand-rolls a single navy focus ring and a blanket motion collapse) + the §-by-§ migration (kit in → `@theme inline` alias RENAMES → theme/motion axis → double focus ring, recorded as `deliberate` in their fidelity register → components → audit-in-CI), the export/versioning contract, and our readiness checklist — **all green**: FDSE v7 full audit re-run 34/34 AA ×4 themes (brand-full.css verified loaded in-page), dtcg confirmed current, `docs/nextjs-theme-mapping.css` extended (`--color-warning`/`--color-info`, `--shadow-accent-brand`/`--shadow-neutral-brand`). DECISIONS "Behaviour-library direction" updated (React Aria exclusion → scoped admission). **Hand-off consistency pass**: research doc rev 3 aligned to the refined direction (scoped React Aria, Ark as documented third); KNOWN-ISSUES #11 (any capitalised-export `.tsx`/`.jsx` anywhere — docs/ included — compiles into the bundle; doc samples use `.tsx.txt`); SKILL.md docs index updated.
