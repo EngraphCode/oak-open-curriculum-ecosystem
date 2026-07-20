@@ -166,28 +166,27 @@ function findUnaccountedVariables(
   cssLight: ReadonlyMap<string, string>,
   cssDark: ReadonlyMap<string, string>,
   lightIndex: ReadonlyMap<string, TokenLeafEntry>,
+  darkVariables: ReadonlySet<string>,
   nonTokenAllowlist: readonly string[],
 ): readonly ConsistencyMismatch[] {
   const allowlist = new Set(nonTokenAllowlist);
   const unaccounted: ConsistencyMismatch[] = [];
-  // Union of both maps: a dark-block-only variable never appears in the
-  // light map, and the overlay invariant means every dtcg dark token has a
-  // light-index entry — so the light index is the right reference for both.
+  // Union of both CSS maps. Counterparts = light index + projected dark-leaf
+  // variables: dark-only tokens exist, so the light index alone misses them.
   const variables = new Set([...cssLight.keys(), ...cssDark.keys()]);
+  const counterparts = new Set([...lightIndex.keys(), ...darkVariables]);
 
   for (const variable of variables) {
-    if (!lightIndex.has(variable) && !allowlist.has(variable)) {
+    if (!counterparts.has(variable) && !allowlist.has(variable)) {
       unaccounted.push({ kind: 'unaccounted_css_variable', variable });
     }
   }
 
-  // The allowlist is checked in BOTH directions: an entry earns its place
-  // only while it exempts a live CSS extra. A removed variable, or one that
-  // has since gained a dtcg counterpart, leaves a stale exemption that would
-  // silently re-admit the very drift the allowlist exists to declare —
-  // report it so the list is recomputed against reality, never ratified.
+  // Checked in BOTH directions: an entry earns its place only while it
+  // exempts a live CSS extra; one removed, or with a dtcg counterpart (light
+  // OR dark-only), is a stale exemption re-admitting declared drift.
   for (const entry of allowlist) {
-    const exemptsLiveExtra = variables.has(entry) && !lightIndex.has(entry);
+    const exemptsLiveExtra = variables.has(entry) && !counterparts.has(entry);
 
     if (!exemptsLiveExtra) {
       unaccounted.push({ kind: 'unused_allowlist_entry', variable: entry });
@@ -240,6 +239,7 @@ export function compareDesignSystemConsistency(
     comparand.value.light,
     comparand.value.dark,
     lightIndex.value,
+    new Set(darkLeaves.value.map((leaf) => dtcgPathToCssVariable(leaf.path))),
     input.nonTokenAllowlist,
   );
 

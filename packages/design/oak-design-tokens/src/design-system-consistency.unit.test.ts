@@ -130,6 +130,13 @@ describe('splitTopLevelComma', () => {
     expect(splitTopLevelComma('a b')).toBeUndefined();
     expect(splitTopLevelComma('a,b,c')).toBeUndefined();
   });
+
+  it('treats escaped code points outside quotes as identifier content, not structure', () => {
+    // `foo\,bar` is one ident containing an escaped comma; `a\(b` must not
+    // corrupt the parenthesis depth.
+    expect(splitTopLevelComma(String.raw`foo\,bar,baz`)).toEqual([String.raw`foo\,bar`, 'baz']);
+    expect(splitTopLevelComma(String.raw`a\(b,c`)).toEqual([String.raw`a\(b`, 'c']);
+  });
 });
 
 describe('extractCssComparand', () => {
@@ -450,32 +457,55 @@ describe('compareDesignSystemConsistency', () => {
     expect(result.error.kind).toBe('variable_collision');
   });
 
-  it('reports an allowlist entry whose CSS variable no longer exists', () => {
-    const input = baseInput();
-    const report = assertOk(
-      compareDesignSystemConsistency({
-        ...input,
-        nonTokenAllowlist: ['--canvas-rows', '--retired-plumbing'],
-      }),
-    );
+  describe('non-token allowlist staleness', () => {
+    it('reports an allowlist entry whose CSS variable no longer exists', () => {
+      const input = baseInput();
+      const report = assertOk(
+        compareDesignSystemConsistency({
+          ...input,
+          nonTokenAllowlist: ['--canvas-rows', '--retired-plumbing'],
+        }),
+      );
 
-    expect(report.mismatches).toEqual([
-      { kind: 'unused_allowlist_entry', variable: '--retired-plumbing' },
-    ]);
-  });
+      expect(report.mismatches).toEqual([
+        { kind: 'unused_allowlist_entry', variable: '--retired-plumbing' },
+      ]);
+    });
 
-  it('reports an allowlist entry whose variable has gained a dtcg counterpart', () => {
-    const input = baseInput();
-    const report = assertOk(
-      compareDesignSystemConsistency({
-        ...input,
-        nonTokenAllowlist: ['--canvas-rows', '--bg-primary'],
-      }),
-    );
+    it('reports an allowlist entry whose variable has gained a dtcg counterpart', () => {
+      const input = baseInput();
+      const report = assertOk(
+        compareDesignSystemConsistency({
+          ...input,
+          nonTokenAllowlist: ['--canvas-rows', '--bg-primary'],
+        }),
+      );
 
-    expect(report.mismatches).toEqual([
-      { kind: 'unused_allowlist_entry', variable: '--bg-primary' },
-    ]);
+      expect(report.mismatches).toEqual([
+        { kind: 'unused_allowlist_entry', variable: '--bg-primary' },
+      ]);
+    });
+
+    it('reports an allowlist entry whose variable has gained a dark-only dtcg counterpart', () => {
+      // The counterpart reference must include projected dark-leaf
+      // variables: with canvas.rows introduced solely in semanticDark, the
+      // --canvas-rows exemption is stale and must be reported, not
+      // silently retained.
+      const input = baseInput();
+      const report = assertOk(
+        compareDesignSystemConsistency({
+          ...input,
+          semanticDark: {
+            ...input.semanticDark,
+            canvas: { rows: { $type: 'number', $value: 12 } },
+          },
+        }),
+      );
+
+      expect(report.mismatches).toEqual([
+        { kind: 'unused_allowlist_entry', variable: '--canvas-rows' },
+      ]);
+    });
   });
 
   it('treats an escaped quote and its unescaped double-quoted spelling as the same value', () => {

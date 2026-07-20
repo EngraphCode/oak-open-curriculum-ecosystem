@@ -195,12 +195,14 @@ function topLevelCommaIndices(value: string): readonly number[] {
   let index = 0;
 
   while (index < value.length) {
-    const character = value[index];
+    const skipEnd = contentSkipEnd(value, index);
 
-    if (character === '"' || character === "'") {
-      index = skipQuotedSpan(value, index) + 1;
+    if (skipEnd !== undefined) {
+      index = skipEnd;
       continue;
     }
+
+    const character = value[index];
 
     if (character === '(') {
       depth += 1;
@@ -214,4 +216,24 @@ function topLevelCommaIndices(value: string): readonly number[] {
   }
 
   return indices;
+}
+
+/**
+ * End index of a span the structural scan must skip as content, or undefined
+ * when `index` is structural. Two content spans exist: a CSS escape outside
+ * quotes (`foo\,bar`, `a\(b` — the escaped code point is identifier content,
+ * never a separator or depth change) and a quoted span.
+ */
+function contentSkipEnd(value: string, index: number): number | undefined {
+  const character = value[index];
+
+  if (character === '\\') {
+    return index + 2;
+  }
+
+  if (character === '"' || character === "'") {
+    return skipQuotedSpan(value, index) + 1;
+  }
+
+  return undefined;
 }
