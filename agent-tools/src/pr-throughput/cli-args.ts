@@ -10,6 +10,13 @@ import { requireIsoDateTime } from '../core/iso-date-time.js';
 
 export const DEFAULT_REGISTER_PATH = '.agent/reports/agentic-engineering/pr-throughput-register.md';
 
+/**
+ * gh serves `pr list --search` from the GitHub Search API, which hard-caps
+ * result sets at 1,000 rows regardless of `--limit`. Limits above the cap
+ * would let a truncated corpus satisfy the `length < limit` coverage check.
+ */
+export const GH_SEARCH_RESULT_CAP = 1000;
+
 export interface PrThroughputOptions {
   readonly windowDays: number;
   readonly limit: number;
@@ -70,7 +77,7 @@ function applyValueFlag(options: MutablePrThroughputOptions, flag: string, value
   if (flag === '--window-days') {
     options.windowDays = parsePositiveInteger(flag, value);
   } else if (flag === '--limit') {
-    options.limit = parsePositiveInteger(flag, value);
+    options.limit = parseSearchLimit(flag, value);
   } else if (flag === '--register') {
     options.registerPath = value;
   } else if (flag === '--note') {
@@ -95,6 +102,18 @@ function parsePositiveInteger(flag: string, value: string): number {
 
   if (!Number.isSafeInteger(parsed) || parsed <= 0) {
     throw new Error(`${flag} requires a positive integer, got: ${value}`);
+  }
+
+  return parsed;
+}
+
+function parseSearchLimit(flag: string, value: string): number {
+  const parsed = parsePositiveInteger(flag, value);
+
+  if (parsed > GH_SEARCH_RESULT_CAP) {
+    throw new Error(
+      `${flag} must not exceed ${GH_SEARCH_RESULT_CAP} (the gh search-result cap), got: ${value}`,
+    );
   }
 
   return parsed;

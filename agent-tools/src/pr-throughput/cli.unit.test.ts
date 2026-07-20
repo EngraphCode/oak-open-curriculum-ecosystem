@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
+import { GH_SEARCH_RESULT_CAP } from './cli-args.js';
 import {
   DEFAULT_REGISTER_PATH,
   parsePrThroughputArgs,
@@ -30,11 +31,17 @@ const CORPUS = JSON.stringify([
 function fakeDeps(input?: {
   readonly executor?: PrThroughputDeps['executor'];
   readonly registerExists?: boolean;
-}): { deps: PrThroughputDeps; writes: { path: string; content: string }[] } {
+}): {
+  deps: PrThroughputDeps;
+  writes: { path: string; content: string }[];
+  errorLines: string[];
+} {
   const writes: { path: string; content: string }[] = [];
+  const errorLines: string[] = [];
 
   return {
     writes,
+    errorLines,
     deps: {
       executor: input?.executor ?? (() => CORPUS),
       resolveGh: () => '/usr/local/bin/gh',
@@ -48,6 +55,9 @@ function fakeDeps(input?: {
       },
       appendRegisterRow: (path, row) => {
         writes.push({ path, content: row });
+      },
+      writeError: (message) => {
+        errorLines.push(message);
       },
     },
   };
@@ -94,6 +104,18 @@ describe('parsePrThroughputArgs', () => {
   it('rejects non-positive window sizes', () => {
     expect(() => parsePrThroughputArgs(['--window-days', '0'], NOW)).toThrow(/positive integer/u);
   });
+
+  it('rejects --limit above the gh search-result cap so a truncated corpus can never pass as complete', () => {
+    // gh serves `--search` from the Search API (hard cap: 1,000 results). A
+    // larger --limit would let a capped 1,000-row corpus satisfy
+    // `length < limit` and write plausible-but-truncated metrics.
+    expect(() => parsePrThroughputArgs(['--limit', String(GH_SEARCH_RESULT_CAP + 1)], NOW)).toThrow(
+      /search-result cap/u,
+    );
+    expect(parsePrThroughputArgs(['--limit', String(GH_SEARCH_RESULT_CAP)], NOW).limit).toBe(
+      GH_SEARCH_RESULT_CAP,
+    );
+  });
 });
 
 describe('runPrThroughput', () => {
@@ -134,7 +156,7 @@ describe('runPrThroughput', () => {
   });
 
   it('exits 0 when the register write itself throws — the contract covers the file edge', () => {
-    const { deps } = fakeDeps();
+    const { deps, errorLines } = fakeDeps();
     const throwingDeps = {
       ...deps,
       appendRegisterRow: () => {
@@ -143,10 +165,15 @@ describe('runPrThroughput', () => {
     };
 
     expect(runPrThroughput(['--write', '--now', NOW.toISOString()], throwingDeps)).toBe(0);
+    // The other half of the contract: the failure is LOUD, with the
+    // contract named — exit 0 alone must never read as a quiet pass.
+    expect(errorLines.join('\n')).toContain('FAILED');
+    expect(errorLines.join('\n')).toContain('EACCES');
+    expect(errorLines.join('\n')).toContain('fitness-informational contract');
   });
 
   it('exits 0 on a transport failure — informational contract — and writes nothing', () => {
-    const { deps, writes } = fakeDeps({
+    const { deps, writes, errorLines } = fakeDeps({
       executor: () => {
         throw new Error('HTTP 403 rate limit');
       },
@@ -154,5 +181,7 @@ describe('runPrThroughput', () => {
 
     expect(runPrThroughput(['--write', '--now', NOW.toISOString()], deps)).toBe(0);
     expect(writes).toHaveLength(0);
+    expect(errorLines.join('\n')).toContain('FAILED');
+    expect(errorLines.join('\n')).toContain('fitness-informational contract');
   });
 });

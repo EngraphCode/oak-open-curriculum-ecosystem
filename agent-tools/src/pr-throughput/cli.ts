@@ -31,6 +31,8 @@ export interface PrThroughputDeps {
   readonly createRegister: (registerPath: string, header: string) => boolean;
   /** Append one row atomically (O_APPEND — never read-modify-overwrite). */
   readonly appendRegisterRow: (registerPath: string, row: string) => void;
+  /** Error-line sink — injected so tests can verify failures print loudly. */
+  readonly writeError: (message: string) => void;
 }
 
 /**
@@ -43,7 +45,7 @@ export function runPrThroughput(argv: readonly string[], deps: PrThroughputDeps)
   try {
     options = parsePrThroughputArgs(argv, new Date());
   } catch (cause) {
-    return reportFailure(cause);
+    return reportFailure(deps, cause);
   }
 
   // The informational contract covers EVERYTHING downstream: a register
@@ -51,7 +53,7 @@ export function runPrThroughput(argv: readonly string[], deps: PrThroughputDeps)
   try {
     return runWithOptions(options, deps);
   } catch (cause) {
-    return reportFailure(cause);
+    return reportFailure(deps, cause);
   }
 }
 
@@ -61,13 +63,13 @@ function runWithOptions(options: PrThroughputOptions, deps: PrThroughputDeps): n
   try {
     ghPath = deps.resolveGh(options.ghOverride);
   } catch (cause) {
-    return reportFailure(cause);
+    return reportFailure(deps, cause);
   }
 
   const covered = fetchCoveredCorpus(options, deps, ghPath);
 
   if (!covered.ok) {
-    return reportFailure(covered.error);
+    return reportFailure(deps, covered.error);
   }
 
   const report = computeThroughput(covered.value, {
@@ -120,9 +122,9 @@ function fetchCoveredCorpus(
   });
 }
 
-function reportFailure(cause: unknown): number {
+function reportFailure(deps: Pick<PrThroughputDeps, 'writeError'>, cause: unknown): number {
   const message = cause instanceof Error ? cause.message : String(cause);
-  writeErrorLine(
+  deps.writeError(
     `pr-throughput: FAILED — ${message} (fitness-informational contract: exit 0, nothing gated)`,
   );
 
@@ -154,6 +156,7 @@ function realDeps(): PrThroughputDeps {
     appendRegisterRow: (registerPath, row) => {
       appendFileSync(registerPath, row);
     },
+    writeError: writeErrorLine,
   };
 }
 
