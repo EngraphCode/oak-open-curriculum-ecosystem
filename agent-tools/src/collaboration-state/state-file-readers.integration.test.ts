@@ -55,16 +55,20 @@ describe('readActiveClaimsFile on a fresh checkout', () => {
     expect(registry.commit_queue).toEqual([]);
   });
 
-  it('throws the parser error loudly for present-but-invalid content — only ENOENT is enriched', async () => {
-    await expect(
-      readActiveClaimsFile('active-claims.json', async () => 'not json at all'),
-    ).rejects.toThrow(/not valid JSON/);
+  it('yields the parser error as its original Err for present-but-invalid content — only ENOENT is enriched', async () => {
+    const error = unwrapErr(
+      await readActiveClaimsFile('active-claims.json', async () => 'not json at all'),
+    );
+
+    expect(error.message).toMatch(/not valid JSON/);
   });
 
-  it('throws a non-ENOENT read failure as its original self, never wrapped', async () => {
-    await expect(
-      readActiveClaimsFile('active-claims.json', () => Promise.reject(permissionFailure)),
-    ).rejects.toBe(permissionFailure);
+  it('yields a non-ENOENT read failure as its original self, never wrapped', async () => {
+    const error = unwrapErr(
+      await readActiveClaimsFile('active-claims.json', () => Promise.reject(permissionFailure)),
+    );
+
+    expect(error).toBe(permissionFailure);
   });
 });
 

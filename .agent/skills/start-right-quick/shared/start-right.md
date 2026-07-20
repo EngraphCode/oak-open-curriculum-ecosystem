@@ -210,12 +210,16 @@ not the oauth-proxy concurrency flake. Full fresh-worktree setup is install,
 build, AND the Playwright browser install before the browser-test gates run.
 
 The collaboration substrate is also unseeded on a fresh checkout: the
-instance-tier state files are untracked-by-design (ADR-199 / PDR-094), so
-`active-claims.json`, `closed-claims.archive.json`, `comms/`, and
-`comms-seen/` do not exist until explicitly seeded — first use does not
-create them; the first `comms send` or claims read fails loud with seeding
-instructions. Seed the substrate — guarded, so existing state is never
-overwritten — before the first collaboration-state move. The block below
+instance-tier state files are untracked-by-design (ADR-199 / PDR-094). The
+pieces differ in who creates them: `active-claims.json`,
+`closed-claims.archive.json`, and `comms-seen/` require EXPLICIT seeding —
+the first claims read fails loud with seeding instructions rather than
+creating them, and an absent `comms-seen/` makes a watcher re-emit every
+event silently. `comms/` alone is auto-created by the event writers and
+the watch path — which is exactly why a wrongly-homed writer can
+manufacture a decoy dir (the F-41 class) rather than failing. Seed the
+substrate — guarded, so existing state is never overwritten — before the
+first collaboration-state move. The block below
 roots every path at THIS repository's PRIMARY checkout (the first worktree
 in `git worktree list --porcelain`, the same home `resolveCoordinationHome`
 derives), so it is safe to run from a linked worktree too. Never seed
@@ -240,6 +244,11 @@ else
   # truncate the winner's live registry. With `set -C` the race loser fails
   # the write and keeps the winner's file; already-exists counts as success,
   # any other failure (permissions) still surfaces.
+  # Seed shapes: the canonical source is
+  # agent-tools/src/collaboration-state/state-file-seeds.ts (and the
+  # readers' own error messages, which embed it). If a reader rejects
+  # these seeds, that file is truth and this block has drifted — fix it
+  # here in the same change.
   ( set -C; printf '%s\n' '{ "schema_version": "1.3.0", "claims": [], "commit_queue": [] }' \
     > "$COORD_HOME/.agent/state/collaboration/active-claims.json" ) 2>/dev/null \
     || [ -f "$COORD_HOME/.agent/state/collaboration/active-claims.json" ]

@@ -6,8 +6,10 @@
  * `state-file-seeds.ts` — instructions sufficient on their own to cure the
  * failure. Absence is never a silent empty registry (a wrong path would
  * masquerade as "no claims" — the F-41 decoy-path class), and every OTHER
- * failure (permissions, invalid content) throws loudly as its original
- * self, information intact (owner ruling, 2026-07-20).
+ * failure (permissions, invalid content) flows out as an `Err` carrying
+ * its original self — the throw happens only at the result package's
+ * single sanctioned edge on unwrap, loud and with the cause chain intact
+ * (owner ruling, 2026-07-20).
  *
  * The text-read seam is injectable per ADR-078 so tests prove the
  * behaviour with simple fakes and no real IO; production uses the
@@ -70,20 +72,36 @@ async function readStateFile<T>(
   readTextFile: ReadTextFile,
   seed: { readonly label: string; readonly seedJson: string },
 ): Promise<Result<T, Error>> {
+  // Owner ruling 2026-07-20: every failure flows out as an `Err` carrying
+  // the ORIGINAL failure (ENOENT alone is enriched with the seed message);
+  // the throw itself happens only at the result package's single
+  // sanctioned edge when a caller unwraps — loud, destructive, cause
+  // chain intact. No throw statements live here.
   let text: string;
   try {
     text = await readTextFile(path);
   } catch (error) {
-    if (isErrnoCode(error, 'ENOENT')) {
-      return err(
-        missingStateFileError({ label: seed.label, path, seedJson: seed.seedJson, cause: error }),
-      );
-    }
-    // Owner ruling 2026-07-20: only ENOENT is enriched; every other failure
-    // rethrows as its original self — wrapping would replace information
-    // with a summary. The no-throw finding here is that ruling's accepted
-    // cost, surfaced not suppressed.
-    throw error;
+    return err(
+      isErrnoCode(error, 'ENOENT')
+        ? missingStateFileError({ label: seed.label, path, seedJson: seed.seedJson, cause: error })
+        : failureAsError(error),
+    );
   }
-  return ok(parse(text));
+  try {
+    return ok(parse(text));
+  } catch (error) {
+    return err(failureAsError(error));
+  }
+}
+
+/**
+ * Narrow a caught failure to the `Err` channel without losing anything:
+ * an `Error` passes through as itself; a non-`Error` throwable — itself an
+ * anomaly worth surfacing — is named as such with the original preserved
+ * intact as `cause`. Never a stringified summary.
+ */
+function failureAsError(failure: unknown): Error {
+  return failure instanceof Error
+    ? failure
+    : new Error('non-Error value thrown at the state-file read boundary', { cause: failure });
 }
