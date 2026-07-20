@@ -12,7 +12,9 @@ are membership-validated on read for BOTH axes — a stored value from another v
 corruption) is treated as absent instead of reaching `data-theme`/`data-motion` verbatim.
 (3) `get()`/`motion.get()` stay truthful when persistence fails (private mode, quota):
 the applied-this-session value is tracked in memory, so a throwing `localStorage.setItem`
-can no longer desync reported state from applied state. `docs/consuming-nextjs.md`: the
+can no longer desync reported state from applied state, and the live OS-contrast listener
+honours that in-memory choice too — an explicit-but-unpersisted choice is never
+overwritten by an automatic theme change. `docs/consuming-nextjs.md`: the
 inline-embed recipe now escapes closing-script sequences at embed time
 (defence-in-depth for any future file content). Consumer note: the hub's parity copy
 (`public/oak-theme.js`, in flight on its migration branch) refreshes byte-identically at

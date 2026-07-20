@@ -55,9 +55,11 @@
   }
   apply(stored() || auto() || null);
   // Follow a live OS contrast change until the user makes an explicit choice.
+  // The in-memory choice counts: an explicit set() whose persistence threw
+  // must still win over an automatic theme change.
   try {
     matchMedia('(prefers-contrast: more)').addEventListener('change', function () {
-      if (!stored()) apply(auto() || null);
+      if (!current && !stored()) apply(auto() || null);
     });
   } catch (e) {}
   window.oakTheme = { set: set, get: get, themes: THEMES.slice() };
