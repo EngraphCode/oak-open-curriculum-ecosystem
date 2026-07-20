@@ -244,7 +244,10 @@ carries the observations, warrants, and falsifiers each clause cites):
   map; reference-closure over emitted values) serves the views as a named transitional
   surface. The acceptance bar is **byte-stable reproduction of the covered emission set**
   plus zero unaccounted entries on either side, zero emit-target collisions, and no
-  dangling emitted references, checked by a **Stage-B migration-parity check** that lands
+  dangling emitted references — with the report's falsifier branch retained: if the map
+  cannot reach zero unaccounted entries without a consumer migration, Stage B gains a
+  migration leg in the same change and the bar for the renamed subset shifts from
+  byte-stability to a **reviewed rename ledger** — checked by a **Stage-B migration-parity check** that lands
   inside the Stage-B change (distinct from the kit-internal dtcg↔CSS export check, which
   guards export canonicality, not repo-output compatibility). Retirement condition,
   recorded here: the map and its check die when the MCP views bind the kit CSS directly —

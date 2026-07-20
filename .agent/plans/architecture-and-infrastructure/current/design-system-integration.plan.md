@@ -41,6 +41,10 @@ todos:
     content: "Follow-on lane (pointer, not spec): ADR-213 Stage B atomic token-source switch — ONE change deletes oak-design-tokens' hand-authored trees (+ their contrast manifest + gate instance, closing the dual-gate window), re-points generation at the design system's export, regenerates index.css + terminal theme, proves the 11-path terminal contract and MCP views, regenerates depcruise boundary rules, and retires design-token-practice.md's transition note in the same change. No interim dual-source landing. PICKUP SURFACE: the Stage-B interchange-contract exploration report (.agent/reports/design/aip-137-stage-b-interchange-contract-concept-exploration-2026-07-20.md) + the ADR-213 §2 amendment of 2026-07-20 (slot c) — the naming artefact is a TOTAL DISPOSITION map (emit/omit + reverse coverage + emit-target uniqueness + reference-closure) checked by a NEW migration-parity check landing inside the Stage-B change (distinct from the kit-internal dtcg↔CSS export check); runtime-computed values are barred from the terminal map by a NEW value-shape leg on its build check (requiredColour is presence-only today); the mapped index.css is the declared transitional delivery surface with its retirement condition in §2."
     status: pending
     depends_on: [pr3-cycle-four-theme-gate]
+  - id: ws-views-direct-kit-css
+    content: "Follow-on lane (pointer, not spec): retire the transitional mapped index.css — bind the MCP App views to the design system's kit CSS directly, delete the disposition map + the migration-parity check in the same change (the ADR-213 §2 amendment 2026-07-20 records this as the map's retirement condition), and prove the views against the kit CSS in the same change. This closes the declared transitional delivery-surface window."
+    status: pending
+    depends_on: [ws-stage-b-convergence]
   - id: ws-hub-behaviour-consolidation
     content: "Follow-on (pointer; exploration step 1): consolidate the hub's duplicated roving/synthetic-key behaviour into a hub-local components/widgets/behaviour/ module preserving BOTH key-set contracts (radio incl. the any-key fall-through guard; tabs), replace-dont-bridge, SR spot-check on the migrated widgets."
     status: pending
@@ -113,9 +117,10 @@ sound-with-revisions, 2026-07-19, absorbed — their vendoring-frame recommendat
 superseded by the owner's integration ruling the same day). Load-bearing corrections, so
 executors do not re-derive them:
 
-- **The Stage B boundary conditions are owned by ADR-213 §2** (tree re-rooting, dialect-alias
-  resolution, expression pre-computation or boundary rejection, manifest schema-validation,
-  four-tree completeness, triads, the 11-path terminal contract) — read them there. This plan
+- **The Stage B boundary conditions are owned by ADR-213 §2** (naming via the per-consumer
+  projection maps, dialect-alias resolution, per-consumer expression dispositions (§2
+  amendment 2026-07-20), manifest schema-validation, overlay completeness, triads, the
+  11-path terminal contract) — read them there. This plan
   adds only the mechanism specifics behind them: the design system's `dtcg/README.md` claim
   that its `oak.color.*` paths "land on the repo convention" is **false** against
   `design-tokens-core`'s flattener (`toCssVariable` prefixes `--oak-` itself →
