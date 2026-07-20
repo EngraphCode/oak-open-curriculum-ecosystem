@@ -73,13 +73,22 @@ ADR-213 or the plan; §Proposals routes the edits.
   (`toHexComparand`), and guards drift with a **pinned expected comparand count per
   composed theme**; a manifest pairing on any dropped path surfaces as `unresolved_token`.
   The roots, overlay-coverage, and manifest-parse validators from #412 run in the gate
-  path; the colour-grammar validator does not. The export carries 20 functional values
-  verbatim (3 × `color-mix` in `semantic.light` `state.*`; 12 × `calc`, 1 × `min`,
-  3 × `minmax`, 1 × `clamp` in `component.json` — the studio README's "15 tokens carry
-  `color-mix()`/`calc()`" undercounts by omitting the grid/layout functions), and the
-  studio's own contract doc instructs "a consuming build should pass them through
-  untouched" — pass-through is the CSS-emission consumer's contract; the contrast path
-  drops by value shape what it cannot statically evaluate.
+  path; the colour-grammar validator does not. The export carries CSS function-valued
+  tokens verbatim in four classes — the closed enumeration is the **class set with its
+  dispositions, never a count** (final-round re-scope; counts below are illustrative
+  exemplar locations only): **colour expressions** (`color-mix`, the `semantic.light`
+  `state.*` tokens) — dropped by the contrast comparand's value-shape rule; **layout
+  expressions** (`calc`/`min`/`minmax`/`clamp` in `component.json`, e.g.
+  `calc({density}*{space.24})`) — dimension-class, pass-through to CSS emission, outside
+  the colour grammar by type; **easing** (`cubic-bezier`, `semantic.light`:40) and
+  **filter** (`invert(1)`, `semantic.light`:397–403, `semantic.dark`:256) — non-colour
+  theme levers, pass-through, irrelevant to contrast. The studio README's "15 tokens
+  carry `color-mix()`/`calc()`" is an accurate count of exactly the subset it names (an
+  earlier undercount charge here was wrong and is retracted); it simply does not
+  enumerate the other function classes. The studio's own contract doc instructs "a
+  consuming build should pass them through untouched" — pass-through is the CSS-emission
+  consumer's contract; the contrast path drops by value shape what it cannot statically
+  evaluate.
 - **O5. Two of the three `color-mix` tokens can never be statically resolved — the third
   can.** `state.hover`/`state.pressed` mix `currentColor` — context-dependent at paint
   time, no export-time pre-computation exists. `state.selected` mixes a referenced role at
@@ -87,9 +96,9 @@ ADR-213 or the plan; §Proposals routes the edits.
   problem is compositing-dependent contrast, the same disposition the alpha literals
   already have), never paint-time-contextual. None of `state.*` appears in
   `contrast-pairings.json` (0 hits; 34 pairs, all resolvable solid roles).
-- **O6. The 17 layout expressions are dimension-class, not colour.** The 12 `calc` values
+- **O6. The layout expressions are dimension-class, not colour.** The `calc` values
   parameterise layout off `{density}` and `{space.*}`, and the `min`/`minmax`/`clamp`
-  values (round-3 review addition) are grid/sizing expressions of the same class — all
+  values are grid/sizing expressions of the same class — all
   pass-through-legitimate for CSS emission and outside the colour grammar's scope by
   value type. `{density}` is itself a component-tier token
   (`component.json:212`, mirroring the `--density` brand knob), so component→component
@@ -205,9 +214,16 @@ concurrently.
    disposition, AND every `emit` target is unique across the whole map (epoch-2 review
    correction: reverse coverage constrains only names already present in the old output —
    without whole-map uniqueness two kit-only paths could emit the same new variable name,
-   pass every other check, and leave duplicate declarations where one silently wins). The
+   pass every other check, and leave duplicate declarations where one silently wins), AND
+   the map closes over **references** (final-round correction, verified:
+   `resolveCssValue` rewrites every `{path}` reference inside a value independently
+   through `toCssVariable` — `design-tokens-core/src/index.ts:58–66` — so emitted-value
+   references bypass any declaration-only map): every reference inside an emitted value
+   must resolve through the same map to an emitted target or an explicit
+   inline/pass-through disposition, with dangling references rejected. The
    acceptance bar is byte-stable reproduction of the **covered emission
-   set** plus zero unaccounted entries on either side plus zero emit-target collisions — checked by a **new Stage-B
+   set** plus zero unaccounted entries on either side plus zero emit-target collisions
+   plus reference-closure (no dangling emitted references) — checked by a **new Stage-B
    migration-parity check that lands as part of the Stage-B change itself** (round-2
    review correction: plan task #5, the re-homed `pr2-consistency-check`, guards a
    different surface — the kit's dtcg export against the kit's own canonical CSS — with a
@@ -225,8 +241,7 @@ concurrently.
 4. **Route the studio-side corrections through the design-sync lane** (append to the
    existing ~21-item sync-back batch): correct the README's false "lands on their
    convention" claim to describe the P1 contract; fix the 32-vs-34 pair-count drift;
-   correct the "15 tokens carry `color-mix()`/`calc()`" undercount to the full 20-value
-   functional inventory (O4); record the `{density}` component-tier self-reference as
+   record the `{density}` component-tier self-reference as
    deliberate (or re-tier it studio-side). *Warrant*: O9; the sync discipline makes the
    studio doc the contract statement both surfaces cite. *Falsifier*: if the studio
    session regenerates `dtcg/README.md` from the CSS and the regenerated text still
