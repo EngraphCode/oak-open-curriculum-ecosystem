@@ -74,4 +74,11 @@ export const validateSuccessSchema = z
       error:
         'validate result carries disposition(s) contradicting their own voter verdicts — dispositions are computed by code, never stored free-hand',
     },
-  );
+  )
+  // The same equality refinement the map/reduce envelopes carry: the live workflow
+  // DERIVES validateComplete from incompleteClusterIds emptiness (validate.workflow.ts),
+  // so a checkpoint asserting one without the other is internally contradictory.
+  .refine((result) => result.validateComplete === (result.incompleteClusterIds.length === 0), {
+    error:
+      'validateComplete must be true exactly when incompleteClusterIds is empty — a contradicting flag either hides unresolved clusters or forces a needless re-run',
+  });

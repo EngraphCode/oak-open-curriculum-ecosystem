@@ -296,6 +296,31 @@ describe('result parsers', () => {
     ).toBe(true);
   });
 
+  it('parseValidateResult rejects completeness flags contradicting the incomplete-cluster list — a validate checkpoint can never be internally contradictory', () => {
+    const base = {
+      ok: true,
+      resolvedClusterIds: [],
+      missingClusterIds: [],
+      dispositions: [],
+      voterVerdicts: [],
+    };
+    // Complete with unresolved clusters: the flag would hide the unresolved tail.
+    expect(
+      isErr(parseValidateResult({ ...base, validateComplete: true, incompleteClusterIds: ['c9'] })),
+    ).toBe(true);
+    // Incomplete with no unresolved clusters: the flag would force a needless re-run.
+    expect(
+      isErr(parseValidateResult({ ...base, validateComplete: false, incompleteClusterIds: [] })),
+    ).toBe(true);
+    // Both consistent forms parse.
+    expect(
+      isOk(parseValidateResult({ ...base, validateComplete: false, incompleteClusterIds: ['c9'] })),
+    ).toBe(true);
+    expect(
+      isOk(parseValidateResult({ ...base, validateComplete: true, incompleteClusterIds: [] })),
+    ).toBe(true);
+  });
+
   it('parseValidateResult rejects a disposition without its ≥2 voter verdicts — a lax checkpoint cannot bypass the two-voter rule', () => {
     const verdict = {
       sameFact: { pass: true, confidence: 'high' },

@@ -117,7 +117,9 @@ describe('validateRunDataFrom', () => {
   /** A prior attempt that resolved g1StatusCluster WITH its disposition/voter evidence. */
   const evidencedPriorResult: ValidateResult = {
     ok: true,
-    validateComplete: false,
+    // True BECAUSE incompleteClusterIds is empty — validateSuccessSchema refines the
+    // flag against the list, so a fixture may never carry the contradiction.
+    validateComplete: true,
     resolvedClusterIds: ['exact:status-assertion:G1:status'],
     incompleteClusterIds: [],
     missingClusterIds: [],
@@ -238,7 +240,7 @@ describe('validateRunDataFrom', () => {
   it('refuses resolved cluster ids lacking disposition evidence in ANY prior checkpoint — an unevidenced id must never silently skip re-voting', () => {
     const unevidenced: ValidateResult = {
       ok: true,
-      validateComplete: false,
+      validateComplete: true,
       resolvedClusterIds: ['exact:status-assertion:G1:status'],
       incompleteClusterIds: [],
       missingClusterIds: [],
