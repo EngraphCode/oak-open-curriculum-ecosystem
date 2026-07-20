@@ -269,10 +269,12 @@ describe('validateContrastPairings', () => {
 
     expect(result.ok).toBe(false);
 
-    if (!result.ok) {
-      expect(result.error.kind).toBe('unresolved_token');
-      expect(result.error.background).toBe('semantic.missing-token');
+    if (result.ok) {
+      throw new Error('Expected Err, got Ok');
     }
+
+    expect(result.error.kind).toBe('unresolved_token');
+    expect(result.error.background).toBe('semantic.missing-token');
   });
 
   it('includes the theme identifier in the report', () => {

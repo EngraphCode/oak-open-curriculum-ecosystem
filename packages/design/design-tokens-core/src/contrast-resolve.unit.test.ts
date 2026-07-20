@@ -2,15 +2,17 @@ import { describe, expect, it } from 'vitest';
 import { resolveColourTokens, toHexComparand, type ColourResolution } from './contrast-resolve.js';
 import type { DtcgTokenTree } from './dtcg-types.js';
 
-const EMPTY_RESOLUTION: ColourResolution = { resolved: new Map(), unresolvable: [] };
-
-/** Assert Ok and unwrap; the fallback is unreachable once the expect has failed. */
+/** Assert Ok and unwrap; an unexpected Err fails loud, never falls back. */
 function resolvedOk(tree: DtcgTokenTree): ColourResolution {
   const resolution = resolveColourTokens(tree);
 
   expect(resolution.ok).toBe(true);
 
-  return resolution.ok ? resolution.value : EMPTY_RESOLUTION;
+  if (!resolution.ok) {
+    throw new Error(`Expected Ok, got Err: ${JSON.stringify(resolution.error)}`);
+  }
+
+  return resolution.value;
 }
 
 describe('resolveColourTokens', () => {
@@ -197,9 +199,11 @@ describe('resolveColourTokens', () => {
 
     expect(resolution.ok).toBe(false);
 
-    if (!resolution.ok) {
-      expect(resolution.error).toEqual({ kind: 'invalid_node', path: 'color.bad' });
+    if (resolution.ok) {
+      throw new Error('Expected Err, got Ok');
     }
+
+    expect(resolution.error).toEqual({ kind: 'invalid_node', path: 'color.bad' });
   });
 });
 
