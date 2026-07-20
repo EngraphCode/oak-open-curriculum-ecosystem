@@ -9,7 +9,7 @@
  * behaviour). Extraction rules live in `consistency-css-comparand.ts`;
  * naming and value normalisation in `consistency-values.ts`. Build
  * contract: the Stage-A import verification report Part 2 §2.1 and the
- * plan todo `pr2-consistency-check`.
+ * plan's `pr2-consistency-check` work item.
  *
  * @packageDocumentation
  */

@@ -54,9 +54,12 @@ export function normaliseValue(value: string): string {
         ? segment
         : segment
             .replaceAll(/\s+/gu, ' ')
-            .replaceAll(/\(\s+/gu, '(')
-            .replaceAll(/\s+\)/gu, ')')
-            .replaceAll(/\s*(?<punctuation>[,*])\s*/gu, '$<punctuation>'),
+            .replaceAll('( ', '(')
+            .replaceAll(' )', ')')
+            .replaceAll(' ,', ',')
+            .replaceAll(', ', ',')
+            .replaceAll(' *', '*')
+            .replaceAll('* ', '*'),
     )
     .join('')
     .trim();
