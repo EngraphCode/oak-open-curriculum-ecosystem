@@ -376,19 +376,7 @@ no retrospective memos; those are close-out work, this skill's §Steps.
    `graduation-target`, `trigger-condition`, `status`), OR as a
    distinct napkin entry with a `candidate:` tag that the next
    register refresh promotes. This is capture only; graduation
-   happens at `consolidate-docs` step 7a — **with one carve-out:
-   graduation latency is a recurrence cost.** A captured lesson that is
-   single-instance sufficient (PDR-100), has a nameable doctrine home,
-   and needs no cross-seat synthesis GRADUATES AT THIS CLOSE — author
-   the rule clause / pattern / amendment now rather than queueing it.
-   The frozen-corpus constraint gates napkin ROTATION and cross-seat
-   synthesis, never a single lesson's homing (worked evidence
-   2026-07-20: a landing-boundary false-green class captured on
-   2026-07-17 re-bit three further seats before a dedicated pass spent
-   ten minutes homing it; prediction per PDR-130 — clause-eligible
-   lessons should stop recurring between capture and homing, and if
-   per-session graduations instead produce collision churn exceeding
-   the recurrence cost, this carve-out retracts). If nothing qualifies,
+   happens at `consolidate-docs` step 7a. If nothing qualifies,
    say so and move on — *"nothing qualifies"* is a valid answer
    reached by asking, not by skipping. (The register was split out
    from `repo-continuity.md § Deep consolidation status` on

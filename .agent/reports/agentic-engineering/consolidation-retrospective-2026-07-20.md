@@ -105,19 +105,24 @@ paid in recurrences.
 
 ## Proposals (warrant + falsifier + PDR-130 lane, each)
 
-1. **[FAST — enacted with this record] Graduation latency is a recurrence
-   cost: single-lesson graduations decouple from the dedicated pass.** At
-   any session close, a captured lesson that (a) is single-instance
-   sufficient (PDR-100), (b) has a nameable doctrine home, and (c) needs no
-   cross-seat synthesis, graduates THEN — the frozen-corpus constraint
-   gates rotation and cross-seat synthesis only. Home: the
-   `consolidate-until-done` grounding bridge and `session-handoff`'s
-   capture step. *Warrant*: the exit-code specimen above. *Falsifier /
+1. **[SLOW-LANE — registered with this record] Graduation latency is a
+   recurrence cost: single-lesson graduations decouple from the dedicated
+   pass.** At any session close, a captured lesson that (a) is
+   single-instance sufficient (PDR-100), (b) has a nameable doctrine home,
+   and (c) needs no cross-seat synthesis, graduates THEN — the
+   frozen-corpus constraint gates rotation and cross-seat synthesis only.
+   Home: a slow-lane row in the pending-graduations register (review
+   2026-10-20), promotion target `session-handoff` step 6b under the
+   PDR-101 quorum. *Warrant*: the exit-code specimen above. *Falsifier /
    prediction (PDR-130 line)*: captured-lesson recurrence between capture
    and homing should drop to ~zero for clause-eligible lessons; if
    per-session graduations instead produce collision or duplication churn
    exceeding the recurrence cost within a quarter, the batching frame wins
-   and the clause retracts.
+   and the clause retracts. *Lane note (2026-07-20 review round)*: first
+   authored FAST-enacted; reclassified at PR review under PDR-130 §§2/4 —
+   a change to graduation mechanics is a change to how the estate changes
+   how it works, and this proposal's own quarterly falsifier already has
+   the slow-lane entry shape. Director-ratified.
 2. **[FAST — enacted with this record] A staged brief carries a base
    recompute at pickup.** Any pre-staged session input (a cut worktree, an
    input manifest, a pre-named base) is a hypothesis whose BASE the picking
