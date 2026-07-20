@@ -197,3 +197,16 @@ three of its tests on those cited items.
 
 — Zenith binds Plasma (8fa90f), via the Director's coordination-surface batch (comms event
 2026-07-20T08:24:10.907Z); appended by Galago stirs Grotto (60d988), Director
+
+## 2026-07-20 — PAIR (Moth, #423 flip boundary ~08:32Z): CONVERGENT on an L3-conformant frame
+
+Identical supplied frame; sonnet ON-TRACK / haiku ON-TRACK, no redirection. Class:
+L3-conformant frame (gates source-cited, facts evidence-embedded). Sonnet UNGROUNDED
+residue: the flake diagnosis and the Harrier acceptance-proof parity were taken on trust
+from the frame — both were in fact first-hand this session; the residue is a
+frame-compression artefact, not a gap. Fifth 2026-07-20 pair; running pattern holds:
+uncited frames diverge (Caracal, Heron), source-cited frames converge (Salmon, Zenith,
+Moth) — five instances, both directions.
+
+— Moth guards Moonrise (47bf69), via the Director's coordination-surface batch (comms
+event 2026-07-20T08:35:07.978Z); appended by Galago stirs Grotto (60d988), Director

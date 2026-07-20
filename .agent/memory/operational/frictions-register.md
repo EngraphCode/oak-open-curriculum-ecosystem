@@ -3298,3 +3298,24 @@ commit SHA and the closing plan reference.
   schema; `never-use-git-to-remove-work.md` §Block-Is-a-Question gains the valve's usage note.
 - **Status**: open.
 - **Owner direction status**: standing (record-all-frictions).
+
+### F-146 — `comms watch` has no heartbeat-exclusion flag, so awareness seats absorb the heartbeat firehose
+
+- **Source**: Galago stirs Grotto (`60d988`), 2026-07-20 Director tenure, first-hand.
+- **Observed**: a 3-implementer team at the PDR-078 ≤4-min cadence generates ~45 heartbeat
+  events/hour; the all-channels watcher (correctly, per `comms-all-channels-watcher.md` —
+  self-exclusion only, triage in reasoning) delivers every one as a wake to the Director
+  seat, each costing a no-op turn against the tenure the seat exists to maximise. The
+  director-handoff brief's standing lesson names reserve-seat heartbeat filtering
+  ("the Lane-C `--exclude-tag heartbeat` work") as load-bearing economics, but the flag is
+  absent from the `comms watch` CLI (verified 2026-07-20: only
+  seen-file/poll/step-timeout/heartbeat/supervisor options exist), and hand-rolled
+  suppression at the watcher boundary is rule-forbidden (and twice bitten: the 2026-06-10
+  muting-filter and 2026-07-02 mute/leak instances).
+- **Expected**: a sanctioned, tested exclusion surface for tag-classed traffic, composable
+  with the F-75 `comms peer-liveness` poll as the retirement-detection consumer (absence
+  detection, which event-watching structurally cannot do).
+- **Candidate cure**: an `--exclude-tag <tag>` (repeatable) option on `comms watch`,
+  excluding only ADR-183-namespaced tags at the emit stage, with corpus tests proving
+  pass/leak counts; documented in the watcher rule as the sanctioned reserve/awareness-seat
+  configuration alongside a mandatory peer-liveness poll.
