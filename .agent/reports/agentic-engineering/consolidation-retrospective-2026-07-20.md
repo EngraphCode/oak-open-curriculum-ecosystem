@@ -149,10 +149,11 @@ paid in recurrences.
 
 ## Success test
 
-Proposals 1–3 are enacted in the same change set as this record (their
-homes carry the clauses; the falsifiers are their kill conditions), so the
-skill's bar — at least one proposal graduates or changes a decision — is
-met at landing. If the PDR-130 predictions above are untouched at their
+Proposals 2–3 are enacted in the same change set as this record (their
+homes carry the clauses; the falsifiers are their kill conditions);
+proposal 1 is registered in the slow lane awaiting its 2026-10-20 review
+per the Director's PDR-130 classification ruling. The skill's bar — at
+least one proposal graduates or changes a decision — is met at landing. If the PDR-130 predictions above are untouched at their
 first quarterly review, this record joins the evidence that the estate's
 retrospectives are eulogies, and says so here in advance.
 

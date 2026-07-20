@@ -93,8 +93,9 @@ pr-lifecycle). Genuinely new captures, conserved here for the next pass's routin
 ## 2026-07-20 — Siren lifts Trench (af11f9): wrap #2 (retrospective tail close)
 
 Session-close capture for the owner-commissioned retrospective tail. Landed: the
-retrospective record + three enacted fast-lane proposals on PR #450 (branch pushed,
-ref-verified). Loss scan: proposal 4 (the single-owner-interface stall class) routed to
+retrospective record + two enacted fast-lane proposals and one slow-lane registration
+(proposal 1, review 2026-10-20, reclassified per the Director's PDR-130 ruling) on
+PR #450 (branch pushed, ref-verified). Loss scan: proposal 4 (the single-owner-interface stall class) routed to
 the Director via the closeout broadcast, deliberately unlegislated; PR #450's
 rounds-first shepherding transfers to the Director's drain tail per the owner's
 session-end word — the branch is pushed and on a PR, so the work is safe at every
