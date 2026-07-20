@@ -1,7 +1,7 @@
 > **RETIRED — thread completed 2026-07-20.** PR #436 merged
-> (`SHA:792c440dd`), PR #439 armed for auto-merge under the standing
-> grant, and the residual #437 work was explicitly routed out of this
-> thread. Retained as continuity history; not a live lane.
+> (`SHA:792c440dd`), PR #439 merged (`SHA:7f55236c7`), and the residual
+> #437 work was explicitly routed out of this thread. Retained as
+> continuity history; not a live lane.
 > Not listed in `repo-continuity.md` Active or Paused threads.
 
 # Thread: fresh-checkout-experience — next-session record
@@ -98,8 +98,8 @@ underlying intermittent failure reproduced twice, cause unfound).
   `.agent/skills/start-right-quick/shared/start-right.md` fresh-checkout block —
   home-derived, guarded, race-safe; the seed shapes' SSOT is
   `agent-tools/src/collaboration-state/state-file-seeds.ts`.
-- Known traps this session recorded in the napkin: zsh double-equals-token
-  globbing in echo separators; grep-filtered send verification (never pipe
+- Known traps this session recorded in the napkin: zsh EQUALS expansion of
+  unquoted leading-`=` separator tokens; grep-filtered send verification (never pipe
   the command whose outcome you need); pre-queue-enablement auto-merge arms
   not converting to queue entries (blocking re-enqueue until disarmed); the
   post-branch-switch stale-dist bootstrap brick (skip-bootstrap install,

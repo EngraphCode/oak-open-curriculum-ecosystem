@@ -4249,9 +4249,12 @@ these are the mechanics worth conserving (owner rulings are listed there for gra
   "failed silently"; the mechanism was my own `| grep -o event_id` eating the CLI's loud
   error. Same class as the wrapped-exit lesson; new surface. Verify sends by reading the
   event file, not the filtered stdout.
-- **zsh eats double-equals separator tokens**: `echo ===X===` (or `==X==`) in a compound
-  command errors as a glob and ABORTS the remaining chained commands — three separate
-  live instances this session, each killing later commands invisibly. Use plain words.
+- **zsh eats leading-`=` separator tokens**: `echo ===X===` (or `==X==`) in a compound
+  command errors and ABORTS the remaining chained commands — three separate live
+  instances this session, each killing later commands invisibly. Mechanism: zsh's
+  default `EQUALS` option performs command-path expansion on an unquoted word
+  beginning with `=` (the `=cmd` form), so the token fails to resolve before any
+  filename generation. Quote the separator or emit it with `printf`.
 - **Pre-queue-enablement auto-merge arms never convert to queue entries** (GitHub): the PR
   reads "armed" while sitting outside the queue, and re-running merge NO-OPs against the
   stale arm; cure is disarm-then-re-enqueue. Verify queue membership via `mergeQueueEntry`,
