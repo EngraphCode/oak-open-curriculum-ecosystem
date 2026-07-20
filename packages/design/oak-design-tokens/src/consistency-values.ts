@@ -76,9 +76,14 @@ export function normaliseValue(value: string): string {
 
 /**
  * Read a quoted span's literal content from after its opening delimiter to
- * its matching close, honouring backslash escapes. An unterminated string
- * keeps its remainder as literal content — the fail-soft still compares
- * content verbatim rather than normalising it.
+ * its matching close. Simple backslash escapes DECODE to their character so
+ * equivalent spellings share one canonical form — `"Rock'n Roll"` and
+ * `'Rock\'n Roll'` are the same string, and preserving the escape spelling
+ * would report drift where only the delimiter changed. Hex escapes stay
+ * verbatim: a cross-projection hex-vs-literal spelling difference reads as
+ * loud drift, never as a masked equality. An unterminated string keeps its
+ * remainder as literal content — the fail-soft still compares content
+ * rather than normalising it.
  */
 function consumeQuotedSpan(
   value: string,
@@ -90,7 +95,7 @@ function consumeQuotedSpan(
 
   while (index < value.length && value[index] !== delimiter) {
     if (value[index] === '\\' && index + 1 < value.length) {
-      content += value[index] + value[index + 1];
+      content += value[index + 1];
       index += 2;
       continue;
     }

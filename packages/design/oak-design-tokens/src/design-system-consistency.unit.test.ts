@@ -287,6 +287,28 @@ describe('compareDesignSystemConsistency', () => {
     expect(report.mismatches.every((mismatch) => mismatch.kind === 'value_mismatch')).toBe(true);
   });
 
+  it('treats an escaped quote and its unescaped double-quoted spelling as the same value', () => {
+    const input = baseInput();
+    const report = assertOk(
+      compareDesignSystemConsistency({
+        ...input,
+        css: String.raw`:root {
+            --oak-paper: light-dark(#fcfbf8, #1c1a17);
+            --bg-primary: light-dark(#ffffff, #222222);
+            --font-display: 'Rock\'n Roll', sans-serif;
+            --canvas-rows: 12;
+          }`,
+        primitives: {
+          font: {
+            family: { display: { $type: 'fontFamily', $value: `"Rock'n Roll", sans-serif` } },
+          },
+        },
+      }),
+    );
+
+    expect(report.mismatches).toEqual([]);
+  });
+
   it('flags a drifted dark arm on a token absent from the semantic dark overlay', () => {
     const input = baseInput();
     const report = assertOk(
