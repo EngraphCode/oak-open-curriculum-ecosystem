@@ -61,9 +61,6 @@ Conserved 2026-07-20 from PR #406 (branch `chore/codex-hook-session-closeout-019
 - Project-local config parsing, handler unit behaviour, and a valid fail-open response do not
   prove hook discovery. The fresh `/hooks` output is direct runtime evidence and is the governing
   result over any activation inference elsewhere in this record.
-- The bounded prototype is preserved on `fix/claude-hook-hardening` at `SHA:c4fae0b83` in draft
-  PR #403, which remains a preservation PR and must not be represented as a working hook
-  integration.
 
 ## Lane State at the Pause
 
@@ -318,7 +315,7 @@ client.
 
 | agent_name | platform | model | session_id_prefix | role | first_session | last_session |
 | --- | --- | --- | --- | --- | --- | --- |
-| Lupin herds Bark | codex | GPT-5 | 019f67 | implementer, adversarial peer, documentation closeout owner | 2026-07-16 | 2026-07-16 |
+| Lupin herds Bark | codex | GPT-5 | 019f67 | implementer, adversarial peer, documentation closeout owner | 2026-07-16 | 2026-07-17 |
 | Zephyr turns Crosswind | codex | GPT-5 | 019f6a | compound peer, trial executor, terminal handoff author | 2026-07-16 | 2026-07-16 |
 
 ## Session-Completion Disposition
