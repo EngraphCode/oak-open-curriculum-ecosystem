@@ -15,12 +15,7 @@
 import { err, ok, type Result } from '@oaknational/result';
 
 import { resolveResumeSeed } from '../../corpus-analysis/run-orchestration.js';
-import {
-  groundingInstanceOf,
-  projectClusters,
-  resolveMembers,
-  unresolvableMembersError,
-} from './member-grounding.js';
+import { dedupedSeedGrounding, groundingInstanceOf, projectClusters } from './member-grounding.js';
 import type {
   Disposition,
   MapResult,
@@ -86,6 +81,23 @@ export function reduceRunDataFrom(mapResult: MapResult): Result<ReduceRunData, E
 }
 
 /**
+ * Resolved ids whose evidence is absent from every prior checkpoint: no disposition entry
+ * (whose exactly-two-distinct-voter backing the validate-result parse enforces) covers
+ * them, so trusting them would silently skip re-voting on resume (AIP-126 item 3).
+ */
+function unevidencedResolvedIds(
+  priorValidateResults: readonly ValidateResult[],
+  resolvedClusterIds: readonly string[],
+): string[] {
+  const dispositionedIds = new Set(
+    priorValidateResults.flatMap((result) =>
+      result.ok ? result.dispositions.map((entry) => entry.clusterId) : [],
+    ),
+  );
+  return resolvedClusterIds.filter((id) => !dispositionedIds.has(id));
+}
+
+/**
  * Derive VALIDATE run data from the MAP result (instance lookup) and REDUCE result
  * (clusters). `resolvedIds` from any prior validate attempt narrows the seed to the
  * unresolved tail on resume.
@@ -101,23 +113,30 @@ export function validateRunDataFrom(input: {
   if (!checked.ok) {
     return checked;
   }
-  const byId = groundingInstanceOf(checked.value.map);
-  const resolved = checked.value.reduce.clusters.map((cluster) => resolveMembers(cluster, byId));
-  const missing = resolved.flatMap((entry) => entry.missing);
-  if (missing.length > 0) {
-    return err(unresolvableMembersError(missing));
-  }
-  const groundingInstances = resolved.flatMap((entry) => entry.members);
   const resolvedClusterIds = priorValidateResults.flatMap((result) =>
     result.ok ? result.resolvedClusterIds : [],
   );
+  const unevidenced = unevidencedResolvedIds(priorValidateResults, resolvedClusterIds);
+  if (unevidenced.length > 0) {
+    return err(
+      new Error(
+        `resolved cluster id(s) [${unevidenced.join(', ')}] carry no disposition/voter evidence ` +
+          'in any prior validate checkpoint — re-run validate for them instead of skipping re-voting',
+      ),
+    );
+  }
   const seed = resolveResumeSeed(checked.value.reduce.clusters, resolvedClusterIds);
   if (seed.length === 0) {
     return err(new Error('validate run data has no unresolved clusters to seed — nothing to do'));
   }
+  // Seed FIRST, grounding second — see dedupedSeedGrounding.
+  const groundingInstances = dedupedSeedGrounding(seed, groundingInstanceOf(checked.value.map));
+  if (!groundingInstances.ok) {
+    return groundingInstances;
+  }
   return ok({
     clusters: seed,
-    groundingInstances,
+    groundingInstances: groundingInstances.value,
     resolvedClusterIds: [...resolvedClusterIds],
     validateTokenCeiling,
   });

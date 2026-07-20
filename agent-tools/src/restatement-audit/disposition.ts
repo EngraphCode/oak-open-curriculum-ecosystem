@@ -15,8 +15,7 @@
  * @packageDocumentation
  */
 
-import type { Disposition } from './workflows/stage-io.js';
-import type { VoterVerdict } from './schemas.js';
+import type { Disposition, VoterVerdict } from './schemas.js';
 
 const CONJUNCTIVE_TESTS = [
   'sameFact',
