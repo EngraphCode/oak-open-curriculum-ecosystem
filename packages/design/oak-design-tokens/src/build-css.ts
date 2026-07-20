@@ -105,13 +105,18 @@ export function buildContrastReports(): Result<readonly ContrastReport[], Contra
   const lightResolved = resolveColoursOrThrow(lightTokenTree);
   const darkResolved = resolveColoursOrThrow(darkTokenTree);
 
-  const lightResult = validateContrastPairings(lightResolved, contrastPairingsManifest, 'light');
+  const lightResult = validateContrastPairings(
+    lightResolved,
+    contrastPairingsManifest,
+    'light',
+    'AA',
+  );
 
   if (!lightResult.ok) {
     return err(lightResult.error);
   }
 
-  const darkResult = validateContrastPairings(darkResolved, contrastPairingsManifest, 'dark');
+  const darkResult = validateContrastPairings(darkResolved, contrastPairingsManifest, 'dark', 'AA');
 
   if (!darkResult.ok) {
     return err(darkResult.error);

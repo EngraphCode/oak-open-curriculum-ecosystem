@@ -163,6 +163,7 @@ export {
   srgbToRelativeLuminance,
   contrastRatio,
   checkWcagAA,
+  checkWcagAAA,
   checkNonTextContrast,
 } from './contrast.js';
 
@@ -214,4 +215,5 @@ export type {
   ContrastValidationError,
   PairContext,
   FgMidContext,
+  WcagLevel,
 } from './contrast-types.js';

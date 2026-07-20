@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import {
   checkNonTextContrast,
   checkWcagAA,
+  checkWcagAAA,
   contrastRatio,
   hexToSrgb,
   srgbToRelativeLuminance,
@@ -115,6 +116,24 @@ describe('checkNonTextContrast', () => {
   });
 });
 
+describe('checkWcagAAA', () => {
+  it('passes normal text at exactly 7:1', () => {
+    expect(checkWcagAAA(7.0, 'normal')).toBe(true);
+  });
+
+  it('fails normal text below 7:1', () => {
+    expect(checkWcagAAA(6.99, 'normal')).toBe(false);
+  });
+
+  it('passes large text at exactly 4.5:1', () => {
+    expect(checkWcagAAA(4.5, 'large')).toBe(true);
+  });
+
+  it('fails large text below 4.5:1', () => {
+    expect(checkWcagAAA(4.49, 'large')).toBe(false);
+  });
+});
+
 describe('validateContrastPairings', () => {
   it('reports a passing text pair', () => {
     const resolved = new Map([
@@ -132,7 +151,7 @@ describe('validateContrastPairings', () => {
       triads: [],
     };
 
-    const report = assertOkResult(validateContrastPairings(resolved, manifest, 'light'));
+    const report = assertOkResult(validateContrastPairings(resolved, manifest, 'light', 'AA'));
 
     expect(report.summary.total).toBe(1);
     expect(report.summary.passed).toBe(1);
@@ -157,7 +176,7 @@ describe('validateContrastPairings', () => {
       triads: [],
     };
 
-    const report = assertOkResult(validateContrastPairings(resolved, manifest, 'light'));
+    const report = assertOkResult(validateContrastPairings(resolved, manifest, 'light', 'AA'));
 
     expect(report.summary.failed).toBe(1);
     expect(report.results).toHaveLength(1);
@@ -183,7 +202,7 @@ describe('validateContrastPairings', () => {
       ],
     };
 
-    const report = assertOkResult(validateContrastPairings(resolved, manifest, 'light'));
+    const report = assertOkResult(validateContrastPairings(resolved, manifest, 'light', 'AA'));
 
     expect(report.summary.total).toBe(3);
     expect(report.results).toHaveLength(3);
@@ -213,7 +232,7 @@ describe('validateContrastPairings', () => {
       ],
     };
 
-    const report = assertOkResult(validateContrastPairings(resolved, manifest, 'light'));
+    const report = assertOkResult(validateContrastPairings(resolved, manifest, 'light', 'AA'));
     const fgBgEntry = report.results.find(
       (entry) =>
         entry.foreground === 'semantic.text-inverse' &&
@@ -246,7 +265,7 @@ describe('validateContrastPairings', () => {
       triads: [],
     };
 
-    const result = validateContrastPairings(resolved, manifest, 'light');
+    const result = validateContrastPairings(resolved, manifest, 'light', 'AA');
 
     expect(result.ok).toBe(false);
 
@@ -272,8 +291,90 @@ describe('validateContrastPairings', () => {
       triads: [],
     };
 
-    const report = assertOkResult(validateContrastPairings(resolved, manifest, 'dark'));
+    const report = assertOkResult(validateContrastPairings(resolved, manifest, 'dark', 'AA'));
 
     expect(report.theme).toBe('dark');
+    expect(report.level).toBe('AA');
+  });
+
+  it('gates text at 7:1 when the level is AAA', () => {
+    // 4.54:1 passes the AA floor but fails the SC 1.4.6 enhanced threshold.
+    const resolved = new Map([
+      ['text.subdued', '#767676'],
+      ['bg.primary', '#ffffff'],
+    ]);
+    const manifest: ContrastManifest = {
+      pairs: [{ foreground: 'text.subdued', background: 'bg.primary', context: 'text' }],
+      triads: [],
+    };
+
+    const aa = assertOkResult(validateContrastPairings(resolved, manifest, 'light', 'AA'));
+    const aaa = assertOkResult(
+      validateContrastPairings(resolved, manifest, 'high-contrast', 'AAA'),
+    );
+
+    expect(aa.level).toBe('AA');
+    expect(aa.results[0].pass).toBe(true);
+    expect(aa.results[0].requiredRatio).toBe(4.5);
+    expect(aaa.level).toBe('AAA');
+    expect(aaa.results[0].pass).toBe(false);
+    expect(aaa.results[0].requiredRatio).toBe(7);
+  });
+
+  it('keeps the non-text threshold at 3:1 under AAA', () => {
+    // SC 1.4.11 has no AAA tier; a stricter bar would be invented.
+    const resolved = new Map([
+      ['border.neutral', '#8f8f8f'],
+      ['bg.primary', '#ffffff'],
+    ]);
+    const manifest: ContrastManifest = {
+      pairs: [{ foreground: 'border.neutral', background: 'bg.primary', context: 'non-text' }],
+      triads: [],
+    };
+
+    const report = assertOkResult(
+      validateContrastPairings(resolved, manifest, 'high-contrast', 'AAA'),
+    );
+
+    expect(report.results[0].pass).toBe(true);
+    expect(report.results[0].requiredRatio).toBe(3);
+  });
+
+  it('truncates the displayed ratio so it never overstates the gated value', () => {
+    // True ratio ≈ 6.897: rounding would display 6.9; the gate fails at 7,
+    // and the displayed 6.89 must agree with that verdict's direction.
+    const resolved = new Map([
+      ['text.primary', '#5a5a5a'],
+      ['bg.primary', '#ffffff'],
+    ]);
+    const manifest: ContrastManifest = {
+      pairs: [{ foreground: 'text.primary', background: 'bg.primary', context: 'text' }],
+      triads: [],
+    };
+
+    const report = assertOkResult(
+      validateContrastPairings(resolved, manifest, 'high-contrast', 'AAA'),
+    );
+
+    expect(report.results[0].ratio).toBe(6.89);
+    expect(report.results[0].pass).toBe(false);
+  });
+
+  it('passes AAA text above 7:1', () => {
+    const resolved = new Map([
+      ['text.primary', '#595959'],
+      ['bg.primary', '#ffffff'],
+    ]);
+    const manifest: ContrastManifest = {
+      pairs: [{ foreground: 'text.primary', background: 'bg.primary', context: 'text' }],
+      triads: [],
+    };
+
+    const report = assertOkResult(
+      validateContrastPairings(resolved, manifest, 'high-contrast', 'AAA'),
+    );
+
+    expect(report.results[0].pass).toBe(true);
+    expect(report.results[0].ratio).toBe(7);
   });
 });
