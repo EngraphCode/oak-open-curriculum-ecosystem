@@ -189,8 +189,9 @@ One lane, sequenced PRs, each linked to AIP-137:
 ## Validation
 
 - PR1: `pnpm markdownlint-check:root`, link integrity, ADR index updated.
-- PR2: referential self-consistency check (no tracked→held-out references); dtcg↔CSS
-  consistency check green; workspace builds; `pnpm check` green.
+- PR2: referential self-consistency check (no tracked→held-out references); workspace
+  builds; `pnpm check` green. The dtcg↔CSS consistency check is not a PR2 criterion — it
+  was re-homed to the PR3 lane and remains outstanding (see `pr2-consistency-check`).
 - PR3: new validators red→green in TDD cycles (met for cycles 1–2 on PR #412); the
   four-theme contrast-gate run against the design system's manifest is cycle 3's criterion
   and remains outstanding; full gate chain green.
