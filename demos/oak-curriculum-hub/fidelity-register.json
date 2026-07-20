@@ -119,6 +119,20 @@
       "rationale": "High-contrast theme resolves the accent role and primary text to the same black, so semantic-accent fills carrying ornamental/categorical meaning go black-on-black; the kit reserves decorative surfaces for categorisation and --bg-selected for selected states, both contrast-manifest pairings. Fidelity capture re-run belongs to the next \u00a7D review moment.",
       "author": "Eagle herds Cirrus (055d36)",
       "date": "2026-07-20"
+    },
+    {
+      "id": "global/controls-token-roles-slice3",
+      "pairId": "global",
+      "kind": "visual",
+      "summary": "AIP-137 ws-hub-migration \u00a76 slice 1 (controls): fixed bg-white on interactive control surfaces (search pills + inputs, site/mobile nav, filter chips, player buttons) moves to the bg-surface role (--bg-primary \u2014 the role the kit's own .oak-input/.oak-btn recipes use), and dead outline-none utilities on migrated search inputs are removed (the hub's unlayered :focus-visible rule already painted the ring). Zero visible shift in light (--bg-primary is white); dark and high-contrast now theme correctly.",
+      "evidence": [
+        "packages/design/oak-design-system/colors_and_type.css:289 (--bg-primary: light-dark(--oak-white, --oak-black))",
+        "packages/design/oak-design-system/components.css:566-601 (.oak-input background: var(--bg-primary))"
+      ],
+      "disposition": "deliberate",
+      "rationale": "Integration doc \u00a76: hand-built views keep markup, swap literal styles for .oak-* classes + tokens. Control pill/chip geometry is export-shaped, so kit-class adoption (which changes geometry via --btn-radius/--btn-pad) is deferred to the fidelity-capture moment; this slice lands the token-role correctness with no light-mode shift. Remaining bg-white sites are cards (slice 2) and pedagogy blocks (slice 3).",
+      "author": "Eagle herds Cirrus (055d36)",
+      "date": "2026-07-20"
     }
   ]
 }
