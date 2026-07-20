@@ -203,7 +203,14 @@ consumer):** four §2 clauses above are corrected or made concrete against the g
 **Amendment (2026-07-20, Stage-B interchange-contract exploration — PR #424, doctrine
 slot (c)):** four §2 clauses are amended from the exploration's evidence (the report at
 `.agent/reports/design/aip-137-stage-b-interchange-contract-concept-exploration-2026-07-20.md`
-carries the observations, warrants, and falsifiers each clause cites):
+carries the observations, warrants, and falsifiers each clause cites). This amendment
+**supersedes in part the Stage-B boundary-condition parenthetical above**: the fixed
+`color.` / `semantic.` / `component.` root requirement and the
+expression-pre-compute-or-reject condition are replaced by the per-consumer projections
+and value-class dispositions below (the export ships kit-native trees; `validateTreeRoots`
+pins allowed roots per consumer with a caller-supplied allow-list); the manifest
+schema-validation, overlay-completeness (as amended 2026-07-19), and component-triad
+conditions stand unchanged:
 
 - **The interchange is a per-consumer projection contract, not a normalised tree.** The
   export is the kit-vocabulary projection of the studio's CSS; the repo consumes it
