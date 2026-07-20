@@ -50,6 +50,21 @@ merge_class: index-narrative-tables
   corrections; research carries the measurements; live navigation has no dependency on the
   archived plan; focused checks and the applicable whole-repo gate are truthfully reported.
 
+## Governing Result Addendum (2026-07-20) — Hook Discovery Is Negative
+
+Conserved 2026-07-20 from PR #406 (branch `chore/codex-hook-session-closeout-019f67`, commit
+`SHA:56f15170f`), recorded by Lupin herds Bark on 2026-07-17:
+
+- In a fresh Codex session opened in the feature worktree, `/hooks` reported `PreToolUse`
+  installed `0` and active `0`. The tracked project hook definition was never discovered by
+  Codex 0.144.5.
+- Project-local config parsing, handler unit behaviour, and a valid fail-open response do not
+  prove hook discovery. The fresh `/hooks` output is direct runtime evidence and is the governing
+  result over any activation inference elsewhere in this record.
+- The bounded prototype is preserved on `fix/claude-hook-hardening` at `SHA:c4fae0b83` in draft
+  PR #403, which remains a preservation PR and must not be represented as a working hook
+  integration.
+
 ## Lane State at the Pause
 
 - **Owning artefacts:** the archived synchronous-experiment plan is historical only; the research
@@ -264,24 +279,21 @@ broad-stage it. Re-run `git status --short --branch`, `git diff --cached --name-
 
 ## Next Safe Step — Only After Explicit Resume
 
-1. Re-read this record, the ARC tail, both checkout statuses, active claims, and queue state. Treat
-   every SHA, index description, and hook-trust statement here as a claim to verify.
-2. Keep the already-approved reduced bundle distinct from the new activation slice. Decide
-   explicitly whether the three activation files are a separate experiment/commit or should be
-   removed before landing the reduced bundle.
-3. Before a fresh origin session, diagnose the nested reviewer's exit `1` with bounded,
-   content-free stderr/exit evidence from the existing benign event. Do not treat fail-open allow
-   output as a pass, and do not broaden the hook while the failing child is unexplained.
-4. If the child reaches a schema-valid `pass`/`concern`, run focused local checks and the gateway
-   plus configuration/security/test review over the new three-file slice.
-5. Start a fresh Codex session in the feature worktree, inspect all matching hook sources, and
-   trust the exact project hook via `/hooks`. Run one controlled benign `apply_patch`, observe both
-   nested reviewer completion and the origin action, then stop and assess latency before adding
-   scope.
-6. If landing is authorised, restage every intended file so the two link corrections enter the
-   staged fingerprint; open a fresh bare index/head claim and commit-queue intent; use exact
-   pathspecs; let ordinary hooks run. Push only after a commit actually lands and branch/upstream
-   equality is rechecked.
+Corrected evidence-first restart sequence (2026-07-20, conserved from PR #406, commit
+`SHA:56f15170f`). The next session does not resume the prototype by assumption; it starts from the
+smallest official configuration proof:
+
+1. Merge or otherwise disposition draft PR #403 without claiming activation.
+2. Start a normal fresh branch from current `main`.
+3. Follow the official Codex hook configuration shape exactly and prove one deterministic
+   `PreToolUse` command is listed by `/hooks` in a fresh trusted session.
+4. Prove one controlled `apply_patch` invocation reaches that command.
+5. Only after discovery and invocation work, add semantic review, Gitleaks, latency measurement,
+   or a vendor-neutral adapter layer one increment at a time.
+
+Proof order: discovery → invocation → deterministic behaviour → model review → latency. Passing
+setup tests or parsing configuration is not a substitute for observing the hook in the running
+client.
 
 ## Checks Already Observed
 
