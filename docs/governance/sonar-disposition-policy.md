@@ -292,6 +292,49 @@ that asserts the header's absence. The test is mandatory; the disable
 call alone is insufficient because future config changes can silently
 re-enable the disclosure.
 
+### S6505 — Dependency installation lifecycle scripts
+
+**Pattern**: a dependency-install command (`pnpm install`, `npm install`,
+`yarn install`) without an explicit `--ignore-scripts`, flagged because
+dependency lifecycle scripts can execute arbitrary code at install time.
+
+**Decision criteria**: FALSE_POSITIVE if and only if all hold:
+
+- The installer is **pnpm at major version ≥ 10** — pnpm 10 removed
+  automatic execution of dependency lifecycle scripts; they run only for
+  packages named in an `onlyBuiltDependencies` allowlist.
+- The repo pins that pnpm version authoritatively: root `package.json`
+  `packageManager` field (currently `pnpm@11.8.0`, content-hash pinned)
+  drives every CI site via `pnpm/action-setup`.
+- `pnpm-workspace.yaml` declares **no `onlyBuiltDependencies` allowlist**,
+  so no dependency's scripts run at all.
+
+**Canonical rationale**: "pnpm `<version>` pinned via `packageManager`;
+pnpm ≥ 10 runs no dependency lifecycle scripts by default; no
+`onlyBuiltDependencies` allowlist in `pnpm-workspace.yaml`; the flagged
+site cannot execute dependency scripts".
+
+**FIX path** (all non-pnpm installers, and any pnpm < 10): add
+`--ignore-scripts` to the install invocation. npm and yarn execute
+dependency lifecycle scripts by default at every major version, so no
+version argument substitutes for the flag there.
+
+### S6506 — Unpinned transport on downloaded artefacts
+
+**Pattern**: `curl`/`wget` fetching an artefact without constraining the
+protocol, so a redirect chain could downgrade to plain HTTP.
+
+**Decision criteria**: there is no SAFE disposition for production or CI
+fetch sites — resolve as **FIXED** by pinning the transport:
+`--proto '=https' --proto-redir '=https'` (curl), keeping any existing
+content pin (SHA-256 check) in place. The content pin alone does not
+clear the finding: integrity checking and transport pinning guard
+different failure modes (tampered bytes vs downgrade interception), and
+the analyser flags the transport.
+
+**Canonical rationale** (for the FIXED trail): "transport pinned to HTTPS
+including redirects; SHA-256 content pin retained".
+
 ### Generated Code
 
 **Pattern**: Style-class issues (naming, formatting, structural smells,
