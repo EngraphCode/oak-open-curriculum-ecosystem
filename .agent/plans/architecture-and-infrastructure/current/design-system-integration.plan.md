@@ -191,8 +191,9 @@ One lane, sequenced PRs, each linked to AIP-137:
 - PR1: `pnpm markdownlint-check:root`, link integrity, ADR index updated.
 - PR2: referential self-consistency check (no tracked→held-out references); dtcg↔CSS
   consistency check green; workspace builds; `pnpm check` green.
-- PR3: new validators red→green in TDD cycles; contrast gate runs all four themes against the
-  design system's manifest; full gate chain green.
+- PR3: new validators red→green in TDD cycles (met for cycles 1–2 on PR #412); the
+  four-theme contrast-gate run against the design system's manifest is cycle 3's criterion
+  and remains outstanding; full gate chain green.
 - Follow-on lanes: per ADR-213 (Stage B proves both live consumers in the same change;
   hub migration lands with per-theme axe runs per ADR-147).
 
