@@ -1,3 +1,10 @@
+# [1.77.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.76.0...v1.77.0) (2026-07-20)
+
+
+### Features
+
+* **agent-tools:** relocate usage gauges to the statusline repo-title row ([7e5bf57](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/7e5bf57cb50bf51974b8a57f94598ef1eb651c23))
+
 # [1.76.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.75.4...v1.76.0) (2026-07-20)
 
 
