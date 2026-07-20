@@ -8,15 +8,15 @@ lineage:
   derives_from: "Owner direction 2026-07-20: bring the feather icon enhancements and the moved usage-quota data from the Resonance→castr statusline lane into oak; the ARC feather system is a serious statusline-infrastructure upgrade. No backwards compatibility (principles.md §Core Rules)."
 todos:
   - id: ws-a-cycle-1
-    content: "WS-A (usage relocation) cycle 1: test asserts ctx: + s/w gauges render on the repo-title (location) row, not the identity/model rows; add locationRowsWithUsage() to oak render.ts and re-point the two row-assembly sites. render.ts only. One commit, tree green."
-    status: pending
+    content: "WS-A (usage relocation) cycle 1: test asserts ctx: + s/w gauges render on the repo-title (location) row, not the identity/model rows; add locationRowsWithUsage() to oak statusline-render.ts and re-point the two row-assembly sites. statusline-render.ts only. One commit, tree green."
+    status: in_progress # landed as PR #427 (commit 7e5bf57cb); completes at merge
     # depends_on: []  # fully independent of Deliverable B (no ARC dependency)
   - id: ws-b1-adr
-    content: "WS-B1: author ADR 'ARC-colour statusline infrastructure' — canonical channel grammar single-homes ARC_PALETTE_SIZE + ARC_ACTIVE_WINDOW_SECONDS; feather colour is a projection of parsed channel content; corpus repaired in place; validator fails loud on the canonical surface. Non-code."
+    content: "WS-B1: author ADR-214 (docs/architecture/architectural-decisions/214-arc-colour-statusline-infrastructure.md) + its README index entry — ONE ADR, kept at WHAT level: shared ARC constants single-home in the grammar module (consumers import, never redeclare); feather colour is a projection of parsed channel content; corpus repaired in place; validator fails loud on the canonical surface; and why the strict tier preserves the reference doc's protected zero-per-message-ceremony property. Non-code."
     status: pending
     # depends_on: []
   - id: ws-b2-grammar
-    content: "WS-B2 cycles: src/arc/arc-channel-grammar.ts + arc-channel-grammar.unit.test.ts (parseArcChannel, resolveChannelColour, deriveArcRoster, isCrossHostChannelName, ARC_PALETTE_SIZE, ARC_ACTIVE_WINDOW_SECONDS, evaluateArcChannelStrictness). DELETE oak's local hard-coded ARC_ACTIVE_WINDOW_SECONDS in session-shape.ts; import from the grammar (consolidate-at-second-consumer). TDD per cycle."
+    content: "WS-B2 cycles: src/arc/arc-channel-grammar.ts + arc-channel-grammar.unit.test.ts (parseArcChannel, resolveChannelColour, deriveArcRoster, isCrossHostChannelName, ARC_PALETTE_SIZE, ARC_ACTIVE_WINDOW_SECONDS, evaluateArcChannelStrictness). DELETE oak's local hard-coded ARC_ACTIVE_WINDOW_SECONDS in statusline-session-shape.ts (line ~93); import from the grammar (consolidate-at-second-consumer). Tests at tests/arc/arc-channel-grammar.unit.test.ts (tests/ tree, not co-located). TDD per cycle."
     status: pending
     depends_on: [ws-b1-adr]
   - id: ws-b3-palette-ansi
@@ -24,31 +24,31 @@ todos:
     status: pending
     depends_on: [ws-b2-grammar]
   - id: ws-b4-sessionshape-gatherer
-    content: "WS-B4 cycles: replace SessionShape.arcActive:boolean with arcChannels:ArcChannelBadge[] in statusline-session-shape.ts (bounded content reads: ARC_CONTENT_READ_CAP=8 / ARC_CONTENT_BYTE_CAP=256KB, membership-first ranking); upgrade the gatherer (attachInWindowContent) in statusline-identity.ts. Converge to ONE design; PRESERVE oak's identityPrefix path (sessionIdPrefix, oak-logo). Bring observing-directed teamShape (part of the coherent session-shape). TDD per cycle."
+    content: "WS-B4 cycles: replace SessionShape.arcActive:boolean with arcChannels:ArcChannelBadge[] in statusline-session-shape.ts (bounded content reads: ARC_CONTENT_READ_CAP=8 / ARC_CONTENT_BYTE_CAP=256KB, membership-first ranking); upgrade the gatherer (attachInWindowContent) in statusline-identity.ts. Converge to ONE design; PRESERVE oak's identityPrefix path (sessionIdPrefix, oak-logo). Bring observing-directed teamShape (part of the coherent session-shape); the director honesty-gate reads a role field from claim records — verify oak's claim shape carries it and hand-merge, never assume field-name parity with castr. Update the existing describing tests tests/claude/statusline-session-shape.test.ts (§ARC liveness) in the SAME landing as the shape change. TDD per cycle."
     status: pending
     depends_on: [ws-b2-grammar]
   - id: ws-b5-feather-render
-    content: "WS-B5 cycles: featherBadge() per-channel rendering in statusline-indicators.ts (colour ink on U+258C membership bar, U+21C5 cross-host marker, U+25CF invalid dot, overflow badge) REPLACING the single ARC_WING. HAND-MERGE: keep oak's 3-arg formatIdentity(identity, identityPrefix, ownRole). Preserve the emoji-never-inside-SGR invariant. TDD per cycle."
+    content: "WS-B5 cycles: featherBadge() per-channel rendering in statusline-indicators.ts (colour ink on U+258C membership bar, U+21C5 cross-host marker, U+25CF invalid dot, overflow badge) REPLACING the single ARC_WING. HAND-MERGE: keep oak's 3-arg formatIdentity(identity, identityPrefix, ownRole). Preserve the emoji-never-inside-SGR invariant. Update tests/claude/statusline-render-session-shape.test.ts (arcActive fixtures) in the SAME landing; add ONE composed integration-scale cycle (fixture channel text in → rendered coloured feather row out, gatherer+renderer, DI throughout) so a test crosses the full describing surface. TDD per cycle."
     status: pending
     depends_on: [ws-b3-palette-ansi, ws-b4-sessionshape-gatherer]
   - id: ws-b6-colour-writer
-    content: "WS-B6 cycles: src/arc/arc-next-colour.ts + arc-next-colour-cli.ts (+ unit test) — the colour-index writer. Wire to agent-tools package.json script AND knip entry list AND depcruise reachability. TDD per cycle."
+    content: "WS-B6 cycles: src/arc/arc-next-colour.ts + arc-next-colour-cli.ts (+ unit test) — the colour-index writer. Invocation follows the dominant validator/CLI precedent: agent-tools package.json script via `pnpm exec tsx` on source (no dist chmod); add 'src/arc/arc-next-colour-cli.ts' to root knip.config.ts workspaces['agent-tools'].entry. TDD per cycle."
     status: pending
     depends_on: [ws-b2-grammar]
   - id: ws-b7-validator
-    content: "WS-B7 cycles: src/validators/arc-channels/validate-arc-channels.ts (+ helpers + test) targeting the canonical rapid-comms surface, failing loud when absent/invalid. Wire into repo-validators:check + package.json + knip entry + depcruise reachability. TDD per cycle."
+    content: "WS-B7 cycles: src/validators/arc-channels/validate-arc-channels.ts (+ helpers + test) targeting the canonical rapid-comms surface, failing loud when absent/invalid. Fixture channels are injected in-memory values (strings/objects), never disk reads, keeping the integration classification true. Lands package script (tsx pattern) + 'src/validators/arc-channels/validate-arc-channels.ts' knip entry ONLY — the blocking estate-gate wiring (root repo-validators:check --filter clause) moves to the ws-b8 landing so no commit window carries a red gate over the unrepaired corpus. TDD per cycle."
     status: pending
     depends_on: [ws-b2-grammar]
   - id: ws-b8-corpus-repair
-    content: "WS-B8: REPAIR the 49 tracked rapid-comms channels in place — add Channel-colour: lines (assigned via ws-b6 writer) and conform entry headers/timestamps to the grammar's strict tier. No grandfather, no exclusion. Acceptance = ws-b7 validator green over the full corpus."
+    content: "WS-B8: REPAIR every tracked rapid-comms channel in place (count-free — the corpus at proof time) — add Channel-colour: lines (assigned via ws-b6 writer) and conform entry headers/timestamps to the grammar's strict tier. No grandfather, no exclusion. BLOCKING PREREQUISITE: the 4 coordination-branch-only channels (3× 2026-07-19-aip137-*, 1× 2026-07-19-design-system-integration-caracal-*) must be present on the execution branch before proof; if they land after, re-run writer+validator over them before the gate wiring merges. This landing ALSO wires validate-arc-channels into root repo-validators:check (moved from ws-b7), atomically with the green corpus. Acceptance = ws-b7 validator green over every tracked channel."
     status: pending
     depends_on: [ws-b6-colour-writer, ws-b7-validator]
   - id: ws-b9-convention-doc
-    content: "WS-B9: author .agent/reference/arc-rapid-communication.md (the ARC channel-open convention — record a colour index at open) and wire the channel-open ceremony (comms/start-right surfaces) to invoke the ws-b6 writer. Reference-direction safe placement (non-policed root)."
+    content: "WS-B9: EXTEND the existing canonical .agent/reference/arc-rapid-communication.md (tracked on main, live doctrine — never a fresh file or duplicate home) with the channel-open colour-index convention, and wire the channel-open ceremony (comms/start-right surfaces) to invoke the ws-b6 writer. In the same touch, REPAIR the sections the code changes falsify: §Conventions item 1's resolveArcActive filename-substring wing-detection paragraphs (this plan IS the tracked structural cure) and the §Known limitations reconciliation with the strict tier + Channel-colour: line."
     status: pending
     depends_on: [ws-b6-colour-writer, ws-b7-validator]
   - id: ws-b10-integrate-review
-    content: "WS-B10: full pnpm check (knip + depcruise + repo-validators + build + test) over the integrated delivery; adversarial specialist reviews (react/type/test/config/security as applicable); ADR finalisation; doc propagation. All acceptance ids proven."
+    content: "WS-B10: full pnpm check (knip + depcruise + repo-validators + build + test) over the integrated delivery; adversarial specialist reviews (react/type/test/config/security as applicable); ADR-214 finalisation. Doc propagation, enumerated: ADR index entry in architectural-decisions/README.md; agent-tools/README.md CLI catalogue + Structure tree entries for src/arc + the two new scripts; TSDoc on new src/arc public exports; ws-b9 reference-doc repairs verified landed. All acceptance ids proven."
     status: pending
     depends_on: [ws-a-cycle-1, ws-b5-feather-render, ws-b8-corpus-repair, ws-b9-convention-doc]
 isProject: false
@@ -85,7 +85,7 @@ sequenced as self-correcting deliverables (PDR-093).
   rate-limit gauges and the `ctx` context gauge (`statusline-usage.ts` is
   byte-identical to castr; `formatRateLimits` already emits `rateLimitGauge('s',…)`).
   The only missing piece is **placement**: transplant castr's `locationRowsWithUsage()`
-  into oak's own `render.ts` (keeping oak's logo-by-style layout and `oak-logo.ts`)
+  into oak's own `statusline-render.ts` (keeping oak's logo-by-style layout and `oak-logo.ts`)
   and re-point the two row-assembly sites so `ctx:` + `s`/`w` render on the repo-title
   location row. Zero new dependencies.
 
@@ -101,8 +101,8 @@ This plan deliberately **excludes** the compatibility-shaped options the seam ma
 first surfaced, because `principles.md` forbids them:
 
 - **No grandfathering the legacy corpus.** *"No legacy surfaces… repair historical
-  data in place or replace the owning surface completely."* The 49 existing channels
-  are **repaired in place** (`ws-b8`), not exempted with a grandfather window.
+  data in place or replace the owning surface completely."* Every existing channel
+  is **repaired in place** (`ws-b8`), not exempted with a grandfather window.
 - **No colour-less feather fallback.** *"WE DON'T HEDGE — it is worth doing or it
   doesn't exist."* A feather that renders without a real colour index is a hedge.
 - **No grammar without its validator.** *"No unused code — delete dead code."*
@@ -158,31 +158,43 @@ consumed by b3/b4/b6/b7. Deliverable A shares no surface with B and is parallel-
   overflow states asserted; oak's 3-arg `formatIdentity` prefix preserved. Proof: `unit`.
 - **B6:** `arc-next-colour` CLI assigns a valid index; wired as a package script (knip +
   depcruise green). Proof: `unit` + `non-code` (gate).
-- **B7:** validator fails loud on a malformed fixture and passes a conformant one; wired
-  into `repo-validators:check`. Proof: `integration` + `non-code` (gate).
-- **B8:** `validate-arc-channels` is **green over all 49 real channels** (data repaired,
-  not exempted). Proof: `value-proxy` (the real corpus passing the real gate).
-- **B9:** the convention doc exists at the canonical reference path; channel-open records a
-  colour. Proof: `non-code`.
+- **B7:** validator fails loud on a malformed in-memory fixture and passes a conformant
+  one; package script + knip entry landed (estate-gate wiring deferred to B8 by design).
+  Proof: `integration` + `non-code`.
+- **B8:** `validate-arc-channels` is **green over every tracked rapid-comms channel at
+  proof time** (count-free; data repaired, not exempted; the 4 coordination-branch-only
+  channels present on the execution branch first), and the `repo-validators:check` wiring
+  lands in this same commit window. Proof: `value-proxy` (the real corpus passing the
+  real gate).
+- **B9:** the existing canonical reference doc carries the channel-open colour convention,
+  its falsified wing-detection sections are repaired, and channel-open records a colour.
+  Proof: `non-code`.
 - **B10:** full `pnpm check` green (knip + depcruise + repo-validators + build + test +
   markdownlint + format); specialist reviews dispositioned; ADR finalised. Proof: `non-code` (aggregate gate).
 
 ## oak gate/boundary constraints the port must satisfy (from the seam map, verified first-hand)
 
-- Root `pnpm check` runs `knip` and `depcruise` as **blocking** top-level gates. `knip.config.ts`
-  (agent-tools) auto-covers `src/claude/**` (so `statusline-arc-palette.ts` is fine) but has
-  **no `src/arc` entry** — any executable there (`arc-next-colour-cli`) MUST be added to the knip
-  entry list AND a `package.json` script, or knip flags unused / depcruise flags orphan.
-- `.dependency-cruiser.mjs` `no-orphans` is `severity: error`; a new non-test `.ts` must be
-  reachable from an entry. `no-import-from-agent-substrate` forbids **module** imports of `.agent/`
-  — the statusline's **fs reads** of rapid-comms are the sanctioned exception (already used).
+- Root `pnpm check` runs `knip` and `depcruise` as **blocking** top-level gates. The knip
+  config is the ROOT `knip.config.ts`, `workspaces['agent-tools']`: its `entry` includes
+  `src/claude/**/*.ts` (so `statusline-arc-palette.ts` is auto-covered) but has **no
+  `src/arc` entry**, and `project: src/**/*.ts` means an unwired executable is flagged
+  unused. Add `src/arc/arc-next-colour-cli.ts` and
+  `src/validators/arc-channels/validate-arc-channels.ts` to that entry list (per-file
+  listing is the established precedent) AND a `package.json` script each.
+- `.dependency-cruiser.mjs` `no-orphans` is `severity: error` — but depcruise's orphan is
+  zero-edges (a CLI importing its impl module is never one); entry-reachability is knip's
+  gate, not depcruise's. `no-import-from-agent-substrate` forbids **module** imports of
+  `.agent/` — the statusline's **fs reads** of rapid-comms are the sanctioned exception
+  (already used).
 - `source-is-typescript-esm-only`: intra-package imports use explicit `.js` specifiers on `.ts`
   sources (`../arc/arc-channel-grammar.js`).
 - `reference-direction` validator (PDR-105, blocking, debt burned to zero): the convention doc
   goes under `.agent/reference/` (a **non-policed** root, mirroring castr) and must not cite a
   more-ephemeral surface.
-- agent-tools build: `tsc -p tsconfig.build.json` then `chmod +x dist/src/bin/*.js …` — a new bin
-  executable must be emitted and chmod'd.
+- agent-tools CLI invocation: the dominant precedent for validators and workspace CLIs is a
+  `package.json` script running `pnpm exec tsx` on source — no dist chmod involved. The new
+  `arc-next-colour` and `validate-arc-channels` scripts follow it; the build's existing
+  `chmod +x dist/src/bin/*.js` list is untouched.
 
 ## Risks and mitigations
 
@@ -193,9 +205,13 @@ consumed by b3/b4/b6/b7. Deliverable A shares no surface with B and is parallel-
 - **identityPrefix regression** — naive wholesale copy of castr's `indicators.ts`/`segments.ts`
   drops oak's 3-arg prefix-rendering `formatIdentity` (the PDR-027 cross-repo join key display).
   Mitigation: hand-merge (`ws-b4`/`ws-b5` acceptance explicitly re-asserts the prefix).
-- **Corpus repair scale** — 49 channels, 46 with pre-grammar headers, some post-2026-07-09
-  (full strict tier), plus the undated `.starless-notice-body.md`. Mitigation: `ws-b6` writer
-  batch-assigns colours; `ws-b8` conforms headers; `ws-b7` is the objective done-signal.
+- **Corpus repair scale and branch-split corpus** — ~49 channels at plan time (most with
+  pre-grammar headers; the undated `.starless-notice-body.md`), of which 4 exist ONLY on
+  `coordination/estate-2026-07` (3× `2026-07-19-aip137-*`, 1×
+  `2026-07-19-design-system-integration-caracal-*`) — a main-based worktree sees 45.
+  Mitigation: `ws-b6` writer batch-assigns colours; `ws-b8` conforms headers, is count-free,
+  and carries the coordination-channels landing prerequisite; `ws-b7` is the objective
+  done-signal.
 - **teamShape scope creep** — castr's session-shape also adds `observing-directed` + a director
   honesty-gate. Decision: **in scope** (part of the coherent session-shape design; excluding it
   would fork the shape — a hedge). Re-asserted in `ws-b4`.
@@ -232,7 +248,8 @@ conserve the corpus-repair method, and update the agentic-engineering thread rec
 ## Source maps (authoritative context, do not re-derive)
 
 The castr→oak port surface, oak state, and seam/risk analysis were mapped first-hand
-2026-07-20 (workflow `wf_0a56f8f8-ed5`). Castr source is on `EngraphCode/castr` `main`
-(PRs #22 + #29 merged 2026-07-20); the feather source files are under
-`castr/agent-tools/src/{claude,arc,validators/arc-channels}`. Oak destination is
-`agent-tools/src/claude/statusline-*.ts` (no `src/arc/` today).
+2026-07-20 (workflow `wf_0a56f8f8-ed5`). The port source is PINNED to `EngraphCode/castr`
+**`origin/main` @ `63a7e675`** (PRs #22 + #29 merged 2026-07-20); any local castr working
+tree is NOT authoritative (observed sitting on a stale docs branch with divergent copies).
+The feather source files are under `castr/agent-tools/src/{claude,arc,validators/arc-channels}`.
+Oak destination is `agent-tools/src/claude/statusline-*.ts` (no `src/arc/` today).
