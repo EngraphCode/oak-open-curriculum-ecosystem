@@ -22,10 +22,10 @@ source format for the hand-authored trees in `oak-design-tokens`.
 Pre-W3C-Recommendation living document.
 
 [ADR-213](../architecture/architectural-decisions/213-design-system-integration-and-component-architecture.md)
-supersedes this direction in part (Proposed; effective on its
-acceptance): the decided end state is that the integrated design
-system's CSS is the token source of truth and DTCG JSON is a
-generated projection of it. Until ADR-213's Stage B atomic switch
+supersedes this direction in part (Accepted 2026-07-20; the
+supersession is now in force): the decided end state is that the
+integrated design system's CSS is the token source of truth and DTCG
+JSON is a generated projection of it. Until ADR-213's Stage B atomic switch
 lands (deleting the hand-authored trees and re-pointing generation at
 the design system's export), the DTCG trees described here remain the
 live mechanism.
