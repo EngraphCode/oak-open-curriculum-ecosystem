@@ -1,7 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useSyncExternalStore } from 'react';
 import type { ReactElement } from 'react';
+
+import { oakThemeStore } from '@/lib/oak-theme-store';
 
 import { LearningFrameworkStatic } from './LearningFrameworkStatic';
 import LearningFrameworkAnimation from './LearningFrameworkAnimation';
@@ -24,6 +26,32 @@ function usePrefersReducedMotion(): boolean {
   return reduced;
 }
 
+/** The effective reduced-motion verdict on the data-motion axis semantics (the hub's CSS motion
+ *  floor, app/globals.css): an explicit in-product choice wins in both directions; 'system' (or no
+ *  runtime) defers to the OS preference. Pure and exported so the three-way priority is
+ *  unit-testable without the store singleton. */
+export function effectiveReducedMotion(osReduced: boolean, motion: string | undefined): boolean {
+  if (motion === 'reduced') {
+    return true;
+  }
+  if (motion === 'full') {
+    return false;
+  }
+  return osReduced;
+}
+
+/** {@link effectiveReducedMotion} wired to the OS preference and the theme store. Without this, the
+ *  axis would control CSS motion but not the requestAnimationFrame walk-through. */
+function useEffectiveReducedMotion(): boolean {
+  const osReduced = usePrefersReducedMotion();
+  const motion = useSyncExternalStore(
+    oakThemeStore.subscribe,
+    oakThemeStore.getMotion,
+    oakThemeStore.getServerSnapshot,
+  );
+  return effectiveReducedMotion(osReduced, motion);
+}
+
 /**
  * The Learning Framework embed: a progressive enhancement over the static seven-stage frame.
  *
@@ -39,6 +67,6 @@ function usePrefersReducedMotion(): boolean {
  * "The learning framework" module — the image is the SSR baseline, this embed is the enhancement.
  */
 export function LearningFramework(): ReactElement {
-  const reducedMotion = usePrefersReducedMotion();
+  const reducedMotion = useEffectiveReducedMotion();
   return reducedMotion ? <LearningFrameworkStatic /> : <LearningFrameworkAnimation />;
 }

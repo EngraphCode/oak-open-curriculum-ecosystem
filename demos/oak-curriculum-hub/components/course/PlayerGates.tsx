@@ -62,7 +62,7 @@ export function ModulePosition({ moduleId }: { readonly moduleId: string }): Rea
     return null;
   }
   return (
-    <p className="text-[14px] font-light text-oak-grey">
+    <p className="text-[14px] font-light text-ink-subdued">
       Section {index + 1} of {moduleSections.length}
     </p>
   );
@@ -91,7 +91,7 @@ export function PlayerSection({
       className={
         playerActive
           ? 'scroll-mt-6'
-          : 'scroll-mt-6 border-t border-oak-grey/25 pt-8 first:border-t-0 first:pt-0'
+          : 'scroll-mt-6 border-t border-line-neutral/25 pt-8 first:border-t-0 first:pt-0'
       }
     >
       {children}

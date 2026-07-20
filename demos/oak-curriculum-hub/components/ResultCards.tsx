@@ -6,17 +6,17 @@ import { subjectName, subjectBg, keyStageLabel } from './subjects';
 // Static chip shape; the background colour is data-driven (subjects.ts owns the
 // per-subject pastel palette), so it stays an inline style on the element.
 const chipClass =
-  'inline-flex items-center rounded-full border-2 border-oak-black px-2.5 py-[5px] text-[11px] font-bold text-oak-black';
+  'inline-flex items-center rounded-full border-2 border-line px-2.5 py-[5px] text-[11px] font-bold text-ink';
 const ksChipClass =
-  'inline-flex items-center rounded-full border border-oak-grey-line px-[9px] py-[5px] text-[11px] font-bold text-oak-grey';
+  'inline-flex items-center rounded-full border border-line-soft px-[9px] py-[5px] text-[11px] font-bold text-ink-subdued';
 
 // The static card frame; the interactive variant below adds Oak's signature
 // interaction — a lemon offset shadow that widens on hover and collapses as
 // the card translates +2/+2 on press.
-const cardFrameClass = 'flex text-oak-black border-2 border-oak-black bg-white shadow-oak-lemon';
+const cardFrameClass = 'flex text-ink border-2 border-line bg-white shadow-accent-brand';
 const lemonCardClass =
   `${cardFrameClass} no-underline ` +
-  'transition-[box-shadow,transform] duration-150 hover:shadow-oak-wide-lemon ' +
+  'transition-[box-shadow,transform] duration-150 hover:shadow-accent-wide-brand ' +
   'active:translate-x-0.5 active:translate-y-0.5 active:shadow-none';
 
 const lessonCardLayoutClass = 'flex-col gap-[9px] rounded-xl px-[17px] py-[15px]';
@@ -43,12 +43,12 @@ export function LessonCard({ hit }: { readonly hit: Hit }): ReactElement {
       </div>
       <span className="text-base font-semibold leading-[22px]">{hit.title}</span>
       {hit.unitTitle && (
-        <span className="text-[13px] font-light leading-[18px] text-oak-grey">
+        <span className="text-[13px] font-light leading-[18px] text-ink-subdued">
           Unit: {hit.unitTitle}
         </span>
       )}
       {hit.snippet && (
-        <span className="text-[13px] font-light leading-[18px] text-oak-grey">
+        <span className="text-[13px] font-light leading-[18px] text-ink-subdued">
           {/* Only the ES highlighter's <em> pair is interpreted (as <mark>); any other
               markup in the API fragment stays literal text — never raw HTML injection. */}
           {highlightToNodes(hit.snippet)}
@@ -64,7 +64,7 @@ export function LessonCard({ hit }: { readonly hit: Hit }): ReactElement {
       className={`${lemonCardClass} ${lessonCardLayoutClass}`}
     >
       {inner}
-      <span className="mt-0.5 text-[13px] font-bold text-oak-navy">Open lesson on Oak ↗</span>
+      <span className="mt-0.5 text-[13px] font-bold text-link">Open lesson on Oak ↗</span>
     </a>
   ) : (
     <div className={`${cardFrameClass} ${lessonCardLayoutClass}`}>{inner}</div>
@@ -95,7 +95,7 @@ export function UnitCard({ hit }: { readonly hit: Hit }): ReactElement {
       className={`${lemonCardClass} ${unitCardLayoutClass}`}
     >
       {inner}
-      <span className="flex-none text-[13px] font-bold text-oak-navy">↗</span>
+      <span className="flex-none text-[13px] font-bold text-link">↗</span>
     </a>
   ) : (
     <div className={`${cardFrameClass} ${unitCardLayoutClass}`}>{inner}</div>
@@ -105,14 +105,14 @@ export function UnitCard({ hit }: { readonly hit: Hit }): ReactElement {
 // Threads frequently have no canonical url (the live contract: thread url is often ""),
 // so render a non-link chip in that case rather than an <a> pointing nowhere.
 const threadChipClass =
-  'inline-flex items-center gap-2.5 rounded-full border-2 border-oak-black bg-oak-pink-subdued px-4 py-[9px] text-oak-black shadow-oak-grey';
+  'inline-flex items-center gap-2.5 rounded-full border-2 border-line bg-decorative-4-subtle px-4 py-[9px] text-ink shadow-neutral-brand';
 
 export function ThreadCard({ hit }: { readonly hit: Hit }): ReactElement {
   const inner = (
     <>
       <span className="text-[15px] font-semibold leading-none">{hit.title}</span>
       {typeof hit.unitCount === 'number' && (
-        <span className="text-xs font-bold text-oak-grey">{hit.unitCount} units</span>
+        <span className="text-xs font-bold text-ink-subdued">{hit.unitCount} units</span>
       )}
     </>
   );

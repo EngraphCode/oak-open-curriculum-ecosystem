@@ -31,7 +31,7 @@ export function VideoImportBlockView({
         label={block.duration}
         ariaLabel={`${block.caption} — ${block.duration}`}
       />
-      <figcaption className="mt-2.5 text-sm leading-5 font-light text-oak-grey">
+      <figcaption className="mt-2.5 text-sm leading-5 font-light text-ink-subdued">
         {block.caption}
       </figcaption>
     </figure>

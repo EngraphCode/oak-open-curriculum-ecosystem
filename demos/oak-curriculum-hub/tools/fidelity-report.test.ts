@@ -65,6 +65,17 @@ const parsedRegister = parseRegister(
         date: '2026-07-03',
       },
       {
+        id: 'global/token-source-convergence',
+        pairId: 'global',
+        kind: 'visual',
+        summary: 'Token-source convergence shifts values on every pair.',
+        evidence: ['demo-evidence/home-live.png'],
+        disposition: 'deliberate',
+        rationale: 'Ratified (ADR-213).',
+        author: 'director-9',
+        date: '2026-07-19',
+      },
+      {
         id: 'gone-pair/old-finding',
         pairId: 'gone-pair',
         kind: 'visual',
@@ -127,5 +138,17 @@ describe('renderReportHtml', () => {
     expect(await axe(container)).toHaveNoViolations();
 
     container.remove();
+  });
+});
+
+describe('renderReportHtml global scope', () => {
+  const html = renderReportHtml(fixtureResults(), register, META);
+
+  it('renders global-scope judgments in their own section, never as orphans', () => {
+    expect(html).toContain('Global judgments (apply to every pair)');
+    expect(html).toContain('global/token-source-convergence');
+    expect(html).not.toContain(
+      'global/token-source-convergence</code> \u2014 its pair no longer exists',
+    );
   });
 });
