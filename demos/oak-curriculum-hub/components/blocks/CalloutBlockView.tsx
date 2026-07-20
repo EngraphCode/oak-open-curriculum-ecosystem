@@ -26,15 +26,25 @@ function toStandards(block: CalloutBlock): readonly CalloutStandard[] {
  * variant map, lines ~1882-1886). `#93e892` exists only in the export's tip border — literal, like
  * the stats tile palette. Quality-standard callouts override to the export's QS blue family.
  */
+// Variant tints follow the kit's role contract (value-identical to the export's
+// tints in light theme): tip is a CATEGORY (decorative mint — the kit reserves
+// functional success for meaning; a tip is not a success state), info/warning
+// are MEANING (functional bg-info-subtle / bg-warning-subtle per the kit
+// banner recipes — banner--info carries no border role, so the info accent
+// stays the ornamental lavender; warning takes its real --border-warning).
 const VARIANTS = {
-  tip: { accent: 'border-l-[#93e892] bg-success-subtle', icon: '★', iconBg: 'bg-decorative-1' },
+  tip: {
+    accent: 'border-l-[#93e892] bg-decorative-1-subtle',
+    icon: '★',
+    iconBg: 'bg-decorative-1',
+  },
   info: {
-    accent: 'border-l-decorative-3 bg-decorative-3-subtle',
+    accent: 'border-l-decorative-3 bg-info-subtle',
     icon: 'i',
     iconBg: 'bg-decorative-3',
   },
   warning: {
-    accent: 'border-l-decorative-6 bg-decorative-6-subtle',
+    accent: 'border-l-line-warning bg-warning-subtle',
     icon: '!',
     iconBg: 'bg-decorative-6',
   },

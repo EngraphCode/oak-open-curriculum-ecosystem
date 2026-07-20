@@ -34,6 +34,8 @@
   --color-success: var(--text-success);
   --color-success-subtle: var(--bg-success-subtle);
   --color-info: var(--text-info, var(--text-link));
+  --color-info-subtle: var(--bg-info-subtle);
+  --color-warning-subtle: var(--bg-warning-subtle);
   --color-surface: var(--bg-primary);
   --color-surface-subtle: var(--bg-subtle);
   --color-surface-neutral: var(--bg-neutral);
@@ -49,6 +51,7 @@
      above (--color-success/--color-error) are for text only */
   --color-line-success: var(--border-success);
   --color-line-error: var(--border-error);
+  --color-line-warning: var(--border-warning);
   /* divider role for inverted surfaces (kit --border-inverted: white where
      the surface is dark, theme-flipped elsewhere — border-neutral flattens
      invisible on the inverted footer in high-contrast) */
@@ -64,6 +67,7 @@
   --color-decorative-5: var(--surface-decorative-5);
   --color-decorative-6: var(--surface-decorative-6);
   --color-decorative-1-soft: var(--surface-decorative-1-soft);
+  --color-decorative-1-subtle: var(--surface-decorative-1-subtle);
   --color-decorative-3-subtle: var(--surface-decorative-3-subtle);
   --color-decorative-4-subtle: var(--surface-decorative-4-subtle);
   --color-decorative-6-subtle: var(--surface-decorative-6-subtle);
