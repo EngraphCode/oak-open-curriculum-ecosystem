@@ -224,9 +224,13 @@ conditions stand unchanged:
   interchange tree is authoritative. _Falsification is mechanical, not judged_: each
   projection is a total checked map **over its declared domain** of the export (the web
   CSS map's domain is the whole export tree; the terminal map's is its 11 roles; the
-  contrast path's is **every value reaching its boundary**, where the post-resolution
-  value-shape drop is itself a recorded disposition — a dropped value is classified, never
-  outside the map, so an unclassified value shape still surfaces as unaccounted); a mismatch that can be cured or
+  contrast path's is **every value reaching its boundary**, whose disposition today is
+  the landed pair: the one closed post-resolution value-shape rule (six-digit hex enters
+  the comparand; everything else drops — `toHexComparand` does not discriminate between
+  dropped classes) plus the pinned per-theme comparand counts as the drift net; the
+  per-class discrimination (runtime-computed vs static-alpha vs any new shape) lives in
+  this contract's prose, and its mechanical form — per-path exclusion reporting on the
+  gate — is named Stage-B work alongside the map); a mismatch that can be cured or
   recorded as a disposition routes to that projection's migration leg as a defect, and a
   projection falsifies the per-consumer frame when its map **cannot reach zero
   unaccounted entries after all recordable dispositions** — at which point a single
