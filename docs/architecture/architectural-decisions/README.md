@@ -421,9 +421,9 @@ New to the repo? Read these five ADRs first for the architectural foundations:
 - [ADR-214: ARC-colour statusline infrastructure](214-arc-colour-statusline-infrastructure.md)
   (the ARC channel grammar is the canonical schema authority for the shared rapid-comms
   corpus; feather colour is a projection of recorded channel content; the historical corpus
-  is repaired in place with a loud-failing validator landing atomically with the repair;
-  strictness preserves the protocol's zero-per-message-ceremony property; Proposed
-  2026-07-20)
+  is repaired in place by a loud-failing validator that lands with the grammar, its
+  blocking-gate wiring landing atomically with the repair; strictness preserves the
+  protocol's zero-per-message-ceremony property; Proposed 2026-07-20)
 
 ## Key Architectural Decisions
 

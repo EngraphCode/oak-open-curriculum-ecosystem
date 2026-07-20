@@ -37,7 +37,7 @@ both merged to [`EngraphCode/castr`](https://github.com/EngraphCode/castr) main
    per-consumer re-derivations.
 2. **Feather colour is a projection of parsed channel content, never decoration.** A
    channel's colour is the index recorded in the channel file at channel-open; the
-   statusline renders what the corpus records. There is no colour-less fallback rendering
+   statusline renders what the corpus records. There is no colourless fallback rendering
    and no hash-derived colour: a feather without a recorded index is an invalid-state
    signal, rendered as such.
 3. **The historical corpus is repaired in place.** Every tracked channel file is conformed
@@ -68,7 +68,7 @@ both merged to [`EngraphCode/castr`](https://github.com/EngraphCode/castr) main
   documented in the canonical ARC reference doc, which is extended — not replaced — and
   its falsified wing-detection sections repaired in the same delivery.
 - The oak-local active-window constant is deleted in favour of the grammar import; oak's
-  identity-prefix rendering (the PDR-027 cross-repo join key) is preserved through the
+  identity-prefix rendering (the PDR-125 clause-5 cross-estate join key) is preserved through the
   port.
 
 Implementation sequencing, file paths, CLI shapes, and acceptance proofs live in the
