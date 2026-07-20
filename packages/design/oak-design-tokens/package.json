@@ -22,11 +22,13 @@
     "type-check": "tsc -p tsconfig.lint.json --noEmit",
     "test": "vitest run",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "lint:fix": "eslint --fix .",
+    "validate-design-system-consistency": "cd ../../.. && pnpm exec tsx packages/design/oak-design-tokens/scripts/validate-design-system-consistency.ts"
   },
   "dependencies": {
     "@oaknational/design-tokens-core": "workspace:*",
-    "@oaknational/result": "workspace:*"
+    "@oaknational/result": "workspace:*",
+    "@oaknational/type-helpers": "workspace:*"
   },
   "devDependencies": {
     "@oaknational/eslint-plugin-standards": "workspace:*",
@@ -34,6 +36,7 @@
     "@types/node": "^24.13.2",
     "eslint": "^10.6.0",
     "globals": "^17.7.0",
+    "postcss": "^8.5.16",
     "tsup": "^8.5.1",
     "typescript": "^6.0.3",
     "vitest": "^4.1.9"

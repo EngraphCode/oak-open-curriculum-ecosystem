@@ -954,6 +954,9 @@ importers:
       '@oaknational/result':
         specifier: workspace:*
         version: link:../../core/result
+      '@oaknational/type-helpers':
+        specifier: workspace:*
+        version: link:../../core/type-helpers
     devDependencies:
       '@oaknational/eslint-plugin-standards':
         specifier: workspace:*
@@ -970,6 +973,9 @@ importers:
       globals:
         specifier: ^17.7.0
         version: 17.7.0
+      postcss:
+        specifier: '>=8.5.10'
+        version: 8.5.16
       tsup:
         specifier: ^8.5.1
         version: 8.5.1(jiti@2.7.0)(postcss@8.5.16)(supports-color@10.2.2)(tsx@4.22.4)(typescript@6.0.3)(yaml@2.9.0)

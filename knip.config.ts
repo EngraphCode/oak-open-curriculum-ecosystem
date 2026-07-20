@@ -223,9 +223,10 @@ const config: KnipConfig = {
     },
     'packages/design/oak-design-tokens': {
       // Source entry behind the dist-pointing `./terminal-theme` export
-      // (see oak-eslint note on the removed `development` condition).
-      entry: ['src/terminal-theme.ts'],
-      project: ['src/**/*.ts'],
+      // (see oak-eslint note on the removed `development` condition), plus
+      // the repo-validator script chained into `repo-validators:check`.
+      entry: ['src/terminal-theme.ts', 'scripts/validate-design-system-consistency.ts'],
+      project: ['src/**/*.ts', 'scripts/**/*.ts'],
     },
     'packages/libs/env-resolution': {
       project: ['src/**/*.ts'],
