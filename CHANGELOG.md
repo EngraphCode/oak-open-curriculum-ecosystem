@@ -1,3 +1,21 @@
+## [1.75.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.75.0...v1.75.1) (2026-07-20)
+
+
+### Bug Fixes
+
+* **agent-tools:** ban the ":" join delimiter in gazetteer subject ids ([75a1506](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/75a150677f41857642c659f20fdad7ef1b37d731))
+* **agent-tools:** bind the fact-key delimiter ban to gazetteer subject ids ([e10cdc5](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e10cdc59b60f8e7f960d6eac340646e016068389))
+* **agent-tools:** close the canonical partition file shape ([8adc9ea](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8adc9ea91343e66b34b50eef5313e482db506722))
+* **agent-tools:** contain checkpoint-flag reads within the repository ([d495350](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d49535040ba5b42b87a333eae1a0d1728c39fe9d))
+* **agent-tools:** narrow resume grounding to the unresolved seed ([0ed4890](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/0ed4890adc037db295fa98948f28b7f38a598710))
+* **agent-tools:** pin completeness flags to their incomplete lists ([7f2b50e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/7f2b50e22199e3433f9aa022a5a98a1a85d3eff4))
+* **agent-tools:** recompute validate dispositions from two distinct voters ([9eb5ec6](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9eb5ec6bbe64f5462146bd7366d4b5841a781ed1))
+* **agent-tools:** refine validate-checkpoint completeness against its incomplete list ([228ae86](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/228ae860a8b3c925a4508e503a52ac4e0a643912))
+* **agent-tools:** refuse resolved cluster ids lacking checkpoint evidence ([0992583](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/0992583393366230c208163f2c76ac9b2115e45f))
+* **agent-tools:** require cluster distinctValueNorms in canonical normal form ([5bd3711](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5bd37118c060a828db5f3fcc7073d9343c88d1db))
+* **agent-tools:** true the CLI usage text to the repo-root path base ([471e698](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/471e69847dd4bcef5cee0eae07a122a7d9b28262))
+* **agent-tools:** validate distinctValueNorms as a set, not an array length ([60afaf3](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/60afaf3647eda7525ec9a171eeafc4dbc236894f))
+
 # [1.75.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.74.0...v1.75.0) (2026-07-20)
 
 
