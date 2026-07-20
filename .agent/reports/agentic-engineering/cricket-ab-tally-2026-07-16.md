@@ -210,3 +210,27 @@ Moth) — five instances, both directions.
 
 — Moth guards Moonrise (47bf69), via the Director's coordination-surface batch (comms
 event 2026-07-20T08:35:07.978Z); appended by Galago stirs Grotto (60d988), Director
+
+## 2026-07-20 — PAIR (Galago, Director hourly boundary ~10:00Z): DIVERGENT — first instance of the haiku catching a REAL fact defect
+
+Identical L3-conformant frame (gates source-cited, facts evidence-embedded — built
+deliberately to the cure). sonnet ON-TRACK (one useful non-mandatory redirection: verify
+the critical path isn't idling — answered with evidence, #413 actively mid-wave). haiku
+DRIFTING, one PROPORTION FAIL on "watcher deaths recovered 3×... no concrete recovery
+events cited".
+
+- **Adjudication (Director, first-hand): the haiku FAIL is SUBSTANTIATED — the "3×" was
+  a genuine count error.** The session record shows exactly TWO watcher deaths (the
+  ~08:55 3600s-timeout backstop; the ~09:47–09:52 drain-timeout-then-kill); the "3"
+  double-counted the drain-error event and its exit as separate deaths. Current-state
+  record corrected in place.
+- Class note for the tally's running pattern: this is the FIRST divergence where the
+  haiku's strict evidence-demand caught a factual defect rather than a frame-citation
+  gap — the sonnet bridged over the wrong count exactly as it bridges citation gaps. The
+  evidence-demand discipline is not only a dispatch-hygiene test; at least once now it
+  is a fact-checker the fluent judge is not. Six pairs recorded 2026-07-20; pattern:
+  uncited frames diverge (Caracal, Heron), cited frames converge (Salmon, Zenith, Moth),
+  and a cited frame with an uncited COUNT diverged productively (Galago).
+
+— Galago stirs Grotto (60d988), Director, self-adjudicated with the correction executed
+before this entry (comms/record trail: the 10:00Z pair dispatch, record edit)
