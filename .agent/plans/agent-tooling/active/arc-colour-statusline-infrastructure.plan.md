@@ -56,11 +56,11 @@ todos:
     status: pending
     depends_on: [ws-b5-c1-feather-badges]
   - id: ws-b6-c1-writer
-    content: "WS-B6 cycle 1: src/arc/arc-next-colour.ts — the colour-index assignment function (+ unit test). Proof: pnpm --filter @oaknational/agent-tools test -- src/arc/arc-next-colour.unit.test.ts"
+    content: "WS-B6 cycle 1: src/arc/arc-next-colour.ts — the pure colour-assignment functions (deriveWornColours + nextFreeColourIndex, per the pinned donor) (+ unit test). Proof: pnpm --filter @oaknational/agent-tools test -- src/arc/arc-next-colour.unit.test.ts"
     status: pending
     depends_on: [ws-b2-c2-colour-roster]
   - id: ws-b6-c2-cli-wiring
-    content: "WS-B6 cycle 2: src/arc/arc-next-colour-cli.ts + agent-tools package.json script via `pnpm exec tsx` on source (dominant validator/CLI precedent, no dist chmod) + 'src/arc/arc-next-colour-cli.ts' added to root knip.config.ts workspaces['agent-tools'].entry. Proof: pnpm knip AND the script assigns a valid index against a fixture channel"
+    content: "WS-B6 cycle 2: src/arc/arc-next-colour-cli.ts — an assignment REPORTER matching the pinned donor's true shape (no mutation: prints today's channels with worn colours and the next free palette index; the channel OPENER records the line, and ws-b8's batch repair imports the pure functions directly) + agent-tools package.json script via `pnpm exec tsx` on source (dominant validator/CLI precedent, no dist chmod) + 'src/arc/arc-next-colour-cli.ts' added to root knip.config.ts workspaces['agent-tools'].entry. Proof: pnpm knip AND the reporter prints the expected next free index over a fixture corpus"
     status: pending
     depends_on: [ws-b6-c1-writer]
   - id: ws-b7-c1-validator-core
@@ -72,11 +72,11 @@ todos:
     status: pending
     depends_on: [ws-b7-c1-validator-core]
   - id: ws-b8-corpus-repair
-    content: "WS-B8: REPAIR every tracked rapid-comms channel in place (count-free — the corpus at proof time) — add Channel-colour: lines (assigned via ws-b6 writer) and conform entry headers/timestamps to the grammar's strict tier. No grandfather, no exclusion; the undated .starless-notice-body.md and README.md are outside the channel corpus by the ws-b2 grammar's membership definition (date-named files are channels), so the validator's green is over every GRAMMAR-MEMBER file — never a skip of a member. Doctrine resolution (append-only vs repair): the ARC protocol's append-only clause governs live dialogue; this repair is a ONE-TIME schema migration sanctioned by principles.md ('repair historical data in place'), recorded as such in ADR-214, with ws-b9 amending the reference doc's append-only clause to name the validator-proven grammar-migration exception BEFORE this repair lands. BLOCKING PREREQUISITE: the 4 coordination-branch-only channels (3× 2026-07-19-aip137-*, 1× 2026-07-19-design-system-integration-caracal-*) must be present on the execution branch before proof; if they land after, re-run writer+validator over them before the gate wiring merges. This landing ALSO wires validate-arc-channels into root repo-validators:check (moved from ws-b7), atomically with the green corpus. Acceptance = ws-b7 validator green over every tracked channel. Proof: pnpm --filter @oaknational/agent-tools validate-arc-channels AND pnpm repo-validators:check"
+    content: "WS-B8: REPAIR every tracked rapid-comms channel in place (count-free — the corpus at proof time) — add Channel-colour: lines (indices computed via the ws-b6 pure functions — deriveWornColours/nextFreeColourIndex; the batch write is this landing's own work, since the ws-b6 CLI is a non-mutating reporter) and conform entry headers/timestamps to the grammar's strict tier. No grandfather, no exclusion; the undated .starless-notice-body.md and README.md are outside the channel corpus by the ws-b2 grammar's membership definition (date-named files are channels), so the validator's green is over every GRAMMAR-MEMBER file — never a skip of a member. Doctrine resolution (append-only vs repair): the ARC protocol's append-only clause governs live dialogue; this repair is a ONE-TIME schema migration sanctioned by principles.md ('repair historical data in place'), recorded as such in ADR-214, with ws-b9 amending the reference doc's append-only clause to name the validator-proven grammar-migration exception BEFORE this repair lands. BLOCKING PREREQUISITE: the 4 coordination-branch-only channels (3× 2026-07-19-aip137-*, 1× 2026-07-19-design-system-integration-caracal-*) must be present on the execution branch before proof; if they land after, re-run writer+validator over them before the gate wiring merges. This landing ALSO wires validate-arc-channels into root repo-validators:check (moved from ws-b7), atomically with the green corpus. Acceptance = ws-b7 validator green over every tracked channel. Proof: pnpm --filter @oaknational/agent-tools validate-arc-channels AND pnpm repo-validators:check"
     status: pending
     depends_on: [ws-b6-c2-cli-wiring, ws-b7-c2-validator-wiring, ws-b9-convention-doc]
   - id: ws-b9-convention-doc
-    content: "WS-B9: EXTEND the existing canonical .agent/reference/arc-rapid-communication.md (tracked on main, live doctrine — never a fresh file or duplicate home) with the channel-open colour-index convention, and wire the channel-open ceremony (comms/start-right surfaces) to invoke the ws-b6 writer. In the same touch, REPAIR the sections the code changes falsify: §Conventions item 1's resolveArcActive filename-substring wing-detection paragraphs (this plan IS the tracked structural cure) the §Known limitations reconciliation with the strict tier + Channel-colour: line, and the append-only clause amended to name the one-time validator-proven grammar-migration exception (sequenced BEFORE ws-b8's repair lands). Acceptance requires BOTH named ceremony surfaces wired (the comms channel-open path AND the start-right ArcAngel-open step both invoke the ws-b6 writer) — either one unchanged fails the criterion. Proof: rg -n 'arc-next-colour' on both ceremony surfaces + pnpm markdownlint:root"
+    content: "WS-B9: EXTEND the existing canonical .agent/reference/arc-rapid-communication.md (tracked on main, live doctrine — never a fresh file or duplicate home) with the channel-open colour-index convention, and wire the channel-open ceremony (comms/start-right surfaces) to invoke the ws-b6 assignment reporter (the opener records the reported index — donor-parity, no mutation). In the same touch, REPAIR the sections the code changes falsify: §Conventions item 1's resolveArcActive filename-substring wing-detection paragraphs (this plan IS the tracked structural cure) the §Known limitations reconciliation with the strict tier + Channel-colour: line, and the append-only clause amended to name the one-time validator-proven grammar-migration exception (sequenced BEFORE ws-b8's repair lands). Acceptance requires BOTH named ceremony surfaces wired (the comms channel-open path AND the start-right ArcAngel-open step both invoke the ws-b6 assignment reporter) — either one unchanged fails the criterion. Proof: rg -n 'arc-next-colour' on both ceremony surfaces + pnpm markdownlint-check:root"
     status: pending
     depends_on: [ws-b6-c2-cli-wiring, ws-b7-c2-validator-wiring]
   - id: ws-b10-integrate-review
@@ -205,12 +205,11 @@ same commands as their landing gates.
   RESET (the emoji-never-inside-SGR invariant is tested, not assumed); the composed
   integration test proves fixture channel text → rendered coloured feather row. Proof:
   `pnpm --filter @oaknational/agent-tools test -- src/claude/statusline-indicators.unit.test.ts src/claude/statusline-render-session-shape.unit.test.ts src/claude/statusline-identity.integration.test.ts`.
-- **B6:** `arc-next-colour` CLI assigns a valid index; wired as a package script. Proof:
+- **B6:** `arc-next-colour` reports the worn colours and the next free palette index; wired as a package script. Proof:
   `pnpm --filter @oaknational/agent-tools test -- src/arc/arc-next-colour.unit.test.ts`
-  AND `pnpm knip` AND a deterministic package-script invocation against a fixture channel
-  (`pnpm --filter @oaknational/agent-tools arc-next-colour -- --channel <fixture>` exits 0
-  and writes a valid index) so the script name, argument parser, and output adapter are
-  all executed.
+  AND `pnpm knip` AND a deterministic package-script invocation over a fixture corpus
+  (the reporter exits 0 and prints the expected next free palette index) so the script
+  name, corpus scan, and output adapter are all executed.
 - **B7:** validator fails loud on a malformed in-memory fixture, passes a conformant one,
   and fails loud when the canonical rapid-comms surface is ABSENT (a silently skipped
   corpus cannot satisfy the criteria); package script + knip entry landed (estate-gate
@@ -227,8 +226,8 @@ same commands as their landing gates.
 - **B9:** the existing canonical reference doc carries the channel-open colour convention,
   its falsified wing-detection sections are repaired, and BOTH named ceremony surfaces —
   the comms channel-open path AND the start-right ArcAngel-open step — invoke the ws-b6
-  writer (either one unchanged fails this criterion). Proof: `rg -n 'arc-next-colour'`
-  over both ceremony surfaces AND `pnpm markdownlint:root`.
+  assignment reporter (either one unchanged fails this criterion). Proof: `rg -n 'arc-next-colour'`
+  over both ceremony surfaces AND `pnpm markdownlint-check:root` (the check-only variant — the :root script is a fixer and proves nothing).
 - **B10:** full `pnpm check` green (knip + depcruise + repo-validators + build + test +
   markdownlint + format); specialist reviews dispositioned; ADR finalised. Proof: `non-code` (aggregate gate).
 
