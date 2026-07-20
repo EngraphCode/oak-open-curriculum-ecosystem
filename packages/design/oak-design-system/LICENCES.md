@@ -4,11 +4,14 @@ Everything third-party this project loads, vendors, or recommends, with its lice
 
 ## Fonts
 
-| Font              | Used by                                                                          | Source               | Licence     |
-| ----------------- | -------------------------------------------------------------------------------- | -------------------- | ----------- |
-| Lexend (variable) | Oak baseline (`colors_and_type.css`, local `fonts/Lexend-VariableFont_wght.ttf`) | Google Fonts         | SIL OFL 1.1 |
-| Nunito · Baloo 2  | EMC² counter-brand (`whitelabel/creature/brand-a.css`, Google Fonts CSS2 API)    | Google Fonts         | SIL OFL 1.1 |
-| Public Sans       | FDSE counter-brand (`whitelabel/freedonia/brand-a.css`, Google Fonts CSS2 API)   | USWDS / Google Fonts | SIL OFL 1.1 |
+| Font                   | Used by                                                                                               | Source                                                                             | Licence     |
+| ---------------------- | ----------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ----------- |
+| Lexend (variable)      | Oak baseline (`colors_and_type.css`, local `fonts/Lexend-VariableFont_wght.ttf`)                      | Google Fonts                                                                       | SIL OFL 1.1 |
+| Roboto Mono (variable) | Code contexts — `--font-mono` (`colors_and_type.css`, local `fonts/RobotoMono-VariableFont_wght.ttf`) | Google Fonts ([googlefonts/RobotoMono](https://github.com/googlefonts/RobotoMono)) | SIL OFL 1.1 |
+| Nunito · Baloo 2       | EMC² counter-brand (`whitelabel/creature/brand-a.css`, Google Fonts CSS2 API)                         | Google Fonts                                                                       | SIL OFL 1.1 |
+| Public Sans            | FDSE counter-brand (`whitelabel/freedonia/brand-a.css`, Google Fonts CSS2 API)                        | USWDS / Google Fonts                                                               | SIL OFL 1.1 |
+
+Both locally shipped faces travel with their verbatim upstream copyright notice + full OFL text (`fonts/Lexend-OFL.txt` — including its Reserved Font Name clause — and `fonts/RobotoMono-OFL.txt`), satisfying OFL 1.1 condition 2 for every redistributed copy; `fonts/*` is on the package exports map, so the notices ship wherever the fonts do.
 
 ## Icon sets (one distinct set per identity — DECISIONS)
 
