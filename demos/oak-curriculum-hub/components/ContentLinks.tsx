@@ -58,7 +58,7 @@ export default function ContentLinks(): ReactElement {
             truth, joined up.
           </p>
         </div>
-        <div className="border-t-2 border-line bg-white p-8 md:border-l-2 md:border-t-0">
+        <div className="border-t-2 border-line bg-surface p-8 md:border-l-2 md:border-t-0">
           <div className="mb-3 text-[13px] text-ink-subdued">
             In a training page, you&rsquo;ll see:
           </div>
