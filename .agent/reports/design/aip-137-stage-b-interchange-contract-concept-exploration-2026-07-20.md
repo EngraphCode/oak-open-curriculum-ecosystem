@@ -57,15 +57,25 @@ plan; §Proposals routes the edits.
   would classify them as palette and fail fast on their first reference ("Palette tokens must
   use raw values"). Safe by accident, not by design; the designed rejection is `#412`'s
   `validateTreeRoots` (caller-supplied allow-list, structured `Err`).
-- **O4. The value grammar is closed at the contrast boundary, open at the CSS boundary.**
-  `#412`'s `colour-literals.ts` admits `#rrggbb` | `rgb(R G B / A)` | full-string reference;
-  expressions are rejected with structured `Err`, and alpha literals are admitted but
-  reported for exclusion from the WCAG hex map. The export carries 20 functional values
+- **O4. Two value-grammar regimes serve the contrast path — an instrument and the live
+  gate** (round-4 correction; verified against #423's tip `e6b939a89` and the landed
+  ADR-213 §2 amendment of 2026-07-20). `#412`'s `colour-literals.ts` defines the closed
+  grammar (`#rrggbb` | `rgb(R G B / A)` | full-string reference; expressions rejected with
+  structured `Err`) — the amendment scopes it to trees *required to be expression-free*,
+  which the kit's semantic trees deliberately are not. The **live four-theme gate**
+  (`design-system-contrast.ts`) instead composes base ⊕ overlay, resolves references to a
+  **fixpoint** (`resolveColourTokens`; in-tree forward references are by design), filters
+  the WCAG comparand to six-digit hex by **one closed post-resolution value-shape rule**
+  (`toHexComparand`), and guards drift with a **pinned expected comparand count per
+  composed theme**; a manifest pairing on any dropped path surfaces as `unresolved_token`.
+  The roots, overlay-coverage, and manifest-parse validators from #412 run in the gate
+  path; the colour-grammar validator does not. The export carries 20 functional values
   verbatim (3 × `color-mix` in `semantic.light` `state.*`; 12 × `calc`, 1 × `min`,
   3 × `minmax`, 1 × `clamp` in `component.json` — the studio README's "15 tokens carry
   `color-mix()`/`calc()`" undercounts by omitting the grid/layout functions), and the
-  studio's own contract doc instructs "a consuming build should pass them through untouched".
-  Both sides are right — for different consumers.
+  studio's own contract doc instructs "a consuming build should pass them through
+  untouched" — pass-through is the CSS-emission consumer's contract; the contrast path
+  drops by value shape what it cannot statically evaluate.
 - **O5. Two of the three `color-mix` tokens can never be statically resolved — the third
   can.** `state.hover`/`state.pressed` mix `currentColor` — context-dependent at paint
   time, no export-time pre-computation exists. `state.selected` mixes a referenced role at
@@ -127,9 +137,9 @@ studio contract doc states the true convention, and validators recompute all of 
 - **"Pre-computed at export or rejected at boundary" is a false dichotomy.** O5 exhibits a
   third, legitimate class: runtime-computed values that no static consumer can ever resolve.
   Treating them as an "unhandled case" makes them a standing exception; declaring the class
-  makes the export honest and the gate's exclusions contractual. The `#412` interim
-  ("emission passes through, contrast resolution rejects") was the right behaviour awaiting
-  its name.
+  makes the export honest and the gate's exclusions contractual. The landed #423 mechanism
+  (emission passes through; the contrast comparand drops non-hex value shapes
+  post-resolution, guarded by pinned counts) was the right behaviour awaiting its name.
 - **The export generator is first-class repo-adjacent work.** Under the owner's integration
   ruling the studio is not an upstream to petition; export-generator corrections (the false
   convergence claim, the pair-count drift) are design-sync work items of the same standing as
@@ -147,8 +157,10 @@ concurrently.
 1. **Amend ADR-213 §2 (dated) to a per-consumer projection contract.** Replace the
    export-normalisation parenthetical with: the export is the kit-vocabulary projection; the
    repo consumes it through three declared projections — contrast (native read, overlay
-   composition, closed colour grammar with typed refusals), web CSS transitional (explicit
-   naming map, P3), terminal (explicit 11-path map, P5). *Warrant*: O1–O3 (naming is derived,
+   composition, fixpoint resolution, post-resolution hex-comparand filtering with
+   pinned-count drift nets — the landed #423 mechanism, round-4 correction), web CSS
+   transitional (explicit naming map, P3), terminal (explicit 11-path map, P5).
+   *Warrant*: O1–O3 (naming is derived,
    so tree-shape normalisation is consumer breakage); the #423 gate already proves the
    native-read projection. *Falsifier*: if a projection cannot be expressed as a total,
    checked map over the export (e.g. repo-only tokens with no kit counterpart and no recorded
@@ -158,16 +170,18 @@ concurrently.
    Contract text (ADR-213 §2 amendment, same change as P1): values whose computation is
    paint-time-contextual (`currentColor` mixes: `state.hover`, `state.pressed`) are exported
    verbatim, pass through to CSS emission, are excluded from static contrast resolution
-   **by contract** with their paths listed in the gate's audit output, and are barred from
-   the terminal's 11 paths (asserted at build). `state.selected` is NOT in this class
-   (round-1 review correction): it is statically evaluable to an **alpha** colour, so its
-   disposition is the existing alpha-exclusion one — pre-compute at export to an rgb-alpha
-   literal, or classify at the boundary alongside the admitted alpha literals, excluded
-   from the WCAG hex map with the same audit listing. The classification does not exist in
-   `colour-literals.ts` today (`color-mix` lands in `non_literal_colour_values`, not the
-   alpha exclusion set) — implementing P2 extends the existing offender reporting with the
-   paint-time/static-alpha discrimination; it is a small delta, not an already-computed
-   fact. *Warrant*: O4/O5; the studio's own pass-through instruction. *Falsifier*: a member
+   **by contract**, and are barred from the terminal's 11 paths (asserted at build).
+   The contrast-side enforcement already exists (round-4 correction — the landed #423
+   mechanism): such values drop via `toHexComparand`'s post-resolution value-shape rule,
+   and the pinned per-theme comparand counts are the audit trail; P2 therefore proposes
+   NAMING the class in the contract text, not building a new mechanism. `state.selected`
+   is NOT in this class (round-1 review correction): it is statically evaluable to an
+   **alpha** colour, so its disposition is the existing alpha-exclusion one — pre-compute
+   at export to an rgb-alpha literal or leave it to the same value-shape drop, in either
+   case outside the WCAG comparand. Where a per-path listing is wanted beyond the pinned
+   counts, it extends the gate's exclusion reporting — a small delta; the
+   paint-time/static-alpha discrimination itself lives in the contract prose.
+   *Warrant*: O4/O5; the studio's own pass-through instruction. *Falsifier*: a member
    of either class turning up in a contrast manifest pair — then exclusion-by-contract
    would be hiding a gate obligation, and the token must instead be re-designed studio-side
    to a resolvable form.
@@ -222,9 +236,11 @@ concurrently.
 
 ## Unresolved evidence that could change the synthesis
 
-- **#423's landed shape** (in flight, conflict resolution under the cycle-3 seat): the
-  compose/gate APIs are the contrast projection's actual code; if its final form diverges
-  from native-read (e.g. it re-roots internally), P1's first projection needs re-grounding.
+- **#423's landed shape — RESOLVED in round 4 of this PR's review**: the gate was verified
+  first-hand at tip `e6b939a89` (native read confirmed; the mechanism is fixpoint
+  resolution + post-resolution hex-comparand filtering + pinned counts, per the 2026-07-20
+  ADR-213 §2 amendment), and O4/P1/P2 were re-grounded on it. The residual watch item is
+  only #423's merge landing the amendment on `main`.
 - **The MCP views' binding surface**: whether the views can bind kit CSS directly in a
   bounded follow-on determines the P3 map's lifetime — short (transitional scaffolding) or
   long (a de-facto second naming authority, which would start to smell like a bridge).
