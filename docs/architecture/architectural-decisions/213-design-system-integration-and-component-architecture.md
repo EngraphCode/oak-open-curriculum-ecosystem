@@ -1,7 +1,8 @@
 # ADR-213: Design-System Integration and Component-System Architecture
 
 - **Status:** Proposed (owner ratification pending; drafted 2026-07-19, reframed same day on
-  owner direction — integration, not vendoring; AIP-137)
+  owner direction — integration, not vendoring; §2 amended 2026-07-19 — overlay
+  completeness model and colour-value grammar, evidence-driven; AIP-137)
 - **Supersedes in part:** [ADR-148](148-design-token-architecture.md) §Source Format (the
   source-of-truth direction only; the three-tier model, contrast gate, and delivery format
   stand)
@@ -120,6 +121,40 @@ plus `[data-theme]` attribute) generated from the split theme trees — proven i
 MCP-view context. Design-system CSS reaching an MCP view needs a `[data-theme='dark'] {
 color-scheme: dark }` bridge rule because `light-dark()` resolves against `color-scheme`, not
 `[data-theme]`.
+
+**Amendment (2026-07-19, PR3 evidence — the implementing plan's falsifier fired):** two §2
+boundary conditions above are corrected against the imported export and the studio's own
+contract (`packages/design/oak-design-system/DECISIONS.md` §Ecosystem convergence, the
+workspace README's file-map entry for `dtcg/`, and the
+`packages/design/oak-design-system/colors_and_type.css` §Dark structural comment; and the
+explicit contract doc `packages/design/oak-design-system/dtcg/README.md`, re-obtained
+during PR #411):
+
+- **Theme-tree completeness is a declared-base overlay model, not key-set equality** (this
+  supersedes "all four semantic theme trees must define the same key set" above). The light
+  tree is the complete semantic namespace; dark, high-contrast, and colour-safe define only
+  their overrides (139/63/67/12 leaves at import; dark is exactly the CSS's dark-mode
+  override set — the 60 `light-dark()` second arms plus the three non-colour `filter.*`
+  overrides the §Dark block carries, `light-dark()` being colours-only), and the CSS
+  cascade resolves the rest. Non-overridden leaves are dialect aliases, reference-chained
+  roles, or deliberately theme-invariant levers; densifying them per theme would fork the
+  single reference chain. The enforced invariant is **orphan detection** — every overlay
+  key must exist in the base — plus coverage reporting (`validateThemeOverlayCoverage` in
+  `design-tokens-core`). Contrast validation MUST compose base ⊕ overlay before
+  resolution; validating a sparse overlay alone spuriously reports unresolved tokens.
+- **The colour-value boundary admits a closed grammar**: a `#rrggbb` literal, an
+  `rgb(R G B / A)` alpha literal, or a full-string token reference
+  (`validateColourLiterals`). Expression values (`color-mix()`, `calc()`) remain rejected
+  with a structured `Err` as above — a **deliberate per-consumer divergence** from the
+  export's own contract (`dtcg/README.md`: 15 expression values ride verbatim, "a
+  consuming build should pass them through untouched"). Pass-through is the CSS-emission
+  consumer's contract, where the browser evaluates the functions; the contrast-resolution
+  path cannot evaluate them (three are `currentColor`-dependent and can never be
+  statically pre-computed), so this boundary rejects them for WCAG resolution. Stage B's
+  emission lane records its own expression handling against the export contract. Alpha
+  literals are legal input that cannot yield a WCAG contrast hex without compositing: the
+  contrast gate MUST exclude them from the resolved hex map, so a manifest pairing
+  referencing one surfaces as the existing `unresolved_token` error.
 
 ### 3. The component system
 
