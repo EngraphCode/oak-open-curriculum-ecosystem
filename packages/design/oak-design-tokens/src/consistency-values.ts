@@ -192,19 +192,25 @@ export function splitTopLevelComma(value: string): readonly [string, string] | u
 function topLevelCommaIndices(value: string): readonly number[] {
   const indices: number[] = [];
   let depth = 0;
+  let index = 0;
 
-  for (let index = 0; index < value.length; index += 1) {
+  while (index < value.length) {
     const character = value[index];
 
     if (character === '"' || character === "'") {
-      index = skipQuotedSpan(value, index);
-    } else if (character === '(') {
+      index = skipQuotedSpan(value, index) + 1;
+      continue;
+    }
+
+    if (character === '(') {
       depth += 1;
     } else if (character === ')') {
       depth -= 1;
     } else if (character === ',' && depth === 0) {
       indices.push(index);
     }
+
+    index += 1;
   }
 
   return indices;
