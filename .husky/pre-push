@@ -61,15 +61,6 @@ if ! pnpm portability:check; then
   exit 1
 fi
 
-echo "🔬 Running knip (unused code detection)..."
-# knip:gate (repo-check knip-gate) also fails when knip exits 0 after a
-# swallowed config-load crash — a crashed analysis can never read as a pass (F-147).
-if ! pnpm knip:gate; then
-  echo "❌ Knip found unused code, or the knip analysis itself crashed!"
-  echo "💡 Run 'pnpm knip:gate' to see details, then fix or remove unused items"
-  exit 1
-fi
-
 echo "🔗 Running depcruise (circular deps, orphans, layer violations)..."
 if ! pnpm depcruise; then
   echo "❌ Dependency-cruiser found violations!"
@@ -98,6 +89,18 @@ pnpm --filter @oaknational/agent-tools ci-schema-drift-check || true
 echo "🔤 Running build, type-check, lint, and tests..."
 if ! pnpm turbo run --continue sdk-codegen build type-check lint test test:e2e test:ui; then
   echo "❌ Turbo quality gate checks failed!"
+  exit 1
+fi
+
+echo "🔬 Running knip (unused code detection)..."
+# knip:gate (repo-check knip-gate) also fails when knip exits 0 after a
+# swallowed config-load crash — a crashed analysis can never read as a pass (F-147).
+# Runs AFTER the Turbo build: knip loads packages whose exports resolve to
+# generated dist files, so a fresh checkout would fail closed here before
+# the build has run (CI restores build outputs before knip for the same reason).
+if ! pnpm knip:gate; then
+  echo "❌ Knip found unused code, or the knip analysis itself crashed!"
+  echo "💡 Run 'pnpm knip:gate' to see details, then fix or remove unused items"
   exit 1
 fi
 
