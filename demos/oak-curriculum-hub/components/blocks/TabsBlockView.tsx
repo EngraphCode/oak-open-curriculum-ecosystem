@@ -196,10 +196,10 @@ function TabButton({
   );
 }
 
-/** Export-exact tab treatment: a 4px underline + white wash marks the selected tab. */
+/** Export-shaped tab treatment: a 4px underline + surface wash marks the selected tab. */
 function tabClasses(selected: boolean): string {
   const base = 'border-b-4 px-[18px] py-3.5 text-[15px] leading-[1.3]';
   return selected
-    ? `${base} border-line bg-white font-bold`
+    ? `${base} border-line bg-surface font-bold`
     : `${base} border-transparent font-normal`;
 }

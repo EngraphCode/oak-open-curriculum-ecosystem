@@ -39,7 +39,7 @@ export function DownloadBlockView({ block }: { readonly block: DownloadBlock }):
     <a
       href={`/${block.href}`}
       download
-      className="shadow-accent-wide-brand flex flex-wrap items-center gap-4 rounded-[14px] border-[3px] border-line bg-white p-[18px_20px] text-ink no-underline"
+      className="shadow-accent-wide-brand flex flex-wrap items-center gap-4 rounded-[14px] border-[3px] border-line bg-surface p-[18px_20px] text-ink no-underline"
     >
       <FileChip />
       <span className="min-w-[180px] flex-1">
