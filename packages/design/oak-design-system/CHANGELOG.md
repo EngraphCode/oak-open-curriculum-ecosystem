@@ -1,5 +1,9 @@
 # Changelog — Oak Open Curriculum Design System
 
+## Unreleased (repo-side) — 2026-07-20
+
+**Fixed — zero-network consumable surface.** Roboto Mono localised: the `colors_and_type.css` Google Fonts `@import` (the kit's only runtime network call, KNOWN-ISSUES #12) is replaced by the tracked local variable font `fonts/RobotoMono-VariableFont_wght.ttf` (`@font-face`, weights 100–700, same pattern as Lexend). Licence is SIL OFL 1.1 — corrects #12's stale Apache-2.0 note; `LICENCES.md` and the licensing manifest gain the rows, and both faces' verbatim upstream notices + OFL texts now ship beside the fonts (`fonts/Lexend-OFL.txt`, `fonts/RobotoMono-OFL.txt` — OFL condition 2 for redistributed copies). Side effect: `--weight-light` mono renders a true 300 (the old three-weight import snapped it to 400). Authored repo-side (AIP-137); reaches the studio via the design-sync batch, which assigns the version at that sync.
+
 ## 1.7.1 — 2026-07-20
 
 **Fixed — theme-runtime robustness (three consumer-reported defects, one review arc).**
