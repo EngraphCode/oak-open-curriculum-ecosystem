@@ -8,7 +8,11 @@
  * `dist/restatement-audit/workflows/<stage>.workflow.seeded.mjs` for
  * `Workflow({scriptPath})`.
  *
- * Usage (cwd = the agent-tools workspace):
+ * Relative file flags resolve against the REPOSITORY ROOT (never the process cwd, which
+ * pnpm pins to the agent-tools workspace regardless of where the operator stands) — the
+ * committed checkpoint paths under `.agent/reports/restatement-audit/` therefore work
+ * identically from any invocation directory, matching every flag-path CLI in this
+ * workspace (`flag-path-resolve.ts`). Usage:
  *
  * ```bash
  * pnpm restatement-audit-build-run-artefact --stage map --partition <partition.json> --gazetteer <gazetteer.v1.json>
@@ -38,7 +42,8 @@ const USAGE = String.raw`Usage: pnpm restatement-audit-build-run-artefact --stag
 Build one SEEDED, launchable workflow artefact from committed checkpoint files.
 Writes dist/restatement-audit/workflows/<stage>.workflow.seeded.mjs for
 Workflow({scriptPath}). All file flags take paths to committed checkpoint JSON;
-relative paths resolve against the invoking cwd (the agent-tools workspace).
+paths resolve against the REPOSITORY ROOT (not the invoking cwd) and must stay
+within the repository — an escaping or external path is refused before any read.
 
 Required:
   --stage <map|reduce|validate|meta>       Pipeline stage to seed (REQUIRED).
@@ -55,10 +60,13 @@ Stage flags (REQUIRED per stage unless marked optional):
 Other:
   --help     Print this usage block and exit 0.
 
-Examples:
-  pnpm restatement-audit-build-run-artefact --stage map --partition partition.json --gazetteer gazetteer.v1.json
-  pnpm restatement-audit-build-run-artefact --stage validate --map-result instances.json \
-    --reduce-result clusters.json --ceiling 5000000
+Examples (paths repo-root-relative, like every committed checkpoint):
+  pnpm restatement-audit-build-run-artefact --stage map \
+    --partition .agent/reports/restatement-audit/partition.json \
+    --gazetteer .agent/reports/restatement-audit/gazetteer.v1.json
+  pnpm restatement-audit-build-run-artefact --stage validate \
+    --map-result .agent/reports/restatement-audit/instances.json \
+    --reduce-result .agent/reports/restatement-audit/clusters.json --ceiling 5000000
 `;
 
 /** Print the error AND the full usage block, then flag a non-zero exit (help contract). */
