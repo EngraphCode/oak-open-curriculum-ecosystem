@@ -41,11 +41,13 @@ plan; §Proposals routes the edits.
   (3 × `color-mix` in `semantic.light` `state.*`; 12 × `calc` in `component.json`), and the
   studio's own contract doc instructs "a consuming build should pass them through untouched".
   Both sides are right — for different consumers.
-- **O5. Two of the three `color-mix` tokens can never be statically resolved.**
-  `state.hover`/`state.pressed` mix `currentColor` — context-dependent at paint time, no
-  export-time pre-computation exists. `state.selected` mixes a referenced role at 24% alpha,
-  so even resolved it lands in the alpha class the WCAG map excludes. None of `state.*`
-  appears in `contrast-pairings.json` (0 hits; 34 pairs, all resolvable solid roles).
+- **O5. Two of the three `color-mix` tokens can never be statically resolved — the third
+  can.** `state.hover`/`state.pressed` mix `currentColor` — context-dependent at paint
+  time, no export-time pre-computation exists. `state.selected` mixes a referenced role at
+  24% alpha: statically evaluable to an alpha colour (a different class — its residual
+  problem is compositing-dependent contrast, the same disposition the alpha literals
+  already have), never paint-time-contextual. None of `state.*` appears in
+  `contrast-pairings.json` (0 hits; 34 pairs, all resolvable solid roles).
 - **O6. The 12 `calc` expressions are dimension-class, not colour.** They parameterise
   layout off `{density}` and `{space.*}`. `{density}` is itself a component-tier token
   (`component.json:212`, mirroring the `--density` brand knob), so component→component
@@ -122,29 +124,44 @@ doctrine edits below land **after** `#423`, on Director sequencing, never concur
    checked map over the export (e.g. repo-only tokens with no kit counterpart and no recorded
    disposition), the per-consumer frame is wrong and a single normalised interchange tree is
    the honest shape after all.
-2. **Declare the `runtime-computed` value class.** Contract text (ADR-213 §2 amendment, same
-   change as P1): values whose computation is paint-time-contextual (`currentColor` mixes)
-   are exported verbatim, pass through to CSS emission, are excluded from static contrast
-   resolution **by contract** with their paths listed in the gate's audit output, and are
-   barred from the terminal's 11 paths (asserted at build). `state.selected` joins the class
-   by value shape (alpha output ⇒ statically uncomputable contrast). *Warrant*: O4/O5; the
-   studio's own pass-through instruction; the gate's existing typed-refusal mechanics already
-   compute the classification. *Falsifier*: a member of the class turning up in a contrast
-   manifest pair — then exclusion-by-contract would be hiding a gate obligation, and the
-   token must instead be re-designed studio-side to a resolvable form.
-3. **Make the Stage-B naming map an explicit, generated, checked artefact.** A total map from
-   kit export paths to the emitted `--oak-*` variables that `index.css` serves MCP views
-   today, byte-stable output as the acceptance bar, checked by the dtcg↔CSS consistency
-   validator (the re-homed `pr2-consistency-check`, plan task #5 — exactly the
+2. **Declare the `runtime-computed` value class — paint-time-contextual values only.**
+   Contract text (ADR-213 §2 amendment, same change as P1): values whose computation is
+   paint-time-contextual (`currentColor` mixes: `state.hover`, `state.pressed`) are exported
+   verbatim, pass through to CSS emission, are excluded from static contrast resolution
+   **by contract** with their paths listed in the gate's audit output, and are barred from
+   the terminal's 11 paths (asserted at build). `state.selected` is NOT in this class
+   (round-1 review correction): it is statically evaluable to an **alpha** colour, so its
+   disposition is the existing alpha-exclusion one — pre-compute at export to an rgb-alpha
+   literal, or classify at the boundary alongside the admitted alpha literals, excluded
+   from the WCAG hex map with the same audit listing. The classification does not exist in
+   `colour-literals.ts` today (`color-mix` lands in `non_literal_colour_values`, not the
+   alpha exclusion set) — implementing P2 extends the existing offender reporting with the
+   paint-time/static-alpha discrimination; it is a small delta, not an already-computed
+   fact. *Warrant*: O4/O5; the studio's own pass-through instruction. *Falsifier*: a member
+   of either class turning up in a contrast manifest pair — then exclusion-by-contract
+   would be hiding a gate obligation, and the token must instead be re-designed studio-side
+   to a resolvable form.
+3. **Make the Stage-B naming map an explicit, generated, checked TOTAL DISPOSITION map.**
+   The original total-map-to-byte-parity premise is already falsified by count evidence
+   (round-1 review, verified first-hand: the kit's light projection carries 395 leaves —
+   84 palette + 98 primitives + 139 semantic + 74 component — while the current light
+   emission sources carry 134 — 38 palette + 34 semantic + 62 component), so a bijective
+   map reproducing `index.css` byte-for-byte cannot exist. The artefact is therefore a
+   **total disposition map with reverse coverage**: every kit path maps to exactly one of
+   `emit as <--oak-* variable>` | `omit (recorded reason)`, AND every variable in the
+   current `index.css` is accounted for by exactly one kit path or a recorded repo-only
+   disposition. The acceptance bar is byte-stable reproduction of the **covered emission
+   set** plus zero unaccounted entries on either side — checked by the dtcg↔CSS
+   consistency validator (the re-homed `pr2-consistency-check`, plan task #5 — exactly the
    `oak.color.x`→`--oak-x` transform the napkin's Stage-B hazard names). Retirement
    condition recorded in the same change: the map dies when MCP views bind the kit CSS
    directly (a named post-Stage-B lane, not part of the atomic switch). *Warrant*: O2 (the
    silent-rename hazard); replace-dont-bridge is satisfied because the map is a projection
-   inside one source, not a second source. *Falsifier*: if byte-stable reproduction of
-   current `index.css` from kit trees is impossible through any total map (repo tokens with
-   no kit counterpart beyond the recorded dispositions), Stage B needs a consumer-migration
-   leg in the same change, and the map's acceptance bar shifts from byte-parity to a
-   reviewed rename ledger.
+   inside one source, not a second source. *Falsifier*: if the disposition map cannot
+   reach zero unaccounted entries (a currently emitted variable with neither a kit source
+   nor a recordable repo-only disposition), Stage B needs a consumer-migration leg in the
+   same change, and the acceptance bar shifts from covered-set byte-parity to a reviewed
+   rename ledger.
 4. **Route the studio-side corrections through the design-sync lane** (append to the
    existing ~21-item sync-back batch): correct the README's false "lands on their
    convention" claim to describe the P1 contract; fix the 32-vs-34 pair-count drift; record
@@ -152,13 +169,18 @@ doctrine edits below land **after** `#423`, on Director sequencing, never concur
    *Warrant*: O9; the sync discipline makes the studio doc the contract statement both
    surfaces cite. *Falsifier*: none needed — these are description-truth fixes; if the sync
    session finds the README already regenerated, the items retire.
-5. **Point the terminal's 11 paths at the kit vocabulary via the P3 map, not via tree
-   re-rooting.** The build already fails on unresolvable paths; the map keeps that property
-   while the trees stay kit-shaped. *Warrant*: O8; re-rooting whole trees to stabilise 11
-   lookups inverts the size of cause and effect. *Falsifier*: if Stage B's regenerated
-   trees cannot supply all 11 roles through the map, ADR-213's recorded exception (the
-   terminal keeps its own tree, deliberate and recorded) fires instead — the ADR already
-   anticipates exactly this.
+5. **Give the terminal its own 11-entry role→kit-path map, not the P3 name map.** The
+   terminal resolves a **dot-path-keyed** map (`terminal-theme.ts` looks up
+   `component.page-background` etc. against `resolveTokenTreeToHex`'s path-keyed output),
+   so P3's kit-path→CSS-variable-name map is the wrong type for it (round-1 review
+   correction — this also restores consistency with P1's "explicit 11-path map" wording).
+   The terminal artefact is an 11-entry map from terminal role (`page`, `panel`, …,
+   `danger`) to kit dot-path, resolved at build; the build already fails on unresolvable
+   paths, and that property is preserved while the trees stay kit-shaped. *Warrant*: O8;
+   re-rooting whole trees to stabilise 11 lookups inverts the size of cause and effect.
+   *Falsifier*: if Stage B's kit trees cannot supply all 11 roles through the map,
+   ADR-213's recorded exception (the terminal keeps its own tree, deliberate and recorded)
+   fires instead — the ADR already anticipates exactly this.
 
 ## Unresolved evidence that could change the synthesis
 
