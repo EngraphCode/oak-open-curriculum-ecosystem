@@ -20,7 +20,7 @@ todos:
     status: completed # PR #428 MERGED 2026-07-20 (merge SHA: 3e2041e27); Decision items 3-4 amended to the adoption-forward ruling in this plan's amendment PR
     # depends_on: []
   - id: ws-b2-c1-parse-strictness
-    content: "WS-B2 cycle 1: src/arc/arc-channel-grammar.ts created with parseArcChannel + evaluateArcChannelStrictness (zod schema authority for channel shape). HAND-MERGE: KEEP the donor's adoption-date semantics in evaluateArcChannelStrictness — grammar obligations bind from adoption forward (owner ruling 2026-07-20; principles.md §No-legacy-surfaces second arm: the owning system is replaced completely, channel history stays append-only); oak's ARC_SCHEMA_ADOPTION_DATE binds by INVARIANT, not by pinned mechanics: strict obligations attach only to channels resolving on-or-after the constant, and at every proof moment the constant is exactly the first calendar day after the estate's public availability (its merge to main — earlier is misclassification, later grandfathers gap channels); the provisional value, truing moment, and guard mechanics that enforce this are designed and TDD-proven at the ws-b10 landing. The donor tests covering the adoption-date branch port with it. Corpus MEMBERSHIP invariant: every markdown file under the rapid-comms root outside the closed non-channel infrastructure set (README.md, the dotfile .starless-notice-body.md) is a member the gatherer renders and the validator sees; the two verified undated legacy channels (wolf-rides-vigil-and-cricket-lifts-echo.md, wildfire-herds-sulphur-and-kiln-tracks-basalt.md) stay members and must not red the gate, AND a post-adoption channel cannot evade the strict tier by omitting a date prefix. The DISTINGUISHING INPUT (verified against the pinned donor, which emits undated-filename unconditionally): a FROZEN enumerated constant ARC_LEGACY_UNDATED_CHANNELS naming exactly those two filenames — a closed historical set that never grows; its members are exempt from undated-filename and resolve pre-adoption, while every other undated file keeps the donor's unconditional undated-filename violation. The donor test asserting undated-filename for arbitrary undated files is AMENDED to assert it for non-legacy undated files, plus a new test asserting the legacy pair's exemption — both land before ws-b7 wires the blocking gate. Tests at src/arc/arc-channel-grammar.unit.test.ts (co-located per testing-strategy §Development Workflow). Red→Green→Refactor, one landing. Observable proof: the co-located grammar unit suite describes parse+strictness behaviour, including both undated cases, and passes (command shape fixed at this cycle's landing)."
+    content: "WS-B2 cycle 1: src/arc/arc-channel-grammar.ts created with parseArcChannel + evaluateArcChannelStrictness (zod schema authority for channel shape). HAND-MERGE: KEEP the donor's adoption-date semantics in evaluateArcChannelStrictness — grammar obligations bind from adoption forward (owner ruling 2026-07-20; principles.md §No-legacy-surfaces second arm: the owning system is replaced completely, channel history stays append-only); oak's ARC_SCHEMA_ADOPTION_DATE binds by INVARIANT, not by pinned mechanics: strict obligations attach only to channels resolving on-or-after the constant, and at every proof moment the constant is exactly the first calendar day after the estate's public availability (its merge to main — earlier is misclassification, later grandfathers gap channels); the provisional value, truing moment, and guard mechanics that enforce this are designed and TDD-proven at the ws-b10 landing. The donor tests covering the adoption-date branch port with it. Corpus MEMBERSHIP invariant: every markdown file under the rapid-comms root outside the closed non-channel infrastructure set (README.md, the dotfile .starless-notice-body.md) is a member the gatherer renders and the validator sees; the two verified undated legacy channels (wolf-rides-vigil-and-cricket-lifts-echo.md, wildfire-herds-sulphur-and-kiln-tracks-basalt.md) stay members and must not red the gate, AND a post-adoption channel cannot evade the strict tier by omitting a date prefix. The DISTINGUISHING INPUT (verified against the pinned donor, which emits undated-filename unconditionally) is GENERAL, never a filename exception list (ADR-214 item 3: adoption scoping is the grammar's own semantics, not an exemption mechanism): a channel's RESOLUTION DATE is its filename date prefix when present, else an injected recorded-creation date (the validator supplies it from git first-commit; tests inject it; the pure grammar never does IO) — and the undated-filename violation, like every grammar obligation, fires only for channels resolving on-or-after adoption. The two legacy undated channels resolve pre-adoption by their git history; any new post-adoption undated channel still fails. The donor test asserting unconditional undated-filename is AMENDED to the adoption-scoped behaviour, plus a test asserting the pre-adoption resolution of injected legacy creation dates — both land before ws-b7 wires the blocking gate. Tests at src/arc/arc-channel-grammar.unit.test.ts (co-located per testing-strategy §Development Workflow). Red→Green→Refactor, one landing. Observable proof: the co-located grammar unit suite describes parse+strictness behaviour, including both undated cases, and passes (command shape fixed at this cycle's landing)."
     status: pending
     depends_on: [ws-b1-adr]
   - id: ws-b2-c2-colour-roster
@@ -117,12 +117,11 @@ sequenced as self-correcting deliverables (PDR-093).
 - **Deliverable A — usage relocation (`ws-a-cycle-1` + `ws-a-cycle-2`).** Oak already has the `s`/`w`
   rate-limit gauges and the `ctx` context gauge (`statusline-usage.ts` is
   byte-identical to castr; `formatRateLimits` already emits `rateLimitGauge('s',…)`).
-  The only missing piece is **placement**: transplant castr's `locationRowsWithUsage()`
-  into oak's own `statusline-render.ts` (keeping oak's logo-by-style layout and `oak-logo.ts`)
-  and re-point the two row-assembly sites so `ctx:` + `s`/`w` render on the repo-title
-  location row. Zero new dependencies. Cycle 2 (owner direction 2026-07-20) supersedes
-  that placement: the gauges move to the model row and the location row returns to
-  plain.
+  The only missing piece is **placement**: `ctx:` + `s`/`w` render on the MODEL row,
+  joined after the model name, with the location rows plain (owner direction
+  2026-07-20; oak keeps its logo-by-style layout and `oak-logo.ts`). Zero new
+  dependencies. The completed cycle-1 todo records the interim repo-title placement
+  this final design supersedes.
 
 - **Deliverable B — the ARC-colour estate.** grammar (`ws-b2`) → palette + truecolor
   helper (`ws-b3`) → session-shape/gatherer upgrade (`ws-b4`) → feather rendering
@@ -290,9 +289,10 @@ same commands as their landing gates.
   Mitigation: hand-merge (`ws-b4`/`ws-b5` acceptance explicitly re-asserts the prefix).
 - **Live pre-adoption channels at the adoption landing** — a channel opened before the
   `ws-b2` adoption date that is still inside the 30-minute active window when `ws-b5`
-  lands renders the defined invalid/uncoloured state until it ages out. Mitigation:
-  this is the designed behaviour, not a defect (the invalid state IS the honest
-  signal); the landing needs no corpus coordination because history is never edited.
+  lands renders `ws-b5`'s distinct invalid-state indicator until it ages out (never a
+  colourless fallback — the indicator is its own defined rendering). Mitigation: this
+  is the designed behaviour, not a defect (the invalid state IS the honest signal);
+  the landing needs no corpus coordination because history is never edited.
 - **teamShape scope creep** — castr's session-shape also adds `observing-directed` + a director
   honesty-gate. Decision: **in scope** (part of the coherent session-shape design; excluding it
   would fork the shape — a hedge). Re-asserted in `ws-b4`.
