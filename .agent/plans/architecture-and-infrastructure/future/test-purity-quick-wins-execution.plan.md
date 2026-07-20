@@ -6,7 +6,7 @@ overview: >-
   invariants, vitest config purity, CI relocation). NOT yet executable in
   this repo — file paths, censuses, and CI claims are source-estate facts;
   a consolidation/adaptation pass re-derives them here before any execution.
-lane: current
+lane: future
 status: "IMPORTED, PENDING ADAPTATION (rescued 2026-07-20 from the Resonance
   estate where it was planned 2026-07-17, Squally Washing Lighthouse 3795e7,
   owner decisions taken in-plan: ratchet ruled, full scope confirmed) — every

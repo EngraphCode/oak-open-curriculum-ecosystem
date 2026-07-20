@@ -18,7 +18,7 @@ discipline held for expensive chains gets skipped.
 - Capture the command's own status in-band, bound directly to it:
 
   ```bash
-  cmd > tmp/out 2>&1; echo "CMD_EXIT:$?"; tail -20 tmp/out
+  status=0; cmd > tmp/out 2>&1 || status=$?; echo "CMD_EXIT:$status"; tail -20 tmp/out
   ```
 
   The `echo` must bind to the COMMAND's `$?` — redirect first, filter

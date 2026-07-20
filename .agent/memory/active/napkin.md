@@ -140,3 +140,10 @@ pair proved it). Experiment-verdict question consolidated into Siren's merged pa
 Scrutiny pointer (Forge's external-bound datum, consistent with Galago's lineage
 lesson): the tenure's three misses all lived in CONFIDENT UNVERIFIED ASSERTIONS —
 point verification effort there first.
+
+Host-coordinate conservation (de-hosted from the portable incoming note per
+practice-core-portability at PR #434 r3): **Linear AIP-142** is the exchange ticket
+for the Resonance wrap-family import (`practice-core/incoming/
+resonance-wrap-skill-import-2026-07-20.md`); the import's Director-handoff pointer
+was Galago's full handoff record §Import. These coordinates now live ONLY host-side
+(here + the Director records).
