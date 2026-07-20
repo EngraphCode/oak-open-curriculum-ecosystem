@@ -101,7 +101,7 @@ export function MobileHubNav({ items }: { readonly items: readonly HubNavItem[] 
         aria-expanded={open}
         aria-controls={panelId}
         aria-label="Hub sections"
-        className="flex h-10 w-10 items-center justify-center rounded-card border-2 border-line bg-surface text-ink"
+        className="flex h-10 w-10 items-center justify-center rounded-card border-2 border-line bg-btn-secondary text-ink"
         onClick={() => setOpen((current) => !current)}
       >
         <svg

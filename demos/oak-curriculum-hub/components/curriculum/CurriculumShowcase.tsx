@@ -80,7 +80,7 @@ function ShowcaseHero({
               <button
                 type="button"
                 onClick={() => onQueryChange(example)}
-                className="rounded-full border-2 border-line bg-surface px-3.5 py-[7px] text-[13px] font-bold text-ink transition-shadow hover:shadow-accent-brand"
+                className="rounded-full border-2 border-line bg-btn-secondary px-3.5 py-[7px] text-[13px] font-bold text-ink transition-shadow hover:shadow-accent-brand"
               >
                 {example}
               </button>
