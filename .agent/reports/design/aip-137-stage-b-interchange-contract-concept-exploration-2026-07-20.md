@@ -14,15 +14,16 @@ plan; §Proposals routes the edits.
 ## Movement 1 — load-bearing observations
 
 - **O1. Three naming conventions coexist for one token.** The kit's canonical CSS declares
-  bare variable names (`--text-primary`, `--state-hover`, `--color-accent`;
-  `colors_and_type.css:327–329`) with the `--oak-<name>` prefix on colour primitives only.
-  The kit's DTCG export round-trips those CSS names into dot-paths (`text.primary` →
-  `--text-primary`; `dtcg/README.md` §Conventions) except the palette, which it pre-rooted at
-  `oak.color.<name>` to meet the repo convention. The repo pipeline
+  bare variable names (`--text-primary` at `colors_and_type.css:264`, `--color-accent` at
+  `:319`, the `--state-*` trio at `:327–329`) with the `--oak-<name>` prefix on colour
+  primitives only. The kit's DTCG export round-trips those CSS names into dot-paths
+  (`text.primary` → `--text-primary`; `dtcg/README.md` §Conventions) except the palette,
+  which it pre-rooted at `oak.color.<name>` to meet the repo convention. The repo pipeline
   (`design-tokens-core/src/index.ts`) derives names as `--oak-` + full path
-  (`toCssVariable`), so the same grey is `--oak-grey` (kit CSS), `oak.color.grey` (export
-  path), and would emit as `--oak-oak-color-grey` (repo flattener) — the export's
-  "lands on their convention" claim is mechanically false, as the Stage-A import found.
+  (`toCssVariable`), so the same grey is `--oak-grey50` (kit CSS, `colors_and_type.css`
+  palette block), `oak.color.grey50` (export path), and would emit as
+  `--oak-oak-color-grey50` (repo flattener) — the export's "lands on their convention"
+  claim is mechanically false, as the Stage-A import found.
 - **O2. Variable identity is derived from tree paths, not declared.** `toCssVariable(path)`
   is the real interchange contract: any re-rooting of trees **renames every emitted CSS
   variable**, and MCP App views consume those names from the generated `index.css`
@@ -112,7 +113,9 @@ studio contract doc states the true convention, and validators recompute all of 
 
 Each proposal names its warrant and a falsifier. Sequencing constraint: ADR-213 and the plan
 file are live conflict surfaces on `#423`/`#414` (verified by the cycle-3 seat, 08:16Z) — the
-doctrine edits below land **after** `#423`, on Director sequencing, never concurrently.
+doctrine edits below land **after BOTH `#423` merges AND `#414`'s plan-file re-resolution
+completes** (the Director's doctrine-writer queue, slot (c)), on Director sequencing, never
+concurrently.
 
 1. **Amend ADR-213 §2 (dated) to a per-consumer projection contract.** Replace the
    export-normalisation parenthetical with: the export is the kit-vocabulary projection; the
@@ -151,9 +154,13 @@ doctrine edits below land **after** `#423`, on Director sequencing, never concur
    `emit as <--oak-* variable>` | `omit (recorded reason)`, AND every variable in the
    current `index.css` is accounted for by exactly one kit path or a recorded repo-only
    disposition. The acceptance bar is byte-stable reproduction of the **covered emission
-   set** plus zero unaccounted entries on either side — checked by the dtcg↔CSS
-   consistency validator (the re-homed `pr2-consistency-check`, plan task #5 — exactly the
-   `oak.color.x`→`--oak-x` transform the napkin's Stage-B hazard names). Retirement
+   set** plus zero unaccounted entries on either side — checked by a **new Stage-B
+   migration-parity check that lands as part of the Stage-B change itself** (round-2
+   review correction: plan task #5, the re-homed `pr2-consistency-check`, guards a
+   different surface — the kit's dtcg export against the kit's own canonical CSS — with a
+   different failure meaning, so its green is never proof of repo-output compatibility;
+   the napkin's `oak.color.x`→`--oak-x` Stage-B naming hazard is owned by the
+   migration-parity check, while task #5 keeps guarding export canonicality). Retirement
    condition recorded in the same change: the map dies when MCP views bind the kit CSS
    directly (a named post-Stage-B lane, not part of the atomic switch). *Warrant*: O2 (the
    silent-rename hazard); replace-dont-bridge is satisfied because the map is a projection
@@ -200,9 +207,15 @@ doctrine edits below land **after** `#423`, on Director sequencing, never concur
 ## Routing
 
 - P1+P2 (ADR-213 §2 dated amendment) and the plan's `ws-stage-b-convergence` todo
-  refinement: **after #423 lands**, sequenced by the Director; natural author is this lane
+  refinement: **after #423 lands AND #414's plan-file re-resolution completes** (doctrine
+  slot (c) in the Director's queue), sequenced by the Director; natural author is this lane
   (ADR directory sits in `packages/design/**`'s doctrine orbit — coordinate with the
-  cycle-3 seat, which holds an ADR-213 conflict in flight).
+  cycle-3 seat, which holds an ADR-213 conflict in flight). **Discoverability rides the
+  same slot** (round-2 review correction): the plan's `ws-stage-b-convergence` todo does
+  not yet reference this report, so an implementer entering through the canonical plan
+  will not find it — slot (c)'s plan edit adds the report pointer to that todo alongside
+  the refinement. Until slot (c) lands, this report is reachable via the
+  `design-system-integration` thread record, the comms pointer (b5a6be89), and this PR.
 - P3+P5 (the map + validator): the Stage-B implementing change itself; seeds are plan task
   #5 and this report.
 - P4: the design-sync session's batch (owner-gated future lane).
