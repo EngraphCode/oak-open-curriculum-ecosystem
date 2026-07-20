@@ -92,6 +92,27 @@ describe('clusterSchema', () => {
     ).toBe(false);
   });
 
+  it('rejects duplicated distinctValueNorms — a repeated norm is one value, never a conflict', () => {
+    expect(
+      clusterSchema.safeParse({ ...conflict, distinctValueNorms: ['done', 'done'] }).success,
+    ).toBe(false);
+  });
+
+  it('rejects distinctValueNorms that collide UNDER normalizeValue — ["done", "Done."] is one value masquerading as a conflict', () => {
+    expect(
+      clusterSchema.safeParse({ ...conflict, distinctValueNorms: ['done', 'Done.'] }).success,
+    ).toBe(false);
+  });
+
+  it('rejects a distinctValueNorm that is not its own normal form — the join computes every entry through normalizeValue, so a drifted checkpoint value fails loudly', () => {
+    expect(clusterSchema.safeParse({ ...latent, distinctValueNorms: ['Completed.'] }).success).toBe(
+      false,
+    );
+    expect(clusterSchema.safeParse({ ...latent, distinctValueNorms: ['completed'] }).success).toBe(
+      true,
+    );
+  });
+
   it('rejects duplicate member instance ids', () => {
     expect(clusterSchema.safeParse({ ...conflict, memberInstanceIds: ['f1', 'f1'] }).success).toBe(
       false,

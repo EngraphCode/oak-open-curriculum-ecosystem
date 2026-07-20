@@ -75,8 +75,10 @@ const assertionKindSchema = z.enum(['authored', 'citation', 'history', 'generate
  * The fact-key components join on `:` (the gazetteer/canary-key convention), so the
  * delimiter is BANNED inside components — `(subject:"a:b", predicate:"c")` and
  * `(subject:"a", predicate:"b:c")` would otherwise collide into one false cluster.
+ * Exported at its second consumer (`gazetteer-schema.ts` binds it to canonical subject
+ * ids), per `consolidate-at-second-consumer`.
  */
-const factKeyComponent = z
+export const factKeyComponent = z
   .string()
   .min(1)
   .regex(/^[^:]+$/, 'fact-key components must not contain ":" (the join delimiter)');
@@ -141,6 +143,25 @@ export const clusterSchema = clusterBaseSchema
     },
   )
   .refine(
+    (cluster) => new Set(cluster.distinctValueNorms).size === cluster.distinctValueNorms.length,
+    {
+      error:
+        'distinctValueNorms must be a SET — a repeated norm is one value and must never widen a cluster into a conflict',
+    },
+  )
+  // The code path computes every distinctValueNorm through normalizeValue (join.ts), so
+  // each entry must BE its own normal form. Together with the raw-set refine above this
+  // makes the entries distinct UNDER normalisation: a hand-built or drifted checkpoint
+  // like ['done', 'Done.'] is one value masquerading as two and must never pass as a
+  // conflict that seeds needless validation.
+  .refine(
+    (cluster) => cluster.distinctValueNorms.every((value) => normalizeValue(value) === value),
+    {
+      error:
+        'distinctValueNorms must be in normalizeValue normal form — a value drifting only by casing/whitespace/trailing punctuation was never produced by the join and duplicates a normalised value',
+    },
+  )
+  .refine(
     (cluster) =>
       cluster.verdict === 'conflict'
         ? cluster.distinctValueNorms.length > 1
@@ -148,6 +169,14 @@ export const clusterSchema = clusterBaseSchema
     { error: 'conflict clusters need >1 distinct valueNorm; latent clusters need exactly 1' },
   );
 export type Cluster = z.infer<typeof clusterSchema>;
+
+/**
+ * A cluster's disposition after S3 code-computed voter aggregation. Lives here (not in
+ * `stage-io.ts`) so `disposition.ts` can name the type without a module cycle —
+ * `stage-io.ts` value-imports `dispositionFromVoters` for its boundary recompute.
+ */
+export const dispositionSchema = z.enum(['flagged', 'dismissed', 'held-for-review']);
+export type Disposition = z.infer<typeof dispositionSchema>;
 
 /**
  * One apophenia-style test outcome: did it pass, and how confidently. Module-private

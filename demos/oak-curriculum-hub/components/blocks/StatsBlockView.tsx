@@ -39,7 +39,7 @@ export function StatsBlockView({ block }: { readonly block: StatsBlock }): React
           <li
             key={item.label}
             style={{ backgroundColor: TILE_PALETTE[index % TILE_PALETTE.length] }}
-            className="rounded-xl border-2 border-oak-black px-4 pb-[18px] pt-4 shadow-oak-lemon"
+            className="rounded-xl border-2 border-line px-4 pb-[18px] pt-4 shadow-accent-brand"
           >
             <strong className="block text-[26px] font-bold leading-tight">{item.value}</strong>
             <span className="mt-1 block text-[14px] font-light leading-snug">{item.label}</span>
@@ -47,7 +47,7 @@ export function StatsBlockView({ block }: { readonly block: StatsBlock }): React
         ))}
       </ul>
       {block.note !== undefined && (
-        <p className="mt-3 text-[13px] font-light leading-[18px] text-oak-grey">{block.note}</p>
+        <p className="mt-3 text-[13px] font-light leading-[18px] text-ink-subdued">{block.note}</p>
       )}
     </section>
   );

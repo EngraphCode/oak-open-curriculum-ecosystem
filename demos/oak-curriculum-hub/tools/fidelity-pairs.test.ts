@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
+import { GLOBAL_PAIR_ID } from './fidelity-register';
 import { FIDELITY_PAIRS, PairingMapSchema } from './fidelity-pairs';
 
 describe('PairingMapSchema invariants', () => {
@@ -51,5 +52,11 @@ describe('the declared pairing map', () => {
     // fails the import, so consumers never see an unvalidated map.
     expect(FIDELITY_PAIRS.version).toBe(1);
     expect(FIDELITY_PAIRS.pairs.length).toBeGreaterThan(0);
+  });
+});
+
+describe('the reserved global register scope', () => {
+  it('collides with no declared pair id', () => {
+    expect(FIDELITY_PAIRS.pairs.some((pair) => pair.id === GLOBAL_PAIR_ID)).toBe(false);
   });
 });

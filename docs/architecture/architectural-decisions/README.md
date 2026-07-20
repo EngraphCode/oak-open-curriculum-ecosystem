@@ -415,7 +415,16 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   widgets with React Aria scoped to date/locale and Ark UI for non-React; no shared React
   component workspace until a second consumer; staged atomic token-source convergence;
   per-file-class licensing manifest for Oak marks; Proposed 2026-07-19; amended 2026-07-19
-  §2 — overlay completeness model and colour-value grammar, evidence-driven)
+  §2 — overlay completeness model and colour-value grammar, evidence-driven; Accepted
+  2026-07-20 by owner in-session ratification, with Stage A and the PR3 validation layer
+  merged)
+- [ADR-214: ARC-colour statusline infrastructure](214-arc-colour-statusline-infrastructure.md)
+  (the ARC channel grammar is the canonical schema authority for the shared rapid-comms
+  corpus; feather colour is a projection of recorded channel content; grammar obligations
+  bind from the adoption date forward — channel history is append-only, never
+  retro-edited — with a loud-failing validator whose blocking-gate wiring lands with the
+  grammar; strictness preserves the protocol's zero-per-message-ceremony property;
+  Proposed 2026-07-20, Decision items 3–4 amended 2026-07-20 per owner ruling)
 
 ## Key Architectural Decisions
 

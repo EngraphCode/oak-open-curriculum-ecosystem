@@ -65,6 +65,10 @@ describe('buildContrastReports', () => {
     }
   });
 
+  // Deliberate documented exemplars, not live-data coverage: one named
+  // pairing per threshold class (non-text 3:1, text 4.5:1). The
+  // every-pairing live-data proof is owned by the unconditional build.ts
+  // contrast gate; each proof happens once (testing-strategy).
   it('passes focus ring contrast in light theme at 3:1 or above', () => {
     const reports = assertOkReports(buildContrastReports());
     const lightReport = reports[0];
@@ -101,18 +105,5 @@ describe('buildContrastReports', () => {
 
     expect(errorOnDarkPage.pass).toBe(true);
     expect(errorOnDarkPage.ratio).toBeGreaterThanOrEqual(4.5);
-  });
-
-  it('passes every declared pairing in both themes', () => {
-    const reports = assertOkReports(buildContrastReports());
-
-    for (const report of reports) {
-      for (const entry of report.results) {
-        expect(
-          entry.pass,
-          `[${report.theme}] ${entry.foreground} on ${entry.background}: ${String(entry.ratio)}:1 (need ${String(entry.requiredRatio)}:1)`,
-        ).toBe(true);
-      }
-    }
   });
 });
