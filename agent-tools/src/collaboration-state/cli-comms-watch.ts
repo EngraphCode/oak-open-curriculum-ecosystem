@@ -1,5 +1,5 @@
 import { seedSeenStateIfNeeded } from './comms-watch-auto-seed.js';
-import { validateCommsEventTags } from './comms-tag-namespace.js';
+import { validateCommsEventTags, type CommsEventTag } from './comms-tag-namespace.js';
 import { drainRelevantEvents, watchCommsLoop, type WatcherTickStatus } from './comms-use-cases.js';
 import {
   HEARTBEAT_FILE_SUFFIX,
@@ -129,7 +129,7 @@ function resolveWatchTunables(options: Options): {
  * duplicates) BEFORE the watcher arms — a typo must fail loud here, never
  * silently exclude nothing.
  */
-function resolveExcludeTags(options: Options): ReadonlySet<string> | undefined {
+function resolveExcludeTags(options: Options): ReadonlySet<CommsEventTag> | undefined {
   return options.excludeTags.length === 0
     ? undefined
     : new Set(validateCommsEventTags(options.excludeTags));
@@ -186,7 +186,7 @@ async function drainComms(input: {
   readonly self: CollaborationAgentId;
   readonly remainingEvents?: number;
   readonly io: CollaborationStateCliIo;
-  readonly excludeTags?: ReadonlySet<string>;
+  readonly excludeTags?: ReadonlySet<CommsEventTag>;
 }): ReturnType<typeof drainRelevantEvents> {
   const seenIds = await input.io.readSeenIds(input.seenFile);
   const messages = await input.io.readCommsEvents(input.commsDir);

@@ -5,6 +5,7 @@ import {
   createDirectedCommsMessage,
   drainRelevantEvents,
 } from '../../src/collaboration-state/comms-use-cases';
+import { type CommsEventTag } from '../../src/collaboration-state/comms-tag-namespace';
 import { deriveOverrideCollaborationIdentity } from '../../src/collaboration-state/identity';
 import {
   type CollaborationAgentId,
@@ -469,7 +470,7 @@ describe('drainRelevantEvents — full event stream surfacing with self-exclusio
 });
 
 describe('drainRelevantEvents — sanctioned excludeTags mechanism (F-146)', () => {
-  const excludeHeartbeat = new Set(['heartbeat']);
+  const excludeHeartbeat: ReadonlySet<CommsEventTag> = new Set(['heartbeat']);
 
   function heartbeat(eventId: string, createdAt: string): NarrativeCommsEvent {
     return narrative({

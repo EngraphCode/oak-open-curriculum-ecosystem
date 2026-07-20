@@ -1,5 +1,6 @@
 import { sameAgentRoutingKey } from './active-agent-routing.js';
 import { formatClassifiedEvent } from './comms-event-format.js';
+import { isCanonicalTag, type CommsEventTag } from './comms-tag-namespace.js';
 import {
   type CollaborationAgentId,
   type CommsEvent,
@@ -80,7 +81,7 @@ export async function drainRelevantEvents(input: {
   readonly seenIds: ReadonlySet<string>;
   readonly self: CollaborationAgentId;
   readonly remainingEvents?: number;
-  readonly excludeTags?: ReadonlySet<string>;
+  readonly excludeTags?: ReadonlySet<CommsEventTag>;
 }): Promise<DrainResult> {
   const unseen = input.messages
     .map((event) => ({ event, view: classifyEventForAgent({ event, self: input.self }) }))
@@ -119,7 +120,7 @@ export async function drainRelevantEvents(input: {
  */
 function isExcludedByTags(
   entry: { readonly event: CommsEvent; readonly view: EventView },
-  excludeTags: ReadonlySet<string> | undefined,
+  excludeTags: ReadonlySet<CommsEventTag> | undefined,
 ): boolean {
   if (excludeTags === undefined || excludeTags.size === 0) {
     return false;
@@ -131,7 +132,10 @@ function isExcludedByTags(
   if (tags === undefined || tags.length === 0) {
     return false;
   }
-  return tags.every((tag) => excludeTags.has(tag));
+  // Stored event tags arrive as strings; the guard narrows each onto the
+  // closed namespace before membership (zero-widening — the set never
+  // becomes a string view).
+  return tags.every((tag) => isCanonicalTag(tag) && excludeTags.has(tag));
 }
 
 function isSelfAuthored(event: CommsEvent, self: CollaborationAgentId): boolean {

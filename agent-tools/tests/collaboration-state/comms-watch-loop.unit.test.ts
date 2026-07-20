@@ -572,21 +572,20 @@ describe('watchCommsLoop — excluded-event seen-marking (F-146)', () => {
   it('keeps events-owed-emission unmarked on emit failure while excluded ids still mark', async () => {
     const marked: (readonly string[])[] = [];
     let emitAttempts = 0;
-    // A stateful drain modelling production: the unseen payload re-drains
-    // until its ids are marked seen (an emit failure leaves it owed).
-    const drain = async (): Promise<DrainResult> =>
-      marked.some((ids) => ids.includes('owed'))
-        ? { output: '', eventCount: 0, eventIds: [] }
-        : {
-            output: 'payload\n',
-            eventCount: 1,
-            eventIds: ['owed'],
-            excludedEventIds: ['hb-x'],
-          };
+    // A fixed two-result stream: the same owed payload twice models
+    // redelivery after the first emit failure (unmarked events re-drain)
+    // without embedding production logic in the fake.
+    const owedPayload: DrainResult = {
+      output: 'payload\n',
+      eventCount: 1,
+      eventIds: ['owed'],
+      excludedEventIds: ['hb-x'],
+    };
+    const stream = describeStream(owedPayload, owedPayload);
 
     await watchCommsLoop({
       maxEvents: 1,
-      drain,
+      drain: stream.drain,
       waitForChange: async () => undefined,
       emit: async (text) => {
         emitAttempts += 1;
