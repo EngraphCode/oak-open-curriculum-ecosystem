@@ -74,9 +74,7 @@ export function normaliseValue(value: string): string {
       continue;
     }
 
-    // Re-escape the canonical delimiter inside decoded content: without it
-    // a valid "a' b" and a malformed 'a' b' would serialise identically.
-    parts.push(`'${span.content.replaceAll("'", String.raw`\'`)}'`);
+    parts.push(serialiseSpanContent(span.content));
     index = span.closingIndex + 1;
   }
 
@@ -120,6 +118,20 @@ function consumeQuotedSpan(
 }
 
 const HEX_DIGIT_PATTERN = /[0-9a-f]/iu;
+
+/** The canonical delimiter's escaped spelling, hoisted to keep templates flat. */
+const ESCAPED_DELIMITER = String.raw`\'`;
+
+/**
+ * Serialise a span's literal content into the canonical quoted form,
+ * re-escaping the canonical delimiter: without it a valid `"a' b"` and a
+ * malformed `'a' b'` would serialise identically.
+ */
+function serialiseSpanContent(content: string): string {
+  const escaped = content.replaceAll("'", ESCAPED_DELIMITER);
+
+  return `'${escaped}'`;
+}
 
 /**
  * Consume one backslash escape starting at `index`. A simple escape decodes
