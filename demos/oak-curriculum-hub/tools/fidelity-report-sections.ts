@@ -19,8 +19,11 @@ export function globalEntriesSection(register: FidelityRegister): string {
   }
   const items = globals
     .map(
-      (entry) =>
-        `<li><code>${escapeHtml(entry.id)}</code> (${escapeHtml(entry.disposition)}) — ${escapeHtml(entry.summary)}</li>`,
+      (entry) => `<li>
+  <strong>[${escapeHtml(entry.disposition)}]</strong> ${escapeHtml(entry.summary)}
+  <br />Rationale: ${escapeHtml(entry.rationale)}
+  <br /><small>${escapeHtml(entry.id)} — ${escapeHtml(entry.author)}, ${escapeHtml(entry.date)}</small>
+</li>`,
     )
     .join('\n');
   return `<section>

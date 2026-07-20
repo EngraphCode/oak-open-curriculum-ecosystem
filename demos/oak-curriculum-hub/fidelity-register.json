@@ -94,6 +94,17 @@
       "rationale": "bg-success/bg-error alias the kit's TEXT-polarity roles (--text-success/--text-error) — used as fills they break polarity in dark theme (light text-role fill under white text). The functional meaning-bearing recipe is bg-success-subtle/bg-error-subtle with --text-primary on the pastel fill (kit components.css contract line; tone carried by fill + border + wording). Visible in the section capture as a lighter header with dark text; do not re-flag.",
       "author": "Zenith binds Plasma (8fa90f)",
       "date": "2026-07-20"
+    },
+    {
+      "id": "standards-full/cta-action-roles",
+      "pairId": "standards-full",
+      "kind": "visual",
+      "summary": "The view-in-standards CTA moves from the link text-role used as a fill (navy pill) to the kit action pair bg-btn-primary/text-btn-primary (black pill in light theme) — text-role fills assume a contrast pairing the kit keeps independently themeable.",
+      "evidence": ["components/standards/StandardsResults.tsx"],
+      "disposition": "deliberate",
+      "rationale": "Kit contract (.oak-btn, components.css): primary actions consume --bg-btn-primary with --text-btn-primary so brand overrides re-point fill and text together; --text-link is a text-only role and using it as a fill lets a brand re-point break the CTA's contrast. Visible in the standards captures as navy → black; do not re-flag on export re-ingest.",
+      "author": "Zenith binds Plasma (8fa90f)",
+      "date": "2026-07-20"
     }
   ]
 }

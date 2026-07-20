@@ -43,6 +43,10 @@
   --color-surface-overlay: var(--bg-overlay);
   --color-surface-inverted: var(--bg-inverted);
   --color-surface-inverted-hover: var(--bg-btn-primary-hover);
+  /* kit action pair for primary-action fills (never text-role fills —
+     bg/text stay independently brand-themeable per .oak-btn) */
+  --color-btn-primary: var(--bg-btn-primary);
+  --color-btn-primary-ink: var(--text-btn-primary);
   --color-line: var(--border-primary);
   --color-line-neutral: var(--border-neutral);
   --color-line-soft: var(--border-neutral-lighter);

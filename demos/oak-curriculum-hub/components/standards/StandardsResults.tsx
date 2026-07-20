@@ -60,7 +60,7 @@ function FocusBanner({ onBrowseAll }: { readonly onBrowseAll: () => void }): Rea
       </span>
       <Link
         href="/course"
-        className="inline-flex shrink-0 items-center gap-1.5 rounded-full border-2 border-link bg-link px-4 py-2.5 text-[13px] font-bold text-ink-inverted"
+        className="inline-flex shrink-0 items-center gap-1.5 rounded-full border-2 border-btn-primary bg-btn-primary px-4 py-2.5 text-[13px] font-bold text-btn-primary-ink"
       >
         <span aria-hidden="true">←</span> Return to training
       </Link>
