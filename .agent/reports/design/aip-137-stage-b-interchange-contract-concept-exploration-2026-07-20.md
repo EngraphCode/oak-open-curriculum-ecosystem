@@ -74,21 +74,26 @@ ADR-213 or the plan; §Proposals routes the edits.
   composed theme**; a manifest pairing on any dropped path surfaces as `unresolved_token`.
   The roots, overlay-coverage, and manifest-parse validators from #412 run in the gate
   path; the colour-grammar validator does not. The export carries CSS function-valued
-  tokens verbatim in four classes — the closed enumeration is the **class set with its
-  dispositions, never a count** (final-round re-scope; counts below are illustrative
-  exemplar locations only): **colour expressions** (`color-mix`, the `semantic.light`
-  `state.*` tokens) — dropped by the contrast comparand's value-shape rule; **layout
-  expressions** (`calc`/`min`/`minmax`/`clamp` in `component.json`, e.g.
-  `calc({density}*{space.24})`) — dimension-class, pass-through to CSS emission, outside
-  the colour grammar by type; **easing** (`cubic-bezier`, `semantic.light`:40) and
-  **filter** (`invert(1)`, `semantic.light`:397–403, `semantic.dark`:256) — non-colour
-  theme levers, pass-through, irrelevant to contrast. The studio README's "15 tokens
-  carry `color-mix()`/`calc()`" is an accurate count of exactly the subset it names (an
-  earlier undercount charge here was wrong and is retracted); it simply does not
-  enumerate the other function classes. The studio's own contract doc instructs "a
-  consuming build should pass them through untouched" — pass-through is the CSS-emission
-  consumer's contract; the contrast path drops by value shape what it cannot statically
-  evaluate.
+  tokens verbatim, and this report claims **no closed enumeration of them at any level —
+  neither a count nor a class set** (owner-ratified final re-scope: a point-in-time
+  analysis cannot close an open, evolving surface). The contract is that every
+  function-valued token receives its disposition from its **value shape at each consumer
+  boundary** — the landed post-resolution comparand rule for contrast; pass-through for
+  CSS emission — and the classes below are exemplars observed on 2026-07-20, never a
+  completeness claim: **colour expressions** (`color-mix`, the `semantic.light` `state.*`
+  tokens) — dropped by the contrast comparand's value-shape rule; **layout expressions**
+  (`calc`/`min`/`minmax`/`clamp` in `component.json`, e.g. `calc({density}*{space.24})`)
+  — dimension-class, pass-through, outside the colour grammar by type; **easing**
+  (`cubic-bezier`, `semantic.light`:40) and **filter** (`invert(1)`,
+  `semantic.light`:397–403, `semantic.dark`:256) — non-colour theme levers, pass-through;
+  **alpha-literal colours** (`rgb(R G B / A)`, `palette.json`:325–337) — admitted by the
+  colour grammar, excluded from the WCAG comparand by the same value-shape rule. The
+  studio README's "15 tokens carry `color-mix()`/`calc()`" is an accurate count of
+  exactly the subset it names (an earlier undercount charge here was wrong and is
+  retracted); it simply does not enumerate the other function classes. The studio's own
+  contract doc instructs "a consuming build should pass them through untouched" —
+  pass-through is the CSS-emission consumer's contract; the contrast path drops by value
+  shape what it cannot statically evaluate.
 - **O5. Two of the three `color-mix` tokens can never be statically resolved — the third
   can.** `state.hover`/`state.pressed` mix `currentColor` — context-dependent at paint
   time, no export-time pre-computation exists. `state.selected` mixes a referenced role at
@@ -161,9 +166,9 @@ studio contract doc states the true convention, and validators recompute all of 
 
 ## Movement 4 — proposals
 
-Each proposal names its warrant and a falsifier. Sequencing constraint: ADR-213 and the plan
-file are live conflict surfaces on `#423`/`#414` (verified by the cycle-3 seat, 08:16Z) — the
-doctrine edits below land **after BOTH `#423` merges AND `#414`'s plan-file re-resolution
+Each proposal names its warrant and a falsifier. Sequencing constraint: the plan file
+remains a live conflict surface on `#414`; `#423`'s gate is SATISFIED (merged 09:53:52Z,
+`dbfc765dd`) — the doctrine edits below land **after `#414`'s plan-file re-resolution
 completes** (the Director's doctrine-writer queue, slot (c)), on Director sequencing, never
 concurrently.
 
@@ -223,7 +228,14 @@ concurrently.
    inline/pass-through disposition, with dangling references rejected. The
    acceptance bar is byte-stable reproduction of the **covered emission
    set** plus zero unaccounted entries on either side plus zero emit-target collisions
-   plus reference-closure (no dangling emitted references) — checked by a **new Stage-B
+   plus reference-closure (no dangling emitted references). Because the ratified §2 end
+   state names ONE web CSS delivery surface owned by the design system, a transitional
+   mapped `index.css` is not reconcilable with §2 as written — so the P1 amendment
+   **explicitly stages the delivery-surface clause** (final-round correction): the
+   amendment text itself declares the transitional window (the mapped `index.css` serving
+   MCP views between Stage B and their direct kit-CSS binding) and its retirement
+   condition as part of §2, rather than leaving the end-state clause and the map in
+   unrecorded tension — checked by a **new Stage-B
    migration-parity check that lands as part of the Stage-B change itself** (round-2
    review correction: plan task #5, the re-homed `pr2-consistency-check`, guards a
    different surface — the kit's dtcg export against the kit's own canonical CSS — with a
@@ -263,9 +275,12 @@ concurrently.
    AND value shape, because today's `requiredColour` rejects only missing paths and a
    verbatim expression string would pass silently. *Warrant*: O8;
    re-rooting whole trees to stabilise 11 lookups inverts the size of cause and effect.
-   *Falsifier*: if Stage B's kit trees cannot supply all 11 roles through the map,
-   ADR-213's recorded exception (the terminal keeps its own tree, deliberate and recorded)
-   fires instead — the ADR already anticipates exactly this.
+   *Falsifier*: if Stage B's kit trees cannot supply all 11 roles through the map, the
+   fallback is the terminal keeping its own tree — recorded today ONLY in the implementing
+   plan's falsifiers, NOT in ADR-213, whose §2 requires the hand-authored trees deleted
+   and the 11-path contract proved (final-round correction: firing this falsifier
+   therefore requires an ADR/plan ratification through the doctrine slot, never treating
+   the plan-recorded exception as already ADR-authorised).
 
 ## Unresolved evidence that could change the synthesis
 
@@ -287,10 +302,10 @@ concurrently.
 ## Routing
 
 - P1+P2 (ADR-213 §2 dated amendment) and the plan's `ws-stage-b-convergence` todo
-  refinement: **after #423 lands AND #414's plan-file re-resolution completes** (doctrine
-  slot (c) in the Director's queue), sequenced by the Director; natural author is this lane
-  (ADR directory sits in `packages/design/**`'s doctrine orbit — coordinate with the
-  cycle-3 seat, which holds an ADR-213 conflict in flight). **Discoverability rides the
+  refinement: **after #414's plan-file re-resolution completes** (#423's gate is satisfied
+  — merged `dbfc765dd`; doctrine slot (c) in the Director's queue), sequenced by the
+  Director; natural author is this lane (the ADR directory sits in `packages/design/**`'s
+  doctrine orbit). **Discoverability rides the
   same slot** (round-2 review correction): the plan's `ws-stage-b-convergence` todo does
   not yet reference this report, so an implementer entering through the canonical plan
   will not find it — slot (c)'s plan edit adds the report pointer to that todo alongside
