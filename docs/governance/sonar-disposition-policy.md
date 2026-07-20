@@ -306,8 +306,12 @@ dependency lifecycle scripts can execute arbitrary code at install time.
   (pnpm 10) or its pnpm 11 replacement, the `allowBuilds` map in
   `pnpm-workspace.yaml`.
 - The repo pins that pnpm version authoritatively: root `package.json`
-  `packageManager` field (currently `pnpm@11.8.0`, content-hash pinned)
-  drives every CI site via `pnpm/action-setup`.
+  `packageManager` field (currently `pnpm@11.8.0`) drives every CI site
+  via `pnpm/action-setup` as an **exact version pin**. The field also
+  carries a `+sha512` integrity suffix, but the pinned action strips it
+  before `pnpm self-update` (`readTargetVersion`'s split on `+`), so CI
+  enforces the version, not the content hash — and the version alone is
+  what this class's script-execution property attaches to.
 - Every allowlist entry is a **reviewed, build-requiring package** (the
   current six: `@clerk/shared`, `@sentry/cli`, `esbuild`,
   `unrs-resolver`, `core-js`, `sharp` — see
