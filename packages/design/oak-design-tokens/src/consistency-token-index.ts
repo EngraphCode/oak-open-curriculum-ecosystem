@@ -9,9 +9,9 @@
  *
  * @packageDocumentation
  */
-import { typeSafeEntries } from '@oaknational/type-helpers';
 import { type Result, err, ok } from '@oaknational/result';
-import type { DtcgTokenLeaf, DtcgTokenTree } from '@oaknational/design-tokens-core';
+import { collectTokenLeaves as collectStrictLeaves } from '@oaknational/design-tokens-core';
+import type { DtcgTokenTree } from '@oaknational/design-tokens-core';
 import {
   dtcgPathToCssVariable,
   normaliseDtcgReferences,
@@ -33,52 +33,30 @@ export interface TokenLeafEntry {
   readonly value: string;
 }
 
-function isLeafOrGroup(
-  candidate: DtcgTokenLeaf | DtcgTokenTree | string | undefined,
-): candidate is DtcgTokenLeaf | DtcgTokenTree {
-  return typeof candidate === 'object' && candidate !== null;
-}
-
-function isLeaf(candidate: DtcgTokenLeaf | DtcgTokenTree): candidate is DtcgTokenLeaf {
-  return '$value' in candidate;
-}
-
+/**
+ * Walk one tree into comparison leaves via the core's strict walker —
+ * hybrid leaf-with-children nodes and non-primitive `$value`s are
+ * `invalid_node`, never silently coerced (consolidate-at-second-consumer:
+ * the walker is owned once, in design-tokens-core).
+ */
 export function collectTokenLeaves(
   tree: DtcgTokenTree,
-  prefix: readonly string[],
 ): Result<readonly TokenLeafEntry[], TokenIndexError> {
-  const leaves: TokenLeafEntry[] = [];
+  const walked = collectStrictLeaves(tree);
 
-  for (const [key, child] of typeSafeEntries(tree)) {
-    if (key.startsWith('$')) {
-      continue;
-    }
-
-    const path = [...prefix, key];
-
-    if (!isLeafOrGroup(child)) {
-      return err({ kind: 'invalid_node', path: path.join('.') });
-    }
-
-    if (isLeaf(child)) {
-      const value =
-        typeof child.$value === 'string'
-          ? normaliseValue(normaliseDtcgReferences(child.$value))
-          : String(child.$value);
-      leaves.push({ path: path.join('.'), value });
-      continue;
-    }
-
-    const childLeaves = collectTokenLeaves(child, path);
-
-    if (!childLeaves.ok) {
-      return childLeaves;
-    }
-
-    leaves.push(...childLeaves.value);
+  if (!walked.ok) {
+    return walked;
   }
 
-  return ok(leaves);
+  return ok(
+    walked.value.map((entry) => ({
+      path: entry.path.join('.'),
+      value:
+        typeof entry.leaf.$value === 'string'
+          ? normaliseValue(normaliseDtcgReferences(entry.leaf.$value))
+          : String(entry.leaf.$value),
+    })),
+  );
 }
 
 export function indexLightTokens(
@@ -87,7 +65,7 @@ export function indexLightTokens(
   const index = new Map<string, TokenLeafEntry>();
 
   for (const tree of trees) {
-    const leaves = collectTokenLeaves(tree, []);
+    const leaves = collectTokenLeaves(tree);
 
     if (!leaves.ok) {
       return leaves;

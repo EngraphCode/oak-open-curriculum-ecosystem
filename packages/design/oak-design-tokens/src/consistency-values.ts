@@ -43,12 +43,22 @@ const DTCG_REFERENCE_PATTERN = /\{(?<path>[^{}]+)\}/gu;
  * on both sides.
  */
 export function normaliseValue(value: string): string {
-  return value
-    .replaceAll('"', "'")
-    .replaceAll(/\s+/gu, ' ')
-    .replaceAll(/\(\s+/gu, '(')
-    .replaceAll(/\s+\)/gu, ')')
-    .replaceAll(/\s*(?<punctuation>[,*])\s*/gu, '$<punctuation>')
+  // Canonicalise the quote DELIMITER first, then normalise spacing only
+  // OUTSIDE quoted segments: quoted content is literal, and rewriting it
+  // would make genuinely different values compare equal.
+  const segments = value.replaceAll('"', "'").split(/(?<quoted>'[^']*')/u);
+
+  return segments
+    .map((segment, index) =>
+      index % 2 === 1
+        ? segment
+        : segment
+            .replaceAll(/\s+/gu, ' ')
+            .replaceAll(/\(\s+/gu, '(')
+            .replaceAll(/\s+\)/gu, ')')
+            .replaceAll(/\s*(?<punctuation>[,*])\s*/gu, '$<punctuation>'),
+    )
+    .join('')
     .trim();
 }
 

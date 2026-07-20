@@ -27,8 +27,7 @@
   },
   "dependencies": {
     "@oaknational/design-tokens-core": "workspace:*",
-    "@oaknational/result": "workspace:*",
-    "@oaknational/type-helpers": "workspace:*"
+    "@oaknational/result": "workspace:*"
   },
   "devDependencies": {
     "@oaknational/eslint-plugin-standards": "workspace:*",

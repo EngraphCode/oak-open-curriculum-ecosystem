@@ -108,13 +108,18 @@ function compareTheme(
 
 function findUnaccountedVariables(
   cssLight: ReadonlyMap<string, string>,
+  cssDark: ReadonlyMap<string, string>,
   lightIndex: ReadonlyMap<string, TokenLeafEntry>,
   nonTokenAllowlist: readonly string[],
 ): readonly ConsistencyMismatch[] {
   const allowlist = new Set(nonTokenAllowlist);
   const unaccounted: ConsistencyMismatch[] = [];
+  // Union of both maps: a dark-block-only variable never appears in the
+  // light map, and the overlay invariant means every dtcg dark token has a
+  // light-index entry — so the light index is the right reference for both.
+  const variables = new Set([...cssLight.keys(), ...cssDark.keys()]);
 
-  for (const variable of cssLight.keys()) {
+  for (const variable of variables) {
     if (!lightIndex.has(variable) && !allowlist.has(variable)) {
       unaccounted.push({ kind: 'unaccounted_css_variable', variable });
     }
@@ -149,7 +154,7 @@ export function compareDesignSystemConsistency(
     return lightIndex;
   }
 
-  const darkLeaves = collectTokenLeaves(input.semanticDark, []);
+  const darkLeaves = collectTokenLeaves(input.semanticDark);
 
   if (!darkLeaves.ok) {
     return darkLeaves;
@@ -162,6 +167,7 @@ export function compareDesignSystemConsistency(
   const darkComparison = compareTheme(darkPairs, comparand.value.dark, 'dark');
   const unaccounted = findUnaccountedVariables(
     comparand.value.light,
+    comparand.value.dark,
     lightIndex.value,
     input.nonTokenAllowlist,
   );

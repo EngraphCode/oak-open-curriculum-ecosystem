@@ -1,6 +1,6 @@
 /**
  * Repo validator: the design system's dtcg export must be value-consistent
- * with its canonical CSS (`colors_and_type.css`).
+ * with its canonical CSS (`colors_and_type.css` + `components.css`'s `:root` block).
  *
  * @remarks
  * Chained into root `repo-validators:check`. Semantic regeneration

@@ -221,6 +221,59 @@ describe('compareDesignSystemConsistency', () => {
     expect(report.mismatches).toEqual([]);
   });
 
+  it('keeps punctuation differences inside quoted strings visible', () => {
+    const input = baseInput();
+    const report = assertOk(
+      compareDesignSystemConsistency({
+        ...input,
+        css: `:root {
+            --oak-paper: light-dark(#fcfbf8, #1c1a17);
+            --bg-primary: light-dark(#ffffff, #222222);
+            --font-display: 'A, B', sans-serif;
+            --canvas-rows: 12;
+          }`,
+        primitives: {
+          font: { family: { display: { $type: 'fontFamily', $value: "'A,B', sans-serif" } } },
+        },
+      }),
+    );
+
+    expect(report.mismatches).toHaveLength(1);
+    expect(report.mismatches[0].kind).toBe('value_mismatch');
+  });
+
+  it('reports a dark-block-only CSS variable with no dtcg counterpart', () => {
+    const input = baseInput();
+    const report = assertOk(
+      compareDesignSystemConsistency({
+        ...input,
+        css: `${input.css}\n[data-theme='dark'] { --debug-overlay: red; }`,
+      }),
+    );
+
+    expect(report.mismatches).toEqual([
+      { kind: 'unaccounted_css_variable', variable: '--debug-overlay' },
+    ]);
+  });
+
+  it('rejects a hybrid leaf-with-children node as invalid', () => {
+    const input = baseInput();
+    const result = compareDesignSystemConsistency({
+      ...input,
+      semanticLight: {
+        bg: { primary: { $type: 'color', $value: '#ffffff', child: { $value: '#000000' } } },
+      },
+    });
+
+    expect(result.ok).toBe(false);
+
+    if (result.ok) {
+      throw new Error('Expected Err, got Ok');
+    }
+
+    expect(result.error.kind).toBe('invalid_node');
+  });
+
   it('normalises expression spacing around parentheses, commas, and operators', () => {
     const input = baseInput();
     const report = assertOk(
