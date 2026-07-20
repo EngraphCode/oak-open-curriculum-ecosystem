@@ -13,8 +13,10 @@ import {
   map,
   flatMap,
   mapErr,
+  toError,
   unwrapOr,
   unwrapOrElse,
+  unwrapOrThrow,
   type Result,
 } from './index.js';
 
@@ -105,6 +107,43 @@ describe('unwrap', () => {
   it('throws for Err results', () => {
     const result = err('failed');
     expect(() => unwrap(result)).toThrow('Called unwrap on Err: failed');
+  });
+});
+
+describe('toError', () => {
+  it('returns an Error unchanged, preserving identity', () => {
+    const original = new Error('kept', { cause: new Error('root') });
+    expect(toError(original)).toBe(original);
+  });
+
+  it('wraps a non-Error failure in an Error carrying its string form', () => {
+    const wrapped = toError('plain failure');
+    expect(wrapped).toBeInstanceOf(Error);
+    expect(wrapped.message).toBe('plain failure');
+  });
+});
+
+describe('unwrapOrThrow', () => {
+  it('returns the value for Ok results', () => {
+    const result = ok(42);
+    expect(unwrapOrThrow(result)).toBe(42);
+  });
+
+  it('throws the original error object itself, not a wrapper', () => {
+    const original = new Error('actionable message the boundary must surface verbatim', {
+      cause: new Error('root cause'),
+    });
+    const result = err(original);
+
+    let thrown: unknown;
+    try {
+      unwrapOrThrow(result);
+    } catch (error) {
+      thrown = error;
+    }
+
+    // Identity: the same object, so message, stack, and cause survive intact.
+    expect(thrown).toBe(original);
   });
 });
 

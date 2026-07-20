@@ -93,7 +93,8 @@ export function isErr<T, E>(result: Result<T, E>): result is Err<E> {
   return !result.ok;
 }
 
-export { unwrap, unwrapErr, unwrapOr, unwrapOrElse } from './unwrapping.js';
+export { toError } from './errors.js';
+export { unwrap, unwrapErr, unwrapOr, unwrapOrElse, unwrapOrThrow } from './unwrapping.js';
 
 /**
  * Maps an Ok value to a new value. Err values pass through unchanged.

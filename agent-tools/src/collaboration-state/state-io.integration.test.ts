@@ -2,6 +2,7 @@ import { mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
+import { unwrapErr, unwrapOrThrow } from '@oaknational/result';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import {
@@ -18,9 +19,10 @@ import {
 // On a fresh checkout or new worktree the collaboration-state files are
 // untracked-by-design (ADR-199 / PDR-094), so the very first CLI invocation
 // that reads them meets ENOENT. The system state these tests describe: that
-// first contact fails loud with instructions that are themselves sufficient
-// to seed the file — never a bare fs error, and never a silent empty
-// registry (which would let a wrong path masquerade as "no claims").
+// first contact fails with an error whose message embeds the COMPLETE seed
+// content — instructions sufficient on their own to cure the failure — and
+// absence is never a silent empty registry (which would let a wrong path
+// masquerade as "no claims").
 
 let dir: string;
 
@@ -33,17 +35,19 @@ afterEach(async () => {
 });
 
 describe('readActiveClaimsFile on a fresh checkout', () => {
-  it('rejects a missing registry with an actionable seeding error, not a bare ENOENT', async () => {
-    await expect(readActiveClaimsFile(join(dir, 'active-claims.json'))).rejects.toThrow(
-      /active-claims registry not found[\s\S]*untracked-by-design[\s\S]*"schema_version": "1\.3\.0"/,
-    );
+  it('returns an Err whose message embeds the complete registry seed', async () => {
+    const error = unwrapErr(await readActiveClaimsFile(join(dir, 'active-claims.json')));
+
+    expect(error.message).toContain('active-claims registry not found');
+    expect(error.message).toContain('untracked-by-design');
+    expect(error.message).toContain(EMPTY_ACTIVE_CLAIMS_REGISTRY_JSON);
   });
 
-  it('offers a seed that the reader itself accepts (the instructions are sufficient)', async () => {
+  it('accepts a file seeded with exactly the content the error prescribes', async () => {
     const path = join(dir, 'active-claims.json');
     await writeFile(path, EMPTY_ACTIVE_CLAIMS_REGISTRY_JSON, 'utf8');
 
-    const registry = await readActiveClaimsFile(path);
+    const registry = unwrapOrThrow(await readActiveClaimsFile(path));
 
     expect(registry.claims).toEqual([]);
     expect(registry.commit_queue).toEqual([]);
@@ -53,34 +57,38 @@ describe('readActiveClaimsFile on a fresh checkout', () => {
     const path = join(dir, 'active-claims.json');
     await writeFile(path, 'not json at all', 'utf8');
 
-    await expect(readActiveClaimsFile(path)).rejects.toThrow(/not valid JSON/);
+    const error = unwrapErr(await readActiveClaimsFile(path));
+
+    expect(error.message).toMatch(/not valid JSON/);
   });
 });
 
 describe('readClosedClaimsFile on a fresh checkout', () => {
-  it('rejects a missing archive with an actionable seeding error, not a bare ENOENT', async () => {
-    await expect(readClosedClaimsFile(join(dir, 'closed-claims.archive.json'))).rejects.toThrow(
-      /closed-claims archive not found[\s\S]*untracked-by-design[\s\S]*"schema_version": "1\.3\.0"/,
-    );
+  it('returns an Err whose message embeds the complete archive seed', async () => {
+    const error = unwrapErr(await readClosedClaimsFile(join(dir, 'closed-claims.archive.json')));
+
+    expect(error.message).toContain('closed-claims archive not found');
+    expect(error.message).toContain('untracked-by-design');
+    expect(error.message).toContain(EMPTY_CLOSED_CLAIMS_ARCHIVE_JSON);
   });
 
-  it('offers a seed that the reader itself accepts', async () => {
+  it('accepts a file seeded with exactly the content the error prescribes', async () => {
     const path = join(dir, 'closed-claims.archive.json');
     await writeFile(path, EMPTY_CLOSED_CLAIMS_ARCHIVE_JSON, 'utf8');
 
-    const archive = await readClosedClaimsFile(path);
+    const archive = unwrapOrThrow(await readClosedClaimsFile(path));
 
     expect(archive.claims).toEqual([]);
   });
 });
 
-// The claims lifecycle CLI commands (`claims close`, `claims archive-stale`)
-// reach the archive through the transactional update paths, not the plain
-// readers — the seeding error must surface there too, or the CLI paths keep
-// the bare ENOENT the readers were cured of.
+// The claims lifecycle CLI commands (`claims open`, `claims close`,
+// `claims archive-stale`) reach the state files through the transactional
+// update paths, not the plain readers — the seeding error must surface there
+// too, or the CLI paths keep the bare ENOENT the readers were cured of.
 
 describe('updateClaimStateFiles on a fresh checkout', () => {
-  it('rejects a missing closed-claims archive with the actionable seeding error (the claims close path)', async () => {
+  it('rejects a missing closed-claims archive with the seed-bearing error (the claims close path)', async () => {
     const activePath = join(dir, 'active-claims.json');
     await writeFile(activePath, EMPTY_ACTIVE_CLAIMS_REGISTRY_JSON, 'utf8');
 
@@ -90,17 +98,17 @@ describe('updateClaimStateFiles on a fresh checkout', () => {
         closedPath: join(dir, 'closed-claims.archive.json'),
         transform: (state) => state,
       }),
-    ).rejects.toThrow(/closed-claims archive not found[\s\S]*untracked-by-design/);
+    ).rejects.toThrow(EMPTY_CLOSED_CLAIMS_ARCHIVE_JSON);
   });
 });
 
 describe('updateActiveClaimsFile on a fresh checkout', () => {
-  it('rejects a missing registry with the actionable seeding error (the claims open path)', async () => {
+  it('rejects a missing registry with the seed-bearing error (the claims open path)', async () => {
     await expect(
       updateActiveClaimsFile({
         activePath: join(dir, 'active-claims.json'),
         transform: (registry) => registry,
       }),
-    ).rejects.toThrow(/active-claims registry not found[\s\S]*untracked-by-design/);
+    ).rejects.toThrow(EMPTY_ACTIVE_CLAIMS_REGISTRY_JSON);
   });
 });

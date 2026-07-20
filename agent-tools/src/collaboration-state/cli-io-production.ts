@@ -27,8 +27,12 @@ import {
  * command touches the real filesystem, git, or policy file.
  */
 export interface CollaborationStateCliIo {
-  readonly readActiveClaimsFile: (activePath: string) => Promise<CollaborationRegistry>;
-  readonly readClosedClaimsFile: (closedPath: string) => Promise<ClosedClaimsArchive>;
+  readonly readActiveClaimsFile: (
+    activePath: string,
+  ) => Promise<Result<CollaborationRegistry, Error>>;
+  readonly readClosedClaimsFile: (
+    closedPath: string,
+  ) => Promise<Result<ClosedClaimsArchive, Error>>;
   readonly writeCommsEvent: (input: {
     readonly commsDir: string;
     readonly event: CommsEvent;

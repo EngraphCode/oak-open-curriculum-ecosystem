@@ -94,8 +94,8 @@ export function createFakeCollaborationRuntime(
 
 function createFakeIo(state: FakeRuntimeState): CollaborationStateCliIo {
   return {
-    readActiveClaimsFile: async () => state.activeClaims,
-    readClosedClaimsFile: async () => state.closedClaims,
+    readActiveClaimsFile: async () => ok(state.activeClaims),
+    readClosedClaimsFile: async () => ok(state.closedClaims),
     writeCommsEvent: async ({ commsDir, event, nowIso }) => {
       writeCommsEvent(
         state,
