@@ -306,6 +306,7 @@ broad-stage it. Re-run `git status --short --branch`, `git diff --cached --name-
 
 | agent_name | platform | model | session_id_prefix | role | first_session | last_session |
 | --- | --- | --- | --- | --- | --- | --- |
+| Foundry guards Vapor | claude | claude-fable-5 | 72fa18 | lifecycle curator — record moved to paused/ per convention; durability trued to the PR #403 preservation (SHA:c4fae0b83); SHA prefixes conformed; no lane work touched | 2026-07-17 | 2026-07-17 |
 | Lupin herds Bark | codex | GPT-5 | 019f67 | implementer, adversarial peer, documentation closeout owner | 2026-07-16 | 2026-07-16 |
 | Zephyr turns Crosswind | codex | GPT-5 | 019f6a | compound peer, trial executor, terminal handoff author | 2026-07-16 | 2026-07-16 |
 

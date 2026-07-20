@@ -4203,3 +4203,723 @@ supersession or scope clause, an owner/curation call); the AIP-128/129 "as they 
 enforcement-status phrasing; and the corpus-wide bare-SHA debt in pre-existing
 continuity content (the newly-added citations are prefixed; the historical sweep is a
 mechanical pass of its own).
+
+## 2026-07-17 — Foundry guards Vapor (72fa18): full session handoff — landed outcome, loss scan, recursive metaloss
+
+### Landed outcome (PDR-026)
+
+Target: AIP-131 queue discharged + AIP-127 landed — LANDED, superset of target. Evidence:
+PR #407 MERGED (SHA:855d6ac34 merge), PR #405 MERGED (SHA:2836d5d32, 109/109 threads),
+PR #408 MERGED (SHA:de9af600e, 5/5 threads incl. post-merge tail cured at SHA:b1868182f);
+PRs #396/#398/#400/#402 closed with per-PR conservation evidence; #401 gated-hold; #404 closed
+pre-session; #397/#399/#403/#406 lane-owned drafts. The owner's mid-session model cutover
+executed in full: primary ON coordination/estate-2026-07, zero dirty files, all PRs to
+main, sync-after-merge (run 3×), roll-ups via short-lived cut branches.
+
+### Surprises and corrections (beyond the mechanics entry above)
+
+- **Owner correction (verbatim intent): "just because something already existed it doesn't
+  mean it is sane or useful"** — fired when I continued Mussel's copy-and-compare snapshot
+  choreography instead of reaching for idiomatic git. The inherited-workflow trap: a
+  predecessor's mechanism inherits unearned legitimacy from having been used once. Pair
+  with the day's twin evidence: Mussel's register misdescribed #396 (three commits carrying
+  the whole hook module, called "small code fix") and #395's vehicle was already
+  owner-closed while I curated toward it. The session's working rule: verify the PREMISE
+  of an inherited verdict before executing the verdict — both corrections came from
+  first-hand re-derivation, not from trusting the handoff.
+- **State moves under you at action moments**: #395 was closed by the owner two minutes
+  before my session opened; #405 already existed when I went to create it; review rounds
+  landed seconds after merges. Re-read the live PR state immediately before create/merge/
+  close actions — my gh pr create bounced off the existing #405, which is the cheap,
+  correct discovery path, but only because create COLLIDES; close/merge actions don't.
+- **The merged-PR review treadmill, diagnosed and cured structurally**: PR #405's head was
+  the LIVING coordination branch, so every post-merge push re-triggered bot review rounds
+  against the merged PR (47 → 68 → 84 → 109 threads). Cure: roll-up PRs cut as short-lived
+  branches from the coordination tip (#408 proved it: 5 threads total, branch deleted at
+  merge). This is the standing practice for every future estate roll-up.
+- **Compliance gap, mine**: the owner mandate says crickets are invoked PAIRED
+  (cricket + cricket-haiku on identical context). I ran two solo sonnet crickets
+  (both ON-TRACK; the register-truing redirection adopted). The unpaired runs are
+  A/B-tally-invisible — the next seat should resume PAIRED invocations per the tally's
+  next-steps line.
+
+### First-order loss scan (6e.2 — from inside this context, against the grain)
+
+Enumerating what this context holds that no durable artefact captures, after checking
+each candidate against its would-be home:
+
+1. **The adjudication evidence chains are durably homed** (each closed PR carries its own
+   first-hand evidence; the register carries the map; Linear carries the ticket state) —
+   verified by re-reading, not assumed. What is NOT written anywhere: the substance-probe
+   METHOD detail that made #398/#402 cheap — probe 3–5 distinctive phrases per hunk
+   against the CURRENT home, never diff whole files (line-wrapping and evolution make
+   diffs scream false-loss). This replays Quasar's 2026-07-14 false-orphan lesson; second
+   worked instance today. Routed: distilled.md entry this handoff.
+2. **The stale-capture-wins merge class** (a capture branch's old copy of a file silently
+   WINS a clean merge when main's newer version was already in the merge base — three
+   Director-approved finals rolled back undetected until byte-level review) — napkin
+   mechanics entry ✓ + distilled.md this handoff. The context-only remainder: the CHECK
+   that prevents it (before merging any capture branch, marker-probe capture-copies
+   against main for files main evolved after capture) is in the mechanics entry verbatim.
+3. **Operating costs of the new model, measured today**: every push to the coordination
+   branch pays the full pre-push gate (~4–6 min wall); I paid it ~9 times. Batching
+   cures into one push per round is the difference between a 20-minute and a 2-hour
+   session. The handoff record carries this as an operating note.
+4. **The 64 stale commit-queue entries** in active-claims.json remain untouched (warden-
+   lane work, not mine); my session added none (lean explicit-pathspec path throughout).
+5. **The superseded branch** `chore/aip-131-primary-estate-snapshot` still exists on
+   origin (its PR #395 closed); owner deletes at convenience — register ✓.
+6. **Two AskUserQuestion decisions this session**: the owner chose "open the AIP-127 PR
+   now" (discovery then showed the owner had already created #405 — the answer's intent
+   was honoured by shepherding #405). Owner's pause instruction and cricket-discoverability
+   marker are honoured in repo-continuity's anchor. No un-actioned owner answer remains.
+7. **Watcher/monitor lifecycle**: my comms watcher died once at its 3600s backstop and
+   was re-armed + gap-swept; it dies with this session — the next seat arms its own per
+   the canonical rule. No orphan monitors: PR watches were bounded and completed.
+8. **Lupin's lane state as I last saw it**: #403 + #406 drafts, closeout branch pushed
+   09:03Z; my two directed events to them (cures + model change) are on the canonical
+   stream, unacknowledged as of this scan — their watcher may be down; the events are
+   durable, no re-send needed.
+
+### Recursive metaloss (second pass — challenging the scan's own selection)
+
+1. **What class does my scan systematically under-weight?** Items I judged "durably
+   homed" on the strength of PR comments. PR comments are durable but LOW-DISCOVERY
+   surfaces for future sessions (nobody greps closed PRs). The load-bearing subset — the
+   verdicts and their one-line grounds — is ALSO in the stray-code register, which IS
+   discoverable (tracked, on main, linked from Linear). Checked: the register's final
+   state omitted #406 from the remaining-drafts list; cured in this handoff's commit.
+   The residue risk is judged closed.
+2. **The scan lists mechanics; the day's STRUCTURAL insight is scattered**: the
+   coordination-branch model's three failure modes discovered today (review treadmill →
+   cut-branch cure; stale-capture-wins → marker-probe check; per-push gate cost →
+   batch-per-round) belong TOGETHER as the model's operating notes, or the next seat
+   re-derives them from three separate napkin bullets. Cured at occurrence: the handoff
+   record's "Operating the model" section is written as one unit.
+3. **Selection-function blindness** (the scan can't see what I didn't think to list) is
+   mitigated the same way as prior seats': this session wrote at occurrence throughout
+   (register truings after each disposition, napkin mechanics mid-session, PR evidence
+   in the moment). The end-of-session batch is the residual, not the corpus.
+4. **The verification-method lesson repeats across seats and is now thrice-instanced**
+   (Quasar's false-orphans, Mussel's pagination blindness, today's substance-probes +
+   paginated thread reads): containment/conservation checks must be substance-probes
+   against the CURRENT home, and thread reads must paginate past first:100. Both are
+   already doctrine-adjacent (napkin 2026-07-14, distilled candidate). This session adds
+   instances, not new doctrine — the pending dedicated consolidation owns graduation.
+5. **Stop condition**: a third pass would restate the selection filter (write-at-
+   occurrence + register-as-map + handoff-record-as-operating-manual). No further
+   decision-changing, non-reconstructible information surfaces. Recursion ends here.
+
+## 2026-07-17 — Petrel calls Aether (d4f4b7): owner ruling — no escape hatches, ever
+
+Asked (AIP-128 card) which branch classes the Linear-ID gate exempts and what hotfix escape
+hatch the refusal message should name. Owner: exemptions = `coordination/*` + estate roll-up
+cut branches; escape hatch = **"there are no escape hatches, examine the source of the
+question, we are never in such a rush that doing things badly is a good idea."** The directive
+generalises past AIP-128: never design a bypass surface into an enforcement mechanism, and
+treat my own impulse to offer one as the thing to examine — urgency is not a licence for bad
+practice. The AIP-128 refusal message therefore instructs ticket-minting only; no bypass
+language, no env-var valve, no citation of any override path.
+
+## 2026-07-17 — Petrel calls Aether (d4f4b7): PAUSE at owner word — AIP-126 shepherd boundary
+
+State at pause: PR #409 (AIP-126, 9 commits incl. the code-expert cure round) OPEN, checks
+in progress, 2 reviews + 3 comments already arrived and UNTRIAGED — the next seat's first
+move on this lane is the full-surface harvest (threads + checks + Sonar) per pr-lifecycle,
+then threads-resolved + green + merge (small-PR path), then coordination-branch sync.
+AIP-128 worktree is cut+built at ../oak-open-curriculum-ecosystem-worktrees/aip-128 (branch
+per ticket, NO code written); owner rulings live as an AIP-128 Linear comment (exemptions:
+`coordination/*` + `chore/estate-rollup-*`; NO escape hatches — verbatim ruling in the
+earlier napkin entry). Planned test shape: spawn sh sourcing .husky/refuse-commit-on-main.sh with
+GUARD_BRANCH set per case (deterministic, no git); extend that shared script per ticket;
+skip the optional commitlint LINEAR-ID rule (it targets PR titles — AIP-129's CI job owns
+that surface; commit-title prefixes would fight conventional commitlint).
+
+Cricket A/B pair ran at lane start on identical context: cricket ON-TRACK / cricket-haiku
+ON-TRACK (convergent; both flagged the missing explicit CRITICAL-PATH-OWNER line in the
+supplied context — supply it next time). Tally update rides the next pass.
+
+Session mechanics: the exit-codes-in-band trap bit me TWICE more this session on fresh
+surfaces (`| tail` after check-commit-message, then again after git commit) before the cure
+stuck — the pattern generalises to ANY command whose exit I need, not just push.
+
+## 2026-07-18 — Petrel calls Aether (d4f4b7): closeout loss-scan (6e.2) + metaloss
+
+First-order scan — what this context holds that no durable artefact captured, checked
+item-by-item against its would-be home:
+
+1. **Consumer-home conservation verified done**: code-expert residual analysis → PR #409
+   comment; AIP-128 executor design notes (test shape, POSIX constraint, pre-push open
+   point, commitlint-skip rationale) → AIP-128 Linear comment; owner rulings → AIP-128
+   Linear comment + napkin verbatim; cricket PAIR-6 → the A/B tally file; the queue-state
+   truing → repo-continuity §COLD PICKUP + the thread identity row.
+2. **Context-only until now — written here**: (a) depcruise's `no-circular` counts
+   TYPE-ONLY import edges — a value-import added opposite an existing type-only import
+   creates a flagged cycle even though runtime is acyclic; cure by moving the shared type
+   to the dependency-free module (worked instance: `Disposition` → `schemas.ts`, PR #409).
+   (b) Rejected alternative on AIP-128: renaming `refuse-commit-on-main.sh` to match its
+   widened duty — rejected because the ticket says EXTEND and five hooks + docs source the
+   name; revisit only if a third duty lands on the script. (c) The single-seat-pipeline
+   judgement for the tranche (per-push gate cost ~4–6 min dominates S-sized tickets, so
+   serial-with-overlapped-shepherding beats parallel worktree seats) — session-scoped
+   sizing logic, re-derivable, recorded for the next seat's convenience not as doctrine.
+3. **Out-of-repo platform-plan surface checked** (mandatory step): the approved plan-mode
+   plan file exists under the user's platform plans directory; its repo-relevant substance
+   (queue order, dependency verdicts, gate list) is now homed in §COLD PICKUP + tickets +
+   this napkin; the file itself remains as machine-local convenience. Per-user memory
+   surface checked: exit-codes memory updated with the two new recurrences;
+   no-escape-hatches feedback memory added + indexed.
+4. **Worktree residue surfaced, not disposed** (file-deletion-is-exceptional): the OLD
+   `restatement-audit` worktree (branch fully merged, 35 behind) is now redundant; the
+   `aip-126` worktree stays live until PR #409 merges; the `aip-128` worktree is ready for
+   its executor. Disposal is owner/warden work, listed in the machine-local handoff
+   supplement.
+5. **Comms curation (mandatory)**: this session authored 3 events (session-open, PAUSE,
+   closeout-to-come) + 0 directed messages received; all substance is mirrored here or in
+   tracked homes. No open conversations or escalations existed at any point (verified at
+   open and at close).
+
+Metaloss (second pass, challenging the scan's selection): the scan's weakest class is
+craft-instances-without-new-doctrine (PR-shepherd habits, AskUserQuestion option design) —
+deliberately left as instances because each already has a doctrine home that this session
+merely re-instanced; the one genuinely NEW behavioural item (never offer bypass options in
+policy questions) is triple-homed (distilled, pending-graduations, per-user memory). A
+third pass would only restate the write-at-occurrence filter; recursion ends.
+
+## 2026-07-19 — Caracal wakes Tunnel (265648): AIP-137 design-system kit landing
+
+- **Broken rule pointer found**: `.claude/rules/never-switch-branch-on-primary-checkout.md`
+  reads "Read and follow `.agent/rules/never-switch-branch-on-primary-checkout.md`" but that
+  target does not exist in `.agent/rules/`. Route to curation: either the rule file was
+  removed without its `.claude/` mirror, or the mirror was authored ahead of the rule.
+- **Owner-directed exception recorded**: new branch work ON the primary checkout (owner's
+  explicit words this session: "Open a new branch for this work, stay on the primary
+  checkout"). Supersedes the worktree default for this lane; noted in the session-open comms
+  event and the plan header.
+- **Kit dtcg/README claim falsified by expert review**: its "flattened output lands on the
+  repo convention" claim is wrong against design-tokens-core's toCssVariable (would emit
+  --oak-oak-color-*). Lesson instance: verify vendor/export claims against the actual
+  consuming code, not the exporter's README (verify-dont-trust; the claim was written by the
+  exporting side, which never ran the consuming flattener).
+- **Cross-branch napkin discipline**: this buffer exists because the primary checkout now
+  moves between coordination/estate-2026-07 (napkin-current) and ticket branches cut from
+  origin/main (napkin-stale). Any tracked live-fleet surface edited on a main-cut branch will
+  line-merge against the coordination copy later. Buffer + append-on-coordination is the safe
+  path.
+- **Expert-fleet worked well at plan time**: four parallel specialist reviews (design-system,
+  react-component, architecture-fred, assumptions) on a self-contained brief each returned
+  sound-with-revisions with non-overlapping load-bearing cures (export-path re-rooting;
+  inline-head-script theme bootstrap; atomic Stage B; per-file licensing manifest). One
+  genuine conflict (react expert "use the 4 components as-is" vs fred "fence off export
+  surface") resolved cleanly: fence at the exports map = the enforcement the react expert's
+  fallback asked for.
+- Cricket pair NOT yet run this session at the cycle boundary — run cricket + cricket-haiku
+  paired at next boundary (owner mandate; tally toward the flip).
+
+- **Frame correction (owner, mid-session): integration, not vendoring.** My ADR-213 draft
+  carried a vendoring contract (local-edits-forbidden, do-not-edit headers,
+  refresh-as-wholesale-reimport) inherited from the architecture reviewers' options — fred's
+  finding even posed it as a binary (external-upstream OR repo-canonical-retire-external).
+  The owner's answer was NEITHER: one system, two first-class surfaces (repo home + Claude
+  Design studio seat), bidirectional incremental sync, git review as merge authority.
+  Lesson: when an exploration inherits its option set from a reviewer's framing, re-open the
+  frame before baking it into an ADR — the vocabulary ("vendor", "kit") smuggled the record-
+  access frame in. The concept-exploration skill's Movement 3 exists exactly for this and I
+  under-ran it on the custody question while over-running it on the already-decided
+  component question.
+- **Cricket A/B pair DIVERGED (v3-era data point for the tally)**: sonnet cricket ON-TRACK;
+  cricket-haiku WRONG-PRIORITY claiming workspace creation was displaced from NEXT — but the
+  supplied context explicitly named "PR2 (scaffold + licensing manifest + kit pull via
+  DesignSync)" in NEXT. The haiku's DISPLACEMENT evidence contradicted the supplied context
+  (a claims-within-items miss on its own PAIR-2 discipline). Tally update rides the next
+  pass; divergent-pair routing to a Director is n/a in this solo session — recorded here
+  instead.
+- **Lane state at this write**: PR #410 (PR1 doctrine batch) MERGED 2026-07-19T19:33Z
+  (`SHA:02486d3c9` on the PR branch; all 15 checks green; Sonar quality gate passed, 0 issues;
+  zero review threads; Codex + claude-review bots skipped on org spend limits — noted verbatim,
+  not escalated per standing doctrine). Coordination branch synced from main post-merge. Next:
+  PR2 (Stage A integration — scaffold + licensing manifest + initial import + design-sync
+  runbook + dtcg↔CSS consistency check) per the plan; ADR-213 ratification gate rides the
+  owner's review.
+
+## [Salmon binds Undertow de5c10] 2026-07-19T20:20:00Z — n=3 third seat: dispatch-template convergence + boundary selection
+
+- **Same-skill dispatch to three seats against a formed target, three independent
+  discharged-by-recognition verdicts.** `/oak-concept-exploration` went to Caracal (ran the
+  original exploration pre-ADR-213), Harrier, and me; the skill's routing-boundary clause
+  ("do not re-run on a formed decision") held under dispatch pressure in all three seats
+  without owner correction. Evidence the clause does real work; also evidence the owner's
+  dispatch templates outlive the phase they were written for — read the dispatch as intent
+  ("useful work in this lane"), not as a literal skill target.
+- **Third-seat boundary selection pattern**: with implementer (PR2) and TDD-prep (PR3) lanes
+  taken, the highest-value non-colliding seat was adversarial pre-verification of the
+  licence-sensitive 290-file import — the owner's PR2 review surface — plus an empirical
+  DTCG data sheet handed to the PR3 seat so its cycle 1 starts from tree reality, not the
+  plan's description. Read-only boundary = zero git contention with the primary-checkout
+  implementer by construction.
+
+## [Harrier rides Updraft 416a38] 2026-07-19 — AIP-137 PR3 lane: four in-flight observations
+
+- **An unfired plan falsifier marks a cycle as unknown-scope, not named-scope.** I read the
+  PR3 cycles as plan-named (fan-from-brief) and started implementing in parallel with the
+  pre-execution code-expert. Its data-grounded verdict refuted BOTH cycle premises (the four
+  theme trees are sparse overlays over light — 139/63/67/12 leaves, zero orphans — so key-set
+  equality would be a permanently red gate; the palette carries rgb-alpha literals my
+  hex-only grammar would wrongly reject). The plan's own falsifier had named the first risk
+  ("may need a declared-subset model") — an unfired falsifier is precisely the signal that
+  the reviewer's data pass should COMPLETE before implementation starts. My parallel
+  head-start became a full rework of both modules and test files.
+- **The lint law sometimes IS the design guidance** (complement to
+  configure-checks-not-blindly-obey): the boundary parser fought four successive rules
+  (`object` ban, `Record<string,unknown>` ban, `Object.keys` restriction, complexity caps)
+  — because the estate's sanctioned boundary mechanism is zod, and the rules encode that.
+  Switching to zod ^4.4.3 dissolved every error at once and shrank the module by 100 lines.
+  Read a *cluster* of rule collisions as steering, not obstruction.
+- **cricket vs cricket-haiku divergence (A/B data point):** on identical briefs, sonnet said
+  ON-TRACK, haiku said DRIFTING — its FAILs were "unverifiable from supplied context" for
+  facts I HAD verified first-hand (ADR-213 read in full, plan read in full, merge in git
+  log) but had summarised rather than evidenced in the brief. For the compiled-procedure
+  cricket, the brief must carry the evidence pointers themselves or first-hand-verified
+  claims read as gap-bridging. Its redirection (surface the untracked incoming file as an
+  explicit owner decision) was still useful — dissent ≠ noise.
+- **ARC simultaneous-open race** (Caracal and I opened pair channels ~22s apart): resolved
+  cleanly by first-broadcast-establishes-context; my unannounced file became a forwarding
+  stub per the ea9446f7 precedent. The protocol's cure worked as written.
+
+## [Salmon binds Undertow de5c10] 2026-07-19T21:26:00Z — F-125 recurrence (cwd drift), own hit
+
+A relative-path ARC append failed "no such file or directory" because an earlier probe
+command's `cd packages/design/oak-design-system` persisted across Bash calls. Fourth
+recorded instance of the class; cure applied: absolute paths on all coordination-surface
+writes for the rest of the session. The structural-cure case (location-independent
+invocations, never vigilance) strengthens.
+
+## [Salmon binds Undertow de5c10] 2026-07-19T21:58:00Z — owner correction: "step back and be sensible"
+
+Landed after the deliverables were consumed but the apparatus had grown heavy: a 3-agent
+fleet to verify a deterministic script, a mid-session formal adjudication of a cricket
+divergence, dense multi-section owner reports — in a session opened with "absolute minimum
+of comms ceremony". The generator: treating ultracode's licence for scale as a default
+rather than a ceiling, and running available quality patterns instead of asking what the
+goal needed next. Cure adopted: cheapest-sufficient-instrument first; redundancy only where
+stakes warrant; owner messages sized to the reader's next action. (Also saved to per-user
+memory: step-back-and-be-sensible.)
+
+## [Salmon binds Undertow de5c10] 2026-07-19T22:58:00Z — wrapped-exit false-green: MY recurrence despite the standing memory
+
+Ran gate commands as `cmd 2>&1 | tail -6; echo "EXIT:$?"` — the marker captured TAIL's
+exit, and a genuinely failing test suite reported EXIT:0. Caught only because I re-ran one
+new test file in isolation and it failed while "the suite" had passed. This is the exact
+class in `exit-codes-in-band-never-piped` and I reproduced it while believing the in-band
+echo was the cure — the echo must bind to the COMMAND's $?, so the pipe must go:
+`cmd > out 2>&1; echo "EXIT:$?"; tail out`. Fourth estate recurrence, first by this seat;
+the cure candidate is structural (a gate-runner helper that owns capture), not vigilance.
+
+## [Harrier rides Updraft 416a38] 2026-07-20 — compaction-boundary capture: the PR-treadmill and blocker mechanics
+
+- **Every Copilot round on #412 found a real defect (3/3 rounds)** — the last one
+  architecture-grade: value-shape classification for untyped colour leaves, because the
+  export declares `$type` heuristic (131/537 untyped) and a type-gated validator silently
+  passed the exact `color-mix()` state tokens it exists to reject. The exploration's seam
+  analysis predicted the class hours before review found the instance. Generator lesson:
+  when a data contract says a field is heuristic, no validator may gate on that field.
+- **Auto-merge races your own push**: #412 merged at 21:46:04Z within seconds of my
+  round-3 push; which commits made the merge is a one-command check
+  (`git merge-base --is-ancestor <sha> origin/main`) — run it before trusting that a
+  post-review push is on main. Mine won; the check is cheaper than the doubt.
+- **`gh pr merge --auto` is the sanctioned non-admin path** when branch policy holds a
+  green PR (the CLI's own error text offers it; `--admin` stays forbidden). Policy
+  evaluation lag (code-scanning/Copilot rules re-evaluating a fresh SHA) looks like
+  BLOCKED with zero failing checks — arm auto-merge and let it settle.
+- **gh token invalidation is an estate-wide blocker with a working remainder**: 401 on
+  all API calls for every seat sharing the host credential, but git-over-SSH and
+  armed server-side auto-merges keep flowing. Surface once on all channels (chat ask +
+  canonical event + desktop push), then keep working the SSH-reachable surface.
+- **Shared-credential review replies surface as the owner** — my "Cured in …" thread
+  replies rendered as jimCresswell and later read back as owner comments. Sign every
+  bot-visible reply "— <agent name> (agent, via shared credential)".
+- **Watcher drain-deaths ran ~hourly under this session's load** (three deaths: two
+  3600s-timeout backstops, one 120s drain wedge) — the rule's expect-deaths-die-cheap
+  stance held; re-arm + seen-file sweep recovered every gap with zero missed events.
+
+## 2026-07-20 — Caracal wakes Tunnel (265648): AIP-137 close-of-arc + compaction-boundary consolidation
+
+Arc outcome: PR #410 (ADR-213 doctrine) MERGED; PR #411 (the 288-file design-system
+integration, licensing manifest, exploration landing, four owner rulings) MERGED
+`dc16295bf` on the Director's merge word; Harrier's #412 (PR3 validation layer) MERGED;
+Salmon's #413 (hub consumes the design system) in flight. ADR-213 flip Proposed→Accepted
+is the queued next micro-PR (owner approved in-session; not yet flipped in the file).
+
+Lessons this session (beyond the 2026-07-19 entry above):
+
+- **Unanchored-exclude bit TWICE in one import**: rsync `--exclude 'README.md'` and
+  `--exclude 'support.js'` matched at every depth, silently dropping `dtcg/README.md` and
+  the template runtimes; separately root `.gitignore`'s `**/*.d.ts` swallowed four authored
+  declaration files out of the commit while they sat visibly on disk. Generalisation:
+  anchor exclude patterns by default; after any bulk import, diff the DESTINATION file list
+  against the source manifest (count + paths), never trust "rsync exited 0". Also the
+  verify-dont-trust instance: my disk `find` "refuted" Copilot's missing-.d.ts claim — the
+  files existed but were untracked; the reviewer was reading the PR tree, I was reading
+  disk. Check the same surface the claimant checked.
+- **Quality-gate exemptions made structural, not configural** (owner ruling, verbatim in
+  sonar-disposition-policy §2026-07-19 amendment): product code gets NO exclusions ever;
+  exemption is legitimate iff not-production AND organisationally separated as source
+  material. The cure was `studio-source/` — moving the boundary into the filesystem so
+  every tool's config collapses to one path and the movement rule is enforceable. Pattern:
+  when a scope argument recurs across tools (sonar/knip/depcruise/CodeQL), the boundary
+  belongs in the tree, not in four configs.
+- **Classifier blocks landed exactly on owner-boundaries, twice** (bulk security-alert
+  dismissal; PR merge). Both times the block was CORRECT (the act was owner-authorisation
+  shaped); the cure both times was surfacing as a card / getting the grant — and once the
+  authorisation existed, the first-class MCP tool route (with its own approval surface) was
+  the legitimate path. Do not read classifier blocks as obstacles; read them as boundary
+  detectors.
+- **Cards must be self-contained** (owner, twice now): the decision card renders apart from
+  prose — all context inside the question text. And owner decisions card IMMEDIATELY,
+  always — "waiting for your review" in prose is a buried decision.
+- **n=3→Director team shape worked**: disjoint boundaries via ARC carve-outs held all
+  session (zero collisions); Salmon's independent verification caught real import gaps
+  (F1/F3) my own checks missed and empirically grounded the AAA ruling (HC passes AAA 26/26
+  today); the Director's merge word closed the loop without owner-per-PR involvement.
+- **Studio sync-back list** (~16 items: styles.css comment self-termination — likely the
+  studio's KNOWN-ISSUES #1 root cause; motion-cascade authority vs data-motion=full;
+  oakTheme.get() effective-default; OakButton complexity 43; beforeInteractive corrections;
+  Base UI pin-note misattribution; LICENCES social-mark rows; specimen upgrades;
+  type-headings accuracy; formatting pass) lives in the Salmon ARC channel
+  (rapid-comms/2026-07-19-aip137-pr2-verification-…) — the next design session's opening
+  read.
+
+## 2026-07-20 — wrapped-exit recurrence #5 (Salmon binds Undertow, de5c10)
+
+- Ran `pnpm … assert-watcher-live … 2>&1 | tail -3; echo "ASSERT_EXIT:$?"` — captured
+  tail's 0 while the tool exited 2 (in-band `Exit status 2` visible in the same output).
+  Fifth estate recurrence of exit-codes-in-band-never-piped; the cure applied on re-run
+  (`cmd > out 2>&1; echo EXIT:$?; tail out`) reported the true 2, which then localised a
+  real arg-shape error (`--seen-file` is not an assert option; it takes
+  `--platform/--model` + `--comms-seen-dir`). Pattern note: the false-green recurs
+  specifically in *small ceremony commands* where I skip the discipline I hold for gated
+  chains — the rule has no size threshold.
+
+## 2026-07-20 ~07:50Z — session-close loss-scan (Salmon binds Undertow, de5c10, hub lane)
+
+Post-compaction deltas that live only in this context and reach no other durable
+surface. Captured under staging hold (primary commits held for the Director's switch);
+these ride the authorised 7-path sweep. Consumer-routed items also appear in the
+design-system-integration thread record.
+
+- **#413 up-to-date treadmill does NOT converge on a busy main (4× BEHIND, ~50 min).**
+  Cause: my CI cycle (~5–8 min) is longer than the inter-merge interval while the
+  Director drives micro-PRs + release bumps onto main. Each BEHIND traced first-hand to a
+  main advance during my CI run: (1) 1.75.0, (2) #409 + 1.75.1, (3) #418 + 1.75.2, (4) a
+  further advance. Auto-merge stays armed but CANNOT self-update under "require branches
+  up to date", so it stalls at BEHIND every cycle — it never merges on its own here. Head
+  SHA progression across update-branch passes: 93aaab256 → … → 536c2d7d2. **Cure is
+  coordination, not more update-branch**: routed to Director (comms f9b7f2fc) with
+  quiet-window / merge-queue / prioritise options. The one mechanical action that lands it:
+  a SINGLE `gh pr update-branch 413` that survives one CI cycle in a ~10-min quiet window;
+  auto-merge finishes. Worked instance of ship-independent-coordinate-dependent: I stopped
+  racing at the 4th loss and handed the sequencing to the coordinator.
+- **Monitor coverage: an auto-merge BEHIND stall is silent unless watched for.** My first
+  #413 watch emitted only MERGED/CLOSED/failed-checks/DIRTY — it missed the BEHIND stall
+  entirely (auto-merge-armed-but-not-updating looks identical to "still waiting"). Added
+  `BEHIND` to the exit alternation. Same class as silence-is-not-success: the watch must
+  emit on every state that means "stuck", not only failure and success.
+- **Comms watcher drain-timeout: 120s default has been structurally outgrown (2 deaths in
+  15 min).** Re-arm 5 at the 120s default died again on `step "drain" exceeded 120000ms`;
+  re-arm 6 raised `--step-timeout-ms` to 300000 and held. The re-arm-4 task also exited 124
+  (zombie GNU-timeout). This is fresh load-bearing evidence for the comms-watch-storage-
+  redesign plan: comms volume in an active n≥3 window now exceeds the drain deadline at the
+  default — the fix is storage/drain redesign, not endless deadline-bumping. → route to
+  that plan.
+- **Switch-refusal is predictable by blob comparison (reusable technique).** Verified the
+  owner's `git switch coordination/estate-2026-07` on the primary WILL be refused, on 7
+  paths, before it was attempted: 3 modified-tracked files whose HEAD blob ≠ the target
+  branch's blob (napkin, cricket-ab-tally-2026-07-16, aip-137-stage-a-import-verification)
+  - 4 untracked-locally-but-tracked-on-target ARC channel files. director-handoff.md is
+  dirty but blob-identical across branches → carries clean, NOT a blocker. Method:
+  `git rev-parse HEAD:$f` vs `git rev-parse origin/<target>:$f` for modified files;
+  `git cat-file -e origin/<target>:$f` for untracked files. Routed to Director (comms
+  f9b2cba5) with a sweep-commit-to-fresh-ref cure (standard git, zero risk-of-loss).
+- **Cricket A/B PAIR-6 = first CONVERGENCE since the divergences, and it came WITH the
+  source-quoting frame cure.** Both crickets returned ON-TRACK on a frame that quoted every
+  gate's source (owner-grant verbatim, branch-protection mechanics, rule names) per
+  Caracal's dispatch-hygiene cure. This is evidence FOR the hypothesis that the earlier
+  haiku DRIFTING verdicts were supplied-frame incompleteness, not real drift — a
+  source-cited frame removes the haiku's gap-bridging refusal. The tally append to
+  cricket-ab-tally-2026-07-16.md is HELD (that file is a switch-blocker; appending grows
+  the blocking set) — pending switch-settled, then append PAIR-6 as the convergence datum.
+- **§6 decomposition (successor-facing).** Recon: 30 of ~34 hub component files carry
+  hand-rolled shapes; only 4 adopt kit classes (SiteFooter, SiteNav, ThemeSwitcher,
+  CourseSidebar). §6 is therefore 3 small PRs, not 1: (1) controls .oak-input/.oak-select/
+  .oak-btn — HubSearch is the exemplar defect (hard `bg-white` stays white in dark/HC;
+  `outline-none` on the inner input suppresses the kit focus ring; both cured by .oak-input);
+  (2) cards/chips/tags (ResultCards, StandardCard, Destinations); (3) pedagogy blocks (quiz,
+  accordion, callout→banner, teacher-tip). Task #10 tracks slice 1. Full detail → thread record.
+- **Cross-lane resolutions of MY open residuals (verified from comms, first-hand):**
+  Caracal's #420 (kit Roboto Mono localisation, merge-armed, tip 4a2f7ac05) makes the hub's
+  inherited Google Fonts `@import` die kit-side — NO hub action needed — and closes my
+  Stage-A F3 residual (LICENCES.md §Fonts gains the Roboto Mono row; licence corrected to
+  SIL OFL 1.1). The owner ratified the four-theme contrast gate as AAA-for-HC / AA-floor-
+  elsewhere (Director broadcast 06:24Z) — this fixes the §7 audit-in-CI expected-output
+  design; my Stage-A report Part 2 is the fixture.
+
+## [Flame calls Basalt f82a2f] 2026-07-20 — Director session close: AIP-137 all-PRs-to-merge drive + design-system integration
+
+Director seat, owner-named ("make sure everyone is doing useful work, properly integrating
+the design system, and driving all (all) PRs to merge"; standing word to me: coordination
+and continuity only, minimum ceremony). Deliberate owner-initiated seat handoff (NOT
+budget-triggered); successor named **Galago stirs Grotto (60d988)**. Live implementers
+Caracal wakes Tunnel (265648) and Salmon binds Undertow (de5c10) retired at the same close.
+
+### Drive outcome (all SHAs verified in origin/main first-hand at close)
+
+- MERGED: #411 design-system Stage A + licensing manifest (`dc16295bf`), #412 PR3 validation
+  layer (`6631bb5ac`), #409 AIP-126 restatement-audit hardening (`da643fcd9`), #417 ADR-213
+  Proposed→Accepted + plan truing, #418 dependabot TS-major ignore. (#410 landed pre-session.)
+- Drafts dispositioned: #397 CLOSED (5 generated S1 files byte-identical to main's pinned
+  SHA-256 table, gitignored by design), #399 CLOSED (both files conserved, main strictly
+  ahead — stale-capture class), #403 CLOSED + archive-tagged `archive/claude-hook-hardening`
+  on origin (owner-ruled; preservation snapshot of a disabled prototype, Sonar-fail-on-new-
+  code so cure-would-rewrite-the-artefact). #406 unique facts extracted to main via #419;
+  #406 close is a successor tail (pending #419 merge). #401 stays HELD (integration-pass gated).
+- Tail draining under armed auto-merge in a quiet window: #413 #414(now CONFLICTING) #415
+  #419 #420 #421 #422. Serialise them — see the treadmill lesson below.
+
+### Grounded delegate-agent knowledge (MOST loss-prone — sub-agent contexts are gone)
+
+- **#416 root cause (diagnosis agent):** the dependabot 39-dep group bump failed ALL FOUR
+  checks from ONE cause — the `typescript 6.0.3 → 7.0.2` major. TS7 added an `exports` map
+  that omits `./bin/tsc`; `agent-tools/src/bootstrap/bootstrap.ts` resolves
+  `typescript/bin/tsc` via `createRequire(...).resolve(...)` at postinstall → `ERR_PACKAGE_
+  PATH_NOT_EXPORTED` → `pnpm install` dies before any other work (secret-scan/install/
+  run-quality-gates/Vercel all downstream of that single install death). Re-runs are
+  pointless (deterministic). Cured: #418 dependabot semver-major ignore for typescript +
+  `@dependabot recreate` (→ #421). **TS7 ADOPTION IS DELIBERATE SEPARATE FUTURE WORK**:
+  bootstrap.ts's resolve must become exports-map-safe (resolve `typescript/package.json`,
+  read `bin`, join — or shell `node_modules/.bin/tsc`), plus audit other raw `typescript/…`
+  subpath requires monorepo-wide, plus vet the eslint-plugin-unicorn 70→72 major separately.
+- **#409 thread-2 disposition (implementer agent):** the Codex reviewer's "checkpoint flags
+  resolve against caller cwd" fix was REFUTED with a verified failure scenario — pnpm pins
+  `process.cwd()` to the agent-tools workspace wherever the operator stands, so cwd-relative
+  resolution makes the real committed checkpoint paths unreachable; repo-root base is the
+  deliberate estate-wide convention of every `flag-path-resolve.ts` consumer. The genuine
+  defect was a doc contradiction, trued. (Pattern: dispositions need verified failure
+  scenarios, not "another layer compensates".)
+- **AIP-131 adjudication hazards (adjudicator agent, now in the PR close comments = durable):**
+  #403 merge would SILENTLY delete main's live `[[hooks.SessionStart]]` Codex identity block
+  from `.codex/config.toml` (auto-merge, no conflict); #406 retargeted-to-main merges clean
+  but plants a DUPLICATE thread record at `threads/` beside main's `threads/paused/` copy;
+  #399/#406 both carry the stale-capture-wins silent-revert risk. All avoided by close/extract.
+
+### THE TREADMILL LESSON (reusable; also → per-user memory)
+
+"Require branches up to date" + a CI cycle LONGER than the inter-merge interval on a busy
+main = a naive `gh pr update-branch` treadmill that BURNS CI without converging: each update
+triggers ~6-8 min CI, and a merge+release-bump advances main DURING that window, so the PR
+goes BEHIND again the moment it goes green. Salmon hit it 3× on #413, Caracal on #420.
+Cures, in order: (1) **serialise** — update-branch only the NEXT PR after each merge, never
+all in parallel; (2) declare a **quiet window** (stop dispatching main-moving PRs) so the
+tail drains; (3) a **merge queue** ends it for the whole drive if the repo enables one.
+The anti-pattern is N PRs each auto-armed + each self-update-branching = N-way race none wins.
+
+### Team-member loss-scans folded in (closeout-owner synthesis)
+
+- **Caracal L1 (highest value; per-user memory `verify-obligations-not-just-presence`):**
+  presence/consistency verification is BLIND to omission defects. #420's two review rounds
+  (Lexend-only "delete fonts/" instructions never mention Roboto; OFL condition-2 requires
+  the licence TEXT to ship — a "recorded consistently" presence-check can't see a missing
+  obligation) BOTH passed a grep sweep AND a code-expert SOUND verdict. Cure: check
+  sibling-removal instructions + the asset's own contract obligations, not just internal
+  consistency. **Pattern candidate: verification-method-blind-to-omission.**
+- **Caracal L3 / cricket dispatch-hygiene:** cricket frames must carry a critical-path-owner
+  line + cite the SOURCE (rule name / plan todo / directive) for every gate and infra action,
+  so cricket-haiku's strict-literal necessity test has the citations it runs on. Corroborated
+  by Salmon's convergence pair on a source-quoted frame.
+- **Salmon verified deliverables (in `.agent/reports/design/aip-137-stage-a-import-
+  verification-2026-07-19.md`, riding #411):** all 537 dtcg tokens value-consistent with the
+  canonical CSS; four-theme contrast baseline (34 pairs AA-pass ×4 themes, HC AAA 26/26
+  today) → the owner's ratified gate shape (AAA-for-HC / AA-floor-elsewhere). F1-F8 cure set
+  absorbed. The four semantic theme trees are sparse OVERLAYS over light (139/63/67/12), not
+  equal key-sets — the plan's completeness falsifier fired; validators use overlay-coverage.
+
+### Studio sync-back list (future studio session; ~16+ items, full text in comms b184210d)
+
+OakButton.jsx cognitive complexity 43 + 6 nested ternaries; styles.css comment-self-
+termination fix; DECISIONS emphasis mangle; two fence languages; repo formatting pass;
+beforeInteractive→inline-head-script for consuming-nextjs.md; motion-cascade authority;
+brand.css motion-token override guidance; oakTheme.get() effective-default modelling;
+type-headings specimen accuracy; LICENCES social-mark rows; + from #420: roboto-mono swap
+studio-side, Apache→OFL licence correction, OFL condition-2 (ship both faces' OFL texts incl.
+Lexend gap), true-300 changelog note, the Lexend-only docs deletion-instruction fix.
+
+### Standing owner rulings this session (provenance for the successor)
+
+Agents hold merge permission for the whole drive (--merge, never squash/--admin);
+seat-closes-with-evidence for conserved drafts (branches retained); #401 HELD; contrast gate
+= AAA-for-HC / AA-floor-elsewhere; primary-checkout return to coordination/estate-2026-07
+ruled "run now" (owner-run switch, blocked by 7 dirty paths → Salmon's authorised sweep to
+ref collab-sweep-2026-07-20 clears it); **owner decisions AND owner-run ACTIONS surface as
+immediate cards, always — "non-blocking" never downgrades a card to prose** (I under-applied
+this on the primary-switch item as prose and was corrected; per-user memory updated).
+
+### My loss-scan (6e.2 — from inside the Director context; what fits none of the above)
+
+The drive was run almost entirely from the watch: 3 live implementer seats + 5 dispatched
+Director-delegate sub-agents (diagnosis, #409, adjudication, #406-extraction, two-micro-PR).
+The delegate model worked — the Director's value was routing verdicts + owner-carding, not
+executing. The one process friction worth conserving: **two Director-delegate agents returned
+BEFORE their auto-merge/monitor tails completed** (#419→#406 close; #417/#422 landing), so a
+seat handoff must treat "agent completed" as "agent's synchronous work done", NOT "the PR
+landed" — the armed-auto-merge tails become successor tasks. Nothing else in my context is
+absent from the durable homes above + the current-state record + the PR trails.
+
+## Harrier rides Updraft (416a38) — AIP-137 PR3 cycle-3 session close 2026-07-20
+
+Landed: PR3 cycle 3 (four-theme design-system contrast gate) — 5 commits on
+`jimcresswell/aip-137-pr3-cycle3-four-theme-gate`, tip `bb274cc2e`, pushed, **PR #423** open
+(auto-merge deliberately NOT armed — unreviewed). Live gate passes 34/34 pairs × 4 themes
+(HC at AAA, rest AA). Full handoff record:
+`.agent/state/collaboration/handoffs/2026-07-20-harrier-aip137-pr3-cycle3-full-handoff.md`.
+
+### Surprise (finish-line fluency, caught not shipped)
+
+Three finish-line moves this session confirmed the metacognition §"fluency clusters at the
+finish line" pattern — all caught by a guard, none shipped: (1) I asserted the risen
+`no-throw-statement` warning count was "baseline-consistent" a touch too fluently — grounded
+it instead (the eslint config sets that rule to WARN precisely for build scripts; build.ts's
+header documents it) and surfaced it in the PR body for a reviewer's explicit call rather
+than asserting silently; (2) a prettier pre-commit failure was correctly read as a trivial
+gap (--write, re-commit), NOT descended into; (3) a `max-lines` error from an if-chain
+expansion was cured by extracting `design-system-gate-error.ts`, not by loosening the rule.
+The pattern held: the felt urge to wrap was itself the tripwire.
+
+### Grounded execution knowledge (consumer: the cycle-3 reviewer + Stage-B owner)
+
+- **Naive per-theme composition breaks colour-safe specifically.** My first data run
+  (resolver-data-check.mjs) showed colour-safe with 2 dangling refs (`band.bg`→
+  `surface.decorative-1`, `card.bg`→`bg.primary`) under NAIVE per-theme composition — those
+  targets live in the light BASE, not the sparse overlay. Correct composition is
+  palette ∪ (light-base ⊕ overlay); under it all four themes have 0 dangling. A successor
+  debugging a spurious unresolvable in the gate should check the composition order first.
+- **The comparand count (161) is one constant for all four themes** and that is an
+  INVARIANT, not a coincidence: overlay-coverage orphan-detection forbids overlays adding
+  candidates (they may only override), so candidate count (169) and comparand (161) are
+  identical across themes. Pinned in `design-system-expectations.ts`; validated by the live
+  green build, not just the offline script.
+- **mergeTokenTrees is duplicated** (`build-css.ts` + `terminal-theme.ts`, shallow
+  top-level spread doing a disjoint-union) — a second consumer of one merge concept.
+  consolidate-at-second-consumer applies at Stage B (do NOT touch the hand-authored path
+  pre-Stage-B); `composeThemeTree` is the correct recursive form for overlays. A Stage-B item.
+
+### Loss-scan (6e.2, from inside my own context — what fits none of 6a–6d)
+
+Almost everything I hold is homed: code in the 5 commits + PR #423; the exact deferred-item
+specs (boundary.ts roster edit, duplicate-test adjudication, consistency validator) + the
+three specialist verdicts' actionable residue + the #414 re-conflict recipe are all in the
+full handoff record; the ADR §2 amendment + plan trues are committed; the finish-line and
+grounded-knowledge items are above. The one PATTERN worth distilling that fits no categorical
+edge: **the plan file is a serialization chokepoint** — #414 conflicted on it, I resolved +
+pushed clean (`622acc3a4`), and it RE-conflicted within minutes because another plan-editing
+PR (#422, plan-collection index) landed. Multiple concurrent PRs each editing
+`design-system-integration.plan.md` will keep re-conflicting pairwise; the structural cure is
+Director-side serialization of plan-file PRs (or splitting the plan so lanes edit disjoint
+files), not repeated manual re-merges. Nothing else in my context is absent from the durable
+homes named above.
+
+### Deep recursive loss-scan — one additional catch (docs follow-up)
+
+The deep pass over rejected alternatives, decisions, and the three specialist verdicts' fine
+detail found everything homed EXCEPT one low-value-but-real item architecture-expert-fred
+flagged for docs-adr-expert: **ADR-041 carries two docs-truth divergences** — (1) its bullet
+"consumed as a devDependency … by `oak-design-tokens`" misstates the EXISTING
+`design-tokens-core` edge (which is a runtime `dependency` because `dist/terminal-theme.js`
+imports it), and (2) its design matrix row (~line 62) permits foundation libs while
+`createDesignBoundaryRules` forbids ALL libs to design workspaces. Neither blocks the cycle-3
+PR; both are docs-adr-expert follow-ups. (The type-expert's "compile-green tree swap can
+silently rename emitted CSS variables" Stage-B hazard is homed — it is exactly what the
+consistency-check validator, task #5, exists to guard: the `oak.color.x`→`--oak-x` naming
+transform.)
+
+## [Galago stirs Grotto 60d988] 2026-07-20 ~09:00Z — Director tenure: the moment-read slot grant, caught by defence-in-depth
+
+- **My instance of the moment-vs-state class** (the pr-lifecycle skill calls it ~50th
+  estate instance; first as a routing-layer error): granted #423's merge slot at 08:52:00Z
+  on a first-hand CLEAN + 0-threads + checks-green read — a MOMENT — where the skill's
+  review-round state machine demands a SETTLED ROUND (every reviewer leg satisfied/skipped
+  for the tip + >10-min quiet window since the latest tip-bound review). Copilot wave 3
+  landed at 08:52:21Z, 21 seconds after the grant, 3 threads on the same tip. The
+  executing seat's merge-boundary recompute (Moth) caught it — the two-layer gate held
+  exactly as designed. Rescind + failure-mode capture on comms; round converging 7→3.
+- **Routing-layer cure adopted drive-wide**: a merge slot is granted only on
+  settled-round evidence — zero threads AND zero body-tally findings on the tip, every
+  expected reviewer leg satisfied/skipped, >10 min since the latest tip-bound review,
+  checks green — and the executing seat still recomputes at the merge boundary. READY
+  reports carry the latest tip-bound review timestamp so the quiet window is checkable.
+  The generator: GitHub's composite fields are cheap and look authoritative, so every
+  layer (shepherd, Director) reaches for the moment; the cure must exist at EVERY layer
+  that makes a merge-shaped call, not just the shepherd's.
+- **Note for the merge-queue card at drive close**: a GitHub merge queue subsumes the
+  up-to-date treadmill but NOT the composing-round race — the queue enforces GitHub's own
+  conjunction, which excludes the round-owed leg. The card should say both.
+
+## [Galago stirs Grotto 60d988] 2026-07-20 ~09:02Z — CORRECTION to the entry above (Moth's record correction, comms 09:00:53Z)
+
+The mechanism claim in my previous entry is WRONG and Moth corrected it for the permanent
+record: their merge-boundary recompute did NOT catch the race — they fired the merge on my
+grant at ~08:53Z and the harness auto-mode classifier DENIED it (transient-classified);
+wave 3 became visible seconds later. No merge occurred, but by classifier accident, not by
+either gate. The true shape is a TWO-layer failure — my grant on a moment-read AND the
+executing seat merging on the grant without its own recompute — stopped by an unrelated
+third mechanism. Sharpened lesson: a Director's grant is read downstream as
+authorisation-to-act-now; the settled-round predicate must therefore bind the GRANT (as now
+adopted), because "the executing seat will recompute" is hope, not a gate, under grant
+momentum. Credit: the correction is Moth's own honesty against my generous mis-record —
+exactly the records-are-technical discipline working.
+
+## [Galago stirs Grotto 60d988] 2026-07-20 ~12:32Z — Director tenure closing batch (wrap; Forge succession)
+
+- **Diagnosis retro (the #420 merge-wall)**: three evidence-handling errors in one
+  diagnosis — a jq-filtered rules read that discarded the answer-bearing rule list, two
+  abbreviated-SHA deployment queries whose empty artefacts were treated as evidence, and
+  serial named-class pattern-matching (policy-lag, never-fires) from the doctrine corpus.
+  The generator is the drive's own closure-over-an-open-set applied to diagnosis: the
+  named-failure-class list treated as closed. Cure: on any composite/component
+  disagreement, read the ENTIRE governing surface unfiltered FIRST; and the cheapest
+  instrument may be human eyes on the vendor UI (the owner's merge-box read named Code
+  Quality in seconds after ~20 min of API spelunking).
+- **Release-bump race**: semantic-release lands its bump ~4–5 min after each merge; an
+  update-branch granted before the bump lands gets re-BEHINDed mid-CI (bit #420 once).
+  Queue discipline: wait for the release commit before the next currency update.
+- **Fold pointers for the next dedicated consolidation** (conserve-by-pointer, sources
+  authoritative): Moth's lane lessons →
+  `handoffs/2026-07-20-moth-aip137-cycle3-lane-full-handoff.md`; Zenith's Layer 3 (six
+  distilled rules incl. the audit-scope refinement, `.claims` registry key, --body-file
+  always, .next rebuild after main-folds, body-only-review watch hole, shared-credential
+  signatures) → `handoffs/2026-07-20-zenith-aip137-hub-lane-full-handoff.md`; the
+  drive-generator graduation candidate (six firings incl. the diagnosis costume) → the
+  Director current-state record §Open items; the step-back count-arm singleton-noise
+  refinement → this napkin 10:04Z + the #426 non-terminal ruling events.
+
+## 2026-07-20 ~14:45Z (Foehn rides Flight, 3e9afa) — Heron Layer-3 fold + own-session captures
+
+- **Heron's Layer-3 distillations folded** (source authoritative:
+  `handoffs/2026-07-20-heron-aip137-design-system-lane-full-handoff.md` §Layer 3):
+  heartbeats-during-suspension false-liveness class (capture 65c1b504; ping+bounded-default
+  is THE detection); the counting/closure generator family (closed counts → class-sets →
+  pinned argv are ONE generator; cure = value-shape dispositions with dated exemplars of an
+  open set); cricket A/B divergence tracks frame-citation gaps; tooling notes (`comms
+  direct` prints no event_id; concept gate blocks exception-shaped vocabulary;
+  `check-commit-message -F`; husky rejects over-length subjects — read the exit trail; `gh
+  pr checks | tail` hides rows); the settled-round predicate (Director-adopted, slots bind
+  GRANTS).
+- **Monitor inherits the Bash tool's persistent cwd** (own instance, ~14:14Z): a comms-watch
+  re-arm launched while the shell sat in a scratchpad clone ran `pnpm agent-tools:…` THERE —
+  pnpm's verify-deps auto-install churned the (disposable) clone and the "watcher" watched
+  nothing. Cure now in use: every Monitor arm starts with an explicit `cd <repo-root> ||
+  exit 1`. Candidate for the watcher rule's invocation block at next curation.
+- **A grep filter can hide a send failure** (own instance, ~13:05Z): piping `comms send`
+  through `grep -o '"event_id"…'` returned empty on a FAILED send (missing body-file) and the
+  first READY never landed; caught only by an inbox verification read. Standing cure applied:
+  exit codes in-band (`SEND_EXIT:$?`) + verify the event landed — the
+  exit-codes-in-band-never-piped rule generalises beyond push commands to every
+  streamed-side-effect CLI.

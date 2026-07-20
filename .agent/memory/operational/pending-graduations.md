@@ -139,3 +139,34 @@ new records-are-technical-not-emotional rule respectively — both homes verifie
   compact attestation (hashes, counts, calibration disclosures, exact regeneration +
   verification contract) with bulk artefacts local/ignored. Twice-run byte-identity is the
   reproducibility bar. Prevents re-litigating the 49MB question at S2/S3/S4.
+
+## 2026-07-17 — cut-branch roll-up practice + capture-branch verification pattern
+
+- **captured-date**: 2026-07-17
+- **source-surface**: napkin 2026-07-17 (Foundry guards Vapor entries); stray-code
+  register final state; PR #405 (109-thread treadmill) vs PR #408 (5-thread cut-branch)
+- **graduation-target**: (a) amend `no-parallel-long-lived-branches.md` — estate roll-up
+  PRs are cut as short-lived branches from the coordination tip, never opened from the
+  rolling branch itself (the merged-PR review-treadmill cure), folding in the routed
+  PDR-127-alignment and portability questions from the same rule; (b) a
+  verification-methods pattern: substance-probes over diffs + stale-capture-wins
+  marker check + paginate-past-first:100 (three seat-independent instances).
+- **trigger-condition**: the next dedicated consolidation pass (already DUE per §0a),
+  or the next touch of the rule for any reason.
+- **status**: pending
+
+## 2026-07-18 — enforcement mechanisms carry no escape hatches
+
+- **captured-date**: 2026-07-18
+- **source-surface**: owner ruling in-session 2026-07-17 (AIP-128 policy card; verbatim in
+  napkin 2026-07-17 Petrel entries and distilled.md 2026-07-18); recorded for the executor
+  as a Linear comment on AIP-128
+- **graduation-target**: principles.md §Strict, everywhere, all the time (worked-instance
+  clause: enforcement mechanisms ship without bypass surfaces; urgency never licenses
+  degraded practice) — route via new-rule-vs-pdr-clause at graduation time; coheres with
+  the 2026-07-15 "no-risk-of-loss absoluteness" item above (the two may graduate together
+  as one absoluteness doctrine)
+- **trigger-condition**: the next dedicated consolidation pass (already DUE per
+  repo-continuity §0a), or the AIP-128 implementation landing (whichever first — the
+  implementation must embody the ruling regardless)
+- **status**: pending

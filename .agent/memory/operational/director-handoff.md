@@ -262,7 +262,49 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> ### ▶ ACTIVE EFFORT: RESTATEMENT REMEDIATION (the settling gate for PLAN-CORPUS REFOUNDING) — Director: Mussel rides Coral (seat held since Moment-2 2026-07-15T14:26:36Z)
+> ### ▶ ACTIVE EFFORT: ALL-PRS-TO-MERGE DRIVE + DESIGN-SYSTEM INTEGRATION (AIP-137) — Director: Flame calls Basalt (seat owner-named 2026-07-19)
+>
+> **SESSION SHAPE (2026-07-20, refreshed ~12:33Z):** Director **Galago stirs Grotto
+> (`60d988`)**, claim `7d6b8bbf` (adopted in place at Moment-2 08:01:08Z, event
+> `35361e82`; Flame calls Basalt retired 08:02:24Z), coordination/continuity surfaces
+> only. Second-generation team after the owner's wrap directive rotated the whole
+> original cast: **Heron seeks Bluff (`ef3eb0`)** design-system lane (claim `8df9fbc0`;
+> kit-robustness batch queued; standby successor Foehn rides Flight `3e9afa`),
+> **Herring herds Channel (`9d81e5`)** ARC-colour statusline lane (claim `57d895cb`;
+> outside the AIP-137 drive), **Goshawk tracks Spire (`baafd8`)** cycle-3 lane (claim
+> `e52ee925` adopted from Moth), **Eagle herds Cirrus (`055d36`)** hub lane (claim
+> `3dbdc579` adopted from Zenith). Owner standing word unchanged: merge grant
+> whole-drive (merge commit, never squash/--admin); #401 HELD; owner decisions and
+> owner-run actions ALWAYS as immediate cards. Drive additions this tenure: the
+> settled-round slot predicate binds every grant; auto-merge arming struck; doctrine
+> slots one-writer-per-round; GitHub Code Quality re-enabled (fresh post-enable head
+> required — each PR's currency update-branch is the trigger). Guiding plan unchanged:
+> `.agent/plans/architecture-and-infrastructure/current/design-system-integration.plan.md`.
+> Everything faster than a handoff lives ONLY in the record this claim's
+> `handoff_record_path` names →
+> `.agent/state/collaboration/handoffs/2026-07-20-galago-director-full-handoff.md`
+> (untracked-by-design — read from the primary checkout's filesystem; it carries the
+> full Resonance-wrap layers incl. the live queue, promises sweep, and loss scan).
+>
+> **SEAT HANDOFF IN PROGRESS (2026-07-20T~12:33Z):** owner-initiated deliberate
+> succession (NOT budget-triggered). Incoming Director **Forge rides Brimstone
+> (`398e24`)**, owner-named, registered on standby 12:29:48Z (watcher armed; no
+> claim/heartbeat until Moment-2), already grounded on this brief and the current-state
+> record. Galago issues PDR-064 **Moment-1 pre-positioning**; authority stays with
+> Galago until Forge broadcasts **Moment-2** (after the readiness gate below + a pasted
+> mechanical UTC liveness check), then adopts claim `7d6b8bbf` in place and arms the
+> dual heartbeat. Galago's watcher/monitors stand down only AT Moment-2 (never dark
+> between the moments). If Forge's Moment-2 does not land, coordination authority
+> returns to the **owner**; the role context rides Galago's Moment-1 event + this
+> block + the wrap record above. Merged this drive by 12:33Z: #410 #411 #412 #409
+> #417 #418 #422 (pre-tenure) + **#423 #427 #424** (this tenure); #421/#430
+> dependabot-closed (owner does dependency updates manually). Live queue at the freeze:
+> #420 (Director cycle, settlement running), then #426 → #428 (Herring READY/queued),
+> then #414/#429 (Goshawk dual-READY), #413 (Eagle recompute, outcomes owner-pre-ruled),
+> #415/#419 (Director-executed slots — transfer to the sitting Director), #406 closes
+> after #419; #401 HELD.
+>
+> ### ⏸ PAUSED EFFORT (resumes at its cures-landed + freeze-recut-check gate): RESTATEMENT REMEDIATION (the settling gate for PLAN-CORPUS REFOUNDING) — last Director: Mussel rides Coral (seat held from Moment-2 2026-07-15T14:26:36Z to session close 2026-07-16; claim archived)
 >
 > **SESSION SHAPE (2026-07-16):** COMPOUND PAIR (owner-directed 2026-07-16) — Director
 > **Mussel rides Coral (`6f8857`)**, claim `0f4be777` (held continuously across tenures:

@@ -22,6 +22,7 @@ code, data, evidence, observations, insights — preserved in the PR, because th
 
 | platform | model | session_id_prefix | agent_name | role | first_session | last_session |
 | --- | --- | --- | --- | --- | --- | --- |
+| claude | claude-fable-5 | 72fa18 | Foundry guards Vapor | AIP-131 adjudicator — PR #401 gated-hold ruled; branch-only knowledge conserved to the estate; record moved to paused/ with lifecycle index row; landing target retargeted #319→#401 | 2026-07-17 | 2026-07-17 |
 | claude-code | claude-fable-5 | 88e2ae | Fern spins Taproot | implementer (solo, n=1) | 2026-07-07 | 2026-07-07 |
 
 (One comms event, `299c286e`, was mis-titled "Zenith tracks Vacuum" — an env-seed slip;

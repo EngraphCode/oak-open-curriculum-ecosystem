@@ -3298,3 +3298,62 @@ commit SHA and the closing plan reference.
   schema; `never-use-git-to-remove-work.md` §Block-Is-a-Question gains the valve's usage note.
 - **Status**: open.
 - **Owner direction status**: standing (record-all-frictions).
+
+### F-146 — `comms watch` has no heartbeat-exclusion flag, so awareness seats absorb the heartbeat firehose
+
+- **Source**: Galago stirs Grotto (`60d988`), 2026-07-20 Director tenure, first-hand.
+- **Observed**: a 3-implementer team at the PDR-078 ≤4-min cadence generates ~45 heartbeat
+  events/hour; the all-channels watcher (correctly, per `comms-all-channels-watcher.md` —
+  self-exclusion only, triage in reasoning) delivers every one as a wake to the Director
+  seat, each costing a no-op turn against the tenure the seat exists to maximise. The
+  director-handoff brief's standing lesson names reserve-seat heartbeat filtering
+  ("the Lane-C `--exclude-tag heartbeat` work") as load-bearing economics, but the flag is
+  absent from the `comms watch` CLI (verified 2026-07-20: only
+  seen-file/poll/step-timeout/heartbeat/supervisor options exist), and hand-rolled
+  suppression at the watcher boundary is rule-forbidden (and twice bitten: the 2026-06-10
+  muting-filter and 2026-07-02 mute/leak instances).
+- **Expected**: a sanctioned, tested exclusion surface for tag-classed traffic, composable
+  with the F-75 `comms peer-liveness` poll as the retirement-detection consumer (absence
+  detection, which event-watching structurally cannot do).
+- **Candidate cure**: an `--exclude-tag <tag>` (repeatable) option on `comms watch`,
+  excluding only ADR-183-namespaced tags at the emit stage, with corpus tests proving
+  pass/leak counts; documented in the watcher rule as the sanctioned reserve/awareness-seat
+  configuration alongside a mandatory peer-liveness poll.
+
+### F-147 — the pre-commit knip leg reports success when knip CRASHES (not when it finds issues)
+
+- **Source**: Director-delegate worktree agent (routed by Galago stirs Grotto `60d988`),
+  2026-07-20, PR #419 cure commit, first-hand.
+- **Observed**: in a fresh agent worktree, knip errored during pre-commit —
+  `Error loading apps/oak-search-cli/vitest.smoke.config.ts (No "exports" main defined in
+  apps/oak-search-cli/node_modules/@oaknational/env-resolution/package.json)` — yet the
+  hook chain continued and reported "Pre-commit checks completed!", and the commit landed.
+  A validator that CRASHES is being treated as a validator that PASSES. The proximate
+  trigger is the known fresh-worktree unbuilt-package class (the exports map resolves to
+  an unbuilt `dist/` — start-right §8), but the gate-integrity defect is independent of
+  the trigger: any knip crash class would slip commits the same way.
+- **Expected**: a gate leg distinguishes three outcomes — pass, findings (blocking), and
+  crash (blocking, loudly) — per no-warning-toleration and never-disable-checks; a crash
+  can never read as a pass.
+- **Candidate cure**: make the pre-commit knip invocation propagate non-zero on load/crash
+  errors (capture its exit code in-band, not the wrapper's), with a test that a
+  deliberately-broken config fails the hook; audit sibling hook legs for the same
+  crash-swallowing shape.
+
+### F-148 — a suspended session's heartbeat Monitor keeps emitting: false liveness from an autonomous emitter
+
+- **Source**: Heron seeks Bluff (`ef3eb0`) failure-mode capture 2026-07-20T12:01:43Z
+  (their seat harness-suspended ~10:53–11:57Z while the heartbeat loop emitted on
+  schedule); corroborated first-hand by the Director (a 14-min unacked directed
+  contract against steady heartbeats).
+- **Observed**: heartbeat loops run in the platform's background-task layer,
+  independent of the reasoning loop — a suspended session heartbeats indefinitely,
+  asserting liveness the seat does not have. A live instance of the PDR-078 §6
+  heartbeat-only-stall class with a NEW generator (suspended harness, not stalled
+  agent), sibling of F-44 freshness≠liveness.
+- **Expected**: liveness signals should degrade when the reasoning loop stops.
+- **Candidate cure**: observe-side (proven live): direct-ping + bounded-declared-default
+  is THE detection — weight substantive-response over heartbeat-presence; peers treat
+  heartbeats-during-suspension as an expected false-positive class. Emit-side
+  (substrate work): the heartbeat loop carries a staleness self-check against its own
+  session's last reasoning activity and stands down when stale.
