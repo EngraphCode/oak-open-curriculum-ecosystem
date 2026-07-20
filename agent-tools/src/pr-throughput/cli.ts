@@ -10,7 +10,7 @@
  * register; without it the row prints for inspection only.
  */
 import { execFileSync } from 'node:child_process';
-import { appendFileSync, mkdirSync, writeFileSync } from 'node:fs';
+import { appendFileSync, linkSync, mkdirSync, unlinkSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
@@ -138,14 +138,16 @@ function realDeps(): PrThroughputDeps {
     resolveGh: (override) => resolveGhPath(override),
     createRegister: (registerPath, header) => {
       mkdirSync(path.dirname(registerPath), { recursive: true });
+      // Atomic exclusive publication: the header is written COMPLETE to a
+      // private temp file, then hard-linked into place. link(2) is atomic
+      // and fails EEXIST if the register already exists, so a concurrent
+      // appender can only ever observe either no file (its own creation
+      // race to lose) or a file that already starts with the full header —
+      // never a partial or header-less register.
+      const tempPath = `${registerPath}.${String(process.pid)}.header.tmp`;
+      writeFileSync(tempPath, header);
       try {
-        // 'ax' is exclusive creation on an APPEND-mode fd: a concurrent
-        // creator loses the race here and falls through to append-only,
-        // and because this write is O_APPEND it lands at the live EOF —
-        // it can never clobber a row a racer appended between the create
-        // and the write (the residual anomaly is header-after-row
-        // ordering in that sub-write window, never data loss).
-        writeFileSync(registerPath, header, { flag: 'ax' });
+        linkSync(tempPath, registerPath);
         return true;
       } catch (cause) {
         if (cause instanceof Error && 'code' in cause && cause.code === 'EEXIST') {
@@ -156,6 +158,8 @@ function realDeps(): PrThroughputDeps {
         // contract-wide catch (loud message, exit 0) instead of appending
         // to a register that may not exist or be partial.
         throw cause;
+      } finally {
+        unlinkSync(tempPath);
       }
     },
     appendRegisterRow: (registerPath, row) => {
