@@ -146,24 +146,41 @@ Each proposal carries a warrant and a falsifier.
    fires where docs do not; self-suppression keeps its cost contingent on catching
    something (per `collaboration-is-value-contingent`) and makes it the surface that
    would have caught obs 3 at session-open rather than at silent rendezvous failure.
-   *Falsifier:* N healthy-checkout sessions where it fires and catches nothing while
-   adding session-open cost.
+   *Falsifier:* the advisory fires on a checkout that was not actually at risk (a
+   false positive — e.g. a legitimately-seeded non-default home it fails to
+   recognise), adding friction without averting a real failure; OR it fires
+   correctly yet the agent proceeds to the silent failure anyway (it did not change
+   the outcome). Either shows the self-suppressing fire-condition is mis-drawn. (The
+   naive "N sessions where it fires and catches nothing" cannot occur by
+   construction once self-suppression holds — if it fires, the substrate is
+   unhealthy — so it is not a valid falsifier for this form.)
 5. **Route, do not solve, the adjacent finds:** env-var shell propagation (obs 6)
    to the agent-identity tooling docs/hook; the nested-workspace phantom (obs 7) to
    the import record's own README. Neither shares this exploration's mechanism.
-6. **Bootstrap seeds the canonical home at install** (new): extend the existing
-   `postinstall` bootstrap to seed the canonical home's registry/archive at the
-   verified repo root — deterministic coverage of the fresh-clone path, complementing
-   (not replacing) the actionable errors, which remain the net for worktrees and
-   post-hoc deletion. *Warrant:* the clone path has an already-wired install-time
-   owner and a verified location, so it need not rely on discover-then-manually-seed.
-   *Falsifier:* a fresh clone whose `postinstall` ran yet whose substrate is still
-   unseeded ⇒ bootstrap is not the owner or did not cover the path.
+6. **Bootstrap seeds the canonical home at install, interlocked with
+   home-derivation** (new): extend the existing `postinstall` bootstrap to seed the
+   substrate's registry/archive — but *only when the resolved root IS the canonical
+   primary home*, using proposal 3's `resolveCoordinationHome` primitive. This
+   interlock is load-bearing, not decoration: `postinstall` also runs on a *new
+   worktree's* install, where a naive "seed my own root" would plant a
+   worktree-local decoy at install time — reintroducing the silent-wrong failure
+   the exploration exists to close. Seed-if-primary makes bootstrap deterministic
+   for the fresh-clone path while deferring worktrees to home-derivation; so
+   proposal 6 *depends on* proposal 3. *Warrant:* the clone path has an
+   already-wired install-time owner — the same bootstrap that makes `agent-tools`
+   dist present on a fresh clone (obs 8), so extending it to seed is a natural
+   increment at a verified location. *Falsifier:* a fresh clone whose `postinstall`
+   ran yet whose canonical substrate is still unseeded ⇒ bootstrap is not the owner
+   or the interlock mis-resolved the home.
 
 **Unresolved evidence that could change the synthesis:** whether sibling Practice
 estates share the day-0 gap (a portability question for the inter-Practice
-lineage); and a complete audit of CLI entry points that read instance-tier state —
-the set treated here is the observed set, not a proven-complete one.
+lineage); a complete audit of CLI entry points that read instance-tier state — the
+set treated here is the observed set, not a proven-complete one; and an observed
+silent comms-*broadcast* failure (a broadcast that surfaced no error yet did not
+land for the peer) whose mechanism was not isolated this session — if the write
+path can fail silently, the active-surface discipline must extend to it, not only
+to the read/seed paths.
 
 ---
 
