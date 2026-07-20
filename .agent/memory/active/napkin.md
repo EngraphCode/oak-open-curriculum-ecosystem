@@ -89,3 +89,17 @@ pr-lifecycle). Genuinely new captures, conserved here for the next pass's routin
   exactly that class — the seat's heartbeat-filtered watcher was briefly blind to the one
   question that arose (a liveness read), cured by a direct stream read. Rides here for a
   future pass; no action proposed.
+
+## 2026-07-20 — Siren lifts Trench (af11f9): wrap #2 (retrospective tail close)
+
+Session-close capture for the owner-commissioned retrospective tail. Landed: the
+retrospective record + three enacted fast-lane proposals on PR #450 (branch pushed,
+ref-verified). Loss scan: proposal 4 (the single-owner-interface stall class) routed to
+the Director via the closeout broadcast, deliberately unlegislated; PR #450's
+rounds-first shepherding transfers to the Director's drain tail per the owner's
+session-end word — the branch is pushed and on a PR, so the work is safe at every
+outcome. Metaloss: the scan's one structural bound is unchanged from wrap #1 (watcher
+blind windows during drain deaths; mitigated by seen-file cursor + Director sweeps); a
+further pass would only re-find it — the recursion closes at that named point. Surprise
+worth one line: the estate's loop latency is now short enough that this session imported
+a skill, ran it live, was retrospected under it, and amended its neighbours — same day.
