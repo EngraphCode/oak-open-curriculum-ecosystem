@@ -25,9 +25,9 @@ import {
   clusterSchema,
   finderInstanceBaseSchema,
   finderInstanceSchema,
-  voterVerdictSchema,
 } from '../schemas.js';
 import { gazetteerSchema } from './gazetteer-schema.js';
+import { validateSuccessSchema } from './validate-result.js';
 
 const nonEmptyString = z.string().min(1);
 const countInt = z.number().int().nonnegative();
@@ -38,6 +38,16 @@ const partitionWindowSchema = z.strictObject({
   files: z.array(nonEmptyString).min(1),
 });
 export type PartitionWindow = z.infer<typeof partitionWindowSchema>;
+
+/**
+ * The ONE canonical committed partition file shape — CLOSED (AIP-126 item 8): a typo'd
+ * key like `windwos`, a stray sibling key, or a bare window array fails loudly instead of
+ * silently passing an empty or unintended corpus downstream.
+ */
+const partitionFileSchema = z.strictObject({
+  windows: z.array(partitionWindowSchema).min(1),
+});
+export type PartitionFile = z.infer<typeof partitionFileSchema>;
 
 /**
  * An instance projected to what a voter or the meta agent needs for grounding, joined to
@@ -71,9 +81,8 @@ const metaClusterSchema = clusterBaseSchema
   .extend({ instances: z.array(groundingInstanceSchema).min(2) });
 export type MetaCluster = z.infer<typeof metaClusterSchema>;
 
-/** A cluster's disposition after S3 code-computed voter aggregation. */
-const dispositionSchema = z.enum(['flagged', 'dismissed', 'held-for-review']);
-export type Disposition = z.infer<typeof dispositionSchema>;
+/** Re-exported from `schemas.ts` (its home since the cycle-free move) for existing consumers. */
+export type { Disposition } from '../schemas.js';
 
 // ---------------------------------------------------------------------------
 // Run data — validated by build-run-artefact before inlining
@@ -153,6 +162,10 @@ const mapSuccessSchema = z
   .refine((result) => uniqueIds(result.instances.map((entry) => entry.id)), {
     error:
       'map result contains duplicate instance ids across windows — join lookups would silently mis-attribute quotes',
+  })
+  .refine((result) => result.mapComplete === (result.incompleteWindows.length === 0), {
+    error:
+      'mapComplete must be true exactly when incompleteWindows is empty — a contradicting flag either hides a corpus gap or forces a needless re-run',
   });
 const mapResultSchema = z.discriminatedUnion('ok', [mapSuccessSchema, stageFailureSchema]);
 export type MapResult = z.infer<typeof mapResultSchema>;
@@ -170,44 +183,14 @@ const reduceSuccessSchema = z
   .refine((result) => uniqueIds(result.clusters.map((entry) => entry.id)), {
     error:
       'reduce result contains duplicate cluster ids — validate and the meta merge would double-count',
+  })
+  .refine((result) => result.reduceComplete === (result.incompleteChunks.length === 0), {
+    error:
+      'reduceComplete must be true exactly when incompleteChunks is empty — a contradicting flag either hides dropped clusters or forces a needless re-run',
   });
 const reduceResultSchema = z.discriminatedUnion('ok', [reduceSuccessSchema, stageFailureSchema]);
 export type ReduceResult = z.infer<typeof reduceResultSchema>;
 
-const validateSuccessSchema = z
-  .strictObject({
-    ok: z.literal(true),
-    validateComplete: z.boolean(),
-    resolvedClusterIds: z.array(nonEmptyString),
-    incompleteClusterIds: z.array(nonEmptyString),
-    missingClusterIds: z.array(nonEmptyString),
-    dispositions: z.array(
-      z.strictObject({
-        clusterId: nonEmptyString,
-        disposition: dispositionSchema,
-        reason: nonEmptyString.nullable(),
-      }),
-    ),
-    voterVerdicts: z.array(
-      z.strictObject({
-        clusterId: nonEmptyString,
-        voterId: nonEmptyString,
-        verdict: voterVerdictSchema,
-      }),
-    ),
-  })
-  .refine(
-    (result) =>
-      result.dispositions.every(
-        (entry) =>
-          result.voterVerdicts.filter((verdict) => verdict.clusterId === entry.clusterId).length >=
-          2,
-      ),
-    {
-      error:
-        'validate result carries disposition(s) without the ≥2 voter verdicts that justify them (two-independent-voter rule)',
-    },
-  );
 const validateResultSchema = z.discriminatedUnion('ok', [
   validateSuccessSchema,
   stageFailureSchema,
@@ -224,6 +207,9 @@ export type MetaResult = z.infer<typeof metaResultSchema>;
 // ---------------------------------------------------------------------------
 // Boundary parsers — the Node side re-parses everything it reads back
 // ---------------------------------------------------------------------------
+
+export const parsePartitionFile = (value: unknown): Result<PartitionFile, Error> =>
+  parseWithSchema({ label: 'partition file', schema: partitionFileSchema, value });
 
 export const parseMapRunData = (value: unknown): Result<MapRunData, Error> =>
   parseWithSchema({ label: 'map run data', schema: mapRunDataSchema, value });
