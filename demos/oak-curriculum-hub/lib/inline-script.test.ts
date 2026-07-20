@@ -2,8 +2,9 @@
  * The inline-script embedding contract: a literal `</script` anywhere in the
  * source (the oak-theme.js header comment carries one) must not survive into
  * the inline body — the HTML parser would terminate the script element there
- * and the runtime after it would never execute. The escape must also be
- * semantics-preserving (`<\/` === `/` in every JavaScript context).
+ * and the runtime after it would never execute. The escape is
+ * semantics-preserving for the input contract (the sequence in comments and
+ * string literals; see the module TSDoc for the regex-literal caveat).
  */
 import { describe, expect, it } from 'vitest';
 
