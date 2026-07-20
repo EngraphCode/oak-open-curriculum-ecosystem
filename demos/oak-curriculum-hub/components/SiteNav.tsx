@@ -58,7 +58,7 @@ export default function SiteNav(): ReactElement {
             alt="Oak National Academy"
             width={74}
             height={34}
-            className="h-[34px] w-auto"
+            className="h-[34px] w-auto [filter:var(--filter-icon)]"
             unoptimized
             priority
           />
