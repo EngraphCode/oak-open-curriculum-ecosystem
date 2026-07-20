@@ -20,7 +20,7 @@ function HubSearchForm({
     <form
       role="search"
       onSubmit={(e) => e.preventDefault()}
-      className="flex max-w-[620px] items-center gap-2 rounded-full border-2 border-oak-black bg-white py-2 pl-5 pr-2 shadow-oak-wide-lemon"
+      className="flex max-w-[620px] items-center gap-2 rounded-full border-2 border-line bg-white py-2 pl-5 pr-2 shadow-accent-wide-brand"
     >
       <svg
         width="22"
@@ -30,7 +30,7 @@ function HubSearchForm({
         stroke="currentColor"
         strokeWidth="2.2"
         strokeLinecap="round"
-        className="shrink-0 text-oak-grey"
+        className="shrink-0 text-ink-subdued"
         aria-hidden
       >
         <circle cx="11" cy="11" r="7" />
@@ -42,11 +42,11 @@ function HubSearchForm({
         onChange={(e) => onQueryChange(e.target.value)}
         placeholder="Search courses, standards, rubrics, exemplars…"
         aria-label="Search the hub"
-        className="min-w-0 flex-1 scroll-mt-24 border-none bg-transparent text-[16px] font-light leading-none text-oak-black outline-none placeholder:text-oak-grey"
+        className="min-w-0 flex-1 scroll-mt-24 border-none bg-transparent text-[16px] font-light leading-none text-ink outline-none placeholder:text-ink-subdued"
       />
       <button
         type="submit"
-        className="shrink-0 rounded-full bg-oak-black px-5 py-2.5 text-[15px] font-bold text-white transition-colors hover:bg-oak-grey"
+        className="shrink-0 rounded-full bg-surface-inverted px-5 py-2.5 text-[15px] font-bold text-ink-inverted transition-colors hover:bg-surface-inverted-hover"
       >
         Search
       </button>
@@ -63,9 +63,9 @@ function HubHero({
   readonly onQueryChange: (next: string) => void;
 }): ReactElement {
   return (
-    <section className="border-b-[3px] border-oak-black bg-oak-lemon-subdued">
+    <section className="border-b-[3px] border-line bg-accent-subtle-brand">
       <div className="mx-auto max-w-[1080px] px-6 py-12">
-        <span className="mb-5 inline-block rounded-full bg-oak-black px-3 py-1 text-[12px] font-bold uppercase tracking-[0.06em] text-white">
+        <span className="mb-5 inline-block rounded-full bg-surface-inverted px-3 py-1 text-[12px] font-bold uppercase tracking-[0.06em] text-ink-inverted">
           Single source of truth
         </span>
         <h1 className="mb-4 max-w-[600px] text-[44px] font-bold leading-[1.05] tracking-[-0.01em]">

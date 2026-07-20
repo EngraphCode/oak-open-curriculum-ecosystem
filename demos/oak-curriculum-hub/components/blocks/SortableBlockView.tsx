@@ -33,7 +33,7 @@ const RESULT_TEXT = {
 // aria-disabled (not disabled) at the edges: the button stays focusable, so moving an item to the
 // top/bottom never drops keyboard focus to <body> — activation is a guarded no-op instead.
 const ARROW_BUTTON =
-  'flex h-6 w-7 items-center justify-center rounded-md border-2 border-oak-black bg-white text-[11px] aria-disabled:opacity-40';
+  'flex h-6 w-7 items-center justify-center rounded-md border-2 border-line bg-white text-[11px] aria-disabled:opacity-40';
 
 /** One white row: the item text plus its stacked ▲▼ move buttons. */
 function SortableRow({
@@ -50,7 +50,7 @@ function SortableRow({
   const atTop = index === 0;
   const atBottom = index === count - 1;
   return (
-    <li className="flex items-center gap-3 rounded-[10px] border-2 border-oak-black bg-white p-[11px_13px]">
+    <li className="flex items-center gap-3 rounded-[10px] border-2 border-line bg-white p-[11px_13px]">
       <span className="flex-1 text-base leading-[22px] font-light">{text}</span>
       <span className="flex shrink-0 flex-col gap-[3px]">
         <button
@@ -96,13 +96,13 @@ function CheckRow({
     <div className="flex flex-wrap items-center gap-3.5">
       <button
         type="button"
-        className="shadow-oak-lemon rounded-lg border-2 border-oak-black bg-oak-black px-5 py-[11px] text-[15px] leading-none font-bold text-white"
+        className="shadow-accent-brand rounded-lg border-2 border-line bg-surface-inverted px-5 py-[11px] text-[15px] leading-none font-bold text-ink-inverted"
         onClick={onCheck}
       >
         Check order
       </button>
       <output
-        className={`block text-[15px] leading-[1.3] font-bold ${checked === 'wrong' ? 'text-oak-red' : 'text-oak-green'}`}
+        className={`block text-[15px] leading-[1.3] font-bold ${checked === 'wrong' ? 'text-error' : 'text-success'}`}
       >
         {checked === null ? '' : RESULT_TEXT[checked]}
       </output>
@@ -135,13 +135,13 @@ export function SortableBlockView({ block }: { readonly block: SortableBlock }):
   return (
     <section
       aria-label="Ordering activity"
-      className="shadow-oak-lemon rounded-[14px] border-2 border-oak-black bg-oak-lemon-subdued p-[18px_18px_20px]"
+      className="shadow-accent-brand rounded-[14px] border-2 border-line bg-accent-subtle-brand p-[18px_18px_20px]"
     >
       <p className="mb-1 flex items-center gap-2">
-        <span className="rounded-full bg-oak-black px-2.5 py-[5px] text-[11px] leading-none font-bold tracking-[0.04em] text-white">
+        <span className="rounded-full bg-surface-inverted px-2.5 py-[5px] text-[11px] leading-none font-bold tracking-[0.04em] text-ink-inverted">
           ACTIVITY
         </span>
-        <span className="text-[13px] leading-none font-bold text-oak-grey">
+        <span className="text-[13px] leading-none font-bold text-ink-subdued">
           Use the arrow buttons to reorder
         </span>
       </p>

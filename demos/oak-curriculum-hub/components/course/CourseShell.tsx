@@ -37,7 +37,10 @@ function SectionView({ section }: { readonly section: CourseSection }): ReactEle
         className="mb-7 text-[30px] leading-[38px] font-semibold tracking-[0.0115rem] text-balance min-[380px]:text-[38px] min-[380px]:leading-[46px]"
       >
         {section.title}
-        <span aria-hidden="true" className="mt-1.5 block h-1.5 w-16 rounded-full bg-oak-black" />
+        <span
+          aria-hidden="true"
+          className="mt-1.5 block h-1.5 w-16 rounded-full bg-surface-inverted"
+        />
       </h3>
       <div className="flex flex-col gap-6">
         {blocks.map(({ block, key }) => (
@@ -69,7 +72,7 @@ function ModuleView({
   return (
     <PlayerModule moduleId={id} labelledBy={`module-h-${id}`} accent={color}>
       {unitCrumb !== undefined && (
-        <p className="mb-[11px] text-[12px] font-bold uppercase tracking-[0.05em] text-oak-grey">
+        <p className="mb-[11px] text-[12px] font-bold uppercase tracking-[0.05em] text-ink-subdued">
           {unitCrumb}
         </p>
       )}
@@ -80,7 +83,7 @@ function ModuleView({
         <h2
           id={`module-h-${id}`}
           style={{ backgroundColor: color }}
-          className="inline-block rounded-full border-2 border-oak-black px-[13px] py-1.5 text-[12px] font-bold uppercase tracking-[0.04em]"
+          className="inline-block rounded-full border-2 border-line px-[13px] py-1.5 text-[12px] font-bold uppercase tracking-[0.04em]"
         >
           {eyebrow}
         </h2>

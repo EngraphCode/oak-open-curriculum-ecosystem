@@ -77,7 +77,14 @@ theme application — a theme flash (ADR-213 §3 records this correction).
 // app/layout.tsx
 import { readFileSync } from 'node:fs';
 
-const oakTheme = readFileSync('public/oak-theme.js', 'utf8');
+// Escape any closing-script sequence at embed time: the HTML parser ends an
+// inline script element at the first literal one, regardless of JS context —
+// an unescaped occurrence anywhere in the file (even a comment) silently
+// truncates the script and the theme runtime never installs.
+const oakTheme = readFileSync('public/oak-theme.js', 'utf8').replace(
+  /<\/script/gi,
+  String.raw`<\/script`,
+);
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
