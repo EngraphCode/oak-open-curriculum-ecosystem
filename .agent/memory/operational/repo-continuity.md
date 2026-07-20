@@ -35,6 +35,16 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **FRESH-CHECKOUT EXPERIENCE — DELIVERED + WRAPPED (2026-07-20).** PR #436 MERGED
+  (`SHA:792c440dd`): seed-bearing verify-then-seed state-file errors, the single-throw-edge
+  Result doctrine (owner rulings: loud original errors; non-Error throwables crash; the one
+  owner-marked allowance at `@oaknational/result`'s raise edge), race-safe home-derived
+  seeding in shared start-right. PR #439 (exploration report + proposals 2–6, OWNER-GATED
+  candidates) is armed for auto-merge. PR #437 (WAD projection, draft) needs a conflict fold
+  - rounds — OPEN, unowned after this seat's directed stand-down. Full pickup:
+  [thread record](threads/fresh-checkout-experience.next-session.md); cross-machine
+  coordination precedent (SSH comms with the primary estate's Director) is recorded there.
+
 - **RESTATEMENT REMEDIATION — THE ACTIVE EFFORT (2026-07-16); the settling gate for
   plan-corpus refounding.** PR #390's eight review rounds / ~38 findings traced to ONE
   generator (authored restatement of derivable state); the owner directed remediation

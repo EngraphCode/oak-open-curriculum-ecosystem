@@ -4229,3 +4229,36 @@ these are the first-hand observations from bootstrapping start-right-team on a f
 - **What worked well**: agent-tools dist present on fresh checkout meant every CLI call
   worked without a build step; identity preflight + assert-watcher-live both green
   first-try; the watcher heartbeat/assert loop is a solid fresh-checkout experience.
+
+## 2026-07-20 — Deimos tracks Perigee (73e4ab): session close (wrap) — lessons with no other home
+
+Thread record `threads/fresh-checkout-experience.next-session.md` carries the full handoff;
+these are the mechanics worth conserving (owner rulings are listed there for graduation):
+
+- **The review-treadmill worked instance, end to end**: PR #436 ran TEN review rounds. The
+  pr-lifecycle step-back trigger fired TWICE; the first produced the Result class-fix, the
+  second was honoured as terminal (dispositions-only thereafter) — and the round after it
+  settled at zero. The napkin's `re-apply-first-question-at-elaboration-boundaries` failure
+  shape was reproduced live by this seat (scope crept from "improve an error message" to
+  core-package API changes) and cured only by owner step-back. Successors: the trigger
+  fires late; re-ask the first question at every elaboration boundary yourself.
+- **Never pipe the command whose outcome you need — the grep variant**: two comms sends
+  "failed silently"; the mechanism was my own `| grep -o event_id` eating the CLI's loud
+  error. Same class as the wrapped-exit lesson; new surface. Verify sends by reading the
+  event file, not the filtered stdout.
+- **zsh eats double-equals separator tokens**: `echo ===X===` (or `==X==`) in a compound
+  command errors as a glob and ABORTS the remaining chained commands — three separate
+  live instances this session, each killing later commands invisibly. Use plain words.
+- **Pre-queue-enablement auto-merge arms never convert to queue entries** (GitHub): the PR
+  reads "armed" while sitting outside the queue, and re-running merge NO-OPs against the
+  stale arm; cure is disarm-then-re-enqueue. Verify queue membership via `mergeQueueEntry`,
+  never `autoMergeRequest`.
+- **Branch-switch stale-dist brick**: after switching the primary between branches whose
+  `@oaknational/result` dist differs, `pnpm install`'s bootstrap fails on the stale dist
+  and every filtered build recurses into the same failing install. Escape:
+  `OAK_SKIP_AGENT_TOOLS_BOOTSTRAP=1 pnpm install`, then the filtered package build, then
+  plain install.
+- **Cross-machine comms over SSH works and is now precedented**: a Director on another
+  machine coordinated via events dropped into a sibling checkout's comms dir; an fs-watch
+  Monitor on that dir was a sufficient wake signal (note: give such a watcher
+  self-exclusion, or every outbound echo wakes the seat).
