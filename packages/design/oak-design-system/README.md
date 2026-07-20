@@ -4,7 +4,7 @@
 
 Oak National Academy is an independent, publicly funded body supported by the UK Department for Education, offering free, adaptable curriculum resources and AI tools for teachers. This design system makes anything — product UI, decks, worksheets, prototypes, marketing — feel unmistakably Oak: warm pastels, thick black borders, the signature lemon offset-shadow, Lexend, and a voice like a knowledgeable colleague in the staffroom.
 
-**Built to WCAG 2.2 AA, fully themable (light / dark / high-contrast / colour-safe), no network dependencies for the system itself** — one exception: `colors_and_type.css` loads Roboto Mono (code contexts only) from Google Fonts; swap it for a local file for offline or strict-CSP deployments (the file's header comment says the same).
+**Built to WCAG 2.2 AA, fully themable (light / dark / high-contrast / colour-safe), no network dependencies for the system itself** — both faces (Lexend, Roboto Mono) ship as local files, so offline and strict-CSP deployments need no font exceptions.
 
 ## Integration in this repository (ADR-213)
 
@@ -177,7 +177,7 @@ Empowering, personable, direct. Like a warm colleague, never corporate. Full too
 ## Visual foundations
 
 - **Colour:** neutral-first — near-black `#222` on white. Oak green `#287c34` for brand marks and success. Six pastel families (mint, aqua, lavender, pink, lemon, amber) with subtle tints for card fills and section panels; each has an Oak-designed dark counterpart. Lemon `#ffe555` is the hero accent. Navy for links. **No gradients, ever.**
-- **Type:** Lexend for everything (local file, weights 100–900). Body is weight 300, 18/28; emphasis is 700. Headings 600 with slight positive tracking. Scale 12→56px. Roboto Mono for code.
+- **Type:** Lexend for everything (local file, weights 100–900). Body is weight 300, 18/28; emphasis is 700. Headings 600 with slight positive tracking. Scale 12→56px. Roboto Mono for code (local file, weights 100–700).
 - **Shape:** thick black borders (2–3px) and radii of 8/16px define components. 4px spacing grid.
 - **Shadows:** solid-colour offsets, not blurs — `--shadow-lemon` (2px), `--shadow-wide-lemon` (4px, hover), `--shadow-grey`. The one blur is `--shadow-standard`.
 - **The signature interaction:** hover widens the shadow; press collapses it and translates +2px,+2px — like physically pressing the element. Focus is the lemon double ring.
@@ -222,7 +222,7 @@ integrations/revealjs/  ← Oak reveal.js theme + sample deck
 thumbnail.html          ← homepage tile (studio-side; held out here — see .gitignore)
 assets/                 ← logos, brand marks, icons/ (local SVG set)
 oak-icons.css           ← icon URL token map (--i-* names + --ic-* roles; root-adjacent to components.css by design)
-fonts/                  ← Lexend variable font
+fonts/                  ← Lexend + Roboto Mono variable fonts
 templates/
   lesson-deck/          ← teaching-slides starting point (deck-stage)
   worksheet/            ← printable A4 worksheet (doc-page, PDF-ready)
