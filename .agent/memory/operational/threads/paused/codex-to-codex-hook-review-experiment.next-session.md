@@ -19,9 +19,10 @@ merge_class: index-narrative-tables
   owner-directed preservation pass committed the working-tree state as `SHA:c4fae0b83` on the same
   branch, pushed, and opened draft PR #403 — the "uncommitted working-tree state" claims in this
   snapshot describe the pre-preservation moment and are no longer the live durability state.
-  Outcome (2026-07-20): PR #403 was CLOSED UNMERGED at 07:50:30Z; the preserved state remains
-  durable on the pushed branch `fix/claude-hook-hardening` at `SHA:c4fae0b83`. A resumed session
-  starts from the fresh-branch step, not from re-adjudicating the closed PR.** Discover its sibling worktree with `git worktree list`; do not
+  Outcome (2026-07-20): PR #403 was CLOSED UNMERGED at 07:50:30Z; the preserved state
+  remains durable on the pushed branch `fix/claude-hook-hardening` at `SHA:c4fae0b83`. A
+  resumed session starts from the fresh-branch step, not from re-adjudicating the closed
+  PR.** Discover its sibling worktree with `git worktree list`; do not
   rely on a machine-local path from a handoff.
 - Invocation pointer: read this record, then the
   [pair ARC](../../../../collaboration/rapid-comms/2026-07-16-codex-hook-experiment-lupin-herds-bark-and-zephyr-turns-crosswind.md),
