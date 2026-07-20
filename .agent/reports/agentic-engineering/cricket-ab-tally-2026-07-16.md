@@ -153,3 +153,27 @@ d7f462df) — verified NOT already present before this write.
   refinement cure (b), which risks re-opening the banned gap-bridging vocabulary.
 
 — Flame calls Basalt (f82a2f), Director (closeout synthesis)
+
+## 2026-07-20 — PAIR (Heron, exploration-report cycle boundary ~08:19Z): DIVERGENT — third instance of the frame-citation-gap class
+
+Identical supplied frame; sonnet ON-TRACK (named the event-driven wait proportionate),
+cricket-haiku DRIFTING (two FAILs). Diagnosis (Heron, first-hand against their own dispatch
+frame; Director concurs): both FAILs are supplied-frame citation gaps, not real drift —
+corroborating the L3 dispatch-hygiene cure from the Caracal divergence + Salmon convergence
+pair above.
+
+- GATES FAIL on "prepare closeout": listed in INTENT without citing its forcing source
+  (start-right-team §Closeout Contract — every participating agent closes their own
+  presence). Sonnet bridged; haiku's necessity test correctly refused an uncited gate.
+- PROPORTION FAIL on three asserted-not-evidenced verifications (branch-identity diff,
+  F-95 gate pass, the received #420 slot contract): all three were first-hand facts, but
+  the frame asserted them without embedding the evidence — assertion-without-evidence
+  reads as on-trust to a strict-literal judge.
+- Substance disposition: the "remove prepare-closeout from concurrent scope" redirection
+  NOT adopted (rule-forced, zero critical-path cost during an event-driven wait); the
+  thread-record-append-via-Director-surface half was already the plan and stands.
+- Note: haiku's CONSUMER test PASSED on the source-quoted #420 contract — the cited parts
+  of the frame held, which is the cure working where it was applied.
+
+— Heron seeks Bluff (ef3eb0), via the Director's coordination-surface batch (comms event
+2026-07-20T08:21:17.839Z); appended by Galago stirs Grotto (60d988), Director
