@@ -28,7 +28,7 @@ function ChipRow({
       <div className="flex flex-wrap items-center gap-2">
         <span
           aria-hidden="true"
-          className="mr-0.5 text-[12px] font-bold uppercase tracking-[0.04em] text-oak-grey"
+          className="mr-0.5 text-[12px] font-bold uppercase tracking-[0.04em] text-ink-subdued"
         >
           {label}
         </span>
@@ -38,10 +38,10 @@ function ChipRow({
             type="button"
             aria-pressed={chip.active}
             onClick={() => onPick(chip.value)}
-            className={`rounded-full border-2 border-oak-black px-3.5 py-2 text-[13px] font-bold ${
+            className={`rounded-full border-2 border-line px-3.5 py-2 text-[13px] font-bold ${
               chip.active
-                ? 'bg-oak-black text-white'
-                : 'bg-white text-oak-black hover:shadow-oak-lemon'
+                ? 'bg-surface-inverted text-ink-inverted'
+                : 'bg-white text-ink hover:shadow-accent-brand'
             }`}
           >
             {chip.label}
@@ -54,20 +54,20 @@ function ChipRow({
 
 function FocusBanner({ onBrowseAll }: { readonly onBrowseAll: () => void }): ReactElement {
   return (
-    <div className="mb-[18px] flex flex-wrap items-center gap-3.5 rounded-oak-l border-2 border-oak-navy bg-oak-lavender-subdued px-[18px] py-3.5">
-      <span className="flex-1 text-[15px] font-semibold leading-[21px] text-oak-navy">
+    <div className="mb-[18px] flex flex-wrap items-center gap-3.5 rounded-large border-2 border-line bg-info-subtle px-[18px] py-3.5">
+      <span className="flex-1 text-[15px] font-semibold leading-[21px] text-ink">
         You followed a link from a training course. Showing the linked quality standard(s) below.
       </span>
       <Link
         href="/course"
-        className="inline-flex shrink-0 items-center gap-1.5 rounded-full border-2 border-oak-navy bg-oak-navy px-4 py-2.5 text-[13px] font-bold text-white"
+        className="inline-flex shrink-0 items-center gap-1.5 rounded-full border-2 border-btn-primary bg-btn-primary px-4 py-2.5 text-[13px] font-bold text-btn-primary-ink"
       >
         <span aria-hidden="true">←</span> Return to training
       </Link>
       <button
         type="button"
         onClick={() => onBrowseAll()}
-        className="shrink-0 rounded-full border-2 border-oak-navy bg-white px-4 py-2 text-[13px] font-bold text-oak-navy"
+        className="shrink-0 rounded-full border-2 border-link bg-white px-4 py-2 text-[13px] font-bold text-link"
       >
         Browse all standards
       </button>
@@ -77,17 +77,17 @@ function FocusBanner({ onBrowseAll }: { readonly onBrowseAll: () => void }): Rea
 
 function NoResults({ onReset }: { readonly onReset: () => void }): ReactElement {
   return (
-    <div className="rounded-oak-l border-2 border-dashed border-oak-grey-40 bg-white p-11 text-center">
+    <div className="rounded-large border-2 border-dashed border-line-soft bg-white p-11 text-center">
       <p className="mb-1.5 text-[20px] font-semibold leading-[26px]">
         No standards match your filters
       </p>
-      <p className="mb-4 text-[16px] leading-[24px] text-oak-grey">
+      <p className="mb-4 text-[16px] leading-[24px] text-ink-subdued">
         Try clearing a filter or searching for a different term.
       </p>
       <button
         type="button"
         onClick={() => onReset()}
-        className="rounded-full border-2 border-oak-black bg-oak-black px-4 py-2.5 text-[14px] font-bold text-white"
+        className="rounded-full border-2 border-line bg-surface-inverted px-4 py-2.5 text-[14px] font-bold text-ink-inverted"
       >
         Reset filters
       </button>
@@ -123,14 +123,14 @@ function ResultsHeader({
           <button
             type="button"
             onClick={() => onReset()}
-            className="rounded-full border-2 border-oak-black bg-white px-3.5 py-1.5 text-[13px] font-semibold shadow-oak-lemon"
+            className="rounded-full border-2 border-line bg-white px-3.5 py-1.5 text-[13px] font-semibold shadow-accent-brand"
           >
             Reset filters
           </button>
         )}
       </div>
       {!view.focusMode && (
-        <div className="my-[22px] flex flex-col gap-3.5 border-t border-oak-grey-line pt-[22px] sm:flex-row sm:flex-wrap sm:items-center sm:gap-6 sm:border-t-0 sm:pt-0">
+        <div className="my-[22px] flex flex-col gap-3.5 border-t border-line-soft pt-[22px] sm:flex-row sm:flex-wrap sm:items-center sm:gap-6 sm:border-t-0 sm:pt-0">
           <ChipRow label="Type" chips={view.typeChips} onPick={onPickType} />
           <ChipRow label="Rubric" chips={view.rubricChips} onPick={onPickRubric} />
         </div>
@@ -157,14 +157,14 @@ function Pagination({
       <button
         type="button"
         onClick={() => onShowMore()}
-        className="rounded-full border-2 border-oak-black bg-oak-black px-[22px] py-3 text-[15px] font-bold text-white shadow-oak-lemon"
+        className="rounded-full border-2 border-line bg-surface-inverted px-[22px] py-3 text-[15px] font-bold text-ink-inverted shadow-accent-brand"
       >
         Show {view.nextStep} more
       </button>
       <button
         type="button"
         onClick={() => onShowAll()}
-        className="rounded-full border-2 border-oak-black bg-white px-[22px] py-3 text-[15px] font-bold text-oak-black"
+        className="rounded-full border-2 border-line bg-white px-[22px] py-3 text-[15px] font-bold text-ink"
       >
         Show all {view.showAllCount}
       </button>

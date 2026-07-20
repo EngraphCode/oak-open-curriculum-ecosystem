@@ -130,7 +130,7 @@ export default async function LessonPage({
   return (
     // No landmark of its own — the app layout owns <main> (the CourseShell nested-main class).
     <div className="mx-auto max-w-[760px] px-6 pt-10 pb-20">
-      <Link href="/" className="text-[13px] font-bold text-oak-navy hover:text-oak-navy-hover">
+      <Link href="/" className="text-[13px] font-bold text-link hover:text-link-hover">
         ← Back to search
       </Link>
 
@@ -139,13 +139,13 @@ export default async function LessonPage({
       <h1 className="mt-2.5 mb-2.5 text-[30px] font-semibold leading-tight">{view.title}</h1>
 
       {!view.hasContent && (
-        <p className="text-[15px] font-light leading-relaxed text-oak-grey">
+        <p className="text-[15px] font-light leading-relaxed text-ink-subdued">
           This lesson&rsquo;s content is unavailable.
         </p>
       )}
 
       {view.outcome && (
-        <p className="mb-6 text-[17px] font-light leading-relaxed text-oak-black">{view.outcome}</p>
+        <p className="mb-6 text-[17px] font-light leading-relaxed text-ink">{view.outcome}</p>
       )}
 
       {view.keyLearningPoints.length > 0 && <KeyLearningPoints points={view.keyLearningPoints} />}
@@ -183,14 +183,14 @@ function LessonResources({
 }): ReactElement {
   return (
     <section>
-      <div className="mb-2.5 text-xs font-bold uppercase tracking-[0.05em] text-oak-grey">
+      <div className="mb-2.5 text-xs font-bold uppercase tracking-[0.05em] text-ink-subdued">
         Resources for this lesson
       </div>
       <div className="mb-4 flex flex-wrap gap-2">
         {items.map((a) => (
           <span
             key={a.type}
-            className="inline-flex items-center rounded-full border-2 border-oak-grey-line px-3 py-[7px] text-[13px] font-semibold text-oak-grey"
+            className="inline-flex items-center rounded-full border-2 border-line-soft px-3 py-[7px] text-[13px] font-semibold text-ink-subdued"
           >
             {a.label}
           </span>
@@ -201,7 +201,7 @@ function LessonResources({
           href={oakUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block rounded-full border-2 border-oak-black bg-white px-[18px] py-[11px] text-sm font-bold text-oak-black no-underline shadow-oak-lemon transition-[box-shadow,transform] duration-150 hover:shadow-oak-wide-lemon active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+          className="inline-block rounded-full border-2 border-line bg-white px-[18px] py-[11px] text-sm font-bold text-ink no-underline shadow-accent-brand transition-[box-shadow,transform] duration-150 hover:shadow-accent-wide-brand active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
         >
           Download these on thenational.academy ↗
         </a>
@@ -212,9 +212,9 @@ function LessonResources({
 
 function Stat({ n, label }: { readonly n: number; readonly label: string }): ReactElement {
   return (
-    <div className="shadow-oak-lemon min-w-[120px] rounded-xl border-2 border-oak-black bg-white px-[18px] py-3">
+    <div className="shadow-accent-brand min-w-[120px] rounded-xl border-2 border-line bg-white px-[18px] py-3">
       <div className="text-[28px] font-bold leading-none">{n}</div>
-      <div className="mt-1 text-xs font-light leading-snug text-oak-grey">{label}</div>
+      <div className="mt-1 text-xs font-light leading-snug text-ink-subdued">{label}</div>
     </div>
   );
 }

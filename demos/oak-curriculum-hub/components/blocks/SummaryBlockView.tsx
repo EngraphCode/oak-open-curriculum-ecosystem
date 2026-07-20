@@ -10,8 +10,8 @@ import type { SummaryBlock } from '@/lib/blocks/types';
 export function SummaryBlockView({ block }: { readonly block: SummaryBlock }): ReactElement {
   return (
     <section aria-label="Summary" className="flex flex-col gap-4">
-      <div className="shadow-oak-lemon rounded-[14px] border-2 border-oak-black bg-white p-[20px_22px_22px]">
-        <p className="mb-3.5 text-[13px] leading-none font-bold tracking-[0.04em] uppercase text-oak-grey">
+      <div className="shadow-accent-brand rounded-[14px] border-2 border-line bg-white p-[20px_22px_22px]">
+        <p className="mb-3.5 text-[13px] leading-none font-bold tracking-[0.04em] uppercase text-ink-subdued">
           Key takeaways
         </p>
         <ul className="flex flex-col gap-[13px]">
@@ -22,7 +22,7 @@ export function SummaryBlockView({ block }: { readonly block: SummaryBlock }): R
             >
               <span
                 aria-hidden="true"
-                className="shrink-0 text-[19px] leading-[26px] font-bold text-oak-green"
+                className="shrink-0 text-[19px] leading-[26px] font-bold text-success"
               >
                 ✓
               </span>
@@ -32,10 +32,10 @@ export function SummaryBlockView({ block }: { readonly block: SummaryBlock }): R
         </ul>
       </div>
       {block.question !== undefined && (
-        <div className="flex gap-3.5 rounded-xl border-2 border-l-8 border-oak-black border-l-oak-lemon bg-oak-lemon-subdued p-[18px_20px]">
+        <div className="flex gap-3.5 rounded-xl border-2 border-l-8 border-line border-l-accent-brand bg-accent-subtle-brand p-[18px_20px]">
           <span
             aria-hidden="true"
-            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-oak-black bg-oak-lemon text-lg leading-none font-bold"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-line bg-decorative-5 text-lg leading-none font-bold"
           >
             ?
           </span>

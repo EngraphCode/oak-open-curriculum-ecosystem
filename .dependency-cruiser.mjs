@@ -200,6 +200,10 @@ export default {
         // consumable workspace root stays cruised; studio-source/ is the
         // explicitly-separated non-production material, see its README).
         'packages/design/oak-design-system/studio-source/',
+        // The hub's tracked copy of the kit's theme runtime, consumed by
+        // readFileSync in app/layout.tsx (no import edge to see; byte-parity
+        // with the package is test-enforced) — same served-asset class.
+        'demos/oak-curriculum-hub/public/oak-theme\\.js$',
         // Untracked import staging for the same system (root .gitignore) —
         // outside git and outside the analysis corpus.
         'packages/design/design-import/',

@@ -20,14 +20,14 @@ export function DashedMediaSlot({
 }): ReactElement {
   return (
     <span
-      className={`relative flex w-full flex-col items-center justify-center border-2 border-dashed border-oak-grey bg-oak-black/[.03] text-center ${
+      className={`relative flex w-full flex-col items-center justify-center border-2 border-dashed border-line-neutral bg-surface-inverted/[.03] text-center ${
         compact
           ? 'min-h-[92px] gap-1.5 rounded-[10px] p-3'
           : 'min-h-[150px] max-w-[440px] gap-2 rounded-xl p-[18px]'
       }`}
     >
       {badge !== undefined && (
-        <span className="absolute left-2 top-2 rounded-full border-2 border-oak-black bg-oak-lemon px-[9px] py-1 text-[10px] font-bold tracking-[0.03em]">
+        <span className="absolute left-2 top-2 rounded-full border-2 border-line bg-decorative-5 px-[9px] py-1 text-[10px] font-bold tracking-[0.03em]">
           {badge}
         </span>
       )}
@@ -40,14 +40,14 @@ export function DashedMediaSlot({
         strokeWidth="1.6"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="stroke-oak-grey"
+        className="stroke-ink-subdued"
       >
         <rect x="3" y="3" width="18" height="18" rx="2" />
         <circle cx="8.5" cy="8.5" r="1.6" />
         <path d="M21 15l-5-5L5 21" />
       </svg>
       <span
-        className={`font-light text-oak-grey ${compact ? 'text-[12px] leading-4' : 'text-[13px] leading-[18px]'}`}
+        className={`font-light text-ink-subdued ${compact ? 'text-[12px] leading-4' : 'text-[13px] leading-[18px]'}`}
       >
         {label}
       </span>

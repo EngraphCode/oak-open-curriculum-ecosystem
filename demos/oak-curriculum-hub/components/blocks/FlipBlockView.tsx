@@ -37,8 +37,8 @@ function FlipCardView({
         aria-labelledby={titleId}
         onClick={() => setFlipped((value) => !value)}
         style={flipped ? { backgroundColor: chip } : undefined}
-        className={`flex min-h-[210px] w-full flex-col items-start rounded-[14px] border-2 border-oak-black p-[18px] text-left ${
-          flipped ? 'shadow-oak-black' : 'bg-white shadow-oak-lemon'
+        className={`flex min-h-[210px] w-full flex-col items-start rounded-[14px] border-2 border-line p-[18px] text-left ${
+          flipped ? 'shadow-ink-brand' : 'bg-white shadow-accent-brand'
         }`}
       >
         <span hidden={!flipped} className="text-[16px] font-light leading-[23px]">
@@ -69,7 +69,7 @@ function CardFront({
       <span
         aria-hidden="true"
         style={{ backgroundColor: chip }}
-        className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded-full border-2 border-oak-black text-[15px] font-bold"
+        className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded-full border-2 border-line text-[15px] font-bold"
       >
         {card.badge}
       </span>
@@ -81,7 +81,7 @@ function CardFront({
           <DashedMediaSlot label="Drop image" compact />
         </span>
       )}
-      <span className="mt-auto flex items-center gap-1.5 pt-3 text-[13px] font-light text-oak-grey">
+      <span className="mt-auto flex items-center gap-1.5 pt-3 text-[13px] font-light text-ink-subdued">
         Tap to reveal{' '}
         <span aria-hidden="true" className="text-[15px]">
           ↻
