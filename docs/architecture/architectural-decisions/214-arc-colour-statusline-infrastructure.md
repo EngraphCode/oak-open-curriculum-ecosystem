@@ -21,7 +21,11 @@ projects them per tick.
 
 The rapid-comms channel corpus is a shared cross-host surface — castr sessions read the
 same channel files — so its shape is a grammar shared between estates, not a per-consumer
-convention.
+convention. The adopted feather design's upstream source is
+[castr PR #22](https://github.com/EngraphCode/castr/pull/22) (the feather/ARC estate)
+with [castr PR #29](https://github.com/EngraphCode/castr/pull/29) (gauge relabelling),
+both merged to [`EngraphCode/castr`](https://github.com/EngraphCode/castr) main
+2026-07-20.
 
 ## Decision
 
