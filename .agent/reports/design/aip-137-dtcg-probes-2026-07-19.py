@@ -13,7 +13,7 @@ mirroring the CSS, where light-dark() carries the light/dark polarity and
 Unresolvable values (color-mix, currentColor, alpha-bearing, non-hex) are
 reported as typed refusals, never fudged.
 """
-import json, re, sys, itertools
+import json, re, sys
 from pathlib import Path
 
 WS = Path("packages/design/oak-design-system")
@@ -34,13 +34,15 @@ def flatten(tree, path=""):
     return out
 
 def load(name):
-    return flatten(json.load(open(DT / name)))
+    with open(DT / name) as f:
+        return flatten(json.load(f))
 
 palette = load("palette.json")          # oak.color.*
 primitives = load("primitives.json")    # space.*, font.*, border.*, ...
 component = load("component.json")      # btn.*, card.*, ...
 sem = {t: load(f"semantic.{t}.json") for t in ["light", "dark", "high-contrast", "colour-safe"]}
-pairs = json.load(open(DT / "contrast-pairings.json"))["pairs"]
+with open(DT / "contrast-pairings.json") as f:
+    pairs = json.load(f)["pairs"]
 
 # ---------- CSS parsing (brace-tracking state machine) ----------
 
@@ -264,7 +266,8 @@ out = {"probeA": {k: v for k, v in report.items()}, "probeB": contrast,
        "meta": {"css_base_props": len(css_base), "css_hc_props": len(css_hc),
                  "css_cs_props": len(css_cs), "css_excluded_decls": css_excluded,
                  "pairs": len(pairs)}}
-json.dump(out, open(sys.argv[1], "w"), indent=1, default=str)
+with open(sys.argv[1], "w") as f:
+    json.dump(out, f, indent=1, default=str)
 
 print("META:", out["meta"])
 print("\nPROBE A mismatches/misses:")

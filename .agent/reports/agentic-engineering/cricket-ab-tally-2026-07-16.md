@@ -94,7 +94,7 @@ lesson set. Frame lesson re-confirmed: supply the critical-path owner explicitly
 Post-amendment tally now 1 divergence (PAIR-5, haiku-correct) + 1 convergence (PAIR-6).
 
 
-## PAIR-5 (2026-07-19 ~20:25Z, invoker: Salmon binds Undertow de5c10, identical frames, no Director seat live — recorded here in lieu of Director routing)
+## PAIR-7 (2026-07-19 ~20:25Z, invoker: Salmon binds Undertow de5c10, identical frames, no Director seat live — recorded here in lieu of Director routing)
 
 - Frame: n=3 AIP-137 third seat; verdict question was whether Stage-A import verification
   is the right boundary given the exploration dispatch was ruled discharged-by-recognition.

@@ -34,8 +34,10 @@ day or any second coordination-shaped branch.
   later push to that branch — including pushes after the PR merges — and the
   merged PR becomes a review treadmill (worked instance 2026-07-17: a
   rolling-head roll-up accumulated 109 review threads; the cut-branch
-  equivalent the same day closed at 5). Cut a branch at the tip, PR it,
-  delete it at merge.
+  equivalent the same day closed at 5). Cut a branch at the tip, PR it, and
+  delete it at merge under the `worktree-hygiene` branch-deletion contract
+  (owner-authorised, content-verified — merge itself is the content proof
+  for a cut branch whose tip the merge commit carries).
 - **Whole-repo judgements bind only on `main`.** Unused-code verdicts, Sonar
   cures, knip entries, dead-file deletions, and consolidations made from a
   branch's view are void for any file whose consumers may live elsewhere —

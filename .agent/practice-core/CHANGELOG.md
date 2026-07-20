@@ -15,6 +15,11 @@ Practice Core package.
   estate with the AIP-142 wrap-family skills (wrap, retrospective,
   knowledge-safety-sweep, free-play) and the skill-composition reference;
   the slow-lane register section seeded in pending-graduations.
+- New PDR-131 (merge concurrency is free; quality binds at settled-READY) —
+  the 2026-07-20 net-to-zero merge drive's owner-ratified doctrine: merge
+  eligibility binds at settled review round + green checks, concurrency
+  between eligible PRs is free, auto-merge arms only at settled-READY under
+  a Director grant.
 
 ## [oak-open-curriculum-ecosystem] 2026-07-13 — post-review truings to PDR-125, PDR-063, PDR-064 and the ceremony surfaces (Monsoon herds Airstream, PR review rounds)
 

@@ -14,6 +14,7 @@ Current queued work for this collection.
 | P2 | [security-dependency-triage.plan.md](./security-dependency-triage.plan.md) | Dependabot, CodeQL, and outdated dependency triage | Queued |
 | P3 | [doc-architecture-phase-a-immediate.plan.md](./doc-architecture-phase-a-immediate.plan.md) | QA register, ADR-166 / ADR-121 gate-mapping follow-up, ADR index, C4 diagrams, layer contract | Queued |
 | P4 | [doc-architecture-phase-b-dependent.plan.md](./doc-architecture-phase-b-dependent.plan.md) | Deduplication, operability practice, trade-off guidance, Practice Core | Queued (blocked by Phase A) |
+| P6 | [test-purity-quick-wins-execution.plan.md](./test-purity-quick-wins-execution.plan.md) | Owner-commissioned test-purity quick-wins set (suffix invariants, vitest config purity, CI relocation) rescued 2026-07-20 from the private sibling Resonance estate | IMPORTED, PENDING ADAPTATION — source-estate facts must be re-derived against this tree before execution |
 | P5 | agent-identity-derivation.plan.md (`../../../plans-old-archive/architecture-and-infrastructure/archive/completed/agent-identity-derivation.plan.md`) | Portable deterministic agent-identity CLI in `agent-tools/`; cross-platform (Claude Code/Codex/Cursor) | Complete — archived 2026-04-27 |
 
 Active execution:

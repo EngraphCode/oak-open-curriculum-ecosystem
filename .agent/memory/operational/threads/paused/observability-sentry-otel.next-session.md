@@ -41,8 +41,7 @@ merge-readiness declaration with release-readiness-expert synthesis).
 
 - **Focused local-startup follow-up** (active record; all phases completed, packaged in
   `d9cb54e8`):
-  `mcp-local-startup-release-boundary.plan.md` (`../../../../plans-old-
-  archive/observability/archive/completed/mcp-local-startup-release-boundary.plan.md`)
+  `mcp-local-startup-release-boundary.plan.md` (`../../../../plans-old-archive/observability/archive/completed/mcp-local-startup-release-boundary.plan.md`)
   (+ its `phase-0-evidence` / `phase-1-red-evidence` companions).
 - **Completed gate-recovery precondition** (complete for current branch state):
   [`gate-recovery-cadence.plan.md`](../../../../plans/observability/active/gate-recovery-cadence.plan.md)
@@ -53,8 +52,7 @@ merge-readiness declaration with release-readiness-expert synthesis).
   [`sentry-release-identifier-single-source-of-truth.plan.md`](../../../../plans/observability/current/sentry-release-identifier-single-source-of-truth.plan.md)
   — release-identifier SSoT + ADR-163 amendment + cancellation-ADR linkage.
 - **PR #87 unblock** (next-session pickup):
-  `pr-87-quality-finding-resolution.plan.md` (`../../../../plans-old-
-  archive/observability/archive/superseded/pr-87-quality-finding-resolution.plan.md`)
+  `pr-87-quality-finding-resolution.plan.md` (`../../../../plans-old-archive/observability/archive/superseded/pr-87-quality-finding-resolution.plan.md`)
   — clear the three failing PR checks (CodeQL combined, SonarCloud QG, CI test) by phased
   remediation; Phase 0 surfaces three owner decisions (rate-limit verification, stylistic-rule
   policy, semver-extraction home) before Phase 1 mechanical work.

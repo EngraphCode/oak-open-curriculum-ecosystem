@@ -17,7 +17,10 @@ falsifiability discipline the fast lane rides);
 (decision-debt and single-instance graduation — unchanged for operational
 lessons). Provenance: imported and
 adapted 2026-07-20 from the sibling Resonance estate's owner-ratified
-two-speed-learning record (AIP-142; PDR-125 inter-practice exchange; the
+two-speed-learning record (a private Practice repo — no public upstream
+URL exists, so the durable citation is the estate name plus the PDR-125
+exchange vehicle; the host-side exchange ticket is named in the host
+changelog, not here, per portability; the
 sequential-identifier collision rule applied — the source estate numbers
 it differently). The originating owner question — "do you have feelings on
 how we approach deeper and longer term learning and enhancement from the

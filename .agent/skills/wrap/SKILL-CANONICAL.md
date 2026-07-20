@@ -19,7 +19,10 @@ description: >-
 [skill-composition hierarchy](../../reference/skill-composition.md) — it owns
 the sequence, the metaloss loop, and the exit contract, and summons workflows
 for the work. Imported and adapted 2026-07-20 from the Resonance estate's
-`wrap` skill (AIP-142; inter-practice exchange per PDR-125), which conserved
+`wrap` skill (a private sibling Practice repo — no public upstream URL exists;
+source repo-relative path `.agent/skills/wrap/SKILL-CANONICAL.md`, captured via
+`.agent/practice-core/incoming/resonance-wrap-skill-import-2026-07-20.md`;
+AIP-142; inter-practice exchange per PDR-125), which conserved
 the owner's standing deep-handoff invocation ("a full and deep session
 handoff… a deep scan of the context for what would be lost if the context
 ceased to exist, followed by a second, deeper, recursive exploration of the

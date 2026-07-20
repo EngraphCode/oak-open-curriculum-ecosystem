@@ -19,7 +19,9 @@ exploration converges raw observations toward a problem frame and warranted
 proposals; play diverges through material with no frame at all and sees what
 appears. The pair forms a border: anything play grows a shape for crosses
 into concept-exploration; anything exploration cannot yet name may belong in
-play. Imported and adapted 2026-07-20 from the Resonance estate (AIP-142;
+play. Imported and adapted 2026-07-20 from the Resonance estate (a private
+sibling Practice repo — no public upstream URL exists; source repo-relative
+path `.agent/skills/free-play/SKILL-CANONICAL.md`; AIP-142;
 PDR-125 exchange); this estate's founding worked instance is the free-play
 pass inside the 2026-07-20 merge-drive retrospective (three kept seeds, one
 visible discard). Grounded in the variation half of

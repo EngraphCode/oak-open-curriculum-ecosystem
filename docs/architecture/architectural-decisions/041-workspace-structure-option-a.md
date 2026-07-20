@@ -133,9 +133,12 @@ design-tokens-core → oak-design-system → oak-design-tokens → oak-design-in
 
 - `design-tokens-core` imports nothing from the monorepo; it is consumed by
   `oak-design-tokens` as a runtime `dependency` (the built
-  `dist/terminal-theme.js` imports it), and by `oak-design-system` for
-  build/validation only (corrected 2026-07-20: an earlier revision called
-  both edges devDependencies; the `oak-design-tokens` edge is runtime).
+  `dist/terminal-theme.js` imports it). `oak-design-system` carries NO
+  `design-tokens-core` edge (corrected 2026-07-20 twice: an earlier revision
+  called both edges devDependencies; a later one kept a phantom
+  build/validation edge — the DTCG↔CSS consistency validation actually lives
+  in `oak-design-tokens`' validator script, which reads `oak-design-system`
+  output without `oak-design-system` depending on the tokens core).
 - `oak-design-system` has zero runtime monorepo dependencies; its public
   surface is built CSS plus the generated DTCG export artefact — no React on
   the export surface.

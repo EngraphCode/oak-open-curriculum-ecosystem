@@ -1,9 +1,17 @@
 ---
-plan: test-purity-quick-wins-execution
+name: test-purity-quick-wins-execution
+overview: >-
+  Rescued source-estate plan (private sibling Resonance estate; no public
+  upstream URL): the owner-commissioned test-purity quick-wins set (suffix
+  invariants, vitest config purity, CI relocation). NOT yet executable in
+  this repo — file paths, censuses, and CI claims are source-estate facts;
+  a consolidation/adaptation pass re-derives them here before any execution.
 lane: current
-status: "READY FOR EXECUTION (planned 2026-07-17, Squally Washing Lighthouse
-  3795e7; owner decisions taken in-plan: ratchet ruled, full scope confirmed) —
-  executes in a dedicated session"
+status: "IMPORTED, PENDING ADAPTATION (rescued 2026-07-20 from the Resonance
+  estate where it was planned 2026-07-17, Squally Washing Lighthouse 3795e7,
+  owner decisions taken in-plan: ratchet ruled, full scope confirmed) — every
+  repo-specific fact below is source-estate and must be re-derived here
+  before execution"
 todos:
   - id: qw-c1-hook-fix
     content: "Push-guard cwd-crash fix: lazy root derivation + CLAUDE_PROJECT_DIR-anchored root; TDD on extracted pure context-resolution"
@@ -35,6 +43,16 @@ todos:
 ---
 
 # Test-Purity Quick Wins — Execution Plan
+
+> **Import status (2026-07-20, rescued at Siren's consolidation tail):** this
+> plan was authored IN and FOR the private sibling Resonance estate — its file
+> paths (`kengraph`, `baxtersgallery`, `.agent/plans/resonance/...`), test
+> censuses, and CI-chain observations are source-estate facts that do NOT
+> resolve in this repository. It is conserved here as the owner-commissioned
+> quick-wins design (the invariants and sequencing carry); the adaptation pass
+> (consolidation lane) re-derives every repo-specific fact against THIS tree
+> before any todo executes. The investigation source named below is a
+> source-estate path, present only in the Resonance repo.
 
 ## Context
 
@@ -316,8 +334,10 @@ push window each per the estate's Codex-review race discipline
 ## Landing + lifecycle
 
 This plan lands at
-`.agent/plans/resonance/current/test-purity-quick-wins-execution.md`
-(moved to `active/` when the executing session starts). Completion runs
+`.agent/plans/architecture-and-infrastructure/current/test-purity-quick-wins-execution.plan.md`
+(its home in THIS estate after the 2026-07-20 rescue; the source-estate
+landing path was `.agent/plans/resonance/current/…` — historical). It moves
+to `active/` when the executing session starts, AFTER the adaptation pass. Completion runs
 the consolidation touchpoint per the plan architecture; the debt plan's
 matrix rows QW1–QW7/FI2/ST7-immediate flip to executed with SHA
 evidence; observed timings (C3, C7, C8) are recorded in a completion

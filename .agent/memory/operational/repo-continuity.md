@@ -281,7 +281,13 @@ not the current session-priority lane. Reactivation is owner-directed.
 
 ## Next Safe Steps
 
-### COLD PICKUP FOR THE NEXT SESSION (2026-07-17 full handoff) — THIS section is the tracked authority
+### COLD PICKUP (2026-07-17 full handoff) — SUPERSEDED as pickup authority (2026-07-20): the live authority is `director-handoff.md` §CURRENT HANDOFF STATE; the operating model below remains standing
+
+Queue-state staleness note (2026-07-20, Tornado tracks Apex): item (1) below is
+DONE — PR #409 MERGED 2026-07-20 during the net-to-zero drive (threads resolved
+first); items (2)–(6) remain live-or-partial and are re-owned through the
+Director records, not this list. The operating-model paragraph stays the
+standing doctrine reference it was.
 
 **The operating model (owner-set 2026-07-17):** the primary checkout lives ON
 `coordination/estate-2026-07` with ZERO dirty files; live fleet surfaces
