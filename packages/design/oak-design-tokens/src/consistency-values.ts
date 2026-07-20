@@ -64,6 +64,16 @@ export function normaliseValue(value: string): string {
     outside = '';
 
     const span = consumeQuotedSpan(value, index + 1, character);
+
+    // An unterminated string is malformed: keep its remainder verbatim from
+    // the opening delimiter, never fabricate the missing close — a malformed
+    // value must not normalise equal to its well-formed twin.
+    if (span.closingIndex >= value.length) {
+      parts.push(value.slice(index));
+      index = value.length;
+      continue;
+    }
+
     parts.push(`'${span.content}'`);
     index = span.closingIndex + 1;
   }
@@ -119,6 +129,13 @@ function consumeEscape(
   value: string,
   index: number,
 ): { readonly text: string; readonly nextIndex: number } {
+  // An escaped backslash keeps its escaped spelling: decoding it to a raw
+  // backslash would collide with the preserved hex-escape representation
+  // ('a\\b' vs the hex escape 'a\b' must stay distinct).
+  if (value[index + 1] === '\\') {
+    return { text: '\\\\', nextIndex: index + 2 };
+  }
+
   if (!HEX_DIGIT_PATTERN.test(value[index + 1])) {
     return { text: value[index + 1], nextIndex: index + 2 };
   }

@@ -60,6 +60,18 @@ describe('normaliseValue', () => {
   it('decodes a simple escape while a hex escape in the same span stays verbatim', () => {
     expect(normaliseValue(String.raw`"a\'b \41 z"`)).toBe(String.raw`'a'b \41 z'`);
   });
+
+  it('keeps an unterminated quoted remainder verbatim instead of fabricating its delimiter', () => {
+    // A malformed value must never normalise equal to its well-formed twin.
+    expect(normaliseValue(`'Lexend`)).toBe(`'Lexend`);
+    expect(normaliseValue(`'Lexend`)).not.toBe(normaliseValue(`'Lexend'`));
+  });
+
+  it('keeps an escaped backslash distinct from a preserved hex escape', () => {
+    // 'a\\b' (literal backslash then b) and 'a\b' (hex escape) are different
+    // strings; a decode that flattens both to a\b would mask real drift.
+    expect(normaliseValue(String.raw`'a\\b'`)).not.toBe(normaliseValue(String.raw`'a\b'`));
+  });
 });
 
 describe('extractCssComparand', () => {
