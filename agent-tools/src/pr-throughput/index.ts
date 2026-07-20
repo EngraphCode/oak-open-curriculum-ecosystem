@@ -109,10 +109,13 @@ export function formatRegisterRow(
     .join(' ')
     .replaceAll('|', '&#124;');
   const date = report.windowEnd.slice(0, 10);
+  // CEILING, not round: the prediction binds at "p50 at 45 or below", so a
+  // displayed minute value must never understate the measurement — 45m01s
+  // must record as 46, or the falsifier boundary reads as met when it is not.
   const p50 =
-    report.cycleTimeP50Minutes === null ? '-' : String(Math.round(report.cycleTimeP50Minutes));
+    report.cycleTimeP50Minutes === null ? '-' : String(Math.ceil(report.cycleTimeP50Minutes));
   const p90 =
-    report.cycleTimeP90Minutes === null ? '-' : String(Math.round(report.cycleTimeP90Minutes));
+    report.cycleTimeP90Minutes === null ? '-' : String(Math.ceil(report.cycleTimeP90Minutes));
 
   return `| ${date} | ${report.windowDays}d | ${report.mergedCount} | ${report.mergesPerDay.toFixed(2)} | ${p50} | ${p90} | ${note} |`;
 }
