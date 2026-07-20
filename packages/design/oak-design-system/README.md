@@ -222,7 +222,7 @@ integrations/revealjs/  ← Oak reveal.js theme + sample deck
 thumbnail.html          ← homepage tile (studio-side; held out here — see .gitignore)
 assets/                 ← logos, brand marks, icons/ (local SVG set)
 oak-icons.css           ← icon URL token map (--i-* names + --ic-* roles; root-adjacent to components.css by design)
-fonts/                  ← Lexend + Roboto Mono variable fonts
+fonts/                  ← Lexend + Roboto Mono variable fonts + their OFL notices
 templates/
   lesson-deck/          ← teaching-slides starting point (deck-stage)
   worksheet/            ← printable A4 worksheet (doc-page, PDF-ready)

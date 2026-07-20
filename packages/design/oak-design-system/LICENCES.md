@@ -11,6 +11,8 @@ Everything third-party this project loads, vendors, or recommends, with its lice
 | Nunito · Baloo 2       | EMC² counter-brand (`whitelabel/creature/brand-a.css`, Google Fonts CSS2 API)                         | Google Fonts                                                                       | SIL OFL 1.1 |
 | Public Sans            | FDSE counter-brand (`whitelabel/freedonia/brand-a.css`, Google Fonts CSS2 API)                        | USWDS / Google Fonts                                                               | SIL OFL 1.1 |
 
+Both locally shipped faces travel with their verbatim upstream copyright notice + full OFL text (`fonts/Lexend-OFL.txt` — including its Reserved Font Name clause — and `fonts/RobotoMono-OFL.txt`), satisfying OFL 1.1 condition 2 for every redistributed copy; `fonts/*` is on the package exports map, so the notices ship wherever the fonts do.
+
 ## Icon sets (one distinct set per identity — DECISIONS)
 
 | Set                      | Used by                                                                                                               | Source (pinned)                                  | Licence                            |
