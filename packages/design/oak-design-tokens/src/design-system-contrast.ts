@@ -57,7 +57,7 @@ const SEMANTIC_TREES: Readonly<Record<DesignSystemTheme, DtcgTokenTree>> = {
   'colour-safe': semanticColourSafe,
 };
 
-const OVERLAY_TREES: Readonly<Record<string, DtcgTokenTree>> = {
+const OVERLAY_TREES: Readonly<Record<Exclude<DesignSystemTheme, 'light'>, DtcgTokenTree>> = {
   dark: semanticDark,
   'high-contrast': semanticHighContrast,
   'colour-safe': semanticColourSafe,
