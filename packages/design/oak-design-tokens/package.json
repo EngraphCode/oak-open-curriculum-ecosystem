@@ -23,7 +23,7 @@
     "test": "vitest run",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "validate-design-system-consistency": "cd ../../.. && pnpm exec tsx packages/design/oak-design-tokens/scripts/validate-design-system-consistency.ts"
+    "validate-design-system-consistency": "cd ../../.. && pnpm exec turbo run build --filter=@oaknational/design-tokens-core --output-logs=errors-only && pnpm exec tsx packages/design/oak-design-tokens/scripts/validate-design-system-consistency.ts"
   },
   "dependencies": {
     "@oaknational/design-tokens-core": "workspace:*",
