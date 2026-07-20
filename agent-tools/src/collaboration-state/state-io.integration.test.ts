@@ -8,7 +8,12 @@ import {
   EMPTY_ACTIVE_CLAIMS_REGISTRY_JSON,
   EMPTY_CLOSED_CLAIMS_ARCHIVE_JSON,
 } from './state-file-seeds.js';
-import { readActiveClaimsFile, readClosedClaimsFile } from './state-io.js';
+import {
+  readActiveClaimsFile,
+  readClosedClaimsFile,
+  updateActiveClaimsFile,
+  updateClaimStateFiles,
+} from './state-io.js';
 
 // On a fresh checkout or new worktree the collaboration-state files are
 // untracked-by-design (ADR-199 / PDR-094), so the very first CLI invocation
@@ -66,5 +71,36 @@ describe('readClosedClaimsFile on a fresh checkout', () => {
     const archive = await readClosedClaimsFile(path);
 
     expect(archive.claims).toEqual([]);
+  });
+});
+
+// The claims lifecycle CLI commands (`claims close`, `claims archive-stale`)
+// reach the archive through the transactional update paths, not the plain
+// readers — the seeding error must surface there too, or the CLI paths keep
+// the bare ENOENT the readers were cured of.
+
+describe('updateClaimStateFiles on a fresh checkout', () => {
+  it('rejects a missing closed-claims archive with the actionable seeding error (the claims close path)', async () => {
+    const activePath = join(dir, 'active-claims.json');
+    await writeFile(activePath, EMPTY_ACTIVE_CLAIMS_REGISTRY_JSON, 'utf8');
+
+    await expect(
+      updateClaimStateFiles({
+        activePath,
+        closedPath: join(dir, 'closed-claims.archive.json'),
+        transform: (state) => state,
+      }),
+    ).rejects.toThrow(/closed-claims archive not found[\s\S]*untracked-by-design/);
+  });
+});
+
+describe('updateActiveClaimsFile on a fresh checkout', () => {
+  it('rejects a missing registry with the actionable seeding error (the claims open path)', async () => {
+    await expect(
+      updateActiveClaimsFile({
+        activePath: join(dir, 'active-claims.json'),
+        transform: (registry) => registry,
+      }),
+    ).rejects.toThrow(/active-claims registry not found[\s\S]*untracked-by-design/);
   });
 });

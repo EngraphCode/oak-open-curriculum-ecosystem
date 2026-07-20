@@ -211,22 +211,27 @@ build, AND the Playwright browser install before the browser-test gates run.
 
 The collaboration substrate is also unseeded on a fresh checkout: the
 instance-tier state files are untracked-by-design (ADR-199 / PDR-094), so
-`active-claims.json`, `comms/`, and `comms-seen/` do not exist until first
-use, and the first `comms send` or claims read fails loud with seeding
-instructions. Seed the substrate — guarded, so an existing registry is never
-overwritten — before the first collaboration-state move:
+`active-claims.json`, `closed-claims.archive.json`, `comms/`, and
+`comms-seen/` do not exist until first use, and the first `comms send` or
+claims read fails loud with seeding instructions. Seed the substrate —
+guarded, so existing state is never overwritten — before the first
+collaboration-state move. The block below roots every path at the PRIMARY
+checkout (the first worktree in `git worktree list --porcelain`, the same
+home `resolveCoordinationHome` derives), so it is safe to run from a linked
+worktree too. Never seed cwd-relative from a linked worktree: a
+worktree-local substrate is a decoy invisible to peers — the F-41 class.
 
 ```bash
-mkdir -p .agent/state/collaboration/comms .agent/state/collaboration/comms-seen
-[ -f .agent/state/collaboration/active-claims.json ] || printf '%s\n' \
+COORD_HOME="$(git worktree list --porcelain | head -1 | sed 's/^worktree //')"
+mkdir -p "$COORD_HOME/.agent/state/collaboration/comms" \
+  "$COORD_HOME/.agent/state/collaboration/comms-seen"
+[ -f "$COORD_HOME/.agent/state/collaboration/active-claims.json" ] || printf '%s\n' \
   '{ "schema_version": "1.3.0", "claims": [], "commit_queue": [] }' \
-  > .agent/state/collaboration/active-claims.json
+  > "$COORD_HOME/.agent/state/collaboration/active-claims.json"
+[ -f "$COORD_HOME/.agent/state/collaboration/closed-claims.archive.json" ] || printf '%s\n' \
+  '{ "schema_version": "1.3.0", "claims": [] }' \
+  > "$COORD_HOME/.agent/state/collaboration/closed-claims.archive.json"
 ```
-
-Seed only in the PRIMARY checkout's collaboration home: a linked worktree
-must NOT grow its own substrate (comms written there land in a decoy dir
-invisible to peers — the F-41 class; `resolveCoordinationHome` names the
-shared home).
 
 ## Practice Box
 

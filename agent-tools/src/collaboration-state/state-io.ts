@@ -125,11 +125,16 @@ export async function readDirectedCommsMessages(
 
 /**
  * Transactionally update the active claims registry.
+ *
+ * The pre-transaction read surfaces the fresh-checkout seeding error (see
+ * {@link readActiveClaimsFile}) before the retry transaction's generic read
+ * meets a bare ENOENT; the transaction still re-reads under its lock.
  */
 export async function updateActiveClaimsFile(input: {
   readonly activePath: string;
   readonly transform: (registry: CollaborationRegistry) => CollaborationRegistry;
 }): Promise<void> {
+  await readActiveClaimsFile(input.activePath);
   await updateJsonFileWithRetry({
     filePath: input.activePath,
     parseText: parseCollaborationRegistry,
@@ -156,8 +161,8 @@ export async function updateClaimStateFiles(input: {
   await runJsonStateTransaction({
     filePaths: [input.activePath, input.closedPath],
     operation: async () => {
-      const active = parseCollaborationRegistry(await readFile(input.activePath, 'utf8'));
-      const closed = parseClosedClaimsArchive(await readFile(input.closedPath, 'utf8'));
+      const active = await readActiveClaimsFile(input.activePath);
+      const closed = await readClosedClaimsFile(input.closedPath);
       const next = input.transform({ active, closed });
 
       await writeJsonFileWithinTransaction({
