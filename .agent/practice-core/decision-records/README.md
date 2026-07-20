@@ -254,3 +254,4 @@ Practice-Core concept ↔ ADR map):
 | [PDR-128](PDR-128-review-conversations-are-first-class.md) | Review Conversations Are First-Class — a PR Is the Structured Earning of Shared Truth | Accepted |
 | [PDR-129](PDR-129-diagnosis-reads-whole-surfaces-catalogues-are-open-sets.md) | Diagnosis Reads Whole Surfaces First; Failure Catalogues Are Open Sets | Accepted |
 | [PDR-130](PDR-130-two-speed-learning.md) | Two-Speed Learning — Fast Lessons, Slow Concepts, Predictions on Both | Accepted |
+| [PDR-131](PDR-131-merge-concurrency-is-free-quality-binds-at-settled-ready.md) | Merge Concurrency Is Free — Quality Binds at Settled-READY | Accepted |
