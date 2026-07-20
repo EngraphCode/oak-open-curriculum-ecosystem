@@ -1,8 +1,15 @@
 import { mkdir, readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
+import { unwrapOrThrow } from '@oaknational/result';
+
 import { createCommsEvent } from './comms.js';
 import { validateCollaborationJsonFileText } from './collaboration-json-validation.js';
+import {
+  readActiveClaimsFile,
+  readClosedClaimsFile,
+  type ReadTextFile,
+} from './state-file-readers.js';
 import {
   parseClosedClaimsArchive,
   parseCollaborationRegistry,
@@ -22,20 +29,11 @@ import {
 } from './types.js';
 
 export { parseClosedClaimsArchive, parseCollaborationRegistry } from './state-parsers.js';
-
-/**
- * Read and parse the active claims registry.
- */
-export async function readActiveClaimsFile(activePath: string): Promise<CollaborationRegistry> {
-  return parseCollaborationRegistry(await readFile(activePath, 'utf8'));
-}
-
-/**
- * Read and parse the closed claims archive.
- */
-export async function readClosedClaimsFile(closedPath: string): Promise<ClosedClaimsArchive> {
-  return parseClosedClaimsArchive(await readFile(closedPath, 'utf8'));
-}
+export {
+  readActiveClaimsFile,
+  readClosedClaimsFile,
+  type ReadTextFile,
+} from './state-file-readers.js';
 
 /**
  * Append an immutable communication event to the canonical comms directory by
@@ -84,11 +82,19 @@ export async function readDirectedCommsMessages(
 
 /**
  * Transactionally update the active claims registry.
+ *
+ * The pre-transaction read surfaces the fresh-checkout seeding error (see
+ * {@link readActiveClaimsFile}) before the retry transaction's generic read
+ * meets a bare ENOENT; the transaction still re-reads under its lock. The
+ * optional `readTextFile` seam (ADR-078) exists so that surfacing is
+ * provable without real IO.
  */
 export async function updateActiveClaimsFile(input: {
   readonly activePath: string;
   readonly transform: (registry: CollaborationRegistry) => CollaborationRegistry;
+  readonly readTextFile?: ReadTextFile;
 }): Promise<void> {
+  unwrapOrThrow(await readActiveClaimsFile(input.activePath, input.readTextFile));
   await updateJsonFileWithRetry({
     filePath: input.activePath,
     parseText: parseCollaborationRegistry,
@@ -100,6 +106,11 @@ export async function updateActiveClaimsFile(input: {
 
 /**
  * Transactionally update the active and closed claim state together.
+ *
+ * As with {@link updateActiveClaimsFile}, the pre-transaction reads surface
+ * the fresh-checkout seeding errors before any lock is taken, and the
+ * optional `readTextFile` seam (ADR-078) makes that surfacing provable
+ * without real IO; the transaction still re-reads under its lock.
  */
 export async function updateClaimStateFiles(input: {
   readonly activePath: string;
@@ -111,12 +122,15 @@ export async function updateClaimStateFiles(input: {
     readonly active: CollaborationRegistry;
     readonly closed: ClosedClaimsArchive;
   };
+  readonly readTextFile?: ReadTextFile;
 }): Promise<void> {
+  unwrapOrThrow(await readActiveClaimsFile(input.activePath, input.readTextFile));
+  unwrapOrThrow(await readClosedClaimsFile(input.closedPath, input.readTextFile));
   await runJsonStateTransaction({
     filePaths: [input.activePath, input.closedPath],
     operation: async () => {
-      const active = parseCollaborationRegistry(await readFile(input.activePath, 'utf8'));
-      const closed = parseClosedClaimsArchive(await readFile(input.closedPath, 'utf8'));
+      const active = unwrapOrThrow(await readActiveClaimsFile(input.activePath));
+      const closed = unwrapOrThrow(await readClosedClaimsFile(input.closedPath));
       const next = input.transform({ active, closed });
 
       await writeJsonFileWithinTransaction({

@@ -1,3 +1,5 @@
+import { unwrapOrThrow } from '@oaknational/result';
+
 import { getJsonValue, isJsonObject } from '../core/json.js';
 import { validateCollaborationJsonFileText } from './collaboration-json-validation.js';
 import { cliIo, type CliRuntime } from './cli-runtime.js';
@@ -61,10 +63,10 @@ export async function checkState(
 ): Promise<string> {
   const io = cliIo(runtime);
   if (optional(options, 'active') !== undefined) {
-    await io.readActiveClaimsFile(required(options, 'active'));
+    unwrapOrThrow(await io.readActiveClaimsFile(required(options, 'active')));
   }
   if (optional(options, 'closed') !== undefined) {
-    await io.readClosedClaimsFile(required(options, 'closed'));
+    unwrapOrThrow(await io.readClosedClaimsFile(required(options, 'closed')));
   }
   if (optional(options, 'comms-dir') !== undefined) {
     await io.readCommsEvents(required(options, 'comms-dir'));

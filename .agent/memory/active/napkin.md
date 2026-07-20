@@ -103,3 +103,29 @@ blind windows during drain deaths; mitigated by seen-file cursor + Director swee
 further pass would only re-find it — the recursion closes at that named point. Surprise
 worth one line: the estate's loop latency is now short enough that this session imported
 a skill, ran it live, was retrospected under it, and amended its neighbours — same day.
+
+## 2026-07-20 — Deimos tracks Perigee (73e4ab): fresh-checkout collaboration-substrate frictions
+
+Owner named this session "a good opportunity to improve the fresh checkout experience";
+these are the first-hand observations from bootstrapping start-right-team on a fresh clone
+(install/build already done; tree clean on main @ SHA:b58d42e12):
+
+- **`comms send` hard-fails ENOENT on a fresh checkout** — it unconditionally reads
+  `.agent/state/collaboration/active-claims.json` (cli-comms-send.ts hardcodes the path),
+  which is untracked-by-design (ADR-199/PDR-094) and therefore absent on every fresh
+  clone/worktree. First team-start broadcast on a fresh checkout is guaranteed to die.
+  Workaround applied: hand-seed the minimal registry
+  `{"schema_version":"1.3.0","claims":[],"commit_queue":[]}` (shape from
+  state-parsers.ts). Cure candidates: treat missing registry as empty, or a
+  `collaboration-state init`/`check --seed` step in start-right, or seed from the
+  SessionStart hook. Candidate frictions-register entry.
+- **`comms/` and `comms-seen/` do not exist on a fresh checkout** and the CLI does not
+  create `comms-seen/` (documented in comms-all-channels-watcher §Seen-file convention:
+  appendFile fails silently → watcher re-emits everything). `mkdir -p` both before arming;
+  same seeding-step cure would cover it.
+- **Ergonomic inconsistency**: `comms send` defaults `--comms-dir` (and resolves
+  `--active` itself) while `comms inbox` requires `--comms-dir`/`--seen-file` explicitly.
+  Minor, but a fresh-checkout agent following the rule text hits the usage error first.
+- **What worked well**: agent-tools dist present on fresh checkout meant every CLI call
+  worked without a build step; identity preflight + assert-watcher-live both green
+  first-try; the watcher heartbeat/assert loop is a solid fresh-checkout experience.

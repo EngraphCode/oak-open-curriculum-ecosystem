@@ -3,14 +3,14 @@ import type { ReactElement } from 'react';
 import type { SummaryBlock } from '@/lib/blocks/types';
 
 /**
- * Renders a {@link SummaryBlock} as the export's pair: a white "Key takeaways"
+ * Renders a {@link SummaryBlock} as the export's pair: a surface-role "Key takeaways"
  * card of green-ticked points over the lemon "Reflect as you design" box with
  * its ? chip. The ticks and chip are decorative.
  */
 export function SummaryBlockView({ block }: { readonly block: SummaryBlock }): ReactElement {
   return (
     <section aria-label="Summary" className="flex flex-col gap-4">
-      <div className="shadow-accent-brand rounded-[14px] border-2 border-line bg-white p-[20px_22px_22px]">
+      <div className="shadow-accent-brand rounded-[14px] border-2 border-line bg-surface p-[20px_22px_22px]">
         <p className="mb-3.5 text-[13px] leading-none font-bold tracking-[0.04em] uppercase text-ink-subdued">
           Key takeaways
         </p>

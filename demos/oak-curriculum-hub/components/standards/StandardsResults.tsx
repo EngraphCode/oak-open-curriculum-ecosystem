@@ -41,7 +41,7 @@ function ChipRow({
             className={`rounded-full border-2 border-line px-3.5 py-2 text-[13px] font-bold ${
               chip.active
                 ? 'bg-surface-inverted text-ink-inverted'
-                : 'bg-white text-ink hover:shadow-accent-brand'
+                : 'bg-btn-secondary text-ink hover:shadow-accent-brand'
             }`}
           >
             {chip.label}
@@ -67,7 +67,7 @@ function FocusBanner({ onBrowseAll }: { readonly onBrowseAll: () => void }): Rea
       <button
         type="button"
         onClick={() => onBrowseAll()}
-        className="shrink-0 rounded-full border-2 border-link bg-white px-4 py-2 text-[13px] font-bold text-link"
+        className="shrink-0 rounded-full border-2 border-link bg-btn-secondary px-4 py-2 text-[13px] font-bold text-link"
       >
         Browse all standards
       </button>
@@ -77,7 +77,7 @@ function FocusBanner({ onBrowseAll }: { readonly onBrowseAll: () => void }): Rea
 
 function NoResults({ onReset }: { readonly onReset: () => void }): ReactElement {
   return (
-    <div className="rounded-large border-2 border-dashed border-line-soft bg-white p-11 text-center">
+    <div className="rounded-large border-2 border-dashed border-line-soft bg-surface p-11 text-center">
       <p className="mb-1.5 text-[20px] font-semibold leading-[26px]">
         No standards match your filters
       </p>
@@ -123,7 +123,7 @@ function ResultsHeader({
           <button
             type="button"
             onClick={() => onReset()}
-            className="rounded-full border-2 border-line bg-white px-3.5 py-1.5 text-[13px] font-semibold shadow-accent-brand"
+            className="rounded-full border-2 border-line bg-btn-secondary px-3.5 py-1.5 text-[13px] font-semibold shadow-accent-brand"
           >
             Reset filters
           </button>
@@ -164,7 +164,7 @@ function Pagination({
       <button
         type="button"
         onClick={() => onShowAll()}
-        className="rounded-full border-2 border-line bg-white px-[22px] py-3 text-[15px] font-bold text-ink"
+        className="rounded-full border-2 border-line bg-btn-secondary px-[22px] py-3 text-[15px] font-bold text-ink"
       >
         Show all {view.showAllCount}
       </button>

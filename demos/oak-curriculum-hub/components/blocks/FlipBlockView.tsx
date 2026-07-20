@@ -9,7 +9,7 @@ import { DashedMediaSlot } from './DashedMediaSlot';
 import { mdGridCols } from './md-grid-cols';
 
 /**
- * One flip card: a button swapping between the export's two faces — front: white card, chip badge,
+ * One flip card: a button swapping between the export's two faces — front: surface-role card, chip badge,
  * bold title, "Tap to reveal ↻" hint; back: the chip tint with the detail text and a black offset
  * shadow. BOTH faces stay in the DOM (`hidden` swaps them), so content persists for assistive tech
  * instead of vanishing on toggle; `aria-expanded` announces the state. The button's accessible name
@@ -38,7 +38,7 @@ function FlipCardView({
         onClick={() => setFlipped((value) => !value)}
         style={flipped ? { backgroundColor: chip } : undefined}
         className={`flex min-h-[210px] w-full flex-col items-start rounded-[14px] border-2 border-line p-[18px] text-left ${
-          flipped ? 'shadow-ink-brand' : 'bg-white shadow-accent-brand'
+          flipped ? 'shadow-ink-brand' : 'bg-surface shadow-accent-brand'
         }`}
       >
         <span hidden={!flipped} className="text-[16px] font-light leading-[23px]">
