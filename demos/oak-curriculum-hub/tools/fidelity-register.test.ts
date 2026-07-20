@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
+import liveRegister from '../fidelity-register.json';
+
 import { entriesForPair, newEntryTemplate, parseRegister } from './fidelity-register';
 
 const validEntry = {
@@ -82,5 +84,17 @@ describe('newEntryTemplate', () => {
     expect(template.pairId).toBe('hub-home-fold');
     expect(template.id.startsWith('hub-home-fold/')).toBe(true);
     expect(template.disposition).toBe('investigate');
+  });
+});
+
+describe('the live fidelity-register.json', () => {
+  // A schema-invalid live register blocks fidelity report generation but no CI
+  // gate parsed it (the review orchestrator is a manual tool), so two entries
+  // once shipped without the required date field. This is that issue's check.
+  it('parses against the schema', () => {
+    const result = parseRegister(JSON.stringify(liveRegister));
+
+    expect(result.ok ? undefined : result.error).toBeUndefined();
+    expect(result.ok).toBe(true);
   });
 });

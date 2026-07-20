@@ -1,63 +1,106 @@
 @import 'tailwindcss';
 
 /* ============================================================
-   Oak National Academy — design tokens as Tailwind v4 theme.
-   Values mirror the Oak web design system (oak-components): the
-   signature lemon offset shadow, pastel decorative families, thick
-   black borders, and the Lexend type scale. Lexend itself is loaded
-   via next/font/google in layout.tsx and exposed as --font-lexend.
+   Oak National Academy — design-system consumption (ADR-213, AIP-137).
+   The design system is the token source of truth; the hub consumes its
+   role tokens and aliases Tailwind's utility vocabulary onto them
+   (kit docs: integration-oak-curriculum-hub.md §1+§3, consuming-nextjs.md,
+   nextjs-theme-mapping.css). The former hand-kept raw-hex @theme mirror
+   is gone. Import order: Tailwind → Oak sheets.
    ============================================================ */
-@theme {
-  /* Neutrals + brand */
-  --color-oak-black: #222222;
-  --color-oak-grey: #575757;
-  --color-oak-grey-line: #e0ded6;
-  /* Oak grey40 — AA-safe muted text on dark surfaces (footer chrome). */
-  --color-oak-grey-40: #cacaca;
-  --color-oak-cream: #f4f3ef;
-  --color-oak-green: #287c34;
-  --color-oak-green-subdued: #ebfbeb;
-  --color-oak-navy: #0d24c4;
-  --color-oak-navy-hover: #0a1d9d;
+@import '@oaknational/oak-design-system/colors_and_type.css';
+@import '@oaknational/oak-design-system/oak-icons.css';
+@import '@oaknational/oak-design-system/components.css';
+@import '@oaknational/oak-design-system/print.css';
 
-  /* Signature accent */
-  --color-oak-lemon: #ffe555;
-  --color-oak-lemon-subdued: #fff7cc;
-  --color-oak-notice: #fffdf0;
-
-  /* Decorative pastel families */
-  --color-oak-mint: #bef2bd;
-  --color-oak-mint-subdued: #dff9de;
-  --color-oak-aqua: #b0e2de;
-  --color-oak-lavender: #a0b6f2;
-  --color-oak-lavender-subdued: #e3e9fb;
-  --color-oak-pink: #deb7d5;
-  --color-oak-pink-subdued: #f5e9f2;
-  --color-oak-amber: #ff934e;
-  --color-oak-amber-subdued: #ffece0;
-
-  /* Functional */
-  --color-oak-red: #dd0035;
-  --color-oak-red-subdued: #f8d8e0;
-
-  /* Type — Lexend (next/font sets --font-lexend on <html>) */
+/* Fonts (kit §2): Lexend stays self-hosted via next/font (layout.tsx sets
+   --font-lexend); re-point the kit's sans role at it. */
+:root {
   --font-sans: var(--font-lexend), system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
 
-  /* Radii (Oak scale) */
-  --radius-oak-s: 4px;
-  --radius-oak-m: 6px;
-  --radius-oak-m2: 8px;
-  --radius-oak-l: 16px;
-
-  /* Signature offset shadows */
-  --shadow-oak-lemon: 2px 2px 0 #ffe555;
-  --shadow-oak-wide-lemon: 4px 4px 0 #ffe555;
-  --shadow-oak-grey: 4px 4px 0 #575757;
-  --shadow-oak-black: 2px 2px 0 #222222;
+/* Tailwind utilities → Oak role tokens. `inline` is required: values must
+   resolve at point of use so light-dark() and [data-theme] scopes apply.
+   Extends the kit's shipped mapping with the role aliases this app uses. */
+@theme inline {
+  /* colour roles → color-* utilities (text-ink, bg-surface, border-line…) */
+  --color-ink: var(--text-primary);
+  --color-ink-subdued: var(--text-subdued);
+  --color-ink-inverted: var(--text-inverted);
+  --color-ink-inverted-subdued: var(--text-inverted-subdued);
+  --color-link: var(--text-link);
+  --color-link-hover: var(--text-link-hover);
+  --color-error: var(--text-error);
+  --color-error-subtle: var(--bg-error-subtle);
+  --color-success: var(--text-success);
+  --color-success-subtle: var(--bg-success-subtle);
+  --color-info: var(--text-info, var(--text-link));
+  --color-info-subtle: var(--bg-info-subtle);
+  --color-warning-subtle: var(--bg-warning-subtle);
+  --color-surface: var(--bg-primary);
+  --color-surface-subtle: var(--bg-subtle);
+  --color-surface-neutral: var(--bg-neutral);
+  --color-surface-raised: var(--bg-raised);
+  --color-surface-overlay: var(--bg-overlay);
+  --color-surface-inverted: var(--bg-inverted);
+  --color-surface-inverted-hover: var(--bg-btn-primary-hover);
+  /* kit action pair for primary-action fills (never text-role fills —
+     bg/text stay independently brand-themeable per .oak-btn) */
+  --color-btn-primary: var(--bg-btn-primary);
+  --color-btn-primary-ink: var(--text-btn-primary);
+  --color-line: var(--border-primary);
+  --color-line-neutral: var(--border-neutral);
+  --color-line-soft: var(--border-neutral-lighter);
+  /* functional border roles for meaning-bearing outlines (the kit banner
+     recipe pairs them with the -subtle fills); the text-polarity aliases
+     above (--color-success/--color-error) are for text only */
+  --color-line-success: var(--border-success);
+  --color-line-error: var(--border-error);
+  --color-line-warning: var(--border-warning);
+  /* divider role for inverted surfaces (kit --border-inverted: white where
+     the surface is dark, theme-flipped elsewhere — border-neutral flattens
+     invisible on the inverted footer in high-contrast) */
+  --color-line-inverted: var(--border-inverted);
+  --color-accent-brand: var(--color-accent);
+  /* selected-state fill role (contrast-manifest pairing with text-primary) */
+  --color-selected: var(--bg-selected);
+  --color-accent-soft-brand: var(--color-accent-soft);
+  --color-accent-subtle-brand: var(--color-accent-subtle);
+  /* decorative ramp */
+  --color-decorative-1: var(--surface-decorative-1);
+  --color-decorative-2: var(--surface-decorative-2);
+  --color-decorative-3: var(--surface-decorative-3);
+  --color-decorative-4: var(--surface-decorative-4);
+  --color-decorative-5: var(--surface-decorative-5);
+  --color-decorative-6: var(--surface-decorative-6);
+  --color-decorative-1-soft: var(--surface-decorative-1-soft);
+  --color-decorative-1-subtle: var(--surface-decorative-1-subtle);
+  --color-decorative-3-subtle: var(--surface-decorative-3-subtle);
+  --color-decorative-4-subtle: var(--surface-decorative-4-subtle);
+  --color-decorative-6-subtle: var(--surface-decorative-6-subtle);
+  /* type (Tailwind-side names must differ from the role names — a self-alias
+     like --font-sans: var(--font-sans) is circular) */
+  --font-oak-sans: var(--font-sans);
+  --font-oak-mono: var(--font-mono);
+  /* shape */
+  --radius-card: var(--radius-container);
+  --radius-ctl: var(--radius-control, var(--radius-container));
+  /* primitive radii pending role promotion (routed to the studio sync-back
+     list: the hub needs named radius roles at 6px and 16px) */
+  --radius-mid: var(--radius-m);
+  --radius-large: var(--radius-l);
+  /* signature offset shadows (brands re-point the underlying tokens) */
+  --shadow-accent-brand: var(--shadow-accent);
+  --shadow-accent-wide-brand: var(--shadow-accent-raised);
+  --shadow-neutral-brand: var(--shadow-neutral);
+  --shadow-ink-brand: var(--shadow-ink);
+  /* motion */
+  --duration-quick: var(--motion-quick);
+  --duration-base: var(--motion-base);
 }
 
 /* ============================================================
-   Base resets + Oak defaults
+   Base resets + Oak defaults (now role-token consumers)
    ============================================================ */
 *,
 *::before,
@@ -78,33 +121,64 @@ html {
 
 body {
   font-family: var(--font-sans);
-  color: var(--color-oak-black);
-  background: var(--color-oak-cream);
+  color: var(--text-primary);
+  /* background-color only: the kit's base rule owns background-image
+     (--surface-page-image) and background-attachment; the shorthand would
+     reset the brand page-atmosphere role (colors_and_type.css §4 BASE). */
+  background-color: var(--bg-primary);
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background: var(--color-oak-lemon);
+  /* the kit selection-state surface: accent mixed translucent, so inherited
+     text keeps its own polarity in every theme (raw --color-accent was
+     unreadable in dark and high-contrast) */
+  background: var(--state-selected);
 }
 
-/* Visible keyboard focus — Oak navy, AA-contrast on every surface used here. */
+/* Visible keyboard focus — the kit's double ring (lemon + contrast halo) with
+   the transparent outline that lets Windows forced-colors draw its own. The
+   kit scopes its rings to .oak-* interactive classes; this global rule covers
+   the hub's not-yet-migrated controls with the same recipe and narrows as §6
+   moves controls onto the kit classes. */
 :focus-visible {
-  outline: 3px solid var(--color-oak-navy);
-  outline-offset: 2px;
-  border-radius: 3px;
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-outline-offset);
+  box-shadow: var(--focus-ring);
 }
 
-/* Motion is decorative everywhere in this demo (chevron rotates, tab washes, the framework
-   walk-through); honour the user's reduced-motion preference globally (WCAG 2.2 — DoD §E). */
+/* Motion floor for the hub's own (not yet token-driven) animations, wired to
+   the kit's data-motion axis semantics: OS reduced-motion is the default
+   floor, an explicit in-product choice wins in both directions
+   (data-motion="reduced" stills; data-motion="full" re-enables). The kit's
+   quiet-motion envelope ("full" re-enables only short fades) covers this CSS
+   floor; the JS framework walk-through is an explicit-opt-in EXTENSION of the
+   axis (visible Pause control satisfies SC 2.2.2). Scope of "full wins":
+   this floor and kit TOKEN-driven durations (colors_and_type.css re-points
+   the motion tokens under [data-motion="full"]); the kit's belt-and-braces
+   reduced-motion rules on .oak-* controls (components.css) keep those
+   micro-transitions instant under OS-reduce regardless — kit-side alignment
+   is routed to the design-system lane. The hub's JS-driven animation reads
+   the same axis via useEffectiveReducedMotion (LearningFramework.tsx).
+   Kit-token motion collapses at token level; this block narrows away as §6
+   migrates the hub's transitions onto motion tokens. */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  :root:not([data-motion='full']) *,
+  :root:not([data-motion='full']) *::before,
+  :root:not([data-motion='full']) *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+:root[data-motion='reduced'] *,
+:root[data-motion='reduced'] *::before,
+:root[data-motion='reduced'] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
 }
