@@ -23,6 +23,20 @@ completeness — conserve the error signature of where outside eyes caught what 
 self-scan missed). Success test: a successor holding only the durable surfaces could
 continue every thread, honour every promise, and distrust every flagged inference.
 
+## Scope: the closed reference graph
+
+Owner directive 12:49Z — "everything referenced in the wrap skill, and the wrap skill
+itself" — swept first-hand.
+
+IMPORT (adapt): the `wrap`, `retrospective`, `knowledge-safety-sweep`, and `free-play`
+skills + the `reference/skill-composition.md` hierarchy doc + Resonance PDR-143
+(two-speed learning — no oak equivalent) and PDR-140 (we-do-not-discard-information —
+decide import vs mapping onto oak's conservation doctrine). MAP (re-point, no import):
+session-handoff, consolidate-docs, metacognition, reason, concept-exploration — oak has
+all five. COLLISION flagged: Resonance's PDR-066 (cited by knowledge-safety-sweep) ≠
+oak's PDR-066 — renumber per the sequential-identifier collision rule. Tracking:
+Linear **AIP-142** (scope updated 12:51Z).
+
 ## Adaptation notes for the import (gap-check at integration)
 
 - It composes Resonance-local skills this estate has its own versions of:
