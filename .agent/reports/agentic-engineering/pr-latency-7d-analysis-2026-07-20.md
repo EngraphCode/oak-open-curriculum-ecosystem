@@ -1,7 +1,19 @@
 # PR flow analysis — 7 days to 2026-07-20 (companion to pr-latency-7d-2026-07-20.csv)
 
-Dataset: 89 PRs merged 2026-07-13..20 (ready→merged latency draft-adjusted, commits,
-comments, reviews, diff size) + 26 Linear Done issues in the same window.
+Dataset: the 89 PRs merged in the 2026-07-13 → 07-20 merge window (first merge
+2026-07-13 08:15Z, last 2026-07-20 21:24Z — ~7.5 days across eight calendar
+dates; "7d" in the filenames names this window, not an exact 168-hour cut;
+the quantiles are per-PR and unaffected by the label) with ready→merged
+latency draft-adjusted, commits, comments, reviews, diff size + 26 Linear
+Done issues in the same window.
+
+Definitions (reproducible against the CSV): a "heavy review" is a PR with
+6 or more commits (the rounds proxy at roughly 3+ cure pushes); the
+size-bucket table below IS the threshold derivation — heavy-review
+incidence by additions bucket: ≤50 → 8% (2/25), 51–150 → 40% (6/15),
+151–300 → 40% (4/10), >300 → 74% (29/39); by files: 1–3 → 24%, 4–8 → 50%,
+9–15 → 65%, >15 → 74%. "Triples" compares the ≤300 pooled rate (24%)
+with the >300 rate (74%).
 
 ## Headline distribution
 
@@ -9,11 +21,16 @@ ready→merged: min 2m · p25 25m · p50 1.3h · p75 4.2h · p90 11.7h · max 4.
 
 ## Findings
 
-1. **Rounds dominate latency; size only acts through rounds.** Commits (cure-push
-   proxy) correlate with latency at Spearman +0.63; additions only +0.25. But
-   additions→commits and additions→review-threads are both +0.62: big diffs cause
-   findings, findings cause rounds, rounds cause latency — the size effect is
-   fully mediated. Buckets are monotonic: 1–2 commits p50 12m; 11+ commits p50 3.3h.
+1. **Rounds dominate latency; the size effect is consistent with mediation
+   through rounds.** Commits (cure-push proxy) correlate with latency at
+   Spearman +0.63; additions only +0.25, while additions→commits and
+   additions→review-threads are both +0.62. These are pairwise associations:
+   the mediation reading (size → findings → rounds → latency) is the
+   parsimonious causal story and matches the round mechanics, but this
+   corpus has not been analysed with the mediator controlled, and elapsed
+   latency itself permits more rounds (reverse-path caveat). Treat as
+   strong-signal, not proof. Buckets are monotonic: 1–2 commits p50 12m;
+   11+ commits p50 3.3h.
 2. **Round cost is roughly constant.** Crude OLS: latency ≈ 52m + 38m/commit;
    median latency-per-commit 14m. Comments-per-commit holds near 3.0 — each cure
    push draws ~3 new comments, so rounds do not converge by themselves; only

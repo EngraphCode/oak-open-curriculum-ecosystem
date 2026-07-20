@@ -81,3 +81,30 @@ budget numbers (pointer only — consolidate-at-second-consumer is the point).
   "~8 lines" prediction for that edit held, but only because the edit was
   pointer-form; a restating edit would have ballooned. Files 6–8 rode as
   copies, zero authoring cost.
+
+- **22:08Z, opening snapshot (the promised actuals).** PR #451 opened: 8
+  files (predicted 8 — exact), 330 additions (predicted ~285 — over by 45,
+  all of it this log's own growth), 1 commit at open, Copilot requested
+  with the request-leg verified by watch. Warning-threshold disposition:
+  330 crosses the >300-additions smell; re-examined for hidden second
+  stories per the doctrine — verdict: one story (the doctrine and its
+  evidence), archival-heavy mix (145 of the additions are the CSV +
+  analysis evidence, record-class), no split. The round budget carries
+  the real test.
+- **22:46–23:05Z, round 1: ten findings, and the changeset failed its own
+  doctrine three ways.** The named plan risk ("the skill edits must not
+  restate the budget numbers") HAPPENED ANYWAY — both pr-lifecycle
+  insertions and the plan-skill item hard-coded two/three; cured to
+  symbolic PDR references. Also caught: a portability-rule violation (the
+  Core PDR cited host-local report paths), an unobservable falsifier (it
+  named register dimensions the register does not record — cured to the
+  corpus-methodology re-run with the register extension as a named
+  follow-up), a mediation over-claim and undefined thresholds in the
+  analysis (cured with reproducible definitions and a reverse-path
+  caveat), a window mislabel (~7.5 days labelled 7d — defined, not
+  recomputed), an instance/class count error (four instances, three
+  classes), and this log missing its own promised opening snapshot (the
+  entry above, appended in the same cure batch). Meta-lesson for the
+  doctrine: naming a risk in the plan does not prevent it — only a
+  mechanical check does; a future candidate is a pre-open grep for the
+  budget literals outside the PDR.

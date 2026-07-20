@@ -6,9 +6,11 @@ PR time "that is too late to plan work").
 
 ## Context
 
-The 2026-07-20 measurement pass over 89 merged PRs (7 days;
-`.agent/reports/agentic-engineering/pr-latency-7d-2026-07-20.csv` and its
-companion analysis) decomposed ready→merged latency:
+The 2026-07-20 measurement pass over 89 merged PRs (the 2026-07-13 → 07-20
+merge window) decomposed ready→merged latency. The corpus and companion
+analysis are conserved in the delivering estate's reports surface and
+referenced from the delivery record that landed with this PDR — this Core
+file stays repo-independent per the portability rule:
 
 - **Review rounds dominate.** Commit count (the cure-push proxy for rounds)
   predicts latency at Spearman +0.63; raw diff size manages +0.25. Size acts
@@ -63,8 +65,12 @@ shaped.
 ## Prediction and falsifier (PDR-130 line)
 
 Prediction: with plan-time slicing and the round budget loaded, median
-rounds-per-PR for code-class PRs born after this lands falls, visible in
-the pr-throughput register within one month of landing. Falsifier: if the
+rounds-per-PR for code-class PRs born after this lands falls within one
+month. Measurement: re-run the delivery corpus methodology (per-PR
+commits, review threads, and latency over the trailing window) at the
+one-month mark; the pr-throughput register gains commits-per-PR and
+changeset-class dimensions as the standing instrument — a named follow-up,
+not an assumed present capability. Falsifier: if the
 median does not fall, or plan-time slicing produces fragment-PR churn whose
 integration cost exceeds the round savings, the plan-skill slicing
 requirement reverts to advisory and this record says so in a dated
@@ -78,4 +84,5 @@ amendment.
   state machine; silent-wait verification legs in Phases 6 and 7; Phase 1
   changeset-shape check (pointer form).
 - `start-right-team` SKILL: this record joins the foundation reading.
-- The pr-throughput register carries the falsifier's instrumentation.
+- The falsifier's measurement is the corpus-methodology re-run above; the
+  register's added dimensions are the standing instrument once landed.

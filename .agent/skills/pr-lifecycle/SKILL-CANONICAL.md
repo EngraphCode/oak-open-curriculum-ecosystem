@@ -78,10 +78,11 @@ into the permanent record):
    without bound (a worked instance ran 5+ rounds before the bundle was
    split); give such an artefact its own PR with its own review story.
 5. **Changeset-health check** (PDR-132, the single source): a healthy
-   changeset settles in at most two review rounds; the size smells and the
-   archival-class exemption live in the PDR. A changeset crossing its
-   warning thresholds is re-examined for hidden second stories NOW — at
-   open, splitting is cheap; at round three, it is expensive.
+   changeset settles within the PDR's round budget; the budget value, the
+   size smells, and the archival-class exemption all live in the PDR. A
+   changeset crossing the PDR's warning thresholds is re-examined for
+   hidden second stories NOW — at open, splitting is cheap; over budget,
+   it is expensive.
 
 ## Phase 2 — Open with a reviewer-facing description
 
@@ -275,10 +276,11 @@ as phase-local restatements.
    monotonic — without the epoch reset the trigger stays true after the
    mandated class-fix push and the machine has no executable next
    transition). **Ahead of these failure arms sits the round-budget
-   expectation (PDR-132)**: a healthy code-class changeset settles in at
-   most two rounds, so a third round opening records budget-exceeded in
-   the working notes and runs the generator question THEN — the arms above
-   stay the mechanical backstop, not the first alarm.
+   expectation (PDR-132, which owns the budget value)**: a code-class round
+   count exceeding the PDR's budget records budget-exceeded in the working
+   notes at the first over-budget round and runs the generator question
+   THEN — the arms above stay the mechanical backstop, not the first
+   alarm.
 3. **Reviewer-leg states**, computed per (reviewer, tip): **SATISFIED** —
    ANY harvested review by the reviewer binds to the current tip (the
    Phase 3 harvest is the source; the compound read's `latestReviews` alone

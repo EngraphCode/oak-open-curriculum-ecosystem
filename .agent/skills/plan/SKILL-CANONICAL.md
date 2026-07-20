@@ -148,9 +148,9 @@ Every non-trivial plan, strategic or executable, MUST define:
 8. **PR-shaped execution units** (PDR-132, the single source) — executable
    steps are sliced to changeset-healthy units AT PLAN TIME: each step
    names its changeset class (code vs archival/record) and is stateable as
-   a two-review-round PR; a step that is not is under-decomposed. Slicing
-   at plan time is free; slicing at review round three is the measured
-   expensive path.
+   a PR within the PDR's round budget; a step that is not is
+   under-decomposed. Slicing at plan time is free; slicing at the first
+   over-budget review round is the measured expensive path.
 
 ### Build-vs-Buy Before Build-Shape
 
