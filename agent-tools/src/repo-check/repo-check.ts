@@ -103,7 +103,10 @@ export async function runPrettierStaged(
 // \p{Cc} (a control character) followed by "[<codes>m" is an ANSI SGR sequence;
 // the property class expresses the ESC byte without a control char in the source.
 const ANSI_ESCAPE_PATTERN = /\p{Cc}\[[0-9;]*m/gu;
-const KNIP_SWALLOWED_CRASH_PATTERN = /^ERROR: /mu;
+// Match the exact F-147 signature (knip's WorkspaceWorker logError line), not
+// any `ERROR:`-prefixed output — an unrelated ERROR line from a successfully
+// loaded config must stay a clean pass, never a false-red gate.
+const KNIP_SWALLOWED_CRASH_PATTERN = /^ERROR: Error loading /mu;
 
 export async function runKnipGate(runtime: RepoCheckRuntime = defaultRuntime): Promise<number> {
   const result = runtime.runCaptured('pnpm', ['exec', 'knip']);

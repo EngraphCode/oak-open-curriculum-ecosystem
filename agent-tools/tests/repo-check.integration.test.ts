@@ -219,6 +219,18 @@ describe('repo-check knip gate', () => {
 
     await expect(runKnipGate(runtime)).resolves.toBe(1);
   });
+
+  it('passes an unrelated ERROR line on a zero exit — only the load-crash signature reds the gate', async () => {
+    // A successfully loaded config or dependency may emit its own
+    // ERROR-prefixed output; that is not the F-147 swallowed crash and must
+    // stay a clean pass, never a false-red gate.
+    const { runtime } = knipRuntime({
+      status: 0,
+      stderr: 'ERROR: deprecation notice from a loaded plugin\n',
+    });
+
+    await expect(runKnipGate(runtime)).resolves.toBe(0);
+  });
 });
 
 describe('repo-check profile artifact helpers', () => {
