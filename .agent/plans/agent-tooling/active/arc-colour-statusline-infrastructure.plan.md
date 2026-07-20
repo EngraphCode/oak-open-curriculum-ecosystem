@@ -76,7 +76,7 @@ todos:
     status: pending
     depends_on: [ws-b6-c2-cli-wiring, ws-b7-c2-validator-wiring]
   - id: ws-b10-integrate-review
-    content: "WS-B10: full pnpm check (knip + depcruise + repo-validators + build + test) over the integrated delivery; adversarial specialist reviews (react/type/test/config/security as applicable); ADR-214 finalisation. Doc propagation, enumerated: ADR index entry in architectural-decisions/README.md; agent-tools/README.md CLI catalogue + Structure tree entries for src/arc + the two new scripts; TSDoc on new src/arc public exports; ws-b9 reference-doc repairs verified landed; ARC_SCHEMA_ADOPTION_DATE trued to the first calendar day after the ws-b9 ceremony wiring lands on main, with validate-arc-channels green under the final constant. All acceptance ids proven. Proof: pnpm check"
+    content: "WS-B10: full pnpm check (knip + depcruise + repo-validators + build + test) over the integrated delivery; adversarial specialist reviews (react/type/test/config/security as applicable); ADR-214 finalisation. Doc propagation, enumerated: ADR index entry in architectural-decisions/README.md; agent-tools/README.md CLI catalogue + Structure tree entries for src/arc + the two new scripts; TSDoc on new src/arc public exports; ws-b9 reference-doc repairs verified landed; ARC_SCHEMA_ADOPTION_DATE trued and ASSERTED deterministically against the git-recorded ws-b9 merge date (the constant equals that merge date + 1 day AND is not in the future at proof time — a still-provisional future value FAILS this assertion, so the delivery cannot complete with strictness disabled; the assertion recomputes from git, never just records), with validate-arc-channels green under the final constant. All acceptance ids proven. Proof: pnpm check"
     status: pending
     depends_on: [ws-a-cycle-1, ws-b5-c2-composed-integration, ws-b9-convention-doc]
 isProject: false
@@ -231,11 +231,14 @@ same commands as their landing gates.
   the comms channel-open path AND the start-right ArcAngel-open step — invoke the ws-b6
   assignment reporter (either one unchanged fails this criterion). Proof: `rg -n 'arc-next-colour'`
   over both ceremony surfaces AND `pnpm markdownlint-check:root` (the check-only variant — the :root script is a fixer and proves nothing).
-- **B10:** full estate gate green; specialist reviews dispositioned; ADR finalised.
-  Proof: `pnpm check` exits 0 (knip + depcruise + repo-validators + build + test +
-  markdownlint + format) AND each specialist review verdict is recorded with its
-  disposition in the delivery PR's threads AND ADR-214's status line reads Accepted with
-  the ratifying evidence named.
+- **B10:** full estate gate green; specialist reviews dispositioned; ADR finalised;
+  adoption date proven live. Proof: `pnpm check` exits 0 (knip + depcruise +
+  repo-validators + build + test + markdownlint + format) AND each specialist review
+  verdict is recorded with its disposition in the delivery PR's threads AND ADR-214's
+  status line reads Accepted with the ratifying evidence named AND a deterministic
+  assertion recomputes `ARC_SCHEMA_ADOPTION_DATE` from the git-recorded ws-b9 merge
+  date (equals merge date + 1 day, not in the future at proof time) — a
+  still-provisional future value fails it (command shape fixed at the landing).
 
 ## oak gate/boundary constraints the port must satisfy (from the seam map, verified first-hand)
 
