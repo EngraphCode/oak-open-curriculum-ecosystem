@@ -49,6 +49,10 @@
      above (--color-success/--color-error) are for text only */
   --color-line-success: var(--border-success);
   --color-line-error: var(--border-error);
+  /* divider role for inverted surfaces (kit --border-inverted: white where
+     the surface is dark, theme-flipped elsewhere — border-neutral flattens
+     invisible on the inverted footer in high-contrast) */
+  --color-line-inverted: var(--border-inverted);
   --color-accent-brand: var(--color-accent);
   --color-accent-soft-brand: var(--color-accent-soft);
   --color-accent-subtle-brand: var(--color-accent-subtle);

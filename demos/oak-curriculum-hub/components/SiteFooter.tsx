@@ -40,7 +40,7 @@ export default function SiteFooter(): ReactElement {
       </div>
       {/* Open Government Licence attribution — curriculum content shown here is OGL v3.0
           (root LICENCE-DATA.md); attribution is a condition of that licence. */}
-      <div className="border-t border-line-neutral px-7 py-4">
+      <div className="border-t border-line-inverted px-7 py-4">
         <p className="mx-auto max-w-[1240px] text-[13px] font-light leading-5 text-ink-inverted-subdued">
           Contains public sector information licensed under the{' '}
           <a
