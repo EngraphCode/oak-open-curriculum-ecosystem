@@ -41,8 +41,9 @@ forward-asks remain.
   owner-marked allowance at `@oaknational/result`'s raise edge), race-safe home-derived
   seeding in shared start-right. PR #439 (exploration report + proposals 2–6, OWNER-GATED
   candidates) MERGED 2026-07-20 (merge `SHA:7f55236c7`). PR #437 (WAD projection) is OPEN and ready for
-  review — its conflict fold landed (merge commit `SHA:ec7d2a856`) and 29 review threads
-  await adjudication, routed on the primary estate's Director board. Full record:
+  review — its conflict fold landed (merge commit `SHA:ec7d2a856`); its review rounds
+  adjudicate on the primary estate's Director board (thread counts recompute
+  live from the PR, never from this index). Full record:
   [thread record (retired)](threads/retired/fresh-checkout-experience.next-session.md); cross-machine
   coordination precedent (SSH comms with the primary estate's Director) is recorded there.
 
