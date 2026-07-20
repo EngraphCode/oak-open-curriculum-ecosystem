@@ -8,7 +8,8 @@
 
 Deep handoff per the Resonance `wrap` programme (owner-directed, 2026-07-20).
 Author seat: **Deimos tracks Perigee** (claude / Fable 5 / 73e4ab), session
-2026-07-20, primary checkout `oak-deconstruction/oak-open-curriculum-ecosystem`.
+2026-07-20, working from a fresh secondary clone of this repository (the
+"deconstruction" checkout, distinct from the primary estate's checkout).
 Cast: n=2 with **Vanilla binds Bough** (f3599e, retired ~14:50Z with a
 consolidated handoff on the comms stream); cross-machine coordination with
 **Forge rides Brimstone** (398e24), Director of the primary estate's checkout,
@@ -27,7 +28,8 @@ checkout (its repo-relative `.agent/state/collaboration/comms/` stream).
   agents authoring that marker, correctly, and blocked this seat twice);
   non-Error throwables CRASH at detection (TypeError, original as `cause`);
   the race-safe home-derived seeding block in
-  `start-right-quick/shared/start-right.md`. Ten review rounds, 26 threads,
+  `.agent/skills/start-right-quick/shared/start-right.md`. Ten review
+  rounds, 26 threads,
   every finding fixed-with-evidence or refuted-with-evidence; Phase-8
   post-merge harvest CLEAN. Lint landed exactly at main's then-baseline.
 - **PR #439 OPEN, auto-merge ARMED** (verified `enabledAt 19:21:25Z`;
@@ -93,7 +95,7 @@ underlying intermittent failure reproduced twice, cause unfound).
   (cross-machine coordination with Forge; this seat's events run
   team-start `dba4259f` through stand-down `96d37177`).
 - Fresh-checkout seeding: follow the updated
-  `start-right-quick/shared/start-right.md` fresh-checkout block —
+  `.agent/skills/start-right-quick/shared/start-right.md` fresh-checkout block —
   home-derived, guarded, race-safe; the seed shapes' SSOT is
   `agent-tools/src/collaboration-state/state-file-seeds.ts`.
 - Known traps this session recorded in the napkin: zsh double-equals-token

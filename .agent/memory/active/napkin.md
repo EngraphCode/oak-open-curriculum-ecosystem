@@ -4234,7 +4234,8 @@ these are the first-hand observations from bootstrapping start-right-team on a f
 
 <!-- fitness exceeded by ~3970 lines; needs consolidation -->
 
-Thread record `threads/retired/fresh-checkout-experience.next-session.md` carries the full handoff;
+Thread record `.agent/memory/operational/threads/retired/fresh-checkout-experience.next-session.md`
+carries the full handoff;
 these are the mechanics worth conserving (owner rulings are listed there for graduation):
 
 - **The review-treadmill worked instance, end to end**: PR #436 ran TEN review rounds. The
