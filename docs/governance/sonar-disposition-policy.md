@@ -333,8 +333,9 @@ version argument substitutes for the flag there.
 **Pattern**: `curl`/`wget` fetching an artefact without constraining the
 protocol, so a redirect chain could downgrade to plain HTTP.
 
-**Decision criteria**: there is no SAFE disposition for production or CI
-fetch sites — resolve as **FIXED** by pinning the transport:
+**Decision criteria**: there is no FALSE_POSITIVE disposition for
+production or CI fetch sites — resolve as **FIXED** by pinning the
+transport:
 `--proto '=https' --proto-redir '=https'` (curl), keeping any existing
 content pin (SHA-256 check) in place. The content pin alone does not
 clear the finding: integrity checking and transport pinning guard

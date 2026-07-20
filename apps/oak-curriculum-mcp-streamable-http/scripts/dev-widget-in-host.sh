@@ -81,7 +81,9 @@ cd "${EXT_APPS_DIR}"
 # postinstall (it fetches the bun binary the serve leg runs on), so it is
 # re-run alone as a targeted allowlist.
 npm install --silent --ignore-scripts 2>&1 | tail -1
-npm rebuild bun --silent 2>&1 | tail -1
+# --ignore-scripts=false overrides any user-level ignore-scripts=true npm
+# config, which would otherwise silently skip this rebuild too.
+npm rebuild bun --ignore-scripts=false --silent 2>&1 | tail -1
 cd examples/basic-host
 
 echo ""
