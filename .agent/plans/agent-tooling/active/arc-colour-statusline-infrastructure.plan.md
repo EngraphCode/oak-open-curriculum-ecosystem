@@ -80,7 +80,7 @@ todos:
     status: pending
     depends_on: [ws-b6-c2-cli-wiring, ws-b7-c2-validator-wiring]
   - id: ws-b10-integrate-review
-    content: "WS-B10: full pnpm check (knip + depcruise + repo-validators + build + test) over the integrated delivery; adversarial specialist reviews (react/type/test/config/security as applicable); ADR-214 finalisation. Doc propagation, enumerated: ADR index entry in architectural-decisions/README.md; agent-tools/README.md CLI catalogue + Structure tree entries for src/arc + the two new scripts; TSDoc on new src/arc public exports; ws-b9 reference-doc repairs verified landed; ARC_SCHEMA_ADOPTION_DATE set to the first calendar day after the planned estate merge and ASSERTED deterministically: strictly AFTER the ws-b10 proof date AND within 7 days of it (the bounded horizon makes a far-future constant fail every re-run, so the delivery cannot complete with strictness silently disabled); the Phase-8 post-merge harvest MUST recompute the constant against the git-recorded actual merge date and, if the merge slipped to on-or-after the constant, land an immediate truing follow-up before the harvest closes. All acceptance ids proven. Proof: pnpm check"
+    content: "WS-B10: full pnpm check (knip + depcruise + repo-validators + build + test) over the integrated delivery; adversarial specialist reviews (react/type/test/config/security as applicable); ADR-214 finalisation. Doc propagation, enumerated: ADR index entry in architectural-decisions/README.md; agent-tools/README.md CLI catalogue + Structure tree entries for src/arc + the two new scripts; TSDoc on new src/arc public exports; ws-b9 reference-doc repairs verified landed; ARC_SCHEMA_ADOPTION_DATE set to the first calendar day after the planned estate merge and ASSERTED deterministically: strictly AFTER the ws-b10 proof date AND within 7 days of it (the bounded horizon makes a far-future constant fail every re-run, so the delivery cannot complete with strictness silently disabled); the granted merge slot's final recomputed gate INCLUDES the boundary guard — the constant must still be strictly future at merge execution, and a slot arriving on-or-after it lands a one-line truing bump (re-proving the bounded-horizon assertion at the new value) BEFORE the merge, so an invalid boundary can never reach main; the Phase-8 harvest then verifies constant > actual merge date as confirmation, not cure. All acceptance ids proven. Proof: pnpm check"
     status: pending
     depends_on: [ws-a-cycle-2, ws-b5-c2-composed-integration, ws-b9-convention-doc]
 isProject: false
@@ -247,9 +247,11 @@ same commands as their landing gates.
   status line reads Accepted with the ratifying evidence named AND a deterministic
   assertion proves `ARC_SCHEMA_ADOPTION_DATE` is strictly after the ws-b10 proof date
   and within 7 days of it (bounded horizon — a far-future constant fails every re-run)
-  AND the Phase-8 post-merge harvest recomputes the constant against the git-recorded
-  actual merge date, landing an immediate truing follow-up if the merge slipped to
-  on-or-after it (command shapes fixed at the landing).
+  AND the granted merge slot's final recomputed gate proves the constant is still
+  strictly future at merge execution (a late slot lands a one-line truing bump before
+  the merge — an invalid boundary can never reach main) AND the Phase-8 harvest
+  verifies constant > the git-recorded actual merge date as confirmation (command
+  shapes fixed at the landing).
 
 ## oak gate/boundary constraints the port must satisfy (from the seam map, verified first-hand)
 
