@@ -1,6 +1,7 @@
 import { spawn, spawnSync, type SpawnSyncReturns } from 'node:child_process';
 
 import { writeErrorLine } from '../core/terminal-output.js';
+import { resolveTrustedGit } from '../core/trusted-git.js';
 import { resolvePnpm } from '../spawn/pnpm-path.js';
 
 import type { RepoCheckRuntime } from './repo-check-types.js';
@@ -34,17 +35,34 @@ function trustedSpawnTarget(command: string): {
   readonly environment?: NodeJS.ProcessEnv;
   readonly error?: string;
 } {
-  if (command !== 'pnpm') {
-    return { command };
+  if (command === 'pnpm') {
+    const resolved = resolvePnpm(process.env);
+
+    if (!resolved.ok) {
+      return { command, error: resolved.error.message };
+    }
+
+    return { command: resolved.value, environment: pnpmSpawnEnvironment() };
   }
 
-  const resolved = resolvePnpm(process.env);
-
-  if (!resolved.ok) {
-    return { command, error: resolved.error.message };
+  if (command === 'git') {
+    return trustedGitTarget(command);
   }
 
-  return { command: resolved.value, environment: pnpmSpawnEnvironment() };
+  return { command };
+}
+
+/**
+ * `resolveTrustedGit` throws on failure (its documented contract); this
+ * single boundary translates that into the runtime's loud non-zero error
+ * shape instead of letting the throw escape.
+ */
+function trustedGitTarget(command: string): { readonly command: string; readonly error?: string } {
+  try {
+    return { command: resolveTrustedGit() };
+  } catch (cause) {
+    return { command, error: cause instanceof Error ? cause.message : String(cause) };
+  }
 }
 
 export function runInheritedProcess(command: string, args: readonly string[]): Promise<number> {
