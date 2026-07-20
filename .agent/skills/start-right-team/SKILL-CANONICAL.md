@@ -59,6 +59,9 @@ It layers team bootstrapping on top of the shared start-right requirements.
 4. If the task is architectural, high-risk, planning-heavy, cross-workspace, or
    explicitly asks for thorough grounding, apply `start-right-thorough` after
    the shared quick foundation and before team routing.
+5. Before authoring any work-slicing, plan step, or PR, read
+   `PDR-132-changeset-health-round-budgets-bind-at-authoring-time.md`
+   (practice-core decision records): round budgets bind at authoring time.
 
 If a session has a controller, they must not assign implementation work
 to a specific agent until that agent has either reported their foundation complete or

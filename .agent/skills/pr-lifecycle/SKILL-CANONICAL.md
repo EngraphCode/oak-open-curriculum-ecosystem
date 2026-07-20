@@ -77,6 +77,11 @@ into the permanent record):
    bundled into a closeout PR multiplies asynchronous bot-review rounds
    without bound (a worked instance ran 5+ rounds before the bundle was
    split); give such an artefact its own PR with its own review story.
+5. **Changeset-health check** (PDR-132, the single source): a healthy
+   changeset settles in at most two review rounds; the size smells and the
+   archival-class exemption live in the PDR. A changeset crossing its
+   warning thresholds is re-examined for hidden second stories NOW — at
+   open, splitting is cheap; at round three, it is expensive.
 
 ## Phase 2 — Open with a reviewer-facing description
 
@@ -269,7 +274,11 @@ as phase-local restatements.
    a verdict (round-6 correction, 2026-07-16: "4 total rounds" is
    monotonic — without the epoch reset the trigger stays true after the
    mandated class-fix push and the machine has no executable next
-   transition).
+   transition). **Ahead of these failure arms sits the round-budget
+   expectation (PDR-132)**: a healthy code-class changeset settles in at
+   most two rounds, so a third round opening records budget-exceeded in
+   the working notes and runs the generator question THEN — the arms above
+   stay the mechanical backstop, not the first alarm.
 3. **Reviewer-leg states**, computed per (reviewer, tip): **SATISFIED** —
    ANY harvested review by the reviewer binds to the current tip (the
    Phase 3 harvest is the source; the compound read's `latestReviews` alone
@@ -346,6 +355,11 @@ as phase-local restatements.
 - Reply to each thread with the fix evidence (commit SHA + what changed),
   then resolve it. "Resolved" is a settled-concern state, never a button
   clicked to clear `mergeStateStatus`.
+- **Silent-wait sweep after every push (PDR-132)**: verify the expected
+  reviewer is REQUESTED on the new tip — a push does not re-request, and a
+  tip with no requested reviewer and no tip-bound review waits forever
+  looking healthy (two live instances, 2026-07-20). The same sweep names a
+  shepherd for every open PR: threads with no owner are the same disease.
 - **Own the convergence loop — never hand it to the owner** (owner
   corrections, 2026-07-07 #317 and 2026-07-08 #324 — two seats re-derived
   the same blind spot in one sitting; scheduled nap-probes FEEL like
@@ -393,7 +407,11 @@ review-round state machine, items 3–4** (owner
 correction, 2026-07-16, PR #390: the merge raced a composing Copilot round,
 which then posted five findings onto merged code). OWED = do not merge,
 regardless of green checks and zero unresolved threads; the SKIPPED timeout
-(state machine item 3) bounds the wait. Then:
+(state machine item 3) bounds the wait. **After any arming of an auto-merge
+intent, verify the checks are green-or-progressing (PDR-132): an armed
+intent behind a red check is invisible-stuck — nothing progresses it and
+nothing alerts (live instance 2026-07-20: an armed docs PR sat ~2h behind a
+two-line lint failure believed self-landing).** Then:
 
 - **`mergeable` means POSSIBLE to merge; it does NOT mean READY to merge**
   (owner, 2026-07-08). GitHub's `mergeable: MERGEABLE` asserts only
