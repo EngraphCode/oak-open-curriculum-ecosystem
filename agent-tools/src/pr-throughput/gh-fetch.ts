@@ -31,14 +31,19 @@ const MERGED_PR_SCHEMA = z.array(
 export const MERGED_PR_JSON_FIELDS = 'number,createdAt,mergedAt,isDraft,headRefName';
 
 /**
- * List PRs merged into `main`, newest first, up to `limit`. A transport or
- * shape failure is a typed `err` the caller reports — never a throw and
- * never silently-empty data (the empty-state-is-transport-failure class).
+ * List PRs merged into `main` on or after `mergedSinceDate` (day precision —
+ * the window filter re-applies precisely downstream), up to `limit`. The
+ * merge-date-bounded search is load-bearing: the non-search list path orders
+ * by CREATED_AT, so a prefix's minimum merge time proves nothing about
+ * omitted rows (a long-lived PR merged today could be silently dropped). A
+ * transport or shape failure is a typed `err` the caller reports — never a
+ * throw and never silently-empty data.
  */
 export function fetchMergedPrs(input: {
   readonly executor: GhCommandExecutor;
   readonly ghPath: string;
   readonly limit: number;
+  readonly mergedSinceDate: string;
 }): Result<readonly MergedPrRecord[], Error> {
   let raw: string;
 
@@ -52,6 +57,8 @@ export function fetchMergedPrs(input: {
         'merged',
         '--base',
         'main',
+        '--search',
+        `merged:>=${input.mergedSinceDate}`,
         '--limit',
         String(input.limit),
         '--json',
@@ -79,33 +86,25 @@ export function fetchMergedPrs(input: {
 }
 
 /**
- * Refuse a corpus that cannot prove it covers the window: when the fetch
- * returned exactly `limit` rows AND the oldest merge still sits inside the
- * window, older in-window merges may exist beyond the cap — a silently
- * truncated subset would yield plausible-but-wrong metrics (the
- * no-silent-caps discipline). The typed err names the remedy.
+ * Refuse a corpus that cannot prove it covers the window: the fetch is
+ * merge-date-bounded, so hitting the cap exactly means older in-window
+ * merges may exist beyond it — a silently truncated subset would yield
+ * plausible-but-wrong metrics (the no-silent-caps discipline). The typed
+ * err names the remedy.
  */
 export function assertWindowCovered(input: {
   readonly prs: readonly MergedPrRecord[];
   readonly limit: number;
   readonly windowDays: number;
-  readonly now: Date;
 }): Result<readonly MergedPrRecord[], Error> {
   if (input.prs.length < input.limit) {
     return ok(input.prs);
   }
 
-  const windowStart = input.now.getTime() - input.windowDays * 24 * 60 * 60_000;
-  const oldestMergedAt = Math.min(...input.prs.map((pr) => Date.parse(pr.mergedAt)));
-
-  if (oldestMergedAt > windowStart) {
-    return err(
-      new Error(
-        `the ${String(input.limit)}-PR fetch does not cover the ${String(input.windowDays)}d window ` +
-          `(oldest fetched merge is inside it) — re-run with a larger --limit`,
-      ),
-    );
-  }
-
-  return ok(input.prs);
+  return err(
+    new Error(
+      `the merge-date-bounded fetch hit its ${String(input.limit)}-PR cap for the ` +
+        `${String(input.windowDays)}d window — re-run with a larger --limit`,
+    ),
+  );
 }

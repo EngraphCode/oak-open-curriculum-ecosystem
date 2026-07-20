@@ -22,6 +22,7 @@ describe('fetchMergedPrs', () => {
       },
       ghPath: '/opt/homebrew/bin/gh',
       limit: 200,
+      mergedSinceDate: '2026-07-13',
     });
 
     expect(result.ok).toBe(true);
@@ -34,6 +35,7 @@ describe('fetchMergedPrs', () => {
     expect(calls).toHaveLength(1);
     expect(calls[0].file).toBe('/opt/homebrew/bin/gh');
     expect(calls[0].args).toContain('--limit');
+    expect(calls[0].args).toContain('merged:>=2026-07-13');
     expect(calls[0].args).toContain(MERGED_PR_JSON_FIELDS);
   });
 
@@ -42,6 +44,7 @@ describe('fetchMergedPrs', () => {
       executor: () => 'API rate limit exceeded',
       ghPath: '/usr/bin/gh',
       limit: 10,
+      mergedSinceDate: '2026-07-13',
     });
 
     expect(result.ok).toBe(false);
@@ -56,6 +59,7 @@ describe('fetchMergedPrs', () => {
       executor: () => JSON.stringify([{ number: 'not-a-number' }]),
       ghPath: '/usr/bin/gh',
       limit: 10,
+      mergedSinceDate: '2026-07-13',
     });
 
     expect(result.ok).toBe(false);
@@ -68,6 +72,7 @@ describe('fetchMergedPrs', () => {
       },
       ghPath: '/usr/bin/gh',
       limit: 10,
+      mergedSinceDate: '2026-07-13',
     });
 
     expect(result.ok).toBe(false);
@@ -79,7 +84,6 @@ describe('fetchMergedPrs', () => {
 });
 
 describe('assertWindowCovered', () => {
-  const NOW = new Date('2026-07-20T20:00:00Z');
   const inWindow = {
     number: 1,
     createdAt: '2026-07-19T10:00:00Z',
@@ -87,18 +91,14 @@ describe('assertWindowCovered', () => {
     isDraft: false,
     headRefName: 'feature/a',
   };
-  const outsideWindow = {
-    ...inWindow,
-    number: 2,
-    mergedAt: '2026-07-01T11:00:00Z',
-  };
 
-  it('refuses a full-limit fetch whose oldest merge is still inside the window', () => {
+  it('refuses a merge-date-bounded fetch that hit its cap', () => {
+    // Order proves nothing (gh lists by creation date), so cap-hit alone is
+    // the refusal condition.
     const result = assertWindowCovered({
       prs: [inWindow, { ...inWindow, number: 3 }],
       limit: 2,
       windowDays: 7,
-      now: NOW,
     });
 
     expect(result.ok).toBe(false);
@@ -108,15 +108,7 @@ describe('assertWindowCovered', () => {
     }
   });
 
-  it('accepts a full-limit fetch that reaches past the window start', () => {
-    expect(
-      assertWindowCovered({ prs: [inWindow, outsideWindow], limit: 2, windowDays: 7, now: NOW }).ok,
-    ).toBe(true);
-  });
-
-  it('accepts an under-limit fetch (the corpus is complete)', () => {
-    expect(assertWindowCovered({ prs: [inWindow], limit: 200, windowDays: 7, now: NOW }).ok).toBe(
-      true,
-    );
+  it('accepts an under-cap fetch (the bounded corpus is complete)', () => {
+    expect(assertWindowCovered({ prs: [inWindow], limit: 200, windowDays: 7 }).ok).toBe(true);
   });
 });

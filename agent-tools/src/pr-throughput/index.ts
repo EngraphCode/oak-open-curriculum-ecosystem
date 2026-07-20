@@ -100,7 +100,14 @@ export function formatRegisterRow(
   report: ThroughputReport,
   input: { readonly note: string },
 ): string {
-  const note = input.note.replaceAll(/\s*[\r\n]+\s*/gu, ' ').replaceAll('|', '&#124;');
+  // Line-by-line flatten (no backtracking-prone regex): trim each line and
+  // join with single spaces, then encode pipes.
+  const note = input.note
+    .split(/[\r\n]/u)
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0)
+    .join(' ')
+    .replaceAll('|', '&#124;');
   const date = report.windowEnd.slice(0, 10);
   const p50 =
     report.cycleTimeP50Minutes === null ? '-' : String(Math.round(report.cycleTimeP50Minutes));
