@@ -362,8 +362,15 @@ as phase-local restatements.
    ever bound to the tip), the quiet window anchors on the checks-green
    window from item 3. MERGE-READY is a settled round that landed zero new
    findings, plus every Phase 7 gate leg.
-5. **The merge boundary.** Merging is ALWAYS an explicit
-   `gh pr merge --merge` command issued at a freshly RECOMPUTED full gate:
+5. **The merge boundary.** Merging takes exactly two sanctioned shapes,
+   both issued at a freshly RECOMPUTED full gate: the explicit
+   `gh pr merge --merge` command, or ARMING auto-merge — permitted
+   exactly and only **at settled-READY under a Director grant**
+   (PDR-131, 2026-07-20; arming before settlement remains forbidden —
+   the old flat prohibition was born when arming happened at PR-open,
+   pre-settlement). The arm moment carries this same recomputed gate;
+   an armed intent is a standing merge command, so it inherits every
+   leg below. The recomputed full gate:
    the round reads SETTLED per item 4 for the current tip; zero unresolved
    threads;
    a finding count of ZERO on BOTH tally surfaces (threads AND review
@@ -375,7 +382,12 @@ as phase-local restatements.
    checks GitHub does not enforce; the Sonar gate passing. The command
    inherits Phase 7's merge-authorisation boundary unchanged.
    **In a coordinated drive, the settled-round predicate binds GRANTS,
-   not just merges**: a routing seat (Director) issues a merge slot only
+   not just merges**: a routing seat (Director) grants MERGE-ELIGIBILITY
+   — the predicate verdict, never a queue position (serial one-at-a-time
+   slots and bump-gap waits retired 2026-07-20, PDR-131: merge concurrency
+   between eligible PRs is free; quality binds at settled-READY, and the
+   2026-07-20 cascade — eleven settled+green PRs landing in ~6 minutes,
+   gate green, every Phase-8 clean — is the measured evidence) — only
    on the item-4 settled verdict — zero threads AND zero body-tally
    findings on the tip, every expected reviewer leg SATISFIED/SKIPPED,
    a full quiet window since the latest tip-bound review, checks green —
@@ -400,6 +412,13 @@ as phase-local restatements.
    check lands on a fresh head) — after any refused/odd enqueue attempt,
    re-read `mergeQueueEntry` before assuming nothing is armed, and treat
    an unexpectedly-queued PR as an armed intent, not a mystery.
+   **Rule-removal disarms first** (PDR-131 §6; worked instance
+   2026-07-20: eleven queue-era armed intents survived the merge-queue
+   rule's removal and fired as plain auto-merges within ~6 minutes —
+   benign that day only because every one was settled+green): armed
+   merge intents survive queue/protection-rule removal and fire
+   silently, so before removing any queue or protection rule, enumerate
+   and disarm every armed intent.
 
 ## Phase 6 — After EVERY push, re-fetch; resolve only what is settled
 
@@ -472,8 +491,9 @@ regardless of green checks and zero unresolved threads; the SKIPPED timeout
   PR #325): a seat recomputed `mergeable: MERGEABLE` three times as its
   "truly-green gate" while never once reading `mergeStateStatus`, and could
   not explain the unmerged state to the owner.
-- **Merge only as the explicit command at the state machine's merge
-  boundary (item 5).** Item 5 holds the single definition of the boundary
+- **Merge only through the state machine's merge boundary (item 5) —
+  the explicit command, or auto-merge armed at settled-READY under a
+  Director grant (PDR-131).** Item 5 holds the single definition of the boundary
   and its recomputed gate; Phase 7 adds only the residual-race truth it
   leaves open: the explicit `gh pr merge --merge` is a check-then-act step
   — review state can change between the recomputation and the command, and
