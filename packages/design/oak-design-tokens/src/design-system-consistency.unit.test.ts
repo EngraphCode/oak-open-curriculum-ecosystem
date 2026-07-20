@@ -5,7 +5,11 @@ import {
   extractCssComparand,
   type ConsistencyInput,
 } from './design-system-consistency.js';
-import { normaliseDtcgReferences, normaliseValue } from './consistency-values.js';
+import {
+  normaliseDtcgReferences,
+  normaliseValue,
+  splitTopLevelComma,
+} from './consistency-values.js';
 // dtcgPathToCssVariable and extractCssComparand are re-exported from their
 // home modules through the comparison module's public surface.
 
@@ -95,6 +99,37 @@ describe('normaliseValue', () => {
     expect(normaliseValue('\u00a0foo')).not.toBe(normaliseValue('foo'));
     expect(normaliseValue('foo\u00a0')).not.toBe(normaliseValue('foo'));
   });
+
+  it('consumes comments as token separators, punctuation and quote content included', () => {
+    // A comment is formatting, never value content \u2014 but it separates
+    // tokens (`a/* */b` is two idents, not `ab`), and its interior commas,
+    // parentheses, and quote characters are not structure.
+    expect(normaliseValue("a /* don't, (really) */ b")).toBe('a b');
+    expect(normaliseValue('a/* c */b')).toBe('a b');
+    expect(normaliseValue('a /* runs to EOF')).toBe('a');
+  });
+
+  it('treats backslash-newline as a line continuation contributing nothing', () => {
+    expect(normaliseValue(`'a\\\nb'`)).toBe(normaliseValue(`'ab'`));
+    expect(normaliseValue(`'a\\\r\nb'`)).toBe(normaliseValue(`'ab'`));
+    // A literal newline inside a string is malformed content, not a
+    // continuation \u2014 it stays distinct from the joined form.
+    expect(normaliseValue(`'a\nb'`)).not.toBe(normaliseValue(`'ab'`));
+  });
+});
+
+describe('splitTopLevelComma', () => {
+  it('ignores commas inside quoted spans and nested parentheses', () => {
+    expect(splitTopLevelComma(`'a,b',c`)).toEqual([`'a,b'`, 'c']);
+    expect(splitTopLevelComma('rgb(1,2,3),x')).toEqual(['rgb(1,2,3)', 'x']);
+  });
+
+  it('refuses zero or multiple real top-level commas', () => {
+    // Not-a-pair falls back to whole-value comparison at the caller, so a
+    // malformed light-dark() reads as loud drift, never a mis-split.
+    expect(splitTopLevelComma('a b')).toBeUndefined();
+    expect(splitTopLevelComma('a,b,c')).toBeUndefined();
+  });
 });
 
 describe('extractCssComparand', () => {
@@ -114,6 +149,19 @@ describe('extractCssComparand', () => {
   it('splits light-dark() values into the two theme arms', () => {
     const comparand = assertOk(
       extractCssComparand(`:root { --bg-primary: light-dark(#ffffff, #222222); }`),
+    );
+
+    expect(comparand.light.get('--bg-primary')).toBe('#ffffff');
+    expect(comparand.dark.get('--bg-primary')).toBe('#222222');
+  });
+
+  it('splits light-dark() arms despite comment punctuation inside an arm', () => {
+    // The comma and parenthesis inside the comment are not structure; the
+    // real top-level comma still divides the arms.
+    const comparand = assertOk(
+      extractCssComparand(
+        `:root { --bg-primary: light-dark(#ffffff /* fallback, (light) */, #222222); }`,
+      ),
     );
 
     expect(comparand.light.get('--bg-primary')).toBe('#ffffff');

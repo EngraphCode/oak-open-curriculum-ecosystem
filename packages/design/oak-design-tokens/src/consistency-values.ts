@@ -5,10 +5,17 @@
  * The two projections format identical values differently; these closed
  * rules make formatting differences invisible while value drift stays
  * visible. Contract: the Stage-A import verification report Part 2 §2.1.
+ * The per-span string machinery lives in `consistency-value-strings.ts`.
  *
  * @packageDocumentation
  */
 import { globalTokenReferencePattern } from '@oaknational/design-tokens-core';
+import {
+  consumeComment,
+  consumeQuotedSpan,
+  serialiseSpanContent,
+  skipQuotedSpan,
+} from './consistency-value-strings.js';
 
 /**
  * Map a dtcg dot-path to its CSS custom-property name.
@@ -42,17 +49,27 @@ export function dtcgPathToCssVariable(path: string): string {
  * on both sides.
  */
 export function normaliseValue(value: string): string {
-  // Tokenise with quote and escape awareness, then canonicalise the quote
-  // DELIMITER and normalise spacing only OUTSIDE quoted segments: quoted
-  // content is literal (an apostrophe inside a double-quoted string is
-  // content, never a delimiter), and rewriting it would make genuinely
-  // different values compare equal.
+  // Tokenise with quote, escape, and comment awareness, then canonicalise
+  // the quote DELIMITER and normalise spacing only OUTSIDE quoted segments:
+  // quoted content is literal (an apostrophe inside a double-quoted string
+  // is content, never a delimiter), and rewriting it would make genuinely
+  // different values compare equal. Comments are token separators, not
+  // value content: they contribute one space (so `a/* */b` stays distinct
+  // from the single ident `ab`) and are consumed at the same level as quote
+  // detection — a comment can contain quote characters, commas, and
+  // parentheses that would otherwise corrupt the walk.
   const parts: string[] = [];
   let outside = '';
   let index = 0;
 
   while (index < value.length) {
     const character = value[index];
+
+    if (character === '/' && value[index + 1] === '*') {
+      outside += ' ';
+      index = consumeComment(value, index);
+      continue;
+    }
 
     if (character !== '"' && character !== "'") {
       outside += character;
@@ -62,20 +79,7 @@ export function normaliseValue(value: string): string {
 
     parts.push(normaliseOutsideQuotes(outside));
     outside = '';
-
-    const span = consumeQuotedSpan(value, index + 1, character);
-
-    // An unterminated string is malformed: keep its remainder verbatim from
-    // the opening delimiter, never fabricate the missing close — a malformed
-    // value must not normalise equal to its well-formed twin.
-    if (span.closingIndex >= value.length) {
-      parts.push(value.slice(index));
-      index = value.length;
-      continue;
-    }
-
-    parts.push(serialiseSpanContent(span.content));
-    index = span.closingIndex + 1;
+    index = appendCanonicalSpan(parts, value, index, character);
   }
 
   parts.push(normaliseOutsideQuotes(outside));
@@ -84,40 +88,27 @@ export function normaliseValue(value: string): string {
 }
 
 /**
- * Read a quoted span's literal content from after its opening delimiter to
- * its matching close. Simple backslash escapes DECODE to their character so
- * equivalent spellings share one canonical form — `"Rock'n Roll"` and
- * `'Rock\'n Roll'` are the same string, and preserving the escape spelling
- * would report drift where only the delimiter changed. Hex escapes stay
- * verbatim: a cross-projection hex-vs-literal spelling difference reads as
- * loud drift, never as a masked equality. An unterminated string keeps its
- * remainder as literal content — the fail-soft still compares content
- * rather than normalising it.
+ * Push the span opened at `openIndex` in canonical form and return the next
+ * walk index. An unterminated string is malformed: its remainder stays
+ * verbatim from the opening delimiter, never with a fabricated close — a
+ * malformed value must not normalise equal to its well-formed twin.
  */
-function consumeQuotedSpan(
+function appendCanonicalSpan(
+  parts: string[],
   value: string,
-  startIndex: number,
+  openIndex: number,
   delimiter: string,
-): { readonly content: string; readonly closingIndex: number } {
-  let content = '';
-  let index = startIndex;
+): number {
+  const span = consumeQuotedSpan(value, openIndex + 1, delimiter);
 
-  while (index < value.length && value[index] !== delimiter) {
-    if (value[index] === '\\' && index + 1 < value.length) {
-      const escape = consumeEscape(value, index);
-      content += escape.text;
-      index = escape.nextIndex;
-      continue;
-    }
-
-    content += value[index];
-    index += 1;
+  if (span.closingIndex >= value.length) {
+    parts.push(value.slice(openIndex));
+    return value.length;
   }
 
-  return { content, closingIndex: index };
+  parts.push(serialiseSpanContent(span.content));
+  return span.closingIndex + 1;
 }
-
-const HEX_DIGIT_PATTERN = /[0-9a-f]/iu;
 
 /**
  * CSS whitespace is space, tab, LF, CR, and FF only — narrower than JS `\s`,
@@ -153,54 +144,6 @@ export function trimCssWhitespace(value: string): string {
   return value.slice(start, end);
 }
 
-/** The canonical delimiter's escaped spelling, hoisted to keep templates flat. */
-const ESCAPED_DELIMITER = String.raw`\'`;
-
-/**
- * Serialise a span's literal content into the canonical quoted form,
- * re-escaping the canonical delimiter: without it a valid `"a' b"` and a
- * malformed `'a' b'` would serialise identically.
- */
-function serialiseSpanContent(content: string): string {
-  const escaped = content.replaceAll("'", ESCAPED_DELIMITER);
-
-  return `'${escaped}'`;
-}
-
-/**
- * Consume one backslash escape starting at `index`. A simple escape decodes
- * to its character; a hex escape (backslash + up to six hex digits + one
- * optional terminating space) keeps its spelling verbatim per the
- * `consumeQuotedSpan` contract.
- */
-function consumeEscape(
-  value: string,
-  index: number,
-): { readonly text: string; readonly nextIndex: number } {
-  // An escaped backslash keeps its escaped spelling: decoding it to a raw
-  // backslash would collide with the preserved hex-escape representation
-  // ('a\\b' vs the hex escape 'a\b' must stay distinct).
-  if (value[index + 1] === '\\') {
-    return { text: '\\\\', nextIndex: index + 2 };
-  }
-
-  if (!HEX_DIGIT_PATTERN.test(value[index + 1])) {
-    return { text: value[index + 1], nextIndex: index + 2 };
-  }
-
-  let end = index + 1;
-
-  while (end < value.length && end - index <= 6 && HEX_DIGIT_PATTERN.test(value[end])) {
-    end += 1;
-  }
-
-  if (value[end] === ' ') {
-    end += 1;
-  }
-
-  return { text: value.slice(index, end), nextIndex: end };
-}
-
 function normaliseOutsideQuotes(segment: string): string {
   return collapseCssWhitespace(segment)
     .replaceAll('( ', '(')
@@ -225,21 +168,44 @@ export function normaliseDtcgReferences(value: string): string {
   );
 }
 
-/** Split a value on its single top-level comma, respecting nested parentheses. */
+/**
+ * Split a value on its single top-level comma, respecting nested parentheses
+ * and quoted spans (a comma inside a string is content, never a separator).
+ * Exactly one real top-level comma is required — zero or several means the
+ * value is not a two-arm pair, and the caller's whole-value fallback keeps
+ * any drift visible rather than mis-split. Input is `normaliseValue` output,
+ * so comments are already consumed.
+ */
 export function splitTopLevelComma(value: string): readonly [string, string] | undefined {
+  const commas = topLevelCommaIndices(value);
+
+  if (commas.length !== 1) {
+    return undefined;
+  }
+
+  const splitIndex = commas[0];
+
+  return [value.slice(0, splitIndex), value.slice(splitIndex + 1)];
+}
+
+/** Indices of every comma at parenthesis depth zero outside quoted spans. */
+function topLevelCommaIndices(value: string): readonly number[] {
+  const indices: number[] = [];
   let depth = 0;
 
   for (let index = 0; index < value.length; index += 1) {
     const character = value[index];
 
-    if (character === '(') {
+    if (character === '"' || character === "'") {
+      index = skipQuotedSpan(value, index);
+    } else if (character === '(') {
       depth += 1;
     } else if (character === ')') {
       depth -= 1;
     } else if (character === ',' && depth === 0) {
-      return [value.slice(0, index), value.slice(index + 1)];
+      indices.push(index);
     }
   }
 
-  return undefined;
+  return indices;
 }
