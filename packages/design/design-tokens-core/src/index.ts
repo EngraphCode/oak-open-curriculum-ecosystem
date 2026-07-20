@@ -172,6 +172,8 @@ export { validateContrastPairings } from './contrast-validation.js';
 
 export type { InvalidNodeError } from './token-walk.js';
 
+export { composeThemeTree } from './compose-theme-tree.js';
+
 export { validateThemeOverlayCoverage } from './overlay-coverage.js';
 
 export type {
