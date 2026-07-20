@@ -122,3 +122,47 @@ one abstraction level") — if none of 1–4 graduates, is killed, or changes a 
 the consolidation pass, this record was a eulogy and should be said so there.
 
 *Addenda land additively below this line; the record is never rewritten.*
+
+## Addendum (2026-07-20 ~12:58Z, same author) — the seventh firing, and the play harvest
+
+**The seventh firing was this record's own author, within the hour.** The wrap-family
+import sweep declared "the graph closes cleanly" after a link-shaped regex pass; the
+owner then asked "I believe there was also a Decide workflow?" — and `decide` (plus its
+`decision-matrix` rule, 317 lines, no oak equivalent) was in the graph all along, cited
+by `skill-composition` and routed-to by `free-play`, invisible to a regex that only
+matched markdown link paths. A closure claim over an open set, falsified by outside
+eyes — exactly the record's mechanism, exactly the external-bound error signature the
+wrap record told successors to point scrutiny at (this seat's confident composite
+reads). AIP-142 is corrected and now instructs its integrator to re-sweep at import
+time and treat the list as exemplars of an open set. Proposal 1's warrant gains a
+seventh instance, and proposal 4's ("read whole surfaces unfiltered before
+class-matching") gains its cleanest possible demonstration: the sweep filtered by
+pattern instead of reading.
+
+**The free-play pass** (run per the Resonance skill at owner word: time-boxed wander
+over the day's material, no target; harvest under the confabulation guard —
+associations, never findings; discards visible):
+
+- KEPT — *the day's failures look shaped alike*: heartbeats emitting after their
+  reasoning loop stopped (F-148), claims read as live after their surface moved (F-44
+  kin), a grant read as act-now after the state moved (the near-miss), a "closed graph"
+  asserted after one regex pass. These remind me of one shape — **assertions detaching
+  from their referents and continuing to run** — and every cure the estate reached for
+  was the same move: re-verify at the moment of use. An association with a growing
+  shape; routed to concept-exploration at the consolidation pass.
+- KEPT — *pre-authorisation as the day's tempo source, and its twin hazard*: the
+  bounded exits, pre-ruled outcomes, and pre-positioned standbys moved adjudication
+  ahead of need and produced the 90-second post-landing merges and the zero-gap
+  successions; the one near-bad-merge came from the same lever read without an expiry
+  (a grant treated as unconditioned authorisation). "Pre-authorisation wants its
+  recompute condition attached" — the same shape as the first seed, from the other
+  side. Routed with it.
+- KEPT (small) — *the up-to-date treadmill inverted*: read backwards, the annoying
+  policy is verify-at-use mechanically enforced — it refuses stale assertions at the
+  merge boundary; the pain was parallelism against it, not the policy. Napkin-seed
+  grade; rides here.
+- DISCARDED (visibly, per the guard): an attempted association between the agents'
+  generated names and their roles — forced; nothing there.
+
+The recursion note: this addendum re-finds the record's own named classes operating on
+its author — which is the mechanism working, not a new loss class. The record stands.
