@@ -8,9 +8,11 @@
  * owns only the line/row layout.
  *
  * Row order puts the short, fixed-width segments first — identity (with
- * indicators) on one row, then model and context % together on the next — and the
- * labelled git-location rows last. A loud error token, when present, leads the
- * output in any layout so it cannot be missed.
+ * indicators) on one row, then the model on the next — and the labelled
+ * git-location rows last, with the usage gauges (context %, then the Claude.ai
+ * rate limits) appended to the repo-title row so usage reads alongside where the
+ * session is working. A loud error token, when present, leads the output in any
+ * layout so it cannot be missed.
  *
  * The git-location rows come pre-composed from `statusline-segments.ts`: the
  * checkout name then its branch when the session's checkout is the only relevant
@@ -85,8 +87,8 @@ export interface StatuslineRenderOptions {
  *   coordinationPlace: 'oak-open-curriculum-ecosystem',
  *   error: undefined,
  * });
- * // → identity row, "Opus 4.7 · ctx:12%" row, then the primary name, its
- * //   "coord:" branch, and the worktree's name-and-branch row.
+ * // → identity row, "Opus 4.7" row, then the primary name with "ctx:12%"
+ * //   appended, its "coord:" branch, and the worktree's name-and-branch row.
  * ```
  */
 export function renderStatusline(
@@ -99,21 +101,38 @@ export function renderStatusline(
 }
 
 /**
- * No-logo layout: a loud error first, the identity-and-context summary, then the
- * pre-composed labelled location rows. Empty lines (all their segments absent) are
- * dropped so no blank row renders.
+ * No-logo layout: a loud error first, the identity/indicator/model summary, then the
+ * labelled location rows with the usage gauges appended to the repo-title row. Empty
+ * lines (all their segments absent) are dropped so no blank row renders.
  */
 function renderNoLogo(seg: Segments): string {
-  const summaryLine = joinPresent([
-    seg.identity,
-    seg.indicators,
-    seg.rateLimits,
-    seg.model,
-    seg.context,
-  ]);
-  return [seg.error, summaryLine, ...seg.locationRows]
+  const summaryLine = joinPresent([seg.identity, seg.indicators, seg.model]);
+  return [seg.error, summaryLine, ...locationRowsWithUsage(seg)]
     .filter((line): line is string => line !== undefined && line.length > 0)
     .join('\n');
+}
+
+/**
+ * Location rows with the usage gauges appended to the repo-title row: the
+ * context gauge after the title, then the rate-limit gauges after the context
+ * gauge — e.g. `oak · ctx:61% · s:19%(5h) · w:14%(6d)` (owner direction
+ * 2026-07-20). Usage reads alongside WHERE the session is working, not in the
+ * identity summary. Outside any location row the gauges still render on their
+ * own line rather than being dropped.
+ *
+ * Transplanted from castr's statusline
+ * ({@link https://github.com/EngraphCode/castr/pull/22 | castr PR #22}, main
+ * commit 63a7e675); Oak divergence: this renderer keeps Oak's logo-by-style layout
+ * (`resolveLogoRows` + `oak-logo.ts`) rather than castr's pre-resolved
+ * `logoRows` architecture — only the usage placement is adopted.
+ */
+function locationRowsWithUsage(seg: Segments): readonly string[] {
+  const usage = joinPresent([seg.context, seg.rateLimits]);
+  if (usage.length === 0) {
+    return seg.locationRows;
+  }
+  const [titleRow, ...rest] = seg.locationRows;
+  return titleRow === undefined ? [usage] : [joinPresent([titleRow, usage]), ...rest];
 }
 
 /**
@@ -126,9 +145,9 @@ function renderWithLogo(
   options: StatuslineRenderOptions,
 ): string {
   const rowTexts = [
-    joinPresent([seg.identity, seg.indicators, seg.rateLimits]),
-    joinPresent([seg.model, seg.context]),
-    ...seg.locationRows,
+    joinPresent([seg.identity, seg.indicators]),
+    joinPresent([seg.model]),
+    ...locationRowsWithUsage(seg),
   ];
   const logoRows = resolveLogoRows(logo, options.logoFrame ?? 0);
   const content = composeWithLogo(logoRows, rowTexts);

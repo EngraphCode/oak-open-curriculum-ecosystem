@@ -2,7 +2,7 @@ import {
   createCssBlock,
   emitCssVariables,
   flattenDesignTokens,
-  resolveTokenTreeToHex,
+  resolveColourTokens,
   validateContrastPairings,
   validateTierReferences,
   type ContrastReport,
@@ -33,6 +33,24 @@ function mergeTokenTrees(...tokenTrees: readonly DtcgTokenTree[]): DtcgTokenTree
 }
 
 const lightTokenTree = mergeTokenTrees(paletteTokens, semanticLightTokens, componentTokens);
+
+/** Resolve the hand-authored trees' colours; malformation here is a programmer error. */
+function resolveColoursOrThrow(tokenTree: DtcgTokenTree): ReadonlyMap<string, string> {
+  const resolution = resolveColourTokens(tokenTree);
+
+  if (!resolution.ok) {
+    throw new Error(`Malformed token tree at '${resolution.error.path}'.`);
+  }
+
+  if (resolution.value.unresolvable.length > 0) {
+    const failures = resolution.value.unresolvable
+      .map((entry) => `${entry.path} -> ${entry.reference}`)
+      .join(', ');
+    throw new Error(`Unresolvable colour references in hand-authored tree: ${failures}.`);
+  }
+
+  return resolution.value.resolved;
+}
 
 function inlinePaletteReferences(
   tokens: readonly FlattenedDesignToken[],
@@ -91,16 +109,21 @@ export function buildOakDesignTokensCss(): string {
 export function buildContrastReports(): Result<readonly ContrastReport[], ContrastValidationError> {
   const darkTokenTree = mergeTokenTrees(paletteTokens, semanticDarkTokens, componentTokens);
 
-  const lightResolved = resolveTokenTreeToHex(lightTokenTree);
-  const darkResolved = resolveTokenTreeToHex(darkTokenTree);
+  const lightResolved = resolveColoursOrThrow(lightTokenTree);
+  const darkResolved = resolveColoursOrThrow(darkTokenTree);
 
-  const lightResult = validateContrastPairings(lightResolved, contrastPairingsManifest, 'light');
+  const lightResult = validateContrastPairings(
+    lightResolved,
+    contrastPairingsManifest,
+    'light',
+    'AA',
+  );
 
   if (!lightResult.ok) {
     return err(lightResult.error);
   }
 
-  const darkResult = validateContrastPairings(darkResolved, contrastPairingsManifest, 'dark');
+  const darkResult = validateContrastPairings(darkResolved, contrastPairingsManifest, 'dark', 'AA');
 
   if (!darkResult.ok) {
     return err(darkResult.error);

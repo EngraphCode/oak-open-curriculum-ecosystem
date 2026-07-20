@@ -65,8 +65,10 @@ describe('createDesignBoundaryRules', () => {
     expect(zones.some((zone) => zone.from === '../../../agent-tools/**')).toBe(true);
     expect(zones.some((zone) => zone.from === '../oak-design-tokens/**')).toBe(true);
     expect(zones.some((zone) => zone.from === '../oak-design-ink/**')).toBe(true);
+    expect(zones.some((zone) => zone.from === '../oak-design-system/**')).toBe(true);
     expect(groups).toContain('@oaknational/oak-design-tokens');
     expect(groups).toContain('@oaknational/oak-design-ink');
+    expect(groups).toContain('@oaknational/oak-design-system');
     expect(groups).toContain('@oaknational/curriculum-sdk');
     expect(groups).toContain('@oaknational/search-cli');
     expect(groups).toContain('@oaknational/logger');
@@ -79,8 +81,10 @@ describe('createDesignBoundaryRules', () => {
     );
     expect(inkPattern?.message).toContain('@oaknational/oak-design-ink');
     expect(inkPattern?.message).toContain('@oaknational/oak-design-tokens');
+    expect(inkPattern?.message).toContain('@oaknational/oak-design-system');
     expect(tokensPattern?.message).toContain('@oaknational/oak-design-ink');
     expect(tokensPattern?.message).toContain('@oaknational/oak-design-tokens');
+    expect(tokensPattern?.message).toContain('@oaknational/oak-design-system');
   });
 
   it('allows oak-design-tokens to depend on design-tokens-core while still blocking apps, SDKs, libs, and tooling', () => {
@@ -94,7 +98,12 @@ describe('createDesignBoundaryRules', () => {
     expect(zones.some((zone) => zone.from === '../../../packages/libs/**')).toBe(true);
     expect(zones.some((zone) => zone.from === '../../../agent-tools/**')).toBe(true);
     expect(zones.some((zone) => zone.from === '../oak-design-ink/**')).toBe(true);
+    // The absent oak-design-system restriction IS the configured legitimate
+    // edge (ADR-041 §2026-07-19 amendment; ADR-213 §4): oak-design-tokens
+    // consumes the design system's dtcg export as validator input.
+    expect(zones.some((zone) => zone.from === '../oak-design-system/**')).toBe(false);
     expect(groups).not.toContain('@oaknational/design-tokens-core');
+    expect(groups).not.toContain('@oaknational/oak-design-system');
     expect(groups).toContain('@oaknational/oak-design-ink');
     expect(groups).toContain('@oaknational/oak-search-sdk');
     expect(groups).toContain('@oaknational/agent-tools');
@@ -108,12 +117,16 @@ describe('createDesignBoundaryRules', () => {
 
     expect(zones.some((zone) => zone.from === '../design-tokens-core/**')).toBe(false);
     expect(zones.some((zone) => zone.from === '../oak-design-tokens/**')).toBe(false);
+    // Ink reaches design tokens through the projection layer, never the
+    // design system directly (ADR-041 §2026-07-19 amendment; ADR-213 §4).
+    expect(zones.some((zone) => zone.from === '../oak-design-system/**')).toBe(true);
     expect(zones.some((zone) => zone.from === '../../../apps/**')).toBe(true);
     expect(zones.some((zone) => zone.from === '../../../packages/sdks/**')).toBe(true);
     expect(zones.some((zone) => zone.from === '../../../packages/libs/**')).toBe(true);
     expect(zones.some((zone) => zone.from === '../../../agent-tools/**')).toBe(true);
     expect(groups).not.toContain('@oaknational/design-tokens-core');
     expect(groups).not.toContain('@oaknational/oak-design-tokens');
+    expect(groups).toContain('@oaknational/oak-design-system');
     expect(groups).toContain('@oaknational/oak-search-sdk');
     expect(groups).toContain('@oaknational/agent-tools');
     expect(groups).toContain('@oaknational/env-resolution');
