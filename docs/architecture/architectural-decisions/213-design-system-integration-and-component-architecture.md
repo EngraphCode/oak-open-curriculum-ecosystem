@@ -200,6 +200,55 @@ consumer):** four §2 clauses above are corrected or made concrete against the g
   across the full criteria set (SC 2.4.13 among others), which a token-pair gate cannot
   prove.
 
+**Amendment (2026-07-20, Stage-B interchange-contract exploration — PR #424, doctrine
+slot (c)):** four §2 clauses are amended from the exploration's evidence (the report at
+`.agent/reports/design/aip-137-stage-b-interchange-contract-concept-exploration-2026-07-20.md`
+carries the observations, warrants, and falsifiers each clause cites):
+
+- **The interchange is a per-consumer projection contract, not a normalised tree.** The
+  export is the kit-vocabulary projection of the studio's CSS; the repo consumes it
+  through three declared projections — **contrast** (native read, base ⊕ overlay
+  composition, fixpoint resolution, post-resolution hex-comparand filtering with pinned
+  counts: the landed mechanism above), **web CSS transitional** (an explicit naming map —
+  see the delivery-surface window below), and **terminal** (an explicit 11-entry
+  role→kit-dot-path map, resolved at build). Variable identity is derived from tree paths
+  (`toCssVariable`), so any re-rooting renames every emitted CSS variable — a path
+  convention decision is a consumer-migration decision, and no single normalised
+  interchange tree is authoritative. _Falsifier severity is graded_: one kit token a
+  projection cannot account for routes to that projection's migration leg as a defect;
+  **systematic** unaccountability falsifies the per-consumer frame itself, making a single
+  normalised tree the honest shape after all.
+- **`runtime-computed` is a declared value class** — values whose computation is
+  paint-time-contextual (the `currentColor` mixes `state.hover` and `state.pressed`) are
+  exported verbatim, pass through to CSS emission (the browser evaluates them), are
+  excluded from static contrast resolution **by contract** (mechanically: the
+  post-resolution value-shape drop plus the pinned comparand counts above), and are
+  **barred from the terminal's 11 paths**. The terminal bar is named Stage-B work: the
+  terminal map's build check gains a value-shape leg asserting every mapped value resolves
+  to a terminal-compatible static colour literal (`requiredColour` is presence-only
+  today, and resolution carries expressions verbatim). `state.selected` is NOT in this
+  class: it is statically evaluable to an alpha colour, so its disposition is the existing
+  alpha-exclusion rule. Class membership is discriminated **by value-shape
+  classification** at each consumer boundary, never "by type" — the classes are dated
+  exemplars of an explicitly open set, not a closed enumeration.
+- **The web CSS delivery-surface end state carries a declared transitional window.** §2's
+  end state (one web CSS delivery surface, owned by the design system) stands; between
+  Stage B and the MCP views' direct kit-CSS binding, a mapped `index.css` generated
+  through a **total disposition map** (every kit path → `emit` | `omit`-with-reason;
+  reverse coverage of every currently emitted variable; emit-target uniqueness across the
+  whole map; reference-closure over emitted values) serves the views as a named
+  transitional surface. The map is checked by a **Stage-B migration-parity check** that
+  lands inside the Stage-B change (distinct from the kit-internal dtcg↔CSS export check,
+  which guards export canonicality, not repo-output compatibility). Retirement condition,
+  recorded here: the map and its check die when the MCP views bind the kit CSS directly —
+  a named post-Stage-B lane, not part of the atomic switch.
+- **The terminal-owned-tree fallback is plan-scoped, not ADR-authorised.** If Stage B's
+  kit trees cannot supply all 11 terminal roles through the map, the implementing plan's
+  falsifier names "the terminal keeps its own tree" as the fallback — but §2 requires the
+  hand-authored trees deleted and the 11-path contract proved, so **firing that falsifier
+  requires a further dated ratification through the doctrine slot**; the plan-recorded
+  exception is never already ADR-authorised.
+
 ### 3. The component system
 
 The consumption model, in decision-table form. "The pairing guides" are the design system's
