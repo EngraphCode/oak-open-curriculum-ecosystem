@@ -53,7 +53,11 @@ export type StageRunData = MapRunData | ReduceRunData | ValidateRunData | MetaRu
 
 async function readJson(filePath: string): Promise<Result<unknown, Error>> {
   // Containment before I/O (the render-ledger-cli.ts precedent, AIP-126 item 7): a
-  // checkpoint flag must never read/inline JSON from outside the repository.
+  // checkpoint flag must never read/inline JSON from outside the repository. Relative
+  // flags DELIBERATELY resolve against the repo root, not process.cwd(): pnpm pins the
+  // script cwd to the agent-tools workspace wherever the operator stands, so a cwd base
+  // would make the committed `.agent/reports/...` checkpoint paths unreachable — the
+  // repo-root base is the deterministic convention every flag-path CLI here shares.
   const safePath = resolveReadPathWithinRepo(resolveRepoRoot(import.meta.url), filePath);
   if (!safePath.ok) {
     return safePath;

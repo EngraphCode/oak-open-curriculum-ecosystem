@@ -16,6 +16,21 @@ describe('deriveRunData path containment', () => {
     );
   });
 
+  it('resolves a relative checkpoint flag against the REPOSITORY ROOT, not the process cwd — committed .agent/reports/... paths work identically from any invocation directory', async () => {
+    // 'agent-tools/package.json' exists ONLY repo-root-relative: under the vitest/pnpm
+    // process cwd (the agent-tools workspace) a cwd-based resolution would look for
+    // agent-tools/agent-tools/package.json and fail the READ. A read that succeeds and
+    // then fails the checkpoint RE-PARSE proves the repo-root base.
+    const result = await deriveRunData({
+      stage: 'reduce',
+      mapResult: 'agent-tools/package.json',
+      validateResults: [],
+    });
+    expect(isErr(result)).toBe(true);
+    expect(String(!result.ok && result.error)).toContain('map result failed validation');
+    expect(String(!result.ok && result.error)).not.toContain('Cannot read checkpoint');
+  });
+
   // Every stage flag funnels through the same contained readJson, so containment is
   // demonstrated on each stage's FIRST-read flag; later flags share the identical path.
   it('refuses a ".."-escaping relative checkpoint path at each stage entry flag', async () => {
