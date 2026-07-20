@@ -70,12 +70,12 @@ export function QuizBlockView({ block }: { readonly block: QuizBlock }): ReactEl
   return (
     <section
       aria-label={block.title}
-      className="rounded-2xl border-[3px] border-oak-black bg-white p-[22px] pb-6 shadow-[4px_4px_0_#ffe555]"
+      className="rounded-2xl border-[3px] border-line bg-white p-[22px] pb-6 shadow-[4px_4px_0_#ffe555]"
     >
       <p className="mb-[18px] flex items-center gap-2.5">
         <span
           aria-hidden="true"
-          className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded-full border-2 border-oak-black bg-oak-lemon text-[18px]"
+          className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded-full border-2 border-line bg-decorative-5 text-[18px]"
         >
           ?
         </span>

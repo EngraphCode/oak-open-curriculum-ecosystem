@@ -25,6 +25,7 @@
   "dependencies": {
     "@elastic/elasticsearch": "^9.4.2",
     "@oaknational/curriculum-sdk": "workspace:*",
+    "@oaknational/oak-design-system": "workspace:*",
     "@oaknational/oak-search-sdk": "workspace:*",
     "@oaknational/result": "workspace:*",
     "next": "16.2.10",

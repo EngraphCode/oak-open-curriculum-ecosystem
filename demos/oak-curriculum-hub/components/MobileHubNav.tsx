@@ -8,7 +8,7 @@ import type { HubNavItem } from '@/components/HubNavLink';
 import { HubSearch } from '@/components/HubSearch';
 
 const menuLinkClass =
-  'block rounded-oak-m2 px-[13px] py-[11px] text-[15px] font-semibold leading-none text-oak-black no-underline transition-colors hover:bg-oak-cream';
+  'block rounded-card px-[13px] py-[11px] text-[15px] font-semibold leading-none text-ink no-underline transition-colors hover:bg-surface-subtle';
 
 /** The open disclosure panel: stacked section links plus the hub search. */
 function MenuPanel({
@@ -24,7 +24,7 @@ function MenuPanel({
     <nav
       id={id}
       aria-label="Hub sections menu"
-      className="shadow-oak-grey absolute inset-x-0 top-full flex flex-col gap-1 border-b-[3px] border-oak-black bg-white p-4"
+      className="shadow-neutral-brand absolute inset-x-0 top-full flex flex-col gap-1 border-b-[3px] border-line bg-white p-4"
     >
       {items.map((item) => (
         <HubNavLink key={item.label} item={item} className={menuLinkClass} onChoose={onChoose} />
@@ -101,7 +101,7 @@ export function MobileHubNav({ items }: { readonly items: readonly HubNavItem[] 
         aria-expanded={open}
         aria-controls={panelId}
         aria-label="Hub sections"
-        className="flex h-10 w-10 items-center justify-center rounded-oak-m2 border-2 border-oak-black bg-white text-oak-black"
+        className="flex h-10 w-10 items-center justify-center rounded-card border-2 border-line bg-white text-ink"
         onClick={() => setOpen((current) => !current)}
       >
         <svg

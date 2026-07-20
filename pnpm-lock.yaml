@@ -472,6 +472,9 @@ importers:
       '@oaknational/curriculum-sdk':
         specifier: workspace:*
         version: link:../../packages/sdks/oak-curriculum-sdk
+      '@oaknational/oak-design-system':
+        specifier: workspace:*
+        version: link:../../packages/design/oak-design-system
       '@oaknational/oak-search-sdk':
         specifier: workspace:*
         version: link:../../packages/sdks/oak-search-sdk
