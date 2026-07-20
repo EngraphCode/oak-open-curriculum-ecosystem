@@ -13,7 +13,7 @@ export function VideoBlockView({ block }: { readonly block: VideoBlock }): React
   return (
     <figure>
       <MediaBox pill="VIDEO" pillTone="black" glyph={<PlayChip />} label={block.placeholder} />
-      <figcaption className="mt-2.5 text-sm leading-5 font-light text-oak-grey">
+      <figcaption className="mt-2.5 text-sm leading-5 font-light text-ink-subdued">
         {block.caption}
       </figcaption>
     </figure>

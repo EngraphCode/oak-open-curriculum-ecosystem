@@ -18,12 +18,12 @@ export default function ExemplarsPage(): ReactElement {
       <PageHeader
         title="Exemplars"
         intro="Worked examples of high-quality content, annotated to show exactly why they work."
-        tint="bg-oak-pink-subdued"
+        tint="bg-decorative-4-subtle"
       />
       <HonestEmptyNotice title="Not included in this demo">
         No exemplar content was available to wire into this demo, so this section is intentionally
         empty rather than showing placeholder examples. See the{' '}
-        <Link href="/standards" className="font-bold text-oak-navy underline">
+        <Link href="/standards" className="font-bold text-link underline">
           quality standards
         </Link>{' '}
         the exemplars would illustrate.
