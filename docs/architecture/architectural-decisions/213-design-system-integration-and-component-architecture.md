@@ -215,7 +215,9 @@ carries the observations, warrants, and falsifiers each clause cites):
   (`toCssVariable`), so any re-rooting renames every emitted CSS variable — a path
   convention decision is a consumer-migration decision, and no single normalised
   interchange tree is authoritative. _Falsification is mechanical, not judged_: each
-  projection is a total checked map over the export; a mismatch that can be cured or
+  projection is a total checked map **over its declared domain** of the export (the web
+  CSS map's domain is the whole export tree; the terminal map's is its 11 roles; the
+  contrast path's is the values its boundary admits); a mismatch that can be cured or
   recorded as a disposition routes to that projection's migration leg as a defect, and a
   projection falsifies the per-consumer frame when its map **cannot reach zero
   unaccounted entries after all recordable dispositions** — at which point a single

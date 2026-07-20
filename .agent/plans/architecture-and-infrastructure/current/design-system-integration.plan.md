@@ -120,8 +120,10 @@ executors do not re-derive them:
   that its `oak.color.*` paths "land on the repo convention" is **false** against
   `design-tokens-core`'s flattener (`toCssVariable` prefixes `--oak-` itself →
   `--oak-oak-color-*`; tier detection keys off the root segment; `validateTierReferences`
-  rejects semantic→semantic; non-hex strings crash `hexToSrgb` with a bare throw). Re-root in
-  the studio's export generator or normalise at the repo import boundary. Do not widen
+  rejects semantic→semantic; non-hex strings crash `hexToSrgb` with a bare throw). The re-root-or-normalise
+  binary this fact once posed is DISSOLVED by the ADR-213 §2 amendment of 2026-07-20
+  (slot c): naming is resolved per consumer — the web-CSS projection's total disposition
+  map owns it; the flattener facts above stand as the mechanism evidence. Do not widen
   `PALETTE_VARIABLE_PATTERN`; do not rename the system's CSS variables.
 - The theme-bootstrap pattern in the system's own Next.js guide (`beforeInteractive`) is wrong
   for FOUC-free theming on Next 16; ADR-213 §3 records the correction (raw inline head
@@ -141,8 +143,11 @@ One system, two first-class surfaces. The workspace README carries the runbook:
   The remaining obligation is the recorded per-consumer divergence: the export contract
   passes the 15 expression values through verbatim, while ADR-213 §2 rejects them on the
   contrast-resolution path (three are `currentColor`-dependent — never statically
-  pre-computable). Stage B's emission lane must decide its expression handling explicitly
-  against the export contract, never by silent adoption of either side.
+  pre-computable). Stage B's emission-lane expression handling is DECIDED by the ADR-213
+  §2 amendment of 2026-07-20: pass-through for CSS emission (the browser evaluates),
+  `runtime-computed` values barred from the terminal map by its value-shape leg, and the
+  contrast path dropping by post-resolution value shape — per-consumer dispositions,
+  never silent adoption of either side.
 - **Repo → studio**: before design sessions, the studio is brought current from the repo copy
   via the design-sync flow (structural diff from `list_files`, then targeted writes).
 - **Conflict rule**: git review is the merge authority. A sync never overwrites unreviewed
