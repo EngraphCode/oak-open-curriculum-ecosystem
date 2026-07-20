@@ -106,6 +106,43 @@ function compareTheme(
   return { compared, mismatches };
 }
 
+/**
+ * Compare the dark theme against the FULL light index overlaid with the
+ * semantic dark leaves: the CSS comparand carries a dark arm for every
+ * variable (light-dark() split, or the light value copied), so every arm
+ * must be validated — a token absent from semanticDark is expected to keep
+ * its light value in the dark theme, and a drifted dark arm on it is real
+ * drift, not out-of-scope. A variable absent from the CSS altogether is ONE
+ * fact, reported by the light pass; the dark pass keeps only value
+ * mismatches and genuinely dark-only absences (present in light, missing a
+ * dark arm — impossible by construction today, but honest if extraction
+ * ever changes).
+ */
+function compareDarkTheme(
+  lightIndex: ReadonlyMap<string, TokenLeafEntry>,
+  darkLeaves: readonly TokenLeafEntry[],
+  comparand: {
+    readonly light: ReadonlyMap<string, string>;
+    readonly dark: ReadonlyMap<string, string>;
+  },
+): ThemeComparison {
+  const darkIndex = new Map(lightIndex);
+
+  for (const leaf of darkLeaves) {
+    darkIndex.set(dtcgPathToCssVariable(leaf.path), leaf);
+  }
+
+  const raw = compareTheme(darkIndex, comparand.dark, 'dark');
+
+  return {
+    compared: raw.compared,
+    mismatches: raw.mismatches.filter(
+      (mismatch) =>
+        mismatch.kind !== 'missing_css_variable' || comparand.light.has(mismatch.variable),
+    ),
+  };
+}
+
 function findUnaccountedVariables(
   cssLight: ReadonlyMap<string, string>,
   cssDark: ReadonlyMap<string, string>,
@@ -160,11 +197,8 @@ export function compareDesignSystemConsistency(
     return darkLeaves;
   }
 
-  const darkPairs = darkLeaves.value.map(
-    (leaf) => [dtcgPathToCssVariable(leaf.path), leaf] as const,
-  );
   const lightComparison = compareTheme(lightIndex.value, comparand.value.light, 'light');
-  const darkComparison = compareTheme(darkPairs, comparand.value.dark, 'dark');
+  const darkComparison = compareDarkTheme(lightIndex.value, darkLeaves.value, comparand.value);
   const unaccounted = findUnaccountedVariables(
     comparand.value.light,
     comparand.value.dark,

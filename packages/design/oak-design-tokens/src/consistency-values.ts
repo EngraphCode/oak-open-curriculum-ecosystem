@@ -43,26 +43,72 @@ const DTCG_REFERENCE_PATTERN = /\{(?<path>[^{}]+)\}/gu;
  * on both sides.
  */
 export function normaliseValue(value: string): string {
-  // Canonicalise the quote DELIMITER first, then normalise spacing only
-  // OUTSIDE quoted segments: quoted content is literal, and rewriting it
-  // would make genuinely different values compare equal.
-  const segments = value.replaceAll('"', "'").split(/(?<quoted>'[^']*')/u);
+  // Tokenise with quote and escape awareness, then canonicalise the quote
+  // DELIMITER and normalise spacing only OUTSIDE quoted segments: quoted
+  // content is literal (an apostrophe inside a double-quoted string is
+  // content, never a delimiter), and rewriting it would make genuinely
+  // different values compare equal.
+  const parts: string[] = [];
+  let outside = '';
 
-  return segments
-    .map((segment, index) =>
-      index % 2 === 1
-        ? segment
-        : segment
-            .replaceAll(/\s+/gu, ' ')
-            .replaceAll('( ', '(')
-            .replaceAll(' )', ')')
-            .replaceAll(' ,', ',')
-            .replaceAll(', ', ',')
-            .replaceAll(' *', '*')
-            .replaceAll('* ', '*'),
-    )
-    .join('')
-    .trim();
+  for (let index = 0; index < value.length; index += 1) {
+    const character = value[index];
+
+    if (character !== '"' && character !== "'") {
+      outside += character;
+      continue;
+    }
+
+    parts.push(normaliseOutsideQuotes(outside));
+    outside = '';
+
+    const span = consumeQuotedSpan(value, index + 1, character);
+    parts.push(`'${span.content}'`);
+    index = span.closingIndex;
+  }
+
+  parts.push(normaliseOutsideQuotes(outside));
+
+  return parts.join('').trim();
+}
+
+/**
+ * Read a quoted span's literal content from after its opening delimiter to
+ * its matching close, honouring backslash escapes. An unterminated string
+ * keeps its remainder as literal content — the fail-soft still compares
+ * content verbatim rather than normalising it.
+ */
+function consumeQuotedSpan(
+  value: string,
+  startIndex: number,
+  delimiter: string,
+): { readonly content: string; readonly closingIndex: number } {
+  let content = '';
+  let index = startIndex;
+
+  while (index < value.length && value[index] !== delimiter) {
+    if (value[index] === '\\' && index + 1 < value.length) {
+      content += value[index] + value[index + 1];
+      index += 2;
+      continue;
+    }
+
+    content += value[index];
+    index += 1;
+  }
+
+  return { content, closingIndex: index };
+}
+
+function normaliseOutsideQuotes(segment: string): string {
+  return segment
+    .replaceAll(/\s+/gu, ' ')
+    .replaceAll('( ', '(')
+    .replaceAll(' )', ')')
+    .replaceAll(' ,', ',')
+    .replaceAll(', ', ',')
+    .replaceAll(' *', '*')
+    .replaceAll('* ', '*');
 }
 
 /**

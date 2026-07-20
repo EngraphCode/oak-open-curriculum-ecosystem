@@ -254,8 +254,66 @@ describe('compareDesignSystemConsistency', () => {
       }),
     );
 
-    expect(report.mismatches).toHaveLength(1);
-    expect(report.mismatches[0].kind).toBe('value_mismatch');
+    // A single-polarity drift surfaces once per theme arm: the CSS value is
+    // carried into both comparand maps, and both arms disagree with the dtcg
+    // expectation.
+    expect(report.mismatches).toHaveLength(2);
+    expect(report.mismatches.map((mismatch) => mismatch.kind)).toEqual([
+      'value_mismatch',
+      'value_mismatch',
+    ]);
+  });
+
+  it('keeps whitespace differences after an apostrophe inside a double-quoted string visible', () => {
+    const input = baseInput();
+    const report = assertOk(
+      compareDesignSystemConsistency({
+        ...input,
+        css: `:root {
+            --oak-paper: light-dark(#fcfbf8, #1c1a17);
+            --bg-primary: light-dark(#ffffff, #222222);
+            --font-display: "A'  B", sans-serif;
+            --canvas-rows: 12;
+          }`,
+        primitives: {
+          font: { family: { display: { $type: 'fontFamily', $value: `"A' B", sans-serif` } } },
+        },
+      }),
+    );
+
+    // The apostrophe is literal content inside a double-quoted string, so
+    // the differing interior whitespace is real drift, never normalised away.
+    expect(report.mismatches.length).toBeGreaterThanOrEqual(1);
+    expect(report.mismatches.every((mismatch) => mismatch.kind === 'value_mismatch')).toBe(true);
+  });
+
+  it('flags a drifted dark arm on a token absent from the semantic dark overlay', () => {
+    const input = baseInput();
+    const report = assertOk(
+      compareDesignSystemConsistency({
+        ...input,
+        css: `${input.css}\n:root { --oak-slate: light-dark(#445566, #000000); }`,
+        palette: {
+          oak: {
+            color: {
+              paper: { $type: 'color', $value: '#fcfbf8' },
+              slate: { $type: 'color', $value: '#445566' },
+            },
+          },
+        },
+      }),
+    );
+
+    expect(report.mismatches).toEqual([
+      {
+        kind: 'value_mismatch',
+        theme: 'dark',
+        path: 'oak.color.slate',
+        variable: '--oak-slate',
+        dtcgValue: '#445566',
+        cssValue: '#000000',
+      },
+    ]);
   });
 
   it('reports a dark-block-only CSS variable with no dtcg counterpart', () => {
