@@ -55,11 +55,14 @@ rationale cites this policy and adds the site path + line.
 
 1. **Match the rule key** to a documented class below.
 2. **Match the site shape** against the class's decision criteria.
-3. If both match: dispose with the **class's stated outcome** under the
-   Two-Outcome Rule — `SAFE` for hotspot classes, `FALSE_POSITIVE` for
-   issue classes whose criteria establish the defect is not present,
-   `FIXED` for FIX-only classes — with a comment of the form
+3. If both match, follow the **class's stated outcome** under the
+   Two-Outcome Rule. `SAFE` (hotspot classes) and `FALSE_POSITIVE`
+   (issue classes whose criteria establish the defect is not present)
+   are server-side dispositions, set with a comment of the form
    `<OUTCOME> per Sonar Disposition Policy §<rule>: <file>:<line> — <one-line site note>`.
+   FIX-only classes have **no server-side action**: `FIXED` is assigned
+   by analysis once the corrected code lands — make the code change and
+   let the next analysis close the finding.
 4. If the rule is documented but the site shape does not match: do per-site
    review, document the rationale fully, and consider whether the class needs
    a sub-clause amendment.
@@ -337,8 +340,12 @@ version argument substitutes for the flag there.
 
 ### S6506 — Unpinned transport on downloaded artefacts
 
-**Pattern**: `curl`/`wget` fetching an artefact without constraining the
-protocol, so a redirect chain could downgrade to plain HTTP.
+**Pattern**: `curl` fetching an artefact without constraining the
+protocol, so a redirect chain could downgrade to plain HTTP. (A `wget`
+site also matches the rule but has no equivalent compliant flag —
+`--https-only` governs recursive links, not redirect targets — so a
+flagged `wget` fetch is replaced with the curl form below, or run with
+redirects disabled.)
 
 **Decision criteria**: there is no FALSE_POSITIVE disposition for
 production or CI fetch sites — resolve as **FIXED** by pinning the
