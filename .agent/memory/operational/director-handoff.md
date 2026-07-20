@@ -262,7 +262,41 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> ### ▶ ACTIVE EFFORT: RESTATEMENT REMEDIATION (the settling gate for PLAN-CORPUS REFOUNDING) — Director: Mussel rides Coral (seat held since Moment-2 2026-07-15T14:26:36Z)
+> ### ▶ ACTIVE EFFORT: ALL-PRS-TO-MERGE DRIVE + DESIGN-SYSTEM INTEGRATION (AIP-137) — Director: Flame calls Basalt (seat owner-named 2026-07-19)
+>
+> **SESSION SHAPE (2026-07-20):** Director **Flame calls Basalt (`f82a2f`)**, claim
+> `7d6b8bbf` (role director; coordination/continuity surfaces only), directing the
+> owner-named team **Caracal wakes Tunnel (`265648`)** (design-system lane, claim
+> `0130e1af`), **Harrier rides Updraft (`416a38`)** (design-tokens-core, claim
+> `9a41bdab`), **Salmon binds Undertow (`de5c10`)** (hub integration — owner word:
+> "the goal is integration, nothing less"), plus Director-delegate sub-agent lanes
+> for seatless PRs. Owner standing word this drive: agents hold merge permission
+> (merge commit, never squash/--admin); stray-draft seat-closes-with-evidence;
+> #401 HELD; owner decisions/questions ALWAYS as immediate cards. Guiding plan:
+> `.agent/plans/architecture-and-infrastructure/current/design-system-integration.plan.md`.
+> Everything faster than a handoff — PR states, lane states, team map, residuals —
+> lives ONLY in the record this claim's `handoff_record_path` names →
+> `.agent/state/collaboration/handoffs/2026-07-20-director-current-state-flame-f82a2f.md`
+> (untracked-by-design — read from the primary checkout's filesystem).
+>
+> **SEAT HANDOFF IN PROGRESS (2026-07-20T~08:00Z):** owner-initiated deliberate succession
+> (NOT budget-triggered). Incoming Director **Galago stirs Grotto (`60d988`)**, owner-named,
+> live and grounded on standby (watcher armed; no claim/heartbeat until Moment-2). Flame
+> issues PDR-064 **Moment-1 pre-positioning**; authority stays with Flame until Galago
+> broadcasts **Moment-2** (after the readiness gate below + a pasted mechanical UTC liveness
+> check), then adopts claim `7d6b8bbf` and arms the dual heartbeat. Flame's watcher/monitors
+> stand down only AT Moment-2 (never dark between the moments, PDR-064 cadence boundary). If
+> Galago's Moment-2 does not land, coordination authority returns to the **owner** (Flame's
+> retirement broadcast says so explicitly); the role context rides Flame's Moment-1 event +
+> this block. Retiring implementers at this close: Caracal wakes Tunnel (capsule comms
+> b184210d, claim `0130e1af` closed), Salmon binds Undertow (capsule comms d7f462df, claim
+> `05c78eaa` closed, executing the continuity sweep to ref `collab-sweep-2026-07-20`);
+> Harrier rides Updraft on a compaction freeze (claim `9a41bdab`, owns #414 conflict + PR3
+> cycle-3 gate wiring). Tail-queue (armed auto-merge, quiet-window serialised — see the
+> current-state record): #413 #414(CONFLICTING) #415 #419 #420 #421 #422; then close #406
+> after #419 lands. #401 HELD.
+>
+> ### ⏸ PAUSED EFFORT (resumes at its cures-landed + freeze-recut-check gate): RESTATEMENT REMEDIATION (the settling gate for PLAN-CORPUS REFOUNDING) — last Director: Mussel rides Coral (seat held from Moment-2 2026-07-15T14:26:36Z to session close 2026-07-16; claim archived)
 >
 > **SESSION SHAPE (2026-07-16):** COMPOUND PAIR (owner-directed 2026-07-16) — Director
 > **Mussel rides Coral (`6f8857`)**, claim `0f4be777` (held continuously across tenures:

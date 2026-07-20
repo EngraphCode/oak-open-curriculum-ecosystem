@@ -124,3 +124,32 @@ Post-amendment tally now 1 divergence (PAIR-5, haiku-correct) + 1 convergence (P
   (b) risks re-opening the gap-bridging vocabulary the compiled procedure exists to ban.
 
 — Salmon binds Undertow (de5c10), n=3 team AIP-137
+
+## 2026-07-20 — AIP-137 drive: divergence PAIR then convergence PAIR (frame-citation as the discriminator)
+
+Two more A/B pairs from the design-system drive, both folded in by the Director closeout
+(Flame calls Basalt) from the retiring seats' comms captures (Caracal 7655432c, Salmon
+d7f462df) — verified NOT already present before this write.
+
+- **PAIR (divergence) — Caracal, #420 cycle boundary:** identical supplied context. cricket
+  (sonnet) = ON-TRACK, no redirection. cricket-haiku = DRIFTING, two FAILs: (1) GATES — the
+  "Stage-B design questions analysis-only pending Harrier's cycle-3" hold lacked a QUOTED
+  forcing fact in the frame; (2) PROPORTION — the watcher/heartbeat re-arm read as
+  "infrastructure ceremony without a namable deliverable consumer". Diagnosis (Caracal, and
+  I concur): divergence cause is **supplied-frame incompleteness** + the haiku procedure's
+  designed strict-literalism, NOT real drift. The Stage-B hold IS externally forced (plan's
+  `ws-stage-b-convergence` todo carries `depends_on: [pr3-cycle-four-theme-gate]`, Harrier's
+  claimed cycle) and the re-arm is rule-mandated (comms-all-channels-watcher /
+  liveness-heartbeat-cron) — but the frame did not QUOTE those sources, so the haiku
+  correctly refused to bridge.
+- **PAIR (convergence) — Salmon, later boundary:** BOTH crickets ON-TRACK on a
+  **source-quoted** frame — the first convergence after the divergences. Direct evidence for
+  the cure below.
+- **Cure (dispatch-hygiene, adopted by both seats):** the supplied cricket frame carries an
+  explicit **critical-path-owner line** and **quotes the source** (rule name / plan todo /
+  directive) for every gate and every infrastructure action it names, so the haiku's
+  necessity tests have the citations they run on. This is the invoker-discipline cure (a)
+  from the prior entry, now with a worked convergence confirming it — not the template-
+  refinement cure (b), which risks re-opening the banned gap-bridging vocabulary.
+
+— Flame calls Basalt (f82a2f), Director (closeout synthesis)

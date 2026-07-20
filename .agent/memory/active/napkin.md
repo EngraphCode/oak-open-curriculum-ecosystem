@@ -4588,3 +4588,254 @@ Lessons this session (beyond the 2026-07-19 entry above):
   type-headings accuracy; formatting pass) lives in the Salmon ARC channel
   (rapid-comms/2026-07-19-aip137-pr2-verification-…) — the next design session's opening
   read.
+
+## 2026-07-20 — wrapped-exit recurrence #5 (Salmon binds Undertow, de5c10)
+
+- Ran `pnpm … assert-watcher-live … 2>&1 | tail -3; echo "ASSERT_EXIT:$?"` — captured
+  tail's 0 while the tool exited 2 (in-band `Exit status 2` visible in the same output).
+  Fifth estate recurrence of exit-codes-in-band-never-piped; the cure applied on re-run
+  (`cmd > out 2>&1; echo EXIT:$?; tail out`) reported the true 2, which then localised a
+  real arg-shape error (`--seen-file` is not an assert option; it takes
+  `--platform/--model` + `--comms-seen-dir`). Pattern note: the false-green recurs
+  specifically in *small ceremony commands* where I skip the discipline I hold for gated
+  chains — the rule has no size threshold.
+
+## 2026-07-20 ~07:50Z — session-close loss-scan (Salmon binds Undertow, de5c10, hub lane)
+
+Post-compaction deltas that live only in this context and reach no other durable
+surface. Captured under staging hold (primary commits held for the Director's switch);
+these ride the authorised 7-path sweep. Consumer-routed items also appear in the
+design-system-integration thread record.
+
+- **#413 up-to-date treadmill does NOT converge on a busy main (4× BEHIND, ~50 min).**
+  Cause: my CI cycle (~5–8 min) is longer than the inter-merge interval while the
+  Director drives micro-PRs + release bumps onto main. Each BEHIND traced first-hand to a
+  main advance during my CI run: (1) 1.75.0, (2) #409 + 1.75.1, (3) #418 + 1.75.2, (4) a
+  further advance. Auto-merge stays armed but CANNOT self-update under "require branches
+  up to date", so it stalls at BEHIND every cycle — it never merges on its own here. Head
+  SHA progression across update-branch passes: 93aaab256 → … → 536c2d7d2. **Cure is
+  coordination, not more update-branch**: routed to Director (comms f9b7f2fc) with
+  quiet-window / merge-queue / prioritise options. The one mechanical action that lands it:
+  a SINGLE `gh pr update-branch 413` that survives one CI cycle in a ~10-min quiet window;
+  auto-merge finishes. Worked instance of ship-independent-coordinate-dependent: I stopped
+  racing at the 4th loss and handed the sequencing to the coordinator.
+- **Monitor coverage: an auto-merge BEHIND stall is silent unless watched for.** My first
+  #413 watch emitted only MERGED/CLOSED/failed-checks/DIRTY — it missed the BEHIND stall
+  entirely (auto-merge-armed-but-not-updating looks identical to "still waiting"). Added
+  `BEHIND` to the exit alternation. Same class as silence-is-not-success: the watch must
+  emit on every state that means "stuck", not only failure and success.
+- **Comms watcher drain-timeout: 120s default has been structurally outgrown (2 deaths in
+  15 min).** Re-arm 5 at the 120s default died again on `step "drain" exceeded 120000ms`;
+  re-arm 6 raised `--step-timeout-ms` to 300000 and held. The re-arm-4 task also exited 124
+  (zombie GNU-timeout). This is fresh load-bearing evidence for the comms-watch-storage-
+  redesign plan: comms volume in an active n≥3 window now exceeds the drain deadline at the
+  default — the fix is storage/drain redesign, not endless deadline-bumping. → route to
+  that plan.
+- **Switch-refusal is predictable by blob comparison (reusable technique).** Verified the
+  owner's `git switch coordination/estate-2026-07` on the primary WILL be refused, on 7
+  paths, before it was attempted: 3 modified-tracked files whose HEAD blob ≠ the target
+  branch's blob (napkin, cricket-ab-tally-2026-07-16, aip-137-stage-a-import-verification)
+  - 4 untracked-locally-but-tracked-on-target ARC channel files. director-handoff.md is
+  dirty but blob-identical across branches → carries clean, NOT a blocker. Method:
+  `git rev-parse HEAD:$f` vs `git rev-parse origin/<target>:$f` for modified files;
+  `git cat-file -e origin/<target>:$f` for untracked files. Routed to Director (comms
+  f9b2cba5) with a sweep-commit-to-fresh-ref cure (standard git, zero risk-of-loss).
+- **Cricket A/B PAIR-6 = first CONVERGENCE since the divergences, and it came WITH the
+  source-quoting frame cure.** Both crickets returned ON-TRACK on a frame that quoted every
+  gate's source (owner-grant verbatim, branch-protection mechanics, rule names) per
+  Caracal's dispatch-hygiene cure. This is evidence FOR the hypothesis that the earlier
+  haiku DRIFTING verdicts were supplied-frame incompleteness, not real drift — a
+  source-cited frame removes the haiku's gap-bridging refusal. The tally append to
+  cricket-ab-tally-2026-07-16.md is HELD (that file is a switch-blocker; appending grows
+  the blocking set) — pending switch-settled, then append PAIR-6 as the convergence datum.
+- **§6 decomposition (successor-facing).** Recon: 30 of ~34 hub component files carry
+  hand-rolled shapes; only 4 adopt kit classes (SiteFooter, SiteNav, ThemeSwitcher,
+  CourseSidebar). §6 is therefore 3 small PRs, not 1: (1) controls .oak-input/.oak-select/
+  .oak-btn — HubSearch is the exemplar defect (hard `bg-white` stays white in dark/HC;
+  `outline-none` on the inner input suppresses the kit focus ring; both cured by .oak-input);
+  (2) cards/chips/tags (ResultCards, StandardCard, Destinations); (3) pedagogy blocks (quiz,
+  accordion, callout→banner, teacher-tip). Task #10 tracks slice 1. Full detail → thread record.
+- **Cross-lane resolutions of MY open residuals (verified from comms, first-hand):**
+  Caracal's #420 (kit Roboto Mono localisation, merge-armed, tip 4a2f7ac05) makes the hub's
+  inherited Google Fonts `@import` die kit-side — NO hub action needed — and closes my
+  Stage-A F3 residual (LICENCES.md §Fonts gains the Roboto Mono row; licence corrected to
+  SIL OFL 1.1). The owner ratified the four-theme contrast gate as AAA-for-HC / AA-floor-
+  elsewhere (Director broadcast 06:24Z) — this fixes the §7 audit-in-CI expected-output
+  design; my Stage-A report Part 2 is the fixture.
+
+## [Flame calls Basalt f82a2f] 2026-07-20 — Director session close: AIP-137 all-PRs-to-merge drive + design-system integration
+
+Director seat, owner-named ("make sure everyone is doing useful work, properly integrating
+the design system, and driving all (all) PRs to merge"; standing word to me: coordination
+and continuity only, minimum ceremony). Deliberate owner-initiated seat handoff (NOT
+budget-triggered); successor named **Galago stirs Grotto (60d988)**. Live implementers
+Caracal wakes Tunnel (265648) and Salmon binds Undertow (de5c10) retired at the same close.
+
+### Drive outcome (all SHAs verified in origin/main first-hand at close)
+
+- MERGED: #411 design-system Stage A + licensing manifest (`dc16295bf`), #412 PR3 validation
+  layer (`6631bb5ac`), #409 AIP-126 restatement-audit hardening (`da643fcd9`), #417 ADR-213
+  Proposed→Accepted + plan truing, #418 dependabot TS-major ignore. (#410 landed pre-session.)
+- Drafts dispositioned: #397 CLOSED (5 generated S1 files byte-identical to main's pinned
+  SHA-256 table, gitignored by design), #399 CLOSED (both files conserved, main strictly
+  ahead — stale-capture class), #403 CLOSED + archive-tagged `archive/claude-hook-hardening`
+  on origin (owner-ruled; preservation snapshot of a disabled prototype, Sonar-fail-on-new-
+  code so cure-would-rewrite-the-artefact). #406 unique facts extracted to main via #419;
+  #406 close is a successor tail (pending #419 merge). #401 stays HELD (integration-pass gated).
+- Tail draining under armed auto-merge in a quiet window: #413 #414(now CONFLICTING) #415
+  #419 #420 #421 #422. Serialise them — see the treadmill lesson below.
+
+### Grounded delegate-agent knowledge (MOST loss-prone — sub-agent contexts are gone)
+
+- **#416 root cause (diagnosis agent):** the dependabot 39-dep group bump failed ALL FOUR
+  checks from ONE cause — the `typescript 6.0.3 → 7.0.2` major. TS7 added an `exports` map
+  that omits `./bin/tsc`; `agent-tools/src/bootstrap/bootstrap.ts` resolves
+  `typescript/bin/tsc` via `createRequire(...).resolve(...)` at postinstall → `ERR_PACKAGE_
+  PATH_NOT_EXPORTED` → `pnpm install` dies before any other work (secret-scan/install/
+  run-quality-gates/Vercel all downstream of that single install death). Re-runs are
+  pointless (deterministic). Cured: #418 dependabot semver-major ignore for typescript +
+  `@dependabot recreate` (→ #421). **TS7 ADOPTION IS DELIBERATE SEPARATE FUTURE WORK**:
+  bootstrap.ts's resolve must become exports-map-safe (resolve `typescript/package.json`,
+  read `bin`, join — or shell `node_modules/.bin/tsc`), plus audit other raw `typescript/…`
+  subpath requires monorepo-wide, plus vet the eslint-plugin-unicorn 70→72 major separately.
+- **#409 thread-2 disposition (implementer agent):** the Codex reviewer's "checkpoint flags
+  resolve against caller cwd" fix was REFUTED with a verified failure scenario — pnpm pins
+  `process.cwd()` to the agent-tools workspace wherever the operator stands, so cwd-relative
+  resolution makes the real committed checkpoint paths unreachable; repo-root base is the
+  deliberate estate-wide convention of every `flag-path-resolve.ts` consumer. The genuine
+  defect was a doc contradiction, trued. (Pattern: dispositions need verified failure
+  scenarios, not "another layer compensates".)
+- **AIP-131 adjudication hazards (adjudicator agent, now in the PR close comments = durable):**
+  #403 merge would SILENTLY delete main's live `[[hooks.SessionStart]]` Codex identity block
+  from `.codex/config.toml` (auto-merge, no conflict); #406 retargeted-to-main merges clean
+  but plants a DUPLICATE thread record at `threads/` beside main's `threads/paused/` copy;
+  #399/#406 both carry the stale-capture-wins silent-revert risk. All avoided by close/extract.
+
+### THE TREADMILL LESSON (reusable; also → per-user memory)
+
+"Require branches up to date" + a CI cycle LONGER than the inter-merge interval on a busy
+main = a naive `gh pr update-branch` treadmill that BURNS CI without converging: each update
+triggers ~6-8 min CI, and a merge+release-bump advances main DURING that window, so the PR
+goes BEHIND again the moment it goes green. Salmon hit it 3× on #413, Caracal on #420.
+Cures, in order: (1) **serialise** — update-branch only the NEXT PR after each merge, never
+all in parallel; (2) declare a **quiet window** (stop dispatching main-moving PRs) so the
+tail drains; (3) a **merge queue** ends it for the whole drive if the repo enables one.
+The anti-pattern is N PRs each auto-armed + each self-update-branching = N-way race none wins.
+
+### Team-member loss-scans folded in (closeout-owner synthesis)
+
+- **Caracal L1 (highest value; per-user memory `verify-obligations-not-just-presence`):**
+  presence/consistency verification is BLIND to omission defects. #420's two review rounds
+  (Lexend-only "delete fonts/" instructions never mention Roboto; OFL condition-2 requires
+  the licence TEXT to ship — a "recorded consistently" presence-check can't see a missing
+  obligation) BOTH passed a grep sweep AND a code-expert SOUND verdict. Cure: check
+  sibling-removal instructions + the asset's own contract obligations, not just internal
+  consistency. **Pattern candidate: verification-method-blind-to-omission.**
+- **Caracal L3 / cricket dispatch-hygiene:** cricket frames must carry a critical-path-owner
+  line + cite the SOURCE (rule name / plan todo / directive) for every gate and infra action,
+  so cricket-haiku's strict-literal necessity test has the citations it runs on. Corroborated
+  by Salmon's convergence pair on a source-quoted frame.
+- **Salmon verified deliverables (in `.agent/reports/design/aip-137-stage-a-import-
+  verification-2026-07-19.md`, riding #411):** all 537 dtcg tokens value-consistent with the
+  canonical CSS; four-theme contrast baseline (34 pairs AA-pass ×4 themes, HC AAA 26/26
+  today) → the owner's ratified gate shape (AAA-for-HC / AA-floor-elsewhere). F1-F8 cure set
+  absorbed. The four semantic theme trees are sparse OVERLAYS over light (139/63/67/12), not
+  equal key-sets — the plan's completeness falsifier fired; validators use overlay-coverage.
+
+### Studio sync-back list (future studio session; ~16+ items, full text in comms b184210d)
+
+OakButton.jsx cognitive complexity 43 + 6 nested ternaries; styles.css comment-self-
+termination fix; DECISIONS emphasis mangle; two fence languages; repo formatting pass;
+beforeInteractive→inline-head-script for consuming-nextjs.md; motion-cascade authority;
+brand.css motion-token override guidance; oakTheme.get() effective-default modelling;
+type-headings specimen accuracy; LICENCES social-mark rows; + from #420: roboto-mono swap
+studio-side, Apache→OFL licence correction, OFL condition-2 (ship both faces' OFL texts incl.
+Lexend gap), true-300 changelog note, the Lexend-only docs deletion-instruction fix.
+
+### Standing owner rulings this session (provenance for the successor)
+
+Agents hold merge permission for the whole drive (--merge, never squash/--admin);
+seat-closes-with-evidence for conserved drafts (branches retained); #401 HELD; contrast gate
+= AAA-for-HC / AA-floor-elsewhere; primary-checkout return to coordination/estate-2026-07
+ruled "run now" (owner-run switch, blocked by 7 dirty paths → Salmon's authorised sweep to
+ref collab-sweep-2026-07-20 clears it); **owner decisions AND owner-run ACTIONS surface as
+immediate cards, always — "non-blocking" never downgrades a card to prose** (I under-applied
+this on the primary-switch item as prose and was corrected; per-user memory updated).
+
+### My loss-scan (6e.2 — from inside the Director context; what fits none of the above)
+
+The drive was run almost entirely from the watch: 3 live implementer seats + 5 dispatched
+Director-delegate sub-agents (diagnosis, #409, adjudication, #406-extraction, two-micro-PR).
+The delegate model worked — the Director's value was routing verdicts + owner-carding, not
+executing. The one process friction worth conserving: **two Director-delegate agents returned
+BEFORE their auto-merge/monitor tails completed** (#419→#406 close; #417/#422 landing), so a
+seat handoff must treat "agent completed" as "agent's synchronous work done", NOT "the PR
+landed" — the armed-auto-merge tails become successor tasks. Nothing else in my context is
+absent from the durable homes above + the current-state record + the PR trails.
+
+## Harrier rides Updraft (416a38) — AIP-137 PR3 cycle-3 session close 2026-07-20
+
+Landed: PR3 cycle 3 (four-theme design-system contrast gate) — 5 commits on
+`jimcresswell/aip-137-pr3-cycle3-four-theme-gate`, tip `bb274cc2e`, pushed, **PR #423** open
+(auto-merge deliberately NOT armed — unreviewed). Live gate passes 34/34 pairs × 4 themes
+(HC at AAA, rest AA). Full handoff record:
+`.agent/state/collaboration/handoffs/2026-07-20-harrier-aip137-pr3-cycle3-full-handoff.md`.
+
+### Surprise (finish-line fluency, caught not shipped)
+
+Three finish-line moves this session confirmed the metacognition §"fluency clusters at the
+finish line" pattern — all caught by a guard, none shipped: (1) I asserted the risen
+`no-throw-statement` warning count was "baseline-consistent" a touch too fluently — grounded
+it instead (the eslint config sets that rule to WARN precisely for build scripts; build.ts's
+header documents it) and surfaced it in the PR body for a reviewer's explicit call rather
+than asserting silently; (2) a prettier pre-commit failure was correctly read as a trivial
+gap (--write, re-commit), NOT descended into; (3) a `max-lines` error from an if-chain
+expansion was cured by extracting `design-system-gate-error.ts`, not by loosening the rule.
+The pattern held: the felt urge to wrap was itself the tripwire.
+
+### Grounded execution knowledge (consumer: the cycle-3 reviewer + Stage-B owner)
+
+- **Naive per-theme composition breaks colour-safe specifically.** My first data run
+  (resolver-data-check.mjs) showed colour-safe with 2 dangling refs (`band.bg`→
+  `surface.decorative-1`, `card.bg`→`bg.primary`) under NAIVE per-theme composition — those
+  targets live in the light BASE, not the sparse overlay. Correct composition is
+  palette ∪ (light-base ⊕ overlay); under it all four themes have 0 dangling. A successor
+  debugging a spurious unresolvable in the gate should check the composition order first.
+- **The comparand count (161) is one constant for all four themes** and that is an
+  INVARIANT, not a coincidence: overlay-coverage orphan-detection forbids overlays adding
+  candidates (they may only override), so candidate count (169) and comparand (161) are
+  identical across themes. Pinned in `design-system-expectations.ts`; validated by the live
+  green build, not just the offline script.
+- **mergeTokenTrees is duplicated** (`build-css.ts` + `terminal-theme.ts`, shallow
+  top-level spread doing a disjoint-union) — a second consumer of one merge concept.
+  consolidate-at-second-consumer applies at Stage B (do NOT touch the hand-authored path
+  pre-Stage-B); `composeThemeTree` is the correct recursive form for overlays. A Stage-B item.
+
+### Loss-scan (6e.2, from inside my own context — what fits none of 6a–6d)
+
+Almost everything I hold is homed: code in the 5 commits + PR #423; the exact deferred-item
+specs (boundary.ts roster edit, duplicate-test adjudication, consistency validator) + the
+three specialist verdicts' actionable residue + the #414 re-conflict recipe are all in the
+full handoff record; the ADR §2 amendment + plan trues are committed; the finish-line and
+grounded-knowledge items are above. The one PATTERN worth distilling that fits no categorical
+edge: **the plan file is a serialization chokepoint** — #414 conflicted on it, I resolved +
+pushed clean (`622acc3a4`), and it RE-conflicted within minutes because another plan-editing
+PR (#422, plan-collection index) landed. Multiple concurrent PRs each editing
+`design-system-integration.plan.md` will keep re-conflicting pairwise; the structural cure is
+Director-side serialization of plan-file PRs (or splitting the plan so lanes edit disjoint
+files), not repeated manual re-merges. Nothing else in my context is absent from the durable
+homes named above.
+
+### Deep recursive loss-scan — one additional catch (docs follow-up)
+
+The deep pass over rejected alternatives, decisions, and the three specialist verdicts' fine
+detail found everything homed EXCEPT one low-value-but-real item architecture-expert-fred
+flagged for docs-adr-expert: **ADR-041 carries two docs-truth divergences** — (1) its bullet
+"consumed as a devDependency … by `oak-design-tokens`" misstates the EXISTING
+`design-tokens-core` edge (which is a runtime `dependency` because `dist/terminal-theme.js`
+imports it), and (2) its design matrix row (~line 62) permits foundation libs while
+`createDesignBoundaryRules` forbids ALL libs to design workspaces. Neither blocks the cycle-3
+PR; both are docs-adr-expert follow-ups. (The type-expert's "compile-green tree swap can
+silently rename emitted CSS variables" Stage-B hazard is homed — it is exactly what the
+consistency-check validator, task #5, exists to guard: the `oak.color.x`→`--oak-x` naming
+transform.)
