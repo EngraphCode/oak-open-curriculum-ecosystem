@@ -101,6 +101,23 @@ export function checkWcagAA(ratio: number, textSize: 'normal' | 'large'): boolea
 }
 
 /**
+ * Check whether a contrast ratio meets WCAG 2.2 AAA (enhanced) for text.
+ *
+ * @remarks
+ * Normal text requires 7:1. Large-scale text (at least 18pt or 14pt bold)
+ * requires 4.5:1 per WCAG 2.2 Success Criterion 1.4.6.
+ *
+ * @param ratio - The computed contrast ratio
+ * @param textSize - Whether the text is 'normal' or 'large'
+ * @returns True if the ratio meets the AAA threshold
+ */
+export function checkWcagAAA(ratio: number, textSize: 'normal' | 'large'): boolean {
+  const threshold = textSize === 'large' ? 4.5 : 7;
+
+  return ratio >= threshold;
+}
+
+/**
  * Check whether a contrast ratio meets WCAG 2.2 AA for non-text elements.
  *
  * @remarks

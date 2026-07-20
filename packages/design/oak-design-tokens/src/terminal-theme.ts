@@ -9,7 +9,7 @@
  *
  * @packageDocumentation
  */
-import { resolveTokenTreeToHex, type DtcgTokenTree } from '@oaknational/design-tokens-core';
+import { resolveColourTokens, type DtcgTokenTree } from '@oaknational/design-tokens-core';
 import componentTokens from './tokens/component.json';
 import paletteTokens from './tokens/palette.json';
 import semanticDarkTokens from './tokens/semantic.dark.json';
@@ -42,10 +42,28 @@ export interface OakTerminalTheme {
 const lightTokenTree = mergeTokenTrees(paletteTokens, semanticLightTokens, componentTokens);
 const darkTokenTree = mergeTokenTrees(paletteTokens, semanticDarkTokens, componentTokens);
 
+/** Resolve the hand-authored trees' colours; malformation here is a programmer error. */
+function resolveColoursOrThrow(tokenTree: DtcgTokenTree): ReadonlyMap<string, string> {
+  const resolution = resolveColourTokens(tokenTree);
+
+  if (!resolution.ok) {
+    throw new Error(`Malformed token tree at '${resolution.error.path}'.`);
+  }
+
+  if (resolution.value.unresolvable.length > 0) {
+    const failures = resolution.value.unresolvable
+      .map((entry) => `${entry.path} -> ${entry.reference}`)
+      .join(', ');
+    throw new Error(`Unresolvable colour references in hand-authored tree: ${failures}.`);
+  }
+
+  return resolution.value.resolved;
+}
+
 /** Light and dark Oak terminal themes. */
 export const oakTerminalThemes = {
-  light: createTerminalTheme('light', resolveTokenTreeToHex(lightTokenTree)),
-  dark: createTerminalTheme('dark', resolveTokenTreeToHex(darkTokenTree)),
+  light: createTerminalTheme('light', resolveColoursOrThrow(lightTokenTree)),
+  dark: createTerminalTheme('dark', resolveColoursOrThrow(darkTokenTree)),
 } as const satisfies Record<OakTerminalThemeMode, OakTerminalTheme>;
 
 function createTerminalTheme(

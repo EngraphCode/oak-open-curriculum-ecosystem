@@ -3,14 +3,13 @@ import { describe, expect, it } from 'vitest';
 import {
   checkNonTextContrast,
   checkWcagAA,
+  checkWcagAAA,
   contrastRatio,
   hexToSrgb,
   srgbToRelativeLuminance,
 } from './contrast.js';
 import type { ContrastManifest } from './contrast-types.js';
-import { resolveTokenTreeToHex } from './contrast-resolve.js';
 import { validateContrastPairings } from './contrast-validation.js';
-import type { DtcgTokenTree } from './index.js';
 
 /** Assert a Result is Ok and return its value, or fail the test. */
 function assertOkResult<T, E>(result: Result<T, E>): T {
@@ -117,66 +116,21 @@ describe('checkNonTextContrast', () => {
   });
 });
 
-describe('resolveTokenTreeToHex', () => {
-  it('resolves palette tokens directly to their hex values', () => {
-    const tree: DtcgTokenTree = {
-      color: {
-        ink: { $type: 'color', $value: '#102033' },
-      },
-    };
-
-    const resolved = resolveTokenTreeToHex(tree);
-
-    expect(resolved.get('color.ink')).toBe('#102033');
+describe('checkWcagAAA', () => {
+  it('passes normal text at exactly 7:1', () => {
+    expect(checkWcagAAA(7.0, 'normal')).toBe(true);
   });
 
-  it('resolves semantic tokens through palette references', () => {
-    const tree: DtcgTokenTree = {
-      color: {
-        'paper-050': { $type: 'color', $value: '#fcfbf8' },
-      },
-      semantic: {
-        'surface-page': { $type: 'color', $value: '{color.paper-050}' },
-      },
-    };
-
-    const resolved = resolveTokenTreeToHex(tree);
-
-    expect(resolved.get('semantic.surface-page')).toBe('#fcfbf8');
+  it('fails normal text below 7:1', () => {
+    expect(checkWcagAAA(6.99, 'normal')).toBe(false);
   });
 
-  it('resolves component tokens through semantic and palette', () => {
-    const tree: DtcgTokenTree = {
-      color: {
-        'ink-950': { $type: 'color', $value: '#102033' },
-      },
-      semantic: {
-        'text-primary': { $type: 'color', $value: '{color.ink-950}' },
-      },
-      component: {
-        'shell-title-color': { $type: 'color', $value: '{semantic.text-primary}' },
-      },
-    };
-
-    const resolved = resolveTokenTreeToHex(tree);
-
-    expect(resolved.get('component.shell-title-color')).toBe('#102033');
+  it('passes large text at exactly 4.5:1', () => {
+    expect(checkWcagAAA(4.5, 'large')).toBe(true);
   });
 
-  it('ignores non-colour tokens', () => {
-    const tree: DtcgTokenTree = {
-      font: {
-        'size-300': { $type: 'dimension', $value: '1rem' },
-      },
-      color: {
-        ink: { $type: 'color', $value: '#102033' },
-      },
-    };
-
-    const resolved = resolveTokenTreeToHex(tree);
-
-    expect(resolved.has('font.size-300')).toBe(false);
-    expect(resolved.has('color.ink')).toBe(true);
+  it('fails large text below 4.5:1', () => {
+    expect(checkWcagAAA(4.49, 'large')).toBe(false);
   });
 });
 
@@ -197,7 +151,7 @@ describe('validateContrastPairings', () => {
       triads: [],
     };
 
-    const report = assertOkResult(validateContrastPairings(resolved, manifest, 'light'));
+    const report = assertOkResult(validateContrastPairings(resolved, manifest, 'light', 'AA'));
 
     expect(report.summary.total).toBe(1);
     expect(report.summary.passed).toBe(1);
@@ -222,7 +176,7 @@ describe('validateContrastPairings', () => {
       triads: [],
     };
 
-    const report = assertOkResult(validateContrastPairings(resolved, manifest, 'light'));
+    const report = assertOkResult(validateContrastPairings(resolved, manifest, 'light', 'AA'));
 
     expect(report.summary.failed).toBe(1);
     expect(report.results).toHaveLength(1);
@@ -248,7 +202,7 @@ describe('validateContrastPairings', () => {
       ],
     };
 
-    const report = assertOkResult(validateContrastPairings(resolved, manifest, 'light'));
+    const report = assertOkResult(validateContrastPairings(resolved, manifest, 'light', 'AA'));
 
     expect(report.summary.total).toBe(3);
     expect(report.results).toHaveLength(3);
@@ -278,7 +232,7 @@ describe('validateContrastPairings', () => {
       ],
     };
 
-    const report = assertOkResult(validateContrastPairings(resolved, manifest, 'light'));
+    const report = assertOkResult(validateContrastPairings(resolved, manifest, 'light', 'AA'));
     const fgBgEntry = report.results.find(
       (entry) =>
         entry.foreground === 'semantic.text-inverse' &&
@@ -311,14 +265,16 @@ describe('validateContrastPairings', () => {
       triads: [],
     };
 
-    const result = validateContrastPairings(resolved, manifest, 'light');
+    const result = validateContrastPairings(resolved, manifest, 'light', 'AA');
 
     expect(result.ok).toBe(false);
 
-    if (!result.ok) {
-      expect(result.error.kind).toBe('unresolved_token');
-      expect(result.error.background).toBe('semantic.missing-token');
+    if (result.ok) {
+      throw new Error('Expected Err, got Ok');
     }
+
+    expect(result.error.kind).toBe('unresolved_token');
+    expect(result.error.background).toBe('semantic.missing-token');
   });
 
   it('includes the theme identifier in the report', () => {
@@ -337,8 +293,90 @@ describe('validateContrastPairings', () => {
       triads: [],
     };
 
-    const report = assertOkResult(validateContrastPairings(resolved, manifest, 'dark'));
+    const report = assertOkResult(validateContrastPairings(resolved, manifest, 'dark', 'AA'));
 
     expect(report.theme).toBe('dark');
+    expect(report.level).toBe('AA');
+  });
+
+  it('gates text at 7:1 when the level is AAA', () => {
+    // 4.54:1 passes the AA floor but fails the SC 1.4.6 enhanced threshold.
+    const resolved = new Map([
+      ['text.subdued', '#767676'],
+      ['bg.primary', '#ffffff'],
+    ]);
+    const manifest: ContrastManifest = {
+      pairs: [{ foreground: 'text.subdued', background: 'bg.primary', context: 'text' }],
+      triads: [],
+    };
+
+    const aa = assertOkResult(validateContrastPairings(resolved, manifest, 'light', 'AA'));
+    const aaa = assertOkResult(
+      validateContrastPairings(resolved, manifest, 'high-contrast', 'AAA'),
+    );
+
+    expect(aa.level).toBe('AA');
+    expect(aa.results[0].pass).toBe(true);
+    expect(aa.results[0].requiredRatio).toBe(4.5);
+    expect(aaa.level).toBe('AAA');
+    expect(aaa.results[0].pass).toBe(false);
+    expect(aaa.results[0].requiredRatio).toBe(7);
+  });
+
+  it('keeps the non-text threshold at 3:1 under AAA', () => {
+    // SC 1.4.11 has no AAA tier; a stricter bar would be invented.
+    const resolved = new Map([
+      ['border.neutral', '#8f8f8f'],
+      ['bg.primary', '#ffffff'],
+    ]);
+    const manifest: ContrastManifest = {
+      pairs: [{ foreground: 'border.neutral', background: 'bg.primary', context: 'non-text' }],
+      triads: [],
+    };
+
+    const report = assertOkResult(
+      validateContrastPairings(resolved, manifest, 'high-contrast', 'AAA'),
+    );
+
+    expect(report.results[0].pass).toBe(true);
+    expect(report.results[0].requiredRatio).toBe(3);
+  });
+
+  it('truncates the displayed ratio so it never overstates the gated value', () => {
+    // True ratio ≈ 6.897: rounding would display 6.9; the gate fails at 7,
+    // and the displayed 6.89 must agree with that verdict's direction.
+    const resolved = new Map([
+      ['text.primary', '#5a5a5a'],
+      ['bg.primary', '#ffffff'],
+    ]);
+    const manifest: ContrastManifest = {
+      pairs: [{ foreground: 'text.primary', background: 'bg.primary', context: 'text' }],
+      triads: [],
+    };
+
+    const report = assertOkResult(
+      validateContrastPairings(resolved, manifest, 'high-contrast', 'AAA'),
+    );
+
+    expect(report.results[0].ratio).toBe(6.89);
+    expect(report.results[0].pass).toBe(false);
+  });
+
+  it('passes AAA text above 7:1', () => {
+    const resolved = new Map([
+      ['text.primary', '#595959'],
+      ['bg.primary', '#ffffff'],
+    ]);
+    const manifest: ContrastManifest = {
+      pairs: [{ foreground: 'text.primary', background: 'bg.primary', context: 'text' }],
+      triads: [],
+    };
+
+    const report = assertOkResult(
+      validateContrastPairings(resolved, manifest, 'high-contrast', 'AAA'),
+    );
+
+    expect(report.results[0].pass).toBe(true);
+    expect(report.results[0].ratio).toBe(7);
   });
 });
