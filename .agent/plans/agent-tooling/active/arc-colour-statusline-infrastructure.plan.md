@@ -1,6 +1,6 @@
 ---
 name: "ARC-colour statusline infrastructure — bring the feather badges + usage relocation into oak"
-overview: "Adopt castr's ARC channel-grammar-derived truecolor feather badges and the repo-title usage relocation into oak agent-tools, as one coherent estate whose grammar obligations bind from adoption forward (the owning system is replaced completely) — no compatibility layers, no legacy surfaces."
+overview: "Adopt castr's ARC channel-grammar-derived truecolor feather badges into oak agent-tools, with the usage gauges on the model row (owner direction 2026-07-20), as one coherent estate whose grammar obligations bind from adoption forward (the owning system is replaced completely) — no compatibility layers, no legacy surfaces."
 lineage:
   serves_thread: agentic-engineering-enhancements
   serves_stream: agent-experience-substrate
@@ -20,7 +20,7 @@ todos:
     status: completed # PR #428 MERGED 2026-07-20 (merge SHA: 3e2041e27); Decision items 3-4 amended to the adoption-forward ruling in this plan's amendment PR
     # depends_on: []
   - id: ws-b2-c1-parse-strictness
-    content: "WS-B2 cycle 1: src/arc/arc-channel-grammar.ts created with parseArcChannel + evaluateArcChannelStrictness (zod schema authority for channel shape). HAND-MERGE: KEEP the donor's adoption-date semantics in evaluateArcChannelStrictness — grammar obligations bind from adoption forward (owner ruling 2026-07-20; principles.md §No-legacy-surfaces second arm: the owning system is replaced completely, channel history stays append-only); oak's ARC_SCHEMA_ADOPTION_DATE ships here PROVISIONALLY FUTURE-DATED and is trued at the delivery's merge to the first calendar day AFTER the ws-b9 ceremony wiring lands on main (the donor comparison is calendar-date granularity, so a same-day-or-earlier date would misclassify pre-ceremony channels as strict and red the gate — ws-b10 asserts the final constant); the donor tests covering the adoption-date branch port with it. The grammar also DEFINES corpus membership: a channel IS a date-named markdown file under the rapid-comms root; README.md and the undated .starless-notice-body.md are non-channel infrastructure by grammar definition (a closed shape, not an exclusion list). Tests at src/arc/arc-channel-grammar.unit.test.ts (co-located per testing-strategy §Development Workflow). Red→Green→Refactor, one landing. Observable proof: the co-located grammar unit suite describes parse+strictness behaviour and passes (command shape fixed at this cycle's landing)."
+    content: "WS-B2 cycle 1: src/arc/arc-channel-grammar.ts created with parseArcChannel + evaluateArcChannelStrictness (zod schema authority for channel shape). HAND-MERGE: KEEP the donor's adoption-date semantics in evaluateArcChannelStrictness — grammar obligations bind from adoption forward (owner ruling 2026-07-20; principles.md §No-legacy-surfaces second arm: the owning system is replaced completely, channel history stays append-only); oak's ARC_SCHEMA_ADOPTION_DATE ships here PROVISIONALLY FUTURE-DATED and is trued at ws-b10 to the first calendar day AFTER the estate's merge to main — the merge IS public ceremony availability under the one-delivery topology, and the donor comparison is calendar-date granularity, so a merge-day-or-earlier date would misclassify pre-ceremony channels as strict and red the gate (ws-b10 + its Phase-8 harvest carry the assertion); the donor tests covering the adoption-date branch port with it. The grammar also DEFINES corpus membership: a channel IS a date-named markdown file under the rapid-comms root; README.md and the undated .starless-notice-body.md are non-channel infrastructure by grammar definition (a closed shape, not an exclusion list). Tests at src/arc/arc-channel-grammar.unit.test.ts (co-located per testing-strategy §Development Workflow). Red→Green→Refactor, one landing. Observable proof: the co-located grammar unit suite describes parse+strictness behaviour and passes (command shape fixed at this cycle's landing)."
     status: pending
     depends_on: [ws-b1-adr]
   - id: ws-b2-c2-colour-roster
@@ -80,9 +80,9 @@ todos:
     status: pending
     depends_on: [ws-b6-c2-cli-wiring, ws-b7-c2-validator-wiring]
   - id: ws-b10-integrate-review
-    content: "WS-B10: full pnpm check (knip + depcruise + repo-validators + build + test) over the integrated delivery; adversarial specialist reviews (react/type/test/config/security as applicable); ADR-214 finalisation. Doc propagation, enumerated: ADR index entry in architectural-decisions/README.md; agent-tools/README.md CLI catalogue + Structure tree entries for src/arc + the two new scripts; TSDoc on new src/arc public exports; ws-b9 reference-doc repairs verified landed; ARC_SCHEMA_ADOPTION_DATE trued and ASSERTED deterministically against the git-recorded ws-b9 merge date (the constant equals that merge date + 1 day AND is not in the future at proof time — a still-provisional future value FAILS this assertion, so the delivery cannot complete with strictness disabled; the assertion recomputes from git, never just records), with validate-arc-channels green under the final constant. All acceptance ids proven. Proof: pnpm check"
+    content: "WS-B10: full pnpm check (knip + depcruise + repo-validators + build + test) over the integrated delivery; adversarial specialist reviews (react/type/test/config/security as applicable); ADR-214 finalisation. Doc propagation, enumerated: ADR index entry in architectural-decisions/README.md; agent-tools/README.md CLI catalogue + Structure tree entries for src/arc + the two new scripts; TSDoc on new src/arc public exports; ws-b9 reference-doc repairs verified landed; ARC_SCHEMA_ADOPTION_DATE set to the first calendar day after the planned estate merge and ASSERTED deterministically: strictly AFTER the ws-b10 proof date AND within 7 days of it (the bounded horizon makes a far-future constant fail every re-run, so the delivery cannot complete with strictness silently disabled); the Phase-8 post-merge harvest MUST recompute the constant against the git-recorded actual merge date and, if the merge slipped to on-or-after the constant, land an immediate truing follow-up before the harvest closes. All acceptance ids proven. Proof: pnpm check"
     status: pending
-    depends_on: [ws-a-cycle-1, ws-b5-c2-composed-integration, ws-b9-convention-doc]
+    depends_on: [ws-a-cycle-2, ws-b5-c2-composed-integration, ws-b9-convention-doc]
 isProject: false
 ---
 
@@ -93,7 +93,8 @@ isProject: false
 Oak's agent statusline renders, per live rapid-comms channel this session
 participates in, an **identity-coloured feather badge** (truecolor, drawn from the
 channel's recorded colour index), with cross-host and invalid/overflow states — and
-the context + rate-limit usage gauges sit on the **repo-title row**. This is the
+the context + rate-limit usage gauges sit on the **model row** (owner direction
+2026-07-20, superseding the repo-title placement cycle 1 shipped). This is the
 "serious statusline-infrastructure upgrade" of owner direction 2026-07-20: the
 multi-channel coloured liveness that castr brought from Resonance, made native to
 oak.
@@ -244,9 +245,11 @@ same commands as their landing gates.
   repo-validators + build + test + markdownlint + format) AND each specialist review
   verdict is recorded with its disposition in the delivery PR's threads AND ADR-214's
   status line reads Accepted with the ratifying evidence named AND a deterministic
-  assertion recomputes `ARC_SCHEMA_ADOPTION_DATE` from the git-recorded ws-b9 merge
-  date (equals merge date + 1 day, not in the future at proof time) — a
-  still-provisional future value fails it (command shape fixed at the landing).
+  assertion proves `ARC_SCHEMA_ADOPTION_DATE` is strictly after the ws-b10 proof date
+  and within 7 days of it (bounded horizon — a far-future constant fails every re-run)
+  AND the Phase-8 post-merge harvest recomputes the constant against the git-recorded
+  actual merge date, landing an immediate truing follow-up if the merge slipped to
+  on-or-after it (command shapes fixed at the landing).
 
 ## oak gate/boundary constraints the port must satisfy (from the seam map, verified first-hand)
 
