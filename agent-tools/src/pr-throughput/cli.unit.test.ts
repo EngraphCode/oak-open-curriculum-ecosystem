@@ -82,6 +82,15 @@ describe('parsePrThroughputArgs', () => {
     );
   });
 
+  it('rejects a flag-shaped token as a missing value instead of consuming it', () => {
+    // '--note --write' must not record '--write' as the note and silently
+    // disable the requested write.
+    expect(() => parsePrThroughputArgs(['--note', '--write'], NOW)).toThrow(/requires a value/u);
+    expect(() => parsePrThroughputArgs(['--register', '--write'], NOW)).toThrow(
+      /requires a value/u,
+    );
+  });
+
   it('rejects non-positive window sizes', () => {
     expect(() => parsePrThroughputArgs(['--window-days', '0'], NOW)).toThrow(/positive integer/u);
   });

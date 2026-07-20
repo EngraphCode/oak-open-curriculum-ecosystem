@@ -75,7 +75,10 @@ export function parsePrThroughputArgs(argv: readonly string[], now: Date): PrThr
       continue;
     }
 
-    if (value === undefined) {
+    // A flag-shaped token is a MISSING value, not a value: `--note --write`
+    // would otherwise record '--write' as the note and silently disable the
+    // requested write.
+    if (value === undefined || value.startsWith('--')) {
       throw new Error(`${flag} requires a value`);
     }
 
@@ -212,11 +215,18 @@ function realDeps(): PrThroughputDeps {
       mkdirSync(path.dirname(registerPath), { recursive: true });
       try {
         // 'wx' is exclusive creation: a concurrent creator loses the race
-        // loudly here and falls through to append-only, never overwriting.
+        // here and falls through to append-only, never overwriting.
         writeFileSync(registerPath, header, { flag: 'wx' });
         return true;
-      } catch {
-        return false;
+      } catch (cause) {
+        if (cause instanceof Error && 'code' in cause && cause.code === 'EEXIST') {
+          return false;
+        }
+
+        // EACCES/ENOSPC/anything else is a REAL failure: rethrow into the
+        // contract-wide catch (loud message, exit 0) instead of appending
+        // to a register that may not exist or be partial.
+        throw cause;
       }
     },
     appendRegisterRow: (registerPath, row) => {
