@@ -419,8 +419,9 @@ drift. After adding or changing a pattern file, regenerate with
 - **Turbo / Pre-Commit Cache False-Green** *(anti-pattern)* -- Use this when: A gate result disagrees with observed behaviour, a hook finds drift a task reported clean, or you are about to cite a cached gate run as evidence. → [turbo-cache-false-green.md](turbo-cache-false-green.md)
 - **Zero-Match False-Green** *(anti-pattern)* -- Use this when: Reading success from any filtered or glob-scoped tool run — a targeted test filter, a path-scoped linter, a sweep over a file set — without confirming the filter actually matched the intended targets. → [zero-match-false-green.md](zero-match-false-green.md)
 
-### Agent Behaviour (1)
+### Agent Behaviour (2)
 
+- **Amending Doctrine Binds the Editor** *(anti-pattern)* -- Use this when: Editing any skill, rule, directive, or governance doc while running live work the same document governs. → [amending-doctrine-binds-the-editor.md](amending-doctrine-binds-the-editor.md)
 - **LLM Fleet Task Design — Workers Point, Dispatcher Copies; Pilot Before Dispatch** -- Use this when: Designing a fleet/workflow task whose workers must produce verbatim-anchored output verified against pinned bytes, or whose judgment procedure sits behind an existing canary/ground-truth key. → [llm-fleet-task-design-point-and-pilot.md](llm-fleet-task-design-point-and-pilot.md)
 
 ### Typescript (1)

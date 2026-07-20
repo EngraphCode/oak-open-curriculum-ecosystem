@@ -3357,3 +3357,22 @@ commit SHA and the closing plan reference.
   heartbeats-during-suspension as an expected false-positive class. Emit-side
   (substrate work): the heartbeat loop carries a staleness self-check against its own
   session's last reasoning activity and stands down when stale.
+
+### F-149 — comms send/direct inline `--body` dies on shell interpretation; the failure hides behind filters
+
+- **Source**: repeated seat instances 2026-07-15 → 2026-07-20 (multi-line inline
+  bodies failing exit 2, once writing a junk probe event to the canonical stream;
+  the class re-bit the Director's own seat twice on 2026-07-20 and a grep-filtered
+  send failed silently, caught only by an inbox verification read).
+- **Observed**: multi-line or metacharacter-bearing inline `--body` argv fails
+  shell interpretation (or the CLI's concept gate) in ways that pipes and filters
+  swallow; the send did not land while the ceremony read as done.
+- **Expected**: the body path should be quoting-hazard-free by construction.
+- **Standing agent cure**: ALWAYS `--body-file` for anything beyond a short single
+  line; capture the send's exit in-band (`SEND_EXIT:$?`, per the
+  `exit-codes-in-band-never-piped` rule) and verify the event landed on the
+  stream before claiming it sent.
+- **Candidate structural cure**: the CLI rejects multi-line inline `--body` with
+  a fix-instruction pointing at `--body-file` (fail-loud at the boundary instead
+  of downstream), and prints the written `event_id` on every send path
+  (`comms direct` currently prints none).

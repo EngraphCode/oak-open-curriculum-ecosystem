@@ -246,7 +246,12 @@ as phase-local restatements.
    that restates a finding already represented by an inline thread of the
    same review does not add to the tally — dedupe within the review by
    anchor and substance, recording the dedup in the working notes where
-   exercised. A finding whose review binds to an ALREADY-SETTLED round's
+   exercised. Under SHARED CREDENTIALS, the agent's own disposition replies
+   register as reviews by the credential owner — sign every bot-visible
+   reply with the agent identity tuple, and EXCLUDE self-authored signed
+   replies from the round tally and from quiet-window anchoring (drive
+   precedent 2026-07-20; an unsigned self-reply reads back as owner round
+   activity and falsely re-opens the round). A finding whose review binds to an ALREADY-SETTLED round's
    tip AMENDS that round's row (the tally records truth, not the order of
    discovery); the settled round does not reopen — the late finding is
    worked as current-round work — and the trigger arms evaluate the
@@ -389,6 +394,12 @@ as phase-local restatements.
    settled-round predicate gates the ENQUEUE exactly as it gated the
    merge. Verify the live ruleset before relying on either mechanics; a
    merge-group ejection is a real finding to harvest, never a retry loop.
+   Queue quirk (worked instance 2026-07-20): a `gh pr merge` that returns
+   the queue's strategy notice with a NULL queue entry may still ARM a
+   when-ready auto-enqueue intent that fires later (e.g. once a required
+   check lands on a fresh head) — after any refused/odd enqueue attempt,
+   re-read `mergeQueueEntry` before assuming nothing is armed, and treat
+   an unexpectedly-queued PR as an armed intent, not a mystery.
 
 ## Phase 6 — After EVERY push, re-fetch; resolve only what is settled
 
