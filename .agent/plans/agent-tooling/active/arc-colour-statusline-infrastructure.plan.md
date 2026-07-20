@@ -68,7 +68,7 @@ todos:
     status: pending
     depends_on: [ws-b2-c2-colour-roster]
   - id: ws-b7-c2-validator-wiring
-    content: "WS-B7 cycle 2: helpers + agent-tools package script (tsx pattern) + 'src/validators/arc-channels/validate-arc-channels.ts' knip entry ONLY — the blocking estate-gate wiring (root repo-validators:check chain edit) moves to the ws-b8 landing so no commit window carries a red gate over the unrepaired corpus. Proof: pnpm knip AND pnpm --filter @oaknational/agent-tools validate-arc-channels exits non-zero over the unrepaired corpus (red proves the instrument)"
+    content: "WS-B7 cycle 2: helpers + agent-tools package script (tsx pattern) + 'src/validators/arc-channels/validate-arc-channels.ts' knip entry ONLY — the blocking estate-gate wiring (root repo-validators:check chain edit) moves to the ws-b8 landing so no commit window carries a red gate over the unrepaired corpus. Proof: pnpm knip AND pnpm --filter @oaknational/agent-tools validate-arc-channels over the unrepaired corpus exits non-zero AND its output names at least one failing channel file with its violated rule (a bare non-zero — crash, missing script, trusted-git failure — does NOT satisfy; the diagnostic proves the instrument ran)"
     status: pending
     depends_on: [ws-b7-c1-validator-core]
   - id: ws-b8-corpus-repair
@@ -330,7 +330,7 @@ conserve the corpus-repair method, and update the agentic-engineering thread rec
 The castr→oak port surface, oak state, and seam/risk analysis were mapped first-hand
 2026-07-20 (workflow `wf_0a56f8f8-ed5`). The port source is PINNED to
 [`EngraphCode/castr`](https://github.com/EngraphCode/castr) **`origin/main` @ `SHA: 63a7e675`**
-(PRs #22 + #29 merged 2026-07-20); any local castr working
+([castr PR #22](https://github.com/EngraphCode/castr/pull/22) + [castr PR #29](https://github.com/EngraphCode/castr/pull/29), merged 2026-07-20); any local castr working
 tree is NOT authoritative (observed sitting on a stale docs branch with divergent copies).
 The feather source files are under `castr/agent-tools/src/{claude,arc,validators/arc-channels}`.
 Oak destination is `agent-tools/src/claude/statusline-*.ts` (no `src/arc/` today).
