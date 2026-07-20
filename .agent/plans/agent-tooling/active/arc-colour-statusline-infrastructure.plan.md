@@ -20,7 +20,7 @@ todos:
     status: completed # PR #428 MERGED 2026-07-20 (merge SHA: 3e2041e27); Decision items 3-4 amended to the adoption-forward ruling in this plan's amendment PR
     # depends_on: []
   - id: ws-b2-c1-parse-strictness
-    content: "WS-B2 cycle 1: src/arc/arc-channel-grammar.ts created with parseArcChannel + evaluateArcChannelStrictness (zod schema authority for channel shape). HAND-MERGE: KEEP the donor's adoption-date semantics in evaluateArcChannelStrictness — grammar obligations bind from adoption forward (owner ruling 2026-07-20; principles.md §No-legacy-surfaces second arm: the owning system is replaced completely, channel history stays append-only); oak's ARC_SCHEMA_ADOPTION_DATE ships here PROVISIONALLY FUTURE-DATED and is trued at ws-b10 to the first calendar day AFTER the estate's merge to main — the merge IS public ceremony availability under the one-delivery topology, and the donor comparison is calendar-date granularity, so a merge-day-or-earlier date would misclassify pre-ceremony channels as strict and red the gate (ws-b10 + its Phase-8 harvest carry the assertion); the donor tests covering the adoption-date branch port with it. The grammar also DEFINES corpus membership: a channel IS a markdown file under the rapid-comms root outside the closed non-channel infrastructure set (README.md and the dotfile .starless-notice-body.md); date-ness is the ADOPTION-RESOLUTION input, not the membership test — a channel with a parseable date prefix resolves against ARC_SCHEMA_ADOPTION_DATE, and an undated channel resolves pre-adoption by construction (it can never be strict) while remaining a corpus member the gatherer renders and the validator sees (verified worked instances: the undated legacy channels wolf-rides-vigil-and-cricket-lifts-echo.md and wildfire-herds-sulphur-and-kiln-tracks-basalt.md — dropping them from membership would blind both surfaces). Tests at src/arc/arc-channel-grammar.unit.test.ts (co-located per testing-strategy §Development Workflow). Red→Green→Refactor, one landing. Observable proof: the co-located grammar unit suite describes parse+strictness behaviour and passes (command shape fixed at this cycle's landing)."
+    content: "WS-B2 cycle 1: src/arc/arc-channel-grammar.ts created with parseArcChannel + evaluateArcChannelStrictness (zod schema authority for channel shape). HAND-MERGE: KEEP the donor's adoption-date semantics in evaluateArcChannelStrictness — grammar obligations bind from adoption forward (owner ruling 2026-07-20; principles.md §No-legacy-surfaces second arm: the owning system is replaced completely, channel history stays append-only); oak's ARC_SCHEMA_ADOPTION_DATE binds by INVARIANT, not by pinned mechanics: strict obligations attach only to channels resolving on-or-after the constant, and at every proof moment the constant is exactly the first calendar day after the estate's public availability (its merge to main — earlier is misclassification, later grandfathers gap channels); the provisional value, truing moment, and guard mechanics that enforce this are designed and TDD-proven at the ws-b10 landing. The donor tests covering the adoption-date branch port with it. Corpus MEMBERSHIP invariant: every markdown file under the rapid-comms root outside the closed non-channel infrastructure set (README.md, the dotfile .starless-notice-body.md) is a member the gatherer renders and the validator sees; the two verified undated legacy channels (wolf-rides-vigil-and-cricket-lifts-echo.md, wildfire-herds-sulphur-and-kiln-tracks-basalt.md) stay members and must not red the gate, AND a post-adoption channel cannot evade the strict tier by omitting a date prefix (the donor emits undated-filename violations for undated members — how oak's grammar reconciles the two demands is designed at this cycle's landing, with tests covering BOTH cases before ws-b7 wires the blocking gate). Tests at src/arc/arc-channel-grammar.unit.test.ts (co-located per testing-strategy §Development Workflow). Red→Green→Refactor, one landing. Observable proof: the co-located grammar unit suite describes parse+strictness behaviour, including both undated cases, and passes (command shape fixed at this cycle's landing)."
     status: pending
     depends_on: [ws-b1-adr]
   - id: ws-b2-c2-colour-roster
@@ -80,7 +80,7 @@ todos:
     status: pending
     depends_on: [ws-b6-c2-cli-wiring, ws-b7-c2-validator-wiring]
   - id: ws-b10-integrate-review
-    content: "WS-B10: full pnpm check (knip + depcruise + repo-validators + build + test) over the integrated delivery; adversarial specialist reviews (react/type/test/config/security as applicable); ADR-214 finalisation. Doc propagation, enumerated: ADR index entry in architectural-decisions/README.md; agent-tools/README.md CLI catalogue + Structure tree entries for src/arc + the two new scripts; TSDoc on new src/arc public exports; ws-b9 reference-doc repairs verified landed; ARC_SCHEMA_ADOPTION_DATE set to the first calendar day after the planned estate merge and ASSERTED deterministically: strictly AFTER the ws-b10 proof date AND within 7 days of it (the bounded horizon makes a far-future constant fail every re-run, so the delivery cannot complete with strictness silently disabled); the granted merge slot's final recomputed gate INCLUDES the boundary guard — the constant must still be strictly future at merge execution, and a slot arriving on-or-after it lands a one-line truing bump (re-proving the bounded-horizon assertion at the new value) BEFORE the merge, so an invalid boundary can never reach main; the post-merge confirmation lives in §Lifecycle-triggers Phase-8 (B10's own scope is pre-merge only). All acceptance ids proven. Proof: pnpm check"
+    content: "WS-B10: full pnpm check (knip + depcruise + repo-validators + build + test) over the integrated delivery; adversarial specialist reviews (react/type/test/config/security as applicable); ADR-214 finalisation. Doc propagation, enumerated: ADR index entry in architectural-decisions/README.md; agent-tools/README.md CLI catalogue + Structure tree entries for src/arc + the two new scripts; TSDoc on new src/arc public exports; ws-b9 reference-doc repairs verified landed; the ws-b2 adoption-boundary INVARIANT proven — at merge execution the constant equals exactly the first calendar day after the actual merge, deterministic guard mechanics designed and TDD-proven at this landing (a wrong-either-way constant fails loud pre-merge; the delivery cannot complete with strictness silently disabled); the post-merge confirmation lives in §Lifecycle-triggers Phase-8 (B10's own scope is pre-merge only). All acceptance ids proven. Proof: pnpm check"
     status: pending
     depends_on: [ws-a-cycle-2, ws-b5-c2-composed-integration, ws-b9-convention-doc]
 isProject: false
@@ -247,12 +247,13 @@ same commands as their landing gates.
   status line reads Accepted with the ratifying evidence named AND a deterministic
   assertion proves `ARC_SCHEMA_ADOPTION_DATE` is strictly after the ws-b10 proof date
   and within 7 days of it (bounded horizon — a far-future constant fails every re-run)
-  AND the granted merge slot's final recomputed gate proves the constant is still
-  strictly future at merge execution (a late slot lands a one-line truing bump before
-  the merge — an invalid boundary can never reach main). B10's acceptance scope is
-  pre-merge only; the post-merge confirmation (constant > the git-recorded actual
-  merge date) is the §Lifecycle-triggers Phase-8 harvest obligation, not a B10
-  criterion (command shapes fixed at the landing).
+  AND the adoption-boundary invariant is proven pre-merge: at merge execution the
+  constant equals exactly the first calendar day after the actual merge date — the
+  deterministic guard mechanics enforcing this are designed and TDD-proven at the
+  ws-b10 landing, failing loud on a constant wrong in either direction. B10's
+  acceptance scope is pre-merge only; the post-merge confirmation (constant equals
+  actual merge calendar date + 1 day) is the §Lifecycle-triggers Phase-8 harvest
+  obligation, not a B10 criterion (command shapes fixed at the landing).
 
 ## oak gate/boundary constraints the port must satisfy (from the seam map, verified first-hand)
 
@@ -338,9 +339,10 @@ proceed on merge.
 - **During-work updates:** todo statuses in this frontmatter advance at each cycle
   landing; PR events broadcast to comms per the team cadence.
 - **Post-merge (Phase-8 harvest):** the estate PR's harvest confirms
-  `ARC_SCHEMA_ADOPTION_DATE` > the git-recorded actual merge date (the pre-merge
-  slot-gate guard makes this a confirmation, not a cure) — the executable proof
-  command is fixed at the ws-b10 landing and recorded in the harvest.
+  `ARC_SCHEMA_ADOPTION_DATE` equals the git-recorded actual merge calendar
+  date plus one day (the pre-merge guard makes this a confirmation, not a
+  cure) — the executable proof command is fixed at the ws-b10 landing and
+  recorded in the harvest.
 - **Session handoff:** mid-cycle retirement follows PDR-063 (handoff record +
   claim `handoff_record_path` + directed event); natural boundaries update the
   agentic-engineering-enhancements thread record.
