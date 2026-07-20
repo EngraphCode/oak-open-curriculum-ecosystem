@@ -415,7 +415,9 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   widgets with React Aria scoped to date/locale and Ark UI for non-React; no shared React
   component workspace until a second consumer; staged atomic token-source convergence;
   per-file-class licensing manifest for Oak marks; Proposed 2026-07-19; amended 2026-07-19
-  §2 — overlay completeness model and colour-value grammar, evidence-driven)
+  §2 — overlay completeness model and colour-value grammar, evidence-driven; Accepted
+  2026-07-20 by owner in-session ratification, with Stage A and the PR3 validation layer
+  merged)
 
 ## Key Architectural Decisions
 

@@ -17,6 +17,14 @@ updates:
       - dependency-name: '@types/node'
         update-types:
           - version-update:semver-major
+      # TypeScript 7's exports map removes the `typescript/bin/tsc` subpath that
+      # agent-tools/src/bootstrap/bootstrap.ts resolves at postinstall, so a TS
+      # major riding the weekly group bump breaks install (seen on PR #416).
+      # Allow minor/patch; TS 7 adoption is a deliberate separate change — lift
+      # this when the repo moves to TypeScript 7.
+      - dependency-name: 'typescript'
+        update-types:
+          - version-update:semver-major
   - package-ecosystem: github-actions
     directory: /
     schedule:

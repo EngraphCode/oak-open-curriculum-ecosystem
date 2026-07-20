@@ -14,23 +14,23 @@ todos:
     status: completed
     depends_on: [pr2-scaffold]
   - id: pr2-initial-import
-    content: "PR2 step 3: initial import of the tracked file classes from the Claude Design studio (owner-downloaded export bundle route), verify referential self-consistency (clean on the public surface; studio-runtime wiring documented in the workspace README). Landed 922f2e806 on PR #411."
+    content: "PR2 step 3: initial import of the tracked file classes from the Claude Design studio (owner-downloaded export bundle route), verify referential self-consistency (clean on the public surface; studio-runtime wiring documented in the workspace README). Landed SHA:922f2e806 on PR #411; merged to main SHA:dc16295bf."
     status: completed
     depends_on: [pr2-manifest]
   - id: pr2-consistency-check
-    content: "Consistency cycle (re-homed to the PR3 lane by ARC agreement 2026-07-19 — it composes with the boundary-validation cycles in design-tokens-core, Harrier rides Updraft's boundary): CI check that the design system's dtcg/ export is consistent with its CSS. Test + check land together; tree green."
+    content: "Consistency cycle (re-homed to the PR3 lane by ARC agreement 2026-07-19 — it composes with the boundary-validation cycles in design-tokens-core, Harrier rides Updraft's boundary): CI check that the design system's dtcg/ export is consistent with its CSS. Test + check land together; tree green. Still open as of 2026-07-20: PR #412 did not include this check."
     status: pending
     depends_on: [pr2-initial-import]
   - id: pr3-cycle-completeness
-    content: "PR3 cycle 1: theme overlay-coverage validation in design-tokens-core (declared light base; every overlay key must exist in the base — orphan detection plus coverage reporting; reshaped 2026-07-19 when the falsifier fired — see ADR-213 §2 amendment) — failing test + implementation, Result-typed."
-    status: pending
+    content: "PR3 cycle 1: theme overlay-coverage validation in design-tokens-core (declared light base; every overlay key must exist in the base — orphan detection plus coverage reporting; reshaped 2026-07-19 when the falsifier fired — see ADR-213 §2 amendment) — failing test + implementation, Result-typed. Landed on PR #412 (merged SHA:6631bb5ac): validateThemeOverlayCoverage plus unit tests in design-tokens-core."
+    status: completed
     depends_on: [pr2-initial-import]
   - id: pr3-cycle-boundary
-    content: "PR3 cycle 2: boundary validation for the design system's DTCG import — schema-validate contrast-pairings.json (no cast); reject non-literal colour $values (color-mix/calc) with a structured Err."
-    status: pending
+    content: "PR3 cycle 2: boundary validation for the design system's DTCG import — schema-validate contrast-pairings.json (no cast); reject non-literal colour $values (color-mix/calc) with a structured Err. Landed on PR #412 (merged SHA:6631bb5ac): contrast-manifest-parse (schema-validated, no cast) and validateColourLiterals (closed colour grammar, structured Err) plus unit tests."
+    status: completed
     depends_on: [pr3-cycle-completeness]
   - id: pr3-cycle-four-theme-gate
-    content: "PR3 cycle 3 (reshaped 2026-07-20 by the pre-execution review against the real export): add a second gate instance in oak-design-tokens beside the retained hand-authored gate (dual-gate window, ADR-213 §2 amendment 2026-07-20) consuming the design system's dtcg trees + contrast manifest — compose light base ⊕ overlay per theme BEFORE resolution, resolve references to fixpoint (the bare dialect carries forward references), filter the comparand to six-digit hex with toHexComparand (alpha/expression exclusion by one closed rule), run the manifest per theme at the ratified levels (high-contrast at AAA thresholds, light/dark/colour-safe at the AA floor — owner 2026-07-20), assert the pinned expected comparand count per composed theme, write a separate source-labelled report artefact, pin allowed roots per tree (validateTreeRoots), add the oak-design-system workspace devDependency + the oak-eslint boundary-roster edit (ADR-041 owes the regeneration), adjudicate the build.ts gate vs build-css integration re-proof duplication, and re-baseline design-token-practice.md's two-theme wording in the same PR."
+    content: "PR3 cycle 3 (reshaped 2026-07-20 by the pre-execution review against the real export): add a second gate instance in oak-design-tokens beside the retained hand-authored gate (dual-gate window, ADR-213 §2 amendment 2026-07-20) consuming the design system's dtcg trees + contrast manifest — compose light base ⊕ overlay per theme BEFORE resolution, resolve references to fixpoint (the bare dialect carries forward references), filter the comparand to six-digit hex with toHexComparand (alpha/expression exclusion by one closed rule), run the manifest per theme at the ratified levels (high-contrast at AAA thresholds, light/dark/colour-safe at the AA floor — owner 2026-07-20), assert the pinned expected comparand count per composed theme, write a separate source-labelled report artefact, pin allowed roots per tree (validateTreeRoots), add the oak-design-system workspace devDependency + the oak-eslint boundary-roster edit (ADR-041 owes the regeneration), adjudicate the build.ts gate vs build-css integration re-proof duplication, and re-baseline design-token-practice.md's two-theme wording in the same PR. PR #412 landed the composition semantics (ADR-213 §2 amendment) and the core validators this cycle composes; the gate itself rides PR #423."
     status: pending
     depends_on: [pr3-cycle-boundary]
   - id: ws-hub-migration
@@ -64,8 +64,10 @@ isProject: false
 
 # Design-System Integration
 
-**Last Updated**: 2026-07-19
-**Status**: 🟢 EXECUTING (PR1 in flight)
+**Last Updated**: 2026-07-20
+**Status**: 🟢 EXECUTING (PR1 #410, PR2 #411 `SHA:dc16295bf`, and PR3 cycles 1–2 #412
+`SHA:6631bb5ac` merged; ADR-213 Accepted 2026-07-20; cycle 3, the dtcg↔CSS consistency
+check, and the follow-on lanes remain open)
 **Scope**: Integrate the Oak design system as a first-class workspace — the estate's design
 source of truth — with the Claude Design studio as a first-class team surface, and sequence
 every consumer onto it, per ADR-213.
@@ -153,15 +155,17 @@ One system, two first-class surfaces. The workspace README carries the runbook:
 
 One lane, sequenced PRs, each linked to AIP-137:
 
-1. **PR1 — doctrine** (this branch): the note at `docs/governance/one-html-many-css-compositions.md`,
+1. **PR1 — doctrine** (PR #410, merged): the note at `docs/governance/one-html-many-css-compositions.md`,
    ADR-213, ADR-041/148 amendments, `design-token-practice.md` correction, this plan.
-2. **PR2 — Stage A integration**: scaffold + licensing manifest + initial import + sync
-   runbook + consistency check. The workspace lands **inert as a token source** (zero
+2. **PR2 — Stage A integration** (PR #411, merged `SHA:dc16295bf`; the consistency check
+   re-homed to the PR3 lane and still open): scaffold + licensing manifest + initial import
+   and sync runbook. The workspace lands **inert as a token source** (zero
    consumers switch yet) — per replace-dont-bridge this is not a bridge. The licensing
    manifest in the PR body is the owner's review surface; held-out classes are explicitly
    gitignored with a documented re-obtain path. Consumer evidence: PR3's validation gate is
    the first consumer; the hub (ws-hub-migration) is the named second.
-3. **PR3 — validation layer**: TDD cycles extending `design-tokens-core` (completeness check,
+3. **PR3 — validation layer** (PR #412, merged `SHA:6631bb5ac` — cycles 1–2; cycle 3 still
+   open): TDD cycles extending `design-tokens-core` (completeness check,
    boundary validation, four-theme contrast gate). Triads: author component-tier triads for
    the design system or record their absence in the manifest run.
 4. **Follow-on lanes** (pointers by design; specs live at pickup): hub migration;
@@ -174,9 +178,9 @@ One lane, sequenced PRs, each linked to AIP-137:
 
 | Gate | Surfaces at | Decision |
 | --- | --- | --- |
-| Licensing manifest disposition | PR2 review | Track / hold out per file class; ratify or correct the hub's tracked-logos baseline |
+| Licensing manifest disposition | RESOLVED (owner, 2026-07-19) | Oak material tracked (brand-asset separation + the licence file's BRANDING.md reference hold); the hub's tracked logos ratified; third-party social marks their own manifest class — recorded in ADR-213 §Owner gates, landed with PR #411 |
 | Theme cardinality + high-contrast level | RESOLVED (owner, 2026-07-19) | Verbatim: "Maximal, all of it, but 'system' isn't a theme, it's a mechanism, we only need to prove it chooses a theme, the validity of that theme is proven separately, otherwise we are simply validating one theme twice." Implementation reading: gate ALL FOUR colour trees + forced-colors + the motion axis; `system` gets a mechanism test (proves it selects), never a duplicate tree validation; high-contrast gates at AAA per "maximal, all of it". RATIFIED (owner, 2026-07-20, via Director card, verbatim option "AAA for HC, AA floor elsewhere"): high-contrast gates at AAA thresholds, light/dark/colour-safe at the AA floor — the flagged implementer's reading is discharged; PR3 wires this shape directly |
-| ADR-213 ratification | PR1/PR2 review | Proposed → Accepted (now carrying the exploration's own evidentiary basis) |
+| ADR-213 ratification | RESOLVED (owner, 2026-07-20) | Proposed → Accepted by in-session ratification — verbatim: "if it is wrong the system will tell us through natural use" — recorded in the ADR status line with the PR #410/#411/#412 landings |
 | SR audit operator + cadence | RESOLVED (owner, 2026-07-19) | Owner-run VoiceOver/Safari at each widget ship; NVDA/Firefox alternating per widget class; batched with pin-bump re-audits; the operator named in every checklist record |
 | Native date-input chrome | first date widget | Accept un-themeable browser calendar chrome or close the row (exploration recommends: close; GDS multi-field + React Aria) |
 | Brand parity with production | after ws-parity-diff | Parity as documented vocabulary vs standing goal (recommendation: vocabulary only; a11y outranks parity) |
@@ -185,10 +189,12 @@ One lane, sequenced PRs, each linked to AIP-137:
 ## Validation
 
 - PR1: `pnpm markdownlint-check:root`, link integrity, ADR index updated.
-- PR2: referential self-consistency check (no tracked→held-out references); dtcg↔CSS
-  consistency check green; workspace builds; `pnpm check` green.
-- PR3: new validators red→green in TDD cycles; contrast gate runs all four themes against the
-  design system's manifest; full gate chain green.
+- PR2: referential self-consistency check (no tracked→held-out references); workspace
+  builds; `pnpm check` green. The dtcg↔CSS consistency check is not a PR2 criterion — it
+  was re-homed to the PR3 lane and remains outstanding (see `pr2-consistency-check`).
+- PR3: new validators red→green in TDD cycles (met for cycles 1–2 on PR #412); the
+  four-theme contrast-gate run against the design system's manifest is cycle 3's criterion
+  and remains outstanding; full gate chain green.
 - Follow-on lanes: per ADR-213 (Stage B proves both live consumers in the same change;
   hub migration lands with per-theme axe runs per ADR-147).
 
