@@ -1,4 +1,4 @@
-# ADR-214: Top-Level `research/` Surface for Imported Research Records
+# ADR-215: Top-Level `research/` Surface for Imported Research Records
 
 - **Status:** Proposed (lands with the web-app-deconstruction import PR; owner
   ratification via PR review)

@@ -26,18 +26,38 @@ function toStandards(block: CalloutBlock): readonly CalloutStandard[] {
  * variant map, lines ~1882-1886). `#93e892` exists only in the export's tip border — literal, like
  * the stats tile palette. Quality-standard callouts override to the export's QS blue family.
  */
+// Variant tints follow the kit's role contract (value-identical to the export's
+// tints in light theme): tip is a CATEGORY (decorative mint — the kit reserves
+// functional success for meaning; a tip is not a success state), info/warning
+// are MEANING (functional bg-info-subtle / bg-warning-subtle per the kit
+// banner recipes — banner--info carries no border role, so the info accent
+// stays the ornamental lavender; warning takes its real --border-warning).
 const VARIANTS = {
-  tip: { accent: 'border-l-[#93e892] bg-oak-green-subdued', icon: '★', iconBg: 'bg-oak-mint' },
-  info: {
-    accent: 'border-l-oak-lavender bg-oak-lavender-subdued',
-    icon: 'i',
-    iconBg: 'bg-oak-lavender',
+  tip: {
+    accent: 'border-l-[#93e892] bg-decorative-1-subtle',
+    icon: '★',
+    iconBg: 'bg-decorative-1',
   },
-  warning: { accent: 'border-l-oak-amber bg-oak-amber-subdued', icon: '!', iconBg: 'bg-oak-amber' },
-  quote: { accent: 'border-l-oak-lemon bg-oak-lemon-subdued', icon: '“', iconBg: 'bg-oak-lemon' },
+  info: {
+    accent: 'border-l-decorative-3 bg-info-subtle',
+    icon: 'i',
+    iconBg: 'bg-decorative-3',
+  },
+  warning: {
+    accent: 'border-l-line-warning bg-warning-subtle',
+    icon: '!',
+    iconBg: 'bg-decorative-6',
+  },
+  quote: {
+    accent: 'border-l-accent-brand bg-accent-subtle-brand',
+    icon: '“',
+    iconBg: 'bg-decorative-5',
+  },
 } as const;
 
-/** The export's QS blue family (#2a6fdb / #e7f0fd / #143b78 — course-export-only values). */
+/** The export's QS blue family (#2a6fdb / #e7f0fd / #143b78 — course-export-only values).
+ *  These chips keep fixed bg-white deliberately: the QS foreground/background is a
+ *  validated fixed PAIR — theming only the background breaks dark-mode contrast. */
 const QS_ACCENT = 'border-l-[#2a6fdb] bg-[#e7f0fd]';
 const QS_CHIP =
   'shrink-0 rounded-full border-2 border-[#2a6fdb] bg-white px-[9px] py-[5px] text-[11px] leading-none font-bold tracking-[0.03em] text-[#143b78] no-underline';
@@ -93,11 +113,11 @@ export function CalloutBlockView({ block }: { readonly block: CalloutBlock }): R
   return (
     <div
       data-variant={block.variant}
-      className={`flex gap-3.5 rounded-xl border-2 border-oak-black border-l-8 p-[18px_20px] ${qsLed ? QS_ACCENT : variant.accent}`}
+      className={`flex gap-3.5 rounded-xl border-2 border-line border-l-8 p-[18px_20px] ${qsLed ? QS_ACCENT : variant.accent}`}
     >
       <span
         aria-hidden="true"
-        className={`flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-full border-2 border-oak-black text-lg leading-none font-bold ${variant.iconBg}`}
+        className={`flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-full border-2 border-line text-lg leading-none font-bold ${variant.iconBg}`}
       >
         {variant.icon}
       </span>
@@ -121,7 +141,7 @@ export function CalloutBlockView({ block }: { readonly block: CalloutBlock }): R
           )
         )}
         {block.attrib !== undefined && (
-          <p className="mt-2 text-[14px] font-light text-oak-grey">
+          <p className="mt-2 text-[14px] font-light text-ink-subdued">
             <cite>— {block.attrib}</cite>
           </p>
         )}

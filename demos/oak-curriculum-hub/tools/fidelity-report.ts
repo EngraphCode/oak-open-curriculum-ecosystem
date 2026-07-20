@@ -10,6 +10,8 @@
  */
 import { FIDELITY_PAIRS, type FidelityPair, type PairingMap } from './fidelity-pairs';
 import { entriesForPair, newEntryTemplate, type FidelityRegister } from './fidelity-register';
+import { escapeHtml, fromReportDir } from './fidelity-html';
+import { exemptSection, globalEntriesSection, orphanedEntries } from './fidelity-report-sections';
 
 interface Dimensions {
   readonly width: number;
@@ -40,21 +42,6 @@ export interface RunMeta {
   readonly deviceScaleFactor: number;
   readonly serverMode: 'attached' | 'spawned';
   readonly generatedAt: string;
-}
-
-/** Escape a data-carried string for safe embedding in HTML text or attributes. */
-function escapeHtml(value: string): string {
-  return value
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;');
-}
-
-/** Resolve a demo-dir-relative evidence path from the report directory
- *  (demo-evidence/fidelity-report/ → the demo root is two levels up). */
-function fromReportDir(demoRelativePath: string): string {
-  return `../../${demoRelativePath}`;
 }
 
 function ratioLabel(result: PairResult): string {
@@ -169,37 +156,6 @@ ${dispositionBlock(result, register, date)}
 </section>`;
 }
 
-function orphanedEntries(results: readonly PairResult[], register: FidelityRegister): string {
-  const liveIds = new Set(results.map((result) => result.pair.id));
-  const orphans = register.entries.filter((entry) => !liveIds.has(entry.pairId));
-  if (orphans.length === 0) {
-    return '';
-  }
-  const items = orphans
-    .map(
-      (entry) =>
-        `<li><code>${escapeHtml(entry.id)}</code> — its pair no longer exists; candidate for the <code>superseded</code> disposition.</li>`,
-    )
-    .join('\n');
-  return `<section>
-<h2>Register entries without a live pair</h2>
-<ul>${items}</ul>
-</section>`;
-}
-
-function exemptSection(map: PairingMap): string {
-  const items = map.exemptSurfaces
-    .map(
-      (surface) =>
-        `<li><code>${escapeHtml(surface.route)}</code> — ${escapeHtml(surface.reason)}</li>`,
-    )
-    .join('\n');
-  return `<section>
-<h2>Surfaces with no export target</h2>
-<ul>${items}</ul>
-</section>`;
-}
-
 const REPORT_CSS = `
   body { font-family: system-ui, sans-serif; margin: 1rem auto; max-width: 90rem; padding: 0 1rem; color: #1a1a1a; background: #ffffff; }
   a { color: #0b4a91; }
@@ -242,7 +198,8 @@ export function renderReportHtml(
 ${summaryTable(results)}
 </section>
 ${sections}
-${orphanedEntries(results, register)}
+${globalEntriesSection(register)}
+${orphanedEntries(new Set(results.map((result) => result.pair.id)), register)}
 ${exempt}
 </main>
 </body>

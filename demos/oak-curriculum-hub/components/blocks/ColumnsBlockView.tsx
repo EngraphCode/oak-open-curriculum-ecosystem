@@ -4,7 +4,7 @@ import { mdGridCols } from '@/components/blocks/md-grid-cols';
 import type { ColumnsBlock } from '@/lib/blocks/types';
 
 /**
- * Renders a {@link ColumnsBlock} as the export's card columns: white cards
+ * Renders a {@link ColumnsBlock} as the export's card columns: surface-role cards
  * under the lemon shadow, a module-accent header bar per column, and the
  * green-ticked point list, up to three columns from `md`.
  */
@@ -15,9 +15,9 @@ export function ColumnsBlockView({ block }: { readonly block: ColumnsBlock }): R
         <section
           key={col.title}
           aria-label={col.title}
-          className="shadow-oak-lemon flex flex-col overflow-hidden rounded-[14px] border-2 border-oak-black bg-white"
+          className="shadow-accent-brand flex flex-col overflow-hidden rounded-[14px] border-2 border-line bg-surface"
         >
-          <h4 className="border-b-2 border-oak-black bg-(--module-accent) p-[13px_18px] text-[17px] leading-[23px] font-bold text-oak-black">
+          <h4 className="border-b-2 border-line bg-(--module-accent) p-[13px_18px] text-[17px] leading-[23px] font-bold text-ink">
             {col.title}
           </h4>
           <ul className="flex flex-col gap-[11px] p-[16px_18px]">
@@ -26,7 +26,7 @@ export function ColumnsBlockView({ block }: { readonly block: ColumnsBlock }): R
                 key={point}
                 className="flex items-start gap-2.5 text-base leading-[23px] font-light"
               >
-                <span aria-hidden="true" className="shrink-0 font-bold text-oak-green">
+                <span aria-hidden="true" className="shrink-0 font-bold text-success">
                   ✓
                 </span>
                 <span>{point}</span>

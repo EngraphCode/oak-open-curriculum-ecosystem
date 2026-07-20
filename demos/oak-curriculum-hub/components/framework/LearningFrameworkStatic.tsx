@@ -67,32 +67,30 @@ function StageCard({
   readonly stage: FrameworkStage;
   readonly active: boolean;
 }): ReactElement {
-  const emphasis = active ? 'ring-2 ring-oak-black shadow-oak-lemon' : '';
+  const emphasis = active ? 'ring-2 ring-line shadow-accent-brand' : '';
   return (
-    <li
-      className={`rounded-xl border-2 border-oak-black bg-white p-5 transition-shadow ${emphasis}`}
-    >
+    <li className={`rounded-xl border-2 border-line bg-surface p-5 transition-shadow ${emphasis}`}>
       <div className="mb-2 flex items-center gap-3">
         <span
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-oak-black text-[15px] font-bold"
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-line text-[15px] font-bold"
           style={{ backgroundColor: stage.color, color: stage.ink }}
           aria-hidden="true"
         >
           {stage.n}
         </span>
         <h3 className="text-lg font-semibold leading-none">{stage.key}</h3>
-        <span className="ml-auto rounded-full border border-oak-grey-line px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-oak-grey">
+        <span className="ml-auto rounded-full border border-line-soft px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-ink-subdued">
           {stage.phase}
         </span>
       </div>
       <p className="mb-2 text-[15px] font-semibold leading-snug">{stage.desc}</p>
-      <p className="mb-3 text-[14px] leading-relaxed text-oak-grey">{stage.long}</p>
+      <p className="mb-3 text-[14px] leading-relaxed text-ink-subdued">{stage.long}</p>
       <ul className="flex flex-col gap-1.5">
         {stage.features.map((feature) => (
-          <li key={feature} className="flex items-start gap-2 text-[13px] text-oak-black">
+          <li key={feature} className="flex items-start gap-2 text-[13px] text-ink">
             <span
               aria-hidden="true"
-              className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-oak-green"
+              className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-success"
             />
             {feature}
           </li>

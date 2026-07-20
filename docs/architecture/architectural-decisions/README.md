@@ -418,7 +418,14 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   §2 — overlay completeness model and colour-value grammar, evidence-driven; Accepted
   2026-07-20 by owner in-session ratification, with Stage A and the PR3 validation layer
   merged)
-- [ADR-214: Top-level `research/` surface for imported research records](214-top-level-research-surface.md)
+- [ADR-214: ARC-colour statusline infrastructure](214-arc-colour-statusline-infrastructure.md)
+  (the ARC channel grammar is the canonical schema authority for the shared rapid-comms
+  corpus; feather colour is a projection of recorded channel content; grammar obligations
+  bind from the adoption date forward — channel history is append-only, never
+  retro-edited — with a loud-failing validator whose blocking-gate wiring lands with the
+  grammar; strictness preserves the protocol's zero-per-message-ceremony property;
+  Proposed 2026-07-20, Decision items 3–4 amended 2026-07-20 per owner ruling)
+- [ADR-215: Top-level `research/` surface for imported research records](215-top-level-research-surface.md)
   (introduces `research/` as an out-of-band research surface outside the ADR-041 product
   dependency lattice, which is unchanged; records are imported as public projections
   preserved byte-faithfully except that private-repo permalinks are reduced to plain-text

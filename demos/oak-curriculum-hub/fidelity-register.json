@@ -39,6 +39,119 @@
       "rationale": "Ratified requirement: six destination cards. Fold-level record so the fold pair's triage ratio reads with the known cause attached.",
       "author": "director-9",
       "date": "2026-07-03"
+    },
+    {
+      "id": "global/token-source-convergence-slice1",
+      "pairId": "global",
+      "kind": "visual",
+      "summary": "AIP-137 ws-hub-migration \u00a71+\u00a73: the hub's raw-hex Tailwind @theme mirror is replaced by the design system's role tokens; six value shifts follow from role convergence.",
+      "evidence": ["../../.agent/reports/design/aip-137-stage-a-import-verification-2026-07-19.md"],
+      "disposition": "deliberate",
+      "rationale": "Convergence onto the canonical token source (ADR-213) \u2014 the mirror was the parallel token system the decision kills. Role-mapped shifts, old \u2192 new: (1) page/surface background #f4f3ef \u2192 #ffffff (bg.primary); (2) hairline borders #e0ded6 \u2192 #cacaca (border.neutral-lighter); (3) notice tint #fffdf0 \u2192 #fff7cc (color.accent-subtle); (4) amber fills #ff934e \u2192 #ffc8a6 (surface.decorative-6); (5) mid-grey borders #575757 \u2192 #808080 (border.neutral); (6) ink shadow 2px 2px 0 #222222 \u2192 0.063rem 0.125rem 0 #000000 (shadow.ink). All other mapped tokens are hex-identical (verified against the Stage-A report's resolved-role table); signature shadows/radii are value-identical with rem units replacing px (scales with root font size \u2014 an access improvement, not a divergence). Do not re-flag on export re-ingest.",
+      "author": "Salmon binds Undertow (de5c10)",
+      "date": "2026-07-19"
+    },
+    {
+      "id": "global/theme-motion-focus-wiring-slice2",
+      "pairId": "global",
+      "kind": "visual",
+      "summary": "AIP-137 ws-hub-migration \u00a74+\u00a75: pre-paint theme/motion bootstrap, five-theme + motion controls in a footer display-settings band, and the kit's double focus ring replacing the single navy ring.",
+      "evidence": ["../../.agent/reports/design/aip-137-stage-a-import-verification-2026-07-19.md"],
+      "disposition": "deliberate",
+      "rationale": "Kit integration doc \u00a74 (theme + motion wiring: oak-theme.js inlined pre-paint from the workspace package; data-motion axis semantics on the hub's motion floor \u2014 OS default, explicit choice wins both directions) and \u00a75 (focus): the single navy :focus-visible ring is upgraded to the kit's double ring (lemon + contrast halo + transparent outline for forced-colors) \u2014 the doc names this an upgrade, not a divergence. Divergence from the doc recorded: the kit scopes rings to .oak-* classes, so the hub keeps a GLOBAL rule carrying the kit recipe until \u00a76 migrates controls onto kit classes (deleting the global rule now would strand unmigrated controls on UA-default focus). The footer display-settings band is a new feature surface (theme choice did not exist in the canonical export). Staged-migration note: dark/system exposure precedes the full component polarity migration \u2014 residual fixed-polarity colours (e.g. hard bg-white on cards) are \u00a76's scope, tracked in the design-system-integration plan; the review-round cures (footer, standards rail, framework control) shrank the residual set. Do not re-flag on export re-ingest.",
+      "author": "Salmon binds Undertow (de5c10)",
+      "date": "2026-07-19"
+    },
+    {
+      "id": "u1m1s4-tabs/semantic-success-roles",
+      "pairId": "u1m1s4-tabs",
+      "kind": "visual",
+      "summary": "The tabs example callout moves from the decorative mint (50 tint) to the functional success fill (30 tint) with the functional success border, and its label goes text-ink per the kit's text-on-pastel-fills contract \u2014 decorative surfaces are contractually non-semantic.",
+      "evidence": ["components/blocks/TabsBlockView.tsx"],
+      "disposition": "deliberate",
+      "rationale": "Kit token contract (colors_and_type.css): decorative surfaces carry categorisation only, never meaning; functional fills exist so re-branding decoratives never moves semantics. The positive-example callout is a semantic success state, so it consumes bg-success-subtle with the --border-success border role (utility border-line-success), and the label text is --text-primary per the kit contract (tone text on the subtle fills fails 4.5:1 in light/colour-safe \u2014 design-system-expert computed). Same hue family, lighter tint \u2014 visible in the section capture; do not re-flag.",
+      "author": "Zenith binds Plasma (8fa90f)",
+      "date": "2026-07-20"
+    },
+    {
+      "id": "u1m1s5-quiz/semantic-success-roles",
+      "pairId": "u1m1s5-quiz",
+      "kind": "visual",
+      "summary": "The correct-answer wash moves from the decorative mint (50 tint) to the functional success fill (30 tint) with the functional success border, and the \u2713/\u2715 chips move from saturated text-role fills with white marks to the subtle fills with ink marks \u2014 the answer states are semantic.",
+      "evidence": ["components/blocks/quiz-view-support.tsx"],
+      "disposition": "deliberate",
+      "rationale": "Kit token contract (colors_and_type.css): a correct quiz answer is meaning, not categorisation, so it consumes bg-success-subtle with the --border-success border role (utility border-line-success) rather than the decorative mint ramp; the chips drop the text-role-as-fill misuse (bg-success/bg-error are text-polarity aliases) for the same subtle fills with --text-primary marks per the kit's text-on-pastel-fills contract. Colour-safe and theme overrides then stay aligned with the state; do not re-flag.",
+      "author": "Zenith binds Plasma (8fa90f)",
+      "date": "2026-07-20"
+    },
+    {
+      "id": "u1m3s2-compare/semantic-state-headers",
+      "pairId": "u1m3s2-compare",
+      "kind": "visual",
+      "summary": "The compare block's good/bad headers move from saturated text-role fills with white text (bg-success/bg-error + text-white) to the functional subtle fills with ink text, per the kit's functional-fill and text-on-pastel-fills contracts.",
+      "evidence": ["components/blocks/CompareBlockView.tsx"],
+      "disposition": "deliberate",
+      "rationale": "bg-success/bg-error alias the kit's TEXT-polarity roles (--text-success/--text-error) \u2014 used as fills they break polarity in dark theme (light text-role fill under white text). The functional meaning-bearing recipe is bg-success-subtle/bg-error-subtle with --text-primary on the pastel fill (kit components.css contract line; tone carried by fill + border + wording). Visible in the section capture as a lighter header with dark text; do not re-flag.",
+      "author": "Zenith binds Plasma (8fa90f)",
+      "date": "2026-07-20"
+    },
+    {
+      "id": "standards-full/cta-action-roles",
+      "pairId": "standards-full",
+      "kind": "visual",
+      "summary": "The view-in-standards CTA moves from the link text-role used as a fill (navy pill) to the kit action pair bg-btn-primary/text-btn-primary (black pill in light theme) \u2014 text-role fills assume a contrast pairing the kit keeps independently themeable.",
+      "evidence": ["components/standards/StandardsResults.tsx"],
+      "disposition": "deliberate",
+      "rationale": "Kit contract (.oak-btn, components.css): primary actions consume --bg-btn-primary with --text-btn-primary so brand overrides re-point fill and text together; --text-link is a text-only role and using it as a fill lets a brand re-point break the CTA's contrast. Visible in the standards captures as navy \u2192 black; do not re-flag on export re-ingest.",
+      "author": "Zenith binds Plasma (8fa90f)",
+      "date": "2026-07-20"
+    },
+    {
+      "id": "global/role-semantics-class-cure-round9",
+      "pairId": "global",
+      "kind": "visual",
+      "summary": "Round-9 class cure (PR #413): ornamental/categorical lemon fills moved from the semantic accent role to surface roles. Light-mode-visible shifts: search-highlight <mark> and hotspot active marker full-lemon to selected-state lemon-subtle (--bg-selected); Live badge decorative-1 to success-subtle; focus banner decorative-3-subtle/link-text to info-subtle/ink with border-line; inactive count badge line-soft fill to surface-subtle. Same-value-in-light swaps (accent to decorative-5) have no visible shift.",
+      "evidence": ["../../packages/design/oak-design-system/colors_and_type.css"],
+      "disposition": "deliberate",
+      "rationale": "High-contrast theme resolves the accent role and primary text to the same black, so semantic-accent fills carrying ornamental/categorical meaning go black-on-black; the kit reserves decorative surfaces for categorisation and --bg-selected for selected states, both contrast-manifest pairings. Fidelity capture re-run belongs to the next \u00a7D review moment. Line anchor: the high-contrast block resolves --color-accent and --text-primary to --oak-black-true. Finding trail: PR #413 round-9 review threads (14 findings, 2026-07-20).",
+      "author": "Eagle herds Cirrus (055d36)",
+      "date": "2026-07-20"
+    },
+    {
+      "id": "global/controls-token-roles-slice3",
+      "pairId": "global",
+      "kind": "visual",
+      "summary": "AIP-137 ws-hub-migration \u00a76 slice 1 (controls): fixed bg-white on interactive control surfaces (search pills + inputs, site/mobile nav, filter chips, player buttons) moves onto kit roles split by contract: search/nav SURFACES onto bg-surface (--bg-primary, the .oak-input role) and interactive secondary CONTROLS (filter chips, action buttons, the menu toggle) onto bg-btn-secondary (--bg-btn-secondary, the .oak-btn--secondary role \u2014 brands re-point it independently of the page surface), and dead outline-none utilities on migrated search inputs are removed (the hub's unlayered :focus-visible rule already painted the ring). Zero visible shift in light (--bg-primary is white); dark and high-contrast now theme correctly.",
+      "evidence": [
+        "../../packages/design/oak-design-system/colors_and_type.css",
+        "../../packages/design/oak-design-system/components.css"
+      ],
+      "disposition": "deliberate",
+      "rationale": "Integration doc \u00a76: hand-built views keep markup, swap literal styles for .oak-* classes + tokens. Control pill/chip geometry is export-shaped, so kit-class adoption (which changes geometry via --btn-radius/--btn-pad) is deferred to the fidelity-capture moment; this slice lands the token-role correctness with no light-mode shift. Remaining bg-white sites are cards (slice 2) and pedagogy blocks (slice 3). Secondary-control hover fills (--bg-btn-secondary-hover) are aliased but not applied \u2014 the export has no background hover on these controls; hover adoption rides the deferred kit-class tranche. Sibling-slice button instances (StandardDetail.tsx:156/:189, CourseSidebar rows \u2014 slice-2-owned lines) receive the same secondary-role refinement in a named follow-up after both slices land, so parallel branches stay conflict-free. Line anchors: colors_and_type.css:289 (--bg-primary light-dark), components.css:566-601 (.oak-input background: var(--bg-primary)).",
+      "author": "Eagle herds Cirrus (055d36)",
+      "date": "2026-07-20"
+    },
+    {
+      "id": "global/cards-token-roles-slice4",
+      "pairId": "global",
+      "kind": "visual",
+      "summary": "AIP-137 ws-hub-migration \u00a76 slice 2 (cards/chips/tags): fixed bg-white on card, panel, sidebar, and badge surfaces moves to the bg-surface role, and the Destinations card tints move from raw hexes to the exact-value decorative-subtle roles (mint30\u2192decorative-1-subtle, aqua30\u2192decorative-2-subtle, lavender30\u2192decorative-3-subtle, pink30\u2192decorative-4-subtle, lemon30\u2192decorative-5-subtle; every hex verified an exact kit primitive match). Zero visible shift in light; dark and high-contrast now theme correctly.",
+      "evidence": ["../../packages/design/oak-design-system/colors_and_type.css"],
+      "disposition": "deliberate",
+      "rationale": "Integration doc \u00a76 + \u00a73 (map each raw value to its role so hue names stop appearing in markup). .oak-card class adoption (geometry-changing) stays deferred to the fidelity-capture moment, same disposition as slice 1's controls entry. This entry covers ONLY the card/tint family in this slice: control surfaces move on the parallel slice-1 PR (#438) and pedagogy blocks on slice 3 (#443) \u2014 sibling branches at authoring time, so bg-white persists on those families here until each lands; the remaining-scope claim composes across the three slices in whatever order they merge. Line anchors: colors_and_type.css:60-78 (primitive tints), :350-366 (decorative ramp + subtle variants).",
+      "author": "Eagle herds Cirrus (055d36)",
+      "date": "2026-07-20"
+    },
+    {
+      "id": "global/blocks-token-roles-slice5",
+      "pairId": "global",
+      "kind": "visual",
+      "summary": "AIP-137 ws-hub-migration \u00a76 slice 3 (pedagogy blocks): fixed bg-white on block cards, rows, chips, and panels (quiz, sortable, hotspot, coursemap, download, columns, flip, summary, tabs, accordion, play chip) moves to the bg-surface role \u2014 the CalloutBlockView QS chips are the named exception, retaining their full fixed pairing including bg-white, and the two raw lemon offset shadows (#ffe555 on PlayChip and QuizBlockView) keep their export geometry with the colour tokenised to var(--color-accent). Adjacent comments trued to the role-based contract. Zero visible shift in light; dark and high-contrast now theme correctly.",
+      "evidence": ["../../packages/design/oak-design-system/colors_and_type.css"],
+      "disposition": "deliberate",
+      "rationale": "Integration doc \u00a76. Kit block-class adoption (.oak-quiz*/.oak-accordion) stays deferred to the fidelity-capture moment, same disposition as slices 1-2. The CalloutBlockView QS-blue family (#2a6fdb/#143b78) keeps its ENTIRE fixed pairing including bg-white: the QS foreground/background is a validated fixed pair, and theming only the background fails dark-mode contrast (round-1 finding, cured by retaining the pair). The PlayChip triangle inherits ink via currentColor so it survives the dark surface. Line anchor: --color-accent: var(--oak-lemon) at colors_and_type.css:327.",
+      "author": "Eagle herds Cirrus (055d36)",
+      "date": "2026-07-20"
     }
   ]
 }

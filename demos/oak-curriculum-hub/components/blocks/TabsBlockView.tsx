@@ -82,8 +82,8 @@ function TabPanelView({
         </p>
       ))}
       {panel.example !== undefined && (
-        <div className="mt-2 rounded-[10px] border-2 border-oak-green bg-oak-mint-subdued px-4 py-3.5">
-          <p className="mb-1.5 text-[13px] font-bold uppercase leading-none tracking-[0.04em] text-oak-green">
+        <div className="mt-2 rounded-[10px] border-2 border-line-success bg-success-subtle px-4 py-3.5">
+          <p className="mb-1.5 text-[13px] font-bold uppercase leading-none tracking-[0.04em] text-ink">
             ✓ Example
           </p>
           <p className="text-[16px] font-light leading-6">{panel.example}</p>
@@ -92,6 +92,11 @@ function TabPanelView({
     </div>
   );
 }
+
+/** Static container classes, hoisted so the render stays compact. */
+const SHELL_CLASSES =
+  'overflow-hidden rounded-[14px] border-2 border-line bg-surface shadow-accent-brand';
+const TABLIST_CLASSES = 'flex flex-wrap border-b-2 border-line bg-surface-inverted/[.03]';
 
 /**
  * Renders a {@link TabsBlock} as a WAI-ARIA tablist: one panel visible at a
@@ -129,8 +134,8 @@ export function TabsBlockView({ block }: { readonly block: TabsBlock }): ReactEl
   }, [active]);
 
   return (
-    <div className="overflow-hidden rounded-[14px] border-2 border-oak-black bg-white shadow-oak-lemon">
-      <div role="tablist" className="flex flex-wrap border-b-2 border-oak-black bg-oak-black/[.03]">
+    <div className={SHELL_CLASSES}>
+      <div role="tablist" className={TABLIST_CLASSES}>
         {block.tabs.map((tab, index) => (
           <TabButton
             key={keys[index]}
@@ -191,10 +196,10 @@ function TabButton({
   );
 }
 
-/** Export-exact tab treatment: a 4px underline + white wash marks the selected tab. */
+/** Export-shaped tab treatment: a 4px underline + surface wash marks the selected tab. */
 function tabClasses(selected: boolean): string {
   const base = 'border-b-4 px-[18px] py-3.5 text-[15px] leading-[1.3]';
   return selected
-    ? `${base} border-oak-black bg-white font-bold`
+    ? `${base} border-line bg-surface font-bold`
     : `${base} border-transparent font-normal`;
 }

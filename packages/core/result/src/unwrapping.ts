@@ -9,11 +9,18 @@ import type { Result } from './result-type.js';
 /**
  * The package's single sanctioned Result-to-exception edge (ADR-088
  * boundary translation). Every unwrapping failure funnels through this one
- * `throw`, so the escape hatch stays consolidated while each caller keeps
- * a first-class failure message.
+ * `throw`, so the escape hatch stays consolidated: a string failure becomes
+ * a fresh `Error` carrying it, while an `Error`-typed failure is thrown AS
+ * ITSELF so its message, stack, and `cause` chain survive the edge intact.
+ * The discrimination is `typeof`, not `instanceof`: `instanceof Error` is
+ * false for cross-realm errors and for structurally-typed `Error` values,
+ * and wrapping those would break the identity promise. The argument is a
+ * typed union, deliberately — this edge never accepts an `unknown` to
+ * normalise.
  */
-function raise(message: string): never {
-  throw new Error(message);
+function raise(failure: string | Error): never {
+  // eslint-disable-next-line @oaknational/no-throw-statement -- JC: this is the one place that is allowed to throw
+  throw typeof failure === 'string' ? new Error(failure) : failure;
 }
 
 /**
@@ -34,6 +41,30 @@ export function unwrap<T, E>(result: Result<T, E>): T {
     return result.value;
   }
   return raise(`Called unwrap on Err: ${String(result.error)}`);
+}
+
+/**
+ * Unwraps an Ok value or throws the Err's own `Error` — the
+ * identity-preserving variant of `unwrap` for `Result<T, Error>` at an
+ * exception boundary. Where `unwrap` wraps the failure in a new message
+ * (`Called unwrap on Err: …`), this throws the original error object, so
+ * an actionable message, its stack, and its `cause` chain reach the
+ * boundary's handler unmodified.
+ *
+ * @param result - The Result to unwrap; the Err payload must be an `Error`
+ * @returns The Ok value
+ * @throws The Err's own error object when the result is Err
+ *
+ * @example
+ * ```typescript
+ * const registry = unwrapOrThrow(await readRegistry(path)); // Throws the reader's Error as-is
+ * ```
+ */
+export function unwrapOrThrow<T>(result: Result<T, Error>): T {
+  if (result.ok) {
+    return result.value;
+  }
+  return raise(result.error);
 }
 
 /**

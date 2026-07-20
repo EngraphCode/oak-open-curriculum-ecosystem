@@ -4,7 +4,7 @@ import type { AccordionBlock, AccordionItem } from '@/lib/blocks/types';
 
 import { DashedMediaSlot } from './DashedMediaSlot';
 
-/** One accordion item: an export-exact white card `<details>` with chip badge, dashed divider body. */
+/** One accordion item: an export-shaped surface-role card `<details>` with chip badge, dashed divider body. */
 function AccordionItemView({
   item,
   chip,
@@ -13,13 +13,13 @@ function AccordionItemView({
   readonly chip: string | undefined;
 }): ReactElement {
   return (
-    <details className="overflow-hidden rounded-xl border-2 border-oak-black bg-white shadow-oak-lemon">
+    <details className="overflow-hidden rounded-xl border-2 border-line bg-surface shadow-accent-brand">
       <summary className="flex cursor-pointer list-none items-center gap-3 px-[18px] py-4 text-[18px] font-bold leading-6 [&::-webkit-details-marker]:hidden">
         {item.badge !== undefined && (
           <span
             aria-hidden="true"
             style={chip === undefined ? undefined : { backgroundColor: chip }}
-            className={`grid h-[30px] w-[30px] shrink-0 place-items-center rounded-full border-2 border-oak-black text-[14px] font-bold ${
+            className={`grid h-[30px] w-[30px] shrink-0 place-items-center rounded-full border-2 border-line text-[14px] font-bold ${
               chip === undefined ? 'bg-(--module-accent)' : ''
             }`}
           >
@@ -27,11 +27,11 @@ function AccordionItemView({
           </span>
         )}
         <span className="flex-1">{item.q}</span>
-        <span aria-hidden="true" className="text-[22px] leading-none text-oak-grey">
+        <span aria-hidden="true" className="text-[22px] leading-none text-ink-subdued">
           +
         </span>
       </summary>
-      <div className="border-t border-dashed border-oak-grey-40 px-[18px] pb-[18px] pt-3.5">
+      <div className="border-t border-dashed border-line-soft px-[18px] pb-[18px] pt-3.5">
         {item.a.map((para) => (
           <p key={para} className="mb-2.5 text-[17px] font-light leading-[27px]">
             {para}
@@ -52,7 +52,7 @@ function AccordionItemView({
 function FeatureList({ features }: { readonly features: readonly string[] }): ReactElement {
   return (
     <div className="mt-1.5">
-      <p className="mb-2 text-[13px] font-bold uppercase leading-none tracking-[0.04em] text-oak-green">
+      <p className="mb-2 text-[13px] font-bold uppercase leading-none tracking-[0.04em] text-success">
         In Oak lessons
       </p>
       <ul className="flex flex-col gap-1.5">
@@ -61,7 +61,7 @@ function FeatureList({ features }: { readonly features: readonly string[] }): Re
             key={feature}
             className="flex items-start gap-[9px] text-[16px] font-light leading-[23px]"
           >
-            <span aria-hidden="true" className="shrink-0 font-bold text-oak-green">
+            <span aria-hidden="true" className="shrink-0 font-bold text-success">
               ✓
             </span>
             <span>{feature}</span>
@@ -75,7 +75,7 @@ function FeatureList({ features }: { readonly features: readonly string[] }): Re
 /**
  * Renders an {@link AccordionBlock} using native `<details>`/`<summary>` (keyboard-operable and
  * screen-reader-announced without JavaScript — the most robust WCAG-AA choice), styled export-exact:
- * white cards with lemon shadow, chip badges tinted `block.chip` or the module accent
+ * surface-role cards with the accent shadow, chip badges tinted `block.chip` or the module accent
  * (`--module-accent`, set by the player's module gate), dashed body divider, green feature ticks.
  */
 export function AccordionBlockView({ block }: { readonly block: AccordionBlock }): ReactElement {

@@ -1,7 +1,9 @@
 // Token-fidelity audit — compares the demo's Tailwind @theme token VALUES against the
-// authoritative token files inside the canonical Claude-Design export, and flags whole token
-// CATEGORIES the demo omits (which then fall back to Tailwind defaults — a prime source of
-// "close but clearly off" drift).
+// authoritative token surface of the IN-REPO design system (ADR-213: the kit is the token
+// source of truth; integration doc §7 re-pointed this audit off the untracked export
+// snapshot, removing the re-obtain step), and flags whole token CATEGORIES the demo omits
+// (which then fall back to Tailwind defaults — a prime source of "close but clearly off"
+// drift).
 //
 // Re-runnable enablement artefact for the reusable-demo process (Ask 2 / codification):
 //   pnpm --filter @oaknational/oak-curriculum-hub tool:token-audit
@@ -10,44 +12,29 @@
 //
 // Framework/consumer split: css-token-parse.ts (parseCssVars + the value normalisers) is the
 // reusable mechanism; MAPPING + the demo/auth paths here are the Oak-specific consumer config.
-import { existsSync, readdirSync } from 'node:fs';
+import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { numOf, parseCssVars, toPx } from './css-token-parse';
+import { MAPPING, type TokenMapping } from './token-audit-mapping';
 
 // Repo-root-relative paths, kept relative because they ARE the report header; reads resolve them
 // against the repo root derived from this file's own location, so the tool is cwd-independent.
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
 const DEMO = 'demos/oak-curriculum-hub/app/globals.css';
-// The authority is the canonical export's OWN token surface, in two files under its design-system
-// directory: `tokens/fig-tokens.css` (the Figma-variables export: radii, border widths, palette)
-// and `colors_and_type.css` (the curated oak-components augmentation — shadows, type scale,
-// spacing; source: oaknational/oak-components src/styles/theme/*). The two define disjoint token
-// names, so the union is well-defined. The `_ds/*` directory is resolved dynamically so a
-// re-pulled export with a different design-system id still resolves.
-const EXPORT_DS_PARENT = 'demos/oak-curriculum-hub/claude-design-canonical-export/_ds';
+// The authority is the in-repo design system's `colors_and_type.css` — the kit's single
+// authored token surface (primitives, roles, radii, shadows, type scale, spacing). The
+// untracked canonical-export snapshot is no longer read: the kit IS the source of truth
+// (ADR-213), and its own build gate + the four-theme contrast gate govern its values.
+const KIT_AUTH_FILE = 'packages/design/oak-design-system/colors_and_type.css';
 
-/** Resolve the export's authoritative token files (repo-root-relative), or an error line. */
+/** Resolve the authoritative token file (repo-root-relative), or an error line. */
 function resolveAuthFiles(): { files: string[] } | { error: string } {
-  const parentAbs = path.resolve(REPO_ROOT, EXPORT_DS_PARENT);
-  const matches = readdirSync(parentAbs, { withFileTypes: true })
-    .filter((entry) => entry.isDirectory())
-    .map((entry) => `${EXPORT_DS_PARENT}/${entry.name}`)
-    .filter((dir) => existsSync(path.resolve(REPO_ROOT, dir, 'tokens', 'fig-tokens.css')))
-    .sort((a, b) => a.localeCompare(b));
-  const dsDir = matches[0];
-  if (dsDir === undefined || matches.length > 1) {
-    return {
-      error: `expected exactly one ${EXPORT_DS_PARENT}/*/tokens/fig-tokens.css, found ${matches.length}`,
-    };
+  if (!existsSync(path.resolve(REPO_ROOT, KIT_AUTH_FILE))) {
+    return { error: `authoritative kit token file missing: ${KIT_AUTH_FILE}` };
   }
-  const files = [`${dsDir}/tokens/fig-tokens.css`, `${dsDir}/colors_and_type.css`];
-  const missing = files.find((file) => !existsSync(path.resolve(REPO_ROOT, file)));
-  if (missing !== undefined) {
-    return { error: `authoritative token file missing from the export: ${missing}` };
-  }
-  return { files };
+  return { files: [KIT_AUTH_FILE] };
 }
 
 /** Union-parse the authoritative files (disjoint names; later files would win on a clash). */
@@ -61,44 +48,6 @@ function parseAuthVars(files: readonly string[]): Map<string, string> {
   return merged;
 }
 
-interface TokenMapping {
-  cat: string;
-  demoToken: string;
-  authToken: string;
-  cmp: 'num' | 'px';
-}
-
-// Consumer config: demo token vs authoritative token, with how to compare.
-const MAPPING: readonly TokenMapping[] = [
-  {
-    cat: 'radius',
-    demoToken: 'radius-oak-s',
-    authToken: 'border-radius-border-radius-s',
-    cmp: 'num',
-  },
-  {
-    cat: 'radius',
-    demoToken: 'radius-oak-m',
-    authToken: 'border-radius-border-radius-m',
-    cmp: 'num',
-  },
-  {
-    cat: 'radius',
-    demoToken: 'radius-oak-m2',
-    authToken: 'border-radius-border-radius-m2',
-    cmp: 'num',
-  },
-  {
-    cat: 'radius',
-    demoToken: 'radius-oak-l',
-    authToken: 'border-radius-border-radius-l',
-    cmp: 'num',
-  },
-  { cat: 'shadow', demoToken: 'shadow-oak-lemon', authToken: 'shadow-lemon', cmp: 'px' },
-  { cat: 'shadow', demoToken: 'shadow-oak-wide-lemon', authToken: 'shadow-wide-lemon', cmp: 'px' },
-  { cat: 'shadow', demoToken: 'shadow-oak-grey', authToken: 'shadow-grey', cmp: 'px' },
-];
-
 /** One report line for a mapped pair where both sides exist. */
 function comparisonLine(mapping: TokenMapping, dv: string, av: string, equal: boolean): string {
   const fix = mapping.cmp === 'px' ? toPx(av) : `${numOf(av)}px`;
@@ -108,7 +57,36 @@ function comparisonLine(mapping: TokenMapping, dv: string, av: string, equal: bo
 
 interface ComparisonReport {
   matches: string[];
+  /** Demo tokens whose value is a var() alias into the kit (post-ADR-213
+   *  convergence): not literal-comparable here — the kit's own build gate and
+   *  the fidelity register's global entries govern them. */
+  aliased: string[];
   mismatches: string[];
+}
+
+/** One mapping's verdict: missing side, kit-aliased demo value (post-ADR-213
+ *  the demo tokens alias the kit's roles — a literal comparison against the
+ *  export would compare a var() reference string, so the aliasing is reported
+ *  honestly instead of a false mismatch), or a literal match/mismatch. */
+function classifyMapping(
+  mapping: TokenMapping,
+  dv: string | undefined,
+  av: string | undefined,
+): { kind: 'match' | 'mismatch' | 'aliased' | 'missing'; line: string } {
+  if (dv === undefined || av === undefined) {
+    return {
+      kind: 'missing',
+      line: `[${mapping.cat}] ${mapping.demoToken} → ${mapping.authToken}: MISSING (demo=${dv ?? 'absent'}, auth=${av ?? 'absent'})`,
+    };
+  }
+  if (dv.includes('var(')) {
+    return {
+      kind: 'aliased',
+      line: `[${mapping.cat}] ${mapping.demoToken}="${dv}" — kit-aliased; governed by the kit build gate + the register's global entries`,
+    };
+  }
+  const equal = mapping.cmp === 'num' ? numOf(dv) === numOf(av) : toPx(dv) === toPx(av);
+  return { kind: equal ? 'match' : 'mismatch', line: comparisonLine(mapping, dv, av, equal) };
 }
 
 /** Compare every mapped token pair; the returned lines are the report's fix-list surface. */
@@ -118,19 +96,22 @@ function compareMappedTokens(
 ): ComparisonReport {
   const matches: string[] = [];
   const mismatches: string[] = [];
+  const aliased: string[] = [];
   for (const mapping of MAPPING) {
-    const dv = demoVars.get(mapping.demoToken);
-    const av = authVars.get(mapping.authToken);
-    if (dv === undefined || av === undefined) {
-      mismatches.push(
-        `[${mapping.cat}] ${mapping.demoToken} → ${mapping.authToken}: MISSING (demo=${dv ?? 'absent'}, auth=${av ?? 'absent'})`,
-      );
-      continue;
+    const verdict = classifyMapping(
+      mapping,
+      demoVars.get(mapping.demoToken),
+      authVars.get(mapping.authToken),
+    );
+    if (verdict.kind === 'match') {
+      matches.push(verdict.line);
+    } else if (verdict.kind === 'aliased') {
+      aliased.push(verdict.line);
+    } else {
+      mismatches.push(verdict.line);
     }
-    const equal = mapping.cmp === 'num' ? numOf(dv) === numOf(av) : toPx(dv) === toPx(av);
-    (equal ? matches : mismatches).push(comparisonLine(mapping, dv, av, equal));
   }
-  return { matches, mismatches };
+  return { matches, mismatches, aliased };
 }
 
 /** Count of authoritative tokens whose name starts with `prefix`. */
@@ -146,8 +127,7 @@ function demoCount(demoVars: Map<string, string>, test: (key: string) => boolean
 /** True when the authoritative set carries the xs/xl radii but the demo defines neither. */
 function radiiEndsOmitted(demoVars: Map<string, string>, authVars: Map<string, string>): boolean {
   const authRadii = [...authVars.keys()].filter(
-    (k) =>
-      k.endsWith('border-radius-border-radius-xs') || k.endsWith('border-radius-border-radius-xl'),
+    (k) => k.endsWith('radius-xs') || k.endsWith('radius-xl'),
   );
   return authRadii.length > 0 && !demoVars.has('radius-oak-xs') && !demoVars.has('radius-oak-xl');
 }
@@ -188,6 +168,7 @@ function collectOmissions(demoVars: Map<string, string>, authVars: Map<string, s
 function printReport(
   authFiles: readonly string[],
   matches: readonly string[],
+  aliased: readonly string[],
   mismatches: readonly string[],
   omissions: readonly string[],
 ): void {
@@ -196,6 +177,12 @@ function printReport(
   );
   process.stdout.write(`## Mapped-token matches (${matches.length})\n`);
   for (const line of matches) {
+    process.stdout.write(`  ${line}\n`);
+  }
+  process.stdout.write(
+    `\n## Kit-aliased tokens (${aliased.length}) — governed by the kit build gate + register\n`,
+  );
+  for (const line of aliased) {
     process.stdout.write(`  ${line}\n`);
   }
   process.stdout.write(
@@ -227,8 +214,8 @@ function main(): void {
   }
   const demoVars = parseCssVars(path.resolve(REPO_ROOT, DEMO));
   const authVars = parseAuthVars(auth.files);
-  const { matches, mismatches } = compareMappedTokens(demoVars, authVars);
-  printReport(auth.files, matches, mismatches, collectOmissions(demoVars, authVars));
+  const { matches, mismatches, aliased } = compareMappedTokens(demoVars, authVars);
+  printReport(auth.files, matches, aliased, mismatches, collectOmissions(demoVars, authVars));
 }
 
 main();

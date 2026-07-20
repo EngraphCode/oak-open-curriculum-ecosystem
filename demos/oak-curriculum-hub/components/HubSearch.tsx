@@ -12,7 +12,7 @@ export function HubSearch({ label = 'Hub search' }: { readonly label?: string })
     <div
       role="search"
       aria-label={label}
-      className="flex items-center gap-2 rounded-full border-2 border-oak-black bg-white px-3.5 py-[7px]"
+      className="flex items-center gap-2 rounded-full border-2 border-line bg-surface px-3.5 py-[7px]"
     >
       <svg
         width="17"
@@ -22,7 +22,7 @@ export function HubSearch({ label = 'Hub search' }: { readonly label?: string })
         stroke="currentColor"
         strokeWidth="2.2"
         strokeLinecap="round"
-        className="shrink-0 text-oak-grey"
+        className="shrink-0 text-ink-subdued"
         aria-hidden
       >
         <circle cx="11" cy="11" r="7" />
@@ -32,7 +32,7 @@ export function HubSearch({ label = 'Hub search' }: { readonly label?: string })
         type="search"
         placeholder="Search the hub"
         aria-label="Search the hub"
-        className="w-full border-none bg-transparent text-[15px] font-light leading-none text-oak-black outline-none placeholder:text-oak-grey"
+        className="w-full border-none bg-transparent text-[15px] font-light leading-none text-ink placeholder:text-ink-subdued"
       />
     </div>
   );

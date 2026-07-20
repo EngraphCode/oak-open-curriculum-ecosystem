@@ -1,5 +1,7 @@
 import { dirname, join } from 'node:path';
 
+import { unwrapOrThrow } from '@oaknational/result';
+
 import { activeAgentReports } from './active-agents.js';
 import { claimReport, sameAgent } from './claim-reports.js';
 import { cliIo, type CliRuntime } from './cli-runtime.js';
@@ -10,7 +12,7 @@ import { type CollaborationStateEnvironment } from './types.js';
 import { projectWorkState } from './work-state-view.js';
 
 export async function listClaims(options: Options): Promise<string> {
-  const registry = await readActiveClaimsFile(required(options, 'active'));
+  const registry = unwrapOrThrow(await readActiveClaimsFile(required(options, 'active')));
   const nowIso = nowFromOptions(options);
   const reports = registry.claims.map((claim) => claimReport(claim, nowIso));
 
@@ -22,7 +24,7 @@ export async function mineClaims(
   env: CollaborationStateEnvironment,
 ): Promise<string> {
   const identity = resolveIdentity(options, env).agent_id;
-  const registry = await readActiveClaimsFile(required(options, 'active'));
+  const registry = unwrapOrThrow(await readActiveClaimsFile(required(options, 'active')));
   const nowIso = nowFromOptions(options);
   const reports = registry.claims
     .filter((claim) => sameAgent(claim.agent_id, identity))
@@ -32,7 +34,7 @@ export async function mineClaims(
 }
 
 export async function showClaim(options: Options): Promise<string> {
-  const registry = await readActiveClaimsFile(required(options, 'active'));
+  const registry = unwrapOrThrow(await readActiveClaimsFile(required(options, 'active')));
   const claimId = required(options, 'claim-id');
   const claim = registry.claims.find((entry) => entry.claim_id === claimId);
   if (claim === undefined) {
@@ -43,7 +45,7 @@ export async function showClaim(options: Options): Promise<string> {
 }
 
 export async function statusClaims(options: Options): Promise<string> {
-  const registry = await readActiveClaimsFile(required(options, 'active'));
+  const registry = unwrapOrThrow(await readActiveClaimsFile(required(options, 'active')));
   const nowIso = nowFromOptions(options);
   const reports = registry.claims.map((claim) => claimReport(claim, nowIso));
 
@@ -60,10 +62,10 @@ export async function statusClaims(options: Options): Promise<string> {
 }
 
 export async function activeAgents(options: Options): Promise<string> {
-  const registry = await readActiveClaimsFile(required(options, 'active'));
+  const registry = unwrapOrThrow(await readActiveClaimsFile(required(options, 'active')));
   const closedPath = optional(options, 'closed');
   const closedArchive =
-    closedPath === undefined ? undefined : await readClosedClaimsFile(closedPath);
+    closedPath === undefined ? undefined : unwrapOrThrow(await readClosedClaimsFile(closedPath));
 
   return `${JSON.stringify(
     activeAgentReports(registry, nowFromOptions(options), closedArchive),
@@ -95,10 +97,10 @@ export async function workState(
     throw new Error(`--now must be an ISO-8601 timestamp (got: ${nowIso})`);
   }
 
-  const registry = await io.readActiveClaimsFile(activePath);
+  const registry = unwrapOrThrow(await io.readActiveClaimsFile(activePath));
   const closedPath = optional(options, 'closed');
   const closedArchive =
-    closedPath === undefined ? undefined : await io.readClosedClaimsFile(closedPath);
+    closedPath === undefined ? undefined : unwrapOrThrow(await io.readClosedClaimsFile(closedPath));
   const [events, worktrees] = await Promise.all([
     io.readCommsEvents(commsDir),
     io.readWorktrees(collaborationDir),

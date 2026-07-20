@@ -24,7 +24,7 @@ function HeroSearchInput({
   readonly onQueryChange: (next: string) => void;
 }): ReactElement {
   return (
-    <div className="mt-6 flex max-w-[560px] items-center gap-2.5 rounded-full border-[3px] border-oak-black bg-white px-4 py-2.5 shadow-oak-wide-lemon">
+    <div className="mt-6 flex max-w-[560px] items-center gap-2.5 rounded-full border-[3px] border-line bg-surface px-4 py-2.5 shadow-accent-wide-brand">
       <svg
         width="17"
         height="17"
@@ -33,7 +33,7 @@ function HeroSearchInput({
         stroke="currentColor"
         strokeWidth="2.2"
         strokeLinecap="round"
-        className="shrink-0 text-oak-grey"
+        className="shrink-0 text-ink-subdued"
         aria-hidden
       >
         <circle cx="11" cy="11" r="7" />
@@ -45,7 +45,7 @@ function HeroSearchInput({
         onChange={(event) => onQueryChange(event.target.value)}
         placeholder="Search lessons, units and threads…"
         aria-label="Search the Oak curriculum"
-        className="w-full border-none bg-transparent text-[16px] font-light leading-none text-oak-black outline-none placeholder:text-oak-grey"
+        className="w-full border-none bg-transparent text-[16px] font-light leading-none text-ink placeholder:text-ink-subdued"
       />
     </div>
   );
@@ -60,9 +60,9 @@ function ShowcaseHero({
   readonly onQueryChange: (next: string) => void;
 }): ReactElement {
   return (
-    <div className="border-b-[3px] border-oak-black bg-oak-amber-subdued">
+    <div className="border-b-[3px] border-line bg-decorative-6-subtle">
       <div className="mx-auto max-w-[1080px] px-6 pt-12 pb-10">
-        <p className="mb-2 text-[13px] leading-none font-bold tracking-[0.05em] uppercase text-oak-grey">
+        <p className="mb-2 text-[13px] leading-none font-bold tracking-[0.05em] uppercase text-ink-subdued">
           Live semantic search
         </p>
         <h1 className="text-[42px] leading-[48px] font-semibold text-balance">
@@ -80,7 +80,7 @@ function ShowcaseHero({
               <button
                 type="button"
                 onClick={() => onQueryChange(example)}
-                className="rounded-full border-2 border-oak-black bg-white px-3.5 py-[7px] text-[13px] font-bold text-oak-black transition-shadow hover:shadow-oak-lemon"
+                className="rounded-full border-2 border-line bg-btn-secondary px-3.5 py-[7px] text-[13px] font-bold text-ink transition-shadow hover:shadow-accent-brand"
               >
                 {example}
               </button>

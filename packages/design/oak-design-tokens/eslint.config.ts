@@ -20,7 +20,7 @@ const config = defineConfigArray(
   },
   configs.strict,
   {
-    files: ['src/**/*.ts'],
+    files: ['src/**/*.ts', 'scripts/**/*.ts'],
     languageOptions: {
       globals: {
         ...globals.node,

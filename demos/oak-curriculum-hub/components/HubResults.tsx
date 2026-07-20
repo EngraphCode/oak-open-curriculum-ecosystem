@@ -7,7 +7,7 @@ import type { SearchResults } from '@/lib/search-types';
 import { GroupHeader, Notice, mutedClass, TrainingGroup, StandardsGroup } from './HubLocalGroups';
 import { LessonCard, UnitCard, ThreadCard } from './ResultCards';
 
-const groupLabelClass = 'mb-2.5 text-xs font-bold uppercase tracking-[0.05em] text-oak-grey';
+const groupLabelClass = 'mb-2.5 text-xs font-bold uppercase tracking-[0.05em] text-ink-subdued';
 
 function CurriculumBody({ results }: { readonly results: SearchResults }): ReactElement {
   return (
@@ -83,7 +83,7 @@ export function CurriculumGroup({
     <section>
       <GroupHeader
         title="From the Oak curriculum"
-        tint="bg-oak-mint"
+        tint="bg-decorative-1"
         live
         subtitle="Lessons, units and threads from thenational.academy"
       />
@@ -127,7 +127,7 @@ export function ResultsHeader({
       <button
         type="button"
         onClick={onClear}
-        className="shrink-0 rounded-full border-2 border-oak-black bg-white px-4 py-1.5 text-[13px] font-bold text-oak-black transition-shadow hover:shadow-oak-lemon"
+        className="shrink-0 rounded-full border-2 border-line bg-btn-secondary px-4 py-1.5 text-[13px] font-bold text-ink transition-shadow hover:shadow-accent-brand"
       >
         Clear search
       </button>

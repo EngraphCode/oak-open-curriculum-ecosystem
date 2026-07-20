@@ -321,7 +321,7 @@ Search uses Elasticsearch with 4-way reciprocal rank fusion (ELSER sparse vector
 | `packages/design/` | Design token pipeline and reusable design primitives: DTCG source format, CSS custom property generation, WCAG AA contrast validation, Ink UI primitives |
 | `agent-tools/`     | Agent workflow CLIs: `claude-agent-ops`, `cursor-session-from-claude-session`, and `codex-reviewer-resolve`                                              |
 | `docs/`            | Developer documentation, guides, and the full ADR index                                                                                                  |
-| `research/`        | Imported research records as public projections, outside the product dependency lattice (ADR-214); first record: the web-app-deconstruction study        |
+| `research/`        | Imported research records as public projections, outside the product dependency lattice (ADR-215); first record: the web-app-deconstruction study        |
 
 ### Workspace Summaries
 

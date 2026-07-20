@@ -52,7 +52,7 @@ or configuration issue, never a missing check.
 | markdownlint      | Staged     | Yes      | Yes         | Yes (markdownlint-check:root) |
 | subagents:check   | --         | Yes      | Yes         | Yes                           |
 | portability:check | --         | Yes      | Yes         | Yes                           |
-| knip              | Yes        | Yes      | Yes         | Yes                           |
+| knip (knip:gate)  | Yes        | Yes      | Yes         | Yes                           |
 | depcruise         | Yes        | Yes      | Yes         | Yes                           |
 | repo-validators   | Yes        | Yes      | Yes         | Yes                           |
 | type-check        | Yes        | Yes      | Yes         | Yes                           |
@@ -136,7 +136,7 @@ adds no enforcement value. It is not part of any routine gate surface.
    `.husky/pre-push` and `.github/workflows/ci.yml` both run it — and is no
    longer an open exception.)
 2. **Pre-commit is fast and catches what it cheaply can** — format, markdown,
-   repo-validators, shell-lint, knip, depcruise, build, type-check, lint, and
+   repo-validators, shell-lint, knip (via `knip:gate`), depcruise, build, type-check, lint, and
    unit tests. Turbo caching, not the surface tier, bounds the cost: build is
    sub-second when warm and is required for type-check (`^build`). The
    speed budget (< 60s warm) is the constraint; within it, the goal is maximal
@@ -209,12 +209,16 @@ path stays forbidden. See ADR-161 §Third-party-vendor scope: GitHub's own APIs.
 ## Implementation
 
 - Pre-commit runs: `repo-check prettier-staged`, `repo-check
-markdownlint-staged`, `repo-validators:check`, `lint:shell`, `knip`,
-  `depcruise`, then Turbo: `build type-check lint test`.
+markdownlint-staged`, `repo-validators:check`, `lint:shell`, Turbo
+  (`build type-check lint test`), then `depcruise` and `knip:gate` — both
+  resolve package exports through built `dist` files, so they run after
+  the build (matching CI's restore-build-outputs-first order).
 - Pre-push runs: `secrets:scan`, `format-check:root`,
   `markdownlint-check:root`, `subagents:check`, `portability:check`,
-  `knip`, `depcruise`, `repo-validators:check`, `lint:shell`, then Turbo:
-  `sdk-codegen build type-check lint test test:e2e test:ui`.
+  `repo-validators:check`, `lint:shell`, Turbo (`sdk-codegen build
+type-check lint test test:e2e test:ui`), then `depcruise` and
+  `knip:gate` (after the build, for the same dist-resolution reason as
+  pre-commit).
 - CI runs as parallel jobs gated by a `run-quality-gates` fan-in (the single
   required status check; it fails unless every job succeeded — failed, cancelled,
   and skipped results all block — so each job blocks merge without a ruleset
@@ -223,7 +227,8 @@ markdownlint-staged`, `repo-validators:check`, `lint:shell`, `knip`,
   downstream jobs install offline), `static-checks` (`format-check:root`,
   `markdownlint-check:root`, `lint:shell`, `subagents:check`, `portability:check`,
   `repo-validators:check`), `build` (`sdk-codegen` + `build`, warms the Turbo
-  remote cache), `unit-tests` (`type-check`, `lint`, `test`), `knip-depcruise`,
+  remote cache), `unit-tests` (`type-check`, `lint`, `test`), `knip-depcruise`
+  (`knip:gate`, `depcruise`),
   and `browser-tests` (the Playwright suites, with the browser download cached and
   keyed on the Playwright version). The check set is unchanged from the prior single-job
   workflow — only the structure, caching, and gitleaks provisioning changed.
@@ -259,3 +264,4 @@ markdownlint-staged`, `repo-validators:check`, `lint:shell`, `knip`,
 | 2026-06-26 | CI restructured from one serial `run-quality-gates` job into parallel jobs (`secret-scan`, `install`, `static-checks`, `build`, `unit-tests`, `knip-depcruise`, `browser-tests`) gated by a `run-quality-gates` fan-in aggregator that reuses the existing required-check context (no ruleset change; every job blocks merge transitively). Updated the §Implementation CI bullet to describe the structure. The check SET is unchanged. New caching: an `install` job warms the pnpm store cache so downstream jobs install offline (no cold-start network stampede); the `build` job warms the Turbo remote cache; Playwright browsers are cached on the lockfile hash; gitleaks moved from a per-run Docker pull to a version- and SHA-256-pinned binary. Not addressed here (pre-existing #230 drift): the matrix still shows `test:widget*`/`test:a11y` as `pnpm check`-only though CI has run them since #230, and pre-push does not run them — a pre-push≠CI parity gap to reconcile separately. |
 | 2026-07-15 | Added the focused, verify-only `pnpm check:docs` aggregate for general documentation work. It composes root Prettier and Markdownlint checks with the documentation validator collection, while builds, product tests, browser suites, specialised-surface validators, and informational fitness reports remain outside this focused boundary. Reconciled adjacent stale `pnpm check` claims with executable truth: the full check uses verify-only format, Markdown, and lint commands and has no `doc-gen` stage.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | 2026-07-15 | Expanded internal-link validation from Markdown-file targets to every internal file and directory target, and made tracked-source to untracked-target references blocking under PDR-105's availability invariant. Removed checkout-local collaboration state from the stable-address allowlist and repaired the live documentation estate.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| 2026-07-20 | knip invocation replaced by `pnpm knip:gate` (`repo-check knip-gate`) on all four surfaces (pre-commit, pre-push, CI `knip-depcruise` job, `pnpm check`). knip exits 0 after a swallowed per-workspace config-load crash (F-147), so a crashed analysis could read as a pass; the gate wrapper re-runs knip, detects the crash-class output, and fails. The check SET is unchanged — this hardens the existing knip row's invocation.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |

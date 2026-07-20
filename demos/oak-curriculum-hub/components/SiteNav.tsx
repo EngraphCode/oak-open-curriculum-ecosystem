@@ -19,7 +19,7 @@ const navItems: readonly HubNavItem[] = [
 ];
 
 const navLinkClass =
-  'whitespace-nowrap rounded-oak-m2 px-[13px] py-[9px] text-[15px] font-semibold leading-none text-oak-black no-underline transition-colors hover:bg-oak-cream';
+  'whitespace-nowrap rounded-card px-[13px] py-[9px] text-[15px] font-semibold leading-none text-ink no-underline transition-colors hover:bg-surface-subtle';
 
 /** The inline sections nav — `md:` up only; small viewports use {@link MobileHubNav}. */
 function HubNav(): ReactElement {
@@ -44,7 +44,7 @@ function HubNav(): ReactElement {
 export default function SiteNav(): ReactElement {
   return (
     // sticky is itself a positioned ancestor — the disclosure panel anchors to it directly.
-    <header className="sticky top-0 z-50 border-b-[3px] border-oak-black bg-white">
+    <header className="sticky top-0 z-50 border-b-[3px] border-line bg-surface">
       <div className="mx-auto flex max-w-[1240px] items-center gap-5 px-4 py-3.5 md:px-7">
         <Link
           href="/"
@@ -58,7 +58,7 @@ export default function SiteNav(): ReactElement {
             alt="Oak National Academy"
             width={74}
             height={34}
-            className="h-[34px] w-auto"
+            className="h-[34px] w-auto [filter:var(--filter-icon)]"
             unoptimized
             priority
           />
@@ -73,7 +73,7 @@ export default function SiteNav(): ReactElement {
           <span
             role="img"
             aria-label="Your account"
-            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-oak-black bg-oak-mint text-[14px] font-bold leading-none"
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-line bg-decorative-1 text-[14px] font-bold leading-none"
           >
             <span aria-hidden="true">CT</span>
           </span>

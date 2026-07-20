@@ -28,7 +28,7 @@ export function CoursePlayerControls(): ReactElement | null {
   return (
     <nav
       aria-label="Section navigation"
-      className="mt-12 flex items-center justify-between gap-4 border-t border-oak-grey-line pt-7"
+      className="mt-12 flex items-center justify-between gap-4 border-t border-line-soft pt-7"
     >
       <button
         type="button"
@@ -38,7 +38,7 @@ export function CoursePlayerControls(): ReactElement | null {
             navigate(previousId);
           }
         }}
-        className="rounded-[10px] border-2 border-oak-black bg-white px-4 py-2.5 text-[15px] font-bold leading-none shadow-oak-lemon disabled:opacity-40 disabled:shadow-none"
+        className="rounded-[10px] border-2 border-line bg-btn-secondary px-4 py-2.5 text-[15px] font-bold leading-none shadow-accent-brand disabled:opacity-40 disabled:shadow-none"
       >
         <span aria-hidden="true">← </span>
         {'Previous'}
@@ -51,7 +51,7 @@ export function CoursePlayerControls(): ReactElement | null {
             navigate(nextId);
           }
         }}
-        className="rounded-[10px] border-2 border-oak-black bg-oak-black px-5 py-2.5 text-[15px] font-bold leading-none text-white shadow-oak-lemon disabled:opacity-40 disabled:shadow-none"
+        className="rounded-[10px] border-2 border-line bg-surface-inverted px-5 py-2.5 text-[15px] font-bold leading-none text-ink-inverted shadow-accent-brand disabled:opacity-40 disabled:shadow-none"
       >
         {'Complete & continue'}
         <span aria-hidden="true"> →</span>

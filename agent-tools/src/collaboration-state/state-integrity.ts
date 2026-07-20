@@ -5,6 +5,7 @@ import {
   createCollaborationJsonSchemaValidator,
   type CollaborationJsonSchemaValidator,
 } from './collaboration-json-validation.js';
+import { isErrnoCode } from './errno.js';
 import {
   parseClosedClaimsArchive,
   parseCollaborationRegistry,
@@ -184,10 +185,6 @@ async function readDirOrEmpty(
     }
     throw error;
   }
-}
-
-function isErrnoCode(error: unknown, code: string): boolean {
-  return typeof error === 'object' && error !== null && 'code' in error && error.code === code;
 }
 
 function finding(path: string, message: string): CollaborationStateIntegrityFinding {

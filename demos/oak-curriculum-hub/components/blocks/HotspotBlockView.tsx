@@ -34,10 +34,10 @@ function HotspotMarker({
       aria-label={`${index + 1}: ${title}`}
       aria-pressed={active}
       style={POSITIONS.at(index) ?? CENTRE}
-      className={`absolute z-[2] flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-[3px] border-oak-black text-[17px] leading-none font-bold transition-all ${
+      className={`absolute z-[2] flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-[3px] border-line text-[17px] leading-none font-bold transition-all ${
         active
-          ? 'scale-[1.15] bg-oak-lemon shadow-[0_0_0_4px_rgba(255,229,85,0.6)]'
-          : 'shadow-oak-black bg-white'
+          ? 'scale-[1.15] bg-selected shadow-[0_0_0_4px_rgba(255,229,85,0.6)]'
+          : 'shadow-ink-brand bg-surface'
       }`}
       onClick={onSelect}
     >
@@ -46,7 +46,7 @@ function HotspotMarker({
   );
 }
 
-/** The white detail card announcing the active spot: number chip, title, text. */
+/** The surface-role detail card announcing the active spot: number chip, title, text. */
 function SpotDetail({
   num,
   title,
@@ -60,11 +60,11 @@ function SpotDetail({
     // Native <output> carries the implicit status role; the inner rows are
     // block-styled phrasing elements (output's content model) — a live region
     // announcing title + text needs no paragraph semantics.
-    <output className="mt-3.5 block min-h-[90px] rounded-xl border-2 border-oak-black bg-white p-[16px_18px]">
+    <output className="mt-3.5 block min-h-[90px] rounded-xl border-2 border-line bg-surface p-[16px_18px]">
       <span className="mb-1.5 flex items-center gap-2.5">
         <span
           aria-hidden="true"
-          className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-oak-black text-sm leading-none font-bold text-white"
+          className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-surface-inverted text-sm leading-none font-bold text-ink-inverted"
         >
           {num}
         </span>
@@ -90,7 +90,7 @@ export function HotspotBlockView({ block }: { readonly block: HotspotBlock }): R
   const keys = useMemo(() => block.spots.map((_entry, index) => `spot-${index}`), [block.spots]);
   return (
     <div>
-      <div className="shadow-oak-wide-lemon relative aspect-[16/9] overflow-hidden rounded-2xl border-[3px] border-oak-black bg-oak-lavender-subdued">
+      <div className="shadow-accent-wide-brand relative aspect-[16/9] overflow-hidden rounded-2xl border-[3px] border-line bg-decorative-3-subtle">
         <div
           role="img"
           aria-label={block.placeholder}
@@ -110,7 +110,7 @@ export function HotspotBlockView({ block }: { readonly block: HotspotBlock }): R
             <rect x="3" y="3" width="18" height="18" rx="2" />
             <path d="M3 16l5-5 4 4 3-3 6 6" />
           </svg>
-          <span className="text-[13px] leading-[18px] font-light text-oak-grey">
+          <span className="text-[13px] leading-[18px] font-light text-ink-subdued">
             {block.placeholder}
           </span>
         </div>

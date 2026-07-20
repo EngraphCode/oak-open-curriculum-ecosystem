@@ -14,7 +14,9 @@ interface Destination {
   readonly cta: string;
   readonly href: string;
   readonly badge: string;
-  /** Canonical card background tint (hex, from the export source). */
+  /** Card background tint: a Tailwind utility backed by an Oak decorative-subtle
+   *  role (exact-value match to the canonical export hex — see fidelity register
+   *  entry global/cards-token-roles-slice4). */
   readonly cardTint: string;
   /** Icon-tile background (Oak decorative token; matches the canonical iconBg hex). */
   readonly tileTint: string;
@@ -29,8 +31,8 @@ const destinations: readonly Destination[] = [
     cta: 'Start learning',
     href: '/course',
     badge: '1 live',
-    cardTint: 'bg-[#ebfbeb]',
-    tileTint: 'bg-oak-mint',
+    cardTint: 'bg-decorative-1-subtle',
+    tileTint: 'bg-decorative-1',
     icon: (
       <>
         <path d="M22 10L12 5 2 10l10 5 10-5z" />
@@ -44,8 +46,8 @@ const destinations: readonly Destination[] = [
     cta: 'Browse standards',
     href: '/standards',
     badge: '685',
-    cardTint: 'bg-[#e3e9fb]',
-    tileTint: 'bg-oak-lavender',
+    cardTint: 'bg-decorative-3-subtle',
+    tileTint: 'bg-decorative-3',
     icon: (
       <>
         <path d="M9 11l3 3L22 4" />
@@ -59,8 +61,8 @@ const destinations: readonly Destination[] = [
     cta: 'Open rubrics',
     href: '/rubrics',
     badge: 'Hub',
-    cardTint: 'bg-[#e7f6f5]',
-    tileTint: 'bg-oak-aqua',
+    cardTint: 'bg-decorative-2-subtle',
+    tileTint: 'bg-decorative-2',
     icon: (
       <>
         <rect x="3" y="3" width="18" height="18" rx="2" />
@@ -74,8 +76,8 @@ const destinations: readonly Destination[] = [
     cta: 'See exemplars',
     href: '/exemplars',
     badge: 'Hub',
-    cardTint: 'bg-[#f5e9f2]',
-    tileTint: 'bg-oak-pink',
+    cardTint: 'bg-decorative-4-subtle',
+    tileTint: 'bg-decorative-4',
     icon: <path d="M12 2l2.4 5 5.6.8-4 3.9 1 5.5L12 19.6 6 17.2l1-5.5-4-3.9L8.6 7z" />,
   },
   {
@@ -84,8 +86,8 @@ const destinations: readonly Destination[] = [
     cta: 'Open the wiki',
     href: '/wiki',
     badge: 'Hub',
-    cardTint: 'bg-[#fff7cc]',
-    tileTint: 'bg-oak-lemon',
+    cardTint: 'bg-decorative-5-subtle',
+    tileTint: 'bg-decorative-5',
     icon: (
       <>
         <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
@@ -99,8 +101,8 @@ const destinations: readonly Destination[] = [
     cta: 'Explore curriculum search',
     href: '/curriculum',
     badge: 'Live',
-    cardTint: 'bg-oak-cream',
-    tileTint: 'bg-oak-amber',
+    cardTint: 'bg-surface',
+    tileTint: 'bg-decorative-6',
     // Reused verbatim from the old prototype's own "Oak curriculum" card glyph — a stacked-layers
     // mark reading as curriculum/content. Deliberate divergence from the canonical's five cards.
     icon: (
@@ -116,14 +118,14 @@ const destinations: readonly Destination[] = [
 // Canonical card container: 3px black border, 18px radius, 4px black offset shadow, 240px min
 // height, hover lift — verbatim from the export source.
 const cardClass =
-  'relative flex min-h-[240px] flex-col gap-3 rounded-[18px] border-[3px] border-oak-black px-6 pb-[26px] pt-6 text-oak-black no-underline shadow-[4px_4px_0_#222222] transition-transform duration-150 hover:-translate-y-1';
+  'relative flex min-h-[240px] flex-col gap-3 rounded-[18px] border-[3px] border-line px-6 pb-[26px] pt-6 text-ink no-underline shadow-[4px_4px_0_#222222] transition-transform duration-150 hover:-translate-y-1';
 
 function CardBody({ d }: { readonly d: Destination }): ReactElement {
   return (
     <>
       <div className="flex items-start justify-between gap-3">
         <span
-          className={`flex h-[54px] w-[54px] items-center justify-center rounded-[14px] border-2 border-oak-black ${d.tileTint}`}
+          className={`flex h-[54px] w-[54px] items-center justify-center rounded-[14px] border-2 border-line ${d.tileTint}`}
           aria-hidden
         >
           <svg
@@ -135,18 +137,18 @@ function CardBody({ d }: { readonly d: Destination }): ReactElement {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="text-oak-black"
+            className="text-ink"
           >
             {d.icon}
           </svg>
         </span>
-        <span className="rounded-full border-2 border-oak-black bg-white px-2.5 py-0.5 text-[11px] font-bold">
+        <span className="rounded-full border-2 border-line bg-surface px-2.5 py-0.5 text-[11px] font-bold">
           {d.badge}
         </span>
       </div>
       <h3 className="text-lg font-semibold leading-tight">{d.title}</h3>
-      <p className="flex-1 text-[15px] leading-relaxed text-oak-grey">{d.desc}</p>
-      <span className="text-[14px] font-bold text-oak-navy">
+      <p className="flex-1 text-[15px] leading-relaxed text-ink-subdued">{d.desc}</p>
+      <span className="text-[14px] font-bold text-link">
         {d.cta} <span aria-hidden>→</span>
       </span>
     </>
