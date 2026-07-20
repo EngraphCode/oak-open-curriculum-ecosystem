@@ -85,9 +85,9 @@ instrument that doctrine has not yet blessed:**
 
 | Seam | Clean in-estate precedent | Current misfit shape |
 | --- | --- | --- |
-| Type anchors (bidirectional, negative, exhaustiveness) | `packages/libs/logger/tests/logger-contract.typecheck.ts` (`Assert`/`AssertFalse`, off-API, tsc-proven); module-scope `expectTypeOf` (plan-state) | Public-API export with zero consumers; dummy consuming `it()`; three type-only `it()` blocks (banned shape, live) |
+| Type anchors (bidirectional, negative, exhaustiveness) | `packages/libs/logger/tests/logger-contract.typecheck.ts` (`Assert`/`AssertFalse`, off-API, tsc-proven); module-scope `expectTypeOf` (plan-state) | Public-API export with zero consumers; dummy consuming `it()`; type-only `it()` blocks across three files (banned shape, live; exemplars in the appendix) |
 | Defences against type-forbidden input | `unknown`-typed guards (strand-lookup); `parseContrastManifest` | `JSON.parse` typed alias; `Object.defineProperties` contortion (verify-clerk-token); walker hole-patch sequences |
-| Cross-artefact consistency | `validate-patterns-index` (regeneration-comparison + `--fix`); `validate-boundaries` (workspace-owned, root-chained); the owner's 2026-07-07 ruling | Three frozen-allowlist content-scan tests; a tautological package-version test; "checksum" plan wording |
+| Cross-artefact consistency | `validate-patterns-index` (regeneration-comparison + `--fix`); `validate-boundaries` (workspace-owned, root-chained); the owner's 2026-07-07 ruling | Frozen-allowlist content-scan tests (appendix exemplars); a tautological package-version test; "checksum" plan wording |
 | Live-data quality gates | `oak-design-tokens/src/build.ts` contrast gate (engine unit-tested on fixtures; live data gated at build) | The `build-css.integration.test.ts` duplicate — ADJUDICATED and cured on PR #423 (2026-07-20): the every-pairing re-proof removed, the two named checks retained as declared threshold exemplars |
 | Owned-message / vendor-conformance assertions | Module-TSDoc-declared owned messages; ADR-142 vendor drift tripwires | Exception exists in product TSDoc only; sibling-module and vendor message pinning unadjudicated |
 
@@ -211,7 +211,7 @@ root) and `:150` (array node), and
 `packages/design/design-tokens-core/src/contrast-resolve.unit.test.ts:195` (non-string
 `$value` object); two construct VALID own-`__proto__` keys where plain object literals
 cannot (JSON-fidelity necessity, not type-forbidden laundering — a distinct, legitimate
-purpose proposal 2's scope must carve out) —
+purpose proposal 3's parse-boundary scope must carve out) —
 `packages/design/design-tokens-core/src/compose-theme-tree.unit.test.ts:163` and
 `packages/design/design-tokens-core/src/overlay-coverage.unit.test.ts:133`.
 
