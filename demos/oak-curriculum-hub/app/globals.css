@@ -120,7 +120,10 @@ html {
 body {
   font-family: var(--font-sans);
   color: var(--text-primary);
-  background: var(--bg-primary);
+  /* background-color only: the kit's base rule owns background-image
+     (--surface-page-image) and background-attachment; the shorthand would
+     reset the brand page-atmosphere role (colors_and_type.css §4 BASE). */
+  background-color: var(--bg-primary);
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
