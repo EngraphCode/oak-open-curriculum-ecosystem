@@ -71,17 +71,15 @@ describe('readActiveClaimsFile on a fresh checkout', () => {
     expect(error).toBe(permissionFailure);
   });
 
-  it('preserves identity for a structurally-typed Error that is not an Error instance', async () => {
-    // Cross-realm and structurally-typed Error values fail `instanceof`;
-    // the identity promise must hold for them exactly as at the result
-    // package's raise edge.
+  it('crashes on a non-Error throwable — the anomaly is surfaced, never accommodated', async () => {
+    // Owner ruling 2026-07-20: a value that is not an Error instance is the
+    // system reporting a problem; it must cause an exception (with the
+    // original preserved as cause), not flow through the Result channel.
     const structural: Error = { name: 'Error', message: 'not an instance' };
 
-    const error = unwrapErr(
-      await readActiveClaimsFile('active-claims.json', () => Promise.reject(structural)),
-    );
-
-    expect(error).toBe(structural);
+    await expect(
+      readActiveClaimsFile('active-claims.json', () => Promise.reject(structural)),
+    ).rejects.toThrow('non-Error value thrown at the state-file read boundary');
   });
 });
 

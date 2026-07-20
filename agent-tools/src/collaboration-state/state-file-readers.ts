@@ -6,10 +6,12 @@
  * `state-file-seeds.ts` — instructions sufficient on their own to cure the
  * failure. Absence is never a silent empty registry (a wrong path would
  * masquerade as "no claims" — the F-41 decoy-path class), and every OTHER
- * failure (permissions, invalid content) flows out as an `Err` carrying
- * its original self — the throw happens only at the result package's
- * single sanctioned edge on unwrap, loud and with the cause chain intact
- * (owner ruling, 2026-07-20).
+ * `Error` failure (permissions, invalid content) flows out as an `Err`
+ * carrying its original self — the throw happens only at the result
+ * package's single sanctioned edge on unwrap, loud and with the cause
+ * chain intact. The one exception is a non-`Error` throwable: that is the
+ * system reporting a problem and it crashes at detection rather than
+ * entering the Result channel (owner rulings, 2026-07-20).
  *
  * The text-read seam is injectable per ADR-078 so tests prove the
  * behaviour with simple fakes and no real IO; production uses the
@@ -95,27 +97,19 @@ async function readStateFile<T>(
 }
 
 /**
- * Narrow a caught failure to the `Err` channel without losing anything:
- * an Error-shaped failure passes through as ITSELF — the discrimination is
- * structural, not `instanceof`, so cross-realm and structurally-typed
- * `Error` values keep their identity exactly as the result package's raise
- * edge preserves them — while a genuinely non-Error throwable (an anomaly
- * worth surfacing) is named as such with the original preserved intact as
- * `cause`. Never a stringified summary.
+ * Narrow a caught failure to the `Err` channel: a real `Error` instance
+ * passes through as itself. Anything else CRASHES — a non-Error throwable
+ * is the system reporting a problem, and we listen rather than accommodate
+ * (owner ruling, 2026-07-20): the exception names the anomaly and carries
+ * the original value intact as `cause`. It deliberately does NOT enter the
+ * Result channel — it is not a legitimate failure mode of reading a state
+ * file; it is a defect demanding attention.
  */
 function failureAsError(failure: unknown): Error {
-  return isErrorShaped(failure)
-    ? failure
-    : new Error('non-Error value thrown at the state-file read boundary', { cause: failure });
-}
-
-function isErrorShaped(failure: unknown): failure is Error {
-  return (
-    typeof failure === 'object' &&
-    failure !== null &&
-    'name' in failure &&
-    'message' in failure &&
-    typeof failure.name === 'string' &&
-    typeof failure.message === 'string'
-  );
+  if (failure instanceof Error) {
+    return failure;
+  }
+  throw new TypeError('non-Error value thrown at the state-file read boundary', {
+    cause: failure,
+  });
 }
