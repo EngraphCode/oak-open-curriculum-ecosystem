@@ -16,7 +16,7 @@ todos:
     status: completed # PR #428 MERGED 2026-07-20 (merge SHA: 3e2041e27); Decision items 3-4 amended to the adoption-forward ruling in this plan's amendment PR
     # depends_on: []
   - id: ws-b2-c1-parse-strictness
-    content: "WS-B2 cycle 1: src/arc/arc-channel-grammar.ts created with parseArcChannel + evaluateArcChannelStrictness (zod schema authority for channel shape). HAND-MERGE: KEEP the donor's adoption-date semantics in evaluateArcChannelStrictness — grammar obligations bind from adoption forward (owner ruling 2026-07-20; principles.md §No-legacy-surfaces second arm: the owning system is replaced completely, channel history stays append-only); oak's adoption date is fixed at this cycle's landing; the donor tests covering the adoption-date branch port with it. The grammar also DEFINES corpus membership: a channel IS a date-named markdown file under the rapid-comms root; README.md and the undated .starless-notice-body.md are non-channel infrastructure by grammar definition (a closed shape, not an exclusion list). Tests at src/arc/arc-channel-grammar.unit.test.ts (co-located per testing-strategy §Development Workflow). Red→Green→Refactor, one landing. Observable proof: the co-located grammar unit suite describes parse+strictness behaviour and passes (command shape fixed at this cycle's landing)."
+    content: "WS-B2 cycle 1: src/arc/arc-channel-grammar.ts created with parseArcChannel + evaluateArcChannelStrictness (zod schema authority for channel shape). HAND-MERGE: KEEP the donor's adoption-date semantics in evaluateArcChannelStrictness — grammar obligations bind from adoption forward (owner ruling 2026-07-20; principles.md §No-legacy-surfaces second arm: the owning system is replaced completely, channel history stays append-only); oak's ARC_SCHEMA_ADOPTION_DATE ships here PROVISIONALLY FUTURE-DATED and is trued at the delivery's merge to the first calendar day AFTER the ws-b9 ceremony wiring lands on main (the donor comparison is calendar-date granularity, so a same-day-or-earlier date would misclassify pre-ceremony channels as strict and red the gate — ws-b10 asserts the final constant); the donor tests covering the adoption-date branch port with it. The grammar also DEFINES corpus membership: a channel IS a date-named markdown file under the rapid-comms root; README.md and the undated .starless-notice-body.md are non-channel infrastructure by grammar definition (a closed shape, not an exclusion list). Tests at src/arc/arc-channel-grammar.unit.test.ts (co-located per testing-strategy §Development Workflow). Red→Green→Refactor, one landing. Observable proof: the co-located grammar unit suite describes parse+strictness behaviour and passes (command shape fixed at this cycle's landing)."
     status: pending
     depends_on: [ws-b1-adr]
   - id: ws-b2-c2-colour-roster
@@ -76,7 +76,7 @@ todos:
     status: pending
     depends_on: [ws-b6-c2-cli-wiring, ws-b7-c2-validator-wiring]
   - id: ws-b10-integrate-review
-    content: "WS-B10: full pnpm check (knip + depcruise + repo-validators + build + test) over the integrated delivery; adversarial specialist reviews (react/type/test/config/security as applicable); ADR-214 finalisation. Doc propagation, enumerated: ADR index entry in architectural-decisions/README.md; agent-tools/README.md CLI catalogue + Structure tree entries for src/arc + the two new scripts; TSDoc on new src/arc public exports; ws-b9 reference-doc repairs verified landed. All acceptance ids proven. Proof: pnpm check"
+    content: "WS-B10: full pnpm check (knip + depcruise + repo-validators + build + test) over the integrated delivery; adversarial specialist reviews (react/type/test/config/security as applicable); ADR-214 finalisation. Doc propagation, enumerated: ADR index entry in architectural-decisions/README.md; agent-tools/README.md CLI catalogue + Structure tree entries for src/arc + the two new scripts; TSDoc on new src/arc public exports; ws-b9 reference-doc repairs verified landed; ARC_SCHEMA_ADOPTION_DATE trued to the first calendar day after the ws-b9 ceremony wiring lands on main, with validate-arc-channels green under the final constant. All acceptance ids proven. Proof: pnpm check"
     status: pending
     depends_on: [ws-a-cycle-1, ws-b5-c2-composed-integration, ws-b9-convention-doc]
 isProject: false
@@ -268,7 +268,7 @@ same commands as their landing gates.
   caps (`ARC_CONTENT_READ_CAP`/`BYTE_CAP`) and membership-first ranking **verbatim**; the
   `no-unbounded-host-load` rule means they are load-bearing, not loosenable.
 - **identityPrefix regression** — naive wholesale copy of castr's `indicators.ts`/`segments.ts`
-  drops oak's 3-arg prefix-rendering `formatIdentity` (the PDR-027 cross-repo join key display).
+  drops oak's 3-arg prefix-rendering `formatIdentity` (the PDR-125 clause-5 cross-estate join key display).
   Mitigation: hand-merge (`ws-b4`/`ws-b5` acceptance explicitly re-asserts the prefix).
 - **Live pre-adoption channels at the adoption landing** — a channel opened before the
   `ws-b2` adoption date that is still inside the 30-minute active window when `ws-b5`
@@ -315,9 +315,9 @@ proceed on merge.
   cast size) and read this plan plus the thread record before any source edit; a fresh
   worktree runs install + build + Playwright per the start-right worktree contract.
 - **Pre-edit coordination:** the lane claim covers the statusline estate surfaces;
-  commit windows open per bundle via the commit-queue ceremony. WS-B8's tracked writes to
-  the live rapid-comms corpus additionally require a Director-granted commit window (the
-  corpus doubles as the live dialogue surface).
+  commit windows open per bundle via the commit-queue ceremony. No workstream writes to
+  the live rapid-comms corpus (history is append-only under the adoption-forward ruling),
+  so no corpus commit window is required.
 - **During-work updates:** todo statuses in this frontmatter advance at each cycle
   landing; PR events broadcast to comms per the team cadence.
 - **Session handoff:** mid-cycle retirement follows PDR-063 (handoff record +
