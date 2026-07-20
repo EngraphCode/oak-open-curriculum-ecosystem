@@ -14,7 +14,12 @@
  */
 import postcss, { CssSyntaxError, type Declaration, type Root, type Rule } from 'postcss';
 import { type Result, err, ok } from '@oaknational/result';
-import { normaliseValue, splitTopLevelComma } from './consistency-values.js';
+import {
+  collapseCssWhitespace,
+  normaliseValue,
+  splitTopLevelComma,
+  trimCssWhitespace,
+} from './consistency-values.js';
 
 /** The two per-theme `:root` comparand maps extracted from the CSS. */
 export interface CssComparand {
@@ -31,7 +36,9 @@ export interface CssParseError {
 const LIGHT_DARK_PATTERN = /^light-dark\((?<arms>.*)\)$/su;
 
 function normaliseSelector(selector: string): string {
-  return selector.replaceAll('"', "'").replaceAll(/\s+/gu, ' ').trim();
+  // CSS whitespace only: an NBSP in a selector is identifier content, so a
+  // selector differing from `:root` by NBSP must not normalise into scope.
+  return trimCssWhitespace(collapseCssWhitespace(selector.replaceAll('"', "'")));
 }
 
 function isTopLevelRootRule(rule: Rule): boolean {

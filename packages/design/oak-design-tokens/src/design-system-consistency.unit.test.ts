@@ -82,6 +82,19 @@ describe('normaliseValue', () => {
     // strings; a decode that flattens both to a\b would mask real drift.
     expect(normaliseValue(String.raw`'a\\b'`)).not.toBe(normaliseValue(String.raw`'a\b'`));
   });
+
+  it('keeps a non-breaking space distinct from a CSS space', () => {
+    // CSS whitespace is space/tab/LF/CR/FF only; U+00A0 is identifier
+    // content, so a value differing only by NBSP is real drift, and a JS
+    // \s collapse would normalise the two to equality.
+    expect(normaliseValue('foo\u00a0bar')).not.toBe(normaliseValue('foo bar'));
+  });
+
+  it('keeps a leading or trailing NBSP instead of trimming it away', () => {
+    // .trim() strips U+00A0; the CSS-whitespace trim must not.
+    expect(normaliseValue('\u00a0foo')).not.toBe(normaliseValue('foo'));
+    expect(normaliseValue('foo\u00a0')).not.toBe(normaliseValue('foo'));
+  });
 });
 
 describe('extractCssComparand', () => {

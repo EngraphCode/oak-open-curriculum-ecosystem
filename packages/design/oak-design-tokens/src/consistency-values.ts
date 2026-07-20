@@ -80,7 +80,7 @@ export function normaliseValue(value: string): string {
 
   parts.push(normaliseOutsideQuotes(outside));
 
-  return parts.join('').trim();
+  return trimCssWhitespace(parts.join(''));
 }
 
 /**
@@ -118,6 +118,26 @@ function consumeQuotedSpan(
 }
 
 const HEX_DIGIT_PATTERN = /[0-9a-f]/iu;
+
+/**
+ * CSS whitespace is space, tab, LF, CR, and FF only — narrower than JS `\s`,
+ * which also matches NBSP and other Unicode spaces that CSS treats as
+ * identifier content. Collapsing or trimming with JS semantics would
+ * normalise genuinely different values (`foo\u00a0bar` vs `foo bar`) to
+ * equality, masking real drift.
+ */
+const CSS_WHITESPACE_RUN_PATTERN = /[ \t\n\r\f]+/gu;
+const CSS_WHITESPACE_EDGE_PATTERN = /^[ \t\n\r\f]+|[ \t\n\r\f]+$/gu;
+
+/** Collapse CSS whitespace runs to a single space (never JS `\s`). */
+export function collapseCssWhitespace(segment: string): string {
+  return segment.replaceAll(CSS_WHITESPACE_RUN_PATTERN, ' ');
+}
+
+/** Trim CSS whitespace from both edges (never `.trim()`). */
+export function trimCssWhitespace(value: string): string {
+  return value.replaceAll(CSS_WHITESPACE_EDGE_PATTERN, '');
+}
 
 /** The canonical delimiter's escaped spelling, hoisted to keep templates flat. */
 const ESCAPED_DELIMITER = String.raw`\'`;
@@ -168,8 +188,7 @@ function consumeEscape(
 }
 
 function normaliseOutsideQuotes(segment: string): string {
-  return segment
-    .replaceAll(/\s+/gu, ' ')
+  return collapseCssWhitespace(segment)
     .replaceAll('( ', '(')
     .replaceAll(' )', ')')
     .replaceAll(' ,', ',')
