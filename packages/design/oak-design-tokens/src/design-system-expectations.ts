@@ -3,8 +3,7 @@
  *
  * @remarks
  * THE single home for every number and name the gate pins against the
- * imported export. Re-baseline this module at every studio sync (the
- * design-system workspace README's sync runbook names this file); a
+ * imported export. Re-baseline this module at every studio sync; a
  * mismatch is the gate telling you the export's shape drifted, not a
  * number to bump silently.
  *

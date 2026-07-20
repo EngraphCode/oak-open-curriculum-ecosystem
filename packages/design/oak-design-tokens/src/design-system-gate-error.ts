@@ -65,6 +65,25 @@ export type DesignSystemGateError =
       readonly error: ContrastValidationError;
     };
 
+/** Name the offending theme and token paths for each overlay-coverage failure shape. */
+function formatCoverageDetail(error: OverlayCoverageError): string {
+  if (error.kind === 'orphan_overrides') {
+    return error.orphans
+      .map(
+        (orphan) =>
+          `theme '${orphan.theme}' overrides paths absent from the base: ${orphan.paths.join(', ')}`,
+      )
+      .join('; ');
+  }
+
+  if (error.kind === 'invalid_theme_node') {
+    return `malformed node at '${error.path}' in theme '${error.theme}'`;
+  }
+
+  // Exhaustive by narrowing: 'reserved_theme_identifier' is the only remaining variant.
+  return `overlay uses the reserved theme identifier '${error.theme}'`;
+}
+
 /** Render a gate error as a build-failure message naming the source and stage. */
 export function formatDesignSystemGateError(gateError: DesignSystemGateError): string {
   const prefix = `Design-system dtcg gate [${gateError.stage}]`;
@@ -78,7 +97,7 @@ export function formatDesignSystemGateError(gateError: DesignSystemGateError): s
   }
 
   if (gateError.stage === 'coverage') {
-    return `${prefix}: overlay coverage failed (${gateError.error.kind})`;
+    return `${prefix}: overlay coverage failed (${gateError.error.kind}) — ${formatCoverageDetail(gateError.error)}`;
   }
 
   if (gateError.stage === 'composition') {

@@ -298,8 +298,9 @@ design-tokens-core  →  oak-design-system  →  oak-design-tokens  →  oak-des
 Arrow reads "may be imported by". `design-tokens-core` imports nothing from the monorepo and is
 consumed as a devDependency. `oak-design-system` has zero runtime monorepo dependencies and
 never imports other design workspaces, apps, or sdks; its public surface is built CSS plus the
-DTCG export artefact — no React. `oak-design-tokens` depends on the design system (token data
-source, Stage B onward) plus `design-tokens-core`. `oak-design-ink` depends on
+DTCG export artefact — no React. `oak-design-tokens` depends on the design system (validator
+consumer of the DTCG export from PR3's dual-gate window — §2 amendment 2026-07-20; token data
+source at Stage B) plus `design-tokens-core`. `oak-design-ink` depends on
 `oak-design-tokens` only. Apps and demos consume the design system's built CSS and the
 ink/terminal surfaces. Boundary enforcement (depcruise/ESLint) is regenerated in the
 implementing plan. Named convergence consumers: MCP App views, the terminal theme, and

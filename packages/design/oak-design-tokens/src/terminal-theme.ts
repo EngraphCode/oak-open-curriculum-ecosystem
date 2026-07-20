@@ -50,6 +50,13 @@ function resolveColoursOrThrow(tokenTree: DtcgTokenTree): ReadonlyMap<string, st
     throw new Error(`Malformed token tree at '${resolution.error.path}'.`);
   }
 
+  if (resolution.value.unresolvable.length > 0) {
+    const failures = resolution.value.unresolvable
+      .map((entry) => `${entry.path} -> ${entry.reference}`)
+      .join(', ');
+    throw new Error(`Unresolvable colour references in hand-authored tree: ${failures}.`);
+  }
+
   return resolution.value.resolved;
 }
 
