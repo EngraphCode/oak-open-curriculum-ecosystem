@@ -1,7 +1,9 @@
 # ADR-214: ARC-Colour Statusline Infrastructure
 
 - **Status:** Proposed (drafted 2026-07-20; owner direction 2026-07-20 — bring castr's
-  ARC feather system and the usage relocation into oak as one coherent estate)
+  ARC feather system and the usage relocation into oak as one coherent estate; Decision
+  items 3–4 amended 2026-07-20 per owner ruling — obligations bind from adoption
+  forward, the owning system is replaced completely, history is never retro-edited)
 - **Relates to:** [ADR-183](183-comms-event-tag-namespace-substrate.md) (comms-event tag
   namespace), [ADR-186](186-comms-event-heartbeat-lifecycle-substrate.md) (heartbeat
   lifecycle substrate), PDR-111 (agent experience is first-class), PDR-027 (threads,
@@ -40,14 +42,21 @@ both merged to [`EngraphCode/castr`](https://github.com/EngraphCode/castr) main
    statusline renders what the corpus records. There is no colourless fallback rendering
    and no hash-derived colour: a feather without a recorded index is an invalid-state
    signal, rendered as such.
-3. **The historical corpus is repaired in place.** Every tracked channel file is conformed
-   to the grammar — no grandfather window, no exclusion list, no fallback reader for
-   legacy shapes (`principles.md`: no legacy surfaces).
+3. **Grammar obligations bind from the adoption date forward; channel history is
+   append-only and never retro-edited.** This is the second arm of `principles.md`'s
+   no-legacy-surfaces rule — replace the owning surface completely (owner ruling
+   2026-07-20: update the system, not the old channel docs). The owning system —
+   grammar, validator, channel-open ceremony — is replaced in full; pre-adoption
+   channels age out of the active window naturally, and a live channel without a
+   recorded colour renders the grammar's defined invalid state. No exclusion list and
+   no fallback reader for pre-adoption shapes: adoption-forward scoping is the
+   grammar's own strictness semantics, not an exemption mechanism.
 4. **A corpus validator lands with the grammar and fails loud.** The grammar's strictness
    surface exists only through its validator; the two land together (no dead code). The
    validator targets the canonical rapid-comms surface and fails loudly when it is absent
-   or invalid. Its wiring into the estate's blocking validator gate lands atomically with
-   the corpus repair, so no commit window carries a red gate over an unrepaired corpus.
+   or invalid. Its wiring into the estate's blocking validator gate lands with the
+   validator itself — under adoption-forward obligations the corpus is green as it
+   stands, so no commit window carries a red gate.
 5. **The strict tier preserves the protocol's protected zero-per-message-ceremony
    property.** All grammar obligations attach at channel-open (one colour-index line, one
    header) and to entry timestamps the protocol already requires; no per-message field,
@@ -58,9 +67,9 @@ both merged to [`EngraphCode/castr`](https://github.com/EngraphCode/castr) main
 
 - The statusline gains multi-channel, identity-coloured liveness with cross-host and
   invalid/overflow states, replacing the boolean wing and its false-negative class.
-- The channel corpus becomes machine-validated shared state: colour and roster mean the
-  same thing to every estate that reads it, and drift fails the gate instead of silently
-  mis-rendering.
+- The channel corpus becomes machine-validated shared state from the adoption date
+  forward: colour and roster mean the same thing to every estate that reads it, and
+  post-adoption drift fails the gate instead of silently mis-rendering.
 - The per-tick gatherer moves from two cheap reads to bounded content reads; the read
   caps and membership-first ranking from the source design are load-bearing
   (`no-unbounded-host-load`) and travel with the port.

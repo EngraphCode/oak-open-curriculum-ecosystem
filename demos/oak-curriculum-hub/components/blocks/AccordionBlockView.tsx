@@ -4,7 +4,7 @@ import type { AccordionBlock, AccordionItem } from '@/lib/blocks/types';
 
 import { DashedMediaSlot } from './DashedMediaSlot';
 
-/** One accordion item: an export-exact white card `<details>` with chip badge, dashed divider body. */
+/** One accordion item: an export-shaped surface-role card `<details>` with chip badge, dashed divider body. */
 function AccordionItemView({
   item,
   chip,
@@ -13,7 +13,7 @@ function AccordionItemView({
   readonly chip: string | undefined;
 }): ReactElement {
   return (
-    <details className="overflow-hidden rounded-xl border-2 border-line bg-white shadow-accent-brand">
+    <details className="overflow-hidden rounded-xl border-2 border-line bg-surface shadow-accent-brand">
       <summary className="flex cursor-pointer list-none items-center gap-3 px-[18px] py-4 text-[18px] font-bold leading-6 [&::-webkit-details-marker]:hidden">
         {item.badge !== undefined && (
           <span
@@ -75,7 +75,7 @@ function FeatureList({ features }: { readonly features: readonly string[] }): Re
 /**
  * Renders an {@link AccordionBlock} using native `<details>`/`<summary>` (keyboard-operable and
  * screen-reader-announced without JavaScript — the most robust WCAG-AA choice), styled export-exact:
- * white cards with lemon shadow, chip badges tinted `block.chip` or the module accent
+ * surface-role cards with the accent shadow, chip badges tinted `block.chip` or the module accent
  * (`--module-accent`, set by the player's module gate), dashed body divider, green feature ticks.
  */
 export function AccordionBlockView({ block }: { readonly block: AccordionBlock }): ReactElement {

@@ -1,9 +1,6 @@
-import { spawn, spawnSync, type SpawnSyncReturns } from 'node:child_process';
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-
-import { writeErrorLine } from '../core/terminal-output.js';
 
 export type {
   RepoCheckCommandResult,
@@ -22,28 +19,9 @@ import type {
   CheckProfileArtifact,
 } from './repo-check-types.js';
 
-export function runInheritedProcess(command: string, args: readonly string[]): Promise<number> {
-  return new Promise((resolve) => {
-    const child = spawn(command, args, { stdio: 'inherit' });
-    child.on('close', (code) => resolve(code ?? 1));
-    child.on('error', (error) => {
-      writeErrorLine(`${command}: ${error.message}`);
-      resolve(1);
-    });
-  });
-}
+export { defaultRuntime, runCapturedProcess, runInheritedProcess } from './repo-check-runtime.js';
 
-export function runCapturedProcess(
-  command: string,
-  args: readonly string[],
-): SpawnSyncReturns<string> {
-  return spawnSync(command, args, { encoding: 'utf8', maxBuffer: 1024 * 1024 * 50 });
-}
-
-export const defaultRuntime: RepoCheckRuntime = {
-  runCaptured: runCapturedProcess,
-  runInherited: runInheritedProcess,
-};
+import { defaultRuntime } from './repo-check-runtime.js';
 
 function profileOutputDir(): string {
   const outputDir = path.resolve(process.cwd(), '.logs', 'check-profiles');

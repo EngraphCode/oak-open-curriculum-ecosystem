@@ -74,11 +74,11 @@ describe('collaboration-state tui CLI integration', () => {
         loadCommsConceptGateBlocks: async () => ok([]),
         readActiveClaimsFile: async (filePath) => {
           reads.push(filePath);
-          return activeClaims();
+          return ok(activeClaims());
         },
         readClosedClaimsFile: async (filePath) => {
           reads.push(filePath);
-          return { schema_version: '1.3.0', claims: [] };
+          return ok({ schema_version: '1.3.0', claims: [] });
         },
         readCommsEvents: async (commsDir) => {
           reads.push(commsDir);
