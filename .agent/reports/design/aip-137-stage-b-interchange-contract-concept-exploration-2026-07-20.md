@@ -11,6 +11,28 @@ the working tree at `packages/design/` (verified identical to `origin/main` for 
 at 08:14Z) and against the landed `#412` validation layer. Nothing here edits ADR-213 or the
 plan; §Proposals routes the edits.
 
+## Review contract
+
+- **Purpose and impact**: shape the `ws-stage-b-convergence` implementing change and a
+  proposed ADR-213 §2 dated amendment; the Stage-B implementer and the amendment's
+  ratifier are the readers whose next actions this report serves.
+- **Substantive questions a review should test**: (1) are observations O1–O9 reproducible
+  from their cited sites; (2) does each proposal's warrant actually follow from the
+  observations it cites; (3) is the per-consumer projection frame sounder than a single
+  normalised interchange tree (P1's falsifier is the crux); (4) is any token value class
+  left without a declared per-consumer disposition?
+- **Evidence standard and authority boundary**: every claim is first-hand-verified against
+  the named files at the stated date; transmitted claims (studio README, plan text) are
+  marked as such. The report asserts no decisions — ADR/plan edits are proposals routed to
+  the Director-sequenced doctrine slot, and studio-side fixes are routed to the
+  design-sync lane.
+- **Non-goals**: this report does not authorise the Stage-B change, any ADR/plan edit, or
+  any studio edit; it does not choose the motion-cascade cure or any matter outside the
+  two named Stage-B questions.
+- **A successful review** challenges at least the crux falsifiers (P1, P3) against the
+  evidence and reports any missing evidence or contract mismatch as a finding on the
+  landing PR's threads, where each receives a first-hand-verified disposition.
+
 ## Movement 1 — load-bearing observations
 
 - **O1. Three naming conventions coexist for one token.** The kit's canonical CSS declares
@@ -38,8 +60,10 @@ plan; §Proposals routes the edits.
 - **O4. The value grammar is closed at the contrast boundary, open at the CSS boundary.**
   `#412`'s `colour-literals.ts` admits `#rrggbb` | `rgb(R G B / A)` | full-string reference;
   expressions are rejected with structured `Err`, and alpha literals are admitted but
-  reported for exclusion from the WCAG hex map. The export carries 15 expressions verbatim
-  (3 × `color-mix` in `semantic.light` `state.*`; 12 × `calc` in `component.json`), and the
+  reported for exclusion from the WCAG hex map. The export carries 20 functional values
+  verbatim (3 × `color-mix` in `semantic.light` `state.*`; 12 × `calc`, 1 × `min`,
+  3 × `minmax`, 1 × `clamp` in `component.json` — the studio README's "15 tokens carry
+  `color-mix()`/`calc()`" undercounts by omitting the grid/layout functions), and the
   studio's own contract doc instructs "a consuming build should pass them through untouched".
   Both sides are right — for different consumers.
 - **O5. Two of the three `color-mix` tokens can never be statically resolved — the third
@@ -49,8 +73,11 @@ plan; §Proposals routes the edits.
   problem is compositing-dependent contrast, the same disposition the alpha literals
   already have), never paint-time-contextual. None of `state.*` appears in
   `contrast-pairings.json` (0 hits; 34 pairs, all resolvable solid roles).
-- **O6. The 12 `calc` expressions are dimension-class, not colour.** They parameterise
-  layout off `{density}` and `{space.*}`. `{density}` is itself a component-tier token
+- **O6. The 17 layout expressions are dimension-class, not colour.** The 12 `calc` values
+  parameterise layout off `{density}` and `{space.*}`, and the `min`/`minmax`/`clamp`
+  values (round-3 review addition) are grid/sizing expressions of the same class — all
+  pass-through-legitimate for CSS emission and outside the colour grammar's scope by
+  value type. `{density}` is itself a component-tier token
   (`component.json:212`, mirroring the `--density` brand knob), so component→component
   references exist in the export — a second dialect-alias class alongside the
   semantic→semantic aliases ADR-213 §2 already names. `resolveCssValue` would emit them as
@@ -171,11 +198,15 @@ concurrently.
    rename ledger.
 4. **Route the studio-side corrections through the design-sync lane** (append to the
    existing ~21-item sync-back batch): correct the README's false "lands on their
-   convention" claim to describe the P1 contract; fix the 32-vs-34 pair-count drift; record
-   the `{density}` component-tier self-reference as deliberate (or re-tier it studio-side).
-   *Warrant*: O9; the sync discipline makes the studio doc the contract statement both
-   surfaces cite. *Falsifier*: none needed — these are description-truth fixes; if the sync
-   session finds the README already regenerated, the items retire.
+   convention" claim to describe the P1 contract; fix the 32-vs-34 pair-count drift;
+   correct the "15 tokens carry `color-mix()`/`calc()`" undercount to the full 20-value
+   functional inventory (O4); record the `{density}` component-tier self-reference as
+   deliberate (or re-tier it studio-side). *Warrant*: O9; the sync discipline makes the
+   studio doc the contract statement both surfaces cite. *Falsifier*: if the studio
+   session regenerates `dtcg/README.md` from the CSS and the regenerated text still
+   carries these errors, the defect lives in the export **generator**, not the doc — the
+   routing shifts from doc correction to a generator fix, and doc-level edits would be
+   symptom-patching.
 5. **Give the terminal its own 11-entry role→kit-path map, not the P3 name map.** The
    terminal resolves a **dot-path-keyed** map (`terminal-theme.ts` looks up
    `component.page-background` etc. against `resolveTokenTreeToHex`'s path-keyed output),
