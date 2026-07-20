@@ -214,10 +214,12 @@ carries the observations, warrants, and falsifiers each clause cites):
   role→kit-dot-path map, resolved at build). Variable identity is derived from tree paths
   (`toCssVariable`), so any re-rooting renames every emitted CSS variable — a path
   convention decision is a consumer-migration decision, and no single normalised
-  interchange tree is authoritative. _Falsifier severity is graded_: one kit token a
-  projection cannot account for routes to that projection's migration leg as a defect;
-  **systematic** unaccountability falsifies the per-consumer frame itself, making a single
-  normalised tree the honest shape after all.
+  interchange tree is authoritative. _Falsification is mechanical, not judged_: each
+  projection is a total checked map over the export; a mismatch that can be cured or
+  recorded as a disposition routes to that projection's migration leg as a defect, and a
+  projection falsifies the per-consumer frame when its map **cannot reach zero
+  unaccounted entries after all recordable dispositions** — at which point a single
+  normalised interchange tree is the honest shape after all.
 - **`runtime-computed` is a declared value class** — values whose computation is
   paint-time-contextual (the `currentColor` mixes `state.hover` and `state.pressed`) are
   exported verbatim, pass through to CSS emission (the browser evaluates them), are
@@ -235,13 +237,21 @@ carries the observations, warrants, and falsifiers each clause cites):
   end state (one web CSS delivery surface, owned by the design system) stands; between
   Stage B and the MCP views' direct kit-CSS binding, a mapped `index.css` generated
   through a **total disposition map** (every kit path → `emit` | `omit`-with-reason;
-  reverse coverage of every currently emitted variable; emit-target uniqueness across the
-  whole map; reference-closure over emitted values) serves the views as a named
-  transitional surface. The map is checked by a **Stage-B migration-parity check** that
-  lands inside the Stage-B change (distinct from the kit-internal dtcg↔CSS export check,
-  which guards export canonicality, not repo-output compatibility). Retirement condition,
+  reverse coverage — every currently emitted variable is accounted for by exactly one kit
+  path **or a recorded repo-only disposition**; emit-target uniqueness across the whole
+  map; reference-closure over emitted values) serves the views as a named transitional
+  surface. The acceptance bar is **byte-stable reproduction of the covered emission set**
+  plus zero unaccounted entries on either side, zero emit-target collisions, and no
+  dangling emitted references, checked by a **Stage-B migration-parity check** that lands
+  inside the Stage-B change (distinct from the kit-internal dtcg↔CSS export check, which
+  guards export canonicality, not repo-output compatibility). Retirement condition,
   recorded here: the map and its check die when the MCP views bind the kit CSS directly —
-  a named post-Stage-B lane, not part of the atomic switch.
+  a named post-Stage-B lane, not part of the atomic switch. The replace-dont-bridge
+  invariant holds throughout, as in the dual-gate window above: **at no moment do two
+  paths serve the same consumers** — Stage B deletes the superseded source atomically,
+  `index.css` remains the single canonical web delivery surface (now generated from the
+  kit source) until the later binding change replaces it in its own atomic moment, and no
+  adapter lets an old path and a new path coexist.
 - **The terminal-owned-tree fallback is plan-scoped, not ADR-authorised.** If Stage B's
   kit trees cannot supply all 11 terminal roles through the map, the implementing plan's
   falsifier names "the terminal keeps its own tree" as the fallback — but §2 requires the

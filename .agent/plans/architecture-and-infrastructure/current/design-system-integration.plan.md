@@ -211,8 +211,10 @@ One lane, sequenced PRs, each linked to AIP-137:
   assets, the hub's gitignored-local-assets pattern applies (tracked code, gitignored assets,
   a documented re-obtain runbook) and the manifest records it.
 - If Stage B's 11-path terminal mapping cannot be satisfied from the design system's component
-  tree, the terminal theme keeps its own tree — a deliberate, recorded exception, not silent
-  drift.
+  tree, firing this falsifier HALTS Stage B pending a dated ADR-213 amendment through the
+  doctrine slot ("the terminal keeps its own tree" is never self-authorising — §2 requires the
+  hand-authored trees deleted and the 11-path contract proved; §2 amendment 2026-07-20); only
+  that ratification can record the exception.
 - If the bidirectional sync discipline produces repeated conflicts or drift between the two
   surfaces, that is evidence the membrane needs tooling (a structural-diff helper or a
   drift detector) — raise it as a structural cure, do not fall back to record-access.
