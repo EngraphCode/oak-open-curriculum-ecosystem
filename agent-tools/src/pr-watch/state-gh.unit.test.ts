@@ -138,7 +138,9 @@ describe('readPrStateReading', () => {
     // Only the run mapped to THIS PR survives; the other PR's run is filtered.
     expect(reading.reviewRuns).toEqual({
       kind: 'read',
-      runs: [{ id: 'live-1', name: 'Review from @jimCresswell', completedAt: null }],
+      runs: [
+        { id: 'live-1', name: 'Review from @jimCresswell', createdAt: 't', completedAt: null },
+      ],
     });
   });
 
@@ -210,7 +212,7 @@ describe('readPrStateReading', () => {
     expect(listCall).toContain('100');
   });
 
-  it('retries then fails loud on mergeable UNKNOWN (never settles over uncomputed conflicts)', () => {
+  it('fails loud on mergeable UNKNOWN (never settles over uncomputed conflicts)', () => {
     const unknownView = JSON.stringify({
       number: 461,
       state: 'OPEN',
@@ -235,7 +237,9 @@ describe('readPrStateReading', () => {
         },
       }),
     ).toThrow(/mergeability not yet computed/);
-    expect(calls.filter((args) => args[0] === 'pr')).toHaveLength(3);
+    // No blind immediate retries: mergeability computes over seconds, so the
+    // boundary fails loud on the single read.
+    expect(calls.filter((args) => args[0] === 'pr')).toHaveLength(1);
   });
 
   it('passes --repo through to the pr view leg', () => {

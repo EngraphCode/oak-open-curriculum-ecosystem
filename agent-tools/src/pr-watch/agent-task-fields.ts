@@ -16,6 +16,10 @@ const agentTaskListSchema = z.array(
     .object({
       id: z.string(),
       name: z.string(),
+      createdAt: z
+        .string()
+        .nullish()
+        .transform((value) => value ?? ''),
       completedAt: z
         .string()
         .nullish()
@@ -33,6 +37,7 @@ export function parseAgentTaskList(raw: unknown): ReviewRun[] {
   return agentTaskListSchema.parse(raw).map((run) => ({
     id: run.id,
     name: run.name,
+    createdAt: run.createdAt,
     completedAt: run.completedAt,
   }));
 }

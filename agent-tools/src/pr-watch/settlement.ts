@@ -1,4 +1,9 @@
-import { computeReviewerLegs, mostBlockingLeg, QUIET_WINDOW_MS } from './reviewer-legs.js';
+import {
+  computeReviewerLegs,
+  isSignedSelfReply,
+  mostBlockingLeg,
+  QUIET_WINDOW_MS,
+} from './reviewer-legs.js';
 import type { ReviewerLeg } from './reviewer-legs.js';
 import type { PrStateReading, PrVerdict } from './state-types.js';
 
@@ -40,16 +45,6 @@ function legLine(leg: ReviewerLeg): string {
   return `${leg.reviewer}: ${leg.state} — ${leg.detail}`;
 }
 
-// Signed self-authored disposition replies posted through the shared owner
-// credential carry the PDR-027 identity-tuple signature ("— <name> (<hex6>)");
-// the canonical contract EXCLUDES them from quiet-window anchoring (SKILL
-// Phase 3 item 1: an unsigned self-reply falsely re-opens the round).
-const SELF_REPLY_SIGNATURE = /—\s*[^\n]*\([0-9a-f]{6}\)\s*$/mu;
-
-function isSignedSelfReply(body: string): boolean {
-  return SELF_REPLY_SIGNATURE.test(body);
-}
-
 // SKILL item 4: the quiet window anchors on the latest LANDED review binding
 // the tip — excluding PENDING drafts and signed self-authored replies; on a
 // tip where every leg settled via SKIPPED (no tip-bound review), it anchors
@@ -76,7 +71,17 @@ function settledVerdict(input: {
     ...runsEvidence(reading),
   ];
   const anchor = quietWindowAnchor(reading);
-  if (anchor !== null && Date.parse(now) - Date.parse(anchor) <= QUIET_WINDOW_MS) {
+  const anchorMs = anchor === null ? Number.NaN : Date.parse(anchor);
+  // A missing or unparseable anchor holds the window OPEN (conservative
+  // direction): settlement without a provable quiet window is the
+  // bot-round-still-composing hole again.
+  if (Number.isNaN(anchorMs)) {
+    return {
+      state: 'SETTLING-QUIET-WINDOW',
+      evidence: ['no parseable quiet-window anchor — window held open conservatively', ...shared],
+    };
+  }
+  if (Date.parse(now) - anchorMs <= QUIET_WINDOW_MS) {
     return {
       state: 'SETTLING-QUIET-WINDOW',
       evidence: [`quiet window open until more than 10 min after ${anchor}`, ...shared],
@@ -98,8 +103,37 @@ function settledVerdict(input: {
   };
 }
 
+// An EMPTY expected set can never settle (SKILL CRITICAL first-round rule: an
+// initial tip must not read merge-ready before the first bot round). Fires
+// when --expect is undeclared and nothing is observable yet.
+function emptyExpectedSetVerdict(reading: PrStateReading): PrVerdict {
+  return {
+    state: 'SILENT-WAIT-NO-REVIEWER',
+    evidence: [
+      'expected reviewer set is EMPTY (undeclared and nothing observed on an initial tip) — declare --expect; the first-round guarantee cannot hold vacuously',
+      ...runsEvidence(reading),
+    ],
+  };
+}
+
+// A live run that maps to no outstanding request (app-style reviews) cannot
+// back a leg; name it so SILENT-WAIT never reads as "nothing is happening".
+function unmappedLiveRunEvidence(reading: PrStateReading, blockingKind: string): string[] {
+  const hasUnmappedLiveRun =
+    blockingKind === 'SILENT-WAIT-NO-REVIEWER' &&
+    liveRunReviewers(reading).length === 0 &&
+    reading.reviewRuns.kind === 'read' &&
+    reading.reviewRuns.runs.some((run) => run.completedAt === null);
+  return hasUnmappedLiveRun
+    ? ['note: a review run IS live for this PR, unmapped to any request']
+    : [];
+}
+
 /** Resolve the reviewer-leg half of the verdict for an otherwise-green PR. */
 export function reviewerLegVerdict(reading: PrStateReading, now: string): PrVerdict {
+  if (reading.expectedReviewers.length === 0) {
+    return emptyExpectedSetVerdict(reading);
+  }
   const legs = computeReviewerLegs({
     headRefOid: reading.headRefOid,
     expectedReviewers: reading.expectedReviewers,
@@ -123,6 +157,7 @@ export function reviewerLegVerdict(reading: PrStateReading, now: string): PrVerd
     evidence: [
       `most blocking reviewer leg: ${blocking.reviewer}`,
       ...legDetail,
+      ...unmappedLiveRunEvidence(reading, blocking.kind),
       ...expectedSetEvidence(reading),
       ...runsEvidence(reading),
     ],

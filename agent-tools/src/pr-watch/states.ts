@@ -65,7 +65,12 @@ const checksAndThreadsRules: readonly VerdictRule[] = [
     r.checks.pending > 0 || r.checks.passed === 0
       ? {
           state: 'CHECKS-RUNNING',
-          evidence: [`checks ${r.checks.passed}/${r.checks.total} passed, none failed`],
+          evidence: [
+            `checks ${r.checks.passed}/${r.checks.total} passed, none failed`,
+            ...(r.checks.total === 0
+              ? ['no checks configured or reported yet — nothing will transition without one']
+              : []),
+          ],
         }
       : undefined,
   (r) =>
@@ -74,6 +79,18 @@ const checksAndThreadsRules: readonly VerdictRule[] = [
           state: 'THREADS-OPEN',
           evidence: [
             `${r.reviewThreads.unresolved}/${r.reviewThreads.total} review threads unresolved`,
+          ],
+        }
+      : undefined,
+  // The founding BEHIND-stall class: a BEHIND base blocks the merge whatever
+  // the legs say, and an armed intent behind it stalls silently. Never a
+  // settled verdict here — fold/update the branch first.
+  (r) =>
+    r.mergeStateStatus === 'BEHIND'
+      ? {
+          state: 'BEHIND-BASE',
+          evidence: [
+            'base branch has moved (mergeStateStatus=BEHIND) — update/fold before arming; an armed intent behind a moved base stalls silently',
           ],
         }
       : undefined,

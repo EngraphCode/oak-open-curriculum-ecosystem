@@ -186,7 +186,14 @@ describe('parseAgentTaskList / parseAgentTaskView', () => {
         completedAt: null,
       },
     ]);
-    expect(runs).toEqual([{ id: 'run-1', name: 'Review from @jimCresswell', completedAt: null }]);
+    expect(runs).toEqual([
+      {
+        id: 'run-1',
+        name: 'Review from @jimCresswell',
+        createdAt: '2026-07-21T10:22:07Z',
+        completedAt: null,
+      },
+    ]);
   });
 
   it('parses the view shape carrying the run→PR mapping', () => {

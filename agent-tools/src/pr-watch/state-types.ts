@@ -18,6 +18,7 @@ export interface NamedCheck {
 export interface ReviewRun {
   readonly id: string;
   readonly name: string;
+  readonly createdAt: string;
   readonly completedAt: string | null;
 }
 
@@ -77,6 +78,7 @@ export const PR_VERDICT_STATES = [
   'CHECKS-RUNNING',
   'CHECKS-RED',
   'THREADS-OPEN',
+  'BEHIND-BASE',
   'ARMED-BEHIND-RED',
   'QUOTA-SKIPPED',
   'MERGED',

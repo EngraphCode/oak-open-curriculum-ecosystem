@@ -11,6 +11,7 @@ import {
 } from './gh.js';
 import { parseReviewThreadPages } from './review-threads.js';
 import { parseAgentTaskList, parseAgentTaskView } from './agent-task-fields.js';
+import { hasLanded, isSignedSelfReply } from './reviewer-legs.js';
 import { parseReviewsHarvest, parseStateView, PR_STATE_VIEW_JSON_FIELDS } from './state-fields.js';
 import type { PrStateReading, ReviewRun, ReviewRunsLeg } from './state-types.js';
 
@@ -43,7 +44,6 @@ export interface ReadPrStateOptions {
 }
 
 const COMPLETED_RUN_MAP_LIMIT = 5;
-const MERGEABILITY_RETRIES = 2;
 
 // The vendor list defaults to the latest 30 sessions; request the full
 // supported window and mark residual truncation explicitly (absence beyond
@@ -90,33 +90,47 @@ function reviewsHarvestArgs(prNumber: string, repo: string | undefined): string[
 }
 
 // `mergeable: UNKNOWN` means GitHub has not computed mergeability yet — a
-// documented transient. Retry the boundary a bounded number of times; if it
-// stays UNKNOWN, fail loud rather than let a green reading settle over an
+// documented transient computed over seconds, so an immediate retry is a
+// no-op. Fail loud once rather than let a green reading settle over an
 // uncomputed conflict state.
-function readViewWithMergeabilityRetry(input: {
+function readMergeabilityComputedView(input: {
   readonly run: GhCommandExecutor;
   readonly gh: string;
   readonly viewArgs: readonly string[];
   readonly prNumber: string;
 }) {
-  let view = parseStateView(
+  const view = parseStateView(
     parseGhJson(input.run(input.gh, input.viewArgs, GH_EXEC_OPTIONS), 'pr view'),
   );
-  for (
-    let attempt = 0;
-    attempt < MERGEABILITY_RETRIES && view.mergeable === 'UNKNOWN';
-    attempt += 1
-  ) {
-    view = parseStateView(
-      parseGhJson(input.run(input.gh, input.viewArgs, GH_EXEC_OPTIONS), 'pr view'),
-    );
-  }
   if (view.mergeable === 'UNKNOWN') {
     throw new Error(
       `PR #${input.prNumber}: mergeability not yet computed (mergeable=UNKNOWN) — re-run in a few seconds`,
     );
   }
   return view;
+}
+
+// Wrap the harvest failure with operator-grade evidence: a nonexistent or
+// inaccessible PR surfaces as a null pullRequest deep in the GraphQL payload.
+function readReviewsHarvest(input: {
+  readonly run: GhCommandExecutor;
+  readonly gh: string;
+  readonly prNumber: string;
+  readonly repo: string | undefined;
+}) {
+  try {
+    return parseReviewsHarvest(
+      parseGhJson(
+        input.run(input.gh, reviewsHarvestArgs(input.prNumber, input.repo), GH_EXEC_OPTIONS),
+        'api graphql reviews',
+      ),
+    );
+  } catch (cause) {
+    throw new Error(
+      `PR #${input.prNumber}: reviews harvest failed — does the PR exist and is it accessible?`,
+      { cause },
+    );
+  }
 }
 
 function describeError(error: unknown): string {
@@ -132,6 +146,7 @@ function mapRunsToPr(input: {
   const live = input.runs.filter((run) => run.completedAt === null);
   const completed = input.runs
     .filter((run) => run.completedAt !== null)
+    .sort((left, right) => right.createdAt.localeCompare(left.createdAt))
     .slice(0, COMPLETED_RUN_MAP_LIMIT);
   const scoped: ReviewRun[] = [];
   for (const run of [...live, ...completed]) {
@@ -188,23 +203,25 @@ export function readPrStateReading(options: ReadPrStateOptions): PrStateReading 
     viewArgs.push('--repo', repo);
   }
 
-  const view = readViewWithMergeabilityRetry({ run, gh, viewArgs, prNumber });
+  const view = readMergeabilityComputedView({ run, gh, viewArgs, prNumber });
   const reviewThreads = parseReviewThreadPages(
     parseGhJson(
       run(gh, reviewThreadsArgs(prNumber, repo), GH_EXEC_OPTIONS),
       'api graphql reviewThreads',
     ),
   );
-  const reviews = parseReviewsHarvest(
-    parseGhJson(
-      run(gh, reviewsHarvestArgs(prNumber, repo), GH_EXEC_OPTIONS),
-      'api graphql reviews',
-    ),
-  );
+  const reviews = readReviewsHarvest({ run, gh, prNumber, repo });
   const reviewRuns = readReviewRunsLeg({ run, gh, prNumber: number });
 
   const declared = options.expectedReviewers ?? [];
-  const observed = [...new Set([...view.reviewRequests, ...reviews.map((r) => r.author)])];
+  // A defaulted expected set must not be polluted by the agent's own signed
+  // disposition replies (shared-credential reviews), unsubmitted drafts, or
+  // deleted-account 'unknown' authors — each would mint a phantom OWED leg.
+  const observedAuthors = reviews
+    .filter((review) => hasLanded(review) && !isSignedSelfReply(review.body))
+    .map((review) => review.author)
+    .filter((author) => author !== 'unknown');
+  const observed = [...new Set([...view.reviewRequests, ...observedAuthors])];
   return {
     ...view,
     reviewThreads,

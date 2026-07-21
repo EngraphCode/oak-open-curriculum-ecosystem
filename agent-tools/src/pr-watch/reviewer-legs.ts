@@ -70,8 +70,20 @@ function normaliseLogin(login: string): string {
 
 // A PENDING (draft, unsubmitted) review has not landed: it must neither
 // satisfy a leg nor act as a skip marker.
-function hasLanded(review: HarvestedReview): boolean {
+export function hasLanded(review: HarvestedReview): boolean {
   return review.state !== 'PENDING';
+}
+
+// Signed self-authored disposition replies posted through the shared owner
+// credential carry the PDR-027 identity-tuple signature ("— <name> (<hex6>)")
+// on their FINAL line; the canonical contract excludes them from quiet-window
+// anchoring and they must not pollute a defaulted expected-reviewer set. The
+// check is two linear probes, not one ambiguous regex (S8786 backtracking).
+const SIGNATURE_SUFFIX = /\([0-9a-f]{6}\)$/u;
+
+export function isSignedSelfReply(body: string): boolean {
+  const lastLine = (body.trimEnd().split('\n').at(-1) ?? '').trim();
+  return lastLine.startsWith('—') && SIGNATURE_SUFFIX.test(lastLine);
 }
 
 function elapsedMs(fromIso: string, nowIso: string): number {

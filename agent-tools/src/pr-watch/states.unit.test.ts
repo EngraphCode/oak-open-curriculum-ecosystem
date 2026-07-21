@@ -52,7 +52,7 @@ function settledReading(overrides: Partial<PrStateReading> = {}): PrStateReading
 }
 
 describe('PR_VERDICT_STATES', () => {
-  it('is the closed set from the plan plus the two typed extensions (CLOSED, SETTLING-QUIET-WINDOW)', () => {
+  it('is the closed set from the plan plus the typed extensions', () => {
     const byLocale = (left: string, right: string): number => left.localeCompare(right);
     expect([...PR_VERDICT_STATES].sort(byLocale)).toEqual(
       [
@@ -65,6 +65,7 @@ describe('PR_VERDICT_STATES', () => {
         'CHECKS-RUNNING',
         'CHECKS-RED',
         'THREADS-OPEN',
+        'BEHIND-BASE',
         'ARMED-BEHIND-RED',
         'QUOTA-SKIPPED',
         'MERGED',
@@ -250,7 +251,9 @@ describe('computePrVerdict — run liveness per reviewer', () => {
         checksGreenAt: '2026-07-21T12:56:00Z',
         reviewRuns: {
           kind: 'read',
-          runs: [{ id: 'run-1', name: 'Review from @jimCresswell', completedAt: null }],
+          runs: [
+            { id: 'run-1', name: 'Review from @jimCresswell', createdAt: 't0', completedAt: null },
+          ],
         },
       }),
       '2026-07-21T13:00:00Z',
@@ -267,7 +270,12 @@ describe('computePrVerdict — run liveness per reviewer', () => {
         reviewRuns: {
           kind: 'read',
           runs: [
-            { id: 'run-1', name: 'Review from @jimCresswell', completedAt: '2026-07-21T12:40:00Z' },
+            {
+              id: 'run-1',
+              name: 'Review from @jimCresswell',
+              createdAt: 't0',
+              completedAt: '2026-07-21T12:40:00Z',
+            },
           ],
         },
       }),
@@ -296,6 +304,42 @@ describe('computePrVerdict — run liveness per reviewer', () => {
     );
     expect(verdict.state).toBe('SETTLE-READY');
     expect(verdict.evidence.join('\n')).toContain('review-run liveness unavailable');
+  });
+});
+
+describe('computePrVerdict — base currency and vacuous sets', () => {
+  it('a BEHIND base never reads settled — the founding BEHIND-stall class', () => {
+    const verdict = computePrVerdict(settledReading({ mergeStateStatus: 'BEHIND' }), LATE_NOW);
+    expect(verdict.state).toBe('BEHIND-BASE');
+  });
+
+  it('an EMPTY expected set can never settle (first-round rule holds vacuously nowhere)', () => {
+    const verdict = computePrVerdict(
+      settledReading({ expectedReviewers: [], expectedDeclared: false, reviews: [] }),
+      LATE_NOW,
+    );
+    expect(verdict.state).toBe('SILENT-WAIT-NO-REVIEWER');
+    expect(verdict.evidence.join('\n')).toContain('EMPTY');
+  });
+
+  it('a missing quiet-window anchor holds the window open, never silently settles', () => {
+    const verdict = computePrVerdict(
+      settledReading({
+        checksGreenAt: null,
+        reviews: [
+          {
+            author: COPILOT,
+            state: 'COMMENTED',
+            body: 'Reviewed.',
+            commitOid: TIP,
+            submittedAt: '',
+          },
+        ],
+      }),
+      LATE_NOW,
+    );
+    expect(verdict.state).toBe('SETTLING-QUIET-WINDOW');
+    expect(verdict.evidence.join('\n')).toContain('no parseable quiet-window anchor');
   });
 });
 
