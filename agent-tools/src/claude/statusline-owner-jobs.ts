@@ -11,6 +11,21 @@
  * the open-job count whenever the register carries open items. Pure —
  * the adapter reads the file and passes the content in.
  *
+ * THE REGISTER RENDER CONTRACT (canonical, tracked here because the
+ * register itself is untracked and procedure-rendered): the register is a
+ * PROJECTION of Linear — issues labelled `owner-ask`, assignee = the
+ * authenticated Linear MCP viewer. Whichever agent interacts with the
+ * owner updates Linear, then re-renders the file with: (1) a title
+ * carrying the VIEWER's display name (never hardcoded — each developer's
+ * checkout renders their own queue); (2) a generated-header HTML comment
+ * carrying a `link:` line — the viewer's owner-ask issue-list URL, https
+ * only, URL-safe characters only (this module rejects anything else
+ * before it reaches the OSC 8 escape); (3) one `## <ID> <title>` section
+ * per open issue with `- state:` lines this module counts. A register
+ * rendered without the `link:` line degrades to the plain bell — valid,
+ * just linkless. Dispositions belong on the Linear issue, never in the
+ * file.
+ *
  * @packageDocumentation
  */
 
