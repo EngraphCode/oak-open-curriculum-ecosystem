@@ -37,9 +37,11 @@ inventory rather than copying the rule list here.
 
 Thorough grounding extends quick grounding. Also apply
 `.agent/skills/start-right-quick/shared/start-right.md` §Live state
-(operational memory) and §Live branch state so repo-continuity, the touched
-thread record, active claims, shared comms, decision/escalation state, active
-plans, and git status/log are part of the same grounding pass.
+(operational memory), §Live branch state, and §Collaborating human
+(resolve, don't assume) so repo-continuity, the touched thread record,
+active claims, shared comms, decision/escalation state, active plans,
+git status/log, and the resolved human collaborator are part of the same
+grounding pass.
 
 ## Active-Claims Registry
 

@@ -546,6 +546,24 @@ Universal testing principles:
   architectural-failure symptom — remove them, fix the ambiguity in product
   code, write deterministic behaviour-proving tests.
 
+### Any User, Any Machine
+
+The estate must work on any machine, for any user, including a cold,
+fresh install (owner-set, 2026-07-21). This is a review lens applied to
+every surface as it is touched, not a one-off migration: test each
+design against three readers — another user on their own machine, the
+current user on a new machine, and a cold clone with no local state.
+Concretely: no named person where a role or derivation belongs
+(resolve the collaborating human per the start-right skill's
+§Collaborating Human ladder), no machine-local paths
+([no-machine-local-paths](../rules/no-machine-local-paths.md)), no
+state that only exists because an earlier session happened to leave it
+([important-state-not-in-temp-files](../rules/important-state-not-in-temp-files.md)),
+and per-user surfaces derive their user at run time rather than at
+authoring time. A surface that silently assumes its author's identity
+or host is a portability defect even while it works perfectly for
+them.
+
 ### Developer Experience
 
 - **No commented out code** - Fix it or delete it

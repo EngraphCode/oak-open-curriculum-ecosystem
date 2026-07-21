@@ -7,6 +7,7 @@ import {
   runCommitQueueTopic,
   runContextCostTopic,
   runMergeBotTopic,
+  runPrTopic,
   runPrWatchTopic,
   runSessionMetadataTopic,
   runSpawnTopic,
@@ -122,6 +123,7 @@ const UNIFORM_TOPIC_HANDLERS: Readonly<Record<string, UniformTopicHandler>> = {
   'session-metadata': runSessionMetadataTopic,
   'codex-exec': runCodexExecTopic,
   'merge-bot': runMergeBotTopic,
+  pr: runPrTopic,
   'pr-watch': runPrWatchTopic,
   spawn: runSpawnTopic,
 };
@@ -213,6 +215,7 @@ function usage(): string {
     '  session-metadata',
     '  codex-exec',
     '  merge-bot',
+    '  pr',
     '  pr-watch',
     '  spawn',
   ].join('\n');
