@@ -15,7 +15,7 @@ derives_from:
 todos:
   - id: s1-schema-template-validator-fence
     content: "S1 — V0 Zod transcription + delivery/runbook templates + new-corpus validator leg + the Notion privacy fence (mechanical layer hash-matched; construction and human layers stated in the rule file)."
-    status: pending
+    status: completed
     depends_on: [s2-backlog-move-and-skeleton]
   - id: s2-backlog-move-and-skeleton
     content: "S2 — pure-move backlog of the prior plan estate (commit 1 = the move alone, R100-provable), founding members admitted under the corpus admission rule, minimal root skeleton, registry hygiene, references sweep."
