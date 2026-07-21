@@ -521,3 +521,8 @@ Named misses and flags (technical record):
   heredoc ("git … checkout --" across the text); the cure (splitting the compound +
   rewording) worked, but the mechanism was never verified against the hook policy source.
   Successors should not inherit the diagnosis as fact.
+
+## Bandicoot lifts Hollow (37b6c1) — 2026-07-21
+
+- **MISTAKE (owner-caught): authored owner cards from documents without probing the live system.** The MCP-67 plan + Card 1 asked domain/staging questions answerable in 30 seconds of curl: `curriculum-mcp-alpha.oaknational.dev` is live, stable, UAT-verified, ADR-115 proxy deployed, upstream = Clerk **Development** realm (`native-hippo-15.clerk.accounts.dev`). The promotion is an upstream realm swap on an existing deployment, not greenfield. Two reviewer rounds (clerk-expert with live vendor docs, assumptions-expert) also missed it — reviewers verified the plan against DOCS and CODE, nobody probed the RUNNING SYSTEM. Cure shape: before authoring any plan about a deployed surface, probe the deployment first (metadata endpoints, env reality); "verify the vendor surface" ≠ "verify OUR live surface". Owner word: "did you explore the code before you asked the questions?"
+- Worked well: S1 corpus validator caught a real YAML defect (unquoted colon-space → mapping) at CI; one-commit cure; validator earning its keep on day one.
