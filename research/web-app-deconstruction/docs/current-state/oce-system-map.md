@@ -41,14 +41,18 @@ configuration have not been verified.
 Run the dependency-free inventory from the `web-app-deconstruction` root:
 
 ```sh
-node packages/research-evidence/scripts/oce-inventory.ts \
-  --oce ../oak-open-curriculum-ecosystem
+pnpm exec tsx packages/research-evidence/scripts/oce-inventory.ts
 ```
+
+(The TypeScript source uses `.js` specifiers backed by `.ts` files, so it
+runs through the package's declared `tsx` runner; the enclosing OCE checkout
+is the location-based default.)
 
 The [inventory script](../../packages/research-evidence/scripts/oce-inventory.ts)
 asserts OCE's root package identity, records the Git revision and clean state,
 uses `git ls-files` as its population, resolves workspace patterns, parses the
-committed graph and Hub JSON payloads, derives tracked Hub page routes, measures
+tracked working-tree graph and Hub JSON payloads (revision-exact only when the
+worktree is clean, per the limit below), derives tracked Hub page routes, measures
 tracked generated files and reconciles the rules index with canonical rule
 files.
 

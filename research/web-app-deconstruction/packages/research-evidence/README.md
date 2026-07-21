@@ -86,9 +86,11 @@ The exact OCE inventory command used by the current-state map is dependency-free
 and may be run directly from `web-app-deconstruction`:
 
 ```sh
-pnpm exec tsx packages/research-evidence/scripts/oce-inventory.ts \
-  --oce ../oak-open-curriculum-ecosystem
+pnpm exec tsx packages/research-evidence/scripts/oce-inventory.ts
 ```
+
+The enclosing OCE checkout is the script's location-based default; pass
+`--oce <path>` only to measure a different checkout.
 
 It writes JSON to stdout. Add
 `--output .research-evidence/oce-inventory.json` to retain an ignored local
@@ -97,11 +99,13 @@ result.
 The Database-Tools, oak-openapi and OCE chain inventory is also dependency-free:
 
 ```sh
-pnpm exec tsx packages/research-evidence/scripts/database-api-chain-inventory.ts \
-  --database-tools ../Database-Tools \
-  --oak-openapi ../oak-openapi \
-  --oce ../oak-open-curriculum-ecosystem
+pnpm exec tsx packages/research-evidence/scripts/database-api-chain-inventory.ts
 ```
+
+All three checkouts default from the script's own location (Database-Tools
+and oak-openapi as siblings of the enclosing OCE checkout); pass the
+`--database-tools` / `--oak-openapi` / `--oce` overrides only for
+non-default layouts.
 
 It reads Git `HEAD` trees and committed blobs. It reports worktree cleanliness
 but never uses changed working-tree bytes for its measurements.
