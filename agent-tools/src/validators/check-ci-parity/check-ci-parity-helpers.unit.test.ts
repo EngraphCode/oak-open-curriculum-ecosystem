@@ -134,16 +134,18 @@ jobs:
     expect(coverage.turboTasks.has('Report')).toBe(false);
   });
 
-  it('reads pnpm invocations through a -s silence flag', () => {
+  it('reads pnpm invocations through -s and --silent flags, symmetric with the check side', () => {
     const withSilence = `
 jobs:
   smoke:
     steps:
       - run: pnpm -s smoke:esm-import-extensions
+      - run: pnpm --silent skills:check
 `;
     const coverage = parseCiCoverage(withSilence);
 
     expect(coverage.scripts.has('smoke:esm-import-extensions')).toBe(true);
+    expect(coverage.scripts.has('skills:check')).toBe(true);
   });
 });
 

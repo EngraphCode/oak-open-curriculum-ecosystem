@@ -104,7 +104,7 @@ export function parseCheckLegs(checkScript: string): CheckLegs {
   return { scripts, turboTasks };
 }
 
-const PNPM_INVOCATION_PATTERN = /\bpnpm\s+(?:-s\s+)?([A-Za-z0-9:._-]+)/g;
+const PNPM_INVOCATION_PATTERN = /\bpnpm\s+(?:(?:-s|--silent)\s+)?([A-Za-z0-9:._-]+)/g;
 
 const TASK_NAME_PATTERN = /^[A-Za-z0-9:._-]+$/;
 
