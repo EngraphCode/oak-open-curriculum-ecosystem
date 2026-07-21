@@ -343,13 +343,16 @@ source. Worked instance: the 2026-07-21 agent-tools outage, where the
 dist CLI was cold-start broken for a day under green CI ("the surface
 that validates is not the surface that executes").
 
-**Requirement (binds at landing, forward from this section's
-adoption): every NEW built binary ships at least one smoke test** that
+**Invariant: EVERY built binary carries at least one smoke test** that
 invokes the artefact exactly as production invokes it and proves the
-minimum truth-set for its class, landing in the same PR as the binary
-(the atomic-landing invariant). The pre-existing binary estate carries
-a bounded retrofit obligation, tracked in the work-management system,
-whose contract is stated here self-contained: every existing built
+minimum truth-set for its class. New binaries satisfy the invariant at
+landing — the smoke ships in the same PR as the binary (the
+atomic-landing invariant). The pre-existing binary estate does not yet
+satisfy it: that gap is RECORDED DEBT — enumerable mechanically at any
+moment as the difference between the built binary entries a workspace
+emits and the truth-set smokes reachable from its CI-run tasks — and
+it is tracked in the work-management system as a bounded retrofit
+obligation whose contract is stated here self-contained: every existing built
 binary gains its truth-set smoke; the smoke-suffix convention is
 unified estate-wide; and pre-doctrine "smoke" suites that are
 scope-axis tests under this definition are reclassified into the
