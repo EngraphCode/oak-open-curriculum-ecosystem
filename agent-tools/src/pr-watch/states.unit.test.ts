@@ -21,6 +21,7 @@ const LATE_NOW = '2026-07-21T13:00:00Z';
 function settledReading(overrides: Partial<PrStateReading> = {}): PrStateReading {
   return {
     number: 999,
+    url: 'https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/999',
     state: 'OPEN',
     mergeable: 'MERGEABLE',
     mergeStateStatus: 'BLOCKED',
@@ -223,7 +224,7 @@ describe('computePrVerdict — per-reviewer legs (the collapsed-legs r2 class)',
     expect(verdict.state).toBe('SILENT-WAIT-NO-REVIEWER');
   });
 
-  it('an empty commitOid (vendor gap, seen live) is tolerated as tip-bound', () => {
+  it('an empty commitOid never proves tip binding; the leg settles via the checks-green timeout', () => {
     const verdict = computePrVerdict(
       settledReading({
         reviews: [
@@ -239,6 +240,7 @@ describe('computePrVerdict — per-reviewer legs (the collapsed-legs r2 class)',
       LATE_NOW,
     );
     expect(verdict.state).toBe('SETTLE-READY');
+    expect(verdict.evidence.join('\n')).toContain('timeout');
   });
 });
 
@@ -367,7 +369,7 @@ describe('computePrVerdict — quiet window and settlement (SKILL item 4)', () =
             author: 'claude',
             state: 'COMMENTED',
             body: '⚠️ **Code review skipped** — overage spend limit reached.',
-            commitOid: '',
+            commitOid: TIP,
             submittedAt: '2026-07-21T12:05:30Z',
           },
         ],

@@ -141,6 +141,7 @@ function mapRunsToPr(input: {
   readonly run: GhCommandExecutor;
   readonly gh: string;
   readonly prNumber: number;
+  readonly prUrl: string;
   readonly runs: readonly ReviewRun[];
 }): ReviewRunsLeg {
   const live = input.runs.filter((run) => run.completedAt === null);
@@ -153,13 +154,21 @@ function mapRunsToPr(input: {
     const viewRaw = parseGhJson(
       input.run(
         input.gh,
-        ['agent-task', 'view', run.id, '--json', 'id,completedAt,pullRequestNumber'],
+        ['agent-task', 'view', run.id, '--json', 'id,completedAt,pullRequestNumber,pullRequestUrl'],
         GH_EXEC_OPTIONS,
       ),
       'agent-task view',
     );
-    if (parseAgentTaskView(viewRaw).pullRequestNumber === input.prNumber) {
-      scoped.push(run);
+    const view = parseAgentTaskView(viewRaw);
+    // PR numbers are repository-local: require the URL to agree when the
+    // vendor supplies one, so another repo's #N never backs this PR's legs.
+    const sameRepoPr =
+      view.pullRequestNumber === input.prNumber &&
+      (view.pullRequestUrl === undefined || view.pullRequestUrl === input.prUrl);
+    if (sameRepoPr) {
+      // The view read is fresher than the list snapshot: a run that completed
+      // between the two reads must not report live.
+      scoped.push({ ...run, completedAt: view.completedAt });
     }
   }
   const note =
@@ -173,6 +182,7 @@ function readReviewRunsLeg(input: {
   readonly run: GhCommandExecutor;
   readonly gh: string;
   readonly prNumber: number;
+  readonly prUrl: string;
 }): ReviewRunsLeg {
   try {
     const listRaw = parseGhJson(
@@ -211,7 +221,7 @@ export function readPrStateReading(options: ReadPrStateOptions): PrStateReading 
     ),
   );
   const reviews = readReviewsHarvest({ run, gh, prNumber, repo });
-  const reviewRuns = readReviewRunsLeg({ run, gh, prNumber: number });
+  const reviewRuns = readReviewRunsLeg({ run, gh, prNumber: number, prUrl: view.url });
 
   const declared = options.expectedReviewers ?? [];
   // A defaulted expected set must not be polluted by the agent's own signed

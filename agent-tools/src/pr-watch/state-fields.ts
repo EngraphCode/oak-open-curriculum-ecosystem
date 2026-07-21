@@ -43,6 +43,7 @@ const reviewRequestSchema = z
 
 const stateViewSchema = z.object({
   number: z.number(),
+  url: z.string(),
   state: z.string(),
   mergeable: z.string(),
   mergeStateStatus: z.string(),
@@ -66,6 +67,7 @@ const stateViewSchema = z.object({
 /** The exact `--json` field set the `pr state` gh call requests. */
 export const PR_STATE_VIEW_JSON_FIELDS = [
   'number',
+  'url',
   'state',
   'mergeable',
   'mergeStateStatus',
@@ -78,6 +80,7 @@ export const PR_STATE_VIEW_JSON_FIELDS = [
 /** The parsed `gh pr view` legs specific to `pr state`. */
 export interface ParsedStateView {
   readonly number: number;
+  readonly url: string;
   readonly state: string;
   readonly mergeable: string;
   readonly mergeStateStatus: string;
@@ -135,6 +138,7 @@ export function parseStateView(raw: unknown): ParsedStateView {
   const checks = summarise(namedChecks);
   return {
     number: parsed.number,
+    url: parsed.url,
     state: parsed.state,
     mergeable: parsed.mergeable,
     mergeStateStatus: parsed.mergeStateStatus,

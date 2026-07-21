@@ -10,10 +10,12 @@ import type { GhCommandExecutor } from './gh.js';
  */
 
 const HEAD = 'f'.repeat(40);
+const PR_URL = 'https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/461';
 
 function viewPayload(): string {
   return JSON.stringify({
     number: 461,
+    url: PR_URL,
     state: 'OPEN',
     mergeable: 'MERGEABLE',
     mergeStateStatus: 'BLOCKED',
@@ -124,7 +126,12 @@ describe('readPrStateReading', () => {
             { id: 'done-1', name: 'Review from @jimCresswell', createdAt: 't', completedAt: 't2' },
           ]),
           agentTaskViews: {
-            'live-1': JSON.stringify({ id: 'live-1', completedAt: null, pullRequestNumber: 461 }),
+            'live-1': JSON.stringify({
+              id: 'live-1',
+              completedAt: null,
+              pullRequestNumber: 461,
+              pullRequestUrl: PR_URL,
+            }),
             'done-1': JSON.stringify({ id: 'done-1', completedAt: 't2', pullRequestNumber: 999 }),
           },
         },
@@ -140,6 +147,64 @@ describe('readPrStateReading', () => {
       kind: 'read',
       runs: [
         { id: 'live-1', name: 'Review from @jimCresswell', createdAt: 't', completedAt: null },
+      ],
+    });
+  });
+
+  it('a run for the same PR number in ANOTHER repo never backs this PR', () => {
+    const reading = readPrStateReading({
+      target: { number: 461 },
+      ...ghSeam,
+      execFileSync: makeExecutor(
+        {
+          agentTaskList: JSON.stringify([
+            { id: 'foreign', name: 'Review from @x', createdAt: 't', completedAt: null },
+          ]),
+          agentTaskViews: {
+            foreign: JSON.stringify({
+              id: 'foreign',
+              completedAt: null,
+              pullRequestNumber: 461,
+              pullRequestUrl: 'https://github.com/oaknational/some-other-repo/pull/461',
+            }),
+          },
+        },
+        [],
+      ),
+    });
+    expect(reading.reviewRuns).toEqual({ kind: 'read', runs: [] });
+  });
+
+  it('uses the fresher view completedAt: a run finishing between list and view is not live', () => {
+    const reading = readPrStateReading({
+      target: { number: 461 },
+      ...ghSeam,
+      execFileSync: makeExecutor(
+        {
+          agentTaskList: JSON.stringify([
+            { id: 'finishing', name: 'Review from @x', createdAt: 't', completedAt: null },
+          ]),
+          agentTaskViews: {
+            finishing: JSON.stringify({
+              id: 'finishing',
+              completedAt: '2026-07-21T14:00:00Z',
+              pullRequestNumber: 461,
+              pullRequestUrl: PR_URL,
+            }),
+          },
+        },
+        [],
+      ),
+    });
+    expect(reading.reviewRuns).toEqual({
+      kind: 'read',
+      runs: [
+        {
+          id: 'finishing',
+          name: 'Review from @x',
+          createdAt: 't',
+          completedAt: '2026-07-21T14:00:00Z',
+        },
       ],
     });
   });
@@ -205,7 +270,7 @@ describe('readPrStateReading', () => {
     expect(viewCalls).toHaveLength(5);
     // The view leg must name its fields: bare --json is a usage error on this
     // vendor surface (caught live, 2026-07-21).
-    expect(viewCalls[0]).toContain('id,completedAt,pullRequestNumber');
+    expect(viewCalls[0]).toContain('id,completedAt,pullRequestNumber,pullRequestUrl');
     // The list leg requests the full supported window (vendor default is 30).
     const listCall = calls.find((args) => args[0] === 'agent-task' && args[1] === 'list');
     expect(listCall).toContain('--limit');
@@ -215,6 +280,7 @@ describe('readPrStateReading', () => {
   it('fails loud on mergeable UNKNOWN (never settles over uncomputed conflicts)', () => {
     const unknownView = JSON.stringify({
       number: 461,
+      url: PR_URL,
       state: 'OPEN',
       mergeable: 'UNKNOWN',
       mergeStateStatus: 'UNKNOWN',

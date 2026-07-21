@@ -14,6 +14,7 @@ import { parseReviewsHarvest, parseStateView, PR_STATE_VIEW_JSON_FIELDS } from '
 function stateViewFixture(): Record<string, unknown> {
   return {
     number: 461,
+    url: 'https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/461',
     state: 'OPEN',
     mergeable: 'MERGEABLE',
     mergeStateStatus: 'BLOCKED',
@@ -116,6 +117,7 @@ describe('parseStateView', () => {
   it('requests exactly the fields it parses', () => {
     expect([...PR_STATE_VIEW_JSON_FIELDS]).toEqual([
       'number',
+      'url',
       'state',
       'mergeable',
       'mergeStateStatus',

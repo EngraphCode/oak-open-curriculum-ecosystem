@@ -54,11 +54,12 @@ function isQuotaMarker(body: string): boolean {
   return SKIP_PATTERN.test(body) && QUOTA_PATTERN.test(body);
 }
 
-// Empty commitOid is tolerated as tip-bound (gh omits the oid on some review
-// surfaces — observed live 2026-07-21); refusing it would read every such PR
-// permanently review-owed, the wrong failure direction.
+// Binding is EXACT: the full harvest retains historical reviews, so a
+// missing/empty commit oid must stay UNPROVEN — a wildcard would let an old
+// null-commit review satisfy every later push forever. The conservative wait
+// this creates is already bounded by the checks-green timeout leg.
 function bindsTip(review: HarvestedReview, headRefOid: string): boolean {
-  return review.commitOid === '' || review.commitOid === headRefOid;
+  return review.commitOid === headRefOid;
 }
 
 // GitHub logins are case-insensitive; compare through one casing so a declared

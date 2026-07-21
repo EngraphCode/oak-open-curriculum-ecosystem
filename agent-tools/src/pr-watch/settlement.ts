@@ -51,7 +51,7 @@ function legLine(leg: ReviewerLeg): string {
 // on checks-green.
 function quietWindowAnchor(reading: PrStateReading): string | null {
   const tipBoundTimes = reading.reviews
-    .filter((review) => review.commitOid === '' || review.commitOid === reading.headRefOid)
+    .filter((review) => review.commitOid === reading.headRefOid)
     .filter((review) => review.state !== 'PENDING' && !isSignedSelfReply(review.body))
     .map((review) => review.submittedAt)
     .filter((time) => time !== '')

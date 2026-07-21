@@ -46,11 +46,15 @@ arrives as a completed review whose body is a quota notice, not a review.
    per-reviewer tip binding, review requests, auto-merge intent, agent-task
    run liveness) → one typed verdict from a closed state set:
    `SETTLE-READY | SETTLING-QUIET-WINDOW | WAITING-REVIEW-RUN-LIVE |
-   SILENT-WAIT-NO-REVIEWER | SILENT-WAIT-RUN-DEAD | CHECKS-RUNNING |
-   CHECKS-RED | THREADS-OPEN | ARMED-BEHIND-RED | QUOTA-SKIPPED | MERGED |
-   CLOSED | CONFLICT-DIRTY` (trued at D1 r1, 2026-07-21: `CLOSED` is the
-   typed refusal for closed-unmerged PRs; `SETTLING-QUIET-WINDOW` withholds
-   settlement inside the SKILL item-4 async-lag window). Zod
+   SILENT-WAIT-NO-REVIEWER | SILENT-WAIT-RUN-DEAD |
+   SILENT-WAIT-RUNS-UNREADABLE | CHECKS-RUNNING | CHECKS-RED |
+   THREADS-OPEN | BEHIND-BASE | ARMED-BEHIND-RED | QUOTA-SKIPPED | MERGED |
+   CLOSED | CONFLICT-DIRTY` (trued at D1 rounds 1–3, 2026-07-21: `CLOSED`
+   refuses closed-unmerged PRs; `SETTLING-QUIET-WINDOW` withholds settlement
+   inside the SKILL item-4 async-lag window; `SILENT-WAIT-RUNS-UNREADABLE`
+   preserves typed uncertainty when run liveness cannot be read;
+   `BEHIND-BASE` names the founding BEHIND-stall class). The enumeration is
+   kept identical to `PR_VERDICT_STATES` in `state-types.ts`. Zod
    validation at every gh boundary; TDD pair per testing-strategy; JSON
    and single-line outputs. If authoring exceeds the PDR-132 size smells,
    the states module and the CLI wrapper split into two PRs at that

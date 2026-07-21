@@ -50,6 +50,7 @@ const agentTaskViewSchema = z
       .nullish()
       .transform((value) => value ?? null),
     pullRequestNumber: z.number().optional(),
+    pullRequestUrl: z.string().optional(),
   })
   .loose();
 
@@ -58,6 +59,7 @@ export interface AgentTaskView {
   readonly id: string;
   readonly completedAt: string | null;
   readonly pullRequestNumber?: number;
+  readonly pullRequestUrl?: string;
 }
 
 /**
@@ -73,5 +75,6 @@ export function parseAgentTaskView(raw: unknown): AgentTaskView {
     ...(parsed.pullRequestNumber === undefined
       ? {}
       : { pullRequestNumber: parsed.pullRequestNumber }),
+    ...(parsed.pullRequestUrl === undefined ? {} : { pullRequestUrl: parsed.pullRequestUrl }),
   };
 }

@@ -38,6 +38,8 @@ export type ReviewRunsLeg =
 /** The compound reading the verdict resolves — one struct, every leg present. */
 export interface PrStateReading {
   readonly number: number;
+  /** The PR's html URL — the repository-scoped identity runs are matched against. */
+  readonly url: string;
   /** `OPEN` | `CLOSED` | `MERGED`. */
   readonly state: string;
   /** `MERGEABLE` | `CONFLICTING` | `UNKNOWN`. */
