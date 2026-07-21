@@ -153,6 +153,37 @@ git status --short
 git log --oneline --decorate -5
 ```
 
+### 6a. Collaborating human (resolve, don't assume)
+
+Nothing in a session may assume who the human collaborator is — the
+estate serves any user on any machine (`principles.md` §Any User, Any
+Machine). Resolve the collaborating human at session open,
+derive-first per
+[`read-before-asking`](../../../rules/read-before-asking.md):
+
+```bash
+git config user.name && git config user.email
+```
+
+1. **Local git identity is the default answer** — zero interaction
+   cost and present in every checkout. It resolves nothing when it
+   names a bot or shared credential (see
+   [`identify-as-agent-under-shared-credentials`](../../../rules/identify-as-agent-under-shared-credentials.md));
+   and it is config, not authentication, so treat it as a default,
+   never proof.
+2. **A per-user-authenticated service is the authoritative
+   cross-check** where one is connected — e.g. the Linear MCP viewer
+   (`get_user("me")`): it is real auth, resolved on this machine, for
+   this user.
+3. **Ask the human only as the residue**: both sources absent,
+   bot-shaped, or disagreeing with each other.
+
+Carry the resolution into every human-facing surface the session
+renders (owner-attention cards, per-user register renders, handoff
+records) instead of a remembered name. Memory and collaboration state
+name people historically — they are records of who acted, never
+resolution sources for who is here now.
+
 ### 7. Host health
 
 ```bash
