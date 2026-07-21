@@ -77,6 +77,12 @@ into the permanent record):
    bundled into a closeout PR multiplies asynchronous bot-review rounds
    without bound (a worked instance ran 5+ rounds before the bundle was
    split); give such an artefact its own PR with its own review story.
+5. **Changeset-health check** (PDR-132, the single source): a healthy
+   changeset settles within the PDR's round budget; the budget value, the
+   size smells, and the archival-class exemption all live in the PDR. A
+   changeset crossing the PDR's warning thresholds is re-examined for
+   hidden second stories NOW — at open, splitting is cheap; over budget,
+   it is expensive.
 
 ## Phase 2 — Open with a reviewer-facing description
 
@@ -285,7 +291,14 @@ as phase-local restatements.
    a verdict (round-6 correction, 2026-07-16: "4 total rounds" is
    monotonic — without the epoch reset the trigger stays true after the
    mandated class-fix push and the machine has no executable next
-   transition). **The arms fire on GENERATOR recurrence, not singleton
+   transition). **Ahead of these failure arms sits the round-budget
+   expectation (PDR-132, which owns the budget value)**: the transition
+   fires when an over-budget round OPENS — the first review activity
+   binding a tip after the budgeted number of rounds has settled, NOT
+   when that round's tally row settles — recording budget-exceeded in the
+   working notes and running the generator question before the round's
+   findings are cured. The arms above stay the mechanical backstop, not
+   the first alarm. **The arms fire on GENERATOR recurrence, not singleton
    noise**: before acting on a fired arm, classify the round's findings —
    a stream of distinct, unrelated mechanical singletons (each with a
    different generator) routes to a coverage-noise assessment rather than
@@ -319,7 +332,13 @@ as phase-local restatements.
    **SKIPPED** — via a tip-scoped marker, or via the timeout. The MARKER
    leg: an explicit skip marker in a review body satisfies SKIPPED only
    when its review binds to the current tip, OR when its body declares a
-   terminal / until-re-enabled scope. A scope-declared marker is re-checked
+   terminal / until-re-enabled scope. A reviewer QUOTA notice posted as a
+   tip-bound review ("unable to review … quota limit") IS such a
+   scope-declared marker (scope: quota restored) and NEVER counts as a
+   zero-finding review — reading a bounce as settlement is the silent-wait
+   class at the reviewer leg (worked instance 2026-07-21: quota bounces
+   estate-wide were ruled SKIPPED by the owner and settled PRs merged on
+   green checks + zero threads + dispositioned findings). A scope-declared marker is re-checked
    each round against OBSERVABLE state and holds until its stated condition
    ends (e.g. spend restored); each re-check RECORDS condition, observed
    state, and verdict in the shepherd's working record alongside the skip
@@ -436,6 +455,19 @@ as phase-local restatements.
 - Reply to each thread with the fix evidence (commit SHA + what changed),
   then resolve it. "Resolved" is a settled-concern state, never a button
   clicked to clear `mergeStateStatus`.
+- **Silent-wait sweep after every push (PDR-132)**: verify the expected
+  reviewer is REQUESTED on the new tip — a push does not re-request, and a
+  tip with no requested reviewer and no tip-bound review waits forever
+  looking healthy (two live instances, 2026-07-20). The same sweep names a
+  shepherd for every open PR: threads with no owner are the same disease.
+  The sweep's third leg is **review-RUN liveness**: `gh agent-task list`
+  enumerates review runs (`--json id,name,createdAt,completedAt`;
+  `completedAt` null = in flight) and `gh agent-task view <session-id>
+  --json` maps a run to its PR (the list JSON carries no PR number; the
+  PR-number positional is interactive-only — vendor shapes verified
+  2026-07-21). Run-in-flight, run-never-started, and run-dead are now
+  distinguishable states; a wait on a review whose run never started is
+  the silent-wait class, not patience.
 - **Own the convergence loop — never hand it to the owner** (owner
   corrections, 2026-07-07 #317 and 2026-07-08 #324 — two seats re-derived
   the same blind spot in one sitting; scheduled nap-probes FEEL like
@@ -483,7 +515,11 @@ review-round state machine, items 3–4** (owner
 correction, 2026-07-16, PR #390: the merge raced a composing Copilot round,
 which then posted five findings onto merged code). OWED = do not merge,
 regardless of green checks and zero unresolved threads; the SKIPPED timeout
-(state machine item 3) bounds the wait. Then:
+(state machine item 3) bounds the wait. **After any arming of an auto-merge
+intent, verify the checks are green-or-progressing (PDR-132): an armed
+intent behind a red check is invisible-stuck — nothing progresses it and
+nothing alerts (live instance 2026-07-20: an armed docs PR sat ~2h behind a
+two-line lint failure believed self-landing).** Then:
 
 - **`mergeable` means POSSIBLE to merge; it does NOT mean READY to merge**
   (owner, 2026-07-08). GitHub's `mergeable: MERGEABLE` asserts only

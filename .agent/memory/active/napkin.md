@@ -236,3 +236,42 @@ retrospective could measure whether budget-at-authoring reduces tripwire fires.
 (3) The false-silence and heartbeat-autopilot instances are duals (observer-side
 vs emitter-side liveness illusions) — a single liveness doctrine section could
 carry both.
+
+## 2026-07-20 — Deimos tracks Perigee (73e4ab): session close (wrap) — lessons with no other home
+
+<!-- fitness exceeded by ~3970 lines; needs consolidation -->
+
+Thread record `.agent/memory/operational/threads/retired/fresh-checkout-experience.next-session.md`
+carries the full handoff;
+these are the mechanics worth conserving (owner rulings are listed there for graduation):
+
+- **The review-treadmill worked instance, end to end**: PR #436 ran TEN review rounds. The
+  pr-lifecycle step-back trigger fired TWICE; the first produced the Result class-fix, the
+  second was honoured as terminal (dispositions-only thereafter) — and the round after it
+  settled at zero. The napkin's `re-apply-first-question-at-elaboration-boundaries` failure
+  shape was reproduced live by this seat (scope crept from "improve an error message" to
+  core-package API changes) and cured only by owner step-back. Successors: the trigger
+  fires late; re-ask the first question at every elaboration boundary yourself.
+- **Never pipe the command whose outcome you need — the grep variant**: two comms sends
+  "failed silently"; the mechanism was my own `| grep -o event_id` eating the CLI's loud
+  error. Same class as the wrapped-exit lesson; new surface. Verify sends by reading the
+  event file, not the filtered stdout.
+- **zsh eats leading-`=` separator tokens**: `echo ===X===` (or `==X==`) in a compound
+  command errors and ABORTS the remaining chained commands — three separate live
+  instances this session, each killing later commands invisibly. Mechanism: zsh's
+  default `EQUALS` option performs command-path expansion on an unquoted word
+  beginning with `=` (the `=cmd` form), so the token fails to resolve before any
+  filename generation. Quote the separator or emit it with `printf`.
+- **Pre-queue-enablement auto-merge arms never convert to queue entries** (GitHub): the PR
+  reads "armed" while sitting outside the queue, and re-running merge NO-OPs against the
+  stale arm; cure is disarm-then-re-enqueue. Verify queue membership via `mergeQueueEntry`,
+  never `autoMergeRequest`.
+- **Branch-switch stale-dist brick**: after switching the primary between branches whose
+  `@oaknational/result` dist differs, `pnpm install`'s bootstrap fails on the stale dist
+  and every filtered build recurses into the same failing install. Escape:
+  `OAK_SKIP_AGENT_TOOLS_BOOTSTRAP=1 pnpm install`, then the filtered package build, then
+  plain install.
+- **Cross-machine comms over SSH works and is now precedented**: a Director on another
+  machine coordinated via events dropped into a sibling checkout's comms dir; an fs-watch
+  Monitor on that dir was a sufficient wake signal (note: give such a watcher
+  self-exclusion, or every outbound echo wakes the seat).

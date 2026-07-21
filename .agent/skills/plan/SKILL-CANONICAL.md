@@ -145,6 +145,12 @@ Every non-trivial plan, strategic or executable, MUST define:
    the derivation explicit so work is homed where it is driven, not parked on a
    register. (Open-questions are for the genuinely not-yet-decidable, never a
    scheduling or holding surface for work that has a home.)
+8. **PR-shaped execution units** (PDR-132, the single source) — executable
+   steps are sliced to changeset-healthy units AT PLAN TIME: each step
+   names its changeset class (code vs archival/record) and is stateable as
+   a PR within the PDR's round budget; a step that is not is
+   under-decomposed. Slicing at plan time is free; slicing at the first
+   over-budget review round is the measured expensive path.
 
 ### Build-vs-Buy Before Build-Shape
 

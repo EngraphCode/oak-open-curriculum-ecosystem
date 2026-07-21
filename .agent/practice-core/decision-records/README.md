@@ -255,3 +255,4 @@ Practice-Core concept ↔ ADR map):
 | [PDR-129](PDR-129-diagnosis-reads-whole-surfaces-catalogues-are-open-sets.md) | Diagnosis Reads Whole Surfaces First; Failure Catalogues Are Open Sets | Accepted |
 | [PDR-130](PDR-130-two-speed-learning.md) | Two-Speed Learning — Fast Lessons, Slow Concepts, Predictions on Both | Accepted |
 | [PDR-131](PDR-131-merge-concurrency-is-free-quality-binds-at-settled-ready.md) | Merge Concurrency Is Free — Quality Binds at Settled-READY | Accepted |
+| [PDR-132](PDR-132-changeset-health-round-budgets-bind-at-authoring-time.md) | Changeset Health — Round Budgets Bind at Authoring Time | Accepted |
