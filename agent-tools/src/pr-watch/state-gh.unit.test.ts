@@ -19,18 +19,16 @@ function viewPayload(): string {
     mergeStateStatus: 'BLOCKED',
     headRefOid: HEAD,
     statusCheckRollup: [
-      { __typename: 'CheckRun', name: 'secret-scan', status: 'COMPLETED', conclusion: 'SUCCESS' },
-    ],
-    autoMergeRequest: null,
-    reviewRequests: [],
-    latestReviews: [
       {
-        author: { login: 'copilot' },
-        state: 'COMMENTED',
-        body: 'Reviewed.',
-        commit: { oid: HEAD },
+        __typename: 'CheckRun',
+        name: 'secret-scan',
+        status: 'COMPLETED',
+        conclusion: 'SUCCESS',
+        completedAt: '2026-07-21T10:33:35Z',
       },
     ],
+    autoMergeRequest: null,
+    reviewRequests: [{ __typename: 'User', login: 'jimCresswell' }],
   });
 }
 
@@ -41,6 +39,30 @@ function threadsPayload(): string {
         repository: {
           pullRequest: {
             reviewThreads: { totalCount: 2, nodes: [{ isResolved: true }, { isResolved: true }] },
+          },
+        },
+      },
+    },
+  ]);
+}
+
+function reviewsPayload(): string {
+  return JSON.stringify([
+    {
+      data: {
+        repository: {
+          pullRequest: {
+            reviews: {
+              nodes: [
+                {
+                  author: { login: 'copilot-pull-request-reviewer' },
+                  state: 'COMMENTED',
+                  body: 'Reviewed.',
+                  submittedAt: '2026-07-21T12:00:00Z',
+                  commit: { oid: HEAD },
+                },
+              ],
+            },
           },
         },
       },
@@ -70,25 +92,27 @@ function agentTaskResponse(script: ExecutorScript, args: readonly string[]): str
 }
 
 function makeExecutor(script: ExecutorScript, calls: string[][]): GhCommandExecutor {
-  const responders: readonly [string, (args: readonly string[]) => string][] = [
-    ['pr', () => viewPayload()],
-    ['api', () => threadsPayload()],
-    ['agent-task', (args) => agentTaskResponse(script, args)],
-  ];
   return (_file, args) => {
     calls.push([...args]);
-    const responder = responders.find(([topic]) => topic === args[0]);
-    if (responder === undefined) {
-      throw new Error(`unexpected gh argv: ${args.join(' ')}`);
+    if (args[0] === 'pr') {
+      return viewPayload();
     }
-    return responder[1](args);
+    if (args[0] === 'api') {
+      // Both GraphQL legs arrive as `api graphql`; dispatch on the query text.
+      const query = args.find((arg) => arg.startsWith('query='));
+      return query?.includes('reviewThreads') === true ? threadsPayload() : reviewsPayload();
+    }
+    if (args[0] === 'agent-task') {
+      return agentTaskResponse(script, args);
+    }
+    throw new Error(`unexpected gh argv: ${args.join(' ')}`);
   };
 }
 
 const ghSeam = { ghPath: '/usr/bin/gh', exists: () => true };
 
 describe('readPrStateReading', () => {
-  it('composes view, threads, and PR-scoped review runs into one reading', () => {
+  it('composes view, threads, the full reviews harvest, and PR-scoped runs into one reading', () => {
     const calls: string[][] = [];
     const reading = readPrStateReading({
       target: { number: 461 },
@@ -110,6 +134,7 @@ describe('readPrStateReading', () => {
     expect(reading.number).toBe(461);
     expect(reading.checks).toEqual({ total: 1, passed: 1, failed: 0, pending: 0 });
     expect(reading.reviewThreads).toEqual({ total: 2, unresolved: 0 });
+    expect(reading.reviews).toHaveLength(1);
     // Only the run mapped to THIS PR survives; the other PR's run is filtered.
     expect(reading.reviewRuns).toEqual({
       kind: 'read',
@@ -117,15 +142,35 @@ describe('readPrStateReading', () => {
     });
   });
 
-  it('degrades the runs leg to a typed unavailable when gh agent-task fails', () => {
-    const calls: string[][] = [];
+  it('defaults the expected set from the observed surface and marks it undeclared', () => {
     const reading = readPrStateReading({
       target: { number: 461 },
       ...ghSeam,
-      execFileSync: makeExecutor(
-        { agentTaskList: new Error('unknown command "agent-task"') },
-        calls,
-      ),
+      execFileSync: makeExecutor({}, []),
+    });
+    expect(reading.expectedDeclared).toBe(false);
+    expect([...reading.expectedReviewers].sort((a, b) => a.localeCompare(b))).toEqual([
+      'copilot-pull-request-reviewer',
+      'jimCresswell',
+    ]);
+  });
+
+  it('a declared expected set wins and marks declared', () => {
+    const reading = readPrStateReading({
+      target: { number: 461 },
+      ...ghSeam,
+      expectedReviewers: ['copilot-pull-request-reviewer'],
+      execFileSync: makeExecutor({}, []),
+    });
+    expect(reading.expectedDeclared).toBe(true);
+    expect(reading.expectedReviewers).toEqual(['copilot-pull-request-reviewer']);
+  });
+
+  it('degrades the runs leg to a typed unavailable when gh agent-task fails', () => {
+    const reading = readPrStateReading({
+      target: { number: 461 },
+      ...ghSeam,
+      execFileSync: makeExecutor({ agentTaskList: new Error('unknown command "agent-task"') }, []),
     });
     expect(reading.reviewRuns.kind).toBe('unavailable');
     // The other legs still read — a missing preview command never blanks the verdict.

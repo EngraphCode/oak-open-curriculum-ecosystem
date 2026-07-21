@@ -1,20 +1,22 @@
 import { z } from 'zod';
 
 import { classifyCheck, type ChecksSummary } from './index.js';
-import type { LatestReview, NamedCheck, ReviewRun } from './states.js';
+import type { HarvestedReview } from './reviewer-legs.js';
+import type { NamedCheck } from './state-types.js';
 
 /**
  * Boundary parsers for the `pr state` legs that the existing snapshot does not
- * carry: named per-check verdicts, auto-merge intent, review requests, latest
- * reviews with their reviewed tip, and `gh agent-task` review-run shapes.
- * Zod at the external boundary; misshapen input fails loud (never a silent
- * empty), while fields GitHub genuinely nulls (rollup on a no-check PR, a
- * review's commit oid — observed live 2026-07-21) normalise explicitly.
+ * carry: named per-check verdicts with the checks-green timestamp, auto-merge
+ * intent, review requests, the FULL paginated review harvest (the
+ * `latestReviews` per-author pointer is deliberately NOT a source here — it
+ * moves backwards when an older-tip review job completes late), and
+ * `gh agent-task` review-run shapes. Zod at the external boundary; misshapen
+ * input fails loud, while fields GitHub genuinely nulls normalise explicitly.
  */
 
 // Superset of the pr-watch rollup schema: D1 additionally carries the check's
-// NAME (CheckRun `name`, StatusContext `context`) — the #437 cure. Verdicts by
-// name, never by column position.
+// NAME (CheckRun `name`, StatusContext `context`) — the #437 cure — and the
+// CheckRun `completedAt` that anchors the checks-green timeout leg.
 const namedRollupItemSchema = z
   .object({
     __typename: z.string(),
@@ -23,23 +25,9 @@ const namedRollupItemSchema = z
     status: z.string().optional(),
     conclusion: z.string().nullish(),
     state: z.string().optional(),
+    completedAt: z.string().nullish(),
   })
   .loose();
-
-const authorLogin = z
-  .object({ login: z.string() })
-  .nullish()
-  .transform((value) => value?.login ?? 'unknown');
-
-const latestReviewSchema = z.object({
-  author: authorLogin,
-  state: z.string(),
-  body: z.string(),
-  commit: z
-    .object({ oid: z.string() })
-    .nullish()
-    .transform((value) => value?.oid ?? ''),
-});
 
 // A review request names a User (`login`) or a Team (`slug`, with `name` as a
 // fallback); an unrecognised shape becomes 'unknown' rather than a rejection.
@@ -72,10 +60,6 @@ const stateViewSchema = z.object({
     .array(reviewRequestSchema)
     .nullish()
     .transform((value) => value ?? []),
-  latestReviews: z
-    .array(latestReviewSchema)
-    .nullish()
-    .transform((value) => value ?? []),
 });
 
 /** The exact `--json` field set the `pr state` gh call requests. */
@@ -88,7 +72,6 @@ export const PR_STATE_VIEW_JSON_FIELDS = [
   'statusCheckRollup',
   'autoMergeRequest',
   'reviewRequests',
-  'latestReviews',
 ] as const;
 
 /** The parsed `gh pr view` legs specific to `pr state`. */
@@ -100,9 +83,9 @@ export interface ParsedStateView {
   readonly headRefOid: string;
   readonly checks: ChecksSummary;
   readonly namedChecks: readonly NamedCheck[];
+  readonly checksGreenAt: string | null;
   readonly autoMergeArmed: boolean;
   readonly reviewRequests: readonly string[];
-  readonly latestReviews: readonly LatestReview[];
 }
 
 type NamedRollupItem = z.infer<typeof namedRollupItemSchema>;
@@ -120,6 +103,21 @@ function summarise(namedChecks: readonly NamedCheck[]): ChecksSummary {
   };
 }
 
+// Green means every check passed; the anchor is the LATEST completion among
+// items that report one (StatusContext carries no timestamp). Null when the
+// rollup is not green or no timestamp is available — a null anchor keeps the
+// timeout leg conservatively un-fireable rather than guessing a time.
+function checksGreenAt(items: readonly NamedRollupItem[], summary: ChecksSummary): string | null {
+  if (summary.total === 0 || summary.failed > 0 || summary.pending > 0) {
+    return null;
+  }
+  const completions = items
+    .map((item) => item.completedAt ?? null)
+    .filter((value): value is string => value !== null)
+    .sort((left, right) => left.localeCompare(right));
+  return completions.at(-1) ?? null;
+}
+
 /**
  * Parse the extended `gh pr view --json` payload for `pr state`.
  *
@@ -132,84 +130,72 @@ export function parseStateView(raw: unknown): ParsedStateView {
     name: checkName(item),
     bucket: classifyCheck(item),
   }));
+  const checks = summarise(namedChecks);
   return {
     number: parsed.number,
     state: parsed.state,
     mergeable: parsed.mergeable,
     mergeStateStatus: parsed.mergeStateStatus,
     headRefOid: parsed.headRefOid,
-    checks: summarise(namedChecks),
+    checks,
     namedChecks,
+    checksGreenAt: checksGreenAt(parsed.statusCheckRollup, checks),
     autoMergeArmed: parsed.autoMergeRequest,
     reviewRequests: parsed.reviewRequests,
-    latestReviews: parsed.latestReviews.map((review) => ({
-      author: review.author,
-      state: review.state,
-      body: review.body,
-      commitOid: review.commit,
-    })),
   };
 }
 
-// `gh agent-task list --json id,name,createdAt,completedAt` — verified live
-// 2026-07-21: the list surface carries NO PR number; `completedAt` null means
-// the run is in flight.
-const agentTaskListSchema = z.array(
-  z
-    .object({
-      id: z.string(),
-      name: z.string(),
-      completedAt: z
-        .string()
-        .nullish()
-        .transform((value) => value ?? null),
-    })
-    .loose(),
-);
+const authorLogin = z
+  .object({ login: z.string() })
+  .nullish()
+  .transform((value) => value?.login ?? 'unknown');
+
+// One page of the paginated `reviews` connection as `gh api graphql --paginate
+// --slurp` returns it. The FULL harvest is the reviewer-leg source (SKILL item
+// 3); a bounded `reviews(last:N)` read is the recorded wrong shape.
+const reviewsPageSchema = z.object({
+  data: z.object({
+    repository: z.object({
+      pullRequest: z.object({
+        reviews: z.object({
+          nodes: z.array(
+            z.object({
+              author: authorLogin,
+              state: z.string(),
+              body: z.string(),
+              submittedAt: z
+                .string()
+                .nullish()
+                .transform((value) => value ?? ''),
+              commit: z
+                .object({ oid: z.string() })
+                .nullish()
+                .transform((value) => value?.oid ?? ''),
+            }),
+          ),
+        }),
+      }),
+    }),
+  }),
+});
+
+const reviewsPagesSchema = z.array(reviewsPageSchema).min(1);
 
 /**
- * Parse `gh agent-task list` JSON into review-run entries.
+ * Parse the slurped multi-page `reviews` harvest into {@link HarvestedReview}s.
  *
- * @throws a ZodError when the payload is not the expected array shape.
+ * @throws a ZodError when the input is not the expected slurped page-array
+ *   shape (never a silent empty — an empty harvest must be a real empty page).
  */
-export function parseAgentTaskList(raw: unknown): ReviewRun[] {
-  return agentTaskListSchema.parse(raw).map((run) => ({
-    id: run.id,
-    name: run.name,
-    completedAt: run.completedAt,
-  }));
-}
-
-const agentTaskViewSchema = z
-  .object({
-    id: z.string(),
-    completedAt: z
-      .string()
-      .nullish()
-      .transform((value) => value ?? null),
-    pullRequestNumber: z.number().optional(),
-  })
-  .loose();
-
-/** One `gh agent-task view <id>` result — the surface carrying the run→PR map. */
-export interface AgentTaskView {
-  readonly id: string;
-  readonly completedAt: string | null;
-  readonly pullRequestNumber?: number;
-}
-
-/**
- * Parse `gh agent-task view <id>` JSON (the run→PR mapping surface).
- *
- * @throws a ZodError when the payload is not the expected object shape.
- */
-export function parseAgentTaskView(raw: unknown): AgentTaskView {
-  const parsed = agentTaskViewSchema.parse(raw);
-  return {
-    id: parsed.id,
-    completedAt: parsed.completedAt,
-    ...(parsed.pullRequestNumber === undefined
-      ? {}
-      : { pullRequestNumber: parsed.pullRequestNumber }),
-  };
+export function parseReviewsHarvest(raw: unknown): HarvestedReview[] {
+  return reviewsPagesSchema
+    .parse(raw)
+    .flatMap((page) => page.data.repository.pullRequest.reviews.nodes)
+    .map((node) => ({
+      author: node.author,
+      state: node.state,
+      body: node.body,
+      commitOid: node.commit,
+      submittedAt: node.submittedAt,
+    }));
 }
