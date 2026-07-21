@@ -20,6 +20,51 @@ function assertRecord(value: unknown, label: string): Record<string, unknown> {
   return value;
 }
 
+function isItemIndent(character: string | undefined): boolean {
+  return character === ' ' || character === '\t';
+}
+
+// Manual scan replacing `/^[ \t]+-[ \t]+(.*)$/` — a failed match of that
+// shape backtracks quadratically across all-whitespace lines (S8786); the
+// scan is linear by construction and accepts the identical language:
+// one-or-more indent, `-`, one-or-more separator, remainder (may be empty).
+function parseWorkspaceListItem(line: string): string | null {
+  let index = 0;
+  while (isItemIndent(line[index])) {
+    index += 1;
+  }
+  if (index === 0 || line[index] !== '-') {
+    return null;
+  }
+  index += 1;
+  const afterDash = index;
+  while (isItemIndent(line[index])) {
+    index += 1;
+  }
+  if (index === afterDash) {
+    return null;
+  }
+  return line.slice(index);
+}
+
+// A trailing `# comment` counts only when whitespace precedes the `#`;
+// an item with `#` hard against the value is malformed and skipped,
+// exactly as the former single-regex parse behaved.
+function workspaceItemValue(item: string): string | null {
+  const hashIndex = item.indexOf('#');
+  let rawValue: string;
+  if (hashIndex === -1) {
+    rawValue = item;
+  } else {
+    rawValue = item.slice(0, hashIndex);
+    if (!/[ \t]$/.test(rawValue)) {
+      return null;
+    }
+  }
+  const value = rawValue.trim().replace(/^(['"])(.*)\1$/, '$2');
+  return value || null;
+}
+
 export function parseWorkspacePatterns(source: string): string[] {
   const patterns: string[] = [];
   let inPackages = false;
@@ -34,25 +79,11 @@ export function parseWorkspacePatterns(source: string): string[] {
     if (/^\S/.test(line)) {
       break;
     }
-
-    const item = /^[ \t]+-[ \t]+(.*)$/.exec(line);
-    if (!item) {
+    const item = parseWorkspaceListItem(line);
+    if (item === null) {
       continue;
     }
-    // A trailing `# comment` counts only when whitespace precedes the `#`;
-    // an item with `#` hard against the value is malformed and skipped,
-    // exactly as the former single-regex parse behaved.
-    const hashIndex = item[1].indexOf('#');
-    let rawValue: string;
-    if (hashIndex === -1) {
-      rawValue = item[1];
-    } else {
-      rawValue = item[1].slice(0, hashIndex);
-      if (!/[ \t]$/.test(rawValue)) {
-        continue;
-      }
-    }
-    const value = rawValue.trim().replace(/^(['"])(.*)\1$/, '$2');
+    const value = workspaceItemValue(item);
     if (value) {
       patterns.push(value);
     }

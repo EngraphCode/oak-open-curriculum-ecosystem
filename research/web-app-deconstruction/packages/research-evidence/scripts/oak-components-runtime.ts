@@ -373,13 +373,45 @@ function probeManifestName(scenarioName: string): string {
   return `oak-probe-${scenarioName}`;
 }
 
+const ROUTE_BOX_CHARS = new Set(['┌', '├', '└']);
+
+function isRouteWhitespace(character: string | undefined): boolean {
+  return character !== undefined && /\s/.test(character);
+}
+
+// Manual scan replacing `/(?<!\S)[┌├└]?\s*[○ƒ]\s+\//u` — the unanchored
+// search re-entered whitespace runs from every start position (S8786).
+// The accepted language is identical: a `○`/`ƒ` marker followed by
+// whitespace then `/`, where the marker (or a box-drawing char hard
+// against it) sits at the line start or after whitespace.
+function isRouteLine(line: string): boolean {
+  for (let index = 0; index < line.length; index += 1) {
+    const marker = line[index];
+    if (marker !== '○' && marker !== 'ƒ') {
+      continue;
+    }
+    let after = index + 1;
+    while (isRouteWhitespace(line[after])) {
+      after += 1;
+    }
+    if (after === index + 1 || line[after] !== '/') {
+      continue;
+    }
+    const previous = index === 0 ? undefined : line[index - 1];
+    if (
+      previous === undefined ||
+      isRouteWhitespace(previous) ||
+      (ROUTE_BOX_CHARS.has(previous) && (index === 1 || isRouteWhitespace(line[index - 2])))
+    ) {
+      return true;
+    }
+  }
+  return false;
+}
+
 function parseRouteMetrics(output: string): RouteMetrics | null {
   const clean = output.replaceAll(/\u001b\[[0-9;]*m/g, '');
-  // `(?<!\S)` is the zero-width equivalent of the former consuming
-  // `(?:^|\s)` prefix — the marker must sit at the line start or after
-  // whitespace — without the consumed/optional-whitespace ambiguity S8786
-  // flags; as a boolean test the verdict is identical.
-  const routeLine = clean.split('\n').find((line) => /(?<!\S)[┌├└]?\s*[○ƒ]\s+\//u.test(line));
+  const routeLine = clean.split('\n').find((line) => isRouteLine(line));
   if (!routeLine) {
     return null;
   }
