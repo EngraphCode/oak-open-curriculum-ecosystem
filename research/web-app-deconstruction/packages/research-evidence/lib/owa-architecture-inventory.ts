@@ -293,9 +293,21 @@ function importReferences(ts: TypeScriptApi, file: string, text: string): Import
       statement.moduleSpecifier &&
       ts.isStringLiteralLike(statement.moduleSpecifier)
     ) {
+      // `export { type Foo } from './x'` has clause-level isTypeOnly false
+      // but carries no runtime binding; mirror the per-specifier handling
+      // the import branch already applies, so type-only re-exports never
+      // inflate runtime dependency/SCC metrics.
+      const namedExports =
+        statement.exportClause && ts.isNamedExports(statement.exportClause)
+          ? statement.exportClause.elements
+          : undefined;
+      const allNamedSpecifiersTypeOnly =
+        namedExports !== undefined &&
+        namedExports.length > 0 &&
+        namedExports.every((element) => element.isTypeOnly);
       references.push({
         specifier: statement.moduleSpecifier.text,
-        runtime: !statement.isTypeOnly,
+        runtime: !statement.isTypeOnly && !allNamedSpecifiersTypeOnly,
       });
     }
   }

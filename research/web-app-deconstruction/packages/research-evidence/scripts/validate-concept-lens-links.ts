@@ -9,6 +9,7 @@ import {
   parseArgs,
   resolveFromCwd,
   usageError,
+  recordRoot,
   workspaceRoot,
 } from '../lib/cli.js';
 import { validatePinnedSourceLinks } from '../lib/pinned-source-links.js';
@@ -48,9 +49,11 @@ function describeError(error: unknown): string {
 const defaultOceRoot = path.join(workspaceRoot, 'oak-open-curriculum-ecosystem');
 const defaultDatabaseToolsRoot = path.join(workspaceRoot, 'Database-Tools');
 const defaultOakOpenApiRoot = path.join(workspaceRoot, 'oak-openapi');
+// Resolved from the record's own projection location, not from a retired
+// sibling layout, so the no-argument invocation inspects THIS record.
 const defaultMarkdownRoot = path.join(
-  workspaceRoot,
-  'web-app-deconstruction/docs/current-state/owa-components-concept-lenses',
+  recordRoot,
+  'docs/current-state/owa-components-concept-lenses',
 );
 const usage = `Usage: pnpm exec tsx scripts/validate-concept-lens-links.ts [options]
 

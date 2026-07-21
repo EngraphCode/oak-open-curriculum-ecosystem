@@ -9,6 +9,9 @@ const packageRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '
 // OCE checkout, so the common checkout parent is FIVE levels above this
 // package (packages -> web-app-deconstruction -> research -> OCE -> parent).
 export const workspaceRoot = path.resolve(packageRoot, '../../../../..');
+
+/** The record root (web-app-deconstruction) — fixed relative to this package. */
+export const recordRoot = path.resolve(packageRoot, '../..');
 export const defaultOwaRoot = path.join(workspaceRoot, 'Oak-Web-Application');
 export const defaultComponentsRoot = path.join(workspaceRoot, 'oak-components');
 

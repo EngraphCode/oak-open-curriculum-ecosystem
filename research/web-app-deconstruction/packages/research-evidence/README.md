@@ -182,9 +182,13 @@ correctness, prove future generator totality, provide operating-system network
 isolation, or content-verify installed dependency files.
 
 `validate:concept-links` runs the OWA/Components Concept Explorer portfolio and
-the complete Database/API/OCE authority-chain research tree, including its lens
-portfolio. It requires sibling OWA, Components, Database-Tools, oak-openapi and
-OCE checkouts whose HEAD revisions match the relevant records. It reads
+the Database/API/OCE authority-chain research tree's retained public anchors.
+In this public projection it requires sibling OWA, Components and OCE checkouts
+whose HEAD revisions match the relevant records; pinned links into the private
+Database-Tools and oak-openapi repositories were reduced to plain-text
+citations (ADR-215 Decision 4), so their full anchor validation runs in the
+private master and those checkouts are consumed only when supplied
+explicitly. It reads
 committed blobs rather than working-tree files, reports checkout cleanliness,
 and verifies that each GitHub source link uses the exact revision, resolves to a
 committed file and names an in-range line or line span when present. It does not
