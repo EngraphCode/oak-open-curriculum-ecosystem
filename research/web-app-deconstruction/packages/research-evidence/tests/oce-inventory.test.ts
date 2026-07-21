@@ -38,7 +38,7 @@ test('Hub route derivation handles root, dynamic and grouped pages', () => {
   expect(hubRouteFromPage('demos/oak-curriculum-hub/app/(core)/lesson/[slug]/page.tsx')).toBe(
     '/lesson/[slug]',
   );
-  expect(hubRouteFromPage('demos/oak-curriculum-hub/app/api/search/route.ts')).toBe(null);
+  expect(hubRouteFromPage('demos/oak-curriculum-hub/app/api/search/route.ts')).toBeNull();
 });
 
 test('graph summary separates reported coverage from node subject values', () => {

@@ -90,7 +90,7 @@ test('validates source paths, revisions and line bounds', async () => {
       'Oak-Web-Application': { root: repositoryRoot, revision },
     });
 
-    expect(invalid.failures.length).toBe(5);
+    expect(invalid.failures).toHaveLength(5);
     expect(invalid.failures.some((failure) => /link uses abcdef/.test(failure))).toBeTruthy();
     expect(invalid.failures.some((failure) => /invalid .*#L4-L4/.test(failure))).toBeTruthy();
     expect(

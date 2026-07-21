@@ -16,8 +16,8 @@ test('classifies top-level source areas', () => {
 test('recognises App Router convention files only', () => {
   expect(appRouteRole('src/app/(core)/teachers/page.tsx')).toBe('page');
   expect(appRouteRole('src/app/api/items/route.ts')).toBe('route');
-  expect(appRouteRole('src/app/components/Card.tsx')).toBe(null);
-  expect(appRouteRole('src/pages/index.tsx')).toBe(null);
+  expect(appRouteRole('src/app/components/Card.tsx')).toBeNull();
+  expect(appRouteRole('src/pages/index.tsx')).toBeNull();
 });
 
 test('normalises external package roots', () => {
