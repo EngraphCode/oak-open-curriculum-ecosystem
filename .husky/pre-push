@@ -61,6 +61,13 @@ if ! pnpm portability:check; then
   exit 1
 fi
 
+echo "🔧 Validating skill adapters..."
+if ! pnpm skills:check; then
+  echo "❌ Skill adapter validation failed — adapters have drifted from their canonical skills!"
+  echo "💡 Run 'node agent-tools/dist/src/bin/skills-adapter-generate.js --prefix=oak-' to regenerate, then commit"
+  exit 1
+fi
+
 echo "🧪 Running workspace-owned repo validators..."
 if ! pnpm repo-validators:check; then
   echo "❌ Repo validator checks failed!"

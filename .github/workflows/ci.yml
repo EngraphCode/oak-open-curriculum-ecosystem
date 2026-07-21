@@ -126,9 +126,10 @@ jobs:
         run: pnpm portability:check
       - name: Run workspace-owned repo validators
         run: pnpm repo-validators:check
-      # skills:check self-builds agent-tools, so it runs here without the
-      # build job; it and encoding:check were local-only pnpm-check legs
-      # until AIP-165 (adapter drift merged CI-green through this gap).
+      # Both legs self-build agent-tools, so they run here without the
+      # build job. Until AIP-165, skills:check ran only in `pnpm check`
+      # and encoding:check only there and at pre-push — neither was
+      # CI-gated, which is how adapter drift merged CI-green.
       - name: Validate skills adapters
         run: pnpm skills:check
       - name: Validate encoding
