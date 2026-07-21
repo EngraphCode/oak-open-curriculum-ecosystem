@@ -6,6 +6,7 @@ import {
   runCodexExecTopic,
   runCommitQueueTopic,
   runContextCostTopic,
+  runMergeBotTopic,
   runPrWatchTopic,
   runSessionMetadataTopic,
   runSpawnTopic,
@@ -72,6 +73,13 @@ export function agentToolsCliEnvironmentFromProcessEnv(
   return {
     ...agentIdentityCliEnvironmentFromProcessEnv(env),
     ...(env.HOME === undefined ? {} : { HOME: env.HOME }),
+    ...(env.OAK_MERGE_BOT_APP_ID === undefined
+      ? {}
+      : { OAK_MERGE_BOT_APP_ID: env.OAK_MERGE_BOT_APP_ID }),
+    ...(env.OAK_MERGE_BOT_PRIVATE_KEY_PATH === undefined
+      ? {}
+      : { OAK_MERGE_BOT_PRIVATE_KEY_PATH: env.OAK_MERGE_BOT_PRIVATE_KEY_PATH }),
+    ...(env.OAK_MERGE_BOT_REPO === undefined ? {} : { OAK_MERGE_BOT_REPO: env.OAK_MERGE_BOT_REPO }),
   };
 }
 
@@ -120,6 +128,7 @@ const UNIFORM_TOPIC_HANDLERS: Readonly<Record<string, UniformTopicHandler>> = {
   'context-cost': runContextCostTopic,
   'session-metadata': runSessionMetadataTopic,
   'codex-exec': runCodexExecTopic,
+  'merge-bot': runMergeBotTopic,
   'pr-watch': runPrWatchTopic,
   spawn: runSpawnTopic,
 };
@@ -210,6 +219,7 @@ function usage(): string {
     '  context-cost',
     '  session-metadata',
     '  codex-exec',
+    '  merge-bot',
     '  pr-watch',
     '  spawn',
   ].join('\n');

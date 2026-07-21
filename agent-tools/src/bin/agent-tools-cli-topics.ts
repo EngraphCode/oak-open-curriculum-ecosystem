@@ -7,6 +7,7 @@ import {
   runCommitQueueCli,
 } from '../commit-queue/index.js';
 import { runContextCostCli } from '../context-cost/cli.js';
+import { runMergeBotCli } from '../merge-bot/cli.js';
 import { runPrWatchCli } from '../pr-watch/cli.js';
 import { runSessionMetadataCli } from '../session-metadata/cli.js';
 import { runSpawnCli } from '../spawn/cli.js';
@@ -129,6 +130,16 @@ export async function runPrWatchTopic(
   const stdout = new OutputBuffer();
   const stderr = new OutputBuffer();
   const exitCode = await runPrWatchCli({ args, stdout, stderr });
+  return { exitCode, stdout: stdout.text(), stderr: stderr.text() };
+}
+
+export async function runMergeBotTopic(
+  input: AgentToolsCliInput,
+  args: readonly string[],
+): Promise<AgentToolsCliResult> {
+  const stdout = new OutputBuffer();
+  const stderr = new OutputBuffer();
+  const exitCode = await runMergeBotCli({ args, env: input.env, stdout, stderr });
   return { exitCode, stdout: stdout.text(), stderr: stderr.text() };
 }
 
