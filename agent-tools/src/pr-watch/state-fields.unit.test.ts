@@ -62,6 +62,21 @@ describe('parseStateView', () => {
     expect(notGreen.checksGreenAt).toBeNull();
   });
 
+  it('anchors on StatusContext startedAt when contexts are the only green items', () => {
+    const parsed = parseStateView({
+      ...stateViewFixture(),
+      statusCheckRollup: [
+        {
+          __typename: 'StatusContext',
+          context: 'Vercel',
+          state: 'SUCCESS',
+          startedAt: '2026-07-21T10:50:00Z',
+        },
+      ],
+    });
+    expect(parsed.checksGreenAt).toBe('2026-07-21T10:50:00Z');
+  });
+
   it('reads autoMergeRequest null as unarmed and an object as armed', () => {
     expect(parseStateView(stateViewFixture()).autoMergeArmed).toBe(false);
     expect(

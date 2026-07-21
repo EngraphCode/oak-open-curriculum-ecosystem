@@ -61,13 +61,29 @@ function bindsTip(review: HarvestedReview, headRefOid: string): boolean {
   return review.commitOid === '' || review.commitOid === headRefOid;
 }
 
+// GitHub logins are case-insensitive; compare through one casing so a declared
+// `--expect jimcresswell` matches the API's `jimCresswell` (display keeps the
+// declared form).
+function normaliseLogin(login: string): string {
+  return login.toLowerCase();
+}
+
+// A PENDING (draft, unsubmitted) review has not landed: it must neither
+// satisfy a leg nor act as a skip marker.
+function hasLanded(review: HarvestedReview): boolean {
+  return review.state !== 'PENDING';
+}
+
 function elapsedMs(fromIso: string, nowIso: string): number {
   return Date.parse(nowIso) - Date.parse(fromIso);
 }
 
 function legFor(input: ComputeReviewerLegsInput, reviewer: string): ReviewerLeg {
   const tipBound = input.reviews.filter(
-    (review) => review.author === reviewer && bindsTip(review, input.headRefOid),
+    (review) =>
+      normaliseLogin(review.author) === normaliseLogin(reviewer) &&
+      hasLanded(review) &&
+      bindsTip(review, input.headRefOid),
   );
   if (tipBound.some((review) => !isQuotaMarker(review.body))) {
     return { reviewer, state: 'SATISFIED', detail: 'review binds current tip' };
@@ -98,7 +114,11 @@ export function computeReviewerLegs(input: ComputeReviewerLegsInput): ReviewerLe
 export type BlockingLegVerdict =
   | { readonly kind: 'settled' }
   | {
-      readonly kind: 'SILENT-WAIT-RUN-DEAD' | 'SILENT-WAIT-NO-REVIEWER' | 'WAITING-REVIEW-RUN-LIVE';
+      readonly kind:
+        | 'SILENT-WAIT-RUN-DEAD'
+        | 'SILENT-WAIT-RUNS-UNREADABLE'
+        | 'SILENT-WAIT-NO-REVIEWER'
+        | 'WAITING-REVIEW-RUN-LIVE';
       readonly reviewer: string;
     };
 
@@ -107,6 +127,8 @@ export interface MostBlockingLegInput {
   readonly reviewRequests: readonly string[];
   /** Reviewers with a live review run associated (bounded vendor mapping). */
   readonly liveRunReviewers: readonly string[];
+  /** False when the run surface could not be read — deadness is then never asserted. */
+  readonly runsReadable: boolean;
 }
 
 /**
@@ -117,14 +139,19 @@ export interface MostBlockingLegInput {
  */
 export function mostBlockingLeg(input: MostBlockingLegInput): BlockingLegVerdict {
   const owed = input.legs.filter((leg) => leg.state === 'OWED');
-  const requested = new Set(input.reviewRequests);
-  const live = new Set(input.liveRunReviewers);
+  const requested = new Set(input.reviewRequests.map((login) => normaliseLogin(login)));
+  const live = new Set(input.liveRunReviewers.map((login) => normaliseLogin(login)));
 
-  const runDead = owed.find((leg) => requested.has(leg.reviewer) && !live.has(leg.reviewer));
+  const runDead = owed.find(
+    (leg) => requested.has(normaliseLogin(leg.reviewer)) && !live.has(normaliseLogin(leg.reviewer)),
+  );
   if (runDead !== undefined) {
-    return { kind: 'SILENT-WAIT-RUN-DEAD', reviewer: runDead.reviewer };
+    // An unreadable run surface never asserts deadness (typed uncertainty).
+    return input.runsReadable
+      ? { kind: 'SILENT-WAIT-RUN-DEAD', reviewer: runDead.reviewer }
+      : { kind: 'SILENT-WAIT-RUNS-UNREADABLE', reviewer: runDead.reviewer };
   }
-  const unrequested = owed.find((leg) => !requested.has(leg.reviewer));
+  const unrequested = owed.find((leg) => !requested.has(normaliseLogin(leg.reviewer)));
   if (unrequested !== undefined) {
     return { kind: 'SILENT-WAIT-NO-REVIEWER', reviewer: unrequested.reviewer };
   }

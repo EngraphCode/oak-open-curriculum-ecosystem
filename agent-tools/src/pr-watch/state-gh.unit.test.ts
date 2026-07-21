@@ -204,6 +204,38 @@ describe('readPrStateReading', () => {
     // The view leg must name its fields: bare --json is a usage error on this
     // vendor surface (caught live, 2026-07-21).
     expect(viewCalls[0]).toContain('id,completedAt,pullRequestNumber');
+    // The list leg requests the full supported window (vendor default is 30).
+    const listCall = calls.find((args) => args[0] === 'agent-task' && args[1] === 'list');
+    expect(listCall).toContain('--limit');
+    expect(listCall).toContain('100');
+  });
+
+  it('retries then fails loud on mergeable UNKNOWN (never settles over uncomputed conflicts)', () => {
+    const unknownView = JSON.stringify({
+      number: 461,
+      state: 'OPEN',
+      mergeable: 'UNKNOWN',
+      mergeStateStatus: 'UNKNOWN',
+      headRefOid: HEAD,
+      statusCheckRollup: [],
+      autoMergeRequest: null,
+      reviewRequests: [],
+    });
+    const calls: string[][] = [];
+    expect(() =>
+      readPrStateReading({
+        target: { number: 461 },
+        ...ghSeam,
+        execFileSync: (_file, args) => {
+          calls.push([...args]);
+          if (args[0] === 'pr') {
+            return unknownView;
+          }
+          throw new Error('should not reach other legs');
+        },
+      }),
+    ).toThrow(/mergeability not yet computed/);
+    expect(calls.filter((args) => args[0] === 'pr')).toHaveLength(3);
   });
 
   it('passes --repo through to the pr view leg', () => {

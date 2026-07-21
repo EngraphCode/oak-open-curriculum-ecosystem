@@ -61,6 +61,7 @@ describe('PR_VERDICT_STATES', () => {
         'WAITING-REVIEW-RUN-LIVE',
         'SILENT-WAIT-NO-REVIEWER',
         'SILENT-WAIT-RUN-DEAD',
+        'SILENT-WAIT-RUNS-UNREADABLE',
         'CHECKS-RUNNING',
         'CHECKS-RED',
         'THREADS-OPEN',
@@ -275,6 +276,19 @@ describe('computePrVerdict — run liveness per reviewer', () => {
     expect(verdict.state).toBe('SILENT-WAIT-RUN-DEAD');
   });
 
+  it('an unavailable runs leg with a requested owed reviewer never asserts dead', () => {
+    const verdict = computePrVerdict(
+      settledReading({
+        reviews: [],
+        reviewRequests: [COPILOT],
+        checksGreenAt: '2026-07-21T12:56:00Z',
+        reviewRuns: { kind: 'unavailable', reason: 'gh agent-task missing' },
+      }),
+      '2026-07-21T13:00:00Z',
+    );
+    expect(verdict.state).toBe('SILENT-WAIT-RUNS-UNREADABLE');
+  });
+
   it('an unavailable runs leg degrades typed, named in evidence', () => {
     const verdict = computePrVerdict(
       settledReading({ reviewRuns: { kind: 'unavailable', reason: 'gh agent-task missing' } }),
@@ -318,6 +332,26 @@ describe('computePrVerdict — quiet window and settlement (SKILL item 4)', () =
     );
     expect(verdict.state).toBe('QUOTA-SKIPPED');
     expect(verdict.evidence.join('\n')).toContain('claude: SKIPPED');
+  });
+
+  it('a signed self-authored reply never re-opens the quiet window (SKILL anchoring exclusion)', () => {
+    const verdict = computePrVerdict(
+      settledReading({
+        reviews: [
+          ...settledReading().reviews,
+          {
+            author: 'jimCresswell',
+            state: 'COMMENTED',
+            body: 'Fixed at source in abc1234.\n\n— Moth mends Dreamscape (92e9d6)',
+            commitOid: TIP,
+            submittedAt: '2026-07-21T12:58:00Z',
+          },
+        ],
+      }),
+      // 4 minutes after the self-reply but >10 after the real 12:05 review.
+      '2026-07-21T13:02:00Z',
+    );
+    expect(verdict.state).toBe('SETTLE-READY');
   });
 
   it('an undeclared expected set is named in evidence, never silent', () => {

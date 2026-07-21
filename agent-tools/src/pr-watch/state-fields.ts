@@ -26,6 +26,7 @@ const namedRollupItemSchema = z
     conclusion: z.string().nullish(),
     state: z.string().optional(),
     completedAt: z.string().nullish(),
+    startedAt: z.string().nullish(),
   })
   .loose();
 
@@ -103,16 +104,17 @@ function summarise(namedChecks: readonly NamedCheck[]): ChecksSummary {
   };
 }
 
-// Green means every check passed; the anchor is the LATEST completion among
-// items that report one (StatusContext carries no timestamp). Null when the
-// rollup is not green or no timestamp is available — a null anchor keeps the
-// timeout leg conservatively un-fireable rather than guessing a time.
+// Green means every check passed; the anchor is the LATEST timestamp any item
+// reports — CheckRun `completedAt`, or StatusContext `startedAt` (its creation
+// time; StatusContext has no completion timestamp). Null when the rollup is
+// not green or no timestamp is available — a null anchor keeps the timeout
+// leg conservatively un-fireable rather than guessing a time.
 function checksGreenAt(items: readonly NamedRollupItem[], summary: ChecksSummary): string | null {
   if (summary.total === 0 || summary.failed > 0 || summary.pending > 0) {
     return null;
   }
   const completions = items
-    .map((item) => item.completedAt ?? null)
+    .map((item) => item.completedAt ?? item.startedAt ?? null)
     .filter((value): value is string => value !== null)
     .sort((left, right) => left.localeCompare(right));
   return completions.at(-1) ?? null;

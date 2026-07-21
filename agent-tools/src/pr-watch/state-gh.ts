@@ -43,10 +43,18 @@ export interface ReadPrStateOptions {
 }
 
 const COMPLETED_RUN_MAP_LIMIT = 5;
+const MERGEABILITY_RETRIES = 2;
+
+// The vendor list defaults to the latest 30 sessions; request the full
+// supported window and mark residual truncation explicitly (absence beyond
+// the window is unobserved, never concluded).
+const AGENT_TASK_LIST_LIMIT = 100;
 
 const AGENT_TASK_LIST_ARGS = [
   'agent-task',
   'list',
+  '--limit',
+  String(AGENT_TASK_LIST_LIMIT),
   '--json',
   'id,name,createdAt,completedAt',
 ] as const;
@@ -81,6 +89,36 @@ function reviewsHarvestArgs(prNumber: string, repo: string | undefined): string[
   ];
 }
 
+// `mergeable: UNKNOWN` means GitHub has not computed mergeability yet — a
+// documented transient. Retry the boundary a bounded number of times; if it
+// stays UNKNOWN, fail loud rather than let a green reading settle over an
+// uncomputed conflict state.
+function readViewWithMergeabilityRetry(input: {
+  readonly run: GhCommandExecutor;
+  readonly gh: string;
+  readonly viewArgs: readonly string[];
+  readonly prNumber: string;
+}) {
+  let view = parseStateView(
+    parseGhJson(input.run(input.gh, input.viewArgs, GH_EXEC_OPTIONS), 'pr view'),
+  );
+  for (
+    let attempt = 0;
+    attempt < MERGEABILITY_RETRIES && view.mergeable === 'UNKNOWN';
+    attempt += 1
+  ) {
+    view = parseStateView(
+      parseGhJson(input.run(input.gh, input.viewArgs, GH_EXEC_OPTIONS), 'pr view'),
+    );
+  }
+  if (view.mergeable === 'UNKNOWN') {
+    throw new Error(
+      `PR #${input.prNumber}: mergeability not yet computed (mergeable=UNKNOWN) — re-run in a few seconds`,
+    );
+  }
+  return view;
+}
+
 function describeError(error: unknown): string {
   return error instanceof Error ? error.message : String(error);
 }
@@ -109,7 +147,11 @@ function mapRunsToPr(input: {
       scoped.push(run);
     }
   }
-  return { kind: 'read', runs: scoped };
+  const note =
+    input.runs.length >= AGENT_TASK_LIST_LIMIT
+      ? `agent-task list truncated at ${AGENT_TASK_LIST_LIMIT} — older runs unobserved`
+      : undefined;
+  return { kind: 'read', runs: scoped, ...(note === undefined ? {} : { note }) };
 }
 
 function readReviewRunsLeg(input: {
@@ -146,7 +188,7 @@ export function readPrStateReading(options: ReadPrStateOptions): PrStateReading 
     viewArgs.push('--repo', repo);
   }
 
-  const view = parseStateView(parseGhJson(run(gh, viewArgs, GH_EXEC_OPTIONS), 'pr view'));
+  const view = readViewWithMergeabilityRetry({ run, gh, viewArgs, prNumber });
   const reviewThreads = parseReviewThreadPages(
     parseGhJson(
       run(gh, reviewThreadsArgs(prNumber, repo), GH_EXEC_OPTIONS),

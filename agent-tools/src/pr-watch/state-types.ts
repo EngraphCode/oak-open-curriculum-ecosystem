@@ -26,7 +26,12 @@ export interface ReviewRun {
  * host lacks `gh agent-task`) — surfaced in evidence, never a silent pass.
  */
 export type ReviewRunsLeg =
-  | { readonly kind: 'read'; readonly runs: readonly ReviewRun[] }
+  | {
+      readonly kind: 'read';
+      readonly runs: readonly ReviewRun[];
+      /** Set when the vendor list was truncated at its window — absence beyond it is unobserved. */
+      readonly note?: string;
+    }
   | { readonly kind: 'unavailable'; readonly reason: string };
 
 /** The compound reading the verdict resolves — one struct, every leg present. */
@@ -68,6 +73,7 @@ export const PR_VERDICT_STATES = [
   'WAITING-REVIEW-RUN-LIVE',
   'SILENT-WAIT-NO-REVIEWER',
   'SILENT-WAIT-RUN-DEAD',
+  'SILENT-WAIT-RUNS-UNREADABLE',
   'CHECKS-RUNNING',
   'CHECKS-RED',
   'THREADS-OPEN',

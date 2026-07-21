@@ -11,9 +11,10 @@ import type { PrStateReading, PrVerdict } from './state-types.js';
  */
 
 function runsEvidence(reading: PrStateReading): string[] {
-  return reading.reviewRuns.kind === 'unavailable'
-    ? [`review-run liveness unavailable: ${reading.reviewRuns.reason}`]
-    : [];
+  if (reading.reviewRuns.kind === 'unavailable') {
+    return [`review-run liveness unavailable: ${reading.reviewRuns.reason}`];
+  }
+  return reading.reviewRuns.note === undefined ? [] : [reading.reviewRuns.note];
 }
 
 function expectedSetEvidence(reading: PrStateReading): string[] {
@@ -39,12 +40,24 @@ function legLine(leg: ReviewerLeg): string {
   return `${leg.reviewer}: ${leg.state} — ${leg.detail}`;
 }
 
-// SKILL item 4: the quiet window anchors on the latest review binding the
-// tip; on a tip where every leg settled via SKIPPED (no tip-bound review),
-// it anchors on checks-green.
+// Signed self-authored disposition replies posted through the shared owner
+// credential carry the PDR-027 identity-tuple signature ("— <name> (<hex6>)");
+// the canonical contract EXCLUDES them from quiet-window anchoring (SKILL
+// Phase 3 item 1: an unsigned self-reply falsely re-opens the round).
+const SELF_REPLY_SIGNATURE = /—\s*[^\n]*\([0-9a-f]{6}\)\s*$/mu;
+
+function isSignedSelfReply(body: string): boolean {
+  return SELF_REPLY_SIGNATURE.test(body);
+}
+
+// SKILL item 4: the quiet window anchors on the latest LANDED review binding
+// the tip — excluding PENDING drafts and signed self-authored replies; on a
+// tip where every leg settled via SKIPPED (no tip-bound review), it anchors
+// on checks-green.
 function quietWindowAnchor(reading: PrStateReading): string | null {
   const tipBoundTimes = reading.reviews
     .filter((review) => review.commitOid === '' || review.commitOid === reading.headRefOid)
+    .filter((review) => review.state !== 'PENDING' && !isSignedSelfReply(review.body))
     .map((review) => review.submittedAt)
     .filter((time) => time !== '')
     .sort((left, right) => left.localeCompare(right));
@@ -99,6 +112,7 @@ export function reviewerLegVerdict(reading: PrStateReading, now: string): PrVerd
     legs,
     reviewRequests: reading.reviewRequests,
     liveRunReviewers: liveRunReviewers(reading),
+    runsReadable: reading.reviewRuns.kind === 'read',
   });
   if (blocking.kind === 'settled') {
     return settledVerdict({ reading, legs, now });

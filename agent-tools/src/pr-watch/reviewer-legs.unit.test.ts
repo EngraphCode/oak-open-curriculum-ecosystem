@@ -147,13 +147,19 @@ describe('mostBlockingLeg', () => {
       legs: [{ reviewer: 'copilot-pull-request-reviewer', state: 'OWED', detail: '' }, owedClaude],
       reviewRequests: ['copilot-pull-request-reviewer', 'claude'],
       liveRunReviewers: ['copilot-pull-request-reviewer'],
+      runsReadable: true,
     });
     expect(verdict).toMatchObject({ kind: 'SILENT-WAIT-RUN-DEAD', reviewer: 'claude' });
   });
 
   it('an owed unrequested leg reads SILENT-WAIT-NO-REVIEWER', () => {
     expect(
-      mostBlockingLeg({ legs: [owedClaude], reviewRequests: [], liveRunReviewers: [] }),
+      mostBlockingLeg({
+        legs: [owedClaude],
+        reviewRequests: [],
+        liveRunReviewers: [],
+        runsReadable: true,
+      }),
     ).toMatchObject({ kind: 'SILENT-WAIT-NO-REVIEWER', reviewer: 'claude' });
   });
 
@@ -163,8 +169,51 @@ describe('mostBlockingLeg', () => {
         legs: [owedClaude],
         reviewRequests: ['claude'],
         liveRunReviewers: ['claude'],
+        runsReadable: true,
       }),
     ).toMatchObject({ kind: 'WAITING-REVIEW-RUN-LIVE', reviewer: 'claude' });
+  });
+
+  it('an unreadable run surface never asserts deadness (typed uncertainty)', () => {
+    expect(
+      mostBlockingLeg({
+        legs: [owedClaude],
+        reviewRequests: ['claude'],
+        liveRunReviewers: [],
+        runsReadable: false,
+      }),
+    ).toMatchObject({ kind: 'SILENT-WAIT-RUNS-UNREADABLE', reviewer: 'claude' });
+  });
+
+  it('matches reviewer logins case-insensitively (GitHub logins are)', () => {
+    const legs = computeReviewerLegs({
+      ...base,
+      expectedReviewers: ['JIMCRESSWELL'],
+      reviews: [review({ author: 'jimCresswell' })],
+      reviewRequests: [],
+      now: '2026-07-21T12:06:00Z',
+    });
+    expect(legs[0]?.state).toBe('SATISFIED');
+    expect(
+      mostBlockingLeg({
+        legs: [{ reviewer: 'JIMCRESSWELL', state: 'OWED', detail: '' }],
+        reviewRequests: ['jimCresswell'],
+        liveRunReviewers: [],
+        runsReadable: true,
+      }),
+    ).toMatchObject({ kind: 'SILENT-WAIT-RUN-DEAD' });
+  });
+
+  it('a PENDING (unsubmitted) review neither satisfies nor skips a leg', () => {
+    const legs = computeReviewerLegs({
+      ...base,
+      checksGreenAt: '2026-07-21T11:56:00Z',
+      expectedReviewers: ['copilot-pull-request-reviewer'],
+      reviews: [review({ state: 'PENDING', submittedAt: '' })],
+      reviewRequests: [],
+      now: '2026-07-21T12:00:00Z',
+    });
+    expect(legs[0]?.state).toBe('OWED');
   });
 
   it('returns settled when no leg is OWED', () => {
@@ -173,6 +222,7 @@ describe('mostBlockingLeg', () => {
         legs: [{ reviewer: 'claude', state: 'SKIPPED', detail: 'quota' }],
         reviewRequests: [],
         liveRunReviewers: [],
+        runsReadable: true,
       }),
     ).toEqual({ kind: 'settled' });
   });
