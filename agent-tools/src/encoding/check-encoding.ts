@@ -26,7 +26,7 @@
  */
 
 import { execFileSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { lstatSync, readFileSync, readlinkSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -124,7 +124,15 @@ function analyzeAll(
   const reports: FileEncodingReport[] = [];
   for (const relativePath of relativePaths) {
     try {
-      const bytes = readFileSync(path.join(repoRoot, relativePath));
+      const absolute = path.join(repoRoot, relativePath);
+      // A tracked symlink's scannable bytes ARE its link text (what git
+      // stores) — a bidi/control byte hiding in a link target is exactly
+      // this scanner's threat class, while following the link would
+      // EISDIR on directory targets and double-scan file targets, which
+      // are scanned under their own tracked paths.
+      const bytes = lstatSync(absolute).isSymbolicLink()
+        ? Buffer.from(readlinkSync(absolute), 'utf8')
+        : readFileSync(absolute);
       reports.push(analyzeFileBytes(relativePath, new Uint8Array(bytes)));
     } catch (cause) {
       // Fail loud: a tracked file the scanner cannot read could hide an encoding
