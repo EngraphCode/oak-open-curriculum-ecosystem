@@ -51,10 +51,35 @@ function stagedFiles(runtime: RepoCheckRuntime): readonly string[] {
     throw new Error(result.stderr.trim() || 'git diff failed while discovering staged files');
   }
 
-  return result.stdout
+  const names = result.stdout
     .split(/\r?\n/u)
     .map((entry) => entry.trim())
     .filter((entry) => entry.length > 0);
+
+  // Symlink index entries (mode 120000, e.g. the .claude/skills adapters
+  // pointing at .agents/skills external-skill content) carry no formattable
+  // content of their own — the linked target is checked under its real path,
+  // and prettier refuses symlink paths outright.
+  const symlinks = stagedSymlinkPaths(runtime);
+  return names.filter((name) => !symlinks.has(name));
+}
+
+/** Repo-relative paths of staged index entries that are symbolic links. */
+function stagedSymlinkPaths(runtime: RepoCheckRuntime): ReadonlySet<string> {
+  const result = runtime.runCaptured('git', ['ls-files', '--cached', '-s']);
+  if ((result.status ?? 1) !== 0) {
+    return new Set();
+  }
+  const symlinks = new Set<string>();
+  for (const line of result.stdout.split(/\r?\n/u)) {
+    if (line.startsWith('120000 ')) {
+      const path = line.split('\t')[1];
+      if (path !== undefined) {
+        symlinks.add(path);
+      }
+    }
+  }
+  return symlinks;
 }
 
 function stagedMarkdownFiles(runtime: RepoCheckRuntime): readonly string[] {

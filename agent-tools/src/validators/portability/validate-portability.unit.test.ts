@@ -353,43 +353,43 @@ describe('getSkillPermissionIssues', () => {
 
 describe('getSkillsLockCrossReferenceIssues', () => {
   const completeEntry = {
-    source: 'oaknational/oak-skills',
-    sourceType: 'git',
+    source: 'clerk/skills',
+    sourceType: 'github',
     computedHash: 'abc123',
   };
 
-  it('returns no issues when every locked skill is canonical and fully provenanced', () => {
+  it('returns no issues for a fully-provenanced external skill with a distinct name', () => {
     expect(
       getSkillsLockCrossReferenceIssues(
-        [['oak-plan', completeEntry]],
+        [['clerk-setup', completeEntry]],
         ['oak-plan'],
         'skills-lock.json',
       ),
     ).toStrictEqual([]);
   });
 
-  it('reports a locked skill that has no canonical SKILL-CANONICAL.md', () => {
+  it('reports an external skill whose name collides with a canonical skill', () => {
     expect(
       getSkillsLockCrossReferenceIssues(
-        [['ghost-skill', completeEntry]],
+        [['oak-plan', completeEntry]],
         ['oak-plan'],
         'skills-lock.json',
       ),
     ).toContain(
-      'skills-lock.json: locked skill "ghost-skill" has no canonical .agent/skills/ghost-skill/SKILL-CANONICAL.md',
+      'skills-lock.json: external skill "oak-plan" collides with canonical .agent/skills/oak-plan/ — external skills must never shadow canonical practice skills (rename or remove one)',
     );
   });
 
   it('reports each absent or empty provenance field while accepting present ones', () => {
     expect(
       getSkillsLockCrossReferenceIssues(
-        [['oak-plan', { source: '', sourceType: 'git' }]],
+        [['clerk-setup', { source: '', sourceType: 'github' }]],
         ['oak-plan'],
         'skills-lock.json',
       ),
     ).toStrictEqual([
-      'skills-lock.json: locked skill "oak-plan" missing source',
-      'skills-lock.json: locked skill "oak-plan" missing computedHash',
+      'skills-lock.json: locked skill "clerk-setup" missing source',
+      'skills-lock.json: locked skill "clerk-setup" missing computedHash',
     ]);
   });
 });
