@@ -225,6 +225,36 @@ Worked instances conserved (each first-hand this tenure):
   (cure: name the gate and the decision inline); a `| tail` swallowed the real
   send exit again — exit-codes-in-band applies to every gated send.
 
+## 2026-07-21 — Tornado tracks Apex (daace4): tenure-final wrap capture (handoff to Forge)
+
+The ESM-resolution incident, conserved as a class: **works-under-tsx/vitest ≠
+works-under-node-dist** — 44 extensionless relative imports sat latent for months
+because every consumer resolved bundler-style; the first dist-graph consumer
+(the merge-bot wiring) aborted module linking estate-wide. Cure on PR #457 (all
+specifiers + a conformance smoke in test:e2e that closes the CLASS, including
+not-yet-imported modules — the incident's exact latency shape). Stopgap that
+restored the seat: tsx-form monitor invocations (`pnpm exec tsx
+agent-tools/src/bin/agent-tools.ts collaboration-state …`). Post-#457: fold
+main, ONE rebuild, monitors back to canonical form. Corollary lesson: "rebuild
+the dist" is NOT a universal stale-dist cure — when the defect is in emitted
+specifiers, rebuild reproduces it; diagnose the emission before prescribing the
+rebuild (my first instinct was wrong; the delegate's trace was right).
+
+Free-play seeds from the tenure (associations, not findings):
+
+- Three structural cures were born from failures within HOURS of each failure
+  (merge bot ← bypass breach; conformance smoke ← ESM latency; pr-state tool ←
+  the awk parse) — failure-to-doctrine latency is now intra-day; connects to
+  PDR-130's two-speed frame as lived evidence.
+- One shape under three incidents: THE SURFACE THAT VALIDATES IS NOT THE
+  SURFACE THAT EXECUTES (tsx vs node-dist; mid-churn gate reads vs
+  decision-moment reads; heartbeat emitters vs main loops). Candidate unifying
+  pattern for a future pass.
+- The Director tenure was mostly verifier-of-verdicts; the cricket lesson
+  (cited/inlined grounding converges, uncited diverges) generalised to every
+  inter-seat verdict this tenure — routing events that inlined evidence never
+  bounced.
+
 ## 2026-07-21 — Tornado tracks Apex (daace4): primary-checkout branch-switch violation (owned)
 
 Cutting the estate roll-up branch, this seat ran `git checkout -b
