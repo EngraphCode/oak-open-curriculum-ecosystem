@@ -8,6 +8,16 @@ engineering practice that governs this repository. For the formal
 definition, see
 [ADR-119](../docs/architecture/architectural-decisions/119-agentic-engineering-practice.md).
 
+**Practice, not product.** Everything under `.agent/` is Oak's internal
+engineering practice — how this repository is built and governed. It is
+public because the repository is public, but none of it is part of the
+Oak MCP product surface, and none of it is served to MCP clients, with
+one deliberate exception: the
+[`under-the-hood`](skills/under-the-hood/SKILL-CANONICAL.md) skill is the
+public orientation method the MCP server points integrators at. If you
+are here to use or evaluate the Oak MCP, the product lives in
+[`apps/`](../apps/) and its documentation — not in this directory.
+
 ## Structural model
 
 `.agent/` is the **canonical layer** in a three-layer architecture
