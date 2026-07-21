@@ -17,17 +17,21 @@ file stays repo-independent per the portability rule:
   size→rounds and size→findings associations (both +0.62) are consistent
   with the size effect acting through rounds — an associative reading whose
   caveats (uncontrolled mediator, possible reverse path) the companion
-  analysis states. The observed per-round cost is roughly 35–40 minutes
-  with ~3 fresh comments per cure push, so rounds do not converge by
-  attrition.
+  analysis states. The observed per-COMMIT associations are roughly 35–40
+  minutes and ~3 comments (commits proxy rounds; round-level cost
+  instrumentation is a named follow-up), and the convergence reading they
+  support is that reviews do not converge by attrition.
 - **The latency tail is silent waiting, not work.** Of the window's 11
   slowest PRs, 9 went ready in the owner-away evening; the same night
   produced three live silent-wait instances: an armed auto-merge sitting
   behind red checks, two PRs whose pushed tips had no reviewer requested,
   and a PR with unresolved threads and no shepherd.
-- **Class matters.** Archival/record PRs (retrospectives, handoff records,
-  coordination folds) carry large diffs with low finding density and land
-  fast; code and doctrine diffs bind tight.
+- **Class matters (qualitative).** From named worked instances rather
+  than a class-stratified corpus — the evidence CSV carries no class
+  field, and the register's class dimension is a named follow-up:
+  archival/record PRs (retrospectives, handoff records, coordination
+  folds) carry large diffs with low finding density and land fast; code
+  and doctrine diffs bind tight.
 
 This record is the authoring-side twin of the estate's merge-mechanics
 decision (PDR-131), which established that merge concurrency is free and
@@ -45,8 +49,9 @@ shaped.
    the generator question THEN — ahead of the state machine's mechanical
    step-back arms, which remain the failure backstop.
 2. **Size thresholds are authoring-time warnings, never blocks**: more than
-   ~300 added lines, more than ~8 changed files, or opening with 6 or more
-   commits each predict a heavy review (the measured heavy-review
+   ~300 added lines, more than ~8 changed files, or carrying 6 or more
+   commits (measured on final counts; opening-time counts are a named
+   instrumentation follow-up) each predict a heavy review (the measured heavy-review
    probability triples past 300 additions). A changeset crossing them is
    re-examined for hidden second stories before it opens — and may still
    legitimately proceed.

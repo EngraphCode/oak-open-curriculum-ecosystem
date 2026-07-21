@@ -146,3 +146,19 @@ budget numbers (pointer only — consolidate-at-second-consumer is the point).
   literals outside the PDR, verify every cited decision record resolves on
   the LANDING base, verify every quantitative claim's evidence file rides
   the changeset.
+
+- **2026-07-21 05:55Z, round 3: 6 findings (3 visible + 3 suppressed), one
+  dominant generator — claims above measurement granularity.** Commit-level
+  final aggregates had been asserted as round-level facts (per-round cost,
+  per-push comment draw), class claims rode a corpus with no class field,
+  and the opening-commit warning was unmeasured (the CSV records final
+  counts). All restated at their true evidence level with the missing
+  instrumentation named as follow-ups. Also cured: the budget-exceeded
+  transition now fires at over-budget round OPENING (not settle — the
+  reviewer's precise reading of the tally definition), and a correction to
+  this log's own arithmetic: at open this file was 83 lines against a ~55
+  prediction, so the log contributed ~28 of the 45-line overage, not all
+  of it — the remaining ~17 came from the other seven files running long.
+  Trajectory 10→6→6: converging slowly; the reflexive-loop clause is now
+  the governing frame — round 4 findings that restate documented residuals
+  exit by per-site disposition, not endless cure.
