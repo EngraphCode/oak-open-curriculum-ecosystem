@@ -18,7 +18,7 @@ derives_from:
   - docs/architecture/architectural-decisions/053-clerk-as-identity-provider.md (binding shared-instance mandate + opaque runtime shape; D0/D3 engage it)
   - docs/architecture/architectural-decisions/115-oauth-proxy-authorization-server.md (proxy-AS metadata shape the validation gates assert)
   - docs/architecture/architectural-decisions/142-clerk-mcp-tools-adopt-or-explain.md (opaque-token spike record)
-  - Milestone "Clerk production hardening" (project MCP App: First Major Release, target 2026-08-11)
+  - 'Milestone "Clerk production hardening" (project MCP App: First Major Release, target 2026-08-11)'
 related:
   - MCP-67 (Linear ticket; execution status projects there per V0 §2.2)
 todos:
