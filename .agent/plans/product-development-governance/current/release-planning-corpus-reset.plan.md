@@ -1,4 +1,9 @@
 ---
+id: release-planning-corpus-reset
+node_type: plan
+kind: executable
+serves_strategic_choice: FRAME-1
+last_updated: 2026-07-21
 lineage:
   serves_thread: curriculum-mcp-path-to-ga
   serves_stream: product-development-governance
@@ -7,6 +12,18 @@ lineage:
     - Owner refinement 2026-07-21 (~12:2xZ; graph-ready minimum ratified as direction)
     - plan-node-schema.v0.md (owner-signed V0 + V0.1; the ADR-200 bridge form)
     - PDR-132 (round budgets bind at authoring time)
+todos:
+  - id: s1-schema-template-validator-fence
+    content: "S1 — V0 Zod transcription + delivery/runbook templates + new-corpus validator leg + the Notion privacy fence (mechanical layer hash-matched; construction and human layers stated in the rule file)."
+    status: pending
+    depends_on: [s2-backlog-move-and-skeleton]
+  - id: s2-backlog-move-and-skeleton
+    content: "S2 — pure-move backlog of the prior plan estate (commit 1 = the move alone, R100-provable), founding members admitted under the corpus admission rule, minimal root skeleton, registry hygiene, references sweep."
+    status: pending
+  - id: s3-milestone-plan-and-lanes
+    content: "S3 — milestone plan authored to the template from the landed owner documents; the four delivery lanes route independently as their own gates clear, each implementer authoring its plan at pickup."
+    status: pending
+    depends_on: [s1-schema-template-validator-fence, s2-backlog-move-and-skeleton]
 ---
 
 # Release-planning corpus reset — the graph-ready minimum
@@ -84,8 +101,8 @@ untouched at rest.
    linkage to the milestone plan rides `depends_on`/`related`, never an
    invented plan→plan `serves` edge (V0 §8 defers `parent_plan`). The
    leg is CI-gated because `repo-validators:check` runs in CI
-   static-checks today; the check↔CI parity validator (PR #460, in
-   review) additionally guards the aggregate wiring once landed. The
+   static-checks; the check↔CI parity validator (landed 2026-07-21)
+   guards the aggregate wiring. The
    backlogged estate is outside the validator's scan root by
    construction — the admission rule drawn as a directory boundary.
 4. Privacy fence, enforced not promised: a secret-scan/hook rule

@@ -262,26 +262,25 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> ### ▶ SEAT HANDOFF IN PROGRESS (2026-07-21 ~09:30Z): Tornado tracks Apex → Forge rides Brimstone (owner-named, deliberate succession)
+> ### ▶ ACTIVE: RELEASE-PIVOT ERA — Director: Forge rides Brimstone (`398e24`, seat taken at Moment-2 2026-07-21T09:39:19Z)
 >
-> Owner word ~09:27Z: full handoff; successor **Forge rides Brimstone (`398e24`)**
-> (currently the Merge Specialist seat, live post-compaction on cycle aip-157-d1).
-> PDR-063 §Deliberate succession + PDR-064 two moments govern: Tornado issues
-> Moment-1 pre-positioning; authority stays with Tornado until Forge's Moment-2
-> (this brief's readiness gate: five questions + the PASTED mechanical UTC
-> liveness check), then `claims adopt 7d6b8bbf` in place (Forge then holds both
-> the Director claim and their own 4092ab7a — collapse them at their judgment;
-> with no other live seats the coordinator/implementer boundary is in the
-> degenerate exception until the owner spawns implementers). Tornado's monitors
-> run until Moment-2 (never dark between the moments). If Moment-2 does not
-> land, coordination authority returns to the OWNER explicitly; the role context
-> rides the Moment-1 event + this block + the handoff record at
-> `.agent/state/collaboration/handoffs/2026-07-21-tornado-director-full-handoff.md`
-> (untracked-by-design; the claim's handoff_record_path points at it).
-> **Live at the freeze**: PR #457 (the agent-tools ESM cure) ARMED, lands at
-> settled → the successor folds main into coordination and runs ONE
-> `pnpm --filter @oaknational/agent-tools build`, then re-arms monitors on the
-> canonical CLI form (tsx-form monitors are the working stopgap meanwhile).
+> **Succession COMPLETE** (owner-named deliberate succession, PDR-063/064):
+> Tornado's Moment-1 pre-positioning (canonical event `55fa9cef`), Forge's
+> readiness gate discharged (five questions + the pasted mechanical UTC
+> liveness check), `claims adopt 7d6b8bbf` in place, Moment-2
+> active-acknowledgement (event `49bc1f31`, 09:39:19Z); Tornado retired
+> cleanly 09:40:17Z with monitors stopped by intent. Forge holds the
+> Director claim `7d6b8bbf`; the ex-implementer claim `4092ab7a` closed its
+> areas as routed (AIP-157/D1 → Moth mends Dreamscape, claim `11c4204e`).
+> The #457 landing duty (fold main → one agent-tools build → monitors to
+> the canonical CLI form) was discharged and verified the same morning.
+> **Era shape**: the owner's six-point release directive (~12:0xZ) governs —
+> the guiding plan is
+> `product-development-governance/current/release-planning-corpus-reset.plan.md`
+> (V0-conformant, assumptions-reviewed); the owner-jobs register
+> (`.agent/state/collaboration/owner-jobs.md`, a Linear projection via the
+> `owner-ask` label) is the owner-attention surface, with the statusline
+> bell as its glanceable half.
 >
 > ### ▶ PRIOR SHAPE: NET-TO-ZERO TAIL + PDR-131 ERA — Director: Tornado tracks Apex (`daace4`, seat taken 2026-07-20T21:11:51Z)
 >
