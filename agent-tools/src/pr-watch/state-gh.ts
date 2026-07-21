@@ -98,7 +98,11 @@ function mapRunsToPr(input: {
   const scoped: ReviewRun[] = [];
   for (const run of [...live, ...completed]) {
     const viewRaw = parseGhJson(
-      input.run(input.gh, ['agent-task', 'view', run.id, '--json'], GH_EXEC_OPTIONS),
+      input.run(
+        input.gh,
+        ['agent-task', 'view', run.id, '--json', 'id,completedAt,pullRequestNumber'],
+        GH_EXEC_OPTIONS,
+      ),
       'agent-task view',
     );
     if (parseAgentTaskView(viewRaw).pullRequestNumber === input.prNumber) {

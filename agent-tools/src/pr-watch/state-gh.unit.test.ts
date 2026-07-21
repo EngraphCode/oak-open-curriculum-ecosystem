@@ -201,6 +201,9 @@ describe('readPrStateReading', () => {
     });
     const viewCalls = calls.filter((args) => args[0] === 'agent-task' && args[1] === 'view');
     expect(viewCalls).toHaveLength(5);
+    // The view leg must name its fields: bare --json is a usage error on this
+    // vendor surface (caught live, 2026-07-21).
+    expect(viewCalls[0]).toContain('id,completedAt,pullRequestNumber');
   });
 
   it('passes --repo through to the pr view leg', () => {
