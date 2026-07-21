@@ -1,3 +1,16 @@
+# [1.81.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.80.2...v1.81.0) (2026-07-21)
+
+
+### Bug Fixes
+
+* **agent-tools:** merge-bot internal review cures — scoped tokens, live root, hard boundaries ([c8b723b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c8b723bbade879da052851c8e29003774a8c31f1))
+
+
+### Features
+
+* **agent-tools:** add merge-bot installation-token minting (aip-158) ([8c7068a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8c7068addaab59de6004606cd895895186cc61fa))
+* **agent-tools:** repo config is the merge-bot identity authority ([d4e3fa1](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d4e3fa1e7c9b8a0755efc04418edce1d2f45d54b))
+
 ## [1.80.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.80.1...v1.80.2) (2026-07-21)
 
 
