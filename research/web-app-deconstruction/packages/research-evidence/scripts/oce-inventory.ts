@@ -4,6 +4,7 @@ import path from 'node:path';
 import { promisify } from 'node:util';
 
 import { emitJson, parseArgs, resolveFromCwd, usageError, workspaceRoot } from '../lib/cli.js';
+import { codeUnitCompare } from '../lib/compare.js';
 import {
   hubRouteFromPage,
   parseRuleIndexRows,
@@ -129,7 +130,7 @@ async function main(): Promise<void> {
     .filter((file) => file.startsWith(paths.hubApp))
     .map(hubRouteFromPage)
     .filter((route) => route !== null)
-    .sort();
+    .sort(codeUnitCompare);
   const canonicalRuleFiles = files.filter(
     (file) =>
       file.startsWith(paths.canonicalRules) &&
@@ -137,12 +138,12 @@ async function main(): Promise<void> {
       !file.slice(paths.canonicalRules.length).includes('/'),
   );
   const indexedRuleRows = parseRuleIndexRows(rulesIndexBuffer.toString('utf8'));
-  const indexedRuleFiles = indexedRuleRows.map((row) => row.path).sort();
+  const indexedRuleFiles = indexedRuleRows.map((row) => row.path).sort(codeUnitCompare);
   const canonicalRuleSet = new Set(canonicalRuleFiles);
   const indexedRuleSet = new Set(indexedRuleFiles);
   const classifications = Object.fromEntries(
     [...new Set(indexedRuleRows.map((row) => row.classification))]
-      .sort()
+      .sort(codeUnitCompare)
       .map((classification): [string, number] => [
         classification,
         indexedRuleRows.filter((row) => row.classification === classification).length,

@@ -1,5 +1,7 @@
 import path from 'node:path';
 
+import { codeUnitCompare } from './compare.js';
+
 function isPlainRecord(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === 'object' && !Array.isArray(value);
 }
@@ -84,7 +86,7 @@ export function resolveWorkspaceDirectories(trackedFiles: string[], patterns: st
     }
   }
 
-  return [...workspaces].sort();
+  return [...workspaces].sort(codeUnitCompare);
 }
 
 export function hubRouteFromPage(file: string): string | null {
@@ -130,7 +132,7 @@ export function summarizeGraphCorpus(value: unknown): GraphCorpusSummary {
         .map((node) => assertRecord(node, 'graph corpus node').subject)
         .filter((subject): subject is string => typeof subject === 'string'),
     ),
-  ].sort();
+  ].sort(codeUnitCompare);
 
   return {
     version: corpus.version,
@@ -142,7 +144,9 @@ export function summarizeGraphCorpus(value: unknown): GraphCorpusSummary {
     reportedEdgeCount: stats.totalEdges,
     reportedCountsMatchPayload:
       stats.totalNodes === nodes.length && stats.totalEdges === edges.length,
-    reportedSubjectsCovered: [...reportedSubjects].sort(),
+    reportedSubjectsCovered: [...reportedSubjects].sort((left, right) =>
+      codeUnitCompare(String(left), String(right)),
+    ),
     reportedSubjectsCoveredCount: reportedSubjects.length,
     distinctNodeSubjectValues,
     distinctNodeSubjectValueCount: distinctNodeSubjectValues.length,

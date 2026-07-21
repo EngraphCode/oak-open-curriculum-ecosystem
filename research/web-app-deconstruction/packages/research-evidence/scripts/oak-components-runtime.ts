@@ -15,6 +15,7 @@ import {
   resolveFromCwd,
   usageError,
 } from '../lib/cli.js';
+import { codeUnitCompare } from '../lib/compare.js';
 import { assertRepository, resolvePackage } from '../lib/repository.js';
 import type { RepositoryInfo } from '../lib/repository.js';
 
@@ -207,7 +208,7 @@ async function filesBelow(root: string): Promise<string[]> {
     }
   }
   await visit(root);
-  return files.sort();
+  return files.sort(codeUnitCompare);
 }
 
 function compressedSizes(buffer: Buffer): CompressedSizes {
@@ -262,7 +263,7 @@ async function artifactEvidence(
     artifactSizes[relative] = compressedSizes(await readFile(file));
   }
 
-  const runtimeNames = Object.keys(requireFromOwa(packageName)).sort();
+  const runtimeNames = Object.keys(requireFromOwa(packageName)).sort(codeUnitCompare);
   const esmPath = path.join(packageRoot, manifest.module);
   const cjsPath = path.join(packageRoot, manifest.main);
 

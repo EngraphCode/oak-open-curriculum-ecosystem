@@ -3,6 +3,7 @@ import { execFile } from 'node:child_process';
 import path from 'node:path';
 import { promisify } from 'node:util';
 
+import { codeUnitCompare } from './compare.js';
 import { assertRepository, resolvePackage } from './repository.js';
 import { isProductionFile, normaliseRelative, readSources, sourceFiles } from './source-files.js';
 import type { SourceFile } from './source-files.js';
@@ -232,7 +233,7 @@ export function stronglyConnectedComponents(
       onStack.delete(member);
       component.push(member);
     } while (member !== node);
-    components.push(component.sort());
+    components.push(component.toSorted(codeUnitCompare));
   }
 
   for (const node of nodes) {
@@ -603,7 +604,7 @@ export async function buildOwaArchitectureInventory(
       runtimeShapedLocalEdges: runtimeShapedLocalEdges.size,
       crossAreaRuntimeShapedEdges,
       runtimeShapedDependencyMatrix: sortedRecord(dependencyMatrix),
-      unresolvedLocalImports: [...unresolvedLocal].sort(),
+      unresolvedLocalImports: [...unresolvedLocal].sort(codeUnitCompare),
       externalImportsByFileCount: externalImports,
       useClientDirectiveRoots: clientRoots.length,
       useClientDirectiveClosureModules: clientClosure.size,

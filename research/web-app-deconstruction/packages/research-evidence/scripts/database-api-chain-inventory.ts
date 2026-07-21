@@ -4,6 +4,7 @@ import { promisify } from 'node:util';
 import type { ExecFileOptions } from 'node:child_process';
 
 import { emitJson, parseArgs, resolveFromCwd, usageError, workspaceRoot } from '../lib/cli.js';
+import { codeUnitCompare } from '../lib/compare.js';
 import {
   countBy,
   countOpenApiPathKeys,
@@ -329,7 +330,7 @@ async function oakOpenApiInventory(snapshot_: RepositorySnapshot) {
     ...new Set(
       handlerFiles.filter((file) => file.split('/').length > 4).map((file) => file.split('/')[3]),
     ),
-  ].sort();
+  ].sort(codeUnitCompare);
 
   return {
     repository: repositoryShape(files),
@@ -474,7 +475,7 @@ async function oceConsumerInventory(snapshot_: RepositorySnapshot) {
       schemaPath: bulkSchemaPath,
       schemaTitle: bulkSchema.title ?? null,
       topLevelRequired: bulkSchema.required ?? [],
-      topLevelProperties: Object.keys(bulkSchema.properties ?? {}).sort(),
+      topLevelProperties: Object.keys(bulkSchema.properties ?? {}).sort(codeUnitCompare),
     },
   };
 }
@@ -517,7 +518,9 @@ function crossSystemCorrespondence(
     unmatchedResolverConstants: resolverCorrespondence
       .filter(({ databaseObject }) => databaseObject === null)
       .map(({ symbol, value }) => ({ symbol, value })),
-    oceConfiguredSchemaUrls: [...new Set(configuredSchemaUrls)].sort(),
+    oceConfiguredSchemaUrls: [...new Set(configuredSchemaUrls)].sort((left, right) =>
+      codeUnitCompare(String(left), String(right)),
+    ),
   };
 }
 

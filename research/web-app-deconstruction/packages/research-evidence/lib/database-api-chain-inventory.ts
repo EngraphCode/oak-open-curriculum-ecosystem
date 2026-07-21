@@ -1,5 +1,7 @@
 import path from 'node:path';
 
+import { codeUnitCompare } from './compare.js';
+
 export interface SourceEntry {
   source: string;
   file?: string;
@@ -329,7 +331,7 @@ export function extractOpenApiPaths(source: string): string[] {
       paths.push(match[1]);
     }
   }
-  return [...new Set(paths)].sort();
+  return [...new Set(paths)].sort(codeUnitCompare);
 }
 
 export function extractOpenApiMethods(source: string): string[] {
@@ -347,7 +349,7 @@ export function extractAbsoluteUrls(source: string): string[] {
   for (const match of source.matchAll(pattern)) {
     urls.push(match[0]);
   }
-  return [...new Set(urls)].sort();
+  return [...new Set(urls)].sort(codeUnitCompare);
 }
 
 export function stripJavaScriptComments(source: string): string {

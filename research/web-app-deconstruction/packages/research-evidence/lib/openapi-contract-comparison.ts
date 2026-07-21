@@ -1,3 +1,5 @@
+import { codeUnitCompare } from './compare.js';
+
 const topLevelDeploymentKeys = new Set(['info', 'servers', 'externalDocs']);
 const proseKeys = new Set(['description', 'summary', 'example', 'examples', 'bearerFormat']);
 const namedMemberContainers = new Set([
@@ -134,7 +136,7 @@ export function summarizeOpenApiDocument(document: OpenApiDocumentLike): OpenApi
     version: document.info?.version ?? null,
     pathCount: Object.keys(document.paths ?? {}).length,
     operationCount: operations.length,
-    operations: operations.sort(),
+    operations: operations.toSorted(codeUnitCompare),
     componentSchemaCount: Object.keys(document.components?.schemas ?? {}).length,
   };
 }
