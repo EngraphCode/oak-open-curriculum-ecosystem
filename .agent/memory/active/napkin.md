@@ -225,6 +225,36 @@ Worked instances conserved (each first-hand this tenure):
   (cure: name the gate and the decision inline); a `| tail` swallowed the real
   send exit again — exit-codes-in-band applies to every gated send.
 
+## 2026-07-21 — Tornado tracks Apex (daace4): tenure-final wrap capture (handoff to Forge)
+
+The ESM-resolution incident, conserved as a class: **works-under-tsx/vitest ≠
+works-under-node-dist** — 44 extensionless relative imports sat latent for months
+because every consumer resolved bundler-style; the first dist-graph consumer
+(the merge-bot wiring) aborted module linking estate-wide. Cure on PR #457 (all
+specifiers + a conformance smoke in test:e2e that closes the CLASS, including
+not-yet-imported modules — the incident's exact latency shape). Stopgap that
+restored the seat: tsx-form monitor invocations (`pnpm exec tsx
+agent-tools/src/bin/agent-tools.ts collaboration-state …`). Post-#457: fold
+main, ONE rebuild, monitors back to canonical form. Corollary lesson: "rebuild
+the dist" is NOT a universal stale-dist cure — when the defect is in emitted
+specifiers, rebuild reproduces it; diagnose the emission before prescribing the
+rebuild (my first instinct was wrong; the delegate's trace was right).
+
+Free-play seeds from the tenure (associations, not findings):
+
+- Three structural cures were born from failures within HOURS of each failure
+  (merge bot ← bypass breach; conformance smoke ← ESM latency; pr-state tool ←
+  the awk parse) — failure-to-doctrine latency is now intra-day; connects to
+  PDR-130's two-speed frame as lived evidence.
+- One shape under three incidents: THE SURFACE THAT VALIDATES IS NOT THE
+  SURFACE THAT EXECUTES (tsx vs node-dist; mid-churn gate reads vs
+  decision-moment reads; heartbeat emitters vs main loops). Candidate unifying
+  pattern for a future pass.
+- The Director tenure was mostly verifier-of-verdicts; the cricket lesson
+  (cited/inlined grounding converges, uncited diverges) generalised to every
+  inter-seat verdict this tenure — routing events that inlined evidence never
+  bounced.
+
 ## 2026-07-21 — Tornado tracks Apex (daace4): primary-checkout branch-switch violation (owned)
 
 Cutting the estate roll-up branch, this seat ran `git checkout -b
@@ -324,3 +354,58 @@ these are the mechanics worth conserving (owner rulings are listed there for gra
   machine coordinated via events dropped into a sibling checkout's comms dir; an fs-watch
   Monitor on that dir was a sufficient wake signal (note: give such a watcher
   self-exclusion, or every outbound echo wakes the seat).
+
+## 2026-07-21 — Willow guards Mulch (66aca9): standby-seat free-play harvest + exploration frame (owner-invoked)
+
+Standby successor seat to Moth (92e9d6), waiting for the PDR-063 moment; owner invoked
+free-play + concept-exploration over the day's material. Play seeds — ASSOCIATIONS, not
+findings (confabulation guard ran; discards listed):
+
+- **Canonical-core-many-projections triple**: the one-HTML-many-CSS note, the
+  cross-platform packaging report (portable core + thin generated host artifacts), and
+  ADR-125's three-layer artefact model look shaped alike — the release architecture
+  reads like the Practice's own portability seam externalised into product. Association
+  only; rides here for whoever authors the packaging lane plan.
+- **Capability-confinement rhyme**: Clerk report's "host owns the OAuth flow, the iframe
+  never touches tokens" reminded me of the merge-bot ruling (bypass confined to one
+  auditable app actor; checks+threads still bind). Both look like least-authority
+  confinement arriving in two unrelated lanes the same week.
+- **Dormancy-contract rhyme**: standby seat (PDR-078 §4), the backlogged plan estate
+  (lossless move + resumption README), and handoff records (PDR-063) share one shape —
+  conserve losslessly + name the wake trigger + name the adoption mechanics. Three
+  altitudes, one contract. Association for a future pass.
+- **Variation-scheduling observation**: a convergence window idles high-capability
+  seats; the owner routed this one into play — variation–selection balance operating
+  live. Small, sharp; no action.
+- **Discarded (visibly)**: PostHog's "don't instrument a system that doesn't exist" ↔
+  the confabulation guard (arrived too smoothly; they refuse different things); Zen
+  Garden ↔ agent-identity projections (no shared mechanism).
+
+Exploration frame (four movements run on the one seed with a growing shape — the
+napkin's existing "surface that validates ≠ surface that executes" candidate):
+
+- **Frame**: read-surface ≠ decide-surface drift is invisible until the deciding surface
+  is exercised; the estate encodes each instance as a separate lesson, so a NEW split
+  goes unrecognised until its first failure. Instances in hand: tsx-vs-node-dist (44
+  latent imports), mid-churn gate reads vs decision-moment reads, heartbeat emitters vs
+  main loops, awk-parse vs JSON check states, and — the sharpening — gh client-side
+  BLOCKED vs the REST layer (a FALSE-RED: the split surprised in the opposite
+  direction and was the CURE, not the defect). Any graduated form must carry both
+  faces plus the discriminating question: "which surface actually decides, and which
+  am I reading?"
+- **Assumption changed mid-pass**: the fluent answer "author a new pattern file" was
+  revised — the verification face is already covered by
+  `patterns/verification-method-must-answer-the-question.md`; the home question (amend
+  that pattern with a read-surface face vs. a standalone pattern) belongs to the next
+  curation pass with the whole corpus in view, and the convergence word forbids new
+  doctrine now anyway.
+- **P1 (routed to next curation pass)**: adjudicate the home for the class. Warrant: 5+
+  first-hand instances in 3 days across four subsystems. Falsifier: if close reading
+  shows shared surface-resemblance but not shared mechanism (e.g. gh-BLOCKED is policy
+  divergence, not drift; heartbeat-autopilot arguably a different genus), the
+  unification narrows and NO new doctrine is authored — that verdict is a valid pass
+  outcome.
+- **P2 (small)**: when a client tool refuses an action, read the authoritative API
+  layer before accepting the refusal (false-red discriminator). Warrant: today's
+  #458/#460 REST-merge proof. Falsifier: if refusals are nearly always genuine, the
+  check is waste — count future instances before encoding anywhere.

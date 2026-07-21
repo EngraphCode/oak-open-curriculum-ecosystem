@@ -262,7 +262,27 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> ### ▶ ACTIVE EFFORT: NET-TO-ZERO TAIL + PDR-131 ERA — Director: Tornado tracks Apex (`daace4`, seat taken 2026-07-20T21:11:51Z)
+> ### ▶ ACTIVE: RELEASE-PIVOT ERA — Director: Forge rides Brimstone (`398e24`, seat taken at Moment-2 2026-07-21T09:39:19Z)
+>
+> **Succession COMPLETE** (owner-named deliberate succession, PDR-063/064):
+> Tornado's Moment-1 pre-positioning (canonical event `55fa9cef`), Forge's
+> readiness gate discharged (five questions + the pasted mechanical UTC
+> liveness check), `claims adopt 7d6b8bbf` in place, Moment-2
+> active-acknowledgement (event `49bc1f31`, 09:39:19Z); Tornado retired
+> cleanly 09:40:17Z with monitors stopped by intent. Forge holds the
+> Director claim `7d6b8bbf`; the ex-implementer claim `4092ab7a` closed its
+> areas as routed (AIP-157/D1 → Moth mends Dreamscape, claim `11c4204e`).
+> The #457 landing duty (fold main → one agent-tools build → monitors to
+> the canonical CLI form) was discharged and verified the same morning.
+> **Era shape**: the owner's six-point release directive (~12:0xZ) governs —
+> the guiding plan is
+> `product-development-governance/current/release-planning-corpus-reset.plan.md`
+> (V0-conformant, assumptions-reviewed); the owner-jobs register
+> (`.agent/state/collaboration/owner-jobs.md`, a Linear projection via the
+> `owner-ask` label) is the owner-attention surface, with the statusline
+> bell as its glanceable half.
+>
+> ### ▶ PRIOR SHAPE: NET-TO-ZERO TAIL + PDR-131 ERA — Director: Tornado tracks Apex (`daace4`, seat taken 2026-07-20T21:11:51Z)
 >
 > **SESSION SHAPE (2026-07-20, refreshed ~21:20Z):** Director **Tornado tracks Apex
 > (`daace4`)**, claim `7d6b8bbf` (adopted in place at Moment-2 21:11:51Z, event

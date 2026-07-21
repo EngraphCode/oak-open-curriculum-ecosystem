@@ -320,3 +320,5 @@ demos/oak-curriculum-hub/demo-evidence/
 # Deliberately untracked vendor-transport material — the workspace copy is the
 # tracked system; re-obtain a fresh bundle from the studio project.
 packages/design/design-import/
+__pycache__/
+.agent/state/collaboration/owner-jobs.md
