@@ -409,3 +409,52 @@ napkin's existing "surface that validates ≠ surface that executes" candidate):
   layer before accepting the refusal (false-red discriminator). Warrant: today's
   #458/#460 REST-merge proof. Falsifier: if refusals are nearly always genuine, the
   check is waste — count future instances before encoding anywhere.
+
+## 2026-07-21 — Moth mends Dreamscape (92e9d6): seat wrap capture
+
+Behaviour-changing items with no other home (lane detail lives in the PR #462
+thread ledger + the gitignored handoff record; owner rulings in comms):
+
+- **Auto-merge NEVER applies ruleset bypass grants** — an armed intent under a
+  review-requiring ruleset waits forever even for an always-bypass app actor
+  (#458: armed 2h, everything green). The app's REST `PUT /pulls/N/merge`
+  succeeds where plain `gh pr merge` refuses CLIENT-SIDE (it reads
+  mergeStateStatus and suggests --auto/--admin without calling the API). Landing
+  path under a bot-exempt gate = REST-at-settled. Named class:
+  armed-behind-review-gate (filed to the pr-state D2/plan pointer).
+- **husky failure lines name the failing STAGE only in the last line** — a
+  >100-char commit header fails commit-msg and reads like a gate failure; two
+  misdiagnosed commits at this seat. Read `husky - <hook> script failed`
+  literally before diagnosing.
+- **The review-round finding-generator cure that worked**: authoring a
+  canonical-contract executor from an EXCERPT of the canon + happy-path vendor
+  probes generated 4→7→(10 in-house)→5→4 findings over four bot rounds; the two
+  moves that converged it were reading the WHOLE canonical section and running a
+  code-expert pass in-house BEFORE each re-request (pre-round self-review turned
+  round 3's would-be findings into a zero-cost batch). Worked instance for the
+  pre-execution-code-expert-review rule at review-round grain.
+- **Copilot re-review timing**: the round binds ~5–10 min after request;
+  requesting before the final push of a batch wastes the round (three instances
+  this seat).
+
+## 2026-07-21 — Willow guards Mulch (66aca9): AIP-157 lane specimens (route to D2 + frictions)
+
+- **Live review run invisible to `gh agent-task`** (owner-linked specimen, ~14:52Z): PR
+  #462's round-5 run was live and working at `github.com/<repo>/tasks/<uuid>?session_id=…`
+  while `gh agent-task list` showed no live runs and `view <uuid>` returned "session not
+  found" at this seat — web-UI task sessions can belong to an actor context the CLI
+  credential cannot read. `pr state` correctly read SILENT-WAIT-NO-REVIEWER (typed
+  honesty), but the D2 `pr watch` design must not treat gh-agent-task absence as
+  run-absence. Route to the D2 plan unit at authoring.
+- **F-95 gate resolves comms-seen against the invoking worktree** (F-41 family inside the
+  gate): `claims open` from a worktree refused with "no watcher heartbeat" while the
+  watcher was live at the primary. Workaround: registry moves (open/close) from the
+  primary cwd; git moves from the worktree. Frictions-register candidate.
+- **`claims heartbeat` requires explicit `--now`** while `claims open` defaults it (F-89
+  sibling, second live instance after Deimos' close note — the class is "per-command
+  now-defaulting inconsistency", generator-shaped).
+- **commit-queue guard rejects worktree-scoped commit-window claims**: a claim opened as
+  `git:index/head@<worktree>` (the form the commit skill's merge section itself
+  prescribes) fails guard's "not an active git:index/head claim" check — the tool lags
+  the per-worktree claim-scope doctrine. The workflow's own verify-staged still held the
+  bundle contract. Frictions-register candidate.
