@@ -162,3 +162,22 @@ budget numbers (pointer only — consolidate-at-second-consumer is the point).
   Trajectory 10→6→6: converging slowly; the reflexive-loop clause is now
   the governing frame — round 4 findings that restate documented residuals
   exit by per-site disposition, not endless cure.
+
+- **2026-07-21 06:03Z, round 4 fired the mechanical STEP-BACK (10→6→6→8)
+  — and the generator was the cure mechanics, not the documents.** Five of
+  the eight findings (1 visible + 7 suppressed) were resurrections: prior
+  rounds' cures had been applied with unverified string replacements that
+  silently no-op'd when the target text drifted, and the sites were never
+  re-read. The class fix: every cure in this epoch-reset push was applied
+  with assert-verified replacement (pattern must exist before, must be
+  gone after) plus a grep survivor-sweep over every cure site from all
+  rounds — zero survivors at push time. Genuinely new cures in the same
+  batch: the commit-count smell dropped as a predictor (it was the
+  outcome definition — tautology); the falsifier rebound to the all-PR
+  median so it is observable without unlanded instrumentation; the model
+  restated in commit units; the CurricAlign p50s recomputed under the
+  nearest-rank convention (~35m cycle; the three backlog-aged tickets'
+  ~21.4d leads stated directly). Doctrine lesson, now twice-earned at
+  this seat in one delivery: an unverified apply IS the silent-wait class
+  in edit form — nothing progresses it and nothing alerts; verification
+  belongs in the same act as the change, never after.

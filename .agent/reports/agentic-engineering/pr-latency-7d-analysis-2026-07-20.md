@@ -42,9 +42,10 @@ ready→merged: min 2m · p25 25m · p50 1.3h · p75 4.2h · p90 11.7h · max 4.
    awaiting round-level instrumentation, not measurements. The convergence
    reading they support: reviews do not converge by attrition; generator-
    killing cures end them. (Consistent with the fix-the-generator ruling.)
-3. **Non-review comments are free.** Issue-comment count correlates with latency
-   at 0.00. Review threads (+0.49) are the costly kind. Process chatter costs
-   nothing; unresolved findings cost rounds.
+3. **Non-review comments show no monotonic association with latency in
+   this sample** (Spearman 0.00), while review threads correlate at +0.49
+   — an observed contrast, not a causal cost-free claim; the correlated
+   quantity is unresolved findings.
 4. **The latency tail is availability, not process.** 9 of the 11 PRs with >10h
    latency went ready 16:00Z or later — the owner-away window. PDR-131's
    arm-at-settled-READY is the exact cure: armed intents land without presence
@@ -55,15 +56,19 @@ ready→merged: min 2m · p25 25m · p50 1.3h · p75 4.2h · p90 11.7h · max 4.
    4.6h; tickets start at creation). The 2026-07-20 nine-ticket batch carries the
    serial-era merge wait in its 4–5.5h cycles; AIP-155 (born and merged under
    PDR-131 mechanics) cycled in **14m** — the new floor. Contrast: Curriculum
-   Alignment tickets cycle in 45m but lead 21.3d — queue-wait dominates there;
+   Alignment tickets cycle at a nearest-rank p50 of ~35m while the three
+   backlog-aged tickets carried ~21.4-day leads (all-row nearest-rank p50
+   lead ~2.9d) — queue-wait dominates there;
    same lesson (wait, not work, is the cost) at a different scale.
 7. **Ticket linkage is partial**: 27/89 merged PRs carry an AIP ref in the title.
    If Linear is to be the DORA view, PR-title ticket refs need to be universal.
 
 ## Model
 
-latency ≈ (rounds × ~35–40m) + availability-wait. PDR-131 removed the mechanics
-term; universal arm-at-settled-READY removes availability-wait; the residual
-lever is round count, which is fixed at authoring time (scope + first-pass
-quality). Register refinement: record commits and review-threads per PR and split
+latency ≈ (final commits × ~38m) + availability-wait — a commit-level
+association; the per-ROUND form of the same model is the unmeasured
+hypothesis awaiting round-level instrumentation. The merge-concurrency
+doctrine removed the mechanics term; universal arm-at-settled-READY
+removes availability-wait; the residual lever is the cure-push count,
+which is fixed at authoring time (scope + first-pass quality). Register refinement: record commits and review-threads per PR and split
 the p50 prediction by born-before/born-after PDR-131.

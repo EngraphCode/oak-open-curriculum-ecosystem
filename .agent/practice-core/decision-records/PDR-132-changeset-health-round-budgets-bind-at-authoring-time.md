@@ -23,7 +23,7 @@ file stays repo-independent per the portability rule:
   support is that reviews do not converge by attrition.
 - **The latency tail is silent waiting, not work.** Of the window's 11
   slowest PRs, 9 went ready in the owner-away evening; the same night
-  produced three live silent-wait instances: an armed auto-merge sitting
+  produced four live silent-wait instances across three state classes: an armed auto-merge sitting
   behind red checks, two PRs whose pushed tips had no reviewer requested,
   and a PR with unresolved threads and no shepherd.
 - **Class matters (qualitative).** From named worked instances rather
@@ -49,9 +49,10 @@ shaped.
    the generator question THEN — ahead of the state machine's mechanical
    step-back arms, which remain the failure backstop.
 2. **Size thresholds are authoring-time warnings, never blocks**: more than
-   ~300 added lines, more than ~8 changed files, or carrying 6 or more
-   commits (measured on final counts; opening-time counts are a named
-   instrumentation follow-up) each predict a heavy review (the measured heavy-review
+   ~300 added lines or more than ~8 changed files each predict a heavy
+   review (a changeset's final commit count is the outcome proxy itself,
+   not an authoring-time predictor; opening-commit instrumentation is a
+   named follow-up) (the measured heavy-review
    probability triples past 300 additions). A changeset crossing them is
    re-examined for hidden second stories before it opens — and may still
    legitimately proceed.
@@ -66,7 +67,8 @@ shaped.
    changeset class and is stateable as a two-round PR, or it is
    under-decomposed. The plan, pr-lifecycle, and start-right skills carry
    pointers here; this record is the single source and the numbers above
-   never restate elsewhere.
+   never restate in operational skill text (dated evidence artefacts and
+   delivery records may quote them as historical fact).
 6. **Silent-wait states are part of changeset health.** After every push
    the expected reviewer is verified REQUESTED on the new tip; after every
    arm the checks are verified green-or-progressing; every open PR names a
@@ -77,9 +79,11 @@ shaped.
 
 Stated as an expected-observable-effect plus falsifier pair, the form the
 estate's two-speed-learning discipline (PDR-130) requires of enacted
-doctrine; the pair below is self-contained. Prediction: with plan-time slicing and the round budget loaded, median
-rounds-per-PR for code-class PRs born after this lands falls within one
-month. Measurement: re-run the delivery corpus methodology (per-PR
+doctrine; the pair below is self-contained. Prediction: with plan-time slicing and the round budget loaded, the
+median rounds-per-PR (all classes) for PRs born after this lands falls
+within one month; the class-stratified read is additive once the
+register's class dimension lands. Measurement: re-run the delivery
+corpus methodology (per-PR
 commits, review threads, and latency over the trailing window) at the
 one-month mark; the pr-throughput register gains commits-per-PR and
 changeset-class dimensions as the standing instrument — a named follow-up,

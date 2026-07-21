@@ -276,11 +276,13 @@ as phase-local restatements.
    monotonic — without the epoch reset the trigger stays true after the
    mandated class-fix push and the machine has no executable next
    transition). **Ahead of these failure arms sits the round-budget
-   expectation (PDR-132, which owns the budget value)**: a round
-   count exceeding the PDR's budget records budget-exceeded in the working
-   notes at the first over-budget round and runs the generator question
-   THEN — the arms above stay the mechanical backstop, not the first
-   alarm.
+   expectation (PDR-132, which owns the budget value)**: the transition
+   fires when an over-budget round OPENS — the first review activity
+   binding a tip after the budgeted number of rounds has settled, NOT
+   when that round's tally row settles — recording budget-exceeded in the
+   working notes and running the generator question before the round's
+   findings are cured. The arms above stay the mechanical backstop, not
+   the first alarm.
 3. **Reviewer-leg states**, computed per (reviewer, tip): **SATISFIED** —
    ANY harvested review by the reviewer binds to the current tip (the
    Phase 3 harvest is the source; the compound read's `latestReviews` alone
