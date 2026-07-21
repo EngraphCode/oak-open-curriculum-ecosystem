@@ -347,11 +347,13 @@ that validates is not the surface that executes").
 adoption): every NEW built binary ships at least one smoke test** that
 invokes the artefact exactly as production invokes it and proves the
 minimum truth-set for its class, landing in the same PR as the binary
-(the atomic-landing invariant). The pre-existing binary estate is
-carried to conformance under a bounded retrofit lane (AIP-168:
-per-binary truth-set coverage, suffix unification, and
-reclassification of pre-doctrine "smoke" suites that are scope-axis
-tests under this definition).
+(the atomic-landing invariant). The pre-existing binary estate carries
+a bounded retrofit obligation, tracked in the work-management system,
+whose contract is stated here self-contained: every existing built
+binary gains its truth-set smoke; the smoke-suffix convention is
+unified estate-wide; and pre-doctrine "smoke" suites that are
+scope-axis tests under this definition are reclassified into the
+scope taxonomy with their docs and runner config.
 
 Minimum truth-sets by artefact class:
 
@@ -364,12 +366,14 @@ Minimum truth-sets by artefact class:
 - **Long-running server**: a cold start from the built artefact
   reports ready; the health or initialize surface responds; SIGTERM
   produces a clean exit.
-- **Published package**: the PACKED form is the shipped form — `npm
+- **Published package**: the PACKED form is the shipped form — `pnpm
   pack` (or the registry-equivalent) installed into a clean consumer
-  workspace, then every `exports`-map entry point imported under plain
-  `node`. Importing from the workspace `dist` directly proves the
-  build, not the publish: files, permissions, and manifest fields can
-  be lost when the tarball is assembled.
+  workspace, then imported under plain `node`: every STATIC
+  `exports`-map key is imported directly, and every wildcard subpath
+  pattern (e.g. `./client/*`) is proven by importing at least one
+  concrete subpath it matches. Importing from the workspace `dist`
+  directly proves the build, not the publish: files, permissions, and
+  manifest fields can be lost when the tarball is assembled.
 
 Constraints:
 
@@ -382,9 +386,13 @@ Constraints:
   local-only smoke test re-opens the exact gap this section closes).
   The check↔CI parity validator keeps the aggregate honest; wiring
   each smoke into a CI-run task is the author's obligation at landing
-  time. Suffix convention is unified under AIP-168; until it lands,
-  match the workspace's live runner glob so the file is actually
-  executed — an unreachable smoke test is the defect, not a variant.
+  time. The binding invariant is REACHABILITY: a smoke file matches
+  the glob its workspace's live runner actually executes — an
+  unreachable smoke test is the defect, not a variant. One canonical
+  suffix governs once the estate-wide unification (part of the
+  retrofit obligation above) converges; adopting it workspace-by-
+  workspace is done by changing the runner glob and the files in one
+  landing, never by authoring a file the current glob cannot see.
 - Smoke tests exercise the artefact boundary, not features: feature
   behaviour belongs to the scope axis (unit/integration/E2E). A smoke
   test that grows feature assertions is misfiled — move the assertions
