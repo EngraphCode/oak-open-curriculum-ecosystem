@@ -4,8 +4,9 @@ import { findParityGaps, parseCheckLegs, parseCiCoverage } from './check-ci-pari
 
 /**
  * Fixtures mirror the real shapes: the root `check` aggregate joins legs
- * with `&&`, and workflow YAML carries `run:` lines invoking `pnpm <name>`
- * or `turbo run <tasks…>` with flags interleaved.
+ * with `&&`, and the CI workflow is YAML whose step `run` scalars invoke
+ * `pnpm <name>` or `turbo run <tasks…>` with flags interleaved (including
+ * folded `run: >-` blocks whose arguments continue on later lines).
  */
 const CHECK_SCRIPT =
   'pnpm secrets:scan && pnpm clean && ' +
@@ -13,15 +14,27 @@ const CHECK_SCRIPT =
   'pnpm repo-validators:check && pnpm skills:check && pnpm knip:gate';
 
 const COVERING_WORKFLOW = `
+name: CI
+jobs:
+  secret-scan:
+    steps:
       - name: Secret scan
         run: pnpm secrets:scan
+  build:
+    steps:
       - name: Build
         run: pnpm exec turbo run sdk-codegen build --continue --log-order=grouped --summarize
+  unit-tests:
+    steps:
       - name: Type-check, lint, unit tests
         run: pnpm exec turbo run type-check lint test --continue
+  browser-tests:
+    steps:
       - name: Browser suites
         run: >-
           pnpm exec turbo run test:e2e --continue
+  static-checks:
+    steps:
       - name: Validators
         run: pnpm repo-validators:check
       - name: Skills adapters
@@ -58,6 +71,12 @@ describe('parseCheckLegs', () => {
     expect(legs.turboTasks).toEqual(['lint', 'test']);
   });
 
+  it('reads a script leg through the -s silence flag, symmetric with the CI side', () => {
+    const legs = parseCheckLegs('pnpm -s skills:check && pnpm --silent encoding:check');
+
+    expect(legs.scripts).toEqual(['skills:check', 'encoding:check']);
+  });
+
   it('does not treat pnpm subcommands as root scripts', () => {
     const legs = parseCheckLegs('pnpm exec playwright install && pnpm run something');
 
@@ -66,7 +85,7 @@ describe('parseCheckLegs', () => {
 });
 
 describe('parseCiCoverage', () => {
-  it('collects pnpm script invocations and turbo tasks from workflow text', () => {
+  it('collects pnpm script invocations and turbo tasks from step run scalars', () => {
     const coverage = parseCiCoverage(COVERING_WORKFLOW);
 
     expect(coverage.scripts.has('secrets:scan')).toBe(true);
@@ -78,8 +97,28 @@ describe('parseCiCoverage', () => {
     expect(coverage.scripts.has('exec')).toBe(false);
   });
 
+  it('does not count a comment-only mention as coverage', () => {
+    const commentOnly = `
+name: CI
+jobs:
+  secret-scan:
+    steps:
+      # This job used to run the \`pnpm secrets:scan\` script directly; the
+      # step below runs a pinned binary instead.
+      - name: Secret scan (pinned binary)
+        run: ./gitleaks detect
+`;
+    const coverage = parseCiCoverage(commentOnly);
+
+    expect(coverage.scripts.has('secrets:scan')).toBe(false);
+  });
+
   it('reads turbo tasks across YAML folded-scalar continuation lines', () => {
     const folded = `
+name: CI
+jobs:
+  browser-tests:
+    steps:
       - name: Browser suites (e2e, ui, a11y, widget)
         run: >-
           pnpm exec turbo run test:e2e test:ui test:a11y test:widget
@@ -96,7 +135,13 @@ describe('parseCiCoverage', () => {
   });
 
   it('reads pnpm invocations through a -s silence flag', () => {
-    const coverage = parseCiCoverage('        run: pnpm -s smoke:esm-import-extensions\n');
+    const withSilence = `
+jobs:
+  smoke:
+    steps:
+      - run: pnpm -s smoke:esm-import-extensions
+`;
+    const coverage = parseCiCoverage(withSilence);
 
     expect(coverage.scripts.has('smoke:esm-import-extensions')).toBe(true);
   });
@@ -112,7 +157,7 @@ describe('findParityGaps', () => {
   });
 
   it('reports a script leg CI does not run', () => {
-    const withoutSkills = COVERING_WORKFLOW.replace('run: pnpm skills:check', 'run: true');
+    const withoutSkills = COVERING_WORKFLOW.replace('run: pnpm skills:check', 'run: "true"');
     const coverage = parseCiCoverage(withoutSkills);
 
     expect(findParityGaps(legs, coverage, ['clean'])).toEqual([
@@ -121,7 +166,10 @@ describe('findParityGaps', () => {
   });
 
   it('reports a turbo task CI does not run', () => {
-    const withoutE2e = COVERING_WORKFLOW.replace('pnpm exec turbo run test:e2e --continue', 'true');
+    const withoutE2e = COVERING_WORKFLOW.replace(
+      'pnpm exec turbo run test:e2e --continue',
+      '"true"',
+    );
     const coverage = parseCiCoverage(withoutE2e);
 
     expect(findParityGaps(legs, coverage, ['clean'])).toEqual([

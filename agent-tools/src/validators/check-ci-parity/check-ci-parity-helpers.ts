@@ -1,3 +1,8 @@
+import { typeSafeEntries } from '@oaknational/type-helpers';
+import { parse as parseYaml } from 'yaml';
+
+import { isJsonObject } from '../../core/json.js';
+
 /**
  * Pure parsing and comparison helpers for the check↔CI parity validator.
  *
@@ -51,12 +56,19 @@ function turboTasksFromSegment(segment: string): readonly string[] {
     .filter((token) => token.length > 0 && !isFlagOrAssignment(token));
 }
 
+/** Value-less pnpm flags a root-script invocation may carry before the name. */
+const PNPM_SILENCE_FLAGS: ReadonlySet<string> = new Set(['-s', '--silent']);
+
 function pnpmScriptFromSegment(segment: string): string | undefined {
   const tokens = segment.trim().split(/\s+/);
   if (tokens[0] !== 'pnpm') {
     return undefined;
   }
-  const candidate = tokens[1];
+  let index = 1;
+  while (index < tokens.length && PNPM_SILENCE_FLAGS.has(tokens[index] ?? '')) {
+    index += 1;
+  }
+  const candidate = tokens[index];
   if (candidate === undefined || isFlagOrAssignment(candidate)) {
     return undefined;
   }
@@ -112,29 +124,55 @@ function collectTurboTasks(tokens: readonly string[], turboTasks: Set<string>): 
   }
 }
 
+/** Recursively collect every string held under a `run` key in parsed YAML. */
+function collectRunScalars(node: unknown, accumulator: string[]): void {
+  if (Array.isArray(node)) {
+    for (const item of node) {
+      collectRunScalars(item, accumulator);
+    }
+    return;
+  }
+  if (!isJsonObject(node)) {
+    return;
+  }
+  for (const [key, value] of typeSafeEntries(node)) {
+    if (key === 'run' && typeof value === 'string') {
+      accumulator.push(value);
+      continue;
+    }
+    collectRunScalars(value, accumulator);
+  }
+}
+
 /**
- * Parse CI workflow text into the coverage its run steps provide.
+ * Parse CI workflow YAML into the coverage its step `run` commands provide.
  *
- * The scan is textual and token-based by design: it recomputes from the
- * live workflow files at every run (a removed or renamed step is a fresh
- * gap on the next validation, never a stale pass), and it walks the
- * whitespace-token stream so YAML folded scalars (`run: >-` blocks whose
- * arguments continue on later lines) are read whole. After `turbo run`,
- * tokens are consumed until the first YAML key token (`name:`) or
- * non-task token, which is where the step's argument stream ends.
+ * The workflow is YAML-parsed and only step `run` scalars are scanned —
+ * a comment or step NAME that mentions a script is not coverage (the
+ * comment-mention false-positive is a tested regression). Both sides
+ * recompute from live files at every run, so a removed or renamed step
+ * is a fresh gap on the next validation, never a stale pass. Within the
+ * run text the whitespace-token stream is walked, so YAML folded
+ * scalars (`run: >-` blocks whose arguments continue on later lines)
+ * are read whole; after `turbo run`, tokens are consumed until the
+ * first non-task token.
  */
-export function parseCiCoverage(workflowText: string): CiCoverage {
+export function parseCiCoverage(workflowYamlText: string): CiCoverage {
   const scripts = new Set<string>();
   const turboTasks = new Set<string>();
 
-  for (const match of workflowText.matchAll(PNPM_INVOCATION_PATTERN)) {
+  const runScalars: string[] = [];
+  collectRunScalars(parseYaml(workflowYamlText), runScalars);
+  const runText = runScalars.join('\n');
+
+  for (const match of runText.matchAll(PNPM_INVOCATION_PATTERN)) {
     const token = match[1];
     if (token !== undefined && !PNPM_NON_SCRIPT_TOKENS.has(token) && !isFlagOrAssignment(token)) {
       scripts.add(token);
     }
   }
 
-  const tokens = workflowText.split(/\s+/);
+  const tokens = runText.split(/\s+/);
   for (let index = 0; index < tokens.length - 1; index += 1) {
     if (tokens[index] === 'turbo' && tokens[index + 1] === 'run') {
       collectTurboTasks(tokens.slice(index + 2), turboTasks);

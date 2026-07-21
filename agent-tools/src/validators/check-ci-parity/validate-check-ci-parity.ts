@@ -58,17 +58,27 @@ async function readCheckScript(): Promise<Result<string, Error>> {
   return ok(parsed.scripts.check);
 }
 
+/**
+ * The single PR-gating workflow. Coverage counts ONLY from here: its
+ * `run-quality-gates` fan-in is the required status check, so its jobs
+ * block merges. Other workflows (e.g. release.yml, which runs after a
+ * successful main push) cannot gate a pull request, and counting their
+ * commands as coverage would satisfy parity with a non-blocking run.
+ */
+const PR_GATING_WORKFLOW = '.github/workflows/ci.yml';
+
 async function readWorkflowText(): Promise<Result<string, Error>> {
-  const workflowsDir = path.join(repoRoot, '.github', 'workflows');
-  const entries = await fs.readdir(workflowsDir);
-  const yamlNames = entries.filter((name) => name.endsWith('.yml') || name.endsWith('.yaml'));
-  if (yamlNames.length === 0) {
-    return err(new Error(`no workflow YAML files found under ${workflowsDir}`));
+  const workflowPath = path.join(repoRoot, PR_GATING_WORKFLOW);
+  try {
+    return ok(await fs.readFile(workflowPath, 'utf8'));
+  } catch {
+    return err(
+      new Error(
+        `the PR-gating workflow is unreadable at ${workflowPath} — if the workflow moved, ` +
+          `update PR_GATING_WORKFLOW in this validator`,
+      ),
+    );
   }
-  const contents = await Promise.all(
-    yamlNames.map((name) => fs.readFile(path.join(workflowsDir, name), 'utf8')),
-  );
-  return ok(contents.join('\n'));
 }
 
 async function main(): Promise<void> {
