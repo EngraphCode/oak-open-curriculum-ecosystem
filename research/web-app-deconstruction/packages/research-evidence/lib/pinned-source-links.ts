@@ -145,6 +145,54 @@ async function readRepositorySource(repository: RepositoryCheckout, file: string
   return readFile(path.resolve(root, file), 'utf8');
 }
 
+// Validates one pinned link against its checkout, appending any failure;
+// returns 1 when the link carries a checked line anchor, else 0.
+async function validatePinnedLink(
+  link: PinnedSourceLink,
+  repositories: Record<string, RepositoryCheckout>,
+  byRepository: Record<string, number>,
+  failures: string[],
+): Promise<number> {
+  const repository = repositories[link.repository];
+  if (!repository) {
+    failures.push(`${link.document}: no checkout configured for ${link.repository}`);
+    return 0;
+  }
+
+  byRepository[link.repository] = (byRepository[link.repository] ?? 0) + 1;
+  if (link.revision !== repository.revision) {
+    failures.push(
+      `${link.document}: ${link.repository} link uses ${link.revision}; checkout is ${repository.revision}`,
+    );
+    return 0;
+  }
+  if (!isSafeRepositoryPath(link.file)) {
+    failures.push(`${link.document}: source path escapes ${link.repository}: ${link.file}`);
+    return 0;
+  }
+
+  let source: string;
+  try {
+    source = await readRepositorySource(repository, link.file);
+  } catch {
+    failures.push(`${link.document}: missing ${link.repository}/${link.file}`);
+    return 0;
+  }
+
+  if (link.startLine === null || link.endLine === null) {
+    return 0;
+  }
+  const newlineCount = source.match(/\n/g)?.length ?? 0;
+  const trailingLine = source.endsWith('\n') ? 0 : 1;
+  const lineCount = source.length === 0 ? 0 : newlineCount + trailingLine;
+  if (link.startLine < 1 || link.endLine < link.startLine || link.endLine > lineCount) {
+    failures.push(
+      `${link.document}: invalid ${link.repository}/${link.file}#L${link.startLine}-L${link.endLine}; file has ${lineCount} lines`,
+    );
+  }
+  return 1;
+}
+
 export async function validatePinnedSourceLinks(
   markdownRoot: string,
   repositories: Record<string, RepositoryCheckout>,
@@ -166,44 +214,7 @@ export async function validatePinnedSourceLinks(
   }
 
   for (const link of links) {
-    const repository = repositories[link.repository];
-    if (!repository) {
-      failures.push(`${link.document}: no checkout configured for ${link.repository}`);
-      continue;
-    }
-
-    byRepository[link.repository] = (byRepository[link.repository] ?? 0) + 1;
-    if (link.revision !== repository.revision) {
-      failures.push(
-        `${link.document}: ${link.repository} link uses ${link.revision}; checkout is ${repository.revision}`,
-      );
-      continue;
-    }
-    if (!isSafeRepositoryPath(link.file)) {
-      failures.push(`${link.document}: source path escapes ${link.repository}: ${link.file}`);
-      continue;
-    }
-
-    let source: string;
-    try {
-      source = await readRepositorySource(repository, link.file);
-    } catch {
-      failures.push(`${link.document}: missing ${link.repository}/${link.file}`);
-      continue;
-    }
-
-    if (link.startLine === null || link.endLine === null) {
-      continue;
-    }
-    lineAnchorCount += 1;
-    const newlineCount = source.match(/\n/g)?.length ?? 0;
-    const trailingLine = source.endsWith('\n') ? 0 : 1;
-    const lineCount = source.length === 0 ? 0 : newlineCount + trailingLine;
-    if (link.startLine < 1 || link.endLine < link.startLine || link.endLine > lineCount) {
-      failures.push(
-        `${link.document}: invalid ${link.repository}/${link.file}#L${link.startLine}-L${link.endLine}; file has ${lineCount} lines`,
-      );
-    }
+    lineAnchorCount += await validatePinnedLink(link, repositories, byRepository, failures);
   }
 
   for (const repository of requiredRepositories) {
