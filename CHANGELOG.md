@@ -1,3 +1,33 @@
+# [1.80.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.79.2...v1.80.0) (2026-07-21)
+
+
+### Bug Fixes
+
+* **agent-tools:** bound the merged-PR fetch by merge date ([0286311](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/0286311fffe49c43d5e4268582f022d6d180035f))
+* **agent-tools:** cure the five pr-throughput round-1 findings ([33ad5c2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/33ad5c26bb51873fd524f45ffd7aa2c978cce44d))
+* **agent-tools:** fail loud on flag-shaped values and non-EEXIST creation errors ([221baf6](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/221baf686e4846bb679c33126e74c0a6690f70ff))
+* **agent-tools:** parity-safe pipes, append-only register writes, doctrine links ([11ee8cd](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/11ee8cdc077961fae4aaee323d686f95514975b7))
+* **agent-tools:** pr-throughput r10 — percentile ceiling, header drift gate ([15c077e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/15c077e0c1a0c4a9b2ed3d825df2184a92352cea))
+* **agent-tools:** pr-throughput r11 — doctrine-rule pass over the lane ([ae3bf08](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ae3bf0842dc5e7a7857b642981ef827ce3f5bca9)), closes [#fetch](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/fetch)
+* **agent-tools:** pr-throughput r12 — drop dead draft class, help contract, knip entry ([4e3abc5](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4e3abc58e95cd7acbe10b62c8792a73d8e23926f))
+* **agent-tools:** pr-throughput r13 — exit-contract truing, proleptic calendar ([ad39f39](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ad39f3916e7ed1f26f6c2a5b64e2e56891c14122))
+* **agent-tools:** pr-throughput r14 — pin the canonical repository on every fetch ([103f26e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/103f26e26060d1b4cfff81c187e60716f50048b7))
+* **agent-tools:** pr-throughput r15 — gh-override shape, doc truing, exclusive temp ([f52c8c5](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f52c8c54f3c05c23a01e90531e7775dc95acd6fd)), closes [#override](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/override)
+* **agent-tools:** pr-throughput r7 — gh search cap, complementary boundaries, stderr seam ([da5b92c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/da5b92c95d29b9d31d86e3e562d4cb9bb779698d))
+* **agent-tools:** pr-throughput r8 — bounded merge range, append-mode create ([eb7f1a2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/eb7f1a27ac0a1e6b4bb5745f2d64314f577caa25))
+* **agent-tools:** pr-throughput r9 — atomic hard-link register publication ([15556d9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/15556d97b3450ed92d88b62aaf2d6d9320eee21f))
+* **agent-tools:** validate --now strictly via a promoted iso-date-time core module ([e46fc3a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e46fc3a28233b33c0f9fdcf49116900b6c93acee))
+* **deps:** regenerate pnpm-lock.yaml for the eslint 10.6.0 bump ([c51add1](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c51add1454787b9e4494c2aa956df7fde9c102ff))
+* **research:** pr437 adjudication batch — 33 review-thread cures ([c0f8465](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c0f84653b9e37f4d21b1cfa20d26c0618cf3610a))
+* **research:** pr437 r2 — turbo inputs, projection-aware validation, strict args ([579bb54](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/579bb54a53012754cc51260cf47048794dcaf0e8))
+* **research:** pr437 r3 — template scan coverage, projection truing, lib trust boundary ([616fb3c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/616fb3c65c60c3e1ceb8902a0e487d6fda6d20a2))
+* **research:** pr437 r5 — type-only re-export edges, projection docs default ([175edfa](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/175edfa21abee8fb488c93d9b3312a70e7be7425))
+
+
+### Features
+
+* **agent-tools:** pdr-131 throughput register with falsifiable prediction ([f85becc](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f85becc0e4eaf6f48a1615fcef97b970b61fd678))
+
 ## [1.79.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.79.1...v1.79.2) (2026-07-21)
 
 ## [1.79.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.79.0...v1.79.1) (2026-07-20)
