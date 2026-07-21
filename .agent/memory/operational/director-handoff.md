@@ -288,6 +288,26 @@ first-hand as of 2026-06-25.
 > Deliverable B claim `57d895cb` retained-with-record, worktree pruning owner-gated,
 > throughput weekly read ~2026-07-27).
 >
+> **ZERO BOARD (2026-07-21 06:29Z) — the net-to-zero directive COMPLETE.** All
+> PRs merged: the overnight freeze resolved at the owner's return (gh re-auth
+> 05:41Z; the #450 matrix pick (a) executed; #449/#437/#448/#451 merged under
+> the 06:09Z quota ruling; #434 merged 06:29:05Z `SHA:a4efd36ee` after a
+> seven-round adjudication, Phase-8 CLEAN, release shipped; main folded back).
+> **Standing rulings minted this morning (owner, 06:28Z):** `--admin` ALWAYS
+> banned; direct `gh pr merge --merge` BANNED on bypass-capable accounts (the
+> shared credential is one — ruleset 13402577's OrganizationAdmin always-bypass
+> is the #437-behind-red mechanism, audit-confirmed no flag was used);
+> arm-at-settled is the ONLY landing mechanism until the commissioned GitHub-App
+> merge bot (non-bypass actor) exists. **Live lane:** the #437 Sonar
+> fix-forward (owner: every single issue; no category dismissals, no scope
+> exclusions) — at Forge after Quoll's dormancy-poll wake failed
+> (wake-delivery-hole instance). **Owner-held cards:** the ruleset
+> bypass-actor removal; the merge-bot build; the wrap-inventory queue
+> (worktree prunes, studio sync-back, §7(b) ticket, statusline Deliverable B,
+> throughput weekly read 2026-07-27).
+>
+> <details><summary>Superseded 06:29Z: the overnight FREEZE STATE (conserved)</summary>
+>
 > **FREEZE STATE (2026-07-21 ~00:10Z, owner-away evening drive):** the net-to-zero
 > drive ran to a near-zero board, then froze on TWO owner gates: (1) the shared
 > `gh` credential went INVALID (~23:45Z) — every harvest/arm/merge halted; fix is
@@ -305,6 +325,8 @@ first-hand as of 2026-06-25.
 > Owner-return card queue beyond the two gates: the wrap-inventory list (worktree
 > prunes, studio sync-back, §7(b) ticket, statusline Deliverable B seat,
 > throughput weekly read 2026-07-27, merge-queue-card-moot confirmation).
+>
+> </details>
 >
 > <details><summary>Superseded 2026-07-20 ~21:20Z: Galago tenure shape + Galago→Forge transition (conserved)</summary>
 >

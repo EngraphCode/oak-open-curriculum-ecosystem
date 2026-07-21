@@ -225,6 +225,41 @@ Worked instances conserved (each first-hand this tenure):
   (cure: name the gate and the decision inline); a `| tail` swallowed the real
   send exit again — exit-codes-in-band applies to every gated send.
 
+## 2026-07-21 — Tornado tracks Apex (daace4): the morning arc fold (breach → structural cure → green main)
+
+The #437-behind-red arc, end to end in ~2h — conserved as one causal chain:
+
+- **The breach**: #437 merged behind a red Sonar gate. Mechanism 1 (execution):
+  `gh pr checks | awk` column-parse mangled the verdict — the D1 defining specimen
+  (per-check verdicts BY NAME from structured JSON; also in per-user memory).
+  Mechanism 2 (structure): ruleset 13402577 lists OrganizationAdmin bypass
+  `always` — the shared admin credential NEVER had required checks evaluated;
+  plain flagless merges bypass silently (audit: verbatim commands confirmed no
+  --admin anywhere, ever).
+- **Owner rulings minted**: making main worse is failure regardless of gate
+  colour (the decades-long entropy fight); fix forward every single issue, no
+  category dismissals, no scope exclusions; --admin always banned; direct merge
+  banned on bypass-capable accounts; arm-at-settled the only landing until a
+  non-bypass merge bot exists; rules not retroactive.
+- **The cure chain landed same morning**: AIP-159 (82 issues → zero, differential
+  probes as the equivalence bar: 248k + 66k cases) + AIP-158 (the merge bot,
+  self-proof landing: mergedBy=app/jimbot-oakington-iii) → MAIN GREEN, gate OK,
+  board zero. The bypass-removal owner card unblocked by the bot's proof.
+- **F-150** (ignore-scripts installs silently disarm hooks) registered from the
+  delegate's in-lane catch — the security cure and the gate posture collide.
+- **F-92 at the Director's own seat**: my dual-heartbeat monitor died silently
+  (task gone from the registry); caught by a PEER's ping-before-escalate run to
+  the letter — the mutual-cover clause's cleanest worked instance yet.
+- **Finder's-bar lesson (Foehn's)**: the finder's output needs the same bar as
+  the found — round-1 decomposition helpers themselves re-tripped S3776.
+- **Gate reads are verdicts only at the decision moment**: a PR Sonar gate read
+  mid-analysis-churn is a transient (one false ERROR self-resolved) — the same
+  doctrine that binds the merge moment binds the alarm moment.
+- **Succession + wake mechanics**: Quoll's dormancy poll filtered on
+  addressed_to while directed events carry `to` (owned, conserved in their
+  record); the second cold-pause wake (Foehn's) worked in 5 min — the corrected
+  poll shape holds.
+
 Association-seeds from the owner-invoked exploration/play pass over the day
 (seeds, not findings): (1) the evening's three tripwires (step-back, deadline-and-
 default, heads-down default) all share one shape — a pre-committed exit that

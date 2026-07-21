@@ -1,5 +1,13 @@
 # Frequently Used Prompts
 
+acc
+j-rn
+jc-g
+j-jcn
+t-cs 91%
+j-tna resets tomorrow night
+
+
 ## Subagents
 
 All subagent responses, work, claims, sources, and general context MUST be critically assessed before being accepted. This is always true.
@@ -31,7 +39,8 @@ You are the eventual successor to XXX
 
 ## Circular
 
-Prepare for compaction, ultrathink /oak-start-right-team /oak-metacognition /oak-reason /oak-plan , then ask the sitting Director to coordinate the handoff to your successor. Once that is done stop all monitoring and give me a **short** statement to hand you post-compaction (everything important must be in repo already), it should start with 
+Please prepare for compaction, ultrathink /oak-start-right-team /oak-metacognition /oak-reason /oak-plan ,
+then ask the sitting Director to coordinate the handoff to your successor. Once that is done stop all monitoring and give me a **short** statement to hand you post-compaction (everything important must be in repo already), it should start with 
 
 `ultrathink /oak-start-right-team /oak-metacognition /oak-reason /oak-plan`
 
@@ -65,6 +74,9 @@ take some time to use the concept exploration workflow to check that you are wor
 and give me a report on your findings
 
 take some time to use the concept exploration workflow to check that you are working towards the right goals in the right way $oak-start-right-thorough $oak-reason $oak-metacognition
+
+
+ ultrathink /oak-start-right-team /oak-concept-exploration
 
 ## Closeout
 
