@@ -126,6 +126,13 @@ jobs:
         run: pnpm portability:check
       - name: Run workspace-owned repo validators
         run: pnpm repo-validators:check
+      # skills:check self-builds agent-tools, so it runs here without the
+      # build job; it and encoding:check were local-only pnpm-check legs
+      # until AIP-165 (adapter drift merged CI-green through this gap).
+      - name: Validate skills adapters
+        run: pnpm skills:check
+      - name: Validate encoding
+        run: pnpm encoding:check
 
   # Warms the Turbo remote cache (sdk-codegen + build) so the build-dependent
   # jobs below get a FULL TURBO cache hit instead of rebuilding.
