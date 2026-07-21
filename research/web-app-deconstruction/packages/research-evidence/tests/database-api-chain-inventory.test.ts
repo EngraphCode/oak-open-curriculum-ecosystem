@@ -197,7 +197,7 @@ const docs = "https://example.test/docs";
       "components": {}
     }`),
   ).toBe(2);
-  expect(countOpenApiPathKeys('export const value = {};')).toBe(null);
+  expect(countOpenApiPathKeys('export const value = {};')).toBeNull();
 });
 
 test('OpenAPI summaries expose response openness and operation bounds', () => {

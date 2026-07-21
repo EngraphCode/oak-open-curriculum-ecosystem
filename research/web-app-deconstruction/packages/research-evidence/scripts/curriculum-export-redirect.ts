@@ -160,7 +160,9 @@ async function main(): Promise<void> {
   }
 }
 
-void main().catch((error: unknown) => {
+try {
+  await main();
+} catch (error) {
   const details = error instanceof Error ? (error.stack ?? error.message) : String(error);
   usageError(details, usage);
-});
+}

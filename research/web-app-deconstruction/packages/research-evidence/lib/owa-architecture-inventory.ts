@@ -3,6 +3,7 @@ import { execFile } from 'node:child_process';
 import path from 'node:path';
 import { promisify } from 'node:util';
 
+import { codeUnitCompare } from './compare.js';
 import { assertRepository, resolvePackage } from './repository.js';
 import { isProductionFile, normaliseRelative, readSources, sourceFiles } from './source-files.js';
 import type { SourceFile } from './source-files.js';
@@ -232,7 +233,7 @@ export function stronglyConnectedComponents(
       onStack.delete(member);
       component.push(member);
     } while (member !== node);
-    components.push(component.sort());
+    components.push(component.toSorted(codeUnitCompare));
   }
 
   for (const node of nodes) {
@@ -568,7 +569,7 @@ export async function buildOwaArchitectureInventory(
       analysedTypeScriptFiles: analysedFiles.length,
       knownSupportFilesWithinAnalysis: {
         fixtureShaped: analysedFiles.filter((file) =>
-          /(?:^|\/)(?:fixtures?)(?:\/|\.|$)|\.fixtures?\.[^.]+$/.test(
+          /(?:(?:^|\/)fixtures?(?:\/|\.|$))|(?:\.fixtures?\.[^.]+$)/.test(
             normaliseRelative(sourceRoot, file),
           ),
         ).length,
@@ -603,7 +604,7 @@ export async function buildOwaArchitectureInventory(
       runtimeShapedLocalEdges: runtimeShapedLocalEdges.size,
       crossAreaRuntimeShapedEdges,
       runtimeShapedDependencyMatrix: sortedRecord(dependencyMatrix),
-      unresolvedLocalImports: [...unresolvedLocal].sort(),
+      unresolvedLocalImports: [...unresolvedLocal].sort(codeUnitCompare),
       externalImportsByFileCount: externalImports,
       useClientDirectiveRoots: clientRoots.length,
       useClientDirectiveClosureModules: clientClosure.size,
@@ -612,7 +613,7 @@ export async function buildOwaArchitectureInventory(
         hasModuleDirective(ts, file, text, 'use server'),
       ).length,
       filesContainingUseServerDirective: sources.filter(({ text }) =>
-        /^\s*["']use server["'];?/m.test(text),
+        /^[ \t]*["']use server["'];?/m.test(text),
       ).length,
       serverOnlyImportFiles: sources.filter(({ text }) =>
         /(?:from\s+|import\s*)["']server-only["']/.test(text),

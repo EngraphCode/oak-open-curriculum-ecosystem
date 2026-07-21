@@ -9,6 +9,7 @@ import {
   resolveFromCwd,
   usageError,
 } from '../lib/cli.js';
+import { codeUnitCompare } from '../lib/compare.js';
 import { assertRepository, resolvePackage } from '../lib/repository.js';
 import {
   isProductionFile,
@@ -220,7 +221,7 @@ async function main(): Promise<void> {
     .getExportsOfModule(moduleSymbol)
     .map((symbol) => {
       const target =
-        symbol.flags & ts.SymbolFlags.Alias ? checker.getAliasedSymbol(symbol) : symbol;
+        (symbol.flags & ts.SymbolFlags.Alias) !== 0 ? checker.getAliasedSymbol(symbol) : symbol;
       const declaration = target.declarations?.[0] ?? symbol.declarations?.[0];
       const declarationPath = declaration
         ? normaliseRelative(componentsRoot, declaration.getSourceFile().fileName)
@@ -385,9 +386,7 @@ async function main(): Promise<void> {
   const directNames = [...directNameAppearances.keys()].filter(
     (name) => name !== 'default' && name !== '*',
   );
-  const removedNames = directNames
-    .filter((name) => !exportByName.has(name))
-    .sort((left, right) => (left < right ? -1 : left > right ? 1 : 0));
+  const removedNames = directNames.filter((name) => !exportByName.has(name)).sort(codeUnitCompare);
   const mostFrequentDirectImports = [...directNameAppearances]
     .filter(([name]) => name !== 'default' && name !== '*')
     .sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))

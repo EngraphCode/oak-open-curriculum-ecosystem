@@ -16,7 +16,9 @@ async function main(): Promise<void> {
   await emitJson(result, outputArgument);
 }
 
-void main().catch((error: unknown) => {
+try {
+  await main();
+} catch (error) {
   const details = error instanceof Error ? (error.stack ?? error.message) : String(error);
   usageError(details, usage);
-});
+}

@@ -1,12 +1,14 @@
 import path from 'node:path';
 
+import { codeUnitCompare } from './compare.js';
+
 function isPlainRecord(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === 'object' && !Array.isArray(value);
 }
 
 function assertArray(value: unknown, label: string): unknown[] {
   if (!Array.isArray(value)) {
-    throw new Error(`${label} must be an array`);
+    throw new TypeError(`${label} must be an array`);
   }
   return value;
 }
@@ -16,6 +18,51 @@ function assertRecord(value: unknown, label: string): Record<string, unknown> {
     throw new Error(`${label} must be an object`);
   }
   return value;
+}
+
+function isItemIndent(character: string | undefined): boolean {
+  return character === ' ' || character === '\t';
+}
+
+// Manual scan replacing `/^[ \t]+-[ \t]+(.*)$/` — a failed match of that
+// shape backtracks quadratically across all-whitespace lines (S8786); the
+// scan is linear by construction and accepts the identical language:
+// one-or-more indent, `-`, one-or-more separator, remainder (may be empty).
+function parseWorkspaceListItem(line: string): string | null {
+  let index = 0;
+  while (isItemIndent(line[index])) {
+    index += 1;
+  }
+  if (index === 0 || line[index] !== '-') {
+    return null;
+  }
+  index += 1;
+  const afterDash = index;
+  while (isItemIndent(line[index])) {
+    index += 1;
+  }
+  if (index === afterDash) {
+    return null;
+  }
+  return line.slice(index);
+}
+
+// A trailing `# comment` counts only when whitespace precedes the `#`;
+// an item with `#` hard against the value is malformed and skipped,
+// exactly as the former single-regex parse behaved.
+function workspaceItemValue(item: string): string | null {
+  const hashIndex = item.indexOf('#');
+  let rawValue: string;
+  if (hashIndex === -1) {
+    rawValue = item;
+  } else {
+    rawValue = item.slice(0, hashIndex);
+    if (!/[ \t]$/.test(rawValue)) {
+      return null;
+    }
+  }
+  const value = rawValue.trim().replace(/^(['"])(.*)\1$/, '$2');
+  return value || null;
 }
 
 export function parseWorkspacePatterns(source: string): string[] {
@@ -32,12 +79,11 @@ export function parseWorkspacePatterns(source: string): string[] {
     if (/^\S/.test(line)) {
       break;
     }
-
-    const match = line.match(/^\s+-\s+([^#]+?)(?:\s+#.*)?$/);
-    if (!match) {
+    const item = parseWorkspaceListItem(line);
+    if (item === null) {
       continue;
     }
-    const value = match[1].trim().replace(/^(['"])(.*)\1$/, '$2');
+    const value = workspaceItemValue(item);
     if (value) {
       patterns.push(value);
     }
@@ -84,11 +130,11 @@ export function resolveWorkspaceDirectories(trackedFiles: string[], patterns: st
     }
   }
 
-  return [...workspaces].sort();
+  return [...workspaces].sort(codeUnitCompare);
 }
 
 export function hubRouteFromPage(file: string): string | null {
-  const match = file.match(/^demos\/oak-curriculum-hub\/app\/(.*\/)?page\.(?:js|jsx|ts|tsx)$/);
+  const match = /^demos\/oak-curriculum-hub\/app\/(.*\/)?page\.(?:js|jsx|ts|tsx)$/.exec(file);
   if (!match) {
     return null;
   }
@@ -130,7 +176,7 @@ export function summarizeGraphCorpus(value: unknown): GraphCorpusSummary {
         .map((node) => assertRecord(node, 'graph corpus node').subject)
         .filter((subject): subject is string => typeof subject === 'string'),
     ),
-  ].sort();
+  ].sort(codeUnitCompare);
 
   return {
     version: corpus.version,
@@ -142,7 +188,9 @@ export function summarizeGraphCorpus(value: unknown): GraphCorpusSummary {
     reportedEdgeCount: stats.totalEdges,
     reportedCountsMatchPayload:
       stats.totalNodes === nodes.length && stats.totalEdges === edges.length,
-    reportedSubjectsCovered: [...reportedSubjects].sort(),
+    reportedSubjectsCovered: [...reportedSubjects].sort((left, right) =>
+      codeUnitCompare(String(left), String(right)),
+    ),
     reportedSubjectsCoveredCount: reportedSubjects.length,
     distinctNodeSubjectValues,
     distinctNodeSubjectValueCount: distinctNodeSubjectValues.length,
