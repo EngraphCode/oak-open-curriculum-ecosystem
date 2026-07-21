@@ -45,9 +45,12 @@ arrives as a completed review whose body is a quota notice, not a review.
    read (tip, `mergeStateStatus`, checks rollup, unresolved threads,
    per-reviewer tip binding, review requests, auto-merge intent, agent-task
    run liveness) → one typed verdict from a closed state set:
-   `SETTLE-READY | WAITING-REVIEW-RUN-LIVE | SILENT-WAIT-NO-REVIEWER |
-   SILENT-WAIT-RUN-DEAD | CHECKS-RUNNING | CHECKS-RED | THREADS-OPEN |
-   ARMED-BEHIND-RED | QUOTA-SKIPPED | MERGED | CONFLICT-DIRTY`. Zod
+   `SETTLE-READY | SETTLING-QUIET-WINDOW | WAITING-REVIEW-RUN-LIVE |
+   SILENT-WAIT-NO-REVIEWER | SILENT-WAIT-RUN-DEAD | CHECKS-RUNNING |
+   CHECKS-RED | THREADS-OPEN | ARMED-BEHIND-RED | QUOTA-SKIPPED | MERGED |
+   CLOSED | CONFLICT-DIRTY` (trued at D1 r1, 2026-07-21: `CLOSED` is the
+   typed refusal for closed-unmerged PRs; `SETTLING-QUIET-WINDOW` withholds
+   settlement inside the SKILL item-4 async-lag window). Zod
    validation at every gh boundary; TDD pair per testing-strategy; JSON
    and single-line outputs. If authoring exceeds the PDR-132 size smells,
    the states module and the CLI wrapper split into two PRs at that
@@ -66,8 +69,11 @@ arrives as a completed review whose body is a quota notice, not a review.
 - D1: for a live PR, the verdict matches a hand-verified compound read;
   each silent-wait class from 2026-07-20/21 has a regression fixture that
   yields its named state (an armed intent behind a red check can never
-  read healthy); quota-bounce bodies yield `QUOTA-SKIPPED`, never a
-  settled reviewer leg.
+  read healthy); a quota-bounce body never reads as a SATISFIED reviewer
+  leg — it settles the leg as SKIPPED per the pr-lifecycle SKILL's
+  scope-declared-marker clause (owner ruling 2026-07-21), and a
+  settled-with-quota-skip round reads `QUOTA-SKIPPED`, never a silent
+  `SETTLE-READY`.
 - D2: a scripted state change (thread resolve, check completion) emits
   exactly one transition line; quiet states emit nothing.
 - D3: a merged PR's register row carries commits, threads, and class;
