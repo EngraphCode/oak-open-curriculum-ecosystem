@@ -8,7 +8,7 @@ function isPlainRecord(value: unknown): value is Record<string, unknown> {
 
 function assertArray(value: unknown, label: string): unknown[] {
   if (!Array.isArray(value)) {
-    throw new Error(`${label} must be an array`);
+    throw new TypeError(`${label} must be an array`);
   }
   return value;
 }
@@ -90,7 +90,7 @@ export function resolveWorkspaceDirectories(trackedFiles: string[], patterns: st
 }
 
 export function hubRouteFromPage(file: string): string | null {
-  const match = file.match(/^demos\/oak-curriculum-hub\/app\/(.*\/)?page\.(?:js|jsx|ts|tsx)$/);
+  const match = /^demos\/oak-curriculum-hub\/app\/(.*\/)?page\.(?:js|jsx|ts|tsx)$/.exec(file);
   if (!match) {
     return null;
   }

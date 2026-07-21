@@ -369,6 +369,10 @@ async function artifactEvidence(
   };
 }
 
+function probeManifestName(scenarioName: string): string {
+  return `oak-probe-${scenarioName}`;
+}
+
 function parseRouteMetrics(output: string): RouteMetrics | null {
   const clean = output.replaceAll(/\u001b\[[0-9;]*m/g, '');
   const routeLine = clean.split('\n').find((line) => /(?:^|\s)[┌├└]?\s*[○ƒ]\s+\//u.test(line));
@@ -411,7 +415,7 @@ async function nextEvidence(
       cp(path.join(fixtureRoot, definition.fixture), path.join(appDirectory, 'page.tsx')),
       writeFile(
         path.join(fixtureDirectory, 'package.json'),
-        `${JSON.stringify({ name: `oak-probe-${name}`, private: true }, null, 2)}\n`,
+        `${JSON.stringify({ name: probeManifestName(name), private: true }, null, 2)}\n`,
         'utf8',
       ),
     ]);
@@ -495,7 +499,9 @@ async function main(): Promise<void> {
   }
 }
 
-void main().catch((error: unknown) => {
+try {
+  await main();
+} catch (error) {
   const caught = asCaughtError(error);
   usageError(caught.stack ?? caught.message, usage);
-});
+}

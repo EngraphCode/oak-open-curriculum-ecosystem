@@ -39,11 +39,11 @@ function markdownTargets(source: string): string[] {
   let fence: string | null = null;
 
   source.split('\n').forEach((rawLine) => {
-    const marker = rawLine.match(/^\s*(`{3,}|~{3,})/)?.[1];
+    const marker = /^\s*(`{3,}|~{3,})/.exec(rawLine)?.[1];
     if (marker) {
       if (!fence) {
         fence = marker[0];
-      } else if (marker[0] === fence) {
+      } else if (marker.startsWith(fence)) {
         fence = null;
       }
       return;
@@ -70,7 +70,7 @@ function sourceLinks(source: string, document: string): SourceLinksResult {
   const failures: string[] = [];
 
   for (const target of markdownTargets(source)) {
-    const match = target.match(pinnedSourceLink);
+    const match = pinnedSourceLink.exec(target);
     if (!match) {
       if (oakBlobCandidate.test(target)) {
         failures.push(`${document}: malformed or unsupported Oak GitHub blob link: ${target}`);
@@ -194,7 +194,8 @@ export async function validatePinnedSourceLinks(
     }
     lineAnchorCount += 1;
     const newlineCount = source.match(/\n/g)?.length ?? 0;
-    const lineCount = source.length === 0 ? 0 : newlineCount + (source.endsWith('\n') ? 0 : 1);
+    const trailingLine = source.endsWith('\n') ? 0 : 1;
+    const lineCount = source.length === 0 ? 0 : newlineCount + trailingLine;
     if (link.startLine < 1 || link.endLine < link.startLine || link.endLine > lineCount) {
       failures.push(
         `${link.document}: invalid ${link.repository}/${link.file}#L${link.startLine}-L${link.endLine}; file has ${lineCount} lines`,

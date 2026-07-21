@@ -148,7 +148,7 @@ export function summarizeMigrationPairs(files: string[]): MigrationPairsSummary 
   const migrations = new Map<string, MigrationEntry>();
 
   for (const file of files) {
-    const match = file.match(/^hasura-engine\/migrations\/([^/]+)\/([^/]+)\/(up|down)\.sql$/);
+    const match = /^hasura-engine\/migrations\/([^/]+)\/([^/]+)\/(up|down)\.sql$/.exec(file);
     if (!match) {
       continue;
     }
@@ -226,7 +226,7 @@ const sqlObjectPatterns: SqlObjectPattern[] = [
 
 export function extractSqlObject(file: string, source: string): SqlObject {
   for (const { kind, pattern } of sqlObjectPatterns) {
-    const match = source.match(pattern);
+    const match = pattern.exec(source);
     if (!match) {
       continue;
     }

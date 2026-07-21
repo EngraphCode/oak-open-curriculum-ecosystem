@@ -295,9 +295,13 @@ async function oakOpenApiInventory(snapshot_: RepositorySnapshot) {
   const owaClientSource = await readBlob(snapshot_, 'src/lib/owaClient.ts');
   const exportedConstants = extractExportedStringConstants(owaClientSource);
   const resolverRegistry = exportedConstants.filter(
-    ({ value }) => /^(?:published|public|internal)_/.test(value) && !/_bool_exp$/.test(value),
+    ({ value }) =>
+      (value.startsWith('published_') ||
+        value.startsWith('public_') ||
+        value.startsWith('internal_')) &&
+      !value.endsWith('_bool_exp'),
   );
-  const graphQlTypeRegistry = exportedConstants.filter(({ value }) => /_bool_exp$/.test(value));
+  const graphQlTypeRegistry = exportedConstants.filter(({ value }) => value.endsWith('_bool_exp'));
   const directTableRegistry = exportedConstants.filter(({ value }) =>
     /^(?:published|public|internal)\./.test(value),
   );
@@ -574,4 +578,9 @@ async function main(): Promise<void> {
   );
 }
 
-void main().catch((error) => usageError(error.stack ?? error.message, usage));
+try {
+  await main();
+} catch (error) {
+  const details = error instanceof Error ? (error.stack ?? error.message) : String(error);
+  usageError(details, usage);
+}

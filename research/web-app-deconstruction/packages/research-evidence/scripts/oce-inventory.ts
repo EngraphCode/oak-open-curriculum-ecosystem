@@ -123,7 +123,7 @@ async function main(): Promise<void> {
   const course = summarizeCourse(parseJson(hubCourseBuffer, paths.hubCourse));
   const qualityStandards = parseJson(qualityStandardsBuffer, paths.hubQualityStandards);
   if (!Array.isArray(qualityStandards)) {
-    throw new Error('Hub quality standards payload must be an array');
+    throw new TypeError('Hub quality standards payload must be an array');
   }
 
   const pageRoutes = files
@@ -225,4 +225,9 @@ async function main(): Promise<void> {
   );
 }
 
-void main().catch((error) => usageError(error.stack ?? error.message, usage));
+try {
+  await main();
+} catch (error) {
+  const details = error instanceof Error ? (error.stack ?? error.message) : String(error);
+  usageError(details, usage);
+}
