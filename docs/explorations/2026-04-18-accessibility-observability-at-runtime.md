@@ -10,7 +10,7 @@ This exploration defines the runtime-capturable accessibility signal set for
 the Oak MCP App browser widget, and — equally — names the runtime signal that
 resists observation, is privacy-unsafe, or is redundant with the dev-time
 correctness gate. It is the evidence base for
-[`accessibility-observability.plan.md`](../../.agent/plans/observability/current/accessibility-observability.plan.md),
+[`accessibility-observability.plan.md`](../../.agent/plans-backlog-2026-07/observability/current/accessibility-observability.plan.md),
 whose MVP commits to four runtime emission types (preference tags, frustration
 proxies, widget session outcome, keyboard-only boolean) with named open
 questions on thresholds, inference reliability, and stage vocabulary.
@@ -25,7 +25,7 @@ MCP App widget composition root at
 [`apps/oak-curriculum-mcp-streamable-http/widget/src/App.tsx`](../../apps/oak-curriculum-mcp-streamable-http/widget/src/App.tsx)
 has zero Sentry wiring and zero observability emission today — any runtime
 signal begins here. The parallel executable plan
-[`sentry-observability-maximisation-mcp.plan.md § L-12`](../../.agent/plans/observability/active/sentry-observability-maximisation-mcp.plan.md)
+[`sentry-observability-maximisation-mcp.plan.md § L-12`](../../.agent/plans-backlog-2026-07/observability/active/sentry-observability-maximisation-mcp.plan.md)
 will land `@sentry/browser` into the widget; accessibility emissions compose
 into that wiring.
 
@@ -161,7 +161,7 @@ sizes affect `rem`). Flag as best-effort rather than authoritative.
   contribute to a fingerprinting surface. MVP emits at cohort / session
   granularity only; no per-user persistence beyond a hashed session ID
   (correlation keys contract owned by
-  [`observability-events-workspace.plan.md`](../../.agent/plans/observability/current/observability-events-workspace.plan.md)).
+  [`observability-events-workspace.plan.md`](../../.agent/plans-backlog-2026-07/observability/current/observability-events-workspace.plan.md)).
 - Newer preference keys (`reduced-transparency`, `reduced-data`) have
   uneven coverage; sessions from browsers without support simply do not
   emit those keys, which is acceptable but must not be misread as "no
@@ -308,7 +308,7 @@ consumed via `useReducer` in `App.tsx`) to mark the current stage. On
 event shape — outcome + stage + correlation reference — is load-bearing
 regardless of the exact stage vocabulary. The vocabulary becomes concrete
 when
-[`observability-events-workspace.plan.md`](../../.agent/plans/observability/current/observability-events-workspace.plan.md)
+[`observability-events-workspace.plan.md`](../../.agent/plans-backlog-2026-07/observability/current/observability-events-workspace.plan.md)
 lands the schema, which will itself be informed by exploration 4
 (event schemas) and product-owner input. The plan is to ship with a
 provisional vocabulary and refine it from real usage.
@@ -542,14 +542,14 @@ absent otherwise — which is already the correct semantic).
 
 This exploration is the evidence base for:
 
-- [`.agent/plans/observability/current/accessibility-observability.plan.md`](../../.agent/plans/observability/current/accessibility-observability.plan.md)
+- [`.agent/plans/observability/current/accessibility-observability.plan.md`](../../.agent/plans-backlog-2026-07/observability/current/accessibility-observability.plan.md)
   — the four MVP-IN options (§4.1–§4.4) map directly to the plan's four
   emission types (preference tags, frustration proxies, keyboard-only
   boolean, widget session outcome). The three MVP-OUT options (§4.5–§4.7)
   map directly to the plan's Non-Goals. The open questions (§5.1–§5.6)
   map directly to the plan's Risk Assessment rows and WS6 documentation
   propagation.
-- [`.agent/plans/observability/current/observability-events-workspace.plan.md`](../../.agent/plans/observability/current/observability-events-workspace.plan.md)
+- [`.agent/plans/observability/current/observability-events-workspace.plan.md`](../../.agent/plans-backlog-2026-07/observability/current/observability-events-workspace.plan.md)
   — the schema shapes for `a11y_preference_tag`, `frustration_proxy_event`,
   and `widget_session_outcome` derive from the field enumerations above;
   the stage vocabulary for `widget_session_outcome` is delegated to

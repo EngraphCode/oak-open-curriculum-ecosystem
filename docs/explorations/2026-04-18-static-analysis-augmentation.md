@@ -7,7 +7,7 @@ status: active
 # Static Analysis Augmentation
 
 **Status**: Stub. Informs the post-MVP security posture captured by
-[`future/security-observability-phase-2.plan.md`](../../.agent/plans/observability/future/security-observability-phase-2.plan.md).
+[`future/security-observability-phase-2.plan.md`](../../.agent/plans-backlog-2026-07/observability/future/security-observability-phase-2.plan.md).
 Full analysis authored when the promotion trigger fires.
 
 ---
@@ -77,7 +77,7 @@ Two research questions:
 
 ## 4. Informs
 
-- [`future/security-observability-phase-2.plan.md`](../../.agent/plans/observability/future/security-observability-phase-2.plan.md)
+- [`future/security-observability-phase-2.plan.md`](../../.agent/plans-backlog-2026-07/observability/future/security-observability-phase-2.plan.md)
   — promotion trigger is "exploration 6 or 7 conclusions"; this is
   exploration 7.
 - [`docs/governance/safety-and-security.md`](../governance/safety-and-security.md)

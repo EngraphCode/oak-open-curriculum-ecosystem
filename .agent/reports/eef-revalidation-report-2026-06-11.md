@@ -3,7 +3,7 @@
 **Author**: Blustery Buffeting Gale / claude / fable-5 / 9819b2 (claim
 `f74cdf73-ec20-4caf-bea8-ffb4bc3f919f`)
 **Routing**: Director event `dccb1d09` + correction `dd536088` (owner-approved ~10:52Z)
-**Plan**: [`eef-revalidate-on-new-graph-tools.plan.md`](../plans/sector-engagement/eef/current/eef-revalidate-on-new-graph-tools.plan.md)
+**Plan**: [`eef-revalidate-on-new-graph-tools.plan.md`](../plans-backlog-2026-07/sector-engagement/eef/current/eef-revalidate-on-new-graph-tools.plan.md)
 **Baseline**: `origin/main` at `5310d1e4e` (post Track-G completion `c868bb52e` + #175), corpus
 v1.3.0 (`generatedAt 2026-06-11T07:47:55Z`), built worktree `oak-wt-umbral-g4`, server
 `dev:observe:noauth` on port 3333, stateless JSON-RPC over streamable HTTP.

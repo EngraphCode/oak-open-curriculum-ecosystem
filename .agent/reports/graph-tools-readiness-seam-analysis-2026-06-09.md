@@ -2,7 +2,7 @@
 
 **Date**: 2026-06-09
 **Session**: Fragrant Spreading Sapling (`47f78a`), claude / Fable 5, branch `feat/graph-migration-part-1`
-**Subject**: [`graph-tools-value-redesign.plan.md`](../plans/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md)
+**Subject**: [`graph-tools-value-redesign.plan.md`](../plans-backlog-2026-07/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md)
 **Owner direction (2026-06-09, session open)**: the recommended surface/graph Step-0 split is too
 crude. Deeply analyse the entire document, find the real membranes, then subdivide the plan into
 independent deliverables demarked as separate PRs — "useful but easily analysed collections of

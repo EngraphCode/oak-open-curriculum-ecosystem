@@ -72,7 +72,7 @@ Location: [`src/app/core-endpoints.ts:98`](../src/app/core-endpoints.ts).
 wrapper is inert. The vendor-independence clause of ADR-162 is therefore
 currently a _structural_ claim rather than a _tested invariant_; converting it
 to a tested invariant is tracked under
-[`current/multi-sink-vendor-independence-conformance.plan.md`](../../../.agent/plans/observability/current/multi-sink-vendor-independence-conformance.plan.md)
+[`current/multi-sink-vendor-independence-conformance.plan.md`](../../../.agent/plans-backlog-2026-07/observability/current/multi-sink-vendor-independence-conformance.plan.md)
 (Wave 5).
 
 ## Per-request span and scope enrichment
@@ -326,7 +326,7 @@ claiming release or source-map behaviour still holds.
 **Related context**:
 
 - The lane plan body lives in
-  [`active/sentry-observability-maximisation-mcp.plan.md`](../../../.agent/plans/observability/active/sentry-observability-maximisation-mcp.plan.md)
+  [`active/sentry-observability-maximisation-mcp.plan.md`](../../../.agent/plans-backlog-2026-07/observability/active/sentry-observability-maximisation-mcp.plan.md)
   § L-IMM Sub-item 6.
 - The execution wrapper that gated closure on this verification lives in
   `.agent/plans/observability/archive/completed/sentry-immediate-next-steps.plan.md`
@@ -377,10 +377,10 @@ preventing version drift under an old semantic-release tag.
   package-level reference for `@oaknational/sentry-node`.
 - [Operational debugging](./operational-debugging.md) — request tracing,
   timing, diagnostics, production logging.
-- [`what-the-system-emits-today.md`](../../../.agent/plans/observability/what-the-system-emits-today.md)
+- [`what-the-system-emits-today.md`](../../../.agent/plans-backlog-2026-07/observability/what-the-system-emits-today.md)
   — externally-verifiable observability-envelope snapshot (5×3 axis/runtime
   matrix, updated at every lane close).
-- [Sentry observability maximisation plan](../../../.agent/plans/observability/active/sentry-observability-maximisation-mcp.plan.md)
+- [Sentry observability maximisation plan](../../../.agent/plans-backlog-2026-07/observability/active/sentry-observability-maximisation-mcp.plan.md)
   — lane-level execution authority for every future observability lane that
   updates this document.
 - [ADR-143 Observability Boundary](../../../docs/architecture/architectural-decisions/143-coherent-structured-fan-out-for-observability.md)

@@ -82,5 +82,5 @@ related_rule: <optional path to .agent/rules/ entry>
 - [`active/patterns/README.md`](../active/patterns/README.md) — sibling
   class for single-agent engineering patterns.
 
-[p]: ../../plans/agent-tooling/current/multi-agent-collaboration-protocol.plan.md
+[p]: ../../plans-backlog-2026-07/agent-tooling/current/multi-agent-collaboration-protocol.plan.md
 [pdr-011]: ../../practice-core/decision-records/PDR-011-continuity-surfaces-and-surprise-pipeline.md

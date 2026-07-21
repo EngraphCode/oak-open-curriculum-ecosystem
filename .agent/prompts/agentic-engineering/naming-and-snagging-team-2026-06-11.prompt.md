@@ -45,7 +45,7 @@ Director, and clears the P1 identity defect the handover surfaced.
 ### Snagging lane (thread `eef`)
 
 - **Plan authority**: the snag register
-  [`oak-prod-mcp-snagging-2026-06-11.plan.md`](../../plans/sdk-and-mcp-enhancements/current/oak-prod-mcp-snagging-2026-06-11.plan.md),
+  [`oak-prod-mcp-snagging-2026-06-11.plan.md`](../../plans-backlog-2026-07/sdk-and-mcp-enhancements/current/oak-prod-mcp-snagging-2026-06-11.plan.md),
   the handoff record `7fb69812-snagging-execution-handoff.md`, and the owner-approved execution
   plan named inside that record.
 - **State at pickup (verified first-hand by the successor)**: PR-1 (outbound token health

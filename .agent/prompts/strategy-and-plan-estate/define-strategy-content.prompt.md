@@ -7,7 +7,7 @@
 - **Thread:** `strategy-and-plan-estate-holistic-review`
 - **Type:** handover (stateful session entry point)
 - **Scope:** **ONLY** author the strategy content — Body 2: the `docs/strategy/` corpus.
-- **Primary plan:** [`vision-strategy-and-plan-estate.plan.md`](../../plans/product-development-governance/vision-strategy-and-plan-estate.plan.md) §Body 2
+- **Primary plan:** [`vision-strategy-and-plan-estate.plan.md`](../../plans-backlog-2026-07/product-development-governance/vision-strategy-and-plan-estate.plan.md) §Body 2
 - **Created:** 2026-06-20 (Kayak seeks Coral) for the next session
 
 ---
@@ -24,16 +24,16 @@ questions, and structure; the **owner shapes the product-strategy substance**.
 1. [`.agent/directives/AGENT.md`](../../directives/AGENT.md) and apply `/oak-start-right-quick`
    (identity, rules).
 2. Controlling plan
-   [`vision-strategy-and-plan-estate.plan.md`](../../plans/product-development-governance/vision-strategy-and-plan-estate.plan.md)
+   [`vision-strategy-and-plan-estate.plan.md`](../../plans-backlog-2026-07/product-development-governance/vision-strategy-and-plan-estate.plan.md)
    — especially **§Body 2** (conception + "Strategy inputs ratified by the owner (2026-06-20)" +
    the gate-ownership map + "Release & distribution constraints") and **§Body 3 — Approach**.
 3. [`VISION.md`](../../../VISION.md) — the change + three co-equal streams + mission (verbatim).
 4. **Oak's strategy** — read first-hand from `.agent/reference-local/` (**INFORM-ONLY: never
    quote, link, or copy; derive only**). Three goals (schools / teachers / ecosystem) + four
    pillars (independence / optionality / adaptability / free).
-5. [`launch-readiness-framework.md`](../../plans/curriculum-mcp-path-to-ga/launch-readiness-framework.md)
+5. [`launch-readiness-framework.md`](../../plans-backlog-2026-07/curriculum-mcp-path-to-ga/launch-readiness-framework.md)
    (app readiness catalogue; K1–K3; Groups A–D; compliance gates incl. ATRS in §B3; the release
-   channel in K3) and [`compliance/roadmap.md`](../../plans/compliance/roadmap.md)
+   channel in K3) and [`compliance/roadmap.md`](../../plans-backlog-2026-07/compliance/roadmap.md)
    §"Statutory & Release-Blocking Compliance".
 6. [`editorial-tone.md`](../../directives/editorial-tone.md) — the strategy is written in Oak's
    "we" editorial voice (vision / strategy / public-README scope), **not** plain dev-doc prose.

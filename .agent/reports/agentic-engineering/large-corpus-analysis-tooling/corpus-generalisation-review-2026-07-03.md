@@ -4,7 +4,7 @@
 **Reviewed**: the 2026-07-03 research-and-record outputs of Rosemary stirs Bracken — the evidence
 report [`corpus-generalisation-research-2026-07-03.md`](corpus-generalisation-research-2026-07-03.md),
 the strategic plan
-[`corpus-analysis-generalisation-and-knowledge-layer.plan.md`](../../../plans/agentic-engineering-enhancements/future/corpus-analysis-generalisation-and-knowledge-layer.plan.md),
+[`corpus-analysis-generalisation-and-knowledge-layer.plan.md`](../../../plans-backlog-2026-07/agentic-engineering-enhancements/future/corpus-analysis-generalisation-and-knowledge-layer.plan.md),
 the handoff surfaces (AEE thread record §CORPUS GENERALISATION, `repo-continuity.md` entry,
 `future/README.md` row, the agent-tools-architecture-standard WS0 note), the memory
 `project_corpus_instrument_is_a_knowledge_layer`, and commits `a5e61a608` + `d6d3fb70e`.

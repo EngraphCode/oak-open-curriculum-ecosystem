@@ -3,7 +3,7 @@
 > **This is a research direction, not a plan.** It captures one well-supported
 > shape for a general graph-handling layer, plus first-wave Oak ingestion scope.
 > The executable plan that consumes this direction is
-> [`.agent/plans/connecting-oak-resources/knowledge-graph-integration/current/graph-stack.plan.md`](../plans/connecting-oak-resources/knowledge-graph-integration/active/graph-stack.plan.md);
+> [`.agent/plans/connecting-oak-resources/knowledge-graph-integration/current/graph-stack.plan.md`](../plans-backlog-2026-07/connecting-oak-resources/knowledge-graph-integration/active/graph-stack.plan.md);
 > the topology decision lives in **ADR-173**.
 
 **Date:** 4 May 2026 (last revised 7 May 2026 — Option B applied:
@@ -813,7 +813,7 @@ The first wave of import support targets four corpora:
 **Out of scope for first wave**: Oak ontology projections beyond Turtle
 (PG-JSONL, Neo4j export, SQL); third-party knowledge graphs as data sources
 (tracked separately in
-[`external-knowledge-graph-data-source-integration.plan.md`](../plans/exploring-open-education-resources/external-knowledge-sources/future/external-knowledge-graph-data-source-integration.plan.md)).
+[`external-knowledge-graph-data-source-integration.plan.md`](../plans-backlog-2026-07/exploring-open-education-resources/external-knowledge-sources/future/external-knowledge-graph-data-source-integration.plan.md)).
 
 ## 19. Standards-evolution tripwires
 
@@ -823,7 +823,7 @@ stability and downstream interop. The tripwires below are the **canonical
 list of work that activates as the ecosystem catches up**: each one names
 *what to watch for*, *what changes*, and *what stays the same*. ADR-173
 enumerates the same tripwires by name as binding commitments; the executable
-plan ([`graph-stack.plan.md`](../plans/connecting-oak-resources/knowledge-graph-integration/active/graph-stack.plan.md))
+plan ([`graph-stack.plan.md`](../plans-backlog-2026-07/connecting-oak-resources/knowledge-graph-integration/active/graph-stack.plan.md))
 schedules them as named follow-ons.
 
 ### Tripwire #1 — JSON-LD 1.2 reaches W3C Recommendation

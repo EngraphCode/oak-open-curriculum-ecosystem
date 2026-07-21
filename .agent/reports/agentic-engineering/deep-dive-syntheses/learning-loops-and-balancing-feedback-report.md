@@ -28,7 +28,7 @@ existing junctions:
    disposition rather than only inferred from prose.
 
 Queued execution plan:
-[learning-loop-negative-feedback-tightening.plan.md](../../../plans/agentic-engineering-enhancements/current/learning-loop-negative-feedback-tightening.plan.md)
+[learning-loop-negative-feedback-tightening.plan.md](../../../plans-backlog-2026-07/agentic-engineering-enhancements/current/learning-loop-negative-feedback-tightening.plan.md)
 
 ## Scope and Method
 
@@ -51,7 +51,7 @@ surfaces were:
 - [PDR-032](../../../practice-core/decision-records/PDR-032-reference-tier-as-curated-library.md)
 - [repo-continuity.md](../../../memory/operational/repo-continuity.md)
 - [reference/README.md](../../../reference/README.md)
-- [onboarding-simulations-public-alpha-readiness.md](../../../plans/developer-experience/active/onboarding-simulations-public-alpha-readiness.md)
+- [onboarding-simulations-public-alpha-readiness.md](../../../plans-backlog-2026-07/developer-experience/active/onboarding-simulations-public-alpha-readiness.md)
 - [agentic-engineering research hub](../../../research/agentic-engineering/README.md)
 - [graphify-oak-practice-analysis.md](../../../research/graphify-oak-practice-analysis.md)
 

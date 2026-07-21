@@ -337,8 +337,8 @@ retirement.
 ## Related Surfaces
 
 - [Oak integrations report family](./README.md)
-- [Oak source integration implementation plan](../../plans/architecture-and-infrastructure/current/oak-source-integration-workspaces.plan.md)
-- [OCE requirements for Castr](../../plans/sector-engagement/castr/README.md)
+- [Oak source integration implementation plan](../../plans-backlog-2026-07/architecture-and-infrastructure/current/oak-source-integration-workspaces.plan.md)
+- [OCE requirements for Castr](../../plans-backlog-2026-07/sector-engagement/castr/README.md)
 - [Castr repository](https://github.com/EngraphCode/castr)
 - [Castr ADR-043: core compiler and companion workspaces](https://github.com/EngraphCode/castr/blob/4be99dae5d8b0c24e4f22436b856b592637dc9d1/docs/architectural_decision_records/ADR-043-core-vs-companion-workspaces.md)
 - [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/)

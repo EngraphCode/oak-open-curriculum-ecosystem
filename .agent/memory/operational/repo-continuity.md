@@ -51,7 +51,7 @@ forward-asks remain.
   plan-corpus refounding.** PR #390's eight review rounds / ~38 findings traced to ONE
   generator (authored restatement of derivable state); the owner directed remediation
   before the refounding push. Guiding plan (owner-approved, re-homed in-repo):
-  [`restatement-remediation.plan.md`](../../plans/product-development-governance/active/restatement-remediation.plan.md)
+  [`restatement-remediation.plan.md`](../../plans-backlog-2026-07/product-development-governance/active/restatement-remediation.plan.md)
   — deliverables: pr-lifecycle hardening, the restatement-audit module + T3+U fleet,
   prevention validators. #390/#391 MERGED (the r2 seed is on main). Session shape:
   COMPOUND PAIR (owner-directed) — Director Mussel rides Coral (`6f8857`) + implementer
@@ -102,7 +102,7 @@ forward-asks remain.
   rescue MERGED (PR #338, 2026-07-13).** Registry of all 716 agent-facing content items under
   `.agent/reports/mcp-agent-facing-content-audit/`; owner-decided direction and the eval-methodology
   research plan live in
-  [`mcp-content-assessment-methodology-research.plan.md`](../../plans/effectiveness-and-impact/current/mcp-content-assessment-methodology-research.plan.md).
+  [`mcp-content-assessment-methodology-research.plan.md`](../../plans-backlog-2026-07/effectiveness-and-impact/current/mcp-content-assessment-methodology-research.plan.md).
   **Remaining: branch-cleanup owner confirm**; research EXECUTION and the content-workspace build stay
   owner-gated — do not auto-start. Thread:
   [`mcp-agent-facing-content`](threads/mcp-agent-facing-content.next-session.md).
@@ -139,11 +139,11 @@ forward-asks remain.
   ([PDR-120](../../practice-core/decision-records/PDR-120-runbooks-are-a-content-kind-not-a-surface.md));
   the [Runbook Index](../../../docs/operations/README.md#runbook-index) lists the corpus.
   Continuity-surface drift prevention is briefed in
-  [`future/continuity-surface-drift-prevention.plan.md`](../../plans/agentic-engineering-enhancements/future/continuity-surface-drift-prevention.plan.md).
+  [`future/continuity-surface-drift-prevention.plan.md`](../../plans-backlog-2026-07/agentic-engineering-enhancements/future/continuity-surface-drift-prevention.plan.md).
 - **Team-tooling arc CLOSED (2026-06-28/29; #268–#286 all MERGED).** **Live next: the SYNTHESIS
   PHASE** (worktree-per-agent / PDR-117 verdict; do-first: the live **F-44** freshness≠liveness defect
   in `active-agents.ts`). Guiding plan
-  [`team-tooling-session-2026-06-28.plan.md`](../../plans/agent-tooling/current/team-tooling-session-2026-06-28.plan.md);
+  [`team-tooling-session-2026-06-28.plan.md`](../../plans-backlog-2026-07/agent-tooling/current/team-tooling-session-2026-06-28.plan.md);
   Director pickup and arc history live in [`director-handoff.md`](director-handoff.md).
 - **Claims model + agent-work-state (LIVE, owner-gated).** The corrected claims model — a claim is an
   optional, advisory, AREA-scoped signal (NOT files; presence/liveness/work-state/seat re-home to
@@ -157,8 +157,8 @@ forward-asks remain.
 - **Spawn-flow tool — ready to build (LIVE pickup).** Launch a session in its worktree → the binding is
   *derived* from cwd; the assert-primitive / registry path is dissolved (PDR-118 OQ2). Owner-approved
   plan with a Pitfalls section:
-  [`agent-spawn-flow-tool.plan.md`](../../plans/agent-tooling/current/agent-spawn-flow-tool.plan.md). The
-  substrate ([`future/knowledge-distribution-substrate.plan.md`](../../plans/agent-tooling/future/knowledge-distribution-substrate.plan.md))
+  [`agent-spawn-flow-tool.plan.md`](../../plans-backlog-2026-07/agent-tooling/current/agent-spawn-flow-tool.plan.md). The
+  substrate ([`future/knowledge-distribution-substrate.plan.md`](../../plans-backlog-2026-07/agent-tooling/future/knowledge-distribution-substrate.plan.md))
   is recorded-future, not a prerequisite. Next agent: read it + the `feedback_*` memories it names,
   confirm the cwd fact once, build friction-sliced.
 - **Strategy / plan-estate rewrite — LIVE primary lane.**
@@ -220,7 +220,7 @@ forward-asks remain.
   estate + observability-sinks plans (§Next Safe Steps); MCP product-analytics (owner-gated on
   legal/privacy). OAK-PROD MCP snagging — next: S0 non-Cursor probe, then S1 to owner.
 - **no-throw remediation — RESHAPED, READY (survey-first), PAUSED for the strategy thread.** Controlling
-  plan [`no-throw-remediation.plan.md`](../../plans/architecture-and-infrastructure/current/no-throw-remediation.plan.md);
+  plan [`no-throw-remediation.plan.md`](../../plans-backlog-2026-07/architecture-and-infrastructure/current/no-throw-remediation.plan.md);
   the ~1000-warning count is an indiscriminate-rule artefact (~6 cause-classes). Investigation-first
   WS0→WS4; 4 conversions landed. Resume from WS0 after the strategy work.
 - **Practice↔IDE integration plane** — feasibility report landed; **owner decisions pending** (§Open
@@ -228,10 +228,10 @@ forward-asks remain.
 - **Onboarding-improvement arc** — PR #199 merged; follow-ons open (B2/B3 risk-register seeding; the
   ask-the-repo search decision — B1 awaits owner cost bands, B6 at the M2 gate).
 - **Evals pickup — QUEUED, owner-directed**
-  ([`skill-evals-pilot-start-right-quick.plan.md`](../../plans/agentic-engineering-enhancements/current/skill-evals-pilot-start-right-quick.plan.md));
+  ([`skill-evals-pilot-start-right-quick.plan.md`](../../plans-backlog-2026-07/agentic-engineering-enhancements/current/skill-evals-pilot-start-right-quick.plan.md));
   the assurance regime is homed in `principles.md` §Agentic Quality + `validation-strategy.md`.
 - **AX first-class** — PDR-111 + the `agent-experience-review-lens` rule landed; the live home is
-  [`agent-experience-improvement.plan.md`](../../plans/agent-tooling/current/agent-experience-improvement.plan.md)
+  [`agent-experience-improvement.plan.md`](../../plans-backlog-2026-07/agent-tooling/current/agent-experience-improvement.plan.md)
   (next: WS-1 CLI-ergonomics conformance guard — §Next Safe Steps; WS-4 is the structural drain-fix).
 - **Fitness-system doctrine (agentic lane)** — the Closure & Role-Routing findings record + backbone
   plan landed (`547d889c9`); next is the plan's WS0 (PDR-106 + ADR-144 amendment) and the §11
@@ -367,7 +367,7 @@ The durable concept exploration is the
 including the dedicated
 [Castr source-integration report](../../reports/oak-integrations/castr-source-integration-report-2026-07-15.md).
 The executable owner is the
-[Oak source integration workspaces plan](../../plans/architecture-and-infrastructure/current/oak-source-integration-workspaces.plan.md).
+[Oak source integration workspaces plan](../../plans-backlog-2026-07/architecture-and-infrastructure/current/oak-source-integration-workspaces.plan.md).
 It specifies optional pinned source checkouts for Oak OpenAPI, Castr, Oak Curriculum Ontology,
 and Oak Database-Tools, with stable parent wrappers and a complete public-root path when every
 submodule is absent. Castr uses source mode for rapid local co-development and released core plus
@@ -388,7 +388,7 @@ tree but uncommitted.
 The three-report
 [family](../../reports/oak-reusable-curriculum-architecture/README.md) and the
 strategic future [planning
-brief](../../plans/connecting-oak-resources/reusable-curriculum-architecture/future/reusable-curriculum-architecture-planning.plan.md)
+brief](../../plans-backlog-2026-07/connecting-oak-resources/reusable-curriculum-architecture/future/reusable-curriculum-architecture-planning.plan.md)
 are the durable evidence and planning homes. They cover repository corrections,
 cross-estate obligations, source-portable Elastic exploration, MCP and website
 consumer boundaries, and the ADR ratification watchlist. The
@@ -405,7 +405,7 @@ practice exchanges remain owner-gated outside this session.
 after removing 2 knip-flagged dead exports) and consistent with the `skills:check` precedent
 (`pnpm encoding:check`, wired into `pnpm check` + pre-push; canonical `@oaknational/result`).
 The deferred architectural excellence is now a strategic brief —
-[`agent-tools-architecture-standard.plan.md`](../../plans/agent-tooling/future/agent-tools-architecture-standard.plan.md)
+[`agent-tools-architecture-standard.plan.md`](../../plans-backlog-2026-07/agent-tooling/future/agent-tools-architecture-standard.plan.md)
 (WS0 the execution-model fork → ADR + enforcement + encoding-engine→`packages/core` + the
 where-supported Write/Edit hook + convergence) — with the analysis at
 [`reports/agent-tools-encoding-guard-and-architecture-2026-06-29.md`](../../reports/agent-tools-encoding-guard-and-architecture-2026-06-29.md)
@@ -430,7 +430,7 @@ corpus-generalisation review R1); re-materialise from the git tree at `255117a43
 ### Agent Naming (v3 + era-pinning cure)
 
 Thread [`agent-naming`][agent-naming]; controlling plan
-[`agent-naming-schema-v3.plan.md`](../../plans/agent-tooling/current/agent-naming-schema-v3.plan.md)
+[`agent-naming-schema-v3.plan.md`](../../plans-backlog-2026-07/agent-tooling/current/agent-naming-schema-v3.plan.md)
 (DECISION-COMPLETE / QUEUED, `current/`). v2 merged (PR #189). **Next safe
 step**: execute **Phase 1 (WS1, era-pinning cure)** off a fresh branch from
 `main` — the P1 single-valued-identity fix (hooks pin the era
@@ -443,13 +443,13 @@ follow. Orientation: read the thread record, then the plan, then re-grep the
 ### Agent Experience (AX) Improvement — WS-3 F-41 LANDED; next highest-impact item
 
 Umbrella plan
-[`agent-experience-improvement.plan.md`](../../plans/agent-tooling/current/agent-experience-improvement.plan.md)
+[`agent-experience-improvement.plan.md`](../../plans-backlog-2026-07/agent-tooling/current/agent-experience-improvement.plan.md)
 (`current/`), evidence
 [report](../../reports/agent-experience-cause-class-analysis-2026-06-21.md), doctrine PDR-111.
 **WS-3 (F-41 path-safety) is DONE** (`b5408291d`+`c90150ffa`+`4fd640089`): `resolveCoordinationHome`
 resolves the **primary checkout** via `git worktree list`, so any worktree seat shares one coordination
 home. **Next safe step (owner-chosen 2026-06-22): WS-1 — the CLI-ergonomics conformance guard.** Execute
-[`agent-tools-cli-ergonomics.plan.md`](../../plans/agent-tooling/current/agent-tools-cli-ergonomics.plan.md)
+[`agent-tools-cli-ergonomics.plan.md`](../../plans-backlog-2026-07/agent-tooling/current/agent-tools-cli-ergonomics.plan.md)
 from **Phase 0** (the convention-audit + scope-ratification gate) → WS6 (the PDR-055 cl.10 conformance
 guard); retires the largest cause-class (~19 frictions, Class A). Subsequent AX items: **WS-4** (the
 `frictions-register` drain validator that recomputes integrity against fs/git → **WS-6** disposition
@@ -459,11 +459,11 @@ F-41 CLI tail).
 ### Agentic Mechanisms Discovery
 
 1. Treat the parent plan
-   [`agentic-mechanisms-discovery.plan.md`](../../plans/discovery/future/agentic-mechanisms-discovery.plan.md)
+   [`agentic-mechanisms-discovery.plan.md`](../../plans-backlog-2026-07/discovery/future/agentic-mechanisms-discovery.plan.md)
    as the layer map for skills, MCP Server Cards, MCP runtime discovery, A2A,
    registry metadata, and generic AI discovery proposals.
 2. Resume executable work from
-   [`agent-readiness-discovery-hub.plan.md`](../../plans/discovery/current/agent-readiness-discovery-hub.plan.md),
+   [`agent-readiness-discovery-hub.plan.md`](../../plans-backlog-2026-07/discovery/current/agent-readiness-discovery-hub.plan.md),
    starting with `ar1-refresh-standards-and-live-estate`.
 3. Keep Web Bot Auth in Phase 1 as a decision-ledger and security-evidence
    bridge; the future child plan owns any later enabled-control rollout.
@@ -579,14 +579,14 @@ dedicated thread record yet — the session-level home is the § Current State e
 this section; create a thread record when execution is scheduled.
 
 1. **Test estate** —
-   [`unified-mcp-server-test-harness.plan.md`](../../plans/sdk-and-mcp-enhancements/current/unified-mcp-server-test-harness.plan.md):
+   [`unified-mcp-server-test-harness.plan.md`](../../plans-backlog-2026-07/sdk-and-mcp-enhancements/current/unified-mcp-server-test-harness.plan.md):
    WS0 (built-server smoke harness) + WS3 (network-free e2e rebalance) are
    EEF-independent and executable now; WS1 (= EEF D7) is gated on EEF D6 landing.
    Cross-plan: sequence WS3's live-executor consolidation BEFORE the MCP slice of
    `no-io-test-boundary-and-di-recovery.plan.md` (collision risk, per the plan's
    §Cross-Plan Coordination).
 2. **Observability sinks** —
-   [`observability-sinks-decoupling.plan.md`](../../plans/observability/current/observability-sinks-decoupling.plan.md):
+   [`observability-sinks-decoupling.plan.md`](../../plans-backlog-2026-07/observability/current/observability-sinks-decoupling.plan.md):
    C1+C2 (atomic: forcing-function test + standalone OTel `NodeTracerProvider`, adds
    `@opentelemetry/sdk-trace-node` + amends ADR-171) → C2b (build the `SENTRY_MODE`
    bridge in env-resolution + reconcile the sink-enum) → C3 (migrate consumers) → C4
@@ -603,9 +603,9 @@ this section; create a thread record when execution is scheduled.
    and absorbed by the strategy corpus.
 4. External-facing capability corpus: decide source-of-truth topology and first-tranche scope
    — these gate Direction A `t0` / plugin-package `w0`
-   ([`external-facing-capability-distribution.plan.md`](../../plans/user-experience/educator-end-users/current/external-facing-capability-distribution.plan.md)).
+   ([`external-facing-capability-distribution.plan.md`](../../plans-backlog-2026-07/user-experience/educator-end-users/current/external-facing-capability-distribution.plan.md)).
 5. Native-MCP-auth build-vs-buy: adopt / adopt-partial decision on the
-   [spike](../../plans/security-and-privacy/future/native-mcp-sdk-auth-build-vs-buy.md).
+   [spike](../../plans-backlog-2026-07/security-and-privacy/future/native-mcp-sdk-auth-build-vs-buy.md).
 6. Upstream/SDK forks: endpoint-style cross-refs in MCP tool descriptions; Q-010 (repair vs
    retire the orphaned `oak-curriculum-sdk` typedoc estate).
 7. Curriculum graph estate — single-team proposal: whether to bring the Open Curriculum Ecosystem,

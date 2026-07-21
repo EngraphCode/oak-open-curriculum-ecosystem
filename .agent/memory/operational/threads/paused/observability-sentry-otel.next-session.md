@@ -21,7 +21,7 @@ merge_class: index-narrative-tables
 *Identity: claude-code, sonnet-4-6.*
 
 **Active plan**:
-[`feat-eef-exploration-completion.plan.md`](../../../../plans/observability/current/feat-eef-exploration-completion.plan.md)
+[`feat-eef-exploration-completion.plan.md`](../../../../plans-backlog-2026-07/observability/current/feat-eef-exploration-completion.plan.md)
 — Steps 01–10 closed.
 
 **Step 10 closing summary**: reviewer dispatch complete (security/clerk/sentry-expert
@@ -44,12 +44,12 @@ merge-readiness declaration with release-readiness-expert synthesis).
   `mcp-local-startup-release-boundary.plan.md` (`../../../../plans-old-archive/observability/archive/completed/mcp-local-startup-release-boundary.plan.md`)
   (+ its `phase-0-evidence` / `phase-1-red-evidence` companions).
 - **Completed gate-recovery precondition** (complete for current branch state):
-  [`gate-recovery-cadence.plan.md`](../../../../plans/observability/active/gate-recovery-cadence.plan.md)
+  [`gate-recovery-cadence.plan.md`](../../../../plans-backlog-2026-07/observability/active/gate-recovery-cadence.plan.md)
   — owns the failure ledger, non-test gate restoration, RED→buildable-seam reshaping, and the
   full-gate cadence guard. (This plan is the load-bearing half of the
   `dont-break-build-without-fix-plan` ↔ plan citation pair — keep both directions resolving.)
 - **Release-identifier alignment** (next-session pickup):
-  [`sentry-release-identifier-single-source-of-truth.plan.md`](../../../../plans/observability/current/sentry-release-identifier-single-source-of-truth.plan.md)
+  [`sentry-release-identifier-single-source-of-truth.plan.md`](../../../../plans-backlog-2026-07/observability/current/sentry-release-identifier-single-source-of-truth.plan.md)
   — release-identifier SSoT + ADR-163 amendment + cancellation-ADR linkage.
 - **PR #87 unblock** (next-session pickup):
   `pr-87-quality-finding-resolution.plan.md` (`../../../../plans-old-archive/observability/archive/superseded/pr-87-quality-finding-resolution.plan.md`)
@@ -57,9 +57,9 @@ merge-readiness declaration with release-readiness-expert synthesis).
   remediation; Phase 0 surfaces three owner decisions (rate-limit verification, stylistic-rule
   policy, semver-extraction home) before Phase 1 mechanical work.
 - **Parent engineering lane**:
-  [`sentry-observability-maximisation-mcp.plan.md`](../../../../plans/observability/active/sentry-observability-maximisation-mcp.plan.md)
+  [`sentry-observability-maximisation-mcp.plan.md`](../../../../plans-backlog-2026-07/observability/active/sentry-observability-maximisation-mcp.plan.md)
   (L-8). **Separate future work** (owner-gated):
-  [`mcp-http-runtime-canonicalisation.plan.md`](../../../../plans/observability/future/mcp-http-runtime-canonicalisation.plan.md).
+  [`mcp-http-runtime-canonicalisation.plan.md`](../../../../plans-backlog-2026-07/observability/future/mcp-http-runtime-canonicalisation.plan.md).
 
 **Two non-conflicting next-session paths** (when reactivated): (1) **PR #87 quality-gate
 clearance** (recommended; blocks merge) — execute `pr-87-quality-finding-resolution.plan.md`;

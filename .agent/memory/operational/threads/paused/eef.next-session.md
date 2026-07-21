@@ -43,18 +43,18 @@ merge_class: index-narrative-tables
   RESEARCH LANDED.** Read-only research: corpus-vs-surfaced inventory, verified first-hand
   (full surfacing stack read; three live oak-prod probes; 24-agent workflow with adversarial
   verify). The report is the conservation home:
-  [`eef-data-surfacing-gap-research-2026-06-12.md`](../../../../plans/sector-engagement/eef/reference/eef-data-surfacing-gap-research-2026-06-12.md)
+  [`eef-data-surfacing-gap-research-2026-06-12.md`](../../../../plans-backlog-2026-07/sector-engagement/eef/reference/eef-data-surfacing-gap-research-2026-06-12.md)
   (committed by the Director in `32bcd9d1b`; owner roadmap item 7 owns organising its
   follow-ons). Load-bearing for the next EEF session: report §8 lists the ten unowned items
   (no recorded decision anywhere) — headline: EEF absent from `get-curriculum-model`
   orientation; methodology sub-fields exported but rendered nowhere; the unowned EEF
   provenance/refresh outreach (report §6), which also gates the corpus-backfill opportunity
   (report §7). Sibling artefacts: the
-  [DfE data SDK seed](../../../../plans/sector-engagement/future/dfe-data-sdk.plan.md)
+  [DfE data SDK seed](../../../../plans-backlog-2026-07/sector-engagement/future/dfe-data-sdk.plan.md)
   (sector-engagement thread) — DfE EES statistics as a COMPLEMENTARY source, never a
   replacement (owner posture 2026-06-12); the EEF corpus stays whole and authoritative for
   EEF evidence — and the owner-commissioned
-  [executive briefing](../../../../plans/sector-engagement/eef/reference/oak-eef-executive-briefing-2026-06-12.md)
+  [executive briefing](../../../../plans-backlog-2026-07/sector-engagement/eef/reference/oak-eef-executive-briefing-2026-06-12.md)
   (standalone, C-suite Oak + EEF): the outreach vehicle for the report-§6 partnership
   conversation (dataset depth, update route, licence terms).
 - **THIS SESSION (2026-06-11→12, Cosmos turns Equinox / claude Fable 5, `1bc763`,
@@ -73,7 +73,7 @@ merge_class: index-narrative-tables
   check attribute indexing before wiring the threshold follow-on to span queries. All review
   verdicts adjudicated first-hand on the PRs. **Next safe steps for this lane (queued by
   design, recorded in the
-  [snagging plan](../../../../plans/sdk-and-mcp-enhancements/current/oak-prod-mcp-snagging-2026-06-11.plan.md)):**
+  [snagging plan](../../../../plans-backlog-2026-07/sdk-and-mcp-enhancements/current/oak-prod-mcp-snagging-2026-06-11.plan.md)):**
   (1) S3 corpus-typo routing — refresh bulk downloads, regenerate, then route (needs a
   network/regen window); (2) the S2 cure — keyword identity-model design decision
   (per-placement descriptions belong on edges; evidence in the plan); (3) the outbound-token
@@ -99,7 +99,7 @@ merge_class: index-narrative-tables
   `get-eef-evidence` success is fully invisible to the Cursor agent, shape-based not
   size-based; prompt layer = user slash commands yes / agent invocation no, results loop back
   as injected command context; replay recipe for non-Cursor successors) and the
-  [snag register](../../../../plans/sdk-and-mcp-enhancements/current/oak-prod-mcp-snagging-2026-06-11.plan.md)
+  [snag register](../../../../plans-backlog-2026-07/sdk-and-mcp-enhancements/current/oak-prod-mcp-snagging-2026-06-11.plan.md)
   (S0 client-population probe → S1 owner decision on the EEF shape; S2 keyword description
   leakage; S3 corpus typo; S4 `limit` schema bounds; S5 prompt-UX observation). **Next safe
   step for this lane**: S0 — probe how non-Cursor clients surface the Shape-B response (one
@@ -111,7 +111,7 @@ merge_class: index-narrative-tables
   [session operations + experience report](../../../../reports/graph-team-session-operations-and-experience-2026-06-10-11.md)
   (owner-directed synthesis; central finding: reading doctrine does not fire it — mechanism
   does), the
-  [graph plan](../../../../plans/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md)
+  [graph plan](../../../../plans-backlog-2026-07/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md)
   todos (per-deliverable authority), the preserved comms-event corpus, the handoff records
   under `.agent/state/collaboration/handoffs/`, and git history (per the identity-table
   contract below). Live carries from the arc: owner items HELD AS-IS (principles-prompt
@@ -195,7 +195,7 @@ merge_class: index-narrative-tables
 - **Prior arc (D0–D7) DELIVERED + SHIPPED.** The EEF build arc shipped to production 2026-06-08
   (PR #131 → `v1.16.0`); the surface is live by default at `curriculum-mcp-alpha.oaknational.dev`.
   The A-i/C above are post-ship enhancements on a new branch. The
-  [`graph-tools-value-redesign`](../../../../plans/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md)
+  [`graph-tools-value-redesign`](../../../../plans-backlog-2026-07/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md)
   promotion trigger (EEF D6 + D7 green) is fired; its output-schema work is gated behind
   `output-schemas-for-mcp-tools.plan.md`.
 - **Acceptance bar carried**: every tool/resource/prompt is real graph-derived logic with

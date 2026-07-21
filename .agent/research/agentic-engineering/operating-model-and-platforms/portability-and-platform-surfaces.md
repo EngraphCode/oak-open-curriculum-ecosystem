@@ -12,7 +12,7 @@ surfaces exist, and where cross-vendor differences matter.
 
 ## Primary Source Material
 
-- [2026-02-21-cross-agent-standardisation-landscape.research.md](../../../plans/agentic-engineering-enhancements/2026-02-21-cross-agent-standardisation-landscape.research.md)
+- [2026-02-21-cross-agent-standardisation-landscape.research.md](../../../plans-backlog-2026-07/agentic-engineering-enhancements/2026-02-21-cross-agent-standardisation-landscape.research.md)
 - [openai_claude_gemini_apps_sdk_comparison.md](../../../research/openai_claude_gemini_apps_sdk_comparison.md)
 - official-mcp-app-skills.md (`../../official-mcp-app-skills.md`)
 - [agent-support-tools-specification.md](../../../../agent-tools/docs/agent-support-tools-specification.md)
@@ -43,6 +43,6 @@ surfaces exist, and where cross-vendor differences matter.
 ## Related Lanes
 
 - [research operating-model lane](../../../research/agentic-engineering/operating-model-and-platforms/README.md)
-- [plans collection](../../../plans/agentic-engineering-enhancements/README.md)
+- [plans collection](../../../plans-backlog-2026-07/agentic-engineering-enhancements/README.md)
 - [deep-dives index](./README.md)
 - [hub README](../README.md)

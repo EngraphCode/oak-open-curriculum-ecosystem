@@ -5,7 +5,7 @@
 
 **Type**: handover (team session entry point; owner-ratified shape 2026-06-10)
 **Plan authority**:
-[`graph-tools-value-redesign.plan.md`](../../plans/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md)
+[`graph-tools-value-redesign.plan.md`](../../plans-backlog-2026-07/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md)
 (🟢 DECISION-COMPLETE; frontmatter todos + §Cycles and proof contract are the execution
 authority). Evidence:
 [`graph-tools-readiness-seam-analysis-2026-06-09.md`](../../reports/graph-tools-readiness-seam-analysis-2026-06-09.md).

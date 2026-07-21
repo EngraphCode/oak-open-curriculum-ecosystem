@@ -37,7 +37,7 @@ performance is leading. We've given vision, strategy, intent, planning, work, an
 canonical, versioned home so we can derive these metrics in the repo. ADR-207 gates the automated
 projection on the intent graph and on GitHub, Linear, deployment, and Sentry evidence governed by
 proposed ADR-201. The
-[TAU collection index](../../.agent/plans/telemetry-and-understanding/README.md#current-status)
+[TAU collection index](../../.agent/plans-backlog-2026-07/telemetry-and-understanding/README.md#current-status)
 carries current delivery status. The metrics become queryable only after those projectors and
 connectors exist. The shape is settled; targets stay Oak-grounded:
 
@@ -50,4 +50,4 @@ connectors exist. The shape is settled; targets stay Oak-grounded:
 
 Mechanism and derivation:
 [ADR-207 — DORA delivery metrics as a structural property of the intent graph](../architecture/architectural-decisions/207-dora-delivery-metrics-as-a-structural-property.md);
-operational home: the [observability and quality-metrics plan](../../.agent/plans/architecture-and-infrastructure/future/observability-and-quality-metrics.plan.md).
+operational home: the [observability and quality-metrics plan](../../.agent/plans-backlog-2026-07/architecture-and-infrastructure/future/observability-and-quality-metrics.plan.md).

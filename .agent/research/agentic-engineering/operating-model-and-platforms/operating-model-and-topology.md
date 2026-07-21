@@ -17,15 +17,15 @@ interaction planes, and local-doctrine refinements.
 - [platform-adapter-formats.md](../../platform-adapter-formats.md)
 - [agentic-engineering-practice.md](../../notes/prog-frame/agentic-engineering-practice.md)
 - [history-of-the-practice.md](../history-of-the-practice.md)
-- [2026-02-21-cross-agent-standardisation-landscape.research.md](../../../plans/agentic-engineering-enhancements/2026-02-21-cross-agent-standardisation-landscape.research.md)
+- [2026-02-21-cross-agent-standardisation-landscape.research.md](../../../plans-backlog-2026-07/agentic-engineering-enhancements/2026-02-21-cross-agent-standardisation-landscape.research.md)
 - [openai_claude_gemini_apps_sdk_comparison.md](../../../research/openai_claude_gemini_apps_sdk_comparison.md)
 
 ## Related Baselines and Plans
 
 - [agentic-mechanism-inventory-baseline.md](../../../analysis/agentic-mechanism-inventory-baseline.md)
 - operational-awareness-and-continuity-surface-separation.plan.md (`../../../plans-old-archive/agentic-engineering-enhancements/archive/completed/operational-awareness-and-continuity-surface-separation.plan.md`)
-- [reviewer-gateway-upgrade.plan.md](../../../plans/agentic-engineering-enhancements/current/reviewer-gateway-upgrade.plan.md)
-- [operating-model-mechanism-taxonomy.plan.md](../../../plans/agentic-engineering-enhancements/future/operating-model-mechanism-taxonomy.plan.md)
+- [reviewer-gateway-upgrade.plan.md](../../../plans-backlog-2026-07/agentic-engineering-enhancements/current/reviewer-gateway-upgrade.plan.md)
+- [operating-model-mechanism-taxonomy.plan.md](../../../plans-backlog-2026-07/agentic-engineering-enhancements/future/operating-model-mechanism-taxonomy.plan.md)
 
 ## Current Synthesis
 
@@ -65,7 +65,7 @@ interaction planes, and local-doctrine refinements.
 
 - [research operating-model lane](../../../research/agentic-engineering/operating-model-and-platforms/README.md)
 - [analysis lane](../../../analysis/README.md)
-- [future mechanism taxonomy plan](../../../plans/agentic-engineering-enhancements/future/operating-model-mechanism-taxonomy.plan.md)
+- [future mechanism taxonomy plan](../../../plans-backlog-2026-07/agentic-engineering-enhancements/future/operating-model-mechanism-taxonomy.plan.md)
 - [formal synthesis lane](../../../reports/agentic-engineering/deep-dive-syntheses/README.md)
 - [deep-dives index](./README.md)
 - [hub README](../README.md)

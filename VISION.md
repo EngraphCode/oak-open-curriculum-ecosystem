@@ -96,7 +96,7 @@ AI-enhanced development and the way we run our own work.
 - **Our strategy** — the [strategy corpus](docs/strategy/README.md): the diagnosis,
   the choices we make per value stream, and how we'll know it's working.
 - **What we build, and the order we build it in** — the
-  [high-level plan](.agent/plans/high-level-plan.md) and the plans it indexes; the
+  [high-level plan](.agent/plans-backlog-2026-07/high-level-plan.md) and the plans it indexes; the
   live inventory of products and components is in the [README](README.md).
 - **How we build it safely and fast** —
   [How the Agentic Engineering System Works](docs/foundation/agentic-engineering-system.md)

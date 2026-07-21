@@ -116,7 +116,7 @@ See [ADR-106: Known-Answer-First Ground Truth Methodology](/docs/architecture/ar
 ## Future Work
 
 Phase 2 expansion opportunities are documented in:
-[ground-truth-expansion-plan.md](../../../../.agent/plans/semantic-search/future/09-evaluation-and-evidence/ground-truth-expansion-plan.md)
+[ground-truth-expansion-plan.md](../../../../.agent/plans-backlog-2026-07/semantic-search/future/09-evaluation-and-evidence/ground-truth-expansion-plan.md)
 
 The archived 120-query system is preserved at:
 `src/lib/search-quality/ground-truth-archive/`
@@ -125,9 +125,9 @@ The archived 120-query system is preserved at:
 
 ## Related Documents
 
-| Document                                                                                                                       | Purpose              |
-| ------------------------------------------------------------------------------------------------------------------------------ | -------------------- |
-| [ADR-106](/docs/architecture/architectural-decisions/106-known-answer-first-ground-truth-methodology.md)                       | Methodology decision |
-| [ground-truth-protocol.md](ground-truth-protocol.md)                                                                           | The protocol         |
-| [ground-truth/README.md](/apps/oak-search-cli/src/lib/search-quality/ground-truth/README.md)                                   | Code documentation   |
-| [expansion-plan.md](../../../../.agent/plans/semantic-search/future/09-evaluation-and-evidence/ground-truth-expansion-plan.md) | Future work          |
+| Document                                                                                                                                       | Purpose              |
+| ---------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
+| [ADR-106](/docs/architecture/architectural-decisions/106-known-answer-first-ground-truth-methodology.md)                                       | Methodology decision |
+| [ground-truth-protocol.md](ground-truth-protocol.md)                                                                                           | The protocol         |
+| [ground-truth/README.md](/apps/oak-search-cli/src/lib/search-quality/ground-truth/README.md)                                                   | Code documentation   |
+| [expansion-plan.md](../../../../.agent/plans-backlog-2026-07/semantic-search/future/09-evaluation-and-evidence/ground-truth-expansion-plan.md) | Future work          |

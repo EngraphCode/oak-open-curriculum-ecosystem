@@ -563,7 +563,7 @@ model explicit, connected, and potentially machine-readable.
 ### How this relates to current Oak work
 
 NEO has already exercised the external-adoption path anticipated by Oak's
-[knowledge-graph adoption estate](../../plans/sector-engagement/knowledge-graph-adoption/README.md):
+[knowledge-graph adoption estate](../../plans-backlog-2026-07/sector-engagement/knowledge-graph-adoption/README.md):
 it pinned ontology release v0.1.3 in its public schema, used public identifiers
 in a separate product, and wrote a local validator. A replay against the pinned
 release resolves all seven identifiers. That is stronger evidence than a
@@ -572,14 +572,14 @@ hypothetical adopter persona.
 It does **not** by itself fire every Oak plan:
 
 - The strategic
-  [external-adoption brief](../../plans/sector-engagement/knowledge-graph-adoption/future/oak-knowledge-graph-external-adoption.plan.md)
+  [external-adoption brief](../../plans-backlog-2026-07/sector-engagement/knowledge-graph-adoption/future/oak-knowledge-graph-external-adoption.plan.md)
   still requires Oak to choose an adopter scenario and support commitment.
 - The
-  [NC knowledge-taxonomy surface](../../plans/connecting-oak-resources/knowledge-graph-integration/future/nc-knowledge-taxonomy-surface.plan.md)
+  [NC knowledge-taxonomy surface](../../plans-backlog-2026-07/connecting-oak-resources/knowledge-graph-integration/future/nc-knowledge-taxonomy-surface.plan.md)
   promotes on documented demand for taxonomy traversal. Seven identifiers show
   use, but NEO has not publicly asked Oak for a traversal service.
 - The
-  [cross-source journeys plan](../../plans/connecting-oak-resources/knowledge-graph-integration/future/cross-source-journeys.plan.md)
+  [cross-source journeys plan](../../plans-backlog-2026-07/connecting-oak-resources/knowledge-graph-integration/future/cross-source-journeys.plan.md)
   is still demand- and substrate-gated. A NEO use case could test it, but should
   not be used to bypass those gates.
 
@@ -909,6 +909,6 @@ project only if later evidence warrants it.
 - [Department for Education: mathematics programmes of study](https://www.gov.uk/government/publications/national-curriculum-in-england-mathematics-programmes-of-study/national-curriculum-in-england-mathematics-programmes-of-study)
 - [Department for Education: science programmes of study](https://www.gov.uk/government/publications/national-curriculum-in-england-science-programmes-of-study/national-curriculum-in-england-science-programmes-of-study)
 - [Oak Curriculum Ontology v0.1.3](https://github.com/oaknational/oak-curriculum-ontology/releases/tag/v0.1.3)
-- [Oak Knowledge Graph external-adoption estate](../../plans/sector-engagement/knowledge-graph-adoption/README.md)
-- [Oak knowledge-graph integration hub](../../plans/connecting-oak-resources/knowledge-graph-integration/README.md)
+- [Oak Knowledge Graph external-adoption estate](../../plans-backlog-2026-07/sector-engagement/knowledge-graph-adoption/README.md)
+- [Oak knowledge-graph integration hub](../../plans-backlog-2026-07/connecting-oak-resources/knowledge-graph-integration/README.md)
 - [Oak graph-tool category doctrine](../../../docs/architecture/architectural-decisions/195-graph-tools-first-class-tool-category.md)

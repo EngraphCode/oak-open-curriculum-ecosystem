@@ -30,7 +30,7 @@ The evidence base is the audit's
 its [rendered wholes](../../.agent/reports/mcp-agent-facing-content-audit/rendered-wholes.md),
 the [audit report](../../.agent/reports/mcp-agent-facing-content-audit/report.md),
 and the current
-[assessment-methodology research plan](../../.agent/plans/effectiveness-and-impact/current/mcp-content-assessment-methodology-research.plan.md).
+[assessment-methodology research plan](../../.agent/plans-backlog-2026-07/effectiveness-and-impact/current/mcp-content-assessment-methodology-research.plan.md).
 The method follows Oak's
 [durable exploration practice](../../.agent/practice-core/decision-records/PDR-004-explorations-as-durable-design-space-tier.md):
 observe, frame the problem, work contrasting possibilities against concrete
@@ -542,6 +542,6 @@ migration, evaluation suite, or implementation plan follows from this note.
 - [MCP agent-facing content audit report](../../.agent/reports/mcp-agent-facing-content-audit/report.md)
 - [MCP agent-facing content registry](../../.agent/reports/mcp-agent-facing-content-audit/registry.md)
 - [MCP rendered wholes](../../.agent/reports/mcp-agent-facing-content-audit/rendered-wholes.md)
-- [MCP content assessment methodology research plan](../../.agent/plans/effectiveness-and-impact/current/mcp-content-assessment-methodology-research.plan.md)
+- [MCP content assessment methodology research plan](../../.agent/plans-backlog-2026-07/effectiveness-and-impact/current/mcp-content-assessment-methodology-research.plan.md)
 - [PDR-004: Explorations as Durable Design-Space Tier](../../.agent/practice-core/decision-records/PDR-004-explorations-as-durable-design-space-tier.md)
 - [ADR-041: Workspace Structure Option A](../architecture/architectural-decisions/041-workspace-structure-option-a.md)

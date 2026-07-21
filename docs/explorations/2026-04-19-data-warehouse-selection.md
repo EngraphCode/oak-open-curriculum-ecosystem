@@ -21,7 +21,7 @@ sit downstream of the redaction barrier as the second sink (after
 Sentry, before any product-analytics tool).
 
 Informs the three-sink architectural framing in
-[`future/second-backend-evaluation.plan.md`](../../.agent/plans/observability/future/second-backend-evaluation.plan.md)
+[`future/second-backend-evaluation.plan.md`](../../.agent/plans-backlog-2026-07/observability/future/second-backend-evaluation.plan.md)
 and the corresponding section in
 [Exploration 1 (Sentry vs PostHog)](./2026-04-18-sentry-vs-posthog-capability-matrix.md).
 
@@ -113,7 +113,7 @@ lands. The ruling gates only the final-cut admissibility checks in
    vendor-independence conformance test (the
    [vendor-independence conformance test shape exploration](./2026-04-18-vendor-independence-conformance-test-shape.md),
    numbered Exploration 8 in the high-level observability plan's
-   [Explorations Map](../../.agent/plans/observability/high-level-observability-plan.md#explorations-map))
+   [Explorations Map](../../.agent/plans-backlog-2026-07/observability/high-level-observability-plan.md))
    — does it require new RuleTester cases for
    `no-vendor-observability-import`, or does the allowlist mechanism
    cover it?
@@ -129,17 +129,17 @@ lands. The ruling gates only the final-cut admissibility checks in
 
 ## 4. Informs
 
-- [`future/second-backend-evaluation.plan.md`](../../.agent/plans/observability/future/second-backend-evaluation.plan.md)
+- [`future/second-backend-evaluation.plan.md`](../../.agent/plans-backlog-2026-07/observability/future/second-backend-evaluation.plan.md)
   — the strategic brief naming the warehouse adapter as Sink 2 in
   the three-sink architecture.
 - [Exploration 1 (Sentry vs PostHog)](./2026-04-18-sentry-vs-posthog-capability-matrix.md)
   — the warehouse changes the framing from "Sentry vs PostHog" to
   "Sentry + warehouse + PostHog as adapters on a single vendor-neutral
   pipeline".
-- [`current/observability-events-workspace.plan.md`](../../.agent/plans/observability/current/observability-events-workspace.plan.md)
+- [`current/observability-events-workspace.plan.md`](../../.agent/plans-backlog-2026-07/observability/current/observability-events-workspace.plan.md)
   — the schemas the warehouse adapter consumes; vendor-neutral
   posture is the criterion to preserve.
-- [`current/multi-sink-vendor-independence-conformance.plan.md`](../../.agent/plans/observability/current/multi-sink-vendor-independence-conformance.plan.md)
+- [`current/multi-sink-vendor-independence-conformance.plan.md`](../../.agent/plans-backlog-2026-07/observability/current/multi-sink-vendor-independence-conformance.plan.md)
   — the conformance scope expands when this sink lands.
 - [Companion exploration: Clerk identity downstream](./2026-04-19-redaction-policy-clerk-identity-downstream.md)
   — settles whether the warehouse receives identified or anonymous
@@ -178,5 +178,5 @@ fires:
   — the schema input to the warehouse loader.
 - [Companion exploration: Clerk identity downstream](./2026-04-19-redaction-policy-clerk-identity-downstream.md)
   — identity envelope ruling.
-- [`future/second-backend-evaluation.plan.md`](../../.agent/plans/observability/future/second-backend-evaluation.plan.md)
+- [`future/second-backend-evaluation.plan.md`](../../.agent/plans-backlog-2026-07/observability/future/second-backend-evaluation.plan.md)
   — three-sink strategic brief.

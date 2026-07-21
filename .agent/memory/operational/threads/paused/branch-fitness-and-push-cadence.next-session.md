@@ -17,7 +17,7 @@ This thread record was created 2026-05-24 by Pelagic Snorkelling Sextant
 `oak-start-right-team` and `oak-consolidate-docs`.
 
 The executable plan is
-[`branch-fitness-and-push-cadence.plan.md`](../../../../plans/agentic-engineering-enhancements/current/branch-fitness-and-push-cadence.plan.md),
+[`branch-fitness-and-push-cadence.plan.md`](../../../../plans-backlog-2026-07/agentic-engineering-enhancements/current/branch-fitness-and-push-cadence.plan.md),
 authored by Mistbound Hiding Threshold (`claude` / `claude-opus-4-7` /
 `0e27cc`). Mistbound's directed comms on 2026-05-24T21:14Z confirmed that
 napkin Capture H and the marshal-monitoring highlight are load-bearing source

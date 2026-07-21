@@ -43,7 +43,7 @@ solo/peer/directed + wing indicators) is **COMPLETE** on `feat/comms-research`
 and its controlling plan is **already archived** (see below).
 
 **The thread is LIVE, not closed — it has a successor.** A superseding plan,
-[`session-and-team-state-statusline-icons.plan.md`](../../../plans/agent-tooling/current/session-and-team-state-statusline-icons.plan.md)
+[`session-and-team-state-statusline-icons.plan.md`](../../../plans-backlog-2026-07/agent-tooling/current/session-and-team-state-statusline-icons.plan.md)
 (current/, DRAFT, **re-grounded session-state-first 2026-06-15**), replaces the
 narrow resolver. Re-grounding (owner 2026-06-15): collaboration state belongs to
 the **SESSION** — solo is the floor (never `unknown` for one's own session), and
@@ -79,7 +79,7 @@ one thread spans:
   — a future lane of this same thread (animate the Oak mark / indicators), not a
   separate thread.
 - **Statusline resolution / operability** (infrastructure, NEW member 2026-06-27): the
-  [`comms-and-worktree-operability.plan.md`](../../../plans/agent-tooling/current/comms-and-worktree-operability.plan.md)
+  [`comms-and-worktree-operability.plan.md`](../../../plans-backlog-2026-07/agent-tooling/current/comms-and-worktree-operability.plan.md)
   §B1/B2 — pin the statusline *binary* to the primary checkout (so it renders from any
   worktree) and DRY the primary-resolver. WHERE the statusline resolves from, distinct from
   the icons/logo (WHAT it shows); intersects them at `statusline-identity.ts`. See the
@@ -118,7 +118,7 @@ Thread scope). They are coordinated, not independent:
 
 Landed on `docs/consolidations`, commit `708cd57fc` (gate green: 1846 tests, type-check,
 lint 0 errors; `dist` rebuilt; rendered live). Plan:
-[`statusline-primary-worktree-rows.plan.md`](../../../plans/agent-tooling/current/statusline-primary-worktree-rows.plan.md)
+[`statusline-primary-worktree-rows.plan.md`](../../../plans-backlog-2026-07/agent-tooling/current/statusline-primary-worktree-rows.plan.md)
 (DELIVERED — ready to archive; recreated the lost `πρ`/`ἔργ` plan). Shipped:
 
 - **Model + context share one row** (logo layout; already co-located in no-logo).
@@ -178,7 +178,7 @@ lint 0 errors; `dist` rebuilt; rendered live). Plan:
   ("Statusline Enhancements — Oak Mark + Session-Shape Indicators") — in
   `archive/completed/`, not `current/` (the earlier link here was stale).
 - **Successor plan (LIVE continuation)**:
-  [`session-and-team-state-statusline-icons.plan.md`](../../../plans/agent-tooling/current/session-and-team-state-statusline-icons.plan.md)
+  [`session-and-team-state-statusline-icons.plan.md`](../../../plans-backlog-2026-07/agent-tooling/current/session-and-team-state-statusline-icons.plan.md)
   — session-state-first (re-grounded 2026-06-15): session-owned collaboration
   state (solo floor and owner-presence opinion) → derived team state → statusline
   projection. Supersedes the narrow resolver. Unassigned (Clipper rotated out).
@@ -186,7 +186,7 @@ lint 0 errors; `dist` rebuilt; rendered live). Plan:
   fresh readiness pass is required (Conditions B and C/D remain valid execution
   constraints). Experimental discovery phase: no PDR/ADR yet.
 - **Sibling plan (same lane) — logo column / reuse**:
-  [`statusline-logo-modularisation.plan.md`](../../../plans/agent-tooling/current/statusline-logo-modularisation.plan.md)
+  [`statusline-logo-modularisation.plan.md`](../../../plans-backlog-2026-07/agent-tooling/current/statusline-logo-modularisation.plan.md)
   — separates the Oak-mark logo mechanism + asset from the statusline setup for
   reuse, and hardens the soft-fail surface. Shares the `renderStatusline` seam;
   coordinated with the session-state plan, not dependent on it.
@@ -246,7 +246,7 @@ lint 0 errors; `dist` rebuilt; rendered live). Plan:
 ## Next safe step (the fresh session's first move)
 
 **Owner direction (2026-06-29): the logo work is PAUSED.** The
-[`statusline-logo-modularisation.plan.md`](../../../plans/agent-tooling/current/statusline-logo-modularisation.plan.md)
+[`statusline-logo-modularisation.plan.md`](../../../plans-backlog-2026-07/agent-tooling/current/statusline-logo-modularisation.plan.md)
 three-layer separation (and the cycling→frame-dimension reconciliation recorded
 there) is not the directed focus for now. The live mark on `main` stands as-is.
 When the logo work resumes, that plan's grounded-execution-knowledge block (the
@@ -325,4 +325,4 @@ and the `docs/planning-and-validation` / `feat/comms-research` local branches we
 deleted 2026-06-29 as fully-absorbed. **Do NOT archive
 this record** — the thread is live. Unrelated follow-on: the pre-existing agent-tools test-IO
 compliance tracked in
-[`agent-tools-test-io-compliance.plan.md`](../../../plans/agent-tooling/current/agent-tools-test-io-compliance.plan.md).
+[`agent-tools-test-io-compliance.plan.md`](../../../plans-backlog-2026-07/agent-tooling/current/agent-tools-test-io-compliance.plan.md).

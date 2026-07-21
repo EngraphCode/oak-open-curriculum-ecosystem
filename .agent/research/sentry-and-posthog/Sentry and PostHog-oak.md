@@ -70,13 +70,13 @@ second sink should serve.
 mandate that consumers couple to `@oaknational/observability` and
 `@oaknational/observability-events`, never directly to a vendor SDK,
 and commit to a programmatic conformance test
-([`current/multi-sink-vendor-independence-conformance.plan.md`](../../plans/observability/current/multi-sink-vendor-independence-conformance.plan.md))
+([`current/multi-sink-vendor-independence-conformance.plan.md`](../../plans-backlog-2026-07/observability/current/multi-sink-vendor-independence-conformance.plan.md))
 that proves emission persistence under `SENTRY_MODE=off`. That is
 already mid-execution. The clean document treats vendor choice as a
 strategic act; Oak's architecture treats it as a configuration.
 
 **Oak's MVP gate is persona-driven, not feature-driven.**
-[`high-level-observability-plan.md` §Launch Criteria](../../plans/observability/high-level-observability-plan.md)
+[`high-level-observability-plan.md` §Launch Criteria](../../plans-backlog-2026-07/observability/high-level-observability-plan.md)
 says the MVP gate fires when *a data scientist, an engineer, a
 product owner, and an a11y reviewer can each answer their first-
 order questions from telemetry alone*. Vendor-fit must be assessed
@@ -170,7 +170,7 @@ needed to move from option to commitment.
 
 The vendor-independence clause in ADR-162 is operationalised through
 the seven Zod-defined event schemas being authored in
-[`packages/core/observability-events/`](../../plans/observability/current/observability-events-workspace.plan.md).
+[`packages/core/observability-events/`](../../plans-backlog-2026-07/observability/current/observability-events-workspace.plan.md).
 The seven events are: `tool_invoked`, `search_query`,
 `widget_session_outcome`, `feedback_submitted`, `auth_failure`,
 `rate_limit_triggered`, `a11y_preference_tag`. Each carries
@@ -346,7 +346,7 @@ redaction policy redacts* is redacted on every path, regardless of
 hook shape, runtime, or vendor. The redaction barrier is implemented
 in [`packages/libs/sentry-node`](../../../packages/libs/sentry-node/README.md)
 and being extracted to
-[`packages/core/telemetry-redaction-core/`](../../plans/observability/active/sentry-observability-maximisation-mcp.plan.md)
+[`packages/core/telemetry-redaction-core/`](../../plans-backlog-2026-07/observability/active/sentry-observability-maximisation-mcp.plan.md)
 (L-12-prereq).
 
 The MCP server's *practical* anonymous posture for PostHog comes
@@ -387,7 +387,7 @@ re-derived from policy rather than assumed.
 
 - **Any second-sink integration must extend the same redaction
   barrier closure proof.** The
-  [`multi-sink-vendor-independence-conformance.plan.md`](../../plans/observability/current/multi-sink-vendor-independence-conformance.plan.md)
+  [`multi-sink-vendor-independence-conformance.plan.md`](../../plans-backlog-2026-07/observability/current/multi-sink-vendor-independence-conformance.plan.md)
   currently proves emission persistence under `SENTRY_MODE=off`. A
   PostHog adapter would need an analogous closure proof: when
   redaction is active, no PII reaches PostHog. This is a *small*
@@ -424,7 +424,7 @@ worth-mapping sub-question — but explicitly *not* a present-tense
 decision. L-10 in the maximisation plan is intentionally
 *"Feature-flag scaffolding — TSDoc extension point only
 (MVP-deferred)"*; the active provider-seam choice belongs to
-[`future/feature-flag-provider-selection.plan.md`](../../plans/observability/future/feature-flag-provider-selection.plan.md),
+[`future/feature-flag-provider-selection.plan.md`](../../plans-backlog-2026-07/observability/future/feature-flag-provider-selection.plan.md),
 which is explicitly held in wait until a real flag consumer exists
 ("the extension point is documented; no real flag is wired because
 there is no use case … pre-committing a shape before a real consumer
@@ -501,7 +501,7 @@ overlay contributes):
   schemas — those are configuration, not contract.
 
 These criteria are decidable now and can be lifted directly into
-[`future/feature-flag-provider-selection.plan.md`](../../plans/observability/future/feature-flag-provider-selection.plan.md)
+[`future/feature-flag-provider-selection.plan.md`](../../plans-backlog-2026-07/observability/future/feature-flag-provider-selection.plan.md)
 as evaluation gates for the eventual provider/seam choice. The
 seam *itself* — option 1, 2, or 3 — should remain strategic until a
 real flag consumer lands, per the plan's stated posture and per

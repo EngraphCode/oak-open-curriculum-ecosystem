@@ -139,7 +139,7 @@ Binning, aggregation, cohort analysis, and dashboards are **out of scope
 for this repo** — consistent with
 [ADR-162](../architecture/architectural-decisions/162-observability-first.md)
 and the three-sink architecture in
-[second-backend-evaluation.plan.md](../../.agent/plans/observability/future/second-backend-evaluation.plan.md).
+[second-backend-evaluation.plan.md](../../.agent/plans-backlog-2026-07/observability/future/second-backend-evaluation.plan.md).
 
 ---
 
@@ -446,7 +446,7 @@ and
 **Do not** call `posthog.capture()` directly from MCP handlers. Emit
 vendor-neutral events through `@oaknational/observability-events`
 (planned) and a PostHog adapter — per
-[observability-events-workspace.plan.md](../../.agent/plans/observability/current/observability-events-workspace.plan.md)
+[observability-events-workspace.plan.md](../../.agent/plans-backlog-2026-07/observability/current/observability-events-workspace.plan.md)
 and the planned `no-vendor-observability-import` ESLint rule.
 
 All fan-out paths must pass [ADR-160](../architecture/architectural-decisions/160-non-bypassable-redaction-barrier-as-principle.md)
@@ -466,7 +466,7 @@ Sentry already receives:
 See `apps/oak-curriculum-mcp-streamable-http/docs/observability.md`.
 
 **Interim product question (pre-PostHog):** the
-[three-sink brief](../../.agent/plans/observability/future/second-backend-evaluation.plan.md)
+[three-sink brief](../../.agent/plans-backlog-2026-07/observability/future/second-backend-evaluation.plan.md)
 notes that coarse MCP usage ("how many people, roughly for what") may be
 answerable from **Sentry traces** and tool-call distribution via
 `wrapMcpServerWithSentry` before PostHog lands. PostHog remains the
@@ -504,7 +504,7 @@ projection is the plan default.
 
 ### 7.6 Warehouse sink — open architectural question
 
-The [three-sink brief](../../.agent/plans/observability/future/second-backend-evaluation.plan.md)
+The [three-sink brief](../../.agent/plans-backlog-2026-07/observability/future/second-backend-evaluation.plan.md)
 assumes Sink 2 (warehouse) before PostHog. Owner direction (2026-05-26)
 questions whether a full warehouse is still needed for MCP analytics
 **in the first instance**. Three coherent options for the plan to
@@ -558,7 +558,7 @@ as follows — **Oak emits facts; platforms aggregate** (§1.1, §10.1):
 | **Stage 2 — Final catalogue** | After Stage 1 emitters land       | Co-exploration with **data team** — refine shapes, add/remove events, align with warehouse/PostHog dashboards | Data team + engineering |
 
 **Stage 1 — initial eight events** (extends
-[observability-events-workspace.plan.md](../../.agent/plans/observability/current/observability-events-workspace.plan.md)
+[observability-events-workspace.plan.md](../../.agent/plans-backlog-2026-07/observability/current/observability-events-workspace.plan.md)
 seven-event MVP with `dependency_call`):
 
 1. `tool_invoked`
@@ -575,7 +575,7 @@ version via `meta.schema_version` to allow evolution without breaking
 emitters.
 
 Extend the MVP set in
-[observability-events-workspace.plan.md](../../.agent/plans/observability/current/observability-events-workspace.plan.md)
+[observability-events-workspace.plan.md](../../.agent/plans-backlog-2026-07/observability/current/observability-events-workspace.plan.md)
 (which already names `tool_invoked`) with **`dependency_call`**.
 
 ### 8.1 `tool_invoked`
@@ -676,16 +676,16 @@ execution (e.g. `getLesson`, `getUnitsSummary`).
 
 ### 8.3 Event type relationships (Stage 1)
 
-| Event                        | Emits when                                    | Overlap / distinction                                                                                                                                                                                          |
-| ---------------------------- | --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`tool_invoked`**           | MCP tool handler completes                    | One per tool call; parent of N `dependency_call` rows sharing `correlation_id`                                                                                                                                 |
-| **`dependency_call`**        | Each upstream IO completes                    | Counts Oak API / ES / future KG calls; **does not** carry search query text                                                                                                                                    |
-| **`search_query`**           | Search path chooses to record query semantics | Zero-hit telemetry, query categorisation — see [`search-observability.plan.md`](../../.agent/plans/observability/current/search-observability.plan.md); **complements** `dependency_call`, does not replace it |
-| **`auth_failure`**           | Clerk trust boundary rejects auth             | Security axis                                                                                                                                                                                                  |
-| **`rate_limit_triggered`**   | Rate limit enforced                           | Security axis                                                                                                                                                                                                  |
-| **`feedback_submitted`**     | User feedback captured                        | Usability axis; deferred widget/L-9 dependencies                                                                                                                                                               |
-| **`widget_session_outcome`** | MCP App widget session ends                   | Usability/a11y; server-side proposal does not cover iframe today (§10.5)                                                                                                                                       |
-| **`a11y_preference_tag`**    | Accessibility preference observed             | Accessibility axis                                                                                                                                                                                             |
+| Event                        | Emits when                                    | Overlap / distinction                                                                                                                                                                                                          |
+| ---------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **`tool_invoked`**           | MCP tool handler completes                    | One per tool call; parent of N `dependency_call` rows sharing `correlation_id`                                                                                                                                                 |
+| **`dependency_call`**        | Each upstream IO completes                    | Counts Oak API / ES / future KG calls; **does not** carry search query text                                                                                                                                                    |
+| **`search_query`**           | Search path chooses to record query semantics | Zero-hit telemetry, query categorisation — see [`search-observability.plan.md`](../../.agent/plans-backlog-2026-07/observability/current/search-observability.plan.md); **complements** `dependency_call`, does not replace it |
+| **`auth_failure`**           | Clerk trust boundary rejects auth             | Security axis                                                                                                                                                                                                                  |
+| **`rate_limit_triggered`**   | Rate limit enforced                           | Security axis                                                                                                                                                                                                                  |
+| **`feedback_submitted`**     | User feedback captured                        | Usability axis; deferred widget/L-9 dependencies                                                                                                                                                                               |
+| **`widget_session_outcome`** | MCP App widget session ends                   | Usability/a11y; server-side proposal does not cover iframe today (§10.5)                                                                                                                                                       |
+| **`a11y_preference_tag`**    | Accessibility preference observed             | Accessibility axis                                                                                                                                                                                                             |
 
 Stage 1 ships **schemas + conformance** for all eight; not every emitter
 may land in the same PR — but none are deferred from the catalogue.
@@ -1050,7 +1050,7 @@ for PostHog and Sentry under DPIA governance.
 | Host conversation session ID       | **Not available** — see §3                |
 
 See also
-[what-the-system-emits-today.md](../../.agent/plans/observability/what-the-system-emits-today.md)
+[what-the-system-emits-today.md](../../.agent/plans-backlog-2026-07/observability/what-the-system-emits-today.md)
 (Product axis: `tool_invoked` marked ✗).
 
 ---
@@ -1064,7 +1064,7 @@ only** — see §15 for discoverability policy.
 Strategic milestone index:
 [`.agent/milestones/README.md`](../../.agent/milestones/README.md).
 Observability execution index:
-[`.agent/plans/observability/high-level-observability-plan.md`](../../.agent/plans/observability/high-level-observability-plan.md).
+[`.agent/plans/observability/high-level-observability-plan.md`](../../.agent/plans-backlog-2026-07/observability/high-level-observability-plan.md).
 
 ### 14.1 Milestone placement
 
@@ -1072,12 +1072,12 @@ Milestones are strategic gates; plans are execution. Most of this
 exploration's **implementation** lands at **M3 (public beta)**, with a
 thin **M2 (open public alpha)** overlap on engineering observability only.
 
-| Milestone                 | Status (2026-05-26) | What this exploration touches                                                                                                                                                                                                                                                                                                                                        | What it does not block                                                                                                                                 |
-| ------------------------- | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **M0** Open private alpha | ✅ Complete         | —                                                                                                                                                                                                                                                                                                                                                                    | —                                                                                                                                                      |
-| **M1** Invite-only alpha  | ✅ Complete         | Clerk `userId` on Sentry scope already exists (§13)                                                                                                                                                                                                                                                                                                                  | —                                                                                                                                                      |
-| **M2** Open public alpha  | **Next**            | **Engineering axis**: Sentry + OTel foundation via [`sentry-observability-maximisation-mcp.plan.md`](../../.agent/plans/observability/active/sentry-observability-maximisation-mcp.plan.md) (L-1, L-3, release linkage). M2 gate includes deny-by-default MCP telemetry capture — see [`m2-extension-surfaces.md`](../../.agent/milestones/m2-extension-surfaces.md) | Does **not** require `observability-events` workspace, PostHog, or `dependency_call`                                                                   |
-| **M3** Public beta        | Planned             | **Product axis**: structured `tool_invoked`, proposed `dependency_call`, events workspace, multi-sink conformance, §11 compliance gate, legal notices                                                                                                                                                                                                                | Prod Clerk, alerting, exemplar UI are separate M3 gates — see [`m3-tech-debt-and-hardening.md`](../../.agent/milestones/m3-tech-debt-and-hardening.md) |
+| Milestone                 | Status (2026-05-26) | What this exploration touches                                                                                                                                                                                                                                                                                                                                                        | What it does not block                                                                                                                                 |
+| ------------------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **M0** Open private alpha | ✅ Complete         | —                                                                                                                                                                                                                                                                                                                                                                                    | —                                                                                                                                                      |
+| **M1** Invite-only alpha  | ✅ Complete         | Clerk `userId` on Sentry scope already exists (§13)                                                                                                                                                                                                                                                                                                                                  | —                                                                                                                                                      |
+| **M2** Open public alpha  | **Next**            | **Engineering axis**: Sentry + OTel foundation via [`sentry-observability-maximisation-mcp.plan.md`](../../.agent/plans-backlog-2026-07/observability/active/sentry-observability-maximisation-mcp.plan.md) (L-1, L-3, release linkage). M2 gate includes deny-by-default MCP telemetry capture — see [`m2-extension-surfaces.md`](../../.agent/milestones/m2-extension-surfaces.md) | Does **not** require `observability-events` workspace, PostHog, or `dependency_call`                                                                   |
+| **M3** Public beta        | Planned             | **Product axis**: structured `tool_invoked`, proposed `dependency_call`, events workspace, multi-sink conformance, §11 compliance gate, legal notices                                                                                                                                                                                                                                | Prod Clerk, alerting, exemplar UI are separate M3 gates — see [`m3-tech-debt-and-hardening.md`](../../.agent/milestones/m3-tech-debt-and-hardening.md) |
 
 The events workspace plan records that the schema contract **blocks
 public beta, not public alpha**:
@@ -1085,7 +1085,7 @@ public beta, not public alpha**:
 > _"we absolutely must create the events workspace, but it does not
 > necessarily need to block public alpha, it absolutely does block public
 > beta."_
-> — [`observability-events-workspace.plan.md`](../../.agent/plans/observability/current/observability-events-workspace.plan.md) § Release-gate posture
+> — [`observability-events-workspace.plan.md`](../../.agent/plans-backlog-2026-07/observability/current/observability-events-workspace.plan.md) § Release-gate posture
 
 **Sequencing summary:** M2 ships **diagnostic Sentry**; M3 ships
 **schema-governed product analytics** — which is where this exploration's
@@ -1093,26 +1093,26 @@ emitter work belongs.
 
 ### 14.2 Plan stack — relationships and outbound links
 
-| Surface                                       | Relationship to this exploration                                                                                                                   | Outbound link                                                                                                                                       |
-| --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| **Primary execution home (prospective)**      | Would extend MVP schema set with `dependency_call`; land `tool_invoked` emission and `AnalyticsEnvelope` threading                                 | [`observability-events-workspace.plan.md`](../../.agent/plans/observability/current/observability-events-workspace.plan.md)                         |
-| **Schema shape parent**                       | Defines `tool_invoked` and `search_query` for data scientists; this exploration adds `dependency_call` and the identity join model                 | [`2026-04-18-structured-event-schemas-for-curriculum-analytics.md`](./2026-04-18-structured-event-schemas-for-curriculum-analytics.md)              |
-| **Identity / redaction policy parent**        | Stub for formal per-sink Clerk identity ruling; §11 operationalises compliance; exploration 10 remains canonical **policy** until promoted         | [`2026-04-19-redaction-policy-clerk-identity-downstream.md`](./2026-04-19-redaction-policy-clerk-identity-downstream.md)                            |
-| **Three-sink architecture**                   | Sentry → warehouse → PostHog order in brief                                                                                                        | **Tension:** owner lean PostHog-first + optional facade (§7.6); PostHog in scope; §11.7 gates production                                            | [`second-backend-evaluation.plan.md`](../../.agent/plans/observability/future/second-backend-evaluation.plan.md) |
-| **Engineering observability (parallel axis)** | L-3 `mcp_request` scope feeds attribution; does not emit schema-governed product events. Alpha-gate (M2) vs beta-gate (M3) split                   | [`sentry-observability-maximisation-mcp.plan.md`](../../.agent/plans/observability/active/sentry-observability-maximisation-mcp.plan.md)            |
-| **Search path instrumentation**               | ES request instrumentation overlaps `dependency_call` for `elasticsearch`; zero-hit integration is separate (`search_query`)                       | [`search-observability.plan.md`](../../.agent/plans/observability/current/search-observability.plan.md)                                             |
-| **Vendor-independence proof**                 | Vendor-neutral schemas + sink adapters (§7.3) is ADR-162 mechanisms #3–#5; Wave 5 pre-launch (M3)                                                  | [`multi-sink-vendor-independence-conformance.plan.md`](../../.agent/plans/observability/current/multi-sink-vendor-independence-conformance.plan.md) |
-| **Observability index**                       | Product-axis launch criterion ("what is used most/least…") is **what** this exploration specifies **how** to achieve for MCP; not yet indexed here | [`high-level-observability-plan.md`](../../.agent/plans/observability/high-level-observability-plan.md)                                             |
-| **Security axis events**                      | Orthogonal MVP events (`auth_failure`, `rate_limit_triggered`); same events workspace, different emitters                                          | [`security-observability.plan.md`](../../.agent/plans/observability/current/security-observability.plan.md)                                         |
-| **Cross-system tracing (future)**             | W3C `traceparent` from MCP `2026-07-28` RC; complements `correlation_id`                                                                           | [`cross-system-correlated-tracing.plan.md`](../../.agent/plans/observability/future/cross-system-correlated-tracing.plan.md)                        |
-| **MCP runtime canonicalisation (future)**     | Deploy/runtime shape — **separate** from MCP spec GA upgrade (decision A7, §11.6)                                                                  | [`mcp-http-runtime-canonicalisation.plan.md`](../../.agent/plans/observability/future/mcp-http-runtime-canonicalisation.plan.md)                    |
-| **Security and privacy programme**            | §11 DPIAs, legal notices, Cloudflare rate limiting align with M3 gates                                                                             | [`security-and-privacy/README.md`](../../.agent/plans/security-and-privacy/README.md)                                                               |
-| **Emission inventory**                        | Product axis `tool_invoked` marked ✗ at authoring                                                                                                  | [`what-the-system-emits-today.md`](../../.agent/plans/observability/what-the-system-emits-today.md)                                                 |
+| Surface                                       | Relationship to this exploration                                                                                                                   | Outbound link                                                                                                                                                       |
+| --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| **Primary execution home (prospective)**      | Would extend MVP schema set with `dependency_call`; land `tool_invoked` emission and `AnalyticsEnvelope` threading                                 | [`observability-events-workspace.plan.md`](../../.agent/plans-backlog-2026-07/observability/current/observability-events-workspace.plan.md)                         |
+| **Schema shape parent**                       | Defines `tool_invoked` and `search_query` for data scientists; this exploration adds `dependency_call` and the identity join model                 | [`2026-04-18-structured-event-schemas-for-curriculum-analytics.md`](./2026-04-18-structured-event-schemas-for-curriculum-analytics.md)                              |
+| **Identity / redaction policy parent**        | Stub for formal per-sink Clerk identity ruling; §11 operationalises compliance; exploration 10 remains canonical **policy** until promoted         | [`2026-04-19-redaction-policy-clerk-identity-downstream.md`](./2026-04-19-redaction-policy-clerk-identity-downstream.md)                                            |
+| **Three-sink architecture**                   | Sentry → warehouse → PostHog order in brief                                                                                                        | **Tension:** owner lean PostHog-first + optional facade (§7.6); PostHog in scope; §11.7 gates production                                                            | [`second-backend-evaluation.plan.md`](../../.agent/plans-backlog-2026-07/observability/future/second-backend-evaluation.plan.md) |
+| **Engineering observability (parallel axis)** | L-3 `mcp_request` scope feeds attribution; does not emit schema-governed product events. Alpha-gate (M2) vs beta-gate (M3) split                   | [`sentry-observability-maximisation-mcp.plan.md`](../../.agent/plans-backlog-2026-07/observability/active/sentry-observability-maximisation-mcp.plan.md)            |
+| **Search path instrumentation**               | ES request instrumentation overlaps `dependency_call` for `elasticsearch`; zero-hit integration is separate (`search_query`)                       | [`search-observability.plan.md`](../../.agent/plans-backlog-2026-07/observability/current/search-observability.plan.md)                                             |
+| **Vendor-independence proof**                 | Vendor-neutral schemas + sink adapters (§7.3) is ADR-162 mechanisms #3–#5; Wave 5 pre-launch (M3)                                                  | [`multi-sink-vendor-independence-conformance.plan.md`](../../.agent/plans-backlog-2026-07/observability/current/multi-sink-vendor-independence-conformance.plan.md) |
+| **Observability index**                       | Product-axis launch criterion ("what is used most/least…") is **what** this exploration specifies **how** to achieve for MCP; not yet indexed here | [`high-level-observability-plan.md`](../../.agent/plans-backlog-2026-07/observability/high-level-observability-plan.md)                                             |
+| **Security axis events**                      | Orthogonal MVP events (`auth_failure`, `rate_limit_triggered`); same events workspace, different emitters                                          | [`security-observability.plan.md`](../../.agent/plans-backlog-2026-07/observability/current/security-observability.plan.md)                                         |
+| **Cross-system tracing (future)**             | W3C `traceparent` from MCP `2026-07-28` RC; complements `correlation_id`                                                                           | [`cross-system-correlated-tracing.plan.md`](../../.agent/plans-backlog-2026-07/observability/future/cross-system-correlated-tracing.plan.md)                        |
+| **MCP runtime canonicalisation (future)**     | Deploy/runtime shape — **separate** from MCP spec GA upgrade (decision A7, §11.6)                                                                  | [`mcp-http-runtime-canonicalisation.plan.md`](../../.agent/plans-backlog-2026-07/observability/future/mcp-http-runtime-canonicalisation.plan.md)                    |
+| **Security and privacy programme**            | §11 DPIAs, legal notices, Cloudflare rate limiting align with M3 gates                                                                             | [`security-and-privacy/README.md`](../../.agent/plans-backlog-2026-07/security-and-privacy/README.md)                                                               |
+| **Emission inventory**                        | Product axis `tool_invoked` marked ✗ at authoring                                                                                                  | [`what-the-system-emits-today.md`](../../.agent/plans-backlog-2026-07/observability/what-the-system-emits-today.md)                                                 |
 
 ### 14.3 Execution waves (observability MVP)
 
 Cross-plan wave order from the
-[high-level observability plan § Execution Waves](../../.agent/plans/observability/high-level-observability-plan.md#execution-waves--cross-plan-mvp-order):
+[high-level observability plan § Execution Waves](../../.agent/plans-backlog-2026-07/observability/high-level-observability-plan.md):
 
 | Wave                                       | Milestone gate    | This exploration's relevance                                                      |
 | ------------------------------------------ | ----------------- | --------------------------------------------------------------------------------- |
@@ -1262,16 +1262,16 @@ When Jim later authorises plan promotion:
 - [Milestones index](../../.agent/milestones/README.md)
 - [M2 — Open public alpha](../../.agent/milestones/m2-extension-surfaces.md)
 - [M3 — Public beta](../../.agent/milestones/m3-tech-debt-and-hardening.md)
-- [High-level observability plan](../../.agent/plans/observability/high-level-observability-plan.md)
-- [Observability events workspace (prospective primary plan)](../../.agent/plans/observability/current/observability-events-workspace.plan.md)
-- [Sentry observability maximisation — MCP](../../.agent/plans/observability/active/sentry-observability-maximisation-mcp.plan.md)
-- [Three-sink architecture (warehouse + PostHog)](../../.agent/plans/observability/future/second-backend-evaluation.plan.md)
-- [Multi-sink vendor-independence conformance](../../.agent/plans/observability/current/multi-sink-vendor-independence-conformance.plan.md)
-- [Search observability](../../.agent/plans/observability/current/search-observability.plan.md)
-- [Security observability](../../.agent/plans/observability/current/security-observability.plan.md)
-- [Cross-system correlated tracing (future)](../../.agent/plans/observability/future/cross-system-correlated-tracing.plan.md)
-- [MCP HTTP runtime canonicalisation (future)](../../.agent/plans/observability/future/mcp-http-runtime-canonicalisation.plan.md)
-- [Security and privacy programme](../../.agent/plans/security-and-privacy/README.md)
+- [High-level observability plan](../../.agent/plans-backlog-2026-07/observability/high-level-observability-plan.md)
+- [Observability events workspace (prospective primary plan)](../../.agent/plans-backlog-2026-07/observability/current/observability-events-workspace.plan.md)
+- [Sentry observability maximisation — MCP](../../.agent/plans-backlog-2026-07/observability/active/sentry-observability-maximisation-mcp.plan.md)
+- [Three-sink architecture (warehouse + PostHog)](../../.agent/plans-backlog-2026-07/observability/future/second-backend-evaluation.plan.md)
+- [Multi-sink vendor-independence conformance](../../.agent/plans-backlog-2026-07/observability/current/multi-sink-vendor-independence-conformance.plan.md)
+- [Search observability](../../.agent/plans-backlog-2026-07/observability/current/search-observability.plan.md)
+- [Security observability](../../.agent/plans-backlog-2026-07/observability/current/security-observability.plan.md)
+- [Cross-system correlated tracing (future)](../../.agent/plans-backlog-2026-07/observability/future/cross-system-correlated-tracing.plan.md)
+- [MCP HTTP runtime canonicalisation (future)](../../.agent/plans-backlog-2026-07/observability/future/mcp-http-runtime-canonicalisation.plan.md)
+- [Security and privacy programme](../../.agent/plans-backlog-2026-07/security-and-privacy/README.md)
 
 ### In-repo — ADRs and explorations
 
@@ -1282,8 +1282,8 @@ When Jim later authorises plan promotion:
 - [Exploration — Sentry vs PostHog capability matrix (2026-04-18)](./2026-04-18-sentry-vs-posthog-capability-matrix.md)
 - [Exploration — Structured event schemas (2026-04-18)](./2026-04-18-structured-event-schemas-for-curriculum-analytics.md)
 - [Exploration — Clerk identity downstream (2026-04-19)](./2026-04-19-redaction-policy-clerk-identity-downstream.md)
-- [Plan — Observability events workspace](../../.agent/plans/observability/current/observability-events-workspace.plan.md)
-- [Plan — What the system emits today](../../.agent/plans/observability/what-the-system-emits-today.md)
+- [Plan — Observability events workspace](../../.agent/plans-backlog-2026-07/observability/current/observability-events-workspace.plan.md)
+- [Plan — What the system emits today](../../.agent/plans-backlog-2026-07/observability/what-the-system-emits-today.md)
 - [MCP server observability doc](../../apps/oak-curriculum-mcp-streamable-http/docs/observability.md)
 
 ### Code anchors

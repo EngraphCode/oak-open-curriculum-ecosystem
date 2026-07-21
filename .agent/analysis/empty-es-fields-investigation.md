@@ -209,7 +209,7 @@ type Year = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | 
 
 ## Related Documents
 
-- [roadmap.md](../plans/semantic-search/roadmap.md) — Add as Milestone 5
+- [roadmap.md](../plans-backlog-2026-07/semantic-search/roadmap.md) — Add as Milestone 5
 - [bulk-schemas.ts](../../packages/sdks/oak-sdk-codegen/src/types/generated/bulk/bulk-schemas.ts) — Source of truth for bulk schema delta
 - [ADR-093](../../docs/architecture/architectural-decisions/093-bulk-first-ingestion-strategy.md) — Bulk-first strategy
 

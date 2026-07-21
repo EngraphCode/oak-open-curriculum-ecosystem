@@ -177,7 +177,7 @@ final assistant text from a JSONL stream.
 
 A richer wrapper (a `run` subcommand with built-in timeout, sandbox flag
 forwarding, and streaming progress) is under design in the
-[codex-exec CLI deep-dive strategic plan](../../plans/agentic-engineering-enhancements/future/codex-exec-cli-deep-dive.plan.md).
+[codex-exec CLI deep-dive strategic plan](../../plans-backlog-2026-07/agentic-engineering-enhancements/future/codex-exec-cli-deep-dive.plan.md).
 Until that plan promotes, use raw `codex exec` for invocation and pipe the
 output through `last-message` for extraction.
 

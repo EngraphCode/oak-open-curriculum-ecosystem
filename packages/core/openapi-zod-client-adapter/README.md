@@ -25,7 +25,7 @@ It is not published to npm.
 
 ## Relationship to Castr
 
-[Castr](../../../.agent/plans/sector-engagement/castr/README.md) is planned to replace both
+[Castr](../../../.agent/plans-backlog-2026-07/sector-engagement/castr/README.md) is planned to replace both
 `openapi-zod-client` and `openapi3-ts` in a future release
 ([ADR-108](../../../docs/architecture/architectural-decisions/108-sdk-workspace-decomposition.md)).
 When Castr is integrated, this adapter will be validated side-by-side and then

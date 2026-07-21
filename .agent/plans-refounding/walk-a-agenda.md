@@ -12,7 +12,7 @@ before it at the owner's choice.
 ## What this sitting is
 
 Per the controlling plan
-([`plan-corpus-refounding.plan.md`](../plans/product-development-governance/active/plan-corpus-refounding.plan.md),
+([`plan-corpus-refounding.plan.md`](../plans-backlog-2026-07/product-development-governance/active/plan-corpus-refounding.plan.md),
 todo `r2-lanes-and-walk-a` and
 its gate table): THE binding post-refounding organisational-structure decision. The owner
 ratifies the lane taxonomy and the escalation-thinning policy tables; the R1 source

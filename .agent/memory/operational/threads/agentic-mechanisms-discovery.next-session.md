@@ -13,24 +13,24 @@ merge_class: index-narrative-tables
 
 - Branch: `feat/graph-tooling-tidyup`
 - Invocation pointer: continue from this record and the promoted current plan at
-  [`agent-readiness-discovery-hub.plan.md`](../../../plans/discovery/current/agent-readiness-discovery-hub.plan.md).
+  [`agent-readiness-discovery-hub.plan.md`](../../../plans-backlog-2026-07/discovery/current/agent-readiness-discovery-hub.plan.md).
 - Controlling plan:
-  [`agent-readiness-discovery-hub.plan.md`](../../../plans/discovery/current/agent-readiness-discovery-hub.plan.md)
+  [`agent-readiness-discovery-hub.plan.md`](../../../plans-backlog-2026-07/discovery/current/agent-readiness-discovery-hub.plan.md)
   for Phase 1, backed by verification evidence in
-  [`standards-verification-2026-06-01.report.md`](../../../plans/discovery/current/standards-verification-2026-06-01.report.md).
+  [`standards-verification-2026-06-01.report.md`](../../../plans-backlog-2026-07/discovery/current/standards-verification-2026-06-01.report.md).
   Strategic source and gated child lanes remain under
-  [`agentic-mechanisms-discovery.plan.md`](../../../plans/discovery/future/agentic-mechanisms-discovery.plan.md).
+  [`agentic-mechanisms-discovery.plan.md`](../../../plans-backlog-2026-07/discovery/future/agentic-mechanisms-discovery.plan.md).
 - Related future child plans:
-  [`agent-skills-discovery.plan.md`](../../../plans/discovery/future/agent-skills-discovery.plan.md),
-  [`skills-classification-taxonomy.plan.md`](../../../plans/discovery/future/skills-classification-taxonomy.plan.md)
+  [`agent-skills-discovery.plan.md`](../../../plans-backlog-2026-07/discovery/future/agent-skills-discovery.plan.md),
+  [`skills-classification-taxonomy.plan.md`](../../../plans-backlog-2026-07/discovery/future/skills-classification-taxonomy.plan.md)
   (taxonomy/vocabulary conclusions ratified in
   [ADR-189](../../../../docs/architecture/architectural-decisions/189-audience-led-agent-capability-taxonomy.md)),
-  [`mcp-server-cards.plan.md`](../../../plans/discovery/future/mcp-server-cards.plan.md),
-  [`dns-aid-discovery.plan.md`](../../../plans/discovery/future/dns-aid-discovery.plan.md),
-  [`aila-a2a-agent-card.plan.md`](../../../plans/discovery/future/aila-a2a-agent-card.plan.md),
-  [`webmcp-human-site-operability.plan.md`](../../../plans/discovery/future/webmcp-human-site-operability.plan.md),
+  [`mcp-server-cards.plan.md`](../../../plans-backlog-2026-07/discovery/future/mcp-server-cards.plan.md),
+  [`dns-aid-discovery.plan.md`](../../../plans-backlog-2026-07/discovery/future/dns-aid-discovery.plan.md),
+  [`aila-a2a-agent-card.plan.md`](../../../plans-backlog-2026-07/discovery/future/aila-a2a-agent-card.plan.md),
+  [`webmcp-human-site-operability.plan.md`](../../../plans-backlog-2026-07/discovery/future/webmcp-human-site-operability.plan.md),
   and
-  [`web-bot-auth-agent-verification.plan.md`](../../../plans/discovery/future/web-bot-auth-agent-verification.plan.md).
+  [`web-bot-auth-agent-verification.plan.md`](../../../plans-backlog-2026-07/discovery/future/web-bot-auth-agent-verification.plan.md).
 - Next safe step: execute `ar1` in the current plan before product edits:
   refresh standards and public Oak endpoint evidence, then proceed through the
   Phase 1 tasks only on the hosts each surface truthfully owns.
@@ -66,9 +66,9 @@ executive
 carries both axes plus the teacher-facing avoid-list.
 
 Estate moves (owner-directed): the
-[`skills-classification-taxonomy.plan.md`](../../../plans/discovery/future/skills-classification-taxonomy.plan.md)
+[`skills-classification-taxonomy.plan.md`](../../../plans-backlog-2026-07/discovery/future/skills-classification-taxonomy.plan.md)
 and
-[`agent-skills-discovery.plan.md`](../../../plans/discovery/future/agent-skills-discovery.plan.md)
+[`agent-skills-discovery.plan.md`](../../../plans-backlog-2026-07/discovery/future/agent-skills-discovery.plan.md)
 are live in `discovery/future/`. Taxonomy/vocabulary conclusions from this
 session are ratified in
 [ADR-189](../../../../docs/architecture/architectural-decisions/189-audience-led-agent-capability-taxonomy.md).
@@ -105,7 +105,7 @@ distribution report's ecosystem claims against official platform docs.
 *Scope: root planning docs overhaul + light handoff.*
 
 Root planning entry points are now refreshed:
-[`high-level-plan.md`](../../../plans/high-level-plan.md) is the strategic
+[`high-level-plan.md`](../../../plans-backlog-2026-07/high-level-plan.md) is the strategic
 programme map, and [`README.md`](../../../plans/README.md) is the operational
 collection index. Both explicitly surface the active discovery programme, the
 current agent-readiness hub plan, and the Web Bot Auth / robots / sitemap
@@ -139,15 +139,15 @@ for every official Oak web app, not just apex-specific agent-readiness tasks.
 Plan changes:
 
 - Added
-  [`web-bot-auth-agent-verification.plan.md`](../../../plans/discovery/future/web-bot-auth-agent-verification.plan.md).
+  [`web-bot-auth-agent-verification.plan.md`](../../../plans-backlog-2026-07/discovery/future/web-bot-auth-agent-verification.plan.md).
 - Updated the current Phase 1 plan with a dedicated Web Bot Auth task,
   acceptance criterion, proof row, and host-scope row.
 - Updated the verification report to include Web Bot Auth and the general
   robots/sitemap baseline.
 - Cross-linked Web Bot Auth from
-  [`security-and-privacy/README.md`](../../../plans/security-and-privacy/README.md)
+  [`security-and-privacy/README.md`](../../../plans-backlog-2026-07/security-and-privacy/README.md)
   and
-  [`security-and-privacy/roadmap.md`](../../../plans/security-and-privacy/roadmap.md).
+  [`security-and-privacy/roadmap.md`](../../../plans-backlog-2026-07/security-and-privacy/roadmap.md).
 
 ## Session Outcome (2026-06-01 - Umbral Whispering Silhouette / codex / GPT-5 / `019e83`)
 
@@ -155,9 +155,9 @@ Plan changes:
 
 **Promotion slice complete, implementation not started.** This session moved the
 Oak ticket's actionable Phase 1 agent-readiness work into
-[`current/agent-readiness-discovery-hub.plan.md`](../../../plans/discovery/current/agent-readiness-discovery-hub.plan.md)
+[`current/agent-readiness-discovery-hub.plan.md`](../../../plans-backlog-2026-07/discovery/current/agent-readiness-discovery-hub.plan.md)
 and created
-[`current/standards-verification-2026-06-01.report.md`](../../../plans/discovery/current/standards-verification-2026-06-01.report.md)
+[`current/standards-verification-2026-06-01.report.md`](../../../plans-backlog-2026-07/discovery/current/standards-verification-2026-06-01.report.md)
 as the live evidence record.
 
 The verification checked the repo discovery plans and the Oak ticket against
@@ -173,12 +173,12 @@ live SEP-2127 track before implementation.
 Additional future plans now cover Oak-ticket surfaces that were not yet tracked
 as separate repo plans:
 
-- [`dns-aid-discovery.plan.md`](../../../plans/discovery/future/dns-aid-discovery.plan.md)
-- [`aila-a2a-agent-card.plan.md`](../../../plans/discovery/future/aila-a2a-agent-card.plan.md)
+- [`dns-aid-discovery.plan.md`](../../../plans-backlog-2026-07/discovery/future/dns-aid-discovery.plan.md)
+- [`aila-a2a-agent-card.plan.md`](../../../plans-backlog-2026-07/discovery/future/aila-a2a-agent-card.plan.md)
 -
-  [`webmcp-human-site-operability.plan.md`](../../../plans/discovery/future/webmcp-human-site-operability.plan.md)
+  [`webmcp-human-site-operability.plan.md`](../../../plans-backlog-2026-07/discovery/future/webmcp-human-site-operability.plan.md)
 -
-  [`web-bot-auth-agent-verification.plan.md`](../../../plans/discovery/future/web-bot-auth-agent-verification.plan.md)
+  [`web-bot-auth-agent-verification.plan.md`](../../../plans-backlog-2026-07/discovery/future/web-bot-auth-agent-verification.plan.md)
 
 The discovery collection also now has lifecycle indexes for `active/` and
 `current/`, and the top-level plans index marks discovery as active plus queued
@@ -202,14 +202,14 @@ future-plan gates are explicitly promoted.
 Skills Discovery against live official standards context, reflected on Oak
 mission impact, and wrote the discovery future-planning bundle:
 
-- [`agent-skills-discovery.plan.md`](../../../plans/discovery/future/agent-skills-discovery.plan.md)
+- [`agent-skills-discovery.plan.md`](../../../plans-backlog-2026-07/discovery/future/agent-skills-discovery.plan.md)
   (research conclusions ratified in
   [ADR-189](../../../../docs/architecture/architectural-decisions/189-audience-led-agent-capability-taxonomy.md))
 -
-  [`agentic-mechanisms-discovery.plan.md`](../../../plans/discovery/future/agentic-mechanisms-discovery.plan.md)
+  [`agentic-mechanisms-discovery.plan.md`](../../../plans-backlog-2026-07/discovery/future/agentic-mechanisms-discovery.plan.md)
 
 The existing
-[`mcp-server-cards.plan.md`](../../../plans/discovery/future/mcp-server-cards.plan.md)
+[`mcp-server-cards.plan.md`](../../../plans-backlog-2026-07/discovery/future/mcp-server-cards.plan.md)
 was then aligned with the new parent/sibling structure: it now has a
 `parent_plan`, links to the skills lane, a sibling-relationship section, and a
 promotion-seed checklist instead of executable-looking future work.
@@ -235,14 +235,14 @@ trust model before writing the executable `current/` plan.
 ## Lane State
 
 - **Owning plans:**
-  [`agentic-mechanisms-discovery.plan.md`](../../../plans/discovery/future/agentic-mechanisms-discovery.plan.md),
-  [`agent-skills-discovery.plan.md`](../../../plans/discovery/future/agent-skills-discovery.plan.md),
-  [`skills-classification-taxonomy.plan.md`](../../../plans/discovery/future/skills-classification-taxonomy.plan.md),
-  [`mcp-server-cards.plan.md`](../../../plans/discovery/future/mcp-server-cards.plan.md),
-  [`dns-aid-discovery.plan.md`](../../../plans/discovery/future/dns-aid-discovery.plan.md),
-  [`aila-a2a-agent-card.plan.md`](../../../plans/discovery/future/aila-a2a-agent-card.plan.md),
-  [`webmcp-human-site-operability.plan.md`](../../../plans/discovery/future/webmcp-human-site-operability.plan.md),
-  [`web-bot-auth-agent-verification.plan.md`](../../../plans/discovery/future/web-bot-auth-agent-verification.plan.md).
+  [`agentic-mechanisms-discovery.plan.md`](../../../plans-backlog-2026-07/discovery/future/agentic-mechanisms-discovery.plan.md),
+  [`agent-skills-discovery.plan.md`](../../../plans-backlog-2026-07/discovery/future/agent-skills-discovery.plan.md),
+  [`skills-classification-taxonomy.plan.md`](../../../plans-backlog-2026-07/discovery/future/skills-classification-taxonomy.plan.md),
+  [`mcp-server-cards.plan.md`](../../../plans-backlog-2026-07/discovery/future/mcp-server-cards.plan.md),
+  [`dns-aid-discovery.plan.md`](../../../plans-backlog-2026-07/discovery/future/dns-aid-discovery.plan.md),
+  [`aila-a2a-agent-card.plan.md`](../../../plans-backlog-2026-07/discovery/future/aila-a2a-agent-card.plan.md),
+  [`webmcp-human-site-operability.plan.md`](../../../plans-backlog-2026-07/discovery/future/webmcp-human-site-operability.plan.md),
+  [`web-bot-auth-agent-verification.plan.md`](../../../plans-backlog-2026-07/discovery/future/web-bot-auth-agent-verification.plan.md).
 - **Current objective:** keep Oak's agent-facing discovery posture coherent
   across Agent Skills, MCP Server Cards, MCP runtime capability discovery, A2A,
   registry metadata, and generic AI discovery proposals.
@@ -283,7 +283,7 @@ For the next session:
 
 1. Read this thread record.
 2. Read
-   [`agentic-mechanisms-discovery.plan.md`](../../../plans/discovery/future/agentic-mechanisms-discovery.plan.md).
+   [`agentic-mechanisms-discovery.plan.md`](../../../plans-backlog-2026-07/discovery/future/agentic-mechanisms-discovery.plan.md).
 3. Read the current verification report and relevant child plan for the intended
    slice.
 4. Re-check the live official standard before making promotion or

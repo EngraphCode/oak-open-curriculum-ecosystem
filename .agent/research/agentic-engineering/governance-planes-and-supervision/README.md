@@ -17,7 +17,7 @@ institutional control surfaces around agent execution.
   direction-of-travel comparison matrix (companion to the
   governance-concepts baseline above).
 - [governance-concepts-and-integration-report.md](../../../reports/agentic-engineering/deep-dive-syntheses/governance-concepts-and-integration-report.md)
-- [governance-concepts-and-agentic-mechanism-integration.plan.md](../../../plans/agentic-engineering-enhancements/current/governance-concepts-and-agentic-mechanism-integration.plan.md)
+- [governance-concepts-and-agentic-mechanism-integration.plan.md](../../../plans-backlog-2026-07/agentic-engineering-enhancements/current/governance-concepts-and-agentic-mechanism-integration.plan.md)
 
 ## Feeds
 

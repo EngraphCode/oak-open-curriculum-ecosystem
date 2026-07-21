@@ -5,7 +5,7 @@ this repository. Distilled from the first conversion (the Oak Curriculum Hub,
 `demos/oak-curriculum-hub/`, 2026-06-30 → 2026-07-02), including every mistake
 made so the next conversion does not repeat them. The reusable-pipeline
 programme that owns the forward automation of this playbook is
-[`productionisation-and-reuse.plan.md`](../../.agent/plans/curriculum-hub-demo/current/productionisation-and-reuse.plan.md)
+[`productionisation-and-reuse.plan.md`](../../.agent/plans-backlog-2026-07/curriculum-hub-demo/current/productionisation-and-reuse.plan.md)
 (WS2).
 
 ## The one governing rule

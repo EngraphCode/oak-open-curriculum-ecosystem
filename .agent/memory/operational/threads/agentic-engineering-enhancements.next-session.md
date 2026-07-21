@@ -56,8 +56,8 @@ exclusions merely to improve a number.
 
 **Next safe step:** read the
 [concept report](../../../reports/mutation-testing-incremental-rollout-concept-exploration-2026-07-15.md),
-the [source plan](../../../plans/agentic-engineering-enhancements/current/mutation-testing-implementation.plan.md),
-and the [active execution plan](../../../plans/agentic-engineering-enhancements/active/phase-5-mutation-testing-execution.md).
+the [source plan](../../../plans-backlog-2026-07/agentic-engineering-enhancements/current/mutation-testing-implementation.plan.md),
+and the [active execution plan](../../../plans-backlog-2026-07/agentic-engineering-enhancements/active/phase-5-mutation-testing-execution.md).
 Re-verify package names and scaffold truth immediately before implementation.
 Write RED config-contract tests and prove a dry run before creating mutants.
 Do not add CI, incremental mode, thresholds, broad workspace scripts, or a new
@@ -122,7 +122,7 @@ closeout, `d14a989a`) merged via non-admin `gh pr merge`; #300–302 closed by o
 `d14a989a`; the Sonar MCP gateway URL typo repaired (`sonarcould.io`→`sonarcloud.io`); the S4036
 finding on the new secret-scan CLI ACCEPTED as a context false-positive (code-expert + security-expert
 ratified). **The decision-complete plan (now executed):**
-[`every-issue-earns-a-check-and-doctrine-tightening.plan.md`](../../../plans/agentic-engineering-enhancements/future/every-issue-earns-a-check-and-doctrine-tightening.plan.md).
+[`every-issue-earns-a-check-and-doctrine-tightening.plan.md`](../../../plans-backlog-2026-07/agentic-engineering-enhancements/future/every-issue-earns-a-check-and-doctrine-tightening.plan.md).
 Strand D: D1 the foundational "every issue earns a check" principle (`principles.md` §Code Quality +
 `testing-strategy.md` + `pr-comments-resolve-and-recheck.md`); D2 the pr-lifecycle Phase-7 merge-gate
 correction (truly-green → non-admin `gh pr merge`; `--admin` forbidden); D3 the ADR-168 §5a shell-scope
@@ -207,7 +207,7 @@ prefix `2a5066`, under the join ceremony — the WS0-landing record queued since
 Session identity: Cricket lifts Echo (claude-code / claude-fable-5 / prefix `2fffa2`;
 = Hushed Prowling Lantern on the resonance estate). Owner-named successor to Wolf rides Vigil
 on the inter-Practice exchange lane (Lane E). Controlling plan:
-[`agent-tooling/current/inter-practice-collaboration-protocol.plan.md`](../../../plans/agent-tooling/current/inter-practice-collaboration-protocol.plan.md)
+[`agent-tooling/current/inter-practice-collaboration-protocol.plan.md`](../../../plans-backlog-2026-07/agent-tooling/current/inter-practice-collaboration-protocol.plan.md)
 — its **NEXT SESSION** section carries the 2026-07-06 UPDATE block with the full state.
 
 **Self-contained.** Adopted the lane at a Moment-2 acknowledgement on the resonance stream,
@@ -338,7 +338,7 @@ first-hand per owner direction. Durable homes:
   correctness finding, comms + planning-corpus + graph analysis, alternatives/identity verdict,
   Practice feeder seat, stratum/packaging verdict, ten open questions (the design-session agenda).
 - **Strategic plan** (`future/`):
-  [`corpus-analysis-generalisation-and-knowledge-layer.plan.md`](../../../plans/agentic-engineering-enhancements/future/corpus-analysis-generalisation-and-knowledge-layer.plan.md)
+  [`corpus-analysis-generalisation-and-knowledge-layer.plan.md`](../../../plans-backlog-2026-07/agentic-engineering-enhancements/future/corpus-analysis-generalisation-and-knowledge-layer.plan.md)
   — Phase 0 design-ratify (ABSORBS salvage ws2), Phase 1 comms (extraction trigger), Phase 2
   planning corpus + graph; cross-cutting knowledge-layer reframe.
 
@@ -371,7 +371,7 @@ first-hand per owner direction. Durable homes:
    layer** belonging in `packages/` along seams, agent-tools reduced to a **thin CLI** — the
    *destination*, gated on (second consumer + topology gate + WS0 fork); reshapes the
    agent-tools-architecture-standard WS0 packaging question. Homed in the
-   [`future/corpus-analysis-generalisation-and-knowledge-layer.plan.md`](../../../plans/agentic-engineering-enhancements/future/corpus-analysis-generalisation-and-knowledge-layer.plan.md)
+   [`future/corpus-analysis-generalisation-and-knowledge-layer.plan.md`](../../../plans-backlog-2026-07/agentic-engineering-enhancements/future/corpus-analysis-generalisation-and-knowledge-layer.plan.md)
    brief and the repo-continuity corpus entry.
 
 **Adversarial review COMPLETE (2026-07-03, Hazel rides Orchard `de9f72`) — verdict: needs
@@ -463,7 +463,7 @@ firing, not text; the firing-moment candidate is routed to the same inventory. F
 F-113–F-115 registered (+F-109 corroboration).
 
 **Self-contained.** The 2026-07-02 discovery run's salvage (ws1 of
-[`corpus-analysis-salvage-and-topology-redesign.plan.md`](../../../plans/agentic-engineering-enhancements/current/corpus-analysis-salvage-and-topology-redesign.plan.md))
+[`corpus-analysis-salvage-and-topology-redesign.plan.md`](../../../plans-backlog-2026-07/agentic-engineering-enhancements/current/corpus-analysis-salvage-and-topology-redesign.plan.md))
 is EXECUTED and committed on branch `chore/rescue_findings`:
 
 1. **The deliverable**: the discovery report
@@ -545,10 +545,10 @@ pickup trigger; neither blocks the other.
   **PDR-051 reduced-implementation reconciliation review**. Pickup trigger: the owner review
   session, OR the first ingested external skill, OR promotion of the oversized-core
   decomposition brief. Inputs ready — owning plan §Reality Reconciliation gap ledger
-  ([`agent-tooling/current/skills-standardisation-and-adapter-generator.plan.md`](../../../plans/agent-tooling/current/skills-standardisation-and-adapter-generator.plan.md)),
+  ([`agent-tooling/current/skills-standardisation-and-adapter-generator.plan.md`](../../../plans-backlog-2026-07/agent-tooling/current/skills-standardisation-and-adapter-generator.plan.md)),
   friction F-37, the pending-graduations entry, and two future briefs
-  ([decomposition](../../../plans/agent-tooling/future/skills-oversized-core-decomposition.plan.md),
-  [eval harness](../../../plans/agent-tooling/future/skills-eval-harness.plan.md)). On a
+  ([decomposition](../../../plans-backlog-2026-07/agent-tooling/future/skills-oversized-core-decomposition.plan.md),
+  [eval harness](../../../plans-backlog-2026-07/agent-tooling/future/skills-eval-harness.plan.md)). On a
   separate branch (committed `cbf01ae0`); not blocking and not blocked by Lane A.
 - **Lane C — memory/state semantic merge strategy (decided 2026-06-15; ADR
   pending).** git merges lines, but `.agent/memory` and `.agent/state` files carry
@@ -600,7 +600,7 @@ pickup trigger; neither blocks the other.
   `interface` + egress membrane, so the `consistent-type-definitions` lint is green-resolved;
   the branch is clean and pushed). Read Briny for the work; this block for the current gate.
   - **WS1** (`no-type-widening` ESLint rule) plan is at
-    [`current/no-type-widening-enforcement.plan.md`](../../../plans/agentic-engineering-enhancements/current/no-type-widening-enforcement.plan.md).
+    [`current/no-type-widening-enforcement.plan.md`](../../../plans-backlog-2026-07/agentic-engineering-enhancements/current/no-type-widening-enforcement.plan.md).
     **Fixture caveat**: the EEF `new Set<string>(OBSERVED_PHASES)` widening that motivated the
     rule was since made zero-widening (`Set<DeclaredPhase>` / `Set<EefStrandId>`) — confirm
     against `graph-corpus-sdk/src/eef-strands/` first-hand; author a dedicated fixture if gone.
@@ -608,7 +608,7 @@ pickup trigger; neither blocks the other.
     (discover cure per rule → cluster → discriminate collapse-candidate vs sharpen vs keep;
     do NOT auto-collapse — owner decides). **2c** = per-surface PDR-044 widening (ESLint
     now-eligible; rules-prose after 2b). **WS2** = tripwire wiring; coordinate with
-    [`future/action-time-structural-interrupt-design-space.plan.md`](../../../plans/agentic-engineering-enhancements/future/action-time-structural-interrupt-design-space.plan.md).
+    [`future/action-time-structural-interrupt-design-space.plan.md`](../../../plans-backlog-2026-07/agentic-engineering-enhancements/future/action-time-structural-interrupt-design-space.plan.md).
 
 > **🤝 Session Handoff (2026-06-07 — Briny Plumbing Beacon / claude / Opus 4.8 / `5dd58c`):
 > item 2a LANDED (ESLint reappraisal enforcement); WS1 next**
@@ -803,10 +803,10 @@ passes) is in git history and the [`curator-passes/`](../curator-passes/) ledger
 ## Cross-Plan and Cross-Thread Links
 
 - **Live-work plans**:
-  [`current/no-type-widening-enforcement.plan.md`](../../../plans/agentic-engineering-enhancements/current/no-type-widening-enforcement.plan.md),
-  [`future/action-time-structural-interrupt-design-space.plan.md`](../../../plans/agentic-engineering-enhancements/future/action-time-structural-interrupt-design-space.plan.md).
+  [`current/no-type-widening-enforcement.plan.md`](../../../plans-backlog-2026-07/agentic-engineering-enhancements/current/no-type-widening-enforcement.plan.md),
+  [`future/action-time-structural-interrupt-design-space.plan.md`](../../../plans-backlog-2026-07/agentic-engineering-enhancements/future/action-time-structural-interrupt-design-space.plan.md).
 - **Evals lane (queued, owner-directed 2026-06-23)**:
-  [`current/skill-evals-pilot-start-right-quick.plan.md`](../../../plans/agentic-engineering-enhancements/current/skill-evals-pilot-start-right-quick.plan.md)
+  [`current/skill-evals-pilot-start-right-quick.plan.md`](../../../plans-backlog-2026-07/agentic-engineering-enhancements/current/skill-evals-pilot-start-right-quick.plan.md)
   — pilot the in-repo skill `evals/` convention on the high-traffic `start-right-quick` grounding skill;
   grounded by the position report `.agent/reports/evals-and-assurance-position-2026-06-23.md`, whose 5 open
   questions — proportionality tiers, in-repo vs hosted eval home, the real-world signal, the Agentic-Quality
@@ -815,10 +815,10 @@ passes) is in git history and the [`curator-passes/`](../curator-passes/) ledger
   [`validation-strategy.md`](../../../directives/validation-strategy.md) (3 harm-keyed tiers; eval
   definitions always in-repo, MCPJam = runner for the MCP-server surface only; telemetry-now loop).
 - **Skills arc** (2026-06-14 audit, agent-tooling collection): owning plan
-  [`agent-tooling/current/skills-standardisation-and-adapter-generator.plan.md`](../../../plans/agent-tooling/current/skills-standardisation-and-adapter-generator.plan.md)
+  [`agent-tooling/current/skills-standardisation-and-adapter-generator.plan.md`](../../../plans-backlog-2026-07/agent-tooling/current/skills-standardisation-and-adapter-generator.plan.md)
   (§Reality Reconciliation gap ledger); enhancement briefs
-  [`agent-tooling/future/skills-oversized-core-decomposition.plan.md`](../../../plans/agent-tooling/future/skills-oversized-core-decomposition.plan.md)
-  and [`agent-tooling/future/skills-eval-harness.plan.md`](../../../plans/agent-tooling/future/skills-eval-harness.plan.md);
+  [`agent-tooling/future/skills-oversized-core-decomposition.plan.md`](../../../plans-backlog-2026-07/agent-tooling/future/skills-oversized-core-decomposition.plan.md)
+  and [`agent-tooling/future/skills-eval-harness.plan.md`](../../../plans-backlog-2026-07/agent-tooling/future/skills-eval-harness.plan.md);
   friction F-37; pending-graduations entry "PDR-051 reduced-implementation reconciliation review".
 - **Graduation register**: [`pending-graduations.md`](../pending-graduations.md) (decision-debt
   candidates — pending/due/overdue — and fired-trigger candidates from this thread's curation passes).
