@@ -12,6 +12,23 @@ falsifier, and a PDR-130 lane. Sets below are stated as classes with dated
 exemplars of open sets, per the open-set authoring clause the session itself
 graduated.
 
+## Review contract
+
+**Purpose and intended impact**: explain why fast-lane lessons waited days
+for a dedicated pass and change the estate's graduation mechanics so the
+wait class stops recurring. **Review should test**: does the causal stack
+follow from the cited primary sources; does each proposal carry a warrant,
+an evaluable falsifier, and the correct PDR-130 lane. **Evidence standard
+and authority boundary**: primary sources only (comms events, PR #446,
+the napkin archive, the staged brief); this report authorises nothing by
+itself — its proposals act only through their named doctrine homes and
+lanes. **Material non-goals**: no re-adjudication of the consolidation
+session's content decisions; no legislation of proposal 4 (routed as an
+observation). **Successful review**: findings against the tests above are
+cured or dispositioned on the record; a contract mismatch or missing
+evidence is reported as a finding against this section, not silently
+accommodated.
+
 ## The arc, from primary sources
 
 One session, opened 2026-07-20 ~16:33Z in a Director-staged worktree against
