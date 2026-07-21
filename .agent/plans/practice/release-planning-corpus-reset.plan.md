@@ -4,6 +4,7 @@ node_type: plan
 name: Release-planning corpus reset
 overview: Backlog the prior plan estate losslessly and found the minimal V0 corpus for the first major release.
 kind: executable
+disposition: done
 serves_strategic_choice: FRAME-1
 thread: curriculum-mcp-path-to-ga
 last_updated: 2026-07-21
@@ -22,7 +23,7 @@ todos:
     status: completed
   - id: s3-milestone-plan-and-lanes
     content: "S3 — milestone plan authored to the template from the landed owner documents; the four delivery lanes route independently as their own gates clear, each implementer authoring its plan at pickup."
-    status: pending
+    status: completed
     depends_on: [s1-schema-template-validator-fence, s2-backlog-move-and-skeleton]
 ---
 
