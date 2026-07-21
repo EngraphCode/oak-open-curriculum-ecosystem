@@ -1,3 +1,10 @@
+## [1.80.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.80.0...v1.80.1) (2026-07-21)
+
+
+### Bug Fixes
+
+* **coordination:** cure the PR 408 post-merge tail findings ([b186818](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b1868182f9295da53e800439724812f92e87f435))
+
 # [1.80.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.79.2...v1.80.0) (2026-07-21)
 
 
