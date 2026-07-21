@@ -225,6 +225,20 @@ Worked instances conserved (each first-hand this tenure):
   (cure: name the gate and the decision inline); a `| tail` swallowed the real
   send exit again — exit-codes-in-band applies to every gated send.
 
+## 2026-07-21 — Tornado tracks Apex (daace4): primary-checkout branch-switch violation (owned)
+
+Cutting the estate roll-up branch, this seat ran `git checkout -b
+chore/estate-rollup-2026-07-21` ON THE PRIMARY — switching it off
+coordination/estate-2026-07 in direct breach of
+never-switch-branch-on-primary-checkout. Caught on the immediately-following
+verification (`git branch --show-current` after every branch-affecting command
+is the cheap tripwire), restored with a clean `git switch` back (tree clean
+throughout; no work touched). The correct form for cut-branch roll-ups from the
+primary: `git branch <name>` (pointer only, no switch) + `git push origin
+<name>` + `gh pr create --head <name>` — no worktree needed for a
+pointer-push, and the primary never moves. The failure shape: the muscle-memory
+`checkout -b` bundles create+switch; the rule needs the unbundled form.
+
 ## 2026-07-21 — Tornado tracks Apex (daace4): the morning arc fold (breach → structural cure → green main)
 
 The #437-behind-red arc, end to end in ~2h — conserved as one causal chain:
