@@ -8,6 +8,7 @@ import {
   signAppJwt,
   type GithubApiFetch,
 } from './mint-installation-token.js';
+import { resolveMintTokenConfig, type MintTokenConfig } from './resolve-config.js';
 
 /**
  * CLI for the `merge-bot` topic (AIP-158).
@@ -22,14 +23,15 @@ import {
  */
 
 interface MergeBotEnvironment {
-  readonly OAK_MERGE_BOT_APP_ID?: string;
-  readonly OAK_MERGE_BOT_PRIVATE_KEY_PATH?: string;
-  readonly OAK_MERGE_BOT_REPO?: string;
+  readonly HOME?: string;
 }
 
 export interface MergeBotCliInput {
   readonly args: readonly string[];
   readonly env: MergeBotEnvironment;
+  /** Repo root for `.github/merge-bot.json` resolution (usually the cwd's repo). */
+  readonly repoRoot?: string;
+  readonly readConfigFileImpl?: (filePath: string) => string;
   readonly stdout: Pick<NodeJS.WriteStream, 'write'>;
   readonly stderr: Pick<NodeJS.WriteStream, 'write'>;
   /** Injection seams for tests. */
@@ -40,94 +42,17 @@ export interface MergeBotCliInput {
 
 const USAGE = `merge-bot mint-token [--app-id <id>] [--private-key-path <pem-path>] [--repo <owner/name>] [--json]
   Prints a short-lived GitHub App installation token (stdout carries ONLY the
-  token unless --json). Defaults from env: OAK_MERGE_BOT_APP_ID,
-  OAK_MERGE_BOT_PRIVATE_KEY_PATH, OAK_MERGE_BOT_REPO
-  (fallback repo: oaknational/oak-open-curriculum-ecosystem).
+  token unless --json). The repo's .github/merge-bot.json is the single
+  authority for the bot identity; the private key lives at
+  ~/.config/<appSlug>/private-key.pem, derived from it. Flags are explicit
+  operator overrides (cross-repo invocation, tests) — not a resolution tier.
 `;
-
-const DEFAULT_REPO = 'oaknational/oak-open-curriculum-ecosystem';
-
-interface MintTokenConfig {
-  readonly appId: string;
-  readonly keyPath: string;
-  readonly owner: string;
-  readonly repoName: string;
-  readonly json: boolean;
-}
 
 function realFetch(): GithubApiFetch {
   return async (url, init) => {
     const response = await fetch(url, init);
     return { status: response.status, json: () => response.json() };
   };
-}
-
-function parseFlags(
-  rest: readonly string[],
-  env: MergeBotEnvironment,
-): Result<{ appId?: string; keyPath?: string; repo: string; json: boolean }, Error> {
-  let appId = env.OAK_MERGE_BOT_APP_ID;
-  let keyPath = env.OAK_MERGE_BOT_PRIVATE_KEY_PATH;
-  let repo = env.OAK_MERGE_BOT_REPO ?? DEFAULT_REPO;
-  let json = false;
-
-  for (let i = 0; i < rest.length; i += 1) {
-    const flag = rest[i];
-    if (flag === '--json') {
-      json = true;
-      continue;
-    }
-    const value = rest[i + 1];
-    if (value === undefined) {
-      return err(new Error(`${flag} needs a value`));
-    }
-    if (flag === '--app-id') {
-      appId = value;
-    } else if (flag === '--private-key-path') {
-      keyPath = value;
-    } else if (flag === '--repo') {
-      repo = value;
-    } else {
-      return err(new Error(`unknown flag "${flag}"\n${USAGE}`));
-    }
-    i += 1;
-  }
-  return ok({ appId, keyPath, repo, json });
-}
-
-function isBlank(value: string | undefined): value is undefined | '' {
-  return value === undefined || value === '';
-}
-
-function splitRepo(repo: string): Result<{ owner: string; repoName: string }, Error> {
-  const [owner, repoName] = repo.split('/');
-  if (isBlank(owner) || isBlank(repoName)) {
-    return err(new Error(`--repo must be owner/name, got "${repo}"`));
-  }
-  return ok({ owner, repoName });
-}
-
-function resolveConfig(
-  rest: readonly string[],
-  env: MergeBotEnvironment,
-): Result<MintTokenConfig, Error> {
-  const flags = parseFlags(rest, env);
-  if (!flags.ok) {
-    return flags;
-  }
-  const { appId, keyPath, repo, json } = flags.value;
-  if (isBlank(appId) || isBlank(keyPath)) {
-    return err(
-      new Error(
-        '--app-id and --private-key-path (or OAK_MERGE_BOT_APP_ID / OAK_MERGE_BOT_PRIVATE_KEY_PATH) are required',
-      ),
-    );
-  }
-  const split = splitRepo(repo);
-  if (!split.ok) {
-    return split;
-  }
-  return ok({ appId, keyPath, owner: split.value.owner, repoName: split.value.repoName, json });
 }
 
 async function mintForConfig(
@@ -195,7 +120,11 @@ export async function runMergeBotCli(input: MergeBotCliInput): Promise<number> {
     return 2;
   }
 
-  const config = resolveConfig(rest, input.env);
+  const config = resolveMintTokenConfig(rest, {
+    envHome: input.env.HOME,
+    repoRoot: input.repoRoot,
+    readConfigFileImpl: input.readConfigFileImpl,
+  });
   if (!config.ok) {
     input.stderr.write(`merge-bot mint-token: ${config.error.message}\n`);
     return 2;

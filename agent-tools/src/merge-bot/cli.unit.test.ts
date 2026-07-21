@@ -49,6 +49,10 @@ function runWith(overrides: Partial<MergeBotCliInput> & { args: readonly string[
     stderr: errSink.sink,
     fetchImpl: happyFetch(),
     readFileImpl: () => Promise.resolve(privateKey),
+    readConfigFileImpl: () => {
+      throw new Error('ENOENT (no repo config in this test)');
+    },
+    repoRoot: '/repo',
     nowEpochSeconds: () => 1_800_000_000,
     ...overrides,
   });
@@ -58,7 +62,7 @@ function runWith(overrides: Partial<MergeBotCliInput> & { args: readonly string[
 describe('runMergeBotCli mint-token', () => {
   it('prints ONLY the token on stdout (expiry goes to stderr)', async () => {
     const run = runWith({
-      args: ['mint-token', '--app-id', '4242', '--private-key-path', '/k.pem'],
+      args: ['mint-token', '--app-id', '4242', '--private-key-path', '/k.pem', '--repo', 'o/r'],
     });
     expect(await run.exit).toBe(0);
     expect(run.out()).toBe('ghs_tok\n');
@@ -67,7 +71,16 @@ describe('runMergeBotCli mint-token', () => {
 
   it('emits a JSON object with token, expiry, and installation id under --json', async () => {
     const run = runWith({
-      args: ['mint-token', '--app-id', '4242', '--private-key-path', '/k.pem', '--json'],
+      args: [
+        'mint-token',
+        '--app-id',
+        '4242',
+        '--private-key-path',
+        '/k.pem',
+        '--repo',
+        'o/r',
+        '--json',
+      ],
     });
     expect(await run.exit).toBe(0);
     expect(JSON.parse(run.out())).toEqual({
@@ -77,29 +90,52 @@ describe('runMergeBotCli mint-token', () => {
     });
   });
 
-  it('falls back to OAK_MERGE_BOT_* env values', async () => {
+  it('fails loudly, naming the authority, when the repo config is unreadable and no override given', async () => {
+    const run = runWith({ args: ['mint-token'] });
+    expect(await run.exit).toBe(2);
+    expect(run.errText()).toContain('.github/merge-bot.json is the single authority');
+    expect(run.out()).toBe('');
+  });
+
+  it('resolves identity and key path from the repo config — the canonical source', async () => {
+    const keyReads: string[] = [];
     const run = runWith({
       args: ['mint-token'],
-      env: {
-        OAK_MERGE_BOT_APP_ID: '4242',
-        OAK_MERGE_BOT_PRIVATE_KEY_PATH: '/k.pem',
-        OAK_MERGE_BOT_REPO: 'oaknational/some-repo',
+      env: { HOME: '/test-home' },
+      readConfigFileImpl: () =>
+        JSON.stringify({
+          appSlug: 'jimbot-oakington-iii',
+          appId: '4352989',
+          repo: 'oaknational/oak-open-curriculum-ecosystem',
+        }),
+      readFileImpl: (path: string) => {
+        keyReads.push(path);
+        return Promise.resolve(privateKey);
       },
     });
     expect(await run.exit).toBe(0);
     expect(run.out()).toBe('ghs_tok\n');
+    expect(keyReads).toEqual(['/test-home/.config/jimbot-oakington-iii/private-key.pem']);
   });
 
-  it('fails loudly with exit 2 when app id or key path are missing', async () => {
-    const run = runWith({ args: ['mint-token'] });
-    expect(await run.exit).toBe(2);
-    expect(run.errText()).toContain('--app-id and --private-key-path');
-    expect(run.out()).toBe('');
+  it('honours explicit flag overrides above the repo config', async () => {
+    const keyReads: string[] = [];
+    const run = runWith({
+      args: ['mint-token', '--app-id', '999', '--private-key-path', '/explicit.pem'],
+      readConfigFileImpl: () =>
+        JSON.stringify({ appSlug: 'jimbot-oakington-iii', appId: '4352989', repo: 'o/r' }),
+      readFileImpl: (path: string) => {
+        keyReads.push(path);
+        return Promise.resolve(privateKey);
+      },
+    });
+    expect(await run.exit).toBe(0);
+    expect(keyReads).toEqual(['/explicit.pem']);
   });
 
   it('fails with exit 1 and a hint when the key file is unreadable', async () => {
     const run = runWith({
-      args: ['mint-token', '--app-id', '1', '--private-key-path', '/missing.pem'],
+      args: ['mint-token', '--app-id', '1', '--private-key-path', '/missing.pem', '--repo', 'o/r'],
       readFileImpl: () => Promise.reject(new Error('ENOENT')),
     });
     expect(await run.exit).toBe(1);
@@ -120,7 +156,17 @@ describe('runMergeBotCli mint-token', () => {
     expect(bad.errText()).toContain('unknown action');
 
     const badFlag = runWith({
-      args: ['mint-token', '--app-id', '1', '--private-key-path', '/k.pem', '--wat', 'x'],
+      args: [
+        'mint-token',
+        '--app-id',
+        '1',
+        '--private-key-path',
+        '/k.pem',
+        '--repo',
+        'o/r',
+        '--wat',
+        'x',
+      ],
     });
     expect(await badFlag.exit).toBe(2);
     expect(badFlag.errText()).toContain('unknown flag');
