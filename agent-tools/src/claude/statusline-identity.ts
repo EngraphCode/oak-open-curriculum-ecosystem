@@ -169,6 +169,18 @@ function resolveBuiltIdentityCliPath(): string {
  * These reads soft-fail to undefined: the coordination GLYPHS are best-effort
  * glances, distinct from the load-bearing location facts.
  */
+function gatherSessionShape(
+  primaryRoot: string | undefined,
+  ownAgentName: string | undefined,
+): SessionShape {
+  return resolveSessionShape({
+    ownAgentName,
+    registry: primaryRoot === undefined ? undefined : readActiveClaimsRegistry(primaryRoot),
+    experimentsListing: primaryRoot === undefined ? undefined : listExperiments(primaryRoot),
+    nowIso: new Date().toISOString(),
+  });
+}
+
 /**
  * Read the owner-jobs register from the primary checkout and count its open
  * items. Absence and unreadability both resolve to `undefined` (no register,
@@ -188,18 +200,6 @@ function gatherOwnerJobsOpen(primaryRoot: string | undefined): number | undefine
   } catch {
     return undefined;
   }
-}
-
-function gatherSessionShape(
-  primaryRoot: string | undefined,
-  ownAgentName: string | undefined,
-): SessionShape {
-  return resolveSessionShape({
-    ownAgentName,
-    registry: primaryRoot === undefined ? undefined : readActiveClaimsRegistry(primaryRoot),
-    experimentsListing: primaryRoot === undefined ? undefined : listExperiments(primaryRoot),
-    nowIso: new Date().toISOString(),
-  });
 }
 
 function readActiveClaimsRegistry(primaryRoot: string): CollaborationRegistry | undefined {

@@ -46,5 +46,5 @@ export function formatOwnerAttention(openCount: number | undefined): string | un
   if (openCount === undefined || openCount === 0) {
     return undefined;
   }
-  return `${BOLD}${YELLOW}${ATTENTION_BELL}${String(openCount)}${RESET}`;
+  return `${YELLOW}${BOLD}${ATTENTION_BELL}${String(openCount)}${RESET}`;
 }

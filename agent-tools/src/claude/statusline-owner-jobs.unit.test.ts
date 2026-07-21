@@ -41,10 +41,11 @@ describe('countOpenOwnerJobs', () => {
 });
 
 describe('formatOwnerAttention', () => {
-  it('renders the bell and count when jobs are open', () => {
-    const segment = formatOwnerAttention(3);
-    expect(segment).toContain('3');
-    expect(segment).toContain('\u{1F514}');
+  it('renders the bell and count as one bold-yellow sequence', () => {
+    // Exact sequence: colour BEFORE bold — YELLOW's leading `0;` SGR resets
+    // prior attributes, so BOLD must follow it (the established bold-colour
+    // ordering in statusline-segments).
+    expect(formatOwnerAttention(3)).toBe('\x1b[0;33m\x1b[1m\u{1F514}3\x1b[0m');
   });
 
   it('is absent at zero open jobs', () => {
