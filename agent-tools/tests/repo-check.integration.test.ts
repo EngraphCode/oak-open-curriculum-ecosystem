@@ -21,6 +21,7 @@ interface CommandCall {
 
 function stagedRuntime(input: {
   readonly stagedStdout: string;
+  readonly lsFilesStdout?: string;
   readonly inheritedExitCode?: number;
 }): {
   readonly capturedCalls: readonly CommandCall[];
@@ -36,7 +37,8 @@ function stagedRuntime(input: {
     runtime: {
       runCaptured(command, args) {
         capturedCalls.push({ command, args });
-        return { status: 0, stdout: input.stagedStdout, stderr: '' };
+        const stdout = args[0] === 'ls-files' ? (input.lsFilesStdout ?? '') : input.stagedStdout;
+        return { status: 0, stdout, stderr: '' };
       },
       runInherited(command, args) {
         inheritedCalls.push({ command, args });
@@ -60,6 +62,10 @@ describe('repo-check staged scanners', () => {
         command: 'git',
         args: ['diff', '--cached', '--name-only', '--diff-filter=ACMR'],
       },
+      {
+        command: 'git',
+        args: ['ls-files', '--cached', '-s'],
+      },
     ]);
     expect(inheritedCalls).toStrictEqual([
       {
@@ -75,6 +81,18 @@ describe('repo-check staged scanners', () => {
       },
     ]);
     expect(inheritedCalls[0]?.args).not.toContain(ambientDirtyFile);
+  });
+
+  it('excludes staged symlink index entries from the Prettier run', async () => {
+    const { inheritedCalls, runtime } = stagedRuntime({
+      stagedStdout: 'docs/staged-clean.md\n.claude/skills/clerk\n',
+      lsFilesStdout: '100644 aaaa 0\tdocs/staged-clean.md\n120000 bbbb 0\t.claude/skills/clerk\n',
+    });
+
+    await expect(runPrettierStaged(runtime)).resolves.toBe(0);
+
+    expect(inheritedCalls[0]?.args).toContain('docs/staged-clean.md');
+    expect(inheritedCalls[0]?.args).not.toContain('.claude/skills/clerk');
   });
 
   it('does not run Prettier when no files are staged', async () => {
@@ -115,6 +133,10 @@ describe('repo-check staged scanners', () => {
       {
         command: 'git',
         args: ['diff', '--cached', '--name-only', '--diff-filter=ACMR'],
+      },
+      {
+        command: 'git',
+        args: ['ls-files', '--cached', '-s'],
       },
     ]);
     expect(inheritedCalls).toStrictEqual([

@@ -166,9 +166,18 @@ export function getSkillsLockEntries(skillsLock: unknown): [string, JsonObject][
 }
 
 /**
- * Cross-references locked skills against the canonical skills directory and
- * validates that each lock entry carries the required provenance fields
- * (`source`, `sourceType`, `computedHash`).
+ * Validates the skills lock as the EXTERNAL-skill registry (owner ruling
+ * 2026-07-21): the estate has two skill classes, distinguished by home.
+ * Canonical practice skills live in `.agent/skills/` under the portability
+ * system and are never lock entries; external skills (installed
+ * programmatically, e.g. a vendor plugin set) are pinned here by
+ * provenance and are never canonical — ingestion was deliberately
+ * declined, so a lock entry claiming a canonical name is a shadowing
+ * hazard, not a missing ingestion.
+ *
+ * Checks per entry: (1) the name does NOT collide with a canonical skill;
+ * (2) the required provenance fields (`source`, `sourceType`,
+ * `computedHash`) are present and non-empty.
  *
  * @param lockedSkills - `[skillName, entry]` pairs from {@link getSkillsLockEntries}.
  * @param canonicalSkillNames - Names of skills that have a canonical
@@ -186,9 +195,9 @@ export function getSkillsLockCrossReferenceIssues(
   const issues: string[] = [];
 
   for (const [skillName, entry] of lockedSkills) {
-    if (!canonicalSkillSet.has(skillName)) {
+    if (canonicalSkillSet.has(skillName)) {
       issues.push(
-        `${lockPath}: locked skill "${skillName}" has no canonical .agent/skills/${skillName}/SKILL-CANONICAL.md`,
+        `${lockPath}: external skill "${skillName}" collides with canonical .agent/skills/${skillName}/ — external skills must never shadow canonical practice skills (rename or remove one)`,
       );
     }
     for (const field of requiredStringFields) {

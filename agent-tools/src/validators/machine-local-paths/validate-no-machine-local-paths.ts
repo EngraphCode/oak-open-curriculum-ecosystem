@@ -19,7 +19,7 @@
  */
 
 import { execFileSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { lstatSync, readFileSync, readlinkSync } from 'node:fs';
 import path from 'node:path';
 
 import { resolveRepoRoot } from '../../core/repo-root.js';
@@ -81,7 +81,15 @@ function readScanFiles(repoRoot: string, relativePaths: readonly string[]): Scan
     }
     let content: string;
     try {
-      content = readFileSync(path.join(repoRoot, relativePath), 'utf8');
+      const absolute = path.join(repoRoot, relativePath);
+      // A tracked symlink's scannable content IS its link text (what git
+      // stores): an absolute target into a home directory is exactly the
+      // machine-local-path class this validator exists to catch, while
+      // following the link would double-scan (or EISDIR on) the target,
+      // which is scanned under its own tracked path.
+      content = lstatSync(absolute).isSymbolicLink()
+        ? readlinkSync(absolute)
+        : readFileSync(absolute, 'utf8');
     } catch (error) {
       // Fail loud: a tracked file the validator cannot read could hide a
       // machine-local path, so silently skipping it would be a green-gate
