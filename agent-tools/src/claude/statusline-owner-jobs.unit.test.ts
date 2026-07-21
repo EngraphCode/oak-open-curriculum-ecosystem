@@ -56,6 +56,12 @@ describe('parseOwnerJobsLink', () => {
     expect(parseOwnerJobsLink('no link here')).toBeUndefined();
     expect(parseOwnerJobsLink('link: javascript:alert(1)')).toBeUndefined();
   });
+
+  it('rejects control characters that could break out of the OSC 8 escape', () => {
+    expect(parseOwnerJobsLink('link: https://x.example/a\x1b]8;;evil\x07b')).toBeUndefined();
+    expect(parseOwnerJobsLink('link: https://x.example/a\x07bell')).toBeUndefined();
+    expect(parseOwnerJobsLink('link: https://x.example/a\u{9c}c1')).toBeUndefined();
+  });
 });
 
 describe('formatOwnerAttention', () => {

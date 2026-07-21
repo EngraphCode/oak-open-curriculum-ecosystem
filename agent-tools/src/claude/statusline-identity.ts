@@ -182,12 +182,10 @@ function gatherSessionShape(
 }
 
 /**
- * Read the owner-jobs register from the primary checkout and count its open
- * items. Absence and unreadability both resolve to `undefined` (no register,
- * no bell) — the register is untracked-by-design, so a fresh clone simply has
- * none until the Director writes one.
+ * Read and parse the active-claims registry from the primary checkout;
+ * undefined when the file is absent or unparsable (the session-shape
+ * resolver treats that as no visible team).
  */
-
 function readActiveClaimsRegistry(primaryRoot: string): CollaborationRegistry | undefined {
   try {
     return parseCollaborationRegistry(

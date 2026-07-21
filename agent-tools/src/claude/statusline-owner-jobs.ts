@@ -22,8 +22,14 @@ const ATTENTION_BELL = '\u{1F514}';
 /** A job entry's state line, e.g. `- state: open` (trailing annotation allowed). */
 const OPEN_STATE_LINE = /^\s*-\s*state:\s*open\b/;
 
-/** The generated header's link line; https only — the value lands in an OSC 8 escape. */
-const LINK_LINE = /^\s*link:\s*(https:\/\/\S+)\s*$/m;
+/**
+ * The generated header's link line. https only, and the value is confined to
+ * URL-safe characters (RFC 3986 unreserved + reserved + percent) — it lands
+ * inside a terminal OSC 8 escape, so ESC/BEL/C0/C1 controls (or anything
+ * else outside the allowlist) reject the line rather than reaching the
+ * terminal.
+ */
+const LINK_LINE = /^\s*link:\s*(https:\/\/[A-Za-z0-9\-._~:/?#[\]@!$&'()*+,;=%]+)\s*$/m;
 
 /** OSC 8 hyperlink delimiters (open carries the URL; close is empty). */
 const OSC8_CLOSE = '\x1b]8;;\x1b\\';
