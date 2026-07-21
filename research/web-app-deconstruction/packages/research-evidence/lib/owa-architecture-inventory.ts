@@ -262,6 +262,58 @@ async function trackedFiles(root: string): Promise<string[]> {
   return stdout.toString('utf8').split('\0').filter(Boolean).sort();
 }
 
+function importStatementReference(
+  ts: TypeScriptApi,
+  statement: TypeScriptNamespace.Statement,
+): ImportReference | null {
+  if (!ts.isImportDeclaration(statement) || !ts.isStringLiteralLike(statement.moduleSpecifier)) {
+    return null;
+  }
+  const clause = statement.importClause;
+  const named = clause?.namedBindings;
+  const namedSpecifierTypeOnly =
+    named && ts.isNamedImports(named) && named.elements.length > 0
+      ? named.elements.map((element) => element.isTypeOnly)
+      : undefined;
+  return {
+    specifier: statement.moduleSpecifier.text,
+    runtime: importShapeHasRuntimeBinding({
+      clauseIsTypeOnly: clause?.isTypeOnly ?? false,
+      hasDefaultBinding: clause?.name !== undefined,
+      namedSpecifierTypeOnly,
+    }),
+  };
+}
+
+// `export { type Foo } from './x'` has clause-level isTypeOnly false
+// but carries no runtime binding; mirror the per-specifier handling
+// the import branch already applies, so type-only re-exports never
+// inflate runtime dependency/SCC metrics.
+function exportStatementReference(
+  ts: TypeScriptApi,
+  statement: TypeScriptNamespace.Statement,
+): ImportReference | null {
+  if (
+    !ts.isExportDeclaration(statement) ||
+    !statement.moduleSpecifier ||
+    !ts.isStringLiteralLike(statement.moduleSpecifier)
+  ) {
+    return null;
+  }
+  const namedExports =
+    statement.exportClause && ts.isNamedExports(statement.exportClause)
+      ? statement.exportClause.elements
+      : undefined;
+  const allNamedSpecifiersTypeOnly =
+    namedExports !== undefined &&
+    namedExports.length > 0 &&
+    namedExports.every((element) => element.isTypeOnly);
+  return {
+    specifier: statement.moduleSpecifier.text,
+    runtime: !statement.isTypeOnly && !allNamedSpecifiersTypeOnly,
+  };
+}
+
 function importReferences(ts: TypeScriptApi, file: string, text: string): ImportReference[] {
   const sourceFile = ts.createSourceFile(
     file,
@@ -273,43 +325,13 @@ function importReferences(ts: TypeScriptApi, file: string, text: string): Import
   const references: ImportReference[] = [];
 
   for (const statement of sourceFile.statements) {
-    if (ts.isImportDeclaration(statement) && ts.isStringLiteralLike(statement.moduleSpecifier)) {
-      const clause = statement.importClause;
-      const named = clause?.namedBindings;
-      const namedSpecifierTypeOnly =
-        named && ts.isNamedImports(named) && named.elements.length > 0
-          ? named.elements.map((element) => element.isTypeOnly)
-          : undefined;
-      references.push({
-        specifier: statement.moduleSpecifier.text,
-        runtime: importShapeHasRuntimeBinding({
-          clauseIsTypeOnly: clause?.isTypeOnly ?? false,
-          hasDefaultBinding: clause?.name !== undefined,
-          namedSpecifierTypeOnly,
-        }),
-      });
+    const importReference = importStatementReference(ts, statement);
+    if (importReference) {
+      references.push(importReference);
     }
-    if (
-      ts.isExportDeclaration(statement) &&
-      statement.moduleSpecifier &&
-      ts.isStringLiteralLike(statement.moduleSpecifier)
-    ) {
-      // `export { type Foo } from './x'` has clause-level isTypeOnly false
-      // but carries no runtime binding; mirror the per-specifier handling
-      // the import branch already applies, so type-only re-exports never
-      // inflate runtime dependency/SCC metrics.
-      const namedExports =
-        statement.exportClause && ts.isNamedExports(statement.exportClause)
-          ? statement.exportClause.elements
-          : undefined;
-      const allNamedSpecifiersTypeOnly =
-        namedExports !== undefined &&
-        namedExports.length > 0 &&
-        namedExports.every((element) => element.isTypeOnly);
-      references.push({
-        specifier: statement.moduleSpecifier.text,
-        runtime: !statement.isTypeOnly && !allNamedSpecifiersTypeOnly,
-      });
+    const exportReference = exportStatementReference(ts, statement);
+    if (exportReference) {
+      references.push(exportReference);
     }
   }
   return references;
@@ -415,27 +437,12 @@ function assuranceInventory(files: string[]): AssuranceInventory {
   };
 }
 
-export async function buildOwaArchitectureInventory(
-  owaRoot: string,
-): Promise<OwaArchitectureInventory> {
-  const input = await assertRepository(owaRoot, 'oak-web-application');
-  const sourceRoot = path.join(owaRoot, 'src');
-  const [allSourceFiles, allTrackedFiles] = await Promise.all([
-    sourceFiles(sourceRoot),
-    trackedFiles(owaRoot),
-  ]);
-  const analysedFiles = allSourceFiles.filter((file) => isProductionFile(file, sourceRoot));
-  const sources = await readSources(analysedFiles);
+interface AreaCounts {
+  byArea: Record<string, number>;
+  componentFamilies: Record<string, number>;
+}
 
-  const requireFromOwa = createRequire(path.join(owaRoot, 'package.json'));
-  const requiredTs: unknown = requireFromOwa(await resolvePackage(requireFromOwa, 'typescript'));
-  if (!isTypeScriptApi(requiredTs)) {
-    throw new Error('resolved "typescript" module does not expose the expected compiler API');
-  }
-  const ts: TypeScriptApi = requiredTs;
-  const knownFiles = new Set(analysedFiles);
-  const relative = (file: string): string => normaliseRelative(owaRoot, file);
-
+function countAreas(analysedFiles: string[], relative: (file: string) => string): AreaCounts {
   const byArea: Record<string, number> = {};
   const componentFamilies: Record<string, number> = {};
   for (const file of analysedFiles) {
@@ -445,7 +452,25 @@ export async function buildOwaArchitectureInventory(
       increment(componentFamilies, rel.split('/')[2] ?? 'root');
     }
   }
+  return { byArea, componentFamilies };
+}
 
+interface ImportGraph {
+  allLocalEdges: Set<string>;
+  runtimeShapedLocalEdges: Set<string>;
+  adjacency: Map<string, Set<string>>;
+  unresolvedLocal: Set<string>;
+  externalFiles: Map<string, Set<string>>;
+}
+
+function scanImportGraph(
+  ts: TypeScriptApi,
+  sources: SourceFile[],
+  analysedFiles: string[],
+  sourceRoot: string,
+  knownFiles: Set<string>,
+  relative: (file: string) => string,
+): ImportGraph {
   const allLocalEdges = new Set<string>();
   const runtimeShapedLocalEdges = new Set<string>();
   const adjacency = new Map<string, Set<string>>(
@@ -481,6 +506,18 @@ export async function buildOwaArchitectureInventory(
     }
   }
 
+  return { allLocalEdges, runtimeShapedLocalEdges, adjacency, unresolvedLocal, externalFiles };
+}
+
+interface DependencyMatrixResult {
+  dependencyMatrix: Record<string, number>;
+  crossAreaRuntimeShapedEdges: number;
+}
+
+function buildDependencyMatrix(
+  runtimeShapedLocalEdges: Set<string>,
+  relative: (file: string) => string,
+): DependencyMatrixResult {
   const dependencyMatrix: Record<string, number> = {};
   let crossAreaRuntimeShapedEdges = 0;
   for (const edge of runtimeShapedLocalEdges) {
@@ -493,12 +530,23 @@ export async function buildOwaArchitectureInventory(
       crossAreaRuntimeShapedEdges += 1;
     }
   }
+  return { dependencyMatrix, crossAreaRuntimeShapedEdges };
+}
 
-  const components = stronglyConnectedComponents(analysedFiles, adjacency);
-  const cyclic = components
-    .filter((component) => component.length > 1 || adjacency.get(component[0])?.has(component[0]))
-    .sort((left, right) => right.length - left.length || left[0].localeCompare(right[0]));
+interface ClientClosureResult {
+  clientRoots: string[];
+  clientClosure: Set<string>;
+  clientClosureByArea: Record<string, number>;
+}
 
+// Static runtime reachability from every use-client root over the
+// runtime-shaped adjacency.
+function computeClientClosure(
+  ts: TypeScriptApi,
+  sources: SourceFile[],
+  adjacency: Map<string, Set<string>>,
+  relative: (file: string) => string,
+): ClientClosureResult {
   const clientRoots = sources
     .filter(({ file, text }) => hasModuleDirective(ts, file, text, 'use client'))
     .map(({ file }) => file);
@@ -517,7 +565,18 @@ export async function buildOwaArchitectureInventory(
   for (const file of clientClosure) {
     increment(clientClosureByArea, classifyArea(relative(file)));
   }
+  return { clientRoots, clientClosure, clientClosureByArea };
+}
 
+interface AppRouteCounts {
+  appRoles: Record<string, number>;
+  appGroups: Record<string, number>;
+}
+
+function countAppRoutes(
+  analysedFiles: string[],
+  relative: (file: string) => string,
+): AppRouteCounts {
   const appRoles: Record<string, number> = {};
   const appGroups: Record<string, number> = {};
   for (const file of analysedFiles) {
@@ -530,6 +589,53 @@ export async function buildOwaArchitectureInventory(
       increment(appGroups, routeGroup(rel));
     }
   }
+  return { appRoles, appGroups };
+}
+
+export async function buildOwaArchitectureInventory(
+  owaRoot: string,
+): Promise<OwaArchitectureInventory> {
+  const input = await assertRepository(owaRoot, 'oak-web-application');
+  const sourceRoot = path.join(owaRoot, 'src');
+  const [allSourceFiles, allTrackedFiles] = await Promise.all([
+    sourceFiles(sourceRoot),
+    trackedFiles(owaRoot),
+  ]);
+  const analysedFiles = allSourceFiles.filter((file) => isProductionFile(file, sourceRoot));
+  const sources = await readSources(analysedFiles);
+
+  const requireFromOwa = createRequire(path.join(owaRoot, 'package.json'));
+  const requiredTs: unknown = requireFromOwa(await resolvePackage(requireFromOwa, 'typescript'));
+  if (!isTypeScriptApi(requiredTs)) {
+    throw new Error('resolved "typescript" module does not expose the expected compiler API');
+  }
+  const ts: TypeScriptApi = requiredTs;
+  const knownFiles = new Set(analysedFiles);
+  const relative = (file: string): string => normaliseRelative(owaRoot, file);
+
+  const { byArea, componentFamilies } = countAreas(analysedFiles, relative);
+
+  const { allLocalEdges, runtimeShapedLocalEdges, adjacency, unresolvedLocal, externalFiles } =
+    scanImportGraph(ts, sources, analysedFiles, sourceRoot, knownFiles, relative);
+
+  const { dependencyMatrix, crossAreaRuntimeShapedEdges } = buildDependencyMatrix(
+    runtimeShapedLocalEdges,
+    relative,
+  );
+
+  const components = stronglyConnectedComponents(analysedFiles, adjacency);
+  const cyclic = components
+    .filter((component) => component.length > 1 || adjacency.get(component[0])?.has(component[0]))
+    .sort((left, right) => right.length - left.length || left[0].localeCompare(right[0]));
+
+  const { clientRoots, clientClosure, clientClosureByArea } = computeClientClosure(
+    ts,
+    sources,
+    adjacency,
+    relative,
+  );
+
+  const { appRoles, appGroups } = countAppRoutes(analysedFiles, relative);
 
   const pagesSources = sources.filter(({ file }) => relative(file).startsWith('src/pages/'));
   const pagesApiModules = pagesSources.filter(({ file }) =>

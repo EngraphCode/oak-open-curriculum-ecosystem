@@ -368,68 +368,90 @@ export function extractAbsoluteUrls(source: string): string[] {
   return [...new Set(urls)].sort(codeUnitCompare);
 }
 
+interface StripContext {
+  output: string;
+  state: 'code' | 'line-comment' | 'block-comment' | 'string';
+  quote: string | null;
+  skip: boolean;
+}
+
+function stripStepLineComment(context: StripContext, character: string): void {
+  if (character === '\n') {
+    context.state = 'code';
+    context.output += character;
+  } else {
+    context.output += ' ';
+  }
+}
+
+function stripStepBlockComment(
+  context: StripContext,
+  character: string,
+  next: string | undefined,
+): void {
+  if (character === '*' && next === '/') {
+    context.output += '  ';
+    context.skip = true;
+    context.state = 'code';
+  } else {
+    context.output += character === '\n' ? '\n' : ' ';
+  }
+}
+
+function stripStepString(context: StripContext, character: string, next: string | undefined): void {
+  context.output += character;
+  if (character === '\\') {
+    if (next !== undefined) {
+      context.output += next;
+      context.skip = true;
+    }
+  } else if (character === context.quote) {
+    context.state = 'code';
+    context.quote = null;
+  }
+}
+
+function stripStepCode(context: StripContext, character: string, next: string | undefined): void {
+  if (character === "'" || character === '"' || character === '`') {
+    context.state = 'string';
+    context.quote = character;
+    context.output += character;
+  } else if (character === '/' && next === '/') {
+    context.state = 'line-comment';
+    context.output += '  ';
+    context.skip = true;
+  } else if (character === '/' && next === '*') {
+    context.state = 'block-comment';
+    context.output += '  ';
+    context.skip = true;
+  } else {
+    context.output += character;
+  }
+}
+
 export function stripJavaScriptComments(source: string): string {
-  let output = '';
-  let state = 'code';
-  let quote: string | null = null;
+  const context: StripContext = { output: '', state: 'code', quote: null, skip: false };
 
   for (let index = 0; index < source.length; index += 1) {
     const character = source[index];
     const next: string | undefined = source[index + 1];
 
-    if (state === 'line-comment') {
-      if (character === '\n') {
-        state = 'code';
-        output += character;
-      } else {
-        output += ' ';
-      }
-      continue;
-    }
-
-    if (state === 'block-comment') {
-      if (character === '*' && next === '/') {
-        output += '  ';
-        index += 1;
-        state = 'code';
-      } else {
-        output += character === '\n' ? '\n' : ' ';
-      }
-      continue;
-    }
-
-    if (state === 'string') {
-      output += character;
-      if (character === '\\') {
-        if (next !== undefined) {
-          output += next;
-          index += 1;
-        }
-      } else if (character === quote) {
-        state = 'code';
-        quote = null;
-      }
-      continue;
-    }
-
-    if (character === "'" || character === '"' || character === '`') {
-      state = 'string';
-      quote = character;
-      output += character;
-    } else if (character === '/' && next === '/') {
-      state = 'line-comment';
-      output += '  ';
-      index += 1;
-    } else if (character === '/' && next === '*') {
-      state = 'block-comment';
-      output += '  ';
-      index += 1;
+    if (context.state === 'line-comment') {
+      stripStepLineComment(context, character);
+    } else if (context.state === 'block-comment') {
+      stripStepBlockComment(context, character, next);
+    } else if (context.state === 'string') {
+      stripStepString(context, character, next);
     } else {
-      output += character;
+      stripStepCode(context, character, next);
+    }
+    if (context.skip) {
+      context.skip = false;
+      index += 1;
     }
   }
 
-  return output;
+  return context.output;
 }
 
 export function countOpenApiPathKeys(source: string): number | null {
@@ -486,56 +508,81 @@ export function summarizeOpenApiObjectSchemas(value: unknown): OpenApiObjectSche
   return summary;
 }
 
+const OPEN_API_METHODS = ['get', 'put', 'post', 'delete', 'patch', 'options', 'head'];
+
+interface ParameterAccumulator {
+  maximums: OpenApiMaximumConstraint[];
+  locations: string[];
+  inlineParameterCount: number;
+  referenceParameterCount: number;
+}
+
+function recordOperationParameter(
+  accumulator: ParameterAccumulator,
+  parameter: unknown,
+  method: string,
+  path: string,
+): void {
+  if (!isParameterLike(parameter)) {
+    return;
+  }
+  if ('$ref' in parameter) {
+    accumulator.referenceParameterCount += 1;
+    return;
+  }
+  accumulator.inlineParameterCount += 1;
+  accumulator.locations.push(parameter.in ?? '[unspecified]');
+  if (
+    parameter.schema !== null &&
+    typeof parameter.schema === 'object' &&
+    typeof parameter.schema.maximum === 'number'
+  ) {
+    accumulator.maximums.push({
+      method,
+      path,
+      name: parameter.name ?? null,
+      maximum: parameter.schema.maximum,
+    });
+  }
+}
+
+function recordPathItemParameters(
+  accumulator: ParameterAccumulator,
+  path: string,
+  pathItem: unknown,
+): void {
+  if (!isObjectRecord(pathItem)) {
+    return;
+  }
+  for (const [method, operation] of Object.entries(pathItem)) {
+    if (!OPEN_API_METHODS.includes(method) || !isOperationLike(operation)) {
+      continue;
+    }
+    for (const parameter of operation.parameters ?? []) {
+      recordOperationParameter(accumulator, parameter, method, path);
+    }
+  }
+}
+
 export function summarizeOpenApiOperationParameters(
   document: OpenApiDocumentLike,
 ): OpenApiOperationParametersSummary {
-  const maximums: OpenApiMaximumConstraint[] = [];
-  const locations: string[] = [];
-  let inlineParameterCount = 0;
-  let referenceParameterCount = 0;
+  const accumulator: ParameterAccumulator = {
+    maximums: [],
+    locations: [],
+    inlineParameterCount: 0,
+    referenceParameterCount: 0,
+  };
 
   for (const [path, pathItem] of Object.entries(document.paths ?? {})) {
-    if (!isObjectRecord(pathItem)) {
-      continue;
-    }
-    for (const [method, operation] of Object.entries(pathItem)) {
-      if (
-        !['get', 'put', 'post', 'delete', 'patch', 'options', 'head'].includes(method) ||
-        !isOperationLike(operation)
-      ) {
-        continue;
-      }
-      for (const parameter of operation.parameters ?? []) {
-        if (!isParameterLike(parameter)) {
-          continue;
-        }
-        if ('$ref' in parameter) {
-          referenceParameterCount += 1;
-          continue;
-        }
-        inlineParameterCount += 1;
-        locations.push(parameter.in ?? '[unspecified]');
-        if (
-          parameter.schema !== null &&
-          typeof parameter.schema === 'object' &&
-          typeof parameter.schema.maximum === 'number'
-        ) {
-          maximums.push({
-            method,
-            path,
-            name: parameter.name ?? null,
-            maximum: parameter.schema.maximum,
-          });
-        }
-      }
-    }
+    recordPathItemParameters(accumulator, path, pathItem);
   }
 
   return {
-    inlineParameterCount,
-    referenceParameterCount,
-    locationCounts: countBy(locations, (location) => location),
-    maximumConstraintCount: maximums.length,
-    maximums,
+    inlineParameterCount: accumulator.inlineParameterCount,
+    referenceParameterCount: accumulator.referenceParameterCount,
+    locationCounts: countBy(accumulator.locations, (location) => location),
+    maximumConstraintCount: accumulator.maximums.length,
+    maximums: accumulator.maximums,
   };
 }
