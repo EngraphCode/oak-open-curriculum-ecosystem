@@ -52,6 +52,8 @@ or configuration issue, never a missing check.
 | markdownlint      | Staged     | Yes      | Yes         | Yes (markdownlint-check:root) |
 | subagents:check   | --         | Yes      | Yes         | Yes                           |
 | portability:check | --         | Yes      | Yes         | Yes                           |
+| skills:check      | --         | Yes      | Yes         | Yes                           |
+| encoding:check    | --         | Yes      | Yes         | Yes                           |
 | knip (knip:gate)  | Yes        | Yes      | Yes         | Yes                           |
 | depcruise         | Yes        | Yes      | Yes         | Yes                           |
 | repo-validators   | Yes        | Yes      | Yes         | Yes                           |
@@ -59,12 +61,12 @@ or configuration issue, never a missing check.
 | lint              | Yes        | Yes      | Yes         | Yes (lint)                    |
 | lint:shell        | Yes        | Yes      | Yes         | Yes                           |
 | test              | Yes        | Yes      | Yes         | Yes                           |
-| test:widget       | --         | --       | --          | Yes                           |
-| test:widget:ui    | --         | --       | --          | Yes                           |
-| test:widget:a11y  | --         | --       | --          | Yes                           |
+| test:widget       | --         | --       | Yes         | Yes                           |
+| test:widget:ui    | --         | --       | Yes         | Yes                           |
+| test:widget:a11y  | --         | --       | Yes         | Yes                           |
 | test:e2e          | --         | Yes      | Yes         | Yes                           |
 | test:ui           | --         | Yes      | Yes         | Yes                           |
-| test:a11y         | --         | --       | --          | Yes                           |
+| test:a11y         | --         | --       | Yes         | Yes                           |
 | SonarCloud        | --         | --       | PR analysis | --                            |
 | dependency-review | --         | --       | PR advisory | --                            |
 
@@ -215,10 +217,10 @@ markdownlint-staged`, `repo-validators:check`, `lint:shell`, Turbo
   the build (matching CI's restore-build-outputs-first order).
 - Pre-push runs: `secrets:scan`, `format-check:root`,
   `markdownlint-check:root`, `subagents:check`, `portability:check`,
-  `repo-validators:check`, `lint:shell`, Turbo (`sdk-codegen build
-type-check lint test test:e2e test:ui`), then `depcruise` and
+  `skills:check`, `repo-validators:check`, `lint:shell`, Turbo (`sdk-codegen build
+type-check lint test test:e2e test:ui`), then `depcruise`,
   `knip:gate` (after the build, for the same dist-resolution reason as
-  pre-commit).
+  pre-commit), and `encoding:check`.
 - CI runs as parallel jobs gated by a `run-quality-gates` fan-in (the single
   required status check; it fails unless every job succeeded — failed, cancelled,
   and skipped results all block — so each job blocks merge without a ruleset
@@ -226,7 +228,7 @@ type-check lint test test:e2e test:ui`), then `depcruise` and
   gitleaks binary — no Docker fallback), `install` (warms the pnpm store cache so
   downstream jobs install offline), `static-checks` (`format-check:root`,
   `markdownlint-check:root`, `lint:shell`, `subagents:check`, `portability:check`,
-  `repo-validators:check`), `build` (`sdk-codegen` + `build`, warms the Turbo
+  `repo-validators:check`, `skills:check`, `encoding:check`), `build` (`sdk-codegen` + `build`, warms the Turbo
   remote cache), `unit-tests` (`type-check`, `lint`, `test`), `knip-depcruise`
   (`knip:gate`, `depcruise`),
   and `browser-tests` (the Playwright suites, with the browser download cached and
@@ -260,6 +262,7 @@ type-check lint test test:e2e test:ui`), then `depcruise` and
 | 2026-05-04 | Removed `smoke:dev:stub` row from coverage matrix and pre-push/CI Turbo invocations. The smoke-tests directory, `smoke:*` scripts, and `vitest.smoke.config.ts` were retired. Coverage previously held by the dev-server-boot smoke check is now provided by the in-process invariant test (`apps/oak-curriculum-mcp-streamable-http/src/dev-boot-without-observability.integration.test.ts`); broader real-IO coverage moves to a frozen IO Inventory plus a `no-real-io-in-tests` ESLint rule.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | 2026-05-10 | Added visible rows/notes for `lint:shell`, SonarCloud, dependency vulnerability policy, and ADR-161 network-free PR-check interaction. This records current drift without over-claiming local gate parity.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | 2026-06-05 | Owner-directed fresh speed/safety re-decision of the pre-commit surface (Lanternlit curation pass). Found the live `.husky/pre-commit` hook had drifted from this ADR: it omitted knip + depcruise (mandated here) while adding build + repo-validators + lint:shell. Added knip + depcruise to the hook (the omission let unused-code and dependency-direction defects slip to pre-push, as when tsx-spawned validator entries reached `main` unregistered in `knip.config.ts`). Corrected the matrix pre-commit cells for `build`/`repo-validators`/`lint:shell` (`--` to `Yes`) and `sdk-codegen` (to `via build`) to match the hook. Retired the "no builds at pre-commit" rule: Turbo caching makes build sub-second when warm (~0.75s cached for build+type-check+lint+test) and type-check requires `^build`; knip ~1.7s, depcruise ~1.9s. Updated design principle #2, the exclusion rationale, and the Implementation pre-commit list.                                                         |
+| 2026-07-21 | AIP-165 reconciliation: added `skills:check` and `encoding:check` rows and brought both to pre-push === CI parity (`skills:check` was `pnpm check`-only — the gap through which the wrap-family adapter drift merged CI-green; `encoding:check` ran at pre-push but not CI). Corrected four stale CI cells (`test:a11y`, `test:widget`, `test:widget:ui`, `test:widget:a11y` — all run in the CI browser-tests job since the workflow split). Updated the pre-push and CI implementation lists to match the live hook and workflow, including recording the already-live pre-push `encoding:check` leg the list omitted.                                                                                                                                                                                                                                                                                                                                                                                |
 | 2026-06-26 | Added the `dependency-review` row to the coverage matrix (CI-only, PR-advisory). Recorded the now-wired advisory dependency-review gate in §Dependency vulnerability gate status, and ADR-161's third-party-vendor scope refinement in §Network-free PR-check boundary (this ADR and ADR-161 amended in lockstep, as both require). Named dependency-review as a standing CI-only parity exception in design principle #1 alongside SonarCloud. The gate is advisory — not a required status check in the `main` ruleset (ADR-204). A full dependency-tree audit and blocking disposition per ADR-174 remain future work.                                                                                                                                                                                                                                                                                                                                                                               |
 | 2026-06-26 | CI restructured from one serial `run-quality-gates` job into parallel jobs (`secret-scan`, `install`, `static-checks`, `build`, `unit-tests`, `knip-depcruise`, `browser-tests`) gated by a `run-quality-gates` fan-in aggregator that reuses the existing required-check context (no ruleset change; every job blocks merge transitively). Updated the §Implementation CI bullet to describe the structure. The check SET is unchanged. New caching: an `install` job warms the pnpm store cache so downstream jobs install offline (no cold-start network stampede); the `build` job warms the Turbo remote cache; Playwright browsers are cached on the lockfile hash; gitleaks moved from a per-run Docker pull to a version- and SHA-256-pinned binary. Not addressed here (pre-existing #230 drift): the matrix still shows `test:widget*`/`test:a11y` as `pnpm check`-only though CI has run them since #230, and pre-push does not run them — a pre-push≠CI parity gap to reconcile separately. |
 | 2026-07-15 | Added the focused, verify-only `pnpm check:docs` aggregate for general documentation work. It composes root Prettier and Markdownlint checks with the documentation validator collection, while builds, product tests, browser suites, specialised-surface validators, and informational fitness reports remain outside this focused boundary. Reconciled adjacent stale `pnpm check` claims with executable truth: the full check uses verify-only format, Markdown, and lint commands and has no `doc-gen` stage.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
