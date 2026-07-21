@@ -116,6 +116,13 @@ describe('parsePrThroughputArgs', () => {
     );
   });
 
+  it('rejects a relative --gh override so the malformed shape stays on the usage contract', () => {
+    expect(() => parsePrThroughputArgs(['--gh', 'bin/gh'], NOW)).toThrow(/absolute path/u);
+    expect(parsePrThroughputArgs(['--gh', '/opt/homebrew/bin/gh'], NOW).ghOverride).toBe(
+      '/opt/homebrew/bin/gh',
+    );
+  });
+
   it('rejects non-positive window sizes', () => {
     expect(() => parsePrThroughputArgs(['--window-days', '0'], NOW)).toThrow(/positive integer/u);
   });

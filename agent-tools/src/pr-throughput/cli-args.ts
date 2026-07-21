@@ -6,6 +6,8 @@
  *
  * @packageDocumentation
  */
+import path from 'node:path';
+
 import { requireIsoDateTime } from '../core/iso-date-time.js';
 
 export const DEFAULT_REGISTER_PATH = '.agent/reports/agentic-engineering/pr-throughput-register.md';
@@ -107,7 +109,7 @@ function applyValueFlag(options: MutablePrThroughputOptions, flag: string, value
   } else if (flag === '--now') {
     options.now = parseIsoDate(value);
   } else if (flag === '--gh') {
-    options.ghOverride = value;
+    options.ghOverride = parseGhOverride(flag, value);
   } else {
     throw new Error(`unknown flag: ${flag}`);
   }
@@ -139,6 +141,17 @@ function parseSearchLimit(flag: string, value: string): number {
   }
 
   return parsed;
+}
+
+function parseGhOverride(flag: string, value: string): string {
+  // The usage text promises an ABSOLUTE path; validating the shape here
+  // keeps a malformed invocation on the usage/exit-2 contract instead of
+  // surfacing as an informational exit-0 runtime failure downstream.
+  if (!path.isAbsolute(value)) {
+    throw new Error(`${flag} requires an absolute path, got: ${value}`);
+  }
+
+  return value;
 }
 
 function parseIsoDate(value: string): Date {

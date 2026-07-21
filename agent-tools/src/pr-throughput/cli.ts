@@ -3,11 +3,13 @@
  * `pr-throughput` — the PDR-131 throughput register CLI.
  *
  * @remarks
- * Fitness-informational (ADR-144 three-zone model): the command ALWAYS exits
- * 0 — it reports trend, it never gates. Failures are printed loudly with the
- * contract named, so a red transport never masquerades as a quiet pass and
- * never blocks a chain. `--write` appends one dated row to the tracked
- * register; without it the row prints for inspection only.
+ * Fitness-informational (ADR-144 three-zone model): runtime and measurement
+ * failures print loudly with the contract named and exit 0 — the command
+ * reports trend, it never gates, and a red transport never masquerades as a
+ * quiet pass or blocks a chain. Only `--help` and argument errors sit outside
+ * that contract (usage + exit 0 / usage + exit 2, per the CLI help contract).
+ * `--write` appends one dated row to the tracked register; without it the row
+ * prints for inspection only.
  */
 import { execFileSync } from 'node:child_process';
 import {
@@ -47,8 +49,9 @@ export interface PrThroughputDeps {
 }
 
 /**
- * Run the report. Returns 0 in EVERY outcome (the informational contract);
- * failure text goes to stderr with the contract named so it reads loudly.
+ * Run the report. Runtime and measurement failures return 0 with loud stderr
+ * text naming the informational contract; `--help` returns 0 with the usage
+ * block, and argument errors return 2 with the error plus the usage block.
  */
 export function runPrThroughput(argv: readonly string[], deps: PrThroughputDeps): number {
   // Help and argument errors follow the agent-tools CLI help contract
@@ -191,7 +194,10 @@ function realDeps(): PrThroughputDeps {
       // race to lose) or a file that already starts with the full header —
       // never a partial or header-less register.
       const tempPath = `${registerPath}.${String(process.pid)}.header.tmp`;
-      writeFileSync(tempPath, header);
+      // 'wx' (exclusive create): a pre-existing file OR symlink at the
+      // predictable temp path fails loudly instead of being followed and
+      // truncating an arbitrary writable target.
+      writeFileSync(tempPath, header, { flag: 'wx' });
       try {
         linkSync(tempPath, registerPath);
         return true;
