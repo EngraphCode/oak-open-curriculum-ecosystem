@@ -10,6 +10,7 @@ const base: StatuslineParts = {
   identity: undefined,
   identityPrefix: undefined,
   ownerJobsOpen: undefined,
+  ownerJobsLink: undefined,
   dir: 'repo',
   branch: undefined,
   dirty: false,
