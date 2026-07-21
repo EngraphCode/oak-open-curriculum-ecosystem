@@ -26,7 +26,7 @@
  */
 
 import { execFileSync } from 'node:child_process';
-import { lstatSync, readFileSync, readlinkSync } from 'node:fs';
+import { readFileSync, readlinkSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -116,6 +116,19 @@ function listTrackedFiles(repoRoot: string): string[] {
   return stdout.split(NUL).filter((entry) => entry.length > 0);
 }
 
+/**
+ * Read a tracked path's scannable bytes: a symlink's link text, else the
+ * file content. `readlink` doubles as the symlink test (EINVAL on a
+ * regular file), so there is no stat-then-read race window.
+ */
+function readLinkBytesOrFile(absolute: string): Buffer {
+  try {
+    return Buffer.from(readlinkSync(absolute), 'utf8');
+  } catch {
+    return readFileSync(absolute);
+  }
+}
+
 /** Read and analyse every tracked file; `err` names the first unreadable file. */
 function analyzeAll(
   repoRoot: string,
@@ -124,15 +137,14 @@ function analyzeAll(
   const reports: FileEncodingReport[] = [];
   for (const relativePath of relativePaths) {
     try {
-      const absolute = path.join(repoRoot, relativePath);
       // A tracked symlink's scannable bytes ARE its link text (what git
       // stores) — a bidi/control byte hiding in a link target is exactly
       // this scanner's threat class, while following the link would
       // EISDIR on directory targets and double-scan file targets, which
-      // are scanned under their own tracked paths.
-      const bytes = lstatSync(absolute).isSymbolicLink()
-        ? Buffer.from(readlinkSync(absolute), 'utf8')
-        : readFileSync(absolute);
+      // are scanned under their own tracked paths. The read itself is the
+      // symlink test (readlink EINVALs on regular files) — no
+      // check-then-use window (CodeQL js/file-system-race).
+      const bytes = readLinkBytesOrFile(path.join(repoRoot, relativePath));
       reports.push(analyzeFileBytes(relativePath, new Uint8Array(bytes)));
     } catch (cause) {
       // Fail loud: a tracked file the scanner cannot read could hide an encoding
