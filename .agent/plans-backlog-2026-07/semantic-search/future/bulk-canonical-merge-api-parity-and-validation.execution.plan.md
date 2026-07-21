@@ -121,7 +121,7 @@ Unit documents expose `sequence_ids` but the builder fills them from **unit thre
 - Semantic summary text should reflect **all** units where required.
 - Update [`apps/oak-search-cli/docs/INDEXING.md`](../../../../apps/oak-search-cli/docs/INDEXING.md): row count vs unique `lesson_id`.
 
-**Quality gates**: See [.agent/plans/templates/components/quality-gates.md](../../templates/components/quality-gates.md) after code changes.
+**Quality gates**: See [.agent/plans/templates/components/quality-gates.md](../../../plans/templates/components/quality-gates.md) after code changes.
 
 ---
 

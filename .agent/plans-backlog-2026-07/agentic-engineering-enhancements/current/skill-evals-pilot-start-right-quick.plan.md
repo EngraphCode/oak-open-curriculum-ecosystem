@@ -187,7 +187,7 @@ ground truth (baseline vs skill), satisfying the value-proxy independence requir
 
 ## Risk Assessment
 
-> See [Risk Assessment component](../../templates/components/risk-assessment.md)
+> See [Risk Assessment component](../../../plans/templates/components/risk-assessment.md)
 
 | Risk | Mitigation |
 |------|------------|
@@ -200,7 +200,7 @@ ground truth (baseline vs skill), satisfying the value-proxy independence requir
 
 ## Foundation Alignment
 
-> See [Foundation Alignment component](../../templates/components/foundation-alignment.md)
+> See [Foundation Alignment component](../../../plans/templates/components/foundation-alignment.md)
 
 - [`principles.md` §Agentic Quality](../../../directives/principles.md) — the directive this pilot serves.
 - [`testing-strategy.md`](../../../directives/testing-strategy.md) — referenced for the *contrast*: evals are not TDD (see the first-principles check); the value-proxy independence rule applies.

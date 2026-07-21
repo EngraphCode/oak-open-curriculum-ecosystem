@@ -193,4 +193,4 @@ PR&nbsp;#203.
 `principles.md` simplicity-first (pure verdict core + thin I/O adapter); `testing-strategy.md`
 (fixture-driven verdict tests, no global state); `new-rule-vs-pdr-clause` (WS3 form decision);
 the rule-authoring canonical-plus-forwarders contract (WS3 adapters). Lifecycle per
-[`../../templates/components/lifecycle-triggers.md`](../../templates/components/lifecycle-triggers.md).
+[`../../../plans/templates/components/lifecycle-triggers.md`](../../../plans/templates/components/lifecycle-triggers.md).

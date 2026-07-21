@@ -1398,7 +1398,7 @@ re-stating the rule.
 
 ## WS5 — Quality Gates
 
-> See [Quality Gates component](../../templates/components/quality-gates.md)
+> See [Quality Gates component](../../../plans/templates/components/quality-gates.md)
 
 **Closeout note (2026-04-25 Codex)**: reviewer-reintegration commit
 `d9cb54e8` ran focused HTTP/Search tests plus `pnpm type-check`, `pnpm lint`,
@@ -1445,7 +1445,7 @@ before WS6.
 
 ## WS6 — Adversarial Review (POST-execution)
 
-> See [Adversarial Review component](../../templates/components/adversarial-review.md)
+> See [Adversarial Review component](../../../plans/templates/components/adversarial-review.md)
 
 **Next Sentry-focused step after owner push (2026-04-25)**: identify the
 Vercel deployment triggered by pushed branch `feat/otel_sentry_enhancements`
@@ -1486,7 +1486,7 @@ rejections recorded with rationale per principles §Reviewer findings.
 
 ## Risk Assessment
 
-> See [Risk Assessment component](../../templates/components/risk-assessment.md)
+> See [Risk Assessment component](../../../plans/templates/components/risk-assessment.md)
 
 | Risk                                                                                                   | Mitigation                                                                                                                                                                              |
 | ------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -1514,7 +1514,7 @@ rejections recorded with rationale per principles §Reviewer findings.
 
 ## Foundation Alignment
 
-> See [Foundation Alignment component](../../templates/components/foundation-alignment.md)
+> See [Foundation Alignment component](../../../plans/templates/components/foundation-alignment.md)
 
 - **Single source of truth for types** (`.agent/directives/principles.md`
   §Compiler Time Types and Runtime Validation): the new `ReleaseInput` interface in
@@ -1580,7 +1580,7 @@ rejections recorded with rationale per principles §Reviewer findings.
 
 ## Documentation Propagation
 
-> See [Documentation Propagation component](../../templates/components/documentation-propagation.md)
+> See [Documentation Propagation component](../../../plans/templates/components/documentation-propagation.md)
 
 | Surface                                                                              | Update                                                                                          |
 | ------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- |

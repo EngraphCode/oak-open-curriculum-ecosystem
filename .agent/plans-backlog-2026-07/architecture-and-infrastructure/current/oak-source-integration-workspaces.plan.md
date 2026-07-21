@@ -913,7 +913,7 @@ pnpm check
 
 The exact child commands are recorded in preflight from their live manifests;
 the plan must not preserve stale command literals. All gates must pass. See
-[Quality Gates](../../templates/components/quality-gates.md).
+[Quality Gates](../../../plans/templates/components/quality-gates.md).
 
 ### WS8 — adversarial review
 
@@ -1023,7 +1023,7 @@ claim, apply
 ## Lifecycle Triggers
 
 This cross-repository plan follows
-[Lifecycle Triggers](../../templates/components/lifecycle-triggers.md):
+[Lifecycle Triggers](../../../plans/templates/components/lifecycle-triggers.md):
 
 1. Start each execution session with `oak-start-right-thorough`; inspect live
    claims, directed messages, collaboration logs, source heads, and the serving

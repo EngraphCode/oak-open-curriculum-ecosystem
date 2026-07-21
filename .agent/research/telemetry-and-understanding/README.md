@@ -35,8 +35,8 @@ questions.
 
 The research is operationalised by:
 
-- [`plans/telemetry-and-understanding/roadmap.md`](../../plans/telemetry-and-understanding/roadmap.md)
-- [`plans/telemetry-and-understanding/current/tau-delivery.plan.md`](../../plans/telemetry-and-understanding/current/tau-delivery.plan.md)
+- [`plans/telemetry-and-understanding/roadmap.md`](../../plans-backlog-2026-07/telemetry-and-understanding/roadmap.md)
+- [`plans/telemetry-and-understanding/current/tau-delivery.plan.md`](../../plans-backlog-2026-07/telemetry-and-understanding/current/tau-delivery.plan.md)
 
 ## Evidence authority by claim type
 

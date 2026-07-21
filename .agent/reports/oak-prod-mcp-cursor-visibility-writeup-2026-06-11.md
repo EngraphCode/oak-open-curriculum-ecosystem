@@ -8,7 +8,7 @@
   access to a Cursor seat.
 - **Status**: write-up only — no fixes applied, by owner direction
   (2026-06-11 evening). The tracker is
-  [`oak-prod-mcp-snagging-2026-06-11.plan.md`](../plans/sdk-and-mcp-enhancements/current/oak-prod-mcp-snagging-2026-06-11.plan.md).
+  [`oak-prod-mcp-snagging-2026-06-11.plan.md`](../plans-backlog-2026-07/sdk-and-mcp-enhancements/current/oak-prod-mcp-snagging-2026-06-11.plan.md).
 - **Outcome addendum (2026-06-11, late evening)**: the owner decided S1 the
   same day — `get-eef-evidence` aligns onto the family dual response shape
   (§7 option 1, strengthened: full `formatToolResponse` delegation, not just a
@@ -227,7 +227,7 @@ Then over JSON-RPC (`initialize` → `tools/call`):
 > made option 2 untenable: holding the ratified shape would have kept the
 > tool dead for the content-block-only client population. The coherence note
 > (option 3) is reconciled in
-> [`output-schemas-for-mcp-tools.plan.md`](../plans/sdk-and-mcp-enhancements/current/output-schemas-for-mcp-tools.plan.md)
+> [`output-schemas-for-mcp-tools.plan.md`](../plans-backlog-2026-07/sdk-and-mcp-enhancements/current/output-schemas-for-mcp-tools.plan.md)
 > §Provenance landed-shape note: `composeEnvelopeSchema` now applies to EEF
 > uniformly.
 
@@ -241,13 +241,13 @@ Then over JSON-RPC (`initialize` → `tools/call`):
    only if the agent-client population that matters renders
    `structuredContent` (see §5.4 third bullet: gather that evidence first).
 3. **Coherence note**: whatever is chosen should be reconciled with
-   [`output-schemas-for-mcp-tools.plan.md`](../plans/sdk-and-mcp-enhancements/current/output-schemas-for-mcp-tools.plan.md)
+   [`output-schemas-for-mcp-tools.plan.md`](../plans-backlog-2026-07/sdk-and-mcp-enhancements/current/output-schemas-for-mcp-tools.plan.md)
    (`composeEnvelopeSchema` owns the long-term success-shape contract).
 
 ## 8. Remaining snags (tracked, not expanded here)
 
 See the
-[snagging plan](../plans/sdk-and-mcp-enhancements/current/oak-prod-mcp-snagging-2026-06-11.plan.md)
+[snagging plan](../plans-backlog-2026-07/sdk-and-mcp-enhancements/current/oak-prod-mcp-snagging-2026-06-11.plan.md)
 findings register: keyword description leakage (`keyword:convert` serving a
 religion-flavoured description into maths results), the "Interpret adn
 present data" corpus typo, the `get-keyword-graph` `limit` schema declaring

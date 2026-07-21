@@ -452,7 +452,7 @@ precedents, not invented shapes).
 
 ## Lifecycle triggers
 
-See the [lifecycle-triggers component](../../../templates/components/lifecycle-triggers.md).
+See the [lifecycle-triggers component](../../../../plans/templates/components/lifecycle-triggers.md).
 Touch points: start-right at session open; an active claim on
 `packages/sdks/oak-sdk-codegen/`, `packages/sdks/oak-curriculum-sdk/src/mcp/`, and
 `packages/sdks/graph-corpus-sdk/` before the first execution edit (EEF shares the

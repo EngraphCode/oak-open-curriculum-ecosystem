@@ -179,7 +179,7 @@ drifted.
 
 ## Lifecycle Triggers
 
-> See [Lifecycle Triggers component](../../templates/components/lifecycle-triggers.md)
+> See [Lifecycle Triggers component](../../../plans/templates/components/lifecycle-triggers.md)
 
 Work shape: executable repo plan (this document). Execution sessions open with
 `oak-start-right-quick`, register an active claim on
@@ -500,7 +500,7 @@ PDR-027 example that cites a v2 name.
 
 ## WS5 — Quality Gates
 
-> See [Quality Gates component](../../templates/components/quality-gates.md)
+> See [Quality Gates component](../../../plans/templates/components/quality-gates.md)
 
 Run the full chain on the integrated delivery; green repeatedly. The
 portability gate (`pnpm portability:check`) matters here — the cure changes
@@ -508,7 +508,7 @@ platform hook surfaces.
 
 ## WS6 — Adversarial Review
 
-> See [Adversarial Review component](../../templates/components/adversarial-review.md)
+> See [Adversarial Review component](../../../plans/templates/components/adversarial-review.md)
 
 Dispatch by substance: `code-expert` (gateway), `test-expert` (cycle shape +
 no audit-tests), `type-expert` (the `NamingSchemaId` union widening + env
@@ -553,7 +553,7 @@ is complete at AC-1…AC-5; the full plan at AC-1…AC-9.
 
 ## Foundation Alignment
 
-> See [Foundation Alignment component](../../templates/components/foundation-alignment.md)
+> See [Foundation Alignment component](../../../plans/templates/components/foundation-alignment.md)
 
 - `principles.md`: long-term architectural correctness — derive-from-seed+era
   over caching a rendered string; the cure is structural (the name is
@@ -610,7 +610,7 @@ discovered later.
 
 ## Documentation Propagation
 
-> See [Documentation Propagation component](../../templates/components/documentation-propagation.md)
+> See [Documentation Propagation component](../../../plans/templates/components/documentation-propagation.md)
 
 WS4 enumerates the doc surfaces; the ADR-198 amendment (or successor) is the
 permanent consolidation record for both the era-pinning cure and the v3 era.

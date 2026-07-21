@@ -423,8 +423,8 @@ does not mean the implementation is complete.
 - [Principles](../../../../directives/principles.md)
 - [Testing strategy](../../../../directives/testing-strategy.md)
 - [Schema-first execution](../../../../directives/schema-first-execution.md)
-- [Plan lifecycle and templates](../../../templates/README.md)
-- [Lifecycle triggers](../../../templates/components/lifecycle-triggers.md)
+- [Plan lifecycle and templates](../../../../plans/templates/README.md)
+- [Lifecycle triggers](../../../../plans/templates/components/lifecycle-triggers.md)
 
 First question at every promotion boundary: could this be simpler without
 compromising source fidelity, semantic honesty, or user value?

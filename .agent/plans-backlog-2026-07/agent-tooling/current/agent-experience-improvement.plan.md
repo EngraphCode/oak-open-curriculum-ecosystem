@@ -236,7 +236,7 @@ shape into a reusable register-integrity pattern if a second register wants it
 
 ## Lifecycle Triggers
 
-Per [`lifecycle-triggers.md`](../../templates/components/lifecycle-triggers.md):
+Per [`lifecycle-triggers.md`](../../../plans/templates/components/lifecycle-triggers.md):
 claim registration on execution start (the agent-tools validators dir + the
 collaboration-state CLI write sites + the register + the gate scripts); reviewer
 dispatch before completion; consolidation on completion (frictions-register status

@@ -221,7 +221,7 @@ Oak staff have no low-friction way to ask questions about the *project* — the 
 
 ## Lifecycle Triggers
 
-> See [Lifecycle Triggers component](../../templates/components/lifecycle-triggers.md)
+> See [Lifecycle Triggers component](../../../plans/templates/components/lifecycle-triggers.md)
 
 - **Start-right** each session; **thread record** `oak-slack-assistants.next-session.md`;
   **active claim** on `apps/slack/**` + `packages/libs/ai-gateway/**` +
@@ -232,7 +232,7 @@ Oak staff have no low-friction way to ask questions about the *project* — the 
 
 ## Cycle Dependencies and Parallelisation
 
-> See [TDD Cycles component](../../templates/components/tdd-phases.md)
+> See [TDD Cycles component](../../../plans/templates/components/tdd-phases.md)
 
 WS0 gates the new-workspace work. **WS-E1 is parallel-safe immediately** (logger-only file
 scope). **WS-E2's extraction cycles can be drafted in parallel, but its boundary
@@ -657,7 +657,7 @@ READMEs; register Ask Oisín as a runtime in
 
 ## Foundation Alignment
 
-> See [Foundation Alignment component](../../templates/components/foundation-alignment.md)
+> See [Foundation Alignment component](../../../plans/templates/components/foundation-alignment.md)
 
 - **principles.md** — decision lenses (design §4); strict boundaries (branded egress type);
   long-term architecture over expediency (isolated libs, provider decomposition, estate
@@ -674,7 +674,7 @@ READMEs; register Ask Oisín as a runtime in
 
 ## Documentation Propagation
 
-> See [Documentation Propagation component](../../templates/components/documentation-propagation.md)
+> See [Documentation Propagation component](../../../plans/templates/components/documentation-propagation.md)
 
 The two ADRs (WS0 scaffolding; WS-E2 provider model); lib + app READMEs; the design-doc
 status; the logging record (already carries the resolution); `what-the-system-emits-today.md`;

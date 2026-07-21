@@ -244,7 +244,7 @@ canonical lifecycle entry remains in the table above; this section
 makes the substrate role visible.
 
 Convention defined by
-[`templates/components/substrate-vs-axis-plans.md`](../templates/components/substrate-vs-axis-plans.md);
+[`templates/components/substrate-vs-axis-plans.md`](../../plans/templates/components/substrate-vs-axis-plans.md);
 implements ADR-162 §"Closure Property and Test Gate" cross-axis
 infrastructure.
 
@@ -383,6 +383,6 @@ Each emission site's owning plan is responsible for:
 - [Observability directory README](./README.md)
 - [ADR-162 Observability-First](../../../docs/architecture/architectural-decisions/162-observability-first.md)
 - [Direction-setting session report](../../../docs/explorations/2026-04-18-observability-strategy-and-restructure.md)
-- [Observability strategy restructure plan](../../../.agent/plans/architecture-and-infrastructure/current/observability-strategy-restructure.plan.md)
+- [Observability strategy restructure plan](../architecture-and-infrastructure/current/observability-strategy-restructure.plan.md)
 - [Repo-wide plan index](../high-level-plan.md)
 - [Parent foundation plan](../architecture-and-infrastructure/active/sentry-otel-integration.execution.plan.md) (cross-cutting; not moved)

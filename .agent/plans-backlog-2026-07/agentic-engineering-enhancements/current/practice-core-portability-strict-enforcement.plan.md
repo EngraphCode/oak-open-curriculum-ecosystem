@@ -316,7 +316,7 @@ Before the first non-planning edit:
    `scripts/`, every file under `.agent/practice-core/`, the
    practice-index file).
 4. Apply
-   [`lifecycle-triggers`](../../templates/components/lifecycle-triggers.md)
+   [`lifecycle-triggers`](../../../plans/templates/components/lifecycle-triggers.md)
    for any non-trivial cross-file edit. Practice-Core edits are
    particularly sensitive — peer agents may be reading / amending
    the same files.

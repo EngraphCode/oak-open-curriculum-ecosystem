@@ -7,9 +7,9 @@ status: active
 # Cloudflare Plus Sentry Security Observability
 
 **Status**: Stub. Informs the MVP scope of
-[`current/security-observability.plan.md`](../../.agent/plans/observability/current/security-observability.plan.md)
+[`current/security-observability.plan.md`](../../.agent/plans-backlog-2026-07/observability/current/security-observability.plan.md)
 and the promotion trigger of
-[`future/security-observability-phase-2.plan.md`](../../.agent/plans/observability/future/security-observability-phase-2.plan.md).
+[`future/security-observability-phase-2.plan.md`](../../.agent/plans-backlog-2026-07/observability/future/security-observability-phase-2.plan.md).
 Full analysis authored when the promotion trigger fires.
 
 ---
@@ -81,10 +81,10 @@ that Oak should adopt or decline?
 
 ## 4. Informs
 
-- [`current/security-observability.plan.md`](../../.agent/plans/observability/current/security-observability.plan.md)
+- [`current/security-observability.plan.md`](../../.agent/plans-backlog-2026-07/observability/current/security-observability.plan.md)
   — MVP scope is app-layer only; this exploration confirms or
   narrows the boundary.
-- [`future/security-observability-phase-2.plan.md`](../../.agent/plans/observability/future/security-observability-phase-2.plan.md)
+- [`future/security-observability-phase-2.plan.md`](../../.agent/plans-backlog-2026-07/observability/future/security-observability-phase-2.plan.md)
   — promotion trigger is "exploration 6 or 7 conclusions"; this is
   exploration 6.
 - [Exploration 7](./2026-04-18-static-analysis-augmentation.md) —
@@ -114,7 +114,7 @@ Until then, the exploration remains a focused brief.
 
 - [Direction-setting session §3.11](./2026-04-18-observability-strategy-and-restructure.md#311-security-observability-lightly-scoped)
   — owner framing.
-- [`current/security-observability.plan.md`](../../.agent/plans/observability/current/security-observability.plan.md)
+- [`current/security-observability.plan.md`](../../.agent/plans-backlog-2026-07/observability/current/security-observability.plan.md)
   — the plan this exploration scopes.
 - [Exploration 7](./2026-04-18-static-analysis-augmentation.md) —
   static-analysis complement.

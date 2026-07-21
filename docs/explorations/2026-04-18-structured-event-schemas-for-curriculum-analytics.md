@@ -8,7 +8,7 @@ status: informed-plan-observability-events-workspace
 
 This exploration defines the shape of the seven MVP observability events
 that land in `packages/core/observability-events/` via
-[`observability-events-workspace.plan.md`](../../.agent/plans/observability/current/observability-events-workspace.plan.md).
+[`observability-events-workspace.plan.md`](../../.agent/plans-backlog-2026-07/observability/current/observability-events-workspace.plan.md).
 It is the evidence base for WS1 RED (schema contract tests) and WS2 GREEN
 (schema implementations): every open scoping question in that plan is
 answered here, or carried forward as a named open research question with
@@ -374,7 +374,7 @@ arg-combinations are most used" without any value exposure.
 
 Emitted by search-path handlers (MCP server + search CLI). Compatible
 with Oak's existing zero-hit capture (see
-[`search-observability.plan.md § RQ-ZERO`](../../.agent/plans/observability/current/search-observability.plan.md)).
+[`search-observability.plan.md § RQ-ZERO`](../../.agent/plans-backlog-2026-07/observability/current/search-observability.plan.md)).
 
 | Field                | Type                                              | Redaction posture | Notes                                                                 |
 | -------------------- | ------------------------------------------------- | ----------------- | --------------------------------------------------------------------- |
@@ -575,22 +575,22 @@ shape); mapping audit at WS2 GREEN.
 
 ## 6. Informs
 
-- [`.agent/plans/observability/current/observability-events-workspace.plan.md`](../../.agent/plans/observability/current/observability-events-workspace.plan.md)
+- [`.agent/plans/observability/current/observability-events-workspace.plan.md`](../../.agent/plans-backlog-2026-07/observability/current/observability-events-workspace.plan.md)
   — the seven MVP schemas in §4.6 are this plan's WS1 RED schema
   contract and WS2 GREEN implementation target. The correlation-keys
   contract (§4.4) is the plan's `correlation-keys.unit.test.ts`
   subject. The redaction-posture annotation (§4.5) governs the
   conformance helper's test shape.
-- [`.agent/plans/observability/current/accessibility-observability.plan.md`](../../.agent/plans/observability/current/accessibility-observability.plan.md)
+- [`.agent/plans/observability/current/accessibility-observability.plan.md`](../../.agent/plans-backlog-2026-07/observability/current/accessibility-observability.plan.md)
   — the `a11y_preference_tag` and `widget_session_outcome` shapes
   here are what the a11y plan's emissions conform to.
-- [`.agent/plans/observability/current/security-observability.plan.md`](../../.agent/plans/observability/current/security-observability.plan.md)
+- [`.agent/plans/observability/current/security-observability.plan.md`](../../.agent/plans-backlog-2026-07/observability/current/security-observability.plan.md)
   — the `auth_failure` and `rate_limit_triggered` shapes here are
   what the security plan's emission sites conform to.
-- [`.agent/plans/observability/current/search-observability.plan.md`](../../.agent/plans/observability/current/search-observability.plan.md)
+- [`.agent/plans/observability/current/search-observability.plan.md`](../../.agent/plans-backlog-2026-07/observability/current/search-observability.plan.md)
   — the `search_query` shape here is what RQ-ZERO and the MCP
   server's search-tool emissions conform to.
-- [`.agent/plans/observability/active/sentry-observability-maximisation-mcp.plan.md`](../../.agent/plans/observability/active/sentry-observability-maximisation-mcp.plan.md)
+- [`.agent/plans/observability/active/sentry-observability-maximisation-mcp.plan.md`](../../.agent/plans-backlog-2026-07/observability/active/sentry-observability-maximisation-mcp.plan.md)
   — L-0/L-1/L-3 emissions use the `tool_invoked` schema; L-9 uses
   `feedback_submitted`.
 - [ADR-162](../architecture/architectural-decisions/162-observability-first.md)

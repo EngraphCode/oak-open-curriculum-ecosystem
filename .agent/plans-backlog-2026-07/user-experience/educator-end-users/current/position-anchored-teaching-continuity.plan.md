@@ -279,7 +279,7 @@ trip; delivered value remains release-and-observe (P5).
   prompt-test idiom against the then-current estate) and before any W2
   sentence lands (re-verify the evidenced behaviour).
 - Lifecycle triggers: per
-  [`lifecycle-triggers.md`](../../../templates/components/lifecycle-triggers.md)
+  [`lifecycle-triggers.md`](../../../../plans/templates/components/lifecycle-triggers.md)
   — claim per workstream, handoff record on mid-cycle retirement,
   consolidation at completion.
 - Readiness reviewers (before any DECISION-COMPLETE/execution-ready claim):

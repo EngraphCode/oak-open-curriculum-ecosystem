@@ -14,7 +14,7 @@ merge_class: index-narrative-tables
 
 Thread: `main-sonar-ai-profile-to-zero`
 Primary plan:
-[`main-sonar-ai-profile-to-zero.plan.md`](../../../plans/architecture-and-infrastructure/current/main-sonar-ai-profile-to-zero.plan.md)
+[`main-sonar-ai-profile-to-zero.plan.md`](../../../plans-backlog-2026-07/architecture-and-infrastructure/current/main-sonar-ai-profile-to-zero.plan.md)
 Supersedes the retired `main-critical-sonar-remediation` lane.
 
 ## Participating Agent Identities

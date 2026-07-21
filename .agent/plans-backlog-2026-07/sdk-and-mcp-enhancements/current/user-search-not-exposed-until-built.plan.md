@@ -209,7 +209,7 @@ Completion requires every id proven. TDD evidence is test-first per cycle.
 
 ## Lifecycle Triggers
 
-> See [Lifecycle Triggers component](../../templates/components/lifecycle-triggers.md)
+> See [Lifecycle Triggers component](../../../plans/templates/components/lifecycle-triggers.md)
 
 Work shape: **bounded executable repo plan**, single arc. Touch points:
 start-right at session open; an active-claim over the touched app/SDK files;

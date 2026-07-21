@@ -181,7 +181,7 @@ this arc, not only the pilot's prior run.
 
 ## Session Discipline
 
-See [`../../templates/components/session-discipline.md`](../../templates/components/session-discipline.md).
+See [`../../../plans/templates/components/session-discipline.md`](../../../plans/templates/components/session-discipline.md).
 The four disciplines apply to every session in this plan.
 
 1. **Template-not-contract:** this plan is shaped as lanes, not a fixed session
@@ -207,7 +207,7 @@ The four disciplines apply to every session in this plan.
 
 ## Lifecycle Triggers
 
-See [`../../templates/components/lifecycle-triggers.md`](../../templates/components/lifecycle-triggers.md).
+See [`../../../plans/templates/components/lifecycle-triggers.md`](../../../plans/templates/components/lifecycle-triggers.md).
 
 - **Session entry:** the Director rehydrates from the director brief (seat
   procedure + `CURRENT HANDOFF STATE`) and runs its readiness self-check before

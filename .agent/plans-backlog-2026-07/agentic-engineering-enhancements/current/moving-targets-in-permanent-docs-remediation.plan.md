@@ -210,7 +210,7 @@ Before beginning work and at the start of each phase:
 3. Register active areas before edits; permanent-doc edits are
    cross-cutting and may collide with peer agents' work.
 4. Apply
-   [`lifecycle-triggers`](../../templates/components/lifecycle-triggers.md)
+   [`lifecycle-triggers`](../../../plans/templates/components/lifecycle-triggers.md)
    for any non-trivial cross-file edit.
 
 ---

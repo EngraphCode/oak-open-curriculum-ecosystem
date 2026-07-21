@@ -323,7 +323,7 @@ its block condition, markdownlint + relevant gates green.
 knowledge-preservation, no-moving-targets),
 [`never-use-git-to-remove-work`](../../../../rules/never-use-git-to-remove-work.md)
 (archive by move, never delete), plan conventions in
-[`templates/README.md`](../../../templates/README.md) and the
+[`templates/README.md`](../../../../plans/templates/README.md) and the
 [`/oak-plan` skill](../../../../skills/plan/SKILL-CANONICAL.md).
 
 ## Readiness reviewers

@@ -217,4 +217,4 @@ pointers touch ADR-cited content.
 On completion: run `oak-consolidate-docs`; keep repo-continuity pointing at this
 hub; route any durable doctrine (the capability-first / reciprocal-announcement
 framing) to its permanent home if it stabilises. Lifecycle triggers per
-[`../../../templates/components/lifecycle-triggers.md`](../../../templates/components/lifecycle-triggers.md).
+[`../../../../plans/templates/components/lifecycle-triggers.md`](../../../../plans/templates/components/lifecycle-triggers.md).

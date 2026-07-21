@@ -121,7 +121,7 @@ them; WS6 documents.
 
 Each cycle is one commit; every commit ends with all tests passing and the relevant local gates
 green; the final validation is the canonical aggregate gate per
-[`../../templates/components/quality-gates.md`](../../templates/components/quality-gates.md).
+[`../../../plans/templates/components/quality-gates.md`](../../../plans/templates/components/quality-gates.md).
 
 ## Prerequisites
 
@@ -178,7 +178,7 @@ EEF PR merge.
 
 ## Lifecycle Triggers
 
-See [`../../templates/components/lifecycle-triggers.md`](../../templates/components/lifecycle-triggers.md).
+See [`../../../plans/templates/components/lifecycle-triggers.md`](../../../plans/templates/components/lifecycle-triggers.md).
 Work shape: executable, queued. Touch points: start-right at session open; an active claim on
 `agent-tools/src/mcp-inspector-smoke/` and `agent-tools/package.json` before the first edit;
 session-handoff at boundaries; consolidation at completion (mine the README entry + retire this

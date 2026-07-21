@@ -1,6 +1,6 @@
 # `plan` Node-Schema — V0 Specification
 
-**FRAMING UPDATE (2026-06-22, [ADR-200](../../../docs/architecture/architectural-decisions/200-intent-as-a-living-idea-graph.md)).**
+**FRAMING UPDATE (2026-06-22, [ADR-200](../../docs/architecture/architectural-decisions/200-intent-as-a-living-idea-graph.md)).**
 This schema's _structure_ stands and is reused — it is the **plan-layer projection schema**, the form the
 **new strategy-aligned plans are authored to** (the V0-bridge in ADR-200 §Consequences). What is
 **superseded** is the framing below of V0 as a "pre-survey hypothesis the survey tests against the estate"
@@ -16,19 +16,19 @@ historical context, not the active method.
 > **Status: V0 — decision-complete as V0, explicitly pre-survey.** Every
 > decision below is stated definitely (no "TBD", no "decide at execution
 > time"). V0 is not a draft to be filled in later; it is a **falsifiable
-> hypothesis** the [deep plan-estate survey](../../plans-old-archive/product-development-governance/future/deep-plan-estate-survey.plan.md)
+> hypothesis** the [deep plan-estate survey](../plans-old-archive/product-development-governance/future/deep-plan-estate-survey.plan.md)
 > (archived — superseded by ADR-200) tests against the real estate. The survey grounds **V1** by _additively
 > refining_ this contract where the estate proves it incomplete. See
 > [§0](#0-the-v0--survey--v1-contract).
 >
 > **Authority.** This spec is the V0 plan-node-schema **bridge** under
-> [ADR-200](../../../docs/architecture/architectural-decisions/200-intent-as-a-living-idea-graph.md)
+> [ADR-200](../../docs/architecture/architectural-decisions/200-intent-as-a-living-idea-graph.md)
 > (§Consequences — V0 plans as the bridge), consumed by
-> the [controlling plan's](./vision-strategy-and-plan-estate.plan.md) **Body 3**
+> the [controlling plan's](../plans-backlog-2026-07/product-development-governance/vision-strategy-and-plan-estate.plan.md) **Body 3**
 > as its conformance standard (Anchor B). It reconciles
-> [PDR-018](../../practice-core/decision-records/PDR-018-planning-discipline.md),
-> [ADR-117](../../../docs/architecture/architectural-decisions/117-plan-templates-and-components.md),
-> the [plan templates](../templates/README.md), and the emergent frontmatter
+> [PDR-018](../practice-core/decision-records/PDR-018-planning-discipline.md),
+> [ADR-117](../../docs/architecture/architectural-decisions/117-plan-templates-and-components.md),
+> the [plan templates](templates/README.md), and the emergent frontmatter
 > reality. The human-facing governance calls (the closed enum _values_ for the
 > human-facing axes, the folder collapse, and the default gate-expiry horizon) are
 > **owner-signed**: V0 records the settled outcome for each below; the enum
@@ -257,7 +257,7 @@ enum _membership_ remains survey-may-add (additive only).
 
 **Durable, repo · model LOCKED · `awaiting` values owner-signed (SURVEY-MAY-ADD-VALUES).**
 There is **no open-ended "paused" state.** The repo's own doctrine
-([`no-hedging-vocabulary.md`](../../rules/no-hedging-vocabulary.md)) is explicit:
+([`no-hedging-vocabulary.md`](../rules/no-hedging-vocabulary.md)) is explicit:
 work is either a live deliverable with _named dependencies and an owner-agreed
 gate_, or it is removed by owner decision — there is no indefinite holding
 state. A bare `paused` flag fails this twice: it has no intrinsic exit, and it
@@ -429,7 +429,7 @@ edge ([§4](#4-typed-edges)) — without it, lead-time and attribution would be
 reconstructed from commit trailers; with it they are a traversal. The full
 derivation, the two-altitudes framing, and why the toolchain-observability is
 intrinsic here are the design authority of
-[ADR-207](../../../docs/architecture/architectural-decisions/207-dora-delivery-metrics-as-a-structural-property.md).
+[ADR-207](../../docs/architecture/architectural-decisions/207-dora-delivery-metrics-as-a-structural-property.md).
 
 ### 5.5 Closing the loop — returning evidence and the multi-developer transition
 
@@ -447,12 +447,12 @@ reuse the `evidence` family and add no new mechanism:
   stack**. The intent graph, fed by returning evidence, _is_ the continuous-measurement substrate.
 
 Detail and the continuous-measurement gap map:
-[ADR-207](../../../docs/architecture/architectural-decisions/207-dora-delivery-metrics-as-a-structural-property.md).
+[ADR-207](../../docs/architecture/architectural-decisions/207-dora-delivery-metrics-as-a-structural-property.md).
 
 These evidence edges are **populated by an evidence-ingestion layer** — connectors drawing directly
 from the sources (Vercel / Sentry / Sonar / GitHub / PostHog), triggers, agentic analysis, and
 validated write-back — the required, build-deferred actuation layer decided in
-[ADR-201 §5](../../../docs/architecture/architectural-decisions/201-external-systems-evidence-integration.md).
+[ADR-201 §5](../../docs/architecture/architectural-decisions/201-external-systems-evidence-integration.md).
 V0 only ensures the contract has the typed edges that layer will populate.
 
 ---
@@ -582,7 +582,7 @@ V0 succeeds as a lens, not as a finished standard. It is accepted when:
    without retrofit — node-schema #1 is one entry in the registry, its edges one
    slice of the vocabulary.
 4. **The survey can consume it.** The
-   [deep-survey brief](../../plans-old-archive/product-development-governance/future/deep-plan-estate-survey.plan.md)
+   [deep-survey brief](../plans-old-archive/product-development-governance/future/deep-plan-estate-survey.plan.md)
    (archived — superseded by ADR-200) can read the estate against V0 and emit
    additive refinements → V1.
 

@@ -306,7 +306,7 @@ as const` on the edges) and instantiate
 
 ## Quality gates
 
-Per [`quality-gates`](../../../templates/components/quality-gates.md): during
+Per [`quality-gates`](../../../../plans/templates/components/quality-gates.md): during
 authoring, each cycle's internal checkpoint runs its focused workspace test plus
 `pnpm --filter <workspace> type-check` and `pnpm --filter <workspace> lint`
 (WS1.1 also runs the graph-corpus-sdk `type-check` + `lint` for its TSDoc
@@ -524,7 +524,7 @@ Cross-consistency: the parent §D5 Proof command was aligned to include
 
 ## Learning loop & lifecycle triggers
 
-Per [`lifecycle-triggers`](../../../templates/components/lifecycle-triggers.md):
+Per [`lifecycle-triggers`](../../../../plans/templates/components/lifecycle-triggers.md):
 session entry runs `start-right-*` and reads active claims/comms; the
 work-shape declaration is this `current/` plan; pre-edit coordination is the open
 `eef` plan-kind claim. On completion, mine outcomes into the master plan (flip the

@@ -247,7 +247,7 @@ do not implement it. Route it to the relevant future plan or decision register.
 
 ## Lifecycle Triggers
 
-See [Lifecycle Triggers component](../../templates/components/lifecycle-triggers.md).
+See [Lifecycle Triggers component](../../../plans/templates/components/lifecycle-triggers.md).
 
 - Session entry: start-right, active claims, thread record, current plan, and
   standards-verification report.

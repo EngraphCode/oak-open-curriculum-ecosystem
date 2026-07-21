@@ -406,7 +406,7 @@ the live surfaces. No vendor-literal call shapes are involved.
 
 ## Lifecycle triggers
 
-Reference [`lifecycle-triggers`](../../templates/components/lifecycle-triggers.md).
+Reference [`lifecycle-triggers`](../../../plans/templates/components/lifecycle-triggers.md).
 Execution touches skills, an entry point, and an ADR — significant Practice/doc
 change → the readiness reviewers (already run) and WS5 onboarding/docs validation
 are the required touch points; WS6 runs the consolidation learning loop at

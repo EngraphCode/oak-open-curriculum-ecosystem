@@ -108,7 +108,7 @@ that carry them.
 
 ## Lifecycle triggers
 
-> See [Lifecycle Triggers component](../../templates/components/lifecycle-triggers.md)
+> See [Lifecycle Triggers component](../../../plans/templates/components/lifecycle-triggers.md)
 
 Work shape: executable repo plan (this file). Claim: `ba5b683d` (implementer,
 `agent-tools/**`, thread `plan-corpus-refounding`). Worktree:
@@ -119,7 +119,7 @@ at natural boundaries per `oak-session-handoff` / `oak-consolidate-docs`.
 
 ## Session discipline (multi-session plan)
 
-> See [`session-discipline.md`](../../templates/components/session-discipline.md). Item
+> See [`session-discipline.md`](../../../plans/templates/components/session-discipline.md). Item
 > count is template-not-contract; the successor picks up at the first `pending` todo whose
 > `depends_on` is satisfied, reading the per-item sections below as the delegation brief.
 
@@ -226,7 +226,7 @@ passes; recomputable (no recorded-green trust).
 
 Per item, scoped: `pnpm --filter @oaknational/agent-tools type-check | lint | test` +
 `pnpm repo-validators:check` where wired. Pre-push and PR CI run the canonical aggregate
-gate (see [quality-gates component](../../templates/components/quality-gates.md)). Zero new
+gate (see [quality-gates component](../../../plans/templates/components/quality-gates.md)). Zero new
 warnings (`no-warning-toleration`).
 
 ## Risk assessment

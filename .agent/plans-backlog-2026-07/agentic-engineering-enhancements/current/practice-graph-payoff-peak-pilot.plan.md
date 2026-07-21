@@ -284,7 +284,7 @@ than raw `rg` + manual reading, the pilot did not deliver enough value.
 ## Session Discipline
 
 > **Session discipline**: see
-> [`../../templates/components/session-discipline.md`](../../templates/components/session-discipline.md).
+> [`../../../plans/templates/components/session-discipline.md`](../../../plans/templates/components/session-discipline.md).
 > The four disciplines (template-not-contract count, mid-arc checkpoints,
 > context-budget thresholds, metacognition at open) apply to every session in
 > this plan.
@@ -539,7 +539,7 @@ discoverable without confusing the graph with canonical memory.
 
 ## Quality Gates
 
-> See [Quality Gates component](../../templates/components/quality-gates.md)
+> See [Quality Gates component](../../../plans/templates/components/quality-gates.md)
 
 After each task:
 
@@ -572,7 +572,7 @@ pass.
 
 ## Risk Assessment
 
-> See [Risk Assessment component](../../templates/components/risk-assessment.md)
+> See [Risk Assessment component](../../../plans/templates/components/risk-assessment.md)
 
 | Risk | Likelihood | Impact | Mitigation |
 |------|-----------|--------|------------|
@@ -622,7 +622,7 @@ This pilot is done only when all of the following are true:
 
 ## Foundation Alignment
 
-> See [Foundation Alignment component](../../templates/components/foundation-alignment.md)
+> See [Foundation Alignment component](../../../plans/templates/components/foundation-alignment.md)
 
 Per-phase emphasis for this pilot:
 
@@ -641,7 +641,7 @@ Per-phase emphasis for this pilot:
 
 ## Documentation Propagation
 
-> See [Documentation Propagation component](../../templates/components/documentation-propagation.md)
+> See [Documentation Propagation component](../../../plans/templates/components/documentation-propagation.md)
 
 Required handling before close:
 

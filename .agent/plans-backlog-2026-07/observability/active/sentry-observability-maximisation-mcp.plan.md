@@ -318,7 +318,7 @@ finding. Update this table if a lane's classification changes.
 
 ## Foundation Alignment
 
-> See [Foundation Alignment component](../../templates/components/foundation-alignment.md)
+> See [Foundation Alignment component](../../../plans/templates/components/foundation-alignment.md)
 
 Read before each phase and at the start of each RED cycle:
 
@@ -2347,7 +2347,7 @@ in-bounds. Blocking-chain: process-level only, acknowledged.
 #### L-8 WS1 — Test Specification (RED)
 
 All tests MUST FAIL at the end of WS1. See
-[TDD Phases component](../../templates/components/tdd-phases.md).
+[TDD Phases component](../../../plans/templates/components/tdd-phases.md).
 
 **1.1: Build-output integration tests**
 
@@ -2989,7 +2989,7 @@ register entry for the follow-on lane.
 
 ## Quality Gates
 
-> See [Quality Gates component](../../templates/components/quality-gates.md)
+> See [Quality Gates component](../../../plans/templates/components/quality-gates.md)
 
 **The criterion is always the same: `pnpm check` from the repo root,
 with no filtering, green.** No per-gate invocation list replaces
@@ -3009,7 +3009,7 @@ gate is failing, the phase does not close.
 
 ## Adversarial Review
 
-> See [Adversarial Review component](../../templates/components/adversarial-review.md)
+> See [Adversarial Review component](../../../plans/templates/components/adversarial-review.md)
 
 Per phase, invoke reviewers (non-leading prompts). Matrix:
 
@@ -3038,7 +3038,7 @@ principles.md).
 
 ## Risk Assessment
 
-> See [Risk Assessment component](../../templates/components/risk-assessment.md)
+> See [Risk Assessment component](../../../plans/templates/components/risk-assessment.md)
 
 Covered in the strategic brief at
 [future/sentry-observability-maximisation.plan.md § Risks and Unknowns](../future/sentry-observability-maximisation.plan.md#risks-and-unknowns).
@@ -3068,7 +3068,7 @@ Phase-specific risks:
 
 ## Documentation Propagation
 
-> See [Documentation Propagation component](../../templates/components/documentation-propagation.md)
+> See [Documentation Propagation component](../../../plans/templates/components/documentation-propagation.md)
 
 Per phase, propagate:
 
@@ -3154,7 +3154,7 @@ is validated. This plan is the next lane on the same branch.
 
 ## Evidence and Claims
 
-> See [Evidence and Claims component](../../templates/components/evidence-and-claims.md)
+> See [Evidence and Claims component](../../../plans/templates/components/evidence-and-claims.md)
 
 Claims in this plan are one of:
 

@@ -3,7 +3,7 @@
 **Date**: 2026-07-05 · **Session**: Hedgehog stirs Rime (`da727a`, claude-code / claude-fable-5).
 **Mandate**: the owner-scheduled fresh-seat Phase 0 design-ratification session — the promotion
 trigger of
-[`corpus-analysis-generalisation-and-knowledge-layer.plan.md`](../../../plans/agentic-engineering-enhancements/future/corpus-analysis-generalisation-and-knowledge-layer.plan.md)
+[`corpus-analysis-generalisation-and-knowledge-layer.plan.md`](../../../plans-backlog-2026-07/agentic-engineering-enhancements/future/corpus-analysis-generalisation-and-knowledge-layer.plan.md)
 (in `future/` at this pause; the promotion to `current/` is restart work — see §Review), fired
 2026-07-05. This session ABSORBS the salvage plan's ws2 readiness review (D1–D6 were PROPOSED
 there; this record is their ratification).

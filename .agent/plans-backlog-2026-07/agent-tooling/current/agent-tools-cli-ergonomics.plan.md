@@ -263,7 +263,7 @@ Findings assessed first-hand.
 ## Learning Loop & Lifecycle Triggers
 
 Completion runs the consolidation workflow; lifecycle touch points per
-[`lifecycle-triggers.md`](../../templates/components/lifecycle-triggers.md)
+[`lifecycle-triggers.md`](../../../plans/templates/components/lifecycle-triggers.md)
 (session-open grounding, claim registration on the agent-tools surface, per-cycle commit
 landing, handoff closure, archival per ADR-117). Mine WS-outcomes into the
 `use-built-agent-tools-cli` rule and the start-right reading order — the convention

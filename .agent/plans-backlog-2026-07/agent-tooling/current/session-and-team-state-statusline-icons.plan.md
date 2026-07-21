@@ -313,7 +313,7 @@ Conditions B and C/D remain valid execution constraints under the re-grounding.
 
 ## Learning loop and lifecycle
 
-Per [`templates/components/lifecycle-triggers.md`](../../templates/components/lifecycle-triggers.md):
+Per [`templates/components/lifecycle-triggers.md`](../../../plans/templates/components/lifecycle-triggers.md):
 completion runs the consolidation workflow. The session-state model is a
 discovery output — a *candidate* pattern, **not** graduated to PDR/ADR during the
 discovery phase (owner 2026-06-15). Archive with outputs mined on completion.

@@ -91,16 +91,16 @@ single rule if needed.
 - Production Clerk:
   [auth/clerk-production-migration.md](../research/auth/clerk-production-migration.md)
 - Sentry + OTel:
-  [architecture-and-infrastructure/README.md](../plans/architecture-and-infrastructure/README.md)
+  [architecture-and-infrastructure/README.md](../plans-backlog-2026-07/architecture-and-infrastructure/README.md)
 - Extension surfaces (MCP Apps standard migration):
-  [roadmap.md](../plans/sdk-and-mcp-enhancements/roadmap.md)
+  [roadmap.md](../plans-backlog-2026-07/sdk-and-mcp-enhancements/roadmap.md)
 - Agentic engineering:
-  [agentic-engineering-enhancements/](../plans/agentic-engineering-enhancements/)
+  [agentic-engineering-enhancements/](../plans-backlog-2026-07/agentic-engineering-enhancements/)
 - Architecture and infrastructure:
-  [architecture-and-infrastructure/](../plans/architecture-and-infrastructure/)
+  [architecture-and-infrastructure/](../plans-backlog-2026-07/architecture-and-infrastructure/)
 - Security and privacy:
-  [security-and-privacy/](../plans/security-and-privacy/)
+  [security-and-privacy/](../plans-backlog-2026-07/security-and-privacy)
 - Developer experience:
-  [developer-experience/](../plans/developer-experience/)
+  [developer-experience/](../plans-backlog-2026-07/developer-experience/)
 
 Dependencies: M2 complete.

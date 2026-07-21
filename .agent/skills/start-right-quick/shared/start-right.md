@@ -371,7 +371,7 @@ It operationalises PDR-026 without turning small fixes into plan theatre.
 
 For observability work specifically: if the landing moves a matrix
 cell in
-[`what-the-system-emits-today.md`](../../../plans/observability/what-the-system-emits-today.md)
+[`what-the-system-emits-today.md`](../../../plans-backlog-2026-07/observability/what-the-system-emits-today.md)
 from empty to populated, update the artefact in the same commit.
 
 ## Session Priority

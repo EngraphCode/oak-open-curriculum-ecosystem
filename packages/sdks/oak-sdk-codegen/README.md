@@ -202,7 +202,7 @@ Do **not** add a Vitest test asserting that tool parameters match the spec. Such
 a test proves configuration and duplicates the type checker — types are the type
 checker's job. If you want to confirm the invariant holds, run `type-check`, not
 a unit test. The path toward fully automating spec-change handling is captured in
-[`upstream-spec-change-automation.plan.md`](../../../.agent/plans/sdk-and-mcp-enhancements/future/upstream-spec-change-automation.plan.md).
+[`upstream-spec-change-automation.plan.md`](../../../.agent/plans-backlog-2026-07/sdk-and-mcp-enhancements/future/upstream-spec-change-automation.plan.md).
 
 ### Expect the correction-layer tripwires to fire
 

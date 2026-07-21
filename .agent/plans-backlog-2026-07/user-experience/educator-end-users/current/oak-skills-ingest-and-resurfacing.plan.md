@@ -199,7 +199,7 @@ MCP — t4 folds the *generation* of c4/c5 regardless of deployment state.
 
 Per-cycle: the validation line in each todo plus the relevant local gates. Phase
 and final validation use the canonical aggregate gate
-([`../../../templates/components/quality-gates.md`](../../../templates/components/quality-gates.md));
+([`../../../../plans/templates/components/quality-gates.md`](../../../../plans/templates/components/quality-gates.md));
 `pnpm skills:check`, `pnpm test`, `pnpm type-check`, `pnpm lint`, and
 `pnpm markdownlint:root` are the load-bearing gates for this work.
 
@@ -269,7 +269,7 @@ union if the discriminated-union shape proves non-trivial.
 On completion: run `oak-consolidate-docs`; route any durable doctrine (the
 generated-MCP-surface pattern, the sourceType union contract) to its permanent
 home. Lifecycle triggers per
-[`../../../templates/components/lifecycle-triggers.md`](../../../templates/components/lifecycle-triggers.md).
+[`../../../../plans/templates/components/lifecycle-triggers.md`](../../../../plans/templates/components/lifecycle-triggers.md).
 
 ## Cross-references (authoritative homes — do not duplicate)
 

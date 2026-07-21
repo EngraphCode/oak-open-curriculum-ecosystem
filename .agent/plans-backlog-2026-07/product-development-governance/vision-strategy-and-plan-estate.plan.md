@@ -500,7 +500,7 @@ layout — is explicitly gated on the fresh survey, not pre-judged.
 [planning-estate-rewrite plan](current/planning-estate-rewrite.plan.md).** The plan estate is one
 corpus of a typed, agentic-first idea graph; this section records the **estate-restructure** approach
 that consumes that graph. Body 3's two anchors: the `plan` node-schema (node-schema #1 = the plan
-standard, Anchor B = [plan-node-schema.v0.md](plan-node-schema.v0.md), the V0 bridge under ADR-200) and
+standard, Anchor B = [../../plans/plan-node-schema.v0.md](../../plans/plan-node-schema.v0.md), the V0 bridge under ADR-200) and
 the strategic-choice registry (Anchor A's target). The schema, registry, validator, and the harvest →
 rewrite sequence live in ADR-200 §Sequence and the rewrite plan's WS1–WS7, not here.
 
@@ -510,7 +510,7 @@ rewrite sequence live in ADR-200 §Sequence and the rewrite plan's WS1–WS7, no
   of strategic choices* (with IDs) as the traceability targets every surviving plan
   resolves to.
 - **Anchor B — the plan node-schema** (= the plan standard, **node-schema #1** of the repo
-  intent graph; [plan-node-schema.v0.md](plan-node-schema.v0.md), the V0 bridge under
+  intent graph; [../../plans/plan-node-schema.v0.md](../../plans/plan-node-schema.v0.md), the V0 bridge under
   [ADR-200](../../../docs/architecture/architectural-decisions/200-intent-as-a-living-idea-graph.md)):
   the strict frontmatter-and-edge contract for the `plan` node-type, consolidated
   from PDR-018 + ADR-117 + `templates/`, covering the canonical frontmatter (incl. the
@@ -782,7 +782,7 @@ Settled (2026-06-21):
     on the generic graph substrate, dual human/agent legibility, authority as typed edges, intent
     preservation, and external systems as typed edges. The whole contract shape is ratified up
     front; the build is staged node-type by node-type (observe→warn→enforce). The **plan standard
-    is the `plan` node-schema (#1)** = [plan-node-schema.v0.md](plan-node-schema.v0.md), the V0 bridge
+    is the `plan` node-schema (#1)** = [../../plans/plan-node-schema.v0.md](../../plans/plan-node-schema.v0.md), the V0 bridge
     under [ADR-200](../../../docs/architecture/architectural-decisions/200-intent-as-a-living-idea-graph.md),
     which now owns the architecture and the harvest→rewrite sequence (the executable
     [planning-estate-rewrite plan](current/planning-estate-rewrite.plan.md)); the earlier "staged build"
@@ -901,7 +901,7 @@ ADR amending ADR-117 rather than merely applying it.
 
 ## Lifecycle Triggers
 
-See [`templates/components/lifecycle-triggers.md`](../templates/components/lifecycle-triggers.md).
+See [`templates/components/lifecycle-triggers.md`](../../plans/templates/components/lifecycle-triggers.md).
 This file is the session-entry and work-shape surface for the thread; register the
 claim on touched files before editing; run the consolidation workflow at each body
 closure; refresh the thread record as state changes, keeping scope authority here.

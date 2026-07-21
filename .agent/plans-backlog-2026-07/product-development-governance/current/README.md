@@ -10,7 +10,7 @@ records contents only.
 | Plan | Scope |
 | --- | --- |
 | [planning-estate-rewrite.plan.md](planning-estate-rewrite.plan.md) | Rebuild the planning estate around the living idea graph (ADR-200): idea-node schema + id-minting, an idea-graph domain SDK, evolution tooling with reference-rewrite, and the harvest pipeline. |
-| [release-planning-corpus-reset.plan.md](release-planning-corpus-reset.plan.md) | Owner-commissioned 2026-07-21: found the minimal release-planning corpus on the V0 plan-node schema, backlog the prior estate losslessly, and enforce the strategy-layer privacy fence — the graph-ready minimum under the release pivot. |
+| [../../../plans/practice/release-planning-corpus-reset.plan.md](../../../plans/practice/release-planning-corpus-reset.plan.md) | Owner-commissioned 2026-07-21: found the minimal release-planning corpus on the V0 plan-node schema, backlog the prior estate losslessly, and enforce the strategy-layer privacy fence — the graph-ready minimum under the release pivot. |
 
 ## Related
 

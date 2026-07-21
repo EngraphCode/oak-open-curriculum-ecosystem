@@ -39,7 +39,7 @@ and practice questions.
     from the Lacustrine session of 2026-05-04). Captured by passive harvest
     of existing Claude Code session JSONLs. Supplies the empirical evidence
     named at
-    [`memetic-immune-system-and-progressive-disclosure.plan.md`](../plans/agentic-engineering-enhancements/future/memetic-immune-system-and-progressive-disclosure.plan.md)
+    [`memetic-immune-system-and-progressive-disclosure.plan.md`](../plans-backlog-2026-07/agentic-engineering-enhancements/future/memetic-immune-system-and-progressive-disclosure.plan.md)
     §Success Signals as a promotion gate for Workstream 4 (triggered rule
     loading / progressive disclosure).
 

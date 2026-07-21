@@ -29,7 +29,7 @@ from research-brief normalisation through report, plan, and in-repo build.
 - Invocation pointer: `start-right-quick`, then this record. (`.remember`
   plugin retired 2026-06-04; the baton is this thread record + repo-continuity.)
 - Controlling plan:
-  [`school-data-search-poc.plan.md`](../../../../plans/school-data-search/current/school-data-search-poc.plan.md)
+  [`school-data-search-poc.plan.md`](../../../../plans-backlog-2026-07/school-data-search/current/school-data-search-poc.plan.md)
   (lifecycle `current/`; promotes to `active/` when G-1/G-2/G-3/G-8 are
   decided — **now all decided** — and the first build workstream starts).
 - **Deep review DONE 2026-06-04** (Fiery Sparking Caldera, `80d50a`):
@@ -77,7 +77,7 @@ owner may direct their removal after comparison.
 `contracts`, `sdk` (data/ingest/search modules), `client`, and `apps/api`
 workspaces under a new top-level `school-data-search/` tier; auth in apps/api;
 authored boundary rules. Full
-record: [decomposition doc](../../../../plans/school-data-search/current/school-data-search-wsd1-decomposition.md)
+record: [decomposition doc](../../../../plans-backlog-2026-07/school-data-search/current/school-data-search-wsd1-decomposition.md)
 (betty + fred reviewed/validated; 6-way split rejected). Remaining, in order:
 
 1. **ADR-041 amendment** — add the `school-data-search/` tier matrix row + the

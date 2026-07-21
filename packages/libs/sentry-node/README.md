@@ -400,5 +400,5 @@ a compliance / cost concern.
   deploy-time orchestrator sequence.
 - [`apps/oak-curriculum-mcp-streamable-http/docs/observability.md`](../../../apps/oak-curriculum-mcp-streamable-http/docs/observability.md)
   — app-level observability wiring and per-request span documentation.
-- [`what-the-system-emits-today.md`](../../../.agent/plans/observability/what-the-system-emits-today.md)
+- [`what-the-system-emits-today.md`](../../../.agent/plans-backlog-2026-07/observability/what-the-system-emits-today.md)
   — externally-verifiable observability-envelope snapshot.

@@ -27,7 +27,7 @@ For the strategic overview, use [high-level-plan.md](high-level-plan.md).
 | [discovery/README.md](discovery/README.md) | Agent/web discoverability of Oak machine surfaces |
 | [milestones/](../milestones/) | Per-milestone summaries: audience, value, gates |
 | [.agent/directives/](../directives/) | Foundation documents and canonical directives |
-| [templates/README.md](templates/README.md) | Current plan templates and reusable components |
+| [../plans/templates/README.md](../plans/templates/README.md) | Current plan templates and reusable components |
 
 ---
 
@@ -82,7 +82,7 @@ disposition.
 | [user-experience/](user-experience/) | Persona-level outcome contracts and UX reference material | 📋 Legacy/reference |
 | `icebox/` | Deferred/low-priority ideas with promotion triggers | ⏸ Deferred |
 | `archive/` | Historical completed/superseded plans | ✅ Reference |
-| [templates/](templates/) | Plan templates and reusable components | 📚 Reference |
+| [../plans/templates/](../plans/templates/) | Plan templates and reusable components | 📚 Reference |
 
 ---
 
@@ -214,7 +214,7 @@ When adding, promoting, or retiring plan work:
 
 ## Creating Or Restructuring Collections
 
-Use [templates/README.md](templates/README.md) as the source of truth for plan
+Use [../plans/templates/README.md](../plans/templates/README.md) as the source of truth for plan
 templates and reusable components.
 
 Minimum collection shape:

@@ -34,7 +34,7 @@ related:
 > ADR-201 remains Proposed, and no automated idea graph, Linear projection, PostHog evidence, or
 > cross-system evidence projection had landed at this snapshot. References below to draft PR #339
 > preserve the exploration state rather than current delivery status. The
-> [TAU collection index](../plans/telemetry-and-understanding/README.md#current-status) is the
+> [TAU collection index](../plans-backlog-2026-07/telemetry-and-understanding/README.md#current-status) is the
 > canonical cross-surface status projection for TAU planning readiness, delivery authority, and
 > implementation activity.
 
@@ -53,7 +53,7 @@ The decisive model is:
 That direction is accepted for the intent substrate in
 [ADR-200](../../docs/architecture/architectural-decisions/200-intent-as-a-living-idea-graph.md),
 designed into the
-[V0 plan-node schema](../plans/product-development-governance/plan-node-schema.v0.md), and extended —
+[V0 plan-node schema](../plans/plan-node-schema.v0.md), and extended —
 still only provisionally — by
 [ADR-201](../../docs/architecture/architectural-decisions/201-external-systems-evidence-integration.md)
 for external evidence.
@@ -221,7 +221,7 @@ parallel planning model.
 #### The V0 plan-node schema
 
 The
-[V0 plan-node schema](../plans/product-development-governance/plan-node-schema.v0.md)
+[V0 plan-node schema](../plans/plan-node-schema.v0.md)
 makes the Linear relationship concrete at the plan layer.
 
 It states that:
@@ -264,9 +264,9 @@ It is explicit that:
 #### Current corpus refounding and planning-estate rewrite
 
 The
-[active plan-corpus refounding](../plans/product-development-governance/active/plan-corpus-refounding.plan.md)
+[active plan-corpus refounding](../plans-backlog-2026-07/product-development-governance/active/plan-corpus-refounding.plan.md)
 and
-[current planning-estate rewrite](../plans/product-development-governance/current/planning-estate-rewrite.plan.md)
+[current planning-estate rewrite](../plans-backlog-2026-07/product-development-governance/current/planning-estate-rewrite.plan.md)
 are the current execution context.
 
 The refounding precedes the full idea-graph build and aims to produce a lossless, strategy-aligned,
@@ -305,7 +305,7 @@ It is gated on the idea-graph substrate and an owner decision.
 #### External-evidence integration plan
 
 The
-[future external-evidence integration plan](../plans/product-development-governance/future/external-evidence-integration.plan.md)
+[future external-evidence integration plan](../plans-backlog-2026-07/product-development-governance/future/external-evidence-integration.plan.md)
 turns ADR-201 into four gated workstreams:
 
 1. evidence-edge schema;
@@ -321,13 +321,13 @@ because Linear remains required elsewhere for execution status and throughput.
 ### 2.3 Imported, subordinate design inputs
 
 The
-[product-development-governance collection README](../plans/product-development-governance/README.md)
+[product-development-governance collection README](../plans-backlog-2026-07/product-development-governance/README.md)
 explicitly classifies the material under `suggestions/` as imported analysis rather than authority.
 Those documents independently re-derived much of the accepted model. Their subordinate status
 subjects them to verification and disposition rather than wholesale adoption.
 
 The most detailed imported model is
-[`service-authority-and-operating-contexts.semantic-model.md`](../plans/product-development-governance/suggestions/service-authority-and-operating-contexts.semantic-model.md).
+[`service-authority-and-operating-contexts.semantic-model.md`](../plans-backlog-2026-07/product-development-governance/suggestions/service-authority-and-operating-contexts.semantic-model.md).
 It states the useful three-way distinction:
 
 ```text
@@ -340,19 +340,19 @@ It also gives Figma, Sentry, PostHog, Sonar, Elastic, deployments, and AI agents
 boundaries and records the risk of turning the repo into a stale second dashboard.
 
 The
-[`governed-repo-document-graph.plan.md`](../plans/product-development-governance/suggestions/governed-repo-document-graph.plan.md)
+[`governed-repo-document-graph.plan.md`](../plans-backlog-2026-07/product-development-governance/suggestions/governed-repo-document-graph.plan.md)
 provides useful candidate graph relationships such as `projects_to_linear` and `summarises_linear`,
 but its document-graph framing predates the later accepted ADR-200 idea-graph architecture.
 
 The
-[`repo-intent-and-service-knowledge-boundaries.proposal.md`](../plans/product-development-governance/suggestions/repo-intent-and-service-knowledge-boundaries.proposal.md)
+[`repo-intent-and-service-knowledge-boundaries.proposal.md`](../plans-backlog-2026-07/product-development-governance/suggestions/repo-intent-and-service-knowledge-boundaries.proposal.md)
 usefully names the need to preserve service boundaries, stakeholder access, Figma, and a recurring
 loss-prevention test. It remains a proposal record.
 
 ### 2.4 Historical or materially stale material
 
 The
-[future external-pointer-surface plan](../plans/agentic-engineering-enhancements/future/external-pointer-surface-integration.plan.md)
+[future external-pointer-surface plan](../plans-backlog-2026-07/agentic-engineering-enhancements/future/external-pointer-surface-integration.plan.md)
 contains valuable reasoning but has been overtaken by later architecture in significant respects.
 
 Its primary mapping is:
@@ -682,7 +682,7 @@ adds a distinct audience job beyond that change axis and Linear remains an open 
 
 ### 7.1 The conversational access surface
 
-[Ask Oisín](../plans/slack-assistants/current/ask-oisin.plan.md) is a planned answer to low-friction
+[Ask Oisín](../plans-backlog-2026-07/slack-assistants/current/ask-oisin.plan.md) is a planned answer to low-friction
 conversational access to internal repo knowledge. It complements Notion's principal stakeholder
 narrative rather than replacing it.
 
@@ -1265,32 +1265,32 @@ planning ceremony.
 
 - [ADR-200 — intent as a living idea graph](../../docs/architecture/architectural-decisions/200-intent-as-a-living-idea-graph.md)
 - [ADR-207 — DORA delivery metrics as a structural property](../../docs/architecture/architectural-decisions/207-dora-delivery-metrics-as-a-structural-property.md)
-- [V0 plan-node schema](../plans/product-development-governance/plan-node-schema.v0.md)
-- [Planning-estate rewrite](../plans/product-development-governance/current/planning-estate-rewrite.plan.md)
-- [Plan-corpus refounding](../plans/product-development-governance/active/plan-corpus-refounding.plan.md)
-- [Vision, strategy, and plan-estate controlling plan](../plans/product-development-governance/vision-strategy-and-plan-estate.plan.md)
+- [V0 plan-node schema](../plans/plan-node-schema.v0.md)
+- [Planning-estate rewrite](../plans-backlog-2026-07/product-development-governance/current/planning-estate-rewrite.plan.md)
+- [Plan-corpus refounding](../plans-backlog-2026-07/product-development-governance/active/plan-corpus-refounding.plan.md)
+- [Vision, strategy, and plan-estate controlling plan](../plans-backlog-2026-07/product-development-governance/vision-strategy-and-plan-estate.plan.md)
 - [Plans root index](../plans/README.md)
 
 ### Proposed and future integration architecture
 
 - [ADR-201 — external systems as evidence edges](../../docs/architecture/architectural-decisions/201-external-systems-evidence-integration.md)
-- [External-evidence integration plan](../plans/product-development-governance/future/external-evidence-integration.plan.md)
-- [External pointer-surface plan](../plans/agentic-engineering-enhancements/future/external-pointer-surface-integration.plan.md)
+- [External-evidence integration plan](../plans-backlog-2026-07/product-development-governance/future/external-evidence-integration.plan.md)
+- [External pointer-surface plan](../plans-backlog-2026-07/agentic-engineering-enhancements/future/external-pointer-surface-integration.plan.md)
 - [Draft PR #339 — TAU planning](https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/339)
 
 ### Product-development-governance inputs
 
-- [Collection authority and disposition](../plans/product-development-governance/README.md)
-- [Service authority and operating contexts](../plans/product-development-governance/suggestions/service-authority-and-operating-contexts.semantic-model.md)
-- [Governed repo document graph plan](../plans/product-development-governance/suggestions/governed-repo-document-graph.plan.md)
-- [Repo intent and service knowledge boundaries](../plans/product-development-governance/suggestions/repo-intent-and-service-knowledge-boundaries.proposal.md)
+- [Collection authority and disposition](../plans-backlog-2026-07/product-development-governance/README.md)
+- [Service authority and operating contexts](../plans-backlog-2026-07/product-development-governance/suggestions/service-authority-and-operating-contexts.semantic-model.md)
+- [Governed repo document graph plan](../plans-backlog-2026-07/product-development-governance/suggestions/governed-repo-document-graph.plan.md)
+- [Repo intent and service knowledge boundaries](../plans-backlog-2026-07/product-development-governance/suggestions/repo-intent-and-service-knowledge-boundaries.proposal.md)
 
 ### Stakeholder and service surfaces
 
 - [Notion — MCP App strategy, intended impact, and current direction](https://app.notion.com/p/39c26cc4e1b181d09242ed54708443e8)
 - [Ask Oisín design](../research/outreach/oisin-oce-navigator-design.md)
-- [Slack assistants collection](../plans/slack-assistants/README.md)
-- [Ask Oisín plan](../plans/slack-assistants/current/ask-oisin.plan.md)
+- [Slack assistants collection](../plans-backlog-2026-07/slack-assistants/README.md)
+- [Ask Oisín plan](../plans-backlog-2026-07/slack-assistants/current/ask-oisin.plan.md)
 - [ADR-004 — deprecated Notion adapter decision](../../docs/architecture/architectural-decisions/004-no-direct-notion-sdk-usage.md)
 
 ### Code and configuration foundations

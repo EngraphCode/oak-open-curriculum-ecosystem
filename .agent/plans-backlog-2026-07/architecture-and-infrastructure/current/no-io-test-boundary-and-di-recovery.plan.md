@@ -205,7 +205,7 @@ pnpm check
 ```
 
 Use the canonical gate component:
-[`quality-gates.md`](../../templates/components/quality-gates.md).
+[`quality-gates.md`](../../../plans/templates/components/quality-gates.md).
 
 ## Risk Assessment
 
@@ -227,7 +227,7 @@ Before implementation starts:
 5. run session handoff and consolidation before completion language.
 
 See
-[`lifecycle-triggers.md`](../../templates/components/lifecycle-triggers.md).
+[`lifecycle-triggers.md`](../../../plans/templates/components/lifecycle-triggers.md).
 
 ## Completion Policy
 

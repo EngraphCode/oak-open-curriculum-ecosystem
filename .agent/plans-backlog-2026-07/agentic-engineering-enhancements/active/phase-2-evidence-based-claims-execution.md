@@ -206,7 +206,7 @@ task execution:
 
 ## Evidence and Claims
 
-> See [Evidence and Claims component](../../templates/components/evidence-and-claims.md)
+> See [Evidence and Claims component](../../../plans/templates/components/evidence-and-claims.md)
 
 - Every non-trivial claim in this phase must map to evidence IDs in the phase
   evidence bundle.
@@ -215,7 +215,7 @@ task execution:
 
 ## Foundation Alignment
 
-> See [Foundation Alignment component](../../templates/components/foundation-alignment.md)
+> See [Foundation Alignment component](../../../plans/templates/components/foundation-alignment.md)
 
 ## Done When
 

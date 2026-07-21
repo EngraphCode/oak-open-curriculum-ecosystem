@@ -9,7 +9,7 @@ TypeScript, the full shared ESLint ruleset, TDD, and WCAG 2.2 AA. The root gate
 configs (`knip.config.ts`, `.prettierignore`, `.markdownlint-cli2.jsonc`, the
 depcruise scripts) are authoritative for the current gate footprint over this
 tier; the productionisation roadmap is owned by
-[`productionisation-and-reuse.plan.md`](../.agent/plans/curriculum-hub-demo/current/productionisation-and-reuse.plan.md).
+[`productionisation-and-reuse.plan.md`](../.agent/plans-backlog-2026-07/curriculum-hub-demo/current/productionisation-and-reuse.plan.md).
 
 ## Dependency boundary
 

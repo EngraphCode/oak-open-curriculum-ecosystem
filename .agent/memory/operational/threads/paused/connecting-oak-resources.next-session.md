@@ -18,7 +18,7 @@ merge_class: index-narrative-tables
 ## Current State
 
 - **PROMOTED 2026-06-09.** EEF reached D6 + D7 green and shipped, so
-  [`current/graph-tools-value-redesign.plan.md`](../../../../plans/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md)
+  [`current/graph-tools-value-redesign.plan.md`](../../../../plans-backlog-2026-07/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md)
   was promoted to `current/` — one plan owning the migration of all three existing graph tools onto
   `graph-corpus-sdk` (mechanism-settling + executable cycles remain; see its §Remaining promotion
   work).
@@ -33,7 +33,7 @@ merge_class: index-narrative-tables
 - **Reusable curriculum architecture evidence (2026-07-15):** the report family at
   [`reports/oak-reusable-curriculum-architecture/`](../../../../reports/oak-reusable-curriculum-architecture/README.md)
   and the strategic future
-  [planning brief](../../../../plans/connecting-oak-resources/reusable-curriculum-architecture/future/reusable-curriculum-architecture-planning.plan.md)
+  [planning brief](../../../../plans-backlog-2026-07/connecting-oak-resources/reusable-curriculum-architecture/future/reusable-curriculum-architecture-planning.plan.md)
   now preserve the source-accounting, projection, graph, search, provenance and
   cross-estate implications. This remains a paused evidence-and-planning lane:
   no implementation or ontology change is authorised.
@@ -44,7 +44,7 @@ merge_class: index-narrative-tables
   Elasticsearch Serverless capabilities, then ratify the ADR propagation path.
 - **Source integration workspaces (2026-07-15):** the
   [`oak-integrations` report family](../../../../reports/oak-integrations/README.md) and
-  [executable plan](../../../../plans/architecture-and-infrastructure/current/oak-source-integration-workspaces.plan.md)
+  [executable plan](../../../../plans-backlog-2026-07/architecture-and-infrastructure/current/oak-source-integration-workspaces.plan.md)
   define optional, source-authority-preserving wrappers for Oak OpenAPI, Castr, Oak Curriculum
   Ontology, and Oak Database-Tools. The public root remains complete with every submodule absent.
   Castr's source mode is the rapid authoring path; released core and generic fetch-companion

@@ -454,7 +454,7 @@ third-party vendor integrated.
 
 ## Lifecycle Triggers
 
-> See [Lifecycle Triggers component](../../templates/components/lifecycle-triggers.md)
+> See [Lifecycle Triggers component](../../../plans/templates/components/lifecycle-triggers.md)
 
 Work shape: **executable repo plan** (multi-cycle, multi-file refactor with a
 behaviour-bearing soft-fail change). Touch points: start-right-quick at session
@@ -466,7 +466,7 @@ session-handoff if multi-session; consolidation at completion (WS8).
 
 ## Cycle Dependencies and Parallelisation
 
-> See [TDD Cycles component](../../templates/components/tdd-phases.md)
+> See [TDD Cycles component](../../../plans/templates/components/tdd-phases.md)
 
 Two independent tracks converge at WS4:
 
@@ -797,7 +797,7 @@ deleted; `rg "oak-logo" agent-tools` returns nothing.
 
 ## WS6 — Quality Gates
 
-> See [Quality Gates component](../../templates/components/quality-gates.md)
+> See [Quality Gates component](../../../plans/templates/components/quality-gates.md)
 
 Per-cycle: `pnpm type-check && pnpm lint && pnpm test` (plus the cycle's focused
 vitest file). Final aggregate from repo root:
@@ -812,7 +812,7 @@ Every gate blocks; there is no acceptable failure.
 
 ## WS7 — Adversarial Review
 
-> See [Adversarial Review component](../../templates/components/adversarial-review.md)
+> See [Adversarial Review component](../../../plans/templates/components/adversarial-review.md)
 
 `architecture-expert-fred` (dependency direction: mechanism never imports the
 asset; neutral never imports claude), `architecture-expert-barney`
@@ -848,7 +848,7 @@ retrospective coverage.
 
 ## Risk Assessment
 
-> See [Risk Assessment component](../../templates/components/risk-assessment.md)
+> See [Risk Assessment component](../../../plans/templates/components/risk-assessment.md)
 
 | Risk | Mitigation |
 |------|------------|
@@ -862,7 +862,7 @@ retrospective coverage.
 
 ## Foundation Alignment
 
-> See [Foundation Alignment component](../../templates/components/foundation-alignment.md)
+> See [Foundation Alignment component](../../../plans/templates/components/foundation-alignment.md)
 
 - `principles.md` — separation of concerns, dependency inversion, replace-don't-bridge
   (old files deleted, no re-export stubs), no-machine-local-paths.

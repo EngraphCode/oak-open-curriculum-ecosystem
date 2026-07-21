@@ -415,6 +415,6 @@ confirms the WS5 decision boundary.
 
 WS5 runs the consolidation workflow (`oak-consolidate-docs`) over the research outputs and
 updates the thread record. Lifecycle touch points per
-[`templates/components/lifecycle-triggers.md`](../../templates/components/lifecycle-triggers.md):
+[`templates/components/lifecycle-triggers.md`](../../../plans/templates/components/lifecycle-triggers.md):
 plan completion archives this file with its outputs mined into permanent homes; the rotation
 proposal's ratification spawns the successor execution slice in this collection.

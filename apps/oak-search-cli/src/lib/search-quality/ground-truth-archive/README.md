@@ -109,8 +109,8 @@ ground-truth-archive/
 
 ## Related Documents
 
-| Document                                                                                                                             | Purpose               |
-| ------------------------------------------------------------------------------------------------------------------------------------ | --------------------- |
-| [ADR-106](/docs/architecture/architectural-decisions/106-known-answer-first-ground-truth-methodology.md)                             | Why this was archived |
-| [ground-truth/README.md](../ground-truth/README.md)                                                                                  | Current system        |
-| [expansion-plan.md](../../../../../../.agent/plans/semantic-search/future/09-evaluation-and-evidence/ground-truth-expansion-plan.md) | Future expansion      |
+| Document                                                                                                                                             | Purpose               |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
+| [ADR-106](/docs/architecture/architectural-decisions/106-known-answer-first-ground-truth-methodology.md)                                             | Why this was archived |
+| [ground-truth/README.md](../ground-truth/README.md)                                                                                                  | Current system        |
+| [expansion-plan.md](../../../../../../.agent/plans-backlog-2026-07/semantic-search/future/09-evaluation-and-evidence/ground-truth-expansion-plan.md) | Future expansion      |

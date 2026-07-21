@@ -105,7 +105,7 @@ through the graph stack. The spine carries the substance — what ships,
 why Threads is the right slice 2, the substrate floor, the acceptance
 criteria, the namespace decision. This plan adds the *executable shape*
 under the
-[`feature-workstream-template`](../../../templates/feature-workstream-template.md):
+[`feature-workstream-template`](../../../../plans/templates/feature-workstream-template.md):
 TDD cycles with file scopes, dispatch-ready briefs, and reviewer
 scheduling.
 

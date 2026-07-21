@@ -130,7 +130,7 @@ behaviour is asserted from read source, not vendor docs — re-verified at execu
 
 ## Learning Loop and lifecycle triggers
 
-Per the [lifecycle-triggers component](../../templates/components/lifecycle-triggers.md): claim
+Per the [lifecycle-triggers component](../../../plans/templates/components/lifecycle-triggers.md): claim
 the owned surfaces before the first edit; session-handoff at boundaries; on completion, run
 `oak-consolidate-docs` — the napkin already carries the 2026-06-10 capture (hang-but-run mode +
 Director-side detection tell); completion mines it forward and retires the interim rule caution

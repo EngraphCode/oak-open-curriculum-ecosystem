@@ -302,7 +302,7 @@ model-API budget for probes/screening (≥2 models); MCPJam runtime (in repo); l
 
 ## Lifecycle triggers & consolidation
 
-Per [`lifecycle-triggers.md`](../../templates/components/lifecycle-triggers.md), how execution
+Per [`lifecycle-triggers.md`](../../../plans/templates/components/lifecycle-triggers.md), how execution
 sessions pass each required touch point:
 
 - **Session entry**: every execution session opens with `start-right-quick` (or

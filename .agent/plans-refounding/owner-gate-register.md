@@ -2,7 +2,7 @@
 
 > The one list (P11): every owner gate of the refounding, duplicates merged, cutover
 > sanctions included. Source of the gate CONTENT is
-> [`plan-corpus-refounding.plan.md`](../plans/product-development-governance/active/plan-corpus-refounding.plan.md)
+> [`plan-corpus-refounding.plan.md`](../plans-backlog-2026-07/product-development-governance/active/plan-corpus-refounding.plan.md)
 > §Owner-gate register; this artefact tracks live status + evidence pointers, and is
 > updated at every gate transition. Recorded status here is a cache like any other —
 > the cited records are the truth (P5 applied to ourselves). Established 2026-07-06

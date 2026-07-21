@@ -180,7 +180,7 @@ adapter lands.
 
 All tests MUST FAIL at the end of WS1.
 
-> See [TDD Phases component](../../templates/components/tdd-phases.md)
+> See [TDD Phases component](../../../plans/templates/components/tdd-phases.md)
 
 ### 1.1: MVP schema set contract tests
 
@@ -287,7 +287,7 @@ closes when this plan lands.
 
 ## WS4 — Quality Gates
 
-> See [Quality Gates component](../../templates/components/quality-gates.md)
+> See [Quality Gates component](../../../plans/templates/components/quality-gates.md)
 
 ```bash
 pnpm check
@@ -299,7 +299,7 @@ Phase-boundary criterion: exit 0, no filtering.
 
 ## WS5 — Adversarial Review
 
-> See [Adversarial Review component](../../templates/components/adversarial-review.md)
+> See [Adversarial Review component](../../../plans/templates/components/adversarial-review.md)
 
 Reviewer matrix:
 
@@ -314,7 +314,7 @@ Reviewer matrix:
 
 ## Risk Assessment
 
-> See [Risk Assessment component](../../templates/components/risk-assessment.md)
+> See [Risk Assessment component](../../../plans/templates/components/risk-assessment.md)
 
 | Risk | Mitigation |
 |------|------------|
@@ -327,7 +327,7 @@ Reviewer matrix:
 
 ## Foundation Alignment
 
-> See [Foundation Alignment component](../../templates/components/foundation-alignment.md)
+> See [Foundation Alignment component](../../../plans/templates/components/foundation-alignment.md)
 
 - [ADR-029](../../../../docs/architecture/architectural-decisions/029-no-manual-api-data.md) — no manual data structures; schemas are the contract.
 - [ADR-030](../../../../docs/architecture/architectural-decisions/030-sdk-single-source-truth.md) — schema-first single source of truth.
@@ -341,7 +341,7 @@ Reviewer matrix:
 
 ## Documentation Propagation
 
-> See [Documentation Propagation component](../../templates/components/documentation-propagation.md)
+> See [Documentation Propagation component](../../../plans/templates/components/documentation-propagation.md)
 
 - Workspace README at creation time.
 - `event-catalog.md` data-scientist-facing.

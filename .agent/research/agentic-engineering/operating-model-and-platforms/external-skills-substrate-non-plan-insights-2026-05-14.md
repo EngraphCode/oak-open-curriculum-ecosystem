@@ -8,7 +8,7 @@ Source study:
 [external-skills-substrate-study-2026-05-14.md](./external-skills-substrate-study-2026-05-14.md)
 
 Related strategic plan:
-[external-skills-substrate-learning.plan.md](../../../plans/agentic-engineering-enhancements/future/external-skills-substrate-learning.plan.md)
+[external-skills-substrate-learning.plan.md](../../../plans-backlog-2026-07/agentic-engineering-enhancements/future/external-skills-substrate-learning.plan.md)
 
 ## Purpose
 

@@ -64,13 +64,13 @@ boundary modelling, authority, layered safeguards, and supervised execution.
 - operational-awareness-and-continuity-surface-separation.plan.md (`../../../plans-old-archive/agentic-engineering-enhancements/archive/completed/operational-awareness-and-continuity-surface-separation.plan.md`)
   should own short-horizon awareness surfaces and supervised execution at the
   work-plane level.
-- [reviewer-gateway-upgrade.plan.md](../../../plans/agentic-engineering-enhancements/current/reviewer-gateway-upgrade.plan.md)
+- [reviewer-gateway-upgrade.plan.md](../../../plans-backlog-2026-07/agentic-engineering-enhancements/current/reviewer-gateway-upgrade.plan.md)
   should own signal routing, escalation semantics, and the review-facing part
   of the safeguard stack.
-- [hallucination-and-evidence-guard-adoption.plan.md](../../../plans/agentic-engineering-enhancements/current/hallucination-and-evidence-guard-adoption.plan.md)
+- [hallucination-and-evidence-guard-adoption.plan.md](../../../plans-backlog-2026-07/agentic-engineering-enhancements/current/hallucination-and-evidence-guard-adoption.plan.md)
   remains the right execution home for evidence-quality upgrades such as the
   attempt / observed outcome / proven result structure.
-- [operating-model-mechanism-taxonomy.plan.md](../../../plans/agentic-engineering-enhancements/future/operating-model-mechanism-taxonomy.plan.md)
+- [operating-model-mechanism-taxonomy.plan.md](../../../plans-backlog-2026-07/agentic-engineering-enhancements/future/operating-model-mechanism-taxonomy.plan.md)
   should own the broader abstraction work around boundary models, signal
   ecology, residual risk, and adoption ladders.
 
@@ -87,6 +87,6 @@ boundary modelling, authority, layered safeguards, and supervised execution.
 
 - [analysis lane](../../../analysis/README.md)
 - [formal synthesis lane](../../../reports/agentic-engineering/deep-dive-syntheses/README.md)
-- [plans collection](../../../plans/agentic-engineering-enhancements/README.md)
+- [plans collection](../../../plans-backlog-2026-07/agentic-engineering-enhancements/README.md)
 - [deep-dives index](./README.md)
 - [hub README](../README.md)

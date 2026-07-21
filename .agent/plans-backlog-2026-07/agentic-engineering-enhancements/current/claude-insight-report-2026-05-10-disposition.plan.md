@@ -166,7 +166,7 @@ Before the first non-planning edit:
 1. Work shape: bounded executable plan in `current/`. ✅ This file.
 2. Start-right and active-claims consultation: ✅ session-open.
 3. Active claim registered: ✅ claim `1b1648a5` covers this plan file path.
-4. Apply [`lifecycle-triggers.md`](../../templates/components/lifecycle-triggers.md) for the multi-phase work.
+4. Apply [`lifecycle-triggers.md`](../../../plans/templates/components/lifecycle-triggers.md) for the multi-phase work.
 5. Close own claim at handoff or phase-transition; if a phase boundary needs a different scope, open a fresh claim.
 
 ---

@@ -694,7 +694,7 @@ dependency in §Increments table row 4.
 
 ## Foundation Alignment
 
-> See [Foundation Alignment component](../../../templates/components/foundation-alignment.md)
+> See [Foundation Alignment component](../../../../plans/templates/components/foundation-alignment.md)
 
 - **principles.md**: strict, complete, schema-first, separate framework from consumer. The seven-active-plus-one-deferred graph topology is the framework-vs-consumer separation made structural.
 - **testing-strategy.md**: TDD at all levels. Every cycle in WS1–WS4 lands one failing test plus the product code that greens it, in one commit.
@@ -706,7 +706,7 @@ First question: **Could it be simpler without compromising quality?** The seven-
 
 ## Documentation Propagation
 
-> See [Documentation Propagation component](../../../templates/components/documentation-propagation.md)
+> See [Documentation Propagation component](../../../../plans/templates/components/documentation-propagation.md)
 
 Required handling before close:
 

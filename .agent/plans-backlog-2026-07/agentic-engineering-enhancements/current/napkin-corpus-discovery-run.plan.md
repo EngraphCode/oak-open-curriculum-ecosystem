@@ -246,7 +246,7 @@ back into the same machinery.
 
 ## Lifecycle triggers
 
-Per [`lifecycle-triggers`](../../templates/components/lifecycle-triggers.md): session-open grounding
+Per [`lifecycle-triggers`](../../../plans/templates/components/lifecycle-triggers.md): session-open grounding
 reads this plan + the v2 rerun result report + PDR-122; the full run emits a curator-pass run-record;
 completion runs the learning loop above and sweeps the discoverability surfaces (this README row, the
 thread record, the reference hub).

@@ -179,7 +179,7 @@ companion opener instance — referenced, not duplicated here.
 - **Roles**:
   [PDR-117](../../../practice-core/decision-records/PDR-117-director-and-implementer-roles.md);
   the coordinator doctrine in [`agent-collaboration.md`](../../../directives/agent-collaboration.md).
-- **Session discipline**: [`session-discipline`](../../templates/components/session-discipline.md) —
+- **Session discipline**: [`session-discipline`](../../../plans/templates/components/session-discipline.md) —
   the four tripwires apply to every seat.
 
 ## Risks
@@ -195,7 +195,7 @@ companion opener instance — referenced, not duplicated here.
 
 ## Lifecycle and Consolidation
 
-- **Lifecycle triggers**: [`lifecycle-triggers`](../../templates/components/lifecycle-triggers.md).
+- **Lifecycle triggers**: [`lifecycle-triggers`](../../../plans/templates/components/lifecycle-triggers.md).
 - **Closeout**: the Director is the team closeout owner; runs the full `session-handoff` +
   `consolidate-docs` **before** the final coordination-branch PR merges (opener §Coordination cadence).
 - **Completion**: outcomes proven (acceptance above); the per-lane plans archived per ADR-117; the

@@ -233,7 +233,7 @@ back into `consolidate-until-done`.
 
 ## Lifecycle triggers
 
-Per [`lifecycle-triggers`](../../templates/components/lifecycle-triggers.md): WS-A is itself a
+Per [`lifecycle-triggers`](../../../plans/templates/components/lifecycle-triggers.md): WS-A is itself a
 consolidation pass (curator-pass run-record); WS-B/WS-C completion sweep the discoverability
 surfaces (WS-D); archival of this plan mines any residual into permanent homes per ADR-117.
 

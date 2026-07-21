@@ -247,7 +247,7 @@ this architectural work.)
 
 ## Quality Gate Strategy
 
-Per [`components/quality-gates.md`](../../templates/components/quality-gates.md).
+Per [`components/quality-gates.md`](../../../plans/templates/components/quality-gates.md).
 After each cycle: the focused workspace `type-check` + `lint` + `test` for the
 touched package(s). Final aggregate: `pnpm check`.
 
@@ -377,7 +377,7 @@ gate execution, not authoring.
 
 ## Lifecycle Triggers
 
-Per [`components/lifecycle-triggers.md`](../../templates/components/lifecycle-triggers.md):
+Per [`components/lifecycle-triggers.md`](../../../plans/templates/components/lifecycle-triggers.md):
 register active areas before edits (the env package, `core/observability`, the app
 composition roots); run lifecycle touch points at each cycle land.
 

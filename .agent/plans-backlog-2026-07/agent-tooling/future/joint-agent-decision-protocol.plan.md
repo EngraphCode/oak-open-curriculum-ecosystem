@@ -193,7 +193,7 @@ mechanical refusal semantics.
 
 ## Lifecycle Triggers
 
-> See [Lifecycle Triggers component](../../templates/components/lifecycle-triggers.md)
+> See [Lifecycle Triggers component](../../../plans/templates/components/lifecycle-triggers.md)
 
 This was multi-session, Practice-domain, schema-changing work touching:
 

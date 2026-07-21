@@ -25,7 +25,7 @@ defined by PDR-112.
 > archive). The "start at W2" note below is the pre-merge record and no longer applies. The **live
 > follow-on** is the MCP-surfaced discoverability problem — orientation is practically invisible to
 > an agent via the MCP app — owned by
-> [`mcp-tool-taxonomy-and-orientation.plan.md`](../../../plans/sdk-and-mcp-enhancements/current/mcp-tool-taxonomy-and-orientation.plan.md):
+> [`mcp-tool-taxonomy-and-orientation.plan.md`](../../../plans-backlog-2026-07/sdk-and-mcp-enhancements/current/mcp-tool-taxonomy-and-orientation.plan.md):
 > DECISION-INCOMPLETE; WS0 (architectural review of the MCP stack) **not started — gated on owner
 > go-ahead**; WS1+ gated on the owner design decision. Planning vocabulary now formalised in ADR-209 /
 > PDR-121; this work sits under the `generic-foundation-decomposition` programme (downstream consumer).
@@ -156,7 +156,7 @@ is fine; user exposure is gated.
 
 ## Lane state
 
-- **Owning plan**: [`orientation-lens-unification.plan.md`](../../../plans/developer-experience/current/orientation-lens-unification.plan.md) (`current/`, queued — the family-unification work). Superseded predecessor: `orientation-and-agentic-ai-literacy.plan.md` (`../../../plans-old-archive/developer-experience/archive/completed/orientation-and-agentic-ai-literacy.plan.md`) (the primer + seam build, completed).
+- **Owning plan**: [`orientation-lens-unification.plan.md`](../../../plans-backlog-2026-07/developer-experience/current/orientation-lens-unification.plan.md) (`current/`, queued — the family-unification work). Superseded predecessor: `orientation-and-agentic-ai-literacy.plan.md` (`../../../plans-old-archive/developer-experience/archive/completed/orientation-and-agentic-ai-literacy.plan.md`) (the primer + seam build, completed).
 - **Current objective**: WS1–WS6 complete; committed `5b3453d41`. Consolidation
   (three watchlist lessons promoted to `distilled.md`) and plan archive done this
   session. Only push remains (owner-gated); the thread may retire after push.
@@ -225,7 +225,7 @@ repo (PDR-112 §Graduation intent) — single-instance now, so not graduated.
   recorded in a host ADR + AGENT.md). Design owner-confirmed.
 - **UNIFICATION IMPLEMENTED (Zenith lifts Firmament, 2026-06-23) — push-pending (owner-gated).**
   WS0–WS6 executed against
-  [`orientation-lens-unification.plan.md`](../../../plans/developer-experience/current/orientation-lens-unification.plan.md).
+  [`orientation-lens-unification.plan.md`](../../../plans-backlog-2026-07/developer-experience/current/orientation-lens-unification.plan.md).
   Outcome: ONE intent-discerning lens `/oak-explain` (`.agent/skills/explain/`); delivery mode
   (specific answer / area overview / guided tour) is a discerned variable; setup distinct +
   go-ahead-gated; `working-with-agentic-ai` primer + PDR-112 seam unchanged (PDR-112 NOT amended).

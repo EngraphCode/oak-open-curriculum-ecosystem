@@ -231,7 +231,7 @@ Tracks A and B do not block each other.
 
 ## Quality Gate Strategy
 
-Per [`components/quality-gates.md`](../../templates/components/quality-gates.md).
+Per [`components/quality-gates.md`](../../../plans/templates/components/quality-gates.md).
 Per cycle: workspace `type-check` + `lint` + the relevant suite. Track B stays in
 `pnpm check` (`test:e2e`). The smoke target is on-demand (NOT in `pnpm check`).
 Final: `pnpm check` green + a successful on-demand smoke run.
@@ -303,7 +303,7 @@ test tree (the old plan flagged parallel planning by Charcoal Searing Ember).
 
 ## Lifecycle Triggers
 
-Per [`components/lifecycle-triggers.md`](../../templates/components/lifecycle-triggers.md):
+Per [`components/lifecycle-triggers.md`](../../../plans/templates/components/lifecycle-triggers.md):
 register active areas before edits (the test tree, `scripts/`, `package.json`); run
 lifecycle touch points at each cycle land.
 

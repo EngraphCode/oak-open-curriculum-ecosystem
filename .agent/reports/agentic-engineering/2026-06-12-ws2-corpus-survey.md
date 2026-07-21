@@ -1,6 +1,6 @@
 # WS2 — Comms-Corpus Automated Survey
 
-**Plan**: [`comms-corpus-research-and-rotation-strategy.plan.md`](../../plans/agent-tooling/active/comms-corpus-research-and-rotation-strategy.plan.md)
+**Plan**: [`comms-corpus-research-and-rotation-strategy.plan.md`](../../plans-backlog-2026-07/agent-tooling/active/comms-corpus-research-and-rotation-strategy.plan.md)
 **Author**: Katydid hunts Roost (claude-code / Fable 5 / a4314f)
 **Status**: DRAFT — quantitative sections complete; extraction histograms, catcher-delta, and
 the prioritised shortlist land after Wave 1 completes.

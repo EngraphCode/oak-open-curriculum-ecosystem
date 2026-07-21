@@ -354,6 +354,6 @@ WS2, `type-expert` for WS3's generated Result threading).
 On WS4 close (or any milestone), run `oak-consolidate-docs`: graduate the cause-survey
 method, the test-triage rubric outcomes, and the WS1 hack-vs-fix findings; reconcile the
 old migration plan per ADR-117. Reference
-[`../../templates/components/lifecycle-triggers.md`](../../templates/components/lifecycle-triggers.md).
+[`../../../plans/templates/components/lifecycle-triggers.md`](../../../plans/templates/components/lifecycle-triggers.md).
 Quality gates per
-[`../../templates/components/quality-gates.md`](../../templates/components/quality-gates.md).
+[`../../../plans/templates/components/quality-gates.md`](../../../plans/templates/components/quality-gates.md).

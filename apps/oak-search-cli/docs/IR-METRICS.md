@@ -26,7 +26,7 @@ A future learner-focused search may require different metrics, thresholds, or ev
 
 Information Retrieval (IR) metrics measure how well search results match what users actually want. We use industry-standard metrics that balance "did we find the right thing?" with "did we find it quickly?"
 
-> **Note**: The targets in this document are **industry benchmarks** for reference. For **project-specific acceptance thresholds** (which are more lenient given curriculum search complexity), see [search-acceptance-criteria.md](../../../.agent/plans/semantic-search/search-acceptance-criteria.md).
+> **Note**: The targets in this document are **industry benchmarks** for reference. For **project-specific acceptance thresholds** (which are more lenient given curriculum search complexity), see [search-acceptance-criteria.md](../../../.agent/plans-backlog-2026-07/semantic-search/search-acceptance-criteria.md).
 
 ---
 
@@ -293,14 +293,14 @@ All experiment results should be recorded in:
 
 ## Related Documentation
 
-| Document                                                                                                | Purpose                                  |
-| ------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
-| [GROUND-TRUTH-GUIDE.md](../src/lib/search-quality/ground-truth/GROUND-TRUTH-GUIDE.md)                   | Ground truth design and evaluation guide |
-| `EXPERIMENTAL-PROTOCOL.md` (retired)                                                                    | Former experiment protocol               |
-| [search-acceptance-criteria.md](../../../.agent/plans/semantic-search/search-acceptance-criteria.md)    | Per-category MRR thresholds              |
-| [ADR-085](../../../docs/architecture/architectural-decisions/085-ground-truth-validation-discipline.md) | Ground truth validation                  |
-| [ADR-098](../../../docs/architecture/architectural-decisions/098-ground-truth-registry.md)              | Ground truth registry                    |
-| `.agent/plans/semantic-search/archive/completed/m3-revised-phase-aligned-search-quality.md`             | Search quality work (completed)          |
+| Document                                                                                                             | Purpose                                  |
+| -------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
+| [GROUND-TRUTH-GUIDE.md](../src/lib/search-quality/ground-truth/GROUND-TRUTH-GUIDE.md)                                | Ground truth design and evaluation guide |
+| `EXPERIMENTAL-PROTOCOL.md` (retired)                                                                                 | Former experiment protocol               |
+| [search-acceptance-criteria.md](../../../.agent/plans-backlog-2026-07/semantic-search/search-acceptance-criteria.md) | Per-category MRR thresholds              |
+| [ADR-085](../../../docs/architecture/architectural-decisions/085-ground-truth-validation-discipline.md)              | Ground truth validation                  |
+| [ADR-098](../../../docs/architecture/architectural-decisions/098-ground-truth-registry.md)                           | Ground truth registry                    |
+| `.agent/plans/semantic-search/archive/completed/m3-revised-phase-aligned-search-quality.md`                          | Search quality work (completed)          |
 
 ---
 

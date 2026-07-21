@@ -135,7 +135,7 @@ as `Codex` / `unknown`.
   full working model and forward references.
 - [`use-agent-comms-log.md`](../../rules/use-agent-comms-log.md) —
   shared-communication-log usage discipline.
-- [`collaboration-state-write-safety.plan.md`](../../plans/agent-tooling/current/collaboration-state-write-safety.plan.md)
+- [`collaboration-state-write-safety.plan.md`](../../plans-backlog-2026-07/agent-tooling/current/collaboration-state-write-safety.plan.md)
   — current write-safety implementation plan and CLI contract.
 - [`respect-active-agent-claims.md`](../../rules/respect-active-agent-claims.md)
   — area-consultation tripwire.

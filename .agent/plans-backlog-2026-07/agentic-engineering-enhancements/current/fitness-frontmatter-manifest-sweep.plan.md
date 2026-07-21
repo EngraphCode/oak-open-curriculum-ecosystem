@@ -227,7 +227,7 @@ Before beginning work and at the start of each phase:
    touching fitness-managed files concurrently; collisions are
    likely if not coordinated.
 4. Apply
-   [`lifecycle-triggers`](../../templates/components/lifecycle-triggers.md)
+   [`lifecycle-triggers`](../../../plans/templates/components/lifecycle-triggers.md)
    for the cross-cutting Phase 4.
 
 ---

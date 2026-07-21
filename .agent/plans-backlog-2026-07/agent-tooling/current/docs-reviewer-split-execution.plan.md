@@ -277,7 +277,7 @@ non-goals:
 
 ## Learning loop and lifecycle triggers
 
-Reference [`lifecycle-triggers.md`](../../templates/components/lifecycle-triggers.md): session-entry
+Reference [`lifecycle-triggers.md`](../../../plans/templates/components/lifecycle-triggers.md): session-entry
 grounding done; collaboration claim **open** (`implementer`, sub-agents + validators surface). On Phase 1
 and Phase 2 completion run `/oak-consolidate-docs` and mine durable learning (the schema-as-SSOT pattern;
 the model-inherit policy) into permanent homes. Archive per ADR-117 when both phases land.

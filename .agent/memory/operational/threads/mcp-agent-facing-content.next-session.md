@@ -138,7 +138,7 @@ stale "lessons" wording on question `limit` params (C624); `download-asset` `ide
 ## Lane State
 
 - **Owning plan(s):** the eval/assessment-methodology research is owned by
-  [`mcp-content-assessment-methodology-research.plan.md`](../../../plans/effectiveness-and-impact/current/mcp-content-assessment-methodology-research.plan.md)
+  [`mcp-content-assessment-methodology-research.plan.md`](../../../plans-backlog-2026-07/effectiveness-and-impact/current/mcp-content-assessment-methodology-research.plan.md)
   (new `effectiveness-and-impact` area, owner-named 2026-07-09; plan authored + landed 2026-07-09,
   status 🟡 PLANNING — readiness reviewers assumptions-expert/mcp-expert/test-expert PENDING, owner
   directed copy-only landing). The content-workspace build plan would be authored when owner-scheduled.

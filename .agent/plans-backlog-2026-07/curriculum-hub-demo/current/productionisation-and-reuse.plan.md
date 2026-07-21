@@ -313,6 +313,6 @@ decision; design-system-expert at WS1; clerk-expert (rule-mandated) on all WS6 s
 ## Learning loop
 
 On completion of each workstream: consolidation touch per
-[`../../templates/components/lifecycle-triggers.md`](../../templates/components/lifecycle-triggers.md);
+[`../../../plans/templates/components/lifecycle-triggers.md`](../../../plans/templates/components/lifecycle-triggers.md);
 plan archival mines outcomes into ADRs (topology + token authority likely earn one each) and runs
 `/oak-consolidate-docs`.

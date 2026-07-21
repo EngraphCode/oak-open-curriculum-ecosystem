@@ -28,7 +28,7 @@ Informs the redaction-policy posture for
 when an identifying user context is structurally available, and
 unblocks the identified-events question for the warehouse and (later)
 PostHog sinks named in
-[`future/second-backend-evaluation.plan.md`](../../.agent/plans/observability/future/second-backend-evaluation.plan.md).
+[`future/second-backend-evaluation.plan.md`](../../.agent/plans-backlog-2026-07/observability/future/second-backend-evaluation.plan.md).
 
 ---
 
@@ -137,7 +137,7 @@ Three positions are coherent:
 - [ADR-160 Non-Bypassable Redaction Barrier](../architecture/architectural-decisions/160-non-bypassable-redaction-barrier-as-principle.md)
   — the policy ruling either lands as a History entry on ADR-160 or
   as a separate redaction-policy document referenced from ADR-160.
-- [`future/second-backend-evaluation.plan.md`](../../.agent/plans/observability/future/second-backend-evaluation.plan.md)
+- [`future/second-backend-evaluation.plan.md`](../../.agent/plans-backlog-2026-07/observability/future/second-backend-evaluation.plan.md)
   — the warehouse and PostHog adapters' identity envelopes depend on
   this ruling.
 - [Companion exploration: data warehouse selection](./2026-04-19-data-warehouse-selection.md)
@@ -182,5 +182,5 @@ fires:
   — warehouse-adapter consumer of this ruling.
 - [`apps/oak-curriculum-mcp-streamable-http/src/mcp-handler.ts`](../../apps/oak-curriculum-mcp-streamable-http/src/mcp-handler.ts)
   — current `observability.setUser({ id: userId })` call site.
-- [`future/second-backend-evaluation.plan.md`](../../.agent/plans/observability/future/second-backend-evaluation.plan.md)
+- [`future/second-backend-evaluation.plan.md`](../../.agent/plans-backlog-2026-07/observability/future/second-backend-evaluation.plan.md)
   — three-sink strategic brief; consumer of the ruling.

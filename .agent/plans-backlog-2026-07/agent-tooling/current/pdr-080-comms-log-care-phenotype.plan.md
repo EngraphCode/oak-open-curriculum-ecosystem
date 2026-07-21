@@ -84,7 +84,7 @@ Without the phenotype, the doctrine is undeployed: agents have no way to observe
 
 ## Lifecycle Triggers
 
-> See [Lifecycle Triggers component](../../templates/components/lifecycle-triggers.md)
+> See [Lifecycle Triggers component](../../../plans/templates/components/lifecycle-triggers.md)
 
 - **Session entry**: `oak-start-right-team` (this work is multi-agent-visible; coordination-substrate surfaces touched)
 - **Active claim registration**: at WS1 start, register source claim covering `agent-tools/src/collaboration-state/` subtree + `consolidate-docs/SKILL-CANONICAL.md` (after WS2 unblocks)
@@ -96,7 +96,7 @@ Without the phenotype, the doctrine is undeployed: agents have no way to observe
 
 ## Cycle Dependencies and Parallelisation
 
-> See [TDD Cycles component](../../templates/components/tdd-phases.md) §"Atomic, independent cycles for parallel dispatch"
+> See [TDD Cycles component](../../../plans/templates/components/tdd-phases.md) §"Atomic, independent cycles for parallel dispatch"
 
 Cycle graph:
 
@@ -363,7 +363,7 @@ rationale: <one line>
 
 ## Quality Gates
 
-> See [Quality Gates component](../../templates/components/quality-gates.md)
+> See [Quality Gates component](../../../plans/templates/components/quality-gates.md)
 
 Per cycle:
 
@@ -392,7 +392,7 @@ pnpm practice:fitness:informational
 
 ## Adversarial Review
 
-> See [Adversarial Review component](../../templates/components/adversarial-review.md)
+> See [Adversarial Review component](../../../plans/templates/components/adversarial-review.md)
 
 **Pre-WS1**: optional `assumptions-expert` pass on this plan body (proportionality check on the three-bin abstraction).
 
@@ -404,7 +404,7 @@ pnpm practice:fitness:informational
 
 ## Risk Assessment
 
-> See [Risk Assessment component](../../templates/components/risk-assessment.md)
+> See [Risk Assessment component](../../../plans/templates/components/risk-assessment.md)
 
 | Risk | Mitigation |
 |---|---|
@@ -419,7 +419,7 @@ pnpm practice:fitness:informational
 
 ## Foundation Alignment
 
-> See [Foundation Alignment component](../../templates/components/foundation-alignment.md)
+> See [Foundation Alignment component](../../../plans/templates/components/foundation-alignment.md)
 
 - **principles.md** — long-term architectural excellence over short-term expediency; bin-signal is the simplest correct shape per PDR-080 design rationale
 - **testing-strategy.md** — TDD cycle pairs for all WS1 product code; documentation cycles (WS2) explicitly non-TDD per template guidance; integration test at CLI surface covers WS1 end-to-end
@@ -443,7 +443,7 @@ Vendor-literal clause: no vendor integration in scope.
 
 ## Documentation Propagation
 
-> See [Documentation Propagation component](../../templates/components/documentation-propagation.md)
+> See [Documentation Propagation component](../../../plans/templates/components/documentation-propagation.md)
 
 - **PDR-080** already landed; no further PDR work in scope
 - **SKILL** edits land in WS2 (the SKILL IS the canonical documentation home)

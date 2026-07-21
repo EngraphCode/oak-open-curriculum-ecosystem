@@ -16,7 +16,7 @@ co-equal in **importance**; they differ in **work-volume** (the estate restructu
 ~80% of the work) and **dependency-direction** — never collapse those axes into
 "priority". Re-org is **value-preserving**: express the value encoded in plans more
 clearly; never delete ideas. **Scope authority is the controlling plan**
-[`vision-strategy-and-plan-estate.plan.md`](../../../plans/product-development-governance/vision-strategy-and-plan-estate.plan.md),
+[`vision-strategy-and-plan-estate.plan.md`](../../../plans-backlog-2026-07/product-development-governance/vision-strategy-and-plan-estate.plan.md),
 reconceived to this model 2026-06-18. This record is the **pickup surface**, not scope authority.
 
 ## Where We Are (2026-07-16, Mussel rides Coral 6f8857 sitting Director — RESTATEMENT-REMEDIATION GATE ACTIVE; refounding lanes resume at the cures-landed + freeze-recut-check gate)
@@ -401,7 +401,7 @@ and must not wait.
 **What landed this session (branch `docs/plan-corpus-refounding`):**
 
 - The executable protocol plan
-  [`plan-corpus-refounding.plan.md`](../../../plans/product-development-governance/active/plan-corpus-refounding.plan.md)
+  [`plan-corpus-refounding.plan.md`](../../../plans-backlog-2026-07/product-development-governance/active/plan-corpus-refounding.plan.md)
   — todos R0a–R6; invariants P1–P14; the placed-judgement map J1–J9 ("judgement is
   placed, never eliminated"); two zero-judgement worker roles under 100% deterministic
   verification; the consolidated owner-gate register (G0..Walk C — **next action: the
@@ -415,7 +415,7 @@ and must not wait.
   overturns; B1 planted-loss challenge canaries and B2 the WS6 substrate statement both
   absorbed) + the resonance mechanism adopt/adapt/reject/invert table.
 - The dated additive amendment to
-  [`planning-estate-rewrite.plan.md`](../../../plans/product-development-governance/current/planning-estate-rewrite.plan.md)
+  [`planning-estate-rewrite.plan.md`](../../../plans-backlog-2026-07/product-development-governance/current/planning-estate-rewrite.plan.md)
   — `ws-r-corpus-refounding` gates ws6; WS6's substrate = refounded corpus + frozen
   archive via binding-clause provenance edges; ADR-200's text stands UNEDITED until the
   G-ADR gate (honesty boundary).
@@ -456,7 +456,7 @@ Read, in order:
 [`ADR-201`](../../../../docs/architecture/architectural-decisions/201-external-systems-evidence-integration.md)
 (external-evidence integration — **Proposed**; the *full-value* path, gated on the substrate landing;
 the substrate value stands without it), the executable
-[`planning-estate-rewrite.plan.md`](../../../plans/product-development-governance/current/planning-estate-rewrite.plan.md),
+[`planning-estate-rewrite.plan.md`](../../../plans-backlog-2026-07/product-development-governance/current/planning-estate-rewrite.plan.md),
 and this section.
 
 **State (re-derived first-hand, 2026-06-22):**

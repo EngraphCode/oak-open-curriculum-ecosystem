@@ -20,7 +20,7 @@ description: >-
 (deterministic data surface; the consuming agent is the only reasoner) and
 [ADR-195](../../../docs/architecture/architectural-decisions/195-graph-tools-first-class-tool-category.md)
 (graph-tool category doctrine). The value redesign that produced the contract is
-[`graph-tools-value-redesign.plan.md`](../../plans/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md).
+[`graph-tools-value-redesign.plan.md`](../../plans-backlog-2026-07/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md).
 
 ## Use When
 

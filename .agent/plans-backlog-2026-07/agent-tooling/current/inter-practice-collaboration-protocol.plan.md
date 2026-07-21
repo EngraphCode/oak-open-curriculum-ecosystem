@@ -444,7 +444,7 @@ Core's exchange model. WS0b makes that explicit on the portable surfaces.
 
 ## Lifecycle Triggers
 
-> See [Lifecycle Triggers component](../../templates/components/lifecycle-triggers.md)
+> See [Lifecycle Triggers component](../../../plans/templates/components/lifecycle-triggers.md)
 
 Executable repo plan. At execution start: open a claim on the arrangement's
 coordination home (repo-qualified per protocol clause 3), update the
@@ -638,7 +638,7 @@ the landed state of the queued statusline plans).
 
 ## Foundation Alignment
 
-> See [Foundation Alignment component](../../templates/components/foundation-alignment.md)
+> See [Foundation Alignment component](../../../plans/templates/components/foundation-alignment.md)
 
 Strict-and-complete: loud validation at every new boundary (WS1, WS2).
 First question applied: the zero-code alternative (always run the home

@@ -253,7 +253,7 @@ pnpm oaksearch admin ingest --dry-run --verbose
 
 ## WS4 — Quality Gates
 
-> See [Quality Gates component](../../templates/components/quality-gates.md)
+> See [Quality Gates component](../../../plans/templates/components/quality-gates.md)
 
 ```bash
 pnpm clean && pnpm sdk-codegen && pnpm build && pnpm type-check && \
@@ -265,7 +265,7 @@ pnpm test && pnpm test:ui && pnpm test:e2e && pnpm smoke:dev:stub
 
 ## WS5 — Adversarial Review
 
-> See [Adversarial Review component](../../templates/components/adversarial-review.md)
+> See [Adversarial Review component](../../../plans/templates/components/adversarial-review.md)
 
 Invoke specialist reviewers. Document findings. Create follow-up plan
 if blockers found.
@@ -283,7 +283,7 @@ Recommended reviewers:
 
 ## Risk Assessment
 
-> See [Risk Assessment component](../../templates/components/risk-assessment.md)
+> See [Risk Assessment component](../../../plans/templates/components/risk-assessment.md)
 
 | Risk | Mitigation |
 |------|------------|
@@ -297,7 +297,7 @@ Recommended reviewers:
 
 ## Foundation Alignment
 
-> See [Foundation Alignment component](../../templates/components/foundation-alignment.md)
+> See [Foundation Alignment component](../../../plans/templates/components/foundation-alignment.md)
 
 - **Principles.md**: Fail fast with helpful errors; generator-first mindset;
   no silent failures

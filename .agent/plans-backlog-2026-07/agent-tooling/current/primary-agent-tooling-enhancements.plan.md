@@ -42,7 +42,7 @@ The friction register remains the source of truth for issue inventory:
 - Completed in working tree: `F-01`, `F-02`, `F-04`, `F-09` for
   `collaboration-state`, `F-12`, and `F-13` via Workstream 1.
 - Already addressed outside this plan: `F-03`, `F-14`.
-- Routed elsewhere: `F-16` via [`.agent/plans/agent-tooling/current/skills-standardisation-and-adapter-generator.plan.md`](/.agent/plans/agent-tooling/current/skills-standardisation-and-adapter-generator.plan.md).
+- Routed elsewhere: `F-16` via [`.agent/plans/agent-tooling/current/skills-standardisation-and-adapter-generator.plan.md`](skills-standardisation-and-adapter-generator.plan.md).
 - Remaining implementation scope: `F-05`, `F-06`, `F-07`, `F-08`, `F-10`,
   `F-11`, and `F-15`, plus final register/docs closeout.
 
@@ -406,7 +406,7 @@ Issues covered: all remaining statuses plus `F-16` routing verification.
 Target files:
 
 - [`.agent/memory/operational/frictions-register.md`](/.agent/memory/operational/frictions-register.md)
-- Existing follow-up plan for `F-16`: [`.agent/plans/agent-tooling/current/skills-standardisation-and-adapter-generator.plan.md`](/.agent/plans/agent-tooling/current/skills-standardisation-and-adapter-generator.plan.md)
+- Existing follow-up plan for `F-16`: [`.agent/plans/agent-tooling/current/skills-standardisation-and-adapter-generator.plan.md`](skills-standardisation-and-adapter-generator.plan.md)
 
 Actions:
 

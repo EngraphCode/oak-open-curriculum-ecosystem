@@ -82,7 +82,7 @@ Each stream's strategic choices are **signed off** by the owner (2026-06-20) in 
 win" section; the registry below reflects them. The ID **contract** — how IDs
 behave (stable, additive, resolvable), the `serves_strategic_choice` field, and the validator
 — is governance machinery, owned by **Body 3** of the
-[controlling plan](../../.agent/plans/product-development-governance/vision-strategy-and-plan-estate.plan.md).
+[controlling plan](../../.agent/plans-backlog-2026-07/product-development-governance/vision-strategy-and-plan-estate.plan.md).
 The strategy lists the choices; governance owns the contract.
 
 | Stream            | Choice IDs                                                            | Status                                 |
@@ -107,11 +107,11 @@ The strategy lists the choices; governance owns the contract.
 ## Related
 
 - [Vision](../../VISION.md) — the change and the two parts.
-- [Controlling plan](../../.agent/plans/product-development-governance/vision-strategy-and-plan-estate.plan.md) —
+- [Controlling plan](../../.agent/plans-backlog-2026-07/product-development-governance/vision-strategy-and-plan-estate.plan.md) —
   scope, sequencing, and acceptance for this corpus (Body 2).
-- [Launch-readiness framework](../../.agent/plans/curriculum-mcp-path-to-ga/launch-readiness-framework.md)
+- [Launch-readiness framework](../../.agent/plans-backlog-2026-07/curriculum-mcp-path-to-ga/launch-readiness-framework.md)
   — the app's K1–K3 and Groups A–D readiness catalogue.
-- [Compliance roadmap](../../.agent/plans/compliance/roadmap.md) — the production-blocking
+- [Compliance roadmap](../../.agent/plans-backlog-2026-07/compliance/roadmap.md) — the production-blocking
   statutory set.
 - [Editorial tone](../../.agent/directives/editorial-tone.md) — the voice this corpus is
   written in.

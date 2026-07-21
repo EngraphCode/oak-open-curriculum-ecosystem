@@ -102,7 +102,7 @@ promotion step when package governance is ready.
 
 All tests MUST FAIL at the end of WS1.
 
-> See [TDD Phases component](../../../templates/components/tdd-phases.md)
+> See [TDD Phases component](../../../../plans/templates/components/tdd-phases.md)
 
 ### 1.1 Release artefact contract test
 
@@ -298,7 +298,7 @@ pnpm --filter @oaknational/oak-search-sdk test -- release-asset external-consume
 
 ## WS4 — Quality Gates
 
-> See [Quality Gates component](../../../templates/components/quality-gates.md)
+> See [Quality Gates component](../../../../plans/templates/components/quality-gates.md)
 
 ```bash
 pnpm clean
@@ -318,7 +318,7 @@ pnpm smoke:dev:stub
 
 ## WS5 — Adversarial Review
 
-> See [Adversarial Review component](../../../templates/components/adversarial-review.md)
+> See [Adversarial Review component](../../../../plans/templates/components/adversarial-review.md)
 
 Run specialist reviews after implementation:
 
@@ -335,7 +335,7 @@ Document findings in this plan; create follow-up plan for blockers.
 
 ## Risk Assessment
 
-> See [Risk Assessment component](../../../templates/components/risk-assessment.md)
+> See [Risk Assessment component](../../../../plans/templates/components/risk-assessment.md)
 
 | Risk | Mitigation |
 |---|---|
@@ -349,7 +349,7 @@ Document findings in this plan; create follow-up plan for blockers.
 
 ## Foundation Alignment
 
-> See [Foundation Alignment component](../../../templates/components/foundation-alignment.md)
+> See [Foundation Alignment component](../../../../plans/templates/components/foundation-alignment.md)
 
 Per-phase check-in questions:
 
@@ -367,7 +367,7 @@ Compliance expectations at completion:
 
 ## Documentation Propagation
 
-> See [Documentation Propagation component](../../../templates/components/documentation-propagation.md)
+> See [Documentation Propagation component](../../../../plans/templates/components/documentation-propagation.md)
 
 Must update when work lands:
 

@@ -572,7 +572,7 @@ manual flag; do not silence the log.
 - [Sentry Deployment Runbook](./sentry-deployment-runbook.md) — how
   Sentry is wired into each runtime at deploy time.
 - Parent plan:
-  [`sentry-otel-integration.execution.plan.md`](../../.agent/plans/architecture-and-infrastructure/active/sentry-otel-integration.execution.plan.md).
+  [`sentry-otel-integration.execution.plan.md`](../../.agent/plans-backlog-2026-07/architecture-and-infrastructure/active/sentry-otel-integration.execution.plan.md).
 - Upstream docs:
   - <https://docs.sentry.io/cli/>
   - <https://docs.sentry.io/cli/configuration/>

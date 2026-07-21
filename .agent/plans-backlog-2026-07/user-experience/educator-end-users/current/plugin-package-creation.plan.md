@@ -200,7 +200,7 @@ satisfied, so they gate nothing here.
 
 Per-cycle: the validation line in each todo plus the relevant local gates. Phase
 and final validation use the canonical aggregate gate
-([`../../../templates/components/quality-gates.md`](../../../templates/components/quality-gates.md));
+([`../../../../plans/templates/components/quality-gates.md`](../../../../plans/templates/components/quality-gates.md));
 `pnpm test`, `pnpm type-check`, `pnpm lint`, and (for any emitted artefacts under a
 drift gate) `pnpm skills:check` plus `pnpm markdownlint:root` are the load-bearing
 gates. Manifest validation against each vendor schema is a per-cycle gate.
@@ -276,7 +276,7 @@ auth, privacy, and external submission).
 On completion: run `oak-consolidate-docs`; route any durable doctrine (the
 single-source multi-vendor-manifest emit pattern) to its permanent home; update the
 synthesis plan's corpus map and the indexes. Lifecycle triggers per
-[`../../../templates/components/lifecycle-triggers.md`](../../../templates/components/lifecycle-triggers.md).
+[`../../../../plans/templates/components/lifecycle-triggers.md`](../../../../plans/templates/components/lifecycle-triggers.md).
 
 ## Cross-references (authoritative homes — do not duplicate)
 

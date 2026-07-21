@@ -458,7 +458,7 @@ Add a "Privacy and Data Handling" section to the MCP server README:
 
 All tests MUST FAIL at the end of WS3.
 
-> See [TDD Phases component](../../../templates/components/tdd-phases.md)
+> See [TDD Phases component](../../../../plans/templates/components/tdd-phases.md)
 
 ### 3.1: Factory filtering tests
 
@@ -841,7 +841,7 @@ cross-reference to this plan.
 
 ## WS6 — Quality Gates
 
-> See [Quality Gates component](../../../templates/components/quality-gates.md)
+> See [Quality Gates component](../../../../plans/templates/components/quality-gates.md)
 
 ```bash
 pnpm clean && pnpm sdk-codegen && pnpm build && pnpm type-check && \
@@ -854,7 +854,7 @@ pnpm smoke:dev:stub
 
 ## WS7 — Adversarial Review
 
-> See [Adversarial Review component](../../../templates/components/adversarial-review.md)
+> See [Adversarial Review component](../../../../plans/templates/components/adversarial-review.md)
 
 Invoke specialist reviewers after implementation. Minimum roster:
 
@@ -874,7 +874,7 @@ Document findings. Create follow-up plan if BLOCKERs found.
 
 ## Risk Assessment
 
-> See [Risk Assessment component](../../../templates/components/risk-assessment.md)
+> See [Risk Assessment component](../../../../plans/templates/components/risk-assessment.md)
 
 | Risk | Impact | Mitigation |
 |------|--------|------------|
@@ -890,7 +890,7 @@ Document findings. Create follow-up plan if BLOCKERs found.
 
 ## Foundation Alignment
 
-> See [Foundation Alignment component](../../../templates/components/foundation-alignment.md)
+> See [Foundation Alignment component](../../../../plans/templates/components/foundation-alignment.md)
 
 - **Cardinal Rule**: graph filtering is pure runtime logic on generated
   data. No new types are hand-crafted; filter schemas are Zod-defined.
@@ -914,7 +914,7 @@ Document findings. Create follow-up plan if BLOCKERs found.
 
 ## Documentation Propagation
 
-> See [Documentation Propagation component](../../../templates/components/documentation-propagation.md)
+> See [Documentation Propagation component](../../../../plans/templates/components/documentation-propagation.md)
 
 Documents to update or assess:
 

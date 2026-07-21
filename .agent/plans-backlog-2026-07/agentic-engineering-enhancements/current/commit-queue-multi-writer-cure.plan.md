@@ -374,7 +374,7 @@ pnpm agent-tools:commit-queue -- status
 Each implementation tranche must run focused tests first, then the relevant
 workspace checks, then the canonical aggregate gate for its touched surfaces.
 See the quality-gates component:
-[`quality-gates.md`](../../templates/components/quality-gates.md).
+[`quality-gates.md`](../../../plans/templates/components/quality-gates.md).
 
 Minimum expected gates:
 
@@ -465,7 +465,7 @@ Core.
 ## Lifecycle Triggers
 
 See
-[`lifecycle-triggers.md`](../../templates/components/lifecycle-triggers.md).
+[`lifecycle-triggers.md`](../../../plans/templates/components/lifecycle-triggers.md).
 
 - Session entry: start-right-team grounding and live comms monitoring were
   already active when owner routed the plan.

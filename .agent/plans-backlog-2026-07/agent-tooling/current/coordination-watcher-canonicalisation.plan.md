@@ -270,7 +270,7 @@ Per [`plan-body-first-principles-check`](../../../rules/plan-body-first-principl
 
 ## Lifecycle Triggers
 
-Per [`lifecycle-triggers.md`](../../templates/components/lifecycle-triggers.md):
+Per [`lifecycle-triggers.md`](../../../plans/templates/components/lifecycle-triggers.md):
 claim registration on execution start (agent-tools watch source + the two rule
 files + the ARC reference); reviewer dispatch in WS7; consolidation /
 learning-loop on completion (mine the F-81/F-82 cure into the friction register

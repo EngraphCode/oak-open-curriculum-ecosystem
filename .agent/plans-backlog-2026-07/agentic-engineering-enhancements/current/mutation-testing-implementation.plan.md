@@ -154,7 +154,7 @@ executes a deterministic dry run and mutation pass.
 
 Apply the shared documentation-propagation contract:
 
-- [Documentation Propagation component](../../templates/components/documentation-propagation.md)
+- [Documentation Propagation component](../../../plans/templates/components/documentation-propagation.md)
 - [the agentic-engineering-enhancements documentation-sync-log](../../../memory/operational/documentation-sync-logs/agentic-engineering-enhancements.md) (collection tracking)
 
 ## Success Evidence

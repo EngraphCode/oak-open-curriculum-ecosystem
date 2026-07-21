@@ -1215,7 +1215,7 @@ Blocking repair requirements:
    status and evidence.
 
 The wider repo-wide no-IO-in-tests recovery is intentionally separate under
-[`no-io-test-boundary-and-di-recovery.plan.md`](../../../plans/architecture-and-infrastructure/current/no-io-test-boundary-and-di-recovery.plan.md).
+[`no-io-test-boundary-and-di-recovery.plan.md`](../../architecture-and-infrastructure/current/no-io-test-boundary-and-di-recovery.plan.md).
 Do not expand P5 to repair unrelated historical IO tests.
 
 **P5 repair proof contract**:

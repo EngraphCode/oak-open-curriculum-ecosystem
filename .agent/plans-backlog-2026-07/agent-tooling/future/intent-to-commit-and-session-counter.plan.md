@@ -369,7 +369,7 @@ deliberately marked N/A.
 
 ## Lifecycle Triggers
 
-> See [Lifecycle Triggers component](../../templates/components/lifecycle-triggers.md)
+> See [Lifecycle Triggers component](../../../plans/templates/components/lifecycle-triggers.md)
 
 This is multi-session, Practice-domain, schema-changing work. When
 promoted to `current/` and then `active/`, the executable plan will:
@@ -471,7 +471,7 @@ When promoted, follow the standard three-phase reviewer rhythm:
 
 ## Foundation Alignment
 
-> See [Foundation Alignment component](../../templates/components/foundation-alignment.md)
+> See [Foundation Alignment component](../../../plans/templates/components/foundation-alignment.md)
 
 - **principles.md §First Question** — could it be simpler? Yes: shared-log
   free-form entries instead. But the structured surface is justified by
@@ -489,7 +489,7 @@ When promoted, follow the standard three-phase reviewer rhythm:
 
 ## Documentation Propagation
 
-> See [Documentation Propagation component](../../templates/components/documentation-propagation.md)
+> See [Documentation Propagation component](../../../plans/templates/components/documentation-propagation.md)
 
 When promoted, update propagation surfaces:
 

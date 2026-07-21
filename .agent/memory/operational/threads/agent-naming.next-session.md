@@ -16,7 +16,7 @@ substrate ADR:
   The next executor opens a fresh branch off `main`.
 - **Invocation pointer**: continue `agent-naming` from this record.
 - **Controlling plan**:
-  [`agent-naming-schema-v3.plan.md`](../../../plans/agent-tooling/current/agent-naming-schema-v3.plan.md)
+  [`agent-naming-schema-v3.plan.md`](../../../plans-backlog-2026-07/agent-tooling/current/agent-naming-schema-v3.plan.md)
   (`current/`, DECISION-COMPLETE / QUEUED). One plan, three phases:
   era-pinning cure (P1) → C wordlist curation → v3 registry entry + activation.
 - **Next safe step**: execute **Phase 1 (WS1, era-pinning cure)** — the P1
@@ -57,7 +57,7 @@ substrate ADR:
    env var; it is justified at t=0 (the statusline derives before any session
    record exists) and aligns with how the spawn flow sets
    `PRACTICE_AGENT_SESSION_ID`. Known reconciliation-debt against the 2026-06-28
-   [`knowledge-distribution-substrate`](../../../plans/agent-tooling/future/knowledge-distribution-substrate.plan.md)
+   [`knowledge-distribution-substrate`](../../../plans-backlog-2026-07/agent-tooling/future/knowledge-distribution-substrate.plan.md)
    direction: the substrate-native cure stamps identity once in an append-only
    session-identity event and *renders* the name (the substrate's `render`
    verb) rather than re-deriving from a pinned env era — v3's derive-don't-cache

@@ -85,7 +85,7 @@ What it does NOT export: param builders, scope validation, error formatting, or 
 
 All tests MUST FAIL at the end of WS1.
 
-> See [TDD Phases component](../../templates/components/tdd-phases.md)
+> See [TDD Phases component](../../../plans/templates/components/tdd-phases.md)
 
 ### 1.1: Param builder unit tests
 
@@ -319,7 +319,7 @@ pnpm type-check && pnpm lint && pnpm test
 
 ## WS4 — Quality Gates
 
-> See [Quality Gates component](../../templates/components/quality-gates.md)
+> See [Quality Gates component](../../../plans/templates/components/quality-gates.md)
 
 ```bash
 pnpm clean && pnpm sdk-codegen && pnpm build && pnpm type-check && \
@@ -331,7 +331,7 @@ pnpm test && pnpm test:ui && pnpm test:e2e && pnpm smoke:dev:stub
 
 ## WS5 — Adversarial Review
 
-> See [Adversarial Review component](../../templates/components/adversarial-review.md)
+> See [Adversarial Review component](../../../plans/templates/components/adversarial-review.md)
 
 Invoke specialist reviewers based on change profile:
 
@@ -346,7 +346,7 @@ Document findings. Create follow-up plan if BLOCKERs found.
 
 ## WS6 — Documentation Propagation
 
-> See [Documentation Propagation component](../../templates/components/documentation-propagation.md)
+> See [Documentation Propagation component](../../../plans/templates/components/documentation-propagation.md)
 
 - Update search SDK README with search-args surface documentation
 - Update semantic-search collection README to reference this plan
@@ -356,7 +356,7 @@ Document findings. Create follow-up plan if BLOCKERs found.
 
 ## Risk Assessment
 
-> See [Risk Assessment component](../../templates/components/risk-assessment.md)
+> See [Risk Assessment component](../../../plans/templates/components/risk-assessment.md)
 
 | Risk | Likelihood | Impact | Mitigation |
 |------|-----------|--------|------------|
@@ -375,7 +375,7 @@ Document findings. Create follow-up plan if BLOCKERs found.
 
 ## Foundation Alignment
 
-> See [Foundation Alignment component](../../templates/components/foundation-alignment.md)
+> See [Foundation Alignment component](../../../plans/templates/components/foundation-alignment.md)
 
 - **Cardinal Rule**: Types flow from the schema. `SearchArgs` will be defined in terms of types that already flow from sdk-codegen → search SDK. No ad-hoc types.
 - **No compatibility layers**: The MCP layer's local implementations are replaced, not wrapped.

@@ -360,7 +360,7 @@ Two source-file edits and one package.json edit, all in WS5 cycle 1:
 
 ## Cycle Dependencies and Parallelisation
 
-> See [TDD Cycles component](../../templates/components/tdd-phases.md) §"Atomic, independent cycles for parallel dispatch".
+> See [TDD Cycles component](../../../plans/templates/components/tdd-phases.md) §"Atomic, independent cycles for parallel dispatch".
 
 `ws1-cycle-1` and `ws4-cycle-1` are parallel-safe (separate file scopes, no acceptance dependency on each other). `ws2-cycle-1` depends on `ws1-cycle-1` (consumes the `Tokenizer` interface). `ws3-cycle-1` depends on `ws2-cycle-1` (composes per-file rows into an aggregate). `ws5-cycle-1` depends on `ws3-cycle-1` and `ws4-cycle-1` (composes both into the CLI integration). `ws6-docs` depends on `ws5-cycle-1` (documents the landed shape).
 
@@ -370,7 +370,7 @@ Natural decomposition gives WS1 and WS4 as independent cycles; the other depende
 
 ## WS1 — Pure Tokenizer Estimator
 
-> See [TDD Cycles component](../../templates/components/tdd-phases.md).
+> See [TDD Cycles component](../../../plans/templates/components/tdd-phases.md).
 
 ### Cycle 1.1: chars/4 tokenizer behind a swap seam
 
@@ -636,7 +636,7 @@ All four exit 0 (rg exit 0 means a match was found; markdownlint exit 0 means cl
 
 ## Quality Gates
 
-> See [Quality Gates component](../../templates/components/quality-gates.md).
+> See [Quality Gates component](../../../plans/templates/components/quality-gates.md).
 
 Per-cycle gates are listed inline in each WS section. After WS5 lands, before WS6, run the canonical aggregate gate from the repo root:
 
@@ -706,7 +706,7 @@ Per [`.agent/rules/plan-body-first-principles-check.md`](../../../rules/plan-bod
 
 ## Foundation Alignment
 
-> See [Foundation Alignment component](../../templates/components/foundation-alignment.md).
+> See [Foundation Alignment component](../../../plans/templates/components/foundation-alignment.md).
 
 - **`principles.md`** — pure core / IO at the edge (§D1–§D5 are pure; §D9 is the single composition root); First Question ("could it be simpler?") applied at every cycle (six small slices, no extra surfaces, no smart presets, no E2E surface).
 - **`testing-strategy.md`** — every cycle is a test+product pair landing in one commit. Tree green at the end of every commit. Unit / integration / value-proxy levels are distinct and each has its own acceptance id. TDD evidence is test-first per the proof contract.
@@ -716,7 +716,7 @@ Per [`.agent/rules/plan-body-first-principles-check.md`](../../../rules/plan-bod
 
 ## Documentation Propagation
 
-> See [Documentation Propagation component](../../templates/components/documentation-propagation.md).
+> See [Documentation Propagation component](../../../plans/templates/components/documentation-propagation.md).
 
 In-plan documentation is captured in WS6. After plan completion and `/jc-consolidate-docs`, propagate the landed shape:
 
@@ -740,7 +740,7 @@ After all six workstreams land and quality gates pass, run `/jc-consolidate-docs
 
 ## Lifecycle Triggers
 
-> See [Lifecycle Triggers component](../../templates/components/lifecycle-triggers.md).
+> See [Lifecycle Triggers component](../../../plans/templates/components/lifecycle-triggers.md).
 
 - **Start-right**: the executing session reads `start-right-quick`, the strategic source plan, and this plan body before WS1 opens.
 - **Active-claim**: the executing session opens an active claim against `agent-tools/src/context-cost/**`, `agent-tools/src/bin/agent-tools-cli.ts`, `agent-tools/src/bin/agent-tools-cli-topics.ts`, and `agent-tools/package.json` before any edit.

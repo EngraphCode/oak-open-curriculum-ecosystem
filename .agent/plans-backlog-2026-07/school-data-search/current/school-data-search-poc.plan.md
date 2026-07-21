@@ -546,10 +546,10 @@ G-8.
 
 Every workstream decomposes into TDD cycle-pairs at execution time (test +
 product code in one commit; Red → Green → Refactor;
-[tdd-phases](../../templates/components/tdd-phases.md)). The cycle lists
+[tdd-phases](../../../plans/templates/components/tdd-phases.md)). The cycle lists
 below are scope definitions, not exhaustive cycle enumerations — the
 executing session derives cycles from the acceptance criteria
-([session-discipline](../../templates/components/session-discipline.md):
+([session-discipline](../../../plans/templates/components/session-discipline.md):
 template-not-contract). The briefs' build-then-test phase ordering is NOT
 inherited (report §5 C-04).
 
@@ -699,7 +699,7 @@ de-risk it before investing in WS5–WS11.
   V-ledger outcomes; runbook (import failure response, token rotation,
   promotion rollback); TSDoc on all public surfaces per repo doctrine;
   documentation-propagation per the
-  [component](../../templates/components/documentation-propagation.md).
+  [component](../../../plans/templates/components/documentation-propagation.md).
 - Acceptance: onboarding path from collection README → workspace READMEs →
   TSDoc holds; docs-adr-expert + onboarding-expert review; proof level:
   non-code (review evidence).
@@ -833,13 +833,13 @@ Outcome-level; each maps to WS-level proof contracts above:
 ## Learning loop and lifecycle
 
 - Lifecycle touch points per
-  [lifecycle-triggers](../../templates/components/lifecycle-triggers.md):
+  [lifecycle-triggers](../../../plans/templates/components/lifecycle-triggers.md):
   claim registration per session, work-shape declaration, handoff closure,
   consolidation at milestone boundaries.
 - Plan completion, gate-bundle closure, and archival run
   [`consolidate-docs`](../../../skills/consolidate-docs/SKILL-CANONICAL.md);
   outcomes mine into ADRs/READMEs before archive per ADR-117.
 - Quality gates per
-  [quality-gates](../../templates/components/quality-gates.md): focused
+  [quality-gates](../../../plans/templates/components/quality-gates.md): focused
   deterministic validation per cycle; canonical aggregate gate at phase
   and final validation.

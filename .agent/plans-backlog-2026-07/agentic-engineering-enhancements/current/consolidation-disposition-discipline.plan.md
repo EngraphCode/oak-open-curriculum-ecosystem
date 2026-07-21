@@ -228,7 +228,7 @@ gating/restraint means I needn't…"; the cure is to check whether the principle
 
 ## Lifecycle triggers
 
-Per [`lifecycle-triggers.md`](../../templates/components/lifecycle-triggers.md):
+Per [`lifecycle-triggers.md`](../../../plans/templates/components/lifecycle-triggers.md):
 this plan is executed within the active dedicated-consolidation pass; its own
 completion is recorded by the consolidation commit and the permanent homes (PDR-117,
 the amended skills, the drained record), per `permanent-doc-is-the-consolidation-record`.

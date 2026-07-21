@@ -291,7 +291,7 @@ promotion to `current/`.
 
 ## Lifecycle Touch Points
 
-Per [`lifecycle-triggers.md`](../../templates/components/lifecycle-triggers.md),
+Per [`lifecycle-triggers.md`](../../../plans/templates/components/lifecycle-triggers.md),
 every executable promotion of this plan must, at minimum:
 
 - **Session entry** — start-right with active-claims read; this plan touches

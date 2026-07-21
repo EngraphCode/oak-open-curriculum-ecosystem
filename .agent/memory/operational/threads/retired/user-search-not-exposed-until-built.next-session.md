@@ -22,7 +22,7 @@ user-search experience is built.
 ## Lane state
 
 - **Owning plan**:
-  [`current/user-search-not-exposed-until-built.plan.md`](../../../../plans/sdk-and-mcp-enhancements/current/user-search-not-exposed-until-built.plan.md)
+  [`current/user-search-not-exposed-until-built.plan.md`](../../../../plans-backlog-2026-07/sdk-and-mcp-enhancements/current/user-search-not-exposed-until-built.plan.md)
   (✅ COMPLETE — ready to archive per ADR-117).
 - **Current objective**: COMPLETE.
 - **Current state**:

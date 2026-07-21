@@ -18,7 +18,7 @@ Compare a converted app against its canonical Claude Design export and leave
 **every divergence with a recorded judgment**. The diff is triage; the
 judgment is the deliverable. This is the agent-judged reconcile step of the
 Claude-Design ingestion pipeline
-([productionisation plan WS2](../../plans/curriculum-hub-demo/current/productionisation-and-reuse.plan.md)
+([productionisation plan WS2](../../plans-backlog-2026-07/curriculum-hub-demo/current/productionisation-and-reuse.plan.md)
 — "there is likely no deterministic route"): tools surface differences, an
 agent or human decides what each one means.
 

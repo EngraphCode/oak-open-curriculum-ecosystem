@@ -169,7 +169,7 @@ confirmation that no global Sentry state accumulates.
 
 Each cycle runs the focused command set during work, then the
 workspace gate at landing, then `pnpm check` from repo root at plan
-close. See [`components/quality-gates.md`](../../templates/components/quality-gates.md).
+close. See [`components/quality-gates.md`](../../../plans/templates/components/quality-gates.md).
 
 ### After each cycle
 

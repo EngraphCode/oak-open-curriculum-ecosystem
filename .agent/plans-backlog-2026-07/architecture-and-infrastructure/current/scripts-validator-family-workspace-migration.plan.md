@@ -203,7 +203,7 @@ Re-read at start of each phase:
 
 ## Lifecycle Trigger Commitment
 
-Active claim required at execution start. Multi-session plan: refresh the thread record (or open a new thread for this work) per PDR-027. Apply [`lifecycle-triggers.md`](../../templates/components/lifecycle-triggers.md) for the multi-file phases.
+Active claim required at execution start. Multi-session plan: refresh the thread record (or open a new thread for this work) per PDR-027. Apply [`lifecycle-triggers.md`](../../../plans/templates/components/lifecycle-triggers.md) for the multi-file phases.
 
 ---
 

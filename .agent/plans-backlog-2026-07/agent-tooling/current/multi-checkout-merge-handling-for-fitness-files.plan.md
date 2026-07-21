@@ -337,7 +337,7 @@ Before beginning work and at the start of each phase:
    the final package/tooling surface; CI workflow files; precommit
    hook configuration.
 4. Apply
-   [`lifecycle-triggers`](../../templates/components/lifecycle-triggers.md)
+   [`lifecycle-triggers`](../../../plans/templates/components/lifecycle-triggers.md)
    for the cross-cutting Phases 6–7.
 
 ---

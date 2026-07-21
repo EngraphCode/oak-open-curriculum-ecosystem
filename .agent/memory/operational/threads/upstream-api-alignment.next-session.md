@@ -19,7 +19,7 @@ section (2026-07-01).
 
 ## Lane state
 
-- **Owning plan**: [`active/upstream-api-alignment.plan.md`](../../../plans/sdk-and-mcp-enhancements/active/upstream-api-alignment.plan.md);
+- **Owning plan**: [`active/upstream-api-alignment.plan.md`](../../../plans-backlog-2026-07/sdk-and-mcp-enhancements/active/upstream-api-alignment.plan.md);
   living notes [`reports/upstream-api-alignment-notes-2026-06-30.md`](../../../reports/upstream-api-alignment-notes-2026-06-30.md).
 - **Current objective**: adapt the repo to the changed upstream API spec (programmes family)
   and graduate the repeatable process. **PR #291 MERGED 2026-07-01T10:25Z** — the

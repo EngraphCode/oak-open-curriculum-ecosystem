@@ -316,7 +316,7 @@ WS1/WS2 completion runs `/oak-consolidate-docs` and updates the thread record + 
 
 ## Lifecycle triggers
 
-Reference [`../../templates/components/lifecycle-triggers.md`](../../templates/components/lifecycle-triggers.md).
+Reference [`../../../plans/templates/components/lifecycle-triggers.md`](../../../plans/templates/components/lifecycle-triggers.md).
 This plan touches MCP/SDK architecture and an ADR — significant change → WS0 review artefact, GATE
 ADR, post-WS1 specialist review, and WS2 onboarding-register update are the required touch points.
 
