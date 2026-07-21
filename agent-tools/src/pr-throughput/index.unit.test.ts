@@ -1,0 +1,133 @@
+import { describe, expect, it } from 'vitest';
+
+import { computeThroughput, formatRegisterRow, type MergedPrRecord } from './index.js';
+
+const NOW = new Date('2026-07-20T20:00:00Z');
+
+function pr(input: {
+  readonly number: number;
+  readonly createdAt: string;
+  readonly mergedAt: string;
+  readonly headRefName?: string;
+}): MergedPrRecord {
+  return {
+    number: input.number,
+    createdAt: input.createdAt,
+    mergedAt: input.mergedAt,
+    headRefName: input.headRefName ?? `feature/pr-${input.number}`,
+  };
+}
+
+describe('computeThroughput', () => {
+  it('counts only merges inside the trailing window and derives merges per day', () => {
+    const report = computeThroughput(
+      [
+        pr({ number: 1, createdAt: '2026-07-20T10:00:00Z', mergedAt: '2026-07-20T11:00:00Z' }),
+        pr({ number: 2, createdAt: '2026-07-19T10:00:00Z', mergedAt: '2026-07-19T12:00:00Z' }),
+        // Outside the 7-day window: contributes nothing.
+        pr({ number: 3, createdAt: '2026-07-01T10:00:00Z', mergedAt: '2026-07-01T11:00:00Z' }),
+      ],
+      { windowDays: 7, now: NOW },
+    );
+
+    expect(report.mergedCount).toBe(2);
+    expect(report.mergesPerDay).toBeCloseTo(2 / 7, 5);
+    expect(report.windowDays).toBe(7);
+  });
+
+  it('excludes coordination-tracker branches, counting the exclusion', () => {
+    const report = computeThroughput(
+      [
+        pr({ number: 1, createdAt: '2026-07-20T10:00:00Z', mergedAt: '2026-07-20T11:00:00Z' }),
+        pr({
+          number: 3,
+          createdAt: '2026-07-20T10:00:00Z',
+          mergedAt: '2026-07-20T11:00:00Z',
+          headRefName: 'coordination/estate-2026-07',
+        }),
+      ],
+      { windowDays: 7, now: NOW },
+    );
+
+    expect(report.mergedCount).toBe(1);
+    expect(report.excludedCoordinationCount).toBe(1);
+  });
+
+  it('computes open-to-merged cycle-time percentiles by nearest rank in minutes', () => {
+    // Cycle times: 10, 20, 30, 40, 100 minutes → p50 = 30, p90 = 100.
+    const records = [10, 20, 30, 40, 100].map((minutes, index) =>
+      pr({
+        number: index + 1,
+        createdAt: '2026-07-20T10:00:00Z',
+        mergedAt: new Date(Date.parse('2026-07-20T10:00:00Z') + minutes * 60_000).toISOString(),
+      }),
+    );
+
+    const report = computeThroughput(records, { windowDays: 7, now: NOW });
+
+    expect(report.cycleTimeP50Minutes).toBe(30);
+    expect(report.cycleTimeP90Minutes).toBe(100);
+  });
+
+  it('reports null percentiles for an empty window instead of fabricating zeros', () => {
+    const report = computeThroughput([], { windowDays: 7, now: NOW });
+
+    expect(report.mergedCount).toBe(0);
+    expect(report.cycleTimeP50Minutes).toBeNull();
+    expect(report.cycleTimeP90Minutes).toBeNull();
+  });
+});
+
+describe('formatRegisterRow', () => {
+  it('renders one dated markdown row with minute-rounded percentiles', () => {
+    const row = formatRegisterRow(
+      computeThroughput(
+        [pr({ number: 1, createdAt: '2026-07-20T10:00:00Z', mergedAt: '2026-07-20T10:42:30Z' })],
+        { windowDays: 7, now: NOW },
+      ),
+      { note: 'founding window' },
+    );
+
+    expect(row).toBe('| 2026-07-20 | 7d | 1 | 0.14 | 43 | 43 | founding window |');
+  });
+
+  it('ceilings percentile minutes so a threshold read can never understate', () => {
+    // 45m01s: Math.round would record '45', which the "p50 at 45 or below"
+    // prediction reads as met while the measurement is above the boundary.
+    const row = formatRegisterRow(
+      computeThroughput(
+        [pr({ number: 1, createdAt: '2026-07-20T10:00:00Z', mergedAt: '2026-07-20T10:45:01Z' })],
+        { windowDays: 7, now: NOW },
+      ),
+      { note: '' },
+    );
+
+    expect(row).toBe('| 2026-07-20 | 7d | 1 | 0.14 | 46 | 46 |  |');
+  });
+
+  it('sanitises the note for the table: pipes encode, line breaks collapse', () => {
+    const row = formatRegisterRow(computeThroughput([], { windowDays: 7, now: NOW }), {
+      note: 'a|b\nc',
+    });
+
+    expect(row).toBe('| 2026-07-20 | 7d | 0 | 0.00 | - | - | a&#124;b c |');
+  });
+
+  it('neutralises a pipe regardless of preceding backslash parity', () => {
+    // `a\|b`: a backslash-escape approach would yield an EVEN backslash run
+    // before the pipe, which GFM reads as a column delimiter again.
+    const row = formatRegisterRow(computeThroughput([], { windowDays: 7, now: NOW }), {
+      note: String.raw`a\|b`,
+    });
+
+    expect(row).toBe(String.raw`| 2026-07-20 | 7d | 0 | 0.00 | - | - | a\&#124;b |`);
+  });
+
+  it('renders empty-window percentiles as a dash, never zero', () => {
+    const row = formatRegisterRow(computeThroughput([], { windowDays: 7, now: NOW }), {
+      note: '',
+    });
+
+    expect(row).toBe('| 2026-07-20 | 7d | 0 | 0.00 | - | - |  |');
+  });
+});

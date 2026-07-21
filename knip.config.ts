@@ -103,6 +103,10 @@ const config: KnipConfig = {
         'src/practice-fitness/validate-practice-fitness.ts',
         'src/ci/ci-schema-drift-check.ts',
         'src/ci/ci-turbo-report.ts',
+        // PDR-131 throughput register CLI: invoked via the
+        // `agent-tools:pr-throughput` package script (`pnpm exec tsx`), not
+        // imported.
+        'src/pr-throughput/cli.ts',
         // Refounding mechanical-instrument CLIs (plan-corpus-refounding R0a):
         // invoked via `pnpm exec tsx` package scripts, not imported.
         'src/refounding/refound-freeze.ts',

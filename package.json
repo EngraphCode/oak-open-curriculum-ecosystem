@@ -114,7 +114,8 @@
     "update:playwright": "pnpm install --save-dev -w @playwright/test@latest && pnpm exec playwright install --with-deps",
     "secrets:scan": "GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=diff.renameLimit GIT_CONFIG_VALUE_0=3000 gitleaks detect --redact=100 --source . --log-opts=\"--branches --tags\"",
     "secrets:scan:all": "GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=diff.renameLimit GIT_CONFIG_VALUE_0=3000 gitleaks detect --redact=100 --source . --log-opts=\"--branches --tags --full-history\"",
-    "secrets:scan:all-refs": "GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=diff.renameLimit GIT_CONFIG_VALUE_0=3000 gitleaks detect --redact=100 --source . --log-opts=\"--all --full-history\""
+    "secrets:scan:all-refs": "GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=diff.renameLimit GIT_CONFIG_VALUE_0=3000 gitleaks detect --redact=100 --source . --log-opts=\"--all --full-history\"",
+    "agent-tools:pr-throughput": "pnpm --filter @oaknational/agent-tools pr-throughput"
   },
   "keywords": [
     "mcp",
