@@ -370,7 +370,14 @@ as phase-local restatements.
    the old flat prohibition was born when arming happened at PR-open,
    pre-settlement). The arm moment carries this same recomputed gate;
    an armed intent is a standing merge command, so it inherits every
-   leg below. The recomputed full gate:
+   leg below — AND its validity is bound to the settled state it was
+   armed at: GitHub enforces only checks and threads, never the
+   round-owed or body-tally legs, so a NEW review, review comment, or
+   harvested finding arriving after arming invalidates the arm. On any
+   such signal the arming seat DISARMS (or re-verifies the full gate
+   and re-arms) — an armed intent is never fire-and-forget, and a seat
+   that arms owns watching for exactly this staleness until the merge
+   fires. The recomputed full gate:
    the round reads SETTLED per item 4 for the current tip; zero unresolved
    threads;
    a finding count of ZERO on BOTH tally surfaces (threads AND review
@@ -628,6 +635,8 @@ update continuity surfaces; close claims.
   nothing posts any more, misread as a merge mystery (PR #391, 2026-07-16:
   the required SonarCloud context was absent from every commit including
   main's) — cured by the Phase 7 never-fires recognition: check main for
-  the context, then surface the governance gap to the owner. (Arming has
-  since been struck entirely, so this mode can no longer arise; the
-  recognition stays for permanently-BLOCKED states generally.)
+  the context, then surface the governance gap to the owner. (Arming was
+  struck in that era and later RE-PERMITTED at settled-READY under a
+  Director grant — PDR-131, 2026-07-20 — so this mode can recur; the
+  never-fires recognition applies to any armed intent, alongside the
+  item-5 arm-staleness disarm duty.)

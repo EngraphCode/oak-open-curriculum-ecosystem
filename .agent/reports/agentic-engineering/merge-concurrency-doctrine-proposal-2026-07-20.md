@@ -31,6 +31,16 @@ Same PRs, same quality bar, two mechanisms:
 
 ## Evidence anchors
 
+Vendor sources for the queue/auto-merge claims: GitHub Docs, "Managing a
+merge queue" (merge-group check semantics — required checks must report on
+`merge_group` refs):
+<https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue>;
+github/codeql-action issue #1537 (CodeQL default setup cannot report on
+merge-group refs; open at capture time):
+<https://github.com/github/codeql-action/issues/1537>. The armed-intents
+survive-rule-removal behaviour is first-hand observed (the 19:12–19:20Z
+cascade), not vendor-documented — an empirical claim, flagged as such.
+
 23 merges on 2026-07-20 with zero breakage; the 11-wide cascade (19:12–19:20Z, merge SHAs on main d92bfa307…c20201d78); Sonar gate re-read OK at 19:26Z; Phase-8 records on-stream; the day's serial-era landing latencies in the comms trail (#431 13:07→13:08 grant-to-merge but ~25 min cycle incl. update-branch and rounds; #413/#414 cycles similar).
 
 ## Route
