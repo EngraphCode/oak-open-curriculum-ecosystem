@@ -463,6 +463,42 @@ interface ImportGraph {
   externalFiles: Map<string, Set<string>>;
 }
 
+function recordLocalReference(
+  graph: ImportGraph,
+  file: string,
+  reference: ImportReference,
+  sourceRoot: string,
+  knownFiles: Set<string>,
+  relative: (file: string) => string,
+): void {
+  const target = resolveLocalImport(file, reference.specifier, sourceRoot, knownFiles);
+  if (!target) {
+    graph.unresolvedLocal.add(`${relative(file)} -> ${reference.specifier}`);
+    return;
+  }
+  const edge = `${file}\0${target}`;
+  graph.allLocalEdges.add(edge);
+  if (reference.runtime) {
+    graph.runtimeShapedLocalEdges.add(edge);
+    expectDefined(graph.adjacency.get(file)).add(target);
+  }
+}
+
+function recordExternalReference(
+  graph: ImportGraph,
+  file: string,
+  reference: ImportReference,
+): void {
+  if (!reference.runtime) {
+    return;
+  }
+  const packageName = externalPackageRoot(reference.specifier);
+  if (!graph.externalFiles.has(packageName)) {
+    graph.externalFiles.set(packageName, new Set());
+  }
+  expectDefined(graph.externalFiles.get(packageName)).add(file);
+}
+
 function scanImportGraph(
   ts: TypeScriptApi,
   sources: SourceFile[],
@@ -471,42 +507,27 @@ function scanImportGraph(
   knownFiles: Set<string>,
   relative: (file: string) => string,
 ): ImportGraph {
-  const allLocalEdges = new Set<string>();
-  const runtimeShapedLocalEdges = new Set<string>();
-  const adjacency = new Map<string, Set<string>>(
-    analysedFiles.map((file): [string, Set<string>] => [file, new Set<string>()]),
-  );
-  const unresolvedLocal = new Set<string>();
-  const externalFiles = new Map<string, Set<string>>();
+  const graph: ImportGraph = {
+    allLocalEdges: new Set<string>(),
+    runtimeShapedLocalEdges: new Set<string>(),
+    adjacency: new Map<string, Set<string>>(
+      analysedFiles.map((file): [string, Set<string>] => [file, new Set<string>()]),
+    ),
+    unresolvedLocal: new Set<string>(),
+    externalFiles: new Map<string, Set<string>>(),
+  };
 
   for (const { file, text } of sources) {
     for (const reference of importReferences(ts, file, text)) {
       if (reference.specifier.startsWith('@/') || reference.specifier.startsWith('.')) {
-        const target = resolveLocalImport(file, reference.specifier, sourceRoot, knownFiles);
-        if (!target) {
-          unresolvedLocal.add(`${relative(file)} -> ${reference.specifier}`);
-          continue;
-        }
-        const edge = `${file}\0${target}`;
-        allLocalEdges.add(edge);
-        if (reference.runtime) {
-          runtimeShapedLocalEdges.add(edge);
-          expectDefined(adjacency.get(file)).add(target);
-        }
-        continue;
-      }
-
-      if (reference.runtime) {
-        const packageName = externalPackageRoot(reference.specifier);
-        if (!externalFiles.has(packageName)) {
-          externalFiles.set(packageName, new Set());
-        }
-        expectDefined(externalFiles.get(packageName)).add(file);
+        recordLocalReference(graph, file, reference, sourceRoot, knownFiles, relative);
+      } else {
+        recordExternalReference(graph, file, reference);
       }
     }
   }
 
-  return { allLocalEdges, runtimeShapedLocalEdges, adjacency, unresolvedLocal, externalFiles };
+  return graph;
 }
 
 interface DependencyMatrixResult {

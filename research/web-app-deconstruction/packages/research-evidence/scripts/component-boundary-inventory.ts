@@ -119,13 +119,38 @@ interface OwaImportScan {
   directNameAppearances: Map<string, number>;
 }
 
+// Buckets one import declaration's consumer file by specifier class and
+// counts direct-import name appearances.
+function recordOwaImport(
+  scan: OwaImportScan,
+  ts: TypeScriptModule,
+  file: string,
+  declaration: ImportWithStringSpecifier,
+): void {
+  const specifier = declaration.moduleSpecifier.text;
+  if (specifier === DIRECT_PACKAGE) {
+    scan.directConsumerFiles.add(file);
+    for (const name of new Set(importNames(ts, declaration))) {
+      scan.directNameAppearances.set(name, (scan.directNameAppearances.get(name) ?? 0) + 1);
+    }
+  }
+  if (specifier === OWA_THEME_REEXPORT) {
+    scan.themeConsumerFiles.add(file);
+  }
+  if (hasSharedComponentsImport(specifier)) {
+    scan.sharedConsumerFiles.add(file);
+  }
+}
+
 // Walks every OWA source's static import declarations, bucketing consumer
 // files by specifier class and counting direct-import name appearances.
 function scanOwaImports(ts: TypeScriptModule, owaSources: ScannedSource[]): OwaImportScan {
-  const directConsumerFiles = new Set<string>();
-  const themeConsumerFiles = new Set<string>();
-  const sharedConsumerFiles = new Set<string>();
-  const directNameAppearances = new Map<string, number>();
+  const scan: OwaImportScan = {
+    directConsumerFiles: new Set<string>(),
+    themeConsumerFiles: new Set<string>(),
+    sharedConsumerFiles: new Set<string>(),
+    directNameAppearances: new Map<string, number>(),
+  };
 
   for (const source of owaSources) {
     const sourceFile = ts.createSourceFile(
@@ -136,23 +161,11 @@ function scanOwaImports(ts: TypeScriptModule, owaSources: ScannedSource[]): OwaI
       source.file.endsWith('.tsx') ? ts.ScriptKind.TSX : ts.ScriptKind.TS,
     );
     for (const declaration of importDeclarations(ts, sourceFile)) {
-      const specifier = declaration.moduleSpecifier.text;
-      if (specifier === DIRECT_PACKAGE) {
-        directConsumerFiles.add(source.file);
-        for (const name of new Set(importNames(ts, declaration))) {
-          directNameAppearances.set(name, (directNameAppearances.get(name) ?? 0) + 1);
-        }
-      }
-      if (specifier === OWA_THEME_REEXPORT) {
-        themeConsumerFiles.add(source.file);
-      }
-      if (hasSharedComponentsImport(specifier)) {
-        sharedConsumerFiles.add(source.file);
-      }
+      recordOwaImport(scan, ts, source.file, declaration);
     }
   }
 
-  return { directConsumerFiles, themeConsumerFiles, sharedConsumerFiles, directNameAppearances };
+  return scan;
 }
 
 interface ComponentImportScan {

@@ -508,7 +508,7 @@ export function summarizeOpenApiObjectSchemas(value: unknown): OpenApiObjectSche
   return summary;
 }
 
-const OPEN_API_METHODS = ['get', 'put', 'post', 'delete', 'patch', 'options', 'head'];
+const OPEN_API_METHODS = new Set(['get', 'put', 'post', 'delete', 'patch', 'options', 'head']);
 
 interface ParameterAccumulator {
   maximums: OpenApiMaximumConstraint[];
@@ -555,7 +555,7 @@ function recordPathItemParameters(
     return;
   }
   for (const [method, operation] of Object.entries(pathItem)) {
-    if (!OPEN_API_METHODS.includes(method) || !isOperationLike(operation)) {
+    if (!OPEN_API_METHODS.has(method) || !isOperationLike(operation)) {
       continue;
     }
     for (const parameter of operation.parameters ?? []) {
