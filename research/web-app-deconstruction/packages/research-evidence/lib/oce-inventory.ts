@@ -35,11 +35,24 @@ export function parseWorkspacePatterns(source: string): string[] {
       break;
     }
 
-    const match = line.match(/^\s+-\s+([^#]+?)(?:\s+#.*)?$/);
-    if (!match) {
+    const item = /^[ \t]+-[ \t]+(.*)$/.exec(line);
+    if (!item) {
       continue;
     }
-    const value = match[1].trim().replace(/^(['"])(.*)\1$/, '$2');
+    // A trailing `# comment` counts only when whitespace precedes the `#`;
+    // an item with `#` hard against the value is malformed and skipped,
+    // exactly as the former single-regex parse behaved.
+    const hashIndex = item[1].indexOf('#');
+    let rawValue: string;
+    if (hashIndex === -1) {
+      rawValue = item[1];
+    } else {
+      rawValue = item[1].slice(0, hashIndex);
+      if (!/[ \t]$/.test(rawValue)) {
+        continue;
+      }
+    }
+    const value = rawValue.trim().replace(/^(['"])(.*)\1$/, '$2');
     if (value) {
       patterns.push(value);
     }

@@ -57,7 +57,10 @@ function markdownTargets(source: string): string[] {
     let match: RegExpExecArray | null;
     while ((match = pattern.exec(line)) !== null) {
       const rawTarget = (match[1] ?? match[2] ?? '').trim();
-      const withoutTitle = rawTarget.replace(/\s+"[^"]*"$/, '').trim();
+      // `(?<!\s)` pins the match to the start of the final whitespace run —
+      // where the leftmost match always began — so scanning cannot restart
+      // inside the run (S8786); the replaced text is unchanged.
+      const withoutTitle = rawTarget.replace(/(?<!\s)\s+"[^"]*"$/, '').trim();
       targets.push(withoutTitle.replace(/^<(.+)>$/, '$1'));
     }
   });

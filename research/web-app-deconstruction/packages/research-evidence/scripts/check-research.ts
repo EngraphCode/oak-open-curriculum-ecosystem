@@ -91,8 +91,25 @@ const markdownFiles = allFiles.filter((file) => file.endsWith('.md'));
 const portableFiles = allFiles.filter((file) => portableExtensions.has(path.extname(file)));
 const failures: string[] = [];
 const markdownGraph = new Map<string, string[]>();
-const lifecycleRecord = /^(?:docs\/hypotheses\/H\d+.*|docs\/investigations\/premises\/.*)\.md$/;
-const formalHypothesisRecord = /^docs\/hypotheses\/H\d+.*\.md$/;
+// Prefix/suffix predicates replace the former anchored `.*\.md$` regexes:
+// same accepted names (H must be followed by a digit; premises records are
+// any .md below the directory) without the overlapping-quantifier scan
+// S8786 flags.
+const hypothesisRecordPrefix = 'docs/hypotheses/H';
+const premisesRecordPrefix = 'docs/investigations/premises/';
+function isFormalHypothesisRecord(fileName: string): boolean {
+  return (
+    fileName.startsWith(hypothesisRecordPrefix) &&
+    fileName.endsWith('.md') &&
+    /^\d/.test(fileName.slice(hypothesisRecordPrefix.length))
+  );
+}
+function isLifecycleRecord(fileName: string): boolean {
+  return (
+    isFormalHypothesisRecord(fileName) ||
+    (fileName.startsWith(premisesRecordPrefix) && fileName.endsWith('.md'))
+  );
+}
 const conceptLensRecord =
   /^docs\/current-state\/(?:owa-components-concept-lenses|database-tools\/concept-lenses)\/(?!README\.md$|synthesis\.md$).+\.md$/;
 let conceptLensCount = 0;
@@ -100,7 +117,7 @@ let conceptLensCount = 0;
 for (const file of portableFiles) {
   const source = fs.readFileSync(file, 'utf8');
   source.split('\n').forEach((line, index) => {
-    if (/[ \t]+$/.test(line)) {
+    if (/[ \t]$/.test(line)) {
       failures.push(`${relative(file)}:${index + 1}: trailing whitespace`);
     }
     if (/^(?:<<<<<<<|=======|>>>>>>>)/.test(line)) {
@@ -131,7 +148,7 @@ for (const file of markdownFiles) {
     failures.push(...validation.failures);
   }
 
-  if (lifecycleRecord.test(fileName)) {
+  if (isLifecycleRecord(fileName)) {
     const frontMatter = source.match(/^---\n([\s\S]*?)\n---(?:\n|$)/)?.[1];
     if (!frontMatter) {
       failures.push(`${fileName}: missing lifecycle front matter`);
@@ -144,13 +161,13 @@ for (const file of markdownFiles) {
     }
   }
 
-  if (!formalHypothesisRecord.test(fileName) && source.includes('**Hypothesis:**')) {
+  if (!isFormalHypothesisRecord(fileName) && source.includes('**Hypothesis:**')) {
     failures.push(
       `${fileName}: formal Hypothesis label is only valid in a registered hypothesis record`,
     );
   }
 
-  if (formalHypothesisRecord.test(fileName)) {
+  if (isFormalHypothesisRecord(fileName)) {
     for (const section of [
       'Claim',
       'Why it is plausible',

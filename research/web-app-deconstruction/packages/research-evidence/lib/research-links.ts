@@ -19,7 +19,10 @@ export function resolveInternalLink(
   sourceFile: string,
   rawTarget: string,
 ): ResolvedInternalLink {
-  const withoutTitle = rawTarget.replace(/\s+"[^"]*"$/, '').trim();
+  // `(?<!\s)` pins the match to the start of the final whitespace run —
+  // where the leftmost match always began — so scanning cannot restart
+  // inside the run (S8786); the replaced text is unchanged.
+  const withoutTitle = rawTarget.replace(/(?<!\s)\s+"[^"]*"$/, '').trim();
   const withoutAngles = withoutTitle.replace(/^<(.+)>$/, '$1');
   const undecorated = withoutAngles.split('#')[0].split('?')[0];
   if (undecorated === '') {

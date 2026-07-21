@@ -375,11 +375,18 @@ function probeManifestName(scenarioName: string): string {
 
 function parseRouteMetrics(output: string): RouteMetrics | null {
   const clean = output.replaceAll(/\u001b\[[0-9;]*m/g, '');
-  const routeLine = clean.split('\n').find((line) => /(?:^|\s)[┌├└]?\s*[○ƒ]\s+\//u.test(line));
+  // `(?<!\S)` is the zero-width equivalent of the former consuming
+  // `(?:^|\s)` prefix — the marker must sit at the line start or after
+  // whitespace — without the consumed/optional-whitespace ambiguity S8786
+  // flags; as a boolean test the verdict is identical.
+  const routeLine = clean.split('\n').find((line) => /(?<!\S)[┌├└]?\s*[○ƒ]\s+\//u.test(line));
   if (!routeLine) {
     return null;
   }
-  const sizes = [...routeLine.matchAll(/([0-9.]+)\s*(B|kB|MB)/g)].map(
+  // `(?<![\d.])` pins each match to the start of its numeric run — where
+  // the leftmost match always began — so scanning cannot restart inside a
+  // run (S8786); the extracted matches are unchanged.
+  const sizes = [...routeLine.matchAll(/(?<![\d.])([\d.]+)\s*(B|kB|MB)/g)].map(
     (match) => `${match[1]} ${match[2]}`,
   );
   return { route: sizes[0] ?? null, firstLoad: sizes[1] ?? null };

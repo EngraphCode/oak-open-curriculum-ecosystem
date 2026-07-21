@@ -569,7 +569,7 @@ export async function buildOwaArchitectureInventory(
       analysedTypeScriptFiles: analysedFiles.length,
       knownSupportFilesWithinAnalysis: {
         fixtureShaped: analysedFiles.filter((file) =>
-          /(?:^|\/)(?:fixtures?)(?:\/|\.|$)|\.fixtures?\.[^.]+$/.test(
+          /(?:(?:^|\/)fixtures?(?:\/|\.|$))|(?:\.fixtures?\.[^.]+$)/.test(
             normaliseRelative(sourceRoot, file),
           ),
         ).length,
@@ -613,7 +613,7 @@ export async function buildOwaArchitectureInventory(
         hasModuleDirective(ts, file, text, 'use server'),
       ).length,
       filesContainingUseServerDirective: sources.filter(({ text }) =>
-        /^\s*["']use server["'];?/m.test(text),
+        /^[ \t]*["']use server["'];?/m.test(text),
       ).length,
       serverOnlyImportFiles: sources.filter(({ text }) =>
         /(?:from\s+|import\s*)["']server-only["']/.test(text),

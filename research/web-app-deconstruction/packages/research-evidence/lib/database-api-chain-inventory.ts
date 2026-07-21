@@ -206,21 +206,34 @@ export function summarizeMigrationSql(entries: SourceEntry[]): MigrationSqlSumma
   };
 }
 
+// The identifier tail parses `[schema.]name` with optional double quotes.
+// `(?=(...))\1` emulates a possessive quantifier (no backtracking into the
+// captured run) — safe here because the run classes exclude the `"` and `.`
+// that must follow, so backtracking could never have produced a different
+// match; it only removes the super-linear worst case (S8786).
+const sqlIdentifierTail = String.raw`(?:"?(?=([\w -]+))\1"?\.)?"?(?=(\w+))\2"?`;
+
 const sqlObjectPatterns: SqlObjectPattern[] = [
   {
     kind: 'materialized-view',
-    pattern:
-      /\bCREATE\s+MATERIALIZED\s+VIEW\s+(?:IF\s+NOT\s+EXISTS\s+)?(?:"?([a-zA-Z0-9_ -]+)"?\.)?"?([a-zA-Z0-9_]+)"?/i,
+    pattern: new RegExp(
+      String.raw`\bCREATE\s+MATERIALIZED\s+VIEW\s+(?:IF\s+NOT\s+EXISTS\s+)?` + sqlIdentifierTail,
+      'i',
+    ),
   },
   {
     kind: 'view',
-    pattern:
-      /\bCREATE\s+(?:OR\s+REPLACE\s+)?VIEW\s+(?:"?([a-zA-Z0-9_ -]+)"?\.)?"?([a-zA-Z0-9_]+)"?/i,
+    pattern: new RegExp(
+      String.raw`\bCREATE\s+(?:OR\s+REPLACE\s+)?VIEW\s+` + sqlIdentifierTail,
+      'i',
+    ),
   },
   {
     kind: 'function',
-    pattern:
-      /\bCREATE\s+(?:OR\s+REPLACE\s+)?FUNCTION\s+(?:"?([a-zA-Z0-9_ -]+)"?\.)?"?([a-zA-Z0-9_]+)"?/i,
+    pattern: new RegExp(
+      String.raw`\bCREATE\s+(?:OR\s+REPLACE\s+)?FUNCTION\s+` + sqlIdentifierTail,
+      'i',
+    ),
   },
 ];
 
@@ -250,7 +263,10 @@ export function hasuraResolverForRelation(relation: string): string {
 
 export function extractExportedStringConstants(source: string): ExportedStringConstant[] {
   const constants: ExportedStringConstant[] = [];
-  const pattern = /export\s+const\s+([A-Za-z0-9_]+)\s*=\s*(?:\r?\n\s*)?['"]([^'"]+)['"]\s*;/g;
+  // `\s*` after `=` already spans newlines, so the former optional
+  // `(?:\r?\n\s*)?` group matched nothing extra and only created the
+  // overlapping-quantifier ambiguity S8786 flags.
+  const pattern = /export\s+const\s+(\w+)\s*=\s*['"]([^'"]+)['"]\s*;/g;
   for (const match of source.matchAll(pattern)) {
     constants.push({ symbol: match[1], value: match[2] });
   }
@@ -426,7 +442,7 @@ export function countOpenApiPathKeys(source: string): number | null {
     pathsStart,
     componentsStart === -1 ? source.length : componentsStart,
   );
-  return [...pathsSource.matchAll(/^\s*"(\/[^"?]+)"\s*:/gm)].length;
+  return [...pathsSource.matchAll(/^[ \t]*"(\/[^"?]+)"\s*:/gm)].length;
 }
 
 export function summarizeOpenApiObjectSchemas(value: unknown): OpenApiObjectSchemaSummary {
