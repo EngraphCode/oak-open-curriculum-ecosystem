@@ -28,7 +28,7 @@ function decodePayload(jwt: string): { iat: number; exp: number; iss: string } {
 
 function fakeFetch(
   responses: readonly { status: number; body: unknown }[],
-  calls: { url: string; method: string; authorization: string }[],
+  calls: { url: string; method: string; authorization: string; body?: string }[],
 ): GithubApiFetch {
   let index = 0;
   return (url, init) => {
@@ -36,6 +36,7 @@ function fakeFetch(
       url,
       method: init.method,
       authorization: init.headers['authorization'] ?? '',
+      body: init.body,
     });
     const response = responses[Math.min(index, responses.length - 1)];
     index += 1;
@@ -104,11 +105,12 @@ describe('resolveInstallationId', () => {
 });
 
 describe('mintInstallationToken', () => {
-  it('POSTs to the installation access-token endpoint and returns the token pair', async () => {
-    const calls: { url: string; method: string; authorization: string }[] = [];
+  it('POSTs a repo-and-permission-SCOPED mint and returns the token pair', async () => {
+    const calls: { url: string; method: string; authorization: string; body?: string }[] = [];
     const result = await mintInstallationToken({
       appJwt: 'the-jwt',
       installationId: 987,
+      repoName: 'oak-open-curriculum-ecosystem',
       fetchImpl: fakeFetch(
         [{ status: 201, body: { token: 'ghs_abc', expires_at: '2026-07-21T07:30:00Z' } }],
         calls,
@@ -121,12 +123,17 @@ describe('mintInstallationToken', () => {
     });
     expect(calls[0].url).toBe('https://api.github.com/app/installations/987/access_tokens');
     expect(calls[0].method).toBe('POST');
+    expect(JSON.parse(calls[0].body ?? '{}')).toEqual({
+      repositories: ['oak-open-curriculum-ecosystem'],
+      permissions: { pull_requests: 'write', contents: 'write' },
+    });
   });
 
   it('rejects a 201 whose body fails the schema (strict boundary)', async () => {
     const result = await mintInstallationToken({
       appJwt: 'j',
       installationId: 1,
+      repoName: 'r',
       fetchImpl: fakeFetch([{ status: 201, body: { nope: true } }], []),
     });
 
@@ -136,10 +143,25 @@ describe('mintInstallationToken', () => {
     }
   });
 
+  it('surfaces a 201 whose body is not JSON as an error, never a throw', async () => {
+    const result = await mintInstallationToken({
+      appJwt: 'j',
+      installationId: 1,
+      repoName: 'r',
+      fetchImpl: () =>
+        Promise.resolve({ status: 201, json: () => Promise.reject(new Error('bad body')) }),
+    });
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.message).toContain('non-JSON body');
+    }
+  });
+
   it('surfaces non-201 statuses as errors', async () => {
     const result = await mintInstallationToken({
       appJwt: 'j',
       installationId: 1,
+      repoName: 'r',
       fetchImpl: fakeFetch([{ status: 401, body: {} }], []),
     });
 

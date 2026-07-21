@@ -26,8 +26,12 @@ list**. Merging with its short-lived installation token gives you a
 credential that GitHub itself stops at any unmet requirement:
 
 ```bash
-GH_TOKEN=$(pnpm agent-tools merge-bot mint-token) gh pr merge <n> --auto --merge
+GH_TOKEN=$(pnpm --silent agent-tools merge-bot mint-token) gh pr merge <n> --auto --merge
 ```
+
+Each minted token is scoped at mint time to this repository and to
+`pull_requests: write` + `contents: write` only — least-privilege by
+construction, even if the app is ever installed more widely.
 
 `.github/merge-bot.json` is the **single authority** for which app is this
 repo's bot (`appSlug`, `appId`, `repo`); the private key lives outside every
@@ -75,8 +79,8 @@ agent's: opening PRs, editing titles/descriptions, commenting, replying to
 review threads, resolving threads, requesting reviewers, arming, merging.
 
 ```bash
-GH_TOKEN=$(pnpm agent-tools merge-bot mint-token) gh pr edit <n> --body-file …
-GH_TOKEN=$(pnpm agent-tools merge-bot mint-token) gh api …/comments/<id>/replies -f body=…
+GH_TOKEN=$(pnpm --silent agent-tools merge-bot mint-token) gh pr edit <n> --body-file …
+GH_TOKEN=$(pnpm --silent agent-tools merge-bot mint-token) gh api …/comments/<id>/replies -f body=…
 ```
 
 Reads may use any credential — attribution matters for writes. Agents keep

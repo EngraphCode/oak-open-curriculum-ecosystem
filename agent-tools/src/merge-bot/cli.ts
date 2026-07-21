@@ -55,28 +55,56 @@ function realFetch(): GithubApiFetch {
   };
 }
 
+function signJwtResult(
+  appId: string,
+  privateKeyPem: string,
+  nowEpochSeconds: number,
+): Result<string, Error> {
+  try {
+    return ok(signAppJwt({ appId, privateKeyPem, nowEpochSeconds }));
+  } catch (cause) {
+    return err(
+      new Error(
+        `cannot sign the app JWT (is the PEM a valid private key?): ${cause instanceof Error ? cause.message : String(cause)}`,
+      ),
+    );
+  }
+}
+
+async function readKeyResult(
+  keyPath: string,
+  readFileImpl: MergeBotCliInput['readFileImpl'],
+): Promise<Result<string, Error>> {
+  const readKey = readFileImpl ?? ((path: string) => readFile(path, 'utf8'));
+  try {
+    return ok(await readKey(keyPath));
+  } catch (cause) {
+    return err(
+      new Error(
+        `cannot read private key at ${keyPath}: ${cause instanceof Error ? cause.message : String(cause)}`,
+      ),
+    );
+  }
+}
+
 async function mintForConfig(
   config: MintTokenConfig,
   input: MergeBotCliInput,
 ): Promise<Result<{ token: string; expiresAt: string; installationId: number }, Error>> {
-  const readKey = input.readFileImpl ?? ((path: string) => readFile(path, 'utf8'));
-  let privateKeyPem: string;
-  try {
-    privateKeyPem = await readKey(config.keyPath);
-  } catch (cause) {
-    return err(
-      new Error(
-        `cannot read private key at ${config.keyPath}: ${cause instanceof Error ? cause.message : String(cause)}`,
-      ),
-    );
+  const privateKeyPem = await readKeyResult(config.keyPath, input.readFileImpl);
+  if (!privateKeyPem.ok) {
+    return privateKeyPem;
   }
 
   const now = input.nowEpochSeconds ?? ((): number => Math.floor(Date.now() / 1000));
   const fetchImpl = input.fetchImpl ?? realFetch();
-  const appJwt = signAppJwt({ appId: config.appId, privateKeyPem, nowEpochSeconds: now() });
+  const appJwt = signJwtResult(config.appId, privateKeyPem.value, now());
+  if (!appJwt.ok) {
+    return appJwt;
+  }
 
   const installation = await resolveInstallationId({
-    appJwt,
+    appJwt: appJwt.value,
     owner: config.owner,
     repo: config.repoName,
     fetchImpl,
@@ -86,8 +114,9 @@ async function mintForConfig(
   }
 
   const minted = await mintInstallationToken({
-    appJwt,
+    appJwt: appJwt.value,
     installationId: installation.value,
+    repoName: config.repoName,
     fetchImpl,
   });
   if (!minted.ok) {
@@ -111,9 +140,13 @@ function writeSuccess(
 
 export async function runMergeBotCli(input: MergeBotCliInput): Promise<number> {
   const [action, ...rest] = input.args;
-  if (action === undefined || action === '--help' || action === '-h') {
+  if (action === '--help' || action === '-h') {
+    input.stdout.write(USAGE);
+    return 0;
+  }
+  if (action === undefined) {
     input.stderr.write(USAGE);
-    return action === undefined ? 2 : 0;
+    return 2;
   }
   if (action !== 'mint-token') {
     input.stderr.write(`merge-bot: unknown action "${action}"\n${USAGE}`);

@@ -133,6 +133,16 @@ describe('runMergeBotCli mint-token', () => {
     expect(keyReads).toEqual(['/explicit.pem']);
   });
 
+  it('fails with exit 1 and a named cause when the PEM is not a valid key', async () => {
+    const run = runWith({
+      args: ['mint-token', '--app-id', '1', '--private-key-path', '/k.pem', '--repo', 'o/r'],
+      readFileImpl: () => Promise.resolve('this is not a PEM'),
+    });
+    expect(await run.exit).toBe(1);
+    expect(run.errText()).toContain('cannot sign the app JWT');
+    expect(run.out()).toBe('');
+  });
+
   it('fails with exit 1 and a hint when the key file is unreadable', async () => {
     const run = runWith({
       args: ['mint-token', '--app-id', '1', '--private-key-path', '/missing.pem', '--repo', 'o/r'],

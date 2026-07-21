@@ -40,7 +40,7 @@ function parseFlagsForMint(
       continue;
     }
     const value = rest[i + 1];
-    if (value === undefined) {
+    if (value === undefined || value.startsWith('--')) {
       return err(new Error(`${flag} needs a value`));
     }
     if (flag === '--app-id') {
@@ -61,10 +61,19 @@ function isBlank(value: string | undefined): value is undefined | '' {
   return value === undefined || value === '';
 }
 
+const OWNER_GRAMMAR = /^[A-Za-z0-9-]+$/;
+const REPO_GRAMMAR = /^[A-Za-z0-9._-]+$/;
+
 function splitRepo(repo: string): Result<{ owner: string; repoName: string }, Error> {
-  const [owner, repoName] = repo.split('/');
-  if (isBlank(owner) || isBlank(repoName)) {
-    return err(new Error(`--repo must be owner/name, got "${repo}"`));
+  const [owner, repoName, ...extra] = repo.split('/');
+  if (
+    extra.length > 0 ||
+    isBlank(owner) ||
+    isBlank(repoName) ||
+    !OWNER_GRAMMAR.test(owner) ||
+    !REPO_GRAMMAR.test(repoName)
+  ) {
+    return err(new Error(`--repo must be owner/name in GitHub grammar, got "${repo}"`));
   }
   return ok({ owner, repoName });
 }

@@ -15,6 +15,10 @@ import { err, ok, type Result } from '@oaknational/result';
  *
  * Flow: RS256 app JWT (iss = app id, ≤10-minute lifetime) → resolve the
  * repo's installation id → POST for a short-lived installation token.
+ *
+ * `@octokit/auth-app` implements this same flow; hand-rolling here is a
+ * deliberate choice — ~25 lines against node:crypto with a
+ * verifiable-signature test, zero new dependencies in a credential path.
  */
 
 const JWT_BACKDATE_SECONDS = 60;
@@ -32,6 +36,7 @@ export type GithubApiFetch = (
   init: {
     readonly method: string;
     readonly headers: Readonly<Record<string, string>>;
+    readonly body?: string;
   },
 ) => Promise<{
   readonly status: number;
@@ -66,6 +71,21 @@ export function signAppJwt(input: {
   return `${header}.${payload}.${signature}`;
 }
 
+async function readJsonBody(
+  response: { readonly json: () => Promise<unknown> },
+  label: string,
+): Promise<Result<unknown, Error>> {
+  try {
+    return ok(await response.json());
+  } catch (cause) {
+    return err(
+      new Error(
+        `${label} returned a non-JSON body: ${cause instanceof Error ? cause.message : String(cause)}`,
+      ),
+    );
+  }
+}
+
 function githubHeaders(bearer: string): Readonly<Record<string, string>> {
   return {
     accept: 'application/vnd.github+json',
@@ -95,33 +115,55 @@ export async function resolveInstallationId(input: {
       ),
     );
   }
+  const body = await readJsonBody(response, 'GET /repos/{owner}/{repo}/installation');
+  if (!body.ok) {
+    return body;
+  }
   const parsed = parseWithSchema({
     label: 'GET /repos/{owner}/{repo}/installation',
     schema: INSTALLATION_SCHEMA,
-    value: await response.json(),
+    value: body.value,
   });
   return parsed.ok ? ok(parsed.value.id) : parsed;
 }
 
-/** Mint a short-lived installation access token. */
+/**
+ * Mint a short-lived installation access token, SCOPED to one repository
+ * and the two write permissions the merge path needs — least-privilege by
+ * construction, not by installation topology (security review 2026-07-21:
+ * an unscoped mint carries the app's full installation grant, so a second
+ * installed repo would silently widen every token).
+ */
 export async function mintInstallationToken(input: {
   readonly appJwt: string;
   readonly installationId: number;
+  readonly repoName: string;
   readonly apiBaseUrl?: string;
   readonly fetchImpl: GithubApiFetch;
 }): Promise<Result<{ token: string; expiresAt: string }, Error>> {
   const base = input.apiBaseUrl ?? 'https://api.github.com';
   const response = await input.fetchImpl(
     `${base}/app/installations/${String(input.installationId)}/access_tokens`,
-    { method: 'POST', headers: githubHeaders(input.appJwt) },
+    {
+      method: 'POST',
+      headers: githubHeaders(input.appJwt),
+      body: JSON.stringify({
+        repositories: [input.repoName],
+        permissions: { pull_requests: 'write', contents: 'write' },
+      }),
+    },
   );
   if (response.status !== 201) {
     return err(new Error(`installation token mint failed: HTTP ${String(response.status)}`));
   }
+  const body = await readJsonBody(response, 'POST /app/installations/{id}/access_tokens');
+  if (!body.ok) {
+    return body;
+  }
   const parsed = parseWithSchema({
     label: 'POST /app/installations/{id}/access_tokens',
     schema: INSTALLATION_TOKEN_SCHEMA,
-    value: await response.json(),
+    value: body.value,
   });
   return parsed.ok ? ok({ token: parsed.value.token, expiresAt: parsed.value.expires_at }) : parsed;
 }

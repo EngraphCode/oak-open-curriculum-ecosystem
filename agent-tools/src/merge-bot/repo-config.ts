@@ -24,7 +24,9 @@ const MERGE_BOT_CONFIG_SCHEMA = z
   .object({
     appSlug: z.string().regex(/^[a-z0-9][a-z0-9-]*$/, 'appSlug must be a GitHub app slug'),
     appId: z.string().regex(/^\d+$/, 'appId must be the numeric GitHub App id as a string'),
-    repo: z.string().regex(/^[^/\s]+\/[^/\s]+$/, 'repo must be owner/name'),
+    repo: z
+      .string()
+      .regex(/^[A-Za-z0-9-]+\/[A-Za-z0-9._-]+$/, 'repo must be owner/name in GitHub grammar'),
   })
   .strict();
 

@@ -73,13 +73,6 @@ export function agentToolsCliEnvironmentFromProcessEnv(
   return {
     ...agentIdentityCliEnvironmentFromProcessEnv(env),
     ...(env.HOME === undefined ? {} : { HOME: env.HOME }),
-    ...(env.OAK_MERGE_BOT_APP_ID === undefined
-      ? {}
-      : { OAK_MERGE_BOT_APP_ID: env.OAK_MERGE_BOT_APP_ID }),
-    ...(env.OAK_MERGE_BOT_PRIVATE_KEY_PATH === undefined
-      ? {}
-      : { OAK_MERGE_BOT_PRIVATE_KEY_PATH: env.OAK_MERGE_BOT_PRIVATE_KEY_PATH }),
-    ...(env.OAK_MERGE_BOT_REPO === undefined ? {} : { OAK_MERGE_BOT_REPO: env.OAK_MERGE_BOT_REPO }),
   };
 }
 

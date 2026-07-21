@@ -6,12 +6,6 @@ export type AgentToolsEnvironment = AgentIdentityCliEnvironment &
   CollaborationStateEnvironment & {
     /** User home directory — locates per-user surfaces such as vendor session transcripts. */
     readonly HOME?: string;
-    /** Merge-bot GitHub App id (AIP-158). */
-    readonly OAK_MERGE_BOT_APP_ID?: string;
-    /** Merge-bot private-key PEM path (held outside any repo). */
-    readonly OAK_MERGE_BOT_PRIVATE_KEY_PATH?: string;
-    /** Merge-bot target repo override, owner/name. */
-    readonly OAK_MERGE_BOT_REPO?: string;
   };
 
 export interface AgentToolsCliInput {
