@@ -94,8 +94,7 @@ Landed additionally (2026-04-30, Cursor Composer):
    [`sector-reusable-components-adoption.plan.md`](../../../../plans/sector-engagement/current/sector-reusable-components-adoption.plan.md),
    collection `README.md` Impact Intent / Documents table / Read order,
    `roadmap.md` Phase 4 links,
-   KG external adoption future [`related_plans`](../../../../plans/sector-engagement/knowledge-
-   graph-adoption/future/oak-knowledge-graph-external-adoption.plan.md) cross-wire.
+   KG external adoption future [`related_plans`](../../../../plans/sector-engagement/knowledge-graph-adoption/future/oak-knowledge-graph-external-adoption.plan.md) cross-wire.
 
 Evidence (prior 2026-04-29 landing still authoritative for narrative sweep):
 
@@ -164,13 +163,10 @@ before implementation promotion:
 - [OEAI Thread](../../../../plans/sector-engagement/oeai/README.md)
 - [External Knowledge Sources](../../../../plans/exploring-open-education-resources/external-knowledge-sources/README.md)
 - [Knowledge Graph Adoption](../../../../plans/sector-engagement/knowledge-graph-adoption/README.md)
-- [Sector reusable components adoption (current)](../../../../plans/sector-
-  engagement/current/sector-reusable-components-adoption.plan.md)
+- [Sector reusable components adoption (current)](../../../../plans/sector-engagement/current/sector-reusable-components-adoption.plan.md)
 - [Oak OpenAPI Monorepo Integration](../../../../plans/sector-engagement/future/oak-openapi-monorepo-integration.plan.md)
 - [DfE Data SDK seed](../../../../plans/sector-engagement/future/dfe-data-sdk.plan.md)
-- Oak Curriculum Ontology Workspace Reassessment (`../../../../plans-old-archive/connecting-oak-
-  resources/knowledge-graph-integration/archive/superseded/oak-curriculum-ontology-workspace-
-  reassessment.plan.md`)
+- Oak Curriculum Ontology Workspace Reassessment (`../../../../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/superseded/oak-curriculum-ontology-workspace-reassessment.plan.md`)
 
 ### Current Objective
 

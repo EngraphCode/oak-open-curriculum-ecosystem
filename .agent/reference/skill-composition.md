@@ -4,7 +4,9 @@ The skill estate is infrastructure for agents: markdown files are load-bearing
 architecture, so DRY and single-source-of-truth apply to them exactly as they
 apply to code. This reference names the composition hierarchy and the two
 rules that make it an architecture rather than a taxonomy. Imported and
-adapted 2026-07-20 from the Resonance estate (AIP-142; PDR-125 exchange),
+adapted 2026-07-20 from the Resonance estate (a private sibling Practice repo —
+no public upstream URL exists; source repo-relative path
+`.agent/reference/skill-composition.md`; AIP-142; PDR-125 exchange),
 mapped onto this estate's skill roster.
 
 ## The three layers

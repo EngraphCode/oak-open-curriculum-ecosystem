@@ -3,11 +3,15 @@
 **Captured**: 2026-07-20 by Galago stirs Grotto (`60d988`, Director), on the owner's
 direct instruction ("use the Resonance repo wrap skill to perform a full handoff, and
 schedule the import of the wrap skill").
-**Source (foreign estate, read-only look per the inter-practice protocol)**:
-`~/code/personal/resonance/.agent/skills/wrap/SKILL-CANONICAL.md` (110 lines at capture).
+**Source (foreign estate, read-only look per the inter-practice protocol)**: the
+Resonance estate (private sibling Practice repo; no public URL — identified by estate
+name per the inter-practice protocol), repo-relative path
+`.agent/skills/wrap/SKILL-CANONICAL.md` (110 lines at capture; read from the owner's
+local checkout at capture time).
 **Integration path**: this note is the Practice Box anchor; full integration happens at
-a consolidation pass (`/oak-consolidate-docs`), tracked by the Linear ticket named in
-the Director handoff record `2026-07-20-galago-director-full-handoff.md` §Import.
+a consolidation pass (the host estate's consolidation workflow). Tracking coordinates
+(ticket, handoff-record pointers) are host-side facts and live in the host estate's
+operational memory, not in this portable anchor.
 
 ## What it is
 
@@ -35,7 +39,15 @@ decide import vs mapping onto oak's conservation doctrine). MAP (re-point, no im
 session-handoff, consolidate-docs, metacognition, reason, concept-exploration — oak has
 all five. COLLISION flagged: Resonance's PDR-066 (cited by knowledge-safety-sweep) ≠
 oak's PDR-066 — renumber per the sequential-identifier collision rule. Tracking:
-Linear **AIP-142** (scope updated 12:51Z).
+the host-side exchange ticket (scope updated 12:51Z; coordinates in the host estate's
+operational memory).
+
+Sweep correction (2026-07-20, post-capture review): the wrap skill's reference graph
+also names Resonance's `decide` and `decision-matrix` skills, omitted from the lists
+above — both MAP onto oak's existing decision surfaces (`reason` + the decision
+lenses + the decision-matrix convention), no import; the integration pass verifies
+this mapping alongside the five above. The graph list here is the capture-time sweep,
+not a closed set — the integration pass re-walks the references from the source.
 
 ## Adaptation notes for the import (gap-check at integration)
 
@@ -69,7 +81,7 @@ Linear **AIP-142** (scope updated 12:51Z).
   `never-use-git-to-remove-work`, PDR-046 preserve-first); the adapted
   skills cite the oak homes. Resonance PDR-066 (comms-first-capture) →
   oak PDR-066 (failure-mode capture events) + consolidate-docs step 3.
-- **OPEN AIP-142 DECISION (recorded in `skill-composition.md`)**: whether
+- **OPEN EXCHANGE-TICKET DECISION (recorded in `skill-composition.md`)**: whether
   to import the `decide` workflow + `decision-matrix` rule as a
   first-class door, versus this estate's existing decision-lens machinery
   (principles §Decision Lenses; `present-verdicts-not-menus`). Owner call

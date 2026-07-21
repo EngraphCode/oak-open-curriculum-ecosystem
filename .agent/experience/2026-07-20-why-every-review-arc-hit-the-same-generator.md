@@ -83,8 +83,7 @@ knip-crash-reads-as-pass, F-148 heartbeats-during-suspension); five clean succes
 proving the rotation machinery at scale; and seven merged PRs including the design
 system's build-time contrast gate and the kit's zero-network surface.
 
-## Proposals (warrant + falsifier, each; routed via this estate's lanes — fast =
-## consolidation-pass rule/skill amendments, slow = PDR-class)
+## Proposals (warrant + falsifier, each; routed via this estate's lanes — fast = consolidation-pass rule/skill amendments, slow = PDR-class)
 
 1. **[FAST] Authoring-time open-set clause** on `no-moving-targets-in-permanent-docs`,
    extended to every prose artefact entering review (reports, PR narratives, plan proof

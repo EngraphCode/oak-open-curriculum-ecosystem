@@ -3,7 +3,7 @@ name: Derived-Output Conservation
 polarity: pattern
 use_this_when: Deciding what to commit from a pipeline run that produced bulk generated outputs alongside unique source material
 category: process
-proven_in: .agent/memory/active/napkin.md (2026-07-15, plan-corpus refounding S0/S1 publication decision)
+proven_in: .agent/memory/active/archive/napkin-2026-07-20.md (2026-07-15, plan-corpus refounding S0/S1 publication decision)
 proven_date: 2026-07-15
 barrier:
   broadly_applicable: true

@@ -545,9 +545,7 @@ pickup trigger; neither blocks the other.
   **PDR-051 reduced-implementation reconciliation review**. Pickup trigger: the owner review
   session, OR the first ingested external skill, OR promotion of the oversized-core
   decomposition brief. Inputs ready — owning plan §Reality Reconciliation gap ledger
-  ([`agent-tooling/current/skills-standardisation-and-adapter-
-  generator.plan.md`](../../../plans/agent-tooling/current/skills-standardisation-and-adapter-
-  generator.plan.md)),
+  ([`agent-tooling/current/skills-standardisation-and-adapter-generator.plan.md`](../../../plans/agent-tooling/current/skills-standardisation-and-adapter-generator.plan.md)),
   friction F-37, the pending-graduations entry, and two future briefs
   ([decomposition](../../../plans/agent-tooling/future/skills-oversized-core-decomposition.plan.md),
   [eval harness](../../../plans/agent-tooling/future/skills-eval-harness.plan.md)). On a

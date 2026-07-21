@@ -3,7 +3,7 @@ name: Amending Doctrine Binds the Editor
 polarity: anti-pattern
 use_this_when: Editing any skill, rule, directive, or governance doc while running live work the same document governs
 category: agent-behaviour
-proven_in: .agent/memory/active/napkin.md (2026-07-16, two instances in two days at one Director seat)
+proven_in: .agent/memory/active/archive/napkin-2026-07-20.md (2026-07-16, two instances in two days at one Director seat)
 proven_date: 2026-07-16
 barrier:
   broadly_applicable: true

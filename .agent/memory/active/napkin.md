@@ -130,3 +130,43 @@ these are the first-hand observations from bootstrapping start-right-team on a f
 - **What worked well**: agent-tools dist present on fresh checkout meant every CLI call
   worked without a build step; identity preflight + assert-watcher-live both green
   first-try; the watcher heartbeat/assert loop is a solid fresh-checkout experience.
+
+## 2026-07-20 — Tornado tracks Apex (daace4): Forge-tenure Layer-3 fold (Director succession, owed at first write moment)
+
+Folded verbatim-in-substance from Forge rides Brimstone's full handoff record
+(`handoffs/2026-07-20-forge-director-full-handoff.md` Layer 3) at the successor's
+first natural write moment, per the record's owed-items sweep:
+
+- **READY+settled merges ahead of granted-but-unsettled** (the #431/#413 and
+  #438-yields resequences) — now subsumed by PDR-131; instance conserved.
+- **`--body-file` for every comms send; AND >1500-char bodies fail exit-2 silently
+  under pipes** (Herring's find) — check send exits in-band. (F-149 recurrence class.)
+- **The comms content-validator rejects indefinite-holding-state phrasing** — name the
+  gate (Quoll's standby rewrite worked instance).
+- **A "verified absent" grep must test CURRENT vendor vocabulary** (allowBuilds vs
+  onlyBuiltDependencies — Forge's Sonar-census blind spot, caught by Copilot).
+- **Enqueue/auto-merge intents survive rule removal and fire silently** — disarm
+  before removing rules (homed in PDR-131 §6; the 11-wide cascade instance).
+- **Worktree-CLI bridging restores transport during primary build outages**; the
+  consolidation worktree doubles as the bridge environment.
+- **Tag-preservation (annotated tag → delete branch) is archive-not-delete for
+  preserve-branches** (#401, s2-canary worked instances; worktree-hygiene home).
+- **pnpm-wrapped CLI invocations die at postinstall during source breakage** — direct
+  `node dist/...` is the resilient path only while dist+deps are coherent.
+
+Cricket A/B (Forge tenure, toward the flip tally): six divergences adjudicated —
+context-supply class ×4, vocabulary-collision ×1 (UNSAFE-redirection),
+escalating-evidence-bar ×2. Class cures standing: cite grounding events in every
+pair's supplied context; define colliding terms. Cited frames converge (Quoll's
+pair proved it). Experiment-verdict question consolidated into Siren's merged pass.
+
+Scrutiny pointer (Forge's external-bound datum, consistent with Galago's lineage
+lesson): the tenure's three misses all lived in CONFIDENT UNVERIFIED ASSERTIONS —
+point verification effort there first.
+
+Host-coordinate conservation (de-hosted from the portable incoming note per
+practice-core-portability at PR #434 r3): **Linear AIP-142** is the exchange ticket
+for the Resonance wrap-family import (`practice-core/incoming/
+resonance-wrap-skill-import-2026-07-20.md`); the import's Director-handoff pointer
+was Galago's full handoff record §Import. These coordinates now live ONLY host-side
+(here + the Director records).

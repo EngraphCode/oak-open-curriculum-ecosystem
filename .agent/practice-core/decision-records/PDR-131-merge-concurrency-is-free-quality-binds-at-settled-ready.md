@@ -1,8 +1,13 @@
+---
+pdr_kind: governance
+---
+
 # PDR-131: Merge concurrency is free — quality binds at settled-READY
 
 **Status**: Accepted (owner-ratified 2026-07-20; proposal framing the owner's
 own: "2.5–3 hours was not a measure of how long it should take, it was a
 measure of the broken merge approach we currently use").
+**Date**: 2026-07-20
 
 ## Context
 
@@ -57,8 +62,11 @@ worked instance that day was a catch, not a miss.
 - The `pr-lifecycle` SKILL's state-machine items 4–5 and Phase 7's merge
   boundary take the arming clause amendment (arm-at-settled-READY-under-grant
   replaces the flat auto-merge prohibition); the drive-rulings register
-  updates at the next doctrine writer's touch. Source evidence:
-  `.agent/reports/agentic-engineering/merge-concurrency-doctrine-proposal-2026-07-20.md`.
+  updates at the next doctrine writer's touch. Source evidence: the host
+  estate's merge-concurrency doctrine proposal report (2026-07-20, the
+  natural-experiment write-up with vendor citations); the host-side changelog
+  and the drive's PR trail carry its path — a host-internal report path does
+  not ride in portable Core (`practice-core-portability`).
 - Director seat economics change: routing effort moves from slot sequencing
   to predicate verification and Phase-8 assignment.
 - The 2026-07-20 drive's serial-era latencies stand in the record as the

@@ -9,6 +9,17 @@ Tunnel (`265648`) and Harrier rides Updraft (`416a38`) own their lanes via their
 the plan, and the comms stream — treat every line here as pointer-and-hypothesis and
 recompute live state from claims/comms/git at pickup.
 
+## Participating identities (additive — joiners append a row, never replace)
+
+| Date (UTC) | Agent | Platform / model | Session prefix | Role on thread |
+| --- | --- | --- | --- | --- |
+| 2026-07-20 | Salmon binds Undertow | claude-code / fable-5 | `de5c10` | first writer (compaction boundary) |
+| 2026-07-20 | Caracal wakes Tunnel | claude-code / fable-5 | `265648` | Stage-A import lane |
+| 2026-07-20 | Harrier rides Updraft | claude-code / fable-5 | `416a38` | cycle-3 four-theme gate lane |
+| 2026-07-20 | Heron seeks Bluff | claude-code / fable-5 | `ef3eb0` | design-system lane (second-generation cast) |
+| 2026-07-20 | Foehn rides Flight | claude-code / fable-5 | `3e9afa` | lane successor; fold + Layer-3 distillations |
+| 2026-07-20 | Tornado tracks Apex | claude-code / fable-5 | `daace4` | Director — identity-table cure at #434 adjudication |
+
 ## Board state at writing (recompute, do not trust)
 
 - **PR #410 MERGED** (ADR-213 doctrine). **PR #412 MERGED** `SHA:6631bb5ac` (PR3
@@ -94,7 +105,7 @@ were verified first-hand this session.
   auto-merge then completes under the standing grant. Do NOT keep re-racing update-branch
   (burns CI, loses). Sequencing routed to Director (comms f9b7f2fc: quiet-window /
   merge-queue / prioritise) — check for the Director's answer before acting. Head at last
-  update: 536c2d7d2. I stopped racing at the 4th BEHIND and left the watch DISARMED at
+  update: SHA:536c2d7d2. I stopped racing at the 4th BEHIND and left the watch DISARMED at
   session close (no live PR watch to inherit).
 - **§6 is 3 small PRs, not 1** (recon: 30/34 hub component files hand-rolled; 4 kit
   adopters — SiteFooter, SiteNav, ThemeSwitcher, CourseSidebar). Order + scope:
@@ -112,7 +123,7 @@ were verified first-hand this session.
   shifts. Do not grow #413.
 - **Two of this record's open residuals are now CURED cross-lane** (verify at pickup):
   (a) the inherited Google Fonts `@import` — Caracal's **#420** (kit Roboto Mono localisation,
-  merge-armed, tip 4a2f7ac05) kills it kit-side; NO hub action needed once #420 lands, and it
+  merge-armed, tip SHA:4a2f7ac05) kills it kit-side; NO hub action needed once #420 lands, and it
   also closes the Stage-A F3 LICENCES.md residual. (b) the §7 contrast-audit expected-output
   design — the owner ratified the gate as **AAA-for-HC / AA-floor-elsewhere** (Director
   broadcast 06:24Z); my Stage-A report Part 2 is the fixture. §7 (contrast-audit-in-CI) can
@@ -127,7 +138,7 @@ PR3-gate lane close (distinct from Salmon's hub lane above). Full self-contained
 read it first; the pointers below are hypotheses, recompute live.
 
 - **PR3 cycle 3 (four-theme contrast gate) LANDED as PR #423** — branch
-  `jimcresswell/aip-137-pr3-cycle3-four-theme-gate`, tip `bb274cc2e`, pushed, 5 commits,
+  `jimcresswell/aip-137-pr3-cycle3-four-theme-gate`, tip `SHA:bb274cc2e`, pushed, 5 commits,
   auto-merge NOT armed (unreviewed). Live gate green: 34/34 pairs × 4 themes (HC AAA, rest
   AA), matching the Stage-A report Part 2 fixture. `design-tokens-core` gained a fixpoint
   resolver + `toHexComparand` + a WCAG `WcagLevel` param; `oak-design-tokens` gained the
@@ -141,7 +152,7 @@ read it first; the pointers below are hypotheses, recompute live.
   owes it; multi-part edit + test mirror specified); (2) the `build.ts`-vs-
   `build-css.integration.test.ts:106` duplicate live-data-proof adjudication.
 - **#414 (proof-instrument exploration) CONFLICTING again** on the plan file after a clean
-  resolve+push (`622acc3a4`) — the plan file is a serialization chokepoint (see napkin
+  resolve+push (`SHA:622acc3a4`) — the plan file is a serialization chokepoint (see napkin
   loss-scan); Director-routed, recipe in the handoff record.
 - **Claim on `packages/design/design-tokens-core/**` + `packages/design/oak-design-tokens/**`
   released at close.**
@@ -152,7 +163,7 @@ Design-system lane (Caracal succession per comms c161344b; lane handed onward to
 rides Flight 3e9afa at the owner's wrap, record
 `.agent/state/collaboration/handoffs/2026-07-20-heron-aip137-design-system-lane-full-handoff.md`).
 
-- **Stage-B concept exploration MERGED to main via PR #424** (12:17:52Z, `728974bc1`;
+- **Stage-B concept exploration MERGED to main via PR #424** (12:17:52Z, `SHA:728974bc1`;
   Phase-8 clean). Nine review rounds, two step-backs, one Director-authorised
   generator-kill push, one owner-ruled open-set exit — the review arc itself validated
   the report's central claim (closure over open surfaces fails; dispositions attach to
@@ -168,7 +179,7 @@ rides Flight 3e9afa at the owner's wrap, record
   hub branch's next currency update. The motion-cascade authority item stays on the
   sync-back batch (comms 1d615a4b: components.css belt-and-braces defeats
   data-motion='full' — verified, cure choice owner/studio-gated).
-  *(Fold-time truth: #431 MERGED 13:08:22Z, merge `2ef5ee3bd`, Phase-8 clean; the hub
+  *(Fold-time truth: #431 MERGED 13:08:22Z, merge `SHA:2ef5ee3bd`, Phase-8 clean; the hub
   parity copy refreshed byte-identically on the hub branch at 13:21Z.)*
 - **#420** completed as the Director's mechanical cycle (ping default during this seat's
   10:53–11:57Z harness suspension — the heartbeat-during-suspension false-liveness
