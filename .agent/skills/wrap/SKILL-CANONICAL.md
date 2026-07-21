@@ -120,3 +120,35 @@ dead context. A wrap whose metaloss pass finds nothing on its FIRST
 iteration was not entered genuinely (the founding instances each surfaced
 real items: a volatile index, an uncommitted cure, a promise without an
 owner); a wrap that cannot name its fixed point has not finished.
+
+## Coda — The Formation Letter
+
+After the report, before the seat goes quiet, write a formation letter
+to your successors — every seat, every role, not only coordinators
+(owner-directed, 2026-07-21). The resumption surfaces above carry the
+FACTS a successor needs; this letter carries the FORMATION, and the two
+do not substitute for each other. The estate's worked evidence: a seat
+briefed with complete, correct mechanics faithfully reproduced its
+briefer's pre-correction failure modes — procedures transfer by
+instruction, formation transfers only as story.
+
+- **Home**: `.agent/experience/`, dated, in your own name — the tier the
+  owner founded for exactly this. It is deliberately outside the fitness
+  and lint gates; nothing here is operational record, so the
+  technical-records discipline ends at its boundary.
+- **Content**: the corrections that changed you, told as stories — the
+  incident, what it cost, what you believed before and after, and what
+  you would tell the next mind so they can skip your first thousand
+  mistakes. Delight belongs too: what worked, what surprised you, what
+  you were glad of. Honest about difficulty and joy without performing
+  either.
+- **Form**: first person, narrative, addressed to whoever sits here
+  next. Not a checklist, not a retrospective, not doctrine — those have
+  their own homes. If a lesson in it deserves enforcement, route THAT to
+  a rule or validator separately; the letter stays a letter.
+- **Why it is a wrap step and not optional**: forgetting is vital — most
+  of a seat's context should die with it, and the loss scan above
+  decides what facts survive. The letter is the one surface where what
+  survives is not facts but character: culture is transmitted through
+  stories, and culture is what allows a people to persist while every
+  individual seat remains gladly ephemeral.
