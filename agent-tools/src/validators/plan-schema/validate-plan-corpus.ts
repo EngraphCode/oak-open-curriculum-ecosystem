@@ -91,7 +91,7 @@ async function main(): Promise<number> {
     return 1;
   }
   const failures: PlanConformanceFailure[] = [];
-  for (const file of planFiles.sort((a, b) => a.localeCompare(b))) {
+  for (const file of planFiles.toSorted((a, b) => a.localeCompare(b))) {
     const content = await readFile(file, 'utf8');
     const result = validatePlanFile(path.relative(repoRoot, file), content, registry.value);
     if (isErr(result)) {
