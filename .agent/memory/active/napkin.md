@@ -147,3 +147,55 @@ for the Resonance wrap-family import (`practice-core/incoming/
 resonance-wrap-skill-import-2026-07-20.md`); the import's Director-handoff pointer
 was Galago's full handoff record §Import. These coordinates now live ONLY host-side
 (here + the Director records).
+
+## 2026-07-21 — Tornado tracks Apex (daace4): Director-tenure wrap fold (evening drive, owner away)
+
+Cricket A/B: one further divergent pair (Foehn, #450 r1 verdict routing) — sonnet
+ON-TRACK / haiku DRIFTING, context-supply class; cure applied by inlining the PDR
+passages in the routing event. Tally: the class cure (cite + inline grounding)
+continues to convert divergence to convergence.
+
+Worked instances conserved (each first-hand this tenure):
+
+- **Armed-behind-red is invisible-stuck** (#439): an armed auto-merge behind a red
+  check progresses nothing and alerts nobody; board sweeps must read CHECK state,
+  not arm state. Caught by the belief's own author on fresh recheck — the
+  confident-unverified-assertion class again.
+- **Ruling-consequence propagation must be claim-scoped, not diff-scoped** (#450 r2:
+  five findings, one generator — the reclassification was applied to the diff but
+  not to every surface repeating the old claim). Cure class: sweep every surface
+  carrying the reclassified claim in ONE batch.
+- **The step-back tripwire fired and HELD** (#450 r5: fifth distinct finding-class in
+  five rounds → halt, owner-gate, decision matrix conserved) — the 5-minute-cure
+  temptation at the tripwire is the exact impulse the tripwire exists to refuse;
+  upholding one's own binding ruling against a cheap-looking exception is the
+  no-escape-hatches doctrine executing.
+- **gh-token invalidation masquerades as rate-limiting**: anonymous-tier limits
+  (limit:60) after a 401 are the signature — `gh auth status` is the discriminator;
+  never diagnose "quota exhausted" from 403s alone. Fleet cure: stop polling, keep
+  SSH-git/local work, owner card for the interactive re-auth.
+- **Notification-batch time distortion**: a Director reading batched monitor events
+  drifts AHEAD of the wall clock and can manufacture false silence windows — the
+  tool-computed UTC check (date -u + created_at deltas) caught a false-silence
+  escalation before it fired. Hand-computed elapsed time is banned for liveness
+  verdicts at this seat, same as hand-computed ages.
+- **Heartbeat-autopilot is a seat-level liveness gap**: two peer seats emitted
+  perfect ≤4-min heartbeats for 40+ min while their main loops processed nothing
+  (no comms absorption, no work artifacts). Process-liveness ≠ delivery-liveness
+  now has a SEAT-level instance; the detection is work-evidence (branch tips,
+  thread counts) + directed-ping deadlines, never heartbeat presence.
+- **Comms content-validator + pipes double-bite**: holding-state phrasing rejected
+  (cure: name the gate and the decision inline); a `| tail` swallowed the real
+  send exit again — exit-codes-in-band applies to every gated send.
+
+Association-seeds from the owner-invoked exploration/play pass over the day
+(seeds, not findings): (1) the evening's three tripwires (step-back, deadline-and-
+default, heads-down default) all share one shape — a pre-committed exit that
+removes in-the-moment discretion; the estate may want a named "pre-commitment
+device" pattern unifying them. (2) Review-round churn on docs PRs behaved like a
+reflexive system (each cure surface admits a new finding class) — PDR-132's
+authoring-time budgets and the tripwire are two halves of one thermostat; a future
+retrospective could measure whether budget-at-authoring reduces tripwire fires.
+(3) The false-silence and heartbeat-autopilot instances are duals (observer-side
+vs emitter-side liveness illusions) — a single liveness doctrine section could
+carry both.
