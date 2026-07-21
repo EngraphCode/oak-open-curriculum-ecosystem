@@ -1,3 +1,14 @@
+## [1.80.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.80.1...v1.80.2) (2026-07-21)
+
+
+### Bug Fixes
+
+* **research-evidence:** cure the four pr-analysis residuals with linear scans ([6c89ed0](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/6c89ed0d5776c2fc37c864296828faa443dc27ae))
+* **research-evidence:** modernise API usage flagged by Sonar ([5ccfda5](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5ccfda50d8138aa40d5dcc8c74f5eef47dfe4884))
+* **research-evidence:** provide explicit sort comparators (S2871, S4043) ([bb1d2d1](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bb1d2d196c43249c97641555f1e80ce14a4ed0b5))
+* **research-evidence:** remove regex super-linearity and class defects ([92915e6](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/92915e6d502907cdd7b9c00349cb014f3b0df6c3))
+* **research-evidence:** use dedicated test matchers and script-safe CI install ([d880a83](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d880a838a778198533e246a637dfc6dd66825ff1))
+
 ## [1.80.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.80.0...v1.80.1) (2026-07-21)
 
 
