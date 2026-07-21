@@ -22,6 +22,12 @@ const ATTENTION_BELL = '\u{1F514}';
 /** A job entry's state line, e.g. `- state: open` (trailing annotation allowed). */
 const OPEN_STATE_LINE = /^\s*-\s*state:\s*open\b/;
 
+/** The generated header's link line; https only — the value lands in an OSC 8 escape. */
+const LINK_LINE = /^\s*link:\s*(https:\/\/\S+)\s*$/m;
+
+/** OSC 8 hyperlink delimiters (open carries the URL; close is empty). */
+const OSC8_CLOSE = '\x1b]8;;\x1b\\';
+
 /**
  * Count the open jobs in the owner-jobs register content.
  *
@@ -42,9 +48,30 @@ export function countOpenOwnerJobs(fileContent: string | undefined): number {
  * the honest default, the bell only ever means "the register has open
  * items for you".
  */
-export function formatOwnerAttention(openCount: number | undefined): string | undefined {
+export function formatOwnerAttention(
+  openCount: number | undefined,
+  linkUrl?: string,
+): string | undefined {
   if (openCount === undefined || openCount === 0) {
     return undefined;
   }
-  return `${YELLOW}${BOLD}${ATTENTION_BELL}${String(openCount)}${RESET}`;
+  const styled = `${YELLOW}${BOLD}${ATTENTION_BELL}${String(openCount)}${RESET}`;
+  if (linkUrl === undefined) {
+    return styled;
+  }
+  return `\x1b]8;;${linkUrl}\x1b\\${styled}${OSC8_CLOSE}`;
+}
+
+/**
+ * Read the register header's `link:` line — the per-user issue-list URL the
+ * bell opens, derived at render time from the same Linear viewer identity as
+ * the queue owner's name. https only: the value is embedded in a terminal
+ * OSC 8 escape, so any other scheme is rejected rather than emitted.
+ */
+export function parseOwnerJobsLink(fileContent: string | undefined): string | undefined {
+  if (fileContent === undefined) {
+    return undefined;
+  }
+  const match = LINK_LINE.exec(fileContent);
+  return match?.[1];
 }

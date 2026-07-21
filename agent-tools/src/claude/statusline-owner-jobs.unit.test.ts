@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest';
 
-import { countOpenOwnerJobs, formatOwnerAttention } from './statusline-owner-jobs.js';
+import {
+  countOpenOwnerJobs,
+  formatOwnerAttention,
+  parseOwnerJobsLink,
+} from './statusline-owner-jobs.js';
 
 const JOBS_FILE = `# Owner jobs — Jim's visible queue
 
@@ -40,12 +44,34 @@ describe('countOpenOwnerJobs', () => {
   });
 });
 
+describe('parseOwnerJobsLink', () => {
+  it('reads the link line from the generated header', () => {
+    const content =
+      '<!-- GENERATED PROJECTION\n     link: https://linear.app/oaknational/label/owner-ask\n-->\n';
+    expect(parseOwnerJobsLink(content)).toBe('https://linear.app/oaknational/label/owner-ask');
+  });
+
+  it('is undefined when absent or for a non-https value', () => {
+    expect(parseOwnerJobsLink(undefined)).toBeUndefined();
+    expect(parseOwnerJobsLink('no link here')).toBeUndefined();
+    expect(parseOwnerJobsLink('link: javascript:alert(1)')).toBeUndefined();
+  });
+});
+
 describe('formatOwnerAttention', () => {
   it('renders the bell and count as one bold-yellow sequence', () => {
     // Exact sequence: colour BEFORE bold — YELLOW's leading `0;` SGR resets
     // prior attributes, so BOLD must follow it (the established bold-colour
     // ordering in statusline-segments).
     expect(formatOwnerAttention(3)).toBe('\x1b[0;33m\x1b[1m\u{1F514}3\x1b[0m');
+  });
+
+  it('wraps the styled bell in an OSC 8 hyperlink when a link is given', () => {
+    expect(formatOwnerAttention(5, 'https://linear.app/oaknational/label/owner-ask')).toBe(
+      '\x1b]8;;https://linear.app/oaknational/label/owner-ask\x1b\\' +
+        '\x1b[0;33m\x1b[1m\u{1F514}5\x1b[0m' +
+        '\x1b]8;;\x1b\\',
+    );
   });
 
   it('is absent at zero open jobs', () => {

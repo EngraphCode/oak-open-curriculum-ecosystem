@@ -95,6 +95,11 @@ export interface StatuslineParts {
    * identically to zero — no bell.
    */
   readonly ownerJobsOpen: number | undefined;
+  /**
+   * The register header's per-user issue-list URL; when present the bell is
+   * an OSC 8 terminal hyperlink to it. Undefined renders the plain bell.
+   */
+  readonly ownerJobsLink: string | undefined;
 }
 
 /** The ANSI-coloured statusline segments, each absent when its value is. */
@@ -130,7 +135,7 @@ export function buildSegments(parts: StatuslineParts): Segments {
   return {
     identity: formatIdentity(parts.identity, parts.identityPrefix, parts.sessionShape?.ownRole),
     indicators: formatSessionIndicators(parts.sessionShape),
-    attention: formatOwnerAttention(parts.ownerJobsOpen),
+    attention: formatOwnerAttention(parts.ownerJobsOpen, parts.ownerJobsLink),
     rateLimits: formatRateLimits(parts),
     model: parts.model === undefined ? undefined : `${DIM}${parts.model}${RESET}`,
     context: parts.usedPercentage === undefined ? undefined : formatContext(parts.usedPercentage),
