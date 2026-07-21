@@ -126,7 +126,8 @@ export function formatRegisterRow(
 export const REGISTER_HEADER = `# PR throughput register (PDR-131)
 
 Fitness-informational trend register written by \`pnpm agent-tools:pr-throughput\`
-(always exit 0). Each row is one trailing-window reading over PRs merged to
+(runtime and measurement failures report loudly and exit 0; only invalid
+arguments exit non-zero). Each row is one trailing-window reading over PRs merged to
 \`main\`, excluding coordination trackers (\`coordination/*\` head branches);
 a merged PR is never draft at merge, so no draft classification exists in
 this corpus. Cycle time is open-to-merged, in minutes, nearest-rank

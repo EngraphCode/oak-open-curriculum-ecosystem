@@ -90,6 +90,14 @@ describe('parsePrThroughputArgs', () => {
     expect(() => parsePrThroughputArgs(['--limit', '1.5'], NOW)).toThrow(/positive integer/u);
   });
 
+  it('accepts the proleptic-Gregorian leap date 0000-02-29 (no Date.UTC year remapping)', () => {
+    // Date.UTC remaps years 0-99 to 1900-1999; the calendar validator must
+    // not inherit that and reject a valid ISO leap date.
+    expect(parsePrThroughputArgs(['--now', '0000-02-29T00:00:00Z'], NOW).now.toISOString()).toBe(
+      '0000-02-29T00:00:00.000Z',
+    );
+  });
+
   it('rejects a calendar-invalid or non-ISO --now instead of normalising it', () => {
     expect(() => parsePrThroughputArgs(['--now', '2026-02-30T10:00:00Z'], NOW)).toThrow(
       /invalid ISO date-time/u,

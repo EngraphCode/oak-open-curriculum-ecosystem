@@ -37,6 +37,8 @@ function hasValidIsoDateTimeShape(value: string): boolean {
   );
 }
 
+const MONTH_LENGTHS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31] as const;
+
 function isValidCalendarDate(input: {
   readonly year: number;
   readonly month: number;
@@ -46,7 +48,17 @@ function isValidCalendarDate(input: {
     return false;
   }
 
-  return input.day <= new Date(Date.UTC(input.year, input.month, 0)).getUTCDate();
+  // Pure arithmetic, never Date.UTC: that constructor remaps years 0-99 to
+  // 1900-1999, which would reject valid proleptic-Gregorian dates such as
+  // the leap date 0000-02-29.
+  const monthLength =
+    input.month === 2 && isLeapYear(input.year) ? 29 : (MONTH_LENGTHS[input.month - 1] ?? 0);
+
+  return input.day <= monthLength;
+}
+
+function isLeapYear(year: number): boolean {
+  return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
 }
 
 function isValidClockTime(input: {
