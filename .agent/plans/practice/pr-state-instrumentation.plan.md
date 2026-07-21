@@ -1,4 +1,9 @@
 ---
+id: pr-state-instrumentation
+node_type: plan
+kind: executable
+serves_strategic_choice: FRAME-1
+last_updated: 2026-07-21
 lineage:
   serves_thread: agentic-engineering-enhancements
   serves_stream: agent-tooling
@@ -6,6 +11,18 @@ lineage:
     - PDR-131 (merge concurrency free; quality binds at settled-READY)
     - PDR-132 (changeset health; round budgets bind at authoring time)
     - pr-lifecycle SKILL §review-round state machine + §silent-wait sweeps
+todos:
+  - id: d1-pr-state-reader
+    content: "D1 — `agent-tools pr state <n>`: the compound decision-moment read as one verified instrument."
+    status: done
+  - id: d2-pr-watch
+    content: "D2 — `agent-tools pr watch <n...>`: event-loop wrapper over D1's module; breaks visibly if the verdict set drifts."
+    status: pending
+    depends_on: [d1-pr-state-reader]
+  - id: d3-register-wiring
+    content: "D3 — register wiring: per-PR final commits, review threads, and class into the throughput register."
+    status: pending
+    depends_on: [d1-pr-state-reader]
 ---
 
 # PR-state instrumentation — one verified instrument instead of per-seat bash
