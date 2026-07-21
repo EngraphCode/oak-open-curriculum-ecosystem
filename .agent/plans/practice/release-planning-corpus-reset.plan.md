@@ -1,25 +1,25 @@
 ---
 id: release-planning-corpus-reset
 node_type: plan
+name: Release-planning corpus reset
+overview: Backlog the prior plan estate losslessly and found the minimal V0 corpus for the first major release.
 kind: executable
 serves_strategic_choice: FRAME-1
+thread: curriculum-mcp-path-to-ga
 last_updated: 2026-07-21
-lineage:
-  serves_thread: curriculum-mcp-path-to-ga
-  serves_stream: product-development-governance
-  derives_from:
-    - Owner release directive 2026-07-21 (~12:0xZ, six points, this seat)
-    - Owner refinement 2026-07-21 (~12:2xZ; graph-ready minimum ratified as direction)
-    - plan-node-schema.v0.md (owner-signed V0 + V0.1; the ADR-200 bridge form)
-    - PDR-132 (round budgets bind at authoring time)
+derives_from:
+  - Owner release directive 2026-07-21 (~12:0xZ, six points, this seat)
+  - Owner refinement 2026-07-21 (~12:2xZ; graph-ready minimum ratified as direction)
+  - plan-node-schema.v0.md (owner-signed V0 + V0.1; the ADR-200 bridge form)
+  - PDR-132 (round budgets bind at authoring time)
 todos:
   - id: s1-schema-template-validator-fence
     content: "S1 — V0 Zod transcription + delivery/runbook templates + new-corpus validator leg + the Notion privacy fence (mechanical layer hash-matched; construction and human layers stated in the rule file)."
-    status: pending
+    status: completed
     depends_on: [s2-backlog-move-and-skeleton]
   - id: s2-backlog-move-and-skeleton
     content: "S2 — pure-move backlog of the prior plan estate (commit 1 = the move alone, R100-provable), founding members admitted under the corpus admission rule, minimal root skeleton, registry hygiene, references sweep."
-    status: pending
+    status: completed
   - id: s3-milestone-plan-and-lanes
     content: "S3 — milestone plan authored to the template from the landed owner documents; the four delivery lanes route independently as their own gates clear, each implementer authoring its plan at pickup."
     status: pending

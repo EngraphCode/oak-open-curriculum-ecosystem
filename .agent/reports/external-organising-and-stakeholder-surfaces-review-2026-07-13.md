@@ -595,7 +595,7 @@ Owner direction on 2026-07-13 establishes Notion as the **principal visibility s
 non-engineering stakeholders**, especially the most senior stakeholders. The MCP Pathfinder area
 already contains roadmap and release-planning material; the missing piece is one coherent,
 leadership-altitude account of the project. That account now exists as
-[MCP App — Strategy, Intended Impact, and Current Direction](https://app.notion.com/p/39c26cc4e1b181d09242ed54708443e8).
+[MCP App — Strategy, Intended Impact, and Current Direction] (internal Notion page; link redacted 2026-07-21 by the Notion strategy-page fence — the page remains owner-held).
 
 That account's stated job is to make the following legible without requiring GitHub or Linear
 fluency:
@@ -1287,7 +1287,7 @@ planning ceremony.
 
 ### Stakeholder and service surfaces
 
-- [Notion — MCP App strategy, intended impact, and current direction](https://app.notion.com/p/39c26cc4e1b181d09242ed54708443e8)
+- Notion — MCP App strategy, intended impact, and current direction (internal Notion page; link redacted 2026-07-21 by the Notion strategy-page fence)
 - [Ask Oisín design](../research/outreach/oisin-oce-navigator-design.md)
 - [Slack assistants collection](../plans-backlog-2026-07/slack-assistants/README.md)
 - [Ask Oisín plan](../plans-backlog-2026-07/slack-assistants/current/ask-oisin.plan.md)
