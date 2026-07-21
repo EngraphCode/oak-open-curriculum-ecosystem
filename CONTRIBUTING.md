@@ -294,7 +294,10 @@ workspace READMEs for detailed setup instructions.
 
 For the complete development lifecycle — branching, TDD, quality
 gates, CI, AI review, human review, merge, and release — see the
-[Development Workflow](docs/engineering/workflow.md).
+[Development Workflow](docs/engineering/workflow.md). For how merges
+are protected, who needs the merge bot (bypass-capable credentials
+only — for everyone else it is optional by design), and how to set
+one up, see [The merge bot](docs/engineering/merge-bot.md).
 
 ### 1. Create a Feature Branch
 
