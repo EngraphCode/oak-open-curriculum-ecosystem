@@ -105,6 +105,20 @@ further pass would only re-find it — the recursion closes at that named point.
 worth one line: the estate's loop latency is now short enough that this session imported
 a skill, ran it live, was retrospected under it, and amended its neighbours — same day.
 
+## 2026-07-20 — Deimos tracks Perigee (73e4ab): fresh-checkout live-fire addendum (post-PR-436)
+
+- `claims close` ENOENT'd on the unseeded `closed-claims.archive.json` minutes after the
+  registry-reader fix was authored — the second live surface of the same class in one session;
+  the fix's prescribed seed cured it verbatim (direct evidence the error-as-instruction shape
+  works at the failure surface).
+- `claims close` requires explicit `--now` while `claims open` defaults it (F-89 covered open
+  only) — flag-default consistency papercut, routed to exploration proposal 2b, not a failure.
+- The untracked substrate (comms events, seen-files, watcher heartbeat, claims registry)
+  survived the primary checkout's branch switch intact — the ADR-199 persistence property
+  observed live; the same design that produces the F-41 homing hazard (one-property-two-faces,
+  per the fresh-checkout-experience exploration report at
+  `.agent/reports/fresh-checkout-experience-concept-exploration-2026-07-20.md`).
+
 ## 2026-07-20 — Deimos tracks Perigee (73e4ab): fresh-checkout collaboration-substrate frictions
 
 Owner named this session "a good opportunity to improve the fresh checkout experience";
