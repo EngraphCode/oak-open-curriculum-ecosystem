@@ -108,3 +108,19 @@ budget numbers (pointer only — consolidate-at-second-consumer is the point).
   doctrine: naming a risk in the plan does not prevent it — only a
   mechanical check does; a future candidate is a pre-open grep for the
   budget literals outside the PDR.
+
+- **2026-07-21 ~05:40Z, seat closeout (banked, not finished).** The fleet gh
+  token went invalid at ~00:02Z, freezing every review clock; the board
+  ended entirely owner-gated and the Director called WRAP GO. #451 state at
+  the freeze: round-1 cures pushed (1f678e7fe), 6 threads shown unresolved
+  by the last authenticated read — resolution attempts during the outage
+  could not be verified, so the round-2 verify re-runs first-hand at gh
+  re-auth. The ≤2-round self-test is therefore UNRESOLVED at this seat's
+  close — honestly recorded as the doctrine demands, not scored optimistic.
+  Seat misses recorded for the meta-example: a ~30-minute harvest-act gap
+  on a round already read; a card-answer (owner decision) relayed hours
+  late; gh polls left running ~5h into a stop order while heads-down. One
+  generator: event-driven wake breaks silently when the seat's main loop
+  is saturated — the silent-wait class applies to SEATS, not just PRs.
+  Successor instruction: at re-auth, re-verify #451 threads first-hand,
+  finish the round, arm at settled-READY under the standing grant.
