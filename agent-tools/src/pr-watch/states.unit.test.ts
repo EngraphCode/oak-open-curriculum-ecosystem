@@ -23,6 +23,7 @@ function settledReading(overrides: Partial<PrStateReading> = {}): PrStateReading
     number: 999,
     url: 'https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/999',
     state: 'OPEN',
+    isDraft: false,
     mergeable: 'MERGEABLE',
     mergeStateStatus: 'BLOCKED',
     headRefOid: TIP,
@@ -59,6 +60,7 @@ describe('PR_VERDICT_STATES', () => {
       [
         'SETTLE-READY',
         'SETTLING-QUIET-WINDOW',
+        'DRAFT',
         'WAITING-REVIEW-RUN-LIVE',
         'SILENT-WAIT-NO-REVIEWER',
         'SILENT-WAIT-RUN-DEAD',
@@ -403,6 +405,17 @@ describe('computePrVerdict — quiet window and settlement (SKILL item 4)', () =
   it('an undeclared expected set is named in evidence, never silent', () => {
     const verdict = computePrVerdict(settledReading({ expectedDeclared: false }), LATE_NOW);
     expect(verdict.evidence.join('\n')).toContain('DEFAULTED from the observed surface');
+  });
+});
+
+describe('computePrVerdict — round-6 classes (2026-07-21)', () => {
+  it('a fully green settled DRAFT reads the typed DRAFT refusal, never SETTLE-READY (r6 regression)', () => {
+    // Drafts cannot merge via the sanctioned landing path (the pr-throughput
+    // invariant) — unlike review-gate BLOCKED (ratified landable), draftness
+    // is a real merge blocker, so no settlement read may proceed over it.
+    const verdict = computePrVerdict(settledReading({ isDraft: true }), LATE_NOW);
+    expect(verdict.state).toBe('DRAFT');
+    expect(verdict.evidence.join('\n')).toContain('mark ready for review');
   });
 });
 

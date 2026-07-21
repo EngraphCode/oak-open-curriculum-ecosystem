@@ -48,6 +48,8 @@ export interface PrStateReading {
   readonly url: string;
   /** `OPEN` | `CLOSED` | `MERGED`. */
   readonly state: string;
+  /** Draft PRs cannot merge via the sanctioned landing path — typed refusal. */
+  readonly isDraft: boolean;
   /** `MERGEABLE` | `CONFLICTING` | `UNKNOWN`. */
   readonly mergeable: string;
   /** `CLEAN` | `BLOCKED` | `BEHIND` | `DIRTY` | `UNSTABLE` | … */
@@ -79,6 +81,7 @@ export interface PrStateReading {
 export const PR_VERDICT_STATES = [
   'SETTLE-READY',
   'SETTLING-QUIET-WINDOW',
+  'DRAFT',
   'WAITING-REVIEW-RUN-LIVE',
   'SILENT-WAIT-NO-REVIEWER',
   'SILENT-WAIT-RUN-DEAD',

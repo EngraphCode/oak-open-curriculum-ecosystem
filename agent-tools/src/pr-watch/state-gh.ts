@@ -83,7 +83,10 @@ function readMergeabilityComputedView(input: {
   const view = parseStateView(
     parseGhJson(input.run(input.gh, input.viewArgs, GH_EXEC_OPTIONS), 'pr view'),
   );
-  if (view.mergeable === 'UNKNOWN') {
+  // The refusal binds OPEN PRs only: GitHub stops computing (and commonly
+  // returns UNKNOWN for) merged/closed PRs, whose terminal verdicts must
+  // remain reachable — including a PR that closes mid-compound-read.
+  if (view.state === 'OPEN' && view.mergeable === 'UNKNOWN') {
     throw new Error(
       `PR #${input.prNumber}: mergeability not yet computed (mergeable=UNKNOWN) — re-run in a few seconds`,
     );

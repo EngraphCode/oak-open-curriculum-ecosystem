@@ -31,7 +31,10 @@ const namedRollupItemSchema = z
   .loose();
 
 // A review request names a User (`login`) or a Team (`slug`, with `name` as a
-// fallback); an unrecognised shape becomes 'unknown' rather than a rejection.
+// fallback). An entry with NO identity field is misshapen external input and
+// fails loud at the boundary (strict-validation-at-boundary): transforming it
+// to 'unknown' would mint a real reviewer identifier that drives leg
+// verdicts.
 const reviewRequestSchema = z
   .object({
     login: z.string().optional(),
@@ -39,12 +42,18 @@ const reviewRequestSchema = z
     name: z.string().optional(),
   })
   .loose()
+  .refine((value) => (value.login ?? value.slug ?? value.name) !== undefined, {
+    message: 'review request carries no User/Team identity field (login/slug/name)',
+  })
   .transform((value) => value.login ?? value.slug ?? value.name ?? 'unknown');
 
 const stateViewSchema = z.object({
   number: z.number(),
   url: z.string(),
   state: z.string(),
+  // Drafts cannot merge via the sanctioned landing path — the verdict core
+  // refuses them typed before any settlement read.
+  isDraft: z.boolean(),
   mergeable: z.string(),
   mergeStateStatus: z.string(),
   headRefOid: z.string(),
@@ -69,6 +78,7 @@ export const PR_STATE_VIEW_JSON_FIELDS = [
   'number',
   'url',
   'state',
+  'isDraft',
   'mergeable',
   'mergeStateStatus',
   'headRefOid',
@@ -82,6 +92,7 @@ export interface ParsedStateView {
   readonly number: number;
   readonly url: string;
   readonly state: string;
+  readonly isDraft: boolean;
   readonly mergeable: string;
   readonly mergeStateStatus: string;
   readonly headRefOid: string;
@@ -145,6 +156,7 @@ export function parseStateView(raw: unknown): ParsedStateView {
     number: parsed.number,
     url: parsed.url,
     state: parsed.state,
+    isDraft: parsed.isDraft,
     mergeable: parsed.mergeable,
     mergeStateStatus: parsed.mergeStateStatus,
     headRefOid: parsed.headRefOid,

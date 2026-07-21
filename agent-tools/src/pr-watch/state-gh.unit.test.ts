@@ -17,6 +17,7 @@ function viewPayload(oid: string = HEAD): string {
     number: 461,
     url: PR_URL,
     state: 'OPEN',
+    isDraft: false,
     mergeable: 'MERGEABLE',
     mergeStateStatus: 'BLOCKED',
     headRefOid: oid,
@@ -282,6 +283,7 @@ describe('readPrStateReading', () => {
       number: 461,
       url: PR_URL,
       state: 'OPEN',
+      isDraft: false,
       mergeable: 'UNKNOWN',
       mergeStateStatus: 'UNKNOWN',
       headRefOid: HEAD,
@@ -306,6 +308,41 @@ describe('readPrStateReading', () => {
     // No blind immediate retries: mergeability computes over seconds, so the
     // boundary fails loud on the single read.
     expect(calls.filter((args) => args[0] === 'pr')).toHaveLength(1);
+  });
+
+  it('a MERGED PR with mergeable UNKNOWN composes terminal-ready — the refusal binds OPEN PRs only (r6 regression)', () => {
+    // GitHub stops computing mergeability post-merge/close; refusing there
+    // would make the advertised terminal MERGED/CLOSED verdicts unreachable.
+    const mergedView = JSON.stringify({
+      number: 461,
+      url: PR_URL,
+      state: 'MERGED',
+      isDraft: false,
+      mergeable: 'UNKNOWN',
+      mergeStateStatus: 'UNKNOWN',
+      headRefOid: HEAD,
+      statusCheckRollup: [],
+      autoMergeRequest: null,
+      reviewRequests: [],
+    });
+    const reading = readPrStateReading({
+      target: { number: 461 },
+      ...ghSeam,
+      execFileSync: (_file, args) => {
+        if (args[0] === 'pr') {
+          return mergedView;
+        }
+        if (args[0] === 'api') {
+          const query = args.find((arg) => arg.startsWith('query='));
+          return query?.includes('reviewThreads') === true ? threadsPayload() : reviewsPayload();
+        }
+        if (args[0] === 'agent-task') {
+          return agentTaskResponse({}, args);
+        }
+        throw new Error(`unexpected gh argv: ${args.join(' ')}`);
+      },
+    });
+    expect(reading.state).toBe('MERGED');
   });
 
   it('passes --repo through to the pr view leg', () => {

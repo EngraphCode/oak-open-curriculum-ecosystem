@@ -16,6 +16,7 @@ function stateViewFixture(): Record<string, unknown> {
     number: 461,
     url: 'https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/461',
     state: 'OPEN',
+    isDraft: false,
     mergeable: 'MERGEABLE',
     mergeStateStatus: 'BLOCKED',
     headRefOid: 'f'.repeat(40),
@@ -141,11 +142,23 @@ describe('parseStateView', () => {
     expect(() => parseStateView({ number: 'not-a-number' })).toThrow();
   });
 
+  it('parses isDraft through (drafts are refused typed downstream) — r6 regression', () => {
+    expect(parseStateView({ ...stateViewFixture(), isDraft: true }).isDraft).toBe(true);
+    expect(parseStateView(stateViewFixture()).isDraft).toBe(false);
+  });
+
+  it('a review request with NO identity field fails loud at the boundary, never becomes reviewer "unknown" (r6 regression)', () => {
+    expect(() => parseStateView({ ...stateViewFixture(), reviewRequests: [{}] })).toThrow(
+      /identity field/,
+    );
+  });
+
   it('requests exactly the fields it parses', () => {
     expect([...PR_STATE_VIEW_JSON_FIELDS]).toEqual([
       'number',
       'url',
       'state',
+      'isDraft',
       'mergeable',
       'mergeStateStatus',
       'headRefOid',

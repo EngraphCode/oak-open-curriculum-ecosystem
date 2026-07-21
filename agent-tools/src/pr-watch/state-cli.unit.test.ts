@@ -12,6 +12,7 @@ const NOW = '2026-07-21T13:00:00Z';
 function reading(overrides: Partial<PrStateReading> = {}): PrStateReading {
   return {
     number: 461,
+    isDraft: false,
     url: 'https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/461',
     state: 'OPEN',
     mergeable: 'MERGEABLE',
