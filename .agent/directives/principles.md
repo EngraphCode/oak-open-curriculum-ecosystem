@@ -536,6 +536,9 @@ Universal testing principles:
 - unit tests are pure, in-process, and mock-free;
 - integration tests import code directly and use only simple DI fakes;
 - E2E tests prove running-system behaviour;
+- smoke tests prove the built artefact is viable in its shipped form (invoked as
+  production invokes it, no loaders); every built binary carries at least one —
+  new ones at landing, the pre-existing gap as recorded debt;
 - tests must never read or mutate `process.env`, global objects, module cache,
   ambient env files, or `process.cwd()` — smoke composition roots only;
 - no skipped tests, no conditional tests, no complex mocks, no complex test

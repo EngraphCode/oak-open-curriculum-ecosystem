@@ -264,9 +264,15 @@ net, and may produce side effects locally and in external systems.
   `.e2e.test.ts`. These constraints are to allow E2E tests to be
   safely run in CI/CD.
 
-- **Smoke test**: A test that verifies the behaviour of a running
-  system, locally or deployed. Smoke tests CAN trigger all IO
-  types, DO have side effects, and DO NOT contain mocks.
+- **Smoke test**: A test that proves the SHIPPED FORM of a system is
+  viable — the built artefact, invoked exactly as production invokes
+  it (plain `node dist/...`, the installed binary, the deployed URL),
+  never source through a test-runner loader. Minimum behaviour scope,
+  maximum execution-surface fidelity. Smoke tests CAN trigger all IO
+  types, DO have side effects, and DO NOT contain mocks. Full
+  definition, the per-artefact-class minimum truth-sets, and the
+  new-binary requirement:
+  [§Smoke Tests — Artefact Viability](#smoke-tests--artefact-viability).
 
 #### Common Misconception: Integration Tests
 
@@ -317,6 +323,83 @@ deployed systems.
 
 Do not conflate the two. Runtime stubs are product code; test fakes are test
 infrastructure.
+
+### Smoke Tests — Artefact Viability
+
+The test taxonomy above classifies by SCOPE of behaviour (unit →
+integration → E2E). There is a second, orthogonal axis: EXECUTION
+SURFACE. Scope-axis tests typically execute source through a
+loader-assisted harness (vitest, tsx) while production executes built
+artefacts under plain `node` — and nothing at any scope level REQUIRES
+surface fidelity. An E2E test MAY boot the built artefact (the Oak
+Search CLI contract E2E boots `dist/bin/oaksearch.js` and is the worked
+example), but that coverage is incidental to its scope classification.
+Smoke tests own the surface axis and make artefact fidelity MANDATORY:
+minimum behaviour scope, maximum surface fidelity. Defects that exist
+only in the built form — extensionless ESM import specifiers in
+`dist`, lost executable bits, files missing from the build output,
+broken package `exports` maps — evade any suite that happens to run
+source. Worked instance: the 2026-07-21 agent-tools outage, where the
+dist CLI was cold-start broken for a day under green CI ("the surface
+that validates is not the surface that executes").
+
+**Invariant: EVERY built binary carries at least one smoke test** that
+invokes the artefact exactly as production invokes it and proves the
+minimum truth-set for its class. New binaries satisfy the invariant at
+landing — the smoke ships in the same PR as the binary (the
+atomic-landing invariant). The pre-existing binary estate does not yet
+satisfy it: that gap is RECORDED DEBT — enumerable mechanically at any
+moment as the difference between the built binary entries a workspace
+emits and the truth-set smokes reachable from its CI-run tasks — and
+it is tracked in the work-management system as a bounded retrofit
+obligation whose contract is stated here self-contained: every existing built
+binary gains its truth-set smoke; the smoke-suffix convention is
+unified estate-wide; and pre-doctrine "smoke" suites that are
+scope-axis tests under this definition are reclassified into the
+scope taxonomy with their docs and runner config.
+
+Minimum truth-sets by artefact class:
+
+- **CLI binary**: the built entry file exists, is executable, and
+  carries its shebang; a cold start under plain `node` (no loader, no
+  test runner) resolves the full module graph; `--help` exits 0 with
+  usage on stdout; an unknown flag or invalid arguments exit non-zero
+  with guidance on stderr and no stack trace; one trivial happy-path
+  invocation exits 0.
+- **Long-running server**: a cold start from the built artefact
+  reports ready; the health or initialize surface responds; SIGTERM
+  produces a clean exit.
+- **Published package**: the PACKED form is the shipped form — `pnpm
+  pack` (or the registry-equivalent) installed into a clean consumer
+  workspace, then imported under plain `node`: every STATIC
+  `exports`-map key is imported directly, and every wildcard subpath
+  pattern (e.g. `./client/*`) is proven by importing at least one
+  concrete subpath it matches. Importing from the workspace `dist`
+  directly proves the build, not the publish: files, permissions, and
+  manifest fields can be lost when the tarball is assembled.
+
+Constraints:
+
+- Readiness and completion are proven by EVENTS (an exit code, a ready
+  line, a response), never by wall-clock assertions — the
+  no-wall-clock rule applies to smoke tests unchanged. Harness
+  timeouts are mechanics, not assertions.
+- Smoke files live in the workspace's `smoke-tests/` directory, and
+  each MUST be reachable from a script that a CI-gated task runs (a
+  local-only smoke test re-opens the exact gap this section closes).
+  The check↔CI parity validator keeps the aggregate honest; wiring
+  each smoke into a CI-run task is the author's obligation at landing
+  time. The binding invariant is REACHABILITY: a smoke file matches
+  the glob its workspace's live runner actually executes — an
+  unreachable smoke test is the defect, not a variant. One canonical
+  suffix governs once the estate-wide unification (part of the
+  retrofit obligation above) converges; adopting it workspace-by-
+  workspace is done by changing the runner glob and the files in one
+  landing, never by authoring a file the current glob cannot see.
+- Smoke tests exercise the artefact boundary, not features: feature
+  behaviour belongs to the scope axis (unit/integration/E2E). A smoke
+  test that grows feature assertions is misfiled — move the assertions
+  down the taxonomy.
 
 ### Design Approaches
 
