@@ -10,6 +10,7 @@ import { runContextCostCli } from '../context-cost/cli.js';
 import { repoRoot } from '../core/runtime.js';
 import { runMergeBotCli } from '../merge-bot/cli.js';
 import { runPrWatchCli } from '../pr-watch/cli.js';
+import { runPrStateCli } from '../pr-watch/state-cli.js';
 import { runSessionMetadataCli } from '../session-metadata/cli.js';
 import { runSpawnCli } from '../spawn/cli.js';
 import type { AgentToolsCliInput, AgentToolsCliResult } from './agent-tools-cli-types.js';
@@ -131,6 +132,16 @@ export async function runPrWatchTopic(
   const stdout = new OutputBuffer();
   const stderr = new OutputBuffer();
   const exitCode = await runPrWatchCli({ args, stdout, stderr });
+  return { exitCode, stdout: stdout.text(), stderr: stderr.text() };
+}
+
+export function runPrTopic(
+  _input: AgentToolsCliInput,
+  args: readonly string[],
+): AgentToolsCliResult {
+  const stdout = new OutputBuffer();
+  const stderr = new OutputBuffer();
+  const exitCode = runPrStateCli({ args, stdout, stderr });
   return { exitCode, stdout: stdout.text(), stderr: stderr.text() };
 }
 

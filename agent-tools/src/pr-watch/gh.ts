@@ -116,7 +116,7 @@ export interface ReadPrSnapshotOptions {
 // execFileSync's ~1 MiB default maxBuffer and hard-fail; allow generous room.
 const MAX_GH_OUTPUT_BYTES = 64 * 1024 * 1024;
 
-const EXEC_OPTIONS: ExecFileSyncOptionsWithStringEncoding = {
+export const GH_EXEC_OPTIONS: ExecFileSyncOptionsWithStringEncoding = {
   encoding: 'utf8',
   stdio: ['ignore', 'pipe', 'pipe'],
   maxBuffer: MAX_GH_OUTPUT_BYTES,
@@ -139,7 +139,7 @@ const REVIEW_THREADS_QUERY = `query($owner: String!, $name: String!, $number: In
 // `-F` values support the same `{owner}` / `{repo}` placeholder substitution from the
 // current repository as REST paths, and become GraphQL variables (verified live,
 // gh 2.95.0, 2026-07-03).
-function reviewThreadsArgs(prNumber: string, repo: string | undefined): string[] {
+export function reviewThreadsArgs(prNumber: string, repo: string | undefined): string[] {
   const [owner, name] = repo === undefined ? ['{owner}', '{repo}'] : repo.split('/');
   return [
     'api',
@@ -174,10 +174,10 @@ export function readPrSnapshot(options: ReadPrSnapshotOptions): PrSnapshot {
   const apiOwnerRepo = repo ?? '{owner}/{repo}';
   const apiArgs = ['api', `repos/${apiOwnerRepo}/pulls/${prNumber}/comments`, '--paginate'];
 
-  const prViewRaw = parseGhJson(run(gh, prViewArgs, EXEC_OPTIONS), 'pr view');
-  const reviewCommentsRaw = parseGhJson(run(gh, apiArgs, EXEC_OPTIONS), 'api pulls comments');
+  const prViewRaw = parseGhJson(run(gh, prViewArgs, GH_EXEC_OPTIONS), 'pr view');
+  const reviewCommentsRaw = parseGhJson(run(gh, apiArgs, GH_EXEC_OPTIONS), 'api pulls comments');
   const reviewThreadPagesRaw = parseGhJson(
-    run(gh, reviewThreadsArgs(prNumber, repo), EXEC_OPTIONS),
+    run(gh, reviewThreadsArgs(prNumber, repo), GH_EXEC_OPTIONS),
     'api graphql reviewThreads',
   );
   return buildSnapshot(prViewRaw, reviewCommentsRaw, reviewThreadPagesRaw);
@@ -186,7 +186,7 @@ export function readPrSnapshot(options: ReadPrSnapshotOptions): PrSnapshot {
 // `gh` writes JSON to stdout; if it instead emits a non-JSON line (e.g. an auth
 // prompt or warning) attribute the failure rather than surfacing a bare
 // SyntaxError.
-function parseGhJson(raw: string, surface: string): unknown {
+export function parseGhJson(raw: string, surface: string): unknown {
   try {
     return JSON.parse(raw);
   } catch {
