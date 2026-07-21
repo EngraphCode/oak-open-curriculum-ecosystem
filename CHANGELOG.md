@@ -1,3 +1,10 @@
+## [1.81.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.81.2...v1.81.3) (2026-07-21)
+
+
+### Bug Fixes
+
+* **agent-tools:** add .js extensions to core runtime esm import graph ([183b3a6](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/183b3a6e9327b5cb0008f9a7b8e84204abe56d5c))
+
 ## [1.81.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.81.1...v1.81.2) (2026-07-21)
 
 ## [1.81.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.81.0...v1.81.1) (2026-07-21)
