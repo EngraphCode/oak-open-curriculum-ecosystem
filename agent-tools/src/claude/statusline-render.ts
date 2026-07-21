@@ -106,7 +106,7 @@ export function renderStatusline(
  * lines (all their segments absent) are dropped so no blank row renders.
  */
 function renderNoLogo(seg: Segments): string {
-  const summaryLine = joinPresent([seg.identity, seg.indicators]);
+  const summaryLine = joinPresent([seg.identity, seg.indicators, seg.attention]);
   return [seg.error, summaryLine, modelRowWithUsage(seg), ...seg.locationRows]
     .filter((line): line is string => line !== undefined && line.length > 0)
     .join('\n');
@@ -134,7 +134,7 @@ function renderWithLogo(
   options: StatuslineRenderOptions,
 ): string {
   const rowTexts = [
-    joinPresent([seg.identity, seg.indicators]),
+    joinPresent([seg.identity, seg.indicators, seg.attention]),
     modelRowWithUsage(seg),
     ...seg.locationRows,
   ];

@@ -43,6 +43,7 @@ import { gatherGitFacts } from './statusline-git-io.js';
 import { planStatuslineExecution, type StatuslinePlan } from './statusline-identity-input.js';
 import { isMotionDisabled, readAndAdvanceFrame } from './statusline-logo-cycle.js';
 import { renderStatusline } from './statusline-render.js';
+import { countOpenOwnerJobs } from './statusline-owner-jobs.js';
 import {
   resolveSessionShape,
   type ExperimentsEntry,
@@ -100,6 +101,7 @@ function renderFromInputs(inputs: Extract<StatuslinePlan, { kind: 'render' }>['i
       sevenDayResetSeconds: secondsUntil(inputs.sevenDayResetsAt),
       model: inputs.model,
       sessionShape: gatherSessionShape(git.primaryRoot, identity),
+      ownerJobsOpen: gatherOwnerJobsOpen(git.primaryRoot),
     },
     { logo, logoFrame: resolveLogoFrame(logo, inputs.seed) },
   );
@@ -177,6 +179,27 @@ function gatherSessionShape(
     experimentsListing: primaryRoot === undefined ? undefined : listExperiments(primaryRoot),
     nowIso: new Date().toISOString(),
   });
+}
+
+/**
+ * Read the owner-jobs register from the primary checkout and count its open
+ * items. Absence and unreadability both resolve to `undefined` (no register,
+ * no bell) — the register is untracked-by-design, so a fresh clone simply has
+ * none until the Director writes one.
+ */
+function gatherOwnerJobsOpen(primaryRoot: string | undefined): number | undefined {
+  if (primaryRoot === undefined) {
+    return undefined;
+  }
+  const registerPath = join(primaryRoot, '.agent/state/collaboration/owner-jobs.md');
+  if (!existsSync(registerPath)) {
+    return undefined;
+  }
+  try {
+    return countOpenOwnerJobs(readFileSync(registerPath, 'utf8'));
+  } catch {
+    return undefined;
+  }
 }
 
 function readActiveClaimsRegistry(primaryRoot: string): CollaborationRegistry | undefined {

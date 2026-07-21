@@ -9,6 +9,7 @@ const YELLOW = '\x1b[0;33m';
 const base: StatuslineParts = {
   identity: undefined,
   identityPrefix: undefined,
+  ownerJobsOpen: undefined,
   dir: 'repo',
   branch: undefined,
   dirty: false,
@@ -348,5 +349,29 @@ describe('renderStatusline — Oak logo column mechanism', () => {
     expect(firstRow(1)).toContain(BRAILLE_SHARP_FRAMES[1][0]);
     expect(firstRow(3)).toContain(BRAILLE_SHARP_FRAMES[3][0]);
     expect(firstRow(4)).toContain(BRAILLE_SHARP_FRAMES[0][0]);
+  });
+});
+
+describe('owner-attention bell', () => {
+  it('renders the bell beside the identity summary in the no-logo layout', () => {
+    const out = renderStatusline({
+      ...base,
+      identity: 'Forge rides Brimstone',
+      identityPrefix: '398e24',
+      ownerJobsOpen: 5,
+    });
+    const summaryRow = out.split('\n').find((row) => row.includes('Forge rides Brimstone'));
+    expect(summaryRow).toBeDefined();
+    expect(summaryRow).toContain('\u{1F514}5');
+  });
+
+  it('renders the bell beside the identity summary in the logo layout', () => {
+    const out = renderStatusline(
+      { ...base, identity: 'Forge rides Brimstone', identityPrefix: '398e24', ownerJobsOpen: 2 },
+      { logo: 'braille-sharp' },
+    );
+    const summaryRow = out.split('\n').find((row) => row.includes('Forge rides Brimstone'));
+    expect(summaryRow).toBeDefined();
+    expect(summaryRow).toContain('\u{1F514}2');
   });
 });

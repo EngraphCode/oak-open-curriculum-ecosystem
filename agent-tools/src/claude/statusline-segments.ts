@@ -24,6 +24,7 @@ import {
   YELLOW,
 } from './statusline-ansi.js';
 import { formatIdentity, formatSessionIndicators } from './statusline-indicators.js';
+import { formatOwnerAttention } from './statusline-owner-jobs.js';
 import { type SessionShape } from './statusline-session-shape.js';
 import { formatContext, rateLimitGauge } from './statusline-usage.js';
 
@@ -88,12 +89,20 @@ export interface StatuslineParts {
    * unexpected git error. Rendered as a glaring leading token, never swallowed.
    */
   readonly error: string | undefined;
+  /**
+   * Open items in the owner-jobs register (the owner's visible queue);
+   * undefined when the register is absent or unreadable, which renders
+   * identically to zero — no bell.
+   */
+  readonly ownerJobsOpen: number | undefined;
 }
 
 /** The ANSI-coloured statusline segments, each absent when its value is. */
 export interface Segments {
   readonly identity: string | undefined;
   readonly indicators: string | undefined;
+  /** The owner-attention bell and open-job count; absent when nothing awaits the owner. */
+  readonly attention: string | undefined;
   /** The Claude.ai rate-limit gauges (`s:…%(…) · w:…%(…)`); absent off Claude.ai or before the first response. */
   readonly rateLimits: string | undefined;
   readonly model: string | undefined;
@@ -121,6 +130,7 @@ export function buildSegments(parts: StatuslineParts): Segments {
   return {
     identity: formatIdentity(parts.identity, parts.identityPrefix, parts.sessionShape?.ownRole),
     indicators: formatSessionIndicators(parts.sessionShape),
+    attention: formatOwnerAttention(parts.ownerJobsOpen),
     rateLimits: formatRateLimits(parts),
     model: parts.model === undefined ? undefined : `${DIM}${parts.model}${RESET}`,
     context: parts.usedPercentage === undefined ? undefined : formatContext(parts.usedPercentage),
