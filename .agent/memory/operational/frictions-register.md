@@ -3319,6 +3319,10 @@ commit SHA and the closing plan reference.
   excluding only ADR-183-namespaced tags at the emit stage, with corpus tests proving
   pass/leak counts; documented in the watcher rule as the sanctioned reserve/awareness-seat
   configuration alongside a mandatory peer-liveness poll.
+- **Status**: CURED (2026-07-20, verified on the reconciled tree 2026-07-21): `--exclude-tag`
+  is implemented and boundary-validated (`agent-tools/src/collaboration-state/cli-options.ts`)
+  with the tested guarantees documented in `comms-all-channels-watcher.md` §Sanctioned tag
+  exclusion, incl. the mandatory F-75 peer-liveness pairing.
 
 ### F-147 — the pre-commit knip leg reports success when knip CRASHES (not when it finds issues)
 
@@ -3339,6 +3343,9 @@ commit SHA and the closing plan reference.
   errors (capture its exit code in-band, not the wrapper's), with a test that a
   deliberately-broken config fails the hook; audit sibling hook legs for the same
   crash-swallowing shape.
+- **Status**: CURED (verified on the reconciled tree 2026-07-21): both hooks call
+  `pnpm knip:gate` and fail closed (`.husky/pre-commit`, `.husky/pre-push`) — a knip
+  crash now fails the hook rather than reading as a pass.
 
 ### F-148 — a suspended session's heartbeat Monitor keeps emitting: false liveness from an autonomous emitter
 

@@ -179,7 +179,7 @@ drift. After adding or changing a pattern file, regenerate with
 
 ## Pattern Index
 
-### Code (29)
+### Code (30)
 
 - **\"Widen\" Is a Type Smell — Discriminate Model-Wrong From Correct-and-Violated** *(anti-pattern)* -- Use this when: About to widen a list, type, union, or allowlist to make a case pass (or an owner/reviewer flags a 'widen') — the reach for a wider shape is usually hiding a type problem. → [widen-is-a-type-smell.md](widen-is-a-type-smell.md)
 - **A Lint-Rule Pincer Is a Design Signal, Not an Obstacle** -- Use this when: Two (or more) lint rules jointly ban every shape you can think of for an in-component or in-function implementation, and the reflex is to disable one rule or contort past them. → [lint-rule-pincer-is-a-design-signal.md](lint-rule-pincer-is-a-design-signal.md)
@@ -210,6 +210,7 @@ drift. After adding or changing a pattern file, regenerate with
 - **Unknown Until Validated** -- Use this when: a function produces data whose type cannot be statically verified and a validation boundary exists downstream. → [unknown-until-validated.md](unknown-until-validated.md)
 - **Validate a Sampled Schema Against the Complete Corpus** -- Use this when: A type, union, schema, or universal claim was derived from a SAMPLE of the data it describes — and you are about to trust it for the whole corpus (build on it, verify with it, or assert it). → [validate-sampled-schema-against-complete-corpus.md](validate-sampled-schema-against-complete-corpus.md)
 - **Validation Error Severity Separation** -- Use this when: A schema validation error message lists all absent fields alongside actually failing fields, making operators debug the wrong variables. → [validation-error-severity-separation.md](validation-error-severity-separation.md)
+- **Zod Boundaries in Sandbox-Harness Modules** -- Use this when: Authoring or reviewing a module whose files are esbuild-bundled into a sandboxed harness artefact (Workflow scripts, agent prompts), or whose zod refinements guard stage-boundary invariants. → [zod-boundaries-in-sandbox-harness-modules.md](zod-boundaries-in-sandbox-harness-modules.md)
 
 ### Architecture (14)
 
@@ -357,10 +358,11 @@ drift. After adding or changing a pattern file, regenerate with
 - **test-claim-assertion-parity** → [test-claim-assertion-parity.md](test-claim-assertion-parity.md)
 - **Views Take State as Props; a Two-Line Binder Owns the Hook** -- Use this when: A React component both fetches/derives async state (via a hook) and renders it — and its tests are reaching for vi.mock, module mocking, or fetch stubbing to control what renders. → [view-binder-di-seam.md](view-binder-di-seam.md)
 
-### Agent (34)
+### Agent (36)
 
 - **Adversarial-Verify Plus a Self-Pass Over the Verifier's Own Downgrades** -- Use this when: Running a multi-agent verification or triage round (fleet review, adversarial-verify, open-question triage) and about to accept the verifier's/triage-agent's confirmed set as the complete result. → [adversarial-verify-plus-self-pass-on-refutations.md](adversarial-verify-plus-self-pass-on-refutations.md)
 - **Agentic Surface Separation** -- Use this when: Designing or refactoring agent infrastructure that spans skills, rules, commands, subagents, or platform adapters. → [agentic-surface-separation.md](agentic-surface-separation.md)
+- **Amending Doctrine Binds the Editor** *(anti-pattern)* -- Use this when: Editing any skill, rule, directive, or governance doc while running live work the same document governs. → [amending-doctrine-binds-the-editor.md](amending-doctrine-binds-the-editor.md)
 - **Audit Rule Body When Extending With a New Prohibition** -- Use this when: Adding a new "X is forbidden" / "X must not appear" / "do not Y" clause to an existing rule, ADR, governance doc, or directive. → [audit-rule-body-on-prohibition-extension.md](audit-rule-body-on-prohibition-extension.md)
 - **Bounded Structured Output for Workflow Fan-Outs** -- Use this when: Authoring a Workflow script that uses agent({schema}) fan-out, passing args into it, or consuming its verify-stage results. → [bounded-structured-output-for-workflows.md](bounded-structured-output-for-workflows.md)
 - **Deleting an Operational Memory/State Surface → Reconcile the Substrate-Contracts Manifest in the Same Commit** -- Use this when: Retiring or deleting an operational memory or state surface (a directory, register, or convention) that may have a contract entry in the PDR-049/050 substrate manifest. → [reconcile-substrate-manifest-on-surface-deletion.md](reconcile-substrate-manifest-on-surface-deletion.md)
@@ -376,6 +378,7 @@ drift. After adding or changing a pattern file, regenerate with
 - **Honest Restructure Over Band-aid** -- Use this when: A quality gate fires mid-authoring and the first tempting fix is to bypass, guard, compress, or assert around the gate. → [honest-restructure-over-band-aid.md](honest-restructure-over-band-aid.md)
 - **Inter-Agent Sidebar with Default Action** → [inter-agent-sidebar-with-default-action.md](inter-agent-sidebar-with-default-action.md)
 - **Live Dogfooding as Directional Confirmation** -- Use this when: While building a capability, the team hits — in real time — exactly the gap or friction that capability exists to cure, and the impulse is to read the friction as a setback. → [live-dogfooding-as-directional-confirmation.md](live-dogfooding-as-directional-confirmation.md)
+- **LLM Fleet Task Design — Workers Point, Dispatcher Copies; Pilot Before Dispatch** -- Use this when: Designing a fleet/workflow task whose workers must produce verbatim-anchored output verified against pinned bytes, or whose judgment procedure sits behind an existing canary/ground-truth key. → [llm-fleet-task-design-point-and-pilot.md](llm-fleet-task-design-point-and-pilot.md)
 - **Mechanism Without Legible Intent** *(anti-pattern)* -- Use this when: Landing or auditing an enforcement surface (rule, hook, gate, review lens) — ask where its system-level intent is legible; when agents comply with the letter, misattribute the why to a person, or cannot derive the next rule themselves, the mechanism has outrun its intent. → [mechanism-without-legible-intent.md](mechanism-without-legible-intent.md)
 - **Non-Leading Reviewer Prompts** → [non-leading-reviewer-prompts.md](non-leading-reviewer-prompts.md)
 - **Owner Course-Correct Vocabulary** -- Use this when: Receiving an owner message that contains a course-correct token, or noticing a self-trigger phrase in your own draft prose; both signal a re-grounding moment that maps to a specific canonical doctrine surface. → [owner-course-correct-vocabulary.md](owner-course-correct-vocabulary.md)
@@ -418,12 +421,3 @@ drift. After adding or changing a pattern file, regenerate with
 - **pnpm Strict Hoisting Blocks Transitive Type Resolution** *(anti-pattern)* → [pnpm-strict-hoisting-type-resolution.md](pnpm-strict-hoisting-type-resolution.md)
 - **Turbo / Pre-Commit Cache False-Green** *(anti-pattern)* -- Use this when: A gate result disagrees with observed behaviour, a hook finds drift a task reported clean, or you are about to cite a cached gate run as evidence. → [turbo-cache-false-green.md](turbo-cache-false-green.md)
 - **Zero-Match False-Green** *(anti-pattern)* -- Use this when: Reading success from any filtered or glob-scoped tool run — a targeted test filter, a path-scoped linter, a sweep over a file set — without confirming the filter actually matched the intended targets. → [zero-match-false-green.md](zero-match-false-green.md)
-
-### Agent Behaviour (2)
-
-- **Amending Doctrine Binds the Editor** *(anti-pattern)* -- Use this when: Editing any skill, rule, directive, or governance doc while running live work the same document governs. → [amending-doctrine-binds-the-editor.md](amending-doctrine-binds-the-editor.md)
-- **LLM Fleet Task Design — Workers Point, Dispatcher Copies; Pilot Before Dispatch** -- Use this when: Designing a fleet/workflow task whose workers must produce verbatim-anchored output verified against pinned bytes, or whose judgment procedure sits behind an existing canary/ground-truth key. → [llm-fleet-task-design-point-and-pilot.md](llm-fleet-task-design-point-and-pilot.md)
-
-### Typescript (1)
-
-- **Zod Boundaries in Sandbox-Harness Modules** -- Use this when: Authoring or reviewing a module whose files are esbuild-bundled into a sandboxed harness artefact (Workflow scripts, agent prompts), or whose zod refinements guard stage-boundary invariants. → [zod-boundaries-in-sandbox-harness-modules.md](zod-boundaries-in-sandbox-harness-modules.md)

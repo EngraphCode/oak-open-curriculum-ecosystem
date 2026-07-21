@@ -422,3 +422,10 @@ the work."** This sharpens the owner-interface craft in §The Director role:
   team currently routes through one seat, not that seat's property; a
   blocked seat surfaces the constraint so the team can progress it, rather
   than holding it as a personal to-do.
+
+Expected observable effect + falsifier (the PDR-130 fast-lane obligation,
+added at first post-adoption touch): owner-facing blocker surfacings stop
+carrying possession framings ("your PR", "waiting on you") and instead name
+constraint + options + recommendation; falsified if a later consolidation
+finds owner-queue framings recurring in Director surfacings after this
+amendment's date.

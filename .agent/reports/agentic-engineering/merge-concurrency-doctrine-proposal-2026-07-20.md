@@ -1,6 +1,12 @@
 # Proposal: merge concurrency is free — quality binds at settled-READY, not at the merge moment
 
-**Status**: proposal, awaiting owner ratification (drafted by Forge rides Brimstone 398e24, Director, 2026-07-20 ~19:24Z; owner's framing verbatim: "2.5–3 hours was not a measure of how long it should take, it was a measure of the broken merge approach we currently use").
+**Status**: RATIFIED — the proposal graduated to
+[PDR-131](../../practice-core/decision-records/PDR-131-merge-concurrency-is-free-quality-binds-at-settled-ready.md)
+(owner-ratified 2026-07-20) with the executable amendment folded into the
+pr-lifecycle skill; this report is conserved as the natural-experiment evidence
+record. (Drafted by Forge rides Brimstone 398e24, Director, 2026-07-20 ~19:24Z;
+owner's framing verbatim: "2.5–3 hours was not a measure of how long it should
+take, it was a measure of the broken merge approach we currently use".)
 
 ## The natural experiment (2026-07-20)
 

@@ -36,9 +36,11 @@ worked instance that day was a catch, not a miss.
 ## Decision
 
 1. **Quality binds at settled-READY, not at the merge moment.** A PR is
-   merge-eligible when its review round is SETTLED at zero-or-dispositioned
-   findings per the pr-lifecycle state machine and every required check is
-   green. Merge concurrency between eligible PRs is free.
+   merge-eligible when its review round is SETTLED per the pr-lifecycle
+   state machine — a finding count of ZERO on both the thread surface and
+   the review-body (suppressed) surface, where a disposition-with-resolution
+   is how a finding reaches zero, never a substitute for reaching it — and
+   every required check is green. Merge concurrency between eligible PRs is free.
 2. **The no-auto-merge ruling narrows** (it was born when arming happened at
    PR-open, pre-settlement): arming auto-merge is permitted exactly and only
    **at settled-READY under a Director grant**. Arming before settlement
@@ -69,5 +71,11 @@ worked instance that day was a catch, not a miss.
   not ride in portable Core (`practice-core-portability`).
 - Director seat economics change: routing effort moves from slot sequencing
   to predicate verification and Phase-8 assignment.
+- **Expected observable effect + falsifier** (the PDR-130 fast-lane
+  obligation): grant-to-merge latency for settled PRs falls from the serial
+  era's slot-queue scale to arm-time-bounded; the host estate's throughput
+  register carries the concrete prediction (p50 landing latency under the
+  target within one register-month) with its falsifier attached — the
+  register's review is this record's falsification window.
 - The 2026-07-20 drive's serial-era latencies stand in the record as the
   measured cost of the retired model.

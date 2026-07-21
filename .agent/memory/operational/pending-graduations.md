@@ -133,7 +133,10 @@ drain. The commits and the homes are the record. -->
 Rows here are live deliverables under a named review gate, NOT decision-debt:
 each carries a prediction, a falsifier, and a review date, and is decided
 (promote / kill-with-reasoning) AT that date. A dedicated consolidation passes
-these by unless a review date has arrived.
+these by unless a review date has arrived. **Bootstrap exception (the row
+below): a row tracking an ALREADY-ACCEPTED record is decided retain vs
+retire-by-its-own-falsifier at review — promote/kill applies only to
+not-yet-minted concepts.**
 
 | Concept | Prediction (by review) | Falsifier | Review |
 | --- | --- | --- | --- |
