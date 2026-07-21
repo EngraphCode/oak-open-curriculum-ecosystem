@@ -62,7 +62,7 @@ Also apply:
 - **Milestone [N]**: [Primary outcomes]
 - **Milestone [N+1]**: [Follow-on outcomes]
 
-See [high-level-plan.md](../high-level-plan.md) for cross-collection context.
+See [high-level-plan.md](../../plans-backlog-2026-07/high-level-plan.md) for cross-collection context.
 
 ## Foundation Documents (Mandatory Re-read)
 

@@ -136,5 +136,5 @@ classification system has implicit edge cases.
   justification was load-bearing but unrecorded — the signal that
   the categorisation was incomplete. See
   [`.agent/plans/observability/high-level-observability-plan.md`
-  §Substrate](../../observability/high-level-observability-plan.md)
+  §Substrate](../../../plans-backlog-2026-07/observability/high-level-observability-plan.md)
   for the first applied instance.

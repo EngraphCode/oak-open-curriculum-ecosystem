@@ -6,7 +6,7 @@
 authentication from a development instance to a production instance
 for public alpha?
 **Related ADRs**: [ADR-052](../../../docs/architecture/architectural-decisions/052-oauth-2.1-for-mcp-http-authentication.md), [ADR-053](../../../docs/architecture/architectural-decisions/053-clerk-as-identity-provider.md) (amended 2026-02-21 — server now also acts as proxy OAuth AS), [ADR-113](../../../docs/architecture/architectural-decisions/113-mcp-spec-compliant-auth-for-all-methods.md), [ADR-115](../../../docs/architecture/architectural-decisions/115-proxy-oauth-as-for-cursor.md)
-**Milestone placement**: This research supports [Milestone 1: Public Alpha](../../plans/high-level-plan.md) and is referenced from the [semantic search roadmap](../../plans/semantic-search/roadmap.md).
+**Milestone placement**: This research supports [Milestone 1: Public Alpha](../../plans-backlog-2026-07/high-level-plan.md) and is referenced from the [semantic search roadmap](../../plans-backlog-2026-07/semantic-search/roadmap.md).
 
 ---
 

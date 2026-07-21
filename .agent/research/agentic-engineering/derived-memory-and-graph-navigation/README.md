@@ -7,7 +7,7 @@ repository's existing memory estate.
 ## Best Starting Points
 
 - [graphify-oak-practice-analysis.md](../../graphify-oak-practice-analysis.md)
-- [graphify-and-graph-memory-exploration.plan.md](../../../plans/agentic-engineering-enhancements/future/graphify-and-graph-memory-exploration.plan.md)
+- [graphify-and-graph-memory-exploration.plan.md](../../../plans-backlog-2026-07/agentic-engineering-enhancements/future/graphify-and-graph-memory-exploration.plan.md)
 - [mcp_agent_guidance_provision.md](../../mcp_agent_guidance_provision.md)
 - [docs/explorations/README.md](../../../../docs/explorations/README.md)
 - [ADR-059](../../../../docs/architecture/architectural-decisions/059-knowledge-graph-for-agent-context.md)

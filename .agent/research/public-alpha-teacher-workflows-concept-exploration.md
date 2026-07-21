@@ -884,7 +884,7 @@ teacher authority.
 
 #### The top-level milestone does not yet name these specific workflows
 
-The [Public Alpha Experience Contract](../plans/user-experience/public-alpha-experience-contract.md)
+The [Public Alpha Experience Contract](../plans-backlog-2026-07/user-experience/public-alpha-experience-contract.md)
 already places educator end users in scope and promises that teachers can ask for curriculum help
 in supported AI clients without wrestling with tooling internals. The narrower unresolved question
 sits in the top-level Open Public Alpha milestone record: it focuses on search reliability, MCP

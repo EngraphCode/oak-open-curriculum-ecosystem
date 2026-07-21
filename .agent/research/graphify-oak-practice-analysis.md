@@ -148,7 +148,7 @@ This repo already contains several directly adjacent ideas:
   server surfaces and internal engineering machinery.
 - [`.agent/practice-core/practice.md`](../practice-core/practice.md)
   makes the Practice explicitly concept-centric.
-- [`.agent/plans/agentic-engineering-enhancements/current/hallucination-and-evidence-guard-adoption.plan.md`](../plans/agentic-engineering-enhancements/current/hallucination-and-evidence-guard-adoption.plan.md)
+- [`.agent/plans/agentic-engineering-enhancements/current/hallucination-and-evidence-guard-adoption.plan.md`](../plans-backlog-2026-07/agentic-engineering-enhancements/current/hallucination-and-evidence-guard-adoption.plan.md)
   already pushes the repo towards explicit claim/evidence discipline.
 
 Graphify aligns strongly with all of that.
@@ -693,8 +693,8 @@ rather than the whole monorepo.
 - `graph-resource-factory.plan.md` (`../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/completed/graph-resource-factory.plan.md`) (completed, archived)
 - `misconception-graph-mcp-surface.plan.md` (`../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/completed/misconception-graph-mcp-surface.plan.md`) (completed, archived)
 - `eef-evidence-corpus.plan.md` (since archived)
-- [`.agent/plans/sdk-and-mcp-enhancements/active/upstream-api-reference-metadata.plan.md`](../plans/sdk-and-mcp-enhancements/active/upstream-api-reference-metadata.plan.md)
-- [`.agent/plans/agentic-engineering-enhancements/current/hallucination-and-evidence-guard-adoption.plan.md`](../plans/agentic-engineering-enhancements/current/hallucination-and-evidence-guard-adoption.plan.md)
+- [`.agent/plans/sdk-and-mcp-enhancements/active/upstream-api-reference-metadata.plan.md`](../plans-backlog-2026-07/sdk-and-mcp-enhancements/active/upstream-api-reference-metadata.plan.md)
+- [`.agent/plans/agentic-engineering-enhancements/current/hallucination-and-evidence-guard-adoption.plan.md`](../plans-backlog-2026-07/agentic-engineering-enhancements/current/hallucination-and-evidence-guard-adoption.plan.md)
 - `packages/sdks/oak-curriculum-sdk/src/mcp/graph-resource-factory.ts`
 - [`packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-prior-knowledge-graph.ts`](../../packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-prior-knowledge-graph.ts)
 - [`packages/sdks/oak-curriculum-sdk/src/mcp/source-attribution.ts`](../../packages/sdks/oak-curriculum-sdk/src/mcp/source-attribution.ts)

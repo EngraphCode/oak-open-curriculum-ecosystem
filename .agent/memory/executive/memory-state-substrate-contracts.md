@@ -153,4 +153,4 @@ explicitly decides they are live instructions.
 
 [pdr-049]: ../../practice-core/decision-records/PDR-049-memory-and-state-file-merge-semantics.md
 [pdr-050]: ../../practice-core/decision-records/PDR-050-state-memory-substrate-contracts.md
-[retired-seed]: ../../plans/agentic-engineering-enhancements/evidence/2026-05-07-memory-state-substrate-retired-yaml-seed.md
+[retired-seed]: ../../plans-backlog-2026-07/agentic-engineering-enhancements/evidence/2026-05-07-memory-state-substrate-retired-yaml-seed.md

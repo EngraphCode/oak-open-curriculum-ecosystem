@@ -280,13 +280,13 @@ would falsify the direction.
 ## Plan and Decision Implications
 
 The current
-[Directory Complexity Enablement plan](../plans/developer-experience/current/directory-complexity-enablement.execution.plan.md)
+[Directory Complexity Enablement plan](../plans-backlog-2026-07/developer-experience/current/directory-complexity-enablement.execution.plan.md)
 should be refounded around a report-only validator slice rather than ESLint
 activation. The
-[visibility-layer plan](../plans/architecture-and-infrastructure/future/architectural-budget-visibility-layer.plan.md)
+[visibility-layer plan](../plans-backlog-2026-07/architecture-and-infrastructure/future/architectural-budget-visibility-layer.plan.md)
 already contains much of the right contract and should become the parent
 execution direction. The
-[enforcement-layer plan](../plans/architecture-and-infrastructure/future/architectural-budget-enforcement-layer.plan.md)
+[enforcement-layer plan](../plans-backlog-2026-07/architecture-and-infrastructure/future/architectural-budget-enforcement-layer.plan.md)
 should treat directory cardinality as a signal unless later evidence supports
 a genuine invariant.
 

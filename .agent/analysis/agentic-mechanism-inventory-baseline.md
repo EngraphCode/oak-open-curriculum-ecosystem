@@ -63,7 +63,7 @@ around:
   how disclosure boundaries are maintained
 - **Route**:
   future
-  [operating-model-mechanism-taxonomy.plan.md](../plans/agentic-engineering-enhancements/future/operating-model-mechanism-taxonomy.plan.md)
+  [operating-model-mechanism-taxonomy.plan.md](../plans-backlog-2026-07/agentic-engineering-enhancements/future/operating-model-mechanism-taxonomy.plan.md)
 
 ### 2. Turn-level control loop and non-linear re-entry
 
@@ -80,7 +80,7 @@ around:
   failed-check re-entry
 - **Route**:
   future
-  [operating-model-mechanism-taxonomy.plan.md](../plans/agentic-engineering-enhancements/future/operating-model-mechanism-taxonomy.plan.md)
+  [operating-model-mechanism-taxonomy.plan.md](../plans-backlog-2026-07/agentic-engineering-enhancements/future/operating-model-mechanism-taxonomy.plan.md)
 
 ### 3. Posture selection
 
@@ -94,7 +94,7 @@ around:
   it is not yet described as a reusable mechanism across repo workflows
 - **Route**:
   enhance
-  [reviewer-gateway-upgrade.plan.md](../plans/agentic-engineering-enhancements/current/reviewer-gateway-upgrade.plan.md)
+  [reviewer-gateway-upgrade.plan.md](../plans-backlog-2026-07/agentic-engineering-enhancements/current/reviewer-gateway-upgrade.plan.md)
   and keep the broader abstraction in the future taxonomy plan
 
 ### 4. Temporary operational ledgers
@@ -164,7 +164,7 @@ around:
   explicit cross-cutting mechanism family
 - **Route**:
   keep execution in
-  [hallucination-and-evidence-guard-adoption.plan.md](../plans/agentic-engineering-enhancements/current/hallucination-and-evidence-guard-adoption.plan.md)
+  [hallucination-and-evidence-guard-adoption.plan.md](../plans-backlog-2026-07/agentic-engineering-enhancements/current/hallucination-and-evidence-guard-adoption.plan.md)
   and register the family in the future taxonomy plan
 
 ### 8. Artefact economy and conservative proliferation
@@ -182,7 +182,7 @@ around:
   pressure, or proliferation discipline
 - **Route**:
   future
-  [operating-model-mechanism-taxonomy.plan.md](../plans/agentic-engineering-enhancements/future/operating-model-mechanism-taxonomy.plan.md)
+  [operating-model-mechanism-taxonomy.plan.md](../plans-backlog-2026-07/agentic-engineering-enhancements/future/operating-model-mechanism-taxonomy.plan.md)
 
 ### 9. Renewal triggers and freshness probes
 
@@ -199,7 +199,7 @@ around:
   spec should be revisited
 - **Route**:
   future
-  [operating-model-mechanism-taxonomy.plan.md](../plans/agentic-engineering-enhancements/future/operating-model-mechanism-taxonomy.plan.md)
+  [operating-model-mechanism-taxonomy.plan.md](../plans-backlog-2026-07/agentic-engineering-enhancements/future/operating-model-mechanism-taxonomy.plan.md)
 
 ## Plan Routing Summary
 
@@ -208,19 +208,19 @@ around:
 - operational-awareness-and-continuity-surface-separation.plan.md (`../plans-old-archive/agentic-engineering-enhancements/archive/completed/operational-awareness-and-continuity-surface-separation.plan.md`)
   should explicitly absorb the work-ledger, precedence, and bounded
   signal-routing implications from the topology note.
-- [reviewer-gateway-upgrade.plan.md](../plans/agentic-engineering-enhancements/current/reviewer-gateway-upgrade.plan.md)
+- [reviewer-gateway-upgrade.plan.md](../plans-backlog-2026-07/agentic-engineering-enhancements/current/reviewer-gateway-upgrade.plan.md)
   should explicitly treat the gateway as a posture-selector and
   signal-router, not only as a larger specialist roster manager.
 
 ### Existing plan home that already owns delivery
 
-- [hallucination-and-evidence-guard-adoption.plan.md](../plans/agentic-engineering-enhancements/current/hallucination-and-evidence-guard-adoption.plan.md)
+- [hallucination-and-evidence-guard-adoption.plan.md](../plans-backlog-2026-07/agentic-engineering-enhancements/current/hallucination-and-evidence-guard-adoption.plan.md)
   remains the execution home for claim/evidence discipline. The missing work is
   the higher-level mechanism taxonomy, not a second evidence rollout plan.
 
 ### New future plan
 
-- [operating-model-mechanism-taxonomy.plan.md](../plans/agentic-engineering-enhancements/future/operating-model-mechanism-taxonomy.plan.md)
+- [operating-model-mechanism-taxonomy.plan.md](../plans-backlog-2026-07/agentic-engineering-enhancements/future/operating-model-mechanism-taxonomy.plan.md)
   should own the broader abstraction work across planes, loops, signals,
   precedence, artefact economy, and renewal triggers.
 

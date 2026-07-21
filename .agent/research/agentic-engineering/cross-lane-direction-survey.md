@@ -241,7 +241,7 @@ and machine-readable handoff to a downstream-implementation agent.
 ### Repo-local implications and routing
 
 - **Per-team learning loop** is a candidate enhancement for the
-  [reviewer-gateway-upgrade.plan.md](../../plans/agentic-engineering-enhancements/current/reviewer-gateway-upgrade.plan.md).
+  [reviewer-gateway-upgrade.plan.md](../../plans-backlog-2026-07/agentic-engineering-enhancements/current/reviewer-gateway-upgrade.plan.md).
   The repo's reviewers do not currently learn from accept/reject
   signals on their suggestions; Greptile's pattern is direct prior
   art.
@@ -330,7 +330,7 @@ artefacts** elsewhere.
   files before agent edits) is a transferable safety primitive worth
   considering for any agent-driven flow that touches user-modified
   files. Routing target: the
-  [hallucination-and-evidence-guard-adoption.plan.md](../../plans/agentic-engineering-enhancements/current/hallucination-and-evidence-guard-adoption.plan.md)
+  [hallucination-and-evidence-guard-adoption.plan.md](../../plans-backlog-2026-07/agentic-engineering-enhancements/current/hallucination-and-evidence-guard-adoption.plan.md)
   scope.
 - **Worktree-isolated parallel agents** is convergent with the
   existing
@@ -436,7 +436,7 @@ explicitly.
 ### Repo-local implications and routing
 
 - **Backstage as the comparison target.** Worth a small note on the
-  [graphify-and-graph-memory-exploration.plan.md](../../plans/agentic-engineering-enhancements/future/graphify-and-graph-memory-exploration.plan.md)
+  [graphify-and-graph-memory-exploration.plan.md](../../plans-backlog-2026-07/agentic-engineering-enhancements/future/graphify-and-graph-memory-exploration.plan.md)
   scope flagging Backstage's catalog model layer as a comparable
   external prior art for the catalog half of the lane's intention
   surface.

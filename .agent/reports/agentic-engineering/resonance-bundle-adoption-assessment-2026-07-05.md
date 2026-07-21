@@ -1,7 +1,7 @@
 # Resonance teaching-bundle adoption assessment (WS6, 2026-07-05)
 
 The knowledge-flow probe of the
-[inter-Practice collaboration protocol plan](../../plans/agent-tooling/current/inter-practice-collaboration-protocol.plan.md)
+[inter-Practice collaboration protocol plan](../../plans-backlog-2026-07/agent-tooling/current/inter-practice-collaboration-protocol.plan.md)
 (WS6): the adoption assessment of the five-section return bundle received in
 the first live bidirectional Practice exchange. Authored by Cricket lifts Echo
 (`2fffa2`), successor lane holder, from a first-hand read of

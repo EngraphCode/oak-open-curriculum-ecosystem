@@ -22,10 +22,10 @@ Merlin→Siren handoff (natural-boundary, no PDR-063 record) broadcast `6519b97d
 ## Lane state
 
 - **Owning plan (RESHAPED 2026-06-19)**:
-  [`no-throw-remediation.plan.md`](../../../plans/architecture-and-infrastructure/current/no-throw-remediation.plan.md)
+  [`no-throw-remediation.plan.md`](../../../plans-backlog-2026-07/architecture-and-infrastructure/current/no-throw-remediation.plan.md)
   — investigation-first, **READY (survey-first), remediation PAUSED by owner** to progress the
   strategy thread. It **supersedes the convert-all framing** of
-  [`no-throw-statement-result-migration.plan.md`](../../../plans/architecture-and-infrastructure/current/no-throw-statement-result-migration.plan.md)
+  [`no-throw-statement-result-migration.plan.md`](../../../plans-backlog-2026-07/architecture-and-infrastructure/current/no-throw-statement-result-migration.plan.md)
   (now a dated input the WS0 survey validates; its 92KB worklist's per-site labels are distrusted).
   Owner reopened the work because the 1000-count is an indiscriminate-rule artefact (~6 cause-classes,
   not 1000 problems; ~1/3 tests, ~189 generated from ~10 templates, ~400/811 flagged false-positive),

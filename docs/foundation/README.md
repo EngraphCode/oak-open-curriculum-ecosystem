@@ -42,7 +42,7 @@ Adjacent surfaces (not part of this boundary):
 
 1. **Evaluating the project?** Start with [VISION.md](../../VISION.md), then read
    the April 2026 [progress update](../../.agent/reports/oak-ecosystem-progress-update-2026-04-20.md)
-   and the live [high-level plan](../../.agent/plans/high-level-plan.md);
+   and the live [high-level plan](../../.agent/plans-backlog-2026-07/high-level-plan.md);
    newer reports land in [.agent/reports/](../../.agent/reports/README.md).
 2. **Contributing?** Use the root [README.md](../../README.md) for setup and
    the [CONTRIBUTING.md](../../CONTRIBUTING.md) for the development process.

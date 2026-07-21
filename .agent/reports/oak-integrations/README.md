@@ -20,7 +20,7 @@ into it.
 
 ## Implementation
 
-- [Oak source integration workspaces implementation plan](../../plans/architecture-and-infrastructure/current/oak-source-integration-workspaces.plan.md)
+- [Oak source integration workspaces implementation plan](../../plans-backlog-2026-07/architecture-and-infrastructure/current/oak-source-integration-workspaces.plan.md)
   — ready executable plan for the shared provenance substrate, four
   role-specific wrappers, Castr/OpenAPI-stack convergence, safe branch
   synchronisation, CI isolation, and a cross-repository contract proof.

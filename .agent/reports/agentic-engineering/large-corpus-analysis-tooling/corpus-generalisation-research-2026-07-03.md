@@ -4,7 +4,7 @@
 claude-fable-5, model switched to claude-opus-4-8 mid-session for this review-and-record pass).
 **Status**: Research complete; no reshaping performed. This report is the durable evidence base
 for the strategic plan
-[`corpus-analysis-generalisation-and-knowledge-layer.plan.md`](../../../plans/agentic-engineering-enhancements/future/corpus-analysis-generalisation-and-knowledge-layer.plan.md).
+[`corpus-analysis-generalisation-and-knowledge-layer.plan.md`](../../../plans-backlog-2026-07/agentic-engineering-enhancements/future/corpus-analysis-generalisation-and-knowledge-layer.plan.md).
 **Revised 2026-07-03** (Hazel rides Orchard, `de9f72`) per the first-hand adversarial review
 [`corpus-generalisation-review-2026-07-03.md`](corpus-generalisation-review-2026-07-03.md), which
 reproduced every sampled `[V]` claim and applied three corrections in place: the comms-residual

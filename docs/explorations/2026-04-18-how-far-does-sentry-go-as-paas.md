@@ -60,7 +60,7 @@ more tooling" into a surgical decision.
 
 1. For each of the five ADR-162 axes, does Sentry's current product
    surface cover the MVP question set named in the
-   [high-level observability plan](../../.agent/plans/observability/high-level-observability-plan.md)?
+   [high-level observability plan](../../.agent/plans-backlog-2026-07/observability/high-level-observability-plan.md)?
 2. Where Sentry covers an axis, is the coverage **native** (designed
    for the workload, efficient, well-documented) or **incidental**
    (technically possible, but awkward)?
@@ -84,10 +84,10 @@ more tooling" into a surgical decision.
   — the principle this thesis is testing; findings inform whether
   the vendor-independence clause remains load-bearing long-term or
   becomes a historical artefact.
-- [`future/second-backend-evaluation.plan.md`](../../.agent/plans/observability/future/second-backend-evaluation.plan.md)
+- [`future/second-backend-evaluation.plan.md`](../../.agent/plans-backlog-2026-07/observability/future/second-backend-evaluation.plan.md)
   — a gap named here is a named-Sentry-gap that triggers that plan.
 - Multiple
-  [`future/`](../../.agent/plans/observability/future/) plans'
+  [`future/`](../../.agent/plans-backlog-2026-07/observability/future/) plans'
   promotion triggers — "first data-science request requiring X" is
   a weaker trigger than "this exploration identified X as Sentry-out-
   of-scope."

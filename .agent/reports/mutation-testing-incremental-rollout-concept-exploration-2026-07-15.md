@@ -254,9 +254,9 @@ blocking should concern a reviewed policy—such as an unexplained regression in
 a high-value workspace—not an arbitrary universal score.
 
 The source plan is
-[`mutation-testing-implementation.plan.md`](../plans/agentic-engineering-enhancements/current/mutation-testing-implementation.plan.md),
+[`mutation-testing-implementation.plan.md`](../plans-backlog-2026-07/agentic-engineering-enhancements/current/mutation-testing-implementation.plan.md),
 with executable sequencing in
-[`phase-5-mutation-testing-execution.md`](../plans/agentic-engineering-enhancements/active/phase-5-mutation-testing-execution.md).
+[`phase-5-mutation-testing-execution.md`](../plans-backlog-2026-07/agentic-engineering-enhancements/active/phase-5-mutation-testing-execution.md).
 Both need their stale current-state claims corrected before implementation.
 
 ## Unresolved Evidence

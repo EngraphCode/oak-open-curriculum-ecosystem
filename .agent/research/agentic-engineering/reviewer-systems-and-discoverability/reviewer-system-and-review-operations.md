@@ -13,7 +13,7 @@ depth, and reintegration discipline.
 
 ## Operational and Canon-Adjacent Sources
 
-- [reviewer-gateway-upgrade.plan.md](../../../plans/agentic-engineering-enhancements/current/reviewer-gateway-upgrade.plan.md)
+- [reviewer-gateway-upgrade.plan.md](../../../plans-backlog-2026-07/agentic-engineering-enhancements/current/reviewer-gateway-upgrade.plan.md)
 
 ## Staged and Reflective Sources
 
@@ -55,6 +55,6 @@ depth, and reintegration discipline.
 
 - [research reviewer lane](../../../research/agentic-engineering/reviewer-systems-and-discoverability/README.md)
 - [formal synthesis lane](../../../reports/agentic-engineering/deep-dive-syntheses/README.md)
-- [plans collection](../../../plans/agentic-engineering-enhancements/README.md)
+- [plans collection](../../../plans-backlog-2026-07/agentic-engineering-enhancements/README.md)
 - [deep-dives index](./README.md)
 - [hub README](../README.md)

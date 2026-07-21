@@ -146,14 +146,14 @@ Three observations from the lane × signal matrix:
 
 1. **safety-evidence collects the most candidates** (5 candidates +
    1 watch). The lane's existing
-   [augmented-engineering-safety.research.md](../plans/agentic-engineering-enhancements/augmented-engineering-safety.research.md)
+   [augmented-engineering-safety.research.md](../plans-backlog-2026-07/agentic-engineering-enhancements/augmented-engineering-safety.research.md)
    and
-   [hallucination-and-evidence-guard-adoption.plan.md](../plans/agentic-engineering-enhancements/current/hallucination-and-evidence-guard-adoption.plan.md)
+   [hallucination-and-evidence-guard-adoption.plan.md](../plans-backlog-2026-07/agentic-engineering-enhancements/current/hallucination-and-evidence-guard-adoption.plan.md)
    are the natural homes for most of them.
 2. **reviewer-systems collects the most coherent cluster** (3
    candidates, all from the same external source family — agent-native
    code review). The
-   [reviewer-gateway-upgrade.plan.md](../plans/agentic-engineering-enhancements/current/reviewer-gateway-upgrade.plan.md)
+   [reviewer-gateway-upgrade.plan.md](../plans-backlog-2026-07/agentic-engineering-enhancements/current/reviewer-gateway-upgrade.plan.md)
    is the natural home and could absorb all three in a single scope
    expansion.
 3. **derived-memory collects the fewest candidates** (1, candidate

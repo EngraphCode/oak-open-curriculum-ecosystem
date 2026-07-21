@@ -18,7 +18,7 @@ to build on. Public goods, built in the open.
 across domains — Oak's curriculum, the EEF evidence surface, AI-enhanced
 development, and how we run our own work.
 
-**Vision and strategy**: Start with [VISION.md](VISION.md) — the two-part vision (Oak's curriculum made AI-native for teachers and the ecosystem; and how we build and curate it, agent-first). Then the [strategy](docs/strategy/README.md) — the diagnosis, the three value streams, and how we'll know it's working. For the live delivery roadmap, see the [high-level plan](.agent/plans/high-level-plan.md).
+**Vision and strategy**: Start with [VISION.md](VISION.md) — the two-part vision (Oak's curriculum made AI-native for teachers and the ecosystem; and how we build and curate it, agent-first). Then the [strategy](docs/strategy/README.md) — the diagnosis, the three value streams, and how we'll know it's working. For the live delivery roadmap, see the [release-planning corpus](.agent/plans/README.md) (the prior estate is conserved in [the 2026-07 backlog](.agent/plans-backlog-2026-07/BACKLOG.md)).
 
 ---
 
@@ -155,7 +155,7 @@ Partners and external builders should anchor adoption claims on the reusable
 fabric enumerated here — the OpenAPI-to-MCP pipeline, SDK generation patterns,
 hybrid-search tooling, MCP/MCP App scaffolds, graph projection conventions, and
 the Practice — versus Oak-hosted APIs and deployments. Supporting playbooks and partner obligations
-grow from [.agent/plans/sector-engagement/current/sector-reusable-components-adoption.plan.md](.agent/plans/sector-engagement/current/sector-reusable-components-adoption.plan.md).
+grow from [.agent/plans-backlog-2026-07/sector-engagement/current/sector-reusable-components-adoption.plan.md](.agent/plans-backlog-2026-07/sector-engagement/current/sector-reusable-components-adoption.plan.md).
 
 ### Data Sources
 

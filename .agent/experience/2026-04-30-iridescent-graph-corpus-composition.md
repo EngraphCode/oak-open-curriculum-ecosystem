@@ -407,14 +407,14 @@ narrative/scope work was settled in earlier sessions.
 - Napkin entry (full session record):
   [`.agent/memory/active/napkin.md` § 2026-04-30 EEF graph-and-corpus architecture session](../memory/active/napkin.md)
 - New EEF subthread README:
-  [`.agent/plans/sector-engagement/eef/README.md`](../plans/sector-engagement/eef/README.md)
+  [`.agent/plans/sector-engagement/eef/README.md`](../plans-backlog-2026-07/sector-engagement/eef/README.md)
 - Conservation map (semantic preservation + verification log):
-  [`.agent/plans/sector-engagement/eef/reference/conservation-map.md`](../plans/sector-engagement/eef/reference/conservation-map.md)
+  [`.agent/plans/sector-engagement/eef/reference/conservation-map.md`](../plans-backlog-2026-07/sector-engagement/eef/reference/conservation-map.md)
 - Increment 1 plan (foundation):
   `graph-query-layer.plan.md` (since archived)
 - Increment 2 plan (EEF as corpus):
   `eef-evidence-corpus.plan.md` (since archived)
 - Increment 3 plan (cross-source journeys):
-  [`.agent/plans/connecting-oak-resources/knowledge-graph-integration/future/cross-source-journeys.plan.md`](../plans/connecting-oak-resources/knowledge-graph-integration/future/cross-source-journeys.plan.md)
+  [`.agent/plans/connecting-oak-resources/knowledge-graph-integration/future/cross-source-journeys.plan.md`](../plans-backlog-2026-07/connecting-oak-resources/knowledge-graph-integration/future/cross-source-journeys.plan.md)
 - Pre-session predecessor (recoverable from git history):
   `git show e2796757:.agent/plans/exploring-open-education-resources/external-knowledge-sources/current/eef-evidence-mcp-surface.plan.md`

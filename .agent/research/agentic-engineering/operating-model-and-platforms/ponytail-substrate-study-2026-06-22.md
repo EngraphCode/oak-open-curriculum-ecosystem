@@ -10,7 +10,7 @@ Source: `DietrichGebert/ponytail`, MIT-licensed. Read-only local checkout:
 Status: research report, not an adoption plan. Second external-substrate study
 after the [Matt Pocock skills study](./external-skills-substrate-study-2026-05-14.md);
 feeds the
-[external-skills-substrate-learning plan](../../../plans/agentic-engineering-enhancements/future/external-skills-substrate-learning.plan.md)
+[external-skills-substrate-learning plan](../../../plans-backlog-2026-07/agentic-engineering-enhancements/future/external-skills-substrate-learning.plan.md)
 as a candidate-register input. Names candidate Practice moves; makes none —
 promotion stays owner-gated.
 

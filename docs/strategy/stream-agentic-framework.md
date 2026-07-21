@@ -47,7 +47,7 @@ A few load-bearing shapes the strategy builds on:
   delivery metrics from the structure instead of reconstructing them manually. ADR-207 gates that
   projection on the idea graph, Linear projection, and external evidence joins under ADR-200 and
   proposed ADR-201. Those inputs become one automated graph only after the gates close; the
-  [TAU collection index](../../.agent/plans/telemetry-and-understanding/README.md#current-status)
+  [TAU collection index](../../.agent/plans-backlog-2026-07/telemetry-and-understanding/README.md#current-status)
   carries current delivery status. A framework that can _prove_ it delivers value, not just claim
   it, remains part of this stream's core value — not a side-benefit. (The substrate that makes this
   possible — the idea knowledge-graph — and the value it delivers are recorded canonically in
@@ -82,7 +82,7 @@ Internal delivery uplift and external adoption of the framework — the candidat
 ours to propose, the targets Oak's to ground. Delivery performance (the DORA metrics) is a
 _leading_ signal ADR-207 designs as an in-repo derivation; impact on Oak's goals is the _lagging_
 signal Oak grounds. Current delivery status lives in the
-[TAU collection index](../../.agent/plans/telemetry-and-understanding/README.md#current-status).
+[TAU collection index](../../.agent/plans-backlog-2026-07/telemetry-and-understanding/README.md#current-status).
 See the [measures checkpoint](measures.md).
 
 > **Settled (owner, 2026-06-20):** the internal transformation's alignment is direct — **Oak

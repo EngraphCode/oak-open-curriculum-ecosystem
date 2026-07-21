@@ -6,7 +6,7 @@
 not make product decisions (those are owner-shaped).
 **Companion doctrine**: [PDR-111 — Agent Experience Is a First-Class Practice
 Optimisation Principle](../practice-core/decision-records/PDR-111-agent-experience-is-first-class.md)
-**Companion plan**: [`agent-experience-improvement.plan.md`](../plans/agent-tooling/current/agent-experience-improvement.plan.md)
+**Companion plan**: [`agent-experience-improvement.plan.md`](../plans-backlog-2026-07/agent-tooling/current/agent-experience-improvement.plan.md)
 
 ## Why this report exists
 
@@ -118,7 +118,7 @@ finding: filter-for-relevance is the wrong cut; the work is an AX-improvement
    well-known-path defaults, cross-command flag consistency. Retires ~19 frictions
    as a class and prevents regressions — the structural-cure-over-doc-patch shape at
    maximum count-leverage. **Already doctrine and already homed**: PDR-055 clauses
-   7–10 mandate it, and [`agent-tools-cli-ergonomics.plan.md`](../plans/agent-tooling/current/agent-tools-cli-ergonomics.plan.md)
+   7–10 mandate it, and [`agent-tools-cli-ergonomics.plan.md`](../plans-backlog-2026-07/agent-tooling/current/agent-tools-cli-ergonomics.plan.md)
    (`READY FOR EXECUTION`) carries it as WS6. The right move is to *execute* it, not
    re-plan it.
 2. **Coordination-home path resolution and state self-init** (Class D, F-41).
@@ -155,13 +155,13 @@ mechanise the drain so it cannot silently lag.** That is the companion plan's sp
 
 ## Next steps
 
-1. **Execute the umbrella plan** ([`agent-experience-improvement.plan.md`](../plans/agent-tooling/current/agent-experience-improvement.plan.md)):
+1. **Execute the umbrella plan** ([`agent-experience-improvement.plan.md`](../plans-backlog-2026-07/agent-tooling/current/agent-experience-improvement.plan.md)):
    the structural drain-fix (a `frictions-register` validator + generated routing
    index), F-41 path-safety, gate-coverage, and the disposition ledger routing all
    82 frictions to a home; it *drives* the already-homed cli-ergonomics and watcher
    plans rather than duplicating them.
 2. **A deeper survey of logs, frustrations, and prior-state logs**
-   ([`agent-frustration-corpus-survey.plan.md`](../plans/agent-tooling/future/agent-frustration-corpus-survey.plan.md)):
+   ([`agent-frustration-corpus-survey.plan.md`](../plans-backlog-2026-07/agent-tooling/future/agent-frustration-corpus-survey.plan.md)):
    mine the corpora that hold friction signal *not yet in the register* — ~93
    archived napkins, the comms corpus (~345 live events plus archive), the
    `agentic-engineering/` WS1–6 failure-mode taxonomy and discoverability audits,

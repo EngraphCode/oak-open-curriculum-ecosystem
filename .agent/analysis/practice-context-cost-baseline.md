@@ -251,6 +251,6 @@ a reusable command.
 - [PDR-038 §2026-05-04 amendment — doctrine without enforcement at
   maturity][pdr-038]
 
-[plan-progressive]: ../plans/agentic-engineering-enhancements/future/memetic-immune-system-and-progressive-disclosure.plan.md
+[plan-progressive]: ../plans-backlog-2026-07/agentic-engineering-enhancements/future/memetic-immune-system-and-progressive-disclosure.plan.md
 [pdr-044]: ../practice-core/decision-records/PDR-044-memetic-immune-system.md
 [pdr-038]: ../practice-core/decision-records/PDR-038-stated-principles-require-structural-enforcement.md

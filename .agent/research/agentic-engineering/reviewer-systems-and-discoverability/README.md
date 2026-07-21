@@ -6,7 +6,7 @@ system stays usable.
 
 ## Canon and Operational Anchors
 
-- [reviewer-gateway-upgrade.plan.md](../../../plans/agentic-engineering-enhancements/current/reviewer-gateway-upgrade.plan.md)
+- [reviewer-gateway-upgrade.plan.md](../../../plans-backlog-2026-07/agentic-engineering-enhancements/current/reviewer-gateway-upgrade.plan.md)
 
 ## Discoverability Research and Audits
 

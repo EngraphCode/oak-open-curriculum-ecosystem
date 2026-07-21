@@ -54,7 +54,7 @@ iterates as a living document (PDR-018).
 ## The launch keystones (K1–K3, owner-ratified 2026-06-17)
 
 These are settled and live in the
-[launch-readiness framework](../../.agent/plans/curriculum-mcp-path-to-ga/launch-readiness-framework.md);
+[launch-readiness framework](../../.agent/plans-backlog-2026-07/curriculum-mcp-path-to-ga/launch-readiness-framework.md);
 they sit inside this stream's strategy as its production-readiness keystones.
 
 - **K1 — "Live" is an evidence state, not a deploy state.** General availability (GA) means real teachers and
@@ -80,7 +80,7 @@ they sit inside this stream's strategy as its production-readiness keystones.
 Several go-live gates are owned outside this repository; the strategy's job is to name
 them, with an accountable owner, so none is silently assumed done. "Owned in-repo" = a live
 plan drives it; "external/tracked" = executed outside the repo and tracked in the
-[compliance lane](../../.agent/plans/compliance/roadmap.md); "discussion" = no owner yet.
+[compliance lane](../../.agent/plans-backlog-2026-07/compliance/roadmap.md); "discussion" = no owner yet.
 
 | Requirement                     | What                                                                                                                                                                                           | Ownership                                                                                  |
 | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |

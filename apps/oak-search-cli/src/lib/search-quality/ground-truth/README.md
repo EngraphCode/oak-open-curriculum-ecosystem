@@ -133,7 +133,7 @@ oaksearch search threads "your query" --subject maths
 ## Future Work
 
 Phase 2 expansion opportunities are documented in:
-[ground-truth-expansion-plan.md](../../../../../../.agent/plans/semantic-search/future/09-evaluation-and-evidence/ground-truth-expansion-plan.md)
+[ground-truth-expansion-plan.md](../../../../../../.agent/plans-backlog-2026-07/semantic-search/future/09-evaluation-and-evidence/ground-truth-expansion-plan.md)
 
 Expansion includes:
 

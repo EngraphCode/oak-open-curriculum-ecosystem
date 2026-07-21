@@ -76,7 +76,7 @@ surfaces; use PDR-050 for the transferable specification.
 ### `.agent/state/collaboration/`
 
 Installed by WS0 onward of the
-[`multi-agent-collaboration-protocol`](../plans/agent-tooling/current/multi-agent-collaboration-protocol.plan.md)
+[`multi-agent-collaboration-protocol`](../plans-backlog-2026-07/agent-tooling/current/multi-agent-collaboration-protocol.plan.md)
 plan.
 
 Instance tier (untracked-by-design; preserved on disk, see Tracking model above):

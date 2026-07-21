@@ -6,9 +6,9 @@ behaviour, candidate cure, target surface, and current status.
 
 **This is a capture surface, not an execution plan.** Items mature into:
 
-1. A line on a [`current/`](../../plans/agent-tooling/current/) or [`future/`](../../plans/agent-tooling/future/) plan when they
+1. A line on a [`current/`](../../plans-backlog-2026-07/agent-tooling/current/) or [`future/`](../../plans-backlog-2026-07/agent-tooling/future/) plan when they
    fit existing scope, OR
-2. A new [`current/`](../../plans/agent-tooling/current/) or [`future/`](../../plans/agent-tooling/future/) plan when they
+2. A new [`current/`](../../plans-backlog-2026-07/agent-tooling/current/) or [`future/`](../../plans-backlog-2026-07/agent-tooling/future/) plan when they
    justify their own work item, OR
 3. A direct fix when the cure is small and obvious enough to land in a peer
    plan's commit cycle.
@@ -153,7 +153,7 @@ below is a cross-reference index, not a second source of truth.
 - **Target surface**: `agent-tools/src/collaboration-state/state-io.ts` (write
   path) and `cli-comms-commands.ts` (render/read).
 - **Status**: addressed-in-working-tree-2026-06-01 —
-  [`agent-tooling/current/comms-event-write-integrity.plan.md`](../../plans/agent-tooling/current/comms-event-write-integrity.plan.md)
+  [`agent-tooling/current/comms-event-write-integrity.plan.md`](../../plans-backlog-2026-07/agent-tooling/current/comms-event-write-integrity.plan.md)
   (one-time repair + absolute prevention + loud read + gate guard). Comms event
   writes now parse-back, schema-validate, and publish via a synced same-directory
   atomic writer before the target file appears; readers hard-fail with the bad
@@ -664,7 +664,7 @@ below is a cross-reference index, not a second source of truth.
   (`.agents/skills/` + `.claude/skills/`), generated deterministically
   with no manual edits, with commands subsumed into the skills surface.
 - **Candidate cure**:
-  [`current/skills-standardisation-and-adapter-generator.plan.md`](../../plans/agent-tooling/current/skills-standardisation-and-adapter-generator.plan.md) —
+  [`current/skills-standardisation-and-adapter-generator.plan.md`](../../plans-backlog-2026-07/agent-tooling/current/skills-standardisation-and-adapter-generator.plan.md) —
   PDR-051 doctrine, ADR-125 amendment, generator CLI, validator
   extension, mass migration, custom command retirement.
 - **Target surface**:
@@ -695,7 +695,7 @@ below is a cross-reference index, not a second source of truth.
   remain available for deterministic tests, recovery, and replay, not
   as the normal path.
 - **Candidate cure**: Add this as a P-Foundation requirement in
-  [`current/cost-of-collaboration.plan.md`](../../plans/agent-tooling/current/cost-of-collaboration.plan.md):
+  [`current/cost-of-collaboration.plan.md`](../../plans-backlog-2026-07/agent-tooling/current/cost-of-collaboration.plan.md):
   a single high-level CLI that owns ID/timestamp generation and provides
   semantic workflow commands such as "my active claim" or "this commit
   intent" resolution.
@@ -1178,7 +1178,7 @@ below is a cross-reference index, not a second source of truth.
   2026-06-14) decides amend-PDR-down vs close-gaps-as-defects; the plan's
   §Reality Reconciliation gap ledger is the input.
 - **Target surface**: PDR-051; the owning plan
-  [`current/skills-standardisation-and-adapter-generator.plan.md`](../../plans/agent-tooling/current/skills-standardisation-and-adapter-generator.plan.md)
+  [`current/skills-standardisation-and-adapter-generator.plan.md`](../../plans-backlog-2026-07/agent-tooling/current/skills-standardisation-and-adapter-generator.plan.md)
   (§Reality Reconciliation); generator + validator.
 - **Status**: recorded — review deferred to a later session (owner direction
   2026-06-14). Gap ledger lives in the owning plan's §Reality Reconciliation.
@@ -1317,7 +1317,7 @@ below is a cross-reference index, not a second source of truth.
   NOT corpus size (the size→death link was FH-retracted — `kern.boottime`-confounded).
   So cure (c) "dir-size-scaled budget" aims at the wrong variable; the lesson is keep
   budgets SHORT + fail-fast-restart. The safe incremental-read home is
-  [`comms-watch-storage-redesign.plan.md`](../../plans/agent-tooling/current/comms-watch-storage-redesign.plan.md)
+  [`comms-watch-storage-redesign.plan.md`](../../plans-backlog-2026-07/agent-tooling/current/comms-watch-storage-redesign.plan.md)
   WS2's mtime-watermark, not a naive `created_at` cursor (the seen-set does not backstop
   unread files → silent-miss).
 
@@ -2625,9 +2625,9 @@ plan if the pattern continues:
 Items in this register that mature into their own plans should be moved
 into the appropriate lifecycle directory:
 
-- Concrete CLI/code changes → [`current/`](../../plans/agent-tooling/current/) executable plan
+- Concrete CLI/code changes → [`current/`](../../plans-backlog-2026-07/agent-tooling/current/) executable plan
   (often a workstream addition to existing collaboration-state plans)
-- Standalone tooling capability → [`future/`](../../plans/agent-tooling/future/) strategic brief
+- Standalone tooling capability → [`future/`](../../plans-backlog-2026-07/agent-tooling/future/) strategic brief
 - PDR/ADR amendments → not handled here; the PDR/ADR sits in
   `.agent/practice-core/decision-records/` or
   `docs/architecture/architectural-decisions/`. This register tracks the

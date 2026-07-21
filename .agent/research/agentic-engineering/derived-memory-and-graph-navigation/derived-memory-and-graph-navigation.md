@@ -13,7 +13,7 @@ plane over the existing practice and documentation estate.
 ## Primary Source Material
 
 - [graphify-oak-practice-analysis.md](../../../research/graphify-oak-practice-analysis.md)
-- [graphify-and-graph-memory-exploration.plan.md](../../../plans/agentic-engineering-enhancements/future/graphify-and-graph-memory-exploration.plan.md)
+- [graphify-and-graph-memory-exploration.plan.md](../../../plans-backlog-2026-07/agentic-engineering-enhancements/future/graphify-and-graph-memory-exploration.plan.md)
 - [mcp_agent_guidance_provision.md](../../../research/mcp_agent_guidance_provision.md)
 - [2026-03-02-the-travelling-practice.md](../../../experience/2026-03-02-the-travelling-practice.md)
 - [2026-04-01-the-workflow-that-travels.md](../../../experience/2026-04-01-the-workflow-that-travels.md)
@@ -46,6 +46,6 @@ plane over the existing practice and documentation estate.
 
 - [research graph lane](../../../research/agentic-engineering/derived-memory-and-graph-navigation/README.md)
 - [formal synthesis lane](../../../reports/agentic-engineering/deep-dive-syntheses/README.md)
-- [future graph-memory plan](../../../plans/agentic-engineering-enhancements/future/graphify-and-graph-memory-exploration.plan.md)
+- [future graph-memory plan](../../../plans-backlog-2026-07/agentic-engineering-enhancements/future/graphify-and-graph-memory-exploration.plan.md)
 - [deep-dives index](./README.md)
 - [hub README](../README.md)

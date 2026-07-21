@@ -470,6 +470,6 @@ This traversal will capture **100% of lessons and units** available in the API.
 
 - [ADR-080: Comprehensive Curriculum Structure](../../docs/architecture/architectural-decisions/080-curriculum-data-denormalization-strategy.md)
 - [Curriculum Structure Analysis](../analysis/curriculum-structure-analysis.md)
-- [Upstream API Wishlist](../plans/sector-engagement/ooc-issues/README.md)
+- [Upstream API Wishlist](../plans-backlog-2026-07/sector-engagement/ooc-issues/README.md)
 - Pattern-Aware Ingestion Plan (`../plans-old-archive/semantic-search/archive/completed/pattern-aware-ingestion.md`) — Implementation plan (completed)
-- [Semantic Search README](../plans/semantic-search/README.md) — Navigation hub
+- [Semantic Search README](../plans-backlog-2026-07/semantic-search/README.md) — Navigation hub

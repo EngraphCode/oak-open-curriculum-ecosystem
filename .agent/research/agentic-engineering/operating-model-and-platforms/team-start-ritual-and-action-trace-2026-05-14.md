@@ -6,7 +6,7 @@
 **Related artefacts**:
 [`start-right-team`](../../../skills/start-right-team/SKILL-CANONICAL.md),
 [ADR-181](../../../../docs/architecture/architectural-decisions/181-agent-team-start-and-action-log.md),
-[`team-handoff-routing-and-action-log-exploration.plan.md`](../../../plans/agentic-engineering-enhancements/future/team-handoff-routing-and-action-log-exploration.plan.md)
+[`team-handoff-routing-and-action-log-exploration.plan.md`](../../../plans-backlog-2026-07/agentic-engineering-enhancements/future/team-handoff-routing-and-action-log-exploration.plan.md)
 
 ## Research Frame
 

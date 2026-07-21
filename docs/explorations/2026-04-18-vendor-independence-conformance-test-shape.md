@@ -7,7 +7,7 @@ status: active
 # Vendor-Independence Conformance Test Shape
 
 **Status**: Stub. Informs the MVP scope of
-[`current/multi-sink-vendor-independence-conformance.plan.md`](../../.agent/plans/observability/current/multi-sink-vendor-independence-conformance.plan.md).
+[`current/multi-sink-vendor-independence-conformance.plan.md`](../../.agent/plans-backlog-2026-07/observability/current/multi-sink-vendor-independence-conformance.plan.md).
 Full analysis authored when that plan's WS1 RED opens, or earlier if
 an exploration 1 / exploration 2 finding accelerates it.
 
@@ -62,7 +62,7 @@ right for Oak's MVP is the subject of this exploration.
    fields (for example, proving `tool_invoked` round-trips through
    `stdout` JSON with full field fidelity)?
 2. Should the test run against all seven MVP events of the
-   [events workspace](../../.agent/plans/observability/current/observability-events-workspace.plan.md)
+   [events workspace](../../.agent/plans-backlog-2026-07/observability/current/observability-events-workspace.plan.md)
    as a single pass, or one per event?
 3. What is the right balance between the test being
    **implementation-locked** (tied to current Sentry SDK shape, brittle
@@ -83,7 +83,7 @@ right for Oak's MVP is the subject of this exploration.
 
 ## 4. Informs
 
-- [`current/multi-sink-vendor-independence-conformance.plan.md`](../../.agent/plans/observability/current/multi-sink-vendor-independence-conformance.plan.md)
+- [`current/multi-sink-vendor-independence-conformance.plan.md`](../../.agent/plans-backlog-2026-07/observability/current/multi-sink-vendor-independence-conformance.plan.md)
   — the plan this exploration scopes; specifies RED test shape and
   GREEN implementation target.
 - [ADR-162 § Enforcement Mechanism #4](../architecture/architectural-decisions/162-observability-first.md)
@@ -99,7 +99,7 @@ The exploration is authored in full when **any one of** the following
 fires:
 
 - WS1 RED of
-  [`multi-sink-vendor-independence-conformance.plan.md`](../../.agent/plans/observability/current/multi-sink-vendor-independence-conformance.plan.md)
+  [`multi-sink-vendor-independence-conformance.plan.md`](../../.agent/plans-backlog-2026-07/observability/current/multi-sink-vendor-independence-conformance.plan.md)
   opens.
 - Exploration 1 (Sentry vs PostHog) identifies PostHog as a named
   second vendor and the adapter-contract shape becomes
@@ -123,5 +123,5 @@ fires:
   the existing conformance-test reference implementation.
 - [Exploration 1](./2026-04-18-sentry-vs-posthog-capability-matrix.md) —
   second-vendor comparison.
-- [`current/multi-sink-vendor-independence-conformance.plan.md`](../../.agent/plans/observability/current/multi-sink-vendor-independence-conformance.plan.md) —
+- [`current/multi-sink-vendor-independence-conformance.plan.md`](../../.agent/plans-backlog-2026-07/observability/current/multi-sink-vendor-independence-conformance.plan.md) —
   the plan this exploration blocks.

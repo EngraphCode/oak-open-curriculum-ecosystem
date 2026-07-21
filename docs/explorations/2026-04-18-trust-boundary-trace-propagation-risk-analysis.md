@@ -23,7 +23,7 @@ third-party logs and prevents upstream systems from injecting trace IDs
 back into Oak's flow.
 
 L-14 of the
-[maximisation plan](../../.agent/plans/observability/active/sentry-observability-maximisation-mcp.plan.md)
+[maximisation plan](../../.agent/plans-backlog-2026-07/observability/active/sentry-observability-maximisation-mcp.plan.md)
 is the decision lane for trace propagation. The design question:
 **for each outbound-request host the MCP server or Search CLI talks to,
 is trace propagation allowed, denied, or conditional?**
@@ -86,9 +86,9 @@ Per-host analysis with the following structure:
 
 ## 4. Informs
 
-- [`active/sentry-observability-maximisation-mcp.plan.md § L-14`](../../.agent/plans/observability/active/sentry-observability-maximisation-mcp.plan.md)
+- [`active/sentry-observability-maximisation-mcp.plan.md § L-14`](../../.agent/plans-backlog-2026-07/observability/active/sentry-observability-maximisation-mcp.plan.md)
   — decision-lane output.
-- [`future/cross-system-correlated-tracing.plan.md`](../../.agent/plans/observability/future/cross-system-correlated-tracing.plan.md)
+- [`future/cross-system-correlated-tracing.plan.md`](../../.agent/plans-backlog-2026-07/observability/future/cross-system-correlated-tracing.plan.md)
   — if the exploration's recommendations enable end-to-end tracing,
   this plan is the operational follow-on.
 - [ADR-161](../architecture/architectural-decisions/161-network-free-pr-check-ci-boundary.md)

@@ -19,7 +19,7 @@ architectural seam:
   remote branch is retirable per worktree-hygiene (content confirmed in main).
 - **Invocation pointer**: continue `oak-slack-assistants` from this record.
 - **Controlling plan**:
-  [`ask-oisin.plan.md`](../../../plans/slack-assistants/current/ask-oisin.plan.md)
+  [`ask-oisin.plan.md`](../../../plans-backlog-2026-07/slack-assistants/current/ask-oisin.plan.md)
   (`current/`, 🟢 **DECISION-COMPLETE / READY FOR EXECUTION**, 2026-07-08). Design source:
   [`oisin-oce-navigator-design.md`](../../../research/outreach/oisin-oce-navigator-design.md).
   Telemetry resolution:
