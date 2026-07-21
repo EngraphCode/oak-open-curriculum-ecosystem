@@ -128,10 +128,20 @@ system — the estate's design source of truth; added by the implementing plan's
 Stage A) and makes the tier's internal edges explicit for the first time. Intra-design direction ("may be imported by", no back-edges):
 
 ```text
-design-tokens-core → oak-design-system → oak-design-tokens → oak-design-ink
+design-tokens-core ──┐
+                     ├→ oak-design-tokens → oak-design-ink
+oak-design-system ───┘
 ```
 
-- `design-tokens-core` imports nothing from the monorepo; it is consumed by
+(Corrected 2026-07-21: the earlier linear chain drew a
+`design-tokens-core → oak-design-system` edge that does not exist — the
+tier's two upstream workspaces are both direct inputs to
+`oak-design-tokens`, which is the only intra-design join point.)
+
+- `design-tokens-core` imports nothing from the design tier; its only
+  monorepo import is the foundation library `@oaknational/result`
+  (Result-typed validation seams — a runtime `dependency`, verified in
+  `package.json` and source). It is consumed by
   `oak-design-tokens` as a runtime `dependency` (the built
   `dist/terminal-theme.js` imports it). `oak-design-system` carries NO
   `design-tokens-core` edge (corrected 2026-07-20 twice: an earlier revision
