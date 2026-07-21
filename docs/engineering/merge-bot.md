@@ -67,6 +67,23 @@ for admin credentials, and optional for everyone else.
 The client ID / client secret on the app page belong to OAuth user flows
 and are **not used** by this path; you never need to generate the secret.
 
+## Agent actions run as the bot — attribution by identity
+
+Any PR mutation performed **by an agent** runs under the bot token, so the
+platform record itself says which actions were a human's and which were an
+agent's: opening PRs, editing titles/descriptions, commenting, replying to
+review threads, resolving threads, requesting reviewers, arming, merging.
+
+```bash
+GH_TOKEN=$(pnpm agent-tools merge-bot mint-token) gh pr edit <n> --body-file …
+GH_TOKEN=$(pnpm agent-tools merge-bot mint-token) gh api …/comments/<id>/replies -f body=…
+```
+
+Reads may use any credential — attribution matters for writes. Agents keep
+signing reply bodies with their agent tuple: the bot identity says "an
+agent did this", the signature says which one. A maintainer acting from
+their own hands uses their own credential — that contrast is the point.
+
 ## Key handling
 
 The `.pem` grants the bot's full capability: keep it out of every repo,
