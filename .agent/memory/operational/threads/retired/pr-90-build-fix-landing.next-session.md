@@ -125,7 +125,7 @@ closure register at
    Regrowing Pollen + Solar Threading Star).
 2. Read this thread record.
 3. Read the closure plan
-   [`pr-90-landing-closure.plan.md`](../../../../plans/architecture-and-infrastructure/current/pr-90-landing-closure.plan.md).
+   [`pr-90-landing-closure.plan.md`](../../../../plans-backlog-2026-07/architecture-and-infrastructure/current/pr-90-landing-closure.plan.md).
 4. Re-read `principles.md` (especially §Architectural Excellence Over
    Expediency, §Consistent Naming, §No warning toleration), and
    `testing-strategy.md` (Phase 2 Sonar fixes preserve test behaviour).
@@ -153,7 +153,7 @@ closure register at
 
 ### Owning Plan
 
-[`pr-90-landing-closure.plan.md`](../../../../plans/architecture-and-infrastructure/current/pr-90-landing-closure.plan.md)
+[`pr-90-landing-closure.plan.md`](../../../../plans-backlog-2026-07/architecture-and-infrastructure/current/pr-90-landing-closure.plan.md)
 
 ### Current Objective
 

@@ -309,7 +309,7 @@ The surface is a **deterministic projection of a fixed corpus** — the agent do
 the reasoning; the tool returns only the corpus's own facts. Treat any value the
 payload returns as a claim to check against the corpus chain (the strand index
 in `eef://interpretation` and the
-[EEF corpus source-path table](../../../.agent/plans/sector-engagement/eef/current/eef-d2-source-path-table.md)),
+[EEF corpus source-path table](../../../.agent/plans-backlog-2026-07/sector-engagement/eef/current/eef-d2-source-path-table.md)),
 never to invent.
 
 | #   | Surface                             | How                                                                                           | Expected result                                                                                                                                                                                                                                                                                           |

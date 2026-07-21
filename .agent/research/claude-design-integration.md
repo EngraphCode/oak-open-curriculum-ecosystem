@@ -1,7 +1,7 @@
 # Claude Design — nature, capabilities, and integration with Claude Code / this repo
 
 **Created**: 2026-07-01
-**Context**: Owner-directed deep research (via Director Swordfish holds Shoal) to (a) understand Claude Design deeply and (b) find innovative, feasible connections/flows between Claude Design, Claude Code, and the Oak Open Curriculum ecosystem. Feeds the Ask-2 section of [`../plans/curriculum-hub-demo/future/demo-maintenance-and-structure.md`](../plans/curriculum-hub-demo/future/demo-maintenance-and-structure.md) and the reusable-demo-process codification proposal.
+**Context**: Owner-directed deep research (via Director Swordfish holds Shoal) to (a) understand Claude Design deeply and (b) find innovative, feasible connections/flows between Claude Design, Claude Code, and the Oak Open Curriculum ecosystem. Feeds the Ask-2 section of [`../plans-backlog-2026-07/curriculum-hub-demo/future/demo-maintenance-and-structure.md`](../plans-backlog-2026-07/curriculum-hub-demo/future/demo-maintenance-and-structure.md) and the reusable-demo-process codification proposal.
 **Status**: 🔬 RESEARCH — Complete (validated); proposals are scoping candidates, not decisions. **Sync-mechanism decision (owner, 2026-07-01):** the Ask-2 answer is the canonical-export pull→unzip→diff-previous mechanism (see the Part 5 owner-decision banner); Proposals A + F are recorded as considered-and-rejected, and all DesignSync-based proposals are owner-flagged suspect pending independent re-verification.
 **Author**: Frigate holds Estuary (data-plane Implementer, curriculum-hub-demo).
 
@@ -123,8 +123,8 @@ Pull a real sequenced structure from the **Oak Curriculum MCP** (`get-curriculum
 
 ## Related documents
 
-- [`../plans/curriculum-hub-demo/future/demo-maintenance-and-structure.md`](../plans/curriculum-hub-demo/future/demo-maintenance-and-structure.md) — the forward brief this completes (Ask 2).
-- [`../plans/curriculum-hub-demo/active/port-prototype-to-live-demo.md`](../plans/curriculum-hub-demo/active/port-prototype-to-live-demo.md) — the demo this arose from.
+- [`../plans-backlog-2026-07/curriculum-hub-demo/future/demo-maintenance-and-structure.md`](../plans-backlog-2026-07/curriculum-hub-demo/future/demo-maintenance-and-structure.md) — the forward brief this completes (Ask 2).
+- [`../plans-backlog-2026-07/curriculum-hub-demo/active/port-prototype-to-live-demo.md`](../plans-backlog-2026-07/curriculum-hub-demo/active/port-prototype-to-live-demo.md) — the demo this arose from.
 - `oak-design-kit/PROVENANCE-designsync.md` — how the kit was pulled. The kit left tracking in the 2026-07-02 demo restructure (vendor-reference class); the record is retrievable from git history at `demos/curriculum-hub-hw/oak-design-kit/`.
 
 ## Sources (primary, author-verified first-hand unless noted)

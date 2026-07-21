@@ -79,7 +79,7 @@ declared contract; stylistic preference alone is not a contract failure.
   owner requirements: convergent foundation, divergence matrix (16 named owner
   decisions), collision ledger vs repo doctrine, OpenAPI inversion analysis
   (F-A/F-B/F-C), and the build-time verification ledger; evidence authority for
-  the [`school-data-search` plan collection](../plans/school-data-search/README.md)
+  the [`school-data-search` plan collection](../plans-backlog-2026-07/school-data-search/README.md)
 - [oak-repo-professionalism-engineering-quality-report-2026-06-03.md](./oak-repo-professionalism-engineering-quality-report-2026-06-03.md)
   — detailed live assessment of this repository's professionalism,
   engineering quality, effectiveness, operational friction, verification
@@ -127,7 +127,7 @@ declared contract; stylistic preference alone is not a contract failure.
   leverage ranking (and the finding that the top cure is already homed), the
   drain-gap diagnosis, and next steps; evidence companion to
   [PDR-111](../practice-core/decision-records/PDR-111-agent-experience-is-first-class.md)
-  and [`agent-experience-improvement.plan.md`](../plans/agent-tooling/current/agent-experience-improvement.plan.md)
+  and [`agent-experience-improvement.plan.md`](../plans-backlog-2026-07/agent-tooling/current/agent-experience-improvement.plan.md)
 
 - [practice-ide-integration-plane-feasibility-2026-06-25.md](./practice-ide-integration-plane-feasibility-2026-06-25.md)
   — feasibility and safe-design report for a Practice-owned, local-install-only

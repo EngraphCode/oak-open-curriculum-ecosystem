@@ -23,7 +23,7 @@ last_reviewed: 2026-06-12
   tools for the wider ecosystem (SDK, semantic search, curriculum graph,
   evidence surfaces), and the agentic-engineering Practice. Then read the
   latest snapshot in the [reports surface](../.agent/reports/) and the live
-  [high-level plan](../.agent/plans/high-level-plan.md)
+  [high-level plan](../.agent/plans-backlog-2026-07/high-level-plan.md)
 - **Not a developer?** → [Curriculum Guide](domain/curriculum-guide.md) — Oak's curriculum structure in plain language
 - **New to the repo?** → [Root README Quick Start](../README.md#quick-start) for setup, then [CONTRIBUTING.md](../CONTRIBUTING.md) for the development process
 - **Working with AI?** → Start with the canonical
@@ -103,7 +103,7 @@ For semantic search specific documentation:
 - [Search App README](../apps/oak-search-cli/README.md) - Search application overview
 - [Search Architecture](../apps/oak-search-cli/docs/ARCHITECTURE.md) - Search pipeline architecture
 - [Ground Truth Protocol](../apps/oak-search-cli/docs/ground-truths/ground-truth-protocol.md) - Baselines and GT process
-- [Search Plans](../.agent/plans/semantic-search/) - Roadmap, acceptance criteria, experiments
+- [Search Plans](../.agent/plans-backlog-2026-07/semantic-search/) - Roadmap, acceptance criteria, experiments
 
 ## Additional Resources
 

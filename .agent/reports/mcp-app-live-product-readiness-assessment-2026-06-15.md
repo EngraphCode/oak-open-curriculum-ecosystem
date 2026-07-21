@@ -22,14 +22,14 @@ other needs would have to be met first?** It records the first-hand
 verification, the right/wrong/missing assessment, the general launch-concern
 framework, the keystone product decisions taken in-session, and a fresh-eyes
 re-assessment of the milestone ladder. It is the durable home of those findings;
-the [Launch-Readiness Framework](../plans/curriculum-mcp-path-to-ga/launch-readiness-framework.md)
+the [Launch-Readiness Framework](../plans-backlog-2026-07/curriculum-mcp-path-to-ga/launch-readiness-framework.md)
 is the living gate structure derived from it.
 
 **Status note.** The milestone re-assessment in §8 is a verdict for owner
 ratification; the prior milestone files have **not** been rewritten. That redraft
 is a future plan whose promotion trigger is owner direction to schedule the redraft
 pass — see the
-[stub future plan](../plans/curriculum-mcp-path-to-ga/future/launch-readiness-and-milestone-redefinition.plan.md).
+[stub future plan](../plans-backlog-2026-07/curriculum-mcp-path-to-ga/future/launch-readiness-and-milestone-redefinition.plan.md).
 
 **Ratification correction (2026-06-17).** This report's original framing of the §7
 keystones as "owner-ratified (2026-06-15)" was premature — at the time they were
@@ -41,7 +41,7 @@ GA precondition *articulated here and measured by Oak, not instrumented in-repo*
 readiness is scoped to the app's **real dependency set**, not literally the whole
 repo; "whole-estate" readiness holds only at the **portfolio level**. The §7 table
 and §8 analysis are left as the dated 2026-06-15 record; the ratified wording lives
-in the [Launch-Readiness Framework](../plans/curriculum-mcp-path-to-ga/launch-readiness-framework.md)
+in the [Launch-Readiness Framework](../plans-backlog-2026-07/curriculum-mcp-path-to-ga/launch-readiness-framework.md)
 and the Phase-2A decisions brief (`../plans-old-archive/archive/vision-strategy-and-plan-estate.2a-decisions.md`)
 (archived 2026-06-18; decisions preserved in the controlling plan, framing superseded).
 
@@ -166,7 +166,7 @@ they are not optional.
 
 The full, gated framework — concern → open decisions → candidate gate ("how
 we'd know") → candidate owner, per dimension — lives in the
-[Launch-Readiness Framework](../plans/curriculum-mcp-path-to-ga/launch-readiness-framework.md).
+[Launch-Readiness Framework](../plans-backlog-2026-07/curriculum-mcp-path-to-ga/launch-readiness-framework.md).
 Its shape:
 
 - **Three structural facts** that bend every dimension: safety boundary = the
@@ -195,7 +195,7 @@ Its shape:
 > scoped to the app's **real dependency set**, not literally the whole repo
 > ("whole-estate" holds only at portfolio level). See the **Ratification correction
 > (2026-06-17)** note above and the
-> [Launch-Readiness Framework](../plans/curriculum-mcp-path-to-ga/launch-readiness-framework.md)
+> [Launch-Readiness Framework](../plans-backlog-2026-07/curriculum-mcp-path-to-ga/launch-readiness-framework.md)
 > for the ratified wording.
 
 | # | Decision | Consequence |
@@ -262,11 +262,11 @@ ladder never had.
 
 ## 9. Artefacts produced or edited this session
 
-- **Created** — [Launch-Readiness Framework](../plans/curriculum-mcp-path-to-ga/launch-readiness-framework.md)
+- **Created** — [Launch-Readiness Framework](../plans-backlog-2026-07/curriculum-mcp-path-to-ga/launch-readiness-framework.md)
   (the gated dimension structure; keystones K1–K3 integrated; dimension C4
   whole-estate readiness added; milestone ladder flagged for re-derivation).
 - **Created** — this report.
-- **Created** — [stub future plan](../plans/curriculum-mcp-path-to-ga/future/launch-readiness-and-milestone-redefinition.plan.md):
+- **Created** — [stub future plan](../plans-backlog-2026-07/curriculum-mcp-path-to-ga/future/launch-readiness-and-milestone-redefinition.plan.md):
   the milestone redraft + gate-execution work as a future plan; promotion
   trigger is owner direction to schedule the redraft pass.
 - **Wired** — the framework and stub into the plan discovery surfaces
@@ -295,8 +295,8 @@ rewritten. No commit was made.
 
 ## 11. Related
 
-- [Launch-Readiness Framework](../plans/curriculum-mcp-path-to-ga/launch-readiness-framework.md)
-- [Curriculum MCP Path-to-GA Programme](../plans/curriculum-mcp-path-to-ga/roadmap.md)
+- [Launch-Readiness Framework](../plans-backlog-2026-07/curriculum-mcp-path-to-ga/launch-readiness-framework.md)
+- [Curriculum MCP Path-to-GA Programme](../plans-backlog-2026-07/curriculum-mcp-path-to-ga/roadmap.md)
 - [Milestones index](../milestones/README.md)
-- [Stub future plan: launch-readiness & milestone redefinition](../plans/curriculum-mcp-path-to-ga/future/launch-readiness-and-milestone-redefinition.plan.md)
-- [MCP App Extension Migration](../plans/sdk-and-mcp-enhancements/active/mcp-app-extension-migration.plan.md)
+- [Stub future plan: launch-readiness & milestone redefinition](../plans-backlog-2026-07/curriculum-mcp-path-to-ga/future/launch-readiness-and-milestone-redefinition.plan.md)
+- [MCP App Extension Migration](../plans-backlog-2026-07/sdk-and-mcp-enhancements/active/mcp-app-extension-migration.plan.md)

@@ -18,7 +18,7 @@ agent — or this one after context loss — can author the reference runbook an
 the first discovery pass **from this document alone**, without the conversation.
 
 The companion plan that homes the forward work is
-[`../../plans/agentic-engineering-enhancements/current/large-corpus-analysis-runbook-build-and-prove.plan.md`](../../plans/agentic-engineering-enhancements/current/large-corpus-analysis-runbook-build-and-prove.plan.md).
+[`../../plans-backlog-2026-07/agentic-engineering-enhancements/current/large-corpus-analysis-runbook-build-and-prove.plan.md`](../../plans-backlog-2026-07/agentic-engineering-enhancements/current/large-corpus-analysis-runbook-build-and-prove.plan.md).
 
 ## 1. Problem
 

@@ -26,7 +26,7 @@ for the operational-memory surfaces and authority order within them.
 | **Active Memory** | Learning loop — capture, distil, graduate, enforce | `.agent/memory/active/` (napkin, distilled, patterns, archive) | Session open — Ground First step 3 |
 | **Operational Memory** | Continuity / session-resume state | `.agent/memory/operational/` (repo-continuity, threads, tracks) | Session open — Ground First step 4 |
 | **Executive Memory** | Stable organisational contracts and catalogues | `.agent/memory/executive/` (artefact inventory, reviewer catalogue, adapter matrix) | Ad-hoc lookup when taking an action the surface governs |
-| **Plans** | Scope, sequencing, acceptance criteria | `.agent/plans/*/active/*`, `.agent/plans/*/current/*` | When picking up a lane |
+| **Plans** | Scope, sequencing, acceptance criteria | `.agent/plans/` (V0 corpus: `delivery/`, `practice/`, the milestone plan; prior estate in `.agent/plans-backlog-2026-07/`) | When picking up a lane |
 | **Reference** | Curated library — owner-vetted evergreen read-to-learn material; promotion-gated ([PDR-032](../practice-core/decision-records/PDR-032-reference-tier-as-curated-library.md)) | `.agent/reference/` | When consulting promoted reference material |
 | **Research** | Default exploratory-synthesis tier and holding bay for un-promoted material | `.agent/research/` (with optional transient `notes/` holding bay) | When investigating a topic, or when authoring fresh material that has not been (and may not be) promoted to reference |
 | **Workflow** | Named rituals and canonical skills | `.agent/skills/`, `.agent/rules/`, `.agent/sub-agents/` | On invocation or trigger |
@@ -38,7 +38,7 @@ When two surfaces make conflicting claims on the same field, the
 higher-authority surface wins. This is a tiebreaker for same-scope
 conflicts, not a gating rule across different-scope claims.
 
-1. **Plans** (`.agent/plans/*/active/*`) — scope, sequencing,
+1. **Plans** (`.agent/plans/`, V0 corpus) — scope, sequencing,
    acceptance criteria, validation.
 2. **`memory/operational/repo-continuity.md`** — canonical continuity
    contract.

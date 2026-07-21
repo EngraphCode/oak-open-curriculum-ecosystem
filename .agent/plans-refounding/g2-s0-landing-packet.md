@@ -7,7 +7,7 @@ the Director's pre-freeze estate review and a freeze-planning sitting. §6 is th
 ratification record. Authored 2026-07-14 by Cedar rides Undergrowth (270379), R1
 implementer, from a full `refound-freeze` evidence run. Gate content per the
 [owner-gate register](./owner-gate-register.md) G2 row and the
-[controlling plan](../plans/product-development-governance/active/plan-corpus-refounding.plan.md)
+[controlling plan](../plans-backlog-2026-07/product-development-governance/active/plan-corpus-refounding.plan.md)
 §Owner-gate register: **denominator totals, scoped gate exclusions with reasons,
 secret-scan attestation, declared commit window**.
 

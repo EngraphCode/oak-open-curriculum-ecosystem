@@ -245,7 +245,7 @@ persist:
   recurrence is first-class evidence that the home's *mechanism is not firing* (the home is passive
   guidance and loses at the action moment — `passive-guidance-loses-to-artefact-gravity`). Route it to
   the doctrine-traction mechanism lane (PDR-098's empty quadrant / the semantic-pathogen inventory in
-  [`action-time-structural-interrupt-design-space.plan.md`](../../plans/agentic-engineering-enhancements/future/action-time-structural-interrupt-design-space.plan.md))
+  [`action-time-structural-interrupt-design-space.plan.md`](../../plans-backlog-2026-07/agentic-engineering-enhancements/future/action-time-structural-interrupt-design-space.plan.md))
   as recurrence evidence, THEN remove the duplicate instance. Deleting the duplicate without capturing
   the recurrence throws away the exact signal that forces the mechanism decision — which is why the
   same corrections keep recurring. (This step gives recurrence-capture a *defined firing moment* at the

@@ -4,7 +4,7 @@
 - **Type:** handover (stateful session entry point)
 - **Scope:** refine the **strategy corpus** (Body 2) and re-review the **vision** (Body 1).
   Do **not** start Body 3 (the estate restructure) — it follows the settled strategy.
-- **Controlling plan:** [`vision-strategy-and-plan-estate.plan.md`](../../plans/product-development-governance/vision-strategy-and-plan-estate.plan.md)
+- **Controlling plan:** [`vision-strategy-and-plan-estate.plan.md`](../../plans-backlog-2026-07/product-development-governance/vision-strategy-and-plan-estate.plan.md)
   (now homed in the `product-development-governance` collection)
 - **Created:** 2026-06-20 (Fennel tracks Chlorophyll) for the next session. Supersedes
   `define-strategy-content.prompt.md` — the structure that opener asked for now exists.
@@ -23,11 +23,11 @@ owner's to shape.
 
 1. [`.agent/directives/AGENT.md`](../../directives/AGENT.md) and apply `/oak-start-right-thorough`.
 2. Controlling plan
-   [`vision-strategy-and-plan-estate.plan.md`](../../plans/product-development-governance/vision-strategy-and-plan-estate.plan.md)
+   [`vision-strategy-and-plan-estate.plan.md`](../../plans-backlog-2026-07/product-development-governance/vision-strategy-and-plan-estate.plan.md)
    — especially **Body 1 §"Vision review tripwires"**, **Body 2 §"Remaining at the strategy level"**,
    and **§"Body 3 — Approach"**.
 3. [`VISION.md`](../../../VISION.md) and the strategy corpus [`docs/strategy/README.md`](../../../docs/strategy/README.md).
-4. The collection [`README.md`](../../plans/product-development-governance/README.md) — the authority
+4. The collection [`README.md`](../../plans-backlog-2026-07/product-development-governance/README.md) — the authority
    gradient and the disposition of the imported suggestions.
 5. **Oak's strategy** — first-hand from `.agent/reference-local/` (**inform-only: never quote/link/copy;
    derive only**). Three goals (schools / teachers / ecosystem) + four pillars.

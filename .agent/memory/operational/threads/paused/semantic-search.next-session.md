@@ -28,13 +28,13 @@ existence at multi-session scope, not before).
   pushing is the owner's call).
 - Invocation pointer: `start-right-quick`, then this record.
 - Owning plans:
-  - [`schema-change-minimal-adaptation.plan.md`](../../../../plans/sdk-and-mcp-enhancements/current/schema-change-minimal-adaptation.plan.md)
+  - [`schema-change-minimal-adaptation.plan.md`](../../../../plans-backlog-2026-07/sdk-and-mcp-enhancements/current/schema-change-minimal-adaptation.plan.md)
     — owner-ratified ("yes to all", 2026-06-03); queued, executes after or
     parallel to EEF D4 on owner scheduling.
-  - [`bulk-schema-driven-code-generation.md`](../../../../plans/semantic-search/future/02-schema-authority-and-codegen/bulk-schema-driven-code-generation.md)
+  - [`bulk-schema-driven-code-generation.md`](../../../../plans-backlog-2026-07/semantic-search/future/02-schema-authority-and-codegen/bulk-schema-driven-code-generation.md)
     — promotion APPROVED; physical move to an executable lane at its
     executing session.
-  - [`schema-resilience-and-response-architecture.plan.md`](../../../../plans/sdk-and-mcp-enhancements/active/schema-resilience-and-response-architecture.plan.md)
+  - [`schema-resilience-and-response-architecture.plan.md`](../../../../plans-backlog-2026-07/sdk-and-mcp-enhancements/active/schema-resilience-and-response-architecture.plan.md)
     — OQ1 SETTLED (`.strict()` everywhere stands); live scope is the
     drift-health endpoint + diagnostic extra-field failure classification.
 - Completed (2026-06-03, Moonlit Waxing Nebula): the upstream sequences API
@@ -64,7 +64,7 @@ existence at multi-session scope, not before).
 - New paused evidence (2026-07-15): the reusable curriculum architecture
   [report family](../../../../reports/oak-reusable-curriculum-architecture/README.md)
   and strategic
-  [planning brief](../../../../plans/connecting-oak-resources/reusable-curriculum-architecture/future/reusable-curriculum-architecture-planning.plan.md)
+  [planning brief](../../../../plans-backlog-2026-07/connecting-oak-resources/reusable-curriculum-architecture/future/reusable-curriculum-architecture-planning.plan.md)
   extend this lane from ingestion mechanics to source-portable curriculum
   exploration. They define a conserved source-accounting boundary, explicit
   entity/occurrence/relation/passage/rollup projections, progressive MCP

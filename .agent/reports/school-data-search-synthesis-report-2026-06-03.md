@@ -11,7 +11,7 @@ between brief assumptions and the owner requirements or this repository's
 doctrine are recorded in an explicit ledger; claims no brief can ground are
 flagged for build-time verification, never asserted. Decisions are taken at
 the owner gates carried by the companion plan
-([`school-data-search` plan collection](../plans/school-data-search/README.md)).
+([`school-data-search` plan collection](../plans-backlog-2026-07/school-data-search/README.md)).
 
 ## 1. Purpose, inputs, provenance and confidence model
 
@@ -958,7 +958,7 @@ Overseas (considered): <https://www.gov.uk/government/publications/british-schoo
 ## 9. What happens next
 
 The companion plan collection
-([`.agent/plans/school-data-search/`](../plans/school-data-search/README.md))
+([`.agent/plans/school-data-search/`](../plans-backlog-2026-07/school-data-search/README.md))
 turns §3 into sequenced TDD workstreams and carries §4's forks, §5's gated
 collisions, and §6 as explicit owner gates, with §7 as named verification
 steps inside the owning workstreams. Reviewer dispositions for this report

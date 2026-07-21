@@ -175,7 +175,7 @@ select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
   Phase 3 harvest is the authoritative read on every wake, and extending
   pr-watch to the full compound floor is tracked as the
   `ws6-pr-watch-compound-floor` item in
-  [`pr-merge-readiness-discipline.plan.md`](../../plans/agent-tooling/current/pr-merge-readiness-discipline.plan.md).
+  [`pr-merge-readiness-discipline.plan.md`](../../plans-backlog-2026-07/agent-tooling/current/pr-merge-readiness-discipline.plan.md).
   Passing checks alone are not green — an
   unresolved thread blocks merge-readiness just as hard. The Phase 3 GraphQL
   harvest remains the authoritative read for which threads and what they say.

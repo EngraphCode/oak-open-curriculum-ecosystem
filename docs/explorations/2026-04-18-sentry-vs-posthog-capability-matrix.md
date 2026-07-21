@@ -25,7 +25,7 @@ constraints:
 **The binary "Sentry vs PostHog" framing this exploration originally
 inhabited is superseded.** The 2026-04-19 owner conversation
 collapsed it into a **three-sink architecture** owned by
-[`future/second-backend-evaluation.plan.md`](../../.agent/plans/observability/future/second-backend-evaluation.plan.md)
+[`future/second-backend-evaluation.plan.md`](../../.agent/plans-backlog-2026-07/observability/future/second-backend-evaluation.plan.md)
 (reframed in the same pass from "second backend evaluation" to "three-sink
 strategic brief"):
 
@@ -101,9 +101,9 @@ PostHog do well, where does each fall short, and where does the
 five-axis MVP land each vendor.
 
 This exploration is the evidence base that informs
-[`future/second-backend-evaluation.plan.md`](../../.agent/plans/observability/future/second-backend-evaluation.plan.md)
+[`future/second-backend-evaluation.plan.md`](../../.agent/plans-backlog-2026-07/observability/future/second-backend-evaluation.plan.md)
 and the L-15 reframe in
-[`active/sentry-observability-maximisation-mcp.plan.md`](../../.agent/plans/observability/active/sentry-observability-maximisation-mcp.plan.md).
+[`active/sentry-observability-maximisation-mcp.plan.md`](../../.agent/plans-backlog-2026-07/observability/active/sentry-observability-maximisation-mcp.plan.md).
 
 ---
 
@@ -114,7 +114,7 @@ and the L-15 reframe in
 - Side-by-side capability matrix across the five ADR-162 axes
   (engineering, product, usability, accessibility, security),
   mapped to the four MVP personas in the
-  [high-level observability plan's Launch Criteria](../../.agent/plans/observability/high-level-observability-plan.md)
+  [high-level observability plan's Launch Criteria](../../.agent/plans-backlog-2026-07/observability/high-level-observability-plan.md)
   (data scientist, engineer, product owner, a11y reviewer).
 - Per-axis verdict: where Sentry is the natural primary, where
   PostHog is the strongest _candidate_ if a Sentry surface proves
@@ -197,7 +197,7 @@ ergonomically insufficient in real usage; the accessibility axis is
 delivered by _schema_ and emission discipline regardless of sink.
 None of these mappings amounts to a present-tense "must adopt
 PostHog" — that judgement is traffic-shaped and held open by
-[`future/second-backend-evaluation.plan.md`](../../.agent/plans/observability/future/second-backend-evaluation.plan.md).
+[`future/second-backend-evaluation.plan.md`](../../.agent/plans-backlog-2026-07/observability/future/second-backend-evaluation.plan.md).
 What this matrix establishes is the _option space_, not the
 decision.
 
@@ -257,7 +257,7 @@ duplicative.
 
 Whether Oak needs the behaviour-investigation use case at MVP is
 the actual question; it is decidable in principle from
-[`current/accessibility-observability.plan.md`](../../.agent/plans/observability/current/accessibility-observability.plan.md)
+[`current/accessibility-observability.plan.md`](../../.agent/plans-backlog-2026-07/observability/current/accessibility-observability.plan.md)
 and the product-owner persona's first-order questions, and
 traffic-shaped in practice. At Oak's modelled MVP volumes the cost
 of running both is **$0** (both within free tiers; §5), so the
@@ -287,7 +287,7 @@ the Generic webhook or a small custom hook calling
 Oak's expected A/B experiment volume is not yet defined and the
 provider-seam choice is **deliberately deferred** by L-10 in the
 maximisation plan (which is intentionally TSDoc-extension-point-only)
-and by [`future/feature-flag-provider-selection.plan.md`](../../.agent/plans/observability/future/feature-flag-provider-selection.plan.md)
+and by [`future/feature-flag-provider-selection.plan.md`](../../.agent/plans-backlog-2026-07/observability/future/feature-flag-provider-selection.plan.md)
 (which is "in wait" until a real flag consumer exists). What the
 exploration can usefully add now is the _evaluation criteria_ the
 future seam choice should preserve (see [§7](#7-decision-recommendation-framing));
@@ -297,7 +297,7 @@ consumer arrives. See overlay companion §7.
 ### Q4 — What is the minimal additional field set the event-schema workspace would need to produce PostHog-native `capture()` payloads without Sentry-specific coupling?
 
 With the schemas held vendor-neutral as
-[`current/observability-events-workspace.plan.md`](../../.agent/plans/observability/current/observability-events-workspace.plan.md)
+[`current/observability-events-workspace.plan.md`](../../.agent/plans-backlog-2026-07/observability/current/observability-events-workspace.plan.md)
 already plans, the _minimal additional surface is not in the schema
 fields_ — it is in the cross-vendor adapter layer
 ([structured-event-schemas-for-curriculum-analytics.md §5.7](./2026-04-18-structured-event-schemas-for-curriculum-analytics.md)).
@@ -624,7 +624,7 @@ the right MVP scope.
 > three-sink architecture (PostHog is the chosen vendor for Sink 3
 > per the owner ruling 2026-04-19; only adoption _timing_ is open).
 > The live recommendations and per-sink promotion triggers are in
-> [`future/second-backend-evaluation.plan.md`](../../.agent/plans/observability/future/second-backend-evaluation.plan.md)
+> [`future/second-backend-evaluation.plan.md`](../../.agent/plans-backlog-2026-07/observability/future/second-backend-evaluation.plan.md)
 > §Risks-and-Unknowns and §Promotion-Triggers. Read this section
 > as: framings the original exploration was carrying when it informed
 > the reframe; not the current decision lattice.
@@ -705,7 +705,7 @@ framing — superseded; see status marker above):
 original promotion trigger inhabited is superseded by the three-sink
 architecture (see § Status update at top). Per-sink promotion
 triggers now live in
-[`future/second-backend-evaluation.plan.md`](../../.agent/plans/observability/future/second-backend-evaluation.plan.md)
+[`future/second-backend-evaluation.plan.md`](../../.agent/plans-backlog-2026-07/observability/future/second-backend-evaluation.plan.md)
 frontmatter:
 
 - **Warehouse adapter (Sink 2)**: public-beta launch nears AND
@@ -757,12 +757,12 @@ Primary repo evidence:
 - [`docs/architecture/architectural-decisions/160-non-bypassable-redaction-barrier-as-principle.md`](../architecture/architectural-decisions/160-non-bypassable-redaction-barrier-as-principle.md) — redaction-barrier closure principle; binding constraint via the identity-model + redaction-policy + closure-rule chain in §6 of the overlay companion.
 - [`docs/architecture/architectural-decisions/154-separate-framework-from-consumer.md`](../architecture/architectural-decisions/154-separate-framework-from-consumer.md) — structural prerequisite for vendor independence.
 - [`docs/architecture/architectural-decisions/078-dependency-injection-for-testability.md`](../architecture/architectural-decisions/078-dependency-injection-for-testability.md) — composition-root carve-out for vendor wiring.
-- [`.agent/plans/observability/high-level-observability-plan.md`](../../.agent/plans/observability/high-level-observability-plan.md) — five-axis MVP scope; persona launch criteria.
-- [`.agent/plans/observability/active/sentry-observability-maximisation-mcp.plan.md`](../../.agent/plans/observability/active/sentry-observability-maximisation-mcp.plan.md) — L-10 (TSDoc-only feature-flag scaffolding); L-12-prereq (redaction-core extraction); L-15 (sharpened second-vendor framing).
-- [`.agent/plans/observability/current/observability-events-workspace.plan.md`](../../.agent/plans/observability/current/observability-events-workspace.plan.md) — Zod-first event-schema workspace; seven MVP events.
-- [`.agent/plans/observability/current/multi-sink-vendor-independence-conformance.plan.md`](../../.agent/plans/observability/current/multi-sink-vendor-independence-conformance.plan.md) — emission-persistence test under `SENTRY_MODE=off`; structural import lint.
-- [`.agent/plans/observability/future/second-backend-evaluation.plan.md`](../../.agent/plans/observability/future/second-backend-evaluation.plan.md) — second-backend candidate set (currently engineering-observability candidates only).
-- [`.agent/plans/observability/future/feature-flag-provider-selection.plan.md`](../../.agent/plans/observability/future/feature-flag-provider-selection.plan.md) — provider-selection plan held in wait until a real flag consumer arrives.
+- [`.agent/plans/observability/high-level-observability-plan.md`](../../.agent/plans-backlog-2026-07/observability/high-level-observability-plan.md) — five-axis MVP scope; persona launch criteria.
+- [`.agent/plans/observability/active/sentry-observability-maximisation-mcp.plan.md`](../../.agent/plans-backlog-2026-07/observability/active/sentry-observability-maximisation-mcp.plan.md) — L-10 (TSDoc-only feature-flag scaffolding); L-12-prereq (redaction-core extraction); L-15 (sharpened second-vendor framing).
+- [`.agent/plans/observability/current/observability-events-workspace.plan.md`](../../.agent/plans-backlog-2026-07/observability/current/observability-events-workspace.plan.md) — Zod-first event-schema workspace; seven MVP events.
+- [`.agent/plans/observability/current/multi-sink-vendor-independence-conformance.plan.md`](../../.agent/plans-backlog-2026-07/observability/current/multi-sink-vendor-independence-conformance.plan.md) — emission-persistence test under `SENTRY_MODE=off`; structural import lint.
+- [`.agent/plans/observability/future/second-backend-evaluation.plan.md`](../../.agent/plans-backlog-2026-07/observability/future/second-backend-evaluation.plan.md) — second-backend candidate set (currently engineering-observability candidates only).
+- [`.agent/plans/observability/future/feature-flag-provider-selection.plan.md`](../../.agent/plans-backlog-2026-07/observability/future/feature-flag-provider-selection.plan.md) — provider-selection plan held in wait until a real flag consumer arrives.
 - [`packages/libs/sentry-node/README.md`](../../packages/libs/sentry-node/README.md) — three modes (`off`, `fixture`, `sentry`); DI seam; redaction barrier; fixture store.
 - [`apps/oak-curriculum-mcp-streamable-http/docs/observability.md`](../../apps/oak-curriculum-mcp-streamable-http/docs/observability.md) — three `SENTRY_MODE` settings; `wrapMcpServerWithSentry`; release metadata; source-map upload; replay sampling defaults.
 - [`docs/explorations/2026-04-18-how-far-does-sentry-go-as-paas.md`](./2026-04-18-how-far-does-sentry-go-as-paas.md) — Sentry-as-PaaS thesis.

@@ -175,7 +175,7 @@ the agent's writing is the surface where a failure mode appears.
 ## What to do with this
 
 Carry it. Future sessions exploring agentic-engineering doctrine can read this as input. The companion plan
-[`closure-pressure-remediation-design-space.plan.md`](../../plans/agentic-engineering-enhancements/future/closure-pressure-remediation-design-space.plan.md)
+[`closure-pressure-remediation-design-space.plan.md`](../../plans-backlog-2026-07/agentic-engineering-enhancements/future/closure-pressure-remediation-design-space.plan.md)
 names exploration directions in plan form, but the substantive observations live here.
 
 If a future session does decide to act on any of this, the recommended first step is **not** to pick a mechanism and implement it. The recommended first step is to re-examine the open questions above against any session evidence accumulated in the interim — closure-pressure failures may have a richer signal by then — and only then to scope an action.

@@ -40,10 +40,10 @@ code enabled.
 Evidence:
 
 - [ADR-166](../../../../../docs/architecture/architectural-decisions/166-architectural-budget-system-across-scales.md)
-- [Architectural Budget System Across Scales](../../../../plans/architecture-and-infrastructure/future/architectural-budget-system-across-scales.plan.md)
-- [Architectural Budget Visibility Layer](../../../../plans/architecture-and-infrastructure/future/architectural-budget-visibility-layer.plan.md)
-- [Architectural Budget Enforcement Layer](../../../../plans/architecture-and-infrastructure/future/architectural-budget-enforcement-layer.plan.md)
-- [Directory Complexity Enablement](../../../../plans/developer-experience/current/directory-complexity-enablement.execution.plan.md)
+- [Architectural Budget System Across Scales](../../../../plans-backlog-2026-07/architecture-and-infrastructure/future/architectural-budget-system-across-scales.plan.md)
+- [Architectural Budget Visibility Layer](../../../../plans-backlog-2026-07/architecture-and-infrastructure/future/architectural-budget-visibility-layer.plan.md)
+- [Architectural Budget Enforcement Layer](../../../../plans-backlog-2026-07/architecture-and-infrastructure/future/architectural-budget-enforcement-layer.plan.md)
+- [Directory Complexity Enablement](../../../../plans-backlog-2026-07/developer-experience/current/directory-complexity-enablement.execution.plan.md)
 - [Architectural Fitness Functions: Concept Exploration](../../../../reports/architectural-fitness-functions-concept-exploration-2026-07-15.md)
 
 Validation evidence:
@@ -84,15 +84,15 @@ gate without new longitudinal evidence and a separate owner decision.
 ### Owning Plans
 
 - Parent:
-  [Architectural Budget System Across Scales](../../../../plans/architecture-and-infrastructure/future/architectural-budget-system-across-scales.plan.md)
+  [Architectural Budget System Across Scales](../../../../plans-backlog-2026-07/architecture-and-infrastructure/future/architectural-budget-system-across-scales.plan.md)
 - Visibility child:
-  [Architectural Budget Visibility Layer](../../../../plans/architecture-and-infrastructure/future/architectural-budget-visibility-layer.plan.md)
+  [Architectural Budget Visibility Layer](../../../../plans-backlog-2026-07/architecture-and-infrastructure/future/architectural-budget-visibility-layer.plan.md)
 - Enforcement child:
-  [Architectural Budget Enforcement Layer](../../../../plans/architecture-and-infrastructure/future/architectural-budget-enforcement-layer.plan.md)
+  [Architectural Budget Enforcement Layer](../../../../plans-backlog-2026-07/architecture-and-infrastructure/future/architectural-budget-enforcement-layer.plan.md)
 - Directory-cardinality execution child:
-  [Directory Complexity Enablement](../../../../plans/developer-experience/current/directory-complexity-enablement.execution.plan.md)
+  [Directory Complexity Enablement](../../../../plans-backlog-2026-07/developer-experience/current/directory-complexity-enablement.execution.plan.md)
 - Related workspace topology owner:
-  [Workspace Layer Separation Audit](../../../../plans/architecture-and-infrastructure/current/workspace-layer-separation-audit.plan.md)
+  [Workspace Layer Separation Audit](../../../../plans-backlog-2026-07/architecture-and-infrastructure/current/workspace-layer-separation-audit.plan.md)
 
 ### Current Objective
 

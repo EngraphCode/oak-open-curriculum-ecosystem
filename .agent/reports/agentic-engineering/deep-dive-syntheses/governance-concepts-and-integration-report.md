@@ -116,16 +116,16 @@ boundaries, not because they mirror wording from the compared corpus.
 - operational-awareness-and-continuity-surface-separation.plan.md (`../../../plans-old-archive/agentic-engineering-enhancements/archive/completed/operational-awareness-and-continuity-surface-separation.plan.md`)
   should absorb the supervised-execution frame, awareness-plane vocabulary, and
   clearer authority/ownership language.
-- [reviewer-gateway-upgrade.plan.md](../../../plans/agentic-engineering-enhancements/current/reviewer-gateway-upgrade.plan.md)
+- [reviewer-gateway-upgrade.plan.md](../../../plans-backlog-2026-07/agentic-engineering-enhancements/current/reviewer-gateway-upgrade.plan.md)
   should explicitly treat the gateway as a signal router inside a layered
   safeguard stack.
-- [hallucination-and-evidence-guard-adoption.plan.md](../../../plans/agentic-engineering-enhancements/current/hallucination-and-evidence-guard-adoption.plan.md)
+- [hallucination-and-evidence-guard-adoption.plan.md](../../../plans-backlog-2026-07/agentic-engineering-enhancements/current/hallucination-and-evidence-guard-adoption.plan.md)
   should assess whether the attempt / observed outcome / proven result
   structure improves claim quality without forking the evidence lane.
 
 ### Existing future plan to extend
 
-- [operating-model-mechanism-taxonomy.plan.md](../../../plans/agentic-engineering-enhancements/future/operating-model-mechanism-taxonomy.plan.md)
+- [operating-model-mechanism-taxonomy.plan.md](../../../plans-backlog-2026-07/agentic-engineering-enhancements/future/operating-model-mechanism-taxonomy.plan.md)
   is the correct home for the broader abstraction work:
   - action-governance boundary
   - boundary model

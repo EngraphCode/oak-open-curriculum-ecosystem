@@ -86,5 +86,5 @@ Only 3 subjects have categories:
 
 ### In Agent Plans
 
-- [Semantic Search Plans](../../.agent/plans/semantic-search/) — Roadmap, acceptance criteria
-- [Semantic Search Plan Index](../../.agent/plans/semantic-search/README.md) — Stable planning index including MFL search limitations tracking
+- [Semantic Search Plans](../../.agent/plans-backlog-2026-07/semantic-search/) — Roadmap, acceptance criteria
+- [Semantic Search Plan Index](../../.agent/plans-backlog-2026-07/semantic-search/README.md) — Stable planning index including MFL search limitations tracking

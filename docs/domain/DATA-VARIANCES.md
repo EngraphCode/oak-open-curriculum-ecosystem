@@ -599,13 +599,13 @@ Note: `all-years` only valid for `physical-education-primary` sequence.
 | 01-derived-fields-and-ks4-metadata.md (`../../.agent/plans-old-archive/sector-engagement/archive/ooc-api-wishlist/01-derived-fields-and-ks4-metadata.md`) | KS4 metadata, derived fields registry                 |
 | 05-medium-priority-requests.md (`../../.agent/plans-old-archive/sector-engagement/archive/ooc-api-wishlist/05-medium-priority-requests.md`)               | **Type consistency issues (#11)**, schema `$ref`      |
 | 15-bulk-download-examples.md (`../../.agent/plans-old-archive/sector-engagement/archive/ooc-api-wishlist/15-bulk-download-examples.md`)                   | Bulk download data examples                           |
-| [index.md](../../.agent/plans/sector-engagement/ooc-issues/README.md)                                                                                     | Complete wishlist navigation                          |
+| [index.md](../../.agent/plans-backlog-2026-07/sector-engagement/ooc-issues/README.md)                                                                     | Complete wishlist navigation                          |
 
 ### Planning
 
-| Document                                                                   | Focus                                                                 |
-| -------------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| [Semantic Search Plan Index](../../.agent/plans/semantic-search/README.md) | Stable index for semantic-search planning and MFL limitations context |
+| Document                                                                                   | Focus                                                                 |
+| ------------------------------------------------------------------------------------------ | --------------------------------------------------------------------- |
+| [Semantic Search Plan Index](../../.agent/plans-backlog-2026-07/semantic-search/README.md) | Stable index for semantic-search planning and MFL limitations context |
 
 ### SDK Sources
 

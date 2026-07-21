@@ -70,7 +70,7 @@ REPO-017 in the
 [repository issue register](./oak-reusable-curriculum-architecture-this-repository.md#repo-014--mcp-exploration-is-aggregated-search-not-structural-exploration).
 
 The planning route for these directions is the
-[reusable curriculum architecture strategic planning brief](../../plans/connecting-oak-resources/reusable-curriculum-architecture/future/reusable-curriculum-architecture-planning.plan.md).
+[reusable curriculum architecture strategic planning brief](../../plans-backlog-2026-07/connecting-oak-resources/reusable-curriculum-architecture/future/reusable-curriculum-architecture-planning.plan.md).
 
 ## Evidence and Authority
 
