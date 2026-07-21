@@ -11,12 +11,15 @@ import type { PrStateReading, PrVerdict } from './state-types.js';
  * canonical); per-check verdicts travel BY NAME, never positionally (the
  * #437 cure — fixtures in `states.unit.test.ts`).
  *
- * Two states extend the plan's 11-state enumeration, both typed honesty over
- * a lie: `CLOSED` (a closed-unmerged PR gets a refusal, never a mis-mapped
- * healthy verdict) and `SETTLING-QUIET-WINDOW` (all legs settled but the
- * more-than-10-minute async-lag window since the latest tip-bound review has
- * not elapsed — SKILL item 4; declaring SETTLE-READY inside the window
- * recreates the bot-round-still-composing hole).
+ * Four states extend the plan's 11-state enumeration, each typed honesty
+ * over a lie: `CLOSED` (a closed-unmerged PR gets a refusal, never a
+ * mis-mapped healthy verdict), `SETTLING-QUIET-WINDOW` (all legs settled but
+ * the more-than-10-minute async-lag window since the latest tip-bound review
+ * has not elapsed — SKILL item 4; declaring SETTLE-READY inside the window
+ * recreates the bot-round-still-composing hole),
+ * `SILENT-WAIT-RUNS-UNREADABLE` (an unreadable or truncated run surface
+ * never asserts deadness), and `BEHIND-BASE` (a stale base never reads
+ * settled — the founding BEHIND-stall class).
  */
 
 function failedCheckNames(reading: PrStateReading): string[] {

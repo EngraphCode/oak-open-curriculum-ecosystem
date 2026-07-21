@@ -68,11 +68,19 @@ function mapRunsToPr(input: {
       scoped.push({ ...run, completedAt: view.completedAt });
     }
   }
-  const note =
-    input.runs.length >= AGENT_TASK_LIST_LIMIT
-      ? `agent-task list truncated at ${AGENT_TASK_LIST_LIMIT} — older runs unobserved`
-      : undefined;
-  return { kind: 'read', runs: scoped, ...(note === undefined ? {} : { note }) };
+  // A full window is typed truncation, not just a note: absence conclusions
+  // (deadness) must not rest on data that may have dropped the very run.
+  const truncated = input.runs.length >= AGENT_TASK_LIST_LIMIT;
+  return {
+    kind: 'read',
+    runs: scoped,
+    ...(truncated
+      ? {
+          truncated,
+          note: `agent-task list truncated at ${AGENT_TASK_LIST_LIMIT} — older runs unobserved`,
+        }
+      : {}),
+  };
 }
 
 /** Read and PR-scope the review-run leg; failures degrade typed, never throw. */

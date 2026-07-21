@@ -227,3 +227,51 @@ describe('mostBlockingLeg', () => {
     ).toEqual({ kind: 'settled' });
   });
 });
+
+describe('computeReviewerLegs — explicit non-quota skip markers (r5 regression)', () => {
+  it('an explicit skip marker WITHOUT a scope declaration never reads SATISFIED — it awaits the timeout', () => {
+    // "Code review skipped — service unavailable" declares that NO review
+    // occurred, but carries no evaluable scope (quota/billing) phrase: it is
+    // not a substantive review (SATISFIED would be a lie) and not a
+    // scope-declared SKIPPED; the leg falls through to the timeout arm.
+    const legs = computeReviewerLegs({
+      ...base,
+      checksGreenAt: '2026-07-21T11:56:00Z',
+      expectedReviewers: ['copilot-pull-request-reviewer'],
+      reviews: [review({ body: 'Code review skipped — service unavailable.' })],
+      reviewRequests: [],
+      now: '2026-07-21T12:00:00Z',
+    });
+    expect(legs[0]?.state).toBe('OWED');
+    expect(legs[0]?.detail).toContain('skip marker');
+  });
+
+  it('an unevaluable skip marker resolves SKIPPED via the timeout once the window elapses', () => {
+    const legs = computeReviewerLegs({
+      ...base,
+      checksGreenAt: '2026-07-21T11:40:00Z',
+      expectedReviewers: ['copilot-pull-request-reviewer'],
+      reviews: [review({ body: 'Code review skipped — service unavailable.' })],
+      reviewRequests: [],
+      now: '2026-07-21T12:00:00Z',
+    });
+    expect(legs[0]?.state).toBe('SKIPPED');
+    expect(legs[0]?.detail).toContain('timeout');
+  });
+
+  it('a scope-declared quota marker still reads SKIPPED immediately, and a substantive review still wins', () => {
+    const legs = computeReviewerLegs({
+      ...base,
+      checksGreenAt: '2026-07-21T11:56:00Z',
+      expectedReviewers: ['copilot-pull-request-reviewer', 'claude'],
+      reviews: [
+        review({ body: 'Reviewed 2 of 2 files.' }),
+        review({ author: 'claude', body: '⚠️ Code review skipped — overage spend limit reached.' }),
+      ],
+      reviewRequests: [],
+      now: '2026-07-21T12:00:00Z',
+    });
+    expect(legs[0]?.state).toBe('SATISFIED');
+    expect(legs[1]?.state).toBe('SKIPPED');
+  });
+});

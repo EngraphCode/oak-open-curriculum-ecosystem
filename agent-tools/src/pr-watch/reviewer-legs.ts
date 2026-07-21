@@ -44,14 +44,21 @@ export interface ComputeReviewerLegsInput {
 /** SKILL item 3/4: the checks-green timeout and settled quiet window (more than 10 min). */
 export const QUIET_WINDOW_MS = 10 * 60 * 1000;
 
-// The quota/skip marker signature (scope-declared SKIPPED per the owner ruling
-// 2026-07-21: a tip-bound quota notice settles the leg as SKIPPED — never as a
-// zero-finding review). Both a skip phrase and a billing phrase must appear.
+// Skip-marker classification (SKILL: substantive reviews vs SKIPPED markers).
+// A skip phrase alone declares NO REVIEW OCCURRED — such a body must never
+// read SATISFIED. Only a marker whose scope is evaluable (a quota/billing
+// declaration, per the owner ruling 2026-07-21) settles the leg as SKIPPED
+// immediately; an unevaluable marker ("service unavailable") falls through
+// to the checks-green timeout arm instead.
 const SKIP_PATTERN = /review skipped|unable to review/iu;
 const QUOTA_PATTERN = /spend limit|overage|quota/iu;
 
-function isQuotaMarker(body: string): boolean {
-  return SKIP_PATTERN.test(body) && QUOTA_PATTERN.test(body);
+function isSkipMarker(body: string): boolean {
+  return SKIP_PATTERN.test(body);
+}
+
+function isScopeDeclaredSkip(body: string): boolean {
+  return isSkipMarker(body) && QUOTA_PATTERN.test(body);
 }
 
 // Binding is EXACT: the full harvest retains historical reviews, so a
@@ -98,24 +105,31 @@ function legFor(input: ComputeReviewerLegsInput, reviewer: string): ReviewerLeg 
       hasLanded(review) &&
       bindsTip(review, input.headRefOid),
   );
-  if (tipBound.some((review) => !isQuotaMarker(review.body))) {
+  if (tipBound.some((review) => !isSkipMarker(review.body))) {
     return { reviewer, state: 'SATISFIED', detail: 'review binds current tip' };
   }
-  if (tipBound.some((review) => isQuotaMarker(review.body))) {
+  if (tipBound.some((review) => isScopeDeclaredSkip(review.body))) {
     return {
       reviewer,
       state: 'SKIPPED',
       detail: 'tip-bound quota/skip marker (scope-declared; owner ruling 2026-07-21)',
     };
   }
+  const unevaluableMarker = tipBound.some((review) => isSkipMarker(review.body));
   if (input.checksGreenAt !== null && elapsedMs(input.checksGreenAt, input.now) > QUIET_WINDOW_MS) {
     return {
       reviewer,
       state: 'SKIPPED',
-      detail: `timeout: no tip-bound review one quiet window after checks green (${input.checksGreenAt})`,
+      detail: `timeout: no ${unevaluableMarker ? 'substantive ' : ''}tip-bound review one quiet window after checks green (${input.checksGreenAt})`,
     };
   }
-  return { reviewer, state: 'OWED', detail: 'no review binds the current tip' };
+  return {
+    reviewer,
+    state: 'OWED',
+    detail: unevaluableMarker
+      ? 'tip-bound skip marker with unevaluable scope — no substantive review; awaiting the timeout arm'
+      : 'no review binds the current tip',
+  };
 }
 
 /** Compute every expected reviewer's leg for the current tip, in declared order. */

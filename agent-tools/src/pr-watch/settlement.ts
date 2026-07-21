@@ -172,7 +172,10 @@ export function reviewerLegVerdict(reading: PrStateReading, now: string): PrVerd
     legs,
     reviewRequests: reading.reviewRequests,
     liveRunReviewers: liveRunReviewers(reading),
-    runsReadable: reading.reviewRuns.kind === 'read',
+    // A truncated list cannot support deadness: the missing run may be the
+    // very one that fell off the window (presence stays evidence via
+    // liveRunReviewers above).
+    runsReadable: reading.reviewRuns.kind === 'read' && reading.reviewRuns.truncated !== true,
   });
   if (blocking.kind === 'settled') {
     return settledVerdict({ reading, legs, now });

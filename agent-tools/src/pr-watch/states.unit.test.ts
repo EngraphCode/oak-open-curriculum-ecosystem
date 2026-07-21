@@ -429,6 +429,28 @@ describe('computePrVerdict — round-4 residual classes (2026-07-21)', () => {
     expect(verdict.state).toBe('SETTLING-QUIET-WINDOW');
   });
 
+  it('a TRUNCATED run list never asserts deadness — the requested owed leg reads RUNS-UNREADABLE (r5 regression)', () => {
+    // A full-window agent-task list (100 rows) leaves older runs unobserved:
+    // absence of a scoped run in truncated data is not evidence of a dead
+    // run, so the typed-uncertainty state applies, exactly as when the
+    // surface cannot be read at all.
+    const verdict = computePrVerdict(
+      settledReading({
+        reviews: [],
+        reviewRequests: [COPILOT],
+        checksGreenAt: '2026-07-21T12:58:00Z',
+        reviewRuns: {
+          kind: 'read',
+          runs: [],
+          truncated: true,
+          note: 'agent-task list truncated at 100 — older runs unobserved',
+        },
+      }),
+      LATE_NOW,
+    );
+    expect(verdict.state).toBe('SILENT-WAIT-RUNS-UNREADABLE');
+  });
+
   it('SETTLE-READY evidence hands over the body-tally inputs (SKILL item 2: bodies count into the round tally)', () => {
     // A summary-only review carrying findings in its body would otherwise
     // read healthy at zero threads. The instrument cannot classify prose as
