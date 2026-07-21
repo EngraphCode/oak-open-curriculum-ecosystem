@@ -38,13 +38,15 @@ const ATTENTION_BELL = '\u{1F514}';
 const OPEN_STATE_LINE = /^\s*-\s*state:\s*open\b/;
 
 /**
- * The generated header's link line. https only, and the value is confined to
- * URL-safe characters (RFC 3986 unreserved + reserved + percent) — it lands
- * inside a terminal OSC 8 escape, so ESC/BEL/C0/C1 controls (or anything
- * else outside the allowlist) reject the line rather than reaching the
- * terminal.
+ * The generated header's link line, matched against one already-trimmed
+ * line at a time (linear-time by construction: no multiline scan, and every
+ * adjacent pattern pair is disjoint, so the engine never backtracks). https
+ * only, and the value is confined to URL-safe characters (RFC 3986
+ * unreserved + reserved + percent) — it lands inside a terminal OSC 8
+ * escape, so ESC/BEL/C0/C1 controls (or anything else outside the
+ * allowlist) reject the line rather than reaching the terminal.
  */
-const LINK_LINE = /^\s*link:\s*(https:\/\/[A-Za-z0-9\-._~:/?#[\]@!$&'()*+,;=%]+)\s*$/m;
+const LINK_LINE = /^link:\s*(https:\/\/[A-Za-z0-9\-._~:/?#[\]@!$&'()*+,;=%]+)$/;
 
 /** OSC 8 hyperlink delimiters (open carries the URL; close is empty). */
 const OSC8_CLOSE = '\x1b]8;;\x1b\\';
@@ -93,6 +95,11 @@ export function parseOwnerJobsLink(fileContent: string | undefined): string | un
   if (fileContent === undefined) {
     return undefined;
   }
-  const match = LINK_LINE.exec(fileContent);
-  return match?.[1];
+  for (const line of fileContent.split('\n')) {
+    const match = LINK_LINE.exec(line.trim());
+    if (match) {
+      return match[1];
+    }
+  }
+  return undefined;
 }

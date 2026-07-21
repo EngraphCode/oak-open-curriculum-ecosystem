@@ -51,6 +51,11 @@ describe('parseOwnerJobsLink', () => {
     expect(parseOwnerJobsLink(content)).toBe('https://linear.app/oaknational/label/owner-ask');
   });
 
+  it('tolerates surrounding whitespace on the link line', () => {
+    const content = 'link:   https://linear.app/oaknational/label/owner-ask   \n';
+    expect(parseOwnerJobsLink(content)).toBe('https://linear.app/oaknational/label/owner-ask');
+  });
+
   it('is undefined when absent or for a non-https value', () => {
     expect(parseOwnerJobsLink(undefined)).toBeUndefined();
     expect(parseOwnerJobsLink('no link here')).toBeUndefined();
