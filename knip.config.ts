@@ -95,6 +95,7 @@ const config: KnipConfig = {
         'src/validators/pretooluse-guard-routing/validate-pretooluse-guard-routing.ts',
         'src/validators/policy-reappraisal/validate-policy-reappraisal.ts',
         'src/validators/check-ci-parity/validate-check-ci-parity.ts',
+        'src/validators/plan-schema/validate-plan-corpus.ts',
         'src/validators/reference-direction/validate-reference-direction.ts',
         'src/validators/machine-local-paths/validate-no-machine-local-paths.ts',
         'src/validators/patterns-index/validate-patterns-index.ts',
