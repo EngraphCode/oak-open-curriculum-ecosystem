@@ -20,7 +20,7 @@ directory, so admission is structural, not aspirational.
 
 | Path | Holds |
 |---|---|
-| `milestone-first-major-release.plan.md` | The milestone plan (S3 authors it — the corpus root node; slot reserved) |
+| [`milestone-first-major-release.plan.md`](milestone-first-major-release.plan.md) | The milestone plan — the corpus root node (authored 2026-07-21, S3) |
 | [`delivery/`](delivery/README.md) | Delivery-class plans: the release lanes (Clerk promotion, PostHog, packaging, quarantine) |
 | [`practice/`](practice/) | Practice-class plans: how the estate works (this reset, PR-state instrumentation) |
 | [`templates/`](templates/README.md) | Plan templates ([delivery](templates/delivery-plan-template.md) and [runbook](templates/runbook-plan-template.md) forms are the V0 corpus forms) |
