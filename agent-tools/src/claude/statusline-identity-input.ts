@@ -35,6 +35,11 @@ export interface StatuslineInputs {
   readonly sevenDayPercentage: number | undefined;
   /** `rate_limits.seven_day.resets_at` — Unix epoch seconds when the 7-day window resets. */
   readonly sevenDayResetsAt: number | undefined;
+  /**
+   * `effort.level` — the live reasoning-effort level (`low`…`max`), reflecting
+   * mid-session `/effort` changes; absent when the model has no effort parameter.
+   */
+  readonly effortLevel: string | undefined;
 }
 
 /**
@@ -52,14 +57,16 @@ interface StatuslinePayload {
   readonly model?: unknown;
   readonly context_window?: unknown;
   readonly rate_limits?: unknown;
+  readonly effort?: unknown;
 }
 
-/** Expected shape of a nested object field (`workspace`, `model`, `context_window`, a rate-limit window). */
+/** Expected shape of a nested object field (`workspace`, `model`, `context_window`, `effort`, a rate-limit window). */
 interface NestedField {
   readonly current_dir?: unknown;
   readonly display_name?: unknown;
   readonly used_percentage?: unknown;
   readonly resets_at?: unknown;
+  readonly level?: unknown;
 }
 
 /** Expected shape of the `rate_limits` object: one nested field per window. */
@@ -106,6 +113,7 @@ export function planStatuslineExecution(rawJson: string): StatuslinePlan {
       fiveHourResetsAt: rateLimitNumber(payload.rate_limits, 'five_hour', 'resets_at'),
       sevenDayPercentage: rateLimitNumber(payload.rate_limits, 'seven_day', 'used_percentage'),
       sevenDayResetsAt: rateLimitNumber(payload.rate_limits, 'seven_day', 'resets_at'),
+      effortLevel: effortLevel(payload.effort),
     },
   };
 }
@@ -133,6 +141,11 @@ function modelName(value: unknown): string | undefined {
 /** Extract the context-window usage from the nested `context_window` object. */
 function contextUsage(value: unknown): number | undefined {
   return isNestedField(value) ? finiteNumber(value.used_percentage) : undefined;
+}
+
+/** Extract the reasoning-effort level from the nested `effort` object. */
+function effortLevel(value: unknown): string | undefined {
+  return isNestedField(value) ? nonBlankString(value.level) : undefined;
 }
 
 /**

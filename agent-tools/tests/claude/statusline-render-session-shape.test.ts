@@ -27,6 +27,7 @@ function parts(sessionShape: SessionShape | undefined): StatuslineParts {
   return {
     identity: 'Monsoon guards Cirrus',
     ownerJobsOpen: undefined,
+    effortLevel: undefined,
     identityPrefix: 'a1b2c3',
     dir: 'repo',
     branch: undefined,

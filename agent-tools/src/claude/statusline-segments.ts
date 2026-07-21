@@ -13,17 +13,9 @@
  * @packageDocumentation
  */
 
-import {
-  BOLD,
-  BLUE,
-  CYAN,
-  DIM,
-  RED,
-  RESET,
-  HORIZONTAL_SEPARATOR,
-  YELLOW,
-} from './statusline-ansi.js';
+import { BOLD, DIM, RED, RESET, HORIZONTAL_SEPARATOR } from './statusline-ansi.js';
 import { formatIdentity, formatSessionIndicators } from './statusline-indicators.js';
+import { buildLocationRows } from './statusline-location-rows.js';
 import { formatOwnerAttention } from './statusline-owner-jobs.js';
 import { type SessionShape } from './statusline-session-shape.js';
 import { formatContext, rateLimitGauge } from './statusline-usage.js';
@@ -95,6 +87,12 @@ export interface StatuslineParts {
    * identically to zero — no bell.
    */
   readonly ownerJobsOpen: number | undefined;
+  /**
+   * The session's live reasoning-effort level (`low`…`max`), shown after the
+   * current checkout's name (`repo · e:high`); undefined when the model has no
+   * effort parameter, which renders as no segment.
+   */
+  readonly effortLevel: string | undefined;
 }
 
 /** The ANSI-coloured statusline segments, each absent when its value is. */
@@ -119,11 +117,8 @@ export interface Segments {
   readonly error: string | undefined;
 }
 
-const DIRTY_MARK = '*';
 /** Marker leading the loud error token — chosen to be impossible to miss. */
 const ERROR_MARK = '⚠';
-/** Label prefixing the primary checkout's branch when the session is in a worktree. */
-const COORDINATION_LABEL = 'coord:';
 
 /** Format each {@link StatuslineParts} value into its coloured segment. */
 export function buildSegments(parts: StatuslineParts): Segments {
@@ -137,72 +132,6 @@ export function buildSegments(parts: StatuslineParts): Segments {
     locationRows: buildLocationRows(parts),
     error: formatError(parts.error),
   };
-}
-
-/**
- * Build the git-location rows from the resolved parts.
- *
- * With no resolved coordination branch the session sits in the only relevant
- * checkout: its name on one row, its branch on the next (or just the name outside
- * a repository). With a coordination branch resolved the session sits in a linked
- * worktree, so three rows: the shared primary checkout's name, then its branch
- * prefixed `coord:`, then this worktree's name and branch together. The branch the
- * session is ON (the lone primary branch, or the worktree branch) is bold blue
- * (where you are); the primary-as-context coord branch is non-bold (where you are
- * not). The coordination branch resolves to a value exactly when linked worktrees
- * exist AND it diverges from the working branch — which, because git forbids the
- * same branch in two worktrees, distinguishes "in a worktree" from "in the
- * primary" reliably (see statusline-git-location.ts).
- */
-function buildLocationRows(parts: StatuslineParts): readonly string[] {
-  if (parts.coordinationBranch === undefined) {
-    return compactRows([placeName(parts.dir), formatBranch(parts.branch, parts.dirty)]);
-  }
-  return compactRows([
-    parts.coordinationPlace === undefined ? undefined : placeName(parts.coordinationPlace),
-    `${DIM}${COORDINATION_LABEL}${RESET} ${formatContextBranch(parts.coordinationBranch)}`,
-    worktreeRow(parts),
-  ]);
-}
-
-/** This worktree's name and branch on one row; the name alone if the branch is unresolved. */
-function worktreeRow(parts: StatuslineParts): string {
-  const name = placeName(parts.worktree ?? parts.dir);
-  const branch = formatBranch(parts.branch, parts.dirty);
-  return branch === undefined ? name : `${name} ${branch}`;
-}
-
-/** Drop absent or empty rows, preserving order. */
-function compactRows(rows: readonly (string | undefined)[]): string[] {
-  return rows.filter((row): row is string => row !== undefined && row.length > 0);
-}
-
-/**
- * Bold-blue working branch with a trailing dirty mark — the branch the session is
- * ON. The colour precedes BOLD: BLUE carries a leading reset (`0;`) that would
- * otherwise clear a preceding bold; the trailing RESET ends both attributes before
- * the dirty mark.
- */
-function formatBranch(branch: string | undefined, dirty: boolean): string | undefined {
-  if (branch === undefined) {
-    return undefined;
-  }
-  const mark = dirty ? `${YELLOW}${DIRTY_MARK}${RESET}` : '';
-  return `${BLUE}${BOLD}${branch}${RESET}${mark}`;
-}
-
-/**
- * A coordination/context branch in non-bold blue — the primary checkout's branch,
- * shown as context distinct from the bold working branch (which marks where the
- * session is).
- */
-function formatContextBranch(branch: string): string {
-  return `${BLUE}${branch}${RESET}`;
-}
-
-/** A checkout or worktree name in cyan, matching across the working and coordination rows. */
-function placeName(name: string): string {
-  return `${CYAN}${name}${RESET}`;
 }
 
 /** A failure is glaring (bold red, marked) and never blank: it must be seen and fixed. */
