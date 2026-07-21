@@ -163,4 +163,8 @@ async function main(): Promise<void> {
   );
 }
 
-main().catch((error: unknown) => usageError(describeError(error), usage));
+try {
+  await main();
+} catch (error) {
+  usageError(describeError(error), usage);
+}

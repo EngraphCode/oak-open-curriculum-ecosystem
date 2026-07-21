@@ -15,6 +15,7 @@ import {
   resolveFromCwd,
   usageError,
 } from '../lib/cli.js';
+import { codeUnitCompare } from '../lib/compare.js';
 import { assertRepository, resolvePackage } from '../lib/repository.js';
 import type { RepositoryInfo } from '../lib/repository.js';
 
@@ -207,7 +208,7 @@ async function filesBelow(root: string): Promise<string[]> {
     }
   }
   await visit(root);
-  return files.sort();
+  return files.sort(codeUnitCompare);
 }
 
 function compressedSizes(buffer: Buffer): CompressedSizes {
@@ -262,7 +263,7 @@ async function artifactEvidence(
     artifactSizes[relative] = compressedSizes(await readFile(file));
   }
 
-  const runtimeNames = Object.keys(requireFromOwa(packageName)).sort();
+  const runtimeNames = Object.keys(requireFromOwa(packageName)).sort(codeUnitCompare);
   const esmPath = path.join(packageRoot, manifest.module);
   const cjsPath = path.join(packageRoot, manifest.main);
 
@@ -368,13 +369,56 @@ async function artifactEvidence(
   };
 }
 
+function probeManifestName(scenarioName: string): string {
+  return `oak-probe-${scenarioName}`;
+}
+
+const ROUTE_BOX_CHARS = new Set(['┌', '├', '└']);
+
+function isRouteWhitespace(character: string | undefined): boolean {
+  return character !== undefined && /\s/.test(character);
+}
+
+// Manual scan replacing `/(?<!\S)[┌├└]?\s*[○ƒ]\s+\//u` — the unanchored
+// search re-entered whitespace runs from every start position (S8786).
+// The accepted language is identical: a `○`/`ƒ` marker followed by
+// whitespace then `/`, where the marker (or a box-drawing char hard
+// against it) sits at the line start or after whitespace.
+function isRouteLine(line: string): boolean {
+  for (let index = 0; index < line.length; index += 1) {
+    const marker = line[index];
+    if (marker !== '○' && marker !== 'ƒ') {
+      continue;
+    }
+    let after = index + 1;
+    while (isRouteWhitespace(line[after])) {
+      after += 1;
+    }
+    if (after === index + 1 || line[after] !== '/') {
+      continue;
+    }
+    const previous = index === 0 ? undefined : line[index - 1];
+    if (
+      previous === undefined ||
+      isRouteWhitespace(previous) ||
+      (ROUTE_BOX_CHARS.has(previous) && (index === 1 || isRouteWhitespace(line[index - 2])))
+    ) {
+      return true;
+    }
+  }
+  return false;
+}
+
 function parseRouteMetrics(output: string): RouteMetrics | null {
   const clean = output.replaceAll(/\u001b\[[0-9;]*m/g, '');
-  const routeLine = clean.split('\n').find((line) => /(?:^|\s)[┌├└]?\s*[○ƒ]\s+\//u.test(line));
+  const routeLine = clean.split('\n').find((line) => isRouteLine(line));
   if (!routeLine) {
     return null;
   }
-  const sizes = [...routeLine.matchAll(/([0-9.]+)\s*(B|kB|MB)/g)].map(
+  // `(?<![\d.])` pins each match to the start of its numeric run — where
+  // the leftmost match always began — so scanning cannot restart inside a
+  // run (S8786); the extracted matches are unchanged.
+  const sizes = [...routeLine.matchAll(/(?<![\d.])([\d.]+)\s*(B|kB|MB)/g)].map(
     (match) => `${match[1]} ${match[2]}`,
   );
   return { route: sizes[0] ?? null, firstLoad: sizes[1] ?? null };
@@ -410,7 +454,7 @@ async function nextEvidence(
       cp(path.join(fixtureRoot, definition.fixture), path.join(appDirectory, 'page.tsx')),
       writeFile(
         path.join(fixtureDirectory, 'package.json'),
-        `${JSON.stringify({ name: `oak-probe-${name}`, private: true }, null, 2)}\n`,
+        `${JSON.stringify({ name: probeManifestName(name), private: true }, null, 2)}\n`,
         'utf8',
       ),
     ]);
@@ -494,7 +538,9 @@ async function main(): Promise<void> {
   }
 }
 
-void main().catch((error: unknown) => {
+try {
+  await main();
+} catch (error) {
   const caught = asCaughtError(error);
   usageError(caught.stack ?? caught.message, usage);
-});
+}

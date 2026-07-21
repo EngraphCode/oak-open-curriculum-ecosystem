@@ -4,11 +4,11 @@ export function withoutFencedMarkdown(source: string): string {
   return source
     .split('\n')
     .map((line) => {
-      const marker = line.match(/^\s*(`{3,}|~{3,})/)?.[1];
+      const marker = /^\s*(`{3,}|~{3,})/.exec(line)?.[1];
       if (marker) {
         if (!fence) {
           fence = marker[0];
-        } else if (marker[0] === fence) {
+        } else if (marker.startsWith(fence)) {
           fence = null;
         }
         return '';

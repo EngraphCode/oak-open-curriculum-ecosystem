@@ -7,7 +7,7 @@ const run = promisify(execFile);
 
 const SOURCE_EXTENSION = /\.(?:ts|tsx)$/;
 const EXCLUDED_PRODUCTION_PATH =
-  /(?:^|\/)(?:__tests__|__mocks__|__snapshots__)(?:\/|$)|\.(?:test|spec|stories|mock)\.[^.]+$/;
+  /(?:(?:^|\/)(?:__tests__|__mocks__|__snapshots__)(?:\/|$))|(?:\.(?:test|spec|stories|mock)\.[^.]+$)/;
 
 export interface SourceFile {
   file: string;

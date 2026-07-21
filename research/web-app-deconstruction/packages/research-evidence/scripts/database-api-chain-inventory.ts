@@ -4,6 +4,7 @@ import { promisify } from 'node:util';
 import type { ExecFileOptions } from 'node:child_process';
 
 import { emitJson, parseArgs, resolveFromCwd, usageError, workspaceRoot } from '../lib/cli.js';
+import { codeUnitCompare } from '../lib/compare.js';
 import {
   countBy,
   countOpenApiPathKeys,
@@ -294,9 +295,13 @@ async function oakOpenApiInventory(snapshot_: RepositorySnapshot) {
   const owaClientSource = await readBlob(snapshot_, 'src/lib/owaClient.ts');
   const exportedConstants = extractExportedStringConstants(owaClientSource);
   const resolverRegistry = exportedConstants.filter(
-    ({ value }) => /^(?:published|public|internal)_/.test(value) && !/_bool_exp$/.test(value),
+    ({ value }) =>
+      (value.startsWith('published_') ||
+        value.startsWith('public_') ||
+        value.startsWith('internal_')) &&
+      !value.endsWith('_bool_exp'),
   );
-  const graphQlTypeRegistry = exportedConstants.filter(({ value }) => /_bool_exp$/.test(value));
+  const graphQlTypeRegistry = exportedConstants.filter(({ value }) => value.endsWith('_bool_exp'));
   const directTableRegistry = exportedConstants.filter(({ value }) =>
     /^(?:published|public|internal)\./.test(value),
   );
@@ -329,7 +334,7 @@ async function oakOpenApiInventory(snapshot_: RepositorySnapshot) {
     ...new Set(
       handlerFiles.filter((file) => file.split('/').length > 4).map((file) => file.split('/')[3]),
     ),
-  ].sort();
+  ].sort(codeUnitCompare);
 
   return {
     repository: repositoryShape(files),
@@ -474,7 +479,7 @@ async function oceConsumerInventory(snapshot_: RepositorySnapshot) {
       schemaPath: bulkSchemaPath,
       schemaTitle: bulkSchema.title ?? null,
       topLevelRequired: bulkSchema.required ?? [],
-      topLevelProperties: Object.keys(bulkSchema.properties ?? {}).sort(),
+      topLevelProperties: Object.keys(bulkSchema.properties ?? {}).sort(codeUnitCompare),
     },
   };
 }
@@ -517,7 +522,9 @@ function crossSystemCorrespondence(
     unmatchedResolverConstants: resolverCorrespondence
       .filter(({ databaseObject }) => databaseObject === null)
       .map(({ symbol, value }) => ({ symbol, value })),
-    oceConfiguredSchemaUrls: [...new Set(configuredSchemaUrls)].sort(),
+    oceConfiguredSchemaUrls: [...new Set(configuredSchemaUrls)].sort((left, right) =>
+      codeUnitCompare(String(left), String(right)),
+    ),
   };
 }
 
@@ -571,4 +578,9 @@ async function main(): Promise<void> {
   );
 }
 
-void main().catch((error) => usageError(error.stack ?? error.message, usage));
+try {
+  await main();
+} catch (error) {
+  const details = error instanceof Error ? (error.stack ?? error.message) : String(error);
+  usageError(details, usage);
+}

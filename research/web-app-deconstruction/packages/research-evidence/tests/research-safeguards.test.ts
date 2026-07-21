@@ -77,7 +77,7 @@ test('internal links cannot escape lexically, by encoding or through symlinks', 
     await writeFile(outside, 'outside');
     await symlink(outside, path.join(docs, 'escape.md'));
 
-    expect(resolveInternalLink(root, path.join(docs, 'source.md'), './target.md').error).toBe(null);
+    expect(resolveInternalLink(root, path.join(docs, 'source.md'), './target.md').error).toBeNull();
     expect(
       resolveInternalLink(root, path.join(docs, 'source.md'), '../../outside.md').error,
     ).toMatch(/escapes the repository/);

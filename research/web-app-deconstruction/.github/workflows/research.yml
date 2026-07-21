@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: 24
       - run: corepack enable
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm install --frozen-lockfile --ignore-scripts
       - run: pnpm format:check
       - run: pnpm --filter @oaknational/research-evidence check-research
       - run: pnpm --filter @oaknational/research-evidence test

@@ -9,6 +9,7 @@ import {
   resolveFromCwd,
   usageError,
 } from '../lib/cli.js';
+import { codeUnitCompare } from '../lib/compare.js';
 import { assertRepository, resolvePackage } from '../lib/repository.js';
 import {
   isProductionFile,
@@ -106,6 +107,172 @@ function isTypeScriptModule(value: unknown): value is TypeScriptModule {
   return typeof value === 'object' && value !== null;
 }
 
+interface ScannedSource {
+  file: string;
+  text: string;
+}
+
+interface OwaImportScan {
+  directConsumerFiles: Set<string>;
+  themeConsumerFiles: Set<string>;
+  sharedConsumerFiles: Set<string>;
+  directNameAppearances: Map<string, number>;
+}
+
+// Buckets one import declaration's consumer file by specifier class and
+// counts direct-import name appearances.
+function recordOwaImport(
+  scan: OwaImportScan,
+  ts: TypeScriptModule,
+  file: string,
+  declaration: ImportWithStringSpecifier,
+): void {
+  const specifier = declaration.moduleSpecifier.text;
+  if (specifier === DIRECT_PACKAGE) {
+    scan.directConsumerFiles.add(file);
+    for (const name of new Set(importNames(ts, declaration))) {
+      scan.directNameAppearances.set(name, (scan.directNameAppearances.get(name) ?? 0) + 1);
+    }
+  }
+  if (specifier === OWA_THEME_REEXPORT) {
+    scan.themeConsumerFiles.add(file);
+  }
+  if (hasSharedComponentsImport(specifier)) {
+    scan.sharedConsumerFiles.add(file);
+  }
+}
+
+// Walks every OWA source's static import declarations, bucketing consumer
+// files by specifier class and counting direct-import name appearances.
+function scanOwaImports(ts: TypeScriptModule, owaSources: ScannedSource[]): OwaImportScan {
+  const scan: OwaImportScan = {
+    directConsumerFiles: new Set<string>(),
+    themeConsumerFiles: new Set<string>(),
+    sharedConsumerFiles: new Set<string>(),
+    directNameAppearances: new Map<string, number>(),
+  };
+
+  for (const source of owaSources) {
+    const sourceFile = ts.createSourceFile(
+      source.file,
+      source.text,
+      ts.ScriptTarget.Latest,
+      true,
+      source.file.endsWith('.tsx') ? ts.ScriptKind.TSX : ts.ScriptKind.TS,
+    );
+    for (const declaration of importDeclarations(ts, sourceFile)) {
+      recordOwaImport(scan, ts, source.file, declaration);
+    }
+  }
+
+  return scan;
+}
+
+interface ComponentImportScan {
+  recipeSharedFiles: Set<string>;
+  recipeInternalFiles: Set<string>;
+  nonRecipeFilesImportingRecipes: number;
+}
+
+const PUBLIC_COMPONENT_AREAS = [
+  'buttons',
+  'cookies',
+  'form-elements',
+  'house-cat',
+  'images-and-icons',
+  'layout-and-structure',
+  'messaging-and-feedback',
+  'navigation',
+  'presentational',
+  'typography',
+  'unstyled',
+  'OakGlobalStyle',
+  'OakThemeProvider',
+];
+
+function importsPublicComponentArea(specifiers: string[]): boolean {
+  return specifiers.some((value) =>
+    PUBLIC_COMPONENT_AREAS.some(
+      (area) => value === `@/components/${area}` || value.startsWith(`@/components/${area}/`),
+    ),
+  );
+}
+
+// Walks every Components source's static import declarations, classifying
+// recipe files by what they import and counting non-recipe files that
+// reach into the recipe area.
+function scanComponentImports(
+  ts: TypeScriptModule,
+  componentSources: ScannedSource[],
+  componentSourceRoot: string,
+): ComponentImportScan {
+  const recipeSharedFiles = new Set<string>();
+  const recipeInternalFiles = new Set<string>();
+  let nonRecipeFilesImportingRecipes = 0;
+
+  for (const source of componentSources) {
+    const relative = normaliseRelative(componentSourceRoot, source.file);
+    const sourceFile = ts.createSourceFile(
+      source.file,
+      source.text,
+      ts.ScriptTarget.Latest,
+      true,
+      source.file.endsWith('.tsx') ? ts.ScriptKind.TSX : ts.ScriptKind.TS,
+    );
+    const specifiers = importDeclarations(ts, sourceFile).map(
+      (declaration) => declaration.moduleSpecifier.text,
+    );
+    if (relative.startsWith('components/owa/')) {
+      if (specifiers.some((value) => value.includes('components/internal-components'))) {
+        recipeInternalFiles.add(source.file);
+      }
+      if (importsPublicComponentArea(specifiers)) {
+        recipeSharedFiles.add(source.file);
+      }
+    } else if (
+      path.basename(source.file) !== 'index.ts' &&
+      specifiers.some((value) => value.startsWith('@/components/owa'))
+    ) {
+      nonRecipeFilesImportingRecipes += 1;
+    }
+  }
+
+  return { recipeSharedFiles, recipeInternalFiles, nonRecipeFilesImportingRecipes };
+}
+
+const CATEGORY_ORDER = [
+  'foundations',
+  'primitives',
+  'controls',
+  'adapters',
+  'recipes',
+  'hooks',
+  'testSupport',
+];
+
+function buildCategoryStats(
+  publicExports: PublicExport[],
+  directNameAppearances: Map<string, number>,
+  exportByName: Map<string, PublicExport>,
+): Record<string, CategoryStat> {
+  return Object.fromEntries(
+    CATEGORY_ORDER.map((category): [string, CategoryStat] => [
+      category,
+      {
+        publicNames: publicExports.filter((item) => item.category === category).length,
+        namesImportedDirectlyByOwa: [...directNameAppearances.keys()].filter(
+          (name) => exportByName.get(name)?.category === category,
+        ).length,
+        directImportAppearances: [...directNameAppearances].reduce(
+          (total, [name, count]) =>
+            total + (exportByName.get(name)?.category === category ? count : 0),
+          0,
+        ),
+      },
+    ]),
+  );
+}
+
 function importDeclarations(
   ts: TypeScriptModule,
   sourceFile: SourceFile,
@@ -187,20 +354,9 @@ function categoryFor(relativeDeclarationPath: string, exportName: string): strin
   return 'controls';
 }
 
-async function main(): Promise<void> {
-  const [owa, components] = await Promise.all([
-    assertRepository(owaRoot, 'oak-web-application'),
-    assertRepository(componentsRoot, '@oaknational/oak-components'),
-  ]);
-
-  const requireFromComponents = createRequire(path.join(componentsRoot, 'package.json'));
-  const typescriptPath = await resolvePackage(requireFromComponents, 'typescript');
-  const compiler: unknown = requireFromComponents(typescriptPath);
-  if (!isTypeScriptModule(compiler)) {
-    throw new Error('Could not load the TypeScript compiler');
-  }
-  const ts = compiler;
-
+// Loads the Components tsconfig, builds the program, and reads the public
+// export surface of src/index.ts, categorised and name-sorted.
+function loadPublicExports(ts: TypeScriptModule): PublicExport[] {
   const configPath = path.join(componentsRoot, 'tsconfig.json');
   const configFile = ts.readConfigFile(configPath, ts.sys.readFile);
   if (configFile.error) {
@@ -216,11 +372,11 @@ async function main(): Promise<void> {
     throw new Error('Could not resolve Components root module');
   }
 
-  const publicExports = checker
+  return checker
     .getExportsOfModule(moduleSymbol)
     .map((symbol) => {
       const target =
-        symbol.flags & ts.SymbolFlags.Alias ? checker.getAliasedSymbol(symbol) : symbol;
+        (symbol.flags & ts.SymbolFlags.Alias) !== 0 ? checker.getAliasedSymbol(symbol) : symbol;
       const declaration = target.declarations?.[0] ?? symbol.declarations?.[0];
       const declarationPath = declaration
         ? normaliseRelative(componentsRoot, declaration.getSourceFile().fileName)
@@ -232,6 +388,23 @@ async function main(): Promise<void> {
       };
     })
     .sort((left, right) => left.name.localeCompare(right.name));
+}
+
+async function main(): Promise<void> {
+  const [owa, components] = await Promise.all([
+    assertRepository(owaRoot, 'oak-web-application'),
+    assertRepository(componentsRoot, '@oaknational/oak-components'),
+  ]);
+
+  const requireFromComponents = createRequire(path.join(componentsRoot, 'package.json'));
+  const typescriptPath = await resolvePackage(requireFromComponents, 'typescript');
+  const compiler: unknown = requireFromComponents(typescriptPath);
+  if (!isTypeScriptModule(compiler)) {
+    throw new Error('Could not load the TypeScript compiler');
+  }
+  const ts = compiler;
+
+  const publicExports = loadPublicExports(ts);
 
   const componentSourceRoot = path.join(componentsRoot, 'src');
   const owaSourceRoot = path.join(owaRoot, 'src');
@@ -248,35 +421,8 @@ async function main(): Promise<void> {
     readSources(productionOwaFiles),
   ]);
 
-  const directConsumerFiles = new Set<string>();
-  const themeConsumerFiles = new Set<string>();
-  const sharedConsumerFiles = new Set<string>();
-  const directNameAppearances = new Map<string, number>();
-
-  for (const source of owaSources) {
-    const sourceFile = ts.createSourceFile(
-      source.file,
-      source.text,
-      ts.ScriptTarget.Latest,
-      true,
-      source.file.endsWith('.tsx') ? ts.ScriptKind.TSX : ts.ScriptKind.TS,
-    );
-    for (const declaration of importDeclarations(ts, sourceFile)) {
-      const specifier = declaration.moduleSpecifier.text;
-      if (specifier === DIRECT_PACKAGE) {
-        directConsumerFiles.add(source.file);
-        for (const name of new Set(importNames(ts, declaration))) {
-          directNameAppearances.set(name, (directNameAppearances.get(name) ?? 0) + 1);
-        }
-      }
-      if (specifier === OWA_THEME_REEXPORT) {
-        themeConsumerFiles.add(source.file);
-      }
-      if (hasSharedComponentsImport(specifier)) {
-        sharedConsumerFiles.add(source.file);
-      }
-    }
-  }
+  const { directConsumerFiles, themeConsumerFiles, sharedConsumerFiles, directNameAppearances } =
+    scanOwaImports(ts, owaSources);
 
   const oakConsumerFiles = new Set([...directConsumerFiles, ...themeConsumerFiles]);
   const overlap = new Set([...oakConsumerFiles].filter((file) => sharedConsumerFiles.has(file)));
@@ -289,87 +435,14 @@ async function main(): Promise<void> {
   const exportByName = new Map(
     publicExports.map((item): [string, PublicExport] => [item.name, item]),
   );
-  const categoryOrder = [
-    'foundations',
-    'primitives',
-    'controls',
-    'adapters',
-    'recipes',
-    'hooks',
-    'testSupport',
-  ];
-  const categories = Object.fromEntries(
-    categoryOrder.map((category): [string, CategoryStat] => [
-      category,
-      {
-        publicNames: publicExports.filter((item) => item.category === category).length,
-        namesImportedDirectlyByOwa: [...directNameAppearances.keys()].filter(
-          (name) => exportByName.get(name)?.category === category,
-        ).length,
-        directImportAppearances: [...directNameAppearances].reduce(
-          (total, [name, count]) =>
-            total + (exportByName.get(name)?.category === category ? count : 0),
-          0,
-        ),
-      },
-    ]),
-  );
+  const categories = buildCategoryStats(publicExports, directNameAppearances, exportByName);
 
   const recipeRoot = path.join(componentSourceRoot, 'components/owa');
   const recipeSources = componentSources.filter(({ file }) =>
     file.startsWith(`${recipeRoot}${path.sep}`),
   );
-  const recipeSharedFiles = new Set<string>();
-  const recipeInternalFiles = new Set<string>();
-  let nonRecipeFilesImportingRecipes = 0;
-  const publicComponentAreas = [
-    'buttons',
-    'cookies',
-    'form-elements',
-    'house-cat',
-    'images-and-icons',
-    'layout-and-structure',
-    'messaging-and-feedback',
-    'navigation',
-    'presentational',
-    'typography',
-    'unstyled',
-    'OakGlobalStyle',
-    'OakThemeProvider',
-  ];
-
-  for (const source of componentSources) {
-    const relative = normaliseRelative(componentSourceRoot, source.file);
-    const sourceFile = ts.createSourceFile(
-      source.file,
-      source.text,
-      ts.ScriptTarget.Latest,
-      true,
-      source.file.endsWith('.tsx') ? ts.ScriptKind.TSX : ts.ScriptKind.TS,
-    );
-    const specifiers = importDeclarations(ts, sourceFile).map(
-      (declaration) => declaration.moduleSpecifier.text,
-    );
-    if (relative.startsWith('components/owa/')) {
-      if (specifiers.some((value) => value.includes('components/internal-components'))) {
-        recipeInternalFiles.add(source.file);
-      }
-      if (
-        specifiers.some((value) =>
-          publicComponentAreas.some(
-            (area) => value === `@/components/${area}` || value.startsWith(`@/components/${area}/`),
-          ),
-        )
-      ) {
-        recipeSharedFiles.add(source.file);
-      }
-    } else if (
-      path.basename(source.file) !== 'index.ts' &&
-      specifiers.some((value) => value.startsWith('@/components/owa'))
-    ) {
-      nonRecipeFilesImportingRecipes += 1;
-    }
-  }
+  const { recipeSharedFiles, recipeInternalFiles, nonRecipeFilesImportingRecipes } =
+    scanComponentImports(ts, componentSources, componentSourceRoot);
 
   const oakRecipeDirectories = new Set(
     recipeSources
@@ -385,9 +458,7 @@ async function main(): Promise<void> {
   const directNames = [...directNameAppearances.keys()].filter(
     (name) => name !== 'default' && name !== '*',
   );
-  const removedNames = directNames
-    .filter((name) => !exportByName.has(name))
-    .sort((left, right) => (left < right ? -1 : left > right ? 1 : 0));
+  const removedNames = directNames.filter((name) => !exportByName.has(name)).sort(codeUnitCompare);
   const mostFrequentDirectImports = [...directNameAppearances]
     .filter(([name]) => name !== 'default' && name !== '*')
     .sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))

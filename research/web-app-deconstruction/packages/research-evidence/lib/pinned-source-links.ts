@@ -39,11 +39,11 @@ function markdownTargets(source: string): string[] {
   let fence: string | null = null;
 
   source.split('\n').forEach((rawLine) => {
-    const marker = rawLine.match(/^\s*(`{3,}|~{3,})/)?.[1];
+    const marker = /^\s*(`{3,}|~{3,})/.exec(rawLine)?.[1];
     if (marker) {
       if (!fence) {
         fence = marker[0];
-      } else if (marker[0] === fence) {
+      } else if (marker.startsWith(fence)) {
         fence = null;
       }
       return;
@@ -57,7 +57,10 @@ function markdownTargets(source: string): string[] {
     let match: RegExpExecArray | null;
     while ((match = pattern.exec(line)) !== null) {
       const rawTarget = (match[1] ?? match[2] ?? '').trim();
-      const withoutTitle = rawTarget.replace(/\s+"[^"]*"$/, '').trim();
+      // `(?<!\s)` pins the match to the start of the final whitespace run —
+      // where the leftmost match always began — so scanning cannot restart
+      // inside the run (S8786); the replaced text is unchanged.
+      const withoutTitle = rawTarget.replace(/(?<!\s)\s+"[^"]*"$/, '').trim();
       targets.push(withoutTitle.replace(/^<(.+)>$/, '$1'));
     }
   });
@@ -70,7 +73,7 @@ function sourceLinks(source: string, document: string): SourceLinksResult {
   const failures: string[] = [];
 
   for (const target of markdownTargets(source)) {
-    const match = target.match(pinnedSourceLink);
+    const match = pinnedSourceLink.exec(target);
     if (!match) {
       if (oakBlobCandidate.test(target)) {
         failures.push(`${document}: malformed or unsupported Oak GitHub blob link: ${target}`);
@@ -142,6 +145,54 @@ async function readRepositorySource(repository: RepositoryCheckout, file: string
   return readFile(path.resolve(root, file), 'utf8');
 }
 
+// Validates one pinned link against its checkout, appending any failure;
+// returns 1 when the link carries a checked line anchor, else 0.
+async function validatePinnedLink(
+  link: PinnedSourceLink,
+  repositories: Record<string, RepositoryCheckout>,
+  byRepository: Record<string, number>,
+  failures: string[],
+): Promise<number> {
+  const repository = repositories[link.repository];
+  if (!repository) {
+    failures.push(`${link.document}: no checkout configured for ${link.repository}`);
+    return 0;
+  }
+
+  byRepository[link.repository] = (byRepository[link.repository] ?? 0) + 1;
+  if (link.revision !== repository.revision) {
+    failures.push(
+      `${link.document}: ${link.repository} link uses ${link.revision}; checkout is ${repository.revision}`,
+    );
+    return 0;
+  }
+  if (!isSafeRepositoryPath(link.file)) {
+    failures.push(`${link.document}: source path escapes ${link.repository}: ${link.file}`);
+    return 0;
+  }
+
+  let source: string;
+  try {
+    source = await readRepositorySource(repository, link.file);
+  } catch {
+    failures.push(`${link.document}: missing ${link.repository}/${link.file}`);
+    return 0;
+  }
+
+  if (link.startLine === null || link.endLine === null) {
+    return 0;
+  }
+  const newlineCount = source.match(/\n/g)?.length ?? 0;
+  const trailingLine = source.endsWith('\n') ? 0 : 1;
+  const lineCount = source.length === 0 ? 0 : newlineCount + trailingLine;
+  if (link.startLine < 1 || link.endLine < link.startLine || link.endLine > lineCount) {
+    failures.push(
+      `${link.document}: invalid ${link.repository}/${link.file}#L${link.startLine}-L${link.endLine}; file has ${lineCount} lines`,
+    );
+  }
+  return 1;
+}
+
 export async function validatePinnedSourceLinks(
   markdownRoot: string,
   repositories: Record<string, RepositoryCheckout>,
@@ -163,43 +214,7 @@ export async function validatePinnedSourceLinks(
   }
 
   for (const link of links) {
-    const repository = repositories[link.repository];
-    if (!repository) {
-      failures.push(`${link.document}: no checkout configured for ${link.repository}`);
-      continue;
-    }
-
-    byRepository[link.repository] = (byRepository[link.repository] ?? 0) + 1;
-    if (link.revision !== repository.revision) {
-      failures.push(
-        `${link.document}: ${link.repository} link uses ${link.revision}; checkout is ${repository.revision}`,
-      );
-      continue;
-    }
-    if (!isSafeRepositoryPath(link.file)) {
-      failures.push(`${link.document}: source path escapes ${link.repository}: ${link.file}`);
-      continue;
-    }
-
-    let source: string;
-    try {
-      source = await readRepositorySource(repository, link.file);
-    } catch {
-      failures.push(`${link.document}: missing ${link.repository}/${link.file}`);
-      continue;
-    }
-
-    if (link.startLine === null || link.endLine === null) {
-      continue;
-    }
-    lineAnchorCount += 1;
-    const newlineCount = source.match(/\n/g)?.length ?? 0;
-    const lineCount = source.length === 0 ? 0 : newlineCount + (source.endsWith('\n') ? 0 : 1);
-    if (link.startLine < 1 || link.endLine < link.startLine || link.endLine > lineCount) {
-      failures.push(
-        `${link.document}: invalid ${link.repository}/${link.file}#L${link.startLine}-L${link.endLine}; file has ${lineCount} lines`,
-      );
-    }
+    lineAnchorCount += await validatePinnedLink(link, repositories, byRepository, failures);
   }
 
   for (const repository of requiredRepositories) {
