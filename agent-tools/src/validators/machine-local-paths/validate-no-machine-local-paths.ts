@@ -19,7 +19,7 @@
  */
 
 import { execFileSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readlinkSync } from 'node:fs';
 import path from 'node:path';
 
 import { resolveRepoRoot } from '../../core/repo-root.js';
@@ -70,6 +70,19 @@ function listTrackedFiles(repoRoot: string): string[] {
 }
 
 /** Read the scannable text files, skipping binary/generated content. */
+/**
+ * Read a tracked path's scannable text: a symlink's link text, else the
+ * file content. `readlink` doubles as the symlink test (EINVAL on a
+ * regular file), so there is no stat-then-read race window.
+ */
+function readLinkTextOrFile(absolute: string): string {
+  try {
+    return readlinkSync(absolute);
+  } catch {
+    return readFileSync(absolute, 'utf8');
+  }
+}
+
 function readScanFiles(repoRoot: string, relativePaths: readonly string[]): ScanFile[] {
   const files: ScanFile[] = [];
   for (const relativePath of relativePaths) {
@@ -81,7 +94,14 @@ function readScanFiles(repoRoot: string, relativePaths: readonly string[]): Scan
     }
     let content: string;
     try {
-      content = readFileSync(path.join(repoRoot, relativePath), 'utf8');
+      // A tracked symlink's scannable content IS its link text (what git
+      // stores): an absolute target into a home directory is exactly the
+      // machine-local-path class this validator exists to catch, while
+      // following the link would double-scan (or EISDIR on) the target,
+      // which is scanned under its own tracked path. The read itself is
+      // the symlink test (readlink EINVALs on regular files) — no
+      // check-then-use window (CodeQL js/file-system-race).
+      content = readLinkTextOrFile(path.join(repoRoot, relativePath));
     } catch (error) {
       // Fail loud: a tracked file the validator cannot read could hide a
       // machine-local path, so silently skipping it would be a green-gate
