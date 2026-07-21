@@ -3347,6 +3347,27 @@ commit SHA and the closing plan reference.
   `pnpm knip:gate` and fail closed (`.husky/pre-commit`, `.husky/pre-push`) — a knip
   crash now fails the hook rather than reading as a pass.
 
+### F-150 — `pnpm install --ignore-scripts` in a fresh worktree silently disarms ALL git hooks
+
+- **Source**: Forge rides Brimstone's unit-1 delegate (AIP-159 fix-forward worktree),
+  2026-07-21T07:08Z broadcast, first-hand; detected and manually mitigated in-lane.
+- **Observed**: `pnpm install --ignore-scripts` skips the husky `prepare` lifecycle
+  script, so `.husky/_` is never materialised in the fresh worktree — and git then
+  SILENTLY SKIPS EVERY HOOK: pre-commit and pre-push ran as no-ops (push exit 0,
+  fully ungated). No warning at any layer; the gates simply do not exist in that
+  working copy. (Ironic composition: `--ignore-scripts` is itself the cure Sonar
+  recommends for CI installs — the security posture and the gate posture collide.)
+- **Mitigation used**: the delegate installed the husky shims and re-ran the full
+  pre-push suite manually to exit 0 over the already-pushed tree.
+- **Expected**: gate absence fails loud. Candidate cures: (a) the fresh-worktree
+  setup path (start-right §8, worktree-hygiene) gains a mandatory
+  `[ -d .husky/_ ]` verification before any commit ("verify `.husky/_` exists
+  before trusting any gate"); (b) a repo-validator that recomputes
+  hook-materialisation (hooksPath resolves + `_` shims present) so a hookless
+  working copy cannot read green; (c) CI remains the backstop but is not the
+  cure — the contract is local-gates-bind.
+- **Status**: open (mitigated in the originating lane only).
+
 ### F-148 — a suspended session's heartbeat Monitor keeps emitting: false liveness from an autonomous emitter
 
 - **Source**: Heron seeks Bluff (`ef3eb0`) failure-mode capture 2026-07-20T12:01:43Z
