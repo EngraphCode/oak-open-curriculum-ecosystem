@@ -25,7 +25,7 @@ import { writeErrorLine, writeLine } from '../core/terminal-output.js';
 import { resolveGhPath, type GhCommandExecutor } from '../pr-watch/gh.js';
 
 import { parsePrThroughputArgs, USAGE, type PrThroughputOptions } from './cli-args.js';
-import { assertWindowCovered, fetchMergedPrs } from './gh-fetch.js';
+import { assertWindowCovered, CANONICAL_REPOSITORY, fetchMergedPrs } from './gh-fetch.js';
 import { computeThroughput, formatRegisterRow, REGISTER_HEADER } from './index.js';
 
 export { DEFAULT_REGISTER_PATH, parsePrThroughputArgs } from './cli-args.js';
@@ -104,7 +104,7 @@ function runWithOptions(options: PrThroughputOptions, deps: PrThroughputDeps): n
   deps.writeLine(row);
   deps.writeLine(
     `pr-throughput: ${report.mergedCount} merges in ${report.windowDays}d ` +
-      `(${report.excludedCoordinationCount} coordination excluded)`,
+      `for ${CANONICAL_REPOSITORY} (${report.excludedCoordinationCount} coordination excluded)`,
   );
 
   if (options.write) {

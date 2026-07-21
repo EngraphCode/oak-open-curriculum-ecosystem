@@ -30,6 +30,14 @@ const MERGED_PR_SCHEMA = z.array(
 export const MERGED_PR_JSON_FIELDS = 'number,createdAt,mergedAt,headRefName';
 
 /**
+ * The register measures exactly one repository, named explicitly on every
+ * fetch: without `--repo`, gh falls back to the checkout's configured
+ * default, and a fork checkout (or a stray `gh repo set-default`) would
+ * append valid-looking rows computed from the wrong PR corpus.
+ */
+export const CANONICAL_REPOSITORY = 'oaknational/oak-open-curriculum-ecosystem';
+
+/**
  * List PRs merged into `main` within the inclusive `mergedSinceDate` ..
  * `mergedUntilDate` day range (day precision — the window filter re-applies
  * precisely downstream), up to `limit`. The merge-date-bounded search is
@@ -56,6 +64,8 @@ export function fetchMergedPrs(input: {
       [
         'pr',
         'list',
+        '--repo',
+        CANONICAL_REPOSITORY,
         '--state',
         'merged',
         '--base',

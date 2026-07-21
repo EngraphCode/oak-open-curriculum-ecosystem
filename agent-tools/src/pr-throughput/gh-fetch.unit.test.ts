@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest';
 
-import { assertWindowCovered, fetchMergedPrs, MERGED_PR_JSON_FIELDS } from './gh-fetch.js';
+import {
+  assertWindowCovered,
+  CANONICAL_REPOSITORY,
+  fetchMergedPrs,
+  MERGED_PR_JSON_FIELDS,
+} from './gh-fetch.js';
 
 const VALID_PAYLOAD = JSON.stringify([
   {
@@ -39,6 +44,11 @@ describe('fetchMergedPrs', () => {
     // refusal on a window that IS complete.
     expect(calls[0].args).toContain('merged:2026-07-13..2026-07-20');
     expect(calls[0].args).toContain(MERGED_PR_JSON_FIELDS);
+    // The canonical repository is named explicitly: without --repo, gh uses
+    // the checkout's configured default and a fork checkout could append
+    // rows computed from the wrong corpus.
+    expect(calls[0].args).toContain('--repo');
+    expect(calls[0].args).toContain(CANONICAL_REPOSITORY);
   });
 
   it('returns a typed err on non-JSON output instead of throwing or reading it as empty', () => {
