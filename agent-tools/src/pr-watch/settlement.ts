@@ -1,5 +1,6 @@
 import {
   computeReviewerLegs,
+  hasLanded,
   isSignedSelfReply,
   mostBlockingLeg,
   QUIET_WINDOW_MS,
@@ -50,13 +51,37 @@ function legLine(leg: ReviewerLeg): string {
 // tip where every leg settled via SKIPPED (no tip-bound review), it anchors
 // on checks-green.
 function quietWindowAnchor(reading: PrStateReading): string | null {
-  const tipBoundTimes = reading.reviews
+  const tipBound = reading.reviews
     .filter((review) => review.commitOid === reading.headRefOid)
-    .filter((review) => review.state !== 'PENDING' && !isSignedSelfReply(review.body))
+    .filter((review) => review.state !== 'PENDING' && !isSignedSelfReply(review.body));
+  // An eligible review whose submittedAt gh omitted could be NEWER than
+  // every timestamped one — anchoring past it would settle inside its
+  // window, so the anchor is unknowable (null routes to the held-open path).
+  if (tipBound.some((review) => review.submittedAt === '')) {
+    return null;
+  }
+  const tipBoundTimes = tipBound
     .map((review) => review.submittedAt)
-    .filter((time) => time !== '')
     .sort((left, right) => left.localeCompare(right));
   return tipBoundTimes.at(-1) ?? reading.checksGreenAt;
+}
+
+// SKILL item 2: findings count from BOTH harvest surfaces — review threads
+// AND review bodies bound to the tip; a summary-only review carrying findings
+// in its body otherwise never enters the round count. The instrument cannot
+// classify prose as findings (a CLEAN Copilot round also posts a non-empty
+// summary body — refusing settlement on body PRESENCE would deadlock every
+// landing), so settlement stays leg-driven and the evidence hands the reader
+// the exact body-tally inputs instead.
+function bodyTallyEvidence(reading: PrStateReading): string[] {
+  return reading.reviews
+    .filter((review) => review.commitOid === reading.headRefOid)
+    .filter((review) => hasLanded(review) && !isSignedSelfReply(review.body))
+    .filter((review) => review.body.trim() !== '')
+    .map(
+      (review) =>
+        `tip-bound review body present: ${review.author} (${review.state}) — tally body findings (SKILL item 2) before reading this round as zero-finding`,
+    );
 }
 
 function settledVerdict(input: {
@@ -67,6 +92,7 @@ function settledVerdict(input: {
   const { reading, legs, now } = input;
   const shared = [
     ...legs.map((leg) => legLine(leg)),
+    ...bodyTallyEvidence(reading),
     ...expectedSetEvidence(reading),
     ...runsEvidence(reading),
   ];

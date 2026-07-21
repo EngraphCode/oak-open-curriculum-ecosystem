@@ -12,14 +12,14 @@ import type { GhCommandExecutor } from './gh.js';
 const HEAD = 'f'.repeat(40);
 const PR_URL = 'https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/461';
 
-function viewPayload(): string {
+function viewPayload(oid: string = HEAD): string {
   return JSON.stringify({
     number: 461,
     url: PR_URL,
     state: 'OPEN',
     mergeable: 'MERGEABLE',
     mergeStateStatus: 'BLOCKED',
-    headRefOid: HEAD,
+    headRefOid: oid,
     statusCheckRollup: [
       {
         __typename: 'CheckRun',
@@ -318,5 +318,54 @@ describe('readPrStateReading', () => {
     const prView = calls.find((args) => args[0] === 'pr' && args[1] === 'view');
     expect(prView).toContain('--repo');
     expect(prView).toContain('oaknational/oak-open-curriculum-ecosystem');
+  });
+});
+
+describe('readPrStateReading — tip consistency (r4 regression)', () => {
+  const NEW_HEAD = 'e'.repeat(40);
+
+  // Serves one oid per `pr view` call (last oid repeats), so a push landing
+  // between the view snapshot and the later legs is reproducible.
+  function movingTipExecutor(oids: readonly string[], calls: string[][]): GhCommandExecutor {
+    let viewCall = 0;
+    return (_file, args) => {
+      calls.push([...args]);
+      if (args[0] === 'pr') {
+        const oid = oids[Math.min(viewCall, oids.length - 1)] ?? HEAD;
+        viewCall += 1;
+        return viewPayload(oid);
+      }
+      if (args[0] === 'api') {
+        const query = args.find((arg) => arg.startsWith('query='));
+        return query?.includes('reviewThreads') === true ? threadsPayload() : reviewsPayload();
+      }
+      if (args[0] === 'agent-task') {
+        return agentTaskResponse({}, args);
+      }
+      throw new Error(`unexpected gh argv: ${args.join(' ')}`);
+    };
+  }
+
+  it('one mid-read push retries the legs and binds the reading to the fresh tip', () => {
+    const calls: string[][] = [];
+    const reading = readPrStateReading({
+      target: { number: 461 },
+      ...ghSeam,
+      execFileSync: movingTipExecutor([HEAD, NEW_HEAD, NEW_HEAD], calls),
+    });
+    expect(reading.headRefOid).toBe(NEW_HEAD);
+    // Initial view + first confirm (moved) + second confirm (held still).
+    expect(calls.filter((args) => args[0] === 'pr')).toHaveLength(3);
+  });
+
+  it('fails loud when the tip moves on consecutive attempts — a reading never spans two tips', () => {
+    const calls: string[][] = [];
+    expect(() =>
+      readPrStateReading({
+        target: { number: 461 },
+        ...ghSeam,
+        execFileSync: movingTipExecutor([HEAD, NEW_HEAD, 'd'.repeat(40)], calls),
+      }),
+    ).toThrow(/head moved during the compound read/);
   });
 });

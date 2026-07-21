@@ -405,3 +405,40 @@ describe('computePrVerdict — quiet window and settlement (SKILL item 4)', () =
     expect(verdict.evidence.join('\n')).toContain('DEFAULTED from the observed surface');
   });
 });
+
+describe('computePrVerdict — round-4 residual classes (2026-07-21)', () => {
+  it('an empty-submittedAt tip-bound review holds the quiet window open, never inherits the checks anchor', () => {
+    // A landed review whose submittedAt gh omits could be NEWER than every
+    // timestamped one; falling through to the (older) checks-green anchor
+    // would read SETTLE-READY inside the un-provable window.
+    const verdict = computePrVerdict(
+      settledReading({
+        reviews: [
+          ...settledReading().reviews,
+          {
+            author: COPILOT,
+            state: 'COMMENTED',
+            body: 'Round n summary.',
+            commitOid: TIP,
+            submittedAt: '',
+          },
+        ],
+      }),
+      LATE_NOW,
+    );
+    expect(verdict.state).toBe('SETTLING-QUIET-WINDOW');
+  });
+
+  it('SETTLE-READY evidence hands over the body-tally inputs (SKILL item 2: bodies count into the round tally)', () => {
+    // A summary-only review carrying findings in its body would otherwise
+    // read healthy at zero threads. The instrument cannot classify prose as
+    // findings (a CLEAN Copilot round also posts a non-empty summary body —
+    // verified on the merged #460's final tip — so refusing on body PRESENCE
+    // would deadlock every landing); it names the tally inputs instead.
+    const verdict = computePrVerdict(settledReading(), LATE_NOW);
+    expect(verdict.state).toBe('SETTLE-READY');
+    expect(verdict.evidence.join('\n')).toContain(
+      `tip-bound review body present: ${COPILOT} (COMMENTED)`,
+    );
+  });
+});

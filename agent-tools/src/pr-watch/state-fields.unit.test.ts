@@ -52,8 +52,27 @@ describe('parseStateView', () => {
     expect(parsed.checks).toEqual({ total: 3, passed: 3, failed: 0, pending: 0 });
   });
 
-  it('anchors checksGreenAt on the LATEST completion when green, null otherwise', () => {
-    expect(parseStateView(stateViewFixture()).checksGreenAt).toBe('2026-07-21T10:41:02Z');
+  it('anchors checksGreenAt on the LATEST completion when every green item is anchored, null otherwise', () => {
+    const allAnchored = parseStateView({
+      ...stateViewFixture(),
+      statusCheckRollup: [
+        {
+          __typename: 'CheckRun',
+          name: 'secret-scan',
+          status: 'COMPLETED',
+          conclusion: 'SUCCESS',
+          completedAt: '2026-07-21T10:33:35Z',
+        },
+        {
+          __typename: 'CheckRun',
+          name: 'run-quality-gates',
+          status: 'COMPLETED',
+          conclusion: 'SUCCESS',
+          completedAt: '2026-07-21T10:41:02Z',
+        },
+      ],
+    });
+    expect(allAnchored.checksGreenAt).toBe('2026-07-21T10:41:02Z');
     const notGreen = parseStateView({
       ...stateViewFixture(),
       statusCheckRollup: [
@@ -61,6 +80,14 @@ describe('parseStateView', () => {
       ],
     });
     expect(notGreen.checksGreenAt).toBeNull();
+  });
+
+  it('a green item with NO timestamp makes checksGreenAt null — a partial anchor can pre-date the all-green moment (r4 regression)', () => {
+    // The default fixture's `legacy/status` context is green with neither
+    // completedAt nor startedAt: a max over PRESENT timestamps would anchor
+    // settlement at 10:41:02Z while the unanchored item's green moment is
+    // unknown, letting reviewer timeout/settlement fire off a wrong time.
+    expect(parseStateView(stateViewFixture()).checksGreenAt).toBeNull();
   });
 
   it('anchors on StatusContext startedAt when contexts are the only green items', () => {

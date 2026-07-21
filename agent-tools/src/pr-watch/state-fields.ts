@@ -110,17 +110,22 @@ function summarise(namedChecks: readonly NamedCheck[]): ChecksSummary {
 // Green means every check passed; the anchor is the LATEST timestamp any item
 // reports — CheckRun `completedAt`, or StatusContext `startedAt` (its creation
 // time; StatusContext has no completion timestamp). Null when the rollup is
-// not green or no timestamp is available — a null anchor keeps the timeout
-// leg conservatively un-fireable rather than guessing a time.
+// not green — or when ANY green item carries no timestamp: a max over the
+// PRESENT timestamps can pre-date the unanchored item's green moment, so a
+// partial anchor is unknown, not "latest known". A null anchor keeps the
+// timeout leg conservatively un-fireable rather than firing off a wrong time.
 function checksGreenAt(items: readonly NamedRollupItem[], summary: ChecksSummary): string | null {
   if (summary.total === 0 || summary.failed > 0 || summary.pending > 0) {
     return null;
   }
-  const completions = items
-    .map((item) => item.completedAt ?? item.startedAt ?? null)
+  const completions = items.map((item) => item.completedAt ?? item.startedAt ?? null);
+  const present = completions
     .filter((value): value is string => value !== null)
     .sort((left, right) => left.localeCompare(right));
-  return completions.at(-1) ?? null;
+  if (present.length !== completions.length) {
+    return null;
+  }
+  return present.at(-1) ?? null;
 }
 
 /**
