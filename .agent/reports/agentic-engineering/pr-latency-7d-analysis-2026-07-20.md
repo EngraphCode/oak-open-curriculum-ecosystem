@@ -5,7 +5,9 @@ Dataset: the 89 PRs merged in the 2026-07-13 → 07-20 merge window (first merge
 dates; "7d" in the filenames names this window, not an exact 168-hour cut;
 the quantiles are per-PR and unaffected by the label) with ready→merged
 latency draft-adjusted, commits, comments, reviews, diff size + 26 Linear
-Done issues in the same window.
+Done issues in the same window (timestamps conserved in
+`linear-cycle-7d-2026-07-20.csv` beside this file, so the Linear findings
+below reproduce from the changeset).
 
 Definitions (reproducible against the CSV): a "heavy review" is a PR with
 6 or more commits (the rounds proxy at roughly 3+ cure pushes); the

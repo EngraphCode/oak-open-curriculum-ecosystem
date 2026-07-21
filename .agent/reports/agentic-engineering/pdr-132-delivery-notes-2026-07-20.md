@@ -124,3 +124,25 @@ budget numbers (pointer only — consolidate-at-second-consumer is the point).
   is saturated — the silent-wait class applies to SEATS, not just PRs.
   Successor instruction: at re-auth, re-verify #451 threads first-hand,
   finish the round, arm at settled-READY under the standing grant.
+
+- **2026-07-21 05:43Z, round 2 verified at re-auth: 6 findings — BUDGET
+  EXCEEDED, recorded per the doctrine's own transition.** The self-test's
+  verdict is a fail-and-learn: round 3 now opens, so the generator question
+  ran immediately (the budget's designed effect, and it caught something).
+  Generator classification: findings 1+4 are the SAME restatement/
+  single-source generator that round 1 cured at the skill surface — it
+  survived at the PDR-vs-analysis and PDR-vs-log surfaces, confirming the
+  round-1 meta-lesson (vigilance does not kill this class; a mechanical
+  pre-open check for budget literals and claim-strength drift across
+  surfaces would). Findings 2+5 are one cross-branch dependency generator:
+  the PDR cited sibling doctrine (PDR-130/131) present in the author's
+  coordination context but absent from the landing base — the same class
+  as the round-1 "anchor authored against a branch you are not landing
+  on" surprise, now at the citation level; cured by making both references
+  self-contained. Finding 3 (archival over-budget had no defined action)
+  and finding 6 (Linear evidence not reproducible from the changeset,
+  cured by conserving the 26-issue timestamp CSV) are singletons. Doctrine
+  candidate for the weekly read: a pre-open mechanical sweep — grep budget
+  literals outside the PDR, verify every cited decision record resolves on
+  the LANDING base, verify every quantitative claim's evidence file rides
+  the changeset.

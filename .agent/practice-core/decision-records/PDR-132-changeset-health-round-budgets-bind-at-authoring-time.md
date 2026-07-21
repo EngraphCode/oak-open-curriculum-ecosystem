@@ -13,10 +13,13 @@ referenced from the delivery record that landed with this PDR — this Core
 file stays repo-independent per the portability rule:
 
 - **Review rounds dominate.** Commit count (the cure-push proxy for rounds)
-  predicts latency at Spearman +0.63; raw diff size manages +0.25. Size acts
-  only THROUGH rounds: additions→rounds and additions→findings both
-  correlate at +0.62. Each round costs roughly 35–40 minutes and draws ~3
-  fresh comments, so rounds never converge by attrition.
+  predicts latency at Spearman +0.63; raw diff size manages +0.25, while
+  size→rounds and size→findings associations (both +0.62) are consistent
+  with the size effect acting through rounds — an associative reading whose
+  caveats (uncontrolled mediator, possible reverse path) the companion
+  analysis states. The observed per-round cost is roughly 35–40 minutes
+  with ~3 fresh comments per cure push, so rounds do not converge by
+  attrition.
 - **The latency tail is silent waiting, not work.** Of the window's 11
   slowest PRs, 9 went ready in the owner-away evening; the same night
   produced three live silent-wait instances: an armed auto-merge sitting
@@ -26,16 +29,19 @@ file stays repo-independent per the portability rule:
   coordination folds) carry large diffs with low finding density and land
   fast; code and doctrine diffs bind tight.
 
-PDR-131 established that merge concurrency is free and quality binds at
-settled-READY. This record is its twin on the authoring side: the round
+This record is the authoring-side twin of the estate's merge-mechanics
+decision (PDR-131), which established that merge concurrency is free and
+quality binds at settled-READY; each record is self-contained and the two
+land through different folds. The authoring-side claim here: the round
 count a changeset will need is substantially fixed at the moment it is
 shaped.
 
 ## Decision
 
 1. **The health gate is a round budget, never a size gate: a healthy
-   changeset settles in at most two review rounds.** When a third round
-   opens on a code-class PR, the shepherd records budget-exceeded and runs
+   changeset settles in at most two review rounds — every class; the
+   archival exemption below narrows only the size warnings.** When a third
+   round opens on any PR, the shepherd records budget-exceeded and runs
    the generator question THEN — ahead of the state machine's mechanical
    step-back arms, which remain the failure backstop.
 2. **Size thresholds are authoring-time warnings, never blocks**: more than
@@ -62,9 +68,11 @@ shaped.
    shepherd. A PR in a state nobody is watching is unhealthy regardless of
    its diff.
 
-## Prediction and falsifier (PDR-130 line)
+## Prediction and falsifier
 
-Prediction: with plan-time slicing and the round budget loaded, median
+Stated as an expected-observable-effect plus falsifier pair, the form the
+estate's two-speed-learning discipline (PDR-130) requires of enacted
+doctrine; the pair below is self-contained. Prediction: with plan-time slicing and the round budget loaded, median
 rounds-per-PR for code-class PRs born after this lands falls within one
 month. Measurement: re-run the delivery corpus methodology (per-PR
 commits, review threads, and latency over the trailing window) at the

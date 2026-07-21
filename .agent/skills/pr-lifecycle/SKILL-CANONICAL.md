@@ -276,7 +276,7 @@ as phase-local restatements.
    monotonic — without the epoch reset the trigger stays true after the
    mandated class-fix push and the machine has no executable next
    transition). **Ahead of these failure arms sits the round-budget
-   expectation (PDR-132, which owns the budget value)**: a code-class round
+   expectation (PDR-132, which owns the budget value)**: a round
    count exceeding the PDR's budget records budget-exceeded in the working
    notes at the first over-budget round and runs the generator question
    THEN — the arms above stay the mechanical backstop, not the first
