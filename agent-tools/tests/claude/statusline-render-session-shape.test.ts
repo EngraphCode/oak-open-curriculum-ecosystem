@@ -26,6 +26,7 @@ const FEATHER = '\u{1FAB6}';
 function parts(sessionShape: SessionShape | undefined): StatuslineParts {
   return {
     identity: 'Monsoon guards Cirrus',
+    ownerJobsOpen: undefined,
     identityPrefix: 'a1b2c3',
     dir: 'repo',
     branch: undefined,

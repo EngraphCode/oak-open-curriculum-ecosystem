@@ -9,6 +9,7 @@ const YELLOW = '\x1b[0;33m';
 const base: StatuslineParts = {
   identity: undefined,
   identityPrefix: undefined,
+  ownerJobsOpen: undefined,
   dir: 'repo',
   branch: undefined,
   dirty: false,
