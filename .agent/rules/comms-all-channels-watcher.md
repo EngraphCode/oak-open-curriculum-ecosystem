@@ -117,7 +117,14 @@ opts into the legacy narrow view.
 
 Run the command via the platform's persistent background-task mechanism:
 Claude Code uses the `Monitor` tool with `persistent: true`; Cursor and
-Codex use their equivalent watch primitives.
+Codex use their equivalent watch primitives. **Start every arm with an
+explicit `cd <repo-root> || exit 1`**: the platform's background-task
+primitive inherits the interactive shell's PERSISTENT cwd, so an arm
+issued while the shell sits in a scratchpad or sub-directory runs the
+watcher there — `pnpm` resolves the wrong workspace, verify-deps churns
+whatever tree it lands in, and the "watcher" watches nothing (worked
+instance 2026-07-20: a re-arm from a scratchpad clone auto-installed the
+clone and observed zero events).
 
 **After arming the watcher, run ONE foreground comms sweep covering the
 window from BEFORE session open.** An event landing between session-open
@@ -149,7 +156,12 @@ step timeout SHORT — the ~120s in the canonical invocation above, an
 order-100s budget as against 300–600s climbs — so wedges die cheap; expect
 deaths in gate-heavy windows and restart on the same seen-file, where the
 mandated post-restart foreground sweep (below) is the recovery path for
-events the dead drain never marked seen. The structural cure —
+events the dead drain never marked seen. Newer counter-evidence
+(2026-07-20, active n≥3 drive window, comms volume structurally above the
+2026-06-12 corpus): 120s died twice in 15 minutes on healthy-but-slow
+drains while 300s held — under sustained high-volume windows a ~300s
+deadline is a sanctioned tuning chosen on observed drain durations, not a
+climb-forever path. The structural cure —
 batched/incremental drain with per-batch deadlines, or moving the scan off
 the deadline path — is homed in the
 `agent-tooling/current/comms-watch-storage-redesign.plan.md` plan.
@@ -219,6 +231,20 @@ every poll. The codename matches the `agent_name` derived by
 derives the heartbeat path from the display name, so a slug-named seen-file
 leaves the watcher running and the assert red (four recorded instances;
 `ls` the directory first — pre-existing seen-files model the convention).
+
+### Dormancy polls initialise their cursor FROM the frozen seen-file
+
+A dormant/standby seat's narrow wake poll must initialise its baseline
+cursor from the frozen seen-file's own cursor position — never from an
+arm-time directory listing. An arm-time baseline over a frozen cursor
+leaves a wake-delivery hole: any directed wake landing between
+cursor-freeze and poll-arm can never fire the poll. Both directions are
+worked instances (2026-07-15, one session): the failure (a Director wake
+fell in the hole and needed a re-ping) and the success (a poll seeded
+SINCE the cursor-freeze time with a dedup set of pre-arm matches caught
+its wake within one poll). Corpus-test the wake FILTER before arming
+(directed-match, zero leaks), and verify the CURSOR INIT separately —
+the two defects are independent.
 
 ### Fallback shape — portable script
 

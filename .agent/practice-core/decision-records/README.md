@@ -252,4 +252,7 @@ Practice-Core concept ↔ ADR map):
 | [PDR-126](PDR-126-gates-land-strict-in-one-landing.md) | Gates Land Strict, in One Landing — Never at Warn Over an Allowlist | Accepted |
 | [PDR-127](PDR-127-team-branch-coordination-protocol.md) | The Team-Branch Coordination Protocol | Accepted |
 | [PDR-128](PDR-128-review-conversations-are-first-class.md) | Review Conversations Are First-Class — a PR Is the Structured Earning of Shared Truth | Accepted |
+| [PDR-129](PDR-129-diagnosis-reads-whole-surfaces-catalogues-are-open-sets.md) | Diagnosis Reads Whole Surfaces First; Failure Catalogues Are Open Sets | Accepted |
+| [PDR-130](PDR-130-two-speed-learning.md) | Two-Speed Learning — Fast Lessons, Slow Concepts, Predictions on Both | Accepted |
+| [PDR-131](PDR-131-merge-concurrency-is-free-quality-binds-at-settled-ready.md) | Merge Concurrency Is Free — Quality Binds at Settled-READY | Accepted |
 | [PDR-132](PDR-132-changeset-health-round-budgets-bind-at-authoring-time.md) | Changeset Health — Round Budgets Bind at Authoring Time | Accepted |

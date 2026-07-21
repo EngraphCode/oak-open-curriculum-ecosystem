@@ -117,7 +117,8 @@ exception and the design-sync runbook.
 
 ## Part 2 — Empirical probes: CSS↔DTCG consistency and four-theme contrast (2026-07-19, same seat)
 
-**Method**: deterministic probe script (scratchpad `dtcg-probes.py`; comparison + WCAG 2.x
+**Method**: deterministic probe script (conserved beside this report as
+`aip-137-dtcg-probes-2026-07-19.py`; comparison + WCAG 2.x
 computation), then three independent adversarial verifiers: a methodology attack (re-ran
 Probe A with its own tokenizer-based comparator and reconciled the full 518-declaration CSS
 census), a full independent recomputation (**all 136 pair-theme rows recomputed from the raw

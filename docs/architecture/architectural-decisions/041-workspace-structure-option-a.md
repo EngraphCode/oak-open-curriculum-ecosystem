@@ -59,7 +59,7 @@ Rules & relationships:
 | foundation libs | yes  | —               | no           | approved generated subpath exports only (`search-contracts` -> `@oaknational/sdk-codegen/*`) | no     | no   | no                                             | no           | No lib-to-lib back-edges; `search-contracts` is the documented generated-contract exception                                                                                                                                                                                                                                                                                                                                                                        |
 | adapter libs    | yes  | yes             | —            | no                                                                                           | no     | no   | no                                             | no           | No adapter-to-adapter imports                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | sdks            | yes  | yes             | yes          | directed only                                                                                | no     | no   | no                                             | no           | No circular SDK-to-SDK dependencies; ADR-108 requires approved package-surface imports rather than direct runtime/search back-edges                                                                                                                                                                                                                                                                                                                                |
-| design          | yes  | yes             | no           | no                                                                                           | —      | no   | no                                             | no           | CSS artefact producers; consumed via built CSS, plus the sanctioned terminal-theme TS contract (ADR-148); intra-design direction per the 2026-07-19 amendment below                                                                                                                                                                                                                                                                                                |
+| design          | yes  | no              | no           | no                                                                                           | —      | no   | no                                             | no           | CSS artefact producers; consumed via built CSS, plus the sanctioned terminal-theme TS contract (ADR-148); intra-design direction per the 2026-07-19 amendment below. Foundation-libs cell corrected yes→no 2026-07-20: the enforced boundary (`createDesignBoundaryRules`) forbids `packages/libs/**` to design workspaces and no design workspace consumes one — the matrix now matches the enforcement                                                           |
 | apps            | yes  | yes             | yes          | yes                                                                                          | yes    | —    | no                                             | no           | Apps consume substrate tiers; agent-tools and agent-graphs are out-of-band coordination/consumer tooling, not runtime dependencies for product applications                                                                                                                                                                                                                                                                                                        |
 | agent-tools     | yes  | yes             | no           | no                                                                                           | no     | no   | —                                              | no           | Optional TypeScript implementation of Practice-operational tooling (ADR-165 phenotype boundary). Consumed as built `dist/` per ADR-178. No adapter-libs (no product-runtime adapter need); no sdks; no apps; no agent-graphs                                                                                                                                                                                                                                       |
 | agent-graphs    | yes  | yes             | no           | `graph-corpus-sdk` only                                                                      | no     | no   | identity / collaboration plumbing exports only | —            | Agent-tooling-adjacent graph consumers. Consume graph substrate (`graph-core`, `graph-*` libs) and the typed corpus adapter (`graph-corpus-sdk`); other sdks (`curriculum-sdk`, `oak-search-sdk`, etc.) are out of scope and require an ADR-041 amendment to permit. Import from `agent-tools` is scoped to identity/collaboration plumbing exports; widening the permitted agent-tools surface requires an ADR-041 amendment. No apps; no adapter-libs; no design |
@@ -128,12 +128,27 @@ system — the estate's design source of truth; added by the implementing plan's
 Stage A) and makes the tier's internal edges explicit for the first time. Intra-design direction ("may be imported by", no back-edges):
 
 ```text
-design-tokens-core → oak-design-system → oak-design-tokens → oak-design-ink
+design-tokens-core ──┐
+                     ├→ oak-design-tokens → oak-design-ink
+oak-design-system ───┘
 ```
 
-- `design-tokens-core` imports nothing from the monorepo; it is consumed as a
-  devDependency (build/validation) by `oak-design-system` and
-  `oak-design-tokens`.
+(Corrected 2026-07-21: the earlier linear chain drew a
+`design-tokens-core → oak-design-system` edge that does not exist — the
+tier's two upstream workspaces are both direct inputs to
+`oak-design-tokens`, which is the only intra-design join point.)
+
+- `design-tokens-core` imports nothing from the design tier; its only
+  monorepo import is the foundation library `@oaknational/result`
+  (Result-typed validation seams — a runtime `dependency`, verified in
+  `package.json` and source). It is consumed by
+  `oak-design-tokens` as a runtime `dependency` (the built
+  `dist/terminal-theme.js` imports it). `oak-design-system` carries NO
+  `design-tokens-core` edge (corrected 2026-07-20 twice: an earlier revision
+  called both edges devDependencies; a later one kept a phantom
+  build/validation edge — the DTCG↔CSS consistency validation actually lives
+  in `oak-design-tokens`' validator script, which reads `oak-design-system`
+  output without `oak-design-system` depending on the tokens core).
 - `oak-design-system` has zero runtime monorepo dependencies; its public
   surface is built CSS plus the generated DTCG export artefact — no React on
   the export surface.

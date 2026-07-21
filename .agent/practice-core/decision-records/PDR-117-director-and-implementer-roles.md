@@ -402,3 +402,30 @@ sharpen §The Director role:
    unmoored from the impact. A Director anchored in the impact is calm because
    the impact is a stable measure: most inputs need a *judgment* (often "no
    action"), not a reaction. The cure is the anchor, not a "pause" rule.
+
+## Amendment (2026-07-20) — "Nothing is 'mine'": blockers are constraints, never possession
+
+Owner ruling (2026-07-15, in-session, graduated at the 2026-07-20 dedicated
+consolidation): **"nothing is 'mine' — the function of the team is to progress
+the work."** This sharpens the owner-interface craft in §The Director role:
+
+- Frame every blocker as a **constraint with unblocking options**, never as a
+  personal assignment or an owner-action queue. "Your click", "your PR",
+  "waiting on you" are possession framings; the correct shape names what the
+  work needs, which options exist, and which the team recommends.
+- Route only constitutively-owner residue upward — and frame even that as
+  what the work needs, not as an item on the owner's queue. The team
+  progresses the work; ownership language that assigns work to a person
+  (owner or agent) misstates how progress happens and burns owner attention
+  on queue-management instead of decisions.
+- The same framing governs agent-to-agent handoffs: a lane is a boundary the
+  team currently routes through one seat, not that seat's property; a
+  blocked seat surfaces the constraint so the team can progress it, rather
+  than holding it as a personal to-do.
+
+Expected observable effect + falsifier (the PDR-130 fast-lane obligation,
+added at first post-adoption touch): owner-facing blocker surfacings stop
+carrying possession framings ("your PR", "waiting on you") and instead name
+constraint + options + recommendation; falsified if a later consolidation
+finds owner-queue framings recurring in Director surfacings after this
+amendment's date.

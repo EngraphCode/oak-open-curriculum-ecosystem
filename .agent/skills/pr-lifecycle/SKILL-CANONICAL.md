@@ -187,7 +187,18 @@ select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
   compound state at each re-arm (proven live end-to-end on PR #330,
   2026-07-08: the watch rode the full arc to MERGED and self-terminated on
   the recompute). MERGED/CLOSED is the only terminal claim — the only state
-  no late comment can un-green.
+  no late comment can un-green. Two refinements to the re-arm loop, both
+  worked instances: (a) **the loop SPINS when the PR is all-green but the
+  merge waits on an authorisation gate** — pr-watch's all-green exit fires
+  instantly on every re-arm and the cycle floods the notification surface
+  until the platform kills the monitor (2026-07-15). On an all-green exit
+  with the PR still OPEN, swap to a slow compound poll (~120s, one GraphQL
+  compound read per tick, emit only on deviation or terminal state).
+  (b) **The watch must emit on every state that means "stuck", not only
+  failure and success**: an auto-merge/queue entry stalled at BEHIND or
+  ejected from a merge group looks identical to "still waiting" unless the
+  watch names those states in its alternation (2026-07-20 — a BEHIND stall
+  sat silent through four update cycles). Silence is not success.
 - **There is no push-event transport to wait on instead**: true push events
   are webhooks (they need a server); `gh api repos/…/events` is itself a poll
   with ~30–60s feed latency; `gh pr checks --watch` has the same
@@ -241,7 +252,12 @@ as phase-local restatements.
    that restates a finding already represented by an inline thread of the
    same review does not add to the tally — dedupe within the review by
    anchor and substance, recording the dedup in the working notes where
-   exercised. A finding whose review binds to an ALREADY-SETTLED round's
+   exercised. Under SHARED CREDENTIALS, the agent's own disposition replies
+   register as reviews by the credential owner — sign every bot-visible
+   reply with the agent identity tuple, and EXCLUDE self-authored signed
+   replies from the round tally and from quiet-window anchoring (drive
+   precedent 2026-07-20; an unsigned self-reply reads back as owner round
+   activity and falsely re-opens the round). A finding whose review binds to an ALREADY-SETTLED round's
    tip AMENDS that round's row (the tally records truth, not the order of
    discovery); the settled round does not reopen — the late finding is
    worked as current-round work — and the trigger arms evaluate the
@@ -282,7 +298,29 @@ as phase-local restatements.
    when that round's tally row settles — recording budget-exceeded in the
    working notes and running the generator question before the round's
    findings are cured. The arms above stay the mechanical backstop, not
-   the first alarm.
+   the first alarm. **The arms fire on GENERATOR recurrence, not singleton
+   noise**: before acting on a fired arm, classify the round's findings —
+   a stream of distinct, unrelated mechanical singletons (each with a
+   different generator) routes to a coverage-noise assessment rather than
+   terminal escalation, while findings sharing one generator confirm the
+   fire (worked instance 2026-07-20, one PR: five distinct mechanical
+   singletons false-refired the count arm; the true guard fire came two
+   rounds later — nine findings, one generator). The classification is
+   recorded in the working notes; a real generator PRESENTING as
+   singletons is the known residual risk, so the assessment must name the
+   generator-absence evidence, not just assert it. **Reflexive loops may
+   never go quiet — then the exit is a JUDGEMENT, capped on ROI and risk,
+   never on round counts** (imported 2026-07-20 from a sibling estate's
+   owner ruling; local worked instances the same day: nine rounds, eight
+   real findings, risk mass falling each round). When each cure creates
+   the surface the next round probes (gate-shaped code especially),
+   validity is not the exit variable: triage each new finding on marginal
+   expected value vs full cost (including permanent maintenance friction)
+   AND a tail-risk veto that fixes any genuinely new severe class
+   regardless of the curve, then exit by reasoned per-site disposition
+   once findings restate a documented residual. Track findings-per-round
+   and risk-mass trend as the crossing-point telemetry; record the round
+   count as the observed crossing point, never as the rule.
 3. **Reviewer-leg states**, computed per (reviewer, tip): **SATISFIED** —
    ANY harvested review by the reviewer binds to the current tip (the
    Phase 3 harvest is the source; the compound read's `latestReviews` alone
@@ -294,7 +332,13 @@ as phase-local restatements.
    **SKIPPED** — via a tip-scoped marker, or via the timeout. The MARKER
    leg: an explicit skip marker in a review body satisfies SKIPPED only
    when its review binds to the current tip, OR when its body declares a
-   terminal / until-re-enabled scope. A scope-declared marker is re-checked
+   terminal / until-re-enabled scope. A reviewer QUOTA notice posted as a
+   tip-bound review ("unable to review … quota limit") IS such a
+   scope-declared marker (scope: quota restored) and NEVER counts as a
+   zero-finding review — reading a bounce as settlement is the silent-wait
+   class at the reviewer leg (worked instance 2026-07-21: quota bounces
+   estate-wide were ruled SKIPPED by the owner and settled PRs merged on
+   green checks + zero threads + dispositioned findings). A scope-declared marker is re-checked
    each round against OBSERVABLE state and holds until its stated condition
    ends (e.g. spend restored); each re-check RECORDS condition, observed
    state, and verdict in the shepherd's working record alongside the skip
@@ -337,8 +381,22 @@ as phase-local restatements.
    ever bound to the tip), the quiet window anchors on the checks-green
    window from item 3. MERGE-READY is a settled round that landed zero new
    findings, plus every Phase 7 gate leg.
-5. **The merge boundary.** Merging is ALWAYS an explicit
-   `gh pr merge --merge` command issued at a freshly RECOMPUTED full gate:
+5. **The merge boundary.** Merging takes exactly two sanctioned shapes,
+   both issued at a freshly RECOMPUTED full gate: the explicit
+   `gh pr merge --merge` command, or ARMING auto-merge — permitted
+   exactly and only **at settled-READY under a Director grant**
+   (PDR-131, 2026-07-20; arming before settlement remains forbidden —
+   the old flat prohibition was born when arming happened at PR-open,
+   pre-settlement). The arm moment carries this same recomputed gate;
+   an armed intent is a standing merge command, so it inherits every
+   leg below — AND its validity is bound to the settled state it was
+   armed at: GitHub enforces only checks and threads, never the
+   round-owed or body-tally legs, so a NEW review, review comment, or
+   harvested finding arriving after arming invalidates the arm. On any
+   such signal the arming seat DISARMS (or re-verifies the full gate
+   and re-arms) — an armed intent is never fire-and-forget, and a seat
+   that arms owns watching for exactly this staleness until the merge
+   fires. The recomputed full gate:
    the round reads SETTLED per item 4 for the current tip; zero unresolved
    threads;
    a finding count of ZERO on BOTH tally surfaces (threads AND review
@@ -349,6 +407,44 @@ as phase-local restatements.
    blocks THIS merge moment); every Phase 7 gate leg green INCLUDING
    checks GitHub does not enforce; the Sonar gate passing. The command
    inherits Phase 7's merge-authorisation boundary unchanged.
+   **In a coordinated drive, the settled-round predicate binds GRANTS,
+   not just merges**: a routing seat (Director) grants MERGE-ELIGIBILITY
+   — the predicate verdict, never a queue position (serial one-at-a-time
+   slots and bump-gap waits retired 2026-07-20, PDR-131: merge concurrency
+   between eligible PRs is free; quality binds at settled-READY, and the
+   2026-07-20 cascade — eleven settled+green PRs landing in ~6 minutes,
+   gate green, every Phase-8 clean — is the measured evidence) — only
+   on the item-4 settled verdict — zero threads AND zero body-tally
+   findings on the tip, every expected reviewer leg SATISFIED/SKIPPED,
+   a full quiet window since the latest tip-bound review, checks green —
+   because a grant is read downstream as authorisation-to-act-now, and
+   "the executing seat will recompute" is hope, not a gate, under grant
+   momentum. The executing seat STILL recomputes at the boundary
+   (two layers, both live; worked instance 2026-07-20: one moment-read
+   grant raced a composing bot round by 21 seconds and only an unrelated
+   third mechanism stopped a premature merge; six post-predicate
+   landings, zero races).
+   **When the base branch runs a merge queue**, `gh pr merge --merge`
+   ENQUEUES rather than merging: the queue owns currency and re-runs CI
+   on the merge group, which subsumes the update-branch treadmill — but
+   it does NOT cover the composing-round race (the queue enforces
+   GitHub's own conjunction, which excludes the round-owed leg), so the
+   settled-round predicate gates the ENQUEUE exactly as it gated the
+   merge. Verify the live ruleset before relying on either mechanics; a
+   merge-group ejection is a real finding to harvest, never a retry loop.
+   Queue quirk (worked instance 2026-07-20): a `gh pr merge` that returns
+   the queue's strategy notice with a NULL queue entry may still ARM a
+   when-ready auto-enqueue intent that fires later (e.g. once a required
+   check lands on a fresh head) — after any refused/odd enqueue attempt,
+   re-read `mergeQueueEntry` before assuming nothing is armed, and treat
+   an unexpectedly-queued PR as an armed intent, not a mystery.
+   **Rule-removal disarms first** (PDR-131 §6; worked instance
+   2026-07-20: eleven queue-era armed intents survived the merge-queue
+   rule's removal and fired as plain auto-merges within ~6 minutes —
+   benign that day only because every one was settled+green): armed
+   merge intents survive queue/protection-rule removal and fire
+   silently, so before removing any queue or protection rule, enumerate
+   and disarm every armed intent.
 
 ## Phase 6 — After EVERY push, re-fetch; resolve only what is settled
 
@@ -364,6 +460,14 @@ as phase-local restatements.
   tip with no requested reviewer and no tip-bound review waits forever
   looking healthy (two live instances, 2026-07-20). The same sweep names a
   shepherd for every open PR: threads with no owner are the same disease.
+  The sweep's third leg is **review-RUN liveness**: `gh agent-task list`
+  enumerates review runs (`--json id,name,createdAt,completedAt`;
+  `completedAt` null = in flight) and `gh agent-task view <session-id>
+  --json` maps a run to its PR (the list JSON carries no PR number; the
+  PR-number positional is interactive-only — vendor shapes verified
+  2026-07-21). Run-in-flight, run-never-started, and run-dead are now
+  distinguishable states; a wait on a review whose run never started is
+  the silent-wait class, not patience.
 - **Own the convergence loop — never hand it to the owner** (owner
   corrections, 2026-07-07 #317 and 2026-07-08 #324 — two seats re-derived
   the same blind spot in one sitting; scheduled nap-probes FEEL like
@@ -430,8 +534,9 @@ two-line lint failure believed self-landing).** Then:
   PR #325): a seat recomputed `mergeable: MERGEABLE` three times as its
   "truly-green gate" while never once reading `mergeStateStatus`, and could
   not explain the unmerged state to the owner.
-- **Merge only as the explicit command at the state machine's merge
-  boundary (item 5).** Item 5 holds the single definition of the boundary
+- **Merge only through the state machine's merge boundary (item 5) —
+  the explicit command, or auto-merge armed at settled-READY under a
+  Director grant (PDR-131).** Item 5 holds the single definition of the boundary
   and its recomputed gate; Phase 7 adds only the residual-race truth it
   leaves open: the explicit `gh pr merge --merge` is a check-then-act step
   — review state can change between the recomputation and the command, and
@@ -566,6 +671,8 @@ update continuity surfaces; close claims.
   nothing posts any more, misread as a merge mystery (PR #391, 2026-07-16:
   the required SonarCloud context was absent from every commit including
   main's) — cured by the Phase 7 never-fires recognition: check main for
-  the context, then surface the governance gap to the owner. (Arming has
-  since been struck entirely, so this mode can no longer arise; the
-  recognition stays for permanently-BLOCKED states generally.)
+  the context, then surface the governance gap to the owner. (Arming was
+  struck in that era and later RE-PERMITTED at settled-READY under a
+  Director grant — PDR-131, 2026-07-20 — so this mode can recur; the
+  never-fires recognition applies to any armed intent, alongside the
+  item-5 arm-staleness disarm duty.)

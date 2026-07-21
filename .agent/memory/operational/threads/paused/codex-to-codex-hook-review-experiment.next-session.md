@@ -284,7 +284,10 @@ Corrected evidence-first restart sequence (2026-07-20, conserved from PR #406, c
 `SHA:56f15170f`). The next session does not resume the prototype by assumption; it starts from the
 smallest official configuration proof:
 
-1. Merge or otherwise disposition draft PR #403 without claiming activation.
+1. ~~Merge or otherwise disposition draft PR #403~~ DONE (2026-07-20): PR #403
+   was CLOSED UNMERGED at 07:50:30Z with the state preserved on the pushed
+   branch `fix/claude-hook-hardening` at `SHA:c4fae0b83` — no PR disposition
+   remains; a resumed session starts directly at step 2.
 2. Start a normal fresh branch from current `main`.
 3. Follow the official Codex hook configuration shape exactly and prove one deterministic
    `PreToolUse` command is listed by `/hooks` in a fresh trusted session.
@@ -319,6 +322,7 @@ client.
 
 | agent_name | platform | model | session_id_prefix | role | first_session | last_session |
 | --- | --- | --- | --- | --- | --- | --- |
+| Foundry guards Vapor | claude | claude-fable-5 | 72fa18 | lifecycle curator — record moved to paused/ per convention; durability trued to the PR #403 preservation (SHA:c4fae0b83); SHA prefixes conformed; no lane work touched | 2026-07-17 | 2026-07-17 |
 | Lupin herds Bark | codex | GPT-5 | 019f67 | implementer, adversarial peer, documentation closeout owner | 2026-07-16 | 2026-07-17 |
 | Zephyr turns Crosswind | codex | GPT-5 | 019f6a | compound peer, trial executor, terminal handoff author | 2026-07-16 | 2026-07-16 |
 

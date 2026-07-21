@@ -41,6 +41,17 @@ original. Adaptations (rather than direct adoptions) MUST also note
 *how* the local form differs from the upstream — silent divergence
 turns a citation into a misleading doc.
 
+**Private-upstream clause** (added 2026-07-21; the worked instances are
+the Resonance/castr imports of 2026-07-20): when the upstream is a
+private repository or estate with NO public URL, a working link cannot
+exist and is not required. The required citation is then: the upstream's
+name, its repo-relative source path, the exchange vehicle (e.g. the
+inter-practice protocol / an incoming-capture note), and the adaptation
+note — the maximum reproducibility a private upstream permits. Stating
+"no public upstream URL exists" explicitly is part of the citation, so a
+reader knows the link's absence is a property of the source, not an
+omission.
+
 The motivation is twofold: (a) reproducibility — a future reader
 should be able to consult the upstream when a local restatement
 becomes ambiguous; (b) intellectual honesty — work that builds on

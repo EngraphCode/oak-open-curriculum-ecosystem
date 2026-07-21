@@ -5,7 +5,7 @@ lineage:
   serves_thread: agentic-engineering-enhancements
   serves_stream: agent-experience-substrate
   strategic_choice: "agent-experience is first-class (PDR-111): the statusline is the agent's always-on glance surface; multi-channel identity-coloured liveness is a substrate capability, not decoration."
-  derives_from: "Owner direction 2026-07-20: bring the feather icon enhancements and the moved usage-quota data from the Resonance→castr statusline lane into oak; the ARC feather system is a serious statusline-infrastructure upgrade. No backwards compatibility (principles.md §Core Rules)."
+  derives_from: "Owner direction 2026-07-20: bring the feather icon enhancements and the moved usage-quota data from the Resonance→castr statusline lane into oak; the ARC feather system is a serious statusline-infrastructure upgrade. No backwards compatibility (principles.md §Core Rules). Upstream provenance: castr is a private sibling repo of the owner's (no public URL exists; the durable citation is the repo name + this owner direction; source paths cited per-item in the plan body are castr-repo-relative)."
 todos:
   - id: ws-a-cycle-1
     content: "WS-A (usage relocation) cycle 1: test asserts ctx: + s/w gauges render on the repo-title (location) row, not the identity/model rows; add locationRowsWithUsage() to oak statusline-render.ts and re-point the two row-assembly sites. Allowed surface: agent-tools/src/claude/statusline-render.ts + agent-tools/tests/claude/statusline-render.unit.test.ts (the TDD pair travels together). One commit, tree green. Proof: pnpm --filter @oaknational/agent-tools test -- tests/claude/statusline-render.unit.test.ts"

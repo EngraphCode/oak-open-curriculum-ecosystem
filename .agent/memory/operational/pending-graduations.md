@@ -116,26 +116,29 @@ debt register, 2026-07-08).
 
 <!-- New pending-graduation capture appends below as inline-bracket entries. -->
 
-<!-- Register drained to empty at the 2026-07-14 dedicated consolidation (Dolphin weaves
-Reef): both items below graduated to PDR-128 (review-conversations-are-first-class) and the
-new records-are-technical-not-emotional rule respectively — both homes verified live. -->
+<!-- Register drained to empty at the 2026-07-20 dedicated consolidation (Siren lifts
+Trench): the F-92 heartbeat-loop item was already terminal (duplicate of F-92, whose cure
+now also lives in the liveness-heartbeat-cron rule's canonical-invocation clause); the
+no-risk-of-loss absoluteness clause graduated to never-use-git-to-remove-work §A Safety
+Proof Never Licenses the Class; the "nothing is mine" ruling graduated to the PDR-117
+2026-07-20 amendment; derived-output conservation graduated to the
+derived-output-conservation pattern; the cut-branch roll-up practice graduated to
+no-parallel-long-lived-branches and the verification-methods candidate to the
+verification-method-must-answer-the-question pattern; the no-escape-hatches ruling
+graduated to principles.md §Strict and Complete. All homes verified live before this
+drain. The commits and the homes are the record. -->
 
-- **Canonical heartbeat-loop recipe must bump the claims registry, not only the comms stream** `[captured: 2026-07-15 | source: napkin 2026-07-15 Barnacle calls Spray session-close loss-scan, item 2 | status: duplicate — already captured as F-92 (frictions-register.md, 2026-06-27, the "canonical loop omits the CLAIM heartbeat refresh" bullet) with the identical cure and target surface; routed per this register's tooling-gap rule. The 2026-07-15 Barnacle-tenure incident (~15h registry-stale during continuous comms heartbeats, peer-caught at succession) is recorded on F-92 as recurrence confirmation. Terminal disposition 2026-07-15, Schooner guards Whirlpool, per PR #381 review thread.]`
+## Slow lane (PDR-130 — constitutional-class concepts, decided at their review date)
 
-- **No-risk-of-loss operations are absolute — a duplication proof never licenses the class** `[captured: 2026-07-15 | source: owner ruling in-session (Schooner Director tenure; napkin 2026-07-15 loss-scan item 1a) | target: .agent/rules/never-use-git-to-remove-work.md (strengthening clause) | trigger: next edit to that rule, or the F-145 valve design (the two must land together — the valve is the sanctioned path, the absoluteness is why no self-serve path exists) | size: small | status: pending]`
-  Owner ruling: "no operations that might risk a loss of work; relaxing that discipline is
-  what caused these problems in the first place" — ruled against a PROVEN-duplicate stash
-  proposal. The doctrine point: local proofs of safety do not license risk-class operations;
-  the discipline's value is its absoluteness. Currently doctrine-visible only in this
-  register, the napkin, and one platform's per-user memory.
+Rows here are live deliverables under a named review gate, NOT decision-debt:
+each carries a prediction, a falsifier, and a review date, and is decided
+(promote / kill-with-reasoning) AT that date. A dedicated consolidation passes
+these by unless a review date has arrived. **Bootstrap exception (the row
+below): a row tracking an ALREADY-ACCEPTED record is decided retain vs
+retire-by-its-own-falsifier at review — promote/kill applies only to
+not-yet-minted concepts.**
 
-- **"Nothing is 'mine'" — frame blockers as constraints with unblocking options, never possession** `[captured: 2026-07-15 | source: owner ruling in-session (napkin 2026-07-15 loss-scan item 1b) | target: .agent/practice-core/decision-records/PDR-117-director-and-implementer-roles.md §The Director role (owner-interface craft) | trigger: next PDR-117 amendment pass (the Trawler-brief Part B queue) | size: small | status: pending]`
-  Owner: "nothing is 'mine' — the function of the team is to progress the work." Cures
-  owner-action-queue framing ("your click", "your PR"); report constraints + options, route
-  only constitutively-owner residue, and frame even that as what the work needs.
-
-- **Derived-output conservation shape for the refounding arc** `[captured: 2026-07-15 | source: S1 publication decision (owner retention question + Director ruling; PR #382; napkin 2026-07-15 loss-scan item 2) | target: .agent/memory/active/patterns/derived-output-conservation.md (new pattern file; the plan P-clause and S2+ remit template then cite it) | trigger: before S2 execution begins | size: small | status: pending]`
-  Unique source freezes commit verbatim (S0); deterministic derived outputs commit only the
-  compact attestation (hashes, counts, calibration disclosures, exact regeneration +
-  verification contract) with bulk artefacts local/ignored. Twice-run byte-identity is the
-  reproducibility bar. Prevents re-litigating the 49MB question at S2/S3/S4.
+| Concept | Prediction (by review) | Falsifier | Review |
+| --- | --- | --- | --- |
+| Two-speed learning itself (PDR-130) | ≥3 fast-lane graduations carry prediction lines; ≥1 slow entry promoted or killed BY its review | Register untouched at review — the lane is theatre; retire the PDR by its own rule | 2026-10-01 (first consolidation on/after) |
+| Close-time single-lesson graduation (retrospective 2026-07-20 proposal 1): a captured lesson that is single-instance sufficient (PDR-100), has a nameable doctrine home, and needs no cross-seat synthesis graduates AT session close; the frozen-corpus constraint gates rotation and cross-seat synthesis only. Promotion target: `session-handoff` step 6b, landed under the PDR-101 quorum. Provenance: authored FAST-enacted in the retrospective, reclassified slow-lane at PR #450 review (PDR-130 §§2/4; Director-ratified 2026-07-20) | Pre-promotion observable, accrued in this row during the quarter: each clause-eligible lesson that recurs between capture and its homing is logged here as it occurs — the measured cost of batching while the clause stays unenacted (worked warrant: a June-documented class re-surfaced 2026-07-17 and re-bit three seats before homing, ~3 days from that re-surfacing). At review: promote if at least one recurrence class accrued; the post-promotion prediction (recurrence drops to ~zero) binds only after enactment | No recurrence accrues by review (the batching frame carries no measured cost — the entry is killed), or the accrual log itself goes untouched (the row is theatre; kill it by the register's own rule) | 2026-10-20 |

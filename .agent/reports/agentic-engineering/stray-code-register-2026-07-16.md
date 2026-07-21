@@ -149,11 +149,14 @@ named live lane.
 
 ### 2026-07-17 final state — AIP-127 landed
 
-PR #405 MERGED (`SHA:2836d5d32`, 09:19Z): the coordination estate is on main; 68
-review threads dispositioned (stale-rollback restores, continuity-union superset
+PR #405 MERGED (`SHA:2836d5d32`, 09:19Z): the coordination estate is on main; the
+thread ledger closed at 109/109 dispositioned (it grew 47→68→84→109 as post-merge
+bot rounds fired on every push of the then-PR-head living branch — the treadmill
+the cut-branch roll-up practice cures) (stale-rollback restores, continuity-union superset
 refutations with probes, mechanical SHA:/lifecycle/contract cures — trail on the
 PR). The coordination branch re-synced from main post-merge. Remaining open
-drafts: #397/#399 (refounding restart), #401 (ITF integration pass), #403
-(codex-hook lane) — AIP-131's close condition is met. The superseded
+drafts: #397/#399 (refounding restart), #401 (ITF integration pass), #403 and
+#406 (codex-hook lane — #406 is Lupin's discovery-result closeout draft, opened
+during the sweep window) — AIP-131's close condition is met. The superseded
 `chore/aip-131-primary-estate-snapshot` branch (closed PR #395) awaits owner
 branch-deletion at their convenience.

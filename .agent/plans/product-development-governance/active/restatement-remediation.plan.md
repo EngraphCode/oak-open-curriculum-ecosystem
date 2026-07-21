@@ -24,7 +24,10 @@ todos:
     content: >-
       Build the restatement-audit module (TDD, corpus-analysis substrate) and
       land it via its own PR.
-    status: pending
+    status: completed
+    # Landed via PR #393 (merge SHA:9a5bf6bc2, 2026-07-16). The post-#393
+    # review-spec boundary hardening is AIP-126 (PR #409) — a v2-cycle
+    # precondition tracked in Linear, not a reopening of this todo.
   - id: d2-fleet-run
     content: >-
       Run the T3+U audit fleet to a verified fix-ledger, under the v2 spec and

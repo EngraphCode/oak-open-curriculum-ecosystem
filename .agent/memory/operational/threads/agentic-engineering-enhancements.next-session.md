@@ -11,7 +11,8 @@ fitness_line_length_rationale: >-
   noise while still flagging genuine over-runs (this record still has a few >115
   lines that correctly remain flagged).
 fitness_content_role: reference
-overflow_disposition: 'leave-if-live; else conserve-insight-and-delete — never archive/split/rotate/shard (see continuity-practice.md §Disposition of Continuity Surfaces)'
+overflow_disposition: 'leave-if-live; else conserve-insight-and-delete — never
+archive/split/rotate/shard (see continuity-practice.md §Disposition of Continuity Surfaces)'
 merge_class: index-narrative-tables
 ---
 # Next-Session Record — `agentic-engineering-enhancements` thread
@@ -273,7 +274,9 @@ removal. Its forward pointers ("Next on this lane") are SUPERSEDED by the 2026-0
 WS0-landing update above; its landings (#309 synthesis, #311 durable copy + wiring) and
 identity row remain the authoritative record of that session.
 
-### RECOVERED RECORD (2026-07-06, committed 2026-07-08): INTER-PRACTICE KNOWLEDGE TRANSFER — oak now OWNS the resonance substance; synthesis + durable copy landed (2026-07-06)
+### RECOVERED RECORD (2026-07-06, committed 2026-07-08): inter-Practice knowledge transfer
+
+Oak now OWNS the resonance substance; synthesis + durable copy landed (2026-07-06) (heading tail relocated 2026-07-20; substance unchanged):
 
 Session identity: Orchid binds Verdure (claude / claude-fable-5 / prefix `51a331`); =
 Vining Rustling Dew on the resonance estate (guest observer, no claim held). This session made

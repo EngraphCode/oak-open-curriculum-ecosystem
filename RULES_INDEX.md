@@ -79,6 +79,7 @@ without proportional value.
 | `.agent/rules/dont-break-build-without-fix-plan.md`                        | always-on      | —                                                                                                   |
 | `.agent/rules/eef-corpus-grounding.md`                                     | trigger-loaded | Authoring/editing a claim about the EEF corpus (`EEF_TOOLKIT_DATA`) or EEF-thread work              |
 | `.agent/rules/executive-memory-drift-capture.md`                           | always-on      | —                                                                                                   |
+| `.agent/rules/exit-codes-in-band-never-piped.md`                           | always-on      | —                                                                                                   |
 | `.agent/rules/follow-agent-collaboration-practice.md`                      | always-on      | —                                                                                                   |
 | `.agent/rules/follow-collaboration-practice.md`                            | always-on      | —                                                                                                   |
 | `.agent/rules/follow-the-practice.md`                                      | always-on      | —                                                                                                   |

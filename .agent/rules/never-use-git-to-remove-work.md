@@ -89,6 +89,23 @@ may run the command themselves via `!`). The table's "read HEAD, then
 Edit what you want to keep" row is selective forward judgment, not this —
 the line is wholesale restoration of the blocked effect.
 
+## A Safety Proof Never Licenses the Class
+
+No local proof of safety — a byte-identical duplicate elsewhere, a clean
+`diff`, a verified ancestor relationship — licenses a risk-of-loss
+operation (`stash`, `checkout`, `reset`, or kin). The owner ruled this
+against a PROVEN-duplicate `git stash push` proposal (2026-07-15):
+*"no operations that might risk a loss of work; relaxing that discipline
+is what caused these problems in the first place."* The doctrine point is
+that the discipline's value IS its absoluteness: every relaxation
+argument arrives with a locally-sound proof, and the class of losses this
+rule prevents was caused by exactly such proofs being wrong in ways their
+authors could not see (a peer's unseen edit, a stale comparison, a moving
+tree). Leave-and-surface, or an owner-run command, are the only paths —
+never a self-served exception. This coheres with the no-escape-hatches
+principle (`principles.md` §First Principle): the impulse to construct a
+sanctioned bypass is itself the signal to examine.
+
 ## Exceptions
 
 There are none for working-tree edits. Once a change is committed, the

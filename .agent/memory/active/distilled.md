@@ -31,7 +31,9 @@ earned promotion.
 
 New napkin rotations append below; the next consolidation promotes them out.
 
-<!-- Buffer drained empty at the 2026-07-06 dedicated consolidation (Zenith wakes
-Perigee): every entry of the 2026-06-29→07-06 window was graduated to a verified
-permanent home or confirmed already-homed. The commits and the homes are the
-record. -->
+<!-- Buffer drained empty at the 2026-07-20 dedicated consolidation (Siren lifts
+Trench): the 2026-07-17 verification-methods entry graduated to the
+verification-method-must-answer-the-question pattern (substance-probes and the
+stale-capture-wins marker probe included); the 2026-07-18 no-escape-hatches
+entry graduated to principles.md §Strict and Complete. Homes verified live. The
+commits and the homes are the record. -->
