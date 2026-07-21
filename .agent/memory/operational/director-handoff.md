@@ -288,6 +288,24 @@ first-hand as of 2026-06-25.
 > Deliverable B claim `57d895cb` retained-with-record, worktree pruning owner-gated,
 > throughput weekly read ~2026-07-27).
 >
+> **FREEZE STATE (2026-07-21 ~00:10Z, owner-away evening drive):** the net-to-zero
+> drive ran to a near-zero board, then froze on TWO owner gates: (1) the shared
+> `gh` credential went INVALID (~23:45Z) — every harvest/arm/merge halted; fix is
+> the interactive `gh auth login -h github.com`, owner-run; SSH git + comms +
+> local work continued; (2) **PR #450** is doctrine-halted at the step-back
+> tripwire (five distinct finding-classes in five rounds) with the owner decision
+> matrix conserved in Forge's 23:04Z tripwire event: (a) authorise the one-thread
+> report-contract cure and merge, (b) disposition-as-residual and merge, (c) a
+> further named gate. Board at freeze: #448/#437/#449 settled-zero at arm points
+> `4e3abc58e`/`616fb3c65`/`31f06a501` (Quoll, banked); #451 r1 cures pushed
+> `1f678e7fe` (Forge); #434 at 4 unresolved, r4 review requested (trajectory
+> 68→8→4, cure commits through `ab46860b9`); #439 MERGED `7f55236c7`; #450 halted
+> at `34459f96d`. At owner re-auth the tails resume mechanically: re-request the
+> #434 review → settle → merge; arm the three settled lanes; finish #451 rounds.
+> Owner-return card queue beyond the two gates: the wrap-inventory list (worktree
+> prunes, studio sync-back, §7(b) ticket, statusline Deliverable B seat,
+> throughput weekly read 2026-07-27, merge-queue-card-moot confirmation).
+>
 > <details><summary>Superseded 2026-07-20 ~21:20Z: Galago tenure shape + Galago→Forge transition (conserved)</summary>
 >
 > Galago stirs Grotto (`60d988`) held the seat from Moment-2 08:01:08Z (event
