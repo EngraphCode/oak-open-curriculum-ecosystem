@@ -671,3 +671,39 @@ Counter-instance the same hour proving the method works when honest: the Gemini 
 re-fetched the live pages, quoted verbatim, and the original claims CONFIRMED — plus dated
 deltas (Spark international 15 Jul, UK/EEA still excluded). Verbatim-quoted live-page evidence
 survives challenge; snippet-graded evidence does not.
+
+## 2026-07-22 — Urchin hunts Surf (b51773): MCP-63 build observations
+
+- **MISTAKE (owned): closed a commit-window claim on an unverified result.** The cycle-1
+  commit was backgrounded; I closed the `git:index/head@mcp-63-posthog` claim with
+  "commit (cycle 1) …" as its summary BEFORE reading the gate output — the commit had
+  FAILED the prettier gate. Same class as capture-full-output/confident-unverified:
+  a claim-closure summary is a verdict; verify the exit and the ref before writing it.
+- **`minimumReleaseAge` (1440 min) fired on a same-day vendor release**: @posthog/mcp@0.10.0
+  (published hours earlier) was refused by pnpm; the mature 0.9.1 was diff-verified against
+  the already-audited 0.10.0 artefact (beforeSend/capture/options identical; one added
+  property constant) and pinned instead. Worked instance: the supply-chain gate composing
+  with verify-vendor-call-shapes — diff the mature version against the audited one rather
+  than overriding the gate or waiting.
+- **Whole-tree pre-commit caught what per-file checks missed**: the app's lint layer bans
+  `Record<string, unknown>` literals, `Object.entries` (use `typeSafeEntries`), and
+  complexity >8 — my superRefine addition tipped an existing arrow to 10. Cure shapes:
+  vendor-derived indexed-access types (`X['properties']`), the type-helpers entry helper,
+  and named refine-clause extraction. Run the workspace's OWN eslint on new files before
+  the first commit attempt, not just vitest+tsc.
+- Cricket A/B: one further convergent pair (cited-grounding context; both ON-TRACK) —
+  the class cure holds at this seat too.
+
+## 2026-07-22 — Genet stirs Covert (e1df35): premature build routing (owned, owner-caught)
+
+Routed a BUILD lane (analytics integration) off "ratified constraints + a ticket" while the
+owner's planning sitting was explicitly scheduled and the owner's word was "figuring out what
+the right thing is" before building. Owner halted it directly at the implementer's seat: the
+work "has not yet been planned" and must align to the app's established approach. The class:
+**a ratified constraint set (privacy posture, ticket text) is NOT goal formation — a build
+lane needs the owner's planned-work word.** This is the goal-ESTABLISHED-vs-INHERITED-AS-PROSE
+lesson at Director-routing grain — third instance this week (Bandicoot's menus; the corpus
+sketch; now my lane routing). Corrective applied: ALL build-lane routing held until the
+planning sitting; preservation-only handling of the halted lane's local state
+(tracked-and-pushed bare branch, no PR). The implementer's halt conduct (stop, inform,
+preserve, honest state incl. own commit defect) is the worked positive instance.
