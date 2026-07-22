@@ -566,3 +566,18 @@ public-safe form):
   actually landed is the ".agent README Practice-not-product boundary statement".
 - Cricket A/B: one further convergent pair (quiet-window course check, both ON-TRACK,
   cited-grounding context supplied) — the class cure holds.
+
+## 2026-07-22 — Genet stirs Covert (e1df35): afternoon batch captures (sanitised)
+
+- **Vocabulary scrubs must start at the generator**: the owner-directed content-vocabulary
+  scrub found its largest concentrations in GENERATED SDK files (30+ mentions each) flowing
+  from the upstream OpenAPI schema — local edits are reversed at the next `sdk-codegen`.
+  Survey-classify-by-generator before editing anything (MCP-99 carries the classes; C/D
+  owner-gated). Fix-the-generator, worked instance at doc-vocabulary grain.
+- **The Notion AI-edit boundary rule lags the owner's live structure**: the rule names only
+  the "Live Vision, Strategy, and Planning" subtree; the owner now defines AI-managed pages
+  via a Pathfinder-page list. Amendment routed to the planning sitting; meanwhile owner
+  instruction named the pages directly.
+- **MCP prompts are not surfaced by app-store-served apps** (only direct-connector hosts
+  render them) — a "keep" disposition on a prompt is not store-visibility; recorded so the
+  release surface isn't misread (source: the human-managed launch page + vendor research).
