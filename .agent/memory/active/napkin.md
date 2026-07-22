@@ -627,3 +627,47 @@ statusline bell read a stale 3 until the owner noticed. The projection contract 
 one indivisible move: change Linear → re-render the register → bell truth follows.
 Same class as "the rendered log is a constructive overwrite": generated projections
 are only true at generation time; every mutation of their source re-obligates the render.
+
+## 2026-07-22 — Urchin hunts Surf (b51773): MCP-103 phase (a) lane observations
+
+- **Linear MCP `get_issue` by IDENTIFIER is broken today** (`Cannot query field
+  "presentedReasons" on type "IssueSuggestion"`, HTTP 400, both the plugin and
+  MCP_DOCKER servers): the identifier path triggers the server's triage-suggestions
+  sub-query against a Linear API that no longer carries the field. **Lookup by issue
+  UUID works** (resolve the UUID via `list_issues` query, then `get_issue` with it);
+  `get_document` is unaffected. Frictions-register candidate; vendor-side, will
+  likely self-heal on a server update.
+- **The ticket's "post prompt-removal" framing described ruled state, not code
+  state** — prompts were still registered and no allowlist module existed at
+  refresh time. The registry cure: record ruled target state as dated
+  `ruling_note`s plus an explicit `code_state_at_refresh` statement, never
+  as if delivered. Same class as executed-≠-ratified, at data-refresh grain.
+- **Sibling-mention check found an unlisted affected surface**: D11 touches the
+  landing page's prompt-catalogue section (`render-prompts-section.ts`, 4 items)
+  which the ticket's file-set framing did not name. Grep for the primitive's
+  *presentation* surfaces, not just its registration/body files.
+
+## 2026-07-22 — Genet stirs Covert (e1df35): vendor-availability verification failures (owned, owner-caught)
+
+The owner refuted a "verified" claim ("ChatGPT apps unavailable in the UK on any tier") that
+was wrong twice over. Three distinct failure mechanisms, each with a cure:
+
+1. **Surface conflation**: platform capability claims MUST name the surface they bind
+   (store/directory ≠ connectors ≠ developer mode ≠ workspace-published — every assistant
+   platform has 3+ distinct third-party surfaces). The refuting evidence was in-estate all
+   along: our own users demonstrably used the "unavailable" capability. Reconcile every
+   availability claim against first-hand usage evidence BEFORE publishing it.
+2. **Evidence-grade flattening**: the research agent had graded its finding (snippet-verified,
+   403-blocked page) and scoped it (one surface); MY summary flattened both into a plain
+   "verified" table cell. Grades and scopes travel end-to-end into owner-facing renders, or
+   the summary is fabricating certainty.
+3. **Launch-snapshot staleness**: a vendor's launch-announcement page (with its restrictions)
+   is not current availability — restrictions get lifted in release notes, not by editing the
+   launch post (here: an Oct-2025 exclusion lifted Dec-2025; a *different* product's Jul-2026
+   exclusion reinforced the stale picture). Check the release-notes stream for lifts before
+   trusting any restriction older than a quarter.
+
+Counter-instance the same hour proving the method works when honest: the Gemini triple-check
+re-fetched the live pages, quoted verbatim, and the original claims CONFIRMED — plus dated
+deltas (Spark international 15 Jul, UK/EEA still excluded). Verbatim-quoted live-page evidence
+survives challenge; snippet-graded evidence does not.
