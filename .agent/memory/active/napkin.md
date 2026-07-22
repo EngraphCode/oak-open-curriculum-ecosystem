@@ -618,3 +618,12 @@ public-safe form):
   (new domain DNS; Google brand verification) dissolved under base-assumption questioning —
   V1 keeps the current URL, and the org's existing production identity estate already
   carries the vendor ground. The sketch's cost model was inherited, not derived.
+
+## 2026-07-22 — Genet stirs Covert (e1df35): stale-projection miss (owned)
+
+Closed three owner-ask issues in Linear without re-rendering the owner-jobs
+projection in the same pass — the file's own embedded contract requires it, and the
+statusline bell read a stale 3 until the owner noticed. The projection contract is
+one indivisible move: change Linear → re-render the register → bell truth follows.
+Same class as "the rendered log is a constructive overwrite": generated projections
+are only true at generation time; every mutation of their source re-obligates the render.
