@@ -57,13 +57,13 @@ Each item has a **review domain** (which expert should audit it) and an **extrac
 
 ## Summary
 
-### By workspace scope (D12 cut — what the content workspace holds)
+### By workspace scope (D12 cut — what the content workspace accounts for)
 | Workspace scope | Items |
 | --- | --- |
-${table(meta.workspace_scope)}
+${table(meta.workspace_scope || {})}
 
-- **in** — repo-controlled; belongs in the model-behaviour content workspace(s).
-- **out-upstream-api** — base text owned by the upstream Oak Open Curriculum API spec (generated-from-openapi); registered out with that reason so the map to the owning repo is preserved.
+- **in** — belongs in the model-behaviour content workspace(s): the workspace holds it, generates it from an in-repo source, or wraps/cites it. Ownership is the separate **source locus** dimension — the in-scope set includes wrap/cite external items and oak-skills-derived workflows that this repo does not own.
+- **out-upstream-api** — words owned by the upstream Oak Open Curriculum API spec (source locus \`upstream-in-house-api\`); registered out with that reason so the map to the owning repo is preserved. The 14 in-repo codegen-authored annotation blocks stay **in** — their review path is the generator source.
 
 ### By impact tier (gates protocol weight)
 | Impact tier | Items |

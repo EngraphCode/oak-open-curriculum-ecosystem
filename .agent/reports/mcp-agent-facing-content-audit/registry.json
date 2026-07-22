@@ -80,14 +80,14 @@
       "boundary-owner-call": 24
     },
     "workspace_scope": {
-      "in": 586,
-      "out-upstream-api": 130
+      "in": 600,
+      "out-upstream-api": 116
     },
     "refresh_2026_07_22": {
       "ticket": "MCP-103 phase (a)",
-      "summary": "Delta-refresh against the 2026-07-22 owner rulings (decisions register D2/D11/D12; delivery tickets MCP-101/MCP-102). Fields added: workspace_scope (every item), ruling_note (ruled items only). The audit snapshot itself (item ids, classification, original counts) is unchanged; this refresh re-scopes and re-statuses it.",
+      "summary": "Delta-refresh against the 2026-07-22 owner rulings (decisions register D2/D11/D12; delivery tickets MCP-101/MCP-102). Fields added: workspace_scope (every item, predicated on upstream ownership per D12), ruling_note (ruled items only). The audit snapshot itself (item ids, classification, original counts) is unchanged; this refresh re-scopes and re-statuses it.",
       "deltas": [
-        "D12 scope cut: the 130 generated-from-openapi items are OUT of the model-behaviour content workspace — the upstream Oak Open Curriculum API spec owns those words, and generated files are never hand-edited. They stay registered with workspace_scope=out-upstream-api so the map to the owning repo is preserved (acceptance: in, or explicitly out with a reason).",
+        "D12 scope cut, predicated on upstream ownership: the 116 items whose words are owned by the upstream Oak Open Curriculum API spec (source_locus upstream-in-house-api; all generated-from-openapi) are OUT of the model-behaviour content workspace — upstream owns those words, and generated files are never hand-edited. The 14 in-repo codegen-authored tool-annotation blocks (generated-from-openapi but source_locus this-repo; the C607 family) stay IN — their review path is the generator source. Out items stay registered with workspace_scope=out-upstream-api so the map to the owning repo is preserved (acceptance: in, or explicitly out with a reason).",
         "D11 prompt removal: the app will serve ZERO MCP prompts (the primitive unregisters). The seven workflow bodies re-home as agent resources — the navigation three (find-lessons, explore-curriculum, learning-progression) LIVE; the creation-oriented four (lesson-planning, adapt-lesson, curriculum-mapping, continue-progression) retained DORMANT behind the MCP-101 allowlist. 43 items annotated: the three prompt file groups (39) plus the landing-page prompt-catalogue section (4).",
         "D2 under-the-hood: ratified KEEP (2026-07-22) — the 13 under-the-hood tool/resource items are annotated; the surface remains served.",
         "Getting-started guidance (MCP-102) joins as a forthcoming first-class content class: served guidance covering the Oak-branding prohibition, standards for generated materials, request-refusal criteria, and safety/safeguarding response criteria — authored by non-engineers on templated authoring surfaces, then ingested, sanitised, and served; a release gate (D5). No repo surfaces exist yet, so it carries no items; the class is registered here and its pipeline lands INTO the workspace shape.",
@@ -13970,7 +13970,8 @@
       "measurability": "Present in tools/list tool.annotations.",
       "flags": [],
       "source_pass": 2,
-      "workspace_scope": "out-upstream-api"
+      "workspace_scope": "in",
+      "ruling_note": "D12 refinement (PR #476 r1): the emitted file is generated and never hand-edited, but the words are authored by this repo’s generator (emit-index.ts hard-codes the hint values — source_locus this-repo, §4.1 words-vs-data note). IN workspace scope; the review path is the generator source."
     },
     {
       "id": "C608",
@@ -14061,7 +14062,8 @@
       "measurability": "tools/list tool.annotations.",
       "flags": [],
       "source_pass": 2,
-      "workspace_scope": "out-upstream-api"
+      "workspace_scope": "in",
+      "ruling_note": "D12 refinement (PR #476 r1): the emitted file is generated and never hand-edited, but the words are authored by this repo’s generator (emit-index.ts hard-codes the hint values — source_locus this-repo, §4.1 words-vs-data note). IN workspace scope; the review path is the generator source."
     },
     {
       "id": "C612",
@@ -14224,7 +14226,8 @@
       "measurability": "tools/list tool.annotations.",
       "flags": [],
       "source_pass": 2,
-      "workspace_scope": "out-upstream-api"
+      "workspace_scope": "in",
+      "ruling_note": "D12 refinement (PR #476 r1): the emitted file is generated and never hand-edited, but the words are authored by this repo’s generator (emit-index.ts hard-codes the hint values — source_locus this-repo, §4.1 words-vs-data note). IN workspace scope; the review path is the generator source."
     },
     {
       "id": "C619",
@@ -14436,7 +14439,8 @@
       "measurability": "tools/list tool.annotations.",
       "flags": [],
       "source_pass": 2,
-      "workspace_scope": "out-upstream-api"
+      "workspace_scope": "in",
+      "ruling_note": "D12 refinement (PR #476 r1): the emitted file is generated and never hand-edited, but the words are authored by this repo’s generator (emit-index.ts hard-codes the hint values — source_locus this-repo, §4.1 words-vs-data note). IN workspace scope; the review path is the generator source."
     },
     {
       "id": "C628",
@@ -14575,7 +14579,8 @@
       "measurability": "tools/list tool.annotations.",
       "flags": [],
       "source_pass": 2,
-      "workspace_scope": "out-upstream-api"
+      "workspace_scope": "in",
+      "ruling_note": "D12 refinement (PR #476 r1): the emitted file is generated and never hand-edited, but the words are authored by this repo’s generator (emit-index.ts hard-codes the hint values — source_locus this-repo, §4.1 words-vs-data note). IN workspace scope; the review path is the generator source."
     },
     {
       "id": "C634",
@@ -14690,7 +14695,8 @@
       "measurability": "tools/list tool.annotations.",
       "flags": [],
       "source_pass": 2,
-      "workspace_scope": "out-upstream-api"
+      "workspace_scope": "in",
+      "ruling_note": "D12 refinement (PR #476 r1): the emitted file is generated and never hand-edited, but the words are authored by this repo’s generator (emit-index.ts hard-codes the hint values — source_locus this-repo, §4.1 words-vs-data note). IN workspace scope; the review path is the generator source."
     },
     {
       "id": "C639",
@@ -14805,7 +14811,8 @@
       "measurability": "tools/list tool.annotations.",
       "flags": [],
       "source_pass": 2,
-      "workspace_scope": "out-upstream-api"
+      "workspace_scope": "in",
+      "ruling_note": "D12 refinement (PR #476 r1): the emitted file is generated and never hand-edited, but the words are authored by this repo’s generator (emit-index.ts hard-codes the hint values — source_locus this-repo, §4.1 words-vs-data note). IN workspace scope; the review path is the generator source."
     },
     {
       "id": "C644",
@@ -14920,7 +14927,8 @@
       "measurability": "tools/list tool.annotations.",
       "flags": [],
       "source_pass": 2,
-      "workspace_scope": "out-upstream-api"
+      "workspace_scope": "in",
+      "ruling_note": "D12 refinement (PR #476 r1): the emitted file is generated and never hand-edited, but the words are authored by this repo’s generator (emit-index.ts hard-codes the hint values — source_locus this-repo, §4.1 words-vs-data note). IN workspace scope; the review path is the generator source."
     },
     {
       "id": "C649",
@@ -15035,7 +15043,8 @@
       "measurability": "tools/list tool.annotations.",
       "flags": [],
       "source_pass": 2,
-      "workspace_scope": "out-upstream-api"
+      "workspace_scope": "in",
+      "ruling_note": "D12 refinement (PR #476 r1): the emitted file is generated and never hand-edited, but the words are authored by this repo’s generator (emit-index.ts hard-codes the hint values — source_locus this-repo, §4.1 words-vs-data note). IN workspace scope; the review path is the generator source."
     },
     {
       "id": "C654",
@@ -15150,7 +15159,8 @@
       "measurability": "tools/list tool.annotations.",
       "flags": [],
       "source_pass": 2,
-      "workspace_scope": "out-upstream-api"
+      "workspace_scope": "in",
+      "ruling_note": "D12 refinement (PR #476 r1): the emitted file is generated and never hand-edited, but the words are authored by this repo’s generator (emit-index.ts hard-codes the hint values — source_locus this-repo, §4.1 words-vs-data note). IN workspace scope; the review path is the generator source."
     },
     {
       "id": "C659",
@@ -15241,7 +15251,8 @@
       "measurability": "tools/list tool.annotations.",
       "flags": [],
       "source_pass": 2,
-      "workspace_scope": "out-upstream-api"
+      "workspace_scope": "in",
+      "ruling_note": "D12 refinement (PR #476 r1): the emitted file is generated and never hand-edited, but the words are authored by this repo’s generator (emit-index.ts hard-codes the hint values — source_locus this-repo, §4.1 words-vs-data note). IN workspace scope; the review path is the generator source."
     },
     {
       "id": "C663",
@@ -15354,7 +15365,8 @@
       "measurability": "tools/list tool.annotations.",
       "flags": [],
       "source_pass": 2,
-      "workspace_scope": "out-upstream-api"
+      "workspace_scope": "in",
+      "ruling_note": "D12 refinement (PR #476 r1): the emitted file is generated and never hand-edited, but the words are authored by this repo’s generator (emit-index.ts hard-codes the hint values — source_locus this-repo, §4.1 words-vs-data note). IN workspace scope; the review path is the generator source."
     },
     {
       "id": "C668",
@@ -15445,7 +15457,8 @@
       "measurability": "tools/list tool.annotations.",
       "flags": [],
       "source_pass": 2,
-      "workspace_scope": "out-upstream-api"
+      "workspace_scope": "in",
+      "ruling_note": "D12 refinement (PR #476 r1): the emitted file is generated and never hand-edited, but the words are authored by this repo’s generator (emit-index.ts hard-codes the hint values — source_locus this-repo, §4.1 words-vs-data note). IN workspace scope; the review path is the generator source."
     },
     {
       "id": "C672",
@@ -15560,7 +15573,8 @@
       "measurability": "tools/list tool.annotations.",
       "flags": [],
       "source_pass": 2,
-      "workspace_scope": "out-upstream-api"
+      "workspace_scope": "in",
+      "ruling_note": "D12 refinement (PR #476 r1): the emitted file is generated and never hand-edited, but the words are authored by this repo’s generator (emit-index.ts hard-codes the hint values — source_locus this-repo, §4.1 words-vs-data note). IN workspace scope; the review path is the generator source."
     },
     {
       "id": "C677",

@@ -8,9 +8,9 @@ See [`report.md`](./report.md) for the analysis, the i18n/content-workspace refr
 
 ## Delta-refresh — MCP-103 phase (a)
 
-Delta-refresh against the 2026-07-22 owner rulings (decisions register D2/D11/D12; delivery tickets MCP-101/MCP-102). Fields added: workspace_scope (every item), ruling_note (ruled items only). The audit snapshot itself (item ids, classification, original counts) is unchanged; this refresh re-scopes and re-statuses it.
+Delta-refresh against the 2026-07-22 owner rulings (decisions register D2/D11/D12; delivery tickets MCP-101/MCP-102). Fields added: workspace_scope (every item, predicated on upstream ownership per D12), ruling_note (ruled items only). The audit snapshot itself (item ids, classification, original counts) is unchanged; this refresh re-scopes and re-statuses it.
 
-- D12 scope cut: the 130 generated-from-openapi items are OUT of the model-behaviour content workspace — the upstream Oak Open Curriculum API spec owns those words, and generated files are never hand-edited. They stay registered with workspace_scope=out-upstream-api so the map to the owning repo is preserved (acceptance: in, or explicitly out with a reason).
+- D12 scope cut, predicated on upstream ownership: the 116 items whose words are owned by the upstream Oak Open Curriculum API spec (source_locus upstream-in-house-api; all generated-from-openapi) are OUT of the model-behaviour content workspace — upstream owns those words, and generated files are never hand-edited. The 14 in-repo codegen-authored tool-annotation blocks (generated-from-openapi but source_locus this-repo; the C607 family) stay IN — their review path is the generator source. Out items stay registered with workspace_scope=out-upstream-api so the map to the owning repo is preserved (acceptance: in, or explicitly out with a reason).
 - D11 prompt removal: the app will serve ZERO MCP prompts (the primitive unregisters). The seven workflow bodies re-home as agent resources — the navigation three (find-lessons, explore-curriculum, learning-progression) LIVE; the creation-oriented four (lesson-planning, adapt-lesson, curriculum-mapping, continue-progression) retained DORMANT behind the MCP-101 allowlist. 43 items annotated: the three prompt file groups (39) plus the landing-page prompt-catalogue section (4).
 - D2 under-the-hood: ratified KEEP (2026-07-22) — the 13 under-the-hood tool/resource items are annotated; the surface remains served.
 - Getting-started guidance (MCP-102) joins as a forthcoming first-class content class: served guidance covering the Oak-branding prohibition, standards for generated materials, request-refusal criteria, and safety/safeguarding response criteria — authored by non-engineers on templated authoring surfaces, then ingested, sanitised, and served; a release gate (D5). No repo surfaces exist yet, so it carries no items; the class is registered here and its pipeline lands INTO the workspace shape.
@@ -24,14 +24,14 @@ Each item has a **review domain** (which expert should audit it) and an **extrac
 
 ## Summary
 
-### By workspace scope (D12 cut — what the content workspace holds)
+### By workspace scope (D12 cut — what the content workspace accounts for)
 | Workspace scope | Items |
 | --- | --- |
-| in | 586 |
-| out-upstream-api | 130 |
+| in | 600 |
+| out-upstream-api | 116 |
 
-- **in** — repo-controlled; belongs in the model-behaviour content workspace(s).
-- **out-upstream-api** — base text owned by the upstream Oak Open Curriculum API spec (generated-from-openapi); registered out with that reason so the map to the owning repo is preserved.
+- **in** — belongs in the model-behaviour content workspace(s): the workspace holds it, generates it from an in-repo source, or wraps/cites it. Ownership is the separate **source locus** dimension — the in-scope set includes wrap/cite external items and oak-skills-derived workflows that this repo does not own.
+- **out-upstream-api** — words owned by the upstream Oak Open Curriculum API spec (source locus `upstream-in-house-api`); registered out with that reason so the map to the owning repo is preserved. The 14 in-repo codegen-authored annotation blocks stay **in** — their review path is the generator source.
 
 ### By impact tier (gates protocol weight)
 | Impact tier | Items |
@@ -1955,72 +1955,86 @@ Annotations, schemas, scopes, discovery/branding metadata — structural, engine
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-programmes.ts</code> — 1</summary>
 
-- **C607** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **∅out-of-scope (D12)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C607** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+  - ⚖ D12 refinement (PR #476 r1): the emitted file is generated and never hand-edited, but the words are authored by this repo’s generator (emit-index.ts hard-codes the hint values — source_locus this-repo, §4.1 words-vs-data note). IN workspace scope; the review path is the generator source.
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-rate-limit.ts</code> — 1</summary>
 
-- **C611** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **∅out-of-scope (D12)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C611** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+  - ⚖ D12 refinement (PR #476 r1): the emitted file is generated and never hand-edited, but the words are authored by this repo’s generator (emit-index.ts hard-codes the hint values — source_locus this-repo, §4.1 words-vs-data note). IN workspace scope; the review path is the generator source.
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences-assets.ts</code> — 1</summary>
 
-- **C618** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **∅out-of-scope (D12)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C618** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+  - ⚖ D12 refinement (PR #476 r1): the emitted file is generated and never hand-edited, but the words are authored by this repo’s generator (emit-index.ts hard-codes the hint values — source_locus this-repo, §4.1 words-vs-data note). IN workspace scope; the review path is the generator source.
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences-questions.ts</code> — 1</summary>
 
-- **C627** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **∅out-of-scope (D12)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C627** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+  - ⚖ D12 refinement (PR #476 r1): the emitted file is generated and never hand-edited, but the words are authored by this repo’s generator (emit-index.ts hard-codes the hint values — source_locus this-repo, §4.1 words-vs-data note). IN workspace scope; the review path is the generator source.
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences-units.ts</code> — 1</summary>
 
-- **C633** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **∅out-of-scope (D12)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C633** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+  - ⚖ D12 refinement (PR #476 r1): the emitted file is generated and never hand-edited, but the words are authored by this repo’s generator (emit-index.ts hard-codes the hint values — source_locus this-repo, §4.1 words-vs-data note). IN workspace scope; the review path is the generator source.
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences.ts</code> — 1</summary>
 
-- **C638** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **∅out-of-scope (D12)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C638** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+  - ⚖ D12 refinement (PR #476 r1): the emitted file is generated and never hand-edited, but the words are authored by this repo’s generator (emit-index.ts hard-codes the hint values — source_locus this-repo, §4.1 words-vs-data note). IN workspace scope; the review path is the generator source.
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-subject-detail.ts</code> — 1</summary>
 
-- **C643** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **∅out-of-scope (D12)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C643** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+  - ⚖ D12 refinement (PR #476 r1): the emitted file is generated and never hand-edited, but the words are authored by this repo’s generator (emit-index.ts hard-codes the hint values — source_locus this-repo, §4.1 words-vs-data note). IN workspace scope; the review path is the generator source.
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-subjects-key-stages.ts</code> — 1</summary>
 
-- **C648** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **∅out-of-scope (D12)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C648** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+  - ⚖ D12 refinement (PR #476 r1): the emitted file is generated and never hand-edited, but the words are authored by this repo’s generator (emit-index.ts hard-codes the hint values — source_locus this-repo, §4.1 words-vs-data note). IN workspace scope; the review path is the generator source.
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-subjects-programmes.ts</code> — 1</summary>
 
-- **C653** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **∅out-of-scope (D12)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C653** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+  - ⚖ D12 refinement (PR #476 r1): the emitted file is generated and never hand-edited, but the words are authored by this repo’s generator (emit-index.ts hard-codes the hint values — source_locus this-repo, §4.1 words-vs-data note). IN workspace scope; the review path is the generator source.
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-subjects-years.ts</code> — 1</summary>
 
-- **C658** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **∅out-of-scope (D12)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C658** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+  - ⚖ D12 refinement (PR #476 r1): the emitted file is generated and never hand-edited, but the words are authored by this repo’s generator (emit-index.ts hard-codes the hint values — source_locus this-repo, §4.1 words-vs-data note). IN workspace scope; the review path is the generator source.
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-subjects.ts</code> — 1</summary>
 
-- **C662** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **∅out-of-scope (D12)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C662** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+  - ⚖ D12 refinement (PR #476 r1): the emitted file is generated and never hand-edited, but the words are authored by this repo’s generator (emit-index.ts hard-codes the hint values — source_locus this-repo, §4.1 words-vs-data note). IN workspace scope; the review path is the generator source.
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-threads-units.ts</code> — 1</summary>
 
-- **C667** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **∅out-of-scope (D12)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C667** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+  - ⚖ D12 refinement (PR #476 r1): the emitted file is generated and never hand-edited, but the words are authored by this repo’s generator (emit-index.ts hard-codes the hint values — source_locus this-repo, §4.1 words-vs-data note). IN workspace scope; the review path is the generator source.
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-threads.ts</code> — 1</summary>
 
-- **C671** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **∅out-of-scope (D12)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C671** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+  - ⚖ D12 refinement (PR #476 r1): the emitted file is generated and never hand-edited, but the words are authored by this repo’s generator (emit-index.ts hard-codes the hint values — source_locus this-repo, §4.1 words-vs-data note). IN workspace scope; the review path is the generator source.
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-units-summary.ts</code> — 1</summary>
 
-- **C676** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **∅out-of-scope (D12)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C676** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+  - ⚖ D12 refinement (PR #476 r1): the emitted file is generated and never hand-edited, but the words are authored by this repo’s generator (emit-index.ts hard-codes the hint values — source_locus this-repo, §4.1 words-vs-data note). IN workspace scope; the review path is the generator source.
 
 </details>
 
