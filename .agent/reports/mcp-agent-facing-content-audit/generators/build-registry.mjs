@@ -126,13 +126,18 @@ const RULING_NOTES = {
   dormant: 'D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content is retained DORMANT behind the MCP-101 allowlist (creation-oriented, consistent with D4’s no-creation-claims boundary). Code still registers prompts at refresh time.',
   mixed: 'D11 (owner, 2026-07-22): shared argument copy spanning a LIVE workflow (learning-progression) and DORMANT ones (curriculum-mapping, continue-progression); survives with the live set as agent-resource content. Delivery: MCP-101.',
   landing: 'D11 (owner, 2026-07-22): the landing page’s prompt-catalogue section presents a primitive that unregisters; this copy reworks or retires at MCP-101 delivery.',
+  sharedPreamble: 'D11 (owner, 2026-07-22): recurring orientation preamble embedded in ALL SEVEN workflow templates — spans the LIVE navigation set and the DORMANT creation set; survives with the live set as agent-resource content. Delivery: MCP-101.',
   underTheHood: 'D2 (owner, ratified 2026-07-22): under-the-hood KEEP — this surface remains served (tool + resource pointer).',
   annotations: 'D12 refinement (PR #476 r1): the emitted file is generated and never hand-edited, but the words are authored by this repo’s generator (emit-index.ts hard-codes the hint values — source_locus this-repo, §4.1 words-vs-data note). IN workspace scope; the review path is the generator source.',
 };
 function rulingNote(item) {
   const { file, identifier, surface_type: st, extraction_kind: ek, source_locus: locus } = item;
-  if (/oak-under-the-hood/.test(file)) return RULING_NOTES.underTheHood;
+  // The D2 surface is the tool file AND its registered-resource entries (identifier-matched
+  // in register-resources.ts — PR #476 r2, the file predicate alone missed C337–C340).
+  if (/oak-under-the-hood/.test(file) || /Under the Hood/.test(identifier)) return RULING_NOTES.underTheHood;
   if (/render-prompts-section/.test(file)) return st === 'widget-ui-content' ? undefined : RULING_NOTES.landing;
+  // The all-seven-templates orientation preamble spans both D11 sets (PR #476 r2, C205).
+  if (/recurring orientation preamble/.test(identifier)) return RULING_NOTES.sharedPreamble;
   if (/prompt-messages\/|register-prompts\.ts|mcp\/mcp-prompts\.ts/.test(file)) {
     const hay = `${identifier} ${file}`;
     const live = D11_LIVE.test(hay);
@@ -150,8 +155,8 @@ const REFRESH_2026_07_22 = {
     'Delta-refresh against the 2026-07-22 owner rulings (decisions register D2/D11/D12; delivery tickets MCP-101/MCP-102). Fields added: workspace_scope (every item, predicated on upstream ownership per D12), ruling_note (ruled items only). The audit snapshot itself (item ids, classification, original counts) is unchanged; this refresh re-scopes and re-statuses it.',
   deltas: [
     'D12 scope cut, predicated on upstream ownership: the 116 items whose words are owned by the upstream Oak Open Curriculum API spec (source_locus upstream-in-house-api; all generated-from-openapi) are OUT of the model-behaviour content workspace — upstream owns those words, and generated files are never hand-edited. The 14 in-repo codegen-authored tool-annotation blocks (generated-from-openapi but source_locus this-repo; the C607 family) stay IN — their review path is the generator source. Out items stay registered with workspace_scope=out-upstream-api so the map to the owning repo is preserved (acceptance: in, or explicitly out with a reason).',
-    'D11 prompt removal: the app will serve ZERO MCP prompts (the primitive unregisters). The seven workflow bodies re-home as agent resources — the navigation three (find-lessons, explore-curriculum, learning-progression) LIVE; the creation-oriented four (lesson-planning, adapt-lesson, curriculum-mapping, continue-progression) retained DORMANT behind the MCP-101 allowlist. 43 items annotated: the three prompt file groups (39) plus the landing-page prompt-catalogue section (4).',
-    'D2 under-the-hood: ratified KEEP (2026-07-22) — the 13 under-the-hood tool/resource items are annotated; the surface remains served.',
+    'D11 prompt removal: the app will serve ZERO MCP prompts (the primitive unregisters). The seven workflow bodies re-home as agent resources — the navigation three (find-lessons, explore-curriculum, learning-progression) LIVE; the creation-oriented four (lesson-planning, adapt-lesson, curriculum-mapping, continue-progression) retained DORMANT behind the MCP-101 allowlist. 43 items annotated: the three prompt file groups (39 — including the all-seven-templates orientation preamble marked as spanning both sets) plus the landing-page prompt-catalogue section (4).',
+    'D2 under-the-hood: ratified KEEP (2026-07-22) — the 17 under-the-hood items are annotated (13 tool-file surfaces plus the 4 registered-resource entries); the surface remains served.',
     'Getting-started guidance (MCP-102) joins as a forthcoming first-class content class: served guidance covering the Oak-branding prohibition, standards for generated materials, request-refusal criteria, and safety/safeguarding response criteria — authored by non-engineers on templated authoring surfaces, then ingested, sanitised, and served; a release gate (D5). No repo surfaces exist yet, so it carries no items; the class is registered here and its pipeline lands INTO the workspace shape.',
     'MCP-101 allowlist: live-vs-dormant is DERIVED from the visible-surface allowlist once it exists; this registry records ruled target state, not runtime truth.',
   ],

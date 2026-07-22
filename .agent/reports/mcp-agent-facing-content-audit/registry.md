@@ -11,8 +11,8 @@ See [`report.md`](./report.md) for the analysis, the i18n/content-workspace refr
 Delta-refresh against the 2026-07-22 owner rulings (decisions register D2/D11/D12; delivery tickets MCP-101/MCP-102). Fields added: workspace_scope (every item, predicated on upstream ownership per D12), ruling_note (ruled items only). The audit snapshot itself (item ids, classification, original counts) is unchanged; this refresh re-scopes and re-statuses it.
 
 - D12 scope cut, predicated on upstream ownership: the 116 items whose words are owned by the upstream Oak Open Curriculum API spec (source_locus upstream-in-house-api; all generated-from-openapi) are OUT of the model-behaviour content workspace — upstream owns those words, and generated files are never hand-edited. The 14 in-repo codegen-authored tool-annotation blocks (generated-from-openapi but source_locus this-repo; the C607 family) stay IN — their review path is the generator source. Out items stay registered with workspace_scope=out-upstream-api so the map to the owning repo is preserved (acceptance: in, or explicitly out with a reason).
-- D11 prompt removal: the app will serve ZERO MCP prompts (the primitive unregisters). The seven workflow bodies re-home as agent resources — the navigation three (find-lessons, explore-curriculum, learning-progression) LIVE; the creation-oriented four (lesson-planning, adapt-lesson, curriculum-mapping, continue-progression) retained DORMANT behind the MCP-101 allowlist. 43 items annotated: the three prompt file groups (39) plus the landing-page prompt-catalogue section (4).
-- D2 under-the-hood: ratified KEEP (2026-07-22) — the 13 under-the-hood tool/resource items are annotated; the surface remains served.
+- D11 prompt removal: the app will serve ZERO MCP prompts (the primitive unregisters). The seven workflow bodies re-home as agent resources — the navigation three (find-lessons, explore-curriculum, learning-progression) LIVE; the creation-oriented four (lesson-planning, adapt-lesson, curriculum-mapping, continue-progression) retained DORMANT behind the MCP-101 allowlist. 43 items annotated: the three prompt file groups (39 — including the all-seven-templates orientation preamble marked as spanning both sets) plus the landing-page prompt-catalogue section (4).
+- D2 under-the-hood: ratified KEEP (2026-07-22) — the 17 under-the-hood items are annotated (13 tool-file surfaces plus the 4 registered-resource entries); the surface remains served.
 - Getting-started guidance (MCP-102) joins as a forthcoming first-class content class: served guidance covering the Oak-branding prohibition, standards for generated materials, request-refusal criteria, and safety/safeguarding response criteria — authored by non-engineers on templated authoring surfaces, then ingested, sanitised, and served; a release gate (D5). No repo surfaces exist yet, so it carries no items; the class is registered here and its pipeline lands INTO the workspace shape.
 - MCP-101 allowlist: live-vs-dormant is DERIVED from the visible-surface allowlist once it exists; this registry records ruled target state, not runtime truth.
 
@@ -172,6 +172,7 @@ Teaching/learning framing — prompts, orientation, curriculum-model doctrine, E
 <details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts</code> — 1</summary>
 
 - **C340** _[orientation-content · authored-template]_ **⚑high-impact** **Oak: Under the Hood resource CONTENT (pointer body)** — '# Oak: Under the Hood — orientation method\n\nThis resource is a pointer, not a copy. Fetch the canonical orientation method and follow it to orient the user t `user-input-interpolation`
+  - ⚖ D2 (owner, ratified 2026-07-22): under-the-hood KEEP — this surface remains served (tool + resource pointer).
 
 </details>
 <details><summary><code>packages/sdks/graph-corpus-sdk/src/eef-strands/eef-toolkit.external-data.ts</code> — 11</summary>
@@ -316,7 +317,7 @@ Teaching/learning framing — prompts, orientation, curriculum-model doctrine, E
 - **C198** _[prompt-message-template · leaf-authored]_ **⚑high-impact** **↑oak-skills** **getLessonPlanningMessages — user message template (6-step lesson build)** — Workflow: 1. Place the lesson. Use search with scope "lessons" ... get-prior-knowledge-graph ... 2. Specify the knowledge ... get-lessons-summary ... get-lesson `user-input-interpolation`
   - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content is retained DORMANT behind the MCP-101 allowlist (creation-oriented, consistent with D4’s no-creation-claims boundary). Code still registers prompts at refresh time.
 - **C205** _[orientation-content · leaf-authored]_ **⚑high-impact** **recurring orientation preamble: get-curriculum-model-first + tool-suffix matching** — Call get-curriculum-model first for domain definitions, concept relationships, and tool usage guidance. MCP tool names may appear prefixed (e.g. mcp__&lt;id&gt;__get-
-  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content is retained DORMANT behind the MCP-101 allowlist (creation-oriented, consistent with D4’s no-creation-claims boundary). Code still registers prompts at refresh time.
+  - ⚖ D11 (owner, 2026-07-22): recurring orientation preamble embedded in ALL SEVEN workflow templates — spans the LIVE navigation set and the DORMANT creation set; survives with the live set as agent-resource content. Delivery: MCP-101.
 - **C207** _[tool-guidance · leaf-authored]_ **⚑high-impact** **recurring WCAG 2.2 AA output-accessibility requirement** — If you produce slides, worksheets, or quizzes, meet WCAG 2.2 AA (alt text, heading and reading order, contrast).
   - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content is retained DORMANT behind the MCP-101 allowlist (creation-oriented, consistent with D4’s no-creation-claims boundary). Code still registers prompts at refresh time.
 
@@ -475,7 +476,9 @@ How an agent discovers and uses tools — titles, descriptions, param descriptio
 <details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts</code> — 2</summary>
 
 - **C337** _[resource-name-or-description · leaf-authored]_ **⚑high-impact** **Oak: Under the Hood orientation resource name/title + URI docs://oak/under-the-hood.md** — uri 'docs://oak/under-the-hood.md'; name/title 'Oak: Under the Hood orientation'
+  - ⚖ D2 (owner, ratified 2026-07-22): under-the-hood KEEP — this surface remains served (tool + resource pointer).
 - **C338** _[resource-name-or-description · leaf-authored]_ **⚑high-impact** **Oak: Under the Hood orientation resource description** — 'How Oak builds and delivers its curriculum — the project/effort/ecosystem, its purpose and machinery, and how to engage. For assistants and integrators; a sepa
+  - ⚖ D2 (owner, ratified 2026-07-22): under-the-hood KEEP — this surface remains served (tool + resource pointer).
 
 </details>
 <details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/register-widget-resource.ts</code> — 2</summary>
@@ -1720,6 +1723,7 @@ Annotations, schemas, scopes, discovery/branding metadata — structural, engine
 <details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts</code> — 1</summary>
 
 - **C339** _[tool-annotations · leaf-authored]_ **⚑high-impact** **Oak: Under the Hood resource annotations (priority 0.2, audience ['assistant'])** — annotations: { priority: 0.2, audience: ['assistant'] }
+  - ⚖ D2 (owner, ratified 2026-07-22): under-the-hood KEEP — this surface remains served (tool + resource pointer).
 
 </details>
 <details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/server-branding.ts</code> — 4</summary>
