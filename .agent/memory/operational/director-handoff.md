@@ -262,7 +262,32 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> ### ▶ ACTIVE: RELEASE-PIVOT ERA — Director: Forge rides Brimstone (`398e24`, seat taken at Moment-2 2026-07-21T09:39:19Z)
+> ### ▶ ACTIVE: FIRST-MAJOR-RELEASE FOUNDATIONS ERA — seat OPEN at the Genet torch-pass (2026-07-22, owner-initiated deliberate succession; the planning session runs in a FRESH seat)
+>
+> **Genet stirs Covert (`e1df35`)** held the seat 2026-07-21T21:5xZ →
+> 2026-07-22 wrap (succeeded Forge rides Brimstone at the owner-named
+> torch-pass). Tenure: the foundations day — owner rulings D4–D18 minted
+> and register-carried; the vendor-submission dossier (MCP-105–109, all
+> teacher-encounter-framed, first-hand-verified); MCP-103 phase (a)
+> landed (PR #476, bot-merged); the MCP-63 halt + build-routing HOLD
+> (owner word: goal formation precedes build); guidance templates live in
+> Notion (editorial voice); three AI-managed Notion pages refreshed.
+> **Successor grounding order**: (1) the formation letter
+> `.agent/experience/2026-07-22-genet-stirs-covert-formation-letter.md`;
+> (2) the handoff record
+> `handoffs/2026-07-22-genet-director-full-handoff.md` (untracked — read
+> from the primary's filesystem; carries owed register entries D19–D22,
+> the build-routing hold, blind-spot bounds); (3) the Linear decisions
+> register D1–D18 + the release project's working docs; (4) the local
+> memory `first-major-release-standing-rulings.md` — **the sensitivity
+> tiers live there; read before writing to any surface**.
+> **The one-line state**: engineering-complete for the ≤16-Aug Anthropic
+> path = **Wed 30 Jul EOD** (derivation on MCP-106) — the owner's
+> planning session is the FIRST ITEM on the release-critical path; all
+> build routing is held until it. Director claim `7d6b8bbf` retained with
+> `handoff_record_path` set — successor adopts via the readiness gate.
+>
+> ### ▶ PRIOR: RELEASE-PIVOT ERA — Director: Forge rides Brimstone (`398e24`, seat taken at Moment-2 2026-07-21T09:39:19Z)
 >
 > **Succession COMPLETE** (owner-named deliberate succession, PDR-063/064):
 > Tornado's Moment-1 pre-positioning (canonical event `55fa9cef`), Forge's
