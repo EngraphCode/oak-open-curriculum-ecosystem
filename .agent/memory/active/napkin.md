@@ -756,3 +756,53 @@ Reflection findings (the day's misses share ONE generator):
   per invocation, gate log read before any summary/claim write; (4) count/claim
   cures sweep every surface carrying the old value before commit (mechanical
   grep, not vigilance).
+
+## 2026-07-22 — Urchin hunts Surf (b51773): wrap loss-scan + metaloss (owner-invoked full handoff)
+
+Loss scan (from inside this context, against the grain of "all captured"):
+
+- **#476 merged with a capacity-limited reviewer**: the Claude Code Review on
+  PR #476 self-declared "may be incomplete: some analysis steps could not run
+  due to a temporary API capacity limit"; Copilot ran fully (4 rounds, 11
+  threads). The merge adjudication stood on Copilot + gates. Named here so the
+  record shows it was seen, not missed.
+- **Compression judgement (recorded per metaloss pass 1)**: the full MCP-63
+  code-expert review text (10 required changes with vendor dist line-refs)
+  is compressed into the ticket design-record + revival-brief comments; judged
+  decision-sufficient because every load-bearing mechanism fact was
+  independently re-verified and written to the ticket. The full text survives
+  only machine-locally (task output file) — treat the ticket as the record.
+- **Attribution inferences, flagged as such (pass 3)**: (a) "the Director
+  committed my ARC channel" — inferred from commit 460e0ca9c's message, not
+  observed; (b) "the owner provisioned the PostHog project/key" — the
+  Director's report, not first-hand. Successors treat both as attested, not
+  observed.
+- **Blind-spot bounds (pass 4)**: my comms watcher was dead (3600s backstop)
+  for a window mid-afternoon — the seen-file cursor re-delivered unseen events
+  on re-arm, but the bound is named; the session-open repo-continuity read was
+  truncated at line 531/672 (the tail was never read by this seat); subagent
+  contexts (code-expert, cricket pair) are gone — outputs conserved, reasoning
+  paths not; the untracked comms tier (closeout broadcasts, routing events) is
+  MACHINE-LOCAL — the napkin/thread/ticket copies are the durable record.
+- **External bound + error signature (pass 6)**: this scan is my self-model
+  converging on its own limit. Today's error signature says exactly where to
+  point outside eyes: my misses clustered in CONFIDENT UNVERIFIED ASSERTIONS
+  under fluent signals (the routing, the count sweep, the claim-close, the
+  chained commit) — the same scrutiny pointer Forge recorded, now with this
+  seat's own instances. Verify my "verified"s before my "maybe"s.
+- **Index of homes (pass 5)**: MCP-103(a) → main (240a598607b9) + report.md
+  §12 + thread record mcp-agent-facing-content; MCP-63 → frozen branch
+  dd8df27f8 + Linear MCP-63 comments (design record + revival brief) + paused
+  thread record mcp-product-analytics; day's lessons → this napkin (3 entries
+  plus this one) + per-user memory (ends-before-means instance); subjective →
+  experience/2026-07-22-urchin-hunts-surf-the-interrupt.md; coordination
+  narrative → comms events (machine-local) compressed into the closeout
+  broadcast f0759935.
+- **Fixed point**: a further pass would only re-find the named classes
+  (machine-local comms, dead-subagent compression, the self-model bound) —
+  the recursion closes here.
+
+candidate: "the layer that ratifies is not the layer that authorises" — face
+of the read-surface≠decide-surface unification (with tsx-vs-dist, gate-read
+timing, heartbeat-vs-loop, gh-client-vs-REST); route to the next curation
+pass's P1 adjudication of that family's home.
