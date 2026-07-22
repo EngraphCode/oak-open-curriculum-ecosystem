@@ -122,3 +122,55 @@ here in place (dated), and only settled ground graduates into the
 corpus as a plan. The probe results that inform an answer are noted
 beside it. Nothing in this file is immutable; it is the conversation's
 memory, not doctrine.
+
+## Settled in discussion — 2026-07-22 (public-safe record)
+
+Owner-stated in the foundations sitting; the full-fidelity record and
+draft register entries live on the internal delivery surfaces (Linear:
+"Morning sitting record and return package — 2026-07-22"). Detail that
+is internal Oak strategy stays off this public surface by owner ruling;
+the in-repo vocabulary for pre-general-availability users is **"early
+users"**.
+
+- **Value (ask 1 / question 1, settled).** Version 1 puts Oak into
+  pre-existing teacher workflows: the agent draws on Oak's curriculum
+  materials to ground work teachers already do in their assistant, and
+  signposts to the right parts of www.thenational.academy (full
+  resources) and labs.thenational.academy (curated lesson creation).
+  **No in-assistant lesson-creation claims in v1** — creation-oriented
+  served workflows are removed for this release (isolated, not
+  deleted); curriculum/creation skills, authoring guidance, and
+  input/output vetting systems come in a later release.
+- **A served getting-started guidance artefact is a release gate.**
+  It must state: no Oak branding in generated materials; standards
+  generated materials must meet; request-refusal criteria; safety and
+  safeguarding response criteria. Content is authored outside
+  engineering on a non-engineer authoring surface, then ingested,
+  sanitised, and served (app definition or a startup tool). The
+  content is currently undefined anywhere — this gates release.
+- **Branding boundary (settled).** The app UI is Oak-branded and
+  pre-existing Oak materials are Oak-branded; remixed or
+  agent-generated materials must NOT be Oak-branded; the MCP must not
+  expose assets that enable generation of Oak-branded material.
+- **Access shape (settled).** Public one-click install through host
+  directories/stores is part of the release bar (the audience is
+  teachers, not engineers); sign-in is invite-gated for early users at
+  the auth step, opened later.
+- **Conformance milestone (settled).** Green MCPJam protocol, OAuth
+  (with negative probes), and Apps conformance suites at MCP spec
+  2025-11-25, running in CI; a headless-auth path is enabled in Clerk
+  for CI; MCPJam evals to be explored as a follow-on.
+- **Legal (settled, simple).** Owned outside this team; this
+  repository's job is pointing at the appropriate documents in the
+  appropriate places (server metadata, submission material). The
+  pre-reset corpus's release-blocker tables do not govern this
+  release's narrative.
+- **Status reclassifications.** The three landed supporting documents
+  under `.agent/reports/initial-release-supporting-docs/` are
+  reference material, not instructions. The 2026-07-21 planning corpus
+  under `.agent/plans/` is an **unratified sketch** — incomplete,
+  wrong in shape in places, and not a baseline to iterate on; the
+  planning sitting rebuilds plan structure (strategic vs
+  implementation plan classes, graph-ready frontmatter) from the
+  settled ground above, with the conserved backlog as the evidence
+  base and deltas measured old→new.

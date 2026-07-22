@@ -527,3 +527,42 @@ Named misses and flags (technical record):
 - **MISTAKE (owner-caught): authored owner cards from documents without probing the live system.** The MCP-67 plan + Card 1 asked domain/staging questions answerable in 30 seconds of curl: `curriculum-mcp-alpha.oaknational.dev` is live, stable, UAT-verified, ADR-115 proxy deployed, upstream = Clerk **Development** realm (`native-hippo-15.clerk.accounts.dev`). The promotion is an upstream realm swap on an existing deployment, not greenfield. Two reviewer rounds (clerk-expert with live vendor docs, assumptions-expert) also missed it — reviewers verified the plan against DOCS and CODE, nobody probed the RUNNING SYSTEM. Cure shape: before authoring any plan about a deployed surface, probe the deployment first (metadata endpoints, env reality); "verify the vendor surface" ≠ "verify OUR live surface". Owner word: "did you explore the code before you asked the questions?"
 - Worked well: S1 corpus validator caught a real YAML defect (unquoted colon-space → mapping) at CI; one-commit cure; validator earning its keep on day one.
 - **MISTAKE (owner-caught, deeper than the probe miss): implementation-first under throughput momentum.** On MCP-67 I manufactured decision menus (swap shapes, cohort options) and pushed them at the owner instead of establishing outcomes WITH him first. His words: "Why are you making up options instead of asking me what the goals are, what the desired impact is... you are utterly rushing this." The plan skill's design gate says exactly this ("Do not assume you know the initial step. Discuss with the user first") and I skipped it because the previous lane's velocity felt like the mode. Also: my "in-place vs parallel swap" dichotomy was technically manufactured — one Clerk application carries Development AND Production instances on a single config; there was no realm-swap drama to choose around. Cure: at every lane pickup, ask whether the goal is ESTABLISHED or INHERITED-AS-PROSE; if inherited, the first move is an outcomes conversation with the owner, not a decision ledger. Speed is for execution, never for goal formation.
+
+## 2026-07-21 — Genet stirs Covert (e1df35): seat-take papercuts (Director succession, torch-pass pickup)
+
+- `comms send` takes NO `--kind` flag (event kind is not caller-settable on this CLI) — one
+  failed send from following the event-schema kind vocabulary; usage line is truth. Same
+  per-command flag-shape family as the F-89 now-defaulting entries.
+- `claims adopt` requires the FULL claim UUID; the 8-char prefix used everywhere in records
+  and doctrine ("claims adopt 7d6b8bbf") is not accepted — "no active claim matches". Either
+  the tool should take prefixes or the doctrine examples should show full UUIDs.
+
+## 2026-07-22 — Genet stirs Covert (e1df35): foundations-morning rulings + process lessons (sanitised)
+
+Owner rulings this morning (full-fidelity record on internal surfaces; this is the
+public-safe form):
+
+- **Executed ≠ ratified**: a Done ticket chain + a green validator read "corpus reset
+  complete" while the owner had never seen the landed shape. The 2026-07-21 plan corpus is
+  an UNRATIFIED SKETCH — "the new plans do not exist yet"; deltas are measured old→new
+  (backlog as evidence base), never new-as-baseline. Structure minted faster than intent is
+  the failure class; the owner-authored decisions register was the one surface that held.
+- **Supporting docs are reference, not instruction** — the three
+  initial-release-supporting-docs are inputs to weigh, not authorities; the milestone
+  sketch's derives_from list treats them as authorities (to re-cut at the planning sitting).
+- **Sensitivity split**: internal Oak strategy detail stays on internal surfaces (Notion /
+  Linear); the public repo carries mechanism and general planning; in-repo vocabulary is
+  "early users". Check tracked surfaces before writing, not after.
+- **Value frame settled**: v1 = Oak inside pre-existing teacher workflows (grounding +
+  signposting to www/labs); NO in-assistant creation claims; creation-oriented served
+  workflows isolated for v1; a served getting-started guidance artefact (branding
+  prohibition / standards / refusal / safeguarding criteria) is a RELEASE GATE and its
+  content is undefined anywhere — the novel critical-path item is a non-engineer content
+  pipeline (authoring surface → ingest → sanitise → serve), a workflow class this estate
+  has never shipped.
+- **"Ring-2" vocabulary lesson (owned)**: seat shorthand from a predecessor's records
+  reached the owner as if it were shared ground — second instance of the formation-letter
+  class. Verify a term exists in the artefact (grep) before using it owner-facing; what
+  actually landed is the ".agent README Practice-not-product boundary statement".
+- Cricket A/B: one further convergent pair (quiet-window course check, both ON-TRACK,
+  cited-grounding context supplied) — the class cure holds.
