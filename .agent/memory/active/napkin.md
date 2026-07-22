@@ -806,3 +806,28 @@ candidate: "the layer that ratifies is not the layer that authorises" — face
 of the read-surface≠decide-surface unification (with tsx-vs-dist, gate-read
 timing, heartbeat-vs-loop, gh-client-vs-REST); route to the next curation
 pass's P1 adjudication of that family's home.
+
+## 2026-07-22 — Genet stirs Covert (e1df35): seat wrap (full handoff; planning session is next, fresh seat)
+
+Wrap captures with no other home (register/tickets/handoff record carry the rest):
+
+- **The oscillation tell, worked instance**: after the rabbit-hole correction I stripped a
+  ticket to "parked"; owner within minutes: "what, yes we do need a timeline". The cure is
+  the metacognition directive's own line (correct on the axis's principle, never the last
+  correction's direction) — now with a same-hour instance. The owner wants the chain whole:
+  goal → required → when.
+- **Engineering-complete derivation pattern**: worked backwards from a store-submission
+  deadline, the binding fact was "the portal syncs the tool surface from the LIVE server" —
+  so engineering-complete = production-final BEFORE submit, and the human content clock
+  (guidance authors) nests INSIDE the engineering clock. Generalises to any store submission.
+- **Free-play harvest (guard ran)**: kept — "what the app carries travels in the surface's
+  native container" (the notebook resolution; pairs with the morning's pointer-architecture
+  seed — one product, N containers). Kept — in-estate usage evidence outranks vendor docs
+  (the refutation was inside our own records). Discarded visibly — watcher drain-deaths as
+  context-budget metaphor (forced); Spark-perimeter-motion as strategy input (watch, not act).
+- **Cricket cadence under-honoured at this seat** (one paired invocation in a multi-hour
+  window) — second consecutive seat with the gap (Willow flagged it 2026-07-21); the mandate
+  may need a structural cue rather than diligence; routed to the next curation pass.
+- Metaloss fixed point at this wrap: a further pass would only re-find the watcher gap
+  windows and the two proxy-graded OpenAI lines already bounded in the handoff record — the
+  recursion closes there.
