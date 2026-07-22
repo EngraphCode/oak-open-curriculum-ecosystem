@@ -15,8 +15,10 @@ const rows = items.map((i) => ({
   id: i.id, f: i.file, ln: i.lines, n: i.identifier, st: i.surface_type,
   it: i.impact_tier, rd: i.review_domain, sl: i.source_locus, ek: i.extraction_kind,
   au: i.audience, fl: i.flags, s: (i.snippet || '').slice(0, 220),
-  q: `${i.snippet || ''} ${i.behavioural_intent || ''} ${i.reasoning || ''}`.toLowerCase(),
+  ws: i.workspace_scope, rn: i.ruling_note || '',
+  q: `${i.snippet || ''} ${i.behavioural_intent || ''} ${i.reasoning || ''} ${i.ruling_note || ''}`.toLowerCase(),
 }));
+const refresh = meta.refresh_2026_07_22;
 
 const eduSlice = rows.filter((r) => ['pedagogy', 'curriculum-accuracy', 'pedagogy-external'].includes(r.rd)).length;
 const files = new Set(rows.map((r) => r.f)).size;
@@ -121,6 +123,9 @@ td.file code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;fo
 .flag{display:inline-block;font-size:.72rem;padding:1px 6px;border-radius:5px;margin:1px 2px 1px 0;border:1px solid var(--border);color:var(--muted)}
 .flag.defect{background:var(--defect-bg);color:var(--defect);border-color:transparent;font-weight:600}
 .flag.pii{background:var(--pii-bg);color:var(--pii);border-color:transparent;font-weight:600}
+.ws-in{background:var(--chip-repo-bg);color:var(--chip-repo-tx)}
+.ws-out-upstream-api{background:var(--chip-up-bg);color:var(--chip-up-tx)}
+td.item .ruling{display:block;margin-top:4px;font-size:.8rem;color:var(--pii);background:var(--pii-bg);border-radius:6px;padding:3px 8px}
 .legend{margin-top:26px;padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--surface)}
 .legend h2{font-size:1rem;margin:0 0 10px}
 .legend dl{display:grid;grid-template-columns:max-content 1fr;gap:6px 14px;margin:0;font-size:.86rem}
@@ -137,8 +142,10 @@ footer{margin-top:40px;color:var(--muted);font-size:.8rem;border-top:1px solid v
   <h1>Oak MCP agent-facing content registry</h1>
   <p class="lede">Every piece of repo-controlled content that reaches an AI agent through the Oak Curriculum MCP server — the effective prompt agents receive — made discoverable and auditable, and routed to the expert who should review it.</p>
   <p class="stance"><b>Visibility only.</b> This is a snapshot for review, not a rulebook. No shape here has been ratified; nothing enforces it. It records <b>what exists and who should review it</b>, not whether it is good.</p>
+  ${refresh ? `<p class="stance"><b>Delta-refresh — ${refresh.ticket}.</b> ${refresh.summary.replace(/</g, '&lt;')} ${refresh.code_state_at_refresh.replace(/</g, '&lt;')} Full delta list: <code>registry.md</code> §Delta-refresh.</p>` : ''}
   <div class="kpis">
     ${kpi(meta.item_count, 'content items')}
+    ${kpi((meta.workspace_scope || {})['in'] || 0, 'in workspace scope')}
     ${kpi(meta.impact_tiers['high-impact'] || 0, 'high-impact (need protocols)')}
     ${kpi(eduSlice, 'education-review slice')}
     ${kpi(meta.source_loci['upstream-in-house-api'] || 0, 'from oak-api spec')}
@@ -148,6 +155,7 @@ footer{margin-top:40px;color:var(--muted);font-size:.8rem;border-top:1px solid v
 
 <div class="controls" role="search">
   <div class="field"><label for="q">Search text</label><input id="q" type="search" placeholder="identifier, snippet, file…" autocomplete="off"></div>
+  <div class="field"><label for="ws">Workspace scope</label><select id="ws"><option value="">all scopes</option>${opt(meta.workspace_scope || {})}</select></div>
   <div class="field"><label for="it">Impact tier</label><select id="it"><option value="">all tiers</option>${opt(meta.impact_tiers)}</select></div>
   <div class="field"><label for="rd">Review domain</label><select id="rd"><option value="">all domains</option>${opt(meta.review_domains)}</select></div>
   <div class="field"><label for="sl">Source locus</label><select id="sl"><option value="">all sources</option>${opt(meta.source_loci)}</select></div>
@@ -161,7 +169,7 @@ footer{margin-top:40px;color:var(--muted);font-size:.8rem;border-top:1px solid v
 <table>
   <caption>Content items. Chips show the <strong>review domain</strong> (who audits) and the <strong>source locus</strong> (which repo owns the words). Sort is fixed; use the filters above.</caption>
   <thead><tr>
-    <th scope="col">ID</th><th scope="col">Item</th><th scope="col">Impact</th><th scope="col">Review domain</th>
+    <th scope="col">ID</th><th scope="col">Item</th><th scope="col">Scope</th><th scope="col">Impact</th><th scope="col">Review domain</th>
     <th scope="col">Source locus</th><th scope="col">Kind</th><th scope="col">File</th><th scope="col">Flags</th>
   </tr></thead>
   <tbody id="rows"></tbody>
@@ -186,7 +194,7 @@ footer{margin-top:40px;color:var(--muted);font-size:.8rem;border-top:1px solid v
 (function(){
   var rows = JSON.parse(document.getElementById('data').textContent);
   var tb = document.getElementById('rows'), empty = document.getElementById('empty'), count = document.getElementById('count');
-  var q = document.getElementById('q'), it = document.getElementById('it'), rd = document.getElementById('rd'), sl = document.getElementById('sl'), ek = document.getElementById('ek'), fl = document.getElementById('fl');
+  var q = document.getElementById('q'), it = document.getElementById('it'), rd = document.getElementById('rd'), sl = document.getElementById('sl'), ek = document.getElementById('ek'), fl = document.getElementById('fl'), ws = document.getElementById('ws');
   var LOCUS = ${JSON.stringify(LOCUS_LABEL)};
   function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
   function flagHtml(f){var cls=f.indexOf('defect')>=0?'flag defect':(f.indexOf('pii')>=0?'flag pii':'flag');return '<span class="'+cls+'">'+esc(f)+'</span>'}
@@ -194,6 +202,7 @@ footer{margin-top:40px;color:var(--muted);font-size:.8rem;border-top:1px solid v
     var qs=q.value.trim().toLowerCase();
     var out=[], shown=0;
     for(var i=0;i<rows.length;i++){var r=rows[i];
+      if(ws.value&&r.ws!==ws.value)continue;
       if(it.value&&r.it!==it.value)continue;
       if(rd.value&&r.rd!==rd.value)continue;
       if(sl.value&&r.sl!==sl.value)continue;
@@ -202,7 +211,8 @@ footer{margin-top:40px;color:var(--muted);font-size:.8rem;border-top:1px solid v
       if(qs&&((r.n+' '+r.f+' '+r.id).toLowerCase()+' '+r.q).indexOf(qs)<0)continue;
       shown++;
       out.push('<tr><td class="id">'+esc(r.id)+'</td>'+
-        '<td class="item"><span class="n">'+esc(r.n)+'</span><span class="s">'+esc(r.s)+'</span></td>'+
+        '<td class="item"><span class="n">'+esc(r.n)+'</span><span class="s">'+esc(r.s)+'</span>'+(r.rn?'<span class="ruling">'+esc(r.rn)+'</span>':'')+'</td>'+
+        '<td><span class="chip ws-'+esc(r.ws)+'">'+(r.ws==='in'?'in':'out: oak-api')+'</span></td>'+
         '<td><span class="chip '+(r.it==="high-impact"?"imp-high":"imp-simple")+'">'+esc(r.it)+'</span></td>'+
         '<td><span class="chip dom">'+esc(r.rd)+'</span></td>'+
         '<td><span class="chip sl-'+esc(r.sl)+'">'+esc(LOCUS[r.sl]||r.sl)+'</span></td>'+
@@ -214,8 +224,8 @@ footer{margin-top:40px;color:var(--muted);font-size:.8rem;border-top:1px solid v
     empty.hidden=shown!==0;
     count.textContent=shown+' of '+rows.length+' items';
   }
-  [q,it,rd,sl,ek,fl].forEach(function(el){el.addEventListener('input',render)});
-  document.getElementById('reset').addEventListener('click',function(){q.value='';it.value='';rd.value='';sl.value='';ek.value='';fl.value='';render();q.focus()});
+  [q,it,rd,sl,ek,fl,ws].forEach(function(el){el.addEventListener('input',render)});
+  document.getElementById('reset').addEventListener('click',function(){q.value='';it.value='';rd.value='';sl.value='';ek.value='';fl.value='';ws.value='';render();q.focus()});
   render();
 })();
 </script>

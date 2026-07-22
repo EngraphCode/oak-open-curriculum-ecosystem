@@ -6,11 +6,32 @@
 
 See [`report.md`](./report.md) for the analysis, the i18n/content-workspace reframe, findings, and gaps. Machine-readable source: [`registry.json`](./registry.json). To read the surfaces **assembled as an agent receives them** (exact or with `{{placeholders}}`), see [`rendered-wholes.md`](./rendered-wholes.md).
 
+## Delta-refresh — MCP-103 phase (a)
+
+Delta-refresh against the 2026-07-22 owner rulings (decisions register D2/D11/D12; delivery tickets MCP-101/MCP-102). Fields added: workspace_scope (every item), ruling_note (ruled items only). The audit snapshot itself (item ids, classification, original counts) is unchanged; this refresh re-scopes and re-statuses it.
+
+- D12 scope cut: the 130 generated-from-openapi items are OUT of the model-behaviour content workspace — the upstream Oak Open Curriculum API spec owns those words, and generated files are never hand-edited. They stay registered with workspace_scope=out-upstream-api so the map to the owning repo is preserved (acceptance: in, or explicitly out with a reason).
+- D11 prompt removal: the app will serve ZERO MCP prompts (the primitive unregisters). The seven workflow bodies re-home as agent resources — the navigation three (find-lessons, explore-curriculum, learning-progression) LIVE; the creation-oriented four (lesson-planning, adapt-lesson, curriculum-mapping, continue-progression) retained DORMANT behind the MCP-101 allowlist. 43 items annotated: the three prompt file groups (39) plus the landing-page prompt-catalogue section (4).
+- D2 under-the-hood: ratified KEEP (2026-07-22) — the 13 under-the-hood tool/resource items are annotated; the surface remains served.
+- Getting-started guidance (MCP-102) joins as a forthcoming first-class content class: served guidance covering the Oak-branding prohibition, standards for generated materials, request-refusal criteria, and safety/safeguarding response criteria — authored by non-engineers on templated authoring surfaces, then ingested, sanitised, and served; a release gate (D5). No repo surfaces exist yet, so it carries no items; the class is registered here and its pipeline lands INTO the workspace shape.
+- MCP-101 allowlist: live-vs-dormant is DERIVED from the visible-surface allowlist once it exists; this registry records ruled target state, not runtime truth.
+
+**Code state at refresh:** Prompts are still registered in the app (register-prompts.ts live; no allowlist module exists yet). The D11/MCP-101 rulings are decided but undelivered at refresh time — ruling_note fields record ruled state, dated.
+
 ## How to read this
 
 Each item has a **review domain** (which expert should audit it) and an **extraction kind** (whether it is leaf-authored content that could move to a content catalogue, or generated/external content that cannot). Item ids (`C001`…) are stable references into `registry.json`.
 
 ## Summary
+
+### By workspace scope (D12 cut — what the content workspace holds)
+| Workspace scope | Items |
+| --- | --- |
+| in | 586 |
+| out-upstream-api | 130 |
+
+- **in** — repo-controlled; belongs in the model-behaviour content workspace(s).
+- **out-upstream-api** — base text owned by the upstream Oak Open Curriculum API spec (generated-from-openapi); registered out with that reason so the map to the owning repo is preserved.
 
 ### By impact tier (gates protocol weight)
 | Impact tier | Items |
@@ -102,6 +123,7 @@ Teaching/learning framing — prompts, orientation, curriculum-model doctrine, E
 <details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-prompts-section.ts</code> — 1</summary>
 
 - **C356** _[orientation-content · leaf-authored]_ **⚑high-impact** **prompts section framing sentence** — Prompts are workflow templates that guide common curriculum tasks:
+  - ⚖ D11 (owner, 2026-07-22): the landing page’s prompt-catalogue section presents a primitive that unregisters; this copy reworks or retires at MCP-101 delivery.
 
 </details>
 <details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-resources-section.ts</code> — 1</summary>
@@ -126,17 +148,25 @@ Teaching/learning framing — prompts, orientation, curriculum-model doctrine, E
 <details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/oak-under-the-hood/oak-under-the-hood-tool.ts</code> — 1</summary>
 
 - **C376** _[orientation-content · leaf-authored]_ **⚑high-impact** **OAK_UNDER_THE_HOOD_TOOL_SUMMARY** — Oak: Under the Hood — fetch the linked canonical method and orient the user to this repository. The method and sources are at the resource link below.
+  - ⚖ D2 (owner, ratified 2026-07-22): under-the-hood KEEP — this surface remains served (tool + resource pointer).
 
 </details>
 <details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/register-prompts.ts</code> — 7</summary>
 
 - **C329** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **prompt find-lessons (title 'Find Lessons' + description)** — name:'find-lessons' title:'Find Lessons' — 'Find curriculum lessons on a specific topic. Searches across all subjects and key stages.'
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content re-homes as an agent resource — LIVE set (navigation three). Delivery: MCP-101; code still registers prompts at refresh time.
 - **C330** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **prompt lesson-planning (title 'Lesson Planning' + description)** — 'Build a complete, teachable lesson on a topic, grounded in Oak's live curriculum data and six curriculum principles — outcome, key learning points, keywords, m
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content is retained DORMANT behind the MCP-101 allowlist (creation-oriented, consistent with D4’s no-creation-claims boundary). Code still registers prompts at refresh time.
 - **C331** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **prompt explore-curriculum (title 'Explore Curriculum' + description)** — 'Explore what Oak has on a topic across the whole curriculum. Searches lessons, units, and threads in parallel.'
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content re-homes as an agent resource — LIVE set (navigation three). Delivery: MCP-101; code still registers prompts at refresh time.
 - **C332** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **prompt learning-progression (title 'Learning Progression' + description)** — 'Understand how a concept builds across year groups by searching progression threads and mapping dependencies.'
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content re-homes as an agent resource — LIVE set (navigation three). Delivery: MCP-101; code still registers prompts at refresh time.
 - **C333** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **prompt curriculum-mapping (title 'Curriculum Mapping' + description)** — "Build or audit a curriculum map — unit order across a year or key stage — grounded in Oak's threads, prerequisites, and national-curriculum coverage."
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content is retained DORMANT behind the MCP-101 allowlist (creation-oriented, consistent with D4’s no-creation-claims boundary). Code still registers prompts at refresh time.
 - **C334** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **prompt adapt-lesson (title 'Adapt Lesson with EEF Evidence' + description, EEF-gated)** — 'Adapt an Oak lesson grounded in EEF Teaching and Learning Toolkit evidence, presenting evidence-calibrated options with caveats and attribution intact.'
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content is retained DORMANT behind the MCP-101 allowlist (creation-oriented, consistent with D4’s no-creation-claims boundary). Code still registers prompts at refresh time.
 - **C335** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **prompt continue-progression (title 'Continue Progression' + description)** — "Plan the next step from where your class is: state what they just covered and get the next unit from Oak's sequence, a checkable readiness list, and the miscon
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content is retained DORMANT behind the MCP-101 allowlist (creation-oriented, consistent with D4’s no-creation-claims boundary). Code still registers prompts at refresh time.
 
 </details>
 <details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts</code> — 1</summary>
@@ -202,63 +232,93 @@ Teaching/learning framing — prompts, orientation, curriculum-model doctrine, E
 <details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompts.ts</code> — 19</summary>
 
 - **C178** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **prompt: find-lessons (name + description)** — find-lessons — 'Find curriculum lessons on a specific topic using semantic search. Searches across all subjects and key stages to find relevant lessons.'
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content re-homes as an agent resource — LIVE set (navigation three). Delivery: MCP-101; code still registers prompts at refresh time.
 - **C179** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **prompt: lesson-planning (name + description)** — lesson-planning — 'Build a complete, teachable lesson on a topic the way Oak does — planning grounded in Oak's live curriculum data and six curriculum principle
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content is retained DORMANT behind the MCP-101 allowlist (creation-oriented, consistent with D4’s no-creation-claims boundary). Code still registers prompts at refresh time.
 - **C180** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **prompt: explore-curriculum (name + description)** — explore-curriculum — 'Explore what Oak has on a topic across the whole curriculum. Searches lessons, units, and learning threads in parallel to give a broad ove
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content re-homes as an agent resource — LIVE set (navigation three). Delivery: MCP-101; code still registers prompts at refresh time.
 - **C181** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **prompt: learning-progression (name + description)** — learning-progression — 'Understand how a concept builds across year groups by searching learning progression threads and mapping unit dependencies.'
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content re-homes as an agent resource — LIVE set (navigation three). Delivery: MCP-101; code still registers prompts at refresh time.
 - **C182** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **prompt: curriculum-mapping (name + description)** — curriculum-mapping — 'Build or audit a curriculum map — what is taught and in what order across a year or key stage — grounded in Oak's threads, prior-knowledge
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content is retained DORMANT behind the MCP-101 allowlist (creation-oriented, consistent with D4’s no-creation-claims boundary). Code still registers prompts at refresh time.
 - **C183** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **prompt: adapt-lesson (name + description)** — adapt-lesson — 'Adapt an Oak lesson grounded in EEF Teaching and Learning Toolkit evidence: surface the pedagogical signals, retrieve the relevant EEF evidence,
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content is retained DORMANT behind the MCP-101 allowlist (creation-oriented, consistent with D4’s no-creation-claims boundary). Code still registers prompts at refresh time.
 - **C184** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **prompt: continue-progression (name + description)** — continue-progression — 'State where your class is — what they just covered — and plan the next step from Oak's curriculum sequence: assumed prior knowledge surf
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content is retained DORMANT behind the MCP-101 allowlist (creation-oriented, consistent with D4’s no-creation-claims boundary). Code still registers prompts at refresh time.
 - **C185** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **arg: find-lessons.topic (required)** — topic — 'The topic or concept to search for (e.g., "photosynthesis", "fractions", "World War 2")'
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content re-homes as an agent resource — LIVE set (navigation three). Delivery: MCP-101; code still registers prompts at refresh time.
 - **C186** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **arg: find-lessons.keyStage (optional)** — keyStage — 'Optional: Filter by key stage (e.g., "ks1", "ks2", "ks3", "ks4")'
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content re-homes as an agent resource — LIVE set (navigation three). Delivery: MCP-101; code still registers prompts at refresh time.
 - **C187** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **arg: topic 'The topic for the lesson' (lesson-planning + adapt-lesson)** — topic — 'The topic for the lesson (e.g., "adding fractions", "the water cycle")'
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content is retained DORMANT behind the MCP-101 allowlist (creation-oriented, consistent with D4’s no-creation-claims boundary). Code still registers prompts at refresh time.
 - **C188** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **arg: yearGroup 'The year group' (lesson-planning, adapt-lesson, continue-progression)** — yearGroup — 'The year group (e.g., "Year 4", "Year 9")'
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content is retained DORMANT behind the MCP-101 allowlist (creation-oriented, consistent with D4’s no-creation-claims boundary). Code still registers prompts at refresh time.
 - **C189** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **arg: explore-curriculum.topic (required)** — topic — 'The topic to explore (e.g., "volcanos", "electricity", "the Romans")'
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content re-homes as an agent resource — LIVE set (navigation three). Delivery: MCP-101; code still registers prompts at refresh time.
 - **C190** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **arg: explore-curriculum.subject (optional)** — subject — 'Optional: Narrow to a specific subject (e.g., "science", "history")'
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content re-homes as an agent resource — LIVE set (navigation three). Delivery: MCP-101; code still registers prompts at refresh time.
 - **C191** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **arg: learning-progression.concept (required)** — concept — 'The concept to trace (e.g., "algebra", "cells", "narrative writing")'
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content re-homes as an agent resource — LIVE set (navigation three). Delivery: MCP-101; code still registers prompts at refresh time.
 - **C192** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **arg: subject 'The subject area' (learning-progression, curriculum-mapping, continue-progression)** — subject — 'The subject area (e.g., "maths", "science", "english")'
+  - ⚖ D11 (owner, 2026-07-22): shared argument copy spanning a LIVE workflow (learning-progression) and DORMANT ones (curriculum-mapping, continue-progression); survives with the live set as agent-resource content. Delivery: MCP-101.
 - **C193** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **arg: curriculum-mapping.keyStage (required)** — keyStage — 'The key stage to map (e.g., "ks1", "ks2", "ks3", "ks4")'
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content is retained DORMANT behind the MCP-101 allowlist (creation-oriented, consistent with D4’s no-creation-claims boundary). Code still registers prompts at refresh time.
 - **C194** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **arg: curriculum-mapping.yearGroup (optional)** — yearGroup — 'Optional: Narrow the map to a specific year group (e.g., "Year 4")'
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content is retained DORMANT behind the MCP-101 allowlist (creation-oriented, consistent with D4’s no-creation-claims boundary). Code still registers prompts at refresh time.
 - **C195** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **arg: continue-progression.justCovered (required)** — justCovered — 'What the class just completed — a topic, unit, or lesson (e.g., "equivalent fractions", "the circulatory system")'
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content is retained DORMANT behind the MCP-101 allowlist (creation-oriented, consistent with D4’s no-creation-claims boundary). Code still registers prompts at refresh time.
 - **C196** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **arg: continue-progression.classNotes (optional)** — classNotes — 'Optional: Notes on how the class did (e.g., "they struggled with equivalent fractions")' `user-input-interpolation` `pii-adjacent`
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content is retained DORMANT behind the MCP-101 allowlist (creation-oriented, consistent with D4’s no-creation-claims boundary). Code still registers prompts at refresh time.
 
 </details>
 <details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/prompt-messages/adapt-lesson.ts</code> — 1</summary>
 
 - **C202** _[prompt-message-template · leaf-authored]_ **⚑high-impact** **getAdaptLessonMessages — user message template (EEF-grounded adaptation)** — 3. Name the pedagogical move each signal raises ... Pick the real EEF strands ... from the strand index in the eef://interpretation resource ... 4. Call get-eef `user-input-interpolation`
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content is retained DORMANT behind the MCP-101 allowlist (creation-oriented, consistent with D4’s no-creation-claims boundary). Code still registers prompts at refresh time.
 
 </details>
 <details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/prompt-messages/continue-progression.ts</code> — 3</summary>
 
 - **C203** _[prompt-message-template · leaf-authored]_ **⚑high-impact** **getContinueProgressionMessages — user message template (position-&gt;next)** — If more than one unit plausibly matches, present each candidate ... and ask me to confirm my class's position — never select silently ... KS4 ... must be traver `user-input-interpolation`
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content is retained DORMANT behind the MCP-101 allowlist (creation-oriented, consistent with D4’s no-creation-claims boundary). Code still registers prompts at refresh time.
 - **C204** _[prompt-message-template · leaf-authored]_ **⚑high-impact** **continue-progression conditional fragments (classNotesLine + classNotesCheck)** — ' Check the list against my class notes above and flag anything they may not have secured.' / 'Notes on how the class did: ${classNotes}' `user-input-interpolation` `pii-adjacent`
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content is retained DORMANT behind the MCP-101 allowlist (creation-oriented, consistent with D4’s no-creation-claims boundary). Code still registers prompts at refresh time.
 - **C208** _[tool-guidance · leaf-authored]_ **⚑high-impact** **recurring 'recommendation not a mandate / decision is yours' framing** — The next step is a recommendation grounded in Oak's published sequence, not a mandate ... the teaching decision is mine to make.
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content is retained DORMANT behind the MCP-101 allowlist (creation-oriented, consistent with D4’s no-creation-claims boundary). Code still registers prompts at refresh time.
 
 </details>
 <details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/prompt-messages/curriculum-mapping.ts</code> — 1</summary>
 
 - **C201** _[prompt-message-template · leaf-authored]_ **⚑high-impact** **↑oak-skills** **getCurriculumMappingMessages — user message template (map build/audit)** — Output the map as a table (term/half-term \| unit \| thread(s) \| builds on \| national curriculum coverage) ... KS4 is more complex (tiers and exam boards); scienc `user-input-interpolation`
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content is retained DORMANT behind the MCP-101 allowlist (creation-oriented, consistent with D4’s no-creation-claims boundary). Code still registers prompts at refresh time.
 
 </details>
 <details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/prompt-messages/explore-curriculum.ts</code> — 1</summary>
 
 - **C199** _[prompt-message-template · leaf-authored]_ **⚑high-impact** **getExploreCurriculumMessages — user message template** — 1. Use explore-topic to search across lessons, units, and threads in parallel: explore-topic({ query: "${topic}"${subjectParam} }) ... 5. Suggest next steps bas `user-input-interpolation`
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content re-homes as an agent resource — LIVE set (navigation three). Delivery: MCP-101; code still registers prompts at refresh time.
 
 </details>
 <details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/prompt-messages/find-lessons.ts</code> — 1</summary>
 
 - **C197** _[prompt-message-template · leaf-authored]_ **⚑high-impact** **getFindLessonsMessages — user message template** — 1. Use search with scope "lessons" to find lessons matching this topic: search({ query: "${topic}", scope: "lessons"${keyStageParam} }) ... 5. Use fetch to get `user-input-interpolation`
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content re-homes as an agent resource — LIVE set (navigation three). Delivery: MCP-101; code still registers prompts at refresh time.
 
 </details>
 <details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/prompt-messages/learning-progression.ts</code> — 1</summary>
 
 - **C200** _[prompt-message-template · leaf-authored]_ **⚑high-impact** **getLearningProgressionMessages — user message template** — 1. Use search with scope "threads" ... 2. get-thread-progressions({ threadSlug: "&lt;thread-slug-from-step-1&gt;" }) ... 3. get-prior-knowledge-graph({ unitSlugs: [.. `user-input-interpolation`
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content re-homes as an agent resource — LIVE set (navigation three). Delivery: MCP-101; code still registers prompts at refresh time.
 
 </details>
 <details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/prompt-messages/lesson-planning.ts</code> — 3</summary>
 
 - **C198** _[prompt-message-template · leaf-authored]_ **⚑high-impact** **↑oak-skills** **getLessonPlanningMessages — user message template (6-step lesson build)** — Workflow: 1. Place the lesson. Use search with scope "lessons" ... get-prior-knowledge-graph ... 2. Specify the knowledge ... get-lessons-summary ... get-lesson `user-input-interpolation`
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content is retained DORMANT behind the MCP-101 allowlist (creation-oriented, consistent with D4’s no-creation-claims boundary). Code still registers prompts at refresh time.
 - **C205** _[orientation-content · leaf-authored]_ **⚑high-impact** **recurring orientation preamble: get-curriculum-model-first + tool-suffix matching** — Call get-curriculum-model first for domain definitions, concept relationships, and tool usage guidance. MCP tool names may appear prefixed (e.g. mcp__&lt;id&gt;__get-
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content is retained DORMANT behind the MCP-101 allowlist (creation-oriented, consistent with D4’s no-creation-claims boundary). Code still registers prompts at refresh time.
 - **C207** _[tool-guidance · leaf-authored]_ **⚑high-impact** **recurring WCAG 2.2 AA output-accessibility requirement** — If you produce slides, worksheets, or quizzes, meet WCAG 2.2 AA (alt text, heading and reading order, contrast).
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content is retained DORMANT behind the MCP-101 allowlist (creation-oriented, consistent with D4’s no-creation-claims boundary). Code still registers prompts at refresh time.
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/code-generation/generate-ai-doc.ts</code> — 4</summary>
@@ -371,7 +431,9 @@ How an agent discovers and uses tools — titles, descriptions, param descriptio
 <details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-prompts-section.ts</code> — 2</summary>
 
 - **C358** _[response-format-template · authored-template]_ **⚑high-impact** **prompt list-item display template** — &lt;li&gt;&lt;code&gt;${escapeHtml(prompt.name)}&lt;/code&gt;&lt;span class="tool-desc"&gt;${escapeHtml(prompt.description)}&lt;/span&gt;${argList}&lt;/li&gt; `user-input-interpolation`
+  - ⚖ D11 (owner, 2026-07-22): the landing page’s prompt-catalogue section presents a primitive that unregisters; this copy reworks or retires at MCP-101 delivery.
 - **C359** _[response-format-template · authored-template]_ **⚑high-impact** **prompt arguments labels ('Arguments:', '(optional)')** — Arguments: &lt;code&gt;${a.name}&lt;/code&gt;${a.required ? '' : ' (optional)'} `user-input-interpolation`
+  - ⚖ D11 (owner, 2026-07-22): the landing page’s prompt-catalogue section presents a primitive that unregisters; this copy reworks or retires at MCP-101 delivery.
 
 </details>
 <details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-resources-section.ts</code> — 1</summary>
@@ -387,11 +449,17 @@ How an agent discovers and uses tools — titles, descriptions, param descriptio
 <details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/oak-under-the-hood/oak-under-the-hood-tool.ts</code> — 6</summary>
 
 - **C372** _[tool-title · leaf-authored]_ **⚑high-impact** **tool title 'Oak: Under the Hood'** — title: 'Oak: Under the Hood',
+  - ⚖ D2 (owner, ratified 2026-07-22): under-the-hood KEEP — this surface remains served (tool + resource pointer).
 - **C373** _[tool-description · leaf-authored]_ **⚑high-impact** **OAK_UNDER_THE_HOOD_TOOL_DESCRIPTION** — Use when a user asks to understand the Oak project, effort, or ecosystem — this repository ... Not for curriculum content questions ... served by the curriculum
+  - ⚖ D2 (owner, ratified 2026-07-22): under-the-hood KEEP — this surface remains served (tool + resource pointer).
 - **C375** _[tool-guidance · leaf-authored]_ **⚑high-impact** **OAK_UNDER_THE_HOOD_TOOL_TRIGGER** — Orient the user to this repository (the Oak Open Curriculum Ecosystem) using the Oak Under the Hood method. Fetch the canonical skill at the linked URL and foll
+  - ⚖ D2 (owner, ratified 2026-07-22): under-the-hood KEEP — this surface remains served (tool + resource pointer).
 - **C380** _[resource-name-or-description · leaf-authored]_ **⚑high-impact** **resource_link name 'oak-under-the-hood'** — name: 'oak-under-the-hood',
+  - ⚖ D2 (owner, ratified 2026-07-22): under-the-hood KEEP — this surface remains served (tool + resource pointer).
 - **C381** _[resource-name-or-description · leaf-authored]_ **⚑high-impact** **resource_link title** — title: 'Oak: Under the Hood — orientation method',
+  - ⚖ D2 (owner, ratified 2026-07-22): under-the-hood KEEP — this surface remains served (tool + resource pointer).
 - **C382** _[resource-name-or-description · leaf-authored]_ **⚑high-impact** **resource_link description** — Canonical orientation method and source list; fetch and follow it to orient the user.
+  - ⚖ D2 (owner, ratified 2026-07-22): under-the-hood KEEP — this surface remains served (tool + resource pointer).
 
 </details>
 <details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/oauth-proxy/oauth-proxy-response.ts</code> — 1</summary>
@@ -616,7 +684,7 @@ How an agent discovers and uses tools — titles, descriptions, param descriptio
 </details>
 <details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/stub-tool-executor.ts</code> — 1</summary>
 
-- **C714** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **McpParameterError describeToolArgs() (PARAMETER_ERROR)** — new McpParameterError(descriptor.describeToolArgs(), name, undefined, undefined, { code: 'PARAMETER_ERROR' })
+- **C714** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **McpParameterError describeToolArgs() (PARAMETER_ERROR)** — new McpParameterError(descriptor.describeToolArgs(), name, undefined, undefined, { code: 'PARAMETER_ERROR' })
 
 </details>
 <details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/tool-guidance-data.ts</code> — 23</summary>
@@ -709,8 +777,8 @@ How an agent discovers and uses tools — titles, descriptions, param descriptio
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/tool-description.ts</code> — 10</summary>
 
-- **C453** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **normaliseUpstreamDescription** — .replaceAll(/\bThis endpoint\b/gi, (m) =&gt; m.startsWith('T') ? 'This tool' : 'this tool').replaceAll(/\s+/g,' ').trim() `upstream-owned-base-text`
-- **C454** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **toToolDescription (summary\n\ndescription assembly)** — if (summary &amp;&amp; description) return `${summary}\n\n${description}`; `upstream-owned-base-text`
+- **C453** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **normaliseUpstreamDescription** — .replaceAll(/\bThis endpoint\b/gi, (m) =&gt; m.startsWith('T') ? 'This tool' : 'this tool').replaceAll(/\s+/g,' ').trim() `upstream-owned-base-text`
+- **C454** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **toToolDescription (summary\n\ndescription assembly)** — if (summary &amp;&amp; description) return `${summary}\n\n${description}`; `upstream-owned-base-text`
 - **C455** _[tool-guidance · leaf-authored]_ **⚑high-impact** **DOMAIN_PREREQUISITE_GUIDANCE** — PREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand the curriculum domain. `user-input-interpolation` `upstream-owned-base-text`
 - **C456** _[tool-guidance · leaf-authored]_ **⚑high-impact** **GET_RATE_LIMIT_NOTE** — NOTE: A response of limit=0, remaining=0, reset=0 indicates an unlimited API key with no rate cap.
 - **C457** _[tool-guidance · leaf-authored]_ **⚑high-impact** **ASSET_DOWNLOAD_NOTE** — NOTE: The asset `url` fields ... call the `download-asset` tool ... direct users to the lesson page ... `https://www.thenational.academy/teachers/lessons/{lesso
@@ -728,242 +796,242 @@ How an agent discovers and uses tools — titles, descriptions, param descriptio
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog-latest.ts</code> — 2</summary>
 
-- **C491** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-changelog-latest annotations.title (+ tool name)** — name: 'get-changelog-latest'; annotations.title: "Get Changelog Latest" `upstream-owned-base-text`
-- **C492** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-changelog-latest description (base prose, noauth)** — Latest API version\n\nUse when you only need the current API version — e.g. a version banner or deployment check. Returns the most recent changelog entry. Not f `user-input-interpolation` `upstream-owned-base-text`
+- **C491** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-changelog-latest annotations.title (+ tool name)** — name: 'get-changelog-latest'; annotations.title: "Get Changelog Latest" `upstream-owned-base-text`
+- **C492** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-changelog-latest description (base prose, noauth)** — Latest API version\n\nUse when you only need the current API version — e.g. a version banner or deployment check. Returns the most recent changelog entry. Not f `user-input-interpolation` `upstream-owned-base-text`
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog.ts</code> — 2</summary>
 
-- **C495** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-changelog annotations.title (+ tool name)** — name: 'get-changelog'; annotations.title: "Get Changelog" `upstream-owned-base-text`
-- **C496** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-changelog description (base prose, noauth)** — API changelog\n\nUse when you need the full history of API changes... Returns every changelog entry with version and date. Not for: the current version (GET /ch `user-input-interpolation` `upstream-owned-base-text`
+- **C495** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-changelog annotations.title (+ tool name)** — name: 'get-changelog'; annotations.title: "Get Changelog" `upstream-owned-base-text`
+- **C496** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-changelog description (base prose, noauth)** — API changelog\n\nUse when you need the full history of API changes... Returns every changelog entry with version and date. Not for: the current version (GET /ch `user-input-interpolation` `upstream-owned-base-text`
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-key-stages-subject-assets.ts</code> — 8</summary>
 
-- **C499** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-key-stages-subject-assets annotations.title (+ tool name)** — name: 'get-key-stages-subject-assets'; annotations.title: "Get Key Stages Subject Assets"
-- **C500** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-key-stages-subject-assets description (base prose)** — Downloadable assets by key stage and subject\n\nUse when you want every downloadable asset for a key stage + subject... Not for: assets across a sequence (GET / `user-input-interpolation` `upstream-owned-base-text`
+- **C499** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-key-stages-subject-assets annotations.title (+ tool name)** — name: 'get-key-stages-subject-assets'; annotations.title: "Get Key Stages Subject Assets"
+- **C500** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-key-stages-subject-assets description (base prose)** — Downloadable assets by key stage and subject\n\nUse when you want every downloadable asset for a key stage + subject... Not for: assets across a sequence (GET / `user-input-interpolation` `upstream-owned-base-text`
 - **C502** _[tool-guidance · leaf-authored]_ **⚑high-impact** **get-key-stages-subject-assets PREREQUISITE injection** — PREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand the curriculum domain. `user-input-interpolation`
 - **C503** _[tool-guidance · leaf-authored]_ **⚑high-impact** **get-key-stages-subject-assets NOTE download-asset/oakUrl injection** — NOTE: The asset `url` fields... are authenticated API endpoints and cannot be used as direct browser download links... call the `download-asset` tool... or the `user-input-interpolation`
-- **C505** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-key-stages-subject-assets param keyStage** — Key stage slug to filter by, e.g. 'ks2' - note that casing is important here, and should be lowercase (enum ks1,ks2,ks3,ks4) `upstream-owned-base-text`
-- **C506** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-key-stages-subject-assets param subject** — Subject slug to search by, e.g. 'science' - note that casing is important here (always lowercase) (enum art..spanish, 17 values) `upstream-owned-base-text`
-- **C507** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-key-stages-subject-assets param type** — Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint (enum sl `upstream-owned-base-text` `possible-defect-reported`
-- **C508** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-key-stages-subject-assets param unit** — Optional unit slug to additionally filter by `upstream-owned-base-text`
+- **C505** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-key-stages-subject-assets param keyStage** — Key stage slug to filter by, e.g. 'ks2' - note that casing is important here, and should be lowercase (enum ks1,ks2,ks3,ks4) `upstream-owned-base-text`
+- **C506** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-key-stages-subject-assets param subject** — Subject slug to search by, e.g. 'science' - note that casing is important here (always lowercase) (enum art..spanish, 17 values) `upstream-owned-base-text`
+- **C507** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-key-stages-subject-assets param type** — Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint (enum sl `upstream-owned-base-text` `possible-defect-reported`
+- **C508** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-key-stages-subject-assets param unit** — Optional unit slug to additionally filter by `upstream-owned-base-text`
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-key-stages-subject-lessons.ts</code> — 8</summary>
 
-- **C511** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-key-stages-subject-lessons annotations.title (+ tool name)** — name: 'get-key-stages-subject-lessons'; annotations.title: "Get Key Stages Subject Lessons"
-- **C512** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-key-stages-subject-lessons description (base prose)** — List lessons in a key stage and subject\n\nUse when you want every published lesson in a key stage + subject, grouped by unit... Supports offset/limit paginatio `user-input-interpolation` `upstream-owned-base-text`
+- **C511** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-key-stages-subject-lessons annotations.title (+ tool name)** — name: 'get-key-stages-subject-lessons'; annotations.title: "Get Key Stages Subject Lessons"
+- **C512** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-key-stages-subject-lessons description (base prose)** — List lessons in a key stage and subject\n\nUse when you want every published lesson in a key stage + subject, grouped by unit... Supports offset/limit paginatio `user-input-interpolation` `upstream-owned-base-text`
 - **C513** _[tool-guidance · leaf-authored]_ **⚑high-impact** **get-key-stages-subject-lessons PREREQUISITE injection** — PREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand the curriculum domain. `user-input-interpolation`
-- **C514** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-key-stages-subject-lessons param keyStage** — Key stage slug to filter by, e.g. 'ks2' - note that casing is important here, and should be lowercase (enum ks1..ks4) `upstream-owned-base-text`
-- **C515** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-key-stages-subject-lessons param subject** — Subject slug to filter by, e.g. 'english' - note that casing is important here, and should be lowercase (enum art..spanish) `upstream-owned-base-text`
-- **C516** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-key-stages-subject-lessons param unit** — Optional unit slug to additionally filter by `upstream-owned-base-text`
-- **C517** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-key-stages-subject-lessons param offset** — Offset applied to lessons within each unit (not to the unit list). Default: 0 `upstream-owned-base-text`
-- **C518** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-key-stages-subject-lessons param limit** — Limit the number of lessons returned per unit. Units with zero lessons after limiting are omitted. Default: 10 `upstream-owned-base-text`
+- **C514** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-key-stages-subject-lessons param keyStage** — Key stage slug to filter by, e.g. 'ks2' - note that casing is important here, and should be lowercase (enum ks1..ks4) `upstream-owned-base-text`
+- **C515** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-key-stages-subject-lessons param subject** — Subject slug to filter by, e.g. 'english' - note that casing is important here, and should be lowercase (enum art..spanish) `upstream-owned-base-text`
+- **C516** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-key-stages-subject-lessons param unit** — Optional unit slug to additionally filter by `upstream-owned-base-text`
+- **C517** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-key-stages-subject-lessons param offset** — Offset applied to lessons within each unit (not to the unit list). Default: 0 `upstream-owned-base-text`
+- **C518** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-key-stages-subject-lessons param limit** — Limit the number of lessons returned per unit. Units with zero lessons after limiting are omitted. Default: 10 `upstream-owned-base-text`
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-key-stages-subject-questions.ts</code> — 8</summary>
 
-- **C521** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-key-stages-subject-questions annotations.title (+ tool name)** — name: 'get-key-stages-subject-questions'; annotations.title: "Get Key Stages Subject Questions"
-- **C522** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-key-stages-subject-questions description (base prose)** — Quiz questions by key stage and subject\n\nUse when you want every quiz question for a key stage + subject... Returns lessons each with starter and exit quiz qu `upstream-owned-base-text`
+- **C521** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-key-stages-subject-questions annotations.title (+ tool name)** — name: 'get-key-stages-subject-questions'; annotations.title: "Get Key Stages Subject Questions"
+- **C522** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-key-stages-subject-questions description (base prose)** — Quiz questions by key stage and subject\n\nUse when you want every quiz question for a key stage + subject... Returns lessons each with starter and exit quiz qu `upstream-owned-base-text`
 - **C523** _[tool-guidance · leaf-authored]_ **⚑high-impact** **get-key-stages-subject-questions PREREQUISITE injection** — PREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand the curriculum domain. `user-input-interpolation`
-- **C524** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-key-stages-subject-questions param keyStage** — Key stage slug to filter by, e.g. 'ks2' - note that casing is important here, and should be lowercase (enum ks1..ks4) `upstream-owned-base-text`
-- **C525** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-key-stages-subject-questions param subject** — Subject slug to search by, e.g. 'science' - note that casing is important here (enum art..spanish) `upstream-owned-base-text`
-- **C526** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-key-stages-subject-questions param offset** — If limiting results returned, this allows you to return the next set of results, starting at the given offset point Default: 0 `upstream-owned-base-text`
-- **C527** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-key-stages-subject-questions param limit** — Limit the number of lessons, e.g. return a maximum of 100 lessons Default: 10 `upstream-owned-base-text`
-- **C528** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-key-stages-subject-questions param filter** — Optional filter for question results. Use `images` to return only questions with a question image or image answer. (enum images) `upstream-owned-base-text`
+- **C524** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-key-stages-subject-questions param keyStage** — Key stage slug to filter by, e.g. 'ks2' - note that casing is important here, and should be lowercase (enum ks1..ks4) `upstream-owned-base-text`
+- **C525** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-key-stages-subject-questions param subject** — Subject slug to search by, e.g. 'science' - note that casing is important here (enum art..spanish) `upstream-owned-base-text`
+- **C526** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-key-stages-subject-questions param offset** — If limiting results returned, this allows you to return the next set of results, starting at the given offset point Default: 0 `upstream-owned-base-text`
+- **C527** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-key-stages-subject-questions param limit** — Limit the number of lessons, e.g. return a maximum of 100 lessons Default: 10 `upstream-owned-base-text`
+- **C528** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-key-stages-subject-questions param filter** — Optional filter for question results. Use `images` to return only questions with a question image or image answer. (enum images) `upstream-owned-base-text`
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-key-stages-subject-units.ts</code> — 5</summary>
 
-- **C531** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-key-stages-subject-units annotations.title (+ tool name)** — name: 'get-key-stages-subject-units'; annotations.title: "Get Key Stages Subject Units"
-- **C532** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-key-stages-subject-units description (base prose)** — Units in a key stage and subject\n\nUse when you want a flat list of every unit with published lessons... Pass examBoard to restrict KS4 (one of: aqa, edexcel ( `upstream-owned-base-text`
+- **C531** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-key-stages-subject-units annotations.title (+ tool name)** — name: 'get-key-stages-subject-units'; annotations.title: "Get Key Stages Subject Units"
+- **C532** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-key-stages-subject-units description (base prose)** — Units in a key stage and subject\n\nUse when you want a flat list of every unit with published lessons... Pass examBoard to restrict KS4 (one of: aqa, edexcel ( `upstream-owned-base-text`
 - **C533** _[tool-guidance · leaf-authored]_ **⚑high-impact** **get-key-stages-subject-units PREREQUISITE injection** — PREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand the curriculum domain. `user-input-interpolation`
-- **C534** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-key-stages-subject-units param keyStage** — Key stage slug to filter by, e.g. 'ks2' (enum ks1..ks4) `upstream-owned-base-text`
-- **C535** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-key-stages-subject-units param subject** — Subject slug to search by, e.g. 'science' - note that casing is important here (always lowercase) (enum art..spanish) `upstream-owned-base-text`
+- **C534** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-key-stages-subject-units param keyStage** — Key stage slug to filter by, e.g. 'ks2' (enum ks1..ks4) `upstream-owned-base-text`
+- **C535** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-key-stages-subject-units param subject** — Subject slug to search by, e.g. 'science' - note that casing is important here (always lowercase) (enum art..spanish) `upstream-owned-base-text`
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-key-stages.ts</code> — 3</summary>
 
-- **C538** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-key-stages annotations.title (+ tool name)** — name: 'get-key-stages'; annotations.title: "Get Key Stages"
-- **C539** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-key-stages description (base prose)** — All key stages\n\nUse when you need the master list of key stages. Returns every key stage with its title and slug. Not for: key stages restricted to a subject `upstream-owned-base-text`
+- **C538** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-key-stages annotations.title (+ tool name)** — name: 'get-key-stages'; annotations.title: "Get Key Stages"
+- **C539** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-key-stages description (base prose)** — All key stages\n\nUse when you need the master list of key stages. Returns every key stage with its title and slug. Not for: key stages restricted to a subject `upstream-owned-base-text`
 - **C540** _[tool-guidance · leaf-authored]_ **⚑high-impact** **get-key-stages PREREQUISITE injection** — PREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand the curriculum domain. `user-input-interpolation`
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-keywords.ts</code> — 4</summary>
 
-- **C543** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-keywords annotations.title (+ tool name)** — name: 'get-keywords'; annotations.title: "Get Keywords"
-- **C544** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-keywords description (base prose)** — Keywords by subject and key stage\n\nUse when you want the vocabulary for a key stage, subject, unit, lesson, or phase... All filters are optional, but pass at `user-input-interpolation` `upstream-owned-base-text`
+- **C543** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-keywords annotations.title (+ tool name)** — name: 'get-keywords'; annotations.title: "Get Keywords"
+- **C544** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-keywords description (base prose)** — Keywords by subject and key stage\n\nUse when you want the vocabulary for a key stage, subject, unit, lesson, or phase... All filters are optional, but pass at `user-input-interpolation` `upstream-owned-base-text`
 - **C545** _[tool-guidance · leaf-authored]_ **⚑high-impact** **get-keywords PREREQUISITE injection** — PREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand the curriculum domain. `user-input-interpolation`
 - **C546** _[tool-guidance · leaf-authored]_ **⚑high-impact** **get-keywords WHEN-TO-PREFER injection** — WHEN TO PREFER WHICH KEYWORDS TOOL: this tool returns the LIVE full keyword set for a key stage + subject... prefer get-keyword-graph, which serves a point-in-t `user-input-interpolation`
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-lessons-assets.ts</code> — 6</summary>
 
-- **C549** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-lessons-assets annotations.title (+ tool name)** — name: 'get-lessons-assets'; annotations.title: "Get Lessons Assets"
-- **C550** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-lessons-assets description (base prose)** — Downloadable assets for a lesson\n\nUse when you have a lesson slug and need the list of what's downloadable. Returns every available asset type with a signed d `upstream-owned-base-text`
+- **C549** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-lessons-assets annotations.title (+ tool name)** — name: 'get-lessons-assets'; annotations.title: "Get Lessons Assets"
+- **C550** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-lessons-assets description (base prose)** — Downloadable assets for a lesson\n\nUse when you have a lesson slug and need the list of what's downloadable. Returns every available asset type with a signed d `upstream-owned-base-text`
 - **C552** _[tool-guidance · leaf-authored]_ **⚑high-impact** **get-lessons-assets PREREQUISITE injection** — PREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand the curriculum domain. `user-input-interpolation`
 - **C553** _[tool-guidance · leaf-authored]_ **⚑high-impact** **get-lessons-assets NOTE download-asset/oakUrl injection** — NOTE: The asset `url` fields... are authenticated API endpoints and cannot be used as direct browser download links... call the `download-asset` tool... or the `user-input-interpolation`
-- **C554** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-lessons-assets param lesson** — The lesson slug identifier (example: child-workers-in-the-victorian-era) `upstream-owned-base-text`
-- **C555** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-lessons-assets param type** — Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint (enum sl `upstream-owned-base-text` `possible-defect-reported`
+- **C554** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-lessons-assets param lesson** — The lesson slug identifier (example: child-workers-in-the-victorian-era) `upstream-owned-base-text`
+- **C555** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-lessons-assets param type** — Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint (enum sl `upstream-owned-base-text` `possible-defect-reported`
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-lessons-quiz.ts</code> — 5</summary>
 
-- **C558** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-lessons-quiz annotations.title (+ tool name)** — name: 'get-lessons-quiz'; annotations.title: "Get Lessons Quiz"
-- **C559** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-lessons-quiz description (base prose)** — Quiz questions for a lesson\n\nUse when you have a lesson slug and need its starter and exit quiz questions with correct answers marked. Returns two arrays, sta `upstream-owned-base-text`
+- **C558** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-lessons-quiz annotations.title (+ tool name)** — name: 'get-lessons-quiz'; annotations.title: "Get Lessons Quiz"
+- **C559** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-lessons-quiz description (base prose)** — Quiz questions for a lesson\n\nUse when you have a lesson slug and need its starter and exit quiz questions with correct answers marked. Returns two arrays, sta `upstream-owned-base-text`
 - **C560** _[tool-guidance · leaf-authored]_ **⚑high-impact** **get-lessons-quiz PREREQUISITE injection** — PREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand the curriculum domain. `user-input-interpolation`
-- **C561** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-lessons-quiz param lesson** — The lesson slug identifier (example: imagining-you-are-the-characters-the-three-billy-goats-gruff) `upstream-owned-base-text`
-- **C562** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-lessons-quiz param filter** — Optional filter for question results. Use `images` to return only questions with a question image or image answer. (enum images) `upstream-owned-base-text`
+- **C561** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-lessons-quiz param lesson** — The lesson slug identifier (example: imagining-you-are-the-characters-the-three-billy-goats-gruff) `upstream-owned-base-text`
+- **C562** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-lessons-quiz param filter** — Optional filter for question results. Use `images` to return only questions with a question image or image answer. (enum images) `upstream-owned-base-text`
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-lessons-summary.ts</code> — 4</summary>
 
-- **C565** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-lessons-summary annotations.title (+ tool name)** — name: 'get-lessons-summary'; annotations.title: "Get Lessons Summary"
-- **C566** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-lessons-summary description (base prose)** — Lesson summary by slug\n\nUse when you have a lesson slug and need its full metadata: title, key stage, subject, unit, keywords, key learning points, misconcept `upstream-owned-base-text`
+- **C565** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-lessons-summary annotations.title (+ tool name)** — name: 'get-lessons-summary'; annotations.title: "Get Lessons Summary"
+- **C566** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-lessons-summary description (base prose)** — Lesson summary by slug\n\nUse when you have a lesson slug and need its full metadata: title, key stage, subject, unit, keywords, key learning points, misconcept `upstream-owned-base-text`
 - **C567** _[tool-guidance · leaf-authored]_ **⚑high-impact** **get-lessons-summary PREREQUISITE injection** — PREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand the curriculum domain. `user-input-interpolation`
-- **C568** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-lessons-summary param lesson** — The slug of the lesson (example: joining-using-and) `upstream-owned-base-text`
+- **C568** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-lessons-summary param lesson** — The slug of the lesson (example: joining-using-and) `upstream-owned-base-text`
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-lessons-transcript.ts</code> — 4</summary>
 
-- **C571** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-lessons-transcript annotations.title (+ tool name)** — name: 'get-lessons-transcript'; annotations.title: "Get Lessons Transcript"
-- **C572** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-lessons-transcript description (base prose)** — Lesson video transcript\n\nUse when you have a lesson slug and need the video transcript — for accessibility, captioning, or text analysis. Returns the transcri `upstream-owned-base-text`
+- **C571** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-lessons-transcript annotations.title (+ tool name)** — name: 'get-lessons-transcript'; annotations.title: "Get Lessons Transcript"
+- **C572** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-lessons-transcript description (base prose)** — Lesson video transcript\n\nUse when you have a lesson slug and need the video transcript — for accessibility, captioning, or text analysis. Returns the transcri `upstream-owned-base-text`
 - **C573** _[tool-guidance · leaf-authored]_ **⚑high-impact** **get-lessons-transcript PREREQUISITE injection** — PREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand the curriculum domain. `user-input-interpolation`
-- **C574** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-lessons-transcript param lesson** — The slug of the lesson (example: checking-understanding-of-basic-transformations) `upstream-owned-base-text`
+- **C574** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-lessons-transcript param lesson** — The slug of the lesson (example: checking-understanding-of-basic-transformations) `upstream-owned-base-text`
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-programmes-assets.ts</code> — 8</summary>
 
-- **C577** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-programmes-assets annotations.title (+ tool name)** — name: 'get-programmes-assets'; annotations.title: "Get Programmes Assets"
-- **C578** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-programmes-assets description (base prose)** — Downloadable assets in a programme\n\nUse when you need every downloadable asset for a single programme (year group) within a subject. Returns assets grouped by `upstream-owned-base-text`
+- **C577** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-programmes-assets annotations.title (+ tool name)** — name: 'get-programmes-assets'; annotations.title: "Get Programmes Assets"
+- **C578** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-programmes-assets description (base prose)** — Downloadable assets in a programme\n\nUse when you need every downloadable asset for a single programme (year group) within a subject. Returns assets grouped by `upstream-owned-base-text`
 - **C580** _[tool-guidance · leaf-authored]_ **⚑high-impact** **get-programmes-assets PREREQUISITE injection** — PREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand the curriculum domain. `user-input-interpolation`
 - **C581** _[tool-guidance · leaf-authored]_ **⚑high-impact** **get-programmes-assets NOTE download-asset/oakUrl injection** — NOTE: The asset `url` fields... are authenticated API endpoints and cannot be used as direct browser download links... call the `download-asset` tool... or the `user-input-interpolation`
-- **C582** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-programmes-assets param programme** — The programme slug identifier (example: computing-secondary-year-7) `upstream-owned-base-text`
-- **C583** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-programmes-assets param offset** — If limiting results returned, this allows you to return the next set of results, starting at the given offset point Default: 0 `upstream-owned-base-text`
-- **C584** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-programmes-assets param limit** — Limit the number of lessons, e.g. return a maximum of 100 lessons Default: 10 `upstream-owned-base-text`
-- **C585** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-programmes-assets param type** — Use the this type and the lesson slug in conjunction to get a signed download URL... /api/lessons/{slug}/assets/{type} endpoint (enum slideDeck..worksheetAnswer `upstream-owned-base-text` `possible-defect-reported`
+- **C582** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-programmes-assets param programme** — The programme slug identifier (example: computing-secondary-year-7) `upstream-owned-base-text`
+- **C583** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-programmes-assets param offset** — If limiting results returned, this allows you to return the next set of results, starting at the given offset point Default: 0 `upstream-owned-base-text`
+- **C584** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-programmes-assets param limit** — Limit the number of lessons, e.g. return a maximum of 100 lessons Default: 10 `upstream-owned-base-text`
+- **C585** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-programmes-assets param type** — Use the this type and the lesson slug in conjunction to get a signed download URL... /api/lessons/{slug}/assets/{type} endpoint (enum slideDeck..worksheetAnswer `upstream-owned-base-text` `possible-defect-reported`
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-programmes-questions.ts</code> — 7</summary>
 
-- **C588** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-programmes-questions annotations.title (+ tool name)** — name: 'get-programmes-questions'; annotations.title: "Get Programmes Questions"
-- **C589** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-programmes-questions description (base prose)** — Quiz questions in a programme\n\nUse when you want every quiz question in a single programme (year group) within a subject. Get programme slugs from GET /subjec `upstream-owned-base-text`
+- **C588** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-programmes-questions annotations.title (+ tool name)** — name: 'get-programmes-questions'; annotations.title: "Get Programmes Questions"
+- **C589** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-programmes-questions description (base prose)** — Quiz questions in a programme\n\nUse when you want every quiz question in a single programme (year group) within a subject. Get programme slugs from GET /subjec `upstream-owned-base-text`
 - **C590** _[tool-guidance · leaf-authored]_ **⚑high-impact** **get-programmes-questions PREREQUISITE injection** — PREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand the curriculum domain. `user-input-interpolation`
-- **C591** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-programmes-questions param programme** — The programme slug identifier (example: computing-secondary-year-7) `upstream-owned-base-text`
-- **C592** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-programmes-questions param offset** — If limiting results returned, this allows you to return the next set of results, starting at the given offset point Default: 0 `upstream-owned-base-text`
-- **C593** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-programmes-questions param limit** — Limit the number of lessons, e.g. return a maximum of 100 lessons Default: 10 `upstream-owned-base-text`
-- **C594** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-programmes-questions param filter** — Optional filter for question results. Use `images` to return only questions with a question image or image answer. (enum images) `upstream-owned-base-text`
+- **C591** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-programmes-questions param programme** — The programme slug identifier (example: computing-secondary-year-7) `upstream-owned-base-text`
+- **C592** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-programmes-questions param offset** — If limiting results returned, this allows you to return the next set of results, starting at the given offset point Default: 0 `upstream-owned-base-text`
+- **C593** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-programmes-questions param limit** — Limit the number of lessons, e.g. return a maximum of 100 lessons Default: 10 `upstream-owned-base-text`
+- **C594** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-programmes-questions param filter** — Optional filter for question results. Use `images` to return only questions with a question image or image answer. (enum images) `upstream-owned-base-text`
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-programmes-units.ts</code> — 4</summary>
 
-- **C597** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-programmes-units annotations.title (+ tool name)** — name: 'get-programmes-units'; annotations.title: "Get Programmes Units"
-- **C598** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-programmes-units description (base prose)** — Units in a programme\n\nUse when you need the unit sequence for one programme — units as an ordered arrangement designed to build knowledge progressively. Get p `upstream-owned-base-text`
+- **C597** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-programmes-units annotations.title (+ tool name)** — name: 'get-programmes-units'; annotations.title: "Get Programmes Units"
+- **C598** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-programmes-units description (base prose)** — Units in a programme\n\nUse when you need the unit sequence for one programme — units as an ordered arrangement designed to build knowledge progressively. Get p `upstream-owned-base-text`
 - **C599** _[tool-guidance · leaf-authored]_ **⚑high-impact** **get-programmes-units PREREQUISITE injection** — PREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand the curriculum domain. `user-input-interpolation`
-- **C600** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-programmes-units param programme** — The programme slug identifier (example: english-secondary-year-10-edexcel) `upstream-owned-base-text`
+- **C600** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-programmes-units param programme** — The programme slug identifier (example: english-secondary-year-10-edexcel) `upstream-owned-base-text`
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-programmes.ts</code> — 3</summary>
 
-- **C603** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **name / annotations.title** — name: "get-programmes"; annotations.title: "Get Programmes" `user-input-interpolation`
-- **C604** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **description** — Get a programme by slug\n\nUse when you need to get the metadata of one programme... PREREQUISITE: You MUST call the `get-curriculum-model` tool first... NOTE: `user-input-interpolation` `upstream-owned-base-text`
-- **C605** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **params.programme.describe** — programme: "The programme slug identifier" (example: english-secondary-year-10-edexcel) `upstream-owned-base-text`
+- **C603** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **name / annotations.title** — name: "get-programmes"; annotations.title: "Get Programmes" `user-input-interpolation`
+- **C604** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **description** — Get a programme by slug\n\nUse when you need to get the metadata of one programme... PREREQUISITE: You MUST call the `get-curriculum-model` tool first... NOTE: `user-input-interpolation` `upstream-owned-base-text`
+- **C605** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **params.programme.describe** — programme: "The programme slug identifier" (example: english-secondary-year-10-edexcel) `upstream-owned-base-text`
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-rate-limit.ts</code> — 2</summary>
 
-- **C608** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **name / annotations.title** — name: "get-rate-limit"; annotations.title: "Get Rate Limit"
-- **C609** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **description** — Current rate-limit status\n\nUse when you need rate-limit status as a JSON body... Does not count against your quota.\n\nNOTE: A response of limit=0, remaining= `user-input-interpolation` `upstream-owned-base-text`
+- **C608** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **name / annotations.title** — name: "get-rate-limit"; annotations.title: "Get Rate Limit"
+- **C609** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **description** — Current rate-limit status\n\nUse when you need rate-limit status as a JSON body... Does not count against your quota.\n\nNOTE: A response of limit=0, remaining= `user-input-interpolation` `upstream-owned-base-text`
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences-assets.ts</code> — 5</summary>
 
-- **C612** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **name / annotations.title** — name: "get-sequences-assets"; annotations.title: "Get Sequences Assets"
-- **C613** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **description** — Downloadable assets in a sequence... Attribution required — see https://open-api.thenational.academy/docs/about-oaks-api/terms... PREREQUISITE... NOTE: The asse `user-input-interpolation` `upstream-owned-base-text`
-- **C614** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **params.sequence.describe** — sequence: "The sequence slug identifier, including the key stage 4 option where relevant." (example: english-primary) `upstream-owned-base-text`
-- **C615** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **params.year.describe** — year: "The year group to filter by. For the physical-education-primary sequence, a value of all-years can also be used." `upstream-owned-base-text`
-- **C616** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **params.type.describe** — type: "Optional asset type specifier\n\nAvailable values: slideDeck, exitQuiz, exitQuizAnswers, starterQuiz, starterQuizAnswers, supplementaryResource, video, w `upstream-owned-base-text`
+- **C612** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **name / annotations.title** — name: "get-sequences-assets"; annotations.title: "Get Sequences Assets"
+- **C613** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **description** — Downloadable assets in a sequence... Attribution required — see https://open-api.thenational.academy/docs/about-oaks-api/terms... PREREQUISITE... NOTE: The asse `user-input-interpolation` `upstream-owned-base-text`
+- **C614** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **params.sequence.describe** — sequence: "The sequence slug identifier, including the key stage 4 option where relevant." (example: english-primary) `upstream-owned-base-text`
+- **C615** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **params.year.describe** — year: "The year group to filter by. For the physical-education-primary sequence, a value of all-years can also be used." `upstream-owned-base-text`
+- **C616** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **params.type.describe** — type: "Optional asset type specifier\n\nAvailable values: slideDeck, exitQuiz, exitQuizAnswers, starterQuiz, starterQuizAnswers, supplementaryResource, video, w `upstream-owned-base-text`
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences-questions.ts</code> — 7</summary>
 
-- **C619** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **name / annotations.title** — name: "get-sequences-questions"; annotations.title: "Get Sequences Questions"
-- **C620** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **description** — Quiz questions across a sequence... Supports offset and limit; Link: rel="next" header signals more pages... PREREQUISITE: You MUST call the `get-curriculum-mod `user-input-interpolation` `upstream-owned-base-text`
-- **C621** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **params.sequence.describe** — sequence: "The sequence slug identifier, including the key stage 4 option where relevant." `upstream-owned-base-text`
-- **C622** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **params.year.describe** — year: "The year group to filter by. For the physical-education-primary sequence, a value of all-years can also be used." `upstream-owned-base-text`
-- **C623** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **params.offset.describe** — offset: "If limiting results returned, this allows you to return the next set of results, starting at the given offset point" (default 0) `upstream-owned-base-text`
-- **C624** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **params.limit.describe** — limit: "Limit the number of lessons, e.g. return a maximum of 100 lessons" (default 10) `upstream-owned-base-text` `possible-defect-reported`
-- **C625** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **params.filter.describe** — filter: "Optional filter for question results. Use `images` to return only questions with a question image or image answer." `upstream-owned-base-text`
+- **C619** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **name / annotations.title** — name: "get-sequences-questions"; annotations.title: "Get Sequences Questions"
+- **C620** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **description** — Quiz questions across a sequence... Supports offset and limit; Link: rel="next" header signals more pages... PREREQUISITE: You MUST call the `get-curriculum-mod `user-input-interpolation` `upstream-owned-base-text`
+- **C621** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **params.sequence.describe** — sequence: "The sequence slug identifier, including the key stage 4 option where relevant." `upstream-owned-base-text`
+- **C622** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **params.year.describe** — year: "The year group to filter by. For the physical-education-primary sequence, a value of all-years can also be used." `upstream-owned-base-text`
+- **C623** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **params.offset.describe** — offset: "If limiting results returned, this allows you to return the next set of results, starting at the given offset point" (default 0) `upstream-owned-base-text`
+- **C624** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **params.limit.describe** — limit: "Limit the number of lessons, e.g. return a maximum of 100 lessons" (default 10) `upstream-owned-base-text` `possible-defect-reported`
+- **C625** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **params.filter.describe** — filter: "Optional filter for question results. Use `images` to return only questions with a question image or image answer." `upstream-owned-base-text`
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences-units.ts</code> — 4</summary>
 
-- **C628** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **name / annotations.title** — name: "get-sequences-units"; annotations.title: "Get Sequences Units"
-- **C629** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **description** — Units in a curriculum sequence... If the sequence slug includes an exam board (e.g. science-secondary-aqa)... Example: sequence=science-secondary-aqa or maths-p `user-input-interpolation` `upstream-owned-base-text`
-- **C630** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **params.sequence.describe** — sequence: "The sequence slug identifier, including the key stage 4 option where relevant." `upstream-owned-base-text`
-- **C631** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **params.year.describe** — year: "The year group to filter by. For the physical-education-primary sequence, a value of all-years can also be used." `upstream-owned-base-text`
+- **C628** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **name / annotations.title** — name: "get-sequences-units"; annotations.title: "Get Sequences Units"
+- **C629** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **description** — Units in a curriculum sequence... If the sequence slug includes an exam board (e.g. science-secondary-aqa)... Example: sequence=science-secondary-aqa or maths-p `user-input-interpolation` `upstream-owned-base-text`
+- **C630** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **params.sequence.describe** — sequence: "The sequence slug identifier, including the key stage 4 option where relevant." `upstream-owned-base-text`
+- **C631** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **params.year.describe** — year: "The year group to filter by. For the physical-education-primary sequence, a value of all-years can also be used." `upstream-owned-base-text`
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences.ts</code> — 3</summary>
 
-- **C634** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **name / annotations.title** — name: "get-sequences"; annotations.title: "Get Sequences"
-- **C635** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **description** — Sequencing information for a given sequence slug... A sequence is a subject's curriculum across a phase (e.g. maths-primary, science-secondary-aqa)... PREREQUIS `user-input-interpolation` `upstream-owned-base-text`
-- **C636** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **params.sequence.describe** — sequence: "The sequence slug identifier" (example: english-secondary) `upstream-owned-base-text`
+- **C634** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **name / annotations.title** — name: "get-sequences"; annotations.title: "Get Sequences"
+- **C635** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **description** — Sequencing information for a given sequence slug... A sequence is a subject's curriculum across a phase (e.g. maths-primary, science-secondary-aqa)... PREREQUIS `user-input-interpolation` `upstream-owned-base-text`
+- **C636** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **params.sequence.describe** — sequence: "The sequence slug identifier" (example: english-secondary) `upstream-owned-base-text`
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-subject-detail.ts</code> — 3</summary>
 
-- **C639** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **name / annotations.title** — name: "get-subject-detail"; annotations.title: "Get Subject Detail"
-- **C640** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **description** — Single subject with sequences, key stages, and years... Returns subjectTitle, subjectSlug, sequenceSlugs, keyStages, and years... PREREQUISITE: You MUST call... `user-input-interpolation` `upstream-owned-base-text`
-- **C641** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **params.subject.describe** — subject: "The slug identifier for the subject" enum: art,citizenship,computing,...,science,spanish (example: art) `upstream-owned-base-text`
+- **C639** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **name / annotations.title** — name: "get-subject-detail"; annotations.title: "Get Subject Detail"
+- **C640** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **description** — Single subject with sequences, key stages, and years... Returns subjectTitle, subjectSlug, sequenceSlugs, keyStages, and years... PREREQUISITE: You MUST call... `user-input-interpolation` `upstream-owned-base-text`
+- **C641** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **params.subject.describe** — subject: "The slug identifier for the subject" enum: art,citizenship,computing,...,science,spanish (example: art) `upstream-owned-base-text`
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-subjects-key-stages.ts</code> — 3</summary>
 
-- **C644** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **name / annotations.title** — name: "get-subjects-key-stages"; annotations.title: "Get Subjects Key Stages"
-- **C645** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **description** — Key stages for a subject... Returns key-stage titles and slugs. Not for: every key stage (GET /key-stages)... Example: 'subject=history'. PREREQUISITE: You MUST `user-input-interpolation` `upstream-owned-base-text`
-- **C646** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **params.subject.describe** — subject: "The subject slug identifier" enum: art,...,spanish (example: art) `upstream-owned-base-text`
+- **C644** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **name / annotations.title** — name: "get-subjects-key-stages"; annotations.title: "Get Subjects Key Stages"
+- **C645** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **description** — Key stages for a subject... Returns key-stage titles and slugs. Not for: every key stage (GET /key-stages)... Example: 'subject=history'. PREREQUISITE: You MUST `user-input-interpolation` `upstream-owned-base-text`
+- **C646** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **params.subject.describe** — subject: "The subject slug identifier" enum: art,...,spanish (example: art) `upstream-owned-base-text`
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-subjects-programmes.ts</code> — 3</summary>
 
-- **C649** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **name / annotations.title** — name: "get-subjects-programmes"; annotations.title: "Get Subjects Programmes"
-- **C650** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **description** — Get all programmes for a subject slug... Returns programmes grouped by key stage... PREREQUISITE... NOTE: Programme slugs are the full form — `&lt;subject&gt;-&lt;phase&gt; `user-input-interpolation` `upstream-owned-base-text`
-- **C651** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **params.subject.describe** — subject: "The subject slug identifier" enum: art,...,spanish (example: english) `upstream-owned-base-text`
+- **C649** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **name / annotations.title** — name: "get-subjects-programmes"; annotations.title: "Get Subjects Programmes"
+- **C650** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **description** — Get all programmes for a subject slug... Returns programmes grouped by key stage... PREREQUISITE... NOTE: Programme slugs are the full form — `&lt;subject&gt;-&lt;phase&gt; `user-input-interpolation` `upstream-owned-base-text`
+- **C651** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **params.subject.describe** — subject: "The subject slug identifier" enum: art,...,spanish (example: english) `upstream-owned-base-text`
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-subjects-years.ts</code> — 3</summary>
 
-- **C654** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **name / annotations.title** — name: "get-subjects-years"; annotations.title: "Get Subjects Years"
-- **C655** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **description** — Year groups for a subject... Returns an array of year numbers, derived from the subject's key stages... Example: 'subject=english'. PREREQUISITE: You MUST call. `user-input-interpolation` `upstream-owned-base-text`
-- **C656** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **params.subject.describe** — subject: "Subject slug to filter by" enum: art,...,spanish (example: cooking-nutrition) `upstream-owned-base-text`
+- **C654** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **name / annotations.title** — name: "get-subjects-years"; annotations.title: "Get Subjects Years"
+- **C655** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **description** — Year groups for a subject... Returns an array of year numbers, derived from the subject's key stages... Example: 'subject=english'. PREREQUISITE: You MUST call. `user-input-interpolation` `upstream-owned-base-text`
+- **C656** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **params.subject.describe** — subject: "Subject slug to filter by" enum: art,...,spanish (example: cooking-nutrition) `upstream-owned-base-text`
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-subjects.ts</code> — 2</summary>
 
-- **C659** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **name / annotations.title** — name: "get-subjects"; annotations.title: "Get Subjects"
-- **C660** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **description** — All subjects\n\nUse when you need every subject in one call — the entry point for a subject picker or for crawling the whole curriculum... PREREQUISITE: You MUS `user-input-interpolation` `upstream-owned-base-text`
+- **C659** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **name / annotations.title** — name: "get-subjects"; annotations.title: "Get Subjects"
+- **C660** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **description** — All subjects\n\nUse when you need every subject in one call — the entry point for a subject picker or for crawling the whole curriculum... PREREQUISITE: You MUS `user-input-interpolation` `upstream-owned-base-text`
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-threads-units.ts</code> — 3</summary>
 
-- **C663** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **name / annotations.title** — name: "get-threads-units"; annotations.title: "Get Threads Units"
-- **C664** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **description** — Units in a thread... A thread is an attribute on a unit that groups units across the curriculum... thread order is independent of unit sequence order... PREREQU `user-input-interpolation` `upstream-owned-base-text`
-- **C665** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **params.thread (no describe; example only)** — thread: (no description) example: number-multiplication-and-division; maps to path param threadSlug
+- **C663** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **name / annotations.title** — name: "get-threads-units"; annotations.title: "Get Threads Units"
+- **C664** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **description** — Units in a thread... A thread is an attribute on a unit that groups units across the curriculum... thread order is independent of unit sequence order... PREREQU `user-input-interpolation` `upstream-owned-base-text`
+- **C665** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **params.thread (no describe; example only)** — thread: (no description) example: number-multiplication-and-division; maps to path param threadSlug
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-threads.ts</code> — 2</summary>
 
-- **C668** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **name / annotations.title** — name: "get-threads"; annotations.title: "Get Threads"
-- **C669** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **description** — All threads\n\nUse when you want the catalogue of every thread. A thread is an attribute on a unit that groups units across the curriculum... making vertical co `user-input-interpolation` `upstream-owned-base-text`
+- **C668** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **name / annotations.title** — name: "get-threads"; annotations.title: "Get Threads"
+- **C669** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **description** — All threads\n\nUse when you want the catalogue of every thread. A thread is an attribute on a unit that groups units across the curriculum... making vertical co `user-input-interpolation` `upstream-owned-base-text`
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-units-summary.ts</code> — 3</summary>
 
-- **C672** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **name / annotations.title** — name: "get-units-summary"; annotations.title: "Get Units Summary"
-- **C673** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **description** — Unit summary by slug... title, description, key stage, subject, year, threads, prior-knowledge requirements, national-curriculum statements... Unit variant slug `user-input-interpolation` `upstream-owned-base-text`
-- **C674** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **params.unit.describe** — unit: "The unit slug" (example: programming-subroutines); examBoard/pathway/tier/childSubject: enum-only, no description `upstream-owned-base-text`
+- **C672** _[tool-title · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **name / annotations.title** — name: "get-units-summary"; annotations.title: "Get Units Summary"
+- **C673** _[tool-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **description** — Unit summary by slug... title, description, key stage, subject, year, threads, prior-knowledge requirements, national-curriculum statements... Unit variant slug `user-input-interpolation` `upstream-owned-base-text`
+- **C674** _[tool-param-description · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **params.unit.describe** — unit: "The unit slug" (example: programming-subroutines); examBoard/pathway/tier/childSubject: enum-only, no description `upstream-owned-base-text`
 
 </details>
 
@@ -1452,8 +1520,11 @@ Attribution, licensing (OGL v3.0), trademark, EEF-citation obligations.
 <details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/oak-under-the-hood/oak-under-the-hood-tool.ts</code> — 3</summary>
 
 - **C377** _[source-attribution · leaf-authored]_ **⚑high-impact** **CANONICAL_SKILL_URL** — https://raw.githubusercontent.com/oaknational/oak-open-curriculum-ecosystem/main/.agent/skills/under-the-hood/SKILL-CANONICAL.md
+  - ⚖ D2 (owner, ratified 2026-07-22): under-the-hood KEEP — this surface remains served (tool + resource pointer).
 - **C378** _[source-attribution · leaf-authored]_ **⚑high-impact** **OAK_WHO_WE_ARE_URL** — const OAK_WHO_WE_ARE_URL = 'https://www.thenational.academy/about-us/who-we-are';
+  - ⚖ D2 (owner, ratified 2026-07-22): under-the-hood KEEP — this surface remains served (tool + resource pointer).
 - **C379** _[source-attribution · leaf-authored]_ **⚑high-impact** **OAK_STRATEGY_DOCS_URL** — const OAK_STRATEGY_DOCS_URL = 'https://www.thenational.academy/about-us/meet-the-team#documents';
+  - ⚖ D2 (owner, ratified 2026-07-22): under-the-hood KEEP — this surface remains served (tool + resource pointer).
 
 </details>
 <details><summary><code>apps/oak-curriculum-mcp-streamable-http/widget/src/BrandBanner.tsx</code> — 1</summary>
@@ -1484,7 +1555,9 @@ Attribution, licensing (OGL v3.0), trademark, EEF-citation obligations.
 <details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/prompt-messages/lesson-planning.ts</code> — 2</summary>
 
 - **C206** _[source-attribution · leaf-authored]_ **⚑high-impact** **recurring source-attribution block (Oak / OGL v3.0)** — Attribution: the lesson data is Oak National Academy's, published under the Open Government Licence v3.0 (...), which requires attribution ... The Oak name and
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content is retained DORMANT behind the MCP-101 allowlist (creation-oriented, consistent with D4’s no-creation-claims boundary). Code still registers prompts at refresh time.
 - **C209** _[source-attribution · leaf-authored]_ **⚑high-impact** **recurring pedagogy citations (six curriculum principles / Mary Myatt / EEF authors)** — This workflow follows Oak's six curriculum principles (Emma McCrea, "Our 6 principles guiding our approach to curriculum", Oak, 2023). / cite EEF ... (organisat `pii-adjacent`
+  - ⚖ D11 (owner, 2026-07-22): the MCP prompt primitive unregisters entirely; this workflow’s content is retained DORMANT behind the MCP-101 allowlist (creation-oriented, consistent with D4’s no-creation-claims boundary). Code still registers prompts at refresh time.
 
 </details>
 <details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/source-attribution.ts</code> — 3</summary>
@@ -1501,17 +1574,17 @@ Attribution, licensing (OGL v3.0), trademark, EEF-citation obligations.
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-key-stages-subject-assets.ts</code> — 1</summary>
 
-- **C501** _[source-attribution · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-key-stages-subject-assets licensing/attribution sentence** — Lesson content is under OGL v3.0; assets are either Oak-owned or third-party under an OGL-compatible licence. Attribution required — see https://open-api.thenat
+- **C501** _[source-attribution · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-key-stages-subject-assets licensing/attribution sentence** — Lesson content is under OGL v3.0; assets are either Oak-owned or third-party under an OGL-compatible licence. Attribution required — see https://open-api.thenat
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-lessons-assets.ts</code> — 1</summary>
 
-- **C551** _[source-attribution · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-lessons-assets licensing/attribution sentence** — Lesson content is under OGL v3.0; assets are either Oak-owned or third-party under an OGL-compatible licence. Attribution required — see https://open-api.thenat
+- **C551** _[source-attribution · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-lessons-assets licensing/attribution sentence** — Lesson content is under OGL v3.0; assets are either Oak-owned or third-party under an OGL-compatible licence. Attribution required — see https://open-api.thenat
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-programmes-assets.ts</code> — 1</summary>
 
-- **C579** _[source-attribution · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **get-programmes-assets licensing/attribution sentence** — Lesson content is under OGL v3.0; assets are either Oak-owned or third-party under an OGL-compatible licence. Attribution required — see https://open-api.thenat
+- **C579** _[source-attribution · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **get-programmes-assets licensing/attribution sentence** — Lesson content is under OGL v3.0; assets are either Oak-owned or third-party under an OGL-compatible licence. Attribution required — see https://open-api.thenat
 
 </details>
 
@@ -1621,6 +1694,7 @@ Annotations, schemas, scopes, discovery/branding metadata — structural, engine
 <details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-prompts-section.ts</code> — 1</summary>
 
 - **C357** _[discovery-or-catalog-metadata · authored-template]_ **⚑high-impact** **section count headings (Prompts/Resources/Tools)** — &lt;h2&gt;Prompts (${promptCount})&lt;/h2&gt;  /  Resources (${count})  /  Tools (${count}) `user-input-interpolation`
+  - ⚖ D11 (owner, 2026-07-22): the landing page’s prompt-catalogue section presents a primitive that unregisters; this copy reworks or retires at MCP-101 delivery.
 
 </details>
 <details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-tools-section.ts</code> — 1</summary>
@@ -1631,8 +1705,11 @@ Annotations, schemas, scopes, discovery/branding metadata — structural, engine
 <details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/oak-under-the-hood/oak-under-the-hood-tool.ts</code> — 3</summary>
 
 - **C371** _[discovery-or-catalog-metadata · leaf-authored]_ **⚑high-impact** **OAK_UNDER_THE_HOOD_TOOL_NAME** — export const OAK_UNDER_THE_HOOD_TOOL_NAME = 'oak-under-the-hood';
+  - ⚖ D2 (owner, ratified 2026-07-22): under-the-hood KEEP — this surface remains served (tool + resource pointer).
 - **C374** _[tool-annotations · leaf-authored]_ **⚑high-impact** **tool annotations {readOnlyHint, openWorldHint}** — annotations: { readOnlyHint: true, openWorldHint: true },
+  - ⚖ D2 (owner, ratified 2026-07-22): under-the-hood KEEP — this surface remains served (tool + resource pointer).
 - **C383** _[tool-annotations · leaf-authored]_ **⚑high-impact** **resource_link annotations {audience:['assistant'], priority:0.9}** — annotations: { audience: ['assistant'], priority: 0.9 },
+  - ⚖ D2 (owner, ratified 2026-07-22): under-the-hood KEEP — this surface remains served (tool + resource pointer).
 
 </details>
 <details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/oauth-proxy/oauth-proxy-upstream.ts</code> — 1</summary>
@@ -1792,13 +1869,13 @@ Annotations, schemas, scopes, discovery/branding metadata — structural, engine
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/definitions.ts</code> — 2</summary>
 
-- **C677** _[discovery-or-catalog-metadata · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **MCP_TOOL_ENTRIES tool-name catalogue (29 kebab-case tool names)** — MCP_TOOL_ENTRIES = [{name:'get-changelog'...},{name:'get-key-stages'},{name:'get-lessons-quiz'},{name:'get-lessons-transcript'},{name:'get-subjects'},{name:'get
-- **C678** _[discovery-or-catalog-metadata · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **operationId identifiers per tool (29)** — operationId per entry e.g. 'changelog-changelog','getKeyStages-getKeyStages','getLessonTranscript-getLessonTranscript','getUnits-getUnit','getRateLimit-getRateL
+- **C677** _[discovery-or-catalog-metadata · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **MCP_TOOL_ENTRIES tool-name catalogue (29 kebab-case tool names)** — MCP_TOOL_ENTRIES = [{name:'get-changelog'...},{name:'get-key-stages'},{name:'get-lessons-quiz'},{name:'get-lessons-transcript'},{name:'get-subjects'},{name:'get
+- **C678** _[discovery-or-catalog-metadata · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **operationId identifiers per tool (29)** — operationId per entry e.g. 'changelog-changelog','getKeyStages-getKeyStages','getLessonTranscript-getLessonTranscript','getUnits-getUnit','getRateLimit-getRateL
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/scopes-supported.ts</code> — 1</summary>
 
-- **C681** _[discovery-or-catalog-metadata · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **SCOPES_SUPPORTED = ['email']** — export const SCOPES_SUPPORTED = ['email'] as const;
+- **C681** _[discovery-or-catalog-metadata · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **∅out-of-scope (D12)** **SCOPES_SUPPORTED = ['email']** — export const SCOPES_SUPPORTED = ['email'] as const;
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog-latest.ts</code> — 1</summary>
@@ -1878,72 +1955,72 @@ Annotations, schemas, scopes, discovery/branding metadata — structural, engine
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-programmes.ts</code> — 1</summary>
 
-- **C607** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C607** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **∅out-of-scope (D12)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-rate-limit.ts</code> — 1</summary>
 
-- **C611** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C611** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **∅out-of-scope (D12)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences-assets.ts</code> — 1</summary>
 
-- **C618** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C618** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **∅out-of-scope (D12)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences-questions.ts</code> — 1</summary>
 
-- **C627** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C627** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **∅out-of-scope (D12)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences-units.ts</code> — 1</summary>
 
-- **C633** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C633** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **∅out-of-scope (D12)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences.ts</code> — 1</summary>
 
-- **C638** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C638** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **∅out-of-scope (D12)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-subject-detail.ts</code> — 1</summary>
 
-- **C643** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C643** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **∅out-of-scope (D12)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-subjects-key-stages.ts</code> — 1</summary>
 
-- **C648** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C648** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **∅out-of-scope (D12)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-subjects-programmes.ts</code> — 1</summary>
 
-- **C653** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C653** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **∅out-of-scope (D12)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-subjects-years.ts</code> — 1</summary>
 
-- **C658** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C658** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **∅out-of-scope (D12)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-subjects.ts</code> — 1</summary>
 
-- **C662** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C662** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **∅out-of-scope (D12)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-threads-units.ts</code> — 1</summary>
 
-- **C667** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C667** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **∅out-of-scope (D12)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-threads.ts</code> — 1</summary>
 
-- **C671** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C671** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **∅out-of-scope (D12)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-units-summary.ts</code> — 1</summary>
 
-- **C676** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C676** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **∅out-of-scope (D12)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
 
 </details>
 

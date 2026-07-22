@@ -7,6 +7,7 @@ const REPO = process.cwd();
 const DIR = `${REPO}/.agent/reports/mcp-agent-facing-content-audit`;
 const reg = JSON.parse(readFileSync(`${DIR}/registry.json`, 'utf8'));
 const { meta, items } = reg;
+const refresh = meta.refresh_2026_07_22;
 
 // Escape HTML-significant characters too (PR #337 review): audited snippets are sometimes HTML
 // fragments; unescaped they render as document structure instead of showing the literal string
@@ -41,12 +42,28 @@ let md = `# Oak MCP agent-facing content registry
 **${meta.item_count} content items** across ${new Set(items.map((i) => i.file)).size} files. Generated from a two-pass exhaustive audit. This is a **visibility artefact** — a discoverable, auditable index of every piece of repo-controlled content that reaches an MCP consumer. It asserts *what exists and who should review it*, not whether it is good.
 
 See [\`report.md\`](./report.md) for the analysis, the i18n/content-workspace reframe, findings, and gaps. Machine-readable source: [\`registry.json\`](./registry.json). To read the surfaces **assembled as an agent receives them** (exact or with \`{{placeholders}}\`), see [\`rendered-wholes.md\`](./rendered-wholes.md).
+${refresh ? `
+## Delta-refresh — ${refresh.ticket}
 
+${refresh.summary}
+
+${refresh.deltas.map((d) => `- ${d}`).join('\n')}
+
+**Code state at refresh:** ${refresh.code_state_at_refresh}
+` : ''}
 ## How to read this
 
 Each item has a **review domain** (which expert should audit it) and an **extraction kind** (whether it is leaf-authored content that could move to a content catalogue, or generated/external content that cannot). Item ids (\`C001\`…) are stable references into \`registry.json\`.
 
 ## Summary
+
+### By workspace scope (D12 cut — what the content workspace holds)
+| Workspace scope | Items |
+| --- | --- |
+${table(meta.workspace_scope)}
+
+- **in** — repo-controlled; belongs in the model-behaviour content workspace(s).
+- **out-upstream-api** — base text owned by the upstream Oak Open Curriculum API spec (generated-from-openapi); registered out with that reason so the map to the owning repo is preserved.
 
 ### By impact tier (gates protocol weight)
 | Impact tier | Items |
@@ -107,7 +124,9 @@ for (const dom of DOMAIN_ORDER) {
       const fl = it.flags.length ? ` \`${it.flags.join('` `')}\`` : '';
       const LOCUS_MARK = { 'upstream-in-house-api': ' **↑oak-api (OCA)**', 'upstream-in-house-skills': ' **↑oak-skills**', 'external-third-party': ' **⊗EEF-external**' };
       const locus = LOCUS_MARK[it.source_locus] || '';
-      md += `- **${it.id}** _[${it.surface_type} · ${it.extraction_kind}]_${imp}${locus} **${esc(it.identifier)}** — ${esc((it.snippet || "").slice(0, 160))}${fl}\n`;
+      const scope = it.workspace_scope === 'out-upstream-api' ? ' **∅out-of-scope (D12)**' : '';
+      const ruling = it.ruling_note ? `\n  - ⚖ ${esc(it.ruling_note)}` : '';
+      md += `- **${it.id}** _[${it.surface_type} · ${it.extraction_kind}]_${imp}${locus}${scope} **${esc(it.identifier)}** — ${esc((it.snippet || "").slice(0, 160))}${fl}${ruling}\n`;
     }
     md += `\n</details>\n`;
   }
