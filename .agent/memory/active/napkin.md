@@ -707,3 +707,52 @@ sketch; now my lane routing). Corrective applied: ALL build-lane routing held un
 planning sitting; preservation-only handling of the halted lane's local state
 (tracked-and-pushed bare branch, no PR). The implementer's halt conduct (stop, inform,
 preserve, honest state incl. own commit defect) is the worked positive instance.
+
+## 2026-07-22 — Urchin hunts Surf (b51773): metacognition pass (owner-invoked, end of day)
+
+Diagnostic closure on the swept-bundle commit (dd8df27f8): cycle-1's second
+failure was commitlint subject-case — the subject began with "D3…" (read as
+sentence-case). I had SKIPPED the commit skill's pre-draft message check for
+that draft; the chained cycle-2 commit then swept cycle-1's still-staged set.
+Three composed lessons, each individually known to the estate: (a) the
+pre-draft check exists precisely for this and costs ~1s; (b) NEVER chain two
+gated commits in one invocation — each gate result must be read before the
+next commit's add; (c) layered gates mask serially — prettier, then whole-tree
+lint, then commit-msg each surfaced only after the previous was cured; the
+pre-draft check collapses one whole layer out of that ladder.
+
+Reflection findings (the day's misses share ONE generator):
+
+- **Every miss was a verification deferred because a fluent signal arrived**:
+  the MCP-63 routing (Urgent ticket + D3 + Director word + owner PROVISIONING
+  the vendor project that same hour — the smoothest possible false
+  confirmation; a resource action is not a planning word); the r2 count cure
+  (three surfaces updated fluently, the fourth carrying the same claim
+  missed — re-instantiating the claim-scoped-not-diff-scoped class the day
+  after it was napkinned); the claim closed on an expected-not-read gate
+  result; the chained commit. The engineering catches that WORKED all came
+  from active gates; the misses all lived where no gate stood. My own
+  active-vs-passive inventory predicted exactly where I would fail.
+- **Authorisation is layered, and downstream greens do not cover upstream
+  gaps**: constraint-ratified (D3) ≠ ticket-defined ≠ GOAL-FORMED ≠ routed ≠
+  authorised-to-build. The whole chain (Director, me, code-expert) read the
+  downstream greens as covering the goal-formation gap. Candidate face of the
+  napkin's "surface that validates ≠ surface that executes" unification: the
+  LAYER THAT RATIFIES IS NOT THE LAYER THAT AUTHORISES. Route to the next
+  curation pass with the other faces.
+- **Estate-practice grounding gap**: the MCP-63 design review verified the
+  vendor artefact + this repo's patterns but never asked "where does Oak
+  already run this vendor?" — the owner's pointer (POSTHOG in
+  oak-openapi/.env.example) shows an existing PostHog surface in the sibling
+  upstream-API repo that nobody in the chain consulted. probe-the-deployment
+  generalises: for any vendor integration, the grounding set includes the
+  ORGANISATION'S existing practice with that vendor, not just the vendor and
+  the local repo. If MCP-63 revives, the first design input is the
+  oak-openapi PostHog approach.
+- Reflex changes adopted (this seat, conserved for successors): (1) before the
+  first cycle of any routed build lane, one ARC line to the Director — "cite
+  the owner planning word for this lane" — unless the routing already does;
+  (2) vendor integrations grep the sibling estate first; (3) one gated commit
+  per invocation, gate log read before any summary/claim write; (4) count/claim
+  cures sweep every surface carrying the old value before commit (mechanical
+  grep, not vigilance).
