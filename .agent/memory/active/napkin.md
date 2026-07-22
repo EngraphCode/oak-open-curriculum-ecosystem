@@ -599,3 +599,22 @@ public-safe form):
 - The notion-page-edits-update-ledger rule's subtree boundary lags the owner's live
   "AI Managed Pages" structure AND lacks the org-facing read-only tier — amendment routed
   to the planning sitting.
+
+## 2026-07-22 — Genet stirs Covert (e1df35): evening rulings round (sanitised)
+
+- **Sensitivity tiers refreshed** (owner rulings, enumeration in the local standing-rulings
+  memory, deliberately not here): several classes of organisational and commercial detail
+  are internal-only or recorded nowhere; check the tier before writing ANY surface,
+  including internal ones. "Early users" is the only pre-GA user vocabulary anywhere.
+- **Owner contradiction-invitation as protocol**: "if I contradict myself without reason,
+  that is signal to ask me questions" — a standing instruction; the prompts→resources
+  refinement was the worked instance (remove-as-prompts + keep-as-agent-resources compose;
+  the genuine question was the live-set, asked and answered same day).
+- **Clerk read-only craft**: a Clerk publishable key base64-decodes to the instance's
+  frontend-API domain; `clerk api --fapi /environment --app <id> --instance <id>` is a
+  zero-auth GET of an instance's public auth config (providers, factors, restrictions,
+  sign-up mode) — answers "how does X do auth" without touching anything.
+- **Assumption-stack breakdowns pay**: two inherited "calendar-critical" ceremony legs
+  (new domain DNS; Google brand verification) dissolved under base-assumption questioning —
+  V1 keeps the current URL, and the org's existing production identity estate already
+  carries the vendor ground. The sketch's cost model was inherited, not derived.
