@@ -143,7 +143,10 @@ function rulingNote(item) {
     const live = D11_LIVE.test(hay);
     const dormant = D11_DORMANT.test(hay);
     if (live && dormant) return RULING_NOTES.mixed;
-    return live ? RULING_NOTES.live : RULING_NOTES.dormant;
+    if (live) return RULING_NOTES.live;
+    // Strictly total: an item naming NO ruled workflow gets NO ruling note — a future
+    // unruled workflow must surface unannotated, never silently inherit D11 (PR #476 r3).
+    return dormant ? RULING_NOTES.dormant : undefined;
   }
   if (ek === 'generated-from-openapi' && locus === 'this-repo') return RULING_NOTES.annotations;
   return undefined;
