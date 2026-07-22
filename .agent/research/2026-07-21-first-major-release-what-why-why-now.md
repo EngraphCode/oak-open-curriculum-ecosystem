@@ -165,6 +165,24 @@ users"**.
   appropriate places (server metadata, submission material). The
   pre-reset corpus's release-blocker tables do not govern this
   release's narrative.
+- **Served prompt surface (settled, afternoon — supersedes the earlier
+  per-workflow dispositions).** The app serves **no MCP prompts at
+  all**: the prompt registration surface is removed entirely.
+  Skill-like constructs surfaced through resources + tools are a
+  different thing and the future delivery shape for workflow
+  capability. Prompt content files are retained in the SDK, isolated.
+- **Generated files are never hand-edited (settled).** Vocabulary
+  arriving from the upstream API is not this repository's domain to
+  control; hand-editing generated output achieves nothing useful and
+  can be actively misleading. Vocabulary reworks apply to hand-authored
+  surfaces only.
+- **Audience split for authored surfaces (settled).** Repository
+  documents (ADRs, PDRs) and the delivery project are written for a
+  dual human-and-AI audience. Org-facing documentation and
+  non-engineer authoring surfaces take the editorial voice
+  (`editorial-tone.md`) — human-only, largely non-technical readers.
+  Org-facing strategic surfaces are read-only to agents; needed
+  updates are surfaced to the owner rather than made directly.
 - **Status reclassifications.** The three landed supporting documents
   under `.agent/reports/initial-release-supporting-docs/` are
   reference material, not instructions. The 2026-07-21 planning corpus

@@ -581,3 +581,21 @@ public-safe form):
 - **MCP prompts are not surfaced by app-store-served apps** (only direct-connector hosts
   render them) — a "keep" disposition on a prompt is not store-visibility; recorded so the
   release surface isn't misread (source: the human-managed launch page + vendor research).
+
+## 2026-07-22 — Genet stirs Covert (e1df35): afternoon owner rulings (sanitised)
+
+- **Zero MCP-served prompts** (supersedes the morning per-prompt table): the prompt surface
+  unregisters entirely; skill-like constructs via resources+tools are a DIFFERENT thing and
+  the future workflow-delivery shape. MCP-101 is the authoritative encoding.
+- **Never hand-edit generated files** — reaffirmed at vocabulary-scrub grain: API-originated
+  wording is upstream's domain, fine as-is; scrubs bind hand-authored surfaces only (MCP-99
+  scope cut). Hand-editing generated output "achieves nothing useful and can be actively
+  misleading" (owner verbatim).
+- **Surface boundary rule**: our delivery Linear project = editable, dual human+AI audience.
+  Org-facing strategic surfaces = READ-ONLY to agents, ever; needed updates are surfaced to
+  the owner; issue moves between them are owner-manual. Org-facing docs + non-engineer
+  authoring surfaces take editorial-tone.md (human-only, non-technical); worked instance:
+  all five guidance templates + parent note rewritten in the editorial voice same day.
+- The notion-page-edits-update-ledger rule's subtree boundary lags the owner's live
+  "AI Managed Pages" structure AND lacks the org-facing read-only tier — amendment routed
+  to the planning sitting.
