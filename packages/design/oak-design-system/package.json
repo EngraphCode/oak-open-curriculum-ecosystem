@@ -4,6 +4,9 @@
   "private": true,
   "description": "The Oak design system — the estate's design source of truth (ADR-213): token CSS, class library, print layer, brand override contract, theme switcher, DTCG export, contrast manifest, consumption docs, specimens, and white-label proofs.",
   "license": "SEE LICENSE IN LICENCES.md",
+  "scripts": {
+    "build:flat": "cat colors_and_type.css oak-icons.css components.css print.css > oak-flat.generated.css"
+  },
   "exports": {
     ".": "./styles.css",
     "./styles.css": "./styles.css",

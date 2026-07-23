@@ -85,6 +85,10 @@
         "$value": "#a0b6f2",
         "$type": "color"
       },
+      "lavender20": {
+        "$value": "#eef2fd",
+        "$type": "color"
+      },
       "lavender30": {
         "$value": "#e3e9fb",
         "$type": "color"
@@ -251,6 +255,14 @@
       },
       "red50": {
         "$value": "#ee809a",
+        "$type": "color"
+      },
+      "dark-red30": {
+        "$value": "#3d1620",
+        "$type": "color"
+      },
+      "dark-red50": {
+        "$value": "#521c2b",
         "$type": "color"
       },
       "navy": {

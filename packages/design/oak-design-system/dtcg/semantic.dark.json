@@ -21,15 +21,15 @@
       "$type": "color"
     },
     "link": {
-      "$value": "{oak.color.lavender}",
-      "$type": "color"
-    },
-    "link-hover": {
       "$value": "{oak.color.lavender50}",
       "$type": "color"
     },
-    "link-visited": {
+    "link-hover": {
       "$value": "{oak.color.lavender30}",
+      "$type": "color"
+    },
+    "link-visited": {
+      "$value": "{oak.color.lavender20}",
       "$type": "color"
     },
     "inverted": {
@@ -103,7 +103,7 @@
       "$type": "color"
     },
     "incorrect": {
-      "$value": "{oak.color.dark-pink50}",
+      "$value": "{oak.color.dark-red50}",
       "$type": "color"
     },
     "success": {
@@ -127,7 +127,7 @@
       "$type": "color"
     },
     "error-subtle": {
-      "$value": "{oak.color.dark-pink50}",
+      "$value": "{oak.color.dark-red30}",
       "$type": "color"
     }
   },

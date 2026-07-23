@@ -309,6 +309,10 @@
       "$value": "{oak.color.amber50}",
       "$type": "color"
     },
+    "decorative-6-soft": {
+      "$value": "{surface.decorative-6}",
+      "$type": "color"
+    },
     "decorative-6-subtle": {
       "$value": "{oak.color.amber30}",
       "$type": "color"
@@ -378,6 +382,10 @@
     },
     "amber": {
       "$value": "{surface.decorative-6}",
+      "$type": "color"
+    },
+    "amber-soft": {
+      "$value": "{surface.decorative-6-soft}",
       "$type": "color"
     },
     "amber-subtle": {
