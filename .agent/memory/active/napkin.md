@@ -831,3 +831,20 @@ Wrap captures with no other home (register/tickets/handoff record carry the rest
 - Metaloss fixed point at this wrap: a further pass would only re-find the watcher gap
   windows and the two proxy-graded OpenAI lines already bounded in the handoff record — the
   recursion closes there.
+
+## 2026-07-23 — A restarting watcher is not a live watcher (Forge rides Brimstone, 398e24)
+
+The all-channels comms watcher spun for ~14 hours emitting `[watcher
+restarting]` heartbeats while its seen-file cursor sat unmoved at
+2026-07-22T16:30 — the unbounded drain step (476 unseen historical
+events) exceeded its 300s deadline BEFORE the first mark-seen, every
+pass, so restarts made zero progress and the watcher was blind while
+looking alive. Zero events were actually missed (verified: no comms
+events newer than the stalled cursor existed), but only luck-of-n=1
+made that true. Cures applied: bound the drain batch
+(`--max-events 100`) so every pass advances the cursor; and the health
+check for any self-restarting monitor is CURSOR MOVEMENT, never
+process liveness — verify the progress artefact (seen-file mtime /
+entry count) after arming, not the restart heartbeat. Candidate
+structural cure for the tools lane: mark-seen-before-deadline ordering
+or an internal drain batch bound in `comms watch` itself.
