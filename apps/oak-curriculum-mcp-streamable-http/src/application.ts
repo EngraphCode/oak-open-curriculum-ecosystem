@@ -6,7 +6,8 @@ import type { ToolHandlerOverrides } from './handlers.js';
 import type { RuntimeConfig } from './runtime-config.js';
 import { setupAuthRoutes } from './auth-routes.js';
 import type { CreateMcpAuthClerkDeps } from './auth/mcp-auth/index.js';
-import { createEnsureMcpAcceptHeader } from './mcp-middleware.js';
+import { createEnsureMcpAcceptHeader, createMcpHtmlNegotiation } from './mcp-middleware.js';
+import { renderLandingPageHtml } from './landing-page/index.js';
 import {
   runBootstrapPhase,
   setupBaseMiddleware,
@@ -136,6 +137,16 @@ function setupPostAuthPhases(deps: SetupPostAuthPhasesDeps): void {
     log,
     options.runtimeConfig.displayHostname,
     options.runtimeConfig.version,
+  );
+  app.use(
+    '/mcp',
+    createMcpHtmlNegotiation({
+      log,
+      renderHtml: () =>
+        renderLandingPageHtml(options.runtimeConfig.displayHostname, options.runtimeConfig.version),
+      dnsRebindingMiddleware,
+      rateLimiter: assetRateLimiter,
+    }),
   );
   app.use('/mcp', createEnsureMcpAcceptHeader(log));
 

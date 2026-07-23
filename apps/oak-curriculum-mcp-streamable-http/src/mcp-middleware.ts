@@ -1,5 +1,97 @@
-import type { NextFunction, Request, Response } from 'express';
+import type { NextFunction, Request, RequestHandler, Response } from 'express';
 import type { Logger } from '@oaknational/logger';
+
+/** Media types whose explicit presence marks a browser-shaped request. */
+const HTML_TOKENS = ['text/html', 'application/xhtml+xml'] as const;
+
+/**
+ * Extracts the lowercased media-range tokens from an Accept header value,
+ * tolerating malformed input (a malformed range yields no token, never a
+ * throw). `*` wildcards are returned as-is and deliberately never match
+ * the HTML tokens: only an explicit HTML media type selects the HTML leg.
+ */
+function acceptMediaTypes(accept: string): readonly string[] {
+  return accept
+    .split(',')
+    .map((range) => range.split(';')[0]?.trim().toLowerCase() ?? '')
+    .filter((token) => token.length > 0);
+}
+
+/**
+ * The negotiation decision for the MCP endpoint's browser leg: true only
+ * for a GET or HEAD whose Accept explicitly lists an HTML media type and
+ * does NOT list `text/event-stream` (the protocol leg always wins when
+ * the client lists it — 2025-11-25 Transports, Listening for Messages).
+ * Wildcards (`*` and `*` slash `*`) never select HTML.
+ */
+export function selectsHtmlLeg(method: string, accept: string | undefined): boolean {
+  if (method !== 'GET' && method !== 'HEAD') {
+    return false;
+  }
+  const tokens = acceptMediaTypes(accept ?? '');
+  const wantsHtml = HTML_TOKENS.some((token) => tokens.includes(token));
+  return wantsHtml && !tokens.includes('text/event-stream');
+}
+
+/** Dependencies for the `/mcp` HTML negotiation leg. */
+export interface McpHtmlNegotiationOptions {
+  readonly log: Logger;
+  /** Renders the landing page; config-driven, never request-host-derived. */
+  readonly renderHtml: () => string;
+  /** Origin/Host validation guard — the browser-rendered class requires it. */
+  readonly dnsRebindingMiddleware: RequestHandler;
+  /** Named rate limiter for the HTML leg. */
+  readonly rateLimiter: RequestHandler;
+}
+
+/**
+ * Content negotiation for the MCP endpoint's browser leg: a GET or HEAD
+ * whose Accept explicitly lists an HTML media type — and does NOT list
+ * `text/event-stream` — receives the landing page; every other request
+ * falls through to the protocol gate unchanged. The spec's GET contract
+ * (2025-11-25 Transports, Listening for Messages) binds only when the
+ * client lists `text/event-stream`, so the protocol leg always wins when
+ * both tokens are present.
+ *
+ * Sets `Vary: Accept` on every GET/HEAD outcome so no intermediary cache
+ * can hand HTML to an SSE client or vice versa, and a no-store
+ * `Cache-Control` on the HTML response itself.
+ */
+export function createMcpHtmlNegotiation(
+  options: McpHtmlNegotiationOptions,
+): (req: Request, res: Response, next: NextFunction) => void {
+  const { log, renderHtml, dnsRebindingMiddleware, rateLimiter } = options;
+  return (req, res, next) => {
+    if (req.method !== 'GET' && req.method !== 'HEAD') {
+      next();
+      return;
+    }
+    res.vary('Accept');
+    if (!selectsHtmlLeg(req.method, req.get('Accept'))) {
+      next();
+      return;
+    }
+    dnsRebindingMiddleware(req, res, (guardError?: unknown) => {
+      if (guardError !== undefined) {
+        next(guardError);
+        return;
+      }
+      rateLimiter(req, res, (limiterError?: unknown) => {
+        if (limiterError !== undefined) {
+          next(limiterError);
+          return;
+        }
+        log.debug('mcp.html-leg.serve', { method: req.method, path: req.path });
+        res.status(200).type('text/html; charset=utf-8').set('Cache-Control', 'no-store');
+        if (req.method === 'HEAD') {
+          res.end();
+          return;
+        }
+        res.send(renderHtml());
+      });
+    });
+  };
+}
 
 /**
  * Creates Express middleware that ensures MCP Accept headers are present.
