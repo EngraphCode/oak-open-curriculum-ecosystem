@@ -63,12 +63,13 @@ an unbuilt worktree silently fails `lint` and shows no statusline
 
 ### 2. Refresh the cached schema, then diff the delta before regenerating
 
-Codegen reads the committed cache by default (hermetic). Refresh from upstream with the
-**env-var opt-in** — a bare `--online` is consumed by the turbo wrapper and never reaches
-codegen:
+Codegen reads the committed cache in every build environment (hermetic; MCP-130). Refresh
+from upstream with the canonical root script — it runs codegen in online mode with
+`--force` (so a turbo cache replay cannot mask the fetch) and then the full build for
+immediate compile feedback:
 
 ```bash
-SDK_CODEGEN_MODE=online pnpm sdk-codegen
+pnpm sdk-codegen:refresh
 ```
 
 Then classify the delta before trusting green types. This reusable recipe works for any two

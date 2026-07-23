@@ -39,7 +39,7 @@
         "**/scripts/**/*.ts",
         "**/schema-cache/**"
       ],
-      "env": ["SDK_CODEGEN_MODE", "VERCEL"],
+      "env": ["SDK_CODEGEN_MODE"],
       "passThroughEnv": ["OAK_API_KEY"]
     },
     "build": {

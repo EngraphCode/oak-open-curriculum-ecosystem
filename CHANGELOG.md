@@ -1,3 +1,12 @@
+## [1.82.5](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.82.4...v1.82.5) (2026-07-23)
+
+
+### Bug Fixes
+
+* **sdk-codegen:** pin every build environment to the committed cached schema (MCP-130) ([fc16d24](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/fc16d24288e2a12022e25bdc6b24dac3c5d03934))
+
+## [1.82.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.82.3...v1.82.4) (2026-07-23)
+
 ## [1.82.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.82.2...v1.82.3) (2026-07-23)
 
 ## [1.82.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.82.1...v1.82.2) (2026-07-23)
