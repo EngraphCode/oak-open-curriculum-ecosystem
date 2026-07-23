@@ -1,3 +1,52 @@
+# [1.82.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.81.3...v1.82.0) (2026-07-23)
+
+
+### Bug Fixes
+
+* **agent-tools:** day-scale duration grammar for gate_expiry_default (S5843, MCP-118) ([f4871ee](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f4871ee7603cfe995655372503c91cebb0105a78))
+* **agent-tools:** encoding scan reads tracked symlinks as their link text ([7eacef6](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/7eacef62a1b6f4534373b1e6115fbcf365e396d0))
+* **agent-tools:** exact tip binding and repo-scoped run mapping for pr-state ([aefff3e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/aefff3e573686860136039b48ce2f372f69589aa))
+* **agent-tools:** harden pr-state settlement against vacuous and stale inputs ([e039d83](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e039d83b0a4814df44bcb85fb6d1236221755b81))
+* **agent-tools:** match the owner-jobs link line per trimmed line to stay linear-time ([816e381](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/816e38112bf8b951ec2d2e5ce7e52e69bf6109b7))
+* **agent-tools:** name the agent-task view json fields (bare --json is a usage error) ([bdc6c81](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bdc6c81be329c3df7fadf7375de013c696f7fb9d))
+* **agent-tools:** pr-state r1 cures - per-reviewer legs, quiet window, full review harvest ([37604b2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/37604b294984f76d3a80f472c36a136a2a382c6e))
+* **agent-tools:** pr-state r2 cures - typed uncertainty, anchor exclusions, vendor windows ([544c32e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/544c32ea7c449613bc155616b88933980b98945d))
+* **agent-tools:** symlink reads use readlink-first, no stat-then-read race ([cf3baa9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/cf3baa9d17e39638819a2253b4b354ec1928d3df))
+* **agent-tools:** tip-consistent pr-state reads and conservative settlement anchors ([4e26ec5](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4e26ec503679539d6828f8f99823ed0133669b68))
+* **agent-tools:** typed run-list truncation and honest skip-marker legs for pr-state ([8a2cccc](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8a2cccc351781625e0254ffeef9011891afe099c))
+* **agent-tools:** use toSorted for the corpus file ordering ([0973128](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/09731283a2dc72f1b3fcd796e0906ab355d4d2b0))
+* **ci:** bring skills/encoding checks to pre-push === CI parity (aip-165 r1) ([3b47789](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3b477899f7ee56ce092a6d48e567a8cba53fd7ae))
+* **ci:** regenerate drifted skill adapters and gate skills/encoding checks (aip-165) ([e52886a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e52886aa6221e031e415f364a133e97968d23872)), closes [#434](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/434)
+* **plans:** quote YAML derives_from entry containing colon-space (MCP-67) ([864bfeb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/864bfeba5825f0f87f92802494f6f0e03454bf44)), closes [#471](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/471)
+* **statusline:** bell r1 cures — ansi order, exact assertions, render coverage (463) ([61cadc2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/61cadc2c5807923e089d69550cea0b4cce095a45))
+* **statusline:** bell-link r1 cures — url allowlist kills escape injection (464) ([e5ec115](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e5ec1156c37d1c4ea1a6601b2639bd1f4cd596db))
+* **validators:** parity r1 cures — run-scalars only, gating workflow only, -s legs (aip-166) ([d5273be](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d5273be08da33e511161fcad3806ac158827c2f4))
+* **validators:** parity r2 cure — --silent symmetric on the ci side (aip-166) ([ce45e99](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ce45e99194aa02ac22dcdb8a9b6df5dbe29910e9))
+
+
+### Features
+
+* **agent-tools:** add pr-state boundary parsers for compound-read legs ([d0052f3](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d0052f31eeccf76fdd1e05d74c945bcdde1e7a22))
+* **agent-tools:** add pr-state verdict core with closed state set ([29cf827](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/29cf827f16ce480d340397060cc259a255d4185f))
+* **agent-tools:** compose pr-state gh legs with bounded run mapping ([ad513c6](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ad513c694c30e511a8cb9325af9146fbd69ed70d))
+* **agent-tools:** d23 plan-corpus validator, v0 corpus archival, first plan pours (MCP-118) ([c141f81](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c141f81a55fb66740ef1b8e2336e614225f59079))
+* **agent-tools:** external skill class — lock-pinned, collision-checked, vendored ([93ffa8a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/93ffa8aed18e4f2b20146dfb350acac444f59c4e))
+* **agent-tools:** notion privacy fence + V0 delivery/runbook templates ([105f523](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/105f523513ad64dbf9b2f3651173657d818ebf36))
+* **agent-tools:** reasoning-effort segment on the statusline checkout row ([a8e461a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a8e461ab8e2bdec4fbc3750e8bada9d482cf7297))
+* **agent-tools:** typed DRAFT refusal and open-only mergeability guard for pr-state ([bb10ee3](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bb10ee383e53617fb5298508769fd486c32cb0a0))
+* **agent-tools:** v0 plan-corpus validator; founding plans trued to strict contract ([4d53922](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4d53922d48f0731f4deac7cd554edb1e5521590c)), closes [#468](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/468)
+* **agent-tools:** wire pr state cli topic into agent-tools ([f82f41b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f82f41b25d1415d320069ecfa09d7314ff980c7f))
+* **curriculum-sdk:** add agent guidance resource inventory ([1beae77](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/1beae77f491a40ad8b6622143bbaa7b7eee9b55e))
+* **curriculum-sdk:** delete the lesson-planning placeholder outright (owner amendment) ([d87193b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d87193b881751a3ea106542197871c6ce0c2adf1)), closes [#486](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/486)
+* **curriculum-sdk:** delete the prompt machinery; true docs and ADRs to the zero-prompts surface ([d5ac744](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d5ac744b590c8174c60c624146c07a4363ef15d0))
+* **mcp-http:** content-negotiation triple on /mcp — browser GETs serve the landing page (MCP-122) ([e3ae7ac](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e3ae7ac686c1101d456d81cdf0417795b7469794))
+* **mcp-streamable-http:** declarative served-surface definition governs tool registration ([3cf7854](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3cf7854f799ebc1fa09b33910953f9d9a36cfb90))
+* **mcp-streamable-http:** resources join the served-surface definition; EEF flag superseded ([595860c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/595860cdc61ca3a3e32ce55d6c7e4c4b42ccc120))
+* **mcp-streamable-http:** serve zero MCP prompts — primitive unregistered ([b0b9638](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b0b9638c14f867e9f6ad9f996dc7f220594bcfd1))
+* **statusline:** owner-attention bell from the owner-jobs register ([4231ba5](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4231ba5da96c84baa47a990aba2edb1e24800b39))
+* **statusline:** the bell links to the owner's issue list (osc 8) ([d9415f6](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d9415f627a6e72cad77581479a04b8e00926fb6f))
+* **validators:** check-script to ci parity validator (aip-166) ([a104eed](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a104eed5c6d4e7eb1c2b1c7417100964461e857e))
+
 ## [1.81.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.81.2...v1.81.3) (2026-07-21)
 
 
