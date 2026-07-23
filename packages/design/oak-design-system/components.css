@@ -38,7 +38,11 @@
      mint band (thenational.academy hero grammar) — brands re-point or hide */
   --band-bg: var(--surface-decorative-1); /* @kind other */
   --band-border: 0 solid transparent; /* @kind other */
-  --band-pad: 0px;
+  --band-pad: clamp(
+    var(--space-40),
+    5vw,
+    var(--space-64)
+  ); /* a demarcated region needs breathing room — fluid 40→64 (OWA header rhythm); pages/brands re-point */
   --band-radius: 0px; /* full-bleed bands stay square; inset bands may opt in */
   --container-max: var(--space-1280);
   /* tag — form is brand surface: border + shadow default to none (Oak's
@@ -187,11 +191,12 @@
   text-underline-offset: var(--space-2);
   border-radius: var(--radius-xs);
 }
-.oak-link:hover {
-  color: var(--text-link-hover);
-}
+/* LVHA order: :visited before :hover so hover feedback wins on visited links */
 .oak-link:visited {
   color: var(--text-link-visited);
+}
+.oak-link:hover {
+  color: var(--text-link-hover);
 }
 .oak-link:focus-visible {
   outline: var(--focus-outline);
@@ -806,7 +811,7 @@
   background: var(--bg-primary);
   color: var(--text-primary);
 }
-.oak-accordion summary {
+.oak-accordion > summary {
   list-style: none;
   cursor: pointer;
   min-height: var(--size-target);
@@ -820,10 +825,10 @@
   letter-spacing: var(--tracking-heading);
   border-radius: var(--radius-container);
 }
-.oak-accordion summary::-webkit-details-marker {
+.oak-accordion > summary::-webkit-details-marker {
   display: none;
 }
-.oak-accordion summary::after {
+.oak-accordion > summary::after {
   content: '';
   width: var(--select-chevron);
   height: var(--select-chevron);
@@ -834,11 +839,11 @@
   margin-top: calc(-1 * var(--space-4));
   transition: transform var(--motion-quick) var(--ease-standard);
 }
-.oak-accordion[open] summary::after {
+.oak-accordion[open] > summary::after {
   transform: rotate(225deg);
   margin-top: var(--space-4);
 }
-.oak-accordion summary:focus-visible {
+.oak-accordion > summary:focus-visible {
   outline: var(--focus-outline);
   outline-offset: var(--focus-outline-offset);
   box-shadow: var(--focus-ring);
@@ -1033,7 +1038,7 @@
   .oak-radio,
   .oak-quiz-answer,
   .oak-interactive,
-  .oak-accordion summary::after {
+  .oak-accordion > summary::after {
     transition-duration: var(--motion-instant);
   }
   .oak-skeleton {
@@ -1219,6 +1224,7 @@
   grid-template-columns: var(--main-columns);
   grid-template-areas: var(--main-areas);
   gap: var(--main-gap);
+  align-content: start; /* like .oak-canvas: spare height stays below content, never stretches rows */
 }
 .oak-main > [data-region='hero'] {
   grid-area: hero;
