@@ -213,6 +213,14 @@ describe('validatePlanFile — the D23 contract', () => {
     expect(isErr(result)).toBe(true);
   });
 
+  it('rejects a sub-day gate_expiry_default (the grammar is day-scale by design)', () => {
+    const result = validatePlanFile(
+      's.plan.md',
+      planDoc(replaceLine(STRATEGIC_LINES, 'gate_expiry_default:', 'gate_expiry_default: PT12H')),
+    );
+    expect(isErr(result)).toBe(true);
+  });
+
   it('requires serves on strategic and delivery nodes', () => {
     const strategic = validatePlanFile('s.plan.md', planDoc(dropLine(STRATEGIC_LINES, 'serves:')));
     expect(isErr(strategic)).toBe(true);

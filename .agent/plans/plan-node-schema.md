@@ -55,7 +55,7 @@ Two consequences are load-bearing:
 | `depends_on` | list of `{ plan, kind: blocking \| beneficial }` | optional | A `blocking` edge clears when its target archives |
 | `owner_gates` | list of `{ awaiting, clears_when, expires }` | optional | See gates below |
 | `superseded_by` | node id | when `status: superseded` | No plan leaves the estate without naming its successor |
-| `gate_expiry_default` | ISO-8601 duration | strategic only | The tempo this node sets for its subtree |
+| `gate_expiry_default` | day-scale ISO-8601 duration (`PnD`) | strategic only | The tempo this node sets for its subtree |
 | `last_updated` | ISO date | all | Housekeeping |
 
 All enums are **closed and additive**: new members are added

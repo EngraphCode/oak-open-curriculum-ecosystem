@@ -40,9 +40,13 @@ const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
 /** A Linear ticket reference, e.g. `MCP-101`. */
 const TICKET_ID = /^[A-Z][A-Z0-9]*-\d+$/;
 
-/** ISO-8601 duration with at least one component, e.g. `P3D`, `P21D`. */
-const ISO_DURATION =
-  /^P(?=\d|T\d)(?:\d+Y)?(?:\d+M)?(?:\d+W)?(?:\d+D)?(?:T(?=\d)(?:\d+H)?(?:\d+M)?(?:\d+S)?)?$/;
+/**
+ * Day-scale ISO-8601 duration, e.g. `P3D`, `P21D`. Deliberately narrow
+ * (closed-additive): gate horizons are day-scale by design; finer or
+ * coarser grammars arrive by reviewed change when a real tempo needs
+ * one — never speculatively (also keeps the pattern simple, S5843).
+ */
+const DAY_SCALE_DURATION = /^P\d+D$/;
 
 const kebabSlug = z.string().regex(KEBAB_SLUG, 'expected a kebab-case slug');
 const isoDate = z.string().regex(ISO_DATE, 'expected an ISO date (YYYY-MM-DD)');
@@ -85,7 +89,7 @@ const basePlanNodeSchema = z.strictObject({
   superseded_by: kebabSlug.optional(),
   gate_expiry_default: z
     .string()
-    .regex(ISO_DURATION, 'expected an ISO-8601 duration (e.g. P3D)')
+    .regex(DAY_SCALE_DURATION, 'expected a day-scale ISO-8601 duration (e.g. P3D)')
     .optional(),
   last_updated: isoDate,
 });
