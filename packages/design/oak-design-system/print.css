@@ -54,7 +54,7 @@
   /* Disclosure content is part of the document on paper: hide the marker AND
      reveal closed accordion bodies where the engine supports ::details-content
      (progressive enhancement; a closed <details> otherwise prints empty). */
-  .oak-accordion:not([open]) summary::after {
+  .oak-accordion:not([open]) > summary::after {
     display: none;
   }
   details:not([open])::details-content {

@@ -631,6 +631,9 @@
   --surface-decorative-6-soft: var(
     --oak-white
   ); /* re-declared: a :root alias freezes at its :root-resolved value inside SUBTREE theme scopes */
+  --surface-amber-soft: var(
+    --surface-decorative-6-soft
+  ); /* new-in-this-change dialect alias gets the same subtree re-declaration */
   --surface-decorative-6-subtle: var(--oak-white);
   --shadow-ground: var(--oak-black-true);
   --shadow-standard: none;

@@ -270,6 +270,10 @@
       "$value": "{oak.color.white}",
       "$type": "color"
     },
+    "amber-soft": {
+      "$value": "{surface.decorative-6-soft}",
+      "$type": "color"
+    },
     "decorative-6-subtle": {
       "$value": "{oak.color.white}",
       "$type": "color"

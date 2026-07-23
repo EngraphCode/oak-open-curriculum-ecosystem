@@ -90,9 +90,9 @@
   /* --- 4. Core neutrals ---------------------------------------- */
   /* --text-primary: light-dark(#222222, #ffffff); */
   /* --text-subdued: light-dark(#575757, #e4e4e4); */
-  /* --text-link: light-dark(#0d24c4, #a0b6f2); */
-  /* --text-link-hover: light-dark(#0a1d9d, #bdcdf5); */
-  /* --text-link-visited: light-dark(#081676, #e3e9fb); */
+  /* --text-link: light-dark(#0d24c4, #bdcdf5); */
+  /* --text-link-hover: light-dark(#0a1d9d, #e3e9fb); */
+  /* --text-link-visited: light-dark(#081676, #eef2fd); */
   /* --bg-primary: light-dark(#ffffff, #222222); */
   /* --bg-subtle: light-dark(#f9f9f9, #1b1b1b); */
   /* --bg-neutral: light-dark(#f2f2f2, #575757); */
