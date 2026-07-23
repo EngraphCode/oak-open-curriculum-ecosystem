@@ -868,3 +868,20 @@ singleton seat is open.** Candidate structural cure for the tools
 lane: `claims adopt` warns (or requires --force) when the target row's
 agent identity differs and its claim carries a handoff_record_path
 already consumed by a prior adoption.
+
+## 2026-07-23 — Fork preparation is compact → reground → fork (owner-discovered)
+
+Forks inherit the FULL context, so forking from a long live session
+spawns siblings with little runway and replicates any context defects
+N times. The owner-discovered discipline: **compact first (distill),
+reground second (verify the distillation against live terrain and the
+authoritative external surfaces — register, tickets, milestones,
+memory), fork third (replicate the certified baseline)**. The
+regrounding step is load-bearing: it catches compaction's lossy errors
+once, before inheritance amplifies them — the same
+terrain-moves-while-the-map-is-read cure applied to replication.
+Corollaries: fork points are deliberate ceremony moments, cut at quiet
+points with no dangling mid-task state; the safety of the whole
+pipeline rests on state being externalised so compaction only has to
+carry calibration, never facts. Feeds the transfer-mechanisms
+conversation and any future fork doctrine.
