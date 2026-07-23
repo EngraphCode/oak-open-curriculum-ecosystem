@@ -103,5 +103,5 @@ jobs:
           # be green (the silent-composition class this job exists to kill).
           errors: true
           payload: |
-            channel: C0BCV3HDEE5
+            channel: C0BKEUM2UAG
             text: ":rotating_light: Release workflow failed on main — <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|view the run>. Production does not advance until the release leg is cured (see .agent/plans/runbooks/release-process.plan.md)."
