@@ -3,10 +3,10 @@ id: mcp-128-public-landing-page
 node_type: delivery
 name: "Public landing page at production values: Oak-family design, phased messaging"
 overview: "Raise the app's landing page to main-domain production values — composed from the in-repo design system, Oak editorial voice, and a phase-modelled message (limited internal testing → coming soon → live) flipped by one reviewed edit."
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: Jim Cresswell
+ratified_date: 2026-07-23
+ratified_where: "owner card 2026-07-23, answered via the Director's card relay (Forge 398e24)"
 serves: first-major-release
 impact_areas:
   - served-surface
@@ -51,24 +51,33 @@ tokens and the class library, local Lexend, no ad-hoc styles. Matching
 the main website means belonging to the same family, which the system
 exists to guarantee.
 
-**The design session settles the gaps.** A design session against the
-system's live-render surface answers what the kit lacks for a
-marketing-shaped page (hero, prose rhythm, coming-soon pattern, footer)
-before build starts. Session surface, in preference order, decided at
-ratification: (1) the canonical studio project if owner access is
-cheap; (2) a session-scoped working copy seeded from the repo and
-deleted after landing — a working copy is not a fork provided the PR
-remains the merge authority and the copy does not outlive the session
-(its deletion is an acceptance proof); (3) in-repo only, with the
-fidelity harness and contrast tests as the render check. The
-design-sync runbook governs whichever surface runs: repo → session →
-reviewed PR, never a wholesale replace.
+**The design session settled the gaps (pre-ratification, 2026-07-23).**
+The gap-check against the shipped system CSS found zero blocking gaps —
+hero, prose rhythm, CTA cluster, and the coming-soon pattern are all
+covered by existing classes. The footer is a near-gap ratified as
+compose-for-now: it composes acceptably from `oak-band`, `oak-cluster`,
+`oak-link`, and `oak-body-4`, and a system footer pattern is proposed
+via the design-sync runbook only if the estate grows more public pages.
+Evidence and candidate rationale:
+`.agent/reports/mcp-128-landing-pre-ratification-2026-07-23.md`, with
+both candidate compositions rendered on the repo-synced design surface
+(the canonical studio project — preference option 1; the design-sync
+runbook governs: repo → session → reviewed PR, never a wholesale
+replace).
+
+**Ratified composition: Candidate B, the home-map shell.** The page
+uses the full `[data-page='home']` region map — band hero, three-card
+featured row, phase-notice content block, signposting context, and a
+band CTA region — carrying main-domain production values the way this
+plan intends. Design iteration inside the build phase is expected; it
+stays within the ratified composition and the class library.
 
 **Content set** (owner-named, 2026-07-23): the limited-internal-testing
 notice; the app-coming-soon statement; one Oak-voiced sentence linking
 to the canonical what-is-MCP explainer; two-way signposting to the main
 website and the curated creation experience per the
-complements-not-competes posture. Editorial voice per
+complements-not-competes posture. The ratified H1 is "Oak, in your AI
+assistant". Editorial voice per
 `editorial-tone.md` (human, largely non-technical audience). Sensitivity
 by construction: the public page carries no cohort detail, no timing
 rationale, no stage-ladder dates — "limited internal testing" and
