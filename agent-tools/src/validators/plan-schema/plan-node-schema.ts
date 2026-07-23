@@ -1,195 +1,193 @@
 /**
- * Zod transcription of the V0 `plan` node-schema frontmatter contract.
+ * Zod transcription of the planning-estate plan-node contract.
  *
  * @remarks
- * Transcribes `.agent/plans/plan-node-schema.v0.md` §2 (frontmatter
- * contract) and §3 (orthogonal state axes) for the release-planning
- * corpus validator. Design bindings, all from the owner-signed spec:
+ * Transcribes `.agent/plans/plan-node-schema.md` (the structure
+ * owner-ratified at planning-sitting part 1, 2026-07-22 — decisions
+ * register D23). Authored as a redo of the prior V0 module, not an
+ * edit of it (D23: the corpus is replaced by redoing its creation).
+ * Design bindings, all from the ratified contract:
  *
- * - Closed enums for `kind`, `disposition`, todo `status`, and
- *   `depends_on[].kind`; additive V0.1 fields stay optional.
- * - Unknown keys are tolerated (§2.5: "A plan MAY carry domain extension
- *   keys outside this contract; the validator ignores them in V0") —
- *   EXCEPT the explicitly dropped emergent keys, which are refused so
- *   the old `status:`-style drift cannot re-enter the corpus.
- * - Execution status is deliberately NOT a field (§3.2 — Linear-owned,
- *   projected); a frontmatter `status:` key is therefore in the dropped
- *   set, not the contract.
- * - One documented tolerance beyond §2.4's todo shape: a todo MAY carry
- *   `depends_on` (intra-plan todo ordering, ids resolved within the same
- *   plan). The founding corpus uses it and it invents no cross-plan edge.
+ * - Three node types (`strategic | delivery | runbook`); no `kind`
+ *   axis and no frontmatter execution state — execution lives in
+ *   Linear via the `tickets` edge, never here.
+ * - `status` carries ratification state ONLY
+ *   (`sketch | ratified | archived | superseded`): every plan is born
+ *   `sketch` and governs no work until its stamp
+ *   (`ratified_by` + `ratified_date` + `ratified_where`) is complete.
+ * - Closed shapes throughout: the key set is strict and every enum is
+ *   closed — new members arrive by reviewed, additive change.
+ * - Owner gates always carry an absolute `expires` (no open-ended
+ *   holding states); the default horizon is strategy-scoped data
+ *   (`gate_expiry_default` on strategic nodes), never a schema
+ *   constant.
+ *
+ * Cross-FILE rules (serves resolution, `impact_areas` registry
+ * membership, `depends_on` resolution, corpus non-emptiness) live in
+ * the corpus helpers — this module owns single-file shape only.
  *
  * @packageDocumentation
  */
 
 import { z } from 'zod';
 
-/** Stable kebab-case slug (V0 §2.1 `id`; also todo ids and thread slugs). */
+/** Stable kebab-case slug (`id`, `serves` node refs, `superseded_by`). */
 const KEBAB_SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
-/** ISO calendar date, the only date form the contract admits (§2.4). */
+/** ISO calendar date, the only date form the contract admits. */
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
 
-/** V0 §2.5: emergent keys the contract explicitly drops — refused, never ignored. */
-const DROPPED_KEYS = [
-  'status',
-  'lifecycle',
-  'isProject',
-  'type',
-  'collection',
-  'lane',
-  'foundational_adr',
-  'foundation_alignment',
-] as const;
+/** A Linear ticket reference, e.g. `MCP-101`. */
+const TICKET_ID = /^[A-Z][A-Z0-9]*-\d+$/;
+
+/** ISO-8601 duration with at least one component, e.g. `P3D`, `P21D`. */
+const ISO_DURATION =
+  /^P(?=\d|T\d)(?:\d+Y)?(?:\d+M)?(?:\d+W)?(?:\d+D)?(?:T(?=\d)(?:\d+H)?(?:\d+M)?(?:\d+S)?)?$/;
 
 const kebabSlug = z.string().regex(KEBAB_SLUG, 'expected a kebab-case slug');
 const isoDate = z.string().regex(ISO_DATE, 'expected an ISO date (YYYY-MM-DD)');
 const nonEmpty = z.string().min(1);
 
-/**
- * §2.4 todo item, plus the documented intra-plan `depends_on` tolerance
- * and the V0.1 additive fields (`proof`, `spec_ref`). Key-set strict —
- * this IS the authoring gate the plan-state adapter defers key
- * conformance to — but `proof`'s internal union is validated by that
- * adapter (one owner per concern), so here it is presence-only.
- */
-const todoSchema = z
-  .object({
-    id: kebabSlug,
-    content: nonEmpty,
-    status: z.enum(['pending', 'completed']),
-    depends_on: z.array(kebabSlug).optional(),
-    proof: z.unknown().optional(),
-    spec_ref: nonEmpty.optional(),
-  })
-  .strict();
+/** A stamp field: a value once given, `null` while the plan is a sketch. */
+const stampText = nonEmpty.nullable();
+const stampDate = isoDate.nullable();
 
-/** §3.4 gate — an expiring block, never an open holding state. */
-const gateSchema = z
-  .object({
-    awaiting: nonEmpty,
-    clears_when: nonEmpty,
-    expires: isoDate,
-  })
-  .strict();
+/** An expiring owner gate — never an open holding state. */
+const ownerGateSchema = z.strictObject({
+  awaiting: z.enum(['owner-decision', 'external-input']),
+  clears_when: nonEmpty,
+  expires: isoDate.describe('expires: an absolute date is mandatory on every gate'),
+});
 
-/** §2.3 `depends_on` edge entry. */
-const dependsOnSchema = z
-  .object({
-    plan: nonEmpty,
-    kind: z.enum(['blocking', 'beneficial']),
-  })
-  .strict();
+/** A `depends_on` edge entry, typed on the edge. */
+const dependsOnSchema = z.strictObject({
+  plan: kebabSlug,
+  kind: z.enum(['blocking', 'beneficial']),
+});
 
-/** Accepts a single ref or a list of refs (V0 §2.3 "plan ref(s)"). */
-const refOrRefs = z.union([nonEmpty, z.array(nonEmpty).min(1)]);
-
-/** The field contract before cross-field refinement. */
-const basePlanNodeSchema = z.looseObject({
+/** The field contract before cross-field refinement. Closed key set. */
+const basePlanNodeSchema = z.strictObject({
   id: kebabSlug,
-  node_type: z.literal('plan'),
+  node_type: z.enum(['strategic', 'delivery', 'runbook']),
   name: nonEmpty,
   overview: nonEmpty,
-  kind: z.enum(['strategic', 'executable']),
-  disposition: z.enum(['done', 'superseded', 'extracted-and-archived', 'cancelled']).optional(),
-  gate: gateSchema.optional(),
-  serves_strategic_choice: nonEmpty.optional(),
-  derives_from: z.array(nonEmpty).optional(),
-  supersedes: refOrRefs.optional(),
-  superseded_by: refOrRefs.optional(),
+  status: z.enum(['sketch', 'ratified', 'superseded', 'archived']),
+  ratified_by: stampText.optional(),
+  ratified_date: stampDate.optional(),
+  ratified_where: stampText.optional(),
+  serves: nonEmpty.optional(),
+  impact_areas: z.array(kebabSlug).min(1, 'every plan declares at least one impact area'),
+  tickets: z
+    .array(z.string().regex(TICKET_ID, 'expected a ticket reference like MCP-101'))
+    .optional(),
   depends_on: z.array(dependsOnSchema).optional(),
-  thread: kebabSlug.optional(),
-  projects_to: nonEmpty.optional(),
-  todos: z.array(todoSchema).min(1).optional(),
-  promotion_trigger: nonEmpty.optional(),
+  owner_gates: z.array(ownerGateSchema).optional(),
+  superseded_by: kebabSlug.optional(),
+  gate_expiry_default: z
+    .string()
+    .regex(ISO_DURATION, 'expected an ISO-8601 duration (e.g. P3D)')
+    .optional(),
   last_updated: isoDate,
-  related: z.array(nonEmpty).optional(),
 });
 
 /** The parsed base shape the cross-field refinements operate on. */
 type BasePlanNode = z.output<typeof basePlanNodeSchema>;
 
-/** Refuse the V0 §2.5 dropped emergent keys (extension keys otherwise pass). */
-function refuseDroppedKeys(value: BasePlanNode, ctx: z.RefinementCtx): void {
-  for (const dropped of DROPPED_KEYS) {
-    if (dropped in value) {
+/** The three stamp fields, checked together at ratification. */
+const STAMP_FIELDS = ['ratified_by', 'ratified_date', 'ratified_where'] as const;
+
+/** Ratified means the stamp is complete — executed is not ratified. */
+function refineStampCompleteness(value: BasePlanNode, ctx: z.RefinementCtx): void {
+  if (value.status !== 'ratified') {
+    return;
+  }
+  for (const field of STAMP_FIELDS) {
+    const present = value[field] !== undefined && value[field] !== null;
+    if (!present) {
       ctx.addIssue({
         code: 'custom',
-        path: [dropped],
-        message: `dropped emergent key (V0 §2.5): '${dropped}' must not appear in frontmatter`,
+        path: [field],
+        message: `status 'ratified' requires a complete stamp: '${field}' must be set`,
       });
     }
   }
 }
 
-/** The §2.4 requirement matrix per kind: [field, mustBePresent, message]. */
-const KIND_RULES: Record<
-  BasePlanNode['kind'],
-  readonly [
-    field: 'todos' | 'serves_strategic_choice' | 'promotion_trigger',
-    present: boolean,
-    message: string,
-  ][]
+/** No plan leaves the estate without naming its successor. */
+function refineSupersededCoupling(value: BasePlanNode, ctx: z.RefinementCtx): void {
+  if (value.status === 'superseded' && value.superseded_by === undefined) {
+    ctx.addIssue({
+      code: 'custom',
+      path: ['superseded_by'],
+      message: "status 'superseded' requires a superseded_by successor",
+    });
+  }
+}
+
+/** The per-type requirement matrix: [field, mustBePresent, message]. */
+const TYPE_RULES: Record<
+  BasePlanNode['node_type'],
+  readonly [field: 'serves' | 'gate_expiry_default', present: boolean, message: string][]
 > = {
-  executable: [
-    ['todos', true, 'executable plans require todos (V0 §2.4)'],
-    [
-      'serves_strategic_choice',
-      true,
-      "executable plans require serves_strategic_choice (an ID or 'pending', V0 §2.3)",
-    ],
-    ['promotion_trigger', false, 'promotion_trigger is forbidden on executable plans (V0 §2.4)'],
-  ],
   strategic: [
-    ['promotion_trigger', true, 'strategic plans require promotion_trigger (V0 §2.4)'],
-    ['todos', false, 'todos are forbidden on strategic plans (V0 §2.4)'],
+    ['serves', true, 'strategic nodes require serves (a published strategic-choice ID)'],
+    [
+      'gate_expiry_default',
+      true,
+      'strategic nodes require gate_expiry_default (the subtree tempo)',
+    ],
+  ],
+  delivery: [
+    ['serves', true, 'delivery plans require serves (a strategic node id)'],
+    [
+      'gate_expiry_default',
+      false,
+      'gate_expiry_default is strategy-scoped data: forbidden on delivery plans',
+    ],
+  ],
+  runbook: [
+    [
+      'gate_expiry_default',
+      false,
+      'gate_expiry_default is strategy-scoped data: forbidden on runbooks',
+    ],
   ],
 };
 
-/** §2.4 kind dispatch plus the §3.3 superseded coupling. */
-function refineKindDispatch(value: BasePlanNode, ctx: z.RefinementCtx): void {
-  for (const [field, mustBePresent, message] of KIND_RULES[value.kind]) {
+/** Per-type dispatch over the requirement matrix. */
+function refineTypeDispatch(value: BasePlanNode, ctx: z.RefinementCtx): void {
+  for (const [field, mustBePresent, message] of TYPE_RULES[value.node_type]) {
     const present = value[field] !== undefined;
     if (present !== mustBePresent) {
       ctx.addIssue({ code: 'custom', path: [field], message });
     }
   }
-  if (value.disposition === 'superseded' && value.superseded_by === undefined) {
+}
+
+/** A ratified delivery plan names at least one ticket (its Linear anchor). */
+function refineRatifiedDeliveryTickets(value: BasePlanNode, ctx: z.RefinementCtx): void {
+  const ratifiedDelivery = value.node_type === 'delivery' && value.status === 'ratified';
+  if (ratifiedDelivery && (value.tickets ?? []).length === 0) {
     ctx.addIssue({
       code: 'custom',
-      path: ['superseded_by'],
-      message: "disposition 'superseded' requires a superseded_by edge (V0 §3.3)",
+      path: ['tickets'],
+      message:
+        'a ratified delivery plan requires at least one ticket (execution state lives in Linear)',
     });
   }
 }
 
-/** Intra-plan todo `depends_on` ids must name todo ids in the same plan. */
-function refineTodoDependencies(value: BasePlanNode, ctx: z.RefinementCtx): void {
-  const todos = value.todos ?? [];
-  const ids = new Set(todos.map((todo) => todo.id));
-  todos.forEach((todo, index) => {
-    for (const dep of todo.depends_on ?? []) {
-      if (!ids.has(dep)) {
-        ctx.addIssue({
-          code: 'custom',
-          path: ['todos', index, 'depends_on'],
-          message: `todo depends_on '${dep}' does not name a todo id in this plan`,
-        });
-      }
-    }
-  });
-}
-
 /**
- * The V0 `plan` node frontmatter contract: the base field contract plus
- * the cross-field rules (dropped-key refusal, kind dispatch, superseded
- * coupling, intra-plan todo-dependency resolution).
+ * The plan-node frontmatter contract: the strict base field contract
+ * plus the cross-field rules (stamp completeness, superseded coupling,
+ * per-type dispatch, ratified-delivery ticket presence).
  */
 export const planNodeSchema = basePlanNodeSchema.superRefine((value, ctx) => {
-  refuseDroppedKeys(value, ctx);
-  refineKindDispatch(value, ctx);
-  refineTodoDependencies(value, ctx);
+  refineStampCompleteness(value, ctx);
+  refineSupersededCoupling(value, ctx);
+  refineTypeDispatch(value, ctx);
+  refineRatifiedDeliveryTickets(value, ctx);
 });
 
-/** The parsed, validated V0 plan-node frontmatter. */
+/** The parsed, validated plan-node frontmatter. */
 export type PlanNode = z.infer<typeof planNodeSchema>;

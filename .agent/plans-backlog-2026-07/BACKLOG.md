@@ -11,7 +11,7 @@ else).
 
 **Owner's word: "we lose nothing."** This backlog is a waypoint, not a
 graveyard. The full-corpus transformation to the
-[V0 plan-node form](../plans/plan-node-schema.v0.md) and the intent
+[V0 plan-node form](../plans-v0-sketch-2026-07-21/plan-node-schema.v0.md) and the intent
 graph both RESUME after the first major release; every plan here is a
 migration candidate under the corpus admission rule (V0-conform →
 move into `.agent/plans/`).

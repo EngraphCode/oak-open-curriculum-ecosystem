@@ -514,7 +514,7 @@ drift between plan-write and plan-execute):
   an architectural decision emerges (e.g. the cross-platform bot-identity
   pattern), an ADR.
 - Lifecycle touch points per
-  [`lifecycle-triggers.md`](../templates/components/lifecycle-triggers.md):
+  [`lifecycle-triggers.md`](../../plans/templates/components/lifecycle-triggers.md):
   session entry via start-right, claim registered
   (f21a7359-0f2c-4030-a1ab-8c485b504a4d), handoff closure at seat end,
   consolidation at completion.

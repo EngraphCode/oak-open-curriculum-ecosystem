@@ -483,6 +483,6 @@ script (§6.5, §12.4–12.5).
   `docs/engineering/` (deployment runbook) and archives per the
   corpus rules; consolidation runs at plan completion.
 - Lifecycle touch points per
-  [`lifecycle-triggers.md`](../templates/components/lifecycle-triggers.md):
+  [`lifecycle-triggers.md`](../../plans/templates/components/lifecycle-triggers.md):
   claim registered at lane open, handoff record at seat end if
   mid-arc, evidence recorded on MCP-67 as each gate passes.

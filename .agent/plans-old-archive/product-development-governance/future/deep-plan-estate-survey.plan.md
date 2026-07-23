@@ -169,7 +169,7 @@ Authored under a dated `.agent/reports/` survey directory; nothing presupposed:
 
 - **The `plan` node-schema as the conformance lens** — `blocking` for the conformance dimension;
   a draft v0 lens suffices to start (the survey refines it). **The lens exists:**
-  [`plan-node-schema.v0.md`](../../../plans/plan-node-schema.v0.md) (V0, decision-complete, explicitly
+  [`plan-node-schema.v0.md`](../../../plans-v0-sketch-2026-07-21/plan-node-schema.v0.md) (V0, decision-complete, explicitly
   pre-survey). It is provisional **by design** — its §0 defines the V0 → survey → V1 loop, and its
   §8 names what is deferred for the survey to refine. Run the holistic + specialist + relational
   passes against it and feed conformance findings back as additive refinements; do not treat the
