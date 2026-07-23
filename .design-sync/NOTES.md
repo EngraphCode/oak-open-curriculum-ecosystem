@@ -32,8 +32,9 @@
   confirm the files exist at those paths in the project.
 - DTCG JSON (dtcg/\*.json) does NOT ship: `tokensGlob` requires a
   `tokensPkg` resolvable from node_modules and the DS package is not
-  installed anywhere. All 474 custom properties ship via the CSS
-  (validate counts them), so the design agent loses nothing that
+  installed anywhere. Every custom property ships via the CSS — validate
+  counts them at each sync (474 at the 2026-07-23 first sync; the count
+  grows as tokens land) — so the design agent loses nothing that
   renders. Improvement candidate for a later sync.
 - Render check: zero component previews exist (tokens-only), so
   validate runs `--no-render-check` — accepted as vacuous 2026-07-23;

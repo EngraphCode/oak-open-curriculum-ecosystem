@@ -280,7 +280,9 @@
   --text-success: light-dark(var(--oak-green), var(--oak-mint));
   --text-disabled: light-dark(var(--oak-grey50), var(--oak-grey40));
   /* Dark link ramp sits one tint above the lavender base so body links hold
-     AA on every dark decorative band (base lavender was 4.34:1 on dark-mint).
+     AA on the dark canvas and decorative bands 1-4 and 6 (base lavender was
+     4.34:1 on dark-mint); dark-lemon (-5) alone misses at 4.48:1 — see
+     KNOWN-ISSUES #13, never put body links in a lemon band in dark.
      Invariant the pinned pairings rely on: the BASE state is always the
      worst-contrast member of the ramp in both polarities (hover/visited only
      lighten in dark, only darken in light) — keep it so when retuning */
