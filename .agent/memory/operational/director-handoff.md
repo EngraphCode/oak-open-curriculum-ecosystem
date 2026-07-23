@@ -262,424 +262,51 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> ### ▶ ACTIVE: FIRST-MAJOR-RELEASE FOUNDATIONS ERA — seat OPEN at the Genet torch-pass (2026-07-22, owner-initiated deliberate succession; the planning session runs in a FRESH seat)
+> ### ▶ ACTIVE: FIRST-MAJOR-RELEASE DELIVERY ERA — Director: Forge rides Brimstone (`398e24`)
 >
-> **Genet stirs Covert (`e1df35`)** held the seat 2026-07-21T21:5xZ →
-> 2026-07-22 wrap (succeeded Forge rides Brimstone at the owner-named
-> torch-pass). Tenure: the foundations day — owner rulings D4–D18 minted
-> and register-carried; the vendor-submission dossier (MCP-105–109, all
-> teacher-encounter-framed, first-hand-verified); MCP-103 phase (a)
-> landed (PR #476, bot-merged); the MCP-63 halt + build-routing HOLD
-> (owner word: goal formation precedes build); guidance templates live in
-> Notion (editorial voice); three AI-managed Notion pages refreshed.
-> **Successor grounding order**: (1) the formation letter
-> `.agent/experience/2026-07-22-genet-stirs-covert-formation-letter.md`;
-> (2) the handoff record
-> `handoffs/2026-07-22-genet-director-full-handoff.md` (untracked — read
-> from the primary's filesystem; carries owed register entries D19–D22,
-> the build-routing hold, blind-spot bounds); (3) the Linear decisions
-> register D1–D18 + the release project's working docs; (4) the local
-> memory `first-major-release-standing-rulings.md` — **the sensitivity
-> tiers live there; read before writing to any surface**.
-> **The one-line state**: engineering-complete for the ≤16-Aug Anthropic
-> path = **Wed 30 Jul EOD** (derivation on MCP-106) — the owner's
-> planning session is the FIRST ITEM on the release-critical path; all
-> build routing is held until it. Director claim `7d6b8bbf` retained with
-> `handoff_record_path` set — successor adopts via the readiness gate.
+> **Seat**: Forge rides Brimstone (`398e24`), owner-reconfirmed across the
+> 2026-07-23 compaction boundary ("back to being the Director"). Registry
+> row `f18c4cc8` (successor to `7d6b8bbf`, which a mechanical
+> archive-stale sweep closed while comms-live — the F-92 dual-surface
+> lesson: bump the CLAIMS heartbeat at cycle boundaries, not just comms).
 >
-> ### ▶ PRIOR: RELEASE-PIVOT ERA — Director: Forge rides Brimstone (`398e24`, seat taken at Moment-2 2026-07-21T09:39:19Z)
+> **Operating model (2026-07-23 forward)**: the live-base fork fleet.
+> The owner freezes a "fixed point" base session and cuts implementer
+> seats from it (`claude --resume <base-id> --fork-session`); forks
+> derive identity from their OWN session id, arrive context-warm, and
+> are sibling implementers, never the lead. Fork rules + verbatim-force
+> constraints: `handoffs/2026-07-23-fixed-point-baseline-v3.md` (rules)
+> read alongside `...-v2.md` (richer archive). Sensitivity tiers live in
+> the per-user memory `first-major-release-standing-rulings.md` — read
+> before writing to any surface.
 >
-> **Succession COMPLETE** (owner-named deliberate succession, PDR-063/064):
-> Tornado's Moment-1 pre-positioning (canonical event `55fa9cef`), Forge's
-> readiness gate discharged (five questions + the pasted mechanical UTC
-> liveness check), `claims adopt 7d6b8bbf` in place, Moment-2
-> active-acknowledgement (event `49bc1f31`, 09:39:19Z); Tornado retired
-> cleanly 09:40:17Z with monitors stopped by intent. Forge holds the
-> Director claim `7d6b8bbf`; the ex-implementer claim `4092ab7a` closed its
-> areas as routed (AIP-157/D1 → Moth mends Dreamscape, claim `11c4204e`).
-> The #457 landing duty (fold main → one agent-tools build → monitors to
-> the canonical CLI form) was discharged and verified the same morning.
-> **Era shape**: the owner's six-point release directive (~12:0xZ) governs —
-> the guiding plan is
-> `product-development-governance/current/release-planning-corpus-reset.plan.md`
-> (V0-conformant, assumptions-reviewed); the owner-jobs register
-> (`.agent/state/collaboration/owner-jobs.md`, a Linear projection via the
-> `owner-ask` label) is the owner-attention surface, with the statusline
-> bell as its glanceable half.
+> **The work directed**: the first-major-release effort — decisions
+> register at `.agent/plans/strategic/first-major-release.plan.md`
+> (main), delivery plans mcp-67/101/102/121/128 all ratified, tickets in
+> Linear (MCP App Pathfinder team). Owner directs through the Director;
+> owner decisions surface as immediate visible cards; implementer info
+> requests filter through concept-exploration.
 >
-> ### ▶ PRIOR SHAPE: NET-TO-ZERO TAIL + PDR-131 ERA — Director: Tornado tracks Apex (`daace4`, seat taken 2026-07-20T21:11:51Z)
+> **State at this refresh (2026-07-23 ~16:20Z)**: the guidance sitting's
+> nine seeds ALL discharged three days ahead of their 2026-07-26 gates
+> (guidance-format six recorded on MCP-102; EEF flip ratified — v1 live
+> set final; register resave batch in flight; ADR-213 component-tier
+> amendment open as #498 awaiting owner substance-read). M1 complete.
+> Release-flow + codegen composition failures cured same-day (runbook
+> `.agent/plans/runbooks/release-process.plan.md`, Slack failure alert,
+> cached-schema pin — MCP-130/131). Remaining release path is bounded by
+> human legs: expert guidance authoring (owner-engaged), MCPJam
+> conformance (MCP-125, unrouted), domain-move zone-owner engagement.
 >
-> **SESSION SHAPE (2026-07-20, refreshed ~21:20Z):** Director **Tornado tracks Apex
-> (`daace4`)**, claim `7d6b8bbf` (adopted in place at Moment-2 21:11:51Z, event
-> `adbaad89`, from Forge rides Brimstone `398e24`, who retired cleanly 21:12:34Z —
-> third Director generation of the day: Galago → Forge → Tornado, all owner-initiated
-> deliberate successions under PDR-063/064). Team: **Foehn rides Flight (`3e9afa`)**
-> design lane + #450 then wrap (claim `8df9fbc0`); **Quoll mends Lair (`4020b0`)**
-> #448 → #437 → #449-routed (claims `93d540c3`/`323e7308`). Board at 6 open PRs, every
-> one owned: #434 (Director seat's own duty — the 50-thread adjudication corpus),
-> #448/#437/#449 (Quoll), #450 (Foehn), #439 (armed, self-lands). Main + Sonar gate
-> GREEN. Owner standing words verbatim (carried from Forge's record): net-to-zero;
-> Director routing autonomy (no per-action go); no-quiet-holds; no hacks; owner
-> decisions ALWAYS as immediate cards; merge grant whole-drive (merge commit, never
-> squash/--admin); PDR-131 mechanics estate-wide (arm at settled-READY under grant;
-> Phase-8 mandatory; disarm intents before rule removals); dependency updates manual.
-> Guiding plan unchanged:
-> `.agent/plans/architecture-and-infrastructure/current/design-system-integration.plan.md`.
-> Everything faster than a handoff lives ONLY in the record this claim's
-> `handoff_record_path` names →
-> `.agent/state/collaboration/handoffs/2026-07-20-forge-director-full-handoff.md`
-> (untracked-by-design — read from the primary checkout's filesystem; four wrap
-> layers, the owed-items sweep incl. §7(b) composed-pairs gate, statusline
-> Deliverable B claim `57d895cb` retained-with-record, worktree pruning owner-gated,
-> throughput weekly read ~2026-07-27).
+> **Fleet at refresh**: Heron lifts Summit (`d3c364`) — MCP-128 landing
+> build, owner design feedback live; Bonfire tracks Bellows (`3bb759`) —
+> hygiene/runbook seat, register resave + Slack-alert activation test in
+> queue; Magma mends Sulphur (`639530`) — dedicated consolidation,
+> closing out. Owner active in-session.
 >
-> **ZERO BOARD (2026-07-21 06:29Z) — the net-to-zero directive COMPLETE.** All
-> PRs merged: the overnight freeze resolved at the owner's return (gh re-auth
-> 05:41Z; the #450 matrix pick (a) executed; #449/#437/#448/#451 merged under
-> the 06:09Z quota ruling; #434 merged 06:29:05Z `SHA:a4efd36ee` after a
-> seven-round adjudication, Phase-8 CLEAN, release shipped; main folded back).
-> **Standing rulings minted this morning (owner, 06:28Z):** `--admin` ALWAYS
-> banned; direct `gh pr merge --merge` BANNED on bypass-capable accounts (the
-> shared credential is one — ruleset 13402577's OrganizationAdmin always-bypass
-> is the #437-behind-red mechanism, audit-confirmed no flag was used);
-> arm-at-settled is the ONLY landing mechanism until the commissioned GitHub-App
-> merge bot (non-bypass actor) exists. **Live lane:** the #437 Sonar
-> fix-forward (owner: every single issue; no category dismissals, no scope
-> exclusions) — at Forge after Quoll's dormancy-poll wake failed
-> (wake-delivery-hole instance). **Owner-held cards:** the ruleset
-> bypass-actor removal; the merge-bot build; the wrap-inventory queue
-> (worktree prunes, studio sync-back, §7(b) ticket, statusline Deliverable B,
-> throughput weekly read 2026-07-27).
->
-> <details><summary>Superseded 06:29Z: the overnight FREEZE STATE (conserved)</summary>
->
-> **FREEZE STATE (2026-07-21 ~00:10Z, owner-away evening drive):** the net-to-zero
-> drive ran to a near-zero board, then froze on TWO owner gates: (1) the shared
-> `gh` credential went INVALID (~23:45Z) — every harvest/arm/merge halted; fix is
-> the interactive `gh auth login -h github.com`, owner-run; SSH git + comms +
-> local work continued; (2) **PR #450** is doctrine-halted at the step-back
-> tripwire (five distinct finding-classes in five rounds) with the owner decision
-> matrix conserved in Forge's 23:04Z tripwire event: (a) authorise the one-thread
-> report-contract cure and merge, (b) disposition-as-residual and merge, (c) a
-> further named gate. Board at freeze: #448/#437/#449 settled-zero at arm points
-> `4e3abc58e`/`616fb3c65`/`31f06a501` (Quoll, banked); #451 r1 cures pushed
-> `1f678e7fe` (Forge); #434 at 4 unresolved, r4 review requested (trajectory
-> 68→8→4, cure commits through `ab46860b9`); #439 MERGED `7f55236c7`; #450 halted
-> at `34459f96d`. At owner re-auth the tails resume mechanically: re-request the
-> #434 review → settle → merge; arm the three settled lanes; finish #451 rounds.
-> Owner-return card queue beyond the two gates: the wrap-inventory list (worktree
-> prunes, studio sync-back, §7(b) ticket, statusline Deliverable B seat,
-> throughput weekly read 2026-07-27, merge-queue-card-moot confirmation).
->
-> </details>
->
-> <details><summary>Superseded 2026-07-20 ~21:20Z: Galago tenure shape + Galago→Forge transition (conserved)</summary>
->
-> Galago stirs Grotto (`60d988`) held the seat from Moment-2 08:01:08Z (event
-> `35361e82`) over the second-generation cast (Heron design lane, Herring statusline,
-> Goshawk cycle-3, Eagle hub). Forge rides Brimstone (`398e24`) took the seat at
-> Moment-2 12:46:59Z (event `b126eaa8`); Forge's tenure ran the net-to-zero drive to
-> 23+ merges (11-wide cascade via released armed intents), authored+ratified PDR-131,
-> evidenced the merge-queue vendor incompatibility, bridged the fold outage, and
-> retired at the completed Tornado succession. Tenure substance:
-> `handoffs/2026-07-20-galago-director-full-handoff.md` and
-> `handoffs/2026-07-20-director-current-state-forge-398e24.md` (both superseded as
-> live views by Forge's full handoff record named above).
->
-> </details>
->
-> ### ⏸ PAUSED EFFORT (resumes at its cures-landed + freeze-recut-check gate): RESTATEMENT REMEDIATION (the settling gate for PLAN-CORPUS REFOUNDING) — last Director: Mussel rides Coral (seat held from Moment-2 2026-07-15T14:26:36Z to session close 2026-07-16; claim archived)
->
-> **SESSION SHAPE (2026-07-16):** COMPOUND PAIR (owner-directed 2026-07-16) — Director
-> **Mussel rides Coral (`6f8857`)**, claim `0f4be777` (held continuously across tenures:
-> Quasar → Barnacle → Schooner → Mussel), and implementer **Vole hunts Perch (`36c6ca`)**,
-> claim `1fcfeb3e` (restatement-audit, both jobs). The pair are each other's ADVERSARIAL
-> CHECKERS via the ARC channel — every binding artefact passes the other seat's refutation
-> before it is acted on. Team Mango's other seats closed at the owner wind-down (2026-07-15
-> evening). Standing owner rulings: never squash; untracked files are first-class; no
-> follow-ups. The CURRENT merge-execution mode is live state — read it from the
-> pointed-to record below (never from this block; it changes with an external outage
-> window).
->
-> **The live pickup surface**: this block carries HANDOFF-RATE state only — who holds
-> the seat, which claims, the effort's identity and shape (it changes when the seat or
-> team shape changes, per this file's CURRENT-HANDOFF-STATE contract). Anything that
-> changes FASTER than a handoff — PR and round states, halts, queue order, outage
-> windows — lives only in the record the Director claim's `handoff_record_path` names →
-> `.agent/state/collaboration/handoffs/2026-07-16-director-current-state-mussel-6f8857.md`
-> (untracked-by-design — read from the primary checkout's filesystem). It carries the
-> effort's purpose, the resolvable guiding-plan pointer, the live PR and halt state, the
-> queue, and the pickup protocol. Per this file's contract the guiding plan is NAMED
-> here (stable): the owner-approved restatement-remediation plan — "PR-lifecycle
-> hardening + restatement-audit fleet + prevention mechanisms", re-homed in-repo at
-> `.agent/plans/product-development-governance/active/restatement-remediation.plan.md`
-> (2026-07-16). The effort's SHAPE (stable): cure the
-> authored-restatement error class — the generator behind PR #390's eight review
-> rounds — and pin the cures with prevention validators; the refounding lanes resume at
-> the cures-landed + freeze-recut-check gate. Every value that changes faster than a
-> handoff (PR states, halts, queue order) lives ONLY in the pointed-to record.
->
-> <details><summary>Superseded 2026-07-16: state at Moment-2 2026-07-15 (conserved)</summary>
->
-> **SESSION SHAPE:** Mussel rides Coral (`6f8857`) holds the seat — claim `0f4be777`
-> adopted, dual heartbeat live (transfer from Schooner guards Whirlpool `82a9df`, Moment-1
-> ~14:22Z, Moment-2 14:26:36Z after the readiness gate + pasted mechanical UTC check).
-> Hedgehog tracks Eventide (`82b36c`) is Fleet Captain, warm, running the signed
-> `s1-reader-sample-b1` batch (claim `45befb32`). Zodiac turns Solstice (`019f65`) was
-> owner-shut-down after their S1 closeout; forensic verdict: contained, nothing rogue
-> reached origin, their deep-handoff fold rides PR #384.
->
-> </details>
->
-> <details><summary>Superseded: seat-in-transfer state as frozen by Schooner (conserved)</summary>
->
-> **SESSION SHAPE at handoff:** outgoing Director Schooner guards Whirlpool (`82a9df`,
-> owner-directed deep handoff then session end); incoming Director Mussel rides Coral
-> (`6f8857`, registered 14:13:43Z, standby held correctly — Moment-2 pending); Zodiac turns
-> Solstice (`019f65`) on a narrow continuity-curation claim `c4e56bb2` only (S1 lane closed
-> clean); Hedgehog tracks Eventide (`82b36c`) owner-cold-paused, Fleet-Captain-in-waiting.
->
-> </details>
->
-> **Prior pickup record (superseded 2026-07-16 by the current-state record above)**:
-> `.agent/state/collaboration/handoffs/2026-07-15-director-schooner-to-mussel-0f4be777.md`
-> (untracked-by-design — read from the
-> primary checkout's filesystem). §1 current state (S1 deterministic layer LANDED via
-> PR #382 with the calibration blindness disclosure proving the fleet residual necessary;
-> the decoy-comms finding; the primary's pull owner-gated by the loss-ruling — resolves
-> only by an owner-run command), §2 in-flight reasoning (the arc-wide scripts-first
-> discipline; today's owner rulings incl. no-handover-PRs, the loss-discipline absolute,
-> "nothing is 'mine'"), §3 rulings, §4 work owed (PR #384 shepherd; the owner-gated S1
-> fleet leg; S2 → divergence report → Walk-A).
->
-> **Readiness gate before any Moment-2:** the brief's five questions + the pasted mechanical
-> UTC liveness check; the outgoing seat's heartbeats stop at its closeout broadcast — the
-> comms heartbeat-end/closeout events are the authoritative stand-down signals even while
-> the registry reads fresh. Then `claims adopt 0f4be777`, watcher move 1, DUAL heartbeat
-> (comms event AND `claims heartbeat` per tick — the F-92 gap bit two tenures running).
->
-> <details><summary>Superseded: Director #3 (Schooner guards Whirlpool) state at Moment-2, 2026-07-15 (conserved)</summary>
->
-> **SESSION SHAPE:** n=1 — Director only (**Schooner guards Whirlpool, `82a9df`**, claude-code /
-> claude-fable-5), claim `0f4be777` ADOPTED from Barnacle calls Spray (`6d5d9c`, Director #2,
-> retired on owner instruction after full closeout; before that Quasar mends Umbra `52b4de` —
-> the claim has been continuously held, never closed, across three tenures). A Fleet Captain
-> seat (Stoat holds Warren, `2a69a1`) was opened and RETIRED by owner instruction before any
-> S1 script ran — a contained tool-contract mistake (a `--help` probe on a raw `refound-*`
-> script executed it for real; see the napkin), not corrupted work-product.
->
-> **The one-line state:** S0 CLOSED and merged (PR #379, `SHA:68d6d232`, release 1.69.1).
-> Orphan-recovery PR #380 MERGED (`SHA:55a69ceca`, 2026-07-15T11:20:45Z) — its two proof-gated
-> worktrees (`register-rehoming`, `orphan-recovery`) verified and removed at pickup. S1 is
-> UNSTARTED: the remit (comms event 2026-07-15T11:35:42Z) stands verbatim — deterministic
-> scripts first at zero LLM cost; the `refound-reader`/`refound-locator` fleet layer is a
-> narrow calibration-gated residual, pre-declared against the cost ledger before any dispatch
-> — and re-routes to a successor fleet seat when the owner launches one. The stray sweep
-> artefact Stoat's misfire wrote was ABSENT repo-wide at 12:10Z (assumed owner-disposed;
-> confirmation pending). Remaining after S1: S2 → divergence report as Walk-A input; the r1
-> worktree is removed only after S1/S2 complete.
->
-> **Owner rulings 2026-07-15:** (1) **no more handover branches or PRs** — handover artefacts
-> land batched (see §How to take the Director seat step 7); (2) a residue **disposition sweep**
-> over the primary's 4 stashes + ~50 local branches is commissioned — ledger with per-item
-> proofs and recommendations, one owner ruling over the batch, then execution.
->
-> **A successor rehydrates from:** the on-disk handoff records under
-> `.agent/state/collaboration/handoffs/` (untracked-by-design per ADR-199/PDR-094 — read from
-> the primary checkout's filesystem, not from git; 2026-07-15 Barnacle→Schooner — note its §1
-> PR-#380 and S1-in-flight claims were superseded within minutes and corrected first-hand at
-> pickup; 2026-07-14 Quasar→Barnacle), the napkin's 2026-07-15 entries, `repo-continuity.md`'s
-> strategy row, and the thread record's 2026-07-15 section.
->
-> <details><summary>Superseded: state at the Barnacle→Schooner handoff, 2026-07-15 (conserved)</summary>
->
-> **SESSION SHAPE:** n=2 at handoff — Director (Barnacle calls Spray, `6d5d9c`, retiring),
-> incoming Director standby (Schooner guards Whirlpool, `82a9df`, no claim). S1 UNSTARTED,
-> returning to the incoming Director to re-route. Stray sweep artefact
-> (`.agent/plans-refounding/sweep/sweep-hits.v1.jsonl`, 1.4MB, primary) verified present at
-> the freeze, awaiting owner disposal. Claim `0f4be777` carried `handoff_record_path` to the
-> 2026-07-15 record; at freeze time that record's §1 named PR #380 as OPEN/blocked (merged
-> minutes later) and the S1 fleet lane as in flight (Stoat had retired).
->
-> </details>
->
-> <details><summary>Superseded: Director #2 (Barnacle calls Spray) state at seat-open, 2026-07-14 (conserved)</summary>
->
-> **SESSION SHAPE:** n=1 — Director only (**Barnacle calls Spray, `6d5d9c`**, claude-code /
-> claude-fable-5), claim `0f4be777` ADOPTED from Quasar mends Umbra (`52b4de`, Director #1,
-> retired at natural boundary after full closeout). The transfer ran PDR-064 two-moments with
-> the readiness gate + a 9-agent adversarial verification of the handoff record. The live
-> pickup surface was the handoff record
-> `.agent/state/collaboration/handoffs/2026-07-14-director-quasar-to-barnacle-0f4be777.md`
-> (§2 the S0 execution order; §4 deferred work + owner-item register): at transfer, the S0
-> hard freeze window was OPEN with S0 staged-not-started in the r1 worktree. Team protocol
-> in force per **PDR-127** (team-branch coordination) and **PDR-128** (review conversations
-> are first-class), both graduated at the 2026-07-14 dedicated consolidation.
->
-> The owner-commissioned two-objective team
-> (stakeholder-visibility proof slice; planning-estate review toward proven plans) ran ten seats
-> on 2026-07-14; all nine teammates retired cleanly with custody handed to the Director
-> (Tallow, Embers, Rosemary, Sardine, Weasel, Galleon, Cedar, Parsec, Foxglove). Successor
-> pre-named by the owner: **Barnacle calls Spray (`6d5d9c`)**, cold standby — PDR-064
-> two-moments plus this brief's readiness gate govern the transfer.
->
-> **The one-line state:** both objectives reached day-one completion — objective 1's
-> GitHub/Linear/Notion proof slice ratified complete (Sentry leg OPEN, routed to TAU Stage 5 or
-> a small readout; Notion governance in force: subtree allowlist, hybrid ledger, editorial
-> floor, behavioural-only); objective 2 at the S0 runway (G2+G3 ruled, six registers re-homed,
-> `ratifiedBy: null` holds S0 mechanically, Walk-A structure priors recorded at
-> `.agent/plans-refounding/walk-a-structure-priors.md`). Fourteen PRs merged 2026-07-14
-> including the #376 omnibus (owner-merged, `ca3dac4ea`); its three raced Copilot findings are
-> verified genuine and queued in the napkin's consolidation-readiness entry. The team branch
-> `team/planning_and_visibility` is consolidation-READY: fast-forwarded to main and carrying
-> only the knowledge tier (containment per-file verified; nothing discarded unverified).
->
-> **The runway (owner-stated):** owner-run dedicated consolidation session ON the team branch →
-> freeze-planning sitting (re-ratifies `freeze-rule.json`; the null `ratifiedBy` is the
-> mechanical hold) → S0 per Cedar's gate order (exclusion-configs commit → clear stale freeze
-> artefacts in the `plan-corpus-refounding-r1` worktree → hard hours-scale window) → S1 → S2 →
-> divergence report as Walk-A input.
->
-> **A successor rehydrates from** (detail lives there, not duplicated): the napkin's
-> 2026-07-14 Director entries (including the compaction loss-scan and the consolidation-readiness
-> entry with the owner-item register: stash drops ×4 authorisation-pending,
-> remediate-main-*/graph-team-direction branch decisions, the unpushed spawn-flow/F-75 branches
-> with an UNDIAGNOSED push-rule rejection, Sentry-leg execution, doctrine graduations) ·
-> `repo-continuity.md` strategy row · the thread record's 2026-07-14 sections ·
-> `.agent/plans-refounding/owner-gate-register.md`.
->
-> **Readiness gate before any Moment-2:** this brief's five questions + the pasted mechanical
-> UTC liveness check; then `claims adopt 0f4be777`, watcher move 1, heartbeat per PDR-078 §4.
->
-> </details>
->
-> </details>
->
-> ---
->
-> ### ▶ PARALLEL RETAINED EFFORT: CURRICULUM HUB PROGRAM — seat RETAINED at Nettle #10's full closeout (2026-07-06)
->
-> **[2026-07-14 annotation, Quasar mends Umbra:** claim `35d9c8f2` is no longer present in
-> `active-claims.json` NOR in `closed-claims.archive.json` (both verified first-hand,
-> zero hits) — it vanished without an archived closure, most plausibly in one of the day's
-> registry-hygiene sweeps. A pickup seat should OPEN A FRESH CLAIM rather than `claims adopt`;
-> the pickup record path below remains valid and is the substance carrier.**]**
->
-> **SESSION SHAPE:** n=1 — Director only — to MERGE (owner ruling, unchanged). Director #10
-> (Nettle tracks Acorn, `dfddd4`) closed out fully on owner direction 2026-07-06; claim
-> `35d9c8f2` RETAINED with pickup record
-> `handoffs/2026-07-06-curriculum-hub-director-nettle.md` (state, the landed trains, the
-> remaining map, owner gates, operating notes — incl. TWO standing owner corrections:
-> append-only consolidation with sources conserved; no directive-tier edits from inferred
-> generalisations). Chain: Herring → … → Comet → Hyena → Nettle. A FRESH session continues.
->
-> **The one-line state:** PR #295 ALL-GREEN at `70f6d25df`, ZERO unresolved threads, reviewer
-> passes DONE (verdicts + adopted fixes in the record); remaining = owner-released LOCAL
-> semantic main-merge (re-enumerate; conservation direction governs memory-file merges) →
-> owner visual sign-off via a fresh `tool:fidelity` run (14 unregistered findings to judge) →
-> MERGE → fresh-branch continuation + WS0+ → the merge-boundary sweep (retained claims /
-> stale stashes / gone-upstream branches — owner-gated dispositions, enumerated in the
-> loss/metaloss scan report).
->
-> **Readiness gate before any Moment-2:** unchanged — five questions + the pasted mechanical
-> UTC liveness check; then `claims adopt 35d9c8f2`, watcher move 1, heartbeat per PDR-078 §4.
->
-> ---
->
-> ### ▶ PRIOR (superseded 2026-07-06): seat RETAINED at Hyena #9's full closeout (2026-07-04)
->
-> **SESSION SHAPE:** n=1 — Director only — to MERGE (owner ruling, unchanged). Director #9
-> (Hyena stirs Lamplight, `d62788`) closed out fully on owner direction 2026-07-04; claim
-> `35d9c8f2` RETAINED for the restart successor. Chain: Herring → Swordfish → Lantern →
-> Hawthorn → Sycamore → Panther → Birch → Comet → Hyena.
->
-> **A successor rehydrates from** (detail lives there, not duplicated):
-> `handoffs/2026-07-04-curriculum-hub-director-hyena.md` (CURRENT pickup — state, the landed
-> trains, the remaining map, owner gates, operating notes) · the thread record
-> `threads/curriculum-hub-demo.next-session.md` · the guiding plan
-> `active/port-prototype-to-live-demo.md` (§Ratified decisions 1–9) · the post-merge plan
-> `current/productionisation-and-reuse.plan.md`.
->
-> **The one-line state:** PR #295 all-green (Sonar PASSES); ~14 commits LOCAL behind the
-> standing owner push gate ("pause before push"); the fidelity-review mechanism is BUILT and
-> proven (tool:fidelity + tracked fidelity-register.json + the fidelity-review skill +
-> playbook §Fidelity review); remaining = push release → Copilot-thread resolution + reviewer
-> passes → the SEMANTIC main-merge (7 knowledge-surface conflicts, /oak-semantic-merge +
-> ultrathink, owner-directed) → owner visual sign-off (aided by the fidelity report; 14
-> UNREGISTERED findings to judge) → MERGE → §J owner-hosted from main.
->
-> **Owner-gated:** the push release · visual sign-off · WS6 SSO set · fourth-stream row ·
-> WS2 stage-naming at activation · deep consolidation (napkin ~700/300, pending-graduations
-> 9 items — a DEDICATED fresh-context pass, registered, not absorbed).
->
-> **Readiness gate before any Moment-2:** unchanged — five questions + the pasted mechanical
-> UTC liveness check; then `claims adopt 35d9c8f2`, arm the watcher (move 1), heartbeat per
-> PDR-078 §4 value-contingency.
->
-> ---
->
-> ### ▶ TEAM-TOOLING ARC CLOSED (prior effort, conserved) — Director: Falcon wakes Stratus (2026-06-29)
->
-> **No Director is live.** Falcon wakes Stratus (`adb1f3`, 6th Director; chain Firefly → Merlin →
-> Triton → Kraken → Trawler → Falcon) **stood down 2026-06-29** — heartbeat stopped, Director claim
-> `4180e263` relinquished, no retained claim (owner-directed session-end, not a stall). A successor
-> takes the seat via the readiness gate below; there is no live Director to take it over.
->
-> **THE TEAM-TOOLING ARC IS CLOSED.** All PRs #269–#286 + #282 merged to main; the arc-end
-> coordination PR **#268 MERGED** (`1b5ce326`, Falcon — 6 review threads resolved: 2 doc fixes,
-> 4 not-defects). All worktrees removed; arc branches pruned; comms archived (count-conserved).
-> The deep consolidation of the arc's captures **MERGED** (PR #290).
->
-> **NEXT WORK — the SYNTHESIS PHASE (owner-directed, fresh-context; not yet started, inputs conserved):**
->
-> 1. **Worktree-per-agent / PDR-117 MODEL VERDICT** — the comms/liveness substrate cure is homed
->    in `collaboration-substrate-coordination-rightsizing` (M1–M4) + `comms-watch-storage-redesign`
->    WS2 (mtime-watermark) + `comms-watch-liveness-floor`; the live **F-44 freshness≠liveness SAFETY
->    defect** (`active-agents.ts` reads claim freshness as liveness) is the do-first item.
-> 2. **PDR-117 expansion** — the missing axes seeded in
->    [`director-howto-and-pdr117-gaps-2026-06-29.md`](../../reports/agentic-engineering/director-howto-and-pdr117-gaps-2026-06-29.md)
->    Part B (context-budget economy, takeover-verification, owner-interaction modes,
->    Director-as-orchestrator, arc-closeout responsibility, the loss-scan axis). PDR-117 is the
->    surface to amend.
-> 3. **do-first efficiency matrix** (2/3 produced; workflow `w5xlcz6iu`) and **rightsizing-plan
->    M1→M2 activation** (owner decision; the 2026-05-25 archival hold is already lifted).
-> 4. **NEXT TEAM (owner-set):** two co-equal lanes — architecture-efficiency (rightsizing) AND
->    intent-graph (opens with a broad shallow plan-estate scan); interim = owner deep-consolidation
->    sessions.
->
-> **OWNER STANDING DIRECTIONS (apply going forward):** green + all-conversations-resolved ⇒ the
-> Director merges directly, no `--admin`; reject every either/or ⇒ third-option / both; run the five
-> decision lenses before surfacing any question (surface only the constitutively-owner one); UTC
-> canonical for every internal timestamp (label zones, convert BST explicitly); archive-not-delete;
-> critically assess ALL subagent results AND their sources.
->
-> **OWNER-ACTION QUEUE (genuinely the owner's):** overage limit — the automated `claude` PR-reviewer
-> is OFF org-wide (claude.ai/admin-settings); orientation-MCP lane provisioning
-> (`mcp-tool-taxonomy-and-orientation.plan.md` — no lane owns it); O4/OQ5 composed-liveness decision;
-> the rightsizing M1→M2 activation.
->
-> **READINESS GATE for the next Director:** answer the five questions + paste the mechanical liveness
-> check (UTC-to-UTC) before Moment-2; then open your Director claim (Falcon's `4180e263` is already
-> relinquished — there is no live claim to take over). Prior-rotation detail (the
-> Firefly→…→Trawler tenures, the 2026-06-25 worktree-pilot
-> mandate, the worktree orphan map) is conserved in git history, the handoff records under
-> `.agent/state/collaboration/handoffs/`, and `repo-continuity.md`.
-
-## Key surfaces
-
-- [PDR-117](../../practice-core/decision-records/PDR-117-director-and-implementer-roles.md)
-  — the portable Director/Implementer role doctrine (now landed on `main`).
-- [PDR-064](../../practice-core/decision-records/PDR-064-coordinator-handoff-two-moments.md)
-  — coordinator handoff (two moments); this brief's readiness gate is the gate
-  before its Moment 2.
-- `.agent/plans/agentic-engineering-enhancements/future/worktree-per-agent-transition.plan.md`
-  — the strategic root (the transition this work serves; promotion-evidence home).
-- `.agent/plans/agentic-engineering-enhancements/current/worktree-pilot-consolidation-and-model-verdict.plan.md`
-  — the forward guiding plan (the remaining arc + the model verdict).
-- `.agent/plans/agentic-engineering-enhancements/active/worktree-pilot-coordination.plan.md`
-  — the pilot's detail and Log; the evidence source the model verdict consumes.
-- `.agent/state/collaboration/active-claims.json`, the comms stream, and
-  `repo-continuity.md` — live coordination state (currently carrying stale
-  dissolved-team claims pending a curator pass).
-- `.agent/memory/active/napkin.md` (2026-06-25 entries) — the session's full
-  lessons before they graduate.
+> **Succession**: PDR-063/064 unchanged (two moments; readiness gate
+> above). Era narratives formerly conserved here live in this file's git
+> history and the dated records under
+> `.agent/state/collaboration/handoffs/` — this section carries only the
+> live state, by the same semantic-drain discipline applied to
+> repo-continuity (2026-07-23, landed 1f3e7c9ae).
