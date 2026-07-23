@@ -1,3 +1,10 @@
+## [1.84.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.84.0...v1.84.1) (2026-07-23)
+
+
+### Bug Fixes
+
+* **release:** correct the release-failure alert channel to C0BKEUM2UAG ([9920988](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9920988ae666ca8c63fd8a067f67fdb91fa66afc))
+
 # [1.84.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.83.0...v1.84.0) (2026-07-23)
 
 
