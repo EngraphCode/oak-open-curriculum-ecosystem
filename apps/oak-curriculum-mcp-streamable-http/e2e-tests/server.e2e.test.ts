@@ -19,9 +19,6 @@ const SHARED_ALLOWED_HOSTS = 'localhost,127.0.0.1,::1';
 async function createBypassedApp() {
   const runtimeConfig = createMockRuntimeConfig({
     dangerouslyDisableAuth: true,
-    // Full-surface fixture: opt in to the user-search tools (gated OFF by
-    // default) so the list_tools parity assertion sees the complete set.
-    userSearchEnabled: true,
     env: { ALLOWED_HOSTS: SHARED_ALLOWED_HOSTS },
   });
   const observability = createMockObservability(runtimeConfig);
@@ -127,6 +124,10 @@ describe('Oak Curriculum MCP Streamable HTTP - E2E', () => {
     const containsMethodField = toolListResult.tools.some((t) => 'method' in t);
     expect(containsMethodField).toBe(false);
     const baseToolNames = [...toolNames];
+    // The canonical served surface: the user-search MCP App pair is dormant
+    // in the served-surface definition (unbuilt experience), so a real
+    // client's tools/list never contains it. The activation seam is covered
+    // by the served-surface integration tests and the MCP App suites.
     const aggregatedTools = [
       'browse-curriculum',
       'download-asset',
@@ -139,8 +140,6 @@ describe('Oak Curriculum MCP Streamable HTTP - E2E', () => {
       'get-prior-knowledge-graph',
       'get-thread-progressions',
       'search',
-      'user-search',
-      'user-search-query',
     ];
     // App-local tools registered outside the SDK universal/aggregated registry
     // (a separate, additive server.registerTool call). The oak-under-the-hood

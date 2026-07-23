@@ -1,6 +1,10 @@
 import request from 'supertest';
 import { describe, expect, it } from 'vitest';
-import { createStubbedHttpApp, STUB_ACCEPT_HEADER } from './helpers/create-stubbed-http-app.js';
+import {
+  createStubbedHttpApp,
+  STUB_ACCEPT_HEADER,
+  SERVED_SURFACE_WITH_USER_SEARCH_LIVE,
+} from './helpers/create-stubbed-http-app.js';
 import {
   getContentArray,
   getStructuredContentData,
@@ -52,7 +56,10 @@ function readTextContentAtIndex(content: readonly unknown[], index: number): str
 async function callTool(name: string, args: Record<string, unknown>) {
   // Enable the user-search surface: these fallback-proof calls include
   // `user-search`, which is gated OFF by default.
-  const { app } = await createStubbedHttpApp({}, { userSearchEnabled: true });
+  const { app } = await createStubbedHttpApp(
+    {},
+    { servedSurface: SERVED_SURFACE_WITH_USER_SEARCH_LIVE },
+  );
   const response = await request(app)
     .post('/mcp')
     .set('Host', 'localhost')

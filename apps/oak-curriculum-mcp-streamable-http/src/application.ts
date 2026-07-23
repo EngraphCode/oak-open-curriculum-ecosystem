@@ -28,6 +28,7 @@ import type { RateLimiterFactory } from './rate-limiting/index.js';
 import { initializeCoreEndpoints } from './app/core-endpoints.js';
 import { runOAuthAndAuthContextPhases } from './app/orchestration.js';
 import { registerDiagnosticRoutesIfEnabled } from './test-error/register-diagnostic-routes.js';
+import type { ServedSurfaceDefinition } from './served-surface/served-surface.js';
 export type { McpRequestContext, McpServerFactory } from './mcp-request-context.js';
 export { loadRuntimeConfig } from './runtime-config.js';
 export interface CreateAppOptions {
@@ -60,6 +61,12 @@ export interface CreateAppOptions {
   readonly rateLimiterFactory: RateLimiterFactory;
   /** Sentry Express error-handler registration; live mode only, not fixture/off. (ADR-078) */
   readonly setupSentryErrorHandler?: SentryExpressErrorHandlerSetup;
+  /**
+   * Served-surface definition override — test seam only (e.g. exercising
+   * the dormant user-search MCP App tools). Production omits it; the
+   * canonical module-level `SERVED_SURFACE` then governs registration.
+   */
+  readonly servedSurface?: ServedSurfaceDefinition;
 }
 
 function setupPreAuthPhases(
