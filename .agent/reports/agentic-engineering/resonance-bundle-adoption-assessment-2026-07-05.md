@@ -5,7 +5,8 @@ The knowledge-flow probe of the
 (WS6): the adoption assessment of the five-section return bundle received in
 the first live bidirectional Practice exchange. Authored by Cricket lifts Echo
 (`2fffa2`), successor lane holder, from a first-hand read of
-[the bundle](../../practice-core/incoming/resonance-teaching-bundle-2026-07-05.md)
+the bundle (`resonance-teaching-bundle-2026-07-05.md`, integrated and cleared
+from the practice box 2026-07-23 — content in git history)
 (committed at `06542b84e`). The bundle is deliberately pin-free per the
 exchange layering clause; every implementation named below is **re-sourced
 from the sibling estate's HEAD at port time**, with pins recorded in the

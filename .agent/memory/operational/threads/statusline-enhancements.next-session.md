@@ -43,7 +43,7 @@ solo/peer/directed + wing indicators) is **COMPLETE** on `feat/comms-research`
 and its controlling plan is **already archived** (see below).
 
 **The thread is LIVE, not closed — it has a successor.** A superseding plan,
-[`session-and-team-state-statusline-icons.plan.md`](../../../plans-backlog-2026-07/agent-tooling/current/session-and-team-state-statusline-icons.plan.md)
+[`session-and-team-state-statusline-icons.plan.md`][successor-plan]
 (current/, DRAFT, **re-grounded session-state-first 2026-06-15**), replaces the
 narrow resolver. Re-grounding (owner 2026-06-15): collaboration state belongs to
 the **SESSION** — solo is the floor (never `unknown` for one's own session), and
@@ -128,11 +128,8 @@ lint 0 errors; `dist` rebuilt; rendered live). Plan:
   rule makes that reliable) — no git-facts gatherer refactor. The `πρ:` label of the
   first design was dropped on owner iteration.
 - **Rate-limit gauges + reset countdowns** on the top row after the collaboration icons:
-  `s:NN%(2h)` (session/five-hour) and `w:NN%(3d)` (week/seven-day). Consumed-% colour
-  ramp; DIM countdown (`formatCountdown`: coarsest of d/h/m, nearest, rollover-promoting,
-  past→`0m`). New `statusline-countdown.ts` + `statusline-usage.ts` (the latter split out
-  to keep `statusline-segments.ts` ≤250 lines). Parser reads `resets_at` (epoch seconds);
-  adapter does the one clock read + `resets_at − now`, keeping formatting pure.
+  `s:NN%(2h)` and `w:NN%(3d)`, colour ramp + DIM countdown. Mechanism detail lives with
+  the code (`statusline-countdown.ts` + `statusline-usage.ts` and their tests).
 
 **Future enhancement lanes (owner: more enhancements to come):**
 
@@ -174,11 +171,11 @@ lint 0 errors; `dist` rebuilt; rendered live). Plan:
 ## Current continuation
 
 - **Controlling plan (narrow lane, now ARCHIVED)**:
-  `statusline-session-shape-indicators.plan.md` (`../../../plans-old-archive/agent-tooling/archive/completed/statusline-session-shape-indicators.plan.md`)
-  ("Statusline Enhancements — Oak Mark + Session-Shape Indicators") — in
-  `archive/completed/`, not `current/` (the earlier link here was stale).
+  `statusline-session-shape-indicators.plan.md` under
+  `plans-old-archive/agent-tooling/archive/completed/` — archived, not
+  `current/` (the earlier link here was stale).
 - **Successor plan (LIVE continuation)**:
-  [`session-and-team-state-statusline-icons.plan.md`](../../../plans-backlog-2026-07/agent-tooling/current/session-and-team-state-statusline-icons.plan.md)
+  [`session-and-team-state-statusline-icons.plan.md`][successor-plan]
   — session-state-first (re-grounded 2026-06-15): session-owned collaboration
   state (solo floor and owner-presence opinion) → derived team state → statusline
   projection. Supersedes the narrow resolver. Unassigned (Clipper rotated out).
@@ -326,3 +323,6 @@ deleted 2026-06-29 as fully-absorbed. **Do NOT archive
 this record** — the thread is live. Unrelated follow-on: the pre-existing agent-tools test-IO
 compliance tracked in
 [`agent-tools-test-io-compliance.plan.md`](../../../plans-backlog-2026-07/agent-tooling/current/agent-tools-test-io-compliance.plan.md).
+
+[successor-plan]:
+  ../../../plans-backlog-2026-07/agent-tooling/current/session-and-team-state-statusline-icons.plan.md
