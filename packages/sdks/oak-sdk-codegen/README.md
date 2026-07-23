@@ -160,16 +160,17 @@ alignment with the upstream description rewrite (oak-openapi pull request 269).
 Run `pnpm sdk-codegen` from the repo root, then the ordinary gate chain. Two
 behaviours to know:
 
-- **Online vs CI mode.** Locally the generator fetches the live spec and
-  refreshes `schema-cache/api-schema-original.json` when content changed; in
-  CI (or `SDK_CODEGEN_MODE=ci`) it reads the committed cache instead. The
-  schema cache is therefore a committed artefact: refreshing and committing it
-  IS the alignment act.
-- **Turbo caching can mask a live-spec change.** The `sdk-codegen` turbo task
-  hashes committed inputs; the live API is not an input, so a cache replay can
-  serve stale generated artefacts after upstream deploys. When aligning
-  deliberately, run the package script directly
-  (`pnpm --filter @oaknational/sdk-codegen sdk-codegen`) and verify
+- **Cached everywhere, refresh deliberately.** Every build environment —
+  local, CI, and deployment builds alike — reads the committed
+  `schema-cache/api-schema-original.json` (MCP-130): codegen is hermetic and
+  deterministic, and an upstream schema update never changes a build as a
+  side-effect. The schema cache is a committed artefact: refreshing and
+  committing it IS the alignment act. The deliberate refresh path is the root
+  `pnpm sdk-codegen:refresh` — it fetches the live spec (online mode, with
+  `--force` so a turbo cache replay cannot mask the fetch) and then runs the
+  full build for immediate compile feedback. The CI schema-drift check
+  surfaces when the committed cache is behind upstream.
+- **Verifying a refresh.** After `pnpm sdk-codegen:refresh`, check
   `info.version` moved in both the schema cache and
   `src/types/generated/api-schema/api-schema-original.json`.
 

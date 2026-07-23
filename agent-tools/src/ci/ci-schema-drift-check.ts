@@ -61,7 +61,7 @@ function buildDriftAnnotation(liveText: string, cachedText: string): string {
       ? `Both are version ${liveVersion} but content differs (upstream may have fixed descriptions or parameters without a version bump).`
       : `Cached: ${cachedVersion}, live: ${liveVersion}.`;
 
-  return `::warning ${CACHE_FILE_ANNOTATION}::Schema cache has drifted from the live upstream spec. ${versionNote} Run \`SDK_CODEGEN_MODE=online pnpm sdk-codegen\` to refresh.`;
+  return `::warning ${CACHE_FILE_ANNOTATION}::Schema cache has drifted from the live upstream spec. ${versionNote} Run \`pnpm sdk-codegen:refresh\` to update the cache and rebuild.`;
 }
 
 async function fetchLiveSchema(): Promise<string | null> {
