@@ -1,6 +1,6 @@
 import { err, ok, type Result } from '@oaknational/result';
 import { HttpEnvSchema, type AuthDisabledEnv, type Env } from './env.js';
-import { resolveOptInFlag, resolveKillSwitchFlag } from './feature-flags.js';
+import { resolveOptInFlag } from './feature-flags.js';
 import {
   getDisplayHostname,
   resolveApplicationVersion,
@@ -33,9 +33,6 @@ function resolveSharedRuntimeFields(env: Env): Result<SharedRuntimeFields, Confi
 
   return ok({
     useStubTools: resolveOptInFlag(env.OAK_CURRICULUM_MCP_USE_STUB_TOOLS),
-    // Kill-switch posture (release-pre-proof): EEF is live by default; an explicit
-    // OAK_CURRICULUM_MCP_EEF_ENABLED=false is the kill-switch.
-    eefEnabled: resolveKillSwitchFlag(env.OAK_CURRICULUM_MCP_EEF_ENABLED),
     version: versionResult.value.value,
     versionSource: versionResult.value.source,
     ...(gitShaResult.value

@@ -8,7 +8,7 @@
  * surfaces never pay the content weight.
  */
 
-import type { McpResource } from '../all-resources.js';
+import type { McpResource } from '../mcp-resource-types.js';
 
 /** One agent guidance document's inventory entry. */
 export interface AgentGuidanceResource extends McpResource {

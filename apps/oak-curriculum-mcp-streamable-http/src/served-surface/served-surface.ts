@@ -28,10 +28,18 @@ type ServedState = 'live' | 'dormant';
 /** Tools this app registers outside the SDK's universal enumeration. */
 export type AppLocalToolName = 'oak-under-the-hood';
 
-/** The full tool-surface classification. */
+/** The full served-surface classification. */
 export interface ServedSurfaceDefinition {
   readonly universalTools: Readonly<Record<UniversalToolName, ServedState>>;
   readonly appLocalTools: Readonly<Record<AppLocalToolName, ServedState>>;
+  /**
+   * Resource classification, keyed by resource URI. Total over the full
+   * inventory (the SDK resource catalogue, the agent guidance documents,
+   * and the MCP App widget); totality is recomputed by the unit suite —
+   * URIs have no closed compile-time union, so the test is the tripwire
+   * a codegen-style growth would hit.
+   */
+  readonly resources: Readonly<Record<string, ServedState>>;
 }
 
 /**
@@ -90,6 +98,25 @@ export const SERVED_SURFACE = {
   appLocalTools: {
     'oak-under-the-hood': 'live',
   },
+  resources: {
+    'docs://oak/getting-started.md': 'live',
+    'curriculum://model': 'live',
+    'docs://oak/under-the-hood.md': 'live',
+    // EEF interpretation: live row — previously the
+    // OAK_CURRICULUM_MCP_EEF_ENABLED kill-switch's resource leg, superseded
+    // by this definition (disabling it is a reviewed change here).
+    'eef://interpretation': 'live',
+    'ui://widget/oak-curriculum-app-local.html': 'live',
+    // Agent guidance documents (decisions register D11 ratified live-set):
+    // the navigation three live, the creation-oriented four retained dormant.
+    'docs://oak/guidance/find-lessons.md': 'live',
+    'docs://oak/guidance/explore-curriculum.md': 'live',
+    'docs://oak/guidance/learning-progression.md': 'live',
+    'docs://oak/guidance/lesson-planning.md': 'dormant',
+    'docs://oak/guidance/curriculum-mapping.md': 'dormant',
+    'docs://oak/guidance/adapt-lesson.md': 'dormant',
+    'docs://oak/guidance/continue-progression.md': 'dormant',
+  },
 } as const satisfies ServedSurfaceDefinition;
 
 /** Whether a universal tool is live under the given definition. */
@@ -106,4 +133,9 @@ export function isAppLocalToolLive(
   name: AppLocalToolName,
 ): boolean {
   return definition.appLocalTools[name] === 'live';
+}
+
+/** Whether a resource URI is live under the given definition. */
+export function isResourceLive(definition: ServedSurfaceDefinition, uri: string): boolean {
+  return definition.resources[uri] === 'live';
 }

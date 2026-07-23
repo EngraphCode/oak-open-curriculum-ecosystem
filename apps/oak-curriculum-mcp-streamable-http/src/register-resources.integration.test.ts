@@ -8,6 +8,7 @@
  */
 
 import { describe, it, expect, beforeEach } from 'vitest';
+import { SERVED_SURFACE, type ServedSurfaceDefinition } from './served-surface/served-surface.js';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { RESOURCE_MIME_TYPE } from '@modelcontextprotocol/ext-apps/server';
 import type {
@@ -20,7 +21,6 @@ import type {
 } from '@modelcontextprotocol/sdk/server/mcp.js';
 import type { McpUiReadResourceResult } from '@modelcontextprotocol/ext-apps/server';
 import {
-  ALL_MCP_RESOURCES,
   DOCUMENTATION_RESOURCES,
   WIDGET_URI,
 } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
@@ -236,12 +236,12 @@ function expectJsonContent(content: McpUiReadResourceResult['contents'][number] 
   }).not.toThrow();
 }
 
-/** Shared options for all registration tests (EEF off by default, mirroring prod). */
+/** Shared options for all registration tests (the canonical served surface). */
 function createTestOptions(
   getWidgetHtml: ResourceRegistrationOptions['getWidgetHtml'] = () => TEST_WIDGET_HTML,
-  eefEnabled = false,
+  servedSurface: ServedSurfaceDefinition = SERVED_SURFACE,
 ): ResourceRegistrationOptions {
-  return { getWidgetHtml, eefEnabled };
+  return { getWidgetHtml, servedSurface };
 }
 
 describe('registerDocumentationResources', () => {
@@ -537,7 +537,7 @@ describe('registerAllResources registers the Oak: Under the Hood orientation res
   });
 });
 
-describe('registerAllResources matches the canonical resource catalogue (drift guard)', () => {
+describe('registerAllResources matches the served-surface definition (drift guard)', () => {
   let server: Pick<McpServer, 'registerResource'>;
   let registeredResources: RegisteredResourceMap;
   let flush: () => Promise<void>;
@@ -549,25 +549,30 @@ describe('registerAllResources matches the canonical resource catalogue (drift g
     flush = mock.flush;
   });
 
-  it('registers exactly the ALL_MCP_RESOURCES URIs (app-local resources aside) when the EEF flag is on', async () => {
-    registerAllResources(server, createTestOptions(undefined, true));
+  it("registers exactly the definition's live resource rows (recomputed, not recorded)", async () => {
+    registerAllResources(server, createTestOptions());
     await flush();
 
-    // The widget and the Oak: Under the Hood orientation resource are APP-LOCAL (not in the SDK
-    // catalogue, by design — ADR-041); the catalogue drift-guard covers the SDK resources.
-    const appLocalUris = [WIDGET_URI, 'docs://oak/under-the-hood.md'];
-    const registeredUris = Array.from(registeredResources.keys())
-      .filter((uri) => !appLocalUris.includes(uri))
-      .sort((a, b) => a.localeCompare(b));
-    const catalogueUris = ALL_MCP_RESOURCES.map((resource) => resource.uri).sort((a, b) =>
+    const registeredUris = Array.from(registeredResources.keys()).sort((a, b) =>
       a.localeCompare(b),
     );
+    const liveUris = Object.entries(SERVED_SURFACE.resources)
+      .filter(([, state]) => state === 'live')
+      .map(([uri]) => uri)
+      .sort((a, b) => a.localeCompare(b));
 
-    expect(registeredUris).toStrictEqual(catalogueUris);
+    expect(registeredUris).toStrictEqual(liveUris);
+    // The creation-oriented guidance documents are dormant: retained in the
+    // catalogue, structurally absent from registration (D11 ratified live-set).
+    expect(registeredUris).not.toContain('docs://oak/guidance/lesson-planning.md');
   });
 
-  it('omits the EEF interpretation resource when the EEF flag is off', async () => {
-    registerAllResources(server, createTestOptions(undefined, false));
+  it('a dormant row removes its resource — the definition governs, not any flag', async () => {
+    const withEefDormant = {
+      ...SERVED_SURFACE,
+      resources: { ...SERVED_SURFACE.resources, 'eef://interpretation': 'dormant' as const },
+    };
+    registerAllResources(server, createTestOptions(undefined, withEefDormant));
     await flush();
 
     const uris = Array.from(registeredResources.keys());

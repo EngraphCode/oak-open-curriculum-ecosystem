@@ -1,23 +1,32 @@
 /**
  * Unit tests for the resources section renderer.
  *
- * Verifies the landing page lists the FULL MCP resource catalogue
- * (`ALL_MCP_RESOURCES`) — documentation, curriculum model, the two curriculum
- * graphs, and the EEF interpretation guide — not just the documentation
- * resources. Binding to the catalogue keeps the page from silently drifting.
+ * Verifies the landing page lists exactly the SERVED resources — the SDK
+ * inventory filtered to the served-surface definition's live rows. The page
+ * advertises what a connected client sees; dormant inventory (the
+ * creation-oriented guidance documents, D11) never renders.
  */
 import { ALL_MCP_RESOURCES } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
 import { describe, it, expect } from 'vitest';
 
 import { renderResourcesSection } from './render-resources-section.js';
+import { SERVED_SURFACE, isResourceLive } from '../served-surface/served-surface.js';
+
+const SERVED_RESOURCES = ALL_MCP_RESOURCES.filter((r) => isResourceLive(SERVED_SURFACE, r.uri));
+const DORMANT_RESOURCES = ALL_MCP_RESOURCES.filter((r) => !isResourceLive(SERVED_SURFACE, r.uri));
 
 describe('renderResourcesSection', () => {
   const html = renderResourcesSection();
 
-  it('includes the uri and title of every resource in the canonical catalogue', () => {
-    for (const resource of ALL_MCP_RESOURCES) {
+  it('includes the uri and title of every SERVED resource — and no dormant inventory', () => {
+    expect(SERVED_RESOURCES.length).toBeGreaterThan(0);
+    for (const resource of SERVED_RESOURCES) {
       expect(html).toContain(resource.uri);
       expect(html).toContain(resource.title);
+    }
+    expect(DORMANT_RESOURCES.length).toBeGreaterThan(0);
+    for (const resource of DORMANT_RESOURCES) {
+      expect(html).not.toContain(resource.uri);
     }
   });
 
@@ -38,8 +47,8 @@ describe('renderResourcesSection', () => {
     expect(html).not.toContain('curriculum://thread-progressions');
   });
 
-  it('renders the count from the full catalogue length', () => {
-    expect(html).toContain(`Resources (${String(ALL_MCP_RESOURCES.length)})`);
+  it('renders the count from the served live-set length', () => {
+    expect(html).toContain(`Resources (${String(SERVED_RESOURCES.length)})`);
   });
 
   it('renders the expandable section structure', () => {

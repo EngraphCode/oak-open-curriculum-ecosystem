@@ -38,6 +38,7 @@ const ALL_UNIVERSAL_TOOLS_LIVE: ServedSurfaceDefinition = {
     'user-search-query': 'live',
   },
   appLocalTools: SERVED_SURFACE.appLocalTools,
+  resources: SERVED_SURFACE.resources,
 };
 
 /**
@@ -64,7 +65,6 @@ function findRegisteredConfig(calls: readonly (readonly unknown[])[], toolName: 
  */
 function registerAndCapture(
   options: {
-    readonly eefEnabled?: boolean;
     readonly servedSurface?: ServedSurfaceDefinition;
   } = {},
 ) {
@@ -73,7 +73,7 @@ function registerAndCapture(
 
   registerHandlers(server, {
     servedSurface: options.servedSurface ?? ALL_UNIVERSAL_TOOLS_LIVE,
-    runtimeConfig: createMockRuntimeConfig({ eefEnabled: options.eefEnabled ?? true }),
+    runtimeConfig: createMockRuntimeConfig(),
     logger: createFakeLogger(),
     observability: createFakeHttpObservability(),
     searchRetrieval: createFakeSearchRetrieval(),

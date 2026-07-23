@@ -301,9 +301,12 @@ arrives in the honest typed shapes only.
 ## 8. EEF evidence surface
 
 The EEF (Education Endowment Foundation) Teaching and Learning Toolkit surface
-ships **live by default**, co-gated by `OAK_CURRICULUM_MCP_EEF_ENABLED`: an
-explicit `=false` is the **kill-switch** that removes the tool, the resource,
-and the prompt together. With the env var unset, all three are present.
+ships **live**, governed by the declarative served-surface definition
+(`src/served-surface/served-surface.ts`): the tool and the resource carry
+live rows there, and disabling either is a reviewed change to that one
+definition — there is no runtime flag. (The former
+`OAK_CURRICULUM_MCP_EEF_ENABLED` kill-switch and the EEF prompt are gone:
+the app serves no MCP prompts at all.)
 
 The surface is a **deterministic projection of a fixed corpus** — the agent does
 the reasoning; the tool returns only the corpus's own facts. Treat any value the

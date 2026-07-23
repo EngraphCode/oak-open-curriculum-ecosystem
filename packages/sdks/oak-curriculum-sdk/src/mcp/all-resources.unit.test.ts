@@ -13,11 +13,20 @@ import { WIDGET_URI } from './widget-constants.js';
 describe('ALL_MCP_RESOURCES', () => {
   const uris = ALL_MCP_RESOURCES.map((resource) => resource.uri);
 
-  it('contains every MCP resource URI the server exposes, in listing order', () => {
+  it('contains every MCP resource URI in the inventory, in listing order', () => {
     expect(uris).toStrictEqual([
       'docs://oak/getting-started.md',
       'curriculum://model',
       'eef://interpretation',
+      // Agent guidance documents (mcp-101): the full inventory — the
+      // consuming app's served-surface definition classifies live/dormant.
+      'docs://oak/guidance/find-lessons.md',
+      'docs://oak/guidance/explore-curriculum.md',
+      'docs://oak/guidance/learning-progression.md',
+      'docs://oak/guidance/lesson-planning.md',
+      'docs://oak/guidance/curriculum-mapping.md',
+      'docs://oak/guidance/adapt-lesson.md',
+      'docs://oak/guidance/continue-progression.md',
     ]);
   });
 

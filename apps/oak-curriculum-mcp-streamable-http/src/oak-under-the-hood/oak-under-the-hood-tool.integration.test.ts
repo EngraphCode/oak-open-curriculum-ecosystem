@@ -60,7 +60,7 @@ describe('Oak: Under the Hood tool registration (integration)', () => {
     const spy = vi.spyOn(server, 'registerTool');
 
     registerHandlers(server, {
-      runtimeConfig: createMockRuntimeConfig({ eefEnabled: true }),
+      runtimeConfig: createMockRuntimeConfig(),
       logger: createFakeLogger(),
       observability: createFakeHttpObservability(),
       searchRetrieval: createFakeSearchRetrieval(),

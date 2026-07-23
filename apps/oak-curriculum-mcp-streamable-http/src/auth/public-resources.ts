@@ -24,7 +24,11 @@
  *   pattern given MCP's server-level auth, and the data-sensitivity rule)
  */
 
-import { DOCUMENTATION_RESOURCES, WIDGET_URI } from '@oaknational/curriculum-sdk/public/mcp-tools';
+import {
+  DOCUMENTATION_RESOURCES,
+  NAVIGATION_GUIDANCE_URIS,
+  WIDGET_URI,
+} from '@oaknational/curriculum-sdk/public/mcp-tools';
 
 /**
  * Resource URIs that are publicly accessible without authentication.
@@ -45,6 +49,14 @@ const PUBLIC_RESOURCE_URIS = [
   // already public. Sourced from OAK_UNDER_THE_HOOD_RESOURCE_URI in register-resources;
   // the literal is mirrored here and the public-resources test guards against drift.
   'docs://oak/under-the-hood.md',
+  // Agent guidance documents, SERVED LIVE-SET ONLY (ADR-205 classification made
+  // explicitly, mcp-101 slice B2b): static SDK-compiled workflow guidance markdown,
+  // no user-specific data — the same data-sensitivity class as getting-started.md.
+  // Deliberately the navigation three, not the full guidance inventory: dormant
+  // documents are unregistered, so a public row for them would be dead — if the
+  // allowlist later turns a creation document live, its public/authed
+  // classification is made HERE, at that reviewed change.
+  ...NAVIGATION_GUIDANCE_URIS,
 ] as const;
 
 /**

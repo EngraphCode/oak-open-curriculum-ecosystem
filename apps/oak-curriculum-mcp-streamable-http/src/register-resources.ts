@@ -19,7 +19,11 @@ import {
   getCurriculumModelJson,
   EEF_INTERPRETATION_RESOURCE,
   getEefInterpretationMarkdown,
+  AGENT_GUIDANCE_RESOURCES,
+  getAgentGuidanceContent,
+  WIDGET_URI,
 } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
+import { isResourceLive } from './served-surface/served-surface.js';
 
 import {
   type ResourceRegistrar,
@@ -139,28 +143,65 @@ function registerEefInterpretationResource(server: ResourceRegistrar): void {
 }
 
 /**
+ * Registers the agent guidance resources whose served-surface rows are
+ * live (the ratified live-set: the navigation three; the creation four
+ * stay dormant until the definition deliberately turns them live).
+ */
+function registerAgentGuidanceResources(
+  server: ResourceRegistrar,
+  options: ResourceRegistrationOptions,
+): void {
+  for (const resource of AGENT_GUIDANCE_RESOURCES) {
+    if (!isResourceLive(options.servedSurface, resource.uri)) {
+      continue;
+    }
+    const { name, uri, title, description, mimeType, annotations, lastModified } = resource;
+    server.registerResource(name, uri, { title, description, mimeType, annotations }, () => ({
+      contents: [
+        {
+          uri,
+          mimeType,
+          text: getAgentGuidanceContent(uri) ?? `# ${title}\n\nContent not found.`,
+          _meta: { lastModified },
+        },
+      ],
+    }));
+  }
+}
+
+/**
  * Registers all static resources with the MCP server.
  *
- * Combines documentation, curriculum model, EEF interpretation, and widget
- * resource registration into a single call.
+ * Every registration consults the served-surface definition: dormant rows
+ * are structurally absent from resources/list — the single point of
+ * control per the mcp-101 ratified plan (no runtime flags; the former
+ * OAK_CURRICULUM_MCP_EEF_ENABLED resource leg is superseded by the
+ * definition's `eef://interpretation` row).
  *
  * @param server - MCP server instance
- * @param options - Resource registration options including observability
+ * @param options - Registration options carrying the definition
  */
 export function registerAllResources(
   server: ResourceRegistrar,
   options: ResourceRegistrationOptions,
 ): void {
-  registerDocumentationResources(server);
-  registerCurriculumModelResource(server);
-  registerOakUnderTheHoodResource(server);
-  // EEF is co-gated at registration (OAK_CURRICULUM_MCP_EEF_ENABLED, kill-switch,
-  // default ON): register the resource unless an explicit `=false` disables it. The
-  // tool and prompt are gated by the same flag (D6 c6).
-  if (options.eefEnabled) {
+  const { servedSurface } = options;
+  if (DOCUMENTATION_RESOURCES.every((r) => isResourceLive(servedSurface, r.uri))) {
+    registerDocumentationResources(server);
+  }
+  if (isResourceLive(servedSurface, CURRICULUM_MODEL_RESOURCE.uri)) {
+    registerCurriculumModelResource(server);
+  }
+  if (isResourceLive(servedSurface, OAK_UNDER_THE_HOOD_RESOURCE_URI)) {
+    registerOakUnderTheHoodResource(server);
+  }
+  if (isResourceLive(servedSurface, EEF_INTERPRETATION_RESOURCE.uri)) {
     registerEefInterpretationResource(server);
   }
-  registerWidgetResource(server, options.getWidgetHtml);
+  registerAgentGuidanceResources(server, options);
+  if (isResourceLive(servedSurface, WIDGET_URI)) {
+    registerWidgetResource(server, options.getWidgetHtml);
+  }
 }
 
 export type { ResourceRegistrationOptions } from './register-resource-helpers.js';

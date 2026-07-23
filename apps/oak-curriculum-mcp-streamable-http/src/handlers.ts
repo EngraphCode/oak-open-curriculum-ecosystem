@@ -21,7 +21,6 @@ import {
   generatedToolRegistry,
   isAppToolEntry,
   type SearchRetrievalService,
-  type UniversalToolName,
 } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
 import { handleToolWithAuthInterception } from './tool-handler-with-auth.js';
 import { measureCallToolResult } from './observability/tool-result-measurement.js';
@@ -172,19 +171,9 @@ export function registerHandlers(
 
   registerAllResources(server, {
     getWidgetHtml: options.getWidgetHtml,
-    eefEnabled: options.runtimeConfig.eefEnabled,
+    servedSurface,
   });
 }
-
-/**
- * Tool names co-gated behind `OAK_CURRICULUM_MCP_EEF_ENABLED`. Typed as
- * `UniversalToolName` so a tool-name rename is a compile error here, not a
- * silently-stale string. EEF is one tool today; this is the single extension
- * point for further EEF surfaces (D6 plan c6).
- */
-const EEF_FLAG_GATED_TOOL_NAMES: ReadonlySet<UniversalToolName> = new Set<UniversalToolName>([
-  'get-eef-evidence',
-]);
 
 /** Iterates over universal tools and registers each live tool with the server. */
 function registerTools(
@@ -200,15 +189,6 @@ function registerTools(
     // behaviour. The SDK enumerator stays transport-agnostic; the app owns
     // the classification.
     if (!isUniversalToolLive(servedSurface, tool.name)) {
-      continue;
-    }
-
-    // EEF is gated at registration (OAK_CURRICULUM_MCP_EEF_ENABLED → runtimeConfig.eefEnabled,
-    // kill-switch, default ON): register the entry unless an explicit `=false` disables it.
-    // Transitional: the flag's migration into the served-surface definition completes in the
-    // next slice of the mcp-101 lane, where the prompt and resource legs it co-gates are
-    // reworked together.
-    if (EEF_FLAG_GATED_TOOL_NAMES.has(tool.name) && !options.runtimeConfig.eefEnabled) {
       continue;
     }
 

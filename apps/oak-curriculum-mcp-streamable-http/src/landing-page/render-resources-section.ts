@@ -1,22 +1,24 @@
 /**
  * Renders the resources section for the landing page.
  *
- * Generates an HTML collapsible section listing all available MCP resources
- * from the Oak Curriculum SDK.
+ * Generates an HTML collapsible section listing the MCP resources the app
+ * actually serves.
  */
 
 import { ALL_MCP_RESOURCES } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
 
 import { escapeHtml } from './escape-html.js';
+import { SERVED_SURFACE, isResourceLive } from '../served-surface/served-surface.js';
 
 /**
- * Renders the resources section with all available MCP resources.
+ * Renders the resources section with the served MCP resources.
  *
- * Generates an expandable `<details>` element containing a list of all
- * MCP resources with their URIs, titles, and descriptions. Resource data is
- * sourced from the canonical `ALL_MCP_RESOURCES` catalogue in the Oak
- * Curriculum SDK — the advertised capability surface (the full static set; the
- * flag-gated EEF entry is listed even when its registration flag is off).
+ * Generates an expandable `<details>` element containing a list of the
+ * SERVED resources with their URIs, titles, and descriptions. Resource
+ * data is sourced from the SDK's `ALL_MCP_RESOURCES` inventory filtered
+ * to the served-surface definition's live rows — the landing page
+ * advertises exactly what a connected client sees, never dormant
+ * inventory (ratified plan mcp-101).
  *
  * @returns HTML string for the resources section
  *
@@ -27,16 +29,21 @@ import { escapeHtml } from './escape-html.js';
  * ```
  */
 export function renderResourcesSection(): string {
-  const resourceCount = ALL_MCP_RESOURCES.length;
+  const servedResources = ALL_MCP_RESOURCES.filter((resource) =>
+    isResourceLive(SERVED_SURFACE, resource.uri),
+  );
+  const resourceCount = servedResources.length;
 
-  const resourceItems = ALL_MCP_RESOURCES.map(
-    (resource) => `
+  const resourceItems = servedResources
+    .map(
+      (resource) => `
       <li>
         <code>${escapeHtml(resource.uri)}</code>
         <span class="resource-title">${escapeHtml(resource.title)}</span>
         <span class="tool-desc">${escapeHtml(resource.description)}</span>
       </li>`,
-  ).join('');
+    )
+    .join('');
 
   return `
     <details class="card expandable">
