@@ -41,7 +41,14 @@ oak-icons.css components.css print.css > oak-flat.generated.css`
   re-validate every name against the fresh `_ds_bundle.css` on every
   re-sync (grep loop in the sync transcript, 2026-07-23); classes
   renamed or removed in components.css will otherwise be taught wrongly.
+- Naming (owner ruling 2026-07-23): the org's official "Oak Design
+  System" is a SEPARATE, largely Figma-based system. This repo's system
+  is the **Oak Open Curriculum Design System** — repo-scoped for now.
+  Repo-scoped design surfaces carry the full name; never claim this is
+  the org's design system.
 - `.design-sync/config.json` `projectId` targets the THIS-account
-  project ("Oak Design System — repo-synced"). The other account's
-  studio ("Oak Open Curriculum Design System") is a separate surface —
-  never sync there from this config.
+  Claude Design project (named "Oak Open Curriculum Design System",
+  owner-renamed from the initial "repo-synced" name). The OTHER
+  account's studio carries the same name — always resolve by projectId
+  (634a588e-…), never by name; never sync to the other account from
+  this config.
