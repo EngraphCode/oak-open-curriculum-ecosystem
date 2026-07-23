@@ -939,3 +939,16 @@ the payoff side of the compact→reground→fork pipeline whose cost side
 the successor-in-waiting pattern (Heron forked as Barque's eventual
 successor) — standby seats can now be staged for free from the same
 base.
+
+## 2026-07-23 — Watcher filter vocabulary must match the emitter (Barque hunts Anchorage, 5cfb85)
+
+Two small cures from a morning of watcher tending, complementing the
+blind-restarting-watcher entry above: (1) with `--step-timeout-ms`, an
+IDLE watcher's drain step times out and restarts by design — benign,
+but it emits an error line every cycle; filter the specific deadline
+message, never the whole error class. (2) The watch emits `title:` not
+`subject:` — a grep filter written from memory of the schema rather
+than the emitter's actual vocabulary delivered from-lines with no
+titles for an hour (half-blind looks like working). Cure: derive
+filters from observed output, and when a notification looks oddly
+thin, read the event file directly before dismissing.
