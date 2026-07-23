@@ -6,7 +6,7 @@ todos:
     content: "PR1: land the composition doctrine note (docs/governance), ADR-213, the ADR-041/148 amendments, the design-token-practice correction, and this plan. Docs-only; tree green."
     status: completed
   - id: pr2-scaffold
-    content: "PR2 step 1: scaffold packages/design/oak-design-system as a first-class workspace (package.json with exports map fencing React components off the surface, README carrying the integration contract + the Claude Design sync runbook, .gitignore for held-out asset classes)."
+    content: "PR2 step 1: scaffold packages/design/oak-design-system as a first-class workspace (package.json with exports map fencing React components off the surface, README carrying the integration contract + the Claude Design sync runbook, .gitignore for held-out asset classes). [Amended 2026-07-23, ADR-213 §3 amendment: the React fence on THIS workspace is permanent — the owned component tier lands as a separate downstream binding package (MCP-134, see ws-owned-component-tier), never as an export here.]"
     status: completed
     depends_on: [pr1-doctrine]
   - id: pr2-manifest
@@ -49,8 +49,12 @@ todos:
     content: "Follow-on (pointer; exploration step 1): consolidate the hub's duplicated roving/synthetic-key behaviour into a hub-local components/widgets/behaviour/ module preserving BOTH key-set contracts (radio incl. the any-key fall-through guard; tabs), replace-dont-bridge, SR spot-check on the migrated widgets."
     status: pending
   - id: ws-fixtures-parity
-    content: "Follow-on (pointer; exploration step 2): fixtures-as-parity inside oak-design-system against the four compiled components — converts the no-drift claim from constructional to checked."
+    content: "Follow-on (pointer; exploration step 2): fixtures-as-parity inside oak-design-system against the four compiled components — converts the no-drift claim from constructional to checked. [Amended 2026-07-23, ADR-213 §3 amendment: at the owned-tier landing (ws-owned-component-tier) this duty migrates to the tier package's own tests; until then it binds as written.]"
     status: pending
+  - id: ws-owned-component-tier
+    content: "Follow-on lane (pointer, not spec; ADR-213 §3 amendment 2026-07-23; Linear MCP-134): create the owned React component tier as a separate downstream binding package under packages/design/ (name at landing), seeded by curating the four compiled components plus the 2026-07-23 design-session candidates (code chip/block, breadcrumbs, band tone modifiers, masthead/footer chrome) out of studio-source WITH ownership under the full gate (§1 adoption mechanism). HARD GATE: first component export requires ws-gate-extension landed for the tier package. At landing: ADR-041 workspace map gains the package (dated, additive); conventions.md's no-React line rewrites; fixtures-as-parity migrates here."
+    status: pending
+    depends_on: [ws-gate-extension]
   - id: ws-gate-extension
     content: "Follow-on (pointer; exploration step 3; HARD precondition for any first Base UI widget): ADR-147 gate extension per the RESOLVED owner ruling — per-tree axe runs across all four colour trees, forced-colors render check, motion-axis coverage, a system-selects mechanism test (never a duplicate tree validation), CI promotion of test:a11y; fix the checklist's theme-count inconsistency; high-contrast targets AAA thresholds (ratified, owner 2026-07-20)."
     status: pending

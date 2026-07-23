@@ -412,12 +412,15 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   truth — its CSS the token source with DTCG a generated projection, superseding ADR-148
   §Source Format in part; Claude Design is a first-class team surface with a bidirectional
   design-sync discipline; class-library-first consumption; Base UI default for new hard
-  widgets with React Aria scoped to date/locale and Ark UI for non-React; no shared React
-  component workspace until a second consumer; staged atomic token-source convergence;
+  widgets with React Aria scoped to date/locale and Ark UI for non-React; an owned React
+  component tier in a separate downstream binding package seeded from studio-source, the
+  second-consumer trigger governing app-widget graduation into it; staged atomic
+  token-source convergence;
   per-file-class licensing manifest for Oak marks; Proposed 2026-07-19; amended 2026-07-19
   §2 — overlay completeness model and colour-value grammar, evidence-driven; Accepted
   2026-07-20 by owner in-session ratification, with Stage A and the PR3 validation layer
-  merged)
+  merged; amended 2026-07-23 §3/§4 — the owned component tier, and §4's graph corrected
+  to ADR-041's sibling-inputs shape)
 - [ADR-214: ARC-colour statusline infrastructure](214-arc-colour-statusline-infrastructure.md)
   (the ARC channel grammar is the canonical schema authority for the shared rapid-comms
   corpus; feather colour is a projection of recorded channel content; grammar obligations
