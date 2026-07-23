@@ -24,6 +24,20 @@ feedback-mechanism arc, taxonomy work) is retained in git and in the
 work brief and the recent identity stretch, per
 [`continuity-practice.md` §Disposition](../../../directives/continuity-practice.md).
 
+## DEDICATED CONSOLIDATION — EXECUTED (2026-07-23)
+
+Session identity: Magma mends Sulphur (claude / claude-fable-5 / prefix
+`639530`), curator, first_session 2026-07-23, last_session 2026-07-23.
+The full pass record is `repo-continuity.md` §Agentic-Engineering Curation
+item 0a (commits `62a7dccf8`, `ae6936e39`, `1f3e7c9ae`); napkin archive
+`archive/napkin-2026-07-23.md`. Named next-pass candidates: the
+handoff-ratification-ledger homing; the comms curator-disposition input
+channel (with the rotation cursor-floor mitigation, both on the
+comms-watch-storage-redesign lane); the archive-stale-vs-live-seat policy
+seam (a claims-tooling candidate: the sweep read a live Director seat as
+stale because its loop bumped comms only — cure adopted seat-side, tool
+seam stands).
+
 ## MUTATION TESTING RE-BASELINE — DECISION-READY, NO IMPLEMENTATION (2026-07-15)
 
 Session identity: Spark seeks Pumice (codex / GPT-5 / prefix `019f61`),

@@ -63,6 +63,14 @@ tool retires them.
   shared primary; `git branch --show-current` after every
   branch-affecting command is the cheap tripwire.
 
+## Markdown
+
+- **A wrapped prose line starting with `+ ` reads as a list marker**
+  (markdownlint MD004/MD032, 2026-07-23): reflowing prose so a
+  continuation line begins with `+` (e.g. "…inputs X\n+ the report…")
+  turns it into an unordered-list item in the wrong style. Reword to
+  "and"/"plus" or rewrap.
+
 ## Git hooks
 
 - **husky names the failing STAGE only in its last line** (2 misreads,

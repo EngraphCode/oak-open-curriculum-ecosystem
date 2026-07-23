@@ -68,3 +68,43 @@ existing homes; PDR-079's identifier-with-gloss form supersedes the June L1 clai
   the Director with this pass's closeout (the A/B experiment is Director-owned).
 
 ## New session observations append below.
+
+## 2026-07-23 — Magma mends Sulphur (639530): wrap capture (loss-scan + metaloss, written at occurrence)
+
+- **Background-gated-command verification face (three instances, one session,
+  MY OWN)**: a backgrounded gated command's harness "completed exit 0" is the
+  LAST ECHO's exit — the in-band `COMMIT_EXIT`/`PUSH_EXIT` line must be READ
+  before any dependent action. I caught commit 1's failure this way, then
+  missed commit 3's the same hour (its staged bundle swept into commit 4 —
+  a live recurrence of the commit skill's just-authored item 6, at
+  background-task grain); separately `git push | head` SIGPIPE-killed the
+  pre-push hook chain mid-run (exit 141 — piping a gated command truncates
+  its GATES, not just its output); and a `comms send | grep` swallowed a
+  silent long-body failure (F-149 recurrence, cured by --body-file).
+  **Error signature for external scrutiny of this seat: my misses cluster
+  in outcomes of my own backgrounded/piped gated commands, assumed from
+  ambient signals — verify those before my prose claims.**
+- **Attribution inference, flagged**: "commit 3 failed on the broken
+  citation links" is INFERRED from the later push validator's output; its
+  own task tail was never read. Treat the cause as probable, not observed.
+- **Compression judgment (recorded per metaloss pass 1)**: the three comms
+  extraction subagents' full cluster reports survive only machine-locally;
+  judged decision-sufficient because the tagged source events remain on
+  live disk (coordination class, not rotated) and the cluster→home
+  verification summary is committed in the napkin rotation record. The
+  June/July absorption evidence chain: rotation record + AEE §2026-07-23
+  section + repo-continuity §0a.
+- **Index of homes (this session)**: graduations → commits `62a7dccf8` /
+  `ae6936e39` / `1f3e7c9ae` (all on origin); pass narrative →
+  repo-continuity §0a + AEE thread record §2026-07-23; processed captures →
+  `archive/napkin-2026-07-23.md`; owner decisions → the practice-box card
+  (this file's rotation note + NSS item 4); coordination narrative → comms
+  events (MACHINE-LOCAL — the closeout broadcasts d5d08c64/96a3ebc7 are the
+  compressed durable-adjacent record); subjective → the formation letter in
+  `.agent/experience/`. Blind-spot bounds: two watcher arm-transition gap
+  windows (cursor-covered), dead subagent contexts (outputs conserved,
+  reasoning gone), and the fork-inherited pre-compaction memory whose
+  fidelity this seat cannot re-verify.
+- **Metaloss fixed point**: a further pass would only re-find the
+  machine-local comms tier, the dead subagent contexts, and the
+  background-command signature above — the recursion closes there.
