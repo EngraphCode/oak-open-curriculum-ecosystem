@@ -322,3 +322,11 @@ demos/oak-curriculum-hub/demo-evidence/
 packages/design/design-import/
 __pycache__/
 .agent/state/collaboration/owner-jobs.md
+
+# design-sync (machine state; durable inputs under .design-sync/ ARE committed)
+.ds-sync/
+ds-bundle/
+.design-sync/.cache/
+.design-sync/learnings/
+.design-sync/node_modules
+packages/design/oak-design-system/oak-flat.generated.css

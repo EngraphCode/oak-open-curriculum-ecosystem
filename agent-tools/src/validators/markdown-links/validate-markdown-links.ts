@@ -64,6 +64,8 @@ const SOURCE_IGNORE_GLOBS = [
   '.cursor/**',
   '.agent/state/collaboration/shared-comms-log.md',
   '.agent/state/collaboration/cross-worktree-work-state.md',
+  'ds-bundle/**',
+  '.ds-sync/**',
 ] as const;
 
 /** Collect repo-relative POSIX paths matching the given globs, minus excluded paths. */
