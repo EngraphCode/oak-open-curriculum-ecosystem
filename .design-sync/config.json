@@ -1,0 +1,10 @@
+{
+  "projectId": "634a588e-0388-4b90-b77a-f8f7d6cf6316",
+  "shape": "package",
+  "pkg": "@oaknational/oak-design-system",
+  "globalName": "OakDS",
+  "cssEntry": "oak-flat.generated.css",
+  "tokensGlob": "dtcg/*.json",
+  "guidelinesGlob": ["docs/*.md", "README.md", "DECISIONS.md", "KNOWN-ISSUES.md"],
+  "readmeHeader": ".design-sync/conventions.md"
+}
