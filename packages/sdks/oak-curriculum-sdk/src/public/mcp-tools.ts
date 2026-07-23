@@ -5,7 +5,7 @@
  * - Tool definitions and registries
  * - Tool execution and validation
  * - Universal tools (aggregated tools combining multiple API calls)
- * - Documentation resources and prompts
+ * - Documentation and agent guidance resources
  *
  * Also re-exports core client types needed by MCP applications.
  */
@@ -102,8 +102,6 @@ export {
   getAgentGuidanceContent,
   type AgentGuidanceResource,
 } from '../mcp/guidance-resources/agent-guidance-resources.js';
-
-export { MCP_PROMPTS, getPromptMessages, type McpPrompt } from '../mcp/mcp-prompts.js';
 
 export { SERVER_INSTRUCTIONS } from '../mcp/prerequisite-guidance.js';
 

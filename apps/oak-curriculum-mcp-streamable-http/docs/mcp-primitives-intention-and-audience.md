@@ -10,17 +10,17 @@ During UAT and incident triage, confusion often comes from treating all surfaces
 
 - Tools are for model-driven execution.
 - Resources are for host/client-managed context injection.
-- Prompts are for user-initiated workflow templates.
+- Prompts are for user-initiated workflow templates — a primitive this app deliberately does not serve (D11).
 
 When we keep these boundaries explicit, implementation, testing, and support all become simpler.
 
 ## Primitive map
 
-| Primitive | Primary intention                                                                                | Intended audience                                                      | Invocation control                                                        | Typical Oak examples                                                                      |
-| --------- | ------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------- | ------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| Tools     | Let the model perform actions or fetch data during reasoning.                                    | Model/runtime orchestrator and developers implementing tool contracts. | Model-controlled (`tools/call`).                                          | `search`, `fetch`, `get-lessons-summary`, `get-threads`, `download-asset`                 |
-| Resources | Provide stable, read-only context that the host can inject into the model prompt/context window. | Host application developers and prompt/runtime designers.              | Application/host-controlled (`resources/read`, optional auto-injection).  | `curriculum://model`, `curriculum://thread-progressions`, `docs://oak/getting-started.md` |
-| Prompts   | Offer reusable user-facing workflow templates that orchestrate model behaviour.                  | End users and product designers defining repeatable workflows.         | User-controlled (`prompts/get` after prompt discovery), not `tools/call`. | `find-lessons`, `lesson-planning`, `explore-curriculum`, `learning-progression`           |
+| Primitive | Primary intention                                                                                                 | Intended audience                                                        | Invocation control                                                       | Typical Oak examples                                                                      |
+| --------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------- |
+| Tools     | Let the model perform actions or fetch data during reasoning.                                                     | Model/runtime orchestrator and developers implementing tool contracts.   | Model-controlled (`tools/call`).                                         | `search`, `fetch`, `get-lessons-summary`, `get-threads`, `download-asset`                 |
+| Resources | Provide stable, read-only context that the host can inject into the model prompt/context window.                  | Host application developers and prompt/runtime designers.                | Application/host-controlled (`resources/read`, optional auto-injection). | `curriculum://model`, `curriculum://thread-progressions`, `docs://oak/getting-started.md` |
+| Prompts   | NOT SERVED. The app registers zero MCP prompts (decisions register D11) — the primitive is unregistered entirely. | n/a — workflow guidance is served to the assistant as resources instead. | n/a (`prompts/list` answers -32601 Method not found).                    | none (the former workflow bodies now serve as `docs://oak/guidance/*` resources)          |
 
 ## Intention by primitive (internal operating guidance)
 
@@ -48,14 +48,15 @@ Resources are for deterministic context delivery.
 
 ### Prompts
 
-Prompts are reusable user entry points.
-
-- Use when users need a clear "starting script" for common tasks.
-- Keep prompt parameters task-focused and user-legible.
-- Treat prompts as product UX artefacts, not data contracts.
-- Validate via prompt discovery/retrieval flows (`prompts/list`, `prompts/get`) and end-to-end UX tests.
-
-**Do not expect prompts to be callable via `tools/call`**. If prompt artefacts exist but are not invokable through prompt methods in a client, that is a client capability or integration-path question, not a tool contract defect.
+The app serves no MCP prompts (decisions register D11): user-invoked prompt
+templates are a poor user experience for teachers, so the primitive is
+unregistered entirely. The workflow substance formerly carried by prompts is
+served as agent guidance resources (`docs://oak/guidance/*`), governed —
+live-vs-dormant — by the served-surface definition. Three related concepts
+are never conflated (owner vocabulary ruling, 2026-07-23): MCP prompts
+(user-invoked; none served), skill-like agent guidance via tools/resources
+(present, nothing generative), and native agent skills installed into the
+assistant platform (not in this release).
 
 ## UAT expectations by surface
 
@@ -63,15 +64,15 @@ For internal UAT, classify outcomes by primitive type:
 
 - **Tool UAT pass**: callable with valid args and returns structured result/error envelope.
 - **Resource UAT pass**: URI fetch succeeds and payload shape is usable as context.
-- **Prompt UAT pass**: discoverable/retrievable via prompt APIs and usable as a workflow template in a client that supports prompts.
+- **Prompts UAT pass**: `prompts/list` answers JSON-RPC -32601 and the initialize result advertises no prompts capability — the zero-prompts contract holds.
 
-This prevents false negatives such as "prompt not callable as a tool".
+This prevents false negatives such as reading the deliberate prompts absence as a defect.
 
 ## Relationship to Oak architecture
 
 - Tool definitions in this ecosystem remain schema-first and OpenAPI-derived where applicable.
 - Resource content is app-owned contextual material.
-- Prompt definitions are user-experience orchestration artefacts.
+- The prompt primitive is unserved; workflow guidance is app-owned resource content.
 
 See also:
 

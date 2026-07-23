@@ -830,7 +830,7 @@ This repository's part is complete when:
 - [Keyword view](../../../packages/sdks/graph-corpus-sdk/src/curriculum/keyword-view.ts)
 - [Misconception projection](../../../packages/sdks/graph-corpus-sdk/src/curriculum/misconception-projection.ts)
 - [Prior-knowledge view](../../../packages/sdks/graph-corpus-sdk/src/curriculum/prior-knowledge-view.ts)
-- [Curriculum-mapping prompt](../../../packages/sdks/oak-curriculum-sdk/src/mcp/prompt-messages/curriculum-mapping.ts)
+- [Curriculum-mapping guidance](../../../packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/curriculum-mapping.ts)
 - [MCP aggregated exploration](../../../packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-explore/execution.ts)
 - [Hybrid RRF query builders](../../../packages/sdks/oak-search-sdk/src/retrieval/rrf-query-builders.ts)
 - [ADR-089: index everything](../../../docs/architecture/architectural-decisions/089-index-everything-principle.md)

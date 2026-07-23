@@ -17,7 +17,6 @@
  * output rendering, not a `resources/read` data resource, so it is deliberately
  * excluded from this catalogue.
  *
- * @see ./mcp-prompts.ts for the sibling prompt catalogue (`MCP_PROMPTS`).
  */
 
 import { CURRICULUM_MODEL_RESOURCE } from './curriculum-model-resource.js';
