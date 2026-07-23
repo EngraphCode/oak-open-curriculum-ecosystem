@@ -3,10 +3,10 @@ id: mcp-102-guidance-pipeline
 node_type: delivery
 name: "Guidance pipeline: expert-authored guidance travels into the app"
 overview: "Ingest, sanitise, and serve non-engineer-authored guidance with a human-visible pre-live diff — separating the engineering clock from the expert-authoring clock."
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-07-23
+ratified_where: "Planning-sitting part-2 ratification cards, 2026-07-23; decisions register D22 lift note (protocol gate expiry 2026-07-26 stands)"
 serves: first-major-release
 impact_areas:
   - guidance-content

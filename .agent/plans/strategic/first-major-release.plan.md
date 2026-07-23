@@ -3,10 +3,10 @@ id: first-major-release
 node_type: strategic
 name: "First major release — Oak distribution-ready in AI assistants"
 overview: "Make Oak's curricula discoverable and accessible to teachers inside the AI assistants they already use, released to early users through official one-click routes."
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-07-23
+ratified_where: "Planning-sitting part-2 ratification cards, 2026-07-23; decisions register D24 (serves edge) + D22 lift note"
 serves: APP-1
 impact_areas:
   - served-surface

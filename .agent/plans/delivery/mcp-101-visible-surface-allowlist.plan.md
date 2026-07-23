@@ -3,10 +3,10 @@ id: mcp-101-visible-surface-allowlist
 node_type: delivery
 name: "Visible-surface allowlist: the app serves exactly and only what we intend"
 overview: "Zero served prompts; navigation guidance live as agent resources; creation-oriented content dormant behind one declarative allowlist; every tool titled with read-only hints."
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-07-23
+ratified_where: "Planning-sitting part-2 ratification cards, 2026-07-23 (ratified with the served-surface vocabulary amendment); decisions register D11 dated note + D22 lift note"
 serves: first-major-release
 impact_areas:
   - served-surface
@@ -18,6 +18,25 @@ last_updated: 2026-07-23
 ---
 
 # Visible-surface allowlist
+
+## Vocabulary (owner-set, 2026-07-23 — three things never to conflate)
+
+Three similar-looking concepts cause real confusion and this estate
+keeps them distinct on every surface:
+
+- **MCP prompts** — user-invoked templates surfaced by the host UI.
+  This release serves **none**: they are a poor user experience for
+  teachers. The primitive is unregistered entirely.
+- **Skill-like agent guidance** — documents served *to the assistant*
+  via MCP tools and resources (this release's live navigation set and
+  the served getting-started guidance). **Present in this release;
+  nothing generative.**
+- **Native agent skills** — skill packages installed into the
+  assistant platform itself, outside MCP. **Not in this release; a
+  very high priority for the second release.**
+
+This lane implements the boundary between the first two; the third is
+out of scope entirely.
 
 ## Goal
 
