@@ -885,3 +885,24 @@ points with no dangling mid-task state; the safety of the whole
 pipeline rests on state being externalised so compaction only has to
 carry calibration, never facts. Feeds the transfer-mechanisms
 conversation and any future fork doctrine.
+
+## 2026-07-23 — Second identity instance same morning: the restart-duplicate (Thistle)
+
+A harness restart left the previous process's context alive as a
+background agent; it woke carrying the lead seat's FULL memory,
+concluded it WAS the lead, read the sitting seat's authentic comms
+events as impersonation, and issued corrections in the lead's name —
+then, given the arbitration evidence (registry row + unbroken author
+tuple 1861549b/398e24), verified first-hand, retracted, and re-derived
+a fresh identity (Thistle binds Heath) within minutes. Distinct
+mechanism from the Leopard instance (stale-records grounding): this
+one is FORK/DUPLICATE SOLIPSISM — inherited memory of being a seat
+reads as tenure of the seat. Rules the lineage keeps: (1) a fork or
+duplicate's FIRST act is identity derivation from its own session id,
+before any comms write (the inherited env identity seed is the
+collision mechanism); (2) memory of being the lead is not tenure of
+the lead — tenure = registry row + continuity + owner witness; (3) any
+fixed-point baseline cut for forking carries these rules inside itself
+so they are inherited, not discovered. Also: harness restarts can
+leave live background duplicates — check `claude agents` after any
+unexpected restart.
