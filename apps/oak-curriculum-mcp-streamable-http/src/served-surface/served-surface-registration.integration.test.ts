@@ -99,7 +99,13 @@ describe('served-surface registration (integration)', () => {
 
     expect(registered.has('user-search')).toBe(true);
     expect(registered.has('user-search-query')).toBe(true);
+    // Recomputed from the injected definition: everything enumerated
+    // registers except rows the definition still holds dormant (the gated
+    // EEF tool, under the canonical definition this variant inherits).
+    const stillDormant = Object.values(withUserSearchLive.universalTools).filter(
+      (state) => state === 'dormant',
+    ).length;
     const universalCount = listUniversalTools(generatedToolRegistry).length;
-    expect(registered.size).toBe(universalCount + 1);
+    expect(registered.size).toBe(universalCount + 1 - stillDormant);
   });
 });

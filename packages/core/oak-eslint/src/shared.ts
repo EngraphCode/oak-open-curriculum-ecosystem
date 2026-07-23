@@ -86,6 +86,12 @@ export const ignores = [
   // Test results
   '**/test-results/',
   '**/coverage/',
+  // Design-sync machine state: gitignored, but flat config does not read
+  // .gitignore and these files belong to no tsconfig project
+  '.ds-sync/',
+  'ds-bundle/',
+  '.design-sync/.cache/',
+  '.design-sync/learnings/',
 ];
 
 /**

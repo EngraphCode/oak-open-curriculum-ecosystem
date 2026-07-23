@@ -75,3 +75,44 @@ daily lead-AI check, drift surfaced rather than silently corrected.
 
 `gate_expiry_default: P3D` — during this release, no owner-gate waits
 silently longer than three days.
+
+## Dated notes (decisions-register projections)
+
+The full decisions register lives with the release project's working
+docs in Linear; these dated notes project register-relevant events
+onto this node — one line each, pointers never duplicates.
+
+- 2026-07-23 — D11: the lesson-planning guidance placeholder deleted
+  outright (owner comment on #486); the creation-oriented dormant set
+  is three documents, not four; other prompt-era concepts preserved as
+  pointer ticket MCP-124.
+- 2026-07-23 — D18 (amended, owner word ~16:45): the canonical-address
+  target widens to two options on the table — `www.thenational.academy/mcp`
+  (main-domain front door; integrating into the main website adds
+  substantial work) and `mcp.thenational.academy` (dedicated subdomain;
+  DNS and zone-owner engagement only). Decision deferred to the
+  zone-owner engagement; mint-not-move either way (the current host
+  keeps serving); the content-negotiation triple proven live in
+  production since v1.82.0 is domain-agnostic and serves either. The
+  authoritative record is the MCP-122 ticket comment (2026-07-23).
+- 2026-07-23 — Release-flow silent stall (new entry): a ruleset split
+  dropped the semantic-release bot's bypass, GH013 blocked the
+  version-bump push, and production sat on v1.81.3 silently while main
+  advanced; the owner restored the bypass at 12:59. Standing cures
+  landed: the release-process runbook (the first D23 runbook node) and
+  the loud Slack failure alert (#497; alert channel corrected in #500).
+- 2026-07-23 — D22: the frozen PostHog spike's preservation vehicle
+  changed — PR #477 closed; the spike is preserved as annotated tag
+  `mcp-63-posthog-spike-frozen` (dd8df27f8); MCP-63 carries the pointer.
+- 2026-07-23 — MCP-67 and MCP-121 ratified at owner cards; the
+  ratification stamps live in those plans themselves.
+- 2026-07-23 — M1 COMPLETE: MCP-101 done (five PRs, every acceptance
+  criterion proven) and the v1 live set finalised by the EEF flip
+  (`get-eef-evidence` + `eef://interpretation` dormant, landed
+  aa9f432bc).
+- 2026-07-23 — MCP-128 ratified at owner card (Candidate B home-map
+  shell; H1 "Oak, in your AI assistant"); the plan is canonical at
+  e4e66dfcb.
+- 2026-07-23 — The guidance-format owner gate discharged (six rulings
+  adopted at owner cards); the authoritative record is the MCP-102
+  ticket comment of 2026-07-23.

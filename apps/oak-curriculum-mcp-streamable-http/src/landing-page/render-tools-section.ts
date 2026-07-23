@@ -1,9 +1,12 @@
 /**
  * Renders the tools section for the landing page.
  *
- * Generates an HTML collapsible section listing all available MCP tools,
- * including both generated tools (from the OpenAPI schema) and aggregated
- * tools (hand-authored, combining multiple API calls).
+ * Generates an HTML collapsible section listing the SERVED MCP tools —
+ * the SDK inventory filtered to the served-surface definition's live rows
+ * (owner ruling 2026-07-23: the page lists active tools only; the page
+ * advertises exactly what a connected client sees, never dormant
+ * inventory). Both generated tools (from the OpenAPI schema) and
+ * aggregated tools (hand-authored, combining multiple API calls) render.
  *
  * Uses a git-commit-style convention for long descriptions: the first
  * paragraph is the summary; everything below is "how to use" (collapsible).
@@ -16,6 +19,7 @@ import {
   isAggregatedToolName,
 } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
 
+import { SERVED_SURFACE, isUniversalToolLive } from '../served-surface/served-surface.js';
 import { escapeHtml } from './escape-html.js';
 import type {
   UniversalToolListEntry,
@@ -129,7 +133,12 @@ function sortAggregatedTools(tools: UniversalToolListEntry[]): UniversalToolList
  * @returns HTML string for the tools section
  */
 export function renderToolsSection(): string {
-  const tools = listUniversalTools(generatedToolRegistry);
+  // Membership comes from the served-surface filter; order comes from the
+  // AGGREGATED_TOOL_ORDER array (which stays complete over the full
+  // inventory — its completeness invariant is independent of serving state).
+  const tools = listUniversalTools(generatedToolRegistry).filter((tool) =>
+    isUniversalToolLive(SERVED_SURFACE, tool.name),
+  );
   const toolCount = tools.length;
 
   const aggregated = sortAggregatedTools(tools.filter((t) => isAggregatedToolName(t.name)));
