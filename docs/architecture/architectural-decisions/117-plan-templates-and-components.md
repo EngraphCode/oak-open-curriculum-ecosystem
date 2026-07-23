@@ -1,6 +1,9 @@
 # ADR-117: Plan Templates and Reusable Plan Components
 
-**Status**: Accepted
+**Status**: Superseded by [ADR-216](216-plan-node-estate.md) (2026-07-23 —
+the plan templates, lifecycle lanes, promotion workflow, and component
+library are replaced by the owner-ratified plan-node estate; decisions
+register D23, PR #478)
 **Date**: 2026-02-22
 **Related**: [ADR-114][adr-114], [ADR-200][adr-200]
 

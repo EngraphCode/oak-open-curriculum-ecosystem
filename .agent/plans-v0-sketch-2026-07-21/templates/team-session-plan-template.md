@@ -131,7 +131,7 @@ The session succeeds when the outcomes are proven — not when activity occurred
   (Director + Implementer); the coordinator doctrine in
   [`agent-collaboration.md`](../../directives/agent-collaboration.md).
 - **Session discipline**: see
-  [`components/session-discipline.md`](components/session-discipline.md) — the four
+  [`components/session-discipline.md`](../../plans/templates/components/session-discipline.md) — the four
   tripwires (count-is-a-template, mid-arc checkpoints, context-budget thresholds,
   metacognition at open) apply to every seat's sessions.
 
@@ -144,7 +144,7 @@ The session succeeds when the outcomes are proven — not when activity occurred
 
 ## Lifecycle and Consolidation
 
-- **Lifecycle triggers**: see [`components/lifecycle-triggers.md`](components/lifecycle-triggers.md).
+- **Lifecycle triggers**: see [`components/lifecycle-triggers.md`](../../plans/templates/components/lifecycle-triggers.md).
 - **Closeout**: the Director is the team closeout owner; runs the full
   `session-handoff` + `consolidate-docs` before the final coordination-branch PR
   merges (team-session-opener prompt §Coordination cadence).

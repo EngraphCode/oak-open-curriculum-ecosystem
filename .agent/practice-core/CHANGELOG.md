@@ -4,6 +4,17 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [oak-open-curriculum-ecosystem] 2026-07-23 — PDR-018 host-realisation amendment (Heron lifts Summit)
+
+- PDR-018 amendment: the source host's lifecycle-lane realisation
+  (`future/`/`current/`/`active/` directories, promotion workflow) is
+  superseded by the plan-node estate (host ADR-216; owner-ratified
+  decisions register D23, 2026-07-22). The portable planning discipline —
+  end goals, workflow contracts, readiness gates — is unchanged; the
+  lane-placement sections remain the pattern for lane-shaped hosts.
+  PDR-121's portable glossary needed no change (its host mirror, ADR-209,
+  carries the dated realisation amendment per the PDR-079 pairing).
+
 ## [oak-open-curriculum-ecosystem] 2026-07-20 — dedicated consolidation graduations (Siren lifts Trench)
 
 - New PDR-129 (diagnosis reads whole surfaces first; failure catalogues are

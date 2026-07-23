@@ -122,7 +122,7 @@ Delete this section if the plan is single-session. Otherwise
 reference the session-discipline component:
 
 > **Session discipline**: see
-> [`../templates/components/session-discipline.md`](../templates/components/session-discipline.md).
+> [`../templates/components/session-discipline.md`](../../plans/templates/components/session-discipline.md).
 > The four disciplines (template-not-contract count, mid-arc
 > checkpoints, context-budget thresholds, metacognition at session
 > open) apply to every session in this plan.
@@ -135,7 +135,7 @@ sessions) live alongside the reference.
 
 ## Lifecycle Triggers
 
-> See [Lifecycle Triggers component](../templates/components/lifecycle-triggers.md)
+> See [Lifecycle Triggers component](../../plans/templates/components/lifecycle-triggers.md)
 
 Before the first non-planning edit, record the work shape: trivial
 landing target, bounded simple plan, or executable repo plan. For
@@ -146,7 +146,7 @@ session-handoff, and consolidation touch points this plan will use.
 
 ## Cycle Dependencies and Parallelisation
 
-> See [TDD Cycles component](../templates/components/tdd-phases.md)
+> See [TDD Cycles component](../../plans/templates/components/tdd-phases.md)
 > §"Atomic, independent cycles for parallel dispatch"
 
 Where the work shape allows, structure cycles so they can be
@@ -242,7 +242,7 @@ These reviewers ask "is the landed state internally consistent?"
 
 ## WS1 — [Slice 1: short value-bearing description]
 
-> See [TDD Cycles component](../templates/components/tdd-phases.md)
+> See [TDD Cycles component](../../plans/templates/components/tdd-phases.md)
 
 WS1 is a sequence of test+code cycles that together deliver
 [value-bearing slice 1]. Every cycle is one commit containing the
@@ -367,7 +367,7 @@ a final cleanup commit if the documentation is integrative.
 
 ## WS4 — Quality Gates
 
-> See [Quality Gates component](../templates/components/quality-gates.md)
+> See [Quality Gates component](../../plans/templates/components/quality-gates.md)
 
 ```bash
 pnpm clean && pnpm sdk-codegen && pnpm build && pnpm type-check && \
@@ -379,7 +379,7 @@ pnpm test && pnpm test:ui && pnpm test:e2e
 
 ## WS5 — Adversarial Review
 
-> See [Adversarial Review component](../templates/components/adversarial-review.md)
+> See [Adversarial Review component](../../plans/templates/components/adversarial-review.md)
 
 Invoke specialist reviewers. Document findings. Create follow-up
 plan if BLOCKERs found.
@@ -388,7 +388,7 @@ plan if BLOCKERs found.
 
 ## Risk Assessment
 
-> See [Risk Assessment component](../templates/components/risk-assessment.md)
+> See [Risk Assessment component](../../plans/templates/components/risk-assessment.md)
 
 | Risk | Mitigation |
 |------|------------|
@@ -399,13 +399,13 @@ plan if BLOCKERs found.
 
 ## Foundation Alignment
 
-> See [Foundation Alignment component](../templates/components/foundation-alignment.md)
+> See [Foundation Alignment component](../../plans/templates/components/foundation-alignment.md)
 
 ---
 
 ## Documentation Propagation
 
-> See [Documentation Propagation component](../templates/components/documentation-propagation.md)
+> See [Documentation Propagation component](../../plans/templates/components/documentation-propagation.md)
 
 ---
 

@@ -58,7 +58,7 @@ Before any non-planning edits:
    `release-readiness-expert`) fire POST. Scheduling all reviewers
    at close is a phase-misalignment anti-pattern.
 4. **Lifecycle triggers**: apply
-   [`lifecycle-triggers.md`](components/lifecycle-triggers.md). Record
+   [`lifecycle-triggers.md`](../../plans/templates/components/lifecycle-triggers.md). Record
    the work shape, consult active claims / log / decision threads,
    register active areas before edits, and close own claims at
    session-handoff.
@@ -217,14 +217,14 @@ blocked protocol above.
 
 ## Evidence and Claims
 
-> See [Evidence and Claims component](components/evidence-and-claims.md)
+> See [Evidence and Claims component](../../plans/templates/components/evidence-and-claims.md)
 
 - Every non-trivial claim in this phase must map to evidence IDs in the phase
   evidence bundle.
 
 ## Foundation Alignment
 
-> See [Foundation Alignment component](components/foundation-alignment.md)
+> See [Foundation Alignment component](../../plans/templates/components/foundation-alignment.md)
 
 ## Consolidation
 

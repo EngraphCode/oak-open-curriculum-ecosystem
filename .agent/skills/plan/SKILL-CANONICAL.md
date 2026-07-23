@@ -1,16 +1,19 @@
 ---
 name: plan
 classification: active
-description: Create or promote a plan following the plan architecture.
+description: Author a plan node in the ratified plan-node estate.
 ---
 
-# Create or Promote a Plan
+# Author a Plan
 
-Create a plan aligned with the foundation documents, the planning
+Create a plan node aligned with the foundation documents, the planning
 discipline in
 [PDR-018](../../practice-core/decision-records/PDR-018-planning-discipline.md),
-and the plan architecture defined in
-[ADR-117](../../../docs/architecture/architectural-decisions/117-plan-templates-and-components.md).
+and the plan-node estate defined in
+[ADR-216](../../../docs/architecture/architectural-decisions/216-plan-node-estate.md).
+The machine-enforced contract is the
+[plan-node schema](../../plans/plan-node-schema.md); the estate validator
+runs in CI and at pre-commit.
 
 ## Before Writing
 
@@ -43,11 +46,6 @@ and the plan architecture defined in
      the agent rank these options by evidence already in context?* If
      yes, the quiz is evasion.
 
-   Doctrinal anchors: `feedback_no_responsibility_passback` (origin
-   2026-05-09), `feedback_answer_verification_questions_directly`
-   (origin 2026-04-24), PDR-057 (apply-don't-ask doctrine), PDR-058
-   (stop-inventing-optionality).
-
    **Frame the problem, not the solution.** Before choosing a structure,
    state the problem as gap + who it harms + mechanism (your causal
    hypothesis) + constraints + what success looks like. A statement that
@@ -62,8 +60,10 @@ and the plan architecture defined in
    - `../../directives/testing-strategy.md`
    - `../../directives/schema-first-execution.md`
 
-3. Read the plan templates and components:
-   - `../../plans/templates/README.md`
+3. Read the estate contract and templates:
+   - `../../plans/plan-node-schema.md` (the contract)
+   - `../../plans/templates/README.md` (one template per node type)
+   - `../../plans/impact-areas.md` (the closed registry)
 
 4. Resolve discoverable unknowns before asking the owner. Search the
    repo, relevant plans, ADRs/PDRs, vendor docs or CLIs, and existing
@@ -71,99 +71,87 @@ and the plan architecture defined in
    genuinely undiscoverable intent. Do not guess scope, intent, or
    acceptance criteria.
 
-## Choose Lifecycle First
+## Choose the Node Type First
 
-Decide the lane before choosing structure:
+Three node types, typed by directory — a plan's type never changes and
+its file never moves while live:
 
-| Lane | Purpose | Plan Form |
-|------|---------|-----------|
-| `active/` | NOW — in-progress execution | **Executable** |
-| `current/` | NEXT — queued and ready, not started | **Executable** |
-| `future/` | LATER — strategic backlog and intent | **Strategic (not yet executable)** |
+| Node type | Purpose | Lives in |
+|-----------|---------|----------|
+| `strategic` | The outcome and the bet — long-lived, few | `.agent/plans/strategic/` |
+| `delivery` | One bounded lane of routed work, authored by its implementer at pickup | `.agent/plans/delivery/` |
+| `runbook` | A repeatable operational procedure | `.agent/plans/runbooks/` |
 
-## Choose a Template From the Live Inventory
+Milestones are **not** a plan type: they are named observable states of
+the product, held in Linear with tickets mapped. Delivery state is a
+Linear projection, never a repo field — the sorting test: if it moves
+when the schedule moves, it lives in Linear; if it only moves when the
+product moves, it lives in the repo.
 
-Use
-[`../../plans/templates/README.md`](../../plans/templates/README.md)
-and the template directory as the live inventory. Do not copy template
-lists into this skill; the README and directory are the source of truth
-for available scaffolds, their lifecycle lanes, and their component
-references.
+Copy the skeleton from the matching template in
+[`../../plans/templates/README.md`](../../plans/templates/README.md),
+fill it, delete the guidance text.
 
-Copy the closest template, then remove template residue before marking
-the plan ready: fill all `[bracketed]` placeholders, replace example
-todo ids, delete or complete optional sections, fix copied relative
-links, and remove sample paths or commands that are not true for the
-plan.
+## Born-Sketch Ratification
 
-Run a self-check before promotion or readiness:
+Every plan is born `status: sketch` — however green its checks — and
+**governs no work** until it carries a complete owner ratification stamp
+(`ratified_by` + `ratified_date` + `ratified_where`, the last a
+traceable pointer to where the owner's word lives). The `status` enum
+(`sketch | ratified | superseded | archived`) carries ratification state
+only; `superseded` requires a named `superseded_by` successor. Executed
+is not ratified.
 
-```bash
-rg -n "TBD|TODO|your-plan-name|semantic-search/active" \
-  .agent/plans/<collection>/<lane>/<plan>.md
-rg -n --pcre2 \
-  "(?<![!\\]])\\[(?![ xX]\\])(?!(?:[^]\\n]+)\\]\\([^)]*\\))(?!(?:[^]\\n]+)\\]\\[[^]\\n]*\\])[^]\\n]+\\]" \
-  .agent/plans/<collection>/<lane>/<plan>.md
-rg -n "git add .*git com[m]it" .agent/plans/<collection>/<lane>/<plan>.md
-```
+## Frontmatter Contract (validator-enforced)
 
-Expected: no unresolved placeholders, sample-only paths, or copied
-commit recipes remain. Review any bracket hits manually; only real markdown
-links, checked boxes, or intentionally literal bracket syntax may remain.
+- `serves` — the node this plan serves (delivery plans name their
+  strategic node; strategic nodes name the goal above them). Enumerate a
+  strategic node's delivery plans by searching `serves:`, never by a
+  hand-kept list.
+- `impact_areas` — the product areas the plan changes, drawn from the
+  closed, additive [registry](../../plans/impact-areas.md).
+- `tickets` — every delivery plan names at least one Linear ticket (the
+  delivery-state edge; ticket-first per `linear-ticket-first`).
+- `depends_on` — each dependency classified `blocking` or `beneficial`;
+  for each `beneficial` dependency, the body states the minimum
+  shippable shape without it.
+- `owner_gates` — every gate names `awaiting`, `clears_when`, and an
+  absolute `expires` date. No open-ended holding states; the default
+  expiry horizon is set by the governing strategic node
+  (`gate_expiry_default`), not by a schema constant.
 
-## Requirements for All Non-Trivial Plans
+## Body Requirements
 
-Every non-trivial plan, strategic or executable, MUST define:
+Every non-trivial plan MUST define:
 
-1. **End goal** — the user-impact outcome sought.
+1. **Goal** — the user-impact outcome sought.
 2. **Mechanism** — why the named means produce that outcome.
-3. **Means** — the work items or strategic moves.
-4. **Explicit acceptance criteria** — strategic plans use
-   outcome-level acceptance criteria; executable plans use task or
-   cycle-level criteria. Acceptance criteria must measure outcomes, not
-   activity alone. For multi-deliverable executable plans, apply the
-   self-correcting-deliverables drafting discipline (PDR-093): sequence
-   deliverables by consumption so D(n+1)'s gate breaks if D(n) drifted,
-   and draft each deliverable with (a) measurable acceptance, (b) what
-   it consumes, and (c) how its gate breaks if the predecessor drifted.
-   Declare genuinely independent deliverables as independent — never
-   invent a consumption chain that serialises parallel-safe work.
-5. **Prerequisite classification** — every prerequisite is either
-   `blocking` or `beneficial`. For each `beneficial` prerequisite, state
-   the minimum shippable shape without it.
-6. **Non-goals** — what the plan explicitly will not do.
-7. **Lineage** — name the **thread** the plan serves (and, where they exist, the
-   **stream** and **strategic choice** above it). A plan that cannot name the
-   thread/stream it serves is a homing smell: the work may belong as an
-   open-question, a pattern, or nowhere — re-triage before authoring. Record it
-   as a `lineage:` frontmatter block (`serves_thread`, `serves_stream`,
-   `strategic_choice`, `derives_from`). This is the **lightweight interim**
-   homing discipline: the full vision -> strategy -> stream -> thread -> plan ->
-   implementation chain is being built as machine-traversable edges by
-   [ADR-200](../../../docs/architecture/architectural-decisions/200-intent-as-a-living-idea-graph.md)'s
-   living-idea-graph rewrite; until those edges land, the `lineage:` block keeps
-   the derivation explicit so work is homed where it is driven, not parked on a
-   register. (Open-questions are for the genuinely not-yet-decidable, never a
-   scheduling or holding surface for work that has a home.)
-8. **PR-shaped execution units** (PDR-132, the single source) — executable
-   steps are sliced to changeset-healthy units AT PLAN TIME: each step
-   names its changeset class (code vs archival/record) and is stateable as
-   a PR within the PDR's round budget; a step that is not is
-   under-decomposed. Slicing at plan time is free; slicing at the first
-   over-budget review round is the measured expensive path.
+3. **Acceptance criteria, each with a proof** — outcome-measuring, not
+   activity-measuring, and each proof typed (`repo-safe` for
+   test/CI-provable, `owner-held` for the owner's confirming act).
+4. **Out of scope** — what the plan explicitly will not do (YAGNI).
+5. **Todos** — sliced at pickup by the implementer, each slice a
+   single-story PR within its round budget
+   ([PDR-132](../../practice-core/decision-records/PDR-132-changeset-health-round-budgets-bind-at-authoring-time.md):
+   round budgets bind at authoring time; slicing at plan time is free,
+   slicing at the first over-budget review round is the measured
+   expensive path).
+
+Plans are public-repository artefacts: **mechanism only**. Anything
+internal — dates, vendor detail, organisational specifics — rides the
+linked Linear ticket, never the plan body.
+
+## Authoring Disciplines (unchanged by estate structure)
 
 ### Build-vs-Buy Before Build-Shape
 
-Before exiting plan mode on any work that integrates with a vendor
-(Sentry, Vercel, Clerk, etc.), answer first: **which first-party
-integrations does the vendor ship (plugin, SDK, managed flow, official
-GitHub Action), and why are we not choosing one of them?** Name the
-vendor's first-party ecosystem explicitly in the plan. Build-vs-buy is
-a different question from build-shape and must be answered first — once
-the plan is weighing bespoke shapes (`.ts` vs `.mjs` vs `.sh`), the
-cheapest option has already been lost (worked instance 2026-04-20: a
-~900-line bespoke Sentry orchestrator built before anyone asked about
-`@sentry/esbuild-plugin`, which was ~5 lines).
+Before committing a plan that integrates with a vendor (Sentry, Vercel,
+Clerk, etc.), answer first: **which first-party integrations does the
+vendor ship (plugin, SDK, managed flow, official GitHub Action), and why
+are we not choosing one of them?** Name the vendor's first-party
+ecosystem explicitly in the plan. Build-vs-buy is a different question
+from build-shape and must be answered first — once the plan is weighing
+bespoke shapes, the cheapest option has already been lost.
 
 Two companion disciplines:
 
@@ -179,10 +167,9 @@ Two companion disciplines:
   vendor-rule exception. When three or more have fired, the next
   response is a shape-reconsideration pause, never another tactical
   fix. Sunk-cost detector phrases in your own reasoning — "we'd have
-  to throw away…", "we'd need to verify X supports Y exactly" (where Y
-  is something we chose), "the current implementation is valuable
-  because it's tested" — are paid costs, not reasons to continue;
-  future maintenance cost is the only cost that matters.
+  to throw away…", "the current implementation is valuable because
+  it's tested" — are paid costs, not reasons to continue; future
+  maintenance cost is the only cost that matters.
 
 ### Pre-Author Scope-Vocabulary Check
 
@@ -192,212 +179,70 @@ authoring vocabulary that implies scope or commitments the owner did not
 authorise?* A series that exists in no owner direction or ratified
 artefact is invented obligation — future readers treat "Cycle 2" as
 ratified scope and plan accordingly. Strip it and use neutral language
-naming only what is authorised ("the bundle executed on <date>"); where
-a future commitment IS authorised, cite the authorising source inline.
-The check runs at compose time — especially under coordination rush,
-where parallel-structure framing feels clean — never left to review
-time.
+naming only what is authorised; where a future commitment IS authorised,
+cite the authorising source inline. The check runs at compose time —
+especially under coordination rush — never left to review time.
 
 ### Schedule It, Sequence It — No Imaginary Flows
 
 Plans commit to concrete scheduled sequence positions, never conditional
-triggers ("when X ships", "depends on Y future", "tripwire fires on Z").
-Conditional-trigger soup creates the illusion of activation flow while
-quietly stalling; work happens on definite ordering ("after gate-1 lands,
-next sequenced work is Inc.2"), not imagined event chains. Where genuine
-schedule uncertainty exists, name it as a real owner decision needing
-resolution now, not a deferred trigger (owner-ratified 2026-05-11 across
-the plan estate). The ban is on conditional flows standing in for a
-plan's own sequence; three shapes remain legitimate: automatic firing
-conditions for maintenance and meta items whose timing no owner should
-own, `future/` promotion triggers (estate-level selection criteria a
-judging agent evaluates at promotion time, per §Promotion Workflow — not
-activation flows inside a plan body), and intra-plan `depends_on` cycle
-ordering (which IS the definite-sequence shape, not a banned trigger).
+triggers ("when X ships", "tripwire fires on Z"). Conditional-trigger
+soup creates the illusion of activation flow while quietly stalling;
+work happens on definite ordering, not imagined event chains. Where
+genuine schedule uncertainty exists, name it as a real owner decision
+needing resolution now — that is what `owner_gates` with absolute
+expiries are for. Automatic firing conditions for maintenance/meta items
+whose timing no owner should own, and `depends_on` ordering (which IS
+the definite-sequence shape), remain legitimate.
 
 ### A Boundary Move Reshapes Every Surface It Lived On
 
-When the owner moves a plan boundary (a non-goal into scope, a scope item
-out), it is never a single-spot patch: search the artefact for every
-assertion the old boundary was holding up — non-goals, definition-of-done,
-end-state, risks, lifecycle, owner-scope — and move them coherently, then
-report the blast radius transparently when the ask named only one section.
-Editing only the named section leaves live contradictions on every other
-surface the old boundary touched.
+When the owner moves a plan boundary (an out-of-scope item into scope, a
+scope item out), it is never a single-spot patch: search the artefact
+for every assertion the old boundary was holding up — out-of-scope,
+acceptance criteria, mechanism, risks — and move them coherently, then
+report the blast radius transparently when the ask named only one
+section. Editing only the named section leaves live contradictions on
+every other surface the old boundary touched.
 
 ### Disposition Ledger For "Apply All Of X" Inputs
 
-When a plan's input is *"apply all of X"* — every audit finding,
-every reviewer comment, every entry in a list, every item in a
-queue — thoroughness is **every item having a recorded decision**,
-not every item triggering a separate execution cycle. When most
-inputs are redundant with existing canonical doctrine, the right
-shape is one small implementation tranche plus a batched disposition
-ledger:
+When a plan's input is *"apply all of X"* — every audit finding, every
+reviewer comment, every entry in a list — thoroughness is **every item
+having a recorded decision**, not every item triggering a separate
+execution cycle:
 
 - **Every input gets a recorded decision** — `applied`,
-  `already-covered`, `superseded`, `out-of-scope`,
-  `deferred-to-pending-graduations`, etc. The ledger is the proof
-  that nothing was silently dropped.
-- **Implementation work is sized to the unique substance**, not to
-  the input count. Five reviewer comments that all restate one
-  existing rule are one batched ledger entry plus a back-cite, not
-  five cycles. Twenty pending-graduation items where eighteen are
-  already covered are one tranche of two graduations plus a
-  disposition log for the eighteen.
-- **Counts derived from the input list are derivation-anchored.**
-  Concurrent same-day flow can invalidate an arithmetic count
-  before execution; re-derive at execution time and let substance
-  preservation outrank stale arithmetic. Naming the derivation in
-  the ledger ("X items as of <date>; Y now applied; Z covered
-  elsewhere; W deferred with named constraint") is the audit trail
-  the plan body cannot carry inline.
+  `already-covered`, `superseded`, `out-of-scope`, etc. The ledger is
+  the proof that nothing was silently dropped.
+- **Implementation work is sized to the unique substance**, not to the
+  input count.
+- **Counts derived from the input list are derivation-anchored** —
+  re-derive at execution time and let substance preservation outrank
+  stale arithmetic.
 
-The failure mode is treating "apply all of X" as a literal
-N-cycle commitment: the plan inflates to N cycles, most of which
-restate existing doctrine, the rest of which carry the actual
-substance, and the agent loses the disposition view that would
-have prevented N times the wasted work.
+## Readiness and Review
 
-## Strategic Plan Requirements (`future/`)
+Before presenting a plan for ratification, invoke required reviewers by
+substance: `assumptions-expert` for plan-readiness/proportionality,
+docs/onboarding reviewers for significant Practice or documentation
+changes, and technical specialists where the work shape requires them.
+State in the plan where the
+[`plan-body-first-principles-check`](../../rules/plan-body-first-principles-check.md)
+shape, landing-path, and vendor-literal clauses fire.
 
-`future/` plans are strategic briefs. They are not executable work plans yet.
-They MAY include accurate implementation detail from completed research
-(commands, code sketches, sequencing), but that detail is reference context,
-not an in-progress execution commitment.
+Ratification itself is the owner's act: present the sketch, receive the
+word, land the stamp with `ratified_where` pointing at it.
 
-Every strategic plan MUST define:
+## Completion and Archival
 
-1. Problem and intent
-2. End goal, mechanism, and means
-3. Domain boundaries and non-goals
-4. Dependencies and sequencing assumptions, with `blocking` /
-   `beneficial` classification
-5. Strategic acceptance criteria and success signals
-6. Risks and unknowns
-7. Promotion trigger into `current/`
-8. If implementation detail is present, a clear note that execution
-   decisions are finalised only during promotion to `current/`/`active/`
-
-## Executable Plan Requirements (`current/`, `active/`)
-
-Every executable plan MUST have:
-
-1. **YAML frontmatter** with machine-readable todos (id, content, status)
-   for every execution-relevant task or cycle.
-2. **TDD cycles as the unit of landing** — every workstream is a
-   sequence of test+product-code PAIRS. Each cycle (Red → Green →
-   Refactor) is one landing unit (one commit): the failing test, the
-   product code that makes it pass, and any refactor land together.
-   Tests must NEVER be committed ahead of the product code that greens
-   them; product code must NEVER be committed ahead of the tests that
-   prove it. Both lag-shapes violate testing-strategy.md and produce
-   skipped or failing tests in the tree. Apply this at every level —
-   unit, integration, E2E — and where a higher-level test requires
-   several lower-level cycles, sequence those cycles and finish with
-   the commit that adds the final piece needed to green the
-   higher-level test. Every commit ends with all tests passing.
-3. **Parallelisable plan hygiene** — always look for the independent
-   decomposition before accepting a serial plan. Break larger workstreams
-   into atomic cycles that can run independently when the work shape allows.
-   Two cycles are independent when completing one does not change what the
-   other does or how it is verified. In practice each independent cycle
-   touches a separate file scope, or overlaps only additively, declares its
-   starting state, names files or areas it must not touch, has executable
-   acceptance criteria another agent can verify, and includes deterministic
-   validation commands.
-
-   If cycles genuinely depend on each other, declare the dependency in the
-   cycle description and, where the plan may be machine-dispatched, in a
-   `depends_on` YAML field on the todo. Dependent cycles are queued behind
-   their prerequisites. Do not invent serial dependencies that the work shape
-   does not require; choose the natural decomposition that already exists in
-   the system, such as separate workspaces, modules, generated surfaces, or
-   user-facing behaviours.
-
-   When a cycle is actually delegated to another agent, the cycle itself is
-   the delegation brief. It must already contain the goal, owned surface,
-   non-goals, required evidence, acceptance signal, reintegration owner, and
-   stop-or-escalate rule. If those details cannot be stated concisely, the
-   plan is under-scoped rather than "not parallelisable".
-4. **Quality gates** — reference
-   `../../plans/templates/components/quality-gates.md`. Each cycle has
-   focused deterministic validation plus the relevant local gates; phase
-   and final validation use the canonical aggregate gate named there.
-5. **Acceptance criteria** for every task — specific, checkable,
-   outcome-based, and paired with deterministic validation commands.
-   Acceptance for a TDD cycle includes "all tests passing at every
-   level" as a non-negotiable.
-6. **Proof contract for completion claims** — every product-bearing
-   task or workstream must name addressable acceptance ids, the proof
-   level for each id (`unit`, `integration`, `e2e`, `value-proxy`, or
-   `non-code`), and the command or observation that proves it. Plans
-   that intend to use `complete`, `DECISION-COMPLETE`, `READY FOR
-   EXECUTION`, milestone-complete, or workstream-complete language must
-   state how that verdict will be validated. A landed slice, session
-   close, claim close, or useful snapshot is not completion unless all
-   acceptance ids for the parent scope are proven. For TDD claims, the
-   proof contract must distinguish test-first evidence from retrospective
-   test coverage: tests added after product code may be useful, but they
-   are not TDD evidence for that product code.
-7. **Risk assessment** — what could go wrong and how to mitigate
-8. **Foundation alignment** — explicit references to principles.md,
-   testing-strategy.md, schema-first-execution.md
-9. **Non-goals** — what we are explicitly NOT doing (YAGNI)
-10. **Plan-body first-principles check** — state where the
-   `../../rules/plan-body-first-principles-check.md` shape,
-   landing-path, and vendor-literal clauses fire before executing
-   plan-prescribed tests, implementation, or doctrine.
-11. **Readiness reviewers** — before a plan is marked
-    `DECISION-COMPLETE`, `READY FOR EXECUTION`, or equivalent, invoke
-    required reviewers by substance: `assumptions-expert` for
-    plan-readiness/proportionality, docs/onboarding reviewers for
-    significant Practice or documentation changes, and technical
-    specialists where the work shape requires them.
-12. **Learning Loop** — executable plan completion, milestone closure,
-    strategic promotion, and archival MUST run or explicitly reference
-    the consolidation workflow.
-13. **Lifecycle triggers** — plans that touch non-trivial work MUST
-    reference `../../plans/templates/components/lifecycle-triggers.md`
-    or record why each lifecycle touch point is not applicable
-
-## Promotion Workflow (`future/` -> `current/` -> `active/`)
-
-1. Select a `future/` strategic plan with a clear promotion trigger.
-   Record the evidence that the trigger has fired, the readiness
-   verdict, and any assumptions carried forward.
-2. Create a new executable plan in `current/` from the appropriate template.
-3. Mine strategic intent from `future/` into executable todos, TDD cycles,
-   acceptance criteria, prerequisite classification, and deterministic
-   validation commands.
-4. Keep a reference from the `current/` plan back to its source strategic brief.
-5. Move the executable plan into `active/` only when implementation starts.
-6. After completion, mine permanent documentation and archive per ADR-117.
-
-## Document Hierarchy (ADR-117)
-
-Plans are one layer in a multi-document hierarchy. Do not duplicate
-content across layers:
-
-- **Session prompt** (`../../prompts/`) — operational entry point
-- **Strategic plan** (`../../plans/*/future/`) — later intent and sequencing
-- **Executable plan** (`../../plans/*/{current,active}/`) — lifecycle-scoped work items
-- **Roadmap** (`../../plans/*/roadmap.md`) — strategic milestone sequence
-
-Facts are authoritative in one document and referenced by the others. When the
-plan contains findings or metrics, state them once and have other documents
-link to the authoritative source.
-
-## Plan Location
-
-Place plans in the lifecycle directory owned by the plan's collection
-and actionability. Use `.agent/plans/<collection>/...` as the shape:
-
-```bash
-.agent/plans/<collection>/active/your-plan-name.md   # executable, in progress
-.agent/plans/<collection>/current/your-plan-name.md  # executable, queued
-.agent/plans/<collection>/future/your-plan-name.md   # strategic brief, later
-```
+A delivery plan completes when its acceptance criteria are proven at
+their declared proof types; it then moves to `archive/` with its
+disposition recorded (`status: archived`, or `superseded` with the named
+successor). Completion claims follow the proof contract — a landed
+slice, session close, or green gate is not completion unless the
+acceptance criteria for the scope are proven. Plan completion and
+archival reference the consolidation workflow so learning is conserved.
 
 ## First Question
 
