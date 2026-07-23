@@ -103,6 +103,6 @@ pnpm smoke:dev:stub
 ## Related Documents
 
 1. [high-level-plan.md](../../plans-backlog-2026-07/high-level-plan.md)
-2. [Collection README](README.md)
+2. [Collection README]
 3. [Relevant ADR]
 4. [Key research document]

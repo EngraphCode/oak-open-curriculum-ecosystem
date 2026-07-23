@@ -21,6 +21,29 @@ aspirations).
 
 ## Amendment Log
 
+- **2026-07-23 amendment — lifecycle-lane realisation superseded in the source
+  host (Heron lifts Summit / claude / claude-fable-5; records the owner-ratified
+  estate decision of 2026-07-22 — this host's decisions register D23 — whose
+  doctrine home is host ADR-216, the plan-node estate; MCP-120 propagation
+  sweep).** In this repository the lifecycle-lane
+  realisation this PDR's placement sections describe — `future/` →
+  `current/` → `active/` directories, the promotion workflow, and
+  lane-placement-by-actionability — is retired. Plans are typed nodes
+  (`strategic | delivery | runbook`) that never move while live; a plan
+  **governs no work until it carries a complete owner ratification stamp**
+  (born-sketch — executed is not ratified); delivery state is a Linear
+  projection, never a filesystem fact. The portable discipline this PDR
+  owns — end goals before means, workflow contracts, plans as load-bearing
+  artefacts, readiness gates before execution — is unchanged and continues
+  to bind. The lane-placement and promotion sections below remain as the
+  portable pattern for hosts whose estates are lane-shaped; in this host,
+  read placement questions against ADR-216's node-type table and
+  ratification gate instead.
+  - **Falsifiability**: shown wrong if the node-typed estate proves unable
+    to express an actionability distinction the lanes carried (queued vs in
+    progress vs later) without reintroducing filesystem state — i.e. if
+    delivery-state-in-Linear fails as the projection and file moves return.
+
 - **2026-07-06 amendment — sequence-first over smallest-first shipping (Zenith
   wakes Perigee / claude-code / claude-fable-5; owner-ratified live as standing
   doctrine during the 2026-07-06 dedicated consolidation; provenance: the

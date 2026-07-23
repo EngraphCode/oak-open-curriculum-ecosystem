@@ -32,11 +32,15 @@ difference, and the estate validator enforces it.
 Plans are public-repository artefacts: **mechanism only**; anything
 internal rides the linked Linear ticket (sensitivity by construction).
 
-## Transition note (dated 2026-07-22)
+## Provenance
 
-The estate structure above was owner-ratified at the planning sitting,
-part 1 (decisions register D23); its content is poured at part 2. The
-artefacts of the prior 2026-07-21 sketch corpus remain in place below
-this note's date until the redo assigns each its disposition — they are
-evidence, not baselines. The conserved prior estate stays untouched in
+The estate structure above was owner-ratified at the planning sitting
+(decisions register D23) and its first content ratified at part 2; the
+doctrine home is
+[ADR-216](../../docs/architecture/architectural-decisions/216-plan-node-estate.md).
+The prior 2026-07-21 sketch corpus is archived with per-artefact
+dispositions in
+[`.agent/plans-v0-sketch-2026-07-21/`](../plans-v0-sketch-2026-07-21/DISPOSITIONS.md);
+the conserved pre-reset estate stays untouched in
 [`.agent/plans-backlog-2026-07/`](../plans-backlog-2026-07/BACKLOG.md).
+Both are evidence, not baselines.

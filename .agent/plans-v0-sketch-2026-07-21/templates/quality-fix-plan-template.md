@@ -60,7 +60,7 @@ todos:
 expected output. Final readiness uses the canonical aggregate gate.
 
 See
-[`components/quality-gates.md`](components/quality-gates.md)
+[`components/quality-gates.md`](../../plans/templates/components/quality-gates.md)
 for the current gate doctrine. Do not duplicate the full `pnpm check`
 expansion into this plan; root `package.json` is the executable source
 of truth.
@@ -181,7 +181,7 @@ Before the first non-planning edit:
 3. Register active areas before edits and close own claims at
    session-handoff.
 4. Apply
-   [`lifecycle-triggers.md`](components/lifecycle-triggers.md)
+   [`lifecycle-triggers.md`](../../plans/templates/components/lifecycle-triggers.md)
    for any non-trivial or multi-file fix.
 
 ---

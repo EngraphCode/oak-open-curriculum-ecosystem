@@ -220,7 +220,8 @@ architectural claim is read from the live documents below **at answer time**. Th
 live docs outrank anything remembered from this file; if this file and a live doc
 disagree, the doc wins, and the mismatch is worth flagging on the onboarding
 status register
-(`.agent/plans/developer-experience/active/onboarding-simulations-public-alpha-readiness.md`).
+(`.agent/plans-backlog-2026-07/developer-experience/active/onboarding-simulations-public-alpha-readiness.md`,
+conserved in the pre-2026-07 planning backlog).
 
 **Sources are always reachable — read local when local, fetch public otherwise.**
 Each repo-intent document below is reachable two ways; use whichever the context

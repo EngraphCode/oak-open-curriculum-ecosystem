@@ -126,19 +126,19 @@ todos:
 
 ## Quality Gates
 
-> See [quality-gates.md](components/quality-gates.md)
+> See [quality-gates.md](../../plans/templates/components/quality-gates.md)
 
 ## Foundation Alignment
 
-> See [foundation-alignment.md](components/foundation-alignment.md)
+> See [foundation-alignment.md](../../plans/templates/components/foundation-alignment.md)
 
 ## Lifecycle Triggers
 
-> See [lifecycle-triggers.md](components/lifecycle-triggers.md)
+> See [lifecycle-triggers.md](../../plans/templates/components/lifecycle-triggers.md)
 
 ## Documentation Propagation
 
-> See [documentation-propagation.md](components/documentation-propagation.md)
+> See [documentation-propagation.md](../../plans/templates/components/documentation-propagation.md)
 
 ## Consolidation
 
@@ -148,4 +148,4 @@ manage fitness, and update the practice exchange.
 
 ## Risk Assessment
 
-> See [risk-assessment.md](components/risk-assessment.md)
+> See [risk-assessment.md](../../plans/templates/components/risk-assessment.md)

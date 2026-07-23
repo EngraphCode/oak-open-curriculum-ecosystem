@@ -16,6 +16,11 @@ Copy the skeleton from inside the template's fenced block, fill it,
 delete the guidance. Every plan is born `status: sketch` and governs no
 work until its ratification stamp is complete.
 
-Older template and component files in this directory predate the
-2026-07-22 estate structure (decisions register D23) and await their
-redo dispositions; do not author new plans from them.
+The pre-D23 authoring templates are dispositioned and conserved in
+[`.agent/plans-v0-sketch-2026-07-21/templates/`](../../plans-v0-sketch-2026-07-21/DISPOSITIONS.md);
+do not author new plans from them. The `components/` library remains
+here as referenced substrate only (PDR phenotypes, thread-continuity
+surfaces) — it is retired as authoring doctrine and no D23 template
+references it; its disposition completes with the thread-doc migration.
+The doctrine home for this structure is
+[ADR-216](../../../docs/architecture/architectural-decisions/216-plan-node-estate.md).
