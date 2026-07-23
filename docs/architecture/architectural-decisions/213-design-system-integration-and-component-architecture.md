@@ -7,7 +7,8 @@
   a claim already discharged). Drafted 2026-07-19, reframed same day on owner direction —
   integration, not vendoring; §2 amended 2026-07-19 — overlay completeness model and
   colour-value grammar, evidence-driven; §2 amended 2026-07-20 — dual-gate window,
-  comparand filter, fixpoint resolution, ratified gate levels (PR3 cycle 3); AIP-137.
+  comparand filter, fixpoint resolution, ratified gate levels (PR3 cycle 3); §3 amended
+  2026-07-23 — the owned React component tier (owner substance at the sitting); AIP-137.
 - **Supersedes in part:** [ADR-148](148-design-token-architecture.md) §Source Format (the
   source-of-truth direction only; the three-tier model, contrast gate, and delivery format
   stand)
@@ -289,15 +290,16 @@ transmitted decisions; it now carries its own grounds from the adversarial explo
 — five refuted-or-refined counter-proposals, live vendor verification, three lenses per
 proposal). Refinements from that exploration are folded in below.
 
-| UI need                              | Path                                                                                                                                                                                                   |
-| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Static / content UI                  | Semantic HTML + `.oak-*` class library + semantic tokens (binds in the hub only after its convergence lane lands; interim hub rule: `@theme` tokens only, no new raw values)                           |
-| New hard widget (React app)          | Base UI headless primitives, styled by the same classes/tokens — adopted **at first materialised need** (a ticket, never an anticipation), pinned exact with `package.json` as the pin source of truth |
-| Known/memorable date entry           | Multi-field text inputs (GDS pattern, `inputmode="numeric"`) styled by `.oak-*` — the default date route                                                                                               |
-| Calendar / range / locale picker     | React Aria date widgets (the scoped admission; never duplicating a widget class Base UI covers). Native `<input type="date">` is not load-bearing (un-themeable, un-auditable chrome — owner fork)     |
-| Non-React or multi-framework surface | Ark UI / Zag.js behind a **creation gate** (no package or recipe ahead of a first consumer); the no-framework binding is `@zag-js/vanilla`, light-DOM only (cross-root ARIA is a closed constraint)    |
-| Radix                                | Existing code only; no new adoption                                                                                                                                                                    |
-| Console / TUI                        | Ink stack with a role→ANSI tone vocabulary; web headless libraries never. The design-package build resolves every terminal-theme token path, so a token reorganisation fails at build, not at import   |
+| UI need                              | Path                                                                                                                                                                                                                                     |
+| ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Need covered by an owned component   | The owned component tier first (binds at the §3-amendment tier landing): re-creating a covered component per-app, or wrapping the class library to imitate one, is a boundary violation. Rows below govern needs the tier does not cover |
+| Static / content UI                  | Semantic HTML + `.oak-*` class library + semantic tokens (binds in the hub only after its convergence lane lands; interim hub rule: `@theme` tokens only, no new raw values)                                                             |
+| New hard widget (React app)          | Base UI headless primitives, styled by the same classes/tokens — adopted **at first materialised need** (a ticket, never an anticipation), pinned exact with `package.json` as the pin source of truth                                   |
+| Known/memorable date entry           | Multi-field text inputs (GDS pattern, `inputmode="numeric"`) styled by `.oak-*` — the default date route                                                                                                                                 |
+| Calendar / range / locale picker     | React Aria date widgets (the scoped admission; never duplicating a widget class Base UI covers). Native `<input type="date">` is not load-bearing (un-themeable, un-auditable chrome — owner fork)                                       |
+| Non-React or multi-framework surface | Ark UI / Zag.js behind a **creation gate** (no package or recipe ahead of a first consumer); the no-framework binding is `@zag-js/vanilla`, light-DOM only (cross-root ARIA is a closed constraint)                                      |
+| Radix                                | Existing code only; no new adoption                                                                                                                                                                                                      |
+| Console / TUI                        | Ink stack with a role→ANSI tone vocabulary; web headless libraries never. The design-package build resolves every terminal-theme token path, so a token reorganisation fails at build, not at import                                     |
 
 Standing rules:
 
@@ -339,6 +341,60 @@ Standing rules:
   widget ships — a ship condition without an executor is discharged by assertion, which is
   the Radix failure mode in local colours.
 
+**Amendment (2026-07-23, owner substance at the sitting; package shape settled by owner
+word the same day): the owned React component tier.** The owner's original vision for
+the integrated system includes ALL the building blocks. The system adopts a **curated,
+owned React component tier** alongside the tokens and class library: components adopted
+from `studio-source/` **with ownership** — each adopted component moves out of
+`studio-source/` and under the full quality gate in the same change (the §1
+production/source boundary rule is the adoption mechanism, not a new mechanism),
+reviewed, tested, and carried on its package's semver contract. Ownership means the
+repo copy is canonical and evolves here; it is never a vendored mirror of the studio.
+
+**The tier is a separate downstream workspace, never an export of the CSS package.**
+The tokens and class library serve plain CSS/HTML, Astro, Nuxt, and React alike (owner
+substance, 2026-07-23); ADR-148 §"Why a separate token package" stands in full, so
+`oak-design-system`'s framework-neutral surface is permanent. The owned components live
+in a new React binding package under `packages/design/`, downstream of
+`oak-design-system` (name settled at landing), consuming the same published tier-3
+tokens and classes every other consumer sees. The grammar mirrors the system's own
+theming doctrine one level up: the neutral trunk holds what is framework-invariant
+(tokens, classes, fonts, assets, the theme switcher); bindings hold what is covariant.
+React is the first binding with materialised need; any later binding (Astro, Nuxt,
+vanilla helpers) takes the same downstream-sibling shape at its own first materialised
+need — the shape is decided here, packages only ever at need.
+
+- **Supersedes, within the standing rules above:** (a) "the design system's four
+  compiled React components stay off the workspace's export surface" — they stay off
+  THAT workspace's surface permanently, and become the seed of the downstream tier
+  package; (b) "no shared React component workspace yet" as a standing state — the
+  tier package is the shared home. The consolidate-at-second-consumer trigger
+  continues to govern when app-composed widgets graduate into it; adoption from
+  `studio-source/` is curation on owner substance, not a second-consumer event.
+- **Stands unchanged:** ADR-148's separate-package invariant (relied on, not
+  superseded); the tier-3 token contract (owned components consume tier-3 tokens
+  identically to the class library — the invariant the re-wrap rejection protects;
+  the rejection of re-wrapping the _class library itself_ in a component layer
+  therefore also stands); the wrapped-widget accessibility checklist per component
+  and the symmetric audit doctrine; the decision table above for needs the tier does
+  not cover — the tier's own precedence row is added to the table by this amendment.
+- **Landing sequence (pointers, not specs):** the tier lands via MCP-134 (first
+  candidates: code chip/block surface, breadcrumbs, `oak-band` tone modifiers,
+  masthead/footer site chrome), which creates the binding package. **Hard gate,
+  explicit:** the first component export requires the ADR-147 gate extension
+  (`ws-gate-extension` in the design-system-integration plan: per-theme axe runs, a
+  forced-colors render check, CI-promoted `test:a11y`) landed for that package — the
+  seed includes interactive components, and a ship condition without an executor is
+  discharged by assertion (this section's own Radix lesson). At landing: ADR-041's
+  workspace map gains the new package (dated, additive — its "no React on the export
+  surface" clause for `oak-design-system` stays true permanently under this shape);
+  `.design-sync/conventions.md`'s "exports no React components" line rewrites and the
+  re-sync ships the component sources (recorded in `.design-sync/NOTES.md`);
+  fixtures-as-parity migrates from reference-proof duty to the tier package's own
+  tests. The design-system-integration backlog plan's React-fencing and
+  fixtures-parity clauses carry dated amendments in THIS change, so no live plan
+  encodes the superseded architecture.
+
 App-shell prerequisites for Base UI (Next 16 / React 19): `isolation: isolate` on the app root
 container (portal stacking) and `position: relative` on `body` (iOS 26+). Composed widgets are
 leaf `'use client'` files; pages and layouts stay server components.
@@ -367,15 +423,28 @@ it is recorded as future-surfaces doctrine — owner fork if that binding should
 ### 4. Dependency direction (recorded in the ADR-041 amendment)
 
 ```text
-design-tokens-core  →  oak-design-system  →  oak-design-tokens  →  oak-design-ink  →  consumers
- (framework,            (the design system,   (repo-owned            (terminal
-  validation)            canonical source)     projections)           primitives)
+design-tokens-core ──┐
+ (framework,         ├→  oak-design-tokens  →  oak-design-ink  →  consumers
+  validation)        │    (repo-owned            (terminal
+oak-design-system ───┘     projections)           primitives)
+ (the design system,
+  canonical source)
 ```
 
-Arrow reads "may be imported by". `design-tokens-core` imports nothing from the monorepo and is
-consumed as a devDependency. `oak-design-system` has zero runtime monorepo dependencies and
-never imports other design workspaces, apps, or sdks; its public surface is built CSS plus the
-DTCG export artefact — no React. `oak-design-tokens` depends on the design system (validator
+(Corrected 2026-07-23 to match ADR-041's 2026-07-21 correction, which this section had
+continued to contradict: the earlier linear chain drew a
+`design-tokens-core → oak-design-system` edge that does not exist — the two workspaces
+are sibling inputs to `oak-design-tokens`, the only intra-design join point. ADR-041 is
+the authoritative map.)
+
+Arrow reads "may be imported by". `design-tokens-core` imports nothing from the design tier and is
+consumed as a runtime dependency by `oak-design-tokens` (per ADR-041's corrected edge notes).
+`oak-design-system` has zero runtime monorepo dependencies and
+never imports other design workspaces, apps, or sdks; its public surface is built CSS, the
+theme-switcher JS (`oak-theme.js`), plus the generated DTCG export artefact — no React,
+permanently (amended 2026-07-23: the §3-amendment component tier is a separate downstream
+package; at its landing the map gains an `oak-design-system → <tier package>` edge for React
+app consumers, and this workspace's surface is unchanged by it). `oak-design-tokens` depends on the design system (validator
 consumer of the DTCG export from PR3's dual-gate window — §2 amendment 2026-07-20; token data
 source at Stage B) plus `design-tokens-core`. `oak-design-ink` depends on
 `oak-design-tokens` only. Apps and demos consume the design system's built CSS and the
@@ -409,7 +478,10 @@ kill).
   two first-class surfaces and a bidirectional sync discipline.
 - **Shared React component workspace now** — rejected: one app consumer exists; building the
   shared prop APIs ahead of a second data point is speculative structure
-  (consolidate-at-second-consumer).
+  (consolidate-at-second-consumer). (Superseded in part 2026-07-23 by the §3 owned-component-tier
+  amendment: the shared home is a separate downstream React binding package seeded by curation
+  from `studio-source/`; the second-consumer trigger still governs app-widget graduation into
+  it, and ADR-148's separate-package invariant is why the home is downstream, not in-package.)
 - **Adopt `@oaknational/oak-components` (production package)** — rejected for this ecosystem:
   React + styled-components + Cloudinary coupling; this design system exists precisely as the
   framework-agnostic mirror of that vocabulary, and MCP views and terminal tools are
