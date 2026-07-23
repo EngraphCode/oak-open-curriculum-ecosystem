@@ -33,7 +33,7 @@ Accepted (amended 2026-07-23)
 > decision D11, decisions register).** The prompts strategy below is
 > SUPERSEDED: the app now serves **zero MCP prompts** — the primitive is
 > unregistered entirely (user-invoked prompt templates are a poor user
-> experience for teachers). The seven workflow bodies are re-homed as
+> experience for teachers). The workflow bodies are re-homed as
 > agent-readable guidance resources (`docs://oak/guidance/*`), with
 > live-vs-dormant state governed by the app's declarative served-surface
 > definition (`apps/oak-curriculum-mcp-streamable-http/src/served-surface/`)

@@ -507,12 +507,12 @@ from `tools/list` until a reviewed definition change turns them live.
 `docs://oak/under-the-hood.md`, `eef://interpretation`,
 `ui://widget/oak-curriculum-app-*.html`, and the navigation guidance three:
 `docs://oak/guidance/find-lessons.md`, `docs://oak/guidance/explore-curriculum.md`,
-`docs://oak/guidance/learning-progression.md`. (The creation-oriented four
+`docs://oak/guidance/learning-progression.md`. (The creation-oriented three
 guidance documents exist dormant and never appear in `resources/list`.)
 
-**Prompts (0):** none — the primitive is unregistered (D11). The seven
+**Prompts (0):** none — the primitive is unregistered (D11). The six
 workflow guidance documents live at `docs://oak/guidance/*`; the navigation
-three are served, the creation-oriented four are dormant behind the
+three are served, the creation-oriented three are dormant behind the
 served-surface definition.
 
 ---
