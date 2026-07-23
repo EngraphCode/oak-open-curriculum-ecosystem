@@ -48,7 +48,6 @@ interface MockRuntimeConfigOverrides {
    * default — the user-search tools are unregistered). Set `true` to exercise
    * the enabled path where both user-search tools register.
    */
-  readonly userSearchEnabled?: boolean;
 }
 
 const BASE_MOCK_ENV = {
@@ -93,7 +92,6 @@ export function createMockRuntimeConfig(
       env: { ...BASE_MOCK_ENV, ...overrides.env },
       ...BASE_SHARED_FIELDS,
       eefEnabled: overrides.eefEnabled ?? false,
-      userSearchEnabled: overrides.userSearchEnabled ?? false,
       dangerouslyDisableAuth: true,
     } satisfies AuthDisabledRuntimeConfig;
   }
@@ -102,7 +100,6 @@ export function createMockRuntimeConfig(
     env: { ...BASE_MOCK_ENV, ...BASE_CLERK_KEYS, ...overrides.env },
     ...BASE_SHARED_FIELDS,
     eefEnabled: overrides.eefEnabled ?? false,
-    userSearchEnabled: overrides.userSearchEnabled ?? false,
     dangerouslyDisableAuth: false,
   } satisfies AuthEnabledRuntimeConfig;
 }

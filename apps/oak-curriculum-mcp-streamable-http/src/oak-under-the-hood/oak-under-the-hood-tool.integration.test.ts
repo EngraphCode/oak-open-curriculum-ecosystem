@@ -33,6 +33,7 @@ import {
   createFakeHttpObservability,
 } from '../test-helpers/fakes.js';
 import { createMockRuntimeConfig } from '../test-helpers/auth-error-test-helpers.js';
+import { SERVED_SURFACE, isUniversalToolLive } from '../served-surface/served-surface.js';
 
 describe('Oak: Under the Hood tool registration (integration)', () => {
   it('registers the oak-under-the-hood tool with a closed empty inputSchema, no outputSchema, openWorldHint', () => {
@@ -59,7 +60,7 @@ describe('Oak: Under the Hood tool registration (integration)', () => {
     const spy = vi.spyOn(server, 'registerTool');
 
     registerHandlers(server, {
-      runtimeConfig: createMockRuntimeConfig({ eefEnabled: true, userSearchEnabled: true }),
+      runtimeConfig: createMockRuntimeConfig({ eefEnabled: true }),
       logger: createFakeLogger(),
       observability: createFakeHttpObservability(),
       searchRetrieval: createFakeSearchRetrieval(),
@@ -69,9 +70,13 @@ describe('Oak: Under the Hood tool registration (integration)', () => {
     const registeredNames = spy.mock.calls.map((c) => c[0]);
     // The oak-under-the-hood tool is present...
     expect(registeredNames).toContain(OAK_UNDER_THE_HOOD_TOOL_NAME);
-    // ...and the universal tools are still all registered alongside it.
+    // ...and every LIVE universal tool is still registered alongside it
+    // (dormant rows are structurally absent — asserted exactly in the
+    // served-surface integration suite).
     for (const tool of listUniversalTools(generatedToolRegistry)) {
-      expect(registeredNames).toContain(tool.name);
+      if (isUniversalToolLive(SERVED_SURFACE, tool.name)) {
+        expect(registeredNames).toContain(tool.name);
+      }
     }
   });
 });

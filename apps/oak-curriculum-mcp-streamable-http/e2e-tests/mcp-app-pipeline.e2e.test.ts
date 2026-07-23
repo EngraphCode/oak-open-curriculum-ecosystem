@@ -18,7 +18,11 @@
 import { describe, it, expect } from 'vitest';
 import request from 'supertest';
 import { z } from 'zod';
-import { createStubbedHttpApp, STUB_ACCEPT_HEADER } from './helpers/create-stubbed-http-app.js';
+import {
+  createStubbedHttpApp,
+  STUB_ACCEPT_HEADER,
+  SERVED_SURFACE_WITH_USER_SEARCH_LIVE,
+} from './helpers/create-stubbed-http-app.js';
 import { parseSseEnvelope } from './helpers/sse.js';
 import { WIDGET_URI } from '@oaknational/sdk-codegen/widget-constants';
 import { getToolFromToolName } from '@oaknational/sdk-codegen/mcp-tools';
@@ -129,7 +133,10 @@ describe('MCP App Pipeline E2E', () => {
 
   it('user-search-query has visibility ["app"]', async () => {
     // Opt in to the user-search surface: the tools are gated OFF by default.
-    const { app } = await createStubbedHttpApp({}, { userSearchEnabled: true });
+    const { app } = await createStubbedHttpApp(
+      {},
+      { servedSurface: SERVED_SURFACE_WITH_USER_SEARCH_LIVE },
+    );
     const tools = await fetchToolsList(app);
 
     const tool = findToolOrFail(tools, 'user-search-query');
@@ -150,7 +157,10 @@ describe('MCP App Pipeline E2E', () => {
   });
 
   it('tools/list includes both user-search tools when the flag is ON', async () => {
-    const { app } = await createStubbedHttpApp({}, { userSearchEnabled: true });
+    const { app } = await createStubbedHttpApp(
+      {},
+      { servedSurface: SERVED_SURFACE_WITH_USER_SEARCH_LIVE },
+    );
     const tools = await fetchToolsList(app);
 
     const names = tools.map((tool) => tool.name);
