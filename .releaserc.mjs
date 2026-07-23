@@ -1,8 +1,9 @@
 /**
  * Semantic Release Configuration
  *
- * Publishes @oaknational/curriculum-sdk to npm on merge to main.
- * Only the SDK is published; all other workspaces remain private.
+ * Versions the repo on merge to main: bumps the root and SDK package.json,
+ * updates the changelog, and cuts a git tag + GitHub release. Nothing is
+ * published to npm (npmPublish is false on both npm plugin entries).
  */
 
 /**
