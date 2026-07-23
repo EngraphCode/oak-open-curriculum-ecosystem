@@ -1,3 +1,15 @@
+# [1.83.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.82.5...v1.83.0) (2026-07-23)
+
+
+### Bug Fixes
+
+* **eslint:** ignore design-sync machine state in shared ignores ([930577f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/930577f6c19b38d6e3465193885ec8d72ea827e5))
+
+
+### Features
+
+* **release:** release-process runbook (first D23 runbook node) + loud Slack failure alert (MCP-131) ([b2eb1dc](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b2eb1dc8d0b27f30cc7b35eaa066c42c586197e0))
+
 ## [1.82.5](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.82.4...v1.82.5) (2026-07-23)
 
 
