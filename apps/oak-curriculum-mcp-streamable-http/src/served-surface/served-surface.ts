@@ -59,7 +59,9 @@ export const SERVED_SURFACE = {
     'get-prior-knowledge-graph': 'live',
     'get-misconception-graph': 'live',
     'get-keyword-graph': 'live',
-    'get-eef-evidence': 'live',
+    // Gated, not removed (owner card 2026-07-23): out of the v1 live set;
+    // the row stays so re-enabling is a one-word reviewed change here.
+    'get-eef-evidence': 'dormant',
     'browse-curriculum': 'live',
     'explore-topic': 'live',
     'download-asset': 'live',
@@ -102,10 +104,11 @@ export const SERVED_SURFACE = {
     'docs://oak/getting-started.md': 'live',
     'curriculum://model': 'live',
     'docs://oak/under-the-hood.md': 'live',
-    // EEF interpretation: live row — previously the
+    // EEF interpretation: dormant with its tool (owner card 2026-07-23 —
+    // out of the v1 live set; gated, not removed). Previously the
     // OAK_CURRICULUM_MCP_EEF_ENABLED kill-switch's resource leg, superseded
-    // by this definition (disabling it is a reviewed change here).
-    'eef://interpretation': 'live',
+    // by this definition (re-enabling is a reviewed change here).
+    'eef://interpretation': 'dormant',
     'ui://widget/oak-curriculum-app-local.html': 'live',
     // Agent guidance documents (decisions register D11 as amended by the
     // owner 2026-07-23 — the lesson-planning placeholder deleted outright):

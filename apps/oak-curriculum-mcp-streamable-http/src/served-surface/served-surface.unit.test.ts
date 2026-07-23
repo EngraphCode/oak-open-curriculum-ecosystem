@@ -26,11 +26,13 @@ describe('SERVED_SURFACE', () => {
     expect(new Set(classifiedNames)).toEqual(new Set(registryNames));
   });
 
-  it('marks exactly the unbuilt user-search MCP App pair dormant', () => {
+  it('marks exactly the unbuilt user-search pair and the gated EEF tool dormant (v1 live set, owner card 2026-07-23)', () => {
     const dormant = Object.entries(SERVED_SURFACE.universalTools)
       .filter(([, state]) => state === 'dormant')
       .map(([name]) => name);
-    expect(new Set(dormant)).toEqual(new Set(['user-search', 'user-search-query']));
+    expect(new Set(dormant)).toEqual(
+      new Set(['user-search', 'user-search-query', 'get-eef-evidence']),
+    );
   });
 
   it('serves the app-local orientation tool live', () => {
@@ -54,11 +56,11 @@ describe('SERVED_SURFACE.resources', () => {
     expect(new Set(Object.keys(SERVED_SURFACE.resources))).toEqual(inventory);
   });
 
-  it('marks exactly the creation-oriented four guidance documents dormant (ratified live-set, D11)', () => {
+  it('marks exactly the creation-oriented guidance documents and the gated EEF resource dormant (v1 live set)', () => {
     const dormant = Object.entries(SERVED_SURFACE.resources)
       .filter(([, state]) => state === 'dormant')
       .map(([uri]) => uri);
-    expect(new Set(dormant)).toEqual(new Set(CREATION_GUIDANCE_URIS));
+    expect(new Set(dormant)).toEqual(new Set([...CREATION_GUIDANCE_URIS, 'eef://interpretation']));
   });
 
   it('serves the navigation three guidance documents live', () => {
@@ -67,7 +69,7 @@ describe('SERVED_SURFACE.resources', () => {
     }
   });
 
-  it('serves the EEF interpretation resource live through the definition — no env flag', () => {
-    expect(isResourceLive(SERVED_SURFACE, 'eef://interpretation')).toBe(true);
+  it('gates the EEF interpretation resource dormant with its tool, through the definition — no env flag (owner card 2026-07-23)', () => {
+    expect(isResourceLive(SERVED_SURFACE, 'eef://interpretation')).toBe(false);
   });
 });
