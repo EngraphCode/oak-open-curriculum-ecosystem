@@ -952,3 +952,16 @@ than the emitter's actual vocabulary delivered from-lines with no
 titles for an hour (half-blind looks like working). Cure: derive
 filters from observed output, and when a notification looks oddly
 thin, read the event file directly before dismissing.
+
+## 2026-07-23 — Seed: the "unreconciled push verdict" (second instance)
+
+A verdict a seat waits on (merged / landed / ratified) carried by exactly
+ONE push signal with no pull reconciliation stalls silently when that
+signal drops. Second worked instance: the MCP-101 lane's 13.5-minute
+block on an already-merged PR — the settle watch covered the CHECKS leg
+only, and the merge broadcast (the sole push signal) was missed once.
+First instance already in memory: settle watches need a Sonar-reported
+leg. General form: every awaited verdict needs two independent signals,
+or one signal plus a pull backstop. Watching for a third instance before
+graduating to a pattern file (full analysis:
+.agent/reports/agentic-engineering/2026-07-23-mcp-101-first-fork-lane-retrospective.md).
