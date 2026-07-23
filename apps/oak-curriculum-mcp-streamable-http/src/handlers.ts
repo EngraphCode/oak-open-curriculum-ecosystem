@@ -32,6 +32,7 @@ import {
   isAppLocalToolLive,
   type ServedSurfaceDefinition,
 } from './served-surface/served-surface.js';
+import { filterCurriculumModelToolResult } from './served-surface/filter-guidance-content.js';
 import {
   createDefaultRequestExecutor,
   createStubRequestExecutor,
@@ -194,7 +195,7 @@ function registerTools(
 
     const handler = async (params: unknown, extra: Parameters<ToolCallback>[0]) => {
       options.observability.setTag('mcp.tool_name', tool.name);
-      const result = await handleToolWithAuthInterception({
+      const rawResult = await handleToolWithAuthInterception({
         tool,
         params,
         deps,
@@ -204,6 +205,13 @@ function registerTools(
         createAssetDownloadUrl: options.createAssetDownloadUrl,
         authInfo: extra.authInfo,
       });
+      // Serve-boundary filter: guidance content's structured tool
+      // references narrow to the served-surface's live entries (interim
+      // cure; the MCP-121 statement model replaces this structurally).
+      const result =
+        tool.name === 'get-curriculum-model'
+          ? filterCurriculumModelToolResult(rawResult)
+          : rawResult;
       // Outbound token health metric, per-field half: every tool result —
       // including auth errors — is measured (sizes only, never content).
       options.logger.info('MCP tool result size', {

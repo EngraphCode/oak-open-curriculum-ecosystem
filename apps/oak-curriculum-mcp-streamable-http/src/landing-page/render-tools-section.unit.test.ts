@@ -8,6 +8,7 @@
 import { AGGREGATED_TOOL_DEFS } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
 import { describe, it, expect } from 'vitest';
 
+import { SERVED_SURFACE } from '../served-surface/served-surface.js';
 import { AGGREGATED_TOOL_ORDER, renderToolsSection } from './render-tools-section.js';
 
 const AGGREGATED_TOOL_NAMES = Object.keys(AGGREGATED_TOOL_DEFS);
@@ -21,9 +22,25 @@ const SAMPLE_GENERATED_TOOL_NAMES = [
 describe('renderToolsSection', () => {
   const html = renderToolsSection();
 
-  it('includes all aggregated tool names in the rendered HTML', () => {
+  it('includes every LIVE aggregated tool name in the rendered HTML (served-surface filter)', () => {
+    const liveNames = new Set(
+      Object.entries(SERVED_SURFACE.universalTools)
+        .filter(([, state]) => state === 'live')
+        .map(([name]) => name),
+    );
     for (const name of AGGREGATED_TOOL_NAMES) {
-      expect(html).toContain(name);
+      if (liveNames.has(name)) {
+        expect(html, name).toContain(name);
+      }
+    }
+  });
+
+  it('renders no dormant tool (the page advertises exactly what a client sees)', () => {
+    const dormant = Object.entries(SERVED_SURFACE.universalTools)
+      .filter(([, state]) => state === 'dormant')
+      .map(([name]) => name);
+    for (const name of dormant) {
+      expect(html, name).not.toContain(`<code>${name}</code>`);
     }
   });
 
