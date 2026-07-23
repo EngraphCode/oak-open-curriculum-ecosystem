@@ -3,10 +3,10 @@ id: release-process
 node_type: runbook
 name: "Release process: merge to production"
 overview: "How a merge to main becomes a production deployment — CI, semantic-release, the version-bump push, the Vercel ignore-gate — and how each link is verified or recovered."
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-07-23
+ratified_where: "Owner card via the Director, 2026-07-23 — substance approved; the §Rollback no-rollback step (immutable tags/releases) accepted, dated by this stamp"
 impact_areas:
   - practice-and-estate
   - analytics-and-observability
