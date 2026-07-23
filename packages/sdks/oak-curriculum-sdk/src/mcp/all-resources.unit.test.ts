@@ -23,7 +23,6 @@ describe('ALL_MCP_RESOURCES', () => {
       'docs://oak/guidance/find-lessons.md',
       'docs://oak/guidance/explore-curriculum.md',
       'docs://oak/guidance/learning-progression.md',
-      'docs://oak/guidance/lesson-planning.md',
       'docs://oak/guidance/curriculum-mapping.md',
       'docs://oak/guidance/adapt-lesson.md',
       'docs://oak/guidance/continue-progression.md',

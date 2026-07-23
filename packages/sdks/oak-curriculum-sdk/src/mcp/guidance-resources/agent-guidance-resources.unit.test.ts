@@ -1,7 +1,7 @@
 /**
  * Unit tests for the agent guidance resource inventory.
  *
- * The inventory is the SDK-side catalogue of the seven workflow guidance
+ * The inventory is the SDK-side catalogue of the six workflow guidance
  * documents (owner-ratified live-set classification happens app-side via
  * the served-surface allowlist; this inventory carries no live/dormant
  * state of its own — it is the full available set).
@@ -19,18 +19,17 @@ const EXPECTED_URIS = [
   'docs://oak/guidance/find-lessons.md',
   'docs://oak/guidance/explore-curriculum.md',
   'docs://oak/guidance/learning-progression.md',
-  'docs://oak/guidance/lesson-planning.md',
   'docs://oak/guidance/curriculum-mapping.md',
   'docs://oak/guidance/adapt-lesson.md',
   'docs://oak/guidance/continue-progression.md',
 ] as const;
 
 describe('AGENT_GUIDANCE_RESOURCES', () => {
-  it('lists exactly the seven workflow guidance documents with unique names and URIs', () => {
-    expect(AGENT_GUIDANCE_RESOURCES).toHaveLength(7);
+  it('lists exactly the six workflow guidance documents with unique names and URIs', () => {
+    expect(AGENT_GUIDANCE_RESOURCES).toHaveLength(6);
     const uris = AGENT_GUIDANCE_RESOURCES.map((r) => r.uri);
     expect(new Set(uris)).toEqual(new Set(EXPECTED_URIS));
-    expect(new Set(AGENT_GUIDANCE_RESOURCES.map((r) => r.name)).size).toBe(7);
+    expect(new Set(AGENT_GUIDANCE_RESOURCES.map((r) => r.name)).size).toBe(6);
   });
 
   it('gives every entry agent-audience markdown metadata with spec-shaped annotations', () => {
@@ -45,11 +44,11 @@ describe('AGENT_GUIDANCE_RESOURCES', () => {
     }
   });
 
-  it('partitions the full set into the navigation three and the creation four, disjointly', () => {
+  it('partitions the full set into the navigation three and the creation three, disjointly', () => {
     expect(NAVIGATION_GUIDANCE_URIS).toHaveLength(3);
-    expect(CREATION_GUIDANCE_URIS).toHaveLength(4);
+    expect(CREATION_GUIDANCE_URIS).toHaveLength(3);
     const union = new Set([...NAVIGATION_GUIDANCE_URIS, ...CREATION_GUIDANCE_URIS]);
-    expect(union.size).toBe(7);
+    expect(union.size).toBe(6);
     expect(union).toEqual(new Set(EXPECTED_URIS));
     expect(NAVIGATION_GUIDANCE_URIS).toEqual([
       'docs://oak/guidance/find-lessons.md',
@@ -58,14 +57,10 @@ describe('AGENT_GUIDANCE_RESOURCES', () => {
     ]);
   });
 
-  it('carries source-skill provenance on the two documents derived from oak-skills', () => {
-    const lessonPlanning = AGENT_GUIDANCE_RESOURCES.find(
-      (r) => r.uri === 'docs://oak/guidance/lesson-planning.md',
-    );
+  it('carries source-skill provenance on the document derived from oak-skills', () => {
     const curriculumMapping = AGENT_GUIDANCE_RESOURCES.find(
       (r) => r.uri === 'docs://oak/guidance/curriculum-mapping.md',
     );
-    expect(lessonPlanning?._meta?.provenance).toContain('oak-lesson-planner');
     expect(curriculumMapping?._meta?.provenance).toContain('oak-curriculum-mapper');
   });
 });
@@ -97,7 +92,6 @@ describe('getAgentGuidanceContent', () => {
 
   it('preserves the OGL attribution obligation on every document grounded in Oak data reuse', () => {
     const attributionCarrying = [
-      'docs://oak/guidance/lesson-planning.md',
       'docs://oak/guidance/curriculum-mapping.md',
       'docs://oak/guidance/adapt-lesson.md',
       'docs://oak/guidance/continue-progression.md',

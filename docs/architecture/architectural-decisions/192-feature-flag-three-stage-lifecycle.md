@@ -1,15 +1,27 @@
 # ADR-192: Feature-Flag Three-Stage Lifecycle
 
-**Status**: Accepted
-**Date**: 2026-06-06 (ratified by owner 2026-06-06)
-**Related**:
-[ADR-191](191-deterministic-data-surface-agent-reasons.md)
-(the EEF evidence surface that introduced the live instance of this lifecycle);
-the EEF plan's **D7** in
-`eef-graph-tool-completion.plan.md`
-(the pre-release → release-pre-proof move in flight);
-`eef-outcome-evaluation-infrastructure.plan.md`
-(owns the post-proof flag removal).
+**Status**: Accepted (amended 2026-07-23)
+
+> **Amendment (2026-07-23 — mcp-101 visible-surface allowlist).** A second
+> exit from the lifecycle now exists: a flag whose ONLY job is
+> registration-surface membership can be superseded by the declarative
+> served-surface definition rather than completing the three stages. Worked
+> instances: `OAK_CURRICULUM_MCP_USER_SEARCH_ENABLED` (pre-release, exited
+> at stage 1) and `OAK_CURRICULUM_MCP_EEF_ENABLED` (release-pre-proof,
+> exited at stage 2) — both now live/dormant rows in
+> `apps/oak-curriculum-mcp-streamable-http/src/served-surface/`, where
+> enabling or disabling is a reviewed change. The lifecycle below still
+> governs flags for runtime behaviour (kill-switches whose flip must not
+> require a deploy).
+> **Date**: 2026-06-06 (ratified by owner 2026-06-06)
+> **Related**:
+> [ADR-191](191-deterministic-data-surface-agent-reasons.md)
+> (the EEF evidence surface that introduced the live instance of this lifecycle);
+> the EEF plan's **D7** in
+> `eef-graph-tool-completion.plan.md`
+> (the pre-release → release-pre-proof move in flight);
+> `eef-outcome-evaluation-infrastructure.plan.md`
+> (owns the post-proof flag removal).
 
 ## Context
 

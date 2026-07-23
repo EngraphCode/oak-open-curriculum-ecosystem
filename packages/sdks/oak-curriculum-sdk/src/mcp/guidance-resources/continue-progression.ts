@@ -5,10 +5,8 @@
  * turns it live). The teacher states their position (subject, year group,
  * what was just covered) and the workflow resolves the next step from
  * Oak's curriculum sequence, checks readiness via the prior-knowledge
- * graph, anticipates the upcoming misconceptions, then chains into the
- * lesson-planning guidance for the resolved topic — planning substance
- * stays single-sourced there (the S3 reconciliation discipline:
- * extend/merge, never a third planning surface).
+ * graph, anticipates the upcoming misconceptions, then plans the resolved
+ * topic grounded in the lesson's own summary, transcript, and quiz.
  */
 
 import type { AgentGuidanceResource } from './guidance-resource-types.js';
@@ -66,15 +64,16 @@ guidance. MCP tool names may appear prefixed
    — the tool takes exactly one anchor mode per call — and summarise the
    recorded misconceptions and teacher responses for the upcoming content,
    so the teacher plans around the errors pupils actually make.
-5. **Build the lesson.** Continue with the lesson-planning guidance
-   workflow for the resolved next topic rather than restating it here —
-   planning substance stays in the lesson-planning guidance. Use the next
-   unit's teaching year from step 2 for that workflow, since the
-   progression can place the next unit on a different year than the class
-   label; if that year differs from the teacher's year group, say so and
-   let the teacher decide which year to plan for. Carry the readiness list
-   and the misconceptions from steps 3-4 into that plan, attribution
-   intact.
+5. **Build the lesson.** Plan the resolved next topic grounded in Oak's
+   own materials: pull the selected lesson's summary
+   (\`get-lessons-summary\`) as the model, its transcript
+   (\`get-lessons-transcript\`) for content delivery, and its quiz
+   (\`get-lessons-quiz\`) for assessment shape. Use the next unit's
+   teaching year from step 2, since the progression can place the next
+   unit on a different year than the class label; if that year differs
+   from the teacher's year group, say so and let the teacher decide which
+   year to plan for. Carry the readiness list and the misconceptions from
+   steps 3-4 into the plan, attribution intact.
 
 The next step is a recommendation grounded in Oak's published sequence,
 not a mandate — present the reasoning and any near alternatives from the

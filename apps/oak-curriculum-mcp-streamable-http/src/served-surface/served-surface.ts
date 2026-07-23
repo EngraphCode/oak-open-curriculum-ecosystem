@@ -107,12 +107,12 @@ export const SERVED_SURFACE = {
     // by this definition (disabling it is a reviewed change here).
     'eef://interpretation': 'live',
     'ui://widget/oak-curriculum-app-local.html': 'live',
-    // Agent guidance documents (decisions register D11 ratified live-set):
-    // the navigation three live, the creation-oriented four retained dormant.
+    // Agent guidance documents (decisions register D11 as amended by the
+    // owner 2026-07-23 — the lesson-planning placeholder deleted outright):
+    // the navigation three live, the creation-oriented three retained dormant.
     'docs://oak/guidance/find-lessons.md': 'live',
     'docs://oak/guidance/explore-curriculum.md': 'live',
     'docs://oak/guidance/learning-progression.md': 'live',
-    'docs://oak/guidance/lesson-planning.md': 'dormant',
     'docs://oak/guidance/curriculum-mapping.md': 'dormant',
     'docs://oak/guidance/adapt-lesson.md': 'dormant',
     'docs://oak/guidance/continue-progression.md': 'dormant',

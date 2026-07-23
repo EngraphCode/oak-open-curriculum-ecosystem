@@ -1,5 +1,5 @@
 /**
- * Inventory of the agent guidance resources — the seven workflow guidance
+ * Inventory of the agent guidance resources — the six workflow guidance
  * documents, re-homed from the former user-invoked MCP prompts as
  * agent-readable resource documents (owner ruling, decisions register D11).
  *
@@ -33,7 +33,6 @@ import {
   LEARNING_PROGRESSION_GUIDANCE,
   LEARNING_PROGRESSION_GUIDANCE_MARKDOWN,
 } from './learning-progression.js';
-import { LESSON_PLANNING_GUIDANCE, LESSON_PLANNING_GUIDANCE_MARKDOWN } from './lesson-planning.js';
 import {
   CURRICULUM_MAPPING_GUIDANCE,
   CURRICULUM_MAPPING_GUIDANCE_MARKDOWN,
@@ -48,13 +47,12 @@ export type { AgentGuidanceResource } from './guidance-resource-types.js';
 
 /**
  * Every agent guidance document, in workflow order: the navigation three,
- * then the creation-oriented four.
+ * then the creation-oriented three.
  */
 export const AGENT_GUIDANCE_RESOURCES: readonly AgentGuidanceResource[] = [
   FIND_LESSONS_GUIDANCE,
   EXPLORE_CURRICULUM_GUIDANCE,
   LEARNING_PROGRESSION_GUIDANCE,
-  LESSON_PLANNING_GUIDANCE,
   CURRICULUM_MAPPING_GUIDANCE,
   ADAPT_LESSON_GUIDANCE,
   CONTINUE_PROGRESSION_GUIDANCE,
@@ -72,12 +70,12 @@ export const NAVIGATION_GUIDANCE_URIS: readonly string[] = [
 ];
 
 /**
- * The creation-oriented four (ratified dormant in the first release,
- * decisions register D11): retained in full, served only when the app's
- * allowlist deliberately turns them live.
+ * The creation-oriented three (dormant, decisions register D11 as amended
+ * by the owner 2026-07-23: the lesson-planning placeholder is deleted
+ * outright): retained in full as concepts to explore, served only when
+ * the app's allowlist deliberately turns them live.
  */
 export const CREATION_GUIDANCE_URIS: readonly string[] = [
-  LESSON_PLANNING_GUIDANCE.uri,
   CURRICULUM_MAPPING_GUIDANCE.uri,
   ADAPT_LESSON_GUIDANCE.uri,
   CONTINUE_PROGRESSION_GUIDANCE.uri,
@@ -87,7 +85,6 @@ const CONTENT_BY_URI: ReadonlyMap<string, string> = new Map([
   [FIND_LESSONS_GUIDANCE.uri, FIND_LESSONS_GUIDANCE_MARKDOWN],
   [EXPLORE_CURRICULUM_GUIDANCE.uri, EXPLORE_CURRICULUM_GUIDANCE_MARKDOWN],
   [LEARNING_PROGRESSION_GUIDANCE.uri, LEARNING_PROGRESSION_GUIDANCE_MARKDOWN],
-  [LESSON_PLANNING_GUIDANCE.uri, LESSON_PLANNING_GUIDANCE_MARKDOWN],
   [CURRICULUM_MAPPING_GUIDANCE.uri, CURRICULUM_MAPPING_GUIDANCE_MARKDOWN],
   [ADAPT_LESSON_GUIDANCE.uri, ADAPT_LESSON_GUIDANCE_MARKDOWN],
   [CONTINUE_PROGRESSION_GUIDANCE.uri, CONTINUE_PROGRESSION_GUIDANCE_MARKDOWN],
