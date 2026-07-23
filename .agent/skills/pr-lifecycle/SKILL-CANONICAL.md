@@ -632,6 +632,16 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   update lands and checks re-run, the merge remains the explicit command
   at the state machine's merge boundary (item 5), issued by hand at a
   freshly recomputed gate.
+- **CI runs the test-merge with CURRENT main.** A mid-round main landing
+  that moves a mirrored asset (a kit file vs a tracked copy under
+  `public/`, or any tracked parity copy) can red a parity test on your
+  round with no push of yours (two instances, 2026-07-20/23). Any lane
+  carrying a tracked parity copy inherits this class; the cure is one
+  push that folds main AND refreshes the copy byte-identically.
+- **A bot re-review round binds ~5–10 minutes after the request.**
+  Requesting re-review before the final push of a batch wastes the round
+  — it binds to the pre-push tip (three instances, 2026-07-21). Push the
+  complete batch first, then request.
 
 ## Phase 8 — After merge
 

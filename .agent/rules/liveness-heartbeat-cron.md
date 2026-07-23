@@ -173,6 +173,30 @@ active-on-lane. Direct ping with a one-cadence reply window; if silent,
 broadcast takeover or route-adjustment intent before acting. See
 PDR-078 §6.
 
+**The autonomous-emitter generator** (three instances, 2026-07-20/21):
+heartbeat loops run in the platform's background-task layer,
+independent of the reasoning loop — a SUSPENDED harness (or a seat
+whose main loop is wedged) heartbeats on schedule indefinitely,
+asserting a liveness the seat does not have. One seat emitted perfect
+≤4-min heartbeats through a ~64-minute harness suspension; two peer
+seats heartbeated for 40+ minutes while their main loops processed
+nothing. Emitter presence is therefore NEVER a liveness verdict on its
+own; the detection that works is the observe-side pair this rule
+already names — substantive response to a direct ping, plus the
+work-evidence cross-check (branch tips, comms absorption, PR
+activity). Weight substantive-response over heartbeat presence, always.
+
+**Liveness arithmetic is tool-computed, UTC-vs-UTC, always.** Three
+worked errors in one class: a false ~58-minute silence computed by
+comparing comms UTC timestamps against a local-BST wall clock led to a
+premature Director takeover (2026-06-25); the identical trap recurred
+at a standby seat three days later (2026-06-28); and a seat reading
+BATCHED monitor notifications drifted ahead of the wall clock and
+nearly fired a false-silence escalation (2026-07-21). Hand-computed
+elapsed time is banned for liveness verdicts at every seat: compute
+ages with the tooling (`comms peer-liveness`, or explicit `date -u`
+against event `created_at` deltas), never by eyeballing timestamps.
+
 The work-evidence cross-check that precedes any bounded-deadline
 default MUST include remote surfaces — PR pushes, review replies, and
 check activity via `gh` — not only comms and local git. An agent can be

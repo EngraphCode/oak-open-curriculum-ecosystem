@@ -75,7 +75,8 @@ set -- pnpm agent-tools:collaboration-state -- comms watch \
   --platform <claude|codex|cursor> \
   --model <model-id> \
   --supervisor-pid "$PPID" \
-  --step-timeout-ms 120000
+  --step-timeout-ms 120000 \
+  --max-events 100
 TIMEOUT_BIN="$(command -v timeout || command -v gtimeout || true)"
 [ -n "$TIMEOUT_BIN" ] && set -- "$TIMEOUT_BIN" 3600 "$@"
 exec "$@"
@@ -165,6 +166,30 @@ climb-forever path. The structural cure —
 batched/incremental drain with per-batch deadlines, or moving the scan off
 the deadline path — is homed in the
 `agent-tooling/current/comms-watch-storage-redesign.plan.md` plan.
+
+### Cursor movement is the health check; bound the drain batch
+
+`--max-events 100` in the canonical invocation bounds each drain batch
+so EVERY pass advances the seen-file cursor. Without it, a large unseen
+backlog makes the drain exceed its deadline BEFORE the first mark-seen,
+every pass — a self-restarting watcher then spins indefinitely,
+emitting restart heartbeats while its cursor sits unmoved (worked
+instance 2026-07-23: ~14 hours of `[watcher restarting]` with the
+cursor frozen at the previous day; zero events lost only by luck of a
+quiet stream). The health check for ANY self-restarting monitor is
+therefore **cursor movement, never process liveness**: after arming,
+verify the progress artefact (seen-file mtime / entry count) advanced;
+a restart heartbeat is not progress.
+
+Two filter-vocabulary disciplines from the same tending window
+(2026-07-23): (1) with `--step-timeout-ms`, an IDLE watcher's drain
+step times out and restarts BY DESIGN — benign; filter the specific
+deadline message out of alerting, never the whole error class. (2)
+Derive notification filters from the emitter's OBSERVED output, never
+from memory of the schema — the watch emits `title:`, not `subject:`;
+a filter written from the schema delivered from-lines with no titles
+for an hour (half-blind looks like working). When a notification looks
+oddly thin, read the event file directly before dismissing.
 
 ### Supervision must live on the notification path, never a wrapper loop
 

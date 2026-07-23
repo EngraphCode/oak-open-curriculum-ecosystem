@@ -484,6 +484,16 @@ Before opening the four-move protocol above:
    arrives (F-131 class, re-observed 2026-07-07). Backgrounding
    properly is the rule; an until-loop wake on HEAD movement is only
    the recovery shape after a detach has already happened.
+6. **One gated commit per invocation — read the gate result before the
+   next commit's `add`.** Never chain two gated commits in one shell
+   invocation: if the first fails its gate, its bundle stays staged and
+   the chained second commit SWEEPS it (worked instance 2026-07-22: a
+   commitlint subject-case failure left cycle 1 staged; the chained
+   cycle-2 commit swept both bundles into one). Layered gates also mask
+   serially (prettier, then whole-tree lint, then commit-msg each
+   surface only after the previous is cured) — the pre-draft message
+   check in step 4 collapses the commit-msg layer out of that ladder
+   for ~1s of cost.
 
 ## Advisory Orchestrator In Isolation
 
