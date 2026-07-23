@@ -23,10 +23,13 @@
 
 import { describe, it, expect, vi } from 'vitest';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { z } from 'zod';
+import { getCurriculumModelJson } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
 import { registerHandlers } from '../handlers.js';
 import { renderToolsSection } from '../landing-page/render-tools-section.js';
 import { renderResourcesSection } from '../landing-page/render-resources-section.js';
 import { SERVED_SURFACE } from './served-surface.js';
+import { filterCurriculumModelJson } from './filter-guidance-content.js';
 import {
   createFakeSearchRetrieval,
   createFakeLogger,
@@ -70,6 +73,33 @@ const toolsSectionHtml = renderToolsSection();
 const resourcesSectionHtml = renderResourcesSection();
 
 /**
+ * Structured tool references in the SERVED curriculum-model guidance —
+ * read through the same serve-boundary filter the resource and tool
+ * legs apply (interim cure; the MCP-121 statement model replaces it
+ * structurally, and this surface entry then probes the model's own
+ * served projection). Category `tools` arrays are the structured
+ * references; workflow steps and prose are MCP-121 territory.
+ */
+const GUIDANCE_TOOL_REFS: ReadonlySet<string> = (() => {
+  const MODEL = z
+    .object({
+      toolGuidance: z
+        .object({
+          toolCategories: z.record(
+            z.string(),
+            z.object({ tools: z.array(z.string()).optional() }).loose(),
+          ),
+        })
+        .loose(),
+    })
+    .loose();
+  const parsed = MODEL.parse(JSON.parse(filterCurriculumModelJson(getCurriculumModelJson())));
+  return new Set(
+    Object.values(parsed.toolGuidance.toolCategories).flatMap((category) => category.tools ?? []),
+  );
+})();
+
+/**
  * The single enumeration of tool-rendering surfaces. A surface maps a
  * tool name to "does this surface present it?", and names one LIVE
  * control whose presence proves the probe still matches the surface's
@@ -89,6 +119,11 @@ const TOOL_SURFACES: readonly {
   {
     surface: 'landing-page tools section',
     presents: (name) => toolsSectionHtml.includes(`<code>${name}</code>`),
+    liveControl: 'search',
+  },
+  {
+    surface: 'served guidance content (curriculum-model tool references)',
+    presents: (name) => GUIDANCE_TOOL_REFS.has(name),
     liveControl: 'search',
   },
 ];
