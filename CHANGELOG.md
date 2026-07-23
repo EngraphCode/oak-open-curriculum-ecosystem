@@ -1,3 +1,11 @@
+# [1.85.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.84.2...v1.85.0) (2026-07-23)
+
+
+### Features
+
+* **landing-page:** render active tools only + cross-surface dormant-absence invariant ([76eaf11](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/76eaf11e649d3953e24cff3e4262b691fca48b52))
+* **served-surface:** filter guidance tool references to live entries at the serve boundary ([d789efb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d789efb6b662eee043f9037d674355bb4631bb4b))
+
 ## [1.84.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.84.1...v1.84.2) (2026-07-23)
 
 ## [1.84.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.84.0...v1.84.1) (2026-07-23)
