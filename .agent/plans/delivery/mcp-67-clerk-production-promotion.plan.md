@@ -3,7 +3,10 @@ id: mcp-67-clerk-production-promotion
 node_type: delivery
 name: "Clerk production promotion: the app runs on production sign-in"
 overview: "Create and validate the dedicated production Clerk instance behind the existing proxy boundary — guards first, owner ceremony second, paired live validation third — with the canonical origin held as a named joint with the domain-mint lane."
-status: sketch
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-07-23
+ratified_where: "Owner zero-open-PRs disposition card (chat, Bonfire seat), 2026-07-23 — ratify-now answer; the plan's two internal owner gates keep their own 2026-07-26 expiries"
 serves: first-major-release
 impact_areas:
   - auth-and-access
