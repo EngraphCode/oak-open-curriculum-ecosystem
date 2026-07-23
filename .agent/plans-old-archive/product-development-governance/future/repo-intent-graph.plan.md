@@ -37,7 +37,7 @@ design_inputs:
 >   (the living idea-graph) and its executable
 >   [planning-estate-rewrite plan](../../../plans-backlog-2026-07/product-development-governance/current/planning-estate-rewrite.plan.md).
 > - **The plan standard (node-schema #1) and the orthogonal plan-state axes** →
->   [plan-node-schema.v0.md](../../../plans/plan-node-schema.v0.md).
+>   [plan-node-schema.v0.md](../../../plans-v0-sketch-2026-07-21/plan-node-schema.v0.md).
 > - **The DORA delivery-metrics design (§Delivery-performance metrics, §Closing the loop)** →
 >   [ADR-207](../../../../docs/architecture/architectural-decisions/207-dora-delivery-metrics-as-a-structural-property.md).
 > - **External systems as evidence edges and the actuation layer (§From structure to system)** →
@@ -148,7 +148,7 @@ by **Stage 1** and consumed by the controlling plan's **Body 3** as its Anchor B
 standard) and Anchor A (the registry the `serves_strategic_choice` edge resolves against).
 
 **V0 of node-schema #1 is authored (docs):**
-[`plan-node-schema.v0.md`](../../../plans/plan-node-schema.v0.md) — decision-complete as V0, explicitly
+[`plan-node-schema.v0.md`](../../../plans-v0-sketch-2026-07-21/plan-node-schema.v0.md) — decision-complete as V0, explicitly
 pre-survey. It is the **lens the Stage-2 survey reads the estate against**: a falsifiable,
 complete, checkable shape (every field, enum, and edge stated definitely, each tagged with its
 refinement-exposure: LOCKED / SURVEY-MAY-ADD / OWNER-RESERVED). The build half of Stage 1.2 (the
@@ -453,7 +453,7 @@ graph is precisely the substrate that lets delivery be measured coherently acros
 **Build-gated.** None of this is built here. It is the design intent the contract must serve, so
 the later, owner-gated build composes in rather than retrofits. The `validated_by` edge and the
 cost/accuracy evidence edges are reserved in node-schema #1's vocabulary
-([plan-node-schema.v0.md §5.5](../../../plans/plan-node-schema.v0.md)).
+([plan-node-schema.v0.md §5.5](../../../plans-v0-sketch-2026-07-21/plan-node-schema.v0.md)).
 
 ## From structure to system — the evidence-ingestion requirement (the part that makes it real)
 

@@ -28,7 +28,7 @@ historical context, not the active method.
 > as its conformance standard (Anchor B). It reconciles
 > [PDR-018](../practice-core/decision-records/PDR-018-planning-discipline.md),
 > [ADR-117](../../docs/architecture/architectural-decisions/117-plan-templates-and-components.md),
-> the [plan templates](templates/README.md), and the emergent frontmatter
+> the [plan templates](../plans/templates/README.md), and the emergent frontmatter
 > reality. The human-facing governance calls (the closed enum _values_ for the
 > human-facing axes, the folder collapse, and the default gate-expiry horizon) are
 > **owner-signed**: V0 records the settled outcome for each below; the enum
