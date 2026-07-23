@@ -1,3 +1,10 @@
+# [1.84.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.83.0...v1.84.0) (2026-07-23)
+
+
+### Features
+
+* **served-surface:** gate the EEF pair dormant — v1 live set finalised (owner card 2026-07-23) ([9ee7b64](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9ee7b64dc5b8b49999688f7e2f1afa7700d28f67))
+
 # [1.83.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.82.5...v1.83.0) (2026-07-23)
 
 
