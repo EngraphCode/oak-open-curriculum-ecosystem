@@ -70,7 +70,6 @@ function registerAndCapture(
 ) {
   const server = new McpServer({ name: 'test-server', version: '0.0.0' });
   const registerToolSpy = vi.spyOn(server, 'registerTool');
-  const registerPromptSpy = vi.spyOn(server, 'registerPrompt');
 
   registerHandlers(server, {
     servedSurface: options.servedSurface ?? ALL_UNIVERSAL_TOOLS_LIVE,
@@ -81,7 +80,7 @@ function registerAndCapture(
     getWidgetHtml: () => '<!doctype html><html><body>test-widget</body></html>',
   });
 
-  return { server, registerToolSpy, registerPromptSpy };
+  return { server, registerToolSpy };
 }
 
 describe('Tool Registration (Integration)', () => {

@@ -3,12 +3,11 @@
  *
  * Composes the complete landing page HTML by combining the HTML head,
  * hero section, connection instructions, and collapsible sections for
- * resources, prompts, and tools.
+ * resources and tools.
  */
 
 import { createSnippet } from './create-snippet.js';
 import { HTML_HEAD } from './html-head.js';
-import { renderPromptsSection } from './render-prompts-section.js';
 import { renderResourcesSection } from './render-resources-section.js';
 import { renderToolsSection } from './render-tools-section.js';
 
@@ -34,7 +33,7 @@ function renderHtmlHead(appVersion: string | undefined): string {
  * - Hero explainer text for educators
  * - Server status and route information
  * - Connection instructions with JSON config snippet
- * - Collapsible sections for resources, prompts, and tools
+ * - Collapsible sections for resources and tools
  * - Documentation links
  *
  * @param vercelHost - Optional Vercel host header value for URL resolution.
@@ -54,7 +53,6 @@ function renderHtmlHead(appVersion: string | undefined): string {
  */
 export function renderLandingPageHtml(vercelHost?: string, appVersion?: string): string {
   const toolsSection = renderToolsSection();
-  const promptsSection = renderPromptsSection();
   const resourcesSection = renderResourcesSection();
 
   return `${renderHtmlHead(appVersion)}
@@ -73,7 +71,6 @@ export function renderLandingPageHtml(vercelHost?: string, appVersion?: string):
       </section>
 
       ${resourcesSection}
-      ${promptsSection}
       ${toolsSection}
 
       <section class="card">
