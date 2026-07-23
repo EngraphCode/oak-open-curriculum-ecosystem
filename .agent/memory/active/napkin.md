@@ -923,3 +923,19 @@ this froze?" as the reground closer). If the association holds, the
 general rule is one sentence: nothing frozen acts until probed against
 the live surface it claims to describe. Worth watching for a fourth
 instance before graduating.
+
+## 2026-07-23 — Owner-observed fork benefit: zero-prep siblings (~10 min saved per seat)
+
+Owner observation at first fleet-forking (2026-07-23): forks cut from
+a certified fixed-point baseline are "ready to go straight away,
+which cuts maybe ten minutes of prep time" per seat — the inherited
+context IS the grounding, so the sibling skips cold-start reading and
+goes straight to ceremony (identity derivation, registration, lane
+ack) then work. Observed live: Coyote went fork → registration →
+lane-ack with claim open and worktree cut in ~3 minutes. The saving
+compounds with fleet size and with every re-cut of the base; it is
+the payoff side of the compact→reground→fork pipeline whose cost side
+(the reground step) was captured earlier. Also proven same morning:
+the successor-in-waiting pattern (Heron forked as Barque's eventual
+successor) — standby seats can now be staged for free from the same
+base.
