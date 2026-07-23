@@ -24,6 +24,7 @@ import {
   WIDGET_URI,
 } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
 import { isResourceLive } from './served-surface/served-surface.js';
+import { filterCurriculumModelJson } from './served-surface/filter-guidance-content.js';
 
 import {
   type ResourceRegistrar,
@@ -68,7 +69,9 @@ export function registerCurriculumModelResource(server: ResourceRegistrar): void
       {
         uri,
         mimeType: CURRICULUM_MODEL_RESOURCE.mimeType,
-        text: getCurriculumModelJson(),
+        // Serve-boundary filter: guidance tool references narrowed to the
+        // served-surface's live entries (interim cure; MCP-121 replaces).
+        text: filterCurriculumModelJson(getCurriculumModelJson()),
       },
     ],
   }));
