@@ -568,14 +568,17 @@ describe('registerAllResources matches the served-surface definition (drift guar
   });
 
   it('a dormant row removes its resource — the definition governs, not any flag', async () => {
-    const withEefDormant = {
+    // Targets a canonically-LIVE row so this stays a live->dormant flip
+    // demonstration (eef://interpretation, the previous target, is now
+    // dormant in the canonical definition and would prove nothing).
+    const withModelDormant = {
       ...SERVED_SURFACE,
-      resources: { ...SERVED_SURFACE.resources, 'eef://interpretation': 'dormant' as const },
+      resources: { ...SERVED_SURFACE.resources, 'curriculum://model': 'dormant' as const },
     };
-    registerAllResources(server, createTestOptions(undefined, withEefDormant));
+    registerAllResources(server, createTestOptions(undefined, withModelDormant));
     await flush();
 
     const uris = Array.from(registeredResources.keys());
-    expect(uris).not.toContain('eef://interpretation');
+    expect(uris).not.toContain('curriculum://model');
   });
 });
