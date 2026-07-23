@@ -906,3 +906,20 @@ fixed-point baseline cut for forking carries these rules inside itself
 so they are inherited, not discovered. Also: harness restarts can
 leave live background duplicates — check `claude agents` after any
 unexpected restart.
+
+## 2026-07-23 — Play seed: frozen-copy re-assertion is one pathogen class (marked as a play seed, association not finding)
+
+From the pre-fork free-play pass: the Leopard instance (grounding on
+frozen succession records), the Thistle instance (inherited memory
+read as tenure), and the older stale-capture-wins instance (a capture
+branch's old file copies silently reverting main through a CLEAN
+merge) look shaped alike — in each, a FROZEN COPY of once-true state
+re-asserts itself over live truth through a process that looks
+legitimate at every step (grounding, remembering, merging). The cures
+we cut separately also look shaped alike: probe the frozen thing
+against live ground truth BEFORE letting it act (marker-probe captured
+files; registry-row check before seat adoption; "what changed since
+this froze?" as the reground closer). If the association holds, the
+general rule is one sentence: nothing frozen acts until probed against
+the live surface it claims to describe. Worth watching for a fourth
+instance before graduating.
