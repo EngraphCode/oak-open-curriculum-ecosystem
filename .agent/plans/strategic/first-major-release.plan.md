@@ -86,11 +86,15 @@ onto this node — one line each, pointers never duplicates.
   outright (owner comment on #486); the creation-oriented dormant set
   is three documents, not four; other prompt-era concepts preserved as
   pointer ticket MCP-124.
-- 2026-07-23 — D18: canonical-address target minted — serve the app at
-  `www.thenational.academy/mcp`, mint-not-move (the current host keeps
-  serving); the content-negotiation triple proven live in production
-  since v1.82.0; the edge-config change is in-scope agent work after
-  proof; switchover awaits owner-side coordination.
+- 2026-07-23 — D18 (amended, owner word ~16:45): the canonical-address
+  target widens to two options on the table — `www.thenational.academy/mcp`
+  (main-domain front door; integrating into the main website adds
+  substantial work) and `mcp.thenational.academy` (dedicated subdomain;
+  DNS and zone-owner engagement only). Decision deferred to the
+  zone-owner engagement; mint-not-move either way (the current host
+  keeps serving); the content-negotiation triple proven live in
+  production since v1.82.0 is domain-agnostic and serves either. The
+  authoritative record is the MCP-122 ticket comment (2026-07-23).
 - 2026-07-23 — Release-flow silent stall (new entry): a ruleset split
   dropped the semantic-release bot's bypass, GH013 blocked the
   version-bump push, and production sat on v1.81.3 silently while main
