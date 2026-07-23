@@ -102,6 +102,7 @@ function renderFromInputs(inputs: Extract<StatuslinePlan, { kind: 'render' }>['i
       model: inputs.model,
       sessionShape: gatherSessionShape(git.primaryRoot, identity),
       ...gatherOwnerJobs(git.primaryRoot),
+      effortLevel: inputs.effortLevel,
     },
     { logo, logoFrame: resolveLogoFrame(logo, inputs.seed) },
   );

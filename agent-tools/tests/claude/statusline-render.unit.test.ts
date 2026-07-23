@@ -25,6 +25,7 @@ const base: StatuslineParts = {
   coordinationBranch: undefined,
   coordinationPlace: undefined,
   error: undefined,
+  effortLevel: undefined,
 };
 
 /** The rendered line containing a needle — the unit of behaviour, independent of row geometry. */
@@ -178,6 +179,40 @@ describe('renderStatusline — linked worktree', () => {
     });
     expect(lineWith(out, 'main')).toContain('coord:');
     expect(out).toContain('feat/eef-explore-evidence');
+  });
+});
+
+describe('renderStatusline — reasoning effort on the checkout row', () => {
+  it('appends e:<level> after the checkout name in the primary layout', () => {
+    const out = renderStatusline({
+      ...base,
+      dir: 'oak-open-curriculum-ecosystem',
+      branch: 'main',
+      effortLevel: 'high',
+    });
+    expect(stripAnsi(lineWith(out, 'oak-open-curriculum-ecosystem'))).toContain(
+      'oak-open-curriculum-ecosystem · e:high',
+    );
+    expect(lineWith(out, 'main')).not.toContain('e:high');
+  });
+
+  it('appends e:<level> to the worktree row in the linked-worktree layout, never the coordination rows', () => {
+    const out = renderStatusline({
+      ...base,
+      dir: 'oak-wt-eef',
+      branch: 'feat/eef-explore-evidence',
+      worktree: 'oak-wt-eef',
+      coordinationBranch: 'coordination/worktree-pilot',
+      coordinationPlace: 'oak-open-curriculum-ecosystem',
+      effortLevel: 'max',
+    });
+    expect(stripAnsi(lineWith(out, 'oak-wt-eef'))).toContain('e:max');
+    expect(lineWith(out, 'coordination/worktree-pilot')).not.toContain('e:max');
+    expect(lineWith(out, 'oak-open-curriculum-ecosystem')).not.toContain('e:max');
+  });
+
+  it('renders no effort segment when the level is absent', () => {
+    expect(renderStatusline({ ...base, dir: 'repo' })).not.toContain('e:');
   });
 });
 

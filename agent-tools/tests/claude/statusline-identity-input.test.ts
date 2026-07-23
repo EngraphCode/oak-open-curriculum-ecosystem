@@ -92,4 +92,19 @@ describe('planStatuslineExecution', () => {
       planStatuslineExecution('{"session_id":"   ","context_window":{"used_percentage":"nope"}}'),
     ).toMatchObject({ inputs: { seed: undefined, usedPercentage: undefined } });
   });
+
+  it('extracts effort.level, and treats an absent or malformed effort as no level', () => {
+    // The harness sends `effort.level` (low|medium|high|xhigh|max) for models
+    // that support the effort parameter, reflecting live /effort changes.
+    expect(planStatuslineExecution('{"effort":{"level":"high"}}')).toMatchObject({
+      inputs: { effortLevel: 'high' },
+    });
+    expect(planStatuslineExecution('{}')).toMatchObject({ inputs: { effortLevel: undefined } });
+    expect(planStatuslineExecution('{"effort":{"level":7}}')).toMatchObject({
+      inputs: { effortLevel: undefined },
+    });
+    expect(planStatuslineExecution('{"effort":"max"}')).toMatchObject({
+      inputs: { effortLevel: undefined },
+    });
+  });
 });

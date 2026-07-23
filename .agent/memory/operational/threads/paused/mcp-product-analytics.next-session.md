@@ -115,6 +115,7 @@ processors other than PostHog and guarded Sentry.
 | --- | --- | --- | --- | --- | --- | --- |
 | Glassy Flowing Stern | cursor | composer-2.5 | de55d6 | design author | 2026-05-26 | 2026-05-26 |
 | Stellar Glowing Satellite | claude | claude-opus-4-7 | 9a2967 | programme + amendments author | 2026-05-26 | 2026-05-26 |
+| Urchin hunts Surf | claude-code | claude-fable-5 | b51773 | implementer — MCP-63 slice-1 build HALTED by owner word (unplanned); frozen branch dd8df27f8 pushed bare, design record on the ticket | 2026-07-22 | 2026-07-22 |
 
 ## Standing decisions (thread carries forward)
 
