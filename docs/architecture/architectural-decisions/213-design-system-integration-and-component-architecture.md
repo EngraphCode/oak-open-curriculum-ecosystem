@@ -7,7 +7,8 @@
   a claim already discharged). Drafted 2026-07-19, reframed same day on owner direction —
   integration, not vendoring; §2 amended 2026-07-19 — overlay completeness model and
   colour-value grammar, evidence-driven; §2 amended 2026-07-20 — dual-gate window,
-  comparand filter, fixpoint resolution, ratified gate levels (PR3 cycle 3); AIP-137.
+  comparand filter, fixpoint resolution, ratified gate levels (PR3 cycle 3); §3 amended
+  2026-07-23 — the owned React component tier (owner substance at the sitting); AIP-137.
 - **Supersedes in part:** [ADR-148](148-design-token-architecture.md) §Source Format (the
   source-of-truth direction only; the three-tier model, contrast gate, and delivery format
   stand)
@@ -339,6 +340,37 @@ Standing rules:
   widget ships — a ship condition without an executor is discharged by assertion, which is
   the Radix failure mode in local colours.
 
+**Amendment (2026-07-23, owner substance at the sitting): the owned React component
+tier.** The owner's original vision for the integrated system includes ALL the building
+blocks. The system adopts a **curated, owned React component package** alongside the
+tokens and class library: components adopted from `studio-source/` **with ownership** —
+each adopted component moves out of `studio-source/` and under the full quality gate in
+the same change (the §1 production/source boundary rule is the adoption mechanism, not a
+new mechanism), reviewed, tested, and carried on the workspace's semver contract.
+Ownership means the repo copy is canonical and evolves here; it is never a vendored
+mirror of the studio.
+
+- **Supersedes, within the standing rules above:** (a) "the design system's four
+  compiled React components stay off the workspace's export surface" — the owned tier
+  is precisely such an export surface, and the four compiled components are its seed;
+  (b) "no shared React component workspace yet" as a standing state — the curated
+  package is the shared home. The consolidate-at-second-consumer trigger continues to
+  govern when app-composed widgets graduate into it; adoption from `studio-source/` is
+  curation on owner substance, not a second-consumer event.
+- **Stands unchanged:** the tier-3 token contract (owned components consume tier-3
+  tokens identically to the class library — the invariant the re-wrap rejection
+  protects; the rejection of re-wrapping the _class library itself_ in a component
+  layer therefore also stands); the wrapped-widget accessibility checklist per
+  component and the symmetric audit doctrine (no path ships on asserted
+  accessibility); the decision table above for app-built widgets; the §4 dependency
+  direction.
+- **Landing sequence (pointers, not specs):** the package lands via its own
+  implementing lane. At that landing, `.design-sync/conventions.md`'s "exports no
+  React components" line rewrites and the design re-sync ships the component sources
+  (recorded in `.design-sync/NOTES.md`); fixtures-as-parity migrates from
+  reference-proof duty to the owned tier's own tests. Until the landing, the built-CSS
+  export surface stands as §4 records it.
+
 App-shell prerequisites for Base UI (Next 16 / React 19): `isolation: isolate` on the app root
 container (portal stacking) and `position: relative` on `body` (iOS 26+). Composed widgets are
 leaf `'use client'` files; pages and layouts stay server components.
@@ -375,7 +407,9 @@ design-tokens-core  →  oak-design-system  →  oak-design-tokens  →  oak-des
 Arrow reads "may be imported by". `design-tokens-core` imports nothing from the monorepo and is
 consumed as a devDependency. `oak-design-system` has zero runtime monorepo dependencies and
 never imports other design workspaces, apps, or sdks; its public surface is built CSS plus the
-DTCG export artefact — no React. `oak-design-tokens` depends on the design system (validator
+DTCG export artefact — no React (amended 2026-07-23: the owned component tier of the §3
+amendment adds a React export surface at its own landing; until then this line describes
+the live state). `oak-design-tokens` depends on the design system (validator
 consumer of the DTCG export from PR3's dual-gate window — §2 amendment 2026-07-20; token data
 source at Stage B) plus `design-tokens-core`. `oak-design-ink` depends on
 `oak-design-tokens` only. Apps and demos consume the design system's built CSS and the
@@ -409,7 +443,9 @@ kill).
   two first-class surfaces and a bidirectional sync discipline.
 - **Shared React component workspace now** — rejected: one app consumer exists; building the
   shared prop APIs ahead of a second data point is speculative structure
-  (consolidate-at-second-consumer).
+  (consolidate-at-second-consumer). (Superseded in part 2026-07-23 by the §3 owned-component-tier
+  amendment: the curated package adopted from `studio-source/` is the shared home; the
+  second-consumer trigger still governs app-widget graduation into it.)
 - **Adopt `@oaknational/oak-components` (production package)** — rejected for this ecosystem:
   React + styled-components + Cloudinary coupling; this design system exists precisely as the
   framework-agnostic mirror of that vocabulary, and MCP views and terminal tools are
