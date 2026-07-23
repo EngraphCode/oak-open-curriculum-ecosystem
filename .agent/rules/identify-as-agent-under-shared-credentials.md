@@ -1,19 +1,32 @@
 # Identify as an Agent Under Shared Credentials
 
-When an agent authors outward-facing content through **shared human
-credentials** — most commonly the owner's GitHub account — it MUST clearly
-identify itself as an agent in that content. Acting through a human's
-credentials attributes the action to the human; without an explicit marker, a
-reader, collaborator, or audit cannot tell an agent-authored artefact from a
-human-authored one, and the human is silently credited with words they did not
-write.
+> **Frame inverted 2026-07-23 by owner ruling.** Shared human credentials are
+> no longer the working norm this rule was written against:
+> [`bot-identity-on-third-party-systems`](./bot-identity-on-third-party-systems.md)
+> now makes the bot identity mandatory wherever one exists, and
+> owner-credential use is an exception granted (and generally instigated) by
+> the owner. This rule remains in force for what survives: (a) the
+> owner-permitted exceptional cases, (b) surfaces where no bot identity
+> exists yet (a standing gap to surface, per the bot-identity rule), and
+> (c) **seat-level attribution on the shared bot identity** — the bot account
+> is shared by every seat, so content posted as the bot still names the
+> acting agent per PDR-027, exactly as it did under the owner's account.
+
+When an agent authors outward-facing content through **shared credentials** —
+a human's account, or the team bot account shared by all seats — it MUST
+clearly identify itself as the acting agent in that content. A shared
+credential attributes the action to the account, not the actor; without an
+explicit marker, a reader, collaborator, or audit cannot tell which agent (or
+whether a human) authored an artefact, and under a human's account the human
+is silently credited with words they did not write.
 
 ## Trigger
 
 The agent is about to author or edit any **outward, human-visible artefact**
-via shared (human-owned) credentials. In this repository the shared credential
-is the GitHub auth shared with the owner account (`@jimCresswell`); the rule
-fires before:
+via shared credentials. In this repository that means the team bot account
+(`jimbot-oakington-iii[bot]`, the mandatory default) or — only in the
+owner-permitted exceptional cases — the owner account (`@jimCresswell`); the
+rule fires before:
 
 - a PR or issue **comment** (`gh pr comment`, `gh issue comment`, `gh api
   .../comments`);
