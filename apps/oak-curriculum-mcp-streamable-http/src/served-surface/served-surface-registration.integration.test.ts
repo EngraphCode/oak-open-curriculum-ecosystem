@@ -33,7 +33,7 @@ function registerAndCapture(servedSurface?: ServedSurfaceDefinition) {
   const registerToolSpy = vi.spyOn(server, 'registerTool');
 
   registerHandlers(server, {
-    runtimeConfig: createMockRuntimeConfig({ eefEnabled: true }),
+    runtimeConfig: createMockRuntimeConfig(),
     logger: createFakeLogger(),
     observability: createFakeHttpObservability(),
     searchRetrieval: createFakeSearchRetrieval(),
@@ -92,6 +92,7 @@ describe('served-surface registration (integration)', () => {
         'user-search-query': 'live',
       },
       appLocalTools: SERVED_SURFACE.appLocalTools,
+      resources: SERVED_SURFACE.resources,
     };
     const { registerToolSpy } = registerAndCapture(withUserSearchLive);
     const registered = registeredToolNames(registerToolSpy.mock.calls);

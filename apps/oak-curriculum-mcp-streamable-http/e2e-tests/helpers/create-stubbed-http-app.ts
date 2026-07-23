@@ -26,6 +26,7 @@ export const SERVED_SURFACE_WITH_USER_SEARCH_LIVE: ServedSurfaceDefinition = {
     'user-search-query': 'live',
   },
   appLocalTools: SERVED_SURFACE.appLocalTools,
+  resources: SERVED_SURFACE.resources,
 };
 
 export interface StubbedHttpApp {

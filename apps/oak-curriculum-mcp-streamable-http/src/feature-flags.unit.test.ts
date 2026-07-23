@@ -10,7 +10,7 @@
 
 import { describe, expect, it } from 'vitest';
 
-import { resolveOptInFlag, resolveKillSwitchFlag } from './feature-flags.js';
+import { resolveOptInFlag } from './feature-flags.js';
 
 describe('resolveOptInFlag — default OFF', () => {
   it('is enabled only on an explicit "true"', () => {
@@ -23,19 +23,5 @@ describe('resolveOptInFlag — default OFF', () => {
 
   it('is disabled on an explicit "false"', () => {
     expect(resolveOptInFlag('false')).toBe(false);
-  });
-});
-
-describe('resolveKillSwitchFlag — default ON', () => {
-  it('is enabled when unset (live by default)', () => {
-    expect(resolveKillSwitchFlag(undefined)).toBe(true);
-  });
-
-  it('is enabled on an explicit "true"', () => {
-    expect(resolveKillSwitchFlag('true')).toBe(true);
-  });
-
-  it('is disabled only on an explicit "false" (the kill-switch)', () => {
-    expect(resolveKillSwitchFlag('false')).toBe(false);
   });
 });

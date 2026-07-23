@@ -1,4 +1,5 @@
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import type { ServedSurfaceDefinition } from './served-surface/served-surface.js';
 
 /**
  * Server interface for resource registration — delegates to `McpServer`.
@@ -13,10 +14,9 @@ export interface ResourceRegistrationOptions {
   /** Returns the HTML payload served by the MCP App widget resource. */
   readonly getWidgetHtml: () => string;
   /**
-   * Whether the EEF surface is enabled (`OAK_CURRICULUM_MCP_EEF_ENABLED`,
-   * kill-switch, default ON). Gates the `eef://interpretation` resource at
-   * registration — an explicit `=false` removes it. The tool and prompt are
-   * co-gated by the same flag (D6 c6).
+   * The served-surface definition: every resource registration consults
+   * its row here (live registers, dormant does not). The single point of
+   * control per the mcp-101 ratified plan — no runtime flags.
    */
-  readonly eefEnabled: boolean;
+  readonly servedSurface: ServedSurfaceDefinition;
 }
