@@ -848,3 +848,23 @@ process liveness — verify the progress artefact (seen-file mtime /
 entry count) after arming, not the restart heartbeat. Candidate
 structural cure for the tools lane: mark-seen-before-deadline ordering
 or an internal drain batch bound in `comms watch` itself.
+
+## 2026-07-23 — Frozen succession records recruited a seat-collision (Forge rides Brimstone, 398e24)
+
+A mistakenly-spawned fresh background seat (Leopard weaves Crescent,
+9c9671) grounded faithfully on the frozen succession surfaces (the
+Genet handoff reads "successor adopts claim") plus comms silence
+(solo-session discipline means the live Director broadcasts nothing),
+concluded the Director seat was open, and adopted the live Director's
+claim — overwriting the agent_id row of a seat mid-sitting with the
+owner. Caught in ~60s by the live watcher; stand-down broadcast at
++1min; mis-adoption owned by the mistaken seat at +2min; row restored
+by re-adoption from the true seat. Owner verdict: the spawn itself was
+a mistake, removed. Cures applied: supersession banner on the frozen
+handoff (succession resolved by revival — no seat open); the durable
+rule: **the claims registry's agent_id rows are ground truth for seat
+occupancy — comms silence and frozen records are never evidence a
+singleton seat is open.** Candidate structural cure for the tools
+lane: `claims adopt` warns (or requires --force) when the target row's
+agent identity differs and its claim carries a handoff_record_path
+already consumed by a prior adoption.
