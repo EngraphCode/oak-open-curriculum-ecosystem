@@ -42,13 +42,11 @@ interface MockRuntimeConfigOverrides {
    * the EEF tool + prompt are co-gated OFF). Set `true` to exercise the
    * enabled path.
    */
-  readonly eefEnabled?: boolean;
   /**
    * User-search feature flag. Defaults to `false` (matching the production
    * default — the user-search tools are unregistered). Set `true` to exercise
    * the enabled path where both user-search tools register.
    */
-  readonly userSearchEnabled?: boolean;
 }
 
 const BASE_MOCK_ENV = {
@@ -92,8 +90,6 @@ export function createMockRuntimeConfig(
     return {
       env: { ...BASE_MOCK_ENV, ...overrides.env },
       ...BASE_SHARED_FIELDS,
-      eefEnabled: overrides.eefEnabled ?? false,
-      userSearchEnabled: overrides.userSearchEnabled ?? false,
       dangerouslyDisableAuth: true,
     } satisfies AuthDisabledRuntimeConfig;
   }
@@ -101,8 +97,6 @@ export function createMockRuntimeConfig(
   return {
     env: { ...BASE_MOCK_ENV, ...BASE_CLERK_KEYS, ...overrides.env },
     ...BASE_SHARED_FIELDS,
-    eefEnabled: overrides.eefEnabled ?? false,
-    userSearchEnabled: overrides.userSearchEnabled ?? false,
     dangerouslyDisableAuth: false,
   } satisfies AuthEnabledRuntimeConfig;
 }

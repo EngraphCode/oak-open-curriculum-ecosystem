@@ -20,7 +20,10 @@ import type { Server } from 'node:http';
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js';
-import { createStubbedHttpApp } from './helpers/create-stubbed-http-app.js';
+import {
+  createStubbedHttpApp,
+  SERVED_SURFACE_WITH_USER_SEARCH_LIVE,
+} from './helpers/create-stubbed-http-app.js';
 import { WIDGET_URI, WIDGET_TOOL_NAMES } from '@oaknational/sdk-codegen/widget-constants';
 import { RESOURCE_MIME_TYPE } from '@modelcontextprotocol/ext-apps/server';
 
@@ -66,7 +69,10 @@ describe('MCP App UI Composition (Client SDK)', () => {
   beforeAll(async () => {
     // WIDGET_TOOL_NAMES includes the user-search widget tool, which is gated
     // OFF by default; opt in so this composition test sees the full widget set.
-    const { app } = await createStubbedHttpApp({}, { userSearchEnabled: true });
+    const { app } = await createStubbedHttpApp(
+      {},
+      { servedSurface: SERVED_SURFACE_WITH_USER_SEARCH_LIVE },
+    );
     server = app.listen(0);
     await once(server, 'listening');
 

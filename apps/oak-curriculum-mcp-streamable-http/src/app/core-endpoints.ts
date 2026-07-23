@@ -21,6 +21,7 @@ import {
 
 import { mountAssetDownloadProxy } from '../asset-download/asset-download-route.js';
 import { registerHandlers, type ToolHandlerOverrides } from '../handlers.js';
+import type { ServedSurfaceDefinition } from '../served-surface/served-surface.js';
 import type { RuntimeConfig } from '../runtime-config.js';
 import { createSearchRetrieval } from '../search-retrieval-factory.js';
 import type { HttpObservability } from '../observability/http-observability.js';
@@ -39,6 +40,12 @@ interface CoreEndpointOptions {
   readonly toolHandlerOverrides?: ToolHandlerOverrides;
   readonly resourceUrl?: string;
   readonly getWidgetHtml: () => string;
+  /**
+   * Served-surface definition override — test seam only. Production
+   * composition omits it, so registration uses the canonical
+   * module-level `SERVED_SURFACE` definition.
+   */
+  readonly servedSurface?: ServedSurfaceDefinition;
 }
 
 /** Initialises core MCP endpoints, returns a per-request factory. @see ADR-112 */
@@ -75,6 +82,7 @@ export function initializeCoreEndpoints(
     searchRetrieval,
     createAssetDownloadUrl,
     getWidgetHtml: options.getWidgetHtml,
+    ...(options.servedSurface ? { servedSurface: options.servedSurface } : {}),
   };
 
   log.debug('bootstrap.mcp.factory.created');

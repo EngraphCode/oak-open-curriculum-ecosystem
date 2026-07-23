@@ -1,55 +1,53 @@
-# Runbook-plan template (V0 variant)
+# Runbook-plan template
 
-For operational promotions and migrations (e.g. a production auth
-promotion): the delivery-plan form plus the runbook spine. Frontmatter
-is identical to the delivery template (it must pass
-`validate-plan-corpus`); the body adds the operational sections.
+A repeatable operational procedure (a production promotion, a
+migration, a recurring ceremony). Long-lived; procedure changes return
+it to `sketch` for re-ratification. Copy, fill, delete the guidance.
 
 ```markdown
 ---
-id: <kebab-slug>
-node_type: plan
+id: <kebab-slug, stable forever>
+node_type: runbook
 name: <Human name>
-overview: <One line: what this promotes/migrates and to where.>
-kind: executable
-serves_strategic_choice: <ID or "pending">
-thread: <thread-slug>
+overview: <One line: what this procedure does and to what.>
+status: sketch
+ratified_by: null
+ratified_date: null
+ratified_where: null
+serves: <strategic node id — omit only for standing estate procedures>
+impact_areas:
+  - <area from impact-areas.md>
+tickets: []
+depends_on: []
+owner_gates: []
 last_updated: <YYYY-MM-DD>
-todos:
-  - id: <step-slug>
-    content: "<Runbook stage — one sentence.>"
-    status: pending
 ---
 
 # <Name>
 
-## Goal
+## When to run
 
-<The operational end state.>
+<The trigger or cadence.>
 
 ## Preconditions
 
-What must already be true before step 1 — each item checkable, with the
-check named.
+<What must already be true before step 1 — each item checkable, with
+the check named.>
 
 ## Steps
 
-Numbered, each carrying WHO executes it (`agent` | `owner-held` — an
-owner-held step surfaces as a visible owner card at the moment it
-becomes actionable, never an ambient queue item) and the verification
-that proves it happened.
+<Numbered. Each step names WHO executes it — `agent` or `owner-held`.
+An owner-held step surfaces as a visible owner card at the moment it
+becomes actionable, never an ambient queue item — and names the
+verification that proves it happened.>
+
+## Verification
+
+<How the end state is confirmed, with the instrument named.>
 
 ## Rollback
 
-The path back from every step that changes shared state. A step with no
-rollback is named as such, with the owner's explicit acceptance dated.
-
-## Acceptance (falsifiable)
-
-As the delivery template: each item `repo-safe` or `owner-held`, with
-the instrument or verifier named.
-
-## Out of scope
-
-Explicit, as the delivery template.
+<The path back from every step that changes shared state. A step with
+no rollback is named as such, with the owner's explicit acceptance
+dated.>
 ```

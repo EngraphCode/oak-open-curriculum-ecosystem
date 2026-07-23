@@ -6,7 +6,8 @@ import type { ToolHandlerOverrides } from './handlers.js';
 import type { RuntimeConfig } from './runtime-config.js';
 import { setupAuthRoutes } from './auth-routes.js';
 import type { CreateMcpAuthClerkDeps } from './auth/mcp-auth/index.js';
-import { createEnsureMcpAcceptHeader } from './mcp-middleware.js';
+import { createEnsureMcpAcceptHeader, createMcpHtmlNegotiation } from './mcp-middleware.js';
+import { renderLandingPageHtml } from './landing-page/index.js';
 import {
   runBootstrapPhase,
   setupBaseMiddleware,
@@ -28,6 +29,7 @@ import type { RateLimiterFactory } from './rate-limiting/index.js';
 import { initializeCoreEndpoints } from './app/core-endpoints.js';
 import { runOAuthAndAuthContextPhases } from './app/orchestration.js';
 import { registerDiagnosticRoutesIfEnabled } from './test-error/register-diagnostic-routes.js';
+import type { ServedSurfaceDefinition } from './served-surface/served-surface.js';
 export type { McpRequestContext, McpServerFactory } from './mcp-request-context.js';
 export { loadRuntimeConfig } from './runtime-config.js';
 export interface CreateAppOptions {
@@ -60,6 +62,12 @@ export interface CreateAppOptions {
   readonly rateLimiterFactory: RateLimiterFactory;
   /** Sentry Express error-handler registration; live mode only, not fixture/off. (ADR-078) */
   readonly setupSentryErrorHandler?: SentryExpressErrorHandlerSetup;
+  /**
+   * Served-surface definition override — test seam only (e.g. exercising
+   * the dormant user-search MCP App tools). Production omits it; the
+   * canonical module-level `SERVED_SURFACE` then governs registration.
+   */
+  readonly servedSurface?: ServedSurfaceDefinition;
 }
 
 function setupPreAuthPhases(
@@ -129,6 +137,16 @@ function setupPostAuthPhases(deps: SetupPostAuthPhasesDeps): void {
     log,
     options.runtimeConfig.displayHostname,
     options.runtimeConfig.version,
+  );
+  app.use(
+    '/mcp',
+    createMcpHtmlNegotiation({
+      log,
+      renderHtml: () =>
+        renderLandingPageHtml(options.runtimeConfig.displayHostname, options.runtimeConfig.version),
+      dnsRebindingMiddleware,
+      rateLimiter: assetRateLimiter,
+    }),
   );
   app.use('/mcp', createEnsureMcpAcceptHeader(log));
 

@@ -1,57 +1,73 @@
-# Delivery-plan template (V0)
+# Delivery-plan template
 
-One page. Copy, fill, delete the guidance comments. The frontmatter must
-pass `validate-plan-corpus` (the V0 contract); the body carries the
-narrative (PDR-018: end goal, mechanism, means — never in frontmatter).
+One bounded lane, authored by its implementer at pickup. One page.
+Copy, fill, delete the guidance. Born `sketch`; the plan governs no
+work until its ratification stamp is complete. The frontmatter is
+metadata; the narrative (goal, mechanism, acceptance) lives in the body
+(PDR-018).
 
 ```markdown
 ---
 id: <kebab-slug, stable forever>
-node_type: plan
+node_type: delivery
 name: <Human name>
-overview: <One line: what this delivers.>
-kind: executable
-serves_strategic_choice: <ID from docs/strategy, or "pending">
-thread: <thread-slug>
+overview: <One line: what this lane delivers.>
+status: sketch
+ratified_by: null
+ratified_date: null
+ratified_where: null
+serves: <strategic node id>
+impact_areas:
+  - <area from impact-areas.md>
+tickets:
+  - <Linear issue ID, e.g. MCP-000 — required before ratification;
+    execution state lives there, never here>
+depends_on: []
+# depends_on:
+#   - plan: <plan-id>
+#     kind: blocking | beneficial
+owner_gates: []
+# owner_gates:
+#   - awaiting: owner-decision | external-input
+#     clears_when: <the named condition or person that resolves it>
+#     expires: <YYYY-MM-DD — absolute, mandatory; horizon inherits from
+#       the governing strategic node's gate_expiry_default>
 last_updated: <YYYY-MM-DD>
-depends_on:
-  - plan: <plan-id>
-    kind: blocking | beneficial
-todos:
-  - id: <slice-slug>
-    content: "<Slice — one sentence.>"
-    status: pending
 ---
 
 # <Name>
 
 ## Goal
 
-<The end state, one short paragraph. What is true when this is done that
-is not true now.>
+<What is true when this lands that is not true now — one short
+paragraph.>
 
-## Acceptance (falsifiable)
+## Mechanism
 
-Each item states its evidence class:
+<How, briefly. Mechanism only: anything internal rides the linked
+ticket.>
 
-- `repo-safe` — provable inside the repository (a test, a validator run,
-  a CI check); cite the instrument.
+## Acceptance criteria (each with a proof — required)
+
+Each criterion names its proof and the proof's evidence class:
+
+- `repo-safe` — provable inside the repository (a test, a validator, a
+  CI check); cite the instrument.
 - `owner-held` — provable only with owner-held access (a production
   console, an external dashboard); name who verifies and where the
   verification is recorded.
 
-## Slices
+## Todos (optional; proofs on todos optional)
 
-Each slice is a single-story PR carrying its PDR-132 round-budget class
-(default ≤2 review rounds; name the budget if it differs and why).
-
-## Decision gates (dated)
-
-Owner decisions this plan waits on, each with the date it was asked and
-the date it needs an answer by. No open-ended gates (V0 §3.4).
+<Slices, each a single-story PR carrying its round-budget class
+(PDR-132: default ≤2 review rounds; name the budget if it differs and
+why).>
 
 ## Out of scope
 
-Explicit. What a reasonable reader might assume is included but is not,
-each with one clause of why.
+<Explicit. What a reasonable reader might assume is included but is
+not, each with one clause of why.>
 ```
+
+At completion — acceptance criteria proven — the plan moves to
+`archive/` with `status: archived`.

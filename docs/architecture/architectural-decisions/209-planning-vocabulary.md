@@ -24,6 +24,21 @@ PDR-121 defines the portable semantics. This ADR records how this repo instantia
 The portable terms in [PDR-121](../../../.agent/practice-core/decision-records/PDR-121-planning-vocabulary.md)
 are realised in this repo as follows:
 
+> **Amended 2026-07-23 (ADR-216 supersession of ADR-117):** the estate
+> realisation changed with the owner-ratified plan-node estate
+> ([ADR-216](216-plan-node-estate.md), decisions register D23). In the
+> current estate: a **plan** is a `*.plan.md` node under
+> `.agent/plans/{strategic,delivery,runbooks}/`, typed by directory and
+> ratification-stamped per the plan-node schema; **collections and
+> lifecycle lanes are retired** — there is no `future/`→`current/`→`active/`
+> progression and no promotion workflow, and delivery state is a Linear
+> projection; **lane** in current team vocabulary means a bounded unit of
+> routed work (a delivery plan's scope), not a directory. The realisations
+> below record the ADR-117-era estate this ADR was written against;
+> **thread** and **programme** semantics are unchanged as concepts, with any
+> new grouping expressed through `impact_areas` (repo) and milestones
+> (Linear) rather than programme index files.
+
 - **Collection** — a domain grouping under `.agent/plans/<collection>/`, with its own README and
   roadmap (ADR-117).
 - **Lane** — the lifecycle directory: `future/` (later) → `current/` (next) → `active/` (now) →
@@ -43,7 +58,9 @@ are realised in this repo as follows:
   - First instance: the generic-foundation-decomposition programme (recorded in the plan estate, which points up to this ADR).
 
 The plan-templates Planning Vocabulary table points to this ADR and PDR-121 as the canonical
-glossary rather than re-defining the terms.
+glossary rather than re-defining the terms. _(Historical as of 2026-07-23: the current
+templates README instantiates the plan-node schema — ADR-216 — and no longer carries a
+vocabulary table or a pointer here.)_
 
 ### Disambiguation — planning programme vs curriculum programme
 
@@ -55,8 +72,10 @@ genuinely ambiguous, prefix explicitly: **planning programme** and **curriculum 
 ## Consequences
 
 - One host home for the vocabulary realisation; "programme" is defined and disambiguated.
-- The `*.programme.md` + `programmes:` edge convention is recorded; the templates README points
-  here.
+- The `*.programme.md` + `programmes:` edge convention is recorded. _(The templates-README
+  pointer here is historical as of 2026-07-23 — see the amendment note above; the convention
+  awaits a first use under the ADR-216 estate, where grouping is expressed through
+  `impact_areas` and Linear milestones.)_
 - These terms are the projection types over ADR-200's idea-graph; when that graph lands they become
   typed nodes and edges informed by this glossary. As an ADR this decision is permanent — it
   outlives the plans it describes (which the idea-graph conversion retires).

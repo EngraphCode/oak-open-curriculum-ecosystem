@@ -21,12 +21,17 @@ import {
   generatedToolRegistry,
   isAppToolEntry,
   type SearchRetrievalService,
-  type UniversalToolName,
 } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
 import { handleToolWithAuthInterception } from './tool-handler-with-auth.js';
 import { measureCallToolResult } from './observability/tool-result-measurement.js';
-import { registerAllResources, registerPrompts } from './register-resources.js';
+import { registerAllResources } from './register-resources.js';
 import { registerOakUnderTheHoodTool } from './oak-under-the-hood/oak-under-the-hood-tool.js';
+import {
+  SERVED_SURFACE,
+  isUniversalToolLive,
+  isAppLocalToolLive,
+  type ServedSurfaceDefinition,
+} from './served-surface/served-surface.js';
 import {
   createDefaultRequestExecutor,
   createStubRequestExecutor,
@@ -38,7 +43,7 @@ export { createMcpHandler } from './mcp-handler.js';
 export type { McpHandlerRequest, McpHandlerResponse } from './mcp-handler.js';
 
 /**
- * Inputs required to register Oak's MCP tools, resources, and prompts.
+ * Inputs required to register Oak's MCP tools and resources.
  *
  * The HTTP app stays thin: it receives prebuilt SDK/runtime dependencies,
  * then registers the canonical universal tool inventory directly without
@@ -67,6 +72,12 @@ interface RegisterHandlersOptions {
   readonly createAssetDownloadUrl?: (lesson: string, type: string) => string;
   /** Returns the built widget HTML content (DI per ADR-078). */
   readonly getWidgetHtml: () => string;
+  /**
+   * Served-surface definition governing registration. Defaults to the
+   * canonical module-level `SERVED_SURFACE`; injectable so tests can
+   * exercise dormant rows. Production callers never pass this (mcp-101).
+   */
+  readonly servedSurface?: ServedSurfaceDefinition;
 }
 
 function buildToolHandlerDependencies(
@@ -105,7 +116,9 @@ function buildToolHandlerDependencies(
 }
 
 /**
- * Registers all MCP tools, resources, and prompts with the server.
+ * Registers all MCP tools and resources with the server. The prompt
+ * primitive is never registered: the app serves zero MCP prompts (D11);
+ * workflow guidance travels as agent-readable resources instead.
  *
  * Tool metadata is registered in the same shape returned by
  * `listUniversalTools()`: `title`, `description`, `inputSchema`,
@@ -130,7 +143,7 @@ function buildToolHandlerDependencies(
  * ```
  */
 export function registerHandlers(
-  server: Pick<McpServer, 'registerTool' | 'registerResource' | 'registerPrompt'>,
+  server: Pick<McpServer, 'registerTool' | 'registerResource'>,
   options: RegisterHandlersOptions,
 ): void {
   const resourceUrl = options.resourceUrl ?? 'http://localhost:3333/mcp';
@@ -144,66 +157,38 @@ export function registerHandlers(
     stubExecutor,
   );
 
-  registerTools(server, deps, options);
+  const servedSurface = options.servedSurface ?? SERVED_SURFACE;
+
+  registerTools(server, deps, options, servedSurface);
 
   // Additive, app-local effort-orientation tool — registered outside the
-  // universal-tools loop (it is not in the SDK generated registry). Always on,
-  // low-salience; the curriculum firewall lives in its description and result.
-  registerOakUnderTheHoodTool(server);
+  // universal-tools loop (it is not in the SDK generated registry), with its
+  // own served-surface row. Low-salience; the curriculum firewall lives in
+  // its description and result.
+  if (isAppLocalToolLive(servedSurface, 'oak-under-the-hood')) {
+    registerOakUnderTheHoodTool(server);
+  }
 
   registerAllResources(server, {
     getWidgetHtml: options.getWidgetHtml,
-    eefEnabled: options.runtimeConfig.eefEnabled,
+    servedSurface,
   });
-  registerPrompts(server, options.runtimeConfig.eefEnabled);
 }
 
-/**
- * Tool names co-gated behind `OAK_CURRICULUM_MCP_EEF_ENABLED`. Typed as
- * `UniversalToolName` so a tool-name rename is a compile error here, not a
- * silently-stale string. EEF is one tool today; this is the single extension
- * point for further EEF surfaces (D6 plan c6).
- */
-const EEF_FLAG_GATED_TOOL_NAMES: ReadonlySet<UniversalToolName> = new Set<UniversalToolName>([
-  'get-eef-evidence',
-]);
-
-/**
- * Tool names co-gated behind `OAK_CURRICULUM_MCP_USER_SEARCH_ENABLED`. The two
- * user-search MCP App tools (`user-search` widget + `user-search-query`
- * app-only helper) register only when the opt-in flag is ON. While OFF
- * (default), neither is registered — so neither appears in `tools/list`,
- * regardless of whether a client honours `_meta.ui.visibility`. The MCP App
- * user-search experience is not built yet. Typed as `UniversalToolName` so a
- * tool-name rename is a compile error here, not a silently-stale string.
- */
-const USER_SEARCH_FLAG_GATED_TOOL_NAMES: ReadonlySet<UniversalToolName> =
-  new Set<UniversalToolName>(['user-search', 'user-search-query']);
-
-/** Iterates over universal tools and registers each with the server. */
+/** Iterates over universal tools and registers each live tool with the server. */
 function registerTools(
   server: Pick<McpServer, 'registerTool'>,
   deps: ToolHandlerDependencies,
   options: RegisterHandlersOptions,
+  servedSurface: ServedSurfaceDefinition,
 ): void {
   for (const tool of listUniversalTools(generatedToolRegistry)) {
-    // EEF is gated at registration (OAK_CURRICULUM_MCP_EEF_ENABLED → runtimeConfig.eefEnabled,
-    // kill-switch, default ON): register the entry unless an explicit `=false` disables it. The
-    // SDK enumerator stays transport-agnostic; the app owns the flag. Extension point: add a second EEF tool
-    // name here to co-gate it under the same flag (the typed constant fails compilation on a
-    // tool-name rename).
-    if (EEF_FLAG_GATED_TOOL_NAMES.has(tool.name) && !options.runtimeConfig.eefEnabled) {
-      continue;
-    }
-
-    // User-search tools are gated at registration (OAK_CURRICULUM_MCP_USER_SEARCH_ENABLED →
-    // runtimeConfig.userSearchEnabled, opt-in, default OFF): the unbuilt MCP App tools stay off
-    // the registered set — and out of tools/list — unless an explicit `=true` enables them. The
-    // SDK enumerator stays transport-agnostic; the app owns the flag.
-    if (
-      USER_SEARCH_FLAG_GATED_TOOL_NAMES.has(tool.name) &&
-      !options.runtimeConfig.userSearchEnabled
-    ) {
+    // The served-surface definition is the single point of control: dormant
+    // tools (the unbuilt user-search MCP App pair) are structurally absent
+    // from registration — and from tools/list — regardless of any client
+    // behaviour. The SDK enumerator stays transport-agnostic; the app owns
+    // the classification.
+    if (!isUniversalToolLive(servedSurface, tool.name)) {
       continue;
     }
 

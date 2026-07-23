@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted (amended 2026-06-11)
+Accepted (amended 2026-07-23)
 
 > **Amendment (2026-06-10 — graph-tools-value-redesign, deliverable G1b).**
 > The `curriculum://prior-knowledge-graph` resource was removed from the
@@ -28,6 +28,21 @@ Accepted (amended 2026-06-11)
 > position-anchored entry point — it resolves position→next and chains into
 > `lesson-planning`, never duplicating planning substance (the S3
 > extend/merge reconciliation discipline, PR #162 precedent).
+>
+> **Amendment (2026-07-23 — mcp-101 visible-surface allowlist; owner
+> decision D11, decisions register).** The prompts strategy below is
+> SUPERSEDED: the app now serves **zero MCP prompts** — the primitive is
+> unregistered entirely (user-invoked prompt templates are a poor user
+> experience for teachers). The workflow bodies are re-homed as
+> agent-readable guidance resources (`docs://oak/guidance/*`), with
+> live-vs-dormant state governed by the app's declarative served-surface
+> definition (`apps/oak-curriculum-mcp-streamable-http/src/served-surface/`)
+> — which also supersedes the flag-gating this ADR describes for the EEF
+> and user-search surfaces (registration-surface membership is a reviewed
+> definition change, never a runtime flag). The Prompts sections below are
+> retained as the historical record of the superseded strategy; the
+> "every prompt defined in the SDK is registered at the app layer"
+> consequence no longer holds — the SDK defines no prompts.
 
 ## Context
 

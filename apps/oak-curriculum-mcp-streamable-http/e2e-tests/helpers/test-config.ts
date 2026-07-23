@@ -69,12 +69,6 @@ export function createMockRuntimeConfig(
 
   const shared = {
     useStubTools: false,
-    // Mirror the production default: the EEF surface is live (kill-switch posture).
-    eefEnabled: true,
-    // Mirror the production default: user-search is opt-in, OFF. Tests that exercise
-    // the user-search surface opt in explicitly (userSearchEnabled: true); the default
-    // keeps the unbuilt tools off the surface, matching what a real client sees.
-    userSearchEnabled: false,
     version: '0.0.0-test',
     versionSource: 'APP_VERSION_OVERRIDE' as const,
     vercelHostnames: [],

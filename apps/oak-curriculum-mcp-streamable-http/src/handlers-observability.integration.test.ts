@@ -33,8 +33,6 @@ function createFakeRuntimeConfig(): AuthDisabledRuntimeConfig {
     },
     dangerouslyDisableAuth: true,
     useStubTools: false,
-    eefEnabled: false,
-    userSearchEnabled: false,
     version: '0.0.0-test',
     versionSource: 'APP_VERSION_OVERRIDE',
     vercelHostnames: [],
@@ -45,14 +43,13 @@ function createFakeRuntimeConfig(): AuthDisabledRuntimeConfig {
  * Creates a minimal recording server using bare `vi.fn()` spies.
  *
  * Each spy satisfies the structural interface expected by `registerHandlers`
- * (`Pick<McpServer, 'registerTool' | 'registerResource' | 'registerPrompt'>`)
+ * (`Pick<McpServer, 'registerTool' | 'registerResource'>`)
  * without requiring the full `McpServer` type or type assertions.
  */
 function createRecordingMcpServer() {
   return {
     registerTool: vi.fn(),
     registerResource: vi.fn(),
-    registerPrompt: vi.fn(),
   };
 }
 
@@ -71,7 +68,7 @@ describe('registerHandlers — registration completeness', () => {
     expect(server.registerTool).toHaveBeenCalled();
   });
 
-  it('registers resources and prompts alongside tools', () => {
+  it('registers resources alongside tools — and never the prompt primitive', () => {
     const server = createRecordingMcpServer();
 
     registerHandlers(server, {
@@ -83,6 +80,5 @@ describe('registerHandlers — registration completeness', () => {
     });
 
     expect(server.registerResource).toHaveBeenCalled();
-    expect(server.registerPrompt).toHaveBeenCalled();
   });
 });

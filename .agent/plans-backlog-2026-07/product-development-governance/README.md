@@ -77,7 +77,7 @@ controlling plan and thread record hold the detail.
   [restatement-remediation](active/restatement-remediation.plan.md).
 - **Queued**: [current/README.md](current/README.md) — currently
   [planning-estate-rewrite](current/planning-estate-rewrite.plan.md) and
-  [release-planning-corpus-reset](../../plans/practice/release-planning-corpus-reset.plan.md)
+  [release-planning-corpus-reset](../../plans-v0-sketch-2026-07-21/practice/release-planning-corpus-reset.plan.md)
   (the 2026-07-21 release pivot's founding plan).
 - **Future backlog**: [future/README.md](future/README.md) — currently
   [external-evidence-integration](future/external-evidence-integration.plan.md).

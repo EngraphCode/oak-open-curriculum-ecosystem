@@ -37,24 +37,6 @@ const BaseEnvSchema = OakApiKeyEnvSchema.extend(ElasticsearchEnvSchema.shape)
     REMOTE_MCP_MODE: ModeSchema.optional(),
     DANGEROUSLY_DISABLE_AUTH: z.enum(['true', 'false']).optional(),
     OAK_CURRICULUM_MCP_USE_STUB_TOOLS: z.enum(['true', 'false']).optional(),
-    /**
-     * Gates the EEF evidence surface: the graph-derived EEF tool, resource, and
-     * prompt register behind this flag. Parsed into `runtimeConfig.eefEnabled` via
-     * the kill-switch posture (`feature-flags.ts`). **Default ON** — the surface
-     * is live by default (release-pre-proof); an explicit `false` is the
-     * kill-switch that disables all three.
-     */
-    OAK_CURRICULUM_MCP_EEF_ENABLED: z.enum(['true', 'false']).optional(),
-    /**
-     * Gates registration of the user-search MCP App tools (`user-search` and
-     * `user-search-query`). Parsed into `runtimeConfig.userSearchEnabled` via
-     * the opt-in posture (`feature-flags.ts`). **Default OFF** — the tools are
-     * unregistered (absent from `tools/list`) unless an explicit `true` enables
-     * them. The MCP App user-search experience is not built yet; this flag keeps
-     * the unbuilt tools off the model-visible surface. Three-stage lifecycle:
-     * pre-release OFF → release ON with kill-switch → flag removed.
-     */
-    OAK_CURRICULUM_MCP_USER_SEARCH_ENABLED: z.enum(['true', 'false']).optional(),
     ALLOWED_HOSTS: z.string().optional(),
     APP_VERSION_OVERRIDE: z.string().optional(),
     GIT_SHA_OVERRIDE: z.string().optional(),

@@ -1,6 +1,6 @@
 # Oak MCP agent-facing content — audit & registry report
 
-**Date:** 2026-07-09
+**Date:** 2026-07-09 · **Delta-refreshed 2026-07-22** (MCP-103 phase a — see [§12](#12-delta-refresh--workspace-shape-recommendation-2026-07-22--mcp-103-phase-a))
 **Status:** Visibility artefact — analysis complete, no action taken and none prescribed.
 **Companion files:** [`registry.md`](./registry.md) (human index) · [`registry.json`](./registry.json) (machine-readable, 716 items) · [`rendered-wholes.md`](./rendered-wholes.md) (the assembled surfaces as an agent receives them) · [`content-registry.html`](./content-registry.html) (filterable browser).
 
@@ -191,10 +191,45 @@ The direction is decided (§7). What remains open, to be surfaced to the owner a
 
 - **Localisation — DECIDED 2026-07-09: safer-forms now, l10n later.** No other-language localisation happens now, but the content workspace(s) are designed **l10n-ready** — a catalogue structure that can accept translation later without a rebuild. Optionality is preserved up-front; the rigour/safety review and any future translation share the same rails.
 - **Eval best-practice research — DECIDED 2026-07-09: do both, gated on owner go.** A foundational authoritative-source pass on eval methodology **and** build-session grounding against concrete content are both wanted — but **not started**; they wait for an explicit owner go-ahead.
-- **Workspace partition axis** — several workspaces split by review regime (recommended, matches decision 2) vs one with internal structure. *(Build session.)*
+- **Workspace partition axis** — resolved to a recommendation 2026-07-22: [§12.2](#122-recommendation-one-content-workspace-views-not-partitions-owner-decides) recommends **one workspace with per-domain views** and engages this bullet's earlier per-review-regime lean directly; the owner decides. *(This bullet's 2026-07-09 "recommended" tag is superseded by §12.2.)*
 - **What relocates** — all controlled content stratified by impact tier, vs only high-impact/eval-bound content with simple config left co-located. *(Build session.)*
 - **The SSOT→consumer flow** — the generator-inversion mechanism (engineering design, §7). *(Build session.)*
 - **This registry's permanent home** and how it is kept current (this copy is a manual snapshot; the SSOT direction would make it generated from the workspace).
+
+## 12. Delta-refresh + workspace-shape recommendation (2026-07-22 — MCP-103 phase a)
+
+The registry was delta-refreshed against the 2026-07-22 owner rulings (the release decisions register: D2, D11, D12; delivery tickets MCP-101, MCP-102). The audit snapshot itself (item ids, classification, original counts) is unchanged; two fields were added — `workspace_scope` on every item, `ruling_note` on ruled items — and the full delta list lives in the registry meta (`registry.json` → `meta.refresh_2026_07_22`, rendered in [`registry.md`](./registry.md) §Delta-refresh). In brief:
+
+1. **D12 scope cut, predicated on upstream ownership** — the 116 items whose words are owned by the upstream Oak Open Curriculum API spec (`source_locus: upstream-in-house-api`) are **out** of the content workspace (upstream owns those words; generated files are never hand-edited). They remain registered, marked `out-upstream-api`, so the map to the owning repo survives. The 14 in-repo codegen-authored tool-annotation blocks (`generated-from-openapi` but `source_locus: this-repo` — the C607 family) stay **in**: their emitted files are never hand-edited, but the words are authored by this repo's generator, so their review path is the generator source (§4.1's words-vs-data note). *(Refined at PR #476 round 1 — the first cut used extraction kind alone and over-excluded these 14.)*
+2. **D11 zero prompts** — the MCP prompt primitive unregisters entirely; the seven workflow bodies re-home as **agent resources**: the navigation three (find-lessons, explore-curriculum, learning-progression) live, the creation-oriented four (lesson-planning, adapt-lesson, curriculum-mapping, continue-progression) retained dormant behind the MCP-101 allowlist. 43 items annotated, including the landing page's prompt-catalogue section.
+3. **D2 under-the-hood KEEP** (ratified 2026-07-22) — 17 items annotated (13 tool-file surfaces plus the 4 registered-resource entries); the surface remains served.
+4. **Getting-started guidance (MCP-102)** joins as a forthcoming first-class content class — served guidance covering the Oak-branding prohibition, standards for generated materials, request-refusal criteria, and safety/safeguarding response criteria; authored by non-engineers on templated authoring surfaces, then ingested, sanitised, and served (a release gate, D5). It carries no items yet; its pipeline lands **into** the workspace shape, not beside it.
+5. **Live-vs-dormant is a derived dimension** — once the MCP-101 visible-surface allowlist exists, the workspace's live view derives from it; the registry records ruled target state, dated, not runtime truth. (At refresh time the code still registers prompts and no allowlist module exists.)
+
+### 12.1 What the deltas do to the workspace problem
+
+The 2026-07-09 analysis (§6) warned that the corpus spans three relationships — *own* (leaf), *invert* (generated), *wrap/cite* (external) — and that designing as if it were uniform was the main risk. The deltas materially simplify that picture:
+
+- The in-scope corpus is now **600 items**, of which 418 are leaf-authored (the genuinely catalogue-shaped core). The education-expert slice (134) is untouched by the cut.
+- The **hardest inversion class is gone**: the OCA-owned tool text (116 items) was the case where a catalogue would have had to drive an upstream-fed generator. What remains of *invert* is in-repo generated content — the 26 `generated-from-repo-code` items plus the 14 codegen-authored annotation blocks — spread across **several distinct in-repo production mechanisms**, not one family: the SDK instruction/metadata builders (`agent-support-tool-metadata`, `prerequisite-guidance`, `ontology-data`, `scopes-supported`), the codegen emitters and their per-tool outputs (`mcp-tool-generator`, `ai-doc-render`, `emit-index` annotations), the widget bundle, and the auth-metadata builder. Each is a migration seam the build session must inventory separately. The load-bearing simplification is that **every remaining seam is in-repo** — no catalogue-drives-upstream-generator design is needed anywhere.
+- A **new content class arrives with its own non-engineer pipeline** (MCP-102): authored outside the repo, ingested, sanitised, served. Whatever shape the workspace takes must absorb an externally-authored class as a first-class citizen, not an exception.
+- **Live/dormant becomes a rendered property** (from the allowlist), not an authored one — the workspace needs a *view* dimension, not a storage partition, for it.
+
+### 12.2 Recommendation: one content workspace, views not partitions (owner decides)
+
+**Recommendation: a single content workspace, internally organised by content class, with per-review-domain views, impact stratification, and live/dormant rendered from the allowlist.** Not a collection of per-domain workspaces. Rationale:
+
+1. **The reviewer experience is a view problem, not a topology problem.** The named persona (a safety and compliance officer who has never seen a TypeScript file) needs a complete, plain-English, per-domain view with provenance and diffs. All of that is a rendering product over one catalogue. Splitting the *storage* by review regime adds nothing the views don't already give — and every extra workspace multiplies exactly the engineering scaffolding (package manifests, tsconfigs, CI wiring) the persona should never meet.
+2. **The domain taxonomy is still moving; repo topology is the most expensive place to pin it.** This refresh alone re-statused 43 items and re-scoped 116 — and its own scope predicate was refined within one review round. The 2026-07-09 domain counts shifted the same week they were tabulated. Encoding today's review-domain split as workspace boundaries would make every future reclassification a file-move across packages; a tag in one catalogue moves with one diff.
+3. **Multi-domain items are real** (§3 records that some items were assigned a *primary* domain by lens, not by nature). A per-regime workspace forces single-homing at the package level; a single catalogue carries multiple domain tags honestly.
+4. **The three content relationships are mechanism differences, not reviewer differences.** *Own / invert / wrap-cite* are properties of how content reaches its serving surface — already encoded per item (`extraction_kind`, `source_locus`). They belong in the item schema, not in workspace boundaries.
+5. **The incoming MCP-102 class settles the marginal case.** A collection would force choosing which workspace a brand-new class belongs to before its content exists. A single workspace with a `content class` field absorbs it without a structural decision.
+6. **Review protocols bind to views, not workspaces.** §7's earlier lean ("several workspaces split by review regime — one reviewer + protocol per workspace") is fully served by named per-domain views, each with its reviewer and protocol. The protocol-per-domain requirement (decision 2/4) never needed workspace-per-domain; it needed an enumerable, complete, per-domain surface — which a view is.
+7. **l10n-readiness (decision 7) points the same way**: internationalisation practice is one catalogue with locale/variant dimensions, not per-domain catalogues.
+
+The one split that remains architecturally right — per this repo's framework/consumer principle — is **mechanism vs content**: the generic catalogue/view/diff machinery is reusable tooling; the Oak content itself is the single content workspace this recommendation names. That is a two-layer separation, not a collection of content workspaces.
+
+**This recommendation decides nothing.** The owner decides the shape (single vs collection); the build (phases c/d — workspace scaffold, migration, review affordances) follows that decision. The §7 open questions not touched by this refresh (the SSOT→consumer flow for the remaining in-repo generator family; whether simple-config relocates; the review/eval protocol definitions with their researched-best-practice bar) remain open for the build session.
 
 ## Appendix — governing ADRs
 

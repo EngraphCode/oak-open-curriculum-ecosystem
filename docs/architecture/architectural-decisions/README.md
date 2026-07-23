@@ -141,7 +141,7 @@ New to the repo? Read these five ADRs first for the architectural foundations:
 - [ADR-114: Layered Sub-agent Prompt Composition Architecture](114-layered-sub-agent-prompt-composition-architecture.md)
 - [ADR-115: Proxy OAuth AS for Cursor](115-proxy-oauth-as-for-cursor.md)
 - [ADR-116: resolveEnv Pipeline Architecture](116-resolve-env-pipeline-architecture.md) (supersedes ADR-016)
-- [ADR-117: Plan Templates and Reusable Plan Components](117-plan-templates-and-components.md)
+- [ADR-117: Plan Templates and Reusable Plan Components](117-plan-templates-and-components.md) ← **Superseded** by ADR-216
 - [ADR-118: Elastic-Native Dense Vector Strategy](118-elastic-native-dense-vector-strategy.md) ← **Superseded** by ADR-075
 - [ADR-119: Agentic Engineering Practice](119-agentic-engineering-practice.md)
 - [ADR-120: Per-Scope Search Tuning Parameters](120-per-scope-search-tuning.md)
@@ -433,6 +433,13 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   and analysis are exempted while repository-wide integrity gates still apply; only a
   record's dependency-free leaf packages register in the workspace; first occupant: the
   web-app-deconstruction deconstruction study; Proposed 2026-07-20)
+- [ADR-216: The plan-node estate](216-plan-node-estate.md)
+  (three node types — strategic, delivery, runbook — with born-sketch owner
+  ratification and delivery state as a Linear projection; supersedes ADR-117's
+  lifecycle lanes, promotion workflow, and component library; records the
+  owner-ratified D23 estate structure whose validator and templates landed in
+  PR #478; carries the dated ADR-200 relationship note — the living idea-graph
+  is deferred, not deleted; Proposed born-sketch 2026-07-23)
 
 ## Key Architectural Decisions
 
@@ -469,7 +476,7 @@ For understanding authentication, authorization, and observability:
 For understanding the agentic engineering practice:
 
 - **[ADR-114](114-layered-sub-agent-prompt-composition-architecture.md)** - Layered prompt composition architecture (components -> templates -> wrappers)
-- **[ADR-117](117-plan-templates-and-components.md)** - Plan templates and reusable plan components (document hierarchy, lifecycle, TDD phases)
+- **[ADR-216](216-plan-node-estate.md)** - The plan-node estate: three node types, born-sketch ratification, Linear-projected delivery state (supersedes ADR-117)
 - **[ADR-119](119-agentic-engineering-practice.md)** - Practice naming, boundary, three-layer model, and self-teaching property
 - **[ADR-124](124-practice-propagation-model.md)** - Practice propagation: five-file package, self-containment, practice-index bridge
 - **[ADR-125](125-agent-artefact-portability.md)** - Agent artefact portability: canonical `.agent/` source plus thin platform adapters; commands retired into skills by PDR-051

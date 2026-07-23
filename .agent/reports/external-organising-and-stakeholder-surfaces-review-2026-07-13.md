@@ -53,7 +53,7 @@ The decisive model is:
 That direction is accepted for the intent substrate in
 [ADR-200](../../docs/architecture/architectural-decisions/200-intent-as-a-living-idea-graph.md),
 designed into the
-[V0 plan-node schema](../plans/plan-node-schema.v0.md), and extended —
+[V0 plan-node schema](../plans-v0-sketch-2026-07-21/plan-node-schema.v0.md), and extended —
 still only provisionally — by
 [ADR-201](../../docs/architecture/architectural-decisions/201-external-systems-evidence-integration.md)
 for external evidence.
@@ -221,7 +221,7 @@ parallel planning model.
 #### The V0 plan-node schema
 
 The
-[V0 plan-node schema](../plans/plan-node-schema.v0.md)
+[V0 plan-node schema](../plans-v0-sketch-2026-07-21/plan-node-schema.v0.md)
 makes the Linear relationship concrete at the plan layer.
 
 It states that:
@@ -1265,7 +1265,7 @@ planning ceremony.
 
 - [ADR-200 — intent as a living idea graph](../../docs/architecture/architectural-decisions/200-intent-as-a-living-idea-graph.md)
 - [ADR-207 — DORA delivery metrics as a structural property](../../docs/architecture/architectural-decisions/207-dora-delivery-metrics-as-a-structural-property.md)
-- [V0 plan-node schema](../plans/plan-node-schema.v0.md)
+- [V0 plan-node schema](../plans-v0-sketch-2026-07-21/plan-node-schema.v0.md)
 - [Planning-estate rewrite](../plans-backlog-2026-07/product-development-governance/current/planning-estate-rewrite.plan.md)
 - [Plan-corpus refounding](../plans-backlog-2026-07/product-development-governance/active/plan-corpus-refounding.plan.md)
 - [Vision, strategy, and plan-estate controlling plan](../plans-backlog-2026-07/product-development-governance/vision-strategy-and-plan-estate.plan.md)

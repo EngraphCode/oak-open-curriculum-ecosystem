@@ -50,13 +50,12 @@ model decides when to call them, subject to per-tool visibility metadata.
 Generated tool definitions are updated automatically when the upstream API
 changes via `pnpm sdk-codegen`.
 
-**Resources** (application-controlled) — `curriculum://model` (domain ontology, `priority: 1.0`), a getting-started documentation resource, and `eef://interpretation` (EEF evidence interpretation guide, flag-gated, on by default). The host application decides whether to inject these into the model's context. Clients that support resource auto-injection get orientation data without a tool call. The curriculum graphs have no whole-corpus resource form — thread progressions, prior knowledge, misconceptions, and keywords are served by the anchored `get-thread-progressions`, `get-prior-knowledge-graph`, `get-misconception-graph`, and `get-keyword-graph` tools.
+**Resources** (application-controlled) — `curriculum://model` (domain ontology, `priority: 1.0`), a getting-started documentation resource, `eef://interpretation` (EEF evidence interpretation guide), and the served agent guidance documents (`docs://oak/guidance/*` — workflow guidance the assistant reads; the navigation set is live, the creation-oriented set is retained dormant). What is served is governed by the declarative served-surface definition (`src/served-surface/served-surface.ts`) — one reviewed point of control, no runtime flags. The curriculum graphs have no whole-corpus resource form — thread progressions, prior knowledge, misconceptions, and keywords are served by the anchored `get-thread-progressions`, `get-prior-knowledge-graph`, `get-misconception-graph`, and `get-keyword-graph` tools.
 
-**Prompts** (user-controlled) — `find-lessons`, `lesson-planning`, `explore-curriculum`, `learning-progression`, `curriculum-mapping`, `adapt-lesson`, and `continue-progression`. Parameterised workflow templates the user explicitly invokes as slash commands or UI actions. Each orchestrates multiple tools in a proven sequence for a common teacher task — `continue-progression` is the position-anchored entry point: state what your class just covered and plan the next step from Oak's sequence, building on what came before.
+**Prompts** — none. The app serves zero MCP prompts: the primitive is unregistered entirely (user-invoked prompt templates are a poor experience for teachers). The workflow substance that once lived in prompts is served instead as agent guidance resources, above.
 
-Together, tools give the AI autonomous access to curriculum data, resources
-give capable clients pre-loaded context, and prompts give users structured
-entry points for common tasks. The goal is to make Oak's curriculum
+Together, tools give the AI autonomous access to curriculum data and
+resources give capable clients pre-loaded context and workflow guidance. The goal is to make Oak's curriculum
 discoverable and usable through AI assistants, developer workflows, and MCP App
 hosts, helping teachers and builders find, understand, adapt, and reuse
 high-quality curriculum resources.
@@ -276,10 +275,10 @@ signing off a release. Replaces the retired `pnpm smoke:remote` harness
 
 - [UAT validation runbook](./docs/manual-uat-guide.md) — when to run, what
   to test, how to run each check, and expected results (host or curl).
-  Covers the full surface: transport/auth, all 37 tools, the 4 resources,
-  and the 7 prompts, the dual response-shape contract, an inventory
-  self-check, and a copy-paste run-record template tied to the release
-  severity model.
+  Covers the full served surface: transport/auth, the served tools and
+  resources (zero prompts, asserted), the dual response-shape contract, an
+  inventory self-check, and a copy-paste run-record template tied to the
+  release severity model.
 
 ### OAuth discovery
 
@@ -391,7 +390,7 @@ This application has comprehensive test coverage across three testing layers:
 
 - **Header Redaction** (`src/logging/header-redaction.unit.test.ts`): sensitive header redaction, IP address handling, edge cases
 - **Validation Logger** (`src/validation-logger.unit.test.ts`): upstream error classification and logging
-- **Prompt Registration** (`src/register-prompts.integration.test.ts`): MCP prompt schemas and message generation
+- **Served surface** (`src/served-surface/`): the declarative allowlist's totality, exactness, and registration-walk proofs
 
 ### Integration Tests
 
@@ -400,7 +399,7 @@ This application has comprehensive test coverage across three testing layers:
 ### End-to-End Tests
 
 - **Header Redaction E2E** (`e2e-tests/header-redaction.e2e.test.ts`): full request/response cycles with sensitive headers, OAuth scenarios
-- **Tool E2E** (`e2e-tests/`): MCP tool invocation, resource listing, prompt registration, widget metadata
+- **Tool E2E** (`e2e-tests/`): MCP tool invocation, resource listing, the zero-prompts protocol proof, widget metadata
 
 ### Widget Tests (Playwright)
 
@@ -439,7 +438,7 @@ pnpm --filter @oaknational/oak-curriculum-mcp-streamable-http test:widget:a11y
 
 ## Detailed Documentation
 
-- [MCP primitives: intention and intended audience](docs/mcp-primitives-intention-and-audience.md) - Internal guide to tool/resource/prompt boundaries, control model, and UAT expectations
+- [MCP primitives: intention and intended audience](docs/mcp-primitives-intention-and-audience.md) - Internal guide to tool/resource boundaries (zero prompts), control model, and UAT expectations
 - [Observability](docs/observability.md) — Sentry instrumentation, per-request span, scope enrichment, redaction barrier, release metadata, source-map upload
 - [Operational Debugging](docs/operational-debugging.md) — request tracing, timing, diagnostics, error debugging, production logging
 - [Widget Rendering](docs/widget-rendering.md) — widget dispatch, rendering architecture, and sandbox details

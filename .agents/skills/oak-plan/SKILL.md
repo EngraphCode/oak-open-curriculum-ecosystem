@@ -1,6 +1,6 @@
 ---
 name: oak-plan
-description: Create or promote a plan following the plan architecture.
+description: Author a plan node in the ratified plan-node estate.
 ---
 
 # Plan (Cross-tool)

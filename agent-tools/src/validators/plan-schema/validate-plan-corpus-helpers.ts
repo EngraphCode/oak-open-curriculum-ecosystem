@@ -1,14 +1,16 @@
 /**
- * Pure helpers for the plan-corpus validator: strategic-choice registry
- * recomputation and per-file frontmatter conformance.
+ * Pure helpers for the plan-corpus validator: per-file frontmatter
+ * conformance and corpus-level edge resolution.
  *
  * @remarks
- * The registry is recomputed from BOTH live surfaces on every run
- * (validators-must-recompute-not-just-record): the prefix families from
- * the `docs/strategy/README.md` registry table, and the concrete
- * numbered choice IDs from the `docs/strategy/stream-*.md` documents.
- * A `serves_strategic_choice` value resolves iff it is a concrete ID
- * from a registered family (or the literal `pending`, V0 §2.3).
+ * Registry recomputation lives in `plan-corpus-registries.ts` (both
+ * registries recompute from live surfaces on every run). Cross-file
+ * rules live in {@link validateCorpus}: a strategic node's `serves`
+ * resolves against the published choice registry; a delivery plan's or
+ * runbook's `serves` resolves against the strategic nodes actually in
+ * the corpus; `depends_on` edges and `impact_areas` members resolve or
+ * the corpus fails; an empty corpus is a failure, never a vacuous
+ * green.
  *
  * @packageDocumentation
  */
@@ -18,74 +20,8 @@ import { parse as parseYaml } from 'yaml';
 
 import { isJsonObject } from '../../core/json.js';
 import { extractFrontmatter } from '../portability/portability-fs.js';
+import { type ChoiceRegistry } from './plan-corpus-registries.js';
 import { planNodeSchema, type PlanNode } from './plan-node-schema.js';
-
-/** A backtick-quoted family token in the registry table, e.g. APP-star. */
-const FAMILY_TOKEN = /`([A-Z]+)-\*`/g;
-
-/** A concrete strategic-choice ID, e.g. `FRAME-1`, anywhere in a stream doc. */
-const CONCRETE_ID = /\b([A-Z]+-\d+)\b/g;
-
-/** The recomputed strategic-choice registry. */
-export interface ChoiceRegistry {
-  /** Registered prefix families (e.g. `APP`, `FRAME`), from the README table. */
-  readonly families: ReadonlySet<string>;
-  /** Concrete choice IDs (e.g. `FRAME-1`), from the stream documents. */
-  readonly ids: ReadonlySet<string>;
-}
-
-/**
- * Recompute the strategic-choice registry from the strategy corpus.
- *
- * @param readmeContent - `docs/strategy/README.md` verbatim.
- * @param streamContents - Each `docs/strategy/stream-*.md` verbatim.
- * @returns The registry, or an error when the README names no families
- *   (a vacuous registry would green every plan — fail closed instead).
- */
-export function recomputeChoiceRegistry(
-  readmeContent: string,
-  streamContents: readonly string[],
-): Result<ChoiceRegistry, Error> {
-  const families = collectFamilies(readmeContent);
-  if (families.size === 0) {
-    return err(
-      new Error(
-        'strategic-choice registry recompute found no `PREFIX-*` families in docs/strategy/README.md — refusing a vacuous registry',
-      ),
-    );
-  }
-  return ok({ families, ids: collectConcreteIds(streamContents, families) });
-}
-
-/** Family prefixes from the README registry table. */
-function collectFamilies(readmeContent: string): Set<string> {
-  const families = new Set<string>();
-  for (const match of readmeContent.matchAll(FAMILY_TOKEN)) {
-    const family = match[1];
-    if (family !== undefined) {
-      families.add(family);
-    }
-  }
-  return families;
-}
-
-/** Concrete choice IDs from the stream docs, filtered to registered families. */
-function collectConcreteIds(
-  streamContents: readonly string[],
-  families: ReadonlySet<string>,
-): Set<string> {
-  const ids = new Set<string>();
-  for (const content of streamContents) {
-    for (const match of content.matchAll(CONCRETE_ID)) {
-      const id = match[1];
-      const family = id?.split('-')[0];
-      if (id !== undefined && family !== undefined && families.has(family)) {
-        ids.add(id);
-      }
-    }
-  }
-  return ids;
-}
 
 /** One plan file's conformance failure, path-anchored for the report. */
 export interface PlanConformanceFailure {
@@ -93,9 +29,16 @@ export interface PlanConformanceFailure {
   readonly messages: readonly string[];
 }
 
+/** A parsed, file-level-valid plan awaiting corpus-level resolution. */
+export interface ParsedPlanFile {
+  readonly path: string;
+  readonly node: PlanNode;
+}
+
 /**
- * Validate one `*.plan.md` file's frontmatter against the V0 contract
- * and the recomputed registry.
+ * Validate one `*.plan.md` file's frontmatter against the plan-node
+ * contract (single-file shape only — corpus rules are
+ * {@link validateCorpus}'s).
  *
  * Fail-closed at file granularity: a plan with no frontmatter block is
  * a failure, never a silent skip (the vacuous-green class).
@@ -105,7 +48,6 @@ export interface PlanConformanceFailure {
 export function validatePlanFile(
   path: string,
   content: string,
-  registry: ChoiceRegistry,
 ): Result<PlanNode, PlanConformanceFailure> {
   const mapping = parseFrontmatterMapping(content);
   if (isErr(mapping)) {
@@ -120,23 +62,117 @@ export function validatePlanFile(
       ),
     });
   }
-  const choice = result.data.serves_strategic_choice;
-  if (choice !== undefined && choice !== 'pending' && !registry.ids.has(choice)) {
-    return err({
-      path,
-      messages: [
-        `serves_strategic_choice: '${choice}' does not resolve against the published registry (docs/strategy; known: ${[...registry.ids].sort((a, b) => a.localeCompare(b)).join(', ')})`,
-      ],
-    });
-  }
   return ok(result.data);
+}
+
+/**
+ * Corpus-level rules over the file-level-valid plans: non-emptiness,
+ * id uniqueness, `serves` resolution (strategic → published choice
+ * registry; delivery/runbook → a strategic node in the corpus),
+ * `impact_areas` registry membership, and `depends_on` resolution.
+ *
+ * @returns Path-anchored failures; empty means the corpus coheres.
+ */
+export function validateCorpus(
+  files: readonly ParsedPlanFile[],
+  choices: ChoiceRegistry,
+  impactAreas: ReadonlySet<string>,
+): PlanConformanceFailure[] {
+  if (files.length === 0) {
+    return [
+      {
+        path: '.agent/plans',
+        messages: ['the corpus is empty — zero plan files is a failure, never a vacuous green'],
+      },
+    ];
+  }
+  const allIds = new Set(files.map((file) => file.node.id));
+  const strategicIds = new Set(
+    files.filter((file) => file.node.node_type === 'strategic').map((file) => file.node.id),
+  );
+  const failures: PlanConformanceFailure[] = [];
+  for (const file of files) {
+    const messages = [
+      ...duplicateIdMessages(file, files),
+      ...servesMessages(file.node, choices, strategicIds),
+      ...impactAreaMessages(file.node, impactAreas),
+      ...dependsOnMessages(file.node, allIds),
+    ];
+    if (messages.length > 0) {
+      failures.push({ path: file.path, messages });
+    }
+  }
+  return failures;
+}
+
+/** A plan id appearing under more than one path is a corpus failure. */
+function duplicateIdMessages(
+  file: ParsedPlanFile,
+  files: readonly ParsedPlanFile[],
+): readonly string[] {
+  const holders = files.filter((candidate) => candidate.node.id === file.node.id);
+  if (holders.length === 1) {
+    return [];
+  }
+  return [
+    `id: duplicate plan id '${file.node.id}' (also at: ${holders
+      .filter((candidate) => candidate.path !== file.path)
+      .map((candidate) => candidate.path)
+      .join(', ')})`,
+  ];
+}
+
+/** `serves` resolution per node type. */
+function servesMessages(
+  node: PlanNode,
+  choices: ChoiceRegistry,
+  strategicIds: ReadonlySet<string>,
+): readonly string[] {
+  const serves = node.serves;
+  if (serves === undefined) {
+    return [];
+  }
+  if (node.node_type === 'strategic') {
+    return choices.ids.has(serves)
+      ? []
+      : [
+          `serves: '${serves}' does not resolve against the published strategic-choice registry (docs/strategy; known: ${sorted(choices.ids).join(', ')})`,
+        ];
+  }
+  return strategicIds.has(serves)
+    ? []
+    : [
+        `serves: '${serves}' names no strategic node in the corpus (known: ${sorted(strategicIds).join(', ')})`,
+      ];
+}
+
+/** Every `impact_areas` member resolves against the closed registry. */
+function impactAreaMessages(node: PlanNode, impactAreas: ReadonlySet<string>): readonly string[] {
+  return node.impact_areas
+    .filter((area) => !impactAreas.has(area))
+    .map(
+      (area) =>
+        `impact_areas: '${area}' is not in the closed registry (.agent/plans/impact-areas.md; known: ${sorted(impactAreas).join(', ')})`,
+    );
+}
+
+/** Every `depends_on` edge names a plan id present in the corpus. */
+function dependsOnMessages(node: PlanNode, allIds: ReadonlySet<string>): readonly string[] {
+  return (node.depends_on ?? [])
+    .filter((edge) => !allIds.has(edge.plan))
+    .map((edge) => `depends_on: '${edge.plan}' names no plan id in the corpus`);
+}
+
+/** Locale-stable sorted view of a set, for deterministic messages. */
+function sorted(values: ReadonlySet<string>): string[] {
+  return [...values].sort((a, b) => a.localeCompare(b));
 }
 
 /** Extract and parse the YAML frontmatter block into a mapping, fail-closed. */
 function parseFrontmatterMapping(content: string): Result<unknown, string> {
   const frontmatter = extractFrontmatter(content);
   if (frontmatter === null) {
-    return err('no YAML frontmatter block (V0 §2 requires one)');
+    return err('no YAML frontmatter block (the plan-node contract requires one)');
   }
   let parsed: unknown;
   try {

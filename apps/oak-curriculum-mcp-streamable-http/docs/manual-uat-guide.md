@@ -3,7 +3,7 @@
 A repeatable, black-box **user-acceptance-test (UAT) runbook** for the Oak
 Curriculum MCP server as a whole. Run it by hand — as an engineer or an AI
 agent — against any running instance to gain end-to-end confidence in every
-surface (transport, auth, all tools, resources, and prompts) before you trust
+surface (transport, auth, all served tools and resources — and the deliberate prompts absence) before you trust
 the server in a host or sign off a release.
 
 This runbook is designed to be run **repeatedly and identically**: same
@@ -26,7 +26,7 @@ up over the wire.
   [Milestone Release Runbook](../../../docs/engineering/milestone-release-runbook.md)).
 - **After any preview or production deploy**, to confirm the live server is
   healthy and reachable.
-- **After `pnpm sdk-codegen`** or any change to the tool/resource/prompt
+- **After `pnpm sdk-codegen`** or any change to the tool/resource
   surface — the inventory self-check (Section 0) catches additions and
   removals.
 - **Periodically against production** as a live regression / "is it still
@@ -60,8 +60,9 @@ Prerequisites section) drives this runbook from the terminal or CI:
 `protocol conformance` (MCP-spec conformance), `apps conformance` / `apps render`
 (MCP Apps / widget — §13), and `eval` (hosted, cross-LLM tool-behaviour evals —
 needs `mcpjam login`). It exposes the full response envelope, so the dual-shape
-`content[1]` block is directly checkable, and it enumerates prompts (§11) — both
-of which a `structuredContent`-only host cannot show. Caveats: `apps conformance`
+`content[1]` block is directly checkable — which a `structuredContent`-only
+host cannot show (prompt enumeration returns none: the app serves zero
+prompts, §11). Caveats: `apps conformance`
 is server-side only (it does not prove host lifecycle, sandbox, or postMessage);
 and run `protocol conformance` against the **no-auth** build to exercise the
 Host/Origin checks, since an auth build rejects the probe at the auth layer and
@@ -160,11 +161,11 @@ contract that keeps the server renderable across the whole client population.
 Run first. The live server is the source of truth; reconcile against
 [Appendix A](#appendix-a-expected-live-inventory).
 
-| #   | Method           | How             | Expected result                                                                                                 |
-| --- | ---------------- | --------------- | --------------------------------------------------------------------------------------------------------------- |
-| 0.1 | `tools/list`     | List tools.     | The expected tool set is present (Appendix A lists 37 on the full surface). Note any **addition or removal**.   |
-| 0.2 | `resources/list` | List resources. | `curriculum://model`, `docs://oak/getting-started.md`, `eef://interpretation`, and the MCP App `ui://…` widget. |
-| 0.3 | `prompts/list`   | List prompts.   | The 7 prompts in Appendix A (EEF `adapt-lesson` is flag-gated).                                                 |
+| #   | Method           | How             | Expected result                                                                                                                   |
+| --- | ---------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| 0.1 | `tools/list`     | List tools.     | The expected tool set is present (Appendix A lists 41 served: 40 live universal + 1 app-local). Note any **addition or removal**. |
+| 0.2 | `resources/list` | List resources. | `curriculum://model`, `docs://oak/getting-started.md`, `eef://interpretation`, and the MCP App `ui://…` widget.                   |
+| 0.3 | `prompts/list`   | Probe prompts.  | JSON-RPC error `-32601` Method not found — the app serves zero prompts (D11); a result listing ANY prompt is a defect.            |
 
 Any tool/resource/prompt **present but not covered below** must still be
 exercised — add a row to your record. Any item **absent** that you expected is
@@ -301,9 +302,12 @@ arrives in the honest typed shapes only.
 ## 8. EEF evidence surface
 
 The EEF (Education Endowment Foundation) Teaching and Learning Toolkit surface
-ships **live by default**, co-gated by `OAK_CURRICULUM_MCP_EEF_ENABLED`: an
-explicit `=false` is the **kill-switch** that removes the tool, the resource,
-and the prompt together. With the env var unset, all three are present.
+ships **live**, governed by the declarative served-surface definition
+(`src/served-surface/served-surface.ts`): the tool and the resource carry
+live rows there, and disabling either is a reviewed change to that one
+definition — there is no runtime flag. (The former
+`OAK_CURRICULUM_MCP_EEF_ENABLED` kill-switch and the EEF prompt are gone:
+the app serves no MCP prompts at all.)
 
 The surface is a **deterministic projection of a fixed corpus** — the agent does
 the reasoning; the tool returns only the corpus's own facts. Treat any value the
@@ -320,7 +324,6 @@ never to invent.
 | 8.4 | `get-eef-evidence` (error)          | `{ function: 'evidence-for-move' }` (no selector)                                             | `isError: true` — "requires at least one selector …". An unknown strand id / out-of-vocabulary value likewise errors at the boundary.                                                                                                                                                                     |
 | 8.5 | `get-eef-evidence` (floor)          | `{ function: 'inspect-strand', strandId: 'eef-tl-learning-styles' }`                          | The honest insufficient-evidence / little-to-no-impact finding reaches you verbatim (null impact / `Insufficient`); richer fields **omitted**, never fabricated.                                                                                                                                          |
 | 8.6 | `eef://interpretation`              | `resources/read` the URI                                                                      | `text/markdown` reasoning scaffold: how to read the evidence faithfully, strand index, methodology, caveats.                                                                                                                                                                                              |
-| 8.7 | `adapt-lesson` prompt               | `prompts/get` `adapt-lesson` with `topic` + `yearGroup`                                       | Workflow messages that start the evidence-grounded adaptation flow (host-dependent — see Section 11).                                                                                                                                                                                                     |
 
 **Independent ground-truth check (the value that matters).** Pick a known strand
 and confirm its corpus values — caveat text, evidence strength, cost, impact —
@@ -346,34 +349,30 @@ single-answer language.
 
 ## 10. Resources
 
-| #    | Resource                           | How                         | Expected result                                                            |
-| ---- | ---------------------------------- | --------------------------- | -------------------------------------------------------------------------- |
-| 10.1 | `curriculum://model`               | `resources/read`            | `application/json` domain ontology + tool guidance (resource form of 2.1). |
-| 10.2 | `docs://oak/getting-started.md`    | `resources/read`            | `text/markdown` intro: server, auth, first steps.                          |
-| 10.3 | `eef://interpretation`             | `resources/read` (also 8.6) | `text/markdown` EEF reasoning scaffold (present only when EEF enabled).    |
-| 10.4 | `ui://widget/oak-curriculum-app-*` | `resources/read`            | `text/html;profile=mcp-app` widget document (the MCP App surface).         |
+| #    | Resource                           | How                         | Expected result                                                                     |
+| ---- | ---------------------------------- | --------------------------- | ----------------------------------------------------------------------------------- |
+| 10.1 | `curriculum://model`               | `resources/read`            | `application/json` domain ontology + tool guidance (resource form of 2.1).          |
+| 10.2 | `docs://oak/getting-started.md`    | `resources/read`            | `text/markdown` intro: server, auth, first steps.                                   |
+| 10.3 | `eef://interpretation`             | `resources/read` (also 8.6) | `text/markdown` EEF reasoning scaffold (live row in the served-surface definition). |
+| 10.4 | `ui://widget/oak-curriculum-app-*` | `resources/read`            | `text/html;profile=mcp-app` widget document (the MCP App surface).                  |
 
 ---
 
-## 11. Prompts
+## 11. Prompts (deliberately absent)
 
-Prompts are **user-controlled** workflow templates, invoked via `prompts/get`
-(prompt discovery), **not** `tools/call`. A **prompt UAT pass** is:
-discoverable via `prompts/list` and retrievable via `prompts/get` with valid
-args, yielding usable workflow messages. If a prompt exists but a host cannot
-invoke it, that is a client-capability question, not a server defect (see
-[MCP primitives intent](./mcp-primitives-intention-and-audience.md)). Use curl
-(Appendix B) when your host has no prompt surface.
+The app serves **zero MCP prompts** (decisions register D11): the primitive
+is unregistered entirely. A **prompts UAT pass** is the ABSENCE contract
+holding, not any prompt working:
 
-| #    | Prompt                 | Required args (retrieve via `prompts/get`) | Expected result                                                                      |
-| ---- | ---------------------- | ------------------------------------------ | ------------------------------------------------------------------------------------ |
-| 11.1 | `find-lessons`         | per descriptor                             | Lesson-finding workflow messages.                                                    |
-| 11.2 | `lesson-planning`      | per descriptor                             | Lesson-planning workflow messages.                                                   |
-| 11.3 | `explore-curriculum`   | per descriptor                             | Curriculum-exploration workflow messages.                                            |
-| 11.4 | `learning-progression` | per descriptor                             | Progression workflow messages.                                                       |
-| 11.5 | `curriculum-mapping`   | per descriptor                             | Mapping workflow messages.                                                           |
-| 11.6 | `adapt-lesson`         | `topic`, `yearGroup` (EEF-gated)           | Evidence-grounded adaptation workflow messages; missing args → `-32602` naming them. |
-| 11.7 | `continue-progression` | per descriptor                             | Position-anchored next-step planning messages.                                       |
+| #    | What                      | How                                      | Expected result                                                              |
+| ---- | ------------------------- | ---------------------------------------- | ---------------------------------------------------------------------------- |
+| 11.1 | Capability negotiation    | `initialize`, read `capabilities`        | No `prompts` key at all (key absence — an empty `prompts: {}` is a defect).  |
+| 11.2 | `prompts/list` probe      | Appendix B curl                          | JSON-RPC error `-32601` Method not found.                                    |
+| 11.3 | Workflow guidance (moved) | `resources/read` `docs://oak/guidance/*` | The served (navigation) guidance documents return `text/markdown` (see §10). |
+
+The workflow substance formerly served as prompts now ships as agent guidance
+resources, governed by the served-surface definition
+(`src/served-surface/served-surface.ts`).
 
 ---
 
@@ -438,7 +437,7 @@ Date (UTC):    <YYYY-MM-DD>
 Run by:        <engineer / agent + host/client>
 Mode:          <smoke subset | full matrix>
 
-Section 0  Inventory self-check ......... PASS / FAIL / N-A   (tools: __  resources: __  prompts: __)
+Section 0  Inventory self-check ......... PASS / FAIL / N-A   (tools: __  resources: __  prompts: 0 asserted)
 Section 1  Transport & auth ............. PASS / FAIL / N-A
 Section 2  Orientation .................. PASS / FAIL / N-A
 Section 3  Discovery & browse ........... PASS / FAIL / N-A
@@ -490,19 +489,31 @@ Section 0 shows a drift.
 **Tools — curriculum graph (4):** `get-thread-progressions`,
 `get-prior-knowledge-graph`, `get-misconception-graph`, `get-keyword-graph`.
 
-**Tools — EEF (1, flag-gated):** `get-eef-evidence`.
+**Tools — EEF (1):** `get-eef-evidence` (live row in the served-surface definition).
 
 **Tools — assets (1):** `download-asset`.
 
-**Tools — MCP App user search (2, app-only visibility):** `user-search`,
-`user-search-query`.
+**Tools — programmes (5):** `get-programmes`, `get-programmes-units`,
+`get-programmes-questions`, `get-programmes-assets`,
+`get-subjects-programmes`.
 
-**Resources (4):** `curriculum://model`, `docs://oak/getting-started.md`,
-`eef://interpretation` (flag-gated), `ui://widget/oak-curriculum-app-*.html`.
+**Tools — orientation, app-local (1):** `oak-under-the-hood`.
 
-**Prompts (7):** `find-lessons`, `lesson-planning`, `explore-curriculum`,
-`learning-progression`, `curriculum-mapping`, `adapt-lesson` (flag-gated),
-`continue-progression`.
+**Tools — MCP App user search (2, DORMANT):** `user-search`,
+`user-search-query` — dormant rows in the served-surface definition; absent
+from `tools/list` until a reviewed definition change turns them live.
+
+**Resources (8 served):** `curriculum://model`, `docs://oak/getting-started.md`,
+`docs://oak/under-the-hood.md`, `eef://interpretation`,
+`ui://widget/oak-curriculum-app-*.html`, and the navigation guidance three:
+`docs://oak/guidance/find-lessons.md`, `docs://oak/guidance/explore-curriculum.md`,
+`docs://oak/guidance/learning-progression.md`. (The creation-oriented three
+guidance documents exist dormant and never appear in `resources/list`.)
+
+**Prompts (0):** none — the primitive is unregistered (D11). The six
+workflow guidance documents live at `docs://oak/guidance/*`; the navigation
+three are served, the creation-oriented three are dormant behind the
+served-surface definition.
 
 ---
 
@@ -530,10 +541,9 @@ curl -sS -X POST ORIGIN/mcp \
   | grep '^data:' | sed 's/^data: //' | jq
 ```
 
-Swap `method`/`params` for `resources/list`, `resources/read`
-(`{"uri":"eef://interpretation"}`), `prompts/list`, or `prompts/get`
-(`{"name":"adapt-lesson","arguments":{"topic":"…","yearGroup":"…"}}`) to
-exercise the other primitives.
+Swap `method`/`params` for `resources/list` or `resources/read`
+(`{"uri":"eef://interpretation"}`) to exercise resources — or `prompts/list`
+to prove the absence contract (expect JSON-RPC `-32601`).
 
 ## Related
 
