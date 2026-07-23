@@ -1,3 +1,12 @@
+## [1.85.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.2...v1.85.3) (2026-07-23)
+
+
+### Bug Fixes
+
+* **design-system:** land the 2026-07-23 design-session source fixes (MCP-132) ([329d5f1](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/329d5f12414dcdcbf1015aafe7919e98fc2baccb)), closes [#13](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/13) [#14](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/14)
+* **design-system:** review round 1 — no false invariants in comments or counts ([ed27660](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ed27660599bafc8bcbaecbd3051aee78e0e4de47)), closes [#13](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/13)
+* **design-system:** review round 2 — derived surfaces follow the source of truth ([05b8bec](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/05b8becd41740602f5d153f4b52746dc2c4c4069)), closes [hi#contrast](https://github.com/hi/issues/contrast) [#14](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/14)
+
 ## [1.85.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.1...v1.85.2) (2026-07-23)
 
 ## [1.85.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.0...v1.85.1) (2026-07-23)
