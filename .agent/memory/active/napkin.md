@@ -108,3 +108,19 @@ existing homes; PDR-079's identifier-with-gloss form supersedes the June L1 clai
 - **Metaloss fixed point**: a further pass would only re-find the
   machine-local comms tier, the dead subagent contexts, and the
   background-command signature above — the recursion closes there.
+
+## Bonfire pause-wrap seed (2026-07-23 ~18:00Z, Bonfire tracks Bellows 3bb759)
+
+- **Switch-plane projection completeness** (concept-exploration output; the cure-side twin of
+  green-parts-red-composition): today's three cures all had one shape — one authoritative state
+  definition, every surface DERIVES, and a one-place walk enumerates the deriving surfaces
+  (dormant-absence walk, landed 2275ab6a9). The open joint: walk-JOINING is itself a discipline;
+  completeness is not self-certifiable — today's underived surfaces were found by types, review,
+  and the owner, never by self-scan. Proposals with falsifiers live in the Bonfire pause-wrap
+  closeout record (handoffs, 2026-07-23) and MCP-121's walk socket. Watch: a fourth
+  composition-failure instance whose surfaces DO all derive would split the pattern into
+  state-divergence vs write-blockage sub-classes (the release stall was the latter).
+- **Branch-only workflow dispatch**: a workflow existing only on a non-default branch did not
+  become dispatchable (no registration after ~15 min; single instance, mechanism inferred).
+  Working cure: `on: push` scoped to its own scratch ref — the push event runs the file at that
+  ref immediately. Scaffold → evidence → delete-ref pattern proven on the Slack alert test.
