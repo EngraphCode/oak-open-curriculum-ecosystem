@@ -3,10 +3,10 @@ id: mcp-121-guidance-serving-architecture
 node_type: delivery
 name: "Guidance serving architecture: one content source, three serving tiers"
 overview: "Collapse the duplicated agent-facing instruction strings into one statement-level content model projected onto three cost-tiered serving surfaces, add the owner-sketched rules-and-guidance tool, and review the year-old instructions text for accuracy and token cost."
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-07-23
+ratified_where: "Owner zero-open-PRs disposition card (chat, Bonfire seat), 2026-07-23 — ratify-now answer; the guidance sitting narrows to the format/ingest protocol"
 serves: first-major-release
 impact_areas:
   - served-surface
