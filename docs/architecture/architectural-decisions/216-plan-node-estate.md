@@ -1,8 +1,10 @@
 # ADR-216: The plan-node estate — three node types, born-sketch ratification, Linear-projected delivery state
 
-- **Status:** Proposed (born-sketch, 2026-07-23 — records the owner-ratified
-  D23 estate structure; this ADR itself governs nothing until it carries the
-  owner's ratification word, per the born-sketch discipline it describes).
+- **Status:** Accepted (owner-ratified 2026-07-23 at a visible card, one word
+  covering PR #482 and this status flip; the word is recorded in the lead
+  session and relayed on comms event
+  `2026-07-23 "OWNER WORD: #482 ratified"` by the Director. Born Proposed the
+  same day, per the born-sketch discipline this ADR describes).
 - **Supersedes:** [ADR-117](117-plan-templates-and-components.md) (plan
   templates, lifecycle lanes, the promotion workflow, and the component
   library).
