@@ -29,14 +29,17 @@ test.describe('Landing page', () => {
     await expect(hero).toBeVisible();
   });
 
-  test('has collapsible sections for Resources, Prompts, and Tools', async ({ page }) => {
+  test('has collapsible sections for Resources and Tools — and no Prompts section', async ({
+    page,
+  }) => {
     await page.goto('/');
 
     // Each section has a summary element containing an h2 with the section name and count
-    // e.g. "Resources (3)", "Prompts (3)", "Tools (26)"
+    // e.g. "Resources (3)", "Tools (26)". The app serves zero MCP prompts
+    // (decisions register D11), so no Prompts section exists to advertise.
     await expect(page.locator('summary h2', { hasText: /Resources \(\d+\)/ })).toBeVisible();
-    await expect(page.locator('summary h2', { hasText: /Prompts \(\d+\)/ })).toBeVisible();
     await expect(page.locator('summary h2', { hasText: /Tools \(\d+\)/ })).toBeVisible();
+    await expect(page.locator('summary h2', { hasText: /Prompts \(\d+\)/ })).toHaveCount(0);
   });
 
   // Tagged so the dedicated `test:a11y` gate can run browser accessibility

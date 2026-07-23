@@ -163,5 +163,4 @@ export function registerAllResources(
   registerWidgetResource(server, options.getWidgetHtml);
 }
 
-export { registerPrompts } from './register-prompts.js';
 export type { ResourceRegistrationOptions } from './register-resource-helpers.js';

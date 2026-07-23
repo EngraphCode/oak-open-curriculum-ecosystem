@@ -25,7 +25,7 @@ import {
 } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
 import { handleToolWithAuthInterception } from './tool-handler-with-auth.js';
 import { measureCallToolResult } from './observability/tool-result-measurement.js';
-import { registerAllResources, registerPrompts } from './register-resources.js';
+import { registerAllResources } from './register-resources.js';
 import { registerOakUnderTheHoodTool } from './oak-under-the-hood/oak-under-the-hood-tool.js';
 import {
   SERVED_SURFACE,
@@ -44,7 +44,7 @@ export { createMcpHandler } from './mcp-handler.js';
 export type { McpHandlerRequest, McpHandlerResponse } from './mcp-handler.js';
 
 /**
- * Inputs required to register Oak's MCP tools, resources, and prompts.
+ * Inputs required to register Oak's MCP tools and resources.
  *
  * The HTTP app stays thin: it receives prebuilt SDK/runtime dependencies,
  * then registers the canonical universal tool inventory directly without
@@ -76,9 +76,7 @@ interface RegisterHandlersOptions {
   /**
    * Served-surface definition governing registration. Defaults to the
    * canonical module-level `SERVED_SURFACE`; injectable so tests can
-   * exercise dormant rows (e.g. the unbuilt user-search MCP App tools).
-   * Production callers never pass this — the canonical constant is the
-   * single point of control (ratified plan mcp-101).
+   * exercise dormant rows. Production callers never pass this (mcp-101).
    */
   readonly servedSurface?: ServedSurfaceDefinition;
 }
@@ -119,7 +117,9 @@ function buildToolHandlerDependencies(
 }
 
 /**
- * Registers all MCP tools, resources, and prompts with the server.
+ * Registers all MCP tools and resources with the server. The prompt
+ * primitive is never registered: the app serves zero MCP prompts (D11);
+ * workflow guidance travels as agent-readable resources instead.
  *
  * Tool metadata is registered in the same shape returned by
  * `listUniversalTools()`: `title`, `description`, `inputSchema`,
@@ -144,7 +144,7 @@ function buildToolHandlerDependencies(
  * ```
  */
 export function registerHandlers(
-  server: Pick<McpServer, 'registerTool' | 'registerResource' | 'registerPrompt'>,
+  server: Pick<McpServer, 'registerTool' | 'registerResource'>,
   options: RegisterHandlersOptions,
 ): void {
   const resourceUrl = options.resourceUrl ?? 'http://localhost:3333/mcp';
@@ -174,7 +174,6 @@ export function registerHandlers(
     getWidgetHtml: options.getWidgetHtml,
     eefEnabled: options.runtimeConfig.eefEnabled,
   });
-  registerPrompts(server, options.runtimeConfig.eefEnabled);
 }
 
 /**
