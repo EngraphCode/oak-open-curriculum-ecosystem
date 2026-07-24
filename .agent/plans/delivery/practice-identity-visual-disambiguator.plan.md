@@ -82,19 +82,26 @@ collision can never corrupt state.
 ## Mechanism
 
 1. **New optional field** `visual_disambiguator` on the PDR-027
-   `agent_id` block, computed at identity derivation wherever the block
-   is built (platform preflight, override, migration paths alike).
+   `agent_id` block, computed at identity derivation wherever a block
+   is built WITH both inputs (platform preflight and override paths
+   alike). Legacy-migration constructors are the named exception:
+   `comms-migration-records.ts` deliberately mints legacy blocks
+   without an `id` (the original seed is unavailable), so migration
+   output omits the token and renders through the legacy prefix
+   fallback — a correct token cannot be fabricated there.
 2. **Derivation, pinned and total**:
    `visual_disambiguator = session_id_prefix + "-" + id.slice(-3)`
    — the existing prefix VERBATIM (raw first-6, exactly the current
    field, so the token's head equals historical prefixes by
    construction, with no lowercasing or hyphen-stripping step), a
    joining dash, and the last 3 hex characters of the block's UUIDv5
-   `id`. Total for every supported seed shape: UUIDv4/v7 session ids,
-   arbitrary conversation-id seeds, and override identities — every
-   path that can mint a block has both inputs by the time the block
-   exists (`deriveOverrideCollaborationIdentity` receives the prefix
-   and derives the id). The token is RECOMPUTED wherever a block's
+   `id`. Total for every supported seed shape at DERIVATION: UUIDv4/v7
+   session ids, arbitrary conversation-id seeds, and override
+   identities — every derivation path has both inputs by the time the
+   block exists (`deriveOverrideCollaborationIdentity` receives the
+   prefix and derives the id); the item-1 legacy-migration exception
+   (no `id`, no seed) is outside the derivation surface and takes the
+   prefix fallback. The token is RECOMPUTED wherever a block's
    `session_id_prefix` or `id` is replaced after derivation — the
    `resolveSelfIdentity` `--session-prefix` override path is explicitly
    in scope, so the token head can never desync from the final prefix.
@@ -119,8 +126,9 @@ collision can never corrupt state.
    rendered identity surface shows `<name> (<session_id_prefix>)`) is
    amended to the token render with prefix fallback — owner-ruled via
    Director card, 2026-07-24, twin disposition
-   flag-at-next-exchange-window (the sibling estate coordinates its
-   twin at the next exchange window per PDR-125 clause 6).
+   `their-lane-owns-coordinate` (PDR-125 clause 6's enumerated
+   vocabulary; the ruled substance unchanged — the sibling estate's
+   own lane lands its twin, coordinated at the next exchange window).
 5. **Schema updates, consumers first** (see Todos order): the
    canonical strict Zod schemas in `agent-id.ts` (read AND write —
    `collaborationAgentIdWriteSchema` gates producer paths such as
@@ -138,8 +146,13 @@ collision can never corrupt state.
    is optional forever — historical records are never rewritten, and
    every renderer falls back to `session_id_prefix` when the field is
    absent. On WRITE, every newly derived identity block carries the
-   field — enforced by derivation-layer unit tests, not by schema
-   `required` (which would invalidate history). When the field IS
+   field, enforced the same way the `id` contract already is
+   (`agent-id.ts` read/write split): `visual_disambiguator` becomes
+   REQUIRED in `collaborationAgentIdWriteSchema` once Slice 2 has
+   updated every producer, while the read schema and the persisted
+   JSON schemas stay optional forever — historical compatibility
+   needs only the read side, and a required write schema stops future
+   or sweep-missed constructors passing silently. When the field IS
    present, strict boundaries validate it by RECOMPUTATION, never
    shape alone: the Zod/`state-integrity` surfaces recompute
    `session_id_prefix + "-" + id.slice(-3)` and reject a stored or
@@ -203,7 +216,7 @@ collision can never corrupt state.
    two slices' own gates, cited in order in the landing PRs.
 5. The inter-Practice wire schema is byte-untouched, wire conformance
    is unchanged, and the prefix remains the join key; the PDR-125
-   display-clause amendment carries its flag-at-next-exchange-window
+   display-clause amendment carries its `their-lane-owns-coordinate`
    twin disposition recorded in the amendment text — `repo-safe`:
    existing PDR-125 wire conformance tests re-run and cited, plus the
    amendment diff showing the join-key clause untouched.
@@ -213,8 +226,11 @@ collision can never corrupt state.
    inventory — `repo-safe`: render unit tests per surface + the sweep
    evidence.
 7. Canonical identity docs match the live derivation output —
-   `repo-safe`: doc examples regenerated and asserted current by the
-   docs-drift checks cited in the landing PR.
+   `repo-safe`: a generated-example drift test AUTHORED IN Slice 4
+   (no such check exists today) that regenerates the
+   `agent-identity.md` / README identity-block examples from the live
+   derivation and diffs them against the committed docs, cited in the
+   landing PR.
 
 ## Todos (ordered; each a single-story PR, default round budget)
 
@@ -223,16 +239,21 @@ collision can never corrupt state.
   schema_version bumps + parsers/seeds/fixtures (accepts optional
   field; nothing emits yet; wire schema untouched).
 - Slice 2 — derivation and propagation: identity module emits the
-  field on all paths incl. post-derivation prefix-override
+  field on all derivation paths incl. post-derivation prefix-override
   recomputation; commit-queue intent serialisation and the
-  direct-message recipient constructor carry it; unit tests incl.
-  non-UUID, override, desync-rejection and both round-trip fixtures.
+  direct-message recipient constructor carry it; migration output
+  stays token-less by design (item-1 exception); the slice closes by
+  flipping `visual_disambiguator` to REQUIRED in
+  `collaborationAgentIdWriteSchema` (id-contract pattern); unit tests
+  incl. non-UUID, override, desync-rejection and both round-trip
+  fixtures.
 - Slice 3 — renderers: enumerated inventory + sweep closure + render
   tests with legacy fallback.
 - Slice 4 — doctrine and docs: PDR-027 amendment + the PDR-125
   display-clause amendment (twin disposition:
-  flag-at-next-exchange-window) + agent-identity.md + README examples;
-  lands last so doctrine describes shipped behaviour.
+  their-lane-owns-coordinate) + agent-identity.md + README examples +
+  the generated-example drift test of acceptance 7; lands last so
+  doctrine describes shipped behaviour.
 
 ## Out of scope
 
