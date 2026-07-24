@@ -13,10 +13,10 @@ three-tier ruling (2026-07-24, verbatim):
 
 ## The folders
 
-| Folder                                    | Source                                                                                                                                                 | Captured   | Contents                                                                   |
-| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | -------------------------------------------------------------------------- |
-| `original-capture-2026-07-23/`            | The original Claude Design project (`314dd517-493d-4be2-bd08-56ae0e80e780`), via the owner's studio export of 2026-07-24 11:41                         | 2026-07-24 | 290 files — the full project minus the 39 held-out-class files (see below) |
-| `iteration-pull-preservation-2026-07-23/` | The prior/iteration system: the pristine as-pulled 2026-07-23 pull-set (uncleaned — includes `theme-enhancements.css` and both candidate explorations) | 2026-07-24 | 17 files                                                                   |
+| Folder                                    | Source                                                                                                                                                 | Captured   | Contents                                                                                                                   |
+| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `original-capture-2026-07-23/`            | The original Claude Design project (`314dd517-493d-4be2-bd08-56ae0e80e780`), via the owner's studio export of 2026-07-24 11:41                         | 2026-07-24 | 329 files — the complete project (the 39 import-era held-out-class files joined on 2026-07-24 by owner ruling; see rule 5) |
+| `iteration-pull-preservation-2026-07-23/` | The prior/iteration system: the pristine as-pulled 2026-07-23 pull-set (uncleaned — includes `theme-enhancements.css` and both candidate explorations) | 2026-07-24 | 17 files                                                                                                                   |
 
 Directory names carry the plan's corpus-as-of dates; per-file byte-size and
 sha256 live in the manifest:
@@ -24,8 +24,7 @@ sha256 live in the manifest:
 The manifest's first row is a header; data rows resolve relative to the
 folder their disposition names (`fetched-committed` →
 `original-capture-2026-07-23/`, `legB-committed` →
-`iteration-pull-preservation-2026-07-23/`, `fetched-local-held-out` → the
-staging tier named in rule 5).
+`iteration-pull-preservation-2026-07-23/`).
 
 ## Rules
 
@@ -46,21 +45,25 @@ staging tier named in rule 5).
    lives at source in `colors_and_type.css` (MCP-132); the working system never
    consumes the overlay in any form (owner ruling on the 7-point port
    contract, read together with the three-tier ruling).
-5. **Held-out classes** (39 files: `uploads/`, `reference/`, studio
-   scaffolding, build outputs, thumbnails) are excluded from git per the
-   import-era `LICENSING-MANIFEST.md` classes and held complete, byte-faithful,
-   at `packages/design/design-import/original-capture-held-out-2026-07-24/` in
-   the primary checkout — a gitignored staging tier (root `.gitignore` rule
-   `packages/design/design-import/`), so it is invisible from linked worktrees
-   and absent from git history; the import-era doctrine ("re-obtain from the
-   studio") remains the fallback path. The import-era dispositions are
-   hypotheses pending the owner's per-piece re-review (owner word, 2026-07-24:
-   every piece gets re-reviewed); that review happens in the staging tier —
-   nothing materialises into the capture folders before the owner's ruling.
-   Classification note: root `support.js` is held out by class although
-   byte-identical copies are committed at `templates/lesson-deck/support.js`
-   and `templates/worksheet/support.js`. The manifest lists every held-out
-   file with its hash.
+5. **Held-out classes — review discharged, all 39 committed.** The 39
+   import-era held-out-class files (`uploads/`, `reference/`, studio
+   scaffolding, build outputs, thumbnails) were initially excluded from git per
+   the import-era `LICENSING-MANIFEST.md` classes and staged locally for the
+   owner's per-piece re-review ("I was not involved in the prior decision
+   making"). That re-review happened on 2026-07-24 — every piece verified
+   first-hand (the 14 screenshots carry no PII; the brand toolkit PDF is Oak's
+   own; `reference/` holds Oak token extracts; one file is the owner's own
+   note source) — and the owner ruled: **"Commit all 39."** They now live in
+   `original-capture-2026-07-23/` at their original paths, byte-verified
+   against the manifest (sha256 + size, 39/39), making the capture the
+   complete 329-file project and zero-loss hold **by construction** for the
+   whole corpus. The import-era hold-out remains in force for the WORKING
+   SYSTEM at the workspace root (see the workspace `.gitignore`); the capture
+   tier in git history is the re-obtain path. Classification note: root
+   `support.js` is byte-identical to the committed copies at
+   `templates/lesson-deck/support.js` and `templates/worksheet/support.js` —
+   held out by class in the import era, committed with the rest under the
+   2026-07-24 ruling.
 6. **Lifecycle.** At the owner's satisfaction with the final working system
    (MCP-137 S5), a removal PR deletes both folders from the tree; git history
    is the permanent record. Do not remove them on any other authority.
@@ -76,3 +79,9 @@ staging tier named in rule 5).
   in the manifest.
 - `git check-ignore` pass over both folders: four `.d.ts` re-includes added to
   the package `.gitignore` (recorded there); zero other ignored paths.
+- The 39 held-out-class files (committed 2026-07-24 by owner ruling): each
+  sha256 + byte-size verified against its manifest row at commit time (39/39,
+  zero mismatches); a fresh `git check-ignore` pass over all 39 destination
+  paths found exactly three hits (the capture-nested `.thumbnail`s, caught by
+  the unanchored workspace pattern), cured with explicit re-includes in the
+  package `.gitignore`.

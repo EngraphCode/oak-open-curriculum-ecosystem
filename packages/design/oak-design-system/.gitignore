@@ -1,7 +1,10 @@
-# Held-out classes per LICENSING-MANIFEST.md — these live in the Claude Design
-# studio (the re-obtain path) and are deliberately not tracked here. Patterns
-# are anchored to this workspace root so future legitimate paths (for example
-# docs/reference/ or a docs/HANDOFF.md) stay trackable.
+# Held-out classes per LICENSING-MANIFEST.md — the WORKING SYSTEM deliberately
+# does not track these at the workspace root. Patterns are anchored to this
+# workspace root so future legitimate paths (for example docs/reference/ or a
+# docs/HANDOFF.md) stay trackable. The preservation capture's copies of the
+# same classes ARE tracked (owner ruling 2026-07-24, "Commit all 39" — see the
+# re-includes at the bottom); the capture tier in git history is the re-obtain
+# path.
 
 # Re-include the reference components' AUTHORED declaration files: the root
 # .gitignore ignores **/*.d.ts as build output, but these four are hand-written
@@ -32,3 +35,12 @@
 /SKILL.md
 /HANDOFF.md
 /CLAUDE-CODE-HANDOFF.md
+
+# MCP-137 owner ruling (2026-07-24, "Commit all 39"): the capture tier's
+# held-out-class copies are committed byte-preserved. Re-include the
+# capture-nested thumbnails that the unanchored `.thumbnail` above would
+# otherwise silently unstage (the only three of the 39 any ignore pattern
+# reached — verified by `git check-ignore` over all 39 destination paths).
+!studio-source/original-capture-2026-07-23/.thumbnail
+!studio-source/original-capture-2026-07-23/templates/lesson-deck/.thumbnail
+!studio-source/original-capture-2026-07-23/templates/worksheet/.thumbnail
