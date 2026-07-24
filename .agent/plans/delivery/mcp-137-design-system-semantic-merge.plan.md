@@ -3,10 +3,10 @@ id: mcp-137-design-system-semantic-merge
 node_type: delivery
 name: "Design-system semantic merge: zero-loss union of the original studio corpus and the repo's evolved copy"
 overview: "Capture the original Claude Design corpus byte-preserved into git, build a complete divergence ledger against the repo, adjudicate every divergent surface at meaning level, land the union in the repo as the sole source of truth, then re-target design-sync to the original project and re-sync it up to the merged state."
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-07-23
+ratified_where: "Owner card via the Director, 2026-07-23 pre-compaction — ratify-now answer; S2 adjudication cards remain the surviving owner gate"
 serves: first-major-release
 impact_areas:
   - design-system
@@ -54,6 +54,15 @@ forever after.
 Each slice is a single-story PR within its round budget (PDR-132).
 
 ### S0 — Full-fidelity capture (mechanical; the zero-loss act)
+
+**Pre-flight (owner word, 2026-07-23: "make sure what we have today is
+safe in git history before we change anything")**: before any fetch or
+edit, verify first-hand that today's state is already git-held —
+`git status` clean and even with origin on every design-relevant
+surface; the iteration pull-set present on main (landed via #511 at
+`.agent/reports/mcp-128-landing/`, 15 files); the MCP-132 fixes on
+main (981a2543a). Any unsafe finding stops the lane and routes before
+S0 proceeds.
 
 Fetch the ENTIRE original corpus via DesignSync (`get_file`, project
 `314dd517-…`) into a clearly-marked capture area:
