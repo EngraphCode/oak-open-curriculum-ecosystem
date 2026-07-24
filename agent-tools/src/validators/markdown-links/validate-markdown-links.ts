@@ -69,6 +69,12 @@ const SOURCE_IGNORE_GLOBS = [
   // output preserved word-for-word quoting a README's sibling link);
   // link integrity is not a property frozen records can or should hold.
   '.agent/state/collaboration/handoffs/**',
+  // design-sync working surfaces (gitignored, regenerated per sync): the
+  // staged converter scripts and the built upload bundle. The bundle's
+  // generated Markdown resolves links against the UPLOADED project layout,
+  // not this repo's, so repo-relative validation is meaningless for it.
+  '.ds-sync/**',
+  'ds-bundle/**',
 ] as const;
 
 /** Collect repo-relative POSIX paths matching the given globs, minus excluded paths. */
