@@ -77,13 +77,21 @@ collision 1/4096 for seats in the same prefix window regardless of
 vendor id-generation behaviour; residual birthday risk ≈ n²/8192 for n
 same-window seats (~1% at ten simultaneous forks) is acceptable for a
 display field because the anchor stays the full `id` — a display
-collision can never corrupt state. The guarantee is scoped to
-DISTINCT identities: two override seats deliberately configured with
-the same `agent_name` and prefix share the full `id` by construction
-and therefore the token — by PDR-027's `(agent_name, id)` key they
-ARE one identity, an identical token is the correct render, and the
-estate does not guard against deliberately naming two sessions the
-same thing (owner word, 2026-07-24).
+collision can never corrupt state.
+
+**Scope of the distinctness guarantee.** It covers session-derived
+identities, whose `id` hashes a unique session/thread seed. It does NOT
+cover two `deriveOverrideCollaborationIdentity` seats given the *same*
+`agent_name` and the same prefix: that path derives `id` from
+`<agent_name>|<session_id_prefix>` alone, so identical configuration
+yields an identical `id` and therefore an identical token — by design,
+because identical override configuration denotes the same declared
+identity, not two seats to tell apart (and by PDR-027's
+`(agent_name, id)` key such seats ARE one identity; the estate does
+not guard against deliberately naming two sessions the same thing —
+owner word, 2026-07-24). The acceptance criteria state this exclusion
+explicitly rather than claiming a guarantee the override path cannot
+give.
 
 ## Mechanism
 
