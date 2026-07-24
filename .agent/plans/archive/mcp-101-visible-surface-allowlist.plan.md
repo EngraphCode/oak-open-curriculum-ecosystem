@@ -3,7 +3,7 @@ id: mcp-101-visible-surface-allowlist
 node_type: delivery
 name: "Visible-surface allowlist: the app serves exactly and only what we intend"
 overview: "Zero served prompts; navigation guidance live as agent resources; creation-oriented content dormant behind one declarative allowlist; every tool titled with read-only hints."
-status: ratified
+status: archived
 ratified_by: "Jim Cresswell"
 ratified_date: 2026-07-23
 ratified_where: "Planning-sitting part-2 ratification cards, 2026-07-23 (ratified with the served-surface vocabulary amendment); decisions register D11 dated note + D22 lift note"
@@ -14,10 +14,23 @@ tickets:
   - MCP-101
 depends_on: []
 owner_gates: []
-last_updated: 2026-07-23
+last_updated: 2026-07-24
 ---
 
 # Visible-surface allowlist
+
+## Disposition (archived 2026-07-24)
+
+- 2026-07-24 — COMPLETED and archived (MCP-141 scan, Director nod):
+  every acceptance criterion proven — completion evidence is the
+  MCP-101 ticket (Done 2026-07-23, five PRs) and the strategic node's
+  owner-authored dated note of 2026-07-23 ("M1 COMPLETE: MCP-101 done,
+  five PRs, every acceptance criterion proven; the v1 live set
+  finalised by the EEF flip"). Archived per the plan-node schema's
+  completion prescription (a delivery plan completes and moves to
+  `archive/`); content otherwise byte-identical to the ratified plan
+  at its prior path. The ratification stamp stands as the historical
+  record.
 
 ## Vocabulary (owner-set, 2026-07-23 — three things never to conflate)
 
