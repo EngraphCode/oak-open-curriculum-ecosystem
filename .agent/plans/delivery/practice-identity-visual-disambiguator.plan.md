@@ -77,7 +77,13 @@ collision 1/4096 for seats in the same prefix window regardless of
 vendor id-generation behaviour; residual birthday risk ≈ n²/8192 for n
 same-window seats (~1% at ten simultaneous forks) is acceptable for a
 display field because the anchor stays the full `id` — a display
-collision can never corrupt state.
+collision can never corrupt state. The guarantee is scoped to
+DISTINCT identities: two override seats deliberately configured with
+the same `agent_name` and prefix share the full `id` by construction
+and therefore the token — by PDR-027's `(agent_name, id)` key they
+ARE one identity, an identical token is the correct render, and the
+estate does not guard against deliberately naming two sessions the
+same thing (owner word, 2026-07-24).
 
 ## Mechanism
 
@@ -146,13 +152,17 @@ collision can never corrupt state.
    is optional forever — historical records are never rewritten, and
    every renderer falls back to `session_id_prefix` when the field is
    absent. On WRITE, every newly derived identity block carries the
-   field, enforced the same way the `id` contract already is
-   (`agent-id.ts` read/write split): `visual_disambiguator` becomes
-   REQUIRED in `collaborationAgentIdWriteSchema` once Slice 2 has
-   updated every producer, while the read schema and the persisted
-   JSON schemas stay optional forever — historical compatibility
-   needs only the read side, and a required write schema stops future
-   or sweep-missed constructors passing silently. When the field IS
+   field, enforced by derivation-layer unit tests — the field stays
+   OPTIONAL in every schema, the write schema included. A
+   required-in-write flip (the `id` contract's pattern) was considered
+   and REJECTED (owner word, 2026-07-24): historical blocks
+   legitimately flow through write parses at reply/relay ingestion
+   (`comms-use-cases.ts` `replyToDirectedCommsMessage` parses the
+   historical `source.from` through the write schema), so requiring
+   the field there would demand a read-to-write promotion layer — a
+   compatibility bridge, which the estate's principles disallow
+   (replace, don't bridge). Test-enforced derivation replaces the
+   bridge. When the field IS
    present, strict boundaries validate it by RECOMPUTATION, never
    shape alone: the Zod/`state-integrity` surfaces recompute
    `session_id_prefix + "-" + id.slice(-3)` and reject a stored or
@@ -242,11 +252,13 @@ collision can never corrupt state.
   field on all derivation paths incl. post-derivation prefix-override
   recomputation; commit-queue intent serialisation and the
   direct-message recipient constructor carry it; migration output
-  stays token-less by design (item-1 exception); the slice closes by
-  flipping `visual_disambiguator` to REQUIRED in
-  `collaborationAgentIdWriteSchema` (id-contract pattern); unit tests
-  incl. non-UUID, override, desync-rejection and both round-trip
-  fixtures.
+  stays token-less by design (item-1 exception); the field stays
+  optional in every schema (no required-in-write flip — owner word,
+  2026-07-24, replace-don't-bridge) with new-write coverage enforced
+  by derivation-layer unit tests; unit tests incl. non-UUID, override
+  (including an identical-override fixture asserting token EQUALITY —
+  same configured identity, same token), desync-rejection, a
+  reply-to-pre-field-event fixture, and both round-trip fixtures.
 - Slice 3 — renderers: enumerated inventory + sweep closure + render
   tests with legacy fallback.
 - Slice 4 — doctrine and docs: PDR-027 amendment + the PDR-125
