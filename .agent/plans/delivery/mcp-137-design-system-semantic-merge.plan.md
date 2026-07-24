@@ -29,6 +29,20 @@ last_updated: 2026-07-24
   row + `last_updated`): the ratification stamp above IS the discharge,
   landed via PR #513 (merge 7a9dcce52, 2026-07-24). The S2
   adjudication-cards gate remains the live owner gate, untouched.
+- 2026-07-24 (later) — **Amendment item 3's per-piece re-review is
+  DISCHARGED**: every held-out piece was verified first-hand (the 14
+  screenshots carry no PII; the brand toolkit PDF is Oak's own;
+  `reference/` holds Oak token extracts; one file is the owner's own
+  note source) and the owner ruled **"Commit all 39"** (relayed in the
+  Director's design-lane assignment, comms event `f9a174ec`). All 39
+  joined `studio-source/original-capture-2026-07-23/` byte-verified
+  (sha256 + size, 39/39), completing the capture at 329 files —
+  zero-loss now holds by construction for the WHOLE corpus. This also
+  discharges the S4 precondition "the held-out per-piece re-review
+  answered" (Amendment item 4); S4's remaining preconditions are owner
+  confirmation of the original project's post-switch fate plus the
+  account/consent/canEdit gate recorded on the MCP-137 ticket
+  (2026-07-24 12:05Z comment).
 
 ## Goal
 
