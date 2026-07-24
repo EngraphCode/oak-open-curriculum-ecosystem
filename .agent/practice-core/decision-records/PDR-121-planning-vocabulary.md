@@ -37,8 +37,11 @@ rather than restating it.
 - **Plan** — a load-bearing artefact encoding intended work (PDR-018). **Strategic** =
   intent, boundaries, and a promotion trigger; **executable** = work items with
   acceptance criteria and deterministic validation.
-- **Thread** — the continuity unit: a multi-session conceptual lane carrying identity
-  across sessions (PDR-027).
+- **Thread** — the continuity unit: a multi-session stream of work carrying identity
+  across sessions (PDR-027). (Worded "conceptual lane" until 2026-07-24; retermed when
+  the lane gained its own definition — the coherence-surface-bounded unit of routed
+  work, PDR-117 dated amendment — to keep the two concepts distinct: the thread
+  carries continuity, the lane is what a seat holds.)
 - **Arc** — a coherent sequence of sessions or slices delivering one substantial
   outcome on a thread; informally named.
 - **Programme** — a cross-cutting grouping of work that spans the host's primary
