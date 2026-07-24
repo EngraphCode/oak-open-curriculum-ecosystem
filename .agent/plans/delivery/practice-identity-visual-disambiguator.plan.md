@@ -93,7 +93,11 @@ collision can never corrupt state.
    arbitrary conversation-id seeds, and override identities — every
    path that can mint a block has both inputs by the time the block
    exists (`deriveOverrideCollaborationIdentity` receives the prefix
-   and derives the id). Example: `019f93-b60` vs `019f93-caa`.
+   and derives the id). The token is RECOMPUTED wherever a block's
+   `session_id_prefix` or `id` is replaced after derivation — the
+   `resolveSelfIdentity` `--session-prefix` override path is explicitly
+   in scope, so the token head can never desync from the final prefix.
+   Example: `019f93-b60` vs `019f93-caa`.
 3. **`naming_schema_version` is untouched.** It records the
    name-derivation era (schema-registry closed enum plus `override`)
    and this field does not change name derivation. No version bump of
@@ -104,13 +108,16 @@ collision can never corrupt state.
    amendment cites it explicitly so no later sweep demotes the
    prefix); `visual_disambiguator` — display only, never a join or
    lookup key.
-5. **Schema updates, consumers first** (see Todos order):
-   `active-claims.schema.json`, `closed-claims.schema.json`,
-   `comms-event.schema.json`, the inter-practice wire schema (field
-   optional; wire conformance unchanged), and any sibling `agent_id`
-   consumers found by sweep — all `additionalProperties: false`
-   surfaces validated by `state-integrity.ts` accept the optional
-   field BEFORE any producer emits it.
+5. **Schema updates, consumers first** (see Todos order): the
+   canonical strict Zod schemas in `agent-id.ts` (read AND write —
+   `collaborationAgentIdWriteSchema` gates producer paths such as
+   `createIntent`), `active-claims.schema.json`,
+   `closed-claims.schema.json`, `comms-event.schema.json`, the
+   inter-practice wire schema (field optional; wire conformance
+   unchanged), and any sibling `agent_id` consumers found by sweep —
+   every strict surface (Zod and JSON Schema alike, including
+   `state-integrity.ts` validation) accepts the optional field BEFORE
+   any producer emits it.
 6. **Read/write compatibility, stated separately**: on READ the field
    is optional forever — historical records are never rewritten, and
    every renderer falls back to `session_id_prefix` when the field is
@@ -119,7 +126,13 @@ collision can never corrupt state.
    WRITE, every newly derived identity block carries the field —
    enforced by derivation-layer unit tests, not by schema `required`
    (which would invalidate history).
-7. **Display surfaces — enumerated inventory, closed by sweep**:
+7. **Identity propagation on non-preflight producers**: surfaces that
+   reconstruct an `agent_id` block from parts — the commit-queue intent
+   path (`commit-queue/intent.ts` builds the block from flags;
+   `commit-queue/types.ts` gains the field) and any sweep-found sibling
+   — carry the token through serialisation so their renderers show the
+   real token, not the legacy fallback.
+8. **Display surfaces — enumerated inventory, closed by sweep**:
    comms watch render, claims registry render, shared-comms-log
    render, `cli-comms-query` summaries, `comms-event-format`,
    `commit-queue/guard` output, `active-agent-routing`/`formatAgent`
@@ -127,7 +140,7 @@ collision can never corrupt state.
    statusline (`statusline-indicators`). A repo-wide sweep for
    `session_id_prefix` render sites closes the set; any renderer found
    by the sweep joins the inventory and its test.
-8. **Documentation slice**: PDR-027 amendment (field, derivation,
+9. **Documentation slice**: PDR-027 amendment (field, derivation,
    role doctrine, this warrant), PLUS the canonical operational docs
    agents actually consult — `agent-tools/docs/agent-identity.md`
    (preflight block example, platform hook output, Codex block shape)
@@ -144,7 +157,12 @@ collision can never corrupt state.
    same-window UUIDv7 fixtures whose tokens differ — `repo-safe`:
    identity-module unit tests with fixed seed vectors.
 2. Same-seed determinism: repeated derivation yields an identical
-   block including the new field — `repo-safe`: unit test.
+   block including the new field; and a post-derivation
+   `--session-prefix` override recomputes the token (fixed-vector test
+   proving head equals the FINAL prefix) — `repo-safe`: unit tests.
+2b. A newly enqueued commit-queue intent reaches the guard with the
+   token intact (propagation proof) — `repo-safe`: commit-queue
+   round-trip test.
 3. Every strict `agent_id` schema accepts blocks WITH and WITHOUT the
    field and rejects a malformed one; `state-integrity` validation
    passes for both — `repo-safe`: schema tests per touched schema plus
@@ -156,7 +174,7 @@ collision can never corrupt state.
 5. Inter-practice wire conformance is unchanged and the prefix remains
    the join key — `repo-safe`: existing PDR-125 wire conformance
    tests, re-run and cited.
-6. Every renderer in the §Mechanism-7 inventory displays the token
+6. Every renderer in the §Mechanism-8 inventory displays the token
    with prefix-fallback for legacy blocks, and a repo-wide sweep
    recorded in the landing PR shows no render site outside the
    inventory — `repo-safe`: render unit tests per surface + the sweep
@@ -168,10 +186,13 @@ collision can never corrupt state.
 ## Todos (ordered; each a single-story PR, default round budget)
 
 - Mint the Linear ticket; attach this plan id.
-- Slice 1 — schema consumers: schema trio + wire schema + fixtures
-  (accepts optional field; nothing emits yet).
-- Slice 2 — derivation: identity module emits the field on all paths;
-  unit tests incl. non-UUID and override fixtures.
+- Slice 1 — schema consumers: canonical Zod read/write schemas in
+  agent-id.ts + JSON schema trio + wire schema + fixtures (accepts
+  optional field; nothing emits yet).
+- Slice 2 — derivation and propagation: identity module emits the
+  field on all paths incl. post-derivation prefix-override
+  recomputation; commit-queue intent serialisation carries it; unit
+  tests incl. non-UUID, override and round-trip fixtures.
 - Slice 3 — renderers: enumerated inventory + sweep closure + render
   tests with legacy fallback.
 - Slice 4 — doctrine and docs: PDR-027 amendment + agent-identity.md +
