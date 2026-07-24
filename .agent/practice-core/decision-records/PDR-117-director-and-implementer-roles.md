@@ -429,3 +429,83 @@ carrying possession framings ("your PR", "waiting on you") and instead name
 constraint + options + recommendation; falsified if a later consolidation
 finds owner-queue framings recurring in Director surfacings after this
 amendment's date.
+
+## Amendment (2026-07-24) — Lane definition: the coherence-surface boundary
+
+Owner-directed (2026-07-24). Both roles above are defined in terms of the
+lane — the Implementer "owns **one bounded lane**", the Director "routes
+durable **lanes**, not real-time individual pickups" — but nothing in this
+PDR said what bounds one. In practice the boundary defaulted to whatever
+grain the work-tracking surfaces held (one delivery plan, one ticket): the
+host's 2026-07-22 plan-estate reset equated lane with delivery plan, the
+arc-grain grouping its retired thread convention had carried was never
+replaced, and lanes silently shrank to ticket size. This amendment gives
+the lane its boundary criterion.
+
+### The definition
+
+A **lane** is bounded by its **coherence surface — the files and
+meanings one mind must hold mutually true as they change — plus the
+intent that spans it.**
+
+- **Delivery plans and tickets are steps within a lane, never its
+  decomposition.** They project the lane onto the schedule and the plan
+  estate; the lane — not the step — is the unit routed to a seat.
+  (Owner, 2026-07-24: tickets are projections of the arc, never the
+  decomposition.)
+- **A lane transfers whole.** A lane that outlives a seat moves to its
+  successor as one unit via the handoff/continuation record (PDR-063),
+  never re-split at transfer. The thread remains the continuity unit
+  (PDR-027, unchanged): where a host keeps thread records, the thread
+  record's lane-state substructure is the surface that carries the
+  lane's cross-session continuity at arc grain.
+- **A lane needs no artefact of its own.** It is visible in the claim
+  (role + intent), the handoff records, and its steps' plans and
+  tickets.
+- **Older senses stay distinct.** The lifecycle/ownership "lanes" of
+  directory-shaped plan estates (PDR-018) are a deliberately-retained
+  separate sense; this definition governs the routed unit of work, not
+  directory placement.
+
+### Routing consequences (Director craft)
+
+- **Never split a coherence surface across seats.** Two seats holding
+  parts of one surface must coordinate every shared meaning — the
+  overhead the one-mind boundary exists to dissolve — and risk minting
+  divergent sources of truth.
+- **Never cut a lane at step boundaries.** Routing one step of a lane to
+  its own seat orphans the sibling steps that only cohere inside the
+  arc.
+- **Two live lanes on one hot coherence surface signal contention**,
+  resolved by merging the routing or sequencing the lanes — never by
+  parallel careful-coordination.
+- **Shared impact areas are a flag, never the criterion.** Where the
+  host's plan estate declares impact areas, items sharing an area within
+  a time window default into one lane, and two live lanes citing one hot
+  area flag contention. The heuristic under-detects: in the founding
+  surface-splitting instance below the two work items shared **no**
+  declared area — the shared surface was discovered only by reading the
+  actual files and meanings. Use the registry as a tripwire; decide on
+  the surface itself.
+
+### Worked instances (2026-07-23/24 design arc — the founding evidence)
+
+- **Positive**: one seat held a three-ticket design arc (source fixes →
+  workspace sync-back → landing-page port) as one mind — the practice
+  already operated at lane grain where routing let it.
+- **Negative, step-orphaning**: a ticket-grain cut left two steps of the
+  arc's first ticket unowned; the cure re-attached them to a later step
+  of the same arc.
+- **Negative, surface-splitting**: a two-seat routing proposal separated
+  a design-system semantic merge from design work in flight on the same
+  shared styling surfaces. Owner-caught the same morning: the merge "is
+  not separate from the design work" — one coherence surface, one mind,
+  whatever the ticket count.
+
+Expected observable effect + falsifier (the PDR-130 fast-lane
+obligation): routing assignments and claims name multi-step lanes
+wherever one coherence surface spans them, and the step-orphaning /
+surface-splitting instance classes stop recurring; falsified if a later
+consolidation finds arcs re-fragmented to ticket grain after this date,
+or finds coherence-surface-grain routing producing measurably worse
+contention or seat tenure than the ticket-grain default it replaced.

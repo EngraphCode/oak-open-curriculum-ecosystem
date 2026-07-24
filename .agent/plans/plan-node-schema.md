@@ -34,7 +34,7 @@ Two consequences are load-bearing:
 | `node_type` | Carries | Lifespan |
 | --- | --- | --- |
 | `strategic` | The outcome, the bet it serves, what success looks like, and the tempo of its subtree. No implementation detail. | Long-lived, few in number |
-| `delivery` | One bounded lane: goal, mechanism, acceptance criteria with proofs, its Linear ticket. Authored by its implementer at pickup. | Short-lived; archived at completion |
+| `delivery` | One step of a lane: goal, mechanism, acceptance criteria with proofs, its Linear ticket. Authored by its implementer at pickup. | Short-lived; archived at completion |
 | `runbook` | A repeatable operational procedure: preconditions, steps with executors, verification, rollback. | Long-lived; re-ratified on change |
 
 ## Common frontmatter
@@ -114,8 +114,12 @@ list.
 
 ### Delivery
 
-One bounded lane. The body carries (PDR-018: narrative in the body,
-never frontmatter):
+One **step of a lane**, never the lane itself. The lane — the unit of
+work one seat holds, bounded by its coherence surface plus the intent
+that spans it — is defined in PDR-117 (dated amendment 2026-07-24); a
+lane spans one or more delivery plans and tickets, which project it
+onto the plan estate and the schedule. The body carries (PDR-018:
+narrative in the body, never frontmatter):
 
 - **Goal** — what is true when this lands that is not true now.
 - **Mechanism** — how, briefly.

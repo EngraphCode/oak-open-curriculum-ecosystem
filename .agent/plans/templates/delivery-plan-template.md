@@ -1,6 +1,6 @@
 # Delivery-plan template
 
-One bounded lane, authored by its implementer at pickup. One page.
+One step of a lane, authored by its implementer at pickup. One page.
 Copy, fill, delete the guidance. Born `sketch`; the plan governs no
 work until its ratification stamp is complete. The frontmatter is
 metadata; the narrative (goal, mechanism, acceptance) lives in the body
@@ -11,7 +11,7 @@ metadata; the narrative (goal, mechanism, acceptance) lives in the body
 id: <kebab-slug, stable forever>
 node_type: delivery
 name: <Human name>
-overview: <One line: what this lane delivers.>
+overview: <One line: what this step delivers.>
 status: sketch
 ratified_by: null
 ratified_date: null

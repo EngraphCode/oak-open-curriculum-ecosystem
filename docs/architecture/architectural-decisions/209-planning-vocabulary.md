@@ -38,6 +38,12 @@ are realised in this repo as follows:
 > **thread** and **programme** semantics are unchanged as concepts, with any
 > new grouping expressed through `impact_areas` (repo) and milestones
 > (Linear) rather than programme index files.
+>
+> **Amended 2026-07-24 (lane definition):** the parenthetical above is
+> superseded — a lane is NOT a delivery plan's scope. A lane is bounded
+> by its coherence surface plus the intent that spans it (PDR-117, dated
+> amendment 2026-07-24) and spans one or more delivery plans and tickets,
+> which are its steps.
 
 - **Collection** — a domain grouping under `.agent/plans/<collection>/`, with its own README and
   roadmap (ADR-117).

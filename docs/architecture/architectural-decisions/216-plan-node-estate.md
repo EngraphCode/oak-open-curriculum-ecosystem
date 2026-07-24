@@ -43,7 +43,7 @@ plan-node schema (`.agent/plans/plan-node-schema.md`) and its
 validator:
 
 - **Three node types, by directory**: `strategic/` (the outcome and the
-  bet — long-lived, few), `delivery/` (one bounded lane — short-lived,
+  bet — long-lived, few), `delivery/` (one step of a lane — short-lived,
   archived at completion), `runbooks/` (repeatable procedures). There are
   no lifecycle lanes and no promotion workflow: a plan's type never
   changes, and its file never moves while live.
@@ -85,6 +85,18 @@ the plan-node schema keeps the machine-checkable frontmatter edges
 would formalise, so the corpus stays graph-ready without carrying the
 graph substrate now. When the idea-graph lands, plan nodes become node
 types over it; nothing in this ADR forecloses that.
+
+## Lane vocabulary (dated note, 2026-07-24)
+
+"Lane" here originally read as a synonym for a delivery plan. The owner-
+directed lane definition of 2026-07-24 (PDR-117, dated amendment) gives
+the word its boundary criterion: a lane is bounded by its coherence
+surface — the files and meanings one mind must hold mutually true as
+they change — plus the intent that spans it, and a delivery plan is one
+**step** of a lane, never the lane itself. The `delivery/` bullet above
+is trued accordingly. This sense is unrelated to ADR-117's retired
+lifecycle lanes (`future/`/`current/`/`active/`), which this ADR
+already superseded.
 
 ## Consequences
 
