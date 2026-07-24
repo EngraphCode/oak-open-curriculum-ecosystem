@@ -189,7 +189,7 @@ genuine design calls" — is the S2 routing decision.
 Routing authority: Director ruling, comms event
 `317011f2-020d-48a6-a959-7b931759764c` (2026-07-24 17:46Z), answering
 `f3cb3519`: the S2 due-card set is EMPTY and both batches are MECHANICAL,
-scored against the gate clause verbatim ("genuine design-judgment calls
+scored against the gate clause ("genuine design-judgment calls
 only; protected-by-default rules decide the rest; batched, not per-file") —
 no design-judgment call exists in either batch, and the both-sides class the
 cards were designed for is empirically empty. The ruling reserves: it covers

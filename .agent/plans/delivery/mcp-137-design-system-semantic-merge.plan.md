@@ -45,7 +45,7 @@ last_updated: 2026-07-24
   (2026-07-24 12:05Z comment).
 - 2026-07-24 (S1/S2) — **The S2 due-card set is EMPTY** (Director ruling,
   comms event `317011f2-020d-48a6-a959-7b931759764c`, scored against the
-  gate clause verbatim). Empirical basis: the S1 divergence ledger
+  gate clause). Empirical basis: the S1 divergence ledger
   (#524, merge `4f4a1b3d8`) proves `diverged-both-sides` is empty — all
   23 semantic deltas are one-sided repo evolution, so no genuine
   design-judgment call exists; both S2 batches (keep-repo ×23,
