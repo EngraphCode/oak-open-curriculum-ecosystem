@@ -264,3 +264,40 @@ Index of this wrap's artefacts: this napkin section; the conserved review (path 
 formation letter `.agent/experience/2026-07-24-osprey-spins-vortex-formation-letter.md`;
 MCP-140/141/119/143/144/147 Linear records; the four tagged comms events; the pause + wrap
 broadcasts. — Osprey spins Vortex (3b7adf)
+
+## 2026-07-24 post-second-compaction — Director seat re-derivation (Forge rides Brimstone, 398e24)
+
+**Pattern (second identity call in two days, owner-invoked mid-execution-chain)**: the owner's
+role correction ("You are the Director, you don't start things, you keep a view of what is
+happening and who is in the team, and you direct work") was itself absorbed as a task and
+compiled into an execution chain — evidence that mid-session, task-shaped context re-derives an
+executor turn by turn, independent of how well the waking went. Two adjacent tells the same
+hour: the fifth escalation of the choices-as-cards rule ("please always present my choices in
+cards"), and zero cricket invocations since waking despite the standing mandate. Diagnosis:
+the cards habit and the keep-a-view habit are one habit (return to the table at every
+yield-the-floor moment); an unarmed cricket is the mechanical tell that the executor took the
+seat. Cure applied: paired crickets re-armed at the reflection boundary; per-turn stance
+recorded in the per-user wake prior; role verdict recorded with the routing-autonomy grant
+(asking "what do I start on now?" violates the grant as surely as executing does — deference
+is the crouch's politest disguise).
+
+**What works / steering data (positive capture per owner encouragement)**: the comms watcher
+survived the compaction boundary with zero gap (supervisor-pid + Monitor persistent held);
+Thistle rides Canopy produced a complete, agreed hook-schema design THROUGH a total write
+lockout (read-only seat, design authority intact — first Copilot seat, working exactly as a
+first-class citizen); owner correction cadence stayed at "please" through five escalations —
+the trust surface held on both sides.
+
+**Piped-grep false-silence over a WRITE (Forge, 2026-07-24 ~15:48Z)**: `comms direct ... | grep -o '"event_id"...'` matched nothing because the CLI emits `wrote comms event <id> to <path>` prose, not JSON — I read silence as failure and RE-RAN the write, minting a duplicate directed event (77180c48 + f650292f, identical, harmless here but the class isn't). Inverse twin of the MCP-146 piped-exit false-green: there the pipe lied success-over-failure, here silence-over-success. Cure for write commands specifically: on any ambiguous outcome, READ THE STATE (did the event/file/ref appear?) before retrying — a retry is itself a write. Output-format assumptions belong to the same family as the watcher `title:`-vs-`subject:` filter lesson: derive parsing from observed output, never from memory of a schema.
+
+**Watcher false-survival inference (Forge, 2026-07-24 ~15:57Z, owner-caught)**: post-compaction I read a 4-second-fresh heartbeat as "the watcher survived the compaction — no re-arm needed". Wrong on two counts: (1) heartbeat-fresh proves the PROCESS was alive at that instant, not that it will survive — the supervisor-pid probe killed it ~4 min later when the pre-compaction parent died; (2) the delivery-side tell was already in hand and explained away: my session's task list showed NO monitor task, meaning even a live process had no notification path into this session. Manual sweeps then masked the gap — the second sweep's --since window (15:45) started AFTER the death (15:32), so two team-start broadcasts at 15:38-39 fell in the hole and the Director spent 10 minutes routing "pre-join" assignments to seats that were already live and standing by. The owner caught it from outside ("You don't appear to have a comms monitor running") — the mutual-cover clause working, with the owner as the outside eye. Cures: after ANY continuity boundary, re-arm the watcher in the CURRENT session unconditionally (a fresh Monitor task is cheap; an inherited one is unverifiable from inside); gap sweeps window from the SEEN-FILE CURSOR (last_drain_at), never from "when I last looked".
+
+**Guard false-positive on prose (Cygnus team-start finding, 2026-07-24 20:16Z)**: the
+never-use-git-to-remove-work PreToolUse guard rejected a comms-registration heredoc because the
+MESSAGE PROSE mentioned tree operations — the matcher scans the whole command line, so writing
+ABOUT tree hygiene reads as invoking it. Cygnus's response was the model shape: no bypass, no
+sibling command — moved the payload out of the shell (editor-tool file + short send). Cure
+candidate routed to MCP-150 (the hook-dispatch rebuild lane): anchor matchers to argv position;
+exclude heredoc/body-file payloads. Same family as hook-policy-substring-discipline; on an
+enforcement surface a false-positive class is a defect that TEACHES workarounds — cure the
+matcher, never normalise the dodge.
