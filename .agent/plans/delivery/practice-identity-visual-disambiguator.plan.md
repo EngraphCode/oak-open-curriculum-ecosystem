@@ -189,12 +189,14 @@ collision can never corrupt state.
    carries the token derived from its `--to-*` prefix and id
    (propagation proofs) — `repo-safe`: commit-queue and
    directed-message round-trip tests.
-3. Every strict `agent_id` schema accepts blocks WITH and WITHOUT the
-   field, rejects a malformed one, and rejects a present-but-stale one
-   (token mismatching the block's own `session_id_prefix`/`id` — the
-   recompute-and-compare check of Mechanism item 6); `state-integrity`
-   validation passes for valid blocks — `repo-safe`: schema tests per
-   touched schema plus legacy-block and desync fixtures.
+3. Layered validation, each layer proving what it can express: every
+   strict `agent_id` JSON schema accepts blocks WITH and WITHOUT the
+   field and rejects a malformed one (SHAPE — draft 2020-12 cannot
+   express cross-field derived equality) — `repo-safe`: schema tests
+   per touched schema plus a legacy-block fixture; and the
+   Zod/`state-integrity` boundary rejects a present-but-stale token
+   (the SEMANTIC recompute-and-compare check of Mechanism item 6) —
+   `repo-safe`: a desync fixture at that boundary.
 4. Landing-order safety: with only the schema slice landed, existing
    producers still validate (no emission yet); with the derivation
    slice landed, every new block carries the field — `repo-safe`: the
