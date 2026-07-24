@@ -2,7 +2,7 @@
 id: practice-identity-visual-disambiguator
 node_type: delivery
 name: "Identity visual disambiguator: prefix-anchored display token beside the session-id prefix"
-overview: "Add a derived visual_disambiguator field to the PDR-027 agent-identity block so seats started in the same UUIDv7 time window stay human-distinguishable, without changing the session-search prefix, its cross-estate join-key role, or the derived-uuid anchor."
+overview: "Render a derived visual-disambiguator token on identity display surfaces so seats started in the same UUIDv7 time window stay human-distinguishable, without changing the session-search prefix, its cross-estate join-key role, the derived-uuid anchor, or any stored schema."
 status: sketch
 ratified_by: null
 ratified_date: null
@@ -29,12 +29,26 @@ born sketch per the estate contract.
 
 Revision 2 (2026-07-24): reworked after the PR's three-reviewer round.
 The derivation now anchors on the UUIDv5 `id` (total for every seed
-shape including override identities; alphabet pinned; head equals the
-existing prefix verbatim; entropy independent of vendor UUIDv7
-`rand_b` behaviour), `naming_schema_version` is untouched, the
-landing order is schema-consumers-first, the prefix's PDR-125
-cross-estate join-key role is preserved explicitly, and the renderer
-inventory and canonical operational docs are enumerated in scope.
+shape; head equals the existing prefix verbatim; entropy independent
+of vendor UUIDv7 `rand_b` behaviour), `naming_schema_version` is
+untouched, the prefix's PDR-125 cross-estate join-key role is
+preserved explicitly, and the renderer inventory and canonical
+operational docs are enumerated in scope.
+
+Revision 3 (2026-07-24): **render-time reframe, owner-accepted** on a
+full decision-lens run (lenses 1–2: long-term architectural
+excellence; strict, everywhere, all the time). The token is a PURE
+DERIVATION of two fields every identity block already carries, so it
+is never persisted: no schema gains a field, nothing stored can go
+stale, and the review rounds' consistency machinery (schema-version
+bumps, producer propagation, desync validation, historical promotion
+paths) dissolves rather than being answered. This supersedes the
+stored-field mechanism of Revisions 1–2 and moots the earlier
+coordinated schema-version-bump ruling (no schemas change). Still
+standing from today's rulings: the honest-probabilistic goal wording,
+the §Warrant arithmetic and its scope paragraph, the PDR-125 join-key
+retention, and the PDR-125 display-clause amendment with its twin
+disposition.
 
 ## Goal
 
@@ -42,9 +56,10 @@ Two agent seats whose session ids share the 6-character
 `session_id_prefix` are distinguishable at a glance — in all but
 ~1-in-4096 same-window pairs, the residual §Warrant accepts for a
 display field — on every renderer in the enumerated display inventory
-(closed by repo-wide sweep — see acceptance 6), while
-`session_id_prefix` keeps its value and BOTH its jobs — session-store search key AND the required cross-estate join key
-of the inter-Practice wire protocol (PDR-125,
+(closed by repo-wide sweep — see acceptance 3), while
+`session_id_prefix` keeps its value and BOTH its jobs — session-store
+search key AND the required cross-estate join key of the
+inter-Practice wire protocol (PDR-125,
 `inter-practice-wire.schema.json`) — and the UUIDv5 `id` keeps its job
 as the collision-proof anchor. Today that glance-distinction does not
 exist: on 2026-07-24 two Codex seats started 90 minutes apart (Pegasus
@@ -71,7 +86,7 @@ fills the trailing `rand_b` bits with independent uniform randomness
 (conforming monotonic-counter constructions exist). The cure is to
 take the disambiguating material from a value the estate already
 controls: the **UUIDv5 `id`** is a deterministic SHA-1-derived hash of
-the full seed, present on every identity block, with uniformly
+the full seed, present on every derived identity block, with uniformly
 distributed hex by construction. Twelve bits of it yields pairwise
 collision 1/4096 for seats in the same prefix window regardless of
 vendor id-generation behaviour; residual birthday risk ≈ n²/8192 for n
@@ -95,195 +110,129 @@ give.
 
 ## Mechanism
 
-1. **New optional field** `visual_disambiguator` on the PDR-027
-   `agent_id` block, computed at identity derivation wherever a block
-   is built WITH both inputs (platform preflight and override paths
-   alike). Legacy-migration constructors are the named exception:
-   `comms-migration-records.ts` deliberately mints legacy blocks
-   without an `id` (the original seed is unavailable), so migration
-   output omits the token and renders through the legacy prefix
-   fallback — a correct token cannot be fabricated there.
-2. **Derivation, pinned and total**:
-   `visual_disambiguator = session_id_prefix + "-" + id.slice(-3)`
-   — the existing prefix VERBATIM (raw first-6, exactly the current
-   field, so the token's head equals historical prefixes by
-   construction, with no lowercasing or hyphen-stripping step), a
-   joining dash, and the last 3 hex characters of the block's UUIDv5
-   `id`. Total for every supported seed shape at DERIVATION: UUIDv4/v7
-   session ids, arbitrary conversation-id seeds, and override
-   identities — every derivation path has both inputs by the time the
-   block exists (`deriveOverrideCollaborationIdentity` receives the
-   prefix and derives the id); the item-1 legacy-migration exception
-   (no `id`, no seed) is outside the derivation surface and takes the
-   prefix fallback. The token is RECOMPUTED wherever a block's
-   `session_id_prefix` or `id` is replaced after derivation — the
-   `resolveSelfIdentity` `--session-prefix` override path is explicitly
-   in scope, so the token head can never desync from the final prefix.
-   Example: `019f93-b60` vs `019f93-caa`.
-3. **`naming_schema_version` is untouched.** It records the
-   name-derivation era (schema-registry closed enum plus `override`)
-   and this field does not change name derivation. The touched STATE
-   schemas, by contrast, take a coordinated additive MINOR
-   `schema_version` bump — their own compatibility contract requires
-   one for new fields (`active-claims.schema.json` `$comment`) so an
-   older strict reader never sees a document claiming a known version
-   while carrying an unknown property — with parsers, seeds, and
-   fixtures updated in the same slice (owner-ruled via Director card,
-   2026-07-24). The field stays additive and optional in every
-   schema.
+1. **A pure render-time derivation, never a stored field.** One
+   function in the identity module — `visualDisambiguator(agentId)` —
+   returns `session_id_prefix + "-" + id.slice(-3)` (the stored
+   prefix VERBATIM: raw first-6, no lowercasing or hyphen-stripping,
+   so the token's head equals every historical prefix by
+   construction; a joining dash; the last 3 hex characters of the
+   canonical lowercase UUIDv5 `id` string). When the block carries no
+   `id` (legacy rows, migration output from
+   `comms-migration-records.ts`, relay blocks that omitted it) the
+   function returns nothing and the renderer shows the bare prefix —
+   no fabrication, no fallback machinery, just the derivation's
+   honest domain. Example: `019f93-b60` vs `019f93-caa`.
+2. **Always current by construction.** Because the token is computed
+   at render from the block's own fields, it can never desync from
+   them — a post-derivation prefix or id replacement (e.g. the
+   `resolveSelfIdentity` `--session-prefix` override path) is
+   reflected at the next render with no recomputation contract, and
+   no stored value exists to validate, propagate, backfill, or
+   promote.
+3. **No schema changes of any kind.** The JSON state schemas, the
+   canonical Zod schemas in `agent-id.ts`, the inter-Practice wire
+   schema, and `naming_schema_version` are all byte-untouched; no
+   `schema_version` moves anywhere. (The earlier
+   coordinated-minor-bump ruling applied to the superseded
+   stored-field mechanism and is mooted by this reframe —
+   owner-accepted, 2026-07-24.) Comms events, claims, and wire
+   payloads carry exactly what they carry today.
 4. **Field-role doctrine (PDR-027 amendment)**: `id` — the identity
    anchor; `session_id_prefix` — session search key AND the
    inter-Practice cross-estate join key (PDR-125's join-key clause
    unchanged; the amendment cites it explicitly so no later sweep
-   demotes the prefix); `visual_disambiguator` — display only, never
-   a join or lookup key. PDR-125's DISPLAY clause (clause 5: every
-   rendered identity surface shows `<name> (<session_id_prefix>)`) is
-   amended to the token render with prefix fallback — owner-ruled via
-   Director card, 2026-07-24, twin disposition
-   `their-lane-owns-coordinate` (PDR-125 clause 6's enumerated
-   vocabulary; the ruled substance unchanged — the sibling estate's
-   own lane lands its twin, coordinated at the next exchange window).
-5. **Schema updates, consumers first** (see Todos order): the
-   canonical strict Zod schemas in `agent-id.ts` (read AND write —
-   `collaborationAgentIdWriteSchema` gates producer paths such as
-   `createIntent`), `active-claims.schema.json`,
-   `closed-claims.schema.json`, `comms-event.schema.json`, and any
-   sibling `agent_id` consumers found by sweep — every strict surface
-   (Zod and JSON Schema alike, including `state-integrity.ts`
-   validation) accepts the optional field BEFORE any producer emits
-   it. The core-carried inter-Practice wire schema is deliberately
-   NOT touched: `wire_identity` tolerates local extras by design
-   (`additionalProperties: true`, its `$comment` naming exactly this
-   case), so the token rides the wire as a tolerated local extra with
-   zero wire change and no twin obligation.
-6. **Read/write compatibility, stated separately**: on READ the field
-   is optional forever — historical records are never rewritten, and
-   every renderer falls back to `session_id_prefix` when the field is
-   absent. On WRITE, every newly derived identity block carries the
-   field, enforced by derivation-layer unit tests — the field stays
-   OPTIONAL in every schema, the write schema included. A
-   required-in-write flip (the `id` contract's pattern) was considered
-   and REJECTED (owner word, 2026-07-24): historical blocks
-   legitimately flow through write parses at reply/relay ingestion
-   (`comms-use-cases.ts` `replyToDirectedCommsMessage` parses the
-   historical `source.from` through the write schema), so requiring
-   the field there would demand a read-to-write promotion layer — a
-   compatibility bridge, which the estate's principles disallow
-   (replace, don't bridge). Test-enforced derivation replaces the
-   bridge. When the field IS
-   present, strict boundaries validate it by RECOMPUTATION, never
-   shape alone: the Zod/`state-integrity` surfaces recompute
-   `session_id_prefix + "-" + id.slice(-3)` and reject a stored or
-   inbound block whose token mismatches its own source fields — a
-   well-formed-but-stale token would otherwise confidently name the
-   wrong seat on every renderer.
-7. **Identity propagation on non-preflight producers**: surfaces that
-   CONSTRUCT an `agent_id` block from parts — the commit-queue intent
-   path (`commit-queue/intent.ts` builds the block from flags;
-   `commit-queue/types.ts` gains the field) AND the direct-message
-   recipient constructor (`cli-comms-messages.ts` `recipientAgent`
-   builds the `to` block from `--to-*` flags, which already supply
-   both the prefix and the id, so the token is derived at
-   construction — it is a constructor, not a pass-through) and any
-   sweep-found sibling — carry the token through serialisation so
-   their renderers show the real token, not the legacy fallback.
-8. **Display surfaces — enumerated inventory, closed by sweep**:
+   demotes the prefix); the visual disambiguator — a DERIVED display
+   token, never data, never a join or lookup key. PDR-125's DISPLAY
+   clause (clause 5: every rendered identity surface shows
+   `<name> (<session_id_prefix>)`) is amended to the token render
+   with bare-prefix fallback — owner-ruled via Director card,
+   2026-07-24, twin disposition `their-lane-owns-coordinate` (PDR-125
+   clause 6's enumerated vocabulary; the sibling estate's own lane
+   lands its twin, coordinated at the next exchange window).
+5. **Display surfaces — enumerated inventory, closed by sweep**:
    comms watch render, claims registry render, shared-comms-log
    render, `cli-comms-query` summaries, `comms-event-format`,
    `commit-queue/guard` output, `active-agent-routing`/`formatAgent`
    (feeds TUI comms and queue views), `tui/snapshot`, and the Claude
-   statusline (`statusline-indicators`). A repo-wide sweep for
-   `session_id_prefix` render sites closes the set; any renderer found
-   by the sweep joins the inventory and its test.
-9. **Documentation slice**: PDR-027 amendment (field, derivation,
-   role doctrine, this warrant), PLUS the canonical operational docs
-   agents actually consult — `agent-tools/docs/agent-identity.md`
-   (preflight block example, platform hook output, Codex block shape)
-   and `agent-tools/README.md` (identity output examples) — updated in
-   the same slice with their examples regenerated from the live
-   derivation.
+   statusline (`statusline-indicators`). Each adopts the derivation
+   function; a repo-wide sweep for `session_id_prefix` render sites
+   closes the set; any renderer found by the sweep joins the
+   inventory and its test.
+6. **Documentation slice**: PDR-027 amendment (the derivation, the
+   role doctrine, this warrant), the PDR-125 display-clause amendment
+   (item 4), PLUS the canonical operational docs agents actually
+   consult — `agent-tools/docs/agent-identity.md` (preflight block
+   example, platform hook output, Codex block shape) and
+   `agent-tools/README.md` (identity output examples) — updated in
+   the same slice, with a generated-example drift test AUTHORED IN
+   the slice (no such check exists today) that regenerates the doc
+   examples from the live derivation and diffs them against the
+   committed docs.
 
 ## Acceptance criteria (each with a proof — required)
 
-1. Derivation is total and pinned: unit tests cover UUIDv4 and UUIDv7
-   session-id seeds, an arbitrary non-UUID conversation-id seed, an
-   uppercase/hyphen-bearing seed, and the override path (prefix-only
-   input) — each yielding `<prefix>-<last3-of-id>`, with two
-   same-window UUIDv7 fixtures whose tokens differ — `repo-safe`:
+1. The derivation function is total and pinned: unit tests cover
+   blocks derived from UUIDv4 and UUIDv7 session-id seeds, an
+   arbitrary non-UUID conversation-id seed, an uppercase/
+   hyphen-bearing seed, an override identity, and an id-less legacy
+   block (returns nothing) — token-bearing cases each yielding
+   `<prefix>-<last3-of-id>`, with two same-window UUIDv7 fixtures
+   whose tokens differ AND an identical-override fixture asserting
+   token EQUALITY (same configured identity, same token — the
+   §Warrant scope exclusion stated as a proof) — `repo-safe`:
    identity-module unit tests with fixed seed vectors.
-2. Same-seed determinism: repeated derivation yields an identical
-   block including the new field; and a post-derivation
-   `--session-prefix` override recomputes the token (fixed-vector test
-   proving head equals the FINAL prefix) — `repo-safe`: unit tests.
-2b. A newly enqueued commit-queue intent reaches the guard with the
-   token intact, and a directed message's constructed `to` block
-   carries the token derived from its `--to-*` prefix and id
-   (propagation proofs) — `repo-safe`: commit-queue and
-   directed-message round-trip tests.
-3. Layered validation, each layer proving what it can express: every
-   strict `agent_id` JSON schema accepts blocks WITH and WITHOUT the
-   field and rejects a malformed one (SHAPE — draft 2020-12 cannot
-   express cross-field derived equality) — `repo-safe`: schema tests
-   per touched schema plus a legacy-block fixture; and the
-   Zod/`state-integrity` boundary rejects a present-but-stale token
-   (the SEMANTIC recompute-and-compare check of Mechanism item 6) —
-   `repo-safe`: a desync fixture at that boundary.
-4. Landing-order safety: with only the schema slice landed, existing
-   producers still validate (no emission yet); with the derivation
-   slice landed, every new block carries the field — `repo-safe`: the
-   two slices' own gates, cited in order in the landing PRs.
-5. The inter-Practice wire schema is byte-untouched, wire conformance
-   is unchanged, and the prefix remains the join key; the PDR-125
-   display-clause amendment carries its `their-lane-owns-coordinate`
-   twin disposition recorded in the amendment text — `repo-safe`:
-   existing PDR-125 wire conformance tests re-run and cited, plus the
-   amendment diff showing the join-key clause untouched.
-6. Every renderer in the §Mechanism-8 inventory displays the token
-   with prefix-fallback for legacy blocks, and a repo-wide sweep
-   recorded in the landing PR shows no render site outside the
-   inventory — `repo-safe`: render unit tests per surface + the sweep
-   evidence.
-7. Canonical identity docs match the live derivation output —
-   `repo-safe`: a generated-example drift test AUTHORED IN Slice 4
-   (no such check exists today) that regenerates the
-   `agent-identity.md` / README identity-block examples from the live
-   derivation and diffs them against the committed docs, cited in the
-   landing PR.
+2. Determinism and currency: the function is pure (same block, same
+   token) and a block whose `session_id_prefix` or `id` is replaced
+   renders the token of its FINAL fields with no intermediate state —
+   `repo-safe`: unit tests including a prefix-override fixture.
+3. Every renderer in the §Mechanism-5 inventory displays the token
+   for id-bearing blocks and the bare prefix for id-less blocks, and
+   a repo-wide sweep recorded in the landing PR shows no render site
+   outside the inventory — `repo-safe`: render unit tests per surface
+   plus the sweep evidence.
+4. Nothing stored changed: the state schemas, Zod schemas, wire
+   schema, and all persisted fixtures are byte-identical before and
+   after the landing PRs, and the full existing validator suite
+   passes untouched — `repo-safe`: the landing PR's diff (no schema
+   file in it) + the existing gates, cited.
+5. Inter-Practice wire conformance is unchanged and the prefix
+   remains the join key; the PDR-125 display-clause amendment carries
+   its `their-lane-owns-coordinate` twin disposition in the amendment
+   text — `repo-safe`: existing PDR-125 wire conformance tests re-run
+   and cited, plus the amendment diff showing the join-key clause
+   untouched.
+6. Canonical identity docs match the live derivation output —
+   `repo-safe`: the generated-example drift test authored in the
+   documentation slice, cited in the landing PR.
 
 ## Todos (ordered; each a single-story PR, default round budget)
 
-- Slice 1 — schema consumers: canonical Zod read/write schemas in
-  agent-id.ts + JSON schema trio with their coordinated minor
-  schema_version bumps + parsers/seeds/fixtures (accepts optional
-  field; nothing emits yet; wire schema untouched).
-- Slice 2 — derivation and propagation: identity module emits the
-  field on all derivation paths incl. post-derivation prefix-override
-  recomputation; commit-queue intent serialisation and the
-  direct-message recipient constructor carry it; migration output
-  stays token-less by design (item-1 exception); the field stays
-  optional in every schema (no required-in-write flip — owner word,
-  2026-07-24, replace-don't-bridge) with new-write coverage enforced
-  by derivation-layer unit tests; unit tests incl. non-UUID, override
-  (including an identical-override fixture asserting token EQUALITY —
-  same configured identity, same token), desync-rejection, a
-  reply-to-pre-field-event fixture, and both round-trip fixtures.
-- Slice 3 — renderers: enumerated inventory + sweep closure + render
-  tests with legacy fallback.
-- Slice 4 — doctrine and docs: PDR-027 amendment + the PDR-125
-  display-clause amendment (twin disposition:
-  their-lane-owns-coordinate) + agent-identity.md + README examples +
-  the generated-example drift test of acceptance 7; lands last so
-  doctrine describes shipped behaviour.
+- Slice 1 — the derivation function: `visualDisambiguator` in the
+  identity module + the acceptance-1/2 unit tests. Nothing else
+  changes.
+- Slice 2 — renderers: the enumerated inventory adopts the function +
+  sweep closure + render tests with id-less fallback.
+- Slice 3 — doctrine and docs: the PDR-027 amendment, the PDR-125
+  display-clause amendment (twin: their-lane-owns-coordinate), the
+  agent-identity.md and README examples, and the generated-example
+  drift test; lands last so doctrine describes shipped behaviour.
 
 ## Out of scope
 
 - **Changing `session_id_prefix`** — value, derivation (raw first-6),
   search-key job, and PDR-125 cross-estate join-key job all unchanged.
-- **Rewriting historical records** — the token's head equals the old
-  prefix by construction, so head-greps match both eras; retro-editing
-  append-only history is banned regardless.
+- **Persisting the token** — no schema anywhere gains the field; a
+  stored copy of a pure derivation is denormalisation demanding
+  consistency enforcement forever (the superseded Revisions 1–2
+  mechanism). Falsifier, recorded: raw JSON files carry no token by
+  design — a raw-file reader has the `id` in the same block and can
+  compute it — and if raw-file glance-distinction ever proves needed
+  in practice, persisting this function's output becomes a one-slice,
+  evidence-based decision taken then.
+- **Rewriting historical records** — nothing is written, so nothing
+  historical changes; the token's head equals the old prefix by
+  construction, so head-greps match both eras regardless.
 - **Anchor changes** — the UUIDv5 `id` derivation is untouched; this
-  plan adds a display field only.
-- **Versioning machinery** — no `naming_schema_version` change and no
-  new block-version field; the addition is optional-additive by
-  design.
+  plan adds a display derivation only.
+- **Versioning machinery** — no `naming_schema_version` change, no
+  state-schema `schema_version` change, no new block-version field.
