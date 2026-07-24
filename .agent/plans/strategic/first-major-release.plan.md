@@ -20,7 +20,7 @@ gate_expiry_default: P3D
 depends_on: []
 owner_gates: []
 tickets: []
-last_updated: 2026-07-23
+last_updated: 2026-07-24
 ---
 
 # First major release — Oak distribution-ready in AI assistants
@@ -116,3 +116,10 @@ onto this node — one line each, pointers never duplicates.
 - 2026-07-23 — The guidance-format owner gate discharged (six rulings
   adopted at owner cards); the authoritative record is the MCP-102
   ticket comment of 2026-07-23.
+- 2026-07-24 — M1-note correction (MCP-141 scan; drift surfaced, never
+  silently corrected): the 2026-07-23 "M1 COMPLETE" note above
+  overstated — it correctly records MCP-101 done and the EEF flip, but
+  M1's named state ("the served surface is final") does not hold while
+  MCP-121 (guidance serving architecture, mapped to M1) is in flight
+  and changes the served surface. The board (M1 in progress) is the
+  truth; the note stands as written for what it dates, corrected here.
