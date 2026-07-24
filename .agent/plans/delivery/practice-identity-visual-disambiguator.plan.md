@@ -39,10 +39,11 @@ inventory and canonical operational docs are enumerated in scope.
 ## Goal
 
 Two agent seats whose session ids share the 6-character
-`session_id_prefix` are distinguishable at a glance on every renderer in
-the enumerated display inventory (closed by repo-wide sweep — see
-acceptance 6), while `session_id_prefix` keeps its value and BOTH its
-jobs — session-store search key AND the required cross-estate join key
+`session_id_prefix` are distinguishable at a glance — in all but
+~1-in-4096 same-window pairs, the residual §Warrant accepts for a
+display field — on every renderer in the enumerated display inventory
+(closed by repo-wide sweep — see acceptance 6), while
+`session_id_prefix` keeps its value and BOTH its jobs — session-store search key AND the required cross-estate join key
 of the inter-Practice wire protocol (PDR-125,
 `inter-practice-wire.schema.json`) — and the UUIDv5 `id` keeps its job
 as the collision-proof anchor. Today that glance-distinction does not
