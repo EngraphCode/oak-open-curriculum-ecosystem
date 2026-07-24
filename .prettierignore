@@ -93,3 +93,6 @@ research/web-app-deconstruction/.agent/
 # as data into a temporary app — evidence content by role (ADR-215 Decision 3),
 # in the byte-faithful documents class, not the gated tooling-code class.
 research/web-app-deconstruction/packages/research-evidence/fixtures/
+
+# Copilot agent worktrees (owner ruling 2026-07-24: excluded from all tools)
+.github/copilot-worktrees/

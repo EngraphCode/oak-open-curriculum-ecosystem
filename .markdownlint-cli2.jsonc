@@ -19,6 +19,7 @@
 {
   "globs": ["**/*.md", ".agent/**/*.md"],
   "ignores": [
+    ".github/copilot-worktrees/**",
     ".agent/analysis/**",
     ".agent/archive/**",
     ".agent/evaluations/**",

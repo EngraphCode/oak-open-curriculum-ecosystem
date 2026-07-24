@@ -64,6 +64,17 @@ const SOURCE_IGNORE_GLOBS = [
   '.cursor/**',
   '.agent/state/collaboration/shared-comms-log.md',
   '.agent/state/collaboration/cross-worktree-work-state.md',
+  // Handoff and succession records are frozen point-in-time captures that
+  // may quote other documents' relative links verbatim (e.g. a review
+  // output preserved word-for-word quoting a README's sibling link);
+  // link integrity is not a property frozen records can or should hold.
+  '.agent/state/collaboration/handoffs/**',
+  // Machine-local scratch at the repo root (gitignored): agent working
+  // trees and review workspaces land here and are never live sources.
+  'tmp/**',
+  // Copilot agent worktrees (owner ruling 2026-07-24: excluded from all
+  // tools).
+  '.github/copilot-worktrees/**',
   'ds-bundle/**',
   '.ds-sync/**',
 ] as const;

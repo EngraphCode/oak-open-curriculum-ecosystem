@@ -330,3 +330,4 @@ ds-bundle/
 .design-sync/learnings/
 .design-sync/node_modules
 packages/design/oak-design-system/oak-flat.generated.css
+.github/copilot-worktrees/
