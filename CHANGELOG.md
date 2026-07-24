@@ -1,3 +1,10 @@
+## [1.85.13](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.12...v1.85.13) (2026-07-24)
+
+
+### Bug Fixes
+
+* **agent-tools:** exempt frozen handoff records from markdown-link validation ([ca0749d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ca0749d0af4de202ff2fc15d740eda32a164d4a9))
+
 ## [1.85.12](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.11...v1.85.12) (2026-07-24)
 
 ## [1.85.11](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.10...v1.85.11) (2026-07-24)
