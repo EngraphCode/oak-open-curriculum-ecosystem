@@ -64,6 +64,11 @@ const SOURCE_IGNORE_GLOBS = [
   '.cursor/**',
   '.agent/state/collaboration/shared-comms-log.md',
   '.agent/state/collaboration/cross-worktree-work-state.md',
+  // Handoff and succession records are frozen point-in-time captures that
+  // may quote other documents' relative links verbatim (e.g. a review
+  // output preserved word-for-word quoting a README's sibling link);
+  // link integrity is not a property frozen records can or should hold.
+  '.agent/state/collaboration/handoffs/**',
 ] as const;
 
 /** Collect repo-relative POSIX paths matching the given globs, minus excluded paths. */
