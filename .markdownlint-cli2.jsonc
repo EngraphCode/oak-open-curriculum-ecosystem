@@ -20,6 +20,7 @@
   "globs": ["**/*.md", ".agent/**/*.md"],
   "ignores": [
     ".github/copilot-worktrees/**",
+    "packages/design/oak-open-curriculum-design-system-tna-24072026-1141/**",
     ".agent/analysis/**",
     ".agent/archive/**",
     ".agent/evaluations/**",
