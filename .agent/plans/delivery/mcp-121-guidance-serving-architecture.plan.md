@@ -101,9 +101,10 @@ minimum and the pointer; the tool carries the full text.
 ## Out of scope
 
 - The guidance format specifics (schema fields, one-copy-per-domain,
-  verbatim-vs-derived, cross-references): behind the guidance-pipeline
-  plan's owner gate; this lane never pre-decides them.
-- Ingest mechanics: the guidance-pipeline lane's surface; this lane
+  verbatim-vs-derived, cross-references): settled by the six owner
+  rulings recorded on the guidance-pipeline plan (its gate discharged
+  2026-07-24); this plan never pre-decides them.
+- Ingest mechanics: the guidance-pipeline lane's surface; this plan
   only provides where its output is served.
 - Any content-management machinery beyond the statement-tier fields —
   owner word (2026-07-23): nothing too radical at this delicate stage;
