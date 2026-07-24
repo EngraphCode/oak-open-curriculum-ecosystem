@@ -16,6 +16,13 @@ time of this amendment the owned-skill prefix was `jc-`; that prefix was
 later migrated to `oak-` per the 2026-05-22 amendment.)
 **Amended**: 2026-06-28 — `model` is now **optional** in sub-agent wrappers (the inherit policy: omit `model` so the invoking agent's model is used); Claude wrappers no longer require an explicit `model`, and the non-functional Cursor `tools` frontmatter field is dropped. The per-platform subagent frontmatter schema (`agent-tools/src/validators/subagents/frontmatter-schema.ts`) is the enforced SSOT for the allowed field-set and value enums. Owner-directed.
 **Amended**: 2026-07-13 — added the root `skills.md` entry point (Layer 3) for [Linear coding sessions](https://linear.app/docs/coding-sessions). A delegated Linear session runs Claude Code or Codex (inheriting those entry-point chains) and can use a repo-root `skills.md` as supplementary guidance, so the file carries the same thin-pointer shape as `AGENTS.md` (AGENT.md pointer plus rules-index line). Owner-directed.
+**Amended**: 2026-07-24 — ratified a **local GitHub Copilot CLI**
+adapter family as a target under the same canonical Practice. The target uses
+Copilot CLI's documented repository instruction, custom-agent, hook, settings,
+skill-discovery, and MCP surfaces without creating another canonical content
+home. This amendment is architectural authority, not a wired-state claim; the
+cross-platform surface matrix remains the live target-versus-wired record.
+Owner-directed through the first-class Copilot CLI plan estate.
 **Related**: [ADR-114 (Layered Sub-agent Prompt Composition)](114-layered-sub-agent-prompt-composition-architecture.md), [ADR-119 (Agentic Engineering Practice)](119-agentic-engineering-practice.md), [ADR-124 (Practice Propagation Model)](124-practice-propagation-model.md), [PDR-009 (Canonical-First Cross-Platform Architecture)](../../../.agent/practice-core/decision-records/PDR-009-canonical-first-cross-platform-architecture.md), [PDR-035 (Agent Work Capabilities Belong to the Practice)](../../../.agent/practice-core/decision-records/PDR-035-agent-work-capabilities-belong-to-the-practice.md), [PDR-051 (Vendor-Agnostic Skills Standardisation)](../../../.agent/practice-core/decision-records/PDR-051-vendor-agnostic-skills-standardisation.md), [ADR-165 (Agent Work Practice Phenotype Boundary)](165-agent-work-practice-phenotype-boundary.md)
 
 ## Context
@@ -55,12 +62,12 @@ Each platform has thin wrappers that reference canonical content. Skill adapters
 
 #### Cross-tool skill alias (`.agents/`)
 
-| Location                                        | Format                                                                                                                                                                            | Read by                        |
-| ----------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
-| `.agents/skills/*/SKILL.md`                     | Generated thin wrapper with spec-portable frontmatter (`name`, `description`, `license`, `compatibility`, `metadata`, `allowed-tools`) -> `.agent/skills/<id>/SKILL-CANONICAL.md` | Cursor, Codex, Gemini CLI, Amp |
-| `.agents/skills/*/{references,scripts,assets}/` | Bytewise copies of canonical supporting files                                                                                                                                     | Same                           |
-| `.agents/rules/*.md`                            | Thin wrapper -> `.agent/rules/`                                                                                                                                                   | Portable rule surface          |
-| `.agents/agents/README.md`                      | Documents intentional absence of `.agents/` sub-agent wrappers                                                                                                                    | —                              |
+| Location                                        | Format                                                                                                                                                                            | Read by                                     |
+| ----------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
+| `.agents/skills/*/SKILL.md`                     | Generated thin wrapper with spec-portable frontmatter (`name`, `description`, `license`, `compatibility`, `metadata`, `allowed-tools`) -> `.agent/skills/<id>/SKILL-CANONICAL.md` | Cursor, Copilot CLI, Codex, Gemini CLI, Amp |
+| `.agents/skills/*/{references,scripts,assets}/` | Bytewise copies of canonical supporting files                                                                                                                                     | Same                                        |
+| `.agents/rules/*.md`                            | Thin wrapper -> `.agent/rules/`                                                                                                                                                   | Portable rule surface                       |
+| `.agents/agents/README.md`                      | Documents intentional absence of `.agents/` sub-agent wrappers                                                                                                                    | —                                           |
 
 #### Claude Code (`.claude/`)
 
@@ -124,16 +131,43 @@ Codex project hooks are Layer 2 adapters: they may surface session context or
 invoke repo tooling, but the behavioural contract remains in `.agent/`
 doctrine and canonical `agent-tools` commands.
 
+#### GitHub Copilot CLI (`.github/`) — ratified target
+
+The GitHub adapter family serves **Copilot CLI running locally**. GitHub
+Copilot coding-agent/cloud execution is not part of this decision.
+
+| Surface                  | Ratified repository projection                                                             |
+| ------------------------ | ------------------------------------------------------------------------------------------ |
+| Repo-wide instructions   | `.github/copilot-instructions.md` imports the canonical repository entry point             |
+| Path-scoped instructions | Generated `.github/instructions/**/*.instructions.md` activation projections               |
+| Skills                   | Existing `.agents/skills/`; no duplicate `.github/skills/` tree                            |
+| Custom agents            | Generated `.github/agents/*.agent.md` wrappers over canonical specialists                  |
+| Hooks                    | `.github/hooks/*.json` plus thin platform I/O adapters over canonical identity and policy  |
+| Settings                 | `.github/copilot/settings.json` only where a tracked project setting is required           |
+| MCP                      | A tracked, secret-free projection from a canonical server manifest established by delivery |
+
+Copilot CLI's documented skill discovery precedence is `.github/skills`,
+`.agents/skills`, then `.claude/skills`, with first-found wins. The repository
+deliberately keeps `.agents/skills` as its chosen Copilot skill home, so adding
+the GitHub adapter family does not change the two-surface skills contract.
+
+Native GitHub hook activation owns Copilot CLI platform I/O. Canonical
+decisions remain platform-free, and inherited Claude compatibility must not
+become a second evaluation authority. Whether each target surface is wired and
+acceptance-proven is recorded in the cross-platform surface matrix, never
+inferred from this ADR.
+
 ### Layer 3: Entry Points
 
-Root-level files direct each platform to the canonical practice:
+Entry-point files direct each platform to the canonical practice:
 
-| File        | Platform               |
-| ----------- | ---------------------- |
-| `CLAUDE.md` | Claude Code            |
-| `AGENTS.md` | Codex                  |
-| `GEMINI.md` | Gemini CLI             |
-| `skills.md` | Linear coding sessions |
+| File                              | Platform               |
+| --------------------------------- | ---------------------- |
+| `CLAUDE.md`                       | Claude Code            |
+| `AGENTS.md`                       | Codex                  |
+| `GEMINI.md`                       | Gemini CLI             |
+| `.github/copilot-instructions.md` | GitHub Copilot CLI     |
+| `skills.md`                       | Linear coding sessions |
 
 All entry points redirect to `.agent/directives/AGENT.md`.
 
@@ -165,6 +199,7 @@ identity is unprefixed.
 | Cursor                   | `/oak-plan`                  | `.agents/skills/oak-plan/SKILL.md` |
 | Codex                    | `$oak-plan`                  | `.agents/skills/oak-plan/SKILL.md` |
 | Gemini / Antigravity CLI | `activate_skill` / `/skills` | `.agents/skills/oak-plan/SKILL.md` |
+| GitHub Copilot CLI       | skill discovery/invocation   | `.agents/skills/oak-plan/SKILL.md` |
 | Amp                      | palette                      | `.agents/skills/oak-plan/SKILL.md` |
 
 ### Sub-agent Adapter Formats
@@ -177,6 +212,7 @@ Each platform uses its native mechanism for sub-agent-equivalent functionality:
 | Claude Code              | `.claude/agents/*.md`                                      | `name`, `description`, `tools`, `disallowedTools`, `model`, `permissionMode`, `color` |
 | Gemini / Antigravity CLI | `.gemini/commands/review-*.toml`; native `/agents` unwired | Transitional reviewer invocation adapter plus native platform capability              |
 | Codex                    | `.codex/agents/*.toml`                                     | TOML roster and developer instructions loaded from canonical templates                |
+| GitHub Copilot CLI       | `.github/agents/*.agent.md` (ratified target)              | Generated custom-agent metadata, tool aliases, MCP selection, and inherited model     |
 
 Read-only reviewers on Claude Code use `permissionMode: plan` and `disallowedTools: Write, Edit` to enforce read-only behaviour at the platform level, not just via instructions.
 
@@ -227,9 +263,11 @@ canonical rules and triggers, not the number of layers.
 
 **Gemini CLI and Codex** receive policies via the entry-point chain:
 `GEMINI.md` / `AGENTS.md` -> `.agent/directives/AGENT.md` ->
-`.agent/directives/principles.md`. `.agents/rules/*.md` also provides
-a portable thin-wrapper rule surface for platforms that scan `.agents/`
-directly.
+`.agent/directives/principles.md`. **Copilot CLI's ratified target** reaches
+the same chain through `.github/copilot-instructions.md`, with bounded
+path-scoped activation under `.github/instructions/`. `.agents/rules/*.md`
+also provides a portable thin-wrapper rule surface for platforms that scan
+`.agents/` directly.
 
 **Triggers that activate skills or directives:**
 
@@ -265,7 +303,7 @@ A trigger file MUST NOT:
 3. **Stable naming**: paired modes use explicit IDs (`start-right-quick`, `start-right-thorough`).
 4. **Supporting files**: optional `references/`, `scripts/`, `assets/` directories under canonical, copied bytewise into both adapter trees by the generator.
 5. **Owned vs ingested**: every canonical skill is either owned (`metadata.owned: true`) or ingested (recorded in `skills-lock.json`). Validator refuses both-or-neither.
-6. **Adapter surfaces**: exactly two — `.agents/skills/` (cross-tool alias, read by Cursor/Codex/Gemini/Amp) and `.claude/skills/` (Claude Code only). No other skill adapter surfaces are emitted.
+6. **Adapter surfaces**: exactly two — `.agents/skills/` (cross-tool alias, read by Cursor/Copilot CLI/Codex/Gemini/Amp) and `.claude/skills/` (Claude Code only). No other skill adapter surfaces are emitted.
 7. **Generator-mandatory**: adapters are emitted by `agent-tools:skills-adapter-generate`. Manual edits forbidden by header comment in every emitted file; drift gate fails CI on divergence.
 8. **No compatibility aliases**: canonical IDs are stable; only the configurable owned-skill prefix is applied at adapter emission.
 9. **Classification**: every canonical `SKILL-CANONICAL.md` MUST include a `classification` field in its YAML frontmatter: `active` (invoked via slash) or `passive` (guidance consumed by workflows or linked from other artefacts).
@@ -280,14 +318,15 @@ code. **Project settings** define the agentic system contract and must
 work on fresh checkout. **Local settings** contain user-specific paths
 and overrides.
 
-| Platform    | Project config (tracked) | Local config (gitignored)        |
-| ----------- | ------------------------ | -------------------------------- |
-| Claude Code | `.claude/settings.json`  | `.claude/settings.local.json`    |
-| Cursor      | `.cursor/settings.json`  | `.cursor/settings.local.json`    |
-| Gemini CLI  | `.gemini/settings.json`  | `.gemini/settings.local.json`    |
-| Codex       | `.codex/config.toml`     | (no local equivalent documented) |
+| Platform                  | Project config (tracked)        | Local config                          |
+| ------------------------- | ------------------------------- | ------------------------------------- |
+| Claude Code               | `.claude/settings.json`         | `.claude/settings.local.json`         |
+| GitHub Copilot CLI target | `.github/copilot/settings.json` | `.github/copilot/settings.local.json` |
+| Cursor                    | `.cursor/settings.json`         | `.cursor/settings.local.json`         |
+| Gemini CLI                | `.gemini/settings.json`         | `.gemini/settings.local.json`         |
+| Codex                     | `.codex/config.toml`            | (no local equivalent documented)      |
 
-**Project settings contain:**
+**Depending on the platform, project settings may contain:**
 
 - Skill and command permission allowlists (`Skill(oak-*)` entries)
 - Safety hooks (`PreToolUse` matchers for Bash, Edit, Write)
@@ -296,6 +335,11 @@ and overrides.
 - Plugin enable/disable state
 - Standard development tool permissions (`git`, `gh`, `npx turbo`)
 
+These examples are not portable setting semantics. In particular,
+Claude-specific `Skill(...)` allowlists, permission merging, and hook shapes
+must not be projected into Copilot settings. Each adapter uses only fields
+documented and tested for its host; Copilot ignores unsupported setting keys.
+
 **Local settings contain:**
 
 - Machine-local filesystem paths (`<home>/...`, `<tmp>/...`)
@@ -303,15 +347,17 @@ and overrides.
 - User-specific MCP server selection
 - Output style preferences
 
-Arrays (permissions, hooks) **concatenate and deduplicate** across
-scopes per Claude Code merge semantics. This means project permissions
-are always active, and users can add their own on top without editing
-tracked files.
+For Claude Code, arrays such as permissions and hooks **concatenate and
+deduplicate** across scopes. No other platform inherits that merge contract
+from this ADR.
 
-**Why this matters:** without tracked project settings, a fresh checkout
-has skills that exist as adapters but cannot be invoked — platform
-permission systems silently block them. The project settings layer is
-part of the agentic system infrastructure, not a user preference.
+**Why this matters:** tracked project settings are part of agentic
+infrastructure when a host requires them for repository-wide activation. For
+Claude Code, tracked permission allowlists can determine whether an adapter is
+invokable. Copilot CLI discovers skills without a repository `Skill(...)`
+allowlist; its settings may disable discovered skills but do not inherit
+Claude's permission model. Saved tool approvals remain user-local rather than a
+repository-shared policy surface.
 
 ### Plan Templates
 
@@ -330,7 +376,11 @@ ADR-114's three-layer model is proven and working for sub-agents. The same force
 
 ### Why not keep platform-specific content
 
-Four platforms are now active: Cursor, Claude Code, Gemini CLI, and Codex. Maintaining independent copies of each command, skill, and rule across four platforms is unsustainable. The canonical-plus-adapter model scales linearly: one canonical file plus one thin wrapper per platform.
+Cursor, Claude Code, Gemini CLI, and Codex are active, and local Copilot CLI is
+the ratified next adapter family. Maintaining independent copies of each skill,
+rule, and specialist definition is unsustainable. The
+canonical-plus-adapter model scales linearly: one canonical source plus the
+thin projections each host actually supports.
 
 ### Historical note: why `.agent/commands/` existed
 
@@ -359,20 +409,27 @@ Claude Code natively supports read-only permission modes. Using `permissionMode:
 
 ### Positive
 
-- Commands authored once, available on all four platforms with identical names.
-- Sub-agents available on all four platforms using each platform's native mechanism.
-- Skills discoverable by all agents through `AGENT.md` and platform-specific adapters.
+- User-and-model workflows are authored once as skills and projected through
+  the two-surface skill contract.
+- Specialist definitions remain canonical while supported hosts receive their
+  native adapter shapes.
+- Skills remain discoverable through canonical entry points and generated
+  adapters.
 - Rule content canonical in `.agent/directives/`, activation policy platform-specific.
-- Adding a fifth platform requires only thin wrappers, not content duplication.
+- Adding the Copilot CLI family requires thin projections, not content
+  duplication.
 - Reviewer personas are DRY: defined once in canonical components,
   referenced by platform adapters and project-agent configuration.
 
 ### Trade-offs
 
-- Four directories per artefact type (canonical + four platform adapters) creates more files, though each adapter is small.
+- Each supported host adds adapter files, though each projection remains thin
+  or generated.
 - Platform-specific capabilities (Cursor `globs`, Claude `permissionMode`, Gemini `{{args}}`) require wrapper maintenance.
 - `.agents/skills/` and `.agents/rules/` are portable adapter layers, while canonical content remains in `.agent/`. Thin wrappers bridge those surfaces consistently with the pattern used for all other platforms.
-- Cursor is the only platform with granular rule activation (globs, agent-selected). Other platforms receive all rules at session start, which increases context consumption but ensures nothing is missed.
+- Cursor and the ratified Copilot CLI target have host-specific path-scoped
+  instruction mechanisms with different contracts; other entry-point chains
+  remain broad.
 - Gemini CLI lacks native sub-agent spawning; review commands serve as the user-invoked equivalent but lack automatic delegation.
 
 ## Known Limitations
@@ -382,7 +439,16 @@ Claude Code natively supports read-only permission modes. Using `permissionMode:
 Agents may not follow "Read and follow X" instructions in thin wrappers, skipping the canonical content entirely. Mitigations vary by platform:
 
 - **Cursor**: `@` file injection forces content loading — the most reliable mechanism.
-- **Claude Code / Gemini CLI / Codex**: canonical content should include guards ("If you have not read X, stop and read it now"). Minimal fallback context (up to 5 lines) in wrappers helps when the agent skips the read.
+- **Claude Code / Gemini CLI / Codex**: canonical content should
+  include guards ("If you have not read X, stop and read it now"). Minimal
+  fallback context in wrappers helps when the agent skips the read.
+
+**Copilot CLI** has a stronger root-instruction mechanism:
+`.github/copilot-instructions.md` supports recursive repository-contained
+`@relative/path` imports. Modular
+`.github/instructions/**/*.instructions.md` files do not expand `@` imports,
+so generated modular projections contain their bounded instruction content and
+remain governed by disposition and stale-output validation.
 
 ### Externally installed skills
 
@@ -520,13 +586,41 @@ validation is delegated entirely to `pnpm skills:check`. Skills are now
 the sole user-and-model-invokable workflow surface across all
 platforms.
 
+### 2026-07-24 — Local Copilot CLI adapter family
+
+The owner ratified local GitHub Copilot CLI as an equal first-class citizen of
+the repository Practice. The adapter family follows the existing
+canonical-first boundary:
+
+- `.agent/` remains the source of doctrine and behaviour;
+- `.agents/skills/` remains the selected Copilot skill home under GitHub's
+  documented `.github/skills` → `.agents/skills` → `.claude/skills`
+  first-found precedence;
+- GitHub-native instructions, custom agents, hooks, settings, and repository
+  MCP files are generated or thin projections only; MCP delivery first
+  establishes a canonical secret-free server manifest by dispositioning every
+  tracked platform candidate;
+- Copilot identity, policy, communications, and lifecycle reuse canonical
+  `agent-tools` boundaries through Copilot-specific parsers, renderers, probes,
+  and composition;
+- native startup supplies context, while `oak-start-right-team` is the
+  deliberate boundary for shared team state.
+
+The amendment is restricted to Copilot CLI running locally. Coding-agent/cloud
+execution, remote transport, hosted bridges, and unrelated Codex parity work
+are excluded. The target-versus-wired truth lives in the cross-platform
+surface matrix.
+
 ## References
 
 - `.agent/skills/` — canonical skills (`SKILL-CANONICAL.md` per skill, plus supporting files)
 - `.agent/rules/` and `.agent/directives/` — canonical rules and directives
 - `.agent/sub-agents/` — canonical sub-agent prompts (ADR-114), personas, and components
 - `.agents/skills/`, `.claude/skills/` — generated skill adapter surfaces (only two)
-- `.cursor/`, `.claude/`, `.gemini/`, `.codex/` — platform adapters for sub-agents/rules/settings (no skills, no commands)
+- `.cursor/`, `.claude/`, `.github/`, `.gemini/`, `.codex/` — platform
+  adapters for the surfaces each host supports (no additional canonical
+  content homes)
+- [First-class Copilot CLI Practice support report](../../../.agent/reports/agentic-engineering/first-class-copilot-cli-practice-support-2026-07-24.md)
 - [PDR-051](../../../.agent/practice-core/decision-records/PDR-051-vendor-agnostic-skills-standardisation.md) — portable skills standardisation doctrine
 - [ADR-135](135-agent-classification-taxonomy.md) — agent classification taxonomy referenced in the 2026-04-17 amendment
 - [ADR-165](165-agent-work-practice-phenotype-boundary.md) — local phenotype boundary for PDR-035 agent-work capabilities
