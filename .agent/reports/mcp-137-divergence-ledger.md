@@ -183,3 +183,51 @@ the capture); (2) `take-original` for the two dropped studio READMEs
 (additive, no conflict). Whether either batch needs an owner card — or the
 Director rules them mechanical under the plan's "card the owner ONLY on
 genuine design calls" — is the S2 routing decision.
+
+## S2 adjudication record (decisions, per the disposition-ledger discipline)
+
+Routing authority: Director ruling, comms event
+`317011f2-020d-48a6-a959-7b931759764c` (2026-07-24 17:46Z), answering
+`f3cb3519`: the S2 due-card set is EMPTY and both batches are MECHANICAL,
+scored against the gate clause verbatim ("genuine design-judgment calls
+only; protected-by-default rules decide the rest; batched, not per-file") —
+no design-judgment call exists in either batch, and the both-sides class the
+cards were designed for is empirically empty. The ruling reserves: it covers
+the rows AS CLASSIFIED in #524; any authoring-time doubt routes back for an
+owner card. The owner sees the discharge as a glance-item on return — the
+plan's `owner_gates` row clears on that sight, not on the ruling alone (see
+the plan's dated note).
+
+- **Batch 1 — `keep-repo`, all 23 semantic rows** (the §Semantic rows
+  table). Rationale per row is the provenance column: every delta is landed,
+  reviewed, protected-by-default repo work (MCP-132, PR2 cures, the
+  2026-07-20 hardening arc); no `take-original` is proposed on any evolved
+  path, so the plan's stale-capture-inversion risk clause is never invoked.
+  Zero-loss: the original's version of every row is byte-preserved in
+  `studio-source/original-capture-2026-07-23/`.
+- **Batch 2 — `take-original`, the two dropped studio READMEs** —
+  materialised at `studio-source/integrations/revealjs/README.md` and
+  `studio-source/ui_kits/oak/README.md`, content-identical to their capture
+  copies and import-normalised (the repo's Prettier, exactly as every
+  working-tree studio file was at Stage A — blank-line insertions only, in
+  the ui_kits README); the byte-originals remain preserved in the capture
+  (same omission class as the Stage-A F1 cure that imported
+  `dtcg/README.md`).
+- **The 39 held-out-class rows**: `capture-only`, settled by the 2026-07-24
+  owner ruling and PR #523 — recorded here for ledger completeness, no S2
+  action. Discharge evidence for the plan's Amendment item 3 (the per-piece
+  re-review): the owner reviewed the held-out set as a list on 2026-07-24
+  (card "Review the list now", per-piece verdicts presented), then ruled
+  "Commit all 39" (~15:45Z), landed as #523 merge `86cf48089`. The S4
+  precondition "the held-out per-piece re-review answered" is
+  satisfied-in-substance on this evidence; final confirmation folds into the
+  S4 owner card, which fires regardless (account switch + the original
+  project's post-switch fate).
+- **S3 obligations, scoped to what this adjudication changes**: no CSS file
+  changes hands (Batch 1 is keep-repo, Batch 2 is markdown), so
+  `oak-flat.generated.css` regeneration and the conventions-header
+  re-validation are vacuous for this slice; the package CHANGELOG is
+  untouched because neither README joins the package export surface (the
+  public contract is unchanged). The `pairing-ark-ui.md` table repair (the
+  ledger's §Notable S4 tripwire) rides this slice so the mangled table can
+  never sync studio-ward.
