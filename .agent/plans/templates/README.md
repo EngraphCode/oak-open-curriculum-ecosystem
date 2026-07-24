@@ -9,7 +9,7 @@ come from the [closed registry](../impact-areas.md).
 | Template | Use for |
 | --- | --- |
 | [`strategic-plan-template.md`](strategic-plan-template.md) | A strategic node: the outcome, the bet, success, and the tempo of its subtree |
-| [`delivery-plan-template.md`](delivery-plan-template.md) | One bounded lane, authored by its implementer at pickup |
+| [`delivery-plan-template.md`](delivery-plan-template.md) | One step of a lane, authored by its implementer at pickup |
 | [`runbook-plan-template.md`](runbook-plan-template.md) | A repeatable operational procedure |
 
 Copy the skeleton from inside the template's fenced block, fill it,

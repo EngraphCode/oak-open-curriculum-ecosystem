@@ -7,10 +7,13 @@ at, never mirrored — the full contract is the
 [plan-node schema](plan-node-schema.md).
 
 Three plan types: **strategic** (the outcome and the bet — long-lived,
-few), **delivery** (one bounded lane — short-lived, archived at
+few), **delivery** (one step of a lane — short-lived, archived at
 completion), **runbook** (a repeatable procedure). Milestones are not a
 plan type: they live in Linear as named observable states of the
-product, and the strategic layer points at them.
+product, and the strategic layer points at them. Nor is the **lane** a
+plan type: it is the unit of work one seat holds (PDR-117, dated
+amendment 2026-07-24), and it spans one or more delivery plans and
+tickets — its steps.
 
 **Every plan is born `sketch`** and governs no work until it carries a
 complete owner-ratification stamp (`ratified_by` + `ratified_date` +
@@ -24,7 +27,7 @@ difference, and the estate validator enforces it.
 | [`plan-node-schema.md`](plan-node-schema.md) | The contract every plan conforms to |
 | [`impact-areas.md`](impact-areas.md) | The closed, additive registry behind `impact_areas` |
 | `strategic/` | Strategic nodes |
-| `delivery/` | Delivery plans (the live lanes) |
+| `delivery/` | Delivery plans (steps of the live lanes) |
 | `runbooks/` | Operational procedures |
 | [`templates/`](templates/README.md) | The three authoring templates, each opening with its ratification block |
 | `archive/` | Terminal plans (completed, superseded, or abandoned — each with its disposition) |
