@@ -21,3 +21,4 @@ spans milestones; neither duplicates the other.
 | `packaging-and-distribution` | Store listings, submission packages, screenshots, and channel delivery |
 | `content-workspace` | The model-behaviour content workspace and its reviewer-facing views |
 | `practice-and-estate` | The engineering practice, agent estate, and planning estate itself |
+| `design-system` | The Oak Open Curriculum Design System — tokens, themes, identities, class library, the component tier, and its studio sync |

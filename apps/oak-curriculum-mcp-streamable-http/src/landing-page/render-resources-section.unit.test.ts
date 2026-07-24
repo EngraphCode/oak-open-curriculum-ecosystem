@@ -30,9 +30,12 @@ describe('renderResourcesSection', () => {
     }
   });
 
-  it('includes the EEF and curriculum-model resources, not just documentation', () => {
-    expect(html).toContain('eef://interpretation');
+  it('includes the curriculum-model resource, not just documentation', () => {
     expect(html).toContain('curriculum://model');
+  });
+
+  it('does not advertise the dormant EEF interpretation resource (gated with its tool, owner card 2026-07-23)', () => {
+    expect(html).not.toContain('eef://interpretation');
   });
 
   it('does not list the removed prior-knowledge-graph resource (served by the anchored tool)', () => {

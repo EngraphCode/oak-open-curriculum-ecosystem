@@ -1,0 +1,6 @@
+---
+description: Bot identity on third-party systems. Owner ruling — wherever a bot identity exists to represent us (GitHub jimbot-oakington-iii, a Linear agent actor, ...), every agent action on that system MUST use it: commits, PR creation, comments, pushes, merges. Falling back to the owner's credentials without user-instigated permission is never permitted; a bot capability gap is a blocker to surface, never a licence.
+alwaysApply: true
+---
+
+Read and follow `.agent/rules/bot-identity-on-third-party-systems.md`.

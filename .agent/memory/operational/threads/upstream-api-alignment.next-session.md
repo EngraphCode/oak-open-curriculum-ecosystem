@@ -76,6 +76,6 @@ section (2026-07-01).
   phrasing are loose (the endpoint's own schema `example` uses full-form) — clarified via the
   injected `TOOL_DESCRIPTION_ADDITIONS` map, never by editing generated output. Root
   `sdk-codegen` is a turbo wrapper, so a bare `--online` flag is eaten by turbo — the online
-  refresh is `SDK_CODEGEN_MODE=online pnpm sdk-codegen`.
+  refresh is `pnpm sdk-codegen:refresh` (fetches with `--force` and rebuilds; MCP-130).
 - **Promotion watchlist**: the MCP pagination-header contract (ADR candidate); the
   fluency-premature-done-claim recurrence (doctrine-traction / action-time-structural-interrupt).

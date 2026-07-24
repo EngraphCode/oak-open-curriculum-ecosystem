@@ -1,3 +1,84 @@
+## [1.85.13](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.12...v1.85.13) (2026-07-24)
+
+
+### Bug Fixes
+
+* **agent-tools:** exempt frozen handoff records from markdown-link validation ([ca0749d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ca0749d0af4de202ff2fc15d740eda32a164d4a9))
+
+## [1.85.12](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.11...v1.85.12) (2026-07-24)
+
+## [1.85.11](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.10...v1.85.11) (2026-07-24)
+
+## [1.85.10](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.9...v1.85.10) (2026-07-24)
+
+## [1.85.9](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.8...v1.85.9) (2026-07-24)
+
+## [1.85.8](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.7...v1.85.8) (2026-07-24)
+
+## [1.85.7](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.6...v1.85.7) (2026-07-24)
+
+## [1.85.6](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.5...v1.85.6) (2026-07-24)
+
+## [1.85.5](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.4...v1.85.5) (2026-07-24)
+
+## [1.85.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.3...v1.85.4) (2026-07-23)
+
+## [1.85.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.2...v1.85.3) (2026-07-23)
+
+
+### Bug Fixes
+
+* **design-system:** land the 2026-07-23 design-session source fixes (MCP-132) ([329d5f1](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/329d5f12414dcdcbf1015aafe7919e98fc2baccb)), closes [#13](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/13) [#14](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/14)
+* **design-system:** review round 1 — no false invariants in comments or counts ([ed27660](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ed27660599bafc8bcbaecbd3051aee78e0e4de47)), closes [#13](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/13)
+* **design-system:** review round 2 — derived surfaces follow the source of truth ([05b8bec](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/05b8becd41740602f5d153f4b52746dc2c4c4069)), closes [hi#contrast](https://github.com/hi/issues/contrast) [#14](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/14)
+
+## [1.85.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.1...v1.85.2) (2026-07-23)
+
+## [1.85.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.0...v1.85.1) (2026-07-23)
+
+# [1.85.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.84.2...v1.85.0) (2026-07-23)
+
+
+### Features
+
+* **landing-page:** render active tools only + cross-surface dormant-absence invariant ([76eaf11](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/76eaf11e649d3953e24cff3e4262b691fca48b52))
+* **served-surface:** filter guidance tool references to live entries at the serve boundary ([d789efb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d789efb6b662eee043f9037d674355bb4631bb4b))
+
+## [1.84.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.84.1...v1.84.2) (2026-07-23)
+
+## [1.84.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.84.0...v1.84.1) (2026-07-23)
+
+
+### Bug Fixes
+
+* **release:** correct the release-failure alert channel to C0BKEUM2UAG ([9920988](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9920988ae666ca8c63fd8a067f67fdb91fa66afc))
+
+# [1.84.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.83.0...v1.84.0) (2026-07-23)
+
+
+### Features
+
+* **served-surface:** gate the EEF pair dormant — v1 live set finalised (owner card 2026-07-23) ([9ee7b64](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9ee7b64dc5b8b49999688f7e2f1afa7700d28f67))
+
+# [1.83.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.82.5...v1.83.0) (2026-07-23)
+
+
+### Bug Fixes
+
+* **eslint:** ignore design-sync machine state in shared ignores ([930577f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/930577f6c19b38d6e3465193885ec8d72ea827e5))
+
+
+### Features
+
+* **release:** release-process runbook (first D23 runbook node) + loud Slack failure alert (MCP-131) ([b2eb1dc](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b2eb1dc8d0b27f30cc7b35eaa066c42c586197e0))
+
+## [1.82.5](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.82.4...v1.82.5) (2026-07-23)
+
+
+### Bug Fixes
+
+* **sdk-codegen:** pin every build environment to the committed cached schema (MCP-130) ([fc16d24](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/fc16d24288e2a12022e25bdc6b24dac3c5d03934))
+
 ## [1.82.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.82.3...v1.82.4) (2026-07-23)
 
 ## [1.82.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.82.2...v1.82.3) (2026-07-23)

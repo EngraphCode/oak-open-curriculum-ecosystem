@@ -31,13 +31,12 @@ const rootDirectory = path.resolve(thisDirectory, '..');
 const outPathFromRoot = 'src/types/generated/api-schema';
 const outDirectory = path.resolve(rootDirectory, outPathFromRoot);
 
-// Determine the schema source: the committed cache is the default (hermetic,
-// deterministic, no network); online refresh is opt-in via --online,
-// SDK_CODEGEN_MODE=online, or a Vercel build. See resolve-schema-source.ts.
+// Determine the schema source: the committed cache is the source for every
+// build environment (hermetic, deterministic, no network); online refresh is
+// opt-in via --online or SDK_CODEGEN_MODE=online. See resolve-schema-source.ts.
 const schemaSource = resolveSchemaSource({
   args: process.argv.slice(2),
   sdkCodegenMode: process.env.SDK_CODEGEN_MODE,
-  vercel: process.env.VERCEL,
 });
 
 // The committed cache of the original schema is the default build input
@@ -53,8 +52,8 @@ async function readCachedSchemaOrThrow(): Promise<OpenAPIObject> {
   if (!existsSync(schemaCacheFilePath)) {
     throw new Error(
       `Code generation reads the cached SDK schema by default, but none was found at ${schemaCacheFilePath}. ` +
-        `Run "SDK_CODEGEN_MODE=online pnpm sdk-codegen" to refresh ` +
-        `the cache from upstream, then commit the result.`,
+        `Run "pnpm sdk-codegen:refresh" to fetch the cache ` +
+        `from upstream and rebuild, then commit the result.`,
     );
   }
   logger.info('Using cached original OpenAPI schema', { path: schemaCacheFilePath });

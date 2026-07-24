@@ -1,6 +1,6 @@
 {
   "name": "@oaknational/open-curriculum-ecosystem",
-  "version": "1.82.4",
+  "version": "1.85.13",
   "private": true,
   "description": "Oak National Academy open curriculum data ecosystem - tools and services for working with the Oak Open Curriculum data",
   "author": "https://github.com/jimCresswell",
@@ -30,6 +30,7 @@
   "type": "module",
   "scripts": {
     "sdk-codegen": "turbo run --continue sdk-codegen",
+    "sdk-codegen:refresh": "SDK_CODEGEN_MODE=online turbo run --continue --force sdk-codegen && turbo run --continue build",
     "vocab-gen": "pnpm --filter @oaknational/sdk-codegen vocab-gen",
     "build": "turbo run --continue build",
     "clean": "turbo run clean && rm -rf .turbo",

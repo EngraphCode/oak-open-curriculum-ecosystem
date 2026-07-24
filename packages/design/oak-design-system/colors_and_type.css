@@ -66,6 +66,7 @@
   --oak-aqua50: #d7f1ef;
   --oak-aqua110: #7cd8d0;
   --oak-lavender: #a0b6f2;
+  --oak-lavender20: #eef2fd; /* dark link-visited tint — top of the mirrored dark link ramp */
   --oak-lavender30: #e3e9fb;
   --oak-lavender50: #bdcdf5;
   --oak-lavender110: #7c9aec;
@@ -112,6 +113,10 @@
   --oak-red: #dd0035;
   --oak-red30: #f8d8e0;
   --oak-red50: #ee809a;
+  /* Dark error tints — meaning never shares a hex with decoration (dark
+     previously reused --oak-dark-pink50 for error fills) */
+  --oak-dark-red30: #3d1620;
+  --oak-dark-red50: #521c2b;
   --oak-navy: #0d24c4;
   --oak-navy110: #0a1d9d;
   --oak-navy120: #081676;
@@ -274,9 +279,16 @@
   --text-error: light-dark(var(--oak-red), var(--oak-red50));
   --text-success: light-dark(var(--oak-green), var(--oak-mint));
   --text-disabled: light-dark(var(--oak-grey50), var(--oak-grey40));
-  --text-link: light-dark(var(--oak-navy), var(--oak-lavender));
-  --text-link-hover: light-dark(var(--oak-navy110), var(--oak-lavender50));
-  --text-link-visited: light-dark(var(--oak-navy120), var(--oak-lavender30));
+  /* Dark link ramp sits one tint above the lavender base so body links hold
+     AA on the dark canvas and decorative bands 1-4 and 6 (base lavender was
+     4.34:1 on dark-mint); dark-lemon (-5) alone misses at 4.48:1 — see
+     KNOWN-ISSUES #13, never put body links in a lemon band in dark.
+     Invariant the pinned pairings rely on: the BASE state is always the
+     worst-contrast member of the ramp in both polarities (hover/visited only
+     lighten in dark, only darken in light) — keep it so when retuning */
+  --text-link: light-dark(var(--oak-navy), var(--oak-lavender50));
+  --text-link-hover: light-dark(var(--oak-navy110), var(--oak-lavender30));
+  --text-link-visited: light-dark(var(--oak-navy120), var(--oak-lavender20));
   --text-inverted: light-dark(var(--oak-white), var(--oak-black));
   --text-inverted-subdued: light-dark(
     var(--oak-grey40),
@@ -307,7 +319,7 @@
   --text-btn-disabled: light-dark(var(--oak-white), var(--oak-grey30));
 
   --bg-correct: light-dark(var(--oak-mint50), var(--oak-dark-mint50));
-  --bg-incorrect: light-dark(var(--oak-red30), var(--oak-dark-pink50));
+  --bg-incorrect: light-dark(var(--oak-red30), var(--oak-dark-red50));
   --bg-success: light-dark(var(--oak-green), var(--oak-mint));
   --bg-error: light-dark(var(--oak-red), var(--oak-red50));
 
@@ -342,7 +354,7 @@
   --bg-info-subtle: light-dark(var(--oak-lavender30), var(--oak-dark-lavender30));
   --bg-success-subtle: light-dark(var(--oak-mint30), var(--oak-dark-mint30));
   --bg-warning-subtle: light-dark(var(--oak-amber30), var(--oak-dark-amber30));
-  --bg-error-subtle: light-dark(var(--oak-red30), var(--oak-dark-pink50));
+  --bg-error-subtle: light-dark(var(--oak-red30), var(--oak-dark-red30));
 
   /* Decorative surfaces — categorisation only, NEVER meaning.
      Brand-neutral ramp: -N / -N-soft (50 tint) / -N-subtle (30 tint).
@@ -363,6 +375,10 @@
   --surface-decorative-5-soft: light-dark(var(--oak-lemon50), var(--oak-dark-lemon50));
   --surface-decorative-5-subtle: light-dark(var(--oak-lemon30), var(--oak-dark-lemon30));
   --surface-decorative-6: light-dark(var(--oak-amber50), var(--oak-dark-amber50));
+  /* -6's base is deliberately capped below full amber (the warning hue), so
+     base and -soft coincide — the alias completes the ramp grammar without
+     letting decoration reach the meaning-bearing colour */
+  --surface-decorative-6-soft: var(--surface-decorative-6);
   --surface-decorative-6-subtle: light-dark(var(--oak-amber30), var(--oak-dark-amber30));
 
   /* Non-colour theme tokens (light-dark() is colours-only, so these
@@ -376,7 +392,7 @@
 
   /* Drop shadows — intent-named. The accent family derives from
      --color-accent (re-brand follows automatically). */
-  --shadow-standard: 0 0.5rem 0.5rem var(--oak-shadow-veil);
+  --shadow-standard: 0 0.5rem 0.5rem var(--oak-shadow-veil); /* near-invisible on dark BY DESIGN — dark elevates by lightening surfaces (--bg-raised), not by shadow; do not "fix" */
   --shadow-accent: 0.125rem 0.125rem 0 var(--color-accent);
   --shadow-accent-raised: 0.25rem 0.25rem 0 var(--color-accent);
   --shadow-accent-display: 0.375rem 0.375rem 0 var(--color-accent); /* display scale (slides) */
@@ -492,6 +508,7 @@
   --surface-lemon-soft: var(--surface-decorative-5-soft);
   --surface-lemon-subtle: var(--surface-decorative-5-subtle);
   --surface-amber: var(--surface-decorative-6);
+  --surface-amber-soft: var(--surface-decorative-6-soft);
   --surface-amber-subtle: var(--surface-decorative-6-subtle);
   --surface-red-subtle: var(--bg-error-subtle);
   --shadow-lemon: var(--shadow-accent);
@@ -611,6 +628,12 @@
   --surface-decorative-5-soft: var(--oak-white);
   --surface-decorative-5-subtle: var(--oak-white);
   --surface-decorative-6: var(--oak-white);
+  --surface-decorative-6-soft: var(
+    --oak-white
+  ); /* re-declared: a :root alias freezes at its :root-resolved value inside SUBTREE theme scopes */
+  --surface-amber-soft: var(
+    --surface-decorative-6-soft
+  ); /* new-in-this-change dialect alias gets the same subtree re-declaration */
   --surface-decorative-6-subtle: var(--oak-white);
   --shadow-ground: var(--oak-black-true);
   --shadow-standard: none;

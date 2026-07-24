@@ -55,17 +55,17 @@ export const SEMANTIC_ROOTS = {
 } as const satisfies Record<DesignSystemTheme, readonly string[]>;
 
 /** Expected number of pairs the contrast manifest declares. */
-export const EXPECTED_MANIFEST_PAIR_COUNT = 34;
+export const EXPECTED_MANIFEST_PAIR_COUNT = 41;
 
 /**
  * Expected size of the post-filter hex comparand for every composed theme.
  *
  * @remarks
- * 169 colour candidates resolve per composed theme (identical across
+ * 174 colour candidates resolve per composed theme (identical across
  * themes — overlays only override, never add); 8 drop at the hex filter:
  * the 4 palette rgb-alpha literals, the `scrim` copy resolved from one of
  * them, and the 3 untyped `color-mix()` state tokens. This count is the
  * drift net for the export's heuristic `$type` and for silent resolution
  * drops — if it moves, a token changed class, not just value.
  */
-export const EXPECTED_COMPARAND_SIZE = 161;
+export const EXPECTED_COMPARAND_SIZE = 166;

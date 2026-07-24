@@ -55,7 +55,7 @@
       "$value": "0 solid transparent"
     },
     "pad": {
-      "$value": "0px",
+      "$value": "clamp({space.40},5vw,{space.64})",
       "$type": "dimension"
     },
     "radius": {

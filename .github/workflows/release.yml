@@ -76,3 +76,32 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           HUSKY: 0
+
+  # A release that fails must fail LOUDLY: the 2026-07-23 incident showed the
+  # silent alternative — semantic-release rejected on push, no version bump,
+  # the Vercel ignore-gate then cancelling every production build while main
+  # advanced. This job posts to Slack whenever the release job fails, so a
+  # broken release leg is a notification, never an archaeology exercise.
+  # Activation needs owner-side setup (bot token scope chat:write, app invited
+  # to the channel, SLACK_BOT_TOKEN repo secret); until then the job fails
+  # visibly in the run summary without affecting the release itself.
+  notify-failure:
+    name: Alert release failure
+    needs: [release]
+    if: ${{ failure() }}
+    runs-on: ubuntu-latest
+    # No checkout and no GITHUB_TOKEN use — drop all default permissions.
+    permissions: {}
+    steps:
+      - name: Send Slack failure alert
+        uses: slackapi/slack-github-action@45a88b9581bfab2566dc881e2cd66d334e621e2c # v3.0.3
+        with:
+          method: chat.postMessage
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          # The action swallows API/auth errors by default; errors: true makes
+          # a failed alert fail the step — an alert that cannot send must never
+          # be green (the silent-composition class this job exists to kill).
+          errors: true
+          payload: |
+            channel: C0BKEUM2UAG
+            text: ":rotating_light: Release workflow failed on main — <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|view the run>. Production does not advance until the release leg is cured (see .agent/plans/runbooks/release-process.plan.md)."

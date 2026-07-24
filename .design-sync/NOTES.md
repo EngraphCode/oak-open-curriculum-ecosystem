@@ -13,18 +13,28 @@
   sparse): `apps/oak-curriculum-mcp-streamable-http/node_modules`.
 - The converter copies `cssEntry` VERBATIM and does not follow its
   relative `@import`s — the package's real `styles.css` is an
-  import-list, so we build a flattened entry:
-  `cd packages/design/oak-design-system && cat colors_and_type.css
-oak-icons.css components.css print.css > oak-flat.generated.css`
-  (gitignored). REGENERATE IT whenever any tier CSS changes, before
-  any re-sync — a stale flat file ships stale styles silently.
+  import-list, so we build a flattened entry with
+  `pnpm --filter @oaknational/oak-design-system build:flat`
+  (writes the gitignored `oak-flat.generated.css`). REGENERATE IT
+  whenever any tier CSS changes, before any re-sync — a stale flat
+  file ships stale styles silently.
 - Two dead `@font-face` blocks are dropped at build (Lexend/RobotoMono
   faces whose urls point outside the copied set) — the surviving four
   rules cover both families; fonts verified shipping in fonts/.
+- **REQUIRED cargo: `assets/` ships with every sync** — `assets/icons/`
+  (the whole `--ic-*`/`--i-*` mask-icon set) plus the root `assets/*.svg`
+  (logos, brand shapes, favicon). The flat CSS references them by
+  relative `url('assets/…')`, so they must land beside the bundle CSS at
+  the same relative paths. The 2026-07-23 first sync omitted them — the
+  root cause of the workspace's Cloudinary-hotlink stopgap (killed by
+  MCP-132; hotlinks are not an acceptable state on any surface). Verify
+  after every sync: pick two `--i-*` urls from the shipped CSS and
+  confirm the files exist at those paths in the project.
 - DTCG JSON (dtcg/\*.json) does NOT ship: `tokensGlob` requires a
   `tokensPkg` resolvable from node_modules and the DS package is not
-  installed anywhere. All 474 custom properties ship via the CSS
-  (validate counts them), so the design agent loses nothing that
+  installed anywhere. Every custom property ships via the CSS — validate
+  counts them at each sync (474 at the 2026-07-23 first sync; the count
+  grows as tokens land) — so the design agent loses nothing that
   renders. Improvement candidate for a later sync.
 - Render check: zero component previews exist (tokens-only), so
   validate runs `--no-render-check` — accepted as vacuous 2026-07-23;
@@ -33,10 +43,9 @@ oak-icons.css components.css print.css > oak-flat.generated.css`
 
 ## Re-sync risks
 
-- `oak-flat.generated.css` is a derived file with no generator script —
-  it silently goes stale if tier CSS changes and nobody re-cats it.
-  (Cure candidate: a tiny package script, added when the component
-  tier lands.)
+- `oak-flat.generated.css` is derived — regenerate via the package's
+  `build:flat` script (added 2026-07-23, closing the former
+  no-generator-script staleness risk) before every re-sync.
 - The conventions header enumerates the class vocabulary BY NAME —
   re-validate every name against the fresh `_ds_bundle.css` on every
   re-sync (grep loop in the sync transcript, 2026-07-23); classes

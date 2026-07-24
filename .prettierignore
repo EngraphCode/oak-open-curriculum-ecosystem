@@ -94,5 +94,16 @@ research/web-app-deconstruction/.agent/
 # in the byte-faithful documents class, not the gated tooling-code class.
 research/web-app-deconstruction/packages/research-evidence/fixtures/
 
+# MCP-137 preservation tier (byte-preserved capture folders — pure copies from
+# their sources, never reformatted; see the adjacent PRESERVATION-README.md.
+# The manifest .tsv is derived data in the same byte-faithful class.)
+packages/design/oak-design-system/studio-source/original-capture-2026-07-23/
+packages/design/oak-design-system/studio-source/iteration-pull-preservation-2026-07-23/
+packages/design/oak-design-system/studio-source/capture-manifest-2026-07-24.tsv
+
 # Copilot agent worktrees (owner ruling 2026-07-24: excluded from all tools)
 .github/copilot-worktrees/
+
+# The owner's raw studio export (untracked, machine-local; MCP-137 S0 source —
+# byte-preserved record, never reformatted)
+packages/design/oak-open-curriculum-design-system-tna-24072026-1141/

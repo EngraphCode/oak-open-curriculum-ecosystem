@@ -16,14 +16,25 @@ depends_on: []
 owner_gates:
   - awaiting: owner-decision
     clears_when: "Card 1 ledger confirm: the archived decision ledger (D0-D10) re-presented one line each with what changed since 2026-07-21 — D0 now register-backed (D18), D1 superseded by the domain joint below, D2/D8/D10 risk acceptances shown for explicit acceptance"
-    expires: 2026-07-26
+    expires: 2026-07-30
   - awaiting: external-input
     clears_when: "The canonical production origin is decided: the MCP-122 domain mint (www.thenational.academy/mcp) confirms and supplies the origin, or the D18 current-URL position stands for V1 — either answer unblocks Cards 2-3; guard cycles never wait on it"
-    expires: 2026-07-26
-last_updated: 2026-07-23
+    expires: 2026-07-30
+last_updated: 2026-07-24
 ---
 
 # Clerk production promotion
+
+## Dated notes
+
+- 2026-07-24 — Gates re-dated 2026-07-26 → 2026-07-30 (MCP-141 scan
+  truing, Director-ruled): no live seat existed at the authoring
+  expiry, so both cards re-date to lane pickup rather than carding the
+  owner cold on Clerk decisions with no executor lane; 2026-07-30 is
+  the M4 milestone target, the outer bound by which both must resolve.
+  The M4 execution ticket minted at the same scan carries the pickup;
+  the pointer ticket MCP-67 (Done at its authoring scope) is no longer
+  this plan's execution anchor.
 
 ## Goal
 

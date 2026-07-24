@@ -16,14 +16,24 @@ tickets:
 depends_on:
   - plan: mcp-101-visible-surface-allowlist
     kind: beneficial
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: "The guidance format and ingest protocol are agreed with the owner (one-copy-per-domain model, verbatim-vs-derived contract, cross-reference handling)"
-    expires: 2026-07-26
-last_updated: 2026-07-23
+owner_gates: []
+last_updated: 2026-07-24
 ---
 
 # Guidance pipeline
+
+## Dated notes
+
+- 2026-07-24 — The format/ingest-protocol owner gate is DISCHARGED
+  (MCP-141 scan truing): six rulings adopted at owner cards, sitting of
+  2026-07-23 ~15:35; the authoritative record is the MCP-102 ticket
+  comment of that timestamp (policy/application boundary,
+  verbatim-vs-derived contract, five-docs-as-system precedence, additive
+  schema evolution, decision-procedure worked examples,
+  one-copy + content-hash versioning). Pickup builds to those rulings;
+  the gate row is removed as resolved. The out-of-scope line "this
+  plan implements the agreed protocol, it does not decide it" now
+  points at that record.
 
 ## Goal
 
@@ -83,8 +93,9 @@ allowlist lands.
 ## Out of scope
 
 - The guidance content itself: authored by Oak's experts on their
-  clock; this lane never blocks on it beyond the sample.
-- The format/ingest-protocol decision: the named owner gate above —
-  this lane implements the agreed protocol, it does not decide it.
+  clock; this plan never blocks on it beyond the sample.
+- The format/ingest-protocol decision: decided at the discharged gate
+  (see Dated notes) — this plan implements the agreed protocol, it
+  does not decide it.
 - Serving-surface placement detail (app definition vs startup tool):
   confirmed with the owner at the protocol agreement.
