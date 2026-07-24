@@ -65,6 +65,7 @@ without proportional value.
 | `.agent/rules/agent-state-observable.md`                                   | always-on      | —                                                                                                   |
 | `.agent/rules/agents-default-no-gender.md`                                 | always-on      | —                                                                                                   |
 | `.agent/rules/apply-architectural-principles.md`                           | always-on      | —                                                                                                   |
+| `.agent/rules/bot-identity-on-third-party-systems.md`                      | always-on      | —                                                                                                   |
 | `.agent/rules/capture-practice-tool-feedback.md`                           | always-on      | —                                                                                                   |
 | `.agent/rules/check-singleton-per-window.md`                               | always-on      | —                                                                                                   |
 | `.agent/rules/closed-shape-design-optionality.md`                          | always-on      | —                                                                                                   |
