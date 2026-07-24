@@ -43,6 +43,18 @@ last_updated: 2026-07-24
   confirmation of the original project's post-switch fate plus the
   account/consent/canEdit gate recorded on the MCP-137 ticket
   (2026-07-24 12:05Z comment).
+- 2026-07-24 (S1/S2) — **The S2 due-card set is EMPTY** (Director ruling,
+  comms event `317011f2-020d-48a6-a959-7b931759764c`, scored against the
+  gate clause). Empirical basis: the S1 divergence ledger
+  (#524, merge `4f4a1b3d8`) proves `diverged-both-sides` is empty — all
+  23 semantic deltas are one-sided repo evolution, so no genuine
+  design-judgment call exists; both S2 batches (keep-repo ×23,
+  take-original ×2 dropped studio READMEs) are mechanical under
+  protected-by-default and the item-5 adjudication lens. **The
+  `owner_gates` row above stays and clears on the owner's sight of this
+  discharge as a glance-item on return, not on the ruling alone.** The
+  ruling reserves an owner card for any row where authoring-time doubt
+  arises; none did.
 
 ## Goal
 
