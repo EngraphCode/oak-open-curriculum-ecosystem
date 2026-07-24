@@ -15,15 +15,20 @@ tickets:
 depends_on: []
 owner_gates:
   - awaiting: owner-decision
-    clears_when: "Plan ratification at the owner's glance — status flips sketch → ratified with the stamp; the merge seat starts S0 (read-only capture) safely before this clears, and stops at the S2 boundary if it has not"
-    expires: 2026-07-26
-  - awaiting: owner-decision
     clears_when: "S2 adjudication cards answered — genuine design-judgment calls only (protected-by-default rules decide the rest); batched, not per-file"
     expires: 2026-07-26
-last_updated: 2026-07-23
+last_updated: 2026-07-24
 ---
 
 # Design-system semantic merge
+
+## Dated notes
+
+- 2026-07-24 — The plan-ratification owner-gate row is DISCHARGED and
+  removed (MCP-141 scan truing, granted by the Director scoped to this
+  row + `last_updated`): the ratification stamp above IS the discharge,
+  landed via PR #513 (merge 7a9dcce52, 2026-07-24). The S2
+  adjudication-cards gate remains the live owner gate, untouched.
 
 ## Goal
 
