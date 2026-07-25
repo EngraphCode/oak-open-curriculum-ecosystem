@@ -42,7 +42,7 @@ programme are outside the ratified scope.
 | Identity | Stable, model-visible identity with truthful Copilot provenance | Canonical identity types do not yet admit Copilot **[R]** | MCP-154 |
 | Deliberate membership | Native startup is useful alone; `oak-start-right-team` explicitly joins claims, heartbeat, watcher, and lifecycle | No Copilot bootstrap/join projection exists **[R]** | MCP-154 |
 | Canonical capability | Instructions, skills, specialist agents, and MCP tools reach the CLI without a second authority | Repo-wide pointer and portable skills exist; other GitHub projections are absent **[R]** | MCP-155 |
-| Policy | Valid writes receive one canonical decision through Copilot's real input/output contract | Inherited Claude parsing blocks valid Copilot writes **[V][R]** | MCP-150 |
+| Policy | Valid writes receive one canonical decision through Copilot's real input/output contract | Copilot CLI 1.0.75 string-form `apply_patch` is governed; other Copilot schemas and the closed dispatcher remain unwired **[V][R]** | MCP-150 |
 | Communications | Directed/broadcast send, wake, drain recovery, handoff, and retirement work on the local shared substrate | The substrate exists; no Copilot notification/lifecycle projection is wired **[R]** | MCP-156 |
 | Proof | Fresh-checkout validators and a live CLI run demonstrate the whole journey | No end-to-end Copilot CLI acceptance record exists **[R]** | All four |
 
@@ -78,7 +78,7 @@ The launcher therefore bootstraps repository and identity context only.
 Joined/non-joined behaviour must be proved with negative as well as positive
 integration tests **[I]**.
 
-### 3. The inherited cross-tool hook path blocks valid writes
+### 3. The inherited defect established the required policy boundary
 
 Copilot CLI 1.0.74 was observed sending a batched pre-tool-use envelope with
 `sessionId`, `cwd`, and `toolCalls[]`; each call carried `id`, `name`, and
@@ -92,26 +92,27 @@ the Copilot batch, returned the fail-closed error path, and Copilot correctly
 denied the write **[V][R]**. The policy itself did not reject the content; its
 platform boundary could not represent the request **[I]**.
 
-The cure has two explicit routes, not one permissive Copilot schema **[I]**:
-
-- the documented native GitHub single-tool envelope (`toolName`/`toolArgs`) is
-  the evaluator contract and renders a native decision **[D]**;
-- the version-pinned inherited batch is compatibility-defect evidence and
-  returns a neutral pass-through with zero policy loads or evaluations.
+The later live falsification on Copilot CLI 1.0.75 proved that the inherited
+PascalCase `PreToolUse` activation is the local CLI policy activation **[V]**.
+The merged interim write-path repair now parses Copilot CLI 1.0.75 string-form
+`apply_patch` payloads and emits explicit allow/deny decisions **[R][V]**.
+That route is governed; other Copilot schemas and the complete
+closed-dispatcher target remain unwired.
 
 The observed batch and patch-document semantics remain intact in their fixture;
-they are never approximated as Claude edit pairs or elevated into architectural
-authority **[I]**. The raw live payload was inspected but deliberately not
-retained because tool arguments can contain caller content. It is therefore an
-unretained observation until delivery replaces it with a sanitised literal
-fixture and a reproducible probe record.
+they are never approximated as Claude edit pairs **[I]**. Delivery must admit
+the existing Claude shapes, documented Copilot single-tool inputs, and the
+observed Copilot batch as closed schemas; exactly one schema must match, or the
+dispatcher fails closed. The raw live payload was inspected but deliberately
+not retained because tool arguments can contain caller content. Delivery
+replaces it with a sanitised literal fixture and reproducible probe record.
 
 ### 4. Canonical policy needs a platform-free centre
 
 MCP-150 first extracts one validated policy snapshot and one platform-free
 evaluator while keeping production wiring Claude-only **[I]**. Only after that
-baseline lands does the Copilot CLI vertical add its adapter, renderer, and
-native activation.
+baseline lands does the Copilot CLI vertical add its closed schemas and
+renderer behind the same inherited activation.
 
 This sequencing keeps the first code landing reviewable and protects current
 Claude behaviour. Canonical decisions contain no host response shapes;
@@ -119,18 +120,16 @@ renderers alone construct Claude or Copilot outputs **[I]**. Synthetic adapters
 exercise arbitration in baseline tests without planting dormant Copilot or
 Codex production branches.
 
-### 5. Native and inherited hook activation can coexist only with one authority
+### 5. One inherited activation feeds one closed authority
 
-Copilot CLI can read selected Claude configuration, while GitHub also documents
-native repository hooks under `.github/hooks` **[D]**. Wiring both naively
-would risk two evaluations or a second cross-shape failure **[V][I]**.
-
-For a tested supported version, native GitHub `preToolUse` is the sole Copilot
-CLI evaluator. Explicit activation provenance selects the native parser before
-evaluation. The explicit inherited compatibility route ignores the body and
-returns neutral host success without loading policy or evaluating. Malformed
-selected native inputs and ambiguous genuinely shared routes fail closed
-**[I]**.
+GitHub documents native repository hooks under `.github/hooks`, but those
+files also run in Copilot cloud-agent jobs **[D]**. That surface cannot host a
+local-CLI-only policy adapter. For a tested supported version, the inherited
+PascalCase `PreToolUse` activation is the sole Claude/Copilot policy
+activation. One bounded dispatcher requires exactly one closed host schema,
+loads one validated policy snapshot, evaluates once, and renders the matched
+host's response. Zero or multiple matches, malformed matched input, and
+renderer failure fail closed **[I]**.
 
 The exact-once claim applies to **successfully dispatched** requests. GitHub's
 hook timeout is a host fail-open ceiling: a timed-out hook may not have
@@ -163,7 +162,10 @@ is classified repo-wide, path-projected, or excluded with a reason.
 Path-projected files require valid `applyTo` metadata and tests for positive,
 negative, recursive, comma-separated, and simultaneous-match behaviour. They
 must not copy the full rule corpus or use `@` imports, which GitHub does not
-expand inside modular instruction bodies **[D][I]**.
+expand inside modular instruction bodies **[D][I]**. Because GitHub repository
+instructions are also consumed by cloud surfaces, every emitted instruction
+must be classified `cloud-shared` or `cloud-excluded`; local-only modular
+instructions emit `excludeAgent: "cloud-agent"` **[D][I]**.
 
 ### 8. Custom agents are a generated adapter family
 
@@ -178,7 +180,10 @@ every live non-archived canonical specialist, with Copilot tool aliases and no
 unnecessary model pin. Every exclusion carries a reason. Forward coverage,
 reverse-orphan checks, schema validation, same-ID precedence over
 `.claude/agents`, and live invocation prove the family is real rather than
-decorative **[D][I]**.
+decorative **[D][I]**. Because `.github/agents` is also visible to Copilot
+cloud, every generated wrapper must be cloud-safe: no secrets, machine-local
+paths, or local-only MCP assumptions, and automatic cloud selection disabled
+unless separately accepted **[D][I]**.
 
 ### 9. Repository MCP tools require a canonical manifest first
 
@@ -233,9 +238,9 @@ dispatches and consumes it.
 2. **Existing portable skill surface:** `.agents/skills/` remains the chosen
    Copilot CLI skill home.
 3. **GitHub adapter family:** `.github/copilot-instructions.md`,
-   `.github/instructions/`, `.github/agents/`, `.github/hooks/`, and the
-   supported repository MCP projection carry only activation metadata,
-   generated projections, or platform I/O.
+   `.github/instructions/`, cloud-safe `.github/agents/`, separately proven
+   non-policy lifecycle hooks, and the supported repository MCP projection
+   carry only activation metadata, generated projections, or platform I/O.
 4. **Canonical MCP manifest:** a new secret-free server inventory is
    established from total dispositions over tracked platform candidates before
    any Copilot MCP projection is generated.
@@ -250,8 +255,8 @@ dispatches and consumes it.
 
 ## Delivery order
 
-1. **MCP-150:** Claude-only canonical policy baseline, then native Copilot CLI
-   enforcement.
+1. **MCP-150:** Claude-only canonical policy baseline, then the Copilot CLI
+   adapter and renderer behind the inherited activation.
 2. **MCP-154:** one complete identity, launcher, and deliberate-Practice-join
    vertical.
 3. **MCP-155:** instructions/skills, specialist agents, then repository MCP
@@ -280,14 +285,15 @@ lands this report, ADR amendment, matrix correction, and ratified plan estate.
 | Assumption | Falsifier | Required response |
 | --- | --- | --- |
 | Native `sessionStart` can deliver identity through `additionalContext`. | A supported CLI build fires the hook but the model receives no context. | Re-shape MCP-154 before activation. |
-| Explicit native GitHub pre-tool-use can be the sole Copilot evaluator while the explicit inherited route is neutral. | Activation provenance cannot select the routes without body guessing, or inherited activation still evaluates. | Do not land Copilot activation; return MCP-150 to design. |
+| One inherited PascalCase activation can route exactly one closed Claude or Copilot schema. | Zero or multiple schemas match, or a recognised Copilot request can bypass evaluation. | Do not land the dispatcher; return MCP-150 to design. |
 | `.agents/skills/` supplies the required skill set under documented precedence. | Clean-checkout discovery misses or shadows a required skill. | Correct the projection/precedence contract; do not copy blindly. |
 | One-shot watch to `shell_completed` provides a reliable wake edge. | Delivered events fail to wake, re-arm loses events, or unrelated sessions wake. | Keep comms delivery unshipped and re-shape MCP-156. |
 | The tracked MCP projection can remain secret-free. | A required server cannot be described without committing credentials or a host path. | Keep that server local and narrow the supported repository set. |
 
 ## Explicit non-goals
 
-- GitHub Copilot coding-agent or cloud support.
+- GitHub Copilot coding-agent or cloud feature delivery. Shared repository
+  surfaces still require explicit cloud-safe dispositions.
 - Remote or cross-machine communications.
 - A hosted bridge, plugin, task API, or separate Copilot Practice.
 - A parallel Codex parity programme.

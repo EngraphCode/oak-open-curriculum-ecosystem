@@ -16,7 +16,7 @@ depends_on:
   - plan: copilot-cli-identity-and-practice-join
     kind: beneficial
 owner_gates: []
-last_updated: 2026-07-24
+last_updated: 2026-07-25
 ---
 
 # Copilot CLI Practice projections
@@ -40,9 +40,12 @@ manifest.
 Three total disposition manifests make the source sets recomputable:
 
 1. Every live `.agent/rules/*.md` source is classified `repo-wide`,
-   `path-projected`, or `excluded` with a reason. A path projection is selected
-   only when file-scoped activation is expressible through Copilot `applyTo`
-   and adds behaviour beyond the repo-wide entry point.
+   `path-projected`, or `excluded` with a reason, and every emitted instruction
+   is separately classified `cloud-shared` or `cloud-excluded`. A path
+   projection is selected only when file-scoped activation is expressible
+   through Copilot `applyTo` and adds behaviour beyond the repo-wide entry
+   point. Local-only instructions must emit the documented
+   `excludeAgent: "cloud-agent"` disposition.
 2. Every live, non-archived `.agent/sub-agents/templates/*.md` specialist is
    classified `projected` or `excluded` with a reason.
 3. Every server found in tracked platform MCP configuration is reconciled into
@@ -56,7 +59,13 @@ deterministic generation, validation, and live discovery under the host's
 native session identity. The identity node improves acceptance-seat
 attribution but supplies no required projection primitive.
 
-The exact upstream field mappings and generated-file manifests live in MCP-155.
+This repository plan owns the projection contract; versioned mappings and
+generated-file manifests land with the implementation. MCP-155 is the
+supplementary Linear projection for execution state, sensitive details, and
+evidence that cannot be versioned safely.
+Every relied-upon Copilot surface is activated only after a tested version
+floor and live capability probe for that surface; documentation is evidence
+for the probe design, not proof about the installed CLI.
 
 ## Acceptance criteria (each with a proof)
 
@@ -75,11 +84,35 @@ The exact upstream field mappings and generated-file manifests live in MCP-155.
   excluded, and each projection has mapped tool aliases and inherited model
   selection.** Proof: `repo-safe` — disposition-totality, generator, schema,
   forward-coverage, reverse-orphan, and same-ID coexistence tests prove
-  `.github/agents` intentionally wins over `.claude/agents`.
+  `.github/agents` intentionally wins over `.claude/agents`. Because this
+  surface is also visible to Copilot cloud, every projection must be
+  cloud-safe and emit `disable-model-invocation: true` unless automatic cloud
+  selection is separately accepted.
 - **A clean checkout exposes the intended repository MCP tools without tracked
   secrets or machine-local paths.** Proof: `repo-safe` — canonical
   server-manifest totality over tracked candidates, deterministic projection
   tests, secret/path validators, and fresh-checkout integration.
+- **Instruction projections do not land until a supported-version clean CLI
+  loads the repo-wide file and one positive path match while excluding one
+  negative path match; cloud-excluded fixtures must not reach a cloud-agent
+  prompt.** Proof: `repo-safe` — version and discovery fixtures plus manifest
+  totality; `owner-held` — the pre-landing local CLI probe. A failed or
+  unsupported probe leaves the generated projection untracked.
+- **Skill support is not promoted beyond `Partial` until a supported-version
+  clean CLI reports the intended `.agents/skills` source and invokes a
+  representative same-ID skill without `.claude/skills` shadowing it.** Proof:
+  `repo-safe` — precedence fixtures; `owner-held` — discovery and invocation
+  transcript. Failure blocks the support claim and any new skill projection.
+- **Generated `.github/agents` do not land until a supported-version clean CLI
+  discovers and manually invokes a schema-valid representative carrying
+  `disable-model-invocation: true`.** Proof: `repo-safe` — schema, disposition,
+  and cloud-safety fixtures; `owner-held` — local discovery/invocation probe.
+  Failure leaves the generated family untracked.
+- **The repository MCP projection does not land until a supported-version
+  clean CLI discovers the intended secret-free server and tools and completes
+  one representative call.** Proof: `repo-safe` — manifest, secret/path, and
+  unsupported-version fixtures; `owner-held` — discovery/call transcript.
+  Failure leaves the projection untracked and the server local.
 - **A real local Copilot CLI session discovers and invokes one representative
   skill, specialist agent, and repository MCP tool.** Proof: `owner-held` —
   the owner runs or observes the local Copilot CLI seat and records acceptance
@@ -101,5 +134,6 @@ The exact upstream field mappings and generated-file manifests live in MCP-155.
 - A Copilot plugin, empty speculative settings, or hand-maintained parity
   files.
 - Claude-style `Skill(...)` permissions or settings semantics on Copilot CLI.
-- GitHub Copilot coding-agent or cloud projections.
+- GitHub Copilot coding-agent or cloud feature delivery. Shared repository
+  projections still require explicit cloud-safe dispositions.
 - Unrelated Codex adapter work.

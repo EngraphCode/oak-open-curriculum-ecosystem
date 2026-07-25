@@ -14,7 +14,7 @@ tickets:
   - MCP-154
 depends_on: []
 owner_gates: []
-last_updated: 2026-07-24
+last_updated: 2026-07-25
 ---
 
 # Copilot CLI identity and deliberate Practice join
@@ -33,7 +33,9 @@ and project it through a thin local launcher/bootstrap. Keep identity bootstrap
 separate from team enrolment: only the team skill opens claims, starts
 heartbeats and the all-channel watcher, and registers lifecycle state.
 
-Implementation details and fixture provenance live in MCP-154.
+This repository plan owns the mechanism and acceptance contract. MCP-154 is
+the supplementary Linear projection for execution state, sensitive details,
+and evidence that cannot be versioned safely.
 
 ## Acceptance criteria (each with a proof)
 
@@ -42,7 +44,10 @@ Implementation details and fixture provenance live in MCP-154.
   derivation, persistence, and provenance tests.
 - **Native startup makes repository and identity context model-visible through
   Copilot CLI's documented output shape.** Proof: `repo-safe` — launcher and
-  session-start integration tests with literal fixtures.
+  session-start integration tests with literal fixtures. Before tracked
+  activation, a supported-version floor and live capability probe must prove
+  that the installed CLI fires `sessionStart` and accepts the required
+  `additionalContext` output.
 - **Ordinary local startup creates no team claims, heartbeat, watcher, or
   lifecycle registration.** Proof: `repo-safe` — negative integration test
   over an isolated coordination home.

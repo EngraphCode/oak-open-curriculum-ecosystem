@@ -18,7 +18,7 @@ depends_on:
   - plan: copilot-cli-practice-projections
     kind: beneficial
 owner_gates: []
-last_updated: 2026-07-24
+last_updated: 2026-07-25
 ---
 
 # Copilot CLI local communications and lifecycle
@@ -42,7 +42,9 @@ already discoverable team skill and comms CLI after identity/join has landed.
 Native projections improve discovery but supply no required communications
 runtime primitive.
 
-Detailed wake, burst, cursor, and cleanup contracts live in MCP-156.
+This repository plan owns the wake, burst, cursor, and cleanup contracts.
+MCP-156 is the supplementary Linear projection for execution state, sensitive
+details, and evidence that cannot be versioned safely.
 
 ## Acceptance criteria (each with a proof)
 
@@ -51,7 +53,9 @@ Detailed wake, burst, cursor, and cleanup contracts live in MCP-156.
   multi-session comms integration tests.
 - **A directed event wakes the intended idle local session and not unrelated
   sessions, then the watcher re-arms.** Proof: `repo-safe` — notification,
-  self-exclusion, and re-arm integration tests.
+  self-exclusion, and re-arm integration tests. Before tracked activation, a
+  supported-version floor and live capability probe must prove the installed
+  CLI's `notification` event and the selected completion notification shape.
 - **Watcher restart resumes from the durable seen-file cursor and gap-sweeps
   missed events without replay storms.** Proof: `repo-safe` — crash/restart,
   burst, ordering, duplicate, and cursor-advancement tests.

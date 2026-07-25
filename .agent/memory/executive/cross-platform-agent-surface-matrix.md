@@ -25,9 +25,9 @@ scope.
 | Identity | Native `sessionStart` adapter returns honest Copilot identity through `additionalContext` | **No** — canonical identity types and persistence do not yet admit Copilot |
 | Deliberate team join | Native bootstrap is useful alone; `oak-start-right-team` explicitly opens claims, heartbeat, watcher, and lifecycle | **No** — no Copilot launcher or joined/non-joined proof |
 | Repo instructions | `.github/copilot-instructions.md` imports the canonical repository entry point | **Partial** — the file exists as a Markdown link to `AGENT.md`, not a validated native import |
-| Path-scoped instructions | Generated `.github/instructions/**/*.instructions.md` projections | **No** |
+| Path-scoped instructions | Generated `.github/instructions/**/*.instructions.md` projections with an explicit cloud-shared or `excludeAgent: "cloud-agent"` disposition | **No** |
 | Skills | Use `.agents/skills/` under documented `.github/skills` → `.agents/skills` → `.claude/skills` first-found precedence | **Partial** — the portable wrappers exist; clean local Copilot CLI discovery/invocation is not yet an acceptance gate |
-| Custom agents | Generated, schema-valid `.github/agents/*.agent.md` projections from canonical specialists | **No** |
+| Custom agents | Generated, schema-valid, cloud-safe `.github/agents/*.agent.md` projections from canonical specialists, with `disable-model-invocation: true` unless automatic cloud selection is separately accepted | **No** |
 | Policy hooks | Existing inherited PascalCase `PreToolUse` activation feeds exactly one closed Claude/Copilot dispatcher and one canonical policy evaluation | **Partial** — the inherited activation and guards now evaluate Copilot CLI 1.0.75 string-form `apply_patch` payloads with explicit allow/deny decisions; the ratified closed dispatcher, complete schemas, per-host rendering, and acceptance proof remain unwired |
 | Settings | `.github/copilot/settings.json` only for documented, tested project settings | **No** |
 | Repository MCP | Establish a canonical secret-free server manifest from total dispositions over tracked platform candidates, then generate the Copilot repository projection | **No** — no canonical manifest or tracked Copilot projection exists |

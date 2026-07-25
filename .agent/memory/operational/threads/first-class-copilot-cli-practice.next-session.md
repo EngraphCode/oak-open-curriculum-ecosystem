@@ -56,10 +56,14 @@ participant in the repository's canonical Practice and agentic tools.
   heartbeat, watcher, and lifecycle.
 - The policy lane begins with one Claude-only production baseline. It contains
   no dormant Copilot or Codex production branches.
-- Native GitHub pre-tool-use is the sole Copilot evaluation authority for a
-  tested supported version and consumes the documented single-tool envelope.
-  The version-pinned inherited Claude batch is a separate neutral route with
-  zero policy loads or evaluations.
+- The inherited PascalCase `PreToolUse` route is the sole Claude/Copilot
+  policy activation. One closed dispatcher requires exactly one recognised
+  host schema, one validated policy snapshot, one evaluation, and matched-host
+  rendering; zero or multiple matches fail closed.
+- Native `.github/hooks` policy activation is excluded because repository
+  hooks also run in Copilot cloud-agent jobs. Native hooks remain candidates
+  only for separately probed non-policy lifecycle needs with an explicit cloud
+  disposition.
 - Exact-once policy proof covers successfully dispatched requests. The host
   timeout remains a fail-open ceiling.
 - Communications reuse the existing local file-backed substrate. Native wake
@@ -92,5 +96,7 @@ participant in the repository's canonical Practice and agentic tools.
   [ADR-125](../../../../docs/architecture/architectural-decisions/125-agent-artefact-portability.md)
 - Live target-versus-wired truth:
   [`cross-platform-agent-surface-matrix.md`](../../executive/cross-platform-agent-surface-matrix.md)
-- Linear is the execution surface; update MCP-150/MCP-154/MCP-155/MCP-156
-  rather than copying ticket state into this thread.
+- The repository plan estate is authoritative for target and mechanism.
+  MCP-150/MCP-154/MCP-155/MCP-156 are supplementary Linear projections for
+  execution state, sensitive details, and evidence that cannot be versioned
+  safely; do not copy transient ticket state into this thread.

@@ -136,26 +136,45 @@ doctrine and canonical `agent-tools` commands.
 The GitHub adapter family serves **Copilot CLI running locally**. GitHub
 Copilot coding-agent/cloud execution is not part of this decision.
 
-| Surface                  | Ratified repository projection                                                             |
-| ------------------------ | ------------------------------------------------------------------------------------------ |
-| Repo-wide instructions   | `.github/copilot-instructions.md` imports the canonical repository entry point             |
-| Path-scoped instructions | Generated `.github/instructions/**/*.instructions.md` activation projections               |
-| Skills                   | Existing `.agents/skills/`; no duplicate `.github/skills/` tree                            |
-| Custom agents            | Generated `.github/agents/*.agent.md` wrappers over canonical specialists                  |
-| Hooks                    | `.github/hooks/*.json` plus thin platform I/O adapters over canonical identity and policy  |
-| Settings                 | `.github/copilot/settings.json` only where a tracked project setting is required           |
-| MCP                      | A tracked, secret-free projection from a canonical server manifest established by delivery |
+| Surface                  | Ratified repository projection                                                                                              |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| Repo-wide instructions   | `.github/copilot-instructions.md` imports the canonical repository entry point                                              |
+| Path-scoped instructions | Generated `.github/instructions/**/*.instructions.md` activation projections                                                |
+| Skills                   | Existing `.agents/skills/`; no duplicate `.github/skills/` tree                                                             |
+| Custom agents            | Generated, cloud-safe `.github/agents/*.agent.md` wrappers over canonical specialists                                       |
+| Hooks                    | Inherited `.claude/settings.json` activation for policy; native hooks only for separately proven non-policy lifecycle needs |
+| Settings                 | `.github/copilot/settings.json` only where a tracked project setting is required                                            |
+| MCP                      | A tracked, secret-free projection from a canonical server manifest established by delivery                                  |
 
-Copilot CLI's documented skill discovery precedence is `.github/skills`,
-`.agents/skills`, then `.claude/skills`, with first-found wins. The repository
-deliberately keeps `.agents/skills` as its chosen Copilot skill home, so adding
-the GitHub adapter family does not change the two-surface skills contract.
+Copilot CLI's
+[documented skill discovery precedence](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference#skills-reference),
+verified 2026-07-25, is `.github/skills`, `.agents/skills`, then
+`.claude/skills`, with first-found wins. The repository deliberately keeps
+`.agents/skills` as its chosen Copilot skill home, so adding the GitHub adapter
+family does not change the two-surface skills contract.
 
-Native GitHub hook activation owns Copilot CLI platform I/O. Canonical
-decisions remain platform-free, and inherited Claude compatibility must not
-become a second evaluation authority. Whether each target surface is wired and
+The inherited PascalCase `PreToolUse` activation in
+`.claude/settings.json` is the sole Copilot policy activation. It feeds one
+closed Claude/Copilot dispatcher and one platform-free policy evaluation;
+native `.github/hooks` policy activation is excluded because repository hooks
+also run in Copilot cloud-agent jobs. Native GitHub hooks remain candidates
+only for separately probed, non-policy local lifecycle needs whose cloud
+disposition is explicit. Whether each target surface is wired and
 acceptance-proven is recorded in the cross-platform surface matrix, never
 inferred from this ADR.
+
+GitHub repository-wide and path-scoped instructions are also shared with
+Copilot cloud surfaces. The instruction disposition manifest therefore marks
+every emitted file `cloud-shared` or `cloud-excluded`; local-only modular
+instructions emit the documented `excludeAgent: "cloud-agent"` frontmatter.
+
+Repository custom agents are visible to both local Copilot CLI and Copilot
+cloud surfaces. Generated wrappers therefore carry an explicit cloud-safe
+disposition: no secrets, machine-local paths, or local-only MCP assumptions;
+`disable-model-invocation: true` is emitted unless automatic cloud selection
+is separately accepted. The local CLI acceptance proof remains the delivery
+target, but “cloud is out of scope” must never be used to ignore a shared
+surface's cloud behaviour.
 
 ### Layer 3: Entry Points
 
@@ -206,13 +225,13 @@ identity is unprefixed.
 
 Each platform uses its native mechanism for sub-agent-equivalent functionality:
 
-| Platform                 | Mechanism                                                  | Key fields                                                                            |
-| ------------------------ | ---------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| Cursor                   | `.cursor/agents/*.md`                                      | `name`, `description`, `model`, `tools`, `readonly`                                   |
-| Claude Code              | `.claude/agents/*.md`                                      | `name`, `description`, `tools`, `disallowedTools`, `model`, `permissionMode`, `color` |
-| Gemini / Antigravity CLI | `.gemini/commands/review-*.toml`; native `/agents` unwired | Transitional reviewer invocation adapter plus native platform capability              |
-| Codex                    | `.codex/agents/*.toml`                                     | TOML roster and developer instructions loaded from canonical templates                |
-| GitHub Copilot CLI       | `.github/agents/*.agent.md` (ratified target)              | Generated custom-agent metadata, tool aliases, MCP selection, and inherited model     |
+| Platform                 | Mechanism                                                  | Key fields                                                                                                           |
+| ------------------------ | ---------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| Cursor                   | `.cursor/agents/*.md`                                      | `name`, `description`, `model`, `tools`, `readonly`                                                                  |
+| Claude Code              | `.claude/agents/*.md`                                      | `name`, `description`, `tools`, `disallowedTools`, `model`, `permissionMode`, `color`                                |
+| Gemini / Antigravity CLI | `.gemini/commands/review-*.toml`; native `/agents` unwired | Transitional reviewer invocation adapter plus native platform capability                                             |
+| Codex                    | `.codex/agents/*.toml`                                     | TOML roster and developer instructions loaded from canonical templates                                               |
+| GitHub Copilot CLI       | `.github/agents/*.agent.md` (ratified target)              | Generated cloud-safe metadata, tool aliases, MCP selection, inherited model, and explicit auto-selection disposition |
 
 Read-only reviewers on Claude Code use `permissionMode: plan` and `disallowedTools: Write, Edit` to enforce read-only behaviour at the platform level, not just via instructions.
 
