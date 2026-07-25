@@ -47,7 +47,12 @@
   who needs to check and ratify those documents") and mechanically
   outside `guidelinesGlob`, which accepts `.md`/`.mdx` only (verified:
   `lib/docs.mjs` `matchGlob`/`isDocExt` rejects non-md both as literals
-  and as glob matches).
+  and as glob matches). Also `SKILL.md` (adopted 2026-07-25 under the
+  owner's usefulness formula): ship the body of
+  `.agent/skills/design-system-usage/SKILL-CANONICAL.md` with the studio
+  frontmatter block (`name: oak-design`; the canonical's `description`;
+  `user-invocable: true`) in place of the repo frontmatter — edit only
+  the canonical, never the shipped copy.
 - Render check: zero component previews exist (tokens-only), so
   validate runs `--no-render-check` — accepted as vacuous 2026-07-23;
   revisit the moment components join the bundle (then previews MUST be

@@ -37,7 +37,8 @@
         "CLAUDE.md",
         "guidelines/docs/headless-a11y-frameworks.html",
         "guidelines/docs/nextjs-theme-mapping.css",
-        "guidelines/docs/nextjs-theme-switcher.tsx.txt"
+        "guidelines/docs/nextjs-theme-switcher.tsx.txt",
+        "SKILL.md"
       ],
       "sources": {
         "dtcg/**": "packages/design/oak-design-system/dtcg/",
@@ -45,7 +46,8 @@
         "CLAUDE.md": "packages/design/oak-design-system re-trued canonical (the studio's normative accessibility / multi-medium instruction; authored from the live studio copy at the MCP-160 curation sync)",
         "guidelines/docs/headless-a11y-frameworks.html": "packages/design/oak-design-system/docs/headless-a11y-frameworks.html",
         "guidelines/docs/nextjs-theme-mapping.css": "packages/design/oak-design-system/docs/nextjs-theme-mapping.css",
-        "guidelines/docs/nextjs-theme-switcher.tsx.txt": "packages/design/oak-design-system/docs/nextjs-theme-switcher.tsx.txt"
+        "guidelines/docs/nextjs-theme-switcher.tsx.txt": "packages/design/oak-design-system/docs/nextjs-theme-switcher.tsx.txt",
+        "SKILL.md": "derived from .agent/skills/design-system-usage/SKILL-CANONICAL.md — the canonical body with the studio frontmatter block (name: oak-design; the canonical's description; user-invocable: true) in place of the repo frontmatter (adopted under the owner's usefulness formula, 2026-07-25)"
       }
     },
     "machinery": {
@@ -58,13 +60,11 @@
         "_adherence.oxlintrc.json",
         ".thumbnail",
         "templates/lesson-deck/.thumbnail",
-        "templates/worksheet/.thumbnail",
-        "SKILL.md"
+        "templates/worksheet/.thumbnail"
       ]
     }
   },
   "pending": [
-    "SKILL.md — CONDITIONAL (owner formula 2026-07-25): a usefulness read decides adopt-into-the-skills-estate (its entry stays and gains a repo source) or delete-in-both-places (its entry is removed here in the same change).",
     "_ds_bundle.css and _adherence.oxlintrc.json — VERIFY rows from the ruled disposition: live checks at the MCP-160 curation sync decide keep (entries stay) or delete (entries removed here in the same change).",
     "_ds_bundle.js — studio-native compiled component bundle, kept until the owned component tier replaces it (component-tier contract, which also carries the dc-runtime impact-equivalence obligation); the replacing sync moves it from machinery to shippedFromRepo."
   ]
