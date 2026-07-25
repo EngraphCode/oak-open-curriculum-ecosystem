@@ -11,7 +11,6 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png" />
     <link rel="apple-touch-icon" href="/favicons/apple-touch-icon.png" />
     <link rel="stylesheet" href="../../styles.css" />
-    <link rel="stylesheet" href="./theme-enhancements.css" />
     <script src="./theme-control.js" defer></script>
     <style>
 /* System gap: bands ship --band-pad: 0. The permanent cure lands upstream via
@@ -96,7 +95,7 @@ div.tool-list { display: flex; flex-direction: column; gap: var(--gap-s); }
       </nav>
       <nav class="site-nav" aria-label="Oak National Academy">
         <a class="site-nav-logo" href="https://www.thenational.academy" aria-label="Oak National Academy home"><img src="./assets/logo.svg" alt="" /></a>
-        <a class="oak-btn oak-btn--secondary oak-btn--sm site-nav-back" href="https://www.thenational.academy">Back to the main Oak website<img class="oak-btn__icon" src="https://res.cloudinary.com/oak-web-application/image/upload/v1699953892/icons/hlxmejse3mcr4tqo6t8u.svg" alt="" /></a>
+        <a class="oak-btn oak-btn--secondary oak-btn--sm site-nav-back" href="https://www.thenational.academy">Back to the main Oak website<span class="oak-btn__icon oak-icon--mask ic-external" aria-hidden="true"></span></a>
         <span class="oak-select-wrap"><select class="oak-select" id="theme-control" aria-label="Colour theme" style="width:auto;min-width:var(--space-120)"><option value="light" selected="selected">Light</option><option value="dark">Dark</option><option value="system">System</option><option value="high-contrast">High contrast</option></select></span>
       </nav>
     </header>
