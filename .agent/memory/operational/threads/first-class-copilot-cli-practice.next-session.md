@@ -42,6 +42,19 @@ participant in the repository's canonical Practice and agentic tools.
 - Acceptance seat: a real local Copilot CLI process remains required whenever
   a delivery slice reaches acceptance-ready.
 
+## Next-session grounding order
+
+1. Read this record, then the controlling strategic plan and its four delivery
+   plans before selecting work.
+2. Run identity preflight; arm and verify the all-channels watcher; inspect
+   active claims, comms, commit queue, and current git/worktree state.
+3. Re-fetch PR #529 and main. If the PR is still open, treat its current
+   review/check/base state as the only live authority and continue its
+   shepherding before any runtime delivery.
+4. If PR #529 is merged, verify main contains its final head, then route any
+   remaining delivery work through the current Director and release board;
+   never infer that an unmerged plan authorises runtime work.
+
 ## Participating agent identities
 
 | agent_name | platform | model | session_id_prefix | role | first_session | last_session |

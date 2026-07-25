@@ -66,9 +66,9 @@ route, proven to reach Copilot CLI 1.0.75 — feeds **one closed dispatcher**:
 
 1. Closed exact input schemas per host envelope: the existing Claude shapes,
    the documented Copilot single-tool inputs (`create` → Write,
-   `edit`/`apply_patch` → Edit), the observed Copilot CLI 1.0.75 PascalCase
-   compatibility envelope whose `tool_input` is a raw string-form
-   `apply_patch` document, and the observed Copilot batch envelope.
+   `edit`/`str_replace_editor`/`apply_patch` → Edit), the observed Copilot CLI
+   1.0.75 PascalCase compatibility envelope whose `tool_input` is a raw
+   string-form `apply_patch` document, and the observed Copilot batch envelope.
 2. **Exactly one schema must match**, or the dispatcher fails closed — never
    guess a platform.
 3. One validated policy snapshot per valid request (one filesystem read and
@@ -78,7 +78,7 @@ route, proven to reach Copilot CLI 1.0.75 — feeds **one closed dispatcher**:
    contract**: the unchanged Claude result for Claude; the native top-level
    `permissionDecision` for Copilot, with every denial carrying a reason.
 5. **No second activation, no pass-through, no attestation**: every
-   recognised create/edit/apply_patch change is evaluated. A
+   recognised create/edit/str_replace_editor/apply_patch change is evaluated. A
    supported-version capability probe gates *claimed* Copilot support;
    unprobed or unsupported hosts fail closed with an unsupported-host error.
    (Harvested fact from the superseded draft, still binding as rationale:
@@ -94,7 +94,7 @@ state, sensitive details, and evidence that cannot be versioned safely:
 | Route or failure | Required result |
 | --- | --- |
 | Inherited activation, valid Claude envelope | Load one snapshot, evaluate once, render the unchanged Claude result |
-| Inherited activation, valid documented Copilot single-tool envelope | Load one snapshot, evaluate once, render the native top-level decision (deny carries a reason) |
+| Inherited activation, valid documented Copilot single-tool envelope (`create`, `edit`, `str_replace_editor`, or `apply_patch`) | Load one snapshot, evaluate once, render the native top-level decision (deny carries a reason) |
 | Inherited activation, observed Copilot CLI 1.0.75 PascalCase string-form `apply_patch` envelope | Parse as Copilot, evaluate every patch change once, render the native top-level decision |
 | Inherited activation, observed Copilot batch envelope | Every recognised change evaluated exactly once; one native response for the batch |
 | Zero or multiple schema matches | Fail closed; never guess a platform |
@@ -118,8 +118,12 @@ state, sensitive details, and evidence that cannot be versioned safely:
   validation.
 - **Documented Copilot single-tool inputs are parsed faithfully and rendered
   through the native decision schema.** Proof: `repo-safe` — versioned
-  literal fixtures and closed-schema unit tests covering valid, malformed,
-  unknown, and renderer-failure inputs.
+  literal fixtures and closed-schema unit tests covering `create`, `edit`,
+  `str_replace_editor`, and `apply_patch`, plus malformed, unknown, and
+  renderer-failure inputs. The tool-name set is pinned to GitHub's hooks
+  reference, verified 2026-07-25, where the inherited PascalCase `Edit`
+  matcher maps all three edit runtimes (`edit`, `str_replace_editor`,
+  `apply_patch`).
 - **The observed Copilot CLI 1.0.75 PascalCase envelope with raw string-form
   `apply_patch` input is a first-class Copilot route, not misclassified as a
   Claude edit.** Proof: `repo-safe` — the retained literal fixture, multi-file
@@ -141,6 +145,12 @@ state, sensitive details, and evidence that cannot be versioned safely:
   runtime distinction.** Proof: `repo-safe` — a smoke/system harness proves a
   loud fail-open with missing build output, enforcement after build, and
   fail-closed behaviour for a present but broken runtime.
+- **Unsupported, below-floor, malformed, or otherwise unprobed Copilot
+  versions fail closed before policy evaluation.** Proof: `repo-safe` —
+  capability-probe unit and integration fixtures cover absent version
+  metadata, a below-floor version, malformed probe output, and a supported
+  version missing a required route; each returns the unsupported-host error
+  with zero policy evaluations.
 - **A real local Copilot CLI session performs an allowed create and patch,
   receives a native denial with a reason for a policy violation, and observes
   a forced timeout that may complete zero evaluations — with correlated
