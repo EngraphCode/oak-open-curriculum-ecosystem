@@ -61,7 +61,8 @@ overrides:
   # transitive peers (vite/vitest pull @types/node@26 as an optional peer).
   # Matches engines.node 24.x and keeps every workspace — including those that
   # do not declare @types/node directly — compiling against Node 24 types.
-  # Lift together with the dependabot ignore when the project moves Node majors.
+  # This override IS the hold — lift it when the project moves Node majors
+  # (docs/engineering/build-system.md §Dependency updates).
   '@types/node': '^24.13.3'
   axios: '>=1.15.1'
   # Security floor, raised 2026-07-25: DoS via unbounded expansion length

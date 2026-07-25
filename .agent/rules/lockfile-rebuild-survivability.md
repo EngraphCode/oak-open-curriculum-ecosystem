@@ -34,8 +34,10 @@ Then assert all four, and read each result rather than the exit code alone:
 1. **Floors** — every advisory-carrying package resolves at or above its fixed
    version.
 2. **Holds** — every documented major hold still holds (this repo: `typescript`
-   on 6.x, `@types/node` on 24.x, both paired with `.github/dependabot.yml`
-   ignores).
+   on 6.x via manifest ranges, `@types/node` on 24.x via its override; both
+   documented in
+   [`docs/engineering/build-system.md`](../../docs/engineering/build-system.md)
+   §Dependency updates).
 3. **Audit** — `pnpm audit` is unchanged, with any deliberate deferral still
    the only residue.
 4. **Frozen install** — `CI=true pnpm install --frozen-lockfile` exits 0.
