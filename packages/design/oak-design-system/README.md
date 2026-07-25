@@ -20,8 +20,8 @@ audit). One system, two surfaces; never a fork, never a record.
 **The design-sync runbook:**
 
 - **Studio → repo**: after a design session, pull the changed files (DesignSync reads; the
-  studio's `HANDOFF.md`/`CHANGELOG.md` name what changed) and land them as a normal reviewed
-  PR — incremental, per-component, never a wholesale replace.
+  studio's `_ds_sync.json` anchor and `guidelines/CHANGELOG.md` name what changed) and land
+  them as a normal reviewed PR — incremental, per-component, never a wholesale replace.
 - **Repo → studio**: before a design session, bring the studio current from this workspace
   (structural diff via `list_files`, then targeted writes).
 - **Conflict rule**: git review is the merge authority. A sync never overwrites unreviewed
@@ -45,7 +45,7 @@ audit). One system, two surfaces; never a fork, never a record.
   index below describes the STUDIO layout.
 - Licensing dispositions per file class: [LICENSING-MANIFEST.md](LICENSING-MANIFEST.md);
   Oak marks are outside MIT per the repo's [BRANDING.md](../../../BRANDING.md).
-- For Next.js theme bootstrap in THIS repo, ADR-213 §3 corrects `docs/consuming-nextjs.md`:
+- For Next.js theme bootstrap in THIS repo, ADR-213 §3 corrects `docs/consuming-nextjs.md` (studio: `guidelines/docs/consuming-nextjs.md`):
   use a raw inline head script, not `next/script beforeInteractive`.
 
 ## Quick start
@@ -57,7 +57,7 @@ audit). One system, two surfaces; never a fork, never a record.
 <!-- optional: persisted theme switcher -->
 ```
 
-**No-build install (copy path):** copy `colors_and_type.css`, `oak-icons.css`, `components.css`, `print.css`, `oak-theme.js`, `assets/icons/`, and `fonts/` — link the four CSS files in that order (equivalent to `styles.css`, which only `@import`s them; some serve contexts drop `@import`-only sheets — see `KNOWN-ISSUES.md`; `oak-icons.css` must stay root-adjacent to `components.css`). Versioning and what-changed: `CHANGELOG.md`.
+**No-build install (copy path):** copy `colors_and_type.css`, `oak-icons.css`, `components.css`, `print.css`, `oak-theme.js`, `assets/icons/`, and `fonts/` — link the four CSS files in that order (equivalent to `styles.css`, which only `@import`s them; some serve contexts drop `@import`-only sheets — see `KNOWN-ISSUES.md` (studio: `guidelines/KNOWN-ISSUES.md`); `oak-icons.css` must stay root-adjacent to `components.css`). Versioning and what-changed: `CHANGELOG.md` (studio: `guidelines/CHANGELOG.md`).
 
 Then build with **classes** and **semantic tokens**:
 
@@ -186,7 +186,7 @@ Empowering, personable, direct. Like a warm colleague, never corporate. Full too
 
 ## Iconography
 
-Flat, stroke-based, black-on-transparent SVGs — **bundled locally in `assets/icons/`** (~140 icons: UI, subjects, brand marks). Recolour via `filter` — use `var(--filter-icon)` so icons flip correctly in dark themes. Never emoji, never Unicode symbols as icons. If you need an icon that isn't in the set, use [Lucide](https://lucide.dev) (same stroke feel) and flag the substitution. (`icons.json` maps names to Oak's production Cloudinary URLs — production reference only.)
+Flat, stroke-based, black-on-transparent SVGs — **bundled locally in `assets/icons/`** (~140 icons: UI, subjects, brand marks). Recolour via `filter` — use `var(--filter-icon)` so icons flip correctly in dark themes. Never emoji, never Unicode symbols as icons. If you need an icon that isn't in the set, use [Lucide](https://lucide.dev) (same stroke feel) and flag the substitution. (The production Cloudinary icon-name map lives in the committed capture tier as `icons.json` — provenance reference only, never loaded at runtime.)
 
 ## Compiled components
 
@@ -202,19 +202,21 @@ colors_and_type.css     ← tier 1 primitives + tier 2 roles (canonical + aliase
 components.css          ← the class library
 oak-theme.js            ← persisted theme switcher
 brand_voice.txt         ← full voice & style toolkit
-CHANGELOG.md            ← semver history, public-surface definition, deprecation policy
-KNOWN-ISSUES.md         ← understood gotchas — read before debugging
-DECISIONS.md            ← the decision journey — intent, rationale, rejected alternatives, lessons
+CHANGELOG.md            ← semver history, public-surface definition, deprecation policy (studio: guidelines/CHANGELOG.md)
+KNOWN-ISSUES.md         ← understood gotchas — read before debugging (studio: guidelines/KNOWN-ISSUES.md)
+DECISIONS.md            ← the decision journey — intent, rationale, rejected alternatives, lessons (studio: guidelines/DECISIONS.md)
 LICENCES.md             ← third-party licences + Oak-marks boundary — travels with every export
-docs/                   ← consumption guides: consuming-nextjs.md (+ §5b chooser), pairing guides
-                          (base-ui / react-aria / ark-ui), integration-oak-curriculum-hub.md,
+docs/                   ← consumption guides (studio: guidelines/docs/): consuming-nextjs.md (full
+                          Next.js guide: install, fonts, Tailwind mapping, theme wiring, identity,
+                          §5b chooser, new-component recipe), pairing guides (base-ui / react-aria /
+                          ark-ui), integration-oak-curriculum-hub.md,
                           wrapped-widget-a11y-checklist.md, console-tui-tones.md,
-                          headless-a11y-frameworks.html (research)
+                          one-html-many-css-compositions.md (composition doctrine),
+                          headless-a11y-frameworks.html (research), nextjs-theme-mapping.css,
+                          nextjs-theme-switcher.tsx.txt
 dtcg/                   ← DTCG JSON token export (generated FROM the CSS; see dtcg/README.md)
 whitelabel/             ← white-label PROOFS: creature/ + freedonia/ (brand-a.css, brand-full.css,
                           logo, live proof page, card) + failing-example.css (guardrail stress test)
-docs/                   ← consuming-nextjs.md (full Next.js guide: install, fonts, Tailwind mapping,
-                          theme wiring, identity, new-component recipe) + theme-switcher.tsx + @theme mapping
 Identity White-Labelling.html ← byte-identical proof — one specimen, three brands side by side
 Identity Switchboard.html     ← one specimen copy + live identity/stage/theme controls
 Example Front Pages.html      ← three composed per-identity front pages, side by side
@@ -229,11 +231,9 @@ templates/
 components/             ← compiled React components (.jsx + .d.ts + card)
 preview/                ← specimen cards for the Design System tab
 ui_kits/oak/            ← full homepage reference build
-reference/              ← provenance, NOT loaded at runtime (studio-side; held out here):
-  figma/                  raw Figma variable dump (all modes, verbatim)
-  oak-components-theme/   theme source from the production library
-icons.json              ← production Cloudinary icon map (reference)
-SKILL.md                ← agent-skill descriptor (studio-side; held out here)
+SKILL.md                ← studio agent-skill descriptor — derived from the repo canonical
+                          (.agent/skills/design-system-usage/SKILL-CANONICAL.md) at each sync
+
 ```
 
 ---
@@ -244,6 +244,6 @@ In production Oak ships **[`@oaknational/oak-components`](https://www.npmjs.com/
 
 Canonical sources: [Oak Design Kit (Figma)](https://www.figma.com/design/YcWQMMhHPVVmc47cHHEEAl/Oak-Design-Kit?node-id=0-1) · [oak-components repo](https://github.com/oaknational/oak-components) · [Oak-Web-Application repo](https://github.com/oaknational/Oak-Web-Application) · [OWA Storybook](https://storybook.thenational.academy).
 
-Raw upstream values live under `reference/` — token names there are verbatim (including upstream quirks like "lavendar"); this system's runtime layer intentionally simplifies them. When upstream changes, re-check `colors_and_type.css` against a fresh dump.
+Raw upstream values live in the committed capture tier (`studio-source/original-capture-2026-07-23/reference/`) — token names there are verbatim (including upstream quirks like "lavendar"); this system's runtime layer intentionally simplifies them. When upstream changes, re-check `colors_and_type.css` against a fresh dump.
 
 **Licence:** code MIT; docs © Oak National Academy under OGL v3.0; Oak trademarks and logos are covered by neither — use per the [Oak brand guidelines](https://support.thenational.academy/using-the-oak-brand).

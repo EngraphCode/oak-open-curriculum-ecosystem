@@ -10,7 +10,9 @@
       banners, quiz states…), a11y baked in. The compiled React
       components consume the same tier-3 tokens.
    Upstream provenance (Figma variable dump, oak-components theme
-   source) lives under reference/ — deliberately NOT loaded at runtime.
+   source) lives in the repo's committed capture tier
+   (studio-source/original-capture-2026-07-23/reference/) —
+   deliberately NOT loaded at runtime.
    ============================================================ */
 
 @import './colors_and_type.css';
