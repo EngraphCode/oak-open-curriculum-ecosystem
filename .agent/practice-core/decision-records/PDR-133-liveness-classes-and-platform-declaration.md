@@ -4,7 +4,7 @@ pdr_kind: contract
 
 # PDR-133: Liveness Classes and the Platform Liveness Declaration
 
-**Status**: Proposed
+**Status**: Accepted
 **Date**: 2026-07-25
 **Related**:
 [PDR-078](PDR-078-liveness-heartbeat-contract.md)
@@ -578,5 +578,8 @@ the class set and the reading rule are what make §8 expressible.
   obligation with its three answer states and transition landing, and
   the absence conjunction. Reviewed pre-landing by the four-seat
   quorum the graduation-quorum record requires. Authored by the
-  Director on owner instruction; **Status stays Proposed pending owner
-  ratification**, per the doctrine-record gate.
+  Director on owner instruction; ratified by the owner 2026-07-25 at the
+  Director's ratification card (PR #552): **ratified as-is** — the
+  Platform Liveness Declaration obligation stays in this record; the
+  reviewers' re-siting question was put to the owner and resolved
+  against re-siting.
