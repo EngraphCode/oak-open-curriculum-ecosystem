@@ -27,11 +27,13 @@ last_updated: 2026-07-25
   arity/residual exposure; added supported-version and fresh-checkout gates
   for instruction, skill, specialist-agent, and MCP projections; made
   `disable-model-invocation: true` the cloud-safe specialist default; and
-  narrowed the cloud out-of-scope statement so shared repository projections
-  require explicit cloud-safe dispositions while cloud feature delivery
-  remains excluded. These amendments make the original projection outcome
-  executable against current platform facts without adding a new projected
-  capability family.
+  replaced the direct `AGENT.md` root import with a disposition-aware bounded
+  root projection so excluded/path-scoped rules cannot re-enter transitively.
+  The cloud out-of-scope statement is narrowed so shared repository
+  projections require explicit cloud-safe dispositions while cloud feature
+  delivery remains excluded. These amendments make the original projection
+  outcome executable against current platform facts without adding a new
+  projected capability family.
 
 ## Goal
 
@@ -43,11 +45,12 @@ current and thin.
 ## Mechanism
 
 Keep canonical content in `.agent/`. Bring the repo-wide Copilot instruction
-entry point under validated ownership, generate only the path-scoped
-instruction and specialist-agent projections that Copilot CLI needs, continue
-using `.agents/skills` as the repository's chosen skill home, and generate a
-tracked repository MCP projection from a new secret-free canonical server
-manifest.
+entry point under validated ownership as a bounded generated projection from
+the disposition manifest — never a direct `AGENT.md` import, whose non-loader
+instruction would re-load every rule. Generate only the path-scoped instruction
+and specialist-agent projections that Copilot CLI needs, continue using
+`.agents/skills` as the repository's chosen skill home, and generate a tracked
+repository MCP projection from a new secret-free canonical server manifest.
 
 Three total disposition manifests make the source sets recomputable:
 
@@ -55,10 +58,13 @@ Three total disposition manifests make the source sets recomputable:
    `path-projected`, or `excluded` with a reason, and every emitted instruction
    is separately classified `cloud-shared` or `cloud-excluded`. Those two
    labels record the intended disposition and the marker it emits; neither
-   asserts a proven platform outcome. A path projection is selected only when
-   file-scoped activation is expressible through Copilot `applyTo` and adds
-   behaviour beyond the repo-wide entry point. A `cloud-excluded` instruction
-   must emit the documented `excludeAgent: "cloud-agent"` frontmatter.
+   asserts a proven platform outcome. The same manifest generates the bounded
+   repo-wide root projection from `repo-wide` sources only; `path-projected`
+   and `excluded` sources must be unreachable through that root, including by
+   transitive imports. A path projection is selected only when file-scoped
+   activation is expressible through Copilot `applyTo` and adds behaviour
+   beyond the bounded root entry point. A `cloud-excluded` instruction must
+   emit the documented `excludeAgent: "cloud-agent"` frontmatter.
    Provenance: GitHub's repository custom-instructions documentation, verified
    first-hand 2026-07-25, defines `excludeAgent` as taking exactly one value,
    either `"code-review"` or `"cloud-agent"`, with no array, comma-separated,
@@ -97,9 +103,11 @@ for the probe design, not proof about the installed CLI.
 
 ## Acceptance criteria (each with a proof)
 
-- **The repo-wide entry point reaches canonical instructions, and supported
-  path-scoped projections cover the total dispositioned rule set.** Proof:
-  `repo-safe` — manifest-totality and projection tests require schema-valid
+- **The bounded repo-wide entry point contains only `repo-wide` dispositions,
+  while supported path-scoped projections cover their total dispositioned
+  rule set and excluded sources are unreachable through either route.** Proof:
+  `repo-safe` — manifest-totality and reverse-reachability tests reject direct
+  or transitive `AGENT.md`/`RULES_INDEX.md` imports, require schema-valid
   `applyTo`, positive/negative matching, `**` and `**/*` recursion,
   comma-separated patterns, no `@` imports in modular files, and conflict
   detection when generated projections apply together.

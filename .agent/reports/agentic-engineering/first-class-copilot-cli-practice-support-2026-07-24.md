@@ -189,12 +189,14 @@ The existing `.github/copilot-instructions.md` is a Markdown link to
 documents the repo-wide instruction file and recursive path-specific files
 under `.github/instructions/**/*.instructions.md` **[D]**.
 
-The repo-wide file should import the canonical entry point using the supported
-relative-reference mechanism. Path-specific projections should be generated
-from a total disposition manifest over the live canonical rule set. Each rule
-is classified repo-wide, path-projected, or excluded with a reason.
-Path-projected files require valid `applyTo` metadata and tests for positive,
-negative, recursive, comma-separated, and simultaneous-match behaviour. They
+The repo-wide file should be a bounded generated projection from the total
+disposition manifest over the live canonical rule set. It must not import
+`AGENT.md`: that entry point tells non-loader platforms to read every rule in
+`RULES_INDEX.md`, which would reintroduce path-projected and excluded rules and
+bypass the manifest. Each rule is classified repo-wide, path-projected, or
+excluded with a reason. Path-scoped projections are generated separately and
+require valid `applyTo` metadata and tests for positive, negative, recursive,
+comma-separated, and simultaneous-match behaviour. They
 must not copy the full rule corpus or use `@` imports, which GitHub does not
 expand inside modular instruction bodies **[D][I]**. Because GitHub repository
 instructions are also consumed by cloud surfaces, every emitted instruction
