@@ -496,9 +496,11 @@ The official-source pass found these documentation defects:
 9. live collaboration-state lifecycle guidance says Codex has no verified
    `SessionEnd`, although the stable `0.145.0` event surface includes it;
 10. the imported matrix's shared hook row and status bullets omit tracked
-    `SessionStart` identity activation for Claude Code and Cursor.
+    `SessionStart` identity activation for Claude Code and Cursor;
+11. the executive artefact inventory likewise omits those two tracked identity
+    adapters while listing the Codex adapter.
 
-This changeset corrects items 1 and 3–10. It bases the matrix on PR #529 head
+This changeset corrects items 1 and 3–11. It bases the matrix on PR #529 head
 blob `fdc672adb`; changes outside the Codex cells and Codex-specific support
 text are limited to the shared hook-activation correction in item 10 and the
 link adjustment described below. On 2026-07-25 the owner explicitly overrode
