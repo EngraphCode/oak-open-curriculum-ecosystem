@@ -422,3 +422,232 @@ Session identity: Urchin herds Undertow (58000f).
   slices — unblock slice ahead of canonical core); merge-bot credential path for #533/#535
   REST merges; copy-paste-in-code-blocks (per-user memory); capability-questions-from-
   original-sources (per-user memory + MCP-158/159 re-true).
+
+## 2026-07-25 — Spectre rides Cavern (767fc2): Copilot hook probe and closeout
+
+### Concept exploration synthesis
+
+- **Problem frame**: the load-bearing failure was not merely that a write was blocked. A
+  security boundary returned only an opaque exit code, so the host contract, wrapper,
+  extractor, and policy verdict were observationally indistinguishable. That harmed the
+  owner and implementing agents by making cheap diagnosis look like a multi-layer design
+  problem. Success means a real host payload can be classified at the boundary without
+  retaining its content, and the resulting verdict can be attributed to one layer.
+- **Load-bearing observations**: Copilot CLI 1.0.75 supplied `Edit.tool_input` as a raw
+  apply-patch string; the content guard reported that writable content was absent and
+  exited 2; metadata-only tracing exposed the shape; PR #535 (`b725df1ec`) added support;
+  a subsequent governed `apply_patch` write succeeded.
+- **Assumption changed**: I initially treated missing hook output as a reason to seek a
+  general debug mode. The better frame is boundary instrumentation before general
+  diagnostics: record input shape, layer identity, and verdict first, then expand only if
+  that evidence cannot discriminate the cause.
+- **Proposal**: use real-host, content-minimised boundary probes for future hook-contract
+  failures. Warrant: one shape-and-exit record resolved this incident more directly than
+  synthetic envelopes or host-wide logs. Falsifier: a future opaque denial where the real
+  payload shape and per-layer exit still cannot distinguish the failing layer.
+- **Unresolved evidence**: whether Copilot CLI will reliably surface hook stderr in a
+  future release, and the precise lifecycle boundary at which changed hook configuration
+  is reloaded. Neither uncertainty blocks the merged parser fix.
+
+### Loss-scan and metaloss
+
+- The session's only unique technical knowledge is the live Copilot payload shape and the
+  successful post-fix write. Both are conserved above and in Torch mends Residue's arc
+  capture immediately preceding this entry; no separate thread update is needed from this
+  non-closeout team member.
+- Promise sweep: I removed the temporary wrapper instrumentation and both residual trace
+  files, `tmp/pretooluse-wrapper-invocations.jsonl` and
+  `tmp/pretooluse-unmatched.jsonl`, after the merged fix and successful new-session probe.
+  The Director was notified in comms event
+  `8dfafabc-a5b1-4649-a23a-0080f00d8214`.
+- Attribution bound: I observed the merged commit and successful write; I did not observe
+  the PR review or merge mechanics and do not attribute those actions to a particular seat.
+- Platform-surface bound: Claude plans/memory, Codex memory/history, Cursor history, and
+  Gemini state were present and sampled by recency. I found no unique repo-relevant fact
+  from this Copilot session there. Copilot exposes no separate documented per-user memory
+  surface in the session-handoff inventory.
+- Work-safety bound: `git status --short --branch` and
+  `git rev-list --left-right --count HEAD...@{upstream}` initially reported
+  `coordination/estate-2026-07` 14 commits ahead and 0 behind; the final closeout read
+  reported 0 ahead and 0 behind, so another actor synchronised the shared branch during
+  this wrap. The unrelated untracked design-system directory remains. This seat opened no
+  claim and made no product-code change; the formation letter and this capture are handed
+  to the Director rather than committed from the shared coordination checkout.
+- Metaloss fixed point: a second pass surfaced the need to distinguish observed merge state
+  from inferred merge actors and to name the absent Copilot memory surface. A third pass
+  would only re-find the payload-shape fact, the Director handoff, and the branch-safety
+  bound already named here; the recursion closes.
+
+Index of homes: this napkin entry; formation letter
+`.agent/experience/2026-07-25-spectre-rides-cavern-formation-letter.md`; comms event
+`8dfafabc-a5b1-4649-a23a-0080f00d8214`; merged fix `b725df1ec`.
+
+- 2026-07-25 (Cormorant, design lane) — Owner correction on "priority", verbatim substance: "priority means important, it does not mean fast, in fact fast is likely to reduce quality." Priority concentrates QUALITY INVESTMENT (wins contention, lowest corner-cut tolerance, blockers surface for visibility); it never sets tempo. My "within the hour" framing was the failure shape — tempo commitments volunteered under a priority word. What the owner praised about #536 was the care legs (pre-landing gateway review, triple re-run before calling a flake, timeline evidence before correcting a peer), not the 44 minutes.
+- 2026-07-25 (Cormorant, design lane) — Declarative-estate defect class: a two-surface declaration (matching `paths` + provenance `sources`) invites asymmetric edits — I added a `sources` entry without its `paths` twin and the file's own delete-contract would have deleted the very file being adopted. Cure shape: any edit to a keep/ship declaration re-runs the match-count check for the touched path (must be exactly 1) before commit; symmetry between parallel arrays is a review tripwire, not a given.
+
+## 2026-07-25 ~15:49Z — quiet window is a proxy, owner visibility is the referent (Torch, via Urchin relay of owner word)
+
+The >10-minute post-review quiet window exists because AGENTS cannot see when a
+Copilot review run starts/finishes; it is a proxy for run-boundary visibility,
+not a value in itself. The owner sees both boundaries directly, so an owner
+settled-word (or owner-executed merge) from that visibility is authoritative
+and supersedes the proxy — #518 (34c6338d4) and #534 (62b35ffed) were NOT
+premature merges. Merge-gate model refined: settled = required checks green by
+name + zero unresolved threads + (quiet-window proxy OR owner direct-visibility
+word). Agents keep the proxy; never read an owner merge inside the window as a
+process breach.
+
+## 2026-07-25 ~16:18Z — Copilot CLI has no notification path for long-lived watchers (Urchin diagnosis, Director-banked)
+
+Observation: a Director→Urchin directed event was delivered and marked seen by
+the canonical all-channels watcher, emitted to stdout, and never surfaced to
+the Copilot seat's reasoning loop. The owner noticed before the seat did.
+Diagnosis (Urchin, first-hand): Copilot CLI's detached-bash mechanism captures
+new stdout but wakes the harness only on process COMPLETION — so a long-lived
+process (exactly what a persistent watcher is) has no notification path by
+construction. The seat's 5-minute polling schedule was the only bridge, and it
+had not ticked.
+Cure applied by Urchin: a separate 1-minute comms alert schedule with its own
+cursor, alongside the canonical watcher.
+Standing lesson for the estate: process-liveness and DELIVERY-liveness were
+already distinguished (comms-all-channels-watcher.md); this adds a third —
+NOTIFICATION liveness. On any platform whose background primitive wakes only on
+process exit, a persistent watcher is delivery-live and notification-dead, and
+looks perfectly healthy from every existing check (seen-file moving, heartbeat
+fresh, emitted_count rising). The detection that works is the one that caught
+it here: a peer noticing an unanswered directed event. Platform citizenship
+work (MCP-156) owns the durable cure; until then, Copilot seats need the
+short-interval poll as a NAMED requirement, not an optimisation.
+
+## 2026-07-25 ~16:28Z — body-only reviewer findings have no thread state (Urchin harvest, owner-flagged)
+
+Observation: the owner flagged PR #529 as having "many, MANY comments"
+while every agent read reported 14-19 threads. Authoritative full harvest:
+26 reviewer findings = 19 inline threads (14 resolved, 5 unresolved) PLUS
+**7 body-only findings living in Copilot review SUBMISSION BODIES** —
+suppressed low-confidence items that carry no thread and no resolution
+state whatsoever.
+Diagnosis: a reviewThreads-only harvest cannot see class B at all, and
+class B can never be "resolved" because there is no thread to resolve.
+`pr-comments-resolve-and-recheck` already names top-level reviews as a
+required surface; the practice was reading threads and calling it a full
+harvest. Also: GitHub's isOutdated flag was true on only 1 of 5
+superseded-head threads — commit binding is the reliable split, the flag
+is not.
+Cure: harvest review submission BODIES as a distinct surface; disposition
+body-only findings in the round's commit message or one PR comment, since
+no reply target exists. Silence on them is why they recur.
+Second finding, same window: a PR whose reviewers re-review on every push
+cannot converge under push-per-cure — #529 went 14→15→19 unresolved across
+nine pushes in an hour. The rule's loop is per-ROUND; batching is the
+convergence mechanism, not a nicety.
+
+## 2026-07-25 ~17:00Z — a large PR cannot converge under per-push full re-review (owner-ratified cure)
+
+Observation: #529 (Copilot CLI citizenship — four delivery plans, a strategic
+plan, an ADR, an evidence report, the surface matrix, a continuation record)
+went 14 → 19 unresolved across nine push-per-cure pushes, then 7 after the
+batch ruling, then 13 after one further cure push. Three rounds, no
+convergence, all required checks green throughout.
+Diagnosis: two compounding causes, only the first of which the batch rule
+cures. (1) Push-per-finding re-triggers a reviewer per finding — cured by one
+adjudicated round per push. (2) The SURFACE is large, so every push re-reviews
+everything and a large surface always yields more. Cause 2 is not a diligence
+problem and no amount of rounds fixes it: `pr-comments-resolve-and-recheck`'s
+step-5 condition (a push yielding zero new comments) is not reachable on a
+multi-story PR whose reviewers re-review the whole diff.
+Cure (owner-ratified card, ~16:57Z): a two-class disposition ruling. CLASS F —
+the PR would LAND a false statement → cure in the PR, nothing false lands.
+CLASS P — true, valuable, but about how the named work is EXECUTED LATER →
+reply naming the owning ticket and resolve WITHOUT growing the diff. Precedent:
+the MCP-56 dispositions-only ruling (every finding true and cure-class, still
+correctly deferred to its own home). Binding: a Class P reply must name a real
+ticket — "later" with no home is ignoring, not dispositioning.
+Generator lesson, the durable one: the round budget in a plan is a SIZE
+constraint in disguise. A PR that needs more rounds than its budget is usually
+not under-worked, it is over-scoped — the fix belongs at authoring time
+(single-story PRs) and the disposition ruling is the recovery when a
+multi-story PR is already in flight.
+
+## 2026-07-25 — EMC2 button: owner's 3D state physics (ratified)
+
+The owner ruled the EMC2 loud primary button's base state perfect and re-modelled
+only its interaction states as a physical 3D object: hover = raised and lighter
+(eager — face lifts up-left, anchored shadow gap grows), press = BELOW rest
+(face travels onto its own shadow, darker, bevel inverts). His axiom: "lighter
+higher, darker lower." Ratified calibration: hover translate(-3px,-4px) + 14%
+white mix, shadow 11px/14px; press translate(6px,8px) + 14% black mix, shadow
+2px/2px, insets swapped. Scope: EMC2 primary .oak-btn ONLY — generic states stay
+for every other interactive element. Method note: the ruling came from a rendered
+three-cell lab (current vs two calibrations) he could hover/press live — state
+design is un-reviewable in static screenshots; build labs for interaction rulings.
+
+## 2026-07-25 ~17:15Z — the graduation quorum caught a modelling error I would have shipped (PDR-133)
+
+The owner instructed "promote all of the liveness classes"; the Director
+authored PDR-133 as a ten-class ORDERED CHAIN with a "class N and below"
+reading rule. The PDR-101 four-seat quorum (assumptions, docs, and two
+architecture seats) found the model itself wrong, two seats converging
+independently:
+
+- **The chain was a linearisation of an OR-join graph.** Absorption is
+  reachable by several wake paths — the watcher's notification path, an owner
+  turn, a scheduled tick, the next tool result. The record's OWN founding
+  instance had the notification path dead and absorption achieved via the
+  owner's chat turn, so the loop was demonstrably alive while notification was
+  dead. Under "class N and below", a loop-green licensed concluding
+  notification was fine — the exact misreading the record existed to forbid.
+- **The absence clause would have produced FALSE RETIREMENTS** on precisely the
+  platforms the record was written for: on a platform whose notification path
+  is declared uncertifiable, unanswered challenges are the steady state, so
+  "only an unanswered challenge closes the absence question" converts a
+  declared, accepted platform limitation into a retirement verdict. It had also
+  silently DROPPED an owner-approved host cure (the remote work-evidence
+  cross-check) — over-graduation, which is exactly what the quorum exists to
+  catch.
+- **Two classes were missing**: DISPATCH (the whole send side was absent
+  despite four attested misaddressing instances) and CAPABILITY (a seat that
+  absorbed correctly but lacks credentials is indistinguishable from a stall,
+  so takeover transfers the wall, not the work).
+- **The falsifier could not fire** — the changeset itself already refuted it.
+Cure: fourteen classes with MNEMONIC identifiers and explicit depends-on edges
+(ordinals encoded position, so inserting a class forced renumbering that
+invalidated every citation); reading rule restated over PATHS; absence requires
+both instruments negative; falsifier rebuilt over decision records naming the
+class they relied on.
+Generator lessons, the durable ones: (1) when a taxonomy's identifiers encode
+structure, the structure claim had better be true — ordinals smuggled a total
+order in as a naming convention; (2) a first-pass author's model is the least
+reviewed thing in their own record, and the quorum's value is highest exactly
+where the author felt most confident; (3) an executing agent correctly refused
+to write "the old wording was X" memorials into the record body, citing
+no-tombstones — caught-defect narrative belongs in a history surface (here),
+not in present-design doctrine prose.
+
+## 2026-07-25 ~17:25Z — a platform capability the plan assumed does not exist (excludeAgent)
+
+Third instance today of the owner's original-sources rule paying for itself, and
+the most consequential. A #529 review round claimed the plan pinned the wrong
+`excludeAgent` literal (`cloud-agent` rather than `coding-agent`). Fetching
+GitHub's repository-custom-instructions page at the moment of use showed the
+reviewer wrong — `cloud-agent` IS documented — so the finding was REJECTED and a
+version-pinned provenance note added so nobody "corrects" a correct value.
+The next round then sharpened the real defect the first round had only gestured
+at: `excludeAgent` accepts **exactly one value**, with no documented array,
+comma list, or repeated key, and no other documented mechanism for hiding an
+instructions file from both surfaces. So a file carrying
+`excludeAgent: "cloud-agent"` is still read by Copilot code review, and the
+estate's plan/ADR/report/matrix all described such projections as "local-only"
+or "cloud-excluded" — describing an outcome the platform cannot deliver.
+The generator lesson: the plan had invented a capability by composing two true
+facts (an exclusion keyword exists; two surfaces exist) into a false one (both
+can be excluded). Nobody lied and nobody guessed a value — the error was
+assuming the mechanism's SHAPE rather than reading it. So the rule is sharper
+than "check capability claims": check the capability's ARITY and COMPOSITION, not
+only that the feature exists. "Feature X exists" almost never licenses "X can be
+applied to all the cases I need".
+Cure landed as: state what the mechanism does, name the residual exposure as a
+dated platform fact rather than a defect in our generator, retire the words
+local-only/cloud-excluded as descriptions of what it ACHIEVES (they may still
+denote our intent), version-pin the verification, and rule that content which
+genuinely must reach neither surface does not belong in `.github` at all.

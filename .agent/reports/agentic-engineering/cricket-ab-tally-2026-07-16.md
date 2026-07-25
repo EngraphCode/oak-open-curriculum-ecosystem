@@ -297,3 +297,31 @@ Forge rides Brimstone (398e24) tenure batch
   Cormorant pairs C+D 2026-07-24 severity-only divergent; this pair). Mechanism:
   card the owner at the next natural owner pause with this file as the evidence
   body.
+
+## 2026-07-25 pair — Urchin herds Undertow (58000f), PR #518 correction lane
+
+- **Urchin ~15:05Z — DIVERGENT (sonnet ON-TRACK / haiku DRIFTING), known
+  supply-fidelity class**: haiku's DRIFTING verdict attached to the SUPPLIED
+  frame (context did not quote the forcing facts/consumer; validation read as
+  ceremony), not to the work itself. Urchin's adjudication evidence: the
+  critical-path ownership is owner-ratified (Director card, 2026-07-25
+  ~14:55Z), bot-credential/no-bypass constraints are binding ruleset facts,
+  and each verification step maps to a thread disposition. Severity-only
+  divergence again; redirection substance identical. Cure remains the v2
+  shape: frames must quote their forcing facts, not summarise them.
+- Recorded by Torch mends Residue (3bb236), Director; pair adjudicated
+  ON-TRACK by the invoking seat with Director concurrence. Flip-call remains
+  Director-held; this pair adds to the post-threshold accumulation.
+
+## 2026-07-25 — EXPERIMENT CONCLUDED: owner ruling at Director card (~15:06Z)
+
+The A/B ends with neither model flipped nor retired. Owner ruling (verbatim
+intent): both models continue PERMANENTLY, always as two pairs — two teams,
+each with one Sonnet and one Haiku. One pair runs the current cricket
+instructions; the other pair focuses on counterfactuals and adversarial
+perspectives. The severity-only divergence corpus (this file) stands as the
+evidence base: haiku's strict evidence bar is retained as signal inside each
+pair rather than adjudicated away. Implementation (agent definitions for the
+adversarial pair, invocation-contract update in the cricket mandate, frame
+rule graduation) is pointered in Linear — MCP ticket minted 2026-07-25 by the
+Director; this file is thereafter a closed record.
