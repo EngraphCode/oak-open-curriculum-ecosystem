@@ -62,7 +62,6 @@
   },
   "description": "Semantic search CLI for Oak curriculum — ingestion, hybrid search, ground truth evaluation",
   "devDependencies": {
-    "@asteasolutions/zod-to-openapi": "^8.5.0",
     "@elastic/transport": "^9.3.7",
     "@oaknational/eslint-plugin-standards": "workspace:*",
     "@oaknational/search-contracts": "workspace:*",
