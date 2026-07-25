@@ -497,10 +497,11 @@ The official-source pass found these documentation defects:
    `SessionEnd`, although the stable `0.145.0` event surface includes it;
 10. the imported matrix's shared hook row and status bullets omit tracked
     `SessionStart` identity activation for Claude Code and Cursor;
-11. the executive artefact inventory likewise omits those two tracked identity
-    adapters while listing the Codex adapter.
+11. the executive artefact inventory and the hook README's “Current Status”
+    list likewise omit those two tracked identity adapters while listing the
+    Codex adapter.
 
-This changeset corrects items 1 and 3–10. Item 11 is an inventory
+This changeset corrects items 1 and 3–10. Item 11 is a reference-inventory
 incompleteness rather than a false claim and remains recorded here as follow-on
 work under MCP-159; the owner-bounded matrix reconciliation does not widen into
 Claude/Cursor inventory work. The changeset bases the matrix on PR #529 head
