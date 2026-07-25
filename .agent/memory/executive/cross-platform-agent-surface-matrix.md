@@ -98,8 +98,8 @@ This repo's hook and adapter surfaces follow a small Policy Spine:
 | Layer | Role | Can It Override Higher Layers? |
 | --- | --- | --- |
 | Canonical policy (`.agent/`) | Declares intended behaviour and support | No |
-| Native activation (tracked `.claude/settings.json` and `.codex/config.toml`) | Activates the supported platform-specific policy or context path in the repo baseline | No |
-| Workspace runtime (`agent-tools/dist/src/hook-policy/check-blocked-patterns.js` via the Claude shim; the agent-tools identity hook via the Codex shim) | Enforces the Claude guard and supplies soft Codex identity context without duplicating canonical substance | No |
+| Native activation (tracked `.claude/settings.json`, `.cursor/hooks.json`, and `.codex/config.toml`) | Activates the supported platform-specific policy or context path in the repo baseline | No |
+| Workspace runtime (`agent-tools/dist/src/hook-policy/check-blocked-patterns.js` and its content companion through the Claude shim; agent-tools identity adapters through the Cursor and Codex shims) | Enforces the Claude guards and supplies soft Cursor/Codex identity context without duplicating canonical substance | No |
 | Explanatory mirrors (this matrix, hook README) | Describe the live state and support contract | No |
 
 Failure semantics:
@@ -124,10 +124,11 @@ Failure semantics:
 - `.agents/skills/` and `.agents/rules/` are portable skill/command and
   rule-adapter layers, not evidence for blanket `.agents/` parity with
   every platform-native surface.
-- Gemini / Antigravity CLI loads the repo's 20 portable skills from
-  `.agents/skills/`. The 86 files under `.agents/rules/` are rule wrappers,
-  not skills, and are not treated as a native auto-scan surface here unless a
-  future verification proves that behaviour.
+- Gemini / Antigravity CLI loads the repo's portable skills from
+  `.agents/skills/`. The files under `.agents/rules/` are rule wrappers, not
+  skills, and are not treated as a native auto-scan surface here unless a
+  future verification proves that behaviour. Directory contents and
+  `pnpm portability:check`, rather than frozen counts here, are authoritative.
 - Antigravity plugins can bundle skills, agents, rules, MCP definitions, and
   hooks, but plugin bundle support is not the same as repo-local wiring.
 - Tracked project platform config is part of the agentic system contract;

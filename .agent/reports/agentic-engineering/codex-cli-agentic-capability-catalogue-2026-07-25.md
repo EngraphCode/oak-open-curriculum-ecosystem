@@ -502,9 +502,11 @@ The official-source pass found these documentation defects:
     Codex adapter;
 12. the imported matrix retains retired `.cursor/skills/`,
     `.cursor/commands/`, and `.claude/commands/` paths and presents Gemini's
-    transitional reviewer commands as a general workflow surface.
+    transitional reviewer commands as a general workflow surface;
+13. the matrix's Policy Spine omits tracked Cursor identity activation, while
+    its Notes freeze obsolete skill and rule counts.
 
-This changeset corrects items 1, 3–10, and 12. Item 11 is a
+This changeset corrects items 1, 3–10, and 12–13. Item 11 is a
 reference-inventory incompleteness rather than a false claim and remains
 recorded here as follow-on work under MCP-159; the owner-bounded matrix
 reconciliation does not widen into Claude/Cursor inventory work. The changeset
