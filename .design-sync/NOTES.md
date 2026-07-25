@@ -143,3 +143,25 @@
   — the studio's normative instruction re-trued from the live copy (the
   HANDOFF.md session-protocol paragraph dropped with its deleted
   counterpart); ships by direct write each sync per §directWrites.
+- **Curation sync EXECUTED 2026-07-25 (~18:50Z, MCP-160)**: ship 153 (152
+  via DesignSync + sentinel; CLAUDE.md refused — see next bullet) →
+  capture-verified delete 47 → estate certified: 305 remote files, exact
+  match to the computed expectation, declaration closure clean (sole
+  unmatched path is the transient `_ds_needs_recompile` sentinel the app
+  consumes). P5 record: 46/47 byte-committed in the capture tier with
+  manifest-matching sha256; `guidelines/README.md` is converter-derived
+  from the repo README (git history holds every version); live-drift
+  checked on the rewrite-prone HANDOFF.md (structurally identical to
+  capture, self-dated before it). `_ds_sync.json` left byte-unchanged
+  deliberately: its styleSha is now conservative-stale, which forces
+  re-verification rather than false cache hits.
+- **CLAUDE.md is a Design API reserved path** (discovered at this sync):
+  instructions to the design agent are unwritable by DesignSync
+  regardless of the approved plan. The estate declaration now carries it
+  under `ownerMaintained`; updates are owner-executed in the studio UI
+  from `packages/design/oak-design-system/CLAUDE.md`. The bulk-delete
+  leg also required project-owner login (editor rights suffice for
+  writes only) — plan owner-presence for any future delete-bearing sync.
+- **thumbnail.html reclassified** shippedFromRepo → machinery: it has no
+  repo source (studio-generated; the package .gitignore records it) —
+  the shippedFromRepo claim was untrue for it.
