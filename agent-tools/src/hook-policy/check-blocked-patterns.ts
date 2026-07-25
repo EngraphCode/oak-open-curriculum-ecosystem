@@ -1,12 +1,10 @@
 import { fileURLToPath } from 'node:url';
 
-import {
-  buildPreToolUseDenyResponse,
-  extractBashCommand,
-  findBlockedPattern,
-} from './blocked-patterns.js';
+import { buildPreToolUseDenyResponse, extractBashCommand } from './blocked-patterns.js';
+import { evaluateBashCommand } from './evaluate.js';
 import { parseHookInput, readStreamText } from './hook-input.js';
-import { POLICY_URL, loadBlockedPatterns } from './policy-loader.js';
+import { POLICY_URL } from './policy-loader.js';
+import { loadPolicySnapshot, unwrapPolicySection } from './policy-snapshot.js';
 import type { RunPreToolUseBlockedPatternGuardOptions } from './types.js';
 
 export {
@@ -53,11 +51,13 @@ export async function runPreToolUseGuard(
   try {
     const inputText = await readStreamText(seams.stdin);
     const command = extractBashCommand(parseHookInput(inputText));
-    const patterns = seams.blockedPatterns ?? (await loadBlockedPatterns(seams.policyUrl));
-    const blockedEntry = findBlockedPattern(command, patterns);
+    const patterns =
+      seams.blockedPatterns ??
+      unwrapPolicySection((await loadPolicySnapshot(seams.policyUrl)).bashPatterns);
+    const decision = evaluateBashCommand(command, patterns);
 
-    if (blockedEntry !== null) {
-      seams.stdout.write(`${JSON.stringify(buildPreToolUseDenyResponse(blockedEntry))}\n`);
+    if (decision.kind === 'deny-bash-pattern') {
+      seams.stdout.write(`${JSON.stringify(buildPreToolUseDenyResponse(decision.entry))}\n`);
       return { exitCode: 0 };
     }
 

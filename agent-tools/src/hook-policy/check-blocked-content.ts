@@ -2,18 +2,15 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 import { buildPreToolUseDenyResponse } from './content-deny-response.js';
+import { evaluateContentChanges, type PolicyDecision } from './evaluate.js';
 import {
   extractContentChanges,
   parseHookInput,
   readStreamText,
   resolveContentPair,
 } from './hook-input.js';
-import { findAddedBlockedContent, findAddedScopedBlock } from './matchers.js';
-import {
-  POLICY_URL,
-  loadBlockedContentPatterns,
-  loadScopedContentBlocks,
-} from './policy-loader.js';
+import { POLICY_URL } from './policy-loader.js';
+import { loadPolicySnapshot, unwrapPolicySection } from './policy-snapshot.js';
 import { type RunPreToolUseContentGuardOptions, type ScopedContentBlockGroup } from './types.js';
 
 export type { PreToolUseDenyResponse, RunPreToolUseContentGuardOptions } from './types.js';
@@ -113,53 +110,59 @@ function formatGuardError(error: unknown): string {
 }
 
 /**
- * Resolve a flat-blocked-pattern denial against new/prior content. Writes
- * the deny payload to stdout when matched; returns true so the orchestrator
- * skips the scoped-block phase.
+ * Resolve the two content policy sections through the injection overlay:
+ * injected sections win, and the snapshot is loaded at most once, only when
+ * a needed section is un-injected. Flat patterns unwrap before scoped
+ * blocks, preserving the serial per-section load error precedence this
+ * overlay replaces.
  */
-function denyOnBlockedPattern(
-  newContent: string,
-  priorContent: string,
-  patterns: readonly string[],
-  stdout: { write(text: string): void },
-): boolean {
-  const blockedPattern = findAddedBlockedContent(newContent, priorContent, patterns);
-  if (blockedPattern === null) {
-    return false;
+async function resolveContentSections(seams: {
+  readonly policyUrl: URL;
+  readonly blockedPatterns: readonly string[] | undefined;
+  readonly scopedBlocks: readonly ScopedContentBlockGroup[] | undefined;
+}): Promise<{
+  readonly patterns: readonly string[];
+  readonly blocks: readonly ScopedContentBlockGroup[];
+}> {
+  if (seams.blockedPatterns !== undefined && seams.scopedBlocks !== undefined) {
+    return { patterns: seams.blockedPatterns, blocks: seams.scopedBlocks };
   }
-  stdout.write(
-    `${JSON.stringify(buildPreToolUseDenyResponse({ kind: 'owner-marker', pattern: blockedPattern }))}\n`,
-  );
-  return true;
+  const snapshot = await loadPolicySnapshot(seams.policyUrl);
+  const patterns = seams.blockedPatterns ?? unwrapPolicySection(snapshot.contentPatterns);
+  const blocks = seams.scopedBlocks ?? unwrapPolicySection(snapshot.scopedBlocks);
+  return { patterns, blocks };
 }
 
 /**
- * Resolve a scoped-block denial against new/prior content. Writes the deny
- * payload (with citation) to stdout when matched.
+ * Render a canonical deny decision through the unchanged Claude deny
+ * payload contract. Returns false for an allow so the orchestrator writes
+ * the explicit allow decision instead.
  */
-function denyOnScopedBlock(
-  newContent: string,
-  priorContent: string,
-  filePath: string | undefined,
-  blocks: readonly ScopedContentBlockGroup[],
+function writeDenyDecision(
+  decision: PolicyDecision,
   stdout: { write(text: string): void },
 ): boolean {
-  const matched = findAddedScopedBlock(newContent, priorContent, filePath, blocks);
-  if (matched === null) {
-    return false;
+  if (decision.kind === 'deny-content-pattern') {
+    stdout.write(
+      `${JSON.stringify(buildPreToolUseDenyResponse({ kind: 'owner-marker', pattern: decision.pattern }))}\n`,
+    );
+    return true;
   }
-  stdout.write(
-    `${JSON.stringify(
-      buildPreToolUseDenyResponse({
-        kind: 'concept',
-        pattern: matched.matchedText,
-        concept: matched.group.concept,
-        citation: matched.group.citation,
-        reappraisal: matched.group.reappraisal,
-      }),
-    )}\n`,
-  );
-  return true;
+  if (decision.kind === 'deny-scoped-block') {
+    stdout.write(
+      `${JSON.stringify(
+        buildPreToolUseDenyResponse({
+          kind: 'concept',
+          pattern: decision.match.matchedText,
+          concept: decision.match.group.concept,
+          citation: decision.match.group.citation,
+          reappraisal: decision.match.group.reappraisal,
+        }),
+      )}\n`,
+    );
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -200,16 +203,11 @@ export async function runPreToolUseContentGuard(
 
   try {
     const changes = await readResolvedContents(seams.stdin, seams.readPriorContent);
-    const patterns = seams.blockedPatterns ?? (await loadBlockedContentPatterns(seams.policyUrl));
-    const blocks = seams.scopedBlocks ?? (await loadScopedContentBlocks(seams.policyUrl));
+    const { patterns, blocks } = await resolveContentSections(seams);
+    const decision = evaluateContentChanges(changes, patterns, blocks);
 
-    for (const { newContent, priorContent, filePath } of changes) {
-      if (denyOnBlockedPattern(newContent, priorContent, patterns, seams.stdout)) {
-        return { exitCode: 0 };
-      }
-      if (denyOnScopedBlock(newContent, priorContent, filePath, blocks, seams.stdout)) {
-        return { exitCode: 0 };
-      }
+    if (writeDenyDecision(decision, seams.stdout)) {
+      return { exitCode: 0 };
     }
 
     writeAllowDecision(seams.stdout);
