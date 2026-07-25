@@ -290,11 +290,18 @@ then `PRACTICE_AGENT_SESSION_ID_CODEX`, then the harness-native
 ### Codex `SessionStart` wiring
 
 Codex project hooks are enabled in `.codex/config.toml` with
-`features.codex_hooks = true` and a `SessionStart` matcher for
-`startup|resume`. The hook shape follows the official
+`features.hooks = true` and a `SessionStart` matcher for `startup|resume`.
+`hooks` is stable in Codex CLI `0.145.0`; the older `codex_hooks` name is not
+the current public configuration key. The hook shape follows the official
 [Codex Hooks](https://developers.openai.com/codex/hooks) contract:
 command hooks receive JSON on stdin, including `session_id`, and
 `SessionStart` supports `hookSpecificOutput.additionalContext`.
+
+Project hooks load only for a trusted project and have their own trust review.
+Use `/hooks` to inspect the effective hook set and approve changed project
+hooks. The repo activates only this identity `SessionStart` adapter even though
+Codex supports additional session, subagent, tool, approval, compaction,
+prompt, and stop lifecycle events.
 
 The wiring is:
 

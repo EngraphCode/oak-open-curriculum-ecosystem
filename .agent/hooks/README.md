@@ -7,7 +7,7 @@ and thin native activation lives in platform config.
 
 ## Current Status
 
-**Guardrail-only**: the hook layer is intentionally narrow.
+**Guardrail-and-identity only**: the hook layer is intentionally narrow.
 
 - `preToolUse` — natively enforced for Claude Code Bash calls by invoking the
   prebuilt runtime artefact
@@ -20,10 +20,16 @@ and thin native activation lives in platform config.
   `agent-tools/dist/src/hook-policy/check-blocked-content.js`; blocks the
   path-agnostic owner-approval marker and path-scoped doctrine block groups
   (see "Content guard: concept-grouped doctrine blocks" below)
-- `sessionStart` — documented policy only; grounding is already enforced
-  through the entry-point chain and start-right skills
+- `sessionStart` — natively activated for Codex through the thin
+  `.codex/hooks/practice-session-identity.mjs` adapter; it injects Practice
+  identity context and remains soft/fail-open
 - `preCommit` — documented policy only; quality-gate reminders already
   live in the workflow and review surfaces
+
+The Codex `SessionStart` activation does **not** enforce the canonical
+destructive-command or content policy. Those guards remain Claude Code
+`PreToolUse` activations until the Codex enforcement vertical is implemented
+and verified.
 
 ## Policy Spine
 
@@ -32,8 +38,9 @@ The hook layer follows a small Policy Spine. The layers are not peers.
 1. **Canonical policy** — `.agent/hooks/policy.json`
    This is the authority for what the repo intends to allow, block, or
    describe.
-2. **Native activation** — platform config such as `.claude/settings.json`
-   This tracked project config may activate only supported canonical policy. It
+2. **Native activation** — platform config such as `.claude/settings.json` or
+   `.codex/config.toml`
+   Tracked project config may activate only supported canonical policy. It
    does not redefine the policy.
 3. **Workspace-owned runtime** — the prebuilt
    `agent-tools/dist/src/hook-policy/check-blocked-patterns.js` artefact,
@@ -147,15 +154,28 @@ case (loudly, as above) and fail **closed** whenever a built guard misbehaves.
 
 ## Platform Support
 
-Claude Code currently has thin native activation wired for
-`PreToolUse` only via the tracked project file `.claude/settings.json`.
-Additional Claude overrides can stay in `.claude/settings.local.json`,
-which is gitignored and additive.
+| Platform | Upstream hook surface | Repo activation |
+| --- | --- | --- |
+| Claude Code | Native lifecycle hooks | `PreToolUse` command/content guards in tracked `.claude/settings.json` |
+| Codex CLI | Stable lifecycle hooks | Soft `SessionStart` identity context in tracked `.codex/config.toml` |
+| Cursor | Not reassessed in this Codex research pass | No canonical policy activation |
+| Gemini / Antigravity CLI | Not reassessed in this Codex research pass | No canonical policy activation |
+| GitHub Copilot CLI | Not reassessed in this Codex research pass | No canonical policy activation |
 
 See `.agent/memory/executive/cross-platform-agent-surface-matrix.md` for the
-full platform support status.
+full local support status and the
+[Codex CLI capability catalogue](../reports/agentic-engineering/codex-cli-agentic-capability-catalogue-2026-07-25.md)
+for the version-pinned Codex product surface.
 
-Cursor, Gemini CLI, GitHub Copilot, and Codex remain unsupported.
+Codex CLI `0.145.0` documents `SessionStart`, `SessionEnd`,
+`SubagentStart`, `SubagentStop`, `PreToolUse`, `PermissionRequest`,
+`PostToolUse`, `PreCompact`, `PostCompact`, `UserPromptSubmit`, and `Stop`.
+Availability upstream is not activation here. In particular, hosted tools such
+as Web Search are outside the general local-function hook path.
+
+Additional Claude overrides can stay in `.claude/settings.local.json`, which
+is gitignored and additive. Codex user hooks remain under the user's Codex
+configuration and are not part of this repo baseline.
 
 ## Policy File
 
@@ -169,7 +189,11 @@ When wiring hooks for a platform:
 
 1. Read `policy.json` for the canonical policy
 2. Create thin native activation in the platform config directory
-3. Reuse or add a workspace-owned runtime command only when native config
-   cannot read `policy.json` directly
-4. Update the surface matrix to record the supported state
-5. Add drift checks to the portability validation script
+3. Normalize the vendor payload in a thin adapter; require exactly one
+   supported schema match and fail closed for zero or multiple matches
+4. Reuse the workspace-owned runtime rather than duplicating policy
+5. Evaluate each successfully dispatched write exactly once; do not add a
+   pass-through route or a second policy implementation
+6. Test real allow, block, malformed-input, missing-build, and trust paths
+7. Update the surface matrix to record the supported state
+8. Add drift checks to the portability validation script

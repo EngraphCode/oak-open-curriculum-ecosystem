@@ -1,34 +1,49 @@
 # Hooks Portability Plan
 
-**Status**: Future (not started)
+**Status**: Future enforcement promotion (capability research refreshed
+2026-07-25; initial shared-core/thin-adapter architecture already present)
 **Parent**: [ADR-125 (Agent Artefact Portability)](../../../../docs/architecture/architectural-decisions/125-agent-artefact-portability.md)
 **Related**: [ADR-125 (Agent Artefact Portability)](../../../../docs/architecture/architectural-decisions/125-agent-artefact-portability.md)
 
 ## Context
 
-ADR-125 established the three-layer model for agent artefacts: canonical content in `.agent/`, thin platform adapters, and entry points. This covers skills, commands, rules, and sub-agents. Hooks — deterministic shell commands or LLM prompts that fire at lifecycle points — are a fifth artefact type not yet brought into the system.
+ADR-125 established the three-layer model for agent artefacts: canonical
+content in `.agent/`, thin platform adapters, and entry points. Hooks are
+already partially inside that model:
 
-This plan describes a **target portability architecture**, not the current
-repo-local hook baseline. The authoritative local contract remains
+- canonical policy lives in `.agent/hooks/policy.json`;
+- shared enforcement runtime lives in `agent-tools`;
+- Claude Code activates the command/content guard through a thin
+  `PreToolUse` adapter;
+- Codex activates a soft identity-context adapter through `SessionStart`.
+
+The remaining problem is enforcement parity, not introducing hooks as a new
+artefact type.
+
+This plan describes the **remaining target enforcement architecture**, not the
+current repo-local hook baseline. The authoritative local contract remains
 [`cross-platform-agent-surface-matrix.md`](../../../memory/executive/cross-platform-agent-surface-matrix.md),
-which currently records only Claude Code `PreToolUse` as wired in this repo.
+and the independently researched Codex capability baseline is the
+[Codex CLI capability catalogue](../../../reports/agentic-engineering/codex-cli-agentic-capability-catalogue-2026-07-25.md).
 
 Target-state platform posture:
 
 | Platform | Repo-local status today | Target activation path if promoted |
-|---|---|---|
+| --- | --- | --- |
 | Claude Code | Supported for tracked `PreToolUse` only | `.claude/settings.json` `hooks` key |
 | Cursor | Unsupported in the local support matrix | `.cursor/hooks.json` after fresh verification and wiring |
 | Gemini CLI | Unsupported in the local support matrix | `.gemini/settings.json` `hooks` key after fresh verification and wiring |
-| Codex | Upstream hooks supported behind `codex_hooks`; no repo-local hooks wired | Wire only after fresh verification; no documented `SessionEnd` equivalent, so session-close cleanup still needs TTL fallback |
+| Codex | Stable hooks; tracked `SessionStart` identity adapter only | Add a thin `PreToolUse` schema adapter in `.codex/`; retain shared policy/runtime |
 
 ## Problem Statement
 
-Without a canonical hooks layer:
+Without completing the canonical enforcement path:
 
-1. Hook scripts would be duplicated across `.cursor/hooks/`, `.claude/hooks/`, and `.gemini/hooks/`.
-2. The same validation logic (e.g., "block destructive commands", "auto-format after edit", "inject context at session start") would drift between platforms.
-3. Adding a new hook behaviour requires editing three configuration files with three different schemas.
+1. Codex does not receive the same deterministic command/content guard as
+   Claude Code.
+2. A copied guard would drift from the canonical policy and shared runtime.
+3. Treating unlike vendor payloads as one loose schema risks both false allows
+   and false blocks.
 
 ## Related Strategic Work
 
@@ -45,186 +60,141 @@ a prerequisite for basic hook adoption.
 
 ## Proposed Architecture
 
-Extend the three-layer model to hooks:
+Complete the existing shared-core/thin-vendor-adapter model:
 
 ```text
-.agent/hooks/                           # Layer 1: Canonical hook scripts
-  scripts/
-    block-destructive-commands.sh        # Shared validation logic
-    auto-format-after-edit.sh            # Post-edit formatting
-    inject-session-context.sh            # Session start context injection
-    lint-after-edit.sh                   # Post-edit lint check
-  README.md                              # Hook inventory and design rationale
+.agent/hooks/policy.json                 # Canonical behavior and reappraisals
+agent-tools/src/hook-policy/             # Shared typed policy/runtime core
 
-.cursor/hooks.json                       # Layer 2a: Cursor hook config
-.claude/settings.json (hooks key)        # Layer 2b: Claude Code hook config
-.gemini/settings.json (hooks key)        # Layer 2c: Gemini CLI hook config
+.claude/settings.json                    # Native activation and matcher
+.claude/hooks/run-pretooluse-guard.mjs   # Claude payload/verdict adapter
+
+.codex/config.toml                       # Native activation and matcher
+.codex/hooks/*.mjs                       # Codex payload/verdict adapters
 ```
 
-### Layer 1: Canonical Hook Scripts
+### Shared core
 
-All hook logic lives in `.agent/hooks/scripts/`. Scripts are platform-agnostic shell scripts (or Node.js scripts) that:
+The core owns:
 
-- Read JSON from stdin (the event payload)
-- Perform the hook logic (validation, formatting, logging)
-- Write JSON to stdout (the decision/result)
-- Use exit codes for control (0 = allow, 2 = block)
+- canonical policy loading and validation;
+- concept-grouped command/content decisions;
+- vendor-neutral allow/block reasons and reappraisal text;
+- tests over canonical input and output;
+- explicit failure categories, without vendor-specific exit codes or response
+  envelopes.
 
-Scripts must not assume platform-specific stdin schemas. Each script should extract only the fields it needs and ignore the rest. A shared utility (`parse-hook-input.sh` or similar) could normalise the minor schema differences between platforms.
+It does not inspect environment variables or loose property guesses to infer
+the vendor.
 
-### Layer 2: Platform Hook Configuration
+### Thin vendor adapters
 
-Each platform's configuration file points at the canonical scripts. The configuration is platform-specific (JSON schema differs), but the scripts they invoke are shared.
+Each adapter owns only:
 
-The Cursor and Gemini examples below are **target-state sketches** for a future
-promotion. They are not evidence that those hook surfaces are currently wired in
-this repository.
+- its vendor's strict accepted input schemas;
+- translation into canonical input;
+- translation of the canonical verdict into native stdout/exit semantics;
+- project-root discovery and invocation of the prebuilt shared runtime;
+- observable missing-build and malformed-input behavior.
 
-**Cursor** (`.cursor/hooks.json`):
+Multiple supported schemas are explicit alternatives. Exactly one schema must
+match. Zero or multiple matches fail closed; the dispatcher never guesses a
+vendor or accepts a permissive union which accidentally treats malformed input
+as a different vendor. A successfully dispatched write request loads one
+validated policy snapshot and receives exactly one canonical policy evaluation
+before the matched adapter renders the native response. No adapter may create a
+second policy implementation or a pass-through route.
 
-```json
-{
-  "version": 1,
-  "hooks": {
-    "afterFileEdit": [
-      { "command": ".agent/hooks/scripts/auto-format-after-edit.sh" }
-    ],
-    "beforeShellExecution": [
-      { "command": ".agent/hooks/scripts/block-destructive-commands.sh" }
-    ]
-  }
-}
-```
+Platform-specific hook types and hosted-tool gaps remain in native config and
+tests. They do not inflate the shared core into a lowest-common-denominator
+framework.
 
-**Claude Code** (`.claude/settings.json` `hooks` key):
+## Promotion order
 
-```json
-{
-  "hooks": {
-    "PostToolUse": [
-      {
-        "matcher": "Edit|Write",
-        "hooks": [
-          { "type": "command", "command": ".agent/hooks/scripts/auto-format-after-edit.sh" }
-        ]
-      }
-    ],
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          { "type": "command", "command": ".agent/hooks/scripts/block-destructive-commands.sh" }
-        ]
-      }
-    ]
-  }
-}
-```
-
-**Gemini CLI** (`.gemini/settings.json` `hooks` key):
-
-```json
-{
-  "hooks": {
-    "AfterTool": [
-      {
-        "matcher": "edit_file|write_file",
-        "hooks": [
-          { "type": "command", "command": ".agent/hooks/scripts/auto-format-after-edit.sh" }
-        ]
-      }
-    ],
-    "BeforeTool": [
-      {
-        "matcher": "shell",
-        "hooks": [
-          { "type": "command", "command": ".agent/hooks/scripts/block-destructive-commands.sh" }
-        ]
-      }
-    ]
-  }
-}
-```
-
-### Platform-Specific Hook Types
-
-Claude Code supports prompt hooks (`type: "prompt"`) and agent hooks (`type: "agent"`) that have no equivalent on other platforms. These are inherently platform-specific and should remain in `.claude/settings.json` only. They can still reference canonical content (e.g., a prompt hook that references `.agent/directives/` for its evaluation criteria).
-
-## Candidate Hooks
-
-Based on existing rules and directives, these are the highest-value hooks to implement:
-
-| Hook | Event | What it does | Source directive |
-|---|---|---|---|
-| Auto-format after edit | PostToolUse (Edit/Write) | Run `pnpm prettier --write` on changed file | Development practice |
-| Lint after edit | PostToolUse (Edit/Write) | Run `pnpm lint:fix` on changed file | `.agent/rules/lint-after-edit.md` |
-| Block destructive commands | PreToolUse (Bash/Shell) | Reject `rm -rf /`, `git push --force main`, `--no-verify` | `.agent/directives/principles.md` (never disable checks) |
-| Session context injection | SessionStart | Inject git status, branch, recent changes | Start-right workflow |
-| Secrets scan | PreToolUse (Write/Edit) | Scan written content for API keys, tokens | Safety and security policy |
+| Capability | Event | Current state | Promotion target |
+| --- | --- | --- | --- |
+| Command guard | `PreToolUse` shell | Canonical core + Claude adapter | Codex thin adapter over the same core |
+| Content guard | `PreToolUse` edit/patch | Canonical core + Claude adapter | Codex tool-schema adapters over the same core |
+| Session identity | `SessionStart` | Claude and Codex thin adapters | Keep soft; improve only from observed failures |
+| Hook failure capture | Adapter/runtime boundary | Claude logging exists | Equivalent observable Codex failure record |
+| Other lifecycle behavior | Other native events | Not promoted by this plan | Separate evidence and value case first |
 
 ## Open Questions
 
-1. **Stdin schema normalisation**: Claude Code, Cursor, and Gemini all send JSON on stdin but with slightly different schemas. Should scripts handle all three, or should a thin adapter normalise the input before calling the script?
-2. **Node.js vs shell**: Shell scripts are universally available but limited. Node.js scripts can use `jq`-like JSON parsing natively. Which should be the default?
-3. **Codex**: Codex hooks now exist and use JSON on stdin plus command-hook
-   output. Promotion still needs fresh local verification of supported events,
-   especially because current Codex docs expose turn-scoped `Stop` but no
-   documented `SessionEnd`.
-4. **Hook testing**: How do we test hooks? Unit tests for the scripts with mock stdin? Integration tests that verify the hook fires correctly in each platform?
-5. **Claude Code prompt/agent hooks**: These are uniquely powerful (LLM-evaluated gates, multi-turn verification). Should we create canonical prompt templates in `.agent/hooks/prompts/` that Claude Code's prompt hooks reference?
+1. Beyond the observed `apply_patch` payload (`tool_input.command` containing
+   the patch program), which strict Codex schemas cover shell and MCP local
+   function tools in `0.145.0`?
+2. What fail-closed verdict should the Codex adapter emit for zero or multiple
+   schema matches, and how is that failure made observable without bricking a
+   fresh checkout?
+3. Which tool inputs Codex permits `PreToolUse` to rewrite, and which guard
+   paths should remain decision-only?
+4. Which missing-build, crash, timeout, malformed-input, concurrent-hook, and
+   trust cases require integration fixtures beyond core unit tests?
+5. How will release refresh detect a changed vendor schema before it becomes a
+   false allow?
 
 ## Phases
 
 ### Phase 0: Research and Design
 
-- Verify exact stdin/stdout schemas for all candidate platforms with real hook
-  invocations
+- Treat the 2026-07-25 Codex catalogue as the completed Codex capability probe
+- Capture pinned Codex `PreToolUse` allow/block/rewrite fixtures
 - Reconcile any promotion proposal against the local support matrix before
   wiring new activation surfaces
-- Determine whether stdin normalisation is needed or if scripts can be schema-tolerant
-- Decide on shell vs Node.js for hook scripts
-- Define the `.agent/hooks/` directory structure and README
-- Update ADR-125 to include hooks as a sixth artefact type
+- Specify multiple strict vendor schemas with exactly-one-match arbitration
+- Fail closed for zero or multiple schema matches
+- Prove one canonical policy evaluation for each successfully dispatched write
+  request and prohibit pass-through routes
+- Preserve the established TypeScript shared runtime and thin Node adapters
+- Reconcile ADR-125 and the matrix with the already-wired Codex adapter
 
-### Phase 1: Core Hook Scripts
+### Phase 1: Shared runtime and Codex schemas
 
-- Implement the 3 highest-value hooks: auto-format, lint-after-edit, block-destructive-commands
-- Write tests for each script (mock stdin, verify stdout/exit-code)
-- Create `.agent/hooks/README.md` with inventory and design rationale
+- Add strict Codex input schemas without weakening existing Claude schemas
+- Add schema routing with tested zero-match and multiple-match failures
+- Translate supported inputs into the existing canonical command/content core
+- Unit-test allow, block, malformed, ambiguous, no-match, and evaluation-count
+  behavior
 
-### Phase 2: Platform Configuration
+### Phase 2: Codex activation and integration proof
 
-- Add hook configuration to `.cursor/hooks.json`
-- Add hook configuration to `.claude/settings.json`
-- Add hook configuration to `.gemini/settings.json`
-- Verify hooks fire correctly on each platform
+- Add the Codex `PreToolUse` adapter and matcher in `.codex/`
+- Verify shell and patch/edit guard calls through real Codex invocations
+- Prove missing-build, runtime-failure, timeout, trust, and concurrent-hook
+  semantics
+- Record the paths hooks do not cover
 
-### Phase 3: Extended Hooks
+### Phase 3: Other platforms or lifecycle events
 
-- Session context injection
-- Secrets scanning
-- Claude Code prompt hooks for complex validation (if warranted)
-- Documentation and ADR update
+- Require a fresh official-source capability probe per platform
+- Promote only a demonstrated Practice need
+- Keep separate native adapters and the same canonical core
+- Update documentation, the matrix, and ADRs from verified runtime evidence
 
 ## Risks and Mitigations
 
 | Risk | Mitigation |
-|---|---|
-| Stdin schema differences break scripts across platforms | Phase 0 research; schema-tolerant parsing or thin normaliser |
+| --- | --- |
+| Input schemas drift | Pin fixtures to the CLI release; reject unknown schemas and refresh on upgrade |
 | Hooks slow down agent workflow | Keep hooks fast (< 1s); use async where supported |
-| Codex hook events differ from other platforms | Design scripts to be protocol-tolerant; do not use Codex `Stop` as session-exit cleanup unless a real `SessionEnd` surface lands |
-| Hook scripts need platform-specific tool names in matchers | Matchers stay in platform config (Layer 2); scripts receive normalised input |
+| Vendor schemas differ | Keep strict thin adapters; require exactly one schema match and fail closed for zero or multiple matches |
+| A feature flag is mistaken for CLI coverage | Require official surface docs plus an installed-runtime probe for each relied-on path |
+| Codex hosted tools bypass local hook dispatch | Claim coverage only for probed local function-tool paths |
+| Tool names differ | Keep matchers and tool-name translation in the vendor adapter |
 
 ## Dependencies
 
 - ADR-125 (three-layer model) — already accepted
-- Repo-local activation beyond Claude Code `PreToolUse` — requires fresh
-  verification, wiring, and matrix updates
-- Codex hook support — available upstream behind `codex_hooks`, but local
-  project wiring and `SessionEnd` parity remain unverified
+- Codex capability probe — complete in the version-pinned 2026-07-25 catalogue
+- Repo-local enforcement beyond Claude Code `PreToolUse` — requires
+  implementation, integration tests, and matrix updates
+- Shared matrix / ADR-125 sequencing — apply only after the active Copilot
+  documentation changeset lands
 
 ## Non-Goals
 
 - Replacing Cursor's activation triggers (`.mdc` rules) with hooks — triggers and hooks serve different purposes
-- Implementing hooks for Codex before upstream support exists
 - Creating a universal hook abstraction layer — the thin-wrapper pattern is sufficient
+- Treating hosted Web Search or specialized execution paths as guarded without
+  direct evidence
