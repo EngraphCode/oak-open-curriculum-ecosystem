@@ -6,7 +6,7 @@ overview: "Project canonical instructions, skills, specialist agents, and reposi
 status: ratified
 ratified_by: "Jim Cresswell"
 ratified_date: 2026-07-24
-ratified_where: "Owner in-session word 'Implement the plan', relayed by Director Forge rides Brimstone in collaboration event 444463f6-d93f-41c1-81c5-a39b3205338f"
+ratified_where: "PR #529 owner ratification record: https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/529#issuecomment-5079688100"
 serves: first-class-copilot-cli-practice-citizenship
 impact_areas:
   - practice-and-estate
@@ -20,6 +20,18 @@ last_updated: 2026-07-25
 ---
 
 # Copilot CLI Practice projections
+
+## Dated notes
+
+- **2026-07-25** — Corrected current vendor precedence and `excludeAgent`
+  arity/residual exposure; added supported-version and fresh-checkout gates
+  for instruction, skill, specialist-agent, and MCP projections; made
+  `disable-model-invocation: true` the cloud-safe specialist default; and
+  narrowed the cloud out-of-scope statement so shared repository projections
+  require explicit cloud-safe dispositions while cloud feature delivery
+  remains excluded. These amendments make the original projection outcome
+  executable against current platform facts without adding a new projected
+  capability family.
 
 ## Goal
 

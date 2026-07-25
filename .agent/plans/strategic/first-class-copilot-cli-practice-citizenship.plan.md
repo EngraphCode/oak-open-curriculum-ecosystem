@@ -6,7 +6,7 @@ overview: "Make a locally running GitHub Copilot CLI session an equal first-clas
 status: ratified
 ratified_by: "Jim Cresswell"
 ratified_date: 2026-07-24
-ratified_where: "Owner in-session word 'Implement the plan', relayed by Director Forge rides Brimstone in collaboration event 444463f6-d93f-41c1-81c5-a39b3205338f"
+ratified_where: "PR #529 owner ratification record: https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/529#issuecomment-5079688100"
 serves: FRAME-1
 impact_areas:
   - practice-and-estate
@@ -18,10 +18,16 @@ tickets:
   - MCP-154
   - MCP-155
   - MCP-156
-last_updated: 2026-07-24
+last_updated: 2026-07-25
 ---
 
 # First-class Copilot CLI Practice citizenship
+
+## Dated notes
+
+- **2026-07-25** — Corrected platform capability facts and the distinction
+  between bounded claim registration in every working session and continuous
+  team participation. These amendments do not widen the ratified outcome.
 
 ## Outcome
 

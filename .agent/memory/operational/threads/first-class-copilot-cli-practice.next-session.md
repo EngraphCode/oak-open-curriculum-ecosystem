@@ -8,11 +8,14 @@ participant in the repository's canonical Practice and agentic tools.
 - Branch: `docs/copilot-cli-practice-citizenship`
 - Base: current `main` at the start of the replacement record landing
 - Owner ratification (2026-07-24): direct in-session `Implement the plan`,
-  relayed by Director Forge rides Brimstone in collaboration event
-  `444463f6-d93f-41c1-81c5-a39b3205338f`. That event was shape-bound to the
-  then-current dual-route policy design, which is now deleted, so it is
-  superseded for the policy architecture and must never be cited as ratifying
-  the replacement single-dispatcher shape.
+  recorded durably in the
+  [PR #529 owner ratification record](https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/529#issuecomment-5079688100).
+  The original collaboration event
+  `444463f6-d93f-41c1-81c5-a39b3205338f` was the source capture. Its policy
+  portion was shape-bound to the then-current dual-route design, which is now
+  deleted, so it must never be cited as ratifying the replacement
+  single-dispatcher shape; the strategic, identity, projections, and lifecycle
+  plan ratification remains anchored by the durable PR record.
 - Owner re-ratification (2026-07-25, MCP-150): the replacement
   single-activation/single-dispatcher policy architecture carries its own fresh
   owner ratification at an owner card; the

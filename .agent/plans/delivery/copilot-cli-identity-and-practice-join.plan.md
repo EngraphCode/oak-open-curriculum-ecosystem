@@ -6,7 +6,7 @@ overview: "Give local Copilot CLI sessions honest native identity and a useful b
 status: ratified
 ratified_by: "Jim Cresswell"
 ratified_date: 2026-07-24
-ratified_where: "Owner in-session word 'Implement the plan', relayed by Director Forge rides Brimstone in collaboration event 444463f6-d93f-41c1-81c5-a39b3205338f"
+ratified_where: "PR #529 owner ratification record: https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/529#issuecomment-5079688100"
 serves: first-class-copilot-cli-practice-citizenship
 impact_areas:
   - practice-and-estate
@@ -18,6 +18,12 @@ last_updated: 2026-07-25
 ---
 
 # Copilot CLI identity and deliberate Practice join
+
+## Dated notes
+
+- **2026-07-25** — Corrected the quick-start/team-start coordination boundary
+  and added the explicit cloud disposition for a tracked `sessionStart`
+  activation. The ratified identity-and-join outcome is unchanged.
 
 ## Goal
 
