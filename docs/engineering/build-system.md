@@ -51,6 +51,33 @@ belt-and-braces `prettier: '~3.8.4'` override reached inside
 synchronous `format()`), so the generator passed a Promise to writeFile and
 codegen died, cascading 30 tasks.
 
+### Dependency updates
+
+npm dependencies are updated by **agent-run sweeps**, not by Dependabot.
+`.github/dependabot.yml` covers github-actions only: Dependabot regenerates the
+whole lockfile per PR with its own resolver, pulling in transitives published
+within the last 24 hours, which trips `minimumReleaseAge: 1440` at CI install
+and makes every npm-ecosystem PR unmergeable. A local `pnpm` sweep cannot hit
+that failure, because pnpm's own resolver enforces the floor at resolution
+time. Dependabot vulnerability **alerts** stay on — they are a repo setting,
+not part of this file.
+
+Two majors are held deliberately. A sweep must not cross either, and
+`pnpm -r up --latest` crosses both:
+
+- **`typescript` stays on 6.x.** TypeScript 7's exports map removes the
+  `typescript/bin/tsc` subpath that `agent-tools/src/bootstrap/bootstrap.ts`
+  resolves at postinstall, so the major breaks install (worked failure: PR
+  #416). Adopting TS 7 is a deliberate separate change that must fix the
+  bootstrap resolve first. Enforced by the `^6` ranges in each manifest.
+- **`@types/node` stays on 24.x**, matching `engines.node: 24.x`. Enforced by
+  the `'@types/node': '^24.x.y'` override in `pnpm-workspace.yaml`, which
+  covers workspaces that pull it only as a transitive peer. Lift it when the
+  project moves Node majors.
+
+Both holds must survive a full lockfile rebuild — see
+[`lockfile-rebuild-survivability`](../../.agent/rules/lockfile-rebuild-survivability.md).
+
 **Project `.npmrc` is optional.** Use it for npm-compatible registry and auth
 only (`registry`, scoped registry maps, tokens). Avoid pnpm-only keys in
 `.npmrc`: npm 9+ warns on unknown project config, and a future npm major may

@@ -1,30 +1,15 @@
 version: 2
 updates:
-  - package-ecosystem: npm
-    directory: /
-    schedule:
-      interval: weekly
-    groups:
-      all-dependencies:
-        patterns:
-          - '*'
-    open-pull-requests-limit: 5
-    ignore:
-      # @types/node is deliberately held on the Node 24 LTS major to match the
-      # repo's `engines.node: 24.x`. Allow minor/patch within 24.x; suppress the
-      # major bump (26.x) so the weekly grouped PR stops re-proposing it. Lift
-      # this when the project moves to a newer Node major.
-      - dependency-name: '@types/node'
-        update-types:
-          - version-update:semver-major
-      # TypeScript 7's exports map removes the `typescript/bin/tsc` subpath that
-      # agent-tools/src/bootstrap/bootstrap.ts resolves at postinstall, so a TS
-      # major riding the weekly group bump breaks install (seen on PR #416).
-      # Allow minor/patch; TS 7 adoption is a deliberate separate change — lift
-      # this when the repo moves to TypeScript 7.
-      - dependency-name: 'typescript'
-        update-types:
-          - version-update:semver-major
+  # github-actions only. The npm ecosystem is deliberately absent: Dependabot
+  # regenerates the whole pnpm lockfile per PR with its own resolver, which
+  # imports transitives published in the preceding 24h and so trips the
+  # `minimumReleaseAge: 1440` supply-chain floor at CI install — every
+  # npm-ecosystem PR was therefore unmergeable and closed by hand, while
+  # github-actions PRs merge cleanly because they never touch `pnpm-lock.yaml`.
+  # Vulnerability ALERTS stay enabled (a repo setting, not configured here):
+  # we want the warnings, just not the PRs. npm updates land through agent-run
+  # sweeps instead, where pnpm's own resolver honours the age floor.
+  # See docs/engineering/build-system.md §Dependency updates.
   - package-ecosystem: github-actions
     directory: /
     schedule:
