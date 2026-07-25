@@ -14,15 +14,15 @@ tracked Oak activation.
 
 ## Current activation
 
-| Capability      | Tracked activation                                | Current local posture                                                                |
-| --------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| Instructions    | `AGENTS.md` → `.agent/directives/AGENT.md`        | Thin entry point; canonical policy stays in `.agent/`                                |
-| Skills          | `.agents/skills/oak-*/SKILL.md`                   | Native Codex skills selected with `/skills` or `$skill-name`                         |
-| Subagents       | `[agents]` in `config.toml` → `agents/*.toml`     | Project roles with separate model, policy, and developer instructions                |
-| Hooks           | `[features].hooks` plus `[[hooks.SessionStart]]`  | Trusted-project identity context only; canonical `PreToolUse` guard is not yet wired |
-| MCP             | `[mcp_servers.*]` in `config.toml`                | Two project-scoped remote servers with OAuth and write approval                      |
-| Sandbox         | `sandbox_mode = "workspace-write"`                | Tracked project policy; effective policy still follows Codex precedence              |
-| Command network | `[sandbox_workspace_write].network_access = true` | Enabled for commands inside the active sandbox policy                                |
+| Capability      | Tracked activation                                | Current local posture                                                                       |
+| --------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| Instructions    | `AGENTS.md` → `.agent/directives/AGENT.md`        | Thin entry point; canonical policy stays in `.agent/`                                       |
+| Skills          | `.agents/skills/oak-*/SKILL.md`                   | Native Codex skills selected with `/skills` or `$skill-name`                                |
+| Subagents       | `[agents]` in `config.toml` → `agents/*.toml`     | Project roles inherit the parent model and set separate reasoning, policy, and instructions |
+| Hooks           | `[features].hooks` plus `[[hooks.SessionStart]]`  | Trusted-project identity context only; canonical `PreToolUse` guard is not yet wired        |
+| MCP             | `[mcp_servers.*]` in `config.toml`                | Two project-scoped remote servers with OAuth and write approval                             |
+| Sandbox         | `sandbox_mode = "workspace-write"`                | Tracked project policy; effective policy still follows Codex precedence                     |
+| Command network | `[sandbox_workspace_write].network_access = true` | Enabled for commands inside the active sandbox policy                                       |
 
 This is not the complete Codex CLI capability set. The
 [capability catalogue][catalogue] records the broader runtime and user-level

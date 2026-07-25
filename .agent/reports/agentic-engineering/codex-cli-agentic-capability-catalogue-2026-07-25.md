@@ -9,8 +9,8 @@
   immutable revision identifier, so the fetch date and matching source release
   pin are the explicit evidence ceiling.
 - **Scope**: User-facing agentic mechanisms available through, or directly
-  composable with, the local Codex CLI. ChatGPT desktop, IDE-only, web-only,
-  and Codex cloud capabilities are excluded unless the local CLI exposes an
+  composable with, the local Codex CLI. Codex app-only, IDE-only, web-only, and
+  Codex cloud capabilities are excluded unless the local CLI exposes an
   explicit bridge to them.
 
 ## Review contract
@@ -244,7 +244,8 @@ only by replacing the original ephemeral directory with `PROBE_DIR`. It creates
 the recorder, supplies the hook configuration and prompts, and asserts the
 recorded events and patch content. The hook-trust bypass is appropriate only
 because this is a disposable directory with a recorder created in the same
-recipe.
+recipe. Both invocations ignore user configuration and executable rules so the
+inline hook configuration is the only behavioural input from those surfaces.
 
 ```sh
 PROBE_DIR="$(mktemp -d)"
@@ -264,7 +265,8 @@ PY
 Run the shell probe:
 
 ```sh
-codex exec --ephemeral --skip-git-repo-check -C "$PROBE_DIR" \
+codex exec --ephemeral --ignore-user-config --ignore-rules \
+  --skip-git-repo-check -C "$PROBE_DIR" \
   -s read-only --dangerously-bypass-hook-trust --enable hooks \
   -c 'approval_policy="never"' \
   -c "hooks.SessionStart=[{hooks=[{type=\"command\",command=\"python3 $PROBE_DIR/record_hook.py\"}]}]" \
@@ -288,7 +290,8 @@ event log, then run the patch probe:
 ```sh
 : > "$PROBE_DIR/hook-events.jsonl"
 
-codex exec --ephemeral --skip-git-repo-check -C "$PROBE_DIR" \
+codex exec --ephemeral --ignore-user-config --ignore-rules \
+  --skip-git-repo-check -C "$PROBE_DIR" \
   --sandbox workspace-write --dangerously-bypass-hook-trust --enable hooks \
   -c "hooks.PreToolUse=[{matcher=\"^apply_patch$\",hooks=[{type=\"command\",command=\"python3 $PROBE_DIR/record_hook.py\",timeout=10,statusMessage=\"Recording apply_patch\"}]}]" \
   'Use the apply_patch tool, not shell redirection or another write mechanism, to create probe-result.txt containing exactly: apply_patch hook probe succeeded. Then report done.'
@@ -412,7 +415,7 @@ The following are intentionally not catalogued as local Codex CLI agent tools:
 | Surface | Why excluded |
 | --- | --- |
 | Built-in Browser | Official docs explicitly say it is unavailable in Codex CLI and the IDE extension. The stable `browser_use` feature flag belongs to the shared product runtime, not proof of CLI availability. |
-| Computer Use | Official docs assign it to the ChatGPT desktop app on macOS/Windows. The installed `computer_use` feature flag is not a local CLI tool. |
+| Computer Use | Official docs assign it to the Codex app on macOS/Windows. The installed `computer_use` feature flag is not a local CLI tool. |
 | Scheduled tasks | Scheduling is a ChatGPT web/desktop capability. CLI goals persist only while their chat runs and do not create a scheduler. |
 | Desktop worktrees | Native app worktree lifecycle is app-specific. The CLI can of course run Git worktree commands through its shell tool. |
 | Desktop review pane and inline comments | CLI `/review` is supported; the graphical review pane and inline-comment UI are not. |

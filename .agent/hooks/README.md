@@ -157,9 +157,9 @@ case (loudly, as above) and fail **closed** whenever a built guard misbehaves.
 
 | Platform | Upstream hook surface | Repo activation |
 | --- | --- | --- |
-| Claude Code | Native lifecycle hooks | `PreToolUse` command/content guards in tracked `.claude/settings.json` |
+| Claude Code | Native lifecycle hooks | Soft `SessionStart` identity context plus `PreToolUse` command/content guards in tracked `.claude/settings.json` |
 | Codex CLI | Stable lifecycle hooks | Soft `SessionStart` identity context in tracked `.codex/config.toml` |
-| Cursor | Not reassessed in this Codex research pass as of 2026-07-25 | No canonical policy activation |
+| Cursor | Not reassessed in this Codex research pass as of 2026-07-25 | Soft `sessionStart` identity context in tracked `.cursor/hooks.json`; no canonical policy activation |
 | Gemini / Antigravity CLI | Not reassessed in this Codex research pass as of 2026-07-25 | No canonical policy activation |
 | GitHub Copilot CLI | Not reassessed in this Codex research pass as of 2026-07-25 | No canonical policy activation |
 
