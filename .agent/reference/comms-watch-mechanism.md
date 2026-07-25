@@ -12,9 +12,14 @@ explicit liveness-attestation seam.
 `comms watch` is the canonical event-driven mechanism by which an
 agent session observes incoming directed messages addressed to it,
 without polling. It runs alongside the agent's reasoning loop; it
-does not interrupt it. New events appear in the agent's notice with
-sub-second latency on hosts that expose filesystem-change
-notification.
+does not interrupt it.
+
+Watcher delivery and agent notification are separate contracts. The
+watcher can discover an event, emit it, and mark it seen while the
+reasoning harness remains unaware. New events appear on the agent's notice
+surface with sub-second latency only when the host's background-task
+primitive forwards incremental process output into that surface as a
+wake-up, not merely as printed output.
 
 ## Substrate model
 
@@ -75,7 +80,7 @@ On each filesystem-change tick:
    `[OBSERVED]` view-token so the agent knows the channel at a
    glance.
 3. Exclude event ids already recorded in the seen-events file.
-4. Emit new events to the agent's notice channel.
+4. Emit new events to the agent's notice surface.
 5. Append the delivered event ids to the seen-events file.
 6. If a heartbeat sink is configured, call it once per tick with
    `{ last_heartbeat_at, last_heartbeat_source }` so a separate
@@ -84,6 +89,61 @@ On each filesystem-change tick:
 The watcher is a separate process or coroutine from the agent's
 main loop. It does not call the agent; it appends to a notice
 surface the agent reads.
+
+## Notification-path verification
+
+Verifying all three legs is required for every host integration:
+
+1. **Delivery** — `comms watch` discovers the event.
+2. **Emission** — the event reaches the watcher's output or notice sink.
+3. **Wake-up** — the reasoning harness is notified and can absorb the event
+   without user steering.
+
+Seen-file advancement and emitted stdout prove only the first two legs.
+Process liveness and heartbeat freshness prove that the watcher process is
+alive, which is a separate concern (see [Liveness](#liveness-the-heartbeat-source-attribution-pattern)).
+None of these signals proves wake-up.
+
+On GitHub Copilot CLI 1.0.75, a long-lived watcher running through detached
+Bash writes new events to the detached process's captured stdout but does
+not wake the harness when that output arrives; the runtime notifies only when
+the process completes. Copilot CLI has no Monitor-equivalent primitive for
+this stream, so the general Bash-background limitation in
+[`use-monitor-for-event-driven-wake`](../rules/use-monitor-for-event-driven-wake.md)
+cannot be cured through the normal Monitor route.
+
+Until that capability changes, a Copilot CLI team session MUST apply
+[`start-right-team`'s periodic comms cadence](../skills/start-right-team/SKILL-CANONICAL.md#5-maintain-the-team-cadence)
+through a scheduler-driven alert check:
+
+- keep `comms watch` running for all-channel delivery, cursor durability, and
+  liveness;
+- at no more than the 120-second fallback cadence, read canonical comms events
+  using a separate alert cursor — a bookmark the scheduled check owns and
+  advances only after the harness has absorbed an event;
+- never use the watcher's seen-events file as the alert cursor, because the
+  watcher marks an event seen before the harness has absorbed it;
+- prioritise directed and group messages, while still inspecting substantive
+  broadcasts and observed routing per the all-channels contract.
+
+Initialise the alert cursor from the last **proven harness-absorbed** event. If
+the check takes over from a frozen watcher, apply the
+[`comms-all-channels-watcher` dormancy-cursor discipline](../rules/comms-all-channels-watcher.md#dormancy-polls-initialise-their-cursor-from-the-frozen-seen-file).
+If the watcher continued marking events while the harness was unaware, first
+reconcile the gap and only then seed the alert cursor; copying the watcher's
+current seen-file would preserve the miss.
+
+A host whose native monitor forwards incremental output as agent notices does
+not need this extra scheduled check. Verify the capability by sending a
+directed test event and confirming that it creates an agent turn without a
+manual poll or user prompt. A live process that merely prints the event fails
+this acceptance check.
+
+Falsifiability: re-test this requirement when Copilot CLI ships a
+Monitor-equivalent primitive or forwards incremental detached-process output
+as notices. Remove the scheduled check only after the directed-event acceptance
+test passes. MCP-156 owns the durable Copilot lifecycle and notification-path
+cure; this section records the interim operational contract.
 
 ## Identity discipline (load-bearing)
 
@@ -237,6 +297,10 @@ responsibility and the capabilities of their host.
   polling at 100ms. Document it as polling, name the cadence
   honestly, and prefer the event-driven watcher when the host
   supports it.
+- **Delivery treated as notification**: a watcher that marks an event seen and
+  writes it to the detached process's captured stdout has delivered the event
+  to a process, not necessarily to the agent. Require a proven host wake-up
+  path or apply the periodic comms check with its own absorption cursor.
 
 ## Minimum viable substrate
 

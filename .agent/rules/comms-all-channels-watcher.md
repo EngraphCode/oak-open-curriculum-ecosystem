@@ -486,3 +486,12 @@ wrong. Check these before trusting a quiet channel:
 - **The CLI can exit 0 while transferring or parsing nothing** — read the
   failure surface (event counts, the written file), never the exit code
   (`wrapped-exit-codes-false-green`).
+- **Delivery-live can still be notification-dead** — a watcher may discover an
+  event, emit it, mark it seen, and keep a fresh heartbeat while the host never
+  wakes the reasoning harness. Process-liveness, delivery-liveness, and
+  notification-liveness are three separate checks. On Copilot CLI 1.0.75,
+  detached Bash output does not wake the harness, so apply the
+  [`start-right-team` 120-second periodic comms cadence](../skills/start-right-team/SKILL-CANONICAL.md#5-maintain-the-team-cadence)
+  with a separate harness-absorption cursor. See
+  [`comms-watch-mechanism`](../reference/comms-watch-mechanism.md#notification-path-verification)
+  for the acceptance test, cursor initialisation, and falsifier.
