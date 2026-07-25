@@ -651,3 +651,24 @@ dated platform fact rather than a defect in our generator, retire the words
 local-only/cloud-excluded as descriptions of what it ACHIEVES (they may still
 denote our intent), version-pin the verification, and rule that content which
 genuinely must reach neither surface does not belong in `.github` at all.
+
+## 2026-07-25 — EMC2 button states: theme-true set RATIFIED (supersedes the single-calibration note above)
+
+The first calibration hardcoded raw white/black mixes and a light-dark() shadow
+hex — it bypassed the theme system and broke in light (grey wash-out) and
+high-contrast (magenta shadow in a b/w theme; unanchored motion). Owner's live
+diagnosis sequence: "physics good; dark perfect, colour-safe okay, light and HC
+ruin the effect", then "high contrast needs a shadow, but subtler than the
+others". Final ratified set ("ship all four"): physics universal, LIGHT SPOKEN
+PER THEME — dark lights with white (+14%); light lifts with the brand's own
+pink (oklab 20% toward #ff8fbe — chroma-preserving, never raw white on a dark
+face) and presses by killing the gloss (removing light IS darkening at pigment
+floor); high-contrast keeps a subtle crisp ink shadow at half scale (4/5→6/8px,
+white separation ring for black-on-black, press lands on a 3px lemon edge,
+motion scaled to match, hover underlines); colour-safe inherits light.
+Doctrine: never express elevation in absolute colours inside a themed token
+system — tokenize the state faces/shadows and let each theme re-declare its
+light regime. Also fixed latent HC base bug (magenta candy shadow). Separate
+HC finding, gated on the cures-sync review round: .oak-card--pink sets
+--color-accent on the card itself, so card shadows stay pink in HC —
+pre-existing; surface it in the cures PR for an owner verdict there.
