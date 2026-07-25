@@ -51,7 +51,7 @@ importers:
         version: 7.0.0(semantic-release@25.0.8(supports-color@10.2.2)(typescript@6.0.3))
       '@semantic-release/git':
         specifier: ^11.0.1
-        version: 11.0.1(semantic-release@25.0.8(supports-color@10.2.2)(typescript@6.0.3))
+        version: 11.0.1(semantic-release@25.0.8(supports-color@10.2.2)(typescript@6.0.3))(supports-color@10.2.2)
       '@stryker-mutator/core':
         specifier: ^9.6.1
         version: 9.6.1(@types/node@24.13.3)
@@ -201,8 +201,8 @@ importers:
         specifier: ^2.1.45
         version: 2.1.45(express@5.2.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@clerk/mcp-tools':
-        specifier: ^0.5.0
-        version: 0.5.0(@cfworker/json-schema@4.1.1)(@clerk/express@2.1.45(express@5.2.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(express@5.2.1)(next@16.2.11(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(@types/node@24.13.3)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(zod@4.4.3)
+        specifier: ^0.6.0
+        version: 0.6.0(@cfworker/json-schema@4.1.1)(@clerk/express@2.1.45(express@5.2.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(express@5.2.1)(hono@4.12.31)(next@16.2.11(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(@types/node@24.13.3)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(zod@4.4.3)
       '@elastic/elasticsearch':
         specifier: ^9.4.2
         version: 9.4.2
@@ -777,7 +777,7 @@ importers:
     dependencies:
       openapi-zod-client:
         specifier: ^1.18.3
-        version: 1.18.3(react@19.2.8)(supports-color@10.2.2)
+        version: 1.18.3(react@19.2.8)
     devDependencies:
       '@oaknational/eslint-plugin-standards':
         specifier: workspace:*
@@ -1718,24 +1718,30 @@ packages:
     peerDependencies:
       express: ^4.17.0 || ^5.0.0
 
-  '@clerk/mcp-tools@0.5.0':
-    resolution: {integrity: sha512-phMaAffY/Jc0B84R59opIMJCHw/aMYtJZV/wmBzJSbLlbYkwdtNa8EECiIaHylvIfCd2j5vXuZBpBa7fOng0oQ==}
+  '@clerk/mcp-tools@0.6.0':
+    resolution: {integrity: sha512-YXGZujj6oxD5T4XOi08UsLbPiWYD88Fe1uOwqZQekak8i2vitOgugRw7guwat3GuzQearRGdsW1P5AweQ043Sg==}
     peerDependencies:
       '@clerk/express': ^2.1.5
+      '@clerk/hono': ^0.1.0
       '@clerk/nextjs': ^7.2.3
       better-sqlite3: ^8.7.0
       express: ^5.0.0
+      hono: '>=4.12.25'
       next: ^15.2.8 || ^15.3.8 || ^15.4.10 || ^15.5.9 || ^15.6.0-0 || ^16.0.10 || ^16.1.0-0
       pg: ^8.11.0
       redis: ^4.0.0
     peerDependenciesMeta:
       '@clerk/express':
         optional: true
+      '@clerk/hono':
+        optional: true
       '@clerk/nextjs':
         optional: true
       better-sqlite3:
         optional: true
       express:
+        optional: true
+      hono:
         optional: true
       next:
         optional: true
@@ -8573,12 +8579,13 @@ snapshots:
       - react
       - react-dom
 
-  '@clerk/mcp-tools@0.5.0(@cfworker/json-schema@4.1.1)(@clerk/express@2.1.45(express@5.2.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(express@5.2.1)(next@16.2.11(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(@types/node@24.13.3)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(zod@4.4.3)':
+  '@clerk/mcp-tools@0.6.0(@cfworker/json-schema@4.1.1)(@clerk/express@2.1.45(express@5.2.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(express@5.2.1)(hono@4.12.31)(next@16.2.11(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(@types/node@24.13.3)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(zod@4.4.3)':
     dependencies:
       '@modelcontextprotocol/sdk': 1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3)
     optionalDependencies:
       '@clerk/express': 2.1.45(express@5.2.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       express: 5.2.1
+      hono: 4.12.31
       next: 16.2.11(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(@types/node@24.13.3)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
     transitivePeerDependencies:
       - '@cfworker/json-schema'
@@ -9832,7 +9839,7 @@ snapshots:
 
   '@semantic-release/error@4.0.0': {}
 
-  '@semantic-release/git@11.0.1(semantic-release@25.0.8(supports-color@10.2.2)(typescript@6.0.3))':
+  '@semantic-release/git@11.0.1(semantic-release@25.0.8(supports-color@10.2.2)(typescript@6.0.3))(supports-color@10.2.2)':
     dependencies:
       '@semantic-release/error': 4.0.0
       aggregate-error: 5.0.0
@@ -9968,7 +9975,7 @@ snapshots:
 
   '@sentry/cli@2.58.6':
     dependencies:
-      https-proxy-agent: 5.0.1(supports-color@10.2.2)
+      https-proxy-agent: 5.0.1
       node-fetch: 2.7.0
       progress: 2.0.3
       proxy-from-env: 1.1.0
@@ -10513,7 +10520,7 @@ snapshots:
     dependencies:
       '@typescript-eslint/scope-manager': 8.65.0
       '@typescript-eslint/types': 8.65.0
-      '@typescript-eslint/typescript-estree': 8.65.0(supports-color@10.2.2)(typescript@6.0.3)
+      '@typescript-eslint/typescript-estree': 8.65.0(typescript@6.0.3)
       '@typescript-eslint/visitor-keys': 8.65.0
       debug: 4.4.3(supports-color@10.2.2)
       eslint: 10.7.0(jiti@2.7.0)(supports-color@10.2.2)
@@ -10525,7 +10532,7 @@ snapshots:
     dependencies:
       '@typescript-eslint/scope-manager': 8.65.0
       '@typescript-eslint/types': 8.65.0
-      '@typescript-eslint/typescript-estree': 8.65.0(supports-color@10.2.2)(typescript@6.0.3)
+      '@typescript-eslint/typescript-estree': 8.65.0(typescript@6.0.3)
       '@typescript-eslint/visitor-keys': 8.65.0
       debug: 4.4.3(supports-color@10.2.2)
       eslint: 10.7.0(jiti@2.7.0)
@@ -10542,7 +10549,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/project-service@8.65.0(supports-color@10.2.2)(typescript@6.0.3)':
+  '@typescript-eslint/project-service@8.65.0(typescript@6.0.3)':
     dependencies:
       '@typescript-eslint/tsconfig-utils': 8.65.0(typescript@6.0.3)
       '@typescript-eslint/types': 8.65.0
@@ -10554,7 +10561,7 @@ snapshots:
   '@typescript-eslint/rule-tester@8.65.0(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3)':
     dependencies:
       '@typescript-eslint/parser': 8.65.0(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3)
-      '@typescript-eslint/typescript-estree': 8.65.0(supports-color@10.2.2)(typescript@6.0.3)
+      '@typescript-eslint/typescript-estree': 8.65.0(typescript@6.0.3)
       '@typescript-eslint/utils': 8.65.0(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3)
       ajv: 6.15.0
       eslint: 10.7.0(jiti@2.7.0)
@@ -10586,7 +10593,7 @@ snapshots:
   '@typescript-eslint/type-utils@8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3)':
     dependencies:
       '@typescript-eslint/types': 8.65.0
-      '@typescript-eslint/typescript-estree': 8.65.0(supports-color@10.2.2)(typescript@6.0.3)
+      '@typescript-eslint/typescript-estree': 8.65.0(typescript@6.0.3)
       '@typescript-eslint/utils': 8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))(typescript@6.0.3)
       debug: 4.4.3(supports-color@10.2.2)
       eslint: 10.7.0(jiti@2.7.0)(supports-color@10.2.2)
@@ -10598,7 +10605,7 @@ snapshots:
   '@typescript-eslint/type-utils@8.65.0(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3)':
     dependencies:
       '@typescript-eslint/types': 8.65.0
-      '@typescript-eslint/typescript-estree': 8.65.0(supports-color@10.2.2)(typescript@6.0.3)
+      '@typescript-eslint/typescript-estree': 8.65.0(typescript@6.0.3)
       '@typescript-eslint/utils': 8.65.0(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3)
       debug: 4.4.3(supports-color@10.2.2)
       eslint: 10.7.0(jiti@2.7.0)
@@ -10626,9 +10633,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/typescript-estree@8.65.0(supports-color@10.2.2)(typescript@6.0.3)':
+  '@typescript-eslint/typescript-estree@8.65.0(typescript@6.0.3)':
     dependencies:
-      '@typescript-eslint/project-service': 8.65.0(supports-color@10.2.2)(typescript@6.0.3)
+      '@typescript-eslint/project-service': 8.65.0(typescript@6.0.3)
       '@typescript-eslint/tsconfig-utils': 8.65.0(typescript@6.0.3)
       '@typescript-eslint/types': 8.65.0
       '@typescript-eslint/visitor-keys': 8.65.0
@@ -10657,7 +10664,7 @@ snapshots:
       '@eslint-community/eslint-utils': 4.10.1(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))
       '@typescript-eslint/scope-manager': 8.65.0
       '@typescript-eslint/types': 8.65.0
-      '@typescript-eslint/typescript-estree': 8.65.0(supports-color@10.2.2)(typescript@6.0.3)
+      '@typescript-eslint/typescript-estree': 8.65.0(typescript@6.0.3)
       eslint: 10.7.0(jiti@2.7.0)(supports-color@10.2.2)
       typescript: 6.0.3
     transitivePeerDependencies:
@@ -10668,7 +10675,7 @@ snapshots:
       '@eslint-community/eslint-utils': 4.10.1(eslint@10.7.0(jiti@2.7.0))
       '@typescript-eslint/scope-manager': 8.65.0
       '@typescript-eslint/types': 8.65.0
-      '@typescript-eslint/typescript-estree': 8.65.0(supports-color@10.2.2)(typescript@6.0.3)
+      '@typescript-eslint/typescript-estree': 8.65.0(typescript@6.0.3)
       eslint: 10.7.0(jiti@2.7.0)
       typescript: 6.0.3
     transitivePeerDependencies:
@@ -10834,9 +10841,9 @@ snapshots:
 
   '@zod/core@0.11.6': {}
 
-  '@zodios/core@10.9.6(axios@1.18.1(supports-color@10.2.2))(zod@3.25.76)':
+  '@zodios/core@10.9.6(axios@1.18.1)(zod@3.25.76)':
     dependencies:
-      axios: 1.18.1(supports-color@10.2.2)
+      axios: 1.18.1
       zod: 3.25.76
 
   abort-controller@3.0.0:
@@ -10869,7 +10876,7 @@ snapshots:
 
   acorn@8.17.0: {}
 
-  agent-base@6.0.2(supports-color@10.2.2):
+  agent-base@6.0.2:
     dependencies:
       debug: 4.4.3(supports-color@10.2.2)
     transitivePeerDependencies:
@@ -11046,11 +11053,11 @@ snapshots:
 
   axe-core@4.12.1: {}
 
-  axios@1.18.1(supports-color@10.2.2):
+  axios@1.18.1:
     dependencies:
       follow-redirects: 1.16.0
       form-data: 4.0.6
-      https-proxy-agent: 5.0.1(supports-color@10.2.2)
+      https-proxy-agent: 5.0.1
       proxy-from-env: 2.1.0
     transitivePeerDependencies:
       - debug
@@ -12467,9 +12474,9 @@ snapshots:
       - kerberos
       - supports-color
 
-  https-proxy-agent@5.0.1(supports-color@10.2.2):
+  https-proxy-agent@5.0.1:
     dependencies:
-      agent-base: 6.0.2(supports-color@10.2.2)
+      agent-base: 6.0.2
       debug: 4.4.3(supports-color@10.2.2)
     transitivePeerDependencies:
       - supports-color
@@ -13709,12 +13716,12 @@ snapshots:
       typescript: 6.0.3
       yargs-parser: 21.1.1
 
-  openapi-zod-client@1.18.3(react@19.2.8)(supports-color@10.2.2):
+  openapi-zod-client@1.18.3(react@19.2.8):
     dependencies:
       '@apidevtools/swagger-parser': 10.1.1(openapi-types@12.1.3)
       '@liuli-util/fs-extra': 0.1.0
-      '@zodios/core': 10.9.6(axios@1.18.1(supports-color@10.2.2))(zod@3.25.76)
-      axios: 1.18.1(supports-color@10.2.2)
+      '@zodios/core': 10.9.6(axios@1.18.1)(zod@3.25.76)
+      axios: 1.18.1
       cac: 6.7.14
       handlebars: 4.7.9
       openapi-types: 12.1.3
@@ -14969,7 +14976,7 @@ snapshots:
     dependencies:
       '@typescript-eslint/eslint-plugin': 8.65.0(@typescript-eslint/parser@8.65.0(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3))(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3)
       '@typescript-eslint/parser': 8.65.0(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3)
-      '@typescript-eslint/typescript-estree': 8.65.0(supports-color@10.2.2)(typescript@6.0.3)
+      '@typescript-eslint/typescript-estree': 8.65.0(typescript@6.0.3)
       '@typescript-eslint/utils': 8.65.0(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3)
       eslint: 10.7.0(jiti@2.7.0)
       typescript: 6.0.3
