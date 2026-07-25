@@ -165,8 +165,23 @@ inferred from this ADR.
 
 GitHub repository-wide and path-scoped instructions are also shared with
 Copilot cloud surfaces. The instruction disposition manifest therefore marks
-every emitted file `cloud-shared` or `cloud-excluded`; local-only modular
-instructions emit the documented `excludeAgent: "cloud-agent"` frontmatter.
+every emitted file `cloud-shared` or `cloud-excluded` — labels for the intended
+disposition and the marker it emits, never for a proven platform outcome — and
+a `cloud-excluded` modular instruction emits the documented
+`excludeAgent: "cloud-agent"` frontmatter.
+
+`excludeAgent` takes exactly one value: `"cloud-agent"` excludes the Copilot
+cloud agent and `"code-review"` excludes Copilot code review. GitHub's
+repository custom-instructions documentation, verified 2026-07-25, documents no
+array, comma-separated, or repeated-key form, so whichever value is chosen the
+other surface remains in scope — a file carrying `excludeAgent: "cloud-agent"`
+is still read by Copilot code review. That residual exposure is a dated fact
+about the platform, not a defect in the generator, and it means no `.github`
+instruction file is local-only. It follows that content which must reach
+neither Copilot surface does not belong under `.github` instructions at all; it
+stays in `.agent/`. This capability claim is pinned to the 2026-07-25
+documentation and expires: a later reader re-checks GitHub's current
+documentation rather than trusting this paragraph.
 
 Repository custom agents are visible to both local Copilot CLI and Copilot
 cloud surfaces. Generated wrappers therefore carry an explicit cloud-safe

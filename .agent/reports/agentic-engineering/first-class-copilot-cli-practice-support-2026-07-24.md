@@ -198,8 +198,23 @@ negative, recursive, comma-separated, and simultaneous-match behaviour. They
 must not copy the full rule corpus or use `@` imports, which GitHub does not
 expand inside modular instruction bodies **[D][I]**. Because GitHub repository
 instructions are also consumed by cloud surfaces, every emitted instruction
-must be classified `cloud-shared` or `cloud-excluded`; local-only modular
-instructions emit `excludeAgent: "cloud-agent"` **[D][I]**.
+must be classified `cloud-shared` or `cloud-excluded` — labels that state the
+intended disposition and the marker it emits, not a proven platform outcome —
+and a `cloud-excluded` modular instruction emits
+`excludeAgent: "cloud-agent"` **[D][I]**.
+
+`excludeAgent` accepts exactly one value, either `"code-review"` (excluding
+Copilot code review) or `"cloud-agent"` (excluding the Copilot cloud agent);
+the repository-instructions source listed below, verified 2026-07-25, documents
+no array, comma-separated, or repeated-key form **[D]**. One surface therefore
+always remains in scope, and a projection carrying
+`excludeAgent: "cloud-agent"` is still read by Copilot code review. That
+residual exposure is a dated fact about the platform rather than a defect in
+this repository's generator, so no `.github` instruction projection can be
+described as local-only, and content that must reach neither surface stays in
+`.agent/` instead of being projected at all **[D][I]**. The capability claim is
+pinned to the 2026-07-25 documentation and expires; re-check the current
+official source before relying on it **[D]**.
 
 ### 8. Custom agents are a generated adapter family
 

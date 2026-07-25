@@ -25,7 +25,7 @@ scope.
 | Identity | Native `sessionStart` adapter returns honest Copilot identity through `additionalContext` | **No** — canonical identity types and persistence do not yet admit Copilot |
 | Deliberate team join | Native bootstrap is useful alone and creates no shared coordination state; any working session, quick-start included, must register a bounded active claim before its first edit under the always-loaded [`register-active-areas-at-session-open`](../../rules/register-active-areas-at-session-open.md) rule, whichever start-right skill ran; `oak-start-right-team` adds only *continuous* team participation — heartbeat emission, the all-channels watcher, and the handoff/retirement lifecycle | **No** — no Copilot launcher or joined/non-joined proof |
 | Repo instructions | `.github/copilot-instructions.md` imports the canonical repository entry point | **Partial** — the file exists as a Markdown link to `AGENT.md`, not a validated native import |
-| Path-scoped instructions | Generated `.github/instructions/**/*.instructions.md` projections with an explicit cloud-shared or `excludeAgent: "cloud-agent"` disposition | **No** |
+| Path-scoped instructions | Generated `.github/instructions/**/*.instructions.md` projections, each with an explicit `cloud-shared` or `cloud-excluded` intent and, where excluded, the documented `excludeAgent: "cloud-agent"` frontmatter — see the `excludeAgent` note below for what that does and does not achieve | **No** |
 | Skills | Use `.agents/skills/` under documented `.github/skills` → `.agents/skills` → `.claude/skills` first-found precedence | **Partial** — the portable wrappers exist; clean local Copilot CLI discovery/invocation is not yet an acceptance gate |
 | Custom agents | Generated, schema-valid, cloud-safe `.github/agents/*.agent.md` projections from canonical specialists, with `disable-model-invocation: true` unless automatic cloud selection is separately accepted | **No** |
 | Policy hooks | Existing inherited PascalCase `PreToolUse` activation feeds exactly one closed Claude/Copilot dispatcher and one canonical policy evaluation | **Partial** — the inherited activation and guards now evaluate Copilot CLI 1.0.75 string-form `apply_patch` payloads with explicit allow/deny decisions; the ratified closed dispatcher, complete schemas, per-host rendering, and acceptance proof remain unwired |
@@ -33,6 +33,19 @@ scope.
 | Repository MCP | Establish a canonical secret-free server manifest from total dispositions over tracked platform candidates, then generate the Copilot repository projection | **No** — no canonical manifest or tracked Copilot projection exists |
 | Communications | Existing local comms substrate plus native wake, re-arm, drain recovery, handoff, and retirement | **No** — the substrate exists, but no Copilot notification/lifecycle projection is wired |
 | End-to-end proof | Fresh-checkout validators plus a live local Copilot CLI acceptance run | **No** |
+
+**`excludeAgent` note** (GitHub's repository custom-instructions documentation,
+verified 2026-07-25): the keyword accepts exactly one value — `"cloud-agent"`
+excludes the Copilot cloud agent, `"code-review"` excludes Copilot code review
+— and no array, comma-separated, or repeated-key form is documented. Whichever
+value is set, the other surface still reads the file, so a projection marked
+`cloud-excluded` is not local-only: Copilot code review continues to read it.
+That is a dated fact about the platform, not a gap in this repository's
+generator. The `cloud-shared`/`cloud-excluded` labels in the row above record
+our intent and the marker emitted, never a proven outcome, and content that
+must reach neither Copilot surface stays in `.agent/` rather than becoming a
+`.github` instruction file. Per this file's preamble, this capability claim
+expires: re-check the current official documentation before relying on it.
 
 The repository
 [`first-class-copilot-cli-practice-citizenship`](../../plans/strategic/first-class-copilot-cli-practice-citizenship.plan.md)

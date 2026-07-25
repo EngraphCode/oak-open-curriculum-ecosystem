@@ -41,16 +41,27 @@ Three total disposition manifests make the source sets recomputable:
 
 1. Every live `.agent/rules/*.md` source is classified `repo-wide`,
    `path-projected`, or `excluded` with a reason, and every emitted instruction
-   is separately classified `cloud-shared` or `cloud-excluded`. A path
-   projection is selected only when file-scoped activation is expressible
-   through Copilot `applyTo` and adds behaviour beyond the repo-wide entry
-   point. Local-only instructions must emit the documented
-   `excludeAgent: "cloud-agent"` disposition. Provenance: GitHub's repository
-   custom-instructions documentation, verified first-hand 2026-07-25, permits
-   exactly two `excludeAgent` values — `"code-review"` and `"cloud-agent"` —
-   so `cloud-agent` is the correct literal for excluding the Copilot cloud
-   agent and must not be "corrected" to another spelling, and `"code-review"`
-   is the separate value that excludes Copilot code review.
+   is separately classified `cloud-shared` or `cloud-excluded`. Those two
+   labels record the intended disposition and the marker it emits; neither
+   asserts a proven platform outcome. A path projection is selected only when
+   file-scoped activation is expressible through Copilot `applyTo` and adds
+   behaviour beyond the repo-wide entry point. A `cloud-excluded` instruction
+   must emit the documented `excludeAgent: "cloud-agent"` frontmatter.
+   Provenance: GitHub's repository custom-instructions documentation, verified
+   first-hand 2026-07-25, defines `excludeAgent` as taking exactly one value,
+   either `"code-review"` or `"cloud-agent"`, with no array, comma-separated,
+   or repeated-key form. So `cloud-agent` is the correct literal for excluding
+   the Copilot cloud agent and must not be "corrected" to another spelling,
+   and `"code-review"` is the separate value that excludes Copilot code review.
+   Because only one value may be set, one surface always stays in scope: a file
+   carrying `excludeAgent: "cloud-agent"` is still read by Copilot code review.
+   That residual exposure is a dated fact about the platform, not a defect in
+   our generator, and it means no `.github` instruction projection is
+   local-only. Disposition rule: where a projection's content must reach
+   neither Copilot surface, `.github` instructions are the wrong home and the
+   content stays in `.agent/`. This capability claim is pinned to the
+   2026-07-25 documentation and expires — a later reader re-checks GitHub's
+   current documentation rather than trusting this line.
 2. Every live, non-archived `.agent/sub-agents/templates/*.md` specialist is
    classified `projected` or `excluded` with a reason.
 3. Every server found in tracked platform MCP configuration is reconciled into
@@ -110,10 +121,17 @@ for the probe design, not proof about the installed CLI.
   does not reach a cloud-agent prompt — is a claim about a different execution
   environment, and no local fixture or local CLI probe can establish it.
   Proof: `owner-held` — a cloud-agent probe observing whether an excluded
-  fixture appears in a cloud job's context. Until that probe runs, the
-  repository states cloud-exclusion as emitted-and-unverified, never as
-  proven: a cloud-behaviour claim resting on local evidence is an assumption
-  transmitted as truth.
+  fixture appears in a cloud job's context. That probe's claim is bounded to
+  the cloud agent alone. Because `excludeAgent` takes exactly one value
+  (documentation verified 2026-07-25), a projection carrying `"cloud-agent"` is
+  still read by Copilot code review, so an owner-held probe of the cloud agent
+  establishes cloud-agent exclusion and nothing wider; establishing anything
+  about the code-review surface needs a separate probe with `"code-review"` set
+  instead, and the two cannot hold at once. No probe of either surface can
+  therefore establish local-only, and content requiring that stays in
+  `.agent/`. Until the cloud-agent probe runs, the repository states
+  cloud-exclusion as emitted-and-unverified, never as proven: a cloud-behaviour
+  claim resting on local evidence is an assumption transmitted as truth.
 - **Skill support is not promoted beyond `Partial` until a supported-version
   clean CLI reports the intended `.agents/skills` source and invokes a
   representative same-ID skill without `.claude/skills` shadowing it.** Proof:
