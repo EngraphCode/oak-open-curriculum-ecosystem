@@ -1,0 +1,6 @@
+---
+description: The lockfile is a derived artefact, so every dependency update, security floor, version hold and override must survive the lockfile being fully deleted and rebuilt. Constraints live in package.json ranges and pnpm-workspace.yaml overrides, never in recorded lockfile state. Run the rebuild and assert floors, holds, audit and frozen install; do not reason about it.
+alwaysApply: true
+---
+
+Read and follow `.agent/rules/lockfile-rebuild-survivability.md`.
