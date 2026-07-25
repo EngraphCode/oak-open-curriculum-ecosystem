@@ -37,6 +37,19 @@ notification path, re-arm after each wake, and retain turn-boundary drain plus
 seen-file gap sweep as recovery. The standard claim, heartbeat, handoff, and
 retirement lifecycle remains authoritative.
 
+**Cloud disposition of the notification activation.** Repository
+`.github/hooks` runs in the Copilot cloud agent as well as the CLI (official
+source, verified on this branch), and the local coordination home does not
+exist in a cloud job. This is the same dual-execution property that ruled
+`.github/hooks/*.json` out as a policy-activation home for MCP-150. This node
+therefore binds two requirements on whatever surface carries the notification
+activation: the activation MUST NOT assume a coordination home exists, and if
+the chosen surface is one the cloud agent also loads, the activation MUST
+carry an explicit cloud no-op guard that detects the cloud execution context
+and exits cleanly without touching coordination state. "Cloud wake is out of
+scope" (see Out of scope) states an intention; the guard is what makes the
+artefact safe when it is loaded somewhere the intention does not reach.
+
 The minimum shippable shape without the beneficial projections node uses the
 already discoverable team skill and comms CLI after identity/join has landed.
 Native projections improve discovery but supply no required communications
@@ -56,6 +69,13 @@ details, and evidence that cannot be versioned safely.
   self-exclusion, and re-arm integration tests. Before tracked activation, a
   supported-version floor and live capability probe must prove the installed
   CLI's `notification` event and the selected completion notification shape.
+- **The notification activation is inert in a cloud-agent execution context.**
+  Proof: `repo-safe` — a fixture exercising the activation with no coordination
+  home present and with the cloud context markers set, asserting a clean no-op
+  (no coordination write, no non-zero exit, no error output that would fail a
+  cloud job). Required whenever the activation lives on a surface the cloud
+  agent also loads; where the chosen surface is CLI-only, the plan records
+  which official source establishes that and the fixture is not owed.
 - **Watcher restart resumes from the durable seen-file cursor and gap-sweeps
   missed events without replay storms.** Proof: `repo-safe` — crash/restart,
   burst, ordering, duplicate, and cursor-advancement tests.

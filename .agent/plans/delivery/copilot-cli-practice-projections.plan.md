@@ -94,10 +94,21 @@ for the probe design, not proof about the installed CLI.
   tests, secret/path validators, and fresh-checkout integration.
 - **Instruction projections do not land until a supported-version clean CLI
   loads the repo-wide file and one positive path match while excluding one
-  negative path match; cloud-excluded fixtures must not reach a cloud-agent
-  prompt.** Proof: `repo-safe` — version and discovery fixtures plus manifest
-  totality; `owner-held` — the pre-landing local CLI probe. A failed or
-  unsupported probe leaves the generated projection untracked.
+  negative path match.** Proof: `repo-safe` — version and discovery fixtures
+  plus manifest totality; `owner-held` — the pre-landing local CLI probe. A
+  failed or unsupported probe leaves the generated projection untracked.
+- **Cloud-exclusion is emitted correctly, and is not claimed as cloud
+  BEHAVIOUR until a cloud-agent probe observes it.** The locally-provable half
+  is metadata correctness: every projection classified `cloud-excluded` emits
+  the exclusion marker its surface defines. Proof: `repo-safe` — disposition
+  and manifest-totality fixtures. The other half — that an excluded projection
+  does not reach a cloud-agent prompt — is a claim about a different execution
+  environment, and no local fixture or local CLI probe can establish it.
+  Proof: `owner-held` — a cloud-agent probe observing whether an excluded
+  fixture appears in a cloud job's context. Until that probe runs, the
+  repository states cloud-exclusion as emitted-and-unverified, never as
+  proven: a cloud-behaviour claim resting on local evidence is an assumption
+  transmitted as truth.
 - **Skill support is not promoted beyond `Partial` until a supported-version
   clean CLI reports the intended `.agents/skills` source and invokes a
   representative same-ID skill without `.claude/skills` shadowing it.** Proof:
