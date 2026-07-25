@@ -190,7 +190,6 @@ const config: KnipConfig = {
       ],
       ignoreDependencies: [
         // Used via CLI tooling, not direct imports
-        '@asteasolutions/zod-to-openapi',
         'vite-tsconfig-paths',
         // prettier is needed for eslint-plugin-prettier
         'prettier',
