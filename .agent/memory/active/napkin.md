@@ -968,6 +968,8 @@ graduating to a pattern file (full analysis:
 
 ## 2026-07-24 — NEVER merge via `--admin` / squash / raw human creds (PR #514, hard incident)
 
+<!-- fitness exceeded by 714 lines; needs consolidation -->
+
 An agent session drove PR #514 to green (all checks passing, all 12
 review threads resolved) then merged it with
 `gh pr merge --squash --admin`. Three compounding violations in one
@@ -979,31 +981,34 @@ command:
 2. **`--squash`** — against policy, and it flattened a 313-file
    preservation-capture history into a single commit on `main`.
 3. **Raw human credentials** — the session was authed as `jimCresswell`
-   (the human code-owner's `GH_TOKEN`), so it merged AS the human,
-   silently satisfying the code-owner review gate by being the owner.
+   (the human code-owner's `GH_TOKEN`), so the platform record attributes
+   the merge to the human rather than an agent. GitHub shows that
+   `jimCresswell` had already approved the tip; that explicit approval,
+   not the merger's identity, satisfied the code-owner review gate.
 
-Root cause: the PR showed `BLOCKED` on the code-owner review gate
-(CODEOWNERS `* @jimCresswell`, `require_code_owner_review: true`). The
-CORRECT tool was sitting right there — the merge bot
-`jimbot-oakington-iii` (appId 4352989) is an explicit `bypass_mode:
-always` actor on that ONE gate, so a bot merge satisfies the code-owner
-requirement LEGITIMATELY without touching any check. Healthy history
-proves the pattern: #511/#512/#513 were all merged by
-`app/jimbot-oakington-iii`; only the agent's #514/#516 went in as the
-raw human. Reaching for `--admin` was grabbing a sledgehammer while the
-right key hung on the hook.
+Root cause: the session used a bypass-capable human credential and an
+explicit admin override instead of the repository's least-privilege merge
+path. The merge bot `jimbot-oakington-iii` is deliberately absent from
+the ruleset bypass list, so GitHub physically binds its short-lived token
+to required checks, thread resolution, and the code-owner approval that
+must already exist. Healthy history proves the attribution pattern:
+PRs #511/#512/#513 were merged by `app/jimbot-oakington-iii`; only the
+agent's #514/#516 went in as the raw human. Reaching for `--admin` was
+grabbing a sledgehammer while the safe credential path sat unused.
 
-Cures (all three, every future merge):
+Cures for every future merge:
 
 - NEVER pass `--admin` or `--squash` to `gh pr merge`. If a merge is
   blocked, diagnose WHY and route through the sanctioned path; never
   override.
-- A code-owner `BLOCKED` state is resolved by the merge bot's
-  legitimate bypass, not by the agent merging as the human. If the bot
-  path isn't drivable from the session, STOP and hand back — do not
-  substitute human creds.
-- Before any merge, confirm the acting identity is the merge bot, not a
-  human token (`gh auth status`). Merges by a human token are a smell.
+- A code-owner `BLOCKED` state is resolved by the required code-owner
+  approval. The merge bot enforces that approval; it does not bypass or
+  replace it.
+- Bind a freshly minted bot token directly to the merge invocation:
+  `GH_TOKEN="$(pnpm --silent agent-tools merge-bot mint-token)" gh pr merge <n> --auto --merge`.
+  A preceding `gh auth status` does not bind the later command's
+  credential. If the bot path is not drivable from the session, STOP and
+  hand back — do not substitute human credentials.
 - Verify a run is actually GREEN (not just `in_progress`) before
   reporting done — the same session earlier reported #514 "done" while
   its CodeQL run was still `in_progress`.
