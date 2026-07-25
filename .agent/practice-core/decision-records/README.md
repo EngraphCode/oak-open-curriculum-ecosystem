@@ -256,3 +256,4 @@ Practice-Core concept ↔ ADR map):
 | [PDR-130](PDR-130-two-speed-learning.md) | Two-Speed Learning — Fast Lessons, Slow Concepts, Predictions on Both | Accepted |
 | [PDR-131](PDR-131-merge-concurrency-is-free-quality-binds-at-settled-ready.md) | Merge Concurrency Is Free — Quality Binds at Settled-READY | Accepted |
 | [PDR-132](PDR-132-changeset-health-round-budgets-bind-at-authoring-time.md) | Changeset Health — Round Budgets Bind at Authoring Time | Accepted |
+| [PDR-133](PDR-133-liveness-classes-and-platform-declaration.md) | Liveness Classes and the Platform Liveness Declaration | Proposed |

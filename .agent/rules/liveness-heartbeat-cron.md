@@ -28,6 +28,26 @@ This rule is the operational adoption point: it cites the contract +
 phenotype pair as authoritative and prescribes the team-cadence-shaped
 discipline that every participating agent runs.
 
+## The liveness classes this rule covers
+
+This rule governs the OUTGOING classes: `EMIT` in its emit-side
+sections, `REGISTRY` inside the canonical invocation, and `PROGRESS`
+in the heartbeat-only stall diagnostic. The three are mutually
+independent — each fails alone, and this rule's sections are the
+repo's operational home for all three. It does not, and cannot,
+certify that a peer's coordination reaches a seat — those are the
+incoming classes named in PDR-133 §2, none of which any check here
+touches. The class model, the reading rule (an observation is evidence
+only about the classes on the path it traversed, and about nothing
+else), the self-observation corollary, and the per-platform
+declaration obligation live in
+[PDR-133](../practice-core/decision-records/PDR-133-liveness-classes-and-platform-declaration.md),
+**currently Proposed pending owner ratification** — cite it as the
+model, and treat its obligations as binding once ratified. The
+autonomous-emitter warning below is the emit-side instance of the
+reading rule: a scheduling layer's green is evidence about the
+scheduler and nothing else.
+
 ## Trigger
 
 A team session is bootstrapping (`start-right-team` SKILL First Moves
@@ -45,8 +65,13 @@ authoritative source of substance.
 
 - Every active team member emits a heartbeat event at cadence ≤ 4
   minutes (PDR-078 §Emit-side).
-- Silence past the 10-minute threshold presumes retirement and fires
-  claim auto-rebalance (PDR-078 §Observe-side).
+- Silence past the 10-minute threshold marks a seat
+  **retired-pending-confirmation**: a soft signal that OPENS the
+  retirement protocol, never a verdict that closes it (PDR-078 §3).
+  Claim auto-rebalance fires only after the direct ping and the remote
+  work-evidence cross-check of §"Heartbeat-only stall diagnostic" have
+  both come back negative — see §"State thresholds" and §"Claim
+  auto-rebalance protocol on retirement" below.
 - The current repo phenotype (per ADR-186) emits heartbeats as comms
   events with `tags: ["heartbeat"]` per
   [ADR-183](../../docs/architecture/architectural-decisions/183-comms-event-tag-namespace-substrate.md)'s
@@ -163,7 +188,7 @@ the old lane as stalled and follow the direct-ping / takeover protocol.
 |---|---|---|
 | < 4 min | Active | None |
 | 4–10 min | Offline (transient) | None; assume resume imminent |
-| ≥ 10 min | Retired | Claim auto-rebalance fires |
+| ≥ 10 min | Retired-pending-confirmation — a soft signal opening a protocol, not a verdict (PDR-078 §3) | Claim auto-rebalance fires only after the direct ping ([`ping-before-escalate`](ping-before-escalate.md)) and the remote work-evidence cross-check in §"Heartbeat-only stall diagnostic" have both come back negative; the disposition steps are in §"Claim auto-rebalance protocol on retirement" |
 
 ### Heartbeat-only stall diagnostic
 
@@ -193,6 +218,13 @@ silently-retired peer, and not the watcher's own `<seen>.heartbeat.json`),
 groups by author identity, takes each peer's latest heartbeat, and classifies
 its age: `active` (<4 min) / `offline` (4–10 min) / `retired` (≥10 min),
 most-stale-first. It is read-only and needs no identity seed:
+
+**Vocabulary note.** The tool emits the bare label `retired` at the
+≥10-minute bucket, while this rule's state name for the same bucket is
+**retired-pending-confirmation** (§"State thresholds"). The label is the
+tool's age classification, not a retirement verdict; read it as the
+signal that opens the protocol, and do not carry the word `retired` from
+the tool's output into a broadcast as if it were a conclusion.
 
 ```bash
 pnpm agent-tools:collaboration-state -- comms peer-liveness \
@@ -349,6 +381,11 @@ bootstrap.
   ≥10 min threshold.
 - [`comms-all-channels-watcher`](comms-all-channels-watcher.md) — the
   incoming-visibility sibling.
+- [PDR-133](../practice-core/decision-records/PDR-133-liveness-classes-and-platform-declaration.md)
+  (Proposed) — the liveness class model this rule's `EMIT` / `REGISTRY`
+  / `PROGRESS` coverage sits inside, and the home of the reading rule,
+  the self-observation corollary, the two external instruments, the
+  absence conjunction, and the platform-declaration obligation.
 - [`start-right-team` SKILL First Moves move 2](../skills/start-right-team/SKILL-CANONICAL.md)
   — the thin-pointer host that names this rule's firing moment. The First
   Moves entry IS the trigger surface; removing it would make this rule
