@@ -60,7 +60,7 @@ Codex itself supports.
 | --- | --- |
 | Documented | Current official documentation explicitly assigns the mechanism to Codex CLI. |
 | Exposed | The installed `0.145.0` binary exposes the command, flag, or stable feature. |
-| Probed | A local, isolated invocation demonstrated the behavior. |
+| Probed | A local, isolated invocation demonstrated the behaviour. |
 | Repo-wired | A tracked repo adapter activates the mechanism; this is local state, not product evidence. |
 
 An installed feature flag is not sufficient evidence that a shared-product
@@ -85,7 +85,7 @@ uses **documented** rather than inventing one.
 
 ### 1. Deliberation, control, and steering
 
-| Mechanism | CLI behavior | Maturity / evidence |
+| Mechanism | CLI behaviour | Maturity / evidence |
 | --- | --- | --- |
 | Interactive agent thread | `codex [PROMPT]` starts a local agent loop in the selected working directory. | Documented; exposed |
 | Plan mode | `/plan` changes the active thread to planning mode and accepts an optional inline planning request. | Documented |
@@ -94,7 +94,7 @@ uses **documented** rather than inventing one.
 | Side chat | `/side` or `/btw` starts an ephemeral question without disrupting the main transcript. | Documented |
 | Compaction | `/compact` summarizes retained context to free context-window capacity; hook events exist before and after compaction. | Documented |
 | Model control | `--model` and `/model` select the active model; reasoning effort and response personality are separately configurable. | Documented |
-| Fast tier | `/fast` selects a catalog-provided fast service tier when the active model exposes one. | Stable feature; documented |
+| Fast tier | `/fast` selects a catalogue-provided fast service tier when the active model exposes one. | Stable feature; documented |
 | Review mode | `/review` or `codex review` starts a dedicated read-only reviewer for a base diff, commit, or uncommitted changes. | Stable command; documented |
 | Operator state | `/status`, `/usage`, `/debug-config`, `/ps`, and `/stop` expose session policy, usage, config, and background terminal state. | Documented |
 
@@ -104,7 +104,7 @@ policy and pauses when a decision remains necessary.
 
 ### 2. Context, instructions, and durable knowledge
 
-| Mechanism | CLI behavior | Maturity / evidence |
+| Mechanism | CLI behaviour | Maturity / evidence |
 | --- | --- | --- |
 | `AGENTS.md` | Codex walks from the project root to the current directory, layering applicable instruction files; closer files win. | Documented |
 | Skills | User, repository, administrator, system, and plugin skills are progressively disclosed and can be invoked explicitly with `$name` or selected through `/skills`. | Documented |
@@ -114,7 +114,7 @@ policy and pauses when a decision remains necessary.
 | Image inputs | `-i` / `--image` attaches one or more PNG/JPEG images to the initial prompt. | Documented; exposed |
 | Configuration layers | System, user, named profile, project, and CLI overrides compose with defined precedence. Project `.codex/` layers load only in trusted projects. | Documented |
 | Import | `/import` migrates supported Claude Code instructions, settings, skills, plugins, projects, chats, MCP setup, hooks, slash commands, and subagents. | Documented |
-| Custom prompts | Legacy custom prompt files remain a compatibility surface but are deprecated in favor of skills. | Deprecated |
+| Custom prompts | Legacy custom prompt files remain a compatibility surface but are deprecated in favour of skills. | Deprecated |
 
 Practice memory and native Codex memory solve different problems. Versioned
 Practice memory is team-visible and reviewable; Codex native memories are
@@ -123,7 +123,7 @@ other.
 
 ### 3. Local action and tool use
 
-| Mechanism | CLI behavior | Maturity / evidence |
+| Mechanism | CLI behaviour | Maturity / evidence |
 | --- | --- | --- |
 | Shell execution | The agent can run model-generated commands under the active sandbox and approval policy. | Stable feature; documented |
 | File changes | The agent can create and modify workspace files; `codex apply` applies the latest Codex cloud diff to a local Git tree. | Documented; exposed |
@@ -133,19 +133,19 @@ other.
 | MCP tools | Codex supports local STDIO and remote streamable-HTTP servers, bearer/OAuth/ChatGPT auth, server instructions, allow/deny lists, and per-tool approval modes. | Documented; exposed |
 | Apps / connectors | `/apps` browses available connectors and inserts an app reference into the prompt. App tool calls retain approval semantics for side effects. | Stable feature; documented |
 | Plugins | `/plugins` and `codex plugin` browse, install, enable, disable, and remove bundles containing skills, connectors/MCP servers, hooks, and other supported assets. | Stable feature; documented |
-| Tool suggestions | The installed runtime exposes stable tool-suggestion behavior. | Stable feature; exposed |
+| Tool suggestions | The installed runtime exposes stable tool-suggestion behaviour. | Stable feature; exposed |
 
 MCP and app tools are part of the agent's action space, but their external
-service authorization remains independent of Codex filesystem/network
+service authorisation remains independent of Codex filesystem/network
 permissions. A tool marked destructive requires approval even if it also
-advertises read-only behavior.
+advertises read-only behaviour.
 
 ### 4. Native multi-agent composition
 
-| Mechanism | CLI behavior | Maturity / evidence |
+| Mechanism | CLI behaviour | Maturity / evidence |
 | --- | --- | --- |
 | Subagent delegation | Codex can delegate explicitly or when instructions make delegation appropriate. | Stable feature; documented |
-| Built-in roles | `default`, `worker`, and `explorer` provide general, implementation, and read-oriented exploration behaviors. | Documented |
+| Built-in roles | `default`, `worker`, and `explorer` provide general, implementation, and read-oriented exploration behaviours. | Documented |
 | Project roles | `[agents.<name>]` entries in trusted project config load separate agent configuration files. | Documented; repo-wired |
 | Per-agent policy | Agent config may select model, reasoning, sandbox, MCP servers, skills, and developer instructions. | Documented |
 | Thread inspection | `/agent` / `/subagents` switches among active agent threads. | Documented |
@@ -154,7 +154,7 @@ advertises read-only behavior.
 
 Subagents inherit the parent session's approval boundary unless their
 configuration narrows it. Agent configuration is composition, not an
-authorization escape.
+authorisation escape.
 
 ### 5. Lifecycle hooks
 
@@ -184,7 +184,7 @@ Important semantics:
   trust choices;
 - hooks cover local function tools such as shell, patch, and MCP calls, but do
   not automatically cover hosted tools such as Web Search;
-- specialized execution paths can opt out, so a hook is not evidence of
+- specialised execution paths can opt out, so a hook is not evidence of
   universal interception without a path-specific probe.
 
 #### Live `0.145.0` hook probes
@@ -224,7 +224,7 @@ failure mode. Those remain separate integration tests.
 
 ### 6. Sandboxing, approvals, and executable policy
 
-| Mechanism | CLI behavior | Maturity / evidence |
+| Mechanism | CLI behaviour | Maturity / evidence |
 | --- | --- | --- |
 | Sandbox modes | `read-only`, `workspace-write`, and `danger-full-access` define filesystem/network enforcement for model-generated commands. | Stable CLI surface |
 | Approval policy | `untrusted`, `on-request`, `never`, and granular approval categories determine when an action needs review. | Documented; exposed |
@@ -234,7 +234,7 @@ failure mode. Those remain separate integration tests.
 | Executable rules | `.rules` files classify command prefixes as allow, prompt, or forbidden; the most restrictive matching result wins. | Experimental command/policy surface |
 | Network proxy | Optional domain and socket policy constrains command network access when network access is already enabled. | Experimental feature |
 | MCP/app approvals | Tool annotations and configured approval modes govern external side effects; destructive annotations force review. | Documented |
-| Managed requirements | Organization policy can restrict models, features, sandbox modes, approval reviewers, MCP, skills, and hooks. | Documented |
+| Managed requirements | Organisation policy can restrict models, features, sandbox modes, approval reviewers, MCP, skills, and hooks. | Documented |
 
 Automatic review changes who evaluates an escalation; it does not widen the
 sandbox. Critical-risk actions are denied, failures fail closed, and repeated
@@ -247,7 +247,7 @@ passed, Codex uses that model rather than composing it with
 
 ### 7. Session lifecycle and persistence
 
-| Mechanism | CLI behavior | Maturity / evidence |
+| Mechanism | CLI behaviour | Maturity / evidence |
 | --- | --- | --- |
 | New thread | `/new` starts a fresh chat without leaving the TUI. | Documented |
 | Resume | `/resume`, `codex resume`, and `codex exec resume` continue saved work. | Stable command; documented |
@@ -263,7 +263,7 @@ is destructive.
 
 ### 8. Non-interactive and programmatic composition
 
-| Mechanism | CLI behavior | Maturity / evidence |
+| Mechanism | CLI behaviour | Maturity / evidence |
 | --- | --- | --- |
 | `codex exec` | Runs a non-interactive agent, accepts prompt or stdin, uses explicit policy, and can resume earlier sessions. | Stable |
 | Automation isolation | `--ephemeral`, `--ignore-user-config`, `--ignore-rules`, required MCP servers, and the Git-repository check let automation fail closed around selected ambient state. | Documented |
@@ -285,7 +285,7 @@ orchestration.
 
 ### 9. Observation and operator feedback
 
-| Mechanism | CLI behavior | Maturity / evidence |
+| Mechanism | CLI behaviour | Maturity / evidence |
 | --- | --- | --- |
 | JSONL stream | `codex exec --json` provides machine-readable lifecycle and tool events. | Stable documented interface |
 | OpenTelemetry | Opt-in `[otel]` configuration exports API, stream, prompt, approval, and tool result events. | Documented; disabled by default |
@@ -301,7 +301,7 @@ Provider, `notify`, and `otel` settings are deliberately user-level.
 
 ### 10. Model, provider, and runtime selection
 
-| Mechanism | CLI behavior | Maturity / evidence |
+| Mechanism | CLI behaviour | Maturity / evidence |
 | --- | --- | --- |
 | OpenAI / ChatGPT auth | Interactive login, access-token login, and API-key automation are supported with different persistence rules. | Documented |
 | Model and effort | CLI flags, config, profiles, and in-session commands select model, reasoning effort, verbosity, and review model. | Documented |
@@ -349,7 +349,7 @@ The installed binary labels these experimental:
 The hidden `codex execpolicy` command is also documented as experimental even
 though `codex execpolicy --help` is callable in `0.145.0`.
 
-### Stable enabled flags relevant to agent behavior
+### Stable enabled flags relevant to agent behaviour
 
 The installed feature registry reports these stable and enabled:
 
@@ -370,7 +370,7 @@ available in the CLI. `network_proxy` is experimental and disabled.
 | Subagents | `.codex/config.toml` registers `.codex/agents/*.toml`. | The shared core + thin adapter architecture is already valid here. |
 | Hooks | `.codex/config.toml` enables `hooks` and registers a `SessionStart` identity adapter. | Hooks are repo-wired, but only identity context is activated on Codex today. |
 | MCP | Two trusted-project remote MCP servers are configured in `.codex/config.toml`. | MCP is project-configurable, not only plugin/user-local. |
-| Sandbox | Project config selects `workspace-write` and enables command network access. | Repo policy deliberately widens a stricter user baseline; document that trust boundary. |
+| Sandbox | Project config selects `workspace-write` and enables command network access. | This is tracked project policy; the effective policy still follows Codex configuration precedence and managed requirements. |
 | Native rules | No project execpolicy `.rules` activation is recorded. | Do not describe `.agents/rules/` as a native Codex rule scanner. |
 | Native memories | No repo-owned native memory policy is recorded. | Practice memory remains the durable team surface. |
 | Plugins/apps | No repo plugin manifest is required for the current Practice adapters. | Treat installed plugins as a separate distribution/extension channel. |
@@ -401,7 +401,7 @@ The official-source pass found these documentation defects:
 
 This changeset corrects items 3–8 in non-overlapping files. The matrix and
 ADR-125 in items 1–2 have a separate active writer and must be updated only
-after that changeset lands.
+after MCP-150 / PR #529 lands.
 
 ## Consequences for the next enforcement vertical
 
@@ -420,7 +420,7 @@ prerequisite for the planned Codex enforcement vertical:
 - test block, allow, malformed-input, missing-build, and rewrite semantics
   against pinned Codex hook fixtures;
 - keep hook trust and project trust visible;
-- do not claim coverage for Web Search or other hosted/specialized paths
+- do not claim coverage for Web Search or other hosted/specialised paths
   without separate proof.
 
 Implementation is deliberately outside this research changeset.
@@ -468,7 +468,7 @@ Do not edit old capability rows from memory.
    commit.
 3. Re-fetch the official manual and named pages.
 4. Run `codex --help`, relevant subcommand help, and `codex features list`.
-5. Re-run isolated probes for behavior the Practice relies on.
+5. Re-run isolated probes for behaviour the Practice relies on.
 6. Reconcile the report against tracked project config.
 7. Update the evidence date, version, source pin, maturity labels, exclusions,
    and local adapter mapping together.

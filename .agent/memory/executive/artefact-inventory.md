@@ -8,16 +8,8 @@ split_strategy: "Keep concise; this is a reference extracted from AGENT.md"
 
 # Agent Artefact Inventory
 
-For the full architecture, see
-[ADR-125 (Agent Artefact
-Portability)](../../../docs/architecture/architectural-decisions/125-agent-artefact-portability.md).
-For the live platform support matrix, see
-[cross-platform-agent-surface-matrix.md][matrix].
-For the version-pinned Codex product surface, see the
-[Codex CLI capability catalogue][codex-catalogue].
-
-[matrix]: ./cross-platform-agent-surface-matrix.md
-[codex-catalogue]: ../../reports/agentic-engineering/codex-cli-agentic-capability-catalogue-2026-07-25.md
+See [ADR-125](../../../docs/architecture/architectural-decisions/125-agent-artefact-portability.md),
+and the [cross-platform matrix](./cross-platform-agent-surface-matrix.md).
 
 ## Canonical Content (Layer 1)
 
@@ -56,18 +48,16 @@ boundary is ADR-165.
 | Skills | reads `.agents/skills/` | `.claude/skills/oak-*/SKILL.md` | `.agents/skills/oak-*/SKILL.md` | reads `.agents/skills/` |
 | Rules | `.cursor/rules/*.mdc` | `.claude/rules/*.md` | entry-point chain; native `.rules` unwired | entry-point chain only |
 | Sub-agents | `.cursor/agents/*.md` | `.claude/agents/*.md` | `.codex/agents/*.toml` | transitional review commands; native agents unwired |
-| Hooks | no policy activation | `.claude/settings.json` `PreToolUse` | `.codex/config.toml` `SessionStart` | upstream support; no project hook wired |
+| Hooks | no policy activation | `.claude/settings.json` `PreToolUse` | `.codex/config.toml` identity-only `SessionStart` | upstream support; no project hook wired |
 | MCP | user-local | user-local | `.codex/config.toml` `[mcp_servers]` | upstream support; no project MCP wired |
 
-Platform adapters are thin pointers. Canonical content lives under
-`.agent/`; adapters preserve platform activation semantics without copying
-substance. Claude Code keeps tracked system policy in `.claude/settings.json`;
+Platform adapters are thin pointers to canonical content under `.agent/`;
+they preserve platform activation semantics without copying substance.
+Claude Code keeps tracked system policy in `.claude/settings.json`;
 `.claude/settings.local.json` is gitignored user-local override state.
 Gemini / Antigravity CLI has native plugin surfaces for skills, agents, rules,
 MCP definitions, and hooks, but the repo currently wires only the entrypoint
 chain, portable skills, and transitional review commands.
-Codex's tracked hook is a soft identity adapter, not activation of the
-canonical command/content guard.
 
 ## How to Create New Artefacts
 

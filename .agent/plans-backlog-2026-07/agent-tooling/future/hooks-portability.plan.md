@@ -63,7 +63,7 @@ a prerequisite for basic hook adoption.
 Complete the existing shared-core/thin-vendor-adapter model:
 
 ```text
-.agent/hooks/policy.json                 # Canonical behavior and reappraisals
+.agent/hooks/policy.json                 # Canonical behaviour and reappraisals
 agent-tools/src/hook-policy/             # Shared typed policy/runtime core
 
 .claude/settings.json                    # Native activation and matcher
@@ -89,21 +89,9 @@ the vendor.
 
 ### Thin vendor adapters
 
-Each adapter owns only:
-
-- its vendor's strict accepted input schemas;
-- translation into canonical input;
-- translation of the canonical verdict into native stdout/exit semantics;
-- project-root discovery and invocation of the prebuilt shared runtime;
-- observable missing-build and malformed-input behavior.
-
-Multiple supported schemas are explicit alternatives. Exactly one schema must
-match. Zero or multiple matches fail closed; the dispatcher never guesses a
-vendor or accepts a permissive union which accidentally treats malformed input
-as a different vendor. A successfully dispatched write request loads one
-validated policy snapshot and receives exactly one canonical policy evaluation
-before the matched adapter renders the native response. No adapter may create a
-second policy implementation or a pass-through route.
+The interim binding adapter and dispatcher contract lives in
+[Agent Hook Policy §Porting to Native Activation](../../../hooks/README.md#porting-to-native-activation).
+This plan sequences delivery and evidence; it does not restate that contract.
 
 Platform-specific hook types and hosted-tool gaps remain in native config and
 tests. They do not inflate the shared core into a lowest-common-denominator
@@ -117,7 +105,7 @@ framework.
 | Content guard | `PreToolUse` edit/patch | Canonical core + Claude adapter | Codex tool-schema adapters over the same core |
 | Session identity | `SessionStart` | Claude and Codex thin adapters | Keep soft; improve only from observed failures |
 | Hook failure capture | Adapter/runtime boundary | Claude logging exists | Equivalent observable Codex failure record |
-| Other lifecycle behavior | Other native events | Not promoted by this plan | Separate evidence and value case first |
+| Other lifecycle behaviour | Other native events | Not promoted by this plan | Separate evidence and value case first |
 
 ## Open Questions
 
@@ -155,7 +143,7 @@ framework.
 - Add schema routing with tested zero-match and multiple-match failures
 - Translate supported inputs into the existing canonical command/content core
 - Unit-test allow, block, malformed, ambiguous, no-match, and evaluation-count
-  behavior
+  behaviour
 
 ### Phase 2: Codex activation and integration proof
 
@@ -178,7 +166,7 @@ framework.
 | --- | --- |
 | Input schemas drift | Pin fixtures to the CLI release; reject unknown schemas and refresh on upgrade |
 | Hooks slow down agent workflow | Keep hooks fast (< 1s); use async where supported |
-| Vendor schemas differ | Keep strict thin adapters; require exactly one schema match and fail closed for zero or multiple matches |
+| Vendor schemas differ | Follow the canonical hook contract; pin each native schema to observed fixtures |
 | A feature flag is mistaken for CLI coverage | Require official surface docs plus an installed-runtime probe for each relied-on path |
 | Codex hosted tools bypass local hook dispatch | Claim coverage only for probed local function-tool paths |
 | Tool names differ | Keep matchers and tool-name translation in the vendor adapter |
@@ -189,12 +177,12 @@ framework.
 - Codex capability probe — complete in the version-pinned 2026-07-25 catalogue
 - Repo-local enforcement beyond Claude Code `PreToolUse` — requires
   implementation, integration tests, and matrix updates
-- Shared matrix / ADR-125 sequencing — apply only after the active Copilot
-  documentation changeset lands
+- Shared matrix / ADR-125 sequencing — apply only after MCP-150 / PR #529
+  lands
 
 ## Non-Goals
 
 - Replacing Cursor's activation triggers (`.mdc` rules) with hooks — triggers and hooks serve different purposes
 - Creating a universal hook abstraction layer — the thin-wrapper pattern is sufficient
-- Treating hosted Web Search or specialized execution paths as guarded without
+- Treating hosted Web Search or specialised execution paths as guarded without
   direct evidence

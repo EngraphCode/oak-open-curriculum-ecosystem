@@ -8,9 +8,8 @@ additional composition boundaries: the Codex SDK, stable
 `codex mcp-server`, and experimental App Server. The preference for
 `codex exec` as the smallest scripted boundary remains.
 **Related**:
-ADR-125 (`125-skill-canonicalisation-and-adapter-topology.md`) — skill
-canonicalisation; the `codex-helper` skill and its adapters are generated
-under ADR-125 conventions;
+[ADR-125](125-agent-artefact-portability.md) — agent artefact portability;
+the `codex-helper` skill and its adapters follow ADR-125 conventions;
 [ADR-178](178-agent-tools-build-isolation.md) — agent-tools build isolation;
 the `codex-exec` CLI topic follows the build/dist discipline established there.
 
@@ -122,7 +121,7 @@ the templates.
 - JSONL extraction and timeout handling are tested TypeScript rather than
   fragile shell one-liners.
 - The upstream JSONL event stream and output-schema flag are now documented
-  public CLI behavior; the local extractor still protects consumers from raw
+  public CLI behaviour; the local extractor still protects consumers from raw
   event plumbing.
 - The default `read-only` sandbox enforces least-privilege; violations are
   explicit opt-ins.
@@ -146,8 +145,11 @@ the templates.
 
 ## Alternatives Considered
 
-**Use only the MCP server**: rejected because it provides no streaming, no
-timeout, and no cross-platform abstraction for JSONL extraction.
+**Use only the legacy/external MCP wrapper (`mcp__codex__codex`)**: rejected
+for local scripted delegation because that wrapper integration provides no
+streaming, timeout control, or cross-platform abstraction for JSONL
+extraction. Native `codex mcp-server` remains a supported choice when an MCP
+orchestrator intentionally owns delegation and continuation.
 
 **Raw shell with `jq` and `timeout`**: rejected because `timeout` is absent
 on macOS, `jq` field paths are fragile against API evolution, and shell logic

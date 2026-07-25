@@ -158,18 +158,17 @@ case (loudly, as above) and fail **closed** whenever a built guard misbehaves.
 | --- | --- | --- |
 | Claude Code | Native lifecycle hooks | `PreToolUse` command/content guards in tracked `.claude/settings.json` |
 | Codex CLI | Stable lifecycle hooks | Soft `SessionStart` identity context in tracked `.codex/config.toml` |
-| Cursor | Not reassessed in this Codex research pass | No canonical policy activation |
-| Gemini / Antigravity CLI | Not reassessed in this Codex research pass | No canonical policy activation |
-| GitHub Copilot CLI | Not reassessed in this Codex research pass | No canonical policy activation |
+| Cursor | Not reassessed in this Codex research pass as of 2026-07-25 | No canonical policy activation |
+| Gemini / Antigravity CLI | Not reassessed in this Codex research pass as of 2026-07-25 | No canonical policy activation |
+| GitHub Copilot CLI | Not reassessed in this Codex research pass as of 2026-07-25 | No canonical policy activation |
 
 See `.agent/memory/executive/cross-platform-agent-surface-matrix.md` for the
-full local support status and the
-[Codex CLI capability catalogue](../reports/agentic-engineering/codex-cli-agentic-capability-catalogue-2026-07-25.md)
-for the version-pinned Codex product surface.
+full local support status.
 
-Codex CLI `0.145.0` documents `SessionStart`, `SessionEnd`,
-`SubagentStart`, `SubagentStop`, `PreToolUse`, `PermissionRequest`,
-`PostToolUse`, `PreCompact`, `PostCompact`, `UserPromptSubmit`, and `Stop`.
+Codex CLI `0.145.0` documents stable session, subagent, tool/approval,
+compaction, prompt, and stop lifecycle families. The version-pinned event list
+and evidence boundary live in the
+[Codex CLI capability catalogue](../reports/agentic-engineering/codex-cli-agentic-capability-catalogue-2026-07-25.md).
 Availability upstream is not activation here. In particular, hosted tools such
 as Web Search are outside the general local-function hook path.
 
@@ -189,7 +188,7 @@ When wiring hooks for a platform:
 
 1. Read `policy.json` for the canonical policy
 2. Create thin native activation in the platform config directory
-3. Normalize the vendor payload in a thin adapter; require exactly one
+3. Normalise the vendor payload in a thin adapter; require exactly one
    supported schema match and fail closed for zero or multiple matches
 4. Reuse the workspace-owned runtime rather than duplicating policy
 5. Evaluate each successfully dispatched write exactly once; do not add a

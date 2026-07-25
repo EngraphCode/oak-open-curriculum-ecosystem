@@ -21,14 +21,12 @@ tracked Oak activation.
 | Subagents       | `[agents]` in `config.toml` → `agents/*.toml`     | Project roles with separate model, policy, and developer instructions                |
 | Hooks           | `[features].hooks` plus `[[hooks.SessionStart]]`  | Trusted-project identity context only; canonical `PreToolUse` guard is not yet wired |
 | MCP             | `[mcp_servers.*]` in `config.toml`                | Two project-scoped remote servers with OAuth and write approval                      |
-| Sandbox         | `sandbox_mode = "workspace-write"`                | Project opt-in over a stricter user baseline                                         |
+| Sandbox         | `sandbox_mode = "workspace-write"`                | Tracked project policy; effective policy still follows Codex precedence              |
 | Command network | `[sandbox_workspace_write].network_access = true` | Enabled for commands inside the active sandbox policy                                |
 
-This is not the complete Codex CLI capability set. Codex also supports native
-session lifecycle, goals, memories, plugins, apps, executable rules, web
-search, image inputs/generation, non-interactive execution, SDK/App Server
-composition, and observability. Those are catalogued separately because most
-are runtime or user-level capabilities rather than repo adapters.
+This is not the complete Codex CLI capability set. The
+[capability catalogue][catalogue] records the broader runtime and user-level
+surface, its evidence grades, and explicit CLI exclusions.
 
 ## Authority and trust
 
@@ -42,10 +40,10 @@ The authority order in this repo is:
 1. canonical Practice policy and content under `.agent/`;
 2. tracked project activation under `.codex/` and `.agents/`;
 3. user and managed Codex configuration, where OpenAI's config precedence and
-   organizational requirements apply;
+   organisational requirements apply;
 4. explanatory mirrors such as this README.
 
-Project adapters may activate canonical behavior. They must not become a
+Project adapters may activate canonical behaviour. They must not become a
 second copy of its substance.
 
 ## Skills and custom workflows
@@ -143,7 +141,7 @@ has activated each event. See [Codex hooks][hooks] and the canonical
 The two `[mcp_servers]` entries in `config.toml` are project-scoped remote MCP
 connections. Codex can also load user or plugin MCP servers and supports STDIO
 and streamable HTTP transports. Server authentication and external-service
-authorization remain separate from the local sandbox.
+authorisation remain separate from the local sandbox.
 
 Use `codex mcp list` or `/mcp` to inspect effective servers. Do not infer the
 effective tool inventory from this file alone because higher-authority managed

@@ -299,9 +299,9 @@ command hooks receive JSON on stdin, including `session_id`, and
 
 Project hooks load only for a trusted project and have their own trust review.
 Use `/hooks` to inspect the effective hook set and approve changed project
-hooks. The repo activates only this identity `SessionStart` adapter even though
-Codex supports additional session, subagent, tool, approval, compaction,
-prompt, and stop lifecycle events.
+hooks. The repo activates only this identity `SessionStart` adapter. The
+[Codex CLI capability catalogue](../../.agent/reports/agentic-engineering/codex-cli-agentic-capability-catalogue-2026-07-25.md)
+records the broader lifecycle surface.
 
 The wiring is:
 
