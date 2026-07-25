@@ -20,13 +20,14 @@ and thin native activation lives in platform config.
   `agent-tools/dist/src/hook-policy/check-blocked-content.js`; blocks the
   path-agnostic owner-approval marker and path-scoped doctrine block groups
   (see "Content guard: concept-grouped doctrine blocks" below)
-- `sessionStart` — natively activated for Codex through the thin
-  `.codex/hooks/practice-session-identity.mjs` adapter; it injects Practice
-  identity context and remains soft/fail-open
+- Codex identity context — a separate native `SessionStart` surface activated
+  through the thin `.codex/hooks/practice-session-identity.mjs` adapter; it
+  injects the PDR-027 identity block and remains soft/fail-open
 - `preCommit` — documented policy only; quality-gate reminders already
   live in the workflow and review surfaces
 
-The Codex `SessionStart` activation does **not** enforce the canonical
+The Codex identity hook does **not** activate the canonical `sessionStart`
+grounding reminder in `policy.json`, and it does not enforce the canonical
 destructive-command or content policy. Those guards remain Claude Code
 `PreToolUse` activations until the Codex enforcement vertical is implemented
 and verified.

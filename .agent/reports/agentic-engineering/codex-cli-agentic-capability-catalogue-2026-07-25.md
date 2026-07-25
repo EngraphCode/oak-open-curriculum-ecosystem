@@ -92,7 +92,7 @@ uses **documented** rather than inventing one.
 | Persistent goal | `/goal` sets completion criteria; the goal can be viewed, edited, paused, resumed, or cleared. Codex continues automatically while the goal remains active. | Stable feature; documented |
 | Mid-run steering | Follow-up prompts can steer the same session; slash commands typed during a run can be queued for the next turn. | Documented |
 | Side chat | `/side` or `/btw` starts an ephemeral question without disrupting the main transcript. | Documented |
-| Compaction | `/compact` summarizes retained context to free context-window capacity; hook events exist before and after compaction. | Documented |
+| Compaction | `/compact` summarises retained context to free context-window capacity; hook events exist before and after compaction. | Documented |
 | Model control | `--model` and `/model` select the active model; reasoning effort and response personality are separately configurable. | Documented |
 | Fast tier | `/fast` selects a catalogue-provided fast service tier when the active model exposes one. | Stable feature; documented |
 | Review mode | `/review` or `codex review` starts a dedicated read-only reviewer for a base diff, commit, or uncommitted changes. | Stable command; documented |
@@ -118,7 +118,7 @@ policy and pauses when a decision remains necessary.
 
 Practice memory and native Codex memory solve different problems. Versioned
 Practice memory is team-visible and reviewable; Codex native memories are
-host-local personalization/context. One should not silently substitute for the
+host-local personalisation/context. One should not silently substitute for the
 other.
 
 ### 3. Local action and tool use
@@ -218,6 +218,75 @@ new temporary text file. The transcript reported `PreToolUse` before
 The requested file contained the exact expected line after the hook completed.
 This proves installed-runtime dispatch for both shell and `apply_patch` without
 relying on repo hook configuration.
+
+The following is the complete replay recipe used for those claims, normalised
+only by replacing the original ephemeral directory with `PROBE_DIR`. It creates
+the recorder, supplies the hook configuration and prompts, and asserts the
+recorded events and patch content. The hook-trust bypass is appropriate only
+because this is a disposable directory with a recorder created in the same
+recipe.
+
+```sh
+PROBE_DIR="$(mktemp -d)"
+
+cat > "$PROBE_DIR/record_hook.py" <<'PY'
+import json
+import pathlib
+import sys
+
+event = json.load(sys.stdin)
+marker = pathlib.Path(__file__).with_name("hook-events.jsonl")
+with marker.open("a", encoding="utf-8") as stream:
+    stream.write(json.dumps(event, sort_keys=True) + "\n")
+PY
+```
+
+Run the shell probe:
+
+```sh
+codex exec --ephemeral --skip-git-repo-check -C "$PROBE_DIR" \
+  -s read-only --dangerously-bypass-hook-trust --enable hooks \
+  -c 'approval_policy="never"' \
+  -c "hooks.SessionStart=[{hooks=[{type=\"command\",command=\"python3 $PROBE_DIR/record_hook.py\"}]}]" \
+  -c "hooks.PreToolUse=[{matcher=\"^Bash$\",hooks=[{type=\"command\",command=\"python3 $PROBE_DIR/record_hook.py\"}]}]" \
+  'Use the Bash tool exactly once to run pwd. Then reply with only done.'
+
+jq -se '
+  any(.[]; .hook_event_name == "SessionStart") and
+  any(.[];
+    .hook_event_name == "PreToolUse" and
+    .tool_name == "Bash" and
+    .tool_input.command == "pwd"
+  )
+' "$PROBE_DIR/hook-events.jsonl"
+```
+
+The command transcript must contain `hook: SessionStart Completed` and
+`hook: PreToolUse Completed`; the `jq` assertion must return `true`. Clear the
+event log, then run the patch probe:
+
+```sh
+: > "$PROBE_DIR/hook-events.jsonl"
+
+codex exec --ephemeral --skip-git-repo-check -C "$PROBE_DIR" \
+  --sandbox workspace-write --dangerously-bypass-hook-trust --enable hooks \
+  -c "hooks.PreToolUse=[{matcher=\"^apply_patch$\",hooks=[{type=\"command\",command=\"python3 $PROBE_DIR/record_hook.py\",timeout=10,statusMessage=\"Recording apply_patch\"}]}]" \
+  'Use the apply_patch tool, not shell redirection or another write mechanism, to create probe-result.txt containing exactly: apply_patch hook probe succeeded. Then report done.'
+
+jq -se '
+  any(.[];
+    .hook_event_name == "PreToolUse" and
+    .tool_name == "apply_patch" and
+    (.tool_input.command | contains("*** Add File: probe-result.txt"))
+  )
+' "$PROBE_DIR/hook-events.jsonl"
+
+test "$(sed -n '1p' "$PROBE_DIR/probe-result.txt")" = \
+  "apply_patch hook probe succeeded."
+```
+
+The patch transcript must place `hook: PreToolUse Completed` before
+`patch: completed`; both final assertions must succeed.
 
 The probes do not prove every event, rewrite path, MCP tool, hosted tool, or
 failure mode. Those remain separate integration tests.
