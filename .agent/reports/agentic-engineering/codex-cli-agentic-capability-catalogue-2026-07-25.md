@@ -351,7 +351,8 @@ passed, Codex uses that model rather than composing it with
 | Delete | `/delete` or `codex delete` permanently removes a session and descendants. | Stable command; exposed |
 | Ephemeral automation | `codex exec --ephemeral` avoids persisting rollout/session files. | Documented |
 | Compaction | Manual and lifecycle-triggered compaction reduce retained context while preserving a summary. | Documented |
-| Local history | Codex stores configured history, session state, logs, caches, and auth under the Codex home. | Documented |
+| Local state | Codex stores configured history, session state, logs, and caches under the Codex home. | Documented |
+| CLI authentication credentials | `cli_auth_credentials_store = "file"` stores credentials in `$CODEX_HOME/auth.json`; `keyring` uses the operating-system credential store; `auto` prefers the keyring and falls back to the file. | Documented; pinned source |
 
 Archive and delete are not synonyms: archive preserves the transcript; delete
 is destructive.
@@ -505,8 +506,11 @@ The official-source pass found these documentation defects:
     transitional reviewer commands as a general workflow surface;
 13. the matrix's Policy Spine omits tracked Cursor identity activation, while
     its Notes freeze obsolete skill and rule counts.
+14. the catalogue's session-persistence row incorrectly says authentication
+    credentials are always stored under the Codex home, although Codex also
+    supports operating-system-keyring and automatic credential-store modes.
 
-This changeset corrects items 1, 3–10, and 12–13. Item 11 is a
+This changeset corrects items 1, 3–10, and 12–14. Item 11 is a
 reference-inventory incompleteness rather than a false claim and remains
 recorded here as follow-on work under MCP-159; the owner-bounded matrix
 reconciliation does not widen into Claude/Cursor inventory work. The changeset
