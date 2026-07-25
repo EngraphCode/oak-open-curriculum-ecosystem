@@ -4,9 +4,9 @@ import {
   buildPreToolUseDenyResponse,
   extractBashCommand,
   findBlockedPattern,
-  parseBlockedPatternPolicy,
-  parseHookInput,
-} from './check-blocked-patterns.js';
+} from './blocked-patterns.js';
+import { parseHookInput } from './hook-input.js';
+import { parseBlockedPatternPolicy } from './policy-loader.js';
 
 describe('findBlockedPattern', () => {
   it('matches dangerous git flags even when arguments appear between tokens', () => {
@@ -152,6 +152,17 @@ describe('findBlockedPattern', () => {
 });
 
 describe('extractBashCommand', () => {
+  it('prefers tool_input over every legacy container when both carry a command', () => {
+    const hookInput = {
+      tool_input: { command: 'from-tool-input' },
+      toolInput: { command: 'from-camel-case' },
+      command: 'from-flattened-root',
+      parameters: { command: 'from-parameters' },
+    };
+
+    expect(extractBashCommand(hookInput)).toBe('from-tool-input');
+  });
+
   it('returns the Bash command from Claude hook input', () => {
     const hookInput = {
       tool_name: 'Bash',

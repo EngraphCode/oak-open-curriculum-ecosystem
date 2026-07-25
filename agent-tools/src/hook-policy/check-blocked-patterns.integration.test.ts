@@ -1,16 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import { z } from 'zod';
 
-import {
-  buildPreToolUseDenyResponse,
-  findBlockedPattern,
-  loadBlockedPatterns,
-  runPreToolUseGuard,
-} from './check-blocked-patterns.js';
-import { loadRawPolicyJson } from './policy-loader.js';
+import { buildPreToolUseDenyResponse, findBlockedPattern } from './blocked-patterns.js';
+import { loadBlockedPatterns, loadRawPolicyJson } from './policy-loader.js';
+import { runPreToolUseDispatch } from './pre-tool-use-dispatch.js';
 import { BLOCKED_PATTERN_MATCH_KINDS } from './types.js';
 
-describe('runPreToolUseGuard', () => {
+describe('runPreToolUseDispatch', () => {
   it('writes a deny payload when the command matches a blocked pattern', async () => {
     const stdout: string[] = [];
     const stderr: string[] = [];
@@ -27,7 +23,7 @@ describe('runPreToolUseGuard', () => {
     }
 
     await expect(
-      runPreToolUseGuard({
+      runPreToolUseDispatch({
         stdin: stdin(),
         stdout: {
           write(text: string) {
@@ -39,7 +35,7 @@ describe('runPreToolUseGuard', () => {
             stderr.push(text);
           },
         },
-        blockedPatterns: ['git --no-verify'],
+        bashPatterns: ['git --no-verify'],
       }),
     ).resolves.toStrictEqual({ exitCode: 0 });
 
