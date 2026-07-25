@@ -34,11 +34,12 @@
   state it cites, and the target architecture derived from them — not for
   platform behaviour it has neither observed nor cited.
 - **Non-goals and what this report does not authorise:** Copilot
-  coding-agent/cloud execution, hosted bridges, cross-machine routing, and a
-  separate Codex delivery programme are outside scope. The report authorises no
-  runtime delivery — mechanism and execution belong to the controlling plan and
-  MCP-150, MCP-154, MCP-155, and MCP-156 — and no target here turns a missing
-  runtime path green.
+  coding-agent/cloud-execution-specific delivery, hosted bridges, cross-machine
+  routing, and a separate Codex delivery programme are outside scope; shared
+  repository projections still target parity across local and cloud Copilot.
+  The report authorises no runtime delivery — mechanism and execution belong to
+  the controlling plan and MCP-150, MCP-154, MCP-155, and MCP-156 — and no
+  target here turns a missing runtime path green.
 - **What a successful review is:** each finding is checked against its evidence
   label and the target-versus-wired split, and any mislabelled claim,
   unsupported platform assertion, or scope leak past the local-CLI boundary is
@@ -63,8 +64,10 @@ policy implementation **[I]**.
 
 This report is intentionally limited to the CLI process running locally,
 alongside local Claude and Codex seats. GitHub Copilot coding-agent/cloud
-execution, hosted bridges, cross-machine routing, and a separate Codex delivery
-programme are outside the ratified scope.
+execution-specific delivery, hosted bridges, cross-machine routing, and a
+separate Codex delivery programme are outside the ratified scope. Shared
+repository instructions and capabilities still target parity across local and
+cloud Copilot wherever the same projection is consumed.
 
 ## What first-class means
 
@@ -189,13 +192,13 @@ The existing `.github/copilot-instructions.md` is a Markdown link to
 documents the repo-wide instruction file and recursive path-specific files
 under `.github/instructions/**/*.instructions.md` **[D]**.
 
-The repo-wide file should be a bounded generated projection from the total
-disposition manifest over the live canonical rule set. It must not import
-`AGENT.md`: that entry point tells non-loader platforms to read every rule in
-`RULES_INDEX.md`, which would reintroduce path-projected and excluded rules and
-bypass the manifest. Each rule is classified repo-wide, path-projected, or
-excluded with a reason. Path-scoped projections are generated separately and
-require valid `applyTo` metadata and tests for positive, negative, recursive,
+The repo-wide file should import `AGENT.md`, intentionally giving both local
+Copilot CLI and Copilot cloud agent the same canonical rule set as every other
+agent. Each rule is also classified repo-wide, path-projected, or excluded
+with a reason for the separate modular-projection decision. Those labels do not
+filter canonical rule inclusion: they decide only whether an additional
+path-scoped contextual copy is useful. Path-scoped projections require valid
+`applyTo` metadata and tests for positive, negative, recursive,
 comma-separated, and simultaneous-match behaviour. They
 must not copy the full rule corpus or use `@` imports, which GitHub does not
 expand inside modular instruction bodies **[D][I]**. Because GitHub repository
@@ -213,10 +216,18 @@ always remains in scope, and a projection carrying
 `excludeAgent: "cloud-agent"` is still read by Copilot code review. That
 residual exposure is a dated fact about the platform rather than a defect in
 this repository's generator, so no `.github` instruction projection can be
-described as local-only, and content that must reach neither surface stays in
-`.agent/` instead of being projected at all **[D][I]**. The capability claim is
-pinned to the 2026-07-25 documentation and expires; re-check the current
-official source before relying on it **[D]**.
+described as local-only. The marker controls only the supplemental modular copy;
+the canonical rule and its behaviour still reach local and cloud Copilot
+through `AGENT.md`. No canonical rule is cloud-excluded under the parity
+contract. Content that genuinely must not reach a Copilot surface cannot enter
+the canonical root rule corpus and requires a separately designed mechanism
+**[D][I]**. The capability claim is pinned to the 2026-07-25 documentation and
+expires; re-check the current official source before relying on it **[D]**.
+
+This rule parity serves the broader cross-vendor objective: preserve parity of
+agent behaviour and abilities wherever Copilot exposes the necessary platform
+mechanism. A vendor-specific omission is a defect unless the capability matrix
+records an evidenced platform limitation **[I]**.
 
 ### 8. Custom agents are a generated adapter family
 

@@ -17,14 +17,19 @@ precedent as a substitute.
 
 The owner-ratified target is **GitHub Copilot CLI running locally** as an equal
 first-class Practice citizen. A target row is not an implementation claim.
-GitHub Copilot coding-agent/cloud execution is outside this matrix's Copilot
-scope.
+GitHub Copilot coding-agent/cloud-execution-specific delivery is outside this
+matrix's Copilot scope. Shared repository projections still cover local and
+cloud Copilot.
+
+**Parity is the target.** Canonical behaviour and abilities remain available
+across vendors wherever each platform exposes an equivalent mechanism; only an
+evidenced platform limit justifies divergence.
 
 | Surface | Ratified local-CLI target | Wired and proven in this repository |
 | --- | --- | --- |
 | Identity | Native `sessionStart` adapter returns honest Copilot identity through `additionalContext` | **No** — canonical identity types and persistence do not yet admit Copilot |
 | Deliberate team join | Native bootstrap is useful alone and creates no shared coordination state; any working session, quick-start included, must register a bounded active claim before its first edit under the always-loaded [`register-active-areas-at-session-open`](../../rules/register-active-areas-at-session-open.md) rule, whichever start-right skill ran; `oak-start-right-team` adds only *continuous* team participation — heartbeat emission, the all-channels watcher, and the handoff/retirement lifecycle | **No** — no Copilot launcher or joined/non-joined proof |
-| Repo instructions | Generated bounded `.github/copilot-instructions.md` projection from canonical `repo-wide` dispositions; no direct `AGENT.md` import | **No** — the current file is a Markdown link to `AGENT.md`, which bypasses the disposition manifest by reloading every rule |
+| Repo instructions | `.github/copilot-instructions.md` imports `AGENT.md`, giving local and cloud Copilot the full canonical rule set | **Partial** — the file links to `AGENT.md`; validated native import and parity proof remain targets |
 | Path-scoped instructions | Generated `.github/instructions/**/*.instructions.md` projections, each with an explicit `cloud-shared` or `cloud-excluded` intent and, where excluded, the documented `excludeAgent: "cloud-agent"` frontmatter — see the `excludeAgent` note below for what that does and does not achieve | **No** |
 | Skills | Use `.agents/skills/` under documented `.github/skills` → `.agents/skills` → `.claude/skills` first-found precedence | **Partial** — the portable wrappers exist; clean local Copilot CLI discovery/invocation is not yet an acceptance gate |
 | Custom agents | Generated, schema-valid, cloud-safe `.github/agents/*.agent.md` projections from canonical specialists, with `disable-model-invocation: true` unless automatic cloud selection is separately accepted | **No** |
@@ -42,10 +47,11 @@ value is set, the other surface still reads the file, so a projection marked
 `cloud-excluded` is not local-only: Copilot code review continues to read it.
 That is a dated fact about the platform, not a gap in this repository's
 generator. The `cloud-shared`/`cloud-excluded` labels in the row above record
-our intent and the marker emitted, never a proven outcome, and content that
-must reach neither Copilot surface stays in `.agent/` rather than becoming a
-`.github` instruction file. Per this file's preamble, this capability claim
-expires: re-check the current official documentation before relying on it.
+our intent and the marker emitted for the supplemental modular copy, never a
+proven outcome or exclusion of canonical behaviour. The root `AGENT.md` import
+still supplies every canonical rule to local and cloud Copilot. Per this file's
+preamble, this capability claim expires: re-check the current official
+documentation before relying on it.
 
 The repository
 [`first-class-copilot-cli-practice-citizenship`](../../plans/strategic/first-class-copilot-cli-practice-citizenship.plan.md)
@@ -59,7 +65,7 @@ for execution state and sensitive details.
 | -------------- | ------------------- | ------------------------------------------------------ | ------------------------------------------------- | ---------------------------------------------------- | -------------------------------------------------------- | ---------------------- |
 | **Skills**     | `.agents/skills/`   | `.claude/skills/`                                      | `.agents/skills/`                                 | `.agents/skills/` exists; acceptance target above    | `.agents/skills/oak-*/` loaded as native Codex skills    | `.agents/skills/`      |
 | **Commands**   | retired; workflows use `.agents/skills/` | retired; workflows use `.claude/skills/` | `review-*.toml` transitional reviewer adapters only; workflows use `.agents/skills/` | no separate command projection | built-in slash commands; repo workflows use skills | repo workflows use `.agents/skills/oak-*/` |
-| **Rules**      | `.cursor/rules/`    | `.claude/rules/`                                       | entry-point chain only                            | no bounded repo-wide entry point; direct `AGENT.md` link bypasses disposition; modular projection target | entry-point chain; no project execpolicy `.rules` wired  | `.agents/rules/`       |
+| **Rules**      | `.cursor/rules/`    | `.claude/rules/`                                       | entry-point chain only                            | full canonical rule chain via `AGENT.md`; supplemental modular projection target | entry-point chain; no project execpolicy `.rules` wired  | `.agents/rules/`       |
 | **Sub-agents** | `.cursor/agents/`   | `.claude/agents/`                                      | native `/agents` upstream; no repo wrappers wired | native custom agents documented; repo target unwired | `.codex/config.toml` → `.codex/agents/*.toml`             | unsupported            |
 | **Hooks**      | canonical policy guard unsupported; `.cursor/hooks.json` has tracked soft `sessionStart` identity | `.claude/settings.json` (tracked soft `SessionStart` identity plus `PreToolUse` guards) | supported upstream; no project-local hook wired | native hooks documented; Copilot-only adapters target unwired; content policy uses inherited activation | tracked project `SessionStart`; no `PreToolUse` guard | unsupported |
 | **MCP**        | user-local          | user-local / MCP config                                | supported upstream; no `.agents/mcp_config.json` wired | repository config documented; tracked projection target | two tracked project servers in `.codex/config.toml`       | `.agents/mcp_config.json` target |
@@ -139,7 +145,7 @@ Failure semantics:
 | ---------------------- | ---------------------------------------------- |
 | All platforms          | `.agent/directives/AGENT.md`                   |
 | Claude Code            | `CLAUDE.md` → `AGENT.md`                       |
-| GitHub Copilot CLI     | `.github/copilot-instructions.md` is generated from bounded repo-wide dispositions; the current `AGENT.md` link is not the target |
+| GitHub Copilot CLI     | `.github/copilot-instructions.md` → `AGENT.md`; modular instructions supplement path context |
 | Codex host             | `AGENTS.md` → `AGENT.md`                       |
 | Gemini CLI             | `GEMINI.md` → `AGENT.md`                       |
 | Linear coding sessions | `skills.md` → `AGENT.md`                       |

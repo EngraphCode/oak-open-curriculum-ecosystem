@@ -133,18 +133,20 @@ doctrine and canonical `agent-tools` commands.
 
 #### GitHub Copilot CLI (`.github/`) — ratified target
 
-The GitHub adapter family serves **Copilot CLI running locally**. GitHub
-Copilot coding-agent/cloud execution is not part of this decision.
+The GitHub adapter family primarily serves **Copilot CLI running locally**.
+Cloud-execution-specific delivery is not part of this decision, but shared
+repository projections preserve parity across local and cloud Copilot wherever
+both consume the same surface.
 
-| Surface                  | Ratified repository projection                                                                                                    |
-| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
-| Repo-wide instructions   | Generated bounded `.github/copilot-instructions.md` projection from canonical repo-wide dispositions; no direct `AGENT.md` import |
-| Path-scoped instructions | Generated `.github/instructions/**/*.instructions.md` activation projections                                                      |
-| Skills                   | Existing `.agents/skills/`; no duplicate `.github/skills/` tree                                                                   |
-| Custom agents            | Generated, cloud-safe `.github/agents/*.agent.md` wrappers over canonical specialists                                             |
-| Hooks                    | Inherited `.claude/settings.json` activation for policy; native hooks only for separately proven non-policy lifecycle needs       |
-| Settings                 | `.github/copilot/settings.json` only where a tracked project setting is required                                                  |
-| MCP                      | A tracked, secret-free projection from a canonical server manifest established by delivery                                        |
+| Surface                  | Ratified repository projection                                                                                              |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| Repo-wide instructions   | `.github/copilot-instructions.md` imports `AGENT.md`, giving local and cloud Copilot the full canonical rule set            |
+| Path-scoped instructions | Generated `.github/instructions/**/*.instructions.md` activation projections                                                |
+| Skills                   | Existing `.agents/skills/`; no duplicate `.github/skills/` tree                                                             |
+| Custom agents            | Generated, cloud-safe `.github/agents/*.agent.md` wrappers over canonical specialists                                       |
+| Hooks                    | Inherited `.claude/settings.json` activation for policy; native hooks only for separately proven non-policy lifecycle needs |
+| Settings                 | `.github/copilot/settings.json` only where a tracked project setting is required                                            |
+| MCP                      | A tracked, secret-free projection from a canonical server manifest established by delivery                                  |
 
 Copilot CLI's
 [documented skill discovery precedence](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference#skills-reference),
@@ -176,11 +178,13 @@ repository custom-instructions documentation, verified 2026-07-25, documents no
 array, comma-separated, or repeated-key form, so whichever value is chosen the
 other surface remains in scope — a file carrying `excludeAgent: "cloud-agent"`
 is still read by Copilot code review. That residual exposure is a dated fact
-about the platform, not a defect in the generator, and it means no `.github`
-instruction file is local-only. It follows that content which must reach
-neither Copilot surface does not belong under `.github` instructions at all; it
-stays in `.agent/`. This capability claim is pinned to the 2026-07-25
-documentation and expires: a later reader re-checks GitHub's current
+about the platform, not a defect in the generator. The marker governs only the
+supplemental modular copy: canonical rules and behaviour still reach local and
+cloud Copilot through the root `AGENT.md` import. No canonical rule is
+cloud-excluded under the parity contract. Content that genuinely must not reach
+a Copilot surface cannot enter the canonical root rule corpus and requires a
+separately designed mechanism. This capability claim is pinned to the
+2026-07-25 documentation and expires: a later reader re-checks GitHub's current
 documentation rather than trusting this paragraph.
 
 Repository custom agents are visible to both local Copilot CLI and Copilot
@@ -203,10 +207,13 @@ Entry-point files direct each platform to the canonical practice:
 | `.github/copilot-instructions.md` | GitHub Copilot CLI     |
 | `skills.md`                       | Linear coding sessions |
 
-All entry points redirect to `.agent/directives/AGENT.md` except the Copilot
-CLI root instruction projection, which is generated from the canonical
-disposition manifest so path-scoped and excluded rules cannot be reintroduced
-through `AGENT.md`'s non-loader instruction.
+All entry points redirect to `.agent/directives/AGENT.md`. For Copilot, that
+full-rule parity is intentional for both local CLI and cloud agent; modular
+path-scoped instructions supplement context but never decide which canonical
+rules apply. This is one instance of the wider portability objective: preserve
+parity of behaviour and abilities across vendors wherever their platforms
+provide equivalent mechanisms, and document only evidenced platform limits as
+divergences.
 
 ### The Thin Wrapper Contract
 
@@ -300,13 +307,12 @@ canonical rules and triggers, not the number of layers.
 
 **Gemini CLI and Codex** receive policies via the entry-point chain:
 `GEMINI.md` / `AGENTS.md` -> `.agent/directives/AGENT.md` ->
-`.agent/directives/principles.md`. **Copilot CLI's ratified target** uses a
-generated bounded root projection containing only repo-wide dispositions,
-with file-scoped activation under `.github/instructions/`; it does not import
-`AGENT.md`, because that file tells non-loader platforms to load every rule
-and would bypass the disposition manifest. `.agents/rules/*.md` also provides
-a portable thin-wrapper rule surface for platforms that scan `.agents/`
-directly.
+`.agent/directives/principles.md`. **Copilot CLI's ratified target** reaches
+the same full canonical chain through `.github/copilot-instructions.md`, with
+supplemental file-scoped context under `.github/instructions/`. The modular
+disposition manifest governs whether an additional path-scoped copy is useful,
+not whether the canonical rule applies. `.agents/rules/*.md` also provides a
+portable thin-wrapper rule surface for platforms that scan `.agents/` directly.
 
 **Triggers that activate skills or directives:**
 
@@ -457,6 +463,8 @@ Claude Code natively supports read-only permission modes. Using `permissionMode:
 - Rule content canonical in `.agent/directives/`, activation policy platform-specific.
 - Adding the Copilot CLI family requires thin projections, not content
   duplication.
+- Vendor projections preserve shared agent behaviour and abilities rather than
+  narrowing them for convenience.
 - Reviewer personas are DRY: defined once in canonical components,
   referenced by platform adapters and project-agent configuration.
 
@@ -484,12 +492,11 @@ Agents may not follow "Read and follow X" instructions in thin wrappers, skippin
 
 **Copilot CLI** has a stronger root-instruction mechanism:
 `.github/copilot-instructions.md` supports recursive repository-contained
-`@relative/path` imports. The target deliberately does not import `AGENT.md`;
-the generator emits a bounded root from repo-wide dispositions and validates
-that path-projected/excluded sources are unreachable through imports. Modular
+`@relative/path` imports. The target imports `AGENT.md` so local and cloud
+Copilot load the same canonical rules as every other agent. Modular
 `.github/instructions/**/*.instructions.md` files do not expand `@` imports,
-so generated modular projections contain their bounded instruction content and
-remain governed by disposition and stale-output validation.
+so generated modular projections contain their bounded supplemental context
+and remain governed by disposition and stale-output validation.
 
 ### Externally installed skills
 

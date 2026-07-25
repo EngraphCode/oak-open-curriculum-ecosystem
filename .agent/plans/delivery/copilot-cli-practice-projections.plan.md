@@ -27,13 +27,16 @@ last_updated: 2026-07-25
   arity/residual exposure; added supported-version and fresh-checkout gates
   for instruction, skill, specialist-agent, and MCP projections; made
   `disable-model-invocation: true` the cloud-safe specialist default; and
-  replaced the direct `AGENT.md` root import with a disposition-aware bounded
-  root projection so excluded/path-scoped rules cannot re-enter transitively.
-  The cloud out-of-scope statement is narrowed so shared repository
-  projections require explicit cloud-safe dispositions while cloud feature
-  delivery remains excluded. These amendments make the original projection
-  outcome executable against current platform facts without adding a new
-  projected capability family.
+  clarified that the direct `AGENT.md` root import intentionally gives local
+  and cloud Copilot the same canonical rule set as every other agent.
+  Path-scoped dispositions govern supplemental contextual projections, never
+  rule inclusion. This preserves parity of behaviour and abilities across
+  vendors wherever the host exposes an equivalent mechanism; only evidenced
+  platform limits justify divergence. The cloud out-of-scope statement is
+  narrowed so shared repository projections require explicit cloud-safe
+  dispositions while cloud feature delivery remains excluded. These amendments
+  make the original projection outcome executable against current platform
+  facts without adding a new projected capability family.
 
 ## Goal
 
@@ -45,12 +48,14 @@ current and thin.
 ## Mechanism
 
 Keep canonical content in `.agent/`. Bring the repo-wide Copilot instruction
-entry point under validated ownership as a bounded generated projection from
-the disposition manifest — never a direct `AGENT.md` import, whose non-loader
-instruction would re-load every rule. Generate only the path-scoped instruction
-and specialist-agent projections that Copilot CLI needs, continue using
-`.agents/skills` as the repository's chosen skill home, and generate a tracked
-repository MCP projection from a new secret-free canonical server manifest.
+entry point under validated ownership as a direct import of `AGENT.md`, so
+local Copilot CLI and Copilot cloud agent load the same canonical rule set as
+every other agent. Generate path-scoped instruction projections only as
+supplemental contextual activation, never as a filter over which rules apply.
+Preserve parity of behaviour and abilities across vendors wherever Copilot
+supports the corresponding mechanism. Continue using `.agents/skills` as the
+repository's chosen skill home, and generate a tracked repository MCP
+projection from a new secret-free canonical server manifest.
 
 Three total disposition manifests make the source sets recomputable:
 
@@ -58,12 +63,13 @@ Three total disposition manifests make the source sets recomputable:
    `path-projected`, or `excluded` with a reason, and every emitted instruction
    is separately classified `cloud-shared` or `cloud-excluded`. Those two
    labels record the intended disposition and the marker it emits; neither
-   asserts a proven platform outcome. The same manifest generates the bounded
-   repo-wide root projection from `repo-wide` sources only; `path-projected`
-   and `excluded` sources must be unreachable through that root, including by
-   transitive imports. A path projection is selected only when file-scoped
-   activation is expressible through Copilot `applyTo` and adds behaviour
-   beyond the bounded root entry point. A `cloud-excluded` instruction must
+   asserts a proven platform outcome. All rules remain reachable through the
+   root `AGENT.md` import. Here `path-projected` means an additional
+   file-scoped contextual copy is emitted, and `excluded` means no additional
+   modular copy is emitted — neither label removes the canonical rule from
+   Copilot. A path projection is selected only when file-scoped activation is
+   expressible through Copilot `applyTo` and the contextual reinforcement is
+   worth its duplication cost. A `cloud-excluded` instruction must
    emit the documented `excludeAgent: "cloud-agent"` frontmatter.
    Provenance: GitHub's repository custom-instructions documentation, verified
    first-hand 2026-07-25, defines `excludeAgent` as taking exactly one value,
@@ -74,12 +80,14 @@ Three total disposition manifests make the source sets recomputable:
    Because only one value may be set, one surface always stays in scope: a file
    carrying `excludeAgent: "cloud-agent"` is still read by Copilot code review.
    That residual exposure is a dated fact about the platform, not a defect in
-   our generator, and it means no `.github` instruction projection is
-   local-only. Disposition rule: where a projection's content must reach
-   neither Copilot surface, `.github` instructions are the wrong home and the
-   content stays in `.agent/`. This capability claim is pinned to the
-   2026-07-25 documentation and expires — a later reader re-checks GitHub's
-   current documentation rather than trusting this line.
+   our generator. These labels govern only whether the supplemental modular
+   copy reaches a cloud surface; they do not exclude any canonical rule or
+   behaviour already supplied by the root `AGENT.md` import. No canonical rule
+   is cloud-excluded under the parity contract. Content that genuinely must not
+   reach a Copilot surface cannot enter that canonical root rule corpus and
+   requires a separately designed mechanism. This capability claim is pinned
+   to the 2026-07-25 documentation and expires — a later reader re-checks
+   GitHub's current documentation rather than trusting this line.
 2. Every live, non-archived `.agent/sub-agents/templates/*.md` specialist is
    classified `projected` or `excluded` with a reason.
 3. Every server found in tracked platform MCP configuration is reconciled into
@@ -103,14 +111,19 @@ for the probe design, not proof about the installed CLI.
 
 ## Acceptance criteria (each with a proof)
 
-- **The bounded repo-wide entry point contains only `repo-wide` dispositions,
-  while supported path-scoped projections cover their total dispositioned
-  rule set and excluded sources are unreachable through either route.** Proof:
-  `repo-safe` — manifest-totality and reverse-reachability tests reject direct
-  or transitive `AGENT.md`/`RULES_INDEX.md` imports, require schema-valid
-  `applyTo`, positive/negative matching, `**` and `**/*` recursion,
-  comma-separated patterns, no `@` imports in modular files, and conflict
-  detection when generated projections apply together.
+- **The repo-wide entry point imports `AGENT.md` and reaches the full canonical
+  rule inventory for both local and cloud Copilot, while supplemental
+  path-scoped projections never change rule inclusion.** Proof: `repo-safe` —
+  root-import and rule-inventory parity tests compare Copilot with the
+  canonical rule index; manifest-totality tests prove every modular projection
+  is supplemental, require schema-valid `applyTo`, positive/negative matching,
+  `**` and `**/*` recursion, comma-separated patterns, no `@` imports in
+  modular files, and detect contradictory duplicate projections.
+- **Copilot retains behavioural and capability parity with the other supported
+  agents wherever its platform exposes the corresponding mechanism.** Proof:
+  `repo-safe` — the parity matrix maps each canonical rule, skill, specialist,
+  hook, and MCP capability to its Copilot projection or to an evidenced
+  platform limitation; unexplained vendor-specific omissions fail validation.
 - **Skill discovery uses Copilot CLI's documented precedence
   `.github/skills` then `.agents/skills` then `.claude/skills`, first-found
   wins, while this repository keeps `.agents/skills` as its only chosen
@@ -133,13 +146,14 @@ for the probe design, not proof about the installed CLI.
   negative path match.** Proof: `repo-safe` — version and discovery fixtures
   plus manifest totality; `owner-held` — the pre-landing local CLI probe. A
   failed or unsupported probe leaves the generated projection untracked.
-- **Cloud-exclusion is emitted correctly, and is not claimed as cloud
-  BEHAVIOUR until a cloud-agent probe observes it.** The locally-provable half
-  is metadata correctness: every projection classified `cloud-excluded` emits
-  the exclusion marker its surface defines. Proof: `repo-safe` — disposition
-  and manifest-totality fixtures. The other half — that an excluded projection
-  does not reach a cloud-agent prompt — is a claim about a different execution
-  environment, and no local fixture or local CLI probe can establish it.
+- **Cloud-exclusion of a supplemental modular copy is emitted correctly, and
+  is not confused with exclusion of canonical behaviour supplied through the
+  root import.** The locally-provable half is metadata correctness: every
+  modular projection classified `cloud-excluded` emits the exclusion marker
+  its surface defines. Proof: `repo-safe` — disposition and manifest-totality
+  fixtures. The other half — that the modular duplicate does not reach a
+  cloud-agent prompt — is a claim about a different execution environment, and
+  no local fixture or local CLI probe can establish it.
   Proof: `owner-held` — a cloud-agent probe observing whether an excluded
   fixture appears in a cloud job's context. That probe's claim is bounded to
   the cloud agent alone. Because `excludeAgent` takes exactly one value
@@ -148,10 +162,11 @@ for the probe design, not proof about the installed CLI.
   establishes cloud-agent exclusion and nothing wider; establishing anything
   about the code-review surface needs a separate probe with `"code-review"` set
   instead, and the two cannot hold at once. No probe of either surface can
-  therefore establish local-only, and content requiring that stays in
-  `.agent/`. Until the cloud-agent probe runs, the repository states
-  cloud-exclusion as emitted-and-unverified, never as proven: a cloud-behaviour
-  claim resting on local evidence is an assumption transmitted as truth.
+  therefore establish local-only. Regardless of that probe, the canonical rule
+  and its behaviour remain available through `AGENT.md`; the marker controls
+  only the extra path-scoped copy. Until the cloud-agent probe runs, the
+  repository states modular-copy exclusion as emitted-and-unverified, never as
+  proven.
 - **Skill support is not promoted beyond `Partial` until a supported-version
   clean CLI reports the intended `.agents/skills` source and invokes a
   representative same-ID skill without `.claude/skills` shadowing it.** Proof:
