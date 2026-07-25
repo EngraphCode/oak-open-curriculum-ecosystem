@@ -10,14 +10,15 @@ and thin native activation lives in platform config.
 **Guardrail-only**: the hook layer is intentionally narrow.
 
 - `preToolUse` — natively enforced for Claude Code Bash calls by invoking the
-  prebuilt runtime artefact
-  (`agent-tools/dist/src/hook-policy/check-blocked-patterns.js`) through the
+  single prebuilt policy dispatcher
+  (`agent-tools/dist/src/hook-policy/pre-tool-use-dispatch.js`) through the
   verdict shim `.claude/hooks/run-pretooluse-guard.mjs`; blocks
   shell commands that bypass safety guardrails or destroy history (force-push,
   hard reset, `--no-verify`)
 - `preToolUseContent` — natively enforced for Claude Code Edit/Write calls
-  through the same verdict shim, running
-  `agent-tools/dist/src/hook-policy/check-blocked-content.js`; blocks the
+  through the same verdict shim and the **same dispatcher artefact** (the
+  three matchers — Bash, Edit, Write — share one artefact; the dispatcher
+  routes each payload by shape to the Bash or content policy); blocks the
   path-agnostic owner-approval marker and path-scoped doctrine block groups
   (see "Content guard: concept-grouped doctrine blocks" below)
 - `sessionStart` — documented policy only; grounding is already enforced
@@ -35,12 +36,12 @@ The hook layer follows a small Policy Spine. The layers are not peers.
 2. **Native activation** — platform config such as `.claude/settings.json`
    This tracked project config may activate only supported canonical policy. It
    does not redefine the policy.
-3. **Workspace-owned runtime** — the prebuilt
-   `agent-tools/dist/src/hook-policy/check-blocked-patterns.js` artefact,
-   invoked through the verdict shim `.claude/hooks/run-pretooluse-guard.mjs`
-   by the native activation (the
-   `pnpm agent-tools:check-blocked-patterns` script remains as a manual /
-   diagnostic entry point to the same TypeScript source).
+3. **Workspace-owned runtime** — the single prebuilt
+   `agent-tools/dist/src/hook-policy/pre-tool-use-dispatch.js` dispatcher
+   artefact, shared by the Bash, Edit, and Write matchers and invoked through
+   the verdict shim `.claude/hooks/run-pretooluse-guard.mjs` by the native
+   activation (the `pnpm agent-tools:pre-tool-use-dispatch` script remains as
+   a manual / diagnostic entry point to the same TypeScript source).
    The runtime enforces the active policy for the supported native surface.
 4. **Explanatory mirrors** — this README and the cross-platform surface matrix
    These must describe the live arrangement, but they never override it.
@@ -103,7 +104,8 @@ runtime safety net if one is ever absent.
 ## Build-Artefact Freshness
 
 The native activation invokes a **prebuilt** artefact
-(`agent-tools/dist/src/hook-policy/check-blocked-{patterns,content}.js`), not the
+(`agent-tools/dist/src/hook-policy/pre-tool-use-dispatch.js` — one dispatcher
+serving the Bash, Edit, and Write matchers), not the
 TypeScript source. `dist/` is gitignored, so the artefact is materialised by the
 build, and its freshness is guaranteed at two points:
 
@@ -155,7 +157,10 @@ which is gitignored and additive.
 See `.agent/memory/executive/cross-platform-agent-surface-matrix.md` for the
 full platform support status.
 
-Cursor, Gemini CLI, GitHub Copilot, and Codex remain unsupported.
+Cursor, Gemini CLI, and Codex remain unsupported. GitHub Copilot has no
+Copilot-native activation wired, but Copilot CLI inherits the Claude
+`PreToolUse` activation and is enforced through the dispatcher's
+`copilot-compat-string` route (observed live 2026-07-25, CLI 1.0.75).
 
 ## Policy File
 

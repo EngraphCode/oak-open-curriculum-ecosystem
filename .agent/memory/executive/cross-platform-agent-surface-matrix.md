@@ -26,11 +26,11 @@ precedent as a substitute.
 
 ## Hook Support
 
-Claude Code currently has native `PreToolUse` activation for Bash
-commands via the tracked project `.claude/settings.json`, backed by the
-canonical policy in `.agent/hooks/policy.json` and the prebuilt runtime
-artefact `agent-tools/dist/src/hook-policy/check-blocked-patterns.js`, invoked
-through the verdict shim `.claude/hooks/run-pretooluse-guard.mjs` so a
+Claude Code currently has native `PreToolUse` activation for Bash, Edit, and
+Write tools via the tracked project `.claude/settings.json`, backed by the
+canonical policy in `.agent/hooks/policy.json` and the single prebuilt
+dispatcher artefact `agent-tools/dist/src/hook-policy/pre-tool-use-dispatch.js`,
+invoked through the verdict shim `.claude/hooks/run-pretooluse-guard.mjs` so a
 built-but-broken artefact blocks the tool call (exit 2), while a not-built
 artefact fails open (exit 0) with a loud, logged warning so a fresh checkout is
 not bricked — well within the per-tool-call hook timeout. Local additive
@@ -38,14 +38,19 @@ overrides, when needed, live in `.claude/settings.local.json`.
 
 Status by platform:
 
-- **Claude Code**: supported for `PreToolUse` only (Bash blocked-pattern
-  enforcement via tracked project `.claude/settings.json`)
+- **Claude Code**: supported for `PreToolUse` only (Bash, Edit, and Write
+  tools — blocked-pattern and content enforcement through the single
+  dispatcher artefact via tracked project `.claude/settings.json`)
 - **Cursor**: no native agent hook surface at time of writing
 - **Gemini / Antigravity CLI**: native hooks are documented through
   `hooks.json` under the workspace `.agents/` directory or global config, with
   `PreToolUse`, `PostToolUse`, `PreInvocation`, `PostInvocation`, and `Stop`
   events. This repository has no project-local `.agents/hooks.json` wired.
-- **GitHub Copilot**: no native agent hook surface at time of writing
+- **GitHub Copilot**: no native agent hook surface at time of writing.
+  Copilot CLI nevertheless INHERITS the Claude `PreToolUse` activation and is
+  enforced through the dispatcher's `copilot-compat-string` route (observed
+  live 2026-07-25, CLI 1.0.75); "unsupported" here is scoped to
+  Copilot-native activation only
 - **Codex**: upstream Codex hooks are available behind `codex_hooks`, and this
   local Codex install reports the feature enabled. This repository has no
   project-local `.codex/` hook configuration wired. Current Codex docs show
@@ -62,7 +67,7 @@ This repo's hook and adapter surfaces follow a small Policy Spine:
 | --- | --- | --- |
 | Canonical policy (`.agent/`) | Declares intended behaviour and support | No |
 | Native activation (tracked `.claude/settings.json`) | Activates supported policy in the repo baseline | No |
-| Workspace runtime (`agent-tools/dist/src/hook-policy/check-blocked-patterns.js` via `.claude/hooks/run-pretooluse-guard.mjs`) | Enforces the active native hook path; fails closed if a built artefact is broken, fails open (loud, logged) if not yet built | No |
+| Workspace runtime (`agent-tools/dist/src/hook-policy/pre-tool-use-dispatch.js` via `.claude/hooks/run-pretooluse-guard.mjs`) | Enforces the active native hook path; fails closed if a built artefact is broken, fails open (loud, logged) if not yet built | No |
 | Explanatory mirrors (this matrix, hook README) | Describe the live state and support contract | No |
 
 Failure semantics:

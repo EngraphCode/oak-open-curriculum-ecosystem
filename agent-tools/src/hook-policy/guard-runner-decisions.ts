@@ -84,7 +84,7 @@ export interface MissingGuardArtifactDecision {
  * @example
  *
  * ```ts
- * decideMissingGuardArtifact('agent-tools/dist/src/hook-policy/check-blocked-patterns.js');
+ * decideMissingGuardArtifact('agent-tools/dist/src/hook-policy/pre-tool-use-dispatch.js');
  * // { exitCode: 0, warning: 'PreToolUse guard not built: … ran UNGUARDED. Rebuild: …' }
  * ```
  */

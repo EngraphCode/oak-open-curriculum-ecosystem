@@ -5,7 +5,10 @@ import { isJsonObject } from '../../core/json.js';
 import { resolveRepoRoot } from '../../core/repo-root.js';
 import { writeLine, writeErrorLine } from '../../core/terminal-output.js';
 
-import { findUnroutedGuardCommands } from './validate-pretooluse-guard-routing-helpers.js';
+import {
+  findPolicyMatcherDefects,
+  findUnroutedGuardCommands,
+} from './validate-pretooluse-guard-routing-helpers.js';
 
 /**
  * Standalone validator that fails if any `PreToolUse` hook in
@@ -46,16 +49,47 @@ function preToolUseCommands(settings: unknown): string[] {
   return Array.isArray(groups) ? groups.flatMap(commandsFromGroup) : [];
 }
 
+/** Extract `PreToolUse` commands grouped by matcher name from parsed settings. */
+function preToolUseCommandsByMatcher(settings: unknown): Map<string, readonly string[]> {
+  const byMatcher = new Map<string, readonly string[]>();
+  if (!isJsonObject(settings) || !isJsonObject(settings.hooks)) {
+    return byMatcher;
+  }
+  const groups = settings.hooks.PreToolUse;
+  if (!Array.isArray(groups)) {
+    return byMatcher;
+  }
+  for (const group of groups) {
+    if (isJsonObject(group) && typeof group.matcher === 'string') {
+      const existing = byMatcher.get(group.matcher) ?? [];
+      byMatcher.set(group.matcher, [...existing, ...commandsFromGroup(group)]);
+    }
+  }
+  return byMatcher;
+}
+
 async function main(): Promise<void> {
   const settingsPath = path.join(repoRoot, '.claude/settings.json');
   const parsed: unknown = JSON.parse(await fs.readFile(settingsPath, 'utf8'));
   const unrouted = findUnroutedGuardCommands(preToolUseCommands(parsed));
+  const matcherDefects = findPolicyMatcherDefects(preToolUseCommandsByMatcher(parsed));
 
-  if (unrouted.length === 0) {
+  if (unrouted.length === 0 && matcherDefects.length === 0) {
     writeLine(
-      'validate-pretooluse-guard-routing: OK (all PreToolUse guards route through the shim)',
+      'validate-pretooluse-guard-routing: OK ' +
+        '(all PreToolUse guards route through the shim; every policy matcher carries its dispatcher)',
     );
     return;
+  }
+
+  if (matcherDefects.length > 0) {
+    writeErrorLine(
+      `validate-pretooluse-guard-routing: policy-matcher coverage defect(s) — the non-vacuity check.\n\n` +
+        `${matcherDefects.map((defect) => `  ${defect}`).join('\n')}\n\n` +
+        `Each of the Bash, Edit, and Write PreToolUse matchers must carry exactly one ` +
+        `shim-routed hook-policy dispatcher command in .claude/settings.json.`,
+    );
+    process.exit(1);
   }
 
   const guardList = unrouted.map((command) => `  ${command}`).join('\n');
