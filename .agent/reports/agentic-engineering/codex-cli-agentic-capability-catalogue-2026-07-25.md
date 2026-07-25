@@ -499,18 +499,22 @@ The official-source pass found these documentation defects:
     `SessionStart` identity activation for Claude Code and Cursor;
 11. the executive artefact inventory and the hook README's “Current Status”
     list likewise omit those two tracked identity adapters while listing the
-    Codex adapter.
+    Codex adapter;
+12. the imported matrix retains retired `.cursor/skills/`,
+    `.cursor/commands/`, and `.claude/commands/` paths and presents Gemini's
+    transitional reviewer commands as a general workflow surface.
 
-This changeset corrects items 1 and 3–10. Item 11 is a reference-inventory
-incompleteness rather than a false claim and remains recorded here as follow-on
-work under MCP-159; the owner-bounded matrix reconciliation does not widen into
-Claude/Cursor inventory work. The changeset bases the matrix on PR #529 head
-blob `fdc672adb`; changes outside the Codex cells and Codex-specific support
-text are limited to the shared hook-activation correction in item 10 and the
-link adjustment described below. On 2026-07-25 the owner explicitly overrode
-the earlier wait-for-PR-529 sequence for the matrix, and the Director released
-that file to MCP-159 with the Copilot claims and wording preserved. One
-deliberate pre-merge adjustment replaces PR #529's live relative link to its
+This changeset corrects items 1, 3–10, and 12. Item 11 is a
+reference-inventory incompleteness rather than a false claim and remains
+recorded here as follow-on work under MCP-159; the owner-bounded matrix
+reconciliation does not widen into Claude/Cursor inventory work. The changeset
+bases the matrix on PR #529 head blob `fdc672adb`; changes outside the Codex
+cells and Codex-specific support text are limited to the factually wrong shared
+activation and retired-adapter cells in items 10 and 12, plus the link
+adjustment described below. On 2026-07-25 the owner explicitly overrode the
+earlier wait-for-PR-529 sequence for the matrix, and the Director released that
+file to MCP-159 with the Copilot claims and wording preserved. One deliberate
+pre-merge adjustment replaces PR #529's live relative link to its
 first-class-Copilot plan with a code-spanned repo-root path and provenance note:
 the target does not exist on this branch, so a live link would fail the
 repository validator. The semantic union must restore the live link after both
