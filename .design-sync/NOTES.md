@@ -99,6 +99,15 @@
   delete-reconciliation of studio-native surfaces") is RETIRED by the
   owner's delete-reconciliation ruling of 2026-07-25 — see the
   reconciliation step below.
+- **Single-home rule** (owner ruling 2026-07-25, card answer "one copy
+  only"): never ship the same document to two remote paths — every
+  document has exactly one remote home. Worked consequence: the root
+  README (converter-generated, the project pane) is README's single
+  home; `README.md` is dropped from `guidelinesGlob`, and the MCP-160
+  curation sync deletes the residual `guidelines/README.md` (the ruled
+  removal set grows to 45). Divergent stale twins were already the
+  defect class; this ruling removes the same-canonical two-copy
+  allowance too.
 - **Estate reconciliation at EVERY ordinary sync** (owner ruling
   2026-07-25, MCP-160 — the durable curation instrument; "every single
   entry earns its place"): `estate.json` beside this file declares the
