@@ -83,9 +83,10 @@ async function main(): Promise<void> {
   }
 
   if (matcherDefects.length > 0) {
+    const defectList = matcherDefects.map((defect) => `  ${defect}`).join('\n');
     writeErrorLine(
       `validate-pretooluse-guard-routing: policy-matcher coverage defect(s) — the non-vacuity check.\n\n` +
-        `${matcherDefects.map((defect) => `  ${defect}`).join('\n')}\n\n` +
+        `${defectList}\n\n` +
         `Each of the Bash, Edit, and Write PreToolUse matchers must carry exactly one ` +
         `shim-routed hook-policy dispatcher command in .claude/settings.json.`,
     );

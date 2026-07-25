@@ -29,7 +29,7 @@ export type PolicyDecision =
 export interface ResolvedContentChange {
   readonly newContent: string;
   readonly priorContent: string;
-  readonly filePath?: string | undefined;
+  readonly filePath?: string;
 }
 
 /**
