@@ -1,3 +1,10 @@
+# [1.87.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.86.0...v1.87.0) (2026-07-25)
+
+
+### Features
+
+* **design:** execute the ratified visual-review cures (MCP-164) ([2abfa73](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2abfa73dde111d54656ab39179d1add6012dcece)), closes [hi#contrast](https://github.com/hi/issues/contrast) [hi#contrast](https://github.com/hi/issues/contrast)
+
 # [1.86.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.26...v1.86.0) (2026-07-25)
 
 
