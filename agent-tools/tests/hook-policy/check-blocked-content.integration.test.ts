@@ -8,6 +8,15 @@ import {
   type PreToolUseDenyResponse,
 } from '../../src/hook-policy/check-blocked-content.js';
 
+/** The explicit allow decision every clean evaluation now writes. */
+const ALLOW_DECISION_LINE = `${JSON.stringify({
+  hookSpecificOutput: {
+    hookEventName: 'PreToolUse',
+    permissionDecision: 'allow',
+    permissionDecisionReason: 'no policy match',
+  },
+})}\n`;
+
 async function* stdinFromJson(payload: unknown): AsyncGenerator<Buffer> {
   yield Buffer.from(JSON.stringify(payload));
 }
@@ -77,7 +86,7 @@ describe('runPreToolUseContentGuard', () => {
     });
 
     expect(result).toStrictEqual({ exitCode: 0 });
-    expect(stdoutChunks).toStrictEqual([]);
+    expect(stdoutChunks).toStrictEqual([ALLOW_DECISION_LINE]);
     expect(stderrChunks).toStrictEqual([]);
   });
 
@@ -107,7 +116,7 @@ describe('runPreToolUseContentGuard', () => {
     });
 
     expect(result).toStrictEqual({ exitCode: 0 });
-    expect(stdoutChunks).toStrictEqual([]);
+    expect(stdoutChunks).toStrictEqual([ALLOW_DECISION_LINE]);
     expect(stderrChunks).toStrictEqual([]);
   });
 
@@ -206,7 +215,7 @@ describe('runPreToolUseContentGuard', () => {
     });
 
     expect(result).toStrictEqual({ exitCode: 0 });
-    expect(stdoutChunks).toStrictEqual([]);
+    expect(stdoutChunks).toStrictEqual([ALLOW_DECISION_LINE]);
   });
 });
 
@@ -314,7 +323,7 @@ describe('canonical policy: SHA-in-permanent-doc regex (WS4)', () => {
     });
 
     expect(result).toStrictEqual({ exitCode: 0 });
-    expect(stdoutChunks).toStrictEqual([]);
+    expect(stdoutChunks).toStrictEqual([ALLOW_DECISION_LINE]);
   });
 
   it('the wired-up guard does NOT deny a SHA in inline code on a data-shaped line (excludes_inline_code applies to data-shaped context)', async () => {
@@ -338,6 +347,6 @@ describe('canonical policy: SHA-in-permanent-doc regex (WS4)', () => {
     });
 
     expect(result).toStrictEqual({ exitCode: 0 });
-    expect(stdoutChunks).toStrictEqual([]);
+    expect(stdoutChunks).toStrictEqual([ALLOW_DECISION_LINE]);
   });
 });
