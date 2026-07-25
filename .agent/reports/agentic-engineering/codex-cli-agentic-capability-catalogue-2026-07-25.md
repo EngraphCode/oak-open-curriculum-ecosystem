@@ -497,11 +497,16 @@ The official-source pass found these documentation defects:
    `SessionEnd`, although the stable `0.145.0` event surface includes it.
 
 This changeset corrects items 1 and 3–9. It bases the matrix on PR #529 head
-blob `fdc672adb` and changes only the Codex cells and Codex-specific support
-text. On 2026-07-25 the owner explicitly overrode the earlier wait-for-PR-529
-sequence for the matrix, and the Director released that file to MCP-159 with
-the Copilot content preserved verbatim. ADR-125 in item 2 remains under the
-MCP-150 / PR #529 owner and is not changed here.
+blob `fdc672adb` and otherwise changes only the Codex cells and Codex-specific
+support text. On 2026-07-25 the owner explicitly overrode the earlier
+wait-for-PR-529 sequence for the matrix, and the Director released that file to
+MCP-159 with the Copilot claims and wording preserved. One deliberate
+pre-merge adjustment replaces PR #529's live relative link to its
+first-class-Copilot plan with a code-spanned repo-root path and provenance note:
+the target does not exist on this branch, so a live link would fail the
+repository validator. The semantic union must restore the live link after both
+changes land. ADR-125 in item 2 remains under the MCP-150 / PR #529 owner and
+is not changed here.
 
 ## Consequences for the next enforcement vertical
 
