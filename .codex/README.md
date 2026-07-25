@@ -35,13 +35,24 @@ project rules only after the project is trusted. The project layer cannot
 override host-owned provider authentication, profiles, notification commands,
 or OpenTelemetry commands.
 
-The authority order in this repo is:
+Practice-content authority in this repo is:
 
 1. canonical Practice policy and content under `.agent/`;
 2. tracked project activation under `.codex/` and `.agents/`;
-3. user and managed Codex configuration, where OpenAI's config precedence and
-   organisational requirements apply;
-4. explanatory mirrors such as this README.
+3. explanatory mirrors such as this README.
+
+Codex configuration precedence is a separate boundary. Admin-enforced
+`requirements.toml` and cloud-managed requirements constrain
+security-sensitive settings that lower layers cannot override. Within those
+constraints, the effective configuration composes CLI overrides, trusted
+project configuration, named profiles, user configuration, and system
+configuration in OpenAI's documented order. Project trust determines whether
+the project layer participates at all. See the official
+[advanced configuration][advanced-config] and
+[configuration reference][config-reference].
+
+[advanced-config]: https://developers.openai.com/codex/config-advanced
+[config-reference]: https://developers.openai.com/codex/config-reference
 
 Project adapters may activate canonical behaviour. They must not become a
 second copy of its substance.
