@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- @dsCard group="Brand" name="Identity switchboard — one copy, live controls" subtitle="The same specimen.html once, with controls for identity, contract stage and theme — the white-label contract as an instrument" viewport="1280x960" -->
+<!-- @dsCard group="Brand" name="Identity switchboard — one copy, live controls" subtitle="The same specimen.html once, with controls for identity and theme — the white-label contract as an instrument" viewport="1280x960" -->
 <html lang="en-GB">
   <head>
     <meta charset="utf-8" />
@@ -157,13 +157,6 @@
         </div>
       </fieldset>
       <div class="field">
-        <label for="stage">Contract stage</label
-        ><select id="stage">
-          <option value="full">Part A + B (full)</option>
-          <option value="a">Part A only (~14 tokens)</option>
-        </select>
-      </div>
-      <div class="field">
         <label for="theme">Theme</label
         ><select id="theme">
           <option value="">Page default</option>
@@ -189,7 +182,6 @@
     </main>
     <script>
       const ifr = document.getElementById('ifr'),
-        stage = document.getElementById('stage'),
         theme = document.getElementById('theme'),
         open = document.getElementById('open');
       function brand() {
@@ -203,20 +195,15 @@
           const doc = ifr.contentDocument;
           if (theme.value) doc.documentElement.setAttribute('data-theme', theme.value);
           else doc.documentElement.removeAttribute('data-theme');
-          // Contract stage: Part A only = disable the brand's Part B sheet
-          for (const l of doc.querySelectorAll('link[href$="brand-full.css"]'))
-            l.disabled = stage.value === 'a';
         } catch (e) {}
       }
       function reload() {
         open.href = src();
-        stage.disabled = !brand();
         ifr.src = src();
       }
       ifr.addEventListener('load', applyInside);
       for (const r of document.querySelectorAll('input[name="brand"]'))
         r.addEventListener('change', reload);
-      stage.addEventListener('change', applyInside);
       theme.addEventListener('change', applyInside);
       function fit() {
         const fr = document.querySelector('.frame');

@@ -71,7 +71,33 @@
   --btn-bg-image: linear-gradient(160deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0) 55%);
   --btn-shadow:
     inset 0 2px 0 rgba(255, 255, 255, 0.35), inset 0 -3px 0 rgba(0, 0, 0, 0.28),
-    8px 10px 0 0 light-dark(#83265e, #12060f);
+    8px 10px 0 0 var(--btn-shadow-colour);
+  /* 5b. Primary-button 3D states (owner-ratified 2026-07-25): the loud
+     button is a physical toy — hover raises it (lighter, eager; the
+     anchored shadow gap grows), press drives it BELOW rest onto its own
+     shadow (darker, bevel inverted). The physics are universal; LIGHT is
+     spoken per theme: dark lights with white, light lifts toward the
+     brand pink (chroma-preserving — raw white greys the plum) and presses
+     by killing the gloss (removing light IS darkening at pigment floor).
+     High-contrast re-declares these below the theme boundary. */
+  --btn-shadow-colour: light-dark(#83265e, #12060f);
+  --btn-face-raised: light-dark(
+    color-mix(in oklab, #331f30, #ff8fbe 20%),
+    color-mix(in oklab, #ff8fbe, white 14%)
+  );
+  --btn-face-pressed: light-dark(
+    color-mix(in oklab, #331f30, black 25%),
+    color-mix(in oklab, #ff8fbe, black 14%)
+  );
+  --btn-shadow-raised:
+    inset 0 2px 0 rgba(255, 255, 255, 0.45), inset 0 -3px 0 rgba(0, 0, 0, 0.28),
+    11px 14px 0 0 var(--btn-shadow-colour);
+  --btn-shadow-pressed:
+    inset 0 3px 0 rgba(0, 0, 0, 0.25), inset 0 -2px 0 rgba(255, 255, 255, 0.18),
+    2px 2px 0 0 var(--btn-shadow-colour);
+  --btn-gloss-pressed: none;
+  --btn-raise-transform: translate(-3px, -4px);
+  --btn-press-transform: translate(6px, 8px);
   /* 7. Geometry — pill, plush, chunky */
   --radius-control: 999px;
   --radius-container: 28px;
@@ -145,6 +171,68 @@
   color: var(--text-link);
 }
 
+/* §STATES — per-variant button states (owner walk item 5 + ratified 3D set,
+   2026-07-25). One hover never fits both types: the loud primary is a 3D
+   toy; the quiet secondary stays flat and answers with a background shift
+   and underline only. Base states are untouched everywhere. */
+.oak-scope .oak-btn {
+  transition:
+    background var(--motion-quick) var(--ease-standard),
+    box-shadow var(--motion-quick) var(--ease-standard),
+    transform var(--motion-quick) var(--ease-standard);
+}
+.oak-scope .oak-btn:hover {
+  background: var(--btn-face-raised);
+  border-color: var(--btn-face-raised);
+  transform: var(--btn-raise-transform);
+  box-shadow: var(--btn-shadow-raised);
+  text-decoration: none;
+}
+.oak-scope .oak-btn:active {
+  background: var(--btn-face-pressed);
+  border-color: var(--btn-face-pressed);
+  background-image: var(--btn-gloss-pressed);
+  transform: var(--btn-press-transform);
+  box-shadow: var(--btn-shadow-pressed);
+}
+.oak-scope .oak-btn--secondary:hover {
+  background: var(--bg-btn-secondary-hover);
+  border-color: var(--border-primary);
+  transform: none;
+  box-shadow: var(--btn-shadow);
+  text-decoration: underline;
+}
+.oak-scope .oak-btn--secondary:active {
+  background: var(--bg-btn-secondary-hover);
+  border-color: var(--border-primary);
+  background-image: var(--btn-bg-image);
+  transform: none;
+  box-shadow: var(--shadow-press);
+}
+
+/* High-contrast re-declaration (owner-directed: "high contrast needs a
+   shadow, but it can be a more subtle shadow than the others"): crisp ink
+   at half scale with a white separation ring (black-on-black stays
+   legible), no gloss (pure ink — the candy shadow colour was a latent bug
+   in this theme), motion scaled to match, press lands on the theme's own
+   lemon signature; hover underlines (the theme's hover mark). */
+[data-theme='high-contrast'] .oak-scope,
+.oak-scope [data-theme='high-contrast'],
+.oak-scope[data-theme='high-contrast'] {
+  --btn-bg-image: none;
+  --btn-shadow: 0 0 0 3px var(--oak-white), 4px 5px 0 0 var(--oak-black-true);
+  --btn-face-raised: var(--oak-black-true);
+  --btn-face-pressed: var(--oak-black-true);
+  --btn-shadow-raised: 0 0 0 3px var(--oak-white), 6px 8px 0 0 var(--oak-black-true);
+  --btn-shadow-pressed: 0 0 0 3px var(--oak-white), 3px 3px 0 0 var(--oak-lemon);
+  --btn-raise-transform: translate(-2px, -3px);
+  --btn-press-transform: translate(3px, 4px);
+}
+[data-theme='high-contrast'] .oak-scope .oak-btn:hover,
+.oak-scope [data-theme='high-contrast'] .oak-btn:hover {
+  text-decoration: underline;
+}
+
 /* COMPOSITION (page-type scoped) */
 [data-page='unit'] {
   /* The toy shelf: the quest log (detail) pinned tall on the left beside
@@ -156,8 +244,13 @@
     'resources resources resources resources' 'cta cta cta cta' '. support support .';
 }
 [data-page='proof'] {
-  /* Proof page: quests beside the name-your-creature drawer */
-  --main-columns: minmax(var(--space-16), 1fr) minmax(0, 700px) minmax(0, 480px)
-    minmax(var(--space-16), 1fr);
-  --main-areas: 'hero hero hero hero' '. featured support .' '. context context .';
+  /* Proof page (owner-ruled composition, 2026-07-25): the creature's pick
+     LEADS as a loud full-width band (name-input rides with it — name the
+     creature that wants things), the uniform quiet quest shelf sits below,
+     authoring context last. Full-bleed rows; each region manages its own
+     inner container. */
+  --main-columns: minmax(0, 1fr);
+  --main-areas: 'hero' 'featured' 'support' 'context';
+  --main-columns-narrow: minmax(0, 1fr);
+  --main-areas-narrow: 'hero' 'featured' 'support' 'context';
 }

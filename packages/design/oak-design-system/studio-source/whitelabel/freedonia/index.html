@@ -58,14 +58,9 @@
       <div class="toolbar oak-region" data-region="utility">
         <div class="oak-container oak-cluster">
           <span class="oak-body-3" style="color: var(--text-subdued)"
-            >White-label proof — same markup as Oak, different brand.css</span
+            >White-label proof: Oak's design system re-identified by CSS alone — this page authors
+            its own composition (the Identity Switchboard is the same-markup proof)</span
           >
-          <label class="oak-body-3" for="stage">Contract stage</label>
-          <select id="stage">
-            <option value="brand-full.css">Part A + B (full)</option>
-            <option value="brand-a.css">Part A only (~14 tokens)</option>
-            <option value="">None (Oak baseline)</option>
-          </select>
           <label class="oak-body-3" for="theme">Theme</label>
           <select id="theme">
             <option>light</option>
@@ -307,16 +302,6 @@
       </footer>
     </div>
     <script>
-      const stage = document.getElementById('stage'),
-        link = document.getElementById('brand-css');
-      stage.onchange = () => {
-        if (stage.value) {
-          link.disabled = false;
-          link.href = stage.value;
-        } else {
-          link.disabled = true;
-        }
-      };
       const themeSel = document.getElementById('theme');
       themeSel.value = oakTheme.get();
       themeSel.onchange = () => oakTheme.set(themeSel.value);
