@@ -43,6 +43,43 @@
         color: var(--text-primary);
         font: var(--weight-semibold) var(--font-size-2)/var(--leading-20) var(--font-sans);
       }
+      /* Quest-area composition (owner-ruled 2026-07-25): the creature's pick
+         leads — one loud tilted card with the creature attached (EMC2 keeps
+         its angles by identity ruling) beside the name-input column; the
+         shelf below is uniform and quiet. Loud/quiet is the only style axis. */
+      .pick-layout {
+        display: grid;
+        gap: var(--space-24);
+        align-items: start;
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      }
+      @media (width < 840px) {
+        .pick-layout {
+          grid-template-columns: 1fr;
+        }
+      }
+      .pick-card {
+        position: relative;
+        transform: rotate(-1.5deg);
+      }
+      .pick-creature {
+        position: absolute;
+        top: -44px;
+        right: var(--space-16);
+        width: 88px;
+        height: 88px;
+        transform: rotate(8deg);
+        pointer-events: none;
+      }
+      .shelf-grid {
+        display: grid;
+        gap: var(--space-16);
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      }
+      .chip-filter[aria-pressed='true'] {
+        outline: var(--border-solid-m) solid var(--border-primary);
+        outline-offset: 2px;
+      }
     </style>
   </head>
   <body class="oak-scope" style="margin: 0; color: var(--text-primary)">
@@ -51,15 +88,10 @@
       <div class="toolbar oak-region" data-region="utility">
         <div class="oak-container oak-cluster">
           <span class="oak-body-3" style="color: var(--text-subdued)"
-            >White-label proof — same markup as Oak, different brand.css. Dark-first by identity:
-            “light” is the daylight mode</span
+            >White-label proof: Oak's design system re-identified by CSS alone — this page authors
+            its own composition (the Identity Switchboard is the same-markup proof). Dark-first by
+            identity: “light” is the daylight mode</span
           >
-          <label class="oak-body-3" for="stage">Contract stage</label>
-          <select id="stage">
-            <option value="brand-full.css">Part A + B (full)</option>
-            <option value="brand-a.css">Part A only (~14 tokens)</option>
-            <option value="">None (Oak baseline)</option>
-          </select>
           <label class="oak-body-3" for="theme">Theme</label>
           <select id="theme">
             <option>light</option>
@@ -113,85 +145,193 @@
             </div>
           </div>
         </section>
+        <!-- THE LOUD MOMENT (owner-ruled composition): one quest, chosen by
+             the creature. Impact: learning starts with someone caring about
+             a question. The name-input rides this band — name the creature
+             that wants things. -->
         <section
-          class="oak-container oak-stack oak-region"
+          class="oak-box oak-region"
           data-region="featured"
-          style="padding-block: var(--space-32)"
+          style="border-block: var(--border-solid-m) solid var(--border-primary)"
         >
-          <h2 class="oak-heading-4" style="margin: 0">Tonight's quests</h2>
-          <div class="oak-cluster oak-cluster--s">
-            <span class="oak-tag oak-tag--mint"
-              ><span class="emc-icon" aria-hidden="true" style="font-size: var(--size-icon-s)"
-                >calculate</span
-              >Maths</span
-            ><span class="oak-tag oak-tag--aqua"
-              ><span class="emc-icon" aria-hidden="true" style="font-size: var(--size-icon-s)"
-                >spellcheck</span
-              >Spelling</span
-            ><span class="oak-tag oak-tag--lavender">Science</span
-            ><span class="oak-tag oak-tag--pink">Music</span><span class="oak-tag">Reading</span>
-          </div>
-          <div class="oak-grid">
-            <div class="oak-card oak-card--mint oak-stack" style="transform: rotate(-1.5deg)">
-              <h3 class="oak-heading-6" style="margin: 0">The fraction fair</h3>
-              <p class="oak-body-2" style="margin: 0">
-                Split the toffee apples fairly or the creature sulks. 10 minutes.
-              </p>
-              <button class="oak-btn oak-btn--sm" type="button">Start quest</button>
-            </div>
-            <div class="oak-card oak-stack">
-              <h3 class="oak-heading-6" style="margin: 0">Word carousel</h3>
-              <p class="oak-body-2" style="margin: 0">
-                Twelve tricky spellings go round and round. Catch them all.
-              </p>
-              <button class="oak-btn oak-btn--sm oak-btn--secondary" type="button">
-                Start quest
-              </button>
-            </div>
-            <div
-              class="oak-card oak-card--flat oak-stack"
-              style="background: var(--surface-decorative-5-subtle); transform: rotate(1.2deg)"
-            >
-              <h3 class="oak-heading-6" style="margin: 0">Puddle science</h3>
-              <p class="oak-body-2" style="margin: 0">
-                Where does a puddle go? Your creature wants to know too.
-              </p>
-              <button class="oak-btn oak-btn--sm oak-btn--secondary" type="button">
-                Start quest
-              </button>
+          <div class="oak-container oak-stack">
+            <h2 class="oak-heading-4" style="margin: 0">Your creature is curious about…</h2>
+            <div class="pick-layout">
+              <div class="oak-card oak-card--pink oak-stack pick-card">
+                <img class="pick-creature" src="logo.svg" alt="" />
+                <span class="oak-tag oak-tag--lavender" style="align-self: start">Science</span>
+                <h3 class="oak-heading-5" style="margin: 0">Puddle science</h3>
+                <p class="oak-body-1" style="margin: 0">
+                  Where does a puddle go after the rain stops? Your creature has been staring at one
+                  all morning and it simply must know.
+                </p>
+                <button class="oak-btn" type="button" style="align-self: start">
+                  Start this quest
+                </button>
+              </div>
+              <div class="oak-stack" style="align-self: center">
+                <h3 class="oak-heading-6" style="margin: 0">Name the creature that wants things</h3>
+                <label class="oak-body-2" for="cname">Creature name</label>
+                <input
+                  class="oak-input"
+                  id="cname"
+                  type="text"
+                  placeholder="e.g. Sir Wobblesworth"
+                />
+                <p class="oak-body-3" style="margin: 0; color: var(--text-subdued)">
+                  You can rename it later. It won't mind. It's very forgiving.
+                </p>
+              </div>
             </div>
           </div>
         </section>
-        <section
-          class="oak-container oak-stack oak-region"
-          data-region="support"
-          style="padding-block: var(--space-16) var(--space-48); max-width: var(--space-640, 640px)"
-        >
-          <h2 class="oak-heading-5" style="margin: 0">Name your creature</h2>
-          <label class="oak-body-2" for="cname">Creature name</label>
-          <input class="oak-input" id="cname" type="text" placeholder="e.g. Sir Wobblesworth" />
-          <p class="oak-body-3" style="margin: 0; color: var(--text-subdued)">
-            You can rename it later. It won't mind. It's very forgiving.
-          </p>
+        <!-- THE QUIET SHELF: uniform grid — abundance with child agency, not
+             neutrality. Chips are anchored filters, not decoration. -->
+        <section class="oak-region" data-region="support" style="padding-block: var(--space-32)">
+          <div class="oak-container oak-stack">
+            <h2 class="oak-heading-4" style="margin: 0">The quest shelf</h2>
+            <p class="oak-body-2" style="margin: 0; max-width: var(--measure-prose)">
+              Every quest feeds your creature something. Pick by subject, or wander.
+            </p>
+            <div
+              class="oak-cluster oak-cluster--s"
+              role="group"
+              aria-label="Filter quests by subject"
+            >
+              <button
+                class="oak-tag chip-filter"
+                type="button"
+                data-subject="all"
+                aria-pressed="true"
+              >
+                All quests</button
+              ><button
+                class="oak-tag oak-tag--mint chip-filter"
+                type="button"
+                data-subject="maths"
+                aria-pressed="false"
+              >
+                <span class="emc-icon" aria-hidden="true" style="font-size: var(--size-icon-s)"
+                  >calculate</span
+                >Maths</button
+              ><button
+                class="oak-tag oak-tag--aqua chip-filter"
+                type="button"
+                data-subject="spelling"
+                aria-pressed="false"
+              >
+                <span class="emc-icon" aria-hidden="true" style="font-size: var(--size-icon-s)"
+                  >spellcheck</span
+                >Spelling</button
+              ><button
+                class="oak-tag oak-tag--lavender chip-filter"
+                type="button"
+                data-subject="science"
+                aria-pressed="false"
+              >
+                Science</button
+              ><button
+                class="oak-tag oak-tag--pink chip-filter"
+                type="button"
+                data-subject="music"
+                aria-pressed="false"
+              >
+                Music</button
+              ><button
+                class="oak-tag chip-filter"
+                type="button"
+                data-subject="reading"
+                aria-pressed="false"
+              >
+                Reading
+              </button>
+            </div>
+            <p
+              class="oak-body-3"
+              id="shelf-count"
+              role="status"
+              style="margin: 0; color: var(--text-subdued)"
+            ></p>
+            <div class="shelf-grid" id="shelf">
+              <div class="oak-card oak-card--flat oak-stack" data-subject="maths">
+                <span class="oak-tag oak-tag--mint" style="align-self: start">Maths</span>
+                <h3 class="oak-heading-6" style="margin: 0">The fraction fair</h3>
+                <p class="oak-body-2" style="margin: 0">
+                  Split the toffee apples fairly or the creature sulks. 10 minutes.
+                </p>
+                <button class="oak-btn oak-btn--sm oak-btn--secondary" type="button">
+                  Start quest
+                </button>
+              </div>
+              <div class="oak-card oak-card--flat oak-stack" data-subject="spelling">
+                <span class="oak-tag oak-tag--aqua" style="align-self: start">Spelling</span>
+                <h3 class="oak-heading-6" style="margin: 0">Word carousel</h3>
+                <p class="oak-body-2" style="margin: 0">
+                  Twelve tricky spellings go round and round. Catch them all.
+                </p>
+                <button class="oak-btn oak-btn--sm oak-btn--secondary" type="button">
+                  Start quest
+                </button>
+              </div>
+              <div class="oak-card oak-card--flat oak-stack" data-subject="science">
+                <span class="oak-tag oak-tag--lavender" style="align-self: start">Science</span>
+                <h3 class="oak-heading-6" style="margin: 0">Shadow stretchers</h3>
+                <p class="oak-body-2" style="margin: 0">
+                  Why does your shadow grow at teatime? Measure it and find out.
+                </p>
+                <button class="oak-btn oak-btn--sm oak-btn--secondary" type="button">
+                  Start quest
+                </button>
+              </div>
+              <div class="oak-card oak-card--flat oak-stack" data-subject="music">
+                <span class="oak-tag oak-tag--pink" style="align-self: start">Music</span>
+                <h3 class="oak-heading-6" style="margin: 0">The kitchen band</h3>
+                <p class="oak-body-2" style="margin: 0">
+                  Pots, pans and a wooden spoon: copy the rhythm before it fades.
+                </p>
+                <button class="oak-btn oak-btn--sm oak-btn--secondary" type="button">
+                  Start quest
+                </button>
+              </div>
+              <div class="oak-card oak-card--flat oak-stack" data-subject="reading">
+                <span class="oak-tag" style="align-self: start">Reading</span>
+                <h3 class="oak-heading-6" style="margin: 0">Story swap</h3>
+                <p class="oak-body-2" style="margin: 0">
+                  Read the ending first, then guess the beginning. Your creature loves being wrong.
+                </p>
+                <button class="oak-btn oak-btn--sm oak-btn--secondary" type="button">
+                  Start quest
+                </button>
+              </div>
+              <div class="oak-card oak-card--flat oak-stack" data-subject="maths">
+                <span class="oak-tag oak-tag--mint" style="align-self: start">Maths</span>
+                <h3 class="oak-heading-6" style="margin: 0">Times-table treasure</h3>
+                <p class="oak-body-2" style="margin: 0">
+                  Six right answers open the chest. The creature keeps whatever's inside.
+                </p>
+                <button class="oak-btn oak-btn--sm oak-btn--secondary" type="button">
+                  Start quest
+                </button>
+              </div>
+            </div>
+          </div>
         </section>
 
-        <section
-          class="oak-container oak-stack oak-region"
-          data-region="context"
-          style="padding-block: 0 var(--space-48)"
-        >
-          <h2 class="oak-heading-5" style="margin: 0">Authoring blocks in this brand</h2>
-          <div class="oak-block oak-outcome">
-            <span class="oak-block-label">Pupil outcome</span>
-            <p>I can describe how water evaporates from a puddle and where it goes.</p>
-          </div>
-          <div class="oak-block oak-misconception">
-            <span class="oak-block-label">Misconception</span>
-            <p class="oak-body-2" style="margin: 0">
-              <strong>“The puddle soaks into the ground, so it’s gone.”</strong> Some soaks in — but
-              watch the dry pavement: the water that vanished from the surface went into the air as
-              water vapour.
-            </p>
+        <section class="oak-region" data-region="context" style="padding-block: 0 var(--space-48)">
+          <div class="oak-container oak-stack">
+            <h2 class="oak-heading-5" style="margin: 0">Authoring blocks in this brand</h2>
+            <div class="oak-block oak-outcome">
+              <span class="oak-block-label">Pupil outcome</span>
+              <p>I can describe how water evaporates from a puddle and where it goes.</p>
+            </div>
+            <div class="oak-block oak-misconception">
+              <span class="oak-block-label">Misconception</span>
+              <p class="oak-body-2" style="margin: 0">
+                <strong>“The puddle soaks into the ground, so it’s gone.”</strong> Some soaks in —
+                but watch the dry pavement: the water that vanished from the surface went into the
+                air as water vapour.
+              </p>
+            </div>
           </div>
         </section>
       </main>
@@ -225,22 +365,31 @@
       </footer>
     </div>
     <script>
-      const stage = document.getElementById('stage'),
-        link = document.getElementById('brand-css');
-      stage.onchange = () => {
-        if (stage.value) {
-          link.disabled = false;
-          link.href = stage.value;
-        } else {
-          link.disabled = true;
-        }
-      };
       const themeSel = document.getElementById('theme');
       themeSel.value = oakTheme.get();
       themeSel.onchange = () => oakTheme.set(themeSel.value);
       const motionSel = document.getElementById('motion');
       motionSel.value = oakTheme.motion.get();
       motionSel.onchange = () => oakTheme.motion.set(motionSel.value);
+
+      const chips = [...document.querySelectorAll('.chip-filter')];
+      const cards = [...document.querySelectorAll('#shelf > .oak-card')];
+      const count = document.getElementById('shelf-count');
+      function applyFilter(subject) {
+        chips.forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.subject === subject)));
+        let shown = 0;
+        cards.forEach((card) => {
+          const show = subject === 'all' || card.dataset.subject === subject;
+          card.style.display = show ? '' : 'none';
+          if (show) shown += 1;
+        });
+        count.textContent =
+          subject === 'all'
+            ? `All ${shown} quests on the shelf.`
+            : `${shown} ${subject} quest${shown === 1 ? '' : 's'} on the shelf.`;
+      }
+      chips.forEach((c) => c.addEventListener('click', () => applyFilter(c.dataset.subject)));
+      applyFilter('all');
     </script>
   </body>
 </html>

@@ -223,7 +223,7 @@ function Nav({ active = 'Subjects' }) {
         'a',
         { href: '#', style: { display: 'flex', alignItems: 'center' } },
         React.createElement('img', {
-          src: '../../assets/logo-full-official.svg',
+          src: '../../assets/logo-full-black.svg',
           alt: 'Oak National Academy',
           style: { height: 36 },
         }),
@@ -308,7 +308,7 @@ function Footer() {
         'div',
         null,
         React.createElement('img', {
-          src: '../../assets/logo-full-official.svg',
+          src: '../../assets/logo-full-black.svg',
           style: { height: 40, filter: 'var(--filter-icon-inverted)' },
           alt: 'Oak',
         }),
