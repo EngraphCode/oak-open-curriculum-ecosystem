@@ -64,20 +64,49 @@ overrides:
   # Lift together with the dependabot ignore when the project moves Node majors.
   '@types/node': '^24.13.2'
   axios: '>=1.15.1'
-  brace-expansion: '>=5.0.5'
+  # Security floor, raised 2026-07-25: DoS via unbounded expansion length
+  # causing an out-of-memory abort (high; patched in 5.0.8). Advisory was
+  # published while this sweep was in flight — the 5.0.5 floor already here was
+  # for an earlier finding. Reaches the tree through glob/minimatch tooling
+  # chains; no production reachability established, patched because the fix is
+  # a one-line floor. Left unbounded: 5.x is the current line.
+  brace-expansion: '>=5.0.8'
   csstype: '>=3.2.3'
   esbuild: '>=0.28.1'
+  # Security floor: host confusion via a literal backslash in fast-uri's URI
+  # parser (high; patched in 3.1.4). Reaches the tree only through SDK and dev
+  # tooling chains. Bounded below 4 deliberately — 4.x is published, and an
+  # open floor would silently adopt a major nobody asked for. Raise the bound
+  # when a consumer actually needs fast-uri 4.
+  fast-uri: '>=3.1.4 <4'
   file-type: '>=21.3.2'
   follow-redirects: '>=1.15.12'
   hono: '>=4.12.25'
-  '@hono/node-server': '>=1.19.10'
+  # Security floor: unauthenticated memory-leak DoS in the Hono Node adapter
+  # (patched in 2.0.10). PRODUCTION-REACHABLE, unlike most entries here:
+  # @modelcontextprotocol/sdk's StreamableHTTPServerTransport imports
+  # getRequestListener from this package and constructs one per request, so it
+  # sits on the hot path of every /mcp call even though no repo source imports
+  # Hono. Bounded below 3 deliberately — the previous open '>=1.19.10' floor is
+  # why 2.x was adopted at all (the SDK asks only for ^1.19.9), and the bound
+  # stops the next major arriving unreviewed. Raise it when the SDK does.
+  '@hono/node-server': '>=2.0.10 <3'
   'js-cookie': '>=3.0.7'
   js-yaml: '>=4.1.1 <5.0.0'
+  # Security floor: quadratic-complexity ReDoS via the mailto: matcher in
+  # linkify-it (high; patched in 5.0.2). Arrives transitively through markdown
+  # tooling. Bounded below 6 for the same reason as fast-uri: 6.x exists and an
+  # open floor would take it. Raise the bound when markdown-it moves.
+  linkify-it: '>=5.0.2 <6'
   markdown-it: '>=14.1.2'
   picomatch: '>=4.0.4'
-  # Security floor: next pins a nested postcss 8.4.31 (GHSA-qx2v-qp2m-jg93,
-  # XSS via unescaped </style> in stringify output; patched in 8.5.10).
-  postcss: '>=8.5.10'
+  # Security floor, raised 2026-07-25. Originally for next's nested postcss
+  # 8.4.31 (GHSA-qx2v-qp2m-jg93, XSS via unescaped </style> in stringify
+  # output; patched in 8.5.10); now also covers path traversal in previous
+  # source-map auto-loading (high; patched in 8.5.18). Build-time surface only.
+  # Left unbounded: 8.x is the current line, so there is no major to guard
+  # against yet — add a bound if 9.x ships.
+  postcss: '>=8.5.18'
   qs: '>=6.15.2'
   rollup: '>=4.59.0'
   sucrase: '>=3.35.1'

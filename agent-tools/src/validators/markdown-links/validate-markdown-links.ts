@@ -78,8 +78,12 @@ const SOURCE_IGNORE_GLOBS = [
   // Copilot agent worktrees (owner ruling 2026-07-24: excluded from all
   // tools).
   '.github/copilot-worktrees/**',
-  'ds-bundle/**',
+  // design-sync working surfaces (gitignored, regenerated per sync): the
+  // staged converter scripts and the built upload bundle. The bundle's
+  // generated Markdown resolves links against the UPLOADED project layout,
+  // not this repo's, so repo-relative validation is meaningless for it.
   '.ds-sync/**',
+  'ds-bundle/**',
 ] as const;
 
 /** Collect repo-relative POSIX paths matching the given globs, minus excluded paths. */

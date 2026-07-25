@@ -16,9 +16,9 @@ Ark: compound parts (`Tabs.Root`/`Tabs.List`/`Tabs.Trigger`/`Tabs.Content`). Zag
 Every part carries **`data-scope` + `data-part`** plus state as `data-*` — one CSS vocabulary across all frameworks, which is exactly how our token layer likes it:
 
 | Our rule                 | Ark/Zag hook                                                                                               |
-| ------------------------ | ---------------------------------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------ |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------- |
 | Double focus ring        | `:focus-visible` on parts (real DOM focus); `[data-highlighted]` for virtual focus — style both            |
-| State never colour alone | `[data-state="active                                                                                       | checked | open"]`,`[data-selected]`,`[data-disabled]` — pair with border/icon/text |
+| State never colour alone | `[data-state="active\|checked\|open"]`, `[data-selected]`, `[data-disabled]` — pair with border/icon/text  |
 | Motion axis              | Transitions are yours on `[data-state]` changes — motion verbs only                                        |
 | Semantic HTML            | Parts render correct elements; `asChild` swaps in a more semantic one                                      |
 | Theming/tenants          | `[data-scope="tabs"][data-part="trigger"]` selectors work in any consumer — no framework in the stylesheet |

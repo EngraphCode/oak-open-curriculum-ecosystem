@@ -55,9 +55,28 @@
   is the **Oak Open Curriculum Design System** — repo-scoped for now.
   Repo-scoped design surfaces carry the full name; never claim this is
   the org's design system.
-- `.design-sync/config.json` `projectId` targets the THIS-account
-  Claude Design project (named "Oak Open Curriculum Design System",
-  owner-renamed from the initial "repo-synced" name). The OTHER
-  account's studio carries the same name — always resolve by projectId
-  (634a588e-…), never by name; never sync to the other account from
-  this config.
+- `.design-sync/config.json` `projectId` targets the **ORIGINAL**
+  Claude Design project `314dd517-493d-4be2-bd08-56ae0e80e780` — the
+  owner-ruled go-forward studio (MCP-137 S4, 2026-07-24; gate-discharge
+  pointer: the Director's S4 event of ~20:08Z). Two projects named
+  "Oak Open Curriculum Design System" exist across accounts — always
+  resolve by projectId, never by name. The 2026-07-23 first sync went
+  to the interim project `634a588e-…`; that project is superseded as a
+  sync target and this config must never point back at it without a
+  fresh owner ruling.
+- Mechanical claim re-verification at every sync-back: before ANY
+  up-sync, re-verify the claims the conventions header and README make
+  against the fresh build (class vocabulary, counts, capability
+  claims) — never carry a claim forward on memory (Heron's process
+  rule, gated to land at MCP-137 S4).
+- Theme screenshots settle ≥150 ms past the theme transition before
+  capture — earlier frames record mid-transition colours and fail
+  visual comparison falsely (Heron's process rule, same gate).
+- MCP-137 S4 write-set deviations (owner/Director-adjudicated, see the
+  S4 comms thread): the studio-native `_ds_bundle.js` (the studio's own
+  compiled component bundle, load-bearing for its specimen cards) is
+  NOT overwritten by the pipeline's theme-only bundle while the repo
+  exports no components; the five tier CSS files + `oak-theme.js` ship
+  alongside the flat `styles.css` because studio design surfaces link
+  tier files directly; no delete-reconciliation of studio-native
+  surfaces (they are the S5 studio-side inventory).
