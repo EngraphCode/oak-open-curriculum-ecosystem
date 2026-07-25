@@ -53,6 +53,9 @@ const INVENTORY_IGNORE_GLOBS = [
   '**/.git/**',
   '**/*.original.md',
   '.agent/reference-local/**',
+  // Repo-local pnpm store cache (gitignored, machine-local): package
+  // tarball contents are never live sources or portable link targets.
+  '.pnpm-store/**',
 ] as const;
 
 /** Additional non-live or generated Markdown sources excluded from validation. */

@@ -301,3 +301,11 @@ candidate routed to MCP-150 (the hook-dispatch rebuild lane): anchor matchers to
 exclude heredoc/body-file payloads. Same family as hook-policy-substring-discipline; on an
 enforcement surface a false-positive class is a defect that TEACHES workarounds — cure the
 matcher, never normalise the dodge.
+
+**Cricket A/B tally (+2 pairs, Cormorant design-lane, 2026-07-24 ~20:40Z)**: pairs C and D both
+formally divergent (C: cricket DRIFTING vs haiku WRONG-PRIORITY; D: cricket DRIFTING vs haiku
+ON-TRACK) — in BOTH, the haiku variant differed only in SEVERITY grading, never in the
+redirection; substance identical across all eight verdicts of the four-pair run. Also one
+worked instance of context-supply corruption (pair A): the assessor pair correctly convicted a
+mis-supplied lane order — supplied-context assessors' ground truth IS the supply; fidelity of
+the supply is the invoker's whole obligation (same class as the consuming-nextjs mis-bucket).
