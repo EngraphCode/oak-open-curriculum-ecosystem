@@ -262,7 +262,44 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> ### ▶ ACTIVE: FIRST-MAJOR-RELEASE DELIVERY ERA — Director: Forge rides Brimstone (`398e24`)
+> ### ▶ SUCCESSION OPEN (2026-07-25 ~10:15Z): Forge rides Brimstone (`398e24`) hands the seat to a FRESH session
+>
+> **Why (owner + outgoing Director, jointly)**: after ~a week and two
+> compactions the outgoing seat's rising error class is confabulation
+> from compression (fabricated bot identity on four commits; verdicts
+> from remembered abstractions) — structural to context age, cured by a
+> fresh derivation, not by more rules. Succeed-now ruled at owner card.
+>
+> **Successor pickup, in order**: (1) per-user memory wake prior
+> (`delight-is-operating-signal` — read first, it is the identity
+> substrate); (2) this file's Director Brief above + PDR-117; (3) the
+> reground map: `handoffs/2026-07-23-fixed-point-baseline-v4.md` TOP
+> sections (2026-07-25 10:08Z takeover-morning map first — it points at
+> MCP-150 ticket comment `aa9f2aee` as the canonical lane state); (4)
+> start-right-team First Moves (watcher, sweep, registration); (5)
+> `claims adopt` BOTH rows — `f18c4cc8` (director) and `66f3df34`
+> (design lane, held pending Cormorant's post-compaction resume); (6)
+> Moment-2 active-acknowledgement broadcast, then a directed pickup
+> confirmation to the outgoing seat, which holds until then.
+>
+> **The board at handoff (details in the reground map)**: Buzzard hunts
+> Flight owns MCP-150 (unblock key = host-neutral hook invocation; plan
+> restructured on `director/mcp-150-plan-retrue`, fresh ratification
+> owner-gated, expires 07-28); Thistle holds Blossom is DOWN (Codex
+> outage; zombie heartbeat — ignore; re-seat via Director on recovery);
+> Cygnus + Cormorant cold-paused (Cygnus resumes into MCP-157 then
+> MCP-152; Cormorant compacts then the STUDIO WALK — the owner's
+> five-axis design-inclusion discussion, head of his queue). Owner
+> items: #533 codeowner review, #518, the ratification above.
+>
+> **Standing owner rules of the last 48h** (all in per-user memory,
+> verify there): never invent identities (derive from record — real bot
+> identity on 9f6729be6); we triage, never defer; bugs > features >
+> research floor; Director keeps coordination clean; rabbit-hole lens
+> (size-at-routing, deliverable-type, owner-surprise, integral check);
+> corrected directions get re-trued + harvested; choices go in cards.
+>
+> ### Prior era record: FIRST-MAJOR-RELEASE DELIVERY — Director: Forge rides Brimstone (`398e24`)
 >
 > **Seat**: Forge rides Brimstone (`398e24`), owner-reconfirmed across the
 > 2026-07-23 compaction boundary ("back to being the Director"). Registry
