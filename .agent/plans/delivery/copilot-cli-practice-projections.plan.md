@@ -45,7 +45,12 @@ Three total disposition manifests make the source sets recomputable:
    projection is selected only when file-scoped activation is expressible
    through Copilot `applyTo` and adds behaviour beyond the repo-wide entry
    point. Local-only instructions must emit the documented
-   `excludeAgent: "cloud-agent"` disposition.
+   `excludeAgent: "cloud-agent"` disposition. Provenance: GitHub's repository
+   custom-instructions documentation, verified first-hand 2026-07-25, permits
+   exactly two `excludeAgent` values — `"code-review"` and `"cloud-agent"` —
+   so `cloud-agent` is the correct literal for excluding the Copilot cloud
+   agent and must not be "corrected" to another spelling, and `"code-review"`
+   is the separate value that excludes Copilot code review.
 2. Every live, non-archived `.agent/sub-agents/templates/*.md` specialist is
    classified `projected` or `excluded` with a reason.
 3. Every server found in tracked platform MCP configuration is reconciled into

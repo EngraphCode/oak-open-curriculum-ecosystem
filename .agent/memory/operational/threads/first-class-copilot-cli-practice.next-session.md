@@ -7,9 +7,17 @@ participant in the repository's canonical Practice and agentic tools.
 
 - Branch: `docs/copilot-cli-practice-citizenship`
 - Base: current `main` at the start of the replacement record landing
-- Owner ratification: direct in-session `Implement the plan`, relayed by
-  Director Forge rides Brimstone in collaboration event
-  `444463f6-d93f-41c1-81c5-a39b3205338f`
+- Owner ratification (2026-07-24): direct in-session `Implement the plan`,
+  relayed by Director Forge rides Brimstone in collaboration event
+  `444463f6-d93f-41c1-81c5-a39b3205338f`. That event was shape-bound to the
+  then-current dual-route policy design, which is now deleted, so it is
+  superseded for the policy architecture and must never be cited as ratifying
+  the replacement single-dispatcher shape.
+- Owner re-ratification (2026-07-25, MCP-150): the replacement
+  single-activation/single-dispatcher policy architecture carries its own fresh
+  owner ratification at an owner card; the
+  [`first-class-copilot-cli-policy-enforcement`](../../../plans/delivery/first-class-copilot-cli-policy-enforcement.plan.md)
+  plan records `ratified_by: "Jim Cresswell"`, `ratified_date: 2026-07-25`
 - Superseded record: PR #522 was closed with a naming comment; its branch was
   retained for evidence, not reused
 - Controlling plan:
@@ -51,9 +59,14 @@ participant in the repository's canonical Practice and agentic tools.
   never another Practice.
 - `.agents/skills/` remains the chosen Copilot skill home under documented
   precedence; no duplicate `.github/skills/` tree is planned.
-- Native Copilot startup supplies repository and identity context.
-  `oak-start-right-team` remains the deliberate boundary for claims,
-  heartbeat, watcher, and lifecycle.
+- Native Copilot startup supplies repository and identity context and creates
+  no shared coordination state. It does **not** waive claim registration: any
+  working session, quick-start included, must register a bounded active claim
+  before its first edit, under the always-loaded
+  `register-active-areas-at-session-open` rule that binds every session
+  regardless of which start-right skill ran. `oak-start-right-team` remains the
+  deliberate boundary for *continuous* team participation only — heartbeat
+  emission, the all-channels watcher, and the handoff/retirement lifecycle.
 - The policy lane begins with one Claude-only production baseline. It contains
   no dormant Copilot or Codex production branches.
 - The inherited PascalCase `PreToolUse` route is the sole Claude/Copilot

@@ -15,6 +15,37 @@
 - **[R]** — verified in repository source or doctrine.
 - **[I]** — a design judgement derived from the preceding evidence.
 
+## Review contract
+
+- **Purpose and intended impact:** establish the evidence base and the target
+  architecture for making local Copilot CLI an equal first-class citizen of this
+  repository's existing Practice and agentic tools, and stand as the evidence
+  authority for the controlling plan and its delivery tickets.
+- **Questions the review should test:** are the platform capability claims
+  correct against GitHub's official sources; is each surface's current
+  repository state stated honestly; does the target-versus-wired separation hold
+  wherever a target could be misread as an implementation claim; and is every
+  design judgement traceable to the observed, documented, or repository
+  evidence it rests on.
+- **Evidence standard and authority boundary:** every load-bearing claim carries
+  a **[V]**, **[D]**, **[R]**, or **[I]** label. GitHub's official
+  documentation is the only authority for what the platform supports; this
+  report is authoritative for the observed local design session, the repository
+  state it cites, and the target architecture derived from them — not for
+  platform behaviour it has neither observed nor cited.
+- **Non-goals and what this report does not authorise:** Copilot
+  coding-agent/cloud execution, hosted bridges, cross-machine routing, and a
+  separate Codex delivery programme are outside scope. The report authorises no
+  runtime delivery — mechanism and execution belong to the controlling plan and
+  MCP-150, MCP-154, MCP-155, and MCP-156 — and no target here turns a missing
+  runtime path green.
+- **What a successful review is:** each finding is checked against its evidence
+  label and the target-versus-wired split, and any mislabelled claim,
+  unsupported platform assertion, or scope leak past the local-CLI boundary is
+  reported against the specific line. Missing evidence is reported as a
+  labelling defect rather than inferred, and a contract mismatch is raised as
+  such rather than resolved by the reviewer.
+
 ## Executive verdict
 
 The repository should make **local Copilot CLI** an equal first-class citizen
@@ -40,7 +71,7 @@ programme are outside the ratified scope.
 | Layer | Observable bar | Current repository state | Delivery |
 | --- | --- | --- | --- |
 | Identity | Stable, model-visible identity with truthful Copilot provenance | Canonical identity types do not yet admit Copilot **[R]** | MCP-154 |
-| Deliberate membership | Native startup is useful alone; `oak-start-right-team` explicitly joins claims, heartbeat, watcher, and lifecycle | No Copilot bootstrap/join projection exists **[R]** | MCP-154 |
+| Deliberate membership | Native startup creates no shared coordination state; any working session registers a bounded claim before its first edit; `oak-start-right-team` adds continuous participation — heartbeat, watcher, and lifecycle | No Copilot bootstrap/join projection exists **[R]** | MCP-154 |
 | Canonical capability | Instructions, skills, specialist agents, and MCP tools reach the CLI without a second authority | Repo-wide pointer and portable skills exist; other GitHub projections are absent **[R]** | MCP-155 |
 | Policy | Valid writes receive one canonical decision through Copilot's real input/output contract | Copilot CLI 1.0.75 string-form `apply_patch` is governed; other Copilot schemas and the closed dispatcher remain unwired **[V][R]** | MCP-150 |
 | Communications | Directed/broadcast send, wake, drain recovery, handoff, and retirement work on the local shared substrate | The substrate exists; no Copilot notification/lifecycle projection is wired **[R]** | MCP-156 |
@@ -69,10 +100,13 @@ must not become the only identity source **[I]**.
 ### 2. Native bootstrap and team join are different acts
 
 Every Copilot CLI session in the repository should receive enough context to be
-useful and honest **[I]**. That does not authorise every session to mutate
-shared coordination state. The existing `oak-start-right-team` contract is the
-deliberate join: it opens claims, starts heartbeats and the all-channel watcher,
-and registers lifecycle state **[R]**.
+useful and honest **[I]**. Startup itself creates no shared coordination state
+**[I]**. That is not a licence to edit uncoordinated: the always-loaded
+`register-active-areas-at-session-open` rule requires any working session,
+quick-start included, to register a bounded active claim before its first edit
+**[R]**. The existing `oak-start-right-team` contract is the deliberate join
+into *continuous* team participation: heartbeat emission, the all-channel
+watcher, and the handoff/retirement lifecycle **[R]**.
 
 The launcher therefore bootstraps repository and identity context only.
 Joined/non-joined behaviour must be proved with negative as well as positive
@@ -247,8 +281,10 @@ dispatches and consumes it.
 5. **Canonical runtime boundaries:** platform-free policy evaluation, identity,
    comms, and lifecycle remain in `agent-tools`; Copilot modules parse, render,
    probe, and compose.
-6. **Deliberate membership:** native startup provides context; the team skill
-   opts into shared coordination state.
+6. **Deliberate membership:** native startup provides context and creates no
+   shared coordination state; bounded claim registration binds any working
+   session before its first edit; the team skill opts into continuous
+   participation — heartbeat, watcher, and lifecycle.
 7. **Executable truth:** stale-output validators, closed-schema tests,
    fresh-checkout tests, and a live local Copilot CLI acceptance record together
    establish support.

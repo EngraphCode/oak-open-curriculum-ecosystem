@@ -622,8 +622,12 @@ canonical-first boundary:
 - Copilot identity, policy, communications, and lifecycle reuse canonical
   `agent-tools` boundaries through Copilot-specific parsers, renderers, probes,
   and composition;
-- native startup supplies context, while `oak-start-right-team` is the
-  deliberate boundary for shared team state.
+- native startup supplies context and creates no shared coordination state; any
+  working session, quick-start included, still registers a bounded active claim
+  before its first edit under the always-loaded registration rule, and
+  `oak-start-right-team` is the deliberate boundary for continuous team
+  participation — heartbeat emission, the all-channels watcher, and the
+  handoff/retirement lifecycle.
 
 The amendment is restricted to Copilot CLI running locally. Coding-agent/cloud
 execution, remote transport, hosted bridges, and unrelated Codex parity work

@@ -36,9 +36,13 @@ participation.
 First-class citizenship is behavioural, not a count of matching files. The
 Practice remains canonical under `.agent/`; thin, validated GitHub projections
 adapt it to Copilot CLI's real asymmetries. Native startup provides repository
-and identity context, while `oak-start-right-team` remains the deliberate
-boundary that enrols a session in claims, heartbeat, watcher, and lifecycle
-state.
+and identity context and creates no shared coordination state. Claims are not
+that boundary: any working session, quick-start included, must register a
+bounded active claim before its first edit, because the always-loaded
+registration rule binds that obligation independently of which start-right
+skill ran. `oak-start-right-team` remains the deliberate boundary that enrols a
+session in *continuous* team participation — heartbeat emission, the
+all-channels watcher, and the handoff/retirement lifecycle.
 
 The bet is deliberately local and narrow. GitHub Copilot coding-agent or cloud
 execution, remote transport, hosted bridges, and a parallel Codex programme do

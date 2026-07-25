@@ -36,6 +36,19 @@ collaboration state and opens bounded work claims/comms before edits, as it
 does for every platform; only the team skill starts the continuous heartbeat,
 all-channel watcher, and team lifecycle.
 
+**Cloud disposition of the session-start activation.** Repository
+`.github/hooks` runs in the Copilot cloud agent as well as the CLI (official
+source, verified on this branch), and the local coordination home does not exist
+in a cloud job. This node therefore binds two requirements on whatever surface
+carries the `sessionStart` activation: the activation MUST NOT assume local
+coordination state exists, and if the chosen surface is one the cloud agent also
+loads, the activation MUST carry an explicit cloud no-op guard that detects the
+cloud execution context and exits cleanly without assigning local-Copilot
+identity or touching coordination state. "GitHub Copilot coding-agent or cloud
+identity" being out of scope (see Out of scope) states an intention; the guard is
+what makes the artefact safe when it is loaded somewhere the intention does not
+reach.
+
 This repository plan owns the mechanism and acceptance contract. MCP-154 is
 the supplementary Linear projection for execution state, sensitive details,
 and evidence that cannot be versioned safely.
@@ -51,6 +64,15 @@ and evidence that cannot be versioned safely.
   activation, a supported-version floor and live capability probe must prove
   that the installed CLI fires `sessionStart` and accepts the required
   `additionalContext` output.
+- **The `sessionStart` activation is inert in a cloud-agent execution
+  context.** Proof: `repo-safe` — a negative cloud-path fixture exercising the
+  activation with the cloud context markers set and no local coordination home
+  present, asserting a clean no-op (no identity assignment, no coordination
+  write, no non-zero exit, no error output that would fail a cloud job).
+  Required whenever the activation lives on a surface the cloud agent also
+  loads; where a CLI-only launcher or user-local surface is chosen instead, the
+  plan records which official source establishes that and the fixture is not
+  owed.
 - **Native startup itself creates no claim, heartbeat, watcher, or lifecycle
   registration; subsequent quick-start work uses the standard bounded
   claim/comms discipline without silently becoming a continuously joined

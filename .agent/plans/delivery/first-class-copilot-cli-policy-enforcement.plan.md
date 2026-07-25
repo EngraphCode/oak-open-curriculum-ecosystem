@@ -6,7 +6,7 @@ overview: "One inherited PreToolUse activation feeds one closed dispatcher: exac
 status: ratified
 ratified_by: "Jim Cresswell"
 ratified_date: 2026-07-25
-ratified_where: "Owner card via the Director (Torch mends Residue, 3bb236), in-session 2026-07-25 ~12:47Z — ratified as restructured; Director-executes exception owner-named at the preceding card"
+ratified_where: "MCP-150 ticket comment 'Owner ratification record — the durable, resolvable anchor for the restructured plan' (comment 2774bf0f-251a-4394-9091-4e8d0a989012 on https://linear.app/oaknational/issue/MCP-150/first-class-copilot-cli-hook-support-canonical-policy-core-and-native), recording the owner card answered in-session on 2026-07-25 by Jim Cresswell — ratified as restructured; Director-executes exception owner-named at the preceding card"
 serves: first-class-copilot-cli-practice-citizenship
 impact_areas:
   - practice-and-estate
@@ -25,9 +25,15 @@ last_updated: 2026-07-25
   owner_gates row cleared; status sketch → ratified. Execution is owner-routed
   to the sitting Director (Torch mends Residue, 3bb236) by named exception to
   route-don't-execute. Delivery order: Claude vertical-baseline PR first, then
-  the Copilot CLI vertical PR. The observed-batch fixture for the Copilot
-  vertical comes from the live capture armed in the primary guards the same
-  morning (machine-local diagnostic scaffold; Buzzard's single-probe retry).
+  the Copilot CLI vertical PR. Fixture provenance is route-specific: the live
+  capture armed in the primary guards the same morning (machine-local
+  diagnostic scaffold; Buzzard's single-probe retry) recorded the Copilot CLI
+  1.0.75 **string-form** `apply_patch` payload, and is evidence for that string
+  route alone. The **batch** envelope's raw payload was deliberately not
+  retained from the 2026-07-24 CLI 1.0.74 observation, so its fixture is a
+  sanitised reconstruction of that observation rather than a retained capture;
+  no delivery claim may state the batch route as proven against a live host
+  until a fresh first-hand batch capture on a stated CLI version is recorded.
   Same card thread: the Codex third-host vertical is minted as MCP-158
   (backlog, gated on a fresh original-source capability probe — outside this
   node's scope).
