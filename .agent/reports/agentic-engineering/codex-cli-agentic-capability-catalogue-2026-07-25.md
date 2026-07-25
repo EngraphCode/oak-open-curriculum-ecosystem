@@ -500,7 +500,10 @@ The official-source pass found these documentation defects:
 11. the executive artefact inventory likewise omits those two tracked identity
     adapters while listing the Codex adapter.
 
-This changeset corrects items 1 and 3–11. It bases the matrix on PR #529 head
+This changeset corrects items 1 and 3–10. Item 11 is an inventory
+incompleteness rather than a false claim and remains recorded here as follow-on
+work under MCP-159; the owner-bounded matrix reconciliation does not widen into
+Claude/Cursor inventory work. The changeset bases the matrix on PR #529 head
 blob `fdc672adb`; changes outside the Codex cells and Codex-specific support
 text are limited to the shared hook-activation correction in item 10 and the
 link adjustment described below. On 2026-07-25 the owner explicitly overrode
