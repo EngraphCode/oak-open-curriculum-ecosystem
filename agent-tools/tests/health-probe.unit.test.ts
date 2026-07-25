@@ -16,7 +16,7 @@ const wiredClaudeSettingsText = JSON.stringify({
           {
             type: 'command',
             command:
-              'node "${CLAUDE_PROJECT_DIR}/agent-tools/dist/src/hook-policy/check-blocked-patterns.js"',
+              'node "${CLAUDE_PROJECT_DIR}/.claude/hooks/run-pretooluse-guard.mjs" agent-tools/dist/src/hook-policy/pre-tool-use-dispatch.js',
           },
         ],
       },
@@ -26,7 +26,7 @@ const wiredClaudeSettingsText = JSON.stringify({
 
 const documentedSurfaceMatrix = [
   '.agent/hooks/policy.json',
-  'agent-tools/dist/src/hook-policy/check-blocked-patterns.js',
+  'agent-tools/dist/src/hook-policy/pre-tool-use-dispatch.js',
   'Policy Spine',
   'override prune block',
 ].join('\n');

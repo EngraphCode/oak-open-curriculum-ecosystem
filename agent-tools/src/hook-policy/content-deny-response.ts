@@ -7,8 +7,9 @@ import {
 /**
  * Deny-payload construction for the PreToolUse content guard.
  *
- * Kept separate from `check-blocked-content.ts` (the stdin/stdout/policy-load
- * orchestration) so message framing is a cohesive concern of its own. The Bash
+ * Kept separate from the dispatcher (`dispatcher.ts`, the stdin/stdout/policy-load
+ * orchestration) and the renderer (`claude-renderer.ts`, the decision-to-bytes
+ * surface) so message framing is a cohesive concern of its own. The Bash
  * guard has its own builder in `blocked-patterns.ts`; the two are deliberately
  * not unified — they have independent threat models and distinct reason strings.
  *

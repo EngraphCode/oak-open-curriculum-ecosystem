@@ -1,6 +1,6 @@
 {
   "name": "@oaknational/open-curriculum-ecosystem",
-  "version": "1.85.25",
+  "version": "1.86.0",
   "private": true,
   "description": "Oak National Academy open curriculum data ecosystem - tools and services for working with the Oak Open Curriculum data",
   "author": "https://github.com/jimCresswell",
@@ -64,8 +64,7 @@
     "agent-tools:codex-exec": "pnpm --filter @oaknational/agent-tools codex-exec",
     "agent-tools:pr-watch": "pnpm --filter @oaknational/agent-tools pr-watch",
     "agent-tools:repo-check": "pnpm --filter @oaknational/agent-tools repo-check",
-    "agent-tools:check-blocked-patterns": "pnpm --filter @oaknational/agent-tools check-blocked-patterns",
-    "agent-tools:check-blocked-content": "pnpm --filter @oaknational/agent-tools check-blocked-content",
+    "agent-tools:pre-tool-use-dispatch": "pnpm --filter @oaknational/agent-tools pre-tool-use-dispatch",
     "agent-tools:check-encoding": "pnpm --filter @oaknational/agent-tools check-encoding",
     "agent-tools:check-commit-message": "pnpm --filter @oaknational/agent-tools check-commit-message",
     "agent-tools:secret-scan": "pnpm --filter @oaknational/agent-tools secret-scan",

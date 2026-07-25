@@ -136,7 +136,7 @@ detection:
    the historical-reference marker is explicit.
 
 The prose-vs-data distinction is implemented at
-`agent-tools/scripts/check-blocked-content.ts` `lineIsPredominantlyCodeShaped`.
+`agent-tools/src/hook-policy/matchers.ts` `lineIsPredominantlyCodeShaped`.
 This closes the *"hook is more permissive than the rule"* gap that
 existed before 2026-05-10.
 

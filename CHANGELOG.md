@@ -1,3 +1,18 @@
+# [1.86.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.26...v1.86.0) (2026-07-25)
+
+
+### Bug Fixes
+
+* **hook-policy:** clear two Sonar major smells on the dispatcher landing ([6a5399b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/6a5399b68af3efccbd9bc209472b5aac49afddf1))
+
+
+### Features
+
+* **hook-policy:** evaluate policy through one validated snapshot ([f3dd75f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f3dd75f522eef0b998780bc943370d3b80ad04a4))
+* **hook-policy:** unify PreToolUse enforcement behind one dispatcher ([eb90537](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/eb90537f3f93249e9bb90deafb97e3fed3697145)), closes [#535](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/535)
+
+## [1.85.26](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.25...v1.85.26) (2026-07-25)
+
 ## [1.85.25](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.24...v1.85.25) (2026-07-25)
 
 ## [1.85.24](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.23...v1.85.24) (2026-07-25)

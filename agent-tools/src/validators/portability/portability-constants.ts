@@ -25,24 +25,26 @@ export const CLAUDE_SETTINGS_PATH = '.claude/settings.json';
 export const SURFACE_MATRIX_PATH = '.agent/memory/executive/cross-platform-agent-surface-matrix.md';
 
 /**
- * Full Bash command string wired into `.claude/settings.json` as a
- * `PreToolUse` hook.  The `${CLAUDE_PROJECT_DIR}` shell variable is expanded
- * at runtime by Claude Code; use {@link CLAUDE_HOOK_ARTEFACT} for substring
- * matching where the expansion is unavailable.
+ * Full command string wired into `.claude/settings.json` for each `PreToolUse`
+ * policy matcher (Bash, Edit, Write): the verdict shim invoking the single
+ * policy dispatcher artefact.  The `${CLAUDE_PROJECT_DIR}` shell variable is
+ * expanded at runtime by Claude Code; use {@link CLAUDE_HOOK_ARTEFACT} for
+ * substring matching where the expansion is unavailable.
  */
 export const CLAUDE_HOOK_COMMAND =
-  'node "${CLAUDE_PROJECT_DIR}/agent-tools/dist/src/hook-policy/check-blocked-patterns.js"';
+  'node "${CLAUDE_PROJECT_DIR}/.claude/hooks/run-pretooluse-guard.mjs" agent-tools/dist/src/hook-policy/pre-tool-use-dispatch.js';
 
 /**
  * Stable, quote- and expansion-free substring that uniquely identifies the
- * Bash blocked-pattern hook in `.claude/settings.json` and the surface matrix.
+ * PreToolUse policy dispatcher in `.claude/settings.json` and the surface
+ * matrix.
  *
  * Used for wiring assertions because the full command embeds
  * `${CLAUDE_PROJECT_DIR}` and JSON-escaped quotes — a literal match would have
  * to reproduce the exact shell expansion that only Claude Code performs at
  * runtime.  Matching this substring is therefore sufficient and portable.
  */
-export const CLAUDE_HOOK_ARTEFACT = 'agent-tools/dist/src/hook-policy/check-blocked-patterns.js';
+export const CLAUDE_HOOK_ARTEFACT = 'agent-tools/dist/src/hook-policy/pre-tool-use-dispatch.js';
 
 /**
  * Repo-relative path to the Codex fallback rules index file.

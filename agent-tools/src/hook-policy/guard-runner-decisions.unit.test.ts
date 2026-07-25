@@ -33,7 +33,7 @@ describe('resolveGuardExitCode', () => {
 });
 
 describe('decideMissingGuardArtifact', () => {
-  const guardRelative = 'agent-tools/dist/src/hook-policy/check-blocked-patterns.js';
+  const guardRelative = 'agent-tools/dist/src/hook-policy/pre-tool-use-dispatch.js';
 
   it('fails OPEN (exit 0) so an unbuilt worktree can run the build instead of being bricked', () => {
     expect(decideMissingGuardArtifact(guardRelative).exitCode).toBe(0);
@@ -45,8 +45,8 @@ describe('decideMissingGuardArtifact', () => {
 
   // Two distinct paths prove the artefact name is interpolated, not hardcoded.
   it.each([
-    'agent-tools/dist/src/hook-policy/check-blocked-patterns.js',
-    'agent-tools/dist/src/hook-policy/check-blocked-content.js',
+    'agent-tools/dist/src/hook-policy/pre-tool-use-dispatch.js',
+    'agent-tools/dist/src/hook-policy/some-renamed-dispatcher.js',
   ])('warns loudly: names which guard artefact is missing (%s)', (path) => {
     expect(decideMissingGuardArtifact(path).warning).toContain(path);
   });

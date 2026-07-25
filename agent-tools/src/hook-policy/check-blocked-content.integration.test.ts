@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { runPreToolUseContentGuard } from './check-blocked-content.js';
+import { runPreToolUseDispatch } from './pre-tool-use-dispatch.js';
 
 /**
  * Guard-level behaviour for both host payload shapes, with injected policy
@@ -44,16 +44,16 @@ const BLOCKED_MARKER = 'FORBIDDEN-TEST-MARKER';
 
 const BLOCKED_PATCH = `*** Begin Patch\n*** Add File: files/hook-write-test.txt\n+contains ${BLOCKED_MARKER} here\n*** End Patch\n`;
 
-describe('runPreToolUseContentGuard', () => {
+describe('runPreToolUseDispatch', () => {
   it('allows the observed clean Copilot string-form payload with an explicit decision', async () => {
     const stdout = collector();
     const stderr = collector();
 
-    const { exitCode } = await runPreToolUseContentGuard({
+    const { exitCode } = await runPreToolUseDispatch({
       stdin: stdinFrom(copilotEditPayload(CLEAN_PATCH)),
       stdout,
       stderr,
-      blockedPatterns: [BLOCKED_MARKER],
+      contentPatterns: [BLOCKED_MARKER],
       scopedBlocks: [],
       readPriorContent: () => null,
     });
@@ -72,11 +72,11 @@ describe('runPreToolUseContentGuard', () => {
     const stdout = collector();
     const stderr = collector();
 
-    const { exitCode } = await runPreToolUseContentGuard({
+    const { exitCode } = await runPreToolUseDispatch({
       stdin: stdinFrom(copilotEditPayload(BLOCKED_PATCH)),
       stdout,
       stderr,
-      blockedPatterns: [BLOCKED_MARKER],
+      contentPatterns: [BLOCKED_MARKER],
       scopedBlocks: [],
       readPriorContent: () => null,
     });
@@ -92,11 +92,11 @@ describe('runPreToolUseContentGuard', () => {
     const stdout = collector();
     const stderr = collector();
 
-    const { exitCode } = await runPreToolUseContentGuard({
+    const { exitCode } = await runPreToolUseDispatch({
       stdin: stdinFrom(copilotEditPayload('not a patch')),
       stdout,
       stderr,
-      blockedPatterns: [],
+      contentPatterns: [],
       scopedBlocks: [],
       readPriorContent: () => null,
     });
@@ -109,7 +109,7 @@ describe('runPreToolUseContentGuard', () => {
     const stdout = collector();
     const stderr = collector();
 
-    const { exitCode } = await runPreToolUseContentGuard({
+    const { exitCode } = await runPreToolUseDispatch({
       stdin: stdinFrom({
         session_id: 't',
         hook_event_name: 'PreToolUse',
@@ -118,7 +118,7 @@ describe('runPreToolUseContentGuard', () => {
       }),
       stdout,
       stderr,
-      blockedPatterns: [BLOCKED_MARKER],
+      contentPatterns: [BLOCKED_MARKER],
       scopedBlocks: [],
       readPriorContent: () => null,
     });
@@ -133,7 +133,7 @@ describe('runPreToolUseContentGuard', () => {
     const stdout = collector();
     const stderr = collector();
 
-    const { exitCode } = await runPreToolUseContentGuard({
+    const { exitCode } = await runPreToolUseDispatch({
       stdin: stdinFrom({
         session_id: 't',
         hook_event_name: 'PreToolUse',
@@ -146,7 +146,7 @@ describe('runPreToolUseContentGuard', () => {
       }),
       stdout,
       stderr,
-      blockedPatterns: [BLOCKED_MARKER],
+      contentPatterns: [BLOCKED_MARKER],
       scopedBlocks: [],
       readPriorContent: () => null,
     });

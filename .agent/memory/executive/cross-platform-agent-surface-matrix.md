@@ -69,8 +69,9 @@ for execution state and sensitive details.
 Claude Code currently has a soft native `SessionStart` identity adapter plus
 native `PreToolUse` activation for Bash, Edit, and Write calls via the tracked
 project `.claude/settings.json`. The command and content guards are backed by
-the canonical policy in `.agent/hooks/policy.json` and prebuilt runtime
-artefacts, invoked through the verdict shim
+the canonical policy in `.agent/hooks/policy.json` and a single prebuilt
+dispatcher artefact `agent-tools/dist/src/hook-policy/pre-tool-use-dispatch.js`
+shared by all three matchers, invoked through the verdict shim
 `.claude/hooks/run-pretooluse-guard.mjs` so a built-but-broken artefact blocks
 the tool call (exit 2), while a not-built artefact fails open (exit 0) with a
 loud, logged warning so a fresh checkout is not bricked — well within the
@@ -80,7 +81,8 @@ per-tool-call hook timeout. Local additive overrides, when needed, live in
 Status by platform:
 
 - **Claude Code**: tracked project `.claude/settings.json` activates a soft
-  `SessionStart` identity adapter and `PreToolUse` command/content guards.
+  `SessionStart` identity adapter and `PreToolUse` command/content guards for
+  Bash, Edit, and Write through the single dispatcher artefact.
 - **Cursor**: tracked project `.cursor/hooks.json` activates a soft
   `sessionStart` identity adapter. The canonical command/content policy is not
   activated for Cursor, and this Codex-focused research pass did not reassess
@@ -95,10 +97,13 @@ Status by platform:
   content enforcement, the ratified target is the existing inherited PascalCase
   `.claude/settings.json` `PreToolUse` activation feeding an exact-one
   Claude/Copilot dispatcher, not a second GitHub activation. That activation
-  and the current guards are proven to evaluate Copilot CLI 1.0.75 string-form
-  `apply_patch` payloads with explicit allow/deny decisions. The complete
-  Copilot schemas and renderer, exact-one closed dispatcher, and end-to-end
-  acceptance target are not yet wired.
+  now feeds the wired canonical core and dispatcher: the
+  `copilot-compat-string` route evaluates the raw string-form `apply_patch`
+  payload observed live on CLI 1.0.75 (2026-07-25) with explicit allow/deny
+  decisions. The Copilot-native renderer, supported-version capability probe,
+  complete schema acceptance, and end-to-end proof remain unwired. The earlier
+  reading — that the inherited hook receives an incompatible shape and is a
+  blocking defect — described CLI 1.0.74 and no longer holds.
 - **Codex**: lifecycle hooks are stable in Codex CLI `0.145.0`. The tracked
   `.codex/config.toml` enables hooks and registers a soft `SessionStart`
   identity-context adapter. The official event surface includes
@@ -119,7 +124,7 @@ This repo's hook and adapter surfaces follow a small Policy Spine:
 | --- | --- | --- |
 | Canonical policy (`.agent/`) | Declares intended behaviour and support | No |
 | Native activation (tracked `.claude/settings.json`, `.cursor/hooks.json`, and `.codex/config.toml`) | Activates the supported platform-specific policy or context path in the repo baseline | No |
-| Workspace runtime (`agent-tools/dist/src/hook-policy/check-blocked-patterns.js` and its content companion through the Claude shim; agent-tools identity adapters through the Cursor and Codex shims) | Enforces the Claude guards and supplies soft Cursor/Codex identity context without duplicating canonical substance | No |
+| Workspace runtime (`agent-tools/dist/src/hook-policy/pre-tool-use-dispatch.js` through the Claude shim, shared by the Bash, Edit, and Write matchers; agent-tools identity adapters through the Cursor and Codex shims) | Enforces the Claude guards and supplies soft Cursor/Codex identity context without duplicating canonical substance | No |
 | Explanatory mirrors (this matrix, hook README) | Describe the live state and support contract | No |
 
 Failure semantics:
