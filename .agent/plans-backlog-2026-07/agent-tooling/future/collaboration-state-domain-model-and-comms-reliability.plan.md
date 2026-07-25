@@ -124,11 +124,11 @@ owner, or capturing learning for later distillation.
 - Owner direction on 2026-04-28: shared communication history should gain a
   rolling archive model so the hot narrative surface stays readable without
   abruptly losing past context.
-- Codex-specific note: current Codex supports hooks, including turn-scoped
-  `Stop`, but no documented `SessionEnd` equivalent has been verified. This is
-  not blocking the urgent shared-state write work. Codex should rely on
-  standard freshness/TTL cleanup for missed session-close handling until a true
-  session-end hook is documented and wired.
+- Codex-specific note: Codex CLI `0.145.0` has a stable `SessionEnd` event as
+  well as turn-scoped `Stop`. The repository has not yet wired a
+  claim-lifecycle adapter to `SessionEnd`; when it does, that hook should
+  provide best-effort semantic cleanup. Standard freshness/TTL cleanup remains
+  mandatory for missed, disabled, or failed session-close hooks.
 - `agent-tools` is a TypeScript-specific implementation surface in this repo.
   The capabilities it implements are Practice capabilities by default
   (PDR-035) and should have a portable conceptual contract that can be
@@ -304,9 +304,11 @@ diffs and merge behaviour are poor for local Practice state instances.
 - Push-style attention may not exist uniformly across Codex, Claude Code,
   Cursor, and future platforms. If the design assumes push without proving it,
   targeted sidebars become invisible to the very agents they are meant to reach.
-- Session-end hooks are not uniform. If cleanup relies on native exit hooks
-  without TTL fallback, Codex and any other platform without verified
-  `SessionEnd` support can leave live claims stranded.
+- Session-end hooks and their delivery guarantees are not uniform. Codex CLI
+  `0.145.0` has a stable `SessionEnd` event, but the repository has not yet
+  wired it for claim cleanup. Any platform can still leave live claims stranded
+  when an exit hook is disabled, missed, or fails, so native exit hooks must
+  retain a TTL fallback.
 - Too-frequent polling creates noise and wasted attention; too-infrequent
   polling makes sidebars ineffective for live coordination. The polling cadence
   must be tied to workflow moments, not a vague "check regularly" instruction.
