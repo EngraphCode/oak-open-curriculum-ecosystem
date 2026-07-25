@@ -28,60 +28,75 @@ scope.
 | Path-scoped instructions | Generated `.github/instructions/**/*.instructions.md` projections | **No** |
 | Skills | Use `.agents/skills/` under documented `.github/skills` → `.agents/skills` → `.claude/skills` first-found precedence | **Partial** — the portable wrappers exist; clean local Copilot CLI discovery/invocation is not yet an acceptance gate |
 | Custom agents | Generated, schema-valid `.github/agents/*.agent.md` projections from canonical specialists | **No** |
-| Policy hooks | Native `.github/hooks` Copilot adapter over one canonical policy evaluator, with no inherited double-evaluation | **No** — inherited Claude activation currently receives an incompatible Copilot batch and blocks valid writes |
+| Policy hooks | Existing inherited PascalCase `PreToolUse` activation feeds exactly one closed Claude/Copilot dispatcher and one canonical policy evaluation | **Partial** — the inherited activation and guards now evaluate Copilot CLI 1.0.75 string-form `apply_patch` payloads with explicit allow/deny decisions; the ratified closed dispatcher, complete schemas, per-host rendering, and acceptance proof remain unwired |
 | Settings | `.github/copilot/settings.json` only for documented, tested project settings | **No** |
 | Repository MCP | Establish a canonical secret-free server manifest from total dispositions over tracked platform candidates, then generate the Copilot repository projection | **No** — no canonical manifest or tracked Copilot projection exists |
 | Communications | Existing local comms substrate plus native wake, re-arm, drain recovery, handoff, and retirement | **No** — the substrate exists, but no Copilot notification/lifecycle projection is wired |
 | End-to-end proof | Fresh-checkout validators plus a live local Copilot CLI acceptance run | **No** |
 
-Delivery truth lives in MCP-150, MCP-154, MCP-155, and MCP-156 under the
+The repository
 [`first-class-copilot-cli-practice-citizenship`](../../plans/strategic/first-class-copilot-cli-practice-citizenship.plan.md)
-node.
+node and its serving delivery plans are authoritative for target and mechanism.
+MCP-150, MCP-154, MCP-155, and MCP-156 are supplementary Linear projections
+for execution state and sensitive details.
 
 ## Adapter Families
 
-| Surface        | Cursor              | Claude Code                                            | Gemini / Antigravity CLI                          | GitHub Copilot CLI                                   | Codex                                      | `.agents/`             |
-| -------------- | ------------------- | ------------------------------------------------------ | ------------------------------------------------- | ---------------------------------------------------- | ------------------------------------------ | ---------------------- |
-| **Skills**     | `.cursor/skills/`   | `.claude/skills/`                                      | `.agents/skills/`                                 | `.agents/skills/` exists; acceptance target above    | unsupported                                | `.agents/skills/`      |
-| **Commands**   | `.cursor/commands/` | `.claude/commands/`                                    | `.gemini/commands/`                               | no separate command projection                      | unsupported                                | `.agents/skills/oak-*/` |
-| **Rules**      | `.cursor/rules/`    | `.claude/rules/`                                       | entry-point chain only                            | partial repo entry point; modular projection target  | entry-point chain                          | `.agents/rules/`       |
-| **Sub-agents** | `.cursor/agents/`   | `.claude/agents/`                                      | native `/agents` upstream; no repo wrappers wired | native custom agents documented; repo target unwired | `.codex/`                                  | unsupported            |
-| **Hooks**      | unsupported         | `.claude/settings.json` (tracked project `PreToolUse`) | supported upstream; no project-local hook wired   | native hooks documented; repo target unwired         | supported upstream; no project-local hook wired | unsupported            |
-| **MCP**        | user-local          | user-local / MCP config                                | supported upstream; no `.agents/mcp_config.json` wired | repository config documented; tracked projection target | plugin/user-local                          | `.agents/mcp_config.json` target |
+| Surface        | Cursor              | Claude Code                                            | Gemini / Antigravity CLI                          | GitHub Copilot CLI                                   | Codex                                                    | `.agents/`             |
+| -------------- | ------------------- | ------------------------------------------------------ | ------------------------------------------------- | ---------------------------------------------------- | -------------------------------------------------------- | ---------------------- |
+| **Skills**     | `.agents/skills/`   | `.claude/skills/`                                      | `.agents/skills/`                                 | `.agents/skills/` exists; acceptance target above    | `.agents/skills/oak-*/` loaded as native Codex skills    | `.agents/skills/`      |
+| **Commands**   | retired; workflows use `.agents/skills/` | retired; workflows use `.claude/skills/` | `review-*.toml` transitional reviewer adapters only; workflows use `.agents/skills/` | no separate command projection | built-in slash commands; repo workflows use skills | repo workflows use `.agents/skills/oak-*/` |
+| **Rules**      | `.cursor/rules/`    | `.claude/rules/`                                       | entry-point chain only                            | partial repo entry point; modular projection target  | entry-point chain; no project execpolicy `.rules` wired  | `.agents/rules/`       |
+| **Sub-agents** | `.cursor/agents/`   | `.claude/agents/`                                      | native `/agents` upstream; no repo wrappers wired | native custom agents documented; repo target unwired | `.codex/config.toml` → `.codex/agents/*.toml`             | unsupported            |
+| **Hooks**      | canonical policy guard unsupported; `.cursor/hooks.json` has tracked soft `sessionStart` identity | `.claude/settings.json` (tracked soft `SessionStart` identity plus `PreToolUse` guards) | supported upstream; no project-local hook wired | native hooks documented; Copilot-only adapters target unwired; content policy uses inherited activation | tracked project `SessionStart`; no `PreToolUse` guard | unsupported |
+| **MCP**        | user-local          | user-local / MCP config                                | supported upstream; no `.agents/mcp_config.json` wired | repository config documented; tracked projection target | two tracked project servers in `.codex/config.toml`       | `.agents/mcp_config.json` target |
 
 ## Hook Support
 
-Claude Code currently has native `PreToolUse` activation for Bash
-commands via the tracked project `.claude/settings.json`, backed by the
-canonical policy in `.agent/hooks/policy.json` and the prebuilt runtime
-artefact `agent-tools/dist/src/hook-policy/check-blocked-patterns.js`, invoked
-through the verdict shim `.claude/hooks/run-pretooluse-guard.mjs` so a
-built-but-broken artefact blocks the tool call (exit 2), while a not-built
-artefact fails open (exit 0) with a loud, logged warning so a fresh checkout is
-not bricked — well within the per-tool-call hook timeout. Local additive
-overrides, when needed, live in `.claude/settings.local.json`.
+Claude Code currently has a soft native `SessionStart` identity adapter plus
+native `PreToolUse` activation for Bash, Edit, and Write calls via the tracked
+project `.claude/settings.json`. The command and content guards are backed by
+the canonical policy in `.agent/hooks/policy.json` and prebuilt runtime
+artefacts, invoked through the verdict shim
+`.claude/hooks/run-pretooluse-guard.mjs` so a built-but-broken artefact blocks
+the tool call (exit 2), while a not-built artefact fails open (exit 0) with a
+loud, logged warning so a fresh checkout is not bricked — well within the
+per-tool-call hook timeout. Local additive overrides, when needed, live in
+`.claude/settings.local.json`.
 
 Status by platform:
 
-- **Claude Code**: supported for `PreToolUse` only (Bash blocked-pattern
-  enforcement via tracked project `.claude/settings.json`)
-- **Cursor**: no native agent hook surface at time of writing
+- **Claude Code**: tracked project `.claude/settings.json` activates a soft
+  `SessionStart` identity adapter and `PreToolUse` command/content guards.
+- **Cursor**: tracked project `.cursor/hooks.json` activates a soft
+  `sessionStart` identity adapter. The canonical command/content policy is not
+  activated for Cursor, and this Codex-focused research pass did not reassess
+  Cursor's broader current upstream event set.
 - **Gemini / Antigravity CLI**: native hooks are documented through
   `hooks.json` under the workspace `.agents/` directory or global config, with
   `PreToolUse`, `PostToolUse`, `PreInvocation`, `PostInvocation`, and `Stop`
   events. This repository has no project-local `.agents/hooks.json` wired.
 - **GitHub Copilot CLI**: native hooks are documented, including
   `sessionStart`, `preToolUse`, `notification`, `agentStop`, and `sessionEnd`.
-  This repository has no native `.github/hooks` activation wired. The inherited
-  Claude hook currently receives an incompatible Copilot batch shape and is a
-  reproduced blocking defect, not supported Copilot enforcement.
-- **Codex**: upstream Codex hooks are available behind `codex_hooks`, and this
-  local Codex install reports the feature enabled. This repository has no
-  project-local `.codex/` hook configuration wired. Current Codex docs show
-  `SessionStart`, `PreToolUse`, `PermissionRequest`, `PostToolUse`,
-  `UserPromptSubmit`, and turn-scoped `Stop`; no `SessionEnd` equivalent is
-  documented, so session-close cleanup must rely on explicit handoff and
-  standard TTL/stale-archive cleanup until that surface exists.
+  This repository has no native `.github/hooks` activation wired. For MCP-150
+  content enforcement, the ratified target is the existing inherited PascalCase
+  `.claude/settings.json` `PreToolUse` activation feeding an exact-one
+  Claude/Copilot dispatcher, not a second GitHub activation. That activation
+  and the current guards are proven to evaluate Copilot CLI 1.0.75 string-form
+  `apply_patch` payloads with explicit allow/deny decisions. The complete
+  Copilot schemas and renderer, exact-one closed dispatcher, and end-to-end
+  acceptance target are not yet wired.
+- **Codex**: lifecycle hooks are stable in Codex CLI `0.145.0`. The tracked
+  `.codex/config.toml` enables hooks and registers a soft `SessionStart`
+  identity-context adapter. The official event surface includes
+  `SessionStart`, `SessionEnd`, `SubagentStart`, `SubagentStop`, `PreToolUse`,
+  `PermissionRequest`, `PostToolUse`, `PreCompact`, `PostCompact`,
+  `UserPromptSubmit`, and `Stop`. The repository does not yet activate the
+  canonical command/content guard on Codex `PreToolUse`.
+
+The Codex product claims and event list above inherit their version pin,
+source-authority boundary, and evidence grades from the
+[Codex CLI capability catalogue](../../reports/agentic-engineering/codex-cli-agentic-capability-catalogue-2026-07-25.md).
 
 ## Policy Spine
 
@@ -90,8 +105,8 @@ This repo's hook and adapter surfaces follow a small Policy Spine:
 | Layer | Role | Can It Override Higher Layers? |
 | --- | --- | --- |
 | Canonical policy (`.agent/`) | Declares intended behaviour and support | No |
-| Native activation (tracked `.claude/settings.json`) | Activates supported policy in the repo baseline | No |
-| Workspace runtime (`agent-tools/dist/src/hook-policy/check-blocked-patterns.js` via `.claude/hooks/run-pretooluse-guard.mjs`) | Enforces the active native hook path; fails closed if a built artefact is broken, fails open (loud, logged) if not yet built | No |
+| Native activation (tracked `.claude/settings.json`, `.cursor/hooks.json`, and `.codex/config.toml`) | Activates the supported platform-specific policy or context path in the repo baseline | No |
+| Workspace runtime (`agent-tools/dist/src/hook-policy/check-blocked-patterns.js` and its content companion through the Claude shim; agent-tools identity adapters through the Cursor and Codex shims) | Enforces the Claude guards and supplies soft Cursor/Codex identity context without duplicating canonical substance | No |
 | Explanatory mirrors (this matrix, hook README) | Describe the live state and support contract | No |
 
 Failure semantics:
@@ -116,10 +131,11 @@ Failure semantics:
 - `.agents/skills/` and `.agents/rules/` are portable skill/command and
   rule-adapter layers, not evidence for blanket `.agents/` parity with
   every platform-native surface.
-- Gemini / Antigravity CLI loads the repo's 20 portable skills from
-  `.agents/skills/`. The 86 files under `.agents/rules/` are rule wrappers,
-  not skills, and are not treated as a native auto-scan surface here unless a
-  future verification proves that behaviour.
+- Gemini / Antigravity CLI loads the repo's portable skills from
+  `.agents/skills/`. The files under `.agents/rules/` are rule wrappers, not
+  skills, and are not treated as a native auto-scan surface here unless a
+  future verification proves that behaviour. Directory contents and
+  `pnpm portability:check`, rather than frozen counts here, are authoritative.
 - Antigravity plugins can bundle skills, agents, rules, MCP definitions, and
   hooks, but plugin bundle support is not the same as repo-local wiring.
 - Tracked project platform config is part of the agentic system contract;

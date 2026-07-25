@@ -5,6 +5,6 @@
   "globalName": "OakDS",
   "cssEntry": "oak-flat.generated.css",
   "tokensGlob": "dtcg/*.json",
-  "guidelinesGlob": ["docs/*.md", "README.md", "DECISIONS.md", "KNOWN-ISSUES.md"],
+  "guidelinesGlob": ["docs/*.md", "README.md", "DECISIONS.md", "KNOWN-ISSUES.md", "CHANGELOG.md"],
   "readmeHeader": ".design-sync/conventions.md"
 }

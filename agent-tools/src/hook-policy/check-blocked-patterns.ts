@@ -58,8 +58,21 @@ export async function runPreToolUseGuard(
 
     if (blockedEntry !== null) {
       seams.stdout.write(`${JSON.stringify(buildPreToolUseDenyResponse(blockedEntry))}\n`);
+      return { exitCode: 0 };
     }
 
+    // Silence-means-allow is a Claude-only convention; an inheriting host
+    // (Copilot CLI's compat route) needs the decision stated. Explicit output
+    // is contract-valid for Claude too (strict-and-complete).
+    seams.stdout.write(
+      `${JSON.stringify({
+        hookSpecificOutput: {
+          hookEventName: 'PreToolUse',
+          permissionDecision: 'allow',
+          permissionDecisionReason: 'no policy match',
+        },
+      })}\n`,
+    );
     return { exitCode: 0 };
   } catch (error) {
     seams.stderr.write(`${formatGuardError(error)}\n`);

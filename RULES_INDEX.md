@@ -103,6 +103,7 @@ without proportional value.
 | `.agent/rules/lint-after-edit.md`                                          | always-on      | —                                                                                                   |
 | `.agent/rules/liveness-heartbeat-cron.md`                                  | trigger-loaded | Team session bootstrap                                                                              |
 | `.agent/rules/local-broken-code-never-leaves.md`                           | always-on      | —                                                                                                   |
+| `.agent/rules/lockfile-rebuild-survivability.md`                           | always-on      | —                                                                                                   |
 | `.agent/rules/loop-exit-criteria-required.md`                              | always-on      | —                                                                                                   |
 | `.agent/rules/markdown-code-blocks-must-have-language.md`                  | always-on      | —                                                                                                   |
 | `.agent/rules/monitor-branch-touched-files.md`                             | always-on      | —                                                                                                   |
