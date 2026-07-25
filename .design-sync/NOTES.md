@@ -123,3 +123,23 @@
   44-path removal list exactly from this declaration
   (2026-07-25 closure check; evidence pack
   `.agent/state/collaboration/handoffs/2026-07-25-cormorant-walk-pack/`).
+- **Glob-orphan amendment (owner-ratified 2026-07-25, card answer "Ratify
+  the amendment")**: remote files under a `shippedFromRepo` glob with no
+  repo counterpart at the mapped source are residue and delete at every
+  sync (capture-first precondition unchanged). Provably necessary: the
+  ruled `guidelines/README.md` deletion was inexpressible under strict
+  matching (shielded by `guidelines/**`); same class as the two
+  `assets/logo-*-official.svg` twins the MCP-164 cures removed from the
+  repo. MCP-160 curation delete set = 44 unmatched + 3 glob-orphans = 47.
+- **Verify rows resolved (2026-07-25, first-hand)**: `_ds_bundle.css`
+  KEEP — the live remote `styles.css` is exactly two `@import`s and it is
+  one of them (every rendered design consumes it); `_adherence.oxlintrc.json`
+  KEEP as machinery — the capture manifest records it `fetched-committed`
+  2026-07-23, pre-dating our syncs (studio-native); `icons.json` DELETE
+  confirmed — README records it as provenance-reference-only, never
+  loaded; capture-verified; no consumer. `estate.json` pending rows
+  resolved accordingly (only the `_ds_bundle.js` succession row remains).
+- **CLAUDE.md repo canonical**: `packages/design/oak-design-system/CLAUDE.md`
+  — the studio's normative instruction re-trued from the live copy (the
+  HANDOFF.md session-protocol paragraph dropped with its deleted
+  counterpart); ships by direct write each sync per §directWrites.

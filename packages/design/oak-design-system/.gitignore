@@ -31,10 +31,13 @@
 .thumbnail
 /thumbnail.html
 /support.js
-/CLAUDE.md
 /SKILL.md
 /HANDOFF.md
 /CLAUDE-CODE-HANDOFF.md
+# CLAUDE.md is deliberately NOT ignored (MCP-160, 2026-07-25): the owner-ruled
+# disposition reclassified it from studio session surface to the studio's
+# normative instruction — this package holds the repo canonical, which ships
+# by direct write each sync (.design-sync/estate.json §directWrites).
 
 # MCP-137 owner ruling (2026-07-24, "Commit all 39"): the capture tier's
 # held-out-class copies are committed byte-preserved. Re-include the

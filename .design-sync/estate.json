@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "description": "Declarative remote estate for the Claude Design studio (projectId in config.json). Reconciliation contract: at every ordinary sync, list the remote project and DELETE any file whose path matches no glob or literal below ('dir/**' matches any depth but does NOT match dot-prefixed names at any level — every dot-prefixed keep must be a literal entry, as the .thumbnail entries are; all other entries are literal paths). Every intentional addition to the remote estate lands as an entry here in the same change. Adopted by owner ruling 2026-07-25 (MCP-160; retires the MCP-137 S4 no-prune deviation). Derived from the ruled disposition of all 346 then-remote files — evidence pack: .agent/state/collaboration/handoffs/2026-07-25-cormorant-walk-pack/. Single-home rule (owner ruling 2026-07-25, stricter card answer): never ship the same document to two remote paths — every document has exactly one remote home.",
+  "description": "Declarative remote estate for the Claude Design studio (projectId in config.json). Reconciliation contract: at every ordinary sync, list the remote project and DELETE any file whose path matches no glob or literal below; additionally (owner-ratified 2026-07-25, glob-orphan amendment), a remote file under a shippedFromRepo GLOB must also have a repo counterpart at its mapped source (a source file, or the generator mapping for converter-generated outputs) — repo absence under a shipped glob is residue and deletes, with the same capture-first precondition ('dir/**' matches any depth but does NOT match dot-prefixed names at any level — every dot-prefixed keep must be a literal entry, as the .thumbnail entries are; all other entries are literal paths). Every intentional addition to the remote estate lands as an entry here in the same change. Adopted by owner ruling 2026-07-25 (MCP-160; retires the MCP-137 S4 no-prune deviation). Derived from the ruled disposition of all 346 then-remote files — evidence pack: .agent/state/collaboration/handoffs/2026-07-25-cormorant-walk-pack/. Single-home rule (owner ruling 2026-07-25, stricter card answer): never ship the same document to two remote paths — every document has exactly one remote home.",
   "estate": {
     "shippedFromRepo": {
       "description": "Repo is canonical; the converter pipeline and the studio-source up-sync re-ship these current each sync (converter outputs; the five tier CSS files + oak-theme.js + brand_voice.txt per the MCP-137 S4 scope ruling; the asset cargo; and the studio-source surfaces tracked in packages/design/oak-design-system/studio-source/).",
@@ -43,7 +43,7 @@
       "sources": {
         "dtcg/**": "packages/design/oak-design-system/dtcg/",
         "LICENCES.md": "packages/design/oak-design-system/LICENCES.md",
-        "CLAUDE.md": "packages/design/oak-design-system re-trued canonical (the studio's normative accessibility / multi-medium instruction; authored from the live studio copy at the MCP-160 curation sync)",
+        "CLAUDE.md": "packages/design/oak-design-system/CLAUDE.md (the studio's normative accessibility / multi-medium instruction; re-trued from the live studio copy at the MCP-160 curation sync — the HANDOFF.md session-protocol paragraph dropped with its deleted counterpart)",
         "guidelines/docs/headless-a11y-frameworks.html": "packages/design/oak-design-system/docs/headless-a11y-frameworks.html",
         "guidelines/docs/nextjs-theme-mapping.css": "packages/design/oak-design-system/docs/nextjs-theme-mapping.css",
         "guidelines/docs/nextjs-theme-switcher.tsx.txt": "packages/design/oak-design-system/docs/nextjs-theme-switcher.tsx.txt",
@@ -65,7 +65,6 @@
     }
   },
   "pending": [
-    "_ds_bundle.css and _adherence.oxlintrc.json — VERIFY rows from the ruled disposition: live checks at the MCP-160 curation sync decide keep (entries stay) or delete (entries removed here in the same change).",
     "_ds_bundle.js — studio-native compiled component bundle, kept until the owned component tier replaces it (component-tier contract, which also carries the dc-runtime impact-equivalence obligation); the replacing sync moves it from machinery to shippedFromRepo."
   ]
 }
