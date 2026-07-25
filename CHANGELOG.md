@@ -1,3 +1,44 @@
+## [1.87.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.87.2...v1.87.3) (2026-07-25)
+
+## [1.87.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.87.1...v1.87.2) (2026-07-25)
+
+## [1.87.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.87.0...v1.87.1) (2026-07-25)
+
+# [1.87.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.86.0...v1.87.0) (2026-07-25)
+
+
+### Features
+
+* **design:** execute the ratified visual-review cures (MCP-164) ([2abfa73](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2abfa73dde111d54656ab39179d1add6012dcece)), closes [hi#contrast](https://github.com/hi/issues/contrast) [hi#contrast](https://github.com/hi/issues/contrast)
+
+# [1.86.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.26...v1.86.0) (2026-07-25)
+
+
+### Bug Fixes
+
+* **hook-policy:** clear two Sonar major smells on the dispatcher landing ([6a5399b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/6a5399b68af3efccbd9bc209472b5aac49afddf1))
+
+
+### Features
+
+* **hook-policy:** evaluate policy through one validated snapshot ([f3dd75f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f3dd75f522eef0b998780bc943370d3b80ad04a4))
+* **hook-policy:** unify PreToolUse enforcement behind one dispatcher ([eb90537](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/eb90537f3f93249e9bb90deafb97e3fed3697145)), closes [#535](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/535)
+
+## [1.85.26](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.25...v1.85.26) (2026-07-25)
+
+## [1.85.25](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.24...v1.85.25) (2026-07-25)
+
+## [1.85.24](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.23...v1.85.24) (2026-07-25)
+
+## [1.85.23](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.22...v1.85.23) (2026-07-25)
+
+## [1.85.22](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.21...v1.85.22) (2026-07-25)
+
+
+### Bug Fixes
+
+* **hook-policy:** evaluate copilot cli string-form edit payloads ([b725df1](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b725df1ecbf304d25ae15b6c257a4de87d79474a))
+
 ## [1.85.21](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.20...v1.85.21) (2026-07-25)
 
 ## [1.85.20](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.19...v1.85.20) (2026-07-25)

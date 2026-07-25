@@ -135,17 +135,6 @@ export type ContentDenyInput =
       readonly reappraisal?: string;
     };
 
-/** Injectable seams for the PreToolUse content guard (testing + composition). */
-export interface RunPreToolUseContentGuardOptions {
-  readonly stdin?: AsyncIterable<string | Buffer>;
-  readonly stdout?: { write(text: string): void };
-  readonly stderr?: { write(text: string): void };
-  readonly policyUrl?: URL;
-  readonly blockedPatterns?: readonly string[];
-  readonly scopedBlocks?: readonly ScopedContentBlockGroup[];
-  readonly readPriorContent?: (filePath: string) => string | null;
-}
-
 /**
  * Zod schema for the object arm of a blocked Bash-command policy entry: a
  * `pattern` (matched as a token subsequence by default; as a case-insensitive
@@ -230,12 +219,3 @@ export const RawBlockedPatternSchema = z.union([z.string(), BlockedPatternEntryS
  * `reappraisal`.
  */
 export type RawBlockedPattern = z.infer<typeof RawBlockedPatternSchema>;
-
-/** Injectable seams for the PreToolUse Bash blocked-pattern guard. */
-export interface RunPreToolUseBlockedPatternGuardOptions {
-  readonly stdin?: AsyncIterable<string | Buffer>;
-  readonly stdout?: { write(text: string): void };
-  readonly stderr?: { write(text: string): void };
-  readonly policyUrl?: URL;
-  readonly blockedPatterns?: readonly RawBlockedPattern[];
-}

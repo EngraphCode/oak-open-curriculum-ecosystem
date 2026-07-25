@@ -31,6 +31,7 @@ ONBOARDING.md
 # hooks, plugin state) and must work on fresh checkout.
 # Local settings contain user-specific paths and one-off permissions.
 .claude/settings.local.json
+.github/copilot/settings.local.json
 .cursor/settings.local.json
 # Cursor sessionStart hook: human-readable mirror (gitignored; not committed)
 .cursor/oak-composer-session.local.json
@@ -331,3 +332,5 @@ ds-bundle/
 .design-sync/node_modules
 packages/design/oak-design-system/oak-flat.generated.css
 .github/copilot-worktrees/
+packages/design/oak-design-system/_ds_bundle.generated.css
+packages/design/oak-design-system/.sync-staging/

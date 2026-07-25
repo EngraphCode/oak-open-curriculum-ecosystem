@@ -84,6 +84,9 @@ const SOURCE_IGNORE_GLOBS = [
   // not this repo's, so repo-relative validation is meaningless for it.
   '.ds-sync/**',
   'ds-bundle/**',
+  // Same class: the curation sync's per-sync staging of direct-write drafts
+  // (MCP-160) — their links resolve against the studio project layout.
+  'packages/design/oak-design-system/.sync-staging/**',
 ] as const;
 
 /** Collect repo-relative POSIX paths matching the given globs, minus excluded paths. */

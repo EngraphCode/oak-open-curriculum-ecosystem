@@ -33,7 +33,7 @@ export function extractBashCommand(hookInput: unknown): string {
  * Intentionally conservative: the blocked patterns in `policy.json` are plain
  * token sequences, so a lightweight tokenizer is sufficient.
  */
-export function tokenizeCommand(command: string): string[] {
+function tokenizeCommand(command: string): string[] {
   return command.trim().split(/\s+/u).filter(Boolean);
 }
 

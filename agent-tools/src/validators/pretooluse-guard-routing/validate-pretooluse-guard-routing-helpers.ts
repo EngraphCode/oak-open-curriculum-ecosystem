@@ -17,11 +17,28 @@
  * @packageDocumentation
  */
 
-/** Substring identifying a command that runs a hook-policy guard artefact. */
-export const GUARD_COMMAND_MARKER = 'hook-policy/check-blocked';
+import { CLAUDE_HOOK_ARTEFACT } from '../portability/portability-constants.js';
+
+/**
+ * Substring identifying a command that runs a hook-policy dist artefact.
+ *
+ * Deliberately the FAMILY prefix rather than any artefact's basename: a
+ * basename marker goes silently vacuous when the artefact is renamed (the
+ * validator then matches nothing and prints OK forever). Any dist-built
+ * hook-policy artefact, whatever its name, must route through the shim.
+ */
+export const GUARD_COMMAND_MARKER = 'dist/src/hook-policy/';
 
 /** Substring identifying the shim a guard command must route through. */
 export const GUARD_ROUTING_SHIM = '.claude/hooks/run-pretooluse-guard.mjs';
+
+/**
+ * The `PreToolUse` matchers that MUST each carry exactly one shim-routed
+ * policy-dispatcher command. The non-vacuity half of this validator: routing
+ * checks alone pass vacuously when a migration drops a matcher or renames the
+ * artefact family, so presence is asserted per matcher as well.
+ */
+export const REQUIRED_POLICY_MATCHERS = ['Bash', 'Edit', 'Write'] as const;
 
 /**
  * Return the PreToolUse command strings that run a dist guard directly without
@@ -42,4 +59,41 @@ export function findUnroutedGuardCommands(commands: readonly string[]): string[]
   return commands.filter(
     (command) => command.includes(GUARD_COMMAND_MARKER) && !command.includes(GUARD_ROUTING_SHIM),
   );
+}
+
+/**
+ * Return one defect line per required policy matcher that does not carry
+ * exactly one shim-routed hook-policy dispatcher command.
+ *
+ * This is the validator's non-vacuity assertion: {@link findUnroutedGuardCommands}
+ * alone passes an empty command set, so a migration that dropped a matcher or
+ * renamed the artefact family out of {@link GUARD_COMMAND_MARKER}'s reach
+ * would otherwise turn the gate into a silent OK.
+ *
+ * @param matcherCommands - Map from `PreToolUse` matcher name to that
+ *   matcher's hook command strings, as read from `.claude/settings.json`.
+ * @returns Human-readable defect lines, empty when every required matcher
+ *   carries exactly one shim-routed dispatcher command.
+ */
+export function findPolicyMatcherDefects(
+  matcherCommands: ReadonlyMap<string, readonly string[]>,
+): string[] {
+  return REQUIRED_POLICY_MATCHERS.flatMap((matcher) => {
+    const commands = matcherCommands.get(matcher) ?? [];
+    // Pins the EXACT dispatcher artefact, not the family prefix: any other
+    // hook-policy module routed through the shim exits 0 with no stdout, which
+    // the host reads as allow — so a family-prefix count would report a
+    // neutered matcher as covered. Rename robustness lives in the shared
+    // CLAUDE_HOOK_ARTEFACT constant (and its pinning tests), where a rename
+    // that misses the constant fails loudly.
+    const routed = commands.filter(
+      (command) => command.includes(CLAUDE_HOOK_ARTEFACT) && command.includes(GUARD_ROUTING_SHIM),
+    );
+    if (routed.length === 1) {
+      return [];
+    }
+    return [
+      `matcher "${matcher}" carries ${routed.length} shim-routed hook-policy dispatcher command(s); exactly 1 required`,
+    ];
+  });
 }

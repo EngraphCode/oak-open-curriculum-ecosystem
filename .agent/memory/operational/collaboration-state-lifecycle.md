@@ -104,10 +104,12 @@ one-turn invocation model may add an explicit reclaim transition, but that is
 not part of the current protocol.
 
 Where a platform exposes a real session-end hook, use it as a best-effort
-pre-close cleanup prompt or closure script. Codex currently has hooks but no
-documented `SessionEnd` event; its turn-scoped `Stop` hook can remind the agent
-before a turn ends, but stale and orphaned cleanup remain the fallback
-for missed Codex session closes.
+pre-close cleanup prompt or closure script. Codex CLI `0.145.0` exposes a
+stable `SessionEnd` event, so a Codex adapter can perform that best-effort
+cleanup once the repository wires one. Its turn-scoped `Stop` hook remains
+useful for reminders before individual turns end. Freshness, stale-claim, and
+orphaned-claim cleanup remain mandatory fallbacks because hooks can be missed,
+disabled, or unable to complete.
 
 Post-session janitors must not mark work as successful. If a known-ended
 session leaves a claim open past the session-close grace TTL, archive it as

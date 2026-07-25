@@ -32,7 +32,8 @@ const documentedSurfaceMatrix = `# Cross-Platform Agent Surface Matrix
 Claude Code currently has native \`PreToolUse\` activation for Bash
 commands via the tracked project \`.claude/settings.json\`,
 backed by the canonical policy in \`.agent/hooks/policy.json\` and the
-node-direct artefact \`agent-tools/dist/src/hook-policy/check-blocked-patterns.js\`.
+dispatcher artefact \`agent-tools/dist/src/hook-policy/pre-tool-use-dispatch.js\`
+invoked through the verdict shim \`.claude/hooks/run-pretooluse-guard.mjs\`.
 
 ## Policy Spine
 
@@ -229,7 +230,7 @@ describe('getClaudeHookPortabilityIssues', () => {
         claudeSettingsExists: false,
         claudeSettings: null,
         surfaceMatrix: documentedSurfaceMatrix.replace(
-          '`agent-tools/dist/src/hook-policy/check-blocked-patterns.js`',
+          '`agent-tools/dist/src/hook-policy/pre-tool-use-dispatch.js`',
           '`agent-tools/dist/src/hook-policy/other-hook.js`',
         ),
       }),

@@ -76,15 +76,6 @@ export function parseScopedContentBlocks(policy: unknown): readonly ScopedConten
 }
 
 /**
- * Load blocked content patterns from the canonical hook policy.
- */
-export async function loadBlockedContentPatterns(policyUrl: URL = POLICY_URL): Promise<string[]> {
-  const policyText = await fs.readFile(policyUrl, 'utf8');
-  const policy: unknown = JSON.parse(policyText);
-  return parseBlockedContentPolicy(policy);
-}
-
-/**
  * Load path-scoped doctrine blocks from the canonical hook policy.
  */
 export async function loadScopedContentBlocks(

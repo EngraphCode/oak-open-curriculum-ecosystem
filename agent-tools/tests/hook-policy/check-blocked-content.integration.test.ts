@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest';
 
+import { buildPreToolUseDenyResponse } from '../../src/hook-policy/content-deny-response.js';
+import { loadScopedContentBlocks } from '../../src/hook-policy/policy-loader.js';
+import { runPreToolUseDispatch } from '../../src/hook-policy/pre-tool-use-dispatch.js';
 import {
   PreToolUseDenyResponseSchema,
-  buildPreToolUseDenyResponse,
-  loadScopedContentBlocks,
-  runPreToolUseContentGuard,
   type PreToolUseDenyResponse,
-} from '../../src/hook-policy/check-blocked-content.js';
+} from '../../src/hook-policy/types.js';
 
 /** The explicit allow decision every clean evaluation now writes. */
 const ALLOW_DECISION_LINE = `${JSON.stringify({
@@ -29,12 +29,12 @@ async function* stdinFromText(text: string): AsyncGenerator<Buffer> {
   yield Buffer.from(text);
 }
 
-describe('runPreToolUseContentGuard', () => {
+describe('runPreToolUseDispatch', () => {
   it('writes a deny payload when new content introduces a blocked pattern', async () => {
     const stdoutChunks: string[] = [];
     const stderrChunks: string[] = [];
 
-    const result = await runPreToolUseContentGuard({
+    const result = await runPreToolUseDispatch({
       stdin: stdinFromJson({
         tool_input: {
           new_string: 'code with secret-marker added',
@@ -51,7 +51,7 @@ describe('runPreToolUseContentGuard', () => {
           stderrChunks.push(text);
         },
       },
-      blockedPatterns: ['secret-marker'],
+      contentPatterns: ['secret-marker'],
     });
 
     expect(result).toStrictEqual({ exitCode: 0 });
@@ -65,7 +65,7 @@ describe('runPreToolUseContentGuard', () => {
     const stdoutChunks: string[] = [];
     const stderrChunks: string[] = [];
 
-    const result = await runPreToolUseContentGuard({
+    const result = await runPreToolUseDispatch({
       stdin: stdinFromJson({
         tool_input: {
           new_string: 'code with existing-marker still',
@@ -82,7 +82,7 @@ describe('runPreToolUseContentGuard', () => {
           stderrChunks.push(text);
         },
       },
-      blockedPatterns: ['existing-marker'],
+      contentPatterns: ['existing-marker'],
     });
 
     expect(result).toStrictEqual({ exitCode: 0 });
@@ -94,7 +94,7 @@ describe('runPreToolUseContentGuard', () => {
     const stdoutChunks: string[] = [];
     const stderrChunks: string[] = [];
 
-    const result = await runPreToolUseContentGuard({
+    const result = await runPreToolUseDispatch({
       stdin: stdinFromJson({
         tool_input: {
           content: 'code with existing-marker still',
@@ -111,7 +111,7 @@ describe('runPreToolUseContentGuard', () => {
           stderrChunks.push(text);
         },
       },
-      blockedPatterns: ['existing-marker'],
+      contentPatterns: ['existing-marker'],
       readPriorContent: () => 'code with existing-marker already',
     });
 
@@ -123,7 +123,7 @@ describe('runPreToolUseContentGuard', () => {
   it('returns exitCode 2 and writes to stderr on error', async () => {
     const stderrChunks: string[] = [];
 
-    const result = await runPreToolUseContentGuard({
+    const result = await runPreToolUseDispatch({
       stdin: stdinFromText('not valid json {{{'),
       stdout: { write: () => undefined },
       stderr: {
@@ -131,7 +131,7 @@ describe('runPreToolUseContentGuard', () => {
           stderrChunks.push(text);
         },
       },
-      blockedPatterns: ['irrelevant'],
+      contentPatterns: ['irrelevant'],
     });
 
     expect(result).toStrictEqual({ exitCode: 2 });
@@ -143,7 +143,7 @@ describe('runPreToolUseContentGuard', () => {
     const stdoutChunks: string[] = [];
     const stderrChunks: string[] = [];
 
-    const result = await runPreToolUseContentGuard({
+    const result = await runPreToolUseDispatch({
       stdin: stdinFromJson({
         tool_input: {
           new_string: 'we will carve out an allowance for this case',
@@ -161,7 +161,7 @@ describe('runPreToolUseContentGuard', () => {
           stderrChunks.push(text);
         },
       },
-      blockedPatterns: [],
+      contentPatterns: [],
       scopedBlocks: [
         {
           concept: 'expediency-hedging',
@@ -189,7 +189,7 @@ describe('runPreToolUseContentGuard', () => {
   it('does not deny scoped-block hedging vocabulary on out-of-scope paths', async () => {
     const stdoutChunks: string[] = [];
 
-    const result = await runPreToolUseContentGuard({
+    const result = await runPreToolUseDispatch({
       stdin: stdinFromJson({
         tool_input: {
           new_string: 'we will carve out an allowance for this case',
@@ -203,7 +203,7 @@ describe('runPreToolUseContentGuard', () => {
         },
       },
       stderr: { write: () => undefined },
-      blockedPatterns: [],
+      contentPatterns: [],
       scopedBlocks: [
         {
           concept: 'expediency-hedging',
@@ -273,7 +273,7 @@ describe('canonical policy: SHA-in-permanent-doc regex (WS4)', () => {
     const stdoutChunks: string[] = [];
     const stderrChunks: string[] = [];
 
-    const result = await runPreToolUseContentGuard({
+    const result = await runPreToolUseDispatch({
       stdin: stdinFromJson({
         tool_input: {
           new_string: 'See commit abc1234 for context.',
@@ -291,7 +291,7 @@ describe('canonical policy: SHA-in-permanent-doc regex (WS4)', () => {
           stderrChunks.push(text);
         },
       },
-      blockedPatterns: [],
+      contentPatterns: [],
     });
 
     expect(result).toStrictEqual({ exitCode: 0 });
@@ -305,7 +305,7 @@ describe('canonical policy: SHA-in-permanent-doc regex (WS4)', () => {
   it('the wired-up guard does NOT deny an all-decimal token on a permanent-doc path (no a-f hex char)', async () => {
     const stdoutChunks: string[] = [];
 
-    const result = await runPreToolUseContentGuard({
+    const result = await runPreToolUseDispatch({
       stdin: stdinFromJson({
         tool_input: {
           new_string: 'The metric reading was 1765098000000 last quarter.',
@@ -319,7 +319,7 @@ describe('canonical policy: SHA-in-permanent-doc regex (WS4)', () => {
         },
       },
       stderr: { write: () => undefined },
-      blockedPatterns: [],
+      contentPatterns: [],
     });
 
     expect(result).toStrictEqual({ exitCode: 0 });
@@ -329,7 +329,7 @@ describe('canonical policy: SHA-in-permanent-doc regex (WS4)', () => {
   it('the wired-up guard does NOT deny a SHA in inline code on a data-shaped line (excludes_inline_code applies to data-shaped context)', async () => {
     const stdoutChunks: string[] = [];
 
-    const result = await runPreToolUseContentGuard({
+    const result = await runPreToolUseDispatch({
       stdin: stdinFromJson({
         tool_input: {
           new_string: '  commit_sha: `abc1234`',
@@ -343,7 +343,7 @@ describe('canonical policy: SHA-in-permanent-doc regex (WS4)', () => {
         },
       },
       stderr: { write: () => undefined },
-      blockedPatterns: [],
+      contentPatterns: [],
     });
 
     expect(result).toStrictEqual({ exitCode: 0 });

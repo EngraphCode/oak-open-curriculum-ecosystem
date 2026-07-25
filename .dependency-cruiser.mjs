@@ -142,6 +142,30 @@ export default {
       },
     },
     {
+      name: 'no-hook-policy-core-to-hosts',
+      severity: 'error',
+      comment:
+        'Hook-policy canonical core (evaluate, policy-snapshot) is platform-free: host adapters, renderers, and the dispatcher depend on it, never the reverse (MCP-150 unified dispatcher structure).',
+      from: {
+        path: '^agent-tools/src/hook-policy/(evaluate|policy-snapshot)\\.ts$',
+      },
+      to: {
+        path: '^agent-tools/src/hook-policy/(dispatcher|claude-adapter|claude-renderer|content-deny-response|pre-tool-use-dispatch)\\.ts$',
+      },
+    },
+    {
+      name: 'no-hook-policy-dispatcher-to-hosts',
+      severity: 'error',
+      comment:
+        'The generic dispatcher owns arbitration only: routes and renderers are injected at the composition root (pre-tool-use-dispatch), never imported (MCP-150 unified dispatcher structure).',
+      from: {
+        path: '^agent-tools/src/hook-policy/dispatcher\\.ts$',
+      },
+      to: {
+        path: '^agent-tools/src/hook-policy/(claude-adapter|claude-renderer|content-deny-response)\\.ts$',
+      },
+    },
+    {
       name: 'no-graph-corpus-sdk-to-curriculum-sdk',
       severity: 'error',
       comment:

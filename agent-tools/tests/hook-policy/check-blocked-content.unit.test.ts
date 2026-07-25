@@ -1,17 +1,21 @@
 import { describe, expect, it } from 'vitest';
 
+import { buildPreToolUseDenyResponse } from '../../src/hook-policy/content-deny-response.js';
 import {
-  buildPreToolUseDenyResponse,
   extractContentChange,
+  parseHookInput,
+  readStreamText,
+} from '../../src/hook-policy/hook-input.js';
+import {
   findAddedBlockedContent,
   findAddedScopedBlock,
   isPathInScope,
   lineIsPredominantlyCodeShaped,
+} from '../../src/hook-policy/matchers.js';
+import {
   parseBlockedContentPolicy,
-  parseHookInput,
   parseScopedContentBlocks,
-  readStreamText,
-} from '../../src/hook-policy/check-blocked-content.js';
+} from '../../src/hook-policy/policy-loader.js';
 
 const EMPTY_STDIN_CHUNKS: readonly Buffer[] = [];
 

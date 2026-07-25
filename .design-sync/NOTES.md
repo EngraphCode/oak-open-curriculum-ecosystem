@@ -30,12 +30,29 @@
   MCP-132; hotlinks are not an acceptable state on any surface). Verify
   after every sync: pick two `--i-*` urls from the shipped CSS and
   confirm the files exist at those paths in the project.
-- DTCG JSON (dtcg/\*.json) does NOT ship: `tokensGlob` requires a
-  `tokensPkg` resolvable from node_modules and the DS package is not
-  installed anywhere. Every custom property ships via the CSS — validate
-  counts them at each sync (474 at the 2026-07-23 first sync; the count
-  grows as tokens land) — so the design agent loses nothing that
-  renders. Improvement candidate for a later sync.
+- DTCG JSON (dtcg/\*.json) ships by **direct write** every sync (owner
+  ruling 2026-07-25, MCP-160): the converter cannot carry it
+  (`tokensGlob` requires a `tokensPkg` resolvable from node_modules and
+  the DS package is not installed anywhere), so each sync writes every
+  `dtcg/` file verbatim via DesignSync (nine at 2026-07-25; the set
+  grows with the export) and verifies remote hash == repo canonical. Every custom property also ships via the
+  CSS — validate counts them at each sync (474 at the 2026-07-23 first
+  sync; the count grows as tokens land).
+- **Direct-write set** (shipped current from repo canonicals each sync,
+  alongside the pipeline; sources named in `estate.json` §directWrites):
+  `dtcg/` ×9 (above), `LICENCES.md`, `CLAUDE.md`, and the three non-md
+  docs to `guidelines/docs/` (`headless-a11y-frameworks.html`,
+  `nextjs-theme-mapping.css`, `nextjs-theme-switcher.tsx.txt`) —
+  owner-ruled to ship 2026-07-25 ("the Claude Design agent is an expert
+  who needs to check and ratify those documents") and mechanically
+  outside `guidelinesGlob`, which accepts `.md`/`.mdx` only (verified:
+  `lib/docs.mjs` `matchGlob`/`isDocExt` rejects non-md both as literals
+  and as glob matches). Also `SKILL.md` (adopted 2026-07-25 under the
+  owner's usefulness formula): ship the body of
+  `.agent/skills/design-system-usage/SKILL-CANONICAL.md` with the studio
+  frontmatter block (`name: oak-design`; the canonical's `description`;
+  `user-invocable: true`) in place of the repo frontmatter — edit only
+  the canonical, never the shipped copy.
 - Render check: zero component previews exist (tokens-only), so
   validate runs `--no-render-check` — accepted as vacuous 2026-07-23;
   revisit the moment components join the bundle (then previews MUST be
@@ -78,5 +95,73 @@
   NOT overwritten by the pipeline's theme-only bundle while the repo
   exports no components; the five tier CSS files + `oak-theme.js` ship
   alongside the flat `styles.css` because studio design surfaces link
-  tier files directly; no delete-reconciliation of studio-native
-  surfaces (they are the S5 studio-side inventory).
+  tier files directly. The S4 no-prune deviation ("no
+  delete-reconciliation of studio-native surfaces") is RETIRED by the
+  owner's delete-reconciliation ruling of 2026-07-25 — see the
+  reconciliation step below.
+- **Single-home rule** (owner ruling 2026-07-25, card answer "one copy
+  only"): never ship the same document to two remote paths — every
+  document has exactly one remote home. Worked consequence: the root
+  README (converter-generated, the project pane) is README's single
+  home; `README.md` is dropped from `guidelinesGlob`, and the MCP-160
+  curation sync deletes the residual `guidelines/README.md` (the ruled
+  removal set grows to 45). Divergent stale twins were already the
+  defect class; this ruling removes the same-canonical two-copy
+  allowance too.
+- **Estate reconciliation at EVERY ordinary sync** (owner ruling
+  2026-07-25, MCP-160 — the durable curation instrument; "every single
+  entry earns its place"): `estate.json` beside this file declares the
+  complete remote estate (globs + literals). At each sync, after the
+  ship phase: `DesignSync list_files`, match every remote path against
+  the declaration, and DELETE every unmatched file — after verifying
+  each doomed path's live sha256 against the committed capture record
+  and re-capturing any drift into the byte-record first (zero-loss
+  precondition). Every intentional addition to the remote estate lands
+  as an `estate.json` entry in the same change; an unmatched remote
+  file is by definition residue. Adoption evidence: the ruled
+  disposition of all 346 then-remote files reproduced the binding
+  44-path removal list exactly from this declaration
+  (2026-07-25 closure check; evidence pack
+  `.agent/state/collaboration/handoffs/2026-07-25-cormorant-walk-pack/`).
+- **Glob-orphan amendment (owner-ratified 2026-07-25, card answer "Ratify
+  the amendment")**: remote files under a `shippedFromRepo` glob with no
+  repo counterpart at the mapped source are residue and delete at every
+  sync (capture-first precondition unchanged). Provably necessary: the
+  ruled `guidelines/README.md` deletion was inexpressible under strict
+  matching (shielded by `guidelines/**`); same class as the two
+  `assets/logo-*-official.svg` twins the MCP-164 cures removed from the
+  repo. MCP-160 curation delete set = 44 unmatched + 3 glob-orphans = 47.
+- **Verify rows resolved (2026-07-25, first-hand)**: `_ds_bundle.css`
+  KEEP — the live remote `styles.css` is exactly two `@import`s and it is
+  one of them (every rendered design consumes it); `_adherence.oxlintrc.json`
+  KEEP as machinery — the capture manifest records it `fetched-committed`
+  2026-07-23, pre-dating our syncs (studio-native); `icons.json` DELETE
+  confirmed — README records it as provenance-reference-only, never
+  loaded; capture-verified; no consumer. `estate.json` pending rows
+  resolved accordingly (only the `_ds_bundle.js` succession row remains).
+- **CLAUDE.md repo canonical**: `packages/design/oak-design-system/CLAUDE.md`
+  — the studio's normative instruction re-trued from the live copy (the
+  HANDOFF.md session-protocol paragraph dropped with its deleted
+  counterpart); ships by direct write each sync per §directWrites.
+- **Curation sync EXECUTED 2026-07-25 (~18:50Z, MCP-160)**: ship 153 (152
+  via DesignSync + sentinel; CLAUDE.md refused — see next bullet) →
+  capture-verified delete 47 → estate certified: 305 remote files, exact
+  match to the computed expectation, declaration closure clean (sole
+  unmatched path is the transient `_ds_needs_recompile` sentinel the app
+  consumes). P5 record: 46/47 byte-committed in the capture tier with
+  manifest-matching sha256; `guidelines/README.md` is converter-derived
+  from the repo README (git history holds every version); live-drift
+  checked on the rewrite-prone HANDOFF.md (structurally identical to
+  capture, self-dated before it). `_ds_sync.json` left byte-unchanged
+  deliberately: its styleSha is now conservative-stale, which forces
+  re-verification rather than false cache hits.
+- **CLAUDE.md is a Design API reserved path** (discovered at this sync):
+  instructions to the design agent are unwritable by DesignSync
+  regardless of the approved plan. The estate declaration now carries it
+  under `ownerMaintained`; updates are owner-executed in the studio UI
+  from `packages/design/oak-design-system/CLAUDE.md`. The bulk-delete
+  leg also required project-owner login (editor rights suffice for
+  writes only) — plan owner-presence for any future delete-bearing sync.
+- **thumbnail.html reclassified** shippedFromRepo → machinery: it has no
+  repo source (studio-generated; the package .gitignore records it) —
+  the shippedFromRepo claim was untrue for it.
