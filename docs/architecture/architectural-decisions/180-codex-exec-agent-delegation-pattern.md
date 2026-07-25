@@ -4,9 +4,9 @@
 **Date**: 2026-05-12
 **Amended**: 2026-07-25 — current official Codex documentation now treats
 `codex exec` JSONL and structured output as documented interfaces and exposes
-additional composition boundaries: the Codex SDK, stable
-`codex mcp-server`, and experimental App Server. The preference for
-`codex exec` as the smallest scripted boundary remains.
+additional composition boundaries: the Codex SDK, the `codex mcp-server`
+command with its experimental protocol, and experimental App Server. The
+preference for `codex exec` as the smallest scripted boundary remains.
 **Related**:
 [ADR-125](125-agent-artefact-portability.md) — agent artefact portability;
 the `codex-helper` skill and its adapters follow ADR-125 conventions;
@@ -28,9 +28,9 @@ well-defined sub-task to a Codex agent, several invocation surfaces exist:
    `--output-last-message`, `--output-schema`, `--sandbox`, `--ephemeral`,
    and working-directory control via `-C`.
 
-3. **Native `codex mcp-server`**: exposes Codex itself as a stable MCP server
-   over stdio when another agent framework should orchestrate Codex as a
-   specialist.
+3. **Native `codex mcp-server`**: an exposed command that serves Codex over
+   stdio when another agent framework should orchestrate Codex as a
+   specialist. Its MCP interface remains experimental and subject to change.
 
 4. **Codex SDK / App Server**: the SDK provides programmatic thread control;
    the experimental App Server provides JSON-RPC threads, turns, approvals,
@@ -63,11 +63,11 @@ tested TypeScript inside `agent-tools`.
 ### 1. `codex exec` is the preferred invocation surface for scripted delegation
 
 For programmatic delegation from Claude Code or shell scripts, use `codex exec`
-rather than adding a richer protocol by default. Use `codex mcp-server` when
-an MCP/Agents SDK orchestrator should own specialist selection and
-continuation; use the SDK when an application needs richer thread control;
-use App Server only when its experimental protocol is an intentional
-dependency.
+rather than adding a richer protocol by default. Use `codex mcp-server` only
+when an MCP/Agents SDK orchestrator should own specialist selection and
+continuation and its experimental protocol is an intentional dependency; use
+the SDK when an application needs richer thread control; use App Server only
+when its experimental protocol is an intentional dependency.
 
 ### 2. A minimal `codex-exec` CLI topic in agent-tools ships now; richer surface deferred
 

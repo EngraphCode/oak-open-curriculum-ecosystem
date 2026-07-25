@@ -339,7 +339,7 @@ is destructive.
 | JSONL events | `codex exec --json` streams thread, turn, item, tool, web-search, file-change, plan, usage, and error events. | Stable documented interface |
 | Structured final output | `--output-schema` constrains the final response to JSON Schema; `--output-last-message` writes the final answer separately. | Stable documented interface |
 | Codex SDK | TypeScript and Python SDKs start, resume, and steer Codex threads under selected sandbox policy. | TypeScript documented; Python beta |
-| Codex as MCP server | `codex mcp-server` exposes Codex over MCP stdio for another orchestrator. | Stable command |
+| Codex as MCP server | `codex mcp-server` exposes Codex over MCP stdio for another orchestrator. | Exposed command; experimental protocol |
 | App Server | JSON-RPC threads, turns, streamed items, approvals, history, fork/resume, steering, and interrupt over stdio, Unix socket, or WebSocket. | Experimental command/API |
 | Remote TUI | `--remote` connects the terminal UI to an app-server endpoint; authenticated remote-control tooling is experimental. | Exposed; experimental control command |
 | Desktop handoff | `codex app` launches the ChatGPT desktop app; `/app` continues the current session there. This is a bridge, not a local CLI tool grant. | Stable command; documented |
@@ -350,7 +350,7 @@ is destructive.
 `codex exec` is the simplest automation boundary. Use the SDK when a program
 needs richer thread control, App Server when building a full client, and
 `codex mcp-server` when Codex should be one specialist inside an MCP/Agents SDK
-orchestration.
+orchestrator and the experimental protocol is an intentional dependency.
 
 ### 9. Observation and operator feedback
 
