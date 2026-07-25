@@ -494,14 +494,17 @@ The official-source pass found these documentation defects:
    as non-public, while current official docs cover JSONL, SDKs, App Server, and
    Codex-as-MCP-server;
 9. live collaboration-state lifecycle guidance says Codex has no verified
-   `SessionEnd`, although the stable `0.145.0` event surface includes it.
+   `SessionEnd`, although the stable `0.145.0` event surface includes it;
+10. the imported matrix's shared hook row and status bullets omit tracked
+    `SessionStart` identity activation for Claude Code and Cursor.
 
-This changeset corrects items 1 and 3–9. It bases the matrix on PR #529 head
-blob `fdc672adb` and otherwise changes only the Codex cells and Codex-specific
-support text. On 2026-07-25 the owner explicitly overrode the earlier
-wait-for-PR-529 sequence for the matrix, and the Director released that file to
-MCP-159 with the Copilot claims and wording preserved. One deliberate
-pre-merge adjustment replaces PR #529's live relative link to its
+This changeset corrects items 1 and 3–10. It bases the matrix on PR #529 head
+blob `fdc672adb`; changes outside the Codex cells and Codex-specific support
+text are limited to the shared hook-activation correction in item 10 and the
+link adjustment described below. On 2026-07-25 the owner explicitly overrode
+the earlier wait-for-PR-529 sequence for the matrix, and the Director released
+that file to MCP-159 with the Copilot claims and wording preserved. One
+deliberate pre-merge adjustment replaces PR #529's live relative link to its
 first-class-Copilot plan with a code-spanned repo-root path and provenance note:
 the target does not exist on this branch, so a live link would fail the
 repository validator. The semantic union must restore the live link after both

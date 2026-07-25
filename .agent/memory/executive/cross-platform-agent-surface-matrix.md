@@ -46,26 +46,30 @@ node introduced by PR #529.
 | **Commands**   | `.cursor/commands/` | `.claude/commands/`                                    | `.gemini/commands/`                               | no separate command projection                      | built-in slash commands; repo workflows use skills       | `.agents/skills/oak-*/` |
 | **Rules**      | `.cursor/rules/`    | `.claude/rules/`                                       | entry-point chain only                            | partial repo entry point; modular projection target  | entry-point chain; no project execpolicy `.rules` wired  | `.agents/rules/`       |
 | **Sub-agents** | `.cursor/agents/`   | `.claude/agents/`                                      | native `/agents` upstream; no repo wrappers wired | native custom agents documented; repo target unwired | `.codex/config.toml` → `.codex/agents/*.toml`             | unsupported            |
-| **Hooks**      | unsupported         | `.claude/settings.json` (tracked project `PreToolUse`) | supported upstream; no project-local hook wired   | native hooks documented; repo target unwired         | tracked project `SessionStart`; no `PreToolUse` guard     | unsupported            |
+| **Hooks**      | canonical policy guard unsupported; `.cursor/hooks.json` has tracked soft `sessionStart` identity | `.claude/settings.json` (tracked soft `SessionStart` identity plus `PreToolUse` guards) | supported upstream; no project-local hook wired | native hooks documented; repo target unwired | tracked project `SessionStart`; no `PreToolUse` guard | unsupported |
 | **MCP**        | user-local          | user-local / MCP config                                | supported upstream; no `.agents/mcp_config.json` wired | repository config documented; tracked projection target | two tracked project servers in `.codex/config.toml`       | `.agents/mcp_config.json` target |
 
 ## Hook Support
 
-Claude Code currently has native `PreToolUse` activation for Bash
-commands via the tracked project `.claude/settings.json`, backed by the
-canonical policy in `.agent/hooks/policy.json` and the prebuilt runtime
-artefact `agent-tools/dist/src/hook-policy/check-blocked-patterns.js`, invoked
-through the verdict shim `.claude/hooks/run-pretooluse-guard.mjs` so a
-built-but-broken artefact blocks the tool call (exit 2), while a not-built
-artefact fails open (exit 0) with a loud, logged warning so a fresh checkout is
-not bricked — well within the per-tool-call hook timeout. Local additive
-overrides, when needed, live in `.claude/settings.local.json`.
+Claude Code currently has a soft native `SessionStart` identity adapter plus
+native `PreToolUse` activation for Bash, Edit, and Write calls via the tracked
+project `.claude/settings.json`. The command and content guards are backed by
+the canonical policy in `.agent/hooks/policy.json` and prebuilt runtime
+artefacts, invoked through the verdict shim
+`.claude/hooks/run-pretooluse-guard.mjs` so a built-but-broken artefact blocks
+the tool call (exit 2), while a not-built artefact fails open (exit 0) with a
+loud, logged warning so a fresh checkout is not bricked — well within the
+per-tool-call hook timeout. Local additive overrides, when needed, live in
+`.claude/settings.local.json`.
 
 Status by platform:
 
-- **Claude Code**: supported for `PreToolUse` only (Bash blocked-pattern
-  enforcement via tracked project `.claude/settings.json`)
-- **Cursor**: no native agent hook surface at time of writing
+- **Claude Code**: tracked project `.claude/settings.json` activates a soft
+  `SessionStart` identity adapter and `PreToolUse` command/content guards.
+- **Cursor**: tracked project `.cursor/hooks.json` activates a soft
+  `sessionStart` identity adapter. The canonical command/content policy is not
+  activated for Cursor, and this Codex-focused research pass did not reassess
+  Cursor's broader current upstream event set.
 - **Gemini / Antigravity CLI**: native hooks are documented through
   `hooks.json` under the workspace `.agents/` directory or global config, with
   `PreToolUse`, `PostToolUse`, `PreInvocation`, `PostInvocation`, and `Stop`
