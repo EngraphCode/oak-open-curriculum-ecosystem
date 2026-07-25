@@ -13,16 +13,41 @@ exists or that an adapter shape is correct on platform X, check the
 current official docs; never generalise across platforms or treat in-repo
 precedent as a substitute.
 
+## Copilot CLI: Target Versus Wired
+
+The owner-ratified target is **GitHub Copilot CLI running locally** as an equal
+first-class Practice citizen. A target row is not an implementation claim.
+GitHub Copilot coding-agent/cloud execution is outside this matrix's Copilot
+scope.
+
+| Surface | Ratified local-CLI target | Wired and proven in this repository |
+| --- | --- | --- |
+| Identity | Native `sessionStart` adapter returns honest Copilot identity through `additionalContext` | **No** — canonical identity types and persistence do not yet admit Copilot |
+| Deliberate team join | Native bootstrap is useful alone; `oak-start-right-team` explicitly opens claims, heartbeat, watcher, and lifecycle | **No** — no Copilot launcher or joined/non-joined proof |
+| Repo instructions | `.github/copilot-instructions.md` imports the canonical repository entry point | **Partial** — the file exists as a Markdown link to `AGENT.md`, not a validated native import |
+| Path-scoped instructions | Generated `.github/instructions/**/*.instructions.md` projections | **No** |
+| Skills | Use `.agents/skills/` under documented `.github/skills` → `.agents/skills` → `.claude/skills` first-found precedence | **Partial** — the portable wrappers exist; clean local Copilot CLI discovery/invocation is not yet an acceptance gate |
+| Custom agents | Generated, schema-valid `.github/agents/*.agent.md` projections from canonical specialists | **No** |
+| Policy hooks | Native `.github/hooks` Copilot adapter over one canonical policy evaluator, with no inherited double-evaluation | **No** — inherited Claude activation currently receives an incompatible Copilot batch and blocks valid writes |
+| Settings | `.github/copilot/settings.json` only for documented, tested project settings | **No** |
+| Repository MCP | Establish a canonical secret-free server manifest from total dispositions over tracked platform candidates, then generate the Copilot repository projection | **No** — no canonical manifest or tracked Copilot projection exists |
+| Communications | Existing local comms substrate plus native wake, re-arm, drain recovery, handoff, and retirement | **No** — the substrate exists, but no Copilot notification/lifecycle projection is wired |
+| End-to-end proof | Fresh-checkout validators plus a live local Copilot CLI acceptance run | **No** |
+
+Delivery truth lives in MCP-150, MCP-154, MCP-155, and MCP-156 under the
+`.agent/plans/strategic/first-class-copilot-cli-practice-citizenship.plan.md`
+node introduced by PR #529.
+
 ## Adapter Families
 
-| Surface        | Cursor              | Claude Code                                            | Gemini / Antigravity CLI                          | GitHub Copilot    | Codex                                      | `.agents/`             |
-| -------------- | ------------------- | ------------------------------------------------------ | ------------------------------------------------- | ----------------- | ------------------------------------------ | ---------------------- |
-| **Skills**     | `.cursor/skills/`   | `.claude/skills/`                                      | `.agents/skills/`                                  | unsupported       | unsupported                                | `.agents/skills/`      |
-| **Commands**   | `.cursor/commands/` | `.claude/commands/`                                    | `.gemini/commands/`                                | unsupported       | unsupported                                | `.agents/skills/oak-*/` |
-| **Rules**      | `.cursor/rules/`    | `.claude/rules/`                                       | entry-point chain only                             | entry-point chain | entry-point chain                          | `.agents/rules/`       |
-| **Sub-agents** | `.cursor/agents/`   | `.claude/agents/`                                      | native `/agents` upstream; no repo wrappers wired  | unsupported       | `.codex/`                                  | unsupported            |
-| **Hooks**      | unsupported         | `.claude/settings.json` (tracked project `PreToolUse`) | supported upstream; no project-local hook wired    | unsupported       | supported upstream; no project-local hook wired | unsupported            |
-| **MCP**        | user-local          | user-local / MCP config                                | supported upstream; no `.agents/mcp_config.json` wired | unsupported       | plugin/user-local                          | `.agents/mcp_config.json` target |
+| Surface        | Cursor              | Claude Code                                            | Gemini / Antigravity CLI                          | GitHub Copilot CLI                                   | Codex                                                    | `.agents/`             |
+| -------------- | ------------------- | ------------------------------------------------------ | ------------------------------------------------- | ---------------------------------------------------- | -------------------------------------------------------- | ---------------------- |
+| **Skills**     | `.cursor/skills/`   | `.claude/skills/`                                      | `.agents/skills/`                                 | `.agents/skills/` exists; acceptance target above    | `.agents/skills/oak-*/` loaded as native Codex skills    | `.agents/skills/`      |
+| **Commands**   | `.cursor/commands/` | `.claude/commands/`                                    | `.gemini/commands/`                               | no separate command projection                      | built-in slash commands; repo workflows use skills       | `.agents/skills/oak-*/` |
+| **Rules**      | `.cursor/rules/`    | `.claude/rules/`                                       | entry-point chain only                            | partial repo entry point; modular projection target  | entry-point chain; no project execpolicy `.rules` wired  | `.agents/rules/`       |
+| **Sub-agents** | `.cursor/agents/`   | `.claude/agents/`                                      | native `/agents` upstream; no repo wrappers wired | native custom agents documented; repo target unwired | `.codex/config.toml` → `.codex/agents/*.toml`             | unsupported            |
+| **Hooks**      | unsupported         | `.claude/settings.json` (tracked project `PreToolUse`) | supported upstream; no project-local hook wired   | native hooks documented; repo target unwired         | tracked project `SessionStart`; no `PreToolUse` guard     | unsupported            |
+| **MCP**        | user-local          | user-local / MCP config                                | supported upstream; no `.agents/mcp_config.json` wired | repository config documented; tracked projection target | two tracked project servers in `.codex/config.toml`       | `.agents/mcp_config.json` target |
 
 ## Hook Support
 
@@ -45,14 +70,22 @@ Status by platform:
   `hooks.json` under the workspace `.agents/` directory or global config, with
   `PreToolUse`, `PostToolUse`, `PreInvocation`, `PostInvocation`, and `Stop`
   events. This repository has no project-local `.agents/hooks.json` wired.
-- **GitHub Copilot**: no native agent hook surface at time of writing
-- **Codex**: upstream Codex hooks are available behind `codex_hooks`, and this
-  local Codex install reports the feature enabled. This repository has no
-  project-local `.codex/` hook configuration wired. Current Codex docs show
-  `SessionStart`, `PreToolUse`, `PermissionRequest`, `PostToolUse`,
-  `UserPromptSubmit`, and turn-scoped `Stop`; no `SessionEnd` equivalent is
-  documented, so session-close cleanup must rely on explicit handoff and
-  standard TTL/stale-archive cleanup until that surface exists.
+- **GitHub Copilot CLI**: native hooks are documented, including
+  `sessionStart`, `preToolUse`, `notification`, `agentStop`, and `sessionEnd`.
+  This repository has no native `.github/hooks` activation wired. The inherited
+  Claude hook currently receives an incompatible Copilot batch shape and is a
+  reproduced blocking defect, not supported Copilot enforcement.
+- **Codex**: lifecycle hooks are stable in Codex CLI `0.145.0`. The tracked
+  `.codex/config.toml` enables hooks and registers a soft `SessionStart`
+  identity-context adapter. The official event surface includes
+  `SessionStart`, `SessionEnd`, `SubagentStart`, `SubagentStop`, `PreToolUse`,
+  `PermissionRequest`, `PostToolUse`, `PreCompact`, `PostCompact`,
+  `UserPromptSubmit`, and `Stop`. The repository does not yet activate the
+  canonical command/content guard on Codex `PreToolUse`.
+
+The Codex product claims and event list above inherit their version pin,
+source-authority boundary, and evidence grades from the
+[Codex CLI capability catalogue](../../reports/agentic-engineering/codex-cli-agentic-capability-catalogue-2026-07-25.md).
 
 ## Policy Spine
 
@@ -61,8 +94,8 @@ This repo's hook and adapter surfaces follow a small Policy Spine:
 | Layer | Role | Can It Override Higher Layers? |
 | --- | --- | --- |
 | Canonical policy (`.agent/`) | Declares intended behaviour and support | No |
-| Native activation (tracked `.claude/settings.json`) | Activates supported policy in the repo baseline | No |
-| Workspace runtime (`agent-tools/dist/src/hook-policy/check-blocked-patterns.js` via `.claude/hooks/run-pretooluse-guard.mjs`) | Enforces the active native hook path; fails closed if a built artefact is broken, fails open (loud, logged) if not yet built | No |
+| Native activation (tracked `.claude/settings.json` and `.codex/config.toml`) | Activates the supported platform-specific policy or context path in the repo baseline | No |
+| Workspace runtime (`agent-tools/dist/src/hook-policy/check-blocked-patterns.js` via the Claude shim; the agent-tools identity hook via the Codex shim) | Enforces the Claude guard and supplies soft Codex identity context without duplicating canonical substance | No |
 | Explanatory mirrors (this matrix, hook README) | Describe the live state and support contract | No |
 
 Failure semantics:
@@ -77,7 +110,7 @@ Failure semantics:
 | ---------------------- | ---------------------------------------------- |
 | All platforms          | `.agent/directives/AGENT.md`                   |
 | Claude Code            | `CLAUDE.md` → `AGENT.md`                       |
-| GitHub Copilot         | `.github/copilot-instructions.md` → `AGENT.md` |
+| GitHub Copilot CLI     | `.github/copilot-instructions.md` currently links to `AGENT.md`; validated native import is the target |
 | Codex host             | `AGENTS.md` → `AGENT.md`                       |
 | Gemini CLI             | `GEMINI.md` → `AGENT.md`                       |
 | Linear coding sessions | `skills.md` → `AGENT.md`                       |
@@ -105,3 +138,7 @@ Failure semantics:
   in this repo.
 - Portable does not mean symmetrical: each platform has different native
   capabilities and the matrix records what is actually wired.
+- Copilot CLI target surfaces are governed by
+  [ADR-125](../../../docs/architecture/architectural-decisions/125-agent-artefact-portability.md)
+  and the linked plan estate; the target table above must not be collapsed into
+  an unsupported/supported binary before live acceptance.

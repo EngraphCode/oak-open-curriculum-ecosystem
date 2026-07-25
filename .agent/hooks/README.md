@@ -164,10 +164,8 @@ case (loudly, as above) and fail **closed** whenever a built guard misbehaves.
 | GitHub Copilot CLI | Not reassessed in this Codex research pass as of 2026-07-25 | No canonical policy activation |
 
 See `.agent/memory/executive/cross-platform-agent-surface-matrix.md` for the
-full local support status except its known dated Codex rows. While MCP-150 /
-PR #529 owns that shared file, the table above and the version-pinned catalogue
-record the observed 2026-07-25 Codex exception. The follow-up matrix and ADR-125
-update is required after PR #529 releases those files.
+full local support status. The version-pinned catalogue records the official
+evidence and explicit evidence ceiling behind the Codex row.
 
 Codex CLI `0.145.0` documents stable session, subagent, tool/approval,
 compaction, prompt, and stop lifecycle families. The version-pinned event list

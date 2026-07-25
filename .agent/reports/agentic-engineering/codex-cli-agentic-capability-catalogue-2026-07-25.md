@@ -26,8 +26,8 @@
   current official OpenAI documentation, or the pinned official source release
   below. Treat repository inspection only as evidence of local wiring.
 - **Non-goals**: this report does not authorise implementation, promote
-  experimental interfaces to stable dependencies, or change shared files owned
-  by MCP-150 / PR #529.
+  experimental interfaces to stable dependencies, or change ADR-125 while it
+  remains owned by MCP-150 / PR #529.
 - **Successful review**: report either that the catalogue satisfies these
   questions within its explicit evidence ceiling, or identify the exact claim,
   missing official evidence, contract mismatch, or local mapping that must be
@@ -491,9 +491,12 @@ The official-source pass found these documentation defects:
    as non-public, while current official docs cover JSONL, SDKs, App Server, and
    Codex-as-MCP-server.
 
-This changeset corrects items 3–8 in non-overlapping files. The matrix and
-ADR-125 in items 1–2 have a separate active writer and must be updated only
-after MCP-150 / PR #529 lands.
+This changeset corrects items 1 and 3–8. It bases the matrix on PR #529 head
+blob `fdc672adb` and changes only the Codex cells and Codex-specific support
+text. On 2026-07-25 the owner explicitly overrode the earlier wait-for-PR-529
+sequence for the matrix, and the Director released that file to MCP-159 with
+the Copilot content preserved verbatim. ADR-125 in item 2 remains under the
+MCP-150 / PR #529 owner and is not changed here.
 
 ## Consequences for the next enforcement vertical
 
