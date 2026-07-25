@@ -492,9 +492,11 @@ The official-source pass found these documentation defects:
 7. the Codex platform README omits its hook, MCP, trust, and policy shape;
 8. ADR-180 describes only two orchestration choices and treats documented JSONL
    as non-public, while current official docs cover JSONL, SDKs, App Server, and
-   Codex-as-MCP-server.
+   Codex-as-MCP-server;
+9. live collaboration-state lifecycle guidance says Codex has no verified
+   `SessionEnd`, although the stable `0.145.0` event surface includes it.
 
-This changeset corrects items 1 and 3–8. It bases the matrix on PR #529 head
+This changeset corrects items 1 and 3–9. It bases the matrix on PR #529 head
 blob `fdc672adb` and changes only the Codex cells and Codex-specific support
 text. On 2026-07-25 the owner explicitly overrode the earlier wait-for-PR-529
 sequence for the matrix, and the Director released that file to MCP-159 with
