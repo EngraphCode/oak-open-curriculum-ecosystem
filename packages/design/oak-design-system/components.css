@@ -1156,7 +1156,7 @@
    DOM order is canonical and never changes (test the focus path after any
    recomposition). Below 840px the -narrow maps apply (default: one gutter-padded column).
    A map MUST place every region — one missing name invalidates the whole
-   template (see KNOWN-ISSUES.md). */
+   template (see KNOWN-ISSUES.md; studio: guidelines/KNOWN-ISSUES.md). */
 :root {
   --canvas-columns: minmax(0, 1fr); /* @kind other */
   --canvas-areas: 'utility' 'masthead' 'main' 'footer'; /* @kind other */

@@ -1,3 +1,20 @@
+## [1.85.26](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.25...v1.85.26) (2026-07-25)
+
+## [1.85.25](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.24...v1.85.25) (2026-07-25)
+
+## [1.85.24](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.23...v1.85.24) (2026-07-25)
+
+## [1.85.23](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.22...v1.85.23) (2026-07-25)
+
+## [1.85.22](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.21...v1.85.22) (2026-07-25)
+
+
+### Bug Fixes
+
+* **hook-policy:** evaluate copilot cli string-form edit payloads ([b725df1](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b725df1ecbf304d25ae15b6c257a4de87d79474a))
+
+## [1.85.21](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.20...v1.85.21) (2026-07-25)
+
 ## [1.85.20](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.19...v1.85.20) (2026-07-25)
 
 ## [1.85.19](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.85.18...v1.85.19) (2026-07-25)

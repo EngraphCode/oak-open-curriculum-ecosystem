@@ -7,7 +7,7 @@ and thin native activation lives in platform config.
 
 ## Current Status
 
-**Guardrail-only**: the hook layer is intentionally narrow.
+**Guardrail-and-identity only**: the hook layer is intentionally narrow.
 
 - `preToolUse` — natively enforced for Claude Code Bash calls by invoking the
   single prebuilt policy dispatcher
@@ -21,10 +21,17 @@ and thin native activation lives in platform config.
   routes each payload by shape to the Bash or content policy); blocks the
   path-agnostic owner-approval marker and path-scoped doctrine block groups
   (see "Content guard: concept-grouped doctrine blocks" below)
-- `sessionStart` — documented policy only; grounding is already enforced
-  through the entry-point chain and start-right skills
+- Codex identity context — a separate native `SessionStart` surface activated
+  through the thin `.codex/hooks/practice-session-identity.mjs` adapter; it
+  injects the PDR-027 identity block and remains soft/fail-open
 - `preCommit` — documented policy only; quality-gate reminders already
   live in the workflow and review surfaces
+
+The Codex identity hook does **not** activate the canonical `sessionStart`
+grounding reminder in `policy.json`, and it does not enforce the canonical
+destructive-command or content policy. Those guards remain Claude Code
+`PreToolUse` activations until the Codex enforcement vertical is implemented
+and verified.
 
 ## Policy Spine
 
@@ -33,8 +40,9 @@ The hook layer follows a small Policy Spine. The layers are not peers.
 1. **Canonical policy** — `.agent/hooks/policy.json`
    This is the authority for what the repo intends to allow, block, or
    describe.
-2. **Native activation** — platform config such as `.claude/settings.json`
-   This tracked project config may activate only supported canonical policy. It
+2. **Native activation** — platform config such as `.claude/settings.json` or
+   `.codex/config.toml`
+   Tracked project config may activate only supported canonical policy. It
    does not redefine the policy.
 3. **Workspace-owned runtime** — the single prebuilt
    `agent-tools/dist/src/hook-policy/pre-tool-use-dispatch.js` dispatcher
@@ -149,18 +157,33 @@ case (loudly, as above) and fail **closed** whenever a built guard misbehaves.
 
 ## Platform Support
 
-Claude Code currently has thin native activation wired for
-`PreToolUse` only via the tracked project file `.claude/settings.json`.
-Additional Claude overrides can stay in `.claude/settings.local.json`,
-which is gitignored and additive.
+| Platform | Upstream hook surface | Repo activation |
+| --- | --- | --- |
+| Claude Code | Native lifecycle hooks | Soft `SessionStart` identity context plus `PreToolUse` command/content guards in tracked `.claude/settings.json` |
+| Codex CLI | Stable lifecycle hooks | Soft `SessionStart` identity context in tracked `.codex/config.toml` |
+| Cursor | Not reassessed in this Codex research pass as of 2026-07-25 | Soft `sessionStart` identity context in tracked `.cursor/hooks.json`; no canonical policy activation |
+| Gemini / Antigravity CLI | Not reassessed in this Codex research pass as of 2026-07-25 | No canonical policy activation |
+| GitHub Copilot CLI | Not reassessed in this Codex research pass as of 2026-07-25 | No Copilot-native activation; INHERITS the Claude `PreToolUse` activation and is enforced through the dispatcher's `copilot-compat-string` route (observed live 2026-07-25, CLI 1.0.75) |
 
 See `.agent/memory/executive/cross-platform-agent-surface-matrix.md` for the
-full platform support status.
+full local support status. The version-pinned catalogue records the official
+evidence and explicit evidence ceiling behind the Codex row.
 
-Cursor, Gemini CLI, and Codex remain unsupported. GitHub Copilot has no
-Copilot-native activation wired, but Copilot CLI inherits the Claude
+Cursor and Gemini CLI have no canonical policy activation. GitHub Copilot has
+no Copilot-native activation wired, but Copilot CLI inherits the Claude
 `PreToolUse` activation and is enforced through the dispatcher's
 `copilot-compat-string` route (observed live 2026-07-25, CLI 1.0.75).
+
+Codex CLI `0.145.0` documents stable session, subagent, tool/approval,
+compaction, prompt, and stop lifecycle families. The version-pinned event list
+and evidence boundary live in the
+[Codex CLI capability catalogue](../reports/agentic-engineering/codex-cli-agentic-capability-catalogue-2026-07-25.md).
+Availability upstream is not activation here. In particular, hosted tools such
+as Web Search are outside the general local-function hook path.
+
+Additional Claude overrides can stay in `.claude/settings.local.json`, which
+is gitignored and additive. Codex user hooks remain under the user's Codex
+configuration and are not part of this repo baseline.
 
 ## Policy File
 
@@ -174,7 +197,11 @@ When wiring hooks for a platform:
 
 1. Read `policy.json` for the canonical policy
 2. Create thin native activation in the platform config directory
-3. Reuse or add a workspace-owned runtime command only when native config
-   cannot read `policy.json` directly
-4. Update the surface matrix to record the supported state
-5. Add drift checks to the portability validation script
+3. Normalise the vendor payload in a thin adapter; require exactly one
+   supported schema match and fail closed for zero or multiple matches
+4. Reuse the workspace-owned runtime rather than duplicating policy
+5. Evaluate each successfully dispatched write exactly once; do not add a
+   pass-through route or a second policy implementation
+6. Test real allow, block, malformed-input, missing-build, and trust paths
+7. Update the surface matrix to record the supported state
+8. Add drift checks to the portability validation script

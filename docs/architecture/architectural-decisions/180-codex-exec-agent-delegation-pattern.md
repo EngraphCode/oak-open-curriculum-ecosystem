@@ -2,10 +2,14 @@
 
 **Status**: Accepted 2026-05-12 (Lush Sprouting Thicket session, owner approval)
 **Date**: 2026-05-12
+**Amended**: 2026-07-25 — current official Codex documentation now treats
+`codex exec` JSONL and structured output as documented interfaces and exposes
+additional composition boundaries: the Codex SDK, the `codex mcp-server`
+command with its experimental protocol, and experimental App Server. The
+preference for `codex exec` as the smallest scripted boundary remains.
 **Related**:
-ADR-125 (`125-skill-canonicalisation-and-adapter-topology.md`) — skill
-canonicalisation; the `codex-helper` skill and its adapters are generated
-under ADR-125 conventions;
+[ADR-125](125-agent-artefact-portability.md) — agent artefact portability;
+the `codex-helper` skill and its adapters follow ADR-125 conventions;
 [ADR-178](178-agent-tools-build-isolation.md) — agent-tools build isolation;
 the `codex-exec` CLI topic follows the build/dist discipline established there.
 
@@ -13,16 +17,27 @@ the `codex-exec` CLI topic follows the build/dist discipline established there.
 
 The agentic engineering practice operates across multiple platforms (Claude
 Code, Codex, Cursor). When a Claude Code session needs to delegate a
-well-defined sub-task to a Codex agent, two invocation surfaces exist:
+well-defined sub-task to a Codex agent, several invocation surfaces exist:
 
-1. **MCP server** (`mcp__codex__codex`): request-response, returns a JSON
-   envelope with `threadId` and `content`. Suitable for continuation threads.
-   No streaming, no timeout control, no structured output extraction.
+1. **Legacy/external MCP wrapper** (`mcp__codex__codex`):
+   request-response, returning a wrapper-specific JSON envelope. Suitable only
+   when that external integration is already the selected boundary.
 
 2. **`codex exec` CLI**: spawns a non-interactive Codex session.
    `--json` emits JSONL events to stdout as they happen. Supports
    `--output-last-message`, `--output-schema`, `--sandbox`, `--ephemeral`,
    and working-directory control via `-C`.
+
+3. **Native `codex mcp-server`**: an exposed command that serves Codex over
+   stdio when another agent framework should orchestrate Codex as a
+   specialist. Its MCP interface remains experimental and subject to change.
+
+4. **Codex SDK / App Server**: the SDK provides programmatic thread control;
+   the experimental App Server provides JSON-RPC threads, turns, approvals,
+   history, streaming, steering, and interruption for rich clients.
+
+The version-pinned external surface is recorded in the
+[Codex CLI capability catalogue](../../../.agent/reports/agentic-engineering/codex-cli-agentic-capability-catalogue-2026-07-25.md).
 
 A live experiment (2026-05-12) validated this delegation loop:
 
@@ -48,8 +63,11 @@ tested TypeScript inside `agent-tools`.
 ### 1. `codex exec` is the preferred invocation surface for scripted delegation
 
 For programmatic delegation from Claude Code or shell scripts, use `codex exec`
-rather than the MCP server. The MCP server is reserved for interactive
-continuation threads where `threadId` management is valuable.
+rather than adding a richer protocol by default. Use `codex mcp-server` only
+when an MCP/Agents SDK orchestrator should own specialist selection and
+continuation and its experimental protocol is an intentional dependency; use
+the SDK when an application needs richer thread control; use App Server only
+when its experimental protocol is an intentional dependency.
 
 ### 2. A minimal `codex-exec` CLI topic in agent-tools ships now; richer surface deferred
 
@@ -102,6 +120,9 @@ the templates.
 
 - JSONL extraction and timeout handling are tested TypeScript rather than
   fragile shell one-liners.
+- The upstream JSONL event stream and output-schema flag are now documented
+  public CLI behaviour; the local extractor still protects consumers from raw
+  event plumbing.
 - The default `read-only` sandbox enforces least-privilege; violations are
   explicit opt-ins.
 - The peer-review loop produces better outputs than single-agent authoring
@@ -110,22 +131,25 @@ the templates.
 
 **Negative / trade-offs:**
 
-- `codex exec` is a blocking subprocess; long tasks are a black box for the
-  calling agent until the user cancels or the OS times out. Break briefs
-  into sub-60 s units when possible. Cross-platform timeout discipline is
-  the caller's responsibility until the deferred `run` subcommand ships.
-- The JSONL event shape (`item.completed / agent_message / .item.text`) is
-  not part of a public versioned API contract. The `last-message` extractor
-  may need updating if the event shape changes; the skill documents this
-  risk.
+- `codex exec` is a blocking subprocess in the caller's control flow. It is
+  not an observation black box: ordinary mode streams progress to stderr and
+  `--json` streams events to stdout. Break briefs into reviewable units.
+  Cross-platform timeout discipline remains the caller's responsibility until
+  the deferred `run` subcommand ships.
+- JSONL is documented, but individual event fields can still evolve across
+  CLI releases. The `last-message` extractor remains version-sensitive and
+  must be verified against the installed CLI.
 - macOS does not ship GNU `timeout`. The skill documents a
   `perl -e 'alarm N; exec @ARGV'` substitute as the cross-platform fallback
   until the deferred `run` subcommand provides a tested wrapper.
 
 ## Alternatives Considered
 
-**Use only the MCP server**: rejected because it provides no streaming, no
-timeout, and no cross-platform abstraction for JSONL extraction.
+**Use only the legacy/external MCP wrapper (`mcp__codex__codex`)**: rejected
+for local scripted delegation because that wrapper integration provides no
+streaming, timeout control, or cross-platform abstraction for JSONL
+extraction. Native `codex mcp-server` remains a supported choice when an MCP
+orchestrator intentionally owns delegation and continuation.
 
 **Raw shell with `jq` and `timeout`**: rejected because `timeout` is absent
 on macOS, `jq` field paths are fragile against API evolution, and shell logic

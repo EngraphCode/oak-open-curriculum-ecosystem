@@ -8,13 +8,8 @@ split_strategy: "Keep concise; this is a reference extracted from AGENT.md"
 
 # Agent Artefact Inventory
 
-For the full architecture, see
-[ADR-125 (Agent Artefact
-Portability)](../../../docs/architecture/architectural-decisions/125-agent-artefact-portability.md).
-For the live platform support matrix, see
-[cross-platform-agent-surface-matrix.md][matrix].
-
-[matrix]: ./cross-platform-agent-surface-matrix.md
+See [ADR-125](../../../docs/architecture/architectural-decisions/125-agent-artefact-portability.md),
+and the [cross-platform matrix](./cross-platform-agent-surface-matrix.md).
 
 ## Canonical Content (Layer 1)
 
@@ -48,17 +43,17 @@ boundary is ADR-165.
 
 ## Platform Adapters (Layer 2)
 
-| Surface | Cursor | Claude Code | Codex (`.agents/` alias) | Gemini / Antigravity CLI |
-|---------|--------|-------------|-------|--------------------------|
-| Skills | (reads `.agents/skills/`) | `.claude/skills/oak-*/SKILL.md` | `.agents/skills/oak-*/SKILL.md` | (reads `.agents/skills/`) |
-| Rules | `.cursor/rules/*.mdc` | `.claude/rules/*.md` | `.agents/rules/*.md` | entry-point chain only |
-| Sub-agents | `.cursor/agents/*.md` | `.claude/agents/*.md` | `.codex/agents/*.toml` | `.gemini/commands/review-*.toml`; native agents unwired |
-| Hooks | — | `.claude/settings.json` `PreToolUse` | — | supported upstream; no `.agents/hooks.json` wired |
-| MCP | user-local | user-local | plugin/user-local | supported upstream; no `.agents/mcp_config.json` wired |
+| Surface | Cursor | Claude Code | Codex CLI | Gemini / Antigravity CLI |
+| --- | --- | --- | --- | --- |
+| Skills | reads `.agents/skills/` | `.claude/skills/oak-*/SKILL.md` | `.agents/skills/oak-*/SKILL.md` | reads `.agents/skills/` |
+| Rules | `.cursor/rules/*.mdc` | `.claude/rules/*.md` | entry-point chain; native `.rules` unwired | entry-point chain only |
+| Sub-agents | `.cursor/agents/*.md` | `.claude/agents/*.md` | `.codex/agents/*.toml` | transitional review commands; native agents unwired |
+| Hooks | no policy activation | `.claude/settings.json` `PreToolUse` | `.codex/config.toml` identity-only `SessionStart` | upstream support; no project hook wired |
+| MCP | user-local | user-local | `.codex/config.toml` `[mcp_servers]` | upstream support; no project MCP wired |
 
-Platform adapters are thin pointers. Canonical content lives under
-`.agent/`; adapters preserve platform activation semantics without copying
-substance. Claude Code keeps tracked system policy in `.claude/settings.json`;
+Platform adapters are thin pointers to canonical content under `.agent/`;
+they preserve platform activation semantics without copying substance.
+Claude Code keeps tracked system policy in `.claude/settings.json`;
 `.claude/settings.local.json` is gitignored user-local override state.
 Gemini / Antigravity CLI has native plugin surfaces for skills, agents, rules,
 MCP definitions, and hooks, but the repo currently wires only the entrypoint
