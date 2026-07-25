@@ -29,7 +29,8 @@
      assets/icons/*.svg MONOCHROME BLACK — the --filter-icon* roles
      invert them per theme; coloured icons will render wrongly.
    - STABILITY: everything named in this file is the PUBLIC surface,
-     protected by semver (see CHANGELOG.md). Names are never silently
+     protected by semver (see CHANGELOG.md; studio: guidelines/CHANGELOG.md).
+     Names are never silently
      renamed — a deprecated name keeps working for ≥1 minor release,
      marked `/* @deprecated since x.y — use --replacement *\/` at its
      definition. Tier-1 --oak-* primitives and unlisted tier-3
