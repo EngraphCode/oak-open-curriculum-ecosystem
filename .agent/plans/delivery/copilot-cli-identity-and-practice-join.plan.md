@@ -22,16 +22,19 @@ last_updated: 2026-07-25
 ## Goal
 
 A local Copilot CLI process starts with repository context and truthful Copilot
-identity, remains useful without team side effects, and can deliberately enter
-the shared Practice by invoking `oak-start-right-team`.
+identity, follows the ordinary quick-start collaboration discipline when it
+works, and deliberately enters continuous team participation by invoking
+`oak-start-right-team`.
 
 ## Mechanism
 
 Extend canonical identity and persistence with Copilot as an honest platform,
 seed model-visible identity from the documented native session-start event,
 and project it through a thin local launcher/bootstrap. Keep identity bootstrap
-separate from team enrolment: only the team skill opens claims, starts
-heartbeats and the all-channel watcher, and registers lifecycle state.
+separate from team enrolment. Ordinary `oak-start-right-quick` still consults
+collaboration state and opens bounded work claims/comms before edits, as it
+does for every platform; only the team skill starts the continuous heartbeat,
+all-channel watcher, and team lifecycle.
 
 This repository plan owns the mechanism and acceptance contract. MCP-154 is
 the supplementary Linear projection for execution state, sensitive details,
@@ -48,9 +51,11 @@ and evidence that cannot be versioned safely.
   activation, a supported-version floor and live capability probe must prove
   that the installed CLI fires `sessionStart` and accepts the required
   `additionalContext` output.
-- **Ordinary local startup creates no team claims, heartbeat, watcher, or
-  lifecycle registration.** Proof: `repo-safe` — negative integration test
-  over an isolated coordination home.
+- **Native startup itself creates no claim, heartbeat, watcher, or lifecycle
+  registration; subsequent quick-start work uses the standard bounded
+  claim/comms discipline without silently becoming a continuously joined
+  team seat.** Proof: `repo-safe` — negative bootstrap test plus quick-versus-
+  team lifecycle integration tests over isolated coordination homes.
 - **`oak-start-right-team` deliberately joins the same coordination home and
   makes the session addressable to existing peers.** Proof: `repo-safe` —
   lifecycle integration test using isolated local state.

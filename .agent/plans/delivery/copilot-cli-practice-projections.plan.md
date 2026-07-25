@@ -113,10 +113,12 @@ for the probe design, not proof about the installed CLI.
   one representative call.** Proof: `repo-safe` — manifest, secret/path, and
   unsupported-version fixtures; `owner-held` — discovery/call transcript.
   Failure leaves the projection untracked and the server local.
-- **A real local Copilot CLI session discovers and invokes one representative
-  skill, specialist agent, and repository MCP tool.** Proof: `owner-held` —
-  the owner runs or observes the local Copilot CLI seat and records acceptance
-  evidence on MCP-155 and the implementation pull requests.
+- **A real supported-version local Copilot CLI session proves the repo-wide
+  instruction entry point, one positive and one negative `applyTo` projection,
+  and discovers and invokes one representative skill, specialist agent, and
+  repository MCP tool.** Proof: `owner-held` — the owner runs or observes the
+  local Copilot CLI seat and records acceptance evidence on MCP-155 and the
+  implementation pull requests.
 
 ## Todos
 

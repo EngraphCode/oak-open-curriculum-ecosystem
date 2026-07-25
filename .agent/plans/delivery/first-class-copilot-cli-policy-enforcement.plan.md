@@ -60,7 +60,9 @@ route, proven to reach Copilot CLI 1.0.75 — feeds **one closed dispatcher**:
 
 1. Closed exact input schemas per host envelope: the existing Claude shapes,
    the documented Copilot single-tool inputs (`create` → Write,
-   `edit`/`apply_patch` → Edit), and the observed Copilot batch envelope.
+   `edit`/`apply_patch` → Edit), the observed Copilot CLI 1.0.75 PascalCase
+   compatibility envelope whose `tool_input` is a raw string-form
+   `apply_patch` document, and the observed Copilot batch envelope.
 2. **Exactly one schema must match**, or the dispatcher fails closed — never
    guess a platform.
 3. One validated policy snapshot per valid request (one filesystem read and
@@ -78,13 +80,16 @@ route, proven to reach Copilot CLI 1.0.75 — feeds **one closed dispatcher**:
    because the Copilot cloud agent also loads it — CLI-only scope forbids
    that surface even if a second activation were ever reconsidered.)
 
-Fixture provenance, composition details, and execution evidence stay in
-MCP-150. The failure contract is versioned here:
+This repository plan owns the failure contract; fixture provenance,
+composition details, and versionable execution evidence land with the
+implementation. MCP-150 is the supplementary Linear projection for execution
+state, sensitive details, and evidence that cannot be versioned safely:
 
 | Route or failure | Required result |
 | --- | --- |
 | Inherited activation, valid Claude envelope | Load one snapshot, evaluate once, render the unchanged Claude result |
 | Inherited activation, valid documented Copilot single-tool envelope | Load one snapshot, evaluate once, render the native top-level decision (deny carries a reason) |
+| Inherited activation, observed Copilot CLI 1.0.75 PascalCase string-form `apply_patch` envelope | Parse as Copilot, evaluate every patch change once, render the native top-level decision |
 | Inherited activation, observed Copilot batch envelope | Every recognised change evaluated exactly once; one native response for the batch |
 | Zero or multiple schema matches | Fail closed; never guess a platform |
 | Malformed matched input or renderer failure | Fail closed with the matched host's boundary error when the hook completes before timeout |
@@ -109,6 +114,10 @@ MCP-150. The failure contract is versioned here:
   through the native decision schema.** Proof: `repo-safe` — versioned
   literal fixtures and closed-schema unit tests covering valid, malformed,
   unknown, and renderer-failure inputs.
+- **The observed Copilot CLI 1.0.75 PascalCase envelope with raw string-form
+  `apply_patch` input is a first-class Copilot route, not misclassified as a
+  Claude edit.** Proof: `repo-safe` — the retained literal fixture, multi-file
+  patch tests, matched-adapter assertion, and native-renderer expectation.
 - **The observed Copilot batch envelope is a first-class evaluated route:
   every recognised change in the batch is evaluated, one native response is
   returned, and no pass-through path exists.** Proof: `repo-safe` — the
