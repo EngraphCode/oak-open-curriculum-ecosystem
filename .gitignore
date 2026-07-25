@@ -331,3 +331,5 @@ ds-bundle/
 .design-sync/learnings/
 .design-sync/node_modules
 packages/design/oak-design-system/oak-flat.generated.css
+packages/design/oak-design-system/_ds_bundle.generated.css
+packages/design/oak-design-system/.sync-staging/

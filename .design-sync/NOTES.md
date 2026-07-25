@@ -123,3 +123,45 @@
   44-path removal list exactly from this declaration
   (2026-07-25 closure check; evidence pack
   `.agent/state/collaboration/handoffs/2026-07-25-cormorant-walk-pack/`).
+- **Glob-orphan amendment (owner-ratified 2026-07-25, card answer "Ratify
+  the amendment")**: remote files under a `shippedFromRepo` glob with no
+  repo counterpart at the mapped source are residue and delete at every
+  sync (capture-first precondition unchanged). Provably necessary: the
+  ruled `guidelines/README.md` deletion was inexpressible under strict
+  matching (shielded by `guidelines/**`); same class as the two
+  `assets/logo-*-official.svg` twins the MCP-164 cures removed from the
+  repo. MCP-160 curation delete set = 44 unmatched + 3 glob-orphans = 47.
+- **Verify rows resolved (2026-07-25, first-hand)**: `_ds_bundle.css`
+  KEEP — the live remote `styles.css` is exactly two `@import`s and it is
+  one of them (every rendered design consumes it); `_adherence.oxlintrc.json`
+  KEEP as machinery — the capture manifest records it `fetched-committed`
+  2026-07-23, pre-dating our syncs (studio-native); `icons.json` DELETE
+  confirmed — README records it as provenance-reference-only, never
+  loaded; capture-verified; no consumer. `estate.json` pending rows
+  resolved accordingly (only the `_ds_bundle.js` succession row remains).
+- **CLAUDE.md repo canonical**: `packages/design/oak-design-system/CLAUDE.md`
+  — the studio's normative instruction re-trued from the live copy (the
+  HANDOFF.md session-protocol paragraph dropped with its deleted
+  counterpart); ships by direct write each sync per §directWrites.
+- **Curation sync EXECUTED 2026-07-25 (~18:50Z, MCP-160)**: ship 153 (152
+  via DesignSync + sentinel; CLAUDE.md refused — see next bullet) →
+  capture-verified delete 47 → estate certified: 305 remote files, exact
+  match to the computed expectation, declaration closure clean (sole
+  unmatched path is the transient `_ds_needs_recompile` sentinel the app
+  consumes). P5 record: 46/47 byte-committed in the capture tier with
+  manifest-matching sha256; `guidelines/README.md` is converter-derived
+  from the repo README (git history holds every version); live-drift
+  checked on the rewrite-prone HANDOFF.md (structurally identical to
+  capture, self-dated before it). `_ds_sync.json` left byte-unchanged
+  deliberately: its styleSha is now conservative-stale, which forces
+  re-verification rather than false cache hits.
+- **CLAUDE.md is a Design API reserved path** (discovered at this sync):
+  instructions to the design agent are unwritable by DesignSync
+  regardless of the approved plan. The estate declaration now carries it
+  under `ownerMaintained`; updates are owner-executed in the studio UI
+  from `packages/design/oak-design-system/CLAUDE.md`. The bulk-delete
+  leg also required project-owner login (editor rights suffice for
+  writes only) — plan owner-presence for any future delete-bearing sync.
+- **thumbnail.html reclassified** shippedFromRepo → machinery: it has no
+  repo source (studio-generated; the package .gitignore records it) —
+  the shippedFromRepo claim was untrue for it.
