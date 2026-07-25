@@ -13,11 +13,8 @@ impact_areas:
 tickets:
   - MCP-137
 depends_on: []
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: "S2 adjudication cards answered — genuine design-judgment calls only (protected-by-default rules decide the rest); batched, not per-file"
-    expires: 2026-07-26
-last_updated: 2026-07-24
+owner_gates: []
+last_updated: 2026-07-25
 ---
 
 # Design-system semantic merge
@@ -55,6 +52,23 @@ last_updated: 2026-07-24
   discharge as a glance-item on return, not on the ruling alone.** The
   ruling reserves an owner card for any row where authoring-time doubt
   arises; none did.
+- 2026-07-25 — **Both owner gates are DISCHARGED and the S2 row is
+  removed** (`owner_gates` now empty). At the owner's visual-review
+  walk (full session, all surfaces): the S2 vacuous-discharge record
+  was seen and the gate CLEARED ("Seen — gate clears" card answer);
+  the S4 studio glance was COLLECTED WITH A FINDING ("Seen — has
+  issues"): the remote estate needs curation — "organised, make sense,
+  and have every single entry earn its place". That finding is scoped
+  and ruled as MCP-160 (delete-reconciliation instrument + three-phase
+  curation sync; eight owner rulings embedded in the disposition pack).
+  Durable records: Linear MCP-137 comment `637ac335` (walk outcome) and
+  the evidence pack
+  `.agent/state/collaboration/handoffs/2026-07-25-cormorant-walk-pack/`.
+  Local surfaces were owner-approved in the same walk ("theming is
+  good… all remaining cards… really fantastic"); the walk's fix-now
+  feedback and contract-shaping items are recorded in the pack's
+  feedback ledger and routed via MCP-160 (cures) and the design-lane
+  contracts.
 
 ## Goal
 
