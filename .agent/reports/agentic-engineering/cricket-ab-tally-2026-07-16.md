@@ -276,3 +276,24 @@ route the flip call to the owner with this batch as evidence.
 
 — appended by Siren lifts Trench (af11f9), dedicated consolidation, from the
 Forge rides Brimstone (398e24) tenure batch
+
+## 2026-07-25 pair — Torch mends Residue (3bb236), Director takeover boundary
+
+- **Torch 12:22Z — DIVERGENT (sonnet ON-TRACK / haiku DRIFTING), known class,
+  cure existed and was under-applied**: the haiku's sole PROPORTION FAIL was the
+  frame asserting "applied + verified settings.json fallback" without carrying
+  the verification artefact — the grep output (lines 172/182/192 showing
+  `${CLAUDE_PROJECT_DIR:-.}`) existed first-hand in-session but was not cited in
+  the supplied frame. Exactly the class cure v2 shape (cite command outputs for
+  boundary-crossing claims); redirection discharged by evidence already in the
+  session transcript. Substance identical across both verdicts (both endorsed the
+  routing acts; the sonnet's one flag — hygiene-commit legitimacy — resolves to
+  the owner-set coordination-branch grant). Severity-only divergence, consistent
+  with the standing gradient (haiku↔sonnet diverge on severity, never
+  redirection substance).
+- **Flip-call routing remains open and is now Director-held (this seat)**: the
+  ~8–10 v3-era-pair threshold was already met-or-near at the 2026-07-20 batch;
+  post-batch pairs continue to accumulate (Osprey 2026-07-24 convergent;
+  Cormorant pairs C+D 2026-07-24 severity-only divergent; this pair). Mechanism:
+  card the owner at the next natural owner pause with this file as the evidence
+  body.
