@@ -13,6 +13,26 @@
   and Codex cloud capabilities are excluded unless the local CLI exposes an
   explicit bridge to them.
 
+## Review contract
+
+- **Purpose and impact**: establish a version-pinned catalogue of local Codex
+  CLI agentic mechanisms, then map those mechanisms onto the Oak Practice
+  without using repository state as product evidence.
+- **Review questions**: does each capability claim follow from the declared
+  official source boundary; are maturity, platform, activation, and evidence
+  grades accurate; and do the resulting Practice implications preserve the
+  shared-core/thin-adapter architecture?
+- **Evidence standard**: verify external claims against the installed CLI,
+  current official OpenAI documentation, or the pinned official source release
+  below. Treat repository inspection only as evidence of local wiring.
+- **Non-goals**: this report does not authorise implementation, promote
+  experimental interfaces to stable dependencies, or change shared files owned
+  by MCP-150 / PR #529.
+- **Successful review**: report either that the catalogue satisfies these
+  questions within its explicit evidence ceiling, or identify the exact claim,
+  missing official evidence, contract mismatch, or local mapping that must be
+  corrected.
+
 ## Executive result
 
 Codex CLI is an agent runtime, not only an interactive coding prompt. Its
@@ -281,8 +301,11 @@ jq -se '
   )
 ' "$PROBE_DIR/hook-events.jsonl"
 
-test "$(sed -n '1p' "$PROBE_DIR/probe-result.txt")" = \
-  "apply_patch hook probe succeeded."
+printf '%s\n' 'apply_patch hook probe succeeded.' \
+  > "$PROBE_DIR/expected-probe-result.txt"
+cmp -s \
+  "$PROBE_DIR/expected-probe-result.txt" \
+  "$PROBE_DIR/probe-result.txt"
 ```
 
 The patch transcript must place `hook: PreToolUse Completed` before
@@ -342,7 +365,7 @@ is destructive.
 | Codex as MCP server | `codex mcp-server` exposes Codex over MCP stdio for another orchestrator. | Exposed command; experimental protocol |
 | App Server | JSON-RPC threads, turns, streamed items, approvals, history, fork/resume, steering, and interrupt over stdio, Unix socket, or WebSocket. | Experimental command/API |
 | Remote TUI | `--remote` connects the terminal UI to an app-server endpoint; authenticated remote-control tooling is experimental. | Exposed; experimental control command |
-| Desktop handoff | `codex app` launches the ChatGPT desktop app; `/app` continues the current session there. This is a bridge, not a local CLI tool grant. | Stable command; documented |
+| Desktop handoff | On macOS and Windows, `codex app` opens or installs the Codex App for a workspace; `/app` continues the current session there. This is a bridge, not a local CLI tool grant. | Stable command; documented |
 | GitHub Action | `openai/codex-action@v1` runs `codex exec` in CI with explicit safety strategy, sandbox, model, prompt, and output controls. | Official integration |
 | Cloud task client | `codex cloud` submits, lists, inspects, diffs, and applies Codex cloud tasks. The task itself is hosted, not local CLI execution. | Experimental |
 | Exec server | `codex exec-server` exposes a standalone execution service. | Experimental |

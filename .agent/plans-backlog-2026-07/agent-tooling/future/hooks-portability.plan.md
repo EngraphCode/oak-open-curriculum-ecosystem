@@ -21,10 +21,14 @@ The remaining problem is enforcement parity, not introducing hooks as a new
 artefact type.
 
 This plan describes the **remaining target enforcement architecture**, not the
-current repo-local hook baseline. The authoritative local contract remains
-[`cross-platform-agent-surface-matrix.md`](../../../memory/executive/cross-platform-agent-surface-matrix.md),
-and the independently researched Codex capability baseline is the
-[Codex CLI capability catalogue](../../../reports/agentic-engineering/codex-cli-agentic-capability-catalogue-2026-07-25.md).
+current repo-local hook baseline. The
+[`cross-platform-agent-surface-matrix.md`](../../../memory/executive/cross-platform-agent-surface-matrix.md)
+remains the authoritative local contract for unchanged platform rows. Its
+Codex rows are a known dated exception while MCP-150 / PR #529 owns that shared
+file: for the observed 2026-07-25 Codex capability and repo-wiring state, use
+the [Codex CLI capability catalogue](../../../reports/agentic-engineering/codex-cli-agentic-capability-catalogue-2026-07-25.md)
+and the repo-local table below. After PR #529 releases the shared file, the
+follow-up must true the Codex rows and ADR-125 against that evidence.
 
 Target-state platform posture:
 
