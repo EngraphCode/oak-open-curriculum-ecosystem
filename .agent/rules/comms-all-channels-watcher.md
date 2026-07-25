@@ -225,7 +225,7 @@ The class model, the reading rule (an observation is evidence only
 about the classes on the path it traversed), the self-observation
 corollary, and the per-platform declaration obligation live in
 [PDR-133](../practice-core/decision-records/PDR-133-liveness-classes-and-platform-declaration.md),
-**currently Proposed pending owner ratification**; read it as the model
+ratified by the owner 2026-07-25; read it as the model
 before treating any check here as proof a seat is reachable.
 
 ### Liveness self-check (cycle boundaries)

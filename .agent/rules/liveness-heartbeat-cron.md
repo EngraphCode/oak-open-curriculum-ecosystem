@@ -42,8 +42,8 @@ only about the classes on the path it traversed, and about nothing
 else), the self-observation corollary, and the per-platform
 declaration obligation live in
 [PDR-133](../practice-core/decision-records/PDR-133-liveness-classes-and-platform-declaration.md),
-**currently Proposed pending owner ratification** — cite it as the
-model, and treat its obligations as binding once ratified. The
+ratified by the owner 2026-07-25 — cite it as the model; its
+obligations bind. The
 autonomous-emitter warning below is the emit-side instance of the
 reading rule: a scheduling layer's green is evidence about the
 scheduler and nothing else.

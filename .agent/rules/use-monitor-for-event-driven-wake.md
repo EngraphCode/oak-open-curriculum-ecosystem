@@ -36,7 +36,7 @@ surface it as soon as polling shows up in the design.
 
 This rule is the operational home of the `NOTIFY` class in
 [PDR-133](../practice-core/decision-records/PDR-133-liveness-classes-and-platform-declaration.md)
-(**Proposed pending owner ratification**): it owns the wake primitive,
+(ratified by the owner 2026-07-25): it owns the wake primitive,
 and `NOTIFY` is precisely the class that asks whether the platform
 wakes the reasoning loop on a watcher's output. An agent arming a
 watcher on a **new platform** reads this rule at exactly the moment
