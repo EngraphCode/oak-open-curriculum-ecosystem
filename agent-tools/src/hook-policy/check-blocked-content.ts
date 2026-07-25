@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 
 import { buildPreToolUseDenyResponse } from './content-deny-response.js';
 import {
-  extractContentChange,
+  extractContentChanges,
   parseHookInput,
   readStreamText,
   resolveContentPair,
@@ -20,7 +20,12 @@ export type { PreToolUseDenyResponse, RunPreToolUseContentGuardOptions } from '.
 
 export { PreToolUseDenyResponseSchema } from './types.js';
 
-export { extractContentChange, parseHookInput, readStreamText } from './hook-input.js';
+export {
+  extractContentChange,
+  extractContentChanges,
+  parseHookInput,
+  readStreamText,
+} from './hook-input.js';
 
 export {
   findAddedBlockedContent,
@@ -73,17 +78,28 @@ function applyGuardDefaults(options: RunPreToolUseContentGuardOptions): {
 }
 
 /**
- * Read + parse the Claude hook stdin payload into the resolved
- * new/prior content pair plus the optional file path. Extracted so the
- * orchestrator stays under the workspace's complexity cap.
+ * Read + parse the hook stdin payload into resolved new/prior content pairs
+ * plus optional file paths — one entry per content change the payload
+ * carries (Claude object payloads yield one; a Copilot `apply_patch`
+ * program yields one per file section). Extracted so the orchestrator stays
+ * under the workspace's complexity cap.
  */
-async function readResolvedContent(
+async function readResolvedContents(
   stdin: AsyncIterable<string | Buffer>,
   readPriorContent: (filePath: string) => string | null,
-): Promise<{ newContent: string; priorContent: string; filePath?: string }> {
+): Promise<readonly { newContent: string; priorContent: string; filePath?: string }[]> {
   const inputText = await readStreamText(stdin);
   const hookInput = parseHookInput(inputText);
-  const change = extractContentChange(hookInput);
+  return extractContentChanges(hookInput).map((change) =>
+    resolveOneContent(change, readPriorContent),
+  );
+}
+
+/** Resolve one extracted change through the injected prior-content reader. */
+function resolveOneContent(
+  change: ReturnType<typeof extractContentChanges>[number],
+  readPriorContent: (filePath: string) => string | null,
+): { newContent: string; priorContent: string; filePath?: string } {
   const { newContent, priorContent } = resolveContentPair(change, readPriorContent);
   return { newContent, priorContent, filePath: change.filePath };
 }
@@ -127,10 +143,10 @@ function denyOnScopedBlock(
   filePath: string | undefined,
   blocks: readonly ScopedContentBlockGroup[],
   stdout: { write(text: string): void },
-): void {
+): boolean {
   const matched = findAddedScopedBlock(newContent, priorContent, filePath, blocks);
   if (matched === null) {
-    return;
+    return false;
   }
   stdout.write(
     `${JSON.stringify(
@@ -143,16 +159,39 @@ function denyOnScopedBlock(
       }),
     )}\n`,
   );
+  return true;
 }
 
 /**
- * Execute the content guard using Claude's stdin/stdout contract.
+ * Write the explicit allow decision. Silence-means-allow is a Claude-only
+ * convention; an inheriting host (Copilot CLI's compat route) needs the
+ * decision stated. Explicit output is contract-valid for Claude too, so
+ * every clean evaluation ends with a stated verdict rather than an implied
+ * one (strict-and-complete).
+ */
+function writeAllowDecision(stdout: { write(text: string): void }): void {
+  stdout.write(
+    `${JSON.stringify({
+      hookSpecificOutput: {
+        hookEventName: 'PreToolUse',
+        permissionDecision: 'allow',
+        permissionDecisionReason: 'no policy match',
+      },
+    })}\n`,
+  );
+}
+
+/**
+ * Execute the content guard using the PreToolUse stdin/stdout contract.
  *
- * Two layers of detection are run, in order:
+ * Every content change carried by the payload is evaluated (Claude payloads
+ * carry one; a Copilot `apply_patch` program carries one per file section),
+ * with two layers of detection per change, in order:
  *   1. Flat `blocked_patterns` — universal, path-agnostic block.
  *   2. `scoped_blocks` — path-scoped, citation-bearing doctrine blocks.
  *
- * The first match wins; only one deny payload is written.
+ * The first match wins; only one deny payload is written. A clean pass over
+ * every change writes an explicit allow decision.
  */
 export async function runPreToolUseContentGuard(
   options: RunPreToolUseContentGuardOptions = {},
@@ -160,18 +199,20 @@ export async function runPreToolUseContentGuard(
   const seams = applyGuardDefaults(options);
 
   try {
-    const { newContent, priorContent, filePath } = await readResolvedContent(
-      seams.stdin,
-      seams.readPriorContent,
-    );
+    const changes = await readResolvedContents(seams.stdin, seams.readPriorContent);
     const patterns = seams.blockedPatterns ?? (await loadBlockedContentPatterns(seams.policyUrl));
+    const blocks = seams.scopedBlocks ?? (await loadScopedContentBlocks(seams.policyUrl));
 
-    if (denyOnBlockedPattern(newContent, priorContent, patterns, seams.stdout)) {
-      return { exitCode: 0 };
+    for (const { newContent, priorContent, filePath } of changes) {
+      if (denyOnBlockedPattern(newContent, priorContent, patterns, seams.stdout)) {
+        return { exitCode: 0 };
+      }
+      if (denyOnScopedBlock(newContent, priorContent, filePath, blocks, seams.stdout)) {
+        return { exitCode: 0 };
+      }
     }
 
-    const blocks = seams.scopedBlocks ?? (await loadScopedContentBlocks(seams.policyUrl));
-    denyOnScopedBlock(newContent, priorContent, filePath, blocks, seams.stdout);
+    writeAllowDecision(seams.stdout);
     return { exitCode: 0 };
   } catch (error) {
     seams.stderr.write(`${formatGuardError(error)}\n`);

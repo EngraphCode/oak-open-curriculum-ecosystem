@@ -1,5 +1,6 @@
 import { isJsonObject, type JsonObject } from '../core/json.js';
 
+import { parseApplyPatchContent } from './apply-patch-content.js';
 import type { ContentChange } from './types.js';
 
 /**
@@ -70,6 +71,30 @@ export function extractContentChange(hookInput: unknown): ContentChange {
   }
 
   throw new Error('Claude PreToolUse hook input did not include writable content.');
+}
+
+/**
+ * Extract every content change carried by a PreToolUse payload.
+ *
+ * Claude's Edit/Write payloads carry `tool_input` as an object and yield
+ * exactly one change. Copilot CLI's inherited-hook route (observed live
+ * 2026-07-25, CLI 1.0.75) presents `tool_name: "Edit"` with `tool_input` as a
+ * raw `apply_patch` program string covering one or more files; every file
+ * section in that program is a change the policy must evaluate. A payload
+ * that matches neither shape, or a structurally invalid patch program,
+ * throws — the guard's fail-closed path.
+ */
+export function extractContentChanges(hookInput: unknown): readonly ContentChange[] {
+  if (isJsonObject(hookInput) && typeof hookInput.tool_input === 'string') {
+    const parsed = parseApplyPatchContent(hookInput.tool_input);
+    if (!parsed.ok) {
+      throw new Error(`PreToolUse apply_patch payload was invalid: ${parsed.error.message}`, {
+        cause: parsed.error,
+      });
+    }
+    return parsed.value;
+  }
+  return [extractContentChange(hookInput)];
 }
 
 /**
