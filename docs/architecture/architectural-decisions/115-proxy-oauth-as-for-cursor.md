@@ -142,6 +142,17 @@ production the same day after that day's deploy.
 supplies the refusal's _shape_ (HTTP 400, `invalid_redirect_uri` /
 `invalid_client_metadata`), not the rule itself.
 
+The third test is what keeps the exception narrow, and it did real work here.
+A malformed-metadata refusal (a bare-string `redirect_uris` rather than an
+array) was drafted on the reasoning that forwarding would let the obligation
+be evaded by changing the container rather than the value. That assumed a gap
+instead of demonstrating one. Probed first-hand the same day: `POST
+/oauth/register` with a bare-string `redirect_uris` returns **400
+`request_body_invalid`** from Clerk, while the same endpoint returns **201**
+for an array carrying a plain-`http` non-loopback URI. Gap demonstrated in the
+second case, absent in the first — so the first refusal was dropped and only
+the second ships. A refusal whose gap is merely plausible is not licensed.
+
 Deliberate deviation, recorded so it is not read later as an oversight:
 [RFC 8252 §8.4](https://www.rfc-editor.org/rfc/rfc8252.html#section-8.4)'s
 SHOULD that private-use schemes be reverse-domain-named is NOT

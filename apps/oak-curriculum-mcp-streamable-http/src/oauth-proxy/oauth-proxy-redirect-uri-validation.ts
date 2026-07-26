@@ -51,8 +51,12 @@ function isLoopbackHostname(hostname: string): boolean {
 
 /** A registration rejected at the redirect-URI boundary. */
 export interface RedirectUriRejection {
-  /** RFC 7591 §3.2.2 error code. */
-  readonly error: 'invalid_redirect_uri' | 'invalid_client_metadata';
+  /**
+   * RFC 7591 §3.2.2 error code. A single literal rather than a union: this
+   * boundary makes exactly ONE refusal, so a wider type would advertise a
+   * choice the code does not have.
+   */
+  readonly error: 'invalid_redirect_uri';
   /**
    * Client-facing description. STATIC by construction — the submitted URI is
    * never echoed. `/oauth/register` is unauthenticated, so the request body is
@@ -62,12 +66,6 @@ export interface RedirectUriRejection {
   /** Short code for logs and span attributes. Never contains request data. */
   readonly reason: string;
 }
-
-const NOT_AN_ARRAY: RedirectUriRejection = {
-  error: 'invalid_client_metadata',
-  description: 'redirect_uris must be an array of redirect URI strings',
-  reason: 'redirect_uris_not_an_array',
-};
 
 const HTTP_NOT_LOOPBACK: RedirectUriRejection = {
   error: 'invalid_redirect_uri',
@@ -129,19 +127,22 @@ function rejectionForEntry(entry: unknown): RedirectUriRejection | undefined {
  * redirect, and whether a client may register without redirect URIs is the
  * upstream authorization server's policy.
  *
- * A `redirect_uris` value that is present but NOT AN ARRAY is refused, and
- * that refusal is deliberately of a different kind from the one below. It is
- * not an independent judgement about the value; it is the enforcement-integrity
- * guard for the cited obligation. If the field is not an array there are no
- * entries to examine, so forwarding would let
- * `{"redirect_uris": "http://evil.example/cb"}` evade the obligation entirely
- * by changing the container rather than the value.
+ * A `redirect_uris` value that is present but NOT AN ARRAY also passes
+ * through, on EVIDENCE rather than on principle. An earlier revision refused
+ * it, reasoning that with no array there are no entries to examine, so
+ * `{"redirect_uris": "http://evil.example/cb"}` would evade the obligation by
+ * changing the container rather than the value.
  *
- * Whether that evasion is REAL depends on whether the upstream coerces a bare
- * string into a single-entry array, which is UNVERIFIED. Under ADR-115's own
- * demonstrated-upstream-gap test that evidence is owed, and MCP-200 owns it —
- * establish it or drop this branch. Recorded rather than assumed, because the
- * neighbouring refusals were removed for exactly this missing evidence.
+ * That reasoning assumed an upstream gap instead of demonstrating one, which
+ * is the very thing ADR-115's three-part test forbids. Probed first-hand
+ * against the deployed alpha on 2026-07-26: `POST /oauth/register` with a
+ * bare-string `redirect_uris` returns **400 `request_body_invalid`** from
+ * Clerk. The upstream DOES discharge this case, so the demonstrated-gap test
+ * fails and the refusal is not ours to make.
+ *
+ * The contrast is what licenses the one refusal below: the same endpoint
+ * returned **201** for an array carrying a plain-`http` non-loopback URI. Gap
+ * demonstrated there, absent here.
  */
 export function findRedirectUriRejection(body: unknown): RedirectUriRejection | undefined {
   if (typeof body !== 'object' || body === null || !('redirect_uris' in body)) {
@@ -149,7 +150,7 @@ export function findRedirectUriRejection(body: unknown): RedirectUriRejection | 
   }
   const redirectUris: unknown = body.redirect_uris;
   if (!Array.isArray(redirectUris)) {
-    return NOT_AN_ARRAY;
+    return undefined;
   }
   for (const entry of redirectUris) {
     const rejection = rejectionForEntry(entry);

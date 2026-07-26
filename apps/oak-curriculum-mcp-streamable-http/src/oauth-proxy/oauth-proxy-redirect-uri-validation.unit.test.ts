@@ -135,16 +135,20 @@ describe('findRedirectUriRejection', () => {
     });
   });
 
-  describe('a non-array redirect_uris is refused as an enforcement-integrity guard', () => {
-    it('refuses a bare-string redirect_uris', () => {
-      // Not a judgement about the value: with no array there are no entries
-      // to examine, so forwarding would let the obligation be evaded by
-      // changing the CONTAINER rather than the value. Whether that evasion is
-      // real depends on upstream string-coercion, which is unverified —
-      // MCP-200 owns establishing it or dropping this branch.
-      expect(findRedirectUriRejection({ redirect_uris: 'http://evil.example/cb' })).toMatchObject({
-        error: 'invalid_client_metadata',
-      });
+  describe('a non-array redirect_uris forwards — the upstream demonstrably rejects it', () => {
+    it('forwards a bare-string redirect_uris', () => {
+      // An earlier revision refused this, reasoning that with no array there
+      // are no entries to examine, so the obligation could be evaded by
+      // changing the CONTAINER rather than the value. That assumed an upstream
+      // gap instead of demonstrating one.
+      //
+      // Probed first-hand against the deployed alpha 2026-07-26: POST
+      // /oauth/register with a bare-string redirect_uris returns 400
+      // request_body_invalid from Clerk. The upstream discharges this case, so
+      // ADR-115's demonstrated-gap test fails and the refusal is not ours to
+      // make. The contrast licenses the one that ships: the same endpoint
+      // returns 201 for an array carrying a plain-http non-loopback URI.
+      expect(findRedirectUriRejection({ redirect_uris: 'http://evil.example/cb' })).toBeUndefined();
     });
   });
 
