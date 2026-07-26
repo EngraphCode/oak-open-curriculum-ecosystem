@@ -2,15 +2,19 @@
 
 **Date:** 2026-07-09 · **Delta-refreshed 2026-07-22** (MCP-103 phase a — see [§12](#12-delta-refresh--workspace-shape-recommendation-2026-07-22--mcp-103-phase-a))
 **Status:** Historical audit baseline plus generated current-source projection.
-**Companion files:** [`registry.md`](./registry.md) (historical human index) · [`registry.json`](./registry.json) (immutable phase-(a) audit, 716 items) · [`current-source.json`](./current-source.json) (generated current source, lineage, authority, and HTTP registration evidence) · [`rendered-wholes.md`](./rendered-wholes.md) (historical assembled surfaces) · [`content-registry.html`](./content-registry.html) (historical filterable browser).
+**Companion files:** [`registry.md`](./registry.md) (historical human index) · [`registry.json`](./registry.json) (immutable phase-(a) audit, 716 items) · [`current-source.json`](./current-source.json) (generated current source, lineage, custody, word authority, item-evidence summary, and HTTP registration evidence) · [`current-source-anchors.json`](./current-source-anchors.json) (machine-verifiable evidence for each current audit item) · [`rendered-wholes.md`](./rendered-wholes.md) (historical assembled surfaces) · [`content-registry.html`](./content-registry.html) (historical filterable browser).
 
 ---
 
 > **Current-source refresh (MCP-103 phase c, 2026-07-26):**
 > `current-source.json` accounts for every phase-(a) `C` id without changing
-> the immutable audit. It records six retired prompt-era rows, relocates or
-> splits the remaining deleted-source rows onto current guidance/UI sources,
-> and proves the HTTP root by running MCP initialize, tool/resource list,
+> the immutable audit. Every one of its 710 current dispositions is backed by
+> reviewed token anchors in `current-source-anchors.json`, so deleting one
+> audited item from a surviving file fails validation. It distinguishes 670
+> unchanged, one expanded (C413), one modified (C479), 38 relocated/split, and six retired
+> rows. Workspace inclusion remains 600/116, while word authority follows the
+> independent source-locus totals (589 repo, 116 API, two skills, nine external).
+> It also proves the HTTP root by running MCP initialize, tool/resource list,
 > resource read, and prompt absence over an in-memory transport. It does not
 > infer delivery by ChatGPT, Claude, GitHub Copilot, Gemini, or any other host.
 
@@ -20,7 +24,7 @@ This report and its registry make **all repo-controlled content that can reach a
 
 What this is **not**, deliberately:
 
-- **Not a wording validator or approval gate.** The phase-(c) validator protects total source accounting, explicit lineage, and observed registration drift. It does not promote current wording to approved or canonical content. Much of that wording evolved organically and still needs pedagogical, editorial, legal, safety, and UX review.
+- **Not a wording validator or approval gate.** The phase-(c) validator protects item-level source evidence, total accounting, explicit lineage, independent custody/authority classification, and observed registration drift. It does not promote current wording to approved or canonical content. Much of that wording evolved organically and still needs pedagogical, editorial, legal, safety, and UX review.
 - **Not an eval harness.** Behavioural evaluation is a later, separate decision (see §9).
 - **Not the workspace build.** The content-workspace direction is now owner-DECIDED (§7 records it), but this report only records those decisions — nothing is restructured, built, or migrated here. The build is a separate, owner-scheduled session.
 
@@ -186,7 +190,10 @@ Presented as *candidates for the relevant expert*, not verdicts. The registry as
 ## 10. How to use this
 
 Start with [`current-source.json`](./current-source.json) for present source
-custody, lifecycle, and the HTTP registration snapshot. The older
+custody, word authority, lifecycle, revision state, and the HTTP registration
+snapshot. [`current-source-anchors.json`](./current-source-anchors.json) is the
+technical evidence ledger behind those current dispositions; reviewers do not
+need to read its hashes, but any source edit must still satisfy them. The older
 [`rendered-wholes.md`](./rendered-wholes.md), `registry.md`, and filterable
 HTML are phase-(a) visibility artefacts: useful for historical meaning and
 review-domain classification, but not evidence of what the app serves now.
@@ -195,7 +202,7 @@ review-domain classification, but not evidence of what the app serves now.
 - **Legal:** the 19 `legal-licensing` items (attribution, OGL, EEF-citation).
 - **Safety:** the `user-input-interpolation` and `pii-adjacent` flags, starting with `classNotes`.
 - **Reviewers of tool/parameter wording:** filter `source_locus`. The 116 `upstream-in-house-api` items are reviewed and edited in the **`oak-api` repo** (OpenAPI spec), not here — the committed snapshot `packages/sdks/oak-sdk-codegen/schema-cache/api-schema-original.json` is the read-only local copy of that base text; the in-repo injections around them (PREREQUISITE, per-tool notes) are separate `this-repo` items.
-- **Engineers:** `registry.json` is the immutable audit baseline; `current-source.json` is the recomputed source/registration projection. The confirmed defects in §8.1 are historical findings and must be rechecked against current source before action.
+- **Engineers:** `registry.json` is the immutable audit baseline; `current-source-anchors.json` proves each current item; `current-source.json` is the recomputed source/registration projection. Run `pnpm --dir agent-tools validate-mcp-content-current-source` to check drift. `refresh-mcp-content-current-source-anchors` is an explicit compliance-review operation for intentional item edits or moves, not a routine formatting step. The confirmed defects in §8.1 are historical findings and must be rechecked against current source before action.
 
 ## 11. Reserved decisions
 

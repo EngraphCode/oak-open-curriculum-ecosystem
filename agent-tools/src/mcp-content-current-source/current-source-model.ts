@@ -1,14 +1,52 @@
 /** Data contract for MCP-103's generated current-source projection. */
 
-export type WorkspaceScope = 'in' | 'out-upstream-api';
-export type ContentAuthority = 'workspace' | 'upstream-api';
+type WorkspaceScope = 'in' | 'out-upstream-api';
+export type SourceLocus =
+  'this-repo' | 'upstream-in-house-api' | 'upstream-in-house-skills' | 'external-third-party';
+export type ContentAuthority =
+  'workspace' | 'upstream-api' | 'upstream-skills' | 'external-third-party';
 type RegistrationState = 'live' | 'dormant';
 type RegistrationPrimitive = 'initialize' | 'tool' | 'resource' | 'prompt';
+export type ContentRevision = 'unchanged' | 'expanded' | 'modified' | 'relocated';
 
 export interface BaselineAuditRow {
   readonly id: string;
   readonly file: string;
   readonly workspaceScope: WorkspaceScope;
+  readonly sourceLocus: SourceLocus;
+}
+
+export interface TokenAnchor {
+  readonly tokenCount: number;
+  readonly tokenSha256: string;
+  readonly indexToken: string;
+  readonly indexOffset: number;
+}
+
+export interface CurrentItemEvidenceTarget {
+  readonly file: string;
+  readonly anchors: readonly TokenAnchor[];
+}
+
+export interface CurrentItemEvidence {
+  readonly revision: ContentRevision;
+  readonly targets: readonly CurrentItemEvidenceTarget[];
+}
+
+interface CurrentItemEvidenceSummary {
+  readonly revision: ContentRevision;
+  readonly anchorTargetCount: number;
+  readonly anchorCount: number;
+}
+
+export interface CurrentSourceAnchorManifest {
+  readonly schemaVersion: 1;
+  readonly baselineCommit: string;
+  readonly baselineSha256: string;
+  readonly items: readonly {
+    readonly auditId: string;
+    readonly evidence: CurrentItemEvidence;
+  }[];
 }
 
 export interface RegistrationEvidence {
@@ -22,6 +60,7 @@ export interface RegistrationEvidence {
 export interface CurrentAuditDisposition {
   readonly auditId: string;
   readonly files: readonly string[];
+  readonly evidence: CurrentItemEvidence;
   readonly registrations: readonly RegistrationEvidence[];
 }
 
@@ -66,8 +105,13 @@ export interface BuildCurrentSourceTruthSetInput {
 export interface CurrentSourceTruthItem {
   readonly id: string;
   readonly authority: ContentAuthority;
+  readonly workspaceScope: WorkspaceScope;
   readonly source:
-    | { readonly state: 'available'; readonly files: readonly string[] }
+    | {
+        readonly state: 'available';
+        readonly files: readonly string[];
+        readonly evidence: CurrentItemEvidenceSummary;
+      }
     | { readonly state: 'retired'; readonly files: readonly [] };
   readonly lineage: {
     readonly disposition: 'retained' | 'relocated' | 'split' | 'retired';
@@ -77,14 +121,22 @@ export interface CurrentSourceTruthItem {
 }
 
 export interface CurrentSourceTruthSet {
-  readonly schemaVersion: 1;
+  readonly schemaVersion: 2;
   readonly provenance: BuildCurrentSourceTruthSetInput['provenance'];
   readonly summary: {
     readonly itemCount: number;
     readonly availableCount: number;
     readonly retiredCount: number;
-    readonly workspaceCount: number;
-    readonly upstreamApiCount: number;
+    readonly unchangedCount: number;
+    readonly expandedCount: number;
+    readonly modifiedCount: number;
+    readonly relocatedCount: number;
+    readonly workspaceScopeInCount: number;
+    readonly workspaceScopeOutUpstreamApiCount: number;
+    readonly workspaceAuthorityCount: number;
+    readonly upstreamApiAuthorityCount: number;
+    readonly upstreamSkillsAuthorityCount: number;
+    readonly externalThirdPartyAuthorityCount: number;
     readonly itemLiveBindingCount: number;
     readonly itemDormantBindingCount: number;
   };

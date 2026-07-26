@@ -14,8 +14,9 @@ import type {
   CurrentSourceTruthSet,
   RegistrationEvidence,
   RegistrationRoot,
-  WorkspaceScope,
+  SourceLocus,
 } from './current-source-model.js';
+import { buildCurrentSourceSummary } from './build-current-source-summary.js';
 
 const alphabetical = (left: string, right: string) => left.localeCompare(right);
 
@@ -49,9 +50,15 @@ function requireKnownIds(
   }
 }
 
-function authorityFor(scope: WorkspaceScope): ContentAuthority {
-  return scope === 'in' ? 'workspace' : 'upstream-api';
-}
+const AUTHORITY_BY_SOURCE_LOCUS: Readonly<Record<SourceLocus, ContentAuthority>> = {
+  'this-repo': 'workspace',
+  'upstream-in-house-api': 'upstream-api',
+  'upstream-in-house-skills': 'upstream-skills',
+  'external-third-party': 'external-third-party',
+};
+
+const authorityFor = (sourceLocus: SourceLocus): ContentAuthority =>
+  AUTHORITY_BY_SOURCE_LOCUS[sourceLocus];
 
 function lineageDisposition(
   baselineFile: string,
@@ -87,10 +94,19 @@ function buildAvailableItem(
     throw new Error(`Current audit id ${disposition.auditId} has no source files`);
   }
   const files = [...disposition.files].sort(alphabetical);
+  const evidence = {
+    revision: disposition.evidence.revision,
+    anchorTargetCount: disposition.evidence.targets.length,
+    anchorCount: disposition.evidence.targets.reduce(
+      (count, target) => count + target.anchors.length,
+      0,
+    ),
+  };
   return {
     id: baseline.id,
-    authority: authorityFor(baseline.workspaceScope),
-    source: { state: 'available', files },
+    authority: authorityFor(baseline.sourceLocus),
+    workspaceScope: baseline.workspaceScope,
+    source: { state: 'available', files, evidence },
     lineage: {
       disposition: lineageDisposition(baseline.file, files),
       baselineFile: baseline.file,
@@ -102,7 +118,8 @@ function buildAvailableItem(
 function buildRetiredItem(baseline: BaselineAuditRow): CurrentSourceTruthItem {
   return {
     id: baseline.id,
-    authority: authorityFor(baseline.workspaceScope),
+    authority: authorityFor(baseline.sourceLocus),
+    workspaceScope: baseline.workspaceScope,
     source: { state: 'retired', files: [] },
     lineage: { disposition: 'retired', baselineFile: baseline.file },
     registrations: [],
@@ -195,19 +212,6 @@ function buildItems(
     });
 }
 
-function buildSummary(items: readonly CurrentSourceTruthItem[]) {
-  const registrations = items.flatMap((item) => item.registrations);
-  return {
-    itemCount: items.length,
-    availableCount: items.filter((item) => item.source.state === 'available').length,
-    retiredCount: items.filter((item) => item.source.state === 'retired').length,
-    workspaceCount: items.filter((item) => item.authority === 'workspace').length,
-    upstreamApiCount: items.filter((item) => item.authority === 'upstream-api').length,
-    itemLiveBindingCount: registrations.filter((item) => item.state === 'live').length,
-    itemDormantBindingCount: registrations.filter((item) => item.state === 'dormant').length,
-  };
-}
-
 /**
  * Reconciles current and retired evidence into one total projection.
  *
@@ -218,13 +222,13 @@ export function buildCurrentSourceTruthSet(
 ): CurrentSourceTruthSet {
   const items = buildItems(input.baseline, validateInput(input));
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
     provenance: {
       ...input.provenance,
       currentEvidence: [...input.provenance.currentEvidence].sort(alphabetical),
       evidenceCeiling: [...input.provenance.evidenceCeiling],
     },
-    summary: buildSummary(items),
+    summary: buildCurrentSourceSummary(items),
     registrationRoots: sortedRegistrationRoots(input.registrationRoots),
     items,
     hostEvidence: [],

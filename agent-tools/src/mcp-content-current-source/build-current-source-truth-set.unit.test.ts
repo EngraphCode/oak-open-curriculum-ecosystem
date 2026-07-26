@@ -9,6 +9,23 @@
 import { buildCurrentSourceTruthSet } from './build-current-source-truth-set.js';
 
 describe('buildCurrentSourceTruthSet', () => {
+  const evidence = (file: string, revision: 'unchanged' | 'modified' | 'relocated') => ({
+    revision,
+    targets: [
+      {
+        file,
+        anchors: [
+          {
+            tokenCount: 1,
+            tokenSha256: 'fixture-anchor',
+            indexToken: 'fixture',
+            indexOffset: 0,
+          },
+        ],
+      },
+    ],
+  });
+
   it('accounts for every audit row without conflating custody, lifecycle, or registration', () => {
     const truthSet = buildCurrentSourceTruthSet({
       provenance: {
@@ -20,16 +37,42 @@ describe('buildCurrentSourceTruthSet', () => {
         evidenceCeiling: ['Fixture only'],
       },
       baseline: [
-        { id: 'C001', file: 'legacy/moved.ts', workspaceScope: 'in' },
-        { id: 'C002', file: 'legacy/removed.ts', workspaceScope: 'in' },
-        { id: 'C003', file: 'current/available.ts', workspaceScope: 'in' },
-        { id: 'C004', file: 'current/dormant.ts', workspaceScope: 'in' },
-        { id: 'C005', file: 'generated/upstream.ts', workspaceScope: 'out-upstream-api' },
+        {
+          id: 'C001',
+          file: 'legacy/moved.ts',
+          workspaceScope: 'in',
+          sourceLocus: 'this-repo',
+        },
+        {
+          id: 'C002',
+          file: 'legacy/removed.ts',
+          workspaceScope: 'in',
+          sourceLocus: 'upstream-in-house-skills',
+        },
+        {
+          id: 'C003',
+          file: 'current/available.ts',
+          workspaceScope: 'in',
+          sourceLocus: 'this-repo',
+        },
+        {
+          id: 'C004',
+          file: 'current/dormant.ts',
+          workspaceScope: 'in',
+          sourceLocus: 'external-third-party',
+        },
+        {
+          id: 'C005',
+          file: 'generated/upstream.ts',
+          workspaceScope: 'out-upstream-api',
+          sourceLocus: 'upstream-in-house-api',
+        },
       ],
       current: [
         {
           auditId: 'C001',
           files: ['current/moved.ts'],
+          evidence: evidence('current/moved.ts', 'relocated'),
           registrations: [
             {
               rootId: 'http',
@@ -40,10 +83,16 @@ describe('buildCurrentSourceTruthSet', () => {
             },
           ],
         },
-        { auditId: 'C003', files: ['current/available.ts'], registrations: [] },
+        {
+          auditId: 'C003',
+          files: ['current/available.ts'],
+          evidence: evidence('current/available.ts', 'unchanged'),
+          registrations: [],
+        },
         {
           auditId: 'C004',
           files: ['current/dormant.ts'],
+          evidence: evidence('current/dormant.ts', 'modified'),
           registrations: [
             {
               rootId: 'http',
@@ -57,6 +106,7 @@ describe('buildCurrentSourceTruthSet', () => {
         {
           auditId: 'C005',
           files: ['generated/upstream.ts'],
+          evidence: evidence('generated/upstream.ts', 'unchanged'),
           registrations: [
             {
               rootId: 'http',
@@ -95,13 +145,19 @@ describe('buildCurrentSourceTruthSet', () => {
     expect(truthSet.items[0]).toMatchObject({
       id: 'C001',
       authority: 'workspace',
-      source: { state: 'available', files: ['current/moved.ts'] },
+      workspaceScope: 'in',
+      source: {
+        state: 'available',
+        files: ['current/moved.ts'],
+        evidence: { revision: 'relocated' },
+      },
       lineage: { disposition: 'relocated', baselineFile: 'legacy/moved.ts' },
       registrations: [{ state: 'live' }],
     });
     expect(truthSet.items[1]).toMatchObject({
       id: 'C002',
-      authority: 'workspace',
+      authority: 'upstream-skills',
+      workspaceScope: 'in',
       source: { state: 'retired', files: [] },
       lineage: { disposition: 'retired', baselineFile: 'legacy/removed.ts' },
       registrations: [],
@@ -113,14 +169,29 @@ describe('buildCurrentSourceTruthSet', () => {
     });
     expect(truthSet.items[3]).toMatchObject({
       id: 'C004',
-      source: { state: 'available' },
+      authority: 'external-third-party',
+      workspaceScope: 'in',
+      source: { state: 'available', evidence: { revision: 'modified' } },
       registrations: [{ state: 'dormant' }],
     });
     expect(truthSet.items[4]).toMatchObject({
       id: 'C005',
       authority: 'upstream-api',
+      workspaceScope: 'out-upstream-api',
       source: { state: 'available' },
       registrations: [{ state: 'live' }],
+    });
+    expect(truthSet.summary).toMatchObject({
+      unchangedCount: 2,
+      expandedCount: 0,
+      modifiedCount: 1,
+      relocatedCount: 1,
+      workspaceScopeInCount: 4,
+      workspaceScopeOutUpstreamApiCount: 1,
+      workspaceAuthorityCount: 2,
+      upstreamApiAuthorityCount: 1,
+      upstreamSkillsAuthorityCount: 1,
+      externalThirdPartyAuthorityCount: 1,
     });
   });
 
@@ -136,13 +207,85 @@ describe('buildCurrentSourceTruthSet', () => {
           evidenceCeiling: ['Fixture only'],
         },
         baseline: [
-          { id: 'C001', file: 'current/accounted.ts', workspaceScope: 'in' },
-          { id: 'C002', file: 'current/missing.ts', workspaceScope: 'in' },
+          {
+            id: 'C001',
+            file: 'current/accounted.ts',
+            workspaceScope: 'in',
+            sourceLocus: 'this-repo',
+          },
+          {
+            id: 'C002',
+            file: 'current/missing.ts',
+            workspaceScope: 'in',
+            sourceLocus: 'this-repo',
+          },
         ],
-        current: [{ auditId: 'C001', files: ['current/accounted.ts'], registrations: [] }],
+        current: [
+          {
+            auditId: 'C001',
+            files: ['current/accounted.ts'],
+            evidence: evidence('current/accounted.ts', 'unchanged'),
+            registrations: [],
+          },
+        ],
         retiredAuditIds: [],
         registrationRoots: [],
       }),
     ).toThrow('Unaccounted baseline audit ids: C002');
+  });
+
+  it('keeps item-level word authority when one source file mixes authorship loci', () => {
+    const file = 'current/mixed-source.ts';
+    const truthSet = buildCurrentSourceTruthSet({
+      provenance: {
+        title: 'Mixed-source fixture',
+        baselineCommit: 'fixture-baseline',
+        baselineArtifact: 'fixture/registry.json',
+        baselineSha256: 'fixture-sha',
+        currentEvidence: [],
+        evidenceCeiling: ['Fixture only'],
+      },
+      baseline: [
+        {
+          id: 'C001',
+          file,
+          workspaceScope: 'in',
+          sourceLocus: 'this-repo',
+        },
+        {
+          id: 'C002',
+          file,
+          workspaceScope: 'in',
+          sourceLocus: 'external-third-party',
+        },
+      ],
+      current: [
+        {
+          auditId: 'C001',
+          files: [file],
+          evidence: evidence(file, 'unchanged'),
+          registrations: [],
+        },
+        {
+          auditId: 'C002',
+          files: [file],
+          evidence: evidence(file, 'unchanged'),
+          registrations: [],
+        },
+      ],
+      retiredAuditIds: [],
+      registrationRoots: [],
+    });
+
+    expect(
+      truthSet.items.map(({ id, authority, workspaceScope }) => ({
+        id,
+        authority,
+        workspaceScope,
+      })),
+    ).toEqual([
+      { id: 'C001', authority: 'workspace', workspaceScope: 'in' },
+      { id: 'C002', authority: 'external-third-party', workspaceScope: 'in' },
+    ]);
   });
 });
