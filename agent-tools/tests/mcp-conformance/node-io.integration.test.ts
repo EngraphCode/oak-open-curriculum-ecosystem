@@ -1,3 +1,4 @@
+import { chmodSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { unwrapErr } from '@oaknational/result';
@@ -14,6 +15,15 @@ import {
 afterEach(() => {
   cleanupSandboxes();
 });
+
+/**
+ * POSIX permission bits as an octal string (e.g. `'600'`). Read as a string
+ * rather than masked numerically so the assertion reads as the `chmod` form
+ * an operator would check with.
+ */
+function permissionsOf(path: string): string {
+  return statSync(path).mode.toString(8).slice(-3);
+}
 
 describe('retainRawReport — verbatim retention with caller-shaped paths', () => {
   it('a relative report dir writes under the repo root and reports the relative path', () => {
@@ -48,6 +58,33 @@ describe('retainRawReport — verbatim retention with caller-shaped paths', () =
     const outcome = writeRunSummary(root, join('tmp', 'reports'), '{"verdict":"pass"}');
     expect(outcome).toEqual({ ok: true, reportedPath: join('tmp', 'reports', 'summary.json') });
     expect(readSandboxFile(root, 'tmp', 'reports', 'summary.json')).toBe('{"verdict":"pass"}');
+  });
+
+  it('a retained report is owner-only — attended runs carry credentials in vendor output', () => {
+    const root = sandbox();
+    const io = buildMcpConformanceNodeIo(root, join('tmp', 'reports'));
+    io.retainRawReport('protocol', '{"raw":"bytes"}');
+    expect(permissionsOf(join(root, 'tmp', 'reports', 'protocol.json'))).toBe('600');
+  });
+
+  it('the aggregate summary is owner-only too — it embeds the same vendor fields', () => {
+    const root = sandbox();
+    writeRunSummary(root, join('tmp', 'reports'), '{"verdict":"pass"}');
+    expect(permissionsOf(join(root, 'tmp', 'reports', 'summary.json'))).toBe('600');
+  });
+
+  it('an existing world-readable report has its MODE corrected, not just its content', () => {
+    // `mode` on writeFileSync applies at creation only, so a report left by an
+    // earlier run under a looser umask would keep its permissions forever.
+    const root = sandbox();
+    const io = buildMcpConformanceNodeIo(root, join('tmp', 'reports'));
+    io.retainRawReport('protocol', 'first run');
+    const path = join(root, 'tmp', 'reports', 'protocol.json');
+    chmodSync(path, 0o644);
+
+    io.retainRawReport('protocol', 'second run');
+
+    expect(permissionsOf(path)).toBe('600');
   });
 });
 
