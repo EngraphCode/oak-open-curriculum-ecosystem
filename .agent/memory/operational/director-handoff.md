@@ -402,8 +402,27 @@ first-hand as of 2026-06-25.
 > M1 homes; MCP-214/215 milestone home (Swallow proposed first post-M0,
 > prose only); owner gh CLI re-auth; FYI ruled-with-rationale items —
 > Skipper's 56b91576f grandfather ruling (override open until the #578
-> word fires) and the three-seat identity failure-mode captures with the
-> trigger-first doctrine-touch candidate.
+> word fires); the three-seat identity failure-mode captures with the
+> trigger-first doctrine-touch candidate; MCP-220's island-hydration
+> adjudication (measured: 42KB props = +70% document for one toggle;
+> island recommended and PROCEEDING as PR-4's working shape — override
+> open until PR-4's settled read).
+>
+> **NIGHT LEDGER (owner-away window, ~19:00–22:00Z)**: #581 MERGED
+> 79bfe9dcc (MCP-152 Done — upstream 0.7.0 adopted, usage-licence family
+> deferred behind ticketed tripwires; merge word + in-merge guards);
+> MCP-203 routed to Swallow (holds its whole evidence base). MCP-103:
+> phases (c)/(d) five-story sequence ACKed with three riders
+> (served-bytes-unchanged as per-PR merge gate; architecture pass
+> pre-open on PR2's ADR-041 amendment; bridge mechanics); PR1 open as
+> #582, two review rounds adjudicated (projection-not-second-registry,
+> authority/custody axes split), settling. Design stack: #583 open
+> (PR-3, seven-Opus round, turbo env-declaration cache defect + 320px
+> reflow cured pre-open); MCP-220..225 minted from its merge-and-ticket
+> dispositions; F-116 third instance recorded on MCP-186 with
+> folk-practice escalation. #576 draft stands by Cutter's explicit
+> scope-incomplete declaration (transport proof + ADR-218 outstanding).
+> Review-owed framing corrected at Smelter's seat before it set.
 >
 > **Platform fact + standing bridge (2026-07-26 16:44Z)**: the Codex
 > GitHub connector refuses merge actions without DIRECT in-session owner
