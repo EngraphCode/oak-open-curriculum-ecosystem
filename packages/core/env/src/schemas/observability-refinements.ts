@@ -161,9 +161,9 @@ export function refineSinkConditionalRequirements(
  * §The Vendor-Independence Clause names stdout as the always-on baseline,
  * but the plan body's locality-enforcement rule mandates at least one
  * diagnostic sink in production). A product-analytics selection alone does
- * not satisfy that engineering-diagnostics guarantee. Preview with no
- * diagnostic sink is a warning, not an error — handled in the warnings
- * channel rather than here.
+ * not satisfy that engineering-diagnostics guarantee. Preview with an empty
+ * sink selection is a warning, not an error — handled in the warnings channel
+ * rather than here.
  */
 export function refineProductionLocality(data: ObservabilityEnvBase, ctx: z.RefinementCtx): void {
   if (data.VERCEL_ENV !== 'production') {
