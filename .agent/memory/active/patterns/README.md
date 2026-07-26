@@ -229,7 +229,7 @@ drift. After adding or changing a pattern file, regenerate with
 - **Wire-Format-Aware Redaction** -- Use this when: Telemetry redaction protects structured objects or URLs, but secrets can also travel through raw encoded strings such as application/x-www-form-urlencoded request bodies. → [wire-format-aware-redaction.md](wire-format-aware-redaction.md)
 - **Workaround Debt Compounds Through Rationalisation** *(anti-pattern)* -- Use this when: A workaround exists in the codebase and someone is explaining why it's justified, necessary, or acceptable — especially when the explanation invokes 'different purposes' or 'separate concerns'. → [workaround-debt-compounds-through-rationalisation.md](workaround-debt-compounds-through-rationalisation.md)
 
-### Process (113)
+### Process (114)
 
 - **A Description Is Not a Check** *(anti-pattern)* -- Use this when: About to act on, transmit, or review a DESCRIPTION of an artefact — a commit message, a code comment, a handoff summary, a self-report, a probe's green output — instead of reading the artefact itself; and at review-routing time, deciding where to point external scrutiny. → [description-is-not-a-check.md](description-is-not-a-check.md)
 - **A Fidelity Audit Is Not a Currency Audit** *(anti-pattern)* -- Use this when: Verifying a claim that rests on an inherited surface (a record, a thread note, a prior session's framing) before relying on it. → [fidelity-audit-is-not-currency-audit.md](fidelity-audit-is-not-currency-audit.md)
@@ -309,6 +309,7 @@ drift. After adding or changing a pattern file, regenerate with
 - **Read, Not Grep/Bash, for a Faithful Read of Source** -- Use this when: Reading load-bearing source content through a Bash/grep pipeline and the output looks mangled, masked, or suspiciously collapsed. → [read-not-grep-for-faithful-source.md](read-not-grep-for-faithful-source.md)
 - **README as Index** -- Use this when: A plan-directory README is growing to contain session instructions, outcome narratives, or design rationale that duplicates or replaces .plan.md content. → [readme-as-index.md](readme-as-index.md)
 - **Recital Loses to Recipe Momentum** *(anti-pattern)* → [recital-loses-to-recipe-momentum.md](recital-loses-to-recipe-momentum.md)
+- **Referent Narrowing** *(anti-pattern)* -- Use this when: Constructing ANY filter, gate, predicate, monitor, or verdict that keys on an instrument's signal (an exit code, an API status, a state field, a green check); and at any decision moment resting on a SINGLE source — before acting, name what the signal actually reports on and add one independent witness. → [referent-narrowing.md](referent-narrowing.md)
 - **Reframing Before Hardening** → [reframing-before-hardening.md](reframing-before-hardening.md)
 - **Removing a Constraint Surfaces What It Was Also Bounding** -- Use this when: About to delete or relax a constraint (a count cap, a size limit, a timeout, a gate) because it causes one visible problem. → [removing-a-constraint-surfaces-what-it-also-bounded.md](removing-a-constraint-surfaces-what-it-also-bounded.md)
 - **Repair workflow contract clarity** -- Use this when: A workflow repairs or transforms the same content across multiple artefacts or locations, and ambiguous verbs could trigger rewrite or promotion drift. → [repair-workflow-contract-clarity.md](repair-workflow-contract-clarity.md)

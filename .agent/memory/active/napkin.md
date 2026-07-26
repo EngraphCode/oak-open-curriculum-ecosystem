@@ -283,3 +283,207 @@ tagged, 11:27–11:31Z exchange).
   MCP-187's flakiness is DESIGNED — ci.yml:138-151 "Warms the Turbo remote cache
   (sdk-codegen + build)" seeds `-local` artefacts under the exact key a Vercel build
   computes (env: [SDK_CODEGEN_MODE] only). Write order decides deployed output today.
+
+- **F-116 second instance (Skua, 2026-07-26 ~12:02Z)**: the commit-queue guard also rejects
+  the `index/head@<worktree-name>` pattern the commit SKILL's merge-commit section prescribes
+  for worktree windows ("claim c0c11e78 ... is not an active git:index/head claim") — the
+  matcher accepts only the bare `index/head`. Worked around by re-opening bare with the
+  worktree named in the intent text. Same doctrine/tooling mismatch class as the original
+  F-116 capture; the Director's ticket should cover the worktree-suffix case too.
+
+## 2026-07-26 ~12:12Z — Dynamo spins Naphtha (2f5519): MCP-189 lane captures (compaction-prep sweep)
+
+- **pnpm `--` re-append breaks two-layer script passthrough**: `pnpm mcp:conformance -- --target ...`
+  delivers `['--', '--target', ...]` to the leaf bin because EACH pnpm forwarding layer re-appends
+  the literal `--`, and the house arg scanner reads a leading `--` as its terminator — the CI job
+  would have failed every run at CLI validation. Caught by config-expert's end-to-end trace, fix
+  verified through both layers (drop the `--`). Any root alias that forwards through a workspace
+  script inherits this class; a shell-level smoke through the full script chain is the guard the
+  unit tests structurally cannot provide.
+- **`join(root, dir)` silently mangles absolute dirs — twice in one lane**: --baseline-dir and
+  --report-dir both hit the same class (`join('/repo','/abs')` → `/repo/abs`); first instance found
+  by my own end-to-end broken-baseline smoke (the failure came out as the WRONG class — no-baseline
+  instead of novel-check — which is what exposed it), second by gateway review. `resolve(root, dir)`
+  is the cure; the reported path preserves the caller's form. Path-taking CLI options earn one
+  absolute-input test each.
+- **The attended-gating falsification worked exactly as the pattern prescribes**: MCP-189's "negative
+  probes run headless today" premise was falsified BEFORE building by reading the resolved
+  @mcpjam/sdk source + one empirical headless run (comms 850648d2, behaviour-note b6e6aa50) — the
+  unattended design was re-shaped around observed truth in under an hour. Capability claims in
+  tickets get the installed-tool read at pickup, always.
+- **Watcher hourly-timeout overlap**: a drain-timeout WATCHER ERROR line does NOT kill the Monitor
+  task — after re-arming a replacement, the original kept running until its `timeout 3600` fired
+  (exit 124), so TWO watchers shared one seen-file for ~30 min (benign: both notified, cursor
+  raced). On a drain-timeout event, check whether the task actually EXITED before re-arming.
+- **F-73 shape confirmed**: claimless registration → heartbeat arms at claim-open worked cleanly
+  (comms heartbeat + `claims heartbeat` per tick; `claims heartbeat` takes only
+  --active/--claim-id/--now — no identity flags; the loop's captured-stderr failure line caught my
+  wrong-flag first arm in one tick).
+
+## 2026-07-26 ~12:27Z — Skua weaves Wingspan (6b9274): compaction-prep capture (at occurrence)
+
+- **Two wrapper-exit lies in one tenure, same instrument saved both**: (1) a background task
+  reported "completed (exit 0)" while the in-band line read PUSH_EXIT:128 — the pre-push gate
+  had PASSED and pure SSH transport failed after it ("Can't assign requested address"; plain
+  retry landed); (2) a claims-open failure was eaten by my own `| grep` (the F-95 refusal never
+  reached me; the echoed exit was grep's). Cure both times: in-band unpiped exit + read the
+  STATE (`git rev-parse --verify origin/<branch>`, registry read) before any retry. The
+  exit-codes rule's false-silence twin, twice-instanced, both self-caught.
+- **esquery selector regexes mute on raw slashes**: `no-restricted-syntax` with
+  `Literal[value=/ui://widget//]` parses (config loads, lint runs green) but NEVER fires —
+  the `/` regex delimiter truncates the pattern. Required form: `/` escapes inside
+  `String.raw`. My negative control caught TWO successive wrong forms, including one where my
+  own Edit-tool call silently lost the escapes — escape-bearing config is written via a
+  script and proven by a negative control (tmp file with the banned literal → expect the
+  error → delete), never trusted by eye. Same class as corpus-testing a watcher filter.
+- **AC-4a probe design worth reusing**: the deployed acceptance instrument for MCP-187 was an
+  UNAUTHENTICATED `resources/read` of the expected widget URI against the preview deploy (the
+  widget rides the public auth allowlist) — the ticket's exact failure shape, reproduced as
+  the acceptance probe, with the expected suffix PRE-COMPUTED independently
+  (`sha256(commitSHA)[0..8]`) before the read. Prediction-then-observation; a negative control
+  (the old `-local` URI) proved the stale surface gone. Both preview tips verified.
+- **F-95's watcher-liveness guard resolves the comms-seen path cwd-relative**: `claims open`
+  run from a WORKTREE looks for the heartbeat at the worktree-local path and refuses as
+  comms-blind even with a live watcher at the primary (F-41 decoy class, guard-shaped).
+  Registry-only collaboration commands run from the PRIMARY checkout; only the commit-queue's
+  git operations need the worktree cwd.
+
+## 2026-07-26 ~12:40Z — Aurora turns Gravity (c75c7e): merge-monitor seat, loss-scan + concept-exploration
+
+**The session's dominant shape — REFERENT NARROWING (proposed class name).** Almost every
+catch and every miss in this seat's first ninety minutes was one shape: *an instrument
+returned a well-formed answer about a narrower referent than the reader assumed, and the
+narrowing was silent*. Twelve instances in one session, listed because the count is the
+argument:
+
+1. **BEHIND-vs-BLOCKED**: my babysitter keyed on `mergeStateStatus == "BEHIND"`. GitHub
+   reports `BEHIND` only when behind-ness is the PRIMARY blocker; #565 read `BLOCKED`
+   (review required) while 19 commits behind. The filter would have stayed silent forever
+   on the exact PR it was built for. Silence reads as "nothing to do".
+2. **`gh api` HTTP 200, zero effect, twice**: requested-reviewer write with the review
+   AUTHOR login (`copilot-pull-request-reviewer[bot]`) instead of the reviewer handle
+   (`Copilot`). The API accepts an unrecognised name and changes nothing. Caught only by
+   reading state after the write.
+3. **Monitors died with their harness task-ids gone**: `TaskStop` returned "no task found".
+   A dead monitor and a quiet one are the same observation. The owner caught it, not me.
+4. **The orphan-watcher shape is worse than no watcher**: a live watcher whose Monitor task
+   is gone consumes events and advances the seen-cursor with NO wake path. Checked for it
+   by pid before re-arming; it had already exited, but the check is the point.
+5. **"Addressed" is not "resolved"** (#568): a peer pushed fixes for all seven findings and
+   reported them resolved; GitHub still counted six unresolved, and
+   `required_review_thread_resolution` is server-enforced. The work was done; the signal
+   was not.
+6. **A thread that can NEVER auto-clear**: #568's ADR-218 finding was fixed in `README.md`
+   but the comment anchors to the ADR file, so GitHub can never mark it outdated. It reads
+   CURRENT forever regardless of the fix.
+7. **Installation grant ≠ token grant**: the owner granted the app `workflows: write`; the
+   mint at `mint-installation-token.ts:152` requested only two permissions, so the operation
+   failed identically after a real, correct grant. Two layers, one visible from where the
+   owner stood.
+8. **"Settled = review approved" would have stalled the train forever**: both rulesets carry
+   `required_approving_review_count: 0` and the bot reviewers only ever `COMMENTED`, so
+   `reviewDecision` reads `none` on a perfectly settled PR. Waiting for a gate that does not
+   exist is indistinguishable from diligence.
+9. **A cloud service that silently does not fire**: the `copilot_code_review` ruleset declares
+   `review_on_push: true` incl. drafts; it fired twice on #570 and never on #571 in the same
+   window. No error anywhere.
+10. **`echo "EXIT:$?"` after a pipe** reported `tail`'s status, not the command's — my own
+    instance of the estate's existing `exit-codes-in-band-never-piped` rule, made while
+    holding the rule.
+11. **A monitor snapshot disagreeing with the decision-moment read**: my state monitor said
+    #568 was `CLEAN`; the live read seconds later said `UNKNOWN` with a Copilot review
+    `in_progress`. The snapshot was not wrong, it was stale — and staleness is silent.
+12. **A green gate carrying 331 warnings**: `lint` exits 0 with `0 errors, 331 warnings`.
+
+**Why the existing corpus did not prevent #1.** The estate already carries ~8 rules that are
+instances of this shape (`exit-codes-in-band-never-piped`, `verify-dont-trust`,
+`read-verdicts-by-name-never-column-parse`, `validators-must-recompute-not-just-record`,
+`stale-capture-wins-silent-merge-reverts`, `sonar-automatic-analysis-dropped-trigger`,
+PDR-133's liveness classes, `wrapped-exit-codes-false-green`). They are indexed by
+INCIDENT, not by SHAPE. When I wrote the babysitter filter I was not reaching for "exit
+codes" — nothing in the reaching-space said "this predicate is a proxy". The knowledge
+existed and was not addressable from where I stood. **Adding a ninth incident-rule does not
+fix a retrievability problem.**
+
+**The generative asymmetry worth naming**: a false RED is self-correcting (someone
+investigates and kills it); a false GREEN is not (it is believed and built upon). The two
+error directions have wildly different costs and our instruments are mostly not designed
+asymmetrically.
+
+**What actually caught things — the differential.** Every successful catch was the same
+cheap move: compare an instrument against a mechanically INDEPENDENT witness.
+PR 570-got-Copilot-in-5min vs #571-got-nothing-in-13 → service miss. Installation permissions
+vs mint source → two layers. Monitor snapshot vs decision-moment read → staleness. Peer's
+"all resolved" vs GraphQL thread count → addressed≠resolved. `git push` exit 0 vs
+`git rev-parse` on the remote ref → did the ref actually move. **Not "check harder" —
+compare against a second source that cannot fail the same way.** Every miss was where I
+had one source.
+
+**Candidate for graduation** (routed to the Director this session, tagged here for the
+pipeline): name the class, attach a CONSTRUCTION-TIME question — *"what exactly does this
+signal report on, and under what condition does that stop being the thing I care about?"* —
+and make "one independent witness per load-bearing claim" an explicit habit rather than
+eight scars. Falsifier: if a future session builds a proxy-keyed filter after the question
+exists in the corpus and still ships the defect, the question is not doing the work.
+
+**Merge-train facts worth conserving** (grounded first-hand, would otherwise be re-derived):
+
+- Settled here means: all status checks green, code-scanning + code-quality satisfied,
+  Copilot review present, EVERY review thread resolved. **No approving review is required.**
+  Ruleset `13402577` binds our bot in full (bypass is `[2995796]`, the semantic-release app,
+  NOT us) including server-enforced thread resolution; `19395183` (code-owner) exempts our
+  bot (app `4352989`); `19474916` (Copilot review) has an EMPTY bypass list and binds
+  everyone. Derive this from `gh api repos/<o>/<r>/rulesets` at time of use, never from
+  generic merge practice.
+- `BLOCKED` on a 17/17-green PR is normally `required_review_thread_resolution` firing on
+  unresolved threads — check the unresolved count before diagnosing a Sonar webhook drop.
+- The requested-reviewer handle for Copilot is `Copilot`. `copilot-pull-request-reviewer[bot]`
+  is the review AUTHOR login and is silently ignored by the reviewers endpoint.
+- `gh pr update-branch` needs `workflows` (it writes the merge commit onto the HEAD branch);
+  merging does NOT (base branch) — proven by #557, which changed four workflow files and
+  merged on the two-permission token.
+- The API cannot update a CONFLICTING branch at all, regardless of token permissions.
+
+## Metaloss recursion (wrap step 6, Aurora cont.) — three findings, then the fixed point
+
+**1. UNDISCHARGED PROMISE, now forwarded.** I told the owner I would carry the orphaned
+`Urchin herds Undertow` watcher (running 17.5h, no active claim, no `timeout` guard — F-101
+orphan class) "into the daily summary". **There is no daily summary — I close out today.** The
+promise would have died silently with my context. Forwarded to the Director explicitly at
+closeout. Host was healthy at the time (51% CPU idle, 46% memory free, load 7.7/14 cores), so
+it is hygiene, not an incident — but the *promise* was real and nearly evaporated. Generalises:
+a commitment whose discharge surface is a future cadence dies when the cadence does; at closeout,
+sweep for promises whose payment date is later than your seat.
+
+**2. MIS-ATTRIBUTION THAT IS ACTIVELY CIRCULATING — corrected.** I theorised that #571's
+Copilot review never fired because "the PR opened as a draft and the ready-transition failed to
+fire the auto-request". The Director's 12:32:26Z event echoed it back as confirmed ("your
+diagnosis was exactly right (draft-open suppressed the auto-request)"). **It was never verified,
+and the ruleset contradicts it**: `copilot_code_review` carries `review_draft_pull_requests: true`,
+so drafts ARE reviewed and draft-open cannot be the suppressor. I flagged the contradiction in my
+own correction but did not retract the causal story, and it has now propagated into the Director's
+record as settled. The honest state is: **cause unknown.** Observed: the service fired twice
+on PR 570 and zero times on PR 571 in the same window; a manual request via the dedicated endpoint
+succeeded and the review arrived in ~3 minutes. That is all that is known. Anyone building on
+"drafts suppress the auto-request" is building on my guess.
+
+**3. OVERCLAIM BOUNDS, stated rather than claimed away.** (a) The concept-exploration asserts
+"the estate has ~8 rules of this shape" — I read perhaps 4 of ~100 rules this session and
+assembled the rest from names in the index. The *count* is inference; the *shape* is grounded in
+twelve first-hand instances. (b) "Bypass actor `2995796` is the semantic-release app" appears in
+my captures as fact; it is INHERITED from an existing memory file, not verified first-hand this
+session. The named check is `gh api /app` as that app, or comparing against `RELEASE_APP_ID`.
+(c) The security reviewer's claim that in-repo `pull_request` runs receive repository secrets is
+relayed, not verified by me.
+
+**External bound (the recursion cannot certify itself).** Error signature worth conserving for
+whoever points external scrutiny next: **both of my misses this session were caught by the owner,
+and both while I was deep in a correct-but-narrow investigation adjacent to the thing I missed.**
+Dead monitors — caught while I was busy verifying a *different* instrument's liveness. The
+Copilot-is-a-cloud-service frame — caught while I was correctly enumerating GitHub API failure
+modes. The pattern is not carelessness; it is that depth on one axis costs peripheral vision on
+the next axis over. A peer glancing sideways catches these cheaply; the seat inside the
+investigation does not.
+
+**Fixed point.** A third pass would only re-find these three (forwarded promise, corrected
+attribution, stated bounds). The recursion closes here.
