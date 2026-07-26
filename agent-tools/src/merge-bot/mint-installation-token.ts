@@ -31,6 +31,16 @@ const INSTALLATION_TOKEN_SCHEMA = z.object({
   expires_at: z.string().min(1),
 });
 
+/**
+ * GitHub's error-body shape. Only `message` is relied on, and only to enrich
+ * a failure that has already been detected from the status code. The schema
+ * REQUIRES a non-empty `message`: a message-less or otherwise non-conforming
+ * body fails this parse and the detail is simply omitted from the failure
+ * text — enrichment is best-effort, and the original status-derived failure
+ * is never masked either way.
+ */
+const GITHUB_ERROR_BODY_SCHEMA = z.object({ message: z.string().min(1) });
+
 export type GithubApiFetch = (
   url: string,
   init: {
@@ -86,6 +96,26 @@ async function readJsonBody(
   }
 }
 
+/**
+ * GitHub's own explanation of a failed request, or an empty string when the
+ * body is absent, non-JSON, or not the documented error shape. Never throws
+ * and never masks the caller's status-derived failure — it only enriches it.
+ *
+ * This matters most for `422` on a token mint: GitHub answers "the
+ * permissions requested are not granted to this installation", which names
+ * the whole fix, while a bare status code sends the reader hunting.
+ */
+async function githubErrorDetail(response: {
+  readonly json: () => Promise<unknown>;
+}): Promise<string> {
+  const body = await readJsonBody(response, 'error body');
+  if (!body.ok) {
+    return '';
+  }
+  const parsed = GITHUB_ERROR_BODY_SCHEMA.safeParse(body.value);
+  return parsed.success ? ` — ${parsed.data.message}` : '';
+}
+
 function githubHeaders(bearer: string): Readonly<Record<string, string>> {
   return {
     accept: 'application/vnd.github+json',
@@ -129,10 +159,26 @@ export async function resolveInstallationId(input: {
 
 /**
  * Mint a short-lived installation access token, SCOPED to one repository
- * and the two write permissions the merge path needs — least-privilege by
+ * and the three write permissions the merge path needs — least-privilege by
  * construction, not by installation topology (security review 2026-07-21:
  * an unscoped mint carries the app's full installation grant, so a second
  * installed repo would silently widen every token).
+ *
+ * `workflows` is required by `updatePullRequestBranch`, which refuses with
+ * "refusing to allow a GitHub App to create or update workflow ... without
+ * `workflows` permission" whenever the merge it performs would touch
+ * `.github/workflows/**` (observed 2026-07-26 against PR #565).
+ *
+ * Merging a pull request does NOT need it — observed the same day: this bot
+ * merged PR #557, whose diff changed four workflow files, on a token
+ * carrying only `pull_requests` + `contents`. The head-branch/base-branch
+ * distinction is the likely mechanism; the two observations are the
+ * evidence, and only they are relied on here.
+ *
+ * The scoping discipline is unchanged: still one repository, still an
+ * explicit permission list, now three of the installation's grants rather
+ * than all of them. The 2026-07-21 rationale below is about the REPOSITORY
+ * dimension and is untouched by this permission-dimension change.
  */
 export async function mintInstallationToken(input: {
   readonly appJwt: string;
@@ -149,12 +195,15 @@ export async function mintInstallationToken(input: {
       headers: githubHeaders(input.appJwt),
       body: JSON.stringify({
         repositories: [input.repoName],
-        permissions: { pull_requests: 'write', contents: 'write' },
+        permissions: { pull_requests: 'write', contents: 'write', workflows: 'write' },
       }),
     },
   );
   if (response.status !== 201) {
-    return err(new Error(`installation token mint failed: HTTP ${String(response.status)}`));
+    const detail = await githubErrorDetail(response);
+    return err(
+      new Error(`installation token mint failed: HTTP ${String(response.status)}${detail}`),
+    );
   }
   const body = await readJsonBody(response, 'POST /app/installations/{id}/access_tokens');
   if (!body.ok) {
