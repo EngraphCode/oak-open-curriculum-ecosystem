@@ -151,16 +151,20 @@ forward-asks remain.
 - **MCP product analytics — ACTIVE.** The submission-blocking PostHog sink and
   `@posthog/mcp` integration proceed from the ratified MCP-63 plan, landed on
   main via PR #568 (merge `ccd1c410f`, 2026-07-26); implementation runs on a
-  dedicated branch/worktree. Core and adapter slices are focused-gate green,
-  but the branch is dirty, uncommitted, unpushed, one commit behind main, and
-  has no PR. The mechanically green final-wire test remains structurally
-  blocked because it bypasses production composition; no app source has been
-  edited. Owner-directed gradual succession from Kite seeks Crosswind to Cutter
-  hunts Lagoon is in the record-plus-adoption overlap: seven claim pointers and
-  the handoff record are live, while outgoing monitoring stays armed until
-  Cutter validates and adopts. MCP-173 separately gates October public-beta
-  enablement. Package versions remain flexible; behaviour and privacy contracts
-  are fixed; `pnpm-lock.yaml` is regenerated only by pnpm tooling.
+  dedicated branch/worktree. Focused PR1 is local commit `ae25b10c9`, unpushed
+  with no PR, one ahead and nine behind main. PR2 remains dirty and local:
+  PostHog adapter, oak-eslint boundary registration, workspace registration,
+  and pnpm-generated lock entries only. Its final-wire production-composition
+  blocker is cured; no app source has been edited. The owner requires
+  PR1-settled → PR2-settled → PR3. Succession from Kite seeks Crosswind to
+  Cutter hunts Lagoon is complete; Cutter holds the seven implementation
+  claims and Kite retired. The canonical watcher is not treated as cognition;
+  the separate full-stream ten-minute foreground monitor remains the awareness
+  path until the user stops it. The
+  [permanent dated record](../../reports/mcp-63-succession-notification-and-focused-delivery-2026-07-26.md)
+  holds the self-contained causal and historical understanding. MCP-173
+  separately gates October public-beta enablement; `pnpm-lock.yaml` remains
+  pnpm-generated only.
 - **Other decision-complete plans awaiting execution routing.** Output-schemas
   for MCP tools (every `outputSchema` =
   `composeEnvelopeSchema(payloadSchema)`; next = execution routing); the MCP
@@ -201,7 +205,7 @@ each thread record; this table is the repo-level index.
 
 | Thread | Purpose | Record | Latest identity |
 | --- | --- | --- | --- |
-| `mcp-product-analytics` | Submission-blocking PostHog sink and MCP analytics integration; October public-beta governance is a separate gate | [record][mcp-analytics] | Cutter hunts Lagoon / codex / GPT-5 / named successor, adoption pending ← Kite seeks Crosswind / outgoing implementation custody / 2026-07-26 |
+| `mcp-product-analytics` | Submission-blocking PostHog sink and MCP analytics integration; October public-beta governance is a separate gate | [record][mcp-analytics] | Cutter hunts Lagoon / codex / GPT-5 / active implementation custody ← Kite seeks Crosswind / handoff complete and retired / 2026-07-26 |
 | `first-class-copilot-cli-practice` | Make GitHub Copilot CLI running locally an equal first-class citizen of the canonical Practice: honest identity, deliberate team join, inherited-hook policy enforcement, supported instruction/skill/agent/MCP projections, local comms/lifecycle, and live proof. The CLI-only strategic and four delivery nodes are owner-ratified; runtime remains gated behind their replacement record landing. | [record](threads/first-class-copilot-cli-practice.next-session.md) | codex / GPT-5 / Thistle holds Blossom (019f94) / replacement-plan implementer / 2026-07-24 ← copilot / gpt-5.6-sol / Thistle rides Canopy (494337) / design authority and live evidence author / 2026-07-24 |
 | `mcp-agent-facing-content` | Audit + classified registry of repo-controlled content reaching MCP consumers (the effective agent prompt); distinct from `data-sources-governance` (DATA sources). Deliverables + lane history: thread record | [record](threads/mcp-agent-facing-content.next-session.md) | claude-code / claude-fable-5 / Urchin hunts Surf / implementer — MCP-103(a) delta-refresh MERGED (#476) / 2026-07-22 (chain: thread record) |
 | `upstream-api-alignment` | Realign SDK/MCP (and bulk export) to the evolving upstream Oak API + a repeatable observable process. Programmes-family instance shipped on PR #291 (`merge=CLEAN`, awaiting owner merge); process graduated to a permanent runbook | [record](threads/upstream-api-alignment.next-session.md) | claude / claude-opus-4-8[1m] / Vanilla stirs Spore / implementer — successor to Bonfire turns Basalt; WS2+WS4+WS6 landed, review triage cleared / 2026-07-01 |

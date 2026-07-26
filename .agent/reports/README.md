@@ -39,6 +39,10 @@ declared contract; stylistic preference alone is not a contract failure.
 
 ## Current Structure
 
+- [mcp-63-succession-notification-and-focused-delivery-2026-07-26.md](./mcp-63-succession-notification-and-focused-delivery-2026-07-26.md)
+  — permanent dated record of the MCP-63 custody transfer, Codex notification
+  failure and monitoring correction, focused-PR reshaping, and the bounded
+  technical evidence for the first three delivery slices
 - [architectural-fitness-functions-concept-exploration-2026-07-15.md](./architectural-fitness-functions-concept-exploration-2026-07-15.md)
   — decision-ready exploration of replacing the unwired per-file
   `max-files-per-dir` rule with deterministic, non-blocking, repository-level

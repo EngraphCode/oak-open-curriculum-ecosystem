@@ -27,6 +27,12 @@ enablement evidence in
 [`mcp-173-posthog-privacy-governance.plan.md`](../../../plans/delivery/mcp-173-posthog-privacy-governance.plan.md)
 gates the October public beta.
 
+The live succession, monitoring correction, focused-PR decision, evidence
+ceilings, and current slice inventory are absorbed in the
+[26 July permanent dated record](../../../reports/mcp-63-succession-notification-and-focused-delivery-2026-07-26.md).
+The live thread remains temporary operational state; the report is not a
+handoff or closeout.
+
 ## Current state
 
 - [PR #568](https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/568)
@@ -35,30 +41,47 @@ gates the October public beta.
 - Runtime implementation is in flight on
   `jimcresswell/mcp-63-posthog-product-analytics-implementation`, in the
   repo-relative worktree `.claude/worktrees/mcp-63-posthog-delivery`.
-- The branch is dirty, unstaged, uncommitted, unpushed, has no PR, and was one
-  commit behind `origin/main` at the 13:04Z succession freeze. The generated
-  `pnpm-lock.yaml` diff came from pnpm tooling; it must never be edited or
-  hand-merged.
-- The provider-neutral observability port, shared sink-selection extension,
-  new `@oaknational/posthog-node` adapter, boundary registration, and their
-  tests exist in that worktree. Focused verification at the freeze was green:
-  PostHog 130/130 tests, observability 67/67, env 51/51, and boundary 217/217,
-  with package type-check/lint/build green apart from named pre-existing
-  no-throw warnings.
-- The final-wire test is mechanically green but structurally blocked. It
-  manually recreates production composition and bypasses the production sink
-  for resource rows, so it does not prove the shipped runtime path. Its next
-  review must drive real production runtime/sink composition with only the
-  transport boundary injected.
+- Focused slice 1 is local commit `ae25b10c9`
+  (`feat(observability): add product analytics port`). It contains only the
+  provider-neutral port, shared selection/locality axis, env coverage, and the
+  observability-to-result dependency. The branch is one commit ahead and nine
+  behind the locally recorded `origin/main`; it is unpushed and has no PR.
+  Fresh evidence was observability 59/59, env 51/51, both packages'
+  type-check/build, lint exit zero with known unrelated warnings, targeted
+  formatting, architecture review, test review, and commit hooks. No captured
+  historical RED exists, so Red-to-Green is not claimed.
+- The uncommitted slice is now confined to the new
+  `@oaknational/posthog-node` adapter, three oak-eslint boundary files,
+  workspace registration, and pnpm-generated lock entries. The index is empty.
+  The lockfile must never be edited or hand-merged.
+- The final-wire blocker is cured. The test drives the shared private
+  production composition with only a non-barrel fetch seam, exercises the real
+  client, sink, instrumenter, policies, batching, compression, retry, and
+  shutdown paths, and keeps the public barrel factory one-argument. Fresh
+  code-expert and test-expert reviews passed; the adapter's 130/130 tests,
+  type-check, lint, build, and targeted formatting check are green. This work
+  belongs to the still-uncommitted adapter slice.
+- The owner requires three small, ordered PRs: port/axis, then adapter, then app
+  composition. Each dependent slice settles before the next opens. A combined
+  44-path commit was cancelled before creation.
 - No app-composition source file has been edited. Two claims reserve the
   bootstrap config and app manifest/docs boundaries, but reservation is not
-  implementation.
-- The owner initiated gradual in-flight succession from `Kite seeks Crosswind`
-  to `Cutter hunts Lagoon`. Seven claims carry handoff pointers; the primary
-  record is `.agent/state/collaboration/handoffs/`
-  `f5b77b73-4fd2-4e35-a89a-90dbc1e97a81.md`.
-  Kite retains monitoring and custody until Cutter validates the discontinuity,
-  acknowledges the record, and adopts the claims in place.
+  implementation. Read-only exploration found that handler-facing
+  `RuntimeConfig` currently exposes the parsed env and that the legacy
+  sentry-node config cannot express simultaneous Sentry plus fixture-tee
+  behaviour on the shared axis; production wiring needs an expanded claim and
+  explicit architecture disposition.
+- The owner completed the in-flight succession from `Kite seeks Crosswind` to
+  `Cutter hunts Lagoon`. Cutter validated the discontinuity, acknowledged the
+  primary handoff record at `.agent/state/collaboration/handoffs/`
+  `f5b77b73-4fd2-4e35-a89a-90dbc1e97a81.md`, and adopted all seven claims in
+  place with their handoff pointers retained. Kite independently verified the
+  transfer and retired; Cutter now holds implementation custody.
+- The canonical comms watcher is transport/cursor evidence, not proof that the
+  reasoning loop was notified. The user caught that detached watcher output
+  was not waking this Codex seat. A separate full-stream ten-minute foreground
+  poll is therefore the cognition path and remains armed until the user stops
+  it; the claim heartbeat remains outbound liveness only.
 - The superseded implementation spike was fully absorbed into the plan, ADR,
   and probe report. Closed PR #477 remains lineage, not an implementation
   source.
@@ -114,25 +137,18 @@ ratified plan or ADR.
 
 ## Next safe step
 
-The successor first reads the primary handoff and six annexes, recounts the
-worktree, branch, claims, peer overlap, and messages, then acknowledges and
-adopts all seven claims in place. No implementation edit precedes that custody
-step.
+Settle focused PR1 before opening any adapter PR:
 
-The first technical move is to repair the final-wire proof so it exercises the
-production runtime, sink, and instrumenter composition with only fetch or the
-transport boundary injected, then obtain a fresh test-expert pass. After that:
-
-1. rerun the adapter's 130-test suite and package gates;
-2. implement bootstrap-only PostHog configuration and a sanitised
-   handler-facing runtime config without creating a second selection axis;
-3. expand claims before touching broader app bootstrap, lifecycle, resource,
-   or served-surface files, and coordinate any overlap with MCP-187;
-4. regenerate `pnpm-lock.yaml` through pnpm tooling only;
-5. complete app wiring, shared close ownership, Sentry coexistence, protocol
-   equivalence, built-app proof, and the full repository gates; and
-6. commit explicit paths, push and verify the remote tip, then open and shepherd
-   the implementation PR.
+1. reconcile the nine-main-commit drift without widening PR1's story;
+2. push local commit `ae25b10c9`, verify the remote tip, open the focused PR,
+   and shepherd it to settled;
+3. keep PR2 local until
+   `mcp-server-instrumenter.integration.test.ts` receives its whole-file
+   test-expert cure, the dead `isNonEmptyString` helper is removed, fresh
+   security/MCP/config reviews pass, and package/boundary gates are rerun;
+4. regenerate `pnpm-lock.yaml` through pnpm tooling only and settle PR2; then
+5. expand the app claims and resolve config secrecy plus one-axis
+   Sentry/fixture coexistence before beginning PR3 production wiring.
 
 Every remaining slice still lands tests and product code atomically. The full
 event/property allowlist, identity projection, minimal-Person behaviour,
@@ -142,9 +158,6 @@ hardening.
 
 ## Handoff loss and metaloss scan
 
-- The implementation contract, privacy boundary, version posture, milestone,
-  branch authority, dirty edit state, claim bundle, and external-surface state
-  now have durable homes above and in the claim-linked handoff record.
 - The obsolete spike contained no unique durable evidence; an independent
   byte-level and contract audit returned DELETE-SAFE before deletion.
 - The repeated risk was authority drift: once-true mechanics, version
@@ -157,15 +170,17 @@ hardening.
 - Discarded association: two plan nodes do not imply two PostHog clients. The
   nodes separate delivery from governance; the runtime architecture still uses
   one client for the current event estate.
-- The new false-green risk is narrower referent drift: focused gates prove the
-  adapter and core slices, while the structurally blocked final-wire test and
-  unrun full check keep the implementation verdict explicitly partial.
-- Gradual succession is not complete merely because a record and directed event
-  exist. Custody changes only when Cutter validates and adopts the seven claims;
-  until then Kite's watcher and heartbeat remain load-bearing.
-- Fixed point: after homing the stale "no implementation" statement, the dirty
-  worktree, final-wire blocker, generated-lock rule, no-app-edit boundary, and
-  adoption promise, a third pass would only re-find those named classes.
+- The current false-green risks are notification drift and delivery-state
+  collapse: watcher process/cursor does not prove cognition, a local commit
+  does not prove publication or review, and accepted adapter evidence does not
+  prove a settled adapter PR.
+- Custody transfer is complete, but monitoring is intentionally redundant. The
+  canonical watcher, foreground cognition poll, and outbound claim heartbeat
+  prove different liveness classes and must not substitute for one another.
+- Tracking is orthogonal to importance, authority, permanence, and safety.
+  Untracked live collaboration state is critical truth-of-now; this tracked
+  thread and the plans are temporary; permanent documentation is the only
+  long-term knowledge destination.
 
 ## Participating identities
 
@@ -176,4 +191,4 @@ hardening.
 | Urchin hunts Surf | claude-code | claude-fable-5 | b51773 | superseded spike author | 2026-07-22 | 2026-07-22 |
 | Crucible wakes Ashes | codex | GPT-5 | 019f9a | ratified plan, probes, and closeout | 2026-07-26 | 2026-07-26 |
 | Kite seeks Crosswind | codex | GPT-5 | 019f9e | implementation and outgoing custody | 2026-07-26 | 2026-07-26 |
-| Cutter hunts Lagoon | codex | GPT-5 | 019f9e | named successor; adoption pending | 2026-07-26 | 2026-07-26 |
+| Cutter hunts Lagoon | codex | GPT-5 | 019f9e | active implementation custody | 2026-07-26 | 2026-07-26 |
