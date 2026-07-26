@@ -51,6 +51,46 @@ belt-and-braces `prettier: '~3.8.4'` override reached inside
 synchronous `format()`), so the generator passed a Promise to writeFile and
 codegen died, cascading 30 tasks.
 
+### Dependency updates
+
+npm dependencies are updated by **agent-run sweeps**, not by Dependabot.
+`.github/dependabot.yml` covers github-actions only: Dependabot regenerates the
+whole lockfile per PR with its own resolver, pulling in transitives published
+within the last 24 hours, which trips `minimumReleaseAge: 1440` at CI install
+and makes every npm-ecosystem PR unmergeable. A local `pnpm` sweep cannot hit
+that failure, because pnpm's own resolver enforces the floor at resolution
+time. Dependabot vulnerability **alerts** stay on — they are a repo setting,
+not part of this file.
+
+Two majors are held deliberately. A sweep must not cross either, and
+`pnpm -r up --latest` crosses both:
+
+- **`typescript` stays on 6.x.** The binding blocker is the type-aware lint
+  stack: every published `typescript-eslint`, including the newest 8.65.1
+  alphas, declares `typescript: ">=4.8.4 <6.1.0"`. Nothing admits TS 7, so
+  adopting it would run type-aware linting across all 28 packages on an
+  unsupported compiler — and the only way to make that pass is to switch the
+  layer off, which
+  [`never-disable-checks`](../../.agent/rules/never-disable-checks.md) forbids.
+  **Lift condition: `typescript-eslint` ships TS 7 support.** Enforced by the
+  `^6` ranges in each manifest.
+
+  A second, smaller blocker sits behind it, recorded so it is not rediscovered:
+  `agent-tools/src/bootstrap/bootstrap.ts` resolves `typescript/bin/tsc` at
+  postinstall, and TS 7's exports map does not expose that subpath (worked
+  failure: PR #416). TS 7 still ships `bin/tsc` and still exports
+  `./package.json`, so the cure is to read the package's own declared `bin.tsc`
+  rather than guess a subpath — correct on TS 6 too. Not built yet: it would
+  unblock nothing while the lint stack is the binding constraint.
+
+- **`@types/node` stays on 24.x**, matching `engines.node: 24.x`. Enforced by
+  the `'@types/node': '^24.x.y'` override in `pnpm-workspace.yaml`, which
+  covers workspaces that pull it only as a transitive peer. Lift it when the
+  project moves Node majors.
+
+Both holds must survive a full lockfile rebuild — see
+[`lockfile-rebuild-survivability`](../../.agent/rules/lockfile-rebuild-survivability.md).
+
 **Project `.npmrc` is optional.** Use it for npm-compatible registry and auth
 only (`registry`, scoped registry maps, tokens). Avoid pnpm-only keys in
 `.npmrc`: npm 9+ warns on unknown project config, and a future npm major may
