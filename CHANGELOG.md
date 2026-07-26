@@ -1,3 +1,10 @@
+# [1.88.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.87.16...v1.88.0) (2026-07-26)
+
+
+### Features
+
+* **observability:** add product analytics port ([3e0e5d5](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3e0e5d556355b655df8703ba2f0f06f6219fb7b3))
+
 ## [1.87.16](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.87.15...v1.87.16) (2026-07-26)
 
 
