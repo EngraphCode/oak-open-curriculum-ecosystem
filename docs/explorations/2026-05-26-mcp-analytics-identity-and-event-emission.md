@@ -1,11 +1,11 @@
 ---
 title: MCP Analytics — Identity Envelope, Event Emission, and Sink Routing
 date: 2026-05-26
-status: active
+status: superseded
 status_note: >
-  Authoritative design record for the May 2026 MCP analytics session.
-  Execution plan promotion is explicitly deferred until the owner
-  requests it; this exploration is the single source of truth until then.
+  Historical design record for the May 2026 MCP analytics session.
+  ADR-218 and the ratified MCP-63/MCP-173 delivery plans supersede its
+  identity, session, event, milestone, and implementation proposals.
 session: cursor-composer-mcp-analytics-identity-2026-05-26
 linking:
   direction: outbound-only
@@ -50,15 +50,21 @@ Elasticsearch, future services such as a hypothetical Oak Knowledge Graph)
 for **analytics**, without defining a host-conversation "user session" in
 this repository.
 
-This document is the **authoritative design record** for a May 2026 working
-session. It records **what the codebase exposes today**, **what we propose
+This document is the **historical design record** for a May 2026 working
+session. It records **what the codebase exposed then**, **what we proposed
 to emit**, **how identifiers partition across sinks**, **privacy and
 compliance requirements** (§11), **milestone and plan placement** (§14),
 **owner decisions** (§1.1), and **session narrative** (§20).
 
-It is **not** an execution plan. Plan promotion is **deferred** until the
-owner requests it (§15, §18). Until then, outbound links only — no inbound
-edits to plan indexes.
+It is **not current execution authority**. The owner subsequently promoted
+and ratified
+[MCP-63](../../.agent/plans/delivery/mcp-63-posthog-product-analytics.plan.md),
+[MCP-173](../../.agent/plans/delivery/mcp-173-posthog-privacy-governance.plan.md),
+and
+[ADR-218](../architecture/architectural-decisions/218-posthog-mcp-analytics-identity-session-and-privacy.md).
+Those records supersede this exploration wherever they differ, including raw
+Clerk identity, event inventory, package-session semantics, milestone timing,
+and implementation shape.
 
 **Quick navigation**
 

@@ -1,7 +1,11 @@
 ---
 title: Redaction Policy — Clerk Identity Downstream of the Barrier
 date: 2026-04-19
-status: active
+status: superseded
+status_note: >
+  ADR-218 resolves the PostHog identity question with a
+  destination-, environment-, and key-version-scoped pseudonym.
+  The options below are retained only as historical exploration.
 informs:
   - 'docs/architecture/architectural-decisions/160-non-bypassable-redaction-barrier-as-principle.md'
   - '.agent/plans/observability/future/second-backend-evaluation.plan.md'
@@ -17,11 +21,12 @@ constraints:
 
 # Redaction Policy — Clerk Identity Downstream of the Barrier
 
-**Status**: Stub. Authored 2026-04-19 in response to the owner-confirmed
-context that all Oak products use Clerk for auth, the MCP server's
-users are all logged-in via Clerk, and a consistent identifier may
-therefore be available across Oak observability sinks subject to
-policy ruling.
+**Status**: Superseded by
+[ADR-218](../architecture/architectural-decisions/218-posthog-mcp-analytics-identity-session-and-privacy.md).
+The accepted design derives a PostHog-only pseudonym inside Oak's verified
+Clerk boundary and prohibits raw Clerk IDs and stable cross-processor person
+identifiers. The alternative positions below remain historical research, not
+live implementation choices.
 
 Informs the redaction-policy posture for
 [ADR-160](../architecture/architectural-decisions/160-non-bypassable-redaction-barrier-as-principle.md)
