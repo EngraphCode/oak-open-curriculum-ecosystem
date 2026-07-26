@@ -5,8 +5,10 @@
  *
  * Honesty note: this test is GREEN even before the MCP-187 fix on local
  * runs — the bug was environment-shaped (codegen hashes the widget URI on
- * deployed builds only, and tests never set `VERCEL`), so the red for the
- * defect is the source-scan invariant in `served-surface.unit.test.ts`.
+ * deployed builds only, and tests never set `VERCEL`), so the structural
+ * guard against the frozen-key defect is the `no-restricted-syntax` ban
+ * on hand-frozen `ui://widget/` literals in this app's `eslint.config.ts`
+ * (a re-frozen key is a lint error, not a test failure).
  * Post-fix, advertisement and registration key both dereference the one
  * generated constant, so this parity is environment-independent by
  * construction; the test stands as the forward guard for any future

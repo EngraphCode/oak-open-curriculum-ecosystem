@@ -24,8 +24,9 @@
  * per deployed build (MCP-187 — a frozen copy of the URI here silently
  * stops matching the generated value on deployed builds, so the widget
  * would advertise but never register). The row's *state* remains a
- * reviewed classification; its *key* must never be re-frozen — a
- * source-scan test enforces this.
+ * reviewed classification; its *key* must never be re-frozen — the
+ * `no-restricted-syntax` ban on `ui://widget/` literals in this app's
+ * `eslint.config.ts` enforces this at the lint gate.
  */
 
 import {
