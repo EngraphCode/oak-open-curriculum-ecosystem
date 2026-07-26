@@ -204,6 +204,11 @@
       "foreground": "border.inverted",
       "background": "bg.inverted",
       "context": "non-text"
+    },
+    {
+      "foreground": "shadow.ground-inverted",
+      "background": "bg.inverted",
+      "context": "non-text"
     }
   ],
   "triads": []
