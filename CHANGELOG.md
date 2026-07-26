@@ -1,3 +1,10 @@
+## [1.88.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.88.2...v1.88.3) (2026-07-26)
+
+
+### Performance Improvements
+
+* **agent-tools:** drain only unseen comms events, not the whole directory ([8faaca7](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8faaca759de9b42a1a04e0d8c3a8b3ef6043fc70))
+
 ## [1.88.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.88.1...v1.88.2) (2026-07-26)
 
 ## [1.88.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.88.0...v1.88.1) (2026-07-26)

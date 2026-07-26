@@ -3,11 +3,21 @@
 /**
  * This script generates the types for the API schema.
  *
- * It generates the following files:
- * - api-schema-original.json - The schema as returned from the API (pure, undecorated)
- * - api-schema-sdk.json - The SDK-decorated schema (e.g., oakUrl plus upstream canonicalUrl)
+ * It generates the schema artefacts at the head of the pipeline:
+ * - api-schema-original.json - The schema as returned from the API (pure, undecorated,
+ *   every upstream path present)
+ * - api-schema-sdk.json - The SDK-decorated schema (e.g., oakUrl plus upstream
+ *   canonicalUrl), minus DEFERRED_PATHS (see ./excluded-paths.ts)
  * - api-paths-types.ts - The OpenAPI-TS types for the SDK schema, for use with OpenAPI-Fetch
- * - path-parameters.ts - The tuples, types and type guards for the path parameters, for use in dynamically constructing API requests
+ * - path-parameters.ts - The tuples, types and type guards for the path parameters, for use
+ *   in dynamically constructing API requests
+ *
+ * api-schema-sdk.json is the input to every downstream generator (OpenAPI-TS types, Zod
+ * schemas, MCP tools, parameter and response maps), so each inherits the DEFERRED_PATHS
+ * exclusion. api-schema-original.json — here and in the committed schema-cache/ copy —
+ * stays verbatim upstream truth, so the schema-drift check and the refresh runbook keep
+ * comparing like with like. ./excluded-paths.ts declares both exclusion sets with their
+ * scope and lifetime; read it before treating a schema-vs-generated-surface gap as drift.
  */
 
 import path from 'node:path';
@@ -16,7 +26,7 @@ import { existsSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { generateSchemaArtifacts } from './codegen-core.js';
 import { writeSchemaCacheIfChanged } from './schema-cache.js';
-import { createOpenCurriculumSchema, saveSchemaToFile } from './schema-separation-core.js';
+import { createOpenCurriculumSchema } from './schema-separation-core.js';
 import { validateOpenApiDocument } from './schema-validator.js';
 import { generateWidgetConstants, generateSubjectHierarchy } from './typegen/index.js';
 import { runSitemapValidation } from './typegen/routing/validate-canonical-urls.js';
@@ -44,7 +54,6 @@ const schemaCacheFilePath = path.resolve(rootDirectory, 'schema-cache/api-schema
 
 interface LoadedSchema {
   readonly original: OpenAPIObject;
-  readonly validated: OpenAPIObject;
   readonly sdk: OpenAPIObject;
 }
 
@@ -98,17 +107,13 @@ async function loadSchema(): Promise<LoadedSchema> {
 }
 logger.info('Generating type artifacts...');
 
-const { original: originalSchema, validated: validatedSchema, sdk: sdkSchema } = await loadSchema();
-
-// Save the original schema
-const originalSchemaPath = path.resolve(outDirectory, 'api-schema-original.json');
-saveSchemaToFile(originalSchema, originalSchemaPath);
-logger.info('Original schema saved', { path: path.relative(process.cwd(), originalSchemaPath) });
+const { original: originalSchema, sdk: sdkSchema } = await loadSchema();
 
 logger.info('Creating SDK schema with oakUrl and upstream canonicalUrl fields...');
 
-// Use the SDK schema for generation
-await generateSchemaArtifacts(validatedSchema, sdkSchema, outDirectory);
+// api-schema-original.json is written once, inside generateSchemaArtifacts, from the
+// unfiltered original; the sdk document (minus DEFERRED_PATHS) drives everything else.
+await generateSchemaArtifacts(originalSchema, sdkSchema, outDirectory);
 
 logger.info('Generating widget constants...');
 generateWidgetConstants(logger);

@@ -8,7 +8,7 @@ export const schemaBase = {
   "openapi": "3.1.0",
   "info": {
     "title": "Oak OpenAPI",
-    "version": "0.7.0-8eceb702a45a5746af6a407a7a5d377ae7ec0c83"
+    "version": "0.7.0-c83593cab07dd1550105e1dabc5218f0f883f3e1"
   },
   "servers": [
     {
@@ -719,11 +719,11 @@ export const schemaBase = {
             "in": "query",
             "name": "limit",
             "schema": {
-              "default": 10,
+              "default": 20,
               "type": "number",
-              "maximum": 100,
-              "description": "Limit the number of lessons, e.g. return a maximum of 100 lessons",
-              "example": 10
+              "maximum": 300,
+              "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons",
+              "example": 20
             }
           },
           {
@@ -1350,11 +1350,11 @@ export const schemaBase = {
             "in": "query",
             "name": "limit",
             "schema": {
-              "default": 10,
+              "default": 20,
               "description": "Offset applied to lessons within each unit (not to the unit list).",
               "type": "number",
-              "maximum": 100,
-              "example": 10
+              "maximum": 300,
+              "example": 20
             }
           }
         ],
@@ -2045,11 +2045,11 @@ export const schemaBase = {
             "in": "query",
             "name": "limit",
             "schema": {
-              "default": 10,
+              "default": 20,
               "type": "number",
-              "maximum": 100,
-              "description": "Limit the number of lessons, e.g. return a maximum of 100 lessons",
-              "example": 10
+              "maximum": 300,
+              "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons",
+              "example": 20
             }
           },
           {
@@ -2183,11 +2183,11 @@ export const schemaBase = {
             "in": "query",
             "name": "limit",
             "schema": {
-              "default": 10,
+              "default": 20,
               "type": "number",
-              "maximum": 100,
-              "description": "Limit the number of lessons, e.g. return a maximum of 100 lessons",
-              "example": 10
+              "maximum": 300,
+              "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons",
+              "example": 20
             }
           },
           {
@@ -2286,11 +2286,11 @@ export const schemaBase = {
             "in": "query",
             "name": "limit",
             "schema": {
-              "default": 10,
+              "default": 20,
               "type": "number",
-              "maximum": 100,
-              "description": "Limit the number of lessons, e.g. return a maximum of 100 lessons",
-              "example": 10
+              "maximum": 300,
+              "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons",
+              "example": 20
             }
           },
           {
@@ -9615,7 +9615,7 @@ export const schemaBase = {
           },
           "downloadsAvailable": {
             "type": "boolean",
-            "description": "Whether the lesson currently has any downloadable assets availableNote: this field reflects the current availability of downloadable assets, which reflects the availability of early-release content available for the hackathon. All lessons will eventually have downloadable assets available."
+            "description": "Whether the lesson currently has any downloadable assets available."
           }
         },
         "required": [
@@ -10247,8 +10247,7 @@ export const schemaBase = {
     "securitySchemes": {
       "bearerAuth": {
         "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
+        "scheme": "bearer"
       }
     }
   }
