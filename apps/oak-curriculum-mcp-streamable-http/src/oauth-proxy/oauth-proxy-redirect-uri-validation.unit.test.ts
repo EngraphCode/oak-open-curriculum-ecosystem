@@ -5,8 +5,10 @@ import { findRedirectUriRejection } from './oauth-proxy-redirect-uri-validation.
 /**
  * The registration boundary's `redirect_uris` contract (MCP-188).
  *
- * RFC 9700 §2.1: an authorization server MUST NOT allow redirection URIs
- * using the `http` scheme except for loopback redirection per RFC 8252 §7.3.
+ * RFC 9700 §2.6: authorization servers MUST NOT allow redirection URIs using
+ * the `http` scheme except for native clients using loopback interface
+ * redirection as described in RFC 8252 §7.3 — §7.3 being the section that
+ * DEFINES loopback redirection, not the source of the prohibition.
  * RFC 7591 §3.2.2 names the error codes returned to the client.
  */
 describe('findRedirectUriRejection', () => {

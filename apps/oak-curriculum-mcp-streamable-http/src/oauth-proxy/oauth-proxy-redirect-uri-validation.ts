@@ -1,12 +1,15 @@
 /**
  * Registration-time `redirect_uris` validation for the OAuth proxy (MCP-188).
  *
- * RFC 9700 §2.1: an authorization server MUST NOT allow redirection URIs
- * using the `http` scheme except for loopback redirection as described in
- * RFC 8252 §7.3. Because the proxy advertises itself as the issuer and
- * registration endpoint (see `oauth-proxy-upstream.ts` metadata rewriting),
- * that obligation attaches here — see ADR-115 §Transparent Passthrough, as
- * amended.
+ * RFC 9700 §2.6: "authorization servers MUST NOT allow redirection URIs that
+ * use the `http` scheme except for native clients that use loopback interface
+ * redirection as described in Section 7.3 of [RFC8252]". RFC 8252 §7.3 is the
+ * section that clause points at: it DEFINES loopback interface redirection and
+ * permits `http` for it, stating no prohibition of its own, so it cannot carry
+ * the obligation alone.
+ * Because the proxy advertises itself as the issuer and registration endpoint
+ * (see `oauth-proxy-upstream.ts` metadata rewriting), that obligation attaches
+ * here — see ADR-115 §Transparent Passthrough, as amended.
  *
  * The validator is TOTAL: it never throws. `asyncRoute` converts any throw
  * into a 500, so a throw here would turn a legitimate registration into a
