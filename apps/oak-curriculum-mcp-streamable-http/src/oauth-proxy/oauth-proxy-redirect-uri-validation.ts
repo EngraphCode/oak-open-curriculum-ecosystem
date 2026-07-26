@@ -1,9 +1,11 @@
 /**
  * Registration-time `redirect_uris` validation for the OAuth proxy (MCP-188).
  *
- * RFC 9700 §2.6: "authorization servers MUST NOT allow redirection URIs that
- * use the `http` scheme except for native clients that use loopback interface
- * redirection as described in Section 7.3 of [RFC8252]". RFC 8252 §7.3 is the
+ * RFC 9700 §2.6 ({@link https://www.rfc-editor.org/rfc/rfc9700.html#section-2.6}):
+ * "authorization servers MUST NOT allow redirection URIs that use the `http`
+ * scheme except for native clients that use loopback interface redirection as
+ * described in Section 7.3 of [RFC8252]". RFC 8252 §7.3
+ * ({@link https://www.rfc-editor.org/rfc/rfc8252.html#section-7.3}) is the
  * section that clause points at: it DEFINES loopback interface redirection and
  * permits `http` for it, stating no prohibition of its own, so it cannot carry
  * the obligation alone.

@@ -137,12 +137,14 @@ The evidence for the third test: the MCPJam conformance check
 `oauth_dcr_http_redirect_uri` failed against the deployed alpha — `POST
 /oauth/register` returned 201 for a plain-`http` non-loopback
 `redirect_uri` — first observed 2026-07-26 and reconfirmed first-hand against
-production the same day after that day's deploy. RFC 7591 §3.2.2 supplies the
-refusal's _shape_ (HTTP 400, `invalid_redirect_uri` / `invalid_client_metadata`),
-not the rule itself.
+production the same day after that day's deploy.
+[RFC 7591 §3.2.2](https://www.rfc-editor.org/rfc/rfc7591.html#section-3.2.2)
+supplies the refusal's _shape_ (HTTP 400, `invalid_redirect_uri` /
+`invalid_client_metadata`), not the rule itself.
 
-Deliberate deviation, recorded so it is not read later as an oversight: RFC
-8252 §8.4's SHOULD that private-use schemes be reverse-domain-named is NOT
+Deliberate deviation, recorded so it is not read later as an oversight:
+[RFC 8252 §8.4](https://www.rfc-editor.org/rfc/rfc8252.html#section-8.4)'s
+SHOULD that private-use schemes be reverse-domain-named is NOT
 enforced. Its minimum period test would reject `cursor://callback`, the scheme
 of the very client this ADR exists to serve.
 
@@ -187,23 +189,41 @@ The proxy works because Clerk issues opaque tokens (`oat_...`), not JWTs. There 
 
 All upstream HTTP calls use `fetchWithTimeout()` with a 10-second timeout (configurable via `OAuthProxyConfig.timeoutMs`). `fetchUpstream` returns `Result<T, ProxyFetchError>` with a discriminated union (`timeout` | `network`).
 
-| Failure                          | Proxy Response                                                                   |
-| -------------------------------- | -------------------------------------------------------------------------------- |
-| Clerk returns 4xx/5xx, JSON body | Pass through Clerk's status + body, with `error_description` bounded (see below) |
-| Clerk returns 4xx/5xx, non-JSON  | Status preserved, body re-synthesised as our own OAuth error object              |
-| Clerk returns 2xx, non-JSON      | HTTP 502 + `{ "error": "server_error" }`                                         |
-| Clerk times out (>10s)           | HTTP 504 + `{ "error": "temporarily_unavailable" }`                              |
-| Network error                    | HTTP 502 + `{ "error": "temporarily_unavailable" }`                              |
+| Failure                          | Proxy Response                                                                                                                   |
+| -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| Clerk returns 4xx/5xx, JSON body | Status and parsed body passed through UNCHANGED — no bounding, no sanitisation (`parseJsonBody`)                                 |
+| Clerk returns 4xx/5xx, non-JSON  | 429 preserved as `temporarily_unavailable`; EVERY other status mapped to 502 `server_error`, upstream text bounded and sanitised |
+| Clerk returns 2xx, non-JSON      | HTTP 502 + `{ "error": "server_error" }`                                                                                         |
+| Clerk returns malformed JSON     | HTTP 502 + `{ "error": "server_error" }`                                                                                         |
+| Clerk times out (>10s)           | HTTP 504 + `{ "error": "temporarily_unavailable" }`                                                                              |
+| Network error                    | HTTP 502 + `{ "error": "temporarily_unavailable" }`                                                                              |
 
-Response-side truing (2026-07-26, MCP-188): the previous table row claimed
-upstream 4xx/5xx bodies pass through verbatim. That has not been true since
-`oauth-proxy-response.ts` landed — it re-synthesises non-JSON upstream errors,
-bounds and sanitises `error_description` so a misbehaving upstream cannot
-smuggle terminal-escape sequences or unbounded payloads into MCP client logs,
-and drops implausible `Retry-After` values. The table above is corrected to
-match. **Behaviour recorded as-built; its soundness is not re-adjudicated
-here** — this truing is documentation of what the code provably does, not a
-fresh ratification of the design, and no behaviour changed in the amending PR.
+Response-side truing (2026-07-26, MCP-188), corrected twice under review — the
+detail matters because the JSON and non-JSON paths behave differently and the
+first truing blurred them:
+
+- **JSON error bodies are passed through unchanged.** `readUpstreamBody`
+  routes any `application/json` response to `parseJsonBody`, which returns the
+  parsed value as-is. No bounding, no sanitisation, no status change. An
+  oversized or control-character-bearing `error_description` from Clerk reaches
+  the client intact.
+- **Non-JSON errors are re-synthesised, and their status is NOT preserved.**
+  `mapNonJsonErrorResponse` keeps 429 (as `temporarily_unavailable`) and maps
+  every other status — 400 and 401 included — to 502 `server_error`. Only on
+  this path is the upstream text bounded and sanitised against terminal-escape
+  sequences and unbounded payloads, and only here are implausible `Retry-After`
+  values dropped.
+
+The original row ("pass through verbatim") stopped being true when
+`oauth-proxy-response.ts` landed; the first correction then over-claimed
+sanitisation for the JSON path and status preservation for the non-JSON one.
+The table above now states each path separately.
+
+**Behaviour recorded as-built; its soundness is not re-adjudicated here** —
+this is documentation of what the code provably does, not a fresh ratification
+of the design, and no behaviour changed in the amending PR. That the JSON path
+applies no bound is therefore RECORDED, not endorsed; changing it is a
+behaviour decision with its own evidence bar.
 
 ### Deployment Preconditions
 
