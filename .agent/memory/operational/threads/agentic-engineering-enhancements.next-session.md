@@ -24,6 +24,24 @@ feedback-mechanism arc, taxonomy work) is retained in git and in the
 work brief and the recent identity stretch, per
 [`continuity-practice.md` §Disposition](../../../directives/continuity-practice.md).
 
+## DEDICATED CONSOLIDATION — EXECUTED (2026-07-26)
+
+Magnetar guards Perigee (claude-code / fable-5 / `565521`), curator,
+first_session 2026-07-26, last_session 2026-07-26. Owner-launched dedicated
+pass on base f5f48a332; comms sweep first per owner word (58 tagged + 570
+titled + longest bodies, post-07-23 window). Graduations at e1d48b955 +
+the follow-on commit: two new patterns (description-is-not-a-check;
+frozen-text-false-authority — the play seed's 4th instance), pr-lifecycle
+×4 (settled-by-name, Class F/P, quiet-window supersede, owner-branch
+collision), PDR-133 §8 landed in the surface matrix, stance-gradient +
+tier-inheritance in invoke-code-experts, six rule sharpenings, napkin
+rotated to `archive/napkin-2026-07-26.md`. Registers empty at open and
+close (pending-graduations 0, open-questions 0); comms archive-move
+executed (123 heartbeat-tier; provenance 0 violations). Named next-pass
+candidates: this record's own char-hard drain; the 1,406-event
+curator-ledger tooling gap; agent-collaboration.md relay-doctrine homing
+for the crossed-owner-words lesson (staged in distilled).
+
 ## DEDICATED CONSOLIDATION — EXECUTED (2026-07-23)
 
 Session identity: Magma mends Sulphur (claude / claude-fable-5 / prefix

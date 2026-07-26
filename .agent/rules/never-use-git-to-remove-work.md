@@ -89,6 +89,18 @@ may run the command themselves via `!`). The table's "read HEAD, then
 Edit what you want to keep" row is selective forward judgment, not this —
 the line is wholesale restoration of the blocked effect.
 
+## Read the Target Immediately Before Any Overwrite
+
+Even on the permitted forward path (Edit/Write toward committed content),
+**read the target's live diff at the moment of acting** — overwriting
+destroys exactly the evidence needed to answer "were my changes the only
+changes in that file?" afterwards (owner catch 2026-07-25: a forward
+overwrite of two shared-checkout files was answerable only from a stale
+`git status` that happened to survive in context; the safe-looking method
+had made the safety question archaeological). Ten seconds of `git diff --
+<file>` before the write makes the question answerable instead; certainty
+is the thing that removes the check, so the check is unconditional.
+
 ## A Safety Proof Never Licenses the Class
 
 No local proof of safety — a byte-identical duplicate elsewhere, a clean

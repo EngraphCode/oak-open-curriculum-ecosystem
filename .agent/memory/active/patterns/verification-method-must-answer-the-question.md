@@ -73,6 +73,15 @@ different costume of the same class:
   required-names-present leg).
 - **Check the same surface the claimant checked** before refuting a claim.
 
+- **Name the OBJECT the instrument ran against** before believing its
+  verdict — the SHA, the resolved version, the live-vs-residual store state.
+  Three instances in one 2026-07-25 lane: a cached lint measured the OLD
+  plugin; a `node_modules/.pnpm/<pkg>@*` listing measured store residue from
+  prior installs, not the live resolution; a hand-built release monitor
+  measured the PREVIOUS PR's run (the newest run was not the awaited one —
+  the SHA mismatch was the save). A green is a measurement, and a
+  measurement is worthless until you can say what it measured.
+
 The connecting discipline: before trusting any verification verdict, name
 the question the method actually answers, and confirm it is the question at
 stake.

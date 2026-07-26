@@ -27,6 +27,11 @@ tool retires them.
 - **Prettier must run with the target worktree as cwd** (2026-07-20): a
   root-anchored relative path from a reset shell cwd silently formats
   the wrong checkout (one pre-commit red before diagnosis).
+- **`node_modules/.pnpm/<pkg>@*` listings read store RESIDUE** (2026-07-25):
+  the pnpm store keeps prior installs' versions, so a glob listing after a
+  bump can read back the OLD version while the bump worked perfectly.
+  Verify a resolved version with `pnpm why <pkg>` or the lockfile, never a
+  store-directory listing.
 - **Branch-switch stale-dist brick** (2026-07-20): after switching a
   checkout between branches whose `@oaknational/result` dist differs,
   `pnpm install`'s bootstrap fails on the stale dist and every filtered
