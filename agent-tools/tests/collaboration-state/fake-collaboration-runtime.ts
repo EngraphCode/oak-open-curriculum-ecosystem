@@ -104,6 +104,8 @@ function createFakeIo(state: FakeRuntimeState): CollaborationStateCliIo {
       );
     },
     readCommsEvents: async (commsDir) => readCommsEvents(state, commsDir),
+    readCommsEventsExcluding: async (commsDir, excludeIds) =>
+      readCommsEvents(state, commsDir).filter((event) => !excludeIds.has(event.event_id)),
     readWorktrees: async () => state.worktrees,
     readDirectedCommsMessages: async (commsDir) =>
       readCommsEvents(state, commsDir).filter(isDirectedCommsMessage),

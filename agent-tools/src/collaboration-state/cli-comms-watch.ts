@@ -189,7 +189,10 @@ async function drainComms(input: {
   readonly excludeTags?: ReadonlySet<CommsEventTag>;
 }): ReturnType<typeof drainRelevantEvents> {
   const seenIds = await input.io.readSeenIds(input.seenFile);
-  const messages = await input.io.readCommsEvents(input.commsDir);
+  // MCP-198: read only the UNSEEN files. `drainRelevantEvents` filters by the
+  // same seen-set, so this is behaviour-preserving — it moves the filter ahead
+  // of the file reads so drain cost tracks new events, not directory size.
+  const messages = await input.io.readCommsEventsExcluding(input.commsDir, seenIds);
   return drainRelevantEvents({
     messages,
     seenIds,
