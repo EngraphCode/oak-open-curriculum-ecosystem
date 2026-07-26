@@ -101,9 +101,10 @@ onto this node — one line each, pointers never duplicates.
   advanced; the owner restored the bypass at 12:59. Standing cures
   landed: the release-process runbook (the first D23 runbook node) and
   the loud Slack failure alert (#497; alert channel corrected in #500).
-- 2026-07-23 — D22: the frozen PostHog spike's preservation vehicle
-  changed — PR #477 closed; the spike is preserved as annotated tag
-  `mcp-63-posthog-spike-frozen` (dd8df27f8); MCP-63 carries the pointer.
+- 2026-07-26 — D22 superseded: the PostHog spike's durable evidence is
+  absorbed into the ratified MCP-63/MCP-173 plans, ADR-218, and the dated
+  probe report on draft PR #568. Closed PR #477 is not an implementation
+  source; its annotated tag, worktree, and obsolete branches were deleted.
 - 2026-07-23 — MCP-67 and MCP-121 ratified at owner cards; the
   ratification stamps live in those plans themselves.
 - 2026-07-23 — M1 COMPLETE: MCP-101 done (five PRs, every acceptance

@@ -148,12 +148,18 @@ forward-asks remain.
   code-class follow-on (TDD cycles, never a sweep sed). **Open action:**
   `docs/graph-team-direction-2026-06-10` carries two unmerged commits (`ae5372e2c`, `c9ff6bb49`);
   merging it is an open owner/Director action (reconcile the napkin/eef-record content on merge).
-- **DECISION-COMPLETE plans awaiting execution routing.** Output-schemas for MCP tools (every
-  `outputSchema` = `composeEnvelopeSchema(payloadSchema)`; next = execution routing); the MCP test
-  estate + observability-sinks plans (§Next Safe Steps); MCP product-analytics (owner-gated on
-  legal/privacy; the MCP-63 slice was owner-HALTED 2026-07-22 pre-planning —
-  spike frozen at tag `mcp-63-posthog-spike-frozen`, PostHog planned WITH the
-  owner at its sitting). OAK-PROD MCP snagging — next: S0 non-Cursor probe, then S1 to owner.
+- **MCP product analytics — ACTIVE.** The submission-blocking PostHog sink and
+  `@posthog/mcp` integration proceed from the ratified MCP-63 plan, landed on
+  main via PR #568 (merge `ccd1c410f`, 2026-07-26); implementation runs on a
+  fresh branch scoped to `packages/core/observability` +
+  `packages/libs/posthog-node`. MCP-173 separately gates October public-beta
+  enablement. Package versions remain flexible; behaviour and privacy
+  contracts are fixed.
+- **Other decision-complete plans awaiting execution routing.** Output-schemas
+  for MCP tools (every `outputSchema` =
+  `composeEnvelopeSchema(payloadSchema)`; next = execution routing); the MCP
+  test estate + observability-sinks plans (§Next Safe Steps). OAK-PROD MCP
+  snagging — next: S0 non-Cursor probe, then S1 to owner.
 - **no-throw remediation — RESHAPED, READY (survey-first), PAUSED for the strategy thread.** Controlling
   plan [`no-throw-remediation.plan.md`](../../plans-backlog-2026-07/architecture-and-infrastructure/current/no-throw-remediation.plan.md);
   the ~1000-warning count is an indiscriminate-rule artefact (~6 cause-classes). Investigation-first
@@ -189,6 +195,7 @@ each thread record; this table is the repo-level index.
 
 | Thread | Purpose | Record | Latest identity |
 | --- | --- | --- | --- |
+| `mcp-product-analytics` | Submission-blocking PostHog sink and MCP analytics integration; October public-beta governance is a separate gate | [record][mcp-analytics] | Kite seeks Crosswind / codex / GPT-5 / MCP-63 implementation / 2026-07-26 |
 | `first-class-copilot-cli-practice` | Make GitHub Copilot CLI running locally an equal first-class citizen of the canonical Practice: honest identity, deliberate team join, inherited-hook policy enforcement, supported instruction/skill/agent/MCP projections, local comms/lifecycle, and live proof. The CLI-only strategic and four delivery nodes are owner-ratified; runtime remains gated behind their replacement record landing. | [record](threads/first-class-copilot-cli-practice.next-session.md) | codex / GPT-5 / Thistle holds Blossom (019f94) / replacement-plan implementer / 2026-07-24 ← copilot / gpt-5.6-sol / Thistle rides Canopy (494337) / design authority and live evidence author / 2026-07-24 |
 | `mcp-agent-facing-content` | Audit + classified registry of repo-controlled content reaching MCP consumers (the effective agent prompt); distinct from `data-sources-governance` (DATA sources). Deliverables + lane history: thread record | [record](threads/mcp-agent-facing-content.next-session.md) | claude-code / claude-fable-5 / Urchin hunts Surf / implementer — MCP-103(a) delta-refresh MERGED (#476) / 2026-07-22 (chain: thread record) |
 | `upstream-api-alignment` | Realign SDK/MCP (and bulk export) to the evolving upstream Oak API + a repeatable observable process. Programmes-family instance shipped on PR #291 (`merge=CLEAN`, awaiting owner merge); process graduated to a permanent runbook | [record](threads/upstream-api-alignment.next-session.md) | claude / claude-opus-4-8[1m] / Vanilla stirs Spore / implementer — successor to Bonfire turns Basalt; WS2+WS4+WS6 landed, review triage cleared / 2026-07-01 |
@@ -222,7 +229,6 @@ not the current session-priority lane. Reactivation is owner-directed.
 | `oak-kg-ontology-planning-review` | Plan the `oak-kg`/ontology work via a deep review of the Oak Curriculum Ontology repo (opened, not started; paused 2026-06-19) | [record][oak-kg-ontology] | claude / Opus 4.8 / Twilit Cascading Supernova / thread-opener-brief-only / 2026-06-04 |
 | `connecting-oak-resources` | Oak resource graph substrate plus queued source-integration workspaces and paused reusable-curriculum-architecture evidence | [record][connecting] | codex / GPT-5 / Leopard tracks Dewdrop / source-integration concept exploration, plan, and closeout / 2026-07-15 |
 | `branch-fitness-and-push-cadence` | Small-PR, push-often, branch-fitness, PR/Sonar protocol substrate | [record][branch-fitness] | Pelagic Snorkelling Sextant / codex / GPT-5 / Cycle 1 substrate capture / 2026-05-24 |
-| `mcp-product-analytics` | MCP product analytics design and Path-to-GA Programme | [record][mcp-analytics] | claude-code / claude-fable-5 / Urchin hunts Surf / implementer — MCP-63 slice-1 HALTED by owner (unplanned), frozen branch `dd8df27f8` preserved / 2026-07-22 ← Stellar Glowing Satellite / claude / claude-opus-4-7 / Programme landed + amendments / 2026-05-26 |
 | `observability-sentry-otel` | Sentry/OTel integration | [record][observability] | Umbral Creeping Night / claude-code / opus-4.7 / 2026-05-10 |
 | `exploring-open-education-resources` | Third-party OER | [record][oer] | Gnarled / claude-code / 2026-05-01 |
 | `sector-engagement` | External adoption | [record][sector] | claude-code / Fable 5 / Forge turns Basalt / dfe-data-sdk-seed-authoring / 2026-06-12 (prior: Squally / cursor / 2026-04-30) |
@@ -445,8 +451,9 @@ this section; create a thread record when execution is scheduled.
 
 ## Open Owner-Decision Items
 
-1. MCP product analytics execution-plan promotion is deferred. Production PostHog
-   capture still needs the legal/privacy gates named in the exploration record.
+1. MCP product analytics has no open implementation-shape decision. MCP-63
+   proceeds from the ratified plan on PR #568; the remaining owner-held decision
+   is October public-beta enablement after MCP-173's evidence is complete.
 2. Monorepo workspace topology is held by owner decision (2026-05-09) until after
    the graph MVP implementation tranche, unless the owner reopens it.
 3. MCP launch-readiness: ratify the impact-first Stage 1–4 ladder (assessment report §8) →
@@ -502,7 +509,7 @@ authority.
   write-hook (`.agent/rules/no-machine-local-paths.md`).
 
 [main-sonar-zero]: threads/main-sonar-ai-profile-to-zero.next-session.md
-[mcp-analytics]: threads/paused/mcp-product-analytics.next-session.md
+[mcp-analytics]: threads/mcp-product-analytics.next-session.md
 [observability]: threads/paused/observability-sentry-otel.next-session.md
 [agentic]: threads/agentic-engineering-enhancements.next-session.md
 [connecting]: threads/paused/connecting-oak-resources.next-session.md

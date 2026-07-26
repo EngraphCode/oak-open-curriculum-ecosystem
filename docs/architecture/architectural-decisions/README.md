@@ -448,6 +448,12 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   static assets under a closure-tested manifest; served-surface claims derived
   at render time; optional affordances as declared flags whose machinery ships
   with their control; Accepted 2026-07-26)
+- [ADR-218: PostHog MCP analytics identity, session, and privacy boundary](218-posthog-mcp-analytics-identity-session-and-privacy.md)
+  (separates deterministic product-interaction analytics from Sentry
+  diagnostics; defines the scoped pseudonymous actor, UUIDv7 call/event,
+  no-current-session and no-conversation posture, closed content-free event
+  envelope, minimal deletion-index Person, and October public-beta governance
+  boundary; Accepted by owner direction 2026-07-26)
 
 ## Key Architectural Decisions
 
