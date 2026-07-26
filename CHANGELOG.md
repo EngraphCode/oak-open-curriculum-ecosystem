@@ -1,3 +1,10 @@
+## [1.88.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.88.0...v1.88.1) (2026-07-26)
+
+
+### Bug Fixes
+
+* **agent-tools:** mint merge-bot tokens with workflows scope ([053138f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/053138fce92d05eed4cfcb5a9974320ef0b1a529)), closes [#557](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/557)
+
 # [1.88.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.87.16...v1.88.0) (2026-07-26)
 
 
