@@ -123,13 +123,18 @@ export function assertBuiltServerDefaultExport(bundleSource: string): void {
   throw new Error(INVALID_VERCEL_EXPORT_MESSAGE);
 }
 
+/** react or react-dom, with any subpath — tested against a lone specifier. */
+const REACT_MODULE_SPECIFIER = /^(?:react|react-dom)(?:\/[\w-]+)?$/;
+
 /**
- * An external module import of react or react-dom (any subpath), in either
- * ESM or CJS form. Matches import/require statements only — inlined string
- * CONTENT (the widget bundle's text mentions `react-dom`) must not match.
+ * Module specifiers quoted after `from` (ESM) — a tiny linear extraction;
+ * the specifier itself is judged separately so no single pattern needs
+ * alternation or ambiguous quantifiers.
  */
-const REACT_MODULE_IMPORT_PATTERN =
-  /(?:^|\n)\s*import\s[^;]*?from\s*["'](?:react|react-dom)(?:\/[\w-]+)?["']|\brequire\(\s*["'](?:react|react-dom)(?:\/[\w-]+)?["']\s*\)/m;
+const ESM_SPECIFIER_PATTERN = /\bfrom\s*["']([^'"\n]+)["']/g;
+
+/** Module specifiers inside `require(...)` (CJS) — same shape. */
+const CJS_SPECIFIER_PATTERN = /\brequire\(\s*["']([^'"\n]+)["']\s*\)/g;
 
 /**
  * Fail when a deploy-graph bundle still imports react or react-dom.
@@ -141,10 +146,17 @@ const REACT_MODULE_IMPORT_PATTERN =
  * survives bundling as an external import — green everywhere locally (tsx
  * resolves the workspace copy) and a hard `ERR_MODULE_NOT_FOUND` on the
  * deployed function, where devDependencies are pruned. This guard is what
- * makes the devDependencies placement safe rather than assumed.
+ * makes the devDependencies placement safe rather than assumed. Inlined
+ * string CONTENT (the widget bundle's text mentions `react-dom` inside
+ * backticks) carries no quoted import specifier and must not match.
  */
 export function assertNoReactModuleImport(bundleName: string, bundleSource: string): void {
-  if (!REACT_MODULE_IMPORT_PATTERN.test(bundleSource)) {
+  const specifiers = [
+    ...bundleSource.matchAll(ESM_SPECIFIER_PATTERN),
+    ...bundleSource.matchAll(CJS_SPECIFIER_PATTERN),
+  ].map((match) => match[1] ?? '');
+
+  if (!specifiers.some((specifier) => REACT_MODULE_SPECIFIER.test(specifier))) {
     return;
   }
 

@@ -79,15 +79,13 @@
   background: var(--bg-inverted);
   padding-block: var(--space-16) 0;
 }
-.site-tabs .oak-btn {
-  --focus-ring: var(--focus-ring-inverted);
-}
 .site-tabs-inner {
   display: flex;
   flex-wrap: wrap;
   gap: var(--gap-m);
 }
 .site-tabs .oak-btn {
+  --focus-ring: var(--focus-ring-inverted);
   border-bottom-left-radius: var(--radius-square);
   border-bottom-right-radius: var(--radius-square);
   border-bottom-width: var(--border-solid-none);
