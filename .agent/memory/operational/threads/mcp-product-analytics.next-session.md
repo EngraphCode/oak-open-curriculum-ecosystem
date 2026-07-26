@@ -40,9 +40,9 @@ gates the October public beta.
   state and evidence. Linear
   [MCP-173](https://linear.app/oaknational/issue/MCP-173) owns the October
   public-beta governance sequence and evidence links.
-- The
-  [Notion consultation](https://app.notion.com/p/3a926cc4e1b18111994cecccc3c426f4)
-  owns substantive consultation, research, feedback, wording, and rationale.
+- The AI Managed Notion consultation owns substantive consultation, research,
+  feedback, wording, and rationale. Its workspace URL remains outside tracked
+  repository content.
 
 ## Authority order
 
