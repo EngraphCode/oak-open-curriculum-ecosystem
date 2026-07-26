@@ -89,9 +89,11 @@ Act as a **proxy OAuth Authorisation Server** by serving three proxy endpoints t
 ### Transparent Passthrough
 
 The proxy is a transparent protocol pipe. It does not alter OAuth payloads,
-filter client parameters, rewrite Clerk response bodies, or perform its own
-OAuth grant validation. Clerk is the real authorisation server and handles
-OAuth security decisions.
+filter client parameters, or perform its own OAuth grant validation. Clerk is
+the real authorisation server and handles OAuth security decisions. Two scoped
+exceptions are recorded: the request-side one below, and the response-side
+error normalisation described under Error Handling (which this ADR previously
+described as verbatim passthrough — corrected 2026-07-26 to match the code).
 
 The proxy may still sit behind application and edge traffic controls. Current
 runtime wires application rate limiting for OAuth proxy routes per ADR-158;
@@ -176,11 +178,23 @@ The proxy works because Clerk issues opaque tokens (`oat_...`), not JWTs. There 
 
 All upstream HTTP calls use `fetchWithTimeout()` with a 10-second timeout (configurable via `OAuthProxyConfig.timeoutMs`). `fetchUpstream` returns `Result<T, ProxyFetchError>` with a discriminated union (`timeout` | `network`).
 
-| Failure                | Proxy Response                                      |
-| ---------------------- | --------------------------------------------------- |
-| Clerk returns 4xx/5xx  | Pass through Clerk's status + body verbatim         |
-| Clerk times out (>10s) | HTTP 504 + `{ "error": "temporarily_unavailable" }` |
-| Network error          | HTTP 502 + `{ "error": "temporarily_unavailable" }` |
+| Failure                          | Proxy Response                                                                   |
+| -------------------------------- | -------------------------------------------------------------------------------- |
+| Clerk returns 4xx/5xx, JSON body | Pass through Clerk's status + body, with `error_description` bounded (see below) |
+| Clerk returns 4xx/5xx, non-JSON  | Status preserved, body re-synthesised as our own OAuth error object              |
+| Clerk returns 2xx, non-JSON      | HTTP 502 + `{ "error": "server_error" }`                                         |
+| Clerk times out (>10s)           | HTTP 504 + `{ "error": "temporarily_unavailable" }`                              |
+| Network error                    | HTTP 502 + `{ "error": "temporarily_unavailable" }`                              |
+
+Response-side truing (2026-07-26, MCP-188): the previous table row claimed
+upstream 4xx/5xx bodies pass through verbatim. That has not been true since
+`oauth-proxy-response.ts` landed — it re-synthesises non-JSON upstream errors,
+bounds and sanitises `error_description` so a misbehaving upstream cannot
+smuggle terminal-escape sequences or unbounded payloads into MCP client logs,
+and drops implausible `Retry-After` values. The table above is corrected to
+match. **Behaviour recorded as-built; its soundness is not re-adjudicated
+here** — this truing is documentation of what the code provably does, not a
+fresh ratification of the design, and no behaviour changed in the amending PR.
 
 ### Deployment Preconditions
 
