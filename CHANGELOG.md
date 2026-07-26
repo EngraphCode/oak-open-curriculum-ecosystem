@@ -1,3 +1,11 @@
+# [1.89.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.88.3...v1.89.0) (2026-07-26)
+
+
+### Features
+
+* **sdk-codegen:** add deferred-paths exclusion module (MCP-152) ([501f16c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/501f16cf7ed815a6b0e4628797d24060f64de377))
+* **sdk-codegen:** adopt upstream 0.7.0-c83593ca with check-restricted deferred (MCP-152) ([96e8ecf](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/96e8ecf4a00517235b872db3056ec390c15f725e))
+
 ## [1.88.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.88.2...v1.88.3) (2026-07-26)
 
 
