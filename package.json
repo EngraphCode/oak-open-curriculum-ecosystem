@@ -144,7 +144,7 @@
     "@commitlint/config-conventional": "^21.2.0",
     "@mcpjam/cli": "3.15.2",
     "@oaknational/eslint-plugin-standards": "workspace:*",
-    "@playwright/test": "^1.61.1",
+    "@playwright/test": "^1.62.0",
     "@semantic-release/changelog": "^7.0.0",
     "@semantic-release/git": "^11.0.1",
     "@stryker-mutator/core": "^9.6.1",
