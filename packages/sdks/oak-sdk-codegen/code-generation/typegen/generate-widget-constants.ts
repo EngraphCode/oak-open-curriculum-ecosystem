@@ -27,8 +27,15 @@ function generateWidgetConstantsFile(): string {
  * This app renders tool output with Oak branding, logo, and styling.
  * All UI-bearing tools reference this URI in their \`_meta.ui.resourceUri\` field (ADR-141).
  *
- * **Cache-Busting Strategy**: The URI includes a hash generated at sdk-codegen time.
- * Each build produces a new hash, naturally busting the host widget cache.
+ * **Cache-Busting Strategy**: The URI carries a deterministic per-build hash
+ * derived at sdk-codegen time from the build identifier (git commit SHA on
+ * commit-identified deployed builds; the per-deployment ID on non-git
+ * deploys; the literal \`local\` in local dev). A code change yields a
+ * new URI — the only cache-invalidation lever the MCP Apps standard gives a
+ * server (hosts MAY cache \`ui://\` content with no invalidation mechanism).
+ * Same-code redeploys keep the same URI on the commit-SHA path; on the
+ * deployment-ID fallback the URI changes with every deploy, because each
+ * deployment mints a fresh ID.
  *
  * **Format**: \`ui://widget/oak-curriculum-app-<hash>.html\`
  * **Example**: \`ui://widget/oak-curriculum-app-abc12345.html\`

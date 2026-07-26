@@ -21,21 +21,14 @@
  * a first dormant app-local row adds its surface here.
  */
 
-import { describe, it, expect, vi } from 'vitest';
-import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { describe, it, expect } from 'vitest';
 import { z } from 'zod';
 import { getCurriculumModelJson } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
-import { registerHandlers } from '../handlers.js';
 import { renderToolsSection } from '../landing-page/render-tools-section.js';
 import { renderResourcesSection } from '../landing-page/render-resources-section.js';
 import { SERVED_SURFACE } from './served-surface.js';
 import { filterCurriculumModelJson } from './filter-guidance-content.js';
-import {
-  createFakeSearchRetrieval,
-  createFakeLogger,
-  createFakeHttpObservability,
-} from '../test-helpers/fakes.js';
-import { createMockRuntimeConfig } from '../test-helpers/auth-error-test-helpers.js';
+import { walkCanonicalRegistration } from '../test-helpers/registration-walk.js';
 
 /** Tool names the canonical definition holds dormant. */
 const DORMANT_TOOLS = Object.entries(SERVED_SURFACE.universalTools)
@@ -52,19 +45,10 @@ function walkRegistration(): {
   readonly tools: ReadonlySet<string>;
   readonly resources: ReadonlySet<string>;
 } {
-  const server = new McpServer({ name: 'test-server', version: '0.0.0' });
-  const registerToolSpy = vi.spyOn(server, 'registerTool');
-  const registerResourceSpy = vi.spyOn(server, 'registerResource');
-  registerHandlers(server, {
-    runtimeConfig: createMockRuntimeConfig(),
-    logger: createFakeLogger(),
-    observability: createFakeHttpObservability(),
-    searchRetrieval: createFakeSearchRetrieval(),
-    getWidgetHtml: () => '<!doctype html><html><body>test-widget</body></html>',
-  });
+  const walk = walkCanonicalRegistration();
   return {
-    tools: new Set(registerToolSpy.mock.calls.map((call) => String(call[0]))),
-    resources: new Set(registerResourceSpy.mock.calls.map((call) => String(call[1]))),
+    tools: new Set(walk.toolConfigs.keys()),
+    resources: walk.resourceUris,
   };
 }
 

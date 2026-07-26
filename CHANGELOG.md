@@ -1,3 +1,29 @@
+## [1.88.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.88.1...v1.88.2) (2026-07-26)
+
+## [1.88.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.88.0...v1.88.1) (2026-07-26)
+
+
+### Bug Fixes
+
+* **agent-tools:** mint merge-bot tokens with workflows scope ([053138f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/053138fce92d05eed4cfcb5a9974320ef0b1a529)), closes [#557](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/557)
+
+# [1.88.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.87.16...v1.88.0) (2026-07-26)
+
+
+### Features
+
+* **observability:** add product analytics port ([3e0e5d5](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3e0e5d556355b655df8703ba2f0f06f6219fb7b3))
+
+## [1.87.16](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.87.15...v1.87.16) (2026-07-26)
+
+
+### Bug Fixes
+
+* **mcp-app:** serve the widget at the URI tools advertise on deployed builds ([9f12bcd](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9f12bcd7ba70398808bcf314d764a366f0ee2c43))
+* **sdk-codegen:** hash VERCEL_DEPLOYMENT_ID into the sdk-codegen cache key ([e70b96d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e70b96d29a57f82b1750c204e56a8a0f8d87baf9))
+
+## [1.87.15](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.87.14...v1.87.15) (2026-07-26)
+
 ## [1.87.14](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.87.13...v1.87.14) (2026-07-26)
 
 ## [1.87.13](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.87.12...v1.87.13) (2026-07-26)

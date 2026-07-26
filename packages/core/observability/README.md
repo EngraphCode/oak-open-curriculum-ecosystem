@@ -2,12 +2,14 @@
 
 Provider-neutral observability helpers for Oak runtimes.
 
-This workspace owns four shared concerns:
+This workspace owns six shared concerns:
 
 - **Recursive telemetry redaction** (`redactTelemetryValue`, `redactTelemetryObject`, `redactHeaderRecord`, `redactHeaderValue`, `REDACTED_VALUE`) — the non-bypassable redaction policy applied before any fan-out path reaches the network. Covers URL/query values and raw form-encoded OAuth bodies as well as already-parsed objects. See [ADR-160](../../../docs/architecture/architectural-decisions/160-non-bypassable-redaction-barrier-as-principle.md).
 - **Value-level redaction primitives** (`redactText`, `redactUnknownValue`, `redactJsonObject`, `redactStringRecord`) — thin wrappers every Sentry adapter (Node today, browser under L-12 tomorrow) composes onto its vendor-typed event shapes. The adapters own their own event-shape wiring because vendor `Event`/`Breadcrumb`/`Exception`/`Log`/`Span` types diverge between runtimes.
 - **JSON sanitisation** (`sanitiseForJson`, `sanitiseObject`, `isJsonValue`) — converts arbitrary values to JSON-safe form (primitives pass through; `undefined` becomes `null`; `Date` becomes ISO string; `Error` becomes `{message, name, stack}`; arrays/objects recurse; unserialisable values become `'[unserializable]'`; circular references become `'[Circular]'`).
 - **OpenTelemetry span context** (`getActiveSpanContextSnapshot`, `withActiveSpan`) — read the active span context and run manual spans without depending on a concrete runtime transport.
+- **Observability selection and diagnostic sinks** (`OBSERVABILITY_SINK_DEFINITIONS`, `OBSERVABILITY_SINK_KINDS`, `DIAGNOSTIC_SINK_KINDS`, `SinkRegistry`) — derive the full app-local selection and diagnostic-only registry from one closed literal source.
+- **Product-analytics capabilities** (`ProductAnalyticsSink`, `McpServerInstrumenter`, `ProductAnalyticsRuntime`, `createOffProductAnalyticsRuntime`) — expose a closed provider-neutral runtime slot alongside, rather than inside, diagnostic exception and message sinks.
 
 ## Canonical JSON-safe type
 
@@ -19,5 +21,5 @@ This workspace is browser-safe by construction: no `@sentry/*` imports, no `node
 
 ## Boundaries
 
-- `@oaknational/observability` depends on: `@oaknational/type-helpers`, `@opentelemetry/api`. Zero lib-tier dependencies (ADR-041).
+- `@oaknational/observability` depends on: `@oaknational/result`, `@oaknational/type-helpers`, `@opentelemetry/api`. Zero lib-tier dependencies (ADR-041).
 - Consumers: `@oaknational/logger` (for sanitisation + redaction in log context handling), `@oaknational/sentry-node` (for the primitives composed onto Sentry event shapes), apps composing observability directly.

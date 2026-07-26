@@ -8,8 +8,9 @@
  * - {@link OBSERVABILITY_SINKS_SCHEMA} — typed list of additional external
  *   sink targets layered on top of the always-on stdout baseline (per
  *   ADR-162 §The Vendor-Independence Clause). The list is data, not a
- *   mode; new sinks (`'warehouse'`, `'posthog'`) extend the literal union
- *   without changing the surface shape.
+ *   mode; diagnostics (`'sentry'`, `'file'`) and product analytics
+ *   (`'posthog'`) share the literal selection union without sharing a
+ *   runtime capability shape.
  * - {@link OBSERVABILITY_FIXTURES_SCHEMA} — orthogonal fixture-as-tee
  *   boolean. When `true`, the fixture store observes the same events the
  *   external sinks see, **after** the ADR-160 redaction barrier. Fixtures
@@ -60,10 +61,9 @@ export { OBSERVABILITY_FIXTURES_SCHEMA, OBSERVABILITY_SINKS_SCHEMA } from './obs
  *    inside the registry (D8 in the plan body).
  * 3. `'sentry'` in sinks ⇒ `SENTRY_DSN` required.
  * 4. `'file'` in sinks ⇒ `OBSERVABILITY_FILE_PATH` required.
- * 5. `VERCEL_ENV === 'production'` AND sinks empty ⇒ hard error
- *    (production must include a remote sink; ADR-162 §The
- *    Vendor-Independence Clause and the plan's locality-enforcement
- *    rule).
+ * 5. `VERCEL_ENV === 'production'` AND no diagnostic sink selected ⇒
+ *    hard error. PostHog alone does not satisfy diagnostic locality
+ *    (ADR-162 §The Vendor-Independence Clause and ADR-218).
  *
  * The preview-with-empty-sinks warning is NOT emitted via `addIssue`
  * — warnings will be surfaced through the `warnings` channel on

@@ -1,16 +1,18 @@
 /**
  * Vendor-neutral sink-registry and server-instrumenter ports.
  *
- * @remarks Defines the canonical `ObservabilitySinkKind` literal union, the
- * per-sink {@link ObservabilitySink} capability surface, the
+ * @remarks Defines the canonical `ObservabilitySinkKind` selection union, the
+ * diagnostic-only {@link DiagnosticSinkKind} literal union, the per-sink
+ * {@link ObservabilitySink} capability surface, the
  * {@link SinkRegistry} typed-map shape, and the {@link ServerInstrumenter}
  * port that closes ADR-162 §Open Questions on direct vendor imports
  * (`wrapMcpServerWithSentry`, `setupExpressErrorHandler`). All shapes are
  * declared without any `@sentry/node` import — this file is the boundary
  * where vendor neutrality is enforced for the runtime registry.
  *
- * Sink kinds are listed in {@link OBSERVABILITY_SINK_KINDS}; future sinks
- * (`'warehouse'`, `'posthog'`) extend the tuple, never widen the surface.
+ * Sink kinds are grouped in {@link OBSERVABILITY_SINK_DEFINITIONS}; the full
+ * selection tuple and diagnostic-only tuple derive from that one literal
+ * source without widening the diagnostic registry.
  *
  * @see ../../../../docs/architecture/architectural-decisions/143-coherent-structured-fan-out-for-observability.md
  * @see ../../../../docs/architecture/architectural-decisions/162-observability-first.md
@@ -22,25 +24,49 @@
 import type { ObservabilityContextPayload } from './types.js';
 
 /**
- * Canonical literal tuple of supported external observability sink kinds.
+ * Canonical grouped definitions for the app-local observability selection.
  *
- * @remarks This tuple is the source of truth for the sink-kind union
- * shared by the runtime registry and the `OBSERVABILITY_SINKS` env-var
- * schema in `@oaknational/env`. The schema imports this tuple to drive
- * its `z.enum`, so adding a sink (`'warehouse'`, `'posthog'`) is a
- * one-edit change here.
+ * @remarks This object is the only literal source for both the full
+ * `OBSERVABILITY_SINKS` selection axis and the diagnostic-only registry.
+ * Product analytics shares the app-local selection axis while retaining its
+ * distinct capability surface.
  *
  * stdout is the always-on baseline (per ADR-162 §The Vendor-Independence
  * Clause) and is intentionally NOT in this list — sinks describe
  * external destinations, not the baseline.
  */
-export const OBSERVABILITY_SINK_KINDS = ['sentry', 'file'] as const;
+export const OBSERVABILITY_SINK_DEFINITIONS = {
+  diagnostic: ['sentry', 'file'],
+  product_analytics: ['posthog'],
+} as const;
+
+/**
+ * Exact tuple of diagnostic sink kinds accepted by {@link SinkRegistry}.
+ */
+export const DIAGNOSTIC_SINK_KINDS = OBSERVABILITY_SINK_DEFINITIONS.diagnostic;
+
+/**
+ * Literal union of diagnostic sink kinds.
+ */
+export type DiagnosticSinkKind = (typeof DIAGNOSTIC_SINK_KINDS)[number];
+
+/**
+ * Exact tuple of every app-local observability selection.
+ *
+ * @remarks Literal spreads preserve the exact tuple without `Object.*`,
+ * `map`, `filter`, or type assertions.
+ */
+export const OBSERVABILITY_SINK_KINDS = [
+  ...OBSERVABILITY_SINK_DEFINITIONS.diagnostic,
+  ...OBSERVABILITY_SINK_DEFINITIONS.product_analytics,
+] as const;
 
 /**
  * Literal union of supported external observability sink kinds.
  *
- * @remarks Discriminator on every {@link ObservabilitySink} instance and
- * key of {@link SinkRegistry}.
+ * @remarks Used by the app-local configuration axis. Only
+ * {@link DiagnosticSinkKind} is a valid discriminator for
+ * {@link ObservabilitySink} and key of {@link SinkRegistry}.
  */
 export type ObservabilitySinkKind = (typeof OBSERVABILITY_SINK_KINDS)[number];
 
@@ -81,7 +107,7 @@ export type ObservabilitySinkKind = (typeof OBSERVABILITY_SINK_KINDS)[number];
  *
  * @typeParam K - The discriminator literal identifying this sink.
  */
-export interface ObservabilitySink<K extends ObservabilitySinkKind = ObservabilitySinkKind> {
+export interface ObservabilitySink<K extends DiagnosticSinkKind = DiagnosticSinkKind> {
   readonly kind: K;
   captureException(error: unknown, context?: ObservabilityContextPayload): void;
   captureMessage(message: string, context?: ObservabilityContextPayload): void;
@@ -109,7 +135,7 @@ export interface ObservabilitySink<K extends ObservabilitySinkKind = Observabili
  * ```
  */
 export type SinkRegistry = {
-  readonly [K in ObservabilitySinkKind]?: ObservabilitySink<K>;
+  readonly [K in DiagnosticSinkKind]?: ObservabilitySink<K>;
 };
 
 /**

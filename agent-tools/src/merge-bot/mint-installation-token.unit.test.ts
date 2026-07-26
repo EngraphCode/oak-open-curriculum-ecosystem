@@ -125,8 +125,50 @@ describe('mintInstallationToken', () => {
     expect(calls[0].method).toBe('POST');
     expect(JSON.parse(calls[0].body ?? '{}')).toEqual({
       repositories: ['oak-open-curriculum-ecosystem'],
-      permissions: { pull_requests: 'write', contents: 'write' },
+      permissions: { pull_requests: 'write', contents: 'write', workflows: 'write' },
     });
+  });
+
+  it("carries GitHub's explanation on a 422, so a permission gap names its own fix", async () => {
+    const result = await mintInstallationToken({
+      appJwt: 'j',
+      installationId: 1,
+      repoName: 'r',
+      fetchImpl: fakeFetch(
+        [
+          {
+            status: 422,
+            body: {
+              message: 'The permissions requested are not granted to this installation.',
+              documentation_url: 'https://docs.github.com/rest',
+            },
+          },
+        ],
+        [],
+      ),
+    });
+
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.message).toContain('HTTP 422');
+      expect(result.error.message).toContain(
+        'The permissions requested are not granted to this installation.',
+      );
+    }
+  });
+
+  it('still reports the status when the error body is not the documented shape', async () => {
+    const result = await mintInstallationToken({
+      appJwt: 'j',
+      installationId: 1,
+      repoName: 'r',
+      fetchImpl: fakeFetch([{ status: 500, body: { unexpected: 'shape' } }], []),
+    });
+
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.message).toContain('HTTP 500');
+    }
   });
 
   it('rejects a 201 whose body fails the schema (strict boundary)', async () => {
