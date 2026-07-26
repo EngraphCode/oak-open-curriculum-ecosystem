@@ -11,6 +11,7 @@ endpoints + 5 schemas).
 | --- | --- | --- | --- | --- | --- | --- |
 | Vanilla stirs Spore | claude | claude-opus-4-8[1m] | 807471 | implementer | 2026-07-01 | 2026-07-01 |
 | Katydid seeks Moonbeam | claude-code | claude-fable-5 | 477cba | status-verifier (drive-by) | 2026-07-06 | 2026-07-06 |
+| Swallow guards Tailwind | claude-code | claude-fable-5 | 805902 | implementer — MCP-152/153 concept exploration + execution | 2026-07-26 | 2026-07-26 |
 
 **Predecessor (identity fields not fully recorded):** *Bonfire turns Basalt* authored the
 plan + process notes and landed WS0 (programmes regen) and WS1 (cached-schema-default,
@@ -39,20 +40,21 @@ section (2026-07-01).
   - **WS3 (bulk types schema-derivation) MOVED OUT** to its own future plan. **WS5 (committed
     live smoke lane) DEFERRED** (owner-confirmed 2026-07-01).
 - **Blockers / low-confidence areas**: none blocking.
+- **2026-07-26 CORRECTION (Swallow guards Tailwind, fleet-verified from git, first-hand)**:
+  the canary item below was wrong twice — the test NEVER asserted `limit [100]` (git blame:
+  `[10]` since `028dc2171`, 2026-04-10), and the 2026-07-06 "green, cause unestablished" WAS
+  establishable from git all along: `f02a7ba1b` (2026-06-30) deliberately aligned offset
+  `[50]`→`[0]` with rationale in the commit body. Standing prediction: the next regen turns
+  the canary RED on `limit` example `[10]` vs live `[20]` — the correct disposition is a
+  documented alignment (the `f02a7ba1b` shape), never a blind expectation edit. Full
+  exploration record:
+  `.agent/reports/upstream-and-bulk-alignment-concept-exploration-2026-07-26.md`
+  (also corrects this record's "bulk schema.json is not committed" item — it IS committed,
+  since `2fffb80ff` 2026-07-01, and is never true of its own payload; see the report before
+  acting on items 2–3 below).
 - **Next safe step** (#291 is merged; these are live):
-  1. **RESOLVED-in-passing check (Katydid seeks Moonbeam, 2026-07-06): the RED gate below now
-     PASSES on latest `main`** — `meta-examples-roundtrip.integration.test.ts` ran 3/3 green
-     first-hand (and full `pnpm check` was green the same day on a branch cut from `main`).
-     Whether it was fixed deliberately or the upstream examples drifted back was not
-     established — verify cause before deleting this item; the runbook instance may already
-     cover it. Original item retained below for that verification:
-  1. **Pre-existing RED gate on `main` — upstream pagination-examples drift.** `pnpm check`
-     fails on `@oaknational/sdk-codegen test`: `meta-examples-roundtrip.integration.test.ts`
-     asserts `offset.examples [50]` / `limit [100]` but gets `[0]` — the upstream OpenAPI
-     spec's pagination examples changed under us (owner-diagnosed 2026-06-30). Owner-routed:
-     fix in a fresh session in a worktree off latest `main`. Do NOT blind-fix the test
-     expectation (`[50]`→`[0]`) — that masks the real upstream drift; treat it as an
-     alignment-runbook instance (regen against the live spec, then reconcile).
+  1. ~~Canary verification item~~ — RESOLVED by the 2026-07-26 correction above (cause
+     established from git; prediction + disposition rule recorded there).
   2. **Author the `bulk-types-schema-derivation` future plan — it does NOT yet exist.** The
      runbook and the active plan both reference it as future; the bulk types are still
      template-authored (a schema-first violation) and the bulk `schema.json` is not committed.
