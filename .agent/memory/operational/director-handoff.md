@@ -262,81 +262,95 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> ### ▶ SITTING DIRECTOR: Squall wakes Apex (`459fd1`), seated 2026-07-26 at owner word (Moment-2 `f1d9a6f2` against Gecko's standing Moment-1); claim `56fdd977`, role director
+> ### ▶ SITTING DIRECTOR: Squall wakes Apex (`459fd1`), seated 2026-07-26 at owner word (Moment-2 `f1d9a6f2`); claim `56fdd977`, role director
 >
-> Refreshed 2026-07-26 ~09:40Z at a compaction boundary (seat continues). Verify
-> every line live at pickup — this section decays.
+> Refreshed 2026-07-26 ~13:10Z at the day's second compaction boundary (seat
+> continues). Verify every line live at pickup — this section decays.
 >
-> **The work directed**: the V1 release drive toward the initial submission.
-> ALL dates, vendor specifics, and the milestone calendar live in Linear ONLY
-> (sensitivity split stands). Board reshaped at owner agreement this morning:
-> M5 split (evidenced one-shot conformance run = MCP-184 in M0; continuous-CI
-> machinery = MCP-125 behind MCP-176, re-dated to the Engineering Complete
-> window), M1 renamed "the served surface is controlled and intentional"
-> (owner: control is a capability, never a freeze, "this isn't a CAB") and
-> re-dated, carrying MCP-121 post-initial-submit. Correction on record: MCP-143
-> is the M4 Clerk production EXECUTION (Urgent, est 8, seatless), MCP-125 is
-> the MCPJam ticket — do not re-cross them.
+> **The work directed**: the V1 release drive toward the initial submission
+> (the M0 window; ALL dates and vendor timing live in Linear ONLY). Today's
+> arc: the MCP-63 plan LANDED on main (PR #568, merge `ccd1c410f`);
+> implementation is mid-pipeline and MID-SUCCESSION; the owner-reported
+> widget bug (MCP-187) and the DCR redirect gap (MCP-188) are in flight;
+> the MCPJam evidence trail (MCP-184) has its first attended runs banked.
 >
-> **Fleet at refresh (verify live)**: Lavender turns Pollen (claude, f00cf6)
-> ACTIVE on the design lane — adopted Triton's claim 68088465 at owner word,
-> running the #565 full-surface thread round; Sonar gate OK via owner-directed
-> agent-executed accepts. Crucible wakes Ashes (codex, 019f9a) ACTIVE on
-> MCP-63 implementation — fresh branch jimcresswell/mcp-63-posthog-deterministic-analytics
-> off origin/main, plan-first commit, draft PR #568; owner amendment in force:
-> dependency versions FLEXIBLE, Oak behavioural/privacy contracts fixed
-> (supersedes the exact-pin ruling). Magnetar guards Perigee (claude-code,
-> 565521) consolidation COMPLETE (pass at 32a420242) then re-activated at
-> owner word enacting PDR-094 v3 (retention = knowledge, never bytes;
-> comms-archive dissolves). Triton mends Void retired via clean handoff to
-> Lavender. Cygnus weaves Vastness retired silent post-completion (deps lane
-> verified complete).
+> **Fleet at refresh (verify live via the mechanical check)**: Skua weaves
+> Wingspan (claude-code, 6b9274) — MCP-187 rework on PR #571: the freeze
+> word's RENEWAL fired on two substantive Copilot threads; Skua adopted the
+> hash-the-deployment-ID remedy; word renews at the NEW settled (Director
+> re-issues on the fresh evidence package); MCP-183 queued next. Dynamo
+> spins Naphtha (claude-code, 2f5519) — shepherds PR #570 (MCP-189 wrapper)
+> to its own landing, then PR #572 (MCP-192 mint-scope, inherited from
+> Aurora with the security verdict recorded in Aurora's 12:39Z handoff
+> event), then MCP-188 (owner word). Kite seeks Crosswind → Cutter hunts
+> Lagoon (both codex, 019f9e): owner-initiated PDR-063 in-flight succession
+> on MCP-63 — seven-claim bundle with per-claim handoff pointers under
+> .agent/state/collaboration/handoffs/ (start: f5b77b73-*.md); adoption
+> pending Cutter's discontinuity validation; the final-wire test-expert
+> block (test bypasses production runtime/sink) is NAMED successor work.
+> Aurora turns Gravity RETIRED at owner word ~12:44Z — clean closeout, both
+> claims closed; its delegations are VOID (the #571 landing delegation and
+> the pre-granted empty-commit word) — those recurrences route to the
+> Director. Seatless PRs now land via the Director at settled (no monitor
+> seat exists).
 >
-> **Board**: open PRs = #565 (design lane, lands only on Director word — the
-> submission-surface freeze holds), #567 (preservation draft, discharge paths
-> written inside it: MCP-183 test slice + gated copilot-lane resume), #568
-> (MCP-63 implementation draft). Every open PR must carry a live discharge
-> path — the stranger test (worktree-hygiene rule carries it now).
-> Worktrees: primary + codex-platform 2f0f + mcp-128-landing-port +
-> mcp-128-pre-ratification (holds an unreconciled reports dir — design lane
-> dispositions) + mcp-63-posthog (spike, evidence-only). Coordination branch
-> contains latest main; tip at this refresh 01f8a8327+.
+> **Board**: #565 GATED on the design-lane successor (full-React SSR+hydration
+> conversion per owner ruling 09:43Z; claim 68088465 awaits adoption via
+> handoffs/2026-07-26-lavender-mcp-128-full-react-handoff.md; ~41 review
+> threads await that seat's batch round; one trivial ADR-index conflict).
+> #567 do-not-merge; discharges via the MCP-183 harvest then CLOSE + DELETE
+> BRANCH (owner branch ruling: merged work is preserved, branches are not).
+> #569 (coordination, mine, draft-by-design): CodeQL + SonarCloud reds to
+> assess at a quiet moment; merges only at estate convergence. #570/#571/
+> #572 as per fleet above. Every open PR carries a live discharge path.
 >
-> **Owner-held / awaiting owner word**: launch of the MCP-143 seat and the
-> MCP-102 seat (briefs delivered in-channel); the codegen-refresh seat
-> (upstream spec + Elasticsearch delta — task board item); MCP-183/184 are
-> named next-pickups for the first seat that frees. Sitting list: progress-
-> report successor (post-submission — freeze + sensitivity bind), model-tier
-> stance gradient as Core PDR candidate, Notion boundary-rule amendment
-> confirm, the stale-Active-threads batch reclassification proposal.
+> **Director duties armed on triggers**: (1) re-issue the #571 word at its
+> new settled, then at production deploy run AC-4b — the attended MCPJam
+> apps re-check, expect 3/7 → 7/7, suffix = sha256 of the landed merge
+> commit; (2) MCPJam OAuth credentials file (session scratchpad, 0600)
+> expires ~10:41Z 2026-07-27 — authed re-runs after that need a fresh
+> owner-attended `oauth login`; (3) at MCP-183's landing, close #567 and
+> delete its branch; (4) Copilot-review no-show playbook: cause UNKNOWN
+> (draft-suppression theory STRUCK, see the 12:52Z failure-mode broadcast);
+> verify the request exists (reviewer handle is `Copilot`, the author login
+> is silently ignored), fire the dedicated request endpoint bot-first, route
+> a second no-show as service data.
 >
 > **Live rulings in force**: browser sessions for PostHog EU project 221775
-> and the Vercel project poc-oak-open-curriculum-mcp are owner-provisioned in
-> Chrome for the DIRECTOR SEAT ONLY — no other agent touches them, and no
-> project on either platform other than those two named ones is ever accessed
-> (live services elsewhere; owner word 2026-07-26); branch work is NOT
-> preserved — merged work is (owner word 2026-07-26: valuable → find a way to
-> merge it, else delete; "frozen for reference" is not a disposition — #567
-> discharges via the MCP-183 harvest merge, then close + delete);
-> submission-surface freeze
-> (served surface / auth path / landing page land through the Director until
-> the submission);
-> sensitivity split (no release dates or assistant-vendor timing in the repo);
-> milestones are propose-and-agree (owner agreement is the gate; never leave
-> sequenced-out work dangling — named milestone + date + carriers, always);
-> Sonar dispositions are owner-DIRECTED, agent-executable (rule amended at the
-> generator, 2026-07-26); MCP-152/153 HELD; workflow/agent fan-outs tier per
-> leg, never default the session model (Fable subagents essentially never).
+> and the Vercel project poc-oak-open-curriculum-mcp are owner-provisioned
+> for the DIRECTOR SEAT ONLY — no other agent, no other project on either
+> platform (live services elsewhere); branch work is NOT preserved — merged
+> work is (valuable → merge it, else delete; frozen-reference is not a
+> disposition); submission-surface freeze (served surface / auth path /
+> landing page land through the Director); executor class rule (a PR with a
+> live implementer seat lands by that seat; freeze-bound surfaces take
+> Director word whoever executes); settled = ruleset-grounded (checks green
+> plus code-scanning/quality plus Copilot review present, every thread resolved;
+> NO approving review — required_approving_review_count is 0 everywhere and
+> bot reviewers only COMMENT); sensitivity split (no dates/vendor timing in
+> repo); dependency versions FLEXIBLE, Oak behavioural/privacy contracts
+> FIXED; milestones propose-and-agree, work never dangles.
 >
-> **Standing duties that transfer**: daily release-burndown check against the
-> owner's dated intent in Linear; doubled crickets (normal + adversarial) at
-> cycle boundaries, hourly, this seat included — adjudicate divergent pairs
-> first-hand and feed the A/B tally; watcher re-arm + post-restart sweep on
-> every hourly timeout death (cursor movement is the health check); comms
-> sends use --body-file always; absolute paths on every invocation; owner-
-> channel answer-first; record-first-ask-last; complement ticket numbers with
-> prose in anything the owner reads.
+> **Owner-held at refresh**: the design-lane successor seat (unblocks #565);
+> the MCP-117 PostHog key ceremony (needed only for the MCP-63 live-proof
+> acceptance; env contract documented in the app's .env.example); the
+> workflows App grant enactment landed as PR #572 (in flight); the
+> codegen-refresh seat (upstream API 0.7.0 delta + Elasticsearch check —
+> task board item 7); milestone homes for MCP-190/191 (propose-and-agree);
+> the MCP-195 settings half (Actions environments). Eventual-successor
+> naming on record: Cutter for Kite (active now).
 >
-> **Succession**: PDR-063/064 unchanged (two moments; the readiness gate above
-> with the pasted mechanical liveness check). This section is refreshed by the
-> sitting Director at every handoff or continuity boundary.
+> **Standing duties that transfer**: persistent all-channels watcher
+> (Monitor, --exclude-tag heartbeat, --step-timeout-ms 120000; re-arm on
+> fail-loud death, sweep the gap via a seen-file COPY, peer-liveness via
+> the claims freshness check); dual-surface heartbeat loop (240s); daily
+> release-burndown vs Linear; comms sends --body-file always; absolute
+> paths; exit codes in-band with output captured to a file (never piped,
+> never muted — both failure modes hit this seat today); owner-channel
+> answer-first; prose with ticket numbers for the owner; referent-narrowing
+> discipline (patterns/referent-narrowing.md): name what each signal
+> reports on, one independent witness per load-bearing claim.
+>
+> **Succession**: PDR-063/064 unchanged (two moments; the readiness gate
+> above with the pasted mechanical liveness check). This section is
+> refreshed by the sitting Director at every handoff or continuity boundary.
