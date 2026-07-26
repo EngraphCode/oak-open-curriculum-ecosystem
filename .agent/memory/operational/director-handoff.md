@@ -443,8 +443,16 @@ first-hand as of 2026-06-25.
 > engagement (URGENT, unstarted, EXTERNAL LATENCY, gates the submission —
 > the listing carries the endpoint; surfaced to the owner at the 15:0xZ
 > survey; was MISSING from this list before that survey — inherited blind
-> spot, now cured). The design-lane seat is FILLED 18:19Z: Skipper
-> tracks Abyss (4144b4, claude/claude-fable-5), claim 68088465 ADOPTED,
+> spot, now cured). The design-lane seat SUCCEEDED cleanly 20:22–20:24Z:
+> Skipper tracks Abyss retired at owner word (four-section record at
+> handoffs/2026-07-26-skipper-mcp-128-restack-full-handoff.md; stack
+> PRs #578 + #580 open and green, #580 carrying the preview-probe merge
+> gate; PR-3 ~80% frozen uncommitted-by-design, gates-before-commit);
+> Schooner binds Trench (5492d7, claude/claude-fable-5) ADOPTED claim
+> 68088465 in place from registered standby, record read end-to-end, own
+> monitors armed on the drain-cure dist, continuing PR-3 from the
+> record's REMAINING list. Original seating 18:19Z: Skipper
+> (4144b4, claude/claude-fable-5), claim 68088465 adopted from Lavender,
 > owner-approved six-PR linear restack plan (three review passes, 45
 > findings adjudicated): PR-1 DS source → PR-2 serve-DS (copy-before-boot
 > exit criterion) → PR-3 React page baked at build (CSP font cure) →
