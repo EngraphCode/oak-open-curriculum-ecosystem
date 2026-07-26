@@ -73,6 +73,7 @@
     "practice:substrate:check": "pnpm --filter @oaknational/agent-tools practice-substrate -- check",
     "protocol:conformance": "pnpm --filter @oaknational/agent-tools protocol-conformance",
     "mcp:conformance": "pnpm -s --filter @oaknational/agent-tools mcp-conformance",
+    "mcp:conformance:ci": "pnpm --filter @oaknational/agent-tools mcp-conformance:ci",
     "type-check": "turbo run --continue type-check",
     "format:root": "prettier --write --cache .",
     "format-check:root": "prettier --check .",

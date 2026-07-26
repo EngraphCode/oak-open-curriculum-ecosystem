@@ -52,14 +52,16 @@ jobs:
         # No `--` separator: each pnpm forwarding layer re-appends it, and the
         # house arg scanner reads a leading `--` as its terminator (verified
         # end-to-end through both script layers, 2026-07-26).
-        # Deliberately NOT the documented `pnpm -s` form: this scheduled gate's
-        # verdict reads the exit code + uploaded report dir (raw per-suite
-        # reports + summary.json), never stdout — so stdout purity buys
-        # nothing here, while `-s` would suppress pnpm [WARN] lines in the
-        # only log this unattended run has. Stdout consumers use
-        # `pnpm -s mcp:conformance` (see the CLI help).
+        # The `:ci` alias exists BECAUSE dropping `-s` from this line was not
+        # enough: both nested layers re-added it (the root alias ran
+        # `pnpm -s --filter …`, and the workspace alias `pnpm -s build`), so
+        # pnpm's configuration, engine and deprecation warnings stayed hidden
+        # while the job passed green. The `:ci` chain is silence-free end to
+        # end; the plain alias keeps `-s` for stdout consumers who need pure
+        # JSON. This gate's verdict reads the exit code and the uploaded report
+        # dir, never stdout, so it gives up nothing by being loud.
         run: >-
-          pnpm mcp:conformance
+          pnpm mcp:conformance:ci
           --target https://curriculum-mcp-alpha.oaknational.dev/mcp
           --unattended
           --report-dir tmp/mcp-conformance/ci
@@ -106,62 +108,22 @@ jobs:
             }
           ' "$summary"
 
-      # The uploaded artefact is deliberately world-readable BECAUSE the
-      # unattended plan is credential-free. That invariant is enforced for
-      # SECRETS by their absence from this workflow — but nothing enforces it
-      # on the CONTENT the vendor writes, and two facts make that a live
-      # concern: the reporter schema leaves `details` unconstrained, and Oak's
-      # DCR proxy relays upstream registration bodies verbatim.
+      # A pre-upload credential scan was drafted here and REMOVED before merge
+      # (MCP-217 owns it). Two review findings showed the draft was worse than
+      # nothing: it ran AFTER the command had already written report-derived
+      # content to the job log, so a credential could be published before the
+      # scan blocked the artefact; and its key-shaped regexes could not see a
+      # registration body embedded as escaped text inside an `output`, `error`
+      # or stderr string, which is the most likely way one would actually
+      # arrive. A scanner that misses the realistic representation and runs
+      # after the leak buys false confidence — the exact failure MCP-217 was
+      # raised to avoid, applied to my own guard.
       #
-      # Verified first-hand 2026-07-26 that today's captures carry no secret
-      # (`received_client_credentials` records only "→ 201 Created"; the only
-      # `client_secret` occurrence is vendor teaching copy). This step keeps
-      # that true under vendor drift rather than trusting it to stay true.
-      - name: Refuse to publish credential-shaped report content
-        id: credential-scan
-        if: always()
-        run: |
-          dir=tmp/mcp-conformance/ci
-          if [ ! -d "$dir" ]; then
-            echo "no report dir to scan"
-            exit 0
-          fi
-          node --input-type=module -e '
-            import { readdirSync, readFileSync } from "node:fs";
-            import { join } from "node:path";
-            const dir = process.argv[1];
-            // KEY-shaped matches with a non-empty value, never bare mentions:
-            // the vendor prints teaching copy naming these fields, so matching
-            // prose would fail every run and train the next reader to ignore
-            // this gate. A gate that cries wolf is worse than no gate.
-            const patterns = [
-              /"client_secret"\s*:\s*"[^"]+"/,
-              /"access_token"\s*:\s*"[^"]+"/,
-              /"refresh_token"\s*:\s*"[^"]+"/,
-              /"registration_access_token"\s*:\s*"[^"]+"/,
-            ];
-            const hits = [];
-            for (const name of readdirSync(dir)) {
-              if (!name.endsWith(".json")) continue;
-              const text = readFileSync(join(dir, name), "utf8");
-              for (const pattern of patterns) {
-                if (pattern.test(text)) hits.push(name + " matched " + String(pattern));
-              }
-            }
-            if (hits.length > 0) {
-              console.error("REFUSING UPLOAD: report content carries credential-shaped values.");
-              for (const hit of hits) console.error("  " + hit);
-              console.error("The unattended plan is credential-free by invariant, so this means the vendor began emitting registration or token bodies. Adjudicate before any publication.");
-              process.exit(1);
-            }
-            console.log("report content carries no credential-shaped values");
-          ' "$dir"
-
-      # Gated on the scan, NOT on the conformance result: evidence from a
-      # FAILED run is exactly what an operator needs, so this still uploads
-      # when suites fail — it withholds only when publication itself is unsafe.
+      # What holds meanwhile is the invariant, not a filter: this workflow
+      # carries NO secrets, so the unattended plan is credential-free, and the
+      # current captures were verified first-hand to contain no secret value.
       - name: Upload raw reports
-        if: always() && steps.credential-scan.outcome == 'success'
+        if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: mcp-conformance-raw-reports

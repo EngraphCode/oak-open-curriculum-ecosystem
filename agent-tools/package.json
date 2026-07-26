@@ -31,6 +31,7 @@
     "practice-substrate": "pnpm -s build && cd .. && node agent-tools/dist/src/bin/practice-substrate.js",
     "protocol-conformance": "pnpm -s build && cd .. && node agent-tools/dist/src/bin/protocol-conformance.js",
     "mcp-conformance": "pnpm -s build 1>&2 && cd .. && node agent-tools/dist/src/bin/mcp-conformance.js",
+    "mcp-conformance:ci": "pnpm build 1>&2 && cd .. && node agent-tools/dist/src/bin/mcp-conformance.js",
     "branch-touched-files": "cd .. && node agent-tools/dist/src/bin/agent-tools.js branch-touched-files",
     "comms-provenance-check": "cd .. && pnpm exec tsx agent-tools/src/bin/comms-provenance-check.ts",
     "comms-archive-move": "cd .. && pnpm exec tsx agent-tools/src/bin/comms-archive-move.ts",
