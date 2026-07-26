@@ -288,15 +288,26 @@ first-hand as of 2026-06-25.
 > self-cured via 10-minute polling. Swallow guards Tailwind (805902,
 > claude-code/claude-fable-5) — owner-directed ~14:10Z on MCP-152/153
 > (upstream API spec alignment + bulk data checks), team-start 14:23:23Z,
-> directed pickup notice 14:23:45Z; runs a concept-exploration fleet first
-> (owner-priced ultracode warrant). Owner direction 14:33Z (direct to the
-> lane, relayed 14:32Z event): phase 1 is EXPLORATORY ONLY — no fixing of
-> the API changes, a type-fix spiral is a hard STOP with owner co-design
-> at that point, and phase-2 execution is OWNER-GATED (does not start
-> without the owner); the fleet is additionally chartered to characterise
-> the type-fix blast radius without fixing. Execution, when unlocked, runs
-> in a fresh worktree off origin/main; claim opening, heartbeat arms at
-> claim-open; parallel-safe with Cutter and Dynamo. RETIRED cleanly
+> directed pickup notice 14:23:45Z; ran the owner-priced exploration
+> fleet under the 14:33Z exploratory-only direction. EXPLORATION COMPLETE
+> 15:28Z: report at
+> `.agent/reports/upstream-and-bulk-alignment-concept-exploration-2026-07-26.md`
+> (commit 27aae5406). Headlines: MCP-152 is SHAPE-NOVELTY (first
+> POST/requestBody/map-response, unmodelled by the generator; naive
+> refresh mints an uncallable tool with readOnlyHint:true and an EXISTING
+> green test would defend the defect — anti-guard class; five operations
+> silently moved limit defaults/maxima); MCP-153's premise INVERTS (the
+> committed bulk schema.json is read by no code and was never true of its
+> own payload — required fields at 0/12,864 on the real 635MB corpus; a
+> WS3-as-written check would reject 100% of real data); the
+> restricted/rights concept is inexpressible in indexed documents
+> (product call). Five owner-calls (P1–P5, incl. the doctrine re-point of
+> verify-data-supports-shape-before-building, which currently directs
+> sessions at the false artefact) are being presented to the owner
+> DIRECTLY in-session by Swallow (owner present, invited); execution
+> shape P6–P16 proposed (throwaway regen probe with three-bucket failure
+> classification before any landing; anti-guard re-referent first).
+> Phase 2 remains OWNER-GATED. RETIRED cleanly
 > today: Skua weaves
 > Wingspan (~13:45Z after landing #571 at owner word; MCP-183 re-routes via
 > the Director, carrier = first implementer seat that frees), Kite seeks
@@ -315,11 +326,13 @@ first-hand as of 2026-06-25.
 > ONLY as the source material for the restack, not as a frozen reference.
 > #567 do-not-merge; discharges via the
 > MCP-183 harvest then CLOSE + DELETE BRANCH (owner branch ruling). #569
-> (coordination, mine, draft-by-design): CodeQL red DIAGNOSED 14:40Z —
-> all 34 alerts (21 high) in two non-product surfaces new-to-main via
-> this PR (32 in the preserved TNA design capture incl. vendored
-> reveal.js; 2 in research/web-app-deconstruction scripts); zero in
-> product code; evidence comment on the PR; disposition (path-exclusion
+> (coordination, mine, draft-by-design): CodeQL red DIAGNOSED 14:40Z,
+> attribution REFINED 15:35Z (Cutter): the CodeQL workflow is GREEN; the
+> red is the Advanced Security AGGREGATE — all 34 aggregate annotations
+> (21 high) are design-capture alerts tracing to estate commit
+> 6146669bd; the 2 research-script alerts are open separately, not on
+> the aggregate; zero in product code either way; evidence comments on
+> the PR (the 15:40Z one supersedes the 32+2 split); disposition (path-exclusion
 > config vs per-alert dismissal vs prune-from-merge) is OWNER-CARDED AT
 > THE LANDING GATE, not before. SonarCloud red: re-verify after the
 > maintenance window clears. #570/#572 as
@@ -343,9 +356,16 @@ first-hand as of 2026-06-25.
 > settled; overrun past ~16:30Z reassesses to the owner. Cricket run
 > ~15:20Z (three perspective pairs, owner-directed): release-clock
 > ON-TRACK convergent; teacher + practice lenses convergent on ONE
-> drift — the watcher-failure loop absorbed by re-arms instead of a fix
-> — cured by routing MCP-185 to Dynamo's queue after MCP-188 (event
-> b0f13619, standing routing grant); A/B instances captured in napkin; (2) MCPJam OAuth credentials file — now ALSO
+> drift — the watcher-failure loop absorbed by re-arms instead of a fix.
+> The wedge is now DIAGNOSED (Dynamo, 15:41Z, measured): the drain is
+> O(total-files) sequential reads amplified by fleet I/O contention
+> (31x under a light four-job load; deadline needs ~700x from idle) —
+> NOT new-event volume; three seats misread the denominator. Queue
+> re-shaped cure-before-mitigation: recovery merges → Director word on
+> #574 → INCREMENTAL-DRAIN cure ticket (Dynamo minting with full
+> evidence trail) → MCP-185 after, as honest mitigation on independent
+> merits (never recorded as wedge-cure); A/B instances + the
+> wrong-denominator lesson captured in napkin; (2) MCPJam OAuth credentials file — now ALSO
 > copied to `tmp/mcpjam-oauth-credentials.json` at the primary checkout
 > root (0600, gitignored) as a Dynamo grant for the attended oauth leg,
 > comms event 557ec43d with binding handling constraints; the Director

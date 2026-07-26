@@ -771,3 +771,20 @@ at its boundary. Rule for reading paired verdicts: check the haiku
 procedure's preconditions were satisfiable by the supplied frame before
 counting its verdict as independent confirmation; frame-free perspectives
 are outside the compiled procedure's domain.
+
+## Wrong-denominator misread: three seats called the watcher wedge "not load" (2026-07-26 ~15:45Z, Director)
+
+The comms watcher's drain-deadline deaths were read as a hang by three
+seats (Director, Cutter, Dynamo) because NEW-event volume was single-digit
+and a manual drain finished in under a second. Dynamo's measurement named
+the real mechanism: the drain is O(total-files) sequential reads (2,534
+per pass) amplified by fleet I/O contention (31x under a deliberately
+light four-job load; the deadline needs ~700x from idle, plausible in a
+real fleet window). The load was real — in a denominator nobody was
+measuring. Lesson: before accepting a load-vs-hang dichotomy, name the
+work's actual complexity variable; an instrument that scales on TOTAL
+corpus size looks idle when you watch only the NEW-item count. Related:
+referent-narrowing (the metric truthfully answered a narrower question),
+and the day's falsification chain — four scope-narrowing falsifications
+from one seat, two of them of Director hypotheses, one of its own
+overstatement.
