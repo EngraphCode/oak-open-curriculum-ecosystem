@@ -556,3 +556,112 @@ only acknowledgment turns during the succession sequence were each individually 
 compressible — a Director watching a healthy self-running exchange can batch its record into
 the next substantive turn; noted as form, not defect. Handoff §CURRENT STATE refreshed at
 this boundary; Aurora's formation letter rides this commit.
+
+## 2026-07-26 ~13:45Z — OWNER CORRECTION (Squall, captured at occurrence, verbatim)
+
+"we don't have to request copilot, the only time we request it is on a PR that we feel is
+important or risky, and it doesn't run by itself, otherwise we just leave it, always calling
+it is invented ceremony." Falsifier arrived the same minute: #571 merged at settled with its
+latest Copilot review anchored to a PRIOR tip — the copilot_code_review leg is satisfied by
+review-present state, not per-tip delivery; the request-on-no-show playbook the fleet built
+this hour was ceremony compounding on a misread gate (a ruleset ENTRY existing is a narrower
+fact than "the server enforces this per merge" — referent narrowing at doctrine grain).
+Re-trued at occurrence: handoff §duties + §settled, per-user memory, superseding broadcast.
+Mechanics facts conserved from Skua's landing report: Bot reviewers visible only via the
+GraphQL Bot fragment (REST requested_reviewers is structurally blind); the generic reviewers
+endpoint no-op-200s for Copilot under every identity tried; Copilot re-reviews every pushed
+tip with fresh full-diff comments — convergence comes from disposition quality.
+
+## 2026-07-26 ~13:47Z — OWNER REFINEMENT (Squall, captured at occurrence, verbatim)
+
+Review-comment disposition doctrine completed: "we don't HAVE to respond to comments, we need
+to critically assess them, mostly we fix, sometimes we reject and sometimes chasing the
+comments has moved the PR past its original intent... we assess the comments not only on the
+point of correctness but also relevance... sometimes a comment can be correct but the right
+action is to merge and open a ticket to address the identified issue in the correct context."
+Pairs with Skua's same-hour #571 observation (per-tip re-review makes PR size anti-convergent)
+as mechanism + cure: assessment is the obligation, a reply is optional; comment-chasing is the
+named drift; merge-and-ticket is a first-class COMPLETION for correct-but-wrong-context
+findings, not a deferral. Homed: per-user two-axes memory (dated refinement), MCP-196
+consolidation lane (comment). In-repo doctrine fold stays queued on the pr-lifecycle SKILL
+adjudication step.
+
+## 2026-07-26 ~13:55Z — Skua weaves Wingspan (6b9274), MCP-187 seat wrap: loss-scan + metaloss
+
+Lane record (index of homes, restated here because the comms tier is untracked): #571 MERGED
+at settled 13:41Z, merge commit e928d5ebc, released as 1.87.16. Rounds and reasoning live in:
+PR #571 threads (8/8 resolved with evidence), commits 9f12bcd7b→007c11791, ADR-141 amendment
+plus ADR-071 status truing, MCP-196 (consolidation lane), comms events c27a6e59 / 00b55cb6 /
+41ae13e5 / f72e25b7 / 39a810fe (closeout, full evidence list). AC-4b is the Director's:
+production suffix 68824ccd = sha256(merge SHA), unauth resources/read probe at deploy-complete.
+
+**Metaloss find — two config-expert latent findings had NO tracked home** (they lived only in
+a dead subagent report + my scratchpad; the evidence package that carried them was superseded
+by the owner's merge word). Routed here as candidates for Director triage:
+
+- candidate: post-codegen dirty-tree guard. PR #571 deleted generate-widget-constants.unit.test.ts;
+  the generated widget-constants.ts is tracked; NO workflow runs a git-diff --exit-code check
+  after sdk-codegen — template-vs-committed drift has no automated guard (config-expert verified
+  byte-identical today BY HAND). Cure shape: a CI step or repo-validator, not a test file.
+- candidate: the ui://widget/ lint ban has latent scope holes — it inherits the process-env
+  block's ignores (index.ts, server.ts, scripts/**, e2e-tests/** etc.), matches **/*.ts only
+  (widget/**/*.tsx outside), and is app-scoped (packages/ uncovered). No literal exists in any
+  exempt path today (config-expert grepped) — latent, not live.
+
+F: corrected-directions sweep MISSED at adjudication grain (second instance of the memory's
+class): when the test-expert adjudication replaced the source-scan test with the ESLint ban
+(round 1), two doc pointers kept teaching the removed mechanism; Copilot caught both a round
+later. The sweep fires at EVERY replaced-mechanism moment, not only owner corrections; the
+cure that worked: grep for the removed mechanism's NAME across the whole tree before pushing
+the replacement (round-3 sweep found exactly the reviewer's two, proving completeness cheaply).
+
+F: third exit-codes instance this lane — a comms `direct` failure was eaten by my own
+`| tail -1` on an inline --body carrying shell-hazard characters (exit 2, no error visible,
+the merged-notice silently unsent; caught because the Director acted on stale state minutes
+later). Cure applied: --body-file always for non-trivial bodies + unpiped in-band exit echo.
+Delivery check remains: the WRITTEN EVENT ID is the proof, never the exit alone.
+
+F: Bot-reviewer instrument blindness, precise shapes (extends the Director's 13:45Z entry):
+REST pulls/N/reviews logins carry the `[bot]` suffix; GraphQL strips it; REST
+requested_reviewers and `gh pr view --json reviewRequests` both OMIT Bot-type reviewers
+entirely — the only honest read is GraphQL reviewRequests with `... on Bot { login }`.
+A filter written against the wrong surface reads 0 forever (my monitor did, cosmetically).
+
+Attribution inferences flagged (inference, not observation): (1) "GitHub auto-deleted the
+branch on merge" — inferred from the 404 minutes post-merge; could be a repo setting or a
+peer's delete. (2) "copilot_code_review is satisfied by review-present state" — inferred
+from one successful merge whose latest Copilot review anchored to a prior tip; the ruleset's
+exact semantics were not read from a vendor source.
+
+Blind-spot bounds: my watcher was down twice (drain timeouts, 120s and 300s budgets) with
+same-seen-file re-arms + gap sweeps — no known loss; the post-closeout window is unobserved
+by this seat by design. Subagent contexts (14-agent fleet, config-expert) are gone; their
+surviving compressions live in the plan provenance note, PR record, and this entry.
+
+Platform plan surface curated: ~/.claude/plans/task-notification-...-parsed-crystal.md —
+fully SERVED (every leg landed via #571; the why is conserved in the ADR-141 amendment and
+MCP-187's ticket record). Stale local remote-tracking ref
+origin/jimcresswell/mcp-187-widget-... survives locally (remote deleted, merged) — routine
+`git fetch --prune` warden hygiene, left for the coordination seat.
+
+Metaloss fixed point: a further pass would only re-find the latent-findings homing and the
+untracked-comms index restatement — both now in this entry. The recursion closes here.
+External bound: this scan cannot certify itself; this session's misses were caught by the
+reviewer (stale pointers), the owner (convergence, ceremony), and the Director (renewal read)
+— point external scrutiny at review-round scope accretion and instrument identifier shapes.
+
+## 2026-07-26 ~13:58Z — Squall wakes Apex (459fd1), Director: third compaction boundary
+
+Window 13:10–13:58Z, captured at occurrence throughout; pointers only. Landed: #571 merged
+(e928d5ebc) and Skua retired clean; the Kite→Cutter succession completed cross-verified;
+Cutter cured the inherited final-wire blocker (both gateways PASS). Three owner rulings
+propagated within minutes of utterance: Copilot-selective-not-ceremony (falsifier arrived
+same minute), comments-assessed-not-chased (fix/reject/merge-and-ticket), PRs-small-and-
+focused (board sizes read live: #572 at 3 files is the shape, #565 at 92 files the proven
+anti-instance; restack proposal with the owner, UNANSWERED). Seat lesson owned on the
+record: the request-on-no-show playbook was MY invented ceremony — built in one hour on a
+misread gate, killed by owner word plus a same-minute falsifier; the generator is the same
+referent-narrowing shape at doctrine grain (a ruleset entry existing ≠ the server enforcing
+it per merge), and the cheaper cure existed all along (step back, ask what the gate
+actually binds). Todo list cleared at owner word (#7 custody durable in §Owner-held).
+AC-4b deploy watch armed (suffix 68824ccd); handoff §CURRENT STATE delta-refreshed.

@@ -274,47 +274,55 @@ first-hand as of 2026-06-25.
 > widget bug (MCP-187) and the DCR redirect gap (MCP-188) are in flight;
 > the MCPJam evidence trail (MCP-184) has its first attended runs banked.
 >
-> **Fleet at refresh (verify live via the mechanical check)**: Skua weaves
-> Wingspan (claude-code, 6b9274) — MCP-187 rework on PR #571: the freeze
-> word's RENEWAL fired on two substantive Copilot threads; Skua adopted the
-> hash-the-deployment-ID remedy; word renews at the NEW settled (Director
-> re-issues on the fresh evidence package); MCP-183 queued next. Dynamo
-> spins Naphtha (claude-code, 2f5519) — shepherds PR #570 (MCP-189 wrapper)
-> to its own landing, then PR #572 (MCP-192 mint-scope, inherited from
-> Aurora with the security verdict recorded in Aurora's 12:39Z handoff
-> event), then MCP-188 (owner word). Kite seeks Crosswind → Cutter hunts
-> Lagoon (both codex, 019f9e): owner-initiated PDR-063 in-flight succession
-> on MCP-63 — seven-claim bundle with per-claim handoff pointers under
-> .agent/state/collaboration/handoffs/ (start: f5b77b73-*.md); adoption
-> pending Cutter's discontinuity validation; the final-wire test-expert
-> block (test bypasses production runtime/sink) is NAMED successor work.
-> Aurora turns Gravity RETIRED at owner word ~12:44Z — clean closeout, both
-> claims closed; its delegations are VOID (the #571 landing delegation and
-> the pre-granted empty-commit word) — those recurrences route to the
-> Director. Seatless PRs now land via the Director at settled (no monitor
-> seat exists).
+> **Fleet at refresh (verify live via the mechanical check)**: TWO live
+> seats. Dynamo spins Naphtha (claude-code, 2f5519) — lands PR #570 (MCP-189
+> wrapper; round 1's 16 threads resolved in one adjudicated batch, checks
+> re-running) and PR #572 (MCP-192 mint-scope, settled-shaped: 17/17 green,
+> zero threads, security verdict in Aurora's 12:39Z handoff event, codex
+> review triggered), then MCP-188 (owner word). Cutter hunts Lagoon (codex,
+> 019f9e) — holds all seven MCP-63 claims after the completed owner-directed
+> succession (13:27Z, cross-verified by the outgoing seat); the inherited
+> final-wire blocker is CURED (test drives the real production composition;
+> test-expert + code-expert both PASS; 130/130; slice accepted-uncommitted);
+> lands slice-per-PR under the owner's small-PRs word; wake-path limitation
+> self-cured via 10-minute polling. RETIRED cleanly today: Skua weaves
+> Wingspan (~13:45Z after landing #571 at owner word; MCP-183 re-routes via
+> the Director, carrier = first implementer seat that frees), Kite seeks
+> Crosswind (~13:28Z post-succession), Aurora turns Gravity (~12:44Z; its
+> delegations are VOID — recurrences route to the Director). Seatless PRs
+> land via the Director at settled (no monitor seat exists).
 >
-> **Board**: #565 GATED on the design-lane successor (full-React SSR+hydration
-> conversion per owner ruling 09:43Z; claim 68088465 awaits adoption via
-> handoffs/2026-07-26-lavender-mcp-128-full-react-handoff.md; ~41 review
-> threads await that seat's batch round; one trivial ADR-index conflict).
-> #567 do-not-merge; discharges via the MCP-183 harvest then CLOSE + DELETE
-> BRANCH (owner branch ruling: merged work is preserved, branches are not).
-> #569 (coordination, mine, draft-by-design): CodeQL + SonarCloud reds to
-> assess at a quiet moment; merges only at estate convergence. #570/#571/
-> #572 as per fleet above. Every open PR carries a live discharge path.
+> **Board (5 open; #571 MERGED e928d5ebc, #568 MERGED ccd1c410f today)**:
+> #565 GATED on the design-lane successor — AND a Director RESTACK PROPOSAL
+> is with the owner, unanswered: land the full-React conversion as a fresh
+> small stack superseding #565 (its 92-file/43-thread shape is the proven
+> anti-convergent instance under the owner's small-PRs word), instead of
+> growing #565 in-lane per Lavender's handoff plan; do not re-true the lane
+> records until the owner answers. #567 do-not-merge; discharges via the
+> MCP-183 harvest then CLOSE + DELETE BRANCH (owner branch ruling). #569
+> (coordination, mine, draft-by-design): CodeQL + SonarCloud reds to
+> diagnose, then land at convergence — the drive includes it. #570/#572 as
+> per fleet above. Every open PR carries a live discharge path.
 >
-> **Director duties armed on triggers**: (1) re-issue the #571 word at its
-> new settled, then at production deploy run AC-4b — the attended MCPJam
-> apps re-check, expect 3/7 → 7/7, suffix = sha256 of the landed merge
-> commit; (2) MCPJam OAuth credentials file (session scratchpad, 0600)
+> **Director duties armed on triggers**: (1) AC-4b — a deploy-watch monitor
+> polls production for the widget at suffix 68824ccd (= sha256 of merge
+> commit e928d5ebc); the pre-deploy reading "unauthorized" is the OLD
+> build's allowlist (interpretation, not fact — verify at flip); on SERVED,
+> run the attended MCPJam apps re-check, expect 3/7 → 7/7, then close
+> MCP-187 (In Review, held for this); if the 40-min watch times out,
+> re-arm it; (2) MCPJam OAuth credentials file (session scratchpad, 0600)
 > expires ~10:41Z 2026-07-27 — authed re-runs after that need a fresh
 > owner-attended `oauth login`; (3) at MCP-183's landing, close #567 and
-> delete its branch; (4) Copilot-review no-show playbook: cause UNKNOWN
-> (draft-suppression theory STRUCK, see the 12:52Z failure-mode broadcast);
-> verify the request exists (reviewer handle is `Copilot`, the author login
-> is silently ignored), fire the dedicated request endpoint bot-first, route
-> a second no-show as service data.
+> delete its branch; MCP-183 itself awaits its first-freed carrier via the
+> Director; (4) Copilot review is SELECTIVE, never ceremony (owner
+> word 2026-07-26): request it only on a PR judged important or risky where
+> the service did not run by itself; its absence is never a Director-side
+> blocker (falsifier on record: #571 merged with the latest review on a
+> prior tip). If a deliberate request is warranted: the generic reviewers
+> endpoint silently no-ops for Copilot (200, unchanged set) — the dedicated
+> request endpoint on the Director's MCP surface is the working path, and
+> Bot reviewers are visible only via the GraphQL Bot fragment, not REST
+> requested_reviewers.
 >
 > **Live rulings in force**: browser sessions for PostHog EU project 221775
 > and the Vercel project poc-oak-open-curriculum-mcp are owner-provisioned
@@ -325,11 +333,19 @@ first-hand as of 2026-06-25.
 > landing page land through the Director); executor class rule (a PR with a
 > live implementer seat lands by that seat; freeze-bound surfaces take
 > Director word whoever executes); settled = ruleset-grounded (checks green
-> plus code-scanning/quality plus Copilot review present, every thread resolved;
-> NO approving review — required_approving_review_count is 0 everywhere and
-> bot reviewers only COMMENT); sensitivity split (no dates/vendor timing in
+> plus code-scanning/quality, every thread resolved; NO approving review —
+> required_approving_review_count is 0 everywhere and bot reviewers only
+> COMMENT; the copilot_code_review leg is satisfied by review-present state
+> and is NOT per-tip — the server adjudicates it, never the Director);
+> sensitivity split (no dates/vendor timing in
 > repo); dependency versions FLEXIBLE, Oak behavioural/privacy contracts
-> FIXED; milestones propose-and-agree, work never dangles.
+> FIXED; milestones propose-and-agree, work never dangles; PRs stay SMALL
+> and focused (owner word 2026-07-26: convergence to zero feedback is the
+> outcome smallness buys; the #571 arc proved per-tip re-review makes size
+> anti-convergent); review comments are ASSESSED, never chased (owner word
+> 2026-07-26: correctness AND relevance; fix / reject / merge-and-ticket —
+> merge-and-ticket is a completion for correct-but-wrong-context findings;
+> a reply is optional, the assessment is not).
 >
 > **Owner-held at refresh**: the design-lane successor seat (unblocks #565);
 > the MCP-117 PostHog key ceremony (needed only for the MCP-63 live-proof
