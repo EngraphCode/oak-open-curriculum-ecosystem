@@ -285,10 +285,13 @@ first-hand as of 2026-06-25.
 > final-wire blocker is CURED (test drives the real production composition;
 > test-expert + code-expert both PASS; 130/130; slice accepted-uncommitted);
 > lands slice-per-PR under the owner's small-PRs word; wake-path limitation
-> self-cured via 10-minute polling. Swallow guards Tailwind (805902) —
-> owner-registered 14:30Z 2026-07-26 on the upstream API spec change and
-> associated bulk data checks; not yet surfaced in comms (watch for their
-> team-start; no routing issued). RETIRED cleanly today: Skua weaves
+> self-cured via 10-minute polling. Swallow guards Tailwind (805902,
+> claude-code/claude-fable-5) — owner-directed ~14:10Z on MCP-152/153
+> (upstream API spec alignment + bulk data checks), team-start 14:23:23Z,
+> directed pickup notice 14:23:45Z; runs a concept-exploration fleet first
+> (owner-priced ultracode warrant), executes in a fresh worktree off
+> origin/main; claim opening, heartbeat arms at claim-open; parallel-safe
+> with Cutter and Dynamo. RETIRED cleanly today: Skua weaves
 > Wingspan (~13:45Z after landing #571 at owner word; MCP-183 re-routes via
 > the Director, carrier = first implementer seat that frees), Kite seeks
 > Crosswind (~13:28Z post-succession), Aurora turns Gravity (~12:44Z; its
@@ -296,12 +299,15 @@ first-hand as of 2026-06-25.
 > land via the Director at settled (no monitor seat exists).
 >
 > **Board (5 open; #571 MERGED e928d5ebc, #568 MERGED ccd1c410f today)**:
-> #565 GATED on the design-lane successor — AND a Director RESTACK PROPOSAL
-> is with the owner, unanswered: land the full-React conversion as a fresh
-> small stack superseding #565 (its 92-file/43-thread shape is the proven
-> anti-convergent instance under the owner's small-PRs word), instead of
-> growing #565 in-lane per Lavender's handoff plan; do not re-true the lane
-> records until the owner answers. #567 do-not-merge; discharges via the
+> #565 RESTACK RATIFIED (owner card answer ~14:35Z 2026-07-26): the
+> full-React conversion lands as a fresh stack of small focused PRs off
+> current main, superseding #565; growing it in-lane is dead. Execution
+> waits on the design-lane successor seat (owner-held); that seat's first
+> task is authoring the fresh stack FROM the #565 branch content, and at
+> value-transfer (fresh stack open and carrying the work) #565 closes and
+> its branch deletes per the branch ruling — the branch stays until then
+> ONLY as the source material for the restack, not as a frozen reference.
+> #567 do-not-merge; discharges via the
 > MCP-183 harvest then CLOSE + DELETE BRANCH (owner branch ruling). #569
 > (coordination, mine, draft-by-design): CodeQL + SonarCloud reds to
 > diagnose, then land at convergence — the drive includes it. #570/#572 as
@@ -358,14 +364,20 @@ first-hand as of 2026-06-25.
 > merge-and-ticket is a completion for correct-but-wrong-context findings;
 > a reply is optional, the assessment is not).
 >
-> **Owner-held at refresh**: the design-lane successor seat (unblocks #565);
+> **Owner-held at refresh**: the design-lane successor seat (unblocks the
+> ratified #565 restack — its first task is authoring the fresh stack);
 > the MCP-117 PostHog key ceremony (needed only for the MCP-63 live-proof
 > acceptance; env contract documented in the app's .env.example); the
-> workflows App grant enactment landed as PR #572 (in flight); the
-> codegen-refresh seat (upstream API 0.7.0 delta + Elasticsearch check —
-> task board item 7); milestone homes for MCP-190/191 (propose-and-agree);
-> the MCP-195 settings half (Actions environments). Eventual-successor
-> naming on record: Cutter for Kite (active now).
+> workflows App grant enactment landed as PR #572 (in flight); milestone
+> homes for MCP-190/191 (propose-and-agree); the MCP-195 settings half
+> (Actions environments). The codegen-refresh seat is FILLED by owner word
+> ~14:10Z 2026-07-26: Swallow guards Tailwind (805902) on MCP-152/153,
+> registered 14:23Z with first-hand grounding (spec delta ADDITIVE only:
+> two check-restricted endpoints + one description change); two decision
+> moments pre-flagged to route to the Director — MCP-152 check-restricted
+> discoverability (product call, will arrive carded with evidence) and the
+> MCP-153 index-regen go-moment. Eventual-successor naming on record:
+> Cutter for Kite (active now).
 >
 > **Standing duties that transfer**: persistent all-channels watcher
 > (Monitor, --exclude-tag heartbeat, --step-timeout-ms 120000; re-arm on
