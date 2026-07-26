@@ -170,7 +170,7 @@ export function refineProductionLocality(data: ObservabilityEnvBase, ctx: z.Refi
     return;
   }
   const hasDiagnosticSink = DIAGNOSTIC_SINK_KINDS.some((diagnosticKind) =>
-    data.OBSERVABILITY_SINKS.some((selectedKind) => selectedKind === diagnosticKind),
+    data.OBSERVABILITY_SINKS.includes(diagnosticKind),
   );
   if (hasDiagnosticSink) {
     return;
