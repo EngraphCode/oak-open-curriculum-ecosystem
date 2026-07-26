@@ -67,7 +67,7 @@
     "@oaknational/eslint-plugin-standards": "workspace:*",
     "@oaknational/oak-design-tokens": "workspace:*",
     "@oaknational/sdk-codegen": "workspace:*",
-    "@playwright/test": "^1.61.1",
+    "@playwright/test": "^1.62.0",
     "@sentry/esbuild-plugin": "^5.4.0",
     "@testing-library/react": "^16.3.2",
     "@types/cors": "^2.8.19",
