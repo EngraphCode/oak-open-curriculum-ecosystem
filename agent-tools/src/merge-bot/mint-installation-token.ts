@@ -33,9 +33,11 @@ const INSTALLATION_TOKEN_SCHEMA = z.object({
 
 /**
  * GitHub's error-body shape. Only `message` is relied on, and only to enrich
- * a failure that has already been detected from the status code — so every
- * field is optional and a body that does not match is simply omitted from
- * the message rather than masking the original failure.
+ * a failure that has already been detected from the status code. The schema
+ * REQUIRES a non-empty `message`: a message-less or otherwise non-conforming
+ * body fails this parse and the detail is simply omitted from the failure
+ * text — enrichment is best-effort, and the original status-derived failure
+ * is never masked either way.
  */
 const GITHUB_ERROR_BODY_SCHEMA = z.object({ message: z.string().min(1) });
 
