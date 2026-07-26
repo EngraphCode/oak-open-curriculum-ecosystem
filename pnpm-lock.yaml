@@ -743,6 +743,9 @@ importers:
 
   packages/core/observability:
     dependencies:
+      '@oaknational/result':
+        specifier: workspace:*
+        version: link:../result
       '@oaknational/type-helpers':
         specifier: workspace:*
         version: link:../type-helpers

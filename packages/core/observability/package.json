@@ -2,7 +2,7 @@
   "name": "@oaknational/observability",
   "version": "0.0.0-development",
   "private": true,
-  "description": "Provider-neutral observability helpers for redaction and OpenTelemetry span context",
+  "description": "Provider-neutral redaction, diagnostics, tracing, and product-analytics contracts",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -29,6 +29,7 @@
     "lint:fix": "eslint --fix ."
   },
   "dependencies": {
+    "@oaknational/result": "workspace:*",
     "@oaknational/type-helpers": "workspace:*",
     "@opentelemetry/api": "^1.9.1"
   },
