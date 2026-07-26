@@ -1,0 +1,70 @@
+/**
+ * Agent-tools adapter for the app-owned current-source registration proof.
+ *
+ * The app boundary owns MCP composition and SDK imports. This repository
+ * validator invokes that boundary and validates its JSON before use.
+ */
+
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
+import { z } from 'zod';
+import type { RegistrationEvidence, RegistrationRoot } from './current-source-model.js';
+
+const execFileAsync = promisify(execFile);
+const proofScript =
+  'apps/oak-curriculum-mcp-streamable-http/src/registration-proof/current-source-registration-proof.ts';
+
+const servedStateSchema = z.enum(['live', 'dormant']);
+const registrationEvidenceSchema = z
+  .object({
+    rootId: z.string().min(1),
+    state: servedStateSchema,
+    primitive: z.enum(['initialize', 'tool', 'resource', 'prompt']),
+    selector: z.string().min(1),
+    channels: z.array(z.string().min(1)),
+  })
+  .strict();
+
+const registrationRootSchema = z
+  .object({
+    id: z.string().min(1),
+    rootRef: z.string().min(1),
+    transport: z.string().min(1),
+    registrationRef: z.string().min(1),
+    proof: z.string().min(1),
+    observation: z
+      .object({
+        initialize: z.object({ instructions: z.enum(['present', 'absent']) }).strict(),
+        tools: z.object({ live: z.array(z.string()), dormant: z.array(z.string()) }).strict(),
+        resources: z.object({ live: z.array(z.string()), dormant: z.array(z.string()) }).strict(),
+        prompts: z
+          .object({
+            capability: z.enum(['present', 'absent']),
+            list: z.enum(['available', 'method-not-found']),
+          })
+          .strict(),
+      })
+      .strict(),
+  })
+  .strict();
+
+const httpRegistrationWalkSchema = z
+  .object({
+    root: registrationRootSchema,
+    guidanceRegistrationsBySource: z.record(z.string(), registrationEvidenceSchema),
+  })
+  .strict();
+
+export interface HttpRegistrationWalk {
+  readonly root: RegistrationRoot;
+  readonly guidanceRegistrationsBySource: Readonly<Record<string, RegistrationEvidence>>;
+}
+
+/** Runs and validates the app-owned in-memory MCP protocol proof. */
+export async function walkHttpRegistrationRoot(repoRoot: string): Promise<HttpRegistrationWalk> {
+  const { stdout } = await execFileAsync('pnpm', ['exec', 'tsx', proofScript], {
+    cwd: repoRoot,
+    maxBuffer: 16 * 1024 * 1024,
+  });
+  return httpRegistrationWalkSchema.parse(JSON.parse(stdout));
+}

@@ -1,10 +1,18 @@
 # Oak MCP agent-facing content — audit & registry report
 
 **Date:** 2026-07-09 · **Delta-refreshed 2026-07-22** (MCP-103 phase a — see [§12](#12-delta-refresh--workspace-shape-recommendation-2026-07-22--mcp-103-phase-a))
-**Status:** Visibility artefact — analysis complete, no action taken and none prescribed.
-**Companion files:** [`registry.md`](./registry.md) (human index) · [`registry.json`](./registry.json) (machine-readable, 716 items) · [`rendered-wholes.md`](./rendered-wholes.md) (the assembled surfaces as an agent receives them) · [`content-registry.html`](./content-registry.html) (filterable browser).
+**Status:** Historical audit baseline plus generated current-source projection.
+**Companion files:** [`registry.md`](./registry.md) (historical human index) · [`registry.json`](./registry.json) (immutable phase-(a) audit, 716 items) · [`current-source.json`](./current-source.json) (generated current source, lineage, authority, and HTTP registration evidence) · [`rendered-wholes.md`](./rendered-wholes.md) (historical assembled surfaces) · [`content-registry.html`](./content-registry.html) (historical filterable browser).
 
 ---
+
+> **Current-source refresh (MCP-103 phase c, 2026-07-26):**
+> `current-source.json` accounts for every phase-(a) `C` id without changing
+> the immutable audit. It records six retired prompt-era rows, relocates or
+> splits the remaining deleted-source rows onto current guidance/UI sources,
+> and proves the HTTP root by running MCP initialize, tool/resource list,
+> resource read, and prompt absence over an in-memory transport. It does not
+> infer delivery by ChatGPT, Claude, GitHub Copilot, Gemini, or any other host.
 
 ## 1. Purpose and stance
 
@@ -12,7 +20,7 @@ This report and its registry make **all repo-controlled content that can reach a
 
 What this is **not**, deliberately:
 
-- **Not a validator, and not a proposal for one.** A drift-guard or conformance check built now would silently promote *accidental* shapes to *canonical* ones. Much of this content evolved organically, without pedagogical or editorial oversight; guarding it before it has been reviewed would lock in exactly the shapes we most want to reconsider. Visibility precedes any guard.
+- **Not a wording validator or approval gate.** The phase-(c) validator protects total source accounting, explicit lineage, and observed registration drift. It does not promote current wording to approved or canonical content. Much of that wording evolved organically and still needs pedagogical, editorial, legal, safety, and UX review.
 - **Not an eval harness.** Behavioural evaluation is a later, separate decision (see §9).
 - **Not the workspace build.** The content-workspace direction is now owner-DECIDED (§7 records it), but this report only records those decisions — nothing is restructured, built, or migrated here. The build is a separate, owner-scheduled session.
 
@@ -167,7 +175,7 @@ Presented as *candidates for the relevant expert*, not verdicts. The registry as
 1. **Prompt-injection defence is inverted from the framing.** Exempt curriculum data flows through the same channel as our framing; our framing is the *defence*. The corpus currently defends nothing.
 2. **"Agent behaviour" is not singular.** The same content behaves differently across consuming models; any future measurement must span ≥2.
 3. **Tool *selection*, not per-string quality.** The real failures are aggregate (wrong tool chosen from the whole set), invisible to per-item review.
-4. **No baseline, and (deliberately) no gate yet.** Iteration needs a before-number; this registry is that baseline. A gate is explicitly deferred (§1).
+4. **No wording-quality gate.** The current-source validator guards source accounting and registration drift; it deliberately does not freeze or approve wording. Behavioural quality still needs reviewed protocols and evals.
 5. **"Good" is undefined.** Behavioural evals need a rubric; that rubric is an owner/expert decision, not an engineering default.
 6. **Production telemetry is the ground truth.** Offline evals only proxy it; real signal is owner-gated on the privacy/analytics lane.
 7. **Context-cost is a behaviour property.** Bloated always-on content degrades every downstream call.
@@ -177,13 +185,17 @@ Presented as *candidates for the relevant expert*, not verdicts. The registry as
 
 ## 10. How to use this
 
-To review *meaning*, read [`rendered-wholes.md`](./rendered-wholes.md) — the surfaces assembled as an agent receives them; use the registry to trace any line back to its file and owner.
+Start with [`current-source.json`](./current-source.json) for present source
+custody, lifecycle, and the HTTP registration snapshot. The older
+[`rendered-wholes.md`](./rendered-wholes.md), `registry.md`, and filterable
+HTML are phase-(a) visibility artefacts: useful for historical meaning and
+review-domain classification, but not evidence of what the app serves now.
 
-- **Education / curriculum experts:** start from the 134-item review slice — `review_domain` of `pedagogy`, `curriculum-accuracy`, `pedagogy-external` in [`registry.md`](./registry.md), and read the assembled prompts and `curriculum://model` in [`rendered-wholes.md`](./rendered-wholes.md) §5/§8. These are the prompts, the curriculum model, the domain doctrine, and the EEF framing, as agents actually receive them.
+- **Education / curriculum experts:** start from the historical 134-item review slice — `review_domain` of `pedagogy`, `curriculum-accuracy`, `pedagogy-external` in [`registry.md`](./registry.md) — then use each `C` id in `current-source.json` to find its current source or explicit retirement.
 - **Legal:** the 19 `legal-licensing` items (attribution, OGL, EEF-citation).
 - **Safety:** the `user-input-interpolation` and `pii-adjacent` flags, starting with `classNotes`.
 - **Reviewers of tool/parameter wording:** filter `source_locus`. The 116 `upstream-in-house-api` items are reviewed and edited in the **`oak-api` repo** (OpenAPI spec), not here — the committed snapshot `packages/sdks/oak-sdk-codegen/schema-cache/api-schema-original.json` is the read-only local copy of that base text; the in-repo injections around them (PREREQUISITE, per-tool notes) are separate `this-repo` items.
-- **Engineers:** `registry.json` is the queryable source; the confirmed defects in §8.1 are concrete fixes independent of any larger decision.
+- **Engineers:** `registry.json` is the immutable audit baseline; `current-source.json` is the recomputed source/registration projection. The confirmed defects in §8.1 are historical findings and must be rechecked against current source before action.
 
 ## 11. Reserved decisions
 
