@@ -59,7 +59,16 @@ function spawnMcpjam(
     maxBuffer: MAX_STDOUT_BYTES,
   });
   if (child.error !== undefined) {
-    return err(child.error);
+    // A timeout sets BOTH `error` (ETIMEDOUT) and `signal`, so this branch
+    // fires first — the captured streams must ride the error here too, or
+    // the timeout case (where diagnostics matter most) loses them.
+    return err(
+      new Error(
+        `${child.error.message}` +
+          `${boundedExcerpt('partial stdout', child.stdout ?? '')}` +
+          `${boundedExcerpt('stderr', child.stderr ?? '')}`,
+      ),
+    );
   }
   if (child.signal !== null) {
     // A signal death (typically the timeout ceiling) is a LAUNCH FAILURE to

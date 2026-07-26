@@ -52,14 +52,14 @@ jobs:
         # No `--` separator: each pnpm forwarding layer re-appends it, and the
         # house arg scanner reads a leading `--` as its terminator (verified
         # end-to-end through both script layers, 2026-07-26).
-        # `-s` matches the documented invocation (pure-JSON stdout on failing
-        # runs). CI's verdict never reads stdout — it comes from the exit code
-        # plus the uploaded report dir (raw per-suite reports + summary.json).
-        # Note: `-s` also silences pnpm [WARN] lines (no non-silencing
-        # alternative exists — pnpm's reporter writes to stdout at every
-        # layer); the install step's --frozen-lockfile catches that class.
+        # Deliberately NOT the documented `pnpm -s` form: this scheduled gate's
+        # verdict reads the exit code + uploaded report dir (raw per-suite
+        # reports + summary.json), never stdout — so stdout purity buys
+        # nothing here, while `-s` would suppress pnpm [WARN] lines in the
+        # only log this unattended run has. Stdout consumers use
+        # `pnpm -s mcp:conformance` (see the CLI help).
         run: >-
-          pnpm -s mcp:conformance
+          pnpm mcp:conformance
           --target https://curriculum-mcp-alpha.oaknational.dev/mcp
           --unattended
           --report-dir tmp/mcp-conformance/ci

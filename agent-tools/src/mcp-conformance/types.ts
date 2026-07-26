@@ -24,6 +24,7 @@
  * exit code as a verdict — verdicts come from parse + baseline comparison
  * only, and the child exit code is retained as report data.
  */
+import { typeSafeKeys } from '@oaknational/type-helpers';
 import { z } from 'zod';
 
 /** The check/step statuses MCPJam's json-summary reporter emits. */
@@ -76,7 +77,12 @@ export const mcpjamReportSchema = z
     durationMs: z.number(),
     groups: z.array(mcpjamGroupSchema).min(1),
   })
-  .strict();
+  .strict()
+  // A report with zero cases across every group has nothing to verdict; an
+  // empty run paired with an empty baseline would otherwise pass vacuously.
+  .refine((report) => report.groups.some((group) => group.cases.length > 0), {
+    message: 'a json-summary report must contain at least one check case',
+  });
 
 export type McpjamCase = z.infer<typeof mcpjamCaseSchema>;
 export type McpjamReport = z.infer<typeof mcpjamReportSchema>;
@@ -102,8 +108,8 @@ export type ConformanceOperation = 'verdict' | 'seed';
 /**
  * Expected terminal state for one check id. `errorIncludes` is required
  * exactly when a failure is expected — an expected failure without a pinned
- * shape would let any failure pass, which is the masking the ticket's
- * "named verdicts" bar exists to prevent.
+ * shape would let any failure pass, which is exactly the masking that the
+ * ticket's "named verdicts" bar exists to prevent.
  */
 const expectedCheckSchema = z.discriminatedUnion('status', [
   z.object({ status: z.literal('pass') }).strict(),
@@ -135,8 +141,14 @@ export const baselineSchema = z
     // partialRecord: statically Partial<Record<...>> — most check-id strings
     // are NOT keys, and the comparator's absent-key guard must be justified
     // by the type, not merely tolerated. Runtime-identical to z.record for a
-    // non-enum key (verified against the pinned zod 4.4.x source).
-    expected: z.partialRecord(z.string().min(1), expectedCheckSchema),
+    // non-enum key (verified against the pinned zod 4.4.x source). The
+    // refine rejects an EMPTY expectation set: it has no verdict semantics,
+    // and paired with an empty run it would pass vacuously.
+    expected: z
+      .partialRecord(z.string().min(1), expectedCheckSchema)
+      .refine((expected) => typeSafeKeys(expected).length > 0, {
+        message: 'a baseline must pin at least one expected check',
+      }),
   })
   .strict();
 

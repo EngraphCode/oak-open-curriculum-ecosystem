@@ -5,7 +5,7 @@ import {
   loadBaselines,
   type BaselineRead,
 } from '../../src/mcp-conformance/load-baselines.js';
-import { loadBaseline } from './test-helpers/fixture-loader.js';
+import { cloneBaseline, loadBaseline } from './test-helpers/fixture-loader.js';
 
 const VALID_PROTOCOL_BASELINE = JSON.stringify(loadBaseline('protocol-unattended.json'));
 
@@ -67,6 +67,22 @@ describe('loadBaselines — absent, invalid, and loaded are never conflated', ()
     expect(outcomes.protocol?.kind).toBe('invalid');
     expect(outcomes.protocol?.kind === 'invalid' && outcomes.protocol.reason).toContain(
       'failed validation',
+    );
+  });
+
+  it('an empty expectation set is invalid — a zero-check baseline has no verdict semantics', () => {
+    const empty = cloneBaseline(loadBaseline('protocol-unattended.json'));
+    empty.expected = {};
+    const outcomes = loadBaselines({
+      reader: readerOf({
+        'protocol-unattended.json': { kind: 'ok', content: JSON.stringify(empty) },
+      }),
+      suites: ['protocol'],
+      mode: 'unattended',
+    });
+    expect(outcomes.protocol?.kind).toBe('invalid');
+    expect(outcomes.protocol?.kind === 'invalid' && outcomes.protocol.reason).toContain(
+      'at least one expected check',
     );
   });
 

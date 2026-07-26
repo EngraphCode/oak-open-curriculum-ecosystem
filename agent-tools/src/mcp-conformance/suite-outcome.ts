@@ -41,20 +41,26 @@ export interface SuiteOutcomeParts {
 }
 
 /**
- * Build the outcome. The decision table, total over the domain:
- * any failure reason forces `fail` (a passing comparison with failed
- * retention is still a failed suite — the evidence contract was not met);
- * a clean SEED capture passes (its bar is capture, never comparison); a
- * clean VERDICT suite takes its comparison verdict — and a verdict-op
- * suite that never reached comparison can never pass.
+ * The verdict decision table, total over the domain: any failure reason
+ * forces `fail` (a passing comparison with failed retention is still a
+ * failed suite — the evidence contract was not met); a clean SEED capture
+ * passes (its bar is capture, never comparison); a clean VERDICT suite
+ * takes its comparison verdict — and a verdict-op suite that never
+ * reached comparison can never pass.
  */
+function verdictOf(parts: SuiteOutcomeParts): 'pass' | 'fail' {
+  if (parts.failureReasons.length > 0) {
+    return 'fail';
+  }
+  if (parts.operation === 'seed') {
+    return 'pass';
+  }
+  return parts.comparisonVerdict ?? 'fail';
+}
+
+/** Build the outcome; the verdict comes from the decision table above. */
 export function buildSuiteOutcome(parts: SuiteOutcomeParts): SuiteOutcome {
-  const verdict: 'pass' | 'fail' =
-    parts.failureReasons.length > 0
-      ? 'fail'
-      : parts.operation === 'seed'
-        ? 'pass'
-        : (parts.comparisonVerdict ?? 'fail');
+  const verdict = verdictOf(parts);
   return {
     suite: parts.suite,
     verdict,

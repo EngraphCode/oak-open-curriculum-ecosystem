@@ -205,18 +205,25 @@ function runFromCli(state: CliState, target: string): 0 | 1 {
     }),
     ...(state.credentialsFile === undefined ? {} : { credentialsFile: state.credentialsFile }),
   });
-  emitReport(repoRoot, reportDir, report);
-  return exitCode;
+  return emitReport(repoRoot, reportDir, report, exitCode);
 }
 
-/** Emit the aggregate report to stdout AND `<report-dir>/summary.json`. */
-function emitReport(repoRoot: string, reportDir: string, report: ConformanceRunReport): void {
+// Emit to stdout AND <report-dir>/summary.json. A failed summary write
+// fails the run — a silently-missing documented output is a false green.
+function emitReport(
+  repoRoot: string,
+  reportDir: string,
+  report: ConformanceRunReport,
+  exitCode: 0 | 1,
+): 0 | 1 {
   const reportJson = `${JSON.stringify(report, null, 2)}\n`;
   const summary = writeRunSummary(repoRoot, reportDir, reportJson);
+  process.stdout.write(reportJson);
   if (!summary.ok) {
     process.stderr.write(`summary.json could not be written: ${summary.error}\n`);
+    return 1;
   }
-  process.stdout.write(reportJson);
+  return exitCode;
 }
 
 function main(): void {

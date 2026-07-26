@@ -190,6 +190,24 @@ describe('runMcpConformance — verdict operation', () => {
     expect(report.suites.find((s) => s.suite === 'oauth')?.verdict).toBe('pass');
   });
 
+  it('a report whose groups carry zero cases fails at the parse boundary — no vacuous pass', () => {
+    const emptyRun = JSON.stringify({
+      schemaVersion: 1,
+      kind: 'suite',
+      name: 'protocol',
+      passed: true,
+      durationMs: 1,
+      groups: [{ id: 'g', title: 't', passed: true, durationMs: 1, cases: [] }],
+    });
+    const io = fakeIo({
+      runResults: { protocol: ok({ exitCode: 0, stdout: emptyRun, stderr: '' }) },
+    });
+    const { report } = runMcpConformance(io, verdictInput);
+    expect(reasonsOf(report.suites.find((s) => s.suite === 'protocol'))).toContain(
+      'at least one check case',
+    );
+  });
+
   it('a reporter schemaVersion bump fails at the parse boundary, never half-matches', () => {
     const io = fakeIo({
       runResults: {
