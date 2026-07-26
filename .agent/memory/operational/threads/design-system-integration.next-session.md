@@ -228,3 +228,23 @@ pickup; the facts below were verified first-hand this session.
   PR, coordinated with the Director. Full pickup record:
   `.agent/state/collaboration/handoffs/2026-07-25-triton-mcp-128-overnight-pause.md`.
 - **Claim `68088465` retained** across the pause with its handoff pointer set.
+
+## Session update 2026-07-26 (Lavender turns Pollen, f00cf6 — additive; MCP-128 lane tenure + owner-called handoff)
+
+Identity row: | 2026-07-26 | Lavender turns Pollen | claude / fable-5 | `f00cf6` | MCP-128 lane
+successor (Triton→Lavender), retired at owner word; claim 68088465 pending successor adoption |
+
+- **The lane's pickup surface moved**: claim `68088465` now points at
+  `handoffs/2026-07-26-lavender-mcp-128-full-react-handoff.md` (NOT Triton's overnight-pause
+  record, which is superseded) with the twice-expert-reviewed design brief as its sibling.
+  Read record then brief before any edit; implement, do not re-design.
+- **Owner rulings in force (verbatim in the record)**: FULL REACT ("as was always the
+  requirement") with BUILD-TIME static generation — the tools lists are build-time constants,
+  page and app same-build in sync by construction. ADR-217 §1's no-hydration clause is
+  falsified and owes a dated amendment (unstarted, in the remaining-work list).
+- **State at handoff**: PR #565 all checks green incl. Sonar (owner-directed per-site accepts,
+  cited rationales); head `SHA:86263c3db` pushed, tree clean; conversion slice 1 (props lift)
+  landed; 36 review threads dispositioned in the record, replies held for the one-batch round
+  that completes with slice 2.
+- **Recompute at pickup**: PR/Sonar/Linear state drifts; the record's own loss scan names its
+  bounds. MCP-182 is already substantially cured in code — verify before re-doing.
