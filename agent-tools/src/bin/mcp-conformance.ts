@@ -194,7 +194,8 @@ function main(): void {
   }
   const validationError = validateCliState(scanned.state);
   if (validationError !== undefined || scanned.state.target === undefined) {
-    process.stderr.write(`${validationError ?? `--target is required\n${HELP_TEXT}`}\n`);
+    const message = validationError ?? `--target is required\n${HELP_TEXT}`;
+    process.stderr.write(`${message}\n`);
     process.exitCode = 2;
     return;
   }

@@ -6,11 +6,13 @@
  * usage-error paths (missing --target, unknown flag) exit 2 with guidance
  * on stderr and no stack trace.
  *
- * Builds the workspace first (cheap when warm) so the smoke always runs the
- * current dist, then spawns from the repo root exactly as the package
- * script does.
+ * Requires the workspace to be built (the turbo `test:e2e` task depends on
+ * `build`, so the pipeline guarantees it); a missing dist fails loudly with
+ * the build command rather than spawning a package manager from PATH here
+ * (S4036: only fixed executables are spawned — the current Node binary).
  */
 import { spawnSync } from 'node:child_process';
+import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -26,12 +28,10 @@ function check(label: string, condition: boolean, detail: string): void {
   }
 }
 
-const build = spawnSync('pnpm', ['-s', 'build'], {
-  cwd: AGENT_TOOLS_ROOT,
-  encoding: 'utf8',
-});
-if (build.status !== 0) {
-  process.stderr.write(`SMOKE FAILED: build did not complete\n${build.stderr}\n`);
+if (!existsSync(BIN)) {
+  process.stderr.write(
+    'SMOKE FAILED: dist entrypoint missing — run `pnpm --filter @oaknational/agent-tools build` first\n',
+  );
   process.exit(1);
 }
 
