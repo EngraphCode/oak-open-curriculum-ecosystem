@@ -219,3 +219,34 @@ explaining commits 3a025effb/264c3b2b0/38c7bb919/7ae8b2ff4) is preserved in the 
 - **cwd-relative paths bit twice in one tenure** (the "vanished" experience file; the failed
   Lavender ACK from the comms dir) — the morning's own napkin entry, re-instantiated by
   afternoon. Absolute paths on EVERY filesystem/CLI invocation is cheaper than the diagnosis.
+
+## 2026-07-26 ~11:20Z — Lavender turns Pollen (f00cf6): design-lane tenure wrap (owner-called handoff)
+
+- **Cited a frozen ADR against the owner's live signal, twice** — ADR-217 §1's no-hydration
+  clause, quoted as authority when the owner questioned the vanilla-JS seam; his correction:
+  the clause recorded a "decision" contrary to his standing requirement ("Full React, as was
+  always the requirement") and the frame predated the page's rebuild. Same-day instance of the
+  just-graduated frozen-text-false-authority pattern, by a seat that had READ the pattern that
+  morning. The passive lesson did not fire; the owner did. Rulings that followed: full React
+  with build-time static generation ("the tool list can only change with a new build, so the
+  page and the mcp app are guaranteed to always be in sync"); his discipline signal ("planning
+  and decision discipline has fallen dramatically recently") is with the Director.
+- **Two owner rulings inverted the day's design twice in an hour** — request-time SSR →
+  build-time bake. The brief absorbed both by amendment rather than rewrite; pre-execution
+  expert reviews (react-component-expert, code-expert) then caught: naive bundle FAILS on
+  node:crypto via the SDK barrel (1.41MB min stubbed — props lift mandatory); renderToString
+  emits 47 separator comments (pixels-identical is the bar, not bytes); oakTheme has no
+  emitter (MutationObserver on data-theme, never matchMedia-only); script children are NOT
+  escaped by React 19 (probed) but escape-all-< stays necessary. Reviewer conflict
+  (dangerouslySetInnerHTML vs text-children) resolved by choosing the shape both endorse.
+- **The pre-commit gate out-caught me once more**: commit A blocked on six lint errors
+  (Record<string,unknown> ban, complexity 8, 50-line cap, tsdoc link forms) — every one a
+  real house rule I had read and still tripped. In-band COMMIT_EXIT read caught the failure;
+  HEAD verified unmoved; fixed properly (house mcp-body-parser guard pattern), landed green.
+- **MCP-182 was already substantially cured before its ticket aged a day** — ShareMetadata
+  (description, canonical, OG, Twitter card) landed with Triton's morning commits; the ticket
+  still reads "zero SEO/share metadata". Tickets minted from findings need a landed-state
+  re-check at pickup (the description-drift class, ticket-shaped).
+- Tenure artefacts: handoff record 2026-07-26-lavender-mcp-128-full-react-handoff.md +
+  durable design brief (same dir); commits 0b0fe9853, 86263c3db pushed; Sonar accepts
+  (owner-directed) with cited rationales; the 36-thread disposition table in the record.
