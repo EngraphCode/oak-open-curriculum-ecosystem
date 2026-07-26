@@ -943,3 +943,36 @@ mortality and watcher gap windows, both already on the record. The recursion clo
 - **Estimate posted**: MCP-207 comment f8093658 (four layers, minimal-vs-general cut,
   options A/B/C, recommendation B); pointer comment on MCP-152. Owner carded A/B/C +
   OAK_API_KEY grant. Director notified by directed comms event.
+
+## 2026-07-26 ~18:56Z — Swallow guards Tailwind (805902): OWNER RULINGS landed on the card
+
+- **Exposure ruling = B** (build now, land dormant behind the allowlist, flip
+  post-submission) — direct card answer ~18:55Z; recorded on MCP-207 (comment 6724ff7b)
+  and MCP-152. Supersedes MCP-207's holding-state exclusion in the flagged direction.
+- **OAK_API_KEY grant discharged**: owner named the MCP app's local env file
+  (`apps/oak-curriculum-mcp-streamable-http/.env.local`) — "use that, and do not edit
+  that file". Read in place, never edited, values never echoed. Same file carries live
+  Elasticsearch credentials → MCP-201 clause-1 enumeration runs against the DEPLOYED
+  index first-hand.
+- Director's 18:54Z ACK assumed cards queue to morning — superseded by the direct
+  answers; map-update event sent. Lane order: MCP-201 probe (Urgent, proposed Wednesday
+  blocker, batch-shaped POST makes full-corpus check feasible) then MCP-152 execution
+  in the three-landing shape (each PR full-gates green; regen rides the last landing so
+  no intermediate landing breaks the build).
+
+## 2026-07-26 ~19:00Z — Swallow guards Tailwind (805902): OWNER REFINEMENT of ruling B (mid-turn, verbatim)
+
+- **Verbatim**: "all curriculum data tools must be updated now, only the new usage
+  licence tool are deferred, and then only with explicit tickets and explicit
+  sequencing for pick up".
+- Re-cut: MCP-152's now-landing = existing-tool updates (five limit-param changes +
+  descriptions, INCLUDING their served effect — already allowlisted) + refresh-script
+  fix + canary documented alignment + a compiling regen WITHOUT the check-restricted
+  family. The family's BUILD defers too (plain B had it building now-dormant) — into
+  explicit tickets with explicit blocked-by sequencing. Minimal cure set for the
+  family-less compiling regen (SKIPPED_PATHS reach vs small adapter z.record rule)
+  must be VERIFIED first-hand before landing 1 — skip-propagation to path-parameters /
+  request-parameter-map / zod generation is currently unverified.
+- Recorded: MCP-207 refinement comment; deferral tickets minted next with sequencing;
+  Director map event follows. Milestone placement for the deferred tickets is proposed
+  in prose only — owner agreement is the gate (milestones-propose-agree).
