@@ -20,8 +20,10 @@ sink selection;
 PostHog.
 **Supersedes in part**: ADR-162's 2026-04-19 History note where it
 defers PostHog until after public beta and treats Sentry as sufficient
-for the first product-usage question. ADR-162's five-axis and
-vendor-independence decisions remain unchanged.
+for the first product-usage question; ADR-171's expectation that
+PostHog extends the homogeneous diagnostic sink registry. ADR-162's
+five-axis and vendor-independence decisions and ADR-171's single
+selection axis remain unchanged.
 
 ## Context
 
@@ -78,9 +80,24 @@ not inside, the engineering error-observability capability.
 - Consumer code depends on Oak contracts. The official
   `posthog-node` and `@posthog/mcp` packages remain inside adapters
   and composition boundaries.
-- A call-level correlation identifier may connect two records about
-  the same technical action. No stable person identifier is shared
-  between PostHog and Sentry by default.
+- No cross-provider correlation identifier is emitted by default.
+  Any future call-level bridge requires a separately approved purpose,
+  identifier, access boundary, and delivery plan. No stable person
+  identifier is shared between PostHog and Sentry.
+
+`OBSERVABILITY_SINKS` remains the one selection axis. A single closed
+`OBSERVABILITY_SINK_DEFINITIONS` registry classifies its literals by
+capability class, with exact `diagnostic: ['sentry', 'file']` and
+`product_analytics: ['posthog']` groups. Literal spreads and indexed
+access derive the full selection and diagnostic-only tuples and unions;
+no second kind list or widening assertion is permitted. The homogeneous
+`SinkRegistry` uses only the diagnostic union. PostHog projects through
+a parallel discriminated product-analytics runtime with exact on and
+inert off modes; it is not represented as an exception/message sink.
+Production continues to require at least one diagnostic-group member,
+so selecting only PostHog does not satisfy the remote-diagnostics
+locality rule. This preserves one configuration axis without inventing
+`ObservabilitySink<'posthog'>`.
 
 This is a per-sink projection of one protected source context. It does
 not weaken ADR-160. The keyed PostHog identity is derived inside the
@@ -145,7 +162,9 @@ event. “Raw” never means raw request or response material.
 
 The closed event envelope may contain:
 
-- event and same-action correlation identifiers;
+- event identifiers;
+- a same-action cross-provider correlation identifier only after the
+  separate approval required above, never by default;
 - server-observed timestamps and duration;
 - MCP primitive or method and an allowlisted capability name;
 - bounded outcome or error category;
@@ -342,9 +361,11 @@ host conversation.
 The official package already observes MCP initialisation, tool
 listing, and tool calls. Accepting its default payload would collect
 substantially more data than Oak needs. First-party instrumentation
-therefore supplies those observations; Oak adds resource and prompt
-observations through its own closed MCP adapter, and Oak's allowlist
-defines what may leave the process.
+therefore supplies those observations; Oak adds resource-read
+observations through its own closed MCP adapter in the current release,
+and Oak's allowlist defines what may leave the process. A future prompt
+event requires a separately approved event surface and deterministic
+observation seam.
 
 ## Alternatives considered
 
@@ -445,8 +466,10 @@ access controls, or deletion route are already live.
 - ADR-162's observability axes and vendor-independence principle remain
   unchanged. Its earlier PostHog deferral and “Sentry is sufficient”
   sequencing note are superseded.
-- ADR-171 remains the configuration authority: PostHog is selected
-  through the existing sink axis rather than a new mode.
+- ADR-171 remains the configuration-axis authority: PostHog is
+  selected through the existing sink axis rather than a new mode.
+  This ADR supersedes only its earlier expectation that every selected
+  kind extends the homogeneous diagnostic sink registry.
 - ADR-201 continues to own any future evidence-edge connector or
   write-back mechanism.
 - ADR-212 continues to classify PostHog as product-usage evidence,

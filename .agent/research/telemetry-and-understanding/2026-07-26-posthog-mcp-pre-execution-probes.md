@@ -412,7 +412,7 @@ non-negotiable behavioural constraints:
 - [`@posthog/mcp` low-level instrumentation source](https://github.com/PostHog/posthog-js/blob/a027bf5c0d48a39388f9db3da7565e2d283e0b65/packages/mcp/src/extensions/instrument-lowlevel.ts)
 - [`@posthog/mcp` final capture pipeline source](https://github.com/PostHog/posthog-js/blob/a027bf5c0d48a39388f9db3da7565e2d283e0b65/packages/mcp/src/extensions/sink.ts)
 - [`@posthog/mcp` session-token source](https://github.com/PostHog/posthog-js/blob/a027bf5c0d48a39388f9db3da7565e2d283e0b65/packages/mcp/src/extensions/session-token.ts)
-- [`posthog-node@5.46.1` source snapshot](https://github.com/PostHog/posthog-js/tree/a027bf5c0d48a39388f9db3da7565e2d283e0b65/packages/node)
+- [`posthog-node@5.46.1` source snapshot](https://github.com/PostHog/posthog-js/tree/7c00f92525bd6fb1231ab762ff46230f279fd740/packages/node)
 - [PostHog Node SDK documentation](https://posthog.com/docs/libraries/node)
 - [PostHog people and deletion documentation](https://posthog.com/docs/data/persons)
 - [PostHog EU OpenAPI schema](https://eu.posthog.com/api/schema/)

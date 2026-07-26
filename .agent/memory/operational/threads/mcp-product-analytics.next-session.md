@@ -32,6 +32,8 @@ gates the October public beta.
 - Draft [PR #568](https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/568)
   carries the ratified plans, ADR, and dated probe evidence on branch
   `jimcresswell/mcp-63-posthog-deterministic-analytics`.
+- PR #568 remains a planning-baseline change. Runtime implementation starts
+  from a fresh branch based on the resulting `main` after this PR lands.
 - No implementation has begun on that clean branch.
 - The superseded implementation spike was fully absorbed into the plan, ADR,
   and probe report. Its worktree and both obsolete local branches were deleted.
@@ -88,11 +90,12 @@ ratified plan or ADR.
 
 ## Next safe step
 
-Begin the first TDD slice on the PR #568 branch:
+After PR #568 lands, create a fresh implementation branch from the updated
+`main`, then begin the first TDD slice:
 
 1. write the provider-neutral product-event contract and forcing tests;
-2. replace the disproven open event shape rather than carrying the spike
-   forward;
+2. implement the closed contract directly without introducing a generic event
+   name or arbitrary-property shape;
 3. add compatible current PostHog dependencies and prove one interoperable
    runtime copy; and
 4. keep existing Sentry behaviour unchanged.
@@ -124,9 +127,10 @@ requirements, not later hardening.
 
 ## Participating identities
 
-| agent_name | platform | model | role | last_session |
-| --- | --- | --- | --- | --- |
-| Glassy Flowing Stern | cursor | composer-2.5 | original design author | 2026-05-26 |
-| Stellar Glowing Satellite | claude | claude-opus-4-7 | programme and amendments | 2026-05-26 |
-| Urchin hunts Surf | claude-code | claude-fable-5 | superseded spike author | 2026-07-22 |
-| Crucible wakes Ashes | codex | GPT-5 | ratified plan, probes, and closeout | 2026-07-26 |
+| agent_name | platform | model | session_id_prefix | role | first_session | last_session |
+| --- | --- | --- | --- | --- | --- | --- |
+| Glassy Flowing Stern | cursor | composer-2.5 | de55d6 | original design author | 2026-05-26 | 2026-05-26 |
+| Stellar Glowing Satellite | claude | claude-opus-4-7 | 9a2967 | programme and amendments | 2026-05-26 | 2026-05-26 |
+| Urchin hunts Surf | claude-code | claude-fable-5 | b51773 | superseded spike author | 2026-07-22 | 2026-07-22 |
+| Crucible wakes Ashes | codex | GPT-5 | 019f9a | ratified plan, probes, and closeout | 2026-07-26 | 2026-07-26 |
+| Kite seeks Crosswind | codex | GPT-5 | 019f9e | MCP-63 implementation | 2026-07-26 | 2026-07-26 |

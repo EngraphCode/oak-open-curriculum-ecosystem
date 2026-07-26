@@ -46,9 +46,10 @@ The shared observability package exposes a provider-neutral product
 analytics capability selected through the existing sink axis. An
 adapter around PostHog's official Node client owns delivery,
 lifecycle, and the final outbound policy. Emission sites depend on
-the closed Oak contract, never the vendor. The current open
-`name: string` plus arbitrary-property record is not the target
-contract and must not survive this implementation.
+the closed Oak contract, never the vendor. The contract deliberately
+has no generic `name: string` or arbitrary-property escape hatch.
+The concrete adapter lives in `packages/libs/posthog-node`; it owns
+all `posthog-node` and `@posthog/mcp` imports.
 
 PostHog's official MCP instrumentation supplies protocol-native events
 for initialisation, tool listing, and tool calls. The researched
@@ -92,12 +93,12 @@ event timing only after a separate measurement rule is approved. This
 plan preserves the facts needed for such a view but implements no
 activity-window or session derivation.
 
-Sentry remains the engineering error and trace specialist. A
-call-level correlation identifier may connect the product fact to
-the same technical action, but no stable person identifier is shared
-between the two providers. MCP-63 does not add that cross-provider
-correlation field: the existing inbound HTTP correlation value is not
-an approved PostHog identifier.
+Sentry remains the engineering error and trace specialist. MCP-63 adds
+no cross-provider correlation field: the existing inbound HTTP
+correlation value is not an approved PostHog identifier. Any future
+call-level bridge requires a separately approved purpose, identifier,
+access boundary, and delivery plan. No stable person identifier is
+shared between the two providers.
 
 One MCP-dedicated PostHog client owns automatic and Oak-authored MCP
 events. The installed official instrumentation may label that client
@@ -157,16 +158,17 @@ resource reads produce no product event in this release. Merely lacking
 `authInfo` never selects an anonymous fallback.
 
 The grain is one accepted event per observed operation, not one generic
-HTTP-completion event plus one protocol event. The provisional
-`mcp_http_request_completed` event and its RED test are removed rather
-than wired, because retaining them would double-count the three
-package-observed operations.
+HTTP-completion event plus one protocol event. MCP-63 does not introduce
+an `mcp_http_request_completed` event because it would double-count the
+three package-observed operations.
 
 ### Provider-neutral port
 
 `@oaknational/observability` owns this closed input contract:
 
 ```ts
+import type { Result } from '@oaknational/result';
+
 export type ProductAnalyticsEvent = {
   readonly kind: 'mcp_resource_read';
   readonly resourceName: string;
@@ -179,7 +181,7 @@ export type ProductAnalyticsCaptureContext = {
   readonly verifiedActorId: string;
 };
 
-export interface ProductAnalyticsSink extends SinkLifecycle {
+export interface ProductAnalyticsSink {
   capture(
     event: ProductAnalyticsEvent,
     context: ProductAnalyticsCaptureContext,
@@ -189,6 +191,24 @@ export interface ProductAnalyticsSink extends SinkLifecycle {
 export interface McpServerInstrumenter<TServer> {
   instrument(server: TServer): void;
 }
+
+export type ProductAnalyticsCloseError = {
+  readonly kind: 'product_analytics_close_failed';
+};
+
+type ProductAnalyticsRuntimeCapabilities<TServer> = {
+  readonly sink: ProductAnalyticsSink;
+  readonly instrumenter: McpServerInstrumenter<TServer>;
+  close(): Promise<Result<void, ProductAnalyticsCloseError>>;
+};
+
+export type ProductAnalyticsRuntime<TServer> =
+  | (ProductAnalyticsRuntimeCapabilities<TServer> & {
+      readonly mode: 'off';
+    })
+  | (ProductAnalyticsRuntimeCapabilities<TServer> & {
+      readonly mode: 'posthog';
+    });
 ```
 
 There is no generic event name and no arbitrary property record.
@@ -200,6 +220,14 @@ The app receives
 PostHog adapter maps the installed official instrumentation API to the
 Oak behaviour contract below and invokes it exactly once, without
 exposing either dependency to the app.
+
+`ProductAnalyticsRuntime.close()` is the exact, non-throwing lifecycle
+boundary. `mode: 'off'` supplies inert sink and instrumenter
+capabilities and an immediate successful close result; it reads no
+PostHog configuration and creates no client. `mode: 'posthog'` maps
+client shutdown failure to the fixed content-free error kind above.
+The process-level composition owner passes only `sink` and
+`instrumenter` into request handling.
 
 `verifiedActorId` is separate protected capture context, not an event
 property. It is accepted only from the validated
@@ -217,6 +245,64 @@ the timer immediately before invoking the original callback, records
 before rethrowing the same error, and never reads the resource result.
 The adapter validates the name against the live served-surface
 resource set. An unknown name drops the event.
+
+### Sink-axis and registry shape
+
+`OBSERVABILITY_SINKS` remains the single app-local selection axis and
+gains the `posthog` literal. One closed
+`OBSERVABILITY_SINK_DEFINITIONS` grouped constant is the only literal
+source:
+
+```ts
+export const OBSERVABILITY_SINK_DEFINITIONS = {
+  diagnostic: ['sentry', 'file'],
+  product_analytics: ['posthog'],
+} as const;
+
+export const DIAGNOSTIC_SINK_KINDS =
+  OBSERVABILITY_SINK_DEFINITIONS.diagnostic;
+export type DiagnosticSinkKind =
+  (typeof DIAGNOSTIC_SINK_KINDS)[number];
+
+export const OBSERVABILITY_SINK_KINDS = [
+  ...OBSERVABILITY_SINK_DEFINITIONS.diagnostic,
+  ...OBSERVABILITY_SINK_DEFINITIONS.product_analytics,
+] as const;
+export type ObservabilitySinkKind =
+  (typeof OBSERVABILITY_SINK_KINDS)[number];
+```
+
+The literal spreads preserve exact tuples without `Object.*`, `map`,
+`filter`, or assertions. The environment schema consumes the full
+selection tuple. `ObservabilitySink<K>` accepts only
+`DiagnosticSinkKind`, and `SinkRegistry` maps only that same union, so
+`ObservabilitySink<'posthog'>` and `SinkRegistry.posthog` are
+unrepresentable.
+
+Product analytics does not pretend to be an engineering-error sink:
+`ProductAnalyticsSink` is not widened with `captureException` or
+`captureMessage`.
+
+The observability package exposes two typed projections from the same
+parsed selection:
+
+- the existing diagnostic `SinkRegistry`, keyed only by diagnostic sink
+  kinds such as `sentry` and `file`; and
+- one required `ProductAnalyticsRuntime<TServer>` slot: `mode: 'posthog'`
+  when the same selection contains `posthog`, otherwise the exact inert
+  `mode: 'off'` runtime described above.
+
+This parallel slot keeps one configuration axis without forcing
+unrelated capabilities into one homogeneous registry. Selection-axis,
+diagnostic-registry, and product-slot tests prove the split.
+
+Production locality remains a diagnostic guarantee, not merely a
+non-empty-selection check. `refineProductionLocality` requires at
+least one selected member of `DIAGNOSTIC_SINK_KINDS`; `['posthog']`
+alone fails with a fixed diagnostic-sink-required issue, while
+`['sentry']`, `['file']`, or either alongside `posthog` satisfies the
+rule. The refinement and its truth-table tests use the derived
+diagnostic tuple, never a second literal list.
 
 ### Exact PostHog row contract
 
@@ -278,9 +364,9 @@ environment and release strings that could be mixed. The off config
 remains `{ mode: 'off' }` and contains no release fields.
 The final policy injects `.environment` and `.value` from that
 bootstrap-captured object during reconstruction and drops any incoming
-`oak_environment` or `oak_release`. It does not send the canonical
-release through the WIP generic safe-label parser or add a second
-validator with different length or character rules.
+`oak_environment` or `oak_release`. The canonical release bypasses any
+generic safe-label parser, and MCP-63 adds no second validator with
+different length or character rules.
 
 Event-specific properties are:
 
@@ -401,8 +487,12 @@ bootstrap without including a value in diagnostics. When PostHog is
 off, these variables are not required or parsed.
 
 The raw key-ring string, decoded keys, project key, and PostHog host
-are consumed at bootstrap into the adapter closure. They are omitted
-from the handler-facing `RuntimeConfig.env` and never enter
+are app-local deployment inputs owned and parsed by the
+`apps/oak-curriculum-mcp-streamable-http` composition root. The
+`packages/libs/posthog-node` adapter receives only a closed typed
+configuration and does not read ambient environment variables.
+Secrets are consumed at bootstrap into the adapter closure. They are
+omitted from the handler-facing `RuntimeConfig.env` and never enter
 `handlerOptions`, MCP request context, logs, errors, Sentry, or a
 serialisable generic config object. Handler code receives only the
 closed sink and instrumenter capabilities.
@@ -453,7 +543,7 @@ versioned Oak contract:
 | Unused products | Disable exception autocapture, feature-flag preloading, surveys, replay, and remote evaluation |
 | Batch bounds | Flush at 20 events or 5 seconds; cap a batch at 100 and the queue at 10,000 |
 | Network bounds | Use a 10-second request timeout and at most three retries separated by 3 seconds |
-| Vercel lifetime | Inject `waitUntil`, debounce for 50 ms, and cap deferred wait at 500 ms |
+| Vercel lifetime | Inject `waitUntil`; debounce for 50 ms; force a flush after at most 500 ms of debounce, without treating that value as a cap on the registered promise |
 | Runtime | Operate as a server client |
 | Final privacy boundary | Apply `finalOakEventPolicy` to every outbound event |
 
@@ -529,7 +619,15 @@ For each MCP HTTP request:
 
 The shared PostHog client is never shut down or flushed per request.
 Vercel `waitUntil` owns queued post-response delivery. Local and test
-process teardown calls the client's bounded shutdown exactly once.
+process teardown routes through `startConfiguredHttpServer`'s
+process-level close owner. One shared close-once promise attempts both
+HTTP observability close and product-runtime close on bootstrap failure,
+server listen error, `SIGINT`, `SIGTERM`, and explicit test teardown.
+Overlapping terminal paths reuse that promise, so each runtime is
+closed at most once and one close failure never prevents the other
+attempt. Product-runtime failure returns the fixed error kind, produces
+only the approved content-free operational signal, and does not block
+the process's existing exit decision.
 
 The currently shipped SSE response path remains authoritative.
 Analytics-enabled and disabled responses must have identical status,
@@ -542,8 +640,8 @@ binding, replay integrity, and identical privacy reconstruction.
 
 Each authenticated in-scope operation constructs and enqueues at most
 one accepted event. The package-generated `$identify` event is
-dropped, exception siblings are disabled and dropped, and the generic
-HTTP-completion event is removed.
+dropped, exception siblings are disabled and dropped, and MCP-63
+introduces no generic HTTP-completion event.
 
 The event UUID is assigned once before the Node SDK's outbound
 transport retries. The resolved transport must reuse the same queued
@@ -609,12 +707,15 @@ The plan owner verifies every `owner-held` proof below and records the
 evidence on MCP-63.
 
 1. **The shared capability is closed and provider-neutral.** The app
-   composition root receives the closed `ProductAnalyticsSink` and
-   `McpServerInstrumenter<McpServer>` capabilities; resource-emission
-   sites receive only `ProductAnalyticsSink`. Application and domain
-   packages contain no PostHog import or arbitrary capture escape
-   hatch. Proof (`repo-safe`): type tests, package-boundary lint,
-   sink-registry tests, and an app composition integration test.
+   composition root receives one discriminated
+   `ProductAnalyticsRuntime<McpServer>` and passes only its closed sink
+   and instrumenter capabilities into request handling; resource-emission
+   sites receive only `ProductAnalyticsSink`. Off mode is inert and
+   requires no PostHog configuration. Application and domain packages
+   contain no PostHog import or arbitrary capture escape hatch. Proof
+   (`repo-safe`): type tests, package-boundary lint, selection-axis,
+   diagnostic-registry, production-locality truth-table, on/off
+   product-runtime tests, and an app composition integration test.
 2. **The four-operation matrix is exact.** Authenticated initialise,
    tool-list, tool-call, and resource-read paths each enqueue at most
    one approved event. Prompt, resource-list, unsupported-method,
@@ -667,9 +768,12 @@ evidence on MCP-63.
    module-scoped client receives `waitUntil`; each enqueue schedules
    the bounded debounced flush; SDK retries preserve the UUID; no
    client is constructed, flushed, or shut down per request; local
-   teardown shuts it down once. Proof (`repo-safe`): fake-clock
-   lifecycle tests, real-client network-isolated retry tests, and a
-   built-artefact smoke test.
+   teardown's shared process close owner attempts both runtimes exactly
+   once across bootstrap failure, listen error, signals, and explicit
+   test teardown, with fixed `Result` failures and independent attempts.
+   Proof (`repo-safe`): fake-clock lifecycle and terminal-path race
+   tests, real-client network-isolated retry tests, and a built-artefact
+   smoke test.
 8. **Dependency upgrades preserve the contract.** The source
    manifests, lockfile, runtime graph, and built app identify the
    resolved compatible versions and contain one interoperable runtime
@@ -686,8 +790,8 @@ evidence on MCP-63.
 
 ## Todos
 
-- Replace the open product-event WIP with the closed provider-neutral
-  port, conditional key-ring configuration, and compatible current
+- Land the closed provider-neutral port, parallel product-analytics
+  slot, conditional key-ring configuration, and compatible current
   dependencies as one TDD slice, within the default two-review-round
   budget.
 - Land HMAC projection, rotation/deletion derivation, the four-event

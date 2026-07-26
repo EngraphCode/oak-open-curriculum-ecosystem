@@ -86,9 +86,10 @@ pseudonym. Its supported event-deletion API first resolves a Person,
 so actor-linked events create one minimal pseudonymous Person row.
 That row contains no direct identifier, `$set`, `$set_once`, person
 property, or group membership. Sentry receives engineering
-diagnostics. The default join between them is a call-level correlation
-identifier; person-level cross-provider linkage requires a separately
-approved purpose and an Oak-controlled boundary.
+diagnostics. There is no cross-provider join by default. Any future
+call-level bridge requires a separately approved purpose, identifier,
+and Oak-controlled boundary; person-level cross-provider linkage
+requires a distinct approval and remains outside this plan.
 
 Retention and erasure are exercised, not stated. The retention proof
 covers events, derived datasets, exports, and other authorised copies.
@@ -190,10 +191,12 @@ or prescribe its form.
    (`owner-held`): completed drill and runbook evidence on MCP-173.
 7. **Provider responsibilities remain separate.** Approved samples
    show product-interaction facts in PostHog, engineering diagnostics
-   in Sentry, and only the approved call-level bridge by default.
+   in Sentry, and no cross-provider bridge by default.
    Proof (`repo-safe`): coexistence and policy suites;
-   (`owner-held`): reviewed live samples plus the approved join/data
-   map and access/configuration review, linked on MCP-173.
+   (`owner-held`): independently reviewed live samples plus the
+   approved data map and access/configuration review, linked on
+   MCP-173. Any future join requires its own approved purpose,
+   identifier, boundary, and proof.
 8. **October public-beta enablement has a current decision.** Immediately
    before enabling public-beta capture, every criterion above remains
    current and Oak's accountable public-beta decision is recorded. Proof
