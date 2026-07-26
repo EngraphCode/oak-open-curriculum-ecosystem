@@ -1,7 +1,7 @@
 ---
 title: Sentry vs PostHog Capability Matrix — Where Each Wins, Where Each Falls Short Across the Five Axes
 date: 2026-04-18
-status: active
+status: superseded
 body_state: 'possibility-shaped body authored 2026-04-19 (no usage data; private alpha; parallel Sentry-integration agent active). 2026-04-19 — superseded in framing by the three-sink architecture (see § Status update). The capability-matrix analysis below remains valid as the input that informed the reframe; the binary-choice framing it implies does not.'
 overlay_source: '.agent/research/sentry-and-posthog/Sentry and PostHog-oak.md'
 plan_of_record: '.cursor/plans/sentry-posthog-oak-overlay_6a16ff6e.plan.md'
@@ -19,6 +19,19 @@ constraints:
 ---
 
 # Sentry vs PostHog Capability Matrix
+
+## Status update 2026-07-26 — current PostHog decision
+
+[ADR-218](../architecture/architectural-decisions/218-posthog-mcp-analytics-identity-session-and-privacy.md)
+supersedes this record's PostHog timing, adequacy, identity, and runtime-shape
+conclusions. PostHog product analytics is submission-blocking work in the
+ratified
+[MCP-63 plan](../../.agent/plans/delivery/mcp-63-posthog-product-analytics.plan.md);
+the separate
+[MCP-173 plan](../../.agent/plans/delivery/mcp-173-posthog-privacy-governance.plan.md)
+gates October public-beta enablement. Sentry remains the engineering
+diagnostic surface and is not treated as sufficient product-usage analytics.
+The capability observations below remain dated research evidence only.
 
 ## Status update 2026-04-19 — three-sink reframe
 

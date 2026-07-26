@@ -443,6 +443,12 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   owner-ratified D23 estate structure whose validator and templates landed in
   PR #478; carries the dated ADR-200 relationship note — the living idea-graph
   is deferred, not deleted; Proposed born-sketch 2026-07-23)
+- [ADR-218: PostHog MCP analytics identity, session, and privacy boundary](218-posthog-mcp-analytics-identity-session-and-privacy.md)
+  (separates deterministic product-interaction analytics from Sentry
+  diagnostics; defines the scoped pseudonymous actor, UUIDv7 call/event,
+  no-current-session and no-conversation posture, closed content-free event
+  envelope, minimal deletion-index Person, and October public-beta governance
+  boundary; Accepted by owner direction 2026-07-26)
 
 ## Key Architectural Decisions
 
