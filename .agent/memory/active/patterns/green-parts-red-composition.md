@@ -67,3 +67,13 @@ therefore not evidence of a live composition.
 
 The discriminating question: *every part is green — what watches the
 composition?*
+
+**Refinement watch (2026-07-23, from the cure-side synthesis)**: the three
+cures that day shared one shape — one authoritative state definition, every
+surface DERIVES, and a one-place walk enumerates the deriving surfaces. The
+open joint is that walk-JOINING is itself a discipline: completeness is not
+self-certifiable (that day's underived surfaces were found by types, review,
+and the owner — never by self-scan; MCP-121 holds the walk socket). If a
+fourth composition-failure instance arrives whose surfaces DO all derive,
+split this pattern into state-divergence vs write-blockage sub-classes (the
+2026-07-23 release stall was the latter).

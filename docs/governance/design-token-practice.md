@@ -130,6 +130,21 @@ framework-agnostic — it works with any CSS-capable environment.
 Themes override semantic tokens for a given mode. The palette tier
 remains constant; the semantic tier maps differently per theme.
 
+**Never express elevation or interaction-state light in absolute colours
+inside the themed system** (owner-ratified, 2026-07-25, EMC2 button-states
+arc). A hover/press calibration hardcoding raw white/black mixes or a
+fixed shadow hex bypasses the theme tier and breaks exactly where themes
+diverge: the first EMC2 calibration was perfect in dark, washed out in
+light, and produced a magenta shadow with unanchored motion in
+high-contrast. Tokenize the state faces and shadows and let **each theme
+re-declare its light regime**: physics (translate/scale) may be universal,
+but "lighter on hover" is theme-spoken — dark lights with white, light
+lifts with the brand's own hue (chroma-preserving, never raw white on a
+dark face) and presses by removing gloss (removing light IS darkening at
+pigment floor), high-contrast keeps a subtle crisp ink shadow at reduced
+scale. Interaction-state design is un-reviewable in static screenshots —
+build a live hover/press lab for state rulings.
+
 Dark mode uses a dual-selector approach in generated CSS:
 
 1. `@media (prefers-color-scheme: dark) { :root:not([data-theme='light']) { ... } }`

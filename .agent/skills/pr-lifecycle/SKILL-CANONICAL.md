@@ -356,6 +356,23 @@ as phase-local restatements.
    once findings restate a documented residual. Track findings-per-round
    and risk-mass trend as the crossing-point telemetry; record the round
    count as the observed crossing point, never as the rule.
+   **Recovery for an over-scoped PR already in flight — the two-class
+   disposition ruling (owner-ratified 2026-07-25, #529; precedent: the
+   MCP-56 dispositions-only round):** a multi-story PR whose reviewers
+   re-review the whole diff on every push cannot reach the zero-new-findings
+   exit — the SURFACE, not diligence, generates the findings (#529 ran
+   14→19 unresolved across nine push-per-cure pushes, three rounds, no
+   convergence, checks green throughout). Batching one adjudicated round
+   per push cures only the re-trigger half; the other half is
+   dispositional. Classify every finding: **CLASS F** — the PR would LAND a
+   false statement → cure in the PR; nothing false lands. **CLASS P** —
+   true and valuable, but about how the named work is EXECUTED later →
+   reply naming the owning ticket and resolve WITHOUT growing the diff. A
+   Class P reply must name a real ticket — "later" with no home is
+   ignoring, not dispositioning. The durable lesson sits upstream: a round
+   budget is a SIZE constraint in disguise (PDR-132 binds it at authoring
+   time; single-story PRs are the generator fix) — this ruling is the
+   in-flight recovery, never a licence to open multi-story PRs.
 3. **Reviewer-leg states**, computed per (reviewer, tip): **SATISFIED** —
    ANY harvested review by the reviewer binds to the current tip (the
    Phase 3 harvest is the source; the compound read's `latestReviews` alone
@@ -412,7 +429,12 @@ as phase-local restatements.
    binding to the tip — never since the push (>10 min; 12 used on #330)
    (round-3 correction, 2026-07-16: without the skip clause a timed-out
    reviewer stays bound to an older commit and the settled state is
-   unreachable). On a tip where every leg settled via SKIPPED (no review
+   unreachable). **The quiet window is a PROXY for review-run-boundary
+   visibility, which agents lack; the owner sees run start/finish directly,
+   so an owner settled-word — or an owner-executed merge — issued from that
+   direct visibility supersedes the proxy and is never read as a process
+   breach** (owner word 2026-07-25; #518 and #534 were owner-merged inside
+   the window, correctly). Agents keep the proxy. On a tip where every leg settled via SKIPPED (no review
    ever bound to the tip), the quiet window anchors on the checks-green
    window from item 3. MERGE-READY is a settled round that landed zero new
    findings, plus every Phase 7 gate leg.
@@ -439,7 +461,17 @@ as phase-local restatements.
    non-zero body tally) AND zero NEWLY HARVESTED findings regardless of
    which round they bucket to (an out-of-order summary-only review bound
    to an older tip lands late: it buckets to its own prior round yet still
-   blocks THIS merge moment); every Phase 7 gate leg green INCLUDING
+   blocks THIS merge moment); **every REQUIRED check from the base branch's
+   ruleset PRESENT in the tip's check list BY NAME and green — an
+   expected-but-never-created check is simply absent from `gh pr checks`,
+   so an all-visible-terminal-green read looks settled while the merge
+   405s** (worked instance #517, 2026-07-24: the CodeQL advanced-setup
+   workflow landed on main after the PR opened, no `synchronize` event had
+   fired since it existed, and its required aggregate was never created;
+   any PR open across a required-workflow migration window inherits this
+   state; cure — an empty-commit push fires `synchronize` and creates the
+   missing run, and the 405 text itself names the missing check: read it);
+   every Phase 7 gate leg green INCLUDING
    checks GitHub does not enforce; the Sonar gate passing. The command
    inherits Phase 7's merge-authorisation boundary unchanged.
    **In a coordinated drive, the settled-round predicate binds GRANTS,
@@ -490,6 +522,16 @@ as phase-local restatements.
 - Reply to each thread with the fix evidence (commit SHA + what changed),
   then resolve it. "Resolved" is a settled-concern state, never a button
   clicked to clear `mergeStateStatus`.
+- **On an OWNER-AUTHORED branch, the author is the most likely concurrent
+  writer** (two collisions in one lane, 2026-07-24, #515): re-fetch the
+  branch tip immediately before opening the commit window, not just at
+  grounding. On any non-fast-forward rejection, STOP external writes and
+  read the incoming commits' AUTHORSHIP first — owner commits mean a carded
+  owner-version-wins reconciliation (semantic union, named surviving
+  deltas, history preserved via merge), never a mechanical merge-and-push.
+  Hold thread replies until the push lands, so no external record ever
+  cites a superseded commit — the held-replies discipline saved both
+  rounds.
 - **Silent-wait sweep after every push (PDR-132)**: verify the expected
   reviewer is REQUESTED on the new tip — a push does not re-request, and a
   tip with no requested reviewer and no tip-bound review waits forever
@@ -597,7 +639,12 @@ two-line lint failure believed self-landing).** Then:
   TIP'S statuses (not a failing one), verify against main's commits whether
   the context posts ANYWHERE before diagnosing further, and surface it to
   the owner: restoring the producer or amending the ruleset is repo
-  governance, never the shepherd's bypass.
+  governance, never the shepherd's bypass. The never-CREATED twin (#517,
+  2026-07-24) is the same invisibility with the opposite tell and cure: a
+  required workflow that landed on main AFTER the PR opened has no check row
+  to show and no BLOCKED signal until the merge attempt 405s — the merge
+  boundary's required-names-present leg (state machine item 5) catches it,
+  and an empty-commit push (firing `synchronize`) creates the missing run.
 
 - **The merge gate is merge-button-active-for-a-non-admin**: a truly-green
   PR — MERGE-READY per the state machine's item 4, plus every gate leg

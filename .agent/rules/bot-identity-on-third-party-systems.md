@@ -29,7 +29,13 @@ The GitHub bot identity is `jimbot-oakington-iii[bot]` (app 4352989).
   (`git config extensions.worktreeConfig true` once, then
   `git config --worktree user.name …` / `user.email …`). NEVER the shared
   repo or global config — that flips the owner's own commits in the primary
-  checkout. The `Co-Authored-By` model trailer stays.
+  checkout: with `extensions.worktreeConfig` enabled, a PLAIN `git config
+  user.*` write from a worktree still targets the SHARED local scope
+  (worked near-miss 2026-07-24 — the primary read the bot for ~1 min).
+  Before any worktree commit, verify both surfaces:
+  `git -C <primary> config user.name` still resolves the human AND the
+  worktree's own config resolves the bot. The `Co-Authored-By` model
+  trailer stays.
 - **PR creation, comments, review replies, thread resolution, merges**: a
   minted installation token (`agent-tools merge-bot mint-token`) exported as
   `GH_TOKEN` for the `gh` invocation.

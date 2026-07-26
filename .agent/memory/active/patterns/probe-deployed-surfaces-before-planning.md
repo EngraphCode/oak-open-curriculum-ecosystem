@@ -53,3 +53,17 @@ questions?"* — and the deployment is part of the code.
   integrations, the grounding set includes where the org already runs
   that vendor (grep the sibling estates), not just the vendor's docs
   and the local repo.
+- **Diagnosis-time face — instrument the boundary before theorising
+  about it** (owner-named disproportion, 2026-07-25 Copilot hook arc):
+  when a boundary fails opaquely (an exit code and nothing else), one
+  payload-shape + per-layer-exit trace line AT the boundary
+  discriminates the failing layer immediately, where hypothesis-testing
+  against SYNTHETIC envelopes burned hours across three stacked
+  indirections. Record input shape, layer identity, and verdict first;
+  expand to general diagnostics only if that evidence cannot
+  discriminate. Twin discipline: absence of an instrument's rows is
+  evidence about the INSTRUMENT'S coverage first, never about the
+  boundary's behaviour (a retracted verdict came from reading absent
+  capture rows as exit-0); and a session can hold STALE loaded hook
+  state through /restart — prove which config the live process actually
+  loaded before testing hypotheses against the one on disk.

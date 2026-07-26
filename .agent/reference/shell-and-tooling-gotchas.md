@@ -18,6 +18,12 @@ tool retires them.
 
 ## Repo tooling
 
+- **Filesystem probes use absolute paths — a persistent shell cwd fakes
+  vanished files** (2026-07-26): after a `cd` into a workspace, a
+  root-relative `ls .agent/experience/` reports "no such directory" while
+  the file exists, and a `find` from the same cwd "confirms" the vanish. A
+  vanished-file conclusion needs a root-anchored (absolute-path) check
+  before it is a conclusion.
 - **Prettier must run with the target worktree as cwd** (2026-07-20): a
   root-anchored relative path from a reset shell cwd silently formats
   the wrong checkout (one pre-commit red before diagnosis).
@@ -44,6 +50,25 @@ tool retires them.
 - **`claims heartbeat` and `claims close` require explicit `--now`**
   while `claims open` defaults it (three instances, 2026-07-20..23) —
   the per-command now-defaulting inconsistency, F-89 family.
+
+- **`merge-bot mint-token` has no direct-run bootstrap** (2026-07-25, two
+  seats): BOTH direct node entries (tsx on source and node on the built
+  cli.js) exit 0 with empty streams — a silent exit-0 on a token-minting
+  path. The working entry is `pnpm --silent agent-tools merge-bot
+  mint-token` (docs/engineering/merge-bot.md).
+- **Workflow-resume caches can serve degenerate results** (2026-07-25): a
+  quota-wall degradation produced literal placeholder schema-fills
+  ("test") that a later resume would have cache-served as valid — inspect
+  the journal's actual return values for degenerate output before
+  trusting a workflow resume cache.
+
+## GitHub Actions
+
+- **A workflow existing only on a non-default branch is not dispatchable**
+  (2026-07-23, single instance, mechanism inferred): no registration
+  appeared after ~15 min. Working cure: `on: push` scoped to its own
+  scratch ref — the push event runs the file at that ref immediately.
+  Scaffold → evidence → delete-ref, proven on the Slack alert test.
 
 ## GitHub credential
 

@@ -211,7 +211,20 @@ The correct shape is the single canonical invocation under the platform's
 own persistent-task primitive (Claude Code: `Monitor` with
 `persistent: true`), re-armed on the primitive's own **exit notification**
 — the notification path cannot hide a death the way a wrapper loop can,
-because the notification IS the liveness signal. If a manual restart is
+because the notification IS the liveness signal.
+
+**A re-arm as a plain background shell is worse than no watcher at all.**
+After a timeout death, a watcher re-armed as an ordinary background process
+(instead of the event-emitting Monitor primitive) consumes events and
+advances the seen-cursor with NO wake path into the session — which also
+suppresses re-delivery, so the events are not merely delayed but silently
+eaten. Worked instance 2026-07-25 (~16:45–18:25Z): three directed events
+were swallowed this way; the owner surfaced it before the seat noticed.
+The sharpened reading: **seen-cursor movement proves CONSUMPTION, not
+DELIVERY** — the only delivery-health check is an event actually arriving
+in-session (PDR-133 `NOTIFY`; this is the second NOTIFY-dead instance, and
+the first on a platform whose primitive CAN notify — the defect was the
+re-arm shape, not the platform). If a manual restart is
 ever needed, target the inner process by pid, never a `pkill -f` pattern
 that a wrapper's own command line can also match.
 
