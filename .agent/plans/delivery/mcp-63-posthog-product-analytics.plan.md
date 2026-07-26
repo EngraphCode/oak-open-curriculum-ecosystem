@@ -117,7 +117,7 @@ This delivery node serves
 [MCP-173](./mcp-173-posthog-privacy-governance.plan.md) depends on this
 node for the controlled live events needed to prove retention and
 erasure. Its policy, notice, data-map, and access work can proceed in
-parallel, and it retains ownership of the public-enablement gate.
+parallel, and it retains ownership of the October public-beta gate.
 
 [MCP-67](./mcp-67-clerk-production-promotion.plan.md) is a sibling, not
 a dependency: this plan consumes the already-verified Clerk principal,
@@ -706,7 +706,7 @@ evidence on MCP-63.
 
 - Lawful-basis approval, public notice, analyst permissions,
   retention configuration, and the deletion drill: MCP-173 owns the
-  public-enablement contract.
+  October public-beta contract.
 - Raw tool arguments, responses, prompts, resource contents,
   searches, feedback, or other free text: none is needed for the
   usage questions this plan answers.

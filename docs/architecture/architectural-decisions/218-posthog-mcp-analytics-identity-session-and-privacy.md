@@ -1,7 +1,7 @@
 # ADR-218: PostHog MCP Analytics Identity, Session, and Privacy Boundary
 
 **Status**: Accepted (owner-ratified 2026-07-26; implementation and
-public enablement remain to be proven)
+October public-beta enablement remain to be proven)
 **Date**: 2026-07-26
 **Related**:
 [ADR-112](112-per-request-mcp-transport.md) — fresh server and

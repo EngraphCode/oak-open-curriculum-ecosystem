@@ -1,7 +1,7 @@
 ---
 id: mcp-173-posthog-privacy-governance
 node_type: delivery
-name: "PostHog privacy governance for public enablement"
+name: "PostHog privacy governance for October public beta"
 overview: "Establish and prove the strictly necessary analytics boundary, minimisation, public information, access, retention, erasure, and provider separation for authenticated MCP analytics."
 status: ratified
 ratified_by: "Jim Cresswell"
@@ -20,7 +20,7 @@ owner_gates: []
 last_updated: 2026-07-26
 ---
 
-# PostHog privacy governance for public enablement
+# PostHog privacy governance for October public beta
 
 ## Goal
 
@@ -194,9 +194,9 @@ or prescribe its form.
    Proof (`repo-safe`): coexistence and policy suites;
    (`owner-held`): reviewed live samples plus the approved join/data
    map and access/configuration review, linked on MCP-173.
-8. **Public enablement has a current decision.** Immediately before
-   enabling public capture, every criterion above remains current and
-   Oak's accountable public-enablement decision is recorded. Proof
+8. **October public-beta enablement has a current decision.** Immediately
+   before enabling public-beta capture, every criterion above remains
+   current and Oak's accountable public-beta decision is recorded. Proof
    (`owner-held`): the dated decision link on MCP-173.
 9. **The strictly necessary baseline and future-choice research are
    explicit.** The mandatory authentication journey exposes the
@@ -226,7 +226,7 @@ or prescribe its form.
   controlled events.
 - Implement the deletion route and repeatable runbook through TDD
   slices, then perform and evidence one live drill.
-- Re-run the full public-enablement acceptance check and record the
+- Re-run the full October public-beta acceptance check and record the
   organisational decision on MCP-173.
 
 ## Out of scope

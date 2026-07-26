@@ -365,7 +365,7 @@ Because no controlled actor, person, or event exists, this probe could not
 exercise deletion without first writing live project data. No such write was
 performed.
 
-The completed live drill remains an October public-alpha gate, not a blocker
+The completed live drill remains an October public-beta gate, not a blocker
 to the next submission. It must:
 
 1. capture an allowlisted controlled event under a test pseudonym;
@@ -399,7 +399,7 @@ non-negotiable behavioural constraints:
 8. no current `$session_id` or conversation identifier;
 9. stable PostHog-scoped actor pseudonym plus UUIDv7 event/call identifiers;
 10. a minimal pseudonymous person record with no Oak-supplied properties; and
-11. a live retention and deletion drill before October public enablement.
+11. a live retention and deletion drill before October public-beta enablement.
 
 ## Official evidence
 
