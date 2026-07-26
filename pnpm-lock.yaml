@@ -25,7 +25,6 @@ overrides:
   rollup: '>=4.59.0'
   sharp: '>=0.35.0'
   sucrase: '>=3.35.1'
-  '@mcpjam/cli>@modelcontextprotocol/server': 2.0.0-alpha.2
 
 importers:
 
@@ -38,8 +37,8 @@ importers:
         specifier: ^21.2.0
         version: 21.2.0
       '@mcpjam/cli':
-        specifier: 3.12.0
-        version: 3.12.0(@cfworker/json-schema@4.1.1)(@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rxjs@7.8.2)
+        specifier: 3.15.2
+        version: 3.15.2(@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rxjs@7.8.2)
       '@oaknational/eslint-plugin-standards':
         specifier: workspace:*
         version: link:packages/core/oak-eslint
@@ -2463,13 +2462,13 @@ packages:
   '@liuli-util/fs-extra@0.1.0':
     resolution: {integrity: sha512-eaAyDyMGT23QuRGbITVY3SOJff3G9ekAAyGqB9joAnTBmqvFN+9a1FazOdO70G6IUqgpKV451eBHYSRcOJ/FNQ==}
 
-  '@mcpjam/cli@3.12.0':
-    resolution: {integrity: sha512-Ghz6yAPhTD9UJXisEXJ0jwTSbO7X/KSoRwbYdxScxIR4ZeDVMu52MixmkWCWjQZ4GWoEl1XvSBns6JKCz5kuEQ==}
+  '@mcpjam/cli@3.15.2':
+    resolution: {integrity: sha512-jfTFGYBCEiqi+ZesqhsQqvLLJMiLyJXoAPu6qf3dSxLa6Hr142vC7iHLfVJ7/gL+si4SlioiK8kedXMUCl3EtQ==}
     engines: {node: '>=20.0.0'}
     hasBin: true
 
-  '@mcpjam/sdk@1.33.0':
-    resolution: {integrity: sha512-AdDulpD4TAe5usD/ST7FRVgoLTioCNv4B3SPvjDOCM/mwLt7pejZmXQBvFRLryxtNvGzKYPvFhGou+qBLoB72w==}
+  '@mcpjam/sdk@2.0.1':
+    resolution: {integrity: sha512-F4XUo714Q5ho4vBIrsh0ARy4XOuoSPiYWKjcl/B/6kXQSHTgA7gjtJNU5OKH42BAT4JWq120masSjNE1RqXKpg==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       '@sentry/node': ^8.55.0
@@ -2483,14 +2482,13 @@ packages:
   '@microsoft/tsdoc@0.16.0':
     resolution: {integrity: sha512-xgAyonlVVS+q7Vc7qLW0UrJU7rSFcETRWsqdXZtjzRU8dF+6CkozTK4V4y1LwOX7j8r/vHphjDeMeGI4tNGeGA==}
 
-  '@modelcontextprotocol/client@2.0.0-alpha.2':
-    resolution: {integrity: sha512-FxlR5QyBPeCDEDPH2Kx20uygmuy9k2jh6ahUeEYtmVfUxboZZlUEUhn6w0XxnbxpkELcT1qyzTXC8Bqh3c8QUA==}
+  '@modelcontextprotocol/client@2.0.0-beta.4':
+    resolution: {integrity: sha512-VNHA/UXDk7mCpVl+jOg5B4WMRRD2OEl+it360Lhi6HiCbrIB2f6pZ0cqSDKXQVUtZvqnhdQHzZAM9h8EKWhq/A==}
     engines: {node: '>=20'}
-    peerDependencies:
-      '@cfworker/json-schema': ^4.1.1
-    peerDependenciesMeta:
-      '@cfworker/json-schema':
-        optional: true
+
+  '@modelcontextprotocol/core@2.0.0-beta.4':
+    resolution: {integrity: sha512-nsMXd4wQBKzmph6r+WOhum+mXjDYljTAqwY/XUg3hLtvNOQ8+JVqBSJOVCMJvx9lXhTpTOPrGZ3BuNiaNPjSvg==}
+    engines: {node: '>=20'}
 
   '@modelcontextprotocol/ext-apps@1.7.5':
     resolution: {integrity: sha512-TjPH2S2y5UEGKhmI6+XGFuqfqOV4ppe1x6DA3txnUaEWkgtA4G5vo14jGKFZmegdkZ1H4QMLyujLvoU1BEdnAg==}
@@ -2516,14 +2514,9 @@ packages:
       '@cfworker/json-schema':
         optional: true
 
-  '@modelcontextprotocol/server@2.0.0-alpha.2':
-    resolution: {integrity: sha512-gmLgdHzlYM8L7Aw/+VE0kxjT25WKamtUSLNhdOgrJq5CrESvqVSoAfWSJJeNPUXNTluQ+dYDGFbKVitdsJtbPA==}
+  '@modelcontextprotocol/server@2.0.0-beta.4':
+    resolution: {integrity: sha512-pjMZcNEt1dOq0aJCcY3b7w1Ayh+qmQN2xlfTELcGV9yiAjEGIczBPBLWWW0k0zzo5T8kiv15jtKPsWeHGxLvLg==}
     engines: {node: '>=20'}
-    peerDependencies:
-      '@cfworker/json-schema': ^4.1.1
-    peerDependenciesMeta:
-      '@cfworker/json-schema':
-        optional: true
 
   '@napi-rs/wasm-runtime@1.1.6':
     resolution: {integrity: sha512-ZLv/JdUfkvOy9eCnnBaGfiO+XimbjebAeO+MRQqD/B+FR1tnRN0tpKSJHRbE8sFfS6aqsXZ67TQjfwfsxULVbg==}
@@ -9220,16 +9213,15 @@ snapshots:
       '@types/fs-extra': 9.0.13
       fs-extra: 10.1.0
 
-  '@mcpjam/cli@3.12.0(@cfworker/json-schema@4.1.1)(@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rxjs@7.8.2)':
+  '@mcpjam/cli@3.15.2(@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rxjs@7.8.2)':
     dependencies:
-      '@mcpjam/sdk': 1.33.0(@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rxjs@7.8.2)
-      '@modelcontextprotocol/server': 2.0.0-alpha.2(@cfworker/json-schema@4.1.1)
+      '@mcpjam/sdk': 2.0.1(@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rxjs@7.8.2)
+      '@modelcontextprotocol/server': 2.0.0-beta.4
       commander: 12.1.0
       posthog-node: 5.46.1(rxjs@7.8.2)
       ws: 8.21.1
       zod: 4.4.3
     transitivePeerDependencies:
-      - '@cfworker/json-schema'
       - '@modelcontextprotocol/sdk'
       - '@sentry/node'
       - bufferutil
@@ -9238,7 +9230,7 @@ snapshots:
       - rxjs
       - utf-8-validate
 
-  '@mcpjam/sdk@1.33.0(@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rxjs@7.8.2)':
+  '@mcpjam/sdk@2.0.1(@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rxjs@7.8.2)':
     dependencies:
       '@ai-sdk/amazon-bedrock': 3.0.111(zod@4.4.3)
       '@ai-sdk/anthropic': 2.0.91(zod@4.4.3)
@@ -9249,11 +9241,12 @@ snapshots:
       '@ai-sdk/openai': 2.0.115(zod@4.4.3)
       '@ai-sdk/xai': 2.0.82(zod@4.4.3)
       '@cfworker/json-schema': 4.1.1
-      '@modelcontextprotocol/client': 2.0.0-alpha.2(@cfworker/json-schema@4.1.1)
+      '@modelcontextprotocol/client': 2.0.0-beta.4
       '@modelcontextprotocol/ext-apps': 1.7.5(@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(zod@4.4.3)
       '@openrouter/ai-sdk-provider': 2.10.0(ai@6.0.235(zod@4.4.3))(zod@4.4.3)
       '@xmldom/xmldom': 0.8.13
       ai: 6.0.235(zod@4.4.3)
+      ajv: 8.20.0
       ollama-ai-provider-v2: 1.5.5(zod@4.4.3)
       posthog-node: 5.46.1(rxjs@7.8.2)
       xml-crypto: 6.1.2
@@ -9274,16 +9267,19 @@ snapshots:
 
   '@microsoft/tsdoc@0.16.0': {}
 
-  '@modelcontextprotocol/client@2.0.0-alpha.2(@cfworker/json-schema@4.1.1)':
+  '@modelcontextprotocol/client@2.0.0-beta.4':
     dependencies:
+      '@modelcontextprotocol/core': 2.0.0-beta.4
       cross-spawn: 7.0.6
       eventsource: 3.0.7
       eventsource-parser: 3.1.0
       jose: 6.2.4
       pkce-challenge: 5.0.1
       zod: 4.4.3
-    optionalDependencies:
-      '@cfworker/json-schema': 4.1.1
+
+  '@modelcontextprotocol/core@2.0.0-beta.4':
+    dependencies:
+      zod: 4.4.3
 
   '@modelcontextprotocol/ext-apps@1.7.5(@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(zod@4.4.3)':
     dependencies:
@@ -9318,11 +9314,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@modelcontextprotocol/server@2.0.0-alpha.2(@cfworker/json-schema@4.1.1)':
+  '@modelcontextprotocol/server@2.0.0-beta.4':
     dependencies:
+      '@modelcontextprotocol/core': 2.0.0-beta.4
       zod: 4.4.3
-    optionalDependencies:
-      '@cfworker/json-schema': 4.1.1
 
   '@napi-rs/wasm-runtime@1.1.6(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)':
     dependencies:
