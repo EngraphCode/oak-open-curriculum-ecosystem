@@ -132,3 +132,23 @@ describe('loadBaselines — absent, invalid, and loaded are never conflated', ()
     expect(outcomes.protocol?.kind === 'invalid' && outcomes.protocol.reason).toContain('EACCES');
   });
 });
+
+describe('whitespace failure fragments are rejected (MCP-189 round 4)', () => {
+  it('rejects an expected failure whose errorIncludes is only whitespace', () => {
+    // `observed.error.includes(" ")` matches nearly any message, so a
+    // whitespace fragment pins no failure shape at all.
+    const baseline = cloneBaseline(loadBaseline('protocol-unattended.json'));
+    const withWhitespace = {
+      ...baseline,
+      expected: { ...baseline.expected, 'some-check': { status: 'fail', errorIncludes: '   ' } },
+    };
+
+    const outcome = loadBaselines({
+      reader: () => ({ kind: 'ok', content: JSON.stringify(withWhitespace) }),
+      suites: ['protocol'],
+      mode: 'unattended',
+    });
+
+    expect(outcome.protocol?.kind).toBe('invalid');
+  });
+});

@@ -64,6 +64,34 @@ jobs:
           --unattended
           --report-dir tmp/mcp-conformance/ci
 
+      # Vendor warnings ride each suite outcome as `mcpjamStderr`. Per
+      # `no-warning-toleration` clause 3, a third-party warning the repo
+      # cannot suppress at source is captured as a structured signal and
+      # triaged — a CI annotation is one of the named forms. Annotated
+      # rather than made fatal because this is the vendor's boundary, not
+      # one this repo owns; but a field in an uploaded artefact is not a
+      # signal anybody reads, and an annotation is.
+      - name: Annotate vendor warnings
+        if: always()
+        run: |
+          summary=tmp/mcp-conformance/ci/summary.json
+          if [ ! -f "$summary" ]; then
+            echo "no summary.json to scan for vendor warnings"
+            exit 0
+          fi
+          node --input-type=module -e '
+            import { readFileSync } from "node:fs";
+            const report = JSON.parse(readFileSync(process.argv[1], "utf8"));
+            for (const suite of report.suites ?? []) {
+              const stderr = suite.mcpjamStderr;
+              if (typeof stderr === "string" && stderr !== "") {
+                console.log(
+                  `::warning title=mcpjam vendor warning (${suite.suite})::${stderr.replaceAll("\n", " ")}`,
+                );
+              }
+            }
+          ' "$summary"
+
       - name: Upload raw reports
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1

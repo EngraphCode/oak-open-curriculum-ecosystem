@@ -398,3 +398,21 @@ describe('round-3 review cures — vendor-dispatch identity and warning preserva
     expect(report.suites.find((suite) => suite.suite === 'protocol')?.mcpjamStderr).toBeUndefined();
   });
 });
+
+describe('round-4 review cures — vacuous-plan and whitespace failure fragments', () => {
+  it('an empty suite plan fails rather than passing vacuously', () => {
+    // `every` over an empty array is true: a run that launched nothing would
+    // otherwise report pass and exit 0.
+    const { report, exitCode } = runMcpConformance(fakeIo(), {
+      target: TARGET,
+      operation: 'verdict' as const,
+      mode: 'unattended' as const,
+      suites: [],
+      baselines: UNATTENDED_BASELINES,
+    });
+
+    expect(exitCode).toBe(1);
+    expect(report.verdict).toBe('fail');
+    expect(report.suites).toEqual([]);
+  });
+});

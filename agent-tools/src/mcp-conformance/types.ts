@@ -114,7 +114,17 @@ export type ConformanceOperation = 'verdict' | 'seed';
 const expectedCheckSchema = z.discriminatedUnion('status', [
   z.object({ status: z.literal('pass') }).strict(),
   z.object({ status: z.literal('skip') }).strict(),
-  z.object({ status: z.literal('fail'), errorIncludes: z.string().min(1) }).strict(),
+  z
+    .object({
+      // Trimmed-non-empty, not just non-empty: `" "` pins no failure shape,
+      // and `observed.error.includes(" ")` matches nearly any message — the
+      // same masking a missing fragment would cause, one space wide.
+      status: z.literal('fail'),
+      errorIncludes: z.string().refine((fragment) => fragment.trim().length > 0, {
+        message: 'errorIncludes must contain a non-whitespace failure fragment',
+      }),
+    })
+    .strict(),
 ]);
 
 /**

@@ -31,7 +31,11 @@ export function runMcpConformance(
 ): { readonly report: ConformanceRunReport; readonly exitCode: 0 | 1 } {
   const suites =
     input.operation === 'seed' ? runSeedSuites(io, input) : runVerdictSuites(io, input);
-  const verdict = suites.every((outcome) => outcome.verdict === 'pass') ? 'pass' : 'fail';
+  // `every` over an empty plan is vacuously true: a run that launched nothing
+  // would report pass and exit 0. This is the same vacuous-success bar the
+  // module already applies to zero-case reports and empty expectation sets.
+  const verdict =
+    suites.length > 0 && suites.every((outcome) => outcome.verdict === 'pass') ? 'pass' : 'fail';
   return {
     report: {
       schema_version: '1.0.0',
