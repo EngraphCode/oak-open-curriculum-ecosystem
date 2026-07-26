@@ -12,8 +12,10 @@ import { findRedirectUriRejection } from './oauth-proxy-redirect-uri-validation.
 describe('findRedirectUriRejection', () => {
   describe('conformant values are accepted', () => {
     it.each([
-      // RFC 8252 §7.3 loopback IP literals — any port must be permitted.
+      // RFC 8252 §7.3 loopback IP literals — any port must be permitted, and
+      // IPv4 loopback is the whole 127.0.0.0/8 range, not just 127.0.0.1.
       'http://127.0.0.1:61154/callback',
+      'http://127.0.0.2/callback',
       'http://[::1]:3000/callback',
       // RFC 8252 §8.3 — permitted though NOT RECOMMENDED; Inspector-class
       // clients register it.
@@ -50,8 +52,11 @@ describe('findRedirectUriRejection', () => {
       'http://127.evil.example/callback',
       'http://127.0.0.1.evil.example/callback',
       'http://localhost.evil.example/callback',
-      // Userinfo masking a non-loopback host: hostname is evil.example.
+      // Userinfo masking a non-loopback host: `hostname` is evil.example, so
+      // reading `hostname` (never `host` or the raw string) rejects it.
       'http://localhost@evil.example/callback',
+      // Anchoring matters: a prefix test on `127.` would accept this.
+      'http://127.0.0.1.evil.example/callback',
       // 0.0.0.0 binds every interface and is not loopback.
       'http://0/callback',
     ])('rejects %s', (redirectUri) => {
@@ -78,17 +83,24 @@ describe('findRedirectUriRejection', () => {
     });
   });
 
-  describe('script and local-resource schemes are rejected', () => {
-    // A redirect_uri is a navigation target handed to the user-agent after
-    // consent. These schemes are not navigation targets.
+  describe('refusal stays scoped to the one obliged case', () => {
+    // ADR-115's advertised-AS exception permits refusing only what a cited
+    // clause obliges and the upstream demonstrably does not, and forbids
+    // scheme preferences. Non-http schemes carry neither, so they pass
+    // through to the upstream authorisation server unrefused — even ones we
+    // would prefer to reject on general principle.
     it.each(['javascript:alert(1)', 'data:text/html,<script></script>', 'file:///etc/passwd'])(
-      'rejects %s',
+      'forwards %s rather than refusing beyond the cited obligation',
       (redirectUri) => {
-        expect(findRedirectUriRejection({ redirect_uris: [redirectUri] })).toMatchObject({
-          error: 'invalid_redirect_uri',
-        });
+        expect(findRedirectUriRejection({ redirect_uris: [redirectUri] })).toBeUndefined();
       },
     );
+
+    it('forwards an https redirect_uri carrying userinfo', () => {
+      expect(
+        findRedirectUriRejection({ redirect_uris: ['https://user@client.example/cb'] }),
+      ).toBeUndefined();
+    });
   });
 
   describe('unclassifiable values fail closed', () => {

@@ -36,11 +36,11 @@ Act as a **proxy OAuth Authorisation Server** by serving three proxy endpoints t
 
 ### Proxy Endpoints
 
-| Route                  | Proxy behaviour                                                                                                                                                                                            |
-| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `POST /oauth/register` | Forwards JSON body to Clerk's DCR endpoint, returns response verbatim — except a body whose `redirect_uris` the advertised-AS rule below obliges us to refuse, which is rejected 400 with no upstream call |
-| `GET /oauth/authorize` | Constructs redirect URL to Clerk's authorise endpoint with all query params                                                                                                                                |
-| `POST /oauth/token`    | Forwards raw `application/x-www-form-urlencoded` body to Clerk's token endpoint                                                                                                                            |
+| Route                  | Proxy behaviour                                                                                                                                                                                                                                               |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `POST /oauth/register` | Forwards JSON body to Clerk's DCR endpoint and relays the response per the response-handling policy under Error Handling — except a body whose `redirect_uris` the advertised-AS rule below obliges us to refuse, which is rejected 400 with no upstream call |
+| `GET /oauth/authorize` | Constructs redirect URL to Clerk's authorise endpoint with all query params                                                                                                                                                                                   |
+| `POST /oauth/token`    | Forwards raw `application/x-www-form-urlencoded` body to Clerk's token endpoint                                                                                                                                                                               |
 
 ### Metadata Rewriting
 

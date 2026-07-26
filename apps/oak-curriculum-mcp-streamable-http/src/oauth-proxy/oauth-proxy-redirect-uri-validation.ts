@@ -18,31 +18,31 @@ import type { Response as ExpressResponse } from 'express';
 import { formatProxyErrorResponse } from './oauth-proxy-upstream.js';
 
 /**
- * The only hosts for which an `http` redirect URI is permissible.
+ * IPv4 loopback is the whole `127.0.0.0/8` range per RFC 8252 §7.3, not just
+ * `127.0.0.1` — a client registering `http://127.0.0.2/callback` is
+ * standards-compliant and must not be refused.
  *
- * `127.0.0.1` and `[::1]` are RFC 8252 §7.3's loopback IP literals —
- * `URL.hostname` retains the brackets on IPv6, so the bracketed form is what
- * a comparison sees. `localhost` is RFC 8252 §8.3: permitted though NOT
- * RECOMMENDED, and required by Inspector-class clients.
- *
- * Membership is tested by EXACT EQUALITY on the parsed hostname. A prefix or
- * substring test would accept `127.evil.example` and `localhost.evil.example`,
- * re-introducing the cleartext code leak this validation exists to prevent.
+ * FULLY ANCHORED, and applied only to `URL.hostname`, which the WHATWG parser
+ * has already canonicalised (`127.1` and `0x7f000001` both arrive as
+ * `127.0.0.1`). The anchoring is what makes widening safe: a prefix test such
+ * as `startsWith('127.')` would accept `127.evil.example`, re-introducing the
+ * cleartext code leak this validation exists to prevent.
  */
-const LOOPBACK_HOSTNAMES: ReadonlySet<string> = new Set(['127.0.0.1', '[::1]', 'localhost']);
+const IPV4_LOOPBACK = /^127\.\d{1,3}\.\d{1,3}\.\d{1,3}$/u;
 
 /**
- * Schemes that are never a navigation target. A redirect URI is handed to the
- * user-agent after consent; these are script-execution and local-resource
- * schemes, so they are rejected whatever their host.
+ * Non-IPv4 hosts for which an `http` redirect URI is permissible.
+ *
+ * `[::1]` is RFC 8252 §7.3's IPv6 loopback literal — `URL.hostname` retains
+ * the brackets, so the bracketed form is what a comparison sees. `localhost`
+ * is RFC 8252 §8.3: permitted though NOT RECOMMENDED, and required by
+ * Inspector-class clients. Both are matched by EXACT EQUALITY.
  */
-const NON_NAVIGABLE_SCHEMES: ReadonlySet<string> = new Set([
-  'javascript:',
-  'data:',
-  'vbscript:',
-  'file:',
-  'blob:',
-]);
+const LOOPBACK_HOSTNAMES: ReadonlySet<string> = new Set(['[::1]', 'localhost']);
+
+function isLoopbackHostname(hostname: string): boolean {
+  return LOOPBACK_HOSTNAMES.has(hostname) || IPV4_LOOPBACK.test(hostname);
+}
 
 /** A registration rejected at the redirect-URI boundary. */
 export interface RedirectUriRejection {
@@ -76,44 +76,29 @@ const UNPARSEABLE: RedirectUriRejection = {
   reason: 'entry_unparseable',
 };
 
-const NON_NAVIGABLE: RedirectUriRejection = {
-  error: 'invalid_redirect_uri',
-  description: 'redirect_uris must not use a script or local-resource scheme',
-  reason: 'scheme_not_navigable',
-};
-
-const CARRIES_USERINFO: RedirectUriRejection = {
-  error: 'invalid_redirect_uri',
-  description: 'http and https redirect_uris must not carry userinfo',
-  reason: 'entry_carries_userinfo',
-};
-
 const HTTP_NOT_LOOPBACK: RedirectUriRejection = {
   error: 'invalid_redirect_uri',
   description: 'an http redirect_uri is permitted only for loopback addresses',
   reason: 'http_host_not_loopback',
 };
 
-function isWebScheme(parsed: URL): boolean {
-  return parsed.protocol === 'http:' || parsed.protocol === 'https:';
-}
-
-function carriesUserinfo(parsed: URL): boolean {
-  return parsed.username !== '' || parsed.password !== '';
-}
-
-function isNonLoopbackHttp(parsed: URL): boolean {
-  return parsed.protocol === 'http:' && !LOOPBACK_HOSTNAMES.has(parsed.hostname);
-}
-
+/**
+ * The ONLY refusal this boundary makes, and deliberately so.
+ *
+ * ADR-115's advertised-AS exception permits refusing exactly what a cited
+ * OAuth clause obliges us to refuse and the upstream is demonstrated not to
+ * refuse, and forbids refusals of our own devising — scheme preferences
+ * included. Non-loopback `http` is the one case meeting all three tests.
+ *
+ * Hardening beyond it (script/local-resource schemes, userinfo on web URIs)
+ * was drafted and REMOVED before merge: neither carries a cited clause nor a
+ * demonstrated upstream gap, so shipping them would have violated the
+ * constraint recorded in the same change. Establishing that evidence is
+ * MCP-200; until then a value we are not obliged to refuse is forwarded to
+ * the upstream authorisation server unchanged.
+ */
 function rejectionForParsedUri(parsed: URL): RedirectUriRejection | undefined {
-  if (NON_NAVIGABLE_SCHEMES.has(parsed.protocol)) {
-    return NON_NAVIGABLE;
-  }
-  if (isWebScheme(parsed) && carriesUserinfo(parsed)) {
-    return CARRIES_USERINFO;
-  }
-  if (isNonLoopbackHttp(parsed)) {
+  if (parsed.protocol === 'http:' && !isLoopbackHostname(parsed.hostname)) {
     return HTTP_NOT_LOOPBACK;
   }
   return undefined;
