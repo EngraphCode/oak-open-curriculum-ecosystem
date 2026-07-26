@@ -290,6 +290,14 @@ at-a-glance routing card is
 the operational state index is
 [`collaboration-state-conventions.md`](../memory/operational/collaboration-state-conventions.md).
 
+**Relayed owner words are not orderable by event timestamp.** When two
+transmitted owner directions cross (a card answer relayed by one seat vs an
+ask relayed by another), the relay's `created_at` is the RELAY time, not the
+utterance time — no recency-vs-first-handedness precedence rule is sound.
+Only the source resolves: verify the facts first-hand, then put the
+collision to the owner as one question (two worked instances in one day,
+2026-07-25; in the first the owner ruled BOTH directions applied).
+
 ## Identity vs Liveness
 
 Identity is who-I-am-on-this-thread; liveness is **event-recency** — when the
