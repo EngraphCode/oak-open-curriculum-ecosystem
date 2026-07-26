@@ -26,6 +26,13 @@ PDR-079's portability rule: the contract is portable; the
 repo-bound phenotype that operationalises it lives in a separate
 ADR, named in the practice-index bridge rather than linked from
 this body);
+[PDR-133](PDR-133-liveness-classes-and-platform-declaration.md)
+(liveness classes and the platform declaration — the class frame
+this contract sits inside: this record is the depth treatment of
+the `EMIT` class and additionally owns `PROGRESS`'s stall
+diagnostic and the absence machinery PDR-133 §9 depends on; this
+reciprocal pointer landed at PDR-133's ratification, 2026-07-25,
+per its §Cascade);
 ADR-186 (the repo-bound phenotype substrate that operationalises
 this contract in the current host repository — heartbeat events
 bind to the comms-event substrate's `lifecycle` kind with

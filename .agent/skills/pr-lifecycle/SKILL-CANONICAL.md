@@ -92,6 +92,41 @@ what reviewers should focus on, what was deliberately left out, and what
 evidence supports merge readiness. Update the description whenever the review
 story materially changes (a reshaped scope, a new commit class).
 
+### Title and description are CLAIMS about the diff — derive them from it
+
+**A description cannot check the artefact it describes.** Both come out of the
+same pass, so their errors correlate: re-reading your own summary confirms the
+summary, never the change. Only a derivation from the diff, performed as a
+separate act, catches a divergence — which is why these are caught from outside
+the authoring context and never by the author re-reading.
+
+So before opening, and again after any push that reshapes the diff, **derive
+the change class mechanically and make the title name the most severe thing
+actually present**:
+
+- **Version changes** — compute the semver step per changed dependency from the
+  diff, never from the intent you began with. **Any major bump belongs in the
+  title.** A pin's trailing `# v1.2.3` is itself a claim: resolve pinned SHAs
+  against the upstream tag rather than trusting the comment.
+- **Scope** — files, workspaces, or surfaces the diff touches that the title's
+  framing does not cover.
+- **Removals** — anything the diff deletes that a reader of the title would not
+  expect to lose.
+
+Worked failure (2026-07-26, PR #557): a PR titled *"action pin bumps"* carried
+`github/codeql-action` v3 → v4 and `slackapi/slack-github-action` v3 → v4 — two
+majors, one on a required status check, one on an alert path `if: failure()`
+that no CI run exercises. The diff was correct and the pins were genuine; the
+title simply did not say what was in it, so two majors read as pin maintenance.
+It surfaced only because a reviewer read the diff instead of the description.
+
+**Reviewers inherit the duty inverted**: never take the title or description as
+the statement of what changed. Derive the change class from the diff first, then
+read the description as a claim to be checked against it. A description that
+undersells its own diff is a finding to raise, not a formatting nit — it is how
+an unreviewed major reaches `main` on everyone's assumption that someone else
+had already looked.
+
 ## Phase 3 — Harvest EVERY feedback surface (the step most often botched)
 
 Immediately after opening — and again after every push — pull all four

@@ -32,6 +32,30 @@ notifications, this distinction becomes moot. Until then, choosing
 Bash background for event-driven wake is a named failure mode —
 surface it as soon as polling shows up in the design.
 
+## The liveness class this rule owns
+
+This rule is the operational home of the `NOTIFY` class in
+[PDR-133](../practice-core/decision-records/PDR-133-liveness-classes-and-platform-declaration.md)
+(ratified by the owner 2026-07-25): it owns the wake primitive,
+and `NOTIFY` is precisely the class that asks whether the platform
+wakes the reasoning loop on a watcher's output. An agent arming a
+watcher on a **new platform** reads this rule at exactly the moment
+that question is live, so this is where the platform's `NOTIFY`
+declaration row gets established — by the acceptance test named in the
+§"Discipline When Switching" step 3 shape: send a directed event, and
+confirm it produces a `<task-notification>` with no manual poll and no
+user prompt. A process that merely prints the event to a file fails the
+class, however healthy it looks.
+
+`NOTIFY` fails independently of the delivery classes beneath it: a
+platform whose background primitive signals only when a process
+*completes* cannot notify from a persistent watcher at all, even with
+every event correctly drained, marked seen, and written to the output
+surface. Per PDR-133's reading rule, a green on the delivery path is
+evidence about nothing above it — cite the class model there; the
+invocation detail, the filter hazards, and the worked instances stay
+here.
+
 ## When the Rule Fires
 
 - All-channels comms watchers (`pnpm agent-tools:collaboration-state
