@@ -31,7 +31,14 @@ const UNATTENDED_BASELINES = {
   oauth: loaded(loadBaseline('oauth-dcr-unattended.json')),
 };
 
-const TARGET = 'https://mcp.example.test/mcp';
+/**
+ * The fixtures are real captures against the deployed alpha, and the parse
+ * boundary now verifies the report's `groups[].target` against the REQUESTED
+ * target. The tests therefore have to request the endpoint the fixtures were
+ * captured from — a synthetic target here would make every fixture-based case
+ * a provenance mismatch, which is exactly the check working.
+ */
+const TARGET = 'https://curriculum-mcp-alpha.oaknational.dev/mcp';
 
 const DEFAULT_RUN_RESULTS: Readonly<Record<string, Result<McpjamSpawnResult, Error>>> = {
   protocol: ok({ exitCode: 1, stdout: PROTOCOL_RAW, stderr: '' }),
@@ -396,6 +403,46 @@ describe('round-3 review cures — vendor-dispatch identity and warning preserva
     const { report } = runMcpConformance(fakeIo(), verdictInput);
 
     expect(report.suites.find((suite) => suite.suite === 'protocol')?.mcpjamStderr).toBeUndefined();
+  });
+});
+
+describe('round-8 review cures — report provenance is verified against the request', () => {
+  const verdictInput = {
+    target: TARGET,
+    operation: 'verdict' as const,
+    mode: 'unattended' as const,
+    suites: ['protocol' as const],
+    baselines: UNATTENDED_BASELINES,
+  };
+
+  it('a capture of a DIFFERENT deployment fails rather than being verdicted as the requested one', () => {
+    // The realistic path: an in-range mcpjam misroutes or reinterprets --url.
+    // Baselines are deliberately target-agnostic, so comparison alone would
+    // pass and the aggregate would label another deployment's result with the
+    // requested target — false assurance about a live surface.
+    const otherDeployment = PROTOCOL_RAW.replaceAll(
+      'https://curriculum-mcp-alpha.oaknational.dev/mcp',
+      'https://curriculum-mcp-staging.oaknational.dev/mcp',
+    );
+    const io = fakeIo({
+      runResults: { protocol: ok({ exitCode: 1, stdout: otherDeployment, stderr: '' }) },
+    });
+
+    const { report, exitCode } = runMcpConformance(io, verdictInput);
+
+    expect(exitCode).toBe(1);
+    const protocol = report.suites.find((s) => s.suite === 'protocol');
+    expect(protocol?.verdict).toBe('fail');
+    expect(reasonsOf(protocol)).toContain('staging');
+    expect(reasonsOf(protocol)).toContain('different deployment');
+  });
+
+  it('a trailing slash is not a provenance mismatch', () => {
+    // URL-normalised comparison: the request and the report may spell the same
+    // endpoint differently without that being tool drift.
+    const { report } = runMcpConformance(fakeIo(), { ...verdictInput, target: `${TARGET}/` });
+
+    expect(report.suites.find((s) => s.suite === 'protocol')?.verdict).toBe('pass');
   });
 });
 

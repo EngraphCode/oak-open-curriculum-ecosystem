@@ -106,8 +106,62 @@ jobs:
             }
           ' "$summary"
 
-      - name: Upload raw reports
+      # The uploaded artefact is deliberately world-readable BECAUSE the
+      # unattended plan is credential-free. That invariant is enforced for
+      # SECRETS by their absence from this workflow — but nothing enforces it
+      # on the CONTENT the vendor writes, and two facts make that a live
+      # concern: the reporter schema leaves `details` unconstrained, and Oak's
+      # DCR proxy relays upstream registration bodies verbatim.
+      #
+      # Verified first-hand 2026-07-26 that today's captures carry no secret
+      # (`received_client_credentials` records only "→ 201 Created"; the only
+      # `client_secret` occurrence is vendor teaching copy). This step keeps
+      # that true under vendor drift rather than trusting it to stay true.
+      - name: Refuse to publish credential-shaped report content
+        id: credential-scan
         if: always()
+        run: |
+          dir=tmp/mcp-conformance/ci
+          if [ ! -d "$dir" ]; then
+            echo "no report dir to scan"
+            exit 0
+          fi
+          node --input-type=module -e '
+            import { readdirSync, readFileSync } from "node:fs";
+            import { join } from "node:path";
+            const dir = process.argv[1];
+            // KEY-shaped matches with a non-empty value, never bare mentions:
+            // the vendor prints teaching copy naming these fields, so matching
+            // prose would fail every run and train the next reader to ignore
+            // this gate. A gate that cries wolf is worse than no gate.
+            const patterns = [
+              /"client_secret"\s*:\s*"[^"]+"/,
+              /"access_token"\s*:\s*"[^"]+"/,
+              /"refresh_token"\s*:\s*"[^"]+"/,
+              /"registration_access_token"\s*:\s*"[^"]+"/,
+            ];
+            const hits = [];
+            for (const name of readdirSync(dir)) {
+              if (!name.endsWith(".json")) continue;
+              const text = readFileSync(join(dir, name), "utf8");
+              for (const pattern of patterns) {
+                if (pattern.test(text)) hits.push(name + " matched " + String(pattern));
+              }
+            }
+            if (hits.length > 0) {
+              console.error("REFUSING UPLOAD: report content carries credential-shaped values.");
+              for (const hit of hits) console.error("  " + hit);
+              console.error("The unattended plan is credential-free by invariant, so this means the vendor began emitting registration or token bodies. Adjudicate before any publication.");
+              process.exit(1);
+            }
+            console.log("report content carries no credential-shaped values");
+          ' "$dir"
+
+      # Gated on the scan, NOT on the conformance result: evidence from a
+      # FAILED run is exactly what an operator needs, so this still uploads
+      # when suites fail — it withholds only when publication itself is unsafe.
+      - name: Upload raw reports
+        if: always() && steps.credential-scan.outcome == 'success'
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: mcp-conformance-raw-reports

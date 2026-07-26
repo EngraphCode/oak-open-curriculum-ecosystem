@@ -54,6 +54,48 @@ export const SUITE_REPORT_KIND: Readonly<Record<ConformanceSuite, string>> = {
   oauth: 'oauth-conformance',
 };
 
+/**
+ * Report-vs-REQUEST target identity — the sibling of {@link SUITE_REPORT_KIND},
+ * living here for the same reason: what the dispatched subcommand is expected
+ * to answer with.
+ *
+ * Baselines stay target-agnostic. This compares the report against what the
+ * CALLER asked for, never against the baseline, so one baseline still verdicts
+ * alpha and production alike.
+ *
+ * An ABSENT `target` is unverifiable, not a mismatch: the vendor types the
+ * field optional, and refusing a report it is entitled to emit would be a
+ * self-inflicted outage. A PRESENT value naming a different endpoint is the
+ * loud case — baseline comparison would otherwise pass and the aggregate would
+ * label another deployment's result with the requested target. That is false
+ * assurance about a live surface, the worst answer this tool can give.
+ */
+export function findTargetMismatch(
+  report: { readonly groups: readonly { readonly target?: string }[] },
+  requestedTarget: string,
+): string | undefined {
+  const wanted = canonicalTarget(requestedTarget);
+  const mismatched = report.groups
+    .map((group) => group.target)
+    .filter((target): target is string => target !== undefined)
+    .find((target) => canonicalTarget(target) !== wanted);
+  if (mismatched === undefined) {
+    return undefined;
+  }
+  return `mcpjam reported target ${JSON.stringify(mismatched)} but the run requested ${JSON.stringify(requestedTarget)} — this capture is of a different deployment; do not verdict it or author a baseline from it`;
+}
+
+/**
+ * URL-normalised comparison: scheme/host case and a trailing slash are not
+ * differences. An unparseable value falls back to a trimmed literal compare
+ * rather than throwing — a malformed target must surface as a mismatch, never
+ * as a crash inside the parse boundary.
+ */
+function canonicalTarget(value: string): string {
+  const parsed = URL.parse(value);
+  return parsed === null ? value.trim() : parsed.href.replace(/\/$/u, '');
+}
+
 /** Inputs to one suite's argv composition. */
 export interface SuiteArgsInput {
   readonly suite: ConformanceSuite;

@@ -12,7 +12,7 @@
  * install-drift risk.
  */
 import { spawnSync } from 'node:child_process';
-import { chmodSync, mkdirSync, writeFileSync } from 'node:fs';
+import { closeSync, fchmodSync, mkdirSync, openSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { join, resolve } from 'node:path';
 
@@ -98,22 +98,37 @@ function writeUnder(
   const writeDir = resolve(repoRoot, reportDir);
   const reportedPath = join(reportDir, fileName);
   const filePath = join(writeDir, fileName);
+  let handle: number | undefined;
   try {
     mkdirSync(writeDir, { recursive: true });
-    // OWNER-ONLY. Attended runs retain AUTHENTICATED vendor output here, and
-    // the report shapes constrain none of `error`, `output`, `details` or the
-    // captured stderr — a bearer or refresh token reaching any of them lands
-    // in this file. The process default (0644 under a 022 umask) would make
-    // that readable by every other user on a shared host.
+    // OWNER-ONLY, established BEFORE any content lands. Attended runs retain
+    // AUTHENTICATED vendor output here, and the report shapes constrain none
+    // of `error`, `output`, `details` or the captured stderr — a bearer or
+    // refresh token reaching any of them lands in this file, so the process
+    // default (0644 under a 022 umask) would expose it to every other user on
+    // a shared host.
     //
-    // chmod AFTER the write, because `mode` applies at CREATION only: a report
-    // left by an earlier run under a looser umask keeps its old permissions
-    // otherwise, and a long-lived file is exactly the one that matters.
-    writeFileSync(filePath, content, { encoding: 'utf8', mode: 0o600 });
-    chmodSync(filePath, 0o600);
+    // ORDER IS THE WHOLE POINT, and write-then-chmod gets it wrong: the `mode`
+    // argument applies only when the file is CREATED, so re-writing a report
+    // left 0644 by an older build would put the authenticated payload on disk
+    // world-readable and only tighten it afterwards — and if the chmod then
+    // failed, the content would stay exposed while retention reported failure.
+    //
+    // Opening with 'w' truncates to zero length first, so the file is EMPTY at
+    // this point; `fchmodSync` then tightens it (on the descriptor, so no path
+    // can be swapped underneath us); only then does content land. A chmod
+    // failure throws before the write, leaving an empty file and a loud
+    // retention failure rather than an exposed one.
+    handle = openSync(filePath, 'w', 0o600);
+    fchmodSync(handle, 0o600);
+    writeFileSync(handle, content, { encoding: 'utf8' });
     return { ok: true, reportedPath };
   } catch (error) {
     return { ok: false, error: error instanceof Error ? error.message : String(error) };
+  } finally {
+    if (handle !== undefined) {
+      closeSync(handle);
+    }
   }
 }
 

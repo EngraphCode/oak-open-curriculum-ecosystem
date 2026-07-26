@@ -15,7 +15,7 @@ import { err, isErr, ok, type Result } from '@oaknational/result';
 import { parseWithSchema } from '../core/schema-parse.js';
 import { boundedExcerpt } from './bounded-excerpt.js';
 import { type McpConformanceIo, type McpConformanceRunInput } from './io-port.js';
-import { composeSuiteArgs, SUITE_REPORT_KIND } from './runner.js';
+import { composeSuiteArgs, findTargetMismatch, SUITE_REPORT_KIND } from './runner.js';
 import {
   buildSuiteOutcome,
   compareAndCompose,
@@ -36,7 +36,11 @@ const SEED_HINT =
 const ENTRY_ABORT =
   'not run: entry validation failed for another suite in this verdict run — fix the named baseline problem and rerun';
 
-function parseRawReport(suite: ConformanceSuite, stdout: string): Result<McpjamReport, Error> {
+function parseRawReport(
+  suite: ConformanceSuite,
+  stdout: string,
+  requestedTarget: string,
+): Result<McpjamReport, Error> {
   let parsedJson: unknown;
   try {
     parsedJson = JSON.parse(stdout);
@@ -68,6 +72,13 @@ function parseRawReport(suite: ConformanceSuite, stdout: string): Result<McpjamR
         `mcpjam returned a "${parsed.value.kind}" report for the "${suite}" suite (expected "${expectedKind}") — the vendor dispatched a different subcommand; do not author a baseline from this capture`,
       ),
     );
+  }
+  // Provenance, the identity check's sibling: a capture of a DIFFERENT
+  // deployment would otherwise match the (target-agnostic) baseline and be
+  // emitted under the requested target — false assurance about a live surface.
+  const targetMismatch = findTargetMismatch(parsed.value, requestedTarget);
+  if (targetMismatch !== undefined) {
+    return err(new Error(`the "${suite}" suite: ${targetMismatch}`));
   }
   return parsed;
 }
@@ -129,7 +140,7 @@ function gatherSuiteEvidence(
   const retention = io.retainRawReport(suite, spawn.value.stdout);
   const retentionReasons = retention.ok ? [] : [`raw-report retention failed: ${retention.error}`];
   const evidence = composeEvidence(retention, spawn.value);
-  const parsed = parseRawReport(suite, spawn.value.stdout);
+  const parsed = parseRawReport(suite, spawn.value.stdout, input.target);
   if (isErr(parsed)) {
     const retainedNote = retention.ok ? ` — raw output retained at ${retention.reportedPath}` : '';
     return {
