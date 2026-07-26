@@ -16,6 +16,7 @@
  * @packageDocumentation
  */
 
+import { DIAGNOSTIC_SINK_KINDS } from '@oaknational/observability';
 import type { z } from 'zod';
 import type { ObservabilityEnvBaseSchema } from './observability-base.js';
 
@@ -153,32 +154,37 @@ export function refineSinkConditionalRequirements(
 }
 
 /**
- * `superRefine` branch 5 — fails closed when production has no external
+ * `superRefine` branch 5 — fails closed when production has no diagnostic
  * sink registered.
  *
  * @remarks Production observability cannot rely on stdout alone (ADR-162
  * §The Vendor-Independence Clause names stdout as the always-on baseline,
  * but the plan body's locality-enforcement rule mandates at least one
- * remote sink in production). Preview-with-empty-sinks is a warning, not
- * an error — handled in the warnings channel rather than here.
+ * diagnostic sink in production). A product-analytics selection alone does
+ * not satisfy that engineering-diagnostics guarantee. Preview with an empty
+ * sink selection is a warning, not an error — handled in the warnings channel
+ * rather than here.
  */
 export function refineProductionLocality(data: ObservabilityEnvBase, ctx: z.RefinementCtx): void {
   if (data.VERCEL_ENV !== 'production') {
     return;
   }
-  if (data.OBSERVABILITY_SINKS.length > 0) {
+  const hasDiagnosticSink = DIAGNOSTIC_SINK_KINDS.some((diagnosticKind) =>
+    data.OBSERVABILITY_SINKS.some((selectedKind) => selectedKind === diagnosticKind),
+  );
+  if (hasDiagnosticSink) {
     return;
   }
   ctx.addIssue({
     code: 'custom',
     path: ['OBSERVABILITY_SINKS'],
     message:
-      'OBSERVABILITY_SINKS must include at least one external sink in ' +
-      'production. Empty list is fail-closed per the observability ' +
-      'multi-sink + fixtures plan; production observability cannot ' +
-      'rely on stdout alone. Inline fix examples: ' +
+      'OBSERVABILITY_SINKS must include at least one diagnostic sink in ' +
+      'production. PostHog product analytics does not satisfy diagnostic ' +
+      'locality, and production observability cannot rely on stdout alone. ' +
+      'Inline fix examples: ' +
       'OBSERVABILITY_SINKS=["sentry"] (with SENTRY_DSN); or ' +
       'OBSERVABILITY_SINKS=["file"] (with OBSERVABILITY_FILE_PATH=<path>); ' +
-      'or OBSERVABILITY_SINKS=["sentry","file"] (with both).',
+      'or include either diagnostic sink alongside "posthog".',
   });
 }

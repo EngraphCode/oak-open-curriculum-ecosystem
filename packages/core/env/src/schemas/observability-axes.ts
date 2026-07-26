@@ -19,7 +19,7 @@
 import { OBSERVABILITY_SINK_KINDS, type ObservabilitySinkKind } from '@oaknational/observability';
 import { z } from 'zod';
 
-/** Zod literal union of the observability sink kinds (`'sentry' | 'file'`). */
+/** Zod literal union of every app-local observability selection. */
 const OBSERVABILITY_SINK_KIND_LITERAL = z.enum(OBSERVABILITY_SINK_KINDS);
 
 /** Zod array of {@link OBSERVABILITY_SINK_KIND_LITERAL}; the parsed shape of `OBSERVABILITY_SINKS`. */
@@ -29,7 +29,7 @@ const OBSERVABILITY_SINK_ARRAY = z.array(OBSERVABILITY_SINK_KIND_LITERAL);
  * Schema for the `OBSERVABILITY_SINKS` env var.
  *
  * @remarks Accepts a JSON-array string literal (e.g. `'["sentry"]'`,
- * `'["sentry","file"]'`, `'[]'`) and parses to a typed readonly array
+ * `'["sentry","posthog"]'`, `'[]'`) and parses to a typed readonly array
  * of {@link ObservabilitySinkKind} values. Default is the empty array
  * (stdout-only baseline, no external sinks). The JSON-array format keeps
  * a single env-var slot extensible to N sinks without inventing a
