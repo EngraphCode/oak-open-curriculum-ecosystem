@@ -4,6 +4,34 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [oak-open-curriculum-ecosystem] 2026-07-25 — liveness taxonomy (Torch mends Residue)
+
+- New PDR-133 (liveness classes and the Platform Liveness Declaration), status
+  Proposed pending owner ratification. Names fourteen liveness classes with
+  mnemonic (never ordinal) identifiers and explicit per-class dependencies —
+  eleven incoming (`DISPATCH`, `SUBSTRATE`, `PROCESS`, `BINDING`, `CURSOR`,
+  `INTEGRITY`, `DELIVERY`, `NOTIFY`, `LOOP`, `ABSORB`, `CAPABILITY`) and three
+  outgoing (`EMIT`, `REGISTRY`, `PROGRESS`) — each with a characteristic failure
+  attested by a worked instance. The classes form a PARTIAL order: `LOOP` is
+  incomparable to the delivery path (the founding instance is a live reasoning
+  loop behind a dead notification path), and the three outgoing classes are
+  mutually independent. States the reading rule (an observation is
+  evidence only about the classes on the path it traversed, and about nothing
+  else), the self-observation corollary with its never-self-certifiable set
+  (`NOTIFY`, `LOOP`, `ABSORB`, `CAPABILITY`, `PROGRESS` require an external
+  observer, owner as fallback), the two external instruments (observed
+  deliverable movement; a content-bearing challenge reply), the
+  class-to-decision matching rule, the absence conjunction (retirement requires
+  BOTH instruments negative, which preserves the remote work-evidence
+  cross-check), and the per-platform declaration obligation with three answer
+  states (certified, cannot-certify, and certified-but-contract-suspended for a
+  class a portable contract suspends) plus a named transition landing for
+  platforms already in operation. Authored on owner instruction as
+  agent-platform variety grows; PDR-078 reads as the `EMIT` specialisation on
+  ratification. The incoming-watcher, outgoing-heartbeat, and
+  event-driven-wake rules each gain a thin class pointer and keep their
+  operational detail.
+
 ## [oak-open-curriculum-ecosystem] 2026-07-23 — PDR-018 host-realisation amendment (Heron lifts Summit)
 
 - PDR-018 amendment: the source host's lifecycle-lane realisation

@@ -196,6 +196,38 @@ a gh-token invalidation once turned a supervised PR-watch loop into a
 silent crash-loop against the anonymous API tier because empty state was
 read as "no news" rather than "the transport is down" (2026-07-13/14).
 
+### The liveness classes this rule's checks reach
+
+This rule's liveness checks live in three places: the
+`assert-watcher-live` process assert (§"Enforcement" move-1 check and
+claims-open backstop), the heartbeat-staleness and cursor-movement
+classification in §"Liveness self-check (cycle boundaries)", and the
+delivery-side `emitted_count` comparison at the end of §"Fallback
+shape — portable script". Together they are evidence about PDR-133's
+`PROCESS`, `CURSOR`, and `DELIVERY` classes, and **about nothing
+else**:
+
+- `SUBSTRATE` (is this the canonical comms home at all?) is covered
+  separately by the canonical-home verification under §"Known
+  Silent-Failure Class".
+- `BINDING` (does this watcher belong to THIS live seat?) is what the
+  `--supervisor-pid` guard in §"Canonical invocation" addresses; a
+  green process assert cannot distinguish an orphan.
+- `INTEGRITY` (delivered set equals written set — no hole, no replay)
+  is what §"Seen-file convention", the post-restart foreground sweep,
+  and §"Dormancy polls initialise their cursor FROM the frozen
+  seen-file" address; a cursor can read advanced over a hole.
+- `NOTIFY` (does the platform wake the reasoning loop on this
+  output?), `LOOP`, and `ABSORB` are distinct classes that every check
+  here reads green through.
+
+The class model, the reading rule (an observation is evidence only
+about the classes on the path it traversed), the self-observation
+corollary, and the per-platform declaration obligation live in
+[PDR-133](../practice-core/decision-records/PDR-133-liveness-classes-and-platform-declaration.md),
+ratified by the owner 2026-07-25; read it as the model
+before treating any check here as proof a seat is reachable.
+
 ### Liveness self-check (cycle boundaries)
 
 The watcher writes a liveness heartbeat **on by default** at
@@ -402,6 +434,14 @@ naming the rule; the substance lives here for two reasons:
   near-universally justified, never ceremony.
 - [`.agent/reference/comms-watch-mechanism.md`](../reference/comms-watch-mechanism.md)
   — identity discipline and self-exclusion contract.
+- [PDR-133](../practice-core/decision-records/PDR-133-liveness-classes-and-platform-declaration.md)
+  (Proposed) — the liveness class model. PDR-133 §5 carries the
+  portable self-observation corollary (a seat cannot certify the
+  never-self-certifiable classes about itself, so those classes need an
+  external observer); this rule keeps the repo's own surfaces and worked
+  instances, including the §"Mutual cover — the detector cannot detect
+  itself" discipline above, which applies that corollary to the
+  Director's watcher heartbeat-file specifically.
 - [PDR-066](../practice-core/decision-records/PDR-066-comms-events-as-failure-mode-channel.md)
   — comms-events as failure-mode capture channel.
 - [ADR-183](../../docs/architecture/architectural-decisions/183-comms-event-tag-namespace-substrate.md)
