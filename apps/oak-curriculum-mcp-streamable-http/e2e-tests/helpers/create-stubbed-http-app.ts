@@ -9,6 +9,7 @@ import {
   createMockRuntimeConfig,
   createNoOpRateLimiterFactory,
 } from './test-config.js';
+import { getScratchStaticRoot } from '../../src/test-helpers/static-root-fixture.js';
 
 export const STUB_ACCEPT_HEADER = 'application/json, text/event-stream';
 const STUB_API_KEY = 'stub-api-key';
@@ -48,6 +49,7 @@ export async function createStubbedHttpApp(
   });
   const observability = createMockObservability(runtimeConfig);
   const app = await createApp({
+    staticRoot: await getScratchStaticRoot(),
     runtimeConfig,
     observability,
     getWidgetHtml: () => '<!doctype html><html><body>stub-widget</body></html>',

@@ -34,6 +34,7 @@ import { ok } from '@oaknational/result';
 import { createFakeHttpObservability } from '../src/test-helpers/observability-fakes.js';
 import { stubSearchRetrieval } from './helpers/stub-search-retrieval.js';
 import { createMockRuntimeConfig, createNoOpRateLimiterFactory } from './helpers/test-config.js';
+import { getScratchStaticRoot } from '../src/test-helpers/static-root-fixture.js';
 
 const ACCEPT = 'application/json, text/event-stream';
 
@@ -78,6 +79,7 @@ async function createAppWithRecordingLogger() {
   // records exactly what the running app logs.
   const logger = observability.createLogger();
   const app = await createApp({
+    staticRoot: await getScratchStaticRoot(),
     toolHandlerOverrides: createStubOverrides(),
     runtimeConfig: createMockRuntimeConfig({ dangerouslyDisableAuth: true }),
     observability,

@@ -7,6 +7,7 @@ import {
   createMockRuntimeConfig,
   createNoOpRateLimiterFactory,
 } from './helpers/test-config.js';
+import { getScratchStaticRoot } from '../src/test-helpers/static-root-fixture.js';
 
 const ACCEPT = 'application/json, text/event-stream';
 
@@ -27,6 +28,7 @@ async function post(body: Record<string, unknown>) {
   // Auth enforcement is covered by auth-enforcement.e2e.test.ts.
   const runtimeConfig = createMockRuntimeConfig({ dangerouslyDisableAuth: true });
   const app = await createApp({
+    staticRoot: await getScratchStaticRoot(),
     runtimeConfig,
     observability: createMockObservability(runtimeConfig),
     getWidgetHtml: () => '<!doctype html><html><body>test-widget</body></html>',

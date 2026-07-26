@@ -41,6 +41,13 @@ export default {
           // shipped via <script src>, imports nothing — an entry point, not
           // dead code.
           'packages/design/oak-design-system/oak-theme\\.js$',
+          // Browser-served static copies under the MCP app's public/ —
+          // `public/oak-ds/` (the design system, from copy-oak-ds.ts) and
+          // `public/oak-assets/` (brand artwork). Generated, gitignored, and
+          // reached only over HTTP, so nothing imports them by construction —
+          // but CI's knip-depcruise job restores build outputs, so the crawler
+          // sees them and would report orphans.
+          'apps/oak-curriculum-mcp-streamable-http/public/',
           // Standalone scripts invoked directly via tsx
           'scripts/',
           'operations/utilities/',

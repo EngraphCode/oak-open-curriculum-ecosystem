@@ -17,6 +17,7 @@ import {
   createMockRuntimeConfig,
   createNoOpRateLimiterFactory,
 } from './helpers/test-config.js';
+import { getScratchStaticRoot } from '../src/test-helpers/static-root-fixture.js';
 describe('Auth Bypass for Development (E2E)', () => {
   let app: Express;
 
@@ -29,6 +30,7 @@ describe('Auth Bypass for Development (E2E)', () => {
     });
     const observability = createMockObservability(runtimeConfig);
     app = await createApp({
+      staticRoot: await getScratchStaticRoot(),
       runtimeConfig,
       observability,
       getWidgetHtml: () => '<!doctype html><html><body>test-widget</body></html>',

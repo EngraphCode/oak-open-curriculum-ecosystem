@@ -9,6 +9,7 @@ import {
   createNoOpRateLimiterFactory,
   createUnauthenticatedMcpAuthClerkDeps,
 } from './helpers/test-config.js';
+import { getScratchStaticRoot } from '../src/test-helpers/static-root-fixture.js';
 
 const mockRuntimeConfig: RuntimeConfig = {
   env: {
@@ -32,6 +33,7 @@ const mockRuntimeConfig: RuntimeConfig = {
 async function createTestApp() {
   const observability = createFakeHttpObservability();
   return await createApp({
+    staticRoot: await getScratchStaticRoot(),
     runtimeConfig: mockRuntimeConfig,
     observability,
     getWidgetHtml: () => '<!doctype html><html><body>test-widget</body></html>',
