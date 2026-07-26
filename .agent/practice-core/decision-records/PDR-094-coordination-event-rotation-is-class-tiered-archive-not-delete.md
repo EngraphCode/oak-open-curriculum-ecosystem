@@ -2,11 +2,11 @@
 pdr_kind: governance
 ---
 
-# PDR-094: Coordination-Event Rotation Is Class-Tiered and Absorption-Gated
+# PDR-094: Coordination-Event Rotation Is Class-Tiered and Extraction-Gated
 
-**Status**: Accepted (v3 core correction by owner word, 2026-07-26 — see
-§Revision history; the filename preserves the v1 title for citation
-stability)
+**Status**: Accepted (v3+v4 core correction by owner word, 2026-07-26,
+formulation owner-ratified — see §Revision history; the filename preserves
+the v1 title for citation stability)
 **Created**: 2026-06-13
 **Last updated**: 2026-07-26
 **Related**:
@@ -67,15 +67,22 @@ for an unmeasured health problem encodes a hypothesis as a mechanism.
 ## Decision
 
 Coordination-event **rotation is class-tiered, age-triggered, and
-absorption-gated: retention is the KNOWLEDGE, never the bytes.** Owner
-policy, stated 2026-07-26 and governing this record's core: *"I never
-wanted a lossless record of everything, I wanted knowledge retained; once
-the knowledge is retained, we are DONE, we don't need the source any
-more."* A source whose durable substance is verified-homed is **spent** —
-it deletes; keeping it is the defect, not the safe default. Rotation runs
-as a deterministic curator-lane pass on the consolidation / session-close
-cadence — not as an autonomous daemon, and not behind per-pass owner
-approval once the contract is ratified.
+extraction-gated: retention lives in the KNOWLEDGE; the raw source then
+archives as a mining substrate, never as a hedge.** Owner policy, stated
+2026-07-26 (both halves verbatim-substance, same day): *"once the
+knowledge is retained, we are DONE, we don't need the source any more"* —
+and — *"I am happy for events to be archived, in order to ENABLE future
+mining, but not as a mechanism for hedging: we do the full extraction,
+then we archive in case a future technology or additional resource
+changes things materially. We never treat it as a safety mechanism to
+enable 'I will do it later', or 'it's okay to half-arse this because
+it's safe'."* The extraction bar is therefore identical whether or not
+an archive exists; the archive carries **no curation obligation, no
+deferral licence, and no safety-net status** — it is cheap optionality
+for future re-mining, nothing more. Rotation runs as a deterministic
+curator-lane pass on the consolidation / session-close cadence — not as
+an autonomous daemon, and not behind per-pass owner approval once the
+contract is ratified.
 
 ### Invariant 1 — No unprocessed signal is removed
 
@@ -85,25 +92,39 @@ absorption gate"). This restates and operationalises
 [PDR-080](PDR-080-coordination-event-absorption-is-signal-driven.md)
 Invariant 3 for the rotation step.
 
-### Invariant 2 — Spent sources delete; retention lives in the knowledge
+### Invariant 2 — Extract fully first; then archive as substrate, never as hedge
 
-Once an event's disposition is recorded under the operative gate (absorbed /
-routine-with-safeguard / quarantine-resolved) **and** its class window has
-elapsed, the source is **spent and rotation DELETES it**. No retained store,
-no archive tier, no per-event ledger: the durable homes the absorption wrote
-to — plus the provenance surfaces of Invariant 3 — ARE the retention. The
-v1–v2 archive-not-delete posture is corrected by owner word (2026-07-26):
-lossless byte-retention was never the policy, and the structural generator
-of the drift is named in §Rationale (loss-aversion asymmetry — an agent is
-never blamed for hoarding and fears blame for deleting, so unowned caution
-ratchets toward lossless).
+Once an event is covered by the operative gate (recorded absorption
+watermark + class window; body-read safeguard satisfied), the source
+archive-moves out of the live stream into the off-drain-path archive. The
+**retention is the knowledge in its durable homes**; the archive exists
+only to ENABLE future mining (a future technology or additional resource
+may extract more from raw text than today's pass could). Three teeth keep
+that honest:
 
-Two hard bounds keep deletion honest: nothing in-window deletes (the live
-stream is the working coordination surface regardless of absorption state),
-and nothing deletes past a gap in the recorded-absorption watermark (see the
-operative gate). This invariant governs knowledge SOURCES post-absorption
-only — it neither touches nor weakens the host's protections for in-flight
-WORK (working trees, drafts, uncommitted changes).
+- **The anti-hedge clause.** The archive changes NOTHING about the
+  extraction bar. An event may not move with its extraction deferred,
+  thinned, or promised — "it's in the archive" licenses no 'later' and no
+  half-done sweep. A pass that leans on the archive's existence to lower
+  its own extraction quality has failed the gate, however safe the bytes.
+- **No accounting ceremony.** No per-event disposition ledger, no
+  manifest rows (v3's finding stands: that machinery was write-only and
+  manufactured an "impossible to move" state — the v1 defect the owner
+  actually objected to). The pass-level watermark and the durable homes
+  are the record.
+- **No curation obligation on the archive.** The archive is not a buffer,
+  appears in no drain inventory, and is never "owed" work. Mining it is a
+  deliberate, owner-priced research act (the corpus-analysis pipelines),
+  not a standing duty.
+
+Nothing in-window moves (the live stream is the working coordination
+surface regardless of absorption state). This invariant governs knowledge
+SOURCES post-extraction only — it neither touches nor weakens the host's
+protections for in-flight WORK (working trees, drafts, uncommitted
+changes). §Rationale names both structural generators this clause pins
+down: loss-aversion hoarding (v1–v2's drift into deletion-grade ceremony)
+and correction-momentum overcorrection (v3's same-hour swing into
+deletion of the substrate itself).
 
 ### Invariant 3 — Provenance survives rotation
 
@@ -186,21 +207,22 @@ the safety net before the replacement obligation is installed.
 ### The operative absorption gate
 
 This is the single gate for the whole contract; it supersedes any looser
-phrasing elsewhere. **Rotation never deletes an event outside a recorded
+phrasing elsewhere. **Rotation never moves an event outside a recorded
 absorption watermark.** The record is **pass-level, never per-event**: a
 consolidation/curation pass that has swept the stream records "absorbed
 through time T" in its own pass record (exactly the shape the host's
 capture-buffer rotations already use), and events with `created_at ≤ T`
-that are also past their class window are thereby dispositioned. A
-per-event disposition ledger is retired as of v3 — it is accounting the
-estate's consolidation-record doctrine forbids elsewhere, and its only
-observed reader was the machinery that wrote it. Quarantined events are the
-one per-item exception: a quarantine is named individually and holds its
-event live until resolved.
+that are also past their class window are thereby covered and
+archive-move. A per-event disposition ledger is retired as of v3 — it is
+accounting the estate's consolidation-record doctrine forbids elsewhere,
+its only observed reader was the machinery that wrote it, and it is the
+mechanism that once manufactured a "cannot move" state over a loss-free
+operation. Quarantined events are the one per-item exception: a
+quarantine is named individually and holds its event live until resolved.
 [PDR-080](PDR-080-coordination-event-absorption-is-signal-driven.md)'s
 bin-signal indicates when a class has accumulated enough to warrant an
-absorption pass; this PDR adds the delete step after the watermark covers
-it. PDR-080 absorbs; this PDR deletes the absorbed.
+absorption pass; this PDR adds the archive step after the watermark
+covers it. PDR-080 absorbs; this PDR archives the extracted.
 
 **Bulk-classification safeguard.** Routine classification (b) and quarantine (c)
 may be applied to a candidate set in bulk, but **title or genre alone is never
@@ -273,19 +295,30 @@ applied to rotation: the gate enforces what prose alone would not.
 
 ## Falsifiability
 
-A host-side response that deletes coordination events **outside a recorded
-absorption watermark**, or that deletes an event **cited in a permanent
-record without preserving its provenance**, or that bulk-classifies events
-as routine **on title genre alone**, or that labels a size-derived bound as
-health-derived **without a measurement**, is the failure mode this PDR
-forbids. So — as of v3 — is the inverse: **retaining spent sources**
-(archive tiers, per-event ledgers, "just in case" stores) after their
-knowledge is verified-homed, which optimises agent loss-aversion against
-standing owner policy.
+Four failure modes, one per era of this record's own history, all forbidden:
 
-A host-side mechanism that absorbs first, deletes behind the watermark and
-the enforced provenance check on a class-tiered age trigger, and labels its
-working-set bound honestly is the success shape.
+- **Moving or deleting outside the watermark** — an event leaves the live
+  stream with its extraction not covered by a recorded pass (the original
+  loss mode), or a cited event moves without inline/digest provenance, or
+  a bulk class moves on title genre alone, or a size bound masquerades as
+  health-derived without a measurement.
+- **Hedge-archiving** — a pass that defers, thins, or half-does extraction
+  because the archive makes the bytes "safe". The archive is optionality
+  for future mining; it is never a safety mechanism, and it never lowers
+  the extraction bar (owner word, 2026-07-26).
+- **Ceremony that manufactures impossibility** — per-event ledgers,
+  disposition-recording machinery, or any gate whose input channel does
+  not exist, converting a loss-free move into a standing "cannot" (the
+  v1–v2 defect the owner actually objected to).
+- **Correction-momentum destruction** — deleting the mining substrate
+  itself to demonstrate alignment with an anti-hoarding correction (the
+  v3 defect, same hour as the correction; agents optimise for the last
+  correction, not the policy — the record's own history is the instance).
+
+A host-side mechanism that extracts fully first, archive-moves behind the
+watermark and the enforced provenance check on a class-tiered age trigger,
+keeps the archive obligation-free, and labels its working-set bound
+honestly is the success shape.
 
 ## Notes
 
@@ -330,3 +363,19 @@ latest-revision date.
   citation stability). The trigger was a first-hand review finding the v1
   ledger write-only, the archive store consumed by nothing, and a
   1,400-event disposition backlog that existed only to feed them.
+- **v4 (2026-07-26, same day)** — owner refined within the hour, and the
+  enacting seat's overshoot is part of the record: v3 read the disposal
+  LICENCE as a delete MANDATE and destroyed the archive substrate
+  (6,917 archived + 1,648 past-window events; the pre-2026-06-14 era
+  survives in git history, the post-untrack window's raw events do not —
+  their extraction was complete, so the loss is bounded to future
+  re-mining of that window). Owner, verbatim-substance: *"I am happy for
+  events to be archived, in order to ENABLE future mining, but not as a
+  mechanism for hedging: we do the full extraction, then we archive in
+  case a future technology or additional resource changes things
+  materially — but we never treat it as a safety mechanism... My
+  objection was never archiving the files, it was that you claimed it
+  wasn't possible to do it."* v4 restores archive-move with the
+  anti-hedge clause and keeps every v3 kill: no per-event ledger, no
+  impossibility-manufacturing ceremony, pass-level watermark only. The
+  owner ratified this record's v4 formulation of the policy in-session.
