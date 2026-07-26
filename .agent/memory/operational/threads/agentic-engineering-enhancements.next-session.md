@@ -756,6 +756,7 @@ passes) is in git history and the [`curator-passes/`](../curator-passes/) ledger
 
 | agent_name | platform | model | session_id_prefix | role | first_session | last_session |
 | --- | --- | --- | --- | --- | --- | --- |
+| `Magnetar guards Perigee` | `claude-code` | `fable-5` | `565521` | `dedicated-consolidation + PDR-094 v3/v4 owner-worded correction` | 2026-07-26 | 2026-07-26 |
 | `Moonless Lurking Dusk` | `claude` | `Opus 4.8` | `0641a3` | `dedicated-knowledge-curation` | 2026-06-01 | 2026-06-01 |
 | `Shaded Veiling Mirror` | `codex` | `GPT-5` | `019e88` | `dedicated-curation+closeout` | 2026-06-02 | 2026-06-02 |
 | `Lofty Sweeping Falcon` | `codex` | `GPT-5` | `019e8a` | `dedicated-curation-continuation+closeout` | 2026-06-02 | 2026-06-03 |

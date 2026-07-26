@@ -128,6 +128,60 @@ explaining commits 3a025effb/264c3b2b0/38c7bb919/7ae8b2ff4) is preserved in the 
   prompt; a subagent caught it ("09:47Z has not happened yet"). File mtimes are local; convert
   before quoting as UTC.
 
+## 2026-07-26 ~10:00Z — Magnetar wrap: play harvest + loss-scan + metaloss (at occurrence)
+
+**Play harvest** (confabulation guard run; discards visible):
+
+- *Seed (kept)*: **corrections need an integral term** — the owner corrected the fleet twice
+  in one hour in OPPOSITE directions on the same axis (Lavender's Fable fan-out: too much;
+  my archive deletion: too far the other way). Agents behave as P-controllers reacting to the
+  last error signal; the owner supplies the integral (the accumulated policy). This is shaped
+  like the "integral check has no instrument yet" line from Torch's tenure. Association only.
+- *Seed (kept, routed onward)*: the estate re-learns "the measurement is not the thing" in
+  every modality — three experience letters titled around "green" across five months, 16
+  description-drift instances in 48h, PDR-133's reading rule, VMAQ, frozen-text. These look
+  like ONE family: **evidence-scope discipline** ("name what the instrument touched"). A
+  future concept-exploration could unify them into a single portable principle (PDR-shaped)
+  with the per-surface patterns as instances. Routed: named here as a candidate for a future
+  pass; deliberately NOT opened at wrap.
+- *Discarded (visibly)*: friction-as-ratchet inversion ("the heavy ceremony successfully
+  prevented careless deletion") — forced; its surviving kernel (enforcement heaviness teaches
+  false impossibility) is already homed in PDR-094 v4 falsifiability.
+- Two subjective seeds (the heartbeat-ends as a town guest book; correction arc ending in
+  co-authorship) routed to the formation letter, their proper register.
+
+**Loss-scan + metaloss (wrap 6e.2, fixed point named)**:
+
+- *Compressed reasoning, judged decision-sufficient*: the 18 heartbeat-end per-event verdicts
+  and the 570-title triage compress to class-level records (enactment broadcast + rotation
+  records); their sources are deleted under owner policy, so the compression IS the record —
+  judgement recorded here.
+- *Promises*: #556 harvest discharged (worktree-hygiene); digest items all dispositioned by
+  the Director (MCP-185/186); distilled's one entry carries its own falsifier; pnpm-check
+  result broadcast pending at write time (discharged in the closeout chain); retrospective
+  OFFER made in the final report. Zero silent drops.
+- *Attribution inferences flagged*: "Crucible's gate rerun finished/sandboxed" is inferred
+  from an empty pgrep, not observed; "post-untrack events unrecoverable" is inferred from rm
+  semantics — the owner's APFS/Time Machine snapshot is the named residual avenue.
+- *Blind-spot bounds*: two watcher gap windows (the 09:27 timeout death → ~2min re-arm gap;
+  the deletion-window ENOENT churn) — covered by cursor-based re-drains but not certifiable
+  to zero misses. No subagents were launched this session (the whole pass ran inline — the
+  tier-economy lesson in practice), so no dead subagent contexts exist. Scratchpad working
+  files die with the machine; their conclusions are homed.
+- *Index of homes*: six commits on coordination/estate-2026-07 (e1d48b955, d18b347b1,
+  32a420242, 72c306e0d, c2409b7e0, + the wrap batch); this napkin; archive/napkin-2026-07-26;
+  PDR-094 v4 + ADR-199; the two patterns + extensions; per-user memory
+  retention-is-knowledge-never-bytes; AEE thread record §2026-07-26 + identity row; the
+  formation letter in .agent/experience/. Repo-continuity's AEE summary row is OWED and
+  deliberately not edited (inside Crucible's live claim) — routed to the Director.
+- *External bound / error signature for successors*: this seat's two misses were both
+  READINGS OF THE OWNER — tool-manufactured impossibility transmitted as world-fact, and a
+  disposal licence enacted as a delete mandate. Both owner-caught, neither self-caught. Point
+  external scrutiny at this seat-lineage's interpretations of owner directives at enactment
+  boundaries.
+- *Fixed point*: a further pass would only re-find the scratchpad mortality, the watcher
+  churn windows, and the owner-reading signature above. The recursion closes here.
+
 ## 2026-07-26 ~08:00–09:40Z — Squall wakes Apex (459fd1), Director: the re-read day (pre-compaction capture)
 
 - **One pattern, seven instances in one tenure — a stored description outliving its reality,

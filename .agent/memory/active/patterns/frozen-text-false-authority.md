@@ -79,3 +79,12 @@ The recurrence-despite-home instance (the 2026-07-25 sweep revert, after the
 marker-probe cure was already doctrine) is PDR-098 evidence that this class
 needs its cure AT the action moment — the probe belongs in the sweep/commit
 path, not only in a pattern file read after the fact.
+
+**Prediction (PDR-130)**: naming the class lets seats recognise NEW faces at
+the moment frozen text is about to act, not after (the 5th face — an ADR
+clause recording a never-made decision, cited back at the owner — was
+recognised and named against this pattern within hours of its graduation).
+Falsifier: a further stale-capture/frozen-authority incident that proceeds
+to ACT unprobed despite this pattern being live doctrine — that would be
+second-order PDR-098 recurrence-despite-home evidence, forcing the cure
+into a mechanical gate on the sweep/commit path.

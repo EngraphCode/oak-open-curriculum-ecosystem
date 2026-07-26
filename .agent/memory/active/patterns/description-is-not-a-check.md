@@ -99,3 +99,12 @@ and none by the author re-reading their own description.
    scrutiny at summaries, commit messages, and handoff claims about artefacts —
    that is where this class lives, and sibling-surface sweeps catch what
    edit-path reads miss.
+
+**Prediction (PDR-130)**: with this pattern live, handoff verifications and
+review rounds that apply cure 1 (read FROM before acting on ABOUT) catch
+description↔artefact divergences BEFORE they steer work — measured as
+diverged-description catches logged against this pattern (already 16
+instances within 48h of authoring, four caught by a verification pass that
+applied the pattern to its own author's handoff). Falsifier: a quarter with
+zero logged catches while handoffs continue — the pattern is decoration and
+the cure needs a mechanical home (a handoff-verification gate) instead.
