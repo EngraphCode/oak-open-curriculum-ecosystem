@@ -5,7 +5,7 @@
  * target-agnostic (it reads check ids, statuses, and error text only, never
  * the report's `target` or duration fields).
  */
-import { typeSafeKeys } from '@oaknational/type-helpers';
+import { typeSafeHasOwn, typeSafeKeys } from '@oaknational/type-helpers';
 
 import {
   type Baseline,
@@ -92,7 +92,12 @@ function comparePassedCase(observed: McpjamCase, expected: ExpectedCheck): Diver
 }
 
 function compareObservedCase(observed: McpjamCase, baseline: Baseline): Divergence | undefined {
-  const expected = baseline.expected[observed.id];
+  // Own-property guard: `expected` is a plain object, so a bare index for a
+  // novel check named `toString`/`constructor` would resolve an inherited
+  // prototype member and silently skip the novel-check branch.
+  const expected = typeSafeHasOwn(baseline.expected, observed.id)
+    ? baseline.expected[observed.id]
+    : undefined;
   if (expected === undefined) {
     return {
       kind: 'novel-check',

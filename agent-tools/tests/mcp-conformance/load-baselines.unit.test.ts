@@ -70,6 +70,40 @@ describe('loadBaselines — absent, invalid, and loaded are never conflated', ()
     );
   });
 
+  it('a mislabelled baseline (self-declared suite differs) is invalid, never trusted', () => {
+    const outcomes = loadBaselines({
+      reader: readerOf({
+        'apps-unattended.json': { kind: 'ok', content: VALID_PROTOCOL_BASELINE },
+      }),
+      suites: ['apps'],
+      mode: 'unattended',
+    });
+    expect(outcomes.apps?.kind).toBe('invalid');
+    expect(outcomes.apps?.kind === 'invalid' && outcomes.apps.reason).toContain(
+      'declares suite "protocol"',
+    );
+    expect(outcomes.apps?.kind === 'invalid' && outcomes.apps.reason).toContain(
+      'mislabelled or copied',
+    );
+  });
+
+  it('a mode-mismatched baseline is invalid with both identities named', () => {
+    const outcomes = loadBaselines({
+      reader: readerOf({
+        'protocol-attended.json': { kind: 'ok', content: VALID_PROTOCOL_BASELINE },
+      }),
+      suites: ['protocol'],
+      mode: 'attended',
+    });
+    expect(outcomes.protocol?.kind).toBe('invalid');
+    expect(outcomes.protocol?.kind === 'invalid' && outcomes.protocol.reason).toContain(
+      'mode "unattended"',
+    );
+    expect(outcomes.protocol?.kind === 'invalid' && outcomes.protocol.reason).toContain(
+      'loaded for suite "protocol" / mode "attended"',
+    );
+  });
+
   it('a non-absent read error is invalid with the read cause, never silently dropped', () => {
     const outcomes = loadBaselines({
       reader: readerOf({

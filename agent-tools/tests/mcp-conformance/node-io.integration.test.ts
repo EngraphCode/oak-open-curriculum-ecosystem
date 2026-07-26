@@ -1,17 +1,15 @@
 import { join } from 'node:path';
 
+import { unwrapErr } from '@oaknational/result';
 import { afterEach, describe, expect, it } from 'vitest';
 
-import { buildMcpConformanceNodeIo } from '../../src/mcp-conformance/node-io.js';
+import { buildMcpConformanceNodeIo, writeRunSummary } from '../../src/mcp-conformance/node-io.js';
 import {
   cleanupSandboxes,
   readSandboxFile,
   sandbox,
   writeSandboxFile,
 } from './test-helpers/io-sandbox.js';
-
-// The real repository root: three levels up from agent-tools/tests/mcp-conformance.
-const REPO_ROOT = join(import.meta.dirname, '..', '..', '..');
 
 afterEach(() => {
   cleanupSandboxes();
@@ -44,26 +42,25 @@ describe('retainRawReport — verbatim retention with caller-shaped paths', () =
     expect(outcome.ok).toBe(false);
     expect(!outcome.ok && outcome.error.length > 0).toBe(true);
   });
+
+  it('the aggregate summary lands beside the raw reports with the caller-shaped path', () => {
+    const root = sandbox();
+    const outcome = writeRunSummary(root, join('tmp', 'reports'), '{"verdict":"pass"}');
+    expect(outcome).toEqual({ ok: true, reportedPath: join('tmp', 'reports', 'summary.json') });
+    expect(readSandboxFile(root, 'tmp', 'reports', 'summary.json')).toBe('{"verdict":"pass"}');
+  });
 });
 
-describe('runMcpjam — lockfile-resolved bin under the current Node', () => {
-  it('resolves and runs the installed mcpjam from the real repo root (--version, no network)', () => {
-    const io = buildMcpConformanceNodeIo(REPO_ROOT, 'tmp/unused');
-    const result = io.runMcpjam(['--version']);
-    expect(result.ok).toBe(true);
-    if (result.ok) {
-      expect(result.value.exitCode).toBe(0);
-      expect(result.value.stdout).toMatch(/\d+\.\d+\.\d+/u);
-    }
-  });
-
+// The resolve-and-spawn happy path is deliberately NOT proven here: test code
+// must not spawn child processes (testing-strategy §Rules), and the real bin
+// under the real install is exercised live by the scheduled unattended CI
+// workflow on every run. This block describes OUR half of the seam only —
+// the spawn-free resolution-failure branch.
+describe('runMcpjam — bin-resolution failure is loud and spawn-free', () => {
   it('a root without the dependency yields a launch error naming pnpm install', () => {
     const emptyRoot = sandbox();
     const io = buildMcpConformanceNodeIo(emptyRoot, 'tmp/unused');
-    const result = io.runMcpjam(['--version']);
-    expect(result.ok).toBe(false);
-    if (!result.ok) {
-      expect(result.error.message).toContain('pnpm install');
-    }
+    const error = unwrapErr(io.runMcpjam(['--version']));
+    expect(error.message).toContain('pnpm install');
   });
 });

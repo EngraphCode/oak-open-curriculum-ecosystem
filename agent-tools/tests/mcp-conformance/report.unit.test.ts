@@ -2,17 +2,17 @@ import { err, ok, type Result } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
 import {
-  runMcpConformance,
   type BaselineLoadOutcome,
   type McpConformanceIo,
   type RetentionOutcome,
-} from '../../src/mcp-conformance/report.js';
+} from '../../src/mcp-conformance/io-port.js';
+import { runMcpConformance } from '../../src/mcp-conformance/report.js';
 import {
   composeSuiteArgs,
   UNATTENDED_SUITES,
   type McpjamSpawnResult,
 } from '../../src/mcp-conformance/runner.js';
-import { type Baseline } from '../../src/mcp-conformance/types.js';
+import { type Baseline, type SuiteOutcome } from '../../src/mcp-conformance/types.js';
 import {
   loadBaseline,
   loadFixtureRaw,
@@ -65,6 +65,11 @@ function fakeIo(overrides?: {
       return retention[suite] ?? { ok: false, error: `no canned retention for "${suite}"` };
     },
   };
+}
+
+/** Flatten an outcome's failure reasons for fragment assertions. */
+function reasonsOf(outcome: SuiteOutcome | undefined): string {
+  return (outcome?.failureReasons ?? []).join('\n');
 }
 
 describe('composeSuiteArgs — reproducible lockfile-run invocations', () => {
@@ -123,29 +128,32 @@ describe('composeSuiteArgs — reproducible lockfile-run invocations', () => {
   });
 });
 
-describe('runMcpConformance — aggregation and evidence retention', () => {
-  const unattendedInput = {
+describe('runMcpConformance — verdict operation', () => {
+  const verdictInput = {
     target: TARGET,
+    operation: 'verdict' as const,
     mode: 'unattended' as const,
     suites: UNATTENDED_SUITES,
     baselines: UNATTENDED_BASELINES,
   };
 
   it('the unattended plan against the observed alpha shapes verdicts pass with exit 0', () => {
-    const { report, exitCode } = runMcpConformance(fakeIo(), unattendedInput);
+    const { report, exitCode } = runMcpConformance(fakeIo(), verdictInput);
+    expect(report.operation).toBe('verdict');
     expect(report.verdict).toBe('pass');
     expect(exitCode).toBe(0);
     expect(report.suites.map((s) => [s.suite, s.verdict])).toEqual([
       ['protocol', 'pass'],
       ['oauth', 'pass'],
     ]);
+    expect(report.suites.every((s) => s.failureReasons.length === 0)).toBe(true);
     // The oauth baseline's named residual masking window rides the outcome.
     expect(report.suites[1]?.baselineResidualMasking).toContain('attended');
   });
 
   it('raw stdout is retained verbatim for every suite before any parsing', () => {
     const io = fakeIo();
-    runMcpConformance(io, unattendedInput);
+    runMcpConformance(io, verdictInput);
     expect(io.retained.get('protocol')).toBe(PROTOCOL_RAW);
     expect(io.retained.get('oauth')).toBe(OAUTH_RAW);
   });
@@ -157,12 +165,12 @@ describe('runMcpConformance — aggregation and evidence retention', () => {
         oauth: err(new Error('spawn ENOENT')),
       },
     });
-    const { report, exitCode } = runMcpConformance(io, unattendedInput);
+    const { report, exitCode } = runMcpConformance(io, verdictInput);
     expect(exitCode).toBe(1);
     expect(report.suites).toHaveLength(2);
     for (const suite of report.suites) {
       expect(suite.verdict).toBe('fail');
-      expect(suite.failureReason).toContain('spawn ENOENT');
+      expect(reasonsOf(suite)).toContain('spawn ENOENT');
     }
   });
 
@@ -170,12 +178,12 @@ describe('runMcpConformance — aggregation and evidence retention', () => {
     const io = fakeIo({
       runResults: { protocol: ok({ exitCode: 1, stdout: 'not json at all', stderr: '' }) },
     });
-    const { report, exitCode } = runMcpConformance(io, unattendedInput);
+    const { report, exitCode } = runMcpConformance(io, verdictInput);
     expect(exitCode).toBe(1);
     const protocol = report.suites.find((s) => s.suite === 'protocol');
     expect(protocol?.verdict).toBe('fail');
-    expect(protocol?.failureReason).toContain('"protocol" suite was not JSON');
-    expect(protocol?.failureReason).toContain('tmp/mcp-conformance/test/protocol.json');
+    expect(reasonsOf(protocol)).toContain('"protocol" suite was not JSON');
+    expect(reasonsOf(protocol)).toContain('tmp/mcp-conformance/test/protocol.json');
     // Retention happened even though parsing failed — the evidence survives.
     expect(io.retained.get('protocol')).toBe('not json at all');
     // The other suite still ran and passed.
@@ -188,46 +196,134 @@ describe('runMcpConformance — aggregation and evidence retention', () => {
         protocol: ok({ exitCode: 1, stdout: rawWithSchemaVersion(PROTOCOL_RAW, 2), stderr: '' }),
       },
     });
-    const { report } = runMcpConformance(io, unattendedInput);
-    expect(report.suites.find((s) => s.suite === 'protocol')?.failureReason).toContain(
-      'schemaVersion',
+    const { report } = runMcpConformance(io, verdictInput);
+    expect(reasonsOf(report.suites.find((s) => s.suite === 'protocol'))).toContain('schemaVersion');
+  });
+
+  it('a parse failure preserves the mcpjam stderr diagnostic as a bounded excerpt', () => {
+    const io = fakeIo({
+      runResults: {
+        protocol: ok({ exitCode: 2, stdout: 'usage: mcpjam', stderr: 'unknown flag --reporter' }),
+      },
+    });
+    const { report } = runMcpConformance(io, verdictInput);
+    expect(reasonsOf(report.suites.find((s) => s.suite === 'protocol'))).toContain(
+      'mcpjam stderr: unknown flag --reporter',
     );
   });
 
-  it('a suite without a baseline has no verdict semantics and fails loudly', () => {
-    const { report, exitCode } = runMcpConformance(fakeIo(), {
-      ...unattendedInput,
+  it('an over-long stderr diagnostic is truncated EXPLICITLY, never silently', () => {
+    const io = fakeIo({
+      runResults: {
+        protocol: ok({ exitCode: 1, stdout: 'not json', stderr: 'x'.repeat(5000) }),
+      },
+    });
+    const { report } = runMcpConformance(io, verdictInput);
+    expect(reasonsOf(report.suites.find((s) => s.suite === 'protocol'))).toContain(
+      '(truncated from 5000 trimmed chars)',
+    );
+  });
+
+  it('simultaneous failures compose — unparseable stdout and failed retention are both reported', () => {
+    const io = fakeIo({
+      runResults: { protocol: ok({ exitCode: 1, stdout: 'not json', stderr: '' }) },
+      retention: { protocol: { ok: false, error: 'disk full' } },
+    });
+    const { report } = runMcpConformance(io, { ...verdictInput, suites: ['protocol'] });
+    const protocol = report.suites[0];
+    expect(protocol?.verdict).toBe('fail');
+    expect(reasonsOf(protocol)).toContain('was not JSON');
+    expect(reasonsOf(protocol)).toContain('raw-report retention failed: disk full');
+  });
+
+  it('retention failure is loud even when the comparison itself passes', () => {
+    const io = fakeIo({ retention: { protocol: { ok: false, error: 'disk full' } } });
+    const { report, exitCode } = runMcpConformance(io, {
+      ...verdictInput,
+      suites: ['protocol'],
+    });
+    expect(exitCode).toBe(1);
+    expect(report.suites[0]?.verdict).toBe('fail');
+    expect(reasonsOf(report.suites[0])).toContain('disk full');
+  });
+
+  it('a missing baseline fails the run FAST — nothing launches, and the failure names --seed', () => {
+    const io = fakeIo();
+    const { report, exitCode } = runMcpConformance(io, {
+      ...verdictInput,
       baselines: { protocol: UNATTENDED_BASELINES.protocol },
     });
     expect(exitCode).toBe(1);
+    // Entry validation: no suite ran, no network, no retention.
+    expect(io.retained.size).toBe(0);
     const oauth = report.suites.find((s) => s.suite === 'oauth');
     expect(oauth?.verdict).toBe('fail');
-    expect(oauth?.failureReason).toContain('no unattended baseline');
+    expect(reasonsOf(oauth)).toContain('no unattended baseline');
+    expect(reasonsOf(oauth)).toContain('--seed');
+    // The suite whose baseline was fine reports the entry-validation abort.
+    const protocol = report.suites.find((s) => s.suite === 'protocol');
+    expect(protocol?.verdict).toBe('fail');
+    expect(reasonsOf(protocol)).toContain('not run: entry validation failed');
   });
 
-  it('an invalid baseline fails with its true cause, never masquerading as absent', () => {
-    const { report, exitCode } = runMcpConformance(fakeIo(), {
-      ...unattendedInput,
+  it('an invalid baseline fails fast with its true cause, never masquerading as absent', () => {
+    const io = fakeIo();
+    const { report, exitCode } = runMcpConformance(io, {
+      ...verdictInput,
       baselines: {
         protocol: UNATTENDED_BASELINES.protocol,
         oauth: { kind: 'invalid', reason: 'oauth-dcr-unattended.json is not valid JSON: boom' },
       },
     });
     expect(exitCode).toBe(1);
+    expect(io.retained.size).toBe(0);
     const oauth = report.suites.find((s) => s.suite === 'oauth');
     expect(oauth?.verdict).toBe('fail');
-    expect(oauth?.failureReason).toContain('unusable');
-    expect(oauth?.failureReason).toContain('not valid JSON: boom');
+    expect(reasonsOf(oauth)).toContain('unusable');
+    expect(reasonsOf(oauth)).toContain('not valid JSON: boom');
+  });
+});
+
+describe('runMcpConformance — seed operation (capture-only)', () => {
+  const seedInput = {
+    target: TARGET,
+    operation: 'seed' as const,
+    mode: 'unattended' as const,
+    suites: UNATTENDED_SUITES,
+    baselines: {},
+  };
+
+  it('captures and passes with NO baselines at all — the authoring path', () => {
+    const io = fakeIo();
+    const { report, exitCode } = runMcpConformance(io, seedInput);
+    expect(report.operation).toBe('seed');
+    expect(report.verdict).toBe('pass');
+    expect(exitCode).toBe(0);
+    expect(io.retained.get('protocol')).toBe(PROTOCOL_RAW);
+    expect(io.retained.get('oauth')).toBe(OAUTH_RAW);
+    for (const suite of report.suites) {
+      expect(suite.verdict).toBe('pass');
+      expect(suite.rawReportPath).toBeDefined();
+      expect(suite.divergences).toEqual([]);
+    }
   });
 
-  it('retention failure is loud even when the comparison itself passes', () => {
-    const io = fakeIo({ retention: { protocol: { ok: false, error: 'disk full' } } });
-    const { report, exitCode } = runMcpConformance(io, {
-      ...unattendedInput,
-      suites: ['protocol'],
+  it('an unparseable capture fails the seed run with the syntax cause and stderr diagnostic', () => {
+    const io = fakeIo({
+      runResults: { protocol: ok({ exitCode: 2, stdout: 'not json', stderr: 'boom detail' }) },
     });
+    const { report, exitCode } = runMcpConformance(io, seedInput);
     expect(exitCode).toBe(1);
-    expect(report.suites[0]?.verdict).toBe('fail');
-    expect(report.suites[0]?.failureReason).toContain('disk full');
+    const protocol = report.suites.find((s) => s.suite === 'protocol');
+    expect(protocol?.verdict).toBe('fail');
+    expect(reasonsOf(protocol)).toContain('was not JSON');
+    expect(reasonsOf(protocol)).toContain('mcpjam stderr: boom detail');
+  });
+
+  it('a retention failure fails the seed run — capture IS the operation', () => {
+    const io = fakeIo({ retention: { oauth: { ok: false, error: 'disk full' } } });
+    const { report, exitCode } = runMcpConformance(io, seedInput);
+    expect(exitCode).toBe(1);
+    expect(reasonsOf(report.suites.find((s) => s.suite === 'oauth'))).toContain('disk full');
   });
 });

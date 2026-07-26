@@ -39,7 +39,7 @@ const help = spawnSync(process.execPath, [BIN, '--help'], { cwd: REPO_ROOT, enco
 check('help exit code', help.status === 0, `expected 0, got ${String(help.status)}`);
 check(
   'help usage on stdout',
-  help.stdout.includes('Usage: agent-tools mcp-conformance'),
+  help.stdout.includes('Usage: pnpm -s mcp:conformance'),
   help.stdout.slice(0, 200),
 );
 
@@ -76,6 +76,22 @@ check(
   'unknown flag guidance on stderr',
   unknownFlag.stderr.includes('--nope'),
   unknownFlag.stderr.slice(0, 200),
+);
+
+const duplicateSuite = spawnSync(
+  process.execPath,
+  [BIN, '--target', 'https://x.test/mcp', '--suite', 'protocol', '--suite', 'protocol'],
+  { cwd: REPO_ROOT, encoding: 'utf8' },
+);
+check(
+  'duplicate --suite exit code',
+  duplicateSuite.status === 2,
+  `expected 2, got ${String(duplicateSuite.status)}`,
+);
+check(
+  'duplicate --suite guidance on stderr',
+  duplicateSuite.stderr.includes('duplicate --suite'),
+  duplicateSuite.stderr.slice(0, 200),
 );
 
 if (failures.length > 0) {

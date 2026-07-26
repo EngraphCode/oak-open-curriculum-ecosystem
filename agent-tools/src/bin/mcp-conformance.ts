@@ -12,29 +12,46 @@ import { join, resolve } from 'node:path';
 import { scanArgs } from '../core/cli-arg-parser.js';
 import { resolveRepoRoot } from '../core/repo-root.js';
 import { loadBaselines, type BaselineRead } from '../mcp-conformance/load-baselines.js';
-import { buildMcpConformanceNodeIo } from '../mcp-conformance/node-io.js';
+import { buildMcpConformanceNodeIo, writeRunSummary } from '../mcp-conformance/node-io.js';
 import { runMcpConformance } from '../mcp-conformance/report.js';
 import { UNATTENDED_SUITES } from '../mcp-conformance/runner.js';
 import {
   conformanceSuiteSchema,
   type ConformanceMode,
+  type ConformanceOperation,
+  type ConformanceRunReport,
   type ConformanceSuite,
 } from '../mcp-conformance/types.js';
 
-const HELP_TEXT = `Usage: agent-tools mcp-conformance --target <url> [options]
+const HELP_TEXT = `Usage: pnpm -s mcp:conformance --target <url> [options]
+(the -s keeps stdout pure JSON: without it, pnpm's own failure reporter
+appends to stdout when a failing run exits 1)
 
 Runs MCPJam conformance suites (lockfile-installed @mcpjam/cli) against a
-deployed MCP surface and verdicts them BY NAME against committed baselines:
-pass requires zero unexpected failures AND the observed skip/fail sets
-exactly matching the baseline. Raw json-summary reports are retained
-verbatim before parsing.
+deployed MCP surface. Two operations:
+
+VERDICT (default): each suite is compared BY NAME against its committed
+baseline — pass requires a usable baseline, retained raw evidence, no
+duplicate check ids, zero unexpected failures, and the observed skip/fail
+sets exactly matching the baseline. Baselines are validated UP FRONT: a
+missing or unusable baseline fails the run immediately, with no network
+contact, naming the --seed path.
+
+SEED (--seed): capture-only. Runs the suites live, retains each raw
+json-summary report verbatim (the observation seed for authoring
+baselines), performs no comparison, and exits 0 iff every capture
+succeeded. Without --unattended, the plan drives all three suites LIVE
+against the target (the oauth leg is interactive), bounded at 120s/suite.
+
+The wrapper's aggregate report goes to stdout AND <report-dir>/summary.json.
 
 Options:
   --target <url>             MCP server URL (required), e.g. https://<host>/mcp
   --unattended               Headless credential-free plan (protocol + oauth DCR
                              discovery legs); forbids --credentials-file
-  --suite <name>             protocol | apps | oauth (repeatable; default: the
-                             mode's full plan)
+  --seed                     Capture-only operation (no baseline verdicts)
+  --suite <name>             protocol | apps | oauth (repeatable, no duplicates;
+                             default: the mode's full plan)
   --credentials-file <path>  OAuth credentials file for authed suites
   --report-dir <path>        Raw-report dir, absolute or repo-root-relative
                              (default tmp/mcp-conformance/<utc-stamp>)
@@ -45,23 +62,25 @@ Options:
 interface CliState {
   help: boolean;
   unattended: boolean;
+  seed: boolean;
   target: string | undefined;
   suites: ConformanceSuite[];
   credentialsFile: string | undefined;
   reportDir: string | undefined;
   baselineDir: string | undefined;
-  suiteError: string | undefined;
+  suiteErrors: string[];
 }
 
 const INITIAL_STATE: CliState = {
   help: false,
   unattended: false,
+  seed: false,
   target: undefined,
   suites: [],
   credentialsFile: undefined,
   reportDir: undefined,
   baselineDir: undefined,
-  suiteError: undefined,
+  suiteErrors: [],
 };
 
 function scanCliArgs(
@@ -70,7 +89,7 @@ function scanCliArgs(
   { readonly ok: true; readonly state: CliState } | { readonly ok: false; readonly error: string } {
   return scanArgs<CliState>(
     argv,
-    { ...INITIAL_STATE, suites: [] },
+    { ...INITIAL_STATE, suites: [], suiteErrors: [] },
     {
       flags: {
         '--help': (state) => {
@@ -82,6 +101,9 @@ function scanCliArgs(
         '--unattended': (state) => {
           state.unattended = true;
         },
+        '--seed': (state) => {
+          state.seed = true;
+        },
       },
       valueOptions: {
         '--target': (state, value) => {
@@ -92,7 +114,7 @@ function scanCliArgs(
           if (parsed.success) {
             state.suites.push(parsed.data);
           } else {
-            state.suiteError = `unknown suite "${value}" (expected protocol | apps | oauth)`;
+            state.suiteErrors.push(`unknown suite "${value}" (expected protocol | apps | oauth)`);
           }
         },
         '--credentials-file': (state, value) => {
@@ -111,8 +133,12 @@ function scanCliArgs(
 }
 
 function validateCliState(state: CliState): string | undefined {
-  if (state.suiteError !== undefined) {
-    return `${state.suiteError}\n${HELP_TEXT}`;
+  if (state.suiteErrors.length > 0) {
+    return `${state.suiteErrors.join('; ')}\n${HELP_TEXT}`;
+  }
+  const duplicates = [...new Set(state.suites.filter((s, i) => state.suites.indexOf(s) !== i))];
+  if (duplicates.length > 0) {
+    return `duplicate --suite value(s): ${duplicates.join(', ')} — each suite runs once and writes one <suite>.json raw report\n${HELP_TEXT}`;
   }
   if (state.target === undefined || state.target.trim() === '') {
     return `--target is required\n${HELP_TEXT}`;
@@ -151,6 +177,7 @@ function defaultReportDir(): string {
 }
 
 function runFromCli(state: CliState, target: string): 0 | 1 {
+  const operation: ConformanceOperation = state.seed ? 'seed' : 'verdict';
   const mode: ConformanceMode = state.unattended ? 'unattended' : 'attended';
   const defaultSuites: readonly ConformanceSuite[] = state.unattended
     ? UNATTENDED_SUITES
@@ -168,6 +195,7 @@ function runFromCli(state: CliState, target: string): 0 | 1 {
   // relative one resolves against the repo root.
   const { report, exitCode } = runMcpConformance(buildMcpConformanceNodeIo(repoRoot, reportDir), {
     target,
+    operation,
     mode,
     suites,
     baselines: loadBaselines({
@@ -177,8 +205,18 @@ function runFromCli(state: CliState, target: string): 0 | 1 {
     }),
     ...(state.credentialsFile === undefined ? {} : { credentialsFile: state.credentialsFile }),
   });
-  process.stdout.write(`${JSON.stringify(report, null, 2)}\n`);
+  emitReport(repoRoot, reportDir, report);
   return exitCode;
+}
+
+/** Emit the aggregate report to stdout AND `<report-dir>/summary.json`. */
+function emitReport(repoRoot: string, reportDir: string, report: ConformanceRunReport): void {
+  const reportJson = `${JSON.stringify(report, null, 2)}\n`;
+  const summary = writeRunSummary(repoRoot, reportDir, reportJson);
+  if (!summary.ok) {
+    process.stderr.write(`summary.json could not be written: ${summary.error}\n`);
+  }
+  process.stdout.write(reportJson);
 }
 
 function main(): void {

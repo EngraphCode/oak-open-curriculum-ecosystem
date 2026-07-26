@@ -90,6 +90,16 @@ const conformanceModeSchema = z.enum(['unattended', 'attended']);
 export type ConformanceMode = z.infer<typeof conformanceModeSchema>;
 
 /**
+ * The wrapper's two operations. `verdict` (default) compares each suite
+ * against its committed baseline and validates every baseline UP FRONT —
+ * a missing or unusable baseline fails in milliseconds with no network
+ * contact. `seed` is capture-only: run live, retain raw reports verbatim
+ * (the observation seed for authoring baselines), no comparison, pass iff
+ * every capture succeeded.
+ */
+export type ConformanceOperation = 'verdict' | 'seed';
+
+/**
  * Expected terminal state for one check id. `errorIncludes` is required
  * exactly when a failure is expected — an expected failure without a pinned
  * shape would let any failure pass, which is the masking the ticket's
@@ -135,7 +145,7 @@ export type Baseline = z.infer<typeof baselineSchema>;
 
 /**
  * Named divergence classes. Complete over the expected×observed status
- * matrix plus the two set-membership drifts:
+ * matrix plus the set-membership and multiplicity drifts:
  *
  * - `unexpected-failure` — expected pass or skip, observed failed.
  * - `failure-shape-mismatch` — expected fail, observed fail, but the error
@@ -149,6 +159,9 @@ export type Baseline = z.infer<typeof baselineSchema>;
  * - `missing-check` — in the baseline, absent from the run.
  * - `novel-check` — in the run, absent from the baseline (the
  *   version-drift tripwire that lets the dependency range float safely).
+ * - `duplicate-check` — one check id observed more than once in a run:
+ *   ambiguous verdict input under the floating range, surfaced loudly and
+ *   never resolved last-wins.
  */
 export interface Divergence {
   readonly kind:
@@ -177,12 +190,17 @@ export interface SuiteOutcome {
   /** The child process exit code — report data, never a verdict input. */
   readonly mcpjamExitCode?: number;
   /**
-   * Why this suite failed outside baseline comparison. Carries one of four
-   * failure classes: baseline unavailable/invalid, mcpjam launch failure,
-   * raw-stdout parse failure, or raw-report retention failure. Absent when
-   * the suite reached comparison and retention succeeded.
+   * Why this suite failed outside baseline comparison — one entry per
+   * applicable failure class, NEVER joined into prose (a child stream can
+   * contain any separator, so a joined string is lossy on arrival):
+   * baseline unavailable/invalid, entry-validation abort, mcpjam launch
+   * failure (bounded diagnostics of both streams ride the reason on
+   * signal/timeout death, where retention cannot run), raw-stdout parse
+   * failure (with a bounded stderr diagnostic when the child wrote one),
+   * and raw-report retention failure. Simultaneous problems all appear.
+   * Empty when the suite reached its operation's success bar.
    */
-  readonly failureReason?: string;
+  readonly failureReasons: readonly string[];
   readonly divergences: readonly Divergence[];
   readonly baselineResidualMasking?: string;
 }
@@ -190,6 +208,7 @@ export interface SuiteOutcome {
 /** The wrapper's aggregate report: `{ report, exitCode }` per house shape. */
 export interface ConformanceRunReport {
   readonly schema_version: '1.0.0';
+  readonly operation: ConformanceOperation;
   readonly target: string;
   readonly mode: ConformanceMode;
   readonly suites: readonly SuiteOutcome[];

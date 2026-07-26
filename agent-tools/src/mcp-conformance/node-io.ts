@@ -18,7 +18,8 @@ import { join, resolve } from 'node:path';
 
 import { err, ok, type Result } from '@oaknational/result';
 
-import { type McpConformanceIo, type RetentionOutcome } from './report.js';
+import { boundedExcerpt } from './bounded-excerpt.js';
+import { type McpConformanceIo, type RetentionOutcome } from './io-port.js';
 import { type McpjamSpawnResult } from './runner.js';
 import { type ConformanceSuite } from './types.js';
 
@@ -61,31 +62,58 @@ function spawnMcpjam(
     return err(child.error);
   }
   if (child.signal !== null) {
+    // A signal death (typically the timeout ceiling) is a LAUNCH FAILURE to
+    // the orchestration: retention never runs on this path, so no evidence
+    // artefact survives it — bounded DIAGNOSTICS of both streams ride the
+    // error instead, so the operator still sees what the child said.
     return err(
       new Error(
-        `mcpjam died on signal ${child.signal} (timeout ceiling ${String(SUITE_TIMEOUT_MS)}ms)`,
+        `mcpjam died on signal ${child.signal} (timeout ceiling ${String(SUITE_TIMEOUT_MS)}ms)` +
+          `${boundedExcerpt('partial stdout', child.stdout)}${boundedExcerpt('stderr', child.stderr)}`,
       ),
     );
   }
   return ok({ exitCode: child.status ?? undefined, stdout: child.stdout, stderr: child.stderr });
 }
 
+// Writes resolve against the repo root; an absolute reportDir stands as
+// given. The REPORTED path preserves the caller's own form (relative in,
+// repo-root-relative out; absolute in, absolute out) so the emitted
+// report never names a path that does not exist.
+function writeUnder(
+  repoRoot: string,
+  reportDir: string,
+  fileName: string,
+  content: string,
+): RetentionOutcome {
+  const writeDir = resolve(repoRoot, reportDir);
+  const reportedPath = join(reportDir, fileName);
+  try {
+    mkdirSync(writeDir, { recursive: true });
+    writeFileSync(join(writeDir, fileName), content, 'utf8');
+    return { ok: true, reportedPath };
+  } catch (error) {
+    return { ok: false, error: error instanceof Error ? error.message : String(error) };
+  }
+}
+
 function retainUnder(repoRoot: string, reportDir: string) {
-  return (suite: ConformanceSuite, content: string): RetentionOutcome => {
-    // Writes resolve against the repo root; an absolute reportDir stands as
-    // given. The REPORTED path preserves the caller's own form (relative in,
-    // repo-root-relative out; absolute in, absolute out) so the emitted
-    // report never names a path that does not exist.
-    const writeDir = resolve(repoRoot, reportDir);
-    const reportedPath = join(reportDir, `${suite}.json`);
-    try {
-      mkdirSync(writeDir, { recursive: true });
-      writeFileSync(join(writeDir, `${suite}.json`), content, 'utf8');
-      return { ok: true, reportedPath };
-    } catch (error) {
-      return { ok: false, error: error instanceof Error ? error.message : String(error) };
-    }
-  };
+  return (suite: ConformanceSuite, content: string): RetentionOutcome =>
+    writeUnder(repoRoot, reportDir, `${suite}.json`, content);
+}
+
+/**
+ * Persist the wrapper's own aggregate report as `<report-dir>/summary.json`
+ * so the report directory (and any CI artifact built from it) carries the
+ * verdict document — divergences and failure reasons — alongside the raw
+ * per-suite evidence, and stdout purity is never load-bearing.
+ */
+export function writeRunSummary(
+  repoRoot: string,
+  reportDir: string,
+  reportJson: string,
+): RetentionOutcome {
+  return writeUnder(repoRoot, reportDir, 'summary.json', reportJson);
 }
 
 /**

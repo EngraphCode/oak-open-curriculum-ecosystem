@@ -5,13 +5,14 @@
  *
  * The load outcome distinguishes the three states an operator must never
  * see conflated: ABSENT (no baseline file — the suite is verdict-less),
- * INVALID (a file exists but is unreadable, malformed JSON, or rejects the
- * baseline schema — the true cause is preserved verbatim), and LOADED.
+ * INVALID (a file exists but is unreadable, malformed JSON, rejects the
+ * baseline schema, or self-declares a different suite/mode than it was
+ * loaded for — the true cause is preserved verbatim), and LOADED.
  */
 import { isErr } from '@oaknational/result';
 
 import { parseWithSchema } from '../core/schema-parse.js';
-import { type BaselineLoadOutcome } from './report.js';
+import { type BaselineLoadOutcome } from './io-port.js';
 import { baselineSchema, type ConformanceMode, type ConformanceSuite } from './types.js';
 
 /** What one baseline-file read yields at the seam. */
@@ -59,6 +60,15 @@ function loadOne(
   });
   if (isErr(parsed)) {
     return { kind: 'invalid', reason: parsed.error.message };
+  }
+  if (parsed.value.suite !== suite || parsed.value.mode !== mode) {
+    // A structurally-valid file can still be the WRONG baseline — copied or
+    // mislabelled into this name. Its self-declared identity must match the
+    // (suite, mode) it was loaded for, or its verdicts are for another run.
+    return {
+      kind: 'invalid',
+      reason: `${fileName} declares suite "${parsed.value.suite}" / mode "${parsed.value.mode}" but was loaded for suite "${suite}" / mode "${mode}" — a mislabelled or copied baseline file`,
+    };
   }
   return { kind: 'loaded', baseline: parsed.value };
 }

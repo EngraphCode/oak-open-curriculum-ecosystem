@@ -45,7 +45,10 @@ export function cloneBaseline(baseline: Baseline): Baseline {
 export function rawWithSchemaVersion(raw: string, version: number): string {
   const doc: unknown = JSON.parse(raw);
   if (!isJsonObject(doc)) {
-    return raw;
+    // Throw-guard, never a silent fallback: a non-object fixture root means
+    // the override could not apply, and returning `raw` unchanged would let
+    // the consuming test assert against an unmutated document.
+    throw new Error('rawWithSchemaVersion: fixture root is not a JSON object');
   }
   return JSON.stringify({ ...doc, schemaVersion: version });
 }

@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { compareRunToBaseline } from '../../src/mcp-conformance/baseline.js';
 import { type McpjamCase, type McpjamReport } from '../../src/mcp-conformance/types.js';
 import { cloneBaseline, loadBaseline, loadFixture } from './test-helpers/fixture-loader.js';
+import { requireDefined } from './test-helpers/guards.js';
 
 /** Rebuild a report with one case's status flipped, without type assertions. */
 function withCaseStatus(
@@ -141,13 +142,11 @@ describe('compareRunToBaseline — every divergence class is a named, loud failu
   });
 
   it('a duplicated check id across groups is a duplicate-check divergence, never last-wins', () => {
-    const first = report.groups[0];
-    expect(first).toBeDefined();
-    const pingCase = first?.cases.find((c) => c.id === 'ping');
-    expect(pingCase).toBeDefined();
-    if (first === undefined || pingCase === undefined) {
-      return;
-    }
+    const first = requireDefined(report.groups[0], 'first fixture group');
+    const pingCase = requireDefined(
+      first.cases.find((c) => c.id === 'ping'),
+      'fixture ping case',
+    );
     const duplicated: McpjamReport = {
       ...report,
       groups: [
@@ -159,6 +158,26 @@ describe('compareRunToBaseline — every divergence class is a named, loud failu
     expect(outcome.verdict).toBe('fail');
     expect(outcome.divergences).toEqual([
       expect.objectContaining({ kind: 'duplicate-check', checkId: 'ping' }),
+    ]);
+  });
+
+  it('a novel passed check named after a prototype member is novel-check, never silently matched', () => {
+    const first = requireDefined(report.groups[0], 'first fixture group');
+    const pingCase = requireDefined(
+      first.cases.find((c) => c.id === 'ping'),
+      'fixture ping case',
+    );
+    const withPrototypeId: McpjamReport = {
+      ...report,
+      groups: [
+        ...report.groups,
+        { ...first, id: 'mcp-proto', cases: [{ ...pingCase, id: 'toString', status: 'passed' }] },
+      ],
+    };
+    const outcome = compareRunToBaseline(withPrototypeId, baseline);
+    expect(outcome.verdict).toBe('fail');
+    expect(outcome.divergences).toEqual([
+      expect.objectContaining({ kind: 'novel-check', checkId: 'toString' }),
     ]);
   });
 
