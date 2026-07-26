@@ -1,10 +1,20 @@
 /**
- * Smoke test for the built `mcp-conformance` binary (MCP-189), satisfying
- * the testing-strategy invariant that every built binary lands with a smoke
- * proving its CLI truth-set network-free: the dist entrypoint cold-starts
- * under plain `node`, `--help` exits 0 with usage on stdout, and the two
- * usage-error paths (missing --target, unknown flag) exit 2 with guidance
- * on stderr and no stack trace.
+ * Smoke test for the built `mcp-conformance` binary (MCP-189), proving the
+ * testing-strategy §"CLI binary" truth-set network-free: the dist entrypoint
+ * EXISTS, is EXECUTABLE and carries its SHEBANG; it cold-starts under plain
+ * `node`; `--help` exits 0 with usage on stdout; and the usage-error paths
+ * (missing --target, unknown flag, duplicate --suite) exit 2 with guidance on
+ * stderr and no stack trace.
+ *
+ * The truth-set's remaining clause — "one trivial happy-path invocation exits
+ * 0" — is NOT satisfiable here network-free, and that is a property of this
+ * binary rather than an omission: every non-`--help` invocation runs
+ * conformance suites against a live MCP target, and testing-strategy forbids
+ * network in gated tests. The real happy path is exercised end-to-end by the
+ * scheduled `mcp-conformance-unattended` workflow against the deployed alpha
+ * on every run, which is where a happy-path regression surfaces. Recorded
+ * rather than silently skipped, so the gap is a stated decision with a named
+ * home.
  *
  * Requires the workspace to be built (the turbo `test:e2e` task depends on
  * `build`, so the pipeline guarantees it); a missing dist fails loudly with
@@ -12,7 +22,7 @@
  * (S4036: only fixed executables are spawned — the current Node binary).
  */
 import { spawnSync } from 'node:child_process';
-import { existsSync } from 'node:fs';
+import { accessSync, constants, existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -34,6 +44,23 @@ if (!existsSync(BIN)) {
   );
   process.exit(1);
 }
+
+// Artefact-shape proofs. A build that drops the shebang or the executable bit
+// still passes every `node <path>` invocation below, so `pnpm mcp:conformance`
+// could break while this smoke stayed green — these assert the artefact as
+// SHIPPED, not merely as loadable.
+let executable = true;
+try {
+  accessSync(BIN, constants.X_OK);
+} catch {
+  executable = false;
+}
+check('dist entry is executable', executable, `${BIN} lacks the executable bit`);
+check(
+  'dist entry carries its shebang',
+  readFileSync(BIN, 'utf8').startsWith('#!/usr/bin/env node'),
+  'first line is not the node shebang',
+);
 
 const help = spawnSync(process.execPath, [BIN, '--help'], { cwd: REPO_ROOT, encoding: 'utf8' });
 check('help exit code', help.status === 0, `expected 0, got ${String(help.status)}`);
@@ -98,4 +125,6 @@ if (failures.length > 0) {
   process.stderr.write(`SMOKE FAILED (mcp-conformance-cli):\n${failures.join('\n')}\n`);
   process.exit(1);
 }
-process.stdout.write('SMOKE OK (mcp-conformance-cli): help + usage-error truth-set verified\n');
+process.stdout.write(
+  'SMOKE OK (mcp-conformance-cli): artefact shape + help + usage-error truth-set verified\n',
+);
