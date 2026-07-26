@@ -102,3 +102,33 @@ Specifically:
 - The deprecated flat key `_meta["ui/resourceUri"]` is not emitted by Oak's
   codegen. `registerAppTool` auto-populates it at registration time for backward
   compatibility.
+
+## Amendment — widget URI identity and cache-busting (2026-07-26, MCP-187)
+
+The MCP Apps standard permits hosts to prefetch and cache `ui://` resource
+content and defines no invalidation, freshness, or versioning mechanism, so
+URI identity is the only cache-invalidation lever a server holds. ADR-071's
+filename-hash scheme (superseded with the ChatGPT-specific surface) is
+replaced under this ADR by a deterministic build-identity suffix, landed via
+MCP-187 (pull request 571):
+
+- `WIDGET_URI` is generated at sdk-codegen time as
+  `ui://widget/oak-curriculum-app-<suffix>.html`, where `<suffix>` is the
+  literal `local` off Vercel, else the first 8 hex characters of sha256 of
+  the build identifier — the git commit SHA on commit-identified deploys,
+  with the per-deployment ID as the fallback on non-git deploys.
+- Same-code redeploys keep the same URI on the commit-SHA path; any code
+  change busts host caches via a new URI.
+- Every consumer — the tool `_meta.ui.resourceUri` advertisement, the
+  served-surface registration key, and the auth public-resource allowlist —
+  derives from the one generated constant; hand-frozen copies of the URI are
+  banned by an ESLint `no-restricted-syntax` rule in the HTTP app.
+- All generator-input environment variables (`SDK_CODEGEN_MODE`, `VERCEL`,
+  `VERCEL_GIT_COMMIT_SHA`, `VERCEL_DEPLOYMENT_ID`) participate in the
+  `sdk-codegen` turbo cache key, so no two deployments can share a cached
+  artefact produced from different inputs.
+
+Source of truth:
+`packages/sdks/oak-sdk-codegen/code-generation/typegen/widget-uri-suffix.ts`
+(the pure resolver) and `cross-domain-constants.ts` (the `process.env`
+composition point).

@@ -2,7 +2,7 @@
 
 ## Status
 
-Superseded by [ADR-141](141-mcp-apps-standard-primary.md). The MCP Apps resource registration model (`registerAppResource` with `RESOURCE_MIME_TYPE` and a fixed `WIDGET_URI`) replaced the filename-hash cache-busting scheme. The `oak-json-viewer-<hash>.html` pattern and `openai/outputTemplate` key no longer exist.
+Superseded by [ADR-141](141-mcp-apps-standard-primary.md). The MCP Apps resource registration model (`registerAppResource` with `RESOURCE_MIME_TYPE` and a generated `WIDGET_URI`) replaced the filename-hash cache-busting scheme described below. The `oak-json-viewer-<hash>.html` pattern and `openai/outputTemplate` key no longer exist, and the `Date.now()` hash source in this record is dead: the live cache-busting contract (deterministic per-commit suffix) is defined by ADR-141 §"Amendment — widget URI identity and cache-busting (2026-07-26, MCP-187)".
 
 ## Context
 
