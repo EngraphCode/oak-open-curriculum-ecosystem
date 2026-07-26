@@ -200,8 +200,8 @@ importers:
         specifier: ^2.1.46
         version: 2.1.46(express@5.2.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@clerk/mcp-tools':
-        specifier: ^0.5.0
-        version: 0.5.0(@cfworker/json-schema@4.1.1)(@clerk/express@2.1.46(express@5.2.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(express@5.2.1)(next@16.2.11(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(@playwright/test@1.62.0)(@types/node@24.13.3)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(zod@4.4.3)
+        specifier: ^0.6.0
+        version: 0.6.0(@cfworker/json-schema@4.1.1)(@clerk/express@2.1.46(express@5.2.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(express@5.2.1)(hono@4.12.32)(next@16.2.11(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(@playwright/test@1.62.0)(@types/node@24.13.3)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(zod@4.4.3)
       '@elastic/elasticsearch':
         specifier: ^9.4.2
         version: 9.4.2
@@ -1717,24 +1717,30 @@ packages:
     peerDependencies:
       express: ^4.17.0 || ^5.0.0
 
-  '@clerk/mcp-tools@0.5.0':
-    resolution: {integrity: sha512-phMaAffY/Jc0B84R59opIMJCHw/aMYtJZV/wmBzJSbLlbYkwdtNa8EECiIaHylvIfCd2j5vXuZBpBa7fOng0oQ==}
+  '@clerk/mcp-tools@0.6.0':
+    resolution: {integrity: sha512-YXGZujj6oxD5T4XOi08UsLbPiWYD88Fe1uOwqZQekak8i2vitOgugRw7guwat3GuzQearRGdsW1P5AweQ043Sg==}
     peerDependencies:
       '@clerk/express': ^2.1.5
+      '@clerk/hono': ^0.1.0
       '@clerk/nextjs': ^7.2.3
       better-sqlite3: ^8.7.0
       express: ^5.0.0
+      hono: '>=4.12.25'
       next: ^15.2.8 || ^15.3.8 || ^15.4.10 || ^15.5.9 || ^15.6.0-0 || ^16.0.10 || ^16.1.0-0
       pg: ^8.11.0
       redis: ^4.0.0
     peerDependenciesMeta:
       '@clerk/express':
         optional: true
+      '@clerk/hono':
+        optional: true
       '@clerk/nextjs':
         optional: true
       better-sqlite3:
         optional: true
       express:
+        optional: true
+      hono:
         optional: true
       next:
         optional: true
@@ -8566,12 +8572,13 @@ snapshots:
       - react
       - react-dom
 
-  '@clerk/mcp-tools@0.5.0(@cfworker/json-schema@4.1.1)(@clerk/express@2.1.46(express@5.2.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(express@5.2.1)(next@16.2.11(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(@playwright/test@1.62.0)(@types/node@24.13.3)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(zod@4.4.3)':
+  '@clerk/mcp-tools@0.6.0(@cfworker/json-schema@4.1.1)(@clerk/express@2.1.46(express@5.2.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(express@5.2.1)(hono@4.12.32)(next@16.2.11(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(@playwright/test@1.62.0)(@types/node@24.13.3)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(zod@4.4.3)':
     dependencies:
       '@modelcontextprotocol/sdk': 1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3)
     optionalDependencies:
       '@clerk/express': 2.1.46(express@5.2.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       express: 5.2.1
+      hono: 4.12.32
       next: 16.2.11(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(@playwright/test@1.62.0)(@types/node@24.13.3)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
     transitivePeerDependencies:
       - '@cfworker/json-schema'
