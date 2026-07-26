@@ -388,6 +388,23 @@ first-hand as of 2026-06-25.
 > Bot reviewers are visible only via the GraphQL Bot fragment, not REST
 > requested_reviewers.
 >
+> **MORNING QUEUE FOR THE OWNER (set ~19:10Z 2026-07-26, owner away
+> overnight)**: (1) FIRST — the MCP-201 clause-3 finding card:
+> 2,348/12,391 served lessons (19.0%) RESTRICTED per the live upstream
+> check-restricted endpoint (full-set enumeration of the deployed
+> oak_lessons alias, zero anomalies, per-subject reconciliation exact;
+> geography 50.6% / RE 45.2% / music 36.2% / maths 0.6% — the
+> third-party-content fingerprint validates the verdicts); exposure
+> PREDATES the submission but the submission makes the implicit
+> compliance claim; proceed/hold fork with MCP-204 the cure home;
+> evidence at MCP-201 comment d9e18b34 + JSON attachment; owner
+> terminal-notified 19:09Z (mobile inactive). (2) MCP-172 zone-owner
+> engagement (external latency, gates submission). (3) MCP-117 PostHog
+> key ceremony (Cutter's live-proof approaches). (4) MCP-202
+> operator-run probe at M0-set confirmation. Also standing: MCP-190/191
+> M1 homes; MCP-214/215 milestone home (Swallow proposed first post-M0,
+> prose only); owner gh CLI re-auth.
+>
 > **Platform fact + standing bridge (2026-07-26 16:44Z)**: the Codex
 > GitHub connector refuses merge actions without DIRECT in-session owner
 > authorisation — a comms-recovered Director grant does not satisfy its
