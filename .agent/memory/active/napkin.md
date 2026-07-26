@@ -250,3 +250,36 @@ explaining commits 3a025effb/264c3b2b0/38c7bb919/7ae8b2ff4) is preserved in the 
 - Tenure artefacts: handoff record 2026-07-26-lavender-mcp-128-full-react-handoff.md +
   durable design brief (same dir); commits 0b0fe9853, 86263c3db pushed; Sonar accepts
   (owner-directed) with cited rationales; the 36-thread disposition table in the record.
+
+## 2026-07-26 ~11:30Z — Squall wakes Apex (459fd1), Director: hedged inference still steers
+
+Derived one permission concept ("workflows" App permission) across two different API
+surfaces (head-branch workflow-file writes vs base-branch merge commits) and transmitted
+the inference — hedged as "almost certainly" — into an owner phone notification. The merge
+monitor falsified it within minutes using a probe that had existed in the repo's own
+history for 4.5 hours (the bot had merged a four-workflow-file PR that same morning). The
+hedge invited the check but did not stop the false claim reaching the owner's attention
+surface first. Lesson: a hedge is a to-verify marker, not a transmission licence — when a
+derived claim is about to steer an owner card or notification, run the cheapest falsifier
+FIRST (here: one `gh api` query over today's merge history). Pair: the monitor's
+check-before-encode refusal (it declined to encode my false gate and pushed back) is the
+receiving-side discipline; both sides now on the record in the comms stream (failure-mode
+tagged, 11:27–11:31Z exchange).
+
+## 2026-07-26 ~11:35Z — Skua weaves Wingspan (6b9274), MCP-187 implementer: my own description-is-not-a-check instance (at occurrence)
+
+- Transmitted the ticket's root-cause chain into the plan as "every link re-verified
+  first-hand" when one link (emit-index.ts:153 baking `_meta.ui.resourceUri`) had only been
+  verified to EXIST, not to FIRE. The 14-agent plan-review fleet falsified it: no generated
+  tool matches WIDGET_TOOL_NAMES (29 generated tool files, none aggregated), so the widget
+  branch is dead code; the live advertisement is two handwritten SDK definitions importing
+  the constant. My verification had been "the emission code is there" — presence, not
+  behaviour. Instance n+1 of `patterns/description-is-not-a-check.md`, first person,
+  hours after reading the pattern. The working cure this time: owner-instructed critical
+  assessment pass re-verified every load-bearing fleet claim first-hand before the plan
+  carried them (generated-tools ls, codegen orchestration trace, ci.yml cache-warming label,
+  git-sha.ts API, ignoreCommand semantics) — reviewer findings are claims too.
+- Bonus first-hand find during the same pass: the turbo remote-cache key collision behind
+  MCP-187's flakiness is DESIGNED — ci.yml:138-151 "Warms the Turbo remote cache
+  (sdk-codegen + build)" seeds `-local` artefacts under the exact key a Vercel build
+  computes (env: [SDK_CODEGEN_MODE] only). Write order decides deployed output today.

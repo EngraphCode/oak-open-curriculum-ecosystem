@@ -310,8 +310,17 @@ first-hand as of 2026-06-25.
 > stance gradient as Core PDR candidate, Notion boundary-rule amendment
 > confirm, the stale-Active-threads batch reclassification proposal.
 >
-> **Live rulings in force**: submission-surface freeze (served surface / auth
-> path / landing page land through the Director until the submission);
+> **Live rulings in force**: browser sessions for PostHog EU project 221775
+> and the Vercel project poc-oak-open-curriculum-mcp are owner-provisioned in
+> Chrome for the DIRECTOR SEAT ONLY — no other agent touches them, and no
+> project on either platform other than those two named ones is ever accessed
+> (live services elsewhere; owner word 2026-07-26); branch work is NOT
+> preserved — merged work is (owner word 2026-07-26: valuable → find a way to
+> merge it, else delete; "frozen for reference" is not a disposition — #567
+> discharges via the MCP-183 harvest merge, then close + delete);
+> submission-surface freeze
+> (served surface / auth path / landing page land through the Director until
+> the submission);
 > sensitivity split (no release dates or assistant-vendor timing in the repo);
 > milestones are propose-and-agree (owner agreement is the gate; never leave
 > sequenced-out work dangling — named milestone + date + carriers, always);
