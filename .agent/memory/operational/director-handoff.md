@@ -332,7 +332,12 @@ first-hand as of 2026-06-25.
 > (21 high) are design-capture alerts tracing to estate commit
 > 6146669bd; the 2 research-script alerts are open separately, not on
 > the aggregate; zero in product code either way; evidence comments on
-> the PR (the 15:40Z one supersedes the 32+2 split); disposition (path-exclusion
+> the PR (the 15:40Z one supersedes the 32+2 split). Sonar red ALSO
+> diagnosed (Cutter readback 15:59Z, post-recovery): 1,668 unresolved PR
+> issues, sampled page entirely under the same design-capture tree, all
+> created 2026-07-25T19:50:39Z = the capture commit 6146669bd; nothing
+> touches the MCP-63 report or agent docs. BOTH reds now share one
+> source and the landing-gate card's evidence is COMPLETE; disposition (path-exclusion
 > config vs per-alert dismissal vs prune-from-merge) is OWNER-CARDED AT
 > THE LANDING GATE, not before. SonarCloud red: re-verify after the
 > maintenance window clears. #570/#572 as
@@ -382,6 +387,17 @@ first-hand as of 2026-06-25.
 > request endpoint on the Director's MCP surface is the working path, and
 > Bot reviewers are visible only via the GraphQL Bot fragment, not REST
 > requested_reviewers.
+>
+> **Platform fact + standing bridge (2026-07-26 16:44Z)**: the Codex
+> GitHub connector refuses merge actions without DIRECT in-session owner
+> authorisation — a comms-recovered Director grant does not satisfy its
+> safety boundary (first instance: #575, Cutter, 16:40Z). Standing
+> bridge: a Codex-seat lane at genuinely-settled routes the mechanical
+> merge key-turn to the Director (bot REST path, exact-head pinned);
+> settled-judgment and lane credit stay with the seat. Also: the
+> Director's gh CLI token went invalid ~16:34Z — owner re-auth suggested;
+> unauthenticated public-API reads bridge board monitoring; the bot
+> mint-token path is unaffected (it authored the #575 merge).
 >
 > **Live rulings in force**: browser sessions for PostHog EU project 221775
 > and the Vercel project poc-oak-open-curriculum-mcp are owner-provisioned
