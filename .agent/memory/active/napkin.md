@@ -885,3 +885,33 @@ lane.
 - **External bound**: every instance of the description-drift pattern above was caught from
   outside the generating context. This scan is inside it. Point external scrutiny at my
   summaries of my own work — that is where this seat's error signature sits.
+
+## 2026-07-26 ~07:20–08:00Z — Squall wakes Apex (459fd1), Director: seat pickup + estate re-set
+
+- **Seat taken cleanly on the PDR-064 shape** (owner word ended the Director-less period):
+  Moment-2 f1d9a6f2 against Gecko's standing Moment-1 c099fd4a; fresh claim 56fdd977; watcher +
+  dual-surface heartbeat armed. The handoff-record pickup order (memories → brief → record →
+  First Moves → readiness gate) worked as written; nothing needed improvising.
+- **A dry-run probe that greps for markers can silently check nothing.** My `git merge-tree`
+  conflict probe piped into `grep -c "^<<<<<<<"` reported 0 on a merge that then conflicted in
+  `.prettierignore`. The probe used the deprecated three-arg merge-tree form whose output shape
+  I never verified — a check whose PASS is indistinguishable from a mis-invocation. Same class
+  as green-parts-red-composition: verify a probe FAILS on a known-bad input before trusting its
+  pass. The real merge's own conflict report is the truth; the probe was decoration.
+- **Piped a gate's exit code again, hours after reading the rule** (`git merge --no-edit | tail`
+  then `echo MERGE-EXIT:$?` → reported tail's 0 on a conflicted merge). Third recorded instance
+  of `exit-codes-in-band-never-piped` firing mid-flow; the conflict text in the output saved the
+  verdict, not the marker. The rule's hardest window remains "during an operation whose output
+  you are also reading".
+- **Relative paths after a `cd` into a workspace faked a vanished file**: `ls .agent/experience/`
+  from `apps/oak-curriculum-mcp-streamable-http` said "no such directory" while `git status`
+  (root-relative) still listed the file; a `find` from the same cwd "confirmed" the vanish.
+  Absolute paths for every filesystem probe; a vanished-file conclusion needs a root-anchored
+  check before it is a conclusion.
+- **Known-flake confirmation loop worked**: pre-commit gate failed on
+  `auth-routes.rate-limit.integration.test.ts` (429→200, the rate-limit/concurrency class);
+  isolation run 5/5 green; gate retry green. Cheapest-sufficient-check before any deeper theory.
+- **PDR-133 ratified and auto-merge armed under the bot** (`merge-bot mint-token`, never the
+  human credential — napkin's own sanctioned-path entry followed as written). Its §Cascade
+  landings (PDR-078 reciprocal pointer; pointer paragraphs in the three liveness rules) are
+  routed to the incoming dedicated consolidation seat, not left implicit.
