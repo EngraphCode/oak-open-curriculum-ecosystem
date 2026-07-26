@@ -285,7 +285,10 @@ first-hand as of 2026-06-25.
 > final-wire blocker is CURED (test drives the real production composition;
 > test-expert + code-expert both PASS; 130/130; slice accepted-uncommitted);
 > lands slice-per-PR under the owner's small-PRs word; wake-path limitation
-> self-cured via 10-minute polling. RETIRED cleanly today: Skua weaves
+> self-cured via 10-minute polling. Swallow guards Tailwind (805902) —
+> owner-registered 14:30Z 2026-07-26 on the upstream API spec change and
+> associated bulk data checks; not yet surfaced in comms (watch for their
+> team-start; no routing issued). RETIRED cleanly today: Skua weaves
 > Wingspan (~13:45Z after landing #571 at owner word; MCP-183 re-routes via
 > the Director, carrier = first implementer seat that frees), Kite seeks
 > Crosswind (~13:28Z post-succession), Aurora turns Gravity (~12:44Z; its
@@ -304,13 +307,21 @@ first-hand as of 2026-06-25.
 > diagnose, then land at convergence — the drive includes it. #570/#572 as
 > per fleet above. Every open PR carries a live discharge path.
 >
-> **Director duties armed on triggers**: (1) AC-4b — a deploy-watch monitor
-> polls production for the widget at suffix 68824ccd (= sha256 of merge
-> commit e928d5ebc); the pre-deploy reading "unauthorized" is the OLD
-> build's allowlist (interpretation, not fact — verify at flip); on SERVED,
-> run the attended MCPJam apps re-check, expect 3/7 → 7/7, then close
-> MCP-187 (In Review, held for this); if the 40-min watch times out,
-> re-arm it; (2) MCPJam OAuth credentials file (session scratchpad, 0600)
+> **Director duties armed on triggers**: (1) AC-4b DISCHARGED 14:25Z
+> 2026-07-26 — production deployed release tip 835b30465 (cut on top of
+> merge e928d5ebc, which is why the predicted 68824ccd was superseded);
+> served suffix abeec8bc = `sha256(deployed full SHA)[0..8]` recomputed
+> locally and matching; resources/read returns the full widget HTML;
+> MCPJam apps conformance 7/7 (baseline 3/7); MCP-187 closed Done with
+> evidence comment. (1b) SONAR MAINTENANCE LIVE at the same boundary:
+> SonarQube Cloud EU+US scheduled maintenance 12:00–16:00 UTC 2026-07-26,
+> Automatic Analysis down; last project analysis 13:47:26Z; #570/#572
+> settled-shaped and refused ONLY on the missing Sonar status; Dynamo
+> directed (event fdf87187) to stop empty-commit re-fires and hold; a
+> 5-min status-page recovery watch is armed — on SONAR-RECOVERED
+> broadcast, Dynamo waits ~10 min for queued webhooks, then ONE re-fire
+> per PR if needed, then merges at settled; overrun past ~16:30Z
+> reassesses to the owner; (2) MCPJam OAuth credentials file (session scratchpad, 0600)
 > expires ~10:41Z 2026-07-27 — authed re-runs after that need a fresh
 > owner-attended `oauth login`; (3) at MCP-183's landing, close #567 and
 > delete its branch; MCP-183 itself awaits its first-freed carrier via the
