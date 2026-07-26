@@ -162,6 +162,27 @@ const config = defineConfigArray(
           message:
             'Avoid using process.env directly. In product code use the runtime config provided by the env library instead. In test code pass simple values directly via DI.',
         },
+        // MCP-187: the widget URI carries a per-build cache-busting hash
+        // generated at sdk-codegen time. A hand-frozen `ui://widget/`
+        // literal silently stops matching the generated value on deployed
+        // builds — the widget then advertises but never registers (the
+        // served-surface key froze exactly this way). Import WIDGET_URI
+        // from `@oaknational/curriculum-sdk/public/mcp-tools.js` instead.
+        // Test files are exempt via this block's ignores (fake widget URIs
+        // are legitimate fixtures there).
+        // esquery regex delimiters are `/`, so the URI's own slashes MUST use
+        // the backslash-u002F escape form — a plain-slash pattern silently truncates
+        // and the rule stops firing (negative-control-verified both ways).
+        {
+          selector: String.raw`Literal[value=/ui:\u002F\u002Fwidget\u002F/]`,
+          message:
+            'Hand-frozen widget URI literal: the widget URI is generated per build (MCP-187). Import WIDGET_URI from @oaknational/curriculum-sdk/public/mcp-tools.js.',
+        },
+        {
+          selector: String.raw`TemplateElement[value.raw=/ui:\u002F\u002Fwidget\u002F/]`,
+          message:
+            'Hand-frozen widget URI in a template literal: the widget URI is generated per build (MCP-187). Import WIDGET_URI from @oaknational/curriculum-sdk/public/mcp-tools.js.',
+        },
       ],
     },
   },

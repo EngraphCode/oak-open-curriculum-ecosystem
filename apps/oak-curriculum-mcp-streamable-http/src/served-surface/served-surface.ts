@@ -18,9 +18,20 @@
  * App-local surfaces (registered outside the universal enumeration) have
  * their own rows so the definition covers everything served, with no
  * special cases hiding outside it.
+ *
+ * One key is codegen-derived, not hand-frozen: the widget row is keyed by
+ * the imported `WIDGET_URI` constant, whose cache-busting suffix changes
+ * per deployed build (MCP-187 — a frozen copy of the URI here silently
+ * stops matching the generated value on deployed builds, so the widget
+ * would advertise but never register). The row's *state* remains a
+ * reviewed classification; its *key* must never be re-frozen — a
+ * source-scan test enforces this.
  */
 
-import type { UniversalToolName } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
+import {
+  WIDGET_URI,
+  type UniversalToolName,
+} from '@oaknational/curriculum-sdk/public/mcp-tools.js';
 
 /** A served-surface element is exactly live (registered) or dormant (retained, not registered). */
 type ServedState = 'live' | 'dormant';
@@ -109,7 +120,9 @@ export const SERVED_SURFACE = {
     // OAK_CURRICULUM_MCP_EEF_ENABLED kill-switch's resource leg, superseded
     // by this definition (re-enabling is a reviewed change here).
     'eef://interpretation': 'dormant',
-    'ui://widget/oak-curriculum-app-local.html': 'live',
+    // Computed key, never a literal: tracks the generated per-build URI so
+    // gate, registration, and tool advertisement stay one constant (MCP-187).
+    [WIDGET_URI]: 'live',
     // Agent guidance documents (decisions register D11 as amended by the
     // owner 2026-07-23 — the lesson-planning placeholder deleted outright):
     // the navigation three live, the creation-oriented three retained dormant.

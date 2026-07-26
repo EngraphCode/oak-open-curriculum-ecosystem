@@ -39,8 +39,8 @@
         "**/scripts/**/*.ts",
         "**/schema-cache/**"
       ],
-      "env": ["SDK_CODEGEN_MODE"],
-      "passThroughEnv": ["OAK_API_KEY"]
+      "env": ["SDK_CODEGEN_MODE", "VERCEL", "VERCEL_GIT_COMMIT_SHA"],
+      "passThroughEnv": ["OAK_API_KEY", "VERCEL_DEPLOYMENT_ID"]
     },
     "build": {
       "dependsOn": ["^build"],
