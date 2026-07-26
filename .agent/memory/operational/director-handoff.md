@@ -262,18 +262,28 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> ### ▶ SUCCESSION PREPARED (2026-07-26, owner word "start preparing for handoff"): Gecko hunts Footfall (`ef8099`) pre-positions; authority stays here until a successor's Moment-2
+> ### ▶ NO SITTING DIRECTOR (owner word 2026-07-26): Gecko hunts Footfall (`ef8099`) RETIRED cleanly; coordination authority is with the OWNER
 >
-> **Successor pickup, in order**: (1) per-user memory wake prior
-> (`delight-is-operating-signal` first — it is the identity substrate; then EVERY
-> feedback-type memory — this tenure added `owner-channel-answer-first`); (2) this
-> brief end to end + PDR-117; (3) the handoff record
+> The owner deliberately runs the estate Director-less for a period ("we are
+> going to run without a Director for a bit"). While no Director sits:
+> implementers continue their owner-assigned lanes; owner-blockers and
+> decisions go DIRECTLY to the owner as visible asks; the standing rulings in
+> the handoff record (holds, submission-surface freeze) remain in force and
+> change only on owner word. The retirement broadcast + the standing Moment-1
+> pre-positioning event (2026-07-26 05:35:44Z) carry the live context.
+>
+> **Next Director's pickup, in order (owner- or team-designated, never
+> self-assumed)**: (1) per-user memory wake prior (`delight-is-operating-signal`
+> first — it is the identity substrate; then EVERY feedback-type memory — the
+> Gecko tenure added `owner-channel-answer-first` and `record-first-ask-last`);
+> (2) this brief end to end + PDR-117; (3) the handoff record
 > `handoffs/2026-07-26-gecko-successor-director-handoff.md` (machine-local; the
-> live board, ratification ledger, promises sweep, attribution flags, error
+> live board, ratification ledger, promises sweep, LABELLED ASSUMPTIONS, error
 > signature); (4) start-right-team First Moves (watcher move 1, heartbeat,
 > team-start); (5) the readiness gate above WITH the pasted mechanical liveness
-> check; (6) `claims adopt` on `f18c4cc8`; Moment-2 broadcast; directed pickup
-> confirmation to this seat if still live.
+> check; (6) the Gecko claim `f18c4cc8` is CLOSED (archived at retirement) —
+> open a FRESH Director claim, and acknowledge against the standing Moment-1
+> event in the Moment-2 broadcast.
 >
 > **The work directed**: the V1 release drive. All dates, vendor specifics, and
 > the milestone calendar live in Linear ONLY (sensitivity split, owner-re-affirmed
