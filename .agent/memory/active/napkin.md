@@ -665,3 +665,109 @@ referent-narrowing shape at doctrine grain (a ruleset entry existing ≠ the ser
 it per merge), and the cheaper cure existed all along (step back, ask what the gate
 actually binds). Todo list cleared at owner word (#7 custody durable in §Owner-held).
 AC-4b deploy watch armed (suffix 68824ccd); handoff §CURRENT STATE delta-refreshed.
+
+## 2026-07-26 ~14:25Z — Dynamo spins Naphtha (2f5519), MCP-189/MCP-192 shepherd
+
+Seven behaviour-changing captures from the #570/#572 review-and-landing arc:
+
+1. **Module-header claims are review-round checklist items.** Three round-1 findings on
+   #570 were one shape: an artefact whose self-description its own body contradicted
+   (header contract vs early-return; advertised command vs dispatcher reality; "every
+   novel check surfaces" vs prototype-chain lookup). Four goal-briefed pre-merge
+   reviewers missed all three; two goal-blind bots caught all three — fresh eyes read
+   prose as claims, authors read it as intent. Cure that landed: a test NAMED after each
+   header claim. Dual of Aurora's same-day referent-narrowing exploration: instruments
+   answering less than asked vs artefacts claiming more than they do.
+2. **pnpm stdout pollution has three independent layers** (each empirically isolated on
+   #570): the script's own build leg (cure: `1>&2`), the middle recursive/filtered pnpm
+   reporter's failure block — stdout on failing exits, silenced only by `-s` at THAT
+   layer — and the outer pnpm's single ELIFECYCLE line, unsilenceable by any package.json
+   change (only the caller's own `-s`). Probe layers separately; `-s` also silences
+   `[WARN]` with no non-silencing alternative at any layer (named exception, recorded).
+3. **`spawnSync` timeout sets BOTH `error` (ETIMEDOUT) and `signal`** — an error-first
+   branch swallows the captured streams that signal-branch diagnostics were added for.
+   Compose stream excerpts into the error branch too (Codex caught this on #570 round 2).
+4. **A WATCHER ERROR line is not a watcher death.** Twice this session a drain-timeout
+   error left the process ALIVE; re-arming without TaskStop produced two watchers racing
+   one seen-file. Before re-arming: check the task actually exited; stop the old id.
+5. **Verify absence with an instrument that can see the thing.** REST
+   `requested_reviewers` and `gh pr view` reviewRequests are structurally blind to Bot
+   reviewers (GraphQL Bot fragment is the honest read) — this seat asserted a "verified
+   no-op" of a Copilot request through a blind read-back; Skua's independent capture
+   corrected it. Same class as referent narrowing, at the read-back moment.
+6. **Recurring small traps, twice each in one session**: commitlint header-max (compose
+   commit subjects ≤95 chars by habit); piped-tail exit codes (`EXIT:$?` after a pipe
+   reads the tail — capture to file unpiped, read the file).
+7. **Discriminate Sonar maintenance from a dropped webhook before re-firing.** The
+   empty-commit cure targets webhook drops; during a status-page maintenance window
+   (ground truth: status.sonarqube.com) re-fires only mint commits that will each need
+   analysis later. Two witnesses: project_analyses API last-completed timestamp + the
+   status page. Director verdict 14:17Z; merges hold for SONAR-RECOVERED.
+
+## 2026-07-26 ~14:35Z — Swallow guards Tailwind (805902), MCP-152/153 seat: owner directives at occurrence
+
+- **OWNER WORD (verbatim substance)**: "This first phase needs to be exploratory, do not
+  jump into trying to fix the API changes, it is very, very easy to get pulled down a
+  type-fixing rabbit hole, if you detect that STOP, there is a better solution and I will
+  work with you to achieve it." Binds the MCP-152/153 lane: the concept-exploration fleet
+  characterises the delta and maps the solution space; NO fixing in this phase; detecting
+  a type-fix spiral = STOP-and-surface to the owner (he explicitly offers co-design of the
+  better solution). Extends the plan's WS3/type-change STOP tripwire from consumer-edits
+  to the whole fixing activity during exploration.
+- **Answer-first means the answer LEADS the message**: the owner asked "what worktree are
+  you working in?" twice, then interrupted with "I have asked you a question twice" — both
+  my answers existed but were embedded inside working-update prose (mid-turn text between
+  tool calls may not render to the user). Cure: a direct owner question gets its bare
+  answer as the FIRST sentence of the next message, standalone, before any status. Same
+  class as owner-channel-answer-first; the failure mode is burial, not absence.
+- Lane state for successors: claim 3ccb1b7e (implementer, upstream-api-alignment thread);
+  worktree mcp-152-upstream-refresh (ticket branch, base 835b30465, installed+built
+  green; owner moved the session cwd there); MCP-152 In Progress in Linear; first-hand
+  delta classification (additive: check-restricted family + one description-only change)
+  recorded in the team-start/Director comms events (d118bac4) and the session plan file.
+
+## 2026-07-26 ~15:20Z — Swallow guards Tailwind (805902): my own probe corrected by the fleet (at occurrence)
+
+- **The runbook's structural-fingerprint recipe is blind to parameter VALUES — and my
+  "additive + prose-only" classification inherited that blindness.** The recipe
+  (upstream-api-alignment-runbook.md §2) fingerprints operationId + param NAMES +
+  response $refs; the Seam-D lead fingerprinted param default/example/maximum and found
+  FIVE existing operations changed: `limit` default 10→20, example 10→20, maximum
+  100→300 (lessons, questions ×2, programmes/assets, sequences/questions). Re-verified
+  first-hand this session (diff over both spec snapshots). My earlier claim was true as
+  worded (structural fingerprint unchanged) and misleading as read — a first-person
+  referent-narrowing instance INSIDE the exploration built to catch the class. Runbook
+  amendment candidate: add a param-values leg to the delta recipe.
+- Fleet also falsified two inherited descriptions from the thread record: the canary
+  test never asserted `limit [100]` (git blame: `[10]` since 028dc2171); and its
+  2026-07-06 "green, cause unestablished" WAS establishable from git the whole time —
+  f02a7ba1b (2026-06-30) deliberately aligned offset `[50]`→`[0]` with rationale in the
+  commit body. Falsifiable prediction now on record: the next regen turns the canary RED
+  on `limit` example `[10]` vs `[20]` — same shape, same blind-fix temptation.
+
+## Cricket A/B: two instances from the three-pair run (2026-07-26 ~15:20Z, Director)
+
+Owner-directed run: three maximally-separated perspectives (release-clock,
+teacher-value, practice-health), each as an identical-context sonnet+haiku
+pair. Verdicts: pair 1 convergent ON-TRACK; pair 2 divergent (sonnet
+DRIFTING, haiku WRONG-PRIORITY); pair 3 label-convergent DRIFTING but not
+evidence-convergent. Two instances for the A/B evaluation:
+
+Instance one — pair 2 divergence adjudicated as same-direction over-grade:
+the haiku's WRONG-PRIORITY rested partly on a pedantic GATES fail (reading
+discretionary doc-commit batching as an ungated deferral needing a forcing
+fact) yet contributed a real cure the sonnet missed (the recovery-window
+next-actions named only one of the two critical-path lanes). Adjudication:
+grade with the sonnet, adopt the haiku's cure.
+
+Instance two — pair 3 haiku verdict was a frame artifact: the mechanical
+procedure requires an objective frame with a cited source, and the
+practice-health perspective deliberately withholds one ("ignore the release
+and ignore the product"), so the haiku graded CONSUMER and DISPLACEMENT
+UNVERIFIABLE and derived DRIFTING from frame absence — matching the
+sonnet's label by coincidence, not shared evidence. It marked everything
+honestly rather than inventing, which is the procedure working as designed
+at its boundary. Rule for reading paired verdicts: check the haiku
+procedure's preconditions were satisfiable by the supplied frame before
+counting its verdict as independent confirmation; frame-free perspectives
+are outside the compiled procedure's domain.

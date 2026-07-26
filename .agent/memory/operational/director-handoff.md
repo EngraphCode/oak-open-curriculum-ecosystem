@@ -289,9 +289,15 @@ first-hand as of 2026-06-25.
 > claude-code/claude-fable-5) — owner-directed ~14:10Z on MCP-152/153
 > (upstream API spec alignment + bulk data checks), team-start 14:23:23Z,
 > directed pickup notice 14:23:45Z; runs a concept-exploration fleet first
-> (owner-priced ultracode warrant), executes in a fresh worktree off
-> origin/main; claim opening, heartbeat arms at claim-open; parallel-safe
-> with Cutter and Dynamo. RETIRED cleanly today: Skua weaves
+> (owner-priced ultracode warrant). Owner direction 14:33Z (direct to the
+> lane, relayed 14:32Z event): phase 1 is EXPLORATORY ONLY — no fixing of
+> the API changes, a type-fix spiral is a hard STOP with owner co-design
+> at that point, and phase-2 execution is OWNER-GATED (does not start
+> without the owner); the fleet is additionally chartered to characterise
+> the type-fix blast radius without fixing. Execution, when unlocked, runs
+> in a fresh worktree off origin/main; claim opening, heartbeat arms at
+> claim-open; parallel-safe with Cutter and Dynamo. RETIRED cleanly
+> today: Skua weaves
 > Wingspan (~13:45Z after landing #571 at owner word; MCP-183 re-routes via
 > the Director, carrier = first implementer seat that frees), Kite seeks
 > Crosswind (~13:28Z post-succession), Aurora turns Gravity (~12:44Z; its
@@ -309,8 +315,14 @@ first-hand as of 2026-06-25.
 > ONLY as the source material for the restack, not as a frozen reference.
 > #567 do-not-merge; discharges via the
 > MCP-183 harvest then CLOSE + DELETE BRANCH (owner branch ruling). #569
-> (coordination, mine, draft-by-design): CodeQL + SonarCloud reds to
-> diagnose, then land at convergence — the drive includes it. #570/#572 as
+> (coordination, mine, draft-by-design): CodeQL red DIAGNOSED 14:40Z —
+> all 34 alerts (21 high) in two non-product surfaces new-to-main via
+> this PR (32 in the preserved TNA design capture incl. vendored
+> reveal.js; 2 in research/web-app-deconstruction scripts); zero in
+> product code; evidence comment on the PR; disposition (path-exclusion
+> config vs per-alert dismissal vs prune-from-merge) is OWNER-CARDED AT
+> THE LANDING GATE, not before. SonarCloud red: re-verify after the
+> maintenance window clears. #570/#572 as
 > per fleet above. Every open PR carries a live discharge path.
 >
 > **Director duties armed on triggers**: (1) AC-4b DISCHARGED 14:25Z
@@ -325,9 +337,19 @@ first-hand as of 2026-06-25.
 > settled-shaped and refused ONLY on the missing Sonar status; Dynamo
 > directed (event fdf87187) to stop empty-commit re-fires and hold; a
 > 5-min status-page recovery watch is armed — on SONAR-RECOVERED
-> broadcast, Dynamo waits ~10 min for queued webhooks, then ONE re-fire
-> per PR if needed, then merges at settled; overrun past ~16:30Z
-> reassesses to the owner; (2) MCPJam OAuth credentials file (session scratchpad, 0600)
+> broadcast (which NAMES Cutter's PR1 alongside #570/#572 — three
+> analyses expected in the recovery drain), Dynamo waits ~10 min for
+> queued webhooks, then ONE re-fire per PR if needed, then merges at
+> settled; overrun past ~16:30Z reassesses to the owner. Cricket run
+> ~15:20Z (three perspective pairs, owner-directed): release-clock
+> ON-TRACK convergent; teacher + practice lenses convergent on ONE
+> drift — the watcher-failure loop absorbed by re-arms instead of a fix
+> — cured by routing MCP-185 to Dynamo's queue after MCP-188 (event
+> b0f13619, standing routing grant); A/B instances captured in napkin; (2) MCPJam OAuth credentials file — now ALSO
+> copied to `tmp/mcpjam-oauth-credentials.json` at the primary checkout
+> root (0600, gitignored) as a Dynamo grant for the attended oauth leg,
+> comms event 557ec43d with binding handling constraints; the Director
+> DELETES that copy at expiry (original in session scratchpad, 0600)
 > expires ~10:41Z 2026-07-27 — authed re-runs after that need a fresh
 > owner-attended `oauth login`; (3) at MCP-183's landing, close #567 and
 > delete its branch; MCP-183 itself awaits its first-freed carrier via the
@@ -364,8 +386,17 @@ first-hand as of 2026-06-25.
 > merge-and-ticket is a completion for correct-but-wrong-context findings;
 > a reply is optional, the assessment is not).
 >
-> **Owner-held at refresh**: the design-lane successor seat (unblocks the
-> ratified #565 restack — its first task is authoring the fresh stack);
+> **Owner-held at refresh**: MCP-172 canonical-domain zone-owner
+> engagement (URGENT, unstarted, EXTERNAL LATENCY, gates the submission —
+> the listing carries the endpoint; surfaced to the owner at the 15:0xZ
+> survey; was MISSING from this list before that survey — inherited blind
+> spot, now cured); the design-lane successor seat (unblocks the
+> ratified #565 restack — its first task is authoring the fresh stack;
+> formation statement delivered to the owner ~14:50Z);
+> a seat for MCP-143 stage 1 (production sign-in guard cycles — Urgent,
+> M4, seatless, gate-independent, start-immediately; carded to the owner
+> at the survey); the M2 guidance-pipeline date tension (target 30 Jul,
+> 0%, MCP-102 unassigned — re-date or seat, propose-and-agree);
 > the MCP-117 PostHog key ceremony (needed only for the MCP-63 live-proof
 > acceptance; env contract documented in the app's .env.example); the
 > workflows App grant enactment landed as PR #572 (in flight); milestone
