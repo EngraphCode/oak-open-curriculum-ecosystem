@@ -34,6 +34,8 @@ describe('rate limiter DI wiring', () => {
       upstreamMetadata: TEST_UPSTREAM_METADATA,
       rateLimiterFactory: factory,
       getWidgetHtml: () => '<html><body>test</body></html>',
+      getLandingPageHtml: () =>
+        '<!doctype html><html lang="en-GB"><body>test landing page</body></html>',
     });
 
     expect(calls).toHaveLength(4);

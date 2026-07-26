@@ -36,7 +36,9 @@ import {
 import {
   assertBuiltServerDefaultExport,
   assertNoEsbuildWarnings,
+  assertNoReactModuleImport,
 } from './build-scripts/build-output-contract.js';
+import { bakeLandingPage } from './build-scripts/bake-landing-page.js';
 import { copyOakDs } from './build-scripts/copy-oak-ds.js';
 import {
   MCP_DEPLOY_ENTRY_POINTS,
@@ -89,6 +91,12 @@ if (!intent.ok) {
 // arms cannot diverge on whether the served page has a stylesheet.
 await copyOakDs(path.join(import.meta.dirname, 'public'));
 
+// Bake the landing page in the same pre-switch position, for the same
+// reason — and because the bake is where the page's content is fixed:
+// build-time inputs only, nothing at request time (see
+// build-scripts/bake-landing-page.ts).
+await bakeLandingPage(import.meta.dirname, process.env);
+
 const supportBuildOptions = createMcpEsbuildOptions(MCP_SUPPORT_ENTRY_POINTS);
 const deployBuildOptions = createMcpEsbuildOptions(MCP_DEPLOY_ENTRY_POINTS);
 const outdir = deployBuildOptions.outdir ?? supportBuildOptions.outdir ?? 'dist';
@@ -140,6 +148,12 @@ function buildPluginArray(inputs: SentryBuildPluginInputs): Plugin[] {
 async function assertServerEntryContract(): Promise<void> {
   const serverBundleSource = await readFile(path.join(outdir, 'server.js'), 'utf8');
   assertBuiltServerDefaultExport(serverBundleSource);
+  // All three runtime bundles must stay react-free (react/react-dom are
+  // devDependencies; the page renders at build time only). server.js is the
+  // deploy boundary; index/application are the local runtime graph.
+  for (const bundleName of ['server.js', 'index.js', 'application.js']) {
+    assertNoReactModuleImport(bundleName, await readFile(path.join(outdir, bundleName), 'utf8'));
+  }
 }
 
 async function buildAndAssert(options: BuildOptions): Promise<void> {

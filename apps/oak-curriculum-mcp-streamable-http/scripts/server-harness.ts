@@ -24,6 +24,7 @@ import { fileURLToPath } from 'node:url';
 import { setupExpressErrorHandler } from '@sentry/node';
 
 import { createApp } from '../src/application.js';
+import { readBakedLandingPageHtml } from '../src/app/landing-page-artefact.js';
 import { bootstrapApp } from '../src/bootstrap-app.js';
 import { WIDGET_HTML_CONTENT } from '../src/generated/widget-html-content.js';
 import { createDefaultRateLimiterFactory } from '../src/rate-limiting/index.js';
@@ -156,6 +157,9 @@ async function main() {
 
   const observability = observabilityResult.value;
   const startTime = Date.now();
+  // Same boot-read as src/index.ts: the baked artefact must exist before the
+  // harness starts (run the app build first), and the read happens once.
+  const landingPageHtml = readBakedLandingPageHtml();
 
   await startConfiguredHttpServer({
     runtimeConfig,
@@ -164,6 +168,7 @@ async function main() {
       await createApp({
         ...options,
         getWidgetHtml: () => WIDGET_HTML_CONTENT,
+        getLandingPageHtml: () => landingPageHtml,
         rateLimiterFactory: createDefaultRateLimiterFactory({
           isVercelRuntime: runtimeConfig.env.VERCEL_ENV !== undefined,
         }),

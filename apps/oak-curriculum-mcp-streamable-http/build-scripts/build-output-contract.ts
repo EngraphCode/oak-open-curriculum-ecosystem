@@ -122,3 +122,34 @@ export function assertBuiltServerDefaultExport(bundleSource: string): void {
 
   throw new Error(INVALID_VERCEL_EXPORT_MESSAGE);
 }
+
+/**
+ * An external module import of react or react-dom (any subpath), in either
+ * ESM or CJS form. Matches import/require statements only — inlined string
+ * CONTENT (the widget bundle's text mentions `react-dom`) must not match.
+ */
+const REACT_MODULE_IMPORT_PATTERN =
+  /(?:^|\n)\s*import\s[^;]*?from\s*["'](?:react|react-dom)(?:\/[\w-]+)?["']|\brequire\(\s*["'](?:react|react-dom)(?:\/[\w-]+)?["']\s*\)/m;
+
+/**
+ * Fail when a deploy-graph bundle still imports react or react-dom.
+ *
+ * @remarks
+ * react and react-dom are devDependencies: the page is rendered ONCE at
+ * build time, so no runtime bundle may import them. With
+ * `packages: 'external'`, a re-introduced server-side render import
+ * survives bundling as an external import — green everywhere locally (tsx
+ * resolves the workspace copy) and a hard `ERR_MODULE_NOT_FOUND` on the
+ * deployed function, where devDependencies are pruned. This guard is what
+ * makes the devDependencies placement safe rather than assumed.
+ */
+export function assertNoReactModuleImport(bundleName: string, bundleSource: string): void {
+  if (!REACT_MODULE_IMPORT_PATTERN.test(bundleSource)) {
+    return;
+  }
+
+  throw new Error(
+    `${bundleName} imports react/react-dom, which are devDependencies pruned on deploy. ` +
+      'The page renders at build time only — remove the runtime import.',
+  );
+}

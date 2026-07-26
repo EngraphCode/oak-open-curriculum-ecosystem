@@ -26,7 +26,7 @@ import { renderLandingPageHtml } from './landing-page/index.js';
  * neither reads nor writes the workspace's live `public/` tree and cannot
  * race the build's copy step.
  */
-describe('Oak design system static serving', () => {
+describe('Oak Open Curriculum Design System static serving', () => {
   let scratchRoot: string;
   let app: Express;
 
@@ -39,6 +39,8 @@ describe('Oak design system static serving', () => {
       }),
       observability: createFakeHttpObservability(),
       getWidgetHtml: () => '<!doctype html><html><body>test-widget</body></html>',
+      getLandingPageHtml: () =>
+        '<!doctype html><html lang="en-GB"><body>test landing page</body></html>',
       rateLimiterFactory: createFakeRateLimiterFactory().factory,
       staticRoot: scratchRoot,
     });
@@ -92,9 +94,16 @@ describe('Oak design system static serving', () => {
     // what it references, so the masthead logo's `img src` (moved to the
     // assets package in this change) cannot drift from the served path, and
     // a new markup-referenced asset cannot be added without being served.
+    // The scrape accepts an absolute origin prefix so ABSOLUTE references —
+    // og:image is emitted absolute for crawlers — are covered too, not just
+    // root-relative ones: this test's name promises the whole rendered page.
     const html = renderLandingPageHtml();
     const referenced = [
-      ...new Set([...html.matchAll(/"(\/oak-(?:ds|assets)\/[^"]+)"/g)].map((match) => match[1])),
+      ...new Set(
+        [...html.matchAll(/"(?:https?:\/\/[^"/]+)?(\/oak-(?:ds|assets)\/[^"]+)"/g)].map(
+          (match) => match[1],
+        ),
+      ),
     ];
 
     expect(referenced.length).toBeGreaterThan(0);
@@ -118,6 +127,8 @@ describe('Oak design system static serving', () => {
           }),
           observability: createFakeHttpObservability(),
           getWidgetHtml: () => '<!doctype html><html><body>test-widget</body></html>',
+          getLandingPageHtml: () =>
+            '<!doctype html><html lang="en-GB"><body>test landing page</body></html>',
           rateLimiterFactory: createFakeRateLimiterFactory().factory,
           staticRoot: emptyRoot,
         }),

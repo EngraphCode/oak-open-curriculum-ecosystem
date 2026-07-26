@@ -37,6 +37,8 @@ describe('MCP route rate limiting', () => {
       observability,
       rateLimiterFactory: createLowLimitFactory(2),
       getWidgetHtml: () => '<html><body>test</body></html>',
+      getLandingPageHtml: () =>
+        '<!doctype html><html lang="en-GB"><body>test landing page</body></html>',
       upstreamMetadata: TEST_UPSTREAM_METADATA,
     });
 
