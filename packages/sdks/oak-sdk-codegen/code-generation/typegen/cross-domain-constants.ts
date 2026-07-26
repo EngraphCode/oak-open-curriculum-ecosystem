@@ -1,38 +1,33 @@
-import { createHash } from 'node:crypto';
-
-const isLocal = process.env.VERCEL !== '1';
+import { resolveWidgetUriSuffix } from './widget-uri-suffix.js';
 
 /**
- * Generates deterministic cache-busting hash for widget URI.
+ * Base widget URI with a deterministic per-build cache-busting suffix.
  *
- * Uses SHA-256 hash of current timestamp to ensure each build
- * produces a unique widget URI, forcing hosts to reload
- * the widget bundle instead of using a stale cached version.
+ * Generated at sdk-codegen time so every consumer — the tool definitions
+ * advertising `_meta.ui.resourceUri` and the app's served-surface
+ * registration — derives from this one constant.
  *
- * @returns First 8 characters of SHA-256 hash (e.g., "abc12345")
- */
-function generateWidgetUriHash(isLocal: boolean): string {
-  if (isLocal) {
-    return 'local';
-  }
-  const timestamp = Date.now().toString();
-  const hash = createHash('sha256').update(timestamp).digest('hex');
-  return hash.slice(0, 8);
-}
-
-/**
- * Base widget URI with cache-busting hash.
+ * This module-level binding is the one sanctioned `process.env`
+ * composition point for the widget URI; the resolver itself lives
+ * environment-free in `widget-uri-suffix.ts` so its unit suite's import
+ * graph carries no ambient-state read.
  *
- * Generated at sdk-codegen time to ensure all tools and widget resource
- * registration use the same URI. New builds get new hashes, naturally
- * busting the host widget cache.
+ * URI identity is the only cache-invalidation lever the MCP Apps standard
+ * gives a server: hosts MAY prefetch and cache `ui://` resource content,
+ * and the standard defines no invalidation, freshness, or versioning
+ * mechanism — so a changed URI is what forces hosts to reload the widget
+ * bundle instead of serving a stale cached copy.
  *
- * Format: ui://widget/oak-curriculum-app-<hash>.html
+ * Format: ui://widget/oak-curriculum-app-<suffix>.html
  * Example: ui://widget/oak-curriculum-app-abc12345.html
  *
  * @see https://modelcontextprotocol.io/extensions/apps/overview (MCP Apps standard)
  */
-export const BASE_WIDGET_URI = `ui://widget/oak-curriculum-app-${generateWidgetUriHash(isLocal)}.html`;
+export const BASE_WIDGET_URI = `ui://widget/oak-curriculum-app-${resolveWidgetUriSuffix({
+  vercel: process.env.VERCEL,
+  gitCommitSha: process.env.VERCEL_GIT_COMMIT_SHA,
+  deploymentId: process.env.VERCEL_DEPLOYMENT_ID,
+})}.html`;
 
 /**
  * Tools that should advertise a widget UI via `_meta.ui.resourceUri`.
