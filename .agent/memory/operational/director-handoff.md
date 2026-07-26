@@ -426,9 +426,24 @@ first-hand as of 2026-06-25.
 > engagement (URGENT, unstarted, EXTERNAL LATENCY, gates the submission —
 > the listing carries the endpoint; surfaced to the owner at the 15:0xZ
 > survey; was MISSING from this list before that survey — inherited blind
-> spot, now cured); the design-lane successor seat (unblocks the
-> ratified #565 restack — its first task is authoring the fresh stack;
-> formation statement delivered to the owner ~14:50Z);
+> spot, now cured). The design-lane seat is FILLED 18:19Z: Skipper
+> tracks Abyss (4144b4, claude/claude-fable-5), claim 68088465 ADOPTED,
+> owner-approved six-PR linear restack plan (three review passes, 45
+> findings adjudicated): PR-1 DS source → PR-2 serve-DS (copy-before-boot
+> exit criterion) → PR-3 React page baked at build (CSP font cure) →
+> PR-4 hydration+ThemeControl+ADR-217 → PR-5 appearance baselines
+> (Playwright identity protocol) → PR-6 theme-control guards; freeze
+> handshake confirmed two-way (event 9bcd3e65); #565 closes with the
+> full 36-thread disposition table at value-transfer on Director word;
+> thread-34 ticket home routes to Director with that round report.
+> Smelter rides Temper (Codex) — owner-named ~18:55Z 2026-07-26 onto the
+> MCP-103 lane (model-behaviour content workspace, M7, release blocker;
+> brief delivered via owner: phase (b) workspace-shape proposal first,
+> carded to owner via Director; ask-the-Director wiring explicit).
+> Awaiting team-start. PLATFORM NOTE: Codex seat — the connector
+> merge-block applies (first instance #575); at genuinely-settled their
+> lane's merge key-turns route through the Director-proxy bridge, with
+> settled-judgment and lane credit staying at the seat;
 > a seat for MCP-143 stage 1 (production sign-in guard cycles — Urgent,
 > M4, seatless, gate-independent, start-immediately; carded to the owner
 > at the survey); the M2 guidance-pipeline date tension (target 30 Jul,

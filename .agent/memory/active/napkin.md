@@ -788,3 +788,158 @@ referent-narrowing (the metric truthfully answered a narrower question),
 and the day's falsification chain — four scope-narrowing falsifications
 from one seat, two of them of Director hypotheses, one of its own
 overstatement.
+
+## 2026-07-26 ~18:25Z — Swallow guards Tailwind (805902): four owner rulings + full ticketing sweep (at occurrence)
+
+- **OWNER RULINGS on the exploration's decision set (2026-07-26, via question cards)**:
+  (1) check-restricted family NOT exposed as MCP tools in this refresh; (2) MCP-152
+  probe-first landing shape APPROVED (throwaway regen probe, three-bucket failure
+  classification, artefact-byte-diff review, pathspec-partition STOP); (3) verbatim:
+  "the schema is the schema, there is no question here, if the ground truth logic no
+  longer fits the schema it needs a total rework. Isolate it into a separate workspace
+  and mark it as non-functional until it is reworked" — my proposed rule re-point was
+  REFUSED-by-reframe: schema-first is absolute, the bulk machinery (not the record) is
+  the non-conformant object; (4) lesson-level restriction in search: IN SCOPE — design
+  for it. Lesson in (3) for the record: I framed a "which truth?" adjudication where the
+  owner's standing doctrine (Cardinal Rule) had already answered it — observed-data
+  authority never trumps the shipped contract; the exploration's decomposition
+  (structure-vs-vocabulary axes) stands as EVIDENCE but not as an authority ruling.
+- **Ticketing sweep executed at owner word** ("Ticket ALL the work… 'search' and
+  'license' tag (uk spelling only)… very clear record of which block the wednesday
+  submission"): labels `search` + `licence` created (team-scoped, UK spelling per the
+  owner's explicit parenthetical); MCP-201…MCP-213 minted, MCP-152/153 comments +
+  relations (153 now blockedBy 203). Blocking-record mechanism: a "Wednesday submission
+  (M0, 2026-07-29): BLOCKS / DOES NOT BLOCK / PROPOSED" header line in every
+  description + blocking relations to MCP-106 where proposed + M0 as the anchor. Only
+  MCP-201 is proposed-blocking (+ MCP-202 as a pre-submission check); everything else
+  explicitly does-not-block, with the MCP-152/153 LANDINGS deliberately proposed
+  POST-submission (regenerating the served surface days before submission is risk
+  without submission value). Milestone homes NOT set (propose-and-agree — proposed in
+  the owner summary).
+
+## 2026-07-26 ~18:35Z — Swallow guards Tailwind (805902): COMPACTION HANDOFF (owner-called; seat continues)
+
+**Resume state (post-compaction me: read this first, then the MCP-152/153 comments).**
+
+- **PROBE NULL RESULT, UNDIAGNOSED — do not transmit a cause.** The approved MCP-152
+  throwaway regen probe ran `pnpm sdk-codegen:refresh` in the mcp-152-upstream-refresh
+  worktree: EXIT 0, cache version UNCHANGED (0.7.0-8eceb70), zero files changed, zero
+  tools minted, no z.record. That is the report's P6 falsifier firing ("the refresh does
+  not pick up the new paths at all") OR a mechanism fault (env passthrough / silent
+  fetch-fallback / turbo replay despite --force). "Exit 0" ≠ "fetched live" — the day's
+  referent-narrowing shape, possibly now in my own instrument. FIRST diagnostic: read
+  the FULL log at the session scratchpad `probe-refresh.log` (+ `probe-codegen.log` for
+  the earlier turbo `--force sdk-codegen` arg-parse failure: --force greedily ate the
+  task name when invoked via `pnpm exec turbo run --continue --force sdk-codegen`);
+  then read resolve-schema-source's fallback behaviour and whether the fetch ever ran.
+  A first-attempt flag-parse failure and a second-attempt silent no-fetch may share a
+  cause. The worktree is CLEAN (probe made no changes — nothing to restore).
+- **Next acts (Director-routed 18:27Z, event in comms)**: (1) diagnose + rerun the
+  probe; (2) MCP-201 (restriction exposure check) in THIS lane after it — needs
+  OAK_API_KEY (credential grant routes through the owner); (3) MCP-202 flags owner-side.
+  Owner confirmations pending: M0 milestone placement of MCP-201/202; the MCP-152/153
+  post-Wednesday sequencing proposal.
+- Lane inventory: claim 3ccb1b7e live; heartbeat loop + watcher + peer-liveness poll
+  running (Monitors survive compaction; re-verify liveness at resume anyway); report
+  landed+pushed 27aae5406; tickets MCP-201..213 + comments on MCP-152/153 carry all four
+  owner rulings; napkin entries since 27aae5406 are UNCOMMITTED on the primary (ride the
+  next batch per the Director's landing pattern).
+
+**Reflective harvest (free-play + metacognition, confabulation-guarded):**
+
+- *Seed (kept)*: the probe carried its own falsifier and the falsifier fired FIRST —
+  before any classification could be built on a false regen. Designing the falsifier
+  into the instrument beat trusting the instrument; this is the constructive twin of
+  the day's twelve referent-narrowing catches.
+- *Seed (kept, associates with Magnetar's "corrections need an integral term")*: the
+  owner's schema-is-the-schema ruling resolved in one line what the fleet's evidence
+  decomposition could not — doctrine acted as the integral term over my P-controller
+  framing ("which truth fits the data?"). Axioms are not adjudicated by observation;
+  the observation feeds the upstream defect report instead.
+- *Discarded (visibly)*: a fleet-as-telescope analogy — produced no decision.
+- *Metacognition*: my Q3 question-card mis-frame (offering a doctrine re-point as an
+  option) shows the exploration's evidence-weight briefly outweighed standing doctrine
+  in my stance; the cure applied was capturing the correction at occurrence, and the
+  general form is: before surfacing an owner question, check whether an axiom already
+  answers it.
+
+**Loss-scan + metaloss (fixed point)**: knowledge homes verified — report (pushed),
+tickets, napkin, comms events, session plan file. Dies with context, accepted: raw fleet
+journals (conclusions absorbed into the report per retention policy), scratchpad working
+files (probe logs named above are the exception the resume pointer covers), the
+in-context nuance of 40+ observed fleet events (all Director-mapped, none mine to carry).
+Second pass adds: the first-attempt turbo flag-parse gotcha (now captured above), the
+AskUserQuestion Q3 lesson (captured). A third pass would only re-find scratchpad
+mortality and watcher gap windows, both already on the record. The recursion closes.
+
+- **COMMISSION ADDENDUM (18:31Z, pre-compaction)**: owner word EVOLVED via Director
+  (verbatim in the 18:31Z directed comms event + now on MCP-207/MCP-152 comments):
+  "I absolutely want to expose the new endpoints" — timing pending a sized work
+  estimate. Post-compaction sequence is now: (1) diagnose+rerun the probe (its
+  three-bucket output is the estimate's evidence floor — never estimate ahead of it);
+  (2) author the sized DECISION DOCUMENT per the commission's four layers (generator /
+  tool-surface / test re-referent / freeze exposure) with Options A (build+expose
+  post-Wednesday), B (build now, land dormant behind the M1 allowlist, flip
+  post-submission), C (build+serve pre-Wednesday); note check-restricted is
+  semantically a READ — readOnlyHint:true may be CORRECT for it, distinct from the
+  uncallable-tool trap; (3) then MCP-201. MCP-207's exclusion entry is a HOLDING
+  state, not a posture — comments carry the supersede.
+
+## 2026-07-26 ~18:45Z — Dynamo spins Naphtha (2f5519): third-compaction captures
+
+- **The wrong denominator is why a failure survives a whole day of effort.** Three
+  seats independently read "the watcher wedges at single-digit event volume" as proof
+  load was not the cause. But the drain re-read EVERY file each pass, so drain work was
+  O(total files) and unrelated to new-event count. Every cure all day was a re-arm
+  because everyone was watching the number that was easy to read rather than the one
+  that governed. Cure shape: when a symptom resists diagnosis, ask what quantity the
+  code ACTUALLY consumes, not what the observers are counting. Measured: 172ms idle,
+  5,290ms under four find jobs (31x), and the wedge then reproduced live on my own
+  watcher during a 108-task turbo run. MCP-198 carries the trail.
+- **A constraint you write binds you in the same commit.** My ADR-115 amendment said
+  refusal needs a cited clause AND a demonstrated upstream gap, and forbade "scheme
+  preferences" — and the same PR shipped pseudo-scheme and userinfo refusals with
+  neither. Two goal-blind reviewers caught it; I had read my own code as compliant
+  because I knew what I meant. This is the header-claims lesson at ADR scale: the
+  author is the worst reader of their own constraint. Removed → MCP-200.
+- **Idle measurement answers "is it big", never "is it contention-sensitive".** I
+  falsified a ticket's cure-mapping on idle timing alone and OVERSTATED it ("will NOT
+  cure"). The honest correction — posted to the same ticket before anyone asked —
+  was that halving the input halves the amplified quantity, so it IS a partial
+  mitigation. Two-condition rule: measure at idle AND under load before claiming a
+  workload is or is not the bottleneck.
+- **A stale timestamp is not a dead seat.** F-75 classified Cutter RETIRED while they
+  were broadcasting; my own heartbeat then died the same way twice. Under fleet load the
+  OUTGOING liveness surface starves first, so peer-liveness over-reports retirement
+  exactly when the fleet is busiest — the mirror of the wedge, which starves the
+  INCOMING surface. Both look identical to death. Work-evidence cross-check before any
+  retirement claim is what the rule mandates and it earned its keep today.
+- **The piped-exit trap survived being known.** I wrote `git push … | tail -3; echo
+  "PUSH_EXIT:$?"` at the wrap boundary, read the 0, and nearly closed out over a
+  stranded commit — the third instance today of a trap I had already recorded twice
+  and could recite. Knowing a rule does not arm it; the shape has to be unavailable.
+  Two independent honest signals existed and both said the truth: `git status --branch`
+  read `…origin/main [ahead 1]`, and `git ls-remote` returned nothing. Cure: for any
+  WRITE whose success matters, verify the REMOTE STATE, never the local exit code —
+  and never let a pipe stand between a command and its `$?`.
+
+## 2026-07-26 ~18:50Z — Swallow guards Tailwind (805902): probe DIAGNOSED + rerun + estimate posted
+
+- **Probe NULL cause ESTABLISHED (logs read in full)**: both earlier runs exited 1 —
+  turbo 2.10.6 parses `--force` as value-taking and ate the task name; root
+  `sdk-codegen:refresh` born broken at authoring (MCP-130, fc16d2428); nothing ever
+  fetched. The handoff's "EXIT 0, cache unchanged" recollection was FALSE — falsified
+  by its own named evidence (probe-refresh.log shows REFRESH_EXIT:1). The day's
+  referent-narrowing/false-memory class, this instance in my own handoff record:
+  the artefact is authoritative, the recollection is not.
+- **Corrected rerun (`--force=true`)**: fetched live 0.7.0-c83593ca; 21 modified + 4 new
+  generated files; exactly 5 compile errors, ALL check-restricted-confined, ALL loud
+  (both z.record sites are that family's own response schema); everything else clean.
+  Canary RED confirmed ([10] vs [20]) — 1 failed/2 passed. Served allowlist untouched
+  (zero app references — dormant by default). Adapter home for the z.record fix is
+  in-house: `@oaknational/openapi-zod-client-adapter` (workspace package).
+- **Probe changes left UNCOMMITTED in the mcp-152 worktree deliberately** — MCP-152 raw
+  material pending the exposure ruling; do not reset, do not treat as dirty-tree debt.
+- **Estimate posted**: MCP-207 comment f8093658 (four layers, minimal-vs-general cut,
+  options A/B/C, recommendation B); pointer comment on MCP-152. Owner carded A/B/C +
+  OAK_API_KEY grant. Director notified by directed comms event.
