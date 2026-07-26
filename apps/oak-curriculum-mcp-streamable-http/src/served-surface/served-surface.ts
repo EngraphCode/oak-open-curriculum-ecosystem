@@ -20,8 +20,10 @@
  * special cases hiding outside it.
  *
  * One key is codegen-derived, not hand-frozen: the widget row is keyed by
- * the imported `WIDGET_URI` constant, whose cache-busting suffix changes
- * per deployed build (MCP-187 — a frozen copy of the URI here silently
+ * the imported `WIDGET_URI` constant, whose cache-busting suffix derives
+ * from the deployed build's identity — per-commit on git-connected
+ * deploys, so it changes with every code change but holds across
+ * same-commit redeploys (MCP-187 — a frozen copy of the URI here silently
  * stops matching the generated value on deployed builds, so the widget
  * would advertise but never register). The row's *state* remains a
  * reviewed classification; its *key* must never be re-frozen — the
