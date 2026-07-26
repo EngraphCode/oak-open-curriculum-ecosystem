@@ -15,8 +15,13 @@ import { err, isErr, ok, type Result } from '@oaknational/result';
 import { parseWithSchema } from '../core/schema-parse.js';
 import { boundedExcerpt } from './bounded-excerpt.js';
 import { type McpConformanceIo, type McpConformanceRunInput } from './io-port.js';
-import { composeSuiteArgs } from './runner.js';
-import { buildSuiteOutcome, compareAndCompose, type EvidenceFields } from './suite-outcome.js';
+import { composeSuiteArgs, SUITE_REPORT_KIND } from './runner.js';
+import {
+  buildSuiteOutcome,
+  compareAndCompose,
+  composeEvidence,
+  type EvidenceFields,
+} from './suite-outcome.js';
 import {
   mcpjamReportSchema,
   type Baseline,
@@ -45,11 +50,26 @@ function parseRawReport(suite: ConformanceSuite, stdout: string): Result<McpjamR
       ),
     );
   }
-  return parseWithSchema({
+  const parsed = parseWithSchema({
     label: `mcpjam json-summary report ("${suite}" suite)`,
     schema: mcpjamReportSchema,
     value: parsedJson,
   });
+  if (isErr(parsed)) {
+    return parsed;
+  }
+  // Identity check at the parse boundary: a structurally valid report from a
+  // DIFFERENT subcommand would otherwise be retained and verdicted under the
+  // requested suite's name.
+  const expectedKind = SUITE_REPORT_KIND[suite];
+  if (parsed.value.kind !== expectedKind) {
+    return err(
+      new Error(
+        `mcpjam returned a "${parsed.value.kind}" report for the "${suite}" suite (expected "${expectedKind}") — the vendor dispatched a different subcommand; do not author a baseline from this capture`,
+      ),
+    );
+  }
+  return parsed;
 }
 
 function resolveBaseline(
@@ -108,10 +128,7 @@ function gatherSuiteEvidence(
   }
   const retention = io.retainRawReport(suite, spawn.value.stdout);
   const retentionReasons = retention.ok ? [] : [`raw-report retention failed: ${retention.error}`];
-  const evidence = {
-    ...(retention.ok ? { rawReportPath: retention.reportedPath } : {}),
-    ...(spawn.value.exitCode === undefined ? {} : { mcpjamExitCode: spawn.value.exitCode }),
-  };
+  const evidence = composeEvidence(retention, spawn.value);
   const parsed = parseRawReport(suite, spawn.value.stdout);
   if (isErr(parsed)) {
     const retainedNote = retention.ok ? ` — raw output retained at ${retention.reportedPath}` : '';

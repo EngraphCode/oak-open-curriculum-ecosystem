@@ -202,6 +202,13 @@ export interface SuiteOutcome {
   /** The child process exit code — report data, never a verdict input. */
   readonly mcpjamExitCode?: number;
   /**
+   * Bounded excerpt of mcpjam's stderr when the run still produced a usable
+   * report — a vendor deprecation or configuration warning emitted by a run
+   * that otherwise passes. Report data, never a verdict input: it exists so
+   * a clean verdict cannot silently sit on top of an unread warning.
+   */
+  readonly mcpjamStderr?: string;
+  /**
    * Why this suite failed outside baseline comparison — one entry per
    * applicable failure class, NEVER joined into prose (a child stream can
    * contain any separator, so a joined string is lossy on arrival):

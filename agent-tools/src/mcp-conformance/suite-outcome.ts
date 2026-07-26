@@ -11,6 +11,9 @@
  * instead of racing each other for one string slot.
  */
 import { compareRunToBaseline } from './baseline.js';
+import { boundedExcerpt } from './bounded-excerpt.js';
+import { type RetentionOutcome } from './io-port.js';
+import { type McpjamSpawnResult } from './runner.js';
 import {
   type Baseline,
   type ConformanceOperation,
@@ -24,6 +27,33 @@ import {
 export interface EvidenceFields {
   readonly rawReportPath?: string;
   readonly mcpjamExitCode?: number;
+  /**
+   * Bounded excerpt of mcpjam's stderr when the run still produced a usable
+   * report. A vendor deprecation or configuration warning arrives here while
+   * the run exits 0 and matches its baseline; dropping it would let the
+   * wrapper report a clean verdict over a warning nobody ever sees
+   * (no-warning-toleration). Diagnostics, not evidence — the retained raw
+   * report is the evidence.
+   */
+  readonly mcpjamStderr?: string;
+}
+
+/**
+ * The optional evidence fields a launched suite carries, whichever arm it
+ * takes. `mcpjamStderr` rides the PARSED arm too: a run can emit a vendor
+ * deprecation warning and still produce a baseline-matching report, and a
+ * warning only present in a stream nobody reads is a tolerated warning.
+ */
+export function composeEvidence(
+  retention: RetentionOutcome,
+  spawned: McpjamSpawnResult,
+): EvidenceFields {
+  const stderrExcerpt = boundedExcerpt('mcpjam stderr', spawned.stderr);
+  return {
+    ...(retention.ok ? { rawReportPath: retention.reportedPath } : {}),
+    ...(spawned.exitCode === undefined ? {} : { mcpjamExitCode: spawned.exitCode }),
+    ...(stderrExcerpt === '' ? {} : { mcpjamStderr: stderrExcerpt }),
+  };
 }
 
 /** Everything a suite outcome is composed from. */
@@ -37,6 +67,7 @@ export interface SuiteOutcomeParts {
   readonly comparisonVerdict?: 'pass' | 'fail';
   readonly rawReportPath?: string;
   readonly mcpjamExitCode?: number;
+  readonly mcpjamStderr?: string;
   readonly baselineResidualMasking?: string;
 }
 
@@ -66,6 +97,7 @@ export function buildSuiteOutcome(parts: SuiteOutcomeParts): SuiteOutcome {
     verdict,
     ...(parts.rawReportPath === undefined ? {} : { rawReportPath: parts.rawReportPath }),
     ...(parts.mcpjamExitCode === undefined ? {} : { mcpjamExitCode: parts.mcpjamExitCode }),
+    ...(parts.mcpjamStderr === undefined ? {} : { mcpjamStderr: parts.mcpjamStderr }),
     failureReasons: parts.failureReasons,
     divergences: parts.divergences,
     ...(parts.baselineResidualMasking === undefined

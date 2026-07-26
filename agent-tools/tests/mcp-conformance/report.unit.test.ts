@@ -345,3 +345,56 @@ describe('runMcpConformance — seed operation (capture-only)', () => {
     expect(reasonsOf(report.suites.find((s) => s.suite === 'oauth'))).toContain('disk full');
   });
 });
+
+describe('round-3 review cures — vendor-dispatch identity and warning preservation', () => {
+  const verdictInput = {
+    target: TARGET,
+    operation: 'verdict' as const,
+    mode: 'unattended' as const,
+    suites: UNATTENDED_SUITES,
+    baselines: UNATTENDED_BASELINES,
+  };
+
+  it('a report from a different subcommand fails the suite rather than being verdicted as it', () => {
+    // The realistic path is an in-range mcpjam update re-pointing a
+    // subcommand: structurally valid JSON, wrong suite. Verdicting it would
+    // label another suite's capture with this suite's name.
+    const io = fakeIo({
+      runResults: { protocol: ok({ exitCode: 1, stdout: OAUTH_RAW, stderr: '' }) },
+    });
+
+    const { report, exitCode } = runMcpConformance(io, verdictInput);
+
+    const protocol = report.suites.find((suite) => suite.suite === 'protocol');
+    expect(exitCode).toBe(1);
+    expect(protocol?.verdict).toBe('fail');
+    expect(reasonsOf(protocol)).toContain('oauth-conformance');
+    expect(reasonsOf(protocol)).toContain('do not author a baseline from this capture');
+  });
+
+  it('a vendor warning on a PASSING run is preserved as a diagnostic, never dropped', () => {
+    // The run parses, matches its baseline and passes; without this the
+    // deprecation warning exists only in a stream nobody reads.
+    const io = fakeIo({
+      runResults: {
+        protocol: ok({
+          exitCode: 1,
+          stdout: PROTOCOL_RAW,
+          stderr: 'DeprecationWarning: --reporter json-summary will be renamed',
+        }),
+      },
+    });
+
+    const { report } = runMcpConformance(io, verdictInput);
+
+    const protocol = report.suites.find((suite) => suite.suite === 'protocol');
+    expect(protocol?.verdict).toBe('pass');
+    expect(protocol?.mcpjamStderr).toContain('DeprecationWarning');
+  });
+
+  it('a silent stderr adds no diagnostic field', () => {
+    const { report } = runMcpConformance(fakeIo(), verdictInput);
+
+    expect(report.suites.find((suite) => suite.suite === 'protocol')?.mcpjamStderr).toBeUndefined();
+  });
+});

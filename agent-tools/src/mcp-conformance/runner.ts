@@ -37,6 +37,23 @@ const MCP_PROTOCOL_VERSION = '2025-11-25';
 /** The suites the unattended (headless, credential-free) plan runs. */
 export const UNATTENDED_SUITES: readonly ConformanceSuite[] = ['protocol', 'oauth'];
 
+/**
+ * The `kind` each suite's json-summary report declares, observed first-hand
+ * from MCPJam 3.15.2 captures against the deployed surface.
+ *
+ * Lives beside `composeSuiteArgs` because both express the same concern: how
+ * a requested suite maps onto a vendor subcommand and what that subcommand is
+ * expected to answer with. A mismatch means the vendor dispatched elsewhere —
+ * an in-range CLI update re-pointing a subcommand is the realistic path.
+ * Unchecked, a `--seed` capture of the wrong suite is retained under the
+ * requested suite's name and becomes the baseline an operator authors from.
+ */
+export const SUITE_REPORT_KIND: Readonly<Record<ConformanceSuite, string>> = {
+  protocol: 'protocol-conformance',
+  apps: 'apps-conformance',
+  oauth: 'oauth-conformance',
+};
+
 /** Inputs to one suite's argv composition. */
 export interface SuiteArgsInput {
   readonly suite: ConformanceSuite;
