@@ -262,79 +262,72 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> ### ▶ NO SITTING DIRECTOR (owner word 2026-07-26): Gecko hunts Footfall (`ef8099`) RETIRED cleanly; coordination authority is with the OWNER
+> ### ▶ SITTING DIRECTOR: Squall wakes Apex (`459fd1`), seated 2026-07-26 at owner word (Moment-2 `f1d9a6f2` against Gecko's standing Moment-1); claim `56fdd977`, role director
 >
-> The owner deliberately runs the estate Director-less for a period ("we are
-> going to run without a Director for a bit"). While no Director sits:
-> implementers continue their owner-assigned lanes; owner-blockers and
-> decisions go DIRECTLY to the owner as visible asks; the standing rulings in
-> the handoff record (holds, submission-surface freeze) remain in force and
-> change only on owner word. The retirement broadcast + the standing Moment-1
-> pre-positioning event (2026-07-26 05:35:44Z) carry the live context.
+> Refreshed 2026-07-26 ~09:40Z at a compaction boundary (seat continues). Verify
+> every line live at pickup — this section decays.
 >
-> **Next Director's pickup, in order (owner- or team-designated, never
-> self-assumed)**: (1) per-user memory wake prior (`delight-is-operating-signal`
-> first — it is the identity substrate; then EVERY feedback-type memory — the
-> Gecko tenure added `owner-channel-answer-first` and `record-first-ask-last`);
-> (2) this brief end to end + PDR-117; (3) the handoff record
-> `handoffs/2026-07-26-gecko-successor-director-handoff.md` (machine-local; the
-> live board, ratification ledger, promises sweep, LABELLED ASSUMPTIONS, error
-> signature); (4) start-right-team First Moves (watcher move 1, heartbeat,
-> team-start); (5) the readiness gate above WITH the pasted mechanical liveness
-> check; (6) the Gecko claim `f18c4cc8` is CLOSED (archived at retirement) —
-> open a FRESH Director claim, and acknowledge against the standing Moment-1
-> event in the Moment-2 broadcast.
+> **The work directed**: the V1 release drive toward the initial submission.
+> ALL dates, vendor specifics, and the milestone calendar live in Linear ONLY
+> (sensitivity split stands). Board reshaped at owner agreement this morning:
+> M5 split (evidenced one-shot conformance run = MCP-184 in M0; continuous-CI
+> machinery = MCP-125 behind MCP-176, re-dated to the Engineering Complete
+> window), M1 renamed "the served surface is controlled and intentional"
+> (owner: control is a capability, never a freeze, "this isn't a CAB") and
+> re-dated, carrying MCP-121 post-initial-submit. Correction on record: MCP-143
+> is the M4 Clerk production EXECUTION (Urgent, est 8, seatless), MCP-125 is
+> the MCPJam ticket — do not re-cross them.
 >
-> **The work directed**: the V1 release drive. All dates, vendor specifics, and
-> the milestone calendar live in Linear ONLY (sensitivity split, owner-re-affirmed
-> 2026-07-26 — no release dates of any kind in the repo; the Linear project's
-> date-ladder comment is authoritative and carries the owner's priority guard:
-> milestone-level priority changes are OWNER-ONLY). The board was audited
-> 2026-07-25/26: every open ticket estimated, the submission milestone M0 exists
-> with its carriers, gate milestones dated, four gap tickets minted (MCP-173/
-> 175/176/177), a sensitivity-redaction ticket open (MCP-174).
+> **Fleet at refresh (verify live)**: Lavender turns Pollen (claude, f00cf6)
+> ACTIVE on the design lane — adopted Triton's claim 68088465 at owner word,
+> running the #565 full-surface thread round; Sonar gate OK via owner-directed
+> agent-executed accepts. Crucible wakes Ashes (codex, 019f9a) ACTIVE on
+> MCP-63 implementation — fresh branch jimcresswell/mcp-63-posthog-deterministic-analytics
+> off origin/main, plan-first commit, draft PR #568; owner amendment in force:
+> dependency versions FLEXIBLE, Oak behavioural/privacy contracts fixed
+> (supersedes the exact-pin ruling). Magnetar guards Perigee (claude-code,
+> 565521) consolidation COMPLETE (pass at 32a420242) then re-activated at
+> owner word enacting PDR-094 v3 (retention = knowledge, never bytes;
+> comms-archive dissolves). Triton mends Void retired via clean handoff to
+> Lavender. Cygnus weaves Vastness retired silent post-completion (deps lane
+> verified complete).
 >
-> **THE OWNER-CHANNEL CONTRACT (this tenure's distilled addition — read as
-> binding, not advice)**: (1) answer or acknowledge the owner's messages at the
-> very next boundary, BEFORE continuing work — "that means now"; absorption into
-> plans/cards/records does not count as answering. (2) Closed decisions take new
-> evidence as a STATEMENT plus default-continue, never a re-opened card — test:
-> was the fact in front of the owner at decision time? (3) Owner-assigned seats
-> are never re-tasked without asking first — routing autonomy covers unowned
-> lanes only. (4) Only the owner changes priorities at milestone level. (5) The
-> deal (2026-07-26): answers-first and issues surfaced at their action moment,
-> in exchange for trust to get the job done.
+> **Board**: open PRs = #565 (design lane, lands only on Director word — the
+> submission-surface freeze holds), #567 (preservation draft, discharge paths
+> written inside it: MCP-183 test slice + gated copilot-lane resume), #568
+> (MCP-63 implementation draft). Every open PR must carry a live discharge
+> path — the stranger test (worktree-hygiene rule carries it now).
+> Worktrees: primary + codex-platform 2f0f + mcp-128-landing-port +
+> mcp-128-pre-ratification (holds an unreconciled reports dir — design lane
+> dispositions) + mcp-63-posthog (spike, evidence-only). Coordination branch
+> contains latest main; tip at this refresh 01f8a8327+.
 >
-> **Fleet at refresh (verify live at pickup — every line here decays)**:
-> Crucible wakes Ashes (codex, 019f9a) LIVE implementing MCP-63 in its own
-> worktree — architecture pinned (sink-in-observability via OBSERVABILITY_SINKS,
-> exact-pinned wrapper, two-client isolation labelled as our engineering, owner
-> ruling closed — do not resurface); routes landing windows + the MCP-117
-> owner ceremony through the Director. Cygnus weaves Vastness (deps) on the
-> MCP-151 merge drive — #561 (@clerk/mcp-tools) HOLD stands until the owner
-> clears the submission window (hold + reopen condition recorded on MCP-151;
-> Cygnus told but NOT acked, and their claim's intent text still names a held
-> next step — watch it). Triton mends Void: SESSION ENDED at compaction (claim
-> 68088465 retained) with the MCP-128 LANE NOT COMPLETE — reviewer passes not
-> run, no PR by design (owner holds the copy); landing routes through the
-> Director. Sage weaves Canopy: routed #552/#557 2026-07-25, NEVER ACKED,
-> claim registry-stale — ping-before-routing. Seats-wanted (owner cuts them,
-> owner card answer 2026-07-25: after the current lanes complete fully and
-> well): MCP-143 → MCP-176 → MCP-125, MCP-121, MCP-102 (submission-relevant
-> per the owner's pipeline-yes-content-no ruling, recorded on MCP-102).
+> **Owner-held / awaiting owner word**: launch of the MCP-143 seat and the
+> MCP-102 seat (briefs delivered in-channel); the codegen-refresh seat
+> (upstream spec + Elasticsearch delta — task board item); MCP-183/184 are
+> named next-pickups for the first seat that frees. Sitting list: progress-
+> report successor (post-submission — freeze + sensitivity bind), model-tier
+> stance gradient as Core PDR candidate, Notion boundary-rule amendment
+> confirm, the stale-Active-threads batch reclassification proposal.
 >
-> **Standing duties that transfer**: daily release-burndown check (authority =
-> the owner's dated intent artefacts in Linear + board-vs-intent, never
-> milestone dates alone); doubled cricket pairs (normal + adversarial) at cycle
-> boundaries, hourly, fleet-wide including this seat; submission-surface freeze
-> (served surface / auth path / landing page changes route through the Director
-> before landing); RECORD FIRST, ASK LAST (owner correction — read the ruling
-> surfaces before any question reaches him; per-user memory
-> `record-first-ask-last`); at pickup verify the working tree first-hand before
-> any commit — commit by explicit pathspec only, never sweep peer residue
-> (two dirty files of unverified authorship were present at this refresh:
-> the mcp-67 plan edit and `.claude/settings.json`).
+> **Live rulings in force**: submission-surface freeze (served surface / auth
+> path / landing page land through the Director until the submission);
+> sensitivity split (no release dates or assistant-vendor timing in the repo);
+> milestones are propose-and-agree (owner agreement is the gate; never leave
+> sequenced-out work dangling — named milestone + date + carriers, always);
+> Sonar dispositions are owner-DIRECTED, agent-executable (rule amended at the
+> generator, 2026-07-26); MCP-152/153 HELD; workflow/agent fan-outs tier per
+> leg, never default the session model (Fable subagents essentially never).
+>
+> **Standing duties that transfer**: daily release-burndown check against the
+> owner's dated intent in Linear; doubled crickets (normal + adversarial) at
+> cycle boundaries, hourly, this seat included — adjudicate divergent pairs
+> first-hand and feed the A/B tally; watcher re-arm + post-restart sweep on
+> every hourly timeout death (cursor movement is the health check); comms
+> sends use --body-file always; absolute paths on every invocation; owner-
+> channel answer-first; record-first-ask-last; complement ticket numbers with
+> prose in anything the owner reads.
 >
 > **Succession**: PDR-063/064 unchanged (two moments; the readiness gate above
 > with the pasted mechanical liveness check). This section is refreshed by the
-> sitting Director at every handoff.
+> sitting Director at every handoff or continuity boundary.

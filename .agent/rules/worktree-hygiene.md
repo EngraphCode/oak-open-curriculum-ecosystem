@@ -113,7 +113,7 @@ consciously released (`never-use-git-to-remove-work`).
 
 A third disposition exists for a branch worth preserving as HISTORY but not landing:
 an **annotated tag** (`git tag -a preserve/<name> <tip> -m "<why kept>"`, pushed)
-satisfies archive-not-delete with zero loss — the tag pins the whole lineage, and the
+pins the whole lineage at zero loss, and the
 branch then deletes cleanly (worked instance 2026-07-20: a held spike branch preserved
 under a `preserve/` tag on owner ruling; branch removed same day).
 

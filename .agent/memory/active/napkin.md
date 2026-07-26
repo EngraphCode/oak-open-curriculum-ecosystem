@@ -64,3 +64,87 @@ explaining commits 3a025effb/264c3b2b0/38c7bb919/7ae8b2ff4) is preserved in the 
   wrong; routed to the Director for ticket/decision (flagged in this pass's digest).
 
 ## New session observations append below.
+
+## 2026-07-26 ~09:30Z — OWNER POLICY CORRECTION (Magnetar, captured at occurrence, verbatim substance)
+
+- **"I never wanted a lossless record of everything, I wanted knowledge retained; once the
+  knowledge is retained, we are DONE, we don't need the source any more... that has always been
+  the policy, and agents have always pulled in the other direction."** Context: the PDR-094
+  archive-move exploration — my watermark proposal had grandfathered "never-delete" as an
+  unquestioned invariant; the owner falsified it. The policy: absorption is the retention;
+  a source whose knowledge is verified-homed is SPENT — disposable, not archivable. The
+  archive-not-delete posture is agent-accreted conservatism, not owner policy. Generator
+  named: loss-aversion asymmetry — an agent is never blamed for hoarding and fears blame for
+  deleting, so every locally-cautious call ratchets toward lossless; the cure is this policy
+  line carrying owner authority so retention-after-absorption reads as the DEFECT. Boundary
+  kept distinct: never-use-git-to-remove-work governs in-flight WORK, untouched by this —
+  this policy governs knowledge SOURCES post-absorption. Re-true sweep owed: PDR-094/ADR-199
+  (archive-not-delete core), comms-archive/ itself (6,917 dispositioned events = spent),
+  consolidate-docs step 3a text, MCP-185 (dies), napkin-archive verbatim-copy habit
+  (tracked files: git history already retains; the tree copy is clutter). Priced trade-off
+  stated once: the 2026-07-02 archive salvage DID recover missed knowledge — the owner
+  prices that insurance below the hoard's cost; absorption quality is the load-bearing leg.
+
+- **Owner correction (model-tier economy at fan-out)**: launched a 7-agent verification
+  workflow whose every agent inherited the Fable main-loop model. Verbatim substance: "You
+  can't start a suite of Fable instances like that … burns quota too quickly; there are more
+  refined, less brute force ways of achieving good outcomes with sweeps and research" — then
+  "in this case it may well be warranted, I do not trust the state we were handed". The rule
+  governs the DEFAULT (inline checks first; tier per leg — haiku/sonnet mechanical, opus
+  frame-judgement; Fable subagents essentially never); a heavyweight sweep is legitimate only
+  on a case-by-case owner-priced warrant. An ultracode/effort flag is not owner word. Homes:
+  comms behaviour-note 84ccc04c; per-user memory (workflow-fanouts-economise-model-tier);
+  Magnetar folded it into invoke-code-experts host-side same hour.
+- **The verification itself earned its cost (owner-priced)**: the Triton→Lavender handoff
+  verified ~30 CONFIRMED / 4 DIVERGED / 1 material omission, and the diverged claims were ALL
+  estate-state descriptions (tracked-ness, config mechanism, counts) while every code-at-a-line
+  claim held — descriptions had no gate, code did. Fresh instances 13–16 of
+  `description-is-not-a-check`, found by applying the record's own cure to the record.
+  Specifics a successor needs: the tna-24072026 bundle is COMMITTED (6146669bd), not untracked;
+  counter-brands exist outside studio-source via that bundle; "studio-source excluded from
+  turbo inputs" names a mechanism that does not exist (truth: exclusion-by-absent-task — no
+  `build` script; unquotable, silently revocable); ROLES count is 146, not ~208. Omission:
+  PR #565 has 36/37 review threads UNRESOLVED, unmentioned in the handoff. Bonus find:
+  `validateTierReferences` (design-tokens-core) already implements tier enforcement, wired only
+  to oak-design-tokens' own trees — one import from guarding the dtcg export its README expects.
+- **Timezone slip (mine)**: read the handoff file's 09:47 BST mtime as 09:47Z in a verification
+  prompt; a subagent caught it ("09:47Z has not happened yet"). File mtimes are local; convert
+  before quoting as UTC.
+
+## 2026-07-26 ~08:00–09:40Z — Squall wakes Apex (459fd1), Director: the re-read day (pre-compaction capture)
+
+- **One pattern, seven instances in one tenure — a stored description outliving its reality,
+  cured only by a fresh first-hand read**: (1) the merge-tree probe whose PASS equalled
+  mis-invocation; (2) "700 lines unconserved" from filename comparison, reversed by a
+  function-level both-sides read (9/13 files had landed as the reviewed replacement — main's
+  own test header credits the harvest); (3–4) two stale-worktree reviews that inherited prior
+  descriptions until the owner forced re-reads, which found ~700 lines of live copilot
+  hook-policy work under a "cleanup" label; (5) MCP-143/MCP-125 crossed in the milestone
+  proposal — a compressed handoff fact transmitted without re-reading either ticket, caught by
+  Linear's own auto-link rendering the wrong title; (6) my draft ACK asserting "I read the full
+  body from the stream" before I had — caught pre-send, the pattern in first person; (7) the
+  falsified "agents have no Sonar write access" rule line that stalled a lane on a wait the
+  owner never required (amended at the generator, 01f8a8327). The consolidation pass graduated
+  the class the same morning (`patterns/description-is-not-a-check.md`,
+  `patterns/frozen-text-false-authority.md`) — instances now route there.
+- **Owner-word is a stream, not a stone**: four "settled" positions evolved at his word in one
+  sitting — exact-pin → flexible-versions-fixed-contracts; owner-executed Sonar dispositions →
+  owner-DIRECTED agent-executed; milestone changes → propose-and-agree (per-user memory
+  `milestones-propose-agree-never-dangle`); "served surface FINAL" → "controlled and
+  intentional, never a CAB" (M1 renamed). Date rulings where they act; newest word wins; a
+  ruling's record must never make re-litigating cheaper than reading.
+- **Comms CLI gotchas (F-candidates)**: inline `--body` over roughly a paragraph fails exit 2
+  with the usage line swallowed by pnpm noise — `--body-file` is the reliable form, always;
+  the content guard's deferral-vocabulary block on a lesson QUOTING the pathogen is cured by
+  the capture tags (`behaviour-note`), per its own recursive-exclusion hint; `comms direct`'s
+  success line is `wrote comms event <id>`, not the send/event_path shape — a grep for the
+  wrong shape reads success as silence (two false-silence retries this tenure; read the
+  STREAM, not the pipe, before any resend).
+- **The watcher's hourly `timeout 3600` backstop kills a healthy watcher every hour by
+  design** — the re-arm + post-restart sweep loop ran three times this tenure at ~5 min
+  attention each. Friction: a Monitor-persistent watcher arguably no longer needs the
+  wrapper timeout (the supervisor-pid probe covers orphaning); candidate for the
+  storage-redesign lane's docket.
+- **cwd-relative paths bit twice in one tenure** (the "vanished" experience file; the failed
+  Lavender ACK from the comms dir) — the morning's own napkin entry, re-instantiated by
+  afternoon. Absolute paths on EVERY filesystem/CLI invocation is cheaper than the diagnosis.

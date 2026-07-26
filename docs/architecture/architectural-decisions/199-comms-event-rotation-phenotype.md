@@ -1,7 +1,21 @@
 # ADR-199: Comms-Event Rotation Phenotype — Class-Tiered Archive-Move
 
-**Status**: Accepted (design ratified with owner 2026-06-13, "ratify as
-proposed"); **WS7 execution landed 2026-06-14**. Phase 2 shipped the provenance
+**Status**: Accepted; **archive-move core SUPERSEDED IN PART 2026-07-26** by
+PDR-094 v3 (owner word: retention is the knowledge, never the bytes — a
+source whose substance is verified-homed is spent and DELETES). What
+changes: the retained store (`comms-archive/`) and the per-event
+`manifest.jsonl` ledger are retired — the archive was dissolved at
+enactment (2026-07-26) after every resident event's disposition was
+recorded under the old gate; rotation now deletes behind the pass-level
+absorption watermark, the class windows, and the unchanged provenance
+check. What stands: the class tiers, the provenance check and tracked
+digest (`.agent/reference/comms-cited-events.md`), the heartbeat cadence
+aggregate, the untrack boundary, and the standing curation obligation
+(now the ONLY retention path, which was always Invariant 6's point). The
+`comms-archive-move` harness implements the superseded shape; its
+deletion-phenotype replacement is tracked in Linear (MCP-185, retargeted).
+Original status: design ratified with owner 2026-06-13, "ratify as
+proposed"; **WS7 execution landed 2026-06-14**. Phase 2 shipped the provenance
 check, the heartbeat-cadence aggregate, and the class-tiered archive-move harness
 (classify → provenance-gate → plan → execute); Phase 3 — the `.agent/state/`
 untrack and the standing curation obligation — lands atomically with this

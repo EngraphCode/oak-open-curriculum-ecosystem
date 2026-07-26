@@ -2,11 +2,13 @@
 pdr_kind: governance
 ---
 
-# PDR-094: Coordination-Event Rotation Is Class-Tiered and Archive-Not-Delete
+# PDR-094: Coordination-Event Rotation Is Class-Tiered and Absorption-Gated
 
-**Status**: Accepted
+**Status**: Accepted (v3 core correction by owner word, 2026-07-26 — see
+§Revision history; the filename preserves the v1 title for citation
+stability)
 **Created**: 2026-06-13
-**Last updated**: 2026-06-14
+**Last updated**: 2026-07-26
 **Related**:
 [PDR-080](PDR-080-coordination-event-absorption-is-signal-driven.md)
 (coordination-event absorption is signal-driven — that PDR establishes
@@ -65,10 +67,15 @@ for an unmeasured health problem encodes a hypothesis as a mechanism.
 ## Decision
 
 Coordination-event **rotation is class-tiered, age-triggered, and
-archive-not-delete**, governed by six invariants and one operative gate.
-Rotation runs as a deterministic curator-lane pass on the consolidation /
-session-close cadence — not as an autonomous daemon, and not behind per-pass
-owner approval once the contract is ratified.
+absorption-gated: retention is the KNOWLEDGE, never the bytes.** Owner
+policy, stated 2026-07-26 and governing this record's core: *"I never
+wanted a lossless record of everything, I wanted knowledge retained; once
+the knowledge is retained, we are DONE, we don't need the source any
+more."* A source whose durable substance is verified-homed is **spent** —
+it deletes; keeping it is the defect, not the safe default. Rotation runs
+as a deterministic curator-lane pass on the consolidation / session-close
+cadence — not as an autonomous daemon, and not behind per-pass owner
+approval once the contract is ratified.
 
 ### Invariant 1 — No unprocessed signal is removed
 
@@ -78,19 +85,25 @@ absorption gate"). This restates and operationalises
 [PDR-080](PDR-080-coordination-event-absorption-is-signal-driven.md)
 Invariant 3 for the rotation step.
 
-### Invariant 2 — No unrecoverable loss: rotation moves, it does not destroy
+### Invariant 2 — Spent sources delete; retention lives in the knowledge
 
-Rotation **moves** events out of the active stream into a retained store; it
-does not destroy them. "Leaves the active stream" never means "lost." Removal
-from the watched/active path is the operational goal; byte-destruction is not
-part of it.
+Once an event's disposition is recorded under the operative gate (absorbed /
+routine-with-safeguard / quarantine-resolved) **and** its class window has
+elapsed, the source is **spent and rotation DELETES it**. No retained store,
+no archive tier, no per-event ledger: the durable homes the absorption wrote
+to — plus the provenance surfaces of Invariant 3 — ARE the retention. The
+v1–v2 archive-not-delete posture is corrected by owner word (2026-07-26):
+lossless byte-retention was never the policy, and the structural generator
+of the drift is named in §Rationale (loss-aversion asymmetry — an agent is
+never blamed for hoarding and fears blame for deleting, so unowned caution
+ratchets toward lossless).
 
-A standing constraint makes the move loss-safe for *future* events, not only
-already-stored ones: an event that is not yet committed to version control (or
-otherwise backed up) MUST be durably stored before it is moved, **or** the
-retained store itself MUST be made recoverable (periodic backup). An untracked
-move target protects already-tracked events but not freshly-emitted untracked
-ones.
+Two hard bounds keep deletion honest: nothing in-window deletes (the live
+stream is the working coordination surface regardless of absorption state),
+and nothing deletes past a gap in the recorded-absorption watermark (see the
+operative gate). This invariant governs knowledge SOURCES post-absorption
+only — it neither touches nor weakens the host's protections for in-flight
+WORK (working trees, drafts, uncommitted changes).
 
 ### Invariant 3 — Provenance survives rotation
 
@@ -109,11 +122,12 @@ Three composing parts, in preference order:
    move any cited event lacking inline or digest coverage.** This converts the
    discipline from prose-only to enforced exactly where it is hardest to trust.
 
-Identity provenance for *cited* events is preserved by the same two surfaces;
-*uncited* events' identity and any body-citation linkage remain navigable in the
-retained store. (Where a stream's structured reply/threading fields are unused,
-there are no such chains to preserve — provenance reduces to cited event ids and
-identity.)
+Identity provenance for *cited* events is preserved by the same two surfaces.
+Under v3 there is no retained store: an uncited, absorbed, past-window event's
+bytes are gone by design — which is why the pre-deletion provenance check is
+load-bearing, not advisory. (Where a stream's structured reply/threading
+fields are unused, there are no chains to preserve — provenance reduces to
+cited event ids and identity.)
 
 ### Invariant 4 — The active stream has a bounded working set, honestly labelled
 
@@ -172,13 +186,21 @@ the safety net before the replacement obligation is installed.
 ### The operative absorption gate
 
 This is the single gate for the whole contract; it supersedes any looser
-phrasing elsewhere. **Rotation never moves an event whose disposition is not
-recorded, where a recorded disposition is one of: (a) absorbed into a durable
-home, (b) classified routine, or (c) quarantined.**
+phrasing elsewhere. **Rotation never deletes an event outside a recorded
+absorption watermark.** The record is **pass-level, never per-event**: a
+consolidation/curation pass that has swept the stream records "absorbed
+through time T" in its own pass record (exactly the shape the host's
+capture-buffer rotations already use), and events with `created_at ≤ T`
+that are also past their class window are thereby dispositioned. A
+per-event disposition ledger is retired as of v3 — it is accounting the
+estate's consolidation-record doctrine forbids elsewhere, and its only
+observed reader was the machinery that wrote it. Quarantined events are the
+one per-item exception: a quarantine is named individually and holds its
+event live until resolved.
 [PDR-080](PDR-080-coordination-event-absorption-is-signal-driven.md)'s
-bin-signal indicates when a class has accumulated enough to warrant an absorption
-pass; this PDR adds the move step after recorded disposition. PDR-080 absorbs;
-this PDR moves the absorbed.
+bin-signal indicates when a class has accumulated enough to warrant an
+absorption pass; this PDR adds the delete step after the watermark covers
+it. PDR-080 absorbs; this PDR deletes the absorbed.
 
 **Bulk-classification safeguard.** Routine classification (b) and quarantine (c)
 may be applied to a candidate set in bulk, but **title or genre alone is never
@@ -202,10 +224,16 @@ recommendation, not a mandate.
 
 ### Alternatives considered
 
-- **Delete-on-cadence** (the simplest mechanism PDR-080 permits). Rejected as
-  the default: it violates Invariant 2 for not-yet-stored events and breaks
-  Invariant 3 for cited events. Archive-move dissolves both at the cost of
-  retained-store disk only.
+- **Delete-on-cadence** (the simplest mechanism PDR-080 permits). Rejected
+  as an *ungated* default: blind deletion loses unabsorbed signal and breaks
+  cited-event provenance. **v3 correction**: the v1 response over-corrected
+  into archive-not-delete — deletion-grade caution attached to a boundary
+  that, once the absorption watermark and provenance check gate it, carries
+  no loss at all. The v1 archive tier's ledger was written and never read;
+  its store was a monument to loss-aversion asymmetry (agents bear no cost
+  for hoarding and fear blame for deleting, so every locally-cautious call
+  ratcheted toward lossless — against standing owner policy). Gated deletion
+  is the v3 shape.
 - **Size-triggered rotation.** Rejected as a *primary* trigger unless the size →
   health link is measured: a size trigger encodes an unproven hypothesis as a
   mechanism (the failure mode Invariant 4's honesty clause guards). Age is the
@@ -228,9 +256,9 @@ applied to rotation: the gate enforces what prose alone would not.
 
 ## Consequences
 
-- The active stream's lifetime is bounded by age and class, and its substance is
-  preserved by absorption-before-move plus a retained store — never by a
-  destroy step.
+- The active stream's lifetime is bounded by age and class, and its substance
+  is preserved by **absorption into durable homes** — the knowledge is the
+  retention; spent sources delete.
 - Permanent-record citations remain verifiable from a clean checkout via inline
   excerpts or the tracked digest, enforced by the pre-rotation check.
 - The largest, lowest-value class is reducible immediately (once its aggregate is
@@ -245,15 +273,19 @@ applied to rotation: the gate enforces what prose alone would not.
 
 ## Falsifiability
 
-A host-side response that **deletes** coordination events (rather than moving
-them to a retained store), or that moves an event **cited in a permanent record
-without preserving its provenance**, or that bulk-classifies events as routine
-**on title genre alone**, or that labels a size-derived bound as health-derived
-**without a measurement**, is the failure mode this PDR forbids.
+A host-side response that deletes coordination events **outside a recorded
+absorption watermark**, or that deletes an event **cited in a permanent
+record without preserving its provenance**, or that bulk-classifies events
+as routine **on title genre alone**, or that labels a size-derived bound as
+health-derived **without a measurement**, is the failure mode this PDR
+forbids. So — as of v3 — is the inverse: **retaining spent sources**
+(archive tiers, per-event ledgers, "just in case" stores) after their
+knowledge is verified-homed, which optimises agent loss-aversion against
+standing owner policy.
 
-A host-side mechanism that absorbs first, moves (never destroys) on a class-tiered
-age trigger, preserves cited-event provenance behind an enforced pre-move check,
-and labels its working-set bound honestly is the success shape.
+A host-side mechanism that absorbs first, deletes behind the watermark and
+the enforced provenance check on a class-tiered age trigger, and labels its
+working-set bound honestly is the success shape.
 
 ## Notes
 
@@ -288,3 +320,13 @@ latest-revision date.
   the portable doctrine surfaced when the host phenotype executed the full
   untrack of its coordination tier. The host-specific boundary and wiring are in
   the paired architectural-decision record (portability constraint).
+- **v3 (2026-07-26)** — core corrected by owner word: *"I never wanted a
+  lossless record of everything, I wanted knowledge retained; once the
+  knowledge is retained, we are DONE, we don't need the source any more...
+  that has always been the policy, and agents have always pulled in the
+  other direction."* Archive-not-delete (Invariant 2) reversed to
+  absorption-gated deletion; the per-event disposition ledger retired in
+  favour of the pass-level watermark; the H1 retitled (filename kept for
+  citation stability). The trigger was a first-hand review finding the v1
+  ledger write-only, the archive store consumed by nothing, and a
+  1,400-event disposition backlog that existed only to feed them.

@@ -48,7 +48,8 @@ checkout right now it is local state. This is the existing boundary — ADR-203
 keeps the live coordination tier of `.agent/state/collaboration/` (comms,
 handoffs, the claims registry, the rendered log) untracked-by-design while its
 decision-provenance surfaces (`conversations/`, `escalations/`, `sidebars/`)
-stay tracked, and PDR-094 governs the archive-not-delete disposition. Full
+stay tracked, and PDR-094 (v3, 2026-07-26) governs the absorption-gated
+deletion disposition — knowledge retained means the source is spent. Full
 table: `.agent/memory/README.md` §Tracking Tiers.
 
 ## Disposition of Continuity Surfaces
