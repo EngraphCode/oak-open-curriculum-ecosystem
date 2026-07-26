@@ -74,7 +74,7 @@ export const PROMPT_ERA_LINEAGE_ENTRIES = [
   ['C205', ALL_GUIDANCE],
   ['C206', [MAPPING, ADAPT, CONTINUE]],
   ['C207', [MAPPING, ADAPT]],
-  ['C208', [CONTINUE]],
+  ['C208', [MAPPING, ADAPT, CONTINUE]],
   ['C209', [MAPPING, ADAPT]],
   ['C329', [FIND]],
   ['C330', []],

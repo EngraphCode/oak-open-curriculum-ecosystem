@@ -178,6 +178,8 @@ export const CURRENT_ITEM_ANCHOR_OVERRIDES: AnchorOverrides = {
     ],
   },
   C208: {
+    [MAPPING]: ['the map is a model to localise, not a mandate'],
+    [ADAPT]: ['not a single recommendation or selection', 'The decision is theirs to make'],
     [CONTINUE]: [
       "The next step is a recommendation grounded in Oak's published sequence, not a mandate",
       "the teaching decision is the teacher's to make",

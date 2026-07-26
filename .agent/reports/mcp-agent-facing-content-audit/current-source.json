@@ -34,7 +34,7 @@
     "upstreamSkillsAuthorityCount": 2,
     "externalThirdPartyAuthorityCount": 9,
     "itemLiveBindingCount": 18,
-    "itemDormantBindingCount": 30
+    "itemDormantBindingCount": 32
   },
   "registrationRoots": [
     {
@@ -3973,10 +3973,7 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/curriculum-mapping.md",
-          "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
-          ]
+          "channels": []
         }
       ]
     },
@@ -4005,10 +4002,7 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/adapt-lesson.md",
-          "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
-          ]
+          "channels": []
         }
       ]
     },
@@ -4037,10 +4031,7 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/continue-progression.md",
-          "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
-          ]
+          "channels": []
         }
       ]
     },
@@ -4133,10 +4124,7 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/adapt-lesson.md",
-          "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
-          ]
+          "channels": []
         }
       ]
     },
@@ -4166,20 +4154,14 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/adapt-lesson.md",
-          "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
-          ]
+          "channels": []
         },
         {
           "rootId": "oak-curriculum-http",
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/continue-progression.md",
-          "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
-          ]
+          "channels": []
         }
       ]
     },
@@ -4306,20 +4288,14 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/continue-progression.md",
-          "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
-          ]
+          "channels": []
         },
         {
           "rootId": "oak-curriculum-http",
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/curriculum-mapping.md",
-          "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
-          ]
+          "channels": []
         },
         {
           "rootId": "oak-curriculum-http",
@@ -4358,10 +4334,7 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/curriculum-mapping.md",
-          "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
-          ]
+          "channels": []
         }
       ]
     },
@@ -4390,10 +4363,7 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/curriculum-mapping.md",
-          "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
-          ]
+          "channels": []
         }
       ]
     },
@@ -4422,10 +4392,7 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/continue-progression.md",
-          "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
-          ]
+          "channels": []
         }
       ]
     },
@@ -4454,10 +4421,7 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/continue-progression.md",
-          "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
-          ]
+          "channels": []
         }
       ]
     },
@@ -4596,10 +4560,7 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/curriculum-mapping.md",
-          "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
-          ]
+          "channels": []
         }
       ]
     },
@@ -4628,10 +4589,7 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/adapt-lesson.md",
-          "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
-          ]
+          "channels": []
         }
       ]
     },
@@ -4660,10 +4618,7 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/continue-progression.md",
-          "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
-          ]
+          "channels": []
         }
       ]
     },
@@ -4692,10 +4647,7 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/continue-progression.md",
-          "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
-          ]
+          "channels": []
         }
       ]
     },
@@ -4729,30 +4681,21 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/adapt-lesson.md",
-          "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
-          ]
+          "channels": []
         },
         {
           "rootId": "oak-curriculum-http",
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/continue-progression.md",
-          "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
-          ]
+          "channels": []
         },
         {
           "rootId": "oak-curriculum-http",
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/curriculum-mapping.md",
-          "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
-          ]
+          "channels": []
         },
         {
           "rootId": "oak-curriculum-http",
@@ -4813,30 +4756,21 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/adapt-lesson.md",
-          "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
-          ]
+          "channels": []
         },
         {
           "rootId": "oak-curriculum-http",
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/continue-progression.md",
-          "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
-          ]
+          "channels": []
         },
         {
           "rootId": "oak-curriculum-http",
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/curriculum-mapping.md",
-          "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
-          ]
+          "channels": []
         }
       ]
     },
@@ -4866,20 +4800,14 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/adapt-lesson.md",
-          "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
-          ]
+          "channels": []
         },
         {
           "rootId": "oak-curriculum-http",
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/curriculum-mapping.md",
-          "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
-          ]
+          "channels": []
         }
       ]
     },
@@ -4890,16 +4818,18 @@
       "source": {
         "state": "available",
         "files": [
-          "packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/continue-progression.ts"
+          "packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/adapt-lesson.ts",
+          "packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/continue-progression.ts",
+          "packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/curriculum-mapping.ts"
         ],
         "evidence": {
           "revision": "relocated",
-          "anchorTargetCount": 1,
-          "anchorCount": 2
+          "anchorTargetCount": 3,
+          "anchorCount": 5
         }
       },
       "lineage": {
-        "disposition": "relocated",
+        "disposition": "split",
         "baselineFile": "packages/sdks/oak-curriculum-sdk/src/mcp/prompt-messages/continue-progression.ts"
       },
       "registrations": [
@@ -4907,11 +4837,22 @@
           "rootId": "oak-curriculum-http",
           "state": "dormant",
           "primitive": "resource",
+          "selector": "docs://oak/guidance/adapt-lesson.md",
+          "channels": []
+        },
+        {
+          "rootId": "oak-curriculum-http",
+          "state": "dormant",
+          "primitive": "resource",
           "selector": "docs://oak/guidance/continue-progression.md",
-          "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
-          ]
+          "channels": []
+        },
+        {
+          "rootId": "oak-curriculum-http",
+          "state": "dormant",
+          "primitive": "resource",
+          "selector": "docs://oak/guidance/curriculum-mapping.md",
+          "channels": []
         }
       ]
     },
@@ -4941,20 +4882,14 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/adapt-lesson.md",
-          "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
-          ]
+          "channels": []
         },
         {
           "rootId": "oak-curriculum-http",
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/curriculum-mapping.md",
-          "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
-          ]
+          "channels": []
         }
       ]
     },
@@ -7592,10 +7527,7 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/curriculum-mapping.md",
-          "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
-          ]
+          "channels": []
         }
       ]
     },
@@ -7624,10 +7556,7 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/adapt-lesson.md",
-          "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
-          ]
+          "channels": []
         }
       ]
     },
@@ -7656,10 +7585,7 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/continue-progression.md",
-          "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
-          ]
+          "channels": []
         }
       ]
     },

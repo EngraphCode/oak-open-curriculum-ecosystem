@@ -4109,6 +4109,34 @@
         "revision": "relocated",
         "targets": [
           {
+            "file": "packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/curriculum-mapping.ts",
+            "anchors": [
+              {
+                "tokenCount": 11,
+                "tokenSha256": "14ada0ce9d9b88d491226e8d71200fd2792be7da392f55d1ad95247d457aafe8",
+                "indexToken": "localise",
+                "indexOffset": 6
+              }
+            ]
+          },
+          {
+            "file": "packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/adapt-lesson.ts",
+            "anchors": [
+              {
+                "tokenCount": 6,
+                "tokenSha256": "3d4584471f7cd278c59c754af28c0acc62bf7e23edb5826c1d95db6ebc08c163",
+                "indexToken": "recommendation",
+                "indexOffset": 3
+              },
+              {
+                "tokenCount": 6,
+                "tokenSha256": "ca7bc222affd0053942309e9385fd597c3ec7cb2abfb19dda1a8dfea597c0f6d",
+                "indexToken": "decision",
+                "indexOffset": 1
+              }
+            ]
+          },
+          {
             "file": "packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/continue-progression.ts",
             "anchors": [
               {

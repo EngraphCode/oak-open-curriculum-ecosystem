@@ -21,10 +21,12 @@ import { initializeCoreEndpoints } from '../app/core-endpoints.js';
 import { createHttpObservability } from '../observability/http-observability.js';
 import { SERVED_SURFACE } from '../served-surface/served-surface.js';
 import type { RuntimeConfig } from '../runtime-config.js';
-import { CURRENT_SOURCE_GUIDANCE } from './current-source-guidance-map.js';
+import {
+  buildGuidanceRegistrationEvidence,
+  type ServedState,
+} from './current-source-guidance-registration-evidence.js';
 import { requireMcpErrorCode } from './require-mcp-error-code.js';
 
-type ServedState = 'live' | 'dormant';
 type PolicyEntry = readonly [string, ServedState];
 const alphabetical = (left: string, right: string) => left.localeCompare(right);
 
@@ -116,27 +118,6 @@ async function requireGuidanceReadParity(
   }
 }
 
-function guidanceRegistrationEvidence(resourcePolicy: Readonly<Record<string, ServedState>>) {
-  return Object.fromEntries(
-    CURRENT_SOURCE_GUIDANCE.map(({ source, uri }) => {
-      const state = resourcePolicy[uri];
-      if (state === undefined) {
-        throw new Error(`Guidance URI is absent from policy: ${uri}`);
-      }
-      return [
-        source,
-        {
-          rootId: 'oak-curriculum-http',
-          state,
-          primitive: 'resource',
-          selector: uri,
-          channels: ['resources/list.resources[]', 'resources/read.contents[]'],
-        },
-      ];
-    }),
-  );
-}
-
 async function createConnectedClient(): Promise<Client> {
   const observabilityResult = createHttpObservability(runtimeConfig);
   if (!observabilityResult.ok) {
@@ -218,7 +199,7 @@ function buildProof(observed: ObservedSurface) {
         prompts: { capability: 'absent', list: 'method-not-found' },
       },
     },
-    guidanceRegistrationsBySource: guidanceRegistrationEvidence(observed.resourcePolicy),
+    guidanceRegistrationsBySource: buildGuidanceRegistrationEvidence(observed.resourcePolicy),
   };
 }
 
