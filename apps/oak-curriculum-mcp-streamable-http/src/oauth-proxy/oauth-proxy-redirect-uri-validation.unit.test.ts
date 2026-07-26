@@ -50,15 +50,15 @@ describe('findRedirectUriRejection', () => {
       // The WHATWG parser case-folds scheme and host before we compare.
       'HTTP://EVIL.EXAMPLE/callback',
       // Hosts that a prefix or substring test would misread as loopback.
-      // These are the concrete holes an exact-equality check closes.
+      // These are the concrete holes an exact-equality check closes — an
+      // unanchored test on `127.` accepts the first two, and one on
+      // `localhost` accepts the third.
       'http://127.evil.example/callback',
       'http://127.0.0.1.evil.example/callback',
       'http://localhost.evil.example/callback',
       // Userinfo masking a non-loopback host: `hostname` is evil.example, so
       // reading `hostname` (never `host` or the raw string) rejects it.
       'http://localhost@evil.example/callback',
-      // Anchoring matters: a prefix test on `127.` would accept this.
-      'http://127.0.0.1.evil.example/callback',
       // 0.0.0.0 binds every interface and is not loopback.
       'http://0/callback',
     ])('rejects %s', (redirectUri) => {
