@@ -37,13 +37,17 @@ function trimToUndefined(value: string | undefined): string | undefined {
  * characters of sha256 of the build identifier — the git commit SHA when
  * present, else the deployment ID. On the commit-SHA path, same code keeps
  * the same URI across redeploys (the widget bundle is a pure function of
- * the commit — no environment reads exist in `widget/vite.config.ts`); the
- * deployment-ID fallback guarantees only per-build uniqueness
- * (`VERCEL_DEPLOYMENT_ID` is deliberately excluded from the turbo cache
- * key — `passThroughEnv`, not `env` — so same-code redeploys may reuse the
- * cached artefact rather than regenerating per deploy). Any code
- * change busts the host cache via a new URI. Hashing (rather than a raw
- * SHA prefix) keeps one uniform 8-hex shape across both identifier kinds.
+ * the commit — no environment reads exist in `widget/vite.config.ts`). The
+ * deployment-ID fallback (non-git deploys only) guarantees per-DEPLOYMENT
+ * uniqueness instead: each deploy mints a fresh ID, so on that path the
+ * URI changes with every deploy. Every identifier this resolver reads is
+ * part of the `sdk-codegen` turbo cache key (`env` — including
+ * `VERCEL_DEPLOYMENT_ID`), so a cached artefact is only ever restored for
+ * identical generator inputs; same-commit redeploys re-run codegen (the
+ * deployment ID differs) yet re-derive the identical suffix from the
+ * commit SHA. Any code change busts the host cache via a new URI. Hashing
+ * (rather than a raw SHA prefix) keeps one uniform 8-hex shape across
+ * both identifier kinds.
  *
  * Fails loud when a Vercel build carries no usable identifier: serving a
  * degraded constant URI would silently disable cache-busting, which the

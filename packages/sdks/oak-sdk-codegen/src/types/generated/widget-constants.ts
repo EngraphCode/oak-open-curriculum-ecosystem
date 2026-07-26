@@ -14,10 +14,13 @@
  *
  * **Cache-Busting Strategy**: The URI carries a deterministic per-build hash
  * derived at sdk-codegen time from the build identifier (git commit SHA on
- * deployed builds; the literal `local` in local dev). A code change yields a
+ * commit-identified deployed builds; the per-deployment ID on non-git
+ * deploys; the literal `local` in local dev). A code change yields a
  * new URI — the only cache-invalidation lever the MCP Apps standard gives a
- * server (hosts MAY cache `ui://` content with no invalidation mechanism) —
- * while same-code redeploys keep the same URI.
+ * server (hosts MAY cache `ui://` content with no invalidation mechanism).
+ * Same-code redeploys keep the same URI on the commit-SHA path; on the
+ * deployment-ID fallback the URI changes with every deploy, because each
+ * deployment mints a fresh ID.
  *
  * **Format**: `ui://widget/oak-curriculum-app-<hash>.html`
  * **Example**: `ui://widget/oak-curriculum-app-abc12345.html`
