@@ -19,6 +19,7 @@ recompute live state from claims/comms/git at pickup.
 | 2026-07-20 | Heron seeks Bluff | claude-code / fable-5 | `ef3eb0` | design-system lane (second-generation cast) |
 | 2026-07-20 | Foehn rides Flight | claude-code / fable-5 | `3e9afa` | lane successor; fold + Layer-3 distillations |
 | 2026-07-20 | Tornado tracks Apex | claude-code / fable-5 | `daace4` | Director — identity-table cure at #434 adjudication |
+| 2026-07-26 | Triton mends Void | claude-code / Opus 5 (1M) | `9f070b` | MCP-128 landing lane — design-system consumption in the MCP app |
 
 ## Board state at writing (recompute, do not trust)
 
@@ -187,3 +188,43 @@ rides Flight 3e9afa at the owner's wrap, record
 - **Team across the session**: Director Galago (Moment-2 08:01Z); Caracal→Heron,
   Salmon→Zenith→Eagle, Harrier→Moth→Goshawk, Herring (statusline), Heron→Foehn — every
   lane rotated by named succession under the owner's wrap.
+
+## Session update 2026-07-25/26 (Triton mends Void, 9f070b — additive; MCP-128 landing lane)
+
+First consumer of the design system from a Node/Express server. Recompute live state at
+pickup; the facts below were verified first-hand this session.
+
+- **Landed**: `SHA:a549d491d` on
+  `jimcresswell/mcp-128-public-landing-page-at-production-values-oak-family-design`, pushed
+  (remote ref verified equal to HEAD). No PR — the owner holds the copy, and the Director's
+  standing order routes submission-surface changes through that seat before landing.
+- **Doctrine**: [ADR-217](../../../../docs/architecture/architectural-decisions/217-server-rendered-html-in-the-mcp-app.md)
+  records what this settled — React static markup, the design system as app-served assets
+  under a closure-tested manifest, derived served-surface claims, flagged affordances whose
+  machinery ships with their control. The MCP-128 delivery plan is archived.
+- **The consumption shape a second server-side consumer should copy**: the design system is
+  a **devDependency**; `build-scripts/copy-oak-ds.ts` declares a manifest and copies the
+  runtime set into `public/oak-ds/` (gitignored), mirroring package-relative layout because
+  `url()` resolves relative to each stylesheet. Wired at three points — esbuild composition
+  root (ahead of its build-intent switch), the dev server, and Vitest `globalSetup` (NOT
+  `setupFiles`, which run per worker and race the destination). Turbo needs the design
+  system as an input to `#build` AND `#test`, or a design-system-only change replays a
+  stale green.
+- **Facts a successor must not re-derive**:
+  - The design system does **not** resolve under plain Node without the declared
+    devDependency, but a Vitest unit test passes regardless (Vite resolves workspace
+    packages). Prove the runtime path, never the unit test alone.
+  - `assets/logo-full-black.svg` and `assets/icons/header-underline.svg` are the page's
+    artwork — the design system's own. The copies under `.agent/reports/mcp-128-landing/`
+    duplicate them (the logo differs only in scale; identical 3.75 aspect ratio).
+  - `oak-theme.js` auto-applies `high-contrast` on an OS contrast preference. Shipping it
+    without the theme control strands a visitor on a theme the page never offered.
+  - The Google Fonts CSP allowance belongs to the **widget**
+    (`widget-html-content.ts` imports it), not to server-rendered pages.
+  - A captured HTML export is styling evidence. The MCP-128 artefact's `Resources (6)` /
+    `Tools (42)` are one stale render; the live filter serves 5 and 39.
+- **Open on this lane**: the owner's copy edits; then the port contract's reviewer passes
+  (design-system-expert, accessibility-expert across four themes, prose-expert); then the
+  PR, coordinated with the Director. Full pickup record:
+  `.agent/state/collaboration/handoffs/2026-07-25-triton-mcp-128-overnight-pause.md`.
+- **Claim `68088465` retained** across the pause with its handoff pointer set.

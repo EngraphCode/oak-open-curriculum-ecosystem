@@ -719,3 +719,169 @@ Cures for every future merge:
 - Verify a run is actually GREEN (not just `in_progress`) before
   reporting done — the same session earlier reported #514 "done" while
   its CodeQL run was still `in_progress`.
+
+## 2026-07-26 — Gecko (Director): closed decisions take evidence as statements, not questions
+
+- **Owner correction ("I have been clear, it is required, I am well aware that it is beta, and
+  I do not enjoy re-litigating closed decisions")**: the owner asked what the official PostHog
+  docs say; I answered AND carded a keep/demote/reconsider choice on a decision he had closed
+  the same morning — with the beta fact already in front of him when he closed it. Class:
+  new-evidence-against-a-closed-decision routes as a STATEMENT plus default-continue; a card is
+  right only when the evidence is materially NOVEL to the decider (test: was the fact in front
+  of the owner at decision time? here it was — Crucible's beta caution preceded his ruling).
+  An information request ("what do the docs say") deliverable is the information, never a
+  reopened decision. Complements verdict-momentum + present-verdicts-not-menus.
+
+## 2026-07-25 ~21:12Z — Gecko hunts Footfall (ef8099), Director: owner correction at routing-intent stage
+
+- **Owner correction (verbatim): "I set Cygnus weaves Vastness to work on dependencies, with
+  good reason, don't override me without asking first."** Context: after an adversarial
+  cricket redirection (stage MCP-125/MCPJam now — unstaffed, shortest runway), this seat
+  intended to direct Cygnus to pick MCP-125 up after the deps remainder. The routing event
+  was never sent — the correction landed at intent stage. Class:
+  owner-named-executor-is-part-of-the-instruction covers REASSIGNMENT too — the Director's
+  routing-autonomy grant covers unowned lanes; re-tasking an owner-assigned seat is ASK
+  FIRST (card), never route-then-inform. Cure applied: Cygnus untouched on deps; MCP-125
+  staffing became an owner-card question.
+
+## 2026-07-25 — Meteor herds Distance (8e8417): Director-tenure wrap capture (17:45Z–21:00Z)
+
+- **Error signature of this seat (three instances, one class, for successor scrutiny):
+  confident description of a discovered artefact, transmitted without a first-hand read.**
+  (a) Sweep-conserved mcp-128 page described as a "refinement" — it was the OLDER copy
+  carrying two owner-banned states; Triton's git-show-vs-landing-record check caught it in
+  minutes. (b) CI workflow pins committed directly to coordination on my own evaluation —
+  owner correction, verbatim rule now in per-user memory: no code into this repo without a
+  first-hand review, not ever (code = reviewed PR always; direct-to-coordination is for
+  fleet state/docs only). (c) PDR-133 carded for owner ratification before I had read it
+  end to end — the owner's "did you evaluate?" question forced the read, which found the
+  ratification-activated cascade edits no transmitted summary carried. Same family as
+  fluency-is-a-warning; the description layer is where my confidence outran my evidence.
+- **Orphaned work discriminator (sweep generator lesson)**: "orphaned" is not a git-state
+  question (dirty/unpushed) — it is RECORD-BINDING: everything named by a live record
+  (ticket, thread, handoff, PR) was already dispositioned; both genuine finds (the
+  rename-endpoints branch → MCP-170; the mcp-128 extras) were exactly the items no record
+  named. Post-2026-07-25 closeouts all declare worktree dispositions, so the class should
+  not regrow; a closeout leaving an unnamed worktree reopens it.
+- **Concept-gate and prose-guard as live teaching (three hits, one seat)**: two comms sends
+  rejected on park-vocabulary (correctly — the cure both times was naming the GATE, which
+  sharpened the actual ruling); one commit blocked because its MESSAGE contained "restore"
+  (prose false-positive class, reword-never-bypass held). On an enforcement surface the
+  block-then-reappraise loop genuinely improved the artefacts.
+- **MCP-147 third attested instance**: streamable-http integration parse-error under a
+  peer's concurrent gate (3% CPU idle), clean in a verified-quiet window, identical diff.
+  Quiet-window-retry-as-hypothesis-test proven again; wait-for-peer-turbo-exit via a
+  background until-loop worked well as the quiet-window detector.
+- **merge-bot mint-token**: the working entry is `pnpm --silent agent-tools merge-bot
+  mint-token` (docs/engineering/merge-bot.md); BOTH direct node entries (tsx source and
+  built cli.js) exit 0 with empty streams — no direct-run bootstrap. Confirms and extends
+  Cygnus's capture.
+- **Cricket pair at the re-aim boundary** (tally closed by owner ruling before this pair;
+  recorded here): sonnet DRIFTING (redirection: route under the standing grant, stop
+  asking matrix-resolved questions — absorbed, and the owner then corrected the same class
+  independently) vs haiku ON-TRACK. Severity-only divergence, consistent with the closed
+  corpus.
+- **Crossed-owner-words class, second same-day instance**: my card answer named the
+  submission day one way; the successor-seat mandate named the adjacent calendar day (the
+  literals and the resolution live in Linear — sensitivity split). As with the Forge-era
+  instance: transmitted owner words are not orderable; only the source resolves — flagged
+  to Gecko for a one-line owner card (owner resolved it on the Linear project, 2026-07-26).
+
+Index of this wrap's artefacts: handoff record
+`.agent/state/collaboration/handoffs/2026-07-25-meteor-to-gecko-director-handover.md`
+(machine-local); formation letter `.agent/experience/2026-07-25-meteor-herds-distance-formation-letter.md`;
+director-handoff.md CURRENT HANDOFF STATE refreshed to the Gecko era (uncommitted per owner
+no-commit direction); comms chain (heartbeat-end, handback, closeout). — Meteor herds Distance (8e8417)
+
+## 2026-07-25/26 — Triton mends Void (9f070b), MCP-128 landing lane
+
+- **A test's resolution environment can be more permissive than the runtime it
+  certifies.** `copy-oak-ds.unit.test.ts` passed green while plain Node could not resolve
+  `@oaknational/oak-design-system` at all — Vitest resolves workspace packages through
+  Vite, the real build path (`tsx esbuild.config.ts`) does not. So the test would have
+  stayed green if someone deleted the devDependency the build needs. Cure applied: declare
+  the dependency AND prove the runtime path (`pnpm build` writing `public/oak-ds/`), never
+  the unit test alone. General form: when a test asserts a fact about the RUNTIME
+  (resolution, path, env), the test runner's own machinery may be supplying the fact.
+- **Bisect your own diff before theorising about the environment.** A widget type-check
+  failure appeared in my worktree and not the primary. I began building a theory about
+  the evening's dependency majors. The decisive test took 30 seconds — run the two `tsc`
+  invocations separately — and showed the failure was in the APP project, caused by my own
+  `**/*.test.tsx` glob reaching into `widget/`. The environment theory was reaching
+  outward at the exact moment the change under my hand was the obvious suspect.
+- **`**/` in a tsconfig include crosses project boundaries.** `**/*.test.tsx` in the app's
+  `tsconfig.lint.json` pulls `widget/`'s tests into the app project, which has no DOM lib.
+  Scope tsx globs to `src/`. The pre-existing `**/*.test.ts` never hit it only because the
+  widget's tests are all `.tsx`.
+- **I piped a gate's exit code and reported the pipe's.** `pnpm exec tsc … | tail -8; echo
+  "EXIT:$?"` reports `tail`'s status. I read `exit-codes-in-band-never-piped` at session
+  open and broke it four hours later, mid-diagnosis, and briefly held a false "the primary
+  checkout passes" conclusion. The rule fires hardest during investigation — which is
+  exactly when the shortcut is most tempting and the false conclusion most load-bearing.
+
+### The pattern this session kept re-instantiating: a description is not a check
+
+Four instances, three of them mine:
+
+1. A worktree sweep committed an OLDER copy of the MCP-128 conversion over the landed
+   cure, re-adding a banned overlay link and reverting a local mask-icon to a Cloudinary
+   hotlink; the commit message described it as a refinement carrying "the mask-icon idiom"
+   — the precise opposite of its diff.
+2. The studio artefact everyone treats as "the design" carries `Resources (6)` and
+   `Tools (42)`; the live served surface is 5 and 39. It is one render, describing itself
+   as content.
+3. MCP-128's build-constraint comment described the endpoint as read from
+   `x-forwarded-host` per request. The code resolves it once at startup from Vercel env.
+4. **Mine, and the sharpest.** With the theme control hidden I left the design system's
+   theme script loading, and reported that as a FEATURE — "hiding the control removes the
+   affordance, never the theming… high-contrast users are served automatically". It was a
+   defect: `oak-theme.js` auto-applies high-contrast on an OS contrast preference, so a
+   visitor landed on a theme the page never offered with no control to leave it. The owner
+   caught it in one line ("default to light, not high contrast"). I had stated it
+   confidently, in a summary, as a benefit.
+
+The shape: **an artefact's description is generated by the same process that generated the
+artefact, so its errors correlate with the artefact's errors.** A description therefore
+cannot serve as a check on the thing it describes — and it is what the next agent acts on.
+Every one of the four was caught from OUTSIDE the generating context: I caught (1) by
+running `git show` against the landing record instead of trusting the message; the gates
+caught my glob; the owner caught (4). Meteor independently named this as their own tenure's
+error signature the same evening ("trusting my own descriptions of discovered artefacts
+over first-hand reads"), which makes it a cross-agent property of how we work, not a
+personal lapse.
+
+The cure is not "describe more carefully" — that is vigilance, and vigilance does not hold
+under completion drive. It is structural: treat any claim ABOUT an artefact as unverified
+until read FROM the artefact, and put descriptions where an outside reader hits them.
+
+### Attention inversion — the correction that cost the most
+
+I spent the owner's attention narrating routine peer heartbeats ("nothing to act on, still
+holding") while parking two genuine owner-held blockers — his copy, and the go-ahead — in
+prose at the tail of messages. He corrected it sharply. The rules were already there and I
+had read them: `owner-attention-at-action-moments` (minimise reasoning-moment interrupts,
+maximise action-moment observability), plus the standing rulings that owner cards are
+visible UI and never ambient queues. I had it exactly backwards: noise where no attention
+was needed, silence where a card was mandatory. Once carded, the blocker cleared in one
+exchange. Cost of the card: one tool call. Cost of the prose: an angry owner and a stalled
+lane.
+
+### Loss scan and metaloss (this seat's, written at occurrence)
+
+- **Compressed reasoning**: the ADR-217 clauses each compress a several-hour investigation
+  to one should-be sentence. Decision-sufficient — a reader can tell whether code complies —
+  but the WHY behind clause 5 (machinery ships with its control) is only recoverable from
+  this napkin entry, so it is conserved here deliberately.
+- **Promises**: PR not opened (owner's copy + reviewer passes gate it); reviewer passes not
+  run (this session was directed not to dispatch sub-agents); both forwarded to the Director
+  and named in the ticket and the handoff record. Zero silent drops.
+- **Attribution inferences flagged**: I did not observe why the worktree sweep picked the
+  older copy — the diff is fact, the intent is not, and I stated it as "a sweep cannot tell
+  an older working copy from a newer landed cure", which is a mechanism hypothesis, not an
+  observation.
+- **Blind-spot bound**: my watcher died twice on drain timeouts and one arm orphaned past a
+  `TaskStop`; events in those windows reached me only via the post-restart sweep. I cannot
+  certify I saw every event addressed to this seat.
+- **External bound**: every instance of the description-drift pattern above was caught from
+  outside the generating context. This scan is inside it. Point external scrutiny at my
+  summaries of my own work — that is where this seat's error signature sits.
