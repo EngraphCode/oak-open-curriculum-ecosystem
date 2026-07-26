@@ -268,21 +268,22 @@ A community member published a [working solution using this exact pattern with M
 
 ## Implementation
 
-| File                                                     | Role                                                                                      |
-| -------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| `src/oauth-proxy/oauth-proxy-upstream.ts`                | Pure functions: URL derivation, redirect construction, metadata rewriting, Zod type guard |
-| `src/oauth-proxy/oauth-proxy-routes.ts`                  | Express router wiring and async error wrapping                                            |
-| `src/oauth-proxy/oauth-proxy-handlers.ts`                | Route handlers (register, authorize, token)                                               |
-| `src/oauth-proxy/oauth-proxy-response.ts`                | Upstream response reading and error-shape normalisation                                   |
-| `src/oauth-proxy/oauth-proxy-redirect-uri-validation.ts` | Advertised-AS `redirect_uris` refusal at registration (see Rationale)                     |
-| `src/oauth-proxy/oauth-proxy-upstream.unit.test.ts`      | 22 unit tests                                                                             |
-| `src/oauth-proxy/oauth-proxy-routes.integration.test.ts` | 10 integration tests (fake upstream via DI `fetch`)                                       |
-| `src/oauth-proxy/index.ts`                               | Barrel export                                                                             |
-| `src/auth-routes.ts`                                     | PRM + AS metadata endpoints; accepts `upstreamMetadata` via DI                            |
-| `src/conditional-clerk-middleware.ts`                    | Proxy paths in `CLERK_SKIP_PATHS`                                                         |
-| `src/app/oauth-and-caching-setup.ts`                     | Wires metadata + proxy into async bootstrap                                               |
-| `src/application.ts`                                     | `createApp` is async; `upstreamMetadata` injectable via `CreateAppOptions`                |
-| `e2e-tests/auth-enforcement.e2e.test.ts`                 | 16 E2E tests asserting self-origin metadata                                               |
+| File                                                               | Role                                                                                                           |
+| ------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------- |
+| `src/oauth-proxy/oauth-proxy-upstream.ts`                          | Pure functions: URL derivation, redirect construction, metadata rewriting, Zod type guard                      |
+| `src/oauth-proxy/oauth-proxy-routes.ts`                            | Express router wiring and async error wrapping                                                                 |
+| `src/oauth-proxy/oauth-proxy-handlers.ts`                          | Route handlers (register, authorize, token)                                                                    |
+| `src/oauth-proxy/oauth-proxy-response.ts`                          | Upstream response reading and error-shape normalisation                                                        |
+| `src/oauth-proxy/oauth-proxy-redirect-uri-validation.ts`           | Advertised-AS `redirect_uris` refusal at registration (see Rationale)                                          |
+| `src/oauth-proxy/oauth-proxy-upstream.unit.test.ts`                | Unit tests for the pure upstream functions                                                                     |
+| `src/oauth-proxy/oauth-proxy-redirect-uri-validation.unit.test.ts` | Unit tests pinning the registration refusal's exact scope — what is refused AND what is deliberately forwarded |
+| `src/oauth-proxy/oauth-proxy-routes.integration.test.ts`           | Integration tests over the router, with the upstream faked via DI `fetch`                                      |
+| `src/oauth-proxy/index.ts`                                         | Barrel export                                                                                                  |
+| `src/auth-routes.ts`                                               | PRM + AS metadata endpoints; accepts `upstreamMetadata` via DI                                                 |
+| `src/conditional-clerk-middleware.ts`                              | Proxy paths in `CLERK_SKIP_PATHS`                                                                              |
+| `src/app/oauth-and-caching-setup.ts`                               | Wires metadata + proxy into async bootstrap                                                                    |
+| `src/application.ts`                                               | `createApp` is async; `upstreamMetadata` injectable via `CreateAppOptions`                                     |
+| `e2e-tests/auth-enforcement.e2e.test.ts`                           | End-to-end assertions that the served metadata carries self-origin                                             |
 
 All files within `apps/oak-curriculum-mcp-streamable-http/`.
 
