@@ -399,6 +399,52 @@ describe('round-3 review cures — vendor-dispatch identity and warning preserva
   });
 });
 
+describe('round-5 review cures — an empty group cannot hide behind a populated one', () => {
+  it('a group that emitted zero cases fails at the parse boundary, even beside a populated group', () => {
+    // The realistic path: an in-range mcpjam adds a group that fails during
+    // setup and so emits no cases. Comparison flattens groups into a case map
+    // and never reads `group.passed`, so the empty group contributes nothing
+    // and the run would verdict `pass` — while the SAME group emitting even
+    // one case would fire `novel-check`. The drift tripwire must not have a
+    // hole exactly where the vendor fails hardest.
+    const withEmptyFailedGroup = JSON.stringify({
+      schemaVersion: 1,
+      kind: 'protocol-conformance',
+      name: 'protocol',
+      passed: false,
+      durationMs: 2,
+      groups: [
+        {
+          id: 'populated',
+          title: 'populated',
+          passed: true,
+          durationMs: 1,
+          cases: [
+            { id: 'check_one', title: 'one', category: 'posture', status: 'passed', durationMs: 1 },
+          ],
+        },
+        { id: 'setup-failed', title: 'setup', passed: false, durationMs: 1, cases: [] },
+      ],
+    });
+    const io = fakeIo({
+      runResults: { protocol: ok({ exitCode: 1, stdout: withEmptyFailedGroup, stderr: '' }) },
+    });
+
+    const { report, exitCode } = runMcpConformance(io, {
+      target: TARGET,
+      operation: 'verdict' as const,
+      mode: 'unattended' as const,
+      suites: ['protocol'],
+      baselines: UNATTENDED_BASELINES,
+    });
+
+    expect(exitCode).toBe(1);
+    expect(reasonsOf(report.suites.find((s) => s.suite === 'protocol'))).toContain(
+      'every json-summary group must contain at least one check case',
+    );
+  });
+});
+
 describe('round-4 review cures — vacuous-plan and whitespace failure fragments', () => {
   it('an empty suite plan fails rather than passing vacuously', () => {
     // `every` over an empty array is true: a run that launched nothing would

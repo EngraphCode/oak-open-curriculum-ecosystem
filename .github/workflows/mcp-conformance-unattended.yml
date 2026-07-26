@@ -81,12 +81,26 @@ jobs:
           fi
           node --input-type=module -e '
             import { readFileSync } from "node:fs";
+            // mcpjamStderr is live-network-derived UNTRUSTED text, and GitHub
+            // parses %, CR and LF inside workflow commands. A bare CR
+            // TERMINATES this command and lets whatever follows be read as a
+            // fresh one — command injection, not merely a mangled message.
+            // Percent must be encoded FIRST or the encodings below are
+            // themselves double-encoded. Mirrors escapeAnnotationMessage /
+            // escapeAnnotationProperty in
+            // agent-tools/src/ci/ci-turbo-report-formatting.ts; deliberately
+            // not imported, so this step never couples to dist layout.
+            const escapeData = (value) =>
+              value.replaceAll("%", "%25").replaceAll("\r", "%0D").replaceAll("\n", "%0A");
+            const escapeProperty = (value) =>
+              escapeData(value).replaceAll(":", "%3A").replaceAll(",", "%2C");
             const report = JSON.parse(readFileSync(process.argv[1], "utf8"));
             for (const suite of report.suites ?? []) {
               const stderr = suite.mcpjamStderr;
               if (typeof stderr === "string" && stderr !== "") {
+                const title = escapeProperty(String(suite.suite));
                 console.log(
-                  `::warning title=mcpjam vendor warning (${suite.suite})::${stderr.replaceAll("\n", " ")}`,
+                  `::warning title=mcpjam vendor warning (${title})::${escapeData(stderr)}`,
                 );
               }
             }

@@ -78,10 +78,15 @@ export const mcpjamReportSchema = z
     groups: z.array(mcpjamGroupSchema).min(1),
   })
   .strict()
-  // A report with zero cases across every group has nothing to verdict; an
-  // empty run paired with an empty baseline would otherwise pass vacuously.
-  .refine((report) => report.groups.some((group) => group.cases.length > 0), {
-    message: 'a json-summary report must contain at least one check case',
+  // EVERY group must carry a case, not merely some group. Comparison flattens
+  // groups into an id-keyed case map and never reads `group.passed`, so a
+  // group that failed at setup and emitted zero cases would vanish from the
+  // verdict entirely — while the SAME group emitting even one case would fire
+  // `novel-check` loudly. That asymmetry puts the hole in the drift tripwire
+  // exactly where the vendor fails hardest, so an empty group fails here at
+  // the parse boundary instead. Subsumes the zero-cases-everywhere case.
+  .refine((report) => report.groups.every((group) => group.cases.length > 0), {
+    message: 'every json-summary group must contain at least one check case',
   });
 
 export type McpjamCase = z.infer<typeof mcpjamCaseSchema>;
