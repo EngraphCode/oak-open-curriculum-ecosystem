@@ -2319,7 +2319,7 @@ Example: keyStage&#x3D;ks3, subject&#x3D;maths, unit&#x3D;perimeter-and-area.`,
       {
         name: "limit",
         type: "Query",
-        schema: z.number().lte(100).optional().default(10),
+        schema: z.number().lte(300).optional().default(20),
       },
     ],
     response: KeyStageSubjectLessonsResponseSchema,
@@ -2385,7 +2385,7 @@ Not for: a single lesson&#x27;s quiz (GET /lessons/{lesson}/quiz); questions acr
       {
         name: "limit",
         type: "Query",
-        schema: z.number().lte(100).optional().default(10),
+        schema: z.number().lte(300).optional().default(20),
       },
       {
         name: "filter",
@@ -2797,7 +2797,7 @@ Not for: assets across a whole sequence (GET /sequences/{sequence}/assets); asse
       {
         name: "limit",
         type: "Query",
-        schema: z.number().lte(100).optional().default(10),
+        schema: z.number().lte(300).optional().default(20),
       },
       {
         name: "type",
@@ -2857,7 +2857,7 @@ Not for: questions in a single lesson (GET /lessons/{lesson}/quiz); questions ac
       {
         name: "limit",
         type: "Query",
-        schema: z.number().lte(100).optional().default(10),
+        schema: z.number().lte(300).optional().default(20),
       },
       {
         name: "filter",
@@ -3162,7 +3162,7 @@ Not for: questions in a single programme (GET /programmes/{programme}/questions)
       {
         name: "limit",
         type: "Query",
-        schema: z.number().lte(100).optional().default(10),
+        schema: z.number().lte(300).optional().default(20),
       },
       {
         name: "filter",

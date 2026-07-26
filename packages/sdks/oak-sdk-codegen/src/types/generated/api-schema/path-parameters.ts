@@ -1107,11 +1107,11 @@ export const PATH_OPERATIONS = [
         "in": "query",
         "name": "limit",
         "schema": {
-          "default": 10,
+          "default": 20,
           "type": "number",
-          "maximum": 100,
-          "description": "Limit the number of lessons, e.g. return a maximum of 100 lessons",
-          "example": 10
+          "maximum": 300,
+          "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons",
+          "example": 20
         }
       },
       {
@@ -1682,11 +1682,11 @@ export const PATH_OPERATIONS = [
         "in": "query",
         "name": "limit",
         "schema": {
-          "default": 10,
+          "default": 20,
           "description": "Offset applied to lessons within each unit (not to the unit list).",
           "type": "number",
-          "maximum": 100,
-          "example": 10
+          "maximum": 300,
+          "example": 20
         }
       }
     ],
@@ -2317,11 +2317,11 @@ export const PATH_OPERATIONS = [
         "in": "query",
         "name": "limit",
         "schema": {
-          "default": 10,
+          "default": 20,
           "type": "number",
-          "maximum": 100,
-          "description": "Limit the number of lessons, e.g. return a maximum of 100 lessons",
-          "example": 10
+          "maximum": 300,
+          "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons",
+          "example": 20
         }
       },
       {
@@ -2447,11 +2447,11 @@ export const PATH_OPERATIONS = [
         "in": "query",
         "name": "limit",
         "schema": {
-          "default": 10,
+          "default": 20,
           "type": "number",
-          "maximum": 100,
-          "description": "Limit the number of lessons, e.g. return a maximum of 100 lessons",
-          "example": 10
+          "maximum": 300,
+          "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons",
+          "example": 20
         }
       },
       {
@@ -2541,11 +2541,11 @@ export const PATH_OPERATIONS = [
         "in": "query",
         "name": "limit",
         "schema": {
-          "default": 10,
+          "default": 20,
           "type": "number",
-          "maximum": 100,
-          "description": "Limit the number of lessons, e.g. return a maximum of 100 lessons",
-          "example": 10
+          "maximum": 300,
+          "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons",
+          "example": 20
         }
       },
       {
