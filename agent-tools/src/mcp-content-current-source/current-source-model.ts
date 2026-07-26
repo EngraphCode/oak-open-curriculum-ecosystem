@@ -2,8 +2,8 @@
 
 export type WorkspaceScope = 'in' | 'out-upstream-api';
 export type ContentAuthority = 'workspace' | 'upstream-api';
-export type RegistrationState = 'live' | 'dormant';
-export type RegistrationPrimitive = 'initialize' | 'tool' | 'resource' | 'prompt';
+type RegistrationState = 'live' | 'dormant';
+type RegistrationPrimitive = 'initialize' | 'tool' | 'resource' | 'prompt';
 
 export interface BaselineAuditRow {
   readonly id: string;

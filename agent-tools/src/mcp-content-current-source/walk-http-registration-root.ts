@@ -8,6 +8,7 @@
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { z } from 'zod';
+import { resolvePnpm } from '../spawn/pnpm-path.js';
 import type { RegistrationEvidence, RegistrationRoot } from './current-source-model.js';
 
 const execFileAsync = promisify(execFile);
@@ -60,10 +61,23 @@ export interface HttpRegistrationWalk {
   readonly guidanceRegistrationsBySource: Readonly<Record<string, RegistrationEvidence>>;
 }
 
+function pnpmSpawnEnvironment(): NodeJS.ProcessEnv {
+  const environment = { ...process.env };
+  delete environment.COREPACK_ROOT;
+  delete environment.COREPACK_ENABLE_AUTO_PIN;
+  delete environment.COREPACK_ENABLE_DOWNLOAD_PROMPT;
+  return environment;
+}
+
 /** Runs and validates the app-owned in-memory MCP protocol proof. */
 export async function walkHttpRegistrationRoot(repoRoot: string): Promise<HttpRegistrationWalk> {
-  const { stdout } = await execFileAsync('pnpm', ['exec', 'tsx', proofScript], {
+  const pnpm = resolvePnpm(process.env);
+  if (!pnpm.ok) {
+    throw pnpm.error;
+  }
+  const { stdout } = await execFileAsync(pnpm.value, ['exec', 'tsx', proofScript], {
     cwd: repoRoot,
+    env: pnpmSpawnEnvironment(),
     maxBuffer: 16 * 1024 * 1024,
   });
   return httpRegistrationWalkSchema.parse(JSON.parse(stdout));

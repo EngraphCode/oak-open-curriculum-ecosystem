@@ -14,6 +14,7 @@ import type {
   CurrentAuditDisposition,
   RegistrationEvidence,
 } from './current-source-model.js';
+import { requireGuidanceRegistrationParity } from './guidance-registration-parity.js';
 import { GUIDANCE_SOURCE_ENTRIES, PROMPT_ERA_LINEAGE_ENTRIES } from './prompt-era-lineage.js';
 import { walkHttpRegistrationRoot } from './walk-http-registration-root.js';
 
@@ -115,11 +116,7 @@ function requireCurrentSourceCoverage(
     guidanceSourcePaths,
     guidanceSourcePaths.filter((source) => classifiedSources.has(source)),
   );
-  requireSameMembers(
-    'Current guidance replacements and app registration evidence',
-    guidanceSourcePaths,
-    guidanceSourcePaths.filter((source) => registrationsBySource[source] !== undefined),
-  );
+  requireGuidanceRegistrationParity(GUIDANCE_SOURCE_ENTRIES, registrationsBySource);
 }
 
 async function buildDispositions(

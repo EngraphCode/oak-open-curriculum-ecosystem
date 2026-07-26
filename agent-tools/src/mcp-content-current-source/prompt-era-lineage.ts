@@ -9,7 +9,7 @@
 const GUIDANCE_ROOT = 'packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources' as const;
 const LANDING_ROOT = 'apps/oak-curriculum-mcp-streamable-http/src/landing-page' as const;
 
-export const GUIDANCE_SOURCE_BY_WORKFLOW = {
+const GUIDANCE_SOURCE_BY_WORKFLOW = {
   'find-lessons': `${GUIDANCE_ROOT}/find-lessons.ts`,
   'explore-curriculum': `${GUIDANCE_ROOT}/explore-curriculum.ts`,
   'learning-progression': `${GUIDANCE_ROOT}/learning-progression.ts`,

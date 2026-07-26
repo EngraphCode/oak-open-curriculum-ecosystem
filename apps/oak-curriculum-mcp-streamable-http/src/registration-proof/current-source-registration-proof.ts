@@ -31,7 +31,7 @@ const alphabetical = (left: string, right: string) => left.localeCompare(right);
 const runtimeConfig: RuntimeConfig = {
   env: {
     OAK_API_KEY: 'current-source-validator-key',
-    ELASTICSEARCH_URL: 'http://current-source-validator.invalid',
+    ELASTICSEARCH_URL: 'https://current-source-validator.invalid',
     ELASTICSEARCH_API_KEY: 'current-source-validator-key',
     SENTRY_MODE: 'off',
   },

@@ -105,6 +105,7 @@ const config: KnipConfig = {
         'src/practice-fitness/validate-practice-fitness.ts',
         'src/ci/ci-schema-drift-check.ts',
         'src/ci/ci-turbo-report.ts',
+        'src/mcp-content-current-source/validate-current-source.ts',
         // PDR-131 throughput register CLI: invoked via the
         // `agent-tools:pr-throughput` package script (`pnpm exec tsx`), not
         // imported.
@@ -142,6 +143,7 @@ const config: KnipConfig = {
         'src/index.ts',
         'src/application.ts',
         'src/server.ts',
+        'src/registration-proof/current-source-registration-proof.ts',
         'build-scripts/**/*.ts',
         'operations/**/*.ts',
         'scripts/**/*.ts',
