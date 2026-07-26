@@ -69,18 +69,6 @@ const NOT_AN_ARRAY: RedirectUriRejection = {
   reason: 'redirect_uris_not_an_array',
 };
 
-const NOT_A_STRING: RedirectUriRejection = {
-  error: 'invalid_redirect_uri',
-  description: 'every redirect_uris entry must be a string',
-  reason: 'entry_not_a_string',
-};
-
-const UNPARSEABLE: RedirectUriRejection = {
-  error: 'invalid_redirect_uri',
-  description: 'every redirect_uris entry must be an absolute URI',
-  reason: 'entry_unparseable',
-};
-
 const HTTP_NOT_LOOPBACK: RedirectUriRejection = {
   error: 'invalid_redirect_uri',
   description: 'an http redirect_uri is permitted only for loopback addresses',
@@ -109,15 +97,26 @@ function rejectionForParsedUri(parsed: URL): RedirectUriRejection | undefined {
   return undefined;
 }
 
+/**
+ * A non-string entry, or one the WHATWG parser cannot resolve, CANNOT BE the
+ * value the cited clause obliges us to refuse: a non-loopback plain-`http`
+ * redirect URI is necessarily a parseable string. Refusing them would be a
+ * refusal of our own devising, which ADR-115 forbids, so they forward for the
+ * upstream authorisation server to accept or reject under its own policy.
+ *
+ * Dropping them cannot weaken the obligation, because entries are examined
+ * individually: `["not a url", "http://evil.example/cb"]` is still refused on
+ * the second entry.
+ */
 function rejectionForEntry(entry: unknown): RedirectUriRejection | undefined {
   if (typeof entry !== 'string') {
-    return NOT_A_STRING;
+    return undefined;
   }
   // `URL.parse` returns null rather than throwing, which keeps this function
   // total without a caught-error branch.
   const parsed = URL.parse(entry);
   if (parsed === null) {
-    return UNPARSEABLE;
+    return undefined;
   }
   return rejectionForParsedUri(parsed);
 }
@@ -128,9 +127,21 @@ function rejectionForEntry(entry: unknown): RedirectUriRejection | undefined {
  *
  * An absent, empty, or non-object body passes through: it cannot produce a bad
  * redirect, and whether a client may register without redirect URIs is the
- * upstream authorization server's policy. A `redirect_uris` value that is
- * present but not iterable is REJECTED rather than skipped — skipping it would
- * let `{"redirect_uris": "http://evil.example/cb"}` bypass validation entirely.
+ * upstream authorization server's policy.
+ *
+ * A `redirect_uris` value that is present but NOT AN ARRAY is refused, and
+ * that refusal is deliberately of a different kind from the one below. It is
+ * not an independent judgement about the value; it is the enforcement-integrity
+ * guard for the cited obligation. If the field is not an array there are no
+ * entries to examine, so forwarding would let
+ * `{"redirect_uris": "http://evil.example/cb"}` evade the obligation entirely
+ * by changing the container rather than the value.
+ *
+ * Whether that evasion is REAL depends on whether the upstream coerces a bare
+ * string into a single-entry array, which is UNVERIFIED. Under ADR-115's own
+ * demonstrated-upstream-gap test that evidence is owed, and MCP-200 owns it —
+ * establish it or drop this branch. Recorded rather than assumed, because the
+ * neighbouring refusals were removed for exactly this missing evidence.
  */
 export function findRedirectUriRejection(body: unknown): RedirectUriRejection | undefined {
   if (typeof body !== 'object' || body === null || !('redirect_uris' in body)) {

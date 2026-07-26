@@ -109,29 +109,43 @@ describe('findRedirectUriRejection', () => {
     });
   });
 
-  describe('unclassifiable values fail closed', () => {
-    it('rejects a redirect_uris value that is not an array', () => {
-      // Iterating only arrays would let a bare string skip validation
-      // entirely and reach an upstream that does not validate it.
+  describe('malformed entries forward — they cannot carry the refused value', () => {
+    // A non-loopback plain-http redirect URI is necessarily a PARSEABLE
+    // STRING, so neither a non-string entry nor an unparseable one can be
+    // what the cited clause obliges us to refuse. Refusing them anyway would
+    // be a refusal of our own devising, which ADR-115 forbids.
+    it('forwards an array entry that is not a string', () => {
+      expect(findRedirectUriRejection({ redirect_uris: [42] })).toBeUndefined();
+    });
+
+    it.each(['not a url', '', '//localhost/cb', 'http://127.0.0.1:65536/cb'])(
+      'forwards the unparseable value %s',
+      (redirectUri) => {
+        expect(findRedirectUriRejection({ redirect_uris: [redirectUri] })).toBeUndefined();
+      },
+    );
+
+    it('still refuses a conformant-shaped entry sitting beside a malformed one', () => {
+      // The entries are examined individually, so forwarding the malformed
+      // ones cannot weaken the obligation. This is the test that makes the
+      // removal safe rather than merely smaller.
+      expect(
+        findRedirectUriRejection({ redirect_uris: [42, 'not a url', 'http://evil.example/cb'] }),
+      ).toMatchObject({ error: 'invalid_redirect_uri' });
+    });
+  });
+
+  describe('a non-array redirect_uris is refused as an enforcement-integrity guard', () => {
+    it('refuses a bare-string redirect_uris', () => {
+      // Not a judgement about the value: with no array there are no entries
+      // to examine, so forwarding would let the obligation be evaded by
+      // changing the CONTAINER rather than the value. Whether that evasion is
+      // real depends on upstream string-coercion, which is unverified —
+      // MCP-200 owns establishing it or dropping this branch.
       expect(findRedirectUriRejection({ redirect_uris: 'http://evil.example/cb' })).toMatchObject({
         error: 'invalid_client_metadata',
       });
     });
-
-    it('rejects an array entry that is not a string', () => {
-      expect(findRedirectUriRejection({ redirect_uris: [42] })).toMatchObject({
-        error: 'invalid_redirect_uri',
-      });
-    });
-
-    it.each(['not a url', '', '//localhost/cb', 'http://127.0.0.1:65536/cb'])(
-      'rejects the unparseable value %s',
-      (redirectUri) => {
-        expect(findRedirectUriRejection({ redirect_uris: [redirectUri] })).toMatchObject({
-          error: 'invalid_redirect_uri',
-        });
-      },
-    );
   });
 
   describe('obfuscated loopback forms are canonicalised by the parser', () => {
