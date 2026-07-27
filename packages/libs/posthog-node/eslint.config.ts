@@ -41,7 +41,7 @@ const config = defineConfigArray(
     },
   },
   {
-    files: ['eslint.config.ts', 'tsup.config.ts'],
+    files: ['eslint.config.ts', 'vitest.config.ts', 'tsup.config.ts'],
     languageOptions: {
       parserOptions: {
         project: './tsconfig.json',
