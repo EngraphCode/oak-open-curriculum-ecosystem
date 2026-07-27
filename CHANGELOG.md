@@ -1,3 +1,10 @@
+# [1.92.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.91.0...v1.92.0) (2026-07-27)
+
+
+### Features
+
+* **sdk-codegen:** declare the 13 new upstream bulk fields, schema-transcribed (MCP-226) ([2da6fbc](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2da6fbc548225525337662f67e05d01518e0376a))
+
 # [1.91.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.90.0...v1.91.0) (2026-07-27)
 
 
