@@ -1,3 +1,10 @@
+## [1.97.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.97.1...v1.97.2) (2026-07-27)
+
+
+### Bug Fixes
+
+* **hook-policy:** extend the stash-park guard to interposed and backtick shapes (MCP-254) ([9d5cdc8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9d5cdc8f192ed6da1fe029ce461295ec5c7e3b0d))
+
 ## [1.97.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.97.0...v1.97.1) (2026-07-27)
 
 
