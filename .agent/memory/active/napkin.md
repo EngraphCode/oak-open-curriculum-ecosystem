@@ -1812,3 +1812,38 @@ exit-codes-in-band rule biting in a new place: the pipeline was the pipe, not a 
   pre-push gate chain — that chain runs inside `git push`, and ours is long. Signature is a
   bare 403 on the WRITE while reads still succeed. Correct response is re-mint and retry,
   never a permissions investigation. The one-shell rule bounds interleaving, not duration.
+
+## 2026-07-27 ~19:55Z — I reported permanent records as "committed" while they were UNTRACKED (Swallow guards Tailwind)
+
+Worked instance, caught by the Director, not by me. I wrote two permanent records into the
+primary checkout (`mcp-63-stack-successor-handoff-…-evening.md`,
+`mcp-235-boundary-falsification-…md`) while working the lane from WORKTREES, then told both
+the Director and the owner they were "committed to the repo". They were on disk only. The
+Director took custody and pushed them at 03eb9d9ef.
+
+Why it fooled me: every OTHER artefact that hour really was committed and pushed — three
+slices, each through the full gate chain — so "committed" was true of everything I had been
+staging by explicit pathspec, and the two files I never staged inherited that feeling. A
+green `git commit` on a different batch says nothing about a file you did not add.
+
+Cure, mechanical: after writing ANY permanent record, run
+`git status --short <path>` and read it. Untracked is a STATE, not a warning — an empty
+status line is the only proof. Never let a report's existence on disk stand in for custody,
+especially when the lane's commits are happening in a different worktree from the file.
+
+This is the same class as the orphan-risk review's finding earlier the same day
+(committed-but-unlanded work on a superseded branch): the artefact feels safe because
+neighbouring work is safe. Both are custody illusions with the same cure — verify the
+specific object, never the batch it sat near.
+
+- Third instance in one session of the SAME class — a tool artefact read as a fact about the
+  world (Swallow's duplicate closeout, self-caught): they piped a `comms send` through
+  `grep -oE "wrote comms event"` to confirm delivery, but that command returns JSON, so the
+  grep matched nothing, the empty output read as failure, and they re-sent an already-delivered
+  event. Companions from the same hours: my `head -12` becoming a coverage denominator, my
+  wrap-insensitive grep manufacturing a content-loss finding, and the piped `$?` reporting
+  tail's status. **The general cure: a confirmation filter that does not match is
+  indistinguishable from a failure — verify against the STATE (does the event/ref/file exist?),
+  never against a filter's output.** Absence of evidence from a probe you wrote is evidence
+  about the probe first. Candidate for graduation to a rule; three instances in one session
+  is the threshold this estate uses.
