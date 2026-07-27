@@ -1748,3 +1748,36 @@ for a third case before graduating.
   page rather than cherry-picking, so the code transferred and the ADR passenger did not.
   Re-authoring supersession silently drops non-code passengers; check `origin/main..branch`
   before closing any ticket whose branch was superseded rather than merged.
+
+## 2026-07-27 ~18:20Z — Settle reads must cover STATUSES, not just check-runs (Swallow guards Tailwind, MCP-269)
+
+Worked instance, caught before it bit: PR #596's watch polled `/commits/{sha}/check-runs`
+only and reported "ALL CHECKS GREEN (16)". The main-branch ruleset requires FOUR contexts —
+CodeQL, SonarCloud Code Analysis, run-quality-gates, and **Vercel** — and Vercel is a commit
+STATUS, not a check run. A check-runs-only watch is structurally blind to it: it would read
+green with a required context still pending or failed. Cure: derive the required list from
+`/rules/branches/main` (the rulesets API — never generic practice), then read each required
+context BY NAME across both `/check-runs` AND `/commits/{sha}/status`.
+
+Second lesson from the same lane — scanner findings on TEST code are still findings worth
+curing at the source, not dismissing. CodeQL raised 5 high alerts entirely inside my new
+tests; each cure made the test STRONGER (a `new RegExp` with unescaped dots and no closing
+anchor became a `startsWith`; the canonical cases stopped passing a populated allow-list,
+which now proves the canonical path resolves for a Host the server would otherwise refuse).
+The product code needed no change — `hostPatternToRegex` already anchors both ends and
+escapes dots — but "the product is fine" was NOT a reason to leave the weak assertions.
+
+Third: `gh api .../merge -f sha=<short>` 422s — the merge endpoint requires the full 40-char
+SHA. Use `git rev-parse HEAD`, never the abbreviated form used elsewhere in the lane.
+
+- Settle-read blind spot (Swallow's catch, adopted as my procedure): **Vercel is a COMMIT
+  STATUS, not a check run.** A check-runs-only settle read shows green while a REQUIRED context
+  is still pending or failing. Read `/commits/{sha}/status` alongside `/check-runs`, or derive
+  the required list from `/rules/branches/main` and check each BY NAME. My bot merges pin the
+  sha and let the server adjudicate (so nothing slipped), but the READS were exposed — the
+  read-verdicts-by-name rule needs the status/check-run distinction spelled out in it.
+- Wrap-insensitive probing: grepping a multi-word phrase against line-wrapped prose gives false
+  MISSING verdicts. I nearly refused a clean merge resolution on a fabricated content-loss
+  finding ("cursor movement, never process liveness" was present, split across two lines).
+  Normalise first (`tr '\n' ' ' | tr -s ' '`) before concluding absence. Twin of the coverage-claim
+  lesson above: both were tool artefacts read as facts about the world.

@@ -264,8 +264,68 @@ first-hand as of 2026-06-25.
 
 > ### ▶ SITTING DIRECTOR: Squall wakes Apex (`459fd1`), seated 2026-07-26 at owner word (Moment-2 `f1d9a6f2`); claim `56fdd977`, role director
 >
-> **COMPACTION REFRESH 2026-07-27 ~14:50Z — supersedes the ~10:20Z block
-> below and everything it superseded; verify every line live.**
+> **EVENING REFRESH 2026-07-27 ~19:00Z — supersedes every block below;
+> verify each line live before acting on it.**
+>
+> **OWNER AWAY** since ~17:07Z ("I will be away for a few hours, please
+> continue"). Standing merge mandate in force; keep going until all
+> team-doable work is complete, then pause.
+>
+> **THE DAY: SEVENTEEN merges.** Added since the 14:50Z block: #593, #574,
+> #583, #594, #595 (MCP-254, `4d5219d17`), #596 (MCP-269, `a2317b3d2`).
+> Main at `be2dd9ae6` (1.98.0). Production landing page LIVE and probed
+> (three legs 200). Coordination branch merged main at `bcc425ac7` —
+> the watcher old-flag dist trap is UNFLIPPED after rebuild; the sole
+> conflict (the watcher rule) resolved to main's side after verifying
+> wrap-insensitively that it retains every coordination-side lesson.
+>
+> **ORPHAN-RISK REVIEW COMPLETE** (owner-commissioned) — report committed
+> at `.agent/reports/orphan-risk-review-2026-07-27.md`. Three findings
+> that matter: (1) NO uncommitted work is stranded anywhere — all 24
+> worktrees inspected, every retired-seat one clean, Smelter's feared
+> phase-(b) work absorbed into #582's head; (2) seven seatless
+> In-Progress lanes dispositioned — MCP-150/154/155/156 and MCP-159 moved
+> to Backlog with restart conditions (every attached PR verified merged);
+> (3) **ADR-217 never landed** — authored on the superseded landing branch,
+> homed in unbuilt PR-4, MCP-128 closed Done, so the decision behind a live
+> public surface exists only on an unmerged branch. Minted MCP-289;
+> branch marked do-not-delete.
+>
+> **M0 IS NOW MECHANICALLY GATED**: MCP-106 `blockedBy` = MCP-172 +
+> MCP-269(done) + MCP-143 + MCP-270 + MCP-63 + MCP-117. Submission moved
+> to **Friday 31 July** at owner word; domain DECIDED
+> `www.thenational.academy/mcp`; new M0 gate MCP-268 (comms sign-off).
+>
+> **CLERK: the estate's biggest open decision is now a button.** MCP-270
+> (adopt Oak prod instance) + MCP-271 (DCR risk register) minted and
+> written up; verified via `clerk` CLI that Oak prod needs exactly TWO
+> additive changes (DCR on, own secret key) and that
+> `oauth_jwt_access_tokens: false` on all three instances means the
+> ADR-115 facade re-points with an env swap and no code change. The
+> toggle is the owner's.
+>
+> **FLEET at 19:00Z**: Swallow (805902) LANE GO on MCP-234 — the next
+> MCP-63 slice, the only M0 blocker with no seat, spec = Cutter's
+> committed successor record. Raccoon (0f6caa) and Schooner (5492d7)
+> BOTH WENT STALE ~18:46–18:50Z; liveness pings sent (ping-before-escalate,
+> work-evidence cross-checked first, nothing lost either way). If they do
+> not answer: #582's remainder (base refresh PREPARED at `7994cd782` in
+> `.claude/worktrees/mcp-103-base-refresh`; one red — the C341 registry
+> entry its own validator wants) and MCP-281 + #570 need carriers.
+>
+> **OWNER-RETURN CARD**: (1) MCP-63 scoping — does M0's "initial PostHog"
+> mean the whole MCP-234–244 stack or a narrower deliverable? (carded on
+> the ticket; material to Friday). (2) The Clerk DCR toggle + key mint.
+> (3) `CANONICAL_HOST` on production Vercel — deliberately NOT set;
+> correct order is apply Cloud-Config#551 → verify it serves → set the
+> var → re-run conformance. (4) Seats: three lanes need carriers if the
+> two stale seats are gone. (5) The eleven unattributed uncommitted
+> widget/registry files on the primary — Swallow eliminated itself; if
+> they are yours, they hold the pre-push format gate hostage (I pushed
+> from a clean detached worktree rather than touch them).
+>
+> **SUPERSEDED BLOCK — 14:50Z compaction refresh, retained for detail
+> still in force (rulings, platform facts); verify against live state.**
 >
 > **THE DAY'S SHAPE**: morning untangling → afternoon MERGE DRIVE.
 > **FOURTEEN merges to main**: #578 #580 #584 #585 #586 #587 #588 #589
