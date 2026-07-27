@@ -584,12 +584,21 @@ describe('collaboration-state comms integration', () => {
     expect(second.stdout).toBe('no new comms events\n');
   });
 
-  it('watches for a new directed message and marks it seen', async () => {
+  it('watches for a new directed message, marks it seen, and exits in-band when the supervisor dies', async () => {
     const commsDir = 'state/comms';
     const seenFile = 'state/seen.txt';
     const streamed: string[] = [];
+    // Write-once: the per-pass loop waits after EVERY pass (MCP-229), so this
+    // callback fires again after delivery — the fake's writeCommsEvent throws
+    // on a duplicate event_id, and a rejection from waitForChange is an
+    // unclassified fatal exit by the loop's contract.
+    let delivered = false;
     const fake = createFakeCollaborationRuntime({
       onWaitForCommsChange: () => {
+        if (delivered) {
+          return;
+        }
+        delivered = true;
         fake.writeCommsEvent(
           commsDir,
           directedMessage({
@@ -602,6 +611,9 @@ describe('collaboration-state comms integration', () => {
           }),
         );
       },
+      // State-described supervisor: alive until the message is marked seen;
+      // the next loop-top probe then exits the watch.
+      processIsAlive: () => !fake.readSeenIds(seenFile).includes('message-one'),
     });
 
     const result = await runCollaborationStateCli({
@@ -623,8 +635,10 @@ describe('collaboration-state comms integration', () => {
         seenFile,
         '--poll-ms',
         '20',
-        '--max-events',
+        '--max-events-per-drain',
         '1',
+        '--supervisor-pid',
+        '999999',
       ],
       env: {},
       stdout: {
@@ -635,12 +649,15 @@ describe('collaboration-state comms integration', () => {
       },
       io: fake.runtime.io,
       waitForCommsChange: fake.runtime.waitForCommsChange,
+      processIsAlive: fake.runtime.processIsAlive,
     });
 
     expect(result.exitCode).toBe(0);
     expect(result.stdout).toBe('');
     expect(streamed.join('')).toContain('subject: Please check this');
     expect(streamed.join('')).toContain('There is useful coordination here.');
+    // The stream ends with the orderly-exit vocabulary, never silently.
+    expect(streamed.at(-1)).toBe('--- WATCHER EXIT --- reason=supervisor-gone emitted_count=1\n');
     expect(fake.readSeenIds(seenFile)).toStrictEqual(['message-one']);
   });
 });
