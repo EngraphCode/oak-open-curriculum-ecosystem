@@ -148,7 +148,11 @@ const CJS_SPECIFIER_PATTERN = /\brequire\(\s*["']([^'"\n]+)["']\s*\)/g;
  * deployed function, where devDependencies are pruned. This guard is what
  * makes the devDependencies placement safe rather than assumed. Inlined
  * string CONTENT (the widget bundle's text mentions `react-dom` inside
- * backticks) carries no quoted import specifier and must not match.
+ * backticks) carries no quoted import specifier and must not match. Since
+ * the boot-throw cure, `server.js` also carries the baked landing page
+ * inline — more string content in this guard's input, same
+ * no-quoted-specifier reasoning; a future false positive should be read
+ * against that enlarged input first.
  */
 export function assertNoReactModuleImport(bundleName: string, bundleSource: string): void {
   const specifiers = [
@@ -164,4 +168,45 @@ export function assertNoReactModuleImport(bundleName: string, bundleSource: stri
     `${bundleName} imports react/react-dom, which are devDependencies pruned on deploy. ` +
       'The page renders at build time only — remove the runtime import.',
   );
+}
+
+/**
+ * The structural marker the baked page always carries: its stylesheet link
+ * (`landing-page-document.tsx`). Quote-free by requirement — esbuild picks
+ * the inlined literal's quote character by escape minimisation, so a marker
+ * containing `"`, `'`, or a backslash would be encoding-fragile.
+ */
+const BAKED_LANDING_PAGE_MARKER = '/landing-page.css';
+
+/**
+ * Fail when the built deploy bundle does not carry the baked page inline.
+ *
+ * @remarks
+ * The deployed function's filesystem does not include the gitignored
+ * `.generated/` artefact (the PR 583 boot-throw: every request died on the
+ * missing file before any log line). The cure inlines the page into the
+ * bundle via esbuild's `text` loader; this guard fails the BUILD if that
+ * property regresses. Two-sided so it can never pass vacuously: the marker
+ * must be present in the baked HTML (else the marker has stopped marking)
+ * AND in the bundle (else the inline did not happen).
+ */
+export function assertBundleCarriesBakedLandingPage(
+  bundleName: string,
+  bundleSource: string,
+  bakedHtml: string,
+): void {
+  if (!bakedHtml.includes(BAKED_LANDING_PAGE_MARKER)) {
+    throw new Error(
+      `The baked landing page no longer contains its marker ${BAKED_LANDING_PAGE_MARKER}; ` +
+        'the bundle guard cannot verify inlining. Restore the stylesheet link or update the marker.',
+    );
+  }
+
+  if (!bundleSource.includes(BAKED_LANDING_PAGE_MARKER)) {
+    throw new Error(
+      `${bundleName} does not carry the baked landing page inline ` +
+        `(marker ${BAKED_LANDING_PAGE_MARKER} absent). The deploy filesystem has no .generated/ ` +
+        'artefact — the page must ship inside the bundle.',
+    );
+  }
 }

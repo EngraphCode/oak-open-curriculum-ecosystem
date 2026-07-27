@@ -27,8 +27,10 @@ export default {
           // Test helpers may only be imported by tests
           'test-helpers/',
           'fakes\\.',
-          // Type declaration files
+          // Type declaration files (the .d.mts flavour is the committed
+          // form — the repo root gitignore excludes every **/*.d.ts)
           '\\.d\\.ts$',
+          '\\.d\\.mts$',
           // Generated files
           'src/types/generated/',
           // Ground truths (data files)

@@ -35,6 +35,7 @@ import {
 } from '@oaknational/build-metadata';
 import {
   assertBuiltServerDefaultExport,
+  assertBundleCarriesBakedLandingPage,
   assertNoEsbuildWarnings,
   assertNoReactModuleImport,
 } from './build-scripts/build-output-contract.js';
@@ -148,6 +149,14 @@ function buildPluginArray(inputs: SentryBuildPluginInputs): Plugin[] {
 async function assertServerEntryContract(): Promise<void> {
   const serverBundleSource = await readFile(path.join(outdir, 'server.js'), 'utf8');
   assertBuiltServerDefaultExport(serverBundleSource);
+  // The deploy filesystem has no .generated/ artefact: the baked page must
+  // ship INSIDE the bundle (the PR 583 boot-throw cure). Two-sided guard —
+  // see assertBundleCarriesBakedLandingPage.
+  const bakedHtml = await readFile(
+    path.join(import.meta.dirname, '.generated', 'landing-page.html'),
+    'utf8',
+  );
+  assertBundleCarriesBakedLandingPage('server.js', serverBundleSource, bakedHtml);
   // All three runtime bundles must stay react-free (react/react-dom are
   // devDependencies; the page renders at build time only). server.js is the
   // deploy boundary; index/application are the local runtime graph.

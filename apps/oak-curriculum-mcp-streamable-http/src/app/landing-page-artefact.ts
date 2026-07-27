@@ -5,9 +5,13 @@
  * The page's content is fixed at BUILD time (owner ruling, ADR-217 lineage):
  * the bake step renders once with build-environment inputs and writes the
  * artefact; the request path serves that string and never renders. This
- * module is the runtime-neutral seam both sides share — the bake script
- * imports the path constant downward from `src/`, and the production entry
- * points read the artefact at boot through {@link readBakedLandingPageHtml}.
+ * module is the artefact-on-disk seam for the surfaces that legitimately
+ * read it: the bake script imports the path constant downward from `src/`,
+ * and the tsx-run/local surfaces — the local listener (`src/index.ts`) and
+ * the harness (`scripts/server-harness.ts`) — read the artefact at boot
+ * through {@link readBakedLandingPageHtml}. The DEPLOY bundle does not
+ * read it: the function filesystem lacks `.generated/`, so the page ships
+ * inline via `landing-page-baked.ts` instead.
  *
  * The candidate resolution is pure ({@link resolveLandingPageArtefact},
  * `exists` injected — the `resolveStaticRoot` pattern) so its three branches

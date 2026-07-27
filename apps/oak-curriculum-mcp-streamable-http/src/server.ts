@@ -19,7 +19,7 @@ import { setupExpressErrorHandler } from '@sentry/node';
 import type { RuntimeConfig } from './runtime-config.js';
 
 import { WIDGET_HTML_CONTENT } from './generated/widget-html-content.js';
-import { readBakedLandingPageHtml } from './app/landing-page-artefact.js';
+import { BAKED_LANDING_PAGE_HTML } from './app/landing-page-baked.js';
 import { createApp } from './application.js';
 import { createDeployEntryHandler } from './deploy-entry-handler.js';
 import { createDefaultRateLimiterFactory } from './rate-limiting/index.js';
@@ -29,18 +29,6 @@ import {
   type HttpObservability,
 } from './observability/http-observability.js';
 import { loadRuntimeConfig } from './runtime-config.js';
-
-// Read once, inside the lazy load (never at module scope): this module's
-// contract is that importing it needs no runtime environment — the
-// export-contract gate and unit suites import it artefact-free. The
-// fail-fast guarantee holds: the first request throws loudly if the
-// build's bake step did not write the artefact.
-let landingPageHtml: string | undefined;
-
-function readLandingPageHtmlOnce(): string {
-  landingPageHtml ??= readBakedLandingPageHtml();
-  return landingPageHtml;
-}
 
 const processEnv = process.env;
 const startDir = process.cwd();
@@ -82,13 +70,15 @@ function createObservabilityOrThrow(runtimeConfig: RuntimeConfig): HttpObservabi
 async function loadConfiguredApp(): Promise<NodeRequestHandler> {
   const runtimeConfig = loadRuntimeConfigOrThrow();
   const observability = createObservabilityOrThrow(runtimeConfig);
-  const landingPage = readLandingPageHtmlOnce();
 
   return await createApp({
     runtimeConfig,
     observability,
     getWidgetHtml: () => WIDGET_HTML_CONTENT,
-    getLandingPageHtml: () => landingPage,
+    // The page ships INSIDE this bundle (esbuild text loader): the deploy
+    // filesystem has no .generated/ artefact, so a runtime read is not an
+    // option at this boundary — see src/app/landing-page-baked.ts.
+    getLandingPageHtml: () => BAKED_LANDING_PAGE_HTML,
     rateLimiterFactory: createDefaultRateLimiterFactory({
       isVercelRuntime: runtimeConfig.env.VERCEL_ENV !== undefined,
     }),
