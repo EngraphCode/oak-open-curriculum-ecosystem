@@ -46,7 +46,8 @@ mark seen (no backlog replay when the filter lifts); `directed` and
 `group` events always surface whatever their tags; a multi-tag event
 with any non-excluded tag leaks through (a failure-mode capture that
 also carries `heartbeat` still emits); excluded events never consume
-`--max-events` budget.
+the `--max-events-per-drain` batch bound and never count toward the
+watcher's `emitted_count`.
 
 **Excluding `heartbeat` MANDATORILY pairs with the F-75
 `comms peer-liveness` poll** (see
@@ -69,13 +70,19 @@ peer retirement and out of contract.
 # timeout only if present — zsh-safe, portable, graceful (runs un-guarded if coreutils is
 # absent). Do NOT use `${VAR:+$VAR 3600} cmd`: zsh does not word-split it, so it tries to
 # exec "timeout 3600".
+# --max-events-per-drain bounds each drain pass (batch size), never the
+# watcher's lifetime — every pass advances the seen-file cursor and the
+# watcher keeps running. (It replaced the retired --max-events lifetime
+# budget, whose silent exit-at-N-total was the traffic-proportional death
+# diagnosed 2026-07-27; a stale --max-events invocation now fails loud.)
 set -- pnpm agent-tools:collaboration-state -- comms watch \
   --comms-dir .agent/state/collaboration/comms \
   --seen-file .agent/state/collaboration/comms-seen/<agent-codename>.json \
   --platform <claude|codex|cursor> \
   --model <model-id> \
   --supervisor-pid "$PPID" \
-  --step-timeout-ms 120000
+  --step-timeout-ms 120000 \
+  --max-events-per-drain 100
 TIMEOUT_BIN="$(command -v timeout || command -v gtimeout || true)"
 [ -n "$TIMEOUT_BIN" ] && set -- "$TIMEOUT_BIN" 3600 "$@"
 exec "$@"

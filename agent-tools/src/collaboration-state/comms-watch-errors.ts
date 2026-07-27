@@ -1,6 +1,7 @@
 /**
  * Watcher error taxonomy, the per-step deadline that converts a hung await
- * into a surfaced failure, and the WATCHER ERROR diagnostic-line emitters.
+ * into a surfaced failure, and the WATCHER ERROR / WATCHER EXIT
+ * diagnostic-line emitters.
  *
  * Separated from the orchestration loop (`comms-watch-loop.ts`) so the loop
  * stays a readable state machine while the failure-surfacing concern — the
@@ -8,6 +9,18 @@
  */
 
 export type WatcherErrorKind = 'drain' | 'emit' | 'markSeen';
+
+/** Orderly-exit reasons carried by the `--- WATCHER EXIT ---` line. */
+export type WatcherExitReason = 'supervisor-gone' | 'fatal-step';
+
+/**
+ * Bound on the shutdown EXIT-line emit. Deliberately small and fixed — never
+ * the per-step deadline: on the supervisor-gone path the pipe's reader may
+ * already be gone, and holding an orphaned watcher open for a full step
+ * deadline (canonically 120s) would contradict the F-101
+ * exit-within-one-poll-cycle contract.
+ */
+export const WATCHER_EXIT_EMIT_DEADLINE_MS = 1000;
 
 /**
  * Thrown when a watch-loop step exceeds its per-step deadline. Carries the
@@ -118,5 +131,32 @@ export async function emitWatcherError(
     await emit(text);
   } catch {
     // Emit-failure during error reporting is intentionally swallowed.
+  }
+}
+
+/**
+ * Best-effort emit of the final WATCHER EXIT line
+ * (`--- WATCHER EXIT --- reason=<reason> emitted_count=<n>`) — the in-band
+ * vocabulary that makes an ORDERLY exit distinguishable from a crash, a
+ * kill, or a harness stop, all of which end the stream with no EXIT line.
+ * Bounded by
+ * {@link WATCHER_EXIT_EMIT_DEADLINE_MS} and swallow-on-failure: a clean exit
+ * stays clean even when the emit channel is already dead.
+ *
+ * `reason=fatal-step` is reachable only when the composing layer wires an
+ * `onError` hook that rules a step failure fatal; the production CLI wires
+ * none, so a live watcher's only orderly exit is `reason=supervisor-gone`.
+ */
+export async function emitWatcherExit(
+  emit: (text: string) => Promise<void>,
+  reason: WatcherExitReason,
+  emittedCount: number,
+): Promise<void> {
+  const text = `--- WATCHER EXIT --- reason=${reason} emitted_count=${emittedCount}\n`;
+  try {
+    await runWithDeadline('emit', () => emit(text), WATCHER_EXIT_EMIT_DEADLINE_MS);
+  } catch {
+    // Swallow — the exit itself is the signal; a failed farewell must not
+    // convert an orderly exit into a crash.
   }
 }
