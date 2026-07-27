@@ -106,8 +106,24 @@ heartbeat:
   group-kills the whole tree, and on any path the supervisor-pid probe missed
   the watcher cannot outlive the timeout.
 
-The supervising Monitor/cron re-arms a fresh watcher on exit — the `--seen-file`
-cursor means the restart misses no events, only delays them by the re-arm.
+A healthy watcher under a live supervisor never exits on its own — the batch
+bound is per-pass, never a lifetime budget (MCP-229). The exits that exist,
+and how each announces itself: supervisor death (final line
+`--- WATCHER EXIT --- reason=supervisor-gone emitted_count=<n>`, exit 0); a
+fatal step ruling (its WATCHER ERROR line, then `reason=fatal-step` — only
+reachable when a composing layer wires `onError`; the CLI does not); a step
+deadline (`kind=timeout` WATCHER ERROR, non-zero exit, NO exit line); and
+the composing `timeout` backstop or any harsh kill (NO exit line — SIGTERM
+never runs JS). The supervising Monitor/cron re-arms on the primitive's own
+**exit notification** — the `--seen-file` cursor means the restart misses no
+events, only delays them. The EXIT line is REASON ATTRIBUTION for that
+notification, never itself a re-arm trigger: a process can emit its
+diagnostic line and still fail to die (the F-43 zombie class — co-writers on
+one seen-file), so re-arming on the line risks two live watchers on one
+cursor. `reason=supervisor-gone` arriving while the seat is demonstrably
+live is a probe misfire to investigate, not a routine re-arm.
+`--supervisor-pid` is MANDATORY, not a hardening option: without it AND
+without the `timeout` prefix the watcher has no exit path at all.
 
 The CLI emits every relevant event with self-exclusion (plus any
 sanctioned `--exclude-tag` narrowing per §"Sanctioned tag exclusion")
@@ -168,10 +184,42 @@ events the dead drain never marked seen. Newer counter-evidence
 2026-06-12 corpus): 120s died twice in 15 minutes on healthy-but-slow
 drains while 300s held — under sustained high-volume windows a ~300s
 deadline is a sanctioned tuning chosen on observed drain durations, not a
-climb-forever path. The structural cure —
-batched/incremental drain with per-batch deadlines, or moving the scan off
-the deadline path — is homed in the
-`agent-tooling/current/comms-watch-storage-redesign.plan.md` plan.
+climb-forever path. Two structural cures have since landed: the incremental
+drain (MCP-198 — the drain reads only UNSEEN events, so its cost tracks
+new-event count, not directory size) and the per-pass batch bound (MCP-229 —
+next section). The remaining storage-shape work (the seen-state watermark)
+stays homed in `agent-tooling/current/comms-watch-storage-redesign.plan.md`;
+a re-arm onto a very stale cursor still pays the unseen-set read on every
+pass of the catch-up, which is that plan's measured concern.
+
+### Cursor movement is the health check; the batch bound is per-pass
+
+`--max-events-per-drain 100` in the canonical invocation bounds EACH drain
+pass, so every pass advances the seen-file cursor and the watcher keeps
+running — lifetime is independent of event traffic (MCP-229; the retired
+`--max-events` lifetime budget silently ended the watcher at N total
+emissions, which made watcher lifetime inversely proportional to traffic
+and read fleet-wide as mysterious deaths). Without a bound, a large unseen
+backlog makes one drain exceed its deadline BEFORE the first mark-seen,
+every pass — a self-restarting watcher then spins indefinitely, emitting
+restart heartbeats while its cursor sits unmoved (worked instance
+2026-07-23: ~14 hours of `[watcher restarting]` with the cursor frozen at
+the previous day; zero events lost only by luck of a quiet stream). The
+health check for ANY self-restarting monitor is therefore **cursor
+movement, never process liveness**: after arming, verify the progress
+artefact (seen-file mtime / entry count) advanced; a restart heartbeat is
+not progress. Backlog catch-up is paced by construction — one bounded batch
+per `pollMs` — so an arm over a stale cursor streams the backlog in chunks
+rather than flooding the supervising primitive.
+
+One filter-vocabulary discipline from the 2026-07-23 tending window still
+binds: derive notification filters from the emitter's OBSERVED output,
+never from memory of the schema — the watch emits `title:`, not
+`subject:`; a filter written from the schema delivered from-lines with no
+titles for an hour (half-blind looks like working). When a notification
+looks oddly thin, read the event file directly before dismissing. Any
+noise filter must pass the `--- WATCHER EXIT ---` and `--- WATCHER ERROR
+---` lines alongside `--- NEW`.
 
 ### Supervision must live on the notification path, never a wrapper loop
 
@@ -202,6 +250,24 @@ transport/auth failure** (stop and surface), never as "keep looping" —
 a gh-token invalidation once turned a supervised PR-watch loop into a
 silent crash-loop against the anonymous API tier because empty state was
 read as "no news" rather than "the transport is down" (2026-07-13/14).
+
+### Interactive-harness x-stop is invisible from inside a session
+
+An owner stopping a background task interactively (the harness UI's `x`)
+produces NO task-notification, removes the task record (later queries
+return "No task found"), and kills the process tree with the heartbeat
+frozen mid-tick and no diagnostic line — calibrated first-hand with the
+owner 2026-07-27, matching the 08:16–08:17Z fleet instances exactly (two
+healthy watchers in two sessions, stopped 22 seconds apart during an
+owner stillness window, both initially read as crashes). From inside the
+session the signature is indistinguishable from a harsh death. Two
+consequences: treat a vanished-task-with-no-notification during an
+owner-active window as PROBABLY-OWNER, not as a defect to chase; and
+after any owner pause/untangling window, re-verify and re-arm watchers
+(heartbeat mtime plus a foreground sweep) rather than assuming
+continuity. The owner stops monitors deliberately to still the team while
+diagnosing — the stop is intentional; the invisibility is the platform's
+(PDR-133 `NOTIFY` class, calibrated).
 
 ### The liveness classes this rule's checks reach
 
