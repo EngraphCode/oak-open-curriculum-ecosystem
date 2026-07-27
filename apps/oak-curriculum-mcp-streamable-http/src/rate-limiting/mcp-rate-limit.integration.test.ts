@@ -10,6 +10,7 @@ import { createDefaultRateLimiterFactory } from './rate-limiter-factory.js';
 import { createFakeHttpObservability } from '../test-helpers/observability-fakes.js';
 import { createMockRuntimeConfig } from '../test-helpers/auth-error-test-helpers.js';
 import { TEST_UPSTREAM_METADATA } from '../test-helpers/upstream-metadata-fixture.js';
+import { getScratchStaticRoot } from '../test-helpers/static-root-fixture.js';
 
 function createTestRuntimeConfig() {
   return createMockRuntimeConfig({
@@ -31,6 +32,7 @@ describe('MCP route rate limiting', () => {
     const runtimeConfig = createTestRuntimeConfig();
     const observability = createFakeHttpObservability();
     const app = await createApp({
+      staticRoot: await getScratchStaticRoot(),
       runtimeConfig,
       observability,
       rateLimiterFactory: createLowLimitFactory(2),

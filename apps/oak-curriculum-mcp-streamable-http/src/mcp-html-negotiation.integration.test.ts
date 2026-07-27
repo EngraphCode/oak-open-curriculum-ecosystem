@@ -6,6 +6,7 @@ import { createFakeHttpObservability } from './test-helpers/observability-fakes.
 import { createFakeRateLimiterFactory } from './test-helpers/rate-limiter-fakes.js';
 import { createMockRuntimeConfig } from './test-helpers/auth-error-test-helpers.js';
 import type { Express } from 'express';
+import { getScratchStaticRoot } from './test-helpers/static-root-fixture.js';
 
 const BROWSER_ACCEPT = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8';
 
@@ -28,6 +29,7 @@ describe('MCP endpoint HTML negotiation (integration)', () => {
     });
     const observability = createFakeHttpObservability();
     app = await createApp({
+      staticRoot: await getScratchStaticRoot(),
       runtimeConfig,
       observability,
       getWidgetHtml: () => '<!doctype html><html><body>test-widget</body></html>',

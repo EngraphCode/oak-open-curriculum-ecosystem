@@ -68,6 +68,12 @@ export interface CreateAppOptions {
    * canonical module-level `SERVED_SURFACE` then governs registration.
    */
   readonly servedSurface?: ServedSurfaceDefinition;
+  /**
+   * Static asset root override — test seam (ADR-078). Tests inject a scratch
+   * directory so no suite touches the workspace's live `public/` tree;
+   * production omits it and the `process.cwd()` candidate probe governs.
+   */
+  readonly staticRoot?: string;
 }
 
 function setupPreAuthPhases(
@@ -131,13 +137,11 @@ function setupPostAuthPhases(deps: SetupPostAuthPhasesDeps): void {
   );
 
   mountAppVersionHeader(app, options.runtimeConfig.version);
-  mountStaticContentRoutes(
-    app,
-    dnsRebindingMiddleware,
-    log,
-    options.runtimeConfig.displayHostname,
-    options.runtimeConfig.version,
-  );
+  mountStaticContentRoutes(app, dnsRebindingMiddleware, log, {
+    vercelHostname: options.runtimeConfig.displayHostname,
+    appVersion: options.runtimeConfig.version,
+    staticRoot: options.staticRoot,
+  });
   app.use(
     '/mcp',
     createMcpHtmlNegotiation({
