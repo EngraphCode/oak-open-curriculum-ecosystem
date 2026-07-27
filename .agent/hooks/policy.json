@@ -95,6 +95,13 @@
           "reappraisal": "Never use git stash to park, hide, or discard work; keep in-progress work as live working-tree edits."
         },
         {
+          "pattern": "(?:^|[;&|\\n`]|\\$\\()\\s*git\\s+(?:-C\\s+\\S+\\s+)*stash\\b(?!\\s+(?:pop|apply|list|show|branch|drop|clear)\\b)",
+          "match": "regex",
+          "concept": "stash-park",
+          "citation": ".agent/rules/never-use-git-to-remove-work.md",
+          "reappraisal": "Never stash to park, hide, or discard work - bare git stash silently reverts the working tree. Keep in-progress work as live working-tree edits; the recovery commands (git stash pop, git stash apply) remain permitted."
+        },
+        {
           "pattern": "git add -A",
           "concept": "wildcard-staging",
           "citation": ".agent/rules/stage-by-explicit-pathspec.md",

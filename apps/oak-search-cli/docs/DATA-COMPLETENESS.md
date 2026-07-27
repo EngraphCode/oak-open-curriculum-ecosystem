@@ -1,6 +1,6 @@
 # Data Completeness Policy: What We Upload in Full
 
-**Last Updated**: 2026-01-03
+**Last Updated**: 2026-07-27
 
 **Status**: ACTIVE POLICY  
 **Purpose**: Document which fields are uploaded completely vs. summarized
@@ -9,7 +9,30 @@
 
 ## Policy Statement
 
-**We upload ALL available curriculum data in full, without truncation or sampling, except where intentional summarization serves a specific architectural purpose.**
+**We upload ALL available curriculum data in full, without truncation or sampling, except where intentional summarization serves a specific architectural purpose — and except restricted lessons, which are excluded entirely (see below).**
+
+---
+
+## Restricted-Lesson Exclusion (MCP-204 decision, 2026-07-27)
+
+Lessons flagged `restricted: true` in the upstream bulk data are **excluded
+from every generated surface** — lesson documents, unit `lesson_ids` and
+lesson counts, rollup transcript snippets and semantic text, sequence facets,
+and the vocabulary/graph-corpus artifacts. The single implementation is
+`excludeRestrictedLessons` in `@oaknational/sdk-codegen/bulk`
+(`restricted-lesson-filter.ts`), applied at the ingest boundary
+(`prepareBulkIngestion`) and in the vocab-gen pipeline; every run reports the
+excluded count (`restrictedLessonsExcluded` in ingestion stats and the
+vocab-gen summary).
+
+This is a **deliberate product decision, not a technical constraint**: it was
+made to support on-time submission, per the owner-ruled MCP-204
+filter-at-ingest decision. We revisit post-submission if a higher-value
+approach exists (e.g. index-all + filter-at-query — note that alternative
+requires a document-schema change, since `restricted` is not carried into the
+ES documents). The revisit is tracked on MCP-204. All completeness claims
+below ("ALL lessons", "ALL keywords", …) are scoped to **unrestricted**
+lessons.
 
 ---
 

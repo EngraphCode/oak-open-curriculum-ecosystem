@@ -15,6 +15,8 @@ export interface BulkDownloadLesson {
   readonly lessonSlug: string;
   /** The key stage slug (e.g., 'ks3', 'ks4'). */
   readonly keyStageSlug: string;
+  /** Upstream restriction flag; restricted lessons are never ingested (MCP-204). */
+  readonly restricted?: boolean;
 }
 
 /**
@@ -52,6 +54,9 @@ function isBulkDownloadLesson(lesson: unknown): lesson is BulkDownloadLesson {
     return false;
   }
   if (!('lessonSlug' in lesson) || !('keyStageSlug' in lesson)) {
+    return false;
+  }
+  if ('restricted' in lesson && typeof lesson.restricted !== 'boolean') {
     return false;
   }
   return typeof lesson.lessonSlug === 'string' && typeof lesson.keyStageSlug === 'string';
@@ -107,13 +112,17 @@ export interface VerificationBulkPathInput {
  * appearing in both Foundation and Higher tiers). This function deduplicates
  * them and returns only unique slugs.
  *
+ * Restricted lessons are excluded from the expected set: the ingest pipeline
+ * never indexes them (MCP-204 filter decision), so expecting them here would
+ * report every restricted lesson as missing.
+ *
  * @param data - The bulk download data structure
  * @param keyStage - The key stage to filter by (e.g., 'ks4')
  * @returns Array of unique lesson slugs matching the key stage
  */
 export function extractLessonsFromBulkDownload(data: BulkDownloadData, keyStage: string): string[] {
   const slugs = data.lessons
-    .filter((lesson) => lesson.keyStageSlug === keyStage)
+    .filter((lesson) => lesson.keyStageSlug === keyStage && lesson.restricted !== true)
     .map((lesson) => lesson.lessonSlug);
   // Return unique slugs
   return [...new Set(slugs)];

@@ -1,110 +1,118 @@
 {
-  "downloadedAt": "2026-06-10T16:43:00.027Z",
+  "downloadedAt": "2026-07-27T07:48:39.755Z",
   "source": "https://open-api.thenational.academy/api/bulk",
   "files": [
     {
       "file": "art-primary.json",
-      "sizeBytes": 10506869
+      "sizeBytes": 8974565
     },
     {
       "file": "art-secondary.json",
-      "sizeBytes": 10884758
+      "sizeBytes": 11789971
     },
     {
       "file": "citizenship-secondary.json",
-      "sizeBytes": 22435429
+      "sizeBytes": 19361884
     },
     {
       "file": "computing-primary.json",
-      "sizeBytes": 7646992
+      "sizeBytes": 4726089
     },
     {
       "file": "computing-secondary.json",
-      "sizeBytes": 16341025
+      "sizeBytes": 21429959
     },
     {
       "file": "cooking-nutrition-primary.json",
-      "sizeBytes": 3657561
+      "sizeBytes": 2550632
     },
     {
       "file": "cooking-nutrition-secondary.json",
-      "sizeBytes": 2328986
+      "sizeBytes": 1361090
     },
     {
       "file": "design-technology-primary.json",
-      "sizeBytes": 7718837
+      "sizeBytes": 6972666
     },
     {
       "file": "design-technology-secondary.json",
-      "sizeBytes": 11504708
+      "sizeBytes": 12822906
     },
     {
       "file": "english-primary.json",
-      "sizeBytes": 95233168
+      "sizeBytes": 82554676
     },
     {
       "file": "english-secondary.json",
-      "sizeBytes": 76454552
+      "sizeBytes": 133575763
     },
     {
       "file": "french-primary.json",
-      "sizeBytes": 257419
+      "sizeBytes": 290083
     },
     {
       "file": "french-secondary.json",
-      "sizeBytes": 1121389
+      "sizeBytes": 1891220
     },
     {
       "file": "geography-primary.json",
-      "sizeBytes": 12784437
+      "sizeBytes": 6499102
     },
     {
       "file": "geography-secondary.json",
-      "sizeBytes": 35288662
+      "sizeBytes": 19294008
     },
     {
       "file": "german-secondary.json",
-      "sizeBytes": 1193322
+      "sizeBytes": 1953612
     },
     {
       "file": "history-primary.json",
-      "sizeBytes": 10265298
+      "sizeBytes": 12419607
     },
     {
       "file": "history-secondary.json",
-      "sizeBytes": 30842139
+      "sizeBytes": 31001546
     },
     {
       "file": "maths-primary.json",
-      "sizeBytes": 64936070
+      "sizeBytes": 64898379
     },
     {
       "file": "maths-secondary.json",
-      "sizeBytes": 82330371
+      "sizeBytes": 82318639
     },
     {
       "file": "music-primary.json",
-      "sizeBytes": 13039748
+      "sizeBytes": 7543009
     },
     {
       "file": "music-secondary.json",
-      "sizeBytes": 13273529
+      "sizeBytes": 27120328
     },
     {
       "file": "physical-education-primary.json",
-      "sizeBytes": 1233427
+      "sizeBytes": 3327818
     },
     {
       "file": "physical-education-secondary.json",
-      "sizeBytes": 13435592
+      "sizeBytes": 9662889
     },
     {
       "file": "religious-education-primary.json",
-      "sizeBytes": 10384082
+      "sizeBytes": 6313270
     },
     {
       "file": "religious-education-secondary.json",
-      "sizeBytes": 26702388
+      "sizeBytes": 18935294
+    },
+    {
+      "file": "rshe-pshe-primary.json",
+      "sizeBytes": 9336123
+    },
+    {
+      "file": "rshe-pshe-secondary.json",
+      "sizeBytes": 8840114
     },
     {
       "file": "schema.json",
@@ -112,19 +120,19 @@
     },
     {
       "file": "science-primary.json",
-      "sizeBytes": 20213050
+      "sizeBytes": 19168031
     },
     {
       "file": "science-secondary.json",
-      "sizeBytes": 62249932
+      "sizeBytes": 142656364
     },
     {
       "file": "spanish-primary.json",
-      "sizeBytes": 317046
+      "sizeBytes": 354075
     },
     {
       "file": "spanish-secondary.json",
-      "sizeBytes": 1077674
+      "sizeBytes": 1826108
     }
   ]
 }

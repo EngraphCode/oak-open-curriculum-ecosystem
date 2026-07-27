@@ -69,6 +69,7 @@ function makeBulkIngestionResult(overrides?: Partial<BulkIngestionResult>): Bulk
       threadsIndexed: 4,
       sequencesIndexed: 6,
       sequenceFacetsIndexed: 3,
+      restrictedLessonsExcluded: 7,
       vocabularyStats: {
         uniqueKeywords: 100,
         totalMisconceptions: 20,

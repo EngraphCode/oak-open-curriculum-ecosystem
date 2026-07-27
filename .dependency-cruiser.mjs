@@ -27,8 +27,10 @@ export default {
           // Test helpers may only be imported by tests
           'test-helpers/',
           'fakes\\.',
-          // Type declaration files
+          // Type declaration files (the .d.mts flavour is the committed
+          // form — the repo root gitignore excludes every **/*.d.ts)
           '\\.d\\.ts$',
+          '\\.d\\.mts$',
           // Generated files
           'src/types/generated/',
           // Ground truths (data files)
@@ -41,6 +43,13 @@ export default {
           // shipped via <script src>, imports nothing — an entry point, not
           // dead code.
           'packages/design/oak-design-system/oak-theme\\.js$',
+          // Browser-served static copies under the MCP app's public/ —
+          // `public/oak-ds/` (the design system, from copy-oak-ds.ts) and
+          // `public/oak-assets/` (brand artwork). Generated, gitignored, and
+          // reached only over HTTP, so nothing imports them by construction —
+          // but CI's knip-depcruise job restores build outputs, so the crawler
+          // sees them and would report orphans.
+          'apps/oak-curriculum-mcp-streamable-http/public/',
           // Standalone scripts invoked directly via tsx
           'scripts/',
           'operations/utilities/',
@@ -58,6 +67,8 @@ export default {
           // graph-corpus-sdk subpath-export barrels consumed via package.json "exports"
           'graph-corpus-sdk/src/index\\.ts$',
           'graph-corpus-sdk/src/(eef-strands|threads)/index\\.ts$',
+          // Closed PostHog adapter entry point consumed via package.json "exports"
+          'posthog-node/src/index\\.ts$',
           // SDK and TypeDoc entry points consumed via tsup + typedoc.json
           'oak-curriculum-sdk/src/types/(schema-bridge|public-types)\\.ts$',
         ],

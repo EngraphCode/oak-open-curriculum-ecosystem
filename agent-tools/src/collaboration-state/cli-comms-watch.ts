@@ -49,6 +49,15 @@ function resolveHeartbeatFile(input: {
 /**
  * Watch the comms stream. Emits every non-self event under the current
  * view-token set: broadcast, group, directed, observed, and lifecycle.
+ * Output is STREAM-ONLY (`runtime.stdout`); the CLI result string is always
+ * empty. `--max-events-per-drain` bounds each drain pass, never the
+ * watcher's lifetime — the process runs until its `--supervisor-pid` dies
+ * (the only orderly exit a production invocation can reach, announced by
+ * the final `--- WATCHER EXIT --- reason=supervisor-gone` line), a step
+ * deadline fires (kind=timeout, non-zero exit, no EXIT line), or the
+ * composing `timeout` backstop kills it (also no EXIT line). Without
+ * `--supervisor-pid` AND without a `timeout` wrapper the watcher has no
+ * exit path at all — the watcher rule mandates the supervisor pid.
  *
  * Liveness surface (FM-2 cure, 2026-05-23; default-on 2026-06-10): the watcher
  * writes a substrate-typed heartbeat JSON every `--heartbeat-interval-ms`
@@ -66,10 +75,12 @@ export async function watchComms(
   runtime: CliRuntime,
 ): Promise<string> {
   const io = cliIo(runtime);
+  requireStreamingStdout(runtime);
   const commsDir = required(options, 'comms-dir');
   const seenFile = required(options, 'seen-file');
   const self = resolveSelfIdentity(options, env);
-  const { pollMs, maxEvents, stepTimeoutMs, heartbeatIntervalMs } = resolveWatchTunables(options);
+  const { pollMs, maxEventsPerDrain, stepTimeoutMs, heartbeatIntervalMs } =
+    resolveWatchTunables(options);
   const heartbeatFile = resolveHeartbeatFile({
     explicit: optional(options, 'heartbeat-file'),
     seenFile,
@@ -91,11 +102,10 @@ export async function watchComms(
     supervisorAlive,
   });
 
-  const output = await watchCommsLoop({
-    maxEvents,
+  await watchCommsLoop({
+    maxEventsPerDrain,
     stepTimeoutMs,
-    drain: (remainingEvents) =>
-      drainComms({ commsDir, seenFile, self, remainingEvents, io, excludeTags }),
+    drain: (batchLimit) => drainComms({ commsDir, seenFile, self, batchLimit, io, excludeTags }),
     waitForChange: () => waitForCommsChange(runtime, { directory: commsDir, pollMs }),
     emit: async (text) => {
       runtime.stdout?.write(text);
@@ -105,19 +115,34 @@ export async function watchComms(
     supervisorAlive,
   });
 
-  return runtime.stdout === undefined ? output : '';
+  // Stream-only output: the return-value accumulation mode was removed —
+  // under an unbounded lifetime it was an unbounded memory leak.
+  return '';
+}
+
+/**
+ * Boundary guard: with no stream the emit step is a no-op, so drained events
+ * would be consumed (marked seen) but delivered NOWHERE — the silent-eater
+ * shape recorded 2026-07-25. Refuse before any comms IO instead.
+ */
+function requireStreamingStdout(runtime: CliRuntime): void {
+  if (runtime.stdout === undefined) {
+    throw new Error(
+      'comms watch requires a streaming stdout surface: without one, drained events are marked seen but delivered nowhere',
+    );
+  }
 }
 
 /** The four numeric watch tunables, each defaulting per the constants above. */
 function resolveWatchTunables(options: Options): {
   readonly pollMs: number;
-  readonly maxEvents: number | undefined;
+  readonly maxEventsPerDrain: number | undefined;
   readonly stepTimeoutMs: number;
   readonly heartbeatIntervalMs: number;
 } {
   return {
     pollMs: optionalPositiveInteger(options, 'poll-ms') ?? DEFAULT_POLL_MS,
-    maxEvents: optionalPositiveInteger(options, 'max-events'),
+    maxEventsPerDrain: optionalPositiveInteger(options, 'max-events-per-drain'),
     stepTimeoutMs: optionalPositiveInteger(options, 'step-timeout-ms') ?? DEFAULT_STEP_TIMEOUT_MS,
     heartbeatIntervalMs:
       optionalPositiveInteger(options, 'heartbeat-interval-ms') ?? DEFAULT_HEARTBEAT_INTERVAL_MS,
@@ -184,7 +209,7 @@ async function drainComms(input: {
   readonly commsDir: string;
   readonly seenFile: string;
   readonly self: CollaborationAgentId;
-  readonly remainingEvents?: number;
+  readonly batchLimit?: number;
   readonly io: CollaborationStateCliIo;
   readonly excludeTags?: ReadonlySet<CommsEventTag>;
 }): ReturnType<typeof drainRelevantEvents> {
@@ -197,7 +222,7 @@ async function drainComms(input: {
     messages,
     seenIds,
     self: input.self,
-    remainingEvents: input.remainingEvents,
+    batchLimit: input.batchLimit,
     excludeTags: input.excludeTags,
   });
 }

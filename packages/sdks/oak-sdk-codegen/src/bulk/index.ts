@@ -54,6 +54,11 @@ export {
   unitSchema,
   unitThreadSchema,
   examBoardSchema,
+  examSubjectSchema,
+  categorySchema,
+  tierSchema,
+  programmeFactorSchema,
+  unitProgrammeFactorsSchema,
   ks4OptionSchema,
   // Lesson schema
   lessonSchema,
@@ -81,6 +86,11 @@ export type {
   UnitLesson,
   UnitThread,
   ExamBoard,
+  ExamSubject,
+  UnitCategory,
+  Tier,
+  ProgrammeFactor,
+  UnitProgrammeFactors,
   Ks4Option,
   // Lesson type
   Lesson,
@@ -102,6 +112,14 @@ export {
 } from './reader.js';
 
 export type { BulkFileResult, SubjectPhase } from './reader.js';
+
+// ============================================================================
+// Restricted-lesson filter (MCP-204 decision — see module TSDoc)
+// ============================================================================
+
+export { excludeRestrictedLessons } from './restricted-lesson-filter.js';
+
+export type { RestrictedLessonFilesResult } from './restricted-lesson-filter.js';
 
 // ============================================================================
 // Extractors

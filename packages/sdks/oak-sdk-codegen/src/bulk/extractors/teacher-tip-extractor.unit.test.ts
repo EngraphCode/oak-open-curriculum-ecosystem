@@ -11,6 +11,9 @@ describe('extractTeacherTips', () => {
   const createLesson = (overrides: Partial<Lesson>): Lesson => ({
     lessonTitle: 'Test Lesson',
     lessonSlug: 'test-lesson',
+    oakUrl: 'https://www.thenational.academy/teachers/lessons/test-lesson',
+    canonicalUrl:
+      'https://www.thenational.academy/teachers/programmes/english-primary-ks2/units/test-unit/lessons/test-lesson',
     unitSlug: 'test-unit',
     unitTitle: 'Test Unit',
     subjectSlug: 'english',

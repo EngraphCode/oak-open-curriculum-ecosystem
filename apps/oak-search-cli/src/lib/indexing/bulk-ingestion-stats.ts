@@ -20,6 +20,8 @@ export interface BulkIngestionStats {
   readonly threadsIndexed: number;
   readonly sequencesIndexed: number;
   readonly sequenceFacetsIndexed: number;
+  /** Restricted lessons excluded before any phase ran (MCP-204 filter decision) */
+  readonly restrictedLessonsExcluded: number;
   readonly vocabularyStats: {
     readonly uniqueKeywords: number;
     readonly totalMisconceptions: number;
@@ -34,6 +36,7 @@ export function buildIngestionStats(
   threadsCount: number,
   sequenceResult: SequenceExtractionResult,
   vocabStats: VocabularyMiningStats,
+  restrictedLessonsExcluded: number,
 ): BulkIngestionStats {
   return {
     filesProcessed,
@@ -43,6 +46,7 @@ export function buildIngestionStats(
     threadsIndexed: threadsCount,
     sequencesIndexed: sequenceResult.sequenceCount,
     sequenceFacetsIndexed: sequenceResult.facetCount,
+    restrictedLessonsExcluded,
     vocabularyStats: {
       uniqueKeywords: vocabStats.uniqueKeywords,
       totalMisconceptions: vocabStats.totalMisconceptions,

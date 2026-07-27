@@ -7,7 +7,6 @@ import type { RuntimeConfig } from './runtime-config.js';
 import { setupAuthRoutes } from './auth-routes.js';
 import type { CreateMcpAuthClerkDeps } from './auth/mcp-auth/index.js';
 import { createEnsureMcpAcceptHeader, createMcpHtmlNegotiation } from './mcp-middleware.js';
-import { renderLandingPageHtml } from './landing-page/index.js';
 import {
   runBootstrapPhase,
   setupBaseMiddleware,
@@ -20,7 +19,7 @@ import {
   setupErrorHandlers,
   type SentryExpressErrorHandlerSetup,
 } from './app/bootstrap-error-handlers.js';
-import { createAppVersionHeaders } from './app/app-version-header.js';
+import { mountAppVersionHeader } from './app/app-version-header.js';
 import { setupSecurityMiddleware } from './app/bootstrap-security.js';
 import { mountStaticContentRoutes } from './app/static-content.js';
 import type { HttpObservability } from './observability/http-observability.js';
@@ -40,6 +39,13 @@ export interface CreateAppOptions {
   readonly resourceUrl?: string;
   /** Returns built widget HTML for the MCP App resource. Prod: codegen constant; tests: trivial fake. (ADR-078) */
   readonly getWidgetHtml: () => string;
+  /**
+   * Returns the baked landing-page document. Prod: boot-read of the build's
+   * artefact (`readBakedLandingPageHtml`); tests: trivial fake. Required so
+   * the request path can never fall back to rendering — the page's content
+   * is fixed at build time by owner ruling. (ADR-078)
+   */
+  readonly getLandingPageHtml: () => string;
   /** Upstream AS metadata for OAuth proxy; provided by tests, fetched at startup in prod. */
   readonly upstreamMetadata?: UpstreamAuthServerMetadata;
   /** Factory for global Clerk middleware (tests inject no-op; prod omits). (ADR-078) */
@@ -68,6 +74,12 @@ export interface CreateAppOptions {
    * canonical module-level `SERVED_SURFACE` then governs registration.
    */
   readonly servedSurface?: ServedSurfaceDefinition;
+  /**
+   * Static asset root override — test seam (ADR-078). Tests inject a scratch
+   * directory so no suite touches the workspace's live `public/` tree;
+   * production omits it and the `process.cwd()` candidate probe governs.
+   */
+  readonly staticRoot?: string;
 }
 
 function setupPreAuthPhases(
@@ -98,13 +110,6 @@ function setupPreAuthPhases(
   );
 }
 
-function mountAppVersionHeader(app: ExpressWithAppId, appVersion: string): void {
-  app.use((_req, res, next) => {
-    res.set(createAppVersionHeaders(appVersion));
-    next();
-  });
-}
-
 interface SetupPostAuthPhasesDeps {
   readonly app: ExpressWithAppId;
   readonly options: CreateAppOptions;
@@ -131,19 +136,17 @@ function setupPostAuthPhases(deps: SetupPostAuthPhasesDeps): void {
   );
 
   mountAppVersionHeader(app, options.runtimeConfig.version);
-  mountStaticContentRoutes(
-    app,
-    dnsRebindingMiddleware,
-    log,
-    options.runtimeConfig.displayHostname,
-    options.runtimeConfig.version,
-  );
+  mountStaticContentRoutes(app, dnsRebindingMiddleware, log, {
+    getLandingPageHtml: options.getLandingPageHtml,
+    staticRoot: options.staticRoot,
+  });
   app.use(
     '/mcp',
     createMcpHtmlNegotiation({
       log,
-      renderHtml: () =>
-        renderLandingPageHtml(options.runtimeConfig.displayHostname, options.runtimeConfig.version),
+      // The same baked artefact the root serves — a string seam, never
+      // res.sendFile, so the negotiation's pinned headers (no-store) hold.
+      renderHtml: options.getLandingPageHtml,
       dnsRebindingMiddleware,
       rateLimiter: assetRateLimiter,
     }),

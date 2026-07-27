@@ -89,10 +89,13 @@ All vocabulary mining work exists to serve these audiences:
 The vocabulary mining pipeline is multi-step by design:
 
 ```text
-EXTRACTION (Exploratory) → PROCESSING (Value Creation) → OUTPUT (User-Facing)
+POLICY FILTER → EXTRACTION (Exploratory) → PROCESSING (Value Creation) → OUTPUT (User-Facing)
 ```
 
-- **Extraction**: Mine everything from bulk data speculatively
+- **Policy filter**: Exclude restricted lessons before any extraction
+  (`excludeRestrictedLessons`, the MCP-204 filter decision — every run
+  reports the excluded count)
+- **Extraction**: Mine everything from the filtered bulk data speculatively
 - **Processing**: Transform raw data into user-valuable structures
 - **Output**: Generate static graph files for MCP tool consumption
 
