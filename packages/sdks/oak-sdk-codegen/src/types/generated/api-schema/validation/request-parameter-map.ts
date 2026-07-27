@@ -38,7 +38,7 @@ export const REQUEST_PARAMETER_SCHEMAS = {
   "GET:/programmes/:programme/assets": z.object({
     "programme": z.string(),
     "offset": z.number().optional().default(0),
-    "limit": z.number().lte(100).optional().default(10),
+    "limit": z.number().lte(300).optional().default(20),
     "type": z.enum(["slideDeck", "exitQuiz", "exitQuizAnswers", "starterQuiz", "starterQuizAnswers", "supplementaryResource", "video", "worksheet", "worksheetAnswers"]).optional(),
   }),
   "GET:/lessons/:lesson/assets/:type": z.object({
@@ -61,7 +61,7 @@ export const REQUEST_PARAMETER_SCHEMAS = {
     "subject": z.enum(["art", "citizenship", "computing", "cooking-nutrition", "design-technology", "english", "french", "geography", "german", "history", "maths", "music", "physical-education", "religious-education", "rshe-pshe", "science", "spanish"]),
     "unit": z.string().optional(),
     "offset": z.number().optional().default(0),
-    "limit": z.number().lte(100).optional().default(10),
+    "limit": z.number().lte(300).optional().default(20),
   }),
   "GET:/key-stages/:keyStage/subject/:subject/units": z.object({
     "keyStage": z.enum(["ks1", "ks2", "ks3", "ks4"]),
@@ -92,20 +92,20 @@ export const REQUEST_PARAMETER_SCHEMAS = {
     "sequence": z.string(),
     "year": z.number().optional(),
     "offset": z.number().optional().default(0),
-    "limit": z.number().lte(100).optional().default(10),
+    "limit": z.number().lte(300).optional().default(20),
     "filter": z.literal("images").optional(),
   }),
   "GET:/key-stages/:keyStage/subject/:subject/questions": z.object({
     "keyStage": z.enum(["ks1", "ks2", "ks3", "ks4"]),
     "subject": z.enum(["art", "citizenship", "computing", "cooking-nutrition", "design-technology", "english", "french", "geography", "german", "history", "maths", "music", "physical-education", "religious-education", "rshe-pshe", "science", "spanish"]),
     "offset": z.number().optional().default(0),
-    "limit": z.number().lte(100).optional().default(10),
+    "limit": z.number().lte(300).optional().default(20),
     "filter": z.literal("images").optional(),
   }),
   "GET:/programmes/:programme/questions": z.object({
     "programme": z.string(),
     "offset": z.number().optional().default(0),
-    "limit": z.number().lte(100).optional().default(10),
+    "limit": z.number().lte(300).optional().default(20),
     "filter": z.literal("images").optional(),
   }),
   "GET:/lessons/:lesson/summary": z.object({

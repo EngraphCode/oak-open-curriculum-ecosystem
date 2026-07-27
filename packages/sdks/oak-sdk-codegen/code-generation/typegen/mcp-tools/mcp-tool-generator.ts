@@ -24,15 +24,9 @@ import { generateStubModules } from './stub-modules.js';
 import { sampleSchemaObject } from './schema-sample-core.js';
 import { createSchemaResolver, resolveResponseSchemaForOperation } from './response-schema.js';
 import { compareCodeUnits } from '../../code-unit-order.js';
+import { SKIPPED_PATHS } from '../../excluded-paths.js';
 
 const HTTP_METHODS = ['get', 'post', 'put', 'delete', 'patch'] as const;
-
-/** Paths excluded from MCP tool generation — superseded by ES search or non-transportable. */
-const SKIPPED_PATHS: ReadonlySet<string> = new Set([
-  '/search/lessons',
-  '/search/transcripts',
-  '/lessons/{lesson}/assets/{type}',
-]);
 
 function isPathItemObject(value: unknown): value is PathItemObject {
   return typeof value === 'object' && value !== null && !Array.isArray(value) && !('$ref' in value);

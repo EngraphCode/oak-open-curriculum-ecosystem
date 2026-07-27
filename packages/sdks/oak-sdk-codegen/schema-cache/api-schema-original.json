@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Oak OpenAPI",
-    "version": "0.7.0-8eceb702a45a5746af6a407a7a5d377ae7ec0c83"
+    "version": "0.7.0-c83593cab07dd1550105e1dabc5218f0f883f3e1"
   },
   "servers": [
     {
@@ -674,11 +674,11 @@
             "in": "query",
             "name": "limit",
             "schema": {
-              "default": 10,
+              "default": 20,
               "type": "number",
-              "maximum": 100,
-              "description": "Limit the number of lessons, e.g. return a maximum of 100 lessons",
-              "example": 10
+              "maximum": 300,
+              "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons",
+              "example": 20
             }
           },
           {
@@ -1284,11 +1284,11 @@
             "in": "query",
             "name": "limit",
             "schema": {
-              "default": 10,
+              "default": 20,
               "description": "Offset applied to lessons within each unit (not to the unit list).",
               "type": "number",
-              "maximum": 100,
-              "example": 10
+              "maximum": 300,
+              "example": 20
             }
           }
         ],
@@ -1299,6 +1299,146 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/KeyStageSubjectLessonsResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - e.g. \"Content is blocked for copyright reasons\"",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.BAD_REQUEST"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "API token not provided or invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Detail of the request causing the 404, e.g. \"Lesson not found\"",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.NOT_FOUND"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/key-stages/{keyStage}/subject/{subject}/check-restricted": {
+      "get": {
+        "operationId": "getKeyStageSubjectLessons-getKeyStageSubjectLessonRestrictions",
+        "summary": "List lesson TPC restrictions in a key stage and subject",
+        "description": "Use when you want every published lesson in a key stage + subject, grouped by unit, without programme structure or unit sequence order. Returns an array of units, each with slug, title, and the lessons inside. Pass unit to restrict to one. Supports offset/limit pagination; Link: rel=\"next\" header signals more pages.\nNot for: finding a lesson from a search term (GET /search/lessons); a single lesson's metadata (GET /lessons/{lesson}/summary); all units across a sequence (GET /sequences/{sequence}/units); units in one programme (GET /programmes/{programme}/units).\n\nExample: keyStage=ks3, subject=maths, unit=perimeter-and-area.",
+        "tags": ["lists", "lessons"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "keyStage",
+            "schema": {
+              "type": "string",
+              "enum": ["ks1", "ks2", "ks3", "ks4"],
+              "description": "Key stage slug to filter by, e.g. 'ks2' - note that casing is important here, and should be lowercase",
+              "example": "ks1"
+            },
+            "required": true,
+            "description": "Key stage slug to filter by, e.g. 'ks2' - note that casing is important here, and should be lowercase"
+          },
+          {
+            "in": "path",
+            "name": "subject",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "art",
+                "citizenship",
+                "computing",
+                "cooking-nutrition",
+                "design-technology",
+                "english",
+                "french",
+                "geography",
+                "german",
+                "history",
+                "maths",
+                "music",
+                "physical-education",
+                "religious-education",
+                "rshe-pshe",
+                "science",
+                "spanish"
+              ],
+              "description": "Subject slug to filter by, e.g. 'english' - note that casing is important here, and should be lowercase",
+              "example": "english"
+            },
+            "required": true,
+            "description": "Subject slug to filter by, e.g. 'english' - note that casing is important here, and should be lowercase"
+          },
+          {
+            "in": "query",
+            "name": "unit",
+            "schema": {
+              "type": "string",
+              "description": "Optional unit slug to additionally filter by",
+              "example": "word-class"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "default": 0,
+              "description": "Limit the number of lessons returned per unit. Units with zero lessons after limiting are omitted.",
+              "type": "number",
+              "example": 0
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "default": 20,
+              "description": "Offset applied to lessons within each unit (not to the unit list).",
+              "type": "number",
+              "maximum": 300,
+              "example": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "propertyNames": {
+                    "type": "string"
+                  },
+                  "additionalProperties": {
+                    "type": "string",
+                    "enum": ["ogl-compatible", "restricted"]
+                  },
+                  "example": {
+                    "joining-using-and": "ogl-compatible",
+                    "restricted-lesson": "restricted"
+                  }
                 }
               }
             }
@@ -1937,11 +2077,11 @@
             "in": "query",
             "name": "limit",
             "schema": {
-              "default": 10,
+              "default": 20,
               "type": "number",
-              "maximum": 100,
-              "description": "Limit the number of lessons, e.g. return a maximum of 100 lessons",
-              "example": 10
+              "maximum": 300,
+              "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons",
+              "example": 20
             }
           },
           {
@@ -2066,11 +2206,11 @@
             "in": "query",
             "name": "limit",
             "schema": {
-              "default": 10,
+              "default": 20,
               "type": "number",
-              "maximum": 100,
-              "description": "Limit the number of lessons, e.g. return a maximum of 100 lessons",
-              "example": 10
+              "maximum": 300,
+              "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons",
+              "example": 20
             }
           },
           {
@@ -2164,11 +2304,11 @@
             "in": "query",
             "name": "limit",
             "schema": {
-              "default": 10,
+              "default": 20,
               "type": "number",
-              "maximum": 100,
-              "description": "Limit the number of lessons, e.g. return a maximum of 100 lessons",
-              "example": 10
+              "maximum": 300,
+              "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons",
+              "example": 20
             }
           },
           {
@@ -2188,6 +2328,93 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/QuestionsForProgrammeResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - e.g. \"Content is blocked for copyright reasons\"",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.BAD_REQUEST"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "API token not provided or invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Detail of the request causing the 404, e.g. \"Lesson not found\"",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.NOT_FOUND"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lessons/check-restricted": {
+      "post": {
+        "operationId": "getLessons-postCheckRestrictedLessons",
+        "summary": "Check restrictions for a list of lessons",
+        "description": "Use when you have a list of lesson slugs and need to check if they are restricted. Returns a list of lessons with their restriction status and reasons.\nNot for: checking a single lesson (GET /lessons/{lesson}/summary); searching lessons by title (GET /search/lessons); listing every lesson in a unit or subject (GET /key-stages/{keyStage}/subject/{subject}/lessons).",
+        "tags": ["lessons"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "lessonSlugs": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": ["lessonSlugs"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "propertyNames": {
+                    "type": "string"
+                  },
+                  "additionalProperties": {
+                    "type": "string",
+                    "enum": ["ogl-compatible", "restricted"]
+                  },
+                  "example": {
+                    "joining-using-and": "ogl-compatible",
+                    "restricted-lesson": "restricted"
+                  }
                 }
               }
             }
@@ -8470,7 +8697,7 @@
           },
           "downloadsAvailable": {
             "type": "boolean",
-            "description": "Whether the lesson currently has any downloadable assets availableNote: this field reflects the current availability of downloadable assets, which reflects the availability of early-release content available for the hackathon. All lessons will eventually have downloadable assets available."
+            "description": "Whether the lesson currently has any downloadable assets available."
           }
         },
         "required": [
@@ -9035,8 +9262,7 @@
     "securitySchemes": {
       "bearerAuth": {
         "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
+        "scheme": "bearer"
       }
     }
   }
