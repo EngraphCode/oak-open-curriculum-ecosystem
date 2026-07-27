@@ -77,6 +77,13 @@ into the permanent record):
    bundled into a closeout PR multiplies asynchronous bot-review rounds
    without bound (a worked instance ran 5+ rounds before the bundle was
    split); give such an artefact its own PR with its own review story.
+   **Owner sizing bands (2026-07-27): ~5 files changed is the NORMAL
+   shape; 10 is acceptable; 20 is a problem.** The bands exist to keep
+   the complexity of reviewer comments minimal — one helpful convergence
+   mechanism among several (the triage rule and the round predicate are
+   the others), never a substitute for them. A changeset heading past 10
+   files splits BEFORE opening, while splitting is cheap — not after the
+   rounds prove the point.
 5. **Changeset-health check** (PDR-132, the single source): a healthy
    changeset settles within the PDR's round budget; the budget value, the
    size smells, and the archival-class exemption all live in the PDR. A

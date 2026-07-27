@@ -75,6 +75,7 @@ without proportional value.
 | `.agent/rules/consolidate-at-second-consumer.md`                           | always-on      | —                                                                                                   |
 | `.agent/rules/continuity-surface-commits-as-orphans.md`                    | always-on      | —                                                                                                   |
 | `.agent/rules/cross-repo-sessions-run-the-join-ceremony.md`                | trigger-loaded | Worktree repo ≠ coordination home, or sibling-estate write/registration (reads unceremonied)        |
+| `.agent/rules/design-work-for-small-prs.md`                                | always-on      | —                                                                                                   |
 | `.agent/rules/design-from-impact-not-the-cowpath.md`                       | always-on      | —                                                                                                   |
 | `.agent/rules/directive-file-context-budget.md`                            | always-on      | —                                                                                                   |
 | `.agent/rules/documentation-hygiene.md`                                    | always-on      | —                                                                                                   |
