@@ -49,6 +49,15 @@ When ingesting lessons:
 | Threads   | `/threads` + `/threads/{slug}/units`       | ✅ Complete |
 | Sequences | `/subjects/{subject}/sequences`            | ✅ Complete |
 
+### Restricted Lessons Are Never Ingested
+
+Lessons flagged `restricted: true` upstream are excluded before any ingestion
+phase runs, and every run logs and reports the excluded count
+(`restrictedLessonsExcluded`). This is the MCP-204 filter-at-ingest decision —
+see [DATA-COMPLETENESS.md](DATA-COMPLETENESS.md) §"Restricted-Lesson
+Exclusion" for the decision provenance and its post-submission revisit
+condition. The `admin verify` expected-lesson set applies the same exclusion.
+
 ---
 
 ## Adding a New Subject?
