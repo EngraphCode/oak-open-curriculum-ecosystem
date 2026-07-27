@@ -1702,3 +1702,37 @@ merges) became muscle immediately; the one capture without an instance
 (bidirectional principles) needed owner re-prompting to land. Doctrine may
 require a live specimen the way tickets require a worked instance. Watching
 for a third case before graduating.
+
+## 2026-07-27 ~16:45Z — Cloud-Config cross-repo bot mechanics (Swallow guards Tailwind, MCP-172)
+
+- `merge-bot mint-token` pins every token to ONE repo (`repositories: [repoName]` in the
+  installation-token request). Cross-repo work needs `--repo <owner/name>` explicitly —
+  a widened App installation is invisible through the default token (looked like
+  access-denied when the grant was already live; worked instance on oaknational/Cloud-Config).
+- The App grant on Cloud-Config covers contents + pull-requests, NOT checks/statuses
+  reads: commit-status and check-runs endpoints 403 ("Resource not accessible by
+  integration"). Terraform Cloud speculative-plan verdicts on PRs are human-visible only,
+  unless the App gains checks:read there.
+- Watch-loop lesson (self-caught): my status poll's exit condition read a 403 error body
+  as a non-pending conclusion and false-exited — transport failure must be distinguished
+  from state before any loop treats a read as a verdict (same class as
+  empty-state-read-is-transport-failure in the re-arm rule).
+- Cloud-Config conventions for future lanes: TF Cloud VCS-driven (workspace per
+  infrastructure/ subdir), provider cloudflare ~>4.29.0 (v4 block syntax), branch naming
+  type/TICKET-desc, commitlint conventional, PR template with Description/Issue(s)/
+  How to test/Checklist. Draft PR #551 = the MCP-172 edge change; ledger on the ticket.
+
+## 2026-07-27 ~17:20Z — cross-repo PR numbers collide (Squall wakes Apex, Director)
+
+- The estate rule "refer to PRs by GitHub numbers" is UNDER-SPECIFIED for cross-repo lanes.
+  Worked instance this hour: Swallow's Cloudflare change is `oaknational/Cloud-Config#551`;
+  `#551` in THIS repo is an unrelated merged deps PR. A bare "#551" in a routing brief or a
+  report resolves to the wrong object for whoever reads it next — I nearly banked the wrong
+  one in the orphan-risk review. Cure: cross-repo references always carry `owner/repo#N`;
+  bare `#N` means this repo only. Same class as the napkin entry above it (the merge-bot
+  token pins to ONE repo) — cross-repo work needs explicit repo naming at every surface.
+- Orphan-review instrument note: the three failure modes need different detectors, and only
+  one is a git question. Lost artefacts = `git status` across every worktree (found NONE
+  today). Lost lanes = board `In Progress` crossed against the claims registry (found seven).
+  Lost intent = owner read-back only. Running just the git sweep and reporting "nothing
+  orphaned" would have been true and useless.
