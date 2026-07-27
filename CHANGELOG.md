@@ -1,3 +1,10 @@
+## [1.97.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.97.0...v1.97.1) (2026-07-27)
+
+
+### Bug Fixes
+
+* **security:** allowlist MCP-103 anchors digest lines and named index tokens in gitleaks ([881cd3e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/881cd3ec6e76e0c5566bc9f1f4e5671c7c5a3f94))
+
 # [1.97.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.96.0...v1.97.0) (2026-07-27)
 
 
