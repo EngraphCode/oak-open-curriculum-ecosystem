@@ -21,6 +21,7 @@ import {
   createMockRuntimeConfig,
   createNoOpRateLimiterFactory,
 } from './helpers/test-config.js';
+import { getScratchStaticRoot } from '../src/test-helpers/static-root-fixture.js';
 
 const ACCEPT = 'application/json, text/event-stream';
 
@@ -68,6 +69,7 @@ async function executeToolCall(): Promise<{
   const overrides = createStubOverrides(captured);
   const runtimeConfig = createMockRuntimeConfig({ dangerouslyDisableAuth: true });
   const app = await createApp({
+    staticRoot: await getScratchStaticRoot(),
     toolHandlerOverrides: overrides,
     runtimeConfig,
     observability: createMockObservability(runtimeConfig),

@@ -1,5 +1,16 @@
 # Changelog — Oak Open Curriculum Design System
 
+## Unreleased (repo-side) — 2026-07-26
+
+**Added — inverted-surface focus family + code-ramp completion (MCP-128; mechanism recorded in DECISIONS "A composed token is substituted where it is declared").**
+
+- **`--shadow-ground-inverted`** completes the inverted-surface family alongside `--text-inverted` / `--text-inverted-subdued` / `--border-inverted`: the press/focus ground for surfaces painted `--bg-inverted`. Audited: `shadow.ground-inverted ON bg.inverted` (non-text) joins `dtcg/contrast-pairings.json` — 41 → 42 pairs — and the live contrast audit's `UI_PAIRS` (the declared generation source) gains the same pair in the same change, so regeneration cannot drop it.
+- **`--focus-ring-inverted`** ships as a whole ring (accent inner + inverted-ground halo), never a ground to recompose — `var()` substitutes at declaration, so recomposition was the trap the landing page hit. High-contrast overrides both members.
+- **Code ramp slots `--type-code-2/3/4`** join the re-pointable ramp (`brand.css` §1b); new classes **`.oak-code-3`** / **`.oak-code-4`** back the new slots and `.oak-code-2` re-points to its slot value-identically. Monospace was the one ramp a re-brand could not re-point.
+- **`.oak-disclosure`** — the dense borderless `<details>` sibling of `.oak-accordion`: leading `currentcolor` chevron (reads on inverted bands), per-level child-scoped `[open]` rotation, print-tier and reduced-motion entries. Composition constraint: never nest `.oak-accordion` inside it.
+- **Scoped native defaults for `figure` / `figcaption` / `pre` / `code`** under `.oak-scope`.
+- MINOR per the versioning policy below. Authored repo-side (MCP-128); reaches the studio via the design-sync batch, which assigns the version at that sync.
+
 ## Unreleased (repo-side) — 2026-07-23
 
 **Fixed — 2026-07-23 design-session upstream ledger (MCP-132; full rationale in the session's dark-theme token review).**
@@ -78,7 +89,7 @@ Versioning follows semver: MAJOR = breaking token/class renames or removals, MIN
 
 **Deprecation policy** (learned from govuk-frontend): public-surface names are never silently renamed. A deprecated token or class keeps working for at least one MINOR release, marked at its definition with `/* @deprecated since x.y — use --replacement */`, and is listed here under "Deprecated" before it ever appears under "Removed".
 
-**Public surface** (what semver protects): tier-2 role tokens, tier-3 component tokens named in `brand.css` Parts A/B, all documented `.oak-*` classes, type slot roles (`--type-heading-*`/`--type-body-*`/`--type-label`), structure levers (`--container-max`, `--flow-*`, `--key-*`, `--band-*`), and the theme/motion attributes. Tier-1 `--oak-*` primitives and undocumented tier-3 internals are private — they can change in a MINOR.
+**Public surface** (what semver protects): tier-2 role tokens, tier-3 component tokens named in `brand.css` Parts A/B, all documented `.oak-*` classes, type slot roles (`--type-heading-*`/`--type-body-*`/`--type-label`/`--type-code-*`), structure levers (`--container-max`, `--flow-*`, `--key-*`, `--band-*`), and the theme/motion attributes. Tier-1 `--oak-*` primitives and undocumented tier-3 internals are private — they can change in a MINOR.
 
 ## 1.6.1 — 2026-07-19
 

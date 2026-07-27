@@ -11,6 +11,9 @@ describe('extractLearningPoints', () => {
   const createLesson = (overrides: Partial<Lesson>): Lesson => ({
     lessonTitle: 'Test Lesson',
     lessonSlug: 'test-lesson',
+    oakUrl: 'https://www.thenational.academy/teachers/lessons/test-lesson',
+    canonicalUrl:
+      'https://www.thenational.academy/teachers/programmes/science-secondary-ks3/units/test-unit/lessons/test-lesson',
     unitSlug: 'test-unit',
     unitTitle: 'Test Unit',
     subjectSlug: 'science',

@@ -1,3 +1,24 @@
+# [1.92.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.91.0...v1.92.0) (2026-07-27)
+
+
+### Features
+
+* **sdk-codegen:** declare the 13 new upstream bulk fields, schema-transcribed (MCP-226) ([2da6fbc](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2da6fbc548225525337662f67e05d01518e0376a))
+
+# [1.91.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.90.0...v1.91.0) (2026-07-27)
+
+
+### Features
+
+* **mcp-app:** serve the Oak design system and brand assets from the app ([d00c247](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d00c2475dbda1ef483e23e0e61e7d763b747ccac))
+
+# [1.90.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.89.0...v1.90.0) (2026-07-27)
+
+
+### Features
+
+* **design:** dense code ramp and inverted-surface focus family for the landing page ([56b9157](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/56b91576fb6f86ae9308e109e635592e0c51e223)), closes [hi#contrast](https://github.com/hi/issues/contrast)
+
 # [1.89.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.88.3...v1.89.0) (2026-07-26)
 
 

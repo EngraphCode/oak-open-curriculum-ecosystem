@@ -20,6 +20,9 @@ import type { Lesson, Unit, BulkDownloadFile } from '@oaknational/sdk-codegen/bu
 // ============================================================================
 
 const createMockLesson = (overrides: Partial<Lesson> = {}): Lesson => ({
+  oakUrl: 'https://www.thenational.academy/teachers/lessons/test-lesson',
+  canonicalUrl:
+    'https://www.thenational.academy/teachers/programmes/maths-primary-ks2/units/test-unit/lessons/test-lesson',
   lessonSlug: 'test-lesson',
   lessonTitle: 'Test Lesson Title',
   unitSlug: 'test-unit',
@@ -47,6 +50,9 @@ const createMockLesson = (overrides: Partial<Lesson> = {}): Lesson => ({
 });
 
 const createMockUnit = (overrides: Partial<Unit> = {}): Unit => ({
+  canonicalUrl:
+    'https://www.thenational.academy/teachers/programmes/maths-primary-ks2/units/test-unit/lessons',
+  subjectSlug: 'maths',
   unitSlug: 'test-unit',
   unitTitle: 'Test Unit Title',
   threads: [{ slug: 'fractions', order: 1, title: 'Fractions' }],

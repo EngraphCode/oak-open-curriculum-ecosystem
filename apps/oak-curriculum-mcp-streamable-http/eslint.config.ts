@@ -40,6 +40,17 @@ const config = defineConfigArray(
       '.logs/**',
       'temp-secrets/**',
       '../../.agent/reference/**',
+      // Build-time copies from the design packages (see
+      // build-scripts/copy-oak-ds.ts). Generated, gitignored, and owned by
+      // their packages — linting them here would report those packages'
+      // style choices as this app's errors. ESLint 9 does not read
+      // .gitignore, and `lint` has no build dependency, so without these the
+      // verdict depends on whether a build ran first. The dot-prefixed glob
+      // covers the copier's transient staging/retired dirs, which only a
+      // crash strands.
+      'public/oak-ds/**',
+      'public/oak-assets/**',
+      'public/.oak-*/**',
     ],
   },
   configs.strict,
