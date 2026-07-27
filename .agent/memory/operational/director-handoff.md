@@ -264,8 +264,62 @@ first-hand as of 2026-06-25.
 
 > ### ▶ SITTING DIRECTOR: Squall wakes Apex (`459fd1`), seated 2026-07-26 at owner word (Moment-2 `f1d9a6f2`); claim `56fdd977`, role director
 >
-> **COMPACTION REFRESH 2026-07-27 ~10:20Z — this block supersedes the
-> 2026-07-26 blocks below where they conflict; verify every line live.**
+> **COMPACTION REFRESH 2026-07-27 ~14:50Z — supersedes the ~10:20Z block
+> below and everything it superseded; verify every line live.**
+>
+> **THE DAY'S SHAPE**: morning untangling → afternoon MERGE DRIVE.
+> **FOURTEEN merges to main**: #578 #580 #584 #585 #586 #587 #588 #589
+> #590 #592 #593 #574 #583 #594. React page train COMPLETE (#583 merge
+> `d2f0ce477`, boot-throw cured by Schooner, serve-probe run
+> independently pre-merge). Fleet gitleaks cure LANDED (#594,
+> `98435630d`, 832→0) — seats pull main to clear local scan reds.
+> Swallow's restricted-filter index PROMOTED at owner word (restricted
+> findable 0/2,641, rollback intact).
+>
+> **THE MERGE DOCTRINE (owner, three same-day escalations, verbatim in
+> memory `merge-drive-orchestration`)**: work has ZERO value until merged
+> to main; PRs that can be safely merged MUST be; green+clean needs NO
+> owner approval, and any failure it admits becomes IMMEDIATE
+> cannot-recur work. Operational form practised 6× today: settled → bot
+> REST merge sha-pinned + in-merge thread re-check; bot UN-DRAFTS
+> green+clean drafts (pin makes it safe). Reliable token shape:
+> mint + auth-probe(/installation/repositories) + act in ONE shell.
+>
+> **FLEET at 14:50Z**: Swallow (805902, MCP-153 legs; go-moment for live
+> index routes through Director), Schooner (5492d7, MCP-254 lane-go,
+> NEAR-COMPACTION — self-declared), Raccoon turns Nocturne (0f6caa,
+> joined today, 3 merges already; NOW: #582 lane — assess Smelter's
+> uncommitted 6-file worktree work against its evidence list, triage 2
+> threads UCVfY/UCVf0, base-refresh via Director). RETIRED today:
+> Peony (Copilot; exemplary handoff on the ARC channel file; work merged
+> posthumously #593), Cutter+Smelter (codex credits; custody events
+> f46a8a06/cc41b786 and 80757b82; farewell letters in
+> .agent/experience/, committed this wrap), Dynamo (morning).
+>
+> **LIVE TASKS at compaction**: watcher arm 14 (b0z846hpt, OLD-flag dist
+> — TRAP: coordination branch predates #587, so local dist speaks
+> --max-events; after any main-merge + rebuild it flips to
+> --max-events-per-drain — re-arm from `comms watch --help`, never
+> memory). PRODUCTION PROBE WATCH (bwgjhc3cx) still pending the page
+> deploy report — CHECK ITS OUTPUT FIRST post-compaction; the owner is
+> waiting on production 200s.
+>
+> **OPEN PRs**: #582 (Raccoon, green at 11bfdf01e, 2 threads), #570
+> (POOL: 7 adjudicated fixes, event 92af6f15, needs FRESH-context
+> carrier), #576 (stays open per Cutter closeout until MCP-239..244
+> successor set completes — those application successors are UNBUILT),
+> #569 (coordination; merge main into coordination at next quiet
+> window — also unflips the dist trap above).
+>
+> **OWNER-SIDE (Wednesday critical path, unchanged)**: MCP-172 execution
+> legs (Cloudflare route, Clerk MCP-143, conformance re-run), MCP-117
+> PostHog keys, MCP-202 operator probe.
+>
+> **TICKETS minted today**: 246(post-submit, blockedBy 106), 247, 248
+> group (249/250/251/264 — Copilot parity, post-submit), 254(→Schooner),
+> 255(High, heartbeat-claim coupling), 261, 262(High, serve-probe as
+> required check — the #583 class killer), 267 (pathspec matcher).
+> MCP-245 cancelled dup of 246. 227/188/232/233/128-train all Done.
 >
 > **The morning that reshaped the estate**: the owner ran an UNTANGLING
 > session (~08:00–10:00Z) fixing the fuckups threatening Wednesday's

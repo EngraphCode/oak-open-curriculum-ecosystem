@@ -81,3 +81,47 @@ section (2026-07-01).
   refresh is `pnpm sdk-codegen:refresh` (fetches with `--force` and rebuilds; MCP-130).
 - **Promotion watchlist**: the MCP pagination-header contract (ADR candidate); the
   fluency-premature-done-claim recurrence (doctrine-traction / action-time-structural-interrupt).
+
+## 2026-07-27 — Bulk ingest feasibility (definitive, first-hand; Swallow guards Tailwind)
+
+- **June (2026-06-10) bulk data: 30/30 files PASS the strict gate** (`bulkDownloadFileSchema`,
+  every file) — ingest possible today with current code. **Fresh 2026-07-27 data: 0/32 FAIL**,
+  every failure `unrecognized_keys` only (zero type changes, zero missing required fields —
+  purely additive drift): lessons +3 keys (`oakUrl`, `canonicalUrl`, `restricted`), units up to
+  +10 (`canonicalUrl`, `subjectSlug`, `examSubjects`, `categories`, `examBoard`, `tier`,
+  `pathway`, `pathwaySlug`, `unitOptionGroup`, `programmeFactors`).
+- `programmeFactors` is in the July data but NOT declared in `schema.json` (which is
+  byte-identical to June) — a new inverted upstream defect (data ahead of schema); MCP-205
+  carries it. The July data otherwise FIXES the June schema/payload contradiction (required
+  `oakUrl`/`canonicalUrl`/`subjectSlug` now populated) and populates `restricted: true` on
+  3,372 lessons, reconciling 100% with the check-restricted endpoints on the served set.
+- Reasonable-minimum bridge to ingest July data (owner-requested determination, recorded on
+  MCP-153): declare the 13 fields in the existing hand-authored templates (12 transcribed from
+  `schema.json`, `programmeFactors` as explicitly-undeclared `z.unknown().optional()` with the
+  defect documented), keep `.strict()`, regen + test updates + the filter-at-ingest exclusion
+  (owner ruling on MCP-204: restricted lessons do not enter the index; revisit post-submission).
+  One small PR, hours-class. NOT the rework — MCP-203 (schema-derived types) remains the cure.
+- Data homes: both datasets live in worktree `mcp-203-bulk-rework` (June archive at
+  `apps/oak-search-cli/bulk-downloads-archive-2026-06/`, fresh at `bulk-downloads/` incl. the
+  updated tracked `manifest.json` riding that lane); the primary checkout's `bulk-downloads/`
+  is the untouched June original.
+
+## 2026-07-27 ~14:35Z — LANE COMPLETE through promotion (Swallow guards Tailwind, 805902)
+
+MCP-152 → MCP-226 → MCP-153 arc fully delivered: PRs #584, #588, #589 merged to main;
+restricted-lesson filter live at every generation surface; graph artifacts regenerated
+(3,372 records / 2,641 slugs excluded); search re-indexed on the 2026-07-27 snapshot and
+PROMOTED (v2026-07-27-132106 serving from 13:36Z, owner-carded go; restricted findable
+0/2,641, was 2,348; rshe-pshe 329 live; March generation retained unaliased = rollback).
+MCP-153 closed Done. Verification evidence + diagnosis trail on MCP-153/MCP-263.
+
+Remainders (tracked, not this claim's intent): MCP-263 one authed live smoke of the
+deployed MCP search tools (app reads the same primary aliases; confirmation not risk);
+MCP-265 ground-truth re-truing (17/89 expectations upstream-restricted; two hard-zero
+queries explained; add the fail-loud guard). Post-submission sequenced: MCP-203, MCP-205
+(+MCP-252 anomaly counters), MCP-213, MCP-214/215, MCP-253.
+
+Ops: worktree mcp-203-bulk-rework on jimcresswell/mcp-153-ingest-run at origin/main
+(clean, no commits); both datasets in its bulk-downloads{,-archive-2026-06}; Redis
+container oak-search-redis left running; ES MCP access arrives at next session restart
+(owner-added) — prefer it over the curl+env path for future index work.

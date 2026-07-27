@@ -20,6 +20,8 @@ recompute live state from claims/comms/git at pickup.
 | 2026-07-20 | Foehn rides Flight | claude-code / fable-5 | `3e9afa` | lane successor; fold + Layer-3 distillations |
 | 2026-07-20 | Tornado tracks Apex | claude-code / fable-5 | `daace4` | Director — identity-table cure at #434 adjudication |
 | 2026-07-26 | Triton mends Void | claude-code / Opus 5 (1M) | `9f070b` | MCP-128 landing lane — design-system consumption in the MCP app |
+| 2026-07-26 | Skipper tracks Abyss | claude-code / fable-5 | `4144b4` | MCP-128 lane successor (Lavender→Skipper); executes the owner-ratified #565 restack |
+| 2026-07-26 | Schooner binds Trench | claude-code / claude-fable-5 | `5492d7` | MCP-128 restack successor (Skipper→Schooner, PDR-063 at owner word); continues PR-3 from the frozen inventory |
 
 ## Board state at writing (recompute, do not trust)
 
@@ -248,3 +250,65 @@ successor (Triton→Lavender), retired at owner word; claim 68088465 pending suc
   that completes with slice 2.
 - **Recompute at pickup**: PR/Sonar/Linear state drifts; the record's own loss scan names its
   bounds. MCP-182 is already substantially cured in code — verify before re-doing.
+
+## Session update 2026-07-26 (Skipper tracks Abyss, 4144b4 — additive; MCP-128 restack lane)
+
+- Claim `68088465` ADOPTED (Lavender→Skipper) after reading the handoff record + design
+  brief end to end. The lane's work is now the OWNER-RATIFIED RESTACK: PR #565 is
+  superseded by a fully linear six-PR stack off current main, authored from the #565
+  branch content; at value-transfer #565 closes and its branch deletes.
+- The executing plan (owner-approved this session, three review passes adjudicated in)
+  lives with the session; its durable projection is the MCP-128 Linear comment trail —
+  recompute live state from claims/comms/PRs at any pickup, per this record's standing
+  discipline. Stack: design-system source → serve-the-DS → React page baked at build →
+  hydration+theme+ADR-217 → appearance baselines (identity protocol vs the Playwright
+  1.61→1.62 bump) → theme-control guards.
+- **Handoff fired 2026-07-26 ~20:25Z at owner word**: #578 (stack 1/6) + #580 (stack 2/6)
+  OPEN; PR-3 frozen mid-flight (uncommitted, worktree mcp-128-restack). Claim `68088465`
+  retained → Schooner binds Trench (5492d7), pointer at
+  `handoffs/2026-07-26-skipper-mcp-128-restack-full-handoff.md` — read end to end before
+  any edit.
+
+## Session update 2026-07-26 ~20:30Z (Schooner binds Trench, 5492d7 — additive; MCP-128 restack succession)
+
+- Claim `68088465` ADOPTED (Skipper→Schooner, PDR-063 deliberate succession at owner word;
+  registered standby 20:16Z, adoption 20:24Z, pickup broadcast event `7085f550`). Handoff
+  record + Lavender record + design brief + plan file all read end to end before any edit.
+- Worktree freeze VERIFIED at pickup: 64 dirty paths at HEAD d00c2475d on the PR-3 branch,
+  matching the record's inventory exactly. #578 31/31 checks green; #580 CLEAN/MERGEABLE —
+  both awaiting Director merge word per the freeze handshake.
+- PR-3 remaining list in execution: e2e CSP hunk applied as an EDIT (three deliberate
+  divergences from source verified); dormant-absence `.tsx` composed ON TOP of main's
+  registration-walk refactor (6/6 green in isolation); react/react-dom → devDependencies
+  landed on a zero-references probe of all three built bundles (server.js gate); tests
+  project compiles; 55-file prettier sweep clean. Full gates running at write time —
+  commit only on green.
+
+## Session update 2026-07-26 ~21:56Z (Schooner binds Trench, 5492d7 — additive; PR-3 LANDED as #583)
+
+- **PR #583 OPEN** (stack 3/6, React page baked at build): bot-authored, head
+  `SHA:f09083987`, base = #580's branch. Commit landed via the queue workflow with the
+  full pre-commit gate green; branch pushed under the bot; remote ref verified.
+- **Review round 1 adjudicated in full BEFORE opening**: seven opus reviewers; the
+  disposition ledger rides the PR body + the MCP-128 Linear comment. Ship-stoppers
+  cured: turbo #build env declaration (cache could replay another deployment's baked
+  localhost host — hash-identity empirically proven) and a live SC 1.4.10 reflow
+  failure at 320px. Six merge-and-ticket items routed to the Director (broadcast
+  f55fe01f), headline: the PR-4 island-hydration design question (42KB payload
+  measurement).
+- **Extra merge gate on #583** (mirrors #580's): Vercel preview probe — GET / serves
+  the baked page with the PREVIEW host in canonical/snippet, never localhost.
+- **F-116 third instance**: the queue guard hard-fails on the composed
+  `index/head@<worktree>` claim pattern the commit SKILL prescribes; fleet cure
+  applied (bare pattern, worktree in intent). Also: `git add` on already-staged
+  deletions fatals under plain pathspec — split the list (existing files only).
+- Remaining stack: PR-4 (hydration+theme+ADR-217 amendment), PR-5 (appearance
+  baselines + identity protocol), PR-6 (theme-control guards) per the plan file;
+  #565 closes at value-transfer with the 36-thread disposition comment (Director
+  word). Claim `68088465` stays with this seat.
+- **Ticket numbers minted (Director, 21:58Z)**: MCP-220 (PR-4 hydration shape —
+  Director-adjudicated to ISLAND HYDRATION, owner-override open until PR-4's settled
+  read; PR-4 authoring proceeds on it), MCP-221 (forced-colours logo), MCP-222
+  (test-fake dedup), MCP-223 (a11y third depth), MCP-224 (max-warnings mechanism),
+  MCP-225 (runtime-only-scripts orphan). F-116 third instance recorded on MCP-186
+  with the three-seats escalation. #583's body trued to the numbers.

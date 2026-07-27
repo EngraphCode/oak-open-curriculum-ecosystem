@@ -10,7 +10,7 @@ merge_class: index-narrative-tables
 
 # Next-Session Record — `mcp-product-analytics`
 
-## Landing target — refreshed 26 July 2026
+## Landing target — refreshed 27 July 2026
 
 Implement the submission-blocking PostHog product-analytics capability defined
 by
@@ -27,71 +27,43 @@ enablement evidence in
 [`mcp-173-posthog-privacy-governance.plan.md`](../../../plans/delivery/mcp-173-posthog-privacy-governance.plan.md)
 gates the October public beta.
 
-The live succession, monitoring correction, focused-PR decision, evidence
-ceilings, and current slice inventory are absorbed in the
-[26 July permanent dated record](../../../reports/mcp-63-succession-notification-and-focused-delivery-2026-07-26.md).
-The live thread remains temporary operational state; the report is not a
-handoff or closeout.
+The focused replacement-stack outcome, exact protected heads, remaining slice
+inventory, loss scan, and successor instructions are absorbed in the 27 July
+permanent handoff record at
+`.agent/reports/mcp-63-focused-successor-handoff-2026-07-27.md`.
+The earlier
+[26 July dated record](../../../reports/mcp-63-succession-notification-and-focused-delivery-2026-07-26.md)
+preserves the succession and monitoring chronology. This live thread remains
+temporary operational state.
 
 ## Current state
 
-- [PR #568](https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/568)
-  merged the ratified plans, ADR, and dated probe evidence at `ccd1c410f` on
-  26 July 2026.
-- Runtime implementation is in flight on
-  `jimcresswell/mcp-63-posthog-product-analytics-implementation`, in the
-  repo-relative worktree `.claude/worktrees/mcp-63-posthog-delivery`.
-- Focused slice 1 is local commit `ae25b10c9`
-  (`feat(observability): add product analytics port`). It contains only the
-  provider-neutral port, shared selection/locality axis, env coverage, and the
-  observability-to-result dependency. The branch is one commit ahead and nine
-  behind the locally recorded `origin/main`; it is unpushed and has no PR.
-  Fresh evidence was observability 59/59, env 51/51, both packages'
-  type-check/build, lint exit zero with known unrelated warnings, targeted
-  formatting, architecture review, test review, and commit hooks. No captured
-  historical RED exists, so Red-to-Green is not claimed.
-- The uncommitted slice is now confined to the new
-  `@oaknational/posthog-node` adapter, three oak-eslint boundary files,
-  workspace registration, and pnpm-generated lock entries. The index is empty.
-  The lockfile must never be edited or hand-merged.
-- The final-wire blocker is cured. The test drives the shared private
-  production composition with only a non-barrel fetch seam, exercises the real
-  client, sink, instrumenter, policies, batching, compression, retry, and
-  shutdown paths, and keeps the public barrel factory one-argument. Fresh
-  code-expert and test-expert reviews passed; the adapter's 130/130 tests,
-  type-check, lint, build, and targeted formatting check are green. This work
-  belongs to the still-uncommitted adapter slice.
-- The owner requires three small, ordered PRs: port/axis, then adapter, then app
-  composition. Each dependent slice settles before the next opens. A combined
-  44-path commit was cancelled before creation.
-- No app-composition source file has been edited. Two claims reserve the
-  bootstrap config and app manifest/docs boundaries, but reservation is not
-  implementation. Read-only exploration found that handler-facing
-  `RuntimeConfig` currently exposes the parsed env and that the legacy
-  sentry-node config cannot express simultaneous Sentry plus fixture-tee
-  behaviour on the shared axis; production wiring needs an expanded claim and
-  explicit architecture disposition.
-- The owner completed the in-flight succession from `Kite seeks Crosswind` to
-  `Cutter hunts Lagoon`. Cutter validated the discontinuity, acknowledged the
-  primary handoff record at `.agent/state/collaboration/handoffs/`
-  `f5b77b73-4fd2-4e35-a89a-90dbc1e97a81.md`, and adopted all seven claims in
-  place with their handoff pointers retained. Kite independently verified the
-  transfer and retired; Cutter now holds implementation custody.
-- The canonical comms watcher is transport/cursor evidence, not proof that the
-  reasoning loop was notified. The user caught that detached watcher output
-  was not waking this Codex seat. A separate full-stream ten-minute foreground
-  poll is therefore the cognition path and remains armed until the user stops
-  it; the claim heartbeat remains outbound liveness only.
-- The superseded implementation spike was fully absorbed into the plan, ADR,
-  and probe report. Closed PR #477 remains lineage, not an implementation
-  source.
-- Linear [MCP-63](https://linear.app/oaknational/issue/MCP-63) owns implementation
-  state and evidence. Linear
-  [MCP-173](https://linear.app/oaknational/issue/MCP-173) owns the October
-  public-beta governance sequence and evidence links.
-- The AI Managed Notion consultation owns substantive consultation, research,
-  feedback, wording, and rationale. Its workspace URL remains outside tracked
-  repository content.
+- [PR #585](https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/585)
+  (MCP230) and
+  [PR #586](https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/586)
+  (MCP231) are merged.
+- [PR #592](https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/592)
+  is the canonical bot-authored MCP232+MCP233 bundle at exact head
+  `2fdce34759dcfed7e70c2fc31690276b12fff2fa`. At the
+  `2026-07-27T13:01:59Z` recount it was a draft, mergeable, 31/31 green,
+  0/0 review threads, and blocked only by the draft flag. Its worktree is
+  clean and exactly synced upstream.
+- Closed PR #591 was the wrong-author false start caused by an empty bot token
+  and GitHub CLI credential fallback. It is not a delivery surface.
+- [PR #576](https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/576)
+  remains the frozen extraction source at exact head
+  `aac01d12dd696e4e1831a683b41fde692be721ca`. Do not merge or close it until
+  every MCP230–MCP238 replacement has a pushed and linked PR.
+- MCP234–MCP244 remain. MCP234 actor pseudonyms is next after #592 settles.
+  Keep one replacement PR open at a time; extract by path from #576 rather
+  than cherry-picking mixed commits.
+- No application source for MCP239–MCP244 has landed in the replacement stack.
+- Cutter's seven inherited claims are closed at seat retirement. The next
+  implementer opens a fresh, ticket-specific claim.
+- Linear MCP63 still contains stale owner-gated merge wording. Current owner
+  direction permits a green and clean PR to merge without a new approval.
+- The live watcher and claim heartbeat are stopped with Cutter's seat. The
+  Director is the routing and immediate #592 shepherding owner.
 
 ## Authority order
 
@@ -137,50 +109,36 @@ ratified plan or ADR.
 
 ## Next safe step
 
-Settle focused PR1 before opening any adapter PR:
+1. Recount #592 at exact head
+   `2fdce34759dcfed7e70c2fc31690276b12fff2fa`.
+2. Mint the merge-bot token with
+   `pnpm --silent agent-tools merge-bot mint-token` — there is no `--` before
+   `merge-bot` — and verify `viewer.login` before writing.
+3. If #592 remains green, clean, mergeable, and thread-clean, mark it ready,
+   recount, and merge without an additional approval pause.
+4. Mark MCP232 and MCP233 Done, remove stale #591 linkage when the connector
+   permits, and open a new claim for MCP234.
+5. Preserve #576 while landing MCP234–MCP238 serially. Continue MCP239–MCP244
+   only under their ticket ceilings and proofs.
 
-1. reconcile the nine-main-commit drift without widening PR1's story;
-2. push local commit `ae25b10c9`, verify the remote tip, open the focused PR,
-   and shepherd it to settled;
-3. keep PR2 local until
-   `mcp-server-instrumenter.integration.test.ts` receives its whole-file
-   test-expert cure, the dead `isNonEmptyString` helper is removed, fresh
-   security/MCP/config reviews pass, and package/boundary gates are rerun;
-4. regenerate `pnpm-lock.yaml` through pnpm tooling only and settle PR2; then
-5. expand the app claims and resolve config secrecy plus one-axis
-   Sentry/fixture coexistence before beginning PR3 production wiring.
-
-Every remaining slice still lands tests and product code atomically. The full
-event/property allowlist, identity projection, minimal-Person behaviour,
-final-wire policy, serverless lifecycle, resource/prompt seams, Sentry
-coexistence, and built-app proof are acceptance requirements, not later
-hardening.
+The exact path map, bot-authorship failure mode, ticket ceilings, and frozen
+PR close condition live in the permanent 27 July handoff record.
 
 ## Handoff loss and metaloss scan
 
-- The obsolete spike contained no unique durable evidence; an independent
-  byte-level and contract audit returned DELETE-SAFE before deletion.
-- The repeated risk was authority drift: once-true mechanics, version
-  snapshots, and milestone labels survived in continuity and tracking surfaces
-  after the owner had corrected the frame. The cure is a single authority
-  order plus deletion of spent sources, not preservation with warning labels.
-- The external bound remains explicit: package probes describe the tested
-  resolution on 26 July 2026, while future compatible versions must prove the
-  same behaviour.
-- Discarded association: two plan nodes do not imply two PostHog clients. The
-  nodes separate delivery from governance; the runtime architecture still uses
-  one client for the current event estate.
-- The current false-green risks are notification drift and delivery-state
-  collapse: watcher process/cursor does not prove cognition, a local commit
-  does not prove publication or review, and accepted adapter evidence does not
-  prove a settled adapter PR.
-- Custody transfer is complete, but monitoring is intentionally redundant. The
-  canonical watcher, foreground cognition poll, and outbound claim heartbeat
-  prove different liveness classes and must not substitute for one another.
-- Tracking is orthogonal to importance, authority, permanence, and safety.
-  Untracked live collaboration state is critical truth-of-now; this tracked
-  thread and the plans are temporary; permanent documentation is the only
-  long-term knowledge destination.
+- Green, ready, and merged are distinct: #592 is green but was still a draft
+  at the last recount.
+- Empty bot-token output allowed credential fallback and wrong authorship;
+  verify the actor before every GitHub mutation.
+- #576 closes only after all MCP230–MCP238 replacements are pushed and linked.
+- Patch-ID evidence shows the four commits on the old local delivery branch
+  have no unique unsafe source.
+- Linear's owner-gated wording is stale relative to current owner direction.
+- The closeout documents still require Director commit, push, and PR custody.
+- A second loss pass found the evidence-index and external-drift bounds
+  themselves needed a permanent home. The 27 July handoff report now owns
+  them. A third pass would only re-find current-state drift,
+  green-versus-ready, and landing/custody, so recursion closes.
 
 ## Participating identities
 
@@ -191,4 +149,4 @@ hardening.
 | Urchin hunts Surf | claude-code | claude-fable-5 | b51773 | superseded spike author | 2026-07-22 | 2026-07-22 |
 | Crucible wakes Ashes | codex | GPT-5 | 019f9a | ratified plan, probes, and closeout | 2026-07-26 | 2026-07-26 |
 | Kite seeks Crosswind | codex | GPT-5 | 019f9e | implementation and outgoing custody | 2026-07-26 | 2026-07-26 |
-| Cutter hunts Lagoon | codex | GPT-5 | 019f9e | active implementation custody | 2026-07-26 | 2026-07-26 |
+| Cutter hunts Lagoon | codex | GPT-5 | 019f9e | focused replacement delivery and outgoing boundary | 2026-07-26 | 2026-07-27 |
