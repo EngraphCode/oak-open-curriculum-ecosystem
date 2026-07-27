@@ -1,3 +1,10 @@
+# [1.91.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.90.0...v1.91.0) (2026-07-27)
+
+
+### Features
+
+* **mcp-app:** serve the Oak design system and brand assets from the app ([d00c247](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d00c2475dbda1ef483e23e0e61e7d763b747ccac))
+
 # [1.90.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.89.0...v1.90.0) (2026-07-27)
 
 
