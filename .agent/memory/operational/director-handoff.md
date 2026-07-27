@@ -330,13 +330,17 @@ first-hand as of 2026-06-25.
 > on ticket): Cloudflare route/Worker, Clerk config intersection
 > (MCP-143), conformance re-run against the new origin pre-submission.
 > (2) MCP-117 PostHog key ceremony. (3) MCP-202 operator probe.
-> (4) MCP-192 secrets-environment finding: STILL no ticket, no owner
-> decision — OLDEST undischarged item (since 2026-07-26), owner-grade,
-> recommend card first. (5) Carriers for: #570/#574 resumption,
-> MCP-227 (RESCOPED: regex match kind ALREADY EXISTS — pattern-add +
-> pop-test only), MCP-228 (GraphQL-derived tally), MCP-199/200/216/217/
-> 218 (orphans). (6) Recommended two-line edit: principles evidence rule
-> → BIDIRECTIONAL (under-claiming cost a wrongly-scoped ticket).
+> (4) DISCHARGED 10:51Z: MCP-192 secrets-environment finding MINTED as
+> MCP-245 at owner word ("Mint ticket now") — owner threat-model
+> decision now lives on that ticket. (5) Carriers: owner answered
+> "open 1–2 seats now"; recommended routing seat 1 → #583 boot-throw
+> (NEW, owner-priority: page has NEVER served — both preview deploys
+> 500 FUNCTION_INVOCATION_FAILED, zero runtime logs; Vercel checks are
+> deploy-proof only, probe gate caught it), seat 2 → MCP-227 (now
+> fully sharpened via Director ticket comment: block/permit table +
+> fail-open hazard pin) then MCP-228; #570/#574 + orphans
+> MCP-199/200/216/217/218 route as capacity frees. (6) DISCHARGED:
+> bidirectional principles edit APPLIED at owner word 10:51Z.
 > MCPJam creds tmp copy DELETED at wrap (custody discharged).
 > (7) LIVE at compaction: fleet-wide LOCAL secrets:scan red — 807 false
 > positives (token-anchor digests in Smelter's current-source-anchors.json,

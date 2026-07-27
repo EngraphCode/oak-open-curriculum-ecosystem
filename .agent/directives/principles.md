@@ -496,7 +496,13 @@ paths, setup files) don't apply.
   claiming a guarantee its mechanism does not deliver is the same
   defect and is cited as authority just as hard (five instances in
   five surfaces, 2026-07-27; falsifier for the class: a sixth
-  instance in a surface this scope still misses). Companion to "Misleading docs are blocking": that rule
+  instance in a surface this scope still misses). The rule binds in
+  BOTH directions: doctrine claiming LESS than the mechanism
+  delivers is the same defect — a stale under-claim is cited as
+  authority just as hard and forecloses capability that exists
+  (worked instance 2026-07-27: a docstring omitting the schema's
+  `match` field cost a wrongly-scoped ticket and a false blocker
+  claim). Companion to "Misleading docs are blocking": that rule
   fires after the misstatement lands; this rule prevents authoring
   the misstatement in the first place.
 
