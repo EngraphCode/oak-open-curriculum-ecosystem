@@ -1,3 +1,18 @@
+# [1.96.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.95.0...v1.96.0) (2026-07-27)
+
+
+### Bug Fixes
+
+* **mcp-http:** forward malformed redirect_uris entries instead of refusing them ([ee4e296](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ee4e296d85f7f989946fa3357759c400af4a9046))
+* **mcp-http:** forward non-array redirect_uris — the upstream demonstrably rejects it ([f8ecdf4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f8ecdf4a5ea9dae361bff70ebace71c763ecfd26))
+* **mcp-http:** reject non-loopback http redirect_uris at /oauth/register ([a8fd012](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a8fd0125dcce78265b0cf3392b5c73d000895ac6))
+* **mcp-http:** scope the refusal to the cited obligation; widen IPv4 loopback ([da6d56d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/da6d56dbad7403ef05731454e27e8cce6e947fe3))
+
+
+### Features
+
+* **analytics:** add fenced PostHog adapter boundary ([87358fb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/87358fb94d458e03d83aec8dc67ced7de49723e3))
+
 # [1.95.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.94.2...v1.95.0) (2026-07-27)
 
 
