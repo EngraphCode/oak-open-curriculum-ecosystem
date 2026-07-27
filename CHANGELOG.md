@@ -1,3 +1,10 @@
+# [1.100.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.99.0...v1.100.0) (2026-07-27)
+
+
+### Features
+
+* **posthog:** add the closed event policy to the adapter ([6799bde](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/6799bdecaee5ddf98f41384584d76ae426616662)), closes [#576](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/576)
+
 # [1.99.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.98.0...v1.99.0) (2026-07-27)
 
 
