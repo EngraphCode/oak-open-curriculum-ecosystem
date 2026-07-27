@@ -109,6 +109,13 @@ describe('canonical policy: bare-git stash-park fingerprint (MCP-227)', () => {
       // reflex the guard exists to catch (MCP-254 finding, folded in as v2.1).
       'cd /tmp\ngit stash',
       'set -e\ngit stash -u\necho done',
+      // The MCP-254 remainder: global-flag interposition and backtick
+      // substitution are the same ordinary-usage reflex in different coats
+      // (the newline shapes above were the first half of that finding).
+      'git -C /repo stash',
+      'git -C /repo stash -u',
+      'cd /tmp && git -C /repo stash push -m wip',
+      'echo `git stash`',
     ]) {
       const entry = findBlockedPattern(command, patterns);
       expect(entry).toMatchObject({ concept: 'stash-park', citation: expectedCitation });
@@ -127,6 +134,9 @@ describe('canonical policy: bare-git stash-park fingerprint (MCP-227)', () => {
     expect(findBlockedPattern('git stash list', patterns)).toBeNull();
     expect(findBlockedPattern('git stash show -p', patterns)).toBeNull();
     expect(findBlockedPattern('git stash branch rescue', patterns)).toBeNull();
+    // The same permission holds through global-flag interposition.
+    expect(findBlockedPattern('git -C /repo stash pop', patterns)).toBeNull();
+    expect(findBlockedPattern('git -C /repo stash list', patterns)).toBeNull();
   });
 
   it('does not fire on a single-line commit message naming the guard it implements', async () => {
@@ -153,17 +163,14 @@ describe('canonical policy: bare-git stash-park fingerprint (MCP-227)', () => {
     });
   });
 
-  it('accepts the documented anchor bounds as deliberate trade-offs (MCP-254)', async () => {
-    // This is a reappraisal tripwire, not a security boundary. These shapes do
-    // not fire because the anchor set is command-position-based. They are
-    // TO-ACTION on MCP-254, trigger = this change merging — not silently
-    // closed, and not ratified as correct-forever.
+  it('accepts the remaining documented anchor bound as a deliberate trade-off', async () => {
+    // This is a reappraisal tripwire, not a security boundary. The
+    // wrapper-prefixed shape stays outside the anchor set KNOWINGLY —
+    // MCP-227's documented bound. (The MCP-254 remainder that once sat
+    // here — git -C interposition and backtick substitution — now blocks,
+    // pinned in the park-forms test above.)
     const patterns = await loadBlockedPatterns();
 
-    // Global-flag interposition: `stash` no longer follows `git` directly.
-    expect(findBlockedPattern('git -C /repo stash', patterns)).toBeNull();
-    // Backtick substitution is not in the anchor set.
-    expect(findBlockedPattern('echo `git stash`', patterns)).toBeNull();
     // No anchor precedes a wrapper-prefixed invocation.
     expect(findBlockedPattern('timeout 60 git stash', patterns)).toBeNull();
   });

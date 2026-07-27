@@ -95,7 +95,7 @@
           "reappraisal": "Never use git stash to park, hide, or discard work; keep in-progress work as live working-tree edits."
         },
         {
-          "pattern": "(?:^|[;&|\\n]|\\$\\()\\s*git\\s+stash\\b(?!\\s+(?:pop|apply|list|show|branch|drop|clear)\\b)",
+          "pattern": "(?:^|[;&|\\n`]|\\$\\()\\s*git\\s+(?:-C\\s+\\S+\\s+)*stash\\b(?!\\s+(?:pop|apply|list|show|branch|drop|clear)\\b)",
           "match": "regex",
           "concept": "stash-park",
           "citation": ".agent/rules/never-use-git-to-remove-work.md",
