@@ -1,3 +1,10 @@
+# [1.90.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.89.0...v1.90.0) (2026-07-27)
+
+
+### Features
+
+* **design:** dense code ramp and inverted-surface focus family for the landing page ([56b9157](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/56b91576fb6f86ae9308e109e635592e0c51e223)), closes [hi#contrast](https://github.com/hi/issues/contrast)
+
 # [1.89.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.88.3...v1.89.0) (2026-07-26)
 
 
