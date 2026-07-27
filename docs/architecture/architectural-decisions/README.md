@@ -472,7 +472,7 @@ For understanding authentication, authorization, and observability:
 
 - **[ADR-052](052-oauth-2.1-for-mcp-http-authentication.md)** - OAuth 2.1 for MCP HTTP server authentication
 - **[ADR-053](053-clerk-as-identity-provider.md)** - Clerk as Identity Provider and Authorization Server
-- **[ADR-115](115-proxy-oauth-as-for-cursor.md)** - Proxy OAuth AS for Cursor compatibility (transparent passthrough to Clerk)
+- **[ADR-115](115-proxy-oauth-as-for-cursor.md)** - Proxy OAuth AS for Cursor compatibility (transparent passthrough to Clerk; amended 2026-07-26 — transparency scoped against advertised-AS request validation)
 - **[ADR-143](143-coherent-structured-fan-out-for-observability.md)** - Coherent structured fan-out for the Sentry and OpenTelemetry foundation (§6 superseded in part by ADR-160)
 - **[ADR-158](158-multi-layer-security-and-rate-limiting.md)** - Multi-layer security architecture and application rate limiting
 - **[ADR-159](159-per-workspace-vendor-cli-ownership.md)** - Per-workspace vendor CLI ownership with repo-tracked configuration (formalises the Sentry CLI adoption pattern; applies to all future vendor CLIs)
