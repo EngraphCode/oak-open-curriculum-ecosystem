@@ -22,6 +22,12 @@ const BROWSER_ACCEPT = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/
 describe('MCP endpoint HTML negotiation (integration)', () => {
   let app: Express;
 
+  // Named so the serving assertion below can demand EXACT equality: the
+  // route's contract is "serves the injected baked string, never renders",
+  // and only byte-equality with the fake falsifies a fallback render.
+  const FAKE_LANDING_PAGE_HTML =
+    '<!doctype html><html lang="en-GB"><body>test landing page</body></html>';
+
   beforeEach(async () => {
     const runtimeConfig = createMockRuntimeConfig({
       dangerouslyDisableAuth: true,
@@ -33,15 +39,19 @@ describe('MCP endpoint HTML negotiation (integration)', () => {
       runtimeConfig,
       observability,
       getWidgetHtml: () => '<!doctype html><html><body>test-widget</body></html>',
+      getLandingPageHtml: () => FAKE_LANDING_PAGE_HTML,
       rateLimiterFactory: createFakeRateLimiterFactory().factory,
     });
   });
 
-  it('I1/I12: browser-shaped GET /mcp serves the landing page', async () => {
+  it('I1/I12: browser-shaped GET /mcp serves the injected baked page verbatim', async () => {
     const res = await request(app).get('/mcp').set('Host', 'localhost').accept(BROWSER_ACCEPT);
     expect(res.status).toBe(200);
     expect(res.headers['content-type']).toMatch(/text\/html/);
-    expect(res.text).toContain('<!doctype html>');
+    // Exact equality, not toContain: a regression to per-request rendering
+    // would also produce a doctype — only the fake's bytes prove the route
+    // serves the injected artefact string and never renders.
+    expect(res.text).toBe(FAKE_LANDING_PAGE_HTML);
   });
 
   it('I2: the HTML leg carries security and cache headers', async () => {

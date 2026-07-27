@@ -13,18 +13,18 @@ import type { Logger } from '@oaknational/logger';
 import { err, ok, type Result } from '@oaknational/result';
 
 import { OAK_ASSETS_MARKER, OAK_DS_MARKER } from './static-asset-paths.js';
-import { renderLandingPageHtml } from '../landing-page/index.js';
 
 function addRootLandingPage(
   app: Express,
   dnsRebindingMw: RequestHandler,
   log: Logger,
-  vercelHostname?: string,
-  appVersion?: string,
+  getLandingPageHtml: () => string,
 ): void {
   app.get('/', dnsRebindingMw, (req, res) => {
     log.debug('landing.get', { path: req.path, method: req.method });
-    res.type('text/html').send(renderLandingPageHtml(vercelHostname, appVersion));
+    // The baked artefact, rendered once at build time — no React, no
+    // derivation, no per-request render (owner ruling; ADR-217 lineage).
+    res.type('text/html').send(getLandingPageHtml());
   });
 }
 
@@ -116,8 +116,8 @@ function mountStaticAssets(app: Express, log: Logger, staticRoot?: string): void
 
 /** What the static-content mount needs from the app's options. */
 export interface StaticContentOptions {
-  readonly vercelHostname?: string;
-  readonly appVersion?: string;
+  /** The baked landing-page document; see `CreateAppOptions.getLandingPageHtml`. */
+  readonly getLandingPageHtml: () => string;
   readonly staticRoot?: string;
 }
 
@@ -127,6 +127,6 @@ export function mountStaticContentRoutes(
   log: Logger,
   options: StaticContentOptions,
 ): void {
-  addRootLandingPage(app, dnsRebindingMw, log, options.vercelHostname, options.appVersion);
+  addRootLandingPage(app, dnsRebindingMw, log, options.getLandingPageHtml);
   mountStaticAssets(app, log, options.staticRoot);
 }

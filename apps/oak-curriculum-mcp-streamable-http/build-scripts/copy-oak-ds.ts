@@ -1,5 +1,6 @@
 /**
- * Build-time copy of the Oak design system's runtime files into `public/`.
+ * Build-time copy of the Oak Open Curriculum Design System's runtime files
+ * into `public/`.
  *
  * @remarks
  * The app serves the design system as ordinary static assets under
@@ -90,9 +91,11 @@ export const OAK_DS_MANIFEST = {
     'oak-icons.css',
     'components.css',
     'print.css',
-    // The system's own theme switcher. Loaded synchronously in <head> so the
-    // stored theme applies before first paint; also the source of the five
-    // theme names the page's theme control offers.
+    // The system's own theme switcher. Published now, referenced by NOTHING
+    // yet: this page ships no theme control or script (machinery and
+    // affordance travel together, ADR-217 §5) — the entry rides here so the
+    // stack's theme-control landing adds only the reference, and it sits
+    // outside the CSS closure the integration suite recomputes.
     'oak-theme.js',
     'fonts/Lexend-VariableFont_wght.ttf',
     'fonts/Lexend-OFL.txt',

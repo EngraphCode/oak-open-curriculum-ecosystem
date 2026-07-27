@@ -53,6 +53,8 @@ export async function createStubbedHttpApp(
     runtimeConfig,
     observability,
     getWidgetHtml: () => '<!doctype html><html><body>stub-widget</body></html>',
+    getLandingPageHtml: () =>
+      '<!doctype html><html lang="en-GB"><body>test landing page</body></html>',
     rateLimiterFactory: createNoOpRateLimiterFactory(),
     // Only override the canonical definition when a suite opts into a
     // variant (e.g. the user-search activation seam); omitting it keeps

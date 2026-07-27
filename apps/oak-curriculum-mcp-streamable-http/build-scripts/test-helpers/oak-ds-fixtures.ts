@@ -62,6 +62,11 @@ export function resolveRelative(fromFile: string, reference: string): string {
   return path.normalize(path.join(path.dirname(fromFile), reference));
 }
 
+/** Read a file from the app's own workspace, workspace-relative. */
+export async function readAppText(relativePath: string): Promise<string> {
+  return readFile(path.resolve(import.meta.dirname, '..', '..', relativePath), 'utf8');
+}
+
 /** Every regular file under a root, as sorted root-relative paths. */
 export async function listFilesRecursive(...segments: readonly string[]): Promise<string[]> {
   const root = path.join(...segments);
