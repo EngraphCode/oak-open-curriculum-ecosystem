@@ -7,21 +7,22 @@
  * guards pin the rules' outcome on the committed corpus artefact itself, so
  * a regeneration that changes the dedup or integrity behaviour surfaces as a
  * visible diff in BOTH the data and this expectation (a conscious contract
- * amendment, never silent drift). The G2 expected values are the first-hand
- * measurements recorded in the G2 mint-rule design verdict
- * (`.agent/reports/g2-misconception-mint-rule-design-2026-06-10.md`) and
- * re-verified at G2 execution start against the 2026-06-10 bulk snapshot;
- * the G4b keyword values (13,452 keyword nodes / 43,660 containsKeyword
- * edges) are the first-hand jq recomputations from the same snapshot,
- * re-verified at G4b execution start (readiness synthesis, 2026-06-11).
+ * amendment, never silent drift). The original G2/G4b values were the
+ * first-hand measurements against the 2026-06-10 bulk snapshot
+ * (`.agent/reports/g2-misconception-mint-rule-design-2026-06-10.md` and the
+ * G4b readiness synthesis, 2026-06-11). CONSCIOUS AMENDMENT (2026-07-27,
+ * MCP-153): the pins now record the 2026-07-27 bulk snapshot with the
+ * MCP-204 restricted-lesson exclusion applied (3,372 restricted lesson
+ * records / 2,641 distinct slugs removed before extraction) — each value
+ * below re-measured first-hand from the regenerated artefact.
  */
 import { describe, expect, it } from 'vitest';
 
 import { graphCorpus } from '../../generated/vocab/graph-corpus/index.js';
 
 describe('committed graph corpus (G2 + G4b real-corpus count guards)', () => {
-  it('collapses exactly the 473 multi-placement identical misconception pairs', () => {
-    expect(graphCorpus.stats.collapsedIdenticalMisconceptions).toBe(473);
+  it('collapses exactly the 3,583 multi-placement identical misconception pairs', () => {
+    expect(graphCorpus.stats.collapsedIdenticalMisconceptions).toBe(3583);
   });
 
   it('drops zero duplicates (no same-text-different-response pair within one lesson)', () => {
@@ -34,16 +35,16 @@ describe('committed graph corpus (G2 + G4b real-corpus count guards)', () => {
 
   it('emits the expected node-kind counts for the pinned snapshot', () => {
     expect(graphCorpus.stats.nodeKindCounts).toEqual({
-      unit: 1624,
-      thread: 164,
-      lesson: 12391,
-      misconception: 12385,
-      keyword: 13452,
+      unit: 1834,
+      thread: 160,
+      lesson: 11022,
+      misconception: 11017,
+      keyword: 12250,
     });
   });
 
   it('emits one containsKeyword edge per unique lesson placement (G4b pinned snapshot)', () => {
-    expect(graphCorpus.stats.edgeTypeCounts.containsKeyword).toBe(43660);
+    expect(graphCorpus.stats.edgeTypeCounts.containsKeyword).toBe(38655);
   });
 
   it('emits keyword nodes id-sorted (deterministic artefact order)', () => {
