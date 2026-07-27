@@ -304,7 +304,11 @@ first-hand as of 2026-06-25.
 > deploy report — CHECK ITS OUTPUT FIRST post-compaction; the owner is
 > waiting on production 200s.
 >
-> **OPEN PRs**: #582 (Raccoon, green at 11bfdf01e, 2 threads), #570
+> **OPEN PRs**: #582 (Raccoon: custody cure PUSHED at e18b6ec94,
+> gate-green, BOTH threads resolved; NEXT ACT IS THE DIRECTOR'S —
+> base-refresh call, .gitleaks.toml resolves by adopting MAIN wholesale,
+> then settled-by-name → merge; Raccoon also compaction-prepping,
+> claim 1aaae3e6 live through their boundary), #570
 > (POOL: 7 adjudicated fixes, event 92af6f15, needs FRESH-context
 > carrier), #576 (stays open per Cutter closeout until MCP-239..244
 > successor set completes — those application successors are UNBUILT),

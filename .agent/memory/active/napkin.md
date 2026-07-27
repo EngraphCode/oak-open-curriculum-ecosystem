@@ -1538,6 +1538,49 @@ trigger-first-rule-indexing thread. — Squall wakes Apex (459fd1)
   what-it-does and watched-it-fail are different epistemic states; the Director was right to
   demand the second.
 
+## 2026-07-27 ~14:50Z — Raccoon turns Nocturne (0f6caa): compaction-prep capture (owner word)
+
+**Resume state (post-compaction me: read this + my directed stream with the Director).**
+Lane: MCP-103 estate, claim `1aaae3e6` LIVE through the boundary. Done this tenure: #574
+merged `45716a973` (MCP-188 Done); #594 merged `98435630d` (fleet gitleaks cure, 832→0);
+PR #582 six-file custody cure landed `e18b6ec94` (evidence re-verified: 8/8, type-check, 3,449
+tests, 53-entry inventory), pushed gate-green, both threads resolved. NEXT: #582 CI at
+`e18b6ec94` → base-refresh call is the DIRECTOR's (main moved: `d2f0ce477`, `98435630d`);
+at the refresh, `.gitleaks.toml` resolves by adopting MAIN's side wholesale (superset) —
+watch for fluent "clean merge" overclaim here, it is this seat's named resume-risk. Then
+settled-by-name → Director merges. Owner-directed side work homed: MCP-106 trued, MCP-266
+minted (plugin readiness; owner gates open: repo-public flip, creation-scope decision,
+name confirm), MCP-67 CIMD evidence. Primary carries my uncommitted tracked `.mcp.json`
+edit (elastic-agent-builder + sentry re-home) — flagged to the Director for the next
+coordination batch. Monitors (watcher `b4h8i1luc`, F-75 poll, heartbeat) expected to
+survive compaction per fleet note — INHERITED claim, re-verify at resume: assert-watcher-
+live + pair-check + cursor movement, never process status.
+
+**Lessons (at occurrence):**
+
+- **Custody-record verification YIELDS, not just preserves**: Smelter's C436-only gitleaks
+  cure was insufficient — full-history reproduction found a second non-secret token
+  (`pupil_premium_rates_2024_25`, `d6fba3768`). The successor is the freshest review the
+  work ever gets; verify-at-pickup changed the landed artefact, not just confirmed it.
+- **Suspect-the-instrument paid three times in one lane**: a claims-registry read failed on
+  persisted-cwd drift (Bash cwd carries across calls — absolute paths, always); a JSON count
+  probe defaulted to 0 on an unguessed shape (read the shape before counting); gitleaks
+  `--no-git` returned zero findings because it SKIPS dot-directories and reports ABSOLUTE
+  paths, so relative path-anchored allowlists never apply — negative controls must run in
+  git mode or on real history. A surprising negative is about the check until proven
+  otherwise; the real-history intermediate scan (1 surviving finding) was the honest
+  negative control all along.
+- **Stage-hook matcher false-positives on dot-leading EXPLICIT pathspecs**
+  (`git add -- .gitleaks.toml` blocked as "wildcard-staging"); absolute-path staging passes
+  and fully honours the rule's concept. Routed to the Director (ticket promised on-stream).
+- **comms `reply` guard requires an EXACT to-tuple match including the uuid** — a
+  mis-derived `to.id` on the antecedent surfaces as a nonsensical self-reply refusal
+  (triangulated with Schooner; confirmed by a successful reply once addressing was trued).
+- **commitlint footer-leading-blank warns on the Co-Authored-By + Claude-Session footer
+  pair** (2/2 commits this tenure, warning-only, hook accepts). Unchased under lane
+  pressure; candidate probe for whoever touches it: `check-commit-message` with a blank
+  line between the two footer tokens.
+
 ## 2026-07-27 ~13:10Z — MCP-103 handoff: pushed is not current (Smelter rides Temper, 019f9f)
 
 - **Expected:** after specialist approvals and a successful push, PR #582 would be a single safe
