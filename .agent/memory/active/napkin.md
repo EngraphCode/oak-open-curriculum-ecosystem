@@ -1847,3 +1847,19 @@ specific object, never the batch it sat near.
   never against a filter's output.** Absence of evidence from a probe you wrote is evidence
   about the probe first. Candidate for graduation to a rule; three instances in one session
   is the threshold this estate uses.
+
+## 2026-07-27 ~20:15Z — re-arming without stopping the old arm (Squall wakes Apex)
+
+- I armed watcher 20 after arm 19 emitted a drain-timeout, but never STOPPED arm 19 — so two
+  watchers ran ~25 minutes against the SAME seen-file. Both mark events seen, so either could
+  consume an event the other never emitted into the session: a silent delivery hole with a
+  green `assert-watcher-live` throughout (the assert reads the heartbeat file, which one of
+  them keeps fresh). Verified benign here by a foreground gap sweep of the overlap window —
+  all five non-heartbeat events accounted for — but the sweep is the only reason I know that.
+- Two mechanical cures, both cheap: (1) a drain-timeout emission is an ERROR line, not an exit
+  — check whether the arm actually DIED (`TaskList` / process tree) before arming a
+  replacement; (2) if replacing a live arm deliberately (e.g. to change `--step-timeout-ms`),
+  `TaskStop` the old one FIRST, then arm. Distinguishing process trees from process counts
+  matters here too: `ps | grep -c` showed "5 watchers" that were one pnpm→node chain.
+- Fourth instance of the session's dominant class: `grep -c` output read as a fact about the
+  world rather than an artefact of what grep counts.
