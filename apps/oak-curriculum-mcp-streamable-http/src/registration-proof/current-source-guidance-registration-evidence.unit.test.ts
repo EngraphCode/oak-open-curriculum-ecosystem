@@ -29,6 +29,14 @@ describe('buildGuidanceRegistrationEvidence', () => {
       expect.arrayContaining([
         expect.objectContaining({
           locus: 'resource-metadata',
+          field: 'name',
+        }),
+        expect.objectContaining({
+          locus: 'resource-metadata',
+          field: 'uri',
+        }),
+        expect.objectContaining({
+          locus: 'resource-metadata',
           field: 'title',
         }),
         expect.objectContaining({
@@ -36,8 +44,28 @@ describe('buildGuidanceRegistrationEvidence', () => {
           field: 'description',
         }),
         expect.objectContaining({
+          locus: 'resource-metadata',
+          field: 'mimeType',
+        }),
+        expect.objectContaining({
+          locus: 'resource-metadata',
+          field: 'annotations',
+        }),
+        expect.objectContaining({
+          locus: 'resource-contents',
+          field: 'uri',
+        }),
+        expect.objectContaining({
+          locus: 'resource-contents',
+          field: 'mimeType',
+        }),
+        expect.objectContaining({
           locus: 'resource-contents',
           field: 'text',
+        }),
+        expect.objectContaining({
+          locus: 'resource-contents',
+          field: '_meta.lastModified',
         }),
       ]),
     );

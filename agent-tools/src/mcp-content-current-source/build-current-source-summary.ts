@@ -11,12 +11,15 @@ export function buildCurrentSourceSummary(
   );
   return {
     itemCount: items.length,
+    baselineItemCount: items.filter((item) => item.lineage.disposition !== 'added').length,
+    additionCount: items.filter((item) => item.lineage.disposition === 'added').length,
     availableCount: available.length,
     retiredCount: items.filter((item) => item.source.state === 'retired').length,
     unchangedCount: revisions.filter((revision) => revision === 'unchanged').length,
     expandedCount: revisions.filter((revision) => revision === 'expanded').length,
     modifiedCount: revisions.filter((revision) => revision === 'modified').length,
     relocatedCount: revisions.filter((revision) => revision === 'relocated').length,
+    addedCount: revisions.filter((revision) => revision === 'added').length,
     workspaceScopeInCount: items.filter((item) => item.workspaceScope === 'in').length,
     workspaceScopeOutUpstreamApiCount: items.filter(
       (item) => item.workspaceScope === 'out-upstream-api',

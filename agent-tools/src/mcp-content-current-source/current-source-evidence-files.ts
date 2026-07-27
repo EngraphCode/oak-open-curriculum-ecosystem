@@ -115,11 +115,17 @@ async function pathExists(repoRoot: string, repoRelativePath: string): Promise<b
   }
 }
 
+interface CurrentTargetDependencies {
+  readonly pathExists?: (repoRoot: string, repoRelativePath: string) => Promise<boolean>;
+}
+
 export async function currentTargetsByAuditId(
   repoRoot: string,
   baseline: readonly BaselineEvidenceRow[],
   promptEraLineage: ReadonlyMap<string, readonly string[]>,
+  dependencies: CurrentTargetDependencies = {},
 ): Promise<ReadonlyMap<string, readonly string[]>> {
+  const targetExists = dependencies.pathExists ?? pathExists;
   const targets = new Map<string, readonly string[]>();
   for (const row of baseline) {
     const lineageTargets = promptEraLineage.get(row.id);
@@ -127,7 +133,7 @@ export async function currentTargetsByAuditId(
       targets.set(row.id, lineageTargets);
       continue;
     }
-    if (await pathExists(repoRoot, row.file)) {
+    if (await targetExists(repoRoot, row.file)) {
       targets.set(row.id, [row.file]);
       continue;
     }

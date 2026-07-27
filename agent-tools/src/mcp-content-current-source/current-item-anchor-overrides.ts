@@ -2,10 +2,13 @@
  * Reviewed current-source anchors for audit items whose immutable baseline
  * fragment was intentionally modified or relocated.
  *
- * Retained, unchanged items are anchored from their immutable baseline
- * fragments. Every entry here is an explicit semantic hand-off to current
- * source text; changing it is a compliance review act, not regeneration noise.
+ * Retained items use immutable baseline fragments. Entries here are explicit
+ * semantic hand-offs; changing one is a compliance review act.
  */
+import {
+  CURRENT_GENERATED_ITEM_ANCHOR_OVERRIDES,
+  CURRENT_GENERATED_ITEM_REVISION_OVERRIDES,
+} from './current-generated-item-anchor-overrides.js';
 
 const GUIDANCE_ROOT = 'packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources';
 const LANDING_ROOT = 'apps/oak-curriculum-mcp-streamable-http/src/landing-page';
@@ -17,10 +20,10 @@ const ADAPT = `${GUIDANCE_ROOT}/adapt-lesson.ts`;
 const CONTINUE = `${GUIDANCE_ROOT}/continue-progression.ts`;
 const LANDING_RESOURCES = `${LANDING_ROOT}/render-resources-section.ts`;
 const LANDING_TOOLS = `${LANDING_ROOT}/render-tools-section.ts`;
-
 type AnchorOverrides = Readonly<Record<string, Readonly<Record<string, readonly string[]>>>>;
 
 export const CURRENT_ITEM_ANCHOR_OVERRIDES: AnchorOverrides = {
+  ...CURRENT_GENERATED_ITEM_ANCHOR_OVERRIDES,
   C178: {
     [FIND]: [
       'find curriculum lessons on a topic the teacher names, across all subjects and key stages',
@@ -240,6 +243,7 @@ export const CURRENT_ITEM_ANCHOR_OVERRIDES: AnchorOverrides = {
 };
 
 export const CURRENT_ITEM_REVISION_OVERRIDES = {
+  ...CURRENT_GENERATED_ITEM_REVISION_OVERRIDES,
   C313: 'unchanged',
   C413: 'expanded',
   C479: 'modified',

@@ -121,6 +121,35 @@ describe('buildCurrentSourceTruthSet', () => {
           ],
         },
       ],
+      additions: [
+        {
+          id: 'A001',
+          title: 'Fixture addition',
+          reviewDomain: 'engineering-structural',
+          impactTier: 'high-impact',
+          behaviouralIntent: 'Fixture added content.',
+          workspaceScope: 'in',
+          sourceLocus: 'this-repo',
+          file: 'current/added.ts',
+          evidence: {
+            revision: 'added',
+            targets: [
+              {
+                file: 'current/added.ts',
+                anchors: [
+                  {
+                    tokenCount: 1,
+                    tokenSha256: 'fixture-anchor',
+                    indexToken: 'fixture',
+                    indexOffset: 0,
+                  },
+                ],
+              },
+            ],
+          },
+          registrations: [],
+        },
+      ],
       retiredAuditIds: ['C002'],
       registrationRoots: [
         {
@@ -142,8 +171,15 @@ describe('buildCurrentSourceTruthSet', () => {
       ],
     });
 
-    expect(truthSet.items).toHaveLength(5);
-    expect(truthSet.items.map((item) => item.id)).toEqual(['C001', 'C002', 'C003', 'C004', 'C005']);
+    expect(truthSet.items).toHaveLength(6);
+    expect(truthSet.items.map((item) => item.id)).toEqual([
+      'C001',
+      'C002',
+      'C003',
+      'C004',
+      'C005',
+      'A001',
+    ]);
 
     expect(truthSet.items[0]).toMatchObject({
       id: 'C001',
@@ -184,14 +220,25 @@ describe('buildCurrentSourceTruthSet', () => {
       source: { state: 'available' },
       registrations: [{ state: 'live' }],
     });
+    expect(truthSet.items[5]).toMatchObject({
+      id: 'A001',
+      authority: 'workspace',
+      source: { state: 'available', evidence: { revision: 'added' } },
+      lineage: { disposition: 'added', addedAfterBaselineCommit: 'fixture-baseline' },
+      reviewContext: { title: 'Fixture addition' },
+    });
     expect(truthSet.summary).toMatchObject({
+      itemCount: 6,
+      baselineItemCount: 5,
+      additionCount: 1,
       unchangedCount: 2,
       expandedCount: 0,
       modifiedCount: 1,
       relocatedCount: 1,
-      workspaceScopeInCount: 4,
+      addedCount: 1,
+      workspaceScopeInCount: 5,
       workspaceScopeOutUpstreamApiCount: 1,
-      workspaceAuthorityCount: 2,
+      workspaceAuthorityCount: 3,
       upstreamApiAuthorityCount: 1,
       upstreamSkillsAuthorityCount: 1,
       externalThirdPartyAuthorityCount: 1,
@@ -231,6 +278,7 @@ describe('buildCurrentSourceTruthSet', () => {
             registrations: [],
           },
         ],
+        additions: [],
         retiredAuditIds: [],
         registrationRoots: [],
       }),
@@ -276,6 +324,7 @@ describe('buildCurrentSourceTruthSet', () => {
           registrations: [],
         },
       ],
+      additions: [],
       retiredAuditIds: [],
       registrationRoots: [],
     });

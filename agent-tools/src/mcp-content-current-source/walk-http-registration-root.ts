@@ -20,14 +20,14 @@ const registrationSurfaceSchema = z.discriminatedUnion('locus', [
   z
     .object({
       locus: z.literal('resource-metadata'),
-      field: z.enum(['title', 'description']),
+      field: z.enum(['name', 'uri', 'title', 'description', 'mimeType', 'annotations']),
       value: z.string(),
     })
     .strict(),
   z
     .object({
       locus: z.literal('resource-contents'),
-      field: z.literal('text'),
+      field: z.enum(['uri', 'mimeType', 'text', '_meta.lastModified']),
       value: z.string(),
     })
     .strict(),

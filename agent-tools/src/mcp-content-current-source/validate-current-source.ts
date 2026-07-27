@@ -2,206 +2,114 @@
 
 /** Recomputes the MCP agent-facing current-source truth set; `--write` refreshes it. */
 
-import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { resolveRepoRoot } from '../core/repo-root.js';
 import { writeErrorLine, writeLine } from '../core/terminal-output.js';
-import { buildCurrentSourceTruthSet } from './build-current-source-truth-set.js';
-import { buildAnchoredDispositions } from './current-source-dispositions.js';
 import {
-  currentTargetsByAuditId,
-  parseBaselineRows,
-  readCurrentContent,
-  resolveAnchorManifest,
-  type BaselineEvidenceRow,
-} from './current-source-evidence-files.js';
-import type {
-  CurrentAuditDisposition,
-  RegistrationRoot,
-  RegistrationSourceEvidence,
-} from './current-source-model.js';
-import { requireGuidanceRegistrationParity } from './guidance-registration-parity.js';
-import { GUIDANCE_SOURCE_ENTRIES, PROMPT_ERA_LINEAGE_ENTRIES } from './prompt-era-lineage.js';
+  AUDIT_REPORT,
+  CURRENT_SOURCE_ANCHORS,
+  CURRENT_SOURCE_ARTIFACT,
+  CURRENT_SOURCE_DELTA_INVENTORY,
+} from './current-source-config.js';
+import { normaliseLineEndings } from './normalise-line-endings.js';
 import { publishCurrentSourceArtifacts } from './publish-artifacts.js';
-import { requireSameStringMembers } from './require-same-string-members.js';
-import { walkHttpRegistrationRoot } from './walk-http-registration-root.js';
-
-const AUDIT_ROOT = '.agent/reports/mcp-agent-facing-content-audit';
-const BASELINE_ARTIFACT = `${AUDIT_ROOT}/registry.json`;
-const CURRENT_SOURCE_ARTIFACT = `${AUDIT_ROOT}/current-source.json`;
-const CURRENT_SOURCE_ANCHORS = `${AUDIT_ROOT}/current-source-anchors.json`;
-const BASELINE_COMMIT = '240a598607b96485f50c0dfd6df154d673a90a25';
-const BASELINE_REGISTRY_SHA256 = '244f9ce421983fbc92dfd12db7d552cf61670c96353d16625adaf56a0bd8a78d';
+import {
+  recomputeCurrentSource,
+  type RecomputedCurrentSource,
+} from './recompute-current-source.js';
 
 const repoRoot = resolveRepoRoot(import.meta.url);
-const guidanceSourcePaths = GUIDANCE_SOURCE_ENTRIES.map((entry) => entry[0]);
 
-type RegistrationIndex = Readonly<Record<string, RegistrationSourceEvidence>>;
-
-function createPromptEraLineage(): ReadonlyMap<string, readonly string[]> {
-  const lineage = new Map<string, readonly string[]>();
-  for (const [id, targets] of PROMPT_ERA_LINEAGE_ENTRIES) {
-    lineage.set(id, targets);
-  }
-  return lineage;
+async function readNormalisedArtifact(repoRelativePath: string): Promise<string | null> {
+  return readFile(path.join(repoRoot, repoRelativePath), 'utf8')
+    .then(normaliseLineEndings)
+    .catch(() => null);
 }
 
-const promptEraLineage = createPromptEraLineage();
-
-function sha256(content: string): string {
-  return createHash('sha256').update(content).digest('hex');
-}
-
-async function loadImmutableBaseline(): Promise<readonly BaselineEvidenceRow[]> {
-  const baselineJson = await readFile(path.join(repoRoot, BASELINE_ARTIFACT), 'utf8');
-  const actualHash = sha256(baselineJson);
-  if (actualHash !== BASELINE_REGISTRY_SHA256) {
-    throw new Error(
-      `${BASELINE_ARTIFACT} changed; phase-(a) is immutable\n` +
-        `expected sha256: ${BASELINE_REGISTRY_SHA256}\nactual sha256:   ${actualHash}`,
-    );
-  }
-  return parseBaselineRows(baselineJson);
-}
-
-function requireCurrentSourceCoverage(
-  current: readonly CurrentAuditDisposition[],
-  missingAuditIds: readonly string[],
-  registrationsBySource: RegistrationIndex,
-): void {
-  requireSameStringMembers(
-    'Absent baseline rows and explicit prompt-era lineage',
-    PROMPT_ERA_LINEAGE_ENTRIES.map((entry) => entry[0]),
-    missingAuditIds,
+async function staleGeneratedArtifacts(
+  expected: readonly { readonly path: string; readonly content: string }[],
+): Promise<readonly string[]> {
+  const comparisons = await Promise.all(
+    expected.map(async (artifact) => ({
+      path: artifact.path,
+      isStale: (await readNormalisedArtifact(artifact.path)) !== artifact.content,
+    })),
   );
-  const classifiedSources = new Set(current.flatMap((item) => item.files));
-  requireSameStringMembers(
-    'Current guidance replacements and classified current sources',
-    guidanceSourcePaths,
-    guidanceSourcePaths.filter((source) => classifiedSources.has(source)),
-  );
-  requireGuidanceRegistrationParity(GUIDANCE_SOURCE_ENTRIES, registrationsBySource);
+  return comparisons
+    .filter((comparison) => comparison.isStale)
+    .map((comparison) => comparison.path);
 }
 
-function serialiseTruthSet(
-  baseline: readonly BaselineEvidenceRow[],
-  dispositions: {
-    readonly current: readonly CurrentAuditDisposition[];
-    readonly retiredAuditIds: readonly string[];
-  },
-  registrationRoot: RegistrationRoot,
-): { readonly serialised: string; readonly itemCount: number } {
-  const truthSet = buildCurrentSourceTruthSet({
-    provenance: {
-      title: 'Oak MCP agent-facing content current-source truth set',
-      baselineCommit: BASELINE_COMMIT,
-      baselineArtifact: BASELINE_ARTIFACT,
-      baselineSha256: BASELINE_REGISTRY_SHA256,
-      currentEvidence: [
-        registrationRoot.rootRef,
-        registrationRoot.registrationRef,
-        'apps/oak-curriculum-mcp-streamable-http/src/served-surface/served-surface.ts',
-        'packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/agent-guidance-resources.ts',
-      ],
-      evidenceCeiling: [
-        'This projection accounts for every immutable phase-(a) audit id with reviewed item-level token anchors, not source-file existence alone.',
-        'Workspace scope and word authority are independent: scope follows workspace_scope; authority follows source_locus.',
-        'The HTTP registration root is recomputed over an in-memory MCP transport; allowlist policy alone is not treated as proof of liveness.',
-        'Per-item registration attribution is complete for the six prompt-to-guidance replacements in this first slice. Other current rows retain source custody and lifecycle truth; later migration slices add their exact channel bindings.',
-        'Host delivery is not inferred from Oak registration. Host evidence remains empty until separately verified and dated.',
-      ],
+function supportingArtifacts(
+  expected: RecomputedCurrentSource,
+): readonly { readonly path: string; readonly content: string }[] {
+  return [
+    { path: CURRENT_SOURCE_DELTA_INVENTORY, content: expected.deltaInventorySerialised },
+    { path: AUDIT_REPORT, content: expected.reportSerialised },
+  ];
+}
+
+async function publishRefresh(expected: RecomputedCurrentSource): Promise<void> {
+  if (expected.anchorSerialised === null) {
+    throw new Error('Anchor refresh produced no serialised anchor manifest');
+  }
+  await publishCurrentSourceArtifacts([
+    { path: path.join(repoRoot, CURRENT_SOURCE_ANCHORS), content: expected.anchorSerialised },
+    { path: path.join(repoRoot, CURRENT_SOURCE_ARTIFACT), content: expected.serialised },
+    {
+      path: path.join(repoRoot, CURRENT_SOURCE_DELTA_INVENTORY),
+      content: expected.deltaInventorySerialised,
     },
-    baseline,
-    current: dispositions.current,
-    retiredAuditIds: dispositions.retiredAuditIds,
-    registrationRoots: [registrationRoot],
-  });
-  return {
-    serialised: `${JSON.stringify(truthSet, null, 2)}\n`,
-    itemCount: truthSet.summary.itemCount,
-  };
+    { path: path.join(repoRoot, AUDIT_REPORT), content: expected.reportSerialised },
+  ]);
+  writeLine(`validate-current-source: wrote ${CURRENT_SOURCE_ANCHORS}`);
+  writeLine(`validate-current-source: wrote ${CURRENT_SOURCE_ARTIFACT}`);
 }
 
-async function recomputeCurrentSource(refreshAnchors: boolean): Promise<{
-  readonly serialised: string;
-  readonly anchorSerialised: string | null;
-  readonly itemCount: number;
-}> {
-  const baseline = await loadImmutableBaseline();
-  const targetsByAuditId = await currentTargetsByAuditId(repoRoot, baseline, promptEraLineage);
-  const anchorManifest = await resolveAnchorManifest({
-    repoRoot,
-    anchorArtifact: CURRENT_SOURCE_ANCHORS,
-    baselineCommit: BASELINE_COMMIT,
-    baselineSha256: BASELINE_REGISTRY_SHA256,
-    baseline,
-    targetsByAuditId,
-    refresh: refreshAnchors,
-  });
-  const registrationWalk = await walkHttpRegistrationRoot(repoRoot);
-  const contentByFile = await readCurrentContent(
-    repoRoot,
-    anchorManifest.items.flatMap((item) => item.evidence.targets.map((target) => target.file)),
+async function publishTruthSet(expected: RecomputedCurrentSource): Promise<number> {
+  const staleSupport = await staleGeneratedArtifacts(supportingArtifacts(expected));
+  if (staleSupport.length > 0) {
+    writeErrorLine(
+      `validate-current-source: governed support is stale (${staleSupport.join(', ')}); ` +
+        'run refresh-mcp-content-current-source-anchors and review the complete diff',
+    );
+    return 1;
+  }
+  await publishCurrentSourceArtifacts([
+    { path: path.join(repoRoot, CURRENT_SOURCE_ARTIFACT), content: expected.serialised },
+  ]);
+  writeLine(`validate-current-source: wrote ${CURRENT_SOURCE_ARTIFACT}`);
+  return 0;
+}
+
+async function validateGeneratedArtifacts(expected: RecomputedCurrentSource): Promise<number> {
+  const stale = await staleGeneratedArtifacts([
+    { path: CURRENT_SOURCE_ARTIFACT, content: expected.serialised },
+    ...supportingArtifacts(expected),
+  ]);
+  if (stale.length > 0) {
+    writeErrorLine(
+      `validate-current-source: generated artifacts are missing or stale (${stale.join(', ')}); ` +
+        'refresh anchors for governed-source changes, or use --write only to restore the truth set',
+    );
+    return 1;
+  }
+  writeLine(
+    `validate-current-source: OK (${String(expected.itemCount)} current items accounted; HTTP registration root walked).`,
   );
-  const dispositions = buildAnchoredDispositions({
-    baseline,
-    registrationsBySource: registrationWalk.guidanceRegistrationsBySource,
-    targetsByAuditId,
-    anchorManifest,
-    contentByFile,
-    baselineCommit: BASELINE_COMMIT,
-    baselineSha256: BASELINE_REGISTRY_SHA256,
-    anchorArtifact: CURRENT_SOURCE_ANCHORS,
-  });
-  requireCurrentSourceCoverage(
-    dispositions.current,
-    dispositions.missingAuditIds,
-    registrationWalk.guidanceRegistrationsBySource,
-  );
-  return {
-    ...serialiseTruthSet(baseline, dispositions, registrationWalk.root),
-    anchorSerialised: refreshAnchors ? `${JSON.stringify(anchorManifest, null, 2)}\n` : null,
-  };
+  return 0;
 }
 
 async function main(): Promise<number> {
   const refreshAnchors = process.argv.includes('--refresh-anchors');
   const writeMode = process.argv.includes('--write') || refreshAnchors;
-  const expected = await recomputeCurrentSource(refreshAnchors);
-  const artifactPath = path.join(repoRoot, CURRENT_SOURCE_ARTIFACT);
-  if (writeMode) {
-    if (refreshAnchors) {
-      if (expected.anchorSerialised === null) {
-        throw new Error('Anchor refresh produced no serialised anchor manifest');
-      }
-      await publishCurrentSourceArtifacts([
-        {
-          path: path.join(repoRoot, CURRENT_SOURCE_ANCHORS),
-          content: expected.anchorSerialised,
-        },
-        { path: artifactPath, content: expected.serialised },
-      ]);
-      writeLine(`validate-current-source: wrote ${CURRENT_SOURCE_ANCHORS}`);
-    } else {
-      await publishCurrentSourceArtifacts([{ path: artifactPath, content: expected.serialised }]);
-    }
-    writeLine(`validate-current-source: wrote ${CURRENT_SOURCE_ARTIFACT}`);
+  const expected = await recomputeCurrentSource(repoRoot, refreshAnchors);
+  if (refreshAnchors) {
+    await publishRefresh(expected);
     return 0;
   }
-
-  const actual = await readFile(artifactPath, 'utf8').catch(() => null);
-  if (actual !== expected.serialised) {
-    writeErrorLine(
-      `validate-current-source: ${CURRENT_SOURCE_ARTIFACT} is missing or stale; ` +
-        'run this validator with --write and review the generated diff',
-    );
-    return 1;
-  }
-  writeLine(
-    `validate-current-source: OK (${String(expected.itemCount)} audit ids accounted; HTTP registration root walked).`,
-  );
-  return 0;
+  return writeMode ? publishTruthSet(expected) : validateGeneratedArtifacts(expected);
 }
 
 process.exitCode = await main().catch((error: unknown) => {

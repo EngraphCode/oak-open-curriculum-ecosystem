@@ -16,12 +16,12 @@ interface GuidanceRegistrationEvidence {
   readonly surfaces: readonly (
     | {
         readonly locus: 'resource-metadata';
-        readonly field: 'title' | 'description';
+        readonly field: 'name' | 'uri' | 'title' | 'description' | 'mimeType' | 'annotations';
         readonly value: string;
       }
     | {
         readonly locus: 'resource-contents';
-        readonly field: 'text';
+        readonly field: 'uri' | 'mimeType' | 'text' | '_meta.lastModified';
         readonly value: string;
       }
   )[];
@@ -51,13 +51,36 @@ export function buildGuidanceRegistrationEvidence(
           primitive: 'resource',
           selector: uri,
           surfaces: [
+            { locus: 'resource-metadata', field: 'name', value: resource.name },
+            { locus: 'resource-metadata', field: 'uri', value: resource.uri },
             { locus: 'resource-metadata', field: 'title', value: resource.title },
             {
               locus: 'resource-metadata',
               field: 'description',
               value: resource.description,
             },
+            {
+              locus: 'resource-metadata',
+              field: 'mimeType',
+              value: resource.mimeType,
+            },
+            {
+              locus: 'resource-metadata',
+              field: 'annotations',
+              value: JSON.stringify(resource.annotations),
+            },
+            { locus: 'resource-contents', field: 'uri', value: resource.uri },
+            {
+              locus: 'resource-contents',
+              field: 'mimeType',
+              value: resource.mimeType,
+            },
             { locus: 'resource-contents', field: 'text', value: content },
+            {
+              locus: 'resource-contents',
+              field: '_meta.lastModified',
+              value: resource.lastModified,
+            },
           ],
           channels: state === 'live' ? LIVE_RESOURCE_CHANNELS : [],
         },

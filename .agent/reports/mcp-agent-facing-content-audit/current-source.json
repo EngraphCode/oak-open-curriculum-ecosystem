@@ -6,35 +6,40 @@
     "baselineArtifact": ".agent/reports/mcp-agent-facing-content-audit/registry.json",
     "baselineSha256": "244f9ce421983fbc92dfd12db7d552cf61670c96353d16625adaf56a0bd8a78d",
     "currentEvidence": [
+      ".agent/reports/mcp-agent-facing-content-audit/current-source-delta-inventory.json",
       "apps/oak-curriculum-mcp-streamable-http/src/app/core-endpoints.ts",
       "apps/oak-curriculum-mcp-streamable-http/src/handlers.ts",
       "apps/oak-curriculum-mcp-streamable-http/src/served-surface/served-surface.ts",
       "packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/agent-guidance-resources.ts"
     ],
     "evidenceCeiling": [
-      "This projection accounts for every immutable phase-(a) audit id with reviewed item-level token anchors, not source-file existence alone.",
+      "Every immutable phase-(a) id has reviewed item-level token anchors, not source-file existence alone.",
+      "Post-baseline additions are source-owned review entries; governed source deltas are recomputed against a file-and-item inventory.",
       "Workspace scope and word authority are independent: scope follows workspace_scope; authority follows source_locus.",
-      "The HTTP registration root is recomputed over an in-memory MCP transport; allowlist policy alone is not treated as proof of liveness.",
-      "Per-item registration attribution is complete for the six prompt-to-guidance replacements in this first slice. Other current rows retain source custody and lifecycle truth; later migration slices add their exact channel bindings.",
+      "The HTTP registration root is recomputed over an in-memory MCP transport; allowlist policy alone is not proof of liveness.",
+      "Exact channel bindings cover the prompt-to-guidance replacements; later migration slices add bindings for other rows.",
       "Host delivery is not inferred from Oak registration. Host evidence remains empty until separately verified and dated."
     ]
   },
   "summary": {
-    "itemCount": 716,
-    "availableCount": 710,
+    "itemCount": 725,
+    "baselineItemCount": 716,
+    "additionCount": 9,
+    "availableCount": 719,
     "retiredCount": 6,
-    "unchangedCount": 670,
+    "unchangedCount": 659,
     "expandedCount": 1,
-    "modifiedCount": 1,
-    "relocatedCount": 38,
-    "workspaceScopeInCount": 600,
+    "modifiedCount": 11,
+    "relocatedCount": 39,
+    "addedCount": 9,
+    "workspaceScopeInCount": 609,
     "workspaceScopeOutUpstreamApiCount": 116,
-    "workspaceAuthorityCount": 589,
+    "workspaceAuthorityCount": 598,
     "upstreamApiAuthorityCount": 116,
     "upstreamSkillsAuthorityCount": 2,
     "externalThirdPartyAuthorityCount": 9,
-    "itemLiveBindingCount": 18,
-    "itemDormantBindingCount": 32
+    "itemLiveBindingCount": 21,
+    "itemDormantBindingCount": 35
   },
   "registrationRoots": [
     {
@@ -10723,16 +10728,16 @@
       "source": {
         "state": "available",
         "files": [
-          "packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/mcp-tool-generator.ts"
+          "packages/sdks/oak-sdk-codegen/code-generation/excluded-paths.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "relocated",
           "anchorTargetCount": 1,
           "anchorCount": 1
         }
       },
       "lineage": {
-        "disposition": "retained",
+        "disposition": "relocated",
         "baselineFile": "packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/mcp-tool-generator.ts"
       },
       "registrations": []
@@ -11734,7 +11739,7 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-key-stages-subject-lessons.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
           "anchorCount": 1
         }
@@ -11755,7 +11760,7 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-key-stages-subject-lessons.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
           "anchorCount": 1
         }
@@ -11923,7 +11928,7 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-key-stages-subject-questions.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
           "anchorCount": 1
         }
@@ -11965,9 +11970,9 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-key-stages-subject-questions.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 1
+          "anchorCount": 2
         }
       },
       "lineage": {
@@ -13120,7 +13125,7 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-programmes-assets.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
           "anchorCount": 1
         }
@@ -13162,9 +13167,9 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-programmes-assets.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 1
+          "anchorCount": 2
         }
       },
       "lineage": {
@@ -13309,7 +13314,7 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-programmes-questions.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
           "anchorCount": 1
         }
@@ -13351,9 +13356,9 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-programmes-questions.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 1
+          "anchorCount": 2
         }
       },
       "lineage": {
@@ -13960,7 +13965,7 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences-questions.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
           "anchorCount": 2
         }
@@ -14002,9 +14007,9 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences-questions.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 1
+          "anchorCount": 2
         }
       },
       "lineage": {
@@ -15902,6 +15907,528 @@
         "baselineFile": "packages/sdks/oak-curriculum-sdk/src/mcp/stub-tool-executor.ts"
       },
       "registrations": []
+    },
+    {
+      "id": "A001",
+      "authority": "workspace",
+      "workspaceScope": "in",
+      "source": {
+        "state": "available",
+        "files": [
+          "apps/oak-curriculum-mcp-streamable-http/src/served-surface/served-surface.ts"
+        ],
+        "evidence": {
+          "revision": "added",
+          "anchorTargetCount": 1,
+          "anchorCount": 4
+        }
+      },
+      "lineage": {
+        "disposition": "added",
+        "addedAfterBaselineCommit": "240a598607b96485f50c0dfd6df154d673a90a25"
+      },
+      "registrations": [],
+      "reviewContext": {
+        "title": "MCP served-surface allowlist",
+        "reviewDomain": "engineering-structural",
+        "impactTier": "high-impact",
+        "behaviouralIntent": "Classify every MCP tool and resource as live or dormant at the app registration boundary."
+      }
+    },
+    {
+      "id": "A002",
+      "authority": "workspace",
+      "workspaceScope": "in",
+      "source": {
+        "state": "available",
+        "files": [
+          "packages/sdks/oak-sdk-codegen/code-generation/excluded-paths.ts"
+        ],
+        "evidence": {
+          "revision": "added",
+          "anchorTargetCount": 1,
+          "anchorCount": 1
+        }
+      },
+      "lineage": {
+        "disposition": "added",
+        "addedAfterBaselineCommit": "240a598607b96485f50c0dfd6df154d673a90a25"
+      },
+      "registrations": [],
+      "reviewContext": {
+        "title": "Deferred upstream API paths",
+        "reviewDomain": "engineering-structural",
+        "impactTier": "high-impact",
+        "behaviouralIntent": "Temporarily exclude the check-restricted API family from generated schemas and MCP tools until MCP-214 lifts the deferral."
+      }
+    },
+    {
+      "id": "A003",
+      "authority": "workspace",
+      "workspaceScope": "in",
+      "source": {
+        "state": "available",
+        "files": [
+          "packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/find-lessons.ts"
+        ],
+        "evidence": {
+          "revision": "added",
+          "anchorTargetCount": 1,
+          "anchorCount": 5
+        }
+      },
+      "lineage": {
+        "disposition": "added",
+        "addedAfterBaselineCommit": "240a598607b96485f50c0dfd6df154d673a90a25"
+      },
+      "registrations": [
+        {
+          "rootId": "oak-curriculum-http",
+          "state": "live",
+          "primitive": "resource",
+          "selector": "docs://oak/guidance/find-lessons.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "_meta.lastModified",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-contents",
+              "field": "mimeType",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-contents",
+              "field": "uri",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-metadata",
+              "field": "annotations",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-metadata",
+              "field": "mimeType",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-metadata",
+              "field": "name",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-metadata",
+              "field": "uri",
+              "anchorCount": 1
+            }
+          ],
+          "channels": [
+            "resources/list.resources[]",
+            "resources/read.contents[]"
+          ]
+        }
+      ],
+      "reviewContext": {
+        "title": "Find lessons guidance resource identity and metadata",
+        "reviewDomain": "resource-metadata-and-routing",
+        "impactTier": "high-impact",
+        "behaviouralIntent": "Define the guidance resource identity and route, assistant audience and priority, presentation type, and freshness metadata exposed through MCP resource discovery and reads."
+      }
+    },
+    {
+      "id": "A004",
+      "authority": "workspace",
+      "workspaceScope": "in",
+      "source": {
+        "state": "available",
+        "files": [
+          "packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/explore-curriculum.ts"
+        ],
+        "evidence": {
+          "revision": "added",
+          "anchorTargetCount": 1,
+          "anchorCount": 5
+        }
+      },
+      "lineage": {
+        "disposition": "added",
+        "addedAfterBaselineCommit": "240a598607b96485f50c0dfd6df154d673a90a25"
+      },
+      "registrations": [
+        {
+          "rootId": "oak-curriculum-http",
+          "state": "live",
+          "primitive": "resource",
+          "selector": "docs://oak/guidance/explore-curriculum.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "_meta.lastModified",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-contents",
+              "field": "mimeType",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-contents",
+              "field": "uri",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-metadata",
+              "field": "annotations",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-metadata",
+              "field": "mimeType",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-metadata",
+              "field": "name",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-metadata",
+              "field": "uri",
+              "anchorCount": 1
+            }
+          ],
+          "channels": [
+            "resources/list.resources[]",
+            "resources/read.contents[]"
+          ]
+        }
+      ],
+      "reviewContext": {
+        "title": "Explore curriculum guidance resource identity and metadata",
+        "reviewDomain": "resource-metadata-and-routing",
+        "impactTier": "high-impact",
+        "behaviouralIntent": "Define the guidance resource identity and route, assistant audience and priority, presentation type, and freshness metadata exposed through MCP resource discovery and reads."
+      }
+    },
+    {
+      "id": "A005",
+      "authority": "workspace",
+      "workspaceScope": "in",
+      "source": {
+        "state": "available",
+        "files": [
+          "packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/learning-progression.ts"
+        ],
+        "evidence": {
+          "revision": "added",
+          "anchorTargetCount": 1,
+          "anchorCount": 5
+        }
+      },
+      "lineage": {
+        "disposition": "added",
+        "addedAfterBaselineCommit": "240a598607b96485f50c0dfd6df154d673a90a25"
+      },
+      "registrations": [
+        {
+          "rootId": "oak-curriculum-http",
+          "state": "live",
+          "primitive": "resource",
+          "selector": "docs://oak/guidance/learning-progression.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "_meta.lastModified",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-contents",
+              "field": "mimeType",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-contents",
+              "field": "uri",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-metadata",
+              "field": "annotations",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-metadata",
+              "field": "mimeType",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-metadata",
+              "field": "name",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-metadata",
+              "field": "uri",
+              "anchorCount": 1
+            }
+          ],
+          "channels": [
+            "resources/list.resources[]",
+            "resources/read.contents[]"
+          ]
+        }
+      ],
+      "reviewContext": {
+        "title": "Learning progression guidance resource identity and metadata",
+        "reviewDomain": "resource-metadata-and-routing",
+        "impactTier": "high-impact",
+        "behaviouralIntent": "Define the guidance resource identity and route, assistant audience and priority, presentation type, and freshness metadata exposed through MCP resource discovery and reads."
+      }
+    },
+    {
+      "id": "A006",
+      "authority": "workspace",
+      "workspaceScope": "in",
+      "source": {
+        "state": "available",
+        "files": [
+          "packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/curriculum-mapping.ts"
+        ],
+        "evidence": {
+          "revision": "added",
+          "anchorTargetCount": 1,
+          "anchorCount": 6
+        }
+      },
+      "lineage": {
+        "disposition": "added",
+        "addedAfterBaselineCommit": "240a598607b96485f50c0dfd6df154d673a90a25"
+      },
+      "registrations": [
+        {
+          "rootId": "oak-curriculum-http",
+          "state": "dormant",
+          "primitive": "resource",
+          "selector": "docs://oak/guidance/curriculum-mapping.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "_meta.lastModified",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-contents",
+              "field": "mimeType",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-contents",
+              "field": "uri",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-metadata",
+              "field": "annotations",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-metadata",
+              "field": "mimeType",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-metadata",
+              "field": "name",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-metadata",
+              "field": "uri",
+              "anchorCount": 1
+            }
+          ],
+          "channels": []
+        }
+      ],
+      "reviewContext": {
+        "title": "Curriculum mapping guidance resource identity, metadata, and provenance",
+        "reviewDomain": "resource-metadata-and-routing",
+        "impactTier": "high-impact",
+        "behaviouralIntent": "Define the guidance resource identity and route, assistant audience and priority, presentation type, and freshness metadata exposed through MCP resource discovery and reads. Preserve the source provenance notice as reviewed lineage context."
+      }
+    },
+    {
+      "id": "A007",
+      "authority": "workspace",
+      "workspaceScope": "in",
+      "source": {
+        "state": "available",
+        "files": [
+          "packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/adapt-lesson.ts"
+        ],
+        "evidence": {
+          "revision": "added",
+          "anchorTargetCount": 1,
+          "anchorCount": 5
+        }
+      },
+      "lineage": {
+        "disposition": "added",
+        "addedAfterBaselineCommit": "240a598607b96485f50c0dfd6df154d673a90a25"
+      },
+      "registrations": [
+        {
+          "rootId": "oak-curriculum-http",
+          "state": "dormant",
+          "primitive": "resource",
+          "selector": "docs://oak/guidance/adapt-lesson.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "_meta.lastModified",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-contents",
+              "field": "mimeType",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-contents",
+              "field": "uri",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-metadata",
+              "field": "annotations",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-metadata",
+              "field": "mimeType",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-metadata",
+              "field": "name",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-metadata",
+              "field": "uri",
+              "anchorCount": 1
+            }
+          ],
+          "channels": []
+        }
+      ],
+      "reviewContext": {
+        "title": "Adapt lesson guidance resource identity and metadata",
+        "reviewDomain": "resource-metadata-and-routing",
+        "impactTier": "high-impact",
+        "behaviouralIntent": "Define the guidance resource identity and route, assistant audience and priority, presentation type, and freshness metadata exposed through MCP resource discovery and reads."
+      }
+    },
+    {
+      "id": "A008",
+      "authority": "workspace",
+      "workspaceScope": "in",
+      "source": {
+        "state": "available",
+        "files": [
+          "packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/continue-progression.ts"
+        ],
+        "evidence": {
+          "revision": "added",
+          "anchorTargetCount": 1,
+          "anchorCount": 5
+        }
+      },
+      "lineage": {
+        "disposition": "added",
+        "addedAfterBaselineCommit": "240a598607b96485f50c0dfd6df154d673a90a25"
+      },
+      "registrations": [
+        {
+          "rootId": "oak-curriculum-http",
+          "state": "dormant",
+          "primitive": "resource",
+          "selector": "docs://oak/guidance/continue-progression.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "_meta.lastModified",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-contents",
+              "field": "mimeType",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-contents",
+              "field": "uri",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-metadata",
+              "field": "annotations",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-metadata",
+              "field": "mimeType",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-metadata",
+              "field": "name",
+              "anchorCount": 1
+            },
+            {
+              "locus": "resource-metadata",
+              "field": "uri",
+              "anchorCount": 1
+            }
+          ],
+          "channels": []
+        }
+      ],
+      "reviewContext": {
+        "title": "Continue progression guidance resource identity and metadata",
+        "reviewDomain": "resource-metadata-and-routing",
+        "impactTier": "high-impact",
+        "behaviouralIntent": "Define the guidance resource identity and route, assistant audience and priority, presentation type, and freshness metadata exposed through MCP resource discovery and reads."
+      }
+    },
+    {
+      "id": "A009",
+      "authority": "workspace",
+      "workspaceScope": "in",
+      "source": {
+        "state": "available",
+        "files": [
+          "packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/agent-guidance-resources.ts"
+        ],
+        "evidence": {
+          "revision": "added",
+          "anchorTargetCount": 1,
+          "anchorCount": 4
+        }
+      },
+      "lineage": {
+        "disposition": "added",
+        "addedAfterBaselineCommit": "240a598607b96485f50c0dfd6df154d673a90a25"
+      },
+      "registrations": [],
+      "reviewContext": {
+        "title": "Guidance resource catalogue and live-purpose partition",
+        "reviewDomain": "resource-metadata-and-routing",
+        "impactTier": "high-impact",
+        "behaviouralIntent": "Define the complete six-resource catalogue, stable content lookup, and navigation-versus-creation partition consumed by registration, served-surface checks, and public-resource policy."
+      }
     }
   ],
   "hostEvidence": []

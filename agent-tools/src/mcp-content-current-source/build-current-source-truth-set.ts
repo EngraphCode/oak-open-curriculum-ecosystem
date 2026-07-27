@@ -8,15 +8,14 @@
 import type {
   BaselineAuditRow,
   BuildCurrentSourceTruthSetInput,
-  ContentAuthority,
   CurrentAuditDisposition,
   CurrentSourceTruthItem,
   CurrentSourceTruthSet,
-  RegistrationEvidence,
   RegistrationRoot,
-  SourceLocus,
 } from './current-source-model.js';
+import { buildCurrentSourceAdditionItems } from './build-current-source-addition-items.js';
 import { buildCurrentSourceSummary } from './build-current-source-summary.js';
+import { authorityFor, sortedRegistrationEvidence } from './current-source-projection-shared.js';
 
 const alphabetical = (left: string, right: string) => left.localeCompare(right);
 
@@ -50,46 +49,27 @@ function requireKnownIds(
   }
 }
 
-const AUTHORITY_BY_SOURCE_LOCUS: Readonly<Record<SourceLocus, ContentAuthority>> = {
-  'this-repo': 'workspace',
-  'upstream-in-house-api': 'upstream-api',
-  'upstream-in-house-skills': 'upstream-skills',
-  'external-third-party': 'external-third-party',
-};
-
-const authorityFor = (sourceLocus: SourceLocus): ContentAuthority =>
-  AUTHORITY_BY_SOURCE_LOCUS[sourceLocus];
+function validateUniqueInputIds(input: BuildCurrentSourceTruthSetInput): void {
+  const baselineIds = input.baseline.map((item) => item.id);
+  const additionIds = input.additions.map((item) => item.id);
+  requireNoDuplicates(baselineIds, 'baseline audit ids');
+  requireNoDuplicates(
+    input.current.map((item) => item.auditId),
+    'current audit ids',
+  );
+  requireNoDuplicates(input.retiredAuditIds, 'retired audit ids');
+  requireNoDuplicates(additionIds, 'current-source addition ids');
+  requireNoDuplicates([...baselineIds, ...additionIds], 'current-source item ids');
+}
 
 function lineageDisposition(
   baselineFile: string,
   currentFiles: readonly string[],
-): CurrentSourceTruthItem['lineage']['disposition'] {
+): 'retained' | 'relocated' | 'split' {
   if (currentFiles.length > 1) {
     return 'split';
   }
   return currentFiles[0] === baselineFile ? 'retained' : 'relocated';
-}
-
-function sortedRegistrationEvidence(
-  registrations: readonly RegistrationEvidence[],
-): readonly RegistrationEvidence[] {
-  return [...registrations]
-    .map((registration) => ({
-      ...registration,
-      anchorSurfaces: [...registration.anchorSurfaces].sort(
-        (left, right) =>
-          left.locus.localeCompare(right.locus) ||
-          left.field.localeCompare(right.field) ||
-          left.anchorCount - right.anchorCount,
-      ),
-      channels: [...registration.channels].sort(alphabetical),
-    }))
-    .sort(
-      (left, right) =>
-        left.rootId.localeCompare(right.rootId) ||
-        left.primitive.localeCompare(right.primitive) ||
-        left.selector.localeCompare(right.selector),
-    );
 }
 
 function buildAvailableItem(
@@ -173,16 +153,7 @@ function sortedRegistrationRoots(roots: readonly RegistrationRoot[]): readonly R
 function validateInput(
   input: BuildCurrentSourceTruthSetInput,
 ): ReadonlyMap<string, CurrentAuditDisposition> {
-  requireNoDuplicates(
-    input.baseline.map((item) => item.id),
-    'baseline audit ids',
-  );
-  requireNoDuplicates(
-    input.current.map((item) => item.auditId),
-    'current audit ids',
-  );
-  requireNoDuplicates(input.retiredAuditIds, 'retired audit ids');
-
+  validateUniqueInputIds(input);
   const baselineById = new Map(input.baseline.map((item) => [item.id, item]));
   const currentIds = input.current.map((item) => item.auditId);
   requireKnownIds(currentIds, baselineById, 'current audit ids');
@@ -202,7 +173,18 @@ function validateInput(
   if (unaccounted.length > 0) {
     throw new Error(`Unaccounted baseline audit ids: ${unaccounted.join(', ')}`);
   }
-  validateRegistrationRoots(input.current, input.registrationRoots);
+  validateRegistrationRoots(
+    [
+      ...input.current,
+      ...input.additions.map((addition) => ({
+        auditId: addition.id,
+        files: [addition.file],
+        evidence: addition.evidence,
+        registrations: addition.registrations,
+      })),
+    ],
+    input.registrationRoots,
+  );
   return new Map(input.current.map((item) => [item.auditId, item]));
 }
 
@@ -226,7 +208,12 @@ function buildItems(
 export function buildCurrentSourceTruthSet(
   input: BuildCurrentSourceTruthSetInput,
 ): CurrentSourceTruthSet {
-  const items = buildItems(input.baseline, validateInput(input));
+  const baselineItems = buildItems(input.baseline, validateInput(input));
+  const additions = buildCurrentSourceAdditionItems(
+    input.additions,
+    input.provenance.baselineCommit,
+  );
+  const items = [...baselineItems, ...additions];
   return {
     schemaVersion: 2,
     provenance: {

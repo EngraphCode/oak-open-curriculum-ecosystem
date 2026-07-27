@@ -7,15 +7,15 @@ export type ContentAuthority =
   'workspace' | 'upstream-api' | 'upstream-skills' | 'external-third-party';
 type RegistrationState = 'live' | 'dormant';
 type RegistrationPrimitive = 'initialize' | 'tool' | 'resource' | 'prompt';
-export type ContentRevision = 'unchanged' | 'expanded' | 'modified' | 'relocated';
+export type ContentRevision = 'unchanged' | 'expanded' | 'modified' | 'relocated' | 'added';
 export type RegistrationAnchorSurface =
   | {
       readonly locus: 'resource-metadata';
-      readonly field: 'title' | 'description';
+      readonly field: 'name' | 'uri' | 'title' | 'description' | 'mimeType' | 'annotations';
     }
   | {
       readonly locus: 'resource-contents';
-      readonly field: 'text';
+      readonly field: 'uri' | 'mimeType' | 'text' | '_meta.lastModified';
     };
 
 export interface BaselineAuditRow {
@@ -122,8 +122,22 @@ export interface BuildCurrentSourceTruthSetInput {
   };
   readonly baseline: readonly BaselineAuditRow[];
   readonly current: readonly CurrentAuditDisposition[];
+  readonly additions: readonly CurrentSourceAdditionDisposition[];
   readonly retiredAuditIds: readonly string[];
   readonly registrationRoots: readonly RegistrationRoot[];
+}
+
+export interface CurrentSourceAdditionDisposition {
+  readonly id: string;
+  readonly title: string;
+  readonly reviewDomain: string;
+  readonly impactTier: 'high-impact' | 'simple-config';
+  readonly behaviouralIntent: string;
+  readonly workspaceScope: WorkspaceScope;
+  readonly sourceLocus: SourceLocus;
+  readonly file: string;
+  readonly evidence: CurrentItemEvidence;
+  readonly registrations: readonly RegistrationEvidence[];
 }
 
 export interface CurrentSourceTruthItem {
@@ -137,11 +151,22 @@ export interface CurrentSourceTruthItem {
         readonly evidence: CurrentItemEvidenceSummary;
       }
     | { readonly state: 'retired'; readonly files: readonly [] };
-  readonly lineage: {
-    readonly disposition: 'retained' | 'relocated' | 'split' | 'retired';
-    readonly baselineFile: string;
-  };
+  readonly lineage:
+    | {
+        readonly disposition: 'retained' | 'relocated' | 'split' | 'retired';
+        readonly baselineFile: string;
+      }
+    | {
+        readonly disposition: 'added';
+        readonly addedAfterBaselineCommit: string;
+      };
   readonly registrations: readonly RegistrationEvidence[];
+  readonly reviewContext?: {
+    readonly title: string;
+    readonly reviewDomain: string;
+    readonly impactTier: 'high-impact' | 'simple-config';
+    readonly behaviouralIntent: string;
+  };
 }
 
 export interface CurrentSourceTruthSet {
@@ -149,12 +174,15 @@ export interface CurrentSourceTruthSet {
   readonly provenance: BuildCurrentSourceTruthSetInput['provenance'];
   readonly summary: {
     readonly itemCount: number;
+    readonly baselineItemCount: number;
+    readonly additionCount: number;
     readonly availableCount: number;
     readonly retiredCount: number;
     readonly unchangedCount: number;
     readonly expandedCount: number;
     readonly modifiedCount: number;
     readonly relocatedCount: number;
+    readonly addedCount: number;
     readonly workspaceScopeInCount: number;
     readonly workspaceScopeOutUpstreamApiCount: number;
     readonly workspaceAuthorityCount: number;

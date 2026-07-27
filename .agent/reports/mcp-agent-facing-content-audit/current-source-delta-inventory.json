@@ -1,0 +1,440 @@
+{
+  "schemaVersion": 2,
+  "baselineCommit": "240a598607b96485f50c0dfd6df154d673a90a25",
+  "files": [
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/app/core-endpoints.ts",
+      "semanticSha256": "1faaaf1621ed2b634bcb369d1142f3f8108d0bf326a8f6bc5d91964ac0afabcf",
+      "itemIds": [
+        "C323",
+        "C324"
+      ]
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/application.ts",
+      "semanticSha256": "e75e794bbeb89f4cf97ead74fc3a5258fc97a0da4f1996e560b4405d295e4e95",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/auth/public-resources.ts",
+      "semanticSha256": "61ec42be45a3e7fa5d72747702b78fe035a1fc1c0e042498cbc1679a9a3ca0b0",
+      "itemIds": [
+        "C413"
+      ]
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/env.ts",
+      "semanticSha256": "b9e3801157f8cc13763ff5b145a853088ee9b22a2379d92c0d793641a78eb74f",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/feature-flags.ts",
+      "semanticSha256": "c227635693b7d2fa14dd1884a1823ff2192c6e28a475a4154e281235359727df",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/handlers.ts",
+      "semanticSha256": "ce2b82958f8c60ce3374e347b67334c609ec92c8909478e80075d3554d576f9a",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-landing-page.ts",
+      "semanticSha256": "66886bd9fe08a3a07f1df33390edcaac52029c51bc417438c0e450e2083397e7",
+      "itemIds": [
+        "C342",
+        "C343",
+        "C344",
+        "C345",
+        "C346",
+        "C347",
+        "C348",
+        "C349",
+        "C350",
+        "C351",
+        "C352",
+        "C353"
+      ]
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-resources-section.ts",
+      "semanticSha256": "06d880ad1ea2c9eb3bdeaa2c171aaded3723ff44190693a3ec2765caec46d555",
+      "itemIds": [
+        "C357",
+        "C360",
+        "C361",
+        "C370"
+      ]
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-tools-section.ts",
+      "semanticSha256": "8ad1b35cd7320352fe1366616f67ccefd0bebcac66fbb161bef505d3f9f18fa3",
+      "itemIds": [
+        "C357",
+        "C362",
+        "C363",
+        "C364",
+        "C365",
+        "C366",
+        "C367",
+        "C368",
+        "C369",
+        "C370"
+      ]
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/mcp-middleware.ts",
+      "semanticSha256": "1e2ddb0c1fe7fa72927a66f4e4434e495958d6b6dee7c92019e7c72241450273",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/register-resource-helpers.ts",
+      "semanticSha256": "50d5f94696309a4554a5db93283ca3b47a4ce24b4c2d57a2cc52ebf8774284d2",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts",
+      "semanticSha256": "c3f04808233dd698f70541a56de0151d162dcb7ab125b63b29b0fb3e5171fd93",
+      "itemIds": [
+        "C336",
+        "C337",
+        "C338",
+        "C339",
+        "C340"
+      ]
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/registration-proof/current-source-guidance-map.ts",
+      "semanticSha256": "d98eb98fa16fd1e93cdaf9d210d4986b462d58bd5ee30e6e9643c4d3da0f5198",
+      "itemIds": [],
+      "exclusionReason": "Current-source validation machinery; this file does not reach an MCP consumer."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/registration-proof/current-source-guidance-registration-evidence.ts",
+      "semanticSha256": "3b9a6b6247d95c2039735b6cd55c8802a45f6a181a41f8969c6834fee778efc3",
+      "itemIds": [],
+      "exclusionReason": "Current-source validation machinery; this file does not reach an MCP consumer."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/registration-proof/current-source-registration-proof.ts",
+      "semanticSha256": "d2294caf5a8a07a1428d9f0cae68bd501e134ce330a4254b43949c7baf4ed7fb",
+      "itemIds": [],
+      "exclusionReason": "Current-source validation machinery; this file does not reach an MCP consumer."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/registration-proof/guidance-list-parity.ts",
+      "semanticSha256": "9ccb4969241d55ba0141fc9fe88dc51785cbd93a057f5dbc685b52335781b9f8",
+      "itemIds": [],
+      "exclusionReason": "Current-source validation machinery; this file does not reach an MCP consumer."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/registration-proof/guidance-read-parity.ts",
+      "semanticSha256": "3c9d6af55dbe0d2566d2c3d32018ffc3cd0f5650a47cee0cd466b2a095e73c1d",
+      "itemIds": [],
+      "exclusionReason": "Current-source validation machinery; this file does not reach an MCP consumer."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/registration-proof/require-mcp-error-code.ts",
+      "semanticSha256": "3b87a95df483b0e53a554804ff4ef341e7f1b99f97055dc460f02e7e6a0cb101",
+      "itemIds": [],
+      "exclusionReason": "Current-source validation machinery; this file does not reach an MCP consumer."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/runtime-config-from-validated-env.ts",
+      "semanticSha256": "4ba87d77215346608d31d9e85aac19032f85d5648174618281f2ffe606b62707",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/runtime-config-support.ts",
+      "semanticSha256": "b2b4554218a0a03a4710b4cdef839f7dcf5442666aa2930087dddb5eeee705ac",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/served-surface/filter-guidance-content.ts",
+      "semanticSha256": "74c0d523614af5af34b9e4fdf3bba176cb9569a3e4a6b7cad48652dce591cbd9",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/served-surface/served-surface.ts",
+      "semanticSha256": "89f7dc395d5e71694f9f123f6330e4f4aa0f4872c30c1dad32e96e45879fac25",
+      "itemIds": [
+        "A001"
+      ]
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/test-helpers/auth-error-test-helpers.ts",
+      "semanticSha256": "fa6d81f0fa564e508c926428a65fec671b3d50c1cf9de349793127470148e9dc",
+      "itemIds": [],
+      "exclusionReason": "Test support only; this file does not reach an MCP consumer."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/test-helpers/registration-walk.ts",
+      "semanticSha256": "2751fa4d161977c06780be18143d073c452d34f2580b5f84dfb1d51c6760cfef",
+      "itemIds": [],
+      "exclusionReason": "Test support only; this file does not reach an MCP consumer."
+    },
+    {
+      "file": "packages/sdks/oak-curriculum-sdk/src/mcp/all-resources.ts",
+      "semanticSha256": "c24c4a2bedd54ca65ec471bffddadd3fb7676d35677fa38b9f965eee61d22bc8",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/adapt-lesson.ts",
+      "semanticSha256": "c5cf6a1e265b5bcf1fa216a94ec0fd6fc3fe7a52cda17e8374483cc1722c76ff",
+      "itemIds": [
+        "A007",
+        "C183",
+        "C187",
+        "C188",
+        "C202",
+        "C205",
+        "C206",
+        "C207",
+        "C208",
+        "C209",
+        "C334"
+      ]
+    },
+    {
+      "file": "packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/agent-guidance-resources.ts",
+      "semanticSha256": "b62c12e02477dd091f567f5eada6daa1b10e438d89d938511b8deae51b5cd3db",
+      "itemIds": [
+        "A009"
+      ]
+    },
+    {
+      "file": "packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/continue-progression.ts",
+      "semanticSha256": "91f20cc4b98329583662c7049de90e1debb4d1f7a53987a05cb0d549871cd31a",
+      "itemIds": [
+        "A008",
+        "C184",
+        "C188",
+        "C192",
+        "C195",
+        "C196",
+        "C203",
+        "C204",
+        "C205",
+        "C206",
+        "C208",
+        "C335"
+      ]
+    },
+    {
+      "file": "packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/curriculum-mapping.ts",
+      "semanticSha256": "e06782ed9df42b9e52b6dbcdba082625e9971b8ea612fa787feb940bee6251a6",
+      "itemIds": [
+        "A006",
+        "C182",
+        "C192",
+        "C193",
+        "C194",
+        "C201",
+        "C205",
+        "C206",
+        "C207",
+        "C208",
+        "C209",
+        "C333"
+      ]
+    },
+    {
+      "file": "packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/explore-curriculum.ts",
+      "semanticSha256": "07fef5f9147242ed72fb5eeda1cf2afcbd651ee15884be2f0899325e3df4b677",
+      "itemIds": [
+        "A004",
+        "C180",
+        "C189",
+        "C190",
+        "C199",
+        "C205",
+        "C331"
+      ]
+    },
+    {
+      "file": "packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/find-lessons.ts",
+      "semanticSha256": "9c4fa350e00f23e60f5a9314ccf8af82dcc1b7c8b1e2c2ffb9b2c10f45a4d792",
+      "itemIds": [
+        "A003",
+        "C178",
+        "C185",
+        "C186",
+        "C197",
+        "C205",
+        "C329"
+      ]
+    },
+    {
+      "file": "packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/guidance-resource-types.ts",
+      "semanticSha256": "8796e6a1afedd5fac86b942715e433b46f500e86a42cf6561872a5be3b00cf28",
+      "itemIds": [],
+      "exclusionReason": "Type-only change; no authored agent-facing content."
+    },
+    {
+      "file": "packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/learning-progression.ts",
+      "semanticSha256": "d73527adabfb39d92ed966bfa13c83c0ec5492dae94e8c6cfa218787937de595",
+      "itemIds": [
+        "A005",
+        "C181",
+        "C191",
+        "C192",
+        "C200",
+        "C205",
+        "C332"
+      ]
+    },
+    {
+      "file": "packages/sdks/oak-curriculum-sdk/src/mcp/mcp-resource-types.ts",
+      "semanticSha256": "a2ed9cbf6ca75945220afda0b49af837ba6c043e7e774e3fced73fa8c3b39bd7",
+      "itemIds": [],
+      "exclusionReason": "Type-only change; no authored agent-facing content."
+    },
+    {
+      "file": "packages/sdks/oak-sdk-codegen/code-generation/apply-deferred-paths.ts",
+      "semanticSha256": "8a3e3b76070cc91ff2cb0a541d1a46273c1c930ce77785d0dedd994b20aeb820",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "packages/sdks/oak-sdk-codegen/code-generation/codegen.ts",
+      "semanticSha256": "ccfb0f67588886fc2793c2af9adc0c42c5018b590015100653095899e530c544",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "packages/sdks/oak-sdk-codegen/code-generation/excluded-paths.ts",
+      "semanticSha256": "38b8d1e4d203b1ead5654fc112fdc34ef646a3948de72ca7f0b0cd03353e09a5",
+      "itemIds": [
+        "A002",
+        "C470"
+      ]
+    },
+    {
+      "file": "packages/sdks/oak-sdk-codegen/code-generation/resolve-schema-source.ts",
+      "semanticSha256": "3b3ce79c0e5f50eeda6568ee22be0f80741c1f4f9380658af1ae514c42379d6a",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "packages/sdks/oak-sdk-codegen/code-generation/schema-separation-core.ts",
+      "semanticSha256": "d93f7fb05575827fb0112743597aea35ed09cbf1739d536cd7db89cef4a913bf",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "packages/sdks/oak-sdk-codegen/code-generation/typegen/cross-domain-constants.ts",
+      "semanticSha256": "b484d7841cc96e2d4a1a5b82291b365ce99dd500f90a780c135d512d243486cd",
+      "itemIds": [
+        "C479",
+        "C480"
+      ]
+    },
+    {
+      "file": "packages/sdks/oak-sdk-codegen/code-generation/typegen/generate-widget-constants.ts",
+      "semanticSha256": "9a9cadbe8236d693c08852a82dd2a9231b1bc45ed59cd6ff4a32907643bbf8dd",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/mcp-tool-generator.ts",
+      "semanticSha256": "985339d8739c8526696fce3e03bb595ff133d40ab95cd8fb437507341af7089e",
+      "itemIds": [
+        "C471"
+      ]
+    },
+    {
+      "file": "packages/sdks/oak-sdk-codegen/code-generation/typegen/widget-uri-suffix.ts",
+      "semanticSha256": "7f89317484bed2d46f21a5b96d1eb460dba210c0e08f36c67260ebb129074f96",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-key-stages-subject-lessons.ts",
+      "semanticSha256": "fe7dcf08f44b4fb810598474bb09aca0ab40a4d82d5a26cd260f69808091943e",
+      "itemIds": [
+        "C511",
+        "C512",
+        "C513",
+        "C514",
+        "C515",
+        "C516",
+        "C517",
+        "C518",
+        "C519",
+        "C520"
+      ]
+    },
+    {
+      "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-key-stages-subject-questions.ts",
+      "semanticSha256": "f78d1b36222eda00e6c711bbd628e54ee17bc89c2636865c7e167951046e05a7",
+      "itemIds": [
+        "C521",
+        "C522",
+        "C523",
+        "C524",
+        "C525",
+        "C526",
+        "C527",
+        "C528",
+        "C529",
+        "C530"
+      ]
+    },
+    {
+      "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-programmes-assets.ts",
+      "semanticSha256": "84c68b8644286c7c7c921d27f89f8904c744470b3a7ef0ddbfb6435d781e5b98",
+      "itemIds": [
+        "C577",
+        "C578",
+        "C579",
+        "C580",
+        "C581",
+        "C582",
+        "C583",
+        "C584",
+        "C585",
+        "C586",
+        "C587"
+      ]
+    },
+    {
+      "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-programmes-questions.ts",
+      "semanticSha256": "981814fbe2d03c211fc2d8510937b5b24523f272091e57d19342c24cea61efc7",
+      "itemIds": [
+        "C588",
+        "C589",
+        "C590",
+        "C591",
+        "C592",
+        "C593",
+        "C594",
+        "C595",
+        "C596"
+      ]
+    },
+    {
+      "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences-questions.ts",
+      "semanticSha256": "93b166911a82f95210e22360afbe042db99d17eabab95bf9bc084c5484bb0019",
+      "itemIds": [
+        "C619",
+        "C620",
+        "C621",
+        "C622",
+        "C623",
+        "C624",
+        "C625",
+        "C626",
+        "C627"
+      ]
+    }
+  ]
+}

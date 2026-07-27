@@ -7,14 +7,25 @@ export interface CurrentSourceArtifact {
 }
 
 export interface ArtifactPublicationFileSystem {
-  readonly readText: (filePath: string) => Promise<string>;
+  readonly readText: (filePath: string) => Promise<string | null>;
   readonly stageText: (filePath: string, content: string) => Promise<string>;
   readonly replace: (stagedPath: string, targetPath: string) => Promise<void>;
   readonly remove: (filePath: string) => Promise<void>;
 }
 
 const nodeFileSystem: ArtifactPublicationFileSystem = {
-  readText: (filePath) => readFile(filePath, 'utf8'),
+  readText: async (filePath) =>
+    readFile(filePath, 'utf8').catch((error: unknown) => {
+      if (
+        typeof error === 'object' &&
+        error !== null &&
+        'code' in error &&
+        error.code === 'ENOENT'
+      ) {
+        return null;
+      }
+      throw error;
+    }),
   stageText: async (filePath, content) => {
     const stagedPath = `${filePath}.stage-${randomUUID()}`;
     await writeFile(stagedPath, content, { encoding: 'utf8', flag: 'wx' });
@@ -25,7 +36,7 @@ const nodeFileSystem: ArtifactPublicationFileSystem = {
 };
 
 interface StagedArtifact extends CurrentSourceArtifact {
-  readonly original: string;
+  readonly original: string | null;
   readonly stagedPath: string;
 }
 
@@ -52,6 +63,10 @@ async function rollbackPublished(
   fileSystem: ArtifactPublicationFileSystem,
 ): Promise<void> {
   for (const artifact of [...published].reverse()) {
+    if (artifact.original === null) {
+      await fileSystem.remove(artifact.path);
+      continue;
+    }
     const rollbackPath = await fileSystem.stageText(artifact.path, artifact.original);
     await fileSystem.replace(rollbackPath, artifact.path);
   }

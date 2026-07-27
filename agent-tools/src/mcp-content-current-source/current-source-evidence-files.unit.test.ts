@@ -1,7 +1,4 @@
-import { mkdtemp, rm, writeFile } from 'node:fs/promises';
-import os from 'node:os';
-import path from 'node:path';
-import { afterEach, describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import {
   currentTargetsByAuditId,
   parseCurrentSourceAnchorManifest,
@@ -142,18 +139,8 @@ describe('parseCurrentSourceAnchorManifest', () => {
 });
 
 describe('currentTargetsByAuditId', () => {
-  const temporaryDirectories: string[] = [];
-
-  afterEach(async () => {
-    await Promise.all(
-      temporaryDirectories.splice(0).map((directory) => rm(directory, { recursive: true })),
-    );
-  });
-
   it('prefers explicit item lineage even while the baseline source file survives', async () => {
-    const repoRoot = await mkdtemp(path.join(os.tmpdir(), 'current-source-lineage-'));
-    temporaryDirectories.push(repoRoot);
-    await writeFile(path.join(repoRoot, 'shared.ts'), 'surviving shared source\n', 'utf8');
+    const pathExists = vi.fn().mockResolvedValue(true);
     const baseline = [
       {
         id: 'C001',
@@ -165,13 +152,17 @@ describe('currentTargetsByAuditId', () => {
     ] as const;
 
     const relocated = await currentTargetsByAuditId(
-      repoRoot,
+      '/repo',
       baseline,
       new Map([['C001', ['relocated.ts']]]),
+      { pathExists },
     );
-    const retired = await currentTargetsByAuditId(repoRoot, baseline, new Map([['C001', []]]));
+    const retired = await currentTargetsByAuditId('/repo', baseline, new Map([['C001', []]]), {
+      pathExists,
+    });
 
     expect(relocated.get('C001')).toEqual(['relocated.ts']);
     expect(retired.get('C001')).toEqual([]);
+    expect(pathExists).not.toHaveBeenCalled();
   });
 });

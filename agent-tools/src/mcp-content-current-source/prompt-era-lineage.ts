@@ -89,3 +89,9 @@ export const PROMPT_ERA_LINEAGE_ENTRIES = [
   ['C359', []],
   ['C370', [LANDING_RESOURCES, LANDING_TOOLS]],
 ] as const;
+
+/** All item-level lineage that supersedes a surviving or removed baseline source. */
+export const CURRENT_ITEM_LINEAGE_ENTRIES = [
+  ...PROMPT_ERA_LINEAGE_ENTRIES,
+  ['C470', ['packages/sdks/oak-sdk-codegen/code-generation/excluded-paths.ts']],
+] as const;

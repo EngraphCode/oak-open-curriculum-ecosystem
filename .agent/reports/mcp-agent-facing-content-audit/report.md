@@ -2,21 +2,18 @@
 
 **Date:** 2026-07-09 · **Delta-refreshed 2026-07-22** (MCP-103 phase a — see [§12](#12-delta-refresh--workspace-shape-recommendation-2026-07-22--mcp-103-phase-a))
 **Status:** Historical audit baseline plus generated current-source projection.
-**Companion files:** [`registry.md`](./registry.md) (historical human index) · [`registry.json`](./registry.json) (immutable phase-(a) audit, 716 items) · [`current-source.json`](./current-source.json) (generated current source, lineage, custody, word authority, item-evidence summary, and HTTP registration evidence) · [`current-source-anchors.json`](./current-source-anchors.json) (machine-verifiable evidence for each current audit item) · [`rendered-wholes.md`](./rendered-wholes.md) (historical assembled surfaces) · [`content-registry.html`](./content-registry.html) (historical filterable browser).
+**Companion files:** [`registry.md`](./registry.md) (historical human index) · [`registry.json`](./registry.json) (immutable phase-(a) audit, 716 items) · [`current-source.json`](./current-source.json) (generated current source, additions, lineage, custody, word authority, item-evidence summary, and HTTP registration evidence) · [`current-source-anchors.json`](./current-source-anchors.json) (machine-verifiable evidence for each current baseline item) · [`current-source-delta-inventory.json`](./current-source-delta-inventory.json) (recomputed post-baseline file-and-item inventory, including explicit reviewed exclusions) · [`rendered-wholes.md`](./rendered-wholes.md) (historical assembled surfaces) · [`content-registry.html`](./content-registry.html) (historical filterable browser).
 
 ---
 
-> **Current-source refresh (MCP-103 phase c, 2026-07-26):**
-> `current-source.json` accounts for every phase-(a) `C` id without changing
-> the immutable audit. Every one of its 710 current dispositions is backed by
-> reviewed token anchors in `current-source-anchors.json`, so deleting one
-> audited item from a surviving file fails validation. It distinguishes 670
-> unchanged, one expanded (C413), one modified (C479), 38 relocated/split, and six retired
-> rows. Workspace inclusion remains 600/116, while word authority follows the
-> independent source-locus totals (589 repo, 116 API, two skills, nine external).
-> It also proves the HTTP root by running MCP initialize, tool/resource list,
-> resource read, and prompt absence over an in-memory transport. It does not
-> infer delivery by ChatGPT, Claude, GitHub Copilot, Gemini, or any other host.
+<!-- current-source-summary:start -->
+> **Current-source refresh (MCP-103 phase c):**
+> `current-source.json` accounts for all 716 immutable phase-(a) `C` ids and 9 governed post-baseline additions.
+> Its 710 available baseline dispositions and 9 additions carry reviewed token evidence; 6 baseline rows are explicitly retired.
+> Revisions: 659 unchanged, 1 expanded, 11 modified, 39 relocated, and 9 added.
+> Workspace scope is 609 in / 116 upstream-API out; word authority is 598 workspace, 116 API, 2 skills, and 9 external.
+> The HTTP root is also walked through initialize, tool/resource listing, resource reads, and prompt absence. Host delivery is not inferred.
+<!-- current-source-summary:end -->
 
 ## 1. Purpose and stance
 
@@ -192,8 +189,11 @@ Presented as *candidates for the relevant expert*, not verdicts. The registry as
 Start with [`current-source.json`](./current-source.json) for present source
 custody, word authority, lifecycle, revision state, and the HTTP registration
 snapshot. [`current-source-anchors.json`](./current-source-anchors.json) is the
-technical evidence ledger behind those current dispositions; reviewers do not
-need to read its hashes, but any source edit must still satisfy them. The older
+technical evidence ledger behind baseline dispositions, while
+[`current-source-delta-inventory.json`](./current-source-delta-inventory.json)
+detects changed and newly added governed source and binds it to current item ids
+or an explicit no-content review. Reviewers do not need to read the hashes, but
+any source edit must still satisfy them. The older
 [`rendered-wholes.md`](./rendered-wholes.md), `registry.md`, and filterable
 HTML are phase-(a) visibility artefacts: useful for historical meaning and
 review-domain classification, but not evidence of what the app serves now.
