@@ -1,3 +1,10 @@
+# [1.93.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.92.0...v1.93.0) (2026-07-27)
+
+
+### Features
+
+* **sdk-codegen:** exclude restricted lessons at the bulk-data boundary (MCP-153) ([4bb6382](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4bb63823c098b496a6754883fc9cd68a9e077355))
+
 # [1.92.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.91.0...v1.92.0) (2026-07-27)
 
 
