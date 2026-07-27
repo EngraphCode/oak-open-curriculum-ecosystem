@@ -50,7 +50,10 @@
   },
   "homepage": "https://github.com/oaknational/oak-open-curriculum-ecosystem/tree/main/packages/libs/posthog-node#readme",
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
     "@oaknational/build-metadata": "workspace:*",
-    "@oaknational/result": "workspace:*"
+    "@oaknational/result": "workspace:*",
+    "@posthog/mcp": "^0.10.0",
+    "posthog-node": "^5.46.1"
   }
 }
