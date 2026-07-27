@@ -47,4 +47,54 @@ describe('getMcpResourceUrl', () => {
       'Cannot generate MCP resource URL: host not allowed: evil.com',
     );
   });
+
+  describe('with a configured canonical origin (MCP-269)', () => {
+    const CANONICAL = 'https://www.thenational.academy';
+
+    it('uses the canonical origin instead of the request host', () => {
+      const req = {
+        protocol: 'https',
+        get: () => 'curriculum-mcp-alpha.oaknational.dev',
+        originalUrl: '/mcp',
+      };
+
+      expect(getMcpResourceUrl(req, ['curriculum-mcp-alpha.oaknational.dev'], CANONICAL)).toBe(
+        'https://www.thenational.academy/mcp',
+      );
+    });
+
+    it('ignores req.protocol — the canonical origin fixes the scheme', () => {
+      const req = {
+        protocol: 'http',
+        get: () => 'curriculum-mcp-alpha.oaknational.dev',
+        originalUrl: '/mcp',
+      };
+
+      expect(getMcpResourceUrl(req, ['curriculum-mcp-alpha.oaknational.dev'], CANONICAL)).toBe(
+        'https://www.thenational.academy/mcp',
+      );
+    });
+
+    it('preserves the request path so the resource identifies the served endpoint', () => {
+      const req = {
+        protocol: 'https',
+        get: () => 'curriculum-mcp-alpha.oaknational.dev',
+        originalUrl: '/mcp',
+      };
+
+      expect(getMcpResourceUrl(req, ['curriculum-mcp-alpha.oaknational.dev'], CANONICAL)).toBe(
+        'https://www.thenational.academy/mcp',
+      );
+    });
+
+    it('falls back to per-request derivation when no canonical origin is configured', () => {
+      const req = {
+        protocol: 'https',
+        get: () => 'example.com',
+        originalUrl: '/mcp',
+      };
+
+      expect(getMcpResourceUrl(req, ['example.com'], undefined)).toBe('https://example.com/mcp');
+    });
+  });
 });

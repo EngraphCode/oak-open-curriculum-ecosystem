@@ -55,12 +55,21 @@ function isLoopbackHost(host: string): boolean {
  *
  * Uses `http` for loopback addresses, `https` for everything else.
  *
+ * A configured canonical origin supersedes the request entirely — see
+ * `resolveCanonicalOrigin` for why an edge-served address cannot be derived
+ * per request.
+ *
  * @returns `Ok` with the origin string, or `Err` with a {@link HostValidationError}
  */
 export function deriveSelfOrigin(
   req: { get(name: string): string | undefined },
   allowedHosts: readonly string[],
+  canonicalOrigin?: string,
 ): Result<string, HostValidationError> {
+  if (canonicalOrigin) {
+    return ok(canonicalOrigin);
+  }
+
   const host = req.get('host');
   if (!host) {
     return err({ type: 'missing_host' });
