@@ -96,6 +96,9 @@ describe('getPRMUrl', () => {
   });
 
   describe('with a configured canonical origin (MCP-269)', () => {
+    // The allow-list is passed EMPTY throughout: the canonical origin must not
+    // consult it, so an empty list makes any accidental per-request derivation
+    // fail loudly instead of passing by coincidence.
     const CANONICAL = 'https://www.thenational.academy';
 
     it('uses the canonical origin instead of the request host', () => {
@@ -104,7 +107,7 @@ describe('getPRMUrl', () => {
         get: () => 'curriculum-mcp-alpha.oaknational.dev',
       };
 
-      const result = getPRMUrl(mockReq, ['curriculum-mcp-alpha.oaknational.dev'], CANONICAL);
+      const result = getPRMUrl(mockReq, [], CANONICAL);
 
       expect(result).toBe(
         'https://www.thenational.academy/.well-known/oauth-protected-resource/mcp',
@@ -117,7 +120,7 @@ describe('getPRMUrl', () => {
         get: () => 'curriculum-mcp-alpha.oaknational.dev',
       };
 
-      const result = getPRMUrl(mockReq, ['curriculum-mcp-alpha.oaknational.dev'], CANONICAL);
+      const result = getPRMUrl(mockReq, [], CANONICAL);
 
       expect(result).toBe(
         'https://www.thenational.academy/.well-known/oauth-protected-resource/mcp',
@@ -127,20 +130,9 @@ describe('getPRMUrl', () => {
     it('does not consult the request host at all — an absent Host still resolves', () => {
       const mockReq = { protocol: 'https', get: () => undefined };
 
-      expect(getPRMUrl(mockReq, ['example.com'], CANONICAL)).toBe(
+      expect(getPRMUrl(mockReq, [], CANONICAL)).toBe(
         'https://www.thenational.academy/.well-known/oauth-protected-resource/mcp',
       );
-    });
-
-    it('falls back to per-request derivation when no canonical origin is configured', () => {
-      const mockReq = {
-        protocol: 'https',
-        get: () => 'example.com',
-      };
-
-      const result = getPRMUrl(mockReq, ['example.com'], undefined);
-
-      expect(result).toBe('https://example.com/.well-known/oauth-protected-resource/mcp');
     });
   });
 });

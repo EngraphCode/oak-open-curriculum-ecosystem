@@ -135,16 +135,18 @@ export function registerPublicOAuthMetadataEndpoints(
  * @param mcpRateLimiter - Per-IP limiter; see create-rate-limiters.ts.
  * @see https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization
  */
-function registerAuthenticatedRoutes(
-  app: Express,
-  mcpFactory: McpServerFactory,
-  log: Logger,
-  allowedHosts: readonly string[],
-  observability: HttpObservability,
-  mcpRateLimiter: RequestHandler,
-  mcpAuthClerkDeps?: CreateMcpAuthClerkDeps,
-  canonicalOrigin?: string,
-): void {
+function registerAuthenticatedRoutes(deps: {
+  readonly app: Express;
+  readonly mcpFactory: McpServerFactory;
+  readonly log: Logger;
+  readonly allowedHosts: readonly string[];
+  readonly observability: HttpObservability;
+  readonly mcpRateLimiter: RequestHandler;
+  readonly mcpAuthClerkDeps?: CreateMcpAuthClerkDeps;
+  readonly canonicalOrigin?: string;
+}): void {
+  const { app, mcpFactory, log, allowedHosts, observability, mcpRateLimiter } = deps;
+  const { mcpAuthClerkDeps, canonicalOrigin } = deps;
   const authLog = typeof log.child === 'function' ? log.child({ scope: 'mcp-auth' }) : log;
   const mcpRouter = createMcpRouter({
     auth: createMcpAuthClerk(authLog, allowedHosts, mcpAuthClerkDeps, canonicalOrigin),
@@ -205,15 +207,15 @@ export function setupAuthRoutes(options: SetupAuthRoutesOptions): void {
   // Auth middleware returns HTTP 401 per MCP spec and OpenAI Apps docs
   authLog.debug('Registering MCP routes (HTTP-level auth enforcement)');
   measureAuthSetupStep(authLog, 'mcp.routes.register', () => {
-    registerAuthenticatedRoutes(
+    registerAuthenticatedRoutes({
       app,
       mcpFactory,
-      authLog,
+      log: authLog,
       allowedHosts,
       observability,
       mcpRateLimiter,
       mcpAuthClerkDeps,
       canonicalOrigin,
-    );
+    });
   });
 }

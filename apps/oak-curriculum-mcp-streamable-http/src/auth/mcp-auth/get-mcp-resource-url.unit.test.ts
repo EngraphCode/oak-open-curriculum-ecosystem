@@ -49,6 +49,9 @@ describe('getMcpResourceUrl', () => {
   });
 
   describe('with a configured canonical origin (MCP-269)', () => {
+    // The allow-list is passed EMPTY throughout: the canonical origin must not
+    // consult it, so an empty list makes any accidental per-request derivation
+    // fail loudly instead of passing by coincidence.
     const CANONICAL = 'https://www.thenational.academy';
 
     it('uses the canonical origin instead of the request host', () => {
@@ -58,9 +61,7 @@ describe('getMcpResourceUrl', () => {
         originalUrl: '/mcp',
       };
 
-      expect(getMcpResourceUrl(req, ['curriculum-mcp-alpha.oaknational.dev'], CANONICAL)).toBe(
-        'https://www.thenational.academy/mcp',
-      );
+      expect(getMcpResourceUrl(req, [], CANONICAL)).toBe('https://www.thenational.academy/mcp');
     });
 
     it('ignores req.protocol — the canonical origin fixes the scheme', () => {
@@ -70,9 +71,7 @@ describe('getMcpResourceUrl', () => {
         originalUrl: '/mcp',
       };
 
-      expect(getMcpResourceUrl(req, ['curriculum-mcp-alpha.oaknational.dev'], CANONICAL)).toBe(
-        'https://www.thenational.academy/mcp',
-      );
+      expect(getMcpResourceUrl(req, [], CANONICAL)).toBe('https://www.thenational.academy/mcp');
     });
 
     it('preserves the request path so the resource identifies the served endpoint', () => {
@@ -82,19 +81,7 @@ describe('getMcpResourceUrl', () => {
         originalUrl: '/mcp',
       };
 
-      expect(getMcpResourceUrl(req, ['curriculum-mcp-alpha.oaknational.dev'], CANONICAL)).toBe(
-        'https://www.thenational.academy/mcp',
-      );
-    });
-
-    it('falls back to per-request derivation when no canonical origin is configured', () => {
-      const req = {
-        protocol: 'https',
-        get: () => 'example.com',
-        originalUrl: '/mcp',
-      };
-
-      expect(getMcpResourceUrl(req, ['example.com'], undefined)).toBe('https://example.com/mcp');
+      expect(getMcpResourceUrl(req, [], CANONICAL)).toBe('https://www.thenational.academy/mcp');
     });
   });
 });

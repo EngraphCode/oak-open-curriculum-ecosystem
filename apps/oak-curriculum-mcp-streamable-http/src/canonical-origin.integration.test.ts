@@ -73,7 +73,7 @@ describe('canonical origin (MCP-269)', () => {
         'token_endpoint',
         'registration_endpoint',
       ]) {
-        expect(res.body[endpoint]).toMatch(new RegExp(`^${CANONICAL_ORIGIN}/`));
+        expect(String(res.body[endpoint]).startsWith(`${CANONICAL_ORIGIN}/`)).toBe(true);
       }
     });
 
