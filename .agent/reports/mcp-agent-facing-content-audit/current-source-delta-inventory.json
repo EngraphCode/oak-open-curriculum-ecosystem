@@ -11,8 +11,20 @@
       ]
     },
     {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/app/static-asset-paths.ts",
+      "semanticSha256": "d42c567fadff20a447f45c556660793fae1422e165518937e061182557ee49d4",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/app/static-content.ts",
+      "semanticSha256": "de2eb5677fb4743a57885b6c6754d52a9180d2e6c2ae9d1db830d3709b5ac8f3",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/application.ts",
-      "semanticSha256": "e75e794bbeb89f4cf97ead74fc3a5258fc97a0da4f1996e560b4405d295e4e95",
+      "semanticSha256": "234036ead555fe082aba797e3977f4739ed48a4e120e5ab7b8ae93608f0d400c",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
@@ -43,7 +55,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-landing-page.ts",
-      "semanticSha256": "66886bd9fe08a3a07f1df33390edcaac52029c51bc417438c0e450e2083397e7",
+      "semanticSha256": "623b9d9d5a77e82fdc0730a6f821b546aeb5d2adc9067a1a1c94e2e12aee3713",
       "itemIds": [
         "C342",
         "C343",
@@ -178,6 +190,12 @@
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/test-helpers/registration-walk.ts",
       "semanticSha256": "2751fa4d161977c06780be18143d073c452d34f2580b5f84dfb1d51c6760cfef",
+      "itemIds": [],
+      "exclusionReason": "Test support only; this file does not reach an MCP consumer."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/test-helpers/static-root-fixture.ts",
+      "semanticSha256": "4159a349a8de63073b16011c1ffbf28807e6b539b9da24c3375b6f013d5d757a",
       "itemIds": [],
       "exclusionReason": "Test support only; this file does not reach an MCP consumer."
     },
@@ -329,6 +347,24 @@
       "semanticSha256": "d93f7fb05575827fb0112743597aea35ed09cbf1739d536cd7db89cef4a913bf",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "packages/sdks/oak-sdk-codegen/code-generation/typegen/bulk/schema-templates-part2.ts",
+      "semanticSha256": "6706d817e8b64f770cb1579f93ceea071f9e45d24a7081e547e7737fffbda057",
+      "itemIds": [],
+      "exclusionReason": "Bulk ingestion schema contract only; this file is not exposed through the MCP app."
+    },
+    {
+      "file": "packages/sdks/oak-sdk-codegen/code-generation/typegen/bulk/schema-templates-part3.ts",
+      "semanticSha256": "33fc7acfc096feb36f19b9265726928b2007da51f58f8a6728c2e2a6b60c38ce",
+      "itemIds": [],
+      "exclusionReason": "Bulk ingestion schema contract only; this file is not exposed through the MCP app."
+    },
+    {
+      "file": "packages/sdks/oak-sdk-codegen/code-generation/typegen/bulk/schema-templates.ts",
+      "semanticSha256": "5f64508729d908263c0adb81c541138a118ee52fbcdd896d6359ab609a041f75",
+      "itemIds": [],
+      "exclusionReason": "Bulk ingestion schema contract only; this file is not exposed through the MCP app."
     },
     {
       "file": "packages/sdks/oak-sdk-codegen/code-generation/typegen/cross-domain-constants.ts",

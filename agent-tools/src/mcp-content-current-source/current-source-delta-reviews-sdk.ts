@@ -4,6 +4,7 @@ import {
   reviewed,
   type CurrentSourceDeltaReview,
   TYPE_ONLY,
+  UPSTREAM_BULK_ONLY,
 } from './current-source-delta-review-helpers.js';
 
 export const SDK_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview>> = {
@@ -88,6 +89,18 @@ export const SDK_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
   'packages/sdks/oak-sdk-codegen/code-generation/schema-separation-core.ts': excluded(
     'd93f7fb05575827fb0112743597aea35ed09cbf1739d536cd7db89cef4a913bf',
     IMPLEMENTATION_ONLY,
+  ),
+  'packages/sdks/oak-sdk-codegen/code-generation/typegen/bulk/schema-templates-part2.ts': excluded(
+    '6706d817e8b64f770cb1579f93ceea071f9e45d24a7081e547e7737fffbda057',
+    UPSTREAM_BULK_ONLY,
+  ),
+  'packages/sdks/oak-sdk-codegen/code-generation/typegen/bulk/schema-templates-part3.ts': excluded(
+    '33fc7acfc096feb36f19b9265726928b2007da51f58f8a6728c2e2a6b60c38ce',
+    UPSTREAM_BULK_ONLY,
+  ),
+  'packages/sdks/oak-sdk-codegen/code-generation/typegen/bulk/schema-templates.ts': excluded(
+    '5f64508729d908263c0adb81c541138a118ee52fbcdd896d6359ab609a041f75',
+    UPSTREAM_BULK_ONLY,
   ),
   'packages/sdks/oak-sdk-codegen/code-generation/typegen/cross-domain-constants.ts': reviewed(
     'b484d7841cc96e2d4a1a5b82291b365ce99dd500f90a780c135d512d243486cd',

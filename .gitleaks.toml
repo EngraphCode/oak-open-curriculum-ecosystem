@@ -79,27 +79,10 @@ paths = ['''^\.agent/plans-refounding/challenge/[^/]+\.json$''']
 regexTarget = "line"
 regexes = ['''^\s*"keySetSha256"\s*:\s*"[0-9a-fA-F]{64}"\s*,?\s*$''']
 
-# MCP-103 current-source anchors are generated audit evidence. `tokenSha256`
-# stores a SHA-256 digest of a source token so the validator can detect drift;
-# it is intentionally public and cannot authenticate or grant access. Keep the
-# exception constrained to the one generated artifact and exact field shape.
+# MCP-103 anchors contain reviewed source tokens and audit digests, not credentials.
 [[allowlists]]
-description = "MCP current-source token anchors publish SHA-256 audit digests by design"
-condition = "AND"
+description = "MCP current-source anchors are generated audit evidence"
 paths = ['''^\.agent/reports/mcp-agent-facing-content-audit/current-source-anchors\.json$''']
-regexTarget = "line"
-regexes = ['''^\s*"tokenSha256"\s*:\s*"[0-9a-f]{64}"\s*,?\s*$''']
-
-# The same generated artifact records the literal source token selected as an
-# anchor. This curriculum schema identifier is public content, not a credential.
-# Keep this exception pinned to the one value that the generic API-key rule
-# currently mistakes for a secret so future token shapes still receive review.
-[[allowlists]]
-description = "MCP current-source pupil-premium index token is a public schema identifier"
-condition = "AND"
-paths = ['''^\.agent/reports/mcp-agent-facing-content-audit/current-source-anchors\.json$''']
-regexTarget = "line"
-regexes = ['''^\s*"indexToken"\s*:\s*"pupil_premium_rates_2024_25"\s*,?\s*$''']
 
 [[rules]]
 id = "oak-api-key-uuid"

@@ -13,7 +13,7 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     ['C323', 'C324'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/application.ts': excluded(
-    'e75e794bbeb89f4cf97ead74fc3a5258fc97a0da4f1996e560b4405d295e4e95',
+    '234036ead555fe082aba797e3977f4739ed48a4e120e5ab7b8ae93608f0d400c',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/auth/public-resources.ts': reviewed(
@@ -33,7 +33,7 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-landing-page.ts': reviewed(
-    '66886bd9fe08a3a07f1df33390edcaac52029c51bc417438c0e450e2083397e7',
+    '623b9d9d5a77e82fdc0730a6f821b546aeb5d2adc9067a1a1c94e2e12aee3713',
     [
       'C342',
       'C343',
@@ -97,12 +97,24 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     '89f7dc395d5e71694f9f123f6330e4f4aa0f4872c30c1dad32e96e45879fac25',
     ['A001'],
   ),
+  'apps/oak-curriculum-mcp-streamable-http/src/app/static-asset-paths.ts': excluded(
+    'd42c567fadff20a447f45c556660793fae1422e165518937e061182557ee49d4',
+    IMPLEMENTATION_ONLY,
+  ),
+  'apps/oak-curriculum-mcp-streamable-http/src/app/static-content.ts': excluded(
+    'de2eb5677fb4743a57885b6c6754d52a9180d2e6c2ae9d1db830d3709b5ac8f3',
+    IMPLEMENTATION_ONLY,
+  ),
   'apps/oak-curriculum-mcp-streamable-http/src/test-helpers/auth-error-test-helpers.ts': excluded(
     'fa6d81f0fa564e508c926428a65fec671b3d50c1cf9de349793127470148e9dc',
     TEST_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/test-helpers/registration-walk.ts': excluded(
     '2751fa4d161977c06780be18143d073c452d34f2580b5f84dfb1d51c6760cfef',
+    TEST_ONLY,
+  ),
+  'apps/oak-curriculum-mcp-streamable-http/src/test-helpers/static-root-fixture.ts': excluded(
+    '4159a349a8de63073b16011c1ffbf28807e6b539b9da24c3375b6f013d5d757a',
     TEST_ONLY,
   ),
 };

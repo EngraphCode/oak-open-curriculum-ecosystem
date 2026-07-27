@@ -126,9 +126,8 @@ export function requireTokenAnchorsPresent(
   location?: string,
 ): void {
   if (anchors.length === 0 || !anchorsHaveDistinctMatches(anchors, tokenizeItemEvidence(content))) {
-    throw new Error(
-      `${label} anchors lack distinct occurrences${location === undefined ? '' : ` in ${location}`}`,
-    );
+    const locationSuffix = location === undefined ? '' : ` in ${location}`;
+    throw new Error(`${label} anchors lack distinct occurrences${locationSuffix}`);
   }
 }
 

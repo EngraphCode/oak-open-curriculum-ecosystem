@@ -28,3 +28,5 @@ export const VALIDATION_ONLY =
   'Current-source validation machinery; this file does not reach an MCP consumer.';
 export const TYPE_ONLY = 'Type-only change; no authored agent-facing content.';
 export const TEST_ONLY = 'Test support only; this file does not reach an MCP consumer.';
+export const UPSTREAM_BULK_ONLY =
+  'Bulk ingestion schema contract only; this file is not exposed through the MCP app.';

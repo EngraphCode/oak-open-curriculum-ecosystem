@@ -28,8 +28,8 @@ export function updateCurrentSourceReportSummary(
   if (
     start < 0 ||
     end < start ||
-    report.indexOf(CURRENT_SOURCE_SUMMARY_START, start + 1) >= 0 ||
-    report.indexOf(CURRENT_SOURCE_SUMMARY_END, end + 1) >= 0
+    report.slice(start + 1).includes(CURRENT_SOURCE_SUMMARY_START) ||
+    report.slice(end + 1).includes(CURRENT_SOURCE_SUMMARY_END)
   ) {
     throw new Error('Audit report must contain exactly one current-source summary marker pair');
   }

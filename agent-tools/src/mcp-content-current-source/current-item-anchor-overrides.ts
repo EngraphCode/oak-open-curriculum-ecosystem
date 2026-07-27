@@ -9,17 +9,15 @@ import {
   CURRENT_GENERATED_ITEM_ANCHOR_OVERRIDES,
   CURRENT_GENERATED_ITEM_REVISION_OVERRIDES,
 } from './current-generated-item-anchor-overrides.js';
+import { CURRENT_LANDING_ITEM_ANCHOR_OVERRIDES } from './current-landing-item-anchor-overrides.js';
 
 const GUIDANCE_ROOT = 'packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources';
-const LANDING_ROOT = 'apps/oak-curriculum-mcp-streamable-http/src/landing-page';
 const FIND = `${GUIDANCE_ROOT}/find-lessons.ts`;
 const EXPLORE = `${GUIDANCE_ROOT}/explore-curriculum.ts`;
 const LEARNING = `${GUIDANCE_ROOT}/learning-progression.ts`;
 const MAPPING = `${GUIDANCE_ROOT}/curriculum-mapping.ts`;
 const ADAPT = `${GUIDANCE_ROOT}/adapt-lesson.ts`;
 const CONTINUE = `${GUIDANCE_ROOT}/continue-progression.ts`;
-const LANDING_RESOURCES = `${LANDING_ROOT}/render-resources-section.ts`;
-const LANDING_TOOLS = `${LANDING_ROOT}/render-tools-section.ts`;
 type AnchorOverrides = Readonly<Record<string, Readonly<Record<string, readonly string[]>>>>;
 
 export const CURRENT_ITEM_ANCHOR_OVERRIDES: AnchorOverrides = {
@@ -218,14 +216,7 @@ export const CURRENT_ITEM_ANCHOR_OVERRIDES: AnchorOverrides = {
   C335: {
     [CONTINUE]: ['Agent guidance: continue the progression'],
   },
-  C357: {
-    [LANDING_RESOURCES]: ['Resources (${String(resourceCount)})'],
-    [LANDING_TOOLS]: ['Tools (${String(toolCount)})'],
-  },
-  C370: {
-    [LANDING_RESOURCES]: ['<span class="expand-hint">Click to expand</span>'],
-    [LANDING_TOOLS]: ['<span class="expand-hint">Click to expand</span>'],
-  },
+  ...CURRENT_LANDING_ITEM_ANCHOR_OVERRIDES,
   C413: {
     'apps/oak-curriculum-mcp-streamable-http/src/auth/public-resources.ts': [
       '...DOCUMENTATION_RESOURCES.map((resource) => resource.uri)',
@@ -245,6 +236,7 @@ export const CURRENT_ITEM_ANCHOR_OVERRIDES: AnchorOverrides = {
 export const CURRENT_ITEM_REVISION_OVERRIDES = {
   ...CURRENT_GENERATED_ITEM_REVISION_OVERRIDES,
   C313: 'unchanged',
+  C342: 'unchanged',
   C413: 'expanded',
   C479: 'modified',
 } as const;

@@ -191,7 +191,7 @@ function validateManifestOverrides(input: AnchorManifestInput): void {
     .map((row) => row.id);
   if (samePathOverridesWithoutRevision.length > 0) {
     throw new Error(
-      `In-place current anchor overrides require an explicit revision: ${samePathOverridesWithoutRevision.sort(alphabetical).join(', ')}`,
+      `In-place current anchor overrides require an explicit revision: ${samePathOverridesWithoutRevision.toSorted(alphabetical).join(', ')}`,
     );
   }
 }
