@@ -4,6 +4,8 @@ import eslint from '@eslint/js';
 import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript';
 import { createNodeResolver } from 'eslint-plugin-import-x';
 
+import { POSTHOG_VENDOR_IMPORT_PATTERNS } from './src/rules/boundary.js';
+
 export default defineConfig(
   {
     ignores: ['dist', 'node_modules', '**/*.d.ts'],
@@ -34,6 +36,12 @@ export default defineConfig(
   ...tseslint.configs.stylistic,
   {
     rules: {
+      '@typescript-eslint/no-restricted-imports': [
+        'error',
+        {
+          patterns: POSTHOG_VENDOR_IMPORT_PATTERNS,
+        },
+      ],
       '@typescript-eslint/no-explicit-any': ['error'],
       '@typescript-eslint/no-deprecated': ['error'],
       '@typescript-eslint/no-unused-vars': ['error'],
