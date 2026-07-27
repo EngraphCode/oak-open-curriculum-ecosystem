@@ -55,12 +55,21 @@
      RAMPS restructure it. Each type slot is a whole font shorthand —
      re-point slots to reshape scale, hierarchy and rhythm:
      --type-heading-1…7, --type-body-1…4, --type-label,
+     --type-code-2…4 (the monospace ramp — code surfaces re-point the slots;
+     only .oak-code-2-bold still composes from --font-mono, matching every
+     other -bold class),
      plus case grammar: --label-transform (uppercase|lowercase|none),
      --label-variant (normal|all-small-caps).
      Density is the other ramp: --gap-* / --inset-* / --card-pad /
      --control-pad-* / --btn-min-h.
-     FLOORS that survive any re-brand: primary body + label slots ≥16px,
-     slide slots ≥24px, targets ≥44px (--btn-min-h never below 44px). */
+     FLOORS that survive any re-brand: primary body slots (--type-body-1/2)
+     ≥16px, slide slots ≥24px, targets ≥44px (--btn-min-h never below 44px).
+     The dense slots — --type-body-3/4, --type-label, --type-code-4 — floor
+     at 12px and carry a CONDITION rather than a size: short scanned strings
+     only (labels, hints, snippets), never running prose, and never at
+     --weight-light on a pastel or decorative fill (use --type-code-3, or a
+     ≥400 weight, on tinted surfaces). Slots stay in rem so a reader's own
+     font-size setting still scales them. */
 
   /* --- 2b. POLARITY — which world does the brand live in? Oak is daylight
      (light-first). A screen-native, bedtime, or arcade identity can be
@@ -100,9 +109,11 @@
   /* --bg-neutral-stronger: light-dark(#e4e4e4, #2d2d2d); */
   /* --border-primary: light-dark(#222222, #ffffff); */
   /* --border-neutral: light-dark(#808080, #cacaca); */
-  /* --text-inverted-subdued / --border-inverted: muted text + dividers ON
-     inverted surfaces (footers, quote bands) — audited pairs vs --bg-inverted;
-     a brand that re-points --bg-inverted must keep both ≥4.5:1 / ≥3:1. */
+  /* --text-inverted-subdued / --border-inverted / --shadow-ground-inverted:
+     muted text, dividers and the press/focus ground ON inverted surfaces
+     (footers, quote bands, dark mastheads) — audited pairs vs --bg-inverted;
+     a brand that re-points --bg-inverted must keep them ≥4.5:1 (text) /
+     ≥3:1 (non-text, incl. the ground). */
   /* PAPER RULE: a brand that re-points --bg-primary off white must carry the
      WHOLE elevation family with it — --bg-btn-secondary, --bg-raised,
      --bg-overlay — or secondary plates and modals punch screen-white holes
@@ -136,6 +147,12 @@
   /* --border-solid-m: 2px;                (signature border weight) */
   /* --tracking-heading: 0.0115em;         (0 for display faces with built-in personality) */
   /* --shadow-ground: light-dark(#575757, #f2f2f2); (press/focus outer) */
+  /* --shadow-ground-inverted: light-dark(#f2f2f2, #575757); (its twin ON
+     inverted surfaces — re-point the pair together, and keep the audited
+     ≥3:1 vs --bg-inverted. Controls on an inverted surface take
+     --focus-ring: var(--focus-ring-inverted) — set it on the CONTROLS,
+     never the band: the property inherits, and a nested non-inverted
+     surface would draw the wrong-polarity ring) */
   /* --motion-quick: 120ms; --motion-base: 200ms; --ease-standard: …; */
 
   /* --- 7b. The SIGNATURE itself — Oak's diagonal offset-shadow is a brand

@@ -54,18 +54,36 @@ export const SEMANTIC_ROOTS = {
   'colour-safe': ['bg', 'border', 'text'],
 } as const satisfies Record<DesignSystemTheme, readonly string[]>;
 
-/** Expected number of pairs the contrast manifest declares. */
-export const EXPECTED_MANIFEST_PAIR_COUNT = 41;
+/**
+ * Expected number of pairs the contrast manifest declares.
+ *
+ * @remarks
+ * Re-baselined 41 → 42 on 2026-07-26 (MCP-128): the non-text pair
+ * `shadow.ground-inverted` ON `bg.inverted` joins the manifest — the token's
+ * stated purpose is a named re-audit point for brands re-pointing
+ * `--bg-inverted`, so the fourth inverted-family member gets the same gate
+ * as the other three.
+ */
+export const EXPECTED_MANIFEST_PAIR_COUNT = 42;
 
 /**
  * Expected size of the post-filter hex comparand for every composed theme.
  *
  * @remarks
- * 174 colour candidates resolve per composed theme (identical across
+ * 175 colour candidates resolve per composed theme (identical across
  * themes — overlays only override, never add); 8 drop at the hex filter:
  * the 4 palette rgb-alpha literals, the `scrim` copy resolved from one of
  * them, and the 3 untyped `color-mix()` state tokens. This count is the
  * drift net for the export's heuristic `$type` and for silent resolution
  * drops — if it moves, a token changed class, not just value.
+ *
+ * Re-baselined 166 → 167 on 2026-07-26 (MCP-128). The single added colour is
+ * `shadow.ground-inverted`, completing the inverted-surface family alongside
+ * `bg-inverted` / `text-inverted` / `border-inverted`: a surface painted at
+ * the opposite polarity to the canvas needs its own ground, and without one a
+ * consumer either leaves the focus ring at ~1.1:1 or reaches for a palette
+ * primitive. The same change adds `focus.ring-inverted`, `type.code-2`,
+ * `type.code-3` and `type.code-4`, which carry no `$type` and so are not
+ * comparands — the count moves by exactly one, as it should.
  */
-export const EXPECTED_COMPARAND_SIZE = 166;
+export const EXPECTED_COMPARAND_SIZE = 167;
