@@ -1,3 +1,10 @@
+# [1.95.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.94.2...v1.95.0) (2026-07-27)
+
+
+### Features
+
+* **hook-policy:** block the git stash park family with an anchored regex entry ([5b500a9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5b500a9cc3b0b5bbfbfead92281a7174e62ccc24))
+
 ## [1.94.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.94.1...v1.94.2) (2026-07-27)
 
 ## [1.94.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.94.0...v1.94.1) (2026-07-27)
