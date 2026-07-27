@@ -79,6 +79,25 @@ paths = ['''^\.agent/plans-refounding/challenge/[^/]+\.json$''']
 regexTarget = "line"
 regexes = ['''^\s*"keySetSha256"\s*:\s*"[0-9a-fA-F]{64}"\s*,?\s*$''']
 
+# MCP-103 anchors publish SHA-256 audit digests by design. Keep the exception
+# constrained to the generated ledger and the complete digest-field line shape;
+# source-derived index tokens remain subject to every gitleaks rule. The one
+# named exception below allowlists a single non-secret prose token (C436).
+[[allowlists]]
+description = "MCP current-source anchors publish SHA-256 audit digests by design"
+condition = "AND"
+paths = ['''^\.agent/reports/mcp-agent-facing-content-audit/current-source-anchors\.json$''']
+regexTarget = "line"
+regexes = ['''^\s*"(?:baselineSha256|tokenSha256)"\s*:\s*"[0-9a-fA-F]{64}"\s*,?\s*$''']
+
+[[allowlists]]
+description = "MCP current-source named index tokens proven non-secret source prose"
+condition = "AND"
+paths = ['''^\.agent/reports/mcp-agent-facing-content-audit/current-source-anchors\.json$''']
+regexTarget = "line"
+regexes = ['''^\s*"indexToken"\s*:\s*"(?:ineffectiveness|pupil_premium_rates_2024_25)"\s*,?\s*$''']
+
+
 [[rules]]
 id = "oak-api-key-uuid"
 description = "Detect UUID-style OAK_API_KEY assignments"
