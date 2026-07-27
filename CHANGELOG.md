@@ -1,3 +1,10 @@
+# [1.99.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.98.0...v1.99.0) (2026-07-27)
+
+
+### Features
+
+* **posthog:** add scoped actor pseudonyms to the closed adapter ([ee0759e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ee0759ebb7443e9b1734ca06ec453fe39eea2423)), closes [#576](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/576)
+
 # [1.98.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.97.2...v1.98.0) (2026-07-27)
 
 
