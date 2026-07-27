@@ -338,6 +338,12 @@ first-hand as of 2026-06-25.
 > 218 (orphans). (6) Recommended two-line edit: principles evidence rule
 > → BIDIRECTIONAL (under-claiming cost a wrongly-scoped ticket).
 > MCPJam creds tmp copy DELETED at wrap (custody discharged).
+> (7) LIVE at compaction: fleet-wide LOCAL secrets:scan red — 807 false
+> positives (token-anchor digests in Smelter's current-source-anchors.json,
+> three #582 commits, cross-branch sweep); classified by Swallow 10:13Z,
+> cure ROUTED to Smelter 10:15Z (allowlist-with-rationale or anchor
+> re-encoding, their call); other seats' pushes may gate until cured —
+> check Smelter's pickup ack on the stream at rehydrate.
 >
 > Older 2026-07-26 blocks below retain merge/bridge/ruling detail still
 > in force (Codex connector bridge, settled definition, freeze list,
