@@ -20,6 +20,9 @@ function createMinimalBulkFile(): BulkDownloadFile {
     subjectTitle: 'Maths',
     sequence: [
       {
+        canonicalUrl:
+          'https://www.thenational.academy/teachers/programmes/maths-primary-ks2/units/fractions-unit/lessons',
+        subjectSlug: 'maths',
         unitSlug: 'fractions-unit',
         unitTitle: 'Fractions',
         year: 3,
@@ -42,6 +45,9 @@ function createMinimalBulkFile(): BulkDownloadFile {
     ],
     lessons: [
       {
+        oakUrl: 'https://www.thenational.academy/teachers/lessons/adding-fractions',
+        canonicalUrl:
+          'https://www.thenational.academy/teachers/programmes/maths-primary-ks2/units/fractions-unit/lessons/adding-fractions',
         lessonSlug: 'adding-fractions',
         lessonTitle: 'Adding fractions',
         unitSlug: 'fractions-unit',

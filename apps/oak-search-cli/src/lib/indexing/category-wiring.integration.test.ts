@@ -18,6 +18,8 @@ function createUnitWithSlug(unitSlug: string) {
   return {
     unitSlug,
     unitTitle: `Unit ${unitSlug}`,
+    canonicalUrl: `https://www.thenational.academy/teachers/programmes/maths-primary-ks2/units/${unitSlug}/lessons`,
+    subjectSlug: 'maths',
     year: 3,
     yearSlug: 'year-3',
     keyStageSlug: 'ks2',
@@ -44,6 +46,9 @@ function createBulkDownloadFile(): BulkDownloadFile {
     sequence: [createUnitWithSlug('fractions-year-3')],
     lessons: [
       {
+        oakUrl: 'https://www.thenational.academy/teachers/lessons/test-lesson',
+        canonicalUrl:
+          'https://www.thenational.academy/teachers/programmes/maths-primary-ks2/units/fractions-year-3/lessons/test-lesson',
         lessonSlug: 'test-lesson',
         lessonTitle: 'Test Lesson',
         unitSlug: 'fractions-year-3',
