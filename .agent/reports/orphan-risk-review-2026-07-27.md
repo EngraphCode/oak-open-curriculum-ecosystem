@@ -58,11 +58,23 @@ The specific fear worth naming, because it was real an hour earlier: Smelter's s
 uncommitted phase-(b) work, in a machine-temp worktree an OS clean-up could have taken. It is now
 absorbed into #582's pushed cure. Nothing is stranded.
 
-**One open item**: the primary checkout carries eleven uncommitted modified files — widget source
-(`App.tsx`, `BrandBanner.tsx`, their unit tests, `index.css`, the generated widget HTML, the
-banner spec) and the `mcp-agent-facing-content-audit` registry artefacts. No claim covers them and
-no comms event names the lane. Swallow has eliminated itself in writing; a fleet ping is out to
-the rest. Until attributed, no batch or commit touches those paths.
+**One open item, RESOLVED at 19:11Z**: the primary checkout carries eleven uncommitted modified
+files — widget source (`App.tsx`, `BrandBanner.tsx`, their unit tests, `index.css`, the generated
+widget HTML, the banner spec) and the `mcp-agent-facing-content-audit` registry artefacts. The
+fleet ping found the owner: they are Raccoon's owner-directed MCP-290 lane (widget
+experimental-service disclaimer and banner landmark), delivered as PR #597 — so the attribution
+gap is closed and this is not an orphan.
+
+It leaves a live hazard worth naming, because it is the *stale capture wins* class: the same
+paths are modified in **two places at once** — the primary checkout and Raccoon's
+`widget-disclaimer-landmark` worktree — and only the worktree copy is on the PR. Diffed
+first-hand against PR head `abb400118`: every primary copy is currently **identical**, so nothing
+can revert today. But the primary holds an unclaimed duplicate of a live lane; if the PR moves
+and the duplicate does not, a later batch commit on the primary silently walks the work back.
+Raccoon has been asked to fold the copies into their claim or declare them disposable. Until
+then those paths stay untouched — which is also why every continuity commit in this window was
+pushed from a clean detached worktree rather than the primary, whose pre-push format gate the
+duplicate currently fails.
 
 ## Mode 2 — lost lanes: SEVEN, ranked
 
