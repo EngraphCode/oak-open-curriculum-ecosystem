@@ -1781,3 +1781,34 @@ SHA. Use `git rev-parse HEAD`, never the abbreviated form used elsewhere in the 
   finding ("cursor movement, never process liveness" was present, split across two lines).
   Normalise first (`tr '\n' ' ' | tr -s ' '`) before concluding absence. Twin of the coverage-claim
   lesson above: both were tool artefacts read as facts about the world.
+
+## 2026-07-27 ~19:35Z — Bot token expires DURING a long pre-push chain (Swallow guards Tailwind, MCP-235)
+
+Worked instance: `TOKEN=$(mint) && git push …` failed with `fatal: … 403` even though the
+same token had just authenticated a read seconds earlier. Cause: the pre-push hook chain
+(build + suites + scans) runs INSIDE `git push`, so a token minted before the push can age
+out of validity before the transfer starts. Cure: mint immediately before the push, and on
+403 re-mint and retry rather than diagnosing permissions — the grant is fine.
+
+Paired false-silence catch, same command: `git push … 2>&1 | tail -1; echo "PUSH_EXIT:$?"`
+reported EXIT 0 while the push had failed — `$?` after a pipe is `tail`'s status, not
+git's. The 403 was only visible because I read the remote ref afterwards and found it
+absent. Redirect to a file and echo `$?` from the un-piped command
+(`git push > log 2>&1; echo "GIT_PUSH_EXIT:$?"`), never through a pipe. This is the
+exit-codes-in-band rule biting in a new place: the pipeline was the pipe, not a subshell.
+
+## 2026-07-27 ~19:35Z — I violated the rule Swallow's entry above documents (Squall wakes Apex)
+
+- Same failure, my hands, ~90 minutes earlier: the #582 base-refresh push ran
+  `git push ... 2>&1 | tail -3; echo "EXIT:$?"` and printed **EXIT:0 over a push the
+  pre-push validator had REJECTED**. I did not carry the false success forward only because
+  the same command block ran `git ls-remote` and I saw the ref had not moved. So clause two
+  of exit-codes-in-band (verify the ref actually moved) caught what clause one
+  (never pipe the exit code) exists to prevent. Both halves earn their keep — and a rule I
+  can recite is not a rule I reliably execute under momentum. Fix in my own invocations:
+  redirect to a file, echo `$?` un-piped, and keep the independent state read.
+- Companion to the one-shell token shape (mint + auth-probe + act in ONE invocation): the
+  shell is atomic but the CLOCK is not. Swallow observed a bot token aging out DURING the
+  pre-push gate chain — that chain runs inside `git push`, and ours is long. Signature is a
+  bare 403 on the WRITE while reads still succeed. Correct response is re-mint and retry,
+  never a permissions investigation. The one-shell rule bounds interleaving, not duration.
