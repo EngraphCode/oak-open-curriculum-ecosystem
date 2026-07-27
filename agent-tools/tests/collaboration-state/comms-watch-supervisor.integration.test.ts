@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { runCollaborationStateCli } from '../../src/collaboration-state/cli';
+import { watcherExitLine } from '../../src/collaboration-state/comms-watch-errors';
 import { createFakeCollaborationRuntime } from './fake-collaboration-runtime';
 
 /**
@@ -53,9 +54,10 @@ describe('comms watch --supervisor-pid — composition-root threading (F-101)', 
     // Supervisor dead at the first top-of-iteration check → clean self-exit
     // before draining, announced in-band. A dropped processIsAlive would make
     // the strict resolver throw → exitCode 2; exitCode 0 is the regression
-    // guard, and the exit line is the full-CLI pin of the orderly-exit
-    // vocabulary (MCP-229).
+    // guard, and the exit line proves the CLI wires the orderly-exit
+    // vocabulary end to end (the exact bytes are pinned once, in
+    // comms-watch-errors.unit.test.ts).
     expect(result.exitCode).toBe(0);
-    expect(streamed.join('')).toBe('--- WATCHER EXIT --- reason=supervisor-gone emitted_count=0\n');
+    expect(streamed.join('')).toBe(watcherExitLine('supervisor-gone', 0));
   });
 });
