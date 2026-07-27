@@ -344,6 +344,14 @@ first-hand as of 2026-06-25.
 > cure ROUTED to Smelter 10:15Z (allowlist-with-rationale or anchor
 > re-encoding, their call); other seats' pushes may gate until cured —
 > check Smelter's pickup ack on the stream at rehydrate.
+> (8) DIRECTOR RULING TO RATIFY (10:35Z, event 3bbbb51f): Smelter's F-95
+> live-watcher precondition vs the owner watcher-stop order collided at
+> MCP-103's commit claim. Ruled: one-shot watcher pass scoped exactly to
+> the claim window (open→commit→close, pass exits, no re-arm) — the stop
+> order's substance holds (nothing persistent restarts) and F-95's purpose
+> (claim-holder reachability) is met. Falsifier: if the stop order covers
+> even bounded one-shot passes, the mechanism is dead and Smelter's
+> commit windows wait for owner word.
 >
 > Older 2026-07-26 blocks below retain merge/bridge/ruling detail still
 > in force (Codex connector bridge, settled definition, freeze list,
