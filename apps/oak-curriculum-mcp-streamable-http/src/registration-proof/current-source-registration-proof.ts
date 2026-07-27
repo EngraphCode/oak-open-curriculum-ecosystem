@@ -22,7 +22,7 @@ import { createHttpObservability } from '../observability/http-observability.js'
 import { SERVED_SURFACE } from '../served-surface/served-surface.js';
 import type { RuntimeConfig } from '../runtime-config.js';
 import {
-  buildGuidanceRegistrationEvidence,
+  buildGuidanceRegistrationEvidenceByUri,
   type ServedState,
 } from './current-source-guidance-registration-evidence.js';
 import { requireGuidanceListParity } from './guidance-list-parity.js';
@@ -225,7 +225,7 @@ function buildProof(observed: ObservedSurface) {
         prompts: { capability: 'absent', list: 'method-not-found' },
       },
     },
-    guidanceRegistrationsBySource: buildGuidanceRegistrationEvidence(observed.resourcePolicy),
+    guidanceRegistrationsByUri: buildGuidanceRegistrationEvidenceByUri(observed.resourcePolicy),
   };
 }
 

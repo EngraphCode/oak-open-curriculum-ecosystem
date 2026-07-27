@@ -69,12 +69,10 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     'c3f04808233dd698f70541a56de0151d162dcb7ab125b63b29b0fb3e5171fd93',
     ['C336', 'C337', 'C338', 'C339', 'C340'],
   ),
-  'apps/oak-curriculum-mcp-streamable-http/src/registration-proof/current-source-guidance-map.ts':
-    excluded('d98eb98fa16fd1e93cdaf9d210d4986b462d58bd5ee30e6e9643c4d3da0f5198', VALIDATION_ONLY),
   'apps/oak-curriculum-mcp-streamable-http/src/registration-proof/current-source-guidance-registration-evidence.ts':
-    excluded('3b9a6b6247d95c2039735b6cd55c8802a45f6a181a41f8969c6834fee778efc3', VALIDATION_ONLY),
+    excluded('0ab3d4006f1cb808d82b686eba7186c3912a7f36490185c7106355821aca5e5e', VALIDATION_ONLY),
   'apps/oak-curriculum-mcp-streamable-http/src/registration-proof/current-source-registration-proof.ts':
-    excluded('d2294caf5a8a07a1428d9f0cae68bd501e134ce330a4254b43949c7baf4ed7fb', VALIDATION_ONLY),
+    excluded('b403392b209465a74bd65ce2bb576436fde72bda04d14c161a85f748623b34ef', VALIDATION_ONLY),
   'apps/oak-curriculum-mcp-streamable-http/src/registration-proof/guidance-list-parity.ts':
     excluded('9ccb4969241d55ba0141fc9fe88dc51785cbd93a057f5dbc685b52335781b9f8', VALIDATION_ONLY),
   'apps/oak-curriculum-mcp-streamable-http/src/registration-proof/guidance-read-parity.ts':

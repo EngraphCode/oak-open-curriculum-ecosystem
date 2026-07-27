@@ -7,9 +7,12 @@
 
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
+import { typeSafeKeys } from '@oaknational/type-helpers';
 import { z } from 'zod';
 import { resolvePnpm } from '../spawn/pnpm-path.js';
 import type { RegistrationRoot, RegistrationSourceEvidence } from './current-source-model.js';
+import { GUIDANCE_SOURCE_ENTRIES } from './prompt-era-lineage.js';
+import { requireSameStringMembers } from './require-same-string-members.js';
 
 const execFileAsync = promisify(execFile);
 const proofScript =
@@ -70,7 +73,7 @@ const registrationRootSchema = z
 const httpRegistrationWalkSchema = z
   .object({
     root: registrationRootSchema,
-    guidanceRegistrationsBySource: z.record(z.string(), registrationEvidenceSchema),
+    guidanceRegistrationsByUri: z.record(z.string(), registrationEvidenceSchema),
   })
   .strict();
 
@@ -87,6 +90,25 @@ function pnpmSpawnEnvironment(): NodeJS.ProcessEnv {
   return environment;
 }
 
+function indexGuidanceRegistrationsBySource(
+  registrationsByUri: Readonly<Record<string, RegistrationSourceEvidence>>,
+): Readonly<Record<string, RegistrationSourceEvidence>> {
+  requireSameStringMembers(
+    'App proof and current-source guidance URIs',
+    GUIDANCE_SOURCE_ENTRIES.map(([, uri]) => uri),
+    typeSafeKeys(registrationsByUri),
+  );
+  return Object.fromEntries(
+    GUIDANCE_SOURCE_ENTRIES.map(([source, uri]) => {
+      const registration = registrationsByUri[uri];
+      if (registration === undefined) {
+        throw new Error(`App proof has no guidance registration for URI: ${uri}`);
+      }
+      return [source, registration];
+    }),
+  );
+}
+
 /** Runs and validates the app-owned in-memory MCP protocol proof. */
 export async function walkHttpRegistrationRoot(repoRoot: string): Promise<HttpRegistrationWalk> {
   const pnpm = resolvePnpm(process.env);
@@ -98,5 +120,11 @@ export async function walkHttpRegistrationRoot(repoRoot: string): Promise<HttpRe
     env: pnpmSpawnEnvironment(),
     maxBuffer: 16 * 1024 * 1024,
   });
-  return httpRegistrationWalkSchema.parse(JSON.parse(stdout));
+  const parsed = httpRegistrationWalkSchema.parse(JSON.parse(stdout));
+  return {
+    root: parsed.root,
+    guidanceRegistrationsBySource: indexGuidanceRegistrationsBySource(
+      parsed.guidanceRegistrationsByUri,
+    ),
+  };
 }

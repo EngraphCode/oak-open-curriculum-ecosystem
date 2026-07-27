@@ -43,7 +43,7 @@ const ALL_GUIDANCE = [FIND, EXPLORE, LEARNING, MAPPING, ADAPT, CONTINUE] as cons
 const LANDING_RESOURCES = `${LANDING_ROOT}/render-resources-section.ts`;
 const LANDING_TOOLS = `${LANDING_ROOT}/render-tools-section.ts`;
 
-export const PROMPT_ERA_LINEAGE_ENTRIES = [
+const PROMPT_ERA_LINEAGE_ENTRIES = [
   ['C178', [FIND]],
   ['C179', []],
   ['C180', [EXPLORE]],
