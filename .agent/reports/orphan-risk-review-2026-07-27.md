@@ -26,12 +26,33 @@ Orphaning has three distinct failure modes, and they need different instruments:
 3. **Lost intent** — a lane whose priority changed at a meeting the board never heard about.
    Detected only by the owner reading the list back.
 
-## Mode 1 — lost artefacts: NONE. The fear was unfounded
+## Mode 1 — lost artefacts: ONE REAL FINDING, and a correction to this review
 
-All twelve worktrees were inspected. Seven belong to retired seats (Cutter, Smelter, Thistle,
-Peony, and the design lane). **Every one is clean — zero uncommitted files.** Six of the seven
-are ancestors of `origin/main` and therefore prunable; the seventh sits at `e18b6ec94`, which is
-PR #582's pushed head and safe on the remote.
+**Correction, recorded because the first pass got it wrong.** An earlier revision of this report
+claimed "all twelve worktrees were inspected". There are **twenty-four**; the first sweep was
+silently truncated by a `head -12` and the conclusion was then stated over the whole set. The
+error is the interesting part: a truncated read produced a confident all-clear, and only a
+follow-up count caught it. Coverage claims must be derived from the same command that produced
+the evidence, never from the window that displayed it. All twenty-four are now inspected.
+
+Of the seven belonging to retired seats (Cutter, Smelter, Thistle, Peony, design lane), **every
+one is clean** — zero uncommitted files, six main-ancestral, the seventh at `e18b6ec94` which is
+PR #582's pushed head. Smelter's six-file phase-(b) work, the one genuinely at risk on a
+machine-temp path an hour earlier, is absorbed into that head. Of the remaining seventeen, one
+carries an untracked directory (`mcp-128-pre-ratification`) that proved to be a **superseded
+earlier copy** of design reports already tracked in fuller form — no loss.
+
+**The real finding: ADR-217 never landed.** The superseded landing branch carries eight commits
+not in main, including `fbaab6bb4` — "add ADR-217 on server-rendered HTML in the MCP app".
+The restack (#578 → #580 → #583) re-authored the landing page rather than cherry-picking it, so
+the *code* transferred and the page is live, but the ADR's scheduled home was PR-4, which the
+release does not need and nobody is building. MCP-128 is closed Done, so nothing on the board
+carried it. The architectural decision behind a live public surface exists **only on an unmerged
+branch**. Minted as **MCP-289**, with the branch marked do-not-delete until discharged.
+
+This is the review's justification in one instance: the git sweep alone reported "nothing
+uncommitted" and would have missed it entirely. Unlanded-but-committed work on a branch whose
+ticket is closed is invisible to both `git status` and the board.
 
 The specific fear worth naming, because it was real an hour earlier: Smelter's six-file
 uncommitted phase-(b) work, in a machine-temp worktree an OS clean-up could have taken. It is now

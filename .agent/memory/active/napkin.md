@@ -1736,3 +1736,15 @@ for a third case before graduating.
   today). Lost lanes = board `In Progress` crossed against the claims registry (found seven).
   Lost intent = owner read-back only. Running just the git sweep and reporting "nothing
   orphaned" would have been true and useless.
+- Coverage-claim discipline (self-caught, same review): I ran `git worktree list | head -12`,
+  inspected those twelve, then wrote "all twelve worktrees were inspected" into a PERMANENT
+  report. There are 24. The display window silently became the denominator. Rule: a coverage
+  claim must be derived from the same command that produced the evidence (`| wc -l` the
+  unfiltered set FIRST, then inspect that many), never from the paged view. The all-clear was
+  the dangerous part — a truncated sweep reports success faster than a complete one.
+- The orphan class both detectors miss: committed-but-UNLANDED work on a branch whose ticket is
+  closed. `git status` says clean (it is committed); the board says Done (the ticket closed at
+  value-transfer). Found ADR-217 this way — the #578→#580→#583 restack RE-AUTHORED the landing
+  page rather than cherry-picking, so the code transferred and the ADR passenger did not.
+  Re-authoring supersession silently drops non-code passengers; check `origin/main..branch`
+  before closing any ticket whose branch was superseded rather than merged.
