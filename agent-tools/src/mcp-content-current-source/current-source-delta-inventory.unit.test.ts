@@ -96,9 +96,12 @@ describe('buildCurrentSourceDeltaInventory', () => {
       ),
     ).toBe(
       semanticSourceSha256(
-        '// note\nconst  content=["one","two"]\nconst other={value:"same"}\n',
+        '/** Documentation trivia. */\n// note\nconst  content=["one","two"]\nconst other={value:"same"}\n',
         'content.ts',
       ),
+    );
+    expect(semanticSourceSha256('type Content = First | Second;\n', 'content.ts')).toBe(
+      semanticSourceSha256('type Content =\n  | First\n  | Second\n', 'content.ts'),
     );
   });
 
@@ -109,6 +112,30 @@ describe('buildCurrentSourceDeltaInventory', () => {
     expect(hash("const content = new Set(['one']);")).not.toBe(
       hash("const content = new Set(['one', 'two']);"),
     );
+  });
+
+  it('distinguishes operators and declaration flags represented as scalar AST properties', () => {
+    const hash = (content: string) => semanticSourceSha256(content, 'content.ts');
+
+    expect(hash('const content = +value;')).not.toBe(hash('const content = -value;'));
+    expect(hash('content++;')).not.toBe(hash('content--;'));
+    expect(hash('let content = value;')).not.toBe(hash('const content = value;'));
+    expect(hash("import { type Content } from './content.js';")).not.toBe(
+      hash("import { Content } from './content.js';"),
+    );
+    expect(hash('const content = (value?.field).nested;')).not.toBe(
+      hash('const content = value?.field.nested;'),
+    );
+    expect(hash('const content = (value?.method)();')).not.toBe(
+      hash('const content = value?.method();'),
+    );
+  });
+
+  it('ignores redundant expression and type parentheses without erasing their structure', () => {
+    const hash = (content: string) => semanticSourceSha256(content, 'content.ts');
+
+    expect(hash('const content = value + other;')).toBe(hash('const content = (value + other);'));
+    expect(hash('type Content = First | Second;')).toBe(hash('type Content = (First | Second);'));
   });
 
   it('includes untracked governed source files before they are staged', () => {

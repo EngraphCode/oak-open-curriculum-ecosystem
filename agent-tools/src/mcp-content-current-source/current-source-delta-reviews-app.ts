@@ -9,31 +9,31 @@ import {
 
 export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview>> = {
   'apps/oak-curriculum-mcp-streamable-http/src/app/core-endpoints.ts': reviewed(
-    '1faaaf1621ed2b634bcb369d1142f3f8108d0bf326a8f6bc5d91964ac0afabcf',
+    'd75b779e3b6bf2553ddb9cf7e8121d0591c21b56c4f2148110b507f5c423954d',
     ['C323', 'C324'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/application.ts': excluded(
-    '234036ead555fe082aba797e3977f4739ed48a4e120e5ab7b8ae93608f0d400c',
+    '7981d787848abce458859bfd93210b0710f8c312d1e45ecb33a77038bbfa0e0a',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/auth/public-resources.ts': reviewed(
-    '61ec42be45a3e7fa5d72747702b78fe035a1fc1c0e042498cbc1679a9a3ca0b0',
+    '5d0cb6266065faa21923f9c757c41c18a2aaba1259a91caa95c76176be85a280',
     ['C413'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/env.ts': excluded(
-    'b9e3801157f8cc13763ff5b145a853088ee9b22a2379d92c0d793641a78eb74f',
+    'd0f50068f88735433b31c390c3efcde703d5a79abec3af0aee729c01fc081c3f',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/feature-flags.ts': excluded(
-    'c227635693b7d2fa14dd1884a1823ff2192c6e28a475a4154e281235359727df',
+    '0078dfaf0635235210ac1be277692f97d6b87a1e6e7c49ac7f6169c87bbb17aa',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/handlers.ts': excluded(
-    'ce2b82958f8c60ce3374e347b67334c609ec92c8909478e80075d3554d576f9a',
+    '611e15b474f72e2d7a2782ca329a7afd1fa4615f5d725de54807038d0275df22',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-landing-page.ts': reviewed(
-    '623b9d9d5a77e82fdc0730a6f821b546aeb5d2adc9067a1a1c94e2e12aee3713',
+    '0f628eb82fef727eb33e31742699053175581e68bc1161a0ae94956b63068108',
     [
       'C342',
       'C343',
@@ -50,69 +50,69 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     ],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-resources-section.ts': reviewed(
-    '06d880ad1ea2c9eb3bdeaa2c171aaded3723ff44190693a3ec2765caec46d555',
+    '5bbcaa809de11c10d7808e92e95b5abb3428de97c48678a8a2512fa430f31a4c',
     ['C357', 'C360', 'C361', 'C370'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-tools-section.ts': reviewed(
-    '8ad1b35cd7320352fe1366616f67ccefd0bebcac66fbb161bef505d3f9f18fa3',
+    '33a0983d382163d74c8027afd23c26f43e92101f0dbfd3f06e37c4aa4492c432',
     ['C357', 'C362', 'C363', 'C364', 'C365', 'C366', 'C367', 'C368', 'C369', 'C370'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/mcp-middleware.ts': excluded(
-    '1e2ddb0c1fe7fa72927a66f4e4434e495958d6b6dee7c92019e7c72241450273',
+    '7499e649d7c2e4cc5f7f8d27fe63c39b485921a1b17a1b27692b09f4652a2f04',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/register-resource-helpers.ts': excluded(
-    '50d5f94696309a4554a5db93283ca3b47a4ce24b4c2d57a2cc52ebf8774284d2',
+    '6656626f8c88298c26ed09d8c9e56474fe12c369c6f521dcd2667a255e94a135',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts': reviewed(
-    'c3f04808233dd698f70541a56de0151d162dcb7ab125b63b29b0fb3e5171fd93',
+    'c9a21ef405f7f91b9c9b870e748a278ed7cf3fd5054760a94b7de1f3b78b2856',
     ['C336', 'C337', 'C338', 'C339', 'C340'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/registration-proof/current-source-guidance-registration-evidence.ts':
-    excluded('0ab3d4006f1cb808d82b686eba7186c3912a7f36490185c7106355821aca5e5e', VALIDATION_ONLY),
+    excluded('49f654ce6379cab1f07621104b33c8407d7f3380c1c71a4dd31bd44423020469', VALIDATION_ONLY),
   'apps/oak-curriculum-mcp-streamable-http/src/registration-proof/current-source-registration-proof.ts':
-    excluded('b403392b209465a74bd65ce2bb576436fde72bda04d14c161a85f748623b34ef', VALIDATION_ONLY),
+    excluded('69262ce768bb2f430c74643d230ec0172c57abee0ea13f15822558c9695306c5', VALIDATION_ONLY),
   'apps/oak-curriculum-mcp-streamable-http/src/registration-proof/guidance-list-parity.ts':
-    excluded('9ccb4969241d55ba0141fc9fe88dc51785cbd93a057f5dbc685b52335781b9f8', VALIDATION_ONLY),
+    excluded('ebb75cfdf95db96e295c62b54fc8f63e349d0749e447dbefffedcb2355dc43df', VALIDATION_ONLY),
   'apps/oak-curriculum-mcp-streamable-http/src/registration-proof/guidance-read-parity.ts':
-    excluded('3c9d6af55dbe0d2566d2c3d32018ffc3cd0f5650a47cee0cd466b2a095e73c1d', VALIDATION_ONLY),
+    excluded('6a8d90126daa6a0e6e786c4d71b9b79d1db8241d7db5dfec8425c8bad3fe8f67', VALIDATION_ONLY),
   'apps/oak-curriculum-mcp-streamable-http/src/registration-proof/require-mcp-error-code.ts':
-    excluded('3b87a95df483b0e53a554804ff4ef341e7f1b99f97055dc460f02e7e6a0cb101', VALIDATION_ONLY),
+    excluded('50edf574104e4412b9a573b347995eb6943e7ea5365f1762b26300b83c8da79f', VALIDATION_ONLY),
   'apps/oak-curriculum-mcp-streamable-http/src/runtime-config-from-validated-env.ts': excluded(
-    '4ba87d77215346608d31d9e85aac19032f85d5648174618281f2ffe606b62707',
+    'cf7ca321b00465c21adcf97368178ff9f4fdfbd30f09b52406a5fa03a9146624',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/runtime-config-support.ts': excluded(
-    'b2b4554218a0a03a4710b4cdef839f7dcf5442666aa2930087dddb5eeee705ac',
+    '4b9051b733ea0e6cef7e072352c597117d24b330c3df3697978332bf0c6af4f3',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/served-surface/filter-guidance-content.ts': excluded(
-    '74c0d523614af5af34b9e4fdf3bba176cb9569a3e4a6b7cad48652dce591cbd9',
+    '9a97e4382a301bc9b2b6ea0461f8ba0dffd087d7d026e4634855e3d5682e7a12',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/served-surface/served-surface.ts': reviewed(
-    '89f7dc395d5e71694f9f123f6330e4f4aa0f4872c30c1dad32e96e45879fac25',
+    'e0f2380c71c99f3e0e0887fbe99a3380a7b4783086fda9d3c16eedfe136f0a0b',
     ['A001'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/app/static-asset-paths.ts': excluded(
-    'd42c567fadff20a447f45c556660793fae1422e165518937e061182557ee49d4',
+    '75ec72e78389124bcb0f7e881e0ae45f8ce0e0df1b4e5f1ef035e9a77e842c03',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/app/static-content.ts': excluded(
-    'de2eb5677fb4743a57885b6c6754d52a9180d2e6c2ae9d1db830d3709b5ac8f3',
+    '78647cffca4cbde93e40deee62b9a5b29d701660c65ad41fe04093effdf845e8',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/test-helpers/auth-error-test-helpers.ts': excluded(
-    'fa6d81f0fa564e508c926428a65fec671b3d50c1cf9de349793127470148e9dc',
+    '1f09358427ac9ca4f2f0027636515abcfd123c64ae6bf468574c8d767fcccd6c',
     TEST_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/test-helpers/registration-walk.ts': excluded(
-    '2751fa4d161977c06780be18143d073c452d34f2580b5f84dfb1d51c6760cfef',
+    '8be967b282c26c71ec071108bf81fdea505dec8e2a90467e043274bde55d692d',
     TEST_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/test-helpers/static-root-fixture.ts': excluded(
-    '4159a349a8de63073b16011c1ffbf28807e6b539b9da24c3375b6f013d5d757a',
+    '6350420bb5d4e36cbca9264a0a7b704ebb3dd6ce57027e6073bc60f007447a8d',
     TEST_ONLY,
   ),
 };

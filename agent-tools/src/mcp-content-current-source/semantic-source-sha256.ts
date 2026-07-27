@@ -5,6 +5,7 @@ import {
   isBigIntLiteral,
   isIdentifier,
   isNumericLiteral,
+  isOptionalChain,
   isPrivateIdentifier,
   isRegularExpressionLiteral,
   isStringLiteralLike,
@@ -16,6 +17,26 @@ import {
   SyntaxKind,
 } from 'typescript';
 import { normaliseLineEndings } from './normalise-line-endings.js';
+
+const IGNORED_CANONICAL_TOKEN_KINDS: ReadonlySet<SyntaxKind> = new Set([
+  SyntaxKind.CommaToken,
+  SyntaxKind.OpenParenToken,
+  SyntaxKind.CloseParenToken,
+  SyntaxKind.SemicolonToken,
+]);
+
+function isIgnoredCanonicalToken(node: Node): boolean {
+  if (node.kind >= SyntaxKind.FirstJSDocNode && node.kind <= SyntaxKind.LastJSDocNode) {
+    return true;
+  }
+  if (IGNORED_CANONICAL_TOKEN_KINDS.has(node.kind)) {
+    return true;
+  }
+  return (
+    (node.kind === SyntaxKind.BarToken && node.parent.kind === SyntaxKind.UnionType) ||
+    (node.kind === SyntaxKind.AmpersandToken && node.parent.kind === SyntaxKind.IntersectionType)
+  );
+}
 
 function textualNodeValue(node: Node): string | undefined {
   if (isIdentifier(node) || isPrivateIdentifier(node)) {
@@ -43,16 +64,27 @@ function literalValue(node: Node, sourceFile: SourceFile): string | undefined {
 }
 
 function appendCanonicalNode(node: Node, sourceFile: SourceFile, parts: string[]): void {
-  if (node.kind === SyntaxKind.ParenthesizedExpression) {
+  if (
+    node.kind === SyntaxKind.ParenthesizedExpression ||
+    node.kind === SyntaxKind.ParenthesizedType
+  ) {
     forEachChild(node, (child) => appendCanonicalNode(child, sourceFile, parts));
     return;
   }
+  if (isIgnoredCanonicalToken(node)) {
+    return;
+  }
   parts.push(String(node.kind));
+  if (isOptionalChain(node)) {
+    parts.push('optional-chain');
+  }
   const value = literalValue(node, sourceFile);
   if (value !== undefined) {
     parts.push(value.normalize('NFC'));
   }
-  forEachChild(node, (child) => appendCanonicalNode(child, sourceFile, parts));
+  for (const child of node.getChildren(sourceFile)) {
+    appendCanonicalNode(child, sourceFile, parts);
+  }
 }
 
 /**
