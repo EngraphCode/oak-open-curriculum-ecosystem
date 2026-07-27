@@ -1,3 +1,10 @@
+# [1.101.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.100.0...v1.101.0) (2026-07-27)
+
+
+### Features
+
+* **posthog:** add the public MCP transport observer ([c25b7ab](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c25b7abe897d6dd27a1bd4bf7a19797b16d86d45)), closes [#576](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/576)
+
 # [1.100.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.99.0...v1.100.0) (2026-07-27)
 
 
