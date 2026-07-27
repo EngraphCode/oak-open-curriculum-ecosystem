@@ -1,45 +1,132 @@
 import type {
   CurrentAuditDisposition,
   CurrentItemEvidence,
+  CurrentItemEvidenceTarget,
   CurrentSourceAnchorManifest,
+  RegistrationAnchorSurface,
   RegistrationEvidence,
+  RegistrationSourceEvidence,
+  TokenAnchor,
 } from './current-source-model.js';
 import type { BaselineEvidenceRow } from './current-source-evidence-files.js';
-import { requireItemEvidenceTargets } from './item-anchor-evidence.js';
+import { requireItemEvidenceTargets, requireTokenAnchorsPresent } from './item-anchor-evidence.js';
+import { requireSameStringMembers } from './require-same-string-members.js';
 
-type RegistrationIndex = Readonly<Record<string, RegistrationEvidence>>;
-const alphabetical = (left: string, right: string) => left.localeCompare(right);
-
-function requireSameMembers(
-  label: string,
-  expected: readonly string[],
-  actual: readonly string[],
-): void {
-  const sortedExpected = [...expected].sort(alphabetical);
-  const sortedActual = [...actual].sort(alphabetical);
-  if (JSON.stringify(sortedExpected) !== JSON.stringify(sortedActual)) {
-    throw new Error(
-      `${label} differ\nexpected: ${JSON.stringify(sortedExpected)}\n` +
-        `actual: ${JSON.stringify(sortedActual)}`,
-    );
-  }
-}
+type RegistrationIndex = Readonly<Record<string, RegistrationSourceEvidence>>;
 
 function evidenceByAuditId(
   manifest: CurrentSourceAnchorManifest,
 ): ReadonlyMap<string, CurrentItemEvidence> {
   const ids = manifest.items.map((item) => item.auditId);
-  requireSameMembers('Unique current item anchor ids', ids, [...new Set(ids)]);
+  requireSameStringMembers('Unique current item anchor ids', ids, [...new Set(ids)]);
   return new Map(manifest.items.map((item) => [item.auditId, item.evidence]));
 }
 
-function registrationsForFiles(
-  files: readonly string[],
+function channelForSurface(surface: RegistrationAnchorSurface): string {
+  if (surface.locus === 'resource-metadata') {
+    return 'resources/list.resources[]';
+  }
+  return 'resources/read.contents[]';
+}
+
+function anchorsByRegistrationSurface(
+  target: CurrentItemEvidenceTarget,
+): ReadonlyMap<string, readonly TokenAnchor[]> {
+  const result = new Map<string, TokenAnchor[]>();
+  for (const anchor of target.anchors) {
+    const surface = anchor.registrationSurface;
+    if (surface !== undefined) {
+      const key = `${surface.locus}:${surface.field}`;
+      const anchors = result.get(key) ?? [];
+      anchors.push(anchor);
+      result.set(key, anchors);
+    }
+  }
+  return result;
+}
+
+interface RegistrationSurfaceProjection {
+  readonly anchorSurface: RegistrationEvidence['anchorSurfaces'][number];
+  readonly activeChannel?: string;
+}
+
+function projectRegistrationSurface(
+  auditId: string,
+  key: string,
+  anchors: readonly TokenAnchor[],
+  source: RegistrationSourceEvidence,
+): RegistrationSurfaceProjection {
+  const registrationSurface = anchors[0]?.registrationSurface;
+  if (registrationSurface === undefined) {
+    throw new Error(`Current audit item ${auditId} has an empty registration-surface group`);
+  }
+  const sourceSurface = source.surfaces.find(
+    (surface) =>
+      surface.locus === registrationSurface.locus && surface.field === registrationSurface.field,
+  );
+  if (sourceSurface === undefined) {
+    throw new Error(
+      `Current audit item ${auditId} registration surface is absent from ${source.selector}: ${key}`,
+    );
+  }
+  requireTokenAnchorsPresent(`Current audit item ${auditId} ${key}`, anchors, sourceSurface.value);
+  const channel = channelForSurface(registrationSurface);
+  if (source.state === 'live' && !source.channels.includes(channel)) {
+    throw new Error(
+      `Current audit item ${auditId} channel is absent from live source evidence: ${channel}`,
+    );
+  }
+  return {
+    anchorSurface: {
+      locus: registrationSurface.locus,
+      field: registrationSurface.field,
+      anchorCount: anchors.length,
+    },
+    ...(source.state === 'live' ? { activeChannel: channel } : {}),
+  };
+}
+
+function registrationForTarget(
+  auditId: string,
+  target: CurrentItemEvidenceTarget,
+  source: RegistrationSourceEvidence,
+): RegistrationEvidence | null {
+  const anchorsBySurface = anchorsByRegistrationSurface(target);
+  if (anchorsBySurface.size === 0) {
+    return null;
+  }
+  const projections = [...anchorsBySurface].map(([key, anchors]) =>
+    projectRegistrationSurface(auditId, key, anchors, source),
+  );
+
+  return {
+    rootId: source.rootId,
+    state: source.state,
+    primitive: source.primitive,
+    selector: source.selector,
+    anchorSurfaces: projections.map((projection) => projection.anchorSurface),
+    channels: [
+      ...new Set(
+        projections.flatMap((projection) =>
+          projection.activeChannel === undefined ? [] : [projection.activeChannel],
+        ),
+      ),
+    ],
+  };
+}
+
+function registrationsForEvidence(
+  auditId: string,
+  evidence: CurrentItemEvidence,
   bySource: RegistrationIndex,
 ): readonly RegistrationEvidence[] {
-  return files.flatMap((file) => {
-    const registration = bySource[file];
-    return registration === undefined ? [] : [registration];
+  return evidence.targets.flatMap((target) => {
+    const source = bySource[target.file];
+    if (source === undefined) {
+      return [];
+    }
+    const registration = registrationForTarget(auditId, target, source);
+    return registration === null ? [] : [registration];
   });
 }
 
@@ -50,7 +137,7 @@ function buildCurrentDisposition(
   registrationsBySource: RegistrationIndex,
   contentByFile: ReadonlyMap<string, string>,
 ): CurrentAuditDisposition {
-  requireSameMembers(
+  requireSameStringMembers(
     `Current targets and item evidence targets for ${row.id}`,
     targets,
     evidence.targets.map((target) => target.file),
@@ -60,7 +147,7 @@ function buildCurrentDisposition(
     auditId: row.id,
     files: targets,
     evidence,
-    registrations: registrationsForFiles(targets, registrationsBySource),
+    registrations: registrationsForEvidence(row.id, evidence, registrationsBySource),
   };
 }
 
@@ -90,7 +177,7 @@ export function buildAnchoredDispositions(input: BuildDispositionsInput): {
   const expectedAnchoredIds = input.baseline
     .filter((row) => (input.targetsByAuditId.get(row.id)?.length ?? 0) > 0)
     .map((row) => row.id);
-  requireSameMembers('Available audit ids and current item anchor ids', expectedAnchoredIds, [
+  requireSameStringMembers('Available audit ids and current item anchor ids', expectedAnchoredIds, [
     ...anchorsById.keys(),
   ]);
 

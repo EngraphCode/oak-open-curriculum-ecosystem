@@ -198,22 +198,22 @@ export const CURRENT_ITEM_ANCHOR_OVERRIDES: AnchorOverrides = {
     ],
   },
   C329: {
-    [FIND]: ["title: 'Agent guidance: find lessons'"],
+    [FIND]: ['Agent guidance: find lessons'],
   },
   C331: {
-    [EXPLORE]: ["title: 'Agent guidance: explore the curriculum'"],
+    [EXPLORE]: ['Agent guidance: explore the curriculum'],
   },
   C332: {
-    [LEARNING]: ["title: 'Agent guidance: learning progression'"],
+    [LEARNING]: ['Agent guidance: learning progression'],
   },
   C333: {
-    [MAPPING]: ["title: 'Agent guidance: curriculum mapping'"],
+    [MAPPING]: ['Agent guidance: curriculum mapping'],
   },
   C334: {
-    [ADAPT]: ["title: 'Agent guidance: adapt a lesson with EEF evidence'"],
+    [ADAPT]: ['Agent guidance: adapt a lesson with EEF evidence'],
   },
   C335: {
-    [CONTINUE]: ["title: 'Agent guidance: continue the progression'"],
+    [CONTINUE]: ['Agent guidance: continue the progression'],
   },
   C357: {
     [LANDING_RESOURCES]: ['Resources (${String(resourceCount)})'],
@@ -240,6 +240,7 @@ export const CURRENT_ITEM_ANCHOR_OVERRIDES: AnchorOverrides = {
 };
 
 export const CURRENT_ITEM_REVISION_OVERRIDES = {
+  C313: 'unchanged',
   C413: 'expanded',
   C479: 'modified',
 } as const;

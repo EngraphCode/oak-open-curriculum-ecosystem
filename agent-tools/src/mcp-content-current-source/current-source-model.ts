@@ -8,6 +8,15 @@ export type ContentAuthority =
 type RegistrationState = 'live' | 'dormant';
 type RegistrationPrimitive = 'initialize' | 'tool' | 'resource' | 'prompt';
 export type ContentRevision = 'unchanged' | 'expanded' | 'modified' | 'relocated';
+export type RegistrationAnchorSurface =
+  | {
+      readonly locus: 'resource-metadata';
+      readonly field: 'title' | 'description';
+    }
+  | {
+      readonly locus: 'resource-contents';
+      readonly field: 'text';
+    };
 
 export interface BaselineAuditRow {
   readonly id: string;
@@ -21,6 +30,7 @@ export interface TokenAnchor {
   readonly tokenSha256: string;
   readonly indexToken: string;
   readonly indexOffset: number;
+  readonly registrationSurface?: RegistrationAnchorSurface;
 }
 
 export interface CurrentItemEvidenceTarget {
@@ -40,7 +50,7 @@ interface CurrentItemEvidenceSummary {
 }
 
 export interface CurrentSourceAnchorManifest {
-  readonly schemaVersion: 1;
+  readonly schemaVersion: 2;
   readonly baselineCommit: string;
   readonly baselineSha256: string;
   readonly items: readonly {
@@ -54,6 +64,20 @@ export interface RegistrationEvidence {
   readonly state: RegistrationState;
   readonly primitive: RegistrationPrimitive;
   readonly selector: string;
+  readonly anchorSurfaces: readonly {
+    readonly locus: RegistrationAnchorSurface['locus'];
+    readonly field: RegistrationAnchorSurface['field'];
+    readonly anchorCount: number;
+  }[];
+  readonly channels: readonly string[];
+}
+
+export interface RegistrationSourceEvidence {
+  readonly rootId: string;
+  readonly state: RegistrationState;
+  readonly primitive: RegistrationPrimitive;
+  readonly selector: string;
+  readonly surfaces: readonly (RegistrationAnchorSurface & { readonly value: string })[];
   readonly channels: readonly string[];
 }
 

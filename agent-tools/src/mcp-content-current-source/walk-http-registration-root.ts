@@ -9,19 +9,37 @@ import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { z } from 'zod';
 import { resolvePnpm } from '../spawn/pnpm-path.js';
-import type { RegistrationEvidence, RegistrationRoot } from './current-source-model.js';
+import type { RegistrationRoot, RegistrationSourceEvidence } from './current-source-model.js';
 
 const execFileAsync = promisify(execFile);
 const proofScript =
   'apps/oak-curriculum-mcp-streamable-http/src/registration-proof/current-source-registration-proof.ts';
 
 const servedStateSchema = z.enum(['live', 'dormant']);
+const registrationSurfaceSchema = z.discriminatedUnion('locus', [
+  z
+    .object({
+      locus: z.literal('resource-metadata'),
+      field: z.enum(['title', 'description']),
+      value: z.string(),
+    })
+    .strict(),
+  z
+    .object({
+      locus: z.literal('resource-contents'),
+      field: z.literal('text'),
+      value: z.string(),
+    })
+    .strict(),
+]);
+
 const registrationEvidenceSchema = z
   .object({
     rootId: z.string().min(1),
     state: servedStateSchema,
     primitive: z.enum(['initialize', 'tool', 'resource', 'prompt']),
     selector: z.string().min(1),
+    surfaces: z.array(registrationSurfaceSchema),
     channels: z.array(z.string().min(1)),
   })
   .strict();
@@ -58,7 +76,7 @@ const httpRegistrationWalkSchema = z
 
 export interface HttpRegistrationWalk {
   readonly root: RegistrationRoot;
-  readonly guidanceRegistrationsBySource: Readonly<Record<string, RegistrationEvidence>>;
+  readonly guidanceRegistrationsBySource: Readonly<Record<string, RegistrationSourceEvidence>>;
 }
 
 function pnpmSpawnEnvironment(): NodeJS.ProcessEnv {

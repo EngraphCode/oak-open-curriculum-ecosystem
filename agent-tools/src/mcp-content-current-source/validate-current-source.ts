@@ -3,7 +3,7 @@
 /** Recomputes the MCP agent-facing current-source truth set; `--write` refreshes it. */
 
 import { createHash } from 'node:crypto';
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { resolveRepoRoot } from '../core/repo-root.js';
 import { writeErrorLine, writeLine } from '../core/terminal-output.js';
@@ -11,18 +11,20 @@ import { buildCurrentSourceTruthSet } from './build-current-source-truth-set.js'
 import { buildAnchoredDispositions } from './current-source-dispositions.js';
 import {
   currentTargetsByAuditId,
-  loadAnchorManifest,
   parseBaselineRows,
   readCurrentContent,
+  resolveAnchorManifest,
   type BaselineEvidenceRow,
 } from './current-source-evidence-files.js';
 import type {
   CurrentAuditDisposition,
-  RegistrationEvidence,
   RegistrationRoot,
+  RegistrationSourceEvidence,
 } from './current-source-model.js';
 import { requireGuidanceRegistrationParity } from './guidance-registration-parity.js';
 import { GUIDANCE_SOURCE_ENTRIES, PROMPT_ERA_LINEAGE_ENTRIES } from './prompt-era-lineage.js';
+import { publishCurrentSourceArtifacts } from './publish-artifacts.js';
+import { requireSameStringMembers } from './require-same-string-members.js';
 import { walkHttpRegistrationRoot } from './walk-http-registration-root.js';
 
 const AUDIT_ROOT = '.agent/reports/mcp-agent-facing-content-audit';
@@ -33,10 +35,9 @@ const BASELINE_COMMIT = '240a598607b96485f50c0dfd6df154d673a90a25';
 const BASELINE_REGISTRY_SHA256 = '244f9ce421983fbc92dfd12db7d552cf61670c96353d16625adaf56a0bd8a78d';
 
 const repoRoot = resolveRepoRoot(import.meta.url);
-const alphabetical = (left: string, right: string) => left.localeCompare(right);
 const guidanceSourcePaths = GUIDANCE_SOURCE_ENTRIES.map((entry) => entry[0]);
 
-type RegistrationIndex = Readonly<Record<string, RegistrationEvidence>>;
+type RegistrationIndex = Readonly<Record<string, RegistrationSourceEvidence>>;
 
 function createPromptEraLineage(): ReadonlyMap<string, readonly string[]> {
   const lineage = new Map<string, readonly string[]>();
@@ -52,19 +53,16 @@ function sha256(content: string): string {
   return createHash('sha256').update(content).digest('hex');
 }
 
-function requireSameMembers(
-  label: string,
-  expected: readonly string[],
-  actual: readonly string[],
-): void {
-  const sortedExpected = [...expected].sort(alphabetical);
-  const sortedActual = [...actual].sort(alphabetical);
-  if (JSON.stringify(sortedExpected) !== JSON.stringify(sortedActual)) {
+async function loadImmutableBaseline(): Promise<readonly BaselineEvidenceRow[]> {
+  const baselineJson = await readFile(path.join(repoRoot, BASELINE_ARTIFACT), 'utf8');
+  const actualHash = sha256(baselineJson);
+  if (actualHash !== BASELINE_REGISTRY_SHA256) {
     throw new Error(
-      `${label} differ\nexpected: ${JSON.stringify(sortedExpected)}\n` +
-        `actual: ${JSON.stringify(sortedActual)}`,
+      `${BASELINE_ARTIFACT} changed; phase-(a) is immutable\n` +
+        `expected sha256: ${BASELINE_REGISTRY_SHA256}\nactual sha256:   ${actualHash}`,
     );
   }
+  return parseBaselineRows(baselineJson);
 }
 
 function requireCurrentSourceCoverage(
@@ -72,13 +70,13 @@ function requireCurrentSourceCoverage(
   missingAuditIds: readonly string[],
   registrationsBySource: RegistrationIndex,
 ): void {
-  requireSameMembers(
+  requireSameStringMembers(
     'Absent baseline rows and explicit prompt-era lineage',
     PROMPT_ERA_LINEAGE_ENTRIES.map((entry) => entry[0]),
     missingAuditIds,
   );
   const classifiedSources = new Set(current.flatMap((item) => item.files));
-  requireSameMembers(
+  requireSameStringMembers(
     'Current guidance replacements and classified current sources',
     guidanceSourcePaths,
     guidanceSourcePaths.filter((source) => classifiedSources.has(source)),
@@ -127,21 +125,12 @@ function serialiseTruthSet(
 
 async function recomputeCurrentSource(refreshAnchors: boolean): Promise<{
   readonly serialised: string;
+  readonly anchorSerialised: string | null;
   readonly itemCount: number;
 }> {
-  const baselinePath = path.join(repoRoot, BASELINE_ARTIFACT);
-  const baselineJson = await readFile(baselinePath, 'utf8');
-  const actualHash = sha256(baselineJson);
-  if (actualHash !== BASELINE_REGISTRY_SHA256) {
-    throw new Error(
-      `${BASELINE_ARTIFACT} changed; phase-(a) is immutable\n` +
-        `expected sha256: ${BASELINE_REGISTRY_SHA256}\nactual sha256:   ${actualHash}`,
-    );
-  }
-
-  const baseline = parseBaselineRows(baselineJson);
+  const baseline = await loadImmutableBaseline();
   const targetsByAuditId = await currentTargetsByAuditId(repoRoot, baseline, promptEraLineage);
-  const anchorManifest = await loadAnchorManifest({
+  const anchorManifest = await resolveAnchorManifest({
     repoRoot,
     anchorArtifact: CURRENT_SOURCE_ANCHORS,
     baselineCommit: BASELINE_COMMIT,
@@ -170,7 +159,10 @@ async function recomputeCurrentSource(refreshAnchors: boolean): Promise<{
     dispositions.missingAuditIds,
     registrationWalk.guidanceRegistrationsBySource,
   );
-  return serialiseTruthSet(baseline, dispositions, registrationWalk.root);
+  return {
+    ...serialiseTruthSet(baseline, dispositions, registrationWalk.root),
+    anchorSerialised: refreshAnchors ? `${JSON.stringify(anchorManifest, null, 2)}\n` : null,
+  };
 }
 
 async function main(): Promise<number> {
@@ -179,9 +171,20 @@ async function main(): Promise<number> {
   const expected = await recomputeCurrentSource(refreshAnchors);
   const artifactPath = path.join(repoRoot, CURRENT_SOURCE_ARTIFACT);
   if (writeMode) {
-    await writeFile(artifactPath, expected.serialised, 'utf8');
     if (refreshAnchors) {
+      if (expected.anchorSerialised === null) {
+        throw new Error('Anchor refresh produced no serialised anchor manifest');
+      }
+      await publishCurrentSourceArtifacts([
+        {
+          path: path.join(repoRoot, CURRENT_SOURCE_ANCHORS),
+          content: expected.anchorSerialised,
+        },
+        { path: artifactPath, content: expected.serialised },
+      ]);
       writeLine(`validate-current-source: wrote ${CURRENT_SOURCE_ANCHORS}`);
+    } else {
+      await publishCurrentSourceArtifacts([{ path: artifactPath, content: expected.serialised }]);
     }
     writeLine(`validate-current-source: wrote ${CURRENT_SOURCE_ARTIFACT}`);
     return 0;

@@ -1,5 +1,5 @@
 import { execFileSync } from 'node:child_process';
-import { access, readFile, writeFile } from 'node:fs/promises';
+import { access, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { z } from 'zod';
 import { resolveTrustedGit } from '../core/trusted-git.js';
@@ -7,6 +7,7 @@ import {
   CURRENT_ITEM_ANCHOR_OVERRIDES,
   CURRENT_ITEM_REVISION_OVERRIDES,
 } from './current-item-anchor-overrides.js';
+import { CURRENT_ITEM_REGISTRATION_SURFACE_OVERRIDES } from './current-item-registration-surface-overrides.js';
 import {
   buildCurrentSourceAnchorManifest,
   type BaselineAnchorRow,
@@ -42,40 +43,66 @@ const baselineRegistrySchema = z
   })
   .transform((registry) => registry.items);
 
-const tokenAnchorSchema = z.object({
-  tokenCount: z.number().int().positive(),
-  tokenSha256: z.string().regex(/^[a-f0-9]{64}$/),
-  indexToken: z.string().min(1),
-  indexOffset: z.number().int().nonnegative(),
-});
+const tokenAnchorSchema = z
+  .object({
+    tokenCount: z.number().int().positive(),
+    tokenSha256: z.string().regex(/^[a-f0-9]{64}$/),
+    indexToken: z.string().min(1),
+    indexOffset: z.number().int().nonnegative(),
+    registrationSurface: z
+      .discriminatedUnion('locus', [
+        z
+          .object({
+            locus: z.literal('resource-metadata'),
+            field: z.enum(['title', 'description']),
+          })
+          .strict(),
+        z
+          .object({
+            locus: z.literal('resource-contents'),
+            field: z.literal('text'),
+          })
+          .strict(),
+      ])
+      .optional(),
+  })
+  .strict();
 
-const currentSourceAnchorManifestSchema = z.object({
-  schemaVersion: z.literal(1),
-  baselineCommit: z.string().min(1),
-  baselineSha256: z.string().regex(/^[a-f0-9]{64}$/),
-  items: z.array(
-    z.object({
-      auditId: z.string().min(1),
-      evidence: z.object({
-        revision: z.enum(['unchanged', 'expanded', 'modified', 'relocated']),
-        targets: z
-          .array(
-            z.object({
-              file: z.string().min(1),
-              anchors: z.array(tokenAnchorSchema).min(1),
-            }),
-          )
-          .min(1),
-      }),
-    }),
-  ),
-});
+const currentSourceAnchorManifestSchema = z
+  .object({
+    schemaVersion: z.literal(2),
+    baselineCommit: z.string().min(1),
+    baselineSha256: z.string().regex(/^[a-f0-9]{64}$/),
+    items: z.array(
+      z
+        .object({
+          auditId: z.string().min(1),
+          evidence: z
+            .object({
+              revision: z.enum(['unchanged', 'expanded', 'modified', 'relocated']),
+              targets: z
+                .array(
+                  z
+                    .object({
+                      file: z.string().min(1),
+                      anchors: z.array(tokenAnchorSchema).min(1),
+                    })
+                    .strict(),
+                )
+                .min(1),
+            })
+            .strict(),
+        })
+        .strict(),
+    ),
+  })
+  .strict();
 
 export function parseBaselineRows(json: string): readonly BaselineEvidenceRow[] {
   return baselineRegistrySchema.parse(JSON.parse(json));
 }
 
-function parseAnchorManifest(json: string): CurrentSourceAnchorManifest {
+export function parseCurrentSourceAnchorManifest(json: string): CurrentSourceAnchorManifest {
   return currentSourceAnchorManifestSchema.parse(JSON.parse(json));
 }
 
@@ -95,15 +122,16 @@ export async function currentTargetsByAuditId(
 ): Promise<ReadonlyMap<string, readonly string[]>> {
   const targets = new Map<string, readonly string[]>();
   for (const row of baseline) {
+    const lineageTargets = promptEraLineage.get(row.id);
+    if (lineageTargets !== undefined) {
+      targets.set(row.id, lineageTargets);
+      continue;
+    }
     if (await pathExists(repoRoot, row.file)) {
       targets.set(row.id, [row.file]);
       continue;
     }
-    const lineageTargets = promptEraLineage.get(row.id);
-    if (lineageTargets === undefined) {
-      throw new Error(`Missing current source and explicit lineage for ${row.id}: ${row.file}`);
-    }
-    targets.set(row.id, lineageTargets);
+    throw new Error(`Missing current source and explicit lineage for ${row.id}: ${row.file}`);
   }
   return targets;
 }
@@ -146,12 +174,12 @@ interface LoadAnchorManifestInput {
   readonly refresh: boolean;
 }
 
-export async function loadAnchorManifest(
+export async function resolveAnchorManifest(
   input: LoadAnchorManifestInput,
 ): Promise<CurrentSourceAnchorManifest> {
   const artifactPath = path.join(input.repoRoot, input.anchorArtifact);
   if (!input.refresh) {
-    return parseAnchorManifest(await readFile(artifactPath, 'utf8'));
+    return parseCurrentSourceAnchorManifest(await readFile(artifactPath, 'utf8'));
   }
   const manifest = buildCurrentSourceAnchorManifest({
     baselineCommit: input.baselineCommit,
@@ -168,8 +196,8 @@ export async function loadAnchorManifest(
       [...input.targetsByAuditId.values()].flat(),
     ),
     overrides: CURRENT_ITEM_ANCHOR_OVERRIDES,
+    registrationSurfaceOverrides: CURRENT_ITEM_REGISTRATION_SURFACE_OVERRIDES,
     revisionOverrides: CURRENT_ITEM_REVISION_OVERRIDES,
   });
-  await writeFile(artifactPath, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
   return manifest;
 }

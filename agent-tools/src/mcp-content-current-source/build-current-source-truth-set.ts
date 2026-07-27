@@ -76,6 +76,12 @@ function sortedRegistrationEvidence(
   return [...registrations]
     .map((registration) => ({
       ...registration,
+      anchorSurfaces: [...registration.anchorSurfaces].sort(
+        (left, right) =>
+          left.locus.localeCompare(right.locus) ||
+          left.field.localeCompare(right.field) ||
+          left.anchorCount - right.anchorCount,
+      ),
       channels: [...registration.channels].sort(alphabetical),
     }))
     .sort(

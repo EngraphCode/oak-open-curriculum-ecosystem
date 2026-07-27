@@ -25,6 +25,8 @@ import {
   buildGuidanceRegistrationEvidence,
   type ServedState,
 } from './current-source-guidance-registration-evidence.js';
+import { requireGuidanceListParity } from './guidance-list-parity.js';
+import { requireGuidanceReadResultParity } from './guidance-read-parity.js';
 import { requireMcpErrorCode } from './require-mcp-error-code.js';
 
 type PolicyEntry = readonly [string, ServedState];
@@ -80,6 +82,19 @@ function requireSameMembers(
   }
 }
 
+function expectedGuidanceListings() {
+  return AGENT_GUIDANCE_RESOURCES.map(
+    ({ name, uri, title, description, mimeType, annotations }) => ({
+      name,
+      uri,
+      title,
+      description,
+      mimeType,
+      annotations,
+    }),
+  );
+}
+
 async function requirePromptMethodUnavailable(client: Client): Promise<void> {
   try {
     await client.listPrompts();
@@ -109,12 +124,19 @@ async function requireGuidanceReadParity(
       throw new Error(`Dormant guidance is readable: ${resource.uri}`);
     }
     const readResult = await client.readResource({ uri: resource.uri });
-    const firstContent = readResult.contents[0];
-    const text =
-      firstContent !== undefined && 'text' in firstContent ? firstContent.text : undefined;
-    if (text !== expected) {
-      throw new Error(`Served guidance differs from canonical source: ${resource.uri}`);
-    }
+    requireGuidanceReadResultParity(
+      {
+        contents: [
+          {
+            uri: resource.uri,
+            mimeType: resource.mimeType,
+            text: expected,
+            _meta: { lastModified: resource.lastModified },
+          },
+        ],
+      },
+      readResult,
+    );
   }
 }
 
@@ -160,11 +182,15 @@ async function observeSurface(client: Client): Promise<ObservedSurface> {
   const resourcePolicy: Readonly<Record<string, ServedState>> = SERVED_SURFACE.resources;
   const resourceEntries: readonly PolicyEntry[] = typeSafeEntries(resourcePolicy);
   const liveTools = (await client.listTools()).tools.map((tool) => tool.name).sort(alphabetical);
-  const liveResources = (await client.listResources()).resources
-    .map((resource) => resource.uri)
-    .sort(alphabetical);
+  const listedResources = (await client.listResources()).resources;
+  const liveResources = listedResources.map((resource) => resource.uri).sort(alphabetical);
   requireSameMembers('tools/list', selectors(toolPolicy, 'live'), liveTools);
   requireSameMembers('resources/list', selectors(resourceEntries, 'live'), liveResources);
+  requireGuidanceListParity(
+    expectedGuidanceListings(),
+    listedResources,
+    new Set(selectors(resourceEntries, 'live')),
+  );
   await requirePromptMethodUnavailable(client);
   if (client.getServerCapabilities()?.prompts !== undefined) {
     throw new Error('Initialize capabilities unexpectedly advertise prompts');
@@ -185,7 +211,7 @@ function buildProof(observed: ObservedSurface) {
       transport: 'streamable-http',
       registrationRef: 'apps/oak-curriculum-mcp-streamable-http/src/handlers.ts',
       proof:
-        'In-memory MCP initialize, tools/list, resources/list, resources/read, and prompts/list walk',
+        'In-memory MCP initialize, tools/list, resources/list, guidance resources/read, and prompts/list walk',
       observation: {
         initialize: { instructions: 'present' },
         tools: {

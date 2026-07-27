@@ -11,6 +11,7 @@ function registration(selector: string) {
     state: 'live' as const,
     primitive: 'resource' as const,
     selector,
+    surfaces: [],
     channels: ['resources/list.resources[]'],
   };
 }

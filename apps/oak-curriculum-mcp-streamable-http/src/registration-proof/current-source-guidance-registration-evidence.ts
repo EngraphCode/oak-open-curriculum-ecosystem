@@ -1,3 +1,7 @@
+import {
+  AGENT_GUIDANCE_RESOURCES,
+  getAgentGuidanceContent,
+} from '@oaknational/curriculum-sdk/public/mcp-tools.js';
 import { CURRENT_SOURCE_GUIDANCE } from './current-source-guidance-map.js';
 
 export type ServedState = 'live' | 'dormant';
@@ -9,6 +13,18 @@ interface GuidanceRegistrationEvidence {
   readonly state: ServedState;
   readonly primitive: 'resource';
   readonly selector: string;
+  readonly surfaces: readonly (
+    | {
+        readonly locus: 'resource-metadata';
+        readonly field: 'title' | 'description';
+        readonly value: string;
+      }
+    | {
+        readonly locus: 'resource-contents';
+        readonly field: 'text';
+        readonly value: string;
+      }
+  )[];
   readonly channels: readonly string[];
 }
 
@@ -22,6 +38,11 @@ export function buildGuidanceRegistrationEvidence(
       if (state === undefined) {
         throw new Error(`Guidance URI is absent from policy: ${uri}`);
       }
+      const resource = AGENT_GUIDANCE_RESOURCES.find((candidate) => candidate.uri === uri);
+      const content = getAgentGuidanceContent(uri);
+      if (resource === undefined || content === undefined) {
+        throw new Error(`Guidance URI is absent from the canonical inventory: ${uri}`);
+      }
       return [
         source,
         {
@@ -29,6 +50,15 @@ export function buildGuidanceRegistrationEvidence(
           state,
           primitive: 'resource',
           selector: uri,
+          surfaces: [
+            { locus: 'resource-metadata', field: 'title', value: resource.title },
+            {
+              locus: 'resource-metadata',
+              field: 'description',
+              value: resource.description,
+            },
+            { locus: 'resource-contents', field: 'text', value: content },
+          ],
           channels: state === 'live' ? LIVE_RESOURCE_CHANNELS : [],
         },
       ];

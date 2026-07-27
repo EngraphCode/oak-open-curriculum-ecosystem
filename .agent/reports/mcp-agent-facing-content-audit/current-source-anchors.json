@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "baselineCommit": "240a598607b96485f50c0dfd6df154d673a90a25",
   "baselineSha256": "244f9ce421983fbc92dfd12db7d552cf61670c96353d16625adaf56a0bd8a78d",
   "items": [
@@ -3384,7 +3384,11 @@
                 "tokenCount": 16,
                 "tokenSha256": "ff847e95273a34818c70c9be3e1a9f3fbe70aa3f1ec07cfd4598705c74b45f3a",
                 "indexToken": "subjects",
-                "indexOffset": 12
+                "indexOffset": 12,
+                "registrationSurface": {
+                  "locus": "resource-metadata",
+                  "field": "description"
+                }
               }
             ]
           }
@@ -3403,7 +3407,11 @@
                 "tokenCount": 16,
                 "tokenSha256": "2845f16b31356807d733e45680d94ccc99fbb267c8fd39bf10c2e51495cc8ed6",
                 "indexToken": "lessons",
-                "indexOffset": 8
+                "indexOffset": 8,
+                "registrationSurface": {
+                  "locus": "resource-metadata",
+                  "field": "description"
+                }
               }
             ]
           }
@@ -3422,7 +3430,11 @@
                 "tokenCount": 12,
                 "tokenSha256": "ceb8700222e2412f03e8e60aa70ac57a1c9be65a6fbe15833bea30abeaa7f457",
                 "indexToken": "walking",
-                "indexOffset": 9
+                "indexOffset": 9,
+                "registrationSurface": {
+                  "locus": "resource-metadata",
+                  "field": "description"
+                }
               }
             ]
           }
@@ -3441,7 +3453,11 @@
                 "tokenCount": 19,
                 "tokenSha256": "a22d1f4b5577c11a78ff225b534eb473f7b59eb35e5a183c1dc137e47f7574e5",
                 "indexToken": "build",
-                "indexOffset": 0
+                "indexOffset": 0,
+                "registrationSurface": {
+                  "locus": "resource-metadata",
+                  "field": "description"
+                }
               }
             ]
           }
@@ -3460,7 +3476,11 @@
                 "tokenCount": 12,
                 "tokenSha256": "8ec3b67575e1449346e80522c625c9a839b4a9e19e8d0a64519e7d977da7c25b",
                 "indexToken": "an",
-                "indexOffset": 1
+                "indexOffset": 1,
+                "registrationSurface": {
+                  "locus": "resource-metadata",
+                  "field": "description"
+                }
               }
             ]
           }
@@ -3479,7 +3499,11 @@
                 "tokenCount": 22,
                 "tokenSha256": "3d32ce5b2750584a66c2bde4ba45d533c082e120338eaaebe7da43f8c1d6e52f",
                 "indexToken": "resolve",
-                "indexOffset": 13
+                "indexOffset": 13,
+                "registrationSurface": {
+                  "locus": "resource-metadata",
+                  "field": "description"
+                }
               }
             ]
           }
@@ -3498,7 +3522,11 @@
                 "tokenCount": 17,
                 "tokenSha256": "f631303a4481cf0899b4a1a118d8909794d9118b253e54fb907fdd01ee44c563",
                 "indexToken": "placeholder",
-                "indexOffset": 9
+                "indexOffset": 9,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           }
@@ -3517,13 +3545,21 @@
                 "tokenCount": 15,
                 "tokenSha256": "e587135e7dc09bba15e1458a8a9f1e56b26ea08540a86bab7a5aa502cb333c6d",
                 "indexToken": "filter",
-                "indexOffset": 14
+                "indexOffset": 14,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               },
               {
                 "tokenCount": 23,
                 "tokenSha256": "d815ef96e00215704de9a14b5e895327db581e7c4dcde358a795646df99e93ba",
                 "indexToken": "ks1",
-                "indexOffset": 2
+                "indexOffset": 2,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           }
@@ -3542,7 +3578,11 @@
                 "tokenCount": 13,
                 "tokenSha256": "7c62b867e79dc3c6e93c7c851baeb224e0d4ffb1e2e480711d1dface80b94826",
                 "indexToken": "on",
-                "indexOffset": 6
+                "indexOffset": 6,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           }
@@ -3561,7 +3601,11 @@
                 "tokenCount": 14,
                 "tokenSha256": "edb902a0e9f1e63491079b57d432aab07aa94812a5eb5f586f32284411da8d56",
                 "indexToken": "placeholders",
-                "indexOffset": 12
+                "indexOffset": 12,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           },
@@ -3572,7 +3616,11 @@
                 "tokenCount": 20,
                 "tokenSha256": "bd87fb0678786967cdf9f2936a25c9acad0d5378644c5e7a24550b6bea998323",
                 "indexToken": "placeholders",
-                "indexOffset": 18
+                "indexOffset": 18,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           }
@@ -3591,7 +3639,11 @@
                 "tokenCount": 13,
                 "tokenSha256": "8d6f2fe8887d17cc0f0c2c83e0fd48121fda4bb2cf776ca3bcfa48163e4332f7",
                 "indexToken": "Substitute",
-                "indexOffset": 0
+                "indexOffset": 0,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           }
@@ -3610,7 +3662,11 @@
                 "tokenCount": 14,
                 "tokenSha256": "1f8989ae97709f5543d5bab165ccd691535a27441c0ab05568040b0e92a23f27",
                 "indexToken": "filter",
-                "indexOffset": 13
+                "indexOffset": 13,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           }
@@ -3629,7 +3685,11 @@
                 "tokenCount": 13,
                 "tokenSha256": "d7c2c5a569e8a4bddd4ba93cabfd1511de2b0d816fbacbb50df37922131ae85c",
                 "indexToken": "placeholders",
-                "indexOffset": 11
+                "indexOffset": 11,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           }
@@ -3648,7 +3708,11 @@
                 "tokenCount": 13,
                 "tokenSha256": "d7c2c5a569e8a4bddd4ba93cabfd1511de2b0d816fbacbb50df37922131ae85c",
                 "indexToken": "placeholders",
-                "indexOffset": 11
+                "indexOffset": 11,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           },
@@ -3659,7 +3723,11 @@
                 "tokenCount": 22,
                 "tokenSha256": "67b653c307b2d4fe6fb13b37026bdc9e329a0f72e9c9bb147104a35588409a0b",
                 "indexToken": "placeholders",
-                "indexOffset": 20
+                "indexOffset": 20,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           },
@@ -3670,7 +3738,11 @@
                 "tokenCount": 20,
                 "tokenSha256": "bd87fb0678786967cdf9f2936a25c9acad0d5378644c5e7a24550b6bea998323",
                 "indexToken": "placeholders",
-                "indexOffset": 18
+                "indexOffset": 18,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           }
@@ -3689,7 +3761,11 @@
                 "tokenCount": 15,
                 "tokenSha256": "956c9fea114c1f9186f829c54bc72ce216c77038c4fe02eeaf1637a4697d604a",
                 "indexToken": "build",
-                "indexOffset": 0
+                "indexOffset": 0,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           }
@@ -3708,7 +3784,11 @@
                 "tokenCount": 10,
                 "tokenSha256": "968b5d4592723c7598693027080b3cd789077685447ba8adfb154f45962449bb",
                 "indexToken": "placeholders",
-                "indexOffset": 8
+                "indexOffset": 8,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           }
@@ -3727,7 +3807,11 @@
                 "tokenCount": 5,
                 "tokenSha256": "f80b5e795afa6faf7473032c8fa36f84dc781e722f393000a90a13cb11a3bec2",
                 "indexToken": "their",
-                "indexOffset": 1
+                "indexOffset": 1,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           }
@@ -3746,7 +3830,11 @@
                 "tokenCount": 8,
                 "tokenSha256": "90db31ed9f01311382965c4a6b5c3d14bcb62b7077b6f9334ff4e562cc4b9c9e",
                 "indexToken": "optionally",
-                "indexOffset": 0
+                "indexOffset": 0,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           }
@@ -3765,13 +3853,21 @@
                 "tokenCount": 17,
                 "tokenSha256": "c5d4ee65ac22a16afbdc5bcb5234b6fe971c096ceb88478487410484395faff0",
                 "indexToken": "matching",
-                "indexOffset": 14
+                "indexOffset": 14,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               },
               {
                 "tokenCount": 16,
                 "tokenSha256": "5f31040599a8e9ff09d57f5fd47fd1832cf8b38fadb90d13bbbf00d126eb3393",
                 "indexToken": "provide",
-                "indexOffset": 8
+                "indexOffset": 8,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           }
@@ -3790,13 +3886,21 @@
                 "tokenCount": 17,
                 "tokenSha256": "1b926743e94f2e52e94025618c11151fa1b4b5266044f23a07ba8eeafb5faef0",
                 "indexToken": "Use",
-                "indexOffset": 0
+                "indexOffset": 0,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               },
               {
                 "tokenCount": 16,
                 "tokenSha256": "f88e5dd954c89036320201abc63b8348364c68cd2b0b08b28f101cb15938f72d",
                 "indexToken": "specific",
-                "indexOffset": 14
+                "indexOffset": 14,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           }
@@ -3815,19 +3919,31 @@
                 "tokenCount": 8,
                 "tokenSha256": "32272db8bf4d608f32ec5a4ce95c189319e5ef64ca47eb55197850087b55ad7d",
                 "indexToken": "earliest",
-                "indexOffset": 3
+                "indexOffset": 3,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               },
               {
                 "tokenCount": 5,
                 "tokenSha256": "39f5352d8cd9ae526668abbfb977e12d0930fd7b05387e95e9e9cce0c9df2a4e",
                 "indexToken": "prerequisites",
-                "indexOffset": 1
+                "indexOffset": 1,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               },
               {
                 "tokenCount": 6,
                 "tokenSha256": "d13152e31d30e36a0d663dc6fff98a99c1f611f4ca13009a180f5d19aa066355",
                 "indexToken": "concepts",
-                "indexOffset": 1
+                "indexOffset": 1,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           }
@@ -3846,13 +3962,21 @@
                 "tokenCount": 18,
                 "tokenSha256": "e8df90592603a13241ae6e07d29f7a67355f7ea83d7f95b2982ee5a61f3d46e4",
                 "indexToken": "disconnected",
-                "indexOffset": 16
+                "indexOffset": 16,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               },
               {
                 "tokenCount": 27,
                 "tokenSha256": "3c98bc97f0d7ae89f68be853d7d9fd683c851faf81e70c2478ea342adc9be20e",
                 "indexToken": "half",
-                "indexOffset": 9
+                "indexOffset": 9,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           }
@@ -3871,13 +3995,21 @@
                 "tokenCount": 17,
                 "tokenSha256": "cc5f139bdcbc041c09784c378fd8f6da6659b8d7bd00975ae251e30aed60f422",
                 "indexToken": "selected",
-                "indexOffset": 13
+                "indexOffset": 13,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               },
               {
                 "tokenCount": 22,
                 "tokenSha256": "3085528c8a1b2928ac44231de2b9fbf30b607540973ade75739a3b2c0290938b",
                 "indexToken": "recommendation",
-                "indexOffset": 19
+                "indexOffset": 19,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           }
@@ -3896,13 +4028,21 @@
                 "tokenCount": 15,
                 "tokenSha256": "ab8344185be3c6a8648a757621f92c51bc6a82b7e430d3a703812bc877659f62",
                 "indexToken": "follows",
-                "indexOffset": 3
+                "indexOffset": 3,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               },
               {
                 "tokenCount": 13,
                 "tokenSha256": "3efd7a1eec2deb209ac0a630b2135a97f22bb7f3ff265d5ba78116fb3864549e",
                 "indexToken": "assumed",
-                "indexOffset": 1
+                "indexOffset": 1,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           }
@@ -3921,7 +4061,11 @@
                 "tokenCount": 21,
                 "tokenSha256": "f1511ca8758cfab4322752dc1a65809a4e20dd07d2e0ac64cce625690bf487c8",
                 "indexToken": "check",
-                "indexOffset": 7
+                "indexOffset": 7,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           }
@@ -3940,7 +4084,11 @@
                 "tokenCount": 23,
                 "tokenSha256": "2b3addd8eea1e355aec322967e8aee4216ee5bdfe71c220787f14210ebb12fe2",
                 "indexToken": "understanding",
-                "indexOffset": 14
+                "indexOffset": 14,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           },
@@ -3951,7 +4099,11 @@
                 "tokenCount": 15,
                 "tokenSha256": "3152ce70ab3c4bea1dedebfe71d90fe645fab9724db51c92ad926a911a724184",
                 "indexToken": "definitions",
-                "indexOffset": 11
+                "indexOffset": 11,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           },
@@ -3962,7 +4114,11 @@
                 "tokenCount": 15,
                 "tokenSha256": "3152ce70ab3c4bea1dedebfe71d90fe645fab9724db51c92ad926a911a724184",
                 "indexToken": "definitions",
-                "indexOffset": 11
+                "indexOffset": 11,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           },
@@ -3973,13 +4129,21 @@
                 "tokenCount": 15,
                 "tokenSha256": "3152ce70ab3c4bea1dedebfe71d90fe645fab9724db51c92ad926a911a724184",
                 "indexToken": "definitions",
-                "indexOffset": 11
+                "indexOffset": 11,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               },
               {
                 "tokenCount": 6,
                 "tokenSha256": "d396730092f21e952ddc9f8c2fecc0a7922c603f1dc896510c481f9c43389be1",
                 "indexToken": "prefixed",
-                "indexOffset": 5
+                "indexOffset": 5,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           },
@@ -3990,13 +4154,21 @@
                 "tokenCount": 15,
                 "tokenSha256": "3152ce70ab3c4bea1dedebfe71d90fe645fab9724db51c92ad926a911a724184",
                 "indexToken": "definitions",
-                "indexOffset": 11
+                "indexOffset": 11,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               },
               {
                 "tokenCount": 6,
                 "tokenSha256": "d396730092f21e952ddc9f8c2fecc0a7922c603f1dc896510c481f9c43389be1",
                 "indexToken": "prefixed",
-                "indexOffset": 5
+                "indexOffset": 5,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           },
@@ -4007,13 +4179,21 @@
                 "tokenCount": 15,
                 "tokenSha256": "3152ce70ab3c4bea1dedebfe71d90fe645fab9724db51c92ad926a911a724184",
                 "indexToken": "definitions",
-                "indexOffset": 11
+                "indexOffset": 11,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               },
               {
                 "tokenCount": 6,
                 "tokenSha256": "d396730092f21e952ddc9f8c2fecc0a7922c603f1dc896510c481f9c43389be1",
                 "indexToken": "prefixed",
-                "indexOffset": 5
+                "indexOffset": 5,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           }
@@ -4032,13 +4212,21 @@
                 "tokenCount": 9,
                 "tokenSha256": "136a9226aaa299a2f1ecc3bda423bf2b646ce9c6c8464df9fbe198ecc9d5562b",
                 "indexToken": "Government",
-                "indexOffset": 4
+                "indexOffset": 4,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               },
               {
                 "tokenCount": 12,
                 "tokenSha256": "e6f4e279901d42897f7997a03f99aa314bd9442135d2e89d53b0fbf9a0836b76",
                 "indexToken": "relevant",
-                "indexOffset": 8
+                "indexOffset": 8,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           },
@@ -4049,7 +4237,11 @@
                 "tokenCount": 17,
                 "tokenSha256": "53136529377ba6336d132cb751b501121e7c9d770f9a8d11c0b99557e1247c2d",
                 "indexToken": "Government",
-                "indexOffset": 7
+                "indexOffset": 7,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           },
@@ -4060,13 +4252,21 @@
                 "tokenCount": 9,
                 "tokenSha256": "136a9226aaa299a2f1ecc3bda423bf2b646ce9c6c8464df9fbe198ecc9d5562b",
                 "indexToken": "Government",
-                "indexOffset": 4
+                "indexOffset": 4,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               },
               {
                 "tokenCount": 12,
                 "tokenSha256": "e6f4e279901d42897f7997a03f99aa314bd9442135d2e89d53b0fbf9a0836b76",
                 "indexToken": "relevant",
-                "indexOffset": 8
+                "indexOffset": 8,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           }
@@ -4085,7 +4285,11 @@
                 "tokenCount": 19,
                 "tokenSha256": "502b08514ba044b09eaf81eee855d20f4c0b5d5c8b538d6bf3d9e4344281a157",
                 "indexToken": "document",
-                "indexOffset": 2
+                "indexOffset": 2,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           },
@@ -4096,7 +4300,11 @@
                 "tokenCount": 27,
                 "tokenSha256": "95024ffb021a6f722499d94e9e5ca2c8e6f688d7f0d5fe18ac2e5b03646b05c0",
                 "indexToken": "worksheets",
-                "indexOffset": 5
+                "indexOffset": 5,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           }
@@ -4115,7 +4323,11 @@
                 "tokenCount": 11,
                 "tokenSha256": "14ada0ce9d9b88d491226e8d71200fd2792be7da392f55d1ad95247d457aafe8",
                 "indexToken": "localise",
-                "indexOffset": 6
+                "indexOffset": 6,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           },
@@ -4126,13 +4338,21 @@
                 "tokenCount": 6,
                 "tokenSha256": "3d4584471f7cd278c59c754af28c0acc62bf7e23edb5826c1d95db6ebc08c163",
                 "indexToken": "recommendation",
-                "indexOffset": 3
+                "indexOffset": 3,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               },
               {
                 "tokenCount": 6,
                 "tokenSha256": "ca7bc222affd0053942309e9385fd597c3ec7cb2abfb19dda1a8dfea597c0f6d",
                 "indexToken": "decision",
-                "indexOffset": 1
+                "indexOffset": 1,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           },
@@ -4143,13 +4363,21 @@
                 "tokenCount": 17,
                 "tokenSha256": "3576890d187d873bec089f89bcd803ea8eb3062d3cfb4e625ff171f16c28c46b",
                 "indexToken": "recommendation",
-                "indexOffset": 5
+                "indexOffset": 5,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               },
               {
                 "tokenCount": 10,
                 "tokenSha256": "b364ae11ee4182a15ea23717edd9aabc5e03d4c77ed4d43018de241af6bdaa47",
                 "indexToken": "decision",
-                "indexOffset": 2
+                "indexOffset": 2,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           }
@@ -4168,7 +4396,11 @@
                 "tokenCount": 20,
                 "tokenSha256": "0928e601ddd918a6d5455fb4cc392e25d7dbae7dfdfc3489b511f88e34493977",
                 "indexToken": "follows",
-                "indexOffset": 2
+                "indexOffset": 2,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           },
@@ -4179,7 +4411,11 @@
                 "tokenCount": 18,
                 "tokenSha256": "362f812756e27835397c4552e94e28bfb6b6be761717f93431e64320fb867815",
                 "indexToken": "organisation",
-                "indexOffset": 6
+                "indexOffset": 6,
+                "registrationSurface": {
+                  "locus": "resource-contents",
+                  "field": "text"
+                }
               }
             ]
           }
@@ -6528,10 +6764,14 @@
             "file": "packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/find-lessons.ts",
             "anchors": [
               {
-                "tokenCount": 9,
-                "tokenSha256": "2246309520f518403e7079374019752520abe331b951baeb3f3999d3c09c5119",
-                "indexToken": "title",
-                "indexOffset": 0
+                "tokenCount": 5,
+                "tokenSha256": "1985ac315dbfd277035fa610bfdd8194cb5b691014d94178a884031677e6e824",
+                "indexToken": "Agent",
+                "indexOffset": 0,
+                "registrationSurface": {
+                  "locus": "resource-metadata",
+                  "field": "title"
+                }
               }
             ]
           }
@@ -6547,10 +6787,14 @@
             "file": "packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/explore-curriculum.ts",
             "anchors": [
               {
-                "tokenCount": 10,
-                "tokenSha256": "8957cb7ac8149ec97f164d3ba6323aa8b46ee2077c08b0e18c34ed885d9e77d5",
-                "indexToken": "title",
-                "indexOffset": 0
+                "tokenCount": 6,
+                "tokenSha256": "cf23af3d73087bc81d711a5ecb2740d2135fd14e4dc6b218d90ed3b7c3faed00",
+                "indexToken": "Agent",
+                "indexOffset": 0,
+                "registrationSurface": {
+                  "locus": "resource-metadata",
+                  "field": "title"
+                }
               }
             ]
           }
@@ -6566,10 +6810,14 @@
             "file": "packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/learning-progression.ts",
             "anchors": [
               {
-                "tokenCount": 9,
-                "tokenSha256": "dba4f5ba221169f1c9f983ec09d61ceb01f87b28a77b7db04fd29bf2513e066a",
-                "indexToken": "title",
-                "indexOffset": 0
+                "tokenCount": 5,
+                "tokenSha256": "52229b026594bab59e6c69ee41305e213b0c759b648fd5c05065f5d9ef90e4a9",
+                "indexToken": "Agent",
+                "indexOffset": 0,
+                "registrationSurface": {
+                  "locus": "resource-metadata",
+                  "field": "title"
+                }
               }
             ]
           }
@@ -6585,10 +6833,14 @@
             "file": "packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/curriculum-mapping.ts",
             "anchors": [
               {
-                "tokenCount": 9,
-                "tokenSha256": "1a0ad006778c9a875421c9e66bbc148927b1b3b9ceb0fc10038ef3630f8eeb52",
-                "indexToken": "title",
-                "indexOffset": 0
+                "tokenCount": 5,
+                "tokenSha256": "71f24442b30535df248cf00eab1128791ee4a00cabe22feb3a127216f871a39d",
+                "indexToken": "Agent",
+                "indexOffset": 0,
+                "registrationSurface": {
+                  "locus": "resource-metadata",
+                  "field": "title"
+                }
               }
             ]
           }
@@ -6604,10 +6856,14 @@
             "file": "packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/adapt-lesson.ts",
             "anchors": [
               {
-                "tokenCount": 13,
-                "tokenSha256": "9f7018f2eb40955428987c15d2f93554d209e952853febc29e18ddcdbdd5e6d6",
-                "indexToken": "title",
-                "indexOffset": 0
+                "tokenCount": 9,
+                "tokenSha256": "397382f984846325bc042b2b6ba1f2c5d9f4fda604d22b52da2538c00c85fc9b",
+                "indexToken": "Agent",
+                "indexOffset": 0,
+                "registrationSurface": {
+                  "locus": "resource-metadata",
+                  "field": "title"
+                }
               }
             ]
           }
@@ -6623,10 +6879,14 @@
             "file": "packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/continue-progression.ts",
             "anchors": [
               {
-                "tokenCount": 10,
-                "tokenSha256": "6daf4f20e29c9847b4e6d849673650aa7c614cfa9fc86b8ed995a1fd8c72df43",
-                "indexToken": "title",
-                "indexOffset": 0
+                "tokenCount": 6,
+                "tokenSha256": "70083855bdc76594acd88668152387537f89fa0d0c88903f9783c081cb23bebd",
+                "indexToken": "Agent",
+                "indexOffset": 0,
+                "registrationSurface": {
+                  "locus": "resource-metadata",
+                  "field": "title"
+                }
               }
             ]
           }

@@ -42,7 +42,7 @@
       "rootRef": "apps/oak-curriculum-mcp-streamable-http/src/app/core-endpoints.ts",
       "transport": "streamable-http",
       "registrationRef": "apps/oak-curriculum-mcp-streamable-http/src/handlers.ts",
-      "proof": "In-memory MCP initialize, tools/list, resources/list, resources/read, and prompts/list walk",
+      "proof": "In-memory MCP initialize, tools/list, resources/list, guidance resources/read, and prompts/list walk",
       "observation": {
         "initialize": {
           "instructions": "present"
@@ -3863,9 +3863,15 @@
           "state": "live",
           "primitive": "resource",
           "selector": "docs://oak/guidance/find-lessons.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-metadata",
+              "field": "description",
+              "anchorCount": 1
+            }
+          ],
           "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
+            "resources/list.resources[]"
           ]
         }
       ]
@@ -3909,9 +3915,15 @@
           "state": "live",
           "primitive": "resource",
           "selector": "docs://oak/guidance/explore-curriculum.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-metadata",
+              "field": "description",
+              "anchorCount": 1
+            }
+          ],
           "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
+            "resources/list.resources[]"
           ]
         }
       ]
@@ -3941,9 +3953,15 @@
           "state": "live",
           "primitive": "resource",
           "selector": "docs://oak/guidance/learning-progression.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-metadata",
+              "field": "description",
+              "anchorCount": 1
+            }
+          ],
           "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
+            "resources/list.resources[]"
           ]
         }
       ]
@@ -3973,6 +3991,13 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/curriculum-mapping.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-metadata",
+              "field": "description",
+              "anchorCount": 1
+            }
+          ],
           "channels": []
         }
       ]
@@ -4002,6 +4027,13 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/adapt-lesson.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-metadata",
+              "field": "description",
+              "anchorCount": 1
+            }
+          ],
           "channels": []
         }
       ]
@@ -4031,6 +4063,13 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/continue-progression.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-metadata",
+              "field": "description",
+              "anchorCount": 1
+            }
+          ],
           "channels": []
         }
       ]
@@ -4060,8 +4099,14 @@
           "state": "live",
           "primitive": "resource",
           "selector": "docs://oak/guidance/find-lessons.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 1
+            }
+          ],
           "channels": [
-            "resources/list.resources[]",
             "resources/read.contents[]"
           ]
         }
@@ -4092,8 +4137,14 @@
           "state": "live",
           "primitive": "resource",
           "selector": "docs://oak/guidance/find-lessons.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 2
+            }
+          ],
           "channels": [
-            "resources/list.resources[]",
             "resources/read.contents[]"
           ]
         }
@@ -4124,6 +4175,13 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/adapt-lesson.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 1
+            }
+          ],
           "channels": []
         }
       ]
@@ -4154,6 +4212,13 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/adapt-lesson.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 1
+            }
+          ],
           "channels": []
         },
         {
@@ -4161,6 +4226,13 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/continue-progression.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 1
+            }
+          ],
           "channels": []
         }
       ]
@@ -4190,8 +4262,14 @@
           "state": "live",
           "primitive": "resource",
           "selector": "docs://oak/guidance/explore-curriculum.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 1
+            }
+          ],
           "channels": [
-            "resources/list.resources[]",
             "resources/read.contents[]"
           ]
         }
@@ -4222,8 +4300,14 @@
           "state": "live",
           "primitive": "resource",
           "selector": "docs://oak/guidance/explore-curriculum.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 1
+            }
+          ],
           "channels": [
-            "resources/list.resources[]",
             "resources/read.contents[]"
           ]
         }
@@ -4254,8 +4338,14 @@
           "state": "live",
           "primitive": "resource",
           "selector": "docs://oak/guidance/learning-progression.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 1
+            }
+          ],
           "channels": [
-            "resources/list.resources[]",
             "resources/read.contents[]"
           ]
         }
@@ -4288,6 +4378,13 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/continue-progression.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 1
+            }
+          ],
           "channels": []
         },
         {
@@ -4295,6 +4392,13 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/curriculum-mapping.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 1
+            }
+          ],
           "channels": []
         },
         {
@@ -4302,8 +4406,14 @@
           "state": "live",
           "primitive": "resource",
           "selector": "docs://oak/guidance/learning-progression.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 1
+            }
+          ],
           "channels": [
-            "resources/list.resources[]",
             "resources/read.contents[]"
           ]
         }
@@ -4334,6 +4444,13 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/curriculum-mapping.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 1
+            }
+          ],
           "channels": []
         }
       ]
@@ -4363,6 +4480,13 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/curriculum-mapping.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 1
+            }
+          ],
           "channels": []
         }
       ]
@@ -4392,6 +4516,13 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/continue-progression.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 1
+            }
+          ],
           "channels": []
         }
       ]
@@ -4421,6 +4552,13 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/continue-progression.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 1
+            }
+          ],
           "channels": []
         }
       ]
@@ -4450,8 +4588,14 @@
           "state": "live",
           "primitive": "resource",
           "selector": "docs://oak/guidance/find-lessons.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 2
+            }
+          ],
           "channels": [
-            "resources/list.resources[]",
             "resources/read.contents[]"
           ]
         }
@@ -4496,8 +4640,14 @@
           "state": "live",
           "primitive": "resource",
           "selector": "docs://oak/guidance/explore-curriculum.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 2
+            }
+          ],
           "channels": [
-            "resources/list.resources[]",
             "resources/read.contents[]"
           ]
         }
@@ -4528,8 +4678,14 @@
           "state": "live",
           "primitive": "resource",
           "selector": "docs://oak/guidance/learning-progression.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 3
+            }
+          ],
           "channels": [
-            "resources/list.resources[]",
             "resources/read.contents[]"
           ]
         }
@@ -4560,6 +4716,13 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/curriculum-mapping.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 2
+            }
+          ],
           "channels": []
         }
       ]
@@ -4589,6 +4752,13 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/adapt-lesson.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 2
+            }
+          ],
           "channels": []
         }
       ]
@@ -4618,6 +4788,13 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/continue-progression.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 2
+            }
+          ],
           "channels": []
         }
       ]
@@ -4647,6 +4824,13 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/continue-progression.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 1
+            }
+          ],
           "channels": []
         }
       ]
@@ -4681,6 +4865,13 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/adapt-lesson.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 2
+            }
+          ],
           "channels": []
         },
         {
@@ -4688,6 +4879,13 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/continue-progression.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 2
+            }
+          ],
           "channels": []
         },
         {
@@ -4695,6 +4893,13 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/curriculum-mapping.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 2
+            }
+          ],
           "channels": []
         },
         {
@@ -4702,8 +4907,14 @@
           "state": "live",
           "primitive": "resource",
           "selector": "docs://oak/guidance/explore-curriculum.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 1
+            }
+          ],
           "channels": [
-            "resources/list.resources[]",
             "resources/read.contents[]"
           ]
         },
@@ -4712,8 +4923,14 @@
           "state": "live",
           "primitive": "resource",
           "selector": "docs://oak/guidance/find-lessons.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 1
+            }
+          ],
           "channels": [
-            "resources/list.resources[]",
             "resources/read.contents[]"
           ]
         },
@@ -4722,8 +4939,14 @@
           "state": "live",
           "primitive": "resource",
           "selector": "docs://oak/guidance/learning-progression.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 1
+            }
+          ],
           "channels": [
-            "resources/list.resources[]",
             "resources/read.contents[]"
           ]
         }
@@ -4756,6 +4979,13 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/adapt-lesson.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 1
+            }
+          ],
           "channels": []
         },
         {
@@ -4763,6 +4993,13 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/continue-progression.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 2
+            }
+          ],
           "channels": []
         },
         {
@@ -4770,6 +5007,13 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/curriculum-mapping.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 2
+            }
+          ],
           "channels": []
         }
       ]
@@ -4800,6 +5044,13 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/adapt-lesson.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 1
+            }
+          ],
           "channels": []
         },
         {
@@ -4807,6 +5058,13 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/curriculum-mapping.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 1
+            }
+          ],
           "channels": []
         }
       ]
@@ -4838,6 +5096,13 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/adapt-lesson.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 2
+            }
+          ],
           "channels": []
         },
         {
@@ -4845,6 +5110,13 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/continue-progression.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 2
+            }
+          ],
           "channels": []
         },
         {
@@ -4852,6 +5124,13 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/curriculum-mapping.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 1
+            }
+          ],
           "channels": []
         }
       ]
@@ -4882,6 +5161,13 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/adapt-lesson.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 1
+            }
+          ],
           "channels": []
         },
         {
@@ -4889,6 +5175,13 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/curriculum-mapping.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-contents",
+              "field": "text",
+              "anchorCount": 1
+            }
+          ],
           "channels": []
         }
       ]
@@ -7417,9 +7710,15 @@
           "state": "live",
           "primitive": "resource",
           "selector": "docs://oak/guidance/find-lessons.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-metadata",
+              "field": "title",
+              "anchorCount": 1
+            }
+          ],
           "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
+            "resources/list.resources[]"
           ]
         }
       ]
@@ -7463,9 +7762,15 @@
           "state": "live",
           "primitive": "resource",
           "selector": "docs://oak/guidance/explore-curriculum.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-metadata",
+              "field": "title",
+              "anchorCount": 1
+            }
+          ],
           "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
+            "resources/list.resources[]"
           ]
         }
       ]
@@ -7495,9 +7800,15 @@
           "state": "live",
           "primitive": "resource",
           "selector": "docs://oak/guidance/learning-progression.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-metadata",
+              "field": "title",
+              "anchorCount": 1
+            }
+          ],
           "channels": [
-            "resources/list.resources[]",
-            "resources/read.contents[]"
+            "resources/list.resources[]"
           ]
         }
       ]
@@ -7527,6 +7838,13 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/curriculum-mapping.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-metadata",
+              "field": "title",
+              "anchorCount": 1
+            }
+          ],
           "channels": []
         }
       ]
@@ -7556,6 +7874,13 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/adapt-lesson.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-metadata",
+              "field": "title",
+              "anchorCount": 1
+            }
+          ],
           "channels": []
         }
       ]
@@ -7585,6 +7910,13 @@
           "state": "dormant",
           "primitive": "resource",
           "selector": "docs://oak/guidance/continue-progression.md",
+          "anchorSurfaces": [
+            {
+              "locus": "resource-metadata",
+              "field": "title",
+              "anchorCount": 1
+            }
+          ],
           "channels": []
         }
       ]

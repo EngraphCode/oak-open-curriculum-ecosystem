@@ -25,5 +25,21 @@ describe('buildGuidanceRegistrationEvidence', () => {
       'resources/read.contents[]',
     ]);
     expect(evidence[dormantGuidance.source]?.channels).toEqual([]);
+    expect(evidence[liveGuidance.source]?.surfaces).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          locus: 'resource-metadata',
+          field: 'title',
+        }),
+        expect.objectContaining({
+          locus: 'resource-metadata',
+          field: 'description',
+        }),
+        expect.objectContaining({
+          locus: 'resource-contents',
+          field: 'text',
+        }),
+      ]),
+    );
   });
 });

@@ -118,6 +118,20 @@ function anchorsHaveDistinctMatches(
   return anchors.every((_, anchorIndex) => assignDistinctStart(anchorIndex, new Set()));
 }
 
+/** Requires reviewed anchors to retain distinct occurrences in one payload. */
+export function requireTokenAnchorsPresent(
+  label: string,
+  anchors: readonly TokenAnchor[],
+  content: string,
+  location?: string,
+): void {
+  if (anchors.length === 0 || !anchorsHaveDistinctMatches(anchors, tokenizeItemEvidence(content))) {
+    throw new Error(
+      `${label} anchors lack distinct occurrences${location === undefined ? '' : ` in ${location}`}`,
+    );
+  }
+}
+
 /** Requires every reviewed anchor for one audit item to remain present. */
 export function requireItemEvidenceTargets(
   auditId: string,
@@ -135,11 +149,11 @@ export function requireItemEvidenceTargets(
     if (target.anchors.length === 0) {
       throw new Error(`Current audit item ${auditId} has no anchors for ${target.file}`);
     }
-    const tokens = tokenizeItemEvidence(content);
-    if (!anchorsHaveDistinctMatches(target.anchors, tokens)) {
-      throw new Error(
-        `Current audit item ${auditId} anchors lack distinct occurrences in ${target.file}`,
-      );
-    }
+    requireTokenAnchorsPresent(
+      `Current audit item ${auditId}`,
+      target.anchors,
+      content,
+      target.file,
+    );
   }
 }
