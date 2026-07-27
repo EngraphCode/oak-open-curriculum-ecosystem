@@ -135,11 +135,19 @@ export async function emitWatcherError(
 }
 
 /**
+ * The WATCHER EXIT line's single format authority — every consumer
+ * (emitter, tests, supervising-session filters) derives the bytes from
+ * here.
+ */
+export function watcherExitLine(reason: WatcherExitReason, emittedCount: number): string {
+  return `--- WATCHER EXIT --- reason=${reason} emitted_count=${emittedCount}\n`;
+}
+
+/**
  * Best-effort emit of the final WATCHER EXIT line
- * (`--- WATCHER EXIT --- reason=<reason> emitted_count=<n>`) — the in-band
- * vocabulary that makes an ORDERLY exit distinguishable from a crash, a
- * kill, or a harness stop, all of which end the stream with no EXIT line.
- * Bounded by
+ * (see {@link watcherExitLine}) — the in-band vocabulary that makes an
+ * ORDERLY exit distinguishable from a crash, a kill, or a harness stop,
+ * all of which end the stream with no EXIT line. Bounded by
  * {@link WATCHER_EXIT_EMIT_DEADLINE_MS} and swallow-on-failure: a clean exit
  * stays clean even when the emit channel is already dead.
  *
@@ -152,7 +160,7 @@ export async function emitWatcherExit(
   reason: WatcherExitReason,
   emittedCount: number,
 ): Promise<void> {
-  const text = `--- WATCHER EXIT --- reason=${reason} emitted_count=${emittedCount}\n`;
+  const text = watcherExitLine(reason, emittedCount);
   try {
     await runWithDeadline('emit', () => emit(text), WATCHER_EXIT_EMIT_DEADLINE_MS);
   } catch {

@@ -9,13 +9,24 @@
  * detaches itself and re-emits, so the error surfaces exactly as it would
  * with no listener at all.
  */
-export function tolerateEpipeOnStdout(stream: NodeJS.WriteStream): void {
+/** The minimal stream slice this guard needs — fakeable without assertion. */
+export type ErrorEmittingStream = Pick<
+  NodeJS.EventEmitter,
+  'on' | 'off' | 'emit' | 'listenerCount'
+>;
+
+export function tolerateEpipeOnStdout(stream: ErrorEmittingStream): void {
   const tolerateEpipe = (error: NodeJS.ErrnoException): void => {
     if (error.code === 'EPIPE') {
       return;
     }
     stream.off('error', tolerateEpipe);
-    stream.emit('error', error);
+    // Any other 'error' listener has ALREADY received this very emit — a
+    // re-emit would double-deliver. Re-emit only when no listener remains,
+    // which restores Node's default throw-on-unhandled-'error'.
+    if (stream.listenerCount('error') === 0) {
+      stream.emit('error', error);
+    }
   };
   stream.on('error', tolerateEpipe);
 }

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
+import { watcherExitLine } from '../../src/collaboration-state/comms-watch-errors';
 import {
   watchCommsLoop,
   type WatcherErrorKind,
@@ -37,14 +38,21 @@ function describeStream(...payloads: readonly DrainResult[]): {
  * state the test describes has been reached, then the next loop-top probe
  * exits the watch. This replaced the retired lifetime-budget terminator
  * (`maxEvents`) when the bound became per-pass (MCP-229) — the loop itself
- * never ends on an emission count.
+ * never ends on an emission count. The fixed probe cap turns an
+ * unsatisfiable predicate into a red assertion instead of a CI hang: a
+ * microtask-only loop starves vitest's own timeout timer, so without the
+ * cap a predicate that never fires pins a core until the outer wall-clock
+ * kills the job. Every current predicate fires within four probes.
  */
-function aliveUntil(done: () => boolean): () => boolean {
-  return () => !done();
+function aliveUntil(done: () => boolean, maxProbes = 50): () => boolean {
+  let probes = 0;
+  return () => {
+    probes += 1;
+    return probes <= maxProbes && !done();
+  };
 }
 
-const EXIT_LINE = (reason: string, emittedCount: number): string =>
-  `--- WATCHER EXIT --- reason=${reason} emitted_count=${emittedCount}\n`;
+const EXIT_LINE = watcherExitLine;
 
 describe('watchCommsLoop — contract per FM-2 cure (2026-05-23) + per-pass bound (MCP-229)', () => {
   it('emits drained text and marks the same event IDs seen — the pass bound never ends the watch', async () => {
