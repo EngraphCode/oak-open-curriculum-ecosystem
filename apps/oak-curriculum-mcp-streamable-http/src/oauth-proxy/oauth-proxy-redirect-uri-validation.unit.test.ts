@@ -137,11 +137,6 @@ describe('findRedirectUriRejection', () => {
 
   describe('a non-array redirect_uris forwards — the upstream demonstrably rejects it', () => {
     it('forwards a bare-string redirect_uris', () => {
-      // An earlier revision refused this, reasoning that with no array there
-      // are no entries to examine, so the obligation could be evaded by
-      // changing the CONTAINER rather than the value. That assumed an upstream
-      // gap instead of demonstrating one.
-      //
       // Probed first-hand against the deployed alpha 2026-07-26: POST
       // /oauth/register with a bare-string redirect_uris returns 400
       // request_body_invalid from Clerk. The upstream discharges this case, so

@@ -92,8 +92,7 @@ The proxy is a transparent protocol pipe. It does not alter OAuth payloads,
 filter client parameters, or perform its own OAuth grant validation. Clerk is
 the real authorisation server and handles OAuth security decisions. Two scoped
 exceptions are recorded: the request-side one below, and the response-side
-error normalisation described under Error Handling (which this ADR previously
-described as verbatim passthrough — corrected 2026-07-26 to match the code).
+error normalisation described under Error Handling.
 
 The proxy may still sit behind application and edge traffic controls. Current
 runtime wires application rate limiting for OAuth proxy routes per ADR-158;
@@ -130,8 +129,7 @@ described in Section 7.3 of [RFC8252]".
 [RFC 8252 §7.3](https://www.rfc-editor.org/rfc/rfc8252.html#section-7.3) is the
 section that clause points at: it DEFINES loopback interface redirection and
 permits `http` for it. It states no prohibition, so it cannot satisfy the
-cited-clause test alone — a distinction this ADR previously blurred by naming
-only §7.3.
+cited-clause test alone.
 
 The evidence for the third test: the MCPJam conformance check
 `oauth_dcr_http_redirect_uri` failed against the deployed alpha — `POST
@@ -142,16 +140,14 @@ production the same day after that day's deploy.
 supplies the refusal's _shape_ (HTTP 400, `invalid_redirect_uri` /
 `invalid_client_metadata`), not the rule itself.
 
-The third test is what keeps the exception narrow, and it did real work here.
-A malformed-metadata refusal (a bare-string `redirect_uris` rather than an
-array) was drafted on the reasoning that forwarding would let the obligation
-be evaded by changing the container rather than the value. That assumed a gap
-instead of demonstrating one. Probed first-hand the same day: `POST
-/oauth/register` with a bare-string `redirect_uris` returns **400
-`request_body_invalid`** from Clerk, while the same endpoint returns **201**
-for an array carrying a plain-`http` non-loopback URI. Gap demonstrated in the
-second case, absent in the first — so the first refusal was dropped and only
-the second ships. A refusal whose gap is merely plausible is not licensed.
+The third test is what keeps the exception narrow. Probed first-hand
+(2026-07-26): `POST /oauth/register` with a bare-string `redirect_uris`
+(rather than an array) returns **400 `request_body_invalid`** from Clerk —
+upstream discharges that obligation itself, so no refusal is licensed for the
+container shape and the proxy forwards it — while the same endpoint returns
+**201** for an array carrying a plain-`http` non-loopback URI, the one
+demonstrated gap the shipped refusal covers. A refusal whose gap is merely
+plausible is not licensed.
 
 Deliberate deviation, recorded so it is not read later as an oversight:
 [RFC 8252 §8.4](https://www.rfc-editor.org/rfc/rfc8252.html#section-8.4)'s
@@ -209,9 +205,8 @@ All upstream HTTP calls use `fetchWithTimeout()` with a 10-second timeout (confi
 | Clerk times out (>10s)           | HTTP 504 + `{ "error": "temporarily_unavailable" }`                                                                              |
 | Network error                    | HTTP 502 + `{ "error": "temporarily_unavailable" }`                                                                              |
 
-Response-side truing (2026-07-26, MCP-188), corrected twice under review — the
-detail matters because the JSON and non-JSON paths behave differently and the
-first truing blurred them:
+The JSON and non-JSON error paths behave differently — the table rows above
+compress this, so each path is stated separately:
 
 - **JSON error bodies are passed through unchanged.** `readUpstreamBody`
   routes any `application/json` response to `parseJsonBody`, which returns the
@@ -224,11 +219,6 @@ first truing blurred them:
   this path is the upstream text bounded and sanitised against terminal-escape
   sequences and unbounded payloads, and only here are implausible `Retry-After`
   values dropped.
-
-The original row ("pass through verbatim") stopped being true when
-`oauth-proxy-response.ts` landed; the first correction then over-claimed
-sanitisation for the JSON path and status preservation for the non-JSON one.
-The table above now states each path separately.
 
 **Behaviour recorded as-built; its soundness is not re-adjudicated here** —
 this is documentation of what the code provably does, not a fresh ratification
