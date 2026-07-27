@@ -4,7 +4,10 @@
  * start state, the supervisor probe, the orderly-exit lines, fatal-timeout
  * propagation; this module owns the PASS — step sequencing (drain → mark
  * excluded → emit → markSeen → tick → wait) and how a failed step is
- * reported and ruled fatal or recoverable.
+ * reported and ruled fatal or recoverable. The loop-input contract
+ * (`WatchCommsLoopInput`) and the per-process `LoopState` live here because
+ * the pass is their primary reader and sole writer; the loop re-exports
+ * them as its public surface.
  *
  * @packageDocumentation
  */
@@ -15,11 +18,14 @@ import { type DrainResult } from './types.js';
 export interface WatchCommsLoopInput {
   /**
    * Per-pass drain-batch bound: caps how many events ONE drain pass may
-   * emit, so every pass advances the seen-file cursor. Never a lifetime
-   * budget — the loop's lifetime is bounded only by supervisor death, a
-   * fatal step, or a step deadline. `undefined` leaves each pass unbounded,
-   * which re-creates the 2026-07-23 drain-deadline wedge on a large unseen
-   * backlog — production invocations always pass a bound.
+   * emit, so every successful pass advances the seen-file cursor (an
+   * emit-failure pass deliberately leaves its events unseen for
+   * redelivery). Never a lifetime budget — the loop's lifetime is bounded
+   * only by supervisor death, a fatal step, or a step deadline; and the
+   * bound caps the batch EMITTED, not the unseen-set read that finds it.
+   * `undefined` leaves each pass unbounded, which re-creates the
+   * 2026-07-23 drain-deadline wedge on a large unseen backlog — production
+   * invocations always pass a bound.
    */
   readonly maxEventsPerDrain?: number;
   readonly drain: (batchLimit?: number) => Promise<DrainResult>;

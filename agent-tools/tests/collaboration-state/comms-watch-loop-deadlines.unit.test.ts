@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { watcherExitLine } from '../../src/collaboration-state/comms-watch-errors';
 import {
   watchCommsLoop,
   WatcherTimeoutError,
@@ -21,14 +22,18 @@ const ONE_PAYLOAD: DrainResult = { output: 'payload\n', eventCount: 1, eventIds:
 
 /**
  * State-described supervisor terminator — see the sibling
- * `comms-watch-loop.unit.test.ts` for the convention (MCP-229).
+ * `comms-watch-loop.unit.test.ts` for the convention (MCP-229). The probe
+ * cap turns an unsatisfiable predicate into a red test instead of a hang.
  */
-function aliveUntil(done: () => boolean): () => boolean {
-  return () => !done();
+function aliveUntil(done: () => boolean, maxProbes = 50): () => boolean {
+  let probes = 0;
+  return () => {
+    probes += 1;
+    return probes <= maxProbes && !done();
+  };
 }
 
-const EXIT_LINE = (reason: string, emittedCount: number): string =>
-  `--- WATCHER EXIT --- reason=${reason} emitted_count=${emittedCount}\n`;
+const EXIT_LINE = watcherExitLine;
 
 describe('watchCommsLoop — per-step deadlines fail loud (Luminous c1, hang-but-run cure 2026-06-10)', () => {
   const STEP_TIMEOUT_MS = 60_000;

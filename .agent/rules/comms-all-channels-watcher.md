@@ -71,10 +71,9 @@ peer retirement and out of contract.
 # absent). Do NOT use `${VAR:+$VAR 3600} cmd`: zsh does not word-split it, so it tries to
 # exec "timeout 3600".
 # --max-events-per-drain bounds each drain pass (batch size), never the
-# watcher's lifetime — every pass advances the seen-file cursor and the
-# watcher keeps running. (It replaced the retired --max-events lifetime
-# budget, whose silent exit-at-N-total was the traffic-proportional death
-# diagnosed 2026-07-27; a stale --max-events invocation now fails loud.)
+# watcher's lifetime — each successful pass advances the seen-file cursor
+# and the watcher keeps running (migration notes for the retired
+# --max-events flag live in the CLI help).
 set -- pnpm agent-tools:collaboration-state -- comms watch \
   --comms-dir .agent/state/collaboration/comms \
   --seen-file .agent/state/collaboration/comms-seen/<agent-codename>.json \
@@ -123,7 +122,8 @@ one seen-file), so re-arming on the line risks two live watchers on one
 cursor. `reason=supervisor-gone` arriving while the seat is demonstrably
 live is a probe misfire to investigate, not a routine re-arm.
 `--supervisor-pid` is MANDATORY, not a hardening option: without it AND
-without the `timeout` prefix the watcher has no exit path at all.
+without the `timeout` prefix the watcher has no ORDERLY exit path of its
+own — only a fatal step, a step deadline, or an external kill ends it.
 
 The CLI emits every relevant event with self-exclusion (plus any
 sanctioned `--exclude-tag` narrowing per §"Sanctioned tag exclusion")
@@ -135,8 +135,7 @@ identity seed`. Each event is tagged `[BROADCAST]` / `[GROUP]` /
 `[DIRECTED]` / `[OBSERVED]` / `[LIFECYCLE]` on its first line so the agent
 knows the channel at a glance. `[OBSERVED]` means incidental visibility
 of cross-traffic, not a new work contract (event shape:
-`.agent/state/collaboration/comms-event.schema.json`). `--only-directed`
-opts into the legacy narrow view.
+`.agent/state/collaboration/comms-event.schema.json`).
 
 Run the command via the platform's persistent background-task mechanism:
 Claude Code uses the `Monitor` tool with `persistent: true`; Cursor and
@@ -185,8 +184,9 @@ events the dead drain never marked seen. Newer counter-evidence
 drains while 300s held — under sustained high-volume windows a ~300s
 deadline is a sanctioned tuning chosen on observed drain durations, not a
 climb-forever path. Two structural cures have since landed: the incremental
-drain (MCP-198 — the drain reads only UNSEEN events, so its cost tracks
-new-event count, not directory size) and the per-pass batch bound (MCP-229 —
+drain (MCP-198 — the drain still LISTS the whole directory but opens and
+parses only UNSEEN events, so per-pass open cost tracks the unseen count,
+not total event-file count) and the per-pass batch bound (MCP-229 —
 next section). The remaining storage-shape work (the seen-state watermark)
 stays homed in `agent-tooling/current/comms-watch-storage-redesign.plan.md`;
 a re-arm onto a very stale cursor still pays the unseen-set read on every
@@ -195,22 +195,29 @@ pass of the catch-up, which is that plan's measured concern.
 ### Cursor movement is the health check; the batch bound is per-pass
 
 `--max-events-per-drain 100` in the canonical invocation bounds EACH drain
-pass, so every pass advances the seen-file cursor and the watcher keeps
-running — lifetime is independent of event traffic (MCP-229; the retired
-`--max-events` lifetime budget silently ended the watcher at N total
-emissions, which made watcher lifetime inversely proportional to traffic
-and read fleet-wide as mysterious deaths). Without a bound, a large unseen
+pass, so every SUCCESSFUL pass advances the seen-file cursor and the
+watcher keeps running — lifetime is independent of event traffic (MCP-229;
+the retired `--max-events` lifetime budget silently ended the watcher at N
+total emissions, which made watcher lifetime inversely proportional to
+traffic and read fleet-wide as mysterious deaths). An emit-failure pass
+deliberately leaves its events unseen for redelivery, and the flag bounds
+the batch EMITTED per pass, not the unseen-set read that finds it (the
+storage-redesign plan's measured concern). Without a bound, a large unseen
 backlog makes one drain exceed its deadline BEFORE the first mark-seen,
 every pass — a self-restarting watcher then spins indefinitely, emitting
 restart heartbeats while its cursor sits unmoved (worked instance
 2026-07-23: ~14 hours of `[watcher restarting]` with the cursor frozen at
 the previous day; zero events lost only by luck of a quiet stream). The
-health check for ANY self-restarting monitor is therefore **cursor
+progress check for ANY self-restarting monitor is therefore **cursor
 movement, never process liveness**: after arming, verify the progress
 artefact (seen-file mtime / entry count) advanced; a restart heartbeat is
-not progress. Backlog catch-up is paced by construction — one bounded batch
-per `pollMs` — so an arm over a stale cursor streams the backlog in chunks
-rather than flooding the supervising primitive.
+not progress. Cursor movement is evidence of CONSUMPTION (PDR-133
+`CURSOR`) and of nothing more — DELIVERY into the session (`NOTIFY`) is a
+separate check, per §"Supervision must live on the notification path".
+Backlog catch-up is chunked by construction — each pass hands the
+supervising primitive one bounded batch before waiting — so an arm over a
+stale cursor streams the backlog in chunks rather than flooding the
+primitive.
 
 One filter-vocabulary discipline from the 2026-07-23 tending window still
 binds: derive notification filters from the emitter's OBSERVED output,
@@ -245,6 +252,19 @@ because the notification IS the liveness signal. If a manual restart is
 ever needed, target the inner process by pid, never a `pkill -f` pattern
 that a wrapper's own command line can also match.
 
+**A re-arm as a plain background shell is worse than no watcher at all.**
+After a timeout death, a watcher re-armed as an ordinary background process
+(instead of the event-emitting Monitor primitive) consumes events and
+advances the seen-cursor with NO wake path into the session — which also
+suppresses re-delivery, so the events are not merely delayed but silently
+eaten. Worked instance 2026-07-25 (~16:45–18:25Z): three directed events
+were swallowed this way; the owner surfaced it before the seat noticed.
+The sharpened reading: **seen-cursor movement proves CONSUMPTION, not
+DELIVERY** — the only delivery-health check is an event actually arriving
+in-session (PDR-133 `NOTIFY`; this is the second NOTIFY-dead instance, and
+the first on a platform whose primitive CAN notify — the defect was the
+re-arm shape, not the platform).
+
 A re-arm's recompute step must also treat an **empty state read as
 transport/auth failure** (stop and surface), never as "keep looping" —
 a gh-token invalidation once turned a supervised PR-watch loop into a
@@ -273,10 +293,11 @@ diagnosing — the stop is intentional; the invisibility is the platform's
 
 This rule's liveness checks live in three places: the
 `assert-watcher-live` process assert (§"Enforcement" move-1 check and
-claims-open backstop), the heartbeat-staleness and cursor-movement
-classification in §"Liveness self-check (cycle boundaries)", and the
-delivery-side `emitted_count` comparison at the end of §"Fallback
-shape — portable script". Together they are evidence about PDR-133's
+claims-open backstop), the heartbeat-staleness classification in
+§"Liveness self-check (cycle boundaries)" together with the
+cursor-movement progress check in §"Cursor movement is the health check;
+the batch bound is per-pass", and the delivery-side `emitted_count`
+comparison at the end of §"Fallback shape — portable script". Together they are evidence about PDR-133's
 `PROCESS`, `CURSOR`, and `DELIVERY` classes, and **about nothing
 else**:
 
@@ -574,3 +595,13 @@ wrong. Check these before trusting a quiet channel:
 - **The CLI can exit 0 while transferring or parsing nothing** — read the
   failure surface (event counts, the written file), never the exit code
   (`wrapped-exit-codes-false-green`).
+- **Delivery-live can still be notification-dead** — a watcher may discover
+  an event, emit it, mark it seen, and keep a fresh heartbeat while the
+  host never wakes the reasoning harness. Process-liveness,
+  delivery-liveness, and notification-liveness are three separate checks.
+  On a platform whose primitive cannot wake the harness (e.g. Copilot CLI
+  1.0.75 detached Bash output), apply the
+  [`start-right-team` periodic comms cadence](../skills/start-right-team/SKILL-CANONICAL.md#5-maintain-the-team-cadence)
+  with a separate harness-absorption cursor; the portable acceptance test
+  belongs in
+  [`comms-watch-mechanism`](../reference/comms-watch-mechanism.md).

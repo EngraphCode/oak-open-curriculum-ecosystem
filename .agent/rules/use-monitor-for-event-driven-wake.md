@@ -106,6 +106,12 @@ Monitor:
 
 ## Reference Shape (Comms Watcher)
 
+This block is a TEACHING EXCERPT — it illustrates the flags this rule
+discusses. Arm real watchers from the canonical block in
+[`comms-all-channels-watcher.md`](comms-all-channels-watcher.md), which
+adds the `cd <repo-root>` guard and the `timeout` backstop this excerpt
+omits.
+
 ```bash
 pnpm agent-tools:collaboration-state -- comms watch \
   --comms-dir .agent/state/collaboration/comms \
@@ -120,10 +126,10 @@ poll cycle of that process disappearing — announcing itself with a final
 `--- WATCHER EXIT --- reason=supervisor-gone` line — so a harsh agent death
 (crash / SIGKILL, which GNU `timeout`'s group-kill cannot reach) leaves no
 orphaned watcher writing a false-liveness heartbeat. The pid is MANDATORY:
-without it and without a composing `timeout` the watcher has no exit path.
-`--max-events-per-drain` bounds each drain pass (never the lifetime — the
-watcher keeps running; MCP-229). The canonical command and its rationale live
-in [`comms-all-channels-watcher.md`](comms-all-channels-watcher.md).
+without it and without a composing `timeout` the watcher has no ORDERLY
+exit path of its own — only a fatal step, a step deadline, or an external
+kill ends it. `--max-events-per-drain` bounds each drain pass (never the
+lifetime — the watcher keeps running; MCP-229).
 
 Run via Monitor `persistent: true`, **pipe-less** — the `comms watch`
 CLI already self-excludes and emits only relevant events, so no grep

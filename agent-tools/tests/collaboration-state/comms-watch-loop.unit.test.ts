@@ -196,7 +196,9 @@ describe('watchCommsLoop — contract per FM-2 cure (2026-05-23) + per-pass boun
 
   it('emits a WATCHER ERROR line when drain throws and continues the loop (Zephyrous slice 2 + slice 3 — bad event file no silent kill)', async () => {
     const emitted: string[] = [];
+    const ticks: number[] = [];
     let drainCalls = 0;
+    let waits = 0;
 
     await watchCommsLoop({
       maxEventsPerDrain: 1,
@@ -207,11 +209,16 @@ describe('watchCommsLoop — contract per FM-2 cure (2026-05-23) + per-pass boun
         }
         return { output: 'recovered\n', eventCount: 1, eventIds: ['evt-recovered'] };
       },
-      waitForChange: async () => undefined,
+      waitForChange: async () => {
+        waits += 1;
+      },
       emit: async (text) => {
         emitted.push(text);
       },
       markSeen: async () => undefined,
+      tick: async (status) => {
+        ticks.push(status.emittedCount);
+      },
       supervisorAlive: aliveUntil(() => emitted.includes('recovered\n')),
     });
 
@@ -221,6 +228,10 @@ describe('watchCommsLoop — contract per FM-2 cure (2026-05-23) + per-pass boun
     expect(emitted[0]).toContain('malformed JSON event file');
     expect(emitted).toContain('recovered\n');
     expect(emitted.at(-1)).toBe(EXIT_LINE('supervisor-gone', 1));
+    // A recoverable drain failure costs exactly ONE tick and ONE wait — the
+    // failing pass paces like any other (never a doubled or skipped cadence).
+    expect(ticks).toStrictEqual([0, 1]);
+    expect(waits).toBe(2);
   });
 
   it('emits a WATCHER ERROR when markSeen throws AND includes the event_ids (Zephyrous slice 5 — preservation constraint)', async () => {
@@ -306,61 +317,79 @@ describe('watchCommsLoop — contract per FM-2 cure (2026-05-23) + per-pass boun
     expect(emitted.includes('payload\n')).toBe(true);
   });
 
-  it('treats onError returning true as fatal: the loop exits announcing reason=fatal-step after the cause line', async () => {
-    let drainCalls = 0;
-    const emitted: string[] = [];
-    const errorKinds: WatcherErrorKind[] = [];
+  // The throwing waitForChange is itself the wait-unreached assertion: the
+  // loop contract forbids a rejecting waitForChange, so reaching it after a
+  // fatal ruling would reject the whole watch and fail the test.
+  it.each<{ kind: WatcherErrorKind; expectedCountAtExit: number }>([
+    { kind: 'drain', expectedCountAtExit: 0 },
+    { kind: 'emit', expectedCountAtExit: 0 },
+    { kind: 'markSeen', expectedCountAtExit: 1 },
+  ])(
+    'a fatal ruling on the $kind step exits the loop: cause line first, reason=fatal-step last (pre-MCP-229 polarity defect made emit/markSeen continue)',
+    async ({ kind, expectedCountAtExit }) => {
+      const emitted: string[] = [];
+      const errorKinds: WatcherErrorKind[] = [];
 
-    await watchCommsLoop({
-      drain: async () => {
-        drainCalls += 1;
-        throw new Error('boom');
-      },
-      waitForChange: async () => {
-        throw new Error('waitForChange must not be reached after fatal');
-      },
-      emit: async (text) => {
-        emitted.push(text);
-      },
-      markSeen: async () => undefined,
-      onError: async (kind) => {
-        errorKinds.push(kind);
-        return true;
-      },
-    });
+      await watchCommsLoop({
+        maxEventsPerDrain: 1,
+        drain: async () => {
+          if (kind === 'drain') {
+            throw new Error('drain step failed');
+          }
+          return ONE_PAYLOAD;
+        },
+        waitForChange: async () => {
+          throw new Error('waitForChange must not be reached after fatal');
+        },
+        emit: async (text) => {
+          if (kind === 'emit' && text === ONE_PAYLOAD.output) {
+            throw new Error('emit step failed');
+          }
+          emitted.push(text);
+        },
+        markSeen: async () => {
+          if (kind === 'markSeen') {
+            throw new Error('markSeen step failed');
+          }
+        },
+        onError: async (errorKind) => {
+          errorKinds.push(errorKind);
+          return true;
+        },
+      });
 
-    expect(drainCalls).toBe(1);
-    expect(errorKinds).toStrictEqual(['drain']);
-    // Cause line first, outcome line last.
-    expect(emitted[0]).toContain('kind=drain');
-    expect(emitted.at(-1)).toBe(EXIT_LINE('fatal-step', 0));
-  });
+      expect(errorKinds).toStrictEqual([kind]);
+      // Cause line immediately before the outcome line, outcome line last.
+      // (For markSeen the successfully-emitted payload precedes both.)
+      expect(emitted.at(-2)).toContain(`kind=${kind}`);
+      expect(emitted.at(-1)).toBe(EXIT_LINE('fatal-step', expectedCountAtExit));
+    },
+  );
 
-  it('a fatal ruling on the EMIT step exits the loop (the pre-MCP-229 polarity defect made it continue)', async () => {
-    let drainCalls = 0;
+  it('a fatal ruling on the excluded-ids markSeen exits the loop the same way (F-146 fatal path)', async () => {
     const emitted: string[] = [];
 
     await watchCommsLoop({
       maxEventsPerDrain: 1,
-      drain: async () => {
-        drainCalls += 1;
-        return ONE_PAYLOAD;
-      },
+      drain: async () => ({
+        output: '',
+        eventCount: 0,
+        eventIds: [],
+        excludedEventIds: ['hb-1'],
+      }),
       waitForChange: async () => {
         throw new Error('waitForChange must not be reached after fatal');
       },
       emit: async (text) => {
-        if (text === ONE_PAYLOAD.output) {
-          throw new Error('payload emit failed');
-        }
         emitted.push(text);
       },
-      markSeen: async () => undefined,
+      markSeen: async () => {
+        throw new Error('excluded markSeen failed');
+      },
       onError: async () => true,
     });
 
-    expect(drainCalls).toBe(1);
-    expect(emitted[0]).toContain('kind=emit');
+    expect(emitted[0]).toContain('kind=markSeen');
     expect(emitted.at(-1)).toBe(EXIT_LINE('fatal-step', 0));
   });
 
