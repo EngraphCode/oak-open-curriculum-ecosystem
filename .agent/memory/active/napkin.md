@@ -976,3 +976,250 @@ mortality and watcher gap windows, both already on the record. The recursion clo
 - Recorded: MCP-207 refinement comment; deferral tickets minted next with sequencing;
   Director map event follows. Milestone placement for the deferred tickets is proposed
   in prose only — owner agreement is the gate (milestones-propose-agree).
+
+## 2026-07-26 ~19:30Z — Dynamo spins Naphtha (2f5519): a rule indexed under its TOOL's name is a rule you will not apply
+
+- **Instance**: `bot-identity-on-third-party-systems` lists its action set explicitly —
+  "PR creation, comments, review replies, thread resolution, merges". I could quote the
+  rule, carried its merge mechanics in my handoff record, and still posted five PR
+  review replies under the owner's personal credential, because I had indexed it as a
+  MERGE rule. The tool that implements it is called `merge-bot`; the rule's trigger is
+  "ANY action on a third-party system". I filed it under the noun, not the trigger.
+- **Generality confirmed within the hour**: the Director found the same slip on two
+  #569 comments, and Skipper on PR #577 (cured by recreation as #578). Three seats, one
+  generator, none of them ignorant of the rule.
+- **The transferable shape**: when a rule's enforcement tooling has a narrower name
+  than the rule's trigger, the tool's name becomes the rule's mental index and the
+  trigger silently shrinks to match. Check any rule whose canonical tool is named after
+  ONE of its cases.
+- **Cure**: credential selection is a NAMED step before any third-party write, not a
+  property of the shell you inherited. Test — if the surface will display an author,
+  ask whose name it will show before pressing.
+
+## 2026-07-26 ~20:00Z — Dynamo spins Naphtha (2f5519): zsh does not word-split, and the bashism that reads empty
+
+- **`for id in $IDS`** silently iterated ONCE with the whole string: the heartbeat
+  loop's `claims heartbeat` leg passed all three claim ids as one `--claim-id`
+  argument and failed every tick. zsh does not word-split unquoted parameter
+  expansions. The comms-watcher rule already warns about this shape for
+  `${VAR:+$VAR 3600}`; the same trap has at least two more forms. **List items
+  literally in loops, or the loop is a lie.**
+- **`${PIPESTATUS[0]}`** is a bashism: in zsh it expands EMPTY, so `cmd | tail;
+  echo "EXIT:${PIPESTATUS[0]}"` prints `EXIT:` and proves nothing. This is the
+  piped-exit trap wearing a fourth costume — I had already been bitten three times
+  today by `cmd | tail; echo $?`. The fix is the same every time: **capture to a file,
+  echo `$?` unpiped, and for writes verify the remote STATE.**
+- Both are the same underlying error: trusting a shell construct's behaviour from
+  another shell's semantics instead of from THIS shell's observed output.
+
+## 2026-07-26 ~20:12Z — Swallow guards Tailwind (805902): MCP-201 DONE — clause-3 finding + owner ruling
+
+- **FINDING (full-set, first-hand)**: 2,348/12,391 served lessons (19.0%) are
+  `restricted` per upstream's live check-restricted endpoint. Enumerated the WHOLE
+  served set from the deployed `oak_lessons` alias (index oak_lessons_v2026-03-24-145540,
+  slug field read from the live mapping), batch-POSTed all of it (100/batch, paced,
+  0 anomalies). Per-subject sums reconcile exactly. Shape validates verdicts:
+  geography 50.6%, RE 45.2%, music 36.2%, cooking 36.1%, maths 0.6% — third-party-
+  licence footprint. 12 unanswered slugs = omitted from responses (unknown-slug
+  omission, NOT a restricted fallback). Identity list attached to MCP-201 (Linear
+  attachment); probe scripts in session scratchpad, deterministic, ~1 min re-run.
+- **OWNER RULING (direct card, ~19:07Z)**: Proceed Wednesday + MCP-204 urgent
+  fast-follow. MCP-201 → Done (contract fully discharged incl. clause-4 note: bulk
+  `restricted` boolean was 0/12,864 in June — reconciliation check rides MCP-153).
+  MCP-204 → Urgent, ruling recorded. Director's morning queue position 1 discharged
+  by the direct answer — relayed (event edeed486).
+- **Fleet adoptions for my lane**: (1) credential selection is a NAMED step before
+  EVERY GitHub write — minted bot token + worktree-scoped bot git config (Skipper's
+  extensions.worktreeConfig pattern) from my first MCP-152 commit; (2) #579 watcher
+  wedge cure reaches this seat at the Director's next coordination merge + agent-tools
+  rebuild (my re-armed watcher holds 300s step-timeout until then); (3) in-merge
+  thread re-check inside the merge command (Director-adopted fleet practice).
+- **~20:28Z CORRECTION (watcher dist referent)**: my "re-armed at 120s on the cured
+  dist" claim was FALSE when made — the Monitor ran `pnpm` from the WORKTREE, whose
+  agent-tools dist predates the #579 cure (base 835b30465), and it duly hit a 120s
+  drain timeout. "The primary rebuilt" ≠ "my invocation uses the primary's dist" —
+  referent-narrowing in my own runbook step. Cure: the watcher loop now invokes the
+  PRIMARY's dist by absolute path (`node <primary>/agent-tools/dist/...`), bypassing
+  workspace resolution. Worktree seats adopting the fleet cure must check WHICH dist
+  their invocation resolves, not whether "the" rebuild happened.
+
+## 2026-07-26 ~21:08Z — Swallow guards Tailwind (805902): MCP-152 landing 1 COMMITTED (bot-authored)
+
+- **Commits on the ticket branch**: 501f16cf7 (deferred-paths module + tests, UNWIRED by
+  design — the test-expert verified wiring-before-cache fails CI at every commit) +
+  96e8ecf4a (sdk-member-only wiring + regen at 0.7.0-c83593ca + canary alignment +
+  refresh-script --force=true + five doc surfaces trued). Tree CLEAN. Estate `pnpm
+  check` running in background; push + PR on green only.
+- **Worktree-scoped bot git config live** (extensions.worktreeConfig): worktree resolves
+  jimbot-oakington-iii[bot] (id 307435217, derived from git history), primary still
+  resolves the owner. Credential selection as a named step, per tonight's fleet wave.
+- **Review trail** (all Opus): pre-exec code-expert caught the api-schema-original.json
+  DOUBLE-WRITE (second writer wins — my planned filter placement would have silently
+  shipped a filtered "original"); architecture ruled boundary-placement PERMITTED,
+  sdk-member-only, no-middle-cuts invariant → homed in openapi-pipeline.md; docs ruled
+  NO ADR (adjudicated over architecture's C6 — expiring records fit no ADR status; the
+  permanent invariant got a permanent home instead); test caught the CI-breaking commit
+  sequencing; gateway = COMMIT after 5 fixes (all applied: dead `validated` member
+  deleted, tombstone removed, bearerFormat-removal named, two doc fixes) and falsified
+  my "removals of nothing" (bearerFormat JWT gone — inert; downloadsAvailable caveat
+  STRIPPED upstream — agent-facing content reduction, named in PR body).
+- **New tickets**: MCP-219 (SKIPPED_PATHS existence-assert fail-open — own ticket, NOT
+  MCP-214, which deletes the module a shared assert would die in). MCP-214 carries the
+  swapped-descriptions + copy-pasted-GET-description upstream facts for pickup.
+- **Remaining**: pnpm check green → push (verify remote state, never exit codes) → PR
+  via minted bot token (single-story, both commits) → conversations + settled →
+  Director merge word (in-merge thread re-check). Config-expert verdict outstanding;
+  gateway independently verified the script fix, reconcile if it lands different.
+- **~21:15Z: PR #581 OPEN.** Estate check exit 0 (117/117) at head; push verified by
+  ls-remote (remote == local == 96e8ecf4a); PR author verified app/jimbot-oakington-iii;
+  Director notified (event 522cd1ed); settle watch armed (change-only digest, 90s).
+  MCP-152 comment carries the PR + merge mechanics. Next in lane: review convergence
+  on #581 → settled → Director word → bot REST merge; then MCP-153 unblocks (still
+  also blocked by MCP-203). Config-expert reconciliation, if any, rides a review round.
+- **~21:26Z: #581 MERGED; MCP-152 DONE.** Settled read by name (17/17 incl. Sonar;
+  0/0 threads counted at the act; the one claude[bot] review = spend-limit skip notice,
+  never an agent concern, absence-not-a-blocker); Director word 21:24Z pinned to
+  96e8ecf4a; merge executed bot REST + merge commit + server-side sha pin + in-merge
+  guards (head unchanged, threads re-counted 0); merge commit 79bfe9dcc verified by
+  remote state. MCP-152 Done ~7h open-to-done (hours-grain DORA). Live verification of
+  the five shape-changed tools folds into MCP-153's clause-1 deployment probe (named
+  mechanism). Lane next: MCP-153 awaits MCP-203 only; MCP-214/215/219 stand sequenced.
+  Coordination branch will want a main merge at the Director's next quiet window.
+
+## 2026-07-27 ~07:55Z — Swallow guards Tailwind (805902): fresh bulk download — upstream FIXED their data; old shapes now reject everything
+
+- Owner-directed sequence executed: June data archived (`bulk-downloads-archive-2026-06/`,
+  manifest-dated 2026-06-10), fresh download 2026-07-27T07:48Z (33 files, 745.56 MB;
+  in-band exit verified — the first attempt failed on a wrong script name and the
+  task-level exit 0 LIED; the appended in-band echo caught it).
+- **Restricted content: present, flagged, not filtered.** 2,348/2,348 known-restricted
+  served lessons present with restricted:true; 3,372 marked total; bulk boolean now
+  reconciles 100% with the endpoints (MCP-201 clause-4 CONFIRMED). MCP-204 gains the
+  bulk field as an ingest-time source.
+- **Upstream resolved the contradiction from the DATA side**: schema.json byte-identical
+  to June; lessons gained oakUrl/canonicalUrl/restricted, units gained subjectSlug/
+  canonicalUrl/examSubjects (all schema-declared). MCP-205's central finding OVERTAKEN —
+  re-true before send. rshe-pshe gap closed upstream (both files present).
+- **Hand-authored shapes FAIL today's data: 0/32 files pass the strict gate**
+  (bulkDownloadFileSchema.safeParse, every file, first-hand) — unrecognized unit keys.
+  Owner's keep-if-working conditional fails on its condition; consequence contained
+  (gate only runs at ingest, already post-submission; served index untouched). The
+  rework (MCP-203) is now the definite pre-ingest step, landscape friendlier than
+  yesterday (no contradiction, restriction flag live).
+- Housekeeping: tracked manifest.json modified on primary (rides next landing);
+  archive dir untracked by design. Record: MCP-203 comments c8be2832 + 402ca38e.
+- **~08:30Z CORRECTION + owner-directed relocation**: executing the archive/download IN
+  THE PRIMARY was wrong — the shared checkout is fleet surface, and the rename moved
+  tracked files while the download rewrote tracked manifest.json on the coordination
+  working tree (my hand-rebuilt dir was also silently missing tracked .cursorignore/
+  .gitkeep). Generator: I resolved "that directory" to where the gitignored data
+  physically lived and priced a 635MB copy as more expensive than shared-surface
+  disruption — backwards. Cure executed: new worktree `mcp-203-bulk-rework` (ticket
+  branch, base 1ed1a26ca) now holds BOTH datasets (June archive + fresh download,
+  each verified byte-identical by full diff -rq before any removal); primary restored
+  EXACTLY (git status over apps/oak-search-cli EMPTY, June data back at its original
+  path). Transferable rule: data locality never overrides surface ownership — if the
+  operation mutates a shared working tree, it moves to a lane worktree or stops.
+
+## 2026-07-26 ~21:57Z — Schooner binds Trench (5492d7): PR-3 landing captures (at occurrence)
+
+- **F-116 is a HARD fail at the guard, not benign**: Skipper's handoff record said the
+  composed `index/head@<worktree>` claim's guard message was "benign — verify the queue
+  entry fingerprint instead"; first-hand: `commit-queue guard` EXITS 1 on it ("is not an
+  active git:index/head claim") and the ceremony cannot proceed. The record transmitted
+  a hypothesis as a disposition — the fleet cure (bare pattern + worktree named in the
+  claim intent) is the only working path today. Third instance, third seat; on the
+  Director's F-116 ticket via broadcast f55fe01f.
+- **`git add -- <deleted-path>` fatals when the deletion is already staged** (git rm'd,
+  file absent): pathspec matches nothing and the WHOLE add aborts (exit 128) — and the
+  hook policy rightly blocks the `-A` shortcut even with pathspecs. Cure: split the
+  bundle — `git add` only paths that exist on disk; staged deletions are already in the
+  index. Also: `git status --porcelain` collapses untracked DIRECTORIES — enqueue file
+  lists need `-uall` or a directory rides in as one "file" (caught before staging).
+- **Six ADRs' worth of review value from one round**: seven opus reviewers on the
+  uncommitted PR-3 tree found two gates-blind ship-stoppers (turbo env-less cache
+  replay of a baked localhost host into production — hash-identity proven; live
+  SC 1.4.10 reflow at 320px) plus four reviewers independently converging on the same
+  tsx lint-glob hole. The batch-cure-then-one-full-rerun shape held: 25 cure clusters,
+  one re-verification, 112/112. Mutation-probing the guards (design/test experts) found
+  real holes in MY hour-old exemption — reviewer-of-the-reviewer works.
+- **Chrome-moment fallback**: the dev server needs live credentials (env validation
+  fails in a worktree without .env.local), but pixels don't — a scratch dir with
+  index.html + symlinks to public/{oak-ds,oak-assets,favicons,landing-page.css} under
+  python http.server renders the baked page faithfully, credential-free. `open -a
+  "Google Chrome" <url>` delivers when the extension is down.
+
+## 2026-07-27 ~07:40Z — Schooner binds Trench (5492d7): wrap harvest (metacognition + concept-exploration, confabulation-guarded)
+
+- **READER-side claim classification at handoff pickup (seed, routed to Director/next
+  consolidation as a PDR-063/pickup-contract amendment candidate — NOT asserted doctrine)**:
+  handoff records are trusted per-document but claims decay per-claim, at class-dependent
+  rates: code-anchored claims held everywhere today; live-state descriptions are already
+  recompute-at-pickup doctrine; DISPOSITION/verdict claims ("benign", "cured", "satisfied")
+  have no mechanical contact until acted on and persist wrong the longest. Two instances:
+  Skipper's "F-116 guard message is benign — verify the fingerprint instead" hard-failed at
+  first contact (guard exit 1); the Triton→Lavender verification's 4 DIVERGED claims were
+  ALL estate-state descriptions. Honest bound that CHANGED the framing mid-exploration: the
+  "benign" claim may have been TRUE at write time — the 19:44Z agent-tools drain-cure
+  rebuild sits between Skipper's ceremony and mine and could have changed guard behaviour;
+  I did not check. So the sharpened claim: even honest dispositions decay across environment
+  changes — which strengthens the reader-side cure (classify at read; treat disposition-class
+  claims as to-verify at first contact) over any writer-side ledger addition. Falsifier: a
+  pickup that applies the classification and still enacts a false disposition.
+- **My own cures were the round's next defect surface**: Sonar caught 3 findings ALL inside
+  my review-round cures (regex backtracking/complexity in the react guard; duplicate selector
+  from the focus-ring scoping); the design expert mutation-caught my hour-old visually-hidden
+  exemption. The layered chain (reviewer → cure → Sonar/mutation on the cure) is not
+  redundancy — it is the correction for fluent-cure completion-drive, precisely the
+  metacognition directive's finish-line cluster. Stance adopted: a cure is a claim; it gets
+  the same verification tier as the finding it cures.
+- **Settle-watch denominator**: my #583 watch read "ALL TERMINAL: pass:2" honestly — stacked
+  PRs carry a reduced check set until retarget — but the script encoded no required-set
+  denominator; the by-name discipline exists for exactly this. Successor's settle watches
+  should carry the required check NAMES (post-retarget set) as the terminal condition.
+- **Standby-seat pattern evidence (for the estate's succession design)**: pre-reading the
+  lane's records while the predecessor was live made the PDR-063 pickup ~8 minutes from
+  heartbeat-end to adopted claim with my heartbeat ticking, with zero re-derivation. The
+  owner-launched standby is the cheapest succession shape observed on this lane to date.
+
+## 2026-07-27 — Dynamo spins Naphtha (2f5519), MCP implementer
+
+- **THE CLASS: doctrine asserts a guarantee its mechanism does not deliver.** Five instances
+  found in one morning, in five unrelated surfaces, each verified at the mechanism rather than
+  inferred: (1) the F-75 peer-liveness recipe claimed *"never an unbounded loop"* while its
+  `idle` counter advanced only on an EMPTY retired bucket — and the bucket is cumulative, so
+  the stand-down was structurally unreachable (FIXED, landed `a1c7e2081`); (2) `pr-lifecycle`'s
+  step-back predicate is fully mechanical but its only input, the tally store, is specified as
+  *persisted in the shepherd's working notes* — a human-discipline step that silently no-ops,
+  so #570 ran ten rounds with nothing counting and nothing firing; (3)
+  `comms-all-channels-watcher` says the Monitor *"re-arms a fresh watcher on exit"* and
+  distinguishes only live-agent-re-arms / dead-agent-does-not — there is a THIRD state, live
+  agent with no notification, which I hit twice; (4) `policy.json`'s stash entry reappraisal
+  says *"never use git stash to park"* while its patterns block only `drop`/`clear`, leaving
+  bare `git stash` — the exact form that cost me an hour — unguarded; (5) the watcher rule
+  describes `--max-events` as bounding the drain BATCH, and Schooner source-verified it as a
+  LIFETIME emission budget, silent by design.
+  **The estate already has the principle** — principles.md §"Target-architecture wording needs
+  consuming-runtime evidence" — but it is scoped to *"ADRs, runbooks, and operator docs"*. All
+  five failures are in RULES and SKILLS, outside that scope. The cheap cure is extending the
+  scope sentence; the expensive one is a validator. Falsifier for the class: a sixth instance
+  found in a surface the extended scope still would not cover.
+- **A mechanism whose firing depends on a step a tired agent will skip is not a tripwire.**
+  The general form of instance (2) above, and the reason the #570 step-back never fired. Any
+  "record it in your working notes" instrument should be read as unbuilt until proven
+  otherwise. The cure shape is derivation from the durable surface (the tally is computable
+  from the GraphQL review connection — each thread's originating review carries its
+  `commit.oid`) rather than from author diligence.
+- **Bash blocked-patterns are literal-substring ONLY** (`BlockedPatternEntrySchema`,
+  source-verified: bare string, or object with `pattern`/`citation`/`concept`/`reappraisal` —
+  no `kind`). The `kind: 'regex'` visible in `policy.json` belongs to `scoped_blocks` on
+  Edit/Write, NOT to the Bash surface. Consequence with teeth: a literal `git stash` pattern
+  would also block **`git stash pop`**, the RECOVERY command, trapping already-stashed work
+  permanently — a cure strictly worse than the defect. Two of the four cannot-recur tripwires
+  (stash guard, identity guard) are therefore blocked on extending the matcher to accept
+  `kind: 'literal' | 'regex'`, defaulting literal, unknown kinds degrading to literal so the
+  guard never fails closed (a closed guard bricks the worktree including its own rebuild).
+- **A partial guard on an irreversible class reads as covered when it is not.** Declined to
+  land the safe-but-narrow `git stash push`/`save` patterns as an interim: they do not catch
+  bare `git stash`, so they would not have prevented the instance that motivated them, while
+  making the row look closed on the board.
