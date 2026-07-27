@@ -1223,3 +1223,51 @@ mortality and watcher gap windows, both already on the record. The recursion clo
   land the safe-but-narrow `git stash push`/`save` patterns as an interim: they do not catch
   bare `git stash`, so they would not have prevented the instance that motivated them, while
   making the row look closed on the board.
+
+## 2026-07-27 closeout — Dynamo spins Naphtha (2f5519): the verifier is the unverified part
+
+- **THE SHARPER FORM of today's pattern: it is not that my mechanism claims fail, it is that
+  my VERIFICATION INSTRUMENTS go unverified.** Three instances inside two hours, each caught
+  only by a second, different check: (1) I called a `claims set-handoff` write a false green —
+  the write had succeeded and `claims list` simply does not project `handoff_record_path`; the
+  registry file said so directly. (2) I queried the comms stream for my own closeout broadcasts
+  with a filter of `> 09:50:00Z` at 09:46 — I filtered on the future and read the empty result
+  as absence. (3) MCP-227's entire premise came from a TSDoc comment DESCRIBING a zod schema
+  rather than the schema literal; the literal carries `match: z.enum(BLOCKED_PATTERN_MATCH_KINDS)`
+  and regex was supported all along. In all three the thing under test was fine and the
+  instrument was broken. **Cure: when a check returns a surprising NEGATIVE, suspect the check
+  before the subject — a negative result from an unverified instrument is not evidence.**
+- **The doctrine-vs-mechanism class is BIDIRECTIONAL.** Today's entry above framed it as
+  doctrine asserting MORE than the mechanism delivers. Instance six ran the other way: a
+  docstring asserting LESS than its schema delivers, which cost a wrongly-scoped ticket, a
+  false blocker claim in a Director handover, and an argued-for piece of work that did not need
+  doing. The cure (extending principles.md §"Target-architecture wording" to rules and skills)
+  should require BOTH directions: the doc must not over-claim, and must not under-describe.
+- **A watcher re-arm must re-check its MANDATORY PAIR, not just itself.** `--exclude-tag
+  heartbeat` is contractually paired with the F-75 peer-liveness poll. The owner's x-stop killed
+  BOTH at ~08:17Z; I then re-armed the watcher THREE times over 90 minutes, verifying its
+  heartbeat file each time, and never once noticed its pair was dead. Every check I ran was
+  green and the seat was out of contract and blind to peer retirement throughout. Pair
+  invariants need a pair-level check; a per-process check cannot see them by construction.
+- **The assumption ledger earned itself inside ten minutes.** Writing "flag all assumptions"
+  for the handover is what forced the admission that MCP-227's premise was a docstring read;
+  one command then falsified it, before anyone built anything. Every other correction on this
+  seat today arrived from outside it (owner x2, Director, Schooner x3, the comms concept gate,
+  `skills:check`). The ledger is the only instrument that made an error of mine visible from
+  the inside — which is an argument for writing one at every handover, not only at wrap.
+
+## 2026-07-27 ~10:15Z — Squall wakes Apex (459fd1): two self-captures at wrap
+
+- **SHA fabrication caught by the exact-head pin**: merging #578 I
+  reconstructed a full 40-char SHA from a 9-char prefix — invented 31 hex
+  characters — and GitHub's head-check refused the merge against my own
+  fake input. Identifiers are DERIVED from the record at time of use,
+  never reconstructed; the same never-invent-identities rule that covers
+  names covers oids. The retry carried the real headRefOid and merged
+  clean.
+- **Paired-poll contract gap, self-applied**: all twelve of my watcher
+  re-arms ran --exclude-tag heartbeat with no paired F-75 peer-liveness
+  poll — the exact defect Dynamo captured at closeout, longer duration on
+  my seat. Ad-hoc claims-freshness reads partially covered it. Cure at
+  next re-arm: the pair-check is part of the re-arm ceremony (now also in
+  the unpause broadcast).

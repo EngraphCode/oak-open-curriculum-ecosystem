@@ -264,8 +264,84 @@ first-hand as of 2026-06-25.
 
 > ### ▶ SITTING DIRECTOR: Squall wakes Apex (`459fd1`), seated 2026-07-26 at owner word (Moment-2 `f1d9a6f2`); claim `56fdd977`, role director
 >
-> Refreshed 2026-07-26 ~13:10Z at the day's second compaction boundary (seat
-> continues). Verify every line live at pickup — this section decays.
+> **COMPACTION REFRESH 2026-07-27 ~10:20Z — this block supersedes the
+> 2026-07-26 blocks below where they conflict; verify every line live.**
+>
+> **The morning that reshaped the estate**: the owner ran an UNTANGLING
+> session (~08:00–10:00Z) fixing the fuckups threatening Wednesday's
+> submission. Landed as doctrine (commits a1c7e2081, 04b299d44,
+> 6813798ab): the REVIEW-TRIAGE rule (pr-lifecycle §Phase 4, owner
+> verbatim, seat-level: reject incorrect / address
+> correct+relevant+proportionate / else ticket+tell-Director+CLOSE);
+> §Loop Dynamics in concept-exploration (state-vs-dynamics, bidirectional
+> doctrine-vs-mechanism class — SIX instances found 2026-07-27);
+> proportionality skill (Dynamo-authored); ticket-management skill (the
+> graph is authored, not endured); confident-seats-proceed-and-report
+> rule (in-lane proceeds on recorded confidence; freeze-bound + merge
+> execution still gate); design-work-for-small-prs rule (PERMANENT,
+> owner bands: ~5 files normal / 10 acceptable / 20 a problem, decompose
+> at DESIGN time); trigger-first amendments to bot-identity (fires at
+> EVERY third-party write), never-use-git-to-remove-work (tree-state +
+> command), worktree-hygiene (claim-open + first source edit); the
+> principles evidence-rule scope now covers RULES and SKILLS.
+>
+> **Fleet at 10:20Z**: Dynamo CLOSED at owner word (mistake pattern:
+> mechanism claims raced ahead of source; honest assumption LEDGER at
+> closeout — verified/read-not-run/inferred/inherited/stale in the ARC
+> channel rapid-comms/2026-07-27-doctrine-landing-…md; claims 5681b4f1
+> (#570) + 385cf282 (#574) RETAINED for Director ROUTING, carriers
+> needed — #570 has SEVEN read-not-run fixes adjudicated-unpushed at
+> event 92af6f15, #574 has 2 unadjudicated threads). Schooner: LANE GO
+> MCP-229 (comms-watch hardening: per-pass max-events, WATCHER EXIT
+> lines, rule truing incl. x-stop-invisibility; claim 1784770c, single
+> PR, merge on word). Smelter: ACTIVE on MCP-103 (c)/(d) per DIRECT
+> owner rulings (one context-rich workspace; latest-main; small-story
+> PRs; #582 rebases onto main + lineage repair; their watcher/heartbeat
+> DELIBERATELY stopped at owner request — no peer-check fires).
+> Swallow: MCP-226 (13-field gate bridge) → MCP-153 per owner
+> re-sequenced chain; MCP-203 post-submission. Cutter: #576 draft by
+> declared scope (transport proof + ADR-218 outstanding). Design lane
+> SEATLESS (claim 68088465 retained, PR-4 pickup record
+> handoffs/2026-07-27-schooner-mcp-128-pr4-pickup.md; PR-4 proceeds on
+> ISLAND HYDRATION per MCP-220 adjudication, owner-override open).
+>
+> **THE REACT-PAGE TRAIN (owner priority, IN MOTION on the Director's
+> arm)**: #578 MERGED 27e672209 (~10:10Z, bot REST, in-merge re-check;
+> note the SHA-fabrication capture in napkin — carry FULL oids, never
+> reconstruct). NEXT: #580 retargets to main automatically, full checks
+> re-run, then the VERCEL PREVIEW PROBE gate (/, /oak-ds/styles.css,
+> logo — all 200, posted as PR evidence) BEFORE its settled read → word
+> → merge; then #583 retargets, FULL by-name suite fires first time →
+> settled → word → merge → production deploy serves the page at
+> curriculum-mcp-alpha.oaknational.dev (boot-throw makes green
+> deploy = page-serves proof). PR-4..6 NOT needed for live.
+>
+> **Watcher truth (morning investigation, CLOSED)**: five death classes;
+> budget exits are silent BY DESIGN (--max-events = lifetime EMITTED
+> budget, no CLI default); owner x-stops are INVISIBLE in-session
+> (calibrated — verify liveness after owner-active windows, vanished
+> task = probably-owner); the contention wedge is cured (#579, drains
+> ~1s at full corpus); MCP-229 carries the fixes. RE-ARM CEREMONY: check
+> the MANDATORY PAIR (F-75 peer-liveness poll) — Dynamo's closing
+> capture; this seat's 12 re-arms all violated it (napkin).
+>
+> **OWNER-SIDE QUEUE at 10:20Z**: (1) MCP-172 EXECUTION legs — domain
+> SETTLED at `www.thenational.academy/mcp` (owner word ~09:15Z, verbatim
+> on ticket): Cloudflare route/Worker, Clerk config intersection
+> (MCP-143), conformance re-run against the new origin pre-submission.
+> (2) MCP-117 PostHog key ceremony. (3) MCP-202 operator probe.
+> (4) MCP-192 secrets-environment finding: STILL no ticket, no owner
+> decision — OLDEST undischarged item (since 2026-07-26), owner-grade,
+> recommend card first. (5) Carriers for: #570/#574 resumption,
+> MCP-227 (RESCOPED: regex match kind ALREADY EXISTS — pattern-add +
+> pop-test only), MCP-228 (GraphQL-derived tally), MCP-199/200/216/217/
+> 218 (orphans). (6) Recommended two-line edit: principles evidence rule
+> → BIDIRECTIONAL (under-claiming cost a wrongly-scoped ticket).
+> MCPJam creds tmp copy DELETED at wrap (custody discharged).
+>
+> Older 2026-07-26 blocks below retain merge/bridge/ruling detail still
+> in force (Codex connector bridge, settled definition, freeze list,
+> platform facts). Verify against live state — sections decay.
 >
 > **The work directed**: the V1 release drive toward the initial submission
 > (the M0 window; ALL dates and vendor timing live in Linear ONLY). Today's

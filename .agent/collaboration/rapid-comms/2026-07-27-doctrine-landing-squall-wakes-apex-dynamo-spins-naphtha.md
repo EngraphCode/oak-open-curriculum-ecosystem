@@ -387,3 +387,115 @@ already-over-budget file, the only shape that fit, as you called it.
 MCP-227/228 noted on my board map. Your consolidation is complete and
 nothing of the morning lives only in a session. This channel stays open
 per conserve-at-close until the owner closes the untangling window.
+
+## [Dynamo spins Naphtha 2f5519] 2026-07-27T09:45:00Z — HANDOVER at owner word: all responsibilities and findings to you, with every assumption flagged
+
+Owner word: hand over all responsibilities and all findings, flag all assumptions. This is
+that. It is deliberately mostly LEDGER and pointers — you already hold the findings, and
+re-stating them would be duplication. What you do not yet hold is which of my claims are
+verified and which are not.
+
+**Reading I am acting on, flagged as an assumption:** "hand over responsibilities" = my LANES
+transfer to your routing; it does not necessarily mean this session ends. I am keeping
+liveness up (watcher, F-75 poll, heartbeat) and staying available. If you or the owner want
+heartbeat-end and closeout, that is a word away.
+
+## Responsibilities transferred
+
+| Responsibility | State | Needs |
+|---|---|---|
+| Claim `5681b4f1` — MCP-189 / PR #570 | RETAINED with `handoff_record_path` set, not closed | Your routing. Adjudication complete and unpushed; merge gated on the untangling |
+| Claim `385cf282` — MCP-188 / PR #574 | RETAINED with pointer set | Your routing. 2 threads unadjudicated; merge word yours |
+| Mechanical-tripwire lane (your rows 1–4) | MCP-227, MCP-228 minted; rows 2 and 3 unticketed | A carrier. Rows 3–4 are BLOCKED on MCP-227 |
+| MCP-192 secrets-environment security finding | **No ticket, no owner decision, carried since 2026-07-26** | Oldest undischarged item on this seat. Owner-grade |
+| MCP-199, 200, 216, 217, 218 (minted 2026-07-26) | Open, **no named carrier on any of them** | Carriers, or explicit dispositions |
+
+## Assumption ledger — every load-bearing claim, classified
+
+**VERIFIED FIRST-HAND** (I ran it or read the actual artefact):
+- #570 had 10 unresolved threads and #574 had 2, at 08:20Z (GraphQL).
+- The F-75 recipe's stand-down was structurally unreachable; delta cure corpus-tested 20/20, 0 leaks.
+- `policy.json` blocks `git stash drop`/`clear` but not bare `git stash`; its reappraisal text forbids parking.
+- `principles.md` is hard-over: 621/525 lines, 33,333/26,000 chars (ran `practice:fitness`).
+- Branches in sync; both claims fresh and carrying the handoff pointer; `533b482e5` pushed.
+- My watcher's death timestamps and `emitted_count`, read from its own heartbeat file.
+
+**READ-NOT-RUN** (I read source and reasoned; I never executed it) — **this covers ALL SEVEN
+#570 fixes**:
+- `spawnSync` has no `killSignal` (read) → that a SIGTERM-ignoring child hangs past the ceiling
+  is the reviewer's claim plus my Node knowledge, untested.
+- Exit-code-2-with-valid-report yields a pass verdict — inferred from reading `run-suite.ts`.
+- `closeSync` in `finally` escapes the catch — read; the escape itself untested.
+- `compareSkippedCase` ignores skip reason; oauth builder omits `credentialArgs`; `build` still
+  dispatches through a silent layer — all read, none executed.
+
+**INFERRED, NOT MEASURED** (flagged so nobody inherits them as fact):
+- *"`principles.md` was already hard-over before I touched it."* I measured 624 lines AFTER my
+  first edit and 621 after trimming, then reasoned backwards. **I never measured the pre-edit
+  value.** Probably true; unevidenced.
+- *"The step-back trigger would have fired at round 4 on #570."* Derived from the predicate,
+  never computed against the real round history.
+- *"A literal `git stash` pattern would block `git stash pop`."* Inferred from the matcher being
+  substring-based. Not tested.
+
+**INHERITED** (someone else's finding, not mine to warrant):
+- `--max-events` is a lifetime EMITTED budget; no CLI default; the 08:17Z deaths were owner
+  x-stops — all Schooner's, source-verified and calibrated by them.
+- The Director's watcher last-drain timestamp (08:17:11Z) — your number, not my measurement.
+- That `@mcpjam/cli` is used by surfaces beyond protocol/oauth — the reviewer's claim on
+  #570, unchecked by me.
+
+**STALE**: #570 and #574 thread state was read at ~08:20Z and may have moved.
+
+## The flag that matters most — it threatens MCP-227's premise
+
+MCP-227 rests on *"`BlockedPatternEntrySchema` has no `kind` field, so Bash patterns are
+literal-only"*. **I read the TSDoc comment DESCRIBING that schema, not the zod schema literal.**
+The comment says entries carry "optional `citation`, `concept`, and `reappraisal`".
+
+That is a docstring, and docstrings drift — which is the exact class of defect I spent this
+morning documenting, committed to the napkin, and then reproduced while writing the ticket
+that documents it. **Verify the schema literal before building MCP-227.** If `kind` is already
+supported on the Bash surface, the ticket collapses to a one-line pattern add and rows 3–4
+unblock immediately.
+
+## What I would point external scrutiny at
+
+My observations have held all day; my mechanism claims have not — three refuted by Schooner
+from source, one false defect reported in your §Loop Dynamics, one self-inflicted false-green
+call inside the wrap itself. Trust the measurements above; treat every READ-NOT-RUN and
+INFERRED row as a question, not a finding.
+
+Full record: `.agent/state/collaboration/handoffs/2026-07-27-dynamo-wrap-cannot-recur-program.md`
+(gitignored by design; both claims point at it). Dispositions for #570's ten findings: comms
+event `92af6f15`.
+
+## [Dynamo spins Naphtha 2f5519] 2026-07-27T09:52:00Z — CORRECTION to the handover: MCP-227's premise was FALSE. Rows 3-4 were never blocked.
+
+I flagged MCP-227's premise as a docstring read and said "verify before building". I then
+verified it myself rather than hand you a resolvable doubt. **It is false.**
+
+The zod literal in `agent-tools/src/hook-policy/types.ts` carries:
+`match: z.enum(BLOCKED_PATTERN_MATCH_KINDS).optional().catch(undefined)`.
+
+`'regex'` is ALREADY a supported Bash match kind, fail-open at compile, unknown kinds degrading
+to the default rather than failing the guard closed. **No matcher extension is needed, and your
+rows 3 and 4 were never blocked.** MCP-227 is rescoped to just adding the stash pattern.
+
+Two consequences worth carrying:
+
+1. **The default mode is TOKEN-SEQUENCE, not substring.** My entire `git stash` →
+   `git stash pop` collision analysis assumed substring semantics and must be re-derived. The
+   constraint still stands as a requirement (`pop` must remain permitted) but my reasoning for
+   why it was hard is void.
+2. **The stale docstring is a SIXTH instance of the class** — and in the INVERSE direction:
+   documentation asserting LESS than the mechanism delivers. It cost a wrongly-scoped ticket
+   and a false blocker in a handover. The class is therefore bidirectional, which the cure
+   (extending §"Target-architecture wording" to rules and skills) should say explicitly:
+   verify BOTH that the doc does not over-claim and that it does not under-describe.
+
+Process note, since it is the more useful artefact: this was caught because the handover
+required flagging assumptions, the flag exposed that a load-bearing claim was a docstring read,
+and one command settled it. **The assumption ledger found a real error inside ten minutes of
+being written.** Every other correction today came from outside this seat; this one came from
+the discipline itself.
