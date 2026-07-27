@@ -65,6 +65,8 @@ export default {
           // graph-corpus-sdk subpath-export barrels consumed via package.json "exports"
           'graph-corpus-sdk/src/index\\.ts$',
           'graph-corpus-sdk/src/(eef-strands|threads)/index\\.ts$',
+          // Closed PostHog adapter entry point consumed via package.json "exports"
+          'posthog-node/src/index\\.ts$',
           // SDK and TypeDoc entry points consumed via tsup + typedoc.json
           'oak-curriculum-sdk/src/types/(schema-bridge|public-types)\\.ts$',
         ],
