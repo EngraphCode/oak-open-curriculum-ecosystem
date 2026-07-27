@@ -491,9 +491,12 @@ paths, setup files) don't apply.
   target schema is not proof that an app has migrated; the proof
   is the import resolved in a built composition root. Use future
   tense or "intended" when authoring without runtime evidence;
-  reserve present tense for verified state. ADRs, runbooks, and
-  operator docs fail this rule loudest because they are cited as
-  authority. Companion to "Misleading docs are blocking": that rule
+  reserve present tense for verified state. ADRs, runbooks,
+  operator docs, RULES, and SKILLS all bind here — a rule or skill
+  claiming a guarantee its mechanism does not deliver is the same
+  defect and is cited as authority just as hard (five instances in
+  five surfaces, 2026-07-27; falsifier for the class: a sixth
+  instance in a surface this scope still misses). Companion to "Misleading docs are blocking": that rule
   fires after the misstatement lands; this rule prevents authoring
   the misstatement in the first place.
 
