@@ -110,15 +110,20 @@ Monitor:
 pnpm agent-tools:collaboration-state -- comms watch \
   --comms-dir .agent/state/collaboration/comms \
   --seen-file ".agent/state/collaboration/comms-seen/<agent-name>.json" \
-  --platform <claude|codex|cursor> --model <model-id> --supervisor-pid "$PPID" 2>&1
+  --platform <claude|codex|cursor> --model <model-id> --supervisor-pid "$PPID" \
+  --max-events-per-drain 100 2>&1
 ```
 
 `--supervisor-pid "$PPID"` binds the watcher's lifetime to the agent session
 that spawned it (the F-101 crash-orphan cure): the watcher self-exits within one
-poll cycle of that process disappearing, so a harsh agent death (crash / SIGKILL,
-which GNU `timeout`'s group-kill cannot reach) leaves no orphaned watcher writing
-a false-liveness heartbeat. The canonical command and its rationale live in
-[`comms-all-channels-watcher.md`](comms-all-channels-watcher.md).
+poll cycle of that process disappearing — announcing itself with a final
+`--- WATCHER EXIT --- reason=supervisor-gone` line — so a harsh agent death
+(crash / SIGKILL, which GNU `timeout`'s group-kill cannot reach) leaves no
+orphaned watcher writing a false-liveness heartbeat. The pid is MANDATORY:
+without it and without a composing `timeout` the watcher has no exit path.
+`--max-events-per-drain` bounds each drain pass (never the lifetime — the
+watcher keeps running; MCP-229). The canonical command and its rationale live
+in [`comms-all-channels-watcher.md`](comms-all-channels-watcher.md).
 
 Run via Monitor `persistent: true`, **pipe-less** — the `comms watch`
 CLI already self-excludes and emits only relevant events, so no grep
@@ -130,7 +135,9 @@ every event** while the watcher process stays healthy (drain + markSeen
 advance, heartbeat fresh) — a silent blinding (worked instance
 2026-06-21, owner-caught after ~50 min / ~10 missed events). If you must
 filter for noise, anchor on the real emit
-(`grep --line-buffered -E '^--- NEW|WATCHER ERROR|kind=timeout'`) and
+(`grep --line-buffered -E '^--- NEW|WATCHER ERROR|WATCHER EXIT|kind=timeout'`
+— omitting `WATCHER EXIT` swallows the watcher's own orderly-exit
+announcement) and
 **test it against one real held-back event first** (the
 `comms-all-channels-watcher.md` "test your filter against one event of
 each shape" discipline). The canonical invocation lives in

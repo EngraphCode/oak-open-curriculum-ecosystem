@@ -1,3 +1,37 @@
+# [1.94.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.93.0...v1.94.0) (2026-07-27)
+
+
+### Bug Fixes
+
+* **agent-tools:** epipe guard listener-safe and tested, exit-line builder, probe caps (MCP-229) ([fa0a313](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/fa0a3132e37f630d23f8f2c642a49410181c05b7))
+
+
+### Features
+
+* **agent-tools:** per-pass --max-events-per-drain and in-band watcher exit reasons (MCP-229) ([84e8cfc](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/84e8cfc20b5dbb1c79f8d998f97b817621cc6609))
+* **search-cli:** apply the restricted-lesson exclusion at the ingest boundary (MCP-153) ([a55d447](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a55d447fa10cf894b7b018cd8a0a73df93a1d741))
+
+# [1.93.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.92.0...v1.93.0) (2026-07-27)
+
+
+### Features
+
+* **sdk-codegen:** exclude restricted lessons at the bulk-data boundary (MCP-153) ([4bb6382](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4bb63823c098b496a6754883fc9cd68a9e077355))
+
+# [1.92.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.91.0...v1.92.0) (2026-07-27)
+
+
+### Features
+
+* **sdk-codegen:** declare the 13 new upstream bulk fields, schema-transcribed (MCP-226) ([2da6fbc](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2da6fbc548225525337662f67e05d01518e0376a))
+
+# [1.91.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.90.0...v1.91.0) (2026-07-27)
+
+
+### Features
+
+* **mcp-app:** serve the Oak design system and brand assets from the app ([d00c247](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d00c2475dbda1ef483e23e0e61e7d763b747ccac))
+
 # [1.90.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.89.0...v1.90.0) (2026-07-27)
 
 

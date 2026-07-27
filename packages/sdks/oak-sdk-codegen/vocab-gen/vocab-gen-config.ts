@@ -60,6 +60,8 @@ export interface PipelineResult {
   readonly totalNCStatements: number;
   /** Number of unique threads extracted */
   readonly uniqueThreads: number;
+  /** Restricted lessons excluded before extraction (MCP-204 filter decision) */
+  readonly restrictedLessonsExcluded: number;
   /** List of output files generated */
   readonly outputFiles: readonly string[];
   /** Duration of the pipeline run in milliseconds */

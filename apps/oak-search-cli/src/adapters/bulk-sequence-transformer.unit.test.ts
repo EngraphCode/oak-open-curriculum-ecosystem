@@ -23,6 +23,9 @@ function createMinimalBulkFile(overrides?: Partial<BulkDownloadFile>): BulkDownl
     subjectTitle: 'Mathematics',
     sequence: [
       {
+        canonicalUrl:
+          'https://www.thenational.academy/teachers/programmes/maths-primary-ks2/units/fractions-year-1/lessons',
+        subjectSlug: 'maths',
         unitSlug: 'fractions-year-1',
         unitTitle: 'Fractions Year 1',
         year: 1,
@@ -38,6 +41,9 @@ function createMinimalBulkFile(overrides?: Partial<BulkDownloadFile>): BulkDownl
         ],
       },
       {
+        canonicalUrl:
+          'https://www.thenational.academy/teachers/programmes/maths-primary-ks2/units/fractions-year-2/lessons',
+        subjectSlug: 'maths',
         unitSlug: 'fractions-year-2',
         unitTitle: 'Fractions Year 2',
         year: 2,
@@ -52,6 +58,9 @@ function createMinimalBulkFile(overrides?: Partial<BulkDownloadFile>): BulkDownl
         ],
       },
       {
+        canonicalUrl:
+          'https://www.thenational.academy/teachers/programmes/maths-primary-ks2/units/fractions-year-3/lessons',
+        subjectSlug: 'maths',
         unitSlug: 'fractions-year-3',
         unitTitle: 'Fractions Year 3',
         year: 3,
@@ -69,6 +78,9 @@ function createMinimalBulkFile(overrides?: Partial<BulkDownloadFile>): BulkDownl
     ],
     lessons: [
       {
+        oakUrl: 'https://www.thenational.academy/teachers/lessons/lesson-1',
+        canonicalUrl:
+          'https://www.thenational.academy/teachers/programmes/maths-primary-ks2/units/fractions-year-1/lessons/lesson-1',
         lessonSlug: 'lesson-1',
         lessonTitle: 'Lesson 1',
         unitSlug: 'fractions-year-1',
@@ -87,6 +99,9 @@ function createMinimalBulkFile(overrides?: Partial<BulkDownloadFile>): BulkDownl
         downloadsavailable: true,
       },
       {
+        oakUrl: 'https://www.thenational.academy/teachers/lessons/lesson-4',
+        canonicalUrl:
+          'https://www.thenational.academy/teachers/programmes/maths-primary-ks2/units/fractions-year-3/lessons/lesson-4',
         lessonSlug: 'lesson-4',
         lessonTitle: 'Lesson 4',
         unitSlug: 'fractions-year-3',
@@ -148,6 +163,9 @@ describe('bulk-sequence-transformer', () => {
       const bulkFile = createMinimalBulkFile({
         sequence: [
           {
+            canonicalUrl:
+              'https://www.thenational.academy/teachers/programmes/maths-primary-ks2/units/physics-year-11/lessons',
+            subjectSlug: 'maths',
             unitSlug: 'physics-year-11',
             unitTitle: 'Physics Year 11',
             year: 11,
@@ -160,6 +178,9 @@ describe('bulk-sequence-transformer', () => {
             unitLessons: [],
           },
           {
+            canonicalUrl:
+              'https://www.thenational.academy/teachers/programmes/maths-primary-ks2/units/physics-year-7/lessons',
+            subjectSlug: 'maths',
             unitSlug: 'physics-year-7',
             unitTitle: 'Physics Year 7',
             year: 7,
@@ -172,6 +193,9 @@ describe('bulk-sequence-transformer', () => {
             unitLessons: [],
           },
           {
+            canonicalUrl:
+              'https://www.thenational.academy/teachers/programmes/maths-primary-ks2/units/physics-all-years/lessons',
+            subjectSlug: 'maths',
             unitSlug: 'physics-all-years',
             unitTitle: 'Physics All Years',
             year: 'All years',
@@ -184,6 +208,9 @@ describe('bulk-sequence-transformer', () => {
             unitLessons: [],
           },
           {
+            canonicalUrl:
+              'https://www.thenational.academy/teachers/programmes/maths-primary-ks2/units/physics-year-10/lessons',
+            subjectSlug: 'maths',
             unitSlug: 'physics-year-10',
             unitTitle: 'Physics Year 10',
             year: 10,
@@ -230,6 +257,9 @@ describe('bulk-sequence-transformer', () => {
       const bulkFile = createMinimalBulkFile({
         sequence: [
           {
+            canonicalUrl:
+              'https://www.thenational.academy/teachers/programmes/maths-primary-ks2/units/all-years-unit/lessons',
+            subjectSlug: 'maths',
             unitSlug: 'all-years-unit',
             unitTitle: 'All Years Unit',
             year: 'All years',
@@ -323,6 +353,9 @@ describe('bulk-sequence-transformer', () => {
       const bulkFile = createMinimalBulkFile({
         sequence: [
           {
+            canonicalUrl:
+              'https://www.thenational.academy/teachers/programmes/maths-primary-ks2/units/physics-year-11/lessons',
+            subjectSlug: 'maths',
             unitSlug: 'physics-year-11',
             unitTitle: 'Physics Year 11',
             year: 11,
@@ -335,6 +368,9 @@ describe('bulk-sequence-transformer', () => {
             unitLessons: [],
           },
           {
+            canonicalUrl:
+              'https://www.thenational.academy/teachers/programmes/maths-primary-ks2/units/physics-all-years/lessons',
+            subjectSlug: 'maths',
             unitSlug: 'physics-all-years',
             unitTitle: 'Physics All Years',
             year: 'All years',
@@ -347,6 +383,9 @@ describe('bulk-sequence-transformer', () => {
             unitLessons: [],
           },
           {
+            canonicalUrl:
+              'https://www.thenational.academy/teachers/programmes/maths-primary-ks2/units/physics-year-10/lessons',
+            subjectSlug: 'maths',
             unitSlug: 'physics-year-10',
             unitTitle: 'Physics Year 10',
             year: 10,
@@ -476,6 +515,9 @@ describe('bulk-sequence-transformer', () => {
         subjectTitle: 'Science',
         sequence: [
           {
+            canonicalUrl:
+              'https://www.thenational.academy/teachers/programmes/science-primary-ks1/units/plants-year-1/lessons',
+            subjectSlug: 'science',
             unitSlug: 'plants-year-1',
             unitTitle: 'Plants Year 1',
             year: 1,
@@ -490,6 +532,9 @@ describe('bulk-sequence-transformer', () => {
         ],
         lessons: [
           {
+            oakUrl: 'https://www.thenational.academy/teachers/lessons/plant-lesson-1',
+            canonicalUrl:
+              'https://www.thenational.academy/teachers/programmes/science-primary-ks1/units/plants-year-1/lessons/plant-lesson-1',
             lessonSlug: 'plant-lesson-1',
             lessonTitle: 'Plant Lesson 1',
             unitSlug: 'plants-year-1',

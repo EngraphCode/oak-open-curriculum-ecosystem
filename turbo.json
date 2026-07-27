@@ -77,7 +77,7 @@
     "@oaknational/oak-curriculum-mcp-streamable-http#build": {
       "dependsOn": ["^build"],
       "cache": true,
-      "outputs": ["dist/**", ".tsup/**"],
+      "outputs": ["dist/**", ".tsup/**", "public/oak-ds/**", "public/oak-assets/**"],
       "inputs": [
         "$TURBO_DEFAULT$",
         "$TURBO_ROOT$/tsconfig.base.json",
@@ -87,7 +87,32 @@
         "tsup.config.ts",
         "src/**/*.ts",
         "!src/**/*.test.ts",
-        "!src/**/*.spec.ts"
+        "!src/**/*.spec.ts",
+        // The design system is copied into public/oak-ds at build time. It has
+        // no build script, so ^build contributes no hash leg for it — without
+        // these inputs a design-system edit replays a stale bundle.
+        "$TURBO_ROOT$/packages/design/oak-design-system/**",
+        "!$TURBO_ROOT$/packages/design/oak-design-system/studio-source/**",
+        // Same reasoning for the brand artwork: copied at build time, no build
+        // script of its own, so nothing else contributes a hash leg for it.
+        "$TURBO_ROOT$/packages/design/oak-design-assets/**"
+      ]
+    },
+    "@oaknational/oak-curriculum-mcp-streamable-http#test": {
+      // Own `build` (which already implies ^build): suites that construct
+      // the app read the copied design system under public/ at boot, and the
+      // build is that tree's sole writer — a cache hit restores it. The
+      // design-system hash legs live on #build and fold into this task's
+      // hash through the dependency, so a design-system-only edit re-runs
+      // these suites rather than replaying a stale green verdict.
+      "dependsOn": ["build"],
+      "cache": true,
+      "outputs": [],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "**/*.ts",
+        "vitest.config.ts",
+        "$TURBO_ROOT$/vitest.config.base.ts"
       ]
     },
     "@oaknational/oak-curriculum-hub#build": {

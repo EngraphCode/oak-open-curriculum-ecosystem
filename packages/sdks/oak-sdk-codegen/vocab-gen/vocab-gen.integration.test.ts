@@ -17,6 +17,9 @@ function createLesson(overrides: Partial<Lesson> = {}): Lesson {
   return {
     lessonTitle: 'Test Lesson',
     lessonSlug: 'test-lesson',
+    oakUrl: 'https://www.thenational.academy/teachers/lessons/test-lesson',
+    canonicalUrl:
+      'https://www.thenational.academy/teachers/programmes/maths-primary-ks2/units/test-unit/lessons/test-lesson',
     unitSlug: 'test-unit',
     unitTitle: 'Test Unit',
     subjectSlug: 'maths',
@@ -42,6 +45,9 @@ function createUnit(overrides: Partial<Unit> = {}): Unit {
   return {
     unitSlug: 'test-unit',
     unitTitle: 'Test Unit',
+    canonicalUrl:
+      'https://www.thenational.academy/teachers/programmes/maths-primary-ks2/units/test-unit/lessons',
+    subjectSlug: 'maths',
     threads: [],
     priorKnowledgeRequirements: [],
     nationalCurriculumContent: [],

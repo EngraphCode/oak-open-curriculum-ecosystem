@@ -12,6 +12,7 @@ function formatSourceData(result: PipelineResult): readonly string[] {
     'Source data:',
     `  ${result.totalLessons.toLocaleString()} lessons`,
     `  ${result.totalUnits.toLocaleString()} units`,
+    `  ${result.restrictedLessonsExcluded.toLocaleString()} restricted lessons excluded (MCP-204 filter decision)`,
   ];
 }
 

@@ -34,7 +34,7 @@ import {
   generateGraphCorpusData,
   writeGraphCorpusAsJson,
 } from '../src/bulk.js';
-import { readAllBulkFiles } from './lib/index.js';
+import { excludeRestrictedLessons, readAllBulkFiles, type BulkFileResult } from './lib/index.js';
 import { type BulkDataInput, processBulkData, type ProcessingResult } from './vocab-gen-core.js';
 import { type PipelineConfig, type PipelineResult } from './vocab-gen-config.js';
 
@@ -159,6 +159,29 @@ async function generateOutputFiles(
   return outputFiles;
 }
 
+/** Result of preparing pipeline inputs from read bulk files */
+export interface BulkDataInputsResult {
+  /** Pipeline inputs with restricted lessons and their unit references removed */
+  readonly inputs: readonly BulkDataInput[];
+  /** Number of restricted lesson records excluded (reported on every run) */
+  readonly restrictedLessonsExcluded: number;
+}
+
+/**
+ * Prepares pipeline inputs from read bulk files, excluding restricted
+ * lessons first (MCP-204 decision — provenance and revisit condition live
+ * on `src/bulk/restricted-lesson-filter.ts`).
+ */
+export function toBulkDataInputs(files: readonly BulkFileResult[]): BulkDataInputsResult {
+  const filtered = excludeRestrictedLessons(files);
+  const inputs = filtered.files.map((file) => ({
+    sequenceSlug: file.data.sequenceSlug,
+    lessons: file.data.lessons,
+    units: file.data.sequence,
+  }));
+  return { inputs, restrictedLessonsExcluded: filtered.restrictedLessonsExcluded };
+}
+
 /**
  * Runs the vocabulary mining pipeline.
  *
@@ -174,12 +197,7 @@ export async function runPipeline(
   // Read all bulk download files
   const allFiles = await readAllBulkFiles(config.bulkDataPath, logger);
 
-  // Transform file data to BulkDataInput format
-  const bulkData: BulkDataInput[] = allFiles.map((file) => ({
-    sequenceSlug: file.data.sequenceSlug,
-    lessons: file.data.lessons,
-    units: file.data.sequence,
-  }));
+  const { inputs: bulkData, restrictedLessonsExcluded } = toBulkDataInputs(allFiles);
 
   // Process the data (extraction)
   const result = processBulkData(bulkData);
@@ -192,11 +210,12 @@ export async function runPipeline(
   const durationMs = Date.now() - startTime;
 
   return {
+    ...result.stats,
     success: true,
     filesProcessed: result.filesProcessed,
     totalLessons: result.totalLessons,
     totalUnits: result.totalUnits,
-    ...result.stats,
+    restrictedLessonsExcluded,
     outputFiles,
     durationMs,
     dryRun: config.dryRun,

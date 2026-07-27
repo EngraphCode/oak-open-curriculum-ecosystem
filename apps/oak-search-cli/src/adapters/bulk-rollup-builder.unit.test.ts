@@ -19,6 +19,9 @@ import {
  */
 function createMinimalUnit(overrides?: Partial<Unit>): Unit {
   return {
+    canonicalUrl:
+      'https://www.thenational.academy/teachers/programmes/maths-primary-ks2/units/fractions-year-4/lessons',
+    subjectSlug: 'maths',
     unitSlug: 'fractions-year-4',
     unitTitle: 'Fractions Year 4',
     year: 4,
@@ -51,6 +54,9 @@ function createMinimalUnit(overrides?: Partial<Unit>): Unit {
  */
 function createMinimalLesson(overrides?: Partial<Lesson>): Lesson {
   return {
+    oakUrl: 'https://www.thenational.academy/teachers/lessons/test-lesson',
+    canonicalUrl:
+      'https://www.thenational.academy/teachers/programmes/maths-primary-ks2/units/test-unit/lessons/test-lesson',
     lessonSlug: 'test-lesson',
     lessonTitle: 'Test Lesson',
     unitSlug: 'test-unit',

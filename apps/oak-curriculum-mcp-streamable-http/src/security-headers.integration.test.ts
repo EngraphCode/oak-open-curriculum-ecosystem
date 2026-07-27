@@ -5,6 +5,7 @@ import { createFakeHttpObservability } from './test-helpers/observability-fakes.
 import { createFakeRateLimiterFactory } from './test-helpers/rate-limiter-fakes.js';
 import { createMockRuntimeConfig } from './test-helpers/auth-error-test-helpers.js';
 import type { Express } from 'express';
+import { getScratchStaticRoot } from './test-helpers/static-root-fixture.js';
 
 /**
  * Integration tests for HTTP security headers.
@@ -22,6 +23,7 @@ describe('Security Headers (Integration)', () => {
     });
     const observability = createFakeHttpObservability();
     app = await createApp({
+      staticRoot: await getScratchStaticRoot(),
       runtimeConfig,
       observability,
       getWidgetHtml: () => '<!doctype html><html><body>test-widget</body></html>',
