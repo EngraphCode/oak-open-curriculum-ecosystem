@@ -1,5 +1,14 @@
 # Bot Identity on Third-Party Systems
 
+**TRIGGER — read this line at EVERY write to a third-party system, not at
+"merges":** the rule fires on ANY action — a comment, a review reply, a
+thread resolution, a PR creation, a label edit — the moment before the call,
+as a named credential-selection step: *whose name will this surface
+display?* Three seats in one session (2026-07-26) each filed this rule under
+the noun in its tooling's name ("merge-bot") and posted under the owner's
+identity at non-merge writes; the trigger is the WRITE, never the tool
+category.
+
 Owner ruling (agreed ~2026-07-21; re-asserted verbatim 2026-07-23): "if we
 have a bot identity created to represent us on that system, then we MUST
 always use that identity, exceptions are by user permission only and

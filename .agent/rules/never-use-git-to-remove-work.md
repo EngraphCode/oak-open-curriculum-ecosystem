@@ -1,5 +1,17 @@
 # Never Use Git to Remove Work
 
+**TRIGGER — the rule fires on TREE STATE plus COMMAND, never on intent:**
+if the working tree holds uncommitted work, `git stash`, `git checkout
+--`/`git restore`, and `git reset` are risk-class NO regardless of what you
+are using them for — including "just a measurement", "making the tree
+temporarily clean", or any framing of the operation as a read. Worked
+instance (2026-07-26): a seat stashed an hour of uncommitted cures to
+observe a baseline warning count that one grep of an existing log would
+have answered; the rule never fired because the seat had filed it under
+"destructive operations" and framed the stash as measurement. When a clean
+tree is genuinely required: commit first, or run the comparison in a
+separate clean checkout — the tree is never the instrument.
+
 We never use git to remove work. We move forward via filesystem changes
 — Edit, Write, and explicit `rm` of files. Git is for committed history;
 working-tree edits live in the working tree until explicitly staged and

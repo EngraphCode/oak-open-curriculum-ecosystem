@@ -263,18 +263,44 @@ cross-check above before any retirement-detection broadcast — the classifier i
 **input-to-verify, never an automatic retirement verdict** (the F-44 residual:
 liveness still cannot tell "working" from "wedged" until OQ5):
 
+**Poll the DELTA, never the bucket.** The `retired` bucket is cumulative — every seat that
+ever retired stays in it forever — so a recipe that emits the whole bucket each poll emits
+~20 permanently-dead seats every cycle, and an `idle` counter that increments only on an
+EMPTY bucket never increments at all. The F-75 signal is a peer *newly* crossing the
+threshold; baseline the bucket at arm time and emit only what is new against it. Both the
+noise and the unreachable exit criterion were live in this recipe's earlier form and were
+measured, not inferred (2026-07-27: 20 dead seats re-emitted every 2 minutes with the
+stand-down structurally unreachable, which is exactly the `loop-exit-criteria-required`
+violation the recipe claimed to satisfy).
+
 ```bash
-# Emits each retired peer per poll; de-dupe in reasoning and verify before acting.
-# Exit criteria (loop-exit-criteria-required): stands down at session close and
-# after MAX_IDLE consecutive polls with no retired peer — never an unbounded loop.
-idle=0; MAX_IDLE=30
+# Emits ONLY peers newly crossing the threshold; verify before acting (never a verdict).
+# Exit criteria (loop-exit-criteria-required): session close, or MAX_IDLE consecutive
+# polls with no NEW retirement — reachable, because `idle` advances on a quiet delta
+# rather than on an empty bucket.
+PREV=$(mktemp); CUR=$(mktemp)
+extract() { grep '^retired' | sed -E 's/^retired[[:space:]]+[0-9.]+m ago[[:space:]]+(.*)[[:space:]]+last_heartbeat=.*/\1/'; }
+pnpm agent-tools:collaboration-state -- comms peer-liveness \
+  --comms-dir .agent/state/collaboration/comms 2>/dev/null | extract | sort > "$PREV" || true
+idle=0; MAX_IDLE=60
 while [ "$idle" -lt "$MAX_IDLE" ]; do
-  retired=$(pnpm agent-tools:collaboration-state -- comms peer-liveness \
-    --comms-dir .agent/state/collaboration/comms 2>&1 | grep '^retired' || true)
-  if [ -n "$retired" ]; then echo "$retired"; idle=0; else idle=$((idle + 1)); fi
   sleep 120
+  pnpm agent-tools:collaboration-state -- comms peer-liveness \
+    --comms-dir .agent/state/collaboration/comms 2>/dev/null | extract | sort > "$CUR" || true
+  # An EMPTY read is transport failure, never "everyone came back": skip the cycle
+  # rather than resetting the baseline on a dead read.
+  if [ -s "$CUR" ]; then
+    new=$(comm -13 "$PREV" "$CUR")
+    if [ -n "$new" ]; then echo "NEWLY RETIRED: $(echo "$new" | tr '\n' '|')"; idle=0; else idle=$((idle + 1)); fi
+    cp "$CUR" "$PREV"
+  fi
 done
 ```
+
+Corpus-test the `extract` filter before arming, per
+[`comms-all-channels-watcher`](comms-all-channels-watcher.md) §"Fallback shape": prove the
+pass/leak counts against real `peer-liveness` output (agent names contain spaces, so a
+positional `awk` field split is wrong).
 
 The standalone command is the read-model; the poll-recipe is the alert. Wiring
 the same classifier into `comms watch` as an `--alert-stale-peers` mode is a

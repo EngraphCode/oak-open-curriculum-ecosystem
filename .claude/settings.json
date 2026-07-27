@@ -101,6 +101,10 @@
       "Skill(oak-retrospective:*)",
       "Skill(oak-wrap)",
       "Skill(oak-wrap:*)",
+      "Skill(oak-proportionality)",
+      "Skill(oak-proportionality:*)",
+      "Skill(oak-ticket-management)",
+      "Skill(oak-ticket-management:*)",
       "mcp__plugin_vercel_vercel__get_project"
     ],
     "deny": [

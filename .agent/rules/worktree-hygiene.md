@@ -1,5 +1,16 @@
 # Worktree Hygiene
 
+**TRIGGER — the rule fires at CLAIM-OPEN and at the FIRST SOURCE EDIT,
+never in the abstract:** before opening any implementation claim and before
+the first Write/Edit outside `.agent/`-class coordination surfaces, answer
+*which worktree am I in?* Source work on the primary/coordination checkout
+is a straight error that blocks the whole team (owner word, 2026-07-27,
+after a seat's product edits sat uncommitted on the shared tree: whole-tree
+gates held hostage, pathspec commits hazarded for every seat). The primary
+checkout is shared fleet surface — coordination docs and fleet state only;
+a fresh worktree off `origin/main` is where every implementation lane
+starts, before its first edit, not after.
+
 In the one-developer-many-agents / many-worktree model, linked git worktrees
 proliferate. A worktree is a transient workspace, not a home. Left undisciplined it
 becomes an orphan: a branch carrying commits that never reach `main`, invisible from

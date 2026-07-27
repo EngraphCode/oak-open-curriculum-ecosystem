@@ -59,6 +59,15 @@ to an option list, including when an early list exists but may foreclose the rea
 alternates `metacognition` and `reason`, then feeds its warranted, falsifiable synthesis into the
 lenses above.
 
+### Proportionality — the pre-decision sizing gate
+
+The lenses resolve **shape**, never size. The
+[`proportionality`](../skills/proportionality/SKILL-CANONICAL.md) skill is the paired
+pre-decision gate — right SIZE of question, right instrument weight, right LEVEL to answer it —
+bounding scope, instrument weight and attention cost ONLY, never correctness, strictness or
+architectural quality. A gate, not a sixth lens; the skill carries why, and the domain
+instruments it cites are the operational detail.
+
 ## First Question
 
 Always apply the first question; **Ask: could it be simpler *without

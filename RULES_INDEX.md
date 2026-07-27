@@ -71,6 +71,7 @@ without proportional value.
 | `.agent/rules/closed-shape-design-optionality.md`                          | always-on      | —                                                                                                   |
 | `.agent/rules/collaboration-is-value-contingent.md`                        | always-on      | —                                                                                                   |
 | `.agent/rules/comms-all-channels-watcher.md`                               | trigger-loaded | Team session bootstrap                                                                              |
+| `.agent/rules/confident-seats-proceed-and-report.md`                       | always-on      | —                                                                                                   |
 | `.agent/rules/consolidate-at-second-consumer.md`                           | always-on      | —                                                                                                   |
 | `.agent/rules/continuity-surface-commits-as-orphans.md`                    | always-on      | —                                                                                                   |
 | `.agent/rules/cross-repo-sessions-run-the-join-ceremony.md`                | trigger-loaded | Worktree repo ≠ coordination home, or sibling-estate write/registration (reads unceremonied)        |

@@ -82,7 +82,11 @@ into the permanent record):
    size smells, and the archival-class exemption all live in the PDR. A
    changeset crossing the PDR's warning thresholds is re-examined for
    hidden second stories NOW — at open, splitting is cheap; over budget,
-   it is expensive.
+   it is expensive. The general form of this check is the
+   [`proportionality`](../proportionality/SKILL-CANONICAL.md) gate's SCOPE
+   axis; run it here when the changeset's size is genuinely in question,
+   and note that its LEVEL axis also applies at open — a question standing
+   owner word already answers is not an escalation.
 
 ## Phase 2 — Open with a reviewer-facing description
 
@@ -156,15 +160,43 @@ surfaces. Partial reads produce false "no problems" verdicts:
    `sonarqube-mcp-instructions` rule) and read each flagged site. The gate
    summary names conditions; only the issue list names the work.
 
-## Phase 4 — Triage by blocking force; fix at source
+## Phase 4 — TRIAGE every comment; fix at source
 
+- **The triage ruling** (owner, 2026-07-27, verbatim, a SEAT-LEVEL
+  obligation applied at the moment each comment is read — never deferred to
+  Director discretion): *"We do NOT have to address every comment, we have
+  to TRIAGE every comment, if it is incorrect reject it, if it is correct,
+  relevant and proportionate address it, if it is anything else raise a
+  ticket, tell the Director, and close the comment."*
+- The three-way test, exactly one terminal state per finding:
+  1. **INCORRECT → reject**, with verified reasoning in the reply
+     (`dispositions-need-verified-failure-scenarios`). Rejection is a
+     first-class outcome, never a failure of nerve.
+  2. **CORRECT and relevant and proportionate → address**, fixed at source.
+     ALL THREE conjuncts are required: individual validity is NOT
+     sufficiency — a correct finding whose cure widens the PR beyond its
+     ticket's story fails the proportionality conjunct and goes to state 3.
+  3. **ANYTHING ELSE → ticket + tell the Director + CLOSE the comment.**
+     Correct-but-elsewhere, correct-but-disproportionate, out-of-story
+     hardening, adjacent design questions: raise a pointer ticket (never a
+     spec), notify the Director, reply with the ticket reference, and
+     RESOLVE the thread. The closure is deliberate doctrine — a ticketed
+     finding left unresolved re-creates the divergent loop this rule ends.
+- **Convergence is the test of the loop**, not only the correctness of each
+  round: rounds should shrink; a cure not required by the ticket's story is
+  a ticket, not a commit; unrequested hardening built mid-review has a
+  measured high defect rate (worked instance, 2026-07-26/27: one PR reached
+  ten rounds — one feat commit, twelve fix commits, four cures introducing
+  new defects, three of those in hardening no ticket asked for — before
+  this ruling landed). Underlying principles:
+  `concept-exploration` §Loop Dynamics; sizing gate: `proportionality`.
 - Order by blocking force and risk, not by tool order; root causes before
   echoes.
-- Every finding ends in exactly one state: **fixed at source**,
-  **owner-dispositioned with evidence** (per-site, e.g. a Sonar
-  false-positive with rationale at that site), or **proven irrelevant at the
-  specific site**. Never dismissed by category, never gate-narrowed, never
-  warning-downgraded, never suppressed.
+- Sonar findings keep their per-site channel: **owner-dispositioned with
+  evidence** (per-site, e.g. a false-positive with rationale at that site)
+  remains a terminal state alongside the three above. Triage routes
+  findings; it never buries them — never dismissed by category, never
+  gate-narrowed, never warning-downgraded, never suppressed.
 - Fix the class, not the instance: a spelling finding on two lines gets a
   repo-wide sweep of the class; a stale literal gets checked against its
   source constant convention.
@@ -565,11 +597,20 @@ as phase-local restatements.
   state machine's item 2 defines it.** When item 2's mechanical step-back
   trigger fires: **STOP
   fix-pushing.** Step back and run concept exploration over the FULL finding
-  corpus for the shared generator; fix the CLASS in one pass, and consider
+  corpus for the shared generator, paired with the
+  [`proportionality`](../proportionality/SKILL-CANONICAL.md) gate over the PR
+  itself — the exploration finds the generator, the gate asks whether the
+  changeset, the review instrument, or the seat answering is the wrong size,
+  which is the question a corpus read alone does not pose. Fix the CLASS in
+  one pass, and consider
   splitting the PR (on #390 the generator was authored restatement of
   derivable state — instance-by-instance fixes added prose that spawned the
   next round). Severity decay remains the qualitative check; the tally is
-  what makes its absence visible.
+  what makes its absence visible. **The tally is the trigger's only input:
+  an unbuilt tally store means the trigger cannot fire, and a PR can run to
+  ten rounds looking locally healthy at every one** (worked instance
+  2026-07-26, #570 — ten rounds, twelve cure commits, four of which
+  introduced new defects; nothing counted, so nothing fired).
   At owner-active tempo the discipline tightens: the owner may merge or push
   mid-arc, so EVERY binding moment recomputes the compound state (Phase 5) —
   a live watch beats any probe cadence.
