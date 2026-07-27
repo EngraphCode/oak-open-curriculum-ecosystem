@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, within } from '@testing-library/react';
 import { AppView, openHostLink } from './App.js';
 import type { AppRuntimeAction } from './app-runtime-state.js';
 
@@ -35,6 +35,27 @@ describe('AppView', () => {
     fireEvent.click(link);
 
     expect(calls).toStrictEqual(['https://www.thenational.academy']);
+  });
+
+  it('renders the experimental-service disclaimer in the main content area', () => {
+    render(<AppView onOpenLink={() => undefined} />);
+
+    const main = screen.getByRole('main');
+
+    expect(
+      within(main).getByText(
+        'This service is experimental. It uses Oak National Academy content, but AI can make mistakes and output should not be treated as official resources.',
+      ),
+    ).toBeTruthy();
+  });
+
+  it('keeps the brand banner header outside the main landmark', () => {
+    render(<AppView onOpenLink={() => undefined} />);
+
+    const main = screen.getByRole('main');
+
+    expect(main.querySelector('header')).toBeNull();
+    expect(screen.getByRole('banner')).toBeTruthy();
   });
 });
 

@@ -19,20 +19,35 @@ test.describe('Oak banner widget', () => {
   });
 
   test('renders Oak brand banner', async ({ page }) => {
-    const banner = page.locator('.oak-banner');
+    const banner = page.locator('.oak-brand-banner');
     await expect(banner).toBeVisible();
 
-    const link = page.locator('.oak-banner__link');
+    const link = page.locator('.oak-brand-banner__link');
     await expect(link).toContainText('Oak National Academy');
   });
 
+  test('exposes the brand banner as a banner landmark', async ({ page }) => {
+    // Playwright's role engine applies the HTML-AAM ancestry rule: a <header>
+    // inside <main> is NOT a banner landmark, so this resolves only when the
+    // header is a sibling of main. jsdom cannot express this state.
+    await expect(page.getByRole('banner')).toBeVisible();
+  });
+
+  test('renders the experimental-service disclaimer', async ({ page }) => {
+    await expect(
+      page.getByText(
+        'This service is experimental. It uses Oak National Academy content, but AI can make mistakes and output should not be treated as official resources.',
+      ),
+    ).toBeVisible();
+  });
+
   test('renders Oak logo SVG', async ({ page }) => {
-    const logo = page.locator('.oak-banner__logo');
+    const logo = page.locator('.oak-brand-banner__logo');
     await expect(logo).toBeVisible();
   });
 
   test('banner link targets Oak website', async ({ page }) => {
-    const link = page.locator('.oak-banner__link');
+    const link = page.locator('.oak-brand-banner__link');
     await expect(link).toHaveAttribute('href', 'https://www.thenational.academy');
     await expect(link).toHaveAttribute('target', '_blank');
     await expect(link).toHaveAttribute('rel', 'noopener noreferrer');

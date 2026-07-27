@@ -119,8 +119,8 @@
   box-sizing: border-box;
 }
 
-/* Height chain: html → body → #root establishes context for
-   .oak-banner min-height */
+/* Height chain: html → body → #root keeps the embedded document
+   sized to its content inside the host iframe */
 html,
 body,
 #root {
@@ -171,17 +171,33 @@ a:focus-visible {
 .oak-app {
   display: flex;
   flex-direction: column;
+  gap: var(--oak-component-shell-gap);
   padding: var(--oak-component-page-padding);
 }
 
+/* Service-scoped experimental disclaimer in the shell's main content.
+   These declarations are the design system's .oak-hint spelled in this
+   consumer's tokens; on the post-Stage-B kit-binding lane (ADR-213) this
+   becomes a class-for-class swap to .oak-hint with the .oak-prose measure.
+   65ch is --measure-prose from oak-design-system/colors_and_type.css —
+   provenance-carried, not minted here (ch is not DTCG-expressible). */
+.oak-app__disclaimer {
+  max-width: 65ch;
+  margin-inline: auto;
+  color: var(--oak-component-note-text-color);
+  font-size: var(--oak-component-label-size);
+  line-height: var(--oak-component-label-line-height);
+  text-wrap: pretty;
+}
+
 /* Brand banner — logo + "Oak National Academy" link, centred */
-.oak-banner {
+.oak-brand-banner {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.oak-banner__link {
+.oak-brand-banner__link {
   display: inline-flex;
   align-items: center;
   gap: var(--oak-component-banner-gap);
@@ -192,17 +208,17 @@ a:focus-visible {
   text-decoration: none;
 }
 
-.oak-banner__link:hover {
+.oak-brand-banner__link:hover {
   color: var(--oak-component-banner-link-color-hover);
 }
 
-.oak-banner__link:focus-visible {
+.oak-brand-banner__link:focus-visible {
   outline: 2px solid var(--oak-component-banner-link-focus-ring-color);
   outline-offset: 2px;
   border-radius: 2px;
 }
 
-.oak-banner__logo {
+.oak-brand-banner__logo {
   flex-shrink: 0;
 }
 
@@ -219,7 +235,7 @@ a:focus-visible {
 }
 
 @media (forced-colors: active) {
-  .oak-banner__link:focus-visible {
+  .oak-brand-banner__link:focus-visible {
     outline-color: Highlight;
   }
 }
