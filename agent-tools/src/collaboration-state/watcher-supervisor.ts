@@ -87,11 +87,14 @@ export function resolveSupervisorAlive(
 
 /**
  * True when a supervisor-liveness probe is configured AND reports the
- * supervising process gone. Absent probe → always false (the legacy shape:
- * the watcher's lifetime is bounded only by `maxEvents`, a fatal step, or the
- * composing `timeout`). Invoked at the top of each watch-loop iteration so a
- * `true` result short-circuits BEFORE the next drain / emit / wait — the
- * watcher self-exits within one poll cycle of the supervisor's death.
+ * supervising process gone. Absent probe → always false — the watcher then
+ * has NO orderly exit path of its own (lifetime bounded only by a fatal
+ * step, a step deadline, or the composing `timeout` backstop), which is why
+ * the watcher rule mandates `--supervisor-pid`. Invoked at the top of each
+ * watch-loop iteration so a `true` result short-circuits BEFORE the next
+ * drain / emit / wait — the watcher self-exits within one poll cycle of the
+ * supervisor's death, announcing itself with the `reason=supervisor-gone`
+ * WATCHER EXIT line.
  */
 export async function supervisorIsGone(
   supervisorAlive: (() => boolean | Promise<boolean>) | undefined,

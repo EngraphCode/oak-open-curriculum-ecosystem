@@ -436,7 +436,7 @@ describe('drainRelevantEvents — full event stream surfacing with self-exclusio
     );
   });
 
-  it('respects remainingEvents to bound the number emitted in one drain call', async () => {
+  it('respects batchLimit to bound the number emitted in one drain call', async () => {
     const events: readonly CommsEvent[] = [
       narrative({
         eventId: 'one',
@@ -461,7 +461,7 @@ describe('drainRelevantEvents — full event stream surfacing with self-exclusio
       messages: events,
       seenIds: new Set(),
       self,
-      remainingEvents: 2,
+      batchLimit: 2,
     });
 
     expect(drained.eventCount).toBe(2);
@@ -599,7 +599,7 @@ describe('drainRelevantEvents — sanctioned excludeTags mechanism (F-146)', () 
     expect(drained.excludedEventIds).toStrictEqual(['lc-hb']);
   });
 
-  it('excludes without consuming the remainingEvents budget and marks excluded ids beyond the slice horizon', async () => {
+  it('excludes without consuming the batchLimit slice and marks excluded ids beyond the slice horizon', async () => {
     const messages: readonly CommsEvent[] = [
       heartbeat('hb-early', '2026-05-21T08:00:30Z'),
       narrative({
@@ -620,7 +620,7 @@ describe('drainRelevantEvents — sanctioned excludeTags mechanism (F-146)', () 
       messages,
       seenIds: new Set(),
       self,
-      remainingEvents: 2,
+      batchLimit: 2,
       excludeTags: excludeHeartbeat,
     });
 

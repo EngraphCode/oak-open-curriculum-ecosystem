@@ -2,8 +2,10 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import {
   emitWatcherError,
+  emitWatcherExit,
   reportTimeout,
   runWithDeadline,
+  WATCHER_EXIT_EMIT_DEADLINE_MS,
   WatcherTimeoutError,
 } from '../../src/collaboration-state/comms-watch-errors';
 
@@ -143,5 +145,70 @@ describe('emitWatcherError', () => {
         new Error('original failure'),
       ),
     ).resolves.toBeUndefined();
+  });
+});
+
+describe('emitWatcherExit', () => {
+  it('formats the supervisor-gone exit line with the cumulative emitted count', async () => {
+    const emitted: string[] = [];
+    await emitWatcherExit(
+      async (text) => {
+        emitted.push(text);
+      },
+      'supervisor-gone',
+      42,
+    );
+
+    expect(emitted).toStrictEqual([
+      '--- WATCHER EXIT --- reason=supervisor-gone emitted_count=42\n',
+    ]);
+  });
+
+  it('formats the fatal-step exit line', async () => {
+    const emitted: string[] = [];
+    await emitWatcherExit(
+      async (text) => {
+        emitted.push(text);
+      },
+      'fatal-step',
+      0,
+    );
+
+    expect(emitted).toStrictEqual(['--- WATCHER EXIT --- reason=fatal-step emitted_count=0\n']);
+  });
+
+  it('swallows an emit failure rather than throwing (a clean exit stays clean)', async () => {
+    await expect(
+      emitWatcherExit(
+        async () => {
+          throw new Error('stdout write failed');
+        },
+        'supervisor-gone',
+        1,
+      ),
+    ).resolves.toBeUndefined();
+  });
+
+  describe('with fake timers', () => {
+    beforeEach(() => {
+      vi.useFakeTimers();
+    });
+    afterEach(() => {
+      vi.useRealTimers();
+    });
+
+    it('resolves within its own fixed shutdown deadline when the emit channel is permanently hung', async () => {
+      let settled = false;
+      const farewell = emitWatcherExit(() => hangsForever(), 'supervisor-gone', 7).then(() => {
+        settled = true;
+      });
+
+      // The shutdown deadline is fixed and small — never the per-step
+      // deadline: an orphaned watcher must not linger for a full step budget
+      // after establishing its supervisor is dead.
+      await vi.advanceTimersByTimeAsync(WATCHER_EXIT_EMIT_DEADLINE_MS);
+      await farewell;
+      expect(settled).toBe(true);
+    });
   });
 });

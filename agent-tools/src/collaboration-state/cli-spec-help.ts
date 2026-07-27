@@ -93,7 +93,7 @@ export const commsWatchHelp =
   'comms watch --comms-dir <dir> --seen-file <path> ' +
   '--platform <platform> --model <model> ' +
   '[--session-prefix <prefix>] ' +
-  '[--poll-ms <n>] [--max-events <n>] [--step-timeout-ms <n>] ' +
+  '[--poll-ms <n>] [--max-events-per-drain <n>] [--step-timeout-ms <n>] ' +
   '[--heartbeat-file <path>] [--heartbeat-interval-ms <n>] [--no-heartbeat] ' +
   '[--seed-from-now] [--no-auto-seed] [--supervisor-pid <pid>] [--exclude-tag <tag>...] ' +
   '(emits every relevant event — broadcast, group, directed, observed, lifecycle — ' +
@@ -102,9 +102,18 @@ export const commsWatchHelp =
   'directed and group events always surface; a multi-tag event with any ' +
   'non-excluded tag leaks through; excluding heartbeat REQUIRES pairing with the ' +
   'comms peer-liveness poll per the watcher rule) — hand-rolled filtering remains ' +
-  'forbidden; step-timeout-ms (default 60000) is the per-step deadline on ' +
-  'drain/emit/markSeen — a step that hangs past it makes the watcher exit non-zero (fail-loud) ' +
-  'instead of silently muting; the liveness heartbeat is ON BY DEFAULT at <seen-file>.heartbeat.json ' +
+  'forbidden; max-events-per-drain bounds EACH drain pass, never the lifetime ' +
+  '(every pass advances the seen-file cursor and the watcher keeps running; it ' +
+  'replaces the retired lifetime-budget flag max-events — always pass it, because ' +
+  'an unbounded pass over a large backlog re-creates the drain-deadline wedge); ' +
+  'the watcher runs until its --supervisor-pid dies, so ALWAYS pass the pid — ' +
+  'without it and without a composing timeout wrapper the process has no exit ' +
+  'path at all; every orderly exit ends with the line ' +
+  '"--- WATCHER EXIT --- reason=<supervisor-gone|fatal-step> emitted_count=<n>"; ' +
+  'step-timeout-ms (default 60000) is the per-step deadline on ' +
+  'drain/emit/markSeen — a step that hangs past it makes the watcher exit non-zero (fail-loud, ' +
+  'kind=timeout, NO exit line) instead of silently muting; ' +
+  'the liveness heartbeat is ON BY DEFAULT at <seen-file>.heartbeat.json ' +
   '(default interval 30000ms) so a staleness consumer can classify a frozen watcher — ' +
   'pass --heartbeat-file to relocate it or --no-heartbeat to disable it; ' +
   'auto-seed-on-empty default seeds the seen-file with current events so a fresh ' +
