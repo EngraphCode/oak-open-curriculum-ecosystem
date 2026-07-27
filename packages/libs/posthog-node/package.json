@@ -52,6 +52,7 @@
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",
     "@oaknational/build-metadata": "workspace:*",
+    "@oaknational/observability": "workspace:*",
     "@oaknational/result": "workspace:*",
     "@posthog/mcp": "^0.10.0",
     "posthog-node": "^5.46.1"
