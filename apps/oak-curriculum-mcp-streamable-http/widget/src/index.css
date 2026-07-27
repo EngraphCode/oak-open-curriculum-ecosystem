@@ -168,11 +168,22 @@ a:focus-visible {
   text-decoration-thickness: 2px;
 }
 
+/* The shell renders as a bounded, rounded panel on the page surface
+   (the shell-* component tokens exist for exactly this shape).
+   max-height is rem, not em: it scales with the host root font size
+   without compounding through local font-size changes; content beyond
+   the cap scrolls inside the panel rather than growing the document. */
 .oak-app {
   display: flex;
   flex-direction: column;
   gap: var(--oak-component-shell-gap);
+  max-height: 24rem;
   padding: var(--oak-component-page-padding);
+  overflow-y: auto;
+  background: var(--oak-component-shell-surface);
+  border: var(--border-width-regular) solid var(--oak-component-shell-border-color);
+  border-radius: var(--oak-component-panel-radius);
+  box-shadow: var(--oak-component-shell-shadow);
 }
 
 /* Service-scoped experimental disclaimer in the shell's main content.
