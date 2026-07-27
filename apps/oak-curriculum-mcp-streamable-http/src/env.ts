@@ -7,8 +7,15 @@ import {
   SentryEnvSchema,
 } from '@oaknational/env';
 import { RELEASE_ENVIRONMENTS } from '@oaknational/build-metadata';
+import { isValidHostHeader } from './host-header-validation.js';
 
 const ModeSchema = z.enum(['stateless', 'session']).default('stateless');
+
+const LOOPBACK_HOSTNAMES: readonly string[] = ['localhost', '127.0.0.1', '::1'];
+
+function isLoopbackHostname(value: string): boolean {
+  return LOOPBACK_HOSTNAMES.includes(value.toLowerCase());
+}
 
 /**
  * Base shape for the HTTP server environment.
@@ -55,6 +62,28 @@ const BaseEnvSchema = OakApiKeyEnvSchema.extend(ElasticsearchEnvSchema.shape)
      * (30 req / 15 min / IP).
      */
     TEST_ERROR_SECRET: z.string().min(16).optional(),
+    /**
+     * The address this server is served at, when that differs from the
+     * hostname reaching it.
+     *
+     * Set when an edge serves the app at a canonical address and presents a
+     * different Host to the origin (MCP-172: Cloudflare serves
+     * `www.thenational.academy/mcp` with the Host overridden to the app's own
+     * Vercel hostname). Every self-description surface then names
+     * `https://<CANONICAL_HOST>`; absent, the app self-describes per request
+     * as before.
+     *
+     * A bare hostname only — ports, schemes, paths and loopback names are
+     * rejected here so a misconfiguration is a startup failure rather than a
+     * downgraded or unreachable URL inside a metadata document.
+     */
+    CANONICAL_HOST: z
+      .string()
+      .refine(
+        (value) => isValidHostHeader(value) && !value.includes(':') && !isLoopbackHostname(value),
+        'CANONICAL_HOST must be a bare public hostname — no scheme, port, path, or loopback name',
+      )
+      .optional(),
   });
 
 /**

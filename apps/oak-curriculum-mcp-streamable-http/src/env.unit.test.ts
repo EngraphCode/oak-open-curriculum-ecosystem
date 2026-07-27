@@ -143,4 +143,39 @@ describe('Conditional Clerk keys (DANGEROUSLY_DISABLE_AUTH)', () => {
       expect(result.success).toBe(true);
     }
   });
+
+  describe('CANONICAL_HOST', () => {
+    it('accepts an environment without it — per-request derivation is the default', () => {
+      const result = HttpEnvSchema.safeParse(withClerkKeys);
+      expect(result.success).toBe(true);
+    });
+
+    it('accepts a bare hostname', () => {
+      const result = HttpEnvSchema.safeParse({
+        ...withClerkKeys,
+        CANONICAL_HOST: 'www.thenational.academy',
+      });
+
+      expect(result.success).toBe(true);
+    });
+
+    it.each([
+      ['a port', 'www.thenational.academy:8443'],
+      ['a scheme', 'https://www.thenational.academy'],
+      ['a path', 'www.thenational.academy/mcp'],
+      ['userinfo', 'www.thenational.academy:443@evil.example'],
+      ['a comma-joined pair', 'www.thenational.academy,evil.example'],
+      ['whitespace', 'www.thenational.academy evil.example'],
+      ['an empty value', ''],
+      ['a loopback name', 'localhost'],
+    ])('rejects %s at startup rather than at request time', (_label, value) => {
+      const result = HttpEnvSchema.safeParse({ ...withClerkKeys, CANONICAL_HOST: value });
+
+      expect(result.success).toBe(false);
+      if (!result.success) {
+        const paths = result.error.issues.map((i) => i.path.join('.'));
+        expect(paths).toContain('CANONICAL_HOST');
+      }
+    });
+  });
 });
