@@ -54,6 +54,11 @@ export {
   unitSchema,
   unitThreadSchema,
   examBoardSchema,
+  examSubjectSchema,
+  categorySchema,
+  tierSchema,
+  programmeFactorSchema,
+  unitProgrammeFactorsSchema,
   ks4OptionSchema,
   // Lesson schema
   lessonSchema,
@@ -81,6 +86,11 @@ export type {
   UnitLesson,
   UnitThread,
   ExamBoard,
+  ExamSubject,
+  UnitCategory,
+  Tier,
+  ProgrammeFactor,
+  UnitProgrammeFactors,
   Ks4Option,
   // Lesson type
   Lesson,

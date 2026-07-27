@@ -58,7 +58,7 @@ However, it lacks:
 │     ├── Enumerate all lessons                                    │
 │     ├── Extract transcripts (~81.9% coverage)                    │
 │     ├── Extract metadata (keywords, learning points, etc.)       │
-│     ├── Extract exam boards from unit `examBoards` field         │
+│     ├── Extract exam boards (file `ks4Options`; unit `examBoard`)│
 │     └── Extract exam subjects from `subjectSlug`                 │
 │                                                                  │
 │  2. SUPPLEMENT FROM API                                          │
@@ -81,12 +81,12 @@ However, it lacks:
 
 The bulk download has data quality issues that must be handled:
 
-| Issue                                   | Solution                             |
-| --------------------------------------- | ------------------------------------ |
-| `"NULL"` strings instead of JSON `null` | Convert during parsing               |
-| `downloadsavailable` (lowercase typo)   | Map to `downloadsAvailable`          |
-| Maths tier duplicates                   | Use API to determine tier membership |
-| Science exam board duplicates           | Deduplicate `examBoards` array       |
+| Issue                                   | Solution                                                                                                                                                   |
+| --------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `"NULL"` strings instead of JSON `null` | Convert during parsing                                                                                                                                     |
+| `downloadsavailable` (lowercase typo)   | Map to `downloadsAvailable`                                                                                                                                |
+| Maths tier duplicates                   | Use API to determine tier membership                                                                                                                       |
+| Science exam board duplicates           | Deduplicate exam-board references (the unit `examBoards` array was retired upstream in the 2026-07 corpus; the singular `examBoard` carries the reference) |
 
 ### Year Derivation
 
