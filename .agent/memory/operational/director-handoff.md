@@ -264,8 +264,49 @@ first-hand as of 2026-06-25.
 
 > ### ▶ SITTING DIRECTOR: Squall wakes Apex (`459fd1`), seated 2026-07-26 at owner word (Moment-2 `f1d9a6f2`); claim `56fdd977`, role director
 >
-> **EVENING REFRESH 2026-07-27 ~19:00Z — supersedes every block below;
-> verify each line live before acting on it.**
+> **LATE-EVENING REFRESH 2026-07-27 ~20:00Z — supersedes the ~19:00Z block
+> below and everything under it; verify each line live.**
+>
+> **TWENTY-ONE merges today.** Added since 19:00Z: #598 (MCP-234), #599
+> (MCP-235), #600 (MCP-236) — three PostHog slices in ~60 minutes, all
+> green on first CI run. Main at `b0a2f832a428`. MCP-63 stack now
+> **230–236 landed; 237 next at NARROWED scope** (sink + integration test
+> only), 238–244 unbuilt. #576 stays open (close condition still false).
+>
+> **FLEET: ONE live seat (mine).** Swallow stood down cleanly at ~19:53Z
+> after SIX merges — claims closed, nothing uncommitted, two permanent
+> records landed, letter at
+> `.agent/experience/2026-07-27-swallow-guards-tailwind-what-the-map-does-not-know.md`.
+> Raccoon last seen on PR #597 (MCP-290 widget disclaimer, settled by name,
+> merge is THEIRS by executor-class — owner was mid render-review).
+> Schooner silent since 17:13Z; MCP-281 and #570 carrier-less.
+>
+> **CUSTODY CATCH worth carrying**: Swallow reported both permanent records
+> committed; both were UNTRACKED on disk. I took custody at `03eb9d9ef`
+> minutes before they stood down. Same class as the orphan review's
+> ADR-217 finding — custody is a state you CHECK, not a feeling.
+>
+> **THREE INSTANCES IN ONE SESSION of one failure class** (napkin, flagged
+> as rule-graduation candidate): a tool artefact read as a fact about the
+> world — my `head -12` becoming a coverage denominator, my wrap-blind grep
+> manufacturing a content-loss finding, Swallow's non-matching grep reading
+> as send-failure (duplicate closeout), plus the piped `$?` reporting
+> tail's status. **Cure: verify against STATE, never against a filter's
+> output.**
+>
+> **ESTATE STANDARD, new today**: settle reads derive required contexts
+> from `/rules/branches/main` and check each BY NAME across BOTH
+> `/commits/{sha}/check-runs` AND `/commits/{sha}/status` — Vercel is a
+> required STATUS and publishes no check-run at all.
+>
+> **NEXT DIRECTOR ACTS**: (1) #582 base refresh is STALE (prepared at
+> `7994cd782`, main has moved twice) — redo, C341 registry entry still the
+> one red; (2) MCP-237 needs a seat; (3) #570 and MCP-281 need carriers;
+> (4) MCP-16 and MCP-289 (ADR-217) remain seatless.
+>
+> **SUPERSEDED — 19:00Z evening block below; detail still useful.**
+>
+> **EVENING REFRESH 2026-07-27 ~19:00Z — superseded by the block above.**
 >
 > **OWNER AWAY** since ~17:07Z ("I will be away for a few hours, please
 > continue"). Standing merge mandate in force; keep going until all
