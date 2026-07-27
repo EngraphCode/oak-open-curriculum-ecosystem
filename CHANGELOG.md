@@ -1,3 +1,16 @@
+# [1.94.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.93.0...v1.94.0) (2026-07-27)
+
+
+### Bug Fixes
+
+* **agent-tools:** epipe guard listener-safe and tested, exit-line builder, probe caps (MCP-229) ([fa0a313](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/fa0a3132e37f630d23f8f2c642a49410181c05b7))
+
+
+### Features
+
+* **agent-tools:** per-pass --max-events-per-drain and in-band watcher exit reasons (MCP-229) ([84e8cfc](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/84e8cfc20b5dbb1c79f8d998f97b817621cc6609))
+* **search-cli:** apply the restricted-lesson exclusion at the ingest boundary (MCP-153) ([a55d447](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a55d447fa10cf894b7b018cd8a0a73df93a1d741))
+
 # [1.93.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.92.0...v1.93.0) (2026-07-27)
 
 
