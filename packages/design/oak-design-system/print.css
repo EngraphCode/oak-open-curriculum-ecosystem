@@ -35,6 +35,7 @@
   .oak-banner,
   .oak-quiz-answer,
   .oak-accordion,
+  .oak-disclosure,
   .oak-empty,
   .oak-field {
     break-inside: avoid;
@@ -55,6 +56,10 @@
      reveal closed accordion bodies where the engine supports ::details-content
      (progressive enhancement; a closed <details> otherwise prints empty). */
   .oak-accordion:not([open]) > summary::after {
+    display: none;
+  }
+  .oak-disclosure:not([open]) > summary::before,
+  .oak-disclosure details:not([open]) > summary::before {
     display: none;
   }
   details:not([open])::details-content {

@@ -13,17 +13,13 @@ describe('security-headers', () => {
       expect(CSP_DIRECTIVES.defaultSrc).toEqual(["'self'"]);
     });
 
-    it('allows inline styles for landing page <style> tags', () => {
+    it('allows inline styles, which only Cloudflare challenge pages use', () => {
       expect(CSP_DIRECTIVES.styleSrc).toContain("'unsafe-inline'");
     });
 
-    it('allows Google Fonts CSS', () => {
-      expect(CSP_DIRECTIVES.styleSrc).toContain('https://fonts.googleapis.com');
-    });
-
-    it('allows Google Fonts font files', () => {
-      expect(CSP_DIRECTIVES.fontSrc).toContain('https://fonts.gstatic.com');
-    });
+    // The font-src / style-src 'self' and no-third-party-host invariants are
+    // asserted on the EMITTED header in security-headers.integration.test.ts
+    // — each proof once, on the effect rather than the constant.
 
     it('allows same-origin and inline scripts for Cloudflare integration', () => {
       // Cloudflare injects inline scripts for bot detection/challenge pages

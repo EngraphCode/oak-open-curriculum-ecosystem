@@ -77,17 +77,61 @@
     "@oaknational/oak-curriculum-mcp-streamable-http#build": {
       "dependsOn": ["^build"],
       "cache": true,
-      "outputs": ["dist/**", ".tsup/**"],
+      // The bake writes these values into .generated/landing-page.html, so
+      // they must be hash-bearing (a cache hit across deployments would
+      // otherwise replay another environment's baked host) AND visible under
+      // strict envMode (APP_VERSION_OVERRIDE is in no default passthrough).
+      // Same reasoning as sdk-codegen's env block above.
+      "env": ["VERCEL_ENV", "VERCEL_URL", "VERCEL_PROJECT_PRODUCTION_URL", "APP_VERSION_OVERRIDE"],
+      "outputs": [
+        "dist/**",
+        ".tsup/**",
+        ".generated/**",
+        "public/oak-ds/**",
+        "public/oak-assets/**"
+      ],
       "inputs": [
         "$TURBO_DEFAULT$",
         "$TURBO_ROOT$/tsconfig.base.json",
         "$TURBO_ROOT$/tsup.config.base.ts",
+        // The bake stamps the root package version into the page's
+        // app-version meta (ROOT_PACKAGE_VERSION fallback), so a release
+        // bump must invalidate this task or a cache hit replays the
+        // previous release's version into the artefact.
+        "$TURBO_ROOT$/package.json",
         "tsconfig.json",
         "tsconfig.build.json",
         "tsup.config.ts",
         "src/**/*.ts",
         "!src/**/*.test.ts",
-        "!src/**/*.spec.ts"
+        "!src/**/*.spec.ts",
+        // The design system is copied into public/oak-ds at build time. It has
+        // no build script, so ^build contributes no hash leg for it — without
+        // these inputs a design-system edit replays a stale bundle.
+        "$TURBO_ROOT$/packages/design/oak-design-system/**",
+        "!$TURBO_ROOT$/packages/design/oak-design-system/studio-source/**",
+        // Same reasoning for the brand artwork: copied at build time, no build
+        // script of its own, so nothing else contributes a hash leg for it.
+        "$TURBO_ROOT$/packages/design/oak-design-assets/**"
+      ]
+    },
+    "@oaknational/oak-curriculum-mcp-streamable-http#test": {
+      // Own `build` (which already implies ^build): suites that construct
+      // the app read the copied design system under public/ at boot, and
+      // src/server.ts's boot-read needs the baked landing-page artefact
+      // under .generated/ — the build is both trees' sole writer, and a
+      // cache hit restores them. The design-system hash legs live on
+      // #build and fold into this task's hash through the dependency, so a
+      // design-system-only edit re-runs these suites rather than replaying
+      // a stale green verdict.
+      "dependsOn": ["build"],
+      "cache": true,
+      "outputs": [],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "**/*.ts",
+        "vitest.config.ts",
+        "$TURBO_ROOT$/vitest.config.base.ts"
       ]
     },
     "@oaknational/oak-curriculum-hub#build": {

@@ -1,8 +1,9 @@
 /**
  * Unit tests for MCP configuration snippet generation.
  *
- * Tests verify that the JSON configuration snippet is correctly
- * generated for different deployment environments.
+ * Tests verify that the JSON configuration snippet embeds the endpoint URL
+ * it is handed (derivation happens on the build side, not here) and stays
+ * parseable JSON when wrapped in braces.
  */
 
 import { describe, expect, it } from 'vitest';
@@ -10,8 +11,8 @@ import { describe, expect, it } from 'vitest';
 import { createSnippet } from './create-snippet.js';
 
 describe('createSnippet', () => {
-  it('generates snippet with Vercel host URL', () => {
-    const snippet = createSnippet('my-app.vercel.app');
+  it('embeds the endpoint URL it is handed', () => {
+    const snippet = createSnippet('https://my-app.vercel.app/mcp');
 
     expect(snippet).toContain('"mcpServers"');
     expect(snippet).toContain('"oak-curriculum"');
@@ -19,14 +20,14 @@ describe('createSnippet', () => {
     expect(snippet).toContain('"url": "https://my-app.vercel.app/mcp"');
   });
 
-  it('generates snippet with localhost URL when no host', () => {
-    const snippet = createSnippet();
+  it('performs no derivation of its own', () => {
+    const snippet = createSnippet('http://localhost:3333/mcp');
 
     expect(snippet).toContain('"url": "http://localhost:3333/mcp"');
   });
 
   it('generates valid JSON structure', () => {
-    const snippet = createSnippet('example.com');
+    const snippet = createSnippet('https://example.com/mcp');
     const jsonWrapped = `{${snippet}}`;
     const doParse = () => {
       const result: unknown = JSON.parse(jsonWrapped);

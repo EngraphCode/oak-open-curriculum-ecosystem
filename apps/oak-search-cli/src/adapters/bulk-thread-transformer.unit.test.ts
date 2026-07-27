@@ -26,6 +26,9 @@ function createMinimalBulkFile(overrides?: Partial<BulkDownloadFile>): BulkDownl
     subjectTitle: 'Maths',
     sequence: [
       {
+        canonicalUrl:
+          'https://www.thenational.academy/teachers/programmes/maths-primary-ks2/units/fractions-year-3/lessons',
+        subjectSlug: 'maths',
         unitSlug: 'fractions-year-3',
         unitTitle: 'Fractions Year 3',
         year: 3,
@@ -38,6 +41,9 @@ function createMinimalBulkFile(overrides?: Partial<BulkDownloadFile>): BulkDownl
         unitLessons: [],
       },
       {
+        canonicalUrl:
+          'https://www.thenational.academy/teachers/programmes/maths-primary-ks2/units/fractions-year-4/lessons',
+        subjectSlug: 'maths',
         unitSlug: 'fractions-year-4',
         unitTitle: 'Fractions Year 4',
         year: 4,
@@ -83,6 +89,9 @@ describe('bulk-thread-transformer', () => {
         sequenceSlug: 'maths-secondary',
         sequence: [
           {
+            canonicalUrl:
+              'https://www.thenational.academy/teachers/programmes/maths-primary-ks2/units/fractions-year-7/lessons',
+            subjectSlug: 'maths',
             unitSlug: 'fractions-year-7',
             unitTitle: 'Fractions Year 7',
             year: 7,
@@ -117,6 +126,9 @@ describe('bulk-thread-transformer', () => {
       const bulkFile = createMinimalBulkFile({
         sequence: [
           {
+            canonicalUrl:
+              'https://www.thenational.academy/teachers/programmes/maths-primary-ks2/units/no-threads-unit/lessons',
+            subjectSlug: 'maths',
             unitSlug: 'no-threads-unit',
             unitTitle: 'Unit Without Threads',
             year: 1,

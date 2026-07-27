@@ -7,6 +7,7 @@ import { createRuntimeConfigFromValidatedEnv } from './runtime-config-from-valid
 import { createFakeHttpObservability } from './test-helpers/observability-fakes.js';
 import { createFakeRateLimiterFactory } from './test-helpers/rate-limiter-fakes.js';
 import { TEST_UPSTREAM_METADATA } from './test-helpers/upstream-metadata-fixture.js';
+import { getScratchStaticRoot } from './test-helpers/static-root-fixture.js';
 
 /**
  * Replacement coverage for the retired
@@ -65,9 +66,12 @@ describe('dev server boots without observability or Vercel deploy env', () => {
     const runtimeConfig = unwrap(createRuntimeConfigFromValidatedEnv(validatedEnv));
 
     const app = await createApp({
+      staticRoot: await getScratchStaticRoot(),
       runtimeConfig,
       observability: createFakeHttpObservability(),
       getWidgetHtml: () => '<!doctype html><html><body>test-widget</body></html>',
+      getLandingPageHtml: () =>
+        '<!doctype html><html lang="en-GB"><body>test landing page</body></html>',
       upstreamMetadata: TEST_UPSTREAM_METADATA,
       rateLimiterFactory: createFakeRateLimiterFactory().factory,
     });

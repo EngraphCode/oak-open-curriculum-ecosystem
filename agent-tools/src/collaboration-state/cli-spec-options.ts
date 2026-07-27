@@ -45,7 +45,7 @@ export const commsWatchOptions = [
   'agent-name',
   'session-prefix',
   'poll-ms',
-  'max-events',
+  'max-events-per-drain',
   'step-timeout-ms',
   'heartbeat-file',
   'heartbeat-interval-ms',

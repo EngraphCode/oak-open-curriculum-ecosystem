@@ -64,10 +64,12 @@ export function classifyEventForAgent(input: {
  * surface, whatever their tags), it carries at least one tag, and EVERY
  * tag it carries is excluded — a multi-tag event with any non-excluded tag
  * (e.g. a failure-mode capture that also carries `heartbeat`) leaks
- * through. Exclusion applies before any `remainingEvents` slice, so
- * excluded events never consume the emission budget; their ids return in
+ * through. Exclusion applies before any `batchLimit` slice, so excluded
+ * events never consume the per-call batch bound; their ids return in
  * `excludedEventIds` (all of them, beyond any slice horizon) for
- * unconditional seen-marking — see `DrainResult`.
+ * unconditional seen-marking — see `DrainResult`. The watch loop passes
+ * the same per-pass bound on every call; relevant events beyond the slice
+ * stay unseen and re-select on the next pass.
  *
  * Returns the formatted output and the IDs of drained events; does NOT mark
  * them seen. The caller marks events owed emission AFTER the emit step
@@ -80,7 +82,7 @@ export async function drainRelevantEvents(input: {
   readonly messages: readonly CommsEvent[];
   readonly seenIds: ReadonlySet<string>;
   readonly self: CollaborationAgentId;
-  readonly remainingEvents?: number;
+  readonly batchLimit?: number;
   readonly excludeTags?: ReadonlySet<CommsEventTag>;
 }): Promise<DrainResult> {
   const unseen = input.messages
@@ -97,7 +99,7 @@ export async function drainRelevantEvents(input: {
     .map((entry) => entry.event.event_id);
   const classified = unseen
     .filter((entry) => !isExcludedByTags(entry, input.excludeTags))
-    .slice(0, input.remainingEvents);
+    .slice(0, input.batchLimit);
 
   if (classified.length === 0) {
     return { output: '', eventCount: 0, eventIds: [], excludedEventIds };

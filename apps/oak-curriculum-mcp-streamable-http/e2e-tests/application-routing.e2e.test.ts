@@ -30,6 +30,7 @@ import {
   createUnauthenticatedMcpAuthClerkDeps,
 } from './helpers/test-config.js';
 import { TEST_UPSTREAM_METADATA } from '../src/test-helpers/upstream-metadata-fixture.js';
+import { getScratchStaticRoot } from '../src/test-helpers/static-root-fixture.js';
 
 const ACCEPT_HEADER = 'application/json, text/event-stream';
 
@@ -50,9 +51,12 @@ async function createAuthEnabledApp(): Promise<Express> {
     },
   });
   return await createApp({
+    staticRoot: await getScratchStaticRoot(),
     runtimeConfig,
     observability: createMockObservability(runtimeConfig),
     getWidgetHtml: () => '<!doctype html><html><body>test-widget</body></html>',
+    getLandingPageHtml: () =>
+      '<!doctype html><html lang="en-GB"><body>test landing page</body></html>',
     rateLimiterFactory: createNoOpRateLimiterFactory(),
     upstreamMetadata: TEST_UPSTREAM_METADATA,
     clerkMiddlewareFactory: createNoOpClerkMiddleware(),
@@ -273,9 +277,12 @@ describe('Application-Level Method-Aware Auth', () => {
         },
       });
       return await createApp({
+        staticRoot: await getScratchStaticRoot(),
         runtimeConfig,
         observability: createMockObservability(runtimeConfig),
         getWidgetHtml: () => '<!doctype html><html><body>test-widget</body></html>',
+        getLandingPageHtml: () =>
+          '<!doctype html><html lang="en-GB"><body>test landing page</body></html>',
         rateLimiterFactory: createNoOpRateLimiterFactory(),
       });
     }

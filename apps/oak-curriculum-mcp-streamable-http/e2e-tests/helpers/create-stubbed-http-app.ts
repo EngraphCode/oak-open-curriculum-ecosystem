@@ -9,6 +9,7 @@ import {
   createMockRuntimeConfig,
   createNoOpRateLimiterFactory,
 } from './test-config.js';
+import { getScratchStaticRoot } from '../../src/test-helpers/static-root-fixture.js';
 
 export const STUB_ACCEPT_HEADER = 'application/json, text/event-stream';
 const STUB_API_KEY = 'stub-api-key';
@@ -48,9 +49,12 @@ export async function createStubbedHttpApp(
   });
   const observability = createMockObservability(runtimeConfig);
   const app = await createApp({
+    staticRoot: await getScratchStaticRoot(),
     runtimeConfig,
     observability,
     getWidgetHtml: () => '<!doctype html><html><body>stub-widget</body></html>',
+    getLandingPageHtml: () =>
+      '<!doctype html><html lang="en-GB"><body>test landing page</body></html>',
     rateLimiterFactory: createNoOpRateLimiterFactory(),
     // Only override the canonical definition when a suite opts into a
     // variant (e.g. the user-search activation seam); omitting it keeps

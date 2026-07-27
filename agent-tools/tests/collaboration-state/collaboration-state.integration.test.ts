@@ -7,6 +7,7 @@ import {
   deriveCollaborationIdentity,
   runCollaborationStateCli,
 } from '../../src/collaboration-state';
+import { watcherExitLine } from '../../src/collaboration-state/comms-watch-errors';
 import { type CommsEvent } from '../../src/collaboration-state/types';
 import { createFakeCollaborationRuntime } from './fake-collaboration-runtime';
 
@@ -584,24 +585,34 @@ describe('collaboration-state comms integration', () => {
     expect(second.stdout).toBe('no new comms events\n');
   });
 
-  it('watches for a new directed message and marks it seen', async () => {
+  it('watches for a new directed message, marks it seen, and exits in-band when the supervisor dies', async () => {
     const commsDir = 'state/comms';
     const seenFile = 'state/seen.txt';
     const streamed: string[] = [];
+    // One-shot delivery queue: the per-pass loop waits after EVERY pass
+    // (MCP-229), so this callback fires again after delivery — the fake's
+    // writeCommsEvent throws on a duplicate event_id, and a rejection from
+    // waitForChange is an unclassified fatal exit by the loop's contract.
+    // Draining a queue keeps the repeat fires branch-free.
+    const pending = [
+      directedMessage({
+        event_id: 'message-one',
+        created_at: '2026-05-11T19:46:35Z',
+        from: senderWithId,
+        to: recipient,
+        subject: 'Please check this',
+        body: 'There is useful coordination here.',
+      }),
+    ];
     const fake = createFakeCollaborationRuntime({
       onWaitForCommsChange: () => {
-        fake.writeCommsEvent(
-          commsDir,
-          directedMessage({
-            event_id: 'message-one',
-            created_at: '2026-05-11T19:46:35Z',
-            from: senderWithId,
-            to: recipient,
-            subject: 'Please check this',
-            body: 'There is useful coordination here.',
-          }),
-        );
+        pending.splice(0, 1).forEach((event) => {
+          fake.writeCommsEvent(commsDir, event);
+        });
       },
+      // State-described supervisor: alive until the message is marked seen;
+      // the next loop-top probe then exits the watch.
+      processIsAlive: () => !fake.readSeenIds(seenFile).includes('message-one'),
     });
 
     const result = await runCollaborationStateCli({
@@ -623,8 +634,10 @@ describe('collaboration-state comms integration', () => {
         seenFile,
         '--poll-ms',
         '20',
-        '--max-events',
+        '--max-events-per-drain',
         '1',
+        '--supervisor-pid',
+        '999999',
       ],
       env: {},
       stdout: {
@@ -635,12 +648,15 @@ describe('collaboration-state comms integration', () => {
       },
       io: fake.runtime.io,
       waitForCommsChange: fake.runtime.waitForCommsChange,
+      processIsAlive: fake.runtime.processIsAlive,
     });
 
     expect(result.exitCode).toBe(0);
     expect(result.stdout).toBe('');
     expect(streamed.join('')).toContain('subject: Please check this');
     expect(streamed.join('')).toContain('There is useful coordination here.');
+    // The stream ends with the orderly-exit vocabulary, never silently.
+    expect(streamed.at(-1)).toBe(watcherExitLine('supervisor-gone', 1));
     expect(fake.readSeenIds(seenFile)).toStrictEqual(['message-one']);
   });
 });

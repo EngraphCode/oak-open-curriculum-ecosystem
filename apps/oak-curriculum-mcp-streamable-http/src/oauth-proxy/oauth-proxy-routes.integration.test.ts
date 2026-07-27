@@ -540,3 +540,42 @@ describe('upstream timeout and unreachability', () => {
     ]);
   });
 });
+
+describe('POST /oauth/register redirect_uri validation wiring (MCP-188)', () => {
+  // Exhaustive URI-shape cases live in the validator's unit test. These two
+  // prove the WIRING: a rejection is emitted as an RFC 7591 §3.2.2 error and
+  // the upstream is never contacted; a conformant registration still flows.
+  it('rejects a non-loopback http redirect_uri without contacting upstream', async () => {
+    const { fetch: fakeFetch, captured } = createSimpleFakeFetch(201, { client_id: 'must-not' });
+    const app = createProxyApp(fakeFetch);
+
+    const res = await request(app)
+      .post('/oauth/register')
+      .send({
+        client_name: 'Probe',
+        redirect_uris: ['http://evil.example/callback'],
+        token_endpoint_auth_method: 'none',
+      })
+      .expect(400);
+
+    expect(res.body.error).toBe('invalid_redirect_uri');
+    expect(res.body.error_description).not.toContain('evil.example');
+    expect(captured.url).toBeUndefined();
+  });
+
+  it('forwards a registration whose redirect_uris are all conformant', async () => {
+    const { fetch: fakeFetch, captured } = createSimpleFakeFetch(201, { client_id: 'ok' });
+    const app = createProxyApp(fakeFetch);
+
+    await request(app)
+      .post('/oauth/register')
+      .send({
+        client_name: 'Probe',
+        redirect_uris: ['https://client.example/cb', 'http://127.0.0.1:61154/cb'],
+        token_endpoint_auth_method: 'none',
+      })
+      .expect(201);
+
+    expect(captured.url).toBe(`${UPSTREAM_BASE}/oauth/register`);
+  });
+});

@@ -6,6 +6,7 @@ import {
   createMockRuntimeConfig,
   createNoOpRateLimiterFactory,
 } from './test-config.js';
+import { getScratchStaticRoot } from '../../src/test-helpers/static-root-fixture.js';
 
 export interface LiveHttpApp {
   readonly app: express.Express;
@@ -27,9 +28,12 @@ export async function createLiveHttpApp(options?: CreateLiveHttpAppOptions): Pro
   });
   const observability = createMockObservability(runtimeConfig);
   const app = await createApp({
+    staticRoot: await getScratchStaticRoot(),
     runtimeConfig,
     observability,
     getWidgetHtml: () => '<!doctype html><html><body>live-widget</body></html>',
+    getLandingPageHtml: () =>
+      '<!doctype html><html lang="en-GB"><body>test landing page</body></html>',
     toolHandlerOverrides: options?.overrides,
     rateLimiterFactory: createNoOpRateLimiterFactory(),
   });

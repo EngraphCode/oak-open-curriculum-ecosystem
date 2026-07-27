@@ -24,8 +24,10 @@
 import { describe, it, expect } from 'vitest';
 import { z } from 'zod';
 import { getCurriculumModelJson } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
-import { renderToolsSection } from '../landing-page/render-tools-section.js';
-import { renderResourcesSection } from '../landing-page/render-resources-section.js';
+import { renderToStaticMarkup } from 'react-dom/server';
+import { ToolsSection } from '../landing-page/components/tools-section.js';
+import { ResourcesSection } from '../landing-page/components/resources-section.js';
+import { deriveLandingPageViewProps } from '../landing-page/derive-view-props.js';
 import { SERVED_SURFACE } from './served-surface.js';
 import { filterCurriculumModelJson } from './filter-guidance-content.js';
 import { walkCanonicalRegistration } from '../test-helpers/registration-walk.js';
@@ -53,8 +55,17 @@ function walkRegistration(): {
 }
 
 const registration = walkRegistration();
-const toolsSectionHtml = renderToolsSection();
-const resourcesSectionHtml = renderResourcesSection();
+// Rendered through the build-time derivation, as the baked page is.
+const viewProps = deriveLandingPageViewProps();
+const toolsSectionHtml = renderToStaticMarkup(
+  <ToolsSection
+    aggregatedTools={viewProps.aggregatedTools}
+    generatedTools={viewProps.generatedTools}
+  />,
+);
+const resourcesSectionHtml = renderToStaticMarkup(
+  <ResourcesSection resources={viewProps.resources} />,
+);
 
 /**
  * Structured tool references in the SERVED curriculum-model guidance —

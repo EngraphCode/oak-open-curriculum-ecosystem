@@ -1,3 +1,105 @@
+## [1.97.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.97.1...v1.97.2) (2026-07-27)
+
+
+### Bug Fixes
+
+* **hook-policy:** extend the stash-park guard to interposed and backtick shapes (MCP-254) ([9d5cdc8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9d5cdc8f192ed6da1fe029ce461295ec5c7e3b0d))
+
+## [1.97.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.97.0...v1.97.1) (2026-07-27)
+
+
+### Bug Fixes
+
+* **security:** allowlist MCP-103 anchors digest lines and named index tokens in gitleaks ([881cd3e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/881cd3ec6e76e0c5566bc9f1f4e5671c7c5a3f94))
+
+# [1.97.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.96.0...v1.97.0) (2026-07-27)
+
+
+### Bug Fixes
+
+* **mcp-app:** cure the three Sonar findings on the PR-3 review-round cures ([f8ebd56](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f8ebd56b7f41cf6c84a189714b27ce701194d5e8))
+* **mcp-app:** inline the baked landing page into the deploy bundle (MCP-128) ([452ab70](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/452ab70f562282184c505c2c00a317e03c31745b))
+
+
+### Features
+
+* **mcp-app:** bake the React landing page at build time ([f090839](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f09083987dd915fc5e702913fe27597727587884))
+
+# [1.96.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.95.0...v1.96.0) (2026-07-27)
+
+
+### Bug Fixes
+
+* **mcp-http:** forward malformed redirect_uris entries instead of refusing them ([ee4e296](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ee4e296d85f7f989946fa3357759c400af4a9046))
+* **mcp-http:** forward non-array redirect_uris — the upstream demonstrably rejects it ([f8ecdf4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f8ecdf4a5ea9dae361bff70ebace71c763ecfd26))
+* **mcp-http:** reject non-loopback http redirect_uris at /oauth/register ([a8fd012](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a8fd0125dcce78265b0cf3392b5c73d000895ac6))
+* **mcp-http:** scope the refusal to the cited obligation; widen IPv4 loopback ([da6d56d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/da6d56dbad7403ef05731454e27e8cce6e947fe3))
+
+
+### Features
+
+* **analytics:** add fenced PostHog adapter boundary ([87358fb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/87358fb94d458e03d83aec8dc67ced7de49723e3))
+
+# [1.95.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.94.2...v1.95.0) (2026-07-27)
+
+
+### Features
+
+* **hook-policy:** block the git stash park family with an anchored regex entry ([5b500a9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5b500a9cc3b0b5bbfbfead92281a7174e62ccc24))
+
+## [1.94.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.94.1...v1.94.2) (2026-07-27)
+
+## [1.94.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.94.0...v1.94.1) (2026-07-27)
+
+# [1.94.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.93.0...v1.94.0) (2026-07-27)
+
+
+### Bug Fixes
+
+* **agent-tools:** epipe guard listener-safe and tested, exit-line builder, probe caps (MCP-229) ([fa0a313](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/fa0a3132e37f630d23f8f2c642a49410181c05b7))
+
+
+### Features
+
+* **agent-tools:** per-pass --max-events-per-drain and in-band watcher exit reasons (MCP-229) ([84e8cfc](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/84e8cfc20b5dbb1c79f8d998f97b817621cc6609))
+* **search-cli:** apply the restricted-lesson exclusion at the ingest boundary (MCP-153) ([a55d447](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a55d447fa10cf894b7b018cd8a0a73df93a1d741))
+
+# [1.93.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.92.0...v1.93.0) (2026-07-27)
+
+
+### Features
+
+* **sdk-codegen:** exclude restricted lessons at the bulk-data boundary (MCP-153) ([4bb6382](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4bb63823c098b496a6754883fc9cd68a9e077355))
+
+# [1.92.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.91.0...v1.92.0) (2026-07-27)
+
+
+### Features
+
+* **sdk-codegen:** declare the 13 new upstream bulk fields, schema-transcribed (MCP-226) ([2da6fbc](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2da6fbc548225525337662f67e05d01518e0376a))
+
+# [1.91.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.90.0...v1.91.0) (2026-07-27)
+
+
+### Features
+
+* **mcp-app:** serve the Oak design system and brand assets from the app ([d00c247](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d00c2475dbda1ef483e23e0e61e7d763b747ccac))
+
+# [1.90.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.89.0...v1.90.0) (2026-07-27)
+
+
+### Features
+
+* **design:** dense code ramp and inverted-surface focus family for the landing page ([56b9157](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/56b91576fb6f86ae9308e109e635592e0c51e223)), closes [hi#contrast](https://github.com/hi/issues/contrast)
+
+# [1.89.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.88.3...v1.89.0) (2026-07-26)
+
+
+### Features
+
+* **sdk-codegen:** add deferred-paths exclusion module (MCP-152) ([501f16c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/501f16cf7ed815a6b0e4628797d24060f64de377))
+* **sdk-codegen:** adopt upstream 0.7.0-c83593ca with check-restricted deferred (MCP-152) ([96e8ecf](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/96e8ecf4a00517235b872db3056ec390c15f725e))
+
 ## [1.88.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.88.2...v1.88.3) (2026-07-26)
 
 

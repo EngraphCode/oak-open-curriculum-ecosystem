@@ -519,3 +519,17 @@ From the synthesis
   answer to drain latency regardless; the controlled watcher-RSS × dir-size
   measurement (open item) would let any size-based threshold here be evidence-sized
   rather than a round number.
+
+## Routed evidence from the per-pass semantics change (MCP-229, 2026-07-27)
+
+Measured baseline for this plan's remaining drain-read work, from the MCP-229
+live soak (post-MCP-198 incremental drain + per-pass `--max-events-per-drain`,
+built dist, scratch copy of the real corpus): a 3,943-file directory with a
+fully stale cursor (3,759 relevant unseen events) caught up in **18 s** across
+~38 paced passes at 100 events/pass with a 200 ms poll — ~270 ms drain per
+pass at MAXIMUM unseen size, ~400× inside the canonical 120 s step deadline.
+The catch-up's known quadratic residual (each pass re-reads the still-unseen
+remainder, O(M²/N) file reads total) is therefore comfortably affordable at
+today's corpus scale; the watermark/segment store remains the structural
+answer for corpus growth, now with an evidence-sized baseline to compare
+against instead of a round number.

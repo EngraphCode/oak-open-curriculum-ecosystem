@@ -8,7 +8,11 @@
  *
  * @see ADR-093 Bulk-First Ingestion Strategy
  */
-import { readAllBulkFiles, type BulkFileResult } from '@oaknational/sdk-codegen/bulk';
+import {
+  excludeRestrictedLessons,
+  readAllBulkFiles,
+  type BulkFileResult,
+} from '@oaknational/sdk-codegen/bulk';
 import { deriveSubjectSlugFromSequence } from '@oaknational/curriculum-sdk';
 import type { OakClient } from '../../adapters/oak-adapter';
 import {
@@ -127,12 +131,20 @@ export async function prepareBulkIngestion(
   const filteredFiles = filterBySubject(allFiles, subjectFilter);
   logFilesLoaded(allFiles.length, filteredFiles.length, subjectFilter);
 
-  const bulkDownloadFiles = filteredFiles.map((f) => f.data);
+  // Restricted lessons never enter any ingestion phase (MCP-204 decision —
+  // provenance and revisit condition live on the SDK's restricted-lesson-filter)
+  const { files: ingestFiles, restrictedLessonsExcluded } = excludeRestrictedLessons(filteredFiles);
+  ingestLogger.info('Restricted lessons excluded at ingest', {
+    restrictedLessonsExcluded,
+    decision: 'MCP-204 filter-at-ingest; revisit post-submission',
+  });
+
+  const bulkDownloadFiles = ingestFiles.map((f) => f.data);
   const sequenceSlugs = bulkDownloadFiles.map((f) => f.sequenceSlug);
   const categoryMap = await fetchCategories(deps, client, sequenceSlugs);
 
   const phases = await deps.collectPhaseResults(
-    filteredFiles,
+    ingestFiles,
     bulkDownloadFiles,
     client,
     indexes,
@@ -141,11 +153,12 @@ export async function prepareBulkIngestion(
   );
 
   const stats = buildIngestionStats(
-    filteredFiles.length,
+    ingestFiles.length,
     phases.processingResult,
     phases.threadCount,
     phases.sequenceResult,
     phases.vocabStats,
+    restrictedLessonsExcluded,
   );
 
   ingestLogger.info('Bulk ingestion preparation complete', {

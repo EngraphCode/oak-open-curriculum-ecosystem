@@ -22,6 +22,9 @@ import { buildLessonDocument } from '../lib/indexing/lesson-document-core';
  */
 function createMinimalLesson(overrides?: Partial<Lesson>): Lesson {
   return {
+    oakUrl: 'https://www.thenational.academy/teachers/lessons/test-lesson',
+    canonicalUrl:
+      'https://www.thenational.academy/teachers/programmes/maths-primary-ks2/units/test-unit/lessons/test-lesson',
     lessonSlug: 'test-lesson',
     lessonTitle: 'Test Lesson',
     unitSlug: 'test-unit',

@@ -64,7 +64,7 @@ const KNOWN_OPTION_KEYS = new Set([
   'intent-id',
   'kind',
   'lifecycle-dir',
-  'max-events',
+  'max-events-per-drain',
   'messages-dir',
   'model',
   'notes',
