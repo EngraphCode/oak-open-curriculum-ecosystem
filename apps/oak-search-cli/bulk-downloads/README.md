@@ -45,7 +45,7 @@ pnpm bulk:download
 
 ## Gitignore
 
-The JSON files are gitignored to avoid committing large data files. Only the `.gitkeep` and `README.md` are tracked.
+The JSON data files are gitignored to avoid committing large data files. The tracked files are `.gitkeep`, `README.md`, `manifest.json`, and `schema.json`.
 
 ## Related
 
