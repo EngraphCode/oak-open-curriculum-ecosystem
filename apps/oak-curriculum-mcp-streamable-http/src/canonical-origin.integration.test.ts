@@ -27,12 +27,19 @@ import {
 
 const CANONICAL_HOST = 'www.thenational.academy';
 const CANONICAL_ORIGIN = `https://${CANONICAL_HOST}`;
+
+/**
+ * The Host the edge presents to the origin. Deliberately NOT added to the
+ * allow-list: a configured canonical origin must not consult it, so leaving
+ * it out proves the canonical path is independent of allow-list state.
+ */
 const EDGE_ORIGIN_HOST = 'origin.example.com';
 
+/** In the allow-list by default (`BASE_HOSTS`), for the per-request cases. */
+const LOOPBACK_HOST = 'localhost:3333';
+
 async function createTestApp(env: Record<string, string>) {
-  const runtimeConfig = createMockRuntimeConfig({
-    env: { ALLOWED_HOSTS: `${EDGE_ORIGIN_HOST},localhost,127.0.0.1`, ...env },
-  });
+  const runtimeConfig = createMockRuntimeConfig({ env });
   return await createApp({
     staticRoot: await getScratchStaticRoot(),
     runtimeConfig,
@@ -81,7 +88,7 @@ describe('canonical origin (MCP-269)', () => {
       const middleware = mcpAuth(
         () => Promise.resolve(undefined),
         createFakeLogger(),
-        [EDGE_ORIGIN_HOST],
+        [],
         CANONICAL_ORIGIN,
       );
       const req = createMockExpressRequest({ host: EDGE_ORIGIN_HOST });
@@ -104,7 +111,7 @@ describe('canonical origin (MCP-269)', () => {
       const middleware = mcpAuth(
         () => Promise.resolve(undefined),
         createFakeLogger(),
-        [EDGE_ORIGIN_HOST],
+        [],
         CANONICAL_ORIGIN,
       );
       const req = createMockExpressRequest({ host: EDGE_ORIGIN_HOST });
@@ -126,7 +133,7 @@ describe('canonical origin (MCP-269)', () => {
 
       const [viaEdge, direct] = await Promise.all([
         request(app).get('/.well-known/oauth-protected-resource/mcp').set('Host', EDGE_ORIGIN_HOST),
-        request(app).get('/.well-known/oauth-protected-resource/mcp').set('Host', 'localhost:3333'),
+        request(app).get('/.well-known/oauth-protected-resource/mcp').set('Host', LOOPBACK_HOST),
       ]);
 
       expect(viaEdge.body).toStrictEqual(direct.body);
@@ -140,10 +147,10 @@ describe('canonical origin (MCP-269)', () => {
 
       const res = await request(app)
         .get('/.well-known/oauth-protected-resource/mcp')
-        .set('Host', EDGE_ORIGIN_HOST);
+        .set('Host', LOOPBACK_HOST);
 
       expect(res.status).toBe(200);
-      expect(res.body).toHaveProperty('resource', `https://${EDGE_ORIGIN_HOST}/mcp`);
+      expect(res.body).toHaveProperty('resource', `http://${LOOPBACK_HOST}/mcp`);
     });
   });
 });
