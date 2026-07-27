@@ -1,3 +1,15 @@
+# [1.98.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.97.2...v1.98.0) (2026-07-27)
+
+
+### Bug Fixes
+
+* **mcp:** clear the CI findings on the canonical-origin change ([70ee9eb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/70ee9ebc95e8e5b0188ea258767fbf773f5c8f2a))
+
+
+### Features
+
+* **mcp:** self-describe at a configured canonical origin ([87f601c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/87f601cac14f8abca8f5c578359b3bf08433852f))
+
 ## [1.97.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.97.1...v1.97.2) (2026-07-27)
 
 
