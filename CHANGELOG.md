@@ -1,3 +1,16 @@
+# [1.97.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.96.0...v1.97.0) (2026-07-27)
+
+
+### Bug Fixes
+
+* **mcp-app:** cure the three Sonar findings on the PR-3 review-round cures ([f8ebd56](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f8ebd56b7f41cf6c84a189714b27ce701194d5e8))
+* **mcp-app:** inline the baked landing page into the deploy bundle (MCP-128) ([452ab70](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/452ab70f562282184c505c2c00a317e03c31745b))
+
+
+### Features
+
+* **mcp-app:** bake the React landing page at build time ([f090839](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f09083987dd915fc5e702913fe27597727587884))
+
 # [1.96.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.95.0...v1.96.0) (2026-07-27)
 
 
