@@ -6,6 +6,7 @@
  * explicit exclusion reason says why the change adds no governed content.
  */
 import {
+  DELETED_SOURCE,
   excluded,
   IMPLEMENTATION_ONLY,
   reviewed,
@@ -69,5 +70,29 @@ export const APP_LANDING_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDel
   'apps/oak-curriculum-mcp-streamable-http/widget/src/BrandBanner.tsx': reviewed(
     '57d012a77be646b3d61186f7cbbee9d7b77f3c070acb502f911915e5db0c087d',
     ['C390', 'C391', 'C392', 'C393'],
+  ),
+  'apps/oak-curriculum-mcp-streamable-http/src/landing-page/escape-html.ts': excluded(
+    'f4dbbd62ae39c1018ec810ef9698445bf2c5c78a0d39b1c81c585373e619c663',
+    DELETED_SOURCE,
+  ),
+  'apps/oak-curriculum-mcp-streamable-http/src/landing-page/html-head.ts': excluded(
+    'edefaa2ef5b38a9f3167effc49cb55f00669120e3cc37fe206558a0820915139',
+    DELETED_SOURCE,
+  ),
+  'apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-landing-page.ts': excluded(
+    'eb97915aaa773f6c4c9e8479a53164f1ba180654d279e1c1cb6bc1f9dc68a0bf',
+    DELETED_SOURCE,
+  ),
+  'apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-prompts-section.ts': excluded(
+    '6fcc3747e3faacbfe0f9d03bd7f3ee98b309bba41a504a4b3c53d7d303eecc6b',
+    DELETED_SOURCE,
+  ),
+  'apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-resources-section.ts': excluded(
+    'b48528cbedd07ccb18126f06d4e3ee12e8ca1699499d7e3f1661a99d6d964b13',
+    DELETED_SOURCE,
+  ),
+  'apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-tools-section.ts': excluded(
+    '3a6ba89621a192db8ce522c825cad1a197015f22f55b50c57911efbb57ffb761',
+    DELETED_SOURCE,
   ),
 };

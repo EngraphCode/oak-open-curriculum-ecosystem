@@ -1,5 +1,5 @@
 import { execFileSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { typeSafeKeys } from '@oaknational/type-helpers';
 import { resolveTrustedGit } from '../core/trusted-git.js';
@@ -97,7 +97,7 @@ export function deriveCurrentDeltaFiles(
       '-c',
       'core.fsmonitor=false',
       'diff',
-      '--diff-filter=ACMR',
+      '--diff-filter=ACMRD',
       '--name-status',
       '--find-renames',
       baselineCommit,
@@ -125,6 +125,29 @@ export function deriveCurrentDeltaFiles(
     })
     .map(({ file }) => file)
     .sort((left, right) => left.localeCompare(right));
+}
+
+/** Reads each delta file's current content; a deleted file reads its baseline tombstone content. */
+export function readDeltaContent(
+  repoRoot: string,
+  baselineCommit: string,
+  files: readonly string[],
+  dependencies: DeltaSourceDependencies = {},
+): ReadonlyMap<string, string> {
+  const git = dependencies.git ?? ((args) => gitOutput(repoRoot, args));
+  const readFile = dependencies.readFile ?? ((file) => readFileSync(file, 'utf8'));
+  return new Map(
+    files.map((file) => {
+      if (existsSync(path.join(repoRoot, file))) {
+        return [file, readFile(path.join(repoRoot, file))] as const;
+      }
+      const baseline = baselineSource(baselineCommit, file, git);
+      if (baseline === null) {
+        throw new Error(`Deleted delta source has no baseline content: ${file}`);
+      }
+      return [file, baseline] as const;
+    }),
+  );
 }
 
 function filesByItemId(

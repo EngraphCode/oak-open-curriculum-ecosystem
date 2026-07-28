@@ -30,3 +30,5 @@ export const TYPE_ONLY = 'Type-only change; no authored agent-facing content.';
 export const TEST_ONLY = 'Test support only; this file does not reach an MCP consumer.';
 export const UPSTREAM_BULK_ONLY =
   'Bulk ingestion schema contract only; this file is not exposed through the MCP app.';
+export const DELETED_SOURCE =
+  'Governed source deleted from the tree; the baseline-content hash is the tombstone and item lineage records each item retirement or relocation.';

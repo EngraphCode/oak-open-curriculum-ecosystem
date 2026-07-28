@@ -6,6 +6,7 @@
  * explicit exclusion reason says why the change adds no governed content.
  */
 import {
+  DELETED_SOURCE,
   excluded,
   IMPLEMENTATION_ONLY,
   reviewed,
@@ -169,5 +170,49 @@ export const SDK_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
   'packages/sdks/oak-curriculum-sdk/src/mcp/universal-tools/executor.ts': reviewed(
     '6b3007871168f2f388a2f87b895223f03024b8ad7af8781f6a180b4ff3133d10',
     ['C057', 'C058'],
+  ),
+  'packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompt-messages.ts': excluded(
+    '915c46784747690ff766918985423872733b85fc07a503b558bc50506113ba9e',
+    DELETED_SOURCE,
+  ),
+  'packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompt-types.ts': excluded(
+    '809f2f9b7475694e99cedc9435978c6ad53eadf5ae0eea740aedb361a96679c9',
+    DELETED_SOURCE,
+  ),
+  'packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompts.ts': excluded(
+    'fb8ebc1efd1c3847e5becf4212f7aa117160f2b22d92b11fe1f26624e5d93224',
+    DELETED_SOURCE,
+  ),
+  'packages/sdks/oak-curriculum-sdk/src/mcp/prerequisite-guidance.ts': excluded(
+    '6412a3bf0e7f1f76ea0228101806e6189b7211183bcde4f3664f283f3d7995e9',
+    DELETED_SOURCE,
+  ),
+  'packages/sdks/oak-curriculum-sdk/src/mcp/prompt-messages/adapt-lesson.ts': excluded(
+    '865c28ed699a864501169c4bcfe45f0fff5c4ec43bdc8282f6ccdca8cbb8595c',
+    DELETED_SOURCE,
+  ),
+  'packages/sdks/oak-curriculum-sdk/src/mcp/prompt-messages/continue-progression.ts': excluded(
+    '481e5c709f8f65f706adcf04f47e442f2dccc1dcb16bb5ce4e335d2b2549b8d0',
+    DELETED_SOURCE,
+  ),
+  'packages/sdks/oak-curriculum-sdk/src/mcp/prompt-messages/curriculum-mapping.ts': excluded(
+    'f819abb277bbd2062a484aa7e06adfe42df44f33958f1fe0725e014a0dd2d1ea',
+    DELETED_SOURCE,
+  ),
+  'packages/sdks/oak-curriculum-sdk/src/mcp/prompt-messages/explore-curriculum.ts': excluded(
+    '3f0faff48daf58a880f9d638bf9a0af07ddf931900d03fcc0b6c25530bde8668',
+    DELETED_SOURCE,
+  ),
+  'packages/sdks/oak-curriculum-sdk/src/mcp/prompt-messages/find-lessons.ts': excluded(
+    '5e30b3e76c07e5c9eded93ec8a4af065c7f286b07006879e39cda352a547d4dc',
+    DELETED_SOURCE,
+  ),
+  'packages/sdks/oak-curriculum-sdk/src/mcp/prompt-messages/learning-progression.ts': excluded(
+    'a2d731768e4ab1378919e58c1cc09c80842d1e5d3efd59e7935fa9a8041287f6',
+    DELETED_SOURCE,
+  ),
+  'packages/sdks/oak-curriculum-sdk/src/mcp/prompt-messages/lesson-planning.ts': excluded(
+    '2868c68e526f5d137fdec81722731059369a3005e33973940ae48c88da5a283b',
+    DELETED_SOURCE,
   ),
 };

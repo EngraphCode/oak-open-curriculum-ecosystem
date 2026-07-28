@@ -17,6 +17,7 @@ import {
 import {
   buildCurrentSourceDeltaInventory,
   deriveCurrentDeltaFiles,
+  readDeltaContent,
 } from './current-source-delta-inventory.js';
 import { buildAnchoredDispositions } from './current-source-dispositions.js';
 import {
@@ -201,7 +202,7 @@ export async function recomputeCurrentSource(
   const deltaInventory = buildCurrentSourceDeltaInventory({
     baselineCommit: BASELINE_COMMIT,
     changedFiles,
-    contentByFile: await readCurrentContent(repoRoot, changedFiles),
+    contentByFile: readDeltaContent(repoRoot, BASELINE_COMMIT, changedFiles),
     current: context.dispositions.current,
     additions: context.additions,
   });

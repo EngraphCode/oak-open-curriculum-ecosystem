@@ -154,4 +154,16 @@ describe('buildCurrentSourceDeltaInventory', () => {
     expect(changed).toEqual([governedFile]);
     expect(calls.some((args) => args.includes('--others'))).toBe(true);
   });
+
+  it('includes deleted governed sources so their removal requires a reviewed tombstone', () => {
+    const deletedFile = 'apps/oak-curriculum-mcp-streamable-http/src/retired-agent-content.ts';
+    const changed = deriveCurrentDeltaFiles('/repo', 'baseline', {
+      git: (args) => (args.includes('diff') ? `D\t${deletedFile}\n` : ''),
+      readFile: () => {
+        throw new Error('a deleted file has no current source to compare');
+      },
+    });
+
+    expect(changed).toEqual([deletedFile]);
+  });
 });

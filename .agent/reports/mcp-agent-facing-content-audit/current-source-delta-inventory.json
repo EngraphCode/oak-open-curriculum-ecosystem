@@ -249,16 +249,52 @@
       ]
     },
     {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/landing-page/escape-html.ts",
+      "semanticSha256": "f4dbbd62ae39c1018ec810ef9698445bf2c5c78a0d39b1c81c585373e619c663",
+      "itemIds": [],
+      "exclusionReason": "Governed source deleted from the tree; the baseline-content hash is the tombstone and item lineage records each item retirement or relocation."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/landing-page/html-head.ts",
+      "semanticSha256": "edefaa2ef5b38a9f3167effc49cb55f00669120e3cc37fe206558a0820915139",
+      "itemIds": [],
+      "exclusionReason": "Governed source deleted from the tree; the baseline-content hash is the tombstone and item lineage records each item retirement or relocation."
+    },
+    {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/landing-page/index.ts",
       "semanticSha256": "5440a4e6a5395f51973cd475d8fcaf65d75fcb8d2eff0590aa36d4f179192fe4",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
     {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-landing-page.ts",
+      "semanticSha256": "eb97915aaa773f6c4c9e8479a53164f1ba180654d279e1c1cb6bc1f9dc68a0bf",
+      "itemIds": [],
+      "exclusionReason": "Governed source deleted from the tree; the baseline-content hash is the tombstone and item lineage records each item retirement or relocation."
+    },
+    {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-landing-page.tsx",
       "semanticSha256": "c8ae88ca78a96601ac77e78b4b969141026496b3bc57ad64c6ead3151ba11207",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-prompts-section.ts",
+      "semanticSha256": "6fcc3747e3faacbfe0f9d03bd7f3ee98b309bba41a504a4b3c53d7d303eecc6b",
+      "itemIds": [],
+      "exclusionReason": "Governed source deleted from the tree; the baseline-content hash is the tombstone and item lineage records each item retirement or relocation."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-resources-section.ts",
+      "semanticSha256": "b48528cbedd07ccb18126f06d4e3ee12e8ca1699499d7e3f1661a99d6d964b13",
+      "itemIds": [],
+      "exclusionReason": "Governed source deleted from the tree; the baseline-content hash is the tombstone and item lineage records each item retirement or relocation."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-tools-section.ts",
+      "semanticSha256": "3a6ba89621a192db8ce522c825cad1a197015f22f55b50c57911efbb57ffb761",
+      "itemIds": [],
+      "exclusionReason": "Governed source deleted from the tree; the baseline-content hash is the tombstone and item lineage records each item retirement or relocation."
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/landing-page/resolve-canonical-url.ts",
@@ -322,6 +358,18 @@
       "semanticSha256": "19d598ca413c7eeb9e509ddc38d44e006b761f8654c0a7e641b68b232d7c8610",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/prompt-schemas.ts",
+      "semanticSha256": "b72ba8cceb54d32bf4346f202d1c13193bd9c4006a3426a555869ad7f112f7ca",
+      "itemIds": [],
+      "exclusionReason": "Governed source deleted from the tree; the baseline-content hash is the tombstone and item lineage records each item retirement or relocation."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/register-prompts.ts",
+      "semanticSha256": "3260d7418fadfadd67e209a927f0a87d30645dfcbd94beb1f75833cf1f8d2842",
+      "itemIds": [],
+      "exclusionReason": "Governed source deleted from the tree; the baseline-content hash is the tombstone and item lineage records each item retirement or relocation."
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/register-resource-helpers.ts",
@@ -744,6 +792,24 @@
       ]
     },
     {
+      "file": "packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompt-messages.ts",
+      "semanticSha256": "915c46784747690ff766918985423872733b85fc07a503b558bc50506113ba9e",
+      "itemIds": [],
+      "exclusionReason": "Governed source deleted from the tree; the baseline-content hash is the tombstone and item lineage records each item retirement or relocation."
+    },
+    {
+      "file": "packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompt-types.ts",
+      "semanticSha256": "809f2f9b7475694e99cedc9435978c6ad53eadf5ae0eea740aedb361a96679c9",
+      "itemIds": [],
+      "exclusionReason": "Governed source deleted from the tree; the baseline-content hash is the tombstone and item lineage records each item retirement or relocation."
+    },
+    {
+      "file": "packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompts.ts",
+      "semanticSha256": "fb8ebc1efd1c3847e5becf4212f7aa117160f2b22d92b11fe1f26624e5d93224",
+      "itemIds": [],
+      "exclusionReason": "Governed source deleted from the tree; the baseline-content hash is the tombstone and item lineage records each item retirement or relocation."
+    },
+    {
       "file": "packages/sdks/oak-curriculum-sdk/src/mcp/mcp-resource-types.ts",
       "semanticSha256": "0e31c4103c0b45fb5d4f59ff7522684e77adf56978336d8ba7cda817f0580c20",
       "itemIds": [],
@@ -757,6 +823,54 @@
         "C005",
         "C006"
       ]
+    },
+    {
+      "file": "packages/sdks/oak-curriculum-sdk/src/mcp/prerequisite-guidance.ts",
+      "semanticSha256": "6412a3bf0e7f1f76ea0228101806e6189b7211183bcde4f3664f283f3d7995e9",
+      "itemIds": [],
+      "exclusionReason": "Governed source deleted from the tree; the baseline-content hash is the tombstone and item lineage records each item retirement or relocation."
+    },
+    {
+      "file": "packages/sdks/oak-curriculum-sdk/src/mcp/prompt-messages/adapt-lesson.ts",
+      "semanticSha256": "865c28ed699a864501169c4bcfe45f0fff5c4ec43bdc8282f6ccdca8cbb8595c",
+      "itemIds": [],
+      "exclusionReason": "Governed source deleted from the tree; the baseline-content hash is the tombstone and item lineage records each item retirement or relocation."
+    },
+    {
+      "file": "packages/sdks/oak-curriculum-sdk/src/mcp/prompt-messages/continue-progression.ts",
+      "semanticSha256": "481e5c709f8f65f706adcf04f47e442f2dccc1dcb16bb5ce4e335d2b2549b8d0",
+      "itemIds": [],
+      "exclusionReason": "Governed source deleted from the tree; the baseline-content hash is the tombstone and item lineage records each item retirement or relocation."
+    },
+    {
+      "file": "packages/sdks/oak-curriculum-sdk/src/mcp/prompt-messages/curriculum-mapping.ts",
+      "semanticSha256": "f819abb277bbd2062a484aa7e06adfe42df44f33958f1fe0725e014a0dd2d1ea",
+      "itemIds": [],
+      "exclusionReason": "Governed source deleted from the tree; the baseline-content hash is the tombstone and item lineage records each item retirement or relocation."
+    },
+    {
+      "file": "packages/sdks/oak-curriculum-sdk/src/mcp/prompt-messages/explore-curriculum.ts",
+      "semanticSha256": "3f0faff48daf58a880f9d638bf9a0af07ddf931900d03fcc0b6c25530bde8668",
+      "itemIds": [],
+      "exclusionReason": "Governed source deleted from the tree; the baseline-content hash is the tombstone and item lineage records each item retirement or relocation."
+    },
+    {
+      "file": "packages/sdks/oak-curriculum-sdk/src/mcp/prompt-messages/find-lessons.ts",
+      "semanticSha256": "5e30b3e76c07e5c9eded93ec8a4af065c7f286b07006879e39cda352a547d4dc",
+      "itemIds": [],
+      "exclusionReason": "Governed source deleted from the tree; the baseline-content hash is the tombstone and item lineage records each item retirement or relocation."
+    },
+    {
+      "file": "packages/sdks/oak-curriculum-sdk/src/mcp/prompt-messages/learning-progression.ts",
+      "semanticSha256": "a2d731768e4ab1378919e58c1cc09c80842d1e5d3efd59e7935fa9a8041287f6",
+      "itemIds": [],
+      "exclusionReason": "Governed source deleted from the tree; the baseline-content hash is the tombstone and item lineage records each item retirement or relocation."
+    },
+    {
+      "file": "packages/sdks/oak-curriculum-sdk/src/mcp/prompt-messages/lesson-planning.ts",
+      "semanticSha256": "2868c68e526f5d137fdec81722731059369a3005e33973940ae48c88da5a283b",
+      "itemIds": [],
+      "exclusionReason": "Governed source deleted from the tree; the baseline-content hash is the tombstone and item lineage records each item retirement or relocation."
     },
     {
       "file": "packages/sdks/oak-curriculum-sdk/src/mcp/universal-tool-shared.ts",

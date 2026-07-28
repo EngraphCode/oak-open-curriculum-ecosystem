@@ -6,6 +6,7 @@
  * explicit exclusion reason says why the change adds no governed content.
  */
 import {
+  DELETED_SOURCE,
   excluded,
   IMPLEMENTATION_ONLY,
   reviewed,
@@ -217,5 +218,13 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
   'apps/oak-curriculum-mcp-streamable-http/src/test-helpers/static-root-fixture.ts': excluded(
     '6350420bb5d4e36cbca9264a0a7b704ebb3dd6ce57027e6073bc60f007447a8d',
     TEST_ONLY,
+  ),
+  'apps/oak-curriculum-mcp-streamable-http/src/prompt-schemas.ts': excluded(
+    'b72ba8cceb54d32bf4346f202d1c13193bd9c4006a3426a555869ad7f112f7ca',
+    DELETED_SOURCE,
+  ),
+  'apps/oak-curriculum-mcp-streamable-http/src/register-prompts.ts': excluded(
+    '3260d7418fadfadd67e209a927f0a87d30645dfcbd94beb1f75833cf1f8d2842',
+    DELETED_SOURCE,
   ),
 };
