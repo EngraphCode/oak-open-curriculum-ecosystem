@@ -1,5 +1,10 @@
+/**
+ * Unit tests for `validateDownloadAssetArgs` — a pure function, no fakes.
+ * The dependency-integrating `runDownloadAssetTool` behaviour lives in
+ * `execution.integration.test.ts`.
+ */
 import { describe, it, expect } from 'vitest';
-import { validateDownloadAssetArgs, runDownloadAssetTool } from './execution.js';
+import { validateDownloadAssetArgs } from './execution.js';
 
 describe('validateDownloadAssetArgs', () => {
   it('accepts valid lesson and type', () => {
@@ -57,39 +62,5 @@ describe('validateDownloadAssetArgs', () => {
     const result = validateDownloadAssetArgs(null);
 
     expect(result.ok).toBe(false);
-  });
-});
-
-describe('runDownloadAssetTool', () => {
-  const stubUrlFactory = (lesson: string, type: string): string =>
-    `https://example.com/assets/download/${lesson}/${type}?sig=abc&exp=999`;
-
-  it('returns a formatted tool response with the download URL', () => {
-    const result = runDownloadAssetTool(
-      { lesson: 'my-lesson', type: 'worksheet' },
-      { createAssetDownloadUrl: stubUrlFactory },
-    );
-
-    expect(result.isError).toBeUndefined();
-
-    const text = result.content[0];
-    expect(text).toBeDefined();
-    if (text && 'text' in text) {
-      expect(text.text).toContain('https://example.com/assets/download/my-lesson/worksheet');
-    }
-  });
-
-  it('includes lesson and type in the structured data', () => {
-    const result = runDownloadAssetTool(
-      { lesson: 'my-lesson', type: 'slideDeck' },
-      { createAssetDownloadUrl: stubUrlFactory },
-    );
-
-    expect(result.structuredContent).toBeDefined();
-    if (result.structuredContent) {
-      expect(result.structuredContent).toHaveProperty('downloadUrl');
-      expect(result.structuredContent).toHaveProperty('lesson', 'my-lesson');
-      expect(result.structuredContent).toHaveProperty('type', 'slideDeck');
-    }
   });
 });
