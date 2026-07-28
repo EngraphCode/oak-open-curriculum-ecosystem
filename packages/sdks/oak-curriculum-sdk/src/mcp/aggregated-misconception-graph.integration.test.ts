@@ -33,6 +33,7 @@ import {
   GET_MISCONCEPTION_GRAPH_INPUT_SCHEMA,
   runMisconceptionGraphTool,
 } from './aggregated-misconception-graph.js';
+import { advertisedExamples, wireProperties } from './test-helpers/advertised-examples.js';
 
 /** Narrows a deterministic fixture pick, failing loudly if the corpus cannot supply it. */
 function required<T>(value: T | undefined, message: string): T {
@@ -282,13 +283,6 @@ describe('advertised examples are true of the shipped corpus', () => {
   // optional-field examples have no standing live probe (routed on MCP-319).
   const shape = GET_MISCONCEPTION_GRAPH_INPUT_SCHEMA;
 
-  function advertisedExamples(schema: z.ZodType, name: string): unknown[] {
-    return z
-      .array(z.unknown())
-      .min(1, `no advertised examples on ${name}`)
-      .parse(schema.meta()?.examples);
-  }
-
   it('resolves every advertised lessonSlugs example as a lesson anchor', () => {
     for (const example of advertisedExamples(shape.lessonSlugs, 'lessonSlugs')) {
       const result = runMisconceptionGraphTool({ lessonSlugs: example });
@@ -361,13 +355,9 @@ describe('advertised examples are true of the shipped corpus', () => {
     // The corpus tests above read `.meta()` off the Zod objects; agents
     // read the CONVERTED wire form. This proves the authored metadata
     // survives `z.toJSONSchema()` for every field, wrapped or not.
-    const WIRE_PROPERTIES = z.object({
-      properties: z.record(
-        z.string(),
-        z.looseObject({ examples: z.array(z.unknown()).optional() }),
-      ),
-    });
-    const { properties } = WIRE_PROPERTIES.parse(z.toJSONSchema(z.object(shape)));
+    const properties = wireProperties(shape);
+    const advertising = Object.entries(shape).filter(([, s]) => s.meta()?.examples !== undefined);
+    expect(advertising, 'shape advertises no examples at all').not.toHaveLength(0);
     for (const [field, schema] of Object.entries(shape)) {
       expect(properties[field]?.examples, `${field} examples on the wire`).toEqual(
         schema.meta()?.examples,
