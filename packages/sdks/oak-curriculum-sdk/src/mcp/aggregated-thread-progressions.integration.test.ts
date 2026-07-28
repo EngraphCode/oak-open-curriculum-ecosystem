@@ -106,6 +106,7 @@ describe('GET_THREAD_PROGRESSIONS_TOOL_DEF', () => {
       destructiveHint: false,
       idempotentHint: true,
       openWorldHint: false,
+      title: GET_THREAD_PROGRESSIONS_TOOL_DEF.title,
     });
   });
 });

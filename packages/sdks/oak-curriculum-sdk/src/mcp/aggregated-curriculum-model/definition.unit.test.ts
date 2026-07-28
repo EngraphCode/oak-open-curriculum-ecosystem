@@ -20,6 +20,7 @@ describe('GET_CURRICULUM_MODEL_TOOL_DEF', () => {
       destructiveHint: false,
       idempotentHint: true,
       openWorldHint: false,
+      title: GET_CURRICULUM_MODEL_TOOL_DEF.title,
     });
   });
 });

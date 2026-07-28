@@ -75,6 +75,7 @@ NOTE: This tool can return a large payload at broad scope and may exceed a host'
     destructiveHint: false,
     idempotentHint: true,
     openWorldHint: false,
+    title: 'Search Curriculum',
   },
   _meta: {
     securitySchemes: [{ type: 'oauth2', scopes: [...SCOPES_SUPPORTED] }],

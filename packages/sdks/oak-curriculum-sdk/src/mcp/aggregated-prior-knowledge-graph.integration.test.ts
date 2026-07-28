@@ -77,6 +77,7 @@ describe('GET_PRIOR_KNOWLEDGE_GRAPH_TOOL_DEF', () => {
       destructiveHint: false,
       idempotentHint: true,
       openWorldHint: false,
+      title: GET_PRIOR_KNOWLEDGE_GRAPH_TOOL_DEF.title,
     });
   });
 });

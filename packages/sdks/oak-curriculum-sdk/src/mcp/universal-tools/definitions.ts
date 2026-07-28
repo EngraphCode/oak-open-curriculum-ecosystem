@@ -62,6 +62,11 @@ import type { AggregatedToolName } from './types.js';
  * tool shapes. Every entry in AGGREGATED_TOOL_DEFS must have title,
  * description, securitySchemes, annotations, inputSchema, and _meta.
  * No-input tools still provide `inputSchema: {}` so registration stays uniform.
+ *
+ * `annotations.title` is required (MCP-300): clients — the directory review
+ * surface among them — read the display name from annotations, and the
+ * generated path already emits it there, so an optional field here lets the
+ * two paths silently diverge.
  */
 interface AggregatedToolDefShape {
   readonly title: string;
@@ -72,6 +77,7 @@ interface AggregatedToolDefShape {
     readonly destructiveHint: boolean;
     readonly idempotentHint: boolean;
     readonly openWorldHint: boolean;
+    readonly title: string;
   };
   readonly inputSchema: z.ZodRawShape;
   readonly _meta: ToolMeta;

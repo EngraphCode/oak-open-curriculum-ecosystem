@@ -131,6 +131,7 @@ Complements get-prior-knowledge-graph (unit-level prerequisite subgraphs) and ge
     destructiveHint: false as const,
     idempotentHint: true as const,
     openWorldHint: false as const,
+    title: THREAD_PROGRESSIONS_TOOL_TITLE,
   },
 
   _meta: {
