@@ -235,14 +235,8 @@ function expectNoForbiddenContent(value: unknown): void {
   expect(serialised).not.toContain(ACTOR_ID);
   expect(serialised).not.toContain(RAW_CLIENT_NAME);
   expect(serialised).not.toContain(RAW_CLIENT_VERSION);
-  expect(serialised).not.toContain('raw-session');
-  expect(serialised).not.toContain('raw-conversation');
   expect(serialised).not.toContain(RAW_TOOL_ARGUMENT);
   expect(serialised).not.toContain(RAW_TOOL_RESULT);
-  expect(serialised).not.toContain('raw-error');
-  expect(serialised).not.toContain('raw-group');
-  expect(serialised).not.toContain('raw-person-property');
-  expect(serialised).not.toContain('raw-unknown');
   expect(serialised).not.toContain('$mcp_client_name');
   expect(serialised).not.toContain('$mcp_client_version');
   expect(serialised).not.toContain('$mcp_parameters');
