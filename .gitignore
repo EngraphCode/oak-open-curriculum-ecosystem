@@ -334,3 +334,9 @@ packages/design/oak-design-system/oak-flat.generated.css
 .github/copilot-worktrees/
 packages/design/oak-design-system/_ds_bundle.generated.css
 packages/design/oak-design-system/.sync-staging/
+
+# OAuth credentials from `mcpjam oauth login` (live access + refresh tokens).
+# Written 0600 by the CLI; this repo is public, so they must never be staged.
+.agent/state/mcpjam-credentials.json
+.agent/state/*credentials*.json
+.agent/state/*.credentials.json
