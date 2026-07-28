@@ -12,7 +12,8 @@ import {
   UNATTENDED_SUITES,
   type McpjamSpawnResult,
 } from '../../src/mcp-conformance/runner.js';
-import { type Baseline, type SuiteOutcome } from '../../src/mcp-conformance/types.js';
+import { type Baseline } from '../../src/mcp-conformance/baseline-schema.js';
+import { type SuiteOutcome } from '../../src/mcp-conformance/types.js';
 import {
   loadBaseline,
   loadFixtureRaw,
@@ -163,6 +164,21 @@ describe('runMcpConformance — verdict operation', () => {
     runMcpConformance(io, verdictInput);
     expect(io.retained.get('protocol')).toBe(PROTOCOL_RAW);
     expect(io.retained.get('oauth')).toBe(OAUTH_RAW);
+  });
+
+  it('an exit code outside {0, 1} is an operational failure naming the code, never a verdict', () => {
+    const io = fakeIo({
+      runResults: {
+        protocol: ok({ exitCode: 2, stdout: PROTOCOL_RAW, stderr: 'usage: mcpjam …' }),
+      },
+    });
+    const { report, exitCode } = runMcpConformance(io, verdictInput);
+    expect(exitCode).toBe(1);
+    const protocol = report.suites.find((s) => s.suite === 'protocol');
+    expect(protocol?.verdict).toBe('fail');
+    expect(reasonsOf(protocol)).toContain('exited operationally (exit 2)');
+    // Retention ran before the operational verdict: the raw stdout survives.
+    expect(io.retained.get('protocol')).toBe(PROTOCOL_RAW);
   });
 
   it('a launch failure fails that suite by name without aborting the rest', () => {
@@ -334,8 +350,11 @@ describe('runMcpConformance — seed operation (capture-only)', () => {
   });
 
   it('an unparseable capture fails the seed run with the syntax cause and stderr diagnostic', () => {
+    // exitCode 1 is the vendor's verdict-neutral normal: the run reaches the
+    // parse boundary. An exit OUTSIDE {0, 1} now fails earlier as
+    // operational-exit — that path has its own test in the verdict describe.
     const io = fakeIo({
-      runResults: { protocol: ok({ exitCode: 2, stdout: 'not json', stderr: 'boom detail' }) },
+      runResults: { protocol: ok({ exitCode: 1, stdout: 'not json', stderr: 'boom detail' }) },
     });
     const { report, exitCode } = runMcpConformance(io, seedInput);
     expect(exitCode).toBe(1);

@@ -56,6 +56,10 @@ function spawnMcpjam(
     cwd: repoRoot,
     encoding: 'utf8',
     timeout: SUITE_TIMEOUT_MS,
+    // SIGKILL, not the default SIGTERM: SIGTERM is ignorable, so a child
+    // that traps it (or is wedged inside an uninterruptible await) would
+    // outlive the ceiling and the advertised timeout would not be real.
+    killSignal: 'SIGKILL',
     maxBuffer: MAX_STDOUT_BYTES,
   });
   if (child.error !== undefined) {
@@ -89,6 +93,48 @@ function spawnMcpjam(
 // given. The REPORTED path preserves the caller's own form (relative in,
 // repo-root-relative out; absolute in, absolute out) so the emitted
 // report never names a path that does not exist.
+// OWNER-ONLY, established BEFORE any content lands. Attended runs retain
+// AUTHENTICATED vendor output here, and the report shapes constrain none
+// of `error`, `output`, `details` or the captured stderr — a bearer or
+// refresh token reaching any of them lands in this file, so the process
+// default (0644 under a 022 umask) would expose it to every other user on
+// a shared host.
+//
+// ORDER IS THE WHOLE POINT, and write-then-chmod gets it wrong: the `mode`
+// argument applies only when the file is CREATED, so re-writing a report
+// left 0644 by an older build would put the authenticated payload on disk
+// world-readable and only tighten it afterwards — and if the chmod then
+// failed, the content would stay exposed while retention reported failure.
+//
+// Opening with 'w' truncates to zero length first, so the file is EMPTY at
+// this point; `fchmodSync` then tightens it (on the descriptor, so no path
+// can be swapped underneath us); only then does content land. A chmod
+// failure throws before the write, leaving an empty file and a loud
+// retention failure rather than an exposed one. Every throw propagates to
+// the caller's catch — including a close failure (EBADF/EIO — the write
+// may not have flushed), which is why the success-path close sits INSIDE
+// the try and the finally is error-path best-effort only (the caller's
+// outcome already carries the true cause; a second throw here would
+// replace it with the less useful close error).
+function writeOwnerOnly(filePath: string, content: string): void {
+  let handle: number | undefined;
+  try {
+    handle = openSync(filePath, 'w', 0o600);
+    fchmodSync(handle, 0o600);
+    writeFileSync(handle, content, { encoding: 'utf8' });
+    closeSync(handle);
+    handle = undefined;
+  } finally {
+    if (handle !== undefined) {
+      try {
+        closeSync(handle);
+      } catch {
+        // Descriptor leak at worst — the true failure is already propagating.
+      }
+    }
+  }
+}
+
 function writeUnder(
   repoRoot: string,
   reportDir: string,
@@ -97,38 +143,12 @@ function writeUnder(
 ): RetentionOutcome {
   const writeDir = resolve(repoRoot, reportDir);
   const reportedPath = join(reportDir, fileName);
-  const filePath = join(writeDir, fileName);
-  let handle: number | undefined;
   try {
     mkdirSync(writeDir, { recursive: true });
-    // OWNER-ONLY, established BEFORE any content lands. Attended runs retain
-    // AUTHENTICATED vendor output here, and the report shapes constrain none
-    // of `error`, `output`, `details` or the captured stderr — a bearer or
-    // refresh token reaching any of them lands in this file, so the process
-    // default (0644 under a 022 umask) would expose it to every other user on
-    // a shared host.
-    //
-    // ORDER IS THE WHOLE POINT, and write-then-chmod gets it wrong: the `mode`
-    // argument applies only when the file is CREATED, so re-writing a report
-    // left 0644 by an older build would put the authenticated payload on disk
-    // world-readable and only tighten it afterwards — and if the chmod then
-    // failed, the content would stay exposed while retention reported failure.
-    //
-    // Opening with 'w' truncates to zero length first, so the file is EMPTY at
-    // this point; `fchmodSync` then tightens it (on the descriptor, so no path
-    // can be swapped underneath us); only then does content land. A chmod
-    // failure throws before the write, leaving an empty file and a loud
-    // retention failure rather than an exposed one.
-    handle = openSync(filePath, 'w', 0o600);
-    fchmodSync(handle, 0o600);
-    writeFileSync(handle, content, { encoding: 'utf8' });
+    writeOwnerOnly(join(writeDir, fileName), content);
     return { ok: true, reportedPath };
   } catch (error) {
     return { ok: false, error: error instanceof Error ? error.message : String(error) };
-  } finally {
-    if (handle !== undefined) {
-      closeSync(handle);
-    }
   }
 }
 

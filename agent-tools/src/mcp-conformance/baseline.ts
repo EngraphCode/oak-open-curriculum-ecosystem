@@ -7,13 +7,8 @@
  */
 import { typeSafeHasOwn, typeSafeKeys } from '@oaknational/type-helpers';
 
-import {
-  type Baseline,
-  type Divergence,
-  type ExpectedCheck,
-  type McpjamCase,
-  type McpjamReport,
-} from './types.js';
+import { type Baseline, type ExpectedCheck } from './baseline-schema.js';
+import { type Divergence, type McpjamCase, type McpjamReport } from './types.js';
 
 /**
  * Flatten every group's cases into one id-keyed map. Duplicate ids across
@@ -68,6 +63,16 @@ function compareSkippedCase(observed: McpjamCase, expected: ExpectedCheck): Dive
       kind: 'new-skip',
       checkId: observed.id,
       message: `check "${observed.id}" skipped but the baseline expects ${expected.status}: ${observed.error ?? '(no skip reason)'}`,
+    };
+  }
+  // The REASON is part of the pin: an expected skip matched on status alone
+  // would let a broken-prerequisite skip read as the applicability skip that
+  // was baselined.
+  if (!(observed.error ?? '').includes(expected.reasonIncludes)) {
+    return {
+      kind: 'skip-reason-mismatch',
+      checkId: observed.id,
+      message: `check "${observed.id}" skipped as expected but the reason no longer contains "${expected.reasonIncludes}": ${observed.error ?? '(no skip reason)'}`,
     };
   }
   return undefined;

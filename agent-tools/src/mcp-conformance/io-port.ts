@@ -4,13 +4,9 @@
  * `run-suite.ts`) and the adapters (`node-io.ts`, `load-baselines.ts`)
  * both depend on these shapes, never on each other.
  */
+import { type Baseline } from './baseline-schema.js';
 import { type McpjamRunner } from './runner.js';
-import {
-  type Baseline,
-  type ConformanceMode,
-  type ConformanceOperation,
-  type ConformanceSuite,
-} from './types.js';
+import { type ConformanceMode, type ConformanceOperation, type ConformanceSuite } from './types.js';
 
 /**
  * How a baseline arrived for one suite: loaded and valid, or present but

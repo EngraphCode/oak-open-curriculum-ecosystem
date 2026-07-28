@@ -10,12 +10,12 @@
  * comparison, an unparseable capture in a seed run) are all reported
  * instead of racing each other for one string slot.
  */
+import { type Baseline } from './baseline-schema.js';
 import { compareRunToBaseline } from './baseline.js';
 import { boundedExcerpt } from './bounded-excerpt.js';
 import { type RetentionOutcome } from './io-port.js';
 import { type McpjamSpawnResult } from './runner.js';
 import {
-  type Baseline,
   type ConformanceOperation,
   type ConformanceSuite,
   type Divergence,

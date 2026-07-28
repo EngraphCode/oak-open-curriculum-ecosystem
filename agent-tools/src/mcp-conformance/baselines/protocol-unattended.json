@@ -3,27 +3,48 @@
   "suite": "protocol",
   "mode": "unattended",
   "seeded": {
-    "date": "2026-07-26",
+    "date": "2026-07-28",
     "mcpjam_version": "3.15.2"
   },
   "expected": {
     "server-initialize": { "status": "fail", "errorIncludes": "Unauthorized" },
-    "ping": { "status": "skip" },
-    "logging-set-level": { "status": "skip" },
-    "completion-complete": { "status": "skip" },
-    "capabilities-consistent": { "status": "skip" },
-    "tools-list": { "status": "skip" },
-    "tools-input-schemas-valid": { "status": "skip" },
-    "prompts-list": { "status": "skip" },
-    "resources-list": { "status": "skip" },
+    "ping": { "status": "skip", "reasonIncludes": "session could not be established" },
+    "logging-set-level": { "status": "skip", "reasonIncludes": "session could not be established" },
+    "completion-complete": {
+      "status": "skip",
+      "reasonIncludes": "session could not be established"
+    },
+    "capabilities-consistent": {
+      "status": "skip",
+      "reasonIncludes": "session could not be established"
+    },
+    "tools-list": { "status": "skip", "reasonIncludes": "session could not be established" },
+    "tools-input-schemas-valid": {
+      "status": "skip",
+      "reasonIncludes": "session could not be established"
+    },
+    "prompts-list": { "status": "skip", "reasonIncludes": "session could not be established" },
+    "resources-list": { "status": "skip", "reasonIncludes": "session could not be established" },
     "protocol-invalid-method-error": {
       "status": "fail",
       "errorIncludes": "did not return a JSON-RPC error"
     },
-    "localhost-host-rebinding-rejected": { "status": "skip" },
-    "localhost-host-valid-accepted": { "status": "skip" },
+    "localhost-host-rebinding-rejected": {
+      "status": "skip",
+      "reasonIncludes": "only apply to localhost servers"
+    },
+    "localhost-host-valid-accepted": {
+      "status": "skip",
+      "reasonIncludes": "only apply to localhost servers"
+    },
     "server-sse-polling-session": { "status": "fail", "errorIncludes": "HTTP 401" },
-    "server-accepts-multiple-post-streams": { "status": "skip" },
-    "server-sse-streams-functional": { "status": "skip" }
+    "server-accepts-multiple-post-streams": {
+      "status": "skip",
+      "reasonIncludes": "session could not be initialized"
+    },
+    "server-sse-streams-functional": {
+      "status": "skip",
+      "reasonIncludes": "session could not be initialized"
+    }
   }
 }

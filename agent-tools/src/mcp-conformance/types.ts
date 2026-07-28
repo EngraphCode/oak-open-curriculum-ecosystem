@@ -20,11 +20,14 @@
  * (observed on the protocol, oauth, and apps suites against the deployed
  * alpha); the `--conformance-checks` OAuth negative probes are gated on a
  * fully-successful ATTENDED main flow and cannot run headless against a
- * consent-requiring server. The wrapper therefore never reads the child
- * exit code as a verdict — verdicts come from parse + baseline comparison
- * only, and the child exit code is retained as report data.
+ * consent-requiring server. The wrapper never reads exit codes 0 or 1 as a
+ * verdict — those are the vendor's operational normal (a failing suite
+ * exits 1 while still writing the full report), and verdicts come from
+ * parse + baseline comparison only. An exit outside 0 and 1 is the tool
+ * itself failing (usage error, crash) and fails the suite as an
+ * operational failure; the observed exit code is retained as report data
+ * on every path.
  */
-import { typeSafeKeys } from '@oaknational/type-helpers';
 import { z } from 'zod';
 
 /** The check/step statuses MCPJam's json-summary reporter emits. */
@@ -97,7 +100,7 @@ export const conformanceSuiteSchema = z.enum(['protocol', 'apps', 'oauth']);
 export type ConformanceSuite = z.infer<typeof conformanceSuiteSchema>;
 
 /** Run mode: unattended (headless, no credentials) or attended/credentialed. */
-const conformanceModeSchema = z.enum(['unattended', 'attended']);
+export const conformanceModeSchema = z.enum(['unattended', 'attended']);
 export type ConformanceMode = z.infer<typeof conformanceModeSchema>;
 
 /**
@@ -111,66 +114,6 @@ export type ConformanceMode = z.infer<typeof conformanceModeSchema>;
 export type ConformanceOperation = 'verdict' | 'seed';
 
 /**
- * Expected terminal state for one check id. `errorIncludes` is required
- * exactly when a failure is expected — an expected failure without a pinned
- * shape would let any failure pass, which is exactly the masking that the
- * ticket's "named verdicts" bar exists to prevent.
- */
-const expectedCheckSchema = z.discriminatedUnion('status', [
-  z.object({ status: z.literal('pass') }).strict(),
-  z.object({ status: z.literal('skip') }).strict(),
-  z
-    .object({
-      // Trimmed-non-empty, not just non-empty: `" "` pins no failure shape,
-      // and `observed.error.includes(" ")` matches nearly any message — the
-      // same masking a missing fragment would cause, one space wide.
-      status: z.literal('fail'),
-      errorIncludes: z.string().refine((fragment) => fragment.trim().length > 0, {
-        message: 'errorIncludes must contain a non-whitespace failure fragment',
-      }),
-    })
-    .strict(),
-]);
-
-/**
- * A committed baseline: the exact expected outcome of one (suite, mode)
- * run. Self-describing so a future drift adjudication can see what the
- * baseline was true OF: the baseline format version, the mcpjam version
- * and date observed at seeding, and any named residual masking window the
- * expectations cannot close (with its cover). Baselines are
- * target-agnostic — they never embed a deployment URL, and comparison
- * ignores environment-varying report fields (`target`, durations).
- */
-export const baselineSchema = z
-  .object({
-    schema_version: z.literal('1.0.0'),
-    suite: conformanceSuiteSchema,
-    mode: conformanceModeSchema,
-    seeded: z
-      .object({
-        date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/u),
-        mcpjam_version: z.string().min(1),
-      })
-      .strict(),
-    residual_masking: z.string().optional(),
-    // partialRecord: statically Partial<Record<...>> — most check-id strings
-    // are NOT keys, and the comparator's absent-key guard must be justified
-    // by the type, not merely tolerated. Runtime-identical to z.record for a
-    // non-enum key (verified against the pinned zod 4.4.x source). The
-    // refine rejects an EMPTY expectation set: it has no verdict semantics,
-    // and paired with an empty run it would pass vacuously.
-    expected: z
-      .partialRecord(z.string().min(1), expectedCheckSchema)
-      .refine((expected) => typeSafeKeys(expected).length > 0, {
-        message: 'a baseline must pin at least one expected check',
-      }),
-  })
-  .strict();
-
-export type ExpectedCheck = z.infer<typeof expectedCheckSchema>;
-export type Baseline = z.infer<typeof baselineSchema>;
-
-/**
  * Named divergence classes. Complete over the expected×observed status
  * matrix plus the set-membership and multiplicity drifts:
  *
@@ -181,6 +124,10 @@ export type Baseline = z.infer<typeof baselineSchema>;
  *   loud: e.g. the consent boundary suddenly passing headless would mean
  *   auto-consent appeared on the deployed surface).
  * - `new-skip` — expected pass or fail, observed skipped.
+ * - `skip-reason-mismatch` — expected skip, observed skip, but the skip
+ *   reason no longer contains the pinned `reasonIncludes` fragment (a
+ *   broken-prerequisite skip masquerading as the baselined applicability
+ *   skip).
  * - `vanished-skip` — expected skip, observed passed (the ticket's named
  *   drift: a skip silently becoming a pass is a baseline event, not a win).
  * - `missing-check` — in the baseline, absent from the run.
@@ -196,6 +143,7 @@ export interface Divergence {
     | 'failure-shape-mismatch'
     | 'unexpected-pass'
     | 'new-skip'
+    | 'skip-reason-mismatch'
     | 'vanished-skip'
     | 'missing-check'
     | 'novel-check'
@@ -214,7 +162,12 @@ export interface SuiteOutcome {
    * given absolute. Absent when retention failed or never ran.
    */
   readonly rawReportPath?: string;
-  /** The child process exit code — report data, never a verdict input. */
+  /**
+   * The child process exit code. 0 and 1 are the vendor's verdict-neutral
+   * operational normal and never feed the verdict; any other code fails the
+   * suite as an operational failure (module header, `operational-exit`).
+   * Retained as report data on every path.
+   */
   readonly mcpjamExitCode?: number;
   /**
    * Bounded excerpt of mcpjam's stderr when the run still produced a usable

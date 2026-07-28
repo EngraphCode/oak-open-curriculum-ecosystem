@@ -80,7 +80,10 @@ describe('compareRunToBaseline — every divergence class is a named, loud failu
 
   it('an expected skip that failed reports unexpected-failure (skips never mask failures)', () => {
     const expectingSkip = cloneBaseline(baseline);
-    expectingSkip.expected['server-initialize'] = { status: 'skip' };
+    expectingSkip.expected['server-initialize'] = {
+      status: 'skip',
+      reasonIncludes: 'irrelevant — the observed FAILURE outranks any skip-reason comparison',
+    };
     const outcome = compareRunToBaseline(report, expectingSkip);
     expect(outcome.divergences).toEqual([
       expect.objectContaining({ kind: 'unexpected-failure', checkId: 'server-initialize' }),
@@ -138,6 +141,19 @@ describe('compareRunToBaseline — every divergence class is a named, loud failu
     const outcome = compareRunToBaseline(mutatedReport, baseline);
     expect(outcome.divergences).toEqual([
       expect.objectContaining({ kind: 'vanished-skip', checkId: 'ping' }),
+    ]);
+  });
+
+  it('an expected skip whose observed reason lost the pinned fragment reports skip-reason-mismatch', () => {
+    const rePinned = cloneBaseline(baseline);
+    rePinned.expected['ping'] = {
+      status: 'skip',
+      reasonIncludes: 'a fragment the observed skip reason never contains',
+    };
+    const outcome = compareRunToBaseline(report, rePinned);
+    expect(outcome.verdict).toBe('fail');
+    expect(outcome.divergences).toEqual([
+      expect.objectContaining({ kind: 'skip-reason-mismatch', checkId: 'ping' }),
     ]);
   });
 

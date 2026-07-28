@@ -13,12 +13,8 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { isJsonObject } from '../../../src/core/json.js';
-import {
-  baselineSchema,
-  mcpjamReportSchema,
-  type Baseline,
-  type McpjamReport,
-} from '../../../src/mcp-conformance/types.js';
+import { baselineSchema, type Baseline } from '../../../src/mcp-conformance/baseline-schema.js';
+import { mcpjamReportSchema, type McpjamReport } from '../../../src/mcp-conformance/types.js';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const FIXTURES = join(HERE, '..', 'fixtures');

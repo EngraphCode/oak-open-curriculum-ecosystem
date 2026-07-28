@@ -5,7 +5,7 @@
   "type": "module",
   "description": "TypeScript tooling workspace for agent operational CLIs",
   "scripts": {
-    "build": "tsc -p tsconfig.build.json && chmod +x dist/src/bin/*.js dist/src/claude/statusline-identity.js && pnpm -s build:workflows && pnpm -s build:restatement-audit-workflows",
+    "build": "tsc -p tsconfig.build.json && chmod +x dist/src/bin/*.js dist/src/claude/statusline-identity.js && pnpm build:workflows && pnpm build:restatement-audit-workflows",
     "build:workflows": "tsx src/corpus-analysis/workflows/build/build-workflows.ts",
     "build-run-artefact": "tsx src/corpus-analysis/workflows/build/build-run-artefact.ts",
     "build:restatement-audit-workflows": "tsx src/restatement-audit/workflows/build/build-workflows.ts",

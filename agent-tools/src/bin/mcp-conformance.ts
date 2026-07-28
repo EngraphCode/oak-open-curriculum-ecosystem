@@ -12,6 +12,7 @@ import { join, resolve } from 'node:path';
 import { scanArgs } from '../core/cli-arg-parser.js';
 import { HELP_TEXT } from './mcp-conformance-help.js';
 import { resolveRepoRoot } from '../core/repo-root.js';
+import { validateCliState, type CliState } from '../mcp-conformance/cli-validation.js';
 import { loadBaselines, type BaselineRead } from '../mcp-conformance/load-baselines.js';
 import { buildMcpConformanceNodeIo, writeRunSummary } from '../mcp-conformance/node-io.js';
 import { runMcpConformance } from '../mcp-conformance/report.js';
@@ -23,18 +24,6 @@ import {
   type ConformanceRunReport,
   type ConformanceSuite,
 } from '../mcp-conformance/types.js';
-
-interface CliState {
-  help: boolean;
-  unattended: boolean;
-  seed: boolean;
-  target: string | undefined;
-  suites: ConformanceSuite[];
-  credentialsFile: string | undefined;
-  reportDir: string | undefined;
-  baselineDir: string | undefined;
-  suiteErrors: string[];
-}
 
 const INITIAL_STATE: CliState = {
   help: false,
@@ -95,23 +84,6 @@ function scanCliArgs(
       helpText: HELP_TEXT,
     },
   );
-}
-
-function validateCliState(state: CliState): string | undefined {
-  if (state.suiteErrors.length > 0) {
-    return `${state.suiteErrors.join('; ')}\n${HELP_TEXT}`;
-  }
-  const duplicates = [...new Set(state.suites.filter((s, i) => state.suites.indexOf(s) !== i))];
-  if (duplicates.length > 0) {
-    return `duplicate --suite value(s): ${duplicates.join(', ')} — each suite runs once and writes one <suite>.json raw report\n${HELP_TEXT}`;
-  }
-  if (state.target === undefined || state.target.trim() === '') {
-    return `--target is required\n${HELP_TEXT}`;
-  }
-  if (state.unattended && state.credentialsFile !== undefined) {
-    return `--unattended forbids --credentials-file (the unattended plan is credential-free by definition)\n${HELP_TEXT}`;
-  }
-  return undefined;
 }
 
 /**
@@ -204,8 +176,8 @@ function main(): void {
   }
   const validationError = validateCliState(scanned.state);
   if (validationError !== undefined || scanned.state.target === undefined) {
-    const message = validationError ?? `--target is required\n${HELP_TEXT}`;
-    process.stderr.write(`${message}\n`);
+    const reason = validationError ?? '--target is required';
+    process.stderr.write(`${reason}\n${HELP_TEXT}\n`);
     process.exitCode = 2;
     return;
   }

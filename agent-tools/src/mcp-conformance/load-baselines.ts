@@ -12,8 +12,9 @@
 import { isErr } from '@oaknational/result';
 
 import { parseWithSchema } from '../core/schema-parse.js';
+import { baselineSchema } from './baseline-schema.js';
 import { type BaselineLoadOutcome } from './io-port.js';
-import { baselineSchema, type ConformanceMode, type ConformanceSuite } from './types.js';
+import { type ConformanceMode, type ConformanceSuite } from './types.js';
 
 /** What one baseline-file read yields at the seam. */
 export type BaselineRead =

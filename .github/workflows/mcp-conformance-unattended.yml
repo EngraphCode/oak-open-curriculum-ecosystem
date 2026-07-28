@@ -13,20 +13,19 @@ name: MCP conformance (unattended)
 #   converts the artifacts into an exfiltration surface and requires fresh
 #   security adjudication. Authed suites run attended, off CI (MCP-125/176
 #   own the credentialed path).
-# - Triggers stay schedule + workflow_dispatch only. NEVER add
-#   pull_request: fork PRs would run modified suite code against the alpha.
+# - Triggers stay workflow_dispatch only. NEVER add pull_request: fork PRs
+#   would run modified suite code against the alpha. A schedule: trigger was
+#   dropped by owner ruling (2026-07-27, MCP-189): each unattended oauth run
+#   registers a fresh DCR client, so a daily cron created one abandoned
+#   Clerk OAuth client per day — untenable on the production Clerk instance.
 # - Raw report content is live-network-derived UNTRUSTED data: never
 #   interpolate it into run steps or step summaries via expression syntax;
 #   parse from file. Artifact names are fixed, never content-derived.
 
 on:
-  schedule:
-    # Daily, offset from the CodeQL weekly slot; alpha rate limits
-    # (120 req/min on /mcp) are untouched at this cadence.
-    - cron: '17 5 * * *'
   workflow_dispatch: {}
 
-# One run at a time: a manual dispatch overlapping the cron must queue, not
+# One run at a time: overlapping manual dispatches must queue, not
 # double-hit the alpha.
 concurrency:
   group: mcp-conformance-unattended
