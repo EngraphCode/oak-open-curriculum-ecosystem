@@ -2366,3 +2366,122 @@ Operational form, cheap enough to always do: **name the instrument's state in th
 its result.** "Protocol conformance passes, authenticated, against the alpha host at 16:05Z" cannot
 be misread the way "protocol conformance passes" can. Every one of the four failures above would
 have been caught at authoring time by that habit alone.
+
+## 2026-07-28 ~17:1xZ — Raccoon turns Nocturne (0f6caa): COMPACTION RESUME MAP (seat continues; owner word "prepare for compaction")
+
+**Read this first at resume; it supersedes this seat's ~13:55Z entry.** The day's arc at this
+seat since resume-at-owner-word: #602 merged (M0 complete) → owner pulled the J–O stack forward
+→ MCP-239 landed (#610 merged 33728f1d8, 16:35:10Z, Done) → MCP-240 shipped to PR #615, now in
+CI. Owner rulings executed along the way: PostHog retention 12-month posture (vendor cannot
+enforce — findings on MCP-117, enforcement ticket MCP-317, erasure scope note on MCP-283,
+consultation fold via Schooner, all loops closed).
+
+**LANE STATE — PR #615 (MCP-240, claim 0eb8a5f0):**
+
+- Worktree `mcp-240-deploy-contract`, branch at pushed head `3156ffd33` (clean, local=remote,
+  ahead 1 / behind 4 of origin/main — behind-ness irrelevant, bot REST-merges at settled).
+- Watch `bl0d42fhj` (re-arm if dead): merge ONLY at settled-by-name on `3156ffd33` (CodeQL /
+  SonarCloud Code Analysis / run-quality-gates across check-runs, Vercel via commit status)
+  AND a Copilot review OF THAT COMMIT ID adjudicated. At last reading: Sonar+Vercel green,
+  CodeQL neutral, run-quality-gates outstanding; Copilot requested 17:04:45Z under the owner
+  grant (do NOT blindly re-request — idempotent but noisy; re-request ONLY if the head moves).
+- Merge mechanics (learned at #610): REST sha-pinned merge; the conversation-resolution
+  requirement binds the bot on REST too — resolve threads via GraphQL
+  (`resolveReviewThread`, iterate ids with while-read, zsh for-loops do not split newlines)
+  BEFORE the merge call. Then: claim close with merge sha; Linear rides the Fixes link;
+  prune the worktree provably-safe; heartbeat relabel (current loop `b77sj01s1` still says
+  `240-build-then-tdd` — label drifted, honest label is 615-settle-hold).
+- **NEXT LANE after #615 merges: MCP-241** (compose the runtime — the slice that makes events
+  flow). Its accumulated design context: #610's PR body (LoadedRuntime seam + the flagged
+  "resolve release/environment atomically" reading = composition-time resolveRelease() only
+  when selected, per the delivery plan), #615's PR body (type-only host import — MCP-241 owns
+  the question of gating its VALUE import on selection to keep off-mode cold starts
+  vendor-free, ~43ms measured), and the plan's §Configuration sections. Cut worktree from
+  main AFTER #615 merges.
+
+**STANDING GRANTS/PRACTICES in force (all comms-recorded, Director rulings 16:13:30Z +
+16:28+):** owner-credentialed Copilot requests by any seat (scope: review requests ONLY;
+attribute on comms with the head; request against current head; review-of-merged-head by
+commit id at the merge moment; a request is not a review). Full-condition merge = settled +
+Copilot-of-head adjudicated + threads resolved. Significant PRs surface to the Director at
+open with a because-line.
+
+**Session captures for the practice corpus (associations, not doctrine):**
+
+- Pattern-engine semantics class (three instances, one session): the repo hook's substring
+  policy fired on `git push` + an unrelated `-f` in one compound command; the lint boundary's
+  gitignore-style slashless `posthog-node` group matched `@oaknational/posthog-node` at any
+  depth; the test helpers' minimatch modelled neither gitignore depth-matching nor
+  last-match-wins negation. One class: a pattern authored under one matcher's semantics and
+  evaluated under another over- or under-matches. Cure shape that held: test the pattern IN
+  the evaluating engine (linter.verify, the live hook, the real call), never in a mental
+  model. Falsifier: a pattern defect an in-engine test would not have caught.
+- Cross-cure interference (one instance, real): Copilot round-1's genuine catch on #610 was a
+  regression CREATED by two independent reviewer cures interacting (selection-gating the
+  capture-mode rule stalled the strip's no-longer-true "cannot reach this seam" reasoning).
+  After absorbing cures from multiple reviews, the COMPOSITION needs its own pass —
+  a third reviewer or a re-run of the seam's invariants.
+- The Copilot convergence protocol emerged as fleet practice in ~2h and lives only in comms
+  events + PR records — graduation candidate for the Director (theirs to mint, not mine).
+
+Monitors at freeze: watcher `bn3n8w3l1`, F-75 `bjwkjzqqx`, heartbeat `b77sj01s1`, settle watch
+`bl0d42fhj` — re-verify liveness at resume (assert-watcher-live + heartbeat mtime), hourly
+exit-124 backstops are by design. Claim intent text on 0eb8a5f0 predates the type-only-import
+adjudication (says "literal swap") — the PR body is the truth.
+
+## 2026-07-28 evening (Schooner binds Trench, 5492d7): two mechanical traps from a six-lane afternoon
+
+- **Grep-for-" error "-counts-warnings trap, twice in one afternoon.** `eslint … | grep -c " error "` counted the WORD error inside `@oaknational/no-throw-statement`'s warning prose and reported phantom lint errors on two separate lanes (MCP-321, MCP-319); each cost an investigation loop before the count was recognised as false. Cure: never count lint verdicts by grepping prose — read eslint's own summary line (`✖ N problems (X errors, Y warnings)`) or use `--format json | jq`. Same family as read-verdicts-by-name-never-column-parse.
+- **Positional-anchor edits mangled a file header, second instance of the class.** A python insert-before-first-`describe(` landed inside a TSDoc header comment whose PROSE contained `.describe()` (aggregated-search flat-zod test), injecting code mid-sentence — same class as this afternoon's napkin truncate-from-marker near-loss. The cure restated with its second instance: edits into shared or unread regions use EXACT-MATCH anchors on the text being replaced (assert count==1), never "insert at first occurrence of a common token"; and re-run the file's own gates immediately after any scripted edit.
+
+## 2026-07-28 evening (Schooner binds Trench, 5492d7): fresh-worktree unbuilt-dependency class — four instances in one day
+
+- Observed four times across four lanes: a fresh `git worktree add` + `pnpm install` leaves workspace-internal BUILD OUTPUTS absent, and the failure surfaces differently each time — vitest "Cannot find package '@oaknational/curriculum-sdk/public/…'" (MCP-316), esbuild config crashing on missing build-metadata dist (MCP-320), vite postcss ENOENT on the tokens package's dist/index.css plus a STALE-CACHE variant where the file appearing after build still 500s until the dev server restarts (MCP-322), and the same vitest shape again (MCP-319).
+- Cure, one line, run before ANY test/dev-server/build in a fresh worktree: `pnpm exec turbo run build --filter=<target-workspace>... --output-logs=errors-only` (the `...` builds the dependency closure; the shared worktree cache makes it seconds). If a dev server was already running when the dependency got built, RESTART it — vite caches the failed resolution.
+- Scope: this monorepo's worktree practice; durable until worktree bootstrap automates the build step.
+- LATE UPDATE at freeze: the Copilot review OF HEAD 3156ffd33 landed 17:08:41Z — NOT yet read
+  or adjudicated. Successor's first move: read its findings, adjudicate on both axes with
+  dispositions on the threads, then merge when run-quality-gates completes settled (all other
+  contexts already green). If a cure commit results, the head moves and the request must be
+  re-fired against the new head under the grant.
+
+## 2026-07-28 evening (Altair turns Infinity, 7a97a1): probe-blindness twins, the inverted control, and config-pins reshaped
+
+- **Zero-match false-green, two fresh instances in one hour at this seat.** (1) `pnpm --filter
+  @oaknational/oak-curriculum-sdk` matches NOTHING (real name `@oaknational/curriculum-sdk`)
+  and exits 0 with "No projects matched" — two local "SDK suite green" claims were vacuous
+  until re-run under the true name. (2) A deploy-watch's success branch fired on EMPTY jq
+  probes passing a negative grep — it reported DEPLOYED while the old text was still live;
+  caught before transmission by the one non-empty field in its own output looking wrong.
+  Conjugate cure, both cases: a probe must prove it SAW something before its silence means
+  anything — assert the positive state (counts, named fields), treat empty/unreadable reads
+  as their own loud verdict, and never let a filter-name or probe failure share an exit code
+  with success.
+- **An always-succeeding instrument is evidence of nothing about its input** (MCP-321
+  inversion, consolidating the Director's 15:47Z failure-mode event). My diagnosis chain used
+  download-asset's success as proof a lesson existed; the tool never validated existence —
+  the control WAS the defect. Cure at the reasoning step: before using tool B's behaviour as
+  evidence about shared input, ask what B does on INVALID input — if the answer is "succeeds
+  anyway", it can corroborate nothing.
+- **Tests never test config — applied to my own open PR mid-flight** (owner ruling via the
+  Director's MCP-319 relay). My two SDK wire-example tests pinned example VALUES; reshaped so
+  each derives whatever the wire advertises and DRIVES it through the tool against the
+  shipped corpus — a dead advertised example now fails on its deadness, not its spelling.
+  General shape: guard the behaviour a value must support, never the value's bytes.
+- **Suppressed-low-confidence review notes still earn triage, not dismissal.** #611 ran four
+  Copilot rounds (finding sizes 7 → 6 classes → 4 → 3 cosmetic): among 14 suppressed notes,
+  two were real completions of my OWN round-1 cure (a four-backtick fence is not an escaping
+  boundary — indented blocks have no closing delimiter to fake) and two were real
+  cross-platform truths (case-folded storage keys: `Read`/`read` are one file on default
+  macOS/Windows). Declared-exit discipline held: exit criteria named before the loop, verdict
+  routed at the boundary instead of a fifth round.
+- **Prune sweep precedes the prune.** `worktree remove` on the merged MCP-303 tree took its
+  untracked tmp/ interim evidence (per-tool CallToolResult captures) with it. Recoverable by
+  design here (run REPORTS survive in the session scratchpad; captures regenerate in ~2 min
+  under live creds; canonical captures come from the future post-deploy pack run) — but the
+  order was wrong: before removing a worktree, sweep untracked-by-design artefacts for
+  anything a NAMED consumer (MCP-319's output-schema work) still wants.
+
+Monitors at this freeze: watcher `bud64fsm2` (re-arm 4, same cursor), heartbeat `bl2ssbxvy`
+(single claim 32541c0c, compaction-boundary label). Resume verification: assert-watcher-live +
+a claims-list freshness read; hourly exit-124 backstops are by design.

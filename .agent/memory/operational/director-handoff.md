@@ -264,6 +264,77 @@ first-hand as of 2026-06-25.
 
 > ### ▶ SITTING DIRECTOR: Squall wakes Apex (`459fd1`), seated 2026-07-26 at owner word (Moment-2 `f1d9a6f2`); claim `56fdd977`, role director
 >
+> **EVENING REFRESH 2026-07-28 ~17:10Z — supersedes every block below;
+> verify each line live. All three seats compaction-prepped at owner word and
+> CONTINUE; this seat did the same.**
+>
+> **THE COPILOT GRANT — STANDING, and the model was wrong twice before it was
+> right.** Owner's word: _"agents can request copilot reviews with my
+> credentials, we are just waiting for proof that it works."_ Proof landed
+> 16:11Z (reviews delivered on #607 and #610). **The discriminator is the
+> REQUESTING CREDENTIAL, never the PR's author** — an installation token
+> returns 201 and writes nothing, on any PR; an owner-credentialed request
+> works everywhere. Four disciplines attach, all mine, none narrowing his
+> grant: scope is **Copilot review requests ONLY** (every other third-party
+> write stays bot-identity); **name the firing seat and the head in comms**
+> (the GitHub actor reads as him and there is no body to mark — two seats
+> misread my requests as his hand within minutes); request against the current
+> head and **re-check the commit id at merge**; and **a request is not a
+> review** (~4 min apart, and on #570 one never arrived).
+>
+> **MERGED TODAY**: #597, #601, #602, #603, #604, #605, #607, #609, #610,
+> #611, #612, #613. Every one after ~16:00Z landed under the full condition —
+> settled by name across both endpoints AND a Copilot review **of the merged
+> head** adjudicated. **Copilot found real defects on every PR it ran on**,
+> including a `:where()` specificity bug four Opus reviewers missed.
+>
+> **OPEN PRs**: **#614** (mine — ADR-126 identity-asymmetry rationale + TSDoc,
+> bot-authored, docs only), **#615** (MCP-240, in CI under the full-condition
+> watch), **#582** (carrier-less since 26 July, ten Copilot reviews, needs the
+> owner's carded disposition), **#569** (coordination draft).
+>
+> **UPSTREAM API DEFECTS — two parents, four children, ALL ASSIGNED TO
+> AAKESH.** Owner ruling: _all examples and descriptions coming from the
+> upstream API MUST be accurate and functional._ **MCP-325** (metadata) →
+> MCP-327 (`get-sequences` example `english-secondary` invalid — the API's own
+> test at `subjects-helpers.test.ts:34` asserts it), MCP-328 (assets example
+> points at copyright-restricted content, four source sites), MCP-329
+> ("Use the this type" typo, served to every assistant). **MCP-326**
+> (behaviour) → MCP-330 (`get-keywords` declares all params optional, rejects
+> `{}`). API repo: `oaknational/oak-openapi` (checked out beside this one). **Coverage stated
+> honestly on the parent: 20 of 24 generated request schemas carry an example;
+> only those the live drive reached were checked.**
+>
+> **OURS, not upstream**: MCP-319 (schema+example truthfulness, Schooner,
+> frozen review-absorbed with 9 uncommitted files in
+> `.claude/worktrees/mcp-319-schema-truth`), MCP-323, MCP-324 (**corrected and
+> downgraded** — I filed it proposing 404s where ADR-126 deliberately maps all
+> upstream errors to 502; acting on it would have opened an existence oracle).
+>
+> **OWNER RULINGS THIS AFTERNOON**: tests never test config, only behaviour
+> (a test pinned the dead slug's value — reshape to presence + round-trip, do
+> not just update the value); upstream examples/descriptions must be accurate;
+> MCP-292's listing wording belongs to the **human copy team, notably
+> Aakesh** — agents add sourced suggestions to the ticket only.
+>
+> **LIVE CREDENTIALS** at `.agent/state/mcpjam-credentials.json` (gitignored at
+> `a713dbee3` — it was NOT ignored and this repo is public) expire **~16:33 on
+> 2026-07-29**. Four suites run clean against the deployed alpha: OAuth
+> conformance 15/15, protocol 10/15 with 0 failed, Apps 7/7, compat 0 blocked
+> across 16 hosts. **Conformance is not correctness** — the same afternoon,
+> driving the tools found four lying schemas, two undriveable tools, a signing
+> bug and two dead examples.
+>
+> **FIVE INSTANCES OF THE INSTRUMENT-STATE FAMILY**, napkin-homed: the
+> always-succeeding control (`download-asset` used as existence proof), the
+> page read as the list (`/pulls/{n}/reviews` pages oldest-first, default 30),
+> the unauthenticated inspector, the stale-head review, and the vacuous
+> zero-match filter. Cure: **name the instrument's state in the same sentence
+> as its result**, and remember a reproduction matching symptoms is not proof
+> of cause.
+>
+> **SUPERSEDED — 14:20Z block below.**
+>
 > **AFTERNOON REFRESH 2026-07-28 ~14:20Z — supersedes every block below;
 > verify each line live.**
 >
