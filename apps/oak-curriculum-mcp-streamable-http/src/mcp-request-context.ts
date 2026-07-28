@@ -50,13 +50,14 @@ export interface McpRequestContext {
   /**
    * The product-analytics observer's return value (MCP-241). Off mode
    * observes nothing, so this is the exact `transport` reference. The
-   * handler always calls `handleRequest` on the concrete `transport`.
-   * Response cleanup closes the concrete `transport` and the server
-   * directly; the SDK server's `close()` cascades to this connect
-   * target (`Protocol.close()` closes the connected transport). In off
-   * mode both paths land on the same concrete transport — the double
-   * close is today's production behaviour, already exercised on every
-   * request. @see ADR-218 §4
+   * handler always calls `handleRequest` on the concrete `transport`,
+   * and response cleanup closes only the concrete `transport` and the
+   * server directly — it never invokes this connect target's `close()`.
+   * SDK-side teardown is callback-driven: the concrete transport's
+   * `close()` fires `onclose` synchronously, the chain propagates
+   * through the connect target, and the SDK server clears its
+   * connection before its own `close()` runs (verified against the
+   * installed SDK). @see ADR-218 §4
    */
   readonly connectTransport: McpConnectTarget;
 }

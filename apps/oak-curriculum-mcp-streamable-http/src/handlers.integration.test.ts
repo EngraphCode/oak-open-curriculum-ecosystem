@@ -160,7 +160,7 @@ describe('createMcpHandler (Integration)', () => {
       expect(transport.handleRequest).toHaveBeenCalledOnce();
     });
 
-    it('response close closes the concrete transport directly; the connect target is reached only through the server cascade', async () => {
+    it('the handler closes the concrete transport and server directly and never itself closes the connect target', async () => {
       const connectTransport = { close: vi.fn(() => Promise.resolve()) };
       const { factory, server, transport } = createFakeMcpServerFactory(
         vi.fn(async () => undefined),
@@ -177,14 +177,17 @@ describe('createMcpHandler (Integration)', () => {
       expect(closeRegistration).toBeDefined();
       closeRegistration?.[1]();
 
-      // The handler closes the concrete transport and the server directly.
-      // The SDK server's close() cascades to the connected transport
-      // (Protocol.close closes this._transport) — the fake mirrors that —
-      // so the connect target is reached exactly once, via the cascade,
-      // never directly by the handler.
+      // The handler's own cleanup calls are exactly these two. SDK-side
+      // teardown is callback-driven — the concrete transport's close()
+      // fires onclose synchronously and the SDK server clears its
+      // connection before its own close() runs (verified against the
+      // installed SDK) — so the connect target's close() is never invoked
+      // on this path. That composition is deliberately not modelled by
+      // these narrow fakes; the selected-mode slice proves it against the
+      // real SDK transport.
       expect(transport.close).toHaveBeenCalledOnce();
       expect(server.close).toHaveBeenCalledOnce();
-      expect(connectTransport.close).toHaveBeenCalledOnce();
+      expect(connectTransport.close).not.toHaveBeenCalled();
     });
 
     it('creates an active request span around transport.handleRequest', async () => {
