@@ -264,8 +264,66 @@ first-hand as of 2026-06-25.
 
 > ### ▶ SITTING DIRECTOR: Squall wakes Apex (`459fd1`), seated 2026-07-26 at owner word (Moment-2 `f1d9a6f2`); claim `56fdd977`, role director
 >
-> **SUBMISSION-RESEARCH REFRESH 2026-07-28 ~12:35Z — supersedes every block
-> below; verify each line live.**
+> **AFTERNOON REFRESH 2026-07-28 ~14:20Z — supersedes every block below;
+> verify each line live.**
+>
+> **THE SUBMISSION NOW HAS ONE PARENT: MCP-309** ("Submitting Oak to Claude:
+> the connector and the plugin, end to end"), fourteen children, duplicates
+> closed (MCP-294→MCP-303, MCP-266→MCP-302), MCP-16 and MCP-296 Done. At the
+> owner's instruction the parent and every copy/instruction ticket are
+> written for a HUMAN audience per `.agent/directives/editorial-tone.md` —
+> MCP-292, MCP-293, MCP-298, MCP-301, MCP-302, MCP-303, MCP-306, MCP-308.
+> The engineering tickets (MCP-300, MCP-305, MCP-307) stay in plain
+> technical English, deliberately: the directive keeps the editorial voice
+> OUT of copy read to build precisely.
+>
+> **OWNER DECISIONS TODAY**: plugin named **Oak Open Curriculum**; plugin
+> scope **trims the creation set** for now; **#576 closed without merging**
+> (done, 14:01Z); the J-O app-wiring stack **pulled forward to start now**
+> (MCP-239 on Raccoon; MCP-240 onward is the Director's to route).
+>
+> **STILL OWNER-HELD**: the connector listing NAME (drives the permanent
+> slug — the one-way door, currently deriving as
+> `oak-curriculum-app-internal-preview`); whether the Copilot request
+> becomes a standing step at PR-open.
+>
+> **COPILOT REVIEW IS GONE FROM EVERY PR WE OPEN — MCP-313.** All four cells
+> tested. Automatic review requires a HUMAN PR author; manually requesting
+> Copilot requires a HUMAN requester. The App can request any other reviewer
+> (it requests the codeowner fine) but cannot add Copilot, on anyone's PR —
+> four attempts, three PRs, `201` every time and no timeline event. Twenty
+> PRs since 26 July have had no Copilot review. **Doing the bot-identity rule
+> correctly is exactly what costs us the review.** Untested and promising: a
+> user-to-server token, which carries the owner's entitlement — his call,
+> because it is the App acting as him.
+>
+> **CLERK CORE 3 — MCP-315, sequenced AFTER the submission.** Our surface is
+> one app, five source files, server-side only. `verifyToken()`→`verify()`
+> does NOT touch us (our four `verifyToken` hits are our own injected
+> `TokenVerifier`, not Clerk's). Express `req.auth`→`getAuth(req)` is
+> already how we do it. Open question that could change the sequencing:
+> whether CIMD (MCP-304) needs Core 3 — nobody has checked.
+>
+> **MERGES SINCE MIDDAY**: #603 (MCP-297), #604 (MCP-299), #602 (MCP-238,
+> completing the M0 PostHog boundary), #605 (MCP-300 PR one), #606
+> (MCP-279). Coordination branch merged main and is level.
+>
+> **FLEET**: Altair (MCP-300 PR two → MCP-303 → #570), Raccoon (MCP-239),
+> Schooner (MCP-281, paused awaiting the owner-side privacy consultation).
+> Juniper closed out clean.
+>
+> **THREE INSTANCES OF ONE TRANSMISSION FAILURE TODAY, two of them mine** —
+> napkin `43c03362a` + `a08f0ad54`, PDR-098 recurrence signal met. Stale
+> observation transmitted as current (my dirty-paths call); a write claimed
+> before its result was read (Juniper's push); and an inference fused to a
+> true owner quotation, inheriting its authority (the merge-path relay).
+> Cure pair for the graduation candidate: at transmission, ask **when did I
+> last read this state** AND **whose sentence is this**.
+>
+> **SUPERSEDED — 12:35Z block below.**
+>
+> **SUBMISSION-RESEARCH REFRESH 2026-07-28 ~12:35Z — superseded by the block
+> above.**
 >
 > **THE DAY'S WORK: the two Claude directory submissions, mapped from the
 > owner's own screenshots and cross-referenced against Anthropic's published
