@@ -18,7 +18,7 @@ export const HELP_TEXT = `Usage: pnpm -s mcp:conformance --target <url> [options
 appends to stdout when a failing run exits 1)
 
 Runs MCPJam conformance suites (lockfile-installed @mcpjam/cli) against a
-deployed MCP surface. Two operations:
+deployed MCP surface. Three operations:
 
 VERDICT (default): each suite is compared BY NAME against its committed
 baseline — pass requires a usable baseline, retained raw evidence, no
@@ -33,11 +33,23 @@ baselines), performs no comparison, and exits 0 iff every capture
 succeeded. Without --unattended, the plan drives all three suites LIVE
 against the target (the oauth leg is interactive), bounded at 120s/suite.
 
+DRIVE (--drive, MCP-303): enumerates every tool the server advertises,
+invokes each once with its ADVERTISED example inputs (derived from the
+wire schemas, never guessed), retains each call's raw output under
+<report-dir>/tools/, and renders the reviewer walkthrough pack as a
+traceable projection of the run. Exits 0 iff the tool list was usable
+(non-empty, single page), every advertised tool was exercised
+successfully, AND both documented outputs (summary + pack) were
+written. Only tools advertising readOnlyHint: true are invoked. Takes
+no --suite/--unattended (it enumerates from the server); needs
+--credentials-file against an authed surface.
+
 The wrapper's aggregate report goes to stdout AND <report-dir>/summary.json.
 
-Examples (verdict, then seed):
+Examples (verdict, seed, then drive):
   pnpm -s mcp:conformance --target https://mcp.example.test/mcp --unattended
   pnpm -s mcp:conformance --target https://mcp.example.test/mcp --unattended --seed
+  pnpm -s mcp:conformance --target https://mcp.example.test/mcp --drive --credentials-file tmp/creds.json
 
 Options:
   --target <url>             MCP server URL (required), e.g. https://<host>/mcp
@@ -50,5 +62,12 @@ Options:
   --report-dir <path>        Raw-report dir, absolute or repo-root-relative
                              (default tmp/mcp-conformance/<utc-stamp>)
   --baseline-dir <path>      Baseline dir (default: the committed baselines)
+  --drive                    Drive operation: exercise every advertised tool,
+                             render the reviewer pack
+  --pack-out <path>          Reviewer-pack output path (drive only; default
+                             <report-dir>/reviewer-pack.md)
+  --preamble-file <path>     JSON with the pack's owner-approved preamble
+                             sentences (drive only; unmistakable placeholders
+                             otherwise)
   -h, --help                 Show this help
 `;

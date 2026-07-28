@@ -23,7 +23,11 @@ import { graphCorpus } from '@oaknational/sdk-codegen/graph-corpus';
 import { MAX_KEYWORD_LIMIT } from '@oaknational/graph-corpus-sdk/curriculum';
 import { describe, it, expect } from 'vitest';
 import { z } from 'zod';
-import { GET_KEYWORD_GRAPH_TOOL_DEF, runKeywordGraphTool } from './aggregated-keyword-graph.js';
+import {
+  GET_KEYWORD_GRAPH_INPUT_SCHEMA,
+  GET_KEYWORD_GRAPH_TOOL_DEF,
+  runKeywordGraphTool,
+} from './aggregated-keyword-graph.js';
 
 /** Narrows a deterministic fixture pick, failing loudly if the corpus cannot supply it. */
 function required<T>(value: T | undefined, message: string): T {
@@ -197,5 +201,18 @@ describe('runKeywordGraphTool — anchored retrieval envelope', () => {
     expect(envelope.keywords).toEqual([]);
     expect(envelope.totalMatchingKeywords).toBe(0);
     expect(envelope.hasMore).toBe(false);
+  });
+});
+
+describe('get-keyword-graph wire schema — advertised examples (MCP-303 drive-leg cure)', () => {
+  // A required property with no wire-visible example is underivable by any
+  // client working from advertised metadata alone (the drive leg's founding
+  // finding). This guards the cure at the schema source through the
+  // z.toJSONSchema round-trip.
+  it('subject and keyStage advertise examples on the wire', () => {
+    const jsonSchema = z.toJSONSchema(z.object(GET_KEYWORD_GRAPH_INPUT_SCHEMA));
+
+    expect(jsonSchema).toHaveProperty('properties.subject.examples', ['maths']);
+    expect(jsonSchema).toHaveProperty('properties.keyStage.examples', ['ks2']);
   });
 });

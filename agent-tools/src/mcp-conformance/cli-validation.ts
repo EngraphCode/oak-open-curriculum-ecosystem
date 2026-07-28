@@ -9,12 +9,43 @@ export interface CliState {
   help: boolean;
   unattended: boolean;
   seed: boolean;
+  drive: boolean;
   target: string | undefined;
   suites: ConformanceSuite[];
   credentialsFile: string | undefined;
   reportDir: string | undefined;
   baselineDir: string | undefined;
+  packOut: string | undefined;
+  preambleFile: string | undefined;
   suiteErrors: string[];
+}
+
+/**
+ * The drive operation's rules (MCP-303): drive enumerates the tool surface
+ * from the server itself, so the suite/mode vocabulary of the verdict and
+ * seed operations does not apply to it — and the pack flags apply only to
+ * it.
+ */
+function validateDriveUsage(state: CliState): string | undefined {
+  if (!state.drive) {
+    if (state.packOut !== undefined) {
+      return '--pack-out is only meaningful with --drive (the reviewer pack is a drive-run projection)';
+    }
+    if (state.preambleFile !== undefined) {
+      return '--preamble-file is only meaningful with --drive (the reviewer pack is a drive-run projection)';
+    }
+    return undefined;
+  }
+  if (state.seed) {
+    return '--drive and --seed are different operations — pick one';
+  }
+  if (state.suites.length > 0) {
+    return '--drive enumerates the tool surface from the server itself — drop --suite';
+  }
+  if (state.unattended) {
+    return '--drive has no unattended mode (tool calls need the authed surface) — drop --unattended';
+  }
+  return undefined;
 }
 
 /**
@@ -54,5 +85,11 @@ export function validateCliState(state: CliState): string | undefined {
   if (state.target === undefined || state.target.trim() === '') {
     return '--target is required';
   }
-  return validateCredentialsUsage(state);
+  const driveRefusal = validateDriveUsage(state);
+  if (driveRefusal !== undefined) {
+    return driveRefusal;
+  }
+  // Drive consumes credentials directly on every call; the suites' rules
+  // (unattended-forbids, oauth-only-drops) are not its rules.
+  return state.drive ? undefined : validateCredentialsUsage(state);
 }

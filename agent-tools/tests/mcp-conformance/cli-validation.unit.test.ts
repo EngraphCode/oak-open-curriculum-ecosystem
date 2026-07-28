@@ -6,11 +6,14 @@ const RUNNABLE: CliState = {
   help: false,
   unattended: false,
   seed: false,
+  drive: false,
   target: 'https://curriculum-mcp-alpha.oaknational.dev/mcp',
   suites: ['protocol'],
   credentialsFile: undefined,
   reportDir: undefined,
   baselineDir: undefined,
+  packOut: undefined,
+  preambleFile: undefined,
   suiteErrors: [],
 };
 
@@ -56,5 +59,37 @@ describe('validateCliState — refusals are loud, the runnable state is silent',
     const refusal = validateCliState({ ...RUNNABLE, suites: ['protocol', 'protocol'] });
     expect(refusal).toContain('duplicate --suite');
     expect(refusal).toContain('protocol');
+  });
+});
+
+describe('validateCliState — the drive operation (MCP-303)', () => {
+  const DRIVE: CliState = { ...RUNNABLE, drive: true, suites: [] };
+
+  it('a drive with a target and credentials validates clean', () => {
+    expect(validateCliState({ ...DRIVE, credentialsFile: 'tmp/creds.json' })).toBeUndefined();
+  });
+
+  it('drive and seed are mutually exclusive operations', () => {
+    const refusal = validateCliState({ ...DRIVE, seed: true });
+    expect(refusal).toContain('--drive');
+    expect(refusal).toContain('--seed');
+  });
+
+  it('drive enumerates from the server, so --suite is refused', () => {
+    const refusal = validateCliState({ ...DRIVE, suites: ['protocol'] });
+    expect(refusal).toContain('--suite');
+    expect(refusal).toContain('enumerates');
+  });
+
+  it('drive has no unattended mode — the flag is refused', () => {
+    const refusal = validateCliState({ ...DRIVE, unattended: true });
+    expect(refusal).toContain('--unattended');
+  });
+
+  it('pack-out and preamble-file only mean something under --drive', () => {
+    expect(validateCliState({ ...RUNNABLE, packOut: 'tmp/pack.md' })).toContain('--drive');
+    expect(validateCliState({ ...RUNNABLE, preambleFile: 'tmp/preamble.json' })).toContain(
+      '--drive',
+    );
   });
 });

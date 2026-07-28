@@ -22,6 +22,7 @@ import { MAX_PREREQUISITE_DEPTH } from '@oaknational/graph-corpus-sdk/curriculum
 import { describe, it, expect } from 'vitest';
 import { z } from 'zod';
 import {
+  GET_PRIOR_KNOWLEDGE_GRAPH_INPUT_SCHEMA,
   GET_PRIOR_KNOWLEDGE_GRAPH_TOOL_DEF,
   runPriorKnowledgeGraphTool,
 } from './aggregated-prior-knowledge-graph.js';
@@ -151,5 +152,25 @@ describe('runPriorKnowledgeGraphTool', () => {
     const result = runPriorKnowledgeGraphTool('unitSlugs');
 
     expect(result.isError).toBe(true);
+  });
+});
+
+describe('get-prior-knowledge-graph wire schema — advertised examples (MCP-303 drive-leg cure)', () => {
+  // A required property with no wire-visible example is underivable by any
+  // client working from advertised metadata alone (the drive leg's founding
+  // finding). This guards the cure at the schema source: the `.meta()` must
+  // survive the z.toJSONSchema round-trip — array-example placement under a
+  // future zod bump is exactly the silent-reversion risk.
+  it('unitSlugs advertises a corpus-true example on the wire', () => {
+    const jsonSchema = z.toJSONSchema(z.object(GET_PRIOR_KNOWLEDGE_GRAPH_INPUT_SCHEMA));
+
+    expect(jsonSchema).toHaveProperty('properties.unitSlugs.examples', [['comparing-fractions']]);
+    // Examples come from real data: the advertised slug must exist in the
+    // corpus this SDK ships with, or the walkthrough teaches a dead value.
+    expect(
+      graphCorpus.nodes.some(
+        (node) => node.kind === 'unit' && node.unitSlug === 'comparing-fractions',
+      ),
+    ).toBe(true);
   });
 });
