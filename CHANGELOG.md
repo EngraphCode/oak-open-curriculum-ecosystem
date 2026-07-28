@@ -1,3 +1,17 @@
+# [1.102.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.101.0...v1.102.0) (2026-07-28)
+
+
+### Bug Fixes
+
+* **mcp-app:** experimental-service disclaimer with true banner landmark and design-kit conformance ([b6bf4ce](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b6bf4ce7fcc714eb7a635e4072f9479217eb1c66)), closes [hi#impact](https://github.com/hi/issues/impact)
+
+
+### Features
+
+* **mcp-app:** brand the widget panel Oak green and defer the page surface to the host ([fcee534](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/fcee534be29e28ee751452b0562d07c44e577ce3))
+* **mcp-app:** permanent both-themes design-review page ([3704239](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3704239bf9430bcb0c95d034c2bb9242b65317f3))
+* **mcp-app:** widget shell renders as a bounded rounded panel ([abb4001](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/abb40011809aa882557ea012ee204fd73c800c81)), closes [#597](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/597)
+
 # [1.101.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.100.0...v1.101.0) (2026-07-27)
 
 
