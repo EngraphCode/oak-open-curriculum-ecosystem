@@ -147,6 +147,14 @@
 .site-footer-meta p {
   margin: 0;
 }
+/* Chrome links take text colour, not link blue, so the chrome matches the
+   main site — the same convention as .breadcrumbs .oak-link below. The
+   padding lifts each line box to a WCAG 2.5.8 target that passes on size
+   alone; layout comes from the system's own .oak-cluster on the nav. */
+.site-footer-legal .oak-link {
+  color: var(--text-primary);
+  padding-block: var(--space-4);
+}
 
 /* a11y cure — SC 1.4.10 Reflow.
    At 320px the masthead forced 603px of horizontal scroll: the nav rows did
