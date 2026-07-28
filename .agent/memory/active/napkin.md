@@ -2728,3 +2728,17 @@ Watcher `bzb3cv8ai` (re-arm 4), F-75 `bjwkjzqqx`.
   touches an asset request; the route derives the signing secret from it three files away. Copilot
   caught it, cured at `a5d1140c2`. Confident prose about a security boundary, wrong about adjacent
   code.
+
+- **PR-B progress ~21:20Z**: compose module DONE and green 6/6 (src/compose-product-analytics-runtime.ts + unit test in worktree mcp-241-slice2-compose; @vercel/functions added to app manifest, lockfile updated, uncommitted). Learned in-engine: resolveRelease({}) RESOLVES (total fallback); the genuine Err fixture is {VERCEL_ENV:'production', VERCEL_GIT_COMMIT_REF:'main'} → missing_application_version. Remaining: liveToolNames helper (served-surface), RESOURCE_REGISTRATION_NAMES export (register-resources.ts), wire BOTH roots (server.ts loadConfiguredApp = deployed; index.ts TODO cure), env-product-analytics TSDoc re-true, docs dependency rows (C5), real-SDK Sentry+observed integration test, lockfile survivability run, config-expert + code-expert, ceremony. Owner asked keys-local/Vercel at ~21:1xZ — answered: none locally (verified), Vercel env unreadable from this seat (Not authorized; artifacts say none placed; MCP-117 owns placement).
+
+- **The noisiest watcher belonged to the seat with the tightest budget** (Squall, 459fd1, at
+  stand-down 21:19Z). Raccoon's and Schooner's comms watchers both carried `--exclude-tag
+  heartbeat`; the DIRECTOR's did not. So the seat whose whole value is cross-session awareness and
+  context economy was woken by every heartbeat from every seat — five heartbeat wakes in the last
+  four minutes of its tenure, none actionable. The brief already carries the reserve-seat filtering
+  lesson (a standby that cannot filter the firehose burns the freshness it exists to preserve);
+  this is that lesson recurring at the Director seat, which is worse, because the Director's
+  freshness is what bounds the whole tenure. **Arm the Director's watcher with `--exclude-tag
+  heartbeat` at Moment 2, same as an implementer's.** Liveness reads come from `claims
+  active-agents` on demand, which is the mechanically correct source anyway — the heartbeat stream
+  is the wrong instrument for a question the registry answers exactly.
