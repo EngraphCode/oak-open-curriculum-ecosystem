@@ -1,7 +1,7 @@
 import type { RequestHandler } from 'express';
 import type { Transport } from '@modelcontextprotocol/sdk/shared/transport.js';
 import type { Logger } from '@oaknational/logger';
-import type { McpTransportObserver } from '@oaknational/observability';
+import type { McpTransportObserver, ProductAnalyticsSink } from '@oaknational/observability';
 import type { RuntimeConfig } from '../runtime-config.js';
 import type { HttpObservability } from '../observability/http-observability.js';
 import type { RateLimiterFactory } from '../rate-limiting/index.js';
@@ -73,8 +73,16 @@ export interface CreateAppOptions {
    * `observe` and the returned transport is what `server.connect` receives,
    * while `handleRequest` stays on the concrete transport. Omitted → off
    * mode: the connect target is the exact concrete transport reference.
-   * The composition roots supply the selected-mode observer when the
-   * product-analytics runtime is composed (MCP-241 PR-B).
+   * The composition roots supply the composed runtime's observer.
    */
   readonly transportObserver?: McpTransportObserver<Transport>;
+  /**
+   * Closed product-analytics capture capability (MCP-241). Passed
+   * structurally through `initializeCoreEndpoints` into request handling;
+   * MCP-242's resource-read observation is its first consumer. The
+   * composition roots supply the composed runtime's sink; omitted → the
+   * request path carries no capture capability (off mode's sink is inert
+   * anyway).
+   */
+  readonly productAnalyticsSink?: ProductAnalyticsSink;
 }

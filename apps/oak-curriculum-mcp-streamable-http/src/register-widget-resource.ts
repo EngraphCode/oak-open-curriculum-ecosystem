@@ -33,6 +33,12 @@ const WIDGET_UI_META = {
 } as const;
 
 /**
+ * Registration name of the MCP App widget resource — the single literal
+ * shared by the registration call and the MCP-241 live-name derivation.
+ */
+export const WIDGET_RESOURCE_NAME = 'Oak Curriculum App';
+
+/**
  * Registers the MCP App widget resource via `registerAppResource`.
  *
  * The widget HTML is a self-contained React app built by Vite and embedded
@@ -49,7 +55,7 @@ export function registerWidgetResource(
 ): void {
   registerAppResource(
     server,
-    'Oak Curriculum App',
+    WIDGET_RESOURCE_NAME,
     WIDGET_URI,
     {
       description: 'Interactive Oak curriculum MCP App for search and curriculum exploration.',
