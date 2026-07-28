@@ -20,16 +20,20 @@ import type { HttpObservability, HttpSpanOptions } from './observability/http-ob
 import type { ByteCountableResponse } from './observability/response-byte-counter.js';
 
 function createFakeMcpFactory(): McpServerFactory {
-  return () => ({
-    server: {
-      connect: vi.fn().mockResolvedValue(undefined),
-      close: vi.fn().mockResolvedValue(undefined),
-    },
-    transport: {
+  return () => {
+    const transport = {
       handleRequest: vi.fn().mockResolvedValue(undefined),
       close: vi.fn().mockResolvedValue(undefined),
-    },
-  });
+    };
+    return {
+      server: {
+        connect: vi.fn().mockResolvedValue(undefined),
+        close: vi.fn().mockResolvedValue(undefined),
+      },
+      transport,
+      connectTransport: transport,
+    };
+  };
 }
 
 function createFakeRequest(overrides?: Partial<McpHandlerRequest>): McpHandlerRequest {
@@ -162,12 +166,8 @@ function isWritableResponse(value: unknown): value is ByteCountableResponse {
 
 /** Factory whose transport streams the given chunks through res.write/res.end. */
 function createWritingMcpFactory(chunks: readonly string[]): McpServerFactory {
-  return () => ({
-    server: {
-      connect: vi.fn().mockResolvedValue(undefined),
-      close: vi.fn().mockResolvedValue(undefined),
-    },
-    transport: {
+  return () => {
+    const transport = {
       handleRequest: async (_req: unknown, res: unknown): Promise<void> => {
         if (!isWritableResponse(res)) {
           throw new Error('fake transport expected an object response');
@@ -183,8 +183,16 @@ function createWritingMcpFactory(chunks: readonly string[]): McpServerFactory {
         }
       },
       close: vi.fn().mockResolvedValue(undefined),
-    },
-  });
+    };
+    return {
+      server: {
+        connect: vi.fn().mockResolvedValue(undefined),
+        close: vi.fn().mockResolvedValue(undefined),
+      },
+      transport,
+      connectTransport: transport,
+    };
+  };
 }
 
 /** withSpan fake that records the initial attributes and the handle's setAttributes calls. */

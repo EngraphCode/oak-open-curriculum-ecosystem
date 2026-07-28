@@ -27,11 +27,19 @@ export interface McpRequestTransport {
 }
 
 /**
+ * The transport handed to `server.connect` — the product-analytics
+ * transport observer's return value. @see ADR-218 §4
+ */
+export interface McpConnectTarget {
+  close(): Promise<void>;
+}
+
+/**
  * Minimal server contract for per-request lifecycle.
  * Covers `connect` and `close` — the only methods `createMcpHandler` calls.
  */
 export interface McpRequestServer {
-  connect(transport: { close(): Promise<void> }): Promise<void>;
+  connect(transport: McpConnectTarget): Promise<void>;
   close(): Promise<void>;
 }
 
@@ -39,6 +47,14 @@ export interface McpRequestServer {
 export interface McpRequestContext {
   readonly server: McpRequestServer;
   readonly transport: McpRequestTransport;
+  /**
+   * The product-analytics observer's return value (MCP-241). Off mode
+   * observes nothing, so this is the exact `transport` reference. The
+   * handler always calls `handleRequest` on the concrete `transport`,
+   * and response cleanup closes only the concrete `transport` and the
+   * server — never this connect target. @see ADR-218 §4
+   */
+  readonly connectTransport: McpConnectTarget;
 }
 
 /** Factory creating a fresh McpServer + transport per request (stateless mode). */

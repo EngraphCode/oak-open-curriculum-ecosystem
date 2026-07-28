@@ -142,6 +142,46 @@ describe('createMcpHandler (Integration)', () => {
       expect(server.connect).toHaveBeenCalledOnce();
     });
 
+    it('connects through connectTransport while handleRequest stays on the concrete transport', async () => {
+      const handleRequest = vi.fn(async () => undefined);
+      const connectTransport = { close: vi.fn(() => Promise.resolve()) };
+      const { factory, server, transport } = createFakeMcpServerFactory(
+        handleRequest,
+        connectTransport,
+      );
+
+      const handler = createMcpHandler(factory, observability);
+      const mockReq = createMockRequest({ method: 'tools/list' });
+      const mockRes = createFakeResponse();
+
+      await handler(mockReq, mockRes);
+
+      expect(server.connect).toHaveBeenCalledExactlyOnceWith(connectTransport);
+      expect(transport.handleRequest).toHaveBeenCalledOnce();
+    });
+
+    it('response close closes the concrete transport and server, never the connect target', async () => {
+      const connectTransport = { close: vi.fn(() => Promise.resolve()) };
+      const { factory, server, transport } = createFakeMcpServerFactory(
+        vi.fn(async () => undefined),
+        connectTransport,
+      );
+
+      const handler = createMcpHandler(factory, observability);
+      const mockRes = createFakeResponse();
+      await handler(createMockRequest({ method: 'tools/list' }), mockRes);
+
+      const closeRegistration = vi
+        .mocked(mockRes.on)
+        .mock.calls.find(([event]) => event === 'close');
+      expect(closeRegistration).toBeDefined();
+      closeRegistration?.[1]();
+
+      expect(transport.close).toHaveBeenCalledOnce();
+      expect(server.close).toHaveBeenCalledOnce();
+      expect(connectTransport.close).not.toHaveBeenCalled();
+    });
+
     it('creates an active request span around transport.handleRequest', async () => {
       const baseObservability = createFakeHttpObservability();
       const spanCalls: {

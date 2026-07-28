@@ -52,8 +52,11 @@ canonical stateless example exactly.
 
 - `McpServer` instance (~20 tool registrations)
 - `StreamableHTTPServerTransport` instance
-- `server.connect(transport)` call
+- `server.connect(connectTransport)` call — the connect target may be an
+  observer-derived transport (see ADR-218 §4); off mode connects the concrete
+  transport itself
 - Cleanup via `res.on('close', ...)` calling `transport.close()` and `server.close()`
+  on the concrete transport and server, never the connect target
 
 ### Test simplification
 

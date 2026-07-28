@@ -10,6 +10,7 @@
 
 import { vi } from 'vitest';
 import type {
+  McpConnectTarget,
   McpRequestServer,
   McpRequestTransport,
   McpRequestContext,
@@ -48,10 +49,16 @@ function createFakeMcpServer(): McpRequestServer {
  */
 export function createFakeMcpServerFactory(
   handleRequestImpl?: McpRequestTransport['handleRequest'],
+  connectTransport?: McpConnectTarget,
 ): { factory: McpServerFactory; server: McpRequestServer; transport: McpRequestTransport } {
   const server = createFakeMcpServer();
   const transport = createFakeStreamableTransport(handleRequestImpl);
-  const context: McpRequestContext = { server, transport };
+  // Mirrors off mode by default: the connect target IS the concrete transport.
+  const context: McpRequestContext = {
+    server,
+    transport,
+    connectTransport: connectTransport ?? transport,
+  };
   const factory: McpServerFactory = () => context;
   return { factory, server, transport };
 }
