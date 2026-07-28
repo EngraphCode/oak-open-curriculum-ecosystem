@@ -48,7 +48,7 @@ function loadRuntimeConfigOrThrow(): RuntimeConfig {
     throw new Error(runtimeConfig.error.message);
   }
 
-  return runtimeConfig.value;
+  return runtimeConfig.value.runtimeConfig;
 }
 
 /**

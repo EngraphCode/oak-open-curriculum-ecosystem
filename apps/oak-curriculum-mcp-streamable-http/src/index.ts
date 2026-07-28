@@ -27,7 +27,10 @@ if (!result.ok) {
   process.exit(1);
 }
 
-const config = result.value;
+// The product-analytics bootstrap on result.value is consumed here once
+// the runtime composition lands (MCP-241); until then only the
+// handler-facing config is used.
+const config = result.value.runtimeConfig;
 const observabilityResult = createHttpObservability(config);
 
 if (!observabilityResult.ok) {
