@@ -14,11 +14,17 @@ MCP clients (ChatGPT, Claude, Cursor) execute tools that return text and structu
 2. **MCP has no binary streaming primitive** — tool results are JSON text; there is no mechanism to return file bytes.
 3. **URLs must be short-lived** — permanent download links would allow indefinite asset access without re-authentication.
 
+The third point is load-bearing, and it follows from an identity asymmetry that is easy to miss: **there is a many-to-one relationship between the user identities visible to the MCP app and the app identities visible to the upstream API.** The app authenticates each teacher individually; upstream, every request arrives as the same single application identity.
+
+Access granted at the upstream boundary is therefore not scoped to the requesting teacher — it is scoped to the application. Any artefact we hand to a client that carries upstream access must supply its own scoping, because the upstream credential supplies none. Hence: bound to one `(lesson, type)` pair, bound to a short window, and signed so neither binding can be edited.
+
+This is why returning the Oak API's own asset URL to a client is not an option even in principle, and why the expiry is the substance of the design rather than a hardening detail.
+
 ## Decision
 
 Implement an HMAC-signed download proxy on the HTTP MCP server:
 
-1. The `download-asset` aggregated tool generates a **signed, short-lived URL** pointing to the MCP server's own `/assets/download/:lesson/:type` route.
+1. The `download-asset` aggregated tool generates a **signed, short-lived URL** pointing to the MCP server's own `/assets/download/:lesson/:type` route — only after **proving the lesson and requested asset type exist** via the `get-lessons-assets` contract (MCP-321): a signature is a promise the proxy must keep, so it is never minted for unproven input.
 2. The download route **validates the HMAC signature**, then **proxies the request** to the Oak API with the server-held Bearer token.
 3. The HMAC signing secret is **derived from the Oak API key** using HMAC-SHA256 key separation — never using the API key directly as the signing key.
 

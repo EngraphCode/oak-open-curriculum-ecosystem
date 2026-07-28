@@ -109,7 +109,28 @@ export function createAssetDownloadRoute(deps: AssetDownloadRouteDeps): RequestH
 /** Default TTL for download URLs: 5 minutes. */
 const DOWNLOAD_TTL_MS = 5 * 60 * 1000;
 
-/** Creates the URL factory function for generating signed download URLs. */
+/**
+ * Creates the URL factory function for generating signed download URLs.
+ *
+ * **Why we mint our own URL rather than returning the Oak API's asset URL.**
+ * There is a many-to-one relationship between the user identities this app
+ * sees and the app identity the upstream API sees: we authenticate each
+ * teacher, but upstream every request arrives as the same application. Access
+ * at the upstream boundary is therefore scoped to the application, not to the
+ * requesting teacher.
+ *
+ * So anything we hand a client that carries upstream access has to supply its
+ * own scoping, because the upstream credential supplies none. That is what
+ * this factory produces: a capability bound to one `(lesson, type)` pair and
+ * to a short window ({@link DOWNLOAD_TTL_MS}), signed so neither binding can
+ * be edited.
+ *
+ * The expiry is the substance of the design, not a hardening detail — treat a
+ * change that widens or removes it as a change to the security model.
+ *
+ * See ADR-126 for the threat model and the key-separation scheme (the signing
+ * secret is derived from the API key, never the API key itself).
+ */
 export function createAssetDownloadUrlFactory(
   baseUrl: string,
   createSignature: (lesson: string, type: string, expiresAt: number, secret: string) => string,
