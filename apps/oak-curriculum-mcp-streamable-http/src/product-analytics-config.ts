@@ -49,14 +49,25 @@ export interface ProductAnalyticsEnvInput {
 const CANONICAL_BASE64URL_32_BYTES = /^[A-Za-z0-9_-]{43}$/;
 
 /**
- * Strict wire shape of one keyring record: exactly `id` and `key`,
- * a non-empty id, and a key whose length and alphabet match a 43-char
- * unpadded base64url encoding of 32 bytes. Canonicality (re-encoding
- * byte-for-byte) still needs the decode step below — the pattern alone
- * cannot see the final character's padding bits.
+ * The adapter's binding key-id contract, mirrored from
+ * `@oaknational/posthog-node`'s `actor-pseudonym.ts` `KEY_ID_PATTERN`
+ * (not exported there). Enforcing it here makes an id the adapter would
+ * reject a boot failure at this resolver rather than a later
+ * content-free composition failure; if the two ever diverge, the
+ * adapter's own validation still refuses at composition.
+ */
+const KEY_ID_PATTERN = /^[a-z0-9][a-z0-9_-]{0,31}$/u;
+
+/**
+ * Strict wire shape of one keyring record: exactly `id` and `key`, an
+ * id satisfying the adapter's key-id contract, and a key whose length
+ * and alphabet match a 43-char unpadded base64url encoding of 32 bytes.
+ * Canonicality (re-encoding byte-for-byte) still needs the decode step
+ * below — the pattern alone cannot see the final character's padding
+ * bits.
  */
 const KeyringEntryWireSchema = z.strictObject({
-  id: z.string().min(1),
+  id: z.string().regex(KEY_ID_PATTERN),
   key: z.string().regex(CANONICAL_BASE64URL_32_BYTES),
 });
 

@@ -166,6 +166,18 @@ describe('resolveProductAnalyticsConfig — selected-mode rejections', () => {
     ['a record with a non-string id', JSON.stringify([{ id: 7, key: ZERO_KEY_BASE64URL }])],
     ['an empty id', JSON.stringify([{ id: '', key: ZERO_KEY_BASE64URL }])],
     [
+      'an id outside the adapter key-id contract (uppercase)',
+      JSON.stringify([{ id: 'K2026_01', key: ZERO_KEY_BASE64URL }]),
+    ],
+    [
+      'an id outside the adapter key-id contract (leading separator)',
+      JSON.stringify([{ id: '-k2026', key: ZERO_KEY_BASE64URL }]),
+    ],
+    [
+      'an id outside the adapter key-id contract (33 characters)',
+      JSON.stringify([{ id: `k${'a'.repeat(32)}`, key: ZERO_KEY_BASE64URL }]),
+    ],
+    [
       'duplicate ids',
       JSON.stringify([
         { id: 'k2026_01', key: ZERO_KEY_BASE64URL },
