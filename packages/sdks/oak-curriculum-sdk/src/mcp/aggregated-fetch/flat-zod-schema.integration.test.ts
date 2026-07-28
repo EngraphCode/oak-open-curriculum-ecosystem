@@ -16,22 +16,29 @@
 import { describe, it, expect } from 'vitest';
 import { z } from 'zod';
 import { FETCH_INPUT_SCHEMA } from './flat-zod-schema.js';
+import { wireProperties } from '../test-helpers/advertised-examples.js';
 
 describe('fetch inputSchema round-trip', () => {
   it('exports a defined inputSchema', () => {
     expect(FETCH_INPUT_SCHEMA).toBeDefined();
   });
 
-  it('z.toJSONSchema() produces examples on the id field', () => {
-    const jsonSchema = z.toJSONSchema(z.object(FETCH_INPUT_SCHEMA));
+  it('z.toJSONSchema() carries the authored id metadata to the wire unchanged', () => {
+    // Behaviour, never config: the mechanism under test is that whatever
+    // `.meta({ examples })` is authored reaches the wire unchanged — a
+    // presence-only assertion would stay green if conversion truncated or
+    // replaced the authored values. Whether the example VALUES are true of
+    // deployed data is a live-probe concern (owner ruling 2026-07-28:
+    // tests never test config, only behaviour).
+    const properties = wireProperties(FETCH_INPUT_SCHEMA);
 
-    expect(jsonSchema).toHaveProperty('properties.id.examples', [
-      'lesson:adding-fractions-with-the-same-denominator',
-      'unit:comparing-fractions',
-      'subject:maths',
-      'sequence:maths-primary',
-      'thread:number-multiplication-and-division',
-    ]);
+    expect(
+      FETCH_INPUT_SCHEMA.id.meta()?.examples,
+      'id advertises at least one example',
+    ).not.toHaveLength(0);
+    expect(properties.id?.examples, 'id: metadata in, metadata on the wire').toEqual(
+      FETCH_INPUT_SCHEMA.id.meta()?.examples,
+    );
   });
 
   it('z.toJSONSchema() produces a description on the id field', () => {

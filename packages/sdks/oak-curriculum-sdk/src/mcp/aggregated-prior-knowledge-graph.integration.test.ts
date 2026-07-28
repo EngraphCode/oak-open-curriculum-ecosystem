@@ -26,6 +26,7 @@ import {
   GET_PRIOR_KNOWLEDGE_GRAPH_TOOL_DEF,
   runPriorKnowledgeGraphTool,
 } from './aggregated-prior-knowledge-graph.js';
+import { wireExamplesOf } from './test-helpers/advertised-examples.js';
 
 /** A corpus unit slug, chosen deterministically (lexicographic minimum). */
 const firstUnitSlug = graphCorpus.nodes
@@ -152,28 +153,24 @@ describe('get-prior-knowledge-graph wire schema — advertised examples (MCP-303
   // drive leg's founding finding), and WHATEVER anchor it advertises must
   // resolve in the corpus this SDK ships — a dead example teaches every
   // client a dead value. The value itself is config and is not pinned.
-  it('the wire-advertised example invocation resolves against the shipped corpus', () => {
-    const jsonSchema = z.toJSONSchema(z.object(GET_PRIOR_KNOWLEDGE_GRAPH_INPUT_SCHEMA));
-    const wire = z
-      .object({
-        properties: z
-          .object({
-            unitSlugs: z.object({ examples: z.array(z.array(z.string()).min(1)).min(1) }).loose(),
-          })
-          .loose(),
-      })
-      .loose()
-      .parse(jsonSchema);
-    const exampleAnchor = wire.properties.unitSlugs.examples[0];
-    if (exampleAnchor === undefined) {
-      throw new Error('wire schema advertises no unitSlugs example to drive');
+  it('every wire-advertised example invocation resolves against the shipped corpus', () => {
+    // Every advertised element, not only the first: a later-added stale
+    // example must not hide behind a green first element (the helper's
+    // .min(1) guard guarantees this loop is never vacuous).
+    for (const exampleAnchor of wireExamplesOf(
+      GET_PRIOR_KNOWLEDGE_GRAPH_INPUT_SCHEMA,
+      'unitSlugs',
+      z.array(z.string()).min(1),
+    )) {
+      const result = runPriorKnowledgeGraphTool({ unitSlugs: exampleAnchor });
+
+      expect(
+        result.isError,
+        `advertised anchor ${JSON.stringify(exampleAnchor)} must resolve`,
+      ).toBeUndefined();
+      const envelope = SUBGRAPH_ENVELOPE.parse(result.structuredContent);
+      expect(envelope.unknownAnchors).toEqual([]);
+      expect(envelope.resolvedAnchors.length).toBeGreaterThan(0);
     }
-
-    const result = runPriorKnowledgeGraphTool({ unitSlugs: exampleAnchor });
-
-    expect(result.isError).toBeUndefined();
-    const envelope = SUBGRAPH_ENVELOPE.parse(result.structuredContent);
-    expect(envelope.unknownAnchors).toEqual([]);
-    expect(envelope.resolvedAnchors.length).toBeGreaterThan(0);
   });
 });

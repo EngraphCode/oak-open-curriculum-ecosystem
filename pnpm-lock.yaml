@@ -232,6 +232,9 @@ importers:
       '@oaknational/observability':
         specifier: workspace:*
         version: link:../../packages/core/observability
+      '@oaknational/posthog-node':
+        specifier: workspace:*
+        version: link:../../packages/libs/posthog-node
       '@oaknational/result':
         specifier: workspace:*
         version: link:../../packages/core/result

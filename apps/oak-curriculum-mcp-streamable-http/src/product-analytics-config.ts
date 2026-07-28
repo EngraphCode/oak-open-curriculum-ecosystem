@@ -35,8 +35,8 @@ export type ProductAnalyticsBootstrap =
  *
  * @remarks
  * A structural type rather than the app `Env` so this module never
- * imports `env.ts` (which imports this file's host literal) and never
- * sees unrelated secrets.
+ * imports `env.ts` (both read the host constant from
+ * `env-product-analytics.ts`) and never sees unrelated secrets.
  */
 export interface ProductAnalyticsEnvInput {
   readonly OBSERVABILITY_SINKS: readonly string[];
