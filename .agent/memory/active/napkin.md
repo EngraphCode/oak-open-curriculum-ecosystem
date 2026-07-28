@@ -2269,3 +2269,36 @@ did I last read this?"; it should also ask **"whose sentence is this?"**
 - Observed: re-truing my own merge-path entry I rewrote the file with `text[:start] + new_entry` — everything after my entry's heading was discarded. In the ~60s between my tail-read and the rewrite, the Director had appended and committed their "Addendum 2" capture after my entry; the truncation deleted it. Caught because the harness Edit warning ("file modified on disk since last read") fired on my very next edit and I checked `git diff` for minus-lines before moving on; restored verbatim from HEAD.
 - Cure: on shared live surfaces (napkin, comms-adjacent state), never rewrite from a positional marker. Replace by EXACT-MATCH anchor on the text being replaced (assert the old text is present and unique, replace only it) or append-only. A tail-read seconds earlier is not a lock; the write is the race window.
 - Scope: durable authoring discipline for this fleet's shared files; no expiry.
+
+### Addendum 3, same day ~14:53Z — the unprobed surface, and the gate's third question
+
+Fourth instance, and it completes the gate.
+
+I reported that PostHog's event-retention setting could be changed "in the dashboard UI, which makes it
+an owner action". Nobody had opened the dashboard. I had one fact — the API `PATCH` silently ignores
+the field — and turned it into a second: *therefore the UI works*. Raccoon later probed it: the settings
+UI carries only the session-replay control, `posthog/posthog#17031` is open upstream, and **there is no
+surface at all**. The owner's ruling cannot be executed by anyone.
+
+The mechanism is distinct from the three above. Nothing was stale (the API read was minutes old);
+nothing was mis-scoped (the API fact was true); no authority was borrowed. The defect is that a claim
+about surface B was manufactured from evidence about surface A, and reported in the same register as
+the evidence. **An inference about an unprobed surface is a hypothesis wearing a fact's clothes** — and
+mine was the comfortable inference again, because "the owner can just click it" closes the problem
+whereas "we have committed to a control the vendor cannot apply" opens one.
+
+**So the transmission gate is three questions, not two:**
+
+1. **When did I last read this state?** (the stale-observation instance)
+2. **Whose sentence is this?** (the inference-riding-authority instance)
+3. **Did anyone read this state, ever?** (this one)
+
+Three is the one that catches the most comfortable failures, because a never-probed claim has no
+staleness signal to trip on and no borrowed authority to spot — it simply sounds like the other things
+in the paragraph, all of which were checked.
+
+Worth noting for whoever graduates this: the containment that worked was NOT catching the error. It was
+**attribution discipline** — I recorded the retention finding on the ticket as Raccoon's first-hand read
+rather than my own, and declined to card the owner with it. So when it proved wrong, the blast radius
+was one ticket comment I could correct, not a decision he had acted on. Attribution limits damage even
+when verification fails.
