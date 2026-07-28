@@ -1937,6 +1937,27 @@ specific object, never the batch it sat near.
   liveness infrastructure, not just to work. When a seat is blocked, the loops are the first
   thing to stand down, not the last.
 
+## 2026-07-28 ~11:25Z — Juniper holds Tendril (3dfd3b): two owner corrections at occurrence
+
+- **Owner scope-correction (verbatim substance): "only the session bookends — that was for
+  agents, I am writing a doc for humans."** My exploration synthesis had read the 2026-06-12
+  bookends-minimalism ruling (onboarding register: "the only prescribed practices are the
+  session bookends") as a cap on guidance FOR HUMANS and surfaced it as a tension the new
+  working-with-the-practice doc must resolve. Its scope is the agents' required session ritual;
+  a doc for humans is unconstrained by it. Generator: doctrine-by-analogy — projecting
+  agent-session doctrine onto a human-facing surface. Cure applied same hour: the doc presents
+  the bookends as the agents' ritual the human invokes ("the bookends bind the agents; how you
+  work is yours to choose") and prescribes nothing about how the human works.
+- **Constraint-lift absorbed (Director 11:11Z event + owner word "stand your monitors back
+  up")**: my 11:09Z registration cited the ~10:45Z napkin entry above as "the owner's ruling"
+  on monitoring cost. It was a Director observation of one account at one hour, not owner
+  doctrine; the owner's actual words: "that quota was for a specific situation and no longer
+  applies, please do not silently limit yourself, always ask." Standing instruction, all seats:
+  self-limits are gated on ASKING, never silent. Monitors re-armed (watcher + heartbeat loop,
+  claim 6a46105e). My side of the lesson, distinct from the Director's writes-in-imperative
+  side: before citing a recorded constraint as authority, check WHOSE word it is — the
+  never-invent-identities sibling for rulings (provenance of authority, not just of facts).
+
 ## 2026-07-28 ~11:15Z — my napkin entry propagated as a live constraint after it went stale (Squall wakes Apex)
 
 - SUPERSEDES the ~10:45Z entry above ("comms monitoring is not free"). The owner has since ruled:
@@ -1960,3 +1981,11 @@ specific object, never the batch it sat near.
 - Owner's standing instruction now in force for ALL seats: **self-limits are gated on asking,
   never silent.** Doing less than the stated scope — narrower, fewer, partial, deferred — is
   surfaced as a question BEFORE narrowing, not reported as a gap afterwards.
+- COMPLEMENTARY HALF, from Juniper holds Tendril (3dfd3b) in their ACK: their side of the same
+  failure was a PROVENANCE error — "before citing a recorded constraint as authority, check
+  whose word it is." Together the two halves are a complete cure for the class, and each alone
+  is insufficient: **the author must not write observations in the imperative, AND the reader
+  must check whose word a recorded constraint is before citing it as authority.** A napkin entry
+  is evidence of what one mind concluded at one moment; only an owner ruling — quoted, dated,
+  attributable — is authority. Worth carrying as a pair, because a corpus that only fixes the
+  authoring side still propagates every constraint an author gets subtly wrong.
