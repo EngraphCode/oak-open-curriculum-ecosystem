@@ -32,8 +32,10 @@ function stripProductAnalyticsInputs<TEnv extends Env>(parsed: TEnv): TEnv {
   delete env.POSTHOG_HOST;
   delete env.POSTHOG_PSEUDONYM_ACTIVE_KEY_ID;
   delete env.POSTHOG_PSEUDONYM_KEYRING;
-  // POSTHOG_CAPTURE_MODE needs no strip: any set value already failed
-  // validation unconditionally, so it cannot reach this seam.
+  // POSTHOG_CAPTURE_MODE reaches this seam in off mode (ignored there by
+  // design) and as an empty string in selected mode — strip it too so no
+  // PostHog input of any kind rides the handler-facing config.
+  delete env.POSTHOG_CAPTURE_MODE;
   return env;
 }
 

@@ -46,9 +46,10 @@ const ObservabilitySinksSchema = z
  * {@link refineProductAnalyticsEnv}), and the deep keyring parse belongs
  * to `resolveProductAnalyticsConfig` at the composition root. These
  * values are stripped from the handler-facing runtime config.
- * `POSTHOG_CAPTURE_MODE` is never a supported input: Oak does not set
- * the vendor capture mode, and a deployment-supplied value would
- * silently change the reviewed transport — any value fails startup.
+ * `POSTHOG_CAPTURE_MODE` is never consumed: when `posthog` is selected,
+ * any non-empty value fails startup (a deployment-supplied value would
+ * silently change the reviewed transport); off mode ignores it, and the
+ * strip removes it from the handler-facing config in every mode.
  */
 export const productAnalyticsEnvFields = {
   OBSERVABILITY_SINKS: ObservabilitySinksSchema,

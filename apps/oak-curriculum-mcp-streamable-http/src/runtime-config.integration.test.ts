@@ -83,12 +83,16 @@ describe('createRuntimeConfigFromValidatedEnv', () => {
         createRuntimeConfigFromValidatedEnv({
           ...selectedEnv,
           OBSERVABILITY_SINKS: '["sentry"]',
+          // Tolerated in off mode by the selection-gated rule — and still
+          // stripped: no PostHog input of any kind reaches handlers.
+          POSTHOG_CAPTURE_MODE: 'immediate',
         }),
       );
 
-      const keys = Object.keys(runtimeConfig.env);
-      expect(keys).not.toContain('POSTHOG_PROJECT_API_KEY');
-      expect(keys).not.toContain('POSTHOG_PSEUDONYM_KEYRING');
+      const posthogKeys = Object.keys(runtimeConfig.env).filter((key) =>
+        key.startsWith('POSTHOG_'),
+      );
+      expect(posthogKeys).toEqual([]);
       expect(JSON.stringify(runtimeConfig)).not.toContain(zeroKey);
     });
 
