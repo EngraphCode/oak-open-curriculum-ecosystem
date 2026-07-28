@@ -61,6 +61,7 @@ NEXT STEPS AFTER EXPLORE:
     destructiveHint: false,
     idempotentHint: true,
     openWorldHint: false,
+    title: 'Explore Topic',
   },
   _meta: {
     securitySchemes: [{ type: 'oauth2', scopes: [...SCOPES_SUPPORTED] }],

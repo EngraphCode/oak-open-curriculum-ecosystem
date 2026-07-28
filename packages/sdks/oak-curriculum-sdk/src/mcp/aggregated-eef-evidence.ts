@@ -126,6 +126,7 @@ Inputs are a closed set drawn from the corpus's own vocabulary. Axis filters (\`
     destructiveHint: false,
     idempotentHint: true,
     openWorldHint: false,
+    title: 'EEF Evidence (Teaching and Learning Toolkit)',
   },
   _meta: {
     securitySchemes: [{ type: 'oauth2', scopes: [...SCOPES_SUPPORTED] }],

@@ -40,6 +40,7 @@ Do NOT use for:
     destructiveHint: false,
     idempotentHint: true,
     openWorldHint: false,
+    title: 'Download Asset',
   },
   _meta: {
     securitySchemes: [{ type: 'oauth2', scopes: [...SCOPES_SUPPORTED] }],

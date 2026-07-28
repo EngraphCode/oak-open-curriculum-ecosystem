@@ -57,6 +57,7 @@ Do NOT use for:
     destructiveHint: false,
     idempotentHint: true,
     openWorldHint: false,
+    title: 'User Search',
   },
   _meta: {
     ui: { resourceUri: WIDGET_URI },
@@ -87,6 +88,7 @@ with search controls directly.`,
     destructiveHint: false,
     idempotentHint: true,
     openWorldHint: false,
+    title: 'User Search Query',
   },
   _meta: {
     ui: { visibility: ['app'] satisfies ('model' | 'app')[] },

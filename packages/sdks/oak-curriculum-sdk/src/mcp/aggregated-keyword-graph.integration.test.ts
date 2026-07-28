@@ -109,6 +109,7 @@ describe('GET_KEYWORD_GRAPH_TOOL_DEF', () => {
       destructiveHint: false,
       idempotentHint: true,
       openWorldHint: false,
+      title: GET_KEYWORD_GRAPH_TOOL_DEF.title,
     });
   });
 });
