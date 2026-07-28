@@ -24,7 +24,7 @@ This is why returning the Oak API's own asset URL to a client is not an option e
 
 Implement an HMAC-signed download proxy on the HTTP MCP server:
 
-1. The `download-asset` aggregated tool generates a **signed, short-lived URL** pointing to the MCP server's own `/assets/download/:lesson/:type` route.
+1. The `download-asset` aggregated tool generates a **signed, short-lived URL** pointing to the MCP server's own `/assets/download/:lesson/:type` route — only after **proving the lesson and requested asset type exist** via the `get-lessons-assets` contract (MCP-321): a signature is a promise the proxy must keep, so it is never minted for unproven input.
 2. The download route **validates the HMAC signature**, then **proxies the request** to the Oak API with the server-held Bearer token.
 3. The HMAC signing secret is **derived from the Oak API key** using HMAC-SHA256 key separation — never using the API key directly as the signing key.
 
