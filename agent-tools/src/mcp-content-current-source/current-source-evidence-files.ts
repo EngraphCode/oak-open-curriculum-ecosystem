@@ -77,7 +77,7 @@ const currentSourceAnchorManifestSchema = z
           auditId: z.string().min(1),
           evidence: z
             .object({
-              revision: z.enum(['unchanged', 'expanded', 'modified', 'relocated']),
+              revision: z.enum(['unchanged', 'expanded', 'modified', 'relocated', 'added']),
               targets: z
                 .array(
                   z

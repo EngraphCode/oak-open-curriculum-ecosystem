@@ -27,11 +27,11 @@
     "additionCount": 9,
     "availableCount": 701,
     "retiredCount": 25,
-    "unchangedCount": 554,
+    "unchangedCount": 553,
     "expandedCount": 1,
     "modifiedCount": 74,
     "relocatedCount": 63,
-    "addedCount": 9,
+    "addedCount": 10,
     "workspaceScopeInCount": 610,
     "workspaceScopeOutUpstreamApiCount": 116,
     "workspaceAuthorityCount": 599,
@@ -15784,7 +15784,7 @@
           "apps/oak-curriculum-mcp-streamable-http/widget/src/App.tsx"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "added",
           "anchorTargetCount": 1,
           "anchorCount": 1
         }

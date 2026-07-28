@@ -131,6 +131,11 @@ export const CURRENT_AGGREGATED_ITEM_ANCHOR_OVERRIDES = {
   C705: {
     [AUTH_ROUTES]: ['const servePrm: RequestHandler = (req, res) => {'],
   },
+  C717: {
+    [WIDGET_APP]: [
+      'This service is experimental. It uses Oak National Academy content, but AI can make',
+    ],
+  },
   C707: {
     [AUTH_ROUTES]: ["app.get('/.well-known/oauth-protected-resource', metadataRateLimiter,"],
   },
@@ -164,4 +169,5 @@ export const CURRENT_AGGREGATED_ITEM_REVISION_OVERRIDES = {
   C463: 'modified',
   C705: 'modified',
   C707: 'modified',
+  C717: 'added',
 } as const;

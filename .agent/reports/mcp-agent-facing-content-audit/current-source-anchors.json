@@ -14052,16 +14052,16 @@
     {
       "auditId": "C717",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "added",
         "targets": [
           {
             "file": "apps/oak-curriculum-mcp-streamable-http/widget/src/App.tsx",
             "anchors": [
               {
-                "tokenCount": 20,
-                "tokenSha256": "7740391f71eacc0737e9ca88a24c50694ad2ccf35d87c2e569c52db9c59b9506",
-                "indexToken": "effect",
-                "indexOffset": 14
+                "tokenCount": 16,
+                "tokenSha256": "85ff1c5ca2902a1e36c4c444c936d38b628f3c64cde1b8f169331df4c5b01a46",
+                "indexToken": "uses",
+                "indexOffset": 6
               }
             ]
           }
