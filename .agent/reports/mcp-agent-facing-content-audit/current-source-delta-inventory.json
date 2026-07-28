@@ -22,7 +22,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/app/core-endpoints.ts",
-      "semanticSha256": "d75b779e3b6bf2553ddb9cf7e8121d0591c21b56c4f2148110b507f5c423954d",
+      "semanticSha256": "7538065b7b8c3310c57afb7146d5ccadc5cbc8ab331ff8f28fa50ca595426ce6",
       "itemIds": [
         "C323",
         "C324"
@@ -30,7 +30,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/app/create-app-options.ts",
-      "semanticSha256": "e483df68b40494b8fc7421097c866711ac58685a2983c209e9743d1d5825efe8",
+      "semanticSha256": "b71424f12d74ab7e54416aedf49ed084c08f00319232d8c7753ee64dc5e3af97",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
@@ -316,8 +316,20 @@
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
     {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/mcp-handler.ts",
+      "semanticSha256": "7f58aa789c930b5e95a9cc1cc18330be5b6f9ebf99c6464e7a6af2865766d7f7",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/mcp-middleware.ts",
       "semanticSha256": "7499e649d7c2e4cc5f7f8d27fe63c39b485921a1b17a1b27692b09f4652a2f04",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/mcp-request-context.ts",
+      "semanticSha256": "c9a8034e012985e0178537f7381243f5b461a97c444b0fe02f1df28efdd5d1f8",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
@@ -470,6 +482,12 @@
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/test-helpers/auth-error-test-helpers.ts",
       "semanticSha256": "1f09358427ac9ca4f2f0027636515abcfd123c64ae6bf468574c8d767fcccd6c",
+      "itemIds": [],
+      "exclusionReason": "Test support only; this file does not reach an MCP consumer."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/test-helpers/fakes-mcp-server.ts",
+      "semanticSha256": "587ea4f25b03c4355e71548abc06ddb5b542e83d3bb3078cba215d7d1c5f0a0c",
       "itemIds": [],
       "exclusionReason": "Test support only; this file does not reach an MCP consumer."
     },

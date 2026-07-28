@@ -29,11 +29,11 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/app/core-endpoints.ts': reviewed(
-    'd75b779e3b6bf2553ddb9cf7e8121d0591c21b56c4f2148110b507f5c423954d',
+    '7538065b7b8c3310c57afb7146d5ccadc5cbc8ab331ff8f28fa50ca595426ce6',
     ['C323', 'C324'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/app/create-app-options.ts': excluded(
-    'e483df68b40494b8fc7421097c866711ac58685a2983c209e9743d1d5825efe8',
+    'b71424f12d74ab7e54416aedf49ed084c08f00319232d8c7753ee64dc5e3af97',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/app/landing-page-artefact.ts': excluded(
@@ -226,5 +226,17 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
   'apps/oak-curriculum-mcp-streamable-http/src/register-prompts.ts': excluded(
     '3260d7418fadfadd67e209a927f0a87d30645dfcbd94beb1f75833cf1f8d2842',
     DELETED_SOURCE,
+  ),
+  'apps/oak-curriculum-mcp-streamable-http/src/mcp-handler.ts': excluded(
+    '7f58aa789c930b5e95a9cc1cc18330be5b6f9ebf99c6464e7a6af2865766d7f7',
+    IMPLEMENTATION_ONLY,
+  ),
+  'apps/oak-curriculum-mcp-streamable-http/src/mcp-request-context.ts': excluded(
+    'c9a8034e012985e0178537f7381243f5b461a97c444b0fe02f1df28efdd5d1f8',
+    IMPLEMENTATION_ONLY,
+  ),
+  'apps/oak-curriculum-mcp-streamable-http/src/test-helpers/fakes-mcp-server.ts': excluded(
+    '587ea4f25b03c4355e71548abc06ddb5b542e83d3bb3078cba215d7d1c5f0a0c',
+    TEST_ONLY,
   ),
 };
