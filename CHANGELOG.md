@@ -1,3 +1,10 @@
+## [1.106.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.106.0...v1.106.1) (2026-07-28)
+
+
+### Bug Fixes
+
+* **landing-page:** point the footer terms link at Oak's API-version terms ([be6abf0](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/be6abf0f7b570b3857379a9861ce9e2e31dd963a))
+
 # [1.106.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.105.0...v1.106.0) (2026-07-28)
 
 
