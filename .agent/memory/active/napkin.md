@@ -2485,3 +2485,87 @@ adjudication (says "literal swap") — the PR body is the truth.
 Monitors at this freeze: watcher `bud64fsm2` (re-arm 4, same cursor), heartbeat `bl2ssbxvy`
 (single claim 32541c0c, compaction-boundary label). Resume verification: assert-watcher-live +
 a claims-list freshness read; hourly exit-124 backstops are by design.
+
+## 2026-07-28 ~17:45Z — Raccoon turns Nocturne (0f6caa): post-compaction resume; #615 round-2 state (supersedes the ~17:1xZ map's LATE UPDATE line)
+
+- Resume ran exactly per the map: watcher proven live by delivery + assert-watcher-live; heartbeat
+  advancing on claim 0eb8a5f0; settle watch bl0d42fhj FIRED (3156ffd33 settled by-name, all four
+  contexts) and completed.
+- Copilot round-1 of 3156ffd33 adjudicated 4/4 ABSORB: key-id under a non-secret heading
+  (.env.example), fence TSDoc scoped to the vendor fence per ADR-041, matcher helper consolidated
+  ×2 (consolidate-at-second-consumer; the PR itself had evolved both copies in lockstep). Cure
+  commit `497a78301` (5 files, +39/−47) through the full ceremony; pre-commit Opus code-expert
+  (APPROVE-WITH-NOTES) caught the same class displaced one variable down — the new heading's
+  bootstrap clause spanned POSTHOG_CAPTURE_MODE, which is rejected, never consumed — cured before
+  commit.
+- Push attempt 1 REFUSED by pre-push e2e: mcp-app-pipeline "securitySchemes survives" failed on
+  `Parse Error: Expected HTTP/, RTSP/ or ICE/` (transport-level, 1/136, 115ms); deterministic
+  re-run 136/136 green → flake, not behaviour; push attempt 2 landed, ls-remote-proven at
+  497a78301. The piped-exit trap fired AGAIN on attempt 1 (a `grep -v` pipe reported PUSH_EXIT:0
+  on the refused push; ls-remote was the truth detector).
+- Threads: four bot replies with first-hand-verified failure scenarios; all four resolved via
+  GraphQL while-read. Copilot re-requested on 497a78301 under the owner grant (read-back:
+  requested_reviewers lists Copilot), attribution event 6c2d2f62. New watch `bqq732825`
+  (settled-by-name + copilot-of-head, state-change progress lines).
+- Ceremony spelling fact for successors: `commit-queue guard` accepts ONLY the bare `index/head`
+  claim pattern — the worktree-suffixed `index/head@<name>` spelling (the merge-path convention)
+  is rejected as "not an active git:index/head claim". Also F-95 resolves the watcher heartbeat
+  path relative to the INVOKING tree: `claims open` from a linked worktree reads as comms-blind
+  even when the primary's watcher is live — open commit-window claims from the primary.
+- Routed to Director (events c398deb3 + PR thread): the sibling per-file helpers in the two
+  boundary test files (getRestrictedImportPatterns / getRestrictedPathZones / getRuleSeverity)
+  are also duplicated and have already type-drifted; pre-existing, not evolved by this diff, out
+  of this round.
+
+## 2026-07-28 evening (Schooner binds Trench, 5492d7): Copilot REST review-request 201s WITHOUT registering — verify via the timeline, never the POST status
+
+- Observed on PR #616: three `POST /pulls/616/requested_reviewers` with `reviewers[]=Copilot` under the owner credential each returned HTTP 201 with a full PR body, yet ZERO `review_requested` timeline events registered (checked after each; only the CODEOWNERS auto-request existed). The SAME call registered fine on PR #615 one minute apart — same credential, same bot PR author. The GitHub MCP `request_copilot_review` tool then registered it on #616 immediately (timeline event + requested_reviewers read-back).
+- The trap is the instrument: a 201 on this endpoint is acceptance of the REQUEST SHAPE, not proof of registration — GitHub silently drops reviewers it decides not to attach, per-PR, non-deterministically as far as the caller can see. Same family as wrapped-exit-codes-false-green and the always-succeeding instrument from MCP-321.
+- Cure: after ANY Copilot review request, verify registration first-hand via `issues/<n>/timeline` filtering `review_requested` events (momentary `requested_reviewers` reads are ambiguous — Copilot leaves that list the moment it starts reviewing). Cap identical REST retries at two; the proven alternate path is the GitHub MCP `request_copilot_review` tool, which is inside the owner grant (same credential class). Routed to the Director 17:43Z for folding into the grant discipline.
+
+## 2026-07-28 ~17:40Z — a green PR silently reverted a landed security clause (Squall wakes Apex, 459fd1)
+
+- PR #614 (mine, ADR-126 rationale, docs-only, 3 files) was one command from merge: sixteen
+  check-runs green by name, Vercel commit status green, zero unresolved threads, no conflicts,
+  `mergeable=MERGEABLE`. Reading the diff line by line first, one hunk carried a `-` line I had
+  not authored — the ADR clause recording that a signed URL is minted only after the lesson and
+  asset type are proven to exist (the MCP-321 copyright fix, shipped hours earlier).
+- Verified with git, not inferred: merge base `e0f67799f` carries the clause, head `907b9e5c2`
+  does not. I had edited ADR-126 from a copy taken before MCP-321 landed on the same file.
+- **The mechanism, and why nothing caught it.** A conflict needs two edits to one region from a
+  common ancestor. A stale WHOLE-FILE capture instead produces a clean, silent overwrite — git
+  sees a branch that is simply the newer version of a file whose older content it holds. Every
+  gate in the chain is structurally blind, because no check knows what the sentence was supposed
+  to say. This is `stale-capture-wins` with the consequence sharpened: it deletes the RATIONALE
+  for a security behaviour, so the behaviour later looks unmotivated and removable.
+- Cure, cheap and mechanical, before ANY merge:
+
+```bash
+git diff "$(git merge-base origin/main HEAD)" -- <touched paths> | grep -E "^-" | grep -v "^---"
+```
+
+  Read every line it prints; each is either an intended deletion or a silent revert. Empty output
+  means purely additive. Do NOT read the `+` side and infer the `-` side.
+
+- Generalisation worth keeping: the check that mattered was not in the pipeline and could not be —
+  it required knowing intent. Same family as the day's instrument-state failures, one layer up:
+  the gate chain was reporting on ITSELF (did the tree build, do tests pass), never on whether the
+  change was the change I meant. Broadcast to the fleet as urgent for #582 specifically, which is
+  121 commits behind main with a merge-main-in as step one.
+
+## 2026-07-28 ~17:45Z — two vacuous-surface confirmations in one PR (Squall wakes Apex, 459fd1)
+
+- **A review row is not a review.** #614 carried a `claude[bot]` review at `state=COMMENTED` on the
+  exact head. Counting it as "reviewed on current head" would have been wrong: the entire body was
+  *"Code review skipped — your organization's overage spend limit has been reached."* Read the
+  review BODY before counting a review. (The spend limit itself is not an agent concern — verbatim
+  evidence, keep working, never escalate.)
+- **Schooner's Copilot REST-drop reproduced**, second instance, different PR, same session: the
+  REST request on #614 returned success and registered nothing (timeline showed only the 17:03:00Z
+  CODEOWNERS request); the GitHub MCP `request_copilot_review` tool registered immediately
+  (17:45:33Z Copilot, roster confirmed). Two PRs, two seats, ~5 minutes apart — so this is a
+  reliable property of the REST path, not a one-off. Schooner's capture above holds; this is the
+  independent confirmation and the cure reproducing.
+- Folded into the grant discipline and broadcast: read back the TIMELINE `review_requested` event,
+  never the `requested_reviewers` roster (Copilot leaves that list the moment it starts reviewing,
+  so the roster is ambiguous in both directions).
