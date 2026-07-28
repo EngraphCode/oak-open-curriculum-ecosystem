@@ -15,17 +15,26 @@
   },
   "files": [
     "dist",
+    "README.md",
     "package.json"
   ],
   "scripts": {
     "clean": "rm -rf dist .turbo",
     "build": "tsup && tsc --emitDeclarationOnly --project tsconfig.build.json",
     "type-check": "tsc -p tsconfig.lint.json --noEmit",
-    "test": "vitest run",
+    "test": "vitest run && node src/posthog-mcp-logger.smoke.ts",
     "test:watch": "vitest watch",
     "test:coverage": "vitest run --coverage",
     "lint": "eslint .",
     "lint:fix": "eslint --fix ."
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "@oaknational/build-metadata": "workspace:*",
+    "@oaknational/observability": "workspace:*",
+    "@oaknational/result": "workspace:*",
+    "@posthog/mcp": "^0.10.0",
+    "posthog-node": "^5.46.1"
   },
   "devDependencies": {
     "@oaknational/eslint-plugin-standards": "workspace:*",
@@ -48,13 +57,5 @@
   "bugs": {
     "url": "https://github.com/oaknational/oak-open-curriculum-ecosystem/issues"
   },
-  "homepage": "https://github.com/oaknational/oak-open-curriculum-ecosystem/tree/main/packages/libs/posthog-node#readme",
-  "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.29.0",
-    "@oaknational/build-metadata": "workspace:*",
-    "@oaknational/observability": "workspace:*",
-    "@oaknational/result": "workspace:*",
-    "@posthog/mcp": "^0.10.0",
-    "posthog-node": "^5.46.1"
-  }
+  "homepage": "https://github.com/oaknational/oak-open-curriculum-ecosystem/tree/main/packages/libs/posthog-node#readme"
 }
