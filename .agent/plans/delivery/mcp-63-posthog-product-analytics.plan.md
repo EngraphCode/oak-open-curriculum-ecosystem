@@ -383,6 +383,17 @@ alone fails with a fixed diagnostic-sink-required issue, while
 rule. The refinement and its truth-table tests use the derived
 diagnostic tuple, never a second literal list.
 
+Deviation (2026-07-28, MCP-239): the streamable-http app applies the
+locality rule scoped to the `posthog` selection only — `['posthog']`
+alone in production fails as specified, but an EMPTY production
+selection remains permitted, because the shared
+`refineProductionLocality` (and full `ObservabilityEnvSchema`
+adoption, which hard-rejects `SENTRY_MODE`) cannot land until the
+app's `SENTRY_MODE` wiring retires. The rule uses the shared
+`DIAGNOSTIC_SINK_KINDS` tuple, never a second literal list. Full
+shared-refinement adoption rides the `SENTRY_MODE` retirement
+workstream.
+
 ### Exact PostHog row contract
 
 Every accepted event has:
