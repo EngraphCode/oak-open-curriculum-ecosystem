@@ -1979,6 +1979,22 @@ specific object, never the batch it sat near.
   as a question, never as a presumed-direction fix — the owner's newest word decides, and here
   it re-dated a June ruling all three reviewers cited as current.
 
+## 2026-07-28 ~13:35Z — Juniper holds Tendril (3dfd3b): transmitted "pushed" on an unread exit (at occurrence)
+
+- Told the Director "commit f4f0708de pushed to #604" while the push had exited 128 (403 on
+  the write — the token-aging-during-pre-push-chain class the napkin already documents, cure
+  re-mint+retry). The disproof was IN MY OWN quoted output: I tailed 2 lines of the task file,
+  saw the ls-remote row still at 2c6765fca, and read past it because the ACK was already
+  composed. The Director then built "all five executed cleanly" on the false claim.
+  First-person instance of transmit-before-verify at the WRITE-claim moment; the
+  exit-codes-in-band rule's both clauses existed and I ran them — then didn't READ clause two's
+  answer before transmitting. Cure applied: on-stream failure-mode correction within minutes;
+  the mechanical fix is compose-after-read, never read-after-compose — a claim drafted before
+  its evidence is a prediction, and predictions do not go in ACKs.
+- Same minutes, Director check absorbed: "17/17 green" is a COUNT (a proxy); the merge-boundary
+  read derives required contexts BY NAME from /rules/branches/main across BOTH check-runs AND
+  commit-status endpoints (Vercel publishes no check-run). Applied to the #604 boundary.
+
 ## 2026-07-28 ~11:15Z — my napkin entry propagated as a live constraint after it went stale (Squall wakes Apex)
 
 - SUPERSEDES the ~10:45Z entry above ("comms monitoring is not free"). The owner has since ruled:
@@ -2087,6 +2103,29 @@ MCP-296 gate evidence = ticket comment + event f8d9c693; plugin-location verdict
 viable; git-subdir/relative-source/Console-route evidence; one form-only fact outstanding) =
 cold-pause event + owner-surface messages; earlier captures committed at a39bb998b (Director).
 
+## 2026-07-28 post-compaction — Raccoon turns Nocturne (0f6caa): tripwire seed sharpened (owner-invoked concept-exploration + metacognition)
+
+- Sharpens item (3) of this seat's compaction addendum above (~09:1xZ). The seed read as a
+  possible new pattern; the exploration pass reclassified it: the mechanism is ALREADY doctrine
+  — `passive-guidance-loses-to-artefact-gravity` ("a passive lesson needs an active firing
+  gate") and metacognition.md §Fluency ("the cure is structural, not vigilance") — and the gap
+  is that the *practice of homing corrections* does not invoke it. Feedback memories are
+  written as prose lessons (why + how-to-apply) whose firing depends on recall at exactly the
+  moment pressure suppresses recall; the instances that converged did so when the firing
+  condition became an OBSERVABLE (card discipline's sixth-escalation tell "blocked-on-owner
+  without a live card"; wrapped-exit-codes' in-band echo; the F-75 predicate check).
+- Corroborating instance, same hour, first-hand: this seat piped a napkin grep through
+  `head -20`, read the truncated output as "my compaction addendum is absent", and was one step
+  from recording a loss finding — the proxy-read class firing INSIDE a reflection about that
+  class. The catch was not vigilance; it was the verify-before-concluding step (a second,
+  unpiped grep). Consistent with the seed: a passively-known class recurred anyway; only the
+  structural check caught it.
+- Routed, not asserted: whether correction-homing should require a stated observable firing
+  condition (and prefer executable guards where detectable) is a practice-corpus question for
+  the Director (`new-rule-vs-pdr-clause`). Falsifier for the underlying claim: a prose-only
+  lesson that converged without any mechanical restatement, or recurrence of the card
+  discipline despite its named tell. One observation at one boundary; not doctrine.
+
 ## 2026-07-28 ~13:25Z — a dirty-file flag read as "a peer is working here" (Squall wakes Apex)
 
 - **Observation.** The main→coordination merge was recorded as blocked by two things, both wrong.
@@ -2116,3 +2155,39 @@ cold-pause event + owner-surface messages; earlier captures committed at a39bb99
   "dirty with NO live claim visible"). A stale capture that travels acquires corroboration it
   never earned. Probe before you transmit, and re-probe before you re-transmit — an old
   observation restated in the present tense is a new claim.
+
+### Addendum, same day ~13:33Z — the second independent instance, from another seat
+
+Juniper (3dfd3b) broadcast "commit f4f0708de pushed to #604" as part of an
+execution ACK. It had not been pushed: the write took a 403 (bot token aged out
+mid pre-push chain, reads still succeeding) and exited 128. Its own words on
+catching it: **the `ls-remote` evidence disproving the claim was IN the same
+output it quoted from.** The refuting fact was not hidden, not wrapped, not
+filtered away — it was captured, present, and unread, because the seat had
+already decided what the output said.
+
+That makes **two independent instances in one session, from two seats, of
+transmit-before-verify**: my fifteen "dirty" paths broadcast as peer work, and
+this push claim broadcast as landed. Neither was a tooling failure. Both were a
+seat reporting a state it had not read at the moment of reporting.
+
+Why this is now a graduation candidate rather than another napkin line: the
+existing pattern file (`wrapped-exit-codes-false-green.md`) argues correctly
+that a proxy gets read instead of the state, and its cure is aimed at the
+READER's own next action — check the state before you act on it. Neither
+instance today was caught by that, because in both the seat's next action was
+not to act but to **tell someone**. Transmission is the unguarded verb. A claim
+about the world, sent to peers or the owner, is an action with consequences —
+it becomes their premise — and it currently passes through no verification gate
+at all.
+
+The proposed shape, for whoever picks this up: the check fires at the moment of
+transmission, not the moment of observation, and it asks one question — *when
+did I last read the state I am about to assert, and has anything I did since
+then changed it?* Both instances fail that question immediately. Mine was hours
+stale; Juniper's was a claim about a write whose result it had captured but not
+yet read.
+
+Route: PDR-098 recurrence signal met (two seats, one session, independent).
+Check `new-rule-vs-pdr-clause` before minting — this may belong as a clause on
+the existing transmission-discipline surfaces rather than as a new rule.
