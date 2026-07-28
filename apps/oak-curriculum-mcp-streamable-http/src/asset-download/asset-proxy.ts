@@ -1,13 +1,16 @@
 /**
  * Upstream asset proxy logic: fetches from Oak API and streams to the client.
  *
- * This module is the only place the upstream `OAK_API_KEY` touches an asset
- * request, and the credential never leaves it. Clients hold a short-lived
- * signed capability for one `(lesson, type)` pair; this proxy exchanges that
- * for authenticated bytes. The asymmetry driving the design — many user
- * identities in, one application identity upstream — is documented at
- * `createAssetDownloadUrlFactory` in `asset-download-route.ts`, with the full
- * model in ADR-126.
+ * This module is the only place the upstream `OAK_API_KEY` is attached to an
+ * outbound request. The key is also read in `asset-download-route.ts`, where
+ * `mountAssetDownloadProxy` derives the HMAC signing secret from it — so the
+ * invariant to preserve is narrower than "the key lives only here": the
+ * credential is never sent to a client and never leaves the server. Clients
+ * hold a short-lived signed capability for one `(lesson, type)` pair; this
+ * proxy exchanges that for authenticated bytes. The asymmetry driving the
+ * design — many user identities in, one application identity upstream — is
+ * documented at `createAssetDownloadUrlFactory` in `asset-download-route.ts`,
+ * with the full model in ADR-126.
  *
  * **Deliberate error posture:** upstream failures are reported uniformly as
  * 502 rather than being distinguished for the caller. This is a designed
