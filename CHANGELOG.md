@@ -1,3 +1,17 @@
+# [1.108.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.107.1...v1.108.0) (2026-07-28)
+
+
+### Bug Fixes
+
+* **agent-tools:** case-fold collision guards; reshape example tests to behaviour (MCP-303) ([07aed41](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/07aed412ae4eff9358a9ca7bb2f7e3685e70f9fe))
+* **agent-tools:** close the drive's honesty gaps Copilot found (MCP-303) ([40afa47](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/40afa47db6009194f88f1fdc7c5ffed3b1d5e986))
+* **agent-tools:** harden the pack's injection boundary and test determinism (MCP-303) ([437f8d4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/437f8d47e28bbf601b437ba4c0ab66dc92eaf002))
+
+
+### Features
+
+* **agent-tools:** mcp-conformance --drive renders the reviewer walkthrough pack (MCP-303) ([4670566](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/46705660cd0a7d78bf3351a10331d39d215752c3))
+
 ## [1.107.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.107.0...v1.107.1) (2026-07-28)
 
 
