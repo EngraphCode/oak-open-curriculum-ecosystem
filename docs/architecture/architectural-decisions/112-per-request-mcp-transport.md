@@ -56,7 +56,10 @@ canonical stateless example exactly.
   observer-derived transport (see ADR-218 §4); off mode connects the concrete
   transport itself
 - Cleanup via `res.on('close', ...)` calling `transport.close()` and `server.close()`
-  on the concrete transport and server, never the connect target
+  directly on the concrete transport and server; the SDK server's `close()` cascades
+  to the transport it was connected with (`Protocol.close()`), so the connect target
+  is reached through that cascade — in off mode both paths land on the same concrete
+  transport
 
 ### Test simplification
 

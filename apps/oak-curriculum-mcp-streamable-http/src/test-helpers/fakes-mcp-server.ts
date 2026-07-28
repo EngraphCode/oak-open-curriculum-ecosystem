@@ -33,11 +33,18 @@ function createFakeStreamableTransport(
 /**
  * Minimal server fake for handler integration tests.
  * Satisfies `McpRequestServer` structurally — only `connect` and `close`.
+ * Mirrors the SDK's `Protocol.close()` semantics: closing the server
+ * closes whatever transport was connected, so close-ownership tests
+ * exercise the real cascading shape rather than a no-op.
  */
 function createFakeMcpServer(): McpRequestServer {
+  let connected: McpConnectTarget | undefined;
   return {
-    connect: vi.fn(() => Promise.resolve()),
-    close: vi.fn(),
+    connect: vi.fn((transport: McpConnectTarget) => {
+      connected = transport;
+      return Promise.resolve();
+    }),
+    close: vi.fn(() => connected?.close() ?? Promise.resolve()),
   };
 }
 

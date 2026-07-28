@@ -160,7 +160,7 @@ describe('createMcpHandler (Integration)', () => {
       expect(transport.handleRequest).toHaveBeenCalledOnce();
     });
 
-    it('response close closes the concrete transport and server, never the connect target', async () => {
+    it('response close closes the concrete transport directly; the connect target is reached only through the server cascade', async () => {
       const connectTransport = { close: vi.fn(() => Promise.resolve()) };
       const { factory, server, transport } = createFakeMcpServerFactory(
         vi.fn(async () => undefined),
@@ -177,9 +177,14 @@ describe('createMcpHandler (Integration)', () => {
       expect(closeRegistration).toBeDefined();
       closeRegistration?.[1]();
 
+      // The handler closes the concrete transport and the server directly.
+      // The SDK server's close() cascades to the connected transport
+      // (Protocol.close closes this._transport) — the fake mirrors that —
+      // so the connect target is reached exactly once, via the cascade,
+      // never directly by the handler.
       expect(transport.close).toHaveBeenCalledOnce();
       expect(server.close).toHaveBeenCalledOnce();
-      expect(connectTransport.close).not.toHaveBeenCalled();
+      expect(connectTransport.close).toHaveBeenCalledOnce();
     });
 
     it('creates an active request span around transport.handleRequest', async () => {
