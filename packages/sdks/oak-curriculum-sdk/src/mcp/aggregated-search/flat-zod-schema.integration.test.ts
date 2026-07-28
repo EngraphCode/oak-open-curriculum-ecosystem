@@ -13,10 +13,7 @@
 import { describe, it, expect } from 'vitest';
 import { z } from 'zod';
 import { SEARCH_INPUT_SCHEMA } from './flat-zod-schema.js';
-
-const JsonSchemaPropertiesSchema = z.object({
-  properties: z.record(z.string(), z.looseObject({ examples: z.array(z.unknown()).optional() })),
-});
+import { wireProperties } from '../test-helpers/advertised-examples.js';
 
 describe('search inputSchema round-trip', () => {
   it('exports a defined inputSchema', () => {
@@ -30,8 +27,7 @@ describe('search inputSchema round-trip', () => {
     // wire JSON Schema unchanged, including through union and enum
     // wrappers, and fields with no metadata stay bare on both sides. The
     // example VALUES' truth against deployed data is a live-probe concern.
-    const jsonSchema = z.toJSONSchema(z.object(SEARCH_INPUT_SCHEMA));
-    const { properties } = JsonSchemaPropertiesSchema.parse(jsonSchema);
+    const properties = wireProperties(SEARCH_INPUT_SCHEMA);
 
     const advertised = Object.entries(SEARCH_INPUT_SCHEMA).filter(
       ([, schema]) => schema.meta()?.examples !== undefined,

@@ -196,7 +196,7 @@ describe('advertised examples are true of the shipped corpus', () => {
   const shape = GET_THREAD_PROGRESSIONS_INPUT_SCHEMA;
 
   it('resolves every advertised threadSlug example as a detail anchor', () => {
-    for (const example of advertisedExamples(shape.threadSlug, 'threadSlug')) {
+    for (const example of advertisedExamples(shape.threadSlug, 'threadSlug', z.string())) {
       const result = runThreadProgressionsTool({ threadSlug: example });
       expect(result.isError, `threadSlug example ${String(example)} must resolve`).toBeUndefined();
       expect(result.structuredContent).toMatchObject({ unknownAnchors: [] });
@@ -230,9 +230,9 @@ describe('advertised examples are true of the shipped corpus', () => {
     // subject × keyStage join is not promised non-empty for every pairing,
     // and isError is the wrong probe (an unmatched discovery anchor returns
     // a well-formed EMPTY envelope by design), so liveness is counted.
-    const subjects = advertisedExamples(shape.subject, 'subject');
-    const keyStages = advertisedExamples(shape.keyStage, 'keyStage');
-    const liveThreadCount = (subject: unknown, keyStage: unknown): number =>
+    const subjects = advertisedExamples(shape.subject, 'subject', z.string());
+    const keyStages = advertisedExamples(shape.keyStage, 'keyStage', z.string());
+    const liveThreadCount = (subject: string, keyStage: string): number =>
       z
         .object({ threads: z.array(z.unknown()) })
         .parse(runThreadProgressionsTool({ subject, keyStage }).structuredContent).threads.length;

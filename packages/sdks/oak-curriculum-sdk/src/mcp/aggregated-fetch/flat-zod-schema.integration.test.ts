@@ -16,10 +16,7 @@
 import { describe, it, expect } from 'vitest';
 import { z } from 'zod';
 import { FETCH_INPUT_SCHEMA } from './flat-zod-schema.js';
-
-const JsonSchemaPropertiesSchema = z.object({
-  properties: z.record(z.string(), z.looseObject({ examples: z.array(z.unknown()).optional() })),
-});
+import { wireProperties } from '../test-helpers/advertised-examples.js';
 
 describe('fetch inputSchema round-trip', () => {
   it('exports a defined inputSchema', () => {
@@ -33,8 +30,7 @@ describe('fetch inputSchema round-trip', () => {
     // replaced the authored values. Whether the example VALUES are true of
     // deployed data is a live-probe concern (owner ruling 2026-07-28:
     // tests never test config, only behaviour).
-    const jsonSchema = z.toJSONSchema(z.object(FETCH_INPUT_SCHEMA));
-    const { properties } = JsonSchemaPropertiesSchema.parse(jsonSchema);
+    const properties = wireProperties(FETCH_INPUT_SCHEMA);
 
     expect(
       FETCH_INPUT_SCHEMA.id.meta()?.examples,

@@ -284,7 +284,11 @@ describe('advertised examples are true of the shipped corpus', () => {
   const shape = GET_MISCONCEPTION_GRAPH_INPUT_SCHEMA;
 
   it('resolves every advertised lessonSlugs example as a lesson anchor', () => {
-    for (const example of advertisedExamples(shape.lessonSlugs, 'lessonSlugs')) {
+    for (const example of advertisedExamples(
+      shape.lessonSlugs,
+      'lessonSlugs',
+      z.array(z.string()),
+    )) {
       const result = runMisconceptionGraphTool({ lessonSlugs: example });
       expect(
         result.isError,
@@ -309,7 +313,7 @@ describe('advertised examples are true of the shipped corpus', () => {
   });
 
   it('resolves every advertised unitSlugs example as a unit anchor', () => {
-    for (const example of advertisedExamples(shape.unitSlugs, 'unitSlugs')) {
+    for (const example of advertisedExamples(shape.unitSlugs, 'unitSlugs', z.array(z.string()))) {
       const result = runMisconceptionGraphTool({ unitSlugs: example });
       expect(
         result.isError,
@@ -334,7 +338,7 @@ describe('advertised examples are true of the shipped corpus', () => {
   });
 
   it('resolves every advertised threadSlug example as a thread anchor', () => {
-    for (const example of advertisedExamples(shape.threadSlug, 'threadSlug')) {
+    for (const example of advertisedExamples(shape.threadSlug, 'threadSlug', z.string())) {
       const result = runMisconceptionGraphTool({ threadSlug: example });
       expect(
         result.isError,

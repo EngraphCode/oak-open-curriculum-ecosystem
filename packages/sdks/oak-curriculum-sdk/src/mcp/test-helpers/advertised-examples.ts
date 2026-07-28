@@ -8,15 +8,20 @@
 import { z } from 'zod';
 
 /**
- * The advertised `.meta()` examples of one input field, failing loudly when
- * the field advertises none — deleting a tool's examples is a behaviour
- * regression these tests exist to catch, not a silent skip.
+ * The advertised `.meta()` examples of one input field, element-typed and
+ * failing loudly when the field advertises none — deleting a tool's
+ * examples is a behaviour regression these tests exist to catch, not a
+ * silent skip.
  */
-export function advertisedExamples(schema: z.ZodType, name: string): unknown[] {
+export function advertisedExamples<T extends z.ZodType>(
+  field: z.ZodType,
+  name: string,
+  elementSchema: T,
+): z.output<T>[] {
   return z
-    .array(z.unknown())
+    .array(elementSchema)
     .min(1, `no advertised examples on ${name}`)
-    .parse(schema.meta()?.examples);
+    .parse(field.meta()?.examples);
 }
 
 const WIRE_PROPERTIES = z.object({
