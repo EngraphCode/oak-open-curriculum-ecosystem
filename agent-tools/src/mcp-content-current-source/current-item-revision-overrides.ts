@@ -13,6 +13,10 @@ export const CURRENT_ITEM_REVISION_OVERRIDES = {
   C354: 'modified',
   C355: 'modified',
   C313: 'unchanged',
+  // MCP-241: name/title promoted to a shared const — identical strings,
+  // new source form.
+  C337: 'unchanged',
+  C690: 'unchanged',
   C413: 'expanded',
   C479: 'modified',
 } as const;

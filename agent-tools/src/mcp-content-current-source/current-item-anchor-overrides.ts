@@ -217,6 +217,20 @@ export const CURRENT_ITEM_ANCHOR_OVERRIDES: AnchorOverrides = {
   C335: {
     [CONTINUE]: ['Agent guidance: continue the progression'],
   },
+  // MCP-241: registration names promoted to shared consts; the pinned
+  // identities live in the exported declarations (revision 'unchanged').
+  C337: {
+    'apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts': [
+      "const OAK_UNDER_THE_HOOD_RESOURCE_NAME = 'Oak: Under the Hood orientation';",
+      "export const OAK_UNDER_THE_HOOD_RESOURCE_URI = 'docs://oak/under-the-hood.md';",
+    ],
+  },
+  C690: {
+    'apps/oak-curriculum-mcp-streamable-http/src/register-widget-resource.ts': [
+      "export const WIDGET_RESOURCE_NAME = 'Oak Curriculum App';",
+      'registerAppResource(\n    server,\n    WIDGET_RESOURCE_NAME,\n    WIDGET_URI,',
+    ],
+  },
   ...CURRENT_LANDING_ITEM_ANCHOR_OVERRIDES,
   C413: {
     'apps/oak-curriculum-mcp-streamable-http/src/auth/public-resources.ts': [

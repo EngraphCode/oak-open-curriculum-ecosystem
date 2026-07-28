@@ -6847,8 +6847,8 @@
               {
                 "tokenCount": 68,
                 "tokenSha256": "bba1b888fd59e10881a8db2354219fcd0cfce75f2dc2f9260122bf145c3a5f3e",
-                "indexToken": "return",
-                "indexOffset": 23
+                "indexToken": "getDocumentationContent",
+                "indexOffset": 18
               }
             ]
           }
@@ -6864,16 +6864,16 @@
             "file": "apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts",
             "anchors": [
               {
+                "tokenCount": 12,
+                "tokenSha256": "d6ea5374585a659fd87b22fae2a65d5cf1d67bb649ba6820772bebd7f370e3ab",
+                "indexToken": "OAK_UNDER_THE_HOOD_RESOURCE_NAME",
+                "indexOffset": 1
+              },
+              {
                 "tokenCount": 20,
                 "tokenSha256": "c6fe47aad619cfc912875ca19f8265c138007d0293a6419363ca0298ba0223f8",
                 "indexToken": "docs",
                 "indexOffset": 5
-              },
-              {
-                "tokenCount": 27,
-                "tokenSha256": "5921a528108208315835effb5f12d8e122c31482144026676b0e6d225f8595e9",
-                "indexToken": "registerResource",
-                "indexOffset": 2
               }
             ]
           }
@@ -13545,10 +13545,16 @@
             "file": "apps/oak-curriculum-mcp-streamable-http/src/register-widget-resource.ts",
             "anchors": [
               {
-                "tokenCount": 12,
-                "tokenSha256": "c5118c9309f8161c22d9a0916248fe7bc2d6e30e23d148507f47799d9b6e5411",
+                "tokenCount": 10,
+                "tokenSha256": "230f92cc2faaf07cedd82f677a36e53bc9fd37bfbdd64a32271e5bca7c07d1ad",
                 "indexToken": "Curriculum",
                 "indexOffset": 6
+              },
+              {
+                "tokenCount": 8,
+                "tokenSha256": "6e8c67eb8d2f771dacd0093c3bc689fc875b9d83a3a13a4398e70926205fa6f8",
+                "indexToken": "WIDGET_RESOURCE_NAME",
+                "indexOffset": 4
               }
             ]
           }
