@@ -168,6 +168,20 @@ function readBaselineContent(
   );
 }
 
+/** Refuses a persisted manifest the source-owned overrides no longer produce. */
+export function requirePersistedManifestAgreement(
+  persisted: CurrentSourceAnchorManifest,
+  recomputed: CurrentSourceAnchorManifest,
+  anchorArtifact: string,
+): void {
+  if (JSON.stringify(persisted) !== JSON.stringify(recomputed)) {
+    throw new Error(
+      `${anchorArtifact} disagrees with the manifest recomputed from source-owned overrides; ` +
+        'run refresh-mcp-content-current-source-anchors and review the complete diff',
+    );
+  }
+}
+
 interface LoadAnchorManifestInput {
   readonly repoRoot: string;
   readonly anchorArtifact: string;
@@ -182,9 +196,6 @@ export async function resolveAnchorManifest(
   input: LoadAnchorManifestInput,
 ): Promise<CurrentSourceAnchorManifest> {
   const artifactPath = path.join(input.repoRoot, input.anchorArtifact);
-  if (!input.refresh) {
-    return parseCurrentSourceAnchorManifest(await readFile(artifactPath, 'utf8'));
-  }
   const manifest = buildCurrentSourceAnchorManifest({
     baselineCommit: input.baselineCommit,
     baselineSha256: input.baselineSha256,
@@ -203,5 +214,9 @@ export async function resolveAnchorManifest(
     registrationSurfaceOverrides: CURRENT_ITEM_REGISTRATION_SURFACE_OVERRIDES,
     revisionOverrides: CURRENT_ITEM_REVISION_OVERRIDES,
   });
+  if (!input.refresh) {
+    const persisted = parseCurrentSourceAnchorManifest(await readFile(artifactPath, 'utf8'));
+    requirePersistedManifestAgreement(persisted, manifest, input.anchorArtifact);
+  }
   return manifest;
 }

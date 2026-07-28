@@ -137,9 +137,6 @@ export const CURRENT_AGGREGATED_ITEM_ANCHOR_OVERRIDES = {
 } as const;
 
 export const CURRENT_AGGREGATED_ITEM_REVISION_OVERRIDES = {
-  C001: 'modified',
-  C005: 'modified',
-  C006: 'modified',
   C066: 'modified',
   C067: 'modified',
   C101: 'modified',

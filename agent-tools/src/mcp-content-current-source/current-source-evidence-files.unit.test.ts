@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from 'vitest';
 import {
   currentTargetsByAuditId,
   parseCurrentSourceAnchorManifest,
+  requirePersistedManifestAgreement,
 } from './current-source-evidence-files.js';
 
 const SHA256 = 'a'.repeat(64);
@@ -134,6 +135,27 @@ describe('parseCurrentSourceAnchorManifest', () => {
   it.each(malformedManifests)('rejects unknown fields at the $level level', ({ manifest }) => {
     expect(() => parseCurrentSourceAnchorManifest(JSON.stringify(manifest))).toThrow(
       'Unrecognized key',
+    );
+  });
+});
+
+describe('requirePersistedManifestAgreement', () => {
+  it('accepts a persisted manifest that equals the recomputed one', () => {
+    const persisted = parseCurrentSourceAnchorManifest(JSON.stringify(manifestFixture()));
+    const recomputed = parseCurrentSourceAnchorManifest(JSON.stringify(manifestFixture()));
+    expect(() =>
+      requirePersistedManifestAgreement(persisted, recomputed, 'anchors.json'),
+    ).not.toThrow();
+  });
+
+  it('refuses a persisted manifest that disagrees with the source-owned recomputation', () => {
+    const persisted = parseCurrentSourceAnchorManifest(JSON.stringify(manifestFixture()));
+    const recomputed = parseCurrentSourceAnchorManifest(
+      JSON.stringify({ ...manifestFixture(), baselineCommit: 'moved-baseline' }),
+    );
+    expect(() => requirePersistedManifestAgreement(persisted, recomputed, 'anchors.json')).toThrow(
+      'anchors.json disagrees with the manifest recomputed from source-owned overrides; ' +
+        'run refresh-mcp-content-current-source-anchors and review the complete diff',
     );
   });
 });
