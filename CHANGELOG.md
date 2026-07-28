@@ -1,3 +1,16 @@
+# [1.110.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.109.2...v1.110.0) (2026-07-28)
+
+
+### Bug Fixes
+
+* **mcp-app:** own only the handler's close calls; SDK teardown is callback-driven ([385e15a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/385e15a0df253289c93c7b59115f2f7a4172f5db))
+* **mcp-app:** state the SDK close cascade honestly in the connect-target contract ([288c080](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/288c080062edf7ffdf7a053b6b2221073c048107))
+
+
+### Features
+
+* **mcp-app:** thread the observed-transport seam through per-request handling ([2537bc7](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2537bc742fa176b2fdf86641989e12d01a49ec8d))
+
 ## [1.109.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.109.1...v1.109.2) (2026-07-28)
 
 ## [1.109.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.109.0...v1.109.1) (2026-07-28)
