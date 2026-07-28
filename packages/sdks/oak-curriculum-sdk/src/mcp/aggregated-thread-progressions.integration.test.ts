@@ -29,6 +29,7 @@ import {
   GET_THREAD_PROGRESSIONS_INPUT_SCHEMA,
   runThreadProgressionsTool,
 } from './aggregated-thread-progressions.js';
+import { advertisedExamples, wireProperties } from './test-helpers/advertised-examples.js';
 
 /** Narrows a deterministic fixture pick, failing loudly if the corpus cannot supply it. */
 function required<T>(value: T | undefined, message: string): T {
@@ -194,15 +195,8 @@ describe('advertised examples are true of the shipped corpus', () => {
   // optional-field examples have no standing live probe (routed on MCP-319).
   const shape = GET_THREAD_PROGRESSIONS_INPUT_SCHEMA;
 
-  function advertisedExamples(schema: z.ZodType, name: string): unknown[] {
-    return z
-      .array(z.unknown())
-      .min(1, `no advertised examples on ${name}`)
-      .parse(schema.meta()?.examples);
-  }
-
   it('resolves every advertised threadSlug example as a detail anchor', () => {
-    for (const example of advertisedExamples(shape.threadSlug, 'threadSlug')) {
+    for (const example of advertisedExamples(shape.threadSlug, 'threadSlug', z.string())) {
       const result = runThreadProgressionsTool({ threadSlug: example });
       expect(result.isError, `threadSlug example ${String(example)} must resolve`).toBeUndefined();
       expect(result.structuredContent).toMatchObject({ unknownAnchors: [] });
@@ -220,13 +214,9 @@ describe('advertised examples are true of the shipped corpus', () => {
     // The corpus tests above read `.meta()` off the Zod objects; agents
     // read the CONVERTED wire form. This proves the authored metadata
     // survives `z.toJSONSchema()` for every field, wrapped or not.
-    const WIRE_PROPERTIES = z.object({
-      properties: z.record(
-        z.string(),
-        z.looseObject({ examples: z.array(z.unknown()).optional() }),
-      ),
-    });
-    const { properties } = WIRE_PROPERTIES.parse(z.toJSONSchema(z.object(shape)));
+    const properties = wireProperties(shape);
+    const advertising = Object.entries(shape).filter(([, s]) => s.meta()?.examples !== undefined);
+    expect(advertising, 'shape advertises no examples at all').not.toHaveLength(0);
     for (const [field, schema] of Object.entries(shape)) {
       expect(properties[field]?.examples, `${field} examples on the wire`).toEqual(
         schema.meta()?.examples,
@@ -234,12 +224,32 @@ describe('advertised examples are true of the shipped corpus', () => {
     }
   });
 
-  it('resolves the advertised subject and keyStage examples as a discovery anchor', () => {
-    const [subject] = advertisedExamples(shape.subject, 'subject');
-    const [keyStage] = advertisedExamples(shape.keyStage, 'keyStage');
-    const result = runThreadProgressionsTool({ subject, keyStage });
-    expect(result.isError).toBeUndefined();
-    const { threads } = z.object({ threads: z.array(z.unknown()) }).parse(result.structuredContent);
-    expect(threads.length).toBeGreaterThan(0);
+  it('every advertised subject and keyStage example discovers live threads', () => {
+    // Per-ELEMENT existential, not per-pair universal: every advertised
+    // element must discover threads in at least one advertised pairing — a
+    // subject × keyStage join is not promised non-empty for every pairing,
+    // and isError is the wrong probe (an unmatched discovery anchor returns
+    // a well-formed EMPTY envelope by design), so liveness is counted.
+    const subjects = advertisedExamples(shape.subject, 'subject', z.string());
+    const keyStages = advertisedExamples(shape.keyStage, 'keyStage', z.string());
+    const liveThreadCount = (subject: string, keyStage: string): number =>
+      z
+        .object({ threads: z.array(z.unknown()) })
+        .parse(runThreadProgressionsTool({ subject, keyStage }).structuredContent).threads.length;
+
+    for (const subject of subjects) {
+      const live = keyStages.filter((keyStage) => liveThreadCount(subject, keyStage) > 0);
+      expect(
+        live,
+        `subject example ${String(subject)} discovers no threads with any advertised keyStage`,
+      ).not.toHaveLength(0);
+    }
+    for (const keyStage of keyStages) {
+      const live = subjects.filter((subject) => liveThreadCount(subject, keyStage) > 0);
+      expect(
+        live,
+        `keyStage example ${String(keyStage)} discovers no threads with any advertised subject`,
+      ).not.toHaveLength(0);
+    }
   });
 });

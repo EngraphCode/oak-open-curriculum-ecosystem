@@ -28,6 +28,7 @@ import {
   GET_KEYWORD_GRAPH_TOOL_DEF,
   runKeywordGraphTool,
 } from './aggregated-keyword-graph.js';
+import { wireExamplesOf } from './test-helpers/advertised-examples.js';
 
 /** Narrows a deterministic fixture pick, failing loudly if the corpus cannot supply it. */
 function required<T>(value: T | undefined, message: string): T {
@@ -211,32 +212,31 @@ describe('get-keyword-graph wire schema — advertised examples (MCP-303 drive-l
   // yield a live graph from the shipped corpus — an advertised example that
   // returns an empty graph teaches every client a dead value. The values
   // themselves are config and are not pinned.
-  it('the wire-advertised example anchor yields a live keyword graph', () => {
-    const jsonSchema = z.toJSONSchema(z.object(GET_KEYWORD_GRAPH_INPUT_SCHEMA));
-    const wire = z
-      .object({
-        properties: z
-          .object({
-            subject: z.object({ examples: z.array(z.string()).min(1) }).loose(),
-            keyStage: z.object({ examples: z.array(z.string()).min(1) }).loose(),
-          })
-          .loose(),
-      })
-      .loose()
-      .parse(jsonSchema);
-    const subject = required(
-      wire.properties.subject.examples[0],
-      'wire schema advertises no subject example',
-    );
-    const keyStage = required(
-      wire.properties.keyStage.examples[0],
-      'wire schema advertises no keyStage example',
-    );
+  it('every advertised subject and keyStage example yields a live keyword graph', () => {
+    // Per-ELEMENT existential, not per-pair universal: every advertised
+    // element must be live in at least one advertised pairing — a
+    // subject × keyStage join is not promised non-empty for every pairing,
+    // and isError is the wrong probe (an unmatched anchor returns a
+    // well-formed EMPTY envelope by design), so liveness is counted.
+    const subjects = wireExamplesOf(GET_KEYWORD_GRAPH_INPUT_SCHEMA, 'subject', z.string());
+    const keyStages = wireExamplesOf(GET_KEYWORD_GRAPH_INPUT_SCHEMA, 'keyStage', z.string());
+    const liveKeywordCount = (subject: string, keyStage: string): number =>
+      KEYWORD_ENVELOPE.parse(runKeywordGraphTool({ subject, keyStage }).structuredContent).keywords
+        .length;
 
-    const result = runKeywordGraphTool({ subject, keyStage });
-
-    expect(result.isError).toBeUndefined();
-    const envelope = KEYWORD_ENVELOPE.parse(result.structuredContent);
-    expect(envelope.keywords.length).toBeGreaterThan(0);
+    for (const subject of subjects) {
+      const live = keyStages.filter((keyStage) => liveKeywordCount(subject, keyStage) > 0);
+      expect(
+        live,
+        `subject example ${subject} is dead for every advertised keyStage`,
+      ).not.toHaveLength(0);
+    }
+    for (const keyStage of keyStages) {
+      const live = subjects.filter((subject) => liveKeywordCount(subject, keyStage) > 0);
+      expect(
+        live,
+        `keyStage example ${keyStage} is dead for every advertised subject`,
+      ).not.toHaveLength(0);
+    }
   });
 });
