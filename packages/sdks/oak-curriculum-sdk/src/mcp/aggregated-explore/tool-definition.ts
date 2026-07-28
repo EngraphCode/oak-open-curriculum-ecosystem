@@ -8,10 +8,7 @@
 
 import { z } from 'zod';
 import { KEY_STAGES, SUBJECTS } from '@oaknational/sdk-codegen/api-schema';
-import {
-  AGGREGATED_PREREQUISITE_GUIDANCE,
-  PRIMARY_ORIENTATION_TOOL_NAME,
-} from '../prerequisite-guidance.js';
+import { PRIMARY_ORIENTATION_TOOL_NAME } from '../orientation-guidance.js';
 
 import { SCOPES_SUPPORTED } from '../scopes-supported.js';
 
@@ -23,8 +20,6 @@ import { SCOPES_SUPPORTED } from '../scopes-supported.js';
 export const EXPLORE_TOOL_DEF = {
   title: 'Explore Topic',
   description: `Explore a topic across the entire Oak curriculum in one call.
-
-${AGGREGATED_PREREQUISITE_GUIDANCE}
 
 Searches lessons, units, AND learning threads in parallel for a topic,
 returning a unified topic map showing what's available across all scopes.

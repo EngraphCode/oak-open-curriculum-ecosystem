@@ -15,7 +15,10 @@ import { z } from 'zod';
 import { KEY_STAGES, SUBJECTS } from '@oaknational/sdk-codegen/api-schema';
 import { SEARCH_SCOPES } from './types.js';
 
-export const SEARCH_INPUT_SCHEMA: z.ZodRawShape = {
+// `satisfies` (not a type annotation) keeps the per-field Zod types visible
+// to consumers — the coherence tests read `.meta()` off each field — while
+// still proving the object is a valid raw shape for MCP registration.
+export const SEARCH_INPUT_SCHEMA = {
   query: z
     .string()
     .optional()
@@ -55,7 +58,9 @@ export const SEARCH_INPUT_SCHEMA: z.ZodRawShape = {
     .describe(
       'Filter lessons whose `units[]` contains an entry with this unit slug. A lesson can belong to multiple units across programme variants, so this filter matches a lesson if any of its unit entries has the supplied slug. Lessons scope only.',
     )
-    .meta({ examples: ['fractions', 'the-romans'] }),
+    .meta({
+      examples: ['comparing-fractions', 'the-romans-what-impact-did-the-romans-have-on-britain'],
+    }),
   tier: z
     .string()
     .optional()
@@ -102,4 +107,4 @@ export const SEARCH_INPUT_SCHEMA: z.ZodRawShape = {
     .max(50)
     .optional()
     .describe('Maximum number of suggestions. Suggest scope only.'),
-};
+} satisfies z.ZodRawShape;

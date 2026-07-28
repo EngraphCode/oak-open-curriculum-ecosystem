@@ -161,56 +161,34 @@ describe('emitIndex (invoke wrapper emission)', () => {
     expect(code).not.toContain("type: 'oauth2'");
   });
 
-  it('includes PREREQUISITE guidance in description for protected tools', () => {
-    const toolName = 'get-lessons-summary'; // Not in PUBLIC_TOOLS - requires auth
-    const path = '/lessons/{lesson}/summary';
-    const method = 'GET';
-    const operation: OperationObject = {
-      summary: 'Lesson summary',
-      description: 'This endpoint returns a summary for a given lesson.',
-      responses: { '200': { description: 'ok' } },
-    };
-
-    const code = emitIndex(toolName, path, method, 'getLessonsSummary', operation);
-
-    expect(code).toContain('PREREQUISITE');
-    expect(code).toContain('Lesson summary');
-    expect(code).toContain('This tool returns a summary');
-  });
-
-  it('does NOT include PREREQUISITE guidance for noauth tools', () => {
-    const toolName = 'get-changelog'; // In PUBLIC_TOOLS - noauth
-    const path = '/changelog';
-    const method = 'GET';
-    const operation: OperationObject = {
+  it('never emits prerequisite guidance in any description (MCP-300: instructions field owns orientation)', () => {
+    // One protected and one public tool: the removed guidance was auth-gated,
+    // so both sides of that old distinction must emit clean.
+    const protectedCode = emitIndex(
+      'get-lessons-summary', // Not in PUBLIC_TOOLS - requires auth
+      '/lessons/{lesson}/summary',
+      'GET',
+      'getLessonsSummary',
+      {
+        summary: 'Lesson summary',
+        description: 'This endpoint returns a summary for a given lesson.',
+        responses: { '200': { description: 'ok' } },
+      },
+    );
+    const publicCode = emitIndex('get-changelog', '/changelog', 'GET', 'getChangelog', {
       summary: 'API Changelog',
       description: 'History of significant changes to the API.',
       responses: { '200': { description: 'ok' } },
-    };
+    });
 
-    const code = emitIndex(toolName, path, method, 'getChangelog', operation);
-
-    // Verify prerequisite is NOT included
-    expect(code).not.toContain('PREREQUISITE');
-    // Verify original description is preserved
-    expect(code).toContain('API Changelog');
-    expect(code).toContain('History of significant changes');
-  });
-
-  it('does NOT include PREREQUISITE guidance for get-rate-limit', () => {
-    const toolName = 'get-rate-limit'; // In PUBLIC_TOOLS - noauth
-    const path = '/rate-limit';
-    const method = 'GET';
-    const operation: OperationObject = {
-      summary: 'Rate limit status',
-      description: 'Check your current rate limit status.',
-      responses: { '200': { description: 'ok' } },
-    };
-
-    const code = emitIndex(toolName, path, method, 'getRateLimit', operation);
-
-    expect(code).not.toContain('PREREQUISITE');
-    expect(code).toContain('Rate limit status');
+    for (const code of [protectedCode, publicCode]) {
+      expect(code).not.toMatch(/prerequisite:/i);
+      expect(code).not.toMatch(/you must call/i);
+    }
+    expect(protectedCode).toContain('Lesson summary');
+    expect(protectedCode).toContain('This tool returns a summary');
+    expect(publicCode).toContain('API Changelog');
+    expect(publicCode).toContain('History of significant changes');
   });
 
   it('emits requiresDomainContext: true for protected tools', () => {

@@ -103,7 +103,7 @@ export {
   type AgentGuidanceResource,
 } from '../mcp/guidance-resources/agent-guidance-resources.js';
 
-export { SERVER_INSTRUCTIONS } from '../mcp/prerequisite-guidance.js';
+export { SERVER_INSTRUCTIONS } from '../mcp/orientation-guidance.js';
 
 export { WIDGET_URI } from '../mcp/widget-constants.js';
 // Ontology data (single source of truth for domain knowledge)

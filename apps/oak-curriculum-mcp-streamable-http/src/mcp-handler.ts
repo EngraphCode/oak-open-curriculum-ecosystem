@@ -193,8 +193,8 @@ export function createMcpHandler(
 
     enrichObservabilityScope(req, observability, mcpMethod);
 
-    const { server, transport } = mcpFactory();
-    await server.connect(transport);
+    const { server, transport, connectTransport } = mcpFactory();
+    await server.connect(connectTransport);
 
     registerCleanupHandler(res, req, transport, server, log, observability);
 

@@ -16,6 +16,9 @@
  *
  * Anchor fixtures are chosen deterministically from the corpus so the tests
  * describe behaviour over any valid corpus rather than pinning content.
+ *
+ * The advertised-examples coherence block deliberately pins that the
+ * schema's own example values resolve against the shipped corpus (MCP-319).
  */
 
 import { graphCorpus } from '@oaknational/sdk-codegen/graph-corpus';
@@ -27,8 +30,10 @@ import { describe, it, expect } from 'vitest';
 import { z } from 'zod';
 import {
   GET_MISCONCEPTION_GRAPH_TOOL_DEF,
+  GET_MISCONCEPTION_GRAPH_INPUT_SCHEMA,
   runMisconceptionGraphTool,
 } from './aggregated-misconception-graph.js';
+import { advertisedExamples, wireProperties } from './test-helpers/advertised-examples.js';
 
 /** Narrows a deterministic fixture pick, failing loudly if the corpus cannot supply it. */
 function required<T>(value: T | undefined, message: string): T {
@@ -266,5 +271,101 @@ describe('runMisconceptionGraphTool', () => {
     const result = runMisconceptionGraphTool('lessonSlugs');
 
     expect(result.isError).toBe(true);
+  });
+});
+
+describe('advertised examples are true of the shipped corpus', () => {
+  // INVARIANT, do not loosen on a corpus rename: every advertised example
+  // must be resolvable by the bundled corpus this package ships — a red here
+  // means the metadata and the data have diverged, which is the MCP-319
+  // defect class. Deployed truth beyond this corpus: the MCP-303 live drive
+  // proves wire-REQUIRED examples only (fetch, download-asset); search's
+  // optional-field examples have no standing live probe (routed on MCP-319).
+  const shape = GET_MISCONCEPTION_GRAPH_INPUT_SCHEMA;
+
+  it('resolves every advertised lessonSlugs example as a lesson anchor', () => {
+    for (const example of advertisedExamples(
+      shape.lessonSlugs,
+      'lessonSlugs',
+      z.array(z.string()),
+    )) {
+      const result = runMisconceptionGraphTool({ lessonSlugs: example });
+      expect(
+        result.isError,
+        `lessonSlugs example ${JSON.stringify(example)} must resolve`,
+      ).toBeUndefined();
+      expect(result.structuredContent).toMatchObject({ unknownAnchors: [] });
+      const parsed = z
+        .object({
+          resolvedAnchors: z.array(z.unknown()),
+          lessons: z.array(z.object({ misconceptions: z.array(z.unknown()) })),
+        })
+        .parse(result.structuredContent);
+      expect(
+        parsed.resolvedAnchors,
+        `lessonSlugs example ${JSON.stringify(example)} must resolve an anchor`,
+      ).not.toHaveLength(0);
+      expect(
+        parsed.lessons.flatMap((lesson) => lesson.misconceptions),
+        `${JSON.stringify(example)}: resolving lesson anchor must carry misconceptions`,
+      ).not.toHaveLength(0);
+    }
+  });
+
+  it('resolves every advertised unitSlugs example as a unit anchor', () => {
+    for (const example of advertisedExamples(shape.unitSlugs, 'unitSlugs', z.array(z.string()))) {
+      const result = runMisconceptionGraphTool({ unitSlugs: example });
+      expect(
+        result.isError,
+        `unitSlugs example ${JSON.stringify(example)} must resolve`,
+      ).toBeUndefined();
+      expect(result.structuredContent).toMatchObject({ unknownAnchors: [] });
+      const parsed = z
+        .object({
+          resolvedAnchors: z.array(z.unknown()),
+          units: z.array(z.object({ lessons: z.array(z.unknown()) })),
+        })
+        .parse(result.structuredContent);
+      expect(
+        parsed.resolvedAnchors,
+        `unitSlugs example ${JSON.stringify(example)} must resolve an anchor`,
+      ).not.toHaveLength(0);
+      expect(
+        parsed.units.flatMap((unit) => unit.lessons),
+        `${JSON.stringify(example)}: resolving unit anchor must carry placed lessons`,
+      ).not.toHaveLength(0);
+    }
+  });
+
+  it('resolves every advertised threadSlug example as a thread anchor', () => {
+    for (const example of advertisedExamples(shape.threadSlug, 'threadSlug', z.string())) {
+      const result = runMisconceptionGraphTool({ threadSlug: example });
+      expect(
+        result.isError,
+        `threadSlug example ${JSON.stringify(example)} must resolve`,
+      ).toBeUndefined();
+      expect(result.structuredContent).toMatchObject({ unknownAnchors: [] });
+      const { resolvedAnchors } = z
+        .object({ resolvedAnchors: z.array(z.unknown()) })
+        .parse(result.structuredContent);
+      expect(
+        resolvedAnchors,
+        `threadSlug example ${JSON.stringify(example)} must resolve an anchor`,
+      ).not.toHaveLength(0);
+    }
+  });
+
+  it('advertises every example on the wire JSON Schema', () => {
+    // The corpus tests above read `.meta()` off the Zod objects; agents
+    // read the CONVERTED wire form. This proves the authored metadata
+    // survives `z.toJSONSchema()` for every field, wrapped or not.
+    const properties = wireProperties(shape);
+    const advertising = Object.entries(shape).filter(([, s]) => s.meta()?.examples !== undefined);
+    expect(advertising, 'shape advertises no examples at all').not.toHaveLength(0);
+    for (const [field, schema] of Object.entries(shape)) {
+      expect(properties[field]?.examples, `${field} examples on the wire`).toEqual(
+        schema.meta()?.examples,
+      );
+    }
   });
 });

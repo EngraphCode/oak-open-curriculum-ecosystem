@@ -142,6 +142,54 @@ describe('createMcpHandler (Integration)', () => {
       expect(server.connect).toHaveBeenCalledOnce();
     });
 
+    it('connects through connectTransport while handleRequest stays on the concrete transport', async () => {
+      const handleRequest = vi.fn(async () => undefined);
+      const connectTransport = { close: vi.fn(() => Promise.resolve()) };
+      const { factory, server, transport } = createFakeMcpServerFactory(
+        handleRequest,
+        connectTransport,
+      );
+
+      const handler = createMcpHandler(factory, observability);
+      const mockReq = createMockRequest({ method: 'tools/list' });
+      const mockRes = createFakeResponse();
+
+      await handler(mockReq, mockRes);
+
+      expect(server.connect).toHaveBeenCalledExactlyOnceWith(connectTransport);
+      expect(transport.handleRequest).toHaveBeenCalledOnce();
+    });
+
+    it('the handler closes the concrete transport and server directly and never itself closes the connect target', async () => {
+      const connectTransport = { close: vi.fn(() => Promise.resolve()) };
+      const { factory, server, transport } = createFakeMcpServerFactory(
+        vi.fn(async () => undefined),
+        connectTransport,
+      );
+
+      const handler = createMcpHandler(factory, observability);
+      const mockRes = createFakeResponse();
+      await handler(createMockRequest({ method: 'tools/list' }), mockRes);
+
+      const closeRegistration = vi
+        .mocked(mockRes.on)
+        .mock.calls.find(([event]) => event === 'close');
+      expect(closeRegistration).toBeDefined();
+      closeRegistration?.[1]();
+
+      // The handler's own cleanup calls are exactly these two. SDK-side
+      // teardown is callback-driven — the concrete transport's close()
+      // fires onclose synchronously and the SDK server clears its
+      // connection before its own close() runs (verified against the
+      // installed SDK) — so the connect target's close() is never invoked
+      // on this path. That composition is deliberately not modelled by
+      // these narrow fakes; the selected-mode slice proves it against the
+      // real SDK transport.
+      expect(transport.close).toHaveBeenCalledOnce();
+      expect(server.close).toHaveBeenCalledOnce();
+      expect(connectTransport.close).not.toHaveBeenCalled();
+    });
+
     it('creates an active request span around transport.handleRequest', async () => {
       const baseObservability = createFakeHttpObservability();
       const spanCalls: {

@@ -6,7 +6,6 @@
  * Separate from execution logic.
  */
 
-import { ONTOLOGY_RECOMMENDED_FIRST_STEP } from '../prerequisite-guidance.js';
 import { WIDGET_URI } from '../widget-constants.js';
 import { SCOPES_SUPPORTED } from '../scopes-supported.js';
 
@@ -19,8 +18,6 @@ import { SCOPES_SUPPORTED } from '../scopes-supported.js';
 export const GET_CURRICULUM_MODEL_TOOL_DEF = {
   title: 'Oak Curriculum Overview',
   description: `Returns a complete orientation to Oak National Academy's curriculum: domain model (key stages, subjects, entity hierarchy, property graph) AND tool usage guidance (categories, workflows, tips).
-
-${ONTOLOGY_RECOMMENDED_FIRST_STEP}
 
 Use this when you need to understand:
 - The Oak curriculum structure (key stages, subjects, units, lessons, threads)

@@ -22,9 +22,11 @@ import { MAX_PREREQUISITE_DEPTH } from '@oaknational/graph-corpus-sdk/curriculum
 import { describe, it, expect } from 'vitest';
 import { z } from 'zod';
 import {
+  GET_PRIOR_KNOWLEDGE_GRAPH_INPUT_SCHEMA,
   GET_PRIOR_KNOWLEDGE_GRAPH_TOOL_DEF,
   runPriorKnowledgeGraphTool,
 } from './aggregated-prior-knowledge-graph.js';
+import { wireExamplesOf } from './test-helpers/advertised-examples.js';
 
 /** A corpus unit slug, chosen deterministically (lexicographic minimum). */
 const firstUnitSlug = graphCorpus.nodes
@@ -59,15 +61,6 @@ describe('GET_PRIOR_KNOWLEDGE_GRAPH_TOOL_DEF', () => {
     expect(GET_PRIOR_KNOWLEDGE_GRAPH_TOOL_DEF.description).toContain('depth');
     expect(GET_PRIOR_KNOWLEDGE_GRAPH_TOOL_DEF.description).not.toContain(
       'complete prior knowledge graph',
-    );
-  });
-
-  it('does not include prerequisite guidance (graph tools are loaded as needed, not prerequisites)', () => {
-    expect(GET_PRIOR_KNOWLEDGE_GRAPH_TOOL_DEF.description).not.toContain(
-      'You MUST call `get-curriculum-model` first',
-    );
-    expect(GET_PRIOR_KNOWLEDGE_GRAPH_TOOL_DEF.description).not.toContain(
-      'You MUST call this tool before using other curriculum tools',
     );
   });
 
@@ -151,5 +144,33 @@ describe('runPriorKnowledgeGraphTool', () => {
     const result = runPriorKnowledgeGraphTool('unitSlugs');
 
     expect(result.isError).toBe(true);
+  });
+});
+
+describe('get-prior-knowledge-graph wire schema — advertised examples (MCP-303 drive-leg cure)', () => {
+  // Behaviour, never config (owner ruling 2026-07-28): the `.meta()` must
+  // survive the z.toJSONSchema round-trip so clients can derive a call (the
+  // drive leg's founding finding), and WHATEVER anchor it advertises must
+  // resolve in the corpus this SDK ships — a dead example teaches every
+  // client a dead value. The value itself is config and is not pinned.
+  it('every wire-advertised example invocation resolves against the shipped corpus', () => {
+    // Every advertised element, not only the first: a later-added stale
+    // example must not hide behind a green first element (the helper's
+    // .min(1) guard guarantees this loop is never vacuous).
+    for (const exampleAnchor of wireExamplesOf(
+      GET_PRIOR_KNOWLEDGE_GRAPH_INPUT_SCHEMA,
+      'unitSlugs',
+      z.array(z.string()).min(1),
+    )) {
+      const result = runPriorKnowledgeGraphTool({ unitSlugs: exampleAnchor });
+
+      expect(
+        result.isError,
+        `advertised anchor ${JSON.stringify(exampleAnchor)} must resolve`,
+      ).toBeUndefined();
+      const envelope = SUBGRAPH_ENVELOPE.parse(result.structuredContent);
+      expect(envelope.unknownAnchors).toEqual([]);
+      expect(envelope.resolvedAnchors.length).toBeGreaterThan(0);
+    }
   });
 });

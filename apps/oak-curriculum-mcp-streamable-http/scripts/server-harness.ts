@@ -145,7 +145,7 @@ async function main() {
     process.exit(1);
   }
 
-  const runtimeConfig = configResult.value;
+  const runtimeConfig = configResult.value.runtimeConfig;
   const observabilityResult = createHttpObservability(runtimeConfig);
 
   if (!observabilityResult.ok) {

@@ -46,7 +46,8 @@ const PRIOR_KNOWLEDGE_INPUT = z.object({
     .array(z.string().min(1))
     .describe(
       'Anchor unit slugs (corpus keys, e.g. from search/fetch results). The result is the bounded prior-knowledge subgraph for these units. Unknown slugs are reported back in unknownAnchors, not errored.',
-    ),
+    )
+    .meta({ examples: [['comparing-fractions']] }),
   depth: z
     .number()
     .int()

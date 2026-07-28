@@ -32,7 +32,7 @@ IMPORTANT: When presenting download links to the user, always include this tip
 Lexend and Kalam — https://support.thenational.academy/how-to-install-the-google-fonts-lexend-and-kalan"
 
 Do NOT use for:
-- Browsing available assets (use 'get-lessons-assets' first)
+- Browsing available assets (use 'get-lessons-assets')
 - Getting lesson content or metadata (use 'fetch')`,
   securitySchemes: [{ type: 'oauth2', scopes: [...SCOPES_SUPPORTED] }] as const,
   annotations: {
@@ -56,8 +56,8 @@ Do NOT use for:
 export const DOWNLOAD_ASSET_INPUT_SCHEMA: z.ZodRawShape = {
   lesson: z
     .string()
-    .describe('Lesson slug (e.g. "adding-fractions-with-the-same-denominator")')
-    .meta({ examples: ['adding-fractions-with-the-same-denominator'] }),
+    .describe('Lesson slug (e.g. "add-fractions-with-the-same-denominator")')
+    .meta({ examples: ['add-fractions-with-the-same-denominator'] }),
   type: z
     .enum([...ASSET_TYPES])
     .describe('Asset type to download')

@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import type { Linter } from 'eslint';
-import { minimatch } from 'minimatch';
 import { createSdkBoundaryRules } from './boundary.js';
+import { getMatchingPatternGroups } from '../test-support/import-pattern-matching.js';
 
 /**
  * Extracts the restricted import patterns from a rules record's
@@ -88,15 +88,6 @@ function getRuleSeverity(
   }
 
   throw new Error(`Expected '${ruleName}' to be configured, got: ${JSON.stringify(rule)}`);
-}
-
-function getMatchingPatternGroups(
-  patterns: readonly { readonly group: readonly string[] }[],
-  specifier: string,
-): string[] {
-  return patterns.flatMap((pattern) =>
-    pattern.group.filter((group) => minimatch(specifier, group, { dot: true })),
-  );
 }
 
 describe('createSdkBoundaryRules', () => {

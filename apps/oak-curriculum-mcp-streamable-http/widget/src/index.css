@@ -206,6 +206,7 @@ a:focus-visible {
   margin-inline: auto;
   font-size: var(--oak-component-label-size);
   line-height: var(--oak-component-label-line-height);
+  text-align: center;
   text-wrap: pretty;
 }
 
@@ -264,8 +265,7 @@ a:focus-visible {
   }
 }
 
-@media (max-width: 48rem) {
-  .oak-app {
-    padding: var(--oak-component-page-padding-mobile);
-  }
-}
+/* No mobile padding override: the widget is a single small panel inside a
+   host iframe (typically narrower than 48rem even on desktop), and the
+   full shell padding is what keeps it from reading cramped — owner
+   correction 2026-07-28 (MCP-322). */

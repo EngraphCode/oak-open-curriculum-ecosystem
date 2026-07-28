@@ -152,11 +152,11 @@ function handleDownloadAssetTool(
   if (!validation.ok) {
     return Promise.resolve(formatError(validation.message));
   }
-  return Promise.resolve(
-    runDownloadAssetTool(validation.value, {
-      createAssetDownloadUrl: deps.createAssetDownloadUrl,
-    }),
-  );
+  return runDownloadAssetTool(validation.value, {
+    createAssetDownloadUrl: deps.createAssetDownloadUrl,
+    executeMcpTool: deps.executeMcpTool,
+    logger: deps.logger,
+  });
 }
 
 type AggregatedHandler = (

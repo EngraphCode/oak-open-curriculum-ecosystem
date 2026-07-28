@@ -1,3 +1,93 @@
+# [1.111.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.110.0...v1.111.0) (2026-07-28)
+
+
+### Bug Fixes
+
+* **mcp-content:** anchor the post-audit C717 row on its real content ([ed6f62c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ed6f62cf002d5ebe5b5726ab1cfab84238c7679a))
+* **mcp-content:** close current-source review findings ([5f1c209](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5f1c2097deaaf29bda733b224c54e3a050cc6f98))
+* **mcp-content:** close current-source review gaps ([bcbfba2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bcbfba26de845a91ba1e13d7c33b9a0f14168f5f))
+* **mcp-content:** close the tagged-template span gap and blank-reason bypass ([9114e11](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9114e1194738f4bb0d0a9093d1a492517b91882c))
+* **mcp-content:** consolidate registration evidence ([401ad2d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/401ad2d76a2d99dc7cad693599b542f23abb8b64))
+* **mcp-content:** correct lineage and dormant channels ([ba39ca9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ba39ca96139d1d78f705bbed436087e60a47b98d))
+* **mcp-content:** deleted governed sources enter the delta ledger as tombstones ([5c2eaa3](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5c2eaa3ef463f8dea8401ef42daf3d26ca16b6a4))
+* **mcp-content:** govern current-source additions ([d7c0d38](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d7c0d38a573c35e53dab68afcc94c442ef0a1ed5))
+* **mcp-content:** land the reviewed six-file semantic-hash and narrow-gitleaks cure ([e18b6ec](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e18b6ec94c91a38697d15cc264cd76e94ec4dce2))
+* **mcp-content:** prove item-level current-source truth ([d6fba37](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d6fba376822a4589500ba1053a20c7c25f06df7e))
+* **mcp-content:** refresh latest-main evidence ([d0876a4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d0876a473ce1b534217085d6ab1847d4c8a8e3c2))
+* **mcp-content:** tagged-template raw spelling is part of the semantic hash ([7e6e3ca](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/7e6e3ca61465a75fefc57989607bb40d8d97f63b))
+* **mcp-content:** validate mode recomputes the anchor manifest from source ([386bdcd](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/386bdcd634157325e60b62b571d8384947b67907))
+
+
+### Features
+
+* **mcp-content:** add current-source truth set ([cbd83ac](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/cbd83ac1d4d36f84ff78e98805a8bd97a6961b84))
+
+# [1.110.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.109.2...v1.110.0) (2026-07-28)
+
+
+### Bug Fixes
+
+* **mcp-app:** own only the handler's close calls; SDK teardown is callback-driven ([385e15a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/385e15a0df253289c93c7b59115f2f7a4172f5db))
+* **mcp-app:** state the SDK close cascade honestly in the connect-target contract ([288c080](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/288c080062edf7ffdf7a053b6b2221073c048107))
+
+
+### Features
+
+* **mcp-app:** thread the observed-transport seam through per-request handling ([2537bc7](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2537bc742fa176b2fdf86641989e12d01a49ec8d))
+
+## [1.109.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.109.1...v1.109.2) (2026-07-28)
+
+## [1.109.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.109.0...v1.109.1) (2026-07-28)
+
+
+### Bug Fixes
+
+* **curriculum-sdk:** true up advertised MCP examples, prove them against the corpus ([f174695](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f17469501b91bcf4fadeca72ba90bd69cd63b74b))
+
+# [1.109.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.108.0...v1.109.0) (2026-07-28)
+
+
+### Features
+
+* **mcp-app:** declare the posthog adapter dependency and deployment contract ([3156ffd](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3156ffd339b441fea53e0056bae7614ac8551f45))
+
+# [1.108.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.107.1...v1.108.0) (2026-07-28)
+
+
+### Bug Fixes
+
+* **agent-tools:** case-fold collision guards; reshape example tests to behaviour (MCP-303) ([07aed41](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/07aed412ae4eff9358a9ca7bb2f7e3685e70f9fe))
+* **agent-tools:** close the drive's honesty gaps Copilot found (MCP-303) ([40afa47](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/40afa47db6009194f88f1fdc7c5ffed3b1d5e986))
+* **agent-tools:** harden the pack's injection boundary and test determinism (MCP-303) ([437f8d4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/437f8d47e28bbf601b437ba4c0ab66dc92eaf002))
+
+
+### Features
+
+* **agent-tools:** mcp-conformance --drive renders the reviewer walkthrough pack (MCP-303) ([4670566](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/46705660cd0a7d78bf3351a10331d39d215752c3))
+
+## [1.107.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.107.0...v1.107.1) (2026-07-28)
+
+
+### Bug Fixes
+
+* **widget:** centre the disclaimer text and keep full shell padding in host iframes ([cdd534e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/cdd534e4520678e0ebe0c913475028633ac8fde2))
+
+# [1.107.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.106.1...v1.107.0) (2026-07-28)
+
+
+### Bug Fixes
+
+* **curriculum-sdk:** prove the lesson and asset exist before signing a download URL ([8967f91](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8967f91af18c82a81e3b5beebbf5d465a0b2e53a))
+* **mcp-app:** enforce the adapter key-id contract at the keyring boundary ([63ab757](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/63ab75721ec0e2e18e874a6523bb46c96f19b0e3))
+* **mcp-app:** strip a tolerated capture-mode value from handler env ([23ee50a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/23ee50adda7d83d646dc2a23ac1082e14dc9afff))
+* **sdk:** catch and cure the softer use-X-first imperatives Copilot found (MCP-300) ([5429b2a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5429b2acc6f37041148fb087eb8a41f4887a320e))
+
+
+### Features
+
+* **mcp-app:** validate selected posthog application configuration ([4ccdf00](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4ccdf00940b75e3e5798e3a98b972389b621eb9d))
+* **mcp:** remove call-another-tool-first imperatives from tool descriptions ([4e3ba69](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4e3ba6964e385cd400f03d20607271965963cf8d)), closes [#605](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/605)
+
 ## [1.106.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.106.0...v1.106.1) (2026-07-28)
 
 

@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import type { Linter } from 'eslint';
-import { minimatch } from 'minimatch';
 import {
   ADAPTER_LIB_PACKAGES,
   FOUNDATION_LIB_PACKAGES,
   LIB_PACKAGES,
   createLibBoundaryRules,
 } from './boundary.js';
+import { getMatchingPatternGroups } from '../test-support/import-pattern-matching.js';
 
 function getRestrictedPathZones(
   rules: Partial<Linter.RulesRecord>,
@@ -98,15 +98,6 @@ function getRuleSeverity(
   }
 
   throw new Error(`Expected '${ruleName}' to be configured, got: ${JSON.stringify(rule)}`);
-}
-
-function getMatchingPatternGroups(
-  patterns: readonly { readonly group: readonly string[] }[],
-  specifier: string,
-): string[] {
-  return patterns.flatMap((pattern) =>
-    pattern.group.filter((group) => minimatch(specifier, group, { dot: true })),
-  );
 }
 
 describe('createLibBoundaryRules', () => {
