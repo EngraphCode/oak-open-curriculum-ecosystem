@@ -148,10 +148,12 @@
   margin: 0;
 }
 /* Chrome links take text colour, not link blue, so the chrome matches the
-   main site — the same convention as .breadcrumbs .oak-link below. The
-   padding lifts each line box to a WCAG 2.5.8 target that passes on size
-   alone; layout comes from the system's own .oak-cluster on the nav. */
-.site-footer-legal .oak-link {
+   main site — the same convention as .breadcrumbs .oak-link below. :where()
+   keeps this at one-class specificity so the system's .oak-link state
+   colours (:hover/:visited/:focus-visible) still win over the base chrome
+   colour. The padding lifts each line box to a WCAG 2.5.8 target that
+   passes on size alone; layout comes from the system's own .oak-cluster. */
+:where(.site-footer-legal) .oak-link {
   color: var(--text-primary);
   padding-block: var(--space-4);
 }
