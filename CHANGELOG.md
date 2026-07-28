@@ -1,3 +1,10 @@
+# [1.112.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.111.2...v1.112.0) (2026-07-28)
+
+
+### Features
+
+* **mcp:** compose the selected-mode product-analytics runtime once at bootstrap ([d1bf2df](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d1bf2dfb7dd773756737f185073774d9f3b12eb5))
+
 ## [1.111.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.111.1...v1.111.2) (2026-07-28)
 
 ## [1.111.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.111.0...v1.111.1) (2026-07-28)
