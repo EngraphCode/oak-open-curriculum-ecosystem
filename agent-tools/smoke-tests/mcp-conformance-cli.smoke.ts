@@ -121,6 +121,43 @@ check(
   duplicateSuite.stderr.slice(0, 200),
 );
 
+// Drive-operation flag wiring (MCP-303): these two paths prove the new
+// CLI_FLAGS/CLI_VALUE_OPTIONS entries reach the state they name — a
+// miswired handler (e.g. --pack-out landing on preambleFile) produces a
+// DIFFERENT refusal string here while every state-literal unit test stays
+// green, since nothing else exercises the argv table at any scale.
+const packOutWithoutDrive = spawnSync(
+  process.execPath,
+  [BIN, '--target', 'https://x.test/mcp', '--pack-out', 'tmp/pack.md'],
+  { cwd: REPO_ROOT, encoding: 'utf8' },
+);
+check(
+  'pack-out without drive exit code',
+  packOutWithoutDrive.status === 2,
+  `expected 2, got ${String(packOutWithoutDrive.status)}`,
+);
+check(
+  'pack-out without drive guidance on stderr',
+  packOutWithoutDrive.stderr.includes('--pack-out is only meaningful with --drive'),
+  packOutWithoutDrive.stderr.slice(0, 200),
+);
+
+const driveWithSeed = spawnSync(
+  process.execPath,
+  [BIN, '--target', 'https://x.test/mcp', '--drive', '--seed'],
+  { cwd: REPO_ROOT, encoding: 'utf8' },
+);
+check(
+  'drive with seed exit code',
+  driveWithSeed.status === 2,
+  `expected 2, got ${String(driveWithSeed.status)}`,
+);
+check(
+  'drive with seed guidance on stderr',
+  driveWithSeed.stderr.includes('--drive and --seed are different operations'),
+  driveWithSeed.stderr.slice(0, 200),
+);
+
 if (failures.length > 0) {
   process.stderr.write(`SMOKE FAILED (mcp-conformance-cli):\n${failures.join('\n')}\n`);
   process.exit(1);

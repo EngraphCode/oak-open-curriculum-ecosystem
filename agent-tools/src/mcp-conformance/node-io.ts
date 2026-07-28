@@ -14,7 +14,7 @@
 import { spawnSync } from 'node:child_process';
 import { closeSync, fchmodSync, mkdirSync, openSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
-import { join, resolve } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 
 import { err, ok, type Result } from '@oaknational/result';
 
@@ -135,7 +135,14 @@ function writeOwnerOnly(filePath: string, content: string): void {
   }
 }
 
-function writeUnder(
+/**
+ * Owner-only write of one file under a directory (created if absent),
+ * resolving relative paths against the repo root. Shared by the suites'
+ * retention here and the drive's per-tool evidence retention
+ * (`drive-node-io.ts`) — every retained artefact can embed authed vendor
+ * output, so all of them get the 0600 discipline above.
+ */
+export function writeUnder(
   repoRoot: string,
   reportDir: string,
   fileName: string,
@@ -155,6 +162,19 @@ function writeUnder(
 function retainUnder(repoRoot: string, reportDir: string) {
   return (suite: ConformanceSuite, content: string): RetentionOutcome =>
     writeUnder(repoRoot, reportDir, `${suite}.json`, content);
+}
+
+/**
+ * Default raw-report directory for a run: `tmp/mcp-conformance/<utc-stamp>`,
+ * relative to the repo root. Lives with the IO seam because the wall-clock
+ * read is an IO concern; both CLI operations (suites and drive) share it.
+ */
+export function defaultReportDir(): string {
+  const utcStamp = new Date()
+    .toISOString()
+    .replaceAll(':', '-')
+    .replace(/\.\d+Z$/u, 'Z');
+  return join('tmp', 'mcp-conformance', utcStamp);
 }
 
 /**
@@ -188,4 +208,21 @@ export function buildMcpConformanceNodeIo(repoRoot: string, reportDir: string): 
     },
     retainRawReport: retainUnder(repoRoot, reportDir),
   };
+}
+
+/**
+ * Write owner-only at an ABSOLUTE path, creating parent directories. The
+ * same write-then-never-expose discipline as `writeUnder`, for artefacts
+ * whose destination the caller has already resolved (the reviewer pack via
+ * `--pack-out`): the pack embeds vendor failure text from authed runs, the
+ * same content class the summary protects at 0600.
+ */
+export function retainOwnerOnlyAt(absolutePath: string, content: string): RetentionOutcome {
+  try {
+    mkdirSync(dirname(absolutePath), { recursive: true });
+    writeOwnerOnly(absolutePath, content);
+    return { ok: true, reportedPath: absolutePath };
+  } catch (error) {
+    return { ok: false, error: error instanceof Error ? error.message : String(error) };
+  }
 }
