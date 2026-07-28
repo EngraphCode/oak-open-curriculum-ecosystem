@@ -1,7 +1,26 @@
 # ADR-199: Comms-Event Rotation Phenotype — Class-Tiered Archive-Move
 
-**Status**: Accepted (design ratified with owner 2026-06-13, "ratify as
-proposed"); **WS7 execution landed 2026-06-14**. Phase 2 shipped the provenance
+**Status**: Accepted; **amended 2026-07-26 to the PDR-094 v4 shape**
+(owner word, twice-refined same day: full extraction first — the archive
+then exists to ENABLE future mining, never as a hedge, and never lowering
+the extraction bar). What changes from the original: the per-event
+`manifest.jsonl` disposition ledger is retired (write-only accounting that
+manufactured a "cannot move" state — the machinery the owner actually
+objected to); eligibility is the pass-level absorption watermark + class
+window. What stands: the archive-move itself (`comms-archive/`,
+re-established under v4 with no curation obligation attached), the class
+tiers, the provenance check and tracked digest
+(`.agent/reference/comms-cited-events.md`), the heartbeat cadence
+aggregate, the untrack boundary, and the standing curation obligation.
+History note: the v3 enactment window (same hour) deleted the then-archive
+(6,917 events) and 1,648 past-window live events before the refinement
+landed — the pre-2026-06-14 era survives in git history; the post-untrack
+raw events from that window are unrecoverable (extraction was complete;
+the loss is bounded to future re-mining of that window). The
+`comms-archive-move` harness needs only its ledger input replaced by the
+watermark (MCP-185, retargeted). Original status: design ratified with
+owner 2026-06-13, "ratify as proposed"; **WS7 execution landed
+2026-06-14**. Phase 2 shipped the provenance
 check, the heartbeat-cadence aggregate, and the class-tiered archive-move harness
 (classify → provenance-gate → plan → execute); Phase 3 — the `.agent/state/`
 untrack and the standing curation obligation — lands atomically with this

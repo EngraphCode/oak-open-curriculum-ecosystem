@@ -100,13 +100,14 @@ The canonical communication-event directory is
 `.agent/state/collaboration/comms/`. Merges reconcile any legacy-era event
 fragments as `exclusive-create-fragments`.
 
-Comms-event rotation is the class-tiered, archive-not-delete curator pass
-ratified by ADR-199 / PDR-094 (the earlier blanket preservation hold ended
-when the comms-corpus research plan's WS7 executed the first rotation,
-2026-06-14). Rotation never deletes: events past their class retention window
-archive-move into the gitignored `comms-archive/`, gated on a recorded
-per-event disposition (absorption), the provenance check, and the class
-tiers — see `consolidate-docs` step 3a for the operative gates.
+Comms-event rotation is the class-tiered, extraction-gated archive pass
+(PDR-094 v4, owner-worded 2026-07-26: full extraction first; the archive
+then ENABLES future mining and is never a hedge — it lowers no extraction
+bar). Events past their class window AND covered by a recorded pass-level
+absorption watermark archive-move to `comms-archive/` behind the
+provenance check; nothing in-window moves; no per-event ledger; the
+archive carries no curation obligation — see `consolidate-docs` step 3a
+for the operative gates.
 
 **Design constraint — every shared memory/state surface assumes
 parallel-session reality.** Surfaces are versioned, append/merge-tolerant,

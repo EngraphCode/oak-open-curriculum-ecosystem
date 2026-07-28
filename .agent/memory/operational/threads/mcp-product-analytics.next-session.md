@@ -10,7 +10,7 @@ merge_class: index-narrative-tables
 
 # Next-Session Record — `mcp-product-analytics`
 
-## Landing target — refreshed 26 July 2026
+## Landing target — refreshed 27 July 2026
 
 Implement the submission-blocking PostHog product-analytics capability defined
 by
@@ -27,24 +27,43 @@ enablement evidence in
 [`mcp-173-posthog-privacy-governance.plan.md`](../../../plans/delivery/mcp-173-posthog-privacy-governance.plan.md)
 gates the October public beta.
 
+The focused replacement-stack outcome, exact protected heads, remaining slice
+inventory, loss scan, and successor instructions are absorbed in the 27 July
+permanent handoff record at
+`.agent/reports/mcp-63-focused-successor-handoff-2026-07-27.md`.
+The earlier
+[26 July dated record](../../../reports/mcp-63-succession-notification-and-focused-delivery-2026-07-26.md)
+preserves the succession and monitoring chronology. This live thread remains
+temporary operational state.
+
 ## Current state
 
-- Draft [PR #568](https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/568)
-  carries the ratified plans, ADR, and dated probe evidence on branch
-  `jimcresswell/mcp-63-posthog-deterministic-analytics`.
-- PR #568 remains a planning-baseline change. Runtime implementation starts
-  from a fresh branch based on the resulting `main` after this PR lands.
-- No implementation has begun on that clean branch.
-- The superseded implementation spike was fully absorbed into the plan, ADR,
-  and probe report. Its worktree and both obsolete local branches were deleted.
-  Closed PR #477 is not an implementation source.
-- Linear [MCP-63](https://linear.app/oaknational/issue/MCP-63) owns implementation
-  state and evidence. Linear
-  [MCP-173](https://linear.app/oaknational/issue/MCP-173) owns the October
-  public-beta governance sequence and evidence links.
-- The AI Managed Notion consultation owns substantive consultation, research,
-  feedback, wording, and rationale. Its workspace URL remains outside tracked
-  repository content.
+- [PR #585](https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/585)
+  (MCP230) and
+  [PR #586](https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/586)
+  (MCP231) are merged.
+- [PR #592](https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/592)
+  is the canonical bot-authored MCP232+MCP233 bundle at exact head
+  `2fdce34759dcfed7e70c2fc31690276b12fff2fa`. At the
+  `2026-07-27T13:01:59Z` recount it was a draft, mergeable, 31/31 green,
+  0/0 review threads, and blocked only by the draft flag. Its worktree is
+  clean and exactly synced upstream.
+- Closed PR #591 was the wrong-author false start caused by an empty bot token
+  and GitHub CLI credential fallback. It is not a delivery surface.
+- [PR #576](https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/576)
+  remains the frozen extraction source at exact head
+  `aac01d12dd696e4e1831a683b41fde692be721ca`. Do not merge or close it until
+  every MCP230–MCP238 replacement has a pushed and linked PR.
+- MCP234–MCP244 remain. MCP234 actor pseudonyms is next after #592 settles.
+  Keep one replacement PR open at a time; extract by path from #576 rather
+  than cherry-picking mixed commits.
+- No application source for MCP239–MCP244 has landed in the replacement stack.
+- Cutter's seven inherited claims are closed at seat retirement. The next
+  implementer opens a fresh, ticket-specific claim.
+- Linear MCP63 still contains stale owner-gated merge wording. Current owner
+  direction permits a green and clean PR to merge without a new approval.
+- The live watcher and claim heartbeat are stopped with Cutter's seat. The
+  Director is the routing and immediate #592 shepherding owner.
 
 ## Authority order
 
@@ -90,40 +109,36 @@ ratified plan or ADR.
 
 ## Next safe step
 
-After PR #568 lands, create a fresh implementation branch from the updated
-`main`, then begin the first TDD slice:
+1. Recount #592 at exact head
+   `2fdce34759dcfed7e70c2fc31690276b12fff2fa`.
+2. Mint the merge-bot token with
+   `pnpm --silent agent-tools merge-bot mint-token` — there is no `--` before
+   `merge-bot` — and verify `viewer.login` before writing.
+3. If #592 remains green, clean, mergeable, and thread-clean, mark it ready,
+   recount, and merge without an additional approval pause.
+4. Mark MCP232 and MCP233 Done, remove stale #591 linkage when the connector
+   permits, and open a new claim for MCP234.
+5. Preserve #576 while landing MCP234–MCP238 serially. Continue MCP239–MCP244
+   only under their ticket ceilings and proofs.
 
-1. write the provider-neutral product-event contract and forcing tests;
-2. implement the closed contract directly without introducing a generic event
-   name or arbitrary-property shape;
-3. add compatible current PostHog dependencies and prove one interoperable
-   runtime copy; and
-4. keep existing Sentry behaviour unchanged.
+The exact path map, bot-authorship failure mode, ticket ceilings, and frozen
+PR close condition live in the permanent 27 July handoff record.
 
-Continue through the plan's ordered TDD slices. Each slice lands tests and
-product code atomically. The full event/property allowlist, identity
-projection, minimal-Person behaviour, final-wire policy, serverless lifecycle,
-resource/prompt seams, Sentry coexistence, and built-app proof are acceptance
-requirements, not later hardening.
+## Handoff loss and metaloss scan
 
-## Closeout loss and metaloss scan
-
-- The implementation contract, privacy boundary, version posture, milestone,
-  branch authority, and external-surface state all have durable homes above.
-- The obsolete spike contained no unique durable evidence; an independent
-  byte-level and contract audit returned DELETE-SAFE before deletion.
-- The repeated risk was authority drift: once-true mechanics, version
-  snapshots, and milestone labels survived in continuity and tracking surfaces
-  after the owner had corrected the frame. The cure is a single authority
-  order plus deletion of spent sources, not preservation with warning labels.
-- The external bound remains explicit: package probes describe the tested
-  resolution on 26 July 2026, while future compatible versions must prove the
-  same behaviour.
-- Discarded association: two plan nodes do not imply two PostHog clients. The
-  nodes separate delivery from governance; the runtime architecture still uses
-  one client for the current event estate.
-- Fixed point: a second pass found no unhomed decision, promise, branch,
-  worktree, review marker, or implementation source in this thread boundary.
+- Green, ready, and merged are distinct: #592 is green but was still a draft
+  at the last recount.
+- Empty bot-token output allowed credential fallback and wrong authorship;
+  verify the actor before every GitHub mutation.
+- #576 closes only after all MCP230–MCP238 replacements are pushed and linked.
+- Patch-ID evidence shows the four commits on the old local delivery branch
+  have no unique unsafe source.
+- Linear's owner-gated wording is stale relative to current owner direction.
+- The closeout documents still require Director commit, push, and PR custody.
+- A second loss pass found the evidence-index and external-drift bounds
+  themselves needed a permanent home. The 27 July handoff report now owns
+  them. A third pass would only re-find current-state drift,
+  green-versus-ready, and landing/custody, so recursion closes.
 
 ## Participating identities
 
@@ -133,4 +148,5 @@ requirements, not later hardening.
 | Stellar Glowing Satellite | claude | claude-opus-4-7 | 9a2967 | programme and amendments | 2026-05-26 | 2026-05-26 |
 | Urchin hunts Surf | claude-code | claude-fable-5 | b51773 | superseded spike author | 2026-07-22 | 2026-07-22 |
 | Crucible wakes Ashes | codex | GPT-5 | 019f9a | ratified plan, probes, and closeout | 2026-07-26 | 2026-07-26 |
-| Kite seeks Crosswind | codex | GPT-5 | 019f9e | MCP-63 implementation | 2026-07-26 | 2026-07-26 |
+| Kite seeks Crosswind | codex | GPT-5 | 019f9e | implementation and outgoing custody | 2026-07-26 | 2026-07-26 |
+| Cutter hunts Lagoon | codex | GPT-5 | 019f9e | focused replacement delivery and outgoing boundary | 2026-07-26 | 2026-07-27 |

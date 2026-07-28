@@ -166,7 +166,9 @@ before implementation promotion:
 - [Sector reusable components adoption (current)](../../../../plans-backlog-2026-07/sector-engagement/current/sector-reusable-components-adoption.plan.md)
 - [Oak OpenAPI Monorepo Integration](../../../../plans-backlog-2026-07/sector-engagement/future/oak-openapi-monorepo-integration.plan.md)
 - [DfE Data SDK seed](../../../../plans-backlog-2026-07/sector-engagement/future/dfe-data-sdk.plan.md)
-- Oak Curriculum Ontology Workspace Reassessment (`../../../../plans-old-archive/connecting-oak-resources/knowledge-graph-integration/archive/superseded/oak-curriculum-ontology-workspace-reassessment.plan.md`)
+- Oak Curriculum Ontology Workspace Reassessment
+  (`oak-curriculum-ontology-workspace-reassessment.plan.md`, superseded;
+  in `plans-old-archive`, knowledge-graph-integration archive)
 
 ### Current Objective
 

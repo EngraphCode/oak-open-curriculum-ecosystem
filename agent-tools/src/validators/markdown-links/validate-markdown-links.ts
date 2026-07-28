@@ -53,6 +53,9 @@ const INVENTORY_IGNORE_GLOBS = [
   '**/.git/**',
   '**/*.original.md',
   '.agent/reference-local/**',
+  // Repo-local pnpm store cache (gitignored, machine-local): package
+  // tarball contents are never live sources or portable link targets.
+  '.pnpm-store/**',
 ] as const;
 
 /** Additional non-live or generated Markdown sources excluded from validation. */
@@ -69,6 +72,12 @@ const SOURCE_IGNORE_GLOBS = [
   // output preserved word-for-word quoting a README's sibling link);
   // link integrity is not a property frozen records can or should hold.
   '.agent/state/collaboration/handoffs/**',
+  // Machine-local scratch at the repo root (gitignored): agent working
+  // trees and review workspaces land here and are never live sources.
+  'tmp/**',
+  // Copilot agent worktrees (owner ruling 2026-07-24: excluded from all
+  // tools).
+  '.github/copilot-worktrees/**',
   // design-sync working surfaces (gitignored, regenerated per sync): the
   // staged converter scripts and the built upload bundle. The bundle's
   // generated Markdown resolves links against the UPLOADED project layout,

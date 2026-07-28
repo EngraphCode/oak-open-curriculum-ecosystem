@@ -3404,3 +3404,48 @@ commit SHA and the closing plan reference.
   a fix-instruction pointing at `--body-file` (fail-loud at the boundary instead
   of downstream), and prints the written `event_id` on every send path
   (`comms direct` currently prints none).
+
+### F-150 — `turbo run lint` returns a cached green that never ran the new linter
+
+- **Source**: Cygnus weaves Vastness (41a8c5), MCP-151 majors sweep 2026-07-25,
+  bumping `eslint-plugin-unicorn` 70 → 72 (PR #550).
+- **Observed**: after the bump, `pnpm exec turbo run lint` reported
+  `FULL TURBO`, 47/47 cached, exit 0 — in under three seconds, having executed
+  no rule against the new plugin. The lint task's cache key does not account
+  for the resolved version of the plugins the config loads. `--force` produced
+  a real run (47/47, 0 cached, 45s), also green, but the default green was
+  evidence of nothing.
+- **Expected**: a gate that cannot have run should not report pass. Changing
+  the linter must invalidate the lint cache.
+- **Standing agent cure**: any dependency change that touches a linter, its
+  plugins, or its config must be gated with `turbo run lint --force`, and the
+  PR should state the cached-vs-forced task counts so a reviewer can see the
+  run really happened.
+- **Candidate structural cure**: add `pnpm-lock.yaml` (or the resolved plugin
+  set) to the `lint` task's `inputs` in `turbo.json`, so a plugin bump busts
+  the cache by construction. Same question worth asking of `type-check` and
+  `test`, which are equally blind to a toolchain-only change.
+
+### F-151 — the major-version guard blocks prose, and its own fix-instruction is unfollowable
+
+- **Source**: Cygnus weaves Vastness (41a8c5), MCP-151 majors sweep 2026-07-25
+  (`@semantic-release/*` commit, PR #551).
+- **Observed**: `prevent-accidental-major-version` uppercases the whole commit
+  message and substring-matches `BREAKING CHANGES`, so an ordinary sentence
+  describing an upstream dependency's release — "the stated breaking changes
+  are the module format and the two floors" — is rejected as a release-major
+  footer. The guard's own error text then advises *"document breaking changes
+  in the commit body (without the BREAKING CHANGE footer)"*, which its matcher
+  makes impossible: any wording of that advice trips it.
+- **Expected**: the guard should catch the conventional-commits **footer**,
+  which is what semantic-release's analyzer actually reads, and leave prose
+  alone.
+- **Standing agent cure**: never write the phrase in a commit body; describe
+  upstream majors as "what the major alters" or similar. Never reach for
+  `--no-verify` — the guard is right about the risk, only wrong about the
+  match.
+- **Candidate structural cure**: anchor the match the way the analyzer does —
+  a line beginning `BREAKING CHANGE:` / `BREAKING-CHANGE:` (optionally after
+  the blank line that starts the footer block) — rather than a bare substring
+  anywhere in the message. Then correct the advice line, which currently
+  describes behaviour the code does not permit.

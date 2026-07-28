@@ -242,6 +242,12 @@ export default {
         // Untracked import staging for the same system (root .gitignore) —
         // outside git and outside the analysis corpus.
         'packages/design/design-import/',
+        // The owner's raw studio export (untracked, machine-local; the
+        // MCP-137 S0 source) — record material, never analysed.
+        'packages/design/oak-open-curriculum-design-system-tna-24072026-1141/',
+        // Copilot agent worktrees (owner ruling 2026-07-24: excluded from
+        // all tools).
+        '\\.github/copilot-worktrees/',
       ],
     },
     tsPreCompilationDeps: true,

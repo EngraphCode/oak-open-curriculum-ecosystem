@@ -110,6 +110,16 @@ type safety.
   framework. Delete type-only assertion blocks and rely on
   `type-check`.
 
+## tsconfig Include Globs Cross Project Boundaries
+
+A `**/` glob in a tsconfig `include` reaches into sibling projects:
+`**/*.test.tsx` in an app's `tsconfig.lint.json` pulls a co-located
+`widget/` project's tests into the app project, which may lack the
+required `lib` (no DOM lib → type errors that look environmental).
+Scope test globs to `src/`. A pre-existing `**/*.test.ts` can mask this
+for years if the sibling's tests all use a different extension
+(2026-07-25: the widget's tests were all `.tsx`).
+
 ## Package Export Contracts
 
 - **Exports resolve built `dist/` via standard conditions only**

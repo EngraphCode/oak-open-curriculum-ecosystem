@@ -32,6 +32,18 @@ Practice Core package.
   event-driven-wake rules each gain a thin class pointer and keep their
   operational detail.
 
+## [oak-open-curriculum-ecosystem] 2026-07-23 — fork-identity amendment (Magma mends Sulphur, dedicated consolidation)
+
+- PDR-027 amendment + new §Decision subsection "Forks, duplicates, and
+  inherited context": a fork or restart-duplicate derives identity from
+  its OWN session id as its first act; memory of a seat is not tenure of
+  a seat (tenure = registry row + continuity + owner witness; registry
+  `agent_id` rows are ground truth for singleton-seat occupancy); fork
+  from certified fixed points only (compact → reground → fork, the
+  baseline carrying the fork rules inside itself); rename before move.
+  Three worked instances 2026-07-23 (seat-collision, restart-duplicate
+  solipsism, the first fork fleet's owner-observed zero-prep siblings).
+
 ## [oak-open-curriculum-ecosystem] 2026-07-23 — PDR-018 host-realisation amendment (Heron lifts Summit)
 
 - PDR-018 amendment: the source host's lifecycle-lane realisation

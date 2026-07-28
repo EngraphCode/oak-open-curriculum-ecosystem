@@ -1,5 +1,14 @@
 # Bot Identity on Third-Party Systems
 
+**TRIGGER — read this line at EVERY write to a third-party system, not at
+"merges":** the rule fires on ANY action — a comment, a review reply, a
+thread resolution, a PR creation, a label edit — the moment before the call,
+as a named credential-selection step: *whose name will this surface
+display?* Three seats in one session (2026-07-26) each filed this rule under
+the noun in its tooling's name ("merge-bot") and posted under the owner's
+identity at non-merge writes; the trigger is the WRITE, never the tool
+category.
+
 Owner ruling (agreed ~2026-07-21; re-asserted verbatim 2026-07-23): "if we
 have a bot identity created to represent us on that system, then we MUST
 always use that identity, exceptions are by user permission only and
@@ -29,7 +38,13 @@ The GitHub bot identity is `jimbot-oakington-iii[bot]` (app 4352989).
   (`git config extensions.worktreeConfig true` once, then
   `git config --worktree user.name …` / `user.email …`). NEVER the shared
   repo or global config — that flips the owner's own commits in the primary
-  checkout. The `Co-Authored-By` model trailer stays.
+  checkout: with `extensions.worktreeConfig` enabled, a PLAIN `git config
+  user.*` write from a worktree still targets the SHARED local scope
+  (worked near-miss 2026-07-24 — the primary read the bot for ~1 min).
+  Before any worktree commit, verify both surfaces:
+  `git -C <primary> config user.name` still resolves the human AND the
+  worktree's own config resolves the bot. The `Co-Authored-By` model
+  trailer stays.
 - **PR creation, comments, review replies, thread resolution, merges**: a
   minted installation token (`agent-tools merge-bot mint-token`) exported as
   `GH_TOKEN` for the `gh` invocation.
