@@ -2,10 +2,14 @@ import type { KnipConfig } from 'knip';
 
 const config: KnipConfig = {
   ignoreDependencies: [
-    // MCPJam CLI: invoked as a stdio MCP server from .mcp.json, not imported.
-    // Pinned (not the documented `pnpm dlx @latest`) with a scoped pnpm override
-    // because @latest floats a broken `@modelcontextprotocol/server` alpha — see
-    // README MCPJam prereq. Revert to dlx once upstream is fixed.
+    // MCPJam CLI: invoked as a stdio MCP server from .mcp.json and spawned by
+    // `agent-tools mcp-conformance` via createRequire resolution, not imported.
+    // Compatible range (never `pnpm dlx @latest`): runs must reproduce from the
+    // lockfile, and behaviour is pinned by the mcp-conformance baselines (novel
+    // or vanished check ids fail loudly), not by an exact version. The earlier
+    // exact pin guarded a broken `@modelcontextprotocol/server` alpha that
+    // @latest once floated; 3.15.2 pins that dep exactly (2.0.0-beta.4), and
+    // the "scoped pnpm override" a prior comment cited no longer exists.
     '@mcpjam/cli',
     // Stryker mutation testing (invoked via CLI, not imports)
     '@stryker-mutator/core',
