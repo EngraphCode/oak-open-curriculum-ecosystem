@@ -1,0 +1,130 @@
+name: MCP conformance (unattended)
+
+# MCP-189: the unattended MCPJam conformance subset against the deployed
+# alpha — the headless, credential-free plan (protocol 401-posture shape +
+# oauth DCR discovery legs), verdicted BY NAME against the committed
+# baselines in agent-tools/src/mcp-conformance/baselines/. A new or
+# vanished check or skip fails this job loudly; adjudicate and re-seed the
+# baseline deliberately, never by refreshing it to whatever the run said.
+#
+# SECURITY INVARIANTS (adjudicated 2026-07-26, MCP-189 lane):
+# - NO secrets, ever. This workflow's artifacts are world-readable BECAUSE
+#   the unattended plan is credential-free; introducing any secret here
+#   converts the artifacts into an exfiltration surface and requires fresh
+#   security adjudication. Authed suites run attended, off CI (MCP-125/176
+#   own the credentialed path).
+# - Triggers stay workflow_dispatch only. NEVER add pull_request: fork PRs
+#   would run modified suite code against the alpha. A schedule: trigger was
+#   dropped by owner ruling (2026-07-27, MCP-189): each unattended oauth run
+#   registers a fresh DCR client, so a daily cron created one abandoned
+#   Clerk OAuth client per day — untenable on the production Clerk instance.
+# - Raw report content is live-network-derived UNTRUSTED data: never
+#   interpolate it into run steps or step summaries via expression syntax;
+#   parse from file. Artifact names are fixed, never content-derived.
+
+on:
+  workflow_dispatch: {}
+
+# One run at a time: overlapping manual dispatches must queue, not
+# double-hit the alpha.
+concurrency:
+  group: mcp-conformance-unattended
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  unattended-conformance:
+    name: Unattended suites vs alpha
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup pnpm + Node
+        uses: ./.github/actions/setup
+
+      - name: Run unattended conformance suites
+        # No `--` separator: each pnpm forwarding layer re-appends it, and the
+        # house arg scanner reads a leading `--` as its terminator (verified
+        # end-to-end through both script layers, 2026-07-26).
+        # The `:ci` alias exists BECAUSE dropping `-s` from this line was not
+        # enough: both nested layers re-added it (the root alias ran
+        # `pnpm -s --filter …`, and the workspace alias `pnpm -s build`), so
+        # pnpm's configuration, engine and deprecation warnings stayed hidden
+        # while the job passed green. The `:ci` chain is silence-free end to
+        # end; the plain alias keeps `-s` for stdout consumers who need pure
+        # JSON. This gate's verdict reads the exit code and the uploaded report
+        # dir, never stdout, so it gives up nothing by being loud.
+        run: >-
+          pnpm mcp:conformance:ci
+          --target https://curriculum-mcp-alpha.oaknational.dev/mcp
+          --unattended
+          --report-dir tmp/mcp-conformance/ci
+
+      # Vendor warnings ride each suite outcome as `mcpjamStderr`. Per
+      # `no-warning-toleration` clause 3, a third-party warning the repo
+      # cannot suppress at source is captured as a structured signal and
+      # triaged — a CI annotation is one of the named forms. Annotated
+      # rather than made fatal because this is the vendor's boundary, not
+      # one this repo owns; but a field in an uploaded artefact is not a
+      # signal anybody reads, and an annotation is.
+      - name: Annotate vendor warnings
+        if: always()
+        run: |
+          summary=tmp/mcp-conformance/ci/summary.json
+          if [ ! -f "$summary" ]; then
+            echo "no summary.json to scan for vendor warnings"
+            exit 0
+          fi
+          node --input-type=module -e '
+            import { readFileSync } from "node:fs";
+            // mcpjamStderr is live-network-derived UNTRUSTED text, and GitHub
+            // parses %, CR and LF inside workflow commands. A bare CR
+            // TERMINATES this command and lets whatever follows be read as a
+            // fresh one — command injection, not merely a mangled message.
+            // Percent must be encoded FIRST or the encodings below are
+            // themselves double-encoded. Mirrors escapeAnnotationMessage /
+            // escapeAnnotationProperty in
+            // agent-tools/src/ci/ci-turbo-report-formatting.ts; deliberately
+            // not imported, so this step never couples to dist layout.
+            const escapeData = (value) =>
+              value.replaceAll("%", "%25").replaceAll("\r", "%0D").replaceAll("\n", "%0A");
+            const escapeProperty = (value) =>
+              escapeData(value).replaceAll(":", "%3A").replaceAll(",", "%2C");
+            const report = JSON.parse(readFileSync(process.argv[1], "utf8"));
+            for (const suite of report.suites ?? []) {
+              const stderr = suite.mcpjamStderr;
+              if (typeof stderr === "string" && stderr !== "") {
+                const title = escapeProperty(String(suite.suite));
+                console.log(
+                  `::warning title=mcpjam vendor warning (${title})::${escapeData(stderr)}`,
+                );
+              }
+            }
+          ' "$summary"
+
+      # A pre-upload credential scan was drafted here and REMOVED before merge
+      # (MCP-217 owns it). Two review findings showed the draft was worse than
+      # nothing: it ran AFTER the command had already written report-derived
+      # content to the job log, so a credential could be published before the
+      # scan blocked the artefact; and its key-shaped regexes could not see a
+      # registration body embedded as escaped text inside an `output`, `error`
+      # or stderr string, which is the most likely way one would actually
+      # arrive. A scanner that misses the realistic representation and runs
+      # after the leak buys false confidence — the exact failure MCP-217 was
+      # raised to avoid, applied to my own guard.
+      #
+      # What holds meanwhile is the invariant, not a filter: this workflow
+      # carries NO secrets, so the unattended plan is credential-free, and the
+      # current captures were verified first-hand to contain no secret value.
+      - name: Upload raw reports
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: mcp-conformance-raw-reports
+          path: tmp/mcp-conformance/ci/
+          retention-days: 14

@@ -34,6 +34,8 @@ domain-specific flows:
 - `claude-agent-ops`: monitor background agents, inspect logs, diff worktrees, run preflight checks, and run a summary-first health probe for agent infrastructure drift.
 - `cursor-session-from-claude-session`: find/inspect Claude sessions and generate Cursor takeover bundles with an explicit reintegration contract.
 - `codex-reviewer-resolve`: resolve a repo-local Codex reviewer adapter to the exact `.codex` and canonical `.agent` files that should ground a review.
+- `protocol-conformance`: recompute the estate's collaboration-protocol tier from artefacts and gates and compare it against the declared floor.
+- `mcp-conformance`: run MCPJam conformance suites (lockfile-installed `@mcpjam/cli`) against a deployed MCP surface — verdicts BY NAME against committed baselines (default), or capture observation seeds for authoring baselines via `--seed` (root alias `pnpm -s mcp:conformance` — the `-s` keeps stdout pure JSON on failing runs).
 
 ## Structure
 

@@ -19,7 +19,9 @@ import type { JSX } from 'react';
 import { OAK_DS_BASE } from './design-system-refs.js';
 
 const OAK_WEBSITE_URL = 'https://www.thenational.academy';
-const OAK_TEACHERS_URL = 'https://www.thenational.academy/teachers';
+const OAK_TEACHERS_URL = `${OAK_WEBSITE_URL}/teachers`;
+const OAK_TERMS_URL = `${OAK_WEBSITE_URL}/legal/terms-and-conditions-api-version`;
+const OAK_PRIVACY_URL = `${OAK_WEBSITE_URL}/legal/privacy-policy`;
 
 /**
  * The masthead: Oak's black tab bar over the white logo bar.
@@ -78,7 +80,14 @@ export function SiteMasthead(): JSX.Element {
 }
 
 /**
- * The footer: Oak's squiggle rule, logo, and registered-company line.
+ * The footer: Oak's squiggle rule, logo, legal links, and registered-company
+ * line.
+ *
+ * @remarks
+ * The legal links carry the main site's link text verbatim; the privacy URL
+ * mirrors the main-site footer, while the terms URL points at Oak's
+ * API-version terms by the owner's direction (2026-07-28, both verified
+ * live) — this page states Oak's terms, it does not author its own.
  */
 export function SiteFooter(): JSX.Element {
   return (
@@ -92,10 +101,23 @@ export function SiteFooter(): JSX.Element {
         <a href={OAK_WEBSITE_URL} aria-label="Oak National Academy home">
           <img src={`${OAK_DS_BASE}/assets/logo-full-black.svg`} alt="" />
         </a>
-        <address className="site-footer-meta">
-          <p className="oak-body-3-bold">© Oak National Academy Limited, No 14174888</p>
-          <p className="oak-body-4">1 Scott Place, 2 Hardman Street, Manchester, M3 3AA</p>
-        </address>
+        {/* One right-hand meta column preserves the footer's ratified two-slot
+            grammar (logo left, meta right); the legal links sit with the
+            company details they accompany, as on the main site. */}
+        <div className="oak-stack oak-stack--s">
+          <nav className="site-footer-legal oak-cluster" aria-label="Legal">
+            <a className="oak-link oak-body-3" href={OAK_TERMS_URL}>
+              Terms &amp; conditions
+            </a>
+            <a className="oak-link oak-body-3" href={OAK_PRIVACY_URL}>
+              Privacy policy
+            </a>
+          </nav>
+          <address className="site-footer-meta">
+            <p className="oak-body-3-bold">© Oak National Academy Limited, No 14174888</p>
+            <p className="oak-body-4">1 Scott Place, 2 Hardman Street, Manchester, M3 3AA</p>
+          </address>
+        </div>
       </div>
     </footer>
   );

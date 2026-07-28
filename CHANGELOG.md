@@ -1,3 +1,43 @@
+## [1.106.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.106.0...v1.106.1) (2026-07-28)
+
+
+### Bug Fixes
+
+* **landing-page:** point the footer terms link at Oak's API-version terms ([be6abf0](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/be6abf0f7b570b3857379a9861ce9e2e31dd963a))
+
+# [1.106.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.105.0...v1.106.0) (2026-07-28)
+
+
+### Bug Fixes
+
+* **landing-page:** let design-system link state colours win over the footer chrome colour ([caf2641](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/caf26417070ce517dd7cb0d71f8ebbde4d2e43c2)), closes [#608](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/608)
+
+
+### Features
+
+* **landing-page:** link Oak's terms and conditions and privacy policy in the footer ([94c3745](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/94c3745ff06b2c29c0eb24becea8c96ffbe1b9d5))
+
+# [1.105.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.104.1...v1.105.0) (2026-07-28)
+
+
+### Bug Fixes
+
+* **agent-tools:** close two vacuous-pass paths; annotate vendor warnings in CI ([7e6a186](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/7e6a186dc73d22329e865e381daeabbc7f03dd27))
+* **agent-tools:** cure the two Sonar new-code findings on the mcp-conformance surface ([45d6f64](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/45d6f6480f3ce5ce4eeedf44cd220c7c7c2a9089))
+* **agent-tools:** drop the pre-upload credential scan; unsilence the CI chain ([fdb4d1f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/fdb4d1f4363f0780d5a065cfbdfe8d0371f54de0))
+* **agent-tools:** escape untrusted vendor stderr in CI annotations; reject empty suite groups ([e89beb1](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e89beb1619cdd50fe6668a82f180d44d42a9bd95))
+* **agent-tools:** mcp-conformance review cures — seed op, fail-fast verdicts, composed reasons ([f132501](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f132501e046d8e02fe3ead096952a8622eb9f098)), closes [#570](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/570)
+* **agent-tools:** mcp-conformance round 2 — timeout diagnostics + vacuous-pass guards ([ca050a1](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ca050a19d81c302bad77512a64d6a231cdab479b)), closes [#570](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/570)
+* **agent-tools:** pin suite report identity and keep warnings from passing runs ([ce76736](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ce767369b6f84d0fa2a259290e861f966eeb746a))
+* **agent-tools:** tighten report permissions before writing; verify report provenance ([91530dd](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/91530dd1eba86d5a877b344cc53ec5fc76c0568d))
+* **agent-tools:** write conformance reports owner-only (0600) ([fbb18d6](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/fbb18d66f7478e7580ed662ca0ecaeee62de2cae))
+* **mcp-conformance:** apply the adjudicated review fixes and drop the daily cron ([a3d7e32](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a3d7e32b98a9264e2aa428f7cf806923d12f2a16))
+
+
+### Features
+
+* **agent-tools:** add mcp-conformance MCPJam wrapper with named-verdict baselines (MCP-189) ([bc202bd](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bc202bd848bceb29a54a7bcce689dbfd126246b0))
+
 ## [1.104.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.104.0...v1.104.1) (2026-07-28)
 
 # [1.104.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.103.2...v1.104.0) (2026-07-28)
