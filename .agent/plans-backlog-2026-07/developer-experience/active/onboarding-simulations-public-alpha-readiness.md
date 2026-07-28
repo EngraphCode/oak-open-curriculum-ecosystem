@@ -1383,6 +1383,14 @@ worth preserving for the skill:
   session ("other than that I don't want to prescribe how they should
   work", recorded in that session's napkin entry). The interactive walker
   must preserve that minimalism rather than prescribing workflow.
+  *(Superseded on the close half, 2026-07-28: the close bookend is now
+  `oak-wrap` at every session end — owner ruling "it was never my intention
+  to use wrap for 'big sessions', it is for all sessions"; the
+  [ADR-150](../../../../docs/architecture/architectural-decisions/150-continuity-surfaces-session-handoff-and-surprise-pipeline.md)
+  and
+  [PDR-011](../../../practice-core/decision-records/PDR-011-continuity-surfaces-and-surprise-pipeline.md)
+  amendments and MCP-299 carry the re-truing. The bookends-only minimalism
+  itself stands unchanged — historical entry retained per convention.)*
 - Setup-surface validation: the sanctioned MCP set in
   [mcp-servers-for-contributors.md](../../../../docs/engineering/mcp-servers-for-contributors.md)
   already covered every server a real day-one checklist needed; the one

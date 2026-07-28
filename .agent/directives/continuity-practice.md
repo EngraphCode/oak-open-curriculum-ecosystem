@@ -131,9 +131,10 @@ Two loops exist, and they are not the same.
 
 ### Lightweight Continuity Loop
 
-Use `session-handoff` at ordinary session end.
+Every session closes with `wrap` (owner ruling 2026-07-28), which runs
+`session-handoff` as its continuity component.
 
-Its responsibilities are deliberately narrow:
+The component's responsibilities are deliberately narrow:
 
 - record landed or unlanded outcome against the landing target;
 - refresh compact active state in `repo-continuity.md`;
@@ -216,9 +217,10 @@ Use it after `start-right-quick` when:
 - the risk of drift is rising and the todo list needs re-grounding.
 
 `GO` starts from the session-start workflow, `repo-continuity.md`,
-the relevant thread record, and the active plan set. Close ordinary
-sessions with `session-handoff`. Use `oak-consolidate-docs` only when
-the trigger checklist says deep convergence is due.
+the relevant thread record, and the active plan set. Close every
+session with `wrap` (which runs `session-handoff`). Use
+`oak-consolidate-docs` only when the trigger checklist says deep
+convergence is due.
 
 ## Surprise Pipeline
 

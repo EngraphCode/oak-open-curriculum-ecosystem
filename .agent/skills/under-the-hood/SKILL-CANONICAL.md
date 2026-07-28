@@ -373,7 +373,7 @@ When a conversation reaches its end, close with one message suited to the mode:
    visit versus already in place (honest attribution).
 2. Next steps for their angle: engineers → the live `CONTRIBUTING.md` development
    process and the two session bookends (open with
-   a start-right skill, close with `oak-session-handoff`) as the only prescribed
+   a start-right skill, close with `oak-wrap`) as the only prescribed
    practices — beyond the bookends the team deliberately does not prescribe how
    anyone works; strategy readers → where new reports land.
 3. They can come back any time (`/oak-under-the-hood`); it picks up where reality is.
