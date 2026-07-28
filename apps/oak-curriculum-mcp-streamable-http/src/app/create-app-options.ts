@@ -1,5 +1,7 @@
 import type { RequestHandler } from 'express';
+import type { Transport } from '@modelcontextprotocol/sdk/shared/transport.js';
 import type { Logger } from '@oaknational/logger';
+import type { McpTransportObserver } from '@oaknational/observability';
 import type { RuntimeConfig } from '../runtime-config.js';
 import type { HttpObservability } from '../observability/http-observability.js';
 import type { RateLimiterFactory } from '../rate-limiting/index.js';
@@ -65,4 +67,14 @@ export interface CreateAppOptions {
    * production omits it and the `process.cwd()` candidate probe governs.
    */
   readonly staticRoot?: string;
+  /**
+   * Product-analytics transport observer (MCP-241). Passed structurally to
+   * `initializeCoreEndpoints`: each per-request transport goes through
+   * `observe` and the returned transport is what `server.connect` receives,
+   * while `handleRequest` stays on the concrete transport. Omitted → off
+   * mode: the connect target is the exact concrete transport reference.
+   * The composition roots supply the selected-mode observer when the
+   * product-analytics runtime is composed (MCP-241 PR-B).
+   */
+  readonly transportObserver?: McpTransportObserver<Transport>;
 }

@@ -12,7 +12,9 @@
 import type { Express, RequestHandler } from 'express';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
+import type { Transport } from '@modelcontextprotocol/sdk/shared/transport.js';
 import { wrapMcpServerWithSentry } from '@sentry/node';
+import type { McpTransportObserver } from '@oaknational/observability';
 import type { Logger } from '@oaknational/logger';
 import {
   SERVER_INSTRUCTIONS,
@@ -46,6 +48,26 @@ interface CoreEndpointOptions {
    * module-level `SERVED_SURFACE` definition.
    */
   readonly servedSurface?: ServedSurfaceDefinition;
+  /**
+   * Product-analytics transport observer (MCP-241). The factory passes
+   * each fresh per-request transport through `observe` and hands the
+   * returned transport to `server.connect`, retaining the concrete
+   * transport for `handleRequest`. Omitted → off mode: `connectTransport`
+   * is the exact concrete transport reference.
+   */
+  readonly transportObserver?: McpTransportObserver<Transport>;
+}
+
+/**
+ * Off mode (no observer) keeps the exact concrete transport as the connect
+ * target; a supplied observer's return value becomes the connect target
+ * while `handleRequest` stays on the concrete transport (MCP-241).
+ */
+function deriveConnectTransport(
+  transport: StreamableHTTPServerTransport,
+  observer?: McpTransportObserver<Transport>,
+): Transport {
+  return observer ? observer.observe(transport) : transport;
 }
 
 /** Initialises core MCP endpoints, returns a per-request factory. @see ADR-112 */
@@ -55,7 +77,7 @@ export function initializeCoreEndpoints(
   log: Logger,
   assetRateLimiter: RequestHandler,
 ): { mcpFactory: McpServerFactory } {
-  const { runtimeConfig, observability } = options;
+  const { runtimeConfig, observability, transportObserver } = options;
   const searchRetrieval = runtimeConfig.useStubTools
     ? createStubSearchRetrieval()
     : createSearchRetrieval(runtimeConfig.env, log);
@@ -107,7 +129,8 @@ export function initializeCoreEndpoints(
 
     registerHandlers(server, handlerOptions);
     const transport = new StreamableHTTPServerTransport({ sessionIdGenerator: undefined });
-    return { server, transport };
+    const connectTransport = deriveConnectTransport(transport, transportObserver);
+    return { server, transport, connectTransport };
   };
 
   addHealthEndpoints(app, log);
