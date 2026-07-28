@@ -25,7 +25,7 @@ describe('deriveExampleArgs — example inputs come from the advertised schema, 
     }
   });
 
-  it('includes an optional property only when it carries an example and required alone is empty', () => {
+  it('a tool with no required properties derives the empty invocation — optionals are never included', () => {
     // A no-required-properties tool still gets a minimal call: {} — the
     // honest minimal invocation is the empty object, not invented optionals.
     const result = deriveExampleArgs('get-key-stages', {

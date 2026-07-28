@@ -86,6 +86,11 @@ describe('validateCliState — the drive operation (MCP-303)', () => {
     expect(refusal).toContain('--unattended');
   });
 
+  it('drive derives from the live surface, so --baseline-dir is refused rather than silently ignored', () => {
+    const refusal = validateCliState({ ...DRIVE, baselineDir: 'somewhere/baselines' });
+    expect(refusal).toContain('--baseline-dir');
+  });
+
   it('pack-out and preamble-file only mean something under --drive', () => {
     expect(validateCliState({ ...RUNNABLE, packOut: 'tmp/pack.md' })).toContain('--drive');
     expect(validateCliState({ ...RUNNABLE, preambleFile: 'tmp/preamble.json' })).toContain(

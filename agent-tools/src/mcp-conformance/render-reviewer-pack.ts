@@ -53,6 +53,25 @@ export interface RenderReviewerPackInput {
   readonly provenance: ReviewerPackProvenance;
 }
 
+/**
+ * One pack section per witness. Tool names are boundary-validated by the
+ * drive's list schema (safe as headings); failure detail embeds
+ * vendor-controlled text (stdout/stderr excerpts), so it renders inside a
+ * four-backtick fence — no server output can inject Markdown or HTML into
+ * the outward-facing pack.
+ */
+function witnessSection(witness: DriveWitness): readonly string[] {
+  const invocation =
+    witness.args === undefined
+      ? []
+      : ['Invocation arguments:', '', '```json', JSON.stringify(witness.args, null, 2), '```', ''];
+  const result =
+    witness.outcome === 'called-ok'
+      ? ['Exercised successfully against the live server.', '']
+      : ['NOT exercised:', '', '````text', witness.detail, '````', ''];
+  return [`### ${witness.toolName}`, '', ...invocation, ...result];
+}
+
 export function renderReviewerPack(input: RenderReviewerPackInput): string {
   const header = [
     '# Oak Curriculum MCP — reviewer walkthrough',
@@ -73,29 +92,16 @@ export function renderReviewerPack(input: RenderReviewerPackInput): string {
       ...header,
       '## Walkthrough unavailable',
       '',
-      `The tool list could not be obtained from the server: ${input.outcome.listFailure}`,
+      'The tool list could not be obtained from the server:',
+      '',
+      '````text',
+      input.outcome.listFailure,
+      '````',
       '',
     ].join('\n');
   }
   const exercised = input.outcome.witnesses.filter((w) => w.outcome === 'called-ok');
-  const sections = input.outcome.witnesses.flatMap((witness: DriveWitness) => {
-    const invocation =
-      witness.args === undefined
-        ? []
-        : [
-            'Invocation arguments:',
-            '',
-            '```json',
-            JSON.stringify(witness.args, null, 2),
-            '```',
-            '',
-          ];
-    const result =
-      witness.outcome === 'called-ok'
-        ? ['Exercised successfully against the live server.', '']
-        : [`NOT exercised — ${witness.detail}`, ''];
-    return [`### ${witness.toolName}`, '', ...invocation, ...result];
-  });
+  const sections = input.outcome.witnesses.flatMap(witnessSection);
   return [
     ...header,
     `## Tools (${exercised.length} of ${input.outcome.witnesses.length} tools exercised)`,

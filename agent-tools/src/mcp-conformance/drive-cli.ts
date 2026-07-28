@@ -102,13 +102,37 @@ export function runDriveFromCli(state: CliState, target: string): 0 | 1 {
     reportDir,
   };
   const pack = renderReviewerPack({ target, preamble: preamble.value, outcome, provenance });
-  const packPath = resolve(repoRoot, state.packOut ?? join(reportDir, 'reviewer-pack.md'));
+  if (!writePack(repoRoot, reportDir, state.packOut, pack)) {
+    return 1;
+  }
+  return allToolsExercised(outcome) ? 0 : 1;
+}
+
+/**
+ * Write the rendered pack owner-only at its resolved destination, refusing
+ * a `--pack-out` that collides with the run summary — both documented
+ * outputs must coexist, and a pack silently replacing the summary would be
+ * a green run missing an artefact.
+ */
+function writePack(
+  repoRoot: string,
+  reportDir: string,
+  packOut: string | undefined,
+  pack: string,
+): boolean {
+  const packPath = resolve(repoRoot, packOut ?? join(reportDir, 'reviewer-pack.md'));
+  if (packPath === resolve(repoRoot, join(reportDir, 'summary.json'))) {
+    process.stderr.write(
+      `--pack-out must not name the run summary path (${packPath}) — both documented outputs must coexist\n`,
+    );
+    return false;
+  }
   const written = retainOwnerOnlyAt(packPath, pack);
   if (!written.ok) {
     process.stderr.write(
       `the reviewer pack could not be written to ${packPath}: ${written.error}\n`,
     );
-    return 1;
+    return false;
   }
-  return allToolsExercised(outcome) ? 0 : 1;
+  return true;
 }

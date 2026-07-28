@@ -213,6 +213,46 @@ describe('runDrive — every advertised tool is driven with advertised examples'
     expect(outcome.witnesses).toEqual([]);
   });
 
+  it('a tool advertising no inputSchema is underivable — a schema is never invented for it', () => {
+    const mutated = parseFixtureList();
+    const target = mutated.tools.find((tool) => tool.name === 'get-subjects');
+    if (target !== undefined) {
+      target.inputSchema = undefined;
+    }
+    const outcome = runDrive(
+      fakeDriveIo({ list: ok({ exitCode: 0, stdout: JSON.stringify(mutated), stderr: '' }) }),
+    );
+    const witness = outcome.witnesses.find((w) => w.toolName === 'get-subjects');
+    expect(witness?.outcome).toBe('no-example');
+  });
+
+  it('duplicate advertised tool names are a refusal — an ambiguous surface cannot be driven honestly', () => {
+    const mutated = parseFixtureList();
+    const first = mutated.tools[0];
+    if (first !== undefined) {
+      mutated.tools.push({ ...first });
+    }
+    const outcome = runDrive(
+      fakeDriveIo({ list: ok({ exitCode: 0, stdout: JSON.stringify(mutated), stderr: '' }) }),
+    );
+    expect(outcome.listFailure).toContain('duplicate names');
+    expect(outcome.listFailure).toContain(first?.name ?? '');
+    expect(outcome.witnesses).toEqual([]);
+  });
+
+  it('a tool name outside the conventional shape is a loud list refusal, never a pack heading', () => {
+    const mutated = parseFixtureList();
+    const target = mutated.tools.find((tool) => tool.name === 'get-subjects');
+    if (target !== undefined) {
+      target.name = 'get/subjects\n## injected';
+    }
+    const outcome = runDrive(
+      fakeDriveIo({ list: ok({ exitCode: 0, stdout: JSON.stringify(mutated), stderr: '' }) }),
+    );
+    expect(outcome.listFailure).toContain('mcpjam tools list output');
+    expect(outcome.witnesses).toEqual([]);
+  });
+
   it('a zero-tool list is a refusal, never a vacuous green', () => {
     const outcome = runDrive(
       fakeDriveIo({ list: ok({ exitCode: 0, stdout: '{"tools":[]}', stderr: '' }) }),

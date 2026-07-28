@@ -32,7 +32,11 @@ const toolsListOutputSchema = z
     tools: z.array(
       z
         .object({
-          name: z.string().min(1),
+          // Names are boundary-validated to the conventional MCP shape so the
+          // pack's Markdown headings and the per-tool evidence filenames are
+          // safe by construction — a server advertising anything else is an
+          // unusable surface, loudly.
+          name: z.string().regex(/^[A-Za-z0-9._-]+$/u),
           inputSchema: z.unknown().optional(),
           annotations: z.object({ readOnlyHint: z.boolean().optional() }).loose().optional(),
         })
@@ -187,8 +191,13 @@ function obtainToolList(io: DriveIo): { readonly failure?: string; readonly list
   return { listed: listed.value };
 }
 
-/** A well-formed list can still be unusable: paginated, or empty. */
+/** A well-formed list can still be unusable: paginated, empty, or ambiguous. */
 function unusableListReason(listed: ListedTools): string | undefined {
+  const names = listed.tools.map((tool) => tool.name);
+  const duplicates = [...new Set(names.filter((name, index) => names.indexOf(name) !== index))];
+  if (duplicates.length > 0) {
+    return `the tool list advertises duplicate names (${duplicates.join(', ')}) — an ambiguous surface cannot be driven honestly: witnesses and retained evidence would silently overwrite each other`;
+  }
   if (listed.nextCursor !== undefined) {
     return 'the tool list is paginated (nextCursor present) — this drive reads a single page and refuses to under-report the surface; teach it pagination before trusting a run against this server';
   }
@@ -220,7 +229,10 @@ export function runDrive(io: DriveIo): DriveOutcome {
           'the tool does not advertise readOnlyHint: true — this drive invokes tools blindly and refuses any tool not declared read-only',
       };
     }
-    const derived = deriveExampleArgs(tool.name, tool.inputSchema ?? { type: 'object' });
+    // No fallback: a tool advertising NO inputSchema is underivable — inventing
+    // an empty object schema here would let the pack claim an exercise that no
+    // advertised metadata supports.
+    const derived = deriveExampleArgs(tool.name, tool.inputSchema);
     if (isErr(derived)) {
       return { toolName: tool.name, args: undefined, outcome: 'no-example', detail: derived.error };
     }

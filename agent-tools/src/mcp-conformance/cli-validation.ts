@@ -45,6 +45,9 @@ function validateDriveUsage(state: CliState): string | undefined {
   if (state.unattended) {
     return '--drive has no unattended mode (tool calls need the authed surface) — drop --unattended';
   }
+  if (state.baselineDir !== undefined) {
+    return '--baseline-dir belongs to the baseline-verdict operation — the drive derives from the live surface; drop the flag';
+  }
   return undefined;
 }
 
