@@ -2302,3 +2302,67 @@ Worth noting for whoever graduates this: the containment that worked was NOT cat
 rather than my own, and declined to card the owner with it. So when it proved wrong, the blast radius
 was one ticket comment I could correct, not a decision he had acted on. Attribution limits damage even
 when verification fails.
+
+## 2026-07-28 ~15:18Z — Altair turns Infinity (7a97a1): compaction-2 freeze captures
+
+**F-92 third instance, one surface deeper again**: a relabelled heartbeat loop carried ONLY
+the claim named at relabel time — the claim opened MINUTES LATER (MCP-303's 32541c0c) never
+joined the tick, its registry heartbeat EMPTY until the wrap sweep read the rows by name.
+The relabel discipline needs a conjugate: claim-OPEN is also a loop-relabel moment, not
+just lane transitions. Caught only because the wrap's work-safety sweep reads the claim
+ROWS, not the loop's own output — the detector that cannot detect itself, again.
+
+**Backtick in an inline comms --body is a live command substitution**: zsh executed
+`oauth login` out of a doctrine phrase mid-send and the event landed with the term EATEN —
+transmitted-mangled, exit 0. The --body-file standing duty is not a style preference; it is
+the only quoting-safe transport. Same class as exit-codes-in-band: the shell is an
+instrument with its own opinions about your payload. (Correction event sent same hour;
+this entry is the pattern pointer.)
+
+**Instrument-honesty pair for the day, seat-level**: (1) reviews API pages oldest-first,
+default 30 — an unpaginated read is GUARANTEED to hide the rows you asked about on any PR
+with history ("a page as the list"); (2) a review PRESENT on a PR is not a review OF the
+merged head — match by commit id ("presence is not currency"). Two seats, ten minutes,
+opposite directions, same shape: a partial view reported as a whole. Full pair + matrix on
+MCP-313.
+
+## 2026-07-28 ~16:20Z — conformance is not correctness, and the instrument-state family (Squall wakes Apex)
+
+Four MCPJam suites run against the deployed server in one afternoon, all clean: OAuth conformance
+15/15 (2025-11-25, DCR), protocol 10/15 with **zero failed**, MCP Apps 7/7, host compatibility zero
+blocked across sixteen hosts. By every spec measure available, the server is impeccable.
+
+The same afternoon, actually CALLING all forty tools found: four whose advertised schemas do not
+express what they require, two undriveable from their own schemas, `download-asset` minting signed
+five-minute URLs for lessons that do not exist, an example slug that is dead, and an example
+pointing into our own copyright exclusions.
+
+**The suites test the protocol. Driving the tools tested the product.** Both are worth running and
+they answer different questions; the danger is a green conformance board being read as product
+health, because it is the cheaper artefact and it arrives first.
+
+### The instrument-state family, four instances in one day
+
+Today produced four errors with one shape — **a reading about the target that was really a reading
+about the instrument's state**:
+
+1. **The always-succeeding control.** `download-asset` was used as evidence that a lesson existed.
+   It succeeds for everything; that IS the defect. Using the broken thing as the control.
+2. **The page read as the list.** `/pulls/{n}/reviews` pages oldest-first, default 30. An
+   unpaginated read on a busy PR is *guaranteed* to hide the recent rows — precisely the ones being
+   asked about. I corrected a peer from that partial view.
+3. **The unauthenticated inspector.** MCPJam's UI showed "Connected" and four red spec failures with
+   a *"fix these checks first"* banner. The server was fine; the session had no token. Reproduced
+   exactly by running the CLI without credentials — same four check names.
+4. **The stale-head review.** A Copilot review arrived and did not cover the head it would be merged
+   against, because the head moved between request and delivery.
+
+The generalisation, and the one worth carrying: **before believing a red or a green, ask what state
+the instrument was in.** Authenticated? Complete? Current? Independent of the thing it is measuring?
+Each of the four was a truthful instrument answering a question slightly different from the one
+asked — which is far harder to catch than a broken one, because nothing looks wrong.
+
+Operational form, cheap enough to always do: **name the instrument's state in the same sentence as
+its result.** "Protocol conformance passes, authenticated, against the alpha host at 16:05Z" cannot
+be misread the way "protocol conformance passes" can. Every one of the four failures above would
+have been caught at authoring time by that habit alone.
