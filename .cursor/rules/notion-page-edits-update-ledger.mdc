@@ -1,5 +1,5 @@
 ---
-description: Within the owner-allowlisted Live Vision, Strategy, and Planning subtree, every agent-authored Notion page change set appends one repository-attributed ledger line plus a collapsed agent and credential traceability toggle.
+description: On any Notion page carrying the [AI Managed] title designation (or sitting beneath one), every agent-authored change set appends one repository-attributed ledger line plus a collapsed agent and credential traceability toggle.
 alwaysApply: true
 ---
 

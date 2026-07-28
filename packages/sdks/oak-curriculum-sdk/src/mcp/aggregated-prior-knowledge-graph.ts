@@ -101,6 +101,7 @@ Complements get-thread-progressions (full thread learning paths) with anchored p
     destructiveHint: false as const,
     idempotentHint: true as const,
     openWorldHint: false as const,
+    title: PRIOR_KNOWLEDGE_TOOL_TITLE,
   },
 
   _meta: {

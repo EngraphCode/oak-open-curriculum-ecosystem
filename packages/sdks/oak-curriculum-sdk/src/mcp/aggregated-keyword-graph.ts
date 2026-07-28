@@ -112,6 +112,7 @@ Complements get-keywords (live full set), get-misconception-graph, get-prior-kno
     destructiveHint: false as const,
     idempotentHint: true as const,
     openWorldHint: false as const,
+    title: KEYWORD_GRAPH_TOOL_TITLE,
   },
 
   _meta: {

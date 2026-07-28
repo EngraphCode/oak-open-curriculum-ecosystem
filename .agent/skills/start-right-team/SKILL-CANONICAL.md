@@ -742,7 +742,7 @@ closing, or replacing that claim, and state their next coordination-visible
 action.
 
 Non-closeout agents provide a boundary-scoped synthesis instead of running the
-full `session-handoff` workflow:
+full `wrap` closeout (which carries `session-handoff`):
 
 ```text
 Team member closeout:

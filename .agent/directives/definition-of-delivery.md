@@ -15,7 +15,7 @@ split_strategy: >-
 plan, and gate treats as "done").
 **Authority order**: this directive is authoritative on *what counts as
 delivered*. It sits **above** the session/workflow surfaces
-(`session-handoff`, `start-right-*`) and plan acceptance criteria for that
+(`wrap`, `session-handoff`, `start-right-*`) and plan acceptance criteria for that
 question; it **composes with** PDR-026 (per-session landing) and
 `tdd-as-design.md` Corollary 3; it sits **below** `principles.md` for any
 repository-wide rule.

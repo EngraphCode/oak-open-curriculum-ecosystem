@@ -132,6 +132,7 @@ describe('GET_MISCONCEPTION_GRAPH_TOOL_DEF', () => {
       destructiveHint: false,
       idempotentHint: true,
       openWorldHint: false,
+      title: GET_MISCONCEPTION_GRAPH_TOOL_DEF.title,
     });
   });
 });

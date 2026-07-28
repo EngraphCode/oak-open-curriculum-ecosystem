@@ -147,6 +147,7 @@ Complements get-prior-knowledge-graph (prerequisite gaps) with per-lesson miscon
     destructiveHint: false as const,
     idempotentHint: true as const,
     openWorldHint: false as const,
+    title: MISCONCEPTION_TOOL_TITLE,
   },
 
   _meta: {

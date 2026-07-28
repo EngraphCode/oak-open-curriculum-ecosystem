@@ -1,6 +1,6 @@
 # ADR-150: Continuity Surfaces, Session Handoff, and Surprise Pipeline
 
-**Status**: Accepted (amended 2026-04-20, 2026-04-21, 2026-05-29, 2026-06-07, 2026-06-08)
+**Status**: Accepted (amended 2026-04-20, 2026-04-21, 2026-05-29, 2026-06-07, 2026-06-08, 2026-06-12, 2026-06-19, 2026-07-28)
 **Date**: 2026-04-02 (amended 2026-04-20 — §3 abstracted from
 prompt-host to canonical repo-local surface; §4 generalised; Rationale
 and Consequences language aligned to the amendment per OAC Phase 4.3;
@@ -135,6 +135,23 @@ doctrine carried forward in the parallel PDR-011 amendment)
   directories are removed in the burndown's deletion commit. The terms "track" and
   "workstream" remain valid as conceptual scope descriptors; only the dedicated artefact
   homes are retired.
+- **2026-07-28 — every session closes through the deep-closeout programme (`wrap`); the
+  split-loop model survives inside it.** Owner ruling (verbatim substance): "it was never my
+  intention to use wrap for 'big sessions', it is for all sessions." §1's original
+  ordinary-close routing (session end → lightweight `session-handoff`, with deep closeout as
+  a separate path) is superseded: EVERY session end now enters the `wrap` programme, which
+  runs `session-handoff` as its continuity component and the consolidation gate inside it —
+  the lightweight/deep distinction is preserved one level down, as steps within the
+  programme, rather than as alternative entry points. The §1 prohibition (no implicit
+  full review or commit/push) deliberately narrows to the component: the programme
+  itself carries the work-safety evidence expectation at every close — an intended
+  consequence of the ruling, recorded here. §1 and §4 body text revised to match
+  (live-behaviour prescription, per the 2026-04-20 precedent for body revision). Mirrors the
+  portable PDR-011 amendment
+  ([PDR-011 §Amendment Log 2026-07-28](../../../.agent/practice-core/decision-records/PDR-011-continuity-surfaces-and-surprise-pipeline.md#amendment-log)).
+  Realised in the host `wrap` and `session-handoff` skills, `continuity-practice.md`, the
+  `start-right-team` closeout contract, and the MCP-297 human-facing surfaces (README,
+  CONTRIBUTING, the dev guide, the orientation lens); ticket MCP-299.
 
 ## Context
 
@@ -169,10 +186,19 @@ Treat continuity as a first-class engineering concern with three surfaces:
 
 Adopt the following split-loop model:
 
-### 1. Ordinary session end uses `session-handoff`
+### 1. Every session end runs `wrap`; `session-handoff` is its continuity component
 
-Replace `wrap-up` with a lightweight `session-handoff` command. Its job is only
-to:
+_(Amended 2026-07-28 — see Amendment Log. The original decision replaced the
+retired `wrap-up` ritual with `session-handoff` as the ordinary close; the
+owner's 2026-07-28 ruling routes every session close through the `wrap`
+programme instead, with `session-handoff` preserved as the component below.
+The retired `wrap-up` that §Context argues against was an unconditional
+bundle; the `wrap` programme keeps deep convergence behind the consolidation
+gate, so the §Context rationale still holds against the shape it named.)_
+
+Every session end enters the `wrap` programme, which runs the lightweight
+`session-handoff` workflow as its continuity component. The component's job
+remains deliberately narrow:
 
 - refresh the live continuity contract
 - sync any changed next-action state in plans/prompts
@@ -180,8 +206,9 @@ to:
 - run a consolidation gate that either stops cleanly or escalates into
   `consolidate-docs` when the deeper work is clearly warranted and bounded
 
-It must not implicitly trigger full review, commit/push, or make deep
-convergence the default.
+The component must not itself trigger full review or commit/push, and deep
+convergence remains gated, never the default — the split-loop model survives
+inside the programme.
 
 ### 2. Deep convergence stays in `consolidate-docs`
 
@@ -231,9 +258,9 @@ Retain `GO` as a complementary execution workflow. It starts from
 workstream brief it links to), and the active plan set for the current
 lane.
 
-It is not a handoff surface. Ordinary closeout goes through `session-handoff`.
-Deep convergence goes through `consolidate-docs` when the trigger checklist
-fires.
+It is not a handoff surface. Session closeout goes through `wrap` (which runs
+`session-handoff`; amended 2026-07-28). Deep convergence goes through
+`consolidate-docs` when the trigger checklist fires.
 
 ### 5. Surprise becomes an explicit pipeline
 

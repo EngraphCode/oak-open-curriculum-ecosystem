@@ -38,7 +38,7 @@ rule fires before:
 
 It also fires when authoring on any non-GitHub outward surface (a vendor
 dashboard, external tracker, or published page) through credentials that
-identify a human rather than the agent. Notion page edits inside the owner-allowlisted subtree use
+identify a human rather than the agent. Notion page edits on `[AI Managed]` pages use
 a hybrid ledger: delivery-estate provenance on the visible line and the full agent/credential
 chain in a collapsed toggle. Their complete attribution contract is
 [`notion-page-edits-update-ledger`](./notion-page-edits-update-ledger.md).
@@ -115,7 +115,7 @@ visible in truncated comment lists where a trailing signature is not
   (carry PDR-027 name+UUID by construction).
 - **Not in scope:** content authored under the agent's *own* distinct account
   (where the actor is already visible) — though a marker there is harmless.
-- **Already covered, do not double-mark:** Notion page edits inside the owner-allowlisted subtree.
+- **Already covered, do not double-mark:** Notion page edits on `[AI Managed]` pages.
   Their hybrid page-local ledger identifies the originating repository visibly and the
   agent/session/credential chain in a collapsed toggle once per coherent change set, as required by
   [`notion-page-edits-update-ledger`](./notion-page-edits-update-ledger.md). Do not add a separate

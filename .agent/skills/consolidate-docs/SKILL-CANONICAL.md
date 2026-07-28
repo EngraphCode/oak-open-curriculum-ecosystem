@@ -28,8 +28,10 @@ cross-session convergence is due.
 
 Deep convergence workflow. This is **not** the default end-of-session flow.
 
-Use this workflow only when one or more triggers hold. If none apply, use
-[`session-handoff`](../session-handoff/SKILL-CANONICAL.md) instead.
+Use this workflow only when one or more triggers hold. If none apply, the
+session still closes through [`wrap`](../wrap/SKILL-CANONICAL.md), whose
+[`session-handoff`](../session-handoff/SKILL-CANONICAL.md) component runs
+without this deep pass.
 
 ## Approach
 

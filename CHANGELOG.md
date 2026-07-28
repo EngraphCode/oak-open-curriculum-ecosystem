@@ -1,3 +1,15 @@
+## [1.104.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.104.0...v1.104.1) (2026-07-28)
+
+# [1.104.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.103.2...v1.104.0) (2026-07-28)
+
+
+### Features
+
+* **mcp:** require annotations.title on hand-authored tools, validate parity ([83f7497](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/83f749701debc46c5f5b68e3ef1ad133cc5589b1))
+* **posthog-node:** compose the closed PostHog runtime and isolated MCP SDK logger path ([153f4ef](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/153f4ef30c5e10a1124fcd5af3c25475fe8e74ae)), closes [#576](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/576) [#601](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/601)
+
+## [1.103.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.103.1...v1.103.2) (2026-07-28)
+
 ## [1.103.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.103.0...v1.103.1) (2026-07-28)
 
 # [1.103.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.102.0...v1.103.0) (2026-07-28)
