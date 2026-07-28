@@ -1,3 +1,10 @@
+# [1.109.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.108.0...v1.109.0) (2026-07-28)
+
+
+### Features
+
+* **mcp-app:** declare the posthog adapter dependency and deployment contract ([3156ffd](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3156ffd339b441fea53e0056bae7614ac8551f45))
+
 # [1.108.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.107.1...v1.108.0) (2026-07-28)
 
 
