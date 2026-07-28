@@ -1,3 +1,19 @@
+# [1.107.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.106.1...v1.107.0) (2026-07-28)
+
+
+### Bug Fixes
+
+* **curriculum-sdk:** prove the lesson and asset exist before signing a download URL ([8967f91](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8967f91af18c82a81e3b5beebbf5d465a0b2e53a))
+* **mcp-app:** enforce the adapter key-id contract at the keyring boundary ([63ab757](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/63ab75721ec0e2e18e874a6523bb46c96f19b0e3))
+* **mcp-app:** strip a tolerated capture-mode value from handler env ([23ee50a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/23ee50adda7d83d646dc2a23ac1082e14dc9afff))
+* **sdk:** catch and cure the softer use-X-first imperatives Copilot found (MCP-300) ([5429b2a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5429b2acc6f37041148fb087eb8a41f4887a320e))
+
+
+### Features
+
+* **mcp-app:** validate selected posthog application configuration ([4ccdf00](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4ccdf00940b75e3e5798e3a98b972389b621eb9d))
+* **mcp:** remove call-another-tool-first imperatives from tool descriptions ([4e3ba69](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4e3ba6964e385cd400f03d20607271965963cf8d)), closes [#605](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/605)
+
 ## [1.106.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.106.0...v1.106.1) (2026-07-28)
 
 
