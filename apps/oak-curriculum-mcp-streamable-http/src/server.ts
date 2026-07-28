@@ -15,12 +15,19 @@
  */
 
 import type { IncomingMessage, ServerResponse } from 'node:http';
+import type { Transport } from '@modelcontextprotocol/sdk/shared/transport.js';
 import { setupExpressErrorHandler } from '@sentry/node';
-import type { RuntimeConfig } from './runtime-config.js';
+import type { ProductAnalyticsRuntime } from '@oaknational/observability';
 
 import { WIDGET_HTML_CONTENT } from './generated/widget-html-content.js';
 import { BAKED_LANDING_PAGE_HTML } from './app/landing-page-baked.js';
 import { createApp } from './application.js';
+import {
+  composeProductAnalyticsRuntime,
+  hostingWaitUntil,
+  operationalErrorReporter,
+  releaseInputFromRuntimeEnv,
+} from './compose-product-analytics-runtime.js';
 import { createDeployEntryHandler } from './deploy-entry-handler.js';
 import { createDefaultRateLimiterFactory } from './rate-limiting/index.js';
 import {
@@ -28,37 +35,87 @@ import {
   describeHttpObservabilityError,
   type HttpObservability,
 } from './observability/http-observability.js';
-import { loadRuntimeConfig } from './runtime-config.js';
+import { liveResourceRegistrationNames } from './register-resources.js';
+import { SERVED_SURFACE, liveToolNames } from './served-surface/served-surface.js';
+import { loadRuntimeConfig, type LoadedRuntime, type RuntimeConfig } from './runtime-config.js';
 
 const processEnv = process.env;
 const startDir = process.cwd();
 
 type NodeRequestHandler = (request: IncomingMessage, response: ServerResponse) => unknown;
 
+/** The deploy boundary's single throw site: Vercel's import contract needs a thrown Error. */
+function boundaryError(message: string): never {
+  throw new Error(message);
+}
+
 /**
- * Load the runtime configuration or throw a boundary error.
+ * Load the runtime configuration (handler-facing config plus the
+ * product-analytics bootstrap) or fail the boundary.
  */
-function loadRuntimeConfigOrThrow(): RuntimeConfig {
+function loadLoadedRuntimeOrThrow(): LoadedRuntime {
   const runtimeConfig = loadRuntimeConfig({
     processEnv,
     startDir,
   });
 
   if (!runtimeConfig.ok) {
-    throw new Error(runtimeConfig.error.message);
+    boundaryError(runtimeConfig.error.message);
   }
 
-  return runtimeConfig.value.runtimeConfig;
+  return runtimeConfig.value;
 }
 
 /**
- * Create observability for the deployed app or throw a boundary error.
+ * The one process-owned product-analytics runtime (MCP-241), memoised
+ * OUTSIDE the retried app loader: the deploy entry handler clears and
+ * retries a failed load, and a retry must reuse — never reconstruct — the
+ * client the first attempt composed (the adapter's one-client lifecycle;
+ * nothing closes a superseded client until MCP-243 wires close()).
+ */
+let composedAnalytics: ProductAnalyticsRuntime<Transport> | undefined;
+
+/**
+ * Compose the product-analytics runtime at most once per function isolate
+ * (MCP-241) or fail the boundary. Off mode composes the exact inert
+ * runtime.
+ */
+function composeAnalyticsOnce(
+  loaded: LoadedRuntime,
+  observability: HttpObservability,
+): ProductAnalyticsRuntime<Transport> {
+  if (composedAnalytics === undefined) {
+    const analytics = composeProductAnalyticsRuntime({
+      bootstrap: loaded.productAnalytics,
+      serverVersion: loaded.runtimeConfig.version,
+      releaseInput: releaseInputFromRuntimeEnv(
+        loaded.runtimeConfig.env,
+        loaded.runtimeConfig.version,
+      ),
+      toolNames: liveToolNames(SERVED_SURFACE),
+      resourceNames: liveResourceRegistrationNames(SERVED_SURFACE),
+      waitUntil: hostingWaitUntil,
+      reportOperationalError: operationalErrorReporter(observability.createLogger()),
+    });
+
+    if (!analytics.ok) {
+      boundaryError(analytics.error.message);
+    }
+
+    composedAnalytics = analytics.value;
+  }
+
+  return composedAnalytics;
+}
+
+/**
+ * Create observability for the deployed app or fail the boundary.
  */
 function createObservabilityOrThrow(runtimeConfig: RuntimeConfig): HttpObservability {
   const observability = createHttpObservability(runtimeConfig);
 
   if (!observability.ok) {
-    throw new Error(describeHttpObservabilityError(observability.error));
+    boundaryError(describeHttpObservabilityError(observability.error));
   }
 
   return observability.value;
@@ -68,12 +125,16 @@ function createObservabilityOrThrow(runtimeConfig: RuntimeConfig): HttpObservabi
  * Create the deployed Express application.
  */
 async function loadConfiguredApp(): Promise<NodeRequestHandler> {
-  const runtimeConfig = loadRuntimeConfigOrThrow();
+  const loaded = loadLoadedRuntimeOrThrow();
+  const runtimeConfig = loaded.runtimeConfig;
   const observability = createObservabilityOrThrow(runtimeConfig);
+  const analytics = composeAnalyticsOnce(loaded, observability);
 
   return await createApp({
     runtimeConfig,
     observability,
+    transportObserver: analytics.transportObserver,
+    productAnalyticsSink: analytics.sink,
     getWidgetHtml: () => WIDGET_HTML_CONTENT,
     // The page ships INSIDE this bundle (esbuild text loader): the deploy
     // filesystem has no .generated/ artefact, so a runtime read is not an

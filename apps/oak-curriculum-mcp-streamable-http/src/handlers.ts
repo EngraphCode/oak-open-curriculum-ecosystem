@@ -10,6 +10,7 @@
 import type { McpServer, ToolCallback } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { registerAppTool } from '@modelcontextprotocol/ext-apps/server';
 import type { Logger } from '@oaknational/logger';
+import type { ProductAnalyticsSink } from '@oaknational/observability';
 import type { RuntimeConfig } from './runtime-config.js';
 import type { HttpObservability } from './observability/http-observability.js';
 import {
@@ -79,6 +80,13 @@ interface RegisterHandlersOptions {
    * exercise dormant rows. Production callers never pass this (mcp-101).
    */
   readonly servedSurface?: ServedSurfaceDefinition;
+  /**
+   * Closed product-analytics capture capability (MCP-241). Passed into
+   * request handling per the composition contract; its first consumer is
+   * MCP-242's resource-read observation. Omitted → capture-free (off mode
+   * supplies an inert sink anyway).
+   */
+  readonly productAnalyticsSink?: ProductAnalyticsSink;
 }
 
 function buildToolHandlerDependencies(

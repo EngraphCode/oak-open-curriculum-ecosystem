@@ -10,7 +10,10 @@
  */
 
 export { createPostHogPseudonymCapabilities } from './actor-pseudonym.js';
-export { createPostHogProductAnalyticsRuntime } from './product-analytics-runtime.js';
+export {
+  createPostHogProductAnalyticsRuntime,
+  createPostHogProductAnalyticsRuntimeWithFetch,
+} from './product-analytics-runtime.js';
 export { POSTHOG_EU_INGESTION_HOST } from './product-analytics-runtime-contract.js';
 
 export type {
@@ -25,6 +28,7 @@ export type {
   PostHogPseudonymKey,
 } from './actor-pseudonym-contract.js';
 export type {
+  PostHogFetch,
   PostHogOperationalErrorKind,
   PostHogProductAnalyticsConfig,
   PostHogWaitUntil,

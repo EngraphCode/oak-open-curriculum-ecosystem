@@ -21,6 +21,7 @@ import {
   type PostHogProductAnalyticsSinkConfig,
 } from './product-analytics-sink.js';
 import type {
+  PostHogFetch,
   PostHogOperationalErrorKind,
   PostHogProductAnalyticsConfig,
 } from './product-analytics-runtime-contract.js';
@@ -178,7 +179,7 @@ export function createPostHogProductAnalyticsRuntimeWithDependencies<
 
 function createProductionRuntime(
   config: PostHogProductAnalyticsConfig,
-  fetch?: NonNullable<PostHogOptions['fetch']>,
+  fetch?: PostHogFetch,
 ): PosthogProductAnalyticsRuntime {
   return createPostHogProductAnalyticsRuntimeWithDependencies<PostHogMCP>(config, {
     configureMcpSdkLogger: setLogger,
@@ -227,9 +228,18 @@ export function createPostHogProductAnalyticsRuntime(
   return createProductionRuntime(config);
 }
 
+/**
+ * The production runtime with an injectable delivery transport.
+ *
+ * @remarks
+ * The composition-proof seam: consumers drive the REAL client and assert on
+ * recorded deliveries (typically zero) instead of trusting prose about
+ * vendor IO behaviour. Identical to
+ * {@link createPostHogProductAnalyticsRuntime} in every other respect.
+ */
 export function createPostHogProductAnalyticsRuntimeWithFetch(
   config: PostHogProductAnalyticsConfig,
-  fetch: NonNullable<PostHogOptions['fetch']>,
+  fetch: PostHogFetch,
 ): PosthogProductAnalyticsRuntime {
   return createProductionRuntime(config, fetch);
 }

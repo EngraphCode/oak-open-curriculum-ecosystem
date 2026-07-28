@@ -39,6 +39,30 @@ export type PostHogOperationalErrorKind =
 export type PostHogWaitUntil = (promise: Promise<unknown>) => void;
 
 /**
+ * Injectable delivery transport for the runtime factory's proof seam.
+ *
+ * @remarks
+ * A package-owned structural mirror of the client's fetch contract, so the
+ * public factory surface exposes no vendor types. The options carry the
+ * assembled request verbatim; the response declares only the fields the
+ * client reads.
+ */
+export type PostHogFetch = (
+  url: string,
+  options: {
+    readonly method: 'GET' | 'POST' | 'PUT' | 'PATCH';
+    readonly headers: Record<string, string>;
+    readonly body?: string | Blob;
+    readonly signal?: AbortSignal;
+  },
+) => Promise<{
+  readonly status: number;
+  readonly text: () => Promise<string>;
+  readonly json: () => Promise<unknown>;
+  readonly headers?: { get(name: string): string | null };
+}>;
+
+/**
  * Already-validated, ambient-free inputs for one PostHog runtime.
  *
  * @remarks

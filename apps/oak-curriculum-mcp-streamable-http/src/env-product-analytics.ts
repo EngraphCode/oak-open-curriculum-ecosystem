@@ -8,11 +8,16 @@ import type { PostHogProductAnalyticsConfig } from '@oaknational/posthog-node';
  *
  * @remarks
  * The type annotation is the adapter's literal host type, so a region
- * divergence is a compile error — while the type-only import erases at
- * runtime, keeping off-mode cold starts free of the vendor module
- * graph. This module is the app's single site naming the adapter for
- * this value; the env schema and the bootstrap resolver both read it
- * from here.
+ * divergence is a compile error, and the type-only import erases at
+ * runtime — this module itself adds no vendor module edge. Since the
+ * MCP-241 composition, the adapter's VALUE import lives statically at
+ * the composition root (`compose-product-analytics-runtime.ts`): the
+ * repo's `no-dynamic-import` backbone forecloses a lazy gate, and no
+ * plan or ADR clause requires vendor-free off-mode module load — off
+ * mode's contract is no config read and no client, which composition
+ * preserves. This module is still the app's single site naming the
+ * adapter for this value; the env schema and the bootstrap resolver
+ * both read it from here.
  */
 export const POSTHOG_EU_INGESTION_HOST: PostHogProductAnalyticsConfig['host'] =
   'https://eu.i.posthog.com';
