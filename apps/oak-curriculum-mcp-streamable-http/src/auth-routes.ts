@@ -77,12 +77,13 @@ export function registerPublicOAuthMetadataEndpoints(
   log: Logger,
   allowedHosts: readonly string[],
   metadataRateLimiter: RequestHandler,
+  canonicalOrigin?: string,
 ): void {
   const authLog = typeof log.child === 'function' ? log.child({ scope: 'auth' }) : log;
   authLog.debug('Registering PUBLIC OAuth metadata endpoints (before auth middleware)');
 
   const servePrm: RequestHandler = (req, res) => {
-    const originResult = deriveSelfOrigin(req, allowedHosts);
+    const originResult = deriveSelfOrigin(req, allowedHosts, canonicalOrigin);
     if (!originResult.ok) {
       const msg = hostValidationErrorMessage(originResult.error);
       authLog.warn('Host validation failed for OAuth metadata', { error: msg });
@@ -101,7 +102,7 @@ export function registerPublicOAuthMetadataEndpoints(
   app.get('/.well-known/oauth-protected-resource/mcp', metadataRateLimiter, servePrm);
 
   app.get('/.well-known/oauth-authorization-server', metadataRateLimiter, (req, res) => {
-    const originResult = deriveSelfOrigin(req, allowedHosts);
+    const originResult = deriveSelfOrigin(req, allowedHosts, canonicalOrigin);
     if (!originResult.ok) {
       const msg = hostValidationErrorMessage(originResult.error);
       authLog.warn('Host validation failed for OAuth AS metadata', { error: msg });
@@ -134,18 +135,21 @@ export function registerPublicOAuthMetadataEndpoints(
  * @param mcpRateLimiter - Per-IP limiter; see create-rate-limiters.ts.
  * @see https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization
  */
-function registerAuthenticatedRoutes(
-  app: Express,
-  mcpFactory: McpServerFactory,
-  log: Logger,
-  allowedHosts: readonly string[],
-  observability: HttpObservability,
-  mcpRateLimiter: RequestHandler,
-  mcpAuthClerkDeps?: CreateMcpAuthClerkDeps,
-): void {
+function registerAuthenticatedRoutes(deps: {
+  readonly app: Express;
+  readonly mcpFactory: McpServerFactory;
+  readonly log: Logger;
+  readonly allowedHosts: readonly string[];
+  readonly observability: HttpObservability;
+  readonly mcpRateLimiter: RequestHandler;
+  readonly mcpAuthClerkDeps?: CreateMcpAuthClerkDeps;
+  readonly canonicalOrigin?: string;
+}): void {
+  const { app, mcpFactory, log, allowedHosts, observability, mcpRateLimiter } = deps;
+  const { mcpAuthClerkDeps, canonicalOrigin } = deps;
   const authLog = typeof log.child === 'function' ? log.child({ scope: 'mcp-auth' }) : log;
   const mcpRouter = createMcpRouter({
-    auth: createMcpAuthClerk(authLog, allowedHosts, mcpAuthClerkDeps),
+    auth: createMcpAuthClerk(authLog, allowedHosts, mcpAuthClerkDeps, canonicalOrigin),
   });
   log.debug('Registering POST /mcp route (HTTP-level auth via mcpRouter)');
   app.post('/mcp', mcpRateLimiter, mcpRouter, createMcpHandler(mcpFactory, observability, log));
@@ -167,6 +171,7 @@ export interface SetupAuthRoutesOptions {
   readonly runtimeConfig: RuntimeConfig;
   readonly log: Logger;
   readonly allowedHosts: readonly string[];
+  readonly canonicalOrigin?: string;
   readonly observability: HttpObservability;
   readonly mcpRateLimiter: RequestHandler;
   readonly mcpAuthClerkDeps?: CreateMcpAuthClerkDeps;
@@ -183,6 +188,7 @@ export function setupAuthRoutes(options: SetupAuthRoutesOptions): void {
     runtimeConfig,
     log,
     allowedHosts,
+    canonicalOrigin,
     observability,
     mcpRateLimiter,
     mcpAuthClerkDeps,
@@ -201,14 +207,15 @@ export function setupAuthRoutes(options: SetupAuthRoutesOptions): void {
   // Auth middleware returns HTTP 401 per MCP spec and OpenAI Apps docs
   authLog.debug('Registering MCP routes (HTTP-level auth enforcement)');
   measureAuthSetupStep(authLog, 'mcp.routes.register', () => {
-    registerAuthenticatedRoutes(
+    registerAuthenticatedRoutes({
       app,
       mcpFactory,
-      authLog,
+      log: authLog,
       allowedHosts,
       observability,
       mcpRateLimiter,
       mcpAuthClerkDeps,
-    );
+      canonicalOrigin,
+    });
   });
 }

@@ -3,7 +3,7 @@ boundary: B0-Foundation
 doc_role: index
 authority: foundation-navigation
 status: active
-last_reviewed: 2026-06-17
+last_reviewed: 2026-07-28
 ---
 
 # Foundation Documentation
@@ -26,6 +26,9 @@ root.
 
 Adjacent surfaces (not part of this boundary):
 
+- [Working with this Repo for Devs](../engineering/working-with-this-repo-for-devs.md)
+  — the practical how-to pair of the systems explanation above (lives in the
+  engineering boundary).
 - [The Practice (agent-facing entry point)](../../.agent/practice-core/index.md)
   — Portable Practice Core: principles, lineage, bootstrap, and decision
   records.

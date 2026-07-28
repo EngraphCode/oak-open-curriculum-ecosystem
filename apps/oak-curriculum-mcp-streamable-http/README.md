@@ -228,7 +228,8 @@ Summary:
   - `CLERK_SECRET_KEY` — Clerk secret key for auth middleware (not required when `DANGEROUSLY_DISABLE_AUTH=true`)
 - Optional env:
   - `DANGEROUSLY_DISABLE_AUTH` — set to `true` to disable auth (makes Clerk keys optional)
-  - `ALLOWED_HOSTS` (comma-separated, must include your primary hostname; supports `*` wildcards). Applied consistently to OAuth metadata endpoints and `/mcp` auth challenge/resource URL generation.
+  - `ALLOWED_HOSTS` (comma-separated, must include your primary hostname; supports `*` wildcards). Applied consistently to OAuth metadata endpoints and `/mcp` auth challenge/resource URL generation — unless `CANONICAL_HOST` is set, which supersedes per-request derivation for those URLs.
+  - `CANONICAL_HOST` — the address this server is served at when an edge presents a different Host to the origin (see [Canonical address](#canonical-address)). Bare hostname; startup-validated.
   - `LOG_LEVEL` (default `info`, use `debug` for staging)
   - `SENTRY_MODE` — `off` (default), `fixture`, or `sentry`
   - `SENTRY_DSN` — required when `SENTRY_MODE=sentry`
@@ -284,6 +285,33 @@ signing off a release. Replaces the retired `pnpm smoke:remote` harness
 
 - `GET /.well-known/oauth-protected-resource` returns the canonical resource and authorisation servers
 - 401 responses include a `WWW-Authenticate` header with `resource` and `authorization_uri` to guide clients
+
+### Canonical address
+
+The server normally describes itself from each request's `Host` header. When an
+edge serves it at a different address — Cloudflare serves
+`https://www.thenational.academy/mcp` and overrides the `Host` to the app's own
+Vercel hostname, which is how Vercel selects the serving project — that
+derivation would advertise the origin hostname instead.
+
+Set `CANONICAL_HOST` to the address clients actually use. Every
+self-description surface then names `https://<CANONICAL_HOST>`: the
+protected-resource metadata (RFC 9728), the authorization-server metadata and
+its rewritten endpoints (RFC 8414), the resource URL checked against the token
+audience (RFC 8707), and the `WWW-Authenticate` challenge. Requests reaching
+the origin directly get the same answer, so a token acquired by either route
+validates at both.
+
+It is configuration, never a request header: no per-request signal can
+distinguish edge traffic from a direct request, because a client reaching the
+origin sends exactly the `Host` the edge sends. The value is a bare hostname —
+scheme, port, path and loopback names are rejected at startup — and the scheme
+is fixed to `https` rather than read from `req.protocol`, which a client can
+influence through `X-Forwarded-Proto`.
+
+`ALLOWED_HOSTS` and the DNS-rebinding guard are untouched by this setting: they
+police the hosts that may reach the server, which stays a separate question
+from the address it calls itself.
 
 ## Cursor (legacy local stdio) configuration
 

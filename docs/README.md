@@ -3,12 +3,12 @@ boundary: cross-boundary
 doc_role: index
 authority: docs-root-navigation
 status: active
-last_reviewed: 2026-06-12
+last_reviewed: 2026-07-28
 ---
 
 # Documentation for Oak Open Curriculum Ecosystem
 
-**Last Updated**: 2026-06-12
+**Last Updated**: 2026-07-28
 **Status**: Active index
 
 ## Getting Started
@@ -26,6 +26,7 @@ last_reviewed: 2026-06-12
   [high-level plan](../.agent/plans-backlog-2026-07/high-level-plan.md)
 - **Not a developer?** → [Curriculum Guide](domain/curriculum-guide.md) — Oak's curriculum structure in plain language
 - **New to the repo?** → [Root README Quick Start](../README.md#quick-start) for setup, then [CONTRIBUTING.md](../CONTRIBUTING.md) for the development process
+- **A developer working with agents?** → [Working with this Repo for Devs](engineering/working-with-this-repo-for-devs.md) — the practical guide: how you direct the work, what the agents do around you, and what keeps the quality honest
 - **Working with AI?** → Start with the canonical
   [`start-right-quick` shared workflow](../.agent/skills/start-right-quick/shared/start-right.md),
   or invoke the `oak-start-right-quick` platform adapter (`/oak-start-right-quick`
@@ -67,6 +68,7 @@ last_reviewed: 2026-06-12
 
 ### Engineering Practice
 
+- [Working with this Repo for Devs](engineering/working-with-this-repo-for-devs.md) - The practical guide for developers directing agent sessions
 - [How the Agentic Engineering System Works](foundation/agentic-engineering-system.md) - The Practice explained as an integrated engineering system
 - [ADR-119](architecture/architectural-decisions/119-agentic-engineering-practice.md) - The formal architectural decision
 - [Continuity Practice](../.agent/directives/continuity-practice.md) - Lightweight session handoff, conditional deep consolidation, and surprise capture (moved to directives)

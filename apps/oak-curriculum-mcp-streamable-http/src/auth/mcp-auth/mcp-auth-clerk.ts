@@ -66,6 +66,7 @@ export function createMcpAuthClerk(
     getAuth: defaultGetAuth,
     verifyClerkToken: defaultVerifyClerkToken,
   },
+  canonicalOrigin?: string,
 ): RequestHandler {
   // Create authentication middleware with Clerk token verification
   return mcpAuth(
@@ -97,5 +98,6 @@ export function createMcpAuthClerk(
     },
     logger,
     allowedHosts,
+    canonicalOrigin,
   );
 }

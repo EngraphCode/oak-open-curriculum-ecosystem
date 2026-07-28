@@ -16,7 +16,14 @@ import { isAllowedHostname, isValidHostHeader } from '../../host-header-validati
  * match the `resource` parameter used during OAuth token acquisition and
  * the `aud` claim in the resulting JWT.
  *
+ * When a canonical origin is configured the host is not derived from the
+ * request — see {@link resolveCanonicalOrigin}. The request path still
+ * identifies the endpoint, so the resource stays exact.
+ *
  * @param req - Minimal request object with protocol, host, and originalUrl
+ * @param allowedHosts - Hostnames this server may call itself
+ * @param canonicalOrigin - Configured origin that supersedes per-request
+ *   derivation, or `undefined` to derive from the request
  * @returns The MCP resource URL (e.g., "http://localhost:3333/mcp")
  *
  * @example
@@ -36,7 +43,12 @@ export function getMcpResourceUrl(
     originalUrl: string;
   },
   allowedHosts: readonly string[],
+  canonicalOrigin?: string,
 ): string {
+  if (canonicalOrigin) {
+    return `${canonicalOrigin}${req.originalUrl}`;
+  }
+
   const host = req.get('host');
 
   if (!host) {

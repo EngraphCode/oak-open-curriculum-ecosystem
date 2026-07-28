@@ -1,3 +1,59 @@
+## [1.103.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.103.0...v1.103.1) (2026-07-28)
+
+# [1.103.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.102.0...v1.103.0) (2026-07-28)
+
+
+### Features
+
+* **posthog:** add the closed PostHog product-analytics sink ([aaf769f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/aaf769f11d9e2f29f2b0f30e9025226eb524c84b)), closes [#576](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/576)
+
+# [1.102.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.101.0...v1.102.0) (2026-07-28)
+
+
+### Bug Fixes
+
+* **mcp-app:** experimental-service disclaimer with true banner landmark and design-kit conformance ([b6bf4ce](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b6bf4ce7fcc714eb7a635e4072f9479217eb1c66)), closes [hi#impact](https://github.com/hi/issues/impact)
+
+
+### Features
+
+* **mcp-app:** brand the widget panel Oak green and defer the page surface to the host ([fcee534](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/fcee534be29e28ee751452b0562d07c44e577ce3))
+* **mcp-app:** permanent both-themes design-review page ([3704239](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3704239bf9430bcb0c95d034c2bb9242b65317f3))
+* **mcp-app:** widget shell renders as a bounded rounded panel ([abb4001](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/abb40011809aa882557ea012ee204fd73c800c81)), closes [#597](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/597)
+
+# [1.101.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.100.0...v1.101.0) (2026-07-27)
+
+
+### Features
+
+* **posthog:** add the public MCP transport observer ([c25b7ab](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c25b7abe897d6dd27a1bd4bf7a19797b16d86d45)), closes [#576](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/576)
+
+# [1.100.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.99.0...v1.100.0) (2026-07-27)
+
+
+### Features
+
+* **posthog:** add the closed event policy to the adapter ([6799bde](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/6799bdecaee5ddf98f41384584d76ae426616662)), closes [#576](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/576)
+
+# [1.99.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.98.0...v1.99.0) (2026-07-27)
+
+
+### Features
+
+* **posthog:** add scoped actor pseudonyms to the closed adapter ([ee0759e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ee0759ebb7443e9b1734ca06ec453fe39eea2423)), closes [#576](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/576)
+
+# [1.98.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.97.2...v1.98.0) (2026-07-27)
+
+
+### Bug Fixes
+
+* **mcp:** clear the CI findings on the canonical-origin change ([70ee9eb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/70ee9ebc95e8e5b0188ea258767fbf773f5c8f2a))
+
+
+### Features
+
+* **mcp:** self-describe at a configured canonical origin ([87f601c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/87f601cac14f8abca8f5c578359b3bf08433852f))
+
 ## [1.97.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.97.1...v1.97.2) (2026-07-27)
 
 

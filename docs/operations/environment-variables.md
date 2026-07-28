@@ -65,11 +65,12 @@ cp apps/oak-search-cli/.env.example apps/oak-search-cli/.env.local
 
 ### Optional Development
 
-| Variable                   | Purpose                                                   | Default                                 | Used By                                   |
-| -------------------------- | --------------------------------------------------------- | --------------------------------------- | ----------------------------------------- |
-| `LOG_LEVEL`                | Logging verbosity (`debug`, `info`, `warn`, `error`)      | `info`                                  | Workspace runtime                         |
-| `DANGEROUSLY_DISABLE_AUTH` | **Development only** - completely bypasses authentication | `false`                                 | HTTP MCP server (NEVER use in production) |
-| `ALLOWED_HOSTS`            | Comma-separated list of allowed hostnames                 | Auto-detected (localhost or Vercel URL) | HTTP MCP server                           |
+| Variable                   | Purpose                                                                                                  | Default                                 | Used By                                   |
+| -------------------------- | -------------------------------------------------------------------------------------------------------- | --------------------------------------- | ----------------------------------------- |
+| `LOG_LEVEL`                | Logging verbosity (`debug`, `info`, `warn`, `error`)                                                     | `info`                                  | Workspace runtime                         |
+| `DANGEROUSLY_DISABLE_AUTH` | **Development only** - completely bypasses authentication                                                | `false`                                 | HTTP MCP server (NEVER use in production) |
+| `ALLOWED_HOSTS`            | Comma-separated list of allowed hostnames                                                                | Auto-detected (localhost or Vercel URL) | HTTP MCP server                           |
+| `CANONICAL_HOST`           | Address the server is served at behind an edge that overrides the Host; fixes every self-description URL | Unset (self-describe per request)       | HTTP MCP server                           |
 
 ## Workspace-Specific Variables
 
