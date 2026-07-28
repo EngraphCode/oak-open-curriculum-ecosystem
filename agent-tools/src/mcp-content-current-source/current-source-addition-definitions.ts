@@ -113,7 +113,8 @@ function guidanceMetadataAddition(input: {
 }
 
 /**
- * Reviewed semantic additions since the immutable 716-item audit.
+ * Reviewed semantic additions since the phase-(a) audit registry
+ * (717 rows as maintained on main).
  *
  * These are source definitions, not generated output: adding or changing an
  * entry is the explicit compliance-review act that makes a post-baseline item

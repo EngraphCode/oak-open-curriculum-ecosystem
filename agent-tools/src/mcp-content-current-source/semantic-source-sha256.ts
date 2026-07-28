@@ -39,17 +39,17 @@ function isIgnoredCanonicalToken(node: Node): boolean {
 }
 
 function isTaggedTemplateToken(node: Node): boolean {
-  const parent: Node | undefined = node.parent;
-  if (parent === undefined) {
-    return false;
+  // TemplateMiddle/TemplateTail sit under a TemplateSpan; TemplateHead under
+  // the TemplateExpression; a NoSubstitutionTemplateLiteral under the tag
+  // itself — hop the span and expression layers before asking for the tag.
+  let candidate: Node | undefined = node.parent;
+  if (candidate !== undefined && candidate.kind === SyntaxKind.TemplateSpan) {
+    candidate = candidate.parent;
   }
-  if (parent.kind === SyntaxKind.TaggedTemplateExpression) {
-    return true;
+  if (candidate !== undefined && candidate.kind === SyntaxKind.TemplateExpression) {
+    candidate = candidate.parent;
   }
-  return (
-    parent.kind === SyntaxKind.TemplateExpression &&
-    parent.parent.kind === SyntaxKind.TaggedTemplateExpression
-  );
+  return candidate !== undefined && candidate.kind === SyntaxKind.TaggedTemplateExpression;
 }
 
 function textualNodeValue(node: Node): string | undefined {

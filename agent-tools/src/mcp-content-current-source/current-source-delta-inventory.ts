@@ -183,7 +183,10 @@ function validateReview(
     );
   }
   const hasItems = review.itemIds.length > 0;
-  const hasExclusion = review.exclusionReason !== undefined;
+  // A blank reason is not a disposition — only non-blank text explains why a
+  // changed governed source carries no item ids.
+  const hasExclusion =
+    review.exclusionReason !== undefined && review.exclusionReason.trim().length > 0;
   if (hasItems === hasExclusion) {
     throw new Error(
       `Reviewed semantic delta ${file} must have item ids or one exclusion reason, not both`,

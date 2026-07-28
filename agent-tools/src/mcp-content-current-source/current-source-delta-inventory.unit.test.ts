@@ -53,6 +53,20 @@ describe('buildCurrentSourceDeltaInventory', () => {
     expect(inventory.files[0]?.semanticSha256).toMatch(/^[a-f0-9]{64}$/);
   });
 
+  it('rejects a blank exclusion reason as a disposition', () => {
+    const content = "export const content = 'value';\n";
+    expect(() =>
+      buildCurrentSourceDeltaInventory({
+        baselineCommit: 'baseline',
+        changedFiles: ['content.ts'],
+        contentByFile: new Map([['content.ts', content]]),
+        current,
+        additions: [],
+        reviews: { 'content.ts': exclusion('content.ts', content, '   ') },
+      }),
+    ).toThrow('must have item ids or one exclusion reason');
+  });
+
   it('rejects a changed file that is neither inventoried nor explicitly reviewed out', () => {
     expect(() =>
       buildCurrentSourceDeltaInventory({
@@ -138,6 +152,11 @@ describe('buildCurrentSourceDeltaInventory', () => {
     // real newline — same cooked text, different runtime value.
     expect(hash('const content = String.raw`one\\ntwo`;')).not.toBe(
       hash('const content = String.raw`one\ntwo`;'),
+    );
+    // The same distinction must hold AFTER an interpolation, where the token
+    // is a TemplateTail under a TemplateSpan rather than the template head.
+    expect(hash('const content = String.raw`one${value}two\\nend`;')).not.toBe(
+      hash('const content = String.raw`one${value}two\nend`;'),
     );
   });
 
