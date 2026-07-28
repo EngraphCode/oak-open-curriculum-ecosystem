@@ -1,3 +1,10 @@
+# [1.103.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.102.0...v1.103.0) (2026-07-28)
+
+
+### Features
+
+* **posthog:** add the closed PostHog product-analytics sink ([aaf769f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/aaf769f11d9e2f29f2b0f30e9025226eb524c84b)), closes [#576](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/576)
+
 # [1.102.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.101.0...v1.102.0) (2026-07-28)
 
 
