@@ -20,7 +20,7 @@ import { OAK_DS_BASE } from './design-system-refs.js';
 
 const OAK_WEBSITE_URL = 'https://www.thenational.academy';
 const OAK_TEACHERS_URL = `${OAK_WEBSITE_URL}/teachers`;
-const OAK_TERMS_URL = `${OAK_WEBSITE_URL}/legal/terms-and-conditions`;
+const OAK_TERMS_URL = `${OAK_WEBSITE_URL}/legal/terms-and-conditions-api-version`;
 const OAK_PRIVACY_URL = `${OAK_WEBSITE_URL}/legal/privacy-policy`;
 
 /**
@@ -84,9 +84,10 @@ export function SiteMasthead(): JSX.Element {
  * line.
  *
  * @remarks
- * The legal links carry the main site's link text and URLs verbatim
- * (www.thenational.academy footer, verified 2026-07-28) — this page states
- * Oak's standard terms, it does not author its own.
+ * The legal links carry the main site's link text verbatim; the privacy URL
+ * mirrors the main-site footer, while the terms URL points at Oak's
+ * API-version terms by the owner's direction (2026-07-28, both verified
+ * live) — this page states Oak's terms, it does not author its own.
  */
 export function SiteFooter(): JSX.Element {
   return (
