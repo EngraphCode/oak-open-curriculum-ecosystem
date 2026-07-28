@@ -89,6 +89,108 @@ describe('canonical policy: a matched command teaches a reappraisal end-to-end',
   });
 });
 
+describe('canonical policy: bare-git stash-park fingerprint (MCP-227)', () => {
+  const expectedCitation = '.agent/rules/never-use-git-to-remove-work.md';
+
+  it('blocks the park forms of git stash, including the newline-separated shapes', async () => {
+    const patterns = await loadBlockedPatterns();
+
+    for (const command of [
+      'git stash',
+      'git stash -u',
+      'git stash --include-untracked',
+      'git stash push',
+      'git stash push -m wip',
+      'git stash save wip',
+      'cd /tmp && git stash',
+      'true; git stash',
+      // The newline shapes: ordinary multi-line shell, not an adversarial
+      // bypass. A reflex reach for stash on line 2 of a script is the same
+      // reflex the guard exists to catch (MCP-254 finding, folded in as v2.1).
+      'cd /tmp\ngit stash',
+      'set -e\ngit stash -u\necho done',
+      // The MCP-254 remainder: global-flag interposition and backtick
+      // substitution are the same ordinary-usage reflex in different coats
+      // (the newline shapes above were the first half of that finding).
+      'git -C /repo stash',
+      'git -C /repo stash -u',
+      'cd /tmp && git -C /repo stash push -m wip',
+      'echo `git stash`',
+    ]) {
+      const entry = findBlockedPattern(command, patterns);
+      expect(entry).toMatchObject({ concept: 'stash-park', citation: expectedCitation });
+      // The block must TEACH, not only refuse: a non-empty reappraisal travels to the agent.
+      expect(entry?.reappraisal?.trim()).toBeTruthy();
+    }
+  });
+
+  it('leaves the stash RECOVERY and read commands permitted', async () => {
+    const patterns = await loadBlockedPatterns();
+
+    // Blocking these would trap already-stashed work permanently — a cure
+    // worse than the defect the guard addresses.
+    expect(findBlockedPattern('git stash pop', patterns)).toBeNull();
+    expect(findBlockedPattern('git stash apply', patterns)).toBeNull();
+    expect(findBlockedPattern('git stash list', patterns)).toBeNull();
+    expect(findBlockedPattern('git stash show -p', patterns)).toBeNull();
+    expect(findBlockedPattern('git stash branch rescue', patterns)).toBeNull();
+    // The same permission holds through global-flag interposition.
+    expect(findBlockedPattern('git -C /repo stash pop', patterns)).toBeNull();
+    expect(findBlockedPattern('git -C /repo stash list', patterns)).toBeNull();
+  });
+
+  it('does not fire on a single-line commit message naming the guard it implements', async () => {
+    const patterns = await loadBlockedPatterns();
+
+    // Self-reference trap: this very lane's conventional commit must remain
+    // runnable. No anchor precedes the quoted mention, so the fence holds.
+    expect(
+      findBlockedPattern("git commit -m 'feat(hook-policy): block bare git stash'", patterns),
+    ).toBeNull();
+  });
+
+  it('routes the discard forms to the pre-existing stash-discard entry, not the park entry', async () => {
+    const patterns = await loadBlockedPatterns();
+
+    // Ordering contract: the discard entries precede the park entry, and
+    // findBlockedPattern returns the FIRST match, so the more specific
+    // doctrine keeps teaching its own concept.
+    expect(findBlockedPattern('git stash drop', patterns)).toMatchObject({
+      concept: 'stash-discard',
+    });
+    expect(findBlockedPattern('git stash clear', patterns)).toMatchObject({
+      concept: 'stash-discard',
+    });
+  });
+
+  it('accepts the remaining documented anchor bound as a deliberate trade-off', async () => {
+    // This is a reappraisal tripwire, not a security boundary. The
+    // wrapper-prefixed shape stays outside the anchor set KNOWINGLY —
+    // MCP-227's documented bound. (The MCP-254 remainder that once sat
+    // here — git -C interposition and backtick substitution — now blocks,
+    // pinned in the park-forms test above.)
+    const patterns = await loadBlockedPatterns();
+
+    // No anchor precedes a wrapper-prefixed invocation.
+    expect(findBlockedPattern('timeout 60 git stash', patterns)).toBeNull();
+  });
+
+  it('accepts that quote-blind anchors fire inside quoted bodies', async () => {
+    const patterns = await loadBlockedPatterns();
+
+    // Regex mode probes the RAW command, so an anchor inside quotes is
+    // indistinguishable from a real command position. Documented, accepted: a
+    // false BLOCK costs a reappraisal prompt, never lost work.
+    expect(findBlockedPattern("echo '| git stash'", patterns)).toMatchObject({
+      concept: 'stash-park',
+    });
+    // Same acceptance for a LINE-LEADING stash inside a multi-line quoted body.
+    expect(findBlockedPattern("git commit -m 'wip\ngit stash notes'", patterns)).toMatchObject({
+      concept: 'stash-park',
+    });
+  });
+});
+
 describe('canonical policy: ripgrep clustered-replace fingerprint', () => {
   it('blocks the clustered and bare short-replace forms that silently rewrite match output', async () => {
     const patterns = await loadBlockedPatterns();

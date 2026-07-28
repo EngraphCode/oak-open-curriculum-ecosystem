@@ -20,7 +20,14 @@ import { isAllowedHostname, isValidHostHeader } from '../../host-header-validati
  * Returns `{protocol}://{host}/.well-known/oauth-protected-resource/mcp`
  * per RFC 9728 Section 3.1.
  *
+ * When a canonical origin is configured the request is not consulted at all —
+ * see {@link resolveCanonicalOrigin} for why an edge-served address cannot be
+ * derived per request.
+ *
  * @param req - Minimal request object with protocol and get method
+ * @param allowedHosts - Hostnames this server may call itself
+ * @param canonicalOrigin - Configured origin that supersedes per-request
+ *   derivation, or `undefined` to derive from the request
  * @returns The path-qualified OAuth Protected Resource Metadata URL
  *
  * @example
@@ -32,7 +39,12 @@ import { isAllowedHostname, isValidHostHeader } from '../../host-header-validati
 export function getPRMUrl(
   req: Pick<{ protocol: string; get: (header: string) => string | undefined }, 'protocol' | 'get'>,
   allowedHosts: readonly string[],
+  canonicalOrigin?: string,
 ): string {
+  if (canonicalOrigin) {
+    return `${canonicalOrigin}/.well-known/oauth-protected-resource/mcp`;
+  }
+
   const host = req.get('host');
 
   if (!host) {

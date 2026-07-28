@@ -1,3 +1,201 @@
+# [1.108.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.107.1...v1.108.0) (2026-07-28)
+
+
+### Bug Fixes
+
+* **agent-tools:** case-fold collision guards; reshape example tests to behaviour (MCP-303) ([07aed41](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/07aed412ae4eff9358a9ca7bb2f7e3685e70f9fe))
+* **agent-tools:** close the drive's honesty gaps Copilot found (MCP-303) ([40afa47](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/40afa47db6009194f88f1fdc7c5ffed3b1d5e986))
+* **agent-tools:** harden the pack's injection boundary and test determinism (MCP-303) ([437f8d4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/437f8d47e28bbf601b437ba4c0ab66dc92eaf002))
+
+
+### Features
+
+* **agent-tools:** mcp-conformance --drive renders the reviewer walkthrough pack (MCP-303) ([4670566](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/46705660cd0a7d78bf3351a10331d39d215752c3))
+
+## [1.107.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.107.0...v1.107.1) (2026-07-28)
+
+
+### Bug Fixes
+
+* **widget:** centre the disclaimer text and keep full shell padding in host iframes ([cdd534e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/cdd534e4520678e0ebe0c913475028633ac8fde2))
+
+# [1.107.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.106.1...v1.107.0) (2026-07-28)
+
+
+### Bug Fixes
+
+* **curriculum-sdk:** prove the lesson and asset exist before signing a download URL ([8967f91](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8967f91af18c82a81e3b5beebbf5d465a0b2e53a))
+* **mcp-app:** enforce the adapter key-id contract at the keyring boundary ([63ab757](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/63ab75721ec0e2e18e874a6523bb46c96f19b0e3))
+* **mcp-app:** strip a tolerated capture-mode value from handler env ([23ee50a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/23ee50adda7d83d646dc2a23ac1082e14dc9afff))
+* **sdk:** catch and cure the softer use-X-first imperatives Copilot found (MCP-300) ([5429b2a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5429b2acc6f37041148fb087eb8a41f4887a320e))
+
+
+### Features
+
+* **mcp-app:** validate selected posthog application configuration ([4ccdf00](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4ccdf00940b75e3e5798e3a98b972389b621eb9d))
+* **mcp:** remove call-another-tool-first imperatives from tool descriptions ([4e3ba69](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4e3ba6964e385cd400f03d20607271965963cf8d)), closes [#605](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/605)
+
+## [1.106.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.106.0...v1.106.1) (2026-07-28)
+
+
+### Bug Fixes
+
+* **landing-page:** point the footer terms link at Oak's API-version terms ([be6abf0](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/be6abf0f7b570b3857379a9861ce9e2e31dd963a))
+
+# [1.106.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.105.0...v1.106.0) (2026-07-28)
+
+
+### Bug Fixes
+
+* **landing-page:** let design-system link state colours win over the footer chrome colour ([caf2641](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/caf26417070ce517dd7cb0d71f8ebbde4d2e43c2)), closes [#608](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/608)
+
+
+### Features
+
+* **landing-page:** link Oak's terms and conditions and privacy policy in the footer ([94c3745](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/94c3745ff06b2c29c0eb24becea8c96ffbe1b9d5))
+
+# [1.105.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.104.1...v1.105.0) (2026-07-28)
+
+
+### Bug Fixes
+
+* **agent-tools:** close two vacuous-pass paths; annotate vendor warnings in CI ([7e6a186](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/7e6a186dc73d22329e865e381daeabbc7f03dd27))
+* **agent-tools:** cure the two Sonar new-code findings on the mcp-conformance surface ([45d6f64](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/45d6f6480f3ce5ce4eeedf44cd220c7c7c2a9089))
+* **agent-tools:** drop the pre-upload credential scan; unsilence the CI chain ([fdb4d1f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/fdb4d1f4363f0780d5a065cfbdfe8d0371f54de0))
+* **agent-tools:** escape untrusted vendor stderr in CI annotations; reject empty suite groups ([e89beb1](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e89beb1619cdd50fe6668a82f180d44d42a9bd95))
+* **agent-tools:** mcp-conformance review cures — seed op, fail-fast verdicts, composed reasons ([f132501](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f132501e046d8e02fe3ead096952a8622eb9f098)), closes [#570](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/570)
+* **agent-tools:** mcp-conformance round 2 — timeout diagnostics + vacuous-pass guards ([ca050a1](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ca050a19d81c302bad77512a64d6a231cdab479b)), closes [#570](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/570)
+* **agent-tools:** pin suite report identity and keep warnings from passing runs ([ce76736](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ce767369b6f84d0fa2a259290e861f966eeb746a))
+* **agent-tools:** tighten report permissions before writing; verify report provenance ([91530dd](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/91530dd1eba86d5a877b344cc53ec5fc76c0568d))
+* **agent-tools:** write conformance reports owner-only (0600) ([fbb18d6](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/fbb18d66f7478e7580ed662ca0ecaeee62de2cae))
+* **mcp-conformance:** apply the adjudicated review fixes and drop the daily cron ([a3d7e32](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a3d7e32b98a9264e2aa428f7cf806923d12f2a16))
+
+
+### Features
+
+* **agent-tools:** add mcp-conformance MCPJam wrapper with named-verdict baselines (MCP-189) ([bc202bd](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bc202bd848bceb29a54a7bcce689dbfd126246b0))
+
+## [1.104.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.104.0...v1.104.1) (2026-07-28)
+
+# [1.104.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.103.2...v1.104.0) (2026-07-28)
+
+
+### Features
+
+* **mcp:** require annotations.title on hand-authored tools, validate parity ([83f7497](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/83f749701debc46c5f5b68e3ef1ad133cc5589b1))
+* **posthog-node:** compose the closed PostHog runtime and isolated MCP SDK logger path ([153f4ef](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/153f4ef30c5e10a1124fcd5af3c25475fe8e74ae)), closes [#576](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/576) [#601](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/601)
+
+## [1.103.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.103.1...v1.103.2) (2026-07-28)
+
+## [1.103.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.103.0...v1.103.1) (2026-07-28)
+
+# [1.103.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.102.0...v1.103.0) (2026-07-28)
+
+
+### Features
+
+* **posthog:** add the closed PostHog product-analytics sink ([aaf769f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/aaf769f11d9e2f29f2b0f30e9025226eb524c84b)), closes [#576](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/576)
+
+# [1.102.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.101.0...v1.102.0) (2026-07-28)
+
+
+### Bug Fixes
+
+* **mcp-app:** experimental-service disclaimer with true banner landmark and design-kit conformance ([b6bf4ce](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b6bf4ce7fcc714eb7a635e4072f9479217eb1c66)), closes [hi#impact](https://github.com/hi/issues/impact)
+
+
+### Features
+
+* **mcp-app:** brand the widget panel Oak green and defer the page surface to the host ([fcee534](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/fcee534be29e28ee751452b0562d07c44e577ce3))
+* **mcp-app:** permanent both-themes design-review page ([3704239](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3704239bf9430bcb0c95d034c2bb9242b65317f3))
+* **mcp-app:** widget shell renders as a bounded rounded panel ([abb4001](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/abb40011809aa882557ea012ee204fd73c800c81)), closes [#597](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/597)
+
+# [1.101.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.100.0...v1.101.0) (2026-07-27)
+
+
+### Features
+
+* **posthog:** add the public MCP transport observer ([c25b7ab](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c25b7abe897d6dd27a1bd4bf7a19797b16d86d45)), closes [#576](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/576)
+
+# [1.100.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.99.0...v1.100.0) (2026-07-27)
+
+
+### Features
+
+* **posthog:** add the closed event policy to the adapter ([6799bde](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/6799bdecaee5ddf98f41384584d76ae426616662)), closes [#576](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/576)
+
+# [1.99.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.98.0...v1.99.0) (2026-07-27)
+
+
+### Features
+
+* **posthog:** add scoped actor pseudonyms to the closed adapter ([ee0759e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ee0759ebb7443e9b1734ca06ec453fe39eea2423)), closes [#576](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/576)
+
+# [1.98.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.97.2...v1.98.0) (2026-07-27)
+
+
+### Bug Fixes
+
+* **mcp:** clear the CI findings on the canonical-origin change ([70ee9eb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/70ee9ebc95e8e5b0188ea258767fbf773f5c8f2a))
+
+
+### Features
+
+* **mcp:** self-describe at a configured canonical origin ([87f601c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/87f601cac14f8abca8f5c578359b3bf08433852f))
+
+## [1.97.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.97.1...v1.97.2) (2026-07-27)
+
+
+### Bug Fixes
+
+* **hook-policy:** extend the stash-park guard to interposed and backtick shapes (MCP-254) ([9d5cdc8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9d5cdc8f192ed6da1fe029ce461295ec5c7e3b0d))
+
+## [1.97.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.97.0...v1.97.1) (2026-07-27)
+
+
+### Bug Fixes
+
+* **security:** allowlist MCP-103 anchors digest lines and named index tokens in gitleaks ([881cd3e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/881cd3ec6e76e0c5566bc9f1f4e5671c7c5a3f94))
+
+# [1.97.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.96.0...v1.97.0) (2026-07-27)
+
+
+### Bug Fixes
+
+* **mcp-app:** cure the three Sonar findings on the PR-3 review-round cures ([f8ebd56](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f8ebd56b7f41cf6c84a189714b27ce701194d5e8))
+* **mcp-app:** inline the baked landing page into the deploy bundle (MCP-128) ([452ab70](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/452ab70f562282184c505c2c00a317e03c31745b))
+
+
+### Features
+
+* **mcp-app:** bake the React landing page at build time ([f090839](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f09083987dd915fc5e702913fe27597727587884))
+
+# [1.96.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.95.0...v1.96.0) (2026-07-27)
+
+
+### Bug Fixes
+
+* **mcp-http:** forward malformed redirect_uris entries instead of refusing them ([ee4e296](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ee4e296d85f7f989946fa3357759c400af4a9046))
+* **mcp-http:** forward non-array redirect_uris — the upstream demonstrably rejects it ([f8ecdf4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f8ecdf4a5ea9dae361bff70ebace71c763ecfd26))
+* **mcp-http:** reject non-loopback http redirect_uris at /oauth/register ([a8fd012](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a8fd0125dcce78265b0cf3392b5c73d000895ac6))
+* **mcp-http:** scope the refusal to the cited obligation; widen IPv4 loopback ([da6d56d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/da6d56dbad7403ef05731454e27e8cce6e947fe3))
+
+
+### Features
+
+* **analytics:** add fenced PostHog adapter boundary ([87358fb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/87358fb94d458e03d83aec8dc67ced7de49723e3))
+
+# [1.95.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.94.2...v1.95.0) (2026-07-27)
+
+
+### Features
+
+* **hook-policy:** block the git stash park family with an anchored regex entry ([5b500a9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5b500a9cc3b0b5bbfbfead92281a7174e62ccc24))
+
+## [1.94.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.94.1...v1.94.2) (2026-07-27)
+
+## [1.94.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.94.0...v1.94.1) (2026-07-27)
+
 # [1.94.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.93.0...v1.94.0) (2026-07-27)
 
 

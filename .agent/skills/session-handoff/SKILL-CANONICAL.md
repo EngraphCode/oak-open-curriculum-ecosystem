@@ -1,7 +1,11 @@
 ---
 name: session-handoff
 classification: active
-description: Lightweight end-of-session continuity update with a conditional consolidation gate.
+description: >-
+  Lightweight end-of-session continuity update with a conditional
+  consolidation gate — the continuity component the wrap programme runs at
+  every session close (owner ruling 2026-07-28). Wrap is the close entry
+  point; this workflow is its step, not an alternative close.
 ---
 
 # Session Handoff
@@ -50,16 +54,17 @@ let any fitness improvement happen only as the side effect of real curation.
 
 **Relationship to `consolidate-docs`**: this workflow and
 [`consolidate-docs`](../consolidate-docs/SKILL-CANONICAL.md) are one
-knowledge-flow pair with different cadences. Handoff runs at ordinary
-session close and captures the session's landed outcome, live state, and
-surprises. When a session produces a behaviour-changing lesson that is already
+knowledge-flow pair with different cadences. Handoff runs at every
+session close, inside `wrap`, and captures the session's landed outcome,
+live state, and surprises. When a session produces a behaviour-changing lesson that is already
 cross-session guidance, handoff may conserve it directly in `distilled.md`
 using step 6a.1. Consolidation runs only when its trigger checklist fires and
 decides what graduates out of temporary or refinement surfaces. Do not inline
 the consolidation inventory here; use this file for the session-close edge and
 defer cross-session inventories to `consolidate-docs`.
 
-Use this skill for ordinary session closeout. It replaces `wrap-up`.
+This workflow is the continuity component [`wrap`](../wrap/SKILL-CANONICAL.md)
+runs at every session close; it is not itself the close entry point.
 
 Do **not** treat this as a full closeout ritual. Unless the user explicitly
 asks for more, this workflow must not trigger:

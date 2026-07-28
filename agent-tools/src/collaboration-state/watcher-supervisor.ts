@@ -68,10 +68,11 @@ function processIsAlive(runtime: SupervisorLivenessRuntime, pid: number): boolea
 
 /**
  * Build the watcher's supervisor-liveness probe from `--supervisor-pid`.
- * Optional and graceful-when-absent: no flag → `undefined` (the watcher's
- * lifetime is bounded only by the composing `timeout` backstop, today's
- * behaviour). `optionalPositiveInteger` rejects a malformed pid loudly, so the
- * present-path is strict — no silent fallback masks a bad pid.
+ * Optional at the PARSE layer only — the watcher rule mandates the flag;
+ * absent it the watcher has no orderly exit path of its own (see
+ * {@link supervisorIsGone}). `optionalPositiveInteger` rejects a malformed
+ * pid loudly, so the present-path is strict — no silent fallback masks a
+ * bad pid.
  */
 export function resolveSupervisorAlive(
   options: Options,

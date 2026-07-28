@@ -51,6 +51,8 @@ describe('rate limiter keying on x-vercel-forwarded-for under Vercel runtime', (
       observability,
       rateLimiterFactory: createLowLimitFactory(2, true),
       getWidgetHtml: () => '<html><body>test</body></html>',
+      getLandingPageHtml: () =>
+        '<!doctype html><html lang="en-GB"><body>test landing page</body></html>',
       upstreamMetadata: TEST_UPSTREAM_METADATA,
     });
 
@@ -107,6 +109,8 @@ describe('rate limiter keying on req.ip under non-Vercel runtime', () => {
       observability,
       rateLimiterFactory: createLowLimitFactory(2, false),
       getWidgetHtml: () => '<html><body>test</body></html>',
+      getLandingPageHtml: () =>
+        '<!doctype html><html lang="en-GB"><body>test landing page</body></html>',
       upstreamMetadata: TEST_UPSTREAM_METADATA,
     });
 

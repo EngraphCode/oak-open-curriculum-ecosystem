@@ -110,8 +110,9 @@ function checkResourceParameter(
   req: Request,
   logger: Logger,
   allowedHosts: readonly string[],
+  canonicalOrigin?: string,
 ): { valid: boolean; reason?: string } {
-  const expectedResource = getMcpResourceUrl(req, allowedHosts);
+  const expectedResource = getMcpResourceUrl(req, allowedHosts, canonicalOrigin);
   return validateResourceParameter(token, expectedResource, logger);
 }
 
@@ -183,10 +184,11 @@ export function mcpAuth(
   verifyToken: TokenVerifier,
   logger: Logger,
   allowedHosts: readonly string[],
+  canonicalOrigin?: string,
 ): RequestHandler {
   return async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const prmUrl = getPRMUrl(req, allowedHosts);
+      const prmUrl = getPRMUrl(req, allowedHosts, canonicalOrigin);
 
       // No authorization header - return 401 with WWW-Authenticate pointing to metadata
       if (!req.headers.authorization) {
@@ -209,7 +211,7 @@ export function mcpAuth(
       }
 
       // RFC 8707: Validate resource parameter (JWT audience claim)
-      const validation = checkResourceParameter(token, req, logger, allowedHosts);
+      const validation = checkResourceParameter(token, req, logger, allowedHosts, canonicalOrigin);
       if (!validation.valid) {
         sendInvalidResourceResponse(res, prmUrl, validation.reason ?? 'Unknown validation error');
         return;

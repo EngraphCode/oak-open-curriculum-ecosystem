@@ -1,13 +1,17 @@
 /**
- * Explicit lineage for the 44 audit rows whose prompt-era source files were
- * removed by MCP-101.
+ * Explicit lineage for the audit rows whose prompt-era source files were
+ * removed by MCP-101; later-era removals live in post-baseline-lineage.ts.
  *
  * Empty targets mean the content retired. Multiple targets preserve split
  * lineage where one historical row now contributes to more than one source.
  */
+import {
+  POST_BASELINE_LINEAGE_ENTRIES,
+  RESOURCES_SECTION,
+  TOOLS_SECTION,
+} from './post-baseline-lineage.js';
 
 const GUIDANCE_ROOT = 'packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources' as const;
-const LANDING_ROOT = 'apps/oak-curriculum-mcp-streamable-http/src/landing-page' as const;
 
 const GUIDANCE_SOURCE_BY_WORKFLOW = {
   'find-lessons': `${GUIDANCE_ROOT}/find-lessons.ts`,
@@ -40,8 +44,6 @@ const MAPPING = GUIDANCE_SOURCE_BY_WORKFLOW['curriculum-mapping'];
 const ADAPT = GUIDANCE_SOURCE_BY_WORKFLOW['adapt-lesson'];
 const CONTINUE = GUIDANCE_SOURCE_BY_WORKFLOW['continue-progression'];
 const ALL_GUIDANCE = [FIND, EXPLORE, LEARNING, MAPPING, ADAPT, CONTINUE] as const;
-const LANDING_RESOURCES = `${LANDING_ROOT}/render-resources-section.ts`;
-const LANDING_TOOLS = `${LANDING_ROOT}/render-tools-section.ts`;
 
 const PROMPT_ERA_LINEAGE_ENTRIES = [
   ['C178', [FIND]],
@@ -84,14 +86,15 @@ const PROMPT_ERA_LINEAGE_ENTRIES = [
   ['C334', [ADAPT]],
   ['C335', [CONTINUE]],
   ['C356', []],
-  ['C357', [LANDING_RESOURCES, LANDING_TOOLS]],
+  ['C357', [RESOURCES_SECTION, TOOLS_SECTION]],
   ['C358', []],
   ['C359', []],
-  ['C370', [LANDING_RESOURCES, LANDING_TOOLS]],
+  ['C370', []],
 ] as const;
 
 /** All item-level lineage that supersedes a surviving or removed baseline source. */
 export const CURRENT_ITEM_LINEAGE_ENTRIES = [
   ...PROMPT_ERA_LINEAGE_ENTRIES,
+  ...POST_BASELINE_LINEAGE_ENTRIES,
   ['C470', ['packages/sdks/oak-sdk-codegen/code-generation/excluded-paths.ts']],
 ] as const;

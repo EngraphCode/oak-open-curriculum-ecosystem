@@ -1,13 +1,97 @@
+/**
+ * Reviewed post-baseline semantic deltas — Curriculum-SDK governed sources (aggregated tools, guidance, orientation).
+ *
+ * Every entry is a compliance review act: the semantic hash pins the exact
+ * reviewed state; item ids cite the audit rows the file carries, or one
+ * explicit exclusion reason says why the change adds no governed content.
+ */
 import {
   excluded,
   IMPLEMENTATION_ONLY,
   reviewed,
   type CurrentSourceDeltaReview,
   TYPE_ONLY,
-  UPSTREAM_BULK_ONLY,
 } from './current-source-delta-review-helpers.js';
 
 export const SDK_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview>> = {
+  'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-asset-download/definition.ts': reviewed(
+    '7487faee26f8222ef2d7f8412c1c45294b4cc0f8e919da06c73aa23f45af83fb',
+    ['C161', 'C162', 'C163', 'C164', 'C165', 'C166', 'C177'],
+  ),
+  'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-asset-download/execution.ts': reviewed(
+    '4c88fec1899e18a3f934ddabe4ad79daaabf48300bf9271506c0bca266ee99d6',
+    ['C167', 'C168', 'C169'],
+  ),
+  'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-browse/tool-definition.ts': reviewed(
+    '38a24f8e5ada622c4a39c872dec240b9f2a70b7073296748248b56059248f55e',
+    ['C137', 'C138', 'C139', 'C140', 'C141'],
+  ),
+  'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-curriculum-model/definition.ts': reviewed(
+    '2df4fe95e40a23b172d9d6b43466c1a55d6135433f9b87001a2728f4e27f9f14',
+    ['C172', 'C173', 'C174', 'C175'],
+  ),
+  'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-eef-evidence.ts': reviewed(
+    'a5e9441a87fb7974b4fa6bf4f81dc238691536bed1b70cf6c31a322561c58f95',
+    ['C261', 'C262', 'C263', 'C264', 'C265', 'C266', 'C267', 'C268', 'C269', 'C270'],
+  ),
+  'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-explore/tool-definition.ts': reviewed(
+    '927759645750d64ee0096122a3201b2ea48b49602270075e00ea34092027ba6c',
+    ['C100', 'C101', 'C102', 'C103', 'C104', 'C105'],
+  ),
+  'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-fetch/execution.ts': reviewed(
+    '56b062278ecd92c465eacaf96bdf787e2a5b23b10f92a6a9f143485462319550',
+    ['C151', 'C152', 'C153', 'C154', 'C155', 'C156', 'C157', 'C158', 'C159'],
+  ),
+  'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-keyword-graph.ts': reviewed(
+    '78cdabb13aea1d85623db86cc2e95424e7bbf1da5fa2b7bb175d8bc041c4bca3',
+    [
+      'C221',
+      'C222',
+      'C223',
+      'C224',
+      'C225',
+      'C226',
+      'C227',
+      'C228',
+      'C229',
+      'C230',
+      'C231',
+      'C232',
+    ],
+  ),
+  'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-misconception-graph.ts': reviewed(
+    '123c885c792866dd9b2ec06078c869c1c4b4c3fcd8d36566cb0c235744999659',
+    ['C233', 'C234', 'C235', 'C236', 'C237', 'C238', 'C239', 'C240', 'C241'],
+  ),
+  'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-prior-knowledge-graph.ts': reviewed(
+    'c85f003e69fe7f2a2da22d65f517334351a244d1085d4e989817ecf54246bacd',
+    ['C246', 'C247', 'C248', 'C249', 'C250', 'C251'],
+  ),
+  'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-search/tool-definition.ts': reviewed(
+    '31efd948175661a2eeccf1020a56288617179e607517727ee75564cd5f6e775c',
+    ['C065', 'C066', 'C067', 'C068'],
+  ),
+  'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-thread-progressions.ts': reviewed(
+    '4ec70e248ca3b5851d36ac7b73e32f7c2af274844192a8b49ec0334fa0a773a7',
+    ['C252', 'C253', 'C254', 'C255', 'C256', 'C257', 'C258', 'C259', 'C260'],
+  ),
+  'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-user-search/tool-definition.ts': reviewed(
+    '5349c6faa562a23619b7f4176b137aa1e6e5682baf1d7dfac8fbb8d5cf6a0a75',
+    [
+      'C118',
+      'C119',
+      'C120',
+      'C121',
+      'C122',
+      'C123',
+      'C124',
+      'C125',
+      'C126',
+      'C127',
+      'C128',
+      'C129',
+    ],
+  ),
   'packages/sdks/oak-curriculum-sdk/src/mcp/all-resources.ts': excluded(
     'b33adeff668f1bcb72b3d8098e03240db460f02e2ae3d5aced76041335d7f10f',
     IMPLEMENTATION_ONLY,
@@ -70,116 +154,20 @@ export const SDK_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     '0e31c4103c0b45fb5d4f59ff7522684e77adf56978336d8ba7cda817f0580c20',
     TYPE_ONLY,
   ),
-  'packages/sdks/oak-sdk-codegen/code-generation/apply-deferred-paths.ts': excluded(
-    '7d95eb732a06a198166ebf3733a387e66e6c177c1974d4f3d3f194ec3b546ee0',
+  'packages/sdks/oak-curriculum-sdk/src/mcp/orientation-guidance.ts': reviewed(
+    '541a88e4196d1ca0c1c3fd45fc31d7f662f7cd43a228f37004d40e21b9af0641',
+    ['C001', 'C005', 'C006'],
+  ),
+  'packages/sdks/oak-curriculum-sdk/src/mcp/universal-tool-shared.ts': reviewed(
+    '671ccee6dfe7b45ea91b65d67ccd7c72bda60a6354a62a6db648b2856240c3bf',
+    ['C059', 'C060', 'C061', 'C062'],
+  ),
+  'packages/sdks/oak-curriculum-sdk/src/mcp/universal-tools/definitions.ts': excluded(
+    'da82fc8370788eefc4a61b2778b78a2f6b56ec457dec7a146bd50fa774937f65',
     IMPLEMENTATION_ONLY,
   ),
-  'packages/sdks/oak-sdk-codegen/code-generation/codegen.ts': excluded(
-    '1dadef4f96511ba3a7c8ed3defb8db835173e856dc034a816efe74c6617a81e9',
-    IMPLEMENTATION_ONLY,
+  'packages/sdks/oak-curriculum-sdk/src/mcp/universal-tools/executor.ts': reviewed(
+    '6b3007871168f2f388a2f87b895223f03024b8ad7af8781f6a180b4ff3133d10',
+    ['C057', 'C058'],
   ),
-  'packages/sdks/oak-sdk-codegen/code-generation/excluded-paths.ts': reviewed(
-    '54696cd55ab5ebc2c2015fc30ab3b022f00e97c8a642a101060d0156b34f9aec',
-    ['A002', 'C470'],
-  ),
-  'packages/sdks/oak-sdk-codegen/code-generation/resolve-schema-source.ts': excluded(
-    'da1edf8b6b885c8894207e04480ed1f77d54fcfb029cfe2921cd1f781a67d26a',
-    IMPLEMENTATION_ONLY,
-  ),
-  'packages/sdks/oak-sdk-codegen/code-generation/schema-separation-core.ts': excluded(
-    '096ce2c5a613a5fa33212ecc6ca1eeba4a575f7d960da32fc3acd1ffd20a4ac9',
-    IMPLEMENTATION_ONLY,
-  ),
-  'packages/sdks/oak-sdk-codegen/code-generation/typegen/bulk/schema-templates-part2.ts': excluded(
-    '81b743427311cec21ad4a97dff8559e11ee9bfa9df73f3f668d38c7f8f997229',
-    UPSTREAM_BULK_ONLY,
-  ),
-  'packages/sdks/oak-sdk-codegen/code-generation/typegen/bulk/schema-templates-part3.ts': excluded(
-    '21cd5d519ee7e3885674fbdb1e74082abad84b75112eb942bb14722d7405b2bf',
-    UPSTREAM_BULK_ONLY,
-  ),
-  'packages/sdks/oak-sdk-codegen/code-generation/typegen/bulk/schema-templates.ts': excluded(
-    'd7cefcfc67a83313bc6a88cffdd09ca510e8d34415f8ab3b3afd5e354cd5ac9b',
-    UPSTREAM_BULK_ONLY,
-  ),
-  'packages/sdks/oak-sdk-codegen/code-generation/typegen/cross-domain-constants.ts': reviewed(
-    'fd2db884860762272d0c2824c930d09082e46db88f918e2d47a0035483afcb7b',
-    ['C479', 'C480'],
-  ),
-  'packages/sdks/oak-sdk-codegen/code-generation/typegen/generate-widget-constants.ts': excluded(
-    '2655cff78ca4a1cfb2dd0452f194f6cb33579f2372a0eb1e7ed09e1065e630d5',
-    IMPLEMENTATION_ONLY,
-  ),
-  'packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/mcp-tool-generator.ts': reviewed(
-    '7d41ed34891f4c2458eaa927020f622561e9ffeb7941950ce102f0220edeaad7',
-    ['C471'],
-  ),
-  'packages/sdks/oak-sdk-codegen/code-generation/typegen/widget-uri-suffix.ts': excluded(
-    '8c8c63616d88ddc3a467810c92fb899b241b539e958110d09a1013cdc332238a',
-    IMPLEMENTATION_ONLY,
-  ),
-  'packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-key-stages-subject-lessons.ts':
-    reviewed('8a0df21041651b201af1e67bc58cc624608b90df4e60803e466f5e7b204b838b', [
-      'C511',
-      'C512',
-      'C513',
-      'C514',
-      'C515',
-      'C516',
-      'C517',
-      'C518',
-      'C519',
-      'C520',
-    ]),
-  'packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-key-stages-subject-questions.ts':
-    reviewed('22050191b8b10522620371915786f88e7280beccf736ec1987393cd7cf0fe6bb', [
-      'C521',
-      'C522',
-      'C523',
-      'C524',
-      'C525',
-      'C526',
-      'C527',
-      'C528',
-      'C529',
-      'C530',
-    ]),
-  'packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-programmes-assets.ts':
-    reviewed('bd715ef71347add4e9dbe07e2bce44b056c4dfa917ede20459e7dc276f957f4d', [
-      'C577',
-      'C578',
-      'C579',
-      'C580',
-      'C581',
-      'C582',
-      'C583',
-      'C584',
-      'C585',
-      'C586',
-      'C587',
-    ]),
-  'packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-programmes-questions.ts':
-    reviewed('f80a0834cbe6debe28b84eec991c59cd3716751f0fd1d8758ddf4550da5d9b0c', [
-      'C588',
-      'C589',
-      'C590',
-      'C591',
-      'C592',
-      'C593',
-      'C594',
-      'C595',
-      'C596',
-    ]),
-  'packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences-questions.ts':
-    reviewed('ce006564fad8b5531234881eb76414a43ff3ebcc87d5913d0f00a617efdeef04', [
-      'C619',
-      'C620',
-      'C621',
-      'C622',
-      'C623',
-      'C624',
-      'C625',
-      'C626',
-      'C627',
-    ]),
 };

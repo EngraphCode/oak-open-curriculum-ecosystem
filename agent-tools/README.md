@@ -34,6 +34,8 @@ domain-specific flows:
 - `claude-agent-ops`: monitor background agents, inspect logs, diff worktrees, run preflight checks, and run a summary-first health probe for agent infrastructure drift.
 - `cursor-session-from-claude-session`: find/inspect Claude sessions and generate Cursor takeover bundles with an explicit reintegration contract.
 - `codex-reviewer-resolve`: resolve a repo-local Codex reviewer adapter to the exact `.codex` and canonical `.agent` files that should ground a review.
+- `protocol-conformance`: recompute the estate's collaboration-protocol tier from artefacts and gates and compare it against the declared floor.
+- `mcp-conformance`: run MCPJam conformance suites (lockfile-installed `@mcpjam/cli`) against a deployed MCP surface — verdicts BY NAME against committed baselines (default), capture observation seeds for authoring baselines via `--seed`, or drive every advertised tool once with its advertised example inputs and render the reviewer walkthrough pack via `--drive` (root alias `pnpm -s mcp:conformance` — the `-s` keeps stdout pure JSON on failing runs).
 
 ## Structure
 
@@ -289,12 +291,10 @@ OAK_AGENT_IDENTITY_OVERRIDE="Frolicking Toast" pnpm agent-tools agent-identity -
   agent, directed-kind messages to the agent, and lifecycle moments — is
   surfaced with self-exclusion only (by full identity tuple). Each emitted
   event is tagged `[BROADCAST]`, `[GROUP]`, `[DIRECTED]`, or `[LIFECYCLE]` on
-  its first line so the agent knows the channel at a glance. Pass
-  `--only-directed` to narrow to directed messages addressed to this agent. Identity
+  its first line so the agent knows the channel at a glance. Identity
   defaults to the platform-derived Practice session id (matching `comms send`
   / `comms direct`); explicit `--agent-name` + optional `--session-prefix` is
-  available for admin/test overrides, with `--agent-name '*'` matching all
-  recipients in `--only-directed` mode. `watch` uses `fs.watch` with polling
+  available for admin/test overrides. `watch` uses `fs.watch` with polling
   fallback and records seen event ids in the caller-supplied `--seen-file`.
   `reply` swaps the source `from` / `to` identities and defaults the subject
   to `re: <source subject>` unless `--subject` is supplied.
@@ -369,12 +369,13 @@ pnpm agent-tools collaboration-state comms reply \
   --model GPT-5
 pnpm agent-tools collaboration-state comms watch \
   --comms-dir .agent/state/collaboration/comms \
-  --seen-file .agent/state/collaboration/comms-seen/penumbral-veiling-raven.txt \
+  --seen-file '.agent/state/collaboration/comms-seen/Penumbral Veiling Raven.json' \
   --platform codex \
-  --model GPT-5
+  --model GPT-5 \
+  --supervisor-pid "$PPID" \
+  --max-events-per-drain 100
 pnpm agent-tools collaboration-state comms validate
-# default: all-channels — broadcast, group, directed, lifecycle
-# add --only-directed to narrow to directed-to-me events
+# watch emits all channels — broadcast, group, directed, observed, lifecycle
 pnpm agent-tools commit-queue status
 ```
 

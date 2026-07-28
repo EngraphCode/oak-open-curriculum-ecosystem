@@ -94,4 +94,45 @@ describe('getPRMUrl', () => {
       'Cannot generate OAuth metadata URL: host not allowed: evil.com',
     );
   });
+
+  describe('with a configured canonical origin (MCP-269)', () => {
+    // The allow-list is passed EMPTY throughout: the canonical origin must not
+    // consult it, so an empty list makes any accidental per-request derivation
+    // fail loudly instead of passing by coincidence.
+    const CANONICAL = 'https://www.thenational.academy';
+
+    it('uses the canonical origin instead of the request host', () => {
+      const mockReq = {
+        protocol: 'https',
+        get: () => 'curriculum-mcp-alpha.oaknational.dev',
+      };
+
+      const result = getPRMUrl(mockReq, [], CANONICAL);
+
+      expect(result).toBe(
+        'https://www.thenational.academy/.well-known/oauth-protected-resource/mcp',
+      );
+    });
+
+    it('ignores req.protocol — the canonical origin fixes the scheme', () => {
+      const mockReq = {
+        protocol: 'http',
+        get: () => 'curriculum-mcp-alpha.oaknational.dev',
+      };
+
+      const result = getPRMUrl(mockReq, [], CANONICAL);
+
+      expect(result).toBe(
+        'https://www.thenational.academy/.well-known/oauth-protected-resource/mcp',
+      );
+    });
+
+    it('does not consult the request host at all — an absent Host still resolves', () => {
+      const mockReq = { protocol: 'https', get: () => undefined };
+
+      expect(getPRMUrl(mockReq, [], CANONICAL)).toBe(
+        'https://www.thenational.academy/.well-known/oauth-protected-resource/mcp',
+      );
+    });
+  });
 });

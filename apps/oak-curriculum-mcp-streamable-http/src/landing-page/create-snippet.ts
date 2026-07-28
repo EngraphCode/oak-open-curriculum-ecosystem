@@ -8,25 +8,25 @@
  * ```typescript
  * import { createSnippet } from './create-snippet.js';
  *
- * const snippet = createSnippet('my-app.vercel.app');
- * // Returns JSON snippet with the deployment URL
+ * const snippet = createSnippet('https://my-app.vercel.app/mcp');
+ * // Returns JSON snippet with that endpoint URL
  * ```
  */
-
-import { resolveCanonicalUrl } from './resolve-canonical-url.js';
 
 /**
  * Creates the MCP client configuration snippet.
  *
  * Generates a JSON snippet that can be added to MCP client configurations
- * (e.g., Claude, Cursor) to connect to this MCP server.
+ * (e.g., Claude, Cursor) to connect to this MCP server. The endpoint URL is
+ * derived once on the build side (`derive-view-props.ts`) and passed in —
+ * this module performs no environment derivation of its own.
  *
- * @param vercelHost - Optional Vercel host header value for URL resolution
+ * @param mcpEndpointUrl - The already-derived MCP endpoint URL
  * @returns JSON configuration snippet string (without outer braces)
  *
  * @example
  * ```typescript
- * const snippet = createSnippet('my-app.vercel.app');
+ * const snippet = createSnippet('https://my-app.vercel.app/mcp');
  * // Returns:
  * // '
  * //   "mcpServers": {
@@ -38,13 +38,12 @@ import { resolveCanonicalUrl } from './resolve-canonical-url.js';
  * // '
  * ```
  */
-export function createSnippet(vercelHost?: string): string {
-  const mcpServerUrl = resolveCanonicalUrl(vercelHost);
+export function createSnippet(mcpEndpointUrl: string): string {
   return `
   "mcpServers": {
     "oak-curriculum": {
       "type": "http",
-      "url": "${mcpServerUrl}"
+      "url": "${mcpEndpointUrl}"
     }
   }
 `;

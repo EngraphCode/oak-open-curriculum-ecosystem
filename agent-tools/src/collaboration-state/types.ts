@@ -196,7 +196,7 @@ export type CommsEvent = NarrativeCommsEvent | LifecycleCommsEvent | DirectedCom
  * seen unconditionally after a successful drain (before emit), so a
  * heartbeats-only drain still marks and the backlog never replays when the
  * filter lifts. Includes every excluded unseen id, including those beyond
- * any `remainingEvents` slice horizon — safe because the seen store is an
+ * any `batchLimit` slice horizon — safe because the seen store is an
  * id set, not a cursor; a cursor-shaped seen-store migration must
  * re-examine this.
  */

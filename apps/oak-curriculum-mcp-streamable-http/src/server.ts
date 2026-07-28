@@ -19,6 +19,7 @@ import { setupExpressErrorHandler } from '@sentry/node';
 import type { RuntimeConfig } from './runtime-config.js';
 
 import { WIDGET_HTML_CONTENT } from './generated/widget-html-content.js';
+import { BAKED_LANDING_PAGE_HTML } from './app/landing-page-baked.js';
 import { createApp } from './application.js';
 import { createDeployEntryHandler } from './deploy-entry-handler.js';
 import { createDefaultRateLimiterFactory } from './rate-limiting/index.js';
@@ -47,7 +48,7 @@ function loadRuntimeConfigOrThrow(): RuntimeConfig {
     throw new Error(runtimeConfig.error.message);
   }
 
-  return runtimeConfig.value;
+  return runtimeConfig.value.runtimeConfig;
 }
 
 /**
@@ -74,6 +75,10 @@ async function loadConfiguredApp(): Promise<NodeRequestHandler> {
     runtimeConfig,
     observability,
     getWidgetHtml: () => WIDGET_HTML_CONTENT,
+    // The page ships INSIDE this bundle (esbuild text loader): the deploy
+    // filesystem has no .generated/ artefact, so a runtime read is not an
+    // option at this boundary — see src/app/landing-page-baked.ts.
+    getLandingPageHtml: () => BAKED_LANDING_PAGE_HTML,
     rateLimiterFactory: createDefaultRateLimiterFactory({
       isVercelRuntime: runtimeConfig.env.VERCEL_ENV !== undefined,
     }),

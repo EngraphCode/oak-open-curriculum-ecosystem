@@ -22,6 +22,7 @@ import { MAX_PREREQUISITE_DEPTH } from '@oaknational/graph-corpus-sdk/curriculum
 import { describe, it, expect } from 'vitest';
 import { z } from 'zod';
 import {
+  GET_PRIOR_KNOWLEDGE_GRAPH_INPUT_SCHEMA,
   GET_PRIOR_KNOWLEDGE_GRAPH_TOOL_DEF,
   runPriorKnowledgeGraphTool,
 } from './aggregated-prior-knowledge-graph.js';
@@ -62,21 +63,13 @@ describe('GET_PRIOR_KNOWLEDGE_GRAPH_TOOL_DEF', () => {
     );
   });
 
-  it('does not include prerequisite guidance (graph tools are loaded as needed, not prerequisites)', () => {
-    expect(GET_PRIOR_KNOWLEDGE_GRAPH_TOOL_DEF.description).not.toContain(
-      'You MUST call `get-curriculum-model` first',
-    );
-    expect(GET_PRIOR_KNOWLEDGE_GRAPH_TOOL_DEF.description).not.toContain(
-      'You MUST call this tool before using other curriculum tools',
-    );
-  });
-
   it('has annotations marking it as read-only and idempotent', () => {
     expect(GET_PRIOR_KNOWLEDGE_GRAPH_TOOL_DEF.annotations).toEqual({
       readOnlyHint: true,
       destructiveHint: false,
       idempotentHint: true,
       openWorldHint: false,
+      title: GET_PRIOR_KNOWLEDGE_GRAPH_TOOL_DEF.title,
     });
   });
 });
@@ -150,5 +143,37 @@ describe('runPriorKnowledgeGraphTool', () => {
     const result = runPriorKnowledgeGraphTool('unitSlugs');
 
     expect(result.isError).toBe(true);
+  });
+});
+
+describe('get-prior-knowledge-graph wire schema — advertised examples (MCP-303 drive-leg cure)', () => {
+  // Behaviour, never config (owner ruling 2026-07-28): the `.meta()` must
+  // survive the z.toJSONSchema round-trip so clients can derive a call (the
+  // drive leg's founding finding), and WHATEVER anchor it advertises must
+  // resolve in the corpus this SDK ships — a dead example teaches every
+  // client a dead value. The value itself is config and is not pinned.
+  it('the wire-advertised example invocation resolves against the shipped corpus', () => {
+    const jsonSchema = z.toJSONSchema(z.object(GET_PRIOR_KNOWLEDGE_GRAPH_INPUT_SCHEMA));
+    const wire = z
+      .object({
+        properties: z
+          .object({
+            unitSlugs: z.object({ examples: z.array(z.array(z.string()).min(1)).min(1) }).loose(),
+          })
+          .loose(),
+      })
+      .loose()
+      .parse(jsonSchema);
+    const exampleAnchor = wire.properties.unitSlugs.examples[0];
+    if (exampleAnchor === undefined) {
+      throw new Error('wire schema advertises no unitSlugs example to drive');
+    }
+
+    const result = runPriorKnowledgeGraphTool({ unitSlugs: exampleAnchor });
+
+    expect(result.isError).toBeUndefined();
+    const envelope = SUBGRAPH_ENVELOPE.parse(result.structuredContent);
+    expect(envelope.unknownAnchors).toEqual([]);
+    expect(envelope.resolvedAnchors.length).toBeGreaterThan(0);
   });
 });

@@ -5,5 +5,9 @@ export const CURRENT_SOURCE_ANCHORS = `${AUDIT_ROOT}/current-source-anchors.json
 export const CURRENT_SOURCE_DELTA_INVENTORY = `${AUDIT_ROOT}/current-source-delta-inventory.json`;
 export const AUDIT_REPORT = `${AUDIT_ROOT}/report.md`;
 export const BASELINE_COMMIT = '240a598607b96485f50c0dfd6df154d673a90a25';
+// The sha pins the registry as maintained on main (last reviewed evolution:
+// 1bc098d6f delta-refresh, eb30beffe/6b9267ab0 annotation rounds, b6bf4ce7f);
+// BASELINE_COMMIT stays the phase-(a) capture commit so the semantic-delta
+// ledger keeps measuring governed-source drift since the original audit.
 export const BASELINE_REGISTRY_SHA256 =
-  '244f9ce421983fbc92dfd12db7d552cf61670c96353d16625adaf56a0bd8a78d';
+  'be4ca4382113515c3358e5711827db2165305ca65ec37f7180bd3dfa509729cf';

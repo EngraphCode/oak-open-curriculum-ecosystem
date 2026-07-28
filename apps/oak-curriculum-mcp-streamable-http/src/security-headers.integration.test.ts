@@ -27,6 +27,8 @@ describe('Security Headers (Integration)', () => {
       runtimeConfig,
       observability,
       getWidgetHtml: () => '<!doctype html><html><body>test-widget</body></html>',
+      getLandingPageHtml: () =>
+        '<!doctype html><html lang="en-GB"><body>test landing page</body></html>',
       rateLimiterFactory: createFakeRateLimiterFactory().factory,
     });
   });
@@ -52,12 +54,31 @@ describe('Security Headers (Integration)', () => {
       expect(csp).toContain("'unsafe-inline'");
     });
 
-    it('CSP allows Google Fonts', async () => {
+    it('CSP permits the fonts the served page actually requests', async () => {
       const res = await request(app).get('/').set('Host', 'localhost');
       const csp = res.headers['content-security-policy'];
 
-      expect(csp).toContain('fonts.googleapis.com');
-      expect(csp).toContain('fonts.gstatic.com');
+      // Asserted on the emitted header, not the directive object: font-src is
+      // set, so it overrides default-src instead of inheriting it. A host-only
+      // value here blocks /oak-ds/fonts/*.ttf and the page renders in system
+      // faces — silently, with only a console violation to show for it.
+      expect(csp).toContain("font-src 'self'");
+    });
+
+    it('CSP names no third-party host', async () => {
+      const res = await request(app).get('/').set('Host', 'localhost');
+      const csp = res.headers['content-security-policy'] ?? '';
+
+      // Categorical, not an enumeration of known hosts: in a CSP source
+      // list, keywords are quoted ('self') and path sources start with '/',
+      // so any other token is a host expression (bare hostname or
+      // scheme://host) — exactly what this policy must not carry.
+      const hostSources = csp
+        .split(';')
+        .flatMap((directive) => directive.trim().split(/\s+/).slice(1))
+        .filter((source) => source !== '' && !source.startsWith("'") && !source.startsWith('/'));
+
+      expect(hostSources).toStrictEqual([]);
     });
 
     it('CSP allows same-origin and inline scripts for Cloudflare', async () => {
@@ -129,8 +150,11 @@ describe('Security Headers (Integration)', () => {
     it('exposes the runtime app version in the response header and HTML metadata', async () => {
       const res = await request(app).get('/').set('Host', 'localhost');
 
+      // Header only: under the bake, `/` serves the BUILD's artefact (a test
+      // fake here), so the runtime version reaches responses through the
+      // header. The baked page's own meta tag is proven where it is rendered,
+      // in render-landing-page.unit.test.tsx.
       expect(res.headers['x-app-version']).toBe('0.0.0-test');
-      expect(res.text).toContain('<meta name="app-version" content="0.0.0-test" />');
     });
   });
 

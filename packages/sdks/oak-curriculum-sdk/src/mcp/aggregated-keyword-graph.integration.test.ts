@@ -23,7 +23,11 @@ import { graphCorpus } from '@oaknational/sdk-codegen/graph-corpus';
 import { MAX_KEYWORD_LIMIT } from '@oaknational/graph-corpus-sdk/curriculum';
 import { describe, it, expect } from 'vitest';
 import { z } from 'zod';
-import { GET_KEYWORD_GRAPH_TOOL_DEF, runKeywordGraphTool } from './aggregated-keyword-graph.js';
+import {
+  GET_KEYWORD_GRAPH_INPUT_SCHEMA,
+  GET_KEYWORD_GRAPH_TOOL_DEF,
+  runKeywordGraphTool,
+} from './aggregated-keyword-graph.js';
 
 /** Narrows a deterministic fixture pick, failing loudly if the corpus cannot supply it. */
 function required<T>(value: T | undefined, message: string): T {
@@ -109,6 +113,7 @@ describe('GET_KEYWORD_GRAPH_TOOL_DEF', () => {
       destructiveHint: false,
       idempotentHint: true,
       openWorldHint: false,
+      title: GET_KEYWORD_GRAPH_TOOL_DEF.title,
     });
   });
 });
@@ -196,5 +201,42 @@ describe('runKeywordGraphTool — anchored retrieval envelope', () => {
     expect(envelope.keywords).toEqual([]);
     expect(envelope.totalMatchingKeywords).toBe(0);
     expect(envelope.hasMore).toBe(false);
+  });
+});
+
+describe('get-keyword-graph wire schema — advertised examples (MCP-303 drive-leg cure)', () => {
+  // Behaviour, never config (owner ruling 2026-07-28): the `.meta()` must
+  // survive the z.toJSONSchema round-trip so clients can derive a call (the
+  // drive leg's founding finding), and WHATEVER anchor it advertises must
+  // yield a live graph from the shipped corpus — an advertised example that
+  // returns an empty graph teaches every client a dead value. The values
+  // themselves are config and are not pinned.
+  it('the wire-advertised example anchor yields a live keyword graph', () => {
+    const jsonSchema = z.toJSONSchema(z.object(GET_KEYWORD_GRAPH_INPUT_SCHEMA));
+    const wire = z
+      .object({
+        properties: z
+          .object({
+            subject: z.object({ examples: z.array(z.string()).min(1) }).loose(),
+            keyStage: z.object({ examples: z.array(z.string()).min(1) }).loose(),
+          })
+          .loose(),
+      })
+      .loose()
+      .parse(jsonSchema);
+    const subject = required(
+      wire.properties.subject.examples[0],
+      'wire schema advertises no subject example',
+    );
+    const keyStage = required(
+      wire.properties.keyStage.examples[0],
+      'wire schema advertises no keyStage example',
+    );
+
+    const result = runKeywordGraphTool({ subject, keyStage });
+
+    expect(result.isError).toBeUndefined();
+    const envelope = KEYWORD_ENVELOPE.parse(result.structuredContent);
+    expect(envelope.keywords.length).toBeGreaterThan(0);
   });
 });

@@ -48,6 +48,14 @@ import type { CallToolResult, ResourceLink, TextContent } from '@modelcontextpro
 export const OAK_UNDER_THE_HOOD_TOOL_NAME = 'oak-under-the-hood';
 
 /**
+ * Display title, referenced by BOTH the top-level `title` and
+ * `annotations.title` registration fields — one constant so the two wire
+ * locations cannot diverge (no compile-time guard reaches this app-local
+ * tool; the shared constant makes divergence unrepresentable).
+ */
+const OAK_UNDER_THE_HOOD_TOOL_TITLE = 'Oak: Under the Hood';
+
+/**
  * Public URL of the canonical orientation method (the under-the-hood skill), read
  * live from `main`. W2 and W3 ride the same PR (#243, DRAFT until the reframe
  * lands), so the `main` URL resolves once the PR merges. Reachability is a
@@ -156,10 +164,16 @@ export function registerOakUnderTheHoodTool(server: Pick<McpServer, 'registerToo
   server.registerTool(
     OAK_UNDER_THE_HOOD_TOOL_NAME,
     {
-      title: 'Oak: Under the Hood',
+      title: OAK_UNDER_THE_HOOD_TOOL_TITLE,
       description: OAK_UNDER_THE_HOOD_TOOL_DESCRIPTION,
       inputSchema: z.object({}).strict(),
-      annotations: { readOnlyHint: true, openWorldHint: true },
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        idempotentHint: true,
+        openWorldHint: true,
+        title: OAK_UNDER_THE_HOOD_TOOL_TITLE,
+      },
     },
     () => buildOakUnderTheHoodToolResult(),
   );

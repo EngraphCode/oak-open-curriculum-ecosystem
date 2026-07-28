@@ -1,12 +1,12 @@
 ---
 title: How the Agentic Engineering System Works
 status: active
-last_reviewed: 2026-04-20
+last_reviewed: 2026-07-28
 ---
 
 # How the Agentic Engineering System Works
 
-**Audience**: Engineers interested in how the agentic engineering principles of [the Practice](../../.agent/practice-core/README.md) are applied, embodied, and codified in this repository. This is an engineering explanation, not a how-to guide.
+**Audience**: Engineers interested in how the agentic engineering principles of [the Practice](../../.agent/practice-core/README.md) are applied, embodied, and codified in this repository. This is an engineering explanation, not a how-to guide; its pair, [Working with this Repo for Devs](../engineering/working-with-this-repo-for-devs.md), is the how-to.
 
 **What this document is**: This document explains the Practice through an engineering lens for human readers. Canonical doctrine remains in the ADRs, Practice Core, and the permanent `/docs/**` surfaces they link together. The agent-facing blueprint tells agents what to do; this page explains how and why the interacting pieces form a coherent system. [ADR-119](../architecture/architectural-decisions/119-agentic-engineering-practice.md) records the naming and framing decision. [ADR-131](../architecture/architectural-decisions/131-self-reinforcing-improvement-loop.md) documents the interaction map and self-referential property.
 
@@ -132,6 +132,7 @@ The system degrades when:
 
 ## Further Reading
 
+- [Working with this Repo for Devs — the practical how-to pair of this page](../engineering/working-with-this-repo-for-devs.md)
 - [The Practice — human-friendly introduction](../../.agent/practice-core/README.md)
 - [Agentic Engineering Research Lanes & Hub — source lanes and deep dives](../../.agent/research/agentic-engineering/README.md)
 - [ADR-119 — naming, boundary, and three-layer model](../architecture/architectural-decisions/119-agentic-engineering-practice.md)

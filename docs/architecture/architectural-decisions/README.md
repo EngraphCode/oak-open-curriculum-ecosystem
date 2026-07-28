@@ -472,7 +472,7 @@ For understanding authentication, authorization, and observability:
 
 - **[ADR-052](052-oauth-2.1-for-mcp-http-authentication.md)** - OAuth 2.1 for MCP HTTP server authentication
 - **[ADR-053](053-clerk-as-identity-provider.md)** - Clerk as Identity Provider and Authorization Server
-- **[ADR-115](115-proxy-oauth-as-for-cursor.md)** - Proxy OAuth AS for Cursor compatibility (transparent passthrough to Clerk)
+- **[ADR-115](115-proxy-oauth-as-for-cursor.md)** - Proxy OAuth AS for Cursor compatibility (transparent passthrough to Clerk; amended 2026-07-26 — transparency scoped against advertised-AS request validation)
 - **[ADR-143](143-coherent-structured-fan-out-for-observability.md)** - Coherent structured fan-out for the Sentry and OpenTelemetry foundation (§6 superseded in part by ADR-160)
 - **[ADR-158](158-multi-layer-security-and-rate-limiting.md)** - Multi-layer security architecture and application rate limiting
 - **[ADR-159](159-per-workspace-vendor-cli-ownership.md)** - Per-workspace vendor CLI ownership with repo-tracked configuration (formalises the Sentry CLI adoption pattern; applies to all future vendor CLIs)
@@ -495,7 +495,7 @@ For understanding the agentic engineering practice:
 - **[ADR-135](135-agent-classification-taxonomy.md)** - Agent classification taxonomy: domain_expert, process_executor, specialist; operational modes; Practice domain trio
 - **[ADR-144](144-two-threshold-fitness-model.md)** - Three-zone fitness model: `healthy` / `soft` / `hard` / `critical` graduated scale with `CRITICAL_RATIO = 1.5`; `critical` is a loop-failure signal requiring a three-question post-mortem (§Loop Health)
 - **[ADR-146](146-assumptions-expert-meta-level-plan-assessment.md)** - Assumptions expert: independent proportionality and plan-assumption challenge with an inverted doctrine hierarchy
-- **[ADR-150](150-continuity-surfaces-session-handoff-and-surprise-pipeline.md)** - Continuity surfaces, lightweight session handoff, conditional deep consolidation, and the surprise pipeline
+- **[ADR-150](150-continuity-surfaces-session-handoff-and-surprise-pipeline.md)** - Continuity surfaces, session close through `wrap` with its lightweight `session-handoff` component (amended 2026-07-28), conditional deep consolidation, and the surprise pipeline
 - **[ADR-181](181-agent-team-start-and-action-log.md)** - Proposed team start ritual, emergent temporary responsibilities, and future action-trace surface
 - **[ADR-147](147-browser-accessibility-as-blocking-quality-gate.md)** - Browser accessibility as a 9th blocking quality gate: WCAG 2.2 AA, Playwright + axe-core, two-level MCP App testing
 - **[ADR-148](148-design-token-architecture.md)** - Design token architecture: DTCG JSON source, three-tier model, CSS custom properties output, `packages/design/` location (§Source Format superseded in part by ADR-213)

@@ -52,6 +52,7 @@ const ToolEntrySchema = z
     name: z.string(),
     description: z.string().optional(),
     inputSchema: z.object({}).loose().optional(),
+    annotations: z.object({ title: z.string() }).loose().optional(),
     _meta: ToolMetaSchema.optional(),
   })
   .loose();
@@ -115,6 +116,23 @@ function findToolOrFail(
 // ---------------------------------------------------------------------------
 
 describe('MCP App Pipeline E2E', () => {
+  it('annotations.title survives to tools/list on every advertised tool', async () => {
+    // The wire-level half of the MCP-300 parity validator: registration-side
+    // presence is proven in handlers-tool-registration.integration.test.ts;
+    // this proves the SDK's tools/list mapping delivers it to a client.
+    const { app } = await createStubbedHttpApp();
+    const tools = await fetchToolsList(app);
+
+    expect(tools.length).toBeGreaterThan(0);
+
+    for (const tool of tools) {
+      expect(
+        tool.annotations?.title,
+        `tool ${tool.name} should advertise a non-empty annotations.title`,
+      ).toBeTruthy();
+    }
+  });
+
   it('_meta.securitySchemes survives to tools/list for generated tools', async () => {
     const { app } = await createStubbedHttpApp();
     const tools = await fetchToolsList(app);

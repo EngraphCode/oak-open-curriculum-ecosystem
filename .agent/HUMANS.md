@@ -49,11 +49,13 @@ canonical `.agent/` version.
 
 ## Can I safely ignore this directory?
 
-Yes. None of these files affect the build, CI, or test execution. The
-quality gates (`pnpm check`, `pnpm test`, `pnpm type-check`) are what
-enforce code quality. The `.agent/` directory helps AI agents follow the
-same standards that human developers follow, but the gates themselves are
-the enforcement mechanism — not these files.
+Mostly. None of these files change how the product code builds, runs, or
+is tested. The quality gates (`pnpm check`, `pnpm test`, `pnpm type-check`)
+are what enforce code quality — though some gates do police `.agent/`
+content itself (markdown lint, link and portability validators), so a
+`.agent/` change can turn `pnpm check` red. The `.agent/` directory helps
+AI agents follow the same standards that human developers follow, but the
+gates themselves are the enforcement mechanism — not these files.
 
 ## What if I'm curious?
 
@@ -66,8 +68,11 @@ The most readable parts of `.agent/` for humans:
 - [directives/principles.md](directives/principles.md) — the code
   quality and architecture rules that govern all work
 
-If you want to understand how the practice works:
+If you want to understand how the practice works — or how to work with it:
 
+- [Working with this Repo for Devs](../docs/engineering/working-with-this-repo-for-devs.md)
+  — the practical guide for developers: how you direct the work, what the
+  agents do around you, and what keeps the quality honest
 - [How the Agentic Engineering System Works](../docs/foundation/agentic-engineering-system.md)
   — the Practice explained as an integrated engineering system: how rules, quality gates, specialist reviewers,
   learning loops, and propagation mechanisms form a coherent safety

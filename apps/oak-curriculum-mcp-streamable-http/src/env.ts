@@ -7,8 +7,16 @@ import {
   SentryEnvSchema,
 } from '@oaknational/env';
 import { RELEASE_ENVIRONMENTS } from '@oaknational/build-metadata';
+import { isValidHostHeader } from './host-header-validation.js';
+import { productAnalyticsEnvFields, refineProductAnalyticsEnv } from './env-product-analytics.js';
 
 const ModeSchema = z.enum(['stateless', 'session']).default('stateless');
+
+const LOOPBACK_HOSTNAMES: readonly string[] = ['localhost', '127.0.0.1', '::1'];
+
+function isLoopbackHostname(value: string): boolean {
+  return LOOPBACK_HOSTNAMES.includes(value.toLowerCase());
+}
 
 /**
  * Base shape for the HTTP server environment.
@@ -55,15 +63,48 @@ const BaseEnvSchema = OakApiKeyEnvSchema.extend(ElasticsearchEnvSchema.shape)
      * (30 req / 15 min / IP).
      */
     TEST_ERROR_SECRET: z.string().min(16).optional(),
+    /**
+     * The address this server is served at, when that differs from the
+     * hostname reaching it.
+     *
+     * Set when an edge serves the app at a canonical address and presents a
+     * different Host to the origin (MCP-172: Cloudflare serves
+     * `www.thenational.academy/mcp` with the Host overridden to the app's own
+     * Vercel hostname). Every self-description surface then names
+     * `https://<CANONICAL_HOST>`; absent, the app self-describes per request
+     * as before.
+     *
+     * A bare hostname only — ports, schemes, paths and loopback names are
+     * rejected here so a misconfiguration is a startup failure rather than a
+     * downgraded or unreachable URL inside a metadata document.
+     */
+    CANONICAL_HOST: z
+      .string()
+      .refine(
+        (value) => isValidHostHeader(value) && !value.includes(':') && !isLoopbackHostname(value),
+        'CANONICAL_HOST must be a bare public hostname — no scheme, port, path, or loopback name',
+      )
+      .optional(),
+    /**
+     * Observability selection axis plus the PostHog deployment inputs it
+     * conditionally requires — field docs and the conditional rules live
+     * in `env-product-analytics.ts`.
+     */
+    ...productAnalyticsEnvFields,
   });
 
+interface ProductionSafetyData {
+  readonly DANGEROUSLY_DISABLE_AUTH?: string;
+  readonly TEST_ERROR_SECRET?: string;
+  readonly VERCEL_ENV?: string;
+}
+
 /**
- * HTTP server environment schema with conditional Clerk key requirement.
+ * Production-only hard failures.
  *
- * When `DANGEROUSLY_DISABLE_AUTH` is `'true'`, Clerk keys are optional.
- * Otherwise, both `CLERK_PUBLISHABLE_KEY` and `CLERK_SECRET_KEY` are required.
+ * @returns `true` when a fatal issue was added and refinement should stop.
  */
-export const HttpEnvSchema = BaseEnvSchema.superRefine((data, ctx) => {
+function refineProductionSafety(data: ProductionSafetyData, ctx: z.RefinementCtx): boolean {
   // Production safety: DANGEROUSLY_DISABLE_AUTH must NEVER be true in production.
   // This makes misconfiguration a hard startup failure rather than a silent bypass.
   if (
@@ -77,7 +118,7 @@ export const HttpEnvSchema = BaseEnvSchema.superRefine((data, ctx) => {
         'DANGEROUSLY_DISABLE_AUTH cannot be true in production. ' +
         'This flag is for local development only.',
     });
-    return;
+    return true;
   }
 
   // Production safety: TEST_ERROR_SECRET must NEVER be set in production.
@@ -92,6 +133,27 @@ export const HttpEnvSchema = BaseEnvSchema.superRefine((data, ctx) => {
         'TEST_ERROR_SECRET must not be set in production. ' +
         'The /test-error route is for preview/development diagnostic use only.',
     });
+    return true;
+  }
+
+  return false;
+}
+
+/**
+ * HTTP server environment schema with conditional Clerk key requirement.
+ *
+ * When `DANGEROUSLY_DISABLE_AUTH` is `'true'`, Clerk keys are optional.
+ * Otherwise, both `CLERK_PUBLISHABLE_KEY` and `CLERK_SECRET_KEY` are required.
+ */
+export const HttpEnvSchema = BaseEnvSchema.superRefine((data, ctx) => {
+  // Production safety first: its diagnostics are the highest-severity
+  // misconfigurations and must never be suppressed by a PostHog rule's
+  // early return.
+  if (refineProductionSafety(data, ctx)) {
+    return;
+  }
+
+  if (refineProductAnalyticsEnv(data, ctx)) {
     return;
   }
 
@@ -126,6 +188,9 @@ export type AuthEnabledEnv = Env & {
 export type AuthDisabledEnv = Env;
 
 export type Env = z.input<typeof BaseEnvSchema>;
+
+/** The parsed shape the validation pipeline produces (post-transform). */
+export type ValidatedHttpEnv = z.output<typeof BaseEnvSchema>;
 
 export function parseCsv(value: string | undefined): string[] | undefined {
   if (!value) {

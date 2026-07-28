@@ -10,6 +10,7 @@
  */
 
 import { describe, it, expect, vi } from 'vitest';
+import { z } from 'zod';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import {
   listUniversalTools,
@@ -23,6 +24,7 @@ import {
   createFakeHttpObservability,
 } from './test-helpers/fakes.js';
 import { createMockRuntimeConfig } from './test-helpers/auth-error-test-helpers.js';
+import { walkCanonicalRegistration } from './test-helpers/registration-walk.js';
 import { SERVED_SURFACE, type ServedSurfaceDefinition } from './served-surface/served-surface.js';
 
 /**
@@ -38,7 +40,10 @@ const ALL_UNIVERSAL_TOOLS_LIVE: ServedSurfaceDefinition = {
     'user-search-query': 'live',
     'get-eef-evidence': 'live',
   },
-  appLocalTools: SERVED_SURFACE.appLocalTools,
+  appLocalTools: {
+    ...SERVED_SURFACE.appLocalTools,
+    'oak-under-the-hood': 'live',
+  },
   resources: SERVED_SURFACE.resources,
 };
 
@@ -155,5 +160,64 @@ describe('Tool Registration (Integration)', () => {
     expect(config).toHaveProperty('inputSchema', modelTool?.inputSchema);
     expect(config).toHaveProperty('inputSchema', {});
     expect(modelTool?.inputSchema).toEqual({});
+  });
+
+  it('every registered tool carries annotations with a display title and the four behaviour hints', () => {
+    // The MCP-300 parity validator. Walking the registerTool calls (not a
+    // source-side list) covers every registration path — generated,
+    // aggregated, and app-local — so a future hand-authored tool cannot
+    // register without the annotations the directory review reads.
+    const registeredAnnotationsSchema = z.object({
+      annotations: z.object({
+        title: z.string().min(1),
+        readOnlyHint: z.boolean(),
+        destructiveHint: z.boolean(),
+        idempotentHint: z.boolean(),
+        openWorldHint: z.boolean(),
+      }),
+    });
+    const { toolConfigs } = walkCanonicalRegistration(ALL_UNIVERSAL_TOOLS_LIVE);
+
+    expect(toolConfigs.size).toBeGreaterThan(0);
+
+    for (const [name, config] of toolConfigs) {
+      const parsed = registeredAnnotationsSchema.safeParse(config);
+      if (!parsed.success) {
+        expect.fail(
+          `tool ${name} registered without required annotations: ${parsed.error.message}`,
+        );
+      }
+    }
+  });
+
+  it('no registered tool description carries an imperative call-another-tool-first instruction', () => {
+    // Directory compliance (acknowledgement 5), enforced at the same walk as
+    // the annotations validator so the generated, aggregated, and app-local
+    // registration PATHS are all reached. The banned CLASS is the imperative
+    // prerequisite — "PREREQUISITE: You MUST call X first" and the softer
+    // "(use 'X' first)" sequencing alike — that duplicated the server's
+    // `instructions` field, guarded by case-insensitive patterns; routing
+    // cross-references ("Not for X — use Y", no sequencing imperative) are
+    // documentation and stay. This walk also holds a second invariant: every
+    // registered tool carries a non-empty description.
+    const bannedDescriptionGuidance = [
+      /prerequisite:/i,
+      /you must call/i,
+      /\b(?:use|call) '[^']+' first\b/i,
+    ];
+    const describedConfigSchema = z.object({ description: z.string().min(1) });
+    const { toolConfigs } = walkCanonicalRegistration(ALL_UNIVERSAL_TOOLS_LIVE);
+
+    expect(toolConfigs.size).toBeGreaterThan(0);
+
+    for (const [name, config] of toolConfigs) {
+      const parsed = describedConfigSchema.safeParse(config);
+      if (!parsed.success) {
+        expect.fail(`tool ${name} registered without a description: ${parsed.error.message}`);
+      }
+      for (const pattern of bannedDescriptionGuidance) {
+        expect(parsed.data.description, `description on ${name}`).not.toMatch(pattern);
+      }
+    }
   });
 });

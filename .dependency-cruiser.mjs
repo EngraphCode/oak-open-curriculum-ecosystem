@@ -27,8 +27,10 @@ export default {
           // Test helpers may only be imported by tests
           'test-helpers/',
           'fakes\\.',
-          // Type declaration files
+          // Type declaration files (the .d.mts flavour is the committed
+          // form — the repo root gitignore excludes every **/*.d.ts)
           '\\.d\\.ts$',
+          '\\.d\\.mts$',
           // Generated files
           'src/types/generated/',
           // Ground truths (data files)
@@ -65,6 +67,8 @@ export default {
           // graph-corpus-sdk subpath-export barrels consumed via package.json "exports"
           'graph-corpus-sdk/src/index\\.ts$',
           'graph-corpus-sdk/src/(eef-strands|threads)/index\\.ts$',
+          // Closed PostHog adapter entry point consumed via package.json "exports"
+          'posthog-node/src/index\\.ts$',
           // SDK and TypeDoc entry points consumed via tsup + typedoc.json
           'oak-curriculum-sdk/src/types/(schema-bridge|public-types)\\.ts$',
         ],

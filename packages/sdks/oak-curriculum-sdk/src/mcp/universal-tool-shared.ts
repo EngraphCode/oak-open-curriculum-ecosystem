@@ -4,7 +4,7 @@ import { typeSafeEntries, typeSafeKeys } from '../types/helpers/type-helpers.js'
 import type { ToolName } from '@oaknational/sdk-codegen/mcp-tools';
 import type { ToolExecutionResult } from './execute-tool-call.js';
 import { McpParameterError, McpToolError } from './execute-tool-call.js';
-import { OAK_CONTEXT_HINT } from './prerequisite-guidance.js';
+import { OAK_CONTEXT_HINT } from './orientation-guidance.js';
 import type { SearchRetrievalService } from './search-retrieval-types.js';
 import type { GeneratedToolRegistry } from './universal-tools/types.js';
 import { createNoopLogger } from './noop-logger.js';

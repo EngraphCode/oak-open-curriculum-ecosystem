@@ -75,7 +75,13 @@ function resolveLoggerOptions(options?: HttpLoggerOptions): {
 export function createHttpLogger(config: RuntimeConfig, options?: HttpLoggerOptions): Logger {
   const level = parseLogLevel(config.env.LOG_LEVEL?.toUpperCase(), 'INFO');
   const resolved = resolveLoggerOptions(options);
-  const resourceAttributes = buildResourceAttributes(config.env, resolved.name, config.version);
+  // The logger's Environment contract is string-valued; the parsed
+  // OBSERVABILITY_SINKS array is not a resource-attribute input.
+  const resourceAttributes = buildResourceAttributes(
+    { ...config.env, OBSERVABILITY_SINKS: undefined },
+    resolved.name,
+    config.version,
+  );
 
   return new UnifiedLogger({
     minSeverity: logLevelToSeverityNumber(level),

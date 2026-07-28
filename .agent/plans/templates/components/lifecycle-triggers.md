@@ -23,9 +23,11 @@ touch points:
    observable artefact proving the registry was consulted.
 4. **During work** — append to the shared communication log or a decision
    thread when direction, overlap, or coordination state changes.
-5. **Session handoff** — close own active claims into
-   `closed-claims.archive.json`, update relevant decision threads, refresh
-   continuity surfaces, and run the consolidation trigger check.
+5. **Session close (`wrap`)** — every session closes with `wrap` (owner
+   ruling 2026-07-28), which runs `session-handoff` as its continuity
+   component: close own active claims into `closed-claims.archive.json`,
+   update relevant decision threads, refresh continuity surfaces, and run
+   the consolidation trigger check.
 6. **Deep consolidation** — let `consolidate-docs` audit stale claims,
    closure history, decision threads, schema validity, and Practice
    propagation.

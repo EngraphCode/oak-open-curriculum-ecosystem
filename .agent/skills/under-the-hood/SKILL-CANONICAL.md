@@ -154,9 +154,11 @@ recited from memory):
   `docs/foundation/agentic-engineering-system.md`); *How do quality and safety
   survive agent speed?* (the same explainer and `docs/governance/README.md` — the
   gates, reviewers, rules tier, and learning loop; relay that gates are blocking,
-  always); *How do I actually work with the agents?* (`CONTRIBUTING.md` §Working
-  with AI Coding Agents — open a session with a start-right skill naming the
-  outcome, close with `oak-session-handoff`); *What is all that machinery in
+  always); *How do I actually work with the agents?*
+  (`docs/engineering/working-with-this-repo-for-devs.md` — the practical guide —
+  with `CONTRIBUTING.md` §Working with AI Coding Agents for the surfaces beneath
+  it; open a session with a start-right skill naming the outcome, close with
+  `oak-wrap`); *What is all that machinery in
   `.agent/`?* (`.agent/HUMANS.md`). If the person is new to working with agentic
   AI *in general*, suggest the portable `working-with-agentic-ai` primer first as a
   declinable prelude (see The Primer Edge).
@@ -245,6 +247,7 @@ docs. See the Oak-org rows in the table.
 | `VISION.md` (repo root) | What we're changing, why it matters, and the map to how |
 | `CONTRIBUTING.md` | Contributor flow, contribution levels, external-contribution posture |
 | `CONTRIBUTING.md` §Working with AI Coding Agents | How to start, steer, and close agent sessions; the skill vocabulary |
+| `docs/engineering/working-with-this-repo-for-devs.md` | The practical dev guide — how you direct the work, what the agents do around you, and what keeps the quality honest |
 | `docs/README.md` | Documentation index and start paths |
 | `docs/domain/curriculum-guide.md` | Curriculum structure in plain language |
 | `.agent/reports/README.md` | Reports index — resolve the newest progress report here; never assume a remembered filename is the latest, and **filter by the `oak-ecosystem-progress-*` family** — the index also carries audits and engineering reports |
@@ -370,7 +373,7 @@ When a conversation reaches its end, close with one message suited to the mode:
    visit versus already in place (honest attribution).
 2. Next steps for their angle: engineers → the live `CONTRIBUTING.md` development
    process and the two session bookends (open with
-   a start-right skill, close with `oak-session-handoff`) as the only prescribed
+   a start-right skill, close with `oak-wrap`) as the only prescribed
    practices — beyond the bookends the team deliberately does not prescribe how
    anyone works; strategy readers → where new reports land.
 3. They can come back any time (`/oak-under-the-hood`); it picks up where reality is.

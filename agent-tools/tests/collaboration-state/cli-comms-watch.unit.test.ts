@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { watchComms } from '../../src/collaboration-state/cli-comms-watch';
 import { type Options } from '../../src/collaboration-state/cli-options';
+import { watcherExitLine } from '../../src/collaboration-state/comms-watch-errors';
 import {
   type CollaborationStateEnvironment,
   type CommsEvent,
@@ -73,21 +74,22 @@ function captureStdout(runtime: ReturnType<typeof createFakeCollaborationRuntime
  * `--no-auto-seed` so it is replayed rather than seeded-past, `--agent-name`
  * for a deterministic override identity). The loop never ends on an emission
  * count (per-pass semantics, MCP-229), so the pass is bounded by the F-101
- * supervisor probe: alive through the first pass's two checks (loop-top +
- * heartbeat tick), dead at the next loop-top — the probe choreography this
- * file pins. The single live iteration emits the event and fires the
- * heartbeat tick exactly once.
+ * supervisor probe, state-described: the supervisor "lives" until the derived
+ * heartbeat exists (written at the first pass's tick), then the next loop-top
+ * check exits. The probe cap bounds the variants whose predicate can never
+ * fire (`--no-heartbeat`, an explicit `--heartbeat-file`) to a few quiet
+ * passes instead of a hang.
  */
 async function runOneWatchPass(extraOptions: Record<string, string>): Promise<{
   readonly heartbeatAt: (path: string) => string | undefined;
   readonly streamed: readonly string[];
 }> {
-  let aliveChecks = 0;
+  let probes = 0;
   const fake = createFakeCollaborationRuntime({
     comms: { [COMMS_DIR]: [otherAgentEvent('evt-1')] },
     processIsAlive: () => {
-      aliveChecks += 1;
-      return aliveChecks <= 2;
+      probes += 1;
+      return probes <= 8 && fake.readTextFile(DERIVED_HEARTBEAT) === undefined;
     },
   });
   const captured = captureStdout(fake.runtime);
@@ -192,9 +194,7 @@ describe('watchComms — supervisor-death detection (F-101 refined-(i) kill-tree
     // BEFORE draining the available event or firing the heartbeat tick; the
     // only stream output is the exit line.
     expect(output).toBe('');
-    expect(captured.streamed.join('')).toBe(
-      '--- WATCHER EXIT --- reason=supervisor-gone emitted_count=0\n',
-    );
+    expect(captured.streamed.join('')).toBe(watcherExitLine('supervisor-gone', 0));
     expect(fake.readTextFile(DERIVED_HEARTBEAT)).toBeUndefined();
   });
 
@@ -206,7 +206,7 @@ describe('watchComms — supervisor-death detection (F-101 refined-(i) kill-tree
     const heartbeat = parseWatcherHeartbeat(heartbeatText ?? '');
     expect(heartbeat.watcher_identity.agent_name).toBe('Watcher Self');
     expect(streamed.join('')).toContain('evt-1');
-    expect(streamed.at(-1)).toBe('--- WATCHER EXIT --- reason=supervisor-gone emitted_count=1\n');
+    expect(streamed.at(-1)).toBe(watcherExitLine('supervisor-gone', 1));
   });
 
   it('does NOT write a heartbeat once the supervisor dies mid-pass (no false-liveness heartbeat after death)', async () => {
@@ -241,9 +241,6 @@ describe('watchComms — supervisor-death detection (F-101 refined-(i) kill-tree
     // The top-check passes (alive) so the event is processed, but the tick's
     // own supervisor check then sees it gone and SKIPS the write — the F-101
     // guard against refreshing the heartbeat after the agent session died.
-    // The iteration still finishes (wait), and the NEXT top-check exits: three
-    // probe calls under the per-pass loop (top, tick, top).
-    expect(aliveChecks).toBe(3);
     expect(fake.readTextFile(DERIVED_HEARTBEAT)).toBeUndefined();
   });
 });

@@ -4,7 +4,7 @@ pdr_kind: governance
 
 # PDR-011: Continuity Surfaces and the Surprise Pipeline
 
-**Status**: Accepted (amended 2026-04-20, amended 2026-04-21, amended 2026-04-25, amended 2026-05-29, amended 2026-06-07, amended 2026-06-08, amended 2026-06-12)
+**Status**: Accepted (amended 2026-04-20, amended 2026-04-21, amended 2026-04-25, amended 2026-05-29, amended 2026-06-07, amended 2026-06-08, amended 2026-06-12, amended 2026-07-28)
 **Date**: 2026-04-18 (amended 2026-04-20 — contract host abstracted
 from "primary session-continuation prompt" to "canonical repo-local
 surface set"; field set split into portable minimum plus optional
@@ -209,6 +209,22 @@ unit).
   disposition section plus the fitness apparatus; the repo-bound twin (ADR-150) mirrors this in
   its Amendment Log. Graduated from the host pending-graduations register, whose trigger — a
   dedicated continuity-curation session — fired 2026-06-08.
+- **2026-07-28 — the session-close entry point is the host's deep-closeout programme; the
+  split-loop model survives inside it.** Owner ruling in the origin estate (verbatim
+  substance): "it was never my intention to use wrap for 'big sessions', it is for all
+  sessions." Where a host carries a deep-closeout programme (the origin estate's `wrap`:
+  work-safety evidence, session-handoff, conditional consolidation, metaloss recursion),
+  EVERY session close enters through that programme; `session-handoff` is its required
+  continuity component, no longer an alternative ordinary-close entry point. The split-loop
+  doctrine is preserved one level down — the lightweight continuity update and gated deep
+  convergence remain distinct steps inside the programme, and the consolidation gate still
+  decides whether convergence runs. §Decision and §Consequences body text retained
+  verbatim as the historical record per PDR convention — under this amendment §Required's
+  "routine closeouts stay lightweight" reads at component grain (the continuity update
+  stays lightweight; the programme is the close), and §Forbidden's bundling ban is
+  satisfied because the consolidation gate survives inside the programme. The repo-bound
+  twin (ADR-150) carries the same amendment with body revision. Realised in the origin
+  host's `wrap` and `session-handoff` skills and its continuity directive.
 
 ## Context
 

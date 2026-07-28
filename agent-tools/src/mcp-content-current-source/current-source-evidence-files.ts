@@ -3,10 +3,8 @@ import { access, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { z } from 'zod';
 import { resolveTrustedGit } from '../core/trusted-git.js';
-import {
-  CURRENT_ITEM_ANCHOR_OVERRIDES,
-  CURRENT_ITEM_REVISION_OVERRIDES,
-} from './current-item-anchor-overrides.js';
+import { CURRENT_ITEM_ANCHOR_OVERRIDES } from './current-item-anchor-overrides.js';
+import { CURRENT_ITEM_REVISION_OVERRIDES } from './current-item-revision-overrides.js';
 import { CURRENT_ITEM_REGISTRATION_SURFACE_OVERRIDES } from './current-item-registration-surface-overrides.js';
 import {
   buildCurrentSourceAnchorManifest,

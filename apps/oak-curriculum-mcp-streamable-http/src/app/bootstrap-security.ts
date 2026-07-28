@@ -28,7 +28,13 @@ import type { HttpObservability } from '../observability/http-observability.js';
  * only needed on the landing page (`/`), so it is returned for selective
  * application.
  *
- * @returns DNS rebinding middleware and resolved allowed hosts
+ * `dnsRebindingProtection` deliberately keeps validating the RAW Host: it is
+ * the control that stops a rebound DNS name reaching the HTML surfaces, and a
+ * configured canonical origin (which governs self-description only) must
+ * never relax it.
+ *
+ * @returns DNS rebinding middleware, resolved allowed hosts, and the
+ *   configured canonical origin when the app is served at an edge address
  */
 export function setupSecurityMiddleware(
   app: Express,
@@ -37,7 +43,11 @@ export function setupSecurityMiddleware(
   timer: PhasedTimer,
   appId: number,
   observability?: Pick<HttpObservability, 'withSpan' | 'withSpanSync'>,
-): { dnsRebindingMiddleware: RequestHandler; allowedHosts: readonly string[] } {
+): {
+  dnsRebindingMiddleware: RequestHandler;
+  allowedHosts: readonly string[];
+  canonicalOrigin?: string;
+} {
   const securityConfig = createSecurityConfig(runtimeConfig);
 
   const corsMiddleware = runBootstrapPhase(
@@ -73,5 +83,9 @@ export function setupSecurityMiddleware(
     observability,
   );
 
-  return { dnsRebindingMiddleware, allowedHosts: securityConfig.allowedHosts };
+  return {
+    dnsRebindingMiddleware,
+    allowedHosts: securityConfig.allowedHosts,
+    ...(securityConfig.canonicalOrigin ? { canonicalOrigin: securityConfig.canonicalOrigin } : {}),
+  };
 }

@@ -30,6 +30,7 @@ interface RunOAuthAndAuthContextDeps {
   readonly bootstrapTimer: PhasedTimer;
   readonly appId: number;
   readonly allowedHosts: readonly string[];
+  readonly canonicalOrigin?: string;
   readonly oauthRateLimiter: RequestHandler;
   readonly metadataRateLimiter: RequestHandler;
 }
@@ -58,6 +59,7 @@ export async function runOAuthAndAuthContextPhases(
     deps.upstreamMetadata,
     deps.oauthRateLimiter,
     deps.metadataRateLimiter,
+    deps.canonicalOrigin,
   );
 
   runBootstrapPhase(

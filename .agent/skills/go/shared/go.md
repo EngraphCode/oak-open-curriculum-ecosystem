@@ -66,9 +66,9 @@ Use `GO` when the todo list needs re-grounding before the work drifts.
 
 Use `GO` when the plan is likely to be long running or complex.
 
-Do not use `GO` as the ordinary end-of-session handoff. Close ordinary sessions
-with `session-handoff`. Use `consolidate-docs` only when its trigger checklist
-says deep convergence is due.
+Do not use `GO` as the end-of-session handoff. Close every session with
+`wrap` (which runs `session-handoff`). Use `consolidate-docs` only when its
+trigger checklist says deep convergence is due.
 
 ## Intent
 

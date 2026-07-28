@@ -6,7 +6,7 @@ import {
   evidenceForMoveHeadlines,
 } from '@oaknational/graph-corpus-sdk/eef-strands';
 import { typeSafeKeys } from '../types/helpers/type-helpers.js';
-import { OAK_CONTEXT_HINT } from './prerequisite-guidance.js';
+import { OAK_CONTEXT_HINT } from './orientation-guidance.js';
 import {
   GET_EEF_EVIDENCE_INPUT_SCHEMA,
   GET_EEF_EVIDENCE_TOOL_DEF,

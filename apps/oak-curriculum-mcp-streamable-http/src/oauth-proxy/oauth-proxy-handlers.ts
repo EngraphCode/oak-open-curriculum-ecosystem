@@ -15,6 +15,10 @@ import { ok, err } from '@oaknational/result';
 
 import { buildAuthorizeRedirectUrl, formatProxyErrorResponse } from './oauth-proxy-upstream.js';
 import { applyParsedResponse, readUpstreamBody } from './oauth-proxy-response.js';
+import {
+  findRedirectUriRejection,
+  respondInvalidRedirectUri,
+} from './oauth-proxy-redirect-uri-validation.js';
 import type { HttpObservability, HttpSpanHandle } from '../observability/http-observability.js';
 
 /** Minimal structured logger interface for the proxy. */
@@ -137,6 +141,12 @@ export async function handleRegister(
   const route = '/oauth/register';
 
   const runRegister = async (span: HttpSpanHandle): Promise<void> => {
+    const body: unknown = req.body;
+    const rejection = findRedirectUriRejection(body);
+    if (rejection !== undefined) {
+      respondInvalidRedirectUri(rejection, res, config.logger, span);
+      return;
+    }
     const init = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

@@ -47,11 +47,13 @@ const KEYWORD_GRAPH_INPUT = z.object({
   subject: z
     .string()
     .min(1)
-    .describe('Anchor subject slug (corpus key), e.g. "maths". Required, with keyStage.'),
+    .describe('Anchor subject slug (corpus key), e.g. "maths". Required, with keyStage.')
+    .meta({ examples: ['maths'] }),
   keyStage: z
     .string()
     .min(1)
-    .describe('Anchor key-stage slug (corpus key), e.g. "ks2". Required, with subject.'),
+    .describe('Anchor key-stage slug (corpus key), e.g. "ks2". Required, with subject.')
+    .meta({ examples: ['ks2'] }),
   unitSlugs: z
     .array(z.string().min(1))
     .optional()
@@ -112,6 +114,7 @@ Complements get-keywords (live full set), get-misconception-graph, get-prior-kno
     destructiveHint: false as const,
     idempotentHint: true as const,
     openWorldHint: false as const,
+    title: KEYWORD_GRAPH_TOOL_TITLE,
   },
 
   _meta: {

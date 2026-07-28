@@ -10,10 +10,7 @@
  * per ADR-107 (NL interpretation at MCP boundary).
  */
 
-import {
-  AGGREGATED_PREREQUISITE_GUIDANCE,
-  PRIMARY_ORIENTATION_TOOL_NAME,
-} from '../prerequisite-guidance.js';
+import { PRIMARY_ORIENTATION_TOOL_NAME } from '../orientation-guidance.js';
 import { SCOPES_SUPPORTED } from '../scopes-supported.js';
 
 /**
@@ -26,8 +23,6 @@ import { SCOPES_SUPPORTED } from '../scopes-supported.js';
 export const SEARCH_TOOL_DEF = {
   title: 'Search Curriculum',
   description: `Search Oak's curriculum using semantic search across all four content indexes.
-
-${AGGREGATED_PREREQUISITE_GUIDANCE}
 
 Required parameters: \`scope\` (which index to search) and \`query\` (your search query). For \`threads\` scope, \`query\` may be omitted if \`subject\` or \`keyStage\` is provided.
 
@@ -75,6 +70,7 @@ NOTE: This tool can return a large payload at broad scope and may exceed a host'
     destructiveHint: false,
     idempotentHint: true,
     openWorldHint: false,
+    title: 'Search Curriculum',
   },
   _meta: {
     securitySchemes: [{ type: 'oauth2', scopes: [...SCOPES_SUPPORTED] }],

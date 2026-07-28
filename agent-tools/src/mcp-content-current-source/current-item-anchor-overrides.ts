@@ -5,10 +5,9 @@
  * Retained items use immutable baseline fragments. Entries here are explicit
  * semantic hand-offs; changing one is a compliance review act.
  */
-import {
-  CURRENT_GENERATED_ITEM_ANCHOR_OVERRIDES,
-  CURRENT_GENERATED_ITEM_REVISION_OVERRIDES,
-} from './current-generated-item-anchor-overrides.js';
+import { CURRENT_AGGREGATED_ITEM_ANCHOR_OVERRIDES } from './current-aggregated-item-anchor-overrides.js';
+import { CURRENT_GENERATED_DESCRIPTION_ANCHOR_OVERRIDES } from './current-generated-description-anchor-overrides.js';
+import { CURRENT_GENERATED_ITEM_ANCHOR_OVERRIDES } from './current-generated-item-anchor-overrides.js';
 import { CURRENT_LANDING_ITEM_ANCHOR_OVERRIDES } from './current-landing-item-anchor-overrides.js';
 
 const GUIDANCE_ROOT = 'packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources';
@@ -22,6 +21,8 @@ type AnchorOverrides = Readonly<Record<string, Readonly<Record<string, readonly 
 
 export const CURRENT_ITEM_ANCHOR_OVERRIDES: AnchorOverrides = {
   ...CURRENT_GENERATED_ITEM_ANCHOR_OVERRIDES,
+  ...CURRENT_GENERATED_DESCRIPTION_ANCHOR_OVERRIDES,
+  ...CURRENT_AGGREGATED_ITEM_ANCHOR_OVERRIDES,
   C178: {
     [FIND]: [
       'find curriculum lessons on a topic the teacher names, across all subjects and key stages',
@@ -232,11 +233,3 @@ export const CURRENT_ITEM_ANCHOR_OVERRIDES: AnchorOverrides = {
     ],
   },
 };
-
-export const CURRENT_ITEM_REVISION_OVERRIDES = {
-  ...CURRENT_GENERATED_ITEM_REVISION_OVERRIDES,
-  C313: 'unchanged',
-  C342: 'unchanged',
-  C413: 'expanded',
-  C479: 'modified',
-} as const;

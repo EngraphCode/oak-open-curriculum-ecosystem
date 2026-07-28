@@ -18,15 +18,25 @@ An agent is about to create or change content on a Notion page while working fro
 
 ## Allowed edit boundary
 
-The owner-authorised edit boundary is the Notion subtree rooted at `Live Vision, Strategy, and
-Planning` (page ID `39d26cc4e1b1803bb6ead6ff2c109ae3`): the root page and every page currently
-beneath it. Resolve ancestry from live Notion state before writing. Do not maintain a second list of
-page IDs; the owner extends or contracts the boundary by moving pages into or out of this subtree.
+The owner-authorised edit boundary is the `[AI Managed]` title designation (owner correction,
+2026-07-27): a page is agent-editable when its own title carries `[AI Managed]`, or when it sits
+beneath a page whose title does. The owner's Notion content architecture organises index pages
+into **Human Managed Pages** and **AI Managed Pages** sections; the per-page designation in the
+title is the contract, wherever the page sits. Resolve the designation and ancestry from live
+Notion state before writing. Do not maintain a list of page IDs; the owner extends or contracts
+the boundary by adding or removing the designation, or by moving pages beneath or out from under
+a designated page.
 
-Refuse edits outside the subtree and surface the request to the Director. Subtree membership makes
-a page eligible for editing, but does not independently authorise creating a new child page or
-choosing between a new page and an inline affordance; route that content-architecture choice to the
-Director first.
+Pages designated Human Managed, and unmarked pages with no `[AI Managed]` ancestor, stay fenced:
+refuse edits and surface the request to the Director. The designation makes a page eligible for
+editing, but does not independently authorise creating a new child page or choosing between a new
+page and an inline affordance; route that content-architecture choice to the Director first.
+Agent-created pages carry `[AI Managed]` in their titles and default into the relevant index's
+**AI Managed Pages** section.
+
+The owner-held strategy page is governed separately by the stricter
+[`notion-strategy-page-fence`](./notion-strategy-page-fence.md) (read-only, three layers);
+nothing in this boundary loosens it.
 
 ## Action
 
