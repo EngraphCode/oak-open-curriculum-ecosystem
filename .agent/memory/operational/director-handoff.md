@@ -333,6 +333,21 @@ first-hand as of 2026-06-25.
 > as its result**, and remember a reproduction matching symptoms is not proof
 > of cause.
 >
+> **COORDINATION MERGE DEFERRED, deliberately, with the reason.** At the
+> boundary this branch is **20 behind `origin/main`** and the merge REFUSES,
+> because main now carries #612's asset-download changes while three files on
+> the primary checkout are dirty on the same paths:
+> `asset-download-route.ts`, `asset-proxy.ts`, `126-asset-download-proxy.md`.
+>
+> **Those three are NOT at risk** — they are the ADR-126 rationale work and
+> they live in **PR #614**, pushed and ref-verified at `907b9e5c2`. The
+> primary's copies are duplicates of that branch.
+>
+> **Do not clear them with git.** When #614 merges to main, they become
+> identical to main and the merge proceeds cleanly by ordinary `git add` — the
+> pattern already worked twice today. Until then, leaving the branch behind is
+> the correct state, not a lapse. Merge main immediately after #614 lands.
+>
 > **SUPERSEDED — 14:20Z block below.**
 >
 > **AFTERNOON REFRESH 2026-07-28 ~14:20Z — supersedes every block below;
