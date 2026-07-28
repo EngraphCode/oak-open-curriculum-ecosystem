@@ -105,6 +105,13 @@ packages/design/oak-design-system/studio-source/original-capture-2026-07-23/
 packages/design/oak-design-system/studio-source/iteration-pull-preservation-2026-07-23/
 packages/design/oak-design-system/studio-source/capture-manifest-2026-07-24.tsv
 
+# Copilot agent worktrees (owner ruling 2026-07-24: excluded from all tools)
+.github/copilot-worktrees/
+
+# The owner's raw studio export (untracked, machine-local; MCP-137 S0 source —
+# byte-preserved record, never reformatted)
+packages/design/oak-open-curriculum-design-system-tna-24072026-1141/
+
 # Vendored third-party assets ship under their own upstream licence (see the
 # adjacent LICENSE) and must stay byte-faithful to the release they came from.
 # Reformatting them would rewrite code we do not own and make upstream diffs

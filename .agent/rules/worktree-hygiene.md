@@ -1,5 +1,16 @@
 # Worktree Hygiene
 
+**TRIGGER — the rule fires at CLAIM-OPEN and at the FIRST SOURCE EDIT,
+never in the abstract:** before opening any implementation claim and before
+the first Write/Edit outside `.agent/`-class coordination surfaces, answer
+*which worktree am I in?* Source work on the primary/coordination checkout
+is a straight error that blocks the whole team (owner word, 2026-07-27,
+after a seat's product edits sat uncommitted on the shared tree: whole-tree
+gates held hostage, pathspec commits hazarded for every seat). The primary
+checkout is shared fleet surface — coordination docs and fleet state only;
+a fresh worktree off `origin/main` is where every implementation lane
+starts, before its first edit, not after.
+
 In the one-developer-many-agents / many-worktree model, linked git worktrees
 proliferate. A worktree is a transient workspace, not a home. Left undisciplined it
 becomes an orphan: a branch carrying commits that never reach `main`, invisible from
@@ -113,9 +124,28 @@ consciously released (`never-use-git-to-remove-work`).
 
 A third disposition exists for a branch worth preserving as HISTORY but not landing:
 an **annotated tag** (`git tag -a preserve/<name> <tip> -m "<why kept>"`, pushed)
-satisfies archive-not-delete with zero loss — the tag pins the whole lineage, and the
+pins the whole lineage at zero loss, and the
 branch then deletes cleanly (worked instance 2026-07-20: a held spike branch preserved
 under a `preserve/` tag on owner ruling; branch removed same day).
+
+**An OWNED preservation PR must carry a LIVE DISCHARGE PATH** (owner rulings,
+2026-07-26, #556/#567): a named condition, checkable by anyone, whose
+satisfaction retires it — or it is not owned, merely parked, and
+parked-indefinitely is a third state the owner rejects alongside unmerged and
+unclosed. PR #556 was the negative instance (a preservation draft whose
+single file targeted a path no longer on main, its substance already
+conserved elsewhere — a wrapper around nothing that no event could ever
+discharge); PR #567 the positive (same form, but every part of its body
+names what retires it). The test for any preservation surface: **can a
+stranger read the artefact alone and say what event deletes it?** If not,
+it is parked, whatever its label says.
+
+**"Orphaned" is a RECORD-BINDING question, never a git-state question**
+(sweep generator lesson, 2026-07-25): dirty/unpushed does not mean orphaned —
+everything named by a live record (ticket, thread record, handoff, PR) is
+already dispositioned; the genuine orphans are exactly the items no record
+names. Closeouts declare worktree dispositions, so a closeout leaving an
+unnamed worktree is what reopens the class.
 
 ### 7. Surface idle, PR-less, or stale worktrees
 

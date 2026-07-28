@@ -54,6 +54,17 @@ the test boundary:
 - the second makes ordinary source tests slower, flakier, and architecturally
   dishonest
 
+**General form (2026-07-25 instance): a test's RESOLUTION ENVIRONMENT can be
+more permissive than the runtime it certifies.** A unit test passed green
+while plain Node could not resolve the workspace package at all — Vitest
+resolves through Vite, the real build path (`tsx esbuild.config.ts`) does
+not, so the test would have stayed green if someone deleted the
+devDependency the build needs. When a test asserts a fact about the RUNTIME
+(resolution, path, env), check whether the runner's own machinery is
+supplying that fact; the cure is this pattern's proof — declare the
+dependency AND prove the real path (`pnpm build` writing the artefact),
+never the unit test alone.
+
 ## Checklist
 
 1. Validate the build by running the real `build` command

@@ -38,6 +38,20 @@ function signature.
   remembered capability matrix (corpus-validated recurring class,
   2026-06-30; see also the per-user memory
   "Platform feature support — check official docs").
+- **Capability answers come from ORIGINAL vendor sources at time of use,
+  never from prior repo research** (owner rule, 2026-07-25) — recorded
+  capability verdicts are version-pinned so their staleness is
+  self-declaring; internal research is provenance, never the verdict.
+  Worked flip inside one hour: a ticket treated the repo's 2026-07-17
+  "Codex hook discovery negative" (0.144.5) as governing while the
+  vendor's 0.145.0 (four days old) shipped registry-level hook dispatch.
+- **Check the capability's ARITY and COMPOSITION, not only that it
+  exists** (worked instance 2026-07-25, `excludeAgent`): a plan invented
+  a capability by composing two true facts (an exclusion keyword exists;
+  two consuming surfaces exist) into a false third (both can be
+  excluded) — the keyword accepts exactly one value. "Feature X exists"
+  almost never licenses "X applies to all the cases I need"; read the
+  mechanism's shape, not its headline.
 
 ## Related Surfaces
 

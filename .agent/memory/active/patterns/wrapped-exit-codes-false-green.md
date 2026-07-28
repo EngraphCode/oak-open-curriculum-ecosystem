@@ -35,6 +35,18 @@ verdict. Worked variants, each observed live:
   the relative path from a worktree cwd wrote to the WRONG registry.
 - `tail -3` on a failed gate run destroyed the failure surface — the
   failing task's name was gone and the cause became unknowable.
+- **The harness's own task notification** reported `completed (exit code
+  0)` over a `knip:gate` that exited `1`, and again over a failed commit
+  — the compound command's status was the trailing statement's. Only the
+  in-band echo caught it, and `git log` confirmed `HEAD` had not moved
+  (2026-07-28, twice in one session). The platform's summary of your
+  command is itself a wrapper.
+- **Exit zero AND SILENT — the vacuous run.** `pnpm --filter <pkg> exec
+  knip` exited `0` and printed nothing. It was not clean: no config
+  resolved, so the tool analysed *nothing*. This is the most dangerous
+  variant in the family, because emptiness reads as **absence of
+  problems** when it is **absence of analysis** — and unlike a red gate,
+  nothing about it demands attention (2026-07-28).
 
 ## The cure
 
@@ -67,3 +79,35 @@ of anything wrapping it:
   name — never the wrapper exit or the log tail.
 - Grep patterns beginning with `-` (e.g. `->`) need `-e <pattern>` or
   `--` — the pattern is otherwise consumed as an option.
+- **Exit zero with EMPTY output earns MORE scrutiny than a non-zero
+  exit, not less.** Before reading silence as clean, confirm the tool
+  actually analysed something: a resolved config, a file/module count, an
+  "N files checked" line. A red gate announces itself; a vacuous one
+  never will. Corollary: **a tool's own report about itself is not
+  evidence about itself** — that includes the harness's task-completion
+  summary.
+
+## Recurrence is the argument for a mechanical cure
+
+This pattern is documented, and the class kept firing anyway: **seven
+instances across two sessions** on 2026-07-27/28, hitting two different
+seats, including seats that had already internalised the child rule and
+were echoing exit codes in-band correctly. The generalisation the seats
+converged on independently is worth stating once, because it is what the
+enumerated variants have in common:
+
+> **A proxy for a state was read instead of the state.** Some artefact
+> stands between the seat and the fact — a pipeline's exit status, a
+> filter's output, a batch's commit, a partial API view, a harness's
+> summary — and the artefact is cheap, to hand, and *not the fact*. The
+> tell is that the wrong reading is always the comfortable one: the proxy
+> says green.
+
+The operational form: **read the state at its own source, and when you
+can only read a proxy, say so and name what it does not cover.**
+
+Enumerating further variants has diminishing returns — the surface where
+it next appears is by definition one nobody has listed. Recurrence
+despite a documented home is precisely the PDR-098 signal, and this class
+carries a literal surface signature, so the cure belongs in the PDR-044
+innate hook layer rather than in more prose here.

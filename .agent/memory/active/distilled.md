@@ -31,6 +31,23 @@ earned promotion.
 
 New napkin rotations append below; the next consolidation promotes them out.
 
+## 2026-07-26 rotation (Magnetar guards Perigee)
+
+- **Declarative two-surface estates invite asymmetric edits**: a keep/ship
+  declaration with matching `paths` + provenance `sources` arrays took a
+  `sources` entry without its `paths` twin — the file's own delete-contract
+  would then have deleted the file being adopted (2026-07-25, design lane).
+  Cure shape: any edit to such a declaration re-runs the match-count check
+  for the touched path (must be exactly 1) before commit; symmetry between
+  parallel arrays is a review tripwire, not a given. Home: the design-sync
+  manifest's own doc — that surface sits inside the design lane's live
+  claim (Triton, MCP-128), so the placement waits for that lane's window;
+  falsifier: if the next pass finds the lane closed and this still staged,
+  place it then without further deferral. (The rotation's other two
+  lessons homed same-pass: relay-ordering → `agent-collaboration.md`
+  §Communication Channels; bisect-own-diff → `troubleshooting.md`
+  §Diagnostic evidence discipline.)
+
 <!-- Buffer drained empty at the 2026-07-20 dedicated consolidation (Siren lifts
 Trench): the 2026-07-17 verification-methods entry graduated to the
 verification-method-must-answer-the-question pattern (substance-probes and the

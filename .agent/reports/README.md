@@ -39,6 +39,18 @@ declared contract; stylistic preference alone is not a contract failure.
 
 ## Current Structure
 
+- [upstream-and-bulk-alignment-concept-exploration-2026-07-26.md](./upstream-and-bulk-alignment-concept-exploration-2026-07-26.md)
+  — fleet-verified concept exploration for MCP-152/MCP-153: the spec delta
+  reclassified as shape-novelty (first POST/requestBody/map response the
+  generator cannot model; five limit-parameter changes the fingerprint recipe
+  missed), the bulk truth decomposed (templates structurally exact, committed
+  schema.json never true of its own payload, vocabulary its one correct axis),
+  the anti-guard class named, and sixteen warranted, falsifiable proposals
+  with the owner-call set
+- [mcp-63-succession-notification-and-focused-delivery-2026-07-26.md](./mcp-63-succession-notification-and-focused-delivery-2026-07-26.md)
+  — permanent dated record of the MCP-63 custody transfer, Codex notification
+  failure and monitoring correction, focused-PR reshaping, and the bounded
+  technical evidence for the first three delivery slices
 - [architectural-fitness-functions-concept-exploration-2026-07-15.md](./architectural-fitness-functions-concept-exploration-2026-07-15.md)
   — decision-ready exploration of replacing the unwired per-file
   `max-files-per-dir` rule with deterministic, non-blocking, repository-level

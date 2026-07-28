@@ -198,6 +198,17 @@ do not negotiate a compromise with the older framing. Re-evaluate from first
 principles. If the feedback itself appears to create a problem, discuss the
 problem directly instead of silently obeying or silently resisting.
 
+**Restate before enacting the irreversible.** When a correction licenses an
+irreversible act (deletion, publication, a doctrine reversal), restate the
+policy back to the owner and proceed on the restatement — never on the
+correction's momentum. A correction is calibration data about a standing
+policy, not the policy itself; enacting the strongest reading of the last
+signal is how an anti-hoarding correction becomes an over-deletion (worked
+pair, one hour apart, 2026-07-26 — the momentum-enacted half destroyed a
+substrate; the restatement-enacted half landed right first time and the
+restatement itself became the owner-ratified doctrine text; full trace in
+the PDR-094 retention-arc retrospective).
+
 Verification questions need direct answers:
 
 - answer yes, no, or partial in the first sentence

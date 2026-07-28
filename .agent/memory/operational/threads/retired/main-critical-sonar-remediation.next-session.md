@@ -25,7 +25,9 @@ merge_class: index-narrative-tables
 Thread: `main-critical-sonar-remediation`  
 Branch: `fix/sonar-fixes-20260506`  
 Primary plan (archived on retirement):
-`main-critical-sonar-rebuild-from-updated-main.plan…` (`../../../../plans-old-archive/architecture-and-infrastructure/archive/superseded/main-critical-sonar-rebuild-from-updated-main.plan.superseded-by-ai-profile-to-zero-2026-06-24.md`)
+`main-critical-sonar-rebuild-from-updated-main.plan…`
+(superseded-by-ai-profile-to-zero-2026-06-24; in `plans-old-archive`,
+architecture-and-infrastructure superseded archive)
 
 ## Participating Agent Identities
 

@@ -47,6 +47,13 @@ synthesise-and-conclude reflex:
   inferred from a truncated log view.
 - **Hand over the exact command you verified**, never a retyped approximation
   — a dropped redirect or flag turns a working probe into "does nothing".
+- **Bisect your own diff before theorising about the environment** — when a
+  failure appears only where your change is present, the decisive test is
+  usually seconds long (run the two invocations separately; revert one hunk);
+  an environment theory reaches outward at exactly the moment the change
+  under your hand is the obvious suspect (2026-07-25: a worktree-only
+  type-check failure spawned a dependency-majors theory; the cause was the
+  author's own tsconfig glob, found by a 30-second split run).
 - **Before implementing in a code area mid-diagnosis**, check
   `.agent/plans/**/current` and `active` for a governing plan and read it —
   a diagnostic fix built against an active plan's target architecture is

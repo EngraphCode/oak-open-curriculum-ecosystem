@@ -20,7 +20,14 @@ barrier:
 Turbo and pre-commit caching replay past results: a cached green masks a
 now-broken task; remote-cache poisoning replays a stale error a fix already
 cured; a cached `format:root` reports clean while the authoritative hook finds
-drift (they hash different inputs). Citing a cached run as evidence of current
+drift (they hash different inputs). A fourth face (2026-07-25, deps lane):
+**the cache key can exclude the very input a change altered** — after an
+eslint-plugin major bump, `turbo run lint` returned FULL TURBO 47/47 cached in
+three seconds, executing zero rules against the new plugin (resolved plugin
+versions were not in the hash). The tell is the RUNTIME (a seconds-fast pass
+over a change that should cost minutes); the cure is a forced uncached run
+for any gate whose inputs a dependency change may have altered. Citing a
+cached run as evidence of current
 state is the same class as trusting a wrapper's exit code —
 [`wrapped-exit-codes-false-green.md`](wrapped-exit-codes-false-green.md) is the
 sibling at the process-wrapper surface; this is the cache-replay surface.

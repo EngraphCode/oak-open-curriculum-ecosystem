@@ -20,6 +20,17 @@ data, ADR, PDR, plan, conversation log, comms log) that contains the
 answer. Render the result in chat. Then continue with whatever
 decision the owner is involved in.
 
+**The owner-channel face — record first, ask last** (owner, 2026-07-26: "I
+already ruled on this two days ago. You have been re-inventing the wheel
+your whole session"): before ANY question reaches the owner, search the
+RULING surfaces for an existing answer — the milestone or ticket's own
+description, the decisions register, plan gate-rows, per-user memory. The
+estate writes its rulings down; treating those records as needing owner
+re-confirmation converts his past work into repeated interruptions. A
+question is the residue of a verified record gap, and new evidence against
+a settled decision is a statement plus default-continue
+(`present-verdicts-not-menus` §Closed decisions), not a reopened card.
+
 ## Two Structural Guards
 
 Both guards are non-negotiable. A version of this rule that lacks
