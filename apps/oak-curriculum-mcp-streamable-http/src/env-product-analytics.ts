@@ -61,13 +61,13 @@ export const productAnalyticsEnvFields = {
 
 interface ProductAnalyticsRefinementData {
   readonly OBSERVABILITY_SINKS: readonly string[];
-  readonly POSTHOG_PROJECT_API_KEY?: string | undefined;
-  readonly POSTHOG_HOST?: string | undefined;
-  readonly POSTHOG_PSEUDONYM_ACTIVE_KEY_ID?: string | undefined;
-  readonly POSTHOG_PSEUDONYM_KEYRING?: string | undefined;
-  readonly POSTHOG_CAPTURE_MODE?: string | undefined;
-  readonly DANGEROUSLY_DISABLE_AUTH?: string | undefined;
-  readonly VERCEL_ENV?: string | undefined;
+  readonly POSTHOG_PROJECT_API_KEY?: string;
+  readonly POSTHOG_HOST?: string;
+  readonly POSTHOG_PSEUDONYM_ACTIVE_KEY_ID?: string;
+  readonly POSTHOG_PSEUDONYM_KEYRING?: string;
+  readonly POSTHOG_CAPTURE_MODE?: string;
+  readonly DANGEROUSLY_DISABLE_AUTH?: string;
+  readonly VERCEL_ENV?: string;
 }
 
 function refineSelectedPostHogFields(

@@ -94,9 +94,9 @@ const BaseEnvSchema = OakApiKeyEnvSchema.extend(ElasticsearchEnvSchema.shape)
   });
 
 interface ProductionSafetyData {
-  readonly DANGEROUSLY_DISABLE_AUTH?: string | undefined;
-  readonly TEST_ERROR_SECRET?: string | undefined;
-  readonly VERCEL_ENV?: string | undefined;
+  readonly DANGEROUSLY_DISABLE_AUTH?: string;
+  readonly TEST_ERROR_SECRET?: string;
+  readonly VERCEL_ENV?: string;
 }
 
 /**

@@ -40,10 +40,10 @@ export type ProductAnalyticsBootstrap =
  */
 export interface ProductAnalyticsEnvInput {
   readonly OBSERVABILITY_SINKS: readonly string[];
-  readonly POSTHOG_PROJECT_API_KEY?: string | undefined;
-  readonly POSTHOG_HOST?: string | undefined;
-  readonly POSTHOG_PSEUDONYM_ACTIVE_KEY_ID?: string | undefined;
-  readonly POSTHOG_PSEUDONYM_KEYRING?: string | undefined;
+  readonly POSTHOG_PROJECT_API_KEY?: string;
+  readonly POSTHOG_HOST?: string;
+  readonly POSTHOG_PSEUDONYM_ACTIVE_KEY_ID?: string;
+  readonly POSTHOG_PSEUDONYM_KEYRING?: string;
 }
 
 const CANONICAL_BASE64URL_32_BYTES = /^[A-Za-z0-9_-]{43}$/;
