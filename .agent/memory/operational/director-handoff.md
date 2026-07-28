@@ -267,6 +267,59 @@ first-hand as of 2026-06-25.
 > **AFTERNOON REFRESH 2026-07-28 ~14:20Z — supersedes every block below;
 > verify each line live.**
 >
+> **15:18Z ADDENDUM — the tool-schema sweep, and Altair frozen mid-lane.**
+>
+> **OWNER'S THREE ASKS (2026-07-28 ~15:14Z) and their answers:**
+>
+> 1. **Graph tools get a strictness boost** — his reasoning: we derive them
+>    from bulk data, so we control how they are built and hold all the source
+>    data; "strict, all the time, everywhere" is a core repo value. Proper
+>    input AND output schemas, realistic examples from the data, partially
+>    driven from the bulk data schema. **SCOPE FENCE, his words: "I don't want
+>    to replace the hand authored checks just yet."** Ticketed **MCP-319**.
+> 2. **Do generated tools have full input and output schemas?** Input yes;
+>    **output NO — nothing declares `outputSchema`, anywhere.** Verified at
+>    the registration path (`handlers.ts:224-229` passes title, description,
+>    inputSchema, annotations only), not by grep. Meanwhile we return
+>    `structuredContent` extensively, so we emit structured output no client
+>    has a contract for. ADR-058 records a deliberate no-outputSchema
+>    decision for one tool, so estate-wide adoption is a real question, not
+>    an obvious yes — recorded on MCP-319 rather than speculatively ticketed.
+> 3. **Does every tool have a realistic working example?** **Altair proved
+>    40/40 tools DERIVABLE live, post-cure.** Distinguish carefully:
+>    _derivable_ means a valid call can be constructed from the advertised
+>    schema. _Realistic_ — returns real curriculum rather than a
+>    syntactically valid placeholder — still needs the live authenticated
+>    run, which gates on the owner-attended `mcpjam oauth login`.
+>
+> **MY SURVEY, superseded by Altair's live instrument but useful for shape:**
+> generated 29 files, 22 with examples, the other 7 take no arguments at all
+> so need none — that path is complete. Hand-authored: 7 `aggregated-*.ts`
+> modules, 6 with no examples. **My required-property regex was unreliable —
+> it reported zero required props on the very tools proven to have them.
+> Never cite my hand-authored counts as a census.**
+>
+> **THIRD PARITY GAP TODAY** between the generated and hand-authored tool
+> paths: titles (MCP-300), then the two undriveable graph tools, then
+> examples generally. The pattern is on MCP-300: the two paths have no
+> contract, so every property either acquires is a coin flip on the other.
+>
+> **ALTAIR FROZEN for compaction at owner word (~15:15Z); the SEAT CONTINUES.**
+> mcp-303-reviewer-pack worktree (claim `32541c0c`): 6 modified + 8 untracked,
+> all its own, coherent, NOTHING pushed, lint mid-cure with the remaining
+> errors enumerated in its freeze event. mcp-300-pr-two worktree (claim
+> `137f25c0`): CLEAN at `4e3ba6964` = **#607, settled since 14:30Z, HELD**.
+> Landed from that seat today: #605, #570.
+>
+> **COPILOT VINDICATED THE OWNER'S DIRECTIVE.** On #608 a Copilot review
+> caught a real defect four Opus expert reviews missed: a chrome-colour
+> scope selector tied the design system's `.oak-link` state selectors on
+> specificity and won on sheet order, silently suppressing hover/visited/
+> focus feedback — the exact affordance its own test claimed. Cured with
+> `:where()`. **`.breadcrumbs .oak-link` on main has the same latent shape,
+> pre-existing — routed to me, unticketed.** Also filed: MCP-318 (flaky
+> correlation-id generator).
+>
 > **THE SUBMISSION NOW HAS ONE PARENT: MCP-309** ("Submitting Oak to Claude:
 > the connector and the plugin, end to end"), fourteen children, duplicates
 > closed (MCP-294→MCP-303, MCP-266→MCP-302), MCP-16 and MCP-296 Done. At the
