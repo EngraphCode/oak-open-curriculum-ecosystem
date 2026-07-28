@@ -332,6 +332,25 @@ first-hand as of 2026-06-25.
 > **STILL OWED BY ME**: the MCP-301 mirror ticket in the First Major
 > Release project.
 >
+> **MERGE-WINDOW BLOCKER (Juniper, 12:45Z — capture from the ephemeral
+> stream).** MCP-297 landed (PR #603, merge `5404a4aa2`, owner-merged), so
+> main has moved and the coordination-branch merge window is open. Three
+> items, all scope-fenced out of Juniper's lane and now MINE:
+>
+> 1. **The PRIMARY checkout holds an UNTRACKED
+>    `docs/engineering/working-with-this-repo-for-devs.md`** — the owner's
+>    pre-fix rewrite, superseded by the merged version. It **WILL REFUSE the
+>    next main→coordination merge**. Disposition is the OWNER'S: never delete
+>    or move it (file-deletion-is-exceptional; never-use-git-to-remove-work).
+>    Ask before the merge; do not work around it.
+> 2. **Latent lint drift on main's tip** — `pnpm fix` consolidates imports in
+>    `apps/oak-curriculum-mcp-streamable-http/src/auth/public-resources.unit.test.ts`,
+>    and the `lint:fix` output is itself prettier-non-compliant. Surfaced in
+>    #603's description, deliberately not committed.
+> 3. **Worktree `oak-open-curriculum-ecosystem-worktrees/mcp-297-devs-doc`**
+>    carries one dirty regenerable file — NOT provably-clean, so it is left
+>    for an authorised prune, not the standing provably-safe rule.
+>
 > **SUPERSEDED — 2026-07-27 blocks below retain merge/ruling detail.**
 >
 > **LATE-EVENING REFRESH 2026-07-27 ~20:00Z — superseded by the block above.**
