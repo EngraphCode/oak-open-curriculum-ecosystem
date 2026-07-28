@@ -56,9 +56,18 @@ function loadPreamble(preambleFile: string | undefined, repoRoot: string): Pream
   }
 }
 
-// Emit to stdout AND <report-dir>/summary.json. A failed summary write
-// fails the run — a silently-missing documented output is a false green.
-function emitDriveReport(repoRoot: string, reportDir: string, reportJson: string): boolean {
+/**
+ * Emit a run's report JSON to stdout AND `<report-dir>/summary.json` — the
+ * single owner of this contract for BOTH operations (the suites' bin path
+ * and the drive path consume it), so output and failure semantics cannot
+ * drift apart. A failed summary write fails the run: a silently-missing
+ * documented output is a false green.
+ */
+export function emitRunReportJson(
+  repoRoot: string,
+  reportDir: string,
+  reportJson: string,
+): boolean {
   const summary = writeRunSummary(repoRoot, reportDir, reportJson);
   process.stdout.write(reportJson);
   if (!summary.ok) {
@@ -93,7 +102,7 @@ export function runDriveFromCli(state: CliState, target: string): 0 | 1 {
   });
   const outcome = runDrive(io);
   const reportJson = `${JSON.stringify({ operation: 'drive', target, outcome }, null, 2)}\n`;
-  if (!emitDriveReport(repoRoot, reportDir, reportJson)) {
+  if (!emitRunReportJson(repoRoot, reportDir, reportJson)) {
     return 1;
   }
   const provenance: ReviewerPackProvenance = {
@@ -110,9 +119,9 @@ export function runDriveFromCli(state: CliState, target: string): 0 | 1 {
 
 /**
  * Write the rendered pack owner-only at its resolved destination, refusing
- * a `--pack-out` that collides with the run summary — both documented
- * outputs must coexist, and a pack silently replacing the summary would be
- * a green run missing an artefact.
+ * a `--pack-out` that shadows ANY run artefact — the summary and the
+ * per-tool evidence must survive the pack write, or a green run is missing
+ * the evidence its own pack points at.
  */
 function writePack(
   repoRoot: string,
@@ -121,9 +130,11 @@ function writePack(
   pack: string,
 ): boolean {
   const packPath = resolve(repoRoot, packOut ?? join(reportDir, 'reviewer-pack.md'));
-  if (packPath === resolve(repoRoot, join(reportDir, 'summary.json'))) {
+  const summaryPath = resolve(repoRoot, join(reportDir, 'summary.json'));
+  const evidenceDir = resolve(repoRoot, join(reportDir, 'tools'));
+  if (packPath === summaryPath || packPath.startsWith(`${evidenceDir}/`)) {
     process.stderr.write(
-      `--pack-out must not name the run summary path (${packPath}) — both documented outputs must coexist\n`,
+      `--pack-out must not shadow a run artefact (${packPath}) — the summary and the per-tool evidence must survive the pack write\n`,
     );
     return false;
   }

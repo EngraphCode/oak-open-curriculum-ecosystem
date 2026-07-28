@@ -65,6 +65,14 @@ function parseFixtureList(): z.infer<typeof fixtureListSchema> {
   return fixtureListSchema.parse(JSON.parse(TOOLS_LIST_RAW));
 }
 
+/** Throw-guard for fixture picks: a missing entry fails setup loudly (no-conditional-tests). */
+function required<T>(value: T | undefined, message: string): T {
+  if (value === undefined) {
+    throw new Error(message);
+  }
+  return value;
+}
+
 describe('composeDriveListArgs / composeDriveCallArgs — reproducible vendor invocations', () => {
   it('list composes format-json quiet with the target', () => {
     expect(composeDriveListArgs({ target: TARGET })).toEqual([
@@ -133,8 +141,11 @@ describe('runDrive — every advertised tool is driven with advertised examples'
 
   it('one tool losing its required-property examples is a loud no-example witness while every other tool still drives', () => {
     const mutated = parseFixtureList();
-    const download = mutated.tools.find((tool) => tool.name === 'download-asset');
-    for (const property of Object.values(download?.inputSchema?.properties ?? {})) {
+    const download = required(
+      mutated.tools.find((tool) => tool.name === 'download-asset'),
+      'capture lost download-asset',
+    );
+    for (const property of Object.values(download.inputSchema?.properties ?? {})) {
       property.examples = undefined;
     }
     const outcome = runDrive(
@@ -175,10 +186,10 @@ describe('runDrive — every advertised tool is driven with advertised examples'
 
   it('a tool not declaring readOnlyHint true is refused with a loud not-read-only witness, and the rest still drive', () => {
     const mutated = parseFixtureList();
-    const target = mutated.tools.find((tool) => tool.name === 'get-subjects');
-    if (target !== undefined) {
-      target.annotations = { readOnlyHint: false };
-    }
+    required(
+      mutated.tools.find((tool) => tool.name === 'get-subjects'),
+      'capture lost get-subjects',
+    ).annotations = { readOnlyHint: false };
     const outcome = runDrive(
       fakeDriveIo({ list: ok({ exitCode: 0, stdout: JSON.stringify(mutated), stderr: '' }) }),
     );
@@ -215,10 +226,10 @@ describe('runDrive — every advertised tool is driven with advertised examples'
 
   it('a tool advertising no inputSchema is underivable — a schema is never invented for it', () => {
     const mutated = parseFixtureList();
-    const target = mutated.tools.find((tool) => tool.name === 'get-subjects');
-    if (target !== undefined) {
-      target.inputSchema = undefined;
-    }
+    required(
+      mutated.tools.find((tool) => tool.name === 'get-subjects'),
+      'capture lost get-subjects',
+    ).inputSchema = undefined;
     const outcome = runDrive(
       fakeDriveIo({ list: ok({ exitCode: 0, stdout: JSON.stringify(mutated), stderr: '' }) }),
     );
@@ -228,24 +239,22 @@ describe('runDrive — every advertised tool is driven with advertised examples'
 
   it('duplicate advertised tool names are a refusal — an ambiguous surface cannot be driven honestly', () => {
     const mutated = parseFixtureList();
-    const first = mutated.tools[0];
-    if (first !== undefined) {
-      mutated.tools.push({ ...first });
-    }
+    const first = required(mutated.tools[0], 'capture has no tools');
+    mutated.tools.push({ ...first });
     const outcome = runDrive(
       fakeDriveIo({ list: ok({ exitCode: 0, stdout: JSON.stringify(mutated), stderr: '' }) }),
     );
     expect(outcome.listFailure).toContain('duplicate names');
-    expect(outcome.listFailure).toContain(first?.name ?? '');
+    expect(outcome.listFailure).toContain(first.name);
     expect(outcome.witnesses).toEqual([]);
   });
 
   it('a tool name outside the conventional shape is a loud list refusal, never a pack heading', () => {
     const mutated = parseFixtureList();
-    const target = mutated.tools.find((tool) => tool.name === 'get-subjects');
-    if (target !== undefined) {
-      target.name = 'get/subjects\n## injected';
-    }
+    required(
+      mutated.tools.find((tool) => tool.name === 'get-subjects'),
+      'capture lost get-subjects',
+    ).name = 'get/subjects\n## injected';
     const outcome = runDrive(
       fakeDriveIo({ list: ok({ exitCode: 0, stdout: JSON.stringify(mutated), stderr: '' }) }),
     );

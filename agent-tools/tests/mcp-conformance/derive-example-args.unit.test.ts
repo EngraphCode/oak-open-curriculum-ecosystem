@@ -1,4 +1,4 @@
-import { isErr, isOk } from '@oaknational/result';
+import { unwrap, unwrapErr } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
 import { deriveExampleArgs } from '../../src/mcp-conformance/derive-example-args.js';
@@ -16,13 +16,10 @@ describe('deriveExampleArgs — example inputs come from the advertised schema, 
       },
       required: ['lesson', 'type'],
     });
-    expect(isOk(result)).toBe(true);
-    if (isOk(result)) {
-      expect(result.value).toEqual({
-        lesson: 'adding-fractions-with-the-same-denominator',
-        type: 'slideDeck',
-      });
-    }
+    expect(unwrap(result)).toEqual({
+      lesson: 'adding-fractions-with-the-same-denominator',
+      type: 'slideDeck',
+    });
   });
 
   it('a tool with no required properties derives the empty invocation — optionals are never included', () => {
@@ -35,10 +32,7 @@ describe('deriveExampleArgs — example inputs come from the advertised schema, 
       },
       required: [],
     });
-    expect(isOk(result)).toBe(true);
-    if (isOk(result)) {
-      expect(result.value).toEqual({});
-    }
+    expect(unwrap(result)).toEqual({});
   });
 
   it('a schema with no properties derives the empty invocation', () => {
@@ -46,10 +40,7 @@ describe('deriveExampleArgs — example inputs come from the advertised schema, 
       type: 'object',
       properties: {},
     });
-    expect(isOk(result)).toBe(true);
-    if (isOk(result)) {
-      expect(result.value).toEqual({});
-    }
+    expect(unwrap(result)).toEqual({});
   });
 
   it('a required property WITHOUT an example is a loud failure naming the tool and property', () => {
@@ -61,19 +52,13 @@ describe('deriveExampleArgs — example inputs come from the advertised schema, 
       },
       required: ['query', 'scope'],
     });
-    expect(isErr(result)).toBe(true);
-    if (isErr(result)) {
-      expect(result.error).toContain('search');
-      expect(result.error).toContain('query');
-      expect(result.error).toContain('no example');
-    }
+    expect(unwrapErr(result)).toContain('search');
+    expect(unwrapErr(result)).toContain('query');
+    expect(unwrapErr(result)).toContain('no example');
   });
 
   it('a non-object or malformed schema is a loud failure naming the tool', () => {
     const result = deriveExampleArgs('broken-tool', { type: 'string' });
-    expect(isErr(result)).toBe(true);
-    if (isErr(result)) {
-      expect(result.error).toContain('broken-tool');
-    }
+    expect(unwrapErr(result)).toContain('broken-tool');
   });
 });

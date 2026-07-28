@@ -20,11 +20,18 @@ export interface ReviewerPackPreamble {
 }
 
 /** Boundary schema for a caller-supplied preamble file. */
+const ownerCopySentence = z
+  .string()
+  .min(1)
+  .refine((value) => value.trim().length > 0, {
+    message: 'owner copy must not be blank',
+  });
+
 export const reviewerPackPreambleSchema = z
   .object({
-    connectionNote: z.string().min(1),
-    credentialsNote: z.string().min(1),
-    sameDataNote: z.string().min(1),
+    connectionNote: ownerCopySentence,
+    credentialsNote: ownerCopySentence,
+    sameDataNote: ownerCopySentence,
   })
   .strict();
 
@@ -54,11 +61,21 @@ export interface RenderReviewerPackInput {
 }
 
 /**
+ * Vendor-controlled text rendered as an INDENTED code block: every line is
+ * prefixed, and unlike any fixed-length fence (which a content line of the
+ * same backtick run would close), indentation has no closing delimiter for
+ * hostile content to fake — nothing a server sends can escape into the
+ * outward-facing pack's Markdown.
+ */
+function indentedBlock(text: string): readonly string[] {
+  return text.split('\n').map((line) => `    ${line}`);
+}
+
+/**
  * One pack section per witness. Tool names are boundary-validated by the
  * drive's list schema (safe as headings); failure detail embeds
- * vendor-controlled text (stdout/stderr excerpts), so it renders inside a
- * four-backtick fence — no server output can inject Markdown or HTML into
- * the outward-facing pack.
+ * vendor-controlled text (stdout/stderr excerpts), so it renders as an
+ * indented block via {@link indentedBlock}.
  */
 function witnessSection(witness: DriveWitness): readonly string[] {
   const invocation =
@@ -68,7 +85,7 @@ function witnessSection(witness: DriveWitness): readonly string[] {
   const result =
     witness.outcome === 'called-ok'
       ? ['Exercised successfully against the live server.', '']
-      : ['NOT exercised:', '', '````text', witness.detail, '````', ''];
+      : ['NOT exercised:', '', ...indentedBlock(witness.detail), ''];
   return [`### ${witness.toolName}`, '', ...invocation, ...result];
 }
 
@@ -94,9 +111,7 @@ export function renderReviewerPack(input: RenderReviewerPackInput): string {
       '',
       'The tool list could not be obtained from the server:',
       '',
-      '````text',
-      input.outcome.listFailure,
-      '````',
+      ...indentedBlock(input.outcome.listFailure),
       '',
     ].join('\n');
   }

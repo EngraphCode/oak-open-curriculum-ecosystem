@@ -141,4 +141,9 @@ describe('reviewerPackPreambleSchema — the preamble file boundary refuses quie
     const result = reviewerPackPreambleSchema.safeParse({ ...PREAMBLE, sameDataNote: '' });
     expect(result.success).toBe(false);
   });
+
+  it('refuses a whitespace-only note — visually blank copy is blank copy', () => {
+    const result = reviewerPackPreambleSchema.safeParse({ ...PREAMBLE, connectionNote: '   ' });
+    expect(result.success).toBe(false);
+  });
 });

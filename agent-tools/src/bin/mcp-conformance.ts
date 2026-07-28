@@ -13,13 +13,9 @@ import { scanArgs, type FlagHandler, type ValueHandler } from '../core/cli-arg-p
 import { HELP_TEXT } from './mcp-conformance-help.js';
 import { resolveRepoRoot } from '../core/repo-root.js';
 import { validateCliState, type CliState } from '../mcp-conformance/cli-validation.js';
-import { runDriveFromCli } from '../mcp-conformance/drive-cli.js';
+import { emitRunReportJson, runDriveFromCli } from '../mcp-conformance/drive-cli.js';
 import { loadBaselines, type BaselineRead } from '../mcp-conformance/load-baselines.js';
-import {
-  buildMcpConformanceNodeIo,
-  defaultReportDir,
-  writeRunSummary,
-} from '../mcp-conformance/node-io.js';
+import { buildMcpConformanceNodeIo, defaultReportDir } from '../mcp-conformance/node-io.js';
 import { runMcpConformance } from '../mcp-conformance/report.js';
 import { UNATTENDED_SUITES } from '../mcp-conformance/runner.js';
 import {
@@ -154,8 +150,8 @@ function runFromCli(state: CliState, target: string): 0 | 1 {
   return emitReport(repoRoot, reportDir, report, exitCode);
 }
 
-// Emit to stdout AND <report-dir>/summary.json. A failed summary write
-// fails the run — a silently-missing documented output is a false green.
+// One shared emitter for both operations (consolidate-at-second-consumer):
+// the report/summary/stdout contract lives in drive-cli's emitRunReportJson.
 function emitReport(
   repoRoot: string,
   reportDir: string,
@@ -163,13 +159,7 @@ function emitReport(
   exitCode: 0 | 1,
 ): 0 | 1 {
   const reportJson = `${JSON.stringify(report, null, 2)}\n`;
-  const summary = writeRunSummary(repoRoot, reportDir, reportJson);
-  process.stdout.write(reportJson);
-  if (!summary.ok) {
-    process.stderr.write(`summary.json could not be written: ${summary.error}\n`);
-    return 1;
-  }
-  return exitCode;
+  return emitRunReportJson(repoRoot, reportDir, reportJson) ? exitCode : 1;
 }
 
 function main(): void {
