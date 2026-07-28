@@ -1,3 +1,10 @@
+## [1.109.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.109.0...v1.109.1) (2026-07-28)
+
+
+### Bug Fixes
+
+* **curriculum-sdk:** true up advertised MCP examples, prove them against the corpus ([f174695](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f17469501b91bcf4fadeca72ba90bd69cd63b74b))
+
 # [1.109.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.108.0...v1.109.0) (2026-07-28)
 
 
