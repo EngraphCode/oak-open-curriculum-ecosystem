@@ -156,21 +156,33 @@ describe('runPriorKnowledgeGraphTool', () => {
 });
 
 describe('get-prior-knowledge-graph wire schema — advertised examples (MCP-303 drive-leg cure)', () => {
-  // A required property with no wire-visible example is underivable by any
-  // client working from advertised metadata alone (the drive leg's founding
-  // finding). This guards the cure at the schema source: the `.meta()` must
-  // survive the z.toJSONSchema round-trip — array-example placement under a
-  // future zod bump is exactly the silent-reversion risk.
-  it('unitSlugs advertises a corpus-true example on the wire', () => {
+  // Behaviour, never config (owner ruling 2026-07-28): the `.meta()` must
+  // survive the z.toJSONSchema round-trip so clients can derive a call (the
+  // drive leg's founding finding), and WHATEVER anchor it advertises must
+  // resolve in the corpus this SDK ships — a dead example teaches every
+  // client a dead value. The value itself is config and is not pinned.
+  it('the wire-advertised example invocation resolves against the shipped corpus', () => {
     const jsonSchema = z.toJSONSchema(z.object(GET_PRIOR_KNOWLEDGE_GRAPH_INPUT_SCHEMA));
+    const wire = z
+      .object({
+        properties: z
+          .object({
+            unitSlugs: z.object({ examples: z.array(z.array(z.string()).min(1)).min(1) }).loose(),
+          })
+          .loose(),
+      })
+      .loose()
+      .parse(jsonSchema);
+    const exampleAnchor = wire.properties.unitSlugs.examples[0];
+    if (exampleAnchor === undefined) {
+      throw new Error('wire schema advertises no unitSlugs example to drive');
+    }
 
-    expect(jsonSchema).toHaveProperty('properties.unitSlugs.examples', [['comparing-fractions']]);
-    // Examples come from real data: the advertised slug must exist in the
-    // corpus this SDK ships with, or the walkthrough teaches a dead value.
-    expect(
-      graphCorpus.nodes.some(
-        (node) => node.kind === 'unit' && node.unitSlug === 'comparing-fractions',
-      ),
-    ).toBe(true);
+    const result = runPriorKnowledgeGraphTool({ unitSlugs: exampleAnchor });
+
+    expect(result.isError).toBeUndefined();
+    const envelope = SUBGRAPH_ENVELOPE.parse(result.structuredContent);
+    expect(envelope.unknownAnchors).toEqual([]);
+    expect(envelope.resolvedAnchors.length).toBeGreaterThan(0);
   });
 });

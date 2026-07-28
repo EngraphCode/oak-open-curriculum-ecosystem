@@ -238,9 +238,11 @@ describe('runDrive — every advertised tool is driven with advertised examples'
   });
 
   it('duplicate advertised tool names are a refusal — an ambiguous surface cannot be driven honestly', () => {
+    // Case-changed, not identical: the retention storage key folds case, so
+    // this is the subtlest collision the refusal must catch.
     const mutated = parseFixtureList();
     const first = required(mutated.tools[0], 'capture has no tools');
-    mutated.tools.push({ ...first });
+    mutated.tools.push({ ...first, name: first.name.toUpperCase() });
     const outcome = runDrive(
       fakeDriveIo({ list: ok({ exitCode: 0, stdout: JSON.stringify(mutated), stderr: '' }) }),
     );

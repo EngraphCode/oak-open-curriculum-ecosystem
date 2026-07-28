@@ -193,10 +193,12 @@ function obtainToolList(io: DriveIo): { readonly failure?: string; readonly list
 
 /** A well-formed list can still be unusable: paginated, empty, or ambiguous. */
 function unusableListReason(listed: ListedTools): string | undefined {
-  const names = listed.tools.map((tool) => tool.name);
+  // Case-insensitively: per-tool evidence lands on filesystems whose
+  // storage key folds case, so 'Read' and 'read' are the same artefact.
+  const names = listed.tools.map((tool) => tool.name.toLowerCase());
   const duplicates = [...new Set(names.filter((name, index) => names.indexOf(name) !== index))];
   if (duplicates.length > 0) {
-    return `the tool list advertises duplicate names (${duplicates.join(', ')}) — an ambiguous surface cannot be driven honestly: witnesses and retained evidence would silently overwrite each other`;
+    return `the tool list advertises duplicate names (case-insensitively compared: ${duplicates.join(', ')}) — an ambiguous surface cannot be driven honestly: witnesses and retained evidence would silently overwrite each other`;
   }
   if (listed.nextCursor !== undefined) {
     return 'the tool list is paginated (nextCursor present) — this drive reads a single page and refuses to under-report the surface; teach it pagination before trusting a run against this server';
@@ -211,8 +213,11 @@ function unusableListReason(listed: ListedTools): string | undefined {
  * Drive every advertised tool once with its advertised example inputs.
  * Per-tool failures are loud witnesses, never aborts — the pack must name
  * exactly which tools could and could not be exercised. Only tools
- * advertising `readOnlyHint: true` are invoked: this drives blindly, and a
- * blind invocation of a write tool is never safe by construction.
+ * advertising `readOnlyHint: true` are invoked — a guard against OUR OWN
+ * surface growing a write tool nobody thought about, not a security
+ * boundary: the hint is server-supplied and untrusted per the MCP spec, so
+ * a hostile target could lie its way past it. This drive is an instrument
+ * for surfaces we operate.
  */
 export function runDrive(io: DriveIo): DriveOutcome {
   const list = obtainToolList(io);

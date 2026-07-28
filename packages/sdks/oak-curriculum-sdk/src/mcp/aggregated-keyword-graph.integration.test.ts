@@ -205,14 +205,38 @@ describe('runKeywordGraphTool — anchored retrieval envelope', () => {
 });
 
 describe('get-keyword-graph wire schema — advertised examples (MCP-303 drive-leg cure)', () => {
-  // A required property with no wire-visible example is underivable by any
-  // client working from advertised metadata alone (the drive leg's founding
-  // finding). This guards the cure at the schema source through the
-  // z.toJSONSchema round-trip.
-  it('subject and keyStage advertise examples on the wire', () => {
+  // Behaviour, never config (owner ruling 2026-07-28): the `.meta()` must
+  // survive the z.toJSONSchema round-trip so clients can derive a call (the
+  // drive leg's founding finding), and WHATEVER anchor it advertises must
+  // yield a live graph from the shipped corpus — an advertised example that
+  // returns an empty graph teaches every client a dead value. The values
+  // themselves are config and are not pinned.
+  it('the wire-advertised example anchor yields a live keyword graph', () => {
     const jsonSchema = z.toJSONSchema(z.object(GET_KEYWORD_GRAPH_INPUT_SCHEMA));
+    const wire = z
+      .object({
+        properties: z
+          .object({
+            subject: z.object({ examples: z.array(z.string()).min(1) }).loose(),
+            keyStage: z.object({ examples: z.array(z.string()).min(1) }).loose(),
+          })
+          .loose(),
+      })
+      .loose()
+      .parse(jsonSchema);
+    const subject = required(
+      wire.properties.subject.examples[0],
+      'wire schema advertises no subject example',
+    );
+    const keyStage = required(
+      wire.properties.keyStage.examples[0],
+      'wire schema advertises no keyStage example',
+    );
 
-    expect(jsonSchema).toHaveProperty('properties.subject.examples', ['maths']);
-    expect(jsonSchema).toHaveProperty('properties.keyStage.examples', ['ks2']);
+    const result = runKeywordGraphTool({ subject, keyStage });
+
+    expect(result.isError).toBeUndefined();
+    const envelope = KEYWORD_ENVELOPE.parse(result.structuredContent);
+    expect(envelope.keywords.length).toBeGreaterThan(0);
   });
 });

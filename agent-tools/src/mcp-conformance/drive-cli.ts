@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { join, resolve } from 'node:path';
+import { join, resolve, sep } from 'node:path';
 
 import { resolveRepoRoot } from '../core/repo-root.js';
 import { type CliState } from './cli-validation.js';
@@ -132,7 +132,13 @@ function writePack(
   const packPath = resolve(repoRoot, packOut ?? join(reportDir, 'reviewer-pack.md'));
   const summaryPath = resolve(repoRoot, join(reportDir, 'summary.json'));
   const evidenceDir = resolve(repoRoot, join(reportDir, 'tools'));
-  if (packPath === summaryPath || packPath.startsWith(`${evidenceDir}/`)) {
+  // Compared as case-folded storage keys: default macOS/Windows filesystems
+  // open Summary.json and summary.json as the same file.
+  const storageKey = (value: string): string => value.toLowerCase();
+  if (
+    storageKey(packPath) === storageKey(summaryPath) ||
+    storageKey(packPath).startsWith(storageKey(evidenceDir + sep))
+  ) {
     process.stderr.write(
       `--pack-out must not shadow a run artefact (${packPath}) — the summary and the per-tool evidence must survive the pack write\n`,
     );
