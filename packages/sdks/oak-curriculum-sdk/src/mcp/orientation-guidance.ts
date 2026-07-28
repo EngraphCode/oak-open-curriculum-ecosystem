@@ -47,13 +47,14 @@ export const OAK_CONTEXT_HINT = generateContextHint();
  * GENERATED from AGENT_SUPPORT_TOOL_METADATA to ensure it always includes
  * all agent support tools, their relationships, and complementary nature.
  *
- * This text is delivered to the model once at connection time, providing
- * guidance on which tools to call first for optimal results.
+ * This text is sent to the CLIENT once, in the initialize response;
+ * whether and how the host surfaces it to the model is client-dependent
+ * (the residual risk this channel carries — see the MCP-300 PR record).
  *
  * @remarks
  * Unlike tool descriptions (which may be truncated in large tool lists),
- * server instructions are always visible to the model. Use this for
- * high-priority guidance about agent support tools.
+ * server instructions ride a single stable field that hosts CAN surface
+ * whole. Use this for high-priority guidance about agent support tools.
  */
 export const SERVER_INSTRUCTIONS = generateServerInstructions();
 

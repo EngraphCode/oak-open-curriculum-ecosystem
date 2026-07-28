@@ -189,12 +189,17 @@ describe('hand-authored annotations parity (MCP-300)', () => {
 
   // Directory compliance (acknowledgement 5): descriptions must not instruct
   // the model about its own behaviour or about other tools. The banned class
-  // is the imperative prerequisite ("PREREQUISITE: You MUST call X first"),
-  // guarded by case-insensitive instance patterns — not ordinary routing
-  // cross-references ("Not for X — use Y"). The `instructions` field and the
+  // is the imperative prerequisite — "PREREQUISITE: You MUST call X first"
+  // and the softer "(use 'X' first)" sequencing alike — guarded by
+  // case-insensitive patterns; ordinary routing cross-references
+  // ("Not for X — use Y", no sequencing imperative) stay. The `instructions` field and the
   // response-payload `oakContextHint` carry the orientation guidance instead.
   it('no aggregated description carries an imperative call-another-tool-first instruction', () => {
-    const bannedDescriptionGuidance = [/prerequisite:/i, /you must call/i];
+    const bannedDescriptionGuidance = [
+      /prerequisite:/i,
+      /you must call/i,
+      /\b(?:use|call) '[^']+' first\b/i,
+    ];
     for (const name of AGGREGATED_TOOL_NAMES_FROM_DEFS) {
       const def = AGGREGATED_TOOL_DEFS[name];
       for (const pattern of bannedDescriptionGuidance) {

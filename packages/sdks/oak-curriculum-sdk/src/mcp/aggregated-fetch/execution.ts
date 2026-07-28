@@ -38,7 +38,7 @@ Use this when you need to:
 
 Do NOT use for:
 - Finding content when you don't have the ID (use 'search')
-- Understanding ID formats (use '${PRIMARY_ORIENTATION_TOOL_NAME}' first)
+- Understanding ID formats (use '${PRIMARY_ORIENTATION_TOOL_NAME}')
 
 Use format "type:slug" (e.g., "lesson:add-fractions-with-the-same-denominator", "unit:comparing-fractions").`,
   securitySchemes: [{ type: 'oauth2', scopes: [...SCOPES_SUPPORTED] }] as const,

@@ -87,7 +87,7 @@ Agent support tools need to be discoverable through multiple channels to ensure 
 
 ### 1. Server Instructions (Initialize Response)
 
-**File:** `packages/sdks/oak-curriculum-sdk/src/mcp/prerequisite-guidance.ts`
+**File:** `packages/sdks/oak-curriculum-sdk/src/mcp/orientation-guidance.ts`
 
 Server instructions are **dynamically generated** from `AGENT_SUPPORT_TOOL_METADATA` via `generateServerInstructions()`. This ensures they stay in sync with the metadata — adding a tool to the metadata automatically updates instructions.
 
@@ -114,7 +114,7 @@ const server = new McpServer(
 
 ### 2. Context Hints (Tool Response Payloads)
 
-**File:** `packages/sdks/oak-curriculum-sdk/src/mcp/prerequisite-guidance.ts`
+**File:** `packages/sdks/oak-curriculum-sdk/src/mcp/orientation-guidance.ts`
 
 The `OAK_CONTEXT_HINT` is **dynamically generated** from `AGENT_SUPPORT_TOOL_METADATA` via `generateContextHint()` and included in `structuredContent` of every tool response, reinforcing guidance after each tool call:
 
