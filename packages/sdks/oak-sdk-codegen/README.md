@@ -167,12 +167,17 @@ behaviours to know:
   side-effect. The schema cache is a committed artefact: refreshing and
   committing it IS the alignment act. The deliberate refresh path is the root
   `pnpm sdk-codegen:refresh` — it fetches the live spec (online mode, with
-  `--force` so a turbo cache replay cannot mask the fetch) and then runs the
-  full build for immediate compile feedback. The CI schema-drift check
+  `--force=true` so a turbo cache replay cannot mask the fetch) and then runs
+  the full build for immediate compile feedback. The CI schema-drift check
   surfaces when the committed cache is behind upstream.
 - **Verifying a refresh.** After `pnpm sdk-codegen:refresh`, check
   `info.version` moved in both the schema cache and
   `src/types/generated/api-schema/api-schema-original.json`.
+- **Expect a schema-vs-tools delta.** Generation runs on the upstream document minus the
+  paths declared in `code-generation/excluded-paths.ts`, so a path present in the schema
+  cache with no generated type, Zod schema, or MCP tool is by design, not drift. Each
+  constant's TSDoc names the generators it binds and says whether it is a permanent design
+  exclusion or a deferral with a ticket to lift it.
 
 ### The spec→input-parameter flow is compile-time-enforced, not test-enforced
 

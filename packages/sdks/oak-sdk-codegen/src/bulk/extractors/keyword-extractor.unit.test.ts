@@ -49,6 +49,9 @@ describe('extractKeywords', () => {
   ): Lesson => ({
     lessonTitle: 'Test Lesson',
     lessonSlug: 'test-lesson',
+    oakUrl: 'https://www.thenational.academy/teachers/lessons/test-lesson',
+    canonicalUrl:
+      'https://www.thenational.academy/teachers/programmes/maths-primary-ks2/units/test-unit/lessons/test-lesson',
     unitSlug: 'test-unit',
     unitTitle: 'Test Unit',
     subjectSlug: 'maths',

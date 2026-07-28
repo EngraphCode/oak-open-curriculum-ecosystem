@@ -23,6 +23,7 @@ import {
   createMockRuntimeConfig,
   createNoOpRateLimiterFactory,
 } from './helpers/test-config.js';
+import { getScratchStaticRoot } from '../src/test-helpers/static-root-fixture.js';
 
 const ACCEPT = 'application/json, text/event-stream';
 
@@ -53,9 +54,12 @@ const knownUnitSlug: string = firstUnitSlug;
 async function callPriorKnowledgeGraph(args: unknown): Promise<request.Response> {
   const runtimeConfig = createMockRuntimeConfig({ dangerouslyDisableAuth: true });
   const app = await createApp({
+    staticRoot: await getScratchStaticRoot(),
     runtimeConfig,
     observability: createMockObservability(runtimeConfig),
     getWidgetHtml: () => '<!doctype html><html><body>test-widget</body></html>',
+    getLandingPageHtml: () =>
+      '<!doctype html><html lang="en-GB"><body>test landing page</body></html>',
     rateLimiterFactory: createNoOpRateLimiterFactory(),
   });
   return request(app)

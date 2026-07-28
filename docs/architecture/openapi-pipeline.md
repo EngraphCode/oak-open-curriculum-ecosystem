@@ -281,7 +281,7 @@ From [Schema-First Execution Directive](../../.agent/directives/schema-first-exe
 This execution model ensures that:
 
 1. **Type safety extends to runtime** - Not just compile-time types, but runtime behavior
-2. **API changes propagate automatically** - New endpoints → new tool descriptors → automatic registration
+2. **API changes propagate automatically** - New endpoints → new tool descriptors → automatic registration, except for paths declared in the codegen exclusion module (see §Declared Path Exclusions)
 3. **Zero manual mapping** - No hand-written glue code between SDK and MCP layer
 4. **Generator is the single authority** - One place to update when patterns change
 
@@ -327,6 +327,22 @@ CI sdk-codegen requires a cached SDK schema. If the cached schema is missing, th
 pipeline throws an error directing you to run `pnpm sdk-codegen` locally first to
 populate the cache. This constraint exists because CI environments may not have
 network access to the upstream OpenAPI endpoint.
+
+### Declared Path Exclusions
+
+The generators do not consume every path in the upstream document.
+`packages/sdks/oak-sdk-codegen/code-generation/excluded-paths.ts` declares the paths held
+out, and each constant's TSDoc states which generators honour it and whether the exclusion
+is permanent or a deferral with a named ticket to lift it. The committed schema cache and
+the emitted `api-schema-original.json` always carry the full upstream document; exclusions
+apply from `api-schema-sdk.json` onwards, so the types, Zod schemas, and MCP tools derived
+from it are a declared subset of the schema rather than a complete projection of it.
+
+A cut may narrow the input (a whole family absent from every generated layer, as the
+deferral does) or the outermost layer (tool emission only, as the permanent skips do) —
+never the middle. Skipping a path in one intermediate generator but not its siblings would
+leave generated layers disagreeing with each other, which is the one invariant the
+generated estate must keep.
 
 ### Parameter Generation Edge Cases
 

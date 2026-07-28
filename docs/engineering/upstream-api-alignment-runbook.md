@@ -3,7 +3,7 @@ boundary: B4-Engineering-Operations
 doc_role: runbook
 authority: operations-navigation
 status: active
-last_reviewed: 2026-07-01
+last_reviewed: 2026-07-26
 ---
 
 # Upstream API Alignment Runbook
@@ -99,8 +99,17 @@ pnpm sdk-codegen && pnpm build
 
 The generated artefacts are not the source of truth — the schema and generator are.
 Confirm the **registry moved** (new endpoints become registered `MCP_TOOLS` descriptors by
-construction) and **`type-check` is green across all consumer workspaces**. Downstream type
-breakage is where an additive-looking change can still bite.
+construction, unless the path is declared in the SDK codegen's exclusion module) and
+**`type-check` is green across all consumer workspaces**. Downstream type breakage is
+where an additive-looking change can still bite.
+
+**A declared exclusion is not drift.**
+`packages/sdks/oak-sdk-codegen/code-generation/excluded-paths.ts` is the single declaration
+of paths the generators do not consume; each constant's TSDoc states its scope and whether
+it is a permanent design exclusion or a deferral with a named ticket to lift it. Check that
+module before investigating a schema-present / surface-absent gap. Lifting a deferral is
+itself an alignment event: delete the entry, regenerate, and work steps 3–5 for the
+newly generated surface.
 
 > **STOP tripwire (type-change discipline).** If a generator change produces a type error in
 > a _consumer_ (app/lib) that tempts a consumer-side type edit, that is the signal of a

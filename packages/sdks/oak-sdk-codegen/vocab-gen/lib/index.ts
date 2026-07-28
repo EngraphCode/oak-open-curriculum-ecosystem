@@ -48,4 +48,8 @@ export {
   parseBulkFile,
   readAllBulkFiles,
 } from '../../src/bulk/reader.js';
-export type { SubjectPhase } from '../../src/bulk/reader.js';
+export type { SubjectPhase, BulkFileResult } from '../../src/bulk/reader.js';
+
+// Restricted-lesson filter (MCP-204 decision — see module TSDoc)
+export { excludeRestrictedLessons } from '../../src/bulk/restricted-lesson-filter.js';
+export type { RestrictedLessonFilesResult } from '../../src/bulk/restricted-lesson-filter.js';

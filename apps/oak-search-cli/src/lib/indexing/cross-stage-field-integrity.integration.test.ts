@@ -4,6 +4,9 @@ import { createBulkDataAdapter } from '../../adapters/bulk-data-adapter.js';
 
 function createUnitFixture(): Unit {
   return {
+    canonicalUrl:
+      'https://www.thenational.academy/teachers/programmes/maths-primary-ks2/units/fractions-year-3/lessons',
+    subjectSlug: 'maths',
     unitSlug: 'fractions-year-3',
     unitTitle: 'Fractions Year 3',
     year: 3,
@@ -27,6 +30,9 @@ function createUnitFixture(): Unit {
 
 function createLessonFixture(): Lesson {
   return {
+    oakUrl: 'https://www.thenational.academy/teachers/lessons/intro-fractions',
+    canonicalUrl:
+      'https://www.thenational.academy/teachers/programmes/maths-primary-ks2/units/fractions-year-3/lessons/intro-fractions',
     lessonSlug: 'intro-fractions',
     lessonTitle: 'Intro Fractions',
     unitSlug: 'fractions-year-3',

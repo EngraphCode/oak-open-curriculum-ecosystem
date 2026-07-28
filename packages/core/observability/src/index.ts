@@ -37,9 +37,22 @@ export type {
   SpanAttributeValue,
 } from './types.js';
 export {
+  DIAGNOSTIC_SINK_KINDS,
+  OBSERVABILITY_SINK_DEFINITIONS,
   OBSERVABILITY_SINK_KINDS,
+  type DiagnosticSinkKind,
   type ObservabilitySink,
   type ObservabilitySinkKind,
   type ServerInstrumenter,
   type SinkRegistry,
 } from './sink-registry.js';
+export {
+  createOffProductAnalyticsRuntime,
+  type McpTransportObserver,
+  type OffProductAnalyticsRuntime,
+  type ProductAnalyticsCaptureContext,
+  type ProductAnalyticsCloseError,
+  type ProductAnalyticsEvent,
+  type ProductAnalyticsRuntime,
+  type ProductAnalyticsSink,
+} from './product-analytics.js';

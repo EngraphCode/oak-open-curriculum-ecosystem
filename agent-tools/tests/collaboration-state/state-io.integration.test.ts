@@ -9,6 +9,7 @@ import {
   readActiveClaimsFile,
   readClosedClaimsFile,
   readCommsEvents,
+  readCommsEventsExcluding,
   readDirectedCommsMessages,
   writeCommsEvent,
 } from '../../src/collaboration-state/state-io';
@@ -129,6 +130,69 @@ describe('collaboration comms event IO', () => {
   });
 });
 
+describe('incremental comms drain (MCP-198)', () => {
+  it('reads only the events absent from the exclusion set', async () => {
+    const repoRoot = await makeTempCollaborationRepo({ seedCommsEvent: false });
+    const commsDir = join(repoRoot, '.agent/state/collaboration/comms');
+    try {
+      for (const id of ['seen-one', 'seen-two', 'fresh-one']) {
+        await writeCommsEvent({
+          commsDir,
+          nowIso: '2026-06-01T10:00:00Z',
+          event: narrativeEvent({ event_id: id }),
+        });
+      }
+
+      const events = await readCommsEventsExcluding(commsDir, new Set(['seen-one', 'seen-two']));
+
+      expect(events.map((event) => event.event_id)).toEqual(['fresh-one']);
+    } finally {
+      await removeDirectory(repoRoot);
+    }
+  });
+
+  it('does not read an excluded file at all — an unreadable seen event cannot break the drain', async () => {
+    // The point of the cure: excluded files are never opened. Corrupting one
+    // and still draining successfully is the observable proof that the read
+    // is incremental rather than full-then-filtered.
+    const repoRoot = await makeTempCollaborationRepo({ seedCommsEvent: false });
+    const commsDir = join(repoRoot, '.agent/state/collaboration/comms');
+    try {
+      await writeCommsEvent({
+        commsDir,
+        nowIso: '2026-06-01T10:00:00Z',
+        event: narrativeEvent({ event_id: 'fresh-one' }),
+      });
+      await writeText(join(commsDir, 'already-seen.json'), 'this is not valid json at all');
+
+      const events = await readCommsEventsExcluding(commsDir, new Set(['already-seen']));
+
+      expect(events.map((event) => event.event_id)).toEqual(['fresh-one']);
+      await expect(readCommsEvents(commsDir)).rejects.toThrow();
+    } finally {
+      await removeDirectory(repoRoot);
+    }
+  });
+
+  it('returns every event when nothing is excluded', async () => {
+    const repoRoot = await makeTempCollaborationRepo({ seedCommsEvent: false });
+    const commsDir = join(repoRoot, '.agent/state/collaboration/comms');
+    try {
+      await writeCommsEvent({
+        commsDir,
+        nowIso: '2026-06-01T10:00:00Z',
+        event: narrativeEvent({ event_id: 'only-one' }),
+      });
+
+      const events = await readCommsEventsExcluding(commsDir, new Set());
+
+      expect(events.map((event) => event.event_id)).toEqual(['only-one']);
+    } finally {
+      await removeDirectory(repoRoot);
+    }
+  });
+});
+
 function narrativeEvent(input: { readonly event_id: string; readonly body?: string }): CommsEvent {
   return {
     schema_version: '2.0.0',
@@ -155,6 +219,7 @@ function filesystemIo(): CollaborationStateCliIo {
     readClosedClaimsFile,
     writeCommsEvent,
     readCommsEvents,
+    readCommsEventsExcluding,
     readWorktrees: async () => [],
     readDirectedCommsMessages,
     writeTextFile: writeTextFileAtomically,

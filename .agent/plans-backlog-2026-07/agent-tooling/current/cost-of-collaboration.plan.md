@@ -916,8 +916,11 @@ script runs build before each poll."
 - P2 landed in the unified CLI shape:
   `pnpm agent-tools collaboration-state comms watch`.
 - The watcher emits directed messages through a streaming stdout path while
-  the process stays alive. `--max-events` is a test/control affordance for
-  bounded proof runs, not a separate legacy mode.
+  the process stays alive. (The `--max-events` flag this evidence referenced
+  was retired 2026-07-27 by MCP-229: its successor `--max-events-per-drain`
+  bounds each drain pass and never ends the watch, so bounded proof runs now
+  terminate via `--supervisor-pid` on a controlled pid or a composing
+  `timeout`, not an emission budget.)
 - Recipient filtering supports `--agent-name` plus optional
   `--session-prefix` so long-lived watchers can narrow to an identity tuple.
 - The implementation uses Node `fs.watch` with polling fallback; watcher

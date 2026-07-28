@@ -20,18 +20,24 @@ credential:
 ## How the bot works
 
 A GitHub App (this repo's is named in [`.github/merge-bot.json`](../../.github/merge-bot.json))
-is installed on the repository with `pull_requests: write` and
-`contents: write` — and is **deliberately absent from the ruleset's bypass
-list**. Merging with its short-lived installation token gives you a
-credential that GitHub itself stops at any unmet requirement:
+is installed on the repository and is **deliberately absent from the
+ruleset's bypass list**. Merging with its short-lived installation token
+gives you a credential that GitHub itself stops at any unmet requirement:
 
 ```bash
 GH_TOKEN=$(pnpm --silent agent-tools merge-bot mint-token) gh pr merge <n> --auto --merge
 ```
 
 Each minted token is scoped at mint time to this repository and to
-`pull_requests: write` + `contents: write` only — least-privilege by
-construction, even if the app is ever installed more widely.
+`pull_requests: write` + `contents: write` + `workflows: write` only —
+least-privilege by construction, even if the app is ever installed more
+widely, and a strict subset of whatever the installation itself grants.
+
+`workflows: write` is needed only by `gh pr update-branch`, which writes the
+merge commit onto the **head** branch; GitHub refuses that write when the
+merge touches `.github/workflows/**` without it. Merging a pull request does
+not need it — observed directly: this bot merged PR #557, which changed four
+workflow files, on a token carrying only the first two permissions.
 
 `.github/merge-bot.json` is the **single authority** for which app is this
 repo's bot (`appSlug`, `appId`, `repo`); the private key lives outside every
@@ -48,8 +54,14 @@ for admin credentials, and optional for everyone else.
 1. `https://github.com/organizations/<org>/settings/apps/new` — name it,
    untick **Webhook → Active**.
 2. Repository permissions: **Pull requests: Read & write**, **Contents:
-   Read & write**, **Checks: Read-only**, **Commit statuses: Read-only**.
-   Grant nothing else.
+   Read & write**, **Workflows: Read & write**, **Checks: Read-only**,
+   **Commit statuses: Read-only**. Grant nothing else.
+
+   **Workflows** is not optional: a token mint requests it explicitly, and
+   GitHub rejects a token request for any permission the app was not
+   granted. An app created without it fails **every** mint with `HTTP 422`,
+   not merely the `update-branch` call that needs it.
+
 3. "Only on this account" → **Create GitHub App**; note the **App ID**.
 4. **Private keys → Generate a private key** (this never happens
    automatically) — the downloaded `.pem` is the bot's whole identity:

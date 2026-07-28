@@ -87,6 +87,7 @@ function registerOAuthRoutes(
   upstreamMetadata: UpstreamAuthServerMetadata,
   oauthRateLimiter: RequestHandler,
   metadataRateLimiter: RequestHandler,
+  canonicalOrigin?: string,
 ): void {
   runBootstrapPhase(
     log,
@@ -101,6 +102,7 @@ function registerOAuthRoutes(
         log,
         allowedHosts,
         metadataRateLimiter,
+        canonicalOrigin,
       );
     },
     observability,
@@ -140,6 +142,7 @@ export async function setupOAuthAndCaching(
   injectedMetadata: UpstreamAuthServerMetadata | undefined,
   oauthRateLimiter: RequestHandler,
   metadataRateLimiter: RequestHandler,
+  canonicalOrigin?: string,
 ): Promise<void> {
   if (!runtimeConfig.dangerouslyDisableAuth) {
     const { upstreamBaseUrl, upstreamMetadata } = await resolveUpstreamMetadata(
@@ -162,6 +165,7 @@ export async function setupOAuthAndCaching(
       upstreamMetadata,
       oauthRateLimiter,
       metadataRateLimiter,
+      canonicalOrigin,
     );
   }
 

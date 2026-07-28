@@ -7,8 +7,71 @@
  */
 import { describe, expect, it } from 'vitest';
 
+import { bulkDownloadFileSchema, type BulkFileResult } from '../src/bulk.js';
+import { createLessonInput, createUnitInput, type LessonInput } from '../src/bulk/test-fixtures.js';
+import { toBulkDataInputs } from './vocab-gen.js';
 import { createPipelineConfig, type PipelineResult } from './vocab-gen-config.js';
 import { formatPipelineResult } from './vocab-gen-format.js';
+
+/** Wraps lessons and a referencing unit into a read bulk-file result */
+function createFileResult(lessons: readonly LessonInput[]): BulkFileResult {
+  const data = bulkDownloadFileSchema.parse({
+    sequenceSlug: 'maths-primary',
+    subjectTitle: 'Maths',
+    sequence: [
+      createUnitInput({
+        unitLessons: lessons.map((lesson, index) => ({
+          lessonSlug: lesson.lessonSlug,
+          lessonTitle: lesson.lessonTitle,
+          lessonOrder: index + 1,
+          state: 'published',
+        })),
+      }),
+    ],
+    lessons,
+  });
+  return {
+    filename: 'maths-primary.json',
+    subjectPhase: { subject: 'maths', phase: 'primary' },
+    data,
+  };
+}
+
+describe('toBulkDataInputs', () => {
+  it('excludes restricted lessons and their unit references from the pipeline inputs', () => {
+    const files = [
+      createFileResult([
+        createLessonInput({ lessonSlug: 'kept-lesson' }),
+        createLessonInput({
+          lessonSlug: 'hidden-lesson',
+          restricted: true,
+          lessonKeywords: [
+            { keyword: 'sentinelrestrictedkeyword', description: 'A restricted definition.' },
+          ],
+        }),
+      ]),
+    ];
+
+    const result = toBulkDataInputs(files);
+
+    expect(result.inputs[0]?.lessons.map((l) => l.lessonSlug)).toEqual(['kept-lesson']);
+    expect(result.inputs[0]?.units[0]?.unitLessons.map((l) => l.lessonSlug)).toEqual([
+      'kept-lesson',
+    ]);
+    expect(JSON.stringify(result.inputs)).not.toContain('sentinelrestrictedkeyword');
+    expect(result.restrictedLessonsExcluded).toBe(1);
+  });
+
+  it('passes unrestricted data through with a zero count', () => {
+    const files = [createFileResult([createLessonInput({ lessonSlug: 'kept-lesson' })])];
+
+    const result = toBulkDataInputs(files);
+
+    expect(result.inputs[0]?.lessons).toHaveLength(1);
+    expect(result.inputs[0]?.sequenceSlug).toBe('maths-primary');
+    expect(result.restrictedLessonsExcluded).toBe(0);
+  });
+});
 
 describe('createPipelineConfig', () => {
   it('creates config with default values', () => {
@@ -49,9 +112,17 @@ describe('formatPipelineResult', () => {
     totalPriorKnowledge: 5000,
     totalNCStatements: 3000,
     uniqueThreads: 200,
+    restrictedLessonsExcluded: 250,
     outputFiles: [],
     durationMs: 5000,
     ...overrides,
+  });
+
+  it('reports the restricted-lesson exclusion with its decision provenance', () => {
+    const formatted = formatPipelineResult(createResult());
+
+    expect(formatted).toContain('250 restricted lessons excluded');
+    expect(formatted).toContain('MCP-204');
   });
 
   it('formats successful result with all extraction stats', () => {

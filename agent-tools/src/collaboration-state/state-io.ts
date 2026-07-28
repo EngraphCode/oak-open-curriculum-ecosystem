@@ -64,10 +64,33 @@ export async function writeCommsEvent(input: {
 
 /**
  * Read all canonical immutable communication events from the unified comms
- * directory.
+ * directory. Cost is linear in the directory's TOTAL size — repeated drains
+ * should use {@link readCommsEventsExcluding} instead.
  */
 export async function readCommsEvents(commsDir: string): Promise<readonly CommsEvent[]> {
   return readEventDirectory(commsDir, parseCommsEvent);
+}
+
+/**
+ * Read only the comms events whose ids are absent from `excludeIds` — the
+ * incremental drain (MCP-198).
+ *
+ * The watch loop re-drains on every wake. Reading the whole directory made
+ * that cost proportional to TOTAL event count rather than to how many events
+ * were new — cheap at idle, but it multiplies under host contention and
+ * crossed the watcher's per-step deadline during ordinary repository builds.
+ *
+ * Filenames are `<event_id>.json` (see `eventPath`), so the id is known from
+ * the directory listing alone and no unwanted file is ever opened.
+ */
+export async function readCommsEventsExcluding(
+  commsDir: string,
+  excludeIds: ReadonlySet<string>,
+): Promise<readonly CommsEvent[]> {
+  const wanted = (await listCommsEventIds(commsDir))
+    .filter((id) => !excludeIds.has(id))
+    .map((id) => `${id}.json`);
+  return readEventFiles(commsDir, wanted, parseCommsEvent);
 }
 
 /**
@@ -152,11 +175,27 @@ async function readEventDirectory<TEvent>(
   parser: (text: string) => TEvent,
 ): Promise<readonly TEvent[]> {
   const filenames: readonly string[] = await readdir(directory);
+  return readEventFiles(
+    directory,
+    filenames.filter((entry) => entry.endsWith('.json')),
+    parser,
+  );
+}
+
+/**
+ * Read and parse a NAMED set of event files, in stable filename order. Shared
+ * by the full read and the incremental drain so both carry identical parse,
+ * validation and failure semantics — the incremental path narrows WHICH files
+ * are read, never HOW.
+ */
+async function readEventFiles<TEvent>(
+  directory: string,
+  filenames: readonly string[],
+  parser: (text: string) => TEvent,
+): Promise<readonly TEvent[]> {
   const events: TEvent[] = [];
 
-  for (const filename of filenames
-    .filter((entry) => entry.endsWith('.json'))
-    .toSorted((left, right) => left.localeCompare(right))) {
+  for (const filename of filenames.toSorted((left, right) => left.localeCompare(right))) {
     const path = join(directory, filename);
     try {
       const text = await readFile(path, 'utf8');

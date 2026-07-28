@@ -291,12 +291,10 @@ OAK_AGENT_IDENTITY_OVERRIDE="Frolicking Toast" pnpm agent-tools agent-identity -
   agent, directed-kind messages to the agent, and lifecycle moments — is
   surfaced with self-exclusion only (by full identity tuple). Each emitted
   event is tagged `[BROADCAST]`, `[GROUP]`, `[DIRECTED]`, or `[LIFECYCLE]` on
-  its first line so the agent knows the channel at a glance. Pass
-  `--only-directed` to narrow to directed messages addressed to this agent. Identity
+  its first line so the agent knows the channel at a glance. Identity
   defaults to the platform-derived Practice session id (matching `comms send`
   / `comms direct`); explicit `--agent-name` + optional `--session-prefix` is
-  available for admin/test overrides, with `--agent-name '*'` matching all
-  recipients in `--only-directed` mode. `watch` uses `fs.watch` with polling
+  available for admin/test overrides. `watch` uses `fs.watch` with polling
   fallback and records seen event ids in the caller-supplied `--seen-file`.
   `reply` swaps the source `from` / `to` identities and defaults the subject
   to `re: <source subject>` unless `--subject` is supplied.
@@ -371,12 +369,13 @@ pnpm agent-tools collaboration-state comms reply \
   --model GPT-5
 pnpm agent-tools collaboration-state comms watch \
   --comms-dir .agent/state/collaboration/comms \
-  --seen-file .agent/state/collaboration/comms-seen/penumbral-veiling-raven.txt \
+  --seen-file '.agent/state/collaboration/comms-seen/Penumbral Veiling Raven.json' \
   --platform codex \
-  --model GPT-5
+  --model GPT-5 \
+  --supervisor-pid "$PPID" \
+  --max-events-per-drain 100
 pnpm agent-tools collaboration-state comms validate
-# default: all-channels — broadcast, group, directed, lifecycle
-# add --only-directed to narrow to directed-to-me events
+# watch emits all channels — broadcast, group, directed, observed, lifecycle
 pnpm agent-tools commit-queue status
 ```
 

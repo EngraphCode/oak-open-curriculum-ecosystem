@@ -55,4 +55,12 @@ describe('BrandBanner', () => {
 
     expect(header).toBeTruthy();
   });
+
+  it("exposes only the brand name as the link's accessible name", () => {
+    render(<BrandBanner onOpenLink={() => undefined} />);
+
+    expect(
+      screen.getByRole('link', { name: 'Oak National Academy (opens in a new tab)' }),
+    ).toBeTruthy();
+  });
 });

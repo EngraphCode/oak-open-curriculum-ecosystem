@@ -72,4 +72,13 @@ describe('SERVED_SURFACE.resources', () => {
   it('gates the EEF interpretation resource dormant with its tool, through the definition — no env flag (owner card 2026-07-23)', () => {
     expect(isResourceLive(SERVED_SURFACE, 'eef://interpretation')).toBe(false);
   });
+
+  it('serves the widget resource live under the generated WIDGET_URI (reviewed-change tripwire)', () => {
+    // Green by local-value coincidence even against a frozen key — the
+    // structural guard for the MCP-187 re-freeze class is the
+    // no-restricted-syntax ban on `ui://widget/` literals in this app's
+    // eslint.config.ts; this pin documents the reviewed classification
+    // through the same gate registration uses.
+    expect(isResourceLive(SERVED_SURFACE, WIDGET_URI)).toBe(true);
+  });
 });

@@ -15,6 +15,7 @@ import {
   METADATA_RATE_LIMIT,
   ASSET_RATE_LIMIT,
 } from './rate-limit-profiles.js';
+import { getScratchStaticRoot } from '../test-helpers/static-root-fixture.js';
 
 function createTestRuntimeConfig() {
   return createMockRuntimeConfig({ env: { ALLOWED_HOSTS: 'localhost,127.0.0.1' } });
@@ -27,11 +28,14 @@ describe('rate limiter DI wiring', () => {
     const observability = createFakeHttpObservability();
 
     await createApp({
+      staticRoot: await getScratchStaticRoot(),
       runtimeConfig,
       observability,
       upstreamMetadata: TEST_UPSTREAM_METADATA,
       rateLimiterFactory: factory,
       getWidgetHtml: () => '<html><body>test</body></html>',
+      getLandingPageHtml: () =>
+        '<!doctype html><html lang="en-GB"><body>test landing page</body></html>',
     });
 
     expect(calls).toHaveLength(4);

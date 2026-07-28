@@ -8,7 +8,7 @@ Built for convergence with `packages/design/oak-design-tokens` in the [oak-open-
 
 - `palette.json` — tier-1 colour primitives (`--oak-*`), as `oak.color.<name>`.
 - `primitives.json` — tier-1 non-colour scales: `space`, `radius`, `font`, `weight`, `leading`, `tracking`, `layer`, `measure`, `motion`, `ease`, `border.solid-*`. Theme-invariant.
-- `semantic.light.json` / `semantic.dark.json` — tier-2 roles. The CSS composes these via `light-dark(a, b)`; the generator split each into `a` (light) and `b` (dark). 59 roles were split this way.
+- `semantic.light.json` / `semantic.dark.json` — tier-2 roles. The CSS composes these via `light-dark(a, b)`; the generator split each into `a` (light) and `b` (dark). 64 roles were split this way.
 - `semantic.high-contrast.json` / `semantic.colour-safe.json` — the two extra theme trees, from the `[data-theme]` scopes. **These have no counterpart in oak-design-tokens yet** (its pipeline emits light/dark only); adding them there means two more semantic tree merges in `build-css.ts`.
 - `component.json` — tier-3 component tokens from `components.css` (`btn`, `input`, `gap`, `inset`, `modal`, …).
 
@@ -24,4 +24,4 @@ Built for convergence with `packages/design/oak-design-tokens` in the [oak-open-
 
 ## Contrast pairings
 
-`contrast-pairings.json` is the machine-readable manifest (the `ContrastManifest` shape from `design-tokens-core/contrast-types.ts`: `{pairs, triads}` with token dot-paths and `text`/`non-text` contexts), generated from the pair lists in `preview/contrast-audit.html` — 33 text pairs (≥4.5:1) + 8 non-text pairs (≥3:1) — counts derived from the manifest; recount on regeneration, all paths verified against the trees in this folder. `triads` is empty so far; the audit card checks flat pairs. The live audit remains the four-theme AA/AAA view; this manifest is what plugs those same checks into the monorepo's build-time gate (`validateContrastPairings`) — which would need to run it against all four theme trees, not just light/dark.
+`contrast-pairings.json` is the machine-readable manifest (the `ContrastManifest` shape from `design-tokens-core/contrast-types.ts`: `{pairs, triads}` with token dot-paths and `text`/`non-text` contexts), generated from the pair lists in `preview/contrast-audit.html` — 33 text pairs (≥4.5:1) + 9 non-text pairs (≥3:1) — counts derived from the manifest; recount on regeneration, all paths verified against the trees in this folder. `triads` is empty so far; the audit card checks flat pairs. The live audit remains the four-theme AA/AAA view; this manifest is what plugs those same checks into the monorepo's build-time gate (`validateContrastPairings`) — which would need to run it against all four theme trees, not just light/dark.

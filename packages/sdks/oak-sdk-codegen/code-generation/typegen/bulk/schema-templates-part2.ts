@@ -21,6 +21,7 @@ export const LESSON_TEMPLATE = `
  * @remarks
  * Extends API LessonSummaryResponseSchema with:
  * - lessonSlug: identifier (not in API summary response)
+ * - restricted: bulk-only licence flag (asset access prevented when true)
  * - transcript_sentences: plain text transcript
  * - transcript_vtt: WebVTT captions
  *
@@ -31,8 +32,11 @@ export const lessonSchema = z
     // Identifier (bulk-only - not in API summary)
     lessonSlug: z.string(),
 
-    // Core fields (identical to API)
+    // Core fields (identical to API; the URL fields are format: uri upstream,
+    // transcribed as plain strings per the sidecar's non-asserting format)
     lessonTitle: z.string(),
+    oakUrl: z.string(),
+    canonicalUrl: z.string(),
     unitSlug: z.string(),
     unitTitle: z.string(),
     subjectSlug: z.string(),
@@ -53,6 +57,10 @@ export const lessonSchema = z
 
     // Bulk-specific casing (lowercase 'a')
     downloadsavailable: z.boolean(),
+
+    // Bulk-only licence flag: upstream emits it only when true; asset access
+    // (videos, transcripts, quizzes) is prevented for restricted lessons
+    restricted: z.boolean().optional(),
 
     // Bulk-only transcript fields (NULL sentinel handling)
     transcript_sentences: nullSentinelSchema.optional(),
@@ -176,6 +184,16 @@ export {
   type UnitLesson,
   examBoardSchema,
   type ExamBoard,
+  examSubjectSchema,
+  type ExamSubject,
+  categorySchema,
+  type UnitCategory,
+  tierSchema,
+  type Tier,
+  programmeFactorSchema,
+  type ProgrammeFactor,
+  unitProgrammeFactorsSchema,
+  type UnitProgrammeFactors,
   unitSchema,
   type Unit,
 

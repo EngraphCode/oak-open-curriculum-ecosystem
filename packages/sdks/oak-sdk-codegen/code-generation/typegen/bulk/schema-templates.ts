@@ -14,24 +14,37 @@
  * API schema has: lessonTitle, unitSlug, unitTitle, subjectSlug, subjectTitle,
  * keyStageSlug, keyStageTitle, lessonKeywords, keyLearningPoints,
  * misconceptionsAndCommonMistakes, pupilLessonOutcome, teacherTips,
- * contentGuidance, supervisionLevel, downloadsAvailable, canonicalUrl (upstream), oakUrl (SDK)
+ * contentGuidance, supervisionLevel, downloadsAvailable, canonicalUrl, oakUrl
+ * (bulk carries canonicalUrl and oakUrl too since the 2026-07 corpus)
  *
- * Bulk adds: lessonSlug, transcript_sentences, transcript_vtt
+ * Bulk adds: lessonSlug, restricted, transcript_sentences, transcript_vtt
  * Bulk changes: downloadsavailable (lowercase) vs downloadsAvailable
  * Bulk changes: contentGuidance/supervisionLevel use "NULL" string sentinel
  */
 export const BULK_LESSON_DELTA = {
-  additionalFields: ['lessonSlug', 'transcript_sentences', 'transcript_vtt'],
+  additionalFields: ['lessonSlug', 'restricted', 'transcript_sentences', 'transcript_vtt'],
   casingDifferences: { downloadsavailable: 'downloadsAvailable' },
   nullSentinelFields: ['contentGuidance', 'supervisionLevel'],
 } as const;
 
 /**
  * Bulk download unit fields - structure differs from API UnitSummaryResponseSchema.
+ *
+ * @remarks
+ * categories and programmeFactors exist in BOTH schemas, so they belong in
+ * neither list.
  */
 export const BULK_UNIT_DELTA = {
-  missingFields: ['phaseSlug', 'subjectSlug', 'notes', 'categories', 'canonicalUrl', 'oakUrl'],
-  addedFields: ['examBoards'],
+  missingFields: ['phaseSlug', 'notes', 'oakUrl'],
+  addedFields: [
+    'canonicalUrl',
+    'examBoard',
+    'examSubjects',
+    'tier',
+    'pathway',
+    'pathwaySlug',
+    'unitOptionGroup',
+  ],
 } as const;
 
 /** File header template */

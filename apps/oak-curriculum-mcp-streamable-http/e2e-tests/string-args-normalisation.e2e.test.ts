@@ -22,6 +22,7 @@ import {
   readJsonRpcOrResultErrorText,
 } from './helpers/sse.js';
 import { stubSearchRetrieval } from './helpers/stub-search-retrieval.js';
+import { getScratchStaticRoot } from '../src/test-helpers/static-root-fixture.js';
 
 const ACCEPT = 'application/json, text/event-stream';
 
@@ -75,9 +76,12 @@ describe('HTTP boundary argument validation', () => {
   it('returns a descriptive validation error for plain string arguments', async () => {
     const runtimeConfig = createMockRuntimeConfig({ dangerouslyDisableAuth: true });
     const app = await createApp({
+      staticRoot: await getScratchStaticRoot(),
       runtimeConfig,
       observability: createMockObservability(runtimeConfig),
       getWidgetHtml: () => '<!doctype html><html><body>test-widget</body></html>',
+      getLandingPageHtml: () =>
+        '<!doctype html><html lang="en-GB"><body>test landing page</body></html>',
       rateLimiterFactory: createNoOpRateLimiterFactory(),
     });
     const res = await request(app)
@@ -99,9 +103,12 @@ describe('HTTP boundary argument validation', () => {
   it('returns a descriptive validation error for JSON string arguments', async () => {
     const runtimeConfig = createMockRuntimeConfig({ dangerouslyDisableAuth: true });
     const app = await createApp({
+      staticRoot: await getScratchStaticRoot(),
       runtimeConfig,
       observability: createMockObservability(runtimeConfig),
       getWidgetHtml: () => '<!doctype html><html><body>test-widget</body></html>',
+      getLandingPageHtml: () =>
+        '<!doctype html><html lang="en-GB"><body>test landing page</body></html>',
       rateLimiterFactory: createNoOpRateLimiterFactory(),
     });
     const res = await request(app)
@@ -123,9 +130,12 @@ describe('HTTP boundary argument validation', () => {
   it('returns a descriptive validation error for path-string arguments', async () => {
     const runtimeConfig = createMockRuntimeConfig({ dangerouslyDisableAuth: true });
     const app = await createApp({
+      staticRoot: await getScratchStaticRoot(),
       runtimeConfig,
       observability: createMockObservability(runtimeConfig),
       getWidgetHtml: () => '<!doctype html><html><body>test-widget</body></html>',
+      getLandingPageHtml: () =>
+        '<!doctype html><html lang="en-GB"><body>test landing page</body></html>',
       rateLimiterFactory: createNoOpRateLimiterFactory(),
     });
     const res = await request(app)
@@ -148,10 +158,13 @@ describe('HTTP boundary argument validation', () => {
     const captured: CapturedCall[] = [];
     const runtimeConfig = createMockRuntimeConfig({ dangerouslyDisableAuth: true });
     const app = await createApp({
+      staticRoot: await getScratchStaticRoot(),
       toolHandlerOverrides: createStructuredSuccessOverrides(captured),
       runtimeConfig,
       observability: createMockObservability(runtimeConfig),
       getWidgetHtml: () => '<!doctype html><html><body>test-widget</body></html>',
+      getLandingPageHtml: () =>
+        '<!doctype html><html lang="en-GB"><body>test landing page</body></html>',
       rateLimiterFactory: createNoOpRateLimiterFactory(),
     });
     const res = await request(app)

@@ -6,6 +6,7 @@ import { createFakeRateLimiterFactory } from './test-helpers/rate-limiter-fakes.
 import { createMockRuntimeConfig } from './test-helpers/auth-error-test-helpers.js';
 import { TEST_UPSTREAM_METADATA } from './test-helpers/upstream-metadata-fixture.js';
 import { SCOPES_SUPPORTED } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
+import { getScratchStaticRoot } from './test-helpers/static-root-fixture.js';
 
 describe('OAuth Protected Resource Metadata (Integration)', () => {
   const createTestApp = async (
@@ -14,9 +15,12 @@ describe('OAuth Protected Resource Metadata (Integration)', () => {
     const runtimeConfig = createMockRuntimeConfig({ env: { ALLOWED_HOSTS: allowedHosts } });
     const observability = createFakeHttpObservability();
     return await createApp({
+      staticRoot: await getScratchStaticRoot(),
       runtimeConfig,
       observability,
       getWidgetHtml: () => '<!doctype html><html><body>test-widget</body></html>',
+      getLandingPageHtml: () =>
+        '<!doctype html><html lang="en-GB"><body>test landing page</body></html>',
       upstreamMetadata: TEST_UPSTREAM_METADATA,
       rateLimiterFactory: createFakeRateLimiterFactory().factory,
     });

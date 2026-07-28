@@ -2,7 +2,7 @@
 
 > Visibility artefact only. No validator/guard is derived from this (shapes are not yet ratified). Curriculum DATA bytes from the Oak API/bulk export are exempt; repo-authored framing/templates/guidance are in scope.
 
-**716 content items** across 143 files. Generated from a two-pass exhaustive audit. This is a **visibility artefact** — a discoverable, auditable index of every piece of repo-controlled content that reaches an MCP consumer. It asserts *what exists and who should review it*, not whether it is good.
+**717 content items** across 143 files. Generated from a two-pass exhaustive audit. This is a **visibility artefact** — a discoverable, auditable index of every piece of repo-controlled content that reaches an MCP consumer. It asserts *what exists and who should review it*, not whether it is good.
 
 See [`report.md`](./report.md) for the analysis, the i18n/content-workspace reframe, findings, and gaps. Machine-readable source: [`registry.json`](./registry.json). To read the surfaces **assembled as an agent receives them** (exact or with `{{placeholders}}`), see [`rendered-wholes.md`](./rendered-wholes.md).
 
@@ -36,7 +36,7 @@ Each item has a **review domain** (which expert should audit it) and an **extrac
 ### By impact tier (gates protocol weight)
 | Impact tier | Items |
 | --- | --- |
-| high-impact | 697 |
+| high-impact | 698 |
 | simple-config | 19 |
 
 _high-impact items require review + eval protocols (owner design 2026-07-09); simple-config (branding/UI/structural metadata) does not. impact_tier is orthogonal to source_locus: a high-impact item authored upstream still needs protocols, run cross-repo against the assembled output._
@@ -74,7 +74,7 @@ _high-impact items require review + eval protocols (owner design 2026-07-09); si
 ### By source locus (where to point reviewers)
 | Source locus | Items |
 | --- | --- |
-| this-repo | 589 |
+| this-repo | 590 |
 | upstream-in-house-api | 116 |
 | external-third-party | 9 |
 | upstream-in-house-skills | 2 |
@@ -1510,7 +1510,7 @@ What the agent receives on failure/empty — validation errors, empty-state, deg
 
 </details>
 
-### legal-licensing — 19 items
+### legal-licensing — 20 items
 
 Attribution, licensing (OGL v3.0), trademark, EEF-citation obligations.
 
@@ -1528,6 +1528,11 @@ Attribution, licensing (OGL v3.0), trademark, EEF-citation obligations.
   - ⚖ D2 (owner, ratified 2026-07-22): under-the-hood KEEP — this surface remains served (tool + resource pointer).
 - **C379** _[source-attribution · leaf-authored]_ **⚑high-impact** **OAK_STRATEGY_DOCS_URL** — const OAK_STRATEGY_DOCS_URL = 'https://www.thenational.academy/about-us/meet-the-team#documents';
   - ⚖ D2 (owner, ratified 2026-07-22): under-the-hood KEEP — this surface remains served (tool + resource pointer).
+
+</details>
+<details><summary><code>apps/oak-curriculum-mcp-streamable-http/widget/src/App.tsx</code> — 1</summary>
+
+- **C717** _[widget-ui-content · leaf-authored]_ **⚑high-impact** **app shell experimental-service disclaimer** — This service is experimental. It uses Oak National Academy content, but AI can make mistakes and output should not be treated as official resources.
 
 </details>
 <details><summary><code>apps/oak-curriculum-mcp-streamable-http/widget/src/BrandBanner.tsx</code> — 1</summary>

@@ -45,10 +45,35 @@ function isSchemaObject(value: unknown): value is SchemaObject {
   return !('$ref' in value);
 }
 
+/**
+ * createOpenCurriculumSchema unconditionally removes the owner-deferred paths from the
+ * sdk document and throws when they are absent, so every fixture must carry them.
+ * Local to this file by design: the coupling is deleted together with
+ * excluded-paths.ts when MCP-214 lifts the deferral.
+ */
+const DEFERRED_PATH_STUBS: NonNullable<OpenAPIObject['paths']> = {
+  '/key-stages/{keyStage}/subject/{subject}/check-restricted': {
+    get: {
+      operationId: 'stub-check-restricted-get',
+      responses: { '200': { description: 'OK' } },
+    },
+  },
+  '/lessons/check-restricted': {
+    post: {
+      operationId: 'stub-check-restricted-post',
+      responses: { '200': { description: 'OK' } },
+    },
+  },
+};
+
+function withDeferredPathStubs(schema: OpenAPIObject): OpenAPIObject {
+  return { ...schema, paths: { ...schema.paths, ...DEFERRED_PATH_STUBS } };
+}
+
 describe('schema separation', () => {
   describe('createOpenCurriculumSchema', () => {
     it('returns original clone and decorated SDK schema without mutating the input', () => {
-      const validatedSchema = buildTranscriptSchema();
+      const validatedSchema = withDeferredPathStubs(buildTranscriptSchema());
       validatedSchema.components = {
         ...validatedSchema.components,
         schemas: {
@@ -82,7 +107,7 @@ describe('schema separation', () => {
     });
 
     it('preserves all original schema fields while adding oakUrl', () => {
-      const validatedSchema = buildTranscriptSchema();
+      const validatedSchema = withDeferredPathStubs(buildTranscriptSchema());
       validatedSchema.components = {
         ...validatedSchema.components,
         schemas: {
@@ -121,7 +146,9 @@ describe('schema separation', () => {
     });
 
     it('should add oakUrl to nested response schemas without mutating input', () => {
-      const { original, sdk } = createOpenCurriculumSchema(schemaWithNestedResponses);
+      const { original, sdk } = createOpenCurriculumSchema(
+        withDeferredPathStubs(schemaWithNestedResponses),
+      );
 
       const originalLesson = original.components?.schemas?.LessonResponse;
       const sdkLesson = sdk.components?.schemas?.LessonResponse;
@@ -151,6 +178,21 @@ describe('schema separation', () => {
         throw new Error('SearchResponse.summary.anyOf missing');
       }
       expect(summarySchema.anyOf).toHaveLength(2);
+    });
+
+    it('omits the deferred endpoints from the sdk document while original stays verbatim', () => {
+      const input = withDeferredPathStubs(buildTranscriptSchema());
+
+      const { original, sdk } = createOpenCurriculumSchema(input);
+
+      const sdkPaths = Object.keys(sdk.paths ?? {});
+      expect(sdkPaths).not.toContain('/key-stages/{keyStage}/subject/{subject}/check-restricted');
+      expect(sdkPaths).not.toContain('/lessons/check-restricted');
+      expect(sdkPaths).toContain('/lessons/{lesson}/transcript');
+
+      const originalPaths = Object.keys(original.paths ?? {});
+      expect(originalPaths).toContain('/key-stages/{keyStage}/subject/{subject}/check-restricted');
+      expect(originalPaths).toContain('/lessons/check-restricted');
     });
   });
 });

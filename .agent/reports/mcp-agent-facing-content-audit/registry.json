@@ -3,14 +3,14 @@
     "title": "Oak MCP agent-facing content registry",
     "generated_from": "two-pass exhaustive audit (map 17 slices + pass-2 gap-fill 5 slices)",
     "note": "Visibility artefact only. No validator/guard is derived from this (shapes are not yet ratified). Curriculum DATA bytes from the Oak API/bulk export are exempt; repo-authored framing/templates/guidance are in scope.",
-    "item_count": 716,
+    "item_count": 717,
     "impact_tiers": {
-      "high-impact": 697,
+      "high-impact": 698,
       "simple-config": 19
     },
     "protocol_note": "high-impact items require review + eval protocols (owner design 2026-07-09); simple-config (branding/UI/structural metadata) does not. impact_tier is orthogonal to source_locus: a high-impact item authored upstream still needs protocols, run cross-repo against the assembled output.",
     "source_loci": {
-      "this-repo": 589,
+      "this-repo": 590,
       "upstream-in-house-skills": 2,
       "external-third-party": 9,
       "upstream-in-house-api": 116
@@ -8800,7 +8800,7 @@
     {
       "id": "C384",
       "file": "apps/oak-curriculum-mcp-streamable-http/widget/src/App.tsx",
-      "lines": "174-177",
+      "lines": "183-186",
       "identifier": "appInfo.name 'oak-curriculum-mcp-app'",
       "surface_type": "discovery-or-catalog-metadata",
       "impact_tier": "high-impact",
@@ -8822,7 +8822,7 @@
     {
       "id": "C385",
       "file": "apps/oak-curriculum-mcp-streamable-http/widget/src/App.tsx",
-      "lines": "125",
+      "lines": "130",
       "identifier": "visually-hidden <h1> heading",
       "surface_type": "widget-ui-content",
       "impact_tier": "simple-config",
@@ -8844,7 +8844,7 @@
     {
       "id": "C386",
       "file": "apps/oak-curriculum-mcp-streamable-http/widget/src/App.tsx",
-      "lines": "84-85",
+      "lines": "83-85",
       "identifier": "openLink failure fallback message",
       "surface_type": "error-message",
       "impact_tier": "high-impact",
@@ -8866,7 +8866,7 @@
     {
       "id": "C387",
       "file": "apps/oak-curriculum-mcp-streamable-http/widget/src/App.tsx",
-      "lines": "152-154",
+      "lines": "160-163",
       "identifier": "styling sync failure fallback message",
       "surface_type": "error-message",
       "impact_tier": "high-impact",
@@ -8956,7 +8956,7 @@
     {
       "id": "C391",
       "file": "apps/oak-curriculum-mcp-streamable-http/widget/src/BrandBanner.tsx",
-      "lines": "72",
+      "lines": "80",
       "identifier": "brand banner label 'Oak National Academy'",
       "surface_type": "widget-ui-content",
       "impact_tier": "simple-config",
@@ -8978,7 +8978,7 @@
     {
       "id": "C392",
       "file": "apps/oak-curriculum-mcp-streamable-http/widget/src/BrandBanner.tsx",
-      "lines": "73",
+      "lines": "81",
       "identifier": "visually-hidden 'opens in a new tab' hint",
       "surface_type": "widget-ui-content",
       "impact_tier": "simple-config",
@@ -9000,7 +9000,7 @@
     {
       "id": "C393",
       "file": "apps/oak-curriculum-mcp-streamable-http/widget/src/BrandBanner.tsx",
-      "lines": "39-47",
+      "lines": "41-52",
       "identifier": "OakLogo inline acorn SVG",
       "surface_type": "server-branding",
       "impact_tier": "simple-config",
@@ -16475,6 +16475,28 @@
       "measurability": "Trigger each stub failure mode; assert the corresponding code is present on the surfaced error.",
       "flags": [],
       "source_pass": 2,
+      "workspace_scope": "in"
+    },
+    {
+      "id": "C717",
+      "file": "apps/oak-curriculum-mcp-streamable-http/widget/src/App.tsx",
+      "lines": "131-134",
+      "identifier": "app shell experimental-service disclaimer",
+      "surface_type": "widget-ui-content",
+      "impact_tier": "high-impact",
+      "review_domain": "legal-licensing",
+      "extraction_kind": "leaf-authored",
+      "source_locus": "this-repo",
+      "upstream_source": null,
+      "provenance": "static-authored",
+      "audience": "human",
+      "exemption": "in-scope-repo-controlled",
+      "behavioural_intent": "Tells the human at first widget render that the service is experimental and that AI-assembled output from Oak content is not an official Oak resource — the expectation-setting/trust boundary for the MCP App. Service-scoped, so it lives in the app shell's main content, not the brand banner component.",
+      "reasoning": "Owner-authored disclaimer copy (added 2026-07-27, post-audit delta); repo-authored trust copy, not curriculum data.",
+      "snippet": "This service is experimental. It uses Oak National Academy content, but AI can make mistakes and output should not be treated as official resources.",
+      "measurability": "Eval: disclaimer renders visibly in the shell's main content, outside the brand link's accessible name; copy matches the ratified wording exactly.",
+      "flags": [],
+      "source_pass": 3,
       "workspace_scope": "in"
     }
   ]

@@ -1,4 +1,5 @@
 import { parseCsv } from './env.js';
+import { resolveCanonicalOrigin } from './canonical-origin.js';
 import type { RuntimeConfig } from './runtime-config.js';
 
 const BASE_HOSTS = ['localhost', '127.0.0.1', '::1'] as const;
@@ -43,10 +44,12 @@ export function resolveAllowedHosts(
 export function createSecurityConfig(config: RuntimeConfig): {
   mode: 'stateless' | 'session';
   allowedHosts: readonly string[];
+  canonicalOrigin?: string;
 } {
   const mode = config.env.REMOTE_MCP_MODE === 'session' ? 'session' : 'stateless';
   const configuredHosts = parseCsv(config.env.ALLOWED_HOSTS);
   const vercelHosts = config.vercelHostnames;
   const allowedHosts = resolveAllowedHosts(configuredHosts, vercelHosts);
-  return { mode, allowedHosts };
+  const canonicalOrigin = resolveCanonicalOrigin(config.env.CANONICAL_HOST);
+  return { mode, allowedHosts, ...(canonicalOrigin ? { canonicalOrigin } : {}) };
 }

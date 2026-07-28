@@ -1,7 +1,16 @@
 # Schema Cache
 
-This folder contains a cache of the OpenAPI schema for the Oak National Academy Curriculum API.
+This folder holds the committed cache of the Oak National Academy Curriculum API OpenAPI
+schema, exactly as returned by the API.
 
-It is used as an offline fallback for the type generation process, e.g. when running in a CI environment.
+It is the default code-generation input in every environment — local, CI, and deployment
+builds alike — so builds are hermetic and deterministic. Fetching from upstream is opt-in
+(`pnpm sdk-codegen:refresh`, or `--online` / `SDK_CODEGEN_MODE=online`); see
+`code-generation/resolve-schema-source.ts`.
 
-It is updated at type generation time, iff the `info.version` in the fetched schema is different from the version in the cache.
+On an online run the cache is rewritten whenever the fetched schema's serialised content
+differs from the cached copy, since upstream can reword descriptions or add parameters
+without bumping `info.version`.
+
+This file is verbatim upstream truth: generator-side exclusions never apply here. See
+`code-generation/excluded-paths.ts`.

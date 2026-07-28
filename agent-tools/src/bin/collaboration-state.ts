@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 import { agentToolsCliEnvironmentFromProcessEnv, runAgentToolsCli } from './agent-tools-cli.js';
+import { tolerateEpipeOnStdout } from './stdout-epipe.js';
+
+tolerateEpipeOnStdout(process.stdout);
 
 try {
   const result = await runAgentToolsCli({

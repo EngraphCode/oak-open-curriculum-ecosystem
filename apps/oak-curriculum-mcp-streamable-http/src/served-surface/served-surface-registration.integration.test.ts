@@ -13,45 +13,18 @@
  * canonical module-level constant).
  */
 
-import { describe, it, expect, vi } from 'vitest';
-import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { describe, it, expect } from 'vitest';
 import {
   listUniversalTools,
   generatedToolRegistry,
 } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
-import { registerHandlers } from '../handlers.js';
 import { SERVED_SURFACE, type ServedSurfaceDefinition } from './served-surface.js';
-import {
-  createFakeSearchRetrieval,
-  createFakeLogger,
-  createFakeHttpObservability,
-} from '../test-helpers/fakes.js';
-import { createMockRuntimeConfig } from '../test-helpers/auth-error-test-helpers.js';
-
-function registerAndCapture(servedSurface?: ServedSurfaceDefinition) {
-  const server = new McpServer({ name: 'test-server', version: '0.0.0' });
-  const registerToolSpy = vi.spyOn(server, 'registerTool');
-
-  registerHandlers(server, {
-    runtimeConfig: createMockRuntimeConfig(),
-    logger: createFakeLogger(),
-    observability: createFakeHttpObservability(),
-    searchRetrieval: createFakeSearchRetrieval(),
-    getWidgetHtml: () => '<!doctype html><html><body>test-widget</body></html>',
-    ...(servedSurface ? { servedSurface } : {}),
-  });
-
-  return { registerToolSpy };
-}
-
-function registeredToolNames(calls: readonly (readonly unknown[])[]): Set<string> {
-  return new Set(calls.map((c) => c[0]).filter((name): name is string => typeof name === 'string'));
-}
+import { walkCanonicalRegistration } from '../test-helpers/registration-walk.js';
 
 describe('served-surface registration (integration)', () => {
   it('registers exactly the live set — dormant tools are structurally absent', () => {
-    const { registerToolSpy } = registerAndCapture();
-    const registered = registeredToolNames(registerToolSpy.mock.calls);
+    const walk = walkCanonicalRegistration();
+    const registered = new Set(walk.toolConfigs.keys());
 
     const expectedLive = new Set<string>([
       ...Object.entries(SERVED_SURFACE.universalTools)
@@ -68,12 +41,10 @@ describe('served-surface registration (integration)', () => {
   });
 
   it('walks every registered tool and finds a title and a read-only hint', () => {
-    const { registerToolSpy } = registerAndCapture();
+    const walk = walkCanonicalRegistration();
 
-    expect(registerToolSpy.mock.calls.length).toBeGreaterThan(0);
-    for (const call of registerToolSpy.mock.calls) {
-      const name = String(call[0]);
-      const config: unknown = call[1];
+    expect(walk.toolConfigs.size).toBeGreaterThan(0);
+    for (const [name, config] of walk.toolConfigs) {
       expect(config, `tool ${name} is missing a title`).toHaveProperty(
         'title',
         expect.stringMatching(/\S/),
@@ -94,8 +65,8 @@ describe('served-surface registration (integration)', () => {
       appLocalTools: SERVED_SURFACE.appLocalTools,
       resources: SERVED_SURFACE.resources,
     };
-    const { registerToolSpy } = registerAndCapture(withUserSearchLive);
-    const registered = registeredToolNames(registerToolSpy.mock.calls);
+    const walk = walkCanonicalRegistration(withUserSearchLive);
+    const registered = new Set(walk.toolConfigs.keys());
 
     expect(registered.has('user-search')).toBe(true);
     expect(registered.has('user-search-query')).toBe(true);

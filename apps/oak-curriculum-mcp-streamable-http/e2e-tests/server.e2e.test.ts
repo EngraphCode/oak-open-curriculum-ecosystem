@@ -12,6 +12,7 @@ import {
   createNoOpRateLimiterFactory,
   createUnauthenticatedMcpAuthClerkDeps,
 } from './helpers/test-config.js';
+import { getScratchStaticRoot } from '../src/test-helpers/static-root-fixture.js';
 
 const ACCEPT = 'application/json, text/event-stream';
 const SHARED_ALLOWED_HOSTS = 'localhost,127.0.0.1,::1';
@@ -23,9 +24,12 @@ async function createBypassedApp() {
   });
   const observability = createMockObservability(runtimeConfig);
   return await createApp({
+    staticRoot: await getScratchStaticRoot(),
     runtimeConfig,
     observability,
     getWidgetHtml: () => '<!doctype html><html><body>test-widget</body></html>',
+    getLandingPageHtml: () =>
+      '<!doctype html><html lang="en-GB"><body>test landing page</body></html>',
     rateLimiterFactory: createNoOpRateLimiterFactory(),
   });
 }
@@ -36,9 +40,12 @@ async function createEnforcedApp() {
   });
   const observability = createMockObservability(runtimeConfig);
   return await createApp({
+    staticRoot: await getScratchStaticRoot(),
     runtimeConfig,
     observability,
     getWidgetHtml: () => '<!doctype html><html><body>test-widget</body></html>',
+    getLandingPageHtml: () =>
+      '<!doctype html><html lang="en-GB"><body>test landing page</body></html>',
     upstreamMetadata: TEST_UPSTREAM_METADATA,
     clerkMiddlewareFactory: createNoOpClerkMiddleware(),
     mcpAuthClerkDeps: createUnauthenticatedMcpAuthClerkDeps(),

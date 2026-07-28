@@ -91,11 +91,14 @@ export function openHostLink(
  * Pure presentational component for the MCP App shell.
  *
  * @remarks
- * Uses `<main>` as the document landmark and includes a visually hidden
- * `<h1>` for screen readers (WCAG landmark-one-main, page-has-heading-one).
- * The banner is the complete view when `get-curriculum-model` fires
- * (a session-start proxy). The curriculum-model data serves the agent
- * via text content; the human sees only the brand banner for orientation.
+ * Renders the brand banner `<header>` as a sibling of the `<main>`
+ * landmark — never inside it — so the header maps to the `banner` role
+ * (HTML-AAM scopes `banner` to body-level headers). `<main>` holds the
+ * visually hidden `<h1>` (WCAG landmark-one-main, page-has-heading-one)
+ * and the service-scoped experimental disclaimer. This view is complete
+ * when `get-curriculum-model` fires (a session-start proxy): the
+ * curriculum-model data serves the agent via text content; the human
+ * sees the brand banner and disclaimer for orientation.
  *
  * Safe area insets from the host context are applied as inline padding
  * so content is not obscured by device notches or system UI overlays.
@@ -108,7 +111,7 @@ export function AppView({
   readonly safeAreaInsets?: McpUiHostContext['safeAreaInsets'];
 }): React.JSX.Element {
   return (
-    <main
+    <div
       className="oak-app"
       data-testid="oak-mcp-app-shell"
       style={
@@ -122,9 +125,15 @@ export function AppView({
           : undefined
       }
     >
-      <h1 className="visually-hidden">Oak National Academy Curriculum</h1>
       <BrandBanner onOpenLink={onOpenLink} />
-    </main>
+      <main>
+        <h1 className="visually-hidden">Oak National Academy Curriculum</h1>
+        <p className="oak-app__disclaimer">
+          This service is experimental. It uses Oak National Academy content, but AI can make
+          mistakes and output should not be treated as official resources.
+        </p>
+      </main>
+    </div>
   );
 }
 

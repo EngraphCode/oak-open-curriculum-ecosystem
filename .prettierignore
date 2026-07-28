@@ -68,6 +68,10 @@ apps/oak-search-cli/bulk-downloads/**
 
 # Build artefacts (gitignored, regenerated)
 **/.widget-build/
+apps/oak-curriculum-mcp-streamable-http/public/oak-ds/
+apps/oak-curriculum-mcp-streamable-http/public/oak-assets/
+apps/oak-curriculum-mcp-streamable-http/public/.oak-*/
+apps/oak-curriculum-mcp-streamable-http/.generated/
 
 # Agent artifacts
 .agent/

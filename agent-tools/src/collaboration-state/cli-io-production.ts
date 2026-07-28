@@ -10,6 +10,7 @@ import {
   readActiveClaimsFile,
   readClosedClaimsFile,
   readCommsEvents,
+  readCommsEventsExcluding,
   readDirectedCommsMessages,
   writeCommsEvent,
 } from './state-io.js';
@@ -39,6 +40,15 @@ export interface CollaborationStateCliIo {
     readonly nowIso: string;
   }) => Promise<void>;
   readonly readCommsEvents: (commsDir: string) => Promise<readonly CommsEvent[]>;
+  /**
+   * Read only the events absent from `excludeIds` (MCP-198). The watch
+   * loop's drain uses this so its cost tracks unseen events rather than
+   * total directory size.
+   */
+  readonly readCommsEventsExcluding: (
+    commsDir: string,
+    excludeIds: ReadonlySet<string>,
+  ) => Promise<readonly CommsEvent[]>;
   readonly readWorktrees: (cwd: string) => Promise<readonly GitWorktree[]>;
   readonly readDirectedCommsMessages: (
     commsDir: string,
@@ -74,6 +84,7 @@ export const productionIo: CollaborationStateCliIo = {
   readClosedClaimsFile,
   writeCommsEvent,
   readCommsEvents,
+  readCommsEventsExcluding,
   // `async` so a throwing git read (cwd not in a git tree) rejects rather than
   // throwing synchronously at the call site, which would orphan a sibling read
   // in a `Promise.all`.

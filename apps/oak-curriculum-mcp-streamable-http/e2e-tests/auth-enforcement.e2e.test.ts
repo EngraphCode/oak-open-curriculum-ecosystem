@@ -49,6 +49,7 @@ import {
   createUnauthenticatedMcpAuthClerkDeps,
 } from './helpers/test-config.js';
 import { TEST_UPSTREAM_METADATA } from '../src/test-helpers/upstream-metadata-fixture.js';
+import { getScratchStaticRoot } from '../src/test-helpers/static-root-fixture.js';
 
 /**
  * Type guard for OAuth Protected Resource metadata response.
@@ -136,9 +137,12 @@ async function createAuthApp(): Promise<Express> {
     },
   });
   return await createApp({
+    staticRoot: await getScratchStaticRoot(),
     runtimeConfig,
     observability: createMockObservability(runtimeConfig),
     getWidgetHtml: () => '<!doctype html><html><body>test-widget</body></html>',
+    getLandingPageHtml: () =>
+      '<!doctype html><html lang="en-GB"><body>test landing page</body></html>',
     upstreamMetadata: TEST_UPSTREAM_METADATA,
     clerkMiddlewareFactory: createNoOpClerkMiddleware(),
     mcpAuthClerkDeps: createUnauthenticatedMcpAuthClerkDeps(),
