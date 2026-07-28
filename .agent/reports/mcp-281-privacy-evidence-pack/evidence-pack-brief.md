@@ -62,6 +62,14 @@ These are the open matters the retained research identifies as the specialists' 
 6. **DPIA disposition**: whether a DPIA is required for this processing, and the RoPA entries needed (the estate register umbrella is MCP-278; Clerk and Sentry entries are MCP-286/MCP-287).
 7. **Data-subject rights**: which controls (objection, erasure, access) must have owned, tested implementation paths before public beta, beyond the deletion route already designed.
 
+## Agenda additions — owner-directed, 28 July 2026 (post-approval)
+
+Two items added at the owner's direction after the pack's approval (owner word given at Raccoon turns Nocturne's seat ~14:10Z, relayed 14:52Z with the explicit instruction to fold them into the Linear and Notion privacy-review resources; substance recorded on MCP-117, MCP-283, MCP-317):
+
+1. **Retention posture: 12 months.** Owner ruling, verbatim: "set it to 12 months, we can always change it." The vendor cannot currently enforce this on any surface (proven first-hand, recorded on MCP-117): the API PATCH silently ignores `event_retention_months` (read-back stays 84 — the field is API-read-only), the settings UI exposes only the session-replay retention control, and the vendor's own issue for event-retention enforcement remains open (posthog/posthog#17031). `events_retention_enforced` is `false`, so the vendor deletes nothing at any horizon today — and zero events have ever been ingested. For question 4 above: 12 months is the recorded posture; enforcement work is MCP-317 (High, under MCP-173). The evidence table above stays true as probed 28 July and will be re-probed when the posture is executed in the dashboard.
+
+2. **Erasure: Oak's existing "delete my data" process extends to this PostHog project.** Owner word, verbatim: "Oak already has a 'delete my data' process, we need to update it to include this PostHog project as well, fold that into the Linear and Notion privacy review resources." The technical deletion route is MCP-283 (MCP-291 is the run-for-real proof); the process-integration scope note is recorded on MCP-283. For question 7 above: the specialists should assess knowing Oak's org-level erasure process will route into project 221775.
+
 ## Source index
 
 - Consultation record (primary): Notion, "PostHog MCP analytics and privacy consultation" (MCP Pathfinder → AI Managed Pages) — includes the official-sources list (Oak policies, ICO guidance, PostHog and MCP documentation).
