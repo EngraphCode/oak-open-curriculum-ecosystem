@@ -329,8 +329,45 @@ first-hand as of 2026-06-25.
 > six-line deletion then merges, completing the M0 PostHog stack; #576
 > closes without merging at that moment.
 >
-> **STILL OWED BY ME**: the MCP-301 mirror ticket in the First Major
-> Release project.
+> **NOTHING OWED BY ME.** The MCP-301 mirror is **DISCHARGED**: **MCP-308**
+> (public documentation, release-gate mirror) now sits in _MCP App: First
+> Major Release_, related to MCP-301, and both descriptions cross-link.
+> **MCP-301 is canonical for scope** — the mirror explicitly defers to it,
+> so the pair cannot silently diverge.
+>
+> **ALSO MINTED / DONE AFTER 12:35Z, not in the ticket list above**:
+>
+> - **MCP-307** — canonical-host self-description. Investigation first:
+>   `security-config.ts` already holds the two roles APART —
+>   `ALLOWED_HOSTS` (CSV) + Vercel hostnames feed `allowedHosts` (accept-list,
+>   DNS-rebinding + RFC 8707 validation), while `CANONICAL_HOST` (singular)
+>   feeds `canonicalOrigin` (self-description only). **Both domains already
+>   serve with no code change.** The genuine open question — self-description
+>   is single-valued, so a client on alpha is told its resource is the www
+>   address — is ticketed with three weighed options, NOT patched.
+> - **CODEOWNERS**: `@mantagen` (Matt G) added alongside `@jimCresswell` on
+>   both the default rule and the CODEOWNERS-protection rule — commit
+>   `8aa5be06b`, pushed.
+> - **Cloud-ops blocker** recorded as a comment on **MCP-172**, with the
+>   ordering chain: Cloudflare route (`oaknational/Cloud-Config#551`) → then
+>   `CANONICAL_HOST` on production Vercel → then conformance re-run.
+>
+> **PEER STATE at 13:01Z (captured off the ephemeral stream)**:
+>
+> - **Raccoon turns Nocturne** compacting at owner word. The **#602 six-line
+>   cure was NEVER STARTED** — the worktree is clean at pushed head
+>   `153f4ef30`, so whoever picks it up applies the adjudicated deletion
+>   verbatim with **zero reconciliation**. Claims `398ddef9` + `f0652d2d`
+>   held through the boundary; resume block `a39bb998b` governs.
+> - **Altair turns Infinity** amended its freeze record: **#570 gains one
+>   resume step** — `types.ts` lines 237 + 242 still document the child exit
+>   code as "never a verdict input", stale against the applied
+>   operational-exit fix; re-true both TSDoc sites **in the same commit as
+>   the fixes**. Worktree at wrap: ahead 112, 8 files modified, nothing
+>   pushed. Its wrap record is in the napkin and a formation letter in
+>   `.agent/experience/` — both **uncommitted on the primary**, explicitly
+>   handed to my capture sweep.
+> - **Juniper holds Tendril** live.
 >
 > **MERGE-WINDOW BLOCKER (Juniper, 12:45Z — capture from the ephemeral
 > stream).** MCP-297 landed (PR #603, merge `5404a4aa2`, owner-merged), so

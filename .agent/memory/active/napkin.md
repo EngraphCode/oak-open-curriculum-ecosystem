@@ -1958,6 +1958,27 @@ specific object, never the batch it sat near.
   side: before citing a recorded constraint as authority, check WHOSE word it is — the
   never-invent-identities sibling for rulings (provenance of authority, not just of facts).
 
+## 2026-07-28 ~12:15Z — Juniper holds Tendril (3dfd3b): owner ruling — wrap closes EVERY session
+
+- **OWNER RULING (verbatim substance): "it was never my intention to use wrap for 'big
+  sessions', it is for all sessions."** Context: three reviewers (onboarding, docs-adr, prose)
+  flagged the new dev guide's "use /oak-wrap at the end of every session" as contradicting
+  continuity-practice.md, the wrap/session-handoff skill routing contracts, README,
+  CONTRIBUTING, and the register's 2026-06-12 bookends line. The owner's answer inverts the
+  presumed direction: the DOCTRINE lags, not the doc. Human-facing surfaces re-trued in
+  MCP-297 (guide, README §Working with agents, CONTRIBUTING skill-vocabulary paragraph,
+  under-the-hood Practice recipe + source table); directive-tier re-truing
+  (continuity-practice.md, wrap + session-handoff SKILL-CANONICAL contracts, register
+  annotation) is ticketed as MCP-299 — a docs guide must not be the origin of a
+  directive-tier change, so the generator fix got its own lane.
+- Second owner instruction, same message: /oak-under-the-hood must incorporate the new doc —
+  done in the same changeset (Practice-recipe fourth question now routes to the guide;
+  source-document table row added).
+- Lesson for successors: reviewer findings framed as "the new text contradicts standing
+  doctrine" carry an embedded assumption about WHICH side is stale. Surface the contradiction
+  as a question, never as a presumed-direction fix — the owner's newest word decides, and here
+  it re-dated a June ruling all three reviewers cited as current.
+
 ## 2026-07-28 ~11:15Z — my napkin entry propagated as a live constraint after it went stale (Squall wakes Apex)
 
 - SUPERSEDES the ~10:45Z entry above ("comms monitoring is not free"). The owner has since ruled:
@@ -1989,3 +2010,79 @@ specific object, never the batch it sat near.
   is evidence of what one mind concluded at one moment; only an owner ruling — quoted, dated,
   attributable — is authority. Worth carrying as a pair, because a corpus that only fixes the
   authoring side still propagates every constraint an author gets subtly wrong.
+
+## 2026-07-28 pre-compaction (cold-paused seat) — Schooner binds Trench (5492d7): four commit-ceremony mechanics from the MCP-279 lane
+
+- Observed 07:54Z: `commit-queue guard` rejected a claim opened with area-pattern
+  `index/head@mcp-279-rule-truing` ("not an active git:index/head claim"). The commit SKILL's
+  merge-commit section names the `@<worktree-name>` suffix convention for worktree windows, but
+  the guard's matcher accepted only the bare `index/head` pattern that day (the F-116 family,
+  one variant deeper). Worked cure: close, reopen bare, abandon the queued intent, re-enqueue —
+  an intent binds its claim-id at enqueue, so a reopened claim needs a fresh intent.
+- Observed 07:55Z, two path-anchor shapes from a worktree cwd: `claims close --active
+  <relative-path>` failed with the seed-a-decoy warning (the registry path resolved
+  worktree-local), and `claims open` failed F-95 because the watcher-heartbeat probe resolves
+  `.agent/state/collaboration/comms-seen/` relative to cwd with no override by design. Both
+  cured by running collaboration-state commands from the primary checkout; `commit-queue`
+  commands anchored their registry at the coordination home on their own (F-138) and ran fine
+  from the worktree.
+- Near-miss, 07:56–07:58Z: the worktree-scoped bot git config was written while
+  `commit-queue -- commit` was already mid-hook; the landed commit `f8f4d09f9` still carried
+  the owner's identity — git resolved author/committer at process start, not at
+  commit-object-write. True of that run. What held afterwards: set `extensions.worktreeConfig`
+  plus `--worktree user.*` before the FIRST commit invocation in a new worktree and verify both
+  surfaces (primary resolved the human, worktree the bot). Caught pre-push, so no third-party
+  surface ever displayed the wrong identity; the corrective `--amend --reset-author` was
+  interrupted by a harness restart and stands as the named resume step in pause event 8f56881b.
+- Reviewer catch worth keeping (docs-adr-expert on opus, MCP-279 diff): my sweep for the stale
+  Notion-boundary wording grepped the literal page-title string and found two files; the
+  reviewer found a third surface quoting the boundary as a PARAPHRASE ("the owner-allowlisted
+  subtree") in a second rule. One instance, but the shape generalises: a concept-sweep needs the
+  concept's paraphrases, not only its canonical string — and it was the reviewer's fresh read
+  that caught it, which argues for the review pass, not merely for cleverer grep.
+- **Compaction addendum (0f6caa, ~09:1xZ)**: (1) the #602 six-line cure was NEVER STARTED — worktree clean at pushed head 153f4ef30, so the resume block's instruction applies verbatim with zero local state to reconcile. (2) A Vite dev server from the widget design session is still running on port 5173 (serves the both-themes review page); harmless, kill or keep at will — it is not a mystery process. (3) Seed for the practice corpus: the card discipline converged only at its SIXTH escalation, when the trigger became MECHANICAL ("blocked-on-owner anywhere without a live card is the tell") — repeated behavioural feedback seems to bite only when restated as a tripwire; same shape as the wrapped-exit-codes recurrence argument. Association, not a finding.
+
+## 2026-07-28 ~10:10Z — Altair turns Infinity (7a97a1): compaction-prep wrap (owner word: cold pause, then prepare-for-compaction + concept-exploration + wrap)
+
+**RESUME AMENDMENT for #570 (metaloss catch, verified first-hand at the wrap)**: the frozen
+worktree's types.ts still carries TWO stale doc sites my own fix contradicts — lines 237 and
+242 say the child exit code is "never a verdict input", but the applied operational-exit fix
+makes codes outside {0,1} fail the suite. The cold-pause record (event 8ab0b3ae) omitted this.
+Successor: re-true both TSDoc sites in the same commit as the fixes. Worktree evidence at the
+freeze: branch ahead 112 (the origin/main merge), 8 files modified uncommitted, nothing pushed.
+
+**Concept (graduation candidate, routed not asserted): requirements-verification instruments
+form a ladder of ceilings.** r0 recorded prior → r1 published docs → r2 the authoritative
+form/surface → r3 live enactment under the real identity/tooling. Each rung falsifies below
+itself and nothing above; enforcement constraints (org access, account pairing, metered seats)
+are structurally invisible to description-reading. Three same-day instances, one per rung
+boundary: the fresh r1 fetch caught the Team/Enterprise-org requirement the r0 capture missed
+(MCP-295); the r2/r3 walk caught the org-settings gate no document carries; the r3 tooling
+caught the extension same-account pairing constraint nothing else could. Distinct from
+description-is-not-a-check (drift within a rung) and referent-narrowing (one instrument
+answering less than asked): here the RUNG is part of the claim. Cure shape if it graduates:
+submission/deadline-priced claims carry their rung; the r3 climb is a scheduled pre-deadline
+step, never an assumed formality. Falsifier: a submission arc where r1 verification suffices
+end-to-end — then the annotation is ceremony.
+
+**Second candidate: warm/cold pause vocabulary has no doctrine home.** Three worked instances
+in one hour today (my warm→cold, Schooner's cold, the Director's warm), enacted consistently
+only by imitation: warm = loops live + instant resume; cold = loops stopped by intent + freeze
+record carries state + read-intent-not-silence. Candidate: a short reference note or PDR
+clause. Falsifier: enactments never diverge — tacit practice was enough.
+
+**Own miss, named**: zero cricket invocations across ~2.5h of active cycles against the
+owner-mandated at-least-hourly cadence. No cure proposed here beyond the naming — the
+structural-cue question is already with the Director from the 2026-07-23 consolidation.
+
+**Small tool facts**: `comms direct` rejects `--in-response-to` (send-only flag — exit 2 with
+the cause swallowed unless unpiped); `claims close` requires --summary/--now/--platform/--model
+(a bare close exits 2; my first attempt read as success through a tail pipe — caught by reading
+the registry); a harness restart orphans Monitor tasks silently (both loops died marked-stopped;
+re-arm on the same seen-file + gap sweep recovered cleanly, zero known event loss).
+
+Index of homes for this seat's session: MCP-16 table = Linear comment on MCP-16 + tickets
+MCP-292..295; #570 dispositions = event 92af6f15, freeze = event 8ab0b3ae + this amendment;
+MCP-296 gate evidence = ticket comment + event f8d9c693; plugin-location verdict (workspace
+viable; git-subdir/relative-source/Console-route evidence; one form-only fact outstanding) =
+cold-pause event + owner-surface messages; earlier captures committed at a39bb998b (Director).

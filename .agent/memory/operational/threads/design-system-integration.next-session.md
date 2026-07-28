@@ -312,3 +312,16 @@ successor (Triton→Lavender), retired at owner word; claim 68088465 pending suc
   (test-fake dedup), MCP-223 (a11y third depth), MCP-224 (max-warnings mechanism),
   MCP-225 (runtime-only-scripts orphan). F-116 third instance recorded on MCP-186
   with the three-seats escalation. #583's body trued to the numbers.
+- **Stage-B disposition-map notes (design-system-expert review of the widget
+  disclaimer, 2026-07-27, Raccoon turns Nocturne 0f6caa)**: (1) the web-CSS
+  disposition map must record `measure.prose` as `emit` if MCP App views are to
+  consume it — the widget's disclaimer carries `65ch` as a provenance-cited raw
+  value until then (`ch` is not DTCG-2025.10-expressible; second instance of the
+  declared-value-class mechanism after `runtime-computed`, bar it from the
+  terminal projection). (2) The widget's app-local brand-banner classes were
+  renamed `.oak-banner*` → `.oak-brand-banner*` to stop squatting the design
+  system's published `.oak-banner` inline-status class ahead of the kit-binding
+  lane; the DS keeps the name, with a vocabulary-review note that `banner`
+  sits awkwardly beside the ARIA banner landmark (GOV.UK: notification-banner).
+  The disclaimer's declarations are `.oak-hint` spelled in oak-design-tokens;
+  kit-binding swap is class-for-class, comment at widget index.css names it.
