@@ -177,7 +177,11 @@ forward-asks remain.
 - **Practice↔IDE integration plane** — feasibility report landed; **owner decisions pending** (§Open
   Owner-Decision Items); a HARD deep-docs-read prerequisite before any build.
 - **Onboarding-improvement arc** — PR #199 merged; follow-ons open (B2/B3 risk-register seeding; the
-  ask-the-repo search decision — B1 awaits owner cost bands, B6 at the M2 gate).
+  ask-the-repo search decision — B1 awaits owner cost bands, B6 at the M2 gate). **2026-07-28: the
+  dev-facing guide LANDED** — `docs/engineering/working-with-this-repo-for-devs.md` (owner-authored)
+  plus discoverability wiring via #603, and the wrap-closes-every-session doctrine re-truing via
+  #604 (ADR-150/PDR-011 amended; follow-ons MCP-310/311/312); detail in the
+  `orientation-skills-family` and `agentic-engineering-enhancements` thread records.
 - **Evals pickup — QUEUED, owner-directed**
   ([`skill-evals-pilot-start-right-quick.plan.md`](../../plans-backlog-2026-07/agentic-engineering-enhancements/current/skill-evals-pilot-start-right-quick.plan.md));
   the assurance regime is homed in `principles.md` §Agentic Quality + `validation-strategy.md`.

@@ -2220,12 +2220,13 @@ the existing transmission-discipline surfaces rather than as a new rule.
 - Cure applied: read the registered tuple back from the claims registry (or any earlier event this seat authored) and pass it exactly; never re-guess the model string at resume. Loop re-armed stop-first with the corrected tuple.
 - Scope: agent-tools comms CLI as observed 2026-07-28 by this seat; expires when the guard either covers heartbeat mode too or normalises model aliases (either would be a fine cure — the asymmetry is the trap, not the guard).
 
-## 2026-07-28 MCP-279 merge (Schooner binds Trench, 5492d7): the bot's ruleset bypass works on REST, not on gh pr merge
+## 2026-07-28 MCP-279 merge (Schooner binds Trench, 5492d7): gh pr merge refuses client-side; the server-side bot bypass applies to any merge request actually made
 
-- Observed: with all required contexts green by name, threads 0, head pinned, `gh pr merge 606 --merge --match-head-commit <sha>` failed with "the base branch policy prohibits the merge" — the code-owner review gate (ruleset 19395183, "Code-owner review gate (bot-exempt by owner ruling 2026-07-21)", bypass_mode=always for Integration 4352989) blocked the CLI/GraphQL path even though the caller WAS the bypass actor. The REST endpoint (`gh api -X PUT repos/<repo>/pulls/606/merge -f merge_method=merge -f sha=<head>`) under the same token merged immediately; read-back showed mergedBy=app/jimbot-oakington-iii.
-- Reading: the doctrine's "bot REST-merges at settled" is load-bearing, not stylistic — REST is the path on which the App's ruleset bypass actually applies. A gh-pr-merge success elsewhere (e.g. #605 the same hour) is not a counter-instance when that PR had a delivered review satisfying the gate.
-- Scope: observed 2026-07-28 on this repo's ruleset shape; expires if GitHub aligns GraphQL mergePullRequest bypass behaviour or the ruleset changes.
-- Owner clarification + Director split (same hour, 14:09–14:10Z): the owner's word covers bypass SCOPE — the bot's exemption is exactly the code-owner review; checks, thread resolution, and head match are exempted for nobody. The Director ruled the relay's added 'paths are equivalent' inference CONTRADICTED by this seat's #606 evidence (CLI refused, REST succeeded, same PR/state/minute; Altair retracted). Carry forward: a REST refusal means a non-review requirement is genuinely unmet (the clarification names which one it is NOT); a CLI refusal proves nothing beyond 'use the REST path'. REST-merges-at-settled doctrine unchanged.
+- Owner's word (2026-07-28, direct to this seat, verbatim): "the bot user merge request WILL bypass the codeowner review requirement, it WILL NOT bypass any other requirements."
+- Observed (#606): all required contexts green by name, threads 0, head pinned; `gh pr merge 606 --merge --match-head-commit <sha>` as the bot refused with "the base branch policy prohibits the merge"; `gh api -X PUT repos/<repo>/pulls/606/merge` under the SAME token merged immediately (read-back: mergedBy=app/jimbot-oakington-iii).
+- Reconciliation (this seat's reading, marked as such; consistent with the 2026-07-21 client-side-refusal proof recorded at Moth's seat): the bypass is applied by the SERVER to a merge REQUEST. `gh pr merge` never made one — it refuses CLIENT-SIDE on `mergeStateStatus: BLOCKED`, a viewer-independent field that does not model the caller's bypass grant. The REST call submits the request, so the bypass (scoped to code-owner review only) applies there. The server refused the bot on NO path; the CLI refused to ask.
+- Practical rule unchanged: the bot REST-merges at settled. A REST refusal means a requirement OTHER than code-owner review is genuinely unmet (the owner's word names the one it cannot be). A CLI refusal proves nothing beyond "make the real request".
+- Provenance trail, same hour: first relay of the owner's clarification over-extended it with a path-equivalence inference; the Director split the relay against this seat's #606 evidence; the relaying seat retracted; the owner then stated the scope verbatim as above. Third over-extension instance that day — quote owner words exactly, mark derived readings as derived.
 
 ### Addendum 2, same day ~14:10Z — the inference that rides the owner's authority
 
@@ -2262,3 +2263,9 @@ observable record rather than invented; here, authority must stay attached to ex
 that carried it. Both are provenance disciplines. Worth carrying into the graduation candidate
 above as a second clause rather than a separate rule — the transmission gate already asks "when
 did I last read this?"; it should also ask **"whose sentence is this?"**
+
+## 2026-07-28 napkin near-loss (Schooner binds Trench, 5492d7): truncate-from-marker rewrite raced a peer's append on the shared napkin
+
+- Observed: re-truing my own merge-path entry I rewrote the file with `text[:start] + new_entry` — everything after my entry's heading was discarded. In the ~60s between my tail-read and the rewrite, the Director had appended and committed their "Addendum 2" capture after my entry; the truncation deleted it. Caught because the harness Edit warning ("file modified on disk since last read") fired on my very next edit and I checked `git diff` for minus-lines before moving on; restored verbatim from HEAD.
+- Cure: on shared live surfaces (napkin, comms-adjacent state), never rewrite from a positional marker. Replace by EXACT-MATCH anchor on the text being replaced (assert the old text is present and unique, replace only it) or append-only. A tail-read seconds earlier is not a lock; the write is the race window.
+- Scope: durable authoring discipline for this fleet's shared files; no expiry.

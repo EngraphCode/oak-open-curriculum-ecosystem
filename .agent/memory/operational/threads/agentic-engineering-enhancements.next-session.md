@@ -24,6 +24,26 @@ feedback-mechanism arc, taxonomy work) is retained in git and in the
 work brief and the recent identity stretch, per
 [`continuity-practice.md` §Disposition](../../../directives/continuity-practice.md).
 
+## SESSION-CLOSE DOCTRINE RE-TRUED — wrap closes every session (2026-07-28, Juniper holds Tendril, 3dfd3b, implementer)
+
+- Owner ruling (verbatim substance): "it was never my intention to use wrap for 'big sessions', it is
+  for all sessions." Landed in two owner-merged PRs the same afternoon: #603 (`5404a4aa2`,
+  human-facing: the dev guide + README/CONTRIBUTING/lens) and #604 (`238fc26c1`, doctrine: ADR-150
+  Amendment Log + §1/§4 body revision, mirrored PDR-011 entry, continuity-practice, the
+  wrap/session-handoff/consolidate-docs/go/start-right-team skill contracts with regenerated
+  adapters, definition-of-delivery's authority parenthetical, the ADR index descriptor, the
+  lifecycle-triggers plan template — a generator, Director-adjudicated into the PR — and the
+  onboarding-register annotation).
+- Split-loop model PRESERVED one level down (docs-adr-expert verified): the consolidation gate is
+  intact; `session-handoff` is wrap's continuity component, never an alternative close.
+- Follow-ons, Director-adjudicated: MCP-310 (PDR-026 closeout-phrasing amendment — land this week),
+  MCP-311 (two pre-existing record defects: the ADR-150 "§Interaction Points" citation, PDR-011
+  status-line omissions), MCP-312 (ADR-150 which-sections-live note). Known-stale recorded on
+  MCP-299, not chased: `skill-composition.md:26-27,51-56`; the continuity research doc `:34-36`.
+- Session lesson pair, homed: transmit-before-verify hit two seats in one session (Director's
+  graduation-candidate capture at `43c03362a`); provenance-of-authority — a napkin imperative cited
+  as an owner ruling, corrected by the Director's constraint-lift broadcast (11:11Z, napkin entry).
+
 ## DEDICATED CONSOLIDATION — EXECUTED (2026-07-26)
 
 Magnetar guards Perigee (claude-code / fable-5 / `565521`), curator,
