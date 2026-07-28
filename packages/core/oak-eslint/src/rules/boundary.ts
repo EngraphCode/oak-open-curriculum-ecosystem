@@ -76,10 +76,30 @@ function createDeepSubpathSpecifierPatterns(
   }));
 }
 
-export const POSTHOG_VENDOR_IMPORT_PATTERNS = createPackageSpecifierPatterns(
-  POSTHOG_VENDOR_PACKAGES,
-  'Only packages/libs/posthog-node may import PostHog vendor SDKs. Other workspaces must consume Oak provider-neutral product-analytics contracts.',
-);
+const POSTHOG_VENDOR_BOUNDARY_MESSAGE =
+  'Only packages/libs/posthog-node may import PostHog vendor SDKs. Other workspaces must consume Oak provider-neutral product-analytics contracts.';
+
+/**
+ * Vendor-SDK fence with the Oak adapter excepted.
+ *
+ * @remarks
+ * `no-restricted-imports` groups are gitignore-style, and a slashless
+ * pattern matches at any path depth — so the bare `posthog-node` group
+ * also matches the Oak adapter specifier `@oaknational/posthog-node`.
+ * The negations except the adapter: it is the sanctioned consumption
+ * surface for every other workspace (first consumed by the app in
+ * MCP-240), while the vendor SDKs stay fenced to the adapter package.
+ */
+const OAK_ADAPTER_EXCEPTIONS = [
+  '!@oaknational/posthog-node',
+  '!@oaknational/posthog-node/*',
+  '!@oaknational/posthog-node/**',
+] as const;
+
+export const POSTHOG_VENDOR_IMPORT_PATTERNS = POSTHOG_VENDOR_PACKAGES.map((packageName) => ({
+  group: [packageName, `${packageName}/*`, `${packageName}/**`, ...OAK_ADAPTER_EXCEPTIONS],
+  message: POSTHOG_VENDOR_BOUNDARY_MESSAGE,
+}));
 
 export const postHogVendorBoundaryRules = {
   '@oaknational/no-posthog-vendor-imports': 'error',
