@@ -1361,16 +1361,16 @@
     {
       "auditId": "C075",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-search/flat-zod-schema.ts",
             "anchors": [
               {
-                "tokenCount": 86,
-                "tokenSha256": "d9dc7866bcdcc7a0ec8c6c7a7708f455f8c3d3510d509ad907319407ec1c80b7",
-                "indexToken": "unitSlug",
-                "indexOffset": 0
+                "tokenCount": 16,
+                "tokenSha256": "44c0dc35b437288701f896a2f8d562489da4986fa868556242c78062e813572a",
+                "indexToken": "contains",
+                "indexOffset": 8
               }
             ]
           }
@@ -2976,16 +2976,16 @@
     {
       "auditId": "C160",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-fetch/flat-zod-schema.ts",
             "anchors": [
               {
-                "tokenCount": 150,
-                "tokenSha256": "d21ec8088b4293d5dc7bc852577a413a5436119998526bf9b27a779817d82b14",
-                "indexToken": "FETCH_INPUT_SCHEMA",
-                "indexOffset": 2
+                "tokenCount": 30,
+                "tokenSha256": "fb9549d3e2f7abe4fd7079f7dd260c1037f4d84fcacd96650c910731c83d09d4",
+                "indexToken": "identifier",
+                "indexOffset": 1
               }
             ]
           }
@@ -3052,15 +3052,15 @@
     {
       "auditId": "C164",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-asset-download/definition.ts",
             "anchors": [
               {
-                "tokenCount": 58,
-                "tokenSha256": "f3199d0b76b53a23ce7620ba1c66cd71f16d8618de5ae2fec45aad2ff0cc0e42",
-                "indexToken": "string",
+                "tokenCount": 27,
+                "tokenSha256": "1c6ef919a9684d75d351d022f30b22b48065a4e75c260fd378975f24f2de458c",
+                "indexToken": "Lesson",
                 "indexOffset": 4
               }
             ]
@@ -4855,16 +4855,16 @@
     {
       "auditId": "C235",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-misconception-graph.ts",
             "anchors": [
               {
-                "tokenCount": 54,
-                "tokenSha256": "4a9546964383c55fc07d2ad8c1945fdef3de596d576a7fc0fc311730aee63988",
+                "tokenCount": 18,
+                "tokenSha256": "85270fdea4a3e7fea97a2c8e0f89d1d94b92d90f3fa2492146c0b0248c0a7b13",
                 "indexToken": "Lesson",
-                "indexOffset": 25
+                "indexOffset": 0
               }
             ]
           }
@@ -4874,16 +4874,16 @@
     {
       "auditId": "C236",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-misconception-graph.ts",
             "anchors": [
               {
-                "tokenCount": 57,
-                "tokenSha256": "99274ffeb7f8340317b3bec2995dd28969f1236a81fabbdb7117bc1610e27854",
+                "tokenCount": 17,
+                "tokenSha256": "43798091853f72da3f350ae98a1fbc7451075f770ef81180fbd13625f281dbe6",
                 "indexToken": "Unit",
-                "indexOffset": 25
+                "indexOffset": 0
               }
             ]
           }
@@ -4893,16 +4893,16 @@
     {
       "auditId": "C237",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-misconception-graph.ts",
             "anchors": [
               {
-                "tokenCount": 60,
-                "tokenSha256": "8c6bc2659431912aec143ad12bea40b408b538dc300d9cf192d7fc3cb22065ad",
-                "indexToken": "honest",
-                "indexOffset": 41
+                "tokenCount": 17,
+                "tokenSha256": "5aee06b2794382c7c736ccbbc74f7262767b631328778bfff4a0e5014befb036",
+                "indexToken": "key",
+                "indexOffset": 8
               }
             ]
           }
@@ -5247,16 +5247,16 @@
     {
       "auditId": "C255",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-thread-progressions.ts",
             "anchors": [
               {
-                "tokenCount": 57,
-                "tokenSha256": "fe6f223487b57ff40e12bb53f32ec21e57c2c7bbb79b964ae64c4cf75f3511d9",
-                "indexToken": "maths",
-                "indexOffset": 36
+                "tokenCount": 23,
+                "tokenSha256": "097ad43973c5bcad511ff30cff621ee81d79bfad2cc4537c2e8c44b31a1d3efb",
+                "indexToken": "Discovery",
+                "indexOffset": 0
               }
             ]
           }
@@ -5266,16 +5266,16 @@
     {
       "auditId": "C256",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-thread-progressions.ts",
             "anchors": [
               {
-                "tokenCount": 52,
-                "tokenSha256": "47f56c3f9783980f045347ca5b26ed0b54518b054d1cd1a44d047a2ec47da996",
+                "tokenCount": 25,
+                "tokenSha256": "bad8142dcd93febdf0c59ed3ed2e240294fe98150eaaaa53251b7240c283be55",
                 "indexToken": "stage",
-                "indexOffset": 30
+                "indexOffset": 10
               }
             ]
           }

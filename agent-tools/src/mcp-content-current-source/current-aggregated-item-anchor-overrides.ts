@@ -69,6 +69,46 @@ export const CURRENT_AGGREGATED_ITEM_ANCHOR_OVERRIDES = {
       'description: `Generate a short-lived, secure download link for a lesson asset.',
     ],
   },
+  C075: {
+    ['packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-search/flat-zod-schema.ts']: [
+      'Filter lessons whose `units[]` contains an entry with this unit slug.',
+    ],
+  },
+  C160: {
+    ['packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-fetch/flat-zod-schema.ts']: [
+      'Canonical identifier in format "type:slug" (e.g., "lesson:add-fractions-with-the-same-denominator"',
+    ],
+  },
+  C164: {
+    [ASSET_DOWNLOAD_DEF]: [
+      '.describe(\'Lesson slug (e.g. "add-fractions-with-the-same-denominator")\')',
+    ],
+  },
+  C235: {
+    ['packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-misconception-graph.ts']: [
+      'Lesson anchor: lesson slugs (corpus keys). Each lesson carries at most two misconceptions.',
+    ],
+  },
+  C236: {
+    ['packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-misconception-graph.ts']: [
+      'Unit anchor: unit slugs (corpus keys). Returns each unit with every placed lesson',
+    ],
+  },
+  C237: {
+    ['packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-misconception-graph.ts']: [
+      'Thread anchor: one thread slug (corpus key). Returns a unit-granular window',
+    ],
+  },
+  C255: {
+    ['packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-thread-progressions.ts']: [
+      'Discovery anchor (with keyStage): a subject slug, e.g. "maths". Returns bounded thread descriptors',
+    ],
+  },
+  C256: {
+    ['packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-thread-progressions.ts']: [
+      'Discovery anchor (with subject): a key-stage slug, e.g. "ks2". Returns bounded thread descriptors',
+    ],
+  },
   C166: {
     [ASSET_DOWNLOAD_DEF]: ["title: 'Download Asset',"],
   },
@@ -147,6 +187,14 @@ export const CURRENT_AGGREGATED_ITEM_REVISION_OVERRIDES = {
   C101: 'modified',
   C102: 'modified',
   C120: 'modified',
+  C256: 'modified',
+  C255: 'modified',
+  C237: 'modified',
+  C236: 'modified',
+  C235: 'modified',
+  C164: 'modified',
+  C160: 'modified',
+  C075: 'modified',
   C138: 'modified',
   C139: 'modified',
   C152: 'modified',

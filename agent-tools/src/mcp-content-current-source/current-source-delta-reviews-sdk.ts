@@ -6,6 +6,7 @@
  * explicit exclusion reason says why the change adds no governed content.
  */
 import {
+  TEST_ONLY,
   DELETED_SOURCE,
   excluded,
   IMPLEMENTATION_ONLY,
@@ -16,7 +17,7 @@ import {
 
 export const SDK_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview>> = {
   'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-asset-download/definition.ts': reviewed(
-    '7487faee26f8222ef2d7f8412c1c45294b4cc0f8e919da06c73aa23f45af83fb',
+    '154d483475f32e0fbf31e82e82327b3a313fb61ed13ef45db8337e1f141bb4ab',
     ['C161', 'C162', 'C163', 'C164', 'C165', 'C166', 'C177'],
   ),
   'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-asset-download/execution.ts': reviewed(
@@ -61,7 +62,7 @@ export const SDK_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     ],
   ),
   'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-misconception-graph.ts': reviewed(
-    '123c885c792866dd9b2ec06078c869c1c4b4c3fcd8d36566cb0c235744999659',
+    'd1890c49b2aede5ea09d7cda118ac83d9471f14ab72d9f7ea9813af5580a5d60',
     ['C233', 'C234', 'C235', 'C236', 'C237', 'C238', 'C239', 'C240', 'C241'],
   ),
   'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-prior-knowledge-graph.ts': reviewed(
@@ -73,7 +74,7 @@ export const SDK_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     ['C065', 'C066', 'C067', 'C068'],
   ),
   'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-thread-progressions.ts': reviewed(
-    '4ec70e248ca3b5851d36ac7b73e32f7c2af274844192a8b49ec0334fa0a773a7',
+    '70107401c79893d6f9cbd11d51241376510c7366c8bf67f8c2bf8eb1a02bb52d',
     ['C252', 'C253', 'C254', 'C255', 'C256', 'C257', 'C258', 'C259', 'C260'],
   ),
   'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-user-search/tool-definition.ts': reviewed(
@@ -214,5 +215,34 @@ export const SDK_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
   'packages/sdks/oak-curriculum-sdk/src/mcp/prompt-messages/lesson-planning.ts': excluded(
     '2868c68e526f5d137fdec81722731059369a3005e33973940ae48c88da5a283b',
     DELETED_SOURCE,
+  ),
+  'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-fetch/flat-zod-schema.ts': reviewed(
+    '5044b06ba31c104a3f1a76d43dc5d0ce5e5cb0c1a5b1e557017c9e2bdd8333c0',
+    ['C160'],
+  ),
+  'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-search/flat-zod-schema.ts': reviewed(
+    '08abd4d8b30890ee797d2c67e0ae7ad092f27a4fe82b92c28457449af004e984',
+    [
+      'C069',
+      'C070',
+      'C071',
+      'C072',
+      'C073',
+      'C074',
+      'C075',
+      'C076',
+      'C077',
+      'C078',
+      'C079',
+      'C080',
+      'C081',
+      'C082',
+      'C083',
+      'C084',
+    ],
+  ),
+  'packages/sdks/oak-curriculum-sdk/src/mcp/test-helpers/advertised-examples.ts': excluded(
+    '41be855cff939c4a7f95b36bdc2e3d1fecceecdb0a425b791d4d9af7da766d3a',
+    TEST_ONLY,
   ),
 };
