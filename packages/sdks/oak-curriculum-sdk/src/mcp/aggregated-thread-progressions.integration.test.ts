@@ -189,8 +189,9 @@ describe('advertised examples are true of the shipped corpus', () => {
   // INVARIANT, do not loosen on a corpus rename: every advertised example
   // must be resolvable by the bundled corpus this package ships — a red here
   // means the metadata and the data have diverged, which is the MCP-319
-  // defect class. Deployed truth for ES/API-backed examples (search, fetch,
-  // download-asset) is proven by the live drive (MCP-303), not here.
+  // defect class. Deployed truth beyond this corpus: the MCP-303 live drive
+  // proves wire-REQUIRED examples only (fetch, download-asset); search's
+  // optional-field examples have no standing live probe (routed on MCP-319).
   const shape = GET_THREAD_PROGRESSIONS_INPUT_SCHEMA;
 
   function advertisedExamples(schema: z.ZodType, name: string): unknown[] {
