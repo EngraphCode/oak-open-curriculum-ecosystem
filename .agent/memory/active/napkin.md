@@ -1914,3 +1914,25 @@ specific object, never the batch it sat near.
 - Claims held: 398ddef9 (MCP-238 lane), f0652d2d (widget-path attribution until Director's main→coordination merge). #597/MCP-290 fully closed earlier (merged 237970d7e, Done, dark-mode ratified).
 - On resume, BEFORE anything: re-arm watcher (rule-text invocation, same seen-file) + F-75 pair + dual-claim heartbeat loop; assert-watcher-live; the drain replays the gap.
 - Standing constraint (owner ~08:20Z, binds all seats): the Chrome claude.ai session is his METERED Oak Premium seat — Oak-system key interactions only, surgical, browser last never first.
+
+## 2026-07-28 ~10:45Z — comms monitoring is not free; it exhausted an account (Squall wakes Apex)
+
+- OWNER FACT, correcting two of my claims at once: the Chrome extension did NOT fail to pair
+  because of an account mismatch (Altair's inference, which I relayed onward). The account
+  **ran out of credit** — "just from Altair ticking over on comms monitoring". A BLOCKED, idle
+  seat consumed an entire account's quota by doing nothing but running its awareness loops.
+- WHY THIS MATTERS DOCTRINALLY: `collaboration-is-value-contingent` puts the all-channels
+  watcher at the high-value end — "near-universally justified, never ceremony" — and the
+  PDR-078 §4 consumer-absent exemption is written for the HEARTBEAT only. Nothing in the corpus
+  prices the WATCHER. This instance proves the watcher has a real, account-exhausting cost, so
+  "justified" has to mean justified against a cost, not free by default. The exemption's logic
+  (no consumer ⇒ no value) applies to the watcher too: a watcher over a SILENT stream, or on a
+  seat that is blocked and cannot act on what it hears, is pure burn.
+- ACTED ON IMMEDIATELY, not just recorded: my own "warm pause" was exactly that shape — every
+  peer cold-paused, so my watcher had no traffic to observe and my heartbeat had no consumer,
+  while both burned the owner's NEW account. Stopped both. Warm has to mean *resumable*, not
+  *running*; a seat that can re-arm in one call is warm enough, and the state that makes resume
+  cheap is the durable record, not a live process.
+- The general form, worth carrying: **an idle agent is not a free agent.** Cost accrues to
+  liveness infrastructure, not just to work. When a seat is blocked, the loops are the first
+  thing to stand down, not the last.
