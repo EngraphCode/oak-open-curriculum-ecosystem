@@ -56,14 +56,9 @@ function runLaunchedSuite(
         failureReasons: [gathered.reason],
         divergences: [],
       });
+    // One arm for both ran-but-failed states: they compose identically —
+    // the distinction lives in the SuiteEvidence kind and the reason text.
     case 'operational-exit':
-      return buildSuiteOutcome({
-        suite,
-        operation: input.operation,
-        failureReasons: [gathered.reason, ...gathered.retentionReasons],
-        divergences: [],
-        ...gathered.evidence,
-      });
     case 'unparseable':
       return buildSuiteOutcome({
         suite,
