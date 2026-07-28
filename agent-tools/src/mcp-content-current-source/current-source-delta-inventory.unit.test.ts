@@ -131,6 +131,22 @@ describe('buildCurrentSourceDeltaInventory', () => {
     );
   });
 
+  it('distinguishes tagged-template raw spellings whose runtime values differ', () => {
+    const hash = (content: string) => semanticSourceSha256(content, 'content.ts');
+
+    // String.raw of a \n escape is backslash-n; of a literal newline it is a
+    // real newline — same cooked text, different runtime value.
+    expect(hash('const content = String.raw`one\\ntwo`;')).not.toBe(
+      hash('const content = String.raw`one\ntwo`;'),
+    );
+  });
+
+  it('ignores escape spelling inside untagged templates whose cooked values agree', () => {
+    const hash = (content: string) => semanticSourceSha256(content, 'content.ts');
+
+    expect(hash('const content = `\\u0041`;')).toBe(hash('const content = `A`;'));
+  });
+
   it('ignores redundant expression and type parentheses without erasing their structure', () => {
     const hash = (content: string) => semanticSourceSha256(content, 'content.ts');
 

@@ -38,11 +38,31 @@ function isIgnoredCanonicalToken(node: Node): boolean {
   );
 }
 
+function isTaggedTemplateToken(node: Node): boolean {
+  const parent: Node | undefined = node.parent;
+  if (parent === undefined) {
+    return false;
+  }
+  if (parent.kind === SyntaxKind.TaggedTemplateExpression) {
+    return true;
+  }
+  return (
+    parent.kind === SyntaxKind.TemplateExpression &&
+    parent.parent.kind === SyntaxKind.TaggedTemplateExpression
+  );
+}
+
 function textualNodeValue(node: Node): string | undefined {
   if (isIdentifier(node) || isPrivateIdentifier(node)) {
     return node.text;
   }
-  if (isStringLiteralLike(node) || isTemplateLiteralToken(node)) {
+  if (isTemplateLiteralToken(node)) {
+    // A tag observes the RAW spelling (String.raw), so raw text is the
+    // runtime-bearing value there; untagged templates stay cooked so escape
+    // spelling remains non-semantic.
+    return isTaggedTemplateToken(node) ? (node.rawText ?? node.text) : node.text;
+  }
+  if (isStringLiteralLike(node)) {
     return node.text;
   }
   return undefined;
