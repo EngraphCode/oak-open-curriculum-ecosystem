@@ -9,6 +9,8 @@ Accepted (Revised)
 > **Update (2026-03-01):** [ADR-123](123-mcp-server-primitives-strategy.md) documents the broader MCP server primitives strategy — how all three primitive types (tools, resources, prompts) work together. This ADR continues to govern the context grounding and dual-exposure pattern specifically.
 >
 > **Update (2026-06-10):** Forward considerations for grounding consuming agents in pedagogical principles and Oak curriculum rigour — the surface **reliability ranking**, the **per-call token budget** on broadcast guidance, and a possible **per-tool guidance-enhancement mechanism** — are recorded in the [Addendum](#addendum-2026-06-10--pedagogical-grounding-forward-considerations) below. No implementation decision is ratified by this note; it records architectural facts and constraints to guide that work when it is scoped. See also the [process record](../../../.agent/reports/mcp-session-instructions-pedagogical-grounding-process-2026-06-10.md).
+>
+> **Update (2026-07-28, MCP-300):** Layer 1 (prerequisite guidance in tool descriptions) is **removed**. Anthropic's directory compliance (submission acknowledgement 5) requires that tool descriptions carry no instructions about model behaviour or other tools, and the description text duplicated the `instructions` field. The surviving orientation channels are server `instructions` at initialise and `oakContextHint` in response `structuredContent` (layers 3–4 here); two negative validators (SDK definition walk + app registration walk) enforce the removal. Layer 2 (`openai/widgetDescription`) was never implemented — no such surface exists in the codebase — and is struck with the same note. The multi-layered principle stands on the surviving layers.
 
 ## Context
 
@@ -82,23 +84,13 @@ Agents benefit from structured workflows that show how to combine tools for comm
 
 Implement a multi-layered context grounding system that guides AI agents to call `get-curriculum-model` before using curriculum tools. The `get-curriculum-model` tool provides combined domain model and tool guidance in a single call. The guidance appears in all model-visible locations:
 
-### 1. Tool Descriptions (tools/list)
+### 1. Tool Descriptions (tools/list) — REMOVED (2026-07-28, MCP-300)
 
-Each tool's description includes prerequisite guidance:
+Originally each tool's description included prerequisite guidance ("PREREQUISITE: … call `get-curriculum-model` first…"). This layer is removed per the Status update above: directory compliance bars descriptions from instructing the model about other tools, and the text duplicated the `instructions` channel. Descriptions retain routing cross-references only ("Not for X — use Y").
 
-```typescript
-const AGGREGATED_PREREQUISITE_GUIDANCE =
-  "PREREQUISITE: If unfamiliar with Oak's curriculum structure, call `get-curriculum-model` first...";
-```
+### 2. Widget Description (component load) — NEVER IMPLEMENTED, struck (2026-07-28)
 
-### 2. Widget Description (component load)
-
-The widget resource includes guidance in `openai/widgetDescription`:
-
-```typescript
-const WIDGET_DESCRIPTION =
-  'Oak curriculum explorer. For best results, call get-curriculum-model first...';
-```
+An `openai/widgetDescription` guidance surface was described here but never existed in the codebase.
 
 ### 3. `oakContextHint` in structuredContent (every response)
 

@@ -122,19 +122,16 @@ The `OAK_CONTEXT_HINT` is **dynamically generated** from `AGENT_SUPPORT_TOOL_MET
 export const OAK_CONTEXT_HINT = generateContextHint();
 ```
 
-### 3. Tool Descriptions (Prerequisite Guidance)
+### 3. Tool Descriptions (no orientation imperatives — MCP-300)
 
-**File:** `packages/sdks/oak-curriculum-sdk/src/mcp/prerequisite-guidance.ts`
+**File:** `packages/sdks/oak-curriculum-sdk/src/mcp/orientation-guidance.ts`
 
-Each tool description should include prerequisite guidance directing to relevant agent support tools:
+Tool descriptions MUST NOT carry call-another-tool-first imperatives ("PREREQUISITE: You MUST call X first…"). Directory compliance (submission acknowledgement 5) bars descriptions from instructing the model about other tools, and such text duplicates the `instructions` channel above. Two negative validators enforce this: the SDK walk over `AGGREGATED_TOOL_DEFS` and the app registration walk over every `registerTool` call.
 
-Prerequisite guidance is defined using `PRIMARY_ORIENTATION_TOOL_NAME` (currently `get-curriculum-model`) so that all tool descriptions reference the same orientation tool:
+Descriptions may still carry routing cross-references ("Not for X — use `get-curriculum-model`"), using `PRIMARY_ORIENTATION_TOOL_NAME` so every surface names the same orientation tool:
 
 ```typescript
 export const PRIMARY_ORIENTATION_TOOL_NAME = 'get-curriculum-model';
-
-export const AGGREGATED_PREREQUISITE_GUIDANCE =
-  `PREREQUISITE: If unfamiliar with Oak's curriculum structure, call \`${PRIMARY_ORIENTATION_TOOL_NAME}\` first for complete orientation.` as const;
 ```
 
 ### 4. MCP Prompts
@@ -213,7 +210,9 @@ Define the tool with appropriate annotations and \_meta:
 
 ```typescript
 export const YOUR_NEW_TOOL_DEF = {
-  description: `Your tool description.\n\n${AGGREGATED_PREREQUISITE_GUIDANCE}`,
+  // No orientation imperatives in descriptions (MCP-300) — the instructions
+  // field and oakContextHint carry that guidance.
+  description: `Your tool description.`,
   inputSchema: YOUR_NEW_TOOL_INPUT_SCHEMA,
   annotations: {
     readOnlyHint: true,

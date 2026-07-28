@@ -16,10 +16,7 @@ import {
 } from '@oaknational/sdk-codegen/api-schema';
 import { extractContextFromResponse } from '../../response-augmentation.js';
 import type { ResponseContext } from '../../types/response-augmentation.js';
-import {
-  FETCH_PREREQUISITE_GUIDANCE,
-  PRIMARY_ORIENTATION_TOOL_NAME,
-} from '../prerequisite-guidance.js';
+import { PRIMARY_ORIENTATION_TOOL_NAME } from '../orientation-guidance.js';
 
 import { SCOPES_SUPPORTED } from '../scopes-supported.js';
 
@@ -32,8 +29,6 @@ import { SCOPES_SUPPORTED } from '../scopes-supported.js';
 export const FETCH_TOOL_DEF = {
   title: 'Fetch Curriculum Resource',
   description: `Fetch curriculum resource by canonical identifier.
-
-${FETCH_PREREQUISITE_GUIDANCE}
 
 Use this when you need to:
 - Get lesson details (learning objectives, keywords, misconceptions)

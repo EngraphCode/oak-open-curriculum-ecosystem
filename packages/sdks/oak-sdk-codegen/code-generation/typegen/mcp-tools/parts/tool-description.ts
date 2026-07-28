@@ -43,57 +43,6 @@ export function toToolDescription(operation: OperationObject): string | undefine
   return undefined;
 }
 
-/**
- * Domain prerequisite guidance appended to authenticated tool descriptions.
- *
- * Encourages models to call get-curriculum-model first to understand the
- * curriculum domain before using API tools. Brief to minimise context window impact.
- *
- * @remarks
- * This guidance is only appended to tools that require authentication.
- * Tools with noauth (get-rate-limit, get-changelog) don't receive this
- * guidance as they provide API metadata, not curriculum content.
- */
-export const DOMAIN_PREREQUISITE_GUIDANCE = `
-
-PREREQUISITE: You MUST call the \`get-curriculum-model\` tool first to understand the curriculum domain.`;
-
-/**
- * Conditionally appends domain prerequisite guidance to tool descriptions.
- *
- * Adds guidance nudging models to call get-curriculum-model first when they
- * haven't loaded the curriculum domain model.
- *
- * @param description - Base tool description from OpenAPI spec
- * @param requiresAuth - Whether the tool requires OAuth authentication
- * @param prerequisiteGuidance - Guidance text to append for authenticated tools
- * @returns Description with prerequisite appended (if auth required), or original
- *
- * @example
- * ```typescript
- * // Protected tool - gets prerequisite
- * appendPrerequisiteGuidance('Lesson summary', true);
- * // Returns: 'Lesson summary\n\nPREREQUISITE: If unfamiliar with...'
- *
- * // Public tool (noauth) - no prerequisite
- * appendPrerequisiteGuidance('Rate limit status', false);
- * // Returns: 'Rate limit status'
- * ```
- */
-export function appendPrerequisiteGuidance(
-  description: string | undefined,
-  requiresAuth: boolean,
-  prerequisiteGuidance: string = DOMAIN_PREREQUISITE_GUIDANCE,
-): string | undefined {
-  if (!description) {
-    return undefined;
-  }
-  if (!requiresAuth) {
-    return description;
-  }
-  return `${description}${prerequisiteGuidance}`;
-}
-
 const GET_RATE_LIMIT_NOTE = `
 
 NOTE: A response of limit=0, remaining=0, reset=0 indicates an unlimited API key with no rate cap.`;
@@ -198,7 +147,7 @@ export const TOOL_DESCRIPTION_ADDITIONS: ReadonlyMap<string, string> = new Map([
  * {@link TOOL_DESCRIPTION_ADDITIONS}, so the behaviour is exercised with a fake
  * map in tests rather than pinned to the canonical content.
  *
- * @param description - Description after base OpenAPI and prerequisite processing
+ * @param description - Description after base OpenAPI processing
  * @param toolName - Tool identifier used to resolve the addition
  * @param additions - Per-tool additions map (injected; defaults to canonical)
  * @returns Description with the addition appended when one exists, else unchanged

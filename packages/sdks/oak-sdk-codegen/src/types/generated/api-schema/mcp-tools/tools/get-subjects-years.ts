@@ -113,7 +113,7 @@ export const getSubjectsYears = {
   inputSchema: toolInputJsonSchema,
   operationId,
   name,
-  description: "Year groups for a subject\n\nUse when you only need the year groups where this subject is available. Returns an array of year numbers, derived from the subject's key stages. Not for: the subject record (GET /subjects/{subject}); key stages rather than year groups (GET /subjects/{subject}/key-stages). Example: 'subject=english'.\n\nPREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand the curriculum domain.",
+  description: "Year groups for a subject\n\nUse when you only need the year groups where this subject is available. Returns an array of year numbers, derived from the subject's key stages. Not for: the subject record (GET /subjects/{subject}); key stages rather than year groups (GET /subjects/{subject}/key-stages). Example: 'subject=english'.",
   path,
   method,
   documentedStatuses,
