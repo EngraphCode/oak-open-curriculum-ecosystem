@@ -24,6 +24,33 @@ table and MCP-106's 22 July capture. All fifteen connector and five plugin scree
 Both: **submitting does not guarantee inclusion**; Anthropic reviews every submission. The
 plugin form adds "during spin up there may be delays in release into the directory."
 
+## READINESS: the two submissions are not at comparable stages
+
+Recording both forms side by side makes them look like parallel paperwork. They are not, and
+this is the first thing to understand about them.
+
+**Connector — a runnable process today.** The server is live, already connected as a custom
+connector, and the form has captured 40 tools from it. What remains is content (copy,
+categories, links), two engineering fixes (tool titles, the description wording behind
+acknowledgement 5), and the Name/slug decision. Every outstanding item has an owner and a path.
+
+**Plugin — blocked on the artefact, not on paperwork.** Verified first-hand 2026-07-28: this
+repository contains **no plugin**. No `.claude-plugin` directory, no `marketplace.json`, no
+`plugin.json`, no plugin workspace (the only `plugin` matches in `pnpm-workspace.yaml` are
+eslint plugins). The form's first required field is **Link to plugin** — *"the URL to your
+plugin repository"* — followed by name, description, example use cases, and a platforms
+declaration whose helper text is *"test that the plugin works with these surfaces before
+submitting."*
+
+None of those can be answered truthfully today. **The plugin submission's blocker is that the
+plugin does not exist**, and no amount of form-filling reaches it. The owner's stated
+preference is to home the plugin definition as a workspace in this repo; that is unbuilt work,
+not a documentation gap.
+
+Consequence for planning: treat these as two independent tracks with different critical paths.
+The connector's path is content plus two small fixes. The plugin's path starts at "build the
+plugin", and until that lands, the plugin form is reference material rather than a task.
+
 ## Blocking and decision-grade findings
 
 ### 1. Acknowledgement 5 is currently false — BLOCKING
