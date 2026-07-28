@@ -56,8 +56,8 @@ Do NOT use for:
 export const DOWNLOAD_ASSET_INPUT_SCHEMA: z.ZodRawShape = {
   lesson: z
     .string()
-    .describe('Lesson slug (e.g. "adding-fractions-with-the-same-denominator")')
-    .meta({ examples: ['adding-fractions-with-the-same-denominator'] }),
+    .describe('Lesson slug (e.g. "add-fractions-with-the-same-denominator")')
+    .meta({ examples: ['add-fractions-with-the-same-denominator'] }),
   type: z
     .enum([...ASSET_TYPES])
     .describe('Asset type to download')

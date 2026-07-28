@@ -16,7 +16,7 @@ export const FETCH_INPUT_SCHEMA: z.ZodRawShape = {
     )
     .meta({
       examples: [
-        'lesson:adding-fractions-with-the-same-denominator',
+        'lesson:add-fractions-with-the-same-denominator',
         'unit:comparing-fractions',
         'subject:maths',
         'sequence:maths-primary',

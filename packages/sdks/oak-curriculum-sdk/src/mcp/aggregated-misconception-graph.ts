@@ -57,20 +57,23 @@ const MISCONCEPTION_INPUT = z.object({
     .optional()
     .describe(
       'Lesson anchor: lesson slugs (corpus keys). Each lesson carries at most two misconceptions. Exactly one anchor mode per call.',
-    ),
+    )
+    .meta({ examples: [['add-fractions-with-the-same-denominator']] }),
   unitSlugs: z
     .array(z.string().min(1))
     .optional()
     .describe(
       'Unit anchor: unit slugs (corpus keys). Returns each unit with every placed lesson and its misconceptions. Exactly one anchor mode per call.',
-    ),
+    )
+    .meta({ examples: [['comparing-fractions']] }),
   threadSlug: z
     .string()
     .min(1)
     .optional()
     .describe(
       'Thread anchor: one thread slug (corpus key). Returns a unit-granular window over the thread with honest coverage (totalUnits, hasMore). Exactly one anchor mode per call.',
-    ),
+    )
+    .meta({ examples: ['number-fractions'] }),
   unitOffset: z
     .number()
     .int()

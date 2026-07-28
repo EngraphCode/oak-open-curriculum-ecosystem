@@ -16,6 +16,9 @@
  *
  * Anchor fixtures are chosen deterministically from the corpus so the tests
  * describe behaviour over any valid corpus rather than pinning content.
+ * The one deliberate exception is the advertised-examples coherence block,
+ * which pins that the schema's own example values resolve against the
+ * shipped corpus (MCP-319).
  */
 
 import { graphCorpus } from '@oaknational/sdk-codegen/graph-corpus';
@@ -23,6 +26,7 @@ import { describe, it, expect } from 'vitest';
 import { z } from 'zod';
 import {
   GET_THREAD_PROGRESSIONS_TOOL_DEF,
+  GET_THREAD_PROGRESSIONS_INPUT_SCHEMA,
   runThreadProgressionsTool,
 } from './aggregated-thread-progressions.js';
 
@@ -178,5 +182,63 @@ describe('runThreadProgressionsTool — subject+keyStage discovery anchor', () =
     expect(result.isError).toBeUndefined();
     const envelope = DISCOVERY_ENVELOPE.parse(result.structuredContent);
     expect(envelope.threads).toEqual([]);
+  });
+});
+
+describe('advertised examples are true of the shipped corpus', () => {
+  // INVARIANT, do not loosen on a corpus rename: every advertised example
+  // must be resolvable by the bundled corpus this package ships — a red here
+  // means the metadata and the data have diverged, which is the MCP-319
+  // defect class. Deployed truth for ES/API-backed examples (search, fetch,
+  // download-asset) is proven by the live drive (MCP-303), not here.
+  const shape = GET_THREAD_PROGRESSIONS_INPUT_SCHEMA;
+
+  function advertisedExamples(schema: z.ZodType, name: string): unknown[] {
+    return z
+      .array(z.unknown())
+      .min(1, `no advertised examples on ${name}`)
+      .parse(schema.meta()?.examples);
+  }
+
+  it('resolves every advertised threadSlug example as a detail anchor', () => {
+    for (const example of advertisedExamples(shape.threadSlug, 'threadSlug')) {
+      const result = runThreadProgressionsTool({ threadSlug: example });
+      expect(result.isError, `threadSlug example ${String(example)} must resolve`).toBeUndefined();
+      expect(result.structuredContent).toMatchObject({ unknownAnchors: [] });
+      const { resolvedAnchors } = z
+        .object({ resolvedAnchors: z.array(z.unknown()) })
+        .parse(result.structuredContent);
+      expect(
+        resolvedAnchors,
+        `threadSlug example ${String(example)} must resolve an anchor`,
+      ).not.toHaveLength(0);
+    }
+  });
+
+  it('advertises every example on the wire JSON Schema', () => {
+    // The corpus tests above read `.meta()` off the Zod objects; agents
+    // read the CONVERTED wire form. This proves the authored metadata
+    // survives `z.toJSONSchema()` for every field, wrapped or not.
+    const WIRE_PROPERTIES = z.object({
+      properties: z.record(
+        z.string(),
+        z.looseObject({ examples: z.array(z.unknown()).optional() }),
+      ),
+    });
+    const { properties } = WIRE_PROPERTIES.parse(z.toJSONSchema(z.object(shape)));
+    for (const [field, schema] of Object.entries(shape)) {
+      expect(properties[field]?.examples, `${field} examples on the wire`).toEqual(
+        schema.meta()?.examples,
+      );
+    }
+  });
+
+  it('resolves the advertised subject and keyStage examples as a discovery anchor', () => {
+    const [subject] = advertisedExamples(shape.subject, 'subject');
+    const [keyStage] = advertisedExamples(shape.keyStage, 'keyStage');
+    const result = runThreadProgressionsTool({ subject, keyStage });
+    expect(result.isError).toBeUndefined();
+    const { threads } = z.object({ threads: z.array(z.unknown()) }).parse(result.structuredContent);
+    expect(threads.length).toBeGreaterThan(0);
   });
 });
