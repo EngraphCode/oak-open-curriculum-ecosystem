@@ -74,7 +74,10 @@ are set out in [What This Repo Provides](#what-this-repo-provides) below.
 - **New here?** — open an agent session and run `/oak-under-the-hood`; the orientation
   lens works out whether you want a quick answer, an overview, or a guided
   hands-on walk that can set up your machine, and meets you there
-- **Developers** — continue to [Quick Start](#quick-start) below
+- **Developers** — continue to [Quick Start](#quick-start) below, then
+  [Working with this Repo for Devs](docs/engineering/working-with-this-repo-for-devs.md): the
+  practical guide to how you direct the work, what the agents do around you, and what keeps
+  the quality honest
 - **Oak teammates joining via Claude Code (or another AI coding agent)** — Quick Start as above, then [MCP servers for contributors](docs/engineering/mcp-servers-for-contributors.md) for the sanctioned MCP set
 - **AI agents** — read the [start-right-quick workflow](.agent/skills/start-right-quick/shared/start-right.md), then [AGENT.md](.agent/directives/AGENT.md), then scan the [five foundational ADRs](docs/architecture/architectural-decisions/README.md#start-here-5-adrs-in-15-minutes) — the architectural source of truth
 
@@ -117,7 +120,7 @@ $oak-start-right-team continue agentic-engineering-enhancements from
 Treat this opener as a hypothesis until live grounding confirms it.
 ```
 
-Use `oak-session-handoff` at the end of a meaningful solo session so the next
+Use `oak-wrap` at the end of every session so the next
 agent inherits the real state rather than a chat transcript guess. In team
 sessions, `oak-start-right-team` should name the closeout owner; only that owner
 runs the full handoff, while other team members leave boundary-scoped closeout
@@ -435,6 +438,7 @@ over time rather than eroding.
 
 **Further reading:**
 
+- [Working with this Repo for Devs](docs/engineering/working-with-this-repo-for-devs.md) — the practical guide: how you direct the work and what the agents do around you
 - [How the Agentic Engineering System Works](docs/foundation/agentic-engineering-system.md) — the Practice explained as an integrated engineering system
 - [The Practice](.agent/practice-core/README.md) — the same system, as an operational blueprint for AI agents
 - [ADR-119](docs/architecture/architectural-decisions/119-agentic-engineering-practice.md) — naming, boundary, and three-layer model
