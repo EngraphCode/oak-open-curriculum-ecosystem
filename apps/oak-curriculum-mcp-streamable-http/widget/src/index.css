@@ -127,9 +127,14 @@ body,
   min-height: fit-content;
 }
 
+/* The document surface around the brand panel belongs to the HOST, not
+   Oak: in a claude.ai session the host overrides the standard MCP
+   variable with its own chat background (applyHostStyleVariables), so
+   the panel's rounded corners sit against the real conversation
+   surface. The bridge default (Oak surface-page) applies standalone. */
 body {
   margin: 0;
-  background: var(--oak-component-page-background);
+  background: var(--color-background-primary);
   color: var(--oak-component-page-text-color);
   font-family: var(--oak-component-body-family);
   font-size: var(--oak-component-body-size);
@@ -168,8 +173,11 @@ a:focus-visible {
   text-decoration-thickness: 2px;
 }
 
-/* The shell renders as a bounded, rounded panel on the page surface
-   (the shell-* component tokens exist for exactly this shape).
+/* The shell is the Oak brand panel: inverse (white) text on the strong
+   accent (Oak green) surface, rounded, borderless — owner branding spec
+   2026-07-28. text-inverse on accent-strong is a contrast-gated TEXT
+   pairing in oak-design-tokens contrast-pairings.ts; the logo and link
+   inherit the inverse colour via currentColor.
    max-height is rem, not em: it scales with the host root font size
    without compounding through local font-size changes; content beyond
    the cap scrolls inside the panel rather than growing the document. */
@@ -180,10 +188,9 @@ a:focus-visible {
   max-height: 24rem;
   padding: var(--oak-component-page-padding);
   overflow-y: auto;
-  background: var(--oak-component-shell-surface);
-  border: var(--border-width-regular) solid var(--oak-component-shell-border-color);
+  color: var(--oak-semantic-text-inverse);
+  background: var(--oak-semantic-accent-strong);
   border-radius: var(--oak-component-panel-radius);
-  box-shadow: var(--oak-component-shell-shadow);
 }
 
 /* Service-scoped experimental disclaimer in the shell's main content.
@@ -195,7 +202,6 @@ a:focus-visible {
 .oak-app__disclaimer {
   max-width: 65ch;
   margin-inline: auto;
-  color: var(--oak-component-note-text-color);
   font-size: var(--oak-component-label-size);
   line-height: var(--oak-component-label-line-height);
   text-wrap: pretty;
@@ -208,11 +214,15 @@ a:focus-visible {
   justify-content: center;
 }
 
+/* On the accent panel the link is inverse text like its surroundings;
+   hover affordance is the underline (a colour shift against the accent
+   surface has no gated pairing), and the focus ring is the on-accent
+   ring the token tree provides for exactly this surface. */
 .oak-brand-banner__link {
   display: inline-flex;
   align-items: center;
   gap: var(--oak-component-banner-gap);
-  color: var(--oak-component-banner-link-color);
+  color: var(--oak-semantic-text-inverse);
   font-family: var(--oak-component-banner-title-family);
   font-size: var(--oak-component-banner-title-size);
   font-weight: var(--oak-component-banner-title-weight);
@@ -220,11 +230,12 @@ a:focus-visible {
 }
 
 .oak-brand-banner__link:hover {
-  color: var(--oak-component-banner-link-color-hover);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
 }
 
 .oak-brand-banner__link:focus-visible {
-  outline: 2px solid var(--oak-component-banner-link-focus-ring-color);
+  outline: 2px solid var(--oak-component-focus-ring-on-accent-color);
   outline-offset: 2px;
   border-radius: 2px;
 }
