@@ -110,11 +110,26 @@ Confirmed across all eleven connector steps and all three plugin steps: **no ima
 count, no dimensions, no carousel.** The owner's challenge was correct. MCP-293 should be
 closed on this evidence.
 
-### 7. Auto-listing is not what the form says
+### 7. Auto-listing IS the default — I had this backwards
 
-Step 1 states Anthropic reviews every submission for quality, safety, and policy compliance and
-*"may reach out for additional information before a decision is made."* Step 9 adds: *"We
-reserve the right to manually review all servers."* The review buffer is real.
+**Correction to an earlier revision of this report.** I read the form's "Anthropic reviews every
+submission" as contradicting the auto-listing finding. It does not. The review-criteria page
+states plainly:
+
+> When you submit a server, it is automatically scanned for policy compliance and, **by default,
+> listed in the directory as a community connector.** Anthropic may then escalate listings
+> flagged as highly useful to Claude users to verified review, which is higher touch and slower;
+> reviewers run a functional test of each tool. This escalation is assessed automatically, and
+> you do not need to take any action.
+
+Both statements are true: the review is real and it is **automated**. Verified review is an
+escalation, not the default path, and the label *"is a quality signal shown to users; it does
+not change how your connector runs once connected."*
+
+Consequence: the nine-business-day review buffer in MCP-106 was derived from a
+verified-review-by-default assumption that does not hold. The automated policy scan is what
+gates initial listing — which raises the stakes on findings 1 and 5, because **an automated scan
+is exactly what catches a prompt-injection pattern or a missing annotation.**
 
 ## Connector form — all eleven steps
 
@@ -183,6 +198,74 @@ personal health data, sponsored content, authentication mode.
 Note the plugin form asks for a **repository URL**, which bears on the owner's preference to
 home the plugin as a workspace in this monorepo — a repo link is satisfiable either way, but
 the plugin must be locatable and installable from it.
+
+## Cross-reference against Anthropic's published sources (fetched 2026-07-28)
+
+Sources: the [Software Directory Policy](https://support.claude.com/en/articles/13145358-anthropic-software-directory-policy),
+the [pre-submission checklist / review criteria](https://claude.com/docs/connectors/building/review-criteria),
+and the Claude Code [plugin marketplace docs](https://code.claude.com/docs/en/plugin-marketplaces).
+**The forms are not the whole contract** — these add requirements the forms never mention.
+
+### Findings the cross-reference HARDENED
+
+**Finding 1 (PREREQUISITE wording) is now triple-sourced and is an explicit rejection reason.**
+Review criteria: tool descriptions are rejected if they *"Instruct Claude to call external
+software or tools the user didn't request"* or *"Direct Claude to pull behavioral instructions
+from external sources"*, closing with **"Describe what the tool does. Do not tell Claude how to
+behave."** The policy independently prohibits software that *"intentionally call\[s\] or
+coerce\[s\] Claude into calling other external software, tools, databases, or resources unless
+requested and intended by a user."* Our "You MUST call `get-curriculum-model` first" is squarely
+inside that. Combined with finding 7 (the initial gate is an **automated scan**), this is the
+single likeliest cause of an automated rejection.
+
+**Finding 5 (missing titles) is mandatory, not a suggestion, and has a functional consequence.**
+Policy: servers must *"provide all applicable annotations for their tools, in particular
+readOnlyHint, destructiveHint, and title."* Review criteria: *"Every tool must include a `title`
+and the applicable hint… These determine auto-permissions in Claude: read-only tools can run
+without per-call confirmation."* So missing titles may also degrade the runtime permission
+experience, not just the listing.
+
+### Requirements the forms do NOT state
+
+- **Test credentials are required and must be a fully populated account.** The policy requires
+  *"a standard testing account with sample data."* This settles the owner's open question:
+  MCP-294 is required **regardless** of whether sign-up restrictions are lifted.
+- **At least three working examples of prompts or use cases** (policy). The form's free-text
+  "Primary use cases" has a concrete minimum.
+- **Token frugality**: *"The amount of tokens a given tool call uses should be roughly
+  commensurate with the complexity or impact of the task."* Unmeasured for us.
+- **Response sizing**: *"Do not return a full database dump when a summary was requested."*
+- **Public documentation required by the publish date** — a blog post or help-centre article
+  suffices; may be shared privately with Anthropic during review.
+- **Allowed link URIs** are recommended if the server calls `ui/open-link` — declared HTTPS
+  origins open without a confirmation prompt. **Worth checking against our download-asset tool**,
+  which returns clickable short-lived URLs.
+- **Ongoing compliance**: Anthropic conducts *"both initial and ongoing reviews"*; requirements
+  apply *"including any future changes, to remain in our Directories."*
+- **Separate read and write tools** — a catch-all `api_request` with a `method` parameter is
+  rejected. We pass trivially: the surface is entirely read-only.
+- **MCPB open-source and "spec will evolve" clauses** in the Software Directory Terms are
+  *"required and not waivable."*
+- Prohibited independently of the form: querying *"Claude's memory, chat history, conversation
+  summaries, or user-generated or uploaded files."* We do none of this.
+
+### Plugin-specific requirements the form does not state
+
+- **The plugin must link a public GitHub repository — "closed-source is not accepted."** Our
+  monorepo is public, so homing the plugin here satisfies this.
+- **Structure**: a plugin is a directory containing `.claude-plugin/plugin.json`; a marketplace
+  is a repo containing `.claude-plugin/marketplace.json` at its root naming each plugin and its
+  source. Components a plugin may bundle: skills, agents, hooks, MCP servers, LSP servers,
+  monitors — **all of which this estate already has**, so building it is largely packaging.
+- **Validate before submitting**: `claude plugin validate`, with `--strict` in CI to treat
+  unrecognised-field warnings as errors.
+- **Plugins may connect to any Connector approved in the directory** — so the plugin can
+  legitimately depend on our own connector once listed.
+
+### Pre-submission steps both sources require
+
+Exercise **every tool** through the MCP Inspector *and* as a custom connector in Claude. This is
+the same claim the form's step-9 "Self-tested" checkbox makes, currently answered **No**.
 
 ## Owner answers already on the record
 

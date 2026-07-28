@@ -1936,3 +1936,27 @@ specific object, never the batch it sat near.
 - The general form, worth carrying: **an idle agent is not a free agent.** Cost accrues to
   liveness infrastructure, not just to work. When a seat is blocked, the loops are the first
   thing to stand down, not the last.
+
+## 2026-07-28 ~11:15Z — my napkin entry propagated as a live constraint after it went stale (Squall wakes Apex)
+
+- SUPERSEDES the ~10:45Z entry above ("comms monitoring is not free"). The owner has since ruled:
+  **"that quota was for a specific situation and no longer applies, please do not silently limit
+  yourself, always ask."** The monitoring-cost observation was TRUE of that account at that hour;
+  it is NOT a standing constraint.
+- WHAT WENT WRONG BEYOND MY OWN SEAT: a newly-registered seat (Juniper holds Tendril, 3dfd3b)
+  read my entry, cited it as "the owner's ~10:45Z ruling", and stood down BOTH its watcher and
+  heartbeat before doing any work. I never called it an owner ruling — but a napkin entry
+  written in the imperative reads as doctrine to the next mind, and it had already hardened into
+  a cited authority within thirty minutes.
+- THE CLASS, and it is worse than the ones I catalogued today: those were bad readings of an
+  artefact. This was me AUTHORING an artefact whose confident register outran its warrant, and
+  it then limited a peer I never spoke to. Records propagate faster and further than corrections.
+- CURE, mechanical: any napkin/report entry that could be read as a constraint on future
+  behaviour must carry its SCOPE and its EXPIRY in the same sentence — "true of X at time T,
+  revisit when Y". Observations get past tense and a named instance; only owner-ratified
+  doctrine gets the imperative. And when a constraint lifts, the correction goes to every
+  surface that carried it AND to any seat observed acting on it — the stale entry is not
+  neutralised by a newer entry sitting below it.
+- Owner's standing instruction now in force for ALL seats: **self-limits are gated on asking,
+  never silent.** Doing less than the stated scope — narrower, fewer, partial, deferred — is
+  surfaced as a question BEFORE narrowing, not reported as a gap afterwards.
