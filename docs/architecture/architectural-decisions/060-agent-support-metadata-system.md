@@ -24,6 +24,16 @@ Accepted (Revised)
 > implementation decision is ratified. See also
 > [ADR-058](058-context-grounding-for-ai-agents.md) and the
 > [process record](../../../.agent/reports/mcp-session-instructions-pedagogical-grounding-process-2026-06-10.md).
+>
+> **Update (28 July 2026, MCP-300)**: The consuming module
+> `prerequisite-guidance.ts` has been renamed `orientation-guidance.ts`, and
+> channel 3 below (prerequisite guidance in tool descriptions) is RETIRED:
+> tool descriptions no longer carry call-another-tool-first imperatives
+> (directory compliance, submission acknowledgement 5), enforced by negative
+> validators in the SDK and app registration walks. Orientation guidance now
+> rides the `instructions` field and response-payload context hints only.
+> References to the old filename and to description-channel guidance below
+> reflect the accepted-state context.
 
 ## Context
 

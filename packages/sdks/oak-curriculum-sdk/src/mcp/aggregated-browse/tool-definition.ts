@@ -8,10 +8,7 @@
 
 import { z } from 'zod';
 import { KEY_STAGES, SUBJECTS } from '@oaknational/sdk-codegen/api-schema';
-import {
-  AGGREGATED_PREREQUISITE_GUIDANCE,
-  PRIMARY_ORIENTATION_TOOL_NAME,
-} from '../prerequisite-guidance.js';
+import { PRIMARY_ORIENTATION_TOOL_NAME } from '../orientation-guidance.js';
 
 import { SCOPES_SUPPORTED } from '../scopes-supported.js';
 
@@ -23,8 +20,6 @@ import { SCOPES_SUPPORTED } from '../scopes-supported.js';
 export const BROWSE_TOOL_DEF = {
   title: 'Browse Curriculum',
   description: `Browse what's available in Oak's curriculum without searching.
-
-${AGGREGATED_PREREQUISITE_GUIDANCE}
 
 Returns structured facet data showing subjects, key stages, sequences (programmes),
 units, and lesson counts. Useful for orientation and discovery.

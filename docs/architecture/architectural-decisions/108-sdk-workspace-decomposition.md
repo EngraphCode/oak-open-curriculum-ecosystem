@@ -172,7 +172,6 @@ Hosts two internally partitioned data pipelines.
 - Schema decoration (canonicalUrl, 404 enhancement)
 - Security configuration (PUBLIC_TOOLS, DEFAULT_AUTH_SCHEME)
 - Tool naming overrides (path-specific overrides)
-- Domain guidance (DOMAIN_PREREQUISITE_GUIDANCE)
 - Widget constants (BASE_WIDGET_URI)
 - The orchestrator wiring Oak config into the generic pipeline
 - Schema cache with Oak OpenAPI snapshots

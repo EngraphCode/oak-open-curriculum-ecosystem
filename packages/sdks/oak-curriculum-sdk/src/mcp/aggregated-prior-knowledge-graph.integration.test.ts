@@ -62,15 +62,6 @@ describe('GET_PRIOR_KNOWLEDGE_GRAPH_TOOL_DEF', () => {
     );
   });
 
-  it('does not include prerequisite guidance (graph tools are loaded as needed, not prerequisites)', () => {
-    expect(GET_PRIOR_KNOWLEDGE_GRAPH_TOOL_DEF.description).not.toContain(
-      'You MUST call `get-curriculum-model` first',
-    );
-    expect(GET_PRIOR_KNOWLEDGE_GRAPH_TOOL_DEF.description).not.toContain(
-      'You MUST call this tool before using other curriculum tools',
-    );
-  });
-
   it('has annotations marking it as read-only and idempotent', () => {
     expect(GET_PRIOR_KNOWLEDGE_GRAPH_TOOL_DEF.annotations).toEqual({
       readOnlyHint: true,

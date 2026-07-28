@@ -2,7 +2,6 @@ import { describe, it, expect } from 'vitest';
 import type { OperationObject } from 'openapi3-ts/oas31';
 import {
   toToolDescription,
-  appendPrerequisiteGuidance,
   appendToolEnhancements,
   normaliseUpstreamDescription,
 } from './tool-description.js';
@@ -163,47 +162,6 @@ describe('toToolDescription', () => {
           "third-party content contained in the lesson's downloadable resources.",
       );
     });
-  });
-});
-
-/**
- * Unit tests for appendPrerequisiteGuidance pure function.
- *
- * Proves: protected tools get prerequisite guidance; public tools do not.
- */
-describe('appendPrerequisiteGuidance', () => {
-  it('appends prerequisite guidance when requiresAuth is true', () => {
-    const result = appendPrerequisiteGuidance('Tool summary', true);
-    expect(result).toContain('Tool summary');
-    expect(result).toContain('PREREQUISITE');
-  });
-
-  it('does NOT append prerequisite when requiresAuth is false', () => {
-    const result = appendPrerequisiteGuidance('Tool summary', false);
-    expect(result).toBe('Tool summary');
-    expect(result).not.toContain('PREREQUISITE');
-  });
-
-  it('returns undefined when description is undefined regardless of auth', () => {
-    expect(appendPrerequisiteGuidance(undefined, true)).toBeUndefined();
-    expect(appendPrerequisiteGuidance(undefined, false)).toBeUndefined();
-  });
-
-  it('preserves full description content when appending prerequisite', () => {
-    const description = 'Lesson summary\n\nThis tool returns a summary for a given lesson';
-    const result = appendPrerequisiteGuidance(description, true);
-    expect(result).toContain('Lesson summary');
-    expect(result).toContain('This tool returns a summary for a given lesson');
-    expect(result).toContain('PREREQUISITE');
-  });
-
-  it('appends the injected prerequisite guidance for authenticated tools', () => {
-    const customGuidance = '\n\nPREREQUISITE: call custom-orientation-tool first.';
-
-    const result = appendPrerequisiteGuidance('Test', true, customGuidance);
-
-    expect(result).toContain('Test');
-    expect(result).toContain(customGuidance);
   });
 });
 
