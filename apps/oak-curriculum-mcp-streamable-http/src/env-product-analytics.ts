@@ -1,19 +1,21 @@
 import { z } from 'zod';
 import { OBSERVABILITY_SINKS_SCHEMA } from '@oaknational/env';
 import { DIAGNOSTIC_SINK_KINDS } from '@oaknational/observability';
+import type { PostHogProductAnalyticsConfig } from '@oaknational/posthog-node';
 
 /**
- * Exact EU ingestion host this application accepts for PostHog.
+ * The EU ingestion host, typed against the adapter's own contract.
  *
  * @remarks
- * Mirrors the adapter's own literal so a deployment cannot select a
- * different data region. The adapter's `PostHogProductAnalyticsConfig`
- * type re-asserts this equality structurally at composition time
- * (MCP-240 adds the dependency). Lives here — the module with no
- * app-local imports — so the env schema and the bootstrap resolver can
- * both use it without a dependency cycle.
+ * The type annotation is the adapter's literal host type, so a region
+ * divergence is a compile error — while the type-only import erases at
+ * runtime, keeping off-mode cold starts free of the vendor module
+ * graph. This module is the app's single site naming the adapter for
+ * this value; the env schema and the bootstrap resolver both read it
+ * from here.
  */
-export const POSTHOG_EU_INGESTION_HOST = 'https://eu.i.posthog.com' as const;
+export const POSTHOG_EU_INGESTION_HOST: PostHogProductAnalyticsConfig['host'] =
+  'https://eu.i.posthog.com';
 
 /**
  * `OBSERVABILITY_SINKS` accepted in either its raw env-var form (a JSON
@@ -168,9 +170,9 @@ export function refineProductAnalyticsEnv(
       code: 'custom',
       path: ['OBSERVABILITY_SINKS'],
       message:
-        'OBSERVABILITY_SINKS must include at least one diagnostic sink when ' +
-        'posthog is selected in production; product analytics alone does not ' +
-        'satisfy diagnostic locality.',
+        'OBSERVABILITY_SINKS must include at least one diagnostic sink ' +
+        '(sentry or file) when posthog is selected in production; product ' +
+        'analytics alone does not satisfy diagnostic locality.',
     });
     return true;
   }

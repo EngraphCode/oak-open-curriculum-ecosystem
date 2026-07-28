@@ -46,6 +46,7 @@
     "@oaknational/logger": "workspace:*",
     "@oaknational/oak-search-sdk": "workspace:*",
     "@oaknational/observability": "workspace:*",
+    "@oaknational/posthog-node": "workspace:*",
     "@oaknational/result": "workspace:*",
     "@oaknational/sentry-node": "workspace:*",
     "@oaknational/type-helpers": "workspace:*",

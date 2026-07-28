@@ -122,6 +122,28 @@ describe('exclusive PostHog vendor boundary', () => {
     expect(lintVendorImport(createLibBoundaryRules('posthog-node'), specifier)).toStrictEqual([]);
   });
 
+  // The Oak adapter entrypoint is the sanctioned consumption surface where a
+  // tier may import libs at all — the vendor fence covers the vendor SDKs,
+  // never the adapter. Gitignore-style groups match slashless patterns at any
+  // path depth, so without an explicit negation the bare `posthog-node` group
+  // also catches `@oaknational/posthog-node`. Tier boundaries (core cannot
+  // import libs, and so on) still apply on their own terms.
+  describe.each(DENIED_BOUNDARIES)('%s consumer of the Oak adapter', (_name, rules) => {
+    it.each(['@oaknational/posthog-node', '@oaknational/posthog-node/package.json'])(
+      'never applies the vendor fence to %s',
+      (specifier) => {
+        const issues = lintVendorImport(rules, specifier);
+        for (const issue of issues) {
+          expect(issue.message).not.toContain('PostHog vendor SDKs');
+        }
+      },
+    );
+  });
+
+  it('allows the app to import the Oak adapter entrypoint', () => {
+    expect(lintVendorImport(appArchitectureRules, '@oaknational/posthog-node')).toStrictEqual([]);
+  });
+
   it.each(VENDOR_IMPORT_SPECIFIERS)(
     'survives a later no-restricted-imports override for %s',
     (specifier) => {
