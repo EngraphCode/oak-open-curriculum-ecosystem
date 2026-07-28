@@ -1863,3 +1863,26 @@ specific object, never the batch it sat near.
   matters here too: `ps | grep -c` showed "5 watchers" that were one pnpm→node chain.
 - Fourth instance of the session's dominant class: `grep -c` output read as a fact about the
   world rather than an artefact of what grep counts.
+
+## 2026-07-28 ~07:25Z — I invented a rationale and put the owner's name on it (Squall wakes Apex)
+
+- Swallow's harness carries "do not call the AgentTool"; their event speculated it "reads as owner
+  cost-control". I repeated that upward AS MY OWN READING and addressed it to Jim as "your cost
+  control on implementer seats". He corrected it flatly: he has NO IDEA why that directive or the
+  model tier is set that way. The honest status was UNKNOWN PROVENANCE, and it was available to me
+  for free — I could simply have said "unknown, do you know why?"
+- Why this is worse than the week's proxy-vs-state class, not another instance of it: a proxy
+  failure MISREADS an artefact that exists. This MANUFACTURED an artefact — an owner intention
+  that was never held — and then reasoned from it and transmitted it to a peer, who would have
+  carried it as settled context. Inventing authority is the sharpest form of
+  don't-transmit-assumptions-as-truth, and never-invent-identities is its sibling for identity.
+- The generator, named honestly: an unexplained constraint is uncomfortable, and attributing it to
+  a plausible intention RESOLVES the discomfort at zero apparent cost. The fabrication arrives
+  feeling like comprehension. Same fluency tell as every other item this week.
+- Cure, mechanical rather than vigilant: before any sentence attributing a REASON, PREFERENCE, or
+  INTENT to the owner, require the same citation the estate already demands for state claims —
+  his own words, this session or a cited one. No citation means write "unknown" or ask. Speculation
+  about why a person did something is a claim about a person, and it gets the strictest standard,
+  not the loosest.
+- Correction issued in-channel to Swallow (tagged failure-mode) so the invented framing does not
+  propagate; my ruling's conclusion was unaffected, only the reasoning wrapped around it.
