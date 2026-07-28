@@ -1,3 +1,27 @@
+# [1.111.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.110.0...v1.111.0) (2026-07-28)
+
+
+### Bug Fixes
+
+* **mcp-content:** anchor the post-audit C717 row on its real content ([ed6f62c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ed6f62cf002d5ebe5b5726ab1cfab84238c7679a))
+* **mcp-content:** close current-source review findings ([5f1c209](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5f1c2097deaaf29bda733b224c54e3a050cc6f98))
+* **mcp-content:** close current-source review gaps ([bcbfba2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bcbfba26de845a91ba1e13d7c33b9a0f14168f5f))
+* **mcp-content:** close the tagged-template span gap and blank-reason bypass ([9114e11](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9114e1194738f4bb0d0a9093d1a492517b91882c))
+* **mcp-content:** consolidate registration evidence ([401ad2d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/401ad2d76a2d99dc7cad693599b542f23abb8b64))
+* **mcp-content:** correct lineage and dormant channels ([ba39ca9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ba39ca96139d1d78f705bbed436087e60a47b98d))
+* **mcp-content:** deleted governed sources enter the delta ledger as tombstones ([5c2eaa3](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5c2eaa3ef463f8dea8401ef42daf3d26ca16b6a4))
+* **mcp-content:** govern current-source additions ([d7c0d38](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d7c0d38a573c35e53dab68afcc94c442ef0a1ed5))
+* **mcp-content:** land the reviewed six-file semantic-hash and narrow-gitleaks cure ([e18b6ec](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e18b6ec94c91a38697d15cc264cd76e94ec4dce2))
+* **mcp-content:** prove item-level current-source truth ([d6fba37](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d6fba376822a4589500ba1053a20c7c25f06df7e))
+* **mcp-content:** refresh latest-main evidence ([d0876a4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d0876a473ce1b534217085d6ab1847d4c8a8e3c2))
+* **mcp-content:** tagged-template raw spelling is part of the semantic hash ([7e6e3ca](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/7e6e3ca61465a75fefc57989607bb40d8d97f63b))
+* **mcp-content:** validate mode recomputes the anchor manifest from source ([386bdcd](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/386bdcd634157325e60b62b571d8384947b67907))
+
+
+### Features
+
+* **mcp-content:** add current-source truth set ([cbd83ac](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/cbd83ac1d4d36f84ff78e98805a8bd97a6961b84))
+
 # [1.110.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.109.2...v1.110.0) (2026-07-28)
 
 
