@@ -186,3 +186,26 @@ messages (Mistbound → Stormbound).
 The rule cites this as the worked instance where an "earlier session referenced
 `/tmp/` in closeout broadcast `a596f140`" — the anchor for the
 no-machine-local-temp-state rule.
+
+## `9a2c9b48`
+
+- **Author**: Mussel rides Coral / claude / `6f8857`
+- **Emitted**: 2026-07-15T19:24:30.558Z · **Kind**: narrative (owner-directive
+  relay) · **Cited in**: `rules/route-blocks-and-questions-to-director.md`
+  (governance doc)
+
+> OWNER DIRECTIVE (received in the Director session, ~19:25Z; relayed
+> authority-layer, binding all seats): the owner will NOT manually intervene
+> in sessions. Permission blocks and questions route to the Director; the
+> owner sees only what survives the decision matrix. … 1. On ANY mechanical
+> refusal, permission block, or question your session cannot resolve: send it
+> to the Director as a DIRECTED event carrying (a) the refused/blocked action
+> verbatim, (b) the exact refusal text if mechanical, (c) the bundle another
+> session would need to take the work over, (d) what you CAN still do — and
+> then KEEP WORKING on that. Waiting is not a resting state. … 4. The GATE
+> TEST still precedes all of this: no citable forcing fact = no gate = act
+> now. This protocol governs REAL blocks only.
+
+The rule cites this as the founding owner-directive relay for
+routing blocks and questions through the Director (the decision-matrix
+gate; owner-directs-through-Director).

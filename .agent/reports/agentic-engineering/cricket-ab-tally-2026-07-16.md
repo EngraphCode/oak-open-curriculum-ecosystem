@@ -276,3 +276,52 @@ route the flip call to the owner with this batch as evidence.
 
 — appended by Siren lifts Trench (af11f9), dedicated consolidation, from the
 Forge rides Brimstone (398e24) tenure batch
+
+## 2026-07-25 pair — Torch mends Residue (3bb236), Director takeover boundary
+
+- **Torch 12:22Z — DIVERGENT (sonnet ON-TRACK / haiku DRIFTING), known class,
+  cure existed and was under-applied**: the haiku's sole PROPORTION FAIL was the
+  frame asserting "applied + verified settings.json fallback" without carrying
+  the verification artefact — the grep output (lines 172/182/192 showing
+  `${CLAUDE_PROJECT_DIR:-.}`) existed first-hand in-session but was not cited in
+  the supplied frame. Exactly the class cure v2 shape (cite command outputs for
+  boundary-crossing claims); redirection discharged by evidence already in the
+  session transcript. Substance identical across both verdicts (both endorsed the
+  routing acts; the sonnet's one flag — hygiene-commit legitimacy — resolves to
+  the owner-set coordination-branch grant). Severity-only divergence, consistent
+  with the standing gradient (haiku↔sonnet diverge on severity, never
+  redirection substance).
+- **Flip-call routing remains open and is now Director-held (this seat)**: the
+  ~8–10 v3-era-pair threshold was already met-or-near at the 2026-07-20 batch;
+  post-batch pairs continue to accumulate (Osprey 2026-07-24 convergent;
+  Cormorant pairs C+D 2026-07-24 severity-only divergent; this pair). Mechanism:
+  card the owner at the next natural owner pause with this file as the evidence
+  body.
+
+## 2026-07-25 pair — Urchin herds Undertow (58000f), PR #518 correction lane
+
+- **Urchin ~15:05Z — DIVERGENT (sonnet ON-TRACK / haiku DRIFTING), known
+  supply-fidelity class**: haiku's DRIFTING verdict attached to the SUPPLIED
+  frame (context did not quote the forcing facts/consumer; validation read as
+  ceremony), not to the work itself. Urchin's adjudication evidence: the
+  critical-path ownership is owner-ratified (Director card, 2026-07-25
+  ~14:55Z), bot-credential/no-bypass constraints are binding ruleset facts,
+  and each verification step maps to a thread disposition. Severity-only
+  divergence again; redirection substance identical. Cure remains the v2
+  shape: frames must quote their forcing facts, not summarise them.
+- Recorded by Torch mends Residue (3bb236), Director; pair adjudicated
+  ON-TRACK by the invoking seat with Director concurrence. Flip-call remains
+  Director-held; this pair adds to the post-threshold accumulation.
+
+## 2026-07-25 — EXPERIMENT CONCLUDED: owner ruling at Director card (~15:06Z)
+
+The A/B ends with neither model flipped nor retired. Owner ruling (verbatim
+intent): both models continue PERMANENTLY, always as two pairs — two teams,
+each with one Sonnet and one Haiku. One pair runs the current cricket
+instructions; the other pair focuses on counterfactuals and adversarial
+perspectives. The severity-only divergence corpus (this file) stands as the
+evidence base: haiku's strict evidence bar is retained as signal inside each
+pair rather than adjudicated away. Implementation (agent definitions for the
+adversarial pair, invocation-contract update in the cricket mandate, frame
+rule graduation) is pointered in Linear — MCP ticket minted 2026-07-25 by the
+Director; this file is thereafter a closed record.

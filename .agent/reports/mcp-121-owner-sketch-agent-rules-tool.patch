@@ -1,0 +1,137 @@
+# MCP-121 owner sketch: get-agent-rules-and-guidance tool
+#
+# Provenance: Jim Cresswell's working sketches for the guidance-serving
+# architecture (plan: .agent/plans/delivery/mcp-121-guidance-serving-architecture.plan.md,
+# ratified 2026-07-23), captured as a patch artefact by owner card
+# (2026-07-23 ~14:35, via Director) instead of live working-file state.
+#
+# Why a patch, not live code: the type system correctly refuses the
+# guidance-data listing of a tool with no definition — AllToolName's
+# AggregatedToolName leg carries a bidirectional satisfies guard in
+# universal-tools/definitions.ts demanding a full tool definition
+# (description + inputSchema). Listing the tool is transitively
+# "implement the tool", which is MCP-121's own build deliverable.
+# Until then the sketch cannot sit green in the tree.
+#
+# Owner ruling folded in (card 2026-07-23 ~14:22): get-agent-rules-and-guidance
+# takes callOrder 0 ("call order 0 is a special case, it makes it almost
+# certain the agent will read the instruction"); get-curriculum-model
+# shifts to 1. Test descriptions updated to match.
+#
+# Base sha: 36b94f280268f5b5a6f2411927fb4649a249566e (coordination/estate-2026-07)
+# Contains: new tool metadata entry + callOrder assignments +
+# .toSorted refactors + prerequisite-guidance re-export reshuffle +
+# guidance-data listing + updated test descriptions.
+# Pickup: the MCP-121 build phase. Expect to implement the tool
+# definition/handler to make the guidance-data hunk compile.
+diff --git a/packages/sdks/oak-curriculum-sdk/src/mcp/agent-support-tool-metadata.ts b/packages/sdks/oak-curriculum-sdk/src/mcp/agent-support-tool-metadata.ts
+index de14e538a..6d9f023c9 100644
+--- a/packages/sdks/oak-curriculum-sdk/src/mcp/agent-support-tool-metadata.ts
++++ b/packages/sdks/oak-curriculum-sdk/src/mcp/agent-support-tool-metadata.ts
+@@ -62,6 +62,18 @@ export const AGENT_SUPPORT_TOOL_METADATA = {
+     ],
+     purpose:
+       'understand the Oak curriculum domain model and how to use available tools — call this ONCE at conversation start',
++    callOrder: 1,
++    complementsTools: ['search', 'fetch'],
++    seeAlso:
++      'search for finding content, fetch for retrieving details, browse-curriculum for browsing',
++    callAtStart: true,
++  },
++  'get-agent-rules-and-guidance': {
++    name: 'get-agent-rules-and-guidance',
++    shortDescription: 'Oak-specific rules and guidance',
++    provides: ['agent rules', 'agent guidance'],
++    purpose:
++      'fetch the rules and guidance the agent must follow when working with the Oak app or with Oak content — call this ONCE at conversation start',
+     callOrder: 0,
+     complementsTools: ['search', 'fetch'],
+     seeAlso:
+@@ -99,13 +111,13 @@ export function generateServerInstructions(): string {
+   const startTools = allTools.filter((t) => t.callAtStart);
+ 
+   const toolLines = startTools
+-    .sort((a, b) => a.callOrder - b.callOrder)
++    .toSorted((a, b) => a.callOrder - b.callOrder)
+     .map(
+       (t) => `${String(t.callOrder)}. ${t.name} - ${t.shortDescription}: ${t.provides.join(', ')}`,
+     );
+ 
+   const relationshipLines = allTools
+-    .sort((a, b) => a.callOrder - b.callOrder)
++    .toSorted((a, b) => a.callOrder - b.callOrder)
+     .map((t) => `- ${t.name}: ${t.purpose}. See also: ${t.seeAlso}`);
+ 
+   return `Oak Curriculum MCP Server - AI Agent Guidance
+@@ -135,7 +147,7 @@ For questions that are not about curriculum content — about the mechanisms by
+  */
+ export function generateContextHint(): string {
+   const toolNames = typeSafeValues(AGENT_SUPPORT_TOOL_METADATA)
+-    .sort((a, b) => a.callOrder - b.callOrder)
++    .toSorted((a, b) => a.callOrder - b.callOrder)
+     .map((t) => t.name);
+ 
+   return `If you have not called ${toolNames.join(' or ')} yet, do so before your next tool call — it provides the domain model and tool guidance needed for accurate results.`;
+diff --git a/packages/sdks/oak-curriculum-sdk/src/mcp/agent-support-tool-metadata.unit.test.ts b/packages/sdks/oak-curriculum-sdk/src/mcp/agent-support-tool-metadata.unit.test.ts
+index 20650660b..b1986ae8f 100644
+--- a/packages/sdks/oak-curriculum-sdk/src/mcp/agent-support-tool-metadata.unit.test.ts
++++ b/packages/sdks/oak-curriculum-sdk/src/mcp/agent-support-tool-metadata.unit.test.ts
+@@ -194,11 +194,16 @@ describe('getAgentSupportToolMetadata', () => {
+     expect(AGENT_SUPPORT_TOOL_METADATA).toHaveProperty('get-curriculum-model');
+   });
+ 
+-  it('get-curriculum-model has callOrder 0', () => {
+-    const metadata = getAgentSupportToolMetadata('get-curriculum-model');
++  it('get-agent-rules-and-guidance holds callOrder 0 so its instructions read first', () => {
++    const metadata = getAgentSupportToolMetadata('get-agent-rules-and-guidance');
+     expect(metadata.callOrder).toBe(0);
+   });
+ 
++  it('get-curriculum-model has callOrder 1', () => {
++    const metadata = getAgentSupportToolMetadata('get-curriculum-model');
++    expect(metadata.callOrder).toBe(1);
++  });
++
+   it('get-curriculum-model has callAtStart true', () => {
+     const metadata = getAgentSupportToolMetadata('get-curriculum-model');
+     expect(metadata.callAtStart).toBe(true);
+diff --git a/packages/sdks/oak-curriculum-sdk/src/mcp/prerequisite-guidance.ts b/packages/sdks/oak-curriculum-sdk/src/mcp/prerequisite-guidance.ts
+index 79ed460fe..64a1fb1d7 100644
+--- a/packages/sdks/oak-curriculum-sdk/src/mcp/prerequisite-guidance.ts
++++ b/packages/sdks/oak-curriculum-sdk/src/mcp/prerequisite-guidance.ts
+@@ -14,11 +14,10 @@
+  * support tools and their relationships.
+  */
+ 
+-import {
+-  generateServerInstructions,
+-  generateContextHint,
+-  AGENT_SUPPORT_TOOL_NAMES,
+-} from './agent-support-tool-metadata.js';
++import { generateServerInstructions, generateContextHint } from './agent-support-tool-metadata.js';
++
++/** Re-export for local use. */
++export { AGENT_SUPPORT_TOOL_NAMES } from './agent-support-tool-metadata.js';
+ 
+ /**
+  * The name of the primary orientation tool that provides complete domain understanding.
+@@ -94,6 +93,3 @@ export const OAK_CONTEXT_HINT = generateContextHint();
+  * high-priority guidance about agent support tools.
+  */
+ export const SERVER_INSTRUCTIONS = generateServerInstructions();
+-
+-// Re-export for convenience
+-export { AGENT_SUPPORT_TOOL_NAMES };
+diff --git a/packages/sdks/oak-curriculum-sdk/src/mcp/tool-guidance-data.ts b/packages/sdks/oak-curriculum-sdk/src/mcp/tool-guidance-data.ts
+index 0b0820e38..5bd1f10c3 100644
+--- a/packages/sdks/oak-curriculum-sdk/src/mcp/tool-guidance-data.ts
++++ b/packages/sdks/oak-curriculum-sdk/src/mcp/tool-guidance-data.ts
+@@ -136,7 +136,7 @@ export const toolGuidanceData = {
+     } satisfies ToolCategory,
+ 
+     agentSupport: {
+-      tools: ['get-curriculum-model'],
++      tools: ['get-agent-rules-and-guidance', 'get-curriculum-model'],
+       description:
+         'Agent orientation tool. get-curriculum-model provides the complete domain model (key stages, subjects, entity hierarchy, property graph) and tool usage guidance in a single call.',
+       whenToUse:

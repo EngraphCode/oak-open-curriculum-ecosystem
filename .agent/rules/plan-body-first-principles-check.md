@@ -2,8 +2,8 @@
 
 Before authoring a plan, acceptance criterion, outcome, or status — or
 authoring the tests, implementations, or doctrine a plan body prescribes — run
-the five-clause first-principles check (clauses 1–3 screen a prescribed shape
-you are about to execute; clauses 4–5 screen a plan/acceptance/outcome/status
+the six-clause first-principles check (clauses 1–3 screen a prescribed shape
+you are about to execute; clauses 4–6 screen a plan/acceptance/outcome/status
 you are about to author). If any clause fails, surface the mismatch to the owner
 before writing code or doctrine.
 
@@ -45,7 +45,19 @@ before writing code or doctrine.
    sequence the work to a named gate or a falsifiable tripwire ("when the
    schema migration lands"), or admit not-doing, never a bare `deferred`
    status ("when we get to it").
-5. **Rules-tier clause.** Does the plan presuppose a pattern that an
+5. **Record-consumer clause.** Does the plan add an accounting surface — a
+   ledger, manifest, register, log, or per-item disposition record? Then it
+   MUST name the surface's READER and the decision that reading it changes.
+   A write-only record is a design defect at authoring time: it costs
+   ceremony forever, and a gate built on it can manufacture a standing
+   "impossible" over a trivial operation (worked instance 2026-07-26,
+   PDR-094 retrospective: a per-event disposition manifest shipped through
+   two adversarial review rounds and an owner ratification with exactly one
+   reader — the machine that wrote it — and its gate held ~1,400 events in
+   a "cannot move" state for six weeks; the who-reads-this check was two
+   tool calls). Falsifier for this clause: a quarter of plan reviews where
+   the question never changes a design — then it is ceremony; remove it.
+6. **Rules-tier clause.** Does the plan presuppose a pattern that an
    always-applied rule forbids? Screen the plan against the always-applied rules
    tier ([`RULES_INDEX.md`](../../RULES_INDEX.md)), not only principles — a plan
    can be principle-aligned yet violate a specific rule. This clause is applied

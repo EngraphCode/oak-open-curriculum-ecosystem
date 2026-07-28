@@ -92,3 +92,4 @@ history); captured here so the lineage is discoverable.
 | `Moss weaves Blossom` | `claude` | `Fable 5` | `10438c` | v2 landing + close (PR #189); P1 diagnosis | 2026-06-12 | 2026-06-12 |
 | `Swift Gliding Zephyr` | `claude` | `Fable 5` | `aba87a` | v2 registry/derivation build; mid-cycle handoff author | 2026-06-11 | 2026-06-11 |
 | `Tuna stirs Fathom` | `claude` | `Opus 4.8 (1M)` | `9767ba` | plan deep-dive + substrate-connection cross-link (no source touched) | 2026-06-30 | 2026-06-30 |
+| `Sirocco holds Feather` | `claude` | `claude-fable-5` | `bf935d` | PR #515 fix lane: visual-disambiguator delivery plan converged through 8 review waves + owner-accepted render-time reframe (Revision 3), merged `d76eab19a`; ticket MCP-145; plan stays sketch pending owner ratification | 2026-07-24 | 2026-07-24 |

@@ -168,7 +168,8 @@ is [the design record](../../../reports/agentic-engineering/plan-estate-refoundi
 The donor-side method evidence re-sources from
 [`resonance-practice-knowledge.md`](../../../reference/resonance-practice-knowledge.md) and the
 incoming box synthesis
-([`resonance-plan-estate-refounding-synthesis-2026-07-06.md`](../../../practice-core/incoming/resonance-plan-estate-refounding-synthesis-2026-07-06.md)).
+(`resonance-plan-estate-refounding-synthesis-2026-07-06.md`, integrated and
+cleared from the practice box 2026-07-23 — content in git history).
 
 ## R1 execution progress (2026-07-15)
 

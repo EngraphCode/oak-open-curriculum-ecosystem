@@ -63,7 +63,24 @@ different costume of the same class:
 - **Check obligations, not just presence**: sweep sibling-removal
   instructions and the asset's own contract obligations (licence conditions,
   schema requirements, API contracts) alongside internal consistency.
+  **Absence-blindness corollary**: a completeness verdict must enumerate the
+  AUTHORITY'S own required/obligation list, never the visible instances —
+  enumeration-based reads (list the tickets, list the checks, grep the
+  edited files) are structurally blind to invisible absences (three in one
+  day, 2026-07-24: an untracked milestone item, a required check never
+  created, an unreconciled sibling ADR; a fourth 2026-07-24 — the #517
+  never-created CodeQL aggregate — graduated into pr-lifecycle's
+  required-names-present leg).
 - **Check the same surface the claimant checked** before refuting a claim.
+
+- **Name the OBJECT the instrument ran against** before believing its
+  verdict — the SHA, the resolved version, the live-vs-residual store state.
+  Three instances in one 2026-07-25 lane: a cached lint measured the OLD
+  plugin; a `node_modules/.pnpm/<pkg>@*` listing measured store residue from
+  prior installs, not the live resolution; a hand-built release monitor
+  measured the PREVIOUS PR's run (the newest run was not the awaited one —
+  the SHA mismatch was the save). A green is a measurement, and a
+  measurement is worthless until you can say what it measured.
 
 The connecting discipline: before trusting any verification verdict, name
 the question the method actually answers, and confirm it is the question at

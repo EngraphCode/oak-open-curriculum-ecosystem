@@ -34,7 +34,9 @@ The cardinal anti-pattern with Sonar is the rule-level disable (a `sonar.issue.i
 
 Per-issue dismissals via `change_sonar_issue_status` (status `accept` / `falsepositive`) are acceptable when each disposition is grounded in a specific architectural tension at that site, not a labelled category. The full discipline is documented in [`docs/engineering/quality-tooling-mcp-coupling.md`](../../docs/engineering/quality-tooling-mcp-coupling.md) §Per-finding investigation discipline.
 
-Quality-gate severity arithmetic on PRs: a SINGLE new MINOR vulnerability can alone fail the `new_vulnerabilities_severity` condition (severity score over threshold), so a PR's gate can read ERROR after every other finding is fixed at source until that one finding's disposition lands — and status dispositions are an owner-credential moment (agents have no Sonar write access). Surface it; never read the residual ERROR as unfixed work.
+Quality-gate severity arithmetic on PRs: a SINGLE new MINOR vulnerability can alone fail the `new_vulnerabilities_severity` condition (severity score over threshold), so a PR's gate can read ERROR after every other finding is fixed at source until that one finding's disposition lands. Surface the residual at its action moment; never read the residual ERROR as unfixed work.
+
+**Amendment (2026-07-26, owner word):** the parenthetical this paragraph formerly carried — "agents have no Sonar write access" — is falsified. Agents CAN execute per-site status dispositions through the authenticated Sonar CLI when the owner directs them (worked instance: the three PR #565 rule-vs-accessibility accepts, owner-directed, executed agent-side with source-cited rationale comments the same day). Dispositions remain owner-DIRECTED — the ruling to accept is his; the execution need not wait for his hands. The falsified line had propagated into a handoff record as "needs owner credentials" and stalled a lane on a wait that was never necessary — the frozen-text false-authority class.
 
 ## Ground in the governing doctrine before fixing or dispositioning
 

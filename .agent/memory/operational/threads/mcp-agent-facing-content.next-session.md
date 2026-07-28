@@ -28,6 +28,120 @@ this thread is about the *authored framing/instructions/descriptions* Oak contro
 | claude-code | claude-fable-5 | 8c566b | Monsoon herds Airstream | pr-shepherd | 2026-07-13 | 2026-07-13 |
 | codex | GPT-5 | 019f5b | Acacia wakes Sapling | explorer | 2026-07-13 | 2026-07-13 |
 | claude-code | claude-fable-5 | b51773 | Urchin hunts Surf | implementer — MCP-103 phase (a): registry delta-refresh + workspace recommendation, PR #476 MERGED (240a598607b9) | 2026-07-22 | 2026-07-22 |
+| codex | GPT-5 | 019f9f | Smelter rides Temper | implementer — MCP-103 phases (b)/(c), PR #582 shepherd | 2026-07-26 | 2026-07-27 |
+
+## Urgent Handoff — PR #582 Is Pushed but the Reviewed Cure Is Local
+
+**Custody transfers in full to Director Squall wakes Apex (459fd1) and the successor they name.**
+Smelter rides Temper (019f9f) has stopped all source work and retired because the Codex credit
+limit prevents further approved writes and live GitHub reads. The platform error was:
+`Automatic approval review failed: You've hit your usage limit. Visit
+https://chatgpt.com/codex/settings/usage to purchase more credits or try again at Aug 2nd, 2026
+7:15 PM.`
+
+The state has two distinct layers and is **not safe/complete**:
+
+1. **Remote PR #582:** branch
+   `jimcresswell/mcp-103-model-behaviour-content-workspace-all-repo-controlled-mcp`, last
+   verified pushed head `SHA:11bfdf01e206c2d28e8f8d724d0a84cfc4333b2b`. The PR body describes
+   that pushed head. Remote CI, current mergeability, latest `origin/main`, and any review
+   activity after the credit failure are unverified.
+2. **Local worktree:** locate the worktree for that branch with `git worktree list`. Its HEAD is
+   the same `SHA:11bfdf01e206c2d28e8f8d724d0a84cfc4333b2b`, but it has six uncommitted
+   tracked files containing the reviewed follow-up:
+   - `.agent/reports/mcp-agent-facing-content-audit/current-source-delta-inventory.json`
+   - `.gitleaks.toml`
+   - `agent-tools/src/mcp-content-current-source/current-source-delta-inventory.unit.test.ts`
+   - `agent-tools/src/mcp-content-current-source/current-source-delta-reviews-app.ts`
+   - `agent-tools/src/mcp-content-current-source/current-source-delta-reviews-sdk.ts`
+   - `agent-tools/src/mcp-content-current-source/semantic-source-sha256.ts`
+
+Do not reset, clean, rebase, or replace that worktree before reading its diff. The local cure:
+
+- hashes the full TypeScript token stream, including scalar AST properties/operators/flags that
+  `forEachChild` missed;
+- preserves deliberate invariance for redundant expression/type parentheses and JSDoc/trivia;
+- adds an explicit optional-chain marker so grouping such as `(a?.b).c` is not collapsed into
+  `a?.b.c`;
+- mechanically refreshes the 53-entry delta ledger and the exact reviewed hashes;
+- narrows the gitleaks exception from a path-wide exclusion to the exact generated
+  `baselineSha256`/`tokenSha256` line shapes.
+
+The last narrowing correctly exposed one remaining false positive, and that is the **only known
+local gate blocker**: C436 contains
+`"indexToken": "ineffectiveness"` in
+`current-source-anchors.json`; gitleaks classifies it as `generic-api-key`. Add a second
+`[[allowlists]]` entry with `condition = "AND"`, the same exact anchors path, `regexTarget =
+"line"`, and an exact line regex matching only the `indexToken` value `ineffectiveness`.
+Every other source-derived index token must remain scanned. The attempted patch was rejected by
+the credit limit and is not present.
+
+### Evidence at the Local Cure
+
+- focused semantic unit file: 8/8 pass;
+- `pnpm --dir agent-tools type-check`: pass;
+- targeted ESLint: zero errors, one pre-existing test warning;
+- `pnpm --dir agent-tools validate-mcp-content-current-source`: pass, 725 current items and
+  HTTP registration root walked;
+- full agent-tools tests: 333 files, 3,449 tests pass;
+- `pnpm repo-validators:check`, `pnpm knip`, `pnpm depcruise`,
+  `pnpm format-check:root`, and `git diff --check`: pass;
+- code-gateway re-review: APPROVE;
+- MCP-semantics re-review: APPROVE after the optional-chain correction;
+- full `pnpm secrets:scan`: fails only on the C436 false positive above.
+
+These are local observations, not evidence about the current remote head. No fresh whole-repo
+`pnpm check` was run at closeout; this seat was not the team closeout owner, and the known
+secret-scan red prevents a green claim.
+
+### Review and Continuation Order
+
+The last verified unresolved actionable GitHub review threads were:
+
+- `PRRT_kwDOPUA_4M6UCVfY` — semantic digest omitted scalar AST/operator/flag information;
+- `PRRT_kwDOPUA_4M6UCVf0` — gitleaks path-only allowlist was too broad.
+
+Two earlier threads were fixed, replied to, and resolved:
+`PRRT_kwDOPUA_4M6UB6YI` and `PRRT_kwDOPUA_4M6UB6Yu`.
+
+Resume in this order:
+
+1. Read the local diff and add only the exact C436 line allowlist. **Falsifier:** any credential-
+   shaped index-token fixture escapes scanning, or secrets scan reports more than the known
+   classified line.
+2. Run the full secret scan, regenerate/validate the current-source artefacts if the edit affects
+   them, and repeat the proportional gates above. **Falsifier:** artefact count differs from 725,
+   the inventory differs from 53 entries, or any gate is red/warning-bearing beyond the recorded
+   pre-existing ESLint warning.
+3. Fetch the latest code before integrating because the owner explicitly chose latest main.
+   Reconcile without discarding the worktree. **Falsifier:** main advanced into overlapping files
+   or the branch cannot be reconciled cleanly.
+4. Commit through the coordination queue, push, update the PR body, then reply to and resolve the
+   two threads only with evidence at the pushed head. **Falsifier:** GitHub still reports any
+   unresolved review thread or the pushed SHA does not match local HEAD.
+5. Wait for exact-head CI and a final settled read. Merge only under the Director/owner's current
+   standing rule. **Falsifier:** any check is pending/red, review is unresolved, mergeability is
+   not clean, or the Director has changed the freeze ruling.
+
+### Concept-Exploration Result and Metaloss Closure
+
+The handoff problem is custody across a discontinuity, not code completion. The harmful failure
+would be a successor trusting the pushed PR as the reviewed state, erasing the local cure, or
+resolving review before exact-head evidence. The assumption that changed was “pushed means
+current”: it does not while a reviewed six-file cure remains uncommitted. A second changed
+assumption was that narrowing the secret allowlist would simply turn the gate green; instead it
+surfaced one legitimate false positive that now needs a line-exact exception.
+
+Metaloss pass 1 recovered the remote/local split, unknown remote CI and latest-main state, the
+single gitleaks error signature, the optional-chain semantic edge, stale PR body, and the dead
+watcher. Pass 2 recovered where each fact now lives, transferred the promise to shepherd PR #582,
+and bounded the blind spot created by unavailable live GitHub access. Scratch refresh and fixture
+files were deliberately context-only; the tracked diff and commands above are the durable
+continuation. A third pass would only re-find the indexed homes and stated external blind spots;
+recursion closes here.
+
+Deep consolidation is not due: this is an incomplete single-PR slice, and its thread-specific
+execution knowledge is conserved here rather than promoted into cross-session doctrine.
 
 ## Landing Target For Next Session (trued 2026-07-13, Monsoon herds Airstream)
 

@@ -115,7 +115,8 @@ closure register at
    detection gap that Cursor Bugbot caught twice on this PR.
 3. **`eslint-plugin-sonarjs` rule activation** — owned by the existing
    multi-phase plan
-   `sonarjs-activation-and-sonarcloud-backlog.plan.md` (`../../../../plans-old-archive/architecture-and-infrastructure/archive/sonarjs-activation-and-sonarcloud-backlog.plan.md`).
+   `sonarjs-activation-and-sonarcloud-backlog.plan.md`
+   (in `plans-old-archive`, architecture-and-infrastructure archive).
    The 12 Sonar fixes landed in `78718b3b` reduce the activation backlog.
 
 ## Session Shape and Grounding Order
