@@ -26,16 +26,23 @@ describe('fetch inputSchema round-trip', () => {
     expect(FETCH_INPUT_SCHEMA).toBeDefined();
   });
 
-  it('z.toJSONSchema() carries a non-empty examples array on the id field', () => {
-    // Behaviour, never config: the mechanism under test is that
-    // `.meta({ examples })` survives the round-trip to the wire. Whether the
-    // example VALUES are true of deployed data is a live-probe concern
-    // (owner ruling 2026-07-28: tests never test config, only behaviour).
+  it('z.toJSONSchema() carries the authored id metadata to the wire unchanged', () => {
+    // Behaviour, never config: the mechanism under test is that whatever
+    // `.meta({ examples })` is authored reaches the wire unchanged — a
+    // presence-only assertion would stay green if conversion truncated or
+    // replaced the authored values. Whether the example VALUES are true of
+    // deployed data is a live-probe concern (owner ruling 2026-07-28:
+    // tests never test config, only behaviour).
     const jsonSchema = z.toJSONSchema(z.object(FETCH_INPUT_SCHEMA));
     const { properties } = JsonSchemaPropertiesSchema.parse(jsonSchema);
 
-    expect(Array.isArray(properties.id?.examples)).toBe(true);
-    expect(properties.id?.examples?.length).toBeGreaterThan(0);
+    expect(
+      FETCH_INPUT_SCHEMA.id.meta()?.examples,
+      'id advertises at least one example',
+    ).not.toHaveLength(0);
+    expect(properties.id?.examples, 'id: metadata in, metadata on the wire').toEqual(
+      FETCH_INPUT_SCHEMA.id.meta()?.examples,
+    );
   });
 
   it('z.toJSONSchema() produces a description on the id field', () => {

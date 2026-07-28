@@ -8,7 +8,10 @@
 
 import { z } from 'zod';
 
-export const FETCH_INPUT_SCHEMA: z.ZodRawShape = {
+// `satisfies` (not a type annotation) keeps the per-field Zod types visible
+// to consumers — the round-trip test reads `.meta()` off the id field — while
+// still proving the object is a valid raw shape for MCP registration.
+export const FETCH_INPUT_SCHEMA = {
   id: z
     .string()
     .describe(
@@ -23,4 +26,4 @@ export const FETCH_INPUT_SCHEMA: z.ZodRawShape = {
         'thread:number-multiplication-and-division',
       ],
     }),
-};
+} satisfies z.ZodRawShape;
