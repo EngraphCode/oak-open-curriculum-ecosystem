@@ -1,3 +1,10 @@
+## [1.107.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.107.0...v1.107.1) (2026-07-28)
+
+
+### Bug Fixes
+
+* **widget:** centre the disclaimer text and keep full shell padding in host iframes ([cdd534e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/cdd534e4520678e0ebe0c913475028633ac8fde2))
+
 # [1.107.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.106.1...v1.107.0) (2026-07-28)
 
 
