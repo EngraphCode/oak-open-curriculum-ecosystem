@@ -22,6 +22,11 @@ By participating in this project, you agree to abide by our
 
 ## Working with AI Coding Agents
 
+**Start with [Working with this Repo for Devs](docs/engineering/working-with-this-repo-for-devs.md)**
+— the practical guide: how you direct the work, what the agents do around you, and what
+keeps the quality honest. The rest of this section covers what sits underneath it:
+AGENT.md and the per-platform entry files.
+
 This repository is designed to be worked on with AI coding agents
 alongside humans. The agent-facing rules, sub-agent reviewers, skills,
 and the wider system that governs how the codebase is built and
@@ -76,8 +81,8 @@ context.
 The team's skill and command vocabulary lives under
 [`.agent/skills/`](.agent/skills/) (canonical) with platform adapters under
 [`.claude/skills/`](.claude/skills/) and equivalents for other agents. Open
-every session with the platform adapter for `oak-start-right-quick` and close
-it with the platform adapter for `oak-session-handoff`. The docs index keeps
+every session with the platform adapter for a start-right skill and close
+it with the platform adapter for `oak-wrap`. The docs index keeps
 the current platform invocation forms in
 [`docs/README.md`](docs/README.md#getting-started).
 

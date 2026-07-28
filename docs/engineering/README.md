@@ -3,7 +3,7 @@ boundary: B4-Engineering-Operations
 doc_role: index
 authority: engineering-navigation
 status: active
-last_reviewed: 2026-02-25
+last_reviewed: 2026-07-28
 ---
 
 # Engineering Documentation
@@ -13,6 +13,7 @@ This directory contains engineering workflow and implementation documentation fo
 ## Contents
 
 - [Root README Quick Start](../../README.md#quick-start) - Architecture, setup, and key commands for new developers
+- [Working with this Repo for Devs](./working-with-this-repo-for-devs.md) - The practical guide for developers: how you direct the work, what the agents do around you, and what keeps the quality honest
 - [Sibling Repositories](./sibling-repos.md) - Related Oak repos a teammate may need to clone
 - [MCP Servers for Contributors](./mcp-servers-for-contributors.md) - Sanctioned MCP server set for AI coding agents
 - [Tooling](./tooling.md) - Development tools, versions, and setup instructions
