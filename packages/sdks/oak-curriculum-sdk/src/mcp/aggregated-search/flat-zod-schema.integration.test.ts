@@ -14,30 +14,40 @@ import { describe, it, expect } from 'vitest';
 import { z } from 'zod';
 import { SEARCH_INPUT_SCHEMA } from './flat-zod-schema.js';
 
+const JsonSchemaPropertiesSchema = z.object({
+  properties: z.record(z.string(), z.looseObject({ examples: z.array(z.unknown()).optional() })),
+});
+
 describe('search inputSchema round-trip', () => {
   it('exports a defined inputSchema', () => {
     expect(SEARCH_INPUT_SCHEMA).toBeDefined();
   });
 
-  it('z.toJSONSchema() produces examples on fields with examples', () => {
+  it('z.toJSONSchema() carries authored field metadata to the wire unchanged', () => {
+    // Behaviour, never config (owner ruling 2026-07-28): WHICH fields
+    // advertise examples is an authoring choice; the invariant is the
+    // transform — whatever `.meta({ examples })` is authored reaches the
+    // wire JSON Schema unchanged, including through union and enum
+    // wrappers, and fields with no metadata stay bare on both sides. The
+    // example VALUES' truth against deployed data is a live-probe concern.
     const jsonSchema = z.toJSONSchema(z.object(SEARCH_INPUT_SCHEMA));
+    const { properties } = JsonSchemaPropertiesSchema.parse(jsonSchema);
 
-    expect(jsonSchema).toHaveProperty('properties.query.examples', [
-      'photosynthesis',
-      'adding fractions',
-      'the Romans',
-      'electricity and circuits',
-    ]);
-    expect(jsonSchema).toHaveProperty('properties.scope.examples', ['lessons', 'units', 'threads']);
-    expect(jsonSchema).toHaveProperty('properties.subject.examples', [
-      'maths',
-      'science',
-      'english',
-    ]);
-    expect(jsonSchema).toHaveProperty('properties.keyStage.examples', ['ks2', 'ks3']);
-    expect(jsonSchema).toHaveProperty('properties.unitSlug.examples', ['fractions', 'the-romans']);
-    expect(jsonSchema).toHaveProperty('properties.tier.examples', ['foundation', 'higher']);
-    expect(jsonSchema).toHaveProperty('properties.examBoard.examples', ['aqa', 'edexcel', 'ocr']);
+    const advertised = Object.entries(SEARCH_INPUT_SCHEMA).filter(
+      ([, schema]) => schema.meta()?.examples !== undefined,
+    );
+    expect(advertised, 'at least one field must advertise examples').not.toHaveLength(0);
+    for (const [field, schema] of advertised) {
+      expect(schema.meta()?.examples, `${field} advertises at least one example`).not.toHaveLength(
+        0,
+      );
+    }
+
+    for (const [field, schema] of Object.entries(SEARCH_INPUT_SCHEMA)) {
+      expect(properties[field]?.examples, `${field}: metadata in, metadata on the wire`).toEqual(
+        schema.meta()?.examples,
+      );
+    }
   });
 
   it('z.toJSONSchema() produces descriptions on all 16 fields', () => {
@@ -59,29 +69,5 @@ describe('search inputSchema round-trip', () => {
     expect(jsonSchema).toHaveProperty('properties.phaseSlug.description');
     expect(jsonSchema).toHaveProperty('properties.category.description');
     expect(jsonSchema).toHaveProperty('properties.limit.description');
-  });
-
-  it('fields without examples do not have examples property', () => {
-    const jsonSchema = z.toJSONSchema(z.object(SEARCH_INPUT_SCHEMA));
-
-    expect(jsonSchema).not.toHaveProperty('properties.size.examples');
-    expect(jsonSchema).not.toHaveProperty('properties.from.examples');
-    expect(jsonSchema).not.toHaveProperty('properties.threadSlug.examples');
-    expect(jsonSchema).not.toHaveProperty('properties.highlight.examples');
-    expect(jsonSchema).not.toHaveProperty('properties.minLessons.examples');
-    expect(jsonSchema).not.toHaveProperty('properties.limit.examples');
-  });
-
-  it('year field has examples despite union structure', () => {
-    const jsonSchema = z.toJSONSchema(z.object(SEARCH_INPUT_SCHEMA));
-
-    expect(jsonSchema).toHaveProperty('properties.year.examples', ['3', '7', 10]);
-  });
-
-  it('phaseSlug and category fields have correct example status', () => {
-    const jsonSchema = z.toJSONSchema(z.object(SEARCH_INPUT_SCHEMA));
-
-    expect(jsonSchema).toHaveProperty('properties.phaseSlug.examples', ['primary', 'secondary']);
-    expect(jsonSchema).not.toHaveProperty('properties.category.examples');
   });
 });

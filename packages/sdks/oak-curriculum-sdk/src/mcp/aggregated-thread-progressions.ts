@@ -53,21 +53,24 @@ const THREAD_PROGRESSIONS_INPUT = z.object({
     .optional()
     .describe(
       'Detail anchor: one thread slug (corpus key). Returns that thread’s full year-ordered unit progression. Exactly one anchor mode per call.',
-    ),
+    )
+    .meta({ examples: ['number-fractions'] }),
   subject: z
     .string()
     .min(1)
     .optional()
     .describe(
       'Discovery anchor (with keyStage): a subject slug, e.g. "maths". Returns bounded thread descriptors without sequences. Exactly one anchor mode per call.',
-    ),
+    )
+    .meta({ examples: ['maths'] }),
   keyStage: z
     .string()
     .min(1)
     .optional()
     .describe(
       'Discovery anchor (with subject): a key-stage slug, e.g. "ks2". Returns bounded thread descriptors without sequences.',
-    ),
+    )
+    .meta({ examples: ['ks2'] }),
 });
 
 /** The parse-time contract: threadSlug XOR (subject AND keyStage together). */
