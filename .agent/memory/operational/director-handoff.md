@@ -264,7 +264,156 @@ first-hand as of 2026-06-25.
 
 > ### ▶ SITTING DIRECTOR: Squall wakes Apex (`459fd1`), seated 2026-07-26 at owner word (Moment-2 `f1d9a6f2`); claim `56fdd977`, role director
 >
-> **EVENING REFRESH 2026-07-28 ~17:10Z — supersedes every block below;
+> ### ▶ SUCCESSOR PRE-POSITIONED (PDR-064 Moment 1), 2026-07-28 ~21:10Z: Moon rides Penumbra (`7e34ff`), owner-designated, standby contract — watcher live, no claim, no heartbeat. AUTHORITY IS STILL MINE until its Moment-2.
+>
+> **HANDOVER REFRESH 2026-07-28 ~21:10Z — supersedes every block below.**
+>
+> **READ THIS PART FIRST: most of what follows the next two sections is already
+> wrong, and that is structural, not sloppiness.** I wrote a carefully-grounded
+> state capture at 17:30Z. By 21:00Z — three and a half hours — it was false in
+> six places: #582 had gone from `dirty/uncarried` to mergeable-and-carried;
+> MCP-319 had merged (#616, #617); two more of Raccoon's PRs had merged (#615,
+> #618); "20 behind main" was 39; "three lanes" was six seats; and the item I
+> had flagged as **the** urgent owner-gated one-way door had been ruled by the
+> owner to be not ours at all. Every one of those was grounded when written.
+>
+> The lesson for the seat, and the reason the owner keeps saying _do not accept
+> inherited positions_: **a Director handoff has two kinds of content, and only
+> one of them may be inherited.** Owner rulings, deliberate-looking oddities and
+> recorded mistakes are durable and must be carried verbatim. Lane state, PR
+> numbers, branch positions and "next steps" are derivable, decay in tens of
+> minutes, and must be RECOMPUTED — never read off this file. Where a fact below
+> is derivable I give the command instead of the value. Where I give a value, it
+> is because no command yields it.
+>
+> **RECOMPUTE, DO NOT INHERIT** — run these before any routing decision:
+>
+> ```bash
+> pnpm agent-tools:collaboration-state -- claims active-agents \
+>   --active .agent/state/collaboration/active-claims.json \
+>   --now "$(date -u +%Y-%m-%dT%H:%M:%SZ)"        # who is live, freshness by name
+> gh pr list --state open --json number,isDraft,mergeStateStatus,title
+> git fetch origin && git rev-list --count HEAD..origin/main   # coordination drift
+> ```
+>
+> Unresolved review threads are NOT in `gh pr checks` and never have been — the
+> GraphQL `reviewThreads(first:100){nodes{isResolved}}` read is the only honest
+> source. At 21:05Z it gave #614=1 (now cured and resolved), #582=0, #569=13.
+>
+> **OWNER RULINGS — NOT DERIVABLE FROM ANY SURFACE. CARRY THESE VERBATIM.**
+>
+> 1. **NO AGENT SUBMITS the connector or the plugin** (2026-07-28 ~18:0xZ):
+>    _"For now we call it Oak National Academy, but other people will review
+>    that. DO NOT submit the connector or the plugin, that will be done
+>    manually, by a human, later."_ This is a prohibition on the action, not an
+>    ask-first. Every lane ends at ready-and-verified and stops. No amount of
+>    green licenses it. The listing name is **provisional** — mark it so.
+>    This REPLACED my earlier reading that the connector name was an urgent
+>    one-way door; the door exists, it is simply not ours to walk through.
+> 2. **Tests never test config, only behaviour.**
+> 3. **Copilot review grant (standing, general):** any seat may request a
+>    Copilot review using the owner's credentials. The discriminator is the
+>    REQUESTING CREDENTIAL, never the PR author. Scope is Copilot review
+>    requests ONLY — every other third-party write stays bot identity. Request
+>    against the current head, and **re-check the commit id at merge**: a review
+>    that arrived is not a review of what you are about to merge.
+> 4. **All upstream API examples and descriptions must be accurate and
+>    functional.** Defects go to Aakesh, never fixed by us: MCP-325/326 parents,
+>    MCP-327/328/329/330 children.
+>
+> **LIVE RULINGS I ISSUED TONIGHT — each carries its own expiry.**
+>
+> - **#582 has right of way; merge window 21:05Z–22:30Z.** No seat merges
+>   anything into main inside it, including my #614. It **auto-lapses at
+>   22:30Z** — nobody needs my word to resume. If #582 lands early the window
+>   ends there. Reason: CI validates #582's test-merge tree against current
+>   main, so every fleet merge re-reds it ~25 min after it goes green; twice
+>   tonight already. A lane cannot escape that from the inside.
+> - **Scoped `sonar.cpd.exclusions` ratified** for #582's compliance tables,
+>   four conditions (exact files not directories; CPD only; config comment
+>   naming the reason and PR; glob + resolved file list posted before merge).
+> - **`@vercel/functions` approved** as an app runtime dependency for MCP-241's
+>   `waitUntil`, five conditions. Raccoon's off-Vercel probe came back OBSERVED
+>   (not documented): no throw, silent no-op registration, promise still
+>   settles — so no local fallback, unconditional injection at the composition
+>   root, import in exactly one file.
+> - **Schooner holds the stranded-credentials lane.** `origin/main`'s
+>   `.gitignore` has **no credential pattern**; the hardening exists only on
+>   the coordination branch. I verified the exposure is **latent, not live** —
+>   the one live token file sits on the primary, which is on the coordination
+>   branch, and `git check-ignore` resolves it. The hazard is the next
+>   credentials file in any main-based worktree. Standalone PR prepared now,
+>   **merges FIRST when the window clears**, ahead of #614.
+>
+> **WHAT I GOT WRONG TODAY — inherit the corrections, not the confidence.**
+>
+> - I filed MCP-324 proposing to remove a deliberate security property, because
+>   I criticised a module without reading its governing ADR. Before calling a
+>   deliberate-looking behaviour a defect, find out whether it is deliberate.
+> - I wrote a TSDoc claiming this module is the only place `OAK_API_KEY` touches
+>   an asset request. False — the route derives the signing secret from it.
+>   Copilot caught it; cured at `a5d1140c2`. My own confident prose about a
+>   security boundary was wrong about the code three files away.
+> - I read 15 dirty paths as a peer's in-flight work and broadcast it. All 15
+>   were byte-identical to `origin/main`. Probe with
+>   `git show origin/main:<path> | diff - <path>` before concluding anything
+>   from `git status`.
+> - I told a seat #570 had no Copilot reviews that day, from an unpaginated
+>   30-row page, and _corrected them_ from that partial view. Always
+>   `--paginate`, always filter on `commit_id`.
+> - I over-extended the owner's plugin name onto the connector listing when
+>   carding him, and carded a decision he then removed from our hands entirely.
+>
+> **THE FAILURE FAMILY THIS ESTATE KEEPS HITTING** — six instances in one day,
+> napkin-homed: a reading about the INSTRUMENT'S STATE mistaken for a reading
+> about the target. The always-succeeding control; the page read as the whole
+> list; the unauthenticated inspector; the stale-head review; the vacuous
+> zero-match filter (`pnpm --filter` on a wrong package name exits 0 silently);
+> and Schooner's find tonight — a config comment describing 326 files as
+> "untracked, machine-local" while they sit tracked in the index. **Cure: name
+> the instrument's state in the same sentence as its result.** A reproduction
+> that matches symptoms is not proof of cause. Conformance is not correctness:
+> four MCPJam suites passed clean while driving the tools found a signing bug,
+> four lying schemas and two dead examples.
+>
+> **DELIBERATE STATE — DO NOT "FIX" IT.** Three files are dirty on the primary
+> (`asset-download-route.ts`, `asset-proxy.ts`, `126-asset-download-proxy.md`)
+> plus the napkin. They are the ADR-126 rationale work living safely in **#614**.
+> Do not clear them with git — `checkout`/`stash` are hook-blocked and are the
+> wrong move regardless. They resolve with an ordinary `git add` once #614
+> merges. NOTE: `asset-proxy.ts` on the primary is now one commit behind the
+> #614 head after tonight's cure — re-probe before assuming identity.
+>
+> **OWNER-HELD — do not chase, surface at action moments.** The #569 design
+> bundle (326 files, +55,143 lines, owner's raw studio export, removal-class —
+> he routed Schooner directly); the CODEOWNERS repo-wide rider on #569 (my
+> position: wrong shape, belongs in its own PR whatever the substance); Clerk
+> production instance changes; MCP-304 CIMD walk-through; MCP-281 privacy
+> consultation; MCP-292 listing wording (human copy team, notably Aakesh —
+> agents add sourced suggestions only).
+>
+> **CREDENTIALS CLOCK.** `.agent/state/mcpjam-credentials.json` holds live
+> access + refresh tokens, gitignored at `a713dbee3`, **expires ~16:33 on
+> 2026-07-29**. Never commit or transmit. MCP-303's owner-attended pack run and
+> MCP-293's screenshots both depend on it.
+>
+> **ROTATION DEBT ON THIS FILE — routed, not done.** `CURRENT HANDOFF STATE` is
+> ~860 lines against this file's own 320-line hard limit, and it is append-only
+> stacked blocks each saying "supersedes every block below; verify each line
+> live" — an admission the content cannot be trusted, bolted onto content that
+> keeps growing. That structure is the drift mechanism the owner keeps catching.
+> I did NOT trim it tonight, deliberately:
+> [`knowledge-preservation-over-fitness-warnings`](../../rules/knowledge-preservation-over-fitness-warnings.md)
+> forbids shrinking a memory surface to satisfy a line count, and forbids
+> archiving unprocessed content — every block needs a disposition first. **The
+> rotation is a real curation pass for a successor with budget**: read each
+> superseded block, confirm its substance is homed (tickets in Linear, merges in
+> git, findings on the napkin, reports under `.agent/reports/`), record the
+> disposition, then archive. Not a delete.
+>
+> **SUPERSEDED — 17:10Z block below.**
+>
+> **EVENING REFRESH 2026-07-28 ~17:10Z — superseded by the block above;
 > verify each line live. All three seats compaction-prepped at owner word and
 > CONTINUE; this seat did the same.**
 >

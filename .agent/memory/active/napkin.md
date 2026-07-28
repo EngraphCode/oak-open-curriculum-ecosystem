@@ -2569,3 +2569,162 @@ git diff "$(git merge-base origin/main HEAD)" -- <touched paths> | grep -E "^-" 
 - Folded into the grant discipline and broadcast: read back the TIMELINE `review_requested` event,
   never the `requested_reviewers` roster (Copilot leaves that list the moment it starts reviewing,
   so the roster is ambiguous in both directions).
+
+## 2026-07-28 ~18:05Z — Raccoon turns Nocturne (0f6caa): #615 MERGED; MCP-241 lane open with grounded design
+
+**Lane state**: #615 merged e812aab9a (17:56:52Z, full condition, rounds 4→1→0); MCP-240 Done
+(17:56:54Z, 81-min cycle). Claim 0eb8a5f0 closed with the merge sha; worktree pruned provably-safe.
+NEW LANE: MCP-241 (claim 1bf0a0c3, In Progress 17:59:38Z), worktree `mcp-241-compose-runtime` off
+e812aab9a, installed+built, bot identity set. Heartbeat `b3w66a930` (label 241-design-then-tdd).
+Watcher `bzb3cv8ai` (re-arm 4), F-75 `bjwkjzqqx`.
+
+**MCP-241 design, grounded first-hand this session (verify nothing moved before authoring):**
+
+- Ticket: compose the selected runtime ONCE at bootstrap; pass ONLY sink + transportObserver into
+  request handling; retain concrete StreamableHTTPServerTransport for handleRequest. Proof: off
+  mode creates no client and `observe` returns the EXACT reference; selected mode connects via the
+  observed transport; Sentry preserved; no vendor import outside the adapter. ≤10 files.
+- Existing seams: adapter exports `createPostHogProductAnalyticsRuntime(config) →
+  PosthogProductAnalyticsRuntime` ({mode:'posthog', sink, transportObserver, close});
+  observability core exports `createOffProductAnalyticsRuntime<TTransport>()` and the
+  `ProductAnalyticsRuntime<TTransport>` union; `McpTransportObserver.observe(transport) →
+  transport` (off = identity). App: `core-endpoints.ts` `mcpFactory()` returns fresh
+  {server, transport} PER REQUEST (stateless; Sentry wraps the SERVER unconditionally-inert —
+  precedent); `mcp-handler.ts` does `server.connect(transport)` then
+  `transport.handleRequest(req,res,req.body)`.
+- Composition shape: new app module `composeProductAnalyticsRuntime(bootstrap)` with the
+  #610-style injected-dependencies seam (`...WithDependencies`) so off-mode tests prove the
+  adapter factory is NEVER invoked and selected-mode tests inject a fake. Release/environment
+  resolved atomically only-when-selected (plan §release). Handler wiring: observer.observe at
+  the connect site — `server.connect(observe(transport))`, concrete transport retained for
+  handleRequest and cleanup; sink threaded into request handling per the ticket outcome (first
+  consumer lands in MCP-242).
+- VALUE-import decision (the question #615 left this slice): STATIC import at the composition
+  root, accepted. Grounds: `no-dynamic-import` is `error` in the recommended backbone AND
+  eslint-disable is itself fenced; the plan's off-mode contract prohibits config-read and
+  client-creation, not module load; and `wrapMcpServerWithSentry` is the accepted
+  loaded-but-inert precedent at this exact surface. The ~43ms rides all cold starts; falsifier:
+  a cold-start budget ruling would reopen this as a CONFIGURED exception, never a disable.
+- Next: pre-execution Opus code-expert design review (per-cycle rule), then TDD red-first.
+
+## 2026-07-28 ~18:38Z — Raccoon turns Nocturne (0f6caa): PR #618 OPEN (MCP-241 slice one); waitUntil decision with the Director
+
+- **Lane state**: PR #618 open, bot-authored, head `2537bc742` (commit via full ceremony, claim
+  022e1606 closed with the sha; push ls-remote-proven; Copilot requested under the grant,
+  timeline-registered 18:37:29Z; attribution+because-line event 3647a226). Watch `bfjiwp0m3`
+  (settled-by-name + copilot-of-head on 2537bc742). Merge at the full condition, References
+  MCP-241 (slice two carries Fixes).
+- **Slice-two (PR-B) design, review-corrected and ready**: compose module takes {bootstrap,
+  runtimeConfig, servedSurface, waitUntil, reportOperationalError} and returns
+  Result<ProductAnalyticsRuntime<Transport>, ConfigError> (release resolution AND
+  createPostHogPseudonymCapabilities both Result-returning); generic is the SDK `Transport`;
+  serverVersion = runtimeConfig.version; toolNames/resourceNames derived from the served
+  surface (REGISTRATION names, not URIs — the resource shape needs a new derivation); wire BOTH
+  roots (server.ts is the DEPLOYED root — loadConfiguredApp — and currently discards
+  productAnalytics; index.ts only carries the TODO); env-product-analytics.ts TSDoc re-true
+  (static adapter import falsifies "off-mode cold starts stay vendor-free"; no plan/ADR clause
+  requires vendor-free module load; bundle-size second-order goes in the PR body); real-SDK
+  Sentry+ObservedMcpTransport+StreamableHTTPServerTransport integration test (the "preserves
+  Sentry" proof; also fences the adapter's latent getter-only sessionId setter throw); test
+  gaps named by review: release-failure Err propagation, pseudonym-failure, two-request
+  isolation under one shared observer, serverVersion provenance, both roots. DI seam:
+  default-parameter form (one export), NOT a WithDependencies twin.
+- **BLOCKED ON: the waitUntil source decision routed to the Director (event 91a45718)** —
+  plan-mandated injection with no in-repo source; recommendation @vercel/functions as app dep
+  (config-expert + lockfile survivability when it lands). PR-B starts on the answer.
+- Also routed: Sentry wrap options explicit-vs-implicit ({recordInputs:false,
+  recordOutputs:false} per plan vs current bare call — pre-existing, Director pricing).
+- Session captures this window: F-95 comms-guard resolves the watcher-heartbeat path relative
+  to the INVOKING tree (open commit-window claims from the primary); guard accepts only bare
+  `index/head` claim spelling; two parallel-load flakes adjudicated by deterministic re-run
+  (e2e transport parse error; rate-limit header absence) — both upstream of the touched seams.
+
+## 2026-07-28 evening (Schooner binds Trench, 5492d7): host idle-sleep reads as fleet-wide retirement — check kern.sleeptime before any simultaneous-silence verdict
+
+- At 18:49:11Z the Mac entered Idle Sleep mid-fleet (four live seats, PRs in CI); it woke 19:21:28Z. At wake, the F-75 peer-liveness poll fired "NEWLY RETIRED" for ALL FOUR seats INCLUDING ITS OWN OBSERVER — every heartbeat was 32 minutes stale because every heartbeat loop (and the poll itself) had been frozen by the same sleep. Also observed in the same window: a settle watch delivered ~35 minutes late, and one gh graphql call bounced off the ANONYMOUS rate-limit tier while adjacent REST calls succeeded.
+- The reading rule (PDR-133 shape): a liveness signal naming EVERY seat simultaneously — especially one naming the observer itself — is evidence about a SHARED substrate (host sleep, comms home, clock), never about N independent retirements. Mechanical first check: `sysctl kern.sleeptime kern.waketime` (or `pmset -g log | grep -E "Entering Sleep|Wake from"`); if the sleep window covers the silence, it is environmental — no retirement broadcasts, no pings, resume loops and move on.
+- Standing exposure worth the Director/owner's eye: macOS idle-sleeps whenever the owner steps away, freezing every watcher, heartbeat, and settle watch on the machine (this instance cost ~33 min of merge latency and a false fleet-wide alarm). The cure is an owner-level power-management decision (caffeinate during fleet windows / pmset), not agent-side retry logic.
+
+## 2026-07-28 ~19:45Z — Raccoon turns Nocturne (0f6caa): #618 MERGED at 7b0d88a09; MCP-241 slice two holds on the waitUntil ruling
+
+- **#618 merged** 7b0d88a09 (bot REST sha-pinned on 385e15a0d, full condition, rounds 4→5-suppressed→0;
+  worktree pruned provably-safe). MCP-241 In Progress by design (References; slice two carries Fixes).
+- **Round-2 lesson, practice-grade**: my round-1 cure verified a MECHANISM (Protocol.close cascades)
+  and missed the COMPOSITION — webStandardStreamableHttp.close() fires onclose SYNCHRONOUSLY,
+  Protocol's wrapper clears _transport before server.close() runs, so the cascade reaches nothing and
+  off mode has no double close. A fake modelling SDK internals was wrong TWICE in two rounds; final
+  shape: fakes model NOTHING SDK-internal, the test asserts only the handler's own calls, real-SDK
+  composition proof belongs to slice two's integration test. Sibling fact: the successful merge PUT
+  can precede the PR object flipping merged:true by minutes — main's history is the ground truth.
+- **Grant refinement (broadcast 822c9faa)**: a head move re-arms a standing Copilot request; in that
+  state re-requests no-op on BOTH paths (REST errors, MCP silent); the delivered review's commit_id
+  at the merge moment remains the only honest proof.
+- **Host idle-sleep 18:49–19:21Z** (Schooner's pmset finding): froze all seats' monitors; F-75 fired a
+  false all-seats retirement at wake (self-refuting signature — the observer flagged itself). My
+  heartbeat re-armed as `bvmt7hei1` on claim 1bf0a0c3.
+- **SEAT STATE**: claim 1bf0a0c3 held (MCP-241 lane); watcher `bzb3cv8ai`; F-75 `bjwkjzqqx`; heartbeat
+  `bvmt7hei1`. Slice two (PR-B) design-complete in the ~18:38Z entry — BLOCKED on the Director's
+  waitUntil source ruling (routed 91a45718, recommendation @vercel/functions). PR-B cuts a FRESH
+  worktree from main ≥7b0d88a09 on the answer. Also outstanding with the Director: the Sentry
+  wrap-options explicit-vs-implicit pricing.
+
+## 2026-07-28 ~21:05Z — Raccoon turns Nocturne (0f6caa): waitUntil RULING landed; PR-B lane OPEN
+
+- **Director ruling (21:03:02Z broadcast, answers 91a45718)**: `@vercel/functions` APPROVED as app
+  runtime dependency, FIVE conditions: (1) verify off-Vercel behaviour FIRST-HAND before landing —
+  throws/no-ops/drops outside a Vercel request context; if throw-or-drop, the composition root
+  supplies an explicit local fallback and the vendor call fires only where platform context exists;
+  report OBSERVED not documented; (2) import at the composition root and NOWHERE else — the seam
+  stays `(promise) => void`; (3) lockfile delete-and-rebuild test, run not reasoned; (4)
+  config-expert pass; (5) if MCP-240's deployment contract enumerates the dependency set, amend it
+  in the SAME PR. Two-PR split approved; PR-B carries Fixes MCP-241. Observations routed: sessionId
+  defect → **MCP-331 filed** (adapter-side, fenced by PR-B's real-SDK test); index.ts TODO → cure
+  in PR-B with both roots wired.
+- **PR-B lane state**: worktree `mcp-241-slice2-compose`, branch
+  `jimcresswell/mcp-241-compose-selected-mode-runtime` off fca36bff1 (main, release 1.110.0,
+  includes both slices), bot identity set, install+build backgrounded. Heartbeat `bsw2y7391`
+  (label 241-slice2-build). Claim 1bf0a0c3 unchanged. Design: the ~18:38Z napkin entry (compose
+  module Result-returning with injected adapter factory via default parameter, generic `Transport`,
+  serverVersion=runtimeConfig.version, served-surface-derived tool/resource REGISTRATION names,
+  atomic release only-when-selected, both roots, sink threading, env-product-analytics TSDoc
+  re-true, real-SDK Sentry+observed+SHST integration test, six named test gaps).
+- **Merge discipline live**: #582 has right of way — NO merges into main until it lands or 22:30Z
+  auto-lapse (Director Ruling 1, 21:00:42Z). Owner ruling (20:54:44Z): NO AGENT SUBMITS the
+  connector or plugin, ever — human act, later; listing name provisionally "Oak National Academy".
+- First work item when the build lands: the waitUntil probe (add the dep in the worktree, read the
+  installed package source first-hand, run a probe outside Vercel context, record observed
+  behaviour), THEN TDD.
+
+- **waitUntil probe DONE (~21:10Z, observed)**: off-Vercel = no throw, undefined return, promise still settles locally; only non-thenable input throws. Verdict: unconditional injection at the composition root, no local fallback, seam stays (promise)=>void. Report event on the stream. NEXT: TDD the compose module per the ~18:38Z design entry.
+
+## 2026-07-28 ~21:15Z — Squall wakes Apex (459fd1, Director): the handoff record's two content classes
+
+- **Measurement, not opinion.** A carefully-grounded Director state capture written at 17:30Z was
+  FALSE IN SIX PLACES by 21:00Z — 3.5 hours: #582 `dirty/uncarried` → mergeable-and-carried;
+  MCP-319 merged (#616/#617); two more merges (#615/#618); "20 behind main" → 39; "three lanes" →
+  six seats; and the item flagged as THE urgent owner-gated one-way door (the connector listing
+  name) had been ruled by the owner to be not ours at all. Every one was grounded when written.
+- **The structural read.** A Director handoff carries two content classes and only ONE may be
+  inherited. DURABLE: owner rulings verbatim, deliberate-looking oddities and why, recorded
+  mistakes, owner-gated items. DERIVABLE: lane state, PR numbers, branch positions, next steps —
+  half-life in tens of minutes. Writing both in the same voice with the same authority is the
+  mechanism by which a successor inherits drift; the owner has had to say "do not accept inherited
+  positions" to more than one Director.
+- **Cure, structural not doc-patch**: where a fact is derivable, the record carries the COMMAND, not
+  the value. Values appear only where no command yields them. Applied to
+  `director-handoff.md` §CURRENT HANDOFF STATE at the 21:10Z refresh.
+- **The tell that this had gone wrong**: every stacked block in that section opened with "supersedes
+  every block below; verify each line live" — an admission the content cannot be trusted, bolted
+  onto content that kept growing (860 lines against the file's own 320-line limit). An instruction
+  to distrust a document is not a substitute for the document being trustworthy.
+- **Rotation NOT taken tonight, deliberately**: `knowledge-preservation-over-fitness-warnings`
+  forbids shrinking a memory surface to satisfy a line count and forbids archiving unprocessed
+  content. Routed as a curation pass (disposition per block, then archive) for a successor with
+  budget. The rule changed the plan — the first instinct was to trim.
+- **Sixth instance of the instrument-state family, from Schooner**: #569's own depcruise and
+  prettierignore comments describe 326 design-bundle files as "untracked, machine-local" while they
+  sit tracked in the index, causing every red on the PR. The marker disagreed with the thing.
+- **Own error, same day, same shape**: TSDoc asserted this module is the only place `OAK_API_KEY`
+  touches an asset request; the route derives the signing secret from it three files away. Copilot
+  caught it, cured at `a5d1140c2`. Confident prose about a security boundary, wrong about adjacent
+  code.
