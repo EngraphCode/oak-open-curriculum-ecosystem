@@ -2126,6 +2126,28 @@ cold-pause event + owner-surface messages; earlier captures committed at a39bb99
   lesson that converged without any mechanical restatement, or recurrence of the card
   discipline despite its named tell. One observation at one boundary; not doctrine.
 
+## 2026-07-28 ~13:55Z — Raccoon turns Nocturne (0f6caa): #602 LANDED, M0 PostHog boundary complete; lane closed
+
+- SUPERSEDES the ~08:2xZ resume block above: the lane is DONE. Owner carded resume; six
+  adjudicated deletions committed 83cb3cc88 (bot, full gate chain via queue ceremony,
+  window claim 3b673e3d opened/closed), pushed ref-proven, settled by the BY-NAME
+  four-context read across BOTH endpoints, bot REST merge sha-pinned → merge commit
+  c062c77ed (13:52:57Z). Linear MCP-238 Done via Fixes automation (verified). M0 PostHog
+  boundary (MCP-237 #601 + MCP-238 #602) is engineering-complete. #576 close is DUE and
+  owner-carded by the DIRECTOR (their 13:37Z correction: it does NOT auto-close; it is a
+  draft; every open PR is live-lane-owned or closed with the owner's carded check).
+- Claims: 398ddef9 closed (merge summary); f0652d2d closed earlier on its named condition.
+  Worktrees mcp-238-runtime-logger + widget-disclaimer-landmark pruned provably-safe
+  (clean + ancestor proven each). Seat standby-shaped: watcher + F-75 live, no claim.
+- Instrument notes, true of this window: (1) settle watches must accept success/neutral/
+  skipped — required-check semantics; a success-only predicate is the F-75 unreachable-exit
+  class and CodeQL's neutral would have run it to timeout. (2) GitHub App installation
+  tokens cannot answer GET /user — probe the repo endpoint instead; a /user probe reads a
+  valid token as AUTH-FAILED. (3) Two more manufactured-absence micro-instances (head -20
+  truncation; a python projection querying a nonexistent field name printing null) — both
+  caught by verify-before-concluding; the transmit-gate candidate at 43c03362a covers the
+  class.
+
 ## 2026-07-28 ~13:25Z — a dirty-file flag read as "a peer is working here" (Squall wakes Apex)
 
 - **Observation.** The main→coordination merge was recorded as blocked by two things, both wrong.
@@ -2191,3 +2213,52 @@ yet read.
 Route: PDR-098 recurrence signal met (two seats, one session, independent).
 Check `new-rule-vs-pdr-clause` before minting — this may belong as a clause on
 the existing transmission-discipline surfaces rather than as a new rule.
+
+## 2026-07-28 resume (Schooner binds Trench, 5492d7): comms send identity-tuple guard vs heartbeat-mode bypass
+
+- Observed: plain `comms send` exited 2 with "identity route … collides with live identity" when invoked with `--model fable` while this seat's registered live identity carried `claude-fable-5` (same derived id, different model string). Heartbeat-mode sends (`--tag heartbeat`) with the SAME mismatched tuple were accepted and landed — so the dual-surface heartbeat loop read healthy while every plain send from the seat was being rejected. The claims-heartbeat legs (no model arg) also succeeded, deepening the healthy look.
+- Cure applied: read the registered tuple back from the claims registry (or any earlier event this seat authored) and pass it exactly; never re-guess the model string at resume. Loop re-armed stop-first with the corrected tuple.
+- Scope: agent-tools comms CLI as observed 2026-07-28 by this seat; expires when the guard either covers heartbeat mode too or normalises model aliases (either would be a fine cure — the asymmetry is the trap, not the guard).
+
+## 2026-07-28 MCP-279 merge (Schooner binds Trench, 5492d7): the bot's ruleset bypass works on REST, not on gh pr merge
+
+- Observed: with all required contexts green by name, threads 0, head pinned, `gh pr merge 606 --merge --match-head-commit <sha>` failed with "the base branch policy prohibits the merge" — the code-owner review gate (ruleset 19395183, "Code-owner review gate (bot-exempt by owner ruling 2026-07-21)", bypass_mode=always for Integration 4352989) blocked the CLI/GraphQL path even though the caller WAS the bypass actor. The REST endpoint (`gh api -X PUT repos/<repo>/pulls/606/merge -f merge_method=merge -f sha=<head>`) under the same token merged immediately; read-back showed mergedBy=app/jimbot-oakington-iii.
+- Reading: the doctrine's "bot REST-merges at settled" is load-bearing, not stylistic — REST is the path on which the App's ruleset bypass actually applies. A gh-pr-merge success elsewhere (e.g. #605 the same hour) is not a counter-instance when that PR had a delivered review satisfying the gate.
+- Scope: observed 2026-07-28 on this repo's ruleset shape; expires if GitHub aligns GraphQL mergePullRequest bypass behaviour or the ruleset changes.
+- Owner clarification + Director split (same hour, 14:09–14:10Z): the owner's word covers bypass SCOPE — the bot's exemption is exactly the code-owner review; checks, thread resolution, and head match are exempted for nobody. The Director ruled the relay's added 'paths are equivalent' inference CONTRADICTED by this seat's #606 evidence (CLI refused, REST succeeded, same PR/state/minute; Altair retracted). Carry forward: a REST refusal means a non-review requirement is genuinely unmet (the clarification names which one it is NOT); a CLI refusal proves nothing beyond 'use the REST path'. REST-merges-at-settled doctrine unchanged.
+
+### Addendum 2, same day ~14:10Z — the inference that rides the owner's authority
+
+Third instance of the family, and a distinct mechanism from the two above.
+
+Altair relayed an owner clarification to the fleet. The owner's word: the bot's ruleset
+exemption "bypasses ... the need for code owner review" and merging "can refuse, but only if
+the PR requirements have not been met" — a statement about the SCOPE OF THE BYPASS. The relay
+carried it plus one more sentence: that a refusal on either path therefore means requirements
+are genuinely unmet, "not a path quirk" — a statement about PATH EQUIVALENCE between the `gh`
+CLI and REST.
+
+The second sentence was the relayer's own inference, and it was false: Schooner had merged #606
+minutes earlier after `gh pr merge --merge --match-head-commit` refused with "base branch policy
+prohibits the merge" while `PUT /pulls/606/merge` succeeded on the same PR at the same state.
+Both of the owner's statements survive alongside that evidence; only the fused inference does
+not. Had it settled, it would have retired the "bot REST-merges at settled" wording as a mere
+flavour preference — a working discipline dropped on an inference.
+
+**The mechanism, and why it is not the same as the two instances above.** Those were stale or
+unverified observations transmitted as current fact. This one is worse-shaped: the claim was
+*newly derived*, in the same breath as a true quotation, and it inherited the quotation's
+authority on the way past. A reader cannot tell where the owner stopped speaking. Rejecting the
+bad half requires rejecting the paragraph, which nobody does when the paragraph opens with the
+owner's own words.
+
+**Cure, and it is mechanical rather than attentional: when relaying an owner ruling, quote it
+and stop.** Implications go in a separate paragraph, attributed to the relayer by name. The
+split is what makes the inference falsifiable on its own — and Altair retracted within a minute
+of it being separated out, which is the evidence that the shape, not the seat, was the problem.
+
+Sibling to [[never-invent-identities]] in structure: there, values must be derived from the
+observable record rather than invented; here, authority must stay attached to exactly the words
+that carried it. Both are provenance disciplines. Worth carrying into the graduation candidate
+above as a second clause rather than a separate rule — the transmission gate already asks "when
+did I last read this?"; it should also ask **"whose sentence is this?"**
