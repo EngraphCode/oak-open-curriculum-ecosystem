@@ -1,17 +1,18 @@
 /**
- * Closed package boundary for the PostHog product-analytics adapter.
+ * Privacy-bounded PostHog identity and product-analytics adapter.
  *
- * @remarks Product behaviour is introduced through later reviewed slices.
- * The root exposes actor pseudonyms and the runtime's public configuration
- * surface. The event policies themselves stay internal — they are consumed by
- * the sink and the runtime, never by a caller. Nothing here reaches the vendor
- * SDK, and no key material crosses the boundary.
+ * @remarks
+ * The package root exposes only bootstrap configuration, actor projection, and
+ * the closed runtime capability. Vendor client and transport-observer types stay
+ * inside the adapter.
  *
  * @packageDocumentation
  */
 
 export { createPostHogPseudonymCapabilities } from './actor-pseudonym.js';
+export { createPostHogProductAnalyticsRuntime } from './product-analytics-runtime.js';
 export { POSTHOG_EU_INGESTION_HOST } from './product-analytics-runtime-contract.js';
+
 export type {
   ActivePostHogActorProjector,
   PostHogActorPseudonym,
