@@ -2742,3 +2742,84 @@ Watcher `bzb3cv8ai` (re-arm 4), F-75 `bjwkjzqqx`.
   heartbeat` at Moment 2, same as an implementer's.** Liveness reads come from `claims
   active-agents` on demand, which is the mechanically correct source anyway — the heartbeat stream
   is the wrong instrument for a question the registry answers exactly.
+
+## 2026-07-28 ~21:28Z — Raccoon turns Nocturne (0f6caa): THIRD COMPACTION RESUME MAP (seat continues; owner word "prepare for compaction")
+
+**Read this first at resume; it supersedes this seat's earlier entries today.** Day's arc at this
+seat: #602 → #610 (MCP-239, merged) → #615 (MCP-240, merged e812aab9a, Done) → #618 (MCP-241 slice
+one, merged 7b0d88a09 — observed-transport seam, rounds 4→5s→0) → **PR-B (MCP-241 slice two)
+IN FLIGHT, uncommitted in its worktree**. Claim `1bf0a0c3` (MCP-241 lane) HELD through the boundary.
+MCP-331 filed (adapter sessionId setter). Director is **Moon rides Penumbra (7e34ff)** since 21:14Z
+(Moment-2 fffc722e); Squall stood down by intent, session live as owner surface.
+
+**WORK SAFETY — the PR-B worktree is the SOLE carrier of uncommitted work, by design
+(no-handover-commits):** worktree `mcp-241-slice2-compose`, branch
+`jimcresswell/mcp-241-compose-selected-mode-runtime` at base fca36bff1 (= origin/main, release
+1.110.0), branch NEVER pushed (ls-remote empty — correct). 13 modified + 2 untracked files, exact
+inventory: package.json (+@vercel/functions ^3.7.6), pnpm-lock.yaml, core-endpoints.ts,
+create-app-options.ts, env-product-analytics.ts (TSDoc re-trued), handlers.ts, index.ts (TODO
+cured, root wired), register-resources.ts (+liveResourceRegistrationNames + name const),
+register-widget-resource.ts (+WIDGET_RESOURCE_NAME), served-surface.ts (+liveToolNames,
+typeSafeEntries), served-surface-registration.integration.test.ts (+parity describe),
+server.ts (deployed root wired), registration-walk.ts (+resourceNames capture); NEW:
+compose-product-analytics-runtime.ts + its unit test. **Do not run ANY git state-changing
+operation in that worktree except the ceremony that commits this exact set.**
+
+**Gate state at freeze (all first-hand, this worktree): app lint 0 errors (155 warnings — +2 are
+my test's throwingFactory no-throw warnings, cure below), type-check 0, tests 999/999 (6/6
+compose + 2 parity among them).**
+
+**PR-B REMAINING (in order):**
+
+1. Cure the two no-throw warnings: replace `throwingFactory` in the compose unit test with the
+   `vi.fn(fakeRuntime)` + `expect(factory).not.toHaveBeenCalled()` pattern (already used by the
+   last test).
+2. Real-SDK integration test (the "preserves Sentry" proof + MCP-331 fence):
+   wrapMcpServerWithSentry + adapter ObservedMcpTransport + real StreamableHTTPServerTransport —
+   drive connect + a request + response-close; assert Sentry wrap unbroken and teardown completes
+   via the callback chain (the composition VERIFIED this session: webStandardStreamableHttp.close()
+   fires onclose SYNCHRONOUSLY; Protocol clears _transport before server.close(); the connect
+   target's close() is never invoked by cleanup; NO double close in off mode — #618's landed
+   contract wording states exactly this).
+3. Docs (ruling condition 5): amend MCP-240's deployment-contract docs in the same PR —
+   `apps/.../docs/vercel-environment-config.md` + `docs/operations/environment-variables.md`
+   gain the `@vercel/functions` dependency note (runtime dep, injected at composition roots,
+   off-Vercel no-op verified) and any dependency-set enumeration re-true.
+4. Full `pnpm check` in the worktree; THEN lockfile delete-and-rebuild survivability (condition
+   3, run not reasoned).
+5. Reviews: config-expert (condition 4, manifest+lockfile) + post-implementation Opus
+   code-expert. Reviewer subagents on Opus per standing rule.
+6. Ceremony (bare `index/head` claim from the PRIMARY — F-95 resolves the watcher heartbeat
+   relative to the invoking tree; guard rejects worktree-suffixed spelling), commit message-file,
+   bot push (ls-remote proof), PR open bot-authored with **Fixes MCP-241**, Copilot under the
+   owner grant (timeline read-back; a head move RE-ARMS a standing request and re-requests then
+   no-op on BOTH paths — the delivered review's commit_id is the only proof), settle watch
+   (settled-by-name check-runs + Vercel commit status + Copilot-of-head), threads resolved,
+   sha-pinned bot REST merge.
+7. **MERGE QUEUE DISCIPLINE**: #582 window (auto-lapse 22:30Z) → #569 (owner word, tonight) →
+   #614 → normal cadence. PR-B merges only after that queue clears. NO AGENT SUBMITS the
+   connector/plugin (owner ruling 20:54Z, binds every seat, no green licenses it).
+
+**Ruling-condition status (Director ruling 21:03:02Z answering 91a45718):** C1 DONE — probe
+OBSERVED (off-Vercel: no throw, undefined return, promise still settles; only non-thenable
+throws; report 4734a717); C2 DONE — `@vercel/functions` has exactly ONE import site (the
+compose module re-exports `hostingWaitUntil`; roots inject); C3/C4/C5 = items 4, 5, 3 above.
+
+**Design facts a successor needs (all verified in-engine this session):** resolveRelease({})
+RESOLVES (total fallback) — the genuine Err fixture is {VERCEL_ENV:'production',
+VERCEL_GIT_COMMIT_REF:'main'} (missing_application_version); ProductAnalyticsKeyringEntry.key is
+Uint8Array (decoded) and passes straight into createPostHogPseudonymCapabilities;
+capabilities.active is the projector (.project(principal) → {environment, keyId, distinctId});
+ResolvedRelease = {value, source, environment}; the app's ConfigError = {message, diagnostics:
+[]} content-free via the configurationError mirror; SERVED_SURFACE parity is tested through the
+REAL registrar walk (never mirror the gates without the parity test).
+
+**Monitors at freeze:** watcher `b7i04wa4m` (re-arm 5, same seen-file), F-75 `bjwkjzqqx`,
+heartbeat `bsw2y7391` (claim 1bf0a0c3, label 241-slice2-build — still honest). Hourly exit-124
+backstops by design; drain-step timeout deaths are comms-volume, re-arm same cursor. TWO host
+idle-sleeps tonight (18:49–19:21Z, 19:37–19:53Z, pmset-verified) froze all monitors and fired
+false all-seats retirements — read kern.sleeptime before ANY simultaneous-silence verdict.
+
+**Owner interactions this window:** keys question answered ~21:15Z (none locally — verified by
+name-sweep; Vercel env unreadable from this seat, Not authorized on both tokens; artifacts say
+none placed; MCP-117 owns placement and stays the designed gate).
