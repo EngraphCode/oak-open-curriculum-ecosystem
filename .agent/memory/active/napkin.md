@@ -2086,3 +2086,33 @@ MCP-292..295; #570 dispositions = event 92af6f15, freeze = event 8ab0b3ae + this
 MCP-296 gate evidence = ticket comment + event f8d9c693; plugin-location verdict (workspace
 viable; git-subdir/relative-source/Console-route evidence; one form-only fact outstanding) =
 cold-pause event + owner-surface messages; earlier captures committed at a39bb998b (Director).
+
+## 2026-07-28 ~13:25Z — a dirty-file flag read as "a peer is working here" (Squall wakes Apex)
+
+- **Observation.** The main→coordination merge was recorded as blocked by two things, both wrong.
+  The first was an untracked `docs/engineering/working-with-this-repo-for-devs.md` awaiting the
+  owner's disposition; the owner's answer ("I think the engineering doc should be deleted
+  already") was true in the strongest sense — the file was already gone, and had been for
+  hours while I re-surfaced it as a live blocker. The second was fifteen "dirty" paths I had
+  captured, recorded, and broadcast to peers as *another seat's in-flight edits* under a held
+  claim. Probed file by file against `origin/main`: **all fifteen byte-identical to main.**
+- **Diagnosis.** `git status` reports difference **from HEAD**. On a branch that lags main,
+  every already-landed file that the branch has not yet merged shows as modified or untracked —
+  and that is indistinguishable, in the porcelain output, from a colleague mid-edit. I read the
+  flag as a statement about *authorship activity* when it is a statement about *branch
+  position*. The manufactured peer-collision then justified NOT merging, which kept the branch
+  behind, which kept the files dirty. Self-sustaining.
+- Same family as the wrapped-exit-code class and its generalisation — **a proxy for a state was
+  read instead of the state.** Here the proxy (`git status`) was not even wrong; it answered a
+  different question than the one I asked of it. That is the sharper variant: not a lying
+  artefact, but a truthful artefact silently re-scoped by the reader.
+- **Cure.** Before attributing a dirty path to a peer, diff it against the branch you are behind:
+  `git show origin/main:<path> | diff - <path>`. Identical means it is landed content and the
+  disposition is `git add`, not a claim negotiation. It costs one command per file and it is the
+  difference between "blocked on a peer" and "commit and merge".
+- **The compounding failure was social, not mechanical.** The false reading was transmitted —
+  into the handoff record, into a peer broadcast, into a message to the owner. Two other seats
+  cited the dirty state back to me as fact (Altair's team-start listed the audit files as
+  "dirty with NO live claim visible"). A stale capture that travels acquires corroboration it
+  never earned. Probe before you transmit, and re-probe before you re-transmit — an old
+  observation restated in the present tense is a new claim.

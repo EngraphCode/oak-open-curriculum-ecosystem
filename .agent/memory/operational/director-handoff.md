@@ -374,12 +374,27 @@ first-hand as of 2026-06-25.
 > main has moved and the coordination-branch merge window is open. Three
 > items, all scope-fenced out of Juniper's lane and now MINE:
 >
-> 1. **The PRIMARY checkout holds an UNTRACKED
->    `docs/engineering/working-with-this-repo-for-devs.md`** — the owner's
->    pre-fix rewrite, superseded by the merged version. It **WILL REFUSE the
->    next main→coordination merge**. Disposition is the OWNER'S: never delete
->    or move it (file-deletion-is-exceptional; never-use-git-to-remove-work).
->    Ask before the merge; do not work around it.
+> 1. ~~The PRIMARY checkout holds an UNTRACKED
+>    `docs/engineering/working-with-this-repo-for-devs.md`.~~ **RESOLVED —
+>    and the record was STALE for hours.** The owner (13:20Z): "I think the
+>    engineering doc should be deleted already." It was: the file did not
+>    exist on disk. Nobody had probed it since the capture.
+>
+>    **THE MERGE IS DONE.** `f36fe2ade` (tree alignment) then `9d306273d`
+>    (merge of `origin/main` at `4bcbdba15`), pushed under bot transport.
+>    Coordination is level with main; working tree CLEAN.
+>
+>    **The second stale reading, worth more than the first.** The fifteen
+>    "dirty" paths were carried in this record and broadcast to peers as
+>    _peers' in-flight edits_ — Raccoon's held widget claim. Probed file by
+>    file against `origin/main`: **all fifteen byte-identical.** They were
+>    not work-in-progress at all; they were LANDED content (#597, #601,
+>    #603) sitting in the working tree while this branch's HEAD lagged.
+>    `git status` reporting "modified" is a statement about HEAD, never
+>    about main — read as "someone is editing this" it manufactured a
+>    peer-collision that did not exist, and it deterred the merge for hours.
+>    Resolution was the ordinary one git names: commit them (zero new
+>    content, verified), then merge.
 > 2. **Latent lint drift on main's tip** — `pnpm fix` consolidates imports in
 >    `apps/oak-curriculum-mcp-streamable-http/src/auth/public-resources.unit.test.ts`,
 >    and the `lint:fix` output is itself prettier-non-compliant. Surfaced in
