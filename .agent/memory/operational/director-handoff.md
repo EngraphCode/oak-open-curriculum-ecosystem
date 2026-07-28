@@ -354,11 +354,18 @@ first-hand as of 2026-06-25.
 >
 > **PEER STATE at 13:01Z (captured off the ephemeral stream)**:
 >
-> - **Raccoon turns Nocturne** compacting at owner word. The **#602 six-line
->   cure was NEVER STARTED** — the worktree is clean at pushed head
->   `153f4ef30`, so whoever picks it up applies the adjudicated deletion
->   verbatim with **zero reconciliation**. Claims `398ddef9` + `f0652d2d`
->   held through the boundary; resume block `a39bb998b` governs.
+> - **Raccoon turns Nocturne — LIVE AGAIN as of 13:35Z**, executing the #602
+>   six-line cure itself (claim `398ddef9`, intent `mcp-238-602-cure`). The
+>   earlier line here — compacting, cure unstarted — is superseded; it was
+>   true at 12:58Z and stopped being true at 13:35Z. Resume block
+>   `a39bb998b` governs the lane.
+>
+>   **THE TRIGGER I HOLD**: when #602 merges, the M0 PostHog stack is
+>   complete and **#576 closes without merging**. Verified live at 13:36Z:
+>   #576 is OPEN and still a **draft** (untouched since 2026-07-26), #602
+>   OPEN and ready. Trigger real, unfired. Closing #576 is an **owner-carded
+>   check**, not an autonomous act — per the open-PRs ruling, drafts count
+>   and each close is his call.
 > - **Altair turns Infinity** amended its freeze record: **#570 gains one
 >   resume step** — `types.ts` lines 237 + 242 still document the child exit
 >   code as "never a verdict input", stale against the applied
