@@ -239,3 +239,34 @@ describe('createUniversalToolExecutor', () => {
     expect(result.content[0]).toEqual({ type: 'text', text: 'Execution failed' });
   });
 });
+
+describe('createUniversalToolExecutor download-asset seam', () => {
+  it('threads executeMcpTool into download-asset and refuses without minting when the lookup fails', async () => {
+    const factoryCalls: string[] = [];
+    const executeMcpTool = vi.fn().mockResolvedValue(
+      err(
+        new McpToolError('No lessons found', 'get-lessons-assets', {
+          code: 'RESOURCE_NOT_FOUND',
+        }),
+      ),
+    );
+    const callUniversalTool = createUniversalToolExecutor({
+      executeMcpTool,
+      searchRetrieval: createStubSearchRetrieval(),
+      generatedTools: registry,
+      createAssetDownloadUrl: (lesson: string, type: string): string => {
+        factoryCalls.push(`${lesson}/${type}`);
+        return `https://example.com/${lesson}/${type}`;
+      },
+    });
+
+    const result = await callUniversalTool('download-asset', {
+      lesson: 'no-such-lesson',
+      type: 'worksheet',
+    });
+
+    expect(executeMcpTool).toHaveBeenCalledWith('get-lessons-assets', { lesson: 'no-such-lesson' });
+    expect(result.isError).toBe(true);
+    expect(factoryCalls).toHaveLength(0);
+  });
+});
