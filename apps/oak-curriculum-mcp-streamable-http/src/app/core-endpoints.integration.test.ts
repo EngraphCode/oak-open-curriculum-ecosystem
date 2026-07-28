@@ -1,5 +1,6 @@
 /**
- * Integration tests proving native Sentry MCP wrapping is inert without init.
+ * Integration tests for core-endpoints composition: native Sentry MCP
+ * wrapping inertness and per-request transport observation (MCP-241).
  *
  * The per-request factory in `core-endpoints.ts` calls
  * `wrapMcpServerWithSentry(server)` unconditionally before
@@ -17,8 +18,14 @@
  */
 
 import { describe, it, expect, vi } from 'vitest';
+import express from 'express';
+import type { RequestHandler } from 'express';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
+import type { Transport } from '@modelcontextprotocol/sdk/shared/transport.js';
 import { wrapMcpServerWithSentry } from '@sentry/node';
+import type { McpTransportObserver } from '@oaknational/observability';
+import { initializeCoreEndpoints } from './core-endpoints.js';
 import { registerHandlers } from '../handlers.js';
 import {
   createFakeSearchRetrieval,
@@ -45,5 +52,69 @@ describe('native Sentry MCP wrapping is inert without Sentry.init', () => {
 
     // Handlers registered through the wrapped server without error
     expect(registerToolSpy.mock.calls.length).toBeGreaterThan(0);
+  });
+});
+
+describe('per-request transport observation (MCP-241)', () => {
+  function initialize(transportObserver?: McpTransportObserver<Transport>) {
+    const app = express();
+    const passThroughLimiter: RequestHandler = (_req, _res, next) => {
+      next();
+    };
+    return initializeCoreEndpoints(
+      app,
+      {
+        runtimeConfig: createMockRuntimeConfig(),
+        observability: createFakeHttpObservability(),
+        getWidgetHtml: () => '<!doctype html><html><body>test</body></html>',
+        ...(transportObserver ? { transportObserver } : {}),
+      },
+      createFakeLogger(),
+      passThroughLimiter,
+    );
+  }
+
+  it('off mode: connectTransport is the exact concrete transport reference', () => {
+    const { mcpFactory } = initialize();
+
+    const context = mcpFactory();
+
+    expect(context.connectTransport).toBe(context.transport);
+  });
+
+  it('hands each fresh transport to the observer and connects through its return value', () => {
+    const observed: Transport[] = [];
+    const decoy = new StreamableHTTPServerTransport({ sessionIdGenerator: undefined });
+    const { mcpFactory } = initialize({
+      observe: (transport) => {
+        observed.push(transport);
+        return decoy;
+      },
+    });
+
+    const context = mcpFactory();
+
+    expect(context.connectTransport).toBe(decoy);
+    expect(context.transport).not.toBe(decoy);
+    expect(observed).toHaveLength(1);
+    expect(observed[0]).toBe(context.transport);
+  });
+
+  it('observes a distinct fresh transport per factory call', () => {
+    const observed: Transport[] = [];
+    const { mcpFactory } = initialize({
+      observe: (transport) => {
+        observed.push(transport);
+        return transport;
+      },
+    });
+
+    const first = mcpFactory();
+    const second = mcpFactory();
+
+    expect(first.transport).not.toBe(second.transport);
+    expect(observed).toHaveLength(2);
+    expect(observed[0]).toBe(first.transport);
+    expect(observed[1]).toBe(second.transport);
   });
 });

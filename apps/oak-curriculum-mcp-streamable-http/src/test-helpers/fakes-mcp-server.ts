@@ -10,6 +10,7 @@
 
 import { vi } from 'vitest';
 import type {
+  McpConnectTarget,
   McpRequestServer,
   McpRequestTransport,
   McpRequestContext,
@@ -32,11 +33,14 @@ function createFakeStreamableTransport(
 /**
  * Minimal server fake for handler integration tests.
  * Satisfies `McpRequestServer` structurally — only `connect` and `close`.
+ * Deliberately models NO SDK-internal teardown (callback wiring, close
+ * cascades): the narrow contract owns only what the handler itself calls,
+ * and SDK-side composition is proven against the real SDK, never a fake.
  */
 function createFakeMcpServer(): McpRequestServer {
   return {
     connect: vi.fn(() => Promise.resolve()),
-    close: vi.fn(),
+    close: vi.fn(() => Promise.resolve()),
   };
 }
 
@@ -48,10 +52,16 @@ function createFakeMcpServer(): McpRequestServer {
  */
 export function createFakeMcpServerFactory(
   handleRequestImpl?: McpRequestTransport['handleRequest'],
+  connectTransport?: McpConnectTarget,
 ): { factory: McpServerFactory; server: McpRequestServer; transport: McpRequestTransport } {
   const server = createFakeMcpServer();
   const transport = createFakeStreamableTransport(handleRequestImpl);
-  const context: McpRequestContext = { server, transport };
+  // Mirrors off mode by default: the connect target IS the concrete transport.
+  const context: McpRequestContext = {
+    server,
+    transport,
+    connectTransport: connectTransport ?? transport,
+  };
   const factory: McpServerFactory = () => context;
   return { factory, server, transport };
 }
