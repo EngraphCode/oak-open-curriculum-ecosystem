@@ -131,7 +131,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/compose-product-analytics-runtime.ts",
-      "semanticSha256": "997778ebad7253827fd19281db9f9abb92d30c6bb6c1aff3d2b396400b40f8e8",
+      "semanticSha256": "df0cfab0201177986caa0454d94407077f5930f45a8e34d6d15f6ea4b625b35b",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
@@ -490,7 +490,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/server.ts",
-      "semanticSha256": "b85dcf77327d921eeb3e67c280da2b0e4526890af96aa2af9913fb1a880e9e58",
+      "semanticSha256": "f06ab4d0a5e270a5220ce39f003ae2d59c11ee1fdd9b287035270fbd0f67d252",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },

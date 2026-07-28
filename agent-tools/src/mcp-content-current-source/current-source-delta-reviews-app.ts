@@ -93,7 +93,7 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/compose-product-analytics-runtime.ts': excluded(
-    '997778ebad7253827fd19281db9f9abb92d30c6bb6c1aff3d2b396400b40f8e8',
+    'df0cfab0201177986caa0454d94407077f5930f45a8e34d6d15f6ea4b625b35b',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/env-product-analytics.ts': excluded(
@@ -212,7 +212,7 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     ['A001'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/server.ts': excluded(
-    'b85dcf77327d921eeb3e67c280da2b0e4526890af96aa2af9913fb1a880e9e58',
+    'f06ab4d0a5e270a5220ce39f003ae2d59c11ee1fdd9b287035270fbd0f67d252',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/test-helpers/auth-error-test-helpers.ts': excluded(

@@ -24,6 +24,7 @@ import { BAKED_LANDING_PAGE_HTML } from './app/landing-page-baked.js';
 import { createApp } from './application.js';
 import {
   composeProductAnalyticsRuntime,
+  composeProductAnalyticsRuntimeOnce,
   hostingWaitUntil,
   operationalErrorReporter,
   releaseInputFromRuntimeEnv,
@@ -71,9 +72,11 @@ function loadLoadedRuntimeOrThrow(): LoadedRuntime {
  * OUTSIDE the retried app loader: the deploy entry handler clears and
  * retries a failed load, and a retry must reuse — never reconstruct — the
  * client the first attempt composed (the adapter's one-client lifecycle;
- * nothing closes a superseded client until MCP-243 wires close()).
+ * nothing closes a superseded client until MCP-243 wires close()). The
+ * once-semantics are `composeProductAnalyticsRuntimeOnce`'s, proven by
+ * its own integration tests.
  */
-let composedAnalytics: ProductAnalyticsRuntime<Transport> | undefined;
+let analyticsMemo: ReturnType<typeof composeProductAnalyticsRuntimeOnce> | undefined;
 
 /**
  * Compose the product-analytics runtime at most once per function isolate
@@ -84,8 +87,8 @@ function composeAnalyticsOnce(
   loaded: LoadedRuntime,
   observability: HttpObservability,
 ): ProductAnalyticsRuntime<Transport> {
-  if (composedAnalytics === undefined) {
-    const analytics = composeProductAnalyticsRuntime({
+  analyticsMemo ??= composeProductAnalyticsRuntimeOnce(() =>
+    composeProductAnalyticsRuntime({
       bootstrap: loaded.productAnalytics,
       serverVersion: loaded.runtimeConfig.version,
       releaseInput: releaseInputFromRuntimeEnv(
@@ -96,16 +99,15 @@ function composeAnalyticsOnce(
       resourceNames: liveResourceRegistrationNames(SERVED_SURFACE),
       waitUntil: hostingWaitUntil,
       reportOperationalError: operationalErrorReporter(observability.createLogger()),
-    });
+    }),
+  );
+  const analytics = analyticsMemo();
 
-    if (!analytics.ok) {
-      boundaryError(analytics.error.message);
-    }
-
-    composedAnalytics = analytics.value;
+  if (!analytics.ok) {
+    boundaryError(analytics.error.message);
   }
 
-  return composedAnalytics;
+  return analytics.value;
 }
 
 /**

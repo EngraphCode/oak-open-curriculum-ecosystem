@@ -27,7 +27,10 @@ import {
   type PostHogWaitUntil,
 } from '@oaknational/posthog-node';
 
-import { composeProductAnalyticsRuntime } from './compose-product-analytics-runtime.js';
+import {
+  composeProductAnalyticsRuntime,
+  composeProductAnalyticsRuntimeOnce,
+} from './compose-product-analytics-runtime.js';
 import type { ProductAnalyticsBootstrap } from './product-analytics-config.js';
 import { POSTHOG_EU_INGESTION_HOST } from './env-product-analytics.js';
 
@@ -193,6 +196,43 @@ describe('composeProductAnalyticsRuntime', () => {
     }
     expect(result.error.message).not.toContain('phc_test_key');
     expect(factory).not.toHaveBeenCalled();
+  });
+});
+
+describe('composeProductAnalyticsRuntimeOnce (the deploy loader retry contract)', () => {
+  it('a retried caller reuses the first composed runtime and never re-invokes the factory', () => {
+    const factory = vi.fn(fakeRuntime);
+    const memo = composeProductAnalyticsRuntimeOnce(() => composeSelected({}, factory));
+
+    // The deploy entry handler clears ITS memo on a failed app load and
+    // retries; the analytics memo sits outside that retry, so the second
+    // call must return the SAME runtime with no second client.
+    const first = memo();
+    const second = memo();
+
+    expect(first.ok).toBe(true);
+    expect(second.ok).toBe(true);
+    if (!first.ok || !second.ok) {
+      return;
+    }
+    expect(second.value).toBe(first.value);
+    expect(factory).toHaveBeenCalledTimes(1);
+  });
+
+  it('a failed composition is not cached, so a retry may compose again', () => {
+    const attempts: boolean[] = [true];
+    const memo = composeProductAnalyticsRuntimeOnce(() =>
+      attempts.pop() === true
+        ? composeSelected({
+            // The resolver's missing_application_version failure path —
+            // no client exists on this arm, so recomposing is safe.
+            releaseInput: { VERCEL_ENV: 'production', VERCEL_GIT_COMMIT_REF: 'main' },
+          })
+        : composeSelected({}),
+    );
+
+    expect(memo().ok).toBe(false);
+    expect(memo().ok).toBe(true);
   });
 });
 

@@ -107,6 +107,30 @@ export interface ComposeProductAnalyticsInput {
   readonly reportOperationalError: (kind: PostHogOperationalErrorKind) => void;
 }
 
+/**
+ * At-most-one-client semantics for a RETRIED caller (the deploy entry
+ * loader clears and retries a failed app load): the first Ok composition
+ * is cached and every later call returns the same runtime, so a transient
+ * post-composition failure can never construct a second PostHog client in
+ * the same isolate. Failures are not cached — the failure paths provably
+ * construct no client, so a retry may safely compose again.
+ */
+export function composeProductAnalyticsRuntimeOnce(
+  compose: () => Result<ProductAnalyticsRuntime<Transport>, ConfigError>,
+): () => Result<ProductAnalyticsRuntime<Transport>, ConfigError> {
+  let composed: ProductAnalyticsRuntime<Transport> | undefined;
+  return () => {
+    if (composed !== undefined) {
+      return ok(composed);
+    }
+    const result = compose();
+    if (result.ok) {
+      composed = result.value;
+    }
+    return result;
+  };
+}
+
 function compositionError(reason: string): Result<never, ConfigError> {
   return err({
     message: `invalid PostHog product-analytics composition: ${reason}`,
