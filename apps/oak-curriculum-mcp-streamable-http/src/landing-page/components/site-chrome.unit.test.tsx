@@ -19,11 +19,11 @@ describe('SiteFooter legal links', () => {
     expect(legalNav).not.toBe('');
   });
 
-  it("links Oak's terms & conditions at the canonical URL", () => {
+  it("links Oak's API-version terms & conditions at the owner-directed URL", () => {
     // React escapes the ampersand; renderToStaticMarkup is also what the page
     // ships through, so the text carries no hydration markers.
     expect(legalNav).toMatch(
-      /<a[^>]*href="https:\/\/www\.thenational\.academy\/legal\/terms-and-conditions"[^>]*>Terms &amp; conditions<\/a>/,
+      /<a[^>]*href="https:\/\/www\.thenational\.academy\/legal\/terms-and-conditions-api-version"[^>]*>Terms &amp; conditions<\/a>/,
     );
   });
 
