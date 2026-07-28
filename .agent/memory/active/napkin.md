@@ -1886,3 +1886,31 @@ specific object, never the batch it sat near.
   not the loosest.
 - Correction issued in-channel to Swallow (tagged failure-mode) so the invented framing does not
   propagate; my ruling's conclusion was unaffected, only the reasoning wrapped around it.
+
+## 2026-07-28 ~07:38Z — Altair turns Infinity (7a97a1): MCP-16 requirements review captures
+
+- **Fresh-fetch-vs-prior produced five material drift findings in six days** (portal now needs a
+  Team/Enterprise org; community auto-listing is the documented default; precise screenshot spec;
+  owned-origins-only link URIs; our own MCP-106 dated path stale against owner word). The
+  capability-questions-from-original-sources rule earned its keep mechanically: the 2026-07-22
+  capture would have passed a review that the live pages fail. Treat any requirements capture
+  older than days as a prior, never the answer.
+- **My annotation grep pointed at the wrong SDK package and manufactured a near-finding**:
+  `oak-sdk-codegen`'s `definitions.ts` showed "no readOnlyHint" — but the served package is
+  `oak-curriculum-sdk` (plus app-local registrations), and the decisive instrument was the app's
+  own `served-surface-registration.integration.test.ts:43` walking EVERY registered tool.
+  Self-caught before transmission (suspect-the-instrument class, instance n+1: a surprising
+  negative from an unverified grep is about the grep). The monorepo has four `sdks/*` packages;
+  anchor package identity from the app's imports before grepping "the SDK".
+- **Auth-gated served checks have a legitimate landing place**: the portal's Test & launch step
+  requires an authenticated run of every tool anyway, so a served `tools/list` confirmation that
+  a review seat cannot reach unauth folds into an obligation the submission already carries —
+  route it there instead of blocking the review on it.
+
+## 2026-07-28 ~08:2xZ — Raccoon turns Nocturne (0f6caa): COLD PAUSE resume block (owner word)
+
+- **#602 (MCP-238) is ONE six-line deletion from merge.** Director gateway review returned APPROVE-WITH-NOTE (directed event 08:21:31Z): my proof-clause adjudication ACCEPTED (keep frozen shape, do NOT rework to DI factory). Pre-merge cure, Director-adjudicated, apply verbatim: in `packages/libs/posthog-node/src/posthog-final-wire.integration.test.ts` `expectNoForbiddenContent` (:233-251), DELETE exactly the six decorative values that never enter the run — 'raw-session' (:238), 'raw-conversation' (:239), 'raw-error' (:242), 'raw-group' (:243), 'raw-person-property' (:244), 'raw-unknown' (:245); the other nine assertions are real, KEEP. Then package tests, commit (bot), push; **the DIRECTOR merges at settled** (their word: "push, and I merge at settled"). Three further findings are the Director's tickets, not this lane's.
+- Worktree: `oak-open-curriculum-ecosystem-worktrees/mcp-238-runtime-logger`, branch `jimcresswell/mcp-238-runtime-and-logger`, pushed head 153f4ef30, PR #602 17/17 green, threads 0. Base = #601 merge (b3b501ce5).
+- Claims held: 398ddef9 (MCP-238 lane), f0652d2d (widget-path attribution until Director's main→coordination merge). #597/MCP-290 fully closed earlier (merged 237970d7e, Done, dark-mode ratified).
+- On resume, BEFORE anything: re-arm watcher (rule-text invocation, same seen-file) + F-75 pair + dual-claim heartbeat loop; assert-watcher-live; the drain replays the gap.
+- Standing constraint (owner ~08:20Z, binds all seats): the Chrome claude.ai session is his METERED Oak Premium seat — Oak-system key interactions only, surgical, browser last never first.
