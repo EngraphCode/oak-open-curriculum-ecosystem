@@ -86,9 +86,13 @@ const POSTHOG_VENDOR_BOUNDARY_MESSAGE =
  * `no-restricted-imports` groups are gitignore-style, and a slashless
  * pattern matches at any path depth — so the bare `posthog-node` group
  * also matches the Oak adapter specifier `@oaknational/posthog-node`.
- * The negations except the adapter: it is the sanctioned consumption
- * surface for every other workspace (first consumed by the app in
- * MCP-240), while the vendor SDKs stay fenced to the adapter package.
+ * The negations except the adapter from the vendor fence only: where
+ * ADR-041's dependency matrix permits adapter-library imports at all
+ * (apps and SDKs; first consumed by the app in MCP-240), the sanctioned
+ * consumption surface is the adapter, never the vendor SDKs. Independent
+ * tier boundaries still govern consumption — core, foundation libs, and
+ * the other restricted tiers cannot import the adapter on their own
+ * terms — and the vendor SDKs stay fenced to the adapter package.
  */
 const OAK_ADAPTER_EXCEPTIONS = [
   '!@oaknational/posthog-node',
