@@ -1,3 +1,15 @@
+# [1.106.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.105.0...v1.106.0) (2026-07-28)
+
+
+### Bug Fixes
+
+* **landing-page:** let design-system link state colours win over the footer chrome colour ([caf2641](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/caf26417070ce517dd7cb0d71f8ebbde4d2e43c2)), closes [#608](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/608)
+
+
+### Features
+
+* **landing-page:** link Oak's terms and conditions and privacy policy in the footer ([94c3745](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/94c3745ff06b2c29c0eb24becea8c96ffbe1b9d5))
+
 # [1.105.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.104.1...v1.105.0) (2026-07-28)
 
 
