@@ -1,3 +1,13 @@
+## [1.121.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.121.0...v1.121.1) (2026-07-29)
+
+
+### Bug Fixes
+
+* **mcp-app:** cure CodeQL findings at source: regex-free host wildcards, single auth-header parse ([57d545b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/57d545bda20dd713187a0e8603c3f88a0850db25))
+* **mcp-app:** derive every self-description URL from the deployed instance (MCP-351) ([69bc4eb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/69bc4eb2ac4eb05f431d1b5ac9619e7b42d79ce7))
+* **mcp-app:** no token text in WWW-Authenticate; empty PORT divergence (MCP-351) ([b36e2b7](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b36e2b7040178c8194fe08a859ad166f1a7d7cd0))
+* **mcp-app:** scope the auth attestation truthfully; close the empty-credential gap (MCP-351) ([e61113b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e61113bd69844c6c7fc6c7f64cff25a553d918c4)), closes [#225](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/225) [#225](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/225)
+
 # [1.121.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.120.0...v1.121.0) (2026-07-29)
 
 
