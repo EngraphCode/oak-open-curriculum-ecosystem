@@ -23,6 +23,12 @@ describe('findLocalCssDependencies', () => {
     ]);
   });
 
+  it('reports a bare url() target with surrounding whitespace', () => {
+    expect(findLocalCssDependencies('.x { background-image: url( texture.svg ); }')).toEqual([
+      'texture.svg',
+    ]);
+  });
+
   it('skips remote, protocol-relative and data references', () => {
     const css = `
       @import url('https://fonts.googleapis.com/css2?family=Public+Sans');

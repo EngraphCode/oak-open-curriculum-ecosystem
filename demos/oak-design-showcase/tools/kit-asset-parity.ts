@@ -48,7 +48,18 @@ export const SHOWCASE_KIT_ASSETS: readonly KitAssetPair[] = [
   },
 ];
 
-const URL_REFERENCE = /url\(\s*(['"]?)([^'")]*)\1\s*\)/gi;
+// Three explicit branches (double-quoted, single-quoted, bare) instead of a
+// quote backreference: the backreference form carried S8786 super-linear
+// backtracking. The bare branch excludes whitespace; surrounding whitespace
+// is consumed by the anchors either side.
+const URL_REFERENCE_PATTERN = String.raw`url\(\s*(?:"(?<doubleQuoted>[^"]*)"|'(?<singleQuoted>[^']*)'|(?<bare>[^'")\s]*))\s*\)`;
+const URL_REFERENCE_ONE = new RegExp(URL_REFERENCE_PATTERN, 'i');
+const URL_REFERENCE_ALL = new RegExp(URL_REFERENCE_PATTERN, 'gi');
+
+function urlReferenceTarget(match: RegExpMatchArray): string {
+  const groups = match.groups ?? {};
+  return groups['doubleQuoted'] ?? groups['singleQuoted'] ?? groups['bare'] ?? '';
+}
 
 function classifyReference(raw: string): string | null {
   const cleaned = raw.trim();
@@ -63,13 +74,13 @@ function importTarget(params: string): string | null {
     .replaceAll(/\b(?:layer|supports)\([^)]*\)/g, ' ')
     .replaceAll(/\blayer\b/g, ' ')
     .trim();
-  const urlForm = new RegExp(URL_REFERENCE.source, 'i').exec(withoutPrelude);
+  const urlForm = URL_REFERENCE_ONE.exec(withoutPrelude);
   if (urlForm !== null) {
-    return classifyReference(urlForm[2] ?? '');
+    return classifyReference(urlReferenceTarget(urlForm));
   }
-  const quotedForm = /^(['"])([^'"]*)\1/.exec(withoutPrelude);
+  const quotedForm = /^(?:"([^"]*)"|'([^']*)')/.exec(withoutPrelude);
   if (quotedForm !== null) {
-    return classifyReference(quotedForm[2] ?? '');
+    return classifyReference(quotedForm[1] ?? quotedForm[2] ?? '');
   }
   return null;
 }
@@ -86,8 +97,8 @@ export function findLocalCssDependencies(css: string): readonly string[] {
     }
   });
   root.walkDecls((decl) => {
-    for (const match of decl.value.matchAll(URL_REFERENCE)) {
-      const reference = classifyReference(match[2] ?? '');
+    for (const match of decl.value.matchAll(URL_REFERENCE_ALL)) {
+      const reference = classifyReference(urlReferenceTarget(match));
       if (reference !== null) {
         dependencies.add(reference);
       }
