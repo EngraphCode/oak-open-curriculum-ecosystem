@@ -1,5 +1,17 @@
 # Never Use Git to Remove Work
 
+**TRIGGER — the rule fires on TREE STATE plus COMMAND, never on intent:**
+if the working tree holds uncommitted work, `git stash`, `git checkout
+--`/`git restore`, and `git reset` are risk-class NO regardless of what you
+are using them for — including "just a measurement", "making the tree
+temporarily clean", or any framing of the operation as a read. Worked
+instance (2026-07-26): a seat stashed an hour of uncommitted cures to
+observe a baseline warning count that one grep of an existing log would
+have answered; the rule never fired because the seat had filed it under
+"destructive operations" and framed the stash as measurement. When a clean
+tree is genuinely required: commit first, or run the comparison in a
+separate clean checkout — the tree is never the instrument.
+
 We never use git to remove work. We move forward via filesystem changes
 — Edit, Write, and explicit `rm` of files. Git is for committed history;
 working-tree edits live in the working tree until explicitly staged and
@@ -88,6 +100,18 @@ effect, and proceed only on express per-instance instruction (the owner
 may run the command themselves via `!`). The table's "read HEAD, then
 Edit what you want to keep" row is selective forward judgment, not this —
 the line is wholesale restoration of the blocked effect.
+
+## Read the Target Immediately Before Any Overwrite
+
+Even on the permitted forward path (Edit/Write toward committed content),
+**read the target's live diff at the moment of acting** — overwriting
+destroys exactly the evidence needed to answer "were my changes the only
+changes in that file?" afterwards (owner catch 2026-07-25: a forward
+overwrite of two shared-checkout files was answerable only from a stale
+`git status` that happened to survive in context; the safe-looking method
+had made the safety question archaeological). Ten seconds of `git diff --
+<file>` before the write makes the question answerable instead; certainty
+is the thing that removes the check, so the check is unconditional.
 
 ## A Safety Proof Never Licenses the Class
 

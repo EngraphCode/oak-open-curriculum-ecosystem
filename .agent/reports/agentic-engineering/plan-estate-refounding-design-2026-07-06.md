@@ -11,7 +11,8 @@ important-state-not-in-temp-files rule.
 **Cross-estate provenance.** The donor estate's exchange seat (session prefix `2a5066`;
 this estate's derivation "Kiln tracks Basalt") delivered a pin-free process synthesis +
 ten-item hyper-efficiency kit to the incoming box
-([`resonance-plan-estate-refounding-synthesis-2026-07-06.md`](../../practice-core/incoming/resonance-plan-estate-refounding-synthesis-2026-07-06.md)),
+(`resonance-plan-estate-refounding-synthesis-2026-07-06.md`, integrated and
+cleared from the practice box 2026-07-23 — content in git history),
 answered five ground-truth questions (retrospective delta at ~40× scale; the
 residual-judgement map; verification economics; typing a messy lifecycle; a do-not-copy
 list), and proposed twelve draft invariants — all conserved in the exchange ARC channel

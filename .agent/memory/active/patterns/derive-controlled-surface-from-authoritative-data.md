@@ -49,6 +49,21 @@ hand-maintained subset — a narrow const silently under-lists and drifts. Cure:
 single canonical catalogue consumed by the surface, plus a drift-guard test tying
 the listing to the registered set.
 
+## Corollary — Don't Persist What You Can Derive
+
+The storage-side face of the same principle: **persisting a value derivable
+from fields already present is a drift generator**, and every consumer of the
+stored copy inherits its machinery — staleness validation, totality corners,
+propagation slices, schema bumps, promotion paths all follow from the one
+decision to store. Worked instance (PR #515, 2026-07-24): every finding of
+three consecutive review waves traced to ONE generator — a persisted
+disambiguator derivable from fields already on the record; the owner-accepted
+reframe (render-time derivation, no persisted field, no schema change)
+dissolved the whole finding family. The estate already lives this elsewhere
+(`shared-comms-log.md` is a generated view, never authored) — recognise the
+shape at plan-authoring time: a plan slice adding validation/propagation for
+a stored field is the tell that the field should be derived instead.
+
 ## Worked Instances
 
 - **The EEF `focus` enum (owner correction, 2026-05-27).** A crosswalk was

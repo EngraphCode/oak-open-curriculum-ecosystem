@@ -17,6 +17,23 @@ defined by PDR-112.
 | Cedar lifts Canopy | claude | claude-opus-4-8[1m] | 435d30 | implementer — WS-B D0 audience-model reconciliation + compliance firewall (DONE, pushed `36cb27444`); authored the data-sources brief; created the cross-worktree work-state map | 2026-06-26 | 2026-06-27 |
 | Peony calls Trunk | claude-code | claude-opus-4-8 | d8ff86 | implementer — WS-B D3 (explain tool) landed `2ef673f4b`; authored the oak-under-the-hood full-lens reframe spine + the session wind-up/correction; D4/D5 and the retire-the-bake decision deferred to a fresh session per owner direction | 2026-06-27 | 2026-06-27 |
 | Swordfish rides Surf | claude-code | claude-opus-4-8[1m] | d7bc11 | implementer — re-assessed first-hand, REWROTE the plan to the simple system (one behaviour, two channels, no carried content; pointer-shape MCP; delete the bake), validated via two ultracode suites; **W1 (behaviour) DONE + onboarding-expert-reviewed, uncommitted**; W2/W3 not started; mid-cycle handoff (claim bb9073cd, record set) for an owner-named successor | 2026-06-27 | 2026-06-27 |
+| Juniper holds Tendril | claude-code | claude-fable-5 | 3dfd3b | implementer — dev-facing guide arc: drafted the doc the owner rewrote, wired discoverability, re-trued the lens close bookend (PRs #603 + #604, both owner-merged) | 2026-07-28 | 2026-07-28 |
+
+## DEV GUIDE LANDED (2026-07-28, Juniper holds Tendril) — READ FIRST
+
+- `docs/engineering/working-with-this-repo-for-devs.md` is live on `main` (PR #603, merge
+  `5404a4aa2`, owner-merged): the practical how-to pair of `agentic-engineering-system.md`.
+  Owner-authored — Jim rewrote the agent-assembled draft and his version is canonical;
+  changes to it need his sign-off. Discoverability wired: README developer routing +
+  Engineering Practice further reading, CONTRIBUTING lead link, the docs/engineering/
+  foundation indexes, `.agent/HUMANS.md`, and this thread's lens (under-the-hood's Practice
+  recipe + source-document table now route to the guide).
+- Session-close guidance re-trued the same day: `oak-wrap` closes EVERY session (owner
+  ruling; ADR-150/PDR-011 amendments via PR #604, merge `238fc26c1`). Both lens sites
+  (~L161 and ~L376) now say wrap.
+- Open adjacent, recorded on MCP-297: the onboarding-expert template's register pointer is
+  stale (`.agent/plans/...` → the register lives under `.agent/plans-backlog-2026-07/...`);
+  the register's 2026-06-12 bookends line carries a dated supersession annotation.
 
 ## CURRENT PICKUP (2026-06-27, Swordfish rides Surf → Seal lifts Whirlpool) — READ FIRST
 

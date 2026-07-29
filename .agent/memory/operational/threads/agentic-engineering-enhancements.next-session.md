@@ -24,6 +24,58 @@ feedback-mechanism arc, taxonomy work) is retained in git and in the
 work brief and the recent identity stretch, per
 [`continuity-practice.md` §Disposition](../../../directives/continuity-practice.md).
 
+## SESSION-CLOSE DOCTRINE RE-TRUED — wrap closes every session (2026-07-28, Juniper holds Tendril, 3dfd3b, implementer)
+
+- Owner ruling (verbatim substance): "it was never my intention to use wrap for 'big sessions', it is
+  for all sessions." Landed in two owner-merged PRs the same afternoon: #603 (`5404a4aa2`,
+  human-facing: the dev guide + README/CONTRIBUTING/lens) and #604 (`238fc26c1`, doctrine: ADR-150
+  Amendment Log + §1/§4 body revision, mirrored PDR-011 entry, continuity-practice, the
+  wrap/session-handoff/consolidate-docs/go/start-right-team skill contracts with regenerated
+  adapters, definition-of-delivery's authority parenthetical, the ADR index descriptor, the
+  lifecycle-triggers plan template — a generator, Director-adjudicated into the PR — and the
+  onboarding-register annotation).
+- Split-loop model PRESERVED one level down (docs-adr-expert verified): the consolidation gate is
+  intact; `session-handoff` is wrap's continuity component, never an alternative close.
+- Follow-ons, Director-adjudicated: MCP-310 (PDR-026 closeout-phrasing amendment — land this week),
+  MCP-311 (two pre-existing record defects: the ADR-150 "§Interaction Points" citation, PDR-011
+  status-line omissions), MCP-312 (ADR-150 which-sections-live note). Known-stale recorded on
+  MCP-299, not chased: `skill-composition.md:26-27,51-56`; the continuity research doc `:34-36`.
+- Session lesson pair, homed: transmit-before-verify hit two seats in one session (Director's
+  graduation-candidate capture at `43c03362a`); provenance-of-authority — a napkin imperative cited
+  as an owner ruling, corrected by the Director's constraint-lift broadcast (11:11Z, napkin entry).
+
+## DEDICATED CONSOLIDATION — EXECUTED (2026-07-26)
+
+Magnetar guards Perigee (claude-code / fable-5 / `565521`), curator,
+first_session 2026-07-26, last_session 2026-07-26. Owner-launched dedicated
+pass on base f5f48a332; comms sweep first per owner word (58 tagged + 570
+titled + longest bodies, post-07-23 window). Graduations at e1d48b955 +
+the follow-on commit: two new patterns (description-is-not-a-check;
+frozen-text-false-authority — the play seed's 4th instance), pr-lifecycle
+×4 (settled-by-name, Class F/P, quiet-window supersede, owner-branch
+collision), PDR-133 §8 landed in the surface matrix, stance-gradient +
+tier-inheritance in invoke-code-experts, six rule sharpenings, napkin
+rotated to `archive/napkin-2026-07-26.md`. Registers empty at open and
+close (pending-graduations 0, open-questions 0); comms archive-move
+executed (123 heartbeat-tier; provenance 0 violations). Named next-pass
+candidates: this record's own char-hard drain; the 1,406-event
+curator-ledger tooling gap; agent-collaboration.md relay-doctrine homing
+for the crossed-owner-words lesson (staged in distilled).
+
+## DEDICATED CONSOLIDATION — EXECUTED (2026-07-23)
+
+Session identity: Magma mends Sulphur (claude / claude-fable-5 / prefix
+`639530`), curator, first_session 2026-07-23, last_session 2026-07-23.
+The full pass record is `repo-continuity.md` §Agentic-Engineering Curation
+item 0a (commits `62a7dccf8`, `ae6936e39`, `1f3e7c9ae`); napkin archive
+`archive/napkin-2026-07-23.md`. Named next-pass candidates: the
+handoff-ratification-ledger homing; the comms curator-disposition input
+channel (with the rotation cursor-floor mitigation, both on the
+comms-watch-storage-redesign lane); the archive-stale-vs-live-seat policy
+seam (a claims-tooling candidate: the sweep read a live Director seat as
+stale because its loop bumped comms only — cure adopted seat-side, tool
+seam stands).
+
 ## MUTATION TESTING RE-BASELINE — DECISION-READY, NO IMPLEMENTATION (2026-07-15)
 
 Session identity: Spark seeks Pumice (codex / GPT-5 / prefix `019f61`),
@@ -724,6 +776,7 @@ passes) is in git history and the [`curator-passes/`](../curator-passes/) ledger
 
 | agent_name | platform | model | session_id_prefix | role | first_session | last_session |
 | --- | --- | --- | --- | --- | --- | --- |
+| `Magnetar guards Perigee` | `claude-code` | `fable-5` | `565521` | `dedicated-consolidation + PDR-094 v3/v4 owner-worded correction` | 2026-07-26 | 2026-07-26 |
 | `Moonless Lurking Dusk` | `claude` | `Opus 4.8` | `0641a3` | `dedicated-knowledge-curation` | 2026-06-01 | 2026-06-01 |
 | `Shaded Veiling Mirror` | `codex` | `GPT-5` | `019e88` | `dedicated-curation+closeout` | 2026-06-02 | 2026-06-02 |
 | `Lofty Sweeping Falcon` | `codex` | `GPT-5` | `019e8a` | `dedicated-curation-continuation+closeout` | 2026-06-02 | 2026-06-03 |

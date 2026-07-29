@@ -31,6 +31,35 @@ discipline binds to this PDR's tuple format).
 
 ## Amendment Log
 
+- **2026-07-23 — forks and duplicates: identity derives from the session,
+  never from inherited context.** Session forking (a harness's
+  fork-session mechanism) and harness-restart duplicates create processes
+  that inherit another seat's FULL context — memories, calibration, and
+  the inherited identity seed. Doctrine, from three worked instances in
+  one day (all 2026-07-23): (1) a fork's or duplicate's FIRST act is
+  identity derivation from its OWN session id, before any comms or
+  collaboration-state write — the inherited environment identity seed is
+  the collision mechanism; check it against the actual session id and
+  override on mismatch. (2) **Memory of a seat is not tenure of a seat**:
+  tenure = registry row + session continuity + owner witness. The claims
+  registry's `agent_id` rows are ground truth for singleton-seat
+  occupancy; comms silence and frozen succession records are never
+  evidence that a seat is open. (3) Fork bases are CERTIFIED fixed
+  points: the pipeline is compact → reground → fork — the reground step
+  catches compaction's lossy errors once, before inheritance amplifies
+  them N times — and any baseline cut for forking carries these fork
+  rules inside itself so they are inherited, not discovered. (4)
+  Rename-before-move: re-identify a fork before it wakes; a fork moved
+  unrenamed wakes believing it is its parent. Worked instances: a fresh
+  seat grounded on frozen succession records and adopted a live
+  Director's claim (caught in ~60s by the live watcher; row restored by
+  re-adoption); a restart-duplicate woke with the lead's memory, read
+  the authentic lead's events as impersonation, then verified the
+  registry first-hand and re-derived its own identity; the first fork
+  fleet ran a full day on certified bases with owner-observed ~10-min
+  prep savings per seat. §Decision gains "Forks, duplicates, and
+  inherited context". Related: PDR-063 (succession), PDR-117
+  (seat roles).
 - **2026-07-08 — a mid-session model switch is a CONTINUOUS seat, not an
   identity break.** Identity derives from the session seed, so the
   `session_id_prefix` — and therefore the display name and the canonical
@@ -332,6 +361,28 @@ bad-usage error. `OAK_AGENT_IDENTITY_OVERRIDE` supplies a resolved display name
 only when a seed is also available; it is not itself a seed. There is no
 personal-email fallback. The derived value helps fill `agent_name`; it does not
 change the additive-identity rule, the identity key, or the historical record.
+
+### Forks, duplicates, and inherited context
+
+(Per the 2026-07-23 amendment.) A session fork, a harness-restart
+duplicate, or any process that inherits another seat's full context is a
+NEW identity the moment it exists. Four binding rules:
+
+1. **First act: derive identity from your own session id**, before any
+   comms or collaboration-state write. The inherited environment
+   identity seed is the collision mechanism — check it against the
+   actual session id and override on mismatch.
+2. **Memory of a seat is not tenure of a seat.** Tenure = registry row +
+   session continuity + owner witness. The claims registry's `agent_id`
+   rows are ground truth for singleton-seat occupancy; comms silence and
+   frozen succession records are never evidence that a seat is open.
+3. **Fork from certified fixed points only**: compact → reground → fork.
+   The reground step verifies the distillation against live terrain once,
+   before inheritance amplifies any defect N times. Fork points are
+   deliberate ceremony moments cut at quiet points; the baseline carries
+   these fork rules inside itself so they are inherited, not discovered.
+4. **Rename before move.** Re-identify a fork before it wakes; a fork
+   moved unrenamed wakes believing it is its parent.
 
 ### Full identity block for coordination state
 

@@ -170,19 +170,23 @@ Exposed Headers: Mcp-Session-Id, WWW-Authenticate
 The HTTP server uses the **per-request transport pattern**: each incoming request creates a fresh `McpServer` and `StreamableHTTPServerTransport`. This matches the MCP SDK's canonical stateless example and works correctly on Vercel (both cold starts and warm instances).
 
 ```typescript
-// Per-request factory (from src/application.ts)
+// Per-request factory (from src/app/core-endpoints.ts)
 const mcpFactory: McpServerFactory = () => {
   const server = new McpServer(
-    { name: 'oak-curriculum-http', version: '0.1.0' },
+    { name: 'oak-curriculum-http', version: '0.1.0', ...OAK_SERVER_BRANDING },
     { instructions: SERVER_INSTRUCTIONS },
   );
+  wrapMcpServerWithSentry(server);
   registerHandlers(server, handlerOptions);
   const transport = new StreamableHTTPServerTransport({ sessionIdGenerator: undefined });
-  return { server, transport };
+  const connectTransport = deriveConnectTransport(transport, transportObserver);
+  return { server, transport, connectTransport };
 };
 ```
 
-Shared dependencies (Elasticsearch client, runtime configuration) are created once at startup. The `REMOTE_MCP_MODE` environment variable affects which CORS headers are exposed (session mode additionally exposes `Mcp-Session-Id`), not the actual transport behaviour.
+Shared dependencies (Elasticsearch client, runtime configuration, the product-analytics runtime) are created once at startup. The `REMOTE_MCP_MODE` environment variable affects which CORS headers are exposed (session mode additionally exposes `Mcp-Session-Id`), not the actual transport behaviour.
+
+When product analytics is selected (`OBSERVABILITY_SINKS` includes `posthog`), post-response event delivery is bounded through Vercel's `waitUntil` hook from the `@vercel/functions` **runtime dependency**. The composition roots inject the hook, and the application imports the package at exactly one module (`src/compose-product-analytics-runtime.ts`). Off Vercel the registration is a verified no-op — it does not throw, and the delivery promise still settles on the local event loop — so local runs and non-Vercel hosts need no fallback configuration.
 
 ### Recommendation
 

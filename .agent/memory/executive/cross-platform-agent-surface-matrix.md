@@ -122,6 +122,42 @@ The Codex product claims and event list above inherit their version pin,
 source-authority boundary, and evidence grades from the
 [Codex CLI capability catalogue](../../reports/agentic-engineering/codex-cli-agentic-capability-catalogue-2026-07-25.md).
 
+## Platform Liveness Declaration (PDR-133 §8)
+
+Any agent platform admitted to team operation carries a **Platform Liveness
+Declaration**: for every liveness class in
+[PDR-133](../../practice-core/decision-records/PDR-133-liveness-classes-and-platform-declaration.md)
+§2–§3 (the class set lives there — this matrix never restates it), one of
+three answers, each established by dated first-hand observation at a stated
+platform version: the certifying primitive with its observed latency; a
+**cannot-certify** with the substituting proxy named as a requirement of that
+platform's participation; or **certified-but-contract-suspended**, naming the
+suspending contract clause. Rows in the never-self-certifiable set (`NOTIFY`,
+`LOOP`, `ABSORB`, `CAPABILITY`, `PROGRESS`) need an external observer. Rows
+expire when the platform version moves. This section is the declaration's
+recording home; PDR-133 §8 holds the binding disciplines.
+
+**Transition state (per PDR-133 §8 Transition — citizenship is unconditional
+throughout):** every platform already in operation carries the declaration as
+a **named landing owed**, authored at the first liveness question that
+platform raises or at a dated backfill. No platform has a complete
+declaration set yet. Dated observations already on record:
+
+- **GitHub Copilot CLI 1.0.75 — `NOTIFY`: cannot-certify** (observed
+  first-hand 2026-07-25 by the Copilot seat, surfaced externally by the
+  owner; PDR-133's founding instance). The detached-bash primitive wakes the
+  harness only on process COMPLETION, so a persistent watcher is
+  delivery-live and notification-dead by construction. Substituting proxy —
+  a short-interval (~1 min) comms poll with its own cursor — is a **named
+  requirement** of Copilot seats' team participation, not an optimisation
+  (MCP-156 owns the durable cure).
+- **Claude Code — no declaration set authored (owed).** Instrument-2
+  evidence (content-bearing replies to directed events, no manual poll)
+  recurs routinely in the comms stream, but per PDR-133 §8 discipline 1 the
+  rows are recorded from a deliberate observation pass, never inferred from
+  ambient traffic.
+- **Codex, Cursor, Gemini/Antigravity — no declaration set authored (owed).**
+
 ## Policy Spine
 
 This repo's hook and adapter surfaces follow a small Policy Spine:

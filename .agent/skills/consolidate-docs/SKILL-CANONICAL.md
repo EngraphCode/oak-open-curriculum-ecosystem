@@ -58,7 +58,7 @@ Run `consolidate-docs` when one or more of these is true:
   family without naming its deeper cause
 - documentation drift or stale cross-references now need graduation
 - a class retention window has elapsed for live comms events (the curator-pass
-  archive-move trigger — see step 3a), or the owner opens a comms-corpus
+  deletion trigger — see step 3a), or the owner opens a comms-corpus
   research / retention plan
 
 This workflow preserves the full deep-convergence role: graduation, pattern
@@ -377,10 +377,11 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
      permanent homes is a **non-optional** consolidation step — version
      history is no longer a backstop. Extract durable substance to the
      smallest appropriate home (napkin → `distilled.md` → ADR/PDR/pattern).
-     Rotation of the raw events (archive-move into the gitignored
-     `comms-archive/`) is the curator-pass mechanism in step 3a below;
-     do not delete events, and remember the archive-move is gated on a
-     recorded disposition per event.
+     Rotation of the raw events (absorption-gated DELETION per PDR-094 v3;
+     owner policy 2026-07-26: once knowledge is retained the source is
+     spent) is the curator-pass mechanism in step 3a below; deletion is
+     gated on the pass-level absorption watermark, the class windows, and
+     the provenance check — never run blind.
    - **Plan surfaces**: active and recently completed plans (per step
      1 above) — surface any content that describes how things work
      rather than what to do next.
@@ -418,36 +419,50 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
    Per the standing direction codified in the homing partial: *all
    content must be moved to permanent homes or, if not useful,
    removed*. Silent deletion without homing is not the default.
-3a. **Comms-event rotation is a class-tiered, archive-not-delete curator pass**
-    (ADR-199 / PDR-094 — the preservation hold ended when WS7 of the comms-corpus
-    research plan ratified and executed the rotation, 2026-06-14). Rotation
-    **never deletes**: it archive-moves events past their class retention window
-    out of `.agent/state/collaboration/comms/` into the gitignored, off-drain-path
-    `.agent/state/collaboration/comms-archive/`, recording one `manifest.jsonl`
-    disposition row per event. It is gated three ways and these gates are
-    non-negotiable:
+3a. **Comms-event rotation is a class-tiered, extraction-gated archive
+    pass** (PDR-094 v4, owner-worded 2026-07-26: full extraction first —
+    the archive then exists to ENABLE future mining, never as a hedge;
+    ADR-199 carries the host phenotype). Retention lives in the durable
+    homes the extraction wrote; the raw source then archive-moves to
+    `comms-archive/` as obligation-free mining substrate. **The archive
+    changes nothing about the extraction bar** — it licenses no "later"
+    and no thinner sweep; a pass leaning on the archive's safety to lower
+    extraction quality has failed the gate. Movement is gated three ways
+    and these gates are non-negotiable:
 
-    - **Absorption gate (PDR-094 operative gate):** an event moves only once its
-      disposition is recorded — absorbed into a durable home, classified routine,
-      or quarantined. Bulk routine/noise classification on **title genre alone is
-      never sufficient**; a bulk pass body-reads a sample plus every over-length
-      body (the `3cc1fb93` falsifier).
-    - **Provenance gate (Invariant 3):** the pre-archive-move provenance check
-      (`pnpm --filter @oaknational/agent-tools comms-provenance-check`) must report
-      0 violations — it refuses to move any event cited in a permanent doc that
-      lacks inline-quote or digest coverage.
-    - **Class tiers:** heartbeat 48h (cadence aggregate extracted once first),
-      coordination/directed 7d, diagnostic/test/noise immediate-after-body-read,
-      research-precious until graduated. The windows are hygiene targets, not
-      drain-health-derived bounds (Invariant 4).
+    - **Watermark gate (PDR-094 operative gate, pass-level):** an event
+      moves only when a recorded absorption sweep covers it — the
+      consolidation pass's own record states "swept through T" (the same
+      shape as a napkin rotation record), and only events with
+      `created_at ≤ T` AND past their class window move. Bulk
+      routine/noise classification on **title genre alone is never
+      sufficient**; a sweep body-reads a sample plus every over-length body
+      (the `3cc1fb93` falsifier). A quarantined event is named individually
+      and stays live until resolved. No per-event disposition ledger — the
+      pass record and the homes are the record
+      (`permanent-doc-is-the-consolidation-record`); the retired ledger is
+      the machinery that once made a loss-free move read as impossible.
+    - **Provenance gate (Invariant 3):** the pre-move provenance check
+      (`pnpm --filter @oaknational/agent-tools comms-provenance-check`) must
+      report 0 violations — no event cited in a permanent doc leaves the
+      live stream without inline-quote or digest coverage.
+    - **Class tiers (movement schedules):** heartbeat 48h (cadence aggregate
+      extracted once, first), coordination/directed 7d,
+      diagnostic/test/noise immediate-after-body-read, research-precious
+      only once graduated. The windows are hygiene targets, not
+      drain-health-derived bounds (Invariant 4). Nothing in-window moves,
+      absorbed or not — the live stream is the working coordination surface.
 
-    The mechanism is the tested agent-tools harness
-    (`comms-archive-move`, dry-run by default; `--execute` gated). Knowledge
-    curation (the step-3 comms-events bullet above) is the **absorption** that
-    satisfies the gate; it precedes or accompanies any move. `shared-comms-log.md`
-    is a generated recent-view artefact (regenerate when comms-state writes make
-    it necessary) and goes untracked with no disposition-ledger entry — provenance
-    attaches to the events, never to the rendered log.
+    Broadcast a one-line rotation notice before each batch (live watchers
+    see benign ENOENT on mid-batch files; the notice classifies it). The
+    archive is NOT a buffer: it appears in no drain inventory and is never
+    owed curation — mining it is a deliberate research act (PDR-122
+    pipelines). `shared-comms-log.md` is a generated recent-view artefact
+    (regenerate when comms-state writes make it necessary), untracked —
+    provenance attaches to the events' quotes/digest, never to the rendered
+    log. The `comms-archive-move` harness needs only its per-event ledger
+    replaced by the watermark (MCP-185); until that lands, a curator pass
+    runs the gates above by hand and moves with the notice posted.
 4. **Audit `.agent/experience/` for three things, not one.** The experience directory is for *subjective experience* — what work was like, not what was done. The audit therefore has three distinct purposes (see [`../../experience/README.md § Why the audit step exists`](../../experience/README.md)):
 
    a. **Preserve the purpose** — scan for files that have drifted into technical content; this displaces the subjective register the files are meant to hold.

@@ -342,7 +342,32 @@ that does not need a premium seat, and concurrent premium seats share one
 quota envelope (owner direction 2026-05-24 — scale via efficient methods, not
 more premium seats). Escalate an individual dispatch to a premium model only
 when the review genuinely needs deeper judgement (e.g. `security-expert`
-threat analysis), and name that choice in the dispatch.
+threat analysis), and name that choice in the dispatch. **Sub-agent and
+workflow launches INHERIT the session model silently** (owner correction
+2026-07-26: a 7-agent verification workflow multiplied a premium main
+loop by N — "there are more refined, less brute force ways"): a premium
+seat must SET the tier per dispatch, never accept the inherited default;
+inline serial checks come before any fan-out, and heavyweight sweeps run
+only on a case-by-case owner-priced warrant.
+
+**The model-tier stance gradient governs fleet composition** (owner-named
+lesson, 2026-07-25, from a 14-agent disposition fleet): tiers diverge on
+STANCE, not just depth — Haiku↔Sonnet diverge on severity grading only;
+Sonnet↔Opus diverge on whether the handed FRAME itself gets challenged. In
+the worked instance all eleven Sonnet seats (xhigh and low alike) classified
+within the handed frame — one while personally holding UNSOUND-grade
+evidence — and both Opus seats independently challenged the frame. Owner:
+"Opus will stand up and say this is wrong where Sonnet seeks to classify
+with what is handed to it." Fleet doctrine: every multi-agent review or
+disposition fleet carries **at least one mandate-only Opus frame-challenger**
+(its brief is the frame, never the cells); Sonnet-tier fleets additionally
+get **mechanical UNSOUND tripwires** (explicit per-item criteria whose
+failure forces an UNSOUND verdict, since frame-rejection cannot be expected
+of the tier); and the fleet author's own deliverable carries arithmetic
+closure proofs (the table author sits in the Sonnet position with respect
+to their own frame). Composes with the frame clause below: specialist
+review validates correctness WITHIN a frame — tier choice decides whether
+anyone in the fleet can reject the frame at all.
 
 ### Codex Reviewer Adapter Preflight
 

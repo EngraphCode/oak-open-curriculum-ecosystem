@@ -31,6 +31,13 @@ discipline held for expensive chains gets skipped.
   verify the effect landed (the event on the stream, the ref moved, the
   registry row changed) — a grep filter over a failed send returns empty
   and reads as quiet success, not as failure.
+- **The false-silence twin, on WRITES: on any ambiguous outcome, READ THE
+  STATE before retrying — a retry is itself a write.** A piped grep over a
+  successful write can match nothing (the CLI emits prose, not the JSON the
+  filter assumed), silence gets read as failure, and the retry mints a
+  duplicate event/commit/row (worked instance 2026-07-24: a duplicated
+  directed comms event from exactly this shape). Derive output parsing from
+  observed output, never from memory of a schema.
 - When a command fails, capture the FULL output on that first run —
   `tail -N` on a failure swallows the reason and forces a re-run
   (sibling discipline: capture-expensive-command-output-first-run).

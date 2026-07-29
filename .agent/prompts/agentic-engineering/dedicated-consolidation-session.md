@@ -5,7 +5,7 @@ or a policy. Therefore it does not need to be canonical or exhaustive. -->
 
 ## Base
 
-/goal ultrathink /oak-metacognition /oak-reason /oak-start-right-thorough /oak-consolidate-until-done
+/goal ultrathink /oak-metacognition /oak-reason /oak-start-right-thorough /oak-consolidate-until-done /oak-concept-exploration /oak-free-play 
 
   This is a dedicated consolidation session. As always, the goal is knowledge
   curation, not chasing fitness numbers. The fitness function results are never the
@@ -24,7 +24,7 @@ or a policy. Therefore it does not need to be canonical or exhaustive. -->
 
 ## Team Session
 
-/goal ultrathink /oak-metacognition /oak-reason /oak-start-right-team /oak-consolidate-until-done
+/goal ultrathink /oak-metacognition /oak-reason /oak-start-right-team /oak-consolidate-until-done /oak-concept-exploration /oak-free-play 
 
   This is a dedicated consolidation session. As always, the goal is knowledge
   curation, not chasing fitness numbers. The fitness function results are never the

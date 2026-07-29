@@ -23,14 +23,14 @@ import {
   getAgentGuidanceContent,
   WIDGET_URI,
 } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
-import { isResourceLive } from './served-surface/served-surface.js';
+import { isResourceLive, type ServedSurfaceDefinition } from './served-surface/served-surface.js';
 import { filterCurriculumModelJson } from './served-surface/filter-guidance-content.js';
 
 import {
   type ResourceRegistrar,
   type ResourceRegistrationOptions,
 } from './register-resource-helpers.js';
-import { registerWidgetResource } from './register-widget-resource.js';
+import { registerWidgetResource, WIDGET_RESOURCE_NAME } from './register-widget-resource.js';
 import { CANONICAL_SKILL_URL } from './oak-under-the-hood/oak-under-the-hood-tool.js';
 
 /**
@@ -84,6 +84,9 @@ export function registerCurriculumModelResource(server: ResourceRegistrar): void
  */
 export const OAK_UNDER_THE_HOOD_RESOURCE_URI = 'docs://oak/under-the-hood.md';
 
+/** Registration name — one literal shared with the MCP-241 live-name derivation. */
+const OAK_UNDER_THE_HOOD_RESOURCE_NAME = 'Oak: Under the Hood orientation';
+
 /**
  * Registers the Oak: Under the Hood orientation resource (`docs://oak/under-the-hood.md`).
  *
@@ -105,10 +108,10 @@ function registerOakUnderTheHoodResource(server: ResourceRegistrar): void {
     `- Canonical method (always reachable): ${CANONICAL_SKILL_URL}\n\n` +
     'Relay Oak’s official wording from its public site; never surface a person’s name.\n';
   server.registerResource(
-    'Oak: Under the Hood orientation',
+    OAK_UNDER_THE_HOOD_RESOURCE_NAME,
     uri,
     {
-      title: 'Oak: Under the Hood orientation',
+      title: OAK_UNDER_THE_HOOD_RESOURCE_NAME,
       description:
         'How Oak builds and delivers its curriculum — the project/effort/ecosystem, its purpose ' +
         'and machinery, and how to engage. For assistants and integrators; a separate concern ' +
@@ -205,6 +208,41 @@ export function registerAllResources(
   if (isResourceLive(servedSurface, WIDGET_URI)) {
     registerWidgetResource(server, options.getWidgetHtml);
   }
+}
+
+/**
+ * Canonical live resource registration names under a served-surface
+ * definition — the names {@link registerAllResources} registers, gate for
+ * gate (MCP-241 closes the product-analytics resource labels to this set).
+ * Drift against the real registration path is pinned by the
+ * registration-walk parity test, which drives the full handler surface
+ * through a real server and compares.
+ */
+export function liveResourceRegistrationNames(
+  servedSurface: ServedSurfaceDefinition,
+): readonly string[] {
+  const names: string[] = [];
+  if (DOCUMENTATION_RESOURCES.every((r) => isResourceLive(servedSurface, r.uri))) {
+    names.push(...DOCUMENTATION_RESOURCES.map((r) => r.name));
+  }
+  if (isResourceLive(servedSurface, CURRICULUM_MODEL_RESOURCE.uri)) {
+    names.push(CURRICULUM_MODEL_RESOURCE.name);
+  }
+  if (isResourceLive(servedSurface, OAK_UNDER_THE_HOOD_RESOURCE_URI)) {
+    names.push(OAK_UNDER_THE_HOOD_RESOURCE_NAME);
+  }
+  if (isResourceLive(servedSurface, EEF_INTERPRETATION_RESOURCE.uri)) {
+    names.push(EEF_INTERPRETATION_RESOURCE.name);
+  }
+  names.push(
+    ...AGENT_GUIDANCE_RESOURCES.filter((r) => isResourceLive(servedSurface, r.uri)).map(
+      (r) => r.name,
+    ),
+  );
+  if (isResourceLive(servedSurface, WIDGET_URI)) {
+    names.push(WIDGET_RESOURCE_NAME);
+  }
+  return names;
 }
 
 export type { ResourceRegistrationOptions } from './register-resource-helpers.js';

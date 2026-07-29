@@ -14,7 +14,7 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import type { Transport } from '@modelcontextprotocol/sdk/shared/transport.js';
 import { wrapMcpServerWithSentry } from '@sentry/node';
-import type { McpTransportObserver } from '@oaknational/observability';
+import type { McpTransportObserver, ProductAnalyticsSink } from '@oaknational/observability';
 import type { Logger } from '@oaknational/logger';
 import {
   SERVER_INSTRUCTIONS,
@@ -56,6 +56,12 @@ interface CoreEndpointOptions {
    * is the exact concrete transport reference.
    */
   readonly transportObserver?: McpTransportObserver<Transport>;
+  /**
+   * Closed product-analytics capture capability (MCP-241), threaded into
+   * request handling; MCP-242's resource-read observation is its first
+   * consumer.
+   */
+  readonly productAnalyticsSink?: ProductAnalyticsSink;
 }
 
 /**
@@ -77,7 +83,7 @@ export function initializeCoreEndpoints(
   log: Logger,
   assetRateLimiter: RequestHandler,
 ): { mcpFactory: McpServerFactory } {
-  const { runtimeConfig, observability, transportObserver } = options;
+  const { runtimeConfig, observability, transportObserver, productAnalyticsSink } = options;
   const searchRetrieval = runtimeConfig.useStubTools
     ? createStubSearchRetrieval()
     : createSearchRetrieval(runtimeConfig.env, log);
@@ -105,6 +111,7 @@ export function initializeCoreEndpoints(
     createAssetDownloadUrl,
     getWidgetHtml: options.getWidgetHtml,
     ...(options.servedSurface ? { servedSurface: options.servedSurface } : {}),
+    ...(productAnalyticsSink ? { productAnalyticsSink } : {}),
   };
 
   log.debug('bootstrap.mcp.factory.created');

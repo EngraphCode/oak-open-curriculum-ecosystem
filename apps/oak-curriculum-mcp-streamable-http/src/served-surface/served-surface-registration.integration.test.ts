@@ -18,7 +18,8 @@ import {
   listUniversalTools,
   generatedToolRegistry,
 } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
-import { SERVED_SURFACE, type ServedSurfaceDefinition } from './served-surface.js';
+import { SERVED_SURFACE, liveToolNames, type ServedSurfaceDefinition } from './served-surface.js';
+import { liveResourceRegistrationNames } from '../register-resources.js';
 import { walkCanonicalRegistration } from '../test-helpers/registration-walk.js';
 
 describe('served-surface registration (integration)', () => {
@@ -78,5 +79,19 @@ describe('served-surface registration (integration)', () => {
     ).length;
     const universalCount = listUniversalTools(generatedToolRegistry).length;
     expect(registered.size).toBe(universalCount + 1 - stillDormant);
+  });
+});
+
+describe('product-analytics label closure (MCP-241)', () => {
+  it('liveToolNames matches exactly the tool set the real registration path registers', () => {
+    const walk = walkCanonicalRegistration();
+
+    expect(new Set(liveToolNames(SERVED_SURFACE))).toEqual(new Set(walk.toolConfigs.keys()));
+  });
+
+  it('liveResourceRegistrationNames matches exactly the resource names the real registration path registers', () => {
+    const walk = walkCanonicalRegistration();
+
+    expect(new Set(liveResourceRegistrationNames(SERVED_SURFACE))).toEqual(walk.resourceNames);
   });
 });

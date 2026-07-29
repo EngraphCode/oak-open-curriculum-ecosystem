@@ -183,6 +183,17 @@ invented optionality past the don't-invent-optionality discipline (PDR-058).
 Name the costume and apply the proportionality check: would this expenditure be
 justified if the verdict were already as clear to me as it is to the evidence?
 
+**Closed decisions take new evidence as statements, never as reopened
+menus** (owner correction 2026-07-26: "I do not enjoy re-litigating closed
+decisions"). When evidence arrives against a decision the owner has already
+closed, route it as a STATEMENT plus default-continue — a card is right only
+when the fact is materially NOVEL to the decider, and the test is concrete:
+was the fact in front of the owner at decision time? (In the worked
+instance the beta-status caution preceded the ruling by hours; carding
+keep/demote/reconsider re-litigated it.) An information request ("what do
+the docs say?") is answered with the information — the answer is never a
+vehicle for reopening the adjacent decision.
+
 The sharpest costume is **precedent- or source-framing used as cover**: hunting
 for a precedent, or framing a recommendation as merely "one source's view", to
 manufacture a fork where none exists. A unanimous reviewer recommendation plus

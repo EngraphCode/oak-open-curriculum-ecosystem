@@ -59,6 +59,15 @@ to an option list, including when an early list exists but may foreclose the rea
 alternates `metacognition` and `reason`, then feeds its warranted, falsifiable synthesis into the
 lenses above.
 
+### Proportionality — the pre-decision sizing gate
+
+The lenses resolve **shape**, never size. The
+[`proportionality`](../skills/proportionality/SKILL-CANONICAL.md) skill is the paired
+pre-decision gate — right SIZE of question, right instrument weight, right LEVEL to answer it —
+bounding scope, instrument weight and attention cost ONLY, never correctness, strictness or
+architectural quality. A gate, not a sixth lens; the skill carries why, and the domain
+instruments it cites are the operational detail.
+
 ## First Question
 
 Always apply the first question; **Ask: could it be simpler *without
@@ -482,9 +491,18 @@ paths, setup files) don't apply.
   target schema is not proof that an app has migrated; the proof
   is the import resolved in a built composition root. Use future
   tense or "intended" when authoring without runtime evidence;
-  reserve present tense for verified state. ADRs, runbooks, and
-  operator docs fail this rule loudest because they are cited as
-  authority. Companion to "Misleading docs are blocking": that rule
+  reserve present tense for verified state. ADRs, runbooks,
+  operator docs, RULES, and SKILLS all bind here — a rule or skill
+  claiming a guarantee its mechanism does not deliver is the same
+  defect and is cited as authority just as hard (five instances in
+  five surfaces, 2026-07-27; falsifier for the class: a sixth
+  instance in a surface this scope still misses). The rule binds in
+  BOTH directions: doctrine claiming LESS than the mechanism
+  delivers is the same defect — a stale under-claim is cited as
+  authority just as hard and forecloses capability that exists
+  (worked instance 2026-07-27: a docstring omitting the schema's
+  `match` field cost a wrongly-scoped ticket and a false blocker
+  claim). Companion to "Misleading docs are blocking": that rule
   fires after the misstatement lands; this rule prevents authoring
   the misstatement in the first place.
 

@@ -77,12 +77,23 @@ into the permanent record):
    bundled into a closeout PR multiplies asynchronous bot-review rounds
    without bound (a worked instance ran 5+ rounds before the bundle was
    split); give such an artefact its own PR with its own review story.
+   **Owner sizing bands (2026-07-27): ~5 files changed is the NORMAL
+   shape; 10 is acceptable; 20 is a problem.** The bands exist to keep
+   the complexity of reviewer comments minimal — one helpful convergence
+   mechanism among several (the triage rule and the round predicate are
+   the others), never a substitute for them. A changeset heading past 10
+   files splits BEFORE opening, while splitting is cheap — not after the
+   rounds prove the point.
 5. **Changeset-health check** (PDR-132, the single source): a healthy
    changeset settles within the PDR's round budget; the budget value, the
    size smells, and the archival-class exemption all live in the PDR. A
    changeset crossing the PDR's warning thresholds is re-examined for
    hidden second stories NOW — at open, splitting is cheap; over budget,
-   it is expensive.
+   it is expensive. The general form of this check is the
+   [`proportionality`](../proportionality/SKILL-CANONICAL.md) gate's SCOPE
+   axis; run it here when the changeset's size is genuinely in question,
+   and note that its LEVEL axis also applies at open — a question standing
+   owner word already answers is not an escalation.
 
 ## Phase 2 — Open with a reviewer-facing description
 
@@ -156,15 +167,43 @@ surfaces. Partial reads produce false "no problems" verdicts:
    `sonarqube-mcp-instructions` rule) and read each flagged site. The gate
    summary names conditions; only the issue list names the work.
 
-## Phase 4 — Triage by blocking force; fix at source
+## Phase 4 — TRIAGE every comment; fix at source
 
+- **The triage ruling** (owner, 2026-07-27, verbatim, a SEAT-LEVEL
+  obligation applied at the moment each comment is read — never deferred to
+  Director discretion): *"We do NOT have to address every comment, we have
+  to TRIAGE every comment, if it is incorrect reject it, if it is correct,
+  relevant and proportionate address it, if it is anything else raise a
+  ticket, tell the Director, and close the comment."*
+- The three-way test, exactly one terminal state per finding:
+  1. **INCORRECT → reject**, with verified reasoning in the reply
+     (`dispositions-need-verified-failure-scenarios`). Rejection is a
+     first-class outcome, never a failure of nerve.
+  2. **CORRECT and relevant and proportionate → address**, fixed at source.
+     ALL THREE conjuncts are required: individual validity is NOT
+     sufficiency — a correct finding whose cure widens the PR beyond its
+     ticket's story fails the proportionality conjunct and goes to state 3.
+  3. **ANYTHING ELSE → ticket + tell the Director + CLOSE the comment.**
+     Correct-but-elsewhere, correct-but-disproportionate, out-of-story
+     hardening, adjacent design questions: raise a pointer ticket (never a
+     spec), notify the Director, reply with the ticket reference, and
+     RESOLVE the thread. The closure is deliberate doctrine — a ticketed
+     finding left unresolved re-creates the divergent loop this rule ends.
+- **Convergence is the test of the loop**, not only the correctness of each
+  round: rounds should shrink; a cure not required by the ticket's story is
+  a ticket, not a commit; unrequested hardening built mid-review has a
+  measured high defect rate (worked instance, 2026-07-26/27: one PR reached
+  ten rounds — one feat commit, twelve fix commits, four cures introducing
+  new defects, three of those in hardening no ticket asked for — before
+  this ruling landed). Underlying principles:
+  `concept-exploration` §Loop Dynamics; sizing gate: `proportionality`.
 - Order by blocking force and risk, not by tool order; root causes before
   echoes.
-- Every finding ends in exactly one state: **fixed at source**,
-  **owner-dispositioned with evidence** (per-site, e.g. a Sonar
-  false-positive with rationale at that site), or **proven irrelevant at the
-  specific site**. Never dismissed by category, never gate-narrowed, never
-  warning-downgraded, never suppressed.
+- Sonar findings keep their per-site channel: **owner-dispositioned with
+  evidence** (per-site, e.g. a false-positive with rationale at that site)
+  remains a terminal state alongside the three above. Triage routes
+  findings; it never buries them — never dismissed by category, never
+  gate-narrowed, never warning-downgraded, never suppressed.
 - Fix the class, not the instance: a spelling finding on two lines gets a
   repo-wide sweep of the class; a stale literal gets checked against its
   source constant convention.
@@ -356,6 +395,23 @@ as phase-local restatements.
    once findings restate a documented residual. Track findings-per-round
    and risk-mass trend as the crossing-point telemetry; record the round
    count as the observed crossing point, never as the rule.
+   **Recovery for an over-scoped PR already in flight — the two-class
+   disposition ruling (owner-ratified 2026-07-25, #529; precedent: the
+   MCP-56 dispositions-only round):** a multi-story PR whose reviewers
+   re-review the whole diff on every push cannot reach the zero-new-findings
+   exit — the SURFACE, not diligence, generates the findings (#529 ran
+   14→19 unresolved across nine push-per-cure pushes, three rounds, no
+   convergence, checks green throughout). Batching one adjudicated round
+   per push cures only the re-trigger half; the other half is
+   dispositional. Classify every finding: **CLASS F** — the PR would LAND a
+   false statement → cure in the PR; nothing false lands. **CLASS P** —
+   true and valuable, but about how the named work is EXECUTED later →
+   reply naming the owning ticket and resolve WITHOUT growing the diff. A
+   Class P reply must name a real ticket — "later" with no home is
+   ignoring, not dispositioning. The durable lesson sits upstream: a round
+   budget is a SIZE constraint in disguise (PDR-132 binds it at authoring
+   time; single-story PRs are the generator fix) — this ruling is the
+   in-flight recovery, never a licence to open multi-story PRs.
 3. **Reviewer-leg states**, computed per (reviewer, tip): **SATISFIED** —
    ANY harvested review by the reviewer binds to the current tip (the
    Phase 3 harvest is the source; the compound read's `latestReviews` alone
@@ -412,7 +468,12 @@ as phase-local restatements.
    binding to the tip — never since the push (>10 min; 12 used on #330)
    (round-3 correction, 2026-07-16: without the skip clause a timed-out
    reviewer stays bound to an older commit and the settled state is
-   unreachable). On a tip where every leg settled via SKIPPED (no review
+   unreachable). **The quiet window is a PROXY for review-run-boundary
+   visibility, which agents lack; the owner sees run start/finish directly,
+   so an owner settled-word — or an owner-executed merge — issued from that
+   direct visibility supersedes the proxy and is never read as a process
+   breach** (owner word 2026-07-25; #518 and #534 were owner-merged inside
+   the window, correctly). Agents keep the proxy. On a tip where every leg settled via SKIPPED (no review
    ever bound to the tip), the quiet window anchors on the checks-green
    window from item 3. MERGE-READY is a settled round that landed zero new
    findings, plus every Phase 7 gate leg.
@@ -439,7 +500,17 @@ as phase-local restatements.
    non-zero body tally) AND zero NEWLY HARVESTED findings regardless of
    which round they bucket to (an out-of-order summary-only review bound
    to an older tip lands late: it buckets to its own prior round yet still
-   blocks THIS merge moment); every Phase 7 gate leg green INCLUDING
+   blocks THIS merge moment); **every REQUIRED check from the base branch's
+   ruleset PRESENT in the tip's check list BY NAME and green — an
+   expected-but-never-created check is simply absent from `gh pr checks`,
+   so an all-visible-terminal-green read looks settled while the merge
+   405s** (worked instance #517, 2026-07-24: the CodeQL advanced-setup
+   workflow landed on main after the PR opened, no `synchronize` event had
+   fired since it existed, and its required aggregate was never created;
+   any PR open across a required-workflow migration window inherits this
+   state; cure — an empty-commit push fires `synchronize` and creates the
+   missing run, and the 405 text itself names the missing check: read it);
+   every Phase 7 gate leg green INCLUDING
    checks GitHub does not enforce; the Sonar gate passing. The command
    inherits Phase 7's merge-authorisation boundary unchanged.
    **In a coordinated drive, the settled-round predicate binds GRANTS,
@@ -490,6 +561,16 @@ as phase-local restatements.
 - Reply to each thread with the fix evidence (commit SHA + what changed),
   then resolve it. "Resolved" is a settled-concern state, never a button
   clicked to clear `mergeStateStatus`.
+- **On an OWNER-AUTHORED branch, the author is the most likely concurrent
+  writer** (two collisions in one lane, 2026-07-24, #515): re-fetch the
+  branch tip immediately before opening the commit window, not just at
+  grounding. On any non-fast-forward rejection, STOP external writes and
+  read the incoming commits' AUTHORSHIP first — owner commits mean a carded
+  owner-version-wins reconciliation (semantic union, named surviving
+  deltas, history preserved via merge), never a mechanical merge-and-push.
+  Hold thread replies until the push lands, so no external record ever
+  cites a superseded commit — the held-replies discipline saved both
+  rounds.
 - **Silent-wait sweep after every push (PDR-132)**: verify the expected
   reviewer is REQUESTED on the new tip — a push does not re-request, and a
   tip with no requested reviewer and no tip-bound review waits forever
@@ -523,11 +604,20 @@ as phase-local restatements.
   state machine's item 2 defines it.** When item 2's mechanical step-back
   trigger fires: **STOP
   fix-pushing.** Step back and run concept exploration over the FULL finding
-  corpus for the shared generator; fix the CLASS in one pass, and consider
+  corpus for the shared generator, paired with the
+  [`proportionality`](../proportionality/SKILL-CANONICAL.md) gate over the PR
+  itself — the exploration finds the generator, the gate asks whether the
+  changeset, the review instrument, or the seat answering is the wrong size,
+  which is the question a corpus read alone does not pose. Fix the CLASS in
+  one pass, and consider
   splitting the PR (on #390 the generator was authored restatement of
   derivable state — instance-by-instance fixes added prose that spawned the
   next round). Severity decay remains the qualitative check; the tally is
-  what makes its absence visible.
+  what makes its absence visible. **The tally is the trigger's only input:
+  an unbuilt tally store means the trigger cannot fire, and a PR can run to
+  ten rounds looking locally healthy at every one** (worked instance
+  2026-07-26, #570 — ten rounds, twelve cure commits, four of which
+  introduced new defects; nothing counted, so nothing fired).
   At owner-active tempo the discipline tightens: the owner may merge or push
   mid-arc, so EVERY binding moment recomputes the compound state (Phase 5) —
   a live watch beats any probe cadence.
@@ -597,7 +687,12 @@ two-line lint failure believed self-landing).** Then:
   TIP'S statuses (not a failing one), verify against main's commits whether
   the context posts ANYWHERE before diagnosing further, and surface it to
   the owner: restoring the producer or amending the ruleset is repo
-  governance, never the shepherd's bypass.
+  governance, never the shepherd's bypass. The never-CREATED twin (#517,
+  2026-07-24) is the same invisibility with the opposite tell and cure: a
+  required workflow that landed on main AFTER the PR opened has no check row
+  to show and no BLOCKED signal until the merge attempt 405s — the merge
+  boundary's required-names-present leg (state machine item 5) catches it,
+  and an empty-commit push (firing `synchronize`) creates the missing run.
 
 - **The merge gate is merge-button-active-for-a-non-admin**: a truly-green
   PR — MERGE-READY per the state machine's item 4, plus every gate leg
@@ -667,6 +762,16 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   update lands and checks re-run, the merge remains the explicit command
   at the state machine's merge boundary (item 5), issued by hand at a
   freshly recomputed gate.
+- **CI runs the test-merge with CURRENT main.** A mid-round main landing
+  that moves a mirrored asset (a kit file vs a tracked copy under
+  `public/`, or any tracked parity copy) can red a parity test on your
+  round with no push of yours (two instances, 2026-07-20/23). Any lane
+  carrying a tracked parity copy inherits this class; the cure is one
+  push that folds main AND refreshes the copy byte-identically.
+- **A bot re-review round binds ~5–10 minutes after the request.**
+  Requesting re-review before the final push of a batch wastes the round
+  — it binds to the pre-push tip (three instances, 2026-07-21). Push the
+  complete batch first, then request.
 
 ## Phase 8 — After merge
 
