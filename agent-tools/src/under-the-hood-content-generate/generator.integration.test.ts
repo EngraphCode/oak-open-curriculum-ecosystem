@@ -7,7 +7,12 @@
 import { isErr, unwrap, unwrapErr } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
-import { generateContentModule, type GeneratorFileIo } from './generator.js';
+import {
+  checkContentModule,
+  generateContentModule,
+  renderGeneratedModule,
+  type GeneratorFileIo,
+} from './generator.js';
 import { syntheticCanonical } from './test-helpers/synthetic-canonical.js';
 
 function readsCanonicalOnly(): GeneratorFileIo['readTextFile'] {
@@ -41,3 +46,60 @@ describe('generateContentModule (integration)', () => {
     expect(written.get(outputPath)).toContain('export const OAK_UNDER_THE_HOOD_ORIENTATION =');
   });
 });
+
+describe('checkContentModule (integration)', () => {
+  const neverWrites: GeneratorFileIo['writeTextFile'] = () =>
+    Promise.reject(new Error('check must not write'));
+
+  function ioWithCommittedModule(committed: string | undefined): GeneratorFileIo {
+    return {
+      readTextFile: (path: string) => {
+        if (path.endsWith('SKILL-CANONICAL.md')) {
+          return Promise.resolve(syntheticCanonical());
+        }
+        return Promise.resolve(committed);
+      },
+      writeTextFile: neverWrites,
+    };
+  }
+
+  it('reports up to date when the committed module matches the regeneration', async () => {
+    const expected = await generateExpectedModule();
+    const outcome = await checkContentModule('/repo', ioWithCommittedModule(expected));
+    expect(outcome).toEqual({
+      ok: true,
+      detail: 'Under-the-hood content module is up to date.',
+    });
+  });
+
+  it('reports a missing committed module', async () => {
+    const outcome = await checkContentModule('/repo', ioWithCommittedModule(undefined));
+    expect(outcome.ok).toBe(false);
+    expect(outcome.detail).toMatch(/Missing generated module/);
+  });
+
+  it('reports a stale committed module', async () => {
+    const outcome = await checkContentModule('/repo', ioWithCommittedModule('// stale content\n'));
+    expect(outcome.ok).toBe(false);
+    expect(outcome.detail).toMatch(/stale/);
+  });
+});
+
+/** The module text a regeneration of the synthetic canonical produces. */
+async function generateExpectedModule(): Promise<string> {
+  const written = new Map<string, string>();
+  const io: GeneratorFileIo = {
+    readTextFile: (path: string) =>
+      Promise.resolve(path.endsWith('SKILL-CANONICAL.md') ? syntheticCanonical() : undefined),
+    writeTextFile: (path: string, content: string) => {
+      written.set(path, content);
+      return Promise.resolve();
+    },
+  };
+  const outputPath = unwrap(await generateContentModule('/repo', io));
+  const moduleText = written.get(outputPath);
+  if (moduleText === undefined) {
+    return renderGeneratedModule('');
+  }
+  return moduleText;
+}

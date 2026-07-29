@@ -131,6 +131,16 @@ describe('buildDigest', () => {
     expect(unwrapErr(result)).toContain('# A');
   });
 
+  it('fails loudly on a raw-GitHub URL form inside a served HEADING', () => {
+    const heading = '## Fetch https://raw.githubusercontent.com/o/r/main/x.md';
+    const result = buildDigest(`${heading}\n\nBody.\n`, {
+      served: [heading],
+      excluded: new Map(),
+    });
+    expect(isErr(result)).toBe(true);
+    expect(unwrapErr(result)).toMatch(/Raw-GitHub URL form/);
+  });
+
   it('accepts raw-GitHub URL forms inside excluded sections', () => {
     const canonical =
       '# A\n\nBody.\n\n## B\n\nFetch `https://raw.githubusercontent.com/o/r/main/x.md`.\n';

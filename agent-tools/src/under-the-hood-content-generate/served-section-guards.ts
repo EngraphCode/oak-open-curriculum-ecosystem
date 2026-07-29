@@ -84,7 +84,10 @@ function servedUrlFormDefect(
     if (!served.includes(section.heading)) {
       continue;
     }
-    const hits = section.lines.filter((line) => RAW_GITHUB_URL_FORM.test(line));
+    // The heading line ships too — scan it alongside the body.
+    const hits = [section.heading, ...section.lines].filter((line) =>
+      RAW_GITHUB_URL_FORM.test(line),
+    );
     if (hits.length > 0) {
       return (
         `Raw-GitHub URL form(s) inside the served section "${section.heading}" — cite the ` +
