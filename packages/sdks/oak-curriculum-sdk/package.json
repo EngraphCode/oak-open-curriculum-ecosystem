@@ -101,7 +101,7 @@
     "@elastic/elasticsearch": "^9.3.4"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.29.0",
+    "@modelcontextprotocol/sdk": "^1.30.0",
     "@oaknational/graph-corpus-sdk": "workspace:*",
     "@oaknational/logger": "workspace:*",
     "@oaknational/result": "workspace:*",
