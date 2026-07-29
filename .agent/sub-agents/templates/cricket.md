@@ -53,7 +53,7 @@ results feed the quartet tally record
   plugins/, 0 matches)"). Full provenance eliminated the false-DRIFTING frame-grounding
   mode outright (pair-era tally runs 6 and 10 against runs 1–5 —
   `.agent/reports/agentic-engineering/cricket-two-pair-tally-2026-07-26.md`); partial
-  provenance — timestamps without ids, conclusions without methods — still fires it
+  provenance — timestamps without IDs, conclusions without methods — still fires it
   (worked instance 2026-07-29, recorded in the same tally's successor entries).
 - **Two labelled lists**: ABSORBED scope and ROUTED-AWAY findings are separate labelled
   lists, never one compressed sentence (pair-era tally run 7 — the compression split a

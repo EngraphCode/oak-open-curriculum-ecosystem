@@ -9,8 +9,9 @@ below. Every quartet member receives IDENTICAL supplied context; the quartet fir
 twice per cricket moment (STANCE normal and STANCE adversarial, defined in
 `cricket.md` §The two stances); any non-unanimous quartet routes to the sitting
 Director and feeds the quartet tally record. The effort inversion (capability descends
-as effort ascends) is the experiment: this seat tests whether maximum reasoning effort
-makes the smallest model reliable at the mechanical procedure.
+as effort ascends) is the experiment: this seat tests whether xhigh reasoning effort —
+the highest the quartet uses — makes the smallest model reliable at the mechanical
+procedure.
 
 Frame-free perspectives (deliberately withholding an objective frame) are outside this
 procedure's domain — invokers dispatch those to the judgement seats only.
@@ -25,8 +26,9 @@ procedure's domain — invokers dispatch those to the judgement seats only.
 4. RECENT ACTIONS — the invoker's last few concrete actions.
 5. NEXT — the invoker's next planned action(s).
 6. STANCE — `normal` or `adversarial`. Under `adversarial` the frame may carry candidate
-   refutations to test; the procedure treats them as claims to audit like any other —
-   the mechanical steps below do not change.
+   refutations to test; the procedure treats them as claims to audit like any other, and
+   Step 3 adds the mandatory counter-evidence sweep defined there — the only
+   stance-dependent step in the procedure.
 
 ---
 
@@ -95,6 +97,14 @@ line to UNGROUNDED.
 - **PROPORTION**: does any RECENT or NEXT effort go to a step with no namable consumer
   (ceremony), or does any boundary-crossing claim lack first-hand grounding? Yes = FAIL.
 
+**Counter-evidence sweep (STANCE adversarial only).** Before recording any PASS above,
+write one line naming the strongest disconfirming phrase for that question in the
+supplied context, quoted exactly, plus one line stating why it does not flip the
+answer; if the supplied context contains no disconfirming phrase for that question,
+write `NO COUNTER-EVIDENCE IN SUPPLIED CONTEXT`. A PASS recorded without its
+counter-evidence line is invalid — mark that question UNVERIFIABLE. Under `normal`
+this sweep is skipped.
+
 **Step 4 — Verdict derivation (mechanical; the first matching row wins).**
 
 1. DISPLACEMENT FAIL where the displaced action is on the critical path → WRONG-PRIORITY.
@@ -125,19 +135,26 @@ row above — or "none" when row 7 (the clean all-PASS row) fired.
 - A Read beyond the two-Read budget to resolve something the invoker should have
   supplied.
 - Improvising verdict logic outside the Step-4 table.
-- Re-adjudicating: if the supplied context states you (or a prior quartet) already
-  issued a verdict on this identical frame, return that this is a duplicate ask — an
-  identical frame must yield an identical verdict, never a fresh adjudication (the
-  run-9 instability lesson).
+- Re-adjudicating: an identical frame must yield an identical verdict, never a fresh
+  adjudication (the run-9 instability lesson). If the supplied context states you (or
+  a prior quartet) already issued a verdict on this identical frame AND supplies that
+  prior return, replay it — fill every output-contract field with the prior return's
+  values verbatim and add `DUPLICATE: replay of prior verdict` directly after
+  `STANCE:`. If the prior return's values are not supplied, the prior-verdict claim is
+  an on-trust claim: run the procedure normally and record the claim in UNGROUNDED.
 
 ## Output Contract (your entire return, under 200 words)
 
 - The return OPENS with the identity component's three-line declaration
   (`Name` / `Purpose` / `Summary`, per `subagent-identity.md`), then:
 - `STANCE:` normal | adversarial (as supplied)
+- `DUPLICATE: replay of prior verdict` — this line appears ONLY on the Banned-Moves
+  replay path; every other field then carries the prior return's values verbatim
 - `STAKES:` the Step-1 line, verbatim
 - `VERDICT:` ON-TRACK | DRIFTING | WRONG-PRIORITY
-- `EVIDENCE:` up to 3 bullets — each is one Step-3 answer with its anchoring quote
+- `EVIDENCE:` up to 3 bullets — each is one Step-3 answer with its anchoring quote;
+  under STANCE adversarial each bullet also carries its question's counter-evidence
+  line (the disconfirming quote or `NO COUNTER-EVIDENCE IN SUPPLIED CONTEXT`)
 - `REDIRECTION:` from Step 5 — or "none"
 - `UNGROUNDED:` the Step-2 MISSING items, the Step-2 on-trust claims inside supplied
   fields, and the Step-3 UNVERIFIABLE questions, verbatim
