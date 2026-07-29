@@ -7,7 +7,7 @@
  */
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { includeIgnoreFile } from 'eslint/config';
+import { globalIgnores, includeIgnoreFile } from 'eslint/config';
 import { configs } from '@oaknational/eslint-plugin-standards';
 
 const thisDir = dirname(fileURLToPath(import.meta.url));
@@ -18,6 +18,10 @@ export default [
   // gitignore, not by per-path exception — the workspace .gitignore is the
   // single ignore authority here.
   includeIgnoreFile(join(thisDir, '.gitignore')),
+  // The one tracked exception (hub precedent): the design system's
+  // vanilla-JS theme runtime is a served asset in public/, byte-parity-tested
+  // against the workspace package — served assets are not typed-lint sources.
+  globalIgnores(['public/oak-theme.js']),
   // `configs.strict` is the TypeScript base (typescript-eslint parser +
   // strict rules); `configs.next` adds React + Next.js rules on top.
   ...configs.strict,
@@ -29,6 +33,40 @@ export default [
         projectService: true,
         tsconfigRootDir: thisDir,
       },
+    },
+  },
+  {
+    // The owner's no-hardcoded-values invariant, TSX half (test-expert
+    // ruling, 2026-07-29): the style ATTRIBUTE is banned outright — no
+    // value allow-list to erode. Inline styles cap what a brand's
+    // expression layer can transform (kit specimen HOOK-CLEAN CONTRACT);
+    // the authored-CSS half is gated by tools/validate-authored-css.ts.
+    // Deliberately a shallow tripwire: style values reached through a
+    // variable or spread are not seen — those shapes simply do not appear
+    // in this workspace, and review owns the residue.
+    // NOTE: rule options REPLACE, never merge (oak-eslint shared.ts records
+    // the trap), so the ExportAllDeclaration ban from `recommended` is
+    // re-included here verbatim.
+    files: ['**/*.tsx'],
+    rules: {
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: 'ExportAllDeclaration',
+          message:
+            'Avoid export * from "module" syntax to improve tree shaking. Use named exports instead.',
+        },
+        {
+          selector: "JSXAttribute[name.name='style']",
+          message:
+            'Inline styles cap what a brand’s expression layer can transform (kit specimen HOOK-CLEAN CONTRACT). Move the declaration into app/globals.css as a single-class hook composed from token roles.',
+        },
+        {
+          selector: "JSXElement[openingElement.name.name='style']",
+          message:
+            'Authored CSS in a style element bypasses both halves of the no-hardcoded-values instrument (the .css walk and the style-attribute ban). Author it in app/globals.css instead.',
+        },
+      ],
     },
   },
 ];

@@ -68,7 +68,8 @@ interface RegisterHandlersOptions {
   readonly runtimeConfig: RuntimeConfig;
   readonly logger: Logger;
   readonly observability: HttpObservability;
-  readonly resourceUrl?: string;
+  /** Served MCP endpoint URL, derived at the composition root (MCP-351). */
+  readonly resourceUrl: string;
   /** Pre-created search retrieval service (shared across per-request servers). */
   readonly searchRetrieval: SearchRetrievalService;
   /** Factory for generating signed asset download URLs (HTTP-only). */
@@ -158,7 +159,7 @@ export function registerHandlers(
   server: Pick<McpServer, 'registerTool' | 'registerResource'>,
   options: RegisterHandlersOptions,
 ): void {
-  const resourceUrl = options.resourceUrl ?? 'http://localhost:3333/mcp';
+  const { resourceUrl } = options;
   const stubExecutor = options.runtimeConfig.useStubTools
     ? createStubToolExecutionAdapter()
     : undefined;

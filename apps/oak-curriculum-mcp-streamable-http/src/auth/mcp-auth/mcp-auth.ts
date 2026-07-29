@@ -35,135 +35,139 @@ declare module 'express-serve-static-core' {
 import { getPRMUrl } from './get-prm-url.js';
 import { getMcpResourceUrl } from './get-mcp-resource-url.js';
 import { validateResourceParameter } from '../../resource-parameter-validator.js';
+import type { HostValidationError } from '../../host-validation-error.js';
+import { ok, type Result } from '@oaknational/result';
+import {
+  sendHostValidationForbidden,
+  sendInvalidFormatResponse,
+  sendInvalidResourceResponse,
+  sendMissingAuthResponse,
+  sendVerificationFailedResponse,
+} from './mcp-auth-responses.js';
 
-/**
- * Send 401 response with WWW-Authenticate header for missing authorization.
- * This triggers OAuth discovery in MCP clients.
- */
-function sendMissingAuthResponse(res: Response, prmUrl: string): void {
-  res
-    .status(401)
-    .set({ 'WWW-Authenticate': `Bearer resource_metadata="${prmUrl}"` })
-    .send({ error: 'Unauthorized' });
+/** The two self-URLs an authenticated request needs, derived together. */
+interface AuthUrls {
+  readonly prmUrl: string;
+  readonly expectedResource: string;
 }
 
 /**
- * Send 401 response for invalid Bearer token format.
+ * Derives the PRM URL and the RFC 8707 expected resource for the request.
+ * Both come from the same validated origin, so they fail together — one
+ * `Err` maps to one 403.
  */
-function sendInvalidFormatResponse(res: Response, prmUrl: string): void {
-  res
-    .status(401)
-    .set({
-      'WWW-Authenticate': `Bearer resource_metadata="${prmUrl}", error="invalid_request", error_description="Invalid Authorization header format. Must be 'Bearer <token>'."`,
-    })
-    .send({
-      error: 'Unauthorized',
-      message: 'Invalid Authorization header format.',
-    });
-}
-
-/**
- * Send 401 response for failed token verification.
- */
-function sendVerificationFailedResponse(res: Response, prmUrl: string): void {
-  res
-    .status(401)
-    .set({
-      'WWW-Authenticate': `Bearer resource_metadata="${prmUrl}", error="invalid_token", error_description="Token verification failed"`,
-    })
-    .json({ error: 'Unauthorized' });
-}
-
-/**
- * Send 401 response for invalid resource parameter (audience mismatch).
- */
-function sendInvalidResourceResponse(res: Response, prmUrl: string, reason: string): void {
-  res
-    .status(401)
-    .set({
-      'WWW-Authenticate': `Bearer resource_metadata="${prmUrl}", error="invalid_token", error_description="${reason}"`,
-    })
-    .send({
-      error: 'Unauthorized',
-      message: reason,
-    });
-}
-
-/**
- * Extract Bearer token from authorization header.
- * Returns token string or undefined if format is invalid.
- */
-function extractBearerToken(authHeader: string): string | undefined {
-  const parts = authHeader.split(' ');
-  if (parts.length === 2 && parts[0] === 'Bearer') {
-    return parts[1];
-  }
-  return undefined;
-}
-
-/**
- * Validate resource parameter (RFC 8707).
- * Returns validation result with reason if invalid.
- */
-function checkResourceParameter(
-  token: string,
+function deriveAuthUrls(
   req: Request,
-  logger: Logger,
   allowedHosts: readonly string[],
   canonicalOrigin?: string,
-): { valid: boolean; reason?: string } {
-  const expectedResource = getMcpResourceUrl(req, allowedHosts, canonicalOrigin);
-  return validateResourceParameter(token, expectedResource, logger);
+): Result<AuthUrls, HostValidationError> {
+  const prmUrlResult = getPRMUrl(req, allowedHosts, canonicalOrigin);
+  if (!prmUrlResult.ok) {
+    return prmUrlResult;
+  }
+  const resourceResult = getMcpResourceUrl(req, allowedHosts, canonicalOrigin);
+  if (!resourceResult.ok) {
+    return resourceResult;
+  }
+  return ok({ prmUrl: prmUrlResult.value, expectedResource: resourceResult.value });
+}
+
+/** The Authorization header parsed once into a closed set of outcomes. */
+type AuthorizationHeader =
+  | { readonly type: 'missing' }
+  | { readonly type: 'malformed' }
+  | { readonly type: 'bearer'; readonly token: string };
+
+/**
+ * Parses the Authorization header into a closed result: absent (or empty)
+ * credentials, a malformed value, or a Bearer token. One parse at the
+ * boundary; every later decision switches on the result, never on the raw
+ * header. The `missing`/`malformed` split preserves RFC 6750's distinction
+ * between absent credentials (bare `WWW-Authenticate: Bearer` challenge)
+ * and malformed ones (`error="invalid_request"`). Scheme matching is
+ * deliberately exact ("Bearer", single space) — the pinned integration
+ * states keep lowercase `bearer`, multi-space, and comma-joined forms in
+ * the malformed arm.
+ */
+function parseAuthorizationHeader(header: string | undefined): AuthorizationHeader {
+  if (header === undefined || header === '') {
+    return { type: 'missing' };
+  }
+  const parts = header.split(' ');
+  const token = parts[1];
+  if (parts.length === 2 && parts[0] === 'Bearer' && token) {
+    return { type: 'bearer', token };
+  }
+  return { type: 'malformed' };
 }
 
 /**
- * Log and forward error from auth middleware.
+ * Runs the three token steps — presence, format, verification — responding
+ * 401 (with the PRM pointer) at the first failure. Returns the token and
+ * its verified `AuthInfo` on success; `undefined` means a response has
+ * already been sent.
+ *
+ * The invariant this middleware holds: **no request leaves `mcpAuth` via
+ * `next()` unless `verifyToken` returned a truthy `AuthInfo`**. It is
+ * asserted over the states a client controls in
+ * `mcp-auth.integration.test.ts` ("no unverified request reaches next()").
+ *
+ * Scope that sentence to THIS middleware, deliberately. It is NOT a claim
+ * about the `/mcp` route: `createMcpRouter` (`mcp-router.ts`) calls `next()`
+ * directly for a `resources/read` of a public resource URI, so such a
+ * request never enters `mcpAuth` at all. That exception is designed
+ * (ADR-057 / ADR-113 / ADR-205) and fail-closed — membership is exact-string
+ * against a frozen `Set` in `auth/public-resources.ts`, with no prefix or
+ * normalisation slack — but it is a route-level bypass of this file, and an
+ * attestation that claimed otherwise would be overclaiming.
+ *
+ * Note also that this file's `catch` calls `next(error)`, which enters
+ * Express's error pipeline and skips the remaining route handlers rather
+ * than reaching the MCP handler — an Express guarantee, verified against
+ * this app's own express version.
  */
-function handleAuthError(
-  error: unknown,
+async function verifyRequestToken(
   req: Request,
   res: Response,
-  logger: Logger,
-  next: NextFunction,
-): void {
-  if (error instanceof Error) {
-    const isHostValidationError =
-      error.message.startsWith('Cannot generate OAuth metadata URL:') ||
-      error.message.startsWith('Cannot generate MCP resource URL:');
-    if (isHostValidationError) {
-      logger.warn('Rejected request due to invalid or disallowed Host header', {
-        error: error.message,
-        path: req.path,
-        method: req.method,
-      });
-      res.status(403).json({ error: 'Forbidden' });
-      return;
-    }
+  prmUrl: string,
+  verifyToken: TokenVerifier,
+): Promise<{ token: string; authData: AuthInfo } | undefined> {
+  const authorization = parseAuthorizationHeader(req.headers.authorization);
+  if (authorization.type === 'missing') {
+    sendMissingAuthResponse(res, prmUrl);
+    return undefined;
   }
-  logger.error('MCP auth middleware error', {
-    error: error instanceof Error ? error.message : String(error),
-    path: req.path,
-    method: req.method,
-  });
-  next(error);
+  if (authorization.type === 'malformed') {
+    sendInvalidFormatResponse(res, prmUrl);
+    return undefined;
+  }
+  const authData = await verifyToken(authorization.token, req);
+  if (!authData) {
+    sendVerificationFailedResponse(res, prmUrl);
+    return undefined;
+  }
+  return { token: authorization.token, authData };
 }
 
 /**
  * Creates MCP authentication middleware with custom token verification.
  *
  * Returns middleware that:
- * 1. Returns 401 with WWW-Authenticate header if no authorization header
- * 2. Extracts and validates Bearer token format
- * 3. Calls custom verifyToken function for actual verification
- * 4. Returns 401 if token verification fails
- * 5. Validates JWT audience claim matches resource URL (RFC 8707)
- * 6. Returns 401 if audience validation fails
- * 7. Sets verified `AuthInfo` on `req.auth` for the MCP SDK transport
- * 8. Calls next() if all checks pass
+ * 1. Derives the PRM URL; a failed Host validation is an explicit 403
+ * 2. Returns 401 with WWW-Authenticate header if no authorization header
+ * 3. Extracts and validates Bearer token format
+ * 4. Calls custom verifyToken function for actual verification
+ * 5. Returns 401 if token verification fails
+ * 6. Validates JWT audience claim matches the resource URL (RFC 8707)
+ * 7. Returns 401 if audience validation fails
+ * 8. Sets verified `AuthInfo` on `req.auth` for the MCP SDK transport
+ * 9. Calls next() if all checks pass
  *
  * **RFC 8707 Compliance**: This middleware validates that the JWT's `aud`
  * (audience) claim matches the expected resource URL to prevent token misuse
- * across different services.
+ * across different services. The expected resource is the fixed `/mcp`
+ * path on the derived self-origin — exactly what the PRM document
+ * advertises.
  *
  * @param verifyToken - Custom function to verify the OAuth token
  * @param logger - Logger for authentication events
@@ -188,30 +192,21 @@ export function mcpAuth(
 ): RequestHandler {
   return async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const prmUrl = getPRMUrl(req, allowedHosts, canonicalOrigin);
-
-      // No authorization header - return 401 with WWW-Authenticate pointing to metadata
-      if (!req.headers.authorization) {
-        sendMissingAuthResponse(res, prmUrl);
+      const urlsResult = deriveAuthUrls(req, allowedHosts, canonicalOrigin);
+      if (!urlsResult.ok) {
+        sendHostValidationForbidden(urlsResult.error, req, res, logger);
         return;
       }
+      const { prmUrl, expectedResource } = urlsResult.value;
 
-      // Extract Bearer token
-      const token = extractBearerToken(req.headers.authorization);
-      if (!token) {
-        sendInvalidFormatResponse(res, prmUrl);
-        return;
-      }
-
-      // Verify token using provided verification function
-      const authData = await verifyToken(token, req);
-      if (!authData) {
-        sendVerificationFailedResponse(res, prmUrl);
+      // Presence, format, verification — 401s are sent inside the helper
+      const verified = await verifyRequestToken(req, res, prmUrl, verifyToken);
+      if (!verified) {
         return;
       }
 
       // RFC 8707: Validate resource parameter (JWT audience claim)
-      const validation = checkResourceParameter(token, req, logger, allowedHosts, canonicalOrigin);
+      const validation = validateResourceParameter(verified.token, expectedResource, logger);
       if (!validation.valid) {
         sendInvalidResourceResponse(res, prmUrl, validation.reason ?? 'Unknown validation error');
         return;
@@ -220,12 +215,16 @@ export function mcpAuth(
       // Set verified AuthInfo on req.auth for the MCP SDK transport.
       // Direct assignment matches the SDK's own requireBearerAuth pattern.
       // The MCP SDK augments IncomingMessage with `auth?: AuthInfo`.
-      req.auth = authData;
+      req.auth = verified.authData;
 
       next();
     } catch (error) {
-      // Error is logged by handleAuthError
-      handleAuthError(error, req, res, logger, next);
+      logger.error('MCP auth middleware error', {
+        error: error instanceof Error ? error.message : String(error),
+        path: req.path,
+        method: req.method,
+      });
+      next(error);
     }
   };
 }

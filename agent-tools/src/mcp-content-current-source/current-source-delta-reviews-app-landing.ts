@@ -43,8 +43,10 @@ export const APP_LANDING_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDel
     '24c94ac7e14c6f998b84db525cf1f0a656ebb8a0269d25fc002722741b0a3359',
     ['C354'],
   ),
+  // MCP-351: the bake now calls the shared served-origin module; the derived
+  // view-props values are unchanged.
   'apps/oak-curriculum-mcp-streamable-http/src/landing-page/derive-view-props.ts': reviewed(
-    '97b50f25358e22f8bb2b90dcfcca3d9ed4eddeb4cd34c7d6c6c7f161980407ab',
+    '3e93b0bec4ebcd8beba7c1cad86199ccd37e58af0858e47e9e89c35bad2cbbfa',
     ['C369'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/landing-page/index.ts': excluded(
@@ -55,9 +57,9 @@ export const APP_LANDING_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDel
     'c8ae88ca78a96601ac77e78b4b969141026496b3bc57ad64c6ead3151ba11207',
     IMPLEMENTATION_ONLY,
   ),
-  'apps/oak-curriculum-mcp-streamable-http/src/landing-page/resolve-canonical-url.ts': reviewed(
-    '23fb2c3120a6fcf39bb0e334a9f5f6af90db9682f9f94a24bdce952e3455dfbf',
-    ['C355'],
+  'apps/oak-curriculum-mcp-streamable-http/src/landing-page/resolve-canonical-url.ts': excluded(
+    'f7677fe63b8f9c48949e694a344be5fb7330c0a00e614093e7794c4edee66dbc',
+    DELETED_SOURCE,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/landing-page/view-props.ts': excluded(
     '937dcd100db80d18463b6f3b8bf2aa6f6c78bc7693d5ef4fd7778bfa2c466fef',

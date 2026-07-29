@@ -239,6 +239,10 @@ export default {
         // readFileSync in app/layout.tsx (no import edge to see; byte-parity
         // with the package is test-enforced) — same served-asset class.
         'demos/oak-curriculum-hub/public/oak-theme\\.js$',
+        // The showcase's tracked copy of the same theme runtime under public/,
+        // served statically and never imported (byte-parity with the package
+        // is validator-enforced) — same served-asset class as the hub's copy.
+        'demos/oak-design-showcase/public/oak-theme\\.js$',
         // Untracked import staging for the same system (root .gitignore) —
         // outside git and outside the analysis corpus.
         'packages/design/design-import/',

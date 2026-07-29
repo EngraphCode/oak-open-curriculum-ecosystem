@@ -50,6 +50,9 @@ export const CURRENT_AGGREGATED_ITEM_REVISION_OVERRIDES = {
   C393: 'modified',
   C463: 'modified',
   C705: 'modified',
+  // MCP-351 (carried through the MCP-365 relocation of this map): the PRM
+  // resource now composes the shared MCP_RESOURCE_PATH constant.
+  C706: 'modified',
   C707: 'modified',
   C717: 'added',
 } as const;

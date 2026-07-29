@@ -34,7 +34,7 @@ export const APP_TEST_HELPERS_DELTA_REVIEWS: Readonly<Record<string, CurrentSour
     TEST_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/test-helpers/registration-walk.ts': excluded(
-    '40cc3397b753b39cf3e6c81bf6154d2f7c3af29e4057e4f8f21dad7a206464e6',
+    '31f49ec350f174012d723eb88b9486086c0bcd82347813b3370082d1033fec8c',
     TEST_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/test-helpers/static-root-fixture.ts': excluded(

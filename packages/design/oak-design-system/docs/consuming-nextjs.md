@@ -1,6 +1,6 @@
 # Consuming this design system in a Next.js app
 
-For a current-defaults app — `npx create-next-app@latest` with TypeScript, App Router, Tailwind CSS v4, Turbopack. The system needs **no adapter layer**: the token roles are plain CSS custom properties, consumed natively. `demos/oak-curriculum-hub` in the oak-open-curriculum-ecosystem monorepo is a working proof (Next 16 + Tailwind v4 over an export of this system).
+For a current-defaults app — `npx create-next-app@latest` with TypeScript, App Router, Tailwind CSS v4, Turbopack. The system needs **no adapter layer**: the token roles are plain CSS custom properties, consumed natively. Two working proofs live in the oak-open-curriculum-ecosystem monorepo: `demos/oak-curriculum-hub` (Next 16 + Tailwind v4, importing this package's sheets through the §3 mapping) and `demos/oak-design-showcase` (the plain path — no Tailwind: the package's aggregate `styles.css` entry point, the kit's own classes and self-hosted fonts, plus the live identity/theme switchboard).
 
 Contents: 1 Install · 2 Fonts · 3 Tailwind mapping · 4 Theme controls & detection · 5 Setting the identity (white-label) · 6 Building pages · 7 Creating NEW components · 8 What not to do · 9 Obligations.
 

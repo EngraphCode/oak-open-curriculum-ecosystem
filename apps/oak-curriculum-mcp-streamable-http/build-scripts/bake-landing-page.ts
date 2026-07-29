@@ -32,16 +32,24 @@ import { renderLandingPageHtml, type LandingPageOptions } from '../src/landing-p
  */
 export type BakeEnvironment = VercelDisplayHostnameEnvironment & {
   readonly APP_VERSION_OVERRIDE?: string;
+  /**
+   * The configured canonical host, read at bake time so the baked page's
+   * canonical link, share card, and config snippet name the address clients
+   * actually use — the same precedence the request path applies (MCP-351).
+   */
+  readonly CANONICAL_HOST?: string;
 };
 
 /** Resolve the bake's inputs from a build environment (pure, injectable). */
 export function resolveBakeOptions(env: BakeEnvironment): LandingPageOptions {
   const vercelHost = getDisplayHostname(env);
+  const canonicalHost = env['CANONICAL_HOST'];
   const version = resolveApplicationVersion({
     APP_VERSION_OVERRIDE: env['APP_VERSION_OVERRIDE'],
   });
   return {
     ...(vercelHost !== undefined ? { vercelHost } : {}),
+    ...(canonicalHost !== undefined ? { canonicalHost } : {}),
     ...(version.ok ? { appVersion: version.value.value } : {}),
   };
 }

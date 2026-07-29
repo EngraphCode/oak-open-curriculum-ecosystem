@@ -1,12 +1,23 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
-import ShowcasePlaceholder from './page';
+import ShowcasePage from './page';
 
 describe('showcase page', () => {
-  it('presents its content in a main landmark under a single top-level heading', () => {
-    render(<ShowcasePlaceholder />);
+  it('presents one top-level heading inside the landmark structure', () => {
+    render(<ShowcasePage />);
     expect(screen.queryAllByRole('heading', { level: 1 })).toHaveLength(1);
     expect(screen.queryByRole('main')).not.toBeNull();
+    expect(screen.queryByRole('banner')).not.toBeNull();
+    expect(screen.queryByRole('contentinfo')).not.toBeNull();
+  });
+
+  it('offers the identity control independent of the theme runtime', () => {
+    render(<ShowcasePage />);
+    // No runtime exists in this environment: the identity axis must work
+    // regardless. The placeholder-shell contracts live in
+    // Switchboard.unit.test.tsx (one proof per state); the served page is
+    // Playwright's to prove.
+    expect(screen.queryByRole('combobox', { name: 'Identity' })).not.toBeNull();
   });
 });

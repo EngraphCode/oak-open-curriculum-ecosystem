@@ -44,6 +44,12 @@ const config: KnipConfig = {
     // string path knip's module graph cannot see. Byte-parity with the
     // workspace package is enforced by the hub's oak-theme-parity test.
     'demos/oak-curriculum-hub/public/oak-theme.js',
+    // The showcase's tracked copies of kit-authored served assets: the theme
+    // runtime (inlined by the same string-path readFileSync shape) and the
+    // white-label brand CSS the identity switcher swaps by href. Byte-parity
+    // and closure completeness are enforced by its validate-kit-assets gate.
+    'demos/oak-design-showcase/public/oak-theme.js',
+    'demos/oak-design-showcase/public/brands/**',
   ],
 
   eslint: true,

@@ -47,6 +47,7 @@ describe('native Sentry MCP wrapping is inert without Sentry.init', () => {
       logger: createFakeLogger(),
       observability: createFakeHttpObservability(),
       searchRetrieval: createFakeSearchRetrieval(),
+      resourceUrl: 'https://probe.test/mcp',
       getWidgetHtml: () => '<!doctype html><html><body>test</body></html>',
     });
 
@@ -66,6 +67,7 @@ describe('per-request transport observation (MCP-241)', () => {
       {
         runtimeConfig: createMockRuntimeConfig(),
         observability: createFakeHttpObservability(),
+        resourceUrl: 'https://probe.test/mcp',
         getWidgetHtml: () => '<!doctype html><html><body>test</body></html>',
         ...(transportObserver ? { transportObserver } : {}),
       },

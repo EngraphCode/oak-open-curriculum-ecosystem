@@ -1,11 +1,15 @@
 /**
- * Unit tests for getPRMUrl function.
+ * Unit tests for getPRMUrl.
  *
- * These tests verify that the OAuth Protected Resource Metadata URL is
- * generated with the path-qualified suffix per RFC 9728 Section 3.1.
- *
- * For resource `http://host/mcp`, the PRM URL is
- * `http://host/.well-known/oauth-protected-resource/mcp`.
+ * The builder delegates origin derivation to `deriveSelfOrigin` — whose
+ * scheme and allowlist states are proven in
+ * `host-validation-error.unit.test.ts`, and whose canonical-origin
+ * supersession is proven end-to-end in
+ * `canonical-origin.integration.test.ts` — and appends the RFC 9728
+ * path-qualified well-known suffix. These states prove only what this
+ * function adds: the appended path on success, that the canonical origin
+ * is forwarded, and validation failures surfacing as `Err` for the
+ * caller's 403 mapping.
  *
  * @see {@link https://datatracker.ietf.org/doc/html/rfc9728#section-3.1 | RFC 9728 Section 3.1}
  */
@@ -14,125 +18,36 @@ import { describe, it, expect } from 'vitest';
 import { getPRMUrl } from './get-prm-url.js';
 
 describe('getPRMUrl', () => {
-  it('generates path-qualified PRM URL per RFC 9728 Section 3.1', () => {
-    const mockReq = {
-      protocol: 'https',
-      get: (header: string) => {
-        if (header === 'host') {
-          return 'example.com';
-        }
-        return undefined;
-      },
-    };
+  it('appends the path-qualified well-known suffix to the derived origin', () => {
+    const req = { get: (header: string) => (header === 'host' ? 'example.com' : undefined) };
 
-    const result = getPRMUrl(mockReq, ['example.com']);
+    const result = getPRMUrl(req, ['example.com']);
 
-    expect(result).toBe('https://example.com/.well-known/oauth-protected-resource/mcp');
-  });
-
-  it('handles http protocol', () => {
-    const mockReq = {
-      protocol: 'http',
-      get: (header: string) => {
-        if (header === 'host') {
-          return 'localhost:3000';
-        }
-        return undefined;
-      },
-    };
-
-    const result = getPRMUrl(mockReq, ['localhost']);
-
-    expect(result).toBe('http://localhost:3000/.well-known/oauth-protected-resource/mcp');
-  });
-
-  it('handles different hosts with ports', () => {
-    const mockReq = {
-      protocol: 'https',
-      get: (header: string) => {
-        if (header === 'host') {
-          return 'api.production.com:8080';
-        }
-        return undefined;
-      },
-    };
-
-    const result = getPRMUrl(mockReq, ['api.production.com']);
-
-    expect(result).toBe('https://api.production.com:8080/.well-known/oauth-protected-resource/mcp');
-  });
-
-  it('throws when host header is missing', () => {
-    const mockReq = {
-      protocol: 'https',
-      get: () => undefined,
-    };
-
-    expect(() => getPRMUrl(mockReq, ['example.com'])).toThrow(
-      'Cannot generate OAuth metadata URL: missing host header',
-    );
-  });
-
-  it('throws when host header is malformed', () => {
-    const mockReq = {
-      protocol: 'https',
-      get: () => 'example.com:443@evil.com',
-    };
-
-    expect(() => getPRMUrl(mockReq, ['example.com'])).toThrow(
-      'Cannot generate OAuth metadata URL: invalid host header format: example.com:443@evil.com',
-    );
-  });
-
-  it('throws when host is not allow-listed', () => {
-    const mockReq = {
-      protocol: 'https',
-      get: () => 'evil.com',
-    };
-
-    expect(() => getPRMUrl(mockReq, ['example.com'])).toThrow(
-      'Cannot generate OAuth metadata URL: host not allowed: evil.com',
-    );
-  });
-
-  describe('with a configured canonical origin (MCP-269)', () => {
-    // The allow-list is passed EMPTY throughout: the canonical origin must not
-    // consult it, so an empty list makes any accidental per-request derivation
-    // fail loudly instead of passing by coincidence.
-    const CANONICAL = 'https://www.thenational.academy';
-
-    it('uses the canonical origin instead of the request host', () => {
-      const mockReq = {
-        protocol: 'https',
-        get: () => 'curriculum-mcp-alpha.oaknational.dev',
-      };
-
-      const result = getPRMUrl(mockReq, [], CANONICAL);
-
-      expect(result).toBe(
-        'https://www.thenational.academy/.well-known/oauth-protected-resource/mcp',
-      );
+    expect(result).toStrictEqual({
+      ok: true,
+      value: 'https://example.com/.well-known/oauth-protected-resource/mcp',
     });
+  });
 
-    it('ignores req.protocol — the canonical origin fixes the scheme', () => {
-      const mockReq = {
-        protocol: 'http',
-        get: () => 'curriculum-mcp-alpha.oaknational.dev',
-      };
+  it('appends the same suffix to a configured canonical origin', () => {
+    const req = { get: () => 'curriculum-mcp-alpha.oaknational.dev' };
 
-      const result = getPRMUrl(mockReq, [], CANONICAL);
+    const result = getPRMUrl(req, [], 'https://www.thenational.academy');
 
-      expect(result).toBe(
-        'https://www.thenational.academy/.well-known/oauth-protected-resource/mcp',
-      );
+    expect(result).toStrictEqual({
+      ok: true,
+      value: 'https://www.thenational.academy/.well-known/oauth-protected-resource/mcp',
     });
+  });
 
-    it('does not consult the request host at all — an absent Host still resolves', () => {
-      const mockReq = { protocol: 'https', get: () => undefined };
+  it('surfaces a host-validation failure as Err for the caller to map to 403', () => {
+    const req = { get: () => 'evil.com' };
 
-      expect(getPRMUrl(mockReq, [], CANONICAL)).toBe(
-        'https://www.thenational.academy/.well-known/oauth-protected-resource/mcp',
-      );
+    const result = getPRMUrl(req, ['example.com']);
+
+    expect(result).toStrictEqual({
+      ok: false,
+      error: { type: 'not_allowed', hostname: 'evil.com' },
     });
   });
 });

@@ -34,7 +34,12 @@ import {
   isUniversalToolLive,
   SERVED_SURFACE,
 } from '../served-surface/served-surface.js';
-import { resolveCanonicalUrl, resolveOrigin } from './resolve-canonical-url.js';
+import { resolveCanonicalOrigin } from '../canonical-origin.js';
+import {
+  resolveServedMcpUrl,
+  resolveServedOrigin,
+  type ServedOriginInputs,
+} from '../served-origin.js';
 import type { LandingPageViewProps, ResourceEntry, ToolEntry } from './view-props.js';
 
 /** All aggregated tool names, derived from the SDK's definitions map. */
@@ -92,7 +97,21 @@ function servedResources(): readonly ResourceEntry[] {
 export interface DeriveLandingPageOptions {
   /** Deployment host (e.g. `my-app.vercel.app`); absent means localhost/dev. */
   readonly vercelHost?: string;
+  /**
+   * Configured canonical host (`CANONICAL_HOST`), which supersedes the
+   * deployment host — the baked page then names the address clients actually
+   * use, exactly as the request-path surfaces do (MCP-351).
+   */
+  readonly canonicalHost?: string;
   readonly appVersion?: string;
+}
+
+/** The bake's deployment inputs, in the shared derivation's own shape. */
+function servedOriginInputs(options: DeriveLandingPageOptions): ServedOriginInputs {
+  return {
+    canonicalOrigin: resolveCanonicalOrigin(options.canonicalHost),
+    displayHostname: options.vercelHost,
+  };
 }
 
 /** Derives the complete, serialisable view-props for one page bake. */
@@ -109,11 +128,12 @@ export function deriveLandingPageViewProps(
     aggregatedTools: aggregated.map(toToolEntry),
     generatedTools: generated.map(toToolEntry),
     resources: servedResources(),
-    // "Where is this deployed" resolves exactly ONCE, here — the canonical
-    // link, the share card, and the config snippet cannot disagree, and no
-    // environment-shaped value crosses into the components.
-    siteOrigin: resolveOrigin(options.vercelHost),
-    mcpEndpointUrl: resolveCanonicalUrl(options.vercelHost),
+    // "Where is this deployed" resolves exactly ONCE, via the shared
+    // served-origin module — the canonical link, the share card, and the
+    // config snippet cannot disagree, and no environment-shaped value
+    // crosses into the components.
+    siteOrigin: resolveServedOrigin(servedOriginInputs(options)),
+    mcpEndpointUrl: resolveServedMcpUrl(servedOriginInputs(options)),
     ...(options.appVersion !== undefined ? { appVersion: options.appVersion } : {}),
   };
 }

@@ -65,6 +65,7 @@ async function startObservedServer(authInfo?: AuthInfo): Promise<ObservedServerH
     logger: createFakeLogger(),
     observability: createFakeHttpObservability(),
     searchRetrieval: createFakeSearchRetrieval(),
+    resourceUrl: 'https://probe.test/mcp',
     getWidgetHtml: () => TEST_WIDGET_HTML,
     productAnalyticsSink: sink,
   });

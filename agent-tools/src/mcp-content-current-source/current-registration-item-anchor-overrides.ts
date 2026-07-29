@@ -8,6 +8,8 @@
 
 const RESOURCE_REGISTRATIONS =
   'apps/oak-curriculum-mcp-streamable-http/src/resource-registrations.ts';
+const MCP_AUTH_RESPONSES =
+  'apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/mcp-auth-responses.ts';
 
 export const CURRENT_REGISTRATION_ITEM_ANCHOR_OVERRIDES: Readonly<
   Record<string, Readonly<Record<string, readonly string[]>>>
@@ -29,5 +31,40 @@ export const CURRENT_REGISTRATION_ITEM_ANCHOR_OVERRIDES: Readonly<
       "export const WIDGET_RESOURCE_NAME = 'Oak Curriculum App';",
       'registerAppResource(\n    server,\n    WIDGET_RESOURCE_NAME,\n    WIDGET_URI,',
     ],
+  },
+  // MCP-351: the auth response senders extracted verbatim from mcp-auth.ts to
+  // mcp-auth-responses.ts (the middleware file split at its line limit); each
+  // relocated row re-anchors on the same body at its new home, now exported.
+  C395: {
+    [MCP_AUTH_RESPONSES]: [
+      'export function sendMissingAuthResponse(res: Response, prmUrl: string): void {',
+      '\'WWW-Authenticate\': `Bearer resource_metadata="${prmUrl}"`',
+    ],
+  },
+  C396: {
+    [MCP_AUTH_RESPONSES]: [
+      'export function sendInvalidFormatResponse(res: Response, prmUrl: string): void {',
+      "message: 'Invalid Authorization header format.',",
+    ],
+  },
+  C397: {
+    [MCP_AUTH_RESPONSES]: [
+      'export function sendVerificationFailedResponse(res: Response, prmUrl: string): void {',
+      'error_description="Token verification failed"',
+    ],
+  },
+  // MCP-351 review round: this sender's challenge text changed as well as
+  // moving. `error_description` was the interpolated `reason` — which carries
+  // the token's decoded `aud` — and is now a fixed constant, so no
+  // client-influenced text reaches the header. The agent-facing string the
+  // row governs is therefore the constant's value.
+  C398: {
+    [MCP_AUTH_RESPONSES]: [
+      'export function sendInvalidResourceResponse(res: Response, prmUrl: string, reason: string): void {',
+      'error_description="${AUDIENCE_MISMATCH_DESCRIPTION}"',
+    ],
+  },
+  C400: {
+    [MCP_AUTH_RESPONSES]: ["res.status(403).json({ error: 'Forbidden' });"],
   },
 };

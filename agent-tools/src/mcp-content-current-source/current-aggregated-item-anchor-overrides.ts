@@ -203,4 +203,12 @@ export const CURRENT_AGGREGATED_ITEM_ANCHOR_OVERRIDES = {
   C707: {
     [AUTH_ROUTES]: ["app.get('/.well-known/oauth-protected-resource', metadataRateLimiter,"],
   },
+  // MCP-351: the published PRM resource now composes the shared
+  // MCP_RESOURCE_PATH constant, so it cannot diverge from the RFC 8707
+  // expected audience. The served document's shape is unchanged.
+  C706: {
+    [AUTH_ROUTES]: [
+      'resource: `${selfOrigin}${MCP_RESOURCE_PATH}`,\n      authorization_servers: [selfOrigin],\n      scopes_supported: SCOPES_SUPPORTED,',
+    ],
+  },
 } as const;
