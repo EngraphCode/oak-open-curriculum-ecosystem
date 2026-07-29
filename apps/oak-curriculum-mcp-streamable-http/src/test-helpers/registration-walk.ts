@@ -29,6 +29,12 @@ export interface RegistrationWalk {
   readonly resourceUris: ReadonlySet<string>;
   /** Registration names (`call[0]`) — the labels MCP-241 closes events to. */
   readonly resourceNames: ReadonlySet<string>;
+  /**
+   * Registration names in call order, multiplicity preserved — the
+   * per-unit parity pins compare against this so a duplicate or swapped
+   * name/registrar pairing cannot hide inside set semantics.
+   */
+  readonly resourceNameList: readonly string[];
 }
 
 /**
@@ -62,5 +68,6 @@ export function walkCanonicalRegistration(
     // assertions loudly rather than falsely pass.
     resourceUris: new Set(registerResourceSpy.mock.calls.map((call) => String(call[1]))),
     resourceNames: new Set(registerResourceSpy.mock.calls.map((call) => String(call[0]))),
+    resourceNameList: registerResourceSpy.mock.calls.map((call) => String(call[0])),
   };
 }

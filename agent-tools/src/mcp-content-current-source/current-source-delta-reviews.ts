@@ -1,5 +1,6 @@
 import { APP_DELTA_REVIEWS } from './current-source-delta-reviews-app.js';
 import { APP_LANDING_DELTA_REVIEWS } from './current-source-delta-reviews-app-landing.js';
+import { APP_REGISTRATION_DELTA_REVIEWS } from './current-source-delta-reviews-app-registration.js';
 import { SDK_DELTA_REVIEWS } from './current-source-delta-reviews-sdk.js';
 import { SDK_CODEGEN_DELTA_REVIEWS } from './current-source-delta-reviews-sdk-codegen.js';
 import { SDK_GENERATED_TOOLS_DELTA_REVIEWS } from './current-source-delta-reviews-sdk-generated-tools.js';
@@ -17,6 +18,7 @@ export type { CurrentSourceDeltaReview } from './current-source-delta-review-hel
 export const CURRENT_SOURCE_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview>> = {
   ...APP_DELTA_REVIEWS,
   ...APP_LANDING_DELTA_REVIEWS,
+  ...APP_REGISTRATION_DELTA_REVIEWS,
   ...SDK_DELTA_REVIEWS,
   ...SDK_CODEGEN_DELTA_REVIEWS,
   ...SDK_GENERATED_TOOLS_DELTA_REVIEWS,

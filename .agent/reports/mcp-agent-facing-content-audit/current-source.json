@@ -27,10 +27,10 @@
     "additionCount": 9,
     "availableCount": 701,
     "retiredCount": 25,
-    "unchangedCount": 545,
+    "unchangedCount": 541,
     "expandedCount": 1,
     "modifiedCount": 82,
-    "relocatedCount": 63,
+    "relocatedCount": 67,
     "addedCount": 10,
     "workspaceScopeInCount": 610,
     "workspaceScopeOutUpstreamApiCount": 116,
@@ -7912,16 +7912,16 @@
       "source": {
         "state": "available",
         "files": [
-          "apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts"
+          "apps/oak-curriculum-mcp-streamable-http/src/resource-registrations.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "relocated",
           "anchorTargetCount": 1,
           "anchorCount": 1
         }
       },
       "lineage": {
-        "disposition": "retained",
+        "disposition": "relocated",
         "baselineFile": "apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts"
       },
       "registrations": []
@@ -7933,7 +7933,7 @@
       "source": {
         "state": "available",
         "files": [
-          "apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts"
+          "apps/oak-curriculum-mcp-streamable-http/src/resource-registrations.ts"
         ],
         "evidence": {
           "revision": "unchanged",
@@ -7942,7 +7942,7 @@
         }
       },
       "lineage": {
-        "disposition": "retained",
+        "disposition": "relocated",
         "baselineFile": "apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts"
       },
       "registrations": []
@@ -7954,16 +7954,16 @@
       "source": {
         "state": "available",
         "files": [
-          "apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts"
+          "apps/oak-curriculum-mcp-streamable-http/src/resource-registrations.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "relocated",
           "anchorTargetCount": 1,
           "anchorCount": 1
         }
       },
       "lineage": {
-        "disposition": "retained",
+        "disposition": "relocated",
         "baselineFile": "apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts"
       },
       "registrations": []
@@ -7975,16 +7975,16 @@
       "source": {
         "state": "available",
         "files": [
-          "apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts"
+          "apps/oak-curriculum-mcp-streamable-http/src/resource-registrations.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "relocated",
           "anchorTargetCount": 1,
           "anchorCount": 1
         }
       },
       "lineage": {
-        "disposition": "retained",
+        "disposition": "relocated",
         "baselineFile": "apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts"
       },
       "registrations": []
@@ -7996,16 +7996,16 @@
       "source": {
         "state": "available",
         "files": [
-          "apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts"
+          "apps/oak-curriculum-mcp-streamable-http/src/resource-registrations.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "relocated",
           "anchorTargetCount": 1,
           "anchorCount": 2
         }
       },
       "lineage": {
-        "disposition": "retained",
+        "disposition": "relocated",
         "baselineFile": "apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts"
       },
       "registrations": []
