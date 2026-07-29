@@ -5,6 +5,8 @@ packages:
   # Demo: Oak-styled web UI over the live search + content stack.
   # Registered so workspace:* deps resolve and turbo can build/type-check it.
   - demos/oak-curriculum-hub
+  # Demo: one-page design-system showcase (plain-CSS kit consumption).
+  - demos/oak-design-showcase
   - packages/core/oak-eslint
   - packages/core/observability
   - packages/core/openapi-zod-client-adapter

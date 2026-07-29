@@ -322,6 +322,7 @@ Search uses Elasticsearch with 4-way reciprocal rank fusion (ELSER sparse vector
 | `packages/core/`   | Foundational packages: `Result<T, E>` type, env schema contracts, observability primitives, type helpers, ESLint configs                                 |
 | `packages/libs/`   | Shared libraries: env-resolution, structured logging, search contracts, and Sentry adapters                                                              |
 | `packages/design/` | Design token pipeline and reusable design primitives: DTCG source format, CSS custom property generation, WCAG AA contrast validation, Ink UI primitives |
+| `demos/`           | Demonstration web apps at full estate standards: the Curriculum Hub (live search + content stack) and the design-system showcase                         |
 | `agent-tools/`     | Agent workflow CLIs: `claude-agent-ops`, `cursor-session-from-claude-session`, and `codex-reviewer-resolve`                                              |
 | `docs/`            | Developer documentation, guides, and the full ADR index                                                                                                  |
 | `research/`        | Imported research records as public projections, outside the product dependency lattice (ADR-215); first record: the web-app-deconstruction study        |
