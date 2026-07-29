@@ -10,3 +10,63 @@
    demonstrates the plain path.
    ============================================================ */
 @import '@oaknational/oak-design-system/styles.css';
+
+/* Page expression hooks (the kit specimen's hook-clean contract): base
+   styles composed from token roles only, at single-class specificity so a
+   brand sheet loaded later restyles them (Freedonia's §11 expression layer
+   targets .mast/.brand-name). Zero literal design values — every value is
+   a kit role, scale, or plain CSS keyword (the owner's no-hardcoded-values
+   invariant, gated by tools/validate-authored-css.ts). */
+body {
+  /* The kit does not reset the UA default margin; the specimen does this
+     same reset locally. Without it the page overflows 320px reflow. */
+  margin: 0;
+  color: var(--text-primary);
+}
+.hero-inner h1 {
+  /* SC 1.4.10: 'Curriculum' is wider than a 320px line at display sizes
+     (Creature's 84px ramp especially) — hyphenate rather than overflow. */
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+.util .oak-select {
+  /* The kit switcher reference carried these as inline styles; inline
+     style attributes are banned here (they cap what a brand's expression
+     layer can transform), so the switchboard's selects take them as a
+     hook rule instead. */
+  width: auto;
+  min-height: var(--size-target-min);
+}
+.util {
+  background: var(--bg-inverted);
+  color: var(--text-inverted);
+}
+.util-inner {
+  padding-block: var(--space-8);
+}
+.mast {
+  border-bottom: var(--border-solid-m) solid var(--border-primary);
+  background: var(--bg-primary);
+}
+.mast-inner {
+  padding-block: var(--space-16);
+}
+.brand-name {
+  margin: 0;
+}
+.hero-inner {
+  padding-block: var(--space-40);
+}
+.content-inner {
+  padding-block: var(--space-40);
+}
+.foot {
+  background: var(--bg-inverted);
+  color: var(--text-inverted);
+}
+.foot a {
+  color: var(--text-inverted);
+}
+.foot-inner {
+  padding-block: var(--space-40);
+}

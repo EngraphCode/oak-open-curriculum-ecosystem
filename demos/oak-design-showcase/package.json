@@ -16,7 +16,9 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:ui": "env -u NO_COLOR playwright test --grep-invert @a11y",
-    "test:a11y": "env -u NO_COLOR playwright test --grep @a11y"
+    "test:a11y": "env -u NO_COLOR playwright test --grep @a11y",
+    "validate-authored-css": "tsx tools/validate-authored-css.ts",
+    "validate-kit-assets": "tsx tools/validate-kit-assets.ts"
   },
   "dependencies": {
     "@oaknational/oak-design-system": "workspace:*",
@@ -34,6 +36,7 @@
     "@types/react-dom": "^19.2.3",
     "eslint": "^10.8.0",
     "happy-dom": "^20.11.1",
+    "postcss": "^8.5.23",
     "tsx": "^4.23.1",
     "typescript": "^6.0.3",
     "vitest": "^4.1.10"
