@@ -50,6 +50,36 @@ Verdict key: ON = ON-TRACK, DR = DRIFTING, WP = WRONG-PRIORITY. One row per quar
 
 † = boundary-trapped, retrieved COMPLETED via one relay ask (MCP-386 retrieval-first ladder).
 
+| 3 | Director Bora binds Thermal (258cbb), round 8 — second cycle boundary, ~22:57Z | n | ON | ON | ON | — undelivered | no |
+| 4 | same moment | a | ON | ON† | DR — declined on the stated ledger | — undelivered | yes → adjudicated at the seat |
+
+### Round 8 axis notes (2026-07-29 ~23:05Z, Bora binds Thermal)
+
+- **Seat D now 4/4 undelivered across rounds 7–8** — the discriminating experiment concluded;
+  evidence + cure directions filed on MCP-386 (22:59Z comment). The relay exemption means
+  retrieval never covers D: undelivered D-output is simply lost until the transport or the
+  exemption changes.
+- **Retrieval ladder n=3** (B-a retrieved verbatim on one ask). The boundary-trap class is
+  consistent: composed verdicts, lost crossing.
+- **Adversarial convergence ABSORBED — the release-gate ledger**: all three adversarial legs
+  (A-a, B-a, C-a) independently found the same gap — routing verdicts justified by ruling 14
+  rather than by the release's own gate states. Absorbed as the MCP-355 interim discipline
+  applied to routing: the ledger (each gate: green / owned / starved) is now the stated basis.
+  Tonight's ledger: every remaining submission gate human-held and moving (Aakesh's four; Clerk
+  window; #551; MCP-303; MCP-339; listing copy) or discharged (day-0 analytics); ZERO starved
+  agent-side gates — which grounds the watch posture correctly and re-verdicts C-a's DRIFTING
+  to declined (its own weakening clause anticipated exactly this: #640/#637 are NOT the
+  critical path; nothing agent-routable is displaced). Round-9 frame carries a labelled
+  CRITICAL-PATH LEDGER field + the ABSORBED/ROUTED-AWAY split (C-n's format note).
+- **B-n's displacement challenge CONVERTED mid-round**: MCP-393 offered to the claimless seat
+  (decline-by-silence honoured); explicit capacity DECLINE received — routes to the next fresh
+  seat, recorded on-ticket. The offer-with-costless-decline shape is the ruling-18 trust
+  culture applied to agent seats; a keeper.
+- **Prompt refinement validated**: C-a was told any claimed live read must name its producing
+  command (round 7's fabrication cure) — it complied, stating "no live reads performed beyond
+  the two supplied files" and carrying an explicit weakening clause. The fabrication class is
+  promptable-away at the frame, at least n=1.
+
 ### Round 7 axis notes (2026-07-29 ~21:20Z, Bora binds Thermal)
 
 - **Retrieval ladder proven again, n=2 this round**: both silent non-haiku legs (B-a, C-n)
