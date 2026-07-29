@@ -6,6 +6,8 @@ export type AgentToolsEnvironment = AgentIdentityCliEnvironment &
   CollaborationStateEnvironment & {
     /** User home directory — locates per-user surfaces such as vendor session transcripts. */
     readonly HOME?: string;
+    /** Declared cross-repository coordination home, consumed at the CLI composition edge. */
+    readonly PRACTICE_COORDINATION_HOME?: string;
   };
 
 export interface AgentToolsCliInput {

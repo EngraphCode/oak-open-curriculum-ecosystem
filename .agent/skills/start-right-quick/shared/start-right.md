@@ -3,7 +3,7 @@ prompt_id: start-right-quick
 title: "Start Right (Quick)"
 type: workflow
 status: active
-last_updated: 2026-04-26
+last_updated: 2026-07-29
 ---
 
 # Start Right (Quick)
@@ -243,17 +243,16 @@ build, AND the Playwright browser install before the browser-test gates run.
 The collaboration substrate is also unseeded on a fresh checkout: the
 instance-tier state files are untracked-by-design (ADR-199 / PDR-094). The
 pieces differ in who creates them: `active-claims.json`,
-`closed-claims.archive.json`, and `comms-seen/` require EXPLICIT seeding —
-the first claims read fails loud with seeding instructions rather than
-creating them, and an absent `comms-seen/` parent makes the watcher's
-seen-file writes fail loud — a `WATCHER ERROR` per mark-seen failure with
-the event left eligible for re-delivery, or the pre-loop auto-seed failing
-outright when events already exist. `comms/` alone is auto-created by the
-event writers and
-the watch path — which is exactly why a wrongly-homed writer can
-manufacture a decoy dir (the F-41 class) rather than failing. Seed the
-substrate — guarded, so existing state is never overwritten — before the
-first collaboration-state move. The block below
+`closed-claims.archive.json` require EXPLICIT seeding — the first claims read
+fails loud with seeding instructions rather than creating them. The
+canonical omit-path `comms watch` resolves the PRIMARY coordination home,
+then creates both `comms/` and the exact-display-name seen-file's
+`comms-seen/` parent. Event writers also create `comms/`. An explicit
+`--comms-dir` / `--seen-file` pair is preserved verbatim and can therefore
+still manufacture a wrongly homed decoy (the F-41 class); use it only for a
+deliberate alternate target. Seed the registry files — guarded, so existing
+state is never overwritten — before the first collaboration-state move. The
+block below
 roots every path at THIS repository's PRIMARY checkout (the first worktree
 in `git worktree list --porcelain`, the same home `resolveCoordinationHome`
 derives), so it is safe to run from a linked worktree too. Never seed
@@ -283,8 +282,7 @@ else
   # readers' own error messages, which embed it). If a reader rejects
   # these seeds, that file is truth and this block has drifted — fix it
   # here in the same change.
-  mkdir -p "$COORD_HOME/.agent/state/collaboration/comms" \
-    "$COORD_HOME/.agent/state/collaboration/comms-seen" \
+  mkdir -p "$COORD_HOME/.agent/state/collaboration" \
   && { ( set -C; printf '%s\n' '{ "schema_version": "1.3.0", "claims": [], "commit_queue": [] }' \
     > "$COORD_HOME/.agent/state/collaboration/active-claims.json" ) 2>/dev/null \
     || [ -f "$COORD_HOME/.agent/state/collaboration/active-claims.json" ]; } \

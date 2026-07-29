@@ -503,12 +503,14 @@ Section 0 shows a drift.
 `user-search-query` — dormant rows in the served-surface definition; absent
 from `tools/list` until a reviewed definition change turns them live.
 
-**Resources (8 served):** `curriculum://model`, `docs://oak/getting-started.md`,
-`docs://oak/under-the-hood.md`, `eef://interpretation`,
+**Resources (6 served):** `curriculum://model`, `docs://oak/getting-started.md`,
 `ui://widget/oak-curriculum-app-*.html`, and the navigation guidance three:
 `docs://oak/guidance/find-lessons.md`, `docs://oak/guidance/explore-curriculum.md`,
 `docs://oak/guidance/learning-progression.md`. (The creation-oriented three
-guidance documents exist dormant and never appear in `resources/list`.)
+guidance documents and `eef://interpretation` exist dormant and never appear in
+`resources/list`; the former `docs://oak/under-the-hood.md` pointer resource was
+deleted by MCP-353 — the orientation content is served inline by the
+`oak-under-the-hood` tool.)
 
 **Prompts (0):** none — the primitive is unregistered (D11). The six
 workflow guidance documents live at `docs://oak/guidance/*`; the navigation

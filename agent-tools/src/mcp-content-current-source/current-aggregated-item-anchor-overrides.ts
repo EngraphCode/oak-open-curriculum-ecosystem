@@ -146,11 +146,22 @@ export const CURRENT_AGGREGATED_ITEM_ANCHOR_OVERRIDES = {
       'Anchor unit slugs (corpus keys, e.g. from search/fetch results). The result is the bounded',
     ],
   },
+  // MCP-353: the resource_link title occurrence retired with the pointer;
+  // the tool title anchors on its shared declaration.
   C372: {
-    [UNDER_THE_HOOD]: ["title: 'Oak: Under the Hood — orientation method',"],
+    [UNDER_THE_HOOD]: ["const OAK_UNDER_THE_HOOD_TOOL_TITLE = 'Oak: Under the Hood';"],
   },
+  // MCP-353: openWorldHint flipped false — the result is served entirely from
+  // the deployed artefact (§2.F cure).
   C374: {
-    [UNDER_THE_HOOD]: ['openWorldHint: true,\n        title: OAK_UNDER_THE_HOOD_TOOL_TITLE,'],
+    [UNDER_THE_HOOD]: ['openWorldHint: false,\n        title: OAK_UNDER_THE_HOOD_TOOL_TITLE,'],
+  },
+  // MCP-353: the summary reworded from fetch-the-linked-method to
+  // served-in-full (the baked shape).
+  C376: {
+    [UNDER_THE_HOOD]: [
+      "'Oak: Under the Hood — the orientation method for this repository (the Oak Open Curriculum '",
+    ],
   },
   C385: {
     [WIDGET_APP]: ['<h1 className="visually-hidden">Oak National Academy Curriculum</h1>'],
@@ -215,6 +226,7 @@ export const CURRENT_AGGREGATED_ITEM_REVISION_OVERRIDES = {
   C248: 'modified',
   C372: 'modified',
   C374: 'modified',
+  C376: 'modified',
   C385: 'modified',
   C391: 'modified',
   C392: 'modified',

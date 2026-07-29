@@ -74,6 +74,7 @@ without proportional value.
 | `.agent/rules/confident-seats-proceed-and-report.md`                       | always-on      | —                                                                                                   |
 | `.agent/rules/consolidate-at-second-consumer.md`                           | always-on      | —                                                                                                   |
 | `.agent/rules/continuity-surface-commits-as-orphans.md`                    | always-on      | —                                                                                                   |
+| `.agent/rules/coordination-branch-24h-lifetime.md`                         | trigger-loaded | Cutting a coordination branch, or session-open on one                                               |
 | `.agent/rules/cross-repo-sessions-run-the-join-ceremony.md`                | trigger-loaded | Worktree repo ≠ coordination home, or sibling-estate write/registration (reads unceremonied)        |
 | `.agent/rules/design-work-for-small-prs.md`                                | always-on      | —                                                                                                   |
 | `.agent/rules/design-from-impact-not-the-cowpath.md`                       | always-on      | —                                                                                                   |

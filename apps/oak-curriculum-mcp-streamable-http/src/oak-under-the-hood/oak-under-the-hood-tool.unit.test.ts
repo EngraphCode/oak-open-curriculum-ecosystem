@@ -1,36 +1,57 @@
 /**
- * Unit tests for `buildOakUnderTheHoodToolResult` (pointer shape), behaviour-only.
+ * Unit tests for `buildOakUnderTheHoodToolResult` (baked-content shape),
+ * behaviour-only.
  *
- * These describe the SHAPE the tool returns — the ADR-058 dual shape carrying a
- * pointer (summary, JSON body, and a `resource_link` to the canonical). They
- * never compare the result to a baked-content constant: there is no baked body
- * to pin, and a content pin would only prove the fixture, not the behaviour.
- * The `resource_link` required fields (`uri`, `name`) are enforced at compile
- * time by the `ResourceLink` type and asserted on the wire in the e2e test.
+ * These describe the SHAPE the tool returns — the ADR-058 dual shape carrying
+ * the orientation body on BOTH channels (summary + markdown body in `content`,
+ * the same body in `structuredContent`), with the curriculum firewall held
+ * structurally (the tool builds its result locally, with no dependency on the
+ * curriculum SDK's response helpers). The body is asserted by IDENTITY with
+ * the generated module, never by prose pins: content CORRECTNESS is proved by
+ * the generator's parity gate (`validate-under-the-hood-content`), and a prose
+ * pin here would only prove the fixture, not the behaviour.
  */
 
 import { describe, it, expect } from 'vitest';
+
+import { OAK_UNDER_THE_HOOD_ORIENTATION } from '../generated/oak-under-the-hood-content.js';
 import { buildOakUnderTheHoodToolResult } from './oak-under-the-hood-tool.js';
 
 describe('buildOakUnderTheHoodToolResult (unit)', () => {
-  it('returns a non-error ADR-058 dual shape (summary + JSON body + resource_link, with structuredContent)', () => {
+  it('returns a non-error ADR-058 dual shape: the orientation body rides both channels', () => {
     const result = buildOakUnderTheHoodToolResult();
 
     expect(result.isError).not.toBe(true);
-    expect(result.content).toHaveLength(3);
+    expect(result.content).toHaveLength(2);
+    const body = result.content[1];
+    if (body?.type !== 'text') {
+      throw new Error('expected the second content block to be a text block');
+    }
     expect(result.content[0]?.type).toBe('text');
-    expect(result.content.map((block) => block.type)).toContain('resource_link');
-    expect(result.structuredContent).toBeDefined();
+    expect(body.text).toBe(OAK_UNDER_THE_HOOD_ORIENTATION);
+    expect(result.structuredContent?.orientation).toBe(OAK_UNDER_THE_HOOD_ORIENTATION);
   });
 
-  it('points at the canonical via a https canonicalUrl and carries no baked body', () => {
+  it('carries informational citations only — the pointer shape is gone', () => {
     const result = buildOakUnderTheHoodToolResult();
     const structured = result.structuredContent;
 
-    expect(structured).toBeDefined();
-    expect(typeof structured?.canonicalUrl).toBe('string');
-    expect(structured?.canonicalUrl).toMatch(/^https:\/\//);
-    // No baked orientation body: the tool points, it does not carry content.
-    expect(structured).not.toHaveProperty('orientation');
+    expect(structured?.repositoryUrl).toMatch(/^https:\/\/github\.com\//);
+    // A content-only client (ADR-058: each client delivers ONE channel) must
+    // still be able to resolve the cited repo-relative paths: the summary text
+    // block carries the repository locator itself.
+    const summary = result.content[0];
+    if (summary?.type !== 'text') {
+      throw new Error('expected the first content block to be a text block');
+    }
+    expect(typeof structured?.repositoryUrl).toBe('string');
+    expect(summary.text).toContain(String(structured?.repositoryUrl));
+    expect(Array.isArray(structured?.oakSources)).toBe(true);
+    // No fetch-and-follow surface remains (directory policy §2.F, MCP-353).
+    expect(structured).not.toHaveProperty('canonicalUrl');
+    expect(structured).not.toHaveProperty('trigger');
+    expect(result.content.map((block) => block.type)).not.toContain('resource_link');
+    expect(JSON.stringify(result)).not.toContain('raw.githubusercontent.com');
+    expect(JSON.stringify(result)).not.toContain('/blob/main/');
   });
 });

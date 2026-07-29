@@ -1,0 +1,12 @@
+/* ============================================================
+   Oak Open Curriculum Design System — plain-CSS consumption
+   (owner ruling 2026-07-29: no Tailwind, no PostCSS, no mapping
+   layer — the kit's own classes and token roles ARE the styling
+   vocabulary). The aggregate stylesheet is the package's exported
+   entry point and the SSOT for sheet composition and order; fonts
+   are the kit's own self-hosted faces (design-system-expert ruling,
+   2026-07-29: the next/font branch belongs to copy-in consumers
+   only). The hub demonstrates the Tailwind-mapped path; this app
+   demonstrates the plain path.
+   ============================================================ */
+@import '@oaknational/oak-design-system/styles.css';

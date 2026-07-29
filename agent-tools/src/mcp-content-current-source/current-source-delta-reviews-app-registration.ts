@@ -32,7 +32,7 @@ export const APP_REGISTRATION_DELTA_REVIEWS: Readonly<Record<string, CurrentSour
   // governed registration bodies (C336–C340) moved to
   // resource-registrations.ts and their review rides that entry.
   'apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts': excluded(
-    '61c811db66fe6e8b32695029f751dfbaf13d3616d0a71d92b9b09d3887ef1381',
+    '55e9e1200a4d5ec6b3450bb18123f5369d8a8a647a44d09b38ac848c999fbd9d',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/register-widget-resource.ts': reviewed(
@@ -51,8 +51,10 @@ export const APP_REGISTRATION_DELTA_REVIEWS: Readonly<Record<string, CurrentSour
     excluded('50edf574104e4412b9a573b347995eb6943e7ea5365f1762b26300b83c8da79f', VALIDATION_ONLY),
   // MCP-337: the per-resource registration bodies extracted from
   // register-resources.ts; the audit rows moved with their content.
+  // MCP-353: the under-the-hood pointer resource deleted (§2.F cure) — its
+  // rows (C337–C340) retired via lineage; the fallback template remains.
   'apps/oak-curriculum-mcp-streamable-http/src/resource-registrations.ts': reviewed(
-    '0680d4c7a85d95fa829fb513d20bfedeab824b6a6358559d8e1a6e93e74f8162',
-    ['C336', 'C337', 'C338', 'C339', 'C340'],
+    '3206086b2860e4aa61ede4c44dfc3257a76532fa5e37231742ab5347664455c4',
+    ['C336'],
   ),
 };

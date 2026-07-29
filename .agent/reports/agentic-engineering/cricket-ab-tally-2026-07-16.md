@@ -325,3 +325,8 @@ pair rather than adjudicated away. Implementation (agent definitions for the
 adversarial pair, invocation-contract update in the cricket mandate, frame
 rule graduation) is pointered in Linear — MCP ticket minted 2026-07-25 by the
 Director; this file is thereafter a closed record.
+
+---
+
+Successor record: [`cricket-two-pair-tally-2026-07-26.md`](cricket-two-pair-tally-2026-07-26.md)
+— the permanent two-pair regime's operating record (consolidated 2026-07-29 at owner word).

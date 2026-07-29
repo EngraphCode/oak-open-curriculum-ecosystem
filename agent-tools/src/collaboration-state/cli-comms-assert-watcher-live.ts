@@ -11,43 +11,54 @@
  * and the unskippable backstop is the `claims open` precondition (Option B),
  * which exempts the bootstrap fast-path.
  */
+import { err, unwrapOrThrow } from '@oaknational/result';
+
 import { optional, type Options } from './cli-options.js';
+import { resolveCanonicalCommsWatchPaths } from './comms-watch-paths.js';
+import { type CliRuntime, watcherStalenessIo } from './cli-runtime.js';
 import { resolveSelfIdentity } from './cli-self-identity.js';
 import { type CollaborationStateEnvironment } from './types.js';
 import {
   classifyWatcherPresence,
   commsSeenFileForCodename,
-  DEFAULT_COMMS_SEEN_DIR,
   heartbeatFileForSeen,
 } from './watcher-presence.js';
 import { detectStaleWatcher } from './watcher-staleness.js';
-import { productionWatcherStalenessIo } from './watcher-staleness-io.js';
 
 export async function assertWatcherLive(
   options: Options,
   env: CollaborationStateEnvironment,
+  runtime: CliRuntime,
 ): Promise<string> {
   const self = resolveSelfIdentity(options, env);
   const codename = self.agent_name;
   const explicitHeartbeat = optional(options, 'heartbeat-file');
-  const commsSeenDir = optional(options, 'comms-seen-dir') ?? DEFAULT_COMMS_SEEN_DIR;
+  const explicitCommsSeenDir = optional(options, 'comms-seen-dir');
+  const canonicalPaths = resolveCanonicalCommsWatchPaths(options, codename, runtime);
   const heartbeatFile =
-    explicitHeartbeat ?? heartbeatFileForSeen(commsSeenFileForCodename(codename, commsSeenDir));
+    explicitHeartbeat ??
+    (explicitCommsSeenDir === undefined
+      ? heartbeatFileForSeen(canonicalPaths.seenFile)
+      : heartbeatFileForSeen(commsSeenFileForCodename(codename, explicitCommsSeenDir)));
 
   // Liveness freshness uses the REAL wall clock only — never a caller-supplied
   // `--now`, which could lag real time and let a dead watcher read as live.
   const result = await detectStaleWatcher({
     heartbeatFile,
     nowMs: Date.now(),
-    io: productionWatcherStalenessIo,
+    io: watcherStalenessIo(runtime),
   });
-  const verdict = classifyWatcherPresence(result, self);
+  const verdict = classifyWatcherPresence(result, self, canonicalPaths.commsDir);
 
   if (verdict.kind === 'blind') {
-    throw new Error(
-      `${verdict.reason}. Arm the all-channels comms watcher as start-right-team move 1, before ` +
-        `coordinating or opening a claim (see .agent/rules/comms-all-channels-watcher.md). ` +
-        `Heartbeat expected at ${heartbeatFile}.`,
+    return unwrapOrThrow<never>(
+      err(
+        new Error(
+          `${verdict.reason}. Arm the all-channels comms watcher as start-right-team move 1, before ` +
+            `coordinating or opening a claim (see .agent/rules/comms-all-channels-watcher.md). ` +
+            `Heartbeat expected at ${heartbeatFile}.`,
+        ),
+      ),
     );
   }
 

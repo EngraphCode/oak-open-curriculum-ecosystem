@@ -58,8 +58,10 @@ teacher work is already happening.
 ## Success looks like
 
 A live listing reached in one click from a shared link; early users
-signing in through the invite gate; usage visible under the ratified
-privacy posture (no teacher-level identity, no captured content);
+signing in through production Clerk (public beta from the switch —
+no invite gate, per the 2026-07-29 ruling below); usage visible under
+the ratified privacy posture (no teacher-level identity, no captured
+content);
 the expert-authored guidance served to assistants and signed off; and
 two-way signposting with Oak's web surfaces working.
 
@@ -124,3 +126,66 @@ onto this node — one line each, pointers never duplicates.
   MCP-121 (guidance serving architecture, mapped to M1) is in flight
   and changes the served surface. The board (M1 in progress) is the
   truth; the note stands as written for what it dates, corrected here.
+- 2026-07-29 — Cloud-Config PR #551 review extracted at owner
+  direction: every review point (JR's five comments + the owner's
+  quoted skip-rules principle) ticketed as MCP-344…MCP-351 plus the
+  MCP-172 coverage comment; infrastructure halves INFP-1…INFP-8 in the
+  new Infrastructure Platform backlog, cross-linked at every seam.
+  Standing rulings from the extraction: MCP-scoped work (llms.txt
+  included) lives in the MCP project; MCP work requiring infrastructure
+  carries linked tickets across the two projects; none of the extracted
+  items are assumed submission blockers.
+- 2026-07-29 — OAuth namespace on the canonical domain (owner ruling,
+  conditional): prefer collapsing the edge scope to `/mcp*` plus two
+  path-scoped well-knowns, leaving root `/.well-known` untouched —
+  gated on client-compatibility evidence, general plus Claude and
+  ChatGPT by name. First evidence in: the reference MCP TypeScript SDK
+  (1.29.0) implements RFC 8414 path-inserted AS discovery. Fallback if
+  a named client fails: the PR #551 shape as opened. Authoritative
+  record: MCP-344 comment (2026-07-29).
+- 2026-07-29 — PostHog scope narrowing NEVER owner-agreed (owner word,
+  verbatim: "I never agreed to Posthog scope being narrowed, I was
+  explicit, we need visibility of analytics events from day 0"). The
+  2026-07-27 MCP-237 narrowing (sink + integration test only) was
+  executed, not ratified; the M0 boundary as stated 2026-07-28
+  ("events flowing safely") STANDS. Enacted: MCP-117, MCP-242,
+  MCP-243, and MCP-354 (event-catalogue owner sign-off) now block
+  MCP-309 — day-0 analytics visibility gates the submission; records
+  on those tickets.
+- 2026-07-29 — Goal-holding mechanism commissioned (owner word: "we
+  need a mechanical fix, you need a way to hold the project goals,
+  not just what happens to be happening right now") — a derived,
+  recomputed-at-read goal-state surface over the milestone/gate
+  structure, plus the Director practice leg (owner-facing state
+  answers walk the goal surface first, activity second). Ticket in
+  the MCP project carries the design.
+- 2026-07-29 — Multi-host self-description (owner direction): keep the
+  alpha AND www serving correctly if soundly possible; www wins
+  otherwise. Nothing hardcoded — every URL/host derives from the
+  deployed instance, in BOTH repos (app sweep MCP-351; route
+  single-definition locals INFP-8). The Host-override blindness, the
+  edge-restored validated-host design, and its security gate (the
+  bounded-selection vs header-trust distinction, fresh security pass
+  required): authoritative record MCP-307 comment (2026-07-29).
+- 2026-07-29 — Capability-baseline ruling (owner): all third-party
+  integrations keep working in production; Sentry rides the
+  observability sinks alongside PostHog in every environment
+  (non-negotiable). Enforcement slice MCP-361; the goal-state surface
+  (MCP-355) carries the baseline; SLO formalisation is owner-proposed
+  pointer MCP-362. Same day: preview PostHog project 236161
+  provisioned; the anonymous identity class admitted (MCP-357,
+  sequenced at the MCP-354 sign-off); preview-deployment testability
+  named a binding requirement on the MCP-344/307 design (records on
+  those tickets).
+- 2026-07-29 — Public-beta ruling (owner, at the Clerk-window card):
+  "as soon as we switch the MCP server is in public beta" — the
+  production Clerk promotion IS the public-beta moment; no app-layer
+  invite gate exists or is planned for this phase, and the listings
+  not yet existing at the switch is an accepted state. M4's milestone
+  text re-trued accordingly; the invite-gate sentence it replaced was
+  authored 2026-07-27 and never matched the built estate. Same day:
+  the Thursday submission ruled EXTERNAL and fixed on the www endpoint
+  ("Thursday is `www`... we cannot simply move an external deadline");
+  MCP-354's four-event catalogue signed off unamended; MCP-357 finally
+  sequenced post-submission on the corrected authenticated-handshake
+  premise. Records: MCP-143, MCP-354, MCP-357, MCP-309 checklist.

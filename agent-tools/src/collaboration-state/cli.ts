@@ -1,3 +1,5 @@
+import { err, unwrapOrThrow } from '@oaknational/result';
+
 import { parseOptions, type Options } from './cli-options.js';
 import { type CliRuntime } from './cli-runtime.js';
 import { type CommandSpec } from './cli-spec-factory.js';
@@ -14,6 +16,9 @@ interface CollaborationStateCliInput {
     CliRuntime['waitForCollaborationStateChange']
   >;
   readonly processIsAlive?: NonNullable<CliRuntime['processIsAlive']>;
+  readonly watcherStalenessIo?: NonNullable<CliRuntime['watcherStalenessIo']>;
+  readonly cwd?: string;
+  readonly resolveCoordinationHome?: NonNullable<CliRuntime['resolveCoordinationHome']>;
 }
 
 interface CollaborationStateCliResult {
@@ -36,6 +41,9 @@ export async function runCollaborationStateCli(
         waitForCommsChange: input.waitForCommsChange,
         waitForCollaborationStateChange: input.waitForCollaborationStateChange,
         processIsAlive: input.processIsAlive,
+        watcherStalenessIo: input.watcherStalenessIo,
+        cwd: input.cwd,
+        resolveCoordinationHome: input.resolveCoordinationHome,
       }),
     );
   } catch (error) {
@@ -74,7 +82,7 @@ async function dispatchCommand(
   try {
     return await spec.handler(resolved, env, runtime);
   } catch (error) {
-    throw new Error(commandError(spec, error instanceof Error ? error.message : String(error)), {
+    return fail(commandError(spec, error instanceof Error ? error.message : String(error)), {
       cause: error,
     });
   }
@@ -93,15 +101,15 @@ function bindPositional(options: Options, spec: CommandSpec): Options {
     return options;
   }
   if (spec.positional === undefined) {
-    throw new Error(commandError(spec, `unexpected argument: ${options.positionals[0]}`));
+    return fail(commandError(spec, `unexpected argument: ${options.positionals[0]}`));
   }
   if (options.positionals.length > 1) {
-    throw new Error(
+    return fail(
       commandError(spec, `too many positional arguments (expected at most one ${spec.positional})`),
     );
   }
   if (options.values.has(spec.positional)) {
-    throw new Error(
+    return fail(
       commandError(
         spec,
         `provide ${spec.positional} as a positional argument or --${spec.positional}, not both`,
@@ -117,7 +125,7 @@ function bindPositional(options: Options, spec: CommandSpec): Options {
 function commandSpecForOptions(options: Options): CommandSpec {
   const spec = specs[`${options.command ?? ''}:${options.topic ?? ''}`];
   if (spec === undefined) {
-    throw new Error(usage());
+    return fail(usage());
   }
 
   return spec;
@@ -168,7 +176,7 @@ function topicUsage(topic: string | undefined): string {
     }
   }
   if (topicSpecs.length === 0) {
-    throw new Error(usage());
+    return fail(usage());
   }
 
   return [
@@ -199,7 +207,7 @@ export function unknownValueOptions(options: Options, spec: CommandSpec): readon
 function validateKnownOptions(options: Options, spec: CommandSpec): void {
   const unknown = unknownValueOptions(options, spec);
   if (unknown.length > 0) {
-    throw new Error(
+    fail(
       commandError(
         spec,
         `unknown option for ${options.command ?? ''} ${options.topic ?? ''}: --${unknown[0]}`,
@@ -230,4 +238,8 @@ function firstUnknownRepeatableOption(options: Options, spec: CommandSpec): stri
 
 function commandError(spec: CommandSpec, message: string): string {
   return `${spec.help}\n\nError: ${message}`;
+}
+
+function fail(message: string, options?: ErrorOptions): never {
+  return unwrapOrThrow<never>(err(new Error(message, options)));
 }

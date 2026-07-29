@@ -143,8 +143,8 @@ function isExcludedByTags(
 function isSelfAuthored(event: CommsEvent, self: CollaborationAgentId): boolean {
   // PDR-076a id-aware self-exclusion. Routes via sameAgentRoutingKey so the
   // id-keyed branch disambiguates the (same-name + same-prefix + different-id)
-  // collision case the plan was authored to cure; legacy/legacy pairs fall
-  // back to (name, prefix) equality unchanged.
+  // collision case the plan was authored to cure; historical id-less rows
+  // never self-match after the legacy fallback's sunset.
   return sameAgentRoutingKey(authorOf(event), self);
 }
 

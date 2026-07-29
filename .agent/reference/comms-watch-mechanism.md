@@ -4,22 +4,21 @@ tier: reference
 
 # Comms Watch Mechanism — Portable Reference
 
-Event-driven directed-message intake for agent sessions, with an
-explicit liveness-attestation seam.
+Event-driven all-channel comms intake for agent sessions, with an explicit
+liveness-attestation seam.
 
 ## Purpose
 
-`comms watch` is the canonical event-driven mechanism by which an
-agent session observes incoming directed messages addressed to it,
-without polling. It runs alongside the agent's reasoning loop; it
-does not interrupt it.
+`comms watch` is the canonical event-driven mechanism by which an agent
+session observes broadcast, group, directed, observed, and lifecycle comms
+without polling. It runs alongside the agent's reasoning loop; host-specific
+notification composition determines whether its output wakes that loop.
 
-Watcher delivery and agent notification are separate contracts. The
-watcher can discover an event, emit it, and mark it seen while the
-reasoning harness remains unaware. New events appear on the agent's notice
-surface with sub-second latency only when the host's background-task
-primitive forwards incremental process output into that surface as a
-wake-up, not merely as printed output.
+Watcher delivery and agent notification are separate contracts. A watcher
+can discover an event, emit it, and mark it seen while the reasoning harness
+remains unaware. Events reach the agent's notice surface only through a
+host-specific notification composition; record its verified latency per
+platform. Printed output alone does not prove wake-up.
 
 ## Substrate model
 
@@ -36,14 +35,19 @@ Anyone appends; everyone reads. The substrate does not enumerate
 event types at schema level — readers filter for what they care
 about.
 
-Each event carries at minimum:
+The common envelope across all event kinds carries:
 
-- `event_id` (uuid)
+- `schema_version`
+- `event_id` (stable unique identifier; UUID v4 or stable slug)
 - `created_at` (ISO-8601 timestamp, host-clock anchored)
-- `agent_id` (identity tuple: `agent_name`, `platform`, `model`,
-  `session_id_prefix`)
-- `addressee` (optional identity tuple; null for broadcast)
+- `kind` (`narrative`, `lifecycle`, or `directed`)
 - `body` (free-form)
+
+Author and routing fields depend on `kind`: narrative events use `author`
+with optional `audience` / `addressed_to`; directed events use `from` /
+`to`; lifecycle events use `author` and the lifecycle subject's
+`agent_id`. The canonical field contract is
+[`agent-tools/src/collaboration-state/schemas/comms-event.schema.json`](../../agent-tools/src/collaboration-state/schemas/comms-event.schema.json).
 
 ## Watch contract
 
@@ -139,6 +143,14 @@ directed test event and confirming that it creates an agent turn without a
 manual poll or user prompt. A live process that merely prints the event fails
 this acceptance check.
 
+Codex pairs a root-identity watcher for F-95 delivery and liveness with a
+separate notification path: relay-identity watcher → relay child → root.
+The two distinct identities/cursors, wait, forwarding, liveness, and restart
+disciplines live only in
+[`use-monitor-for-event-driven-wake` § Codex NOTIFY](../rules/use-monitor-for-event-driven-wake.md#codex-notify-session-relay).
+This mechanism reference supplies the three-leg acceptance model; it does not
+duplicate that host procedure.
+
 Falsifiability: re-test this requirement when Copilot CLI ships a
 Monitor-equivalent primitive or forwards incremental detached-process output
 as notices. Remove the scheduled check only after the directed-event acceptance
@@ -147,16 +159,13 @@ cure; this section records the interim operational contract.
 
 ## Identity discipline (load-bearing)
 
-The watcher's filter is the identity tuple
-`(agent_name, platform, model, session_id_prefix)`, not just
-`agent_name`. Two sessions of the same agent on different
-platforms (e.g. one Claude session and one Codex session both named
-"Foo") must not see each other's outgoing messages as inbound. The
-session-id prefix disambiguates concurrent same-agent sessions.
-
-An ad-hoc tail-and-grep watcher that filters only on `agent_name`
-will self-echo on every outgoing message. The canonical watcher
-must filter on the full tuple.
+Self-exclusion uses the canonical PDR-076a routing-identity comparator
+`sameAgentRoutingKey`, not a hand-rolled name, platform, model, or prefix
+comparison. The current routing path is strict and ID-keyed: two sessions with
+the same display name but different IDs remain distinct and can observe one
+another's events, while historical id-less events never self-match a live
+seat. Other documentation points to this interface rather than restating a
+second routing tuple.
 
 ## Liveness (the heartbeat-source attribution pattern)
 
@@ -197,7 +206,8 @@ operational needs of the in-tree `comms watch` CLI:
 
 ```json
 {
-  "schema_version": "1.0.0",
+  "schema_version": "0.2.0",
+  "watched_comms_dir": "/absolute/coordination/home/.agent/state/collaboration/comms",
   "pid": 12345,
   "started_at": "2026-05-23T12:00:00.000Z",
   "last_drain_at": "2026-05-23T12:30:00.000Z",
@@ -216,12 +226,15 @@ Structural deltas from the minimum-viable shape above:
   rather than a generic agent reference).
 - The single `last_alive_at` is replaced by three per-action
   timestamps (`last_drain_at`, `last_emit_at`, `last_error_at`).
-  The `source` field is absent: the structured tick-tracking
-  names the source implicitly (a recent `last_emit_at` means the
-  emit path is alive; a recent `last_error_at` with no recent
-  emit means the watcher is alive but unhealthy). The doc
-  anti-pattern "Substrate-enforced source enum" still holds — the
-  canonical impl removed `source` rather than enumerating it.
+  The free-form producer-mode `source` field is absent: the structured
+  tick-tracking names that mode implicitly (a recent `last_emit_at`
+  means the emit path is alive; a recent `last_error_at` with no recent
+  emit means the watcher is alive but unhealthy).
+- `watched_comms_dir` records the lexically absolute directory the
+  watcher actually drains. It is a path, not a source-mode enum. F-95
+  readers compare it with the expected canonical comms directory, so
+  relocating a heartbeat or cursor cannot make a watcher on a decoy
+  stream attest canonical visibility.
 - Schema versioning (`schema_version`), process identity (`pid`),
   start time (`started_at`), throughput accounting
   (`emitted_count`), and cadence declaration
@@ -236,6 +249,9 @@ the watch loop.
 The canonical impl exposes `writeWatcherHeartbeat` (atomic write
 of the heartbeat file) and `parseWatcherHeartbeat` (strict
 reverse-parse; throws `TypeError` on schema mismatch). Consumers
+must re-arm a watcher after the `0.1.0` → `0.2.0` source-binding
+transition; the strict reader deliberately rejects the older shape
+rather than treating an unbound heartbeat as proof. Consumers
 that want to read heartbeats from arbitrary watcher impls should
 adapt: the minimum-viable shape above remains valid for foreign
 implementations, and the canonical shape is one phenotype of the
@@ -288,10 +304,10 @@ responsibility and the capabilities of their host.
   the taxonomy the free-form string was meant to retire. Keep
   `source` as a free-form string at the type level; runtime
   values can be whatever the writer chooses.
-- **Self-echoing watchers**: any fallback or ad-hoc watcher that
-  filters on a narrower identity than the canonical watcher will
-  self-echo. The canonical filter is the full identity tuple,
-  always.
+- **Self-echoing watchers**: any fallback or ad-hoc watcher that invents its
+  own identity comparison can diverge from routing truth and self-echo or
+  suppress a distinct seat. Reuse the canonical `sameAgentRoutingKey`
+  comparator.
 - **Polling masquerading as watch**: a tight `while true; sleep
 100ms` loop reading the comms directory is not watch. It is
   polling at 100ms. Document it as polling, name the cadence

@@ -220,14 +220,8 @@ export const CURRENT_ITEM_ANCHOR_OVERRIDES: AnchorOverrides = {
   },
   ...CURRENT_REGISTRATION_ITEM_ANCHOR_OVERRIDES,
   ...CURRENT_LANDING_ITEM_ANCHOR_OVERRIDES,
-  C413: {
-    'apps/oak-curriculum-mcp-streamable-http/src/auth/public-resources.ts': [
-      '...DOCUMENTATION_RESOURCES.map((resource) => resource.uri)',
-      'WIDGET_URI',
-      "'docs://oak/under-the-hood.md'",
-      '...NAVIGATION_GUIDANCE_URIS',
-    ],
-  },
+  // MCP-353: C413 (the under-the-hood public-allowlist row) retired with the
+  // deleted resource — no current anchor; the retirement rides the lineage.
   C479: {
     'packages/sdks/oak-sdk-codegen/code-generation/typegen/cross-domain-constants.ts': [
       'export const BASE_WIDGET_URI = `ui://widget/oak-curriculum-app-${resolveWidgetUriSuffix({',

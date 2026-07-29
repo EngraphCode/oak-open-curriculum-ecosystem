@@ -1,0 +1,6 @@
+---
+description: Coordination branches live at most 24 hours — day-stamped name at the cut, convergence due at session-open on an overdue branch, converge-and-rotate shape, work products stay in worktrees.
+alwaysApply: false
+---
+
+Read and follow `.agent/rules/coordination-branch-24h-lifetime.md`.

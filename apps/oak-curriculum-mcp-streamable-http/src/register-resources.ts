@@ -32,13 +32,10 @@ import {
 } from './register-resource-helpers.js';
 import { registerWidgetResource, WIDGET_RESOURCE_NAME } from './register-widget-resource.js';
 import {
-  OAK_UNDER_THE_HOOD_RESOURCE_NAME,
-  OAK_UNDER_THE_HOOD_RESOURCE_URI,
   registerAgentGuidanceResource,
   registerCurriculumModelResource,
   registerDocumentationResource,
   registerEefInterpretationResource,
-  registerOakUnderTheHoodResource,
 } from './resource-registrations.js';
 
 /** One live registration: the analytics label and the registrar call, paired. */
@@ -77,17 +74,6 @@ const RESOURCE_REGISTRATION_UNITS: readonly ResourceRegistrationUnit[] = [
             {
               name: CURRICULUM_MODEL_RESOURCE.name,
               register: (server) => registerCurriculumModelResource(server),
-            },
-          ]
-        : [],
-  },
-  {
-    liveEntries: (servedSurface) =>
-      isResourceLive(servedSurface, OAK_UNDER_THE_HOOD_RESOURCE_URI)
-        ? [
-            {
-              name: OAK_UNDER_THE_HOOD_RESOURCE_NAME,
-              register: (server) => registerOakUnderTheHoodResource(server),
             },
           ]
         : [],
@@ -160,7 +146,6 @@ export function liveResourceRegistrationNames(
 }
 
 export {
-  OAK_UNDER_THE_HOOD_RESOURCE_URI,
   registerCurriculumModelResource,
   registerDocumentationResources,
 } from './resource-registrations.js';

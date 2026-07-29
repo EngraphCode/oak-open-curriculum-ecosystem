@@ -88,9 +88,12 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     'cfdd95b3968921c4dabcb48248e40cd18028eb386535019f77fe2dd79c29a586',
     IMPLEMENTATION_ONLY,
   ),
-  'apps/oak-curriculum-mcp-streamable-http/src/auth/public-resources.ts': reviewed(
-    '5d0cb6266065faa21923f9c757c41c18a2aaba1259a91caa95c76176be85a280',
-    ['C413'],
+  // MCP-353: the under-the-hood allowlist row (C413) retired with the deleted
+  // resource (MCP-242's re-review of the pre-deletion file is superseded by
+  // that retirement); the file now composes SDK-owned URI sets only.
+  'apps/oak-curriculum-mcp-streamable-http/src/auth/public-resources.ts': excluded(
+    '75bbea61c4b91c53a1ec93133852f9841844f94eb448973f9bbecfd855239227',
+    IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/canonical-origin.ts': excluded(
     '01d279a964b9f05d18c8a7b56724aafe1e17f71c2eb98897d15fa7fd5199cabe',
@@ -112,12 +115,16 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     '0078dfaf0635235210ac1be277692f97d6b87a1e6e7c49ac7f6169c87bbb17aa',
     IMPLEMENTATION_ONLY,
   ),
+  'apps/oak-curriculum-mcp-streamable-http/src/generated/oak-under-the-hood-content.ts': reviewed(
+    '775eeb6826d2538daa5c92905be153b0a7d46de53a9b60258f1d1a52e8852254',
+    ['A010'],
+  ),
   'apps/oak-curriculum-mcp-streamable-http/src/generated/widget-html-content.ts': reviewed(
     '7c7ce8dff941cc26621bafaef3846c6aab52769785032db708aac151b306b7a3',
     ['C394'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/handlers.ts': excluded(
-    '7a982c028333199b7aabd44f847091909d989cc657321a5c26c4933678479a68',
+    '94b93129bc465885c23ba2e9155b3611e9be7471454c207c3fe491e7db4d7587',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/host-validation-error.ts': reviewed(
@@ -136,21 +143,18 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     '7499e649d7c2e4cc5f7f8d27fe63c39b485921a1b17a1b27692b09f4652a2f04',
     IMPLEMENTATION_ONLY,
   ),
+  // MCP-353 (§2.F cure): the fetch trigger, canonical URL, and resource_link
+  // rows (C375, C377, C380–C383) retired via lineage; the baked orientation
+  // body is A010 in src/generated/oak-under-the-hood-content.ts.
   'apps/oak-curriculum-mcp-streamable-http/src/oak-under-the-hood/oak-under-the-hood-tool.ts':
-    reviewed('5acb3aa8bfa392d983793d144e3c33b41b7acf0274efb4e351a06c3118fbf840', [
+    reviewed('2c28587c89c4b3c691c9f39a3b8e3e28946f470b74b235325d8c1fd7085f7a1f', [
       'C371',
       'C372',
       'C373',
       'C374',
-      'C375',
       'C376',
-      'C377',
       'C378',
       'C379',
-      'C380',
-      'C381',
-      'C382',
-      'C383',
     ]),
   'apps/oak-curriculum-mcp-streamable-http/src/oauth-proxy/oauth-proxy-handlers.ts': reviewed(
     'ab2dd71908871e8552d0b53a92f275541bdb73fc06e95081f0f2f8b44e49aee4',
@@ -196,7 +200,7 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/served-surface/served-surface.ts': reviewed(
-    '0fae62bc3fc8f10e643c996928092043d1b04b136e7796b1a946e87e7da3e2ae',
+    '15c76f4100bec4a96aa51d7b082262b02043666b8fb74a3cf2d1b6250ad09efb',
     ['A001'],
   ),
   // MCP-243: HTTP server bootstrap wiring the close funnel into every exit

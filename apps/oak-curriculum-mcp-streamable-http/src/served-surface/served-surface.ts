@@ -118,7 +118,6 @@ export const SERVED_SURFACE = {
   resources: {
     'docs://oak/getting-started.md': 'live',
     'curriculum://model': 'live',
-    'docs://oak/under-the-hood.md': 'live',
     // EEF interpretation: dormant with its tool (owner card 2026-07-23 —
     // out of the v1 live set; gated, not removed). Previously the
     // OAK_CURRICULUM_MCP_EEF_ENABLED kill-switch's resource leg, superseded

@@ -1,17 +1,21 @@
 /**
- * E2E tests for the oak-under-the-hood orientation tool (pointer shape).
+ * E2E tests for the oak-under-the-hood orientation tool (baked-content shape).
  *
  * These tests exercise the full MCP protocol path, proving that a connected
  * client can:
  * - Discover the oak-under-the-hood tool via tools/list (with its effort-scoped
  *   description and a closed empty inputSchema), alongside the curriculum
  *   tools — coexistence.
- * - Call it via tools/call and receive the ADR-058 dual-shape result carrying a
- *   POINTER (a `resource_link` to the canonical) — never a baked body.
+ * - Call it via tools/call and receive the ADR-058 dual-shape result carrying
+ *   the orientation body on BOTH channels — with no external fetch instruction
+ *   (directory policy §2.F, MCP-353). The curriculum firewall is held
+ *   structurally: the tool builds its result locally, with no dependency on
+ *   the curriculum SDK's response helpers (ADR-041).
  *
- * Behaviour-only: the tool serves no curated content, so nothing is grepped for
- * prose. The effort-scoping firewall is held by construction and PR review,
- * asserted here only as structural absences.
+ * Behaviour-only: content CORRECTNESS is proved by the generator parity gate
+ * (`validate-under-the-hood-content`); nothing here pins prose. The firewalls
+ * (effort-scoping, curriculum separation) are held by construction and PR
+ * review, asserted here only as structural presences/absences.
  */
 
 import request from 'supertest';
@@ -27,6 +31,7 @@ const ToolsListResultSchema = z.object({
       name: z.string(),
       description: z.string().optional(),
       inputSchema: z.record(z.string(), z.unknown()).optional(),
+      annotations: z.record(z.string(), z.unknown()).optional(),
     }),
   ),
 });
@@ -36,8 +41,6 @@ const ToolsCallResultSchema = z.object({
     z.object({
       type: z.string(),
       text: z.string().optional(),
-      uri: z.string().optional(),
-      name: z.string().optional(),
     }),
   ),
   structuredContent: z.record(z.string(), z.unknown()),
@@ -46,7 +49,7 @@ const ToolsCallResultSchema = z.object({
 
 describe('Oak: Under the Hood tool E2E', () => {
   describe('tools/list — client can discover the oak-under-the-hood tool', () => {
-    it('advertises the oak-under-the-hood tool with an effort-scoped description and a closed empty inputSchema, alongside the curriculum tools', async () => {
+    it('advertises the oak-under-the-hood tool with an effort-scoped description, a closed empty inputSchema, and openWorldHint false, alongside the curriculum tools', async () => {
       const { app } = await createStubbedHttpApp();
 
       const response = await request(app)
@@ -70,13 +73,15 @@ describe('Oak: Under the Hood tool E2E', () => {
       // Closed empty inputSchema (zero-arg): a valid JSON Schema object accepting only {}.
       expect(orientationTool?.inputSchema?.type).toBe('object');
       expect(orientationTool?.inputSchema?.additionalProperties).toBe(false);
+      // Served entirely from the deployed artefact: no open-world fetch on the wire form.
+      expect(orientationTool?.annotations?.openWorldHint).toBe(false);
       // Non-vacuous coexistence: the curriculum tools are still advertised in the same list.
       expect(result.tools.map((tool) => tool.name)).toContain('get-curriculum-model');
     });
   });
 
-  describe('tools/call — client receives the pointer', () => {
-    it('returns the ADR-058 dual shape carrying a resource_link to the canonical, not a baked body', async () => {
+  describe('tools/call — client receives the baked orientation', () => {
+    it('returns the ADR-058 dual shape carrying the orientation body on both channels, with no fetch instruction', async () => {
       const { app } = await createStubbedHttpApp();
 
       const response = await request(app)
@@ -96,17 +101,22 @@ describe('Oak: Under the Hood tool E2E', () => {
       const result = ToolsCallResultSchema.parse(envelope.result);
 
       expect(result.isError).not.toBe(true);
-      // ADR-058 dual shape: a content array (summary slot is text) plus structuredContent.
-      expect(result.content[0]?.type).toBe('text');
-      expect(result.content.map((block) => block.type)).toContain('resource_link');
-      // The pointer: a resource_link content block with an https uri and a name.
-      const link = result.content.find((block) => block.type === 'resource_link');
-      expect(link?.uri).toMatch(/^https:\/\//);
-      expect((link?.name ?? '').length).toBeGreaterThan(0);
-      // structuredContent carries the canonical URL and NO baked body.
+      // ADR-058 dual shape: summary + markdown body in content, the same body in
+      // structuredContent — clients that deliver only one channel still get it.
+      expect(result.content).toHaveLength(2);
+      expect(result.content.every((block) => block.type === 'text')).toBe(true);
+      const body = result.content[1]?.text ?? '';
+      expect(body.length).toBeGreaterThan(0);
       const structured = result.structuredContent;
-      expect(structured.canonicalUrl).toMatch(/^https:\/\//);
-      expect(structured).not.toHaveProperty('orientation');
+      expect(structured.orientation).toBe(body);
+      // The pointer shape is gone: no resource_link, no canonical fetch target,
+      // no instruction to pull external behavioural content (§2.F, MCP-353).
+      expect(result.content.map((block) => block.type)).not.toContain('resource_link');
+      expect(structured).not.toHaveProperty('canonicalUrl');
+      expect(structured).not.toHaveProperty('trigger');
+      expect(JSON.stringify(result)).not.toContain('raw.githubusercontent.com');
+      // Informational citations only (the curriculum firewall is structural).
+      expect(typeof structured.repositoryUrl).toBe('string');
     });
   });
 });
