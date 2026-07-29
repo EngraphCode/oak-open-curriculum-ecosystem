@@ -107,8 +107,10 @@ seam, extract a pure function, inject a dependency).
     category.
 21. **Test is named `*.integration.test.ts` but hits network beyond
     a harness's loopback exchange with an app the test itself
-    imported and booted in-process, or spawns processes.** This is
-    an E2E or smoke test wearing the wrong name.
+    imported and booted in-process, or spawns processes.** Classify
+    by the boundary, then cure: a genuine separately-running-system
+    exchange belongs at E2E/smoke tier; outbound IO from imported
+    code is a missing DI seam to fix, never a rename.
 22. **Test depends on test-execution order to pass.** Shared mutable
     state between tests is a correctness hazard. Each test must be
     self-contained.

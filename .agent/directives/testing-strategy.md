@@ -35,7 +35,8 @@ Formal home: [`validation-strategy.md`](validation-strategy.md) (seeded
 - Always use TDD at ALL levels (unit, integration, E2E)
 - Prefer unit tests over integration tests
 - Prefer integration tests over E2E tests
-- Unit and integration tests must not trigger IO. E2E and smoke tests may
+- Unit and integration tests must not trigger IO beyond the loopback
+  harness exchange defined under §Test Types. E2E and smoke tests may
   trigger IO only under their respective constraints below.
 - NEVER create complex mocks, use simple mocks passed as arguments
   to the function under test. Complex mocks result in testing the
@@ -233,8 +234,11 @@ about testing CODE, not testing RUNNING SYSTEMS.
   in-process (`supertest(app)`, or an equivalent harness) is
   calling mechanics, not prohibited IO; an exchange with any
   system the test did not import and boot is E2E-tier network IO.
-  The listener must be ephemeral (`listen(0)`), bound to loopback,
-  and closed within the same helper call. Every other IO the test
+  The listener must be ephemeral (`listen(0)`, never a fixed port)
+  and closed within the same helper call; a self-managed listener
+  binds loopback explicitly, and a harness-managed listener
+  (supertest's own) is ephemeral and immediately closed, which is
+  the accepted equivalent. Every other IO the test
   or the app performs — filesystem, outbound network from the app
   or its collaborators, process spawning — remains prohibited;
   upstream dependencies are still injected simple fakes. The
