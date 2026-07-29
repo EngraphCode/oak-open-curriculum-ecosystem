@@ -5,6 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
+  '@ai-sdk/provider-utils': '>=3.0.98'
   '@types/node': ^24.13.3
   axios: '>=1.15.1'
   brace-expansion: '>=5.0.8'
@@ -38,7 +39,7 @@ importers:
         version: 21.2.0
       '@mcpjam/cli':
         specifier: 3.15.2
-        version: 3.15.2(@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rxjs@7.8.2)
+        version: 3.15.2(@modelcontextprotocol/sdk@1.30.0(@cfworker/json-schema@4.1.1)(zod@4.4.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rxjs@7.8.2)
       '@oaknational/eslint-plugin-standards':
         specifier: workspace:*
         version: link:packages/core/oak-eslint
@@ -207,10 +208,10 @@ importers:
         version: 9.4.2
       '@modelcontextprotocol/ext-apps':
         specifier: ^1.7.5
-        version: 1.7.5(@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(zod@4.4.3)
+        version: 1.7.5(@modelcontextprotocol/sdk@1.30.0(@cfworker/json-schema@4.1.1)(zod@4.4.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(zod@4.4.3)
       '@modelcontextprotocol/sdk':
-        specifier: ^1.29.0
-        version: 1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3)
+        specifier: ^1.30.0
+        version: 1.30.0(@cfworker/json-schema@4.1.1)(zod@4.4.3)
       '@oaknational/build-metadata':
         specifier: workspace:*
         version: link:../../packages/core/build-metadata
@@ -1135,8 +1136,8 @@ importers:
   packages/libs/posthog-node:
     dependencies:
       '@modelcontextprotocol/sdk':
-        specifier: ^1.29.0
-        version: 1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3)
+        specifier: ^1.30.0
+        version: 1.30.0(@cfworker/json-schema@4.1.1)(zod@4.4.3)
       '@oaknational/build-metadata':
         specifier: workspace:*
         version: link:../../core/build-metadata
@@ -1147,8 +1148,8 @@ importers:
         specifier: workspace:*
         version: link:../../core/result
       '@posthog/mcp':
-        specifier: ^0.10.0
-        version: 0.10.0(@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3))(posthog-node@5.46.1(rxjs@7.8.2))
+        specifier: ^0.10.1
+        version: 0.10.1(@modelcontextprotocol/sdk@1.30.0(@cfworker/json-schema@4.1.1)(zod@4.4.3))(posthog-node@5.46.1(rxjs@7.8.2))
       posthog-node:
         specifier: ^5.46.1
         version: 5.46.1(rxjs@7.8.2)
@@ -1289,8 +1290,8 @@ importers:
   packages/sdks/oak-curriculum-sdk:
     dependencies:
       '@modelcontextprotocol/sdk':
-        specifier: ^1.29.0
-        version: 1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3)
+        specifier: ^1.30.0
+        version: 1.30.0(@cfworker/json-schema@4.1.1)(zod@4.4.3)
       '@oaknational/graph-corpus-sdk':
         specifier: workspace:*
         version: link:../graph-corpus-sdk
@@ -1341,8 +1342,8 @@ importers:
   packages/sdks/oak-sdk-codegen:
     dependencies:
       '@modelcontextprotocol/sdk':
-        specifier: ^1.29.0
-        version: 1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3)
+        specifier: ^1.30.0
+        version: 1.30.0(@cfworker/json-schema@4.1.1)(zod@4.4.3)
       '@oaknational/logger':
         specifier: workspace:^
         version: link:../../libs/logger
@@ -1530,12 +1531,6 @@ packages:
 
   '@ai-sdk/openai@2.0.115':
     resolution: {integrity: sha512-/lzMx32DICp6EREEguKEihDVL1wjPc8pBuroDtomRdFd7lqRApRg0Bplz/iXVu0suxoWNv5Fsc1HwUXApsSkTg==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      zod: ^3.25.76 || ^4.1.8
-
-  '@ai-sdk/provider-utils@3.0.30':
-    resolution: {integrity: sha512-NCJ9JKow5ENAgEZxzvEvF20thwDiH+hutvzmrUDbloRX0azpJHNst8+7pZIVryYhLM9wgpT5/ShTSjPTFhkxEQ==}
     engines: {node: '>=18'}
     peerDependencies:
       zod: ^3.25.76 || ^4.1.8
@@ -2567,8 +2562,8 @@ packages:
       react-dom:
         optional: true
 
-  '@modelcontextprotocol/sdk@1.29.0':
-    resolution: {integrity: sha512-zo37mZA9hJWpULgkRpowewez1y6ML5GsXJPY8FI0tBBCd77HEvza4jDqRKOXgHNn867PVGCyTdzqpz0izu5ZjQ==}
+  '@modelcontextprotocol/sdk@1.30.0':
+    resolution: {integrity: sha512-xKd8OIzlqNzcqcNumGAa6g+PW2kjD5vrpcKOnfldAUPP3j7lnqMPwlTXQm8gF+UwH72z0lqaRbjr9hqGz0eITA==}
     engines: {node: '>=18'}
     peerDependencies:
       '@cfworker/json-schema': ^4.1.1
@@ -3021,8 +3016,8 @@ packages:
   '@posthog/core@1.45.1':
     resolution: {integrity: sha512-tLtvzomavb2PPWdGYKsusyIzIeL2Px47v348Smibkay7sMy/83TyPk+Ptsp2NdeOgJsbuwSxWkR2+XA0aSCAaA==}
 
-  '@posthog/mcp@0.10.0':
-    resolution: {integrity: sha512-a9izeSMZ5h/dQNra2uW6nPZyXhwRzdxx0jJ5rtWPa/N19C32/sU0cX2X/0ALeaHkokct646woQSsK+PKogTVSQ==}
+  '@posthog/mcp@0.10.1':
+    resolution: {integrity: sha512-TMe6BvDCzMMaWP30jMuJKWDbqrDZ6xLjknzQFGXkaD5EPiq4EcU8FImjZBSZ6l1ipQdnPmkx2Z+R4bKhlx9Z6A==}
     engines: {node: ^20.20.0 || >=22.22.0}
     peerDependencies:
       '@modelcontextprotocol/sdk': '>=1.26.0'
@@ -8252,7 +8247,7 @@ snapshots:
     dependencies:
       '@ai-sdk/anthropic': 2.0.91(zod@4.4.3)
       '@ai-sdk/provider': 2.0.3
-      '@ai-sdk/provider-utils': 3.0.30(zod@4.4.3)
+      '@ai-sdk/provider-utils': 4.0.40(zod@4.4.3)
       '@smithy/eventstream-codec': 4.4.13
       '@smithy/util-utf8': 4.4.13
       aws4fetch: 1.0.20
@@ -8261,7 +8256,7 @@ snapshots:
   '@ai-sdk/anthropic@2.0.91(zod@4.4.3)':
     dependencies:
       '@ai-sdk/provider': 2.0.3
-      '@ai-sdk/provider-utils': 3.0.30(zod@4.4.3)
+      '@ai-sdk/provider-utils': 4.0.40(zod@4.4.3)
       zod: 4.4.3
 
   '@ai-sdk/azure@2.0.120(zod@4.4.3)':
@@ -8269,13 +8264,13 @@ snapshots:
       '@ai-sdk/deepseek': 1.0.48(zod@4.4.3)
       '@ai-sdk/openai': 2.0.115(zod@4.4.3)
       '@ai-sdk/provider': 2.0.3
-      '@ai-sdk/provider-utils': 3.0.30(zod@4.4.3)
+      '@ai-sdk/provider-utils': 4.0.40(zod@4.4.3)
       zod: 4.4.3
 
   '@ai-sdk/deepseek@1.0.48(zod@4.4.3)':
     dependencies:
       '@ai-sdk/provider': 2.0.3
-      '@ai-sdk/provider-utils': 3.0.30(zod@4.4.3)
+      '@ai-sdk/provider-utils': 4.0.40(zod@4.4.3)
       zod: 4.4.3
 
   '@ai-sdk/gateway@3.0.157(zod@4.4.3)':
@@ -8288,32 +8283,25 @@ snapshots:
   '@ai-sdk/google@2.0.85(zod@4.4.3)':
     dependencies:
       '@ai-sdk/provider': 2.0.3
-      '@ai-sdk/provider-utils': 3.0.30(zod@4.4.3)
+      '@ai-sdk/provider-utils': 4.0.40(zod@4.4.3)
       zod: 4.4.3
 
   '@ai-sdk/mistral@2.0.40(zod@4.4.3)':
     dependencies:
       '@ai-sdk/provider': 2.0.3
-      '@ai-sdk/provider-utils': 3.0.30(zod@4.4.3)
+      '@ai-sdk/provider-utils': 4.0.40(zod@4.4.3)
       zod: 4.4.3
 
   '@ai-sdk/openai-compatible@1.0.46(zod@4.4.3)':
     dependencies:
       '@ai-sdk/provider': 2.0.3
-      '@ai-sdk/provider-utils': 3.0.30(zod@4.4.3)
+      '@ai-sdk/provider-utils': 4.0.40(zod@4.4.3)
       zod: 4.4.3
 
   '@ai-sdk/openai@2.0.115(zod@4.4.3)':
     dependencies:
       '@ai-sdk/provider': 2.0.3
-      '@ai-sdk/provider-utils': 3.0.30(zod@4.4.3)
-      zod: 4.4.3
-
-  '@ai-sdk/provider-utils@3.0.30(zod@4.4.3)':
-    dependencies:
-      '@ai-sdk/provider': 2.0.3
-      '@standard-schema/spec': 1.1.0
-      eventsource-parser: 3.1.0
+      '@ai-sdk/provider-utils': 4.0.40(zod@4.4.3)
       zod: 4.4.3
 
   '@ai-sdk/provider-utils@4.0.40(zod@4.4.3)':
@@ -8335,7 +8323,7 @@ snapshots:
     dependencies:
       '@ai-sdk/openai-compatible': 1.0.46(zod@4.4.3)
       '@ai-sdk/provider': 2.0.3
-      '@ai-sdk/provider-utils': 3.0.30(zod@4.4.3)
+      '@ai-sdk/provider-utils': 4.0.40(zod@4.4.3)
       zod: 4.4.3
 
   '@alcalzone/ansi-tokenize@0.3.0':
@@ -8638,7 +8626,7 @@ snapshots:
 
   '@clerk/mcp-tools@0.6.0(@cfworker/json-schema@4.1.1)(@clerk/express@2.1.46(express@5.2.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(express@5.2.1)(hono@4.12.32)(next@16.2.11(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(@playwright/test@1.62.0)(@types/node@24.13.3)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(zod@4.4.3)':
     dependencies:
-      '@modelcontextprotocol/sdk': 1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3)
+      '@modelcontextprotocol/sdk': 1.30.0(@cfworker/json-schema@4.1.1)(zod@4.4.3)
     optionalDependencies:
       '@clerk/express': 2.1.46(express@5.2.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       express: 5.2.1
@@ -9284,9 +9272,9 @@ snapshots:
       '@types/fs-extra': 9.0.13
       fs-extra: 10.1.0
 
-  '@mcpjam/cli@3.15.2(@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rxjs@7.8.2)':
+  '@mcpjam/cli@3.15.2(@modelcontextprotocol/sdk@1.30.0(@cfworker/json-schema@4.1.1)(zod@4.4.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rxjs@7.8.2)':
     dependencies:
-      '@mcpjam/sdk': 2.0.1(@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rxjs@7.8.2)
+      '@mcpjam/sdk': 2.0.1(@modelcontextprotocol/sdk@1.30.0(@cfworker/json-schema@4.1.1)(zod@4.4.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rxjs@7.8.2)
       '@modelcontextprotocol/server': 2.0.0-beta.4
       commander: 12.1.0
       posthog-node: 5.46.1(rxjs@7.8.2)
@@ -9301,7 +9289,7 @@ snapshots:
       - rxjs
       - utf-8-validate
 
-  '@mcpjam/sdk@2.0.1(@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rxjs@7.8.2)':
+  '@mcpjam/sdk@2.0.1(@modelcontextprotocol/sdk@1.30.0(@cfworker/json-schema@4.1.1)(zod@4.4.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rxjs@7.8.2)':
     dependencies:
       '@ai-sdk/amazon-bedrock': 3.0.111(zod@4.4.3)
       '@ai-sdk/anthropic': 2.0.91(zod@4.4.3)
@@ -9313,7 +9301,7 @@ snapshots:
       '@ai-sdk/xai': 2.0.82(zod@4.4.3)
       '@cfworker/json-schema': 4.1.1
       '@modelcontextprotocol/client': 2.0.0-beta.4
-      '@modelcontextprotocol/ext-apps': 1.7.5(@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(zod@4.4.3)
+      '@modelcontextprotocol/ext-apps': 1.7.5(@modelcontextprotocol/sdk@1.30.0(@cfworker/json-schema@4.1.1)(zod@4.4.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(zod@4.4.3)
       '@openrouter/ai-sdk-provider': 2.10.0(ai@6.0.235(zod@4.4.3))(zod@4.4.3)
       '@xmldom/xmldom': 0.8.13
       ai: 6.0.235(zod@4.4.3)
@@ -9352,16 +9340,16 @@ snapshots:
     dependencies:
       zod: 4.4.3
 
-  '@modelcontextprotocol/ext-apps@1.7.5(@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(zod@4.4.3)':
+  '@modelcontextprotocol/ext-apps@1.7.5(@modelcontextprotocol/sdk@1.30.0(@cfworker/json-schema@4.1.1)(zod@4.4.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(zod@4.4.3)':
     dependencies:
-      '@modelcontextprotocol/sdk': 1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3)
+      '@modelcontextprotocol/sdk': 1.30.0(@cfworker/json-schema@4.1.1)(zod@4.4.3)
       '@standard-schema/spec': 1.1.0
       zod: 4.4.3
     optionalDependencies:
       react: 19.2.8
       react-dom: 19.2.8(react@19.2.8)
 
-  '@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3)':
+  '@modelcontextprotocol/sdk@1.30.0(@cfworker/json-schema@4.1.1)(zod@4.4.3)':
     dependencies:
       '@hono/node-server': 2.0.11(hono@4.12.32)
       ajv: 8.20.0
@@ -9718,9 +9706,9 @@ snapshots:
     dependencies:
       '@posthog/types': 1.398.0
 
-  '@posthog/mcp@0.10.0(@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3))(posthog-node@5.46.1(rxjs@7.8.2))':
+  '@posthog/mcp@0.10.1(@modelcontextprotocol/sdk@1.30.0(@cfworker/json-schema@4.1.1)(zod@4.4.3))(posthog-node@5.46.1(rxjs@7.8.2))':
     dependencies:
-      '@modelcontextprotocol/sdk': 1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3)
+      '@modelcontextprotocol/sdk': 1.30.0(@cfworker/json-schema@4.1.1)(zod@4.4.3)
       '@posthog/core': 1.45.1
       posthog-node: 5.46.1(rxjs@7.8.2)
 
@@ -13745,7 +13733,7 @@ snapshots:
   ollama-ai-provider-v2@1.5.5(zod@4.4.3):
     dependencies:
       '@ai-sdk/provider': 2.0.3
-      '@ai-sdk/provider-utils': 3.0.30(zod@4.4.3)
+      '@ai-sdk/provider-utils': 4.0.40(zod@4.4.3)
       zod: 4.4.3
 
   on-finished@2.4.1:

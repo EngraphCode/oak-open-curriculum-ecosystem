@@ -3707,3 +3707,43 @@ MCP-362 SLO pointer. None Thursday-gating.
 - Separate real find en route: a CONFLICTING PR silently stops pull_request CI runs
   (four pushes with zero CI runs read as "still settling"); settle watches need a
   MERGEABLE leg and a runs-per-head leg (recorded on MCP-373).
+
+## 2026-07-29 ~14:45Z — Lynx (9e8a61), Director: POST-COMPACTION RESUME COMPLETE (re-arm ceremony executed)
+
+- Re-arm per the freeze MAP DELTA: watcher re-arm 9 (bjgf439fm), 240s dual-surface heartbeat (bkcb0o5tt),
+  F-75 v5 (bldn8tx8t) — all live by ~14:38Z; foreground gap sweep 14:15→14:40Z CLEAN (the freeze map
+  already carried every event in the window); rejoin broadcast 0d840451.
+- MAP DELTAS ABSORBED post-freeze (Director ack 64b7ba51): (1) the Altair seat REPURPOSED owner-direct
+  onto the design-showcase lane — MCP-166 CANCELLED, MCP-139+167 FOLDED into MCP-371 (now In Progress,
+  THE single programme ticket, 5 slices, absorb-and-green first); Altair runs MCP-367 → 371 slices 1–2
+  → 372, fresh worktree off origin/main. (2) MCP-367 executor change Osprey→Altair (Osprey acked no
+  collision; Osprey batch now 366→365→368; 368 unblocks at Altair's 367 merge, direct notify promised).
+  (3) MCP-143 Decision 1 (scopes) OWNER-RULED closed ~14:41Z: scopes_supported stays ["email"], no code
+  change; the Clerk runsheet is execute-only bar the MCP-271 reviews.
+- MG handover doc refreshed (fresh get_document read, minimal delta, saved 14:43:49Z): #628/MCP-353
+  moved to the Done list; Remaining renumbered to six gates; timestamp ~14:45 UTC.
+- Cricket round 5 FIRED at resume (pair era: sonnet+haiku × normal+adversarial, deliver-once on the
+  haiku legs); verdicts pending, adjudication at landing.
+- Registry-hygiene note: Moon rides Penumbra's director claim 5d1d04db still carries active status
+  (that seat retired 07:48Z; predecessor Director) — candidate for the next warden batch, not urgent.
+
+## 2026-07-29 ~14:55Z — Lynx (9e8a61), Director: cricket round 5 close + Thursday-gate status resolution
+
+- ROUND 5 TALLY (pair era): sonnet-normal DRIFTING + sonnet-adversarial DRIFTING (delivered, convergent
+  redirection: status-read the actual Thursday gates before doc work); haiku legs 0/2 delivered AGAIN
+  (idle-without-delivery; rounds 3 and 5 now share the pattern — delivery-rate axis for the MCP-161
+  successor tally; no ping per the standing dispatcher note).
+- ADJUDICATION (two-axis): ordering critique DECLINED with falsifier — the MG-doc refresh was an
+  owner-commissioned standing duty, took ~3 min, and was complete before the verdicts landed; kernel
+  ABSORBED — the seat lacked a first-hand post-compaction gate status read. The redirection PAID: the
+  read found ALL FIVE gate tickets static (MCP-327..330 Backlog, untouched 22h; MCP-339 no named
+  expert) → carded to the owner at the action moment.
+- OWNER ANSWERS (verbatim kernel): "No one is chasing anyone, we respect each other. He will be in
+  tomorrow, he will take care of it" (Aakesh four → land from Wednesday, his clock); MCP-339 expert
+  sign-off "Already in hand" (no name given — none recorded). BOTH Thursday ticket-gate clusters
+  human-held-and-moving; re-surfacing stands down until ticket movement or Thursday morning.
+- LESSON (fires on the finder vocabulary): the crickets said "chase"; the card's recommended option was
+  contact-shaped; the owner's culture is trust-based — colleagues are never chased. Adjudication should
+  TRANSLATE finder vocabulary into the owner's culture before it reaches him: the right ask was "do you
+  know their timing?", not "how shall we mobilise?". Handoff ruling 18 + memory carry it; the MG doc's
+  "chase directly" line re-trued.

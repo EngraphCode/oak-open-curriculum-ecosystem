@@ -92,7 +92,7 @@
     "scan:sitemap": "pnpm exec tsx code-generation/sitemap-scanner.ts"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.29.0",
+    "@modelcontextprotocol/sdk": "^1.30.0",
     "@oaknational/logger": "workspace:^",
     "@oaknational/observability": "workspace:*",
     "@oaknational/openapi-zod-client-adapter": "workspace:*",

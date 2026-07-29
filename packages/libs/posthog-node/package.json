@@ -29,11 +29,11 @@
     "lint:fix": "eslint --fix ."
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.29.0",
+    "@modelcontextprotocol/sdk": "^1.30.0",
     "@oaknational/build-metadata": "workspace:*",
     "@oaknational/observability": "workspace:*",
     "@oaknational/result": "workspace:*",
-    "@posthog/mcp": "^0.10.0",
+    "@posthog/mcp": "^0.10.1",
     "posthog-node": "^5.46.1"
   },
   "devDependencies": {
