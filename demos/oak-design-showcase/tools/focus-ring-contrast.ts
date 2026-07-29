@@ -80,7 +80,14 @@ export function ringChainContrast(shadow: string, surface: Rgba): number {
   const layers = splitShadowLayers(shadow)
     .filter((layer) => !/\binset\b/.test(layer))
     .flatMap((layer) => {
-      const px = [...layer.matchAll(/(-?(?:\d+(?:\.\d+)?|\.\d+))px/g)].map((m) => Number(m[1]));
+      // One linear class, numeric validation delegated to Number(): every
+      // alternation-shaped number grammar here kept re-tripping Sonar's
+      // backtracking heuristic; a malformed run parses NaN and scores as
+      // zero geometry, holding the layer's index positions stable.
+      const px = [...layer.matchAll(/(-?[\d.]+)px/g)].map((m) => {
+        const value = Number(m[1]);
+        return Number.isNaN(value) ? 0 : value;
+      });
       const colour = parseColour(layer);
       return colour !== null && px.some((n) => n !== 0) ? [{ colour, spread: px[3] ?? 0 }] : [];
     })
