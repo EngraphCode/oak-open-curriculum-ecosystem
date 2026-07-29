@@ -53,8 +53,8 @@ intentionally has no output schema, as recorded by the completed
 and ADR-202.
 
 One object-rooted envelope composer models the successful
-`formatToolResponse` result: the source-owned payload, `summary`, the exact
-`oakContextHint` predicate, and `status` where the executor emits it. Payload
+`formatToolResponse` result: the source-owned payload, `summary`, and
+`status` where the executor emits it. Payload
 schemas stay beside the generated response descriptor, corpus writer, or
 Oak-authored transform that owns the runtime value.
 

@@ -9,13 +9,22 @@ import {
   type GithubApiFetch,
 } from './mint-installation-token.js';
 import { resolveMintTokenConfig, type MintTokenConfig } from './resolve-config.js';
+import { permissionNamesFor, TOKEN_SCOPE_NAMES, TOKEN_SCOPES } from './token-scopes.js';
 
 /**
  * CLI for the `merge-bot` topic (AIP-158).
  *
  * `merge-bot mint-token` prints a short-lived GitHub App installation token
- * to stdout (and nothing else there), so callers can run merge operations as
- * the bot: `GH_TOKEN=$(agent-tools merge-bot mint-token) gh pr merge …`.
+ * to stdout (and nothing else there), so callers can run operations as the
+ * bot. Assign it, then use it — never the `GH_TOKEN=$(…) gh …` prefix form,
+ * which cannot fail fast: a failing mint leaves `GH_TOKEN` empty, `gh` reads
+ * empty as UNSET, and the command runs as the signed-in human.
+ *
+ * ```bash
+ * token=$(pnpm --silent agent-tools merge-bot mint-token --scope pull-request-work) || exit 1
+ * GH_TOKEN="$token" gh pr merge <n> --auto --merge
+ * ```
+ *
  * The bot is not a ruleset bypass actor, so its merges bind to required
  * checks — the sanctioned direct-merge path under the 2026-07-21 owner
  * rulings (`--admin` always banned; direct `--merge` banned on
@@ -40,12 +49,21 @@ export interface MergeBotCliInput {
   readonly nowEpochSeconds?: () => number;
 }
 
-const USAGE = `merge-bot mint-token [--app-id <id>] [--private-key-path <pem-path>] [--repo <owner/name>] [--json]
+const USAGE = `merge-bot mint-token --scope <${TOKEN_SCOPE_NAMES.join('|')}> [--app-id <id>] [--private-key-path <pem-path>] [--repo <owner/name>] [--json]
   Prints a short-lived GitHub App installation token (stdout carries ONLY the
-  token unless --json). The repo's .github/merge-bot.json is the single
-  authority for the bot identity; the private key lives at
-  ~/.config/<appSlug>/private-key.pem, derived from it. Flags are explicit
-  operator overrides (cross-repo invocation, tests) — not a resolution tier.
+  token unless --json, which bundles the token into the printed object). The
+  repo's .github/merge-bot.json is the single authority for the bot identity;
+  the private key lives at ~/.config/<appSlug>/private-key.pem, derived from
+  it. Flags are explicit operator overrides (cross-repo invocation, tests) —
+  not a resolution tier.
+
+  --scope is REQUIRED and has no default: a token carries only the permissions
+  its mint requests, so defaulting would make the most privileged scope the
+  silent one. Scopes and what each permits are defined in token-scopes.ts.
+${TOKEN_SCOPE_NAMES.map((name) => `    ${name}: ${permissionNamesFor(name).join(', ')}\n`).join('')}
+  A 403 reading "Resource not accessible by integration" means the wrong
+  --scope, not a broken bot: an ungranted permission fails the mint with a 422.
+  Other 403s (ruleset refusals, rate limits) are not scope problems.
 `;
 
 function realFetch(): GithubApiFetch {
@@ -117,6 +135,7 @@ async function mintForConfig(
     appJwt: appJwt.value,
     installationId: installation.value,
     repoName: config.repoName,
+    permissions: TOKEN_SCOPES[config.scope],
     fetchImpl,
   });
   if (!minted.ok) {

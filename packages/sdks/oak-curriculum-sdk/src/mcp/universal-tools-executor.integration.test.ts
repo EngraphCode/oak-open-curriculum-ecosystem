@@ -52,7 +52,6 @@ const sampleDescriptor: ToolRegistryDescriptor = {
     title: 'Get Lessons',
   },
   securitySchemes: [],
-  requiresDomainContext: false,
   _meta: { securitySchemes: [] },
   toolMcpFlatInputSchema: z.object({
     params: z.object({

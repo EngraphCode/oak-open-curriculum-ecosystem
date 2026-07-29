@@ -23,25 +23,6 @@
       }
     },
     {
-      "auditId": "C005",
-      "evidence": {
-        "revision": "relocated",
-        "targets": [
-          {
-            "file": "packages/sdks/oak-curriculum-sdk/src/mcp/orientation-guidance.ts",
-            "anchors": [
-              {
-                "tokenCount": 8,
-                "tokenSha256": "3cbec3f21e5f4369e1f5e0b914198b0238059c358b9c437828e222c94a2b3672",
-                "indexToken": "OAK_CONTEXT_HINT",
-                "indexOffset": 2
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
       "auditId": "C006",
       "evidence": {
         "revision": "relocated",
@@ -992,37 +973,18 @@
       }
     },
     {
-      "auditId": "C056",
-      "evidence": {
-        "revision": "unchanged",
-        "targets": [
-          {
-            "file": "packages/sdks/oak-curriculum-sdk/src/mcp/agent-support-tool-metadata.ts",
-            "anchors": [
-              {
-                "tokenCount": 90,
-                "tokenSha256": "bb03704f6b43547bbacf21b9e6d215d01c031f0c502714e4ff3818c47bc51e03",
-                "indexToken": "generateContextHint",
-                "indexOffset": 2
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
       "auditId": "C057",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-curriculum-sdk/src/mcp/universal-tools/executor.ts",
             "anchors": [
               {
-                "tokenCount": 60,
-                "tokenSha256": "31b00c485e68e177bad9e8ae3021e851907f5e8b5a8727d30af0b3f55c8e9ed0",
-                "indexToken": "includeContextHint",
-                "indexOffset": 45
+                "tokenCount": 21,
+                "tokenSha256": "83b2a7cd5c7ff6e29ea9148d81345a23e7137a3b71b55f9728a0d010f6b81b5f",
+                "indexToken": "summary",
+                "indexOffset": 0
               }
             ]
           }
@@ -1097,27 +1059,8 @@
               {
                 "tokenCount": 71,
                 "tokenSha256": "42d69503e9dc7f2c398e9cef5166e2506572d76a570e72dfc420bc377592760c",
-                "indexToken": "toString",
-                "indexOffset": 60
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "auditId": "C062",
-      "evidence": {
-        "revision": "unchanged",
-        "targets": [
-          {
-            "file": "packages/sdks/oak-curriculum-sdk/src/mcp/universal-tool-shared.ts",
-            "anchors": [
-              {
-                "tokenCount": 22,
-                "tokenSha256": "186ef793260109b7c81cc5a110d7c4103a558ddcbe7bdda81e39f0b4573356dc",
-                "indexToken": "includeContextHint",
-                "indexOffset": 6
+                "indexToken": "boolean",
+                "indexOffset": 53
               }
             ]
           }

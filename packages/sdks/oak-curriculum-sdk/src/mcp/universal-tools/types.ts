@@ -22,8 +22,8 @@ import type {
  * Subset of ToolDescriptor fields that the universal-tools layer accesses.
  *
  * Narrowed from the full `ToolDescriptorForName<TName>` via Interface
- * Segregation: consumers only need listing metadata and domain-context
- * hints, not invoke functions or Zod schemas.
+ * Segregation: consumers need listing metadata and the flat input
+ * schema, not invoke functions or output schemas.
  *
  * Generated tools must still provide a human-facing title and description.
  * `listUniversalTools()` fails fast if either field is missing.
@@ -36,7 +36,6 @@ export interface ToolRegistryDescriptor {
   readonly securitySchemes?: readonly SecurityScheme[];
   readonly annotations?: ToolAnnotations;
   readonly _meta: ToolMeta;
-  readonly requiresDomainContext?: boolean;
 }
 
 /**

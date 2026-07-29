@@ -1,19 +1,18 @@
 /**
  * Orientation guidance surfaces for the MCP server.
  *
- * Server instructions and context hints are generated from the
- * AGENT_SUPPORT_TOOL_METADATA to ensure they always include all agent
- * support tools and their relationships. Tool DESCRIPTIONS carry no
- * call-another-tool-first imperatives (MCP-300): directory policy bars
- * descriptions from instructing the model about other tools. The
- * orientation channels are the `instructions` field (delivered once at
- * initialise) and the `oakContextHint` in response `structuredContent`
- * (per-call reinforcement) — both generated here, neither a description.
+ * Server instructions are generated from the AGENT_SUPPORT_TOOL_METADATA
+ * to ensure they always include all agent support tools and their
+ * relationships. Tool DESCRIPTIONS carry no call-another-tool-first
+ * imperatives (MCP-300): directory policy bars descriptions from
+ * instructing the model about other tools. The one orientation channel
+ * is the `instructions` field, delivered once at initialise (MCP-366
+ * removed the per-response `oakContextHint` reinforcement; ADR-058
+ * records the accepted residual risk).
  */
 
 import {
   generateServerInstructions,
-  generateContextHint,
   AGENT_SUPPORT_TOOL_NAMES,
 } from './agent-support-tool-metadata.js';
 
@@ -25,21 +24,6 @@ import {
  * orientation channels, so every surface names the same tool.
  */
 export const PRIMARY_ORIENTATION_TOOL_NAME = 'get-curriculum-model' as const;
-
-/**
- * Context hint included in structuredContent for model guidance.
- *
- * GENERATED from AGENT_SUPPORT_TOOL_METADATA to ensure it always includes
- * all agent support tools.
- *
- * The model sees structuredContent (unlike _meta), so this hint guides
- * the model to call agent support tools for domain understanding.
- *
- * @remarks
- * All tools using formatToolResponse automatically include
- * this hint, providing consistent context grounding across all tools.
- */
-export const OAK_CONTEXT_HINT = generateContextHint();
 
 /**
  * Server instructions sent in the MCP initialize response.

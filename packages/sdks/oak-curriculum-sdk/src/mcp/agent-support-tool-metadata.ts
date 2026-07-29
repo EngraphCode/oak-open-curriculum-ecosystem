@@ -3,7 +3,6 @@
  *
  * Defines metadata for all agent support tools driving:
  * - Server instructions in the MCP initialize response
- * - Context hints in tool responses (structuredContent.oakContextHint)
  * - Cross-references between tools (seeAlso fields)
  *
  * Adding a new tool:
@@ -123,22 +122,6 @@ Call these tools first to reduce errors when using search, fetch, and browsing t
 Oak's curriculum is fully sequenced: year-ordered progressions, prior-knowledge, misconception, and keyword graphs are served by the anchored graph tools (get-thread-progressions, get-prior-knowledge-graph, get-misconception-graph, get-keyword-graph), so lesson and curriculum plans can build on what a class has already covered.
 
 For questions that are not about curriculum content — about the mechanisms by which the content is delivered, about this MCP app or its associated services, or about the repository itself — use the oak-under-the-hood tool to orient yourself to the Oak Open Curriculum Ecosystem.`;
-}
-
-/**
- * Generates context hint from the metadata.
- *
- * This is included in structuredContent of every tool response to reinforce
- * guidance about agent support tools.
- *
- * @returns Context hint string
- */
-export function generateContextHint(): string {
-  const toolNames = typeSafeValues(AGENT_SUPPORT_TOOL_METADATA)
-    .sort((a, b) => a.callOrder - b.callOrder)
-    .map((t) => t.name);
-
-  return `If you have not called ${toolNames.join(' or ')} yet, do so before your next tool call — it provides the domain model and tool guidance needed for accurate results.`;
 }
 
 /**

@@ -110,8 +110,9 @@ Two changes land together (PR #243), both consistent with the original Decision:
    2026-06-27 the MCP tool and a companion resource carried **no baked content** — they handed the
    connected assistant a `resource_link`/URL to the public canonical skill and the assistant fetched
    and oriented. **That pointer shape is superseded — see §Amendment (2026-07-29).** The firewall
-   keeping the effort lens clear of curriculum content is held structurally in the MCP projection (no
-   import of the curriculum-coupled context hint, ADR-041), never by test.
+   keeping the effort lens clear of curriculum content is held structurally in the MCP projection (the
+   tool builds its own result and takes no dependency on the curriculum SDK's response helpers,
+   ADR-041), never by test.
 
 ## Amendment (2026-07-29, MCP-353): the MCP projection serves a baked, parity-gated digest
 

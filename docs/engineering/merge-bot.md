@@ -25,19 +25,61 @@ ruleset's bypass list**. Merging with its short-lived installation token
 gives you a credential that GitHub itself stops at any unmet requirement:
 
 ```bash
-GH_TOKEN=$(pnpm --silent agent-tools merge-bot mint-token) gh pr merge <n> --auto --merge
+token=$(pnpm --silent agent-tools merge-bot mint-token --scope pull-request-work) || exit 1
+GH_TOKEN="$token" gh pr merge <n> --auto --merge
 ```
 
-Each minted token is scoped at mint time to this repository and to
-`pull_requests: write` + `contents: write` + `workflows: write` only —
-least-privilege by construction, even if the app is ever installed more
-widely, and a strict subset of whatever the installation itself grants.
+**Assign the token first; never use the `GH_TOKEN=$(…) gh …` prefix form.** A
+prefix substitution cannot fail fast: if the mint fails for any reason — a bad
+`--scope`, an unreadable key, a `422` — the substitution yields an empty
+string, and `gh` treats an empty `GH_TOKEN` as _unset_ and falls back to the
+keyring. The command then runs as the signed-in human, who may be
+bypass-capable, which is the owner-credential fallback
+[`bot-identity-on-third-party-systems`](../../.agent/rules/bot-identity-on-third-party-systems.md)
+bans outright. A separate assignment with `|| exit 1` stops there instead.
+
+Each minted token is scoped at mint time to this repository and to exactly
+the permissions of the `--scope` you name — least-privilege by construction,
+even if the app is ever installed more widely, and a strict subset of
+whatever the installation itself grants.
+
+`--scope` is **required and has no default**. A token carries only the
+permissions its mint requests, so a default would make the most privileged
+scope the silent one — which is how a read-only need came to be served by a
+three-write token (MCP-385). The scopes, and the evidence for each member,
+are defined in `agent-tools/src/merge-bot/token-scopes.ts`:
+
+| scope                  | permissions                                                   | for                                                                                  |
+| ---------------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| `pull-request-work`    | `pull_requests: write`, `contents: write`, `workflows: write` | merge, update-branch, push, PR create/edit, comment, review reply, thread resolution |
+| `code-scanning-alerts` | `security_events: read`                                       | reading code-scanning alerts                                                         |
+
+That table is a **mirror**, kept inline because a reader choosing a scope
+needs the read/write levels in front of them. `token-scopes.ts` is
+authoritative and wins on any disagreement; `merge-bot mint-token --help`
+derives its list from the same source and is always current.
+
+`pull-request-work` is wider than several of its listed uses need: the
+conversation half (comments, review replies, PR edits) requires
+`pull_requests: write` alone, while only merge, push and update-branch need
+`contents`/`workflows`. Splitting it is MCP-391, gated on establishing what
+the GraphQL thread-resolution mutation requires. Read the set as honest for
+the span as named, not as minimal for each member.
+
+**A `403` reading `Resource not accessible by integration` is a
+wrong-`--scope` symptom, not a broken bot** (observed 2026-07-29 from a
+contents write on a `code-scanning-alerts` token). An ungranted permission
+fails the _mint_ with `HTTP 422`, so a mint that succeeded followed by that
+403 means the token is scoped for different work. Other 403s are not scope
+problems: a ruleset refusing a merge is this design working as intended, and
+rate limits return 403 too.
 
 `workflows: write` is needed only by `gh pr update-branch`, which writes the
 merge commit onto the **head** branch; GitHub refuses that write when the
-merge touches `.github/workflows/**` without it. Merging a pull request does
-not need it — observed directly: this bot merged PR #557, which changed four
-workflow files, on a token carrying only the first two permissions.
+merge touches `.github/workflows/**` without it — which is why the setup
+steps below treat Workflows as non-optional. Merging a pull request does not
+need it; the observations behind that, and behind every other scope member,
+live in `token-scopes.ts` beside the decisions they justify.
 
 `.github/merge-bot.json` is the **single authority** for which app is this
 repo's bot (`appSlug`, `appId`, `repo`); the private key lives outside every
@@ -53,14 +95,37 @@ for admin credentials, and optional for everyone else.
 
 1. `https://github.com/organizations/<org>/settings/apps/new` — name it,
    untick **Webhook → Active**.
-2. Repository permissions: **Pull requests: Read & write**, **Contents:
-   Read & write**, **Workflows: Read & write**, **Checks: Read-only**,
-   **Commit statuses: Read-only**. Grant nothing else.
+2. Repository permissions — grant nothing beyond these.
+
+   Requested by a scope, so a missing one fails that scope's mint with `422`:
+   **Pull requests: Read & write**, **Contents: Read & write**, **Workflows:
+   Read & write**, **Code scanning alerts: Read-only**.
+
+   Granted but requested by **no** scope, so no bot token can exercise them:
+   **Checks: Read-only**, **Commit statuses: Read-only**. They are held
+   against a future scope that needs them; a bot token cannot read checks
+   today, and trying yields the wrong-scope 403 above. Reads may use any
+   credential (see below), which is why nothing has needed them.
 
    **Workflows** is not optional: a token mint requests it explicitly, and
    GitHub rejects a token request for any permission the app was not
-   granted. An app created without it fails **every** mint with `HTTP 422`,
-   not merely the `update-branch` call that needs it.
+   granted. An app created without it fails **every** `pull-request-work`
+   mint with `HTTP 422`, not merely the `update-branch` call that needs it.
+
+   **Code scanning alerts** is likewise not optional for the
+   `code-scanning-alerts` scope — without it, every such mint fails `422`.
+   Note GitHub keeps three separate alert permissions: this one governs code
+   scanning; secret-scanning alerts and Dependabot alerts are distinct
+   permissions and are deliberately NOT granted.
+
+   **Adding a permission to an existing app does not reach its installations
+   by itself.** GitHub marks the new permission as requested, and an org
+   owner must approve it on the installation before any mint can use it. On a
+   bot that already exists, expect `422` until that approval lands. _(This is
+   GitHub's documented behaviour for permission changes on existing
+   installations; it was NOT observed here — this repo's App already held the
+   Code-scanning-alerts grant, so the path was never exercised. Every other
+   `422`/`403` claim on this page is first-hand.)_
 
 3. "Only on this account" → **Create GitHub App**; note the **App ID**.
 4. **Private keys → Generate a private key** (this never happens
@@ -76,7 +141,7 @@ for admin credentials, and optional for everyone else.
 6. Update `.github/merge-bot.json` if this bot replaces the repo's bot, and
    **never add the app to the ruleset's bypass actors** — a bypass-capable
    bot is the disease this design cures.
-7. Prove it: `pnpm agent-tools merge-bot mint-token` exits 0 and prints a
+7. Prove it: `pnpm agent-tools merge-bot mint-token --scope pull-request-work` exits 0 and prints a
    token; a merge attempt against a PR with a red required check must be
    REFUSED — that refusal is the feature.
 
@@ -91,8 +156,9 @@ agent's: opening PRs, editing titles/descriptions, commenting, replying to
 review threads, resolving threads, requesting reviewers, arming, merging.
 
 ```bash
-GH_TOKEN=$(pnpm --silent agent-tools merge-bot mint-token) gh pr edit <n> --body-file …
-GH_TOKEN=$(pnpm --silent agent-tools merge-bot mint-token) gh api …/comments/<id>/replies -f body=…
+token=$(pnpm --silent agent-tools merge-bot mint-token --scope pull-request-work) || exit 1
+GH_TOKEN="$token" gh pr edit <n> --body-file …
+GH_TOKEN="$token" gh api …/comments/<id>/replies -f body=…
 ```
 
 Reads may use any credential — attribution matters for writes. Agents keep
@@ -106,3 +172,13 @@ The `.pem` grants the bot's full capability: keep it out of every repo,
 never paste it into chat or logs, and rotate it from the app's Private-keys
 section if exposure is ever suspected. The minting CLI prints the token to
 stdout only (expiry to stderr) so command substitution never leaks extras.
+
+`--json` is the exception: it bundles the token into the printed object, so
+that output is as sensitive as the token itself and must not be pasted
+anywhere the plain form would be safe.
+
+Tokens belong in the environment, never in a URL. Pushes use a
+credential-helper that reads `GH_TOKEN` (see
+[`bot-identity-on-third-party-systems`](../../.agent/rules/bot-identity-on-third-party-systems.md)) —
+a token baked into a remote URL is visible in the process list to anything
+that can read it.

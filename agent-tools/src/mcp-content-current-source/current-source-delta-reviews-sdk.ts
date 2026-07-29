@@ -16,6 +16,13 @@ import {
 } from './current-source-delta-review-helpers.js';
 
 export const SDK_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview>> = {
+  // MCP-366: generateContextHint deleted with the per-response hint; its
+  // anchored body (C056) retired via lineage. The seven surviving metadata
+  // and instruction rows are unchanged by the deletion.
+  'packages/sdks/oak-curriculum-sdk/src/mcp/agent-support-tool-metadata.ts': reviewed(
+    'a39184779abe3ec3c2dd575fbd52b5c4d1b75e971ed90bed8e10ed671804f197',
+    ['C049', 'C050', 'C051', 'C052', 'C053', 'C054', 'C055'],
+  ),
   'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-asset-download/definition.ts': reviewed(
     '154d483475f32e0fbf31e82e82327b3a313fb61ed13ef45db8337e1f141bb4ab',
     ['C161', 'C162', 'C163', 'C164', 'C165', 'C166', 'C177'],
@@ -98,79 +105,33 @@ export const SDK_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     'b33adeff668f1bcb72b3d8098e03240db460f02e2ae3d5aced76041335d7f10f',
     IMPLEMENTATION_ONLY,
   ),
-  'packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/adapt-lesson.ts': reviewed(
-    'c23235066b550162a954fe38c402e630b9bc908854623a23daff99e02b04e694',
-    ['A007', 'C183', 'C187', 'C188', 'C202', 'C205', 'C206', 'C207', 'C208', 'C209', 'C334'],
-  ),
-  'packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/agent-guidance-resources.ts':
-    reviewed('b72948f5ade5d279b502b43ae5970439985c3d69fcfdab763f865c4bb6156f3a', ['A009']),
-  'packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/continue-progression.ts': reviewed(
-    'd49dc9764828029247ba20261bce0c5c3f39b6e552ebe632458fe0fd3f979e16',
-    [
-      'A008',
-      'C184',
-      'C188',
-      'C192',
-      'C195',
-      'C196',
-      'C203',
-      'C204',
-      'C205',
-      'C206',
-      'C208',
-      'C335',
-    ],
-  ),
-  'packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/curriculum-mapping.ts': reviewed(
-    '002ece2ea42677b6b6105f29f68aefdabeea3f8c0a74cc2e1fccfc2524c6588f',
-    [
-      'A006',
-      'C182',
-      'C192',
-      'C193',
-      'C194',
-      'C201',
-      'C205',
-      'C206',
-      'C207',
-      'C208',
-      'C209',
-      'C333',
-    ],
-  ),
-  'packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/explore-curriculum.ts': reviewed(
-    'b41a89cbd25a0a37ea9dd4eff106e940cc6d6c2cb9a8ec737fcbccaa8c29ca35',
-    ['A004', 'C180', 'C189', 'C190', 'C199', 'C205', 'C331'],
-  ),
-  'packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/find-lessons.ts': reviewed(
-    'ebf6b9948792b632393cf950cab97fddd582652fcfa4f95c7ba905d0ec6d6717',
-    ['A003', 'C178', 'C185', 'C186', 'C197', 'C205', 'C329'],
-  ),
-  'packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/guidance-resource-types.ts':
-    excluded('76cf0bd8b14bad736906a9874e1f3211993d5759d658d0eb6bf144e026cd1723', TYPE_ONLY),
-  'packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/learning-progression.ts': reviewed(
-    'fbd5b1c00d1880414394e10c769bd4cfdd8377dea4bf71f16bc0093d81def371',
-    ['A005', 'C181', 'C191', 'C192', 'C200', 'C205', 'C332'],
-  ),
   'packages/sdks/oak-curriculum-sdk/src/mcp/mcp-resource-types.ts': excluded(
     '0e31c4103c0b45fb5d4f59ff7522684e77adf56978336d8ba7cda817f0580c20',
     TYPE_ONLY,
   ),
+  // MCP-366: the per-response hint export deleted; C005 retired via lineage.
   'packages/sdks/oak-curriculum-sdk/src/mcp/orientation-guidance.ts': reviewed(
-    '541a88e4196d1ca0c1c3fd45fc31d7f662f7cd43a228f37004d40e21b9af0641',
-    ['C001', 'C005', 'C006'],
+    '0e1f5773d678f5177dcce1cf0e0ebb2e4906956c39f8458d858a70470ad42589',
+    ['C001', 'C006'],
   ),
+  // MCP-366: the hint-inclusion row (C062) retired via lineage with its line.
   'packages/sdks/oak-curriculum-sdk/src/mcp/universal-tool-shared.ts': reviewed(
-    '671ccee6dfe7b45ea91b65d67ccd7c72bda60a6354a62a6db648b2856240c3bf',
-    ['C059', 'C060', 'C061', 'C062'],
+    '712365ea40c230c55580d0ea74d1ae1f23a189a16959e89b6899800866f73599',
+    ['C059', 'C060', 'C061'],
   ),
   'packages/sdks/oak-curriculum-sdk/src/mcp/universal-tools/definitions.ts': excluded(
     'da82fc8370788eefc4a61b2778b78a2f6b56ec457dec7a146bd50fa774937f65',
     IMPLEMENTATION_ONLY,
   ),
   'packages/sdks/oak-curriculum-sdk/src/mcp/universal-tools/executor.ts': reviewed(
-    '6b3007871168f2f388a2f87b895223f03024b8ad7af8781f6a180b4ff3133d10',
+    '97b08a93960272d7b636afcd2e1f9ed76b0512227688912d4135bc9eb90b01da',
     ['C057', 'C058'],
+  ),
+  // MCP-366: requiresDomainContext removed from the registry-descriptor
+  // subset with its only runtime reader (the hint inclusion).
+  'packages/sdks/oak-curriculum-sdk/src/mcp/universal-tools/types.ts': excluded(
+    '1b5e4bfbcafbd4246cf35452f576fe503f748ab78f2309605c4627c6df3312e4',
+    TYPE_ONLY,
   ),
   'packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompt-messages.ts': excluded(
     '915c46784747690ff766918985423872733b85fc07a503b558bc50506113ba9e',
