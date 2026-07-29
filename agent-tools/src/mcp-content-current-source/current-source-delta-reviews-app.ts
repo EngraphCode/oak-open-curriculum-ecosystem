@@ -83,6 +83,12 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     '359d2f7517dff42d7ba32b2c0a2577e727c2529ec79f41ed29b5dd590a15d77a',
     ['C395', 'C396', 'C397', 'C398', 'C399', 'C400'],
   ),
+  // MCP-242: canonical verified-userId derivation for analytics identity —
+  // pure auth-context plumbing, serves no agent-facing content.
+  'apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/verified-user-id.ts': excluded(
+    'cfdd95b3968921c4dabcb48248e40cd18028eb386535019f77fe2dd79c29a586',
+    IMPLEMENTATION_ONLY,
+  ),
   'apps/oak-curriculum-mcp-streamable-http/src/auth/public-resources.ts': reviewed(
     '5d0cb6266065faa21923f9c757c41c18a2aaba1259a91caa95c76176be85a280',
     ['C413'],
@@ -112,7 +118,7 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     ['C394'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/handlers.ts': excluded(
-    'a2271bda6e0966149696c8d28e6e4f9c27603c7f3945af4a0052e5312e5e156e',
+    '7a982c028333199b7aabd44f847091909d989cc657321a5c26c4933678479a68',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/host-validation-error.ts': reviewed(
@@ -194,6 +200,16 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/test-helpers/auth-error-test-helpers.ts': excluded(
     '1f09358427ac9ca4f2f0027636515abcfd123c64ae6bf468574c8d767fcccd6c',
+    TEST_ONLY,
+  ),
+  // MCP-242: product-analytics test fakes extracted from fakes.ts.
+  'apps/oak-curriculum-mcp-streamable-http/src/test-helpers/fakes-product-analytics.ts': excluded(
+    'ab5e6009c82e2b213aea36a4c5fc660445e0cb5f50a3f4453973d35edd365999',
+    TEST_ONLY,
+  ),
+  // MCP-242: re-export wiring for the extracted product-analytics fakes.
+  'apps/oak-curriculum-mcp-streamable-http/src/test-helpers/fakes.ts': excluded(
+    'e38bb464d9b9976d74c795225be2b472b7cfdf47596b4c8c1b1b5084563ff3e3',
     TEST_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/test-helpers/registration-walk.ts': excluded(
