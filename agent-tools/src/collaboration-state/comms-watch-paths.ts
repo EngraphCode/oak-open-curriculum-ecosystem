@@ -12,7 +12,7 @@ import {
 } from './watcher-presence.js';
 
 /** Canonical comms event directory relative to the coordination home. */
-export const DEFAULT_COMMS_DIR = '.agent/state/collaboration/comms';
+const DEFAULT_COMMS_DIR = '.agent/state/collaboration/comms';
 
 export interface CommsWatchPaths {
   readonly commsDir: string;
