@@ -1,7 +1,6 @@
-import { Linter } from '@typescript-eslint/utils/ts-eslint';
 import { describe, expect, it } from 'vitest';
 
-import { strict } from '../configs/strict.js';
+import { lintStrictVendorImport } from './strict-lint-harness.js';
 
 /**
  * Engine-level pins for the MCP-241 `@vercel/functions` single-module
@@ -47,48 +46,13 @@ const IMPORT_FORMS = [
   ],
 ] as const;
 
-const STRICT_FIXTURE_RULES_OFF = {
-  '@typescript-eslint/no-misused-promises': 'off',
-  '@typescript-eslint/no-floating-promises': 'off',
-  '@typescript-eslint/no-unsafe-assignment': 'off',
-  '@typescript-eslint/no-unsafe-return': 'off',
-  '@typescript-eslint/no-deprecated': 'off',
-  '@typescript-eslint/consistent-return': 'off',
-  '@typescript-eslint/consistent-type-exports': 'off',
-  'sonarjs/no-alphabetical-sort': 'off',
-  'sonarjs/void-use': 'off',
-} as const;
-
-const linter = new Linter({ configType: 'flat' });
-
-function lintStrictVercelImport(source: string, filename: string) {
-  return linter.verify(
-    source,
-    [
-      ...strict,
-      {
-        rules: {
-          '@typescript-eslint/no-restricted-imports': [
-            'error',
-            {
-              paths: [{ name: 'zod', message: "Import from 'zod/v4' instead." }],
-            },
-          ],
-        },
-      },
-      { rules: STRICT_FIXTURE_RULES_OFF },
-    ],
-    { filename },
-  );
-}
-
 describe('exclusive @vercel/functions compose-module boundary', () => {
   describe.each(DENIED_FILENAMES)('%s', (_name, filename) => {
     describe.each(IMPORT_FORMS)('%s', (_form, sourceForSpecifier) => {
       it.each(VENDOR_IMPORT_SPECIFIERS)(
         'rejects %s after a later no-restricted-imports override',
         (specifier) => {
-          const issues = lintStrictVercelImport(sourceForSpecifier(specifier), filename);
+          const issues = lintStrictVendorImport(specifier, filename, sourceForSpecifier(specifier));
 
           expect(issues.map((issue) => issue.ruleId)).toContain(
             '@oaknational/no-vercel-functions-imports',
@@ -100,7 +64,11 @@ describe('exclusive @vercel/functions compose-module boundary', () => {
 
   describe.each(IMPORT_FORMS)('%s', (_form, sourceForSpecifier) => {
     it.each(VENDOR_IMPORT_SPECIFIERS)('exempts the compose module for %s', (specifier) => {
-      const issues = lintStrictVercelImport(sourceForSpecifier(specifier), COMPOSE_MODULE_FILENAME);
+      const issues = lintStrictVendorImport(
+        specifier,
+        COMPOSE_MODULE_FILENAME,
+        sourceForSpecifier(specifier),
+      );
 
       expect(issues.map((issue) => issue.ruleId)).not.toContain(
         '@oaknational/no-vercel-functions-imports',
@@ -109,8 +77,8 @@ describe('exclusive @vercel/functions compose-module boundary', () => {
   });
 
   it('leaves unrelated specifiers alone', () => {
-    const issues = lintStrictVercelImport(
-      `import vendor from '@vercel/functions-lookalike';\nvoid vendor;`,
+    const issues = lintStrictVendorImport(
+      '@vercel/functions-lookalike',
       'packages/core/example/src/fixture.ts',
     );
 
