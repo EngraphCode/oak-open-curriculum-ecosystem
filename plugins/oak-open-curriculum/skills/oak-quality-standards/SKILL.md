@@ -1,10 +1,10 @@
 ---
 name: oak-quality-standards
 description: >-
-  Evaluate, quality-assure, or audit education content against Oak National Academy's quality standards and its Technical and Pedagogical rubrics. Use whenever the user wants to review or QA a lesson or resource — slide deck, worksheet, quiz, video, lesson guide, additional material, or lesson/curriculum information — and check whether it meets Oak's bar: "review this lesson", "is this up to Oak standard", "QA this resource", "check this against the rubric", "audit this deck/worksheet/quiz". Classifies each applicable standard as met, partially met, not met, or not applicable — with evidence and a fix — scoped by resource component, subject, key stage, and practical PE, and separates Required standards (must) from Model Practice (should). Pairs with the Oak Curriculum MCP for live exemplars and EEF evidence; falls back to the bundled standards without it. Complements oak-curriculum-principles and oak-accessibility.
+  Evaluate, quality-assure, or audit education content against Oak National Academy's quality standards and its Technical and Pedagogical rubrics. Use whenever the user wants to review or QA a lesson or resource — slide deck, worksheet, quiz, video, lesson guide, additional material, or lesson/curriculum information — and check whether it meets Oak's bar: "review this lesson", "is this up to Oak standard", "QA this resource", "check this against the rubric", "audit this deck/worksheet/quiz". Classifies each applicable standard as met, partially met, not met, or not applicable — with evidence and a fix — scoped by resource component, subject, key stage, and practical PE, and separates Required standards (must) from Model Practice (should). Pairs with the Oak Curriculum MCP for live exemplars; falls back to the bundled standards without it. Complements oak-curriculum-principles and oak-accessibility.
 license: Quality standards © Oak National Academy. See references/sources.md.
 compatibility: >-
-  Works standalone from the bundled standards. Richer when the Oak Curriculum MCP is connected — it can pull real Oak lessons as exemplars and EEF evidence to benchmark against. Without the MCP, review against the bundled standards and say what is general judgement rather than Oak-verified.
+  Works standalone from the bundled standards. Richer when the Oak Curriculum MCP is connected — it can pull real Oak lessons as exemplars to benchmark against. Without the MCP, review against the bundled standards and say what is general judgement rather than Oak-verified.
 metadata:
   author: Oak National Academy
   version: '0.1.0'
@@ -39,7 +39,7 @@ Use it when the user wants to review, audit, QA, or quality-check any Oak-style 
 
 2. **Load only the relevant standards.** Open the reference file(s) for the component(s) in scope (see the map below) rather than all of them. Use `assets/quality-standards.json` when you need to filter precisely (by `component`, `subject`, `type`, `practicalPE`). Only **Active** standards are included.
 
-3. **Ground in real Oak content where you can.** If the **Oak Curriculum MCP** is connected, pull a comparable real Oak lesson as an exemplar (match tools by suffix — `search`, `fetch`, `get-lessons-summary`, `get-lessons-quiz`) and, for evidence-informed judgements, `get-eef-evidence`. If it is **not** connected, review against the bundled standards and mark clearly what is general judgement versus Oak-verified.
+3. **Ground in real Oak content where you can.** If the **Oak Curriculum MCP** is connected, pull a comparable real Oak lesson as an exemplar (match tools by suffix — `search`, `fetch`, `get-lessons-summary`, `get-lessons-quiz`). If it is **not** connected, review against the bundled standards and mark clearly what is general judgement versus Oak-verified.
 
 4. **Judge each applicable standard.** For every standard in scope, classify it:
    - **Met** — cite where in the artefact it is satisfied.

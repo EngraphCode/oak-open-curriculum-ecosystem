@@ -84,7 +84,7 @@ misconceptionsAndCommonMistakes: [
 
 **Grounding data.** Units map to national-curriculum statements; KS4 exposes tiers, exam boards and exam subjects; some units offer `unitOptions` (teacher choice). The programmes-vs-sequences distinction shows how one sequence serves many contextualised pathways.
 
-**Tools.** `get-units-summary`, `browse-curriculum` (structure/facets), `get-subjects-sequences`, `fetch` (`unit:`).
+**Tools.** `get-units-summary`, `browse-curriculum` (structure/facets), `get-sequences`, `fetch` (`unit:`).
 
 **What to look for.** National-curriculum coverage you can map your own material to; `unitOptions` as a model for offering teacher choice without fragmenting entitlement; how Oak signposts threads so adaptation stays coherent.
 
