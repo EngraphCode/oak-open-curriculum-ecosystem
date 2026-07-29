@@ -1,3 +1,16 @@
+# [1.118.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.117.0...v1.118.0) (2026-07-29)
+
+
+### Bug Fixes
+
+* **demos:** resolve the Next binary absolutely and top-level-await the opener (MCP-371) ([e01962a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e01962af63b97ba4f51a5e3e78f0d2ac32417e20))
+* **demos:** unref the browser-opener child; index the showcase in the demos-tier README (MCP-371) ([b693ad2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b693ad21ff95ba41884a7609dff6aafdd016c9a2))
+
+
+### Features
+
+* **demos:** absorb oak-design-showcase into the estate as the plain-CSS kit consumer (MCP-371) ([1456caa](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/1456caaa23af344144b809f6c8da3eb394e463e5))
+
 # [1.117.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.116.1...v1.117.0) (2026-07-29)
 
 
