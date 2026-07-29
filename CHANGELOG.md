@@ -1,3 +1,15 @@
+# [1.121.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.120.0...v1.121.0) (2026-07-29)
+
+
+### Bug Fixes
+
+* **agent-tools:** a failing mint must not silently fall back to the human's credential (MCP-385) ([c890252](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c890252ad0b676936f5b38ed57e7220a8a0c3f47))
+
+
+### Features
+
+* **agent-tools:** bot tokens are minted per named scope, not one fixed set (MCP-385) ([27f8629](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/27f86293c4668c0b341cf7c3d02e3420a279f0c8))
+
 # [1.120.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.119.0...v1.120.0) (2026-07-29)
 
 
