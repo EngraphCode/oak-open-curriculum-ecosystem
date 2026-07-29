@@ -1,3 +1,18 @@
+## [1.116.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.116.0...v1.116.1) (2026-07-29)
+
+
+### Bug Fixes
+
+* **mcp:** inject the generator's filesystem seam, true ADR-205's conditional costs (MCP-353) ([917deb9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/917deb94adccccd58eb171f7d46fc28579c965e4))
+* **mcp:** linear fence scan, reject invalid backtick info strings, share the fixture (MCP-353) ([98c5ffd](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/98c5ffdf9d557b0d1d41a1d81b45a4f1a23d0413))
+* **mcp:** pair fences properly, complete the Result contract, cite the policy upstream (MCP-353) ([136c5d8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/136c5d842a180e58fd3722c7eefa5629f291ad01))
+* **mcp:** scan served headings for URL forms, cover the parity gate's branches (MCP-353) ([e4107fc](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e4107fcf8c04ae7b5ab68c85419fe205c79c293f))
+* **mcp:** scope the primer offer to a repo checkout and harden the digest guards (MCP-353) ([ed8bd06](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ed8bd06f93d72ac06148249402c26c7d50159351))
+* **mcp:** serve the document map and harden digest classification (MCP-353) ([e53e4ef](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e53e4ef5e567382e16a476d8457061ee89a81573))
+* **mcp:** serve under-the-hood orientation inline; delete the pointer resource (MCP-353) ([e3f7c1b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e3f7c1ba8d194d38472ba6a08415eedcf0f595de))
+* **mcp:** served URLs move to a citation allowlist; headingless preamble fails loudly (MCP-353) ([ed0336c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ed0336c96afc91ecff08291b0d26673fb0c0ecf1))
+* **mcp:** widen the markdown scanner, carry the repo locator on both channels (MCP-353) ([cfe3f6f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/cfe3f6f51d0da648ddc95fc10e570e12bacf889f))
+
 # [1.116.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.115.0...v1.116.0) (2026-07-29)
 
 
