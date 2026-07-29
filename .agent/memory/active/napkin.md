@@ -4193,3 +4193,130 @@ night shift. This seat's monitors run until its session ends and do NOT transfer
   (supersedes the tenth freeze's seat-continues/monitors-live premise); directed event to Thyme
   and closeout broadcast on comms; formation letter
   `.agent/experience/2026-07-29-altair-turns-infinity-formation-letter.md`.
+
+## 2026-07-29 ~21:50Z — Thyme weaves Hedgerow (762020): succession pickup + cure-round observations
+
+- Standby→adopt choreography ran clean at owner word (Altair broken mid-compaction; freeze-shaped
+  boundary, NO PDR-063 record — pickup was claims-adopt off the freeze map, Tarsier's same-night
+  precedent). One structural note for the pattern: the FREEZE premise ("seat continues, monitors
+  stay live") can be falsified by the platform after the fact — the successor probes every
+  monitor-backed obligation first-hand. Worked instance: the owner's :3020 render server died with
+  Altair's session; "pixels in the owner's tab" is a LANE obligation that outlives the seat that
+  started the server (curl probe 000; restart owed before key-turn).
+- Pre-execution code-expert (Opus, fan-from-verdict) corrected TWO of my premises before they
+  transmitted: (1) "parity-locked = not locally editable" was FALSE (kit source is in-repo;
+  parity means edit-both-together) — the honest T1-reply reason is the hub second consumer;
+  (2) T4's cross-worktree scenario was already blocked (reuseExistingServer:false) — the honest
+  justification is instrument-contract honesty. Both are dont-transmit-assumptions-as-truth
+  instances where the falsifier was one diff/one config read. Reviewer also flipped T2's cure
+  subtractive (delete the speculative allowance; gated corpus = one file with no structural
+  functions) — cheaper AND stronger than my shell-strip plan.
+- Checks-bite-their-authors, two more same-day instances at this seat: my own test additions
+  tripped prettier then max-lines-per-function on the first commit attempt. Cure that held:
+  local prettier+eslint pre-check on touched files BEFORE invoking the expensive gate chain.
+- MCP-386 retrieval ladder second use at this seat: the pre-execution reviewer went ~12 min
+  silent-but-working; one SendMessage relay ask retrieved a complete composed verdict (no
+  re-dispatch needed). The ladder's first rung keeps proving out.
+
+## 2026-07-29 ~22:16Z — Tarsier hunts Underbrush (facf59): MCP-392 cure round — gate catches and review-stack yield
+
+- TWO HONEST INTENT ABANDONMENTS in one commit: the pre-commit repo-validator caught the missing
+  reviewed-delta ledger entries (the governed-content ledger is CODE, not just the JSON — a
+  changed governed file needs its reviewed()/excluded() row re-pinned by hand, the generator
+  cannot approve its own change); then max-lines caught the ledger file at 258/250 and the cure
+  was the family's own split pattern (auth sibling module), not a nudge to the limit. The
+  commit-queue's widen-by-fresh-intent discipline made both catches auditable instead of messy.
+- REVIEW-STACK YIELD, worth its cost three times over on one diff: security-expert found my
+  unguarded matcher design was LOOSER than the regex on overlapping prefix/suffix (api.*.com
+  admits api.com) — caught pre-implementation by fuzz, cured with a length/non-overlap guard
+  proven EXACTLY equivalent (two independent harnesses, ~50M pairs); the same review banked a
+  measured latent ReDoS removal (super-linear backtracking on multi-wildcard patterns —
+  63.9ms at 28 chars, ~2.4x per +4). test-expert mutation-tested the new matcher and found the
+  only two unpinned live guards (uppercase span; middle-gap charset) plus a PROVEN-redundant
+  length guard whose comment claimed load-bearing status — deleted, not documented. docs-adr
+  caught a tombstone IN MY OWN CURE SENTENCE ("the anchored-regex translation this replaces").
+- SARIF-BEFORE-CLAIMING: the pre-execution reviewer pulled the actual SARIF and found #225's
+  "sensitive action" is the 401 SENDER, not the verifier — the "cure 2 clears #225" claim was
+  withdrawn from ticket+comments BEFORE any code, so no surface ever led the evidence. The
+  ticket now measures, never assumes.
+- PLATFORM SHAPE: subagent verdicts can complete but sit boundary-trapped; one SendMessage ping
+  retrieved the docs verdict instantly (third proven instance today fleet-wide). Also the
+  cricket quartet delivered 8/8 for the first time today — both haiku legs included.
+- CodeQL per-language lag: python/actions analyses upload ~2 min before javascript-typescript;
+  a watch keyed on "CodeQL check non-pending" fires early on the WRONG signal (NEUTRAL from the
+  prior run). Key the watch on the fresh /language:javascript-typescript analysis row for the
+  merge ref — the alerts only re-derive from THAT upload.
+
+## 2026-07-29 ~22:25Z — Tarsier hunts Underbrush (facf59): lane closed at the merge; one calibration
+
+- ARC CLOSED: #635 merged 933129778 — five CodeQL alerts, dismissal-texts → owner challenge →
+  structural cures → ALL FIVE FIXED, zero dismissals. The owner's one question ("why should I
+  dismiss issues detected by CodeQL?") converted a triage tax into two pieces of better code
+  AND removed a measured latent ReDoS vector the dismissal path would have preserved. Fix-first
+  vindicated by measurement, end to end, in one evening.
+- ALERT-READ CALIBRATION (mine + Director's, same instrument): a per-number GET on a
+  code-scanning alert returns state=null when the alert has no default-branch instance — the
+  authoritative read for PR work is REF-SCOPED (?ref=refs/pull/N/merge, or the /instances
+  endpoint with the ref). Name the instrument's ref in the same sentence as its verdict. Also:
+  per-language analyses upload staggered (python/actions ~2 min before javascript-typescript);
+  watch the LANGUAGE analysis row, never the check rollup.
+- BOUNDARY SHAPE: last claim closed → heartbeat stopped FIRST by intent (F-73: heartbeat mode
+  requires a claim-id) → posture broadcast names stand-down-not-death explicitly → seat holds
+  claimless-available on the watcher. The standby→active→claimless-available lifecycle ran
+  clean across one evening with two merged PRs.
+
+## 2026-07-29 ~22:50Z — Thyme weaves Hedgerow (762020): cure-round second half — the instruments kept biting their curer
+
+- Exit-in-band discipline, three self-instances in one round: (1) piped suite exits (`| tail` then
+  `echo EXIT:$?`) reported 0 over a REAL a11y failure — caught only by reading the artefact's
+  pass/fail lines; (2) a compound ending in `git rev-parse` masked a failed commit+push as
+  harness-green — caught by the in-band COMMIT_EXIT/ls-remote lines I had planted; (3) cure that
+  held: plant the EXIT line per command AND read the artefact content, never the wrapper verdict.
+  Same family as Osprey's 20:35Z capture; the propagation idiom (`rc=$?; ... exit $rc`) works but
+  only when NO later command replaces $?.
+- Sonar-bites-its-curer chain: the regex cures for S8786/S5843 grew NEW S8786/S5860 findings on
+  their own replacement patterns (named-group access via bracket notation is invisible to S5860;
+  three-branch alternations keep tripping the backtracking heuristic). Terminal cure was LEAVING
+  regex grammar: one linear class + plain string parsing. Candidate lesson for typescript-gotchas:
+  when Sonar's regex heuristics fire twice on one site, stop refining the regex — restructure to
+  string ops; the class ends, refinement does not.
+- The a11y suite's ONE flake was real physics: :focus-visible ring application lags the focus
+  event by a frame (ring base state = transparent two-layer shadow → one-shot read scores 0,
+  failure MOVED between legs run-to-run). expect.poll on the steady-state claim was the honest
+  cure (fix-the-assertion disposition, not retry-wrap); proven by poisoned-pair repro ×3 + full
+  suite. CSS-cascade-as-eventually-consistent (Altair's play seed) made live for the third time
+  in one day.
+- Stale-.next class, second instance today at this seat (fleet's third): a clean rebuild of the
+  workspace cures `.next/types/validator.ts` TS2307 './routes.js'; suspect surface = turbo cache
+  restore racing a long-lived `next start` on the same .next. If a third instance appears, route
+  a structural cure (build outputs config or serve-from-copy) rather than re-learning.
+- The comms concept gate refused my routing note on ONE word ("parked" = indefinite-deferral
+  vocabulary) — the instrument catching its adjacent author again, correctly; reworded to a named
+  routing. Six-reviewer convergence note: four independent reviewers demanded the SAME two cures
+  (full option shells; js-disabled geometry guard) — convergent independent review is expensive
+  and worth it exactly here, where each reviewer measured a different facet of one defect.
+
+## 2026-07-29 ~22:55Z — Bora binds Thermal (258cbb), Director: #635 fix-first arc closed + self-catches
+
+- #635 MERGED 933129778 (and #639 at 55d6cc8a3 earlier): five CodeQL alerts FIXED, zero
+  dismissals, owner's word held end to end. The vindication is MEASURED: security-expert's
+  ~39M-pair differential found the old regex was a real super-linear backtracking vector — the
+  dismissal path would have preserved a latent defect nobody had claimed existed. Frame lesson:
+  "false positive" was the wrong frame; the alerts were true positives about ANALYSABILITY
+  (safety invisible to the watching instrument), and positional alert identity makes dismissal a
+  recurring tax (#83-86 → #226-229 on rewrite). Candidate distillation:
+  analysability-is-part-of-correctness — only source-shape cures are durable states for
+  instrument findings. Evidence homes: MCP-392, the #635 merge broadcast, the quartet tally.
+- SUBSTITUTION self-catch (mine, within the hour of quoting the pattern to peers): typed a
+  directed-event --to-id from memory — a fabricated value of the right type; no fire-signal
+  vocabulary anywhere. Caught ONLY by post-send read-back against the registry; resent correct.
+  Working cure pair: derive addressing values from the registry IN the sending command, and
+  read back the written event's `to.id` after every direct. The provenance question fired late;
+  the read-back made it recoverable. (Same session: cricket seat C-adversarial FABRICATED a
+  git-status reading — the fabrication class is not model-tier-specific.)
+- Alert-read calibration (broadcast to fleet, bc9b5662): per-number code-scanning GETs return
+  state=null for alerts with no default-branch instance; the ref-scoped read
+  (?ref=refs/pull/N/merge) is authoritative. Name the instrument's ref with its verdict.
+- Watcher hourly exit-124 ×2 (by design); re-arms 2 & 3 clean, gap sweeps 0 both times. F-75
+  fired three by-intent transitions (Lynx, Altair+Schooner successions, Tarsier claimless) —
+  zero false escalations; the announced-transition + classifier-is-not-a-verdict discipline held.
