@@ -45,8 +45,7 @@ if (!observabilityResult.ok) {
 
 const observability = observabilityResult.value;
 
-// Composed once at bootstrap (MCP-241): off mode is the exact inert
-// runtime; MCP-243 wires close() into the shared process lifecycle.
+// Composed once at bootstrap (MCP-241): off mode is the exact inert runtime.
 const analyticsResult = composeProductAnalyticsRuntime({
   bootstrap: result.value.productAnalytics,
   serverVersion: config.version,
@@ -66,6 +65,7 @@ const analytics = analyticsResult.value;
 await startConfiguredHttpServer({
   runtimeConfig: config,
   observability,
+  closeProductAnalytics: () => analytics.close(),
   createApp: (opts) =>
     createApp({
       ...opts,

@@ -26,13 +26,21 @@ import { setupExpressErrorHandler } from '@sentry/node';
 import { createApp } from '../src/application.js';
 import { readBakedLandingPageHtml } from '../src/app/landing-page-artefact.js';
 import { bootstrapApp } from '../src/bootstrap-app.js';
+import {
+  composeProductAnalyticsRuntime,
+  hostingWaitUntil,
+  operationalErrorReporter,
+  releaseInputFromRuntimeEnv,
+} from '../src/compose-product-analytics-runtime.js';
 import { WIDGET_HTML_CONTENT } from '../src/generated/widget-html-content.js';
 import { createDefaultRateLimiterFactory } from '../src/rate-limiting/index.js';
 import {
   createHttpObservability,
   describeHttpObservabilityError,
 } from '../src/observability/http-observability.js';
+import { liveResourceRegistrationNames } from '../src/register-resources.js';
 import { loadRuntimeConfig } from '../src/runtime-config.js';
+import { SERVED_SURFACE, liveToolNames } from '../src/served-surface/served-surface.js';
 import { startConfiguredHttpServer } from '../src/server-runtime.js';
 
 const thisDir = dirname(fileURLToPath(import.meta.url));
@@ -156,19 +164,45 @@ async function main() {
   }
 
   const observability = observabilityResult.value;
-  const startTime = Date.now();
-  // Same boot-read as src/index.ts: the baked artefact must exist before the
-  // harness starts (run the app build first), and the read happens once.
+
+  // Same boot-read as src/index.ts, in the same order: the baked artefact
+  // must exist before the harness starts (run the app build first), and the
+  // read happens BEFORE the analytics runtime is composed — a missing
+  // artefact must not strand a freshly created client with no close owner.
   const landingPageHtml = readBakedLandingPageHtml();
+
+  // Same composition as src/index.ts (MCP-241/243): the harness exercises
+  // the production analytics path — off mode is the exact inert runtime —
+  // and closes it through the shared process close owner.
+  const analyticsResult = composeProductAnalyticsRuntime({
+    bootstrap: configResult.value.productAnalytics,
+    serverVersion: runtimeConfig.version,
+    releaseInput: releaseInputFromRuntimeEnv(runtimeConfig.env, runtimeConfig.version),
+    toolNames: liveToolNames(SERVED_SURFACE),
+    resourceNames: liveResourceRegistrationNames(SERVED_SURFACE),
+    waitUntil: hostingWaitUntil,
+    reportOperationalError: operationalErrorReporter(observability.createLogger()),
+  });
+
+  if (!analyticsResult.ok) {
+    log.error('Failed to compose product analytics', { error: analyticsResult.error.message });
+    process.exit(1);
+  }
+
+  const analytics = analyticsResult.value;
+  const startTime = Date.now();
 
   await startConfiguredHttpServer({
     runtimeConfig,
     observability,
+    closeProductAnalytics: () => analytics.close(),
     createApp: async (options) =>
       await createApp({
         ...options,
         getWidgetHtml: () => WIDGET_HTML_CONTENT,
         getLandingPageHtml: () => landingPageHtml,
+        transportObserver: analytics.transportObserver,
+        productAnalyticsSink: analytics.sink,
         rateLimiterFactory: createDefaultRateLimiterFactory({
           isVercelRuntime: runtimeConfig.env.VERCEL_ENV !== undefined,
         }),

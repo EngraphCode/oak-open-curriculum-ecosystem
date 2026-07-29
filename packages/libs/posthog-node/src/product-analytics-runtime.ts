@@ -34,7 +34,7 @@ type PosthogProductAnalyticsRuntime = Extract<
 export interface PostHogRuntimeClient extends PostHogMcpCaptureClient {
   capture(event: EventMessage): void;
   on(event: 'error', callback: () => void): unknown;
-  _shutdown(): Promise<void>;
+  _shutdown(shutdownTimeoutMs?: number): Promise<void>;
 }
 
 export interface PostHogProductAnalyticsRuntimeDependencies<TClient extends PostHogRuntimeClient> {
@@ -117,12 +117,17 @@ export function createPostHogClientOptions(
   };
 }
 
+// Close deadline: DELIBERATELY truncates the vendor's ~49s worst-case retry stack
+// (default v0 send path: four 10s attempts + three constant 3s delays) so a stalled
+// endpoint costs a Ctrl-C at most 15s; the vendor abandons undelivered events at any bound.
+const PRODUCT_ANALYTICS_CLOSE_TIMEOUT_MS = 15_000;
+
 async function closeClient(
   client: PostHogRuntimeClient,
   reportOperationalError: (kind: PostHogOperationalErrorKind) => void,
 ): Promise<Result<void, ProductAnalyticsCloseError>> {
   try {
-    await client._shutdown();
+    await client._shutdown(PRODUCT_ANALYTICS_CLOSE_TIMEOUT_MS);
     return ok(undefined);
   } catch {
     reportSafely(reportOperationalError, 'posthog_client_delivery_failed');
