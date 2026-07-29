@@ -4114,3 +4114,56 @@ monitors + gap sweep → merge-main + owed push → recompute). Also at this bou
 (`SHA:d113d3fd`, Director key-turn at Osprey's recount; MCP-366+384 Done); Tarsier hunts Underbrush
 (facf59) registered STANDBY successor-in-waiting to Schooner (20:51Z) — the owner is staffing the
 night shift. This seat's monitors run until its session ends and do NOT transfer.
+
+## 2026-07-29 ~21:10Z — Tarsier hunts Underbrush (facf59): succession pickup + first-tick catches
+
+- STANDBY→ACTIVE SUCCESSION worked end-to-end as doctrine describes (first live run of the
+  owner-staffed night-shift standby shape): register standby (no claim, no heartbeat, watcher
+  only) → predecessor's deliberate-succession directed event + record → WAIT for their explicit
+  heartbeat-end (First Act 1 honoured; no dual-live window) → adopt all four claims (registry
+  read back) → close the at-rest MCP-143 claim per PDR-063 (tracked-surfaces-only) → arm dual-
+  surface heartbeat → pickup broadcast threaded to the handoff event. The record's own traps
+  list (comms model tuple, substitution, exit-0-not-effect) was absorbable in one read — a
+  well-frozen record makes pickup cost genuinely low.
+- ZSH-NO-WORD-SPLIT BIT AGAIN, new surface: my first heartbeat loop passed `$CLAIMS` (space-
+  joined ids) to `for c in $CLAIMS` — zsh does not split unquoted parameters, so all three ids
+  went as ONE argument. The loop's own fail-loud line (`|| echo "HEARTBEAT FAILURE: $out"`)
+  surfaced it on the FIRST tick; cure was literal ids in the for-list. Same class as the
+  watcher rule's `${VAR:+...}` timeout warning — second instance of the class in the estate's
+  monitor recipes; if a third appears, a shell-and-tooling-gotchas row is owed.
+- DRAFT-REREAD CATCH: a stray CJK character ("真" where "truly" was meant) appeared in a comms
+  draft body; caught only because the draft was re-read before send. Comms bodies are written
+  to files then sent verbatim — re-reading the draft before send is cheap and caught a real
+  corruption; keep it as habit.
+- Dual-surface heartbeat verified on BOTH surfaces at first good tick (comms event + all three
+  claims' heartbeat_at advanced) — the F-92 read-back discipline, done at arm time rather than
+  discovered stale later.
+
+## 2026-07-29 ~21:15Z — Bora binds Thermal (258cbb), Director: Moment-2 takeover + night-shift rotation boundary
+
+- SEATED: Moment-2 `b57bc16f` 20:57:36Z at Lynx's Moment-1 `a7de0e7b` (owner-named full handoff);
+  claim a2286c53 adopted; readiness gate run with the mechanical check pasted in the ack body.
+  Sitting block refreshed in director-handoff.md (this boundary's durable half lives there).
+- FALSE-GREEN instance (mine, first hour in the seat): the backgrounded coordination push reported
+  "completed (exit code 0)" while the artefact's own lines showed the pre-push gate FAILED
+  (test:ui) and ls-remote showed the ref unmoved — my probe's `rc=$?` captured `tail`'s exit, not
+  git's (pipe trap). The artefact-read discipline caught it; retry used Osprey's propagated-exit
+  idiom (`cmd; rc=$?; echo EXIT:$rc; exit $rc`). Same session, same class as the three instances
+  Osprey harvested at 20:23Z — the cure idiom works and should graduate to the exit-codes rule.
+- MCP-359 FALSIFICATION: the sinks-toggle friction SURVIVES current main — the handoff record's
+  "both frictions disappear once the branch carries current main" was half-wrong (port half cured
+  by #636; sinks half NOT: observe-noauth webServer still rejects posthog under disabled auth, so
+  the coordination push needed toggle→gate→restore). Evidence: test-ui-run.log this session.
+  Structural cure family: harness adapts (owner-ruled at the :3020 precedent) — the UI-test
+  webServer env shape is the remaining un-adapted surface. MCP-359 is the home.
+- cwd-drift instrument failure (mine): an earlier `cd apps/...` left the persistent shell in the
+  app workspace; peer-liveness read EMPTY and the event glob read EMPTY from the wrong tree. The
+  empty-read-is-transport-failure discipline (comms watcher rule) caught it before a false "no
+  peers" conclusion. Cure: absolute paths or per-command cd for every probe in a long session.
+- NOTIFY-dark third instance (Osprey): heartbeat label at 21:04Z still "blocked on Director
+  key-turn" for #636 MERGED 20:47Z. Directed unblock `ac509d4e`; their hourly gap sweep is the
+  only proven wake. PDR-133 ledger material, consistent with the 16:34Z and 17:40Z instances.
+- #639 key-turn: Tarsier's recount re-verified at this seat (17/17 by JSON name-read — my first
+  attempt column-parsed with awk and mangled spaced names; read-verdicts-by-name applied on the
+  spot), sha-pinned bot REST merge, MERGED `55d6cc8a3`. Linear auto-flipped MCP-385 Done via the
+  PR attachment — manual flips are redundant when the PR link is on the ticket.

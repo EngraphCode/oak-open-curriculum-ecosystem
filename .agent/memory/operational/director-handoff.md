@@ -262,7 +262,19 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> ### ▶ SITTING DIRECTOR: Lynx guards Whisper (`9e8a61`), seated 2026-07-29 07:56Z (Moment-2 `b573d009`, succeeding Moon rides Penumbra per its Moment-1 `f38cc2a5`); claim `a2286c53`, role director
+> ### ▶ SITTING DIRECTOR: Bora binds Thermal (`258cbb`), seated 2026-07-29 20:57:36Z (Moment-2 `b57bc16f`, succeeding Lynx guards Whisper per its Moment-1 `a7de0e7b`, owner-named full handoff); claim `a2286c53` adopted in place, role director
+>
+> **SEATED-BLOCK NOTES 2026-07-29 ~21:15Z — durable half only; recompute every derivable (Squall's command block below stays canonical). Rulings 1–20 in Lynx's block below REMAIN BINDING, carried by reference.**
+>
+> - **NIGHT-SHIFT ROTATION (owner-executed ~20:55–21:08Z), all three deep-context seats succeeded in one window:** Lynx→Bora (Director, this block); Schooner→Tarsier (PDR-063 deliberate succession — record + 3 claims adopted, MCP-143 closed at-rest, heartbeat-end by intent 20:59:35Z); Altair→Thyme (owner word "adopt now" after the Altair session BROKE MID-HANDOFF — NO handoff record exists; the lane's handoff substance is Altair's tenth-boundary freeze event `353f687f`, and Thyme's 21:08Z pickup broadcast is the pickup record). Standbys registered before each flip — the standby contract (watcher + registration, no heartbeat, no claim) worked as designed three times in one hour.
+> - **LANDED AT THIS BOUNDARY:** PR #639 MERGED (`SHA:55d6cc8a3`, key-turn at Tarsier's 21:03Z recount re-verified at this seat; MCP-385 auto-flipped Done by the Linear-GitHub integration — no manual flip needed when the PR link is attached). **Fleet consequence: `merge-bot mint-token` requires an explicit named `--scope` AFTER a checkout rebuilds agent-tools** (pre-merge builds keep the old shape; MCP-360 source-bound-gate pattern). Coordination branch merged main and PUSHED (`4647b3f0b`→`79a8531d6`, ls-remote-verified).
+> - **MCP-359 FRICTION SURVIVES CURRENT MAIN — the prior note below ("both frictions disappear once the branch carries current main") is FALSIFIED on its sinks half.** The coordination push still required the `.env.local` sinks toggle (`["sentry"]` for the gate, restored `["sentry","posthog"]` after — steady state verified). The :3020 port half IS cured by #636. Structural cure family: harness adapts (owner-ruled, the port-3020 precedent); the UI-test webServer env shape is the remaining un-adapted surface.
+> - **Owner word ~21:05Z, discharged same boundary:** "Altair is stuck mid-handoff, Thyme is trying to pick up their lane, Osprey needs you to unblock them, Tarsier is doing PR 635." Thyme confirmed (`d52aeb69`); Osprey directed-unblocked (`ac509d4e` — their 21:04Z heartbeat label still read "blocked on Director key-turn" for a PR merged 20:47Z: NOTIFY-dark, THIRD observed instance on that seat; hourly gap sweep remains their only proven wake); Tarsier proceeding on the #635 structural cures (dismissals stay withdrawn, owner-driven).
+> - **Instrument note:** two of this seat's first probes failed silently from a cwd left in the app workspace by an earlier `cd` — empty peer-liveness read + empty event glob, both from the wrong tree. The empty-read-is-transport-failure discipline caught it; probes now use absolute paths or per-command `cd`.
+>
+> **SUPERSEDED — Lynx's sitting block below (its 20 rulings and instrument calibration remain binding; roster and lane state are historical).**
+>
+> ### ▶ prior: SITTING DIRECTOR Lynx guards Whisper (`9e8a61`), seated 2026-07-29 07:56Z (Moment-2 `b573d009`, succeeding Moon rides Penumbra per its Moment-1 `f38cc2a5`); stood down 2026-07-29 20:57:36Z at Bora's Moment-2; claim `a2286c53` handed over by adoption
 >
 > **MID-TENURE DURABLE-HALF REFRESH 2026-07-29 ~09:45Z — rulings and records only; recompute everything derivable (the commands in Squall's block below are canonical).**
 >
