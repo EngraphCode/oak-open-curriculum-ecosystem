@@ -35,6 +35,7 @@
     "build": "turbo run --continue build",
     "clean": "turbo run clean && rm -rf .turbo",
     "dev": "turbo run --continue dev",
+    "design:showcase": "pnpm --filter @oaknational/oak-design-showcase dev:open",
     "test": "turbo run --continue test",
     "test:widget": "turbo run --continue test:widget",
     "docs-validators:check": "pnpm --filter @oaknational/agent-tools validate-reference-direction && pnpm --filter @oaknational/agent-tools validate-no-machine-local-paths && pnpm --filter @oaknational/agent-tools validate-markdown-links && pnpm --filter @oaknational/agent-tools validate-patterns-index && pnpm --filter @oaknational/agent-tools validate-ratified-lists",
