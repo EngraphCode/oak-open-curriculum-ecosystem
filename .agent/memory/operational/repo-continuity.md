@@ -55,12 +55,17 @@ forward-asks remain.
   superseded-pending-adjudication at the
   [thread record](threads/strategy-and-plan-estate-holistic-review.next-session.md)
   — read it and the decisions register FIRST; this row is a pointer.
-- **CRICKET CONSCIENCE-CHECK SUBSTRATE — live, owner-mandated.** Background
-  cricket at cycle boundaries, at least hourly (owner mandate 2026-07-15);
-  A/B-paired with [`cricket-haiku`](../../sub-agents/templates/cricket-haiku.md).
-  Tally + flip state:
-  [`cricket-ab-tally-2026-07-16.md`](../../reports/agentic-engineering/cricket-ab-tally-2026-07-16.md)
-  (flip decision at ~8–10 v3-era pairs; the cited-grounding class cure holds).
+- **CRICKET CONSCIENCE-CHECK SUBSTRATE — live, owner-mandated, quartet era.**
+  Every active agent fires the cricket QUARTET twice at cycle boundaries, at
+  least hourly — one quartet STANCE normal, one adversarial (owner directive
+  2026-07-29; lineage: 2026-07-15 mandate → 2026-07-25 permanent pairs →
+  2026-07-28 two pairs → 2026-07-29 two quartets). Seats A–D: `cricket-fable`
+  (Fable, low effort), `cricket-opus` (Opus, medium), `cricket` (Sonnet,
+  high), `cricket-haiku` (Haiku, xhigh, compiled procedure) — the effort
+  inversion is the experiment. Operating record:
+  [`cricket-quartet-tally-2026-07-29.md`](../../reports/agentic-engineering/cricket-quartet-tally-2026-07-29.md)
+  (pair-era calibration carried as baseline from
+  [`cricket-two-pair-tally-2026-07-26.md`](../../reports/agentic-engineering/cricket-two-pair-tally-2026-07-26.md)).
   The cadence-under-honoured structural-cue question is with the Director
   (2026-07-23 consolidation closeout); the rule-portability and PDR-127
   alignment questions remain metagovernance candidates at the substrate's

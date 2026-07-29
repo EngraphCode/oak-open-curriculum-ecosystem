@@ -116,11 +116,11 @@ description = "Clustering synthesist for the corpus-analysis reduce workflow sta
 config_file = "agents/corpus-reducer.toml"
 
 [agents."cricket"]
-description = "Conscience check (as in Jiminy Cricket): judges from invoker-supplied context whether the invoking agent is working on the right things; returns ON-TRACK, DRIFTING, or WRONG-PRIORITY with one redirection."
+description = "Conscience check (as in Jiminy Cricket), judgement template. Part of the permanent cricket quartet; on Codex this is a TEMPLATE-ONLY variant — no per-agent Claude model or effort pinning, so runs here are not quartet data points (the A/B/C/D experiment runs on the Claude wrappers). Fired on both stances; returns ON-TRACK, DRIFTING, or WRONG-PRIORITY with one redirection."
 config_file = "agents/cricket.toml"
 
 [agents."cricket-haiku"]
-description = "EXPERIMENTAL compiled-decision-procedure conscience check (owner-directed A/B, 2026-07-15). On Codex this is a PROCEDURE-ONLY variant: no model override is configured, so it inherits the session model; the small-model half of the A/B runs on the Claude wrapper (model: haiku). Always paired with cricket on identical supplied context."
+description = "Conscience check by compiled decision procedure — the cricket quartet's procedure variant. On Codex this is a PROCEDURE-ONLY variant: no per-agent Claude model or effort pinning, so runs here are not quartet data points (seat D — Haiku at xhigh effort — runs on the Claude wrapper). Always fired with the judgement variant on identical supplied context, both stances."
 config_file = "agents/cricket-haiku.toml"
 
 [agents."corpus-voter"]
