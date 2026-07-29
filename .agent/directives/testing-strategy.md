@@ -326,8 +326,10 @@ describe('UserService Integration Test', () => {
 ```
 
 The key distinction: Integration tests import and test code
-directly. They never spawn processes, make network calls, or test
-deployed systems.
+directly. They never spawn processes, test deployed systems, or
+exchange with any system the test did not itself import and boot;
+the only network-shaped exchange permitted is the loopback harness
+exchange with the imported app (§Test Types).
 
 ### Stubs vs Fakes
 

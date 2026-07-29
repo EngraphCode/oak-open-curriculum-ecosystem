@@ -46,11 +46,13 @@ seam, extract a pure function, inject a dependency).
 8. **Any in-process test spawns a child process, fork, or
    test-authored worker.** Covered by `testing-strategy.md §No
    process spawning in in-process tests`.
-9. **Any test makes a real network call to a system outside the
-   test process.** A harness's loopback exchange with an app the
-   test itself imported and booted in-process is calling mechanics,
-   not network IO (owner-ratified 2026-07-29). Only smoke tests may
-   do real network IO; smoke tests run on-demand per
+9. **Any test makes a real network call beyond its tier's protocol
+   channel.** Two channels are calling mechanics, not violations:
+   an E2E test's exchange with the separately running system under
+   test, and a harness's loopback exchange with an app the test
+   itself imported and booted in-process (owner-ratified
+   2026-07-29). All other real network IO is smoke-tier only;
+   smoke tests run on-demand per
    [ADR-161](../../docs/architecture/architectural-decisions/161-network-free-pr-check-ci-boundary.md).
 
 ## Mock/Stub Immediate Fails
