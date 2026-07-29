@@ -2,9 +2,9 @@ import { randomUUID } from 'node:crypto';
 import { join } from 'node:path';
 
 import { appendComms, renderComms } from './cli-comms-commands.js';
+import { resolveCoordinationHomeForOptions } from './cli-coordination-home.js';
 import { optional, required, type Options } from './cli-options.js';
 import { type CliRuntime } from './cli-runtime.js';
-import { resolveCoordinationHome } from './coordination-home.js';
 import { type CollaborationStateEnvironment } from './types.js';
 
 const DEFAULT_COMMS_DIR = '.agent/state/collaboration/comms';
@@ -22,7 +22,7 @@ export async function sendComms(
 ): Promise<string> {
   const nowIso = optional(options, 'now') ?? new Date().toISOString();
   const eventId = optional(options, 'event-id') ?? randomUUID();
-  const defaults = commsSendDefaults(options, nowIso, eventId, process.cwd());
+  const defaults = commsSendDefaults(options, nowIso, eventId, runtime);
   const resolvedOptions = withDefaults(options, defaults);
   await appendComms(resolvedOptions, env, runtime);
   await renderComms(resolvedOptions, env, runtime);
@@ -33,25 +33,29 @@ export async function sendComms(
 // `withDefaults` merges only the `values` Map; `tags`, `files`, and
 // `areaPatterns` arrays pass through unchanged on the spread.
 
+/** Build metadata defaults and lazily resolve only missing shared-state paths. */
 export function commsSendDefaults(
   options: Options,
   nowIso: string,
   eventId: string,
-  cwd: string,
+  runtime: CliRuntime,
 ): Readonly<Record<string, string>> {
-  const repoRoot = collaborationRepoRoot(options, cwd);
-  return {
-    'comms-dir': join(repoRoot, DEFAULT_COMMS_DIR),
+  const eventDefaults = {
     now: nowIso,
     'created-at': nowIso,
     'event-id': eventId,
+  };
+  if (['comms-dir', 'output', 'active'].every((key) => options.values.has(key))) {
+    return eventDefaults;
+  }
+
+  const repoRoot = resolveCoordinationHomeForOptions(options, runtime);
+  return {
+    'comms-dir': join(repoRoot, DEFAULT_COMMS_DIR),
+    ...eventDefaults,
     output: join(repoRoot, DEFAULT_SHARED_LOG),
     active: join(repoRoot, '.agent/state/collaboration/active-claims.json'),
   };
-}
-
-function collaborationRepoRoot(options: Options, cwd: string): string {
-  return optional(options, 'repo-root') ?? resolveCoordinationHome(cwd);
 }
 
 export function formatCommsSendResult(options: Options, eventId: string): string {

@@ -1,11 +1,9 @@
 import { join } from 'node:path';
 
 import { optional, type Options } from './cli-options.js';
+import { resolveCoordinationHomeForOptions } from './cli-coordination-home.js';
 import { type CliHandler } from './cli-spec-factory.js';
-import {
-  resolveCoordinationHome,
-  type ResolveCoordinationHomeOptions,
-} from './coordination-home.js';
+import { type CliRuntime } from './cli-runtime.js';
 
 /** Closed-claims archive path relative to the coordination home. */
 const CLOSED_CLAIMS_REL = '.agent/state/collaboration/closed-claims.archive.json';
@@ -14,29 +12,23 @@ const CLOSED_CLAIMS_REL = '.agent/state/collaboration/closed-claims.archive.json
  * Resolve the closed-claims archive path for a `claims` command (F-108).
  *
  * An explicit `--closed` is honoured verbatim. Otherwise the path defaults to
- * the shared coordination home's `closed-claims.archive.json` — the SAME primary
- * checkout `--active` resolves to via {@link resolveActivePath} — so a
- * worktree-isolated agent's `claims close` / `claims archive-stale` archive into
- * the team's primary checkout rather than a worktree-local file (the F-41
- * fragmentation failure mode F-85 cured for `--active`, applied to the closed
- * archive). `--repo-root` is the explicit home override.
+ * the shared coordination home's `closed-claims.archive.json` — the SAME
+ * primary checkout `--active` resolves to — so a worktree-isolated agent's
+ * `claims close` / `claims archive-stale` archive into the team's primary
+ * checkout rather than a worktree-local file (the F-41 fragmentation failure
+ * mode F-85 cured for `--active`, applied to the closed archive). `--repo-root`
+ * is the explicit home override.
  *
- * Resolution is lazy: git is consulted (via `resolveCoordinationHome`) only when
- * neither `--closed` nor `--repo-root` is supplied, so an explicit path never
- * pays for a git invocation. The `homeOptions` seam forwards the injectable
- * `runGit` runner so this is unit-testable without a real repository.
+ * Resolution is lazy: the injected coordination-home resolver is called only
+ * when neither `--closed` nor `--repo-root` is supplied, so an explicit path
+ * never pays for a git invocation.
  */
-export function resolveClosedPath(
-  options: Options,
-  cwd: string,
-  homeOptions?: ResolveCoordinationHomeOptions,
-): string {
+export function resolveClosedPath(options: Options, runtime: CliRuntime): string {
   const explicit = optional(options, 'closed');
   if (explicit !== undefined) {
     return explicit;
   }
-  const repoRoot = optional(options, 'repo-root') ?? resolveCoordinationHome(cwd, homeOptions);
-  return join(repoRoot, CLOSED_CLAIMS_REL);
+  return join(resolveCoordinationHomeForOptions(options, runtime), CLOSED_CLAIMS_REL);
 }
 
 /**
@@ -46,21 +38,18 @@ export function resolveClosedPath(
  * `required(options, 'closed')` unchanged while gaining the coordination-home
  * default.
  */
-export function withClosedDefault(
-  options: Options,
-  cwd: string,
-  homeOptions?: ResolveCoordinationHomeOptions,
-): Options {
+export function withClosedDefault(options: Options, runtime: CliRuntime): Options {
   const values = new Map(options.values);
-  values.set('closed', resolveClosedPath(options, cwd, homeOptions));
+  values.set('closed', resolveClosedPath(options, runtime));
   return { ...options, values };
 }
 
 /**
  * Wrap a `claims` {@link CliHandler} so an omitted `--closed` defaults to the
  * coordination home before the handler runs (F-108). Mirrors `withResolvedActive`
- * (F-85): the default is applied once at spec-wiring time from `process.cwd()`,
- * so each handler body keeps reading `required(options, 'closed')` unchanged.
+ * (F-85): the default is applied once at spec-wiring time from the invocation
+ * cwd on `CliRuntime`, so each handler body keeps reading
+ * `required(options, 'closed')` unchanged.
  *
  * Wired only on `claims close` / `claims archive-stale`, whose `--closed` is
  * REQUIRED — defaulting the path is pure ergonomics with no behaviour change.
@@ -69,6 +58,5 @@ export function withClosedDefault(
  * there would change the command's default output, not merely resolve a path.
  */
 export function withResolvedClosed(handler: CliHandler): CliHandler {
-  return (options, env, runtime) =>
-    handler(withClosedDefault(options, process.cwd()), env, runtime);
+  return (options, env, runtime) => handler(withClosedDefault(options, runtime), env, runtime);
 }

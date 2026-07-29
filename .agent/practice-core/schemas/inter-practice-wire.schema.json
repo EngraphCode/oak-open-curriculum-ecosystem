@@ -56,11 +56,21 @@
       "additionalProperties": true
     },
     "watcher_heartbeat": {
-      "$comment": "A watcher is a writer (clause 4): its heartbeat is a wire surface a host estate's staleness consumers read. The founding 2026-07-05 refusal instance was a guest heartbeat under a host validator.",
+      "$comment": "A watcher is a writer (clause 4): its heartbeat is a wire surface a host estate's staleness consumers read. The founding 2026-07-05 refusal instance was a guest heartbeat under a host validator. watched_comms_dir is an additive v1 field: local 0.2 writers require it, while the wire family continues to accept older 0.1 payloads without it.",
       "type": "object",
-      "required": ["schema_version", "pid", "started_at", "watcher_identity"],
+      "required": [
+        "schema_version",
+        "pid",
+        "started_at",
+        "watcher_identity"
+      ],
       "properties": {
         "schema_version": { "type": "string", "minLength": 1 },
+        "watched_comms_dir": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^(?:/|[A-Za-z]:[\\\\/]|\\\\\\\\)"
+        },
         "pid": { "type": "number" },
         "started_at": { "type": "string", "minLength": 1 },
         "last_drain_at": { "type": ["string", "null"] },

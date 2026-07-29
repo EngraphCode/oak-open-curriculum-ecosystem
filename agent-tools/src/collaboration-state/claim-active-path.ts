@@ -1,11 +1,9 @@
 import { join } from 'node:path';
 
 import { optional, type Options } from './cli-options.js';
+import { resolveCoordinationHomeForOptions } from './cli-coordination-home.js';
 import { type CliHandler } from './cli-spec-factory.js';
-import {
-  resolveCoordinationHome,
-  type ResolveCoordinationHomeOptions,
-} from './coordination-home.js';
+import { type CliRuntime } from './cli-runtime.js';
 
 /** Active-claims registry path relative to the coordination home. */
 const ACTIVE_CLAIMS_REL = '.agent/state/collaboration/active-claims.json';
@@ -15,27 +13,22 @@ const ACTIVE_CLAIMS_REL = '.agent/state/collaboration/active-claims.json';
  *
  * An explicit `--active` is honoured verbatim. Otherwise the path defaults to
  * the shared coordination home's `active-claims.json` — the SAME primary
- * checkout the `comms` commands resolve via {@link resolveCoordinationHome} — so
- * a worktree-isolated agent's claims stay visible to the team without per-call
- * ceremony (the F-41 fragmentation failure mode, but for claims rather than
- * comms). `--repo-root` is the explicit home override.
+ * checkout the `comms` commands resolve via
+ * {@link resolveCoordinationHomeForOptions} — so a worktree-isolated agent's
+ * claims stay visible to the team without per-call ceremony (the F-41
+ * fragmentation failure mode, but for claims rather than comms). `--repo-root`
+ * is the explicit home override.
  *
- * Resolution is lazy: git is consulted (via `resolveCoordinationHome`) only when
- * neither `--active` nor `--repo-root` is supplied, so an explicit path never
- * pays for a git invocation. The `homeOptions` seam forwards the injectable
- * `runGit` runner so this is unit-testable without a real repository.
+ * Resolution is lazy: the injected coordination-home resolver is called only
+ * when neither `--active` nor `--repo-root` is supplied, so an explicit path
+ * never pays for a git invocation.
  */
-export function resolveActivePath(
-  options: Options,
-  cwd: string,
-  homeOptions?: ResolveCoordinationHomeOptions,
-): string {
+export function resolveActivePath(options: Options, runtime: CliRuntime): string {
   const explicit = optional(options, 'active');
   if (explicit !== undefined) {
     return explicit;
   }
-  const repoRoot = optional(options, 'repo-root') ?? resolveCoordinationHome(cwd, homeOptions);
-  return join(repoRoot, ACTIVE_CLAIMS_REL);
+  return join(resolveCoordinationHomeForOptions(options, runtime), ACTIVE_CLAIMS_REL);
 }
 
 /**
@@ -45,13 +38,9 @@ export function resolveActivePath(
  * `required(options, 'active')` unchanged while gaining the coordination-home
  * default.
  */
-export function withActiveDefault(
-  options: Options,
-  cwd: string,
-  homeOptions?: ResolveCoordinationHomeOptions,
-): Options {
+export function withActiveDefault(options: Options, runtime: CliRuntime): Options {
   const values = new Map(options.values);
-  values.set('active', resolveActivePath(options, cwd, homeOptions));
+  values.set('active', resolveActivePath(options, runtime));
   return { ...options, values };
 }
 
@@ -59,10 +48,10 @@ export function withActiveDefault(
  * Wrap a `claims` {@link CliHandler} so an omitted `--active` defaults to the
  * coordination home before the handler runs (F-85). This mirrors the
  * default-resolution boundary in `cli-comms-send.ts` / `cli-comms-validate.ts`:
- * the default is applied once at spec-wiring time from `process.cwd()`, so each
- * handler body stays unchanged.
+ * the default is applied once at spec-wiring time from the invocation cwd on
+ * `CliRuntime`, so each handler body stays unchanged and tests can inject the
+ * primary-home resolver.
  */
 export function withResolvedActive(handler: CliHandler): CliHandler {
-  return (options, env, runtime) =>
-    handler(withActiveDefault(options, process.cwd()), env, runtime);
+  return (options, env, runtime) => handler(withActiveDefault(options, runtime), env, runtime);
 }

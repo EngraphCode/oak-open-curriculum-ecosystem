@@ -649,6 +649,7 @@ describe('collaboration-state comms integration', () => {
       io: fake.runtime.io,
       waitForCommsChange: fake.runtime.waitForCommsChange,
       processIsAlive: fake.runtime.processIsAlive,
+      cwd: '/fixture/invocation',
     });
 
     expect(result.exitCode).toBe(0);

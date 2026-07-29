@@ -1,3 +1,5 @@
+import { err, unwrapOrThrow } from '@oaknational/result';
+
 import { agentIdentityCliEnvironmentFromProcessEnv } from './agent-identity-cli-environment.js';
 import { runAgentIdentityCli } from './agent-identity-cli.js';
 import {
@@ -74,6 +76,9 @@ export function agentToolsCliEnvironmentFromProcessEnv(
   return {
     ...agentIdentityCliEnvironmentFromProcessEnv(env),
     ...(env.HOME === undefined ? {} : { HOME: env.HOME }),
+    ...(env.PRACTICE_COORDINATION_HOME === undefined
+      ? {}
+      : { PRACTICE_COORDINATION_HOME: env.PRACTICE_COORDINATION_HOME }),
   };
 }
 
@@ -142,7 +147,13 @@ async function dispatchTopic(input: {
   }
 
   if (topic === 'collaboration-state') {
-    const runtime = productionCollaborationStateRuntime({ stdout: input.input.stdout });
+    const runtime = productionCollaborationStateRuntime({
+      stdout: input.input.stdout,
+      cwd: input.input.cwd,
+      ...(input.input.env.PRACTICE_COORDINATION_HOME === undefined
+        ? {}
+        : { coordinationHomeEnv: input.input.env.PRACTICE_COORDINATION_HOME }),
+    });
     return runCollaborationStateCli({
       argv: input.parsed.topicArgs,
       env: input.input.env,
@@ -151,6 +162,9 @@ async function dispatchTopic(input: {
       waitForCommsChange: runtime.waitForCommsChange,
       waitForCollaborationStateChange: runtime.waitForCollaborationStateChange,
       processIsAlive: runtime.processIsAlive,
+      watcherStalenessIo: runtime.watcherStalenessIo,
+      cwd: runtime.cwd,
+      resolveCoordinationHome: runtime.resolveCoordinationHome,
     });
   }
 
@@ -165,7 +179,7 @@ async function dispatchTopic(input: {
     return handler(input.input, input.parsed.topicArgs);
   }
 
-  throw new Error(`unknown topic: ${topicKey}`);
+  return unwrapOrThrow<never>(err(new Error(`unknown topic: ${topicKey}`)));
 }
 
 function completeWithLog(input: {

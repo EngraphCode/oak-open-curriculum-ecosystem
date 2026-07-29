@@ -1,10 +1,18 @@
 import { watch } from 'node:fs';
 import { dirname } from 'node:path';
 
+import { err, ok, unwrapOrThrow, type Result } from '@oaknational/result';
+
 import { type CollaborationStateCliIo, productionIo } from './cli-io-production.js';
+import { resolveCoordinationHome } from './coordination-home.js';
+import { type WatcherStalenessIo } from './watcher-staleness.js';
+import { productionWatcherStalenessIo } from './watcher-staleness-io.js';
 import { processIsAliveBySignalZero } from './watcher-supervisor.js';
 
 export { type CollaborationStateCliIo } from './cli-io-production.js';
+
+/** Resolve the canonical coordination home from one invocation directory. */
+export type CoordinationHomeResolver = (cwd: string) => string;
 
 export interface CliRuntime {
   readonly stdout?: Pick<NodeJS.WritableStream, 'write'>;
@@ -27,14 +35,30 @@ export interface CliRuntime {
    * in play.
    */
   readonly processIsAlive?: (pid: number) => boolean;
+  /** Invocation cwd, captured at the composition edge for path defaulting. */
+  readonly cwd?: string;
+  /** Injectable primary coordination-home resolver for hermetic tests. */
+  readonly resolveCoordinationHome?: CoordinationHomeResolver;
+  /** Watcher-heartbeat reader/stat adapter; production uses the filesystem binding. */
+  readonly watcherStalenessIo?: WatcherStalenessIo;
 }
 
 export function cliIo(runtime: CliRuntime): CollaborationStateCliIo {
-  if (runtime.io === undefined) {
-    throw new Error('collaboration-state CLI IO must be provided by the composition layer');
-  }
+  return unwrapOrThrow(
+    requiredRuntimeCapability(
+      runtime.io,
+      'collaboration-state CLI IO must be provided by the composition layer',
+    ),
+  );
+}
 
-  return runtime.io;
+export function watcherStalenessIo(runtime: CliRuntime): WatcherStalenessIo {
+  return unwrapOrThrow(
+    requiredRuntimeCapability(
+      runtime.watcherStalenessIo,
+      'watcher staleness IO must be provided by the composition layer',
+    ),
+  );
 }
 
 export function waitForCommsChange(
@@ -44,11 +68,12 @@ export function waitForCommsChange(
     readonly pollMs: number;
   },
 ): Promise<void> {
-  if (runtime.waitForCommsChange === undefined) {
-    throw new Error('collaboration-state watch source must be provided by the composition layer');
-  }
-
-  return runtime.waitForCommsChange(input);
+  return unwrapOrThrow(
+    requiredRuntimeCapability(
+      runtime.waitForCommsChange,
+      'collaboration-state watch source must be provided by the composition layer',
+    ),
+  )(input);
 }
 
 export function waitForCollaborationStateChange(
@@ -60,17 +85,25 @@ export function waitForCollaborationStateChange(
     readonly pollMs: number;
   },
 ): Promise<void> {
-  if (runtime.waitForCollaborationStateChange === undefined) {
-    throw new Error(
+  return unwrapOrThrow(
+    requiredRuntimeCapability(
+      runtime.waitForCollaborationStateChange,
       'collaboration-state TUI update source must be provided by the composition layer',
-    );
-  }
+    ),
+  )(input);
+}
 
-  return runtime.waitForCollaborationStateChange(input);
+function requiredRuntimeCapability<T>(value: T | undefined, message: string): Result<T, Error> {
+  return value === undefined ? err(new Error(message)) : ok(value);
 }
 
 export function productionCollaborationStateRuntime(
-  input: { readonly stdout?: Pick<NodeJS.WritableStream, 'write'> } = {},
+  input: {
+    readonly stdout?: Pick<NodeJS.WritableStream, 'write'>;
+    readonly cwd?: string;
+    readonly coordinationHomeEnv?: string;
+    readonly resolveCoordinationHome?: CoordinationHomeResolver;
+  } = {},
 ): CliRuntime {
   return {
     stdout: input.stdout,
@@ -78,6 +111,17 @@ export function productionCollaborationStateRuntime(
     waitForCommsChange: waitForDirectoryChange,
     waitForCollaborationStateChange: waitForCollaborationStateChangeFromFiles,
     processIsAlive: processIsAliveBySignalZero,
+    watcherStalenessIo: productionWatcherStalenessIo,
+    cwd: input.cwd ?? process.cwd(),
+    resolveCoordinationHome:
+      input.resolveCoordinationHome ??
+      ((cwd) =>
+        resolveCoordinationHome(
+          cwd,
+          input.coordinationHomeEnv === undefined
+            ? {}
+            : { coordinationHomeEnv: input.coordinationHomeEnv },
+        )),
   };
 }
 

@@ -31,17 +31,68 @@ const foreign = deriveOverrideCollaborationIdentity({
   session_id_prefix: '019dd3',
 });
 
+const EXPECTED_COMMS_DIR = '/coordination/.agent/state/collaboration/comms';
+
 describe('classifyWatcherPresence', () => {
   it('treats a live watcher whose identity matches this session as present', () => {
     expect(
-      classifyWatcherPresence({ kind: 'live', identity, lastEmitAt: 'x', agedMs: 10 }, identity),
+      classifyWatcherPresence(
+        {
+          kind: 'live',
+          identity,
+          watchedCommsDir: EXPECTED_COMMS_DIR,
+          lastEmitAt: 'x',
+          agedMs: 10,
+        },
+        identity,
+        EXPECTED_COMMS_DIR,
+      ),
+    ).toEqual({ kind: 'present' });
+  });
+
+  it('treats a matching live identity that watches a different comms source as blind', () => {
+    const verdict = classifyWatcherPresence(
+      {
+        kind: 'live',
+        identity,
+        watchedCommsDir: '/decoy/.agent/state/collaboration/comms',
+        lastEmitAt: 'x',
+        agedMs: 10,
+      },
+      identity,
+      EXPECTED_COMMS_DIR,
+    );
+    expect(verdict).toMatchObject({ kind: 'blind' });
+    expect(JSON.stringify(verdict)).toContain('different comms source');
+  });
+
+  it('treats a trailing separator as the same absolute comms source', () => {
+    expect(
+      classifyWatcherPresence(
+        {
+          kind: 'live',
+          identity,
+          watchedCommsDir: `${EXPECTED_COMMS_DIR}/`,
+          lastEmitAt: 'x',
+          agedMs: 10,
+        },
+        identity,
+        EXPECTED_COMMS_DIR,
+      ),
     ).toEqual({ kind: 'present' });
   });
 
   it('treats a live watcher whose identity does NOT match this session as blind', () => {
     const verdict = classifyWatcherPresence(
-      { kind: 'live', identity: foreign, lastEmitAt: 'x', agedMs: 10 },
+      {
+        kind: 'live',
+        identity: foreign,
+        watchedCommsDir: EXPECTED_COMMS_DIR,
+        lastEmitAt: 'x',
+        agedMs: 10,
+      },
       identity,
+      EXPECTED_COMMS_DIR,
     );
     expect(verdict).toMatchObject({ kind: 'blind' });
     expect(JSON.stringify(verdict)).toContain('not this session');
@@ -51,6 +102,7 @@ describe('classifyWatcherPresence', () => {
     const verdict = classifyWatcherPresence(
       { kind: 'absent', heartbeatFile: 'seen.json.heartbeat.json' },
       identity,
+      EXPECTED_COMMS_DIR,
     );
     expect(verdict).toMatchObject({ kind: 'blind' });
     expect(JSON.stringify(verdict)).toContain('seen.json.heartbeat.json');
@@ -59,8 +111,16 @@ describe('classifyWatcherPresence', () => {
   it('treats an aged heartbeat as blind', () => {
     expect(
       classifyWatcherPresence(
-        { kind: 'stale-aged', identity, lastEmitAt: 'x', agedMs: 200000, thresholdMs: 90000 },
+        {
+          kind: 'stale-aged',
+          identity,
+          watchedCommsDir: EXPECTED_COMMS_DIR,
+          lastEmitAt: 'x',
+          agedMs: 200000,
+          thresholdMs: 90000,
+        },
         identity,
+        EXPECTED_COMMS_DIR,
       ).kind,
     ).toBe('blind');
   });
@@ -70,6 +130,7 @@ describe('classifyWatcherPresence', () => {
       classifyWatcherPresence(
         { kind: 'malformed', heartbeatFile: 'h.json', reason: 'bad json' },
         identity,
+        EXPECTED_COMMS_DIR,
       ).kind,
     ).toBe('blind');
   });
@@ -77,8 +138,16 @@ describe('classifyWatcherPresence', () => {
   it('treats a just-armed (fresh mtime) matching not-yet-emitted watcher as present', () => {
     expect(
       classifyWatcherPresence(
-        { kind: 'stale-no-emit', identity, emittedCount: 0, agedMs: 1000, thresholdMs: 90000 },
+        {
+          kind: 'stale-no-emit',
+          identity,
+          watchedCommsDir: EXPECTED_COMMS_DIR,
+          emittedCount: 0,
+          agedMs: 1000,
+          thresholdMs: 90000,
+        },
         identity,
+        EXPECTED_COMMS_DIR,
       ),
     ).toEqual({ kind: 'present' });
   });
@@ -89,20 +158,47 @@ describe('classifyWatcherPresence', () => {
         {
           kind: 'stale-no-emit',
           identity: foreign,
+          watchedCommsDir: EXPECTED_COMMS_DIR,
           emittedCount: 0,
           agedMs: 1000,
           thresholdMs: 90000,
         },
         identity,
+        EXPECTED_COMMS_DIR,
       ).kind,
     ).toBe('blind');
+  });
+
+  it('treats a fresh matching not-yet-emitted watcher on a decoy source as blind', () => {
+    const verdict = classifyWatcherPresence(
+      {
+        kind: 'stale-no-emit',
+        identity,
+        watchedCommsDir: '/decoy/.agent/state/collaboration/comms',
+        emittedCount: 0,
+        agedMs: 1000,
+        thresholdMs: 90000,
+      },
+      identity,
+      EXPECTED_COMMS_DIR,
+    );
+    expect(verdict).toMatchObject({ kind: 'blind' });
+    expect(JSON.stringify(verdict)).toContain('different comms source');
   });
 
   it('treats a started-then-frozen (aged mtime) not-yet-emitted watcher as blind', () => {
     expect(
       classifyWatcherPresence(
-        { kind: 'stale-no-emit', identity, emittedCount: 0, agedMs: 120000, thresholdMs: 90000 },
+        {
+          kind: 'stale-no-emit',
+          identity,
+          watchedCommsDir: EXPECTED_COMMS_DIR,
+          emittedCount: 0,
+          agedMs: 120000,
+          thresholdMs: 90000,
+        },
         identity,
+        EXPECTED_COMMS_DIR,
       ).kind,
     ).toBe('blind');
   });
@@ -110,8 +206,16 @@ describe('classifyWatcherPresence', () => {
   it('treats the exact threshold (matching identity) as still present (boundary)', () => {
     expect(
       classifyWatcherPresence(
-        { kind: 'stale-no-emit', identity, emittedCount: 0, agedMs: 90000, thresholdMs: 90000 },
+        {
+          kind: 'stale-no-emit',
+          identity,
+          watchedCommsDir: EXPECTED_COMMS_DIR,
+          emittedCount: 0,
+          agedMs: 90000,
+          thresholdMs: 90000,
+        },
         identity,
+        EXPECTED_COMMS_DIR,
       ),
     ).toEqual({ kind: 'present' });
   });

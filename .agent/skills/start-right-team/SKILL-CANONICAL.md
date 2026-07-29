@@ -115,11 +115,12 @@ the special case. Run both unless that exemption applies.
    event the team emits). **An ArcAngel / rapid-comms channel watcher
    never substitutes for this canonical watcher: any session that opens a
    watcher on an ArcAngel channel MUST also be running this all-channels
-   canonical comms watcher.** ArcAngel carries dialogue only — claims,
-   heartbeats, commit intents, owner gates, and the team-bootstrap
-   coordination events all live on the canonical stream, so a session
-   tailing only ArcAngel is blind to the coordination that matters. The
-   two watchers are paired, always (see
+   canonical comms watcher.** ArcAngel carries dialogue only. Heartbeats,
+   comms-carried commit intents, owner gates, and team-bootstrap events live
+   on the canonical stream; claims and commit-queue state are separate
+   canonical coordination surfaces that still require their own reads. A
+   session tailing only ArcAngel is therefore blind to coordination that
+   matters. The two watchers are paired, always (see
    [`.agent/reference/arc-rapid-communication.md`](../../reference/arc-rapid-communication.md)
    §Protocol). After arming the watcher, confirm it mechanically:
    `pnpm agent-tools:collaboration-state -- comms assert-watcher-live
@@ -127,7 +128,15 @@ the special case. Run both unless that exemption applies.
    live heartbeat is found (F-95). This is a check, not just a pause — and
    `claims open` (move 7) independently refuses to stake a claim into a
    populated registry while blind to comms, so the visibility guarantee holds
-   even if this check is skipped.
+   even if this check is skipped. Both gates require the heartbeat's recorded
+   absolute comms source to match the canonical coordination-home stream; a
+   relocated heartbeat from a decoy watcher does not attest visibility. On
+   Codex, keep this root-identity watcher
+   running even after adding the distinct
+   [`NOTIFY` relay child](../../rules/use-monitor-for-event-driven-wake.md#codex-notify-session-relay):
+   the relay's separate identity/cursor can wake the root, but its heartbeat
+   cannot attest the root to either F-95 gate. The two watchers have different
+   jobs and neither substitutes for the other.
 2. **Start the liveness heartbeat cron** (see
    [`.agent/rules/liveness-heartbeat-cron.md`](../../rules/liveness-heartbeat-cron.md)
    — required precondition for outgoing visibility; the team sees every
@@ -660,9 +669,11 @@ coordination:
 
 An ArcAngel / rapid-comms channel tail does NOT satisfy this sweep for the
 canonical surfaces — it carries dialogue only. The move-1 all-channels
-canonical comms watcher is what covers shared comms, the directed inbox,
-claims, and the commit queue above; keep it running alongside any ArcAngel
-tail. The two watchers are paired, always (First Moves move 1).
+canonical comms watcher covers shared comms and the directed inbox; it does
+not watch claims, the commit queue, conversations, or escalations. Keep those
+surfaces on the manual/polled cadence unless a separate event-driven monitor
+has been proved for them. Keep the canonical watcher running alongside any
+ArcAngel tail. The two watchers are paired, always (First Moves move 1).
 
 Each participating agent must also report progress at least once every 120
 seconds. A progress report can be a brief owner-facing update, a shared-comms

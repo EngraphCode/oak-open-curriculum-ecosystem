@@ -90,13 +90,17 @@ export const commsInboxHelp =
   'with self-exclusion only)';
 
 export const commsWatchHelp =
-  'comms watch --comms-dir <dir> --seen-file <path> ' +
+  'comms watch [--comms-dir <dir>] [--seen-file <path>] [--repo-root <path>] ' +
   '--platform <platform> --model <model> ' +
   '[--session-prefix <prefix>] ' +
   '[--poll-ms <n>] [--max-events-per-drain <n>] [--step-timeout-ms <n>] ' +
   '[--heartbeat-file <path>] [--heartbeat-interval-ms <n>] [--no-heartbeat] ' +
   '[--seed-from-now] [--no-auto-seed] [--supervisor-pid <pid>] [--exclude-tag <tag>...] ' +
   '(emits every relevant event — broadcast, group, directed, observed, lifecycle — ' +
+  '--comms-dir and --seen-file are an explicit pair: provide both, or omit both ' +
+  'to derive the comms directory and this identity’s cursor from the primary ' +
+  'coordination home (--repo-root is the explicit home override); the watcher ' +
+  'creates the comms directory and seen-file parent before arming; ' +
   'with self-exclusion plus the sanctioned repeatable --exclude-tag mechanism ' +
   '(F-146; ADR-183 namespace tags only; an excluded event still marks seen; ' +
   'directed and group events always surface; a multi-tag event with any ' +
@@ -129,11 +133,12 @@ export const commsWatchHelp =
 export const commsAssertWatcherLiveHelp =
   'comms assert-watcher-live (--platform <platform> --model <model> | --agent-name <name>) ' +
   '[--session-prefix <prefix>] [--comms-seen-dir <dir>] [--heartbeat-file <path>] ' +
+  '[--repo-root <path>] ' +
   "(F-95 move-1 check: exits non-zero with a fix instruction unless this session's comms watcher " +
   'heartbeat is live AND its identity matches this session. Freshness is judged against the real ' +
   'wall clock. Identity is derived from --platform/--model (plus the env session seed), or ' +
-  'overridden with --agent-name; the heartbeat resolves from the session codename unless ' +
-  '--heartbeat-file overrides it)';
+  'overridden with --agent-name; the heartbeat resolves from the session codename under the ' +
+  'primary coordination home unless --comms-seen-dir or --heartbeat-file overrides it)';
 
 export const commsDirectHelp =
   'comms direct --comms-dir <dir> --to-agent-name <name> --to-id <uuid-v5> ' +
