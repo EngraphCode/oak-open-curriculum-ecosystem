@@ -71,8 +71,10 @@ function loadLoadedRuntimeOrThrow(): LoadedRuntime {
  * The one process-owned product-analytics runtime (MCP-241), memoised
  * OUTSIDE the retried app loader: the deploy entry handler clears and
  * retries a failed load, and a retry must reuse — never reconstruct — the
- * client the first attempt composed (the adapter's one-client lifecycle;
- * nothing closes a superseded client until MCP-243 wires close()). The
+ * client the first attempt composed (the adapter's one-client lifecycle).
+ * This serverless entry DELIBERATELY never calls close(): delivery rides
+ * `waitUntil`, and the isolate has no teardown moment — the local listener
+ * entry (`index.ts`) is where MCP-243's process close owner runs. The
  * once-semantics are `composeProductAnalyticsRuntimeOnce`'s, proven by
  * its own integration tests.
  */

@@ -311,7 +311,6 @@ const config = defineConfigArray(
       'src/handlers-mcp-span.integration.test.ts',
       'src/asset-download/asset-download-route.integration.test.ts',
       'src/check-mcp-client-auth.di.integration.test.ts',
-      'src/server-runtime.unit.test.ts',
       'src/tool-handler-with-auth.integration.test.ts',
       'src/handlers.integration.test.ts',
       // vi.mock family

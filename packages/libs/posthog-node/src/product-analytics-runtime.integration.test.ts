@@ -102,7 +102,7 @@ function createRuntimeHarness(
   const transportObserverCreations: TransportObserverCreation[] = [];
   const errorSubscriptions: ErrorSubscription[] = [];
   const mcpSdkLoggers: ((message: string) => void)[] = [];
-  const shutdownCalls: undefined[] = [];
+  const shutdownCalls: (number | undefined)[] = [];
   const sink: ProductAnalyticsSink = {
     capture: () => undefined,
   };
@@ -118,8 +118,8 @@ function createRuntimeHarness(
     on: (event, callback) => {
       errorSubscriptions.push({ event, callback });
     },
-    _shutdown: () => {
-      shutdownCalls.push(undefined);
+    _shutdown: (shutdownTimeoutMs?: number) => {
+      shutdownCalls.push(shutdownTimeoutMs);
       return shutdown();
     },
   };
@@ -358,6 +358,19 @@ describe('createPostHogProductAnalyticsRuntimeWithDependencies integration', () 
     expect(repeatedClose).toBe(firstClose);
     expect(subject.shutdownCalls).toHaveLength(1);
     await expect(repeatedClose).resolves.toStrictEqual({ ok: true, value: undefined });
+  });
+
+  it('bounds the close deadline so an unresponsive endpoint cannot hold the process open', async () => {
+    const subject = createRuntimeHarness(createConfig());
+
+    await expect(subject.runtime.close()).resolves.toStrictEqual({ ok: true, value: undefined });
+    // The deadline crossing the vendor seam is the observable form of
+    // "bounded": 15s deliberately truncates a retry stack the vendor
+    // documents at ~49s worst case (exponential backoff), so a local
+    // Ctrl-C never hangs toward a minute on a stalled endpoint.
+    // Undelivered events past the cut-off are abandoned by the vendor's
+    // shutdown at any bound.
+    expect(subject.shutdownCalls).toStrictEqual([15_000]);
   });
 
   it('closes with one content-free Err when shutdown and the reporter both throw', async () => {
