@@ -127,7 +127,7 @@ describe('my function', () => {
 
 ## Prohibited Patterns
 
-The following patterns are **prohibited** in all tests, at every tier, without exception:
+The following patterns are **prohibited** in all test and setup files, at every tier (the smoke composition-root exception below covers runner configs, never test or setup files):
 
 | Pattern                       | Why Prohibited                                   | Alternative                           |
 | ----------------------------- | ------------------------------------------------ | ------------------------------------- |
