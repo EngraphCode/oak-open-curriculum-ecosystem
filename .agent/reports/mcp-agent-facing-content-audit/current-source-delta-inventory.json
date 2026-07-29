@@ -117,7 +117,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/mcp-auth.ts",
-      "semanticSha256": "657b65ab5015e45bce481b2391a91517a9048140536a788300541ea65ad88392",
+      "semanticSha256": "4b7d0c6cd44d480b9e4a4679744c5d570bd1d37bb7cc1d1e31d3ff7565825d13",
       "itemIds": [
         "C399"
       ]
@@ -181,6 +181,12 @@
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/handlers.ts",
       "semanticSha256": "54ef89d4c749af313238024e7fe64012c509202d09ecd8bc4d326b47fb116dbf",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/host-header-validation.ts",
+      "semanticSha256": "22a5ce24820a998f391c89ded676191d64e4761275766cac748747a222662bf1",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },

@@ -11,14 +11,6 @@
  * is forwarded, and validation failures surfacing as `Err` for the
  * caller's 403 mapping.
  *
- * CodeQL `js/regex/missing-regexp-anchor` alerts #228 and #229 locate the
- * dataflow SOURCE at the `['example.com']` allow-list literals below. The
- * SINK is `hostPatternToRegex` in `host-header-validation.ts`, which composes
- * `'^' + … + '$'` — anchored at both ends — and is only reached for entries
- * containing `*`, which these are not. That file is unchanged by this work.
- * Same class and same reasoning as the previously dismissed #83–#86; the
- * alert numbers are new only because this file was rewritten.
- *
  * @see {@link https://datatracker.ietf.org/doc/html/rfc9728#section-3.1 | RFC 9728 Section 3.1}
  */
 

@@ -73,9 +73,6 @@ describe('mcpAuth middleware (Integration)', () => {
    * (ADR-057 / ADR-113 / ADR-205), so this is not a claim about the `/mcp`
    * route. Audience-mismatch rejection is the remaining reachable 401 and is
    * proven in the challenge test below.
-   *
-   * Closes CodeQL `js/user-controlled-bypass` alert #225; see the
-   * attestation on `verifyRequestToken` in `mcp-auth.ts`.
    */
   describe('no unverified request reaches next()', () => {
     const alwaysVerifies = (): (() => Promise<AuthInfo>) =>
@@ -115,6 +112,13 @@ describe('mcpAuth middleware (Integration)', () => {
         verifier: alwaysVerifies,
       },
       {
+        // Pins a deliberate strictness: RFC 6750 allows 1*SP between scheme
+        // and credentials; this server accepts exactly one space.
+        label: 'a multi-space Bearer prefix',
+        headers: { authorization: 'Bearer  plausible-looking-token' },
+        verifier: alwaysVerifies,
+      },
+      {
         // Node discards a duplicate `Authorization` header rather than
         // joining it, so this value cannot arrive from two client headers —
         // but a proxy may forward one header carrying both, and a client can
@@ -142,6 +146,31 @@ describe('mcpAuth middleware (Integration)', () => {
       expect(next).not.toHaveBeenCalled();
       expect(res.statusCode).toBe(401);
       expect(req).not.toHaveProperty('auth');
+    });
+
+    /**
+     * RFC 6750 §3: absent credentials get a bare challenge with NO error
+     * code; a malformed value gets `error="invalid_request"`. The split is
+     * client-facing contract — collapsing the two responses would pass the
+     * rejection rows above, so the challenge shapes are pinned here.
+     */
+    it('keeps the RFC 6750 split: bare challenge when absent, invalid_request when malformed', async () => {
+      const middleware = mcpAuth(alwaysVerifies(), logger, ALLOWED_HOSTS);
+
+      const absentReq = createMockExpressRequest({ host: 'localhost' });
+      const absentRes = createMockExpressResponse();
+      await middleware(absentReq, absentRes, vi.fn());
+      const absentChallenge = String(absentRes.getHeader('WWW-Authenticate') ?? '');
+      expect(absentChallenge).toContain('Bearer resource_metadata=');
+      expect(absentChallenge).not.toContain('error=');
+
+      const malformedReq = createMockExpressRequest({ host: 'localhost' });
+      Object.assign(malformedReq.headers, { authorization: 'Bearer' });
+      const malformedRes = createMockExpressResponse();
+      await middleware(malformedReq, malformedRes, vi.fn());
+      expect(String(malformedRes.getHeader('WWW-Authenticate') ?? '')).toContain(
+        'error="invalid_request"',
+      );
     });
 
     /**

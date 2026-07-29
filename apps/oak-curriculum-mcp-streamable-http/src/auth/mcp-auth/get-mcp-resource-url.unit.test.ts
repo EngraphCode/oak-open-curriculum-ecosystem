@@ -9,14 +9,6 @@
  * RFC 8707 audience is exactly the resource the PRM document advertises —
  * origin plus `/mcp`, nothing from the request URL — and validation
  * failures surface as `Err` for the caller's 403 mapping.
- *
- * CodeQL `js/regex/missing-regexp-anchor` alerts #226 and #227 locate the
- * dataflow SOURCE at the `['example.com']` allow-list literals below. The
- * SINK is `hostPatternToRegex` in `host-header-validation.ts`, which composes
- * `'^' + … + '$'` — anchored at both ends — and is only reached for entries
- * containing `*`, which these are not. That file is unchanged by this work.
- * Same class and same reasoning as the previously dismissed #83–#86; the
- * alert numbers are new only because this file was rewritten.
  */
 
 import { describe, it, expect } from 'vitest';

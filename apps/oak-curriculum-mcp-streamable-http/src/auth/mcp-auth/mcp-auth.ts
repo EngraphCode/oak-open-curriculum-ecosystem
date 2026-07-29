@@ -72,16 +72,33 @@ function deriveAuthUrls(
   return ok({ prmUrl: prmUrlResult.value, expectedResource: resourceResult.value });
 }
 
+/** The Authorization header parsed once into a closed set of outcomes. */
+type AuthorizationHeader =
+  | { readonly type: 'missing' }
+  | { readonly type: 'malformed' }
+  | { readonly type: 'bearer'; readonly token: string };
+
 /**
- * Extract Bearer token from authorization header.
- * Returns token string or undefined if format is invalid.
+ * Parses the Authorization header into a closed result: absent (or empty)
+ * credentials, a malformed value, or a Bearer token. One parse at the
+ * boundary; every later decision switches on the result, never on the raw
+ * header. The `missing`/`malformed` split preserves RFC 6750's distinction
+ * between absent credentials (bare `WWW-Authenticate: Bearer` challenge)
+ * and malformed ones (`error="invalid_request"`). Scheme matching is
+ * deliberately exact ("Bearer", single space) — the pinned integration
+ * states keep lowercase `bearer`, multi-space, and comma-joined forms in
+ * the malformed arm.
  */
-function extractBearerToken(authHeader: string): string | undefined {
-  const parts = authHeader.split(' ');
-  if (parts.length === 2 && parts[0] === 'Bearer') {
-    return parts[1];
+function parseAuthorizationHeader(header: string | undefined): AuthorizationHeader {
+  if (header === undefined || header === '') {
+    return { type: 'missing' };
   }
-  return undefined;
+  const parts = header.split(' ');
+  const token = parts[1];
+  if (parts.length === 2 && parts[0] === 'Bearer' && token) {
+    return { type: 'bearer', token };
+  }
+  return { type: 'malformed' };
 }
 
 /**
@@ -90,22 +107,10 @@ function extractBearerToken(authHeader: string): string | undefined {
  * its verified `AuthInfo` on success; `undefined` means a response has
  * already been sent.
  *
- * CodeQL `js/user-controlled-bypass` alert #225 flags the `authorization`
- * presence check below as "a user-provided value controls a condition that
- * guards a sensitive action". The rule targets servers that decide WHICH
- * permission to check from user data — its canonical example compares a
- * forgeable cookie against a URL parameter to decide whether to require a
- * login. That is not this shape: the client-supplied header is not an input
- * to the authorisation decision, it IS the credential being verified, and
- * the guard's polarity is the inverse of the rule's pattern — the value
- * being ABSENT short-circuits to 401, being PRESENT routes into
- * verification. Absence is rejection, not bypass.
- *
  * The invariant this middleware holds: **no request leaves `mcpAuth` via
  * `next()` unless `verifyToken` returned a truthy `AuthInfo`**. It is
  * asserted over the states a client controls in
- * `mcp-auth.integration.test.ts` ("no unverified request reaches next()"),
- * which is what the alert dismissal cites.
+ * `mcp-auth.integration.test.ts` ("no unverified request reaches next()").
  *
  * Scope that sentence to THIS middleware, deliberately. It is NOT a claim
  * about the `/mcp` route: `createMcpRouter` (`mcp-router.ts`) calls `next()`
@@ -119,7 +124,7 @@ function extractBearerToken(authHeader: string): string | undefined {
  * Note also that this file's `catch` calls `next(error)`, which enters
  * Express's error pipeline and skips the remaining route handlers rather
  * than reaching the MCP handler — an Express guarantee, verified against
- * this app's own express version during the alert review.
+ * this app's own express version.
  */
 async function verifyRequestToken(
   req: Request,
@@ -127,21 +132,21 @@ async function verifyRequestToken(
   prmUrl: string,
   verifyToken: TokenVerifier,
 ): Promise<{ token: string; authData: AuthInfo } | undefined> {
-  if (!req.headers.authorization) {
+  const authorization = parseAuthorizationHeader(req.headers.authorization);
+  if (authorization.type === 'missing') {
     sendMissingAuthResponse(res, prmUrl);
     return undefined;
   }
-  const token = extractBearerToken(req.headers.authorization);
-  if (!token) {
+  if (authorization.type === 'malformed') {
     sendInvalidFormatResponse(res, prmUrl);
     return undefined;
   }
-  const authData = await verifyToken(token, req);
+  const authData = await verifyToken(authorization.token, req);
   if (!authData) {
     sendVerificationFailedResponse(res, prmUrl);
     return undefined;
   }
-  return { token, authData };
+  return { token: authorization.token, authData };
 }
 
 /**
