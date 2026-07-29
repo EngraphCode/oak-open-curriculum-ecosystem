@@ -105,10 +105,17 @@ export async function openShowcase(
 
 /** Geometry snapshot of the switchboard band in its own fresh context —
  *  masthead, switchboard section and both hydrating selects. JS disabled
- *  is the server shell, deterministically pre-hydration; fonts are aborted
- *  by the same interception either way, so both measurements render the
- *  same fallback face. A fresh context inherits NO test-config options, so
- *  the base origin is passed explicitly. */
+ *  is the server shell, deterministically pre-paint interactive state. The
+ *  interception does NOT silence fonts here: the kit's faces are
+ *  SELF-HOSTED (same-origin), so they load asynchronously and swap the
+ *  metrics mid-page-life — under concurrent machine load one context can
+ *  measure pre-swap and the other post-swap, which is exactly the flake
+ *  MCP-399 recorded (three load-dependent outcomes on identical code).
+ *  Both measurements therefore wait for document.fonts.ready (the
+ *  FontFaceSet promise resolves in a JS-disabled context too — the
+ *  setting blocks page-authored scripts, not CSS font loading or the
+ *  driver's evaluation). A fresh context inherits NO test-config options,
+ *  so the base origin is passed explicitly. */
 export async function measureSwitchboardGeometry(
   browser: Browser,
   width: number,
@@ -126,6 +133,7 @@ export async function measureSwitchboardGeometry(
   await (javaScriptEnabled
     ? expect(themeSelect).toBeEnabled()
     : expect(themeSelect).toBeDisabled());
+  await page.evaluate(() => document.fonts.ready);
   const boxes = await page.evaluate(() => {
     const rect = (selector: string) => {
       const box = document.querySelector(selector)?.getBoundingClientRect();
