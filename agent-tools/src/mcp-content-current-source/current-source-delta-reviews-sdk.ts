@@ -19,8 +19,11 @@ export const SDK_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
   // MCP-366: generateContextHint deleted with the per-response hint; its
   // anchored body (C056) retired via lineage. The seven surviving metadata
   // and instruction rows are unchanged by the deletion.
+  // MCP-365: the generated instructions gained the owner-signed
+  // brand-provenance closing paragraph (attribution + non-endorsement per
+  // LICENCE-DATA.md); C055 re-anchored on its unchanged routing paragraph.
   'packages/sdks/oak-curriculum-sdk/src/mcp/agent-support-tool-metadata.ts': reviewed(
-    'a39184779abe3ec3c2dd575fbd52b5c4d1b75e971ed90bed8e10ed671804f197',
+    '2d86bf6b1cf6241114656a1a2909fbb47ecd0b6f34d5ccd8b9f44c0215301606',
     ['C049', 'C050', 'C051', 'C052', 'C053', 'C054', 'C055'],
   ),
   'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-asset-download/definition.ts': reviewed(

@@ -14,6 +14,8 @@ const SERVED_SURFACE =
 const UNDER_THE_HOOD_CONTENT =
   'apps/oak-curriculum-mcp-streamable-http/src/generated/oak-under-the-hood-content.ts';
 const EXCLUDED_PATHS = 'packages/sdks/oak-sdk-codegen/code-generation/excluded-paths.ts';
+const AGENT_SUPPORT_METADATA =
+  'packages/sdks/oak-curriculum-sdk/src/mcp/agent-support-tool-metadata.ts';
 const GUIDANCE_ROOT = 'packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources';
 const GUIDANCE_CATALOGUE = `${GUIDANCE_ROOT}/agent-guidance-resources.ts`;
 
@@ -208,5 +210,26 @@ export const CURRENT_SOURCE_ADDITION_DEFINITIONS: readonly CurrentSourceAddition
     sourceLocus: 'this-repo',
     file: UNDER_THE_HOOD_CONTENT,
     reviewedAnchors: [structuralAnchor('export const OAK_UNDER_THE_HOOD_ORIENTATION =')],
+  },
+  {
+    id: 'A011',
+    title: 'Server instructions brand ownership and non-endorsement paragraph',
+    reviewDomain: 'owner-signed-copy',
+    impactTier: 'high-impact',
+    behaviouralIntent:
+      'Close the generated server instructions with the owner-signed brand-provenance ' +
+      'guidance (MCP-365): the OGL v3.0 attribution statement from LICENCE-DATA.md for ' +
+      'reused curriculum content, no Oak branding on derived content, no implied Oak ' +
+      'creation or endorsement. The expert-authored Brand Usage guidance document ' +
+      '(MCP-102 pipeline) is the full form that later deepens or supersedes this ' +
+      'paragraph — evolve the two together, never separately.',
+    workspaceScope: 'in',
+    sourceLocus: 'this-repo',
+    file: AGENT_SUPPORT_METADATA,
+    reviewedAnchors: [
+      structuralAnchor(
+        'Oak brand and content provenance: Oak National Academy owns the Oak brand and brand elements. When you reuse Oak\'s curriculum content, attribute it ("Contains public sector information licensed under the Open Government Licence v3.0."). When you create content derived from Oak\'s resources, we request that it adheres to the same high design standards as Oak — but it must not use the Oak branding, and it must never present itself as Oak-created or Oak-endorsed.',
+      ),
+    ],
   },
 ];

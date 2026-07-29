@@ -7,7 +7,7 @@ import type { RegistrationSourceEvidence } from './current-source-model.js';
 
 describe('buildCurrentSourceAdditions', () => {
   it('builds distinct evidence for every reviewed post-baseline item', () => {
-    expect(currentSourceAdditionFiles()).toHaveLength(10);
+    expect(currentSourceAdditionFiles()).toHaveLength(11);
     const guidanceFixture = (slug: string): readonly [string, string] => [
       `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/${slug}.ts`,
       [
@@ -136,6 +136,10 @@ const CONTENT_BY_URI: ReadonlyMap<string, string> = new Map([
         'apps/oak-curriculum-mcp-streamable-http/src/generated/oak-under-the-hood-content.ts',
         'export const OAK_UNDER_THE_HOOD_ORIENTATION = "# Oak: Under the Hood" as const;',
       ],
+      [
+        'packages/sdks/oak-curriculum-sdk/src/mcp/agent-support-tool-metadata.ts',
+        'const BRAND_PROVENANCE_GUIDANCE = `Oak brand and content provenance: Oak National Academy owns the Oak brand and brand elements. When you reuse Oak\'s curriculum content, attribute it ("Contains public sector information licensed under the Open Government Licence v3.0."). When you create content derived from Oak\'s resources, we request that it adheres to the same high design standards as Oak — but it must not use the Oak branding, and it must never present itself as Oak-created or Oak-endorsed.`;',
+      ],
     ]);
 
     const registrations = Object.fromEntries([
@@ -159,6 +163,7 @@ const CONTENT_BY_URI: ReadonlyMap<string, string> = new Map([
       'A008',
       'A009',
       'A010',
+      'A011',
     ]);
     expect(additions.every((addition) => addition.evidence.revision === 'added')).toBe(true);
     expect(additions[0]?.evidence.targets[0]?.anchors).toHaveLength(4);

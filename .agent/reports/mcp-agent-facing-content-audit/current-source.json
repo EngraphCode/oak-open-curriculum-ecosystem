@@ -22,19 +22,19 @@
     ]
   },
   "summary": {
-    "itemCount": 727,
+    "itemCount": 728,
     "baselineItemCount": 717,
-    "additionCount": 10,
-    "availableCount": 688,
+    "additionCount": 11,
+    "availableCount": 689,
     "retiredCount": 39,
     "unchangedCount": 530,
     "expandedCount": 0,
     "modifiedCount": 84,
     "relocatedCount": 63,
-    "addedCount": 11,
-    "workspaceScopeInCount": 611,
+    "addedCount": 12,
+    "workspaceScopeInCount": 612,
     "workspaceScopeOutUpstreamApiCount": 116,
-    "workspaceAuthorityCount": 600,
+    "workspaceAuthorityCount": 601,
     "upstreamApiAuthorityCount": 116,
     "upstreamSkillsAuthorityCount": 2,
     "externalThirdPartyAuthorityCount": 9,
@@ -16243,6 +16243,33 @@
         "reviewDomain": "engineering-structural",
         "impactTier": "high-impact",
         "behaviouralIntent": "Serve the repository orientation method inline from the deployed artefact (directory policy §2.F cure, MCP-353): the audience-independent digest of the canonical under-the-hood skill, generated out of band with a parity gate (validate-under-the-hood-content) so served instructions are reviewed with the deployment, never fetched at runtime."
+      }
+    },
+    {
+      "id": "A011",
+      "authority": "workspace",
+      "workspaceScope": "in",
+      "source": {
+        "state": "available",
+        "files": [
+          "packages/sdks/oak-curriculum-sdk/src/mcp/agent-support-tool-metadata.ts"
+        ],
+        "evidence": {
+          "revision": "added",
+          "anchorTargetCount": 1,
+          "anchorCount": 1
+        }
+      },
+      "lineage": {
+        "disposition": "added",
+        "addedAfterBaselineCommit": "240a598607b96485f50c0dfd6df154d673a90a25"
+      },
+      "registrations": [],
+      "reviewContext": {
+        "title": "Server instructions brand ownership and non-endorsement paragraph",
+        "reviewDomain": "owner-signed-copy",
+        "impactTier": "high-impact",
+        "behaviouralIntent": "Close the generated server instructions with the owner-signed brand-provenance guidance (MCP-365): the OGL v3.0 attribution statement from LICENCE-DATA.md for reused curriculum content, no Oak branding on derived content, no implied Oak creation or endorsement. The expert-authored Brand Usage guidance document (MCP-102 pipeline) is the full form that later deepens or supersedes this paragraph — evolve the two together, never separately."
       }
     }
   ],

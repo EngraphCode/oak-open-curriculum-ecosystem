@@ -962,8 +962,8 @@
             "file": "packages/sdks/oak-curriculum-sdk/src/mcp/agent-support-tool-metadata.ts",
             "anchors": [
               {
-                "tokenCount": 56,
-                "tokenSha256": "97cfad4c4d69d61f613cbb0ba23070ad5d27d4501dc839a98fd468fb3107994c",
+                "tokenCount": 54,
+                "tokenSha256": "afd8ac4afbba3541ba791e29ced3ae5f62ad5a6337ee47e5d121f506e8b3b787",
                 "indexToken": "mechanisms",
                 "indexOffset": 11
               }

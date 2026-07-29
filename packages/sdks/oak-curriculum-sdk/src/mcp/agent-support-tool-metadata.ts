@@ -82,6 +82,23 @@ export const AGENT_SUPPORT_TOOL_NAMES = typeSafeValues(AGENT_SUPPORT_TOOL_METADA
   .map((t) => t.name);
 
 /**
+ * Oak brand ownership and non-endorsement guidance (MCP-365, owner-directed).
+ *
+ * Surfaces at the point of use the pair of duties Oak's data licence already
+ * encodes (see LICENCE-DATA.md): the OGL v3.0 attribution statement for
+ * reused curriculum content, and NO implied endorsement OF content the
+ * assistant derives. Assembled from the owner's 2026-07-29 words and
+ * LICENCE-DATA.md only; the rendered wording is owner-signed-off
+ * (never-invent-public-copy).
+ *
+ * @remarks
+ * The expert-authored Brand Usage guidance document (MCP-102 pipeline) is the
+ * full form that later deepens or supersedes this compressed paragraph —
+ * evolve the two together, never separately.
+ */
+const BRAND_PROVENANCE_GUIDANCE = `Oak brand and content provenance: Oak National Academy owns the Oak brand and brand elements. When you reuse Oak's curriculum content, attribute it ("Contains public sector information licensed under the Open Government Licence v3.0."). When you create content derived from Oak's resources, we request that it adheres to the same high design standards as Oak — but it must not use the Oak branding, and it must never present itself as Oak-created or Oak-endorsed.`;
+
+/**
  * Generates server instructions from the metadata.
  *
  * This function derives the SERVER_INSTRUCTIONS string from the metadata,
@@ -121,7 +138,9 @@ Call these tools first to reduce errors when using search, fetch, and browsing t
 
 Oak's curriculum is fully sequenced: year-ordered progressions, prior-knowledge, misconception, and keyword graphs are served by the anchored graph tools (get-thread-progressions, get-prior-knowledge-graph, get-misconception-graph, get-keyword-graph), so lesson and curriculum plans can build on what a class has already covered.
 
-For questions that are not about curriculum content — about the mechanisms by which the content is delivered, about this MCP app or its associated services, or about the repository itself — use the oak-under-the-hood tool to orient yourself to the Oak Open Curriculum Ecosystem.`;
+For questions that are not about curriculum content — about the mechanisms by which the content is delivered, about this MCP app or its associated services, or about the repository itself — use the oak-under-the-hood tool to orient yourself to the Oak Open Curriculum Ecosystem.
+
+${BRAND_PROVENANCE_GUIDANCE}`;
 }
 
 /**
