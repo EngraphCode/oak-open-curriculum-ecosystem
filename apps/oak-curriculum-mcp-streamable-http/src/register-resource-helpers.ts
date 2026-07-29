@@ -7,6 +7,10 @@ import type { ServedSurfaceDefinition } from './served-surface/served-surface.js
  * Uses `Pick<McpServer, 'registerResource'>` so that `registerAppResource()`
  * (which needs the full `McpServer.registerResource` overloads) can accept the
  * same server reference.
+ *
+ * This is a genuine port, not just a convenience narrowing: the resource-read
+ * observation decorator (`observe-resource-reads.ts`) is a second implementer,
+ * so any implementation must mirror BOTH SDK `registerResource` overloads.
  */
 export type ResourceRegistrar = Pick<McpServer, 'registerResource'>;
 

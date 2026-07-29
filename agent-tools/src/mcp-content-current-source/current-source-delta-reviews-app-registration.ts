@@ -17,6 +17,13 @@ import {
 } from './current-source-delta-review-helpers.js';
 
 export const APP_REGISTRATION_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview>> = {
+  // MCP-242: resource-read observation decorator at the registration
+  // boundary — analytics plumbing only; registers no content and rewrites
+  // no served surface (public resources pass through unwrapped).
+  'apps/oak-curriculum-mcp-streamable-http/src/observe-resource-reads.ts': excluded(
+    '4b471edd5b7083591b78c83a0cd934671de69a225fd3215415da52a1aa93af30',
+    IMPLEMENTATION_ONLY,
+  ),
   'apps/oak-curriculum-mcp-streamable-http/src/register-resource-helpers.ts': excluded(
     '6656626f8c88298c26ed09d8c9e56474fe12c369c6f521dcd2667a255e94a135',
     IMPLEMENTATION_ONLY,

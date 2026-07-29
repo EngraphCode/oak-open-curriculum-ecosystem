@@ -25,6 +25,7 @@ import {
 } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
 import { handleToolWithAuthInterception } from './tool-handler-with-auth.js';
 import { measureCallToolResult } from './observability/tool-result-measurement.js';
+import { resourceRegistrarFor } from './observe-resource-reads.js';
 import { registerAllResources } from './register-resources.js';
 import { registerOakUnderTheHoodTool } from './oak-under-the-hood/oak-under-the-hood-tool.js';
 import {
@@ -77,7 +78,9 @@ interface RegisterHandlersOptions {
   /**
    * Served-surface definition governing registration. Defaults to the
    * canonical module-level `SERVED_SURFACE`; injectable so tests can
-   * exercise dormant rows. Production callers never pass this (mcp-101).
+   * exercise dormant rows. Production callers never pass this (mcp-101) —
+   * and must not: the analytics allowlist derives from the module-level
+   * surface at bootstrap, so a divergent override's events drop silently.
    */
   readonly servedSurface?: ServedSurfaceDefinition;
   /**
@@ -178,7 +181,9 @@ export function registerHandlers(
     registerOakUnderTheHoodTool(server);
   }
 
-  registerAllResources(server, {
+  // Resource-read observation (MCP-242): with a sink, reads register through
+  // the observed registrar; without one, the exact server reference is used.
+  registerAllResources(resourceRegistrarFor(server, options.productAnalyticsSink), {
     getWidgetHtml: options.getWidgetHtml,
     servedSurface,
   });
