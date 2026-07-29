@@ -10,7 +10,6 @@ import {
   excluded,
   IMPLEMENTATION_ONLY,
   reviewed,
-  TEST_ONLY,
   type CurrentSourceDeltaReview,
 } from './current-source-delta-review-helpers.js';
 
@@ -133,7 +132,7 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     ['C702', 'C703', 'C704'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/index.ts': excluded(
-    '975a695b97e183b658c3cc4c031a0cf07cf43ad484a79c6a6e0d1689f82ac646',
+    '32c881e576b2bf44237639c5a49f6877720f1586bbd112eae8965df53701bbbc',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/logging/index.ts': excluded(
@@ -166,6 +165,12 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
       'e558e4cecc9d7e8cb6dbb20b2cc4734efc09a2a0e5f074cbb7bc7db235b0663a',
       IMPLEMENTATION_ONLY,
     ),
+  // MCP-243: process-level close funnel for analytics + observability —
+  // pure lifecycle plumbing, serves no agent-facing content.
+  'apps/oak-curriculum-mcp-streamable-http/src/process-close-owner.ts': excluded(
+    'dca53600544a92785e66fd3a48fb0f59e4bcc5d2ffce20aff4dfd853a9218d66',
+    IMPLEMENTATION_ONLY,
+  ),
   'apps/oak-curriculum-mcp-streamable-http/src/product-analytics-config.ts': excluded(
     '19d598ca413c7eeb9e509ddc38d44e006b761f8654c0a7e641b68b232d7c8610',
     IMPLEMENTATION_ONLY,
@@ -198,31 +203,15 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     '15c76f4100bec4a96aa51d7b082262b02043666b8fb74a3cf2d1b6250ad09efb',
     ['A001'],
   ),
+  // MCP-243: HTTP server bootstrap wiring the close funnel into every exit
+  // path — pure lifecycle plumbing, serves no agent-facing content.
+  'apps/oak-curriculum-mcp-streamable-http/src/server-runtime.ts': excluded(
+    '60d6bd83f609921c061c9e99e01b9581795c4eb210239383207d22aa12693922',
+    IMPLEMENTATION_ONLY,
+  ),
   'apps/oak-curriculum-mcp-streamable-http/src/server.ts': excluded(
     'f06ab4d0a5e270a5220ce39f003ae2d59c11ee1fdd9b287035270fbd0f67d252',
     IMPLEMENTATION_ONLY,
-  ),
-  'apps/oak-curriculum-mcp-streamable-http/src/test-helpers/auth-error-test-helpers.ts': excluded(
-    '1f09358427ac9ca4f2f0027636515abcfd123c64ae6bf468574c8d767fcccd6c',
-    TEST_ONLY,
-  ),
-  // MCP-242: product-analytics test fakes extracted from fakes.ts.
-  'apps/oak-curriculum-mcp-streamable-http/src/test-helpers/fakes-product-analytics.ts': excluded(
-    'ab5e6009c82e2b213aea36a4c5fc660445e0cb5f50a3f4453973d35edd365999',
-    TEST_ONLY,
-  ),
-  // MCP-242: re-export wiring for the extracted product-analytics fakes.
-  'apps/oak-curriculum-mcp-streamable-http/src/test-helpers/fakes.ts': excluded(
-    'e38bb464d9b9976d74c795225be2b472b7cfdf47596b4c8c1b1b5084563ff3e3',
-    TEST_ONLY,
-  ),
-  'apps/oak-curriculum-mcp-streamable-http/src/test-helpers/registration-walk.ts': excluded(
-    '40cc3397b753b39cf3e6c81bf6154d2f7c3af29e4057e4f8f21dad7a206464e6',
-    TEST_ONLY,
-  ),
-  'apps/oak-curriculum-mcp-streamable-http/src/test-helpers/static-root-fixture.ts': excluded(
-    '6350420bb5d4e36cbca9264a0a7b704ebb3dd6ce57027e6073bc60f007447a8d',
-    TEST_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/prompt-schemas.ts': excluded(
     'b72ba8cceb54d32bf4346f202d1c13193bd9c4006a3426a555869ad7f112f7ca',
@@ -239,9 +228,5 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
   'apps/oak-curriculum-mcp-streamable-http/src/mcp-request-context.ts': excluded(
     'c9a8034e012985e0178537f7381243f5b461a97c444b0fe02f1df28efdd5d1f8',
     IMPLEMENTATION_ONLY,
-  ),
-  'apps/oak-curriculum-mcp-streamable-http/src/test-helpers/fakes-mcp-server.ts': excluded(
-    '587ea4f25b03c4355e71548abc06ddb5b542e83d3bb3078cba215d7d1c5f0a0c',
-    TEST_ONLY,
   ),
 };
