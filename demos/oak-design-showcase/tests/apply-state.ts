@@ -11,15 +11,24 @@
  * "sheet parsed" is not "styles applied" — membership in
  * document.styleSheets plus a computed-style change is the applied signal.
  */
+import { AxeBuilder } from '@axe-core/playwright';
 import { expect } from '@playwright/test';
 import type { Page } from '@playwright/test';
 
 import type { OakThemeName } from '../lib/oak-theme-store';
 
 export const IDENTITIES = ['oak', 'freedonia', 'creature'] as const;
+export const PALETTE_THEMES = ['light', 'dark', 'high-contrast', 'colour-safe'] as const;
 export type Identity = (typeof IDENTITIES)[number];
 /** The runtime's closed theme union is the single source of the five names. */
 export type ThemeName = OakThemeName;
+
+export async function expectNoAxeViolations(page: Page): Promise<void> {
+  const results = await new AxeBuilder({ page })
+    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
+    .analyze();
+  expect(results.violations).toEqual([]);
+}
 
 /** Hosts the kit-authored counter-brand sheets are known to reference; any
  *  other third-party host aborted during a test fails the suite loudly. */
@@ -98,7 +107,9 @@ export async function applyIdentity(page: Page, identity: Identity): Promise<voi
     await page.waitForFunction(() => document.querySelector('link[data-oak-brand]') === null);
     return;
   }
-  await expect(page.locator('link[data-oak-brand]')).toHaveAttribute(
+  // Target the identity-specific link: during a load-then-swap transition
+  // the outgoing and incoming brand links briefly coexist by design.
+  await expect(page.locator(`link[data-oak-brand="${identity}"]`)).toHaveAttribute(
     'href',
     `/brands/${identity}/brand.css`,
   );

@@ -1,11 +1,23 @@
-'use client';
 /**
  * Binder for the identity (white-label) axis: which brand override sheet is
  * loaded over the kit's base. Applies the choice by managing one
- * `<link rel="stylesheet" data-oak-brand>` element appended at the END of
- * `document.head`, so the brand sheet loads after every bundled sheet and
- * wins the cascade at equal specificity — the kit brand contract
- * (brand.css: "import it last").
+ * `<link rel="stylesheet" data-oak-brand>` element (held by ref — the hook
+ * owns its node, never whatever a selector happens to match) appended at
+ * the END of `document.head`, so the brand sheet loads after every bundled
+ * sheet and wins the cascade at equal specificity — the kit brand contract
+ * (consuming-nextjs.md §5: "import it last"; brand.css: load it AFTER
+ * styles.css). Both counter-brand sheets are cache-warmed on mount with
+ * react-dom's preload, so a swap resolves from cache instead of paying a
+ * network round trip mid-switch.
+ *
+ * React 19's own `<link precedence>` stylesheet hoisting was considered and
+ * rejected on its documented semantics (react.dev/reference/react-dom/
+ * components/link): "React may leave the link in the DOM even after the
+ * component that rendered it has been unmounted", and precedence values
+ * "discovered later are 'higher'" — so switching creature → freedonia
+ * would leave creature's higher-ranked sheet winning; and the rendering
+ * component suspends while the sheet loads. None of that fits a live
+ * switcher.
  *
  * Showcase-only mechanism: production identity is server-emitted, one
  * static sheet per tenant, per the kit's consuming-nextjs.md §5 ("no flash,
@@ -16,7 +28,8 @@
  * persistence would need a second pre-paint bootstrap to avoid a flash of
  * Oak brand (the exact problem oak-theme.js solves for themes).
  */
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { preload } from 'react-dom';
 
 const IDENTITIES = ['oak', 'freedonia', 'creature'] as const;
 type IdentitySlug = (typeof IDENTITIES)[number];
@@ -27,45 +40,103 @@ export interface IdentityState {
   setIdentity: (value: string) => void;
 }
 
-function applyBrandLink(identity: IdentitySlug): void {
-  const existing = document.head.querySelector('link[data-oak-brand]');
+interface BrandLinkOwnership {
+  /** Every link the hook has created and not yet removed — the hook owns
+   *  its nodes; nothing here addresses head elements by selector. */
+  readonly owned: Set<HTMLLinkElement>;
+  readonly applied: { current: HTMLLinkElement | null };
+  readonly generation: { current: number };
+}
+
+/** LOAD-THEN-SWAP: the incoming sheet is appended ALONGSIDE the outgoing
+ *  one and the swap completes only when it has loaded — a first-hand frame
+ *  sampler proved that an in-place href update drops the outgoing sheet a
+ *  frame before the incoming one joins the cascade, flashing the Oak base
+ *  between two counter-brands. Both sheets coexisting is safe: the
+ *  incoming link is later in head, so it wins the cascade the moment it
+ *  applies. The generation counter keeps a fast second switch from letting
+ *  a stale load win. */
+function applyBrandIdentity(identity: IdentitySlug, ownership: BrandLinkOwnership): void {
+  const thisGeneration = (ownership.generation.current += 1);
+  const previous = ownership.applied.current;
   if (identity === 'oak') {
-    existing?.remove();
+    if (previous !== null) {
+      previous.remove();
+      ownership.owned.delete(previous);
+      ownership.applied.current = null;
+    }
     return;
   }
-  const link = existing instanceof HTMLLinkElement ? existing : document.createElement('link');
+  const link = document.createElement('link');
   link.rel = 'stylesheet';
   link.dataset['oakBrand'] = identity;
   link.href = `/brands/${identity}/brand.css`;
-  // append() moves an already-attached node, so the link also RETURNS to
-  // the end of head if anything was inserted after it.
+  link.addEventListener('load', () => {
+    if (ownership.generation.current !== thisGeneration) {
+      link.remove();
+      ownership.owned.delete(link);
+      return;
+    }
+    previous?.remove();
+    if (previous !== null) {
+      ownership.owned.delete(previous);
+    }
+    ownership.applied.current = link;
+  });
+  link.addEventListener('error', () => {
+    // Failed load: keep the previous brand applied rather than flashing to
+    // a half state (the served sheets are validator-guaranteed in-repo;
+    // the select-vs-page mismatch on a live 404 is a recorded follow-up on
+    // MCP-371).
+    link.remove();
+    ownership.owned.delete(link);
+  });
+  ownership.owned.add(link);
   document.head.append(link);
 }
 
 export function useIdentity(): IdentityState {
   const [identity, setIdentityState] = useState<IdentitySlug>('oak');
+  const ownedLinks = useRef<Set<HTMLLinkElement>>(new Set());
+  const appliedLink = useRef<HTMLLinkElement | null>(null);
+  const generation = useRef(0);
 
   useEffect(() => {
-    applyBrandLink(identity);
+    for (const slug of IDENTITIES) {
+      if (slug !== 'oak') {
+        preload(`/brands/${slug}/brand.css`, { as: 'style' });
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    applyBrandIdentity(identity, {
+      owned: ownedLinks.current,
+      applied: appliedLink,
+      generation,
+    });
   }, [identity]);
 
   // Unmount-only removal, deliberately separate from the [identity] effect:
-  // a per-change cleanup would delete the link between two brands and flash
-  // the Oak base — the in-place href update above exists to prevent that.
+  // a per-change cleanup would run between two brands and defeat the
+  // load-then-swap above.
   useEffect(() => {
+    const owned = ownedLinks.current;
     return () => {
-      document.head.querySelector('link[data-oak-brand]')?.remove();
+      for (const link of owned) {
+        link.remove();
+      }
+      owned.clear();
+      appliedLink.current = null;
     };
   }, []);
 
-  return {
-    identity,
-    identities: IDENTITIES,
-    setIdentity: (value: string): void => {
-      const next = IDENTITIES.find((slug) => slug === value);
-      if (next !== undefined) {
-        setIdentityState(next);
-      }
-    },
-  };
+  const setIdentity = useCallback((value: string): void => {
+    const next = IDENTITIES.find((slug) => slug === value);
+    if (next !== undefined) {
+      setIdentityState(next);
+    }
+  }, []);
+
+  return { identity, identities: IDENTITIES, setIdentity };
 }

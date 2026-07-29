@@ -11,15 +11,18 @@
    ============================================================ */
 @import '@oaknational/oak-design-system/styles.css';
 
-/* Page expression hooks (the kit specimen's hook-clean contract): base
-   styles composed from token roles only, at single-class specificity so a
-   brand sheet loaded later restyles them (Freedonia's §11 expression layer
-   targets .mast/.brand-name). Zero literal design values — every value is
-   a kit role, scale, or plain CSS keyword (the owner's no-hardcoded-values
-   invariant, gated by tools/validate-authored-css.ts). */
+/* Page expression hooks (the kit specimen's hook-clean contract): every
+   value is a kit role, scale, or plain CSS keyword (the owner's
+   no-hardcoded-values invariant, gated by tools/validate-authored-css.ts).
+   Painted properties stay at hook-level specificity so a brand sheet
+   loaded later restyles them (Freedonia's §11 expression layer targets
+   .mast/.brand-name); the two heavier selectors below set only custom
+   properties or non-brand-surface text behaviour, so brand layers keep
+   winning on everything painted. */
 body {
   /* The kit does not reset the UA default margin; the specimen does this
-     same reset locally. Without it the page overflows 320px reflow. */
+     same reset locally (kit-owned cure routed). Without it the page
+     overflows 320px reflow. */
   margin: 0;
   color: var(--text-primary);
 }
@@ -30,19 +33,29 @@ body {
   hyphens: auto;
 }
 .util .oak-select {
-  /* The kit switcher reference carried these as inline styles; inline
-     style attributes are banned here (they cap what a brand's expression
-     layer can transform), so the switchboard's selects take them as a
-     hook rule instead. */
+  /* The kit's selects are width:100%; the switchboard's size to content.
+     No min-height override: the kit's own --input-min-h governs (the
+     reference switcher's --size-target-min pin is a routed kit finding —
+     it shrinks controls below the kit's control rhythm and binds a
+     private primitive no brand lever can move). */
   width: auto;
-  min-height: var(--size-target-min);
 }
 .util {
-  background: var(--bg-inverted);
-  color: var(--text-inverted);
+  /* The interactive band is deliberately NOT inverted: the kit's canonical
+     focus ring needs --focus-ring-inverted on every control placed on an
+     inverted surface, and a brand that re-polarises the band (Creature
+     does exactly this) then has no token to restore it — measured
+     invisible in creature/high-contrast. Non-inverted chrome keeps the
+     canonical ring audit-clean in every identity × theme cell. */
+  background: var(--bg-subtle);
+  color: var(--text-primary);
 }
 .util-inner {
   padding-block: var(--space-8);
+  /* Reserve the hydrated switchboard's single-row height so the page does
+     not shift when the client controls mount (they render nothing
+     server-side by design — theme is client state). */
+  min-block-size: var(--input-min-h);
 }
 .mast {
   border-bottom: var(--border-solid-m) solid var(--border-primary);
@@ -63,9 +76,24 @@ body {
 .foot {
   background: var(--bg-inverted);
   color: var(--text-inverted);
+  /* Links on the inverted band re-point the LINK ROLES, never a colour on
+     descendants (kit KNOWN-ISSUES #13): the kit's .oak-link state rules
+     keep winning the cascade, and they resolve through these roles, so
+     hover/visited stay legible here — a plain colour override loses to
+     them at :hover and lands at 1.27:1. A brand re-pointing
+     --text-inverted still moves all three. */
+  --text-link: var(--text-inverted);
+  --text-link-hover: var(--text-inverted);
+  --text-link-visited: var(--text-inverted);
 }
 .foot a {
-  color: var(--text-inverted);
+  /* Controls on an inverted surface take the inverted focus ring — set on
+     the CONTROLS, never the band (kit brand.css contract; the canonical
+     ring's halo measures ~1.1:1 against the inverted band in dark). */
+  --focus-ring: var(--focus-ring-inverted);
+}
+.foot p {
+  margin: 0;
 }
 .foot-inner {
   padding-block: var(--space-40);

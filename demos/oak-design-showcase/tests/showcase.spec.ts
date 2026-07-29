@@ -1,18 +1,15 @@
 /**
- * Playwright suite for the showcase page, run against the BUILT artefact
- * (`pnpm start` — see playwright.config.ts). Proves the served page: the
- * region contract in effect, the switchboard driving the real runtime, and
- * axe WCAG 2.2 AA across the identity × theme matrix (system cells under an
- * emulated dark OS — under the default light emulation they replay the
- * light cells by construction). An "a11y" title tag lets `test:a11y` run
- * the accessibility checks by grep (estate idiom).
+ * The behaviour half of the showcase's Playwright proof surface (see
+ * showcase-a11y.spec.ts for the axe matrix, OS signals and reflow; both
+ * run against the BUILT artefact via `pnpm start` — playwright.config.ts):
+ * the region contract in effect and the switchboard driving the real
+ * runtimes through the real controls.
  *
  * Hermetic by interception: every cross-origin request is aborted and the
  * aborted hosts must stay within the declared third-party set (see
  * apply-state.ts for why absence of web fonts and icon masks does not
- * weaken the a11y claim).
+ * weaken the claims).
  */
-import { AxeBuilder } from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 import type { Page } from '@playwright/test';
 
@@ -20,21 +17,18 @@ import {
   applyIdentity,
   applyTheme,
   assertOnlyKnownExternalHosts,
-  IDENTITIES,
   openShowcase,
 } from './apply-state';
 
-const PALETTE_THEMES = ['light', 'dark', 'high-contrast', 'colour-safe'] as const;
-
-async function expectNoAxeViolations(page: Page): Promise<void> {
-  const results = await new AxeBuilder({ page })
-    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
-    .analyze();
-  expect(results.violations).toEqual([]);
-}
-
 async function bodyBackground(page: Page): Promise<string> {
   return page.evaluate(() => getComputedStyle(document.body).backgroundColor);
+}
+
+async function headingFontFamily(page: Page): Promise<string | null> {
+  return page.evaluate(() => {
+    const heading = document.querySelector('h1');
+    return heading === null ? null : getComputedStyle(heading).fontFamily;
+  });
 }
 
 test.describe('showcase page structure', () => {
@@ -83,6 +77,24 @@ test.describe('theme switching', () => {
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
     assertOnlyKnownExternalHosts(aborted);
   });
+});
+
+test.describe('theme no-choice state and motion axis', () => {
+  test('no-choice reads as Page default and the first Light choice bites', async ({ page }) => {
+    const aborted = await openShowcase(page);
+    const themeSelect = page.getByRole('combobox', { name: 'Theme' });
+    // Six runtime states, not five: with nothing chosen the control must
+    // not claim "Light" — under a dark-first brand that misreports the
+    // page AND makes the first click on Light a dead control (a select
+    // fires change only when its value actually changes).
+    await expect(themeSelect).toHaveValue('');
+    await applyIdentity(page, 'creature');
+    await expect(themeSelect).toHaveValue('');
+    const noChoiceBackground = await bodyBackground(page);
+    await applyTheme(page, 'light');
+    expect(await bodyBackground(page)).not.toBe(noChoiceBackground);
+    assertOnlyKnownExternalHosts(aborted);
+  });
 
   test('a reduced-motion choice collapses the motion tokens', async ({ page }) => {
     const aborted = await openShowcase(page, { reducedMotion: false });
@@ -102,16 +114,11 @@ test.describe('theme switching', () => {
 test.describe('identity switching', () => {
   test('a counter-brand loads over the base and re-brands the page', async ({ page }) => {
     const aborted = await openShowcase(page);
-    const headingFont = async (): Promise<string | null> =>
-      page.evaluate(() => {
-        const heading = document.querySelector('h1');
-        return heading === null ? null : getComputedStyle(heading).fontFamily;
-      });
-    const oakHeadingFont = await headingFont();
+    const oakHeadingFont = await headingFontFamily(page);
     expect(oakHeadingFont).not.toBeNull();
     await applyIdentity(page, 'freedonia');
     await applyIdentity(page, 'oak');
-    expect(await headingFont()).toBe(oakHeadingFont);
+    expect(await headingFontFamily(page)).toBe(oakHeadingFont);
     assertOnlyKnownExternalHosts(aborted);
   });
 
@@ -132,6 +139,51 @@ test.describe('identity switching', () => {
   });
 });
 
+test.describe('counter-brand to counter-brand transition', () => {
+  test('switching between counter-brands never shows the Oak base', async ({ page }) => {
+    const aborted = await openShowcase(page);
+    const oakHeadingFont = await headingFontFamily(page);
+    expect(oakHeadingFont).not.toBeNull();
+    await applyIdentity(page, 'freedonia');
+    // Sample the heading face every frame across the transition: the
+    // in-place href update must never let the page fall back to the Oak
+    // base between two counter-brands. Sampler state rides data attributes
+    // (test-only, removed with the page) so no page-context global exists.
+    await page.evaluate(() => {
+      const root = document.documentElement;
+      root.dataset['headingFaces'] = '[]';
+      delete root.dataset['headingFacesStop'];
+      const sample = (): void => {
+        if (root.dataset['headingFacesStop'] === 'yes') {
+          return;
+        }
+        const heading = document.querySelector('h1');
+        if (heading !== null) {
+          const parsed: unknown = JSON.parse(root.dataset['headingFaces'] ?? '[]');
+          if (Array.isArray(parsed)) {
+            parsed.push(getComputedStyle(heading).fontFamily);
+            root.dataset['headingFaces'] = JSON.stringify(parsed);
+          }
+        }
+        requestAnimationFrame(sample);
+      };
+      sample();
+    });
+    await applyIdentity(page, 'creature');
+    const sampledFaces = await page.evaluate(() => {
+      const root = document.documentElement;
+      root.dataset['headingFacesStop'] = 'yes';
+      const parsed: unknown = JSON.parse(root.dataset['headingFaces'] ?? '[]');
+      return Array.isArray(parsed)
+        ? parsed.filter((face): face is string => typeof face === 'string')
+        : [];
+    });
+    expect(sampledFaces.length).toBeGreaterThan(0);
+    expect(sampledFaces).not.toContain(oakHeadingFont);
+    assertOnlyKnownExternalHosts(aborted);
+  });
+});
+
 test.describe('system theme follows the device', () => {
   test.use({ colorScheme: 'dark' });
   test('system matches the explicit dark palette under a dark OS, light under light', async ({
@@ -146,61 +198,4 @@ test.describe('system theme follows the device', () => {
     await expect.poll(async () => bodyBackground(page)).not.toBe(darkBackground);
     assertOnlyKnownExternalHosts(aborted);
   });
-});
-
-test.describe('identity × theme matrix', () => {
-  for (const identity of IDENTITIES) {
-    for (const theme of PALETTE_THEMES) {
-      test(`${identity} × ${theme} has no WCAG 2.2 AA violations @a11y`, async ({ page }) => {
-        const aborted = await openShowcase(page);
-        await applyIdentity(page, identity);
-        await applyTheme(page, theme);
-        await expectNoAxeViolations(page);
-        assertOnlyKnownExternalHosts(aborted);
-      });
-    }
-  }
-});
-
-test.describe('identity × system theme (dark OS)', () => {
-  test.use({ colorScheme: 'dark' });
-  for (const identity of IDENTITIES) {
-    test(`${identity} × system has no WCAG 2.2 AA violations @a11y`, async ({ page }) => {
-      const aborted = await openShowcase(page);
-      await applyIdentity(page, identity);
-      await applyTheme(page, 'system');
-      await expectNoAxeViolations(page);
-      assertOnlyKnownExternalHosts(aborted);
-    });
-  }
-});
-
-test.describe('reflow at 320px', () => {
-  test.use({ viewport: { width: 320, height: 900 } });
-  for (const identity of IDENTITIES) {
-    test(`${identity} reflows to 320px without loss @a11y`, async ({ page }) => {
-      const aborted = await openShowcase(page);
-      await applyIdentity(page, identity);
-      // SC 1.4.10 Reflow — axe ships no rule for it (MCP landing-page
-      // precedent). Content pushed left of the origin is unreachable in
-      // LTR, so negative offsets are content loss even when scrollWidth
-      // stays clean.
-      const reflow = await page.evaluate(() => ({
-        scrollW: document.documentElement.scrollWidth,
-        clientW: document.documentElement.clientWidth,
-        minLeft: Math.min(
-          0,
-          ...[...document.querySelectorAll('main *')].map(
-            (element) => element.getBoundingClientRect().left,
-          ),
-        ),
-      }));
-      expect(reflow.scrollW, 'SC 1.4.10: horizontal scroll must not appear').toBeLessThanOrEqual(
-        reflow.clientW,
-      );
-      expect(reflow.minLeft, 'content pushed left of the origin is unreachable').toBe(0);
-      await expectNoAxeViolations(page);
-      assertOnlyKnownExternalHosts(aborted);
-    });
-  }
 });

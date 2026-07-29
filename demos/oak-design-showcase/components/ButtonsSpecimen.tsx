@@ -1,9 +1,12 @@
 import type { ReactElement } from 'react';
 
 /**
- * Button specimen: the kit's button variants. Radius, fill, shadow and the
- * press signature are all tokens — Freedonia flattens them to the
- * mechanical GDS edge, EMC² inflates them.
+ * Button specimen: the kit's button variants. Radius, fill and shadow are
+ * all tokens — Freedonia flattens them to the mechanical GDS edge, EMC²
+ * rounds and re-shadows them. (EMC²'s hover/press STATE garnish is gated
+ * on the kit's .oak-scope marker, which this page adopts only after the
+ * routed kit cure to the scope's paragraph-colour rule lands — recorded on
+ * MCP-371.)
  */
 export function ButtonsSpecimen(): ReactElement {
   return (

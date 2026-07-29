@@ -3,8 +3,10 @@
  * writes through the setters AND on the runtime's own reactive trigger (the
  * `prefers-contrast` media change the oak-theme runtime re-derives its default
  * from) — a runtime-driven theme change must reach React, not only control
- * writes. Both collaborators are simple injected fakes (no-global-state-in-tests
- * / ADR-078).
+ * writes. All collaborators are simple injected fakes (no-global-state-in-tests
+ * / ADR-078): the fake runtime models the real one's contract, where set()
+ * APPLIES the choice (the html data-theme attribute the store's applied-theme
+ * resolver reads).
  */
 import { describe, expect, it, vi } from 'vitest';
 
@@ -16,13 +18,16 @@ import type {
   OakThemeRuntime,
 } from './oak-theme-store';
 
-function fakeRuntime(): OakThemeRuntime {
-  let theme: OakThemeName = 'light';
+function fakeRuntimeWorld(): {
+  runtime: OakThemeRuntime;
+  appliedTheme: () => string | undefined;
+} {
+  let applied: OakThemeName | undefined;
   let motion: OakMotionMode = 'system';
-  return {
-    get: () => theme,
+  const runtime: OakThemeRuntime = {
+    get: () => applied ?? 'light',
     set: (t: OakThemeName) => {
-      theme = t;
+      applied = t;
     },
     themes: ['light', 'dark'],
     motion: {
@@ -33,6 +38,7 @@ function fakeRuntime(): OakThemeRuntime {
       modes: ['system', 'reduced', 'full'],
     },
   };
+  return { runtime, appliedTheme: () => applied };
 }
 
 function fakeContrastQuery(): { query: ContrastQuery; fire: () => void; listeners: () => number } {
@@ -56,12 +62,23 @@ function fakeContrastQuery(): { query: ContrastQuery; fire: () => void; listener
   };
 }
 
-describe('createOakThemeStore setters', () => {
-  it('notifies subscribers when a setter writes through to the runtime', () => {
-    const runtime = fakeRuntime();
+describe('createOakThemeStore snapshots and setters', () => {
+  it('reports the no-choice state as the empty sentinel, never as light', () => {
+    const world = fakeRuntimeWorld();
     const store = createOakThemeStore(
-      () => runtime,
+      () => world.runtime,
       () => undefined,
+      world.appliedTheme,
+    );
+    expect(store.getTheme()).toBe('');
+  });
+
+  it('notifies subscribers and reports the applied theme after a setter write', () => {
+    const world = fakeRuntimeWorld();
+    const store = createOakThemeStore(
+      () => world.runtime,
+      () => undefined,
+      world.appliedTheme,
     );
     const listener = vi.fn();
     store.subscribe(listener);
@@ -71,26 +88,28 @@ describe('createOakThemeStore setters', () => {
   });
 
   it('ignores a value outside the runtime theme list without notifying', () => {
-    const runtime = fakeRuntime();
+    const world = fakeRuntimeWorld();
     const store = createOakThemeStore(
-      () => runtime,
+      () => world.runtime,
       () => undefined,
+      world.appliedTheme,
     );
     const listener = vi.fn();
     store.subscribe(listener);
     store.setTheme('not-a-theme');
     expect(listener).not.toHaveBeenCalled();
-    expect(store.getTheme()).toBe('light');
+    expect(store.getTheme()).toBe('');
   });
 });
 
 describe('createOakThemeStore subscription lifecycle', () => {
   it('re-notifies subscribers when the contrast preference changes (runtime-driven change)', () => {
-    const runtime = fakeRuntime();
+    const world = fakeRuntimeWorld();
     const contrast = fakeContrastQuery();
     const store = createOakThemeStore(
-      () => runtime,
+      () => world.runtime,
       () => contrast.query,
+      world.appliedTheme,
     );
     const listener = vi.fn();
     store.subscribe(listener);
@@ -99,11 +118,12 @@ describe('createOakThemeStore subscription lifecycle', () => {
   });
 
   it('attaches the media listener with the first subscriber and detaches with the last', () => {
-    const runtime = fakeRuntime();
+    const world = fakeRuntimeWorld();
     const contrast = fakeContrastQuery();
     const store = createOakThemeStore(
-      () => runtime,
+      () => world.runtime,
       () => contrast.query,
+      world.appliedTheme,
     );
     expect(contrast.listeners()).toBe(0);
     const unsubscribeFirst = store.subscribe(vi.fn());

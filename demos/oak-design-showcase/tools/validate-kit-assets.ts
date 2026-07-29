@@ -6,18 +6,18 @@
  * 1. PARITY — every copy is byte-identical to its kit source (the copy is
  *    a serving constraint, never a fork; the workspace package stays the
  *    single source).
- * 2. COMPLETENESS — recomputed, not recorded: every LOCAL dependency of a
- *    copied stylesheet must itself be a manifest copy in the same served
- *    directory. A kit edit that adds a sibling reference fails here.
+ * 2. COMPLETENESS — recomputed, not recorded: closureFailures (pure,
+ *    unit-tested in kit-asset-parity) re-walks each copied sheet's local
+ *    references against the manifest.
  * 3. NON-VACUITY — an empty manifest or unreadable file is a failure,
  *    never a silent pass.
  */
 import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
-import { dirname, join, posix } from 'node:path';
+import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { findLocalCssDependencies, SHOWCASE_KIT_ASSETS } from './kit-asset-parity';
+import { closureFailures, SHOWCASE_KIT_ASSETS } from './kit-asset-parity';
 import type { KitAssetPair } from './kit-asset-parity';
 
 const workspaceRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -27,39 +27,24 @@ const kitRoot = dirname(
 
 const copyPaths = new Set(SHOWCASE_KIT_ASSETS.map((pair) => pair.copy));
 
-function closureFailures(copyPath: string, copyContent: string): string[] {
-  if (!copyPath.endsWith('.css')) {
-    return [];
-  }
-  const servedDir = posix.dirname(copyPath);
-  return findLocalCssDependencies(copyContent)
-    .map((dependency) => ({ dependency, served: posix.join(servedDir, dependency) }))
-    .filter(({ served }) => !copyPaths.has(served))
-    .map(
-      ({ dependency, served }) =>
-        `${copyPath}: references local '${dependency}' but ${served} is not in the manifest — the copy set is incomplete`,
-    );
-}
-
-function pairFailures(pair: KitAssetPair): string[] {
-  let source: string;
-  let copy: string;
+function pairFailures(pair: KitAssetPair): readonly string[] {
+  let source: Buffer;
+  let copy: Buffer;
   try {
-    source = readFileSync(join(kitRoot, pair.source), 'utf8');
-    copy = readFileSync(join(workspaceRoot, pair.copy), 'utf8');
+    source = readFileSync(join(kitRoot, pair.source));
+    copy = readFileSync(join(workspaceRoot, pair.copy));
   } catch (error) {
     return [`${pair.copy}: unreadable pair (${String(error)})`];
   }
-  const failures =
-    source === copy
-      ? []
-      : [
-          `${pair.copy}: drifted from ${pair.source} — re-copy the kit file (the package is the single source)`,
-        ];
-  return [...failures, ...closureFailures(pair.copy, copy)];
+  const parity = source.equals(copy)
+    ? []
+    : [
+        `${pair.copy}: drifted from ${pair.source} — re-copy the kit file (the package is the single source)`,
+      ];
+  return [...parity, ...closureFailures(pair.copy, copy.toString('utf8'), copyPaths)];
 }
 
-const failures: string[] =
+const failures: readonly string[] =
   SHOWCASE_KIT_ASSETS.length === 0
     ? ['the kit-asset manifest is empty — nothing validated']
     : SHOWCASE_KIT_ASSETS.flatMap((pair) => pairFailures(pair));

@@ -21,11 +21,20 @@
  * the kit reference's mount-gated useState pattern, so this shape is the
  * only landable one); typed here with the runtime's closed theme/motion
  * unions. Consolidation lane (canonical owner: the kit's React adapter
- * story) is Director-routed alongside lib/inline-script.ts.
+ * story) is Director-routed alongside lib/inline-script.ts on comms event
+ * 9945f53e and recorded on MCP-371.
  */
 
 export type OakThemeName = 'light' | 'dark' | 'system' | 'high-contrast' | 'colour-safe';
 export type OakMotionMode = 'system' | 'reduced' | 'full';
+/** The theme snapshot: a chosen theme, or '' when no explicit choice exists
+ *  (data-theme absent — the state where a brand's polarity default governs).
+ *  The runtime's get() collapses no-choice into 'light'; the store reads
+ *  the attribute instead so the control can render the distinction — a
+ *  select pinned to 'light' under a dark-first brand would misreport the
+ *  page AND make the first click on Light a dead control (selects only
+ *  fire change when the value actually changes). */
+type OakThemeSnapshot = OakThemeName | '';
 
 export interface OakThemeRuntime {
   get(): OakThemeName;
@@ -44,7 +53,7 @@ type Listener = () => void;
 
 export interface OakThemeStore {
   subscribe(listener: Listener): () => void;
-  getTheme(): OakThemeName | undefined;
+  getTheme(): OakThemeSnapshot | undefined;
   getMotion(): OakMotionMode | undefined;
   getServerSnapshot(): undefined;
   setTheme(theme: string): void;
@@ -65,6 +74,10 @@ function resolveGlobalContrastQuery(): ContrastQuery | undefined {
   return typeof globalThis.matchMedia === 'function'
     ? globalThis.matchMedia('(prefers-contrast: more)')
     : undefined;
+}
+
+function resolveGlobalAppliedTheme(): string | undefined {
+  return globalThis.document.documentElement.dataset['theme'];
 }
 
 /** Subscription set with the shared contrast-media listener attached while
@@ -103,6 +116,7 @@ function createSubscription(resolveContrastQuery: () => ContrastQuery | undefine
 export function createOakThemeStore(
   resolveRuntime: () => OakThemeRuntime | undefined,
   resolveContrastQuery: () => ContrastQuery | undefined = resolveGlobalContrastQuery,
+  resolveAppliedTheme: () => string | undefined = resolveGlobalAppliedTheme,
 ): OakThemeStore {
   const { emit, subscribe } = createSubscription(resolveContrastQuery);
   // Setters narrow the select's string through the runtime's own lists — no
@@ -110,7 +124,18 @@ export function createOakThemeStore(
   // exactly as the runtime itself treats it.
   return {
     subscribe,
-    getTheme: () => resolveRuntime()?.get() ?? undefined,
+    // Theme reads the APPLIED state (the html attribute), not the runtime's
+    // get(): the two differ exactly in the no-choice case (see
+    // OakThemeSnapshot). Motion needs no such split — the runtime's
+    // 'system' IS its no-choice semantic (no attribute set).
+    getTheme: () => {
+      const runtime = resolveRuntime();
+      if (runtime === undefined) {
+        return undefined;
+      }
+      const applied = resolveAppliedTheme();
+      return runtime.themes.find((t) => t === applied) ?? '';
+    },
     getMotion: () => resolveRuntime()?.motion.get() ?? undefined,
     getServerSnapshot: () => undefined,
     setTheme: (theme: string): void => {
@@ -131,6 +156,9 @@ export function createOakThemeStore(
       runtime?.motion.set(next);
       emit();
     },
+    // Call contract: the switchboard reads options only after the snapshot
+    // gate (theme/motion defined ⇒ runtime present), so the fallbacks are
+    // a type-level floor, not a rendered no-runtime path.
     themeOptions: () => resolveRuntime()?.themes ?? ['light'],
     motionOptions: () => resolveRuntime()?.motion.modes ?? ['system'],
   };

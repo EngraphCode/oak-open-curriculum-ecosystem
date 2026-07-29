@@ -61,6 +61,11 @@ export default [
           message:
             'Inline styles cap what a brand’s expression layer can transform (kit specimen HOOK-CLEAN CONTRACT). Move the declaration into app/globals.css as a single-class hook composed from token roles.',
         },
+        {
+          selector: "JSXElement[openingElement.name.name='style']",
+          message:
+            'Authored CSS in a style element bypasses both halves of the no-hardcoded-values instrument (the .css walk and the style-attribute ban). Author it in app/globals.css instead.',
+        },
       ],
     },
   },

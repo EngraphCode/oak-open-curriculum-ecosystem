@@ -26,6 +26,46 @@ describe('findLiteralDesignValues: literals it must report', () => {
   });
 });
 
+describe('findLiteralDesignValues: literal colours, axes and faces', () => {
+  it('reports a named colour used directly', () => {
+    expect(findLiteralDesignValues('.x { color: white; }')).toHaveLength(1);
+    expect(findLiteralDesignValues('.x { background: rebeccapurple; }')).toHaveLength(1);
+  });
+
+  it('reports named colours inside light-dark()', () => {
+    expect(findLiteralDesignValues('.x { color: light-dark(white, black); }')).toHaveLength(1);
+  });
+
+  it('reports an angle literal', () => {
+    expect(
+      findLiteralDesignValues('.x { background: linear-gradient(135deg, var(--a), var(--b)); }'),
+    ).toHaveLength(1);
+  });
+
+  it('reports a bare number on the opacity and z-index axes', () => {
+    expect(findLiteralDesignValues('.x { opacity: 0.5; }')).toHaveLength(1);
+    expect(findLiteralDesignValues('.x { z-index: 20; }')).toHaveLength(1);
+  });
+
+  it('reports a literal font stack', () => {
+    expect(findLiteralDesignValues('.x { font-family: Georgia, serif; }')).toHaveLength(1);
+  });
+
+  it('reports a slash-adjacent length in a font shorthand', () => {
+    expect(findLiteralDesignValues('.x { font: 16px/1.5 var(--font-sans); }')).toHaveLength(1);
+  });
+
+  it('reports a colour literal inside color-mix', () => {
+    expect(
+      findLiteralDesignValues('.x { background: color-mix(in oklab, #fff, var(--b) 25%); }'),
+    ).toHaveLength(1);
+  });
+
+  it('reports a non-guard percentage', () => {
+    expect(findLiteralDesignValues('.x { width: 50%; }')).toHaveLength(1);
+  });
+});
+
 describe('findLiteralDesignValues: values it must accept', () => {
   it('accepts a zero margin, which carries no design value', () => {
     expect(findLiteralDesignValues('body { margin: 0; }')).toHaveLength(0);
@@ -58,6 +98,34 @@ describe('findLiteralDesignValues: values it must accept', () => {
   it('does not report url() tokens or unitless numbers', () => {
     expect(
       findLiteralDesignValues('.x { background-image: url(#gradient); line-height: 1.5; }'),
+    ).toHaveLength(0);
+  });
+});
+
+describe('findLiteralDesignValues: named allowances', () => {
+  it('accepts transparent and currentColor composition keywords', () => {
+    expect(
+      findLiteralDesignValues('.x { outline-color: transparent; border-color: currentColor; }'),
+    ).toHaveLength(0);
+  });
+
+  it('accepts the kit structural-function idioms wholesale', () => {
+    const css = `.x {
+      padding-inline: clamp(var(--space-16), 4vw, var(--space-24));
+      grid-template-columns: minmax(30px, 1fr) minmax(min(var(--space-240), 100%), 1fr);
+    }`;
+    expect(findLiteralDesignValues(css)).toHaveLength(0);
+  });
+
+  it('accepts the full-extent guard and font tokens', () => {
+    expect(
+      findLiteralDesignValues('.x { max-width: 100%; font: var(--type-heading-1); }'),
+    ).toHaveLength(0);
+  });
+
+  it('accepts color-mix over var() references only', () => {
+    expect(
+      findLiteralDesignValues('.x { background: color-mix(in oklab, var(--a), var(--b) 25%); }'),
     ).toHaveLength(0);
   });
 });

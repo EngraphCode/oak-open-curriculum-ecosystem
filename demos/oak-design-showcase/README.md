@@ -9,9 +9,8 @@ and themes is the token contract at work.
 
 The [Curriculum Hub](../oak-curriculum-hub/README.md) demonstrates the
 Tailwind-mapped consumption path; this app demonstrates the plain path. The
-kit's `consuming-nextjs.md` documents the Tailwind path with the hub as its
-worked example; this app is the plain-path counterpart and will join that
-documentation as the showcase matures.
+kit's `consuming-nextjs.md` names both apps as its worked examples: the hub
+for the Tailwind mapping, this app for plain package-entry consumption.
 
 ## Run it
 
@@ -37,7 +36,13 @@ switchboard drives three axes:
   high-contrast / colour-safe) through the kit's `oak-theme.js` runtime,
   inlined pre-paint in `app/layout.tsx` so a stored choice applies before
   first paint. A theme choice persists (localStorage, the runtime's
-  contract).
+  contract). Until a choice is made the control reads "Page default" — the
+  state where a brand's own polarity governs (EMC² is dark-first). The two
+  access themes also have an OS-level route with no control interaction:
+  a `prefers-contrast: more` request auto-selects high-contrast. With
+  JavaScript disabled, reduced motion and forced colors still work at the
+  CSS level, but the high-contrast and colour-safe themes have no route —
+  they need the runtime.
 - **Motion** — the orthogonal motion axis (match-device / reduced / full),
   same runtime.
 - **Identity** — Oak, plus the kit's two counter-brands (Freedonia DSE and
@@ -69,10 +74,15 @@ identity.
 stylesheet (`@oaknational/oak-design-system/styles.css`), the package's
 single entry point and the source of truth for sheet composition and order.
 Fonts are the kit's own self-hosted faces — no `next/font`, no network at
-build. Page markup uses `.oak-*` classes and token roles only; the few
-page-level hook rules (`.mast`, `.util`, `.foot` — the kit specimen's
-hook-clean contract, restyled by counter-brand expression layers) compose
-token roles and keywords exclusively.
+build. Page markup uses `.oak-*` classes and token roles only; the
+page-level hook rules in `globals.css` (for example `.mast`, which
+Freedonia's expression layer restyles into the GDS masthead grammar)
+compose token roles and keywords exclusively. The utility bar deliberately
+is not an inverted band: controls on inverted surfaces need the kit's
+inverted focus ring, and a brand that re-polarises the band has no token
+to restore it — the footer, which carries one link and no controls beyond
+it, is the page's one inverted surface and scopes the inverted ring onto
+that link.
 
 The counter-brand sheets reference their own web fonts and icon CDNs at
 browser time (kit-authored content, copied verbatim); the test suite aborts
@@ -116,5 +126,9 @@ design system. Enforced by instrument, not review vigilance:
   assertions), pre-paint persistence, and the dark-first counter-brand's
   polarity.
 - `pnpm test:a11y` — axe WCAG 2.2 AA across the full identity × theme
-  matrix (15 cells; the match-device cells run under an emulated dark OS so
-  they prove the `light-dark()` ride), plus 320px reflow per identity.
+  matrix (15 cells; the match-device cells run under an emulated dark OS —
+  under the default light emulation they would replay the light cells by
+  construction), 320px reflow per identity, the OS accessibility signals
+  (`prefers-contrast: more` auto-selecting high-contrast; forced colors),
+  and keyboard focus visibility in both polarities. The `system`-follows-
+  device ride itself is a behaviour test in the UI suite.

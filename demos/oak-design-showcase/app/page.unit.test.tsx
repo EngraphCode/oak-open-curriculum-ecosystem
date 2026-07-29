@@ -12,8 +12,12 @@ describe('showcase page', () => {
     expect(screen.queryByRole('contentinfo')).not.toBeNull();
   });
 
-  // The switchboard's combobox contract lives in Switchboard.unit.test.tsx
-  // (injected fake runtime store — no runtime exists in this environment,
-  // so the server-neutral render correctly shows no controls here); the
-  // switchboard ON the served page is Playwright's to prove.
+  it('offers the identity control independent of the theme runtime', () => {
+    render(<ShowcasePage />);
+    // No runtime exists in this environment, so the theme/motion selects
+    // correctly stay absent — the identity axis must not be coupled to
+    // them. Full switchboard contracts live in Switchboard.unit.test.tsx;
+    // the served page is Playwright's to prove.
+    expect(screen.queryByRole('combobox', { name: 'Identity' })).not.toBeNull();
+  });
 });
