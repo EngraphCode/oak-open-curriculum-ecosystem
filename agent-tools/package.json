@@ -89,7 +89,9 @@
     "validate-subagents": "cd .. && pnpm exec tsx agent-tools/src/validators/subagents/validate-subagents.ts",
     "ci-schema-drift-check": "cd .. && pnpm exec tsx agent-tools/src/ci/ci-schema-drift-check.ts",
     "ci-turbo-report": "cd .. && pnpm exec tsx agent-tools/src/ci/ci-turbo-report.ts",
-    "pr-throughput": "cd .. && pnpm exec tsx agent-tools/src/pr-throughput/cli.ts"
+    "pr-throughput": "cd .. && pnpm exec tsx agent-tools/src/pr-throughput/cli.ts",
+    "under-the-hood-content-generate": "tsx src/bin/under-the-hood-content-generate.ts",
+    "validate-under-the-hood-content": "cd .. && pnpm exec tsx agent-tools/src/bin/under-the-hood-content-generate.ts --check"
   },
   "devDependencies": {
     "@oaknational/eslint-plugin-standards": "workspace:*",

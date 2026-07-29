@@ -7,7 +7,7 @@ import type { RegistrationSourceEvidence } from './current-source-model.js';
 
 describe('buildCurrentSourceAdditions', () => {
   it('builds distinct evidence for every reviewed post-baseline item', () => {
-    expect(currentSourceAdditionFiles()).toHaveLength(9);
+    expect(currentSourceAdditionFiles()).toHaveLength(10);
     const guidanceFixture = (slug: string): readonly [string, string] => [
       `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/${slug}.ts`,
       [
@@ -132,6 +132,10 @@ const CONTENT_BY_URI: ReadonlyMap<string, string> = new Map([
   [CONTINUE_PROGRESSION_GUIDANCE.uri, CONTINUE_PROGRESSION_GUIDANCE_MARKDOWN],
 ]);`,
       ],
+      [
+        'apps/oak-curriculum-mcp-streamable-http/src/generated/oak-under-the-hood-content.ts',
+        'export const OAK_UNDER_THE_HOOD_ORIENTATION = "# Oak: Under the Hood" as const;',
+      ],
     ]);
 
     const registrations = Object.fromEntries([
@@ -154,6 +158,7 @@ const CONTENT_BY_URI: ReadonlyMap<string, string> = new Map([
       'A007',
       'A008',
       'A009',
+      'A010',
     ]);
     expect(additions.every((addition) => addition.evidence.revision === 'added')).toBe(true);
     expect(additions[0]?.evidence.targets[0]?.anchors).toHaveLength(4);

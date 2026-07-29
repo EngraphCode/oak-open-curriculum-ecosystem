@@ -67,19 +67,24 @@ adds friction without protecting any secret. Such resources are public.
 
 **3. App-local resources.** The allowlist draws from two sources: the SDK-derived URIs
 (ADR-057) and explicit **app-local** public URIs for resources registered inside this app.
-Each app-local entry:
+Each app-local entry (none currently live — see §4):
 
-- mirrors the exact URI the resource is registered under, sourced from a single exported
-  constant (`OAK_UNDER_THE_HOOD_RESOURCE_URI` in `register-resources.ts`); and
+- mirrors the exact URI the resource is registered under, sourced from the single exported
+  constant the registration declares; and
 - is **drift-guarded by a test** that imports that constant and asserts it is public, so a
   future rename of the resource cannot silently re-authenticate it.
 
-**4. This decision (the worked instance).** `docs://oak/under-the-hood.md` (the Oak: Under
-the Hood orientation pointer) is **public**. It is static markdown that points only to the
-public canonical skill on public GitHub and public Oak website URLs; it carries no
-user-specific data; authenticating it would protect nothing; and its sibling
-`getting-started.md` is already public. It is the first app-local public resource and the
-worked instance of the rule above.
+**4. This decision (the founding worked instance — since retired).**
+`docs://oak/under-the-hood.md` (the Oak: Under the Hood orientation pointer) was classified
+**public**: static markdown pointing only at public sources, no user-specific data,
+authenticating it would have protected nothing. It was the first app-local public resource
+and the founding worked instance of the rule above. The resource itself was **deleted
+2026-07-29 (MCP-353)** — the directory-policy §2.F cure retired the pointer shape (see
+ADR-202 §Amendment 2026-07-29) — so the app-local branch of the pattern currently has no
+live instance. The pattern and its classification rule STAND: the served live-set
+navigation-guidance classifications in `public-resources.ts` are its living instances, and
+the next app-local resource makes its public/authenticated call here, by the
+data-sensitivity rule.
 
 ## Consequences
 
@@ -90,8 +95,9 @@ worked instance of the rule above.
   ADR-057.
 - App-local public resources are first-class; previously they defaulted to authenticated
   regardless of their data-sensitivity.
-- The orientation pointer is reachable by unauthenticated connecting assistants,
-  consistent with its public-pointer design (ADR-202) and with its public sibling.
+- (Historical, until MCP-353 deleted the resource:) the orientation pointer was reachable
+  by unauthenticated connecting assistants, consistent with its then-current
+  public-pointer design (ADR-202, superseded by its 2026-07-29 amendment).
 
 ### Negative / cost
 

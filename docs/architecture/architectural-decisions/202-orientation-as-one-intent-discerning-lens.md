@@ -3,6 +3,9 @@
 - **Status:** Accepted (2026-06-23). Owner-confirmed design (2026-06-22 / 2026-06-23 conversation).
   Amended (2026-06-27): the lens is named **Oak: Under the Hood** (`/oak-under-the-hood`) and projects
   into the Oak MCP server as a behaviour-only pointer — see §Amendment.
+  Amended (2026-07-29, MCP-353, owner-confirmed): the MCP projection's pointer shape is superseded on
+  directory-policy grounds — the tool now serves a baked, parity-gated digest and the pointer resource
+  is deleted; see §Amendment (2026-07-29).
 - **Thread:** `orientation-skills-family`.
 - **Builds on:**
   [PDR-112](../../../.agent/practice-core/decision-records/PDR-112-teaching-surface-family-across-a-portability-seam.md)
@@ -103,13 +106,34 @@ Two changes land together (PR #243), both consistent with the original Decision:
    same change, and git history carries the evolution.
 
 2. **Second channel — the MCP pointer projection.** The one orientation behaviour now runs in a second
-   channel, the Oak MCP server, from the **same** behaviour source (the skill canonical). The MCP tool
-   (`oak-under-the-hood`) and resource (`docs://oak/under-the-hood.md`) carry **no baked content**: they
-   hand the connected assistant a `resource_link`/URL to the public canonical skill plus Oak's public
-   framing sources, and the assistant fetches the canonical and orients. The canonical sources are always
-   reachable (the skill on public GitHub; Oak's mission and strategy on the public Oak site), so the
-   capability is the behaviour plus pointers — never a generated or hand-maintained duplicate (the bake
-   apparatus an earlier instantiation carried is deleted). This preserves PDR-009 (canonical-first, no
-   duplication): one behaviour source, two channels. The firewall keeping the effort lens clear of
-   curriculum content is held structurally in the MCP projection (no import of the curriculum-coupled
-   context hint, ADR-041), never by test.
+   channel, the Oak MCP server, from the **same** behaviour source (the skill canonical). As amended
+   2026-06-27 the MCP tool and a companion resource carried **no baked content** — they handed the
+   connected assistant a `resource_link`/URL to the public canonical skill and the assistant fetched
+   and oriented. **That pointer shape is superseded — see §Amendment (2026-07-29).** The firewall
+   keeping the effort lens clear of curriculum content is held structurally in the MCP projection (no
+   import of the curriculum-coupled context hint, ADR-041), never by test.
+
+## Amendment (2026-07-29, MCP-353): the MCP projection serves a baked, parity-gated digest
+
+The Anthropic Software Directory policy (§2.F) forbids instructional software directing the assistant
+to dynamically pull behavioural instructions from external sources for execution — which is precisely
+the fetch-and-follow shape the 2026-06-27 amendment chose. The internal compliance review flagged it;
+the owner confirmed the supersession (2026-07-29). The 2026-06-27 clause was reasoned from
+_reachability and staleness_; the new constraint is _policy_ — a different premise, not a reversal of
+the original reasoning.
+
+The cured shape:
+
+- The `oak-under-the-hood` tool serves the orientation method **inline**: the audience-independent
+  digest of the canonical skill, generated out of band into a committed module
+  (`src/generated/oak-under-the-hood-content.ts`) by the total section classification in
+  `agent-tools/src/under-the-hood-content-generate/`, drift-gated by `validate-under-the-hood-content`
+  in the repo validators. Staleness stays solved by the **generator + parity gate**, not by runtime
+  fetch — PDR-009's one-behaviour-source invariant holds through derivation: the canonical remains the
+  only authored source; the served digest is generated, never hand-maintained.
+- The `docs://oak/under-the-hood.md` pointer resource is **deleted** (owner wire-surface ruling
+  2026-07-29: a wire surface exists iff it has a named consumer or a protocol requirement).
+- The public Oak URLs remain in the tool result as **informational citations** (owner ruling: the
+  assistant may read Oak's public pages and this repository's public documents to answer the user's
+  own orientation questions); nothing directs it to fetch instructions to execute. `openWorldHint` is
+  `false`.

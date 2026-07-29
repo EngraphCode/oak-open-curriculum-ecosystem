@@ -175,7 +175,10 @@ export function registerHandlers(
   // own served-surface row. Low-salience; the curriculum firewall lives in
   // its description and result.
   if (isAppLocalToolLive(servedSurface, 'oak-under-the-hood')) {
-    registerOakUnderTheHoodTool(server);
+    registerOakUnderTheHoodTool(server, {
+      logger: options.logger,
+      observability: options.observability,
+    });
   }
 
   registerAllResources(server, {

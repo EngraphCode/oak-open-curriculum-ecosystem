@@ -20,7 +20,6 @@ import {
 
 import { filterCurriculumModelJson } from './served-surface/filter-guidance-content.js';
 import { type ResourceRegistrar } from './register-resource-helpers.js';
-import { CANONICAL_SKILL_URL } from './oak-under-the-hood/oak-under-the-hood-tool.js';
 
 /**
  * Registers one documentation resource for the "start here" experience.
@@ -73,57 +72,6 @@ export function registerCurriculumModelResource(server: ResourceRegistrar): void
       },
     ],
   }));
-}
-
-/**
- * URI of the Oak: Under the Hood orientation resource. Exported as the single source
- * of truth so the public-resource allowlist (ADR-205) and its drift test reference the
- * exact literal the resource is registered under.
- */
-export const OAK_UNDER_THE_HOOD_RESOURCE_URI = 'docs://oak/under-the-hood.md';
-
-/** Registration name — one literal shared with the MCP-241 live-name derivation. */
-export const OAK_UNDER_THE_HOOD_RESOURCE_NAME = 'Oak: Under the Hood orientation';
-
-/**
- * Registers the Oak: Under the Hood orientation resource (`docs://oak/under-the-hood.md`).
- *
- * A LOW-SALIENCE (`priority` low, `audience: ['assistant']`) `text/markdown` resource serving a
- * POINTER to the canonical orientation method (the under-the-hood skill on the public repo),
- * for the minority audience (assistants / integrators) that wants it. It carries NO orientation
- * body: the canonical is always reachable, so the resource points rather than bakes a copy.
- * Effort-domain ONLY (owner separation principle): it never describes curriculum content, which
- * the curriculum tools serve. No `lastModified` — there is no server-owned body whose
- * modification time is meaningful; the canonical's freshness lives at the canonical's own URL.
- */
-export function registerOakUnderTheHoodResource(server: ResourceRegistrar): void {
-  const uri = OAK_UNDER_THE_HOOD_RESOURCE_URI;
-  const pointer =
-    '# Oak: Under the Hood — orientation method\n\n' +
-    'This resource is a pointer, not a copy. Fetch the canonical orientation method and follow ' +
-    'it to orient the user to this repository (the Oak Open Curriculum Ecosystem), framed by ' +
-    "Oak's public mission and strategy:\n\n" +
-    `- Canonical method (always reachable): ${CANONICAL_SKILL_URL}\n\n` +
-    'Relay Oak’s official wording from its public site; never surface a person’s name.\n';
-  server.registerResource(
-    OAK_UNDER_THE_HOOD_RESOURCE_NAME,
-    uri,
-    {
-      title: OAK_UNDER_THE_HOOD_RESOURCE_NAME,
-      description:
-        'How Oak builds and delivers its curriculum — the project/effort/ecosystem, its purpose ' +
-        'and machinery, and how to engage. For assistants and integrators; a separate concern ' +
-        'from curriculum content, which the curriculum tools serve.',
-      mimeType: 'text/markdown',
-      annotations: {
-        priority: 0.2,
-        audience: ['assistant'],
-      },
-    },
-    () => ({
-      contents: [{ uri, mimeType: 'text/markdown', text: pointer }],
-    }),
-  );
 }
 
 /**
