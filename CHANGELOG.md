@@ -1,3 +1,15 @@
+# [1.114.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.113.3...v1.114.0) (2026-07-29)
+
+
+### Bug Fixes
+
+* **oak-eslint:** fence no-substitution template-literal specifiers ([44fd911](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/44fd911d03fddf0c708eac407f4ead899715616d)), closes [#625](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/625)
+
+
+### Features
+
+* **oak-eslint:** lint-enforce the @vercel/functions compose-module boundary ([aa69ac0](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/aa69ac0ff1fd4d80253e13e99694fd87cdbda804))
+
 ## [1.113.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.113.2...v1.113.3) (2026-07-29)
 
 ## [1.113.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.113.1...v1.113.2) (2026-07-29)
