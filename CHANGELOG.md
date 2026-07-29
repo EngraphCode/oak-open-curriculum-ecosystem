@@ -1,3 +1,15 @@
+# [1.120.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.119.0...v1.120.0) (2026-07-29)
+
+
+### Bug Fixes
+
+* **design-showcase:** derive the test server port per worktree ([57b9228](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/57b9228f25f867e4563c67f7ccf9c0b40ad92aec))
+
+
+### Features
+
+* **mcp-app:** remove the per-response oakContextHint from tool responses ([e8ea88f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e8ea88f1cbd8ef67f1bb1cd537890f42ce93ade6))
+
 # [1.119.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.118.0...v1.119.0) (2026-07-29)
 
 
