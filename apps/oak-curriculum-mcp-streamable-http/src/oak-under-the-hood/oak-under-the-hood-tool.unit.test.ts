@@ -2,12 +2,11 @@
  * Unit tests for `buildOakUnderTheHoodToolResult` (pointer shape), behaviour-only.
  *
  * These describe the SHAPE the tool returns — the ADR-058 dual shape carrying a
- * pointer (summary, JSON body, and a `resource_link` to the canonical), with the
- * curriculum firewall held structurally (no `oakContextHint`). They never compare
- * the result to a baked-content constant: there is no baked body to pin, and a
- * content pin would only prove the fixture, not the behaviour. The `resource_link`
- * required fields (`uri`, `name`) are enforced at compile time by the `ResourceLink`
- * type and asserted on the wire in the e2e test.
+ * pointer (summary, JSON body, and a `resource_link` to the canonical). They
+ * never compare the result to a baked-content constant: there is no baked body
+ * to pin, and a content pin would only prove the fixture, not the behaviour.
+ * The `resource_link` required fields (`uri`, `name`) are enforced at compile
+ * time by the `ResourceLink` type and asserted on the wire in the e2e test.
  */
 
 import { describe, it, expect } from 'vitest';
@@ -33,10 +32,5 @@ describe('buildOakUnderTheHoodToolResult (unit)', () => {
     expect(structured?.canonicalUrl).toMatch(/^https:\/\//);
     // No baked orientation body: the tool points, it does not carry content.
     expect(structured).not.toHaveProperty('orientation');
-  });
-
-  it('does not carry oakContextHint (curriculum firewall, held structurally)', () => {
-    const result = buildOakUnderTheHoodToolResult();
-    expect(result.structuredContent).not.toHaveProperty('oakContextHint');
   });
 });

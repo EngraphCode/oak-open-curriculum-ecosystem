@@ -33,7 +33,6 @@ All agent support tools are defined in a **single source of truth**:
 This metadata drives:
 
 - Server instructions in MCP initialize response
-- Context hints in tool responses
 - Cross-references between tools
 - Tool relationship encoding
 
@@ -112,15 +111,9 @@ const server = new McpServer(
 );
 ```
 
-### 2. Context Hints (Tool Response Payloads)
+### 2. Context Hints (Tool Response Payloads) — REMOVED (MCP-366)
 
-**File:** `packages/sdks/oak-curriculum-sdk/src/mcp/orientation-guidance.ts`
-
-The `OAK_CONTEXT_HINT` is **dynamically generated** from `AGENT_SUPPORT_TOOL_METADATA` via `generateContextHint()` and included in `structuredContent` of every tool response, reinforcing guidance after each tool call:
-
-```typescript
-export const OAK_CONTEXT_HINT = generateContextHint();
-```
+The per-response `oakContextHint` channel was removed at the owner's direction (2026-07-29): tool responses carry no orientation reinforcement, and orientation guidance lives only in the server instructions above. ADR-058 records the accepted residual risk of the consolidation.
 
 ### 3. Tool Descriptions (no orientation imperatives — MCP-300)
 
@@ -211,7 +204,7 @@ Define the tool with appropriate annotations and \_meta:
 ```typescript
 export const YOUR_NEW_TOOL_DEF = {
   // No orientation imperatives in descriptions (MCP-300) — the instructions
-  // field and oakContextHint carry that guidance.
+  // field carries that guidance (MCP-366 removed the per-response hint).
   description: `Your tool description.`,
   inputSchema: YOUR_NEW_TOOL_INPUT_SCHEMA,
   annotations: {
@@ -347,9 +340,9 @@ export function registerAllResources(server: ResourceRegistrar): void {
 
 ### Phase 4: Discoverability Updates
 
-#### 4.1 Server Instructions and Context Hints (Automatic)
+#### 4.1 Server Instructions (Automatic)
 
-Server instructions (`SERVER_INSTRUCTIONS`) and context hints (`OAK_CONTEXT_HINT`) are **dynamically generated** from `AGENT_SUPPORT_TOOL_METADATA`. Adding a tool to the metadata with `callAtStart: true` automatically includes it in instructions. No manual updates needed.
+Server instructions (`SERVER_INSTRUCTIONS`) are **dynamically generated** from `AGENT_SUPPORT_TOOL_METADATA`. Adding a tool to the metadata with `callAtStart: true` automatically includes it in instructions. No manual updates needed.
 
 #### 4.2 Update MCP Prompts
 

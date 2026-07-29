@@ -242,30 +242,10 @@ describe('formatToolResponse', () => {
       expect(result.structuredContent).toHaveProperty('total', 5);
     });
 
-    it('includes oakContextHint by default', () => {
+    it('never carries oakContextHint — orientation guidance lives only in server instructions (MCP-366)', () => {
       const result = formatToolResponse({
         summary: 'Summary',
         data: { items: [] },
-      });
-
-      expect(result.structuredContent).toHaveProperty('oakContextHint');
-    });
-
-    it('includes oakContextHint when includeContextHint is true', () => {
-      const result = formatToolResponse({
-        summary: 'Summary',
-        data: { items: [] },
-        includeContextHint: true,
-      });
-
-      expect(result.structuredContent).toHaveProperty('oakContextHint');
-    });
-
-    it('does NOT include oakContextHint when includeContextHint is false', () => {
-      const result = formatToolResponse({
-        summary: 'Summary',
-        data: { items: [] },
-        includeContextHint: false,
       });
 
       expect(result.structuredContent).not.toHaveProperty('oakContextHint');

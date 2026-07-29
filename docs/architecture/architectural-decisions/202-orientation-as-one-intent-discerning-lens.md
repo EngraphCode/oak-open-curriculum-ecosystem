@@ -111,5 +111,5 @@ Two changes land together (PR #243), both consistent with the original Decision:
    capability is the behaviour plus pointers — never a generated or hand-maintained duplicate (the bake
    apparatus an earlier instantiation carried is deleted). This preserves PDR-009 (canonical-first, no
    duplication): one behaviour source, two channels. The firewall keeping the effort lens clear of
-   curriculum content is held structurally in the MCP projection (no import of the curriculum-coupled
-   context hint, ADR-041), never by test.
+   curriculum content is held structurally in the MCP projection (the tool builds its own result and
+   takes no dependency on the curriculum SDK's response helpers, ADR-041), never by test.

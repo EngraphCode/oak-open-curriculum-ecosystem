@@ -7,12 +7,11 @@
  *   description and a closed empty inputSchema), alongside the curriculum
  *   tools — coexistence.
  * - Call it via tools/call and receive the ADR-058 dual-shape result carrying a
- *   POINTER (a `resource_link` to the canonical) — never a baked body, and never
- *   an `oakContextHint` (the curriculum firewall, held structurally).
+ *   POINTER (a `resource_link` to the canonical) — never a baked body.
  *
  * Behaviour-only: the tool serves no curated content, so nothing is grepped for
- * prose. The firewalls (effort-scoping, no curriculum hint) are held by
- * construction and PR review, asserted here only as structural absences.
+ * prose. The effort-scoping firewall is held by construction and PR review,
+ * asserted here only as structural absences.
  */
 
 import request from 'supertest';
@@ -104,11 +103,10 @@ describe('Oak: Under the Hood tool E2E', () => {
       const link = result.content.find((block) => block.type === 'resource_link');
       expect(link?.uri).toMatch(/^https:\/\//);
       expect((link?.name ?? '').length).toBeGreaterThan(0);
-      // structuredContent carries the canonical URL and NO baked body / no curriculum hint.
+      // structuredContent carries the canonical URL and NO baked body.
       const structured = result.structuredContent;
       expect(structured.canonicalUrl).toMatch(/^https:\/\//);
       expect(structured).not.toHaveProperty('orientation');
-      expect(structured).not.toHaveProperty('oakContextHint');
     });
   });
 });

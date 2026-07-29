@@ -22,9 +22,9 @@
  * 1. The `tools/list` description is the separation lever: it scopes the tool to
  *    the effort domain and excludes curriculum in user-domain terms, so a
  *    curriculum query routes to the curriculum tools, not here.
- * 2. The result carries NO curriculum context hint. This file never imports the
- *    SDK's curriculum-coupled `formatToolResponse` / `OAK_CONTEXT_HINT` (ADR-041),
- *    so the curriculum nudge cannot leak into the result — the firewall is
+ * 2. The result is built locally. This file takes no dependency on the
+ *    curriculum SDK's response helpers (ADR-041), so the effort lens stays
+ *    independent of the curriculum response contract — the separation is
  *    STRUCTURAL.
  *
  * Registered via a SEPARATE, additive `server.registerTool` call (outside the
@@ -107,8 +107,7 @@ const OAK_UNDER_THE_HOOD_TOOL_SUMMARY =
 
 /**
  * The structured pointer payload: the trigger instruction, the canonical method
- * URL, and Oak's public framing sources. No carried orientation body; no
- * `oakContextHint` (curriculum firewall, held structurally).
+ * URL, and Oak's public framing sources. No carried orientation body.
  */
 interface OakUnderTheHoodPointer {
   readonly trigger: string;
@@ -122,7 +121,7 @@ interface OakUnderTheHoodPointer {
  * and a `resource_link` to the canonical) plus `structuredContent` carrying the
  * same pointer. The canonical URL appears in BOTH the `resource_link` and
  * `structuredContent` so it is model-visible regardless of how a client renders
- * content blocks. No `oakContextHint` (separation firewall, held structurally).
+ * content blocks.
  */
 export function buildOakUnderTheHoodToolResult(): CallToolResult {
   const pointer: OakUnderTheHoodPointer = {

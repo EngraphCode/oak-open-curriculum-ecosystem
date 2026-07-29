@@ -120,7 +120,7 @@ shape** (the family contract — `formatToolResponse` /
 
 ```text
 content:           [ TextContent(one-line summary), TextContent(JSON.stringify(data)) ]
-structuredContent: { ...data, summary, oakContextHint?, status?, answerType? }
+structuredContent: { ...data, summary, status?, answerType? }
 _meta:             { ...annotations (title, ui, etc.) }
 ```
 
@@ -128,7 +128,7 @@ _meta:             { ...annotations (title, ui, etc.) }
 - `content[1]` is the raw serialised data JSON (MCP spec SHOULD for structured
   results — backwards compatibility for content-only clients).
 - `structuredContent` is the same data plus decoration keys
-  (`summary` / `oakContextHint` / `status` / `answerType`).
+  (`summary` / `status` / `answerType`).
 
 Two non-success shapes are also contract-correct:
 

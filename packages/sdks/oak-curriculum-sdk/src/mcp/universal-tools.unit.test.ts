@@ -52,7 +52,6 @@ const sampleDescriptor: ToolRegistryDescriptor = {
     title: 'Get Lessons',
   },
   securitySchemes: [],
-  requiresDomainContext: false,
   _meta: { securitySchemes: [] },
   toolMcpFlatInputSchema: z.object({
     params: z.object({
@@ -192,8 +191,8 @@ describe('hand-authored annotations parity (MCP-300)', () => {
   // is the imperative prerequisite — "PREREQUISITE: You MUST call X first"
   // and the softer "(use 'X' first)" sequencing alike — guarded by
   // case-insensitive patterns; ordinary routing cross-references
-  // ("Not for X — use Y", no sequencing imperative) stay. The `instructions` field and the
-  // response-payload `oakContextHint` carry the orientation guidance instead.
+  // ("Not for X — use Y", no sequencing imperative) stay. The `instructions`
+  // field carries the orientation guidance.
   it('no aggregated description carries an imperative call-another-tool-first instruction', () => {
     const bannedDescriptionGuidance = [
       /prerequisite:/i,
