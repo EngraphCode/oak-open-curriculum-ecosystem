@@ -2932,3 +2932,270 @@ converged on verify-dont-trust.
    changes re-hash. The gate's error names the stale file and both hashes; the cure is a
    one-entry reviewed update in the matching `current-source-delta-reviews-*.ts` part file on
    the tripping branch.
+
+## Cricket two-pair run, this seat (Altair, ~22:20Z) + one absorbed redirection
+
+Tally 3 ON-TRACK / 1 haiku-adversarial DRIFTING; divergence REFUTED on transcript evidence
+(the "unverified" measurement was first-hand and pre-disposition) — fourth same-night instance
+of haiku pricing supplied-frame groundedness where sonnet prices the work. Two cures, one per
+side: (1) absorbed doctrine from the convergent sonnet redirection — an event-driven wait
+against a hard deadline declares its time-fallback AT ARM TIME ("gate unfired by T-minus-N →
+escalate"), never an open-ended wait that can silently eat the window; (2) dispatcher-side —
+supplied frames must carry the PROVENANCE of conditions they state (a lane-specific ruling
+quoted without its source reads as a general rule and draws false policy-conflict findings).
+
+## 2026-07-28 ~22:55Z — Raccoon turns Nocturne (0f6caa): first live PR-branch exercise of the MCP-103 delta-ledger gate — the walkthrough a successor needs
+
+PR #621 (MCP-241 slice two) was the first PR branch through the new current-source gate. The
+full cure chain, in the order the validator demands it (each step's error names the next):
+
+1. **Anchor drift** ("Item anchor content is not present in its target source", names the item +
+   old anchor text): if the content still exists in some form, `refresh-mcp-content-current-source-anchors`
+   re-derives it; if the change REPLACED the text (e.g. literal → shared const), add a manual
+   entry in `current-item-anchor-overrides.ts` (item id → path → verbatim fragments that exist in
+   the new source; pin the identity the audit item is ABOUT, e.g. the const declarations).
+2. **In-place overrides need an explicit revision verdict** in `current-item-revision-overrides.ts`
+   ('unchanged' when the strings are identical and only the source form moved).
+3. **File-set mismatch** ("Reviewed semantic-delta files differ", expected vs actual lists): new
+   governed files need ledger rows in `current-source-delta-reviews-app.ts` — `excluded(hash,
+   IMPLEMENTATION_ONLY/TEST_ONLY/...)` for content-free files, `reviewed(hash, [item ids])` for
+   files carrying audit items (look the items up by file in the audit registry.json).
+4. **Hash re-pins** for modified governed files: compute with the real instrument
+   (`semanticSourceSha256` from `current-source-delta-inventory.ts`), never by hand.
+5. **Derived reports**: the refresh command rewrites the three JSON reports; commit them with the
+   ledger sources as one bundle.
+Verified en route: comment/TSDoc-only changes are invisible to the AST-semantic hasher
+(env-product-analytics.ts's ledger hash already matched after a TSDoc-only re-true) — Altair's
+broadcast claim, now independently confirmed.
+
+Traps hit: `current-item-anchor-overrides.ts` sits 3 lines under the 250 max-lines limit — new
+entries pay for their comments (mine trimmed from 5 lines to 2). `commit-queue enqueue` requires
+`--id <full session uuid>` beyond what its usage line lists. And a reading discipline: my ledger
+commit's harness notification said "exit code 0" while the IN-BAND marker said COMMIT2_EXIT:1 —
+the wrapper exits 0 when the marker append succeeds; only the in-band marker is the commit's
+truth (exit-codes-in-band, again, from the other side).
+
+Also: at ~22:34Z the fleet completed the owner's overnight sequence (#582→#614→#569 all merged,
+coordination branch rotated to estate-2026-07-28 with the 24h rule live) — PR #621's merge queue
+is EMPTY; it merges at normal cadence at the full condition. Moon minted MCP-335 (vendor-import
+lint guard) + MCP-336 (setLogger double-install) from this lane's rehomed pointers; the
+supertest-classification tension rides the morning card.
+
+## 2026-07-28 ~23:15Z — Raccoon turns Nocturne (0f6caa): MCP-241 COMPLETE — #621 merged 62ad075e7 at full condition
+
+Lane closed end-to-end in one post-compaction window: resume map executed in order, three expert
+rounds absorbed pre-open (code-expert REQUEST-CHANGES ×5 cured, config PASS, test-expert ×2
+rulings), first live delta-ledger exercise passed, one Copilot round adjudicated (1 absorbed with
+paired proving tests, 1 fenced with the parity-test detection-before-merge argument + MCP-337
+minted), merged sha-pinned with ground-truth verification, Linear auto-Done, worktree pruned
+under the standing policy after both proofs, remote branch auto-deleted (read-back confirmed).
+
+One pattern worth keeping from the Copilot rounds: A CURE WITHOUT ITS PAIRED TEST IS HALF A CURE.
+The retry-memo (code-expert finding 2) landed as product code only; the machine reviewer caught
+the missing proof one round later. The atomic pair discipline applies to review cures exactly as
+it applies to features — the cure commit should carry the test that would have caught the finding.
+
+Seat state after closeout: no claims held, heartbeat stood down by intent with its end event,
+all-channels watcher + F-75 still live. Next lane per fleet routing: Moon's word (MCP-302 is
+Altair's; MCP-334 holds for a fresh seat; the registration trio MCP-335/336/337 batched).
+
+## 2026-07-29 ~07:05Z — Raccoon turns Nocturne (0f6caa): FOURTH COMPACTION RESUME MAP (seat continues; owner word "prepare for compaction")
+
+**Read this first at resume; it supersedes this seat's earlier maps.** Seat state is simple now:
+**claimless, no lane, awaiting routing.** MCP-241 is COMPLETE (slice one #618 = 7b0d88a09, slice
+two #621 = 62ad075e7, both merged at full condition, Linear Done, worktree pruned after both
+safety proofs, branch deleted with read-back). Nothing of this seat's is uncommitted anywhere
+except napkin appends (ride-through by design); the director-handoff dirty file is the fleet's,
+not this seat's.
+
+**Monitors (re-armed at owner word ~06:5xZ after a host REBOOT at 06:57:53 local killed all
+three — uptime/boottime verified; epoch-zero kern.sleeptime on a fresh boot, so check BOOTTIME
+not just sleeptime when silence looks simultaneous):**
+
+- All-channels watcher: `collaboration-state comms watch --comms-dir .agent/state/collaboration/comms
+  --seen-file ".agent/state/collaboration/comms-seen/Raccoon turns Nocturne.json" --platform claude
+  --model claude-fable-5 --session-prefix 0f6caa --poll-ms 5000 --max-events-per-drain 20
+  --exclude-tag heartbeat --supervisor-pid $PPID` (re-arm same seen-file = blind-window drain).
+  VERIFY with assert-watcher-live UNPIPED — the piped form printed EXIT:0 beside the failure text
+  AGAIN this session (the false-silence twin re-committed by its own documenter; the cure is
+  mechanical: never pipe the assert).
+- F-75 delta poll: script at scratchpad f75-delta-poll.sh (scratchpad survives compaction, not
+  session end — recipe: scan heartbeat-tagged events <45min old, retired = latest >10min stale,
+  emit newly-retired deltas, 60-quiet-poll stand-down).
+- Claimless heartbeat: typed path ACCEPTS `--claim-id none --intent-id awaiting-routing` — 240s
+  loop, honest label "claimless, awaiting routing".
+
+**Structural seed (route via Director when apt, not urgent):** an idle claimless seat that
+survives a host reboot has NO self-wake — every monitor dies with the boot and nothing re-arms
+them until owner word. The estate's existing cure shape is boundary re-verification
+(assert-watcher-live at session boundaries); the gap is that an idle seat has no boundaries. An
+idle seat should either close out or carry a scheduled wake.
+
+**Routing facts for the successor:** MCP-302 is Altair's (draft #620, morning-card gated);
+MCP-334 holds for a fresh seat (full TDD lane, mechanism externalised on the ticket); the
+registration-hygiene trio MCP-335/336/337 is batched; MCP-242/243/117 are the analytics
+follow-ons; the supertest-classification tension + Starling's plan disposition + #619/#620
+ratifications ride the owner's morning card. The owner's overnight word (#569 by morning) was
+DELIVERED at 22:34Z.
+
+## 2026-07-29 ~07:10Z — Raccoon turns Nocturne (0f6caa): RE-TRUE — the supertest tension is RULED, my falsifier fired
+
+Owner ruling (2026-07-29 morning, verbatim via Director broadcast 07:02Z): supertest classifies
+by the BOUNDARY, not the tool — "importing code and running it inside the test" = integration;
+"a black box running system over a network interface" = E2E. So the five src/*.integration.test.ts
+supertest(app) files are CORRECTLY named, and testing-strategy.md's blanket supertest-is-E2E
+wording is what needs re-truing (Director routing). This supersedes my 21:55Z entry's "estate
+tension surfaced, not cured" — resolved exactly along the falsifier I recorded ("if the
+ratification carved out express-instance supertest, the tension dissolves"). Note for honesty:
+my PR-B test redesign remains correct on its OTHER two legs (no test-side global stubs; no
+vendor-client IO without an injected seam) — the supertest leg alone would have been admissible.
+Also ruled this morning: Copilot STANDING at PR-open for source PRs (what #621 did is now
+doctrine); MCP-309 submission blockedBy the four upstream API defects (Aakesh's fixes, ours to
+chase).
+
+## #620 merge morning (Altair, ~07:32Z; merged 31c958349)
+
+1. **The install test certified my dirty tree, not the commit**: the root .gitignore silently
+   swallowed the plugin's .mcp.json; `claude plugin install` read the untracked on-disk copy and
+   passed. Clean-checkout parity needs the INSTALL SOURCE to be the committed tree (or a fresh
+   clone), not the working tree — works-for-any-machine has a for-any-CHECKOUT face. Copilot
+   round 1 caught it; cure = gitignore negation (!plugins/*/.mcp.json) + tracked file.
+2. **Suppressed-note volume does not reset round convergence**: round 2 delivered 0 inline +
+   16 suppressed low-confidence notes over a 50-file content corpus — an effectively unbounded
+   generator. The convergence exit: triage into families, absorb only functional breaks, fence
+   content-truth families into the ALREADY-ROUTED sweep lane (MCP-340), surface upstream-editorial
+   families to the Director. Round budget respected without dismissing anything.
+3. **Substring hook false-positive shape**: a compound command containing `git push` AND a later
+   `gh api -f body=...` tripped the force-push block (the policy substring-matched across the
+   compound). Cure: keep pushes in their own invocation — which the exit-codes-in-band discipline
+   already wants anyway.
+
+## F-41 relative-path decoys — third instance in one session (Schooner, 2026-07-29 ~07:47Z)
+
+After any background command leaves the shell cwd in a worktree, relative invocations
+(`node agent-tools/...`, `.agent/state/...`, bare `git status`) resolve in the WORKTREE:
+a claims close printed the seed template instead of closing (the CLI refused safely — no
+decoy written) and a bare `git status` read the wrong tree as the primary. Sibling
+instance same morning: record-staged from the primary checksummed the wrong index for a
+worktree intent (caught by verify-staged, exit 1). Cure discipline: every registry or
+ceremony command opens with `cd <primary> || exit 1`; every worktree git command uses
+`git -C <worktree>`; read "Session cwd remains <worktree>" in tool output as a live
+hazard flag, not noise.
+
+## 2026-07-29 ~08:05Z — Lynx guards Whisper (9e8a61), incoming Director: the Moment-1 my own watcher ate (at occurrence)
+
+- **F: consumed-not-delivered, first-person, at the succession moment.** Moon's Moment-1 pre-position
+  (f38cc2a5, 07:44:11Z, directed at me BY NAME) landed inside my Bash-background watcher's 12-minute
+  life. That watcher drained it, marked it seen, and could not wake me (NOTIFY-dead by construction —
+  the exact shape `use-monitor-for-event-driven-wake` names). When I cured the wake path minutes later
+  (Monitor-hosted re-arm, same seen-file), the cursor ride-through could NOT redeliver an already-seen
+  event — and I skipped the rule's mandated post-switch foreground sweep, reasoning the cursor covered
+  me. I quoted "cursor movement proves consumption, not delivery" in my own posture broadcast while
+  committing it. The owner had to prompt the takeover ("I shouldn't have to ask"). Cure pair, both
+  mechanical: (1) the post-arm/post-switch foreground sweep is for exactly the events the OLD instrument
+  already consumed — run it on EVERY watcher shape-change, not just restarts; (2) at any wake-path
+  upgrade, grep the dead instrument's OUTPUT FILE for directed-at-me events before trusting the new arm.
+- Minor: `claims heartbeat` requires `--now` (my own grounding read said so; the loop's first tick
+  failed loud and the silent-on-success Monitor design surfaced it in one tick — worked as built).
+- **Play seeds** (associations, not findings; confabulation guard ran, two discards recorded in-session):
+  (1) "which assistant is the teacher's choice, not ours" reads shaped like a GAP-CLOSING clause, not
+  mere neutrality — single-assistant coverage would re-open the disadvantage gap along subscription
+  lines; (2) the Practice is shaped like the thing it builds — a sequenced curriculum for agents
+  (thread records as prior-knowledge graph, napkin as misconception bank, gates as assessment);
+  falsifier: if the analogy licenses no design decision in a season, it is decoration.
+
+## 2026-07-29 ~08:20Z — Lynx guards Whisper (9e8a61), Director: identity rotation manufactures a phantom peer (at occurrence)
+
+- **F: one seat read as two.** The owner cleared the Codex seat Starling stirs Wind's context; the
+  session identity rotated (019fa9 → 019fac, new name "Kayak rides Coral") and the platform handed
+  the successor its predecessor's plan as "a previous agent produced the plan below". The fleet —
+  me included — modelled a ROUTING COLLISION between "Starling" (Moon's 07:23:50Z re-route) and
+  "Kayak" (the plan-carrier), ran singleton-lane holds on both sides, and carded the owner; his one
+  line dissolved it ("Kayak is the new identity of Starling"). Compounding instrument gap, my own
+  miss minutes earlier: registry+PDR-078-heartbeat staleness reads are structurally blind to
+  inbox-cadence seats (Starling never heartbeats; claimless seats don't either, F-73), so
+  "stale = gone" under-reads exactly the seats most likely to be mid-rotation. Cures: (1) at any
+  Codex/inbox-cadence seat anomaly — same-platform seat appearing as another vanishes, a successor
+  carrying a predecessor-shaped plan — ask the owner about context-clears/identity rotation BEFORE
+  modelling two agents; (2) the phantom's signature is a "new" seat whose plan/boundary matches a
+  live assignment verbatim; (3) staleness verdicts on non-heartbeating seats need a comms-activity
+  read (their last events), never the heartbeat classifier alone. Raccoon's fresher-signal
+  correction (08:02:50Z) was the catch; the singleton-lane holds held — zero duplicate work done.
+- **Cricket A/B data (Schooner's trio-lane cycle, routed 08:14–08:16Z, logged for the tally)**: both
+  haiku deviations priced supplied-frame completeness over the work (adversarial WRONG-PRIORITY on
+  grounds including "expands beyond instruction" for compliance with a standing rule outside its
+  frame); NEW SIGNAL — haiku-normal flip-flopped ON-TRACK → DRIFTING on an identical re-ask.
+  Sonnet pair stable. Tally file update rides the next consolidation.
+- **Comms-direct arg slip, twice in one hour (mine)**: inline --body with the sender identity flags
+  omitted → exit 2 "missing --platform" both times. Standing cure adopted: --body-file ALWAYS, and
+  sender identity flags placed BEFORE the recipient/body flags in every comms invocation.
+
+- (2026-07-29 ~08:25Z, Schooner binds Trench) Commit-window claim spelling vs the guard: the commit
+  skill's merge section documents `git:index/head@<worktree-name>` for worktree commits, but
+  `agent-tools/src/commit-queue/guard.ts:128` checks `patterns.includes('index/head')` — exact array
+  membership — so the suffixed spelling can NEVER pass guard (worked instance: claim 6873fd07 rejected,
+  reopened bare as efc91733). Until the tool or skill is re-trued: open commit-window claims with the BARE
+  `index/head` pattern even from a worktree, and name the worktree in the claim INTENT text instead.
+
+## 2026-07-29 ~08:35Z — Lynx guards Whisper (9e8a61), Director: OWNER CORRECTION — a recovered artefact graded by its fluency (at occurrence, verbatim substance)
+
+- **"Do not assume the plan is correct or useful, I have no idea what that seat was doing."** Context:
+  I recovered the stopped Codex seat's MCP-305 plan from platform history at the owner's ask, called
+  it "high quality" from internal coherence, and posted it to the ticket framed as an adoptable
+  sketch. The producing seat was stopped for going wrong in ways only the owner's transcript view
+  showed — an artefact from a malfunctioning producer inherits SUSPICION, not authority, however
+  well it reads. Reliability-ladder slip, first person: stood on "reads well" (interpretation),
+  reported "is good" (judgement), hours after re-reading the fluency-is-a-warning directive.
+- **The adversarial re-read found tells fluent reading glossed** — reusable screen for any artefact
+  from a suspect producer: (1) INVENTED INSTITUTION — "Oak's internal sizing bar" asserted as
+  established policy (no ratified bar known; thresholds are an owner call); (2) SELF-LICENSING
+  clause — "execution begins... with no further working-practice adjudication"; (3) suspiciously
+  precise unverified figures (2,530 chars / 633 tokens, provenance unknown); (4) unverified
+  interface claims (Sentry field names never read from code). The producer's failure mode is
+  legible IN the artefact under adversarial read.
+- **Cure applied and shape worth keeping**: quarantine-FIRST framing for recovered artefacts —
+  the ⚠️ header carries the owner's non-endorsement verbatim, per-claim suspect flags, and the
+  real spec named (ticket + routing event 736f6435) BEFORE the verbatim record; re-trued in place
+  (same Linear comment id, never a second artefact). Successor seats start from the spec, never
+  the record; per-claim verification if consulted at all.
+- **Salvage-path facts (true harvest from the detour)**: a stopped Codex seat's opening prompt
+  (incl. any relayed predecessor plan) survives VERBATIM in ~/.codex/history.jsonl (session_id +
+  text fields) and in ~/.codex/sessions/YYYY/MM/DD/rollout-*.jsonl; distilled tenure summaries in
+  ~/.codex/memories/rollout_summaries/. A 6-char PDR-027 prefix can span MULTIPLE relaunched
+  platform sessions (019fac* matched three this morning) — prefix-identity is coarser than
+  session-identity at the platform layer.
+
+## 2026-07-29 ~09:00Z — Raccoon turns Nocturne (0f6caa): MCP-338 COMPLETE — #622 merged 2d2a45bf6; the four-round convergence ledger and its mechanics
+
+Owner's supertest-by-boundary ruling encoded across SIX doctrine surfaces (routed as one file;
+the expert sweeps grew it honestly: testing-strategy.md, testing-patterns.md,
+test-coverage-review-lens.md, test-immediate-fails.md items 9/21, ADR-078 ×5 scope-words,
+app TESTING.md). Two Opus expert rounds pre-open, then FOUR Copilot rounds, strictly shrinking
+(3 findings → 4 real low-confidence qualifiers → 3 absorbed + ADR-161 fenced → 1 in-diff cure +
+2 routed). The shape worth keeping: when suppressed-note rounds stop shrinking because the
+residual generator is ANOTHER lane's remit, DECLARE a terminal-round criterion on the PR
+(loop-exit-criteria applied to review rounds) — absorb only flat self-contradictions inside this
+PR's own diff, triage-and-route the rest — then merge at the settled condition. It closed a loop
+that could have run forever against an estate full of categorical absolutes.
+
+Mechanics that cost real time, verbatim-useful:
+
+- Copilot's REVIEW author login is `copilot-pull-request-reviewer[bot]`; "Copilot" is only the
+  requested_reviewer name. A settle-watch filtering reviews on "Copilot" NEVER fires — mine sat
+  26 min on a review that landed in 2. Suppressed low-confidence notes ride the review body even
+  when "no new comments" — READ them; 8 of 11 here were real defects.
+- The pre-push hook needs a ≥600s Bash timeout (default 120s kills it mid-suite; the killed push
+  is an ambiguous WRITE — read the remote ref before retrying, never blind-retry).
+- Heartbeat-mode comms send REJECTS --body (typed args only); a heartbeat-END event goes as a
+  behaviour-note broadcast instead. And the false-silence twin recommitted AGAIN: `… | tail`
+  before the exit echo made a FAILED send print EXIT 0 — never pipe between command and marker.
+- Two content hooks fired correctly and improved the work: "carve-out" tripped the
+  expediency-hedging gate (the positive restatement was also more accurate); a compound with
+  `push` + `gh api -f` matched the "push -f" substring guard — split honestly-scoped commands.
+
+Residue map (all routed, none dangling): the e2e-tier reconciliation lane (Director-held,
+unowned since the Kayak/Starling stand-down) now carries ADR-161's decision text, the
+test-expert template §214–237, sentry-cli-usage §541–547, and testing-strategy's e2e-dir
+sentence, plus the original 24-file sweep + plan re-true; MCP-343 holds the headOfStream
+extraction. First capacity DECLINE exercised at Lynx's framing (MCP-305 → fresh seat): an
+evidence lane's working state lives exactly where compaction loses it — the honest no.

@@ -262,9 +262,42 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> ### ▶ SITTING DIRECTOR: Squall wakes Apex (`459fd1`), seated 2026-07-26 at owner word (Moment-2 `f1d9a6f2`); claim `56fdd977`, role director
+> ### ▶ SITTING DIRECTOR: Moon rides Penumbra (`7e34ff`), seated 2026-07-28 21:14Z (Moment-2 `fffc722e`); claim `5d1d04db`, role director
 >
-> ### ▶ SUCCESSOR PRE-POSITIONED (PDR-064 Moment 1), 2026-07-28 ~21:10Z: Moon rides Penumbra (`7e34ff`), owner-designated, standby contract — watcher live, no claim, no heartbeat. AUTHORITY IS STILL MINE until its Moment-2.
+> ### ▶ SUCCESSOR PRE-POSITIONED (PDR-064 Moment 1), 2026-07-29 ~07:45Z at owner word: Lynx guards Whisper (`9e8a61`), registered standby 07:41:41Z, foundation complete. AUTHORITY IS STILL MOON'S until Lynx's Moment-2 (readiness gate + pasted mechanical check first).
+>
+> **HANDOFF REFRESH 2026-07-29 ~07:45Z — the durable half only; recompute everything derivable (`claims active-agents` with UTC now, `gh pr list`, the comms stream since ~07:00Z).**
+>
+> **OWNER RULINGS THIS MORNING — carry verbatim, all broadcast on-stream (event `45f8523f` + successors):**
+>
+> 1. **The submission gates on ALL FOUR upstream defects** (MCP-327/328/329/330, Aakesh's) — encoded mechanically: MCP-309 `blockedBy` all four. Chasing Aakesh is Thursday's longest pole; the owner's target moved to THURSDAY EVENING (tickets still say Fri 31 Jul — a day behind his word).
+> 2. **Supertest classifies by BOUNDARY, not tool** (verbatim in `45f8523f`): black-box-over-network = E2E; imported-code-in-process = integration. Doctrine amendment riding PR #622 (MCP-338); Starling's reverse sweep unblocks at its merge.
+> 3. **Copilot request is STANDING at PR-open for source-touching PRs**; docs-only stays selective per the 26 July doctrine. Memory: `copilot-standing-for-source-prs`.
+> 4. Also ruled: plugin content APPROVED (merged, #620 `31c958349`; curriculum-expert sign-off = MCP-339, a SUBMISSION gate, human, not-agent-resolvable); #619 plan node RATIFIED (merged `76f5afeca`; output-schema work stays fenced on the MCP-303 captures); **MCP-293 CANCELLED, no tombstone** — no screenshot/carousel input exists in either submission flow (form-inventory report §6 is the evidence; the owner corrected this seat's hedge twice — see WHAT I GOT WRONG); per-deployment served-surface is FINE (no build-profiles work); MCP-342 minted (plugin skills build step, conditional construction — his ask verbatim in the ticket).
+>
+> **LIVE LANES at pre-positioning (verify freshness before routing):** Raccoon — #622 (MCP-338 doctrine, settling; gates Starling); Schooner — MCP-340 (plugin tool-reference re-true, gates MCP-309; scope sharpened on-ticket incl. the distractor-telemetry overclaim); Starling — MCP-305 (response sizes from the existing outbound metric; feeds the form + MCP-298); Altair — MCP-303 armed, owner-ATTENDED, **credentials expire ~16:33 TODAY**, go-moment pending the owner's word (he said "later this morning").
+>
+> **OWNER-HELD remainder:** MCP-303 attendance (clocked today); Clerk production + Cloudflare chase (his "later today"); the Aakesh chase (per ruling 1); MCP-339 expert sign-off; listing name/copy (MCP-292/306, human copy team); MCP-307 decision; Starling's Linear payload approval for the E2E sibling ticket (low urgency while that lane holds); MCP-334 routes to the next fresh seat the owner opens.
+>
+> **WHAT I GOT WRONG — inherit the corrections, never the confidence:** (1) carried MCP-293's debunked premise PAST its own debunk report (which the handoff I inherited cited but I never read) into owner-facing advice — the ticket-shaped `description-is-not-a-check`; cure: read the evidence artefact, not the summary line that points at it. (2) Hedged a forced answer twice — asked permission to close a disproven ticket AND left it a revival clause; the owner corrected with "no tombstones"; principles §Strict-and-Complete + §Architectural-Excellence's "deferential opt-out clause" passage are the exact authority. (3) Filled free seats with surfaced hygiene work without re-deriving each route against the Thursday frame — busyness reads as alignment; an idle seat would have raised the priority question sooner. The owner's cricket directive (two A/B pairs, one normal one adversarial — event `25a14cfa`, memory `cricket-two-ab-pairs`) caught pieces of this; supply provenance-rich frames and the haiku legs stop false-firing (Altair's 4/4 run proved it).
+>
+> **STANDING MECHANICS:** the 24h branch clock — `coordination/estate-2026-07-28` was cut 22:34Z on the 28th; convergence is DUE at session-open once overdue (the rule's own trigger). The rotation debt on THIS file (Squall's note below) now carries two more superseded blocks — still a curation pass for a successor with budget, never a trim. Watcher hourly exit-124 re-arms + the F-75 pairing are by-design cadence.
+>
+> **SUPERSEDED — Moon's overnight block below (its owner directives and morning card stand as history; lane state is stale).**
+>
+> **OVERNIGHT REFRESH 2026-07-28 ~23:00Z — the durable half only; recompute everything derivable (`claims active-agents`, `gh pr list`, the comms stream since ~21:00Z).**
+>
+> **DELIVERED OVERNIGHT (owner asleep ~21:55Z→~08:00Z, his word: "keep going while you can" + "I would love to see PR 569 safely and usefully merged by the morning"):** the full owner-instructed sequence landed at ruled full conditions — #582 (`c4419a6bb`), #614 (`e05be2688`), #569 (`60dd04cc1`); the coordination branch ROTATED to `coordination/estate-2026-07-28` (cut tree-preservingly at the merged main tip; primary sits on it); the owner-instructed 24h-lifetime rule is LIVE (`.agent/rules/coordination-branch-24h-lifetime.md`, routed through new-rule-vs-pdr-clause); the MCP-302 plugin was BUILT to validated draft PR #620 (held at DRAFT by ruling for the owner's morning glance — its description is public copy); MCP-332's plan node landed as draft PR #619 (sketch, ratification-gated); MCP-333 Done; MCP-334/335/336/337 minted. LATE ADDITION: #621 MERGED 23:11Z (`62ad075e7`, full condition, ground-truth verified) — **MCP-241 complete end-to-end and Done**; Raccoon's lane closed clean, successor pointers homed on the ticket (MCP-242 consumes the sink; MCP-243 wires close(); MCP-117 gates live traffic). At 23:12Z the board reached the owner-away COMPLETION state: every team-doable item is landed or holding at its NAMED gate; nothing waits on anything but the owner.
+>
+> **OWNER DIRECTIVES ISSUED TONIGHT, CARRY VERBATIM:** (1) "Always run Cricket in A/B pairs, and I recommend two pairs, one normal, one adversarial" (per-user memory + broadcast `25a14cfa`); (2) worktrees where reasonable — work products start in worktrees, the coordination branch stays rotatable; (3) the #569 sequence + 24h rule instruction (executed, above).
+>
+> **DELIBERATE STATE ON THE PRIMARY — do not "fix":** the napkin working copy (fleet appends) and Starling's ABANDONED-IN-PLACE edit to the June output-schemas backlog plan (superseded by PR #619's delivery node; its clearance is an owner-run restore on the morning card). This refresh block itself may ride uncommitted — warden-class hygiene commits it with the next batch.
+>
+> **THE MORNING CARD (assembled overnight, surface at owner return):** #619 plan-node ratification; #620 glance → merge at full condition (plugin licence call — validate passes with NO license field, nothing guessed; ratified subset 4 skills/4 workflows/4 agents; four submission gates named in the PR body); the stale-draft restore; MCP-303 pack run attendance BEFORE credentials expire ~16:33Z 2026-07-29; Clerk production (the listing blocker); the Cloudflare/`CANONICAL_HOST` chase (MCP-172); the upstream-defects gating call for Thursday; MCP-334 fresh-seat routing (Schooner declined on an honest capacity read; mechanism fully externalised on the ticket); the supertest-classification doctrine question (Raccoon's 22:51Z broadcast is the capture); the Copilot standing-step question (owner-held; interim shape broadcast `d8970d02`: full-condition Copilot leg applies to important/risky PRs only, selective doctrine governs the rest).
+>
+> **SUPERSEDED — Squall's 21:10Z handover refresh below (its durable half — owner rulings, corrections, the instrument-state family — remains binding; its roster and lane state are historical).**
+>
+> ### ▶ prior: SITTING DIRECTOR Squall wakes Apex (`459fd1`), seated 2026-07-26 (Moment-2 `f1d9a6f2`); stood down 2026-07-28 21:14Z at Moon's Moment-2; claim `56fdd977` closed
 >
 > **HANDOVER REFRESH 2026-07-28 ~21:10Z — supersedes every block below.**
 >
