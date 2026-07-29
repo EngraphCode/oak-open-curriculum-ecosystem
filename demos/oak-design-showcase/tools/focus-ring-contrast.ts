@@ -80,14 +80,17 @@ export function ringChainContrast(shadow: string, surface: Rgba): number {
   const layers = splitShadowLayers(shadow)
     .filter((layer) => !/\binset\b/.test(layer))
     .flatMap((layer) => {
-      // One linear class, numeric validation delegated to Number(): every
-      // alternation-shaped number grammar here kept re-tripping Sonar's
-      // backtracking heuristic; a malformed run parses NaN and scores as
-      // zero geometry, holding the layer's index positions stable.
-      const px = [...layer.matchAll(/(-?[\d.]+)px/g)].map((m) => {
-        const value = Number(m[1]);
-        return Number.isNaN(value) ? 0 : value;
-      });
+      // No regex for the length grammar: every regex form here (alternation
+      // or greedy-class-before-literal) is genuinely super-linear on
+      // non-matching runs — Sonar was right three patterns in a row. The
+      // computed serialisation is whitespace-tokenised, so a linear split
+      // plus Number() is the whole parse; a malformed token scores as zero
+      // geometry, holding the layer's index positions stable.
+      const px = layer
+        .split(/\s+/)
+        .filter((token) => token.endsWith('px'))
+        .map((token) => Number(token.slice(0, -2)))
+        .map((value) => (Number.isNaN(value) ? 0 : value));
       const colour = parseColour(layer);
       return colour !== null && px.some((n) => n !== 0) ? [{ colour, spread: px[3] ?? 0 }] : [];
     })
