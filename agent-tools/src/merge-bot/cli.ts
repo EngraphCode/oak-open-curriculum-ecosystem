@@ -15,8 +15,16 @@ import { permissionNamesFor, TOKEN_SCOPE_NAMES, TOKEN_SCOPES } from './token-sco
  * CLI for the `merge-bot` topic (AIP-158).
  *
  * `merge-bot mint-token` prints a short-lived GitHub App installation token
- * to stdout (and nothing else there), so callers can run merge operations as
- * the bot: `GH_TOKEN=$(agent-tools merge-bot mint-token) gh pr merge …`.
+ * to stdout (and nothing else there), so callers can run operations as the
+ * bot. Assign it, then use it — never the `GH_TOKEN=$(…) gh …` prefix form,
+ * which cannot fail fast: a failing mint leaves `GH_TOKEN` empty, `gh` reads
+ * empty as UNSET, and the command runs as the signed-in human.
+ *
+ * ```bash
+ * token=$(pnpm --silent agent-tools merge-bot mint-token --scope pull-request-work) || exit 1
+ * GH_TOKEN="$token" gh pr merge <n> --auto --merge
+ * ```
+ *
  * The bot is not a ruleset bypass actor, so its merges bind to required
  * checks — the sanctioned direct-merge path under the 2026-07-21 owner
  * rulings (`--admin` always banned; direct `--merge` banned on
@@ -53,8 +61,9 @@ const USAGE = `merge-bot mint-token --scope <${TOKEN_SCOPE_NAMES.join('|')}> [--
   its mint requests, so defaulting would make the most privileged scope the
   silent one. Scopes and what each permits are defined in token-scopes.ts.
 ${TOKEN_SCOPE_NAMES.map((name) => `    ${name}: ${permissionNamesFor(name).join(', ')}\n`).join('')}
-  A 403 from a call made with this token means the wrong --scope, not a broken
-  bot: an ungranted permission fails the mint itself with a 422.
+  A 403 reading "Resource not accessible by integration" means the wrong
+  --scope, not a broken bot: an ungranted permission fails the mint with a 422.
+  Other 403s (ruleset refusals, rate limits) are not scope problems.
 `;
 
 function realFetch(): GithubApiFetch {

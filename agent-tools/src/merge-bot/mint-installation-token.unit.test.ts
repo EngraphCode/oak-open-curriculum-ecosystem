@@ -128,30 +128,13 @@ describe('mintInstallationToken', () => {
     });
     expect(calls[0].url).toBe('https://api.github.com/app/installations/987/access_tokens');
     expect(calls[0].method).toBe('POST');
+    // Whole-body toEqual, not toHaveProperty: it pins the permissions AND
+    // the 2026-07-21 repository scoping, and unlike a property check it also
+    // catches a field being ADDED to the mint request.
     expect(JSON.parse(calls[0].body ?? '{}')).toEqual({
       repositories: ['oak-open-curriculum-ecosystem'],
       permissions: { security_events: 'read' },
     });
-  });
-
-  it('keeps the repository scoping on a read-only mint (the 2026-07-21 decision)', async () => {
-    const calls: { url: string; method: string; authorization: string; body?: string }[] = [];
-    await mintInstallationToken({
-      appJwt: 'the-jwt',
-      installationId: 987,
-      repoName: 'oak-open-curriculum-ecosystem',
-      permissions: TOKEN_SCOPES['code-scanning-alerts'],
-      fetchImpl: fakeFetch(
-        [{ status: 201, body: { token: 'ghs_abc', expires_at: '2026-07-21T07:30:00Z' } }],
-        calls,
-      ),
-    });
-
-    // The permission dimension became the caller's; the REPOSITORY dimension
-    // did not — an unscoped mint would carry the app's whole installation.
-    expect(JSON.parse(calls[0].body ?? '{}')).toHaveProperty('repositories', [
-      'oak-open-curriculum-ecosystem',
-    ]);
   });
 
   // Live provenance (2026-07-29, MCP-385): requesting `{administration: read}`

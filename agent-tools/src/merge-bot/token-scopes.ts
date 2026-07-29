@@ -28,9 +28,12 @@ import { typeSafeHasOwn, typeSafeKeys } from '@oaknational/type-helpers';
  *   `metadata: read` to every token automatically. Any strict-equality check
  *   against a requested set would break on it.
  *
- * A `403` from a bot-token call is therefore a wrong-scope symptom, not a
- * broken bot: the mint would have failed at 422 if the permission were
- * ungranted.
+ * A `403` whose body reads exactly `Resource not accessible by integration`
+ * is therefore a wrong-scope symptom, not a broken bot: the mint would have
+ * failed at 422 if the permission were ungranted. Observed 2026-07-29 from a
+ * contents write attempted on a `code-scanning-alerts` token. Narrow to that
+ * body deliberately — a ruleset refusal and a rate limit are also 403s and
+ * are not scope problems, and sending their reader to this table wastes them.
  */
 
 /**

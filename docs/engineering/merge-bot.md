@@ -54,6 +54,11 @@ are defined in `agent-tools/src/merge-bot/token-scopes.ts`:
 | `pull-request-work`    | `pull_requests: write`, `contents: write`, `workflows: write` | merge, update-branch, push, PR create/edit, comment, review reply, thread resolution |
 | `code-scanning-alerts` | `security_events: read`                                       | reading code-scanning alerts                                                         |
 
+That table is a **mirror**, kept inline because a reader choosing a scope
+needs the read/write levels in front of them. `token-scopes.ts` is
+authoritative and wins on any disagreement; `merge-bot mint-token --help`
+derives its list from the same source and is always current.
+
 `pull-request-work` is wider than several of its listed uses need: the
 conversation half (comments, review replies, PR edits) requires
 `pull_requests: write` alone, while only merge, push and update-branch need
@@ -61,16 +66,20 @@ conversation half (comments, review replies, PR edits) requires
 the GraphQL thread-resolution mutation requires. Read the set as honest for
 the span as named, not as minimal for each member.
 
-**A `403` from a call made with a bot token is a wrong-`--scope` symptom, not
-a broken bot.** An ungranted permission fails the _mint_ with `HTTP 422` and
-GitHub's own naming message, so a mint that succeeded followed by a call that
-403s means the token is scoped for different work.
+**A `403` reading `Resource not accessible by integration` is a
+wrong-`--scope` symptom, not a broken bot** (observed 2026-07-29 from a
+contents write on a `code-scanning-alerts` token). An ungranted permission
+fails the _mint_ with `HTTP 422`, so a mint that succeeded followed by that
+403 means the token is scoped for different work. Other 403s are not scope
+problems: a ruleset refusing a merge is this design working as intended, and
+rate limits return 403 too.
 
 `workflows: write` is needed only by `gh pr update-branch`, which writes the
 merge commit onto the **head** branch; GitHub refuses that write when the
-merge touches `.github/workflows/**` without it. Merging a pull request does
-not need it — observed directly: this bot merged PR #557, which changed four
-workflow files, on a token carrying only the first two permissions.
+merge touches `.github/workflows/**` without it — which is why the setup
+steps below treat Workflows as non-optional. Merging a pull request does not
+need it; the observations behind that, and behind every other scope member,
+live in `token-scopes.ts` beside the decisions they justify.
 
 `.github/merge-bot.json` is the **single authority** for which app is this
 repo's bot (`appSlug`, `appId`, `repo`); the private key lives outside every
@@ -86,10 +95,17 @@ for admin credentials, and optional for everyone else.
 
 1. `https://github.com/organizations/<org>/settings/apps/new` — name it,
    untick **Webhook → Active**.
-2. Repository permissions: **Pull requests: Read & write**, **Contents:
-   Read & write**, **Workflows: Read & write**, **Code scanning alerts:
-   Read-only**, **Checks: Read-only**, **Commit statuses: Read-only**. Grant
-   nothing else.
+2. Repository permissions — grant nothing beyond these.
+
+   Requested by a scope, so a missing one fails that scope's mint with `422`:
+   **Pull requests: Read & write**, **Contents: Read & write**, **Workflows:
+   Read & write**, **Code scanning alerts: Read-only**.
+
+   Granted but requested by **no** scope, so no bot token can exercise them:
+   **Checks: Read-only**, **Commit statuses: Read-only**. They are held
+   against a future scope that needs them; a bot token cannot read checks
+   today, and trying yields the wrong-scope 403 above. Reads may use any
+   credential (see below), which is why nothing has needed them.
 
    **Workflows** is not optional: a token mint requests it explicitly, and
    GitHub rejects a token request for any permission the app was not
@@ -105,7 +121,11 @@ for admin credentials, and optional for everyone else.
    **Adding a permission to an existing app does not reach its installations
    by itself.** GitHub marks the new permission as requested, and an org
    owner must approve it on the installation before any mint can use it. On a
-   bot that already exists, expect `422` until that approval lands.
+   bot that already exists, expect `422` until that approval lands. _(This is
+   GitHub's documented behaviour for permission changes on existing
+   installations; it was NOT observed here — this repo's App already held the
+   Code-scanning-alerts grant, so the path was never exercised. Every other
+   `422`/`403` claim on this page is first-hand.)_
 
 3. "Only on this account" → **Create GitHub App**; note the **App ID**.
 4. **Private keys → Generate a private key** (this never happens

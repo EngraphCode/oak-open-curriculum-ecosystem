@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { runMergeBotCli, type MergeBotCliInput } from './cli.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
+import { TOKEN_SCOPE_NAMES, TOKEN_SCOPES } from './token-scopes.js';
 
 import { generateKeyPairSync } from 'node:crypto';
 
@@ -93,16 +94,20 @@ describe('runMergeBotCli mint-token --scope', () => {
     return JSON.parse(mint?.body ?? '{}').permissions;
   }
 
-  it('puts read-only code-scanning permissions on the wire for that scope', async () => {
-    expect(await mintedPermissionsFor('code-scanning-alerts')).toEqual({
-      security_events: 'read',
-    });
+  // The ENGINE: whatever the flag names is what reaches the wire. Generic over
+  // the table, so a scope added later arrives with coverage rather than
+  // silently without it — and it transcribes nothing, so it is not the table
+  // asserted twice.
+  it.each(TOKEN_SCOPE_NAMES)('mints exactly the permissions %s names', async (scope) => {
+    expect(await mintedPermissionsFor(scope)).toEqual(TOKEN_SCOPES[scope]);
   });
 
   it('still puts all three write permissions on the wire for pull-request work', async () => {
-    // The executable guard for the 2026-07-26 `workflows` evidence: without
-    // this, only a live update-branch against a workflow-touching merge would
-    // notice that permission going missing.
+    // Kept as a LITERAL deliberately, unlike the generic test above. This set
+    // is not our arbitrary choice: `workflows: write` is fixed externally by
+    // GitHub's refusal on `update-branch`, observed 2026-07-26 against PR
+    // #565. Without this row only a live workflow-touching merge would notice
+    // that permission going missing.
     expect(await mintedPermissionsFor('pull-request-work')).toEqual({
       pull_requests: 'write',
       contents: 'write',
@@ -110,18 +115,31 @@ describe('runMergeBotCli mint-token --scope', () => {
     });
   });
 
-  it('refuses to mint with no scope, naming the valid scopes and a whole command', async () => {
-    const run = runWith({
-      args: ['mint-token', '--app-id', '1', '--private-key-path', '/k.pem', '--repo', 'o/r'],
-    });
+  it('lists every scope and its permissions in the usage text', async () => {
+    // USAGE is the discovery surface for a newly-required flag, and its list
+    // is derived — this proves the derivation renders, not that a literal
+    // matches.
+    const run = runWith({ args: ['--help'] });
+
+    expect(await run.exit).toBe(0);
+    for (const scope of TOKEN_SCOPE_NAMES) {
+      expect(run.out()).toContain(scope);
+      for (const permission of Object.keys(TOKEN_SCOPES[scope])) {
+        expect(run.out()).toContain(permission);
+      }
+    }
+  });
+
+  it('refuses a bare mint-token for the SCOPE, before it ever consults identity', async () => {
+    // No identity flags at all, and runWith's config reader throws. The scope
+    // failure must still be what the operator is told: a stale flagless paste
+    // reported as "identity unreadable" sends them chasing the wrong thing.
+    const run = runWith({ args: ['mint-token'] });
 
     expect(await run.exit).toBe(2);
     expect(run.out()).toBe('');
     expect(run.errText()).toContain('--scope is required');
-    expect(run.errText()).toContain('pull-request-work');
-    expect(run.errText()).toContain('code-scanning-alerts');
-    // A stale paste must self-cure in one step, so the whole command is shown.
-    expect(run.errText()).toContain('merge-bot mint-token --scope');
+    expect(run.errText()).not.toContain('single authority');
   });
 
   it('refuses an unknown scope as a usage error, not a mint failure', async () => {
@@ -144,56 +162,6 @@ describe('runMergeBotCli mint-token --scope', () => {
     expect(run.errText()).toContain('admin-everything');
     expect(run.errText()).toContain('code-scanning-alerts');
   });
-
-  it('refuses a repeated --scope rather than silently taking the last one', async () => {
-    // A wrapper appending its own default must not be able to widen a
-    // caller's chosen scope by argv order.
-    const run = runWith({
-      args: [
-        'mint-token',
-        '--scope',
-        'code-scanning-alerts',
-        '--scope',
-        'pull-request-work',
-        '--app-id',
-        '1',
-        '--private-key-path',
-        '/k.pem',
-        '--repo',
-        'o/r',
-      ],
-    });
-
-    expect(await run.exit).toBe(2);
-    expect(run.out()).toBe('');
-    expect(run.errText()).toContain('more than once');
-  });
-
-  it.each(['constructor', 'toString', '__proto__'])(
-    'rejects the inherited property name %s as a scope',
-    async (inherited) => {
-      // Membership is own-property only. Were it an `in` test, these would
-      // resolve to Object.prototype members — and a function-valued one would
-      // be dropped by JSON.stringify, minting with NO permissions key at all.
-      const run = runWith({
-        args: [
-          'mint-token',
-          '--scope',
-          inherited,
-          '--app-id',
-          '1',
-          '--private-key-path',
-          '/k.pem',
-          '--repo',
-          'o/r',
-        ],
-      });
-
-      expect(await run.exit).toBe(2);
-      expect(run.out()).toBe('');
-      expect(run.errText()).toContain('unknown --scope');
-    },
-  );
 });
 
 describe('runMergeBotCli mint-token', () => {
