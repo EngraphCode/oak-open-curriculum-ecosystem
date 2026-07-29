@@ -96,7 +96,7 @@ function applyBrandIdentity(identity: IdentitySlug, ownership: BrandLinkOwnershi
 }
 
 export function useIdentity(): IdentityState {
-  const [identity, setIdentityState] = useState<IdentitySlug>('oak');
+  const [identity, setIdentity] = useState<IdentitySlug>('oak');
   const ownedLinks = useRef<Set<HTMLLinkElement>>(new Set());
   const appliedLink = useRef<HTMLLinkElement | null>(null);
   const generation = useRef(0);
@@ -131,12 +131,15 @@ export function useIdentity(): IdentityState {
     };
   }, []);
 
-  const setIdentity = useCallback((value: string): void => {
+  // The public setter narrows the select's string through the closed slug
+  // list before touching state; the raw useState setter stays value-paired
+  // (identity/setIdentity) per the hooks naming convention.
+  const chooseIdentity = useCallback((value: string): void => {
     const next = IDENTITIES.find((slug) => slug === value);
     if (next !== undefined) {
-      setIdentityState(next);
+      setIdentity(next);
     }
   }, []);
 
-  return { identity, identities: IDENTITIES, setIdentity };
+  return { identity, identities: IDENTITIES, setIdentity: chooseIdentity };
 }
