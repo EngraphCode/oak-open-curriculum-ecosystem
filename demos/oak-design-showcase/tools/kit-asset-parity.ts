@@ -48,17 +48,21 @@ export const SHOWCASE_KIT_ASSETS: readonly KitAssetPair[] = [
   },
 ];
 
-// Three explicit branches (double-quoted, single-quoted, bare) instead of a
-// quote backreference: the backreference form carried S8786 super-linear
-// backtracking. The bare branch excludes whitespace; surrounding whitespace
-// is consumed by the anchors either side.
-const URL_REFERENCE_PATTERN = String.raw`url\(\s*(?:"(?<doubleQuoted>[^"]*)"|'(?<singleQuoted>[^']*)'|(?<bare>[^'")\s]*))\s*\)`;
-const URL_REFERENCE_ONE = new RegExp(URL_REFERENCE_PATTERN, 'i');
-const URL_REFERENCE_ALL = new RegExp(URL_REFERENCE_PATTERN, 'gi');
+// One linear class for the call body (url() cannot nest, and a `)` inside a
+// target has never been accepted by any revision of this matcher); quote and
+// whitespace handling is plain string work on the captured body. A regex
+// grammar here kept trading one Sonar backtracking/complexity finding for
+// another — the string parse ends the class.
+const URL_CALL_ONE = /url\(([^)]*)\)/i;
+const URL_CALL_ALL = /url\(([^)]*)\)/gi;
 
-function urlReferenceTarget(match: RegExpMatchArray): string {
-  const groups = match.groups ?? {};
-  return groups['doubleQuoted'] ?? groups['singleQuoted'] ?? groups['bare'] ?? '';
+function urlReferenceTarget(body: string): string {
+  const trimmed = body.trim();
+  const quote = trimmed[0];
+  if ((quote === '"' || quote === "'") && trimmed.length >= 2 && trimmed.endsWith(quote)) {
+    return trimmed.slice(1, -1);
+  }
+  return trimmed;
 }
 
 function classifyReference(raw: string): string | null {
@@ -74,9 +78,9 @@ function importTarget(params: string): string | null {
     .replaceAll(/\b(?:layer|supports)\([^)]*\)/g, ' ')
     .replaceAll(/\blayer\b/g, ' ')
     .trim();
-  const urlForm = URL_REFERENCE_ONE.exec(withoutPrelude);
+  const urlForm = URL_CALL_ONE.exec(withoutPrelude);
   if (urlForm !== null) {
-    return classifyReference(urlReferenceTarget(urlForm));
+    return classifyReference(urlReferenceTarget(urlForm[1] ?? ''));
   }
   const quotedForm = /^(?:"([^"]*)"|'([^']*)')/.exec(withoutPrelude);
   if (quotedForm !== null) {
@@ -97,8 +101,8 @@ export function findLocalCssDependencies(css: string): readonly string[] {
     }
   });
   root.walkDecls((decl) => {
-    for (const match of decl.value.matchAll(URL_REFERENCE_ALL)) {
-      const reference = classifyReference(urlReferenceTarget(match));
+    for (const match of decl.value.matchAll(URL_CALL_ALL)) {
+      const reference = classifyReference(urlReferenceTarget(match[1] ?? ''));
       if (reference !== null) {
         dependencies.add(reference);
       }

@@ -80,7 +80,7 @@ export function ringChainContrast(shadow: string, surface: Rgba): number {
   const layers = splitShadowLayers(shadow)
     .filter((layer) => !/\binset\b/.test(layer))
     .flatMap((layer) => {
-      const px = [...layer.matchAll(/(-?\d*\.?\d+)px/g)].map((m) => Number(m[1]));
+      const px = [...layer.matchAll(/(-?(?:\d+(?:\.\d+)?|\.\d+))px/g)].map((m) => Number(m[1]));
       const colour = parseColour(layer);
       return colour !== null && px.some((n) => n !== 0) ? [{ colour, spread: px[3] ?? 0 }] : [];
     })
