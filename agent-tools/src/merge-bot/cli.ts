@@ -9,6 +9,7 @@ import {
   type GithubApiFetch,
 } from './mint-installation-token.js';
 import { resolveMintTokenConfig, type MintTokenConfig } from './resolve-config.js';
+import { permissionNamesFor, TOKEN_SCOPE_NAMES, TOKEN_SCOPES } from './token-scopes.js';
 
 /**
  * CLI for the `merge-bot` topic (AIP-158).
@@ -40,12 +41,20 @@ export interface MergeBotCliInput {
   readonly nowEpochSeconds?: () => number;
 }
 
-const USAGE = `merge-bot mint-token [--app-id <id>] [--private-key-path <pem-path>] [--repo <owner/name>] [--json]
+const USAGE = `merge-bot mint-token --scope <${TOKEN_SCOPE_NAMES.join('|')}> [--app-id <id>] [--private-key-path <pem-path>] [--repo <owner/name>] [--json]
   Prints a short-lived GitHub App installation token (stdout carries ONLY the
-  token unless --json). The repo's .github/merge-bot.json is the single
-  authority for the bot identity; the private key lives at
-  ~/.config/<appSlug>/private-key.pem, derived from it. Flags are explicit
-  operator overrides (cross-repo invocation, tests) — not a resolution tier.
+  token unless --json, which bundles the token into the printed object). The
+  repo's .github/merge-bot.json is the single authority for the bot identity;
+  the private key lives at ~/.config/<appSlug>/private-key.pem, derived from
+  it. Flags are explicit operator overrides (cross-repo invocation, tests) —
+  not a resolution tier.
+
+  --scope is REQUIRED and has no default: a token carries only the permissions
+  its mint requests, so defaulting would make the most privileged scope the
+  silent one. Scopes and what each permits are defined in token-scopes.ts.
+${TOKEN_SCOPE_NAMES.map((name) => `    ${name}: ${permissionNamesFor(name).join(', ')}\n`).join('')}
+  A 403 from a call made with this token means the wrong --scope, not a broken
+  bot: an ungranted permission fails the mint itself with a 422.
 `;
 
 function realFetch(): GithubApiFetch {
@@ -117,6 +126,7 @@ async function mintForConfig(
     appJwt: appJwt.value,
     installationId: installation.value,
     repoName: config.repoName,
+    permissions: TOKEN_SCOPES[config.scope],
     fetchImpl,
   });
   if (!minted.ok) {

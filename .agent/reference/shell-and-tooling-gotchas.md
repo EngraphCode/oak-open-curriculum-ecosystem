@@ -60,7 +60,7 @@ tool retires them.
   seats): BOTH direct node entries (tsx on source and node on the built
   cli.js) exit 0 with empty streams — a silent exit-0 on a token-minting
   path. The working entry is `pnpm --silent agent-tools merge-bot
-  mint-token` (docs/engineering/merge-bot.md).
+  mint-token --scope <name>` (docs/engineering/merge-bot.md).
 - **Workflow-resume caches can serve degenerate results** (2026-07-25): a
   quota-wall degradation produced literal placeholder schema-fills
   ("test") that a later resume would have cache-served as valid — inspect

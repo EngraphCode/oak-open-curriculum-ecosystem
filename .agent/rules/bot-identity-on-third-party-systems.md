@@ -46,7 +46,7 @@ The GitHub bot identity is `jimbot-oakington-iii[bot]` (app 4352989).
   worktree's own config resolves the bot. The `Co-Authored-By` model
   trailer stays.
 - **PR creation, comments, review replies, thread resolution, merges**: a
-  minted installation token (`agent-tools merge-bot mint-token`) exported as
+  minted installation token (`agent-tools merge-bot mint-token --scope pull-request-work`) exported as
   `GH_TOKEN` for the `gh` invocation.
 - **Pushes**: bot-token transport — a credential-helper that reads the token
   from the environment, e.g.

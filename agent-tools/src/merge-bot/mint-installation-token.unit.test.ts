@@ -9,6 +9,7 @@ import {
   signAppJwt,
   type GithubApiFetch,
 } from './mint-installation-token.js';
+import { TOKEN_SCOPES } from './token-scopes.js';
 
 const { privateKey, publicKey } = generateKeyPairSync('rsa', {
   modulusLength: 2048,
@@ -105,12 +106,15 @@ describe('resolveInstallationId', () => {
 });
 
 describe('mintInstallationToken', () => {
-  it('POSTs a repo-and-permission-SCOPED mint and returns the token pair', async () => {
+  it('sends the permissions it was GIVEN, and scopes the mint to one repository', async () => {
     const calls: { url: string; method: string; authorization: string; body?: string }[] = [];
+    // Deliberately a set no real scope uses: a surviving hardcode inside the
+    // mint would pass against a real scope's permissions by coincidence.
     const result = await mintInstallationToken({
       appJwt: 'the-jwt',
       installationId: 987,
       repoName: 'oak-open-curriculum-ecosystem',
+      permissions: { issues: 'read' },
       fetchImpl: fakeFetch(
         [{ status: 201, body: { token: 'ghs_abc', expires_at: '2026-07-21T07:30:00Z' } }],
         calls,
@@ -125,15 +129,40 @@ describe('mintInstallationToken', () => {
     expect(calls[0].method).toBe('POST');
     expect(JSON.parse(calls[0].body ?? '{}')).toEqual({
       repositories: ['oak-open-curriculum-ecosystem'],
-      permissions: { pull_requests: 'write', contents: 'write', workflows: 'write' },
+      permissions: { issues: 'read' },
     });
   });
 
+  it('keeps the repository scoping on a read-only mint (the 2026-07-21 decision)', async () => {
+    const calls: { url: string; method: string; authorization: string; body?: string }[] = [];
+    await mintInstallationToken({
+      appJwt: 'the-jwt',
+      installationId: 987,
+      repoName: 'oak-open-curriculum-ecosystem',
+      permissions: TOKEN_SCOPES['code-scanning-alerts'],
+      fetchImpl: fakeFetch(
+        [{ status: 201, body: { token: 'ghs_abc', expires_at: '2026-07-21T07:30:00Z' } }],
+        calls,
+      ),
+    });
+
+    // The permission dimension became the caller's; the REPOSITORY dimension
+    // did not — an unscoped mint would carry the app's whole installation.
+    expect(JSON.parse(calls[0].body ?? '{}')).toHaveProperty('repositories', [
+      'oak-open-curriculum-ecosystem',
+    ]);
+  });
+
+  // Live provenance (2026-07-29, MCP-385): requesting `{administration: read}`
+  // against the real installation returned exactly this 422 and this message.
+  // That is why no post-mint verification of the granted set exists — an
+  // ungranted permission fails the mint itself rather than narrowing silently.
   it("carries GitHub's explanation on a 422, so a permission gap names its own fix", async () => {
     const result = await mintInstallationToken({
       appJwt: 'j',
       installationId: 1,
       repoName: 'r',
+      permissions: TOKEN_SCOPES['pull-request-work'],
       fetchImpl: fakeFetch(
         [
           {
@@ -162,6 +191,7 @@ describe('mintInstallationToken', () => {
       appJwt: 'j',
       installationId: 1,
       repoName: 'r',
+      permissions: TOKEN_SCOPES['pull-request-work'],
       fetchImpl: fakeFetch([{ status: 500, body: { unexpected: 'shape' } }], []),
     });
 
@@ -176,6 +206,7 @@ describe('mintInstallationToken', () => {
       appJwt: 'j',
       installationId: 1,
       repoName: 'r',
+      permissions: TOKEN_SCOPES['pull-request-work'],
       fetchImpl: fakeFetch([{ status: 201, body: { nope: true } }], []),
     });
 
@@ -190,6 +221,7 @@ describe('mintInstallationToken', () => {
       appJwt: 'j',
       installationId: 1,
       repoName: 'r',
+      permissions: TOKEN_SCOPES['pull-request-work'],
       fetchImpl: () =>
         Promise.resolve({ status: 201, json: () => Promise.reject(new Error('bad body')) }),
     });
@@ -204,6 +236,7 @@ describe('mintInstallationToken', () => {
       appJwt: 'j',
       installationId: 1,
       repoName: 'r',
+      permissions: TOKEN_SCOPES['pull-request-work'],
       fetchImpl: fakeFetch([{ status: 401, body: {} }], []),
     });
 
