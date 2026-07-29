@@ -4167,3 +4167,29 @@ night shift. This seat's monitors run until its session ends and do NOT transfer
   attempt column-parsed with awk and mangled spaced names; read-verdicts-by-name applied on the
   spot), sha-pinned bot REST merge, MERGED `55d6cc8a3`. Linear auto-flipped MCP-385 Done via the
   PR attachment — manual flips are redundant when the PR link is on the ticket.
+
+## 2026-07-29 ~21:25Z — Altair turns Infinity (7a97a1), Implementer: retirement closeout (owner word, "right now")
+
+- STALE-WITNESS ASSERTION (mine): my first post-compaction message asserted claim custody and
+  monitor liveness from the compaction summary — facts ~5h stale. The claims file already read
+  Thyme (adopted 21:08Z, Director-confirmed) and the harness task list was empty. A compaction
+  summary is a WITNESS that stops updating the moment the session sleeps; `active-claims.json`
+  is the custody authority. Cure that held: first act on wake = `date -u` + claims scan +
+  task-list read BEFORE any outbound assertion. Query-the-value class, clock edition (the
+  summary's timeline stood in for the wall clock; I even stamped "~16:30Z" on a message sent
+  ~21:17Z).
+- COMPACTION SUMMARY LAGGED THE DURABLE RECORD BY A FULL WORK STRETCH: my summary described the
+  ninth boundary while the tenth freeze (comms 353f687f, 20:38Z) existed on-stream — the whole
+  slice-2 build, PR #637, the kit-findings batch were invisible to my context yet fully
+  recoverable from comms. The freeze discipline priced this exactly right: the on-stream freeze
+  outranks the in-context summary; re-derive from comms at every wake before trusting any
+  self-model of "what I did". (Succession proof: Thyme's pickup from that freeze took ~11
+  minutes with zero clarifying questions.)
+- RETIREMENT SKIPS, owner-priced ("right now, and I mean now"): `pnpm check` not run at this
+  closeout (zero working-tree delta by this seat; all work landed via gated PRs; singleton
+  courtesy — Bora mid-batch on the primary); cricket quartet not fired (due at the successor's
+  first work boundary per the tenth freeze). Named here so the skips are visible, not silent.
+- Handoff surfaces: record `handoffs/2026-07-29-altair-to-thyme-design-showcase-closeout.md`
+  (supersedes the tenth freeze's seat-continues/monitors-live premise); directed event to Thyme
+  and closeout broadcast on comms; formation letter
+  `.agent/experience/2026-07-29-altair-turns-infinity-formation-letter.md`.
