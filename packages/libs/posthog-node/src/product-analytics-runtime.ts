@@ -118,8 +118,8 @@ export function createPostHogClientOptions(
 }
 
 // Close deadline: DELIBERATELY truncates the vendor's ~49s worst-case retry stack
-// (exponential 3s/6s/12s backoff + four 10s attempts) so a stalled endpoint costs a
-// Ctrl-C at most 15s; the vendor abandons undelivered events at any bound.
+// (default v0 send path: four 10s attempts + three constant 3s delays) so a stalled
+// endpoint costs a Ctrl-C at most 15s; the vendor abandons undelivered events at any bound.
 const PRODUCT_ANALYTICS_CLOSE_TIMEOUT_MS = 15_000;
 
 async function closeClient(

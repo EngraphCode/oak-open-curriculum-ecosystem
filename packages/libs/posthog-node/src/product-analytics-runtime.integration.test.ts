@@ -366,10 +366,10 @@ describe('createPostHogProductAnalyticsRuntimeWithDependencies integration', () 
     await expect(subject.runtime.close()).resolves.toStrictEqual({ ok: true, value: undefined });
     // The deadline crossing the vendor seam is the observable form of
     // "bounded": 15s deliberately truncates a retry stack the vendor
-    // documents at ~49s worst case (exponential backoff), so a local
-    // Ctrl-C never hangs toward a minute on a stalled endpoint.
-    // Undelivered events past the cut-off are abandoned by the vendor's
-    // shutdown at any bound.
+    // documents at ~49s worst case (default v0 send path: four 10s
+    // attempts + three constant 3s delays), so a local Ctrl-C never
+    // hangs toward a minute on a stalled endpoint. Undelivered events
+    // past the cut-off are abandoned by the vendor's shutdown at any bound.
     expect(subject.shutdownCalls).toStrictEqual([15_000]);
   });
 

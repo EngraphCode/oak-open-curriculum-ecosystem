@@ -165,6 +165,12 @@ async function main() {
 
   const observability = observabilityResult.value;
 
+  // Same boot-read as src/index.ts, in the same order: the baked artefact
+  // must exist before the harness starts (run the app build first), and the
+  // read happens BEFORE the analytics runtime is composed — a missing
+  // artefact must not strand a freshly created client with no close owner.
+  const landingPageHtml = readBakedLandingPageHtml();
+
   // Same composition as src/index.ts (MCP-241/243): the harness exercises
   // the production analytics path — off mode is the exact inert runtime —
   // and closes it through the shared process close owner.
@@ -185,9 +191,6 @@ async function main() {
 
   const analytics = analyticsResult.value;
   const startTime = Date.now();
-  // Same boot-read as src/index.ts: the baked artefact must exist before the
-  // harness starts (run the app build first), and the read happens once.
-  const landingPageHtml = readBakedLandingPageHtml();
 
   await startConfiguredHttpServer({
     runtimeConfig,
