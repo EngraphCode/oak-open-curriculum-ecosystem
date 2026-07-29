@@ -84,7 +84,10 @@ export async function openShowcase(
     reducedMotion: (options.reducedMotion ?? true) ? 'reduce' : 'no-preference',
   });
   await page.goto('/');
-  await expect(page.getByRole('combobox', { name: 'Identity' })).toBeVisible();
+  // Hydration gate: the Theme select exists pre-hydration as a DISABLED
+  // placeholder, so visibility alone is not readiness — wait for it to
+  // become enabled (keyboard tests Tab immediately and do not auto-wait).
+  await expect(page.getByRole('combobox', { name: 'Theme' })).toBeEnabled();
   return abortedHosts;
 }
 

@@ -71,7 +71,7 @@ describe('Switchboard write-through and degradation', () => {
     expect(world.appliedTheme()).toBe('high-contrast');
   });
 
-  it('offers the identity control even with no theme runtime', () => {
+  it('renders theme and motion as disabled neutral placeholders with no runtime', () => {
     render(
       <Switchboard
         store={createOakThemeStore(
@@ -81,6 +81,15 @@ describe('Switchboard write-through and degradation', () => {
       />,
     );
     expect(screen.queryByRole('combobox', { name: 'Identity' })).not.toBeNull();
-    expect(screen.queryByRole('combobox', { name: 'Theme' })).toBeNull();
+    // The placeholder shell carries the full switchboard geometry so the
+    // server render is layout-stable at every width; the controls are
+    // disabled (honestly not yet interactive) and read their neutral
+    // no-knowledge states.
+    const themeSelect = screen.getByRole('combobox', { name: 'Theme' });
+    expect(themeSelect).toHaveProperty('disabled', true);
+    expect(themeSelect).toHaveProperty('value', '');
+    const motionSelect = screen.getByRole('combobox', { name: 'Motion' });
+    expect(motionSelect).toHaveProperty('disabled', true);
+    expect(motionSelect).toHaveProperty('value', 'system');
   });
 });

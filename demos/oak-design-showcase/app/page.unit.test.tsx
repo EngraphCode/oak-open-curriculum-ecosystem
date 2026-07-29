@@ -12,12 +12,14 @@ describe('showcase page', () => {
     expect(screen.queryByRole('contentinfo')).not.toBeNull();
   });
 
-  it('offers the identity control independent of the theme runtime', () => {
+  it('offers the identity control and the placeholder shell without a theme runtime', () => {
     render(<ShowcasePage />);
-    // No runtime exists in this environment, so the theme/motion selects
-    // correctly stay absent — the identity axis must not be coupled to
-    // them. Full switchboard contracts live in Switchboard.unit.test.tsx;
-    // the served page is Playwright's to prove.
+    // No runtime exists in this environment: the identity axis works
+    // regardless, and the theme/motion selects render as disabled
+    // placeholders so the shell geometry is stable. Full switchboard
+    // contracts live in Switchboard.unit.test.tsx; the served page is
+    // Playwright's to prove.
     expect(screen.queryByRole('combobox', { name: 'Identity' })).not.toBeNull();
+    expect(screen.getByRole('combobox', { name: 'Theme' })).toHaveProperty('disabled', true);
   });
 });

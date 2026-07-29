@@ -52,10 +52,9 @@ body {
 }
 .util-inner {
   padding-block: var(--space-8);
-  /* Reserve the hydrated switchboard's single-row height so the page does
-     not shift when the client controls mount (they render nothing
-     server-side by design — theme is client state). */
-  min-block-size: var(--input-min-h);
+  /* No height reservation needed: the switchboard server-renders its full
+     geometry (theme/motion as disabled placeholders until hydration), so
+     the shell is layout-stable at every width — see Switchboard.tsx. */
 }
 .mast {
   border-bottom: var(--border-solid-m) solid var(--border-primary);

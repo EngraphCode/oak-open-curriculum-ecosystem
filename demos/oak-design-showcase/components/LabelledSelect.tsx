@@ -16,6 +16,8 @@ export interface LabelledSelectProps {
   readonly options: readonly string[];
   readonly labels: Readonly<Record<string, string>>;
   readonly placeholderLabel?: string;
+  /** Pre-hydration placeholder state: same geometry, not yet interactive. */
+  readonly disabled?: boolean;
   readonly onChange: (value: string) => void;
 }
 
@@ -26,6 +28,7 @@ export function LabelledSelect({
   options,
   labels,
   placeholderLabel,
+  disabled,
   onChange,
 }: LabelledSelectProps): ReactElement {
   return (
@@ -37,6 +40,7 @@ export function LabelledSelect({
         className="oak-select"
         id={id}
         value={value}
+        disabled={disabled}
         onChange={(event) => {
           onChange(event.target.value);
         }}
