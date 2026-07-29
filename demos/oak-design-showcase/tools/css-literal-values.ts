@@ -11,24 +11,25 @@
  * literal font family, a number carrying a length/angle/time unit, or a
  * bare number on the opacity/z-index axes. Bare `0`, other unitless
  * numbers (line-height ratios), and keywords carry no design value.
- * Quoted strings, url() tokens and comments are stripped before matching;
- * `var()` fallbacks stay scannable — a literal fallback is a hardcoded
- * value by another door.
+ * Quoted strings, url() tokens and comments are stripped before matching —
+ * except on the font axes, where quoted strings stay inspectable (a quoted
+ * literal family is a hardcoded face by another door). `var()` fallbacks
+ * stay scannable — a literal fallback is a hardcoded value by another
+ * door. Structural math functions (clamp/minmax/min/max/repeat/
+ * fit-content) get no wholesale allowance: their ARGUMENTS stay
+ * scannable, so a literal length inside a clamp is reported exactly like
+ * one outside it. `fr` grid tracks stay legal by absence from the unit
+ * list.
  *
  * Named allowances (each deliberate, none silent):
  * - `transparent`/`currentColor` — legitimate composition keywords the kit
  *   itself uses (forced-colors outline, shadow composition).
- * - Arguments of the structural math functions clamp/minmax/min/max/
- *   repeat/fit-content — layout guards in the kit's own container and
- *   composition-map grammar (the kit's own gutter is a clamp over space
- *   tokens and a vw term), not design values.
  * - `color-mix(…)` whose colour arguments are all var() references — the
  *   kit brand contract's own hover-derivation recipe; a literal colour
  *   inside one still fails.
  * - The lone token `100%` — "full extent" is a layout guard with no token
  *   equivalent, not a design choice.
- * - `fr` grid tracks — composition maps must stay writable (kit ruling);
- *   and at-rule params (media/container queries) are outside walkDecls'
+ * - At-rule params (media/container queries) are outside walkDecls'
  *   reach: breakpoints are documented kit constants, recorded here so the
  *   limitation is stated, never silent.
  */
@@ -42,11 +43,54 @@ export interface LiteralDesignValue {
 
 const HEX_COLOR = /#[0-9a-f]{3,8}\b/i;
 const COLOR_FUNCTION = /(?:^|[\s(,])(?:rgba?|hsla?|hwb|oklch|oklab|lab|lch|color|color-mix)\(/i;
-const UNIT_NUMBER =
-  /(?:^|[\s(,/])[+-]?\d*\.?\d+(?:px|rem|em|%|vh|vw|vmin|vmax|dvh|dvw|svh|svw|lvh|lvw|cqw|cqh|cqi|cqb|cqmin|cqmax|ch|ex|cap|ic|lh|rlh|pt|pc|cm|mm|in|q|deg|rad|grad|turn|ms|s)(?=[\s),/]|$)/i;
-const BARE_NUMBER = /(?:^|[\s(,])[+-]?\d*\.?\d+(?=[\s),]|$)/;
+// Number-then-suffix capture with the unit test delegated to a Set: the
+// one-alternation number grammar has no overlapping quantifiers (S8786)
+// and the Set replaces the 30-branch unit alternation (S5843). The suffix
+// class and the boundary lookahead are disjoint, so no backtracking
+// ambiguity exists between them.
+const NUMBER_WITH_SUFFIX = /(?:^|[\s(,/])[+-]?(?:\d+(?:\.\d+)?|\.\d+)([a-z%]+)(?=[\s),/]|$)/gi;
+const UNITS = new Set([
+  'px',
+  'rem',
+  'em',
+  '%',
+  'vh',
+  'vw',
+  'vmin',
+  'vmax',
+  'dvh',
+  'dvw',
+  'svh',
+  'svw',
+  'lvh',
+  'lvw',
+  'cqw',
+  'cqh',
+  'cqi',
+  'cqb',
+  'cqmin',
+  'cqmax',
+  'ch',
+  'ex',
+  'cap',
+  'ic',
+  'lh',
+  'rlh',
+  'pt',
+  'pc',
+  'cm',
+  'mm',
+  'in',
+  'q',
+  'deg',
+  'rad',
+  'grad',
+  'turn',
+  'ms',
+  's',
+]);
+const BARE_NUMBER = /(?:^|[\s(,])[+-]?(?:\d+(?:\.\d+)?|\.\d+)(?=[\s),]|$)/;
 const IDENTIFIER = /[a-z][a-z-]*/gi;
-const STRUCTURAL_FUNCTION = /(?:clamp|minmax|min|max|repeat|fit-content)\([^()]*\)/gi;
 const COLOR_MIX = /color-mix\([^()]*\)/gi;
 
 /** The CSS named colours (spec list), lowercased. `transparent` and
@@ -95,6 +139,12 @@ function containsColourLiteral(fragment: string): boolean {
   );
 }
 
+function containsUnitLiteral(fragment: string): boolean {
+  return [...fragment.matchAll(NUMBER_WITH_SUFFIX)].some((match) =>
+    UNITS.has((match[1] ?? '').toLowerCase()),
+  );
+}
+
 function scannableValue(raw: string): string {
   let value = stripVarReferences(
     raw
@@ -102,13 +152,6 @@ function scannableValue(raw: string): string {
       .replaceAll(/'[^']*'|"[^"]*"/g, ' ')
       .replaceAll(/url\([^)]*\)/gi, ' '),
   );
-  // Structural math functions are layout guards wholesale; a colour cannot
-  // appear inside them, so removing the whole call is sound.
-  let previous = '';
-  while (previous !== value) {
-    previous = value;
-    value = value.replaceAll(STRUCTURAL_FUNCTION, ' ');
-  }
   // color-mix over var() references only is the kit's own derivation
   // recipe; one containing a colour literal stays in scanning scope. The
   // call's ARGUMENTS are tested — the function's own name must not match
@@ -122,18 +165,27 @@ function scannableValue(raw: string): string {
   return value;
 }
 
+/** The font axes keep quoted strings inspectable: a quoted literal family
+ *  must not vanish with the general string strip. Comments, url() tokens
+ *  and var() names still strip; fallbacks stay scannable. */
+function fontScannableValue(raw: string): string {
+  return stripVarReferences(
+    raw.replaceAll(/\/\*[\s\S]*?\*\//g, ' ').replaceAll(/url\([^)]*\)/gi, ' '),
+  );
+}
+
 function isLiteralDesignValue(prop: string, raw: string): boolean {
   const value = scannableValue(raw);
-  if (containsColourLiteral(value) || UNIT_NUMBER.test(value)) {
+  if (containsColourLiteral(value) || containsUnitLiteral(value)) {
     return true;
   }
   if (/^(?:opacity|z-index)$/i.test(prop) && BARE_NUMBER.test(value)) {
     return true;
   }
-  // A literal family (or any literal identifier) on the font axes: the
-  // ramp tokens own the faces — brand.css calls the display face "the
-  // single biggest 'different feel' knob".
-  if (/^font(?:-family)?$/i.test(prop) && /[a-z]/i.test(value)) {
+  // A literal family (or any literal identifier or quoted string) on the
+  // font axes: the ramp tokens own the faces — brand.css calls the display
+  // face "the single biggest 'different feel' knob".
+  if (/^font(?:-family)?$/i.test(prop) && /[a-z'"]/i.test(fontScannableValue(raw))) {
     return true;
   }
   return false;

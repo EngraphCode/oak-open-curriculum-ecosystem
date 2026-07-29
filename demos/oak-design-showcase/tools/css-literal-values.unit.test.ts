@@ -51,6 +51,13 @@ describe('findLiteralDesignValues: literal colours, axes and faces', () => {
     expect(findLiteralDesignValues('.x { font-family: Georgia, serif; }')).toHaveLength(1);
   });
 
+  it('reports a QUOTED literal family — quotes stay inspectable on the font axes', () => {
+    expect(findLiteralDesignValues('.x { font-family: "Comic Sans MS"; }')).toHaveLength(1);
+    expect(findLiteralDesignValues('.x { font-family: var(--font-sans), "Arial"; }')).toHaveLength(
+      1,
+    );
+  });
+
   it('reports a slash-adjacent length in a font shorthand', () => {
     expect(findLiteralDesignValues('.x { font: 16px/1.5 var(--font-sans); }')).toHaveLength(1);
   });
@@ -63,6 +70,23 @@ describe('findLiteralDesignValues: literal colours, axes and faces', () => {
 
   it('reports a non-guard percentage', () => {
     expect(findLiteralDesignValues('.x { width: 50%; }')).toHaveLength(1);
+  });
+});
+
+describe('findLiteralDesignValues: number grammar and structural arguments', () => {
+  it('reports the number grammar edge forms and ignores unknown suffixes', () => {
+    expect(findLiteralDesignValues('.x { margin-top: .5px; }')).toHaveLength(1);
+    expect(findLiteralDesignValues('.x { margin-top: +2px; }')).toHaveLength(1);
+    expect(findLiteralDesignValues('.x { transition-duration: 1s; }')).toHaveLength(1);
+    expect(findLiteralDesignValues('.x { padding: 5pxx; }')).toHaveLength(0);
+  });
+
+  it('reports literals inside structural functions — no wholesale allowance', () => {
+    const css = `.x {
+      padding-inline: clamp(var(--space-16), 4vw, var(--space-24));
+      grid-template-columns: minmax(30px, 1fr) minmax(min(var(--space-240), 100%), 1fr);
+    }`;
+    expect(findLiteralDesignValues(css)).toHaveLength(2);
   });
 });
 
@@ -109,10 +133,10 @@ describe('findLiteralDesignValues: named allowances', () => {
     ).toHaveLength(0);
   });
 
-  it('accepts the kit structural-function idioms wholesale', () => {
+  it('accepts token-composed structural functions — fr and bare zero carry no design value', () => {
     const css = `.x {
-      padding-inline: clamp(var(--space-16), 4vw, var(--space-24));
-      grid-template-columns: minmax(30px, 1fr) minmax(min(var(--space-240), 100%), 1fr);
+      padding-inline: clamp(var(--space-16), var(--gutter-vw), var(--space-24));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }`;
     expect(findLiteralDesignValues(css)).toHaveLength(0);
   });
