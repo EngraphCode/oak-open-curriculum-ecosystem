@@ -6856,94 +6856,6 @@
       }
     },
     {
-      "auditId": "C337",
-      "evidence": {
-        "revision": "unchanged",
-        "targets": [
-          {
-            "file": "apps/oak-curriculum-mcp-streamable-http/src/resource-registrations.ts",
-            "anchors": [
-              {
-                "tokenCount": 13,
-                "tokenSha256": "0fb206797bb478eb56c327ce1eb7a54e40a65552eefa7781bc1195f31e589744",
-                "indexToken": "OAK_UNDER_THE_HOOD_RESOURCE_NAME",
-                "indexOffset": 2
-              },
-              {
-                "tokenCount": 20,
-                "tokenSha256": "c6fe47aad619cfc912875ca19f8265c138007d0293a6419363ca0298ba0223f8",
-                "indexToken": "OAK_UNDER_THE_HOOD_RESOURCE_URI",
-                "indexOffset": 2
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "auditId": "C338",
-      "evidence": {
-        "revision": "relocated",
-        "targets": [
-          {
-            "file": "apps/oak-curriculum-mcp-streamable-http/src/resource-registrations.ts",
-            "anchors": [
-              {
-                "tokenCount": 54,
-                "tokenSha256": "9b5c21625bbc39c43ecd84df60a1f38edc6e5c6c23ef5349f643ddec998bb3f2",
-                "indexToken": "ecosystem",
-                "indexOffset": 16
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "auditId": "C339",
-      "evidence": {
-        "revision": "relocated",
-        "targets": [
-          {
-            "file": "apps/oak-curriculum-mcp-streamable-http/src/resource-registrations.ts",
-            "anchors": [
-              {
-                "tokenCount": 19,
-                "tokenSha256": "19db23227a998c8359a7eacff2c3ee7fa191f81db17c10742635b02eb65e1fdb",
-                "indexToken": "0",
-                "indexOffset": 5
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "auditId": "C340",
-      "evidence": {
-        "revision": "relocated",
-        "targets": [
-          {
-            "file": "apps/oak-curriculum-mcp-streamable-http/src/resource-registrations.ts",
-            "anchors": [
-              {
-                "tokenCount": 118,
-                "tokenSha256": "a9b43d37923dc1ec79ae5e9530a8267a9d2bf26c348ec90610f64b91314eccd8",
-                "indexToken": "repository",
-                "indexOffset": 47
-              },
-              {
-                "tokenCount": 29,
-                "tokenSha256": "ca3806e5fdac683dd5ab6597bcc56e2df42e1c7c6b7185eb7bb54866c6c6f453",
-                "indexToken": "pointer",
-                "indexOffset": 22
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
       "auditId": "C341",
       "evidence": {
         "revision": "relocated",
@@ -7469,10 +7381,10 @@
             "file": "apps/oak-curriculum-mcp-streamable-http/src/oak-under-the-hood/oak-under-the-hood-tool.ts",
             "anchors": [
               {
-                "tokenCount": 13,
-                "tokenSha256": "0964d68db9fd09d6438ae8ed5471a25be30dbd0ede7f6075dc5e69704f3f40ba",
-                "indexToken": "title",
-                "indexOffset": 0
+                "tokenCount": 11,
+                "tokenSha256": "0d3f8c1115442b472fd2cd5b9610360290a7c53fa6ff88af8d6fb55a727f6bc3",
+                "indexToken": "OAK_UNDER_THE_HOOD_TOOL_TITLE",
+                "indexOffset": 1
               }
             ]
           }
@@ -7508,7 +7420,7 @@
             "anchors": [
               {
                 "tokenCount": 8,
-                "tokenSha256": "d81db7b83d39bf551bb2703c38a83420646f0d29942166e3319fe4dab4bcc550",
+                "tokenSha256": "068415f8947b49ec5d34e039af32f21bf699e86990374d4b6702b30e9d33ea49",
                 "indexToken": "openWorldHint",
                 "indexOffset": 0
               }
@@ -7518,56 +7430,18 @@
       }
     },
     {
-      "auditId": "C375",
-      "evidence": {
-        "revision": "unchanged",
-        "targets": [
-          {
-            "file": "apps/oak-curriculum-mcp-streamable-http/src/oak-under-the-hood/oak-under-the-hood-tool.ts",
-            "anchors": [
-              {
-                "tokenCount": 143,
-                "tokenSha256": "dd17bd2f1d131236fa4f25eb1debf32dabae0acd67dd5a88916d56e021e82889",
-                "indexToken": "Curriculum",
-                "indexOffset": 14
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
       "auditId": "C376",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "apps/oak-curriculum-mcp-streamable-http/src/oak-under-the-hood/oak-under-the-hood-tool.ts",
             "anchors": [
               {
-                "tokenCount": 39,
-                "tokenSha256": "9b45b1161d17007fa59a6da5884cdfdb52ef8249424a13b8a6c029f67b01d921",
-                "indexToken": "resource",
-                "indexOffset": 33
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "auditId": "C377",
-      "evidence": {
-        "revision": "unchanged",
-        "targets": [
-          {
-            "file": "apps/oak-curriculum-mcp-streamable-http/src/oak-under-the-hood/oak-under-the-hood-tool.ts",
-            "anchors": [
-              {
-                "tokenCount": 45,
-                "tokenSha256": "de44220fe9bf665c1c7a8b16fabfcc466c8aed207c8ca9976ed37a35222c391d",
-                "indexToken": "githubusercontent",
-                "indexOffset": 11
+                "tokenCount": 19,
+                "tokenSha256": "2b115ad0d93cd89db3e5b798220e25eace5ba362922756c0af970a2b4947bd6a",
+                "indexToken": "Curriculum",
+                "indexOffset": 17
               }
             ]
           }
@@ -7606,82 +7480,6 @@
                 "tokenSha256": "c6de456c380d58d6aa8a1dac27a8893b95d26217c2466d532fb8010af2f36777",
                 "indexToken": "meet",
                 "indexOffset": 18
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "auditId": "C380",
-      "evidence": {
-        "revision": "unchanged",
-        "targets": [
-          {
-            "file": "apps/oak-curriculum-mcp-streamable-http/src/oak-under-the-hood/oak-under-the-hood-tool.ts",
-            "anchors": [
-              {
-                "tokenCount": 12,
-                "tokenSha256": "8aac724ea5e416907d77d800bafa2f05c5fdee85cb3af586a41df7879e6b60b6",
-                "indexToken": "name",
-                "indexOffset": 0
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "auditId": "C381",
-      "evidence": {
-        "revision": "unchanged",
-        "targets": [
-          {
-            "file": "apps/oak-curriculum-mcp-streamable-http/src/oak-under-the-hood/oak-under-the-hood-tool.ts",
-            "anchors": [
-              {
-                "tokenCount": 13,
-                "tokenSha256": "0964d68db9fd09d6438ae8ed5471a25be30dbd0ede7f6075dc5e69704f3f40ba",
-                "indexToken": "title",
-                "indexOffset": 0
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "auditId": "C382",
-      "evidence": {
-        "revision": "unchanged",
-        "targets": [
-          {
-            "file": "apps/oak-curriculum-mcp-streamable-http/src/oak-under-the-hood/oak-under-the-hood-tool.ts",
-            "anchors": [
-              {
-                "tokenCount": 21,
-                "tokenSha256": "afd20862cdc9c384a11f8024cc839cd751e9be6a648b3d7d5f4bee341f0f1cfb",
-                "indexToken": "Canonical",
-                "indexOffset": 3
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "auditId": "C383",
-      "evidence": {
-        "revision": "unchanged",
-        "targets": [
-          {
-            "file": "apps/oak-curriculum-mcp-streamable-http/src/oak-under-the-hood/oak-under-the-hood-tool.ts",
-            "anchors": [
-              {
-                "tokenCount": 18,
-                "tokenSha256": "d19fe0dae2a8470f7f759ffd302bdbb74fd65290265e72398b98c1afad944687",
-                "indexToken": "audience",
-                "indexOffset": 3
               }
             ]
           }
@@ -8233,43 +8031,6 @@
                 "tokenSha256": "2d2ce913d23e471bb49847b3904f16e843b8f0216018c4f93ba339269a00739c",
                 "indexToken": "ASSET_RATE_LIMIT",
                 "indexOffset": 2
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "auditId": "C413",
-      "evidence": {
-        "revision": "expanded",
-        "targets": [
-          {
-            "file": "apps/oak-curriculum-mcp-streamable-http/src/auth/public-resources.ts",
-            "anchors": [
-              {
-                "tokenCount": 16,
-                "tokenSha256": "422897dccec7509539f0db06de6e118dd8913973a1c9f54b8b047b86020b6fb9",
-                "indexToken": "map",
-                "indexOffset": 5
-              },
-              {
-                "tokenCount": 1,
-                "tokenSha256": "60d5079c7d044acbc8a4b75b8fba4ddf437a2f3d964d28b387326e964449e695",
-                "indexToken": "WIDGET_URI",
-                "indexOffset": 0
-              },
-              {
-                "tokenCount": 15,
-                "tokenSha256": "737ca224765b6891c4c2962694777af065da433ca7d17e5e67d97ff06993e86e",
-                "indexToken": "hood",
-                "indexOffset": 11
-              },
-              {
-                "tokenCount": 4,
-                "tokenSha256": "435533ae0eea093e0d9667ddea5e47729e78625d05fbfef4188a53ae534fed87",
-                "indexToken": "NAVIGATION_GUIDANCE_URIS",
-                "indexOffset": 3
               }
             ]
           }

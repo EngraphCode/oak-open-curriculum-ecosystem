@@ -22,19 +22,19 @@
     ]
   },
   "summary": {
-    "itemCount": 726,
+    "itemCount": 727,
     "baselineItemCount": 717,
-    "additionCount": 9,
-    "availableCount": 701,
-    "retiredCount": 25,
-    "unchangedCount": 541,
-    "expandedCount": 1,
-    "modifiedCount": 82,
-    "relocatedCount": 67,
-    "addedCount": 10,
-    "workspaceScopeInCount": 610,
+    "additionCount": 10,
+    "availableCount": 691,
+    "retiredCount": 36,
+    "unchangedCount": 533,
+    "expandedCount": 0,
+    "modifiedCount": 83,
+    "relocatedCount": 64,
+    "addedCount": 11,
+    "workspaceScopeInCount": 611,
     "workspaceScopeOutUpstreamApiCount": 116,
-    "workspaceAuthorityCount": 599,
+    "workspaceAuthorityCount": 600,
     "upstreamApiAuthorityCount": 116,
     "upstreamSkillsAuthorityCount": 2,
     "externalThirdPartyAuthorityCount": 9,
@@ -108,7 +108,6 @@
             "docs://oak/guidance/explore-curriculum.md",
             "docs://oak/guidance/find-lessons.md",
             "docs://oak/guidance/learning-progression.md",
-            "docs://oak/under-the-hood.md",
             "ui://widget/oak-curriculum-app-local.html"
           ],
           "dormant": [
@@ -7931,18 +7930,11 @@
       "authority": "workspace",
       "workspaceScope": "in",
       "source": {
-        "state": "available",
-        "files": [
-          "apps/oak-curriculum-mcp-streamable-http/src/resource-registrations.ts"
-        ],
-        "evidence": {
-          "revision": "unchanged",
-          "anchorTargetCount": 1,
-          "anchorCount": 2
-        }
+        "state": "retired",
+        "files": []
       },
       "lineage": {
-        "disposition": "relocated",
+        "disposition": "retired",
         "baselineFile": "apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts"
       },
       "registrations": []
@@ -7952,18 +7944,11 @@
       "authority": "workspace",
       "workspaceScope": "in",
       "source": {
-        "state": "available",
-        "files": [
-          "apps/oak-curriculum-mcp-streamable-http/src/resource-registrations.ts"
-        ],
-        "evidence": {
-          "revision": "relocated",
-          "anchorTargetCount": 1,
-          "anchorCount": 1
-        }
+        "state": "retired",
+        "files": []
       },
       "lineage": {
-        "disposition": "relocated",
+        "disposition": "retired",
         "baselineFile": "apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts"
       },
       "registrations": []
@@ -7973,18 +7958,11 @@
       "authority": "workspace",
       "workspaceScope": "in",
       "source": {
-        "state": "available",
-        "files": [
-          "apps/oak-curriculum-mcp-streamable-http/src/resource-registrations.ts"
-        ],
-        "evidence": {
-          "revision": "relocated",
-          "anchorTargetCount": 1,
-          "anchorCount": 1
-        }
+        "state": "retired",
+        "files": []
       },
       "lineage": {
-        "disposition": "relocated",
+        "disposition": "retired",
         "baselineFile": "apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts"
       },
       "registrations": []
@@ -7994,18 +7972,11 @@
       "authority": "workspace",
       "workspaceScope": "in",
       "source": {
-        "state": "available",
-        "files": [
-          "apps/oak-curriculum-mcp-streamable-http/src/resource-registrations.ts"
-        ],
-        "evidence": {
-          "revision": "relocated",
-          "anchorTargetCount": 1,
-          "anchorCount": 2
-        }
+        "state": "retired",
+        "files": []
       },
       "lineage": {
-        "disposition": "relocated",
+        "disposition": "retired",
         "baselineFile": "apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts"
       },
       "registrations": []
@@ -8695,18 +8666,11 @@
       "authority": "workspace",
       "workspaceScope": "in",
       "source": {
-        "state": "available",
-        "files": [
-          "apps/oak-curriculum-mcp-streamable-http/src/oak-under-the-hood/oak-under-the-hood-tool.ts"
-        ],
-        "evidence": {
-          "revision": "unchanged",
-          "anchorTargetCount": 1,
-          "anchorCount": 1
-        }
+        "state": "retired",
+        "files": []
       },
       "lineage": {
-        "disposition": "retained",
+        "disposition": "retired",
         "baselineFile": "apps/oak-curriculum-mcp-streamable-http/src/oak-under-the-hood/oak-under-the-hood-tool.ts"
       },
       "registrations": []
@@ -8721,7 +8685,7 @@
           "apps/oak-curriculum-mcp-streamable-http/src/oak-under-the-hood/oak-under-the-hood-tool.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
           "anchorCount": 1
         }
@@ -8737,18 +8701,11 @@
       "authority": "workspace",
       "workspaceScope": "in",
       "source": {
-        "state": "available",
-        "files": [
-          "apps/oak-curriculum-mcp-streamable-http/src/oak-under-the-hood/oak-under-the-hood-tool.ts"
-        ],
-        "evidence": {
-          "revision": "unchanged",
-          "anchorTargetCount": 1,
-          "anchorCount": 1
-        }
+        "state": "retired",
+        "files": []
       },
       "lineage": {
-        "disposition": "retained",
+        "disposition": "retired",
         "baselineFile": "apps/oak-curriculum-mcp-streamable-http/src/oak-under-the-hood/oak-under-the-hood-tool.ts"
       },
       "registrations": []
@@ -8800,18 +8757,11 @@
       "authority": "workspace",
       "workspaceScope": "in",
       "source": {
-        "state": "available",
-        "files": [
-          "apps/oak-curriculum-mcp-streamable-http/src/oak-under-the-hood/oak-under-the-hood-tool.ts"
-        ],
-        "evidence": {
-          "revision": "unchanged",
-          "anchorTargetCount": 1,
-          "anchorCount": 1
-        }
+        "state": "retired",
+        "files": []
       },
       "lineage": {
-        "disposition": "retained",
+        "disposition": "retired",
         "baselineFile": "apps/oak-curriculum-mcp-streamable-http/src/oak-under-the-hood/oak-under-the-hood-tool.ts"
       },
       "registrations": []
@@ -8821,18 +8771,11 @@
       "authority": "workspace",
       "workspaceScope": "in",
       "source": {
-        "state": "available",
-        "files": [
-          "apps/oak-curriculum-mcp-streamable-http/src/oak-under-the-hood/oak-under-the-hood-tool.ts"
-        ],
-        "evidence": {
-          "revision": "unchanged",
-          "anchorTargetCount": 1,
-          "anchorCount": 1
-        }
+        "state": "retired",
+        "files": []
       },
       "lineage": {
-        "disposition": "retained",
+        "disposition": "retired",
         "baselineFile": "apps/oak-curriculum-mcp-streamable-http/src/oak-under-the-hood/oak-under-the-hood-tool.ts"
       },
       "registrations": []
@@ -8842,18 +8785,11 @@
       "authority": "workspace",
       "workspaceScope": "in",
       "source": {
-        "state": "available",
-        "files": [
-          "apps/oak-curriculum-mcp-streamable-http/src/oak-under-the-hood/oak-under-the-hood-tool.ts"
-        ],
-        "evidence": {
-          "revision": "unchanged",
-          "anchorTargetCount": 1,
-          "anchorCount": 1
-        }
+        "state": "retired",
+        "files": []
       },
       "lineage": {
-        "disposition": "retained",
+        "disposition": "retired",
         "baselineFile": "apps/oak-curriculum-mcp-streamable-http/src/oak-under-the-hood/oak-under-the-hood-tool.ts"
       },
       "registrations": []
@@ -8863,18 +8799,11 @@
       "authority": "workspace",
       "workspaceScope": "in",
       "source": {
-        "state": "available",
-        "files": [
-          "apps/oak-curriculum-mcp-streamable-http/src/oak-under-the-hood/oak-under-the-hood-tool.ts"
-        ],
-        "evidence": {
-          "revision": "unchanged",
-          "anchorTargetCount": 1,
-          "anchorCount": 1
-        }
+        "state": "retired",
+        "files": []
       },
       "lineage": {
-        "disposition": "retained",
+        "disposition": "retired",
         "baselineFile": "apps/oak-curriculum-mcp-streamable-http/src/oak-under-the-hood/oak-under-the-hood-tool.ts"
       },
       "registrations": []
@@ -9493,18 +9422,11 @@
       "authority": "workspace",
       "workspaceScope": "in",
       "source": {
-        "state": "available",
-        "files": [
-          "apps/oak-curriculum-mcp-streamable-http/src/auth/public-resources.ts"
-        ],
-        "evidence": {
-          "revision": "expanded",
-          "anchorTargetCount": 1,
-          "anchorCount": 4
-        }
+        "state": "retired",
+        "files": []
       },
       "lineage": {
-        "disposition": "retained",
+        "disposition": "retired",
         "baselineFile": "apps/oak-curriculum-mcp-streamable-http/src/auth/public-resources.ts"
       },
       "registrations": []
@@ -16315,6 +16237,33 @@
         "reviewDomain": "resource-metadata-and-routing",
         "impactTier": "high-impact",
         "behaviouralIntent": "Define the complete six-resource catalogue, stable content lookup, and navigation-versus-creation partition consumed by registration, served-surface checks, and public-resource policy."
+      }
+    },
+    {
+      "id": "A010",
+      "authority": "workspace",
+      "workspaceScope": "in",
+      "source": {
+        "state": "available",
+        "files": [
+          "apps/oak-curriculum-mcp-streamable-http/src/generated/oak-under-the-hood-content.ts"
+        ],
+        "evidence": {
+          "revision": "added",
+          "anchorTargetCount": 1,
+          "anchorCount": 1
+        }
+      },
+      "lineage": {
+        "disposition": "added",
+        "addedAfterBaselineCommit": "240a598607b96485f50c0dfd6df154d673a90a25"
+      },
+      "registrations": [],
+      "reviewContext": {
+        "title": "Oak: Under the Hood baked orientation digest",
+        "reviewDomain": "engineering-structural",
+        "impactTier": "high-impact",
+        "behaviouralIntent": "Serve the repository orientation method inline from the deployed artefact (directory policy §2.F cure, MCP-353): the audience-independent digest of the canonical under-the-hood skill, generated out of band with a parity gate (validate-under-the-hood-content) so served instructions are reviewed with the deployment, never fetched at runtime."
       }
     }
   ],

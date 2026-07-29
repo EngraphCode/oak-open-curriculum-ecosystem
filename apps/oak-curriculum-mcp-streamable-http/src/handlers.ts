@@ -173,12 +173,11 @@ export function registerHandlers(
 
   registerTools(server, deps, options, servedSurface);
 
-  // Additive, app-local effort-orientation tool — registered outside the
-  // universal-tools loop (it is not in the SDK generated registry), with its
-  // own served-surface row. Low-salience; the curriculum firewall lives in
-  // its description and result.
+  // Additive, app-local effort-orientation tool (not in the SDK generated
+  // registry); own served-surface row; curriculum firewall in its result.
   if (isAppLocalToolLive(servedSurface, 'oak-under-the-hood')) {
-    registerOakUnderTheHoodTool(server);
+    const { logger, observability } = options;
+    registerOakUnderTheHoodTool(server, { logger, observability });
   }
 
   // Resource-read observation (MCP-242): with a sink, reads register through

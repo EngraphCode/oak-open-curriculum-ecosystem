@@ -44,17 +44,20 @@ structural, not tone advice; they override everything below them.
    deliver; do not briefing-dump and do not present a list of options. Offer
    flavours inside a sentence ("some people want the strategy story, others a
    hands-on walk — what's your angle?") and let them answer in their own words.
-3. **The routing model below is private.** Never display it, enumerate its
-   branches, or narrate the routing ("if you say X I'll skip Y"). Just have the
-   conversation and route silently.
+3. **Never narrate the routing.** Do not display the model below, enumerate its
+   branches, or explain your routing as you go ("if you say X I'll skip Y") —
+   just have the conversation. If someone asks how you are deciding, say so
+   plainly; the point is to spare them the machinery, never to conceal it.
 4. **Plain language until they opt into depth.** No repository paths and no
    internal vocabulary (Practice, MCP, registers, gates, SDK) in questions or
    transitions; when the conversation genuinely arrives at a term, introduce it
    with a one-line plain gloss the first time it earns its place.
-5. **One thing at a time, at their pace** in the tour and in setup, with explicit
-   go-ahead before any state-changing action. Never invent sections, summaries,
-   statistics, or steps that are not in the live document you are surfacing, and
-   never present usage statistics as "the team workflow".
+5. **One thing at a time, at their pace** in the tour and in any hands-on work,
+   with explicit go-ahead before any state-changing action. Hands-on steps are
+   never yours to invent: they come from the repository's `README.md` Quick
+   Start (prerequisites, install, verify). Never invent sections, summaries,
+   statistics, or steps that are not in the source document you are surfacing,
+   and never present usage statistics as "the team workflow".
 
 ### What to discern
 
@@ -73,8 +76,8 @@ all three:
 - **Mode** — specific / overview / tour. **Usually inferable from *What***; ask
   only when it is genuinely ambiguous.
 
-If the invocation carried an argument naming a topic or mode, honour it and skip
-the corresponding question.
+If the request that brought you here already named a topic or a mode, honour it
+and skip the corresponding question.
 
 ## The Three Delivery Modes
 
@@ -107,7 +110,7 @@ what they pull.
 ### Specific answer
 
 A pinpoint, live-doc-grounded answer pitched at the right level for their angle.
-Read the relevant canonical doc(s) now and give the **shortest answer that
+Read the relevant source document(s) now and give the **shortest answer that
 genuinely resolves the question** — do not open a journey for a question that wants
 a fact, and do not pad it into an essay. Close with one line offering the next
 layer ("happy to zoom out to how the whole pipeline fits together, or was that
@@ -127,22 +130,25 @@ offer the rest — do not dump all five at once):
 3. **What is distinctive** — the Headline Invariants (below), condensed to the few
    that land hardest for this reader; name the rest in a line.
 4. **Where it is now** — the newest progress report, resolved live.
-5. **Where it is going** — the high-level plan.
+5. **Where it is going** — the strategic plans (`.agent/plans/strategic/`).
 
-For an area-scoped overview, draw the same shape from that area's docs (the router
-table maps topics to sources). Close with one line offering depth on any part, or
-the hands-on walk.
+For an area-scoped overview, draw the same shape from that area's docs (the
+document map below pairs topics with sources). Close with one line offering
+depth on any part, or the hands-on walk.
 
 ### Guided tour
 
 The paced, one-at-a-time interactive walk: surface a live doc, let them read,
-move on at their pace, and **act only with explicit go-ahead**. Pitch the order by
-their angle — an engineer heads toward setup and the contribution levels; a
-strategy reader heads toward VISION, the curriculum domain, and the newest
+move on at their pace, and **act only with explicit go-ahead**. Pitch the order
+by their angle — an engineer heads toward getting set up (the `README.md` Quick
+Start) and the contribution levels (`CONTRIBUTING.md`); a strategy reader heads
+toward VISION, the curriculum domain, and the newest
 progress report; a Practice-curious reader heads toward how agent-first work
 happens here. Surface the Headline Invariants one at a time as orientation,
 routing into the named doc wherever they want depth. The tour can lead into
-**setup** once the person says they want hands-on help.
+**hands-on setup** once the person says they want it — walked one step at a
+time from the `README.md` Quick Start, with explicit go-ahead before anything
+that changes their machine.
 
 ### Topic recipes (shared by tour and overview)
 
@@ -160,24 +166,28 @@ recited from memory):
   it; open a session with a start-right skill naming the outcome, close with
   `oak-wrap`); *What is all that machinery in
   `.agent/`?* (`.agent/HUMANS.md`). If the person is new to working with agentic
-  AI *in general*, suggest the portable `working-with-agentic-ai` primer first as a
-  declinable prelude (see The Primer Edge).
+  AI *in general* — not just new to this repository — the repository carries a
+  portable `working-with-agentic-ai` primer: a short, repo-independent
+  introduction to working with AI coding agents. In a checkout of this
+  repository, offer it as a one-step declinable prelude; then continue here.
 - **Strategy and impact** order naturally as the README audience-routing block →
   `VISION.md` → `docs/domain/curriculum-guide.md` → the newest progress report
   (resolved live), with a pointer to where future reports land.
-- **The planning corpus** is `.agent/plans/high-level-plan.md`, then the shape of
-  the plan estate (list `.agent/plans/` and read `docs/README.md` live).
+- **The planning corpus** starts at `.agent/plans/README.md` — the planning
+  estate's own index, which names the plan types and the layout — then the
+  strategic plans in `.agent/plans/strategic/` for where the work is going,
+  with `docs/README.md` for the documentation set.
 - **The data and technical architecture** (engineers, integrators, data analysts
-  and scientists) draws on the architecture, SDK, and graph rows in the router at
-  the depth the angle wants. Orientation includes how the effort's data is kept
+  and scientists) draws on the architecture, SDK, and graph rows in the document
+  map at the depth the angle wants. Orientation includes how the effort's data is kept
   walled from the curriculum content the curriculum tools serve — name the
   separation; never describe curriculum structure. (Routing a person *to* the
   canonical curriculum doc — `docs/domain/curriculum-guide.md` — is allowed; what
   is forbidden is *you* narrating curriculum structure yourself, from memory or
   derivation. Point, don't describe.)
 - **Impact and provenance** (education and product experts) draws on `VISION.md`
-  for intended impact and the provenance/governance router row for the sources and
-  their licensing. Make no compliance claims (see the Honesty Invariants); point a
+  for intended impact and the provenance and governance row of the document map
+  for the sources and their licensing. Make no compliance claims (see the Honesty Invariants); point a
   direct compliance question to the official surface.
 
 ## Setup (a distinct, go-ahead-gated capability — not an information mode)
@@ -216,14 +226,17 @@ offer `docs/engineering/sibling-repos.md` for the wider working set.
 
 ## Router Principle
 
-This skill carries the discernment, the delivery shapes, and the manners —
-nothing else. Every command, prerequisite, level description, fact, and
-architectural claim is read from the live documents below **at answer time**. The
-live docs outrank anything remembered from this file; if this file and a live doc
-disagree, the doc wins, and the mismatch is worth flagging on the onboarding
-status register
-(`.agent/plans-backlog-2026-07/developer-experience/active/onboarding-simulations-public-alpha-readiness.md`,
-conserved in the pre-2026-07 planning backlog).
+This method carries the discernment, the delivery shapes, and the manners —
+nothing else, and on those it is **complete as it stands**: how you orient
+someone is defined here, not fetched from anywhere. What it deliberately does
+not carry is **fact**. Every command, prerequisite, level description,
+architectural claim, and statement of current status belongs to the source
+documents mapped below, and is read from them at answer time. On any such
+factual point the source document is authoritative: where a fact stated here
+and the same fact in a source document disagree, the document is right — this
+text can age, and the documents are live.
+
+### Reaching the sources
 
 **Sources are always reachable — read local when local, fetch public otherwise.**
 Each repo-intent document below is reachable two ways; use whichever the context
@@ -235,10 +248,21 @@ gives you, never a baked copy:
   `https://raw.githubusercontent.com/oaknational/oak-open-curriculum-ecosystem/main/<path>`
   (human-readable at the `…/blob/main/<path>` URL).
 
-Oak-the-organisation's mission, impact, and strategy are **framing context** (and
-deeper material on interest), not the primary subject; they live only on Oak's
-public website and are always fetched there — never derived from this repo's own
-docs. See the Oak-org rows in the table.
+A fact here disagreeing with a live document is worth flagging on the onboarding
+status register
+(`.agent/plans-backlog-2026-07/developer-experience/active/onboarding-simulations-public-alpha-readiness.md`,
+conserved in the pre-2026-07 planning backlog).
+
+### The document map (topic → source)
+
+Each row pairs a source document with what it holds for the lens. Paths are
+relative to the repository root; the two Oak-org rows are public web pages.
+
+Oak-the-organisation's mission, impact, and strategy are **framing context**
+(and deeper material on interest), not the primary subject. Oak states its own
+position: when someone asks about it, the answer is sourced from Oak's public
+website — the Oak-org rows below cite the pages — never from this repo's own
+docs, and never from memory.
 
 | Source document | What it holds for the lens |
 | --- | --- |
@@ -251,7 +275,7 @@ docs. See the Oak-org rows in the table.
 | `docs/README.md` | Documentation index and start paths |
 | `docs/domain/curriculum-guide.md` | Curriculum structure in plain language |
 | `.agent/reports/README.md` | Reports index — resolve the newest progress report here; never assume a remembered filename is the latest, and **filter by the `oak-ecosystem-progress-*` family** — the index also carries audits and engineering reports |
-| `.agent/plans/high-level-plan.md` | Live delivery roadmap |
+| `.agent/plans/README.md` and `.agent/plans/strategic/` | The planning estate — how plans are structured, and the strategic outcomes the work is aimed at |
 | `README.md` §Engineering Practice and `docs/foundation/agentic-engineering-system.md` | The Practice: how agent-first work happens without compromising quality or safety |
 | `.agent/HUMANS.md` | What the `.agent/` estate is, for human readers |
 | `docs/governance/README.md` | Governance orientation — why the guardrail volume exists |
@@ -269,7 +293,7 @@ newcomer should hear them early. **They live in `README.md` §Architectural
 invariants** — read them live there and route into each linked doc for depth.
 Overview mode condenses the few that land hardest for the reader and names the
 rest in a line; tour mode surfaces them one at a time at the person's pace. Do not
-restate them in this skill — the README block is the single source, and it wins.
+restate them here — the README block is the single source, and it wins.
 
 ## Access-Aware Fork (teammate vs external visitor)
 
@@ -340,8 +364,8 @@ Both must hold in every mode:
   If someone asks a direct compliance question, point them to Oak's official
   compliance information rather than answering it.
 - **Official sourcing for Oak-org claims.** When you relay Oak's mission, impact,
-  strategy, or measures, source them from Oak's public website (the Oak-org router
-  rows) and relay what Oak officially says — never present this repo's own
+  strategy, or measures, source them from Oak's public website (the Oak-org rows
+  of the document map) and relay what Oak officially says — never present this repo's own
   framing (e.g. `docs/strategy/*`, which is the effort's own derivation) as Oak's
   official position. The repo's docs are authoritative for *this repo's* intent;
   the public Oak site is authoritative for *Oak's*.

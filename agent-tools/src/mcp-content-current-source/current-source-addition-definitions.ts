@@ -1,16 +1,21 @@
-import type { RegistrationAnchorSurface, SourceLocus } from './current-source-model.js';
+import type { SourceLocus } from './current-source-model.js';
+import {
+  contentsAnchor,
+  metadataAnchor,
+  sharedEnvelopeAnchor,
+  structuralAnchor,
+  type ReviewedAdditionAnchor,
+} from './current-source-addition-anchor-helpers.js';
+
+export type { ReviewedAdditionAnchor } from './current-source-addition-anchor-helpers.js';
 
 const SERVED_SURFACE =
   'apps/oak-curriculum-mcp-streamable-http/src/served-surface/served-surface.ts';
+const UNDER_THE_HOOD_CONTENT =
+  'apps/oak-curriculum-mcp-streamable-http/src/generated/oak-under-the-hood-content.ts';
 const EXCLUDED_PATHS = 'packages/sdks/oak-sdk-codegen/code-generation/excluded-paths.ts';
 const GUIDANCE_ROOT = 'packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources';
 const GUIDANCE_CATALOGUE = `${GUIDANCE_ROOT}/agent-guidance-resources.ts`;
-
-export interface ReviewedAdditionAnchor {
-  readonly content: string;
-  readonly registrationSurfaces?: readonly RegistrationAnchorSurface[];
-  readonly registrationValue?: string;
-}
 
 export interface CurrentSourceAdditionDefinition {
   readonly id: string;
@@ -25,49 +30,6 @@ export interface CurrentSourceAdditionDefinition {
   readonly registration?: {
     readonly state: 'live' | 'dormant';
     readonly selector: string;
-  };
-}
-
-function structuralAnchor(content: string): ReviewedAdditionAnchor {
-  return { content };
-}
-
-function metadataAnchor(
-  content: string,
-  field: Extract<RegistrationAnchorSurface, { locus: 'resource-metadata' }>['field'],
-  registrationValue: string,
-): ReviewedAdditionAnchor {
-  return {
-    content,
-    registrationSurfaces: [{ locus: 'resource-metadata', field }],
-    registrationValue,
-  };
-}
-
-function contentsAnchor(
-  content: string,
-  field: Extract<RegistrationAnchorSurface, { locus: 'resource-contents' }>['field'],
-  registrationValue: string,
-): ReviewedAdditionAnchor {
-  return {
-    content,
-    registrationSurfaces: [{ locus: 'resource-contents', field }],
-    registrationValue,
-  };
-}
-
-function sharedEnvelopeAnchor(
-  content: string,
-  field: 'uri' | 'mimeType',
-  registrationValue: string,
-): ReviewedAdditionAnchor {
-  return {
-    content,
-    registrationSurfaces: [
-      { locus: 'resource-metadata', field },
-      { locus: 'resource-contents', field },
-    ],
-    registrationValue,
   };
 }
 
@@ -230,5 +192,21 @@ export const CURRENT_SOURCE_ADDITION_DEFINITIONS: readonly CurrentSourceAddition
   [CONTINUE_PROGRESSION_GUIDANCE.uri, CONTINUE_PROGRESSION_GUIDANCE_MARKDOWN],
 ]);`),
     ],
+  },
+  {
+    id: 'A010',
+    title: 'Oak: Under the Hood baked orientation digest',
+    reviewDomain: 'engineering-structural',
+    impactTier: 'high-impact',
+    behaviouralIntent:
+      'Serve the repository orientation method inline from the deployed artefact (directory ' +
+      'policy §2.F cure, MCP-353): the audience-independent digest of the canonical ' +
+      'under-the-hood skill, generated out of band with a parity gate ' +
+      '(validate-under-the-hood-content) so served instructions are reviewed with the ' +
+      'deployment, never fetched at runtime.',
+    workspaceScope: 'in',
+    sourceLocus: 'this-repo',
+    file: UNDER_THE_HOOD_CONTENT,
+    reviewedAnchors: [structuralAnchor('export const OAK_UNDER_THE_HOOD_ORIENTATION =')],
   },
 ];
