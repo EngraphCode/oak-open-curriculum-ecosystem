@@ -16,6 +16,7 @@ import { expect } from '@playwright/test';
 import type { Page } from '@playwright/test';
 
 import type { OakThemeName } from '../lib/oak-theme-store';
+import { SHOWCASE_ORIGIN } from '../tools/showcase-origin';
 
 export const IDENTITIES = ['oak', 'freedonia', 'creature'] as const;
 export const PALETTE_THEMES = ['light', 'dark', 'high-contrast', 'colour-safe'] as const;
@@ -30,12 +31,14 @@ export async function expectNoAxeViolations(page: Page): Promise<void> {
   expect(results.violations).toEqual([]);
 }
 
-/** Hosts the kit-authored counter-brand sheets are known to reference; any
- *  other third-party host aborted during a test fails the suite loudly. */
-const EXPECTED_THIRD_PARTY_HOSTS: readonly string[] = [
-  'fonts.googleapis.com',
-  'fonts.gstatic.com',
-  'cdn.jsdelivr.net',
+/** Origins the kit-authored counter-brand sheets are known to reference;
+ *  any other aborted origin during a test fails the suite loudly. Full
+ *  origins, not hostnames: a wrong-port loopback request must surface as
+ *  itself, never hide behind a familiar hostname. */
+const EXPECTED_THIRD_PARTY_ORIGINS: readonly string[] = [
+  'https://fonts.googleapis.com',
+  'https://fonts.gstatic.com',
+  'https://cdn.jsdelivr.net',
 ];
 
 /** Cascade-level application proof per explicit theme: the computed
@@ -48,26 +51,32 @@ const EXPECTED_COLOR_SCHEME: Record<ThemeName, string> = {
   'colour-safe': 'light',
 };
 
-/** Abort every cross-origin request, recording the hostnames. Icon masks and
- *  web fonts are absent under abort; that does not weaken the a11y claim —
- *  the kit's contract pairs fills with borders, icons AND text, so text
- *  carries every state's meaning. */
+/** Abort every request that is not same-origin with the suite's own
+ *  server, recording the aborted ORIGINS. Same-origin means the full
+ *  origin from tools/showcase-origin.ts — hostname equality would admit
+ *  any port on localhost (cross-origin, and in a many-worktree estate
+ *  possibly another tree's server). Icon masks and web fonts are absent
+ *  under abort; that does not weaken the a11y claim — the kit's contract
+ *  pairs fills with borders, icons AND text, so text carries every
+ *  state's meaning. */
 async function interceptExternalHosts(page: Page): Promise<Set<string>> {
-  const abortedHosts = new Set<string>();
+  const abortedOrigins = new Set<string>();
   await page.route('**/*', (route) => {
     const url = new URL(route.request().url());
-    if (url.hostname === 'localhost' || url.hostname === '127.0.0.1') {
+    if (url.origin === SHOWCASE_ORIGIN) {
       return route.continue();
     }
-    abortedHosts.add(url.hostname);
+    abortedOrigins.add(url.origin);
     return route.abort();
   });
-  return abortedHosts;
+  return abortedOrigins;
 }
 
-export function assertOnlyKnownExternalHosts(abortedHosts: ReadonlySet<string>): void {
-  for (const host of abortedHosts) {
-    expect(EXPECTED_THIRD_PARTY_HOSTS, `unexpected third-party host: ${host}`).toContain(host);
+export function assertOnlyKnownExternalHosts(abortedOrigins: ReadonlySet<string>): void {
+  for (const origin of abortedOrigins) {
+    expect(EXPECTED_THIRD_PARTY_ORIGINS, `unexpected third-party origin: ${origin}`).toContain(
+      origin,
+    );
   }
 }
 

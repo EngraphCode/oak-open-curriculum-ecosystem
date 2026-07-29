@@ -1,31 +1,22 @@
-import { createHash } from 'node:crypto';
-
 import { defineConfig, devices } from '@playwright/test';
+
+import { SHOWCASE_ORIGIN, SHOWCASE_PORT } from './tools/showcase-origin';
 
 /**
  * Playwright configuration for the design-showcase demo.
  *
- * The suite's server rides a deterministic per-worktree port derived from
- * this workspace's absolute path, so the built-artefact run coexists with
- * anything already serving on the machine — including this workspace's own
- * dev/start instance on 3020 (a live owner-facing server must never have to
- * pause for a push gate; owner-directed after a worked collision, MCP-384).
- * Derivation, not probing: Playwright evaluates this config once in the main
- * process and again in every worker, so the value must be stable across
- * evaluations — a probed ephemeral port differs per evaluation and the
- * workers navigate to a port nothing serves (worked failure, MCP-384). The
- * derived range (4600-4999) keeps clear of the estate's fixed dev ports
- * (3010 hub, 3020 showcase, 3333/3334 MCP). No `process.env` access — config
- * files follow the same DI principle as product code (app precedent): the
- * adaptation comes from the machine, not the environment.
+ * The suite's server rides a deterministic per-worktree port so the
+ * built-artefact run coexists with anything already serving on the
+ * machine — including this workspace's own dev/start instance on 3020 (a
+ * live owner-facing server must never have to pause for a push gate;
+ * owner-directed after a worked collision, MCP-384). The derivation lives
+ * in tools/showcase-origin.ts, shared with the suite's same-origin gate
+ * so the two cannot drift apart.
  * An "a11y" title tag splits the suite (estate idiom): `test:ui` greps it
  * out, `test:a11y` greps for it.
  */
-const digest = createHash('sha256')
-  .update(import.meta.dirname)
-  .digest();
-const port = 4600 + (digest.readUInt16BE(0) % 400);
-const baseURL = `http://localhost:${port}`;
+const port = SHOWCASE_PORT;
+const baseURL = SHOWCASE_ORIGIN;
 
 export default defineConfig({
   timeout: 30_000,

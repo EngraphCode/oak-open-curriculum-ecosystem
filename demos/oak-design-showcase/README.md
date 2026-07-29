@@ -37,9 +37,10 @@ switchboard drives three axes:
   inlined pre-paint in `app/layout.tsx` so a stored choice applies before
   first paint. A theme choice persists (localStorage, the runtime's
   contract). Until a choice is made the control reads "Page default" — the
-  state where a brand's own polarity governs (EMC² is dark-first). The two
-  access themes also have an OS-level route with no control interaction:
-  a `prefers-contrast: more` request auto-selects high-contrast. With
+  state where a brand's own polarity governs (EMC² is dark-first). High
+  contrast also has an OS-level route with no control interaction — a
+  `prefers-contrast: more` request auto-selects it; colour safe is
+  control-only. With
   JavaScript disabled, reduced motion and forced colors still work at the
   CSS level, but the high-contrast and colour-safe themes have no route —
   they need the runtime.
