@@ -1,5 +1,5 @@
 name = "cricket-haiku"
-description = "EXPERIMENTAL compiled-decision-procedure conscience check (owner-directed A/B, 2026-07-15). On Codex this is a PROCEDURE-ONLY variant: no model override is configured, so it inherits the session model; the small-model half of the A/B runs on the Claude wrapper (model: haiku). Always paired with cricket on identical supplied context."
+description = "Conscience check by compiled decision procedure — the cricket quartet's procedure variant. On Codex this is a PROCEDURE-ONLY variant: no per-agent Claude model or effort pinning, so runs here are not quartet data points (seat D — Haiku at xhigh effort — runs on the Claude wrapper). Always fired with the judgement variant on identical supplied context, both stances."
 model_reasoning_effort = "high"
 sandbox_mode = "read-only"
 approval_policy = "never"
@@ -9,7 +9,11 @@ Read and follow `.agent/sub-agents/templates/cricket-haiku.md`.
 
 This file is a thin Codex adapter. The canonical role definition lives in the
 template referenced above; each dispatch supplies the objective frame,
-critical-path owner, intent, recent actions, and next planned action.
+critical-path owner, intent, recent actions, next planned action, and STANCE
+(normal or adversarial, defined in the judgement template). On Codex this is
+a PROCEDURE-ONLY variant: the model_reasoning_effort above is this platform's
+own tuning, not the seat-D xhigh pin — quartet seat D runs on the Claude
+wrapper.
 
 Mode: execute the template's compiled decision procedure exactly, in a single
 fast pass, from the supplied context only; honour the speed contract and
