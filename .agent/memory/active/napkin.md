@@ -2932,3 +2932,15 @@ converged on verify-dont-trust.
    changes re-hash. The gate's error names the stale file and both hashes; the cure is a
    one-entry reviewed update in the matching `current-source-delta-reviews-*.ts` part file on
    the tripping branch.
+
+## 2026-07-28 — MCP-332 corrected direction: worktree delivery node, stale primary draft abandoned
+
+<!-- fitness exceeded by 722 lines; needs consolidation -->
+
+Moon's final ruling accepted the worktree route for tracked, committable plan
+work. The canonical MCP-332 proposal is a fresh D23 delivery node at
+`.agent/plans/delivery/mcp-output-schemas-response-validation.plan.md`; the
+June backlog record remains untouched lineage. An earlier edit to that backlog
+record is still dirty in the primary checkout, is abandoned-in-place, and must
+never be committed. Moon owns its eventual disposition; do not restore,
+checkout, stash, reset, or otherwise clear it from another seat.
