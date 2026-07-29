@@ -38,7 +38,7 @@ icons: two themed data:image/svg+xml;base64 acorn variants (light fill #287c34, 
 
 ## 3. Tools — assembled definitions (42)
 
-Exact. Each is the full `title` + `description` (base + injected PREREQUISITE/notes) + parameter descriptions + behaviour annotations the agent sees in `tools/list`.
+Exact. Each is the full `title` + `description` (as authored; routing cross-references only) + parameter descriptions + behaviour annotations the agent sees in `tools/list`.
 
 ### `search` — Search Curriculum
 

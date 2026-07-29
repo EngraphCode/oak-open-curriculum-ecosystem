@@ -90,11 +90,14 @@ Agent support tools need to be discoverable through multiple channels to ensure 
 
 Server instructions are **dynamically generated** from `AGENT_SUPPORT_TOOL_METADATA` via `generateServerInstructions()`. This ensures they stay in sync with the metadata — adding a tool to the metadata automatically updates instructions.
 
-The instructions are sent in the MCP `initialize` response. This is the **highest priority** guidance because:
+The instructions are sent in the MCP `initialize` response. This is the primary
+orientation channel because:
 
 - It's delivered ONCE at connection time before any tool calls
-- It's always visible to the model (unlike tool descriptions which may be truncated)
 - It sets expectations for the entire conversation
+- Per the MCP spec it is optional for the client — a client MAY fold it into
+  the system prompt but is not required to (the accepted residual risk recorded
+  in ADR-058's reliability ranking)
 
 ```typescript
 export const SERVER_INSTRUCTIONS = generateServerInstructions();

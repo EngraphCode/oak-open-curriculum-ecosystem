@@ -12,7 +12,7 @@ Accepted (Revised)
 >
 > **Update (2026-07-28, MCP-300):** Layer 1 (prerequisite guidance in tool descriptions) is **removed**. Anthropic's directory compliance (submission acknowledgement 5) requires that tool descriptions carry no instructions about model behaviour or other tools, and the description text duplicated the `instructions` field. The surviving orientation channels are server `instructions` at initialise and `oakContextHint` in response `structuredContent` (layers 3–4 here); two negative validators (SDK definition walk + app registration walk) enforce the removal. Layer 2 (`openai/widgetDescription`) was never implemented — no such surface exists in the codebase — and is struck with the same note. The multi-layered principle stands on the surviving layers.
 >
-> **Update (2026-07-29, MCP-366, owner-directed):** Layer 3 (`oakContextHint` in every response `structuredContent`) is **removed** at the owner's direction ("are we still tagging on 'call the model tool' to all tool responses? We need to remove that"). Orientation guidance now lives in exactly one broadcast channel — the server `instructions` field at initialise — plus the §4 workflows served on demand by `get-curriculum-model`. **Accepted residual risk, stated plainly:** the Addendum's reliability ranking places the removed hint at rank 2 and the surviving `instructions` field at rank 4, the weakest lever (a client MAY fold it into the system prompt but is not required to). The owner accepted that trade against the per-response cost: the hint rode every tool response (~179 serialised chars, ≈45 estimated tokens each) against the 25K-token p95 response-size bar (shape and anchor owner-ratified 2026-07-29, recorded on MCP-305; per-tool exception ratification rides MCP-298). With §1 removed, §2 never built, and §3 now removed, "multi-layered context grounding" no longer describes this system: grounding is instructions-at-initialise plus on-demand workflows. The SDK-side `includeContextHint`/`requiresDomainContext` wiring described under "Implementation by Tool Type" was removed with this layer; the generator-emitted `requiresDomainContext` descriptor field persists un-consumed (its retirement is tracked as MCP-375).
+> **Update (2026-07-29, MCP-366, owner-directed):** Layer 3 (`oakContextHint` in every response `structuredContent`) is **removed** at the owner's direction ("are we still tagging on 'call the model tool' to all tool responses? We need to remove that"). Orientation guidance now lives in exactly one broadcast channel — the server `instructions` field at initialise — plus the workflows served on demand by `get-curriculum-model`. **Accepted residual risk, stated plainly:** the Addendum's reliability ranking places the removed hint at rank 2 and the surviving `instructions` field at rank 4, the weakest lever (a client MAY fold it into the system prompt but is not required to). The owner accepted that trade against the per-response cost: the hint rode every tool response (~179 serialised chars, ≈45 estimated tokens each) against the 25K-token p95 response-size bar (shape and anchor owner-ratified 2026-07-29, recorded on MCP-305; per-tool exception ratification rides MCP-298). With §1 removed, §2 never built, and §3 now removed, "multi-layered context grounding" no longer describes this system: grounding is instructions-at-initialise plus on-demand workflows. The SDK-side `includeContextHint`/`requiresDomainContext` wiring described under "Implementation by Tool Type" was removed with this layer; the generator-emitted `requiresDomainContext` descriptor field persists un-consumed (its retirement is tracked as MCP-375).
 
 ## Context
 
@@ -84,21 +84,13 @@ Agents benefit from structured workflows that show how to combine tools for comm
 
 ## Decision
 
-Guide AI agents to call `get-curriculum-model` before using curriculum tools. The `get-curriculum-model` tool provides combined domain model and tool guidance in a single call. The layers below record the original multi-layer design; §1–§3 have since been removed (see Status), leaving server `instructions` at initialise plus the §4 on-demand workflows:
+Guide AI agents to call `get-curriculum-model` before using curriculum tools. The `get-curriculum-model` tool provides combined domain model and tool guidance in a single call. Orientation guidance is delivered through exactly one broadcast channel plus one on-demand channel (the removal history of the earlier multi-layer design is recorded in the dated Status updates above):
 
-### 1. Tool Descriptions (tools/list) — REMOVED (2026-07-28, MCP-300)
+### 1. Server `instructions` at initialise (broadcast)
 
-Originally each tool's description included prerequisite guidance ("PREREQUISITE: … call `get-curriculum-model` first…"). This layer is removed per the Status update above: directory compliance bars descriptions from instructing the model about other tools, and the text duplicated the `instructions` channel. Descriptions retain routing cross-references only ("Not for X — use Y").
+The MCP server's `instructions` field, sent once at initialise, carries the orientation guidance: understand the domain model via `get-curriculum-model` before calling curriculum tools. It is the only guidance broadcast to every session; tool responses carry no orientation field, and tool descriptions carry routing cross-references only ("Not for X — use Y"), never behavioural instructions (directory compliance, MCP-300).
 
-### 2. Widget Description (component load) — NEVER IMPLEMENTED, struck (2026-07-28)
-
-An `openai/widgetDescription` guidance surface was described here but never existed in the codebase.
-
-### 3. `oakContextHint` in structuredContent (every response) — REMOVED (2026-07-29, MCP-366)
-
-Originally every tool response included a hint in `structuredContent` guiding the model to call `get-curriculum-model`. This layer is removed per the Status update above: the owner directed the per-response nudge out, orientation guidance consolidated to the `instructions` channel, and the per-response size cost (~179 serialised chars each) was reclaimed. The response seam (`formatToolResponse`) is test-pinned to never carry the field.
-
-### 4. Workflows in `structuredContent` (agent guidance)
+### 2. Workflows in `structuredContent` (agent guidance, on demand)
 
 Workflows are returned via `get-curriculum-model` in `structuredContent`, providing agents with step-by-step guidance. The foundational workflow is `userInteractions`:
 
@@ -129,14 +121,14 @@ userInteractions: {
 | `browseSubject`    | Explore curriculum structure by subject     |
 | `trackProgression` | Follow concept development across years     |
 
-### Implementation by Tool Type — REMOVED (2026-07-29, MCP-366)
+### Response seam
 
-Both tool families originally routed the hint through the response formatter: the
-aggregated path always included it, and the generated path gated it on the
-descriptor's `requiresDomainContext` flag. Both are removed. `formatToolResponse`
-is the single response seam for every tool and carries no orientation field.
+`formatToolResponse` is the single response seam for every tool — aggregated and
+generated alike — emitting the dual result shape (a `content` summary plus
+decorated `structuredContent`). It carries no orientation field; the seam is
+test-pinned to that contract.
 
-### Tool Descriptor Flag — retained, un-consumed
+### Tool Descriptor Flag — emitted, un-consumed
 
 The generator still emits `requiresDomainContext` from the tool's authentication
 requirement, but no runtime consumer reads it: the universal-tools registry
@@ -144,9 +136,9 @@ descriptor no longer declares the field. Its retirement is tracked as MCP-375.
 
 ## Rationale
 
-1. **Model-reachable placement** (as revised): guidance is delivered once at initialise (`instructions`) and on demand through `get-curriculum-model`'s workflows. The original multiple-touchpoint redundancy rationale is retired with §1–§3.
+1. **One broadcast channel**: guidance is delivered once at initialise (`instructions`) and on demand through `get-curriculum-model`'s workflows. Nothing repeats per response, so orientation costs zero tokens against the 25K-token p95 response-size bar (owner-ratified 2026-07-29, recorded on MCP-305).
 
-2. **Model-visible placement**: All guidance is in `structuredContent` or tool descriptions—places the model actually sees. Previous approach of putting guidance in `_meta` was ineffective because the model never sees `_meta`.
+2. **Model-visible placement**: on-demand guidance rides `structuredContent` in the dual result shape — the only shape observed to render in every client (see the Client-variability note above). Guidance in `_meta` would be invisible to the model.
 
 3. **OpenAI Apps SDK alignment**: Following the official pattern where `structuredContent` contains data for model reasoning, `content` contains human-readable summaries, and `_meta` contains widget-only metadata.
 

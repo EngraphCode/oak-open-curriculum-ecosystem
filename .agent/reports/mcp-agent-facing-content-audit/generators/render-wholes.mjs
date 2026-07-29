@@ -80,7 +80,7 @@ parts.push(`## 2. Server identity (Implementation metadata)\n\nVerbatim snapshot
 // 3. TOOLS — assembled title + description + params + annotations (exact)
 try {
   const tools = mcp.listUniversalTools(mcp.generatedToolRegistry);
-  parts.push(`## 3. Tools — assembled definitions (${tools.length})\n\nExact. Each is the full \`title\` + \`description\` (base + injected PREREQUISITE/notes) + parameter descriptions + behaviour annotations the agent sees in \`tools/list\`.\n`);
+  parts.push(`## 3. Tools — assembled definitions (${tools.length})\n\nExact. Each is the full \`title\` + \`description\` (as authored; routing cross-references only) + parameter descriptions + behaviour annotations the agent sees in \`tools/list\`.\n`);
   for (const t of tools) {
     const d = t.definition ?? t;
     const name = d.name ?? t.name ?? '(unknown)';
