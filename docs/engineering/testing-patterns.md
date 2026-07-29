@@ -104,7 +104,9 @@ injectability, never merely a reason to skip.
 
 ## A Test That Needs Real IO Is a Product Defect
 
-When a unit or integration test seems to need real IO, the product code
+When a unit or integration test seems to need real IO beyond the loopback
+harness exchange with an imported app (see [Test File
+Classification](#test-file-classification)), the product code
 lacks a dependency-injection seam (ADR-078) — a product defect, not a
 test-writing inconvenience. The fix is to refactor the product to be
 testable (route the read/write through an injectable dependency, as

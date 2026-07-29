@@ -211,8 +211,8 @@ Formal home: [`validation-strategy.md`](validation-strategy.md) (seeded
 In-process tests are tests that validate **code imported into the
 test process**. The code under test runs in the same process as
 the test runner. They are fast, specific, and do not produce side
-effects. These tests are about testing CODE, not testing RUNNING
-SYSTEMS.
+effects on any system outside the test process. These tests are
+about testing CODE, not testing RUNNING SYSTEMS.
 
 - **Unit test**: A test that verifies the behaviour of a single
   PURE function in isolation. Unit tests DO NOT trigger IO, have
@@ -221,9 +221,10 @@ SYSTEMS.
 - **Integration test**: A test that verifies the behaviour of a
   collection of units **working together as code**, NOT a running
   system. Integration tests still import and test code directly
-  within the test process. They DO NOT trigger IO, have NO side
-  effects and can contain SIMPLE mocks which must be injected as
-  arguments to the function under test. Integration tests are
+  within the test process. They DO NOT trigger IO beyond the
+  loopback harness exchange defined below, have NO side effects
+  outside the test process, and can contain SIMPLE mocks which
+  must be injected as arguments to the function under test. Integration tests are
   automatically run in CI/CD and include MCP protocol compliance
   testing. **Important**: Integration tests are NOT about testing
   a deployed or running system - they test how multiple code units
@@ -251,8 +252,9 @@ net, and may produce side effects locally and in external systems.
   system. E2E tests CAN exchange STDIO with the running system —
   this is the protocol channel that defines what an E2E test IS for
   stdio-transport systems (MCP stdio). E2E tests MUST NOT trigger
-  filesystem IO, network IO, or any other side-effecting IO; the
-  test's job is to drive the system over its protocol channel and
+  filesystem IO, network IO beyond the system under test's
+  protocol channel, or any other side-effecting IO; the test's
+  job is to drive the system over its protocol channel and
   assert on the response, not to manipulate the surrounding
   environment. E2E tests CAN have side effects strictly attributable
   to the running system itself, contain minimal mocks (largely around

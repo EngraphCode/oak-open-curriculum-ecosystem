@@ -4,7 +4,7 @@
 
 - Authentication is proven through deterministic mock-driven suites at unit, integration, and E2E scale.
 - All tests follow TDD discipline: write the failing test first, keep arrangements simple, and favour pure functions at unit scale.
-- Unit and integration tests import code directly and inject tiny fakes; a harness's loopback exchange with the imported app is calling mechanics, not prohibited IO — it is still real socket IO, just not a tier boundary (classification per the testing-strategy directive §Test Types). All other real network IO is smoke-tier only.
+- Unit and integration tests import code directly and inject tiny fakes; a harness's loopback exchange with the imported app is calling mechanics, not prohibited IO — it is still real socket IO, just not a tier boundary (classification per the testing-strategy directive §Test Types). Real network IO beyond a tier's protocol channel is smoke-tier only.
 
 ## Authentication Testing
 
