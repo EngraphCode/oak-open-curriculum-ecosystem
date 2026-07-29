@@ -1,3 +1,15 @@
+# [1.113.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.112.0...v1.113.0) (2026-07-29)
+
+
+### Bug Fixes
+
+* **plugins:** track the plugin MCP config and true the graph-tool guidance (MCP-302) ([cba1fd9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/cba1fd9434357a3be224612ad74f037870ba13ff))
+
+
+### Features
+
+* **plugins:** add the Oak Open Curriculum Claude Code plugin (MCP-302) ([917cc5e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/917cc5ec6d72126c15038513e33851b2676da781))
+
 # [1.112.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.111.2...v1.112.0) (2026-07-28)
 
 
