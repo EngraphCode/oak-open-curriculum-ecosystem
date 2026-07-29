@@ -172,6 +172,26 @@ export async function applyIdentity(page: Page, identity: Identity): Promise<voi
       (sheet.href ?? '').endsWith(`/brands/${slug}/brand.css`),
     );
   }, identity);
+  // The parent sheet joining the cascade does NOT mean its nested @import
+  // (brand-a.css) has: Chromium attaches the imported sheet a frame later,
+  // and a scan in that gap sees the brand's base rules without its token
+  // overrides (a CI axe run caught creature x high-contrast mid-gap at
+  // 1.37:1). Applied means every import rule carries its stylesheet.
+  await page.waitForFunction((slug) => {
+    const parent = [...document.styleSheets].find((sheet) =>
+      (sheet.href ?? '').endsWith(`/brands/${slug}/brand.css`),
+    );
+    if (parent === undefined) {
+      return false;
+    }
+    try {
+      return [...parent.cssRules].every(
+        (rule) => !(rule instanceof CSSImportRule) || rule.styleSheet !== null,
+      );
+    } catch {
+      return false;
+    }
+  }, identity);
   await expect
     .poll(async () => headingFontFamily(page), {
       message: 'the counter-brand face must reach the heading',
