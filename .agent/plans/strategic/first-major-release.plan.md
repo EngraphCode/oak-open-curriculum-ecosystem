@@ -124,3 +124,28 @@ onto this node — one line each, pointers never duplicates.
   MCP-121 (guidance serving architecture, mapped to M1) is in flight
   and changes the served surface. The board (M1 in progress) is the
   truth; the note stands as written for what it dates, corrected here.
+- 2026-07-29 — Cloud-Config PR #551 review extracted at owner
+  direction: every review point (JR's five comments + the owner's
+  quoted skip-rules principle) ticketed as MCP-344…MCP-351 plus the
+  MCP-172 coverage comment; infrastructure halves INFP-1…INFP-8 in the
+  new Infrastructure Platform backlog, cross-linked at every seam.
+  Standing rulings from the extraction: MCP-scoped work (llms.txt
+  included) lives in the MCP project; MCP work requiring infrastructure
+  carries linked tickets across the two projects; none of the extracted
+  items are assumed submission blockers.
+- 2026-07-29 — OAuth namespace on the canonical domain (owner ruling,
+  conditional): prefer collapsing the edge scope to `/mcp*` plus two
+  path-scoped well-knowns, leaving root `/.well-known` untouched —
+  gated on client-compatibility evidence, general plus Claude and
+  ChatGPT by name. First evidence in: the reference MCP TypeScript SDK
+  (1.29.0) implements RFC 8414 path-inserted AS discovery. Fallback if
+  a named client fails: the PR #551 shape as opened. Authoritative
+  record: MCP-344 comment (2026-07-29).
+- 2026-07-29 — Multi-host self-description (owner direction): keep the
+  alpha AND www serving correctly if soundly possible; www wins
+  otherwise. Nothing hardcoded — every URL/host derives from the
+  deployed instance, in BOTH repos (app sweep MCP-351; route
+  single-definition locals INFP-8). The Host-override blindness, the
+  edge-restored validated-host design, and its security gate (the
+  bounded-selection vs header-trust distinction, fresh security pass
+  required): authoritative record MCP-307 comment (2026-07-29).

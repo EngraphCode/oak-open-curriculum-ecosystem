@@ -3199,3 +3199,25 @@ test-expert template §214–237, sentry-cli-usage §541–547, and testing-stra
 sentence, plus the original 24-file sweep + plan re-true; MCP-343 holds the headOfStream
 extraction. First capacity DECLINE exercised at Lynx's framing (MCP-305 → fresh seat): an
 evidence lane's working state lives exactly where compaction loses it — the honest no.
+
+## 2026-07-29 ~09:45Z — Lynx guards Whisper (9e8a61), Director: durable-recording sweep + the liveness knife-edge (at owner word)
+
+- **Owner instruction enacted ("make understanding and decisions durable — not a session wrap"):** today's
+  rulings and records homed as: decisions-register projections in `first-major-release.plan.md` §Dated
+  notes (three 2026-07-29 entries: the PR-551 extraction ledger; the conditional OAuth-collapse ruling
+  with the SDK path-insertion evidence; the multi-host + derive-don't-hardcode direction); the
+  director-handoff durable-half refresh (my sitting block, rulings verbatim); the Linear records
+  (MCP-344/307/349/351 comments, INFP-8); the PR #551 extraction summary comment (bot identity);
+  fleet behaviour-note on the stream. Notion judged NOT appropriate: these are engineering decisions
+  whose SSOT homes are repo + Linear; copying them out would mint a second source of truth.
+- **Instrument calibration, fleet-grade: the PDR-078 knife-edge.** "active <4m" classified against a
+  fleet-standard 240s heartbeat cadence means a poll sampling seconds before the next beat reads a
+  HEALTHY seat as offline — my own seat self-flagged while demonstrably executing (the self-refuting
+  signature, benign form). Structural, not incidental: every active→offline flicker today (Raccoon,
+  Schooner, Altair, me) was followed by live activity. Cure applied at my seat: the F-75 delta poll
+  emits only transitions INTO retired (≥10m) + the host-sleep collapse guard. Graduation candidate:
+  a calibration note in `liveness-heartbeat-cron`/the F-75 recipe — margin between cadence and the
+  active window, or retired-only alerting as the default poll shape.
+- MCP-305 doubly declined on honest capacity reads (Raccoon at #622's close; Schooner at the trio
+  boundary) — both converge on fresh-seat; owner holds the launch. The declines are the capacity-check
+  discipline working, not failures.

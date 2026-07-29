@@ -262,7 +262,19 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> ### ▶ SITTING DIRECTOR: Moon rides Penumbra (`7e34ff`), seated 2026-07-28 21:14Z (Moment-2 `fffc722e`); claim `5d1d04db`, role director
+> ### ▶ SITTING DIRECTOR: Lynx guards Whisper (`9e8a61`), seated 2026-07-29 07:56Z (Moment-2 `b573d009`, succeeding Moon rides Penumbra per its Moment-1 `f38cc2a5`); claim `a2286c53`, role director
+>
+> **MID-TENURE DURABLE-HALF REFRESH 2026-07-29 ~09:45Z — rulings and records only; recompute everything derivable (the commands in Squall's block below are canonical).**
+>
+> **OWNER RULINGS TODAY, CARRY VERBATIM:** (1) supertest classifies by BOUNDARY (encoded on main via #622/MCP-338); (2) Copilot STANDING at PR-open for source-touching PRs; (3) MCP-309 submission gates on ALL FOUR upstream API defects (Aakesh's; owner target THURSDAY EVENING); (4) MCP-scoped work INCLUDING llms.txt lives in the MCP project; MCP work requiring infrastructure carries LINKED tickets across the two projects (Infrastructure Platform/INFP backlog is live); (5) none of the PR-551-extracted items are assumed submission blockers; (6) OAuth namespace: prefer collapsing the canonical edge scope to `/mcp*` + path-scoped well-knowns, GATED on client-compat evidence — general plus Claude and ChatGPT by name (record: MCP-344); (7) multi-host self-description preferred (alpha AND www), www wins if unsound; NOTHING hardcoded — every URL/host derives from the deployed instance, both repos (records: MCP-307 design + gate, MCP-351 app sweep, INFP-8 route locals); (8) "avoid skip rules unless we have to" (JR, owner-quoted; INFP-4).
+>
+> **RECORDS OF EVENT (pointers):** Cloud-Config PR #551 review fully extracted — MCP-344…MCP-351 + the MCP-172 coverage comment; INFP-1…INFP-8 cross-linked at the seams; decisions-register projections appended to `first-major-release.plan.md` §Dated notes (2026-07-29 entries). The Kayak/Starling incident: ONE Codex seat whose context-clear rotated its identity (019fa9→019fac) was read as two colliding seats; owner stopped it; artefact inventory ZERO (nothing lost, hygiene complete); its plan recovered from Codex platform history and posted on MCP-305 as a ⚠️ QUARANTINED record at owner word — "do not assume the plan is correct or useful". MCP-305 has since been DECLINED at honest capacity checks by BOTH Raccoon and Schooner — it needs a FRESH owner-launched seat (spec = the ticket + Moon's routing event 736f6435; the quarantine binds).
+>
+> **INSTRUMENT CALIBRATION (fleet-relevant):** the PDR-078 "active <4m" window against the fleet's 240s heartbeat cadence is a knife-edge — healthy seats flicker "offline" at poll boundaries by construction. Read active→offline flickers as noise; only ≥10m (retired) with a failed ping and a clean host-sleep/boot check is signal. This seat's F-75 poll emits retired-only transitions accordingly.
+>
+> **SUPERSEDED — Moon's blocks below (its 07:45Z durable half remains binding history; roster and lane state are historical).**
+>
+> ### ▶ prior: SITTING DIRECTOR Moon rides Penumbra (`7e34ff`), seated 2026-07-28 21:14Z (Moment-2 `fffc722e`); stood down 2026-07-29 07:56Z at Lynx's Moment-2; claim `5d1d04db`
 >
 > ### ▶ SUCCESSOR PRE-POSITIONED (PDR-064 Moment 1), 2026-07-29 ~07:45Z at owner word: Lynx guards Whisper (`9e8a61`), registered standby 07:41:41Z, foundation complete. AUTHORITY IS STILL MOON'S until Lynx's Moment-2 (readiness gate + pasted mechanical check first).
 >
