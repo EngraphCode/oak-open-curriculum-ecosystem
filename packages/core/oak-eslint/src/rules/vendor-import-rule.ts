@@ -29,11 +29,22 @@ interface VendorImportRuleSpec<MessageId extends string> {
 export function createVendorImportRule<MessageId extends string>(
   spec: VendorImportRuleSpec<MessageId>,
 ): RuleWithReappraisingMessages<MessageId> {
-  function readLiteralSpecifier(node: TSESTree.Node): string | undefined {
-    if (node.type !== 'Literal' || !spec.isVendorSpecifier(node.value)) {
-      return undefined;
+  function readStaticSpecifier(node: TSESTree.Node): string | undefined {
+    if (node.type === 'Literal') {
+      return spec.isVendorSpecifier(node.value) ? node.value : undefined;
     }
-    return node.value;
+    // A no-substitution template literal is as static as a string literal:
+    // require(`vendor`) and import(`vendor`) must not slip the fence on
+    // quote syntax alone.
+    if (
+      node.type === 'TemplateLiteral' &&
+      node.expressions.length === 0 &&
+      node.quasis.length === 1
+    ) {
+      const value = node.quasis[0]?.value.cooked;
+      return spec.isVendorSpecifier(value) ? value : undefined;
+    }
+    return undefined;
   }
 
   return {
@@ -54,7 +65,7 @@ export function createVendorImportRule<MessageId extends string>(
       }
 
       function report(node: TSESTree.Node, source: TSESTree.Node): void {
-        const specifier = readLiteralSpecifier(source);
+        const specifier = readStaticSpecifier(source);
         if (specifier === undefined) {
           return;
         }

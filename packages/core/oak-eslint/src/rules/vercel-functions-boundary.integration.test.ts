@@ -44,6 +44,11 @@ const IMPORT_FORMS = [
     'CommonJS require',
     (specifier: string) => `const vendor = require('${specifier}');\nvoid vendor;`,
   ],
+  ['template-literal dynamic import', (specifier: string) => `void import(\`${specifier}\`);`],
+  [
+    'template-literal CommonJS require',
+    (specifier: string) => `const vendor = require(\`${specifier}\`);\nvoid vendor;`,
+  ],
 ] as const;
 
 describe('exclusive @vercel/functions compose-module boundary', () => {
