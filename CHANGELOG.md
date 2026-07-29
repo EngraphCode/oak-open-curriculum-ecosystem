@@ -1,3 +1,26 @@
+# [1.122.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.121.1...v1.122.0) (2026-07-29)
+
+
+### Bug Fixes
+
+* **design-showcase:** backreference-free url() reference grammar (MCP-371) ([08295bf](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/08295bf28bb565cd1cade38762dd2e7c994c14a0))
+* **design-showcase:** close css literal-scan bypasses, linear-time value regexes (MCP-371) ([b0b6549](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b0b6549e128f8e3f1f493315bb16dd5744f3a59f)), closes [#637](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/637)
+* **design-showcase:** end the url-matcher regex class; linear px grammar (MCP-371) ([bd42729](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bd42729a4bf84936e9e87dacb592f3792b2c476e))
+* **design-showcase:** focus rings, no-flash brand swap, truthful theme state (MCP-371) ([0481183](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/0481183654d82b884efaf5a606f4b34023f78ab8)), closes [#13](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/13) [hi#contrast](https://github.com/hi/issues/contrast)
+* **design-showcase:** identity applied-signal covers the nested brand import (MCP-371) ([52d50d0](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/52d50d0571720f891c36682f037ec5ec23d47e7c)), closes [hi#contrast](https://github.com/hi/issues/contrast)
+* **design-showcase:** pair the identity state setter name with its value (MCP-371) ([4f3750a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4f3750a2473c9564be3b7655d2a9b6f1ed7f3168))
+* **design-showcase:** regex-free length parse in the ring module (MCP-371) ([7b63777](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/7b637775852640e252e0e157abec996292f14fd3))
+* **design-showcase:** review-batch cures — measured ring instrument, geometry-true shell (MCP-371) ([54fca17](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/54fca17d092365cc5bd7b14fca738838aebf2c52)), closes [hi#contrast](https://github.com/hi/issues/contrast)
+* **design-showcase:** same-origin suite gate, measured focus ring, honest README route (MCP-371) ([b4332b3](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b4332b3de5384bfeb0918d555167ea8d0e52a80b)), closes [#637](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/637)
+* **design-showcase:** server-render the switchboard shell so hydration never shifts layout (MCP-371) ([f2b4142](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f2b41421249d6f68ba6979dd5901aacbce85937c)), closes [#637](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/637)
+* **design-showcase:** single-class px grammar in the ring module (MCP-371) ([ea88c4e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ea88c4e2cd3e3a6a1985b78538edd3a56d1a91ed))
+* **design-showcase:** theme snapshot reads the choice model, not the applied attribute (MCP-371) ([34a8f5f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/34a8f5f6e0e6329f5cfc39803a64b305523e00ce)), closes [#637](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/637) [hi#contrast](https://github.com/hi/issues/contrast)
+
+
+### Features
+
+* **design-showcase:** one-page showcase with identity and theme switchers (MCP-371) ([478bf55](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/478bf55e8875ac4a18b0b2fcd575eba572c6ea96))
+
 ## [1.121.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.121.0...v1.121.1) (2026-07-29)
 
 
