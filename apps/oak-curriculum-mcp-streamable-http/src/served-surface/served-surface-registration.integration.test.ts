@@ -14,6 +14,7 @@
  */
 
 import { describe, it, expect } from 'vitest';
+import { typeSafeKeys } from '@oaknational/type-helpers';
 import {
   listUniversalTools,
   generatedToolRegistry,
@@ -95,10 +96,43 @@ describe('product-analytics label closure (MCP-241)', () => {
   // registrar registers under the entry's name across module boundaries
   // (e.g. the widget name literal lives in register-widget-resource.ts),
   // and that handlers.ts actually drives registerAllResources with the
-  // canonical definition.
+  // canonical definition. Multiplicity-preserving: a duplicate name cannot
+  // hide inside set semantics.
   it('liveResourceRegistrationNames matches exactly the resource names the real registration path registers', () => {
     const walk = walkCanonicalRegistration();
 
-    expect(new Set(liveResourceRegistrationNames(SERVED_SURFACE))).toEqual(walk.resourceNames);
+    expect(
+      [...liveResourceRegistrationNames(SERVED_SURFACE)].sort((left, right) =>
+        left.localeCompare(right),
+      ),
+    ).toStrictEqual([...walk.resourceNameList].sort((left, right) => left.localeCompare(right)));
   });
+
+  // Per-unit gate isolation: flipping any single resource row to its
+  // opposite state must keep labels and registrations in lockstep. Under
+  // the canonical surface alone, two live units could swap their
+  // advertised names and still agree as sets; a flipped gate makes a
+  // swapped name/registrar pairing diverge, so this sweep pins the pairing
+  // unit by unit (the documentation rows also exercise the all-or-nothing
+  // every-gate from both directions).
+  it.each(typeSafeKeys(SERVED_SURFACE.resources))(
+    'labels track registrations exactly when the %s row flips state',
+    (uri) => {
+      const flipped: ServedSurfaceDefinition = {
+        universalTools: SERVED_SURFACE.universalTools,
+        appLocalTools: SERVED_SURFACE.appLocalTools,
+        resources: {
+          ...SERVED_SURFACE.resources,
+          [uri]: SERVED_SURFACE.resources[uri] === 'live' ? 'dormant' : 'live',
+        },
+      };
+      const walk = walkCanonicalRegistration(flipped);
+
+      expect(
+        [...liveResourceRegistrationNames(flipped)].sort((left, right) =>
+          left.localeCompare(right),
+        ),
+      ).toStrictEqual([...walk.resourceNameList].sort((left, right) => left.localeCompare(right)));
+    },
+  );
 });

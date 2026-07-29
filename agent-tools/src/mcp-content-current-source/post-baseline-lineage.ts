@@ -1,7 +1,9 @@
 /**
- * Lineage for audit rows whose source files were removed AFTER the phase-(a)
- * capture by later merged work: the MCP-300 imperative-guidance removal
- * (4e3ba6964) and the MCP-128 React landing rebuild (f09083987).
+ * Lineage for audit rows relocated or retired AFTER the phase-(a) capture by
+ * later merged work — whether the baseline source file was removed (the
+ * MCP-300 imperative-guidance removal 4e3ba6964, the MCP-128 React landing
+ * rebuild f09083987) or survives with selected governed bodies extracted
+ * elsewhere (the MCP-337 registration-descriptor split).
  *
  * Empty targets mean the content retired. Multiple targets preserve split
  * lineage where one historical row now contributes to more than one source.
