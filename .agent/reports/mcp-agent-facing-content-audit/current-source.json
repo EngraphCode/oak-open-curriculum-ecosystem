@@ -27,10 +27,10 @@
     "additionCount": 10,
     "availableCount": 688,
     "retiredCount": 39,
-    "unchangedCount": 530,
+    "unchangedCount": 524,
     "expandedCount": 0,
-    "modifiedCount": 84,
-    "relocatedCount": 63,
+    "modifiedCount": 85,
+    "relocatedCount": 68,
     "addedCount": 11,
     "workspaceScopeInCount": 611,
     "workspaceScopeOutUpstreamApiCount": 116,
@@ -8254,7 +8254,7 @@
       "source": {
         "state": "available",
         "files": [
-          "apps/oak-curriculum-mcp-streamable-http/src/landing-page/resolve-canonical-url.ts"
+          "apps/oak-curriculum-mcp-streamable-http/src/served-origin.ts"
         ],
         "evidence": {
           "revision": "modified",
@@ -8263,7 +8263,7 @@
         }
       },
       "lineage": {
-        "disposition": "retained",
+        "disposition": "relocated",
         "baselineFile": "apps/oak-curriculum-mcp-streamable-http/src/landing-page/resolve-canonical-url.ts"
       },
       "registrations": []
@@ -9025,16 +9025,16 @@
       "source": {
         "state": "available",
         "files": [
-          "apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/mcp-auth.ts"
+          "apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/mcp-auth-responses.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "relocated",
           "anchorTargetCount": 1,
-          "anchorCount": 1
+          "anchorCount": 2
         }
       },
       "lineage": {
-        "disposition": "retained",
+        "disposition": "relocated",
         "baselineFile": "apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/mcp-auth.ts"
       },
       "registrations": []
@@ -9046,16 +9046,16 @@
       "source": {
         "state": "available",
         "files": [
-          "apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/mcp-auth.ts"
+          "apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/mcp-auth-responses.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "relocated",
           "anchorTargetCount": 1,
-          "anchorCount": 1
+          "anchorCount": 2
         }
       },
       "lineage": {
-        "disposition": "retained",
+        "disposition": "relocated",
         "baselineFile": "apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/mcp-auth.ts"
       },
       "registrations": []
@@ -9067,16 +9067,16 @@
       "source": {
         "state": "available",
         "files": [
-          "apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/mcp-auth.ts"
+          "apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/mcp-auth-responses.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "relocated",
           "anchorTargetCount": 1,
-          "anchorCount": 1
+          "anchorCount": 2
         }
       },
       "lineage": {
-        "disposition": "retained",
+        "disposition": "relocated",
         "baselineFile": "apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/mcp-auth.ts"
       },
       "registrations": []
@@ -9088,16 +9088,16 @@
       "source": {
         "state": "available",
         "files": [
-          "apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/mcp-auth.ts"
+          "apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/mcp-auth-responses.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "relocated",
           "anchorTargetCount": 1,
-          "anchorCount": 1
+          "anchorCount": 2
         }
       },
       "lineage": {
-        "disposition": "retained",
+        "disposition": "relocated",
         "baselineFile": "apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/mcp-auth.ts"
       },
       "registrations": []
@@ -9130,16 +9130,16 @@
       "source": {
         "state": "available",
         "files": [
-          "apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/mcp-auth.ts"
+          "apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/mcp-auth-responses.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "relocated",
           "anchorTargetCount": 1,
           "anchorCount": 1
         }
       },
       "lineage": {
-        "disposition": "retained",
+        "disposition": "relocated",
         "baselineFile": "apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/mcp-auth.ts"
       },
       "registrations": []
@@ -15454,7 +15454,7 @@
           "apps/oak-curriculum-mcp-streamable-http/src/auth-routes.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
           "anchorCount": 1
         }

@@ -10,6 +10,7 @@ import type { Result } from '@oaknational/result';
 import type { AuthDisabledRuntimeConfig } from './runtime-config.js';
 import { createFakeHttpObservability } from './test-helpers/fakes.js';
 import { startConfiguredHttpServer, type HttpServerLike } from './server-runtime.js';
+import { resolveServedOrigin } from './served-origin.js';
 
 interface LogCall {
   readonly message: string;
@@ -28,6 +29,11 @@ const WAIT_OPTIONS = { interval: 5 };
 interface HarnessOptions {
   readonly analyticsCloseResult?: () => Promise<Result<void, ProductAnalyticsCloseError>>;
   readonly observabilityCloseResult?: () => Promise<Result<void, ObservabilityCloseError>>;
+  /**
+   * Environment entries layered over the default runtime config. An explicit
+   * `undefined` unsets the default (the env type declares these optional).
+   */
+  readonly env?: Readonly<Record<string, string | undefined>>;
 }
 
 interface ServerHarness {
@@ -49,12 +55,16 @@ interface ServerHarness {
   /** Close attempts in invocation order — pins analytics-first, Sentry-last. */
   readonly closeOrder: readonly ('product-analytics' | 'observability')[];
   readonly server: HttpServerLike;
+  /** The port `listen` was actually called with; `undefined` before start. */
+  readonly listenPort: number | undefined;
   readonly serverHandlers: ReadonlyMap<string, (error: NodeJS.ErrnoException) => void>;
   readonly signalHandlers: ReadonlyMap<'SIGINT' | 'SIGTERM', () => void>;
   createServerRuntime(exit: (code: number) => void): Promise<void>;
 }
 
-function createRuntimeConfig(): AuthDisabledRuntimeConfig {
+function createRuntimeConfig(
+  envOverrides: Readonly<Record<string, string | undefined>> = {},
+): AuthDisabledRuntimeConfig {
   return {
     dangerouslyDisableAuth: true,
     useStubTools: false,
@@ -69,6 +79,7 @@ function createRuntimeConfig(): AuthDisabledRuntimeConfig {
       LOG_LEVEL: 'info',
       SENTRY_MODE: 'off',
       PORT: '3333',
+      ...envOverrides,
     },
   };
 }
@@ -153,12 +164,14 @@ function createServerHarness(options: HarnessOptions = {}): ServerHarness {
   let bootstrapAppCalls = 0;
   const serverHandlers = new Map<string, (error: NodeJS.ErrnoException) => void>();
   const signalHandlers = new Map<'SIGINT' | 'SIGTERM', () => void>();
+  let listenPort: number | undefined;
   const server: HttpServerLike = {
     on(event, handler) {
       serverHandlers.set(event, handler);
       return server;
     },
-    listen(_port, callback) {
+    listen(port, callback) {
+      listenPort = port;
       callback();
     },
   };
@@ -180,11 +193,14 @@ function createServerHarness(options: HarnessOptions = {}): ServerHarness {
     },
     closeOrder,
     server,
+    get listenPort() {
+      return listenPort;
+    },
     serverHandlers,
     signalHandlers,
     async createServerRuntime(exit: (code: number) => void): Promise<void> {
       await startConfiguredHttpServer({
-        runtimeConfig: createRuntimeConfig(),
+        runtimeConfig: createRuntimeConfig(options.env),
         observability: {
           ...observability,
           createLogger: () => logger,
@@ -245,6 +261,26 @@ function requireErrorHandler(harness: ServerHarness): (error: NodeJS.ErrnoExcept
 describe('startConfiguredHttpServer', () => {
   afterEach(() => {
     vi.restoreAllMocks();
+  });
+
+  /**
+   * The port the server BINDS must be the port it ADVERTISES. Both sides read
+   * the same `PORT`, so the states that matter are the ones where the two
+   * readings could disagree: `PORT` absent, and `PORT` present but empty.
+   * `env.ts` types `PORT` as an optional string, so empty is reachable.
+   */
+  describe.each([
+    { label: 'absent', env: { PORT: undefined }, portEnv: undefined },
+    { label: 'empty', env: { PORT: '' }, portEnv: '' },
+  ])('with PORT $label', ({ env, portEnv }) => {
+    it('listens on the port the app self-describes as', async () => {
+      const harness = createServerHarness({ env });
+
+      await harness.createServerRuntime(() => undefined);
+
+      const advertisedPort = new URL(resolveServedOrigin({ portEnv })).port;
+      expect(String(harness.listenPort)).toBe(advertisedPort);
+    });
   });
 
   it('closes both runtimes from the startup-failure hook passed into bootstrapApp', async () => {

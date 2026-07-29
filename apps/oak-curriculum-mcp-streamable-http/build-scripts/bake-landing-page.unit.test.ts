@@ -42,6 +42,23 @@ describe('resolveBakeOptions', () => {
     expect('vercelHost' in options).toBe(false);
   });
 
+  it('supplies the canonical host alongside the deployment host when configured', () => {
+    // Both reach the options; which one WINS is the shared served-origin
+    // derivation's rule, proven on the rendered page rather than here.
+    const options = resolveBakeOptions({
+      VERCEL_ENV: 'production',
+      VERCEL_PROJECT_PRODUCTION_URL: 'mcp.example.org',
+      CANONICAL_HOST: 'www.thenational.academy',
+    });
+
+    expect(options.canonicalHost).toBe('www.thenational.academy');
+    expect(options.vercelHost).toBe('mcp.example.org');
+  });
+
+  it('omits the canonical host when it is not configured', () => {
+    expect('canonicalHost' in resolveBakeOptions({})).toBe(false);
+  });
+
   it('falls back to the build identity version when no override is set', () => {
     const options = resolveBakeOptions({});
 

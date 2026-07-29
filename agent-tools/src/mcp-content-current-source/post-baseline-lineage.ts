@@ -137,6 +137,35 @@ const UNDER_THE_HOOD_BAKE_RETIREMENTS = [
   ['C413', []],
 ] as const;
 
+const SERVED_ORIGIN = 'apps/oak-curriculum-mcp-streamable-http/src/served-origin.ts';
+
+/**
+ * MCP-351 promoted the landing page's canonical-URL resolution out of
+ * landing-page/resolve-canonical-url.ts to the app-root served-origin
+ * module, so ONE derivation answers "where is this deployed" for every
+ * per-deployment self-description surface. The endpoint URL strings
+ * relocated with it.
+ */
+const SERVED_ORIGIN_PROMOTION = [['C355', [SERVED_ORIGIN]]] as const;
+
+const MCP_AUTH_RESPONSES =
+  'apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/mcp-auth-responses.ts';
+
+/**
+ * MCP-351 also extracted the auth middleware's response senders to
+ * mcp-auth-responses.ts (the middleware file split at its line limit): the
+ * four 401 challenge bodies and the 403 body relocated with their senders.
+ * C399's fallback string stays in mcp-auth.ts, where the validation branch
+ * that composes it lives.
+ */
+const MCP_AUTH_RESPONSE_RELOCATIONS = [
+  ['C395', [MCP_AUTH_RESPONSES]],
+  ['C396', [MCP_AUTH_RESPONSES]],
+  ['C397', [MCP_AUTH_RESPONSES]],
+  ['C398', [MCP_AUTH_RESPONSES]],
+  ['C400', [MCP_AUTH_RESPONSES]],
+] as const;
+
 /** All post-baseline lineage, composed for the current-item lineage map. */
 export const POST_BASELINE_LINEAGE_ENTRIES = [
   ...ORIENTATION_ERA_LINEAGE_ENTRIES,
@@ -145,4 +174,6 @@ export const POST_BASELINE_LINEAGE_ENTRIES = [
   ...LANDING_REACT_LINEAGE_ENTRIES,
   ...REGISTRATION_DESCRIPTOR_RELOCATIONS,
   ...UNDER_THE_HOOD_BAKE_RETIREMENTS,
+  ...SERVED_ORIGIN_PROMOTION,
+  ...MCP_AUTH_RESPONSE_RELOCATIONS,
 ] as const;

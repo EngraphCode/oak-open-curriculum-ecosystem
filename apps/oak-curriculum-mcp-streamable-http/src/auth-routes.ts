@@ -11,6 +11,7 @@ import type { McpServerFactory } from './mcp-request-context.js';
 import { rewriteAuthServerMetadata, type UpstreamAuthServerMetadata } from './oauth-proxy/index.js';
 import type { HttpObservability } from './observability/http-observability.js';
 import { deriveSelfOrigin, hostValidationErrorMessage } from './host-validation-error.js';
+import { MCP_RESOURCE_PATH } from './served-origin.js';
 
 /**
  * Registers unauthenticated MCP routes (when DANGEROUSLY_DISABLE_AUTH=true).
@@ -92,7 +93,9 @@ export function registerPublicOAuthMetadataEndpoints(
     }
     const selfOrigin = originResult.value;
     res.json({
-      resource: `${selfOrigin}/mcp`,
+      // The published resource and the RFC 8707 expected audience share
+      // MCP_RESOURCE_PATH so they can never diverge (MCP-351).
+      resource: `${selfOrigin}${MCP_RESOURCE_PATH}`,
       authorization_servers: [selfOrigin],
       scopes_supported: SCOPES_SUPPORTED,
     });

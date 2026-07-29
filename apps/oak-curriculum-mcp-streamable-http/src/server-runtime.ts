@@ -4,6 +4,7 @@ import { bootstrapApp, type BootstrapAppDeps } from './bootstrap-app.js';
 import type { HttpObservability } from './observability/http-observability.js';
 import { createProcessCloseOwner, type CloseProductAnalytics } from './process-close-owner.js';
 import type { RuntimeConfig } from './runtime-config.js';
+import { DEFAULT_LOCAL_PORT } from './served-origin.js';
 
 type ShutdownSignal = 'SIGINT' | 'SIGTERM';
 
@@ -43,8 +44,18 @@ interface StartConfiguredHttpServerDeps {
   readonly exit: (code: number) => void;
 }
 
+/**
+ * The port to listen on. `PORT` is typed as an optional string, so it can
+ * arrive EMPTY as well as absent; both mean "not configured". `||` rather
+ * than `??` is what makes that true here, and it is what keeps this in step
+ * with `resolveServedOrigin` in `served-origin.ts`, which also treats an
+ * empty `PORT` as absent. Under `??` an empty `PORT` would listen on
+ * `Number('')` — port 0, an ephemeral port — while the app self-described
+ * as `3333`, which is exactly the listen/advertise divergence this shared
+ * constant exists to prevent.
+ */
 function resolvePort(runtimeConfig: RuntimeConfig): number {
-  return runtimeConfig.env.PORT ? Number(runtimeConfig.env.PORT) : 3333;
+  return Number(runtimeConfig.env.PORT || DEFAULT_LOCAL_PORT);
 }
 
 function createServerErrorHandler(

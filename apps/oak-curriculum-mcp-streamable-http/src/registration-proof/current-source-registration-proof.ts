@@ -19,6 +19,7 @@ import {
 } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
 import { initializeCoreEndpoints } from '../app/core-endpoints.js';
 import { createHttpObservability } from '../observability/http-observability.js';
+import { resolveServedMcpUrl } from '../served-origin.js';
 import { SERVED_SURFACE } from '../served-surface/served-surface.js';
 import type { RuntimeConfig } from '../runtime-config.js';
 import {
@@ -154,6 +155,7 @@ async function createConnectedClient(): Promise<Client> {
     {
       runtimeConfig,
       observability: observabilityResult.value,
+      resourceUrl: resolveServedMcpUrl({}),
       getWidgetHtml: () => '<html>current-source-validator</html>',
     },
     createLogger(),

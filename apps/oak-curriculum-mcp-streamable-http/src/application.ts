@@ -14,6 +14,7 @@ import { setupSecurityMiddleware } from './app/bootstrap-security.js';
 import { mountStaticContentRoutes } from './app/static-content.js';
 import { createRateLimiters } from './rate-limiting/create-rate-limiters.js';
 import { initializeCoreEndpoints } from './app/core-endpoints.js';
+import { resolveServedMcpUrl } from './served-origin.js';
 import { runOAuthAndAuthContextPhases } from './app/orchestration.js';
 import type { CreateAppOptions } from './app/create-app-options.js';
 export type { McpRequestContext, McpServerFactory } from './mcp-request-context.js';
@@ -65,16 +66,31 @@ interface SetupPostAuthPhasesDeps {
   readonly assetRateLimiter: RequestHandler;
 }
 
+/**
+ * Derives the served MCP endpoint URL ONCE, at the composition root, to be
+ * threaded as a required field — no downstream layer may re-default it
+ * (MCP-351: a scattered localhost default once reached production error
+ * payloads).
+ */
+function deriveResourceUrl(options: CreateAppOptions, canonicalOrigin?: string): string {
+  return resolveServedMcpUrl({
+    canonicalOrigin,
+    displayHostname: options.runtimeConfig.displayHostname,
+    portEnv: options.runtimeConfig.env.PORT,
+  });
+}
+
 function setupPostAuthPhases(deps: SetupPostAuthPhasesDeps): void {
   const { app, options, log, bootstrapTimer, appId, allowedHosts, canonicalOrigin } = deps;
   const { dnsRebindingMiddleware, mcpRateLimiter, assetRateLimiter } = deps;
 
+  const resourceUrl = deriveResourceUrl(options, canonicalOrigin);
   const { mcpFactory } = runBootstrapPhase(
     log,
     bootstrapTimer,
     'initializeCoreEndpoints',
     appId,
-    () => initializeCoreEndpoints(app, options, log, assetRateLimiter),
+    () => initializeCoreEndpoints(app, { ...options, resourceUrl }, log, assetRateLimiter),
     options.observability,
   );
 
