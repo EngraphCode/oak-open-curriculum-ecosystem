@@ -99,26 +99,39 @@ describe('buildDigest', () => {
     expect(digest).not.toContain('#### machinery detail');
   });
 
-  it('fails loudly on any raw-GitHub URL form inside a served section', () => {
+  it('fails loudly on any non-allowlisted absolute URL inside a served section', () => {
     const result = buildDigest(
       '# A\n\nFetch `https://github.com/oaknational/x/tree/HEAD/docs/README.md` live.\n',
       { served: ['# A'], excluded: new Map() },
     );
     expect(isErr(result)).toBe(true);
-    expect(unwrapErr(result)).toMatch(/Raw-GitHub URL form/);
+    expect(unwrapErr(result)).toMatch(/outside the served-citation allowlist/);
     expect(unwrapErr(result)).toContain('/tree/HEAD/');
   });
 
-  it('matches raw-GitHub URL forms case-insensitively (hostnames are case-insensitive)', () => {
-    const result = buildDigest(
-      '# A\n\nFetch `https://RAW.GITHUBUSERCONTENT.COM/o/r/main/x.md`.\n',
-      {
+  it('rejects fetch hosts a deny-list would miss (Contents API, gists, mixed case)', () => {
+    for (const url of [
+      'https://api.github.com/repos/o/r/contents/docs/README.md',
+      'https://gist.githubusercontent.com/o/abc/raw/x.md',
+      'https://RAW.GITHUBUSERCONTENT.COM/o/r/main/x.md',
+    ]) {
+      const result = buildDigest(`# A\n\nFetch \`${url}\` live.\n`, {
         served: ['# A'],
         excluded: new Map(),
-      },
+      });
+      expect(isErr(result)).toBe(true);
+      expect(unwrapErr(result)).toMatch(/outside the served-citation allowlist/);
+    }
+  });
+
+  it('accepts the allowlisted Oak public-site citations in served sections', () => {
+    const digest = unwrap(
+      buildDigest('# A\n\nSee `https://www.thenational.academy/about-us/who-we-are`.\n', {
+        served: ['# A'],
+        excluded: new Map(),
+      }),
     );
-    expect(isErr(result)).toBe(true);
-    expect(unwrapErr(result)).toMatch(/Raw-GitHub URL form/);
+    expect(digest).toContain('https://www.thenational.academy/about-us/who-we-are');
   });
 
   it('fails loudly on duplicate canonical headings', () => {
@@ -131,14 +144,14 @@ describe('buildDigest', () => {
     expect(unwrapErr(result)).toContain('# A');
   });
 
-  it('fails loudly on a raw-GitHub URL form inside a served HEADING', () => {
+  it('fails loudly on a non-allowlisted URL inside a served HEADING', () => {
     const heading = '## Fetch https://raw.githubusercontent.com/o/r/main/x.md';
     const result = buildDigest(`${heading}\n\nBody.\n`, {
       served: [heading],
       excluded: new Map(),
     });
     expect(isErr(result)).toBe(true);
-    expect(unwrapErr(result)).toMatch(/Raw-GitHub URL form/);
+    expect(unwrapErr(result)).toMatch(/outside the served-citation allowlist/);
   });
 
   it('accepts raw-GitHub URL forms inside excluded sections', () => {

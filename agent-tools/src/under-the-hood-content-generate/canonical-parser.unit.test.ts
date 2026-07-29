@@ -2,7 +2,7 @@
  * Unit tests for the canonical section parser: frontmatter stripping and
  * fence-aware heading detection.
  */
-import { isErr, unwrap } from '@oaknational/result';
+import { isErr, unwrap, unwrapErr } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
 import { parseCanonicalSections } from './canonical-parser.js';
@@ -19,6 +19,13 @@ describe('parseCanonicalSections', () => {
   it('reports unterminated frontmatter as an error', () => {
     const result = parseCanonicalSections('---\nname: x\n\n# Title\n');
     expect(isErr(result)).toBe(true);
+  });
+
+  it('rejects non-blank content before the first heading (nothing ships silently)', () => {
+    const result = parseCanonicalSections('---\nname: x\n---\n\nStray instruction.\n\n# Title\n');
+    expect(isErr(result)).toBe(true);
+    expect(unwrapErr(result)).toMatch(/before the first heading/);
+    expect(unwrapErr(result)).toContain('Stray instruction.');
   });
 
   it('recognises tab and end-of-line ATX heading forms', () => {

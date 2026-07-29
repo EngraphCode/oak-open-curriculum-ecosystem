@@ -90,12 +90,14 @@ function closesFence(open: FenceDelimiter, candidate: FenceDelimiter): boolean {
  * line inside a code fence is content, not a heading) and with the leading
  * YAML frontmatter block stripped. ATX levels 1–3 are the classification
  * grain; deeper headings are section content — and inside a SERVED section
- * they are rejected at classification (see `buildDigest`). The scanner
- * covers CommonMark's ATX forms (space, tab, or end-of-line after the
- * hashes) and both fence styles; the estate's markdownlint gate binds the
- * canonical on the same commit path (hard tabs and mixed fence styles are
- * lint errors there), so these forms are defence-in-depth, not a live
- * dialect.
+ * they are rejected at classification (see `buildDigest`). Non-blank
+ * content BEFORE the first heading has no section to be classified under
+ * and fails loudly — silent discard would let canonical content drift with
+ * a green parity gate. The scanner covers CommonMark's ATX forms (space,
+ * tab, or end-of-line after the hashes) and both fence styles; the estate's
+ * markdownlint gate binds the canonical on the same commit path (hard tabs
+ * and mixed fence styles are lint errors there), so these forms are
+ * defence-in-depth, not a live dialect.
  */
 export function parseCanonicalSections(
   canonical: string,
@@ -104,11 +106,23 @@ export function parseCanonicalSections(
   if (isErr(stripped)) {
     return stripped;
   }
-  return ok(splitSections(stripped.value));
+  const { sections, preamble } = splitSections(stripped.value);
+  const stray = preamble.filter((line) => line.trim() !== '');
+  if (stray.length > 0) {
+    return err(
+      `Content before the first heading in ${CANONICAL_SKILL_PATH} cannot be classified — ` +
+        `move it under an H1–H3 heading:\n${stray.join('\n')}`,
+    );
+  }
+  return ok(sections);
 }
 
-function splitSections(lines: readonly string[]): readonly CanonicalSection[] {
+function splitSections(lines: readonly string[]): {
+  readonly sections: readonly CanonicalSection[];
+  readonly preamble: readonly string[];
+} {
   const sections: CanonicalSection[] = [];
+  const preamble: string[] = [];
   let current: { heading: string; lines: string[] } | undefined;
   const fenced = createFenceTracker();
   for (const line of lines) {
@@ -119,14 +133,16 @@ function splitSections(lines: readonly string[]): readonly CanonicalSection[] {
       current = { heading: line, lines: [] };
       continue;
     }
-    if (current !== undefined) {
+    if (current === undefined) {
+      preamble.push(line);
+    } else {
       current.lines.push(line);
     }
   }
   if (current !== undefined) {
     sections.push(current);
   }
-  return sections;
+  return { sections, preamble };
 }
 
 function stripFrontmatter(lines: readonly string[]): Result<readonly string[], string> {

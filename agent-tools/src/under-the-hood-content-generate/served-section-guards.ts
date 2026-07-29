@@ -1,10 +1,11 @@
 /**
  * Guards over the content of SERVED sections. The classification lists in
  * `sections.ts` decide WHICH sections ship; these guards fail generation when
- * a served section's BODY carries a shape that must not ship — a
- * deeper-than-H3 heading (content that dodged the classification grain) or a
- * raw-GitHub fetch-URL form (the fetch-instruction shape directory policy
- * §2.F forbids). Excluded sections are exempt: their content never ships.
+ * a served section carries a shape that must not ship — a deeper-than-H3
+ * heading (content that dodged the classification grain) or an absolute URL
+ * outside the served-citation allowlist (the fetch-instruction shape
+ * directory policy §2.F forbids). Excluded sections are exempt: their
+ * content never ships.
  */
 import { createFenceTracker, type CanonicalSection } from './canonical-parser.js';
 
@@ -13,7 +14,7 @@ export function servedSectionDefect(
   sections: readonly CanonicalSection[],
   served: readonly string[],
 ): string | undefined {
-  return servedDeepHeadingDefect(sections, served) ?? servedUrlFormDefect(sections, served);
+  return servedDeepHeadingDefect(sections, served) ?? servedUrlDefect(sections, served);
 }
 
 /**
@@ -60,23 +61,27 @@ function deepHeadingsOutsideFences(lines: readonly string[]): readonly string[] 
 }
 
 /**
- * A raw-GitHub fetch-target URL form (`raw.githubusercontent.com`, or a
- * `/blob/<ref>/`, `/tree/<ref>/`, `/raw/<ref>/` path segment) matched as a
- * class, not a literal. Case-insensitive: URL hostnames are case-insensitive,
- * and over-matching a path segment is safe here (a false positive is a reword
- * with a clear message).
+ * The only absolute-URL prefixes a SERVED section may carry: Oak's own public
+ * pages — the factual citations the owner ruling retains. Everything else
+ * fails generation: an allowlist cannot be bypassed by enumerating new fetch
+ * hosts (raw-GitHub, the Contents API, gists, …) the way a deny-list can
+ * (directory policy §2.F). Additions here are deliberate compliance
+ * decisions, reviewed like the section classification itself.
  */
-const RAW_GITHUB_URL_FORM = /raw\.githubusercontent\.com|\/(?:blob|tree|raw)\/[^\s/]+\//i;
+const ALLOWED_SERVED_URL_PREFIXES: readonly string[] = ['https://www.thenational.academy/'];
+
+/** Absolute-URL matcher; whitespace, backticks, pipes, and parens end a URL. */
+const ABSOLUTE_URL = /https?:\/\/[^\s`)|]+/gi;
 
 /**
- * A raw-GitHub fetch-target URL form inside a SERVED section is the
- * fetch-instruction shape the digest exists to exclude (directory policy
- * §2.F); fail loudly at the generation boundary. Excluded sections
- * legitimately carry these forms — `### Reaching the sources` is the worked
- * example. Cite the document path instead; the tool result's `repositoryUrl`
- * carries the locator.
+ * Any absolute URL outside the served-citation allowlist inside a SERVED
+ * section is treated as a potential fetch-instruction shape (directory
+ * policy §2.F); fail loudly at the generation boundary. Excluded sections
+ * legitimately carry fetch mechanics — `### Reaching the sources` is the
+ * worked example. Cite repo-relative document paths instead; the tool
+ * result's `repositoryUrl` carries the locator.
  */
-function servedUrlFormDefect(
+function servedUrlDefect(
   sections: readonly CanonicalSection[],
   served: readonly string[],
 ): string | undefined {
@@ -85,16 +90,23 @@ function servedUrlFormDefect(
       continue;
     }
     // The heading line ships too — scan it alongside the body.
-    const hits = [section.heading, ...section.lines].filter((line) =>
-      RAW_GITHUB_URL_FORM.test(line),
-    );
-    if (hits.length > 0) {
+    const disallowed = [section.heading, ...section.lines]
+      .flatMap((line) => [...line.matchAll(ABSOLUTE_URL)].map((match) => match[0]))
+      .filter((url) => !isAllowedServedUrl(url));
+    if (disallowed.length > 0) {
       return (
-        `Raw-GitHub URL form(s) inside the served section "${section.heading}" — cite the ` +
-        `document path and let the tool result's repositoryUrl carry the locator:\n` +
-        hits.join('\n')
+        `Absolute URL(s) outside the served-citation allowlist in the served section ` +
+        `"${section.heading}" — cite the repo-relative document path (the tool result's ` +
+        `repositoryUrl carries the locator), or add a factual Oak citation prefix to the ` +
+        `allowlist deliberately:\n${disallowed.join('\n')}`
       );
     }
   }
   return undefined;
+}
+
+/** Case-insensitive prefix test (URL hostnames are case-insensitive). */
+function isAllowedServedUrl(url: string): boolean {
+  const lowered = url.toLowerCase();
+  return ALLOWED_SERVED_URL_PREFIXES.some((prefix) => lowered.startsWith(prefix));
 }
