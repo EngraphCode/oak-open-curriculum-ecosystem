@@ -3221,3 +3221,217 @@ evidence lane's working state lives exactly where compaction loses it — the ho
 - MCP-305 doubly declined on honest capacity reads (Raccoon at #622's close; Schooner at the trio
   boundary) — both converge on fresh-seat; owner holds the launch. The declines are the capacity-check
   discipline working, not failures.
+
+## 2026-07-29 ~10:05Z — Lynx guards Whisper (9e8a61), Director: TWO OWNER CORRECTIONS at the cards (at occurrence, verbatim substance)
+
+- **"Reminting credentials is the work of seconds, seconds."** The ~16:33Z MCPJam credentials expiry
+  was inherited through the handoff lineage as "the hard bound" and transmitted by me repeatedly as
+  day-shaping pressure — nobody ever re-derived the re-mint cost. Inherited-urgency instance of
+  frozen-text-false-authority: a DEADLINE is a claim like any other; before letting one shape
+  routing, ask what missing it actually costs. Corrected to Altair at occurrence; the pack run is
+  later this morning, owner-attended.
+- **"Raccoon is doing nothing... you had two seats sitting around and you did nothing with them."**
+  My error, precisely: I accepted two seats' capacity declines for ONE lane (MCP-305's precision-
+  telemetry shape) and silently generalised them into unavailability for ALL work — then framed the
+  E1/E2 evidence gates as "blocked on fresh seats" without ever OFFERING them to the idle seats,
+  though they are bounded reading + reviewer-dispatch work that fits deep windows. A capacity
+  decline is scoped to the work-shape it was asked about, never a seat-wide state; an idle agent is
+  a defect (the memory existed and did not fire — passive again). Cure at occurrence: Raccoon routed
+  onto E1 (MCP-344 client-compat evidence) then E2 (MCP-307 security re-pass) with an honest
+  capacity check between; Schooner is on the owner's own direct task. Residual fresh-seat set
+  shrinks to MCP-305 + MCP-334.
+
+## Inherited urgency must be re-priced at every handoff (Altair 7a97a1, 2026-07-29 ~10:05Z)
+
+Owner correction via the Director (event d2add334 ack chain): the MCPJam credentials
+~16:33Z expiry rode FIVE compaction boundaries framed as "the hard bound" — but
+re-minting is the work of seconds, so it was never hard. Nobody in the handoff
+lineage re-derived the cure cost; each successor inherited the framing as fact.
+Lesson, general form: a constraint's hardness is priced by its CURE COST at time of
+use, not by the framing it arrived in. At handoff/compaction boundaries, re-derive
+the price of every carried "hard" constraint the way capability claims already get
+re-derived from original sources. Sibling of prior-statements-are-not-invariants;
+this is the constraint-shaped instance.
+
+## 2026-07-29 ~10:15Z — Lynx guards Whisper (9e8a61), Director: the activity-map blind spot, second instance in one morning (at occurrence)
+
+- **Owner challenge verified true**: PostHog is NOT complete — keys unplaced (MCP-117, whose scope
+  was also narrower than reality: Vercel-Production-only, no local-dev/set question), no consumer
+  wired (MCP-242/243 Backlog), and the event catalogue NEVER owner-signed (MCP-235's closed policy
+  is engineering-approved vocabulary; the sign-off gate was unticketed until MCP-354, minted now).
+- **The pattern, named — two instances in one morning**: (1) idle seats invisible because my map
+  tracked assignments, not capacity; (2) standing gates invisible because my blocked-on-you sweep
+  walked the ACTIVITY map (live lanes + morning card) instead of the GOAL map (the milestone/gate
+  structure the board already encodes — MCP-268 comms sign-off, MCP-281 privacy consultation,
+  the M2/M3 guidance-content clock MCP-102/175/126, MCP-117 itself: all standing, none surfaced).
+  The board was RIGHT; my projection of it was activity-shaped. Cure: owner-facing state answers
+  walk the milestone/gate structure first, activity second; a periodic goal-backwards
+  release-readiness sweep is the instrument (routed as a dispatch, proposed to owner).
+- **Register-boundary drift flagged, not silently ruled**: the register's "PostHog M0 boundary =
+  MCP-237+MCP-238, events flowing safely" predates MCP-237's scope narrowing (sink+test only) —
+  as landed, 237+238 do NOT produce flowing events. Surfaced to the owner for a re-rule or
+  re-word; never edited unilaterally.
+
+## 2026-07-29 ~10:20Z — Lynx guards Whisper (9e8a61), Director: OWNER RULINGS — PostHog day-0 + the goal-holding mechanism (at occurrence, verbatim)
+
+- **"I never agreed to Posthog scope being narrowed, I was explicit, we need visibility of analytics
+  events from day 0."** The MCP-237 narrowing (2026-07-27, sink+test only) was EXECUTED, never
+  ratified — while the register simultaneously carried his actual boundary verbatim ("events
+  flowing safely", 2026-07-28). The activity record beat the goal record in every transmission;
+  no seat noticed they contradict. Executed-≠-ratified at scope grain, precedence-is-not-approval
+  in first person across a whole lineage. Enacted: MCP-117/242/243/354 now block MCP-309 (day-0
+  analytics visibility gates submission), priorities aligned; register note appended; the
+  remaining implementation (242/243) joins the fresh-seat queue AHEAD of MCP-305.
+- **"We need a mechanical fix, you need a way to hold the project goals, not just what happens to
+  be happening right now."** Ratifies the goal-map cure and names the requirement: a MECHANISM,
+  not vigilance. Ticket minted (derived goal-state surface: recomputed-at-read walk of
+  project → milestones → gates → live state, never hand-maintained; paired practice leg — the
+  Director's owner-facing state answers walk the goal surface FIRST, activity second). Until the
+  instrument exists, that walk is manual discipline at this seat.
+
+## 2026-07-29 ~10:25Z — Lynx guards Whisper (9e8a61), Director: DoD discipline commissioned (owner word, at occurrence)
+
+- **"We need a definition of done in tickets, and we need to be stricter about when and how that is
+  allowed to change."** The cure for the MCP-237 class at its generator: a ticket edit is currently
+  indistinguishable from a scope change. Commissioned as MCP-356 — DoD required at minting
+  (outcome + proof), append-governed change ceremony (proposal comment → owner ratifies → dated
+  change record; un-ruled edits are defects), mechanical presence/diff check via MCP-355's surface.
+  Doctrine encoding routes through the ticket-management skill + rule wrapper via the normal
+  pipeline. Effective immediately at this seat: minted tickets carry DoDs; DoD changes route to
+  the owner before enactment.
+
+## 2026-07-29 ~10:30Z — Raccoon turns Nocturne (0f6caa): SEAT HANDOFF WRITE-UP — MCP-344 E1 + MCP-307 E2 evidence lane, complete; read this before either ticket
+
+Owner word: pass the work to a new seat. This entry is the durable half; the Linear
+comments are the detail (tickets are temporary storage per the durability hierarchy, so the
+load-bearing facts are repeated here).
+
+### What landed this window
+
+1. **MCP-338 / PR #622 MERGED** (2d2a45bf6, head 1317f1f1b, ancestor-verified). The owner's
+   supertest-by-boundary ruling now governs six surfaces: testing-strategy.md,
+   testing-patterns.md, test-coverage-review-lens.md, test-immediate-fails.md (items 9+21),
+   ADR-078 (five scope-words), app TESTING.md. Zero test files moved — all 14 src supertest
+   integration files verified in-process first-hand.
+2. **MCP-344 E1 evidence** — comment ac0850d3 on the ticket. **MCP-307 E2 security re-pass**
+   — comment 79061ca6. Both complete; verdicts below.
+3. Hygiene commit 48eebe430 (fleet append surfaces).
+
+### MCP-344 E1 — the answer, and the one client that decides it
+
+Question: does a path-bearing PRM issuer (`https://host/mcp`) survive each client's RFC 8414
+discovery? Verdicts, sources read first-hand 2026-07-29:
+
+- **Claude Code: PASS, HIGH confidence.** Read out of the shipped binary
+  (~/.local/share/claude/versions/2.1.220, build 2026-07-24T22:17:45Z, sha 4073f5959): the
+  discovery-URL builder emits path-inserted OAuth first, then path-inserted OIDC, then
+  path-appended OIDC. For a path-bearing issuer there is **no bare-root candidate at all** —
+  Claude Code can never hit www's root well-known under the collapse layout. (Method: binary
+  grep with LC_ALL=C — the plain grep reports "binary file matches" and looks like zero hits.)
+- **claude.ai + Desktop: LIKELY PASS, MEDIUM, observation-gated.** claude.com's connector-auth
+  doc states one shared infrastructure and documents path-inserted probing on the PRM side,
+  but is SILENT on AS-side ordering for path-bearing issuers. Inference, flagged as such.
+  Same doc, useful: Claude uses the FIRST `authorization_servers` entry, no fallback to later
+  entries; hosted egress is 160.79.104.0/21 (the probe's classification key).
+- **ChatGPT: UNKNOWN, LOW, the risk-bearing client.** OpenAI's Apps SDK auth doc leaves
+  path-inserted behaviour unspecified; the only behavioural record (community thread 1358992)
+  observed root-only fetches, but those captures predate OpenAI's Dec-2025 auth fixes.
+- The probe to settle it is DESIGNED on the ticket, deliberately NOT RUN (Director's word gates
+  execution). Its discriminating trick: serve AS metadata ONLY at the path-inserted location
+  with no root document, so a root-fetching client 404s exactly as it would on www.
+
+### MCP-307 E2 — SOUND in principle, UNSOUND as written; six conditions, and a better shape
+
+Dispatched security-expert (Opus). My adjudication, every load-bearing claim re-verified by me
+first-hand before transmission (F1/F2/F3/wildcard all confirmed in source):
+
+- **The material-difference question: YES, bounded selection differs in kind.** MCP-269's F4
+  ("zero entropy") is about *authenticity* and stays true; what changes is the damage function
+  — the header becomes an index into a static table of origins we already publish, not a source
+  of trust. F4's "static config is the only sound shape" was a conclusion about designs that
+  DERIVE TRUST from the header; it does not generalise.
+- **But the design as written is unsound**, because it breaks its own premises: (F1) the exact
+  value it makes header-selectable, `canonicalOrigin`, already feeds the RFC 8707 audience check
+  via `checkResourceParameter` → `getMcpResourceUrl` — an authorization decision, not description;
+  (F2) `ALLOWED_HOSTS` is the DNS-rebinding allowlist, unvalidated, wildcard-capable
+  (`*` → `[a-z0-9.-]*`, crosses dots), and defaults to INCLUDE localhost/127.0.0.1/::1 — so a
+  forged header can make us publish a localhost `resource_metadata` pointer, an SSRF-shaped
+  pointer aimed at a connector backend's own network; (F3) the metadata 200s set no
+  `Cache-Control` and www serves them cached — a poisoned entry converts a self-inflicted
+  response into a broadcast one, which is exactly what "same power any client has by dialling"
+  denies; (F4) the "fall back to actual Host" arm publishes the *.vercel.app hostname and
+  re-arms the `req.protocol` scheme defect that MCP-269 fixed in only one of three call sites.
+- **F5 verified ABSENCE (good):** dnsRebindingProtection reads only `req.headers.host`, is
+  mounted on HTML surfaces only, never sees canonicalOrigin; forged headers against the live
+  alpha produced byte-identical output. MCP-269's second F-critical stays closed.
+- **F6 — GROUND TRUTH that changes sequencing:** the www edge route **is not live**. Probed
+  today: `www.thenational.academy/mcp` and both `/.well-known/oauth-*` return 404 from the main
+  Oak Next.js site; only the alpha serves the app. The design's premise is INTENDED state. Also:
+  the edge scope must cover the path-scoped well-knowns or RFC 9728 discovery breaks at www
+  regardless of app-side correctness — which is the MCP-344 decision, so the two tickets are one
+  sequencing problem, not two.
+- **My recommendation to the owner: prefer the edge shared secret** over bounded-selection.
+  It restores the authenticity F4 named as the sound escape, and demotes all six conditions from
+  load-bearing to defence-in-depth. The fuller reasoning (compressed on the ticket): six
+  invariants that must each hold AND KEEP HOLDING across future edits is a maintenance liability
+  that decays silently — the failure is invisible until an attacker finds it, whereas a missing
+  shared secret fails closed and loudly. `TEST_ERROR_SECRET` is the in-repo precedent.
+
+### Grounded facts a successor would otherwise re-derive
+
+- Cloudflare origin-rules docs are **silent** on preserving the original host under a Host
+  override — no automatic X-Forwarded-Host. That is why PR #551 needed a custom transform.
+- Two evidence limits, not closeable from an agent seat: deployed `ALLOWED_HOSTS` / `CANONICAL_HOST`
+  values (F2's severity turns on whether ALLOWED_HOSTS is set — if unset, F2 is live the moment
+  selection ships) and the zone's Cache/Transform rules (F3 and the header-strip condition).
+- Subagent-grounded and therefore most loss-prone: every F1–F6 file:line above came from an
+  Opus reviewer whose context is now gone; I re-verified F1/F2/F3/wildcard myself, F4/F5/F6 stand
+  on the reviewer's first-hand probes.
+
+### Loss scan + metaloss (owner standing rule: these live here, never chat-only)
+
+- **Compressed reasoning:** the E2 ticket comment compresses *why* the shared secret wins to one
+  clause; the fuller argument is in this entry. Judgement recorded: decision-sufficient on the
+  ticket, complete here.
+- **Promises:** all discharged — E1 delivered, E2 dispatched+adjudicated+recorded, the probe
+  designed-not-run as instructed, #622 merged and reported, hygiene commit landed. Zero forwarded.
+- **Attribution flags (inference, not observation):** "Claude Desktop rides the same discovery
+  path as claude.ai" is inferred from a doc sentence about auth-type infrastructure — flagged
+  MEDIUM on the ticket, and the probe includes Desktop separately to prove it rather than assume.
+  The owner's correction about the general form of my MCP-305 decline reached me as a *relayed*
+  quote inside a Director routing event, not as direct owner word to this seat.
+- **Blind-spot bounds:** my watcher excludes heartbeat-tagged events (never saw that traffic);
+  my F-75 poll reports only newly-retired transitions; I cannot read deployed env or zone config;
+  four subagent contexts are gone and survive only as what is written here and on the tickets.
+- **External bound + error signature — point future scrutiny here:** the passes that caught what
+  I missed were (a) Copilot's low-confidence *suppressed* notes, which found four real
+  cross-document contradictions after two Opus experts and I had each read the same files, and
+  (b) the security reviewer's LIVE PROBING, which produced F6 — a fact no amount of code reading
+  could reach. So: my own reading is weakest on **cross-document consistency** and on
+  **live-state assumptions**. Aim external eyes there first.
+- **Fixed point:** a third pass over this scan re-finds only the four items above; the recursion
+  closes here.
+
+### Index of homes (the founding-instance failure is losing this map)
+
+MCP-344 E1 evidence + probe design → Linear MCP-344 comment ac0850d3. MCP-307 E2 adjudication →
+Linear MCP-307 comment 79061ca6. Doctrine → merged at 2d2a45bf6. Round ledgers and the terminal-
+round criterion → PR #622 comments 5115174283 / 5115266653. MCP-343 (headOfStream extraction) and
+the e2e-tier reconciliation lane (ADR-161 decision text, test-expert template §214-237,
+sentry-cli-usage §541-547, the e2e-dir sentence) → Director-held, unowned. This entry → the map.
+
+### Pattern candidate: frame-free absolutes are unhandled cases
+
+Four instances this window share one shape: a statement true **within a frame**, recorded
+**without** the frame, then cited at full authority outside it. "Integration tests trigger no IO"
+(true while supertest was E2E). "Supertest is E2E" (true under the tool reading). ADR-078's
+"prohibited in all tests without exception" (contradicted 27 lines later by its own smoke
+exception). MCP-269's F4 "the only sound shape" (evaluated header-as-trust, cited against
+bounded-selection). The cure is NOT hedging — hedging is banned and would be worse. What actually
+cured all four was restating each absolute **on its discriminating axis**: not "no IO" but "no IO
+beyond the loopback harness exchange"; not "supertest is E2E" but "classification follows the
+boundary". The absolute stays absolute; its domain becomes explicit. That is the same move as
+`Result<T, E>` over throwing — a frame-free absolute is an unhandled case, and stating the axis
+makes the rule total over a named domain. Falsifier: if a rule restated on its axis is still cited
+outside that axis, the axis was not the discriminator — find the real one. Second falsifier: if
+axis-restatement lengthens rules without changing any review outcome, it is cosmetic.
