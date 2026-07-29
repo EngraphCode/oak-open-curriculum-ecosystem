@@ -252,8 +252,13 @@ the tool's output into a broadcast as if it were a conclusion.
 
 ```bash
 pnpm agent-tools:collaboration-state -- comms peer-liveness \
-  --comms-dir .agent/state/collaboration/comms
+  --comms-dir "<PRIMARY coordination home>/.agent/state/collaboration/comms"
 ```
+
+`peer-liveness` does not yet default its read path. The absolute PRIMARY-home
+path above is therefore mandatory, especially from a linked worktree; a
+cwd-relative `.agent/state/...` path can read an empty decoy while the
+canonical watcher correctly reads the shared stream.
 
 The alert recipe — poll on the team cadence and emit only when a peer is
 `retired`, so the line IS the heartbeat-silence alert. Run it as a `Monitor`
@@ -278,15 +283,21 @@ violation the recipe claimed to satisfy).
 # Exit criteria (loop-exit-criteria-required): session close, or MAX_IDLE consecutive
 # polls with no NEW retirement — reachable, because `idle` advances on a quiet delta
 # rather than on an empty bucket.
+COORD_HOME="$(git worktree list --porcelain | sed -n '1s/^worktree //p')"
+if [ -z "$COORD_HOME" ] || { [ ! -d "$COORD_HOME/.git" ] && [ ! -f "$COORD_HOME/.git" ]; }; then
+  echo "STOP: PRIMARY coordination home not derived — peer-liveness is not armed" >&2
+  exit 1
+fi
+COMMS_DIR="$COORD_HOME/.agent/state/collaboration/comms"
 PREV=$(mktemp); CUR=$(mktemp)
 extract() { grep '^retired' | sed -E 's/^retired[[:space:]]+[0-9.]+m ago[[:space:]]+(.*)[[:space:]]+last_heartbeat=.*/\1/'; }
 pnpm agent-tools:collaboration-state -- comms peer-liveness \
-  --comms-dir .agent/state/collaboration/comms 2>/dev/null | extract | sort > "$PREV" || true
+  --comms-dir "$COMMS_DIR" 2>/dev/null | extract | sort > "$PREV" || true
 idle=0; MAX_IDLE=60
 while [ "$idle" -lt "$MAX_IDLE" ]; do
   sleep 120
   pnpm agent-tools:collaboration-state -- comms peer-liveness \
-    --comms-dir .agent/state/collaboration/comms 2>/dev/null | extract | sort > "$CUR" || true
+    --comms-dir "$COMMS_DIR" 2>/dev/null | extract | sort > "$CUR" || true
   # An EMPTY read is transport failure, never "everyone came back": skip the cycle
   # rather than resetting the baseline on a dead read.
   if [ -s "$CUR" ]; then
@@ -298,9 +309,9 @@ done
 ```
 
 Corpus-test the `extract` filter before arming, per
-[`comms-all-channels-watcher`](comms-all-channels-watcher.md) §"Fallback shape": prove the
-pass/leak counts against real `peer-liveness` output (agent names contain spaces, so a
-positional `awk` field split is wrong).
+[`comms-all-channels-watcher`](comms-all-channels-watcher.md) §"No hand-rolled fallback":
+prove the pass/leak counts against real `peer-liveness` output (agent names contain
+spaces, so a positional `awk` field split is wrong).
 
 The standalone command is the read-model; the poll-recipe is the alert. Wiring
 the same classifier into `comms watch` as an `--alert-stale-peers` mode is a

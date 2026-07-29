@@ -457,9 +457,9 @@ describe('claim CLI reports', () => {
   });
 
   it('builds comms send defaults from the repo root', () => {
-    // `--repo-root` short-circuits cwd resolution, so the cwd arg is unused here.
+    // `--repo-root` short-circuits the injected resolver.
     expect(
-      commsSendDefaults(options({ 'repo-root': '/repo' }), nowIso, 'event-one', '/unused-cwd'),
+      commsSendDefaults(options({ 'repo-root': '/repo' }), nowIso, 'event-one', {}),
     ).toStrictEqual({
       'comms-dir': '/repo/.agent/state/collaboration/comms',
       active: '/repo/.agent/state/collaboration/active-claims.json',
@@ -467,6 +467,20 @@ describe('claim CLI reports', () => {
       'created-at': nowIso,
       'event-id': 'event-one',
       output: '/repo/.agent/state/collaboration/shared-comms-log.md',
+    });
+  });
+
+  it('does not resolve a coordination home when every send path is explicit', () => {
+    const explicitPaths = options({
+      'comms-dir': '/custom/comms',
+      output: '/custom/shared-comms-log.md',
+      active: '/custom/active-claims.json',
+    });
+
+    expect(commsSendDefaults(explicitPaths, nowIso, 'event-one', {})).toStrictEqual({
+      now: nowIso,
+      'created-at': nowIso,
+      'event-id': 'event-one',
     });
   });
 

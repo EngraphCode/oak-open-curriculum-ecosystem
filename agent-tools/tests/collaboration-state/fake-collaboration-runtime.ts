@@ -1,4 +1,4 @@
-import { ok } from '@oaknational/result';
+import { err, ok, unwrapOrThrow } from '@oaknational/result';
 
 import { createCommsEvent } from '../../src/collaboration-state';
 import { migrateLegacyCommsDirectories } from '../../src/collaboration-state/comms-migration';
@@ -7,13 +7,13 @@ import {
   type CollaborationStateCliIo,
 } from '../../src/collaboration-state/cli-runtime';
 import { type GitWorktree } from '../../src/collaboration-state/git-worktree-list';
-import { type ScopedContentBlockGroup } from '../../src/hook-policy/types';
 import {
   type ClosedClaimsArchive,
   type CollaborationRegistry,
   type CommsEvent,
   type DirectedCommsMessage,
 } from '../../src/collaboration-state/types';
+import { FAKE_COMMS_CONCEPT_GATE_BLOCKS } from './fake-collaboration-runtime-fixtures';
 
 const emptyActiveClaims: CollaborationRegistry = {
   schema_version: '1.3.0',
@@ -36,15 +36,21 @@ interface FakeCollaborationRuntimeInput {
   readonly onWaitForCollaborationStateChange?: () => void;
   /** Fake supervisor-liveness probe (F-101). Defaults to always-alive. */
   readonly processIsAlive?: (pid: number) => boolean;
+  /** Invocation directory used by coordination-home path defaults. */
+  readonly cwd?: string;
+  /** Injectable coordination-home resolver; avoids real git in CLI tests. */
+  readonly resolveCoordinationHome?: (cwd: string) => string;
 }
 
 interface FakeCollaborationRuntime {
   readonly runtime: CliRuntime;
   readonly readCommsEvents: (commsDir: string) => readonly CommsEvent[];
+  readonly readActiveClaimsPaths: () => readonly string[];
   readonly readSeenIds: (seenFile: string) => readonly string[];
   readonly readTextFile: (path: string) => string | undefined;
   readonly writeCommsEvent: (commsDir: string, event: CommsEvent) => void;
   readonly seedTextFile: (filePath: string, text: string) => void;
+  readonly ensuredDirectories: () => readonly string[];
 }
 
 interface FakeRuntimeState {
@@ -53,8 +59,10 @@ interface FakeRuntimeState {
   readonly textByPath: Map<string, string>;
   readonly legacyByDir: Map<string, readonly unknown[]>;
   readonly activeClaims: CollaborationRegistry;
+  readonly activeClaimsPaths: string[];
   readonly closedClaims: ClosedClaimsArchive;
   readonly worktrees: readonly GitWorktree[];
+  readonly ensuredDirectories: Set<string>;
 }
 
 export function createFakeCollaborationRuntime(
@@ -66,8 +74,10 @@ export function createFakeCollaborationRuntime(
     textByPath: new Map(),
     legacyByDir: legacyByDir(input.legacyComms ?? {}),
     activeClaims: input.activeClaims ?? emptyActiveClaims,
+    activeClaimsPaths: [],
     closedClaims: input.closedClaims ?? emptyClosedClaims,
     worktrees: input.worktrees ?? [],
+    ensuredDirectories: new Set(),
   };
   seedComms(state, input.comms ?? {});
 
@@ -81,20 +91,27 @@ export function createFakeCollaborationRuntime(
         input.onWaitForCollaborationStateChange?.();
       },
       processIsAlive: input.processIsAlive ?? ((): boolean => true),
+      cwd: input.cwd,
+      resolveCoordinationHome: input.resolveCoordinationHome,
     },
     readCommsEvents: (commsDir) => readCommsEvents(state, commsDir),
+    readActiveClaimsPaths: () => [...state.activeClaimsPaths],
     readSeenIds: (seenFile) => state.seenByFile.get(seenFile) ?? [],
     readTextFile: (path) => state.textByPath.get(path),
     writeCommsEvent: (commsDir, event) => writeCommsEvent(state, commsDir, event),
     seedTextFile: (filePath, text) => {
       state.textByPath.set(filePath, text);
     },
+    ensuredDirectories: () => [...state.ensuredDirectories],
   };
 }
 
 function createFakeIo(state: FakeRuntimeState): CollaborationStateCliIo {
   return {
-    readActiveClaimsFile: async () => ok(state.activeClaims),
+    readActiveClaimsFile: async (activePath) => {
+      state.activeClaimsPaths.push(activePath);
+      return ok(state.activeClaims);
+    },
     readClosedClaimsFile: async () => ok(state.closedClaims),
     writeCommsEvent: async ({ commsDir, event, nowIso }) => {
       writeCommsEvent(
@@ -115,9 +132,11 @@ function createFakeIo(state: FakeRuntimeState): CollaborationStateCliIo {
     readTextFile: async (filePath) => {
       const text = state.textByPath.get(filePath);
       if (text === undefined) {
-        throw Object.assign(new Error(`ENOENT: no such file or directory, open '${filePath}'`), {
-          code: 'ENOENT',
-        });
+        return Promise.reject(
+          Object.assign(new Error(`ENOENT: no such file or directory, open '${filePath}'`), {
+            code: 'ENOENT',
+          }),
+        );
       }
       return text;
     },
@@ -126,7 +145,9 @@ function createFakeIo(state: FakeRuntimeState): CollaborationStateCliIo {
       state.seenByFile.set(seenFile, [...(state.seenByFile.get(seenFile) ?? []), ...eventIds]);
     },
     migrateLegacyCommsDirectories: async (input) => migrateLegacyComms(state, input),
-    ensureDirectory: async () => undefined,
+    ensureDirectory: async (directoryPath) => {
+      state.ensuredDirectories.add(directoryPath);
+    },
     // Fixture blocks, NOT the live policy file: one representative pattern
     // per ratified comms-gated concept, so gate behaviour is observable in
     // integration tests while their pass/fail stays decoupled from
@@ -134,27 +155,6 @@ function createFakeIo(state: FakeRuntimeState): CollaborationStateCliIo {
     loadCommsConceptGateBlocks: async () => ok(FAKE_COMMS_CONCEPT_GATE_BLOCKS),
   };
 }
-
-const FAKE_COMMS_CONCEPT_GATE_BLOCKS = [
-  {
-    concept: 'expediency-hedging',
-    kind: 'literal',
-    patterns: ['carve-out'],
-    include_paths: ['.agent/plans/'],
-    exclude_paths: [],
-    citation: 'PDR-044; principles.md §Architectural Excellence Over Expediency (fixture)',
-    reappraisal: 'Describe the coordination directly (fixture).',
-  },
-  {
-    concept: 'indefinite-deferral',
-    kind: 'regex',
-    patterns: [String.raw`\bparked\b`],
-    include_paths: ['.agent/plans/'],
-    exclude_paths: [],
-    citation: 'no-hedging-vocabulary.md §Indefinite-deferral vocabulary (fixture)',
-    reappraisal: 'Name the gate and the decision (fixture).',
-  },
-] as const satisfies readonly ScopedContentBlockGroup[];
 
 function seedComms(
   state: FakeRuntimeState,
@@ -182,9 +182,11 @@ function ids(state: FakeRuntimeState, commsDir: string): readonly string[] {
 
 function writeCommsEvent(state: FakeRuntimeState, commsDir: string, event: CommsEvent): void {
   const events = directory(state, commsDir);
-  if (events.has(event.event_id)) {
-    throw new Error(`comms event already exists: ${event.event_id}`);
-  }
+  unwrapOrThrow(
+    events.has(event.event_id)
+      ? err(new Error(`comms event already exists: ${event.event_id}`))
+      : ok(undefined),
+  );
   events.set(event.event_id, event);
 }
 

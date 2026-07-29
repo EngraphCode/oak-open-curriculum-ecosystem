@@ -1,3 +1,7 @@
+import { dirname } from 'node:path';
+
+import { err, ok, unwrapOrThrow, type Result } from '@oaknational/result';
+
 import { seedSeenStateIfNeeded } from './comms-watch-auto-seed.js';
 import { validateCommsEventTags, type CommsEventTag } from './comms-tag-namespace.js';
 import { drainRelevantEvents, watchCommsLoop, type WatcherTickStatus } from './comms-use-cases.js';
@@ -6,7 +10,8 @@ import {
   writeWatcherHeartbeat,
   WATCHER_HEARTBEAT_SCHEMA_VERSION,
 } from './watcher-heartbeat.js';
-import { optional, optionalPositiveInteger, required, type Options } from './cli-options.js';
+import { resolveCommsWatchPaths } from './comms-watch-paths.js';
+import { optional, optionalPositiveInteger, type Options } from './cli-options.js';
 import {
   cliIo,
   type CollaborationStateCliIo,
@@ -75,10 +80,8 @@ export async function watchComms(
   runtime: CliRuntime,
 ): Promise<string> {
   const io = cliIo(runtime);
-  requireStreamingStdout(runtime);
-  const commsDir = required(options, 'comms-dir');
-  const seenFile = required(options, 'seen-file');
-  const self = resolveSelfIdentity(options, env);
+  unwrapOrThrow(requireStreamingStdout(runtime));
+  const { self, commsDir, seenFile } = resolveWatchIdentityAndPaths(options, env, runtime);
   const { pollMs, maxEventsPerDrain, stepTimeoutMs, heartbeatIntervalMs } =
     resolveWatchTunables(options);
   const heartbeatFile = resolveHeartbeatFile({
@@ -92,6 +95,7 @@ export async function watchComms(
   const excludeTags = resolveExcludeTags(options);
 
   await io.ensureDirectory(commsDir);
+  await io.ensureDirectory(dirname(seenFile));
   await seedSeenStateIfNeeded({ io, commsDir, seenFile, seedFromNow, noAutoSeed });
 
   const tick = composeHeartbeatTick({
@@ -125,12 +129,26 @@ export async function watchComms(
  * would be consumed (marked seen) but delivered NOWHERE — the silent-eater
  * shape recorded 2026-07-25. Refuse before any comms IO instead.
  */
-function requireStreamingStdout(runtime: CliRuntime): void {
-  if (runtime.stdout === undefined) {
-    throw new Error(
-      'comms watch requires a streaming stdout surface: without one, drained events are marked seen but delivered nowhere',
-    );
-  }
+function requireStreamingStdout(runtime: CliRuntime): Result<void, Error> {
+  return runtime.stdout === undefined
+    ? err(
+        new Error(
+          'comms watch requires a streaming stdout surface: without one, drained events are marked seen but delivered nowhere',
+        ),
+      )
+    : ok(undefined);
+}
+
+function resolveWatchIdentityAndPaths(
+  options: Options,
+  env: CollaborationStateEnvironment,
+  runtime: CliRuntime,
+) {
+  const self = resolveSelfIdentity(options, env);
+  return {
+    self,
+    ...unwrapOrThrow(resolveCommsWatchPaths(options, self.agent_name, runtime)),
+  };
 }
 
 /** The four numeric watch tunables, each defaulting per the constants above. */

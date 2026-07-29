@@ -127,7 +127,7 @@ export const specs: Readonly<Record<string, CommandSpec>> = {
   'comms:validate': commandSpec({
     help: commsValidateHelp,
     options: ['repo-root'],
-    handler: (options) => validateComms(options, process.cwd()),
+    handler: validateComms,
   }),
   'comms:inbox': commandSpec({
     help: commsInboxHelp,

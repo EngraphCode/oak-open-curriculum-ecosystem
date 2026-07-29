@@ -276,8 +276,10 @@ OAK_AGENT_IDENTITY_OVERRIDE="Frolicking Toast" pnpm agent-tools agent-identity -
   communication events and render `shared-comms-log.md`. Use `send` for the
   low-boilerplate append-and-render path. `send` prints JSON with `event_id`,
   `event_path`, and `shared_log_path` so agents can verify the write target.
-  Comms writes check the active-claims registry and refuse live identity-route
-  collisions on `(agent_name, platform, session_id_prefix)`.
+  Comms writes check the active-claims registry and refuse live collisions on
+  the canonical PDR-076a `sameAgentRoutingKey` (the stable `id`); a matching
+  route with a different `sameIdentity` result (currently `id` plus `model`)
+  is rejected as a collision.
 - `comms validate` — parse and schema-check the true-JSON collaboration-state
   estate, including active claims, closed claims, comms events, conversations,
   and escalations. Malformed or schema-nonconforming files fail loudly with the
@@ -289,13 +291,19 @@ OAK_AGENT_IDENTITY_OVERRIDE="Frolicking Toast" pnpm agent-tools agent-identity -
   behaviour**: every event relevant to the agent — broadcast narrative,
   narrative whose `audience` includes the agent, narrative `addressed_to` the
   agent, directed-kind messages to the agent, and lifecycle moments — is
-  surfaced with self-exclusion only (by full identity tuple). Each emitted
-  event is tagged `[BROADCAST]`, `[GROUP]`, `[DIRECTED]`, or `[LIFECYCLE]` on
-  its first line so the agent knows the channel at a glance. Identity
+  surfaced with self-exclusion only (through the canonical ID-keyed routing
+  identity comparator). Each emitted event is tagged `[BROADCAST]`, `[GROUP]`,
+  `[DIRECTED]`, `[OBSERVED]`, or `[LIFECYCLE]` on its first line so the agent
+  knows the channel at a glance. Identity
   defaults to the platform-derived Practice session id (matching `comms send`
   / `comms direct`); explicit `--agent-name` + optional `--session-prefix` is
   available for admin/test overrides. `watch` uses `fs.watch` with polling
-  fallback and records seen event ids in the caller-supplied `--seen-file`.
+  fallback and records seen event ids in a durable cursor. Omit
+  `--comms-dir` and `--seen-file` together to resolve the PRIMARY coordination
+  home and derive `comms-seen/<exact display name>.json`; `--repo-root`
+  overrides that derived home. The two path flags form an atomic override
+  pair and, when both are supplied, are preserved verbatim. `watch` creates
+  the comms directory and seen-file parent in either mode.
   `reply` swaps the source `from` / `to` identities and defaults the subject
   to `re: <source subject>` unless `--subject` is supplied.
 - `claims open|heartbeat|close|archive-stale` — mutate active and closed
@@ -367,12 +375,12 @@ pnpm agent-tools collaboration-state comms reply \
   --body "Acknowledged." \
   --platform codex \
   --model GPT-5
+cd <repo-root> || exit 1
 pnpm agent-tools collaboration-state comms watch \
-  --comms-dir .agent/state/collaboration/comms \
-  --seen-file '.agent/state/collaboration/comms-seen/Penumbral Veiling Raven.json' \
   --platform codex \
   --model GPT-5 \
   --supervisor-pid "$PPID" \
+  --step-timeout-ms 120000 \
   --max-events-per-drain 100
 pnpm agent-tools collaboration-state comms validate
 # watch emits all channels — broadcast, group, directed, observed, lifecycle

@@ -1,8 +1,9 @@
 # ADR-197: Coordination-Home Checkout Owns Shared Registry State
 
-**Status**: Accepted
+**Status**: Accepted (Revised 2026-07-29)
 **Date**: 2026-06-11 (convention owner-ratified in the graph-team opener 2026-06-10;
-trial-validated live the same day; ADR authoring owner-approved 2026-06-11)
+trial-validated live the same day; ADR authoring owner-approved 2026-06-11;
+coordination-home defaulting revision 2026-07-29)
 **Related**:
 [ADR-176](176-commit-skill-advisory-orchestrator-naming.md) — commit-skill advisory orchestrator
 naming; the commit ceremony whose registry writes this ADR re-homes (its advisory/blocking
@@ -67,10 +68,10 @@ the registry wins, never the branch's.**
   one long-lived Director-owned `docs/<team>-<date>` branch with a sole writer. It holds all
   `.agent/state/` and `.agent/memory/` writes and lands them as `docs(continuity)` commits,
   pushed at waypoints; the branch is never PR'd mid-arc and never rebased.
-- The collaboration CLIs are fully path-parameterised (`--comms-dir`, `--active`,
-  `--repo-root`), so every seat points every comms/claims/queue invocation at the coordination
-  home by absolute path, resolved at session open. A machine-local path is never written into a
-  versioned file (`no-machine-local-paths`).
+- Collaboration tooling must resolve shared-state operations to the coordination home by default,
+  regardless of which linked worktree invokes it. A deliberate alternate home remains an
+  explicit caller choice. Machine-local paths are runtime inputs only and are never written into
+  a versioned file (`no-machine-local-paths`).
 - The Director role, not the individual, owns the home. Role succession transfers it via
   PDR-064's two moments; the registries persist across holders.
 
@@ -114,14 +115,14 @@ commit-skill canonical's residue exception for self-contained collaboration-stat
   conflict-free, reviewable as pure source diffs.
 - **Positive.** Conflict resolution on registry files is now mechanical — main wins — instead of
   a per-conflict judgement over interleaved lifecycle writes.
-- **Cost.** Every seat must resolve the coordination home's absolute path at session open, and
-  the path-parameterised CLI flags must be carried on every invocation; an unparameterised call
-  silently writes to the wrong checkout's copy.
+- **Cost.** Default resolution depends on the repository's checkout topology and must fail loud
+  when the coordination home cannot be established. A caller selecting an alternate home owns
+  that explicit choice.
 - **Cost.** The Director seat serialises registry writes. At the validated scale (five merges,
   one team) the serialisation cost was approximately zero; whether it stays sublinear as cast
   size grows is the named open observation in the validation report.
-- **Migration.** None required for source code. The convention is operative in the team opener's
-  entry ritual; single-checkout sessions are already compliant.
+- **Migration.** Tooling that touches shared state must converge on this default-resolution
+  outcome. Single-checkout sessions remain the degenerate compliant case.
 
 ## Alternatives considered
 

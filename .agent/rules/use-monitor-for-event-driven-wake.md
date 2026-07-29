@@ -1,18 +1,20 @@
 # Use Monitor for Event-Driven Wake-Ups
 
-For any long-running command whose output should drive agent
-wake-ups (comms events, log lines, CI status, file-system change
-streams), arm the harness **Monitor** tool with `persistent: true`
-and a line-buffered filter on the meaningful lines. **Do not** use
-Bash `run_in_background` for the same purpose.
+For any long-running command whose output should drive agent wake-ups
+(comms events, log lines, CI status, file-system change streams), use the
+host's proven incremental-notification path. On a harness with **Monitor**,
+arm it with `persistent: true` and a line-buffered filter on the meaningful
+lines. On Codex, use the relay-child composition below for the canonical
+comms watcher; other stream types need their own proven notification path.
+**Do not** use Bash `run_in_background` for the same purpose.
 
 ## The Invariant
 
-Event-driven work — where each new line on a stream should produce
-an agent reaction — runs on Monitor. Polling work — where the
-agent must intermittently re-check a surface — does not have a
-Monitor equivalent and remains the agent's responsibility, subject
-to the periodic-comms-check cadence rule.
+Event-driven work — where each new line on a stream should produce an agent
+reaction — runs on a notification path proven end to end for that host.
+Polling work — where the agent must intermittently re-check a surface — has
+no stream to notify from and remains the agent's responsibility, subject to
+the periodic-comms-check cadence rule.
 
 ## Why
 
@@ -43,9 +45,11 @@ watcher on a **new platform** reads this rule at exactly the moment
 that question is live, so this is where the platform's `NOTIFY`
 declaration row gets established — by the acceptance test named in the
 §"Discipline When Switching" step 3 shape: send a directed event, and
-confirm it produces a `<task-notification>` with no manual poll and no
-user prompt. A process that merely prints the event to a file fails the
-class, however healthy it looks.
+confirm it creates an agent turn with no manual poll and no user prompt. On a
+Monitor-capable host, a `<task-notification>` is the expected notice; on Codex,
+the relay child uses `collaboration.send_message` to wake the root. A process
+that merely prints the event to a file fails the class, however healthy it
+looks.
 
 `NOTIFY` fails independently of the delivery classes beneath it: a
 platform whose background primitive signals only when a process
@@ -88,6 +92,11 @@ here.
 
 ## Discipline When Switching
 
+The following switch procedure applies to Monitor-capable hosts. Codex uses
+the [session relay](#codex-notify-session-relay) instead: do not treat the
+relay's `collaboration.send_message` wake as a missing
+`<task-notification>`.
+
 When transitioning a long-running command from Bash background to
 Monitor:
 
@@ -101,8 +110,65 @@ Monitor:
    emits only meaningful lines (e.g. the comms-watch CLI) needs no
    filter — pipe-less is correct.
 3. Verify the first new event after arming produces a
-   `<task-notification>`; if it does not, the filter is wrong or
-   the source is not flushing line-buffered.
+   `<task-notification>` and creates an agent turn without a manual poll or
+   user prompt; if it does not, the filter is wrong, the source is not
+   flushing line-buffered, or the host notification path is unproved.
+
+## Codex NOTIFY: session relay
+
+Codex CLI `0.146.0` has a certified `NOTIFY` composition for the canonical
+comms watcher. It adds a distinct collaboration child as a live relay; a
+watcher process, cursor, or stdout file owned only by the root does not wake
+the root reasoning loop and therefore does not satisfy `NOTIFY`.
+
+The relay is an **additional notification watcher**, not the participating
+root's watcher. Keep the root-identity watcher from `start-right-team` armed:
+its exact-display-name heartbeat is what `assert-watcher-live` and the
+`claims open` F-95 backstop attest. The relay has a different identity and
+cursor, so its heartbeat cannot and must not attest the root.
+
+The session-scoped procedure is:
+
+1. The root arms its own canonical watcher under the root identity and passes
+   `comms assert-watcher-live`. This watcher owns the root's delivery cursor
+   and F-95 heartbeat; it remains live for the whole team session.
+2. The root spawns a distinct relay child with its own canonical
+   collaboration identity. The child never impersonates the root and never
+   reuses the root's seen-file.
+3. The relay child starts a second canonical invocation from
+   [`comms-all-channels-watcher`](comms-all-channels-watcher.md#canonical-invocation--the-agent-tools-cli),
+   using its own identity and exact-display-name cursor. It adds
+   `--exclude-tag heartbeat`; because heartbeat events are then absent from
+   the stream, it also runs the F-75 `comms peer-liveness` check at least once
+   every 60 seconds. Until the remaining comms-read defaulting work lands,
+   that check MUST pass the absolute PRIMARY-home comms path exactly as shown
+   in
+   [`liveness-heartbeat-cron`](liveness-heartbeat-cron.md#surfacing-peer-heartbeat-silence-f-75);
+   a cwd-relative path from a linked worktree is a decoy.
+4. The relay child owns the watcher's foreground exec session and awaits it
+   with `write_stdin` calls whose individual wait is no longer than 30
+   seconds. For each emitted non-heartbeat event, the child suppresses
+   root-authored events in its reasoning, then forwards every remaining
+   external event to `/root` with a `collaboration.send_message` notification.
+   Root-authored events are **not** excluded at the watcher boundary: the
+   watcher self-excludes only the relay identity, and the relay owns the
+   additional root-author suppression.
+5. Receipt of that collaboration message by the root is the `NOTIFY` leg.
+   Validate it with a directed event from an external observer and require
+   the root turn to occur without a root manual poll or user prompt.
+
+The two watcher processes are intentional and never share a cursor: the
+root-identity watcher supplies root delivery/liveness custody, while the
+relay-identity watcher supplies host notification. The relay is not a daemon.
+Its watcher retains the canonical 3600-second backstop and is not
+auto-rearmed. If the child, its exec session, or the watcher exits, the bridge
+is gone. A deliberate replacement resumes from the same relay cursor and
+performs the canonical foreground gap sweep after the restart.
+
+The dated PDR-133 observation, platform/tool versions, evidence events, and
+bounded notification interval live only in the
+[`cross-platform-agent-surface-matrix`](../memory/executive/cross-platform-agent-surface-matrix.md#platform-liveness-declaration-pdr-133).
+This rule owns the operating procedure, not a second copy of its evidence.
 
 ## Reference Shape (Comms Watcher)
 
@@ -114,11 +180,15 @@ omits.
 
 ```bash
 pnpm agent-tools:collaboration-state -- comms watch \
-  --comms-dir .agent/state/collaboration/comms \
-  --seen-file ".agent/state/collaboration/comms-seen/<agent-name>.json" \
   --platform <claude|codex|cursor> --model <model-id> --supervisor-pid "$PPID" \
+  --step-timeout-ms 120000 \
   --max-events-per-drain 100 2>&1
 ```
+
+The omitted path pair is intentional: the CLI resolves the PRIMARY
+coordination home and derives the exact-display-name cursor. Supply
+`--comms-dir` and `--seen-file` only together for a deliberate alternate
+target; `--repo-root` overrides the derived home.
 
 `--supervisor-pid "$PPID"` binds the watcher's lifetime to the agent session
 that spawned it (the F-101 crash-orphan cure): the watcher self-exits within one
@@ -131,16 +201,17 @@ exit path of its own — only a fatal step, a step deadline, or an external
 kill ends it. `--max-events-per-drain` bounds each drain pass (never the
 lifetime — the watcher keeps running; MCP-229).
 
-Run via Monitor `persistent: true`, **pipe-less** — the `comms watch`
-CLI already self-excludes and emits only relevant events, so no grep
-filter is needed or wanted. Each emitted event is a multi-line block
-whose **first line is `--- NEW [<CHANNEL>] EVENT ---`**: the channel tag
-sits MID-line, after the `--- NEW` prefix, NOT as a leading `[`. A naive
-`grep -E '^\['` filter therefore matches nothing and **silently swallows
-every event** while the watcher process stays healthy (drain + markSeen
-advance, heartbeat fresh) — a silent blinding (worked instance
-2026-06-21, owner-caught after ~50 min / ~10 missed events). If you must
-filter for noise, anchor on the real emit
+On a Monitor-capable host, run with `persistent: true`, **pipe-less** — the
+`comms watch` CLI already self-excludes and emits only relevant events, so no
+grep filter is needed or wanted. On Codex, use the root watcher plus
+[relay-child procedure](#codex-notify-session-relay), not Monitor. Each
+emitted event is a multi-line block whose **first line is `--- NEW
+[<CHANNEL>] EVENT ---`**: the channel tag sits MID-line, after the `--- NEW`
+prefix, NOT as a leading `[`. A naive `grep -E '^\['` filter therefore matches
+nothing and **silently swallows every event** while the watcher process stays
+healthy (drain + markSeen advance, heartbeat fresh) — a silent blinding
+(worked instance 2026-06-21, owner-caught after ~50 min / ~10 missed events).
+If you must filter for noise on a Monitor-capable host, anchor on the real emit
 (`grep --line-buffered -E '^--- NEW|WATCHER ERROR|WATCHER EXIT|kind=timeout'`
 — omitting `WATCHER EXIT` swallows the watcher's own orderly-exit
 announcement) and

@@ -17,19 +17,28 @@ related_doctrine:
 related_frictions:
   - "F-41 (.agent/memory/operational/frictions-register.md) — core closed by b5408291d + c90150ffa; this is the CLI tail"
 first_instance: "2026-07-01 — Vanilla stirs Spore (807471) launched directly in the oak-upstream-api-alignment worktree; first recorded live worktree-launch that hit the hazard (all prior instances ran in the primary and masked it). Owner note: would otherwise have been discovered during the Spawn Flow work."
-last_updated: 2026-07-01
+last_updated: 2026-07-29
 todos:
-  - id: ws1-default-comms-read-paths
-    content: "Default --comms-dir (and --seen-file) on comms watch/inbox/list/show/peer-liveness via resolveCoordinationHome(cwd) when omitted; keep explicit absolute/--repo-root overrides honoured"
+  - id: ws1a-default-comms-watch-paths
+    content: "Default the atomic --comms-dir/--seen-file pair on comms watch to the PRIMARY coordination home and exact-display-name cursor; preserve the explicit pair and --repo-root override; create both parent directories"
+    status: completed
+  - id: ws1b-default-comms-read-paths
+    content: "Default --comms-dir on comms inbox/list/show/peer-liveness via resolveCoordinationHome(cwd) when omitted; keep explicit absolute/--repo-root overrides honoured"
     status: pending
-  - id: ws2-default-claims-and-queue-paths
-    content: "Default --active/--closed on claims open/close/heartbeat, comms direct/reply, and commit-queue via resolveCoordinationHome(cwd) when omitted (re-derive the EXACT required-path command set against the live CLI first — do not enumerate from memory)"
+  - id: ws2a-default-claims-paths
+    content: "Default --active across claims commands and --closed on close/archive-stale to the PRIMARY coordination home, preserving explicit paths and --repo-root"
+    status: completed
+  - id: ws2b-default-direct-reply-and-queue-paths
+    content: "Default the remaining required collaboration paths on comms direct/reply and commit-queue via resolveCoordinationHome(cwd) when omitted (re-derive the EXACT command set against the live CLI first — do not enumerate from memory)"
     status: pending
-  - id: ws3-guard-integrity-no-decoy-heartbeat
-    content: "Close the guard-defeat: a worktree-launched watcher must not silently create a decoy comms dir and write a live heartbeat that passes assert-watcher-live + the claims-open backstop while watching an empty local dir"
-    status: pending
-  - id: ws4-migrate-doctrine-invocations
-    content: "Migrate estate invocations to omit the defaultable paths: comms-all-channels-watcher.md canonical invocation, the commit skill, start-right, and the ~dozen tests that pass relative paths"
+  - id: ws3-guard-integrity-primary-heartbeat
+    content: "Make assert-watcher-live and the claims-open F-95 backstop resolve the same exact-display-name heartbeat under the PRIMARY coordination home, so an explicit worktree-local watch pair cannot satisfy the canonical gate"
+    status: completed
+  - id: ws4a-migrate-watcher-doctrine
+    content: "Migrate the canonical watcher rule, notification-path rule, start-right watcher guidance, mechanism reference, platform matrix, and agent-tools README to the omit-path default and Codex NOTIFY composition"
+    status: completed
+  - id: ws4b-migrate-remaining-invocations
+    content: "Migrate the commit skill and remaining estate/test invocations after their command surfaces acquire coordination-home defaults"
     status: pending
   - id: ws5-close-friction
     content: "Close F-41 in the frictions register with the B1 + fix + this-tail landing SHAs; reconcile the future/ brief and the comms-and-worktree-operability overlap"
@@ -45,36 +54,35 @@ asked to be made discoverable after a live worktree-launch surfaced it.
 
 ## Problem (gap · harm · mechanism · constraints · success)
 
-- **Gap.** `resolveCoordinationHome(cwd)` (git-resolves the PRIMARY checkout via
-  `git worktree list --porcelain`, commit `c90150ffa`) is wired into `comms send` /
-  `comms validate` / `tui`, but the **read/watch/claims** commands still
-  `required(options, 'comms-dir' | 'active' | 'seen-file' | …)` with **no** primary
-  default. The canonical watcher invocation in `comms-all-channels-watcher.md`
-  hardcodes the worktree-relative `--comms-dir .agent/state/collaboration/comms` and
-  `--seen-file .agent/state/collaboration/comms-seen/<codename>.json`.
-- **Harm.** A session launched **directly in a linked worktree** (the PDR-117 /
-  Spawn-Flow topology) writes outgoing events to the correct primary home (`comms send`
-  resolves it) but **watches an empty worktree-local directory** — blind to every
-  broadcast / directed / group event the team emits. It is invisible-to-itself of the
-  team while appearing live. **Worse (new finding, this instance):**
-  `cli-comms-watch.ts:86` calls `ensureDirectory(commsDir)`, which **silently creates a
-  decoy empty comms dir** in the worktree, auto-seeds from empty, and writes a watcher
-  liveness heartbeat to the (also worktree-relative) seen-file. So
-  `assert-watcher-live` and the `claims open` comms-blindness backstop — the two
-  mechanical F-95 guards that exist to make this un-skippable — **both PASS against the
-  decoy**. The guard cannot catch the failure it was built to catch.
-- **Mechanism (causal hypothesis).** Command-anchoring asymmetry: only the write path
-  (`comms send`) was migrated onto `resolveCoordinationHome`; the read/watch/claims
-  commands take REQUIRED explicit paths, so a relative path resolves against cwd = the
-  worktree's own (empty) copy. The F-41 core fix reached `send` but not the tail.
+- **Gap.** The first delivered slice now makes `comms watch` worktree-safe when
+  its atomic `--comms-dir` / `--seen-file` pair is omitted: it resolves the
+  PRIMARY coordination home, derives the exact-display-name cursor, honours
+  `--repo-root`, and creates both parent directories. The F-95
+  `assert-watcher-live` and claims-open gates now resolve that same canonical
+  heartbeat. The remaining comms read, direct/reply, queue, and
+  estate-invocation surfaces have not all acquired or adopted
+  coordination-home defaults. Claims `--active` and the mutating
+  closed-archive paths already default through the PRIMARY home.
+- **Harm.** A remaining command launched directly in a linked worktree can
+  still read or mutate a worktree-local collaboration path when its caller
+  supplies a relative path. An explicitly supplied watch-path pair is
+  deliberately preserved verbatim and can still watch a decoy, although its
+  heartbeat no longer satisfies the canonical F-95 gate.
+- **Mechanism.** The repository is partway through replacing command-anchoring
+  asymmetry with a shared `resolveCoordinationHome` boundary. Watch defaulting,
+  directory creation, guard integrity, and claims defaults are delivered; the
+  remaining read/direct/reply/queue defaults and invocation migrations are
+  still separate work.
 - **Constraints.** No machine-local paths (git-native resolution only, never
   `--show-toplevel` — that returns the *current* worktree, VERIFIED TRAP 2026-06-27);
-  PDR-055 cl.7 (explicit overrides still honoured); non-breaking for the
-  primary-checkout case (omitting resolves to the same place).
+  PDR-055 cl.7 (explicit overrides still honoured); the watch override is an
+  all-or-nothing pair; non-breaking for the primary-checkout case (omitting
+  resolves to the same place).
 - **Success.** From any linked worktree, omitting the path options on comms
-  read/watch/inbox and claims resolves to the PRIMARY registry; the F-95 guards cannot
-  pass against a worktree-local decoy; the migrated doctrine invocations run green from
-  both the primary checkout and a linked worktree; F-41 closed.
+  read/watch/inbox and claims resolves to the PRIMARY registry; the F-95
+  guards cannot pass against a worktree-local decoy; the migrated estate
+  invocations run green from both the primary checkout and a linked worktree;
+  only then is the F-41 CLI tail closed.
 
 ## End goal · mechanism · means
 
@@ -84,70 +92,119 @@ asked to be made discoverable after a live worktree-launch surfaced it.
 - **Mechanism.** Default the path options via the one git-resolved home the write path
   already uses — remove the cwd-sensitivity at the source rather than documenting around
   it — and make the liveness guards resolve the same home so they cannot be fooled.
-- **Means.** WS1–WS5 below.
+- **Means.** WS1a–WS5 below.
 
-## Verified findings (first-hand, 2026-07-01)
+## Verified findings
 
-1. **Asymmetry confirmed in code.** `cli-comms-query.ts:43` (`list`/`show`/`peer-liveness`),
-   `cli-comms-inbox.ts:13` (`inbox`), `cli-comms-watch.ts:68` (`watch`) all
-   `required(options, 'comms-dir')`; `cli-comms-send.ts:54` resolves
+Findings 1–4 are the first-hand 2026-07-01 baseline. Their watch and guard
+portions are superseded by findings 5–6; the remaining read-path asymmetry is
+still current.
+
+1. **Historical asymmetry confirmed in code.** `cli-comms-query.ts:43`
+   (`list`/`show`/`peer-liveness`), `cli-comms-inbox.ts:13` (`inbox`), and the
+   then-current `cli-comms-watch.ts:68` (`watch`) required
+   `options['comms-dir']`; `cli-comms-send.ts:54` resolved
    `optional(options,'repo-root') ?? resolveCoordinationHome(cwd)`.
-2. **Decoy-dir creation.** `cli-comms-watch.ts:86` `await io.ensureDirectory(commsDir)`
-   creates the missing worktree-local dir instead of failing loud.
-3. **Guard defeat.** The watcher's default liveness heartbeat lands at the (worktree-relative)
-   `<seen-file>.heartbeat.json`, so `assert-watcher-live` and the `claims open` backstop
-   both classify a decoy watcher as live.
-4. **Live instance.** A worktree-launched session (this one) watched an empty local dir;
+2. **Historical decoy-dir creation.** The then-current
+   `cli-comms-watch.ts:86` `await io.ensureDirectory(commsDir)` created a
+   missing worktree-local directory rather than failing loud.
+3. **Historical guard defeat.** The watcher's heartbeat landed beside the
+   worktree-relative cursor, so `assert-watcher-live` and the `claims open`
+   backstop both classified a decoy watcher as live.
+4. **Founding live instance.** A worktree-launched session watched an empty local dir;
    only pointing `--comms-dir` at the absolute primary path restored visibility. First
    recorded worktree-launch instance — prior instances ran in the primary and masked it
    (see `comms-and-worktree-operability.plan.md` §Why #1: *"it only worked because the
    session ran in the primary"*).
+5. **Delivered watch default (2026-07-29).** `comms watch` accepts
+   `--comms-dir` and `--seen-file` only as a pair. Omission resolves the
+   PRIMARY coordination-home comms directory and exact-display-name cursor;
+   `--repo-root` overrides the home; an explicit pair is preserved verbatim.
+   The CLI creates the comms directory and seen-file parent.
+6. **Delivered F-95 guard integrity (2026-07-29).**
+   `assert-watcher-live` and the claims-open backstop default to the same
+   canonical exact-display-name heartbeat under the PRIMARY coordination
+   home. A heartbeat beside an explicit decoy cursor does not pass that
+   default-path gate.
 
 ## Workstreams (TDD cycles — one commit each; tests never lead/lag product code)
 
-### WS1 — Default the comms read/watch path options
+### WS1a — Default the comms watch path pair — completed
 
-Default `--comms-dir` (and derive `--seen-file` as
-`<home>/.agent/state/collaboration/comms-seen/<codename>.json`) via
-`resolveCoordinationHome(cwd)` when omitted, on `comms watch` / `inbox` / `list` /
-`show` / `peer-liveness`. Inject the git runner as an arg (no global state); keep
-explicit absolute / `--repo-root` overrides honoured.
+`comms watch` now treats `--comms-dir` and `--seen-file` as an atomic pair.
+When omitted it resolves the PRIMARY coordination home and derives
+`comms-seen/<exact display name>.json`; `--repo-root` overrides the home.
+When supplied, the pair is preserved verbatim. Both directory parents are
+created before the watch loop.
 
-- **Acceptance:** from a linked worktree, omitting `--comms-dir` resolves to the PRIMARY
-  comms dir (resolver unit test + an integration read from a real linked worktree).
-  **Proof:** unit + integration.
+- **Delivered acceptance:** omitted watch paths use the PRIMARY home from a
+  linked worktree; a partial pair is rejected; an explicit pair and
+  `--repo-root` remain honoured. **Proof:** source contract + focused tests.
 
-### WS2 — Default the claims / commit-queue / direct-reply path options
+### WS1b — Default the remaining comms read paths — pending
 
-Same defaulting for `claims open/close/heartbeat` (`--active`/`--closed`), `comms
-direct`/`reply`, and `commit-queue`. **Re-derive the EXACT required-path command set
-against the live CLI first** — #244 review flagged that `direct`/`reply` and others also
-require explicit paths; the list drifts, do not enumerate from memory.
+Default `--comms-dir` via `resolveCoordinationHome(cwd)` when omitted on
+`comms inbox` / `list` / `show` / `peer-liveness`. Inject the git runner as an
+arg (no global state); keep explicit absolute / `--repo-root` overrides
+honoured.
 
-- **Acceptance:** each command, path omitted, resolves the PRIMARY registry from a linked
-  worktree. **Proof:** unit per command + one integration sweep.
+- **Acceptance:** from a linked worktree, each omitted read path resolves to
+  the PRIMARY comms directory. **Proof:** unit per command + one integration
+  read from a real linked worktree.
 
-### WS3 — Guard integrity: no decoy heartbeat
+### WS2a — Default claims paths — completed
 
-A worktree-launched watcher must not silently create a decoy dir and write a "live"
-heartbeat that defeats the F-95 guards. Once WS1 defaults the watcher and its seen-file
-to the primary home the omit-path case is cured; this cycle adds the **non-regression
-lock** — an explicit relative `--comms-dir` that resolves worktree-local (or a
-just-created empty dir) must not yield a heartbeat that `assert-watcher-live` /
-`claims open` read as live coordination-visibility.
+The F-85/F-108 path wrappers already default `--active` across claims
+commands and `--closed` on `claims close` / `archive-stale` to the PRIMARY
+coordination home. Explicit paths and `--repo-root` remain honoured.
 
-- **Acceptance:** a test proves the guards do NOT pass for a watcher over a worktree-local
-  decoy; `ensureDirectory` no longer masks the misroute silently. **Proof:** unit.
+- **Delivered acceptance:** claims invoked from a linked worktree resolve the
+  shared registries without repeated absolute-path ceremony. **Proof:** the
+  existing claims path-defaulting tests.
 
-### WS4 — Migrate doctrine invocations to omit the defaultable paths
+### WS2b — Default direct/reply and commit-queue paths — pending
+
+Default the remaining required collaboration paths on `comms direct` /
+`reply` and `commit-queue`. **Re-derive the EXACT required-path command set
+against the live CLI first** — #244 review flagged that the list drifts, so do
+not enumerate it from memory.
+
+- **Acceptance:** each remaining command, path omitted, resolves the PRIMARY
+  collaboration state from a linked worktree. **Proof:** unit per command +
+  one integration sweep.
+
+### WS3 — Guard integrity: canonical heartbeat — completed
+
+The F-95 `assert-watcher-live` and claims-open backstop now independently
+derive the exact-display-name heartbeat from the same PRIMARY coordination
+home. A watcher using an explicit worktree-local pair can still create its
+directories, but that heartbeat does not certify canonical
+coordination-visibility.
+
+- **Delivered acceptance:** both gates read the canonical primary-home
+  heartbeat and reject a decoy-only heartbeat. **Proof:** focused guard tests.
+
+### WS4a — Migrate watcher doctrine — completed
 
 Update the canonical watcher rule (`comms-all-channels-watcher.md` §Canonical
-invocation), the commit skill, start-right, and the ~dozen tests that pass relative
-paths, to omit the now-defaultable options. Non-breaking for the primary case; fixes the
-worktree case.
+invocation), notification-path rule, start-right watcher guidance, mechanism
+reference, platform matrix, and `agent-tools` README to omit the watch path
+pair and explain the worktree-safe default. Record the Codex `NOTIFY`
+relay-child procedure and its dated PDR-133 proof at this doctrine boundary.
 
-- **Acceptance:** the migrated invocations run green from both the primary checkout and a
-  linked worktree; no live watcher bricked. **Proof:** integration + doctrine review.
+- **Delivered acceptance:** canonical watcher documentation omits both paths,
+  retains explicit `cd <repo-root>`, supervisor binding, 3600-second backstop,
+  120000-millisecond step timeout, and a 100-event drain batch. Start-right no
+  longer claims that the comms watcher covers claims or queue state.
+  **Proof:** doctrine review.
+
+### WS4b — Migrate remaining estate invocations — pending
+
+Migrate the commit skill and remaining tests or invocation examples after
+their command surfaces acquire the corresponding coordination-home defaults.
+
+- **Acceptance:** each migrated invocation runs green from both the primary
+  checkout and a linked worktree. **Proof:** integration + doctrine review.
 
 ### WS5 — Close the friction and reconcile
 
@@ -166,8 +223,11 @@ here (drive/reference, do not duplicate).
 
 ## Prerequisite classification
 
-- WS1, WS2, WS3 independent (separate command surfaces; WS3 layers on WS1's watcher path).
-- WS4 beneficial-after WS1/WS2 (migrate once the defaults exist). WS5 after WS1–WS4.
+- WS1a and WS3 are delivered; WS3 composes with WS1a's canonical watcher path.
+- WS1b and WS2b remain independent command-surface cycles; WS2a is already
+  delivered.
+- WS4a is delivered for the watcher slice. WS4b follows the defaults it
+  consumes. WS5 follows WS1b, WS2b, and WS4b.
 
 ## Risk assessment
 
@@ -175,7 +235,8 @@ here (drive/reference, do not duplicate).
 | --- | --- |
 | Defaulting changes behaviour for primary-checkout callers | Omitting resolves to the same place they used; explicit paths still honoured. |
 | A reviewer proposes `git rev-parse --show-toplevel` | VERIFIED TRAP — returns the current worktree; use `git worktree list --porcelain \| first`. |
-| Migrating the watcher rule bricks a live watcher | WS4 tests from a real linked worktree before landing; seen-file cursor means no missed events on re-arm. |
+| An explicit watch pair targets a decoy | Preserve the explicit-override contract, document caller custody, and keep F-95 gates anchored to the canonical heartbeat. |
+| Migrating a remaining invocation bricks a live command | WS4b tests from a real linked worktree before landing. |
 
 ## Foundation alignment
 
@@ -185,10 +246,11 @@ here (drive/reference, do not duplicate).
 
 ## Plan-body first-principles check
 
-Fires before each WS: (1) **shape** — re-confirm the cited file:line still matches (the
-CLI evolves); (2) **landing-path** — each WS ends at a commit with green gates; (3)
-**vendor-literal** — re-derive the required-path command set against the live CLI at
-execution (WS2 especially); (4) the `git worktree list` VERIFIED TRAP above.
+Fires before each remaining WS: (1) **shape** — re-confirm the cited file:line
+still matches (the CLI evolves); (2) **landing-path** — each WS ends at a
+commit with green gates; (3) **vendor-literal** — re-derive the required-path
+command set against the live CLI at execution (WS2b especially); (4) the
+`git worktree list` VERIFIED TRAP above.
 
 ## Readiness reviewers
 
@@ -200,5 +262,7 @@ touched by WS4.
 ## Learning loop & lifecycle triggers
 
 Per `components/lifecycle-triggers.md`: this plan is the work-shape artefact; each WS
-closes with a commit; completion closes F-41 and runs `/oak-consolidate-docs`. Create a
-thread-record home if execution spans sessions.
+closes with a commit. WS1a, WS3, and WS4a are delivered slices, not completion
+of the plan or F-41. Completion after WS1b, WS2b, WS4b, and WS5 closes F-41 and
+runs `/oak-consolidate-docs`. Create a thread-record home if execution spans
+sessions.

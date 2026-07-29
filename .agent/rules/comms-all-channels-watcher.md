@@ -29,7 +29,8 @@ Run one event-driven watcher over the full
 per new event, with **self-exclusion plus, where the seat's economics
 justify it, the sanctioned `--exclude-tag` mechanism** (§"Sanctioned
 tag exclusion" below) — filter out events authored by the agent's own
-`(agent_name, platform, session_id_prefix)` identity tuple (per
+PDR-076a routing identity through the canonical `sameAgentRoutingKey`
+comparator (per
 [`.agent/reference/comms-watch-mechanism.md`](../reference/comms-watch-mechanism.md)
 §"Identity discipline") and emit everything else. Apply relevance triage
 in agent reasoning, not at the watcher boundary — **hand-rolled filters
@@ -62,6 +63,8 @@ peer retirement and out of contract.
 
 ```bash
 # Replace <agent-codename>/<platform>/<model> below.
+# Omit --comms-dir and --seen-file together: the CLI resolves the PRIMARY
+# coordination home and derives the cursor from the exact display name.
 # Two F-101 guards stop a gone-away watcher orphaning (and writing a false F-95
 # heartbeat): (1) `--supervisor-pid "$PPID"` — the watcher self-exits when the agent
 # process dies, the PRIMARY cure incl. the crash/SIGKILL path; (2) the GNU
@@ -74,9 +77,8 @@ peer retirement and out of contract.
 # watcher's lifetime — each successful pass advances the seen-file cursor
 # and the watcher keeps running (migration notes for the retired
 # --max-events flag live in the CLI help).
+cd <repo-root> || exit 1
 set -- pnpm agent-tools:collaboration-state -- comms watch \
-  --comms-dir .agent/state/collaboration/comms \
-  --seen-file .agent/state/collaboration/comms-seen/<agent-codename>.json \
   --platform <claude|codex|cursor> \
   --model <model-id> \
   --supervisor-pid "$PPID" \
@@ -86,6 +88,14 @@ TIMEOUT_BIN="$(command -v timeout || command -v gtimeout || true)"
 [ -n "$TIMEOUT_BIN" ] && set -- "$TIMEOUT_BIN" 3600 "$@"
 exec "$@"
 ```
+
+`--comms-dir` and `--seen-file` are one atomic override pair: omit both for
+the worktree-safe default, or supply both for a deliberate alternate target.
+When omitted, the CLI resolves the PRIMARY coordination home (or the home
+selected by `--repo-root`), uses its canonical `comms/` directory, and derives
+`comms-seen/<exact display name>.json`. When supplied, both values are
+preserved verbatim. In either mode the CLI creates the comms directory and the
+seen-file's parent before watching.
 
 Two composing guards bound every watcher's lifetime so an orphaned or agent-less
 watcher self-terminates rather than lingering and writing a false-liveness
@@ -135,11 +145,15 @@ identity seed`. Each event is tagged `[BROADCAST]` / `[GROUP]` /
 `[DIRECTED]` / `[OBSERVED]` / `[LIFECYCLE]` on its first line so the agent
 knows the channel at a glance. `[OBSERVED]` means incidental visibility
 of cross-traffic, not a new work contract (event shape:
-`.agent/state/collaboration/comms-event.schema.json`).
+[`agent-tools/src/collaboration-state/schemas/comms-event.schema.json`](../../agent-tools/src/collaboration-state/schemas/comms-event.schema.json)).
 
 Run the command via the platform's persistent background-task mechanism:
 Claude Code uses the `Monitor` tool with `persistent: true`; Cursor and
-Codex use their equivalent watch primitives. **Start every arm with an
+Codex use their equivalent notification paths. Codex keeps this canonical
+root-identity watcher for its F-95 heartbeat and adds the distinct
+relay-identity notification watcher described by the relay-child procedure in
+[`use-monitor-for-event-driven-wake`](use-monitor-for-event-driven-wake.md#codex-notify-session-relay).
+**Start every arm with an
 explicit `cd <repo-root> || exit 1`**: the platform's background-task
 primitive inherits the interactive shell's PERSISTENT cwd, so an arm
 issued while the shell sits in a scratchpad or sub-directory runs the
@@ -296,10 +310,10 @@ This rule's liveness checks live in three places: the
 claims-open backstop), the heartbeat-staleness classification in
 §"Liveness self-check (cycle boundaries)" together with the
 cursor-movement progress check in §"Cursor movement is the health check;
-the batch bound is per-pass", and the delivery-side `emitted_count`
-comparison at the end of §"Fallback shape — portable script". Together they are evidence about PDR-133's
-`PROCESS`, `CURSOR`, and `DELIVERY` classes, and **about nothing
-else**:
+the batch bound is per-pass", and the known-event output plus
+`emitted_count` check in §"Process liveness is not delivery liveness".
+Together they are evidence about PDR-133's `PROCESS`, `CURSOR`, and
+`DELIVERY` classes, and **about nothing else**:
 
 - `SUBSTRATE` (is this the canonical comms home at all?) is covered
   separately by the canonical-home verification under §"Known
@@ -344,19 +358,19 @@ transport). Owner-approved 2026-06-11.
 
 ### Seen-file convention
 
-The `<agent-codename>.json` seen-file lives in
-`.agent/state/collaboration/comms-seen/` (committed directory). On a fresh
-clone or worktree where the directory has not yet been created,
-`mkdir -p .agent/state/collaboration/comms-seen` first — the CLI does not
-auto-create the seen-file's parent directory and `appendFile` will fail
-silently if it is missing, causing the watcher to re-emit every event on
-every poll. The codename matches the `agent_name` derived by
+Under the omit-path default, the seen-file lives at
+`<PRIMARY coordination home>/.agent/state/collaboration/comms-seen/<exact
+display name>.json`. The CLI creates both the canonical comms directory and
+the seen-file's parent before it enters the watch loop. The display name
+matches the `agent_name` derived by
 `pnpm agent-tools:collaboration-state -- identity preflight --platform <p>
 --model <m>` — **the display name VERBATIM, spaces included**
 (`Zenith wakes Perigee.json`), never a kebab-case slug: `assert-watcher-live`
 derives the heartbeat path from the display name, so a slug-named seen-file
 leaves the watcher running and the assert red (four recorded instances;
 `ls` the directory first — pre-existing seen-files model the convention).
+An explicit `--comms-dir` / `--seen-file` pair is preserved verbatim; the
+caller therefore owns the correctness of both destinations.
 
 ### Dormancy polls initialise their cursor FROM the frozen seen-file
 
@@ -372,75 +386,35 @@ its wake within one poll). Corpus-test the wake FILTER before arming
 (directed-match, zero leaks), and verify the CURSOR INIT separately —
 the two defects are independent.
 
-### Fallback shape — portable script
+### No hand-rolled fallback
 
-Use when the `agent-tools` CLI is not yet built locally, or on a platform
-without the CLI:
-
-```bash
-SEEN=tmp/<agent>-comms-seen.txt
-ls .agent/state/collaboration/comms | sort > "$SEEN"
-while true; do
-  ls .agent/state/collaboration/comms | sort > tmp/now.txt
-  for f in $(comm -13 "$SEEN" tmp/now.txt); do
-    jq -r --arg self "$SELF_SESSION_PREFIX" '
-      if (.author.session_id_prefix // .from.session_id_prefix // "") == $self
-      then empty
-      else "[" + .created_at + "] "
-           + ((.author.agent_name // .from.agent_name // "?") + "/"
-              + (.author.session_id_prefix // .from.session_id_prefix // "?"))
-           + " -> " + (
-               if (.to // null) != null
-               then (.to.agent_name // "?") + "/" + (.to.session_id_prefix // "?")
-               elif (.addressed_to // null) != null then .addressed_to
-               elif (.audience // null) != null
-               then "GROUP(" + (.audience | join(",")) + ")"
-               else "BROADCAST"
-               end
-             )
-           + " :: " + (.title // .subject // "?")
-      end' ".agent/state/collaboration/comms/$f"
-  done
-  mv tmp/now.txt "$SEEN"
-  sleep 5
-done
-```
+There is no sanctioned shell reimplementation of `comms watch`. A portable
+script cannot safely duplicate the schema union, canonical ID-keyed
+`sameAgentRoutingKey` self-exclusion, PRIMARY-home resolution, atomic cursor,
+or post-delivery mark-seen ordering. If `agent-tools` is not built, build it
+before team start; do not replace it with `ls` / `jq` filtering.
 
 An agent on a platform with no persistent background-task primitive must
-declare the gap in their team-start post and adopt a polling cadence that
-sweeps the full directory at the team-cadence interval, never a
-single-view filter — because the directed-only view misses the broadcast
-and group events that carry the team-bootstrap coordination itself.
+declare the `NOTIFY` gap in its team-start post and use the CLI's
+all-channels `comms inbox` at the team-cadence interval, with an explicit
+absolute PRIMARY-home `--comms-dir` and exact-display-name `--seen-file`
+until inbox defaulting lands. It must never use a single-view filter, because
+the directed-only view misses broadcast and group events that carry
+team-bootstrap coordination itself.
 
-**Before arming ANY hand-written watcher, test its exact filter against
-one event of each shape** — directed, untagged narrative, tagged
-heartbeat, self-authored. A render path proven only on heartbeats is
-unproven for the events that matter: a hand-rolled filter once dropped
-every untagged narrative event while rendering heartbeats perfectly,
-and the heartbeat volume masked the gap (worked instance 2026-06-10;
-owner-approved 2026-06-11). Filter `*.tmp-*` names from poll-loop
-listings — the atomic-write rename race produces benign transient
-files.
+### Process liveness is not delivery liveness
 
-**Process-liveness is not delivery-liveness.** A watcher can pass
+A watcher can pass
 `assert-watcher-live` (which reads the watcher's OWN heartbeat file)
-while delivering ZERO events — a muting filter or a wedged pipe ran one
-watcher mute for ~40 minutes with a green assert; a second agent's
-filter had the inverse defect (leaked everything) from the same wrong
-render assumption, same day (2026-07-02). The cure pair:
-
-1. **Corpus-test any hand-rolled filter against a real inbox snapshot
-   BEFORE arming** — prove the pass/leak counts against the actual
-   event corpus (the worked instance proved 381/381 pass + 0/791 leak,
-   then armed), never assume them. This mechanises the
-   test-each-shape step above.
-2. **Check the delivery side, not just the process**: the watcher
-   heartbeat records `emitted_count` — at cycle boundaries compare it
-   against stream activity in the window (events landed vs events
-   emitted). A green process assert with a flat `emitted_count` against
-   a moving stream is the mute signature. (Also expected honestly: at
-   n=1 with no peers, a silent stream and drain-timeout deaths are
-   comms-volume cost, not failure — re-arm and sweep.)
+while delivering ZERO events — a wedged output path ran one watcher mute
+for ~40 minutes with a green assert (2026-07-02). Verify the canonical
+delivery path with a known non-self event: require its rendered block to
+appear on watcher output and the heartbeat's `emitted_count` to advance.
+Then verify `NOTIFY` separately by requiring the host to create an agent
+turn without a manual poll or user prompt. A green process assert alone
+proves neither result. At n=1 with no peers, a legitimately silent stream
+cannot supply this probe; record the evidence ceiling rather than reading
+silence as either success or failure.
 
 ## Real-Time Failure-Mode Capture on the Comms Stream
 
@@ -529,7 +503,7 @@ naming the rule; the substance lives here for two reasons:
 - [`.agent/reference/comms-watch-mechanism.md`](../reference/comms-watch-mechanism.md)
   — identity discipline and self-exclusion contract.
 - [PDR-133](../practice-core/decision-records/PDR-133-liveness-classes-and-platform-declaration.md)
-  (Proposed) — the liveness class model. PDR-133 §5 carries the
+  (Accepted) — the liveness class model. PDR-133 §5 carries the
   portable self-observation corollary (a seat cannot certify the
   never-self-certifiable classes about itself, so those classes need an
   external observer); this rule keeps the repo's own surfaces and worked
@@ -546,9 +520,10 @@ naming the rule; the substance lives here for two reasons:
 - [`.agent/reference/arc-rapid-communication.md`](../reference/arc-rapid-communication.md)
   §Protocol — the ArcAngel rapid-comms dialogue channel. An ArcAngel
   watcher never substitutes for this canonical all-channels watcher; the
-  two are paired. A session tailing only ArcAngel is blind to the claims,
-  heartbeats, commit intents, owner gates, and team-bootstrap coordination
-  that live on this canonical stream.
+  two are paired. A session tailing only ArcAngel is blind to heartbeats,
+  comms-carried commit intents, owner gates, and team-bootstrap coordination
+  on this canonical stream; neither watcher replaces the separate claims and
+  commit-queue reads.
 
 ## Enforcement
 
@@ -568,9 +543,12 @@ mechanical gates so it cannot be skipped by forgetting it (F-95):
   the agent running the move-1 check. Solo / n=1 bootstrap sessions (no other
   live agent) are exempt.
 
-Both gates classify liveness from the watcher's `<seen-file>.heartbeat.json`
-(stale past 3× its interval). Mid-session watcher death is a separate concern
-(the cycle-boundary staleness check), not this session-open gate.
+Both gates independently resolve the exact-display-name heartbeat under the
+same PRIMARY coordination home (or the same explicit `--repo-root`) and
+classify it stale past 3× its interval. They do not trust an arbitrary explicit
+watch-path pair, so a watcher aimed at a worktree-local decoy cannot satisfy
+the default-path gate. Mid-session watcher death is a separate concern (the
+cycle-boundary staleness check), not this session-open gate.
 
 ## Known Silent-Failure Class
 
@@ -581,16 +559,18 @@ wrong. Check these before trusting a quiet channel:
   regenerates `shared-comms-log.md` wholesale; never hand-edit the rendered
   view (edits are destroyed on the next render) and never treat it as the
   event source (it lags — the canonical `comms/*.json` event files are truth).
-- **First run without a `--seen-file` replays the entire history**, burying
-  live events under the backlog; always pass the seen-file cursor.
+- **An explicitly empty cursor with `--no-auto-seed` replays the entire
+  history**, burying live events under the backlog. The default mode derives
+  the exact-display-name cursor and auto-seeds it on first use; request replay
+  only deliberately.
 - **Self-exclusion filters can drop directed events** — a filter meant to skip
   the agent's own broadcasts can also skip events *addressed to* the agent;
   verify inclusion with a known directed event before relying on a filter.
-- **Events can land in a retired or decoy directory** — a worktree-launched
-  watcher that resolves a local `.agent/state/collaboration/comms` watches an
-  empty decoy (the CLI silently creates it), and writes to a retired dir are
-  equally silent. Verify the watch/send dir is the primary coordination home
-  (`resolveCoordinationHome`) — the F-41 family; the cure plan is
+- **An explicit path pair can still target a retired or decoy directory** —
+  the omit-path default resolves the PRIMARY coordination home and prevents
+  the worktree-relative F-41 misroute, but explicitly supplied values are
+  preserved verbatim. Verify any explicit watch/send destination before
+  relying on it; the remaining F-41 migration is tracked in
   `agent-tooling/current/coordination-home-cli-path-defaulting.plan.md`.
 - **The CLI can exit 0 while transferring or parsing nothing** — read the
   failure surface (event counts, the written file), never the exit code

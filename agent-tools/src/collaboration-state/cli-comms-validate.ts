@@ -1,17 +1,24 @@
-import { optional, type Options } from './cli-options.js';
-import { resolveCoordinationHome } from './coordination-home.js';
+import { err, unwrapOrThrow } from '@oaknational/result';
+
+import { resolveCoordinationHomeForOptions } from './cli-coordination-home.js';
+import { type Options } from './cli-options.js';
+import { type CliRuntime } from './cli-runtime.js';
 import {
   formatCollaborationStateIntegrityReport,
   validateCollaborationStateIntegrity,
 } from './state-integrity.js';
 
-export async function validateComms(options: Options, cwd: string): Promise<string> {
+export async function validateComms(
+  options: Options,
+  _env: unknown,
+  runtime: CliRuntime,
+): Promise<string> {
   const report = await validateCollaborationStateIntegrity({
-    repoRoot: optional(options, 'repo-root') ?? resolveCoordinationHome(cwd),
+    repoRoot: resolveCoordinationHomeForOptions(options, runtime),
   });
   const formatted = formatCollaborationStateIntegrityReport(report);
   if (report.findings.length > 0) {
-    throw new Error(formatted.trimEnd());
+    return unwrapOrThrow<never>(err(new Error(formatted.trimEnd())));
   }
 
   return formatted;

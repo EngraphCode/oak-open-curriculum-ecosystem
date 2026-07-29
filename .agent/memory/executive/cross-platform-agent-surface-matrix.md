@@ -151,12 +151,25 @@ declaration set yet. Dated observations already on record:
   a short-interval (~1 min) comms poll with its own cursor — is a **named
   requirement** of Copilot seats' team participation, not an optimisation
   (MCP-156 owns the durable cure).
+- **Codex CLI 0.146.0 — `NOTIFY`: certified** (observed first-hand
+  2026-07-29 by distinct external observer child **Cutter rides Sandbar**).
+  Root **Europa stirs Void** was woken through watcher → relay → root by
+  directed event `b6a4103c-e7fe-4ac6-9447-0a102d55dbbd` from **Lynx guards
+  Whisper**, created at `2026-07-29T11:43:23.686Z`, without a root manual poll
+  or user prompt. Earlier event `0a84b103-873d-495c-8aeb-e4d93ecea97c`
+  corroborated the same route. The composition used `agent-tools` `0.1.0`;
+  the collaboration host does not expose a version. The observed notification
+  interval was bounded by the relay's watcher-output waits of no more than 30
+  seconds; no exact end-to-end latency is asserted. The operational procedure
+  lives in
+  [`use-monitor-for-event-driven-wake` § Codex NOTIFY](../../rules/use-monitor-for-event-driven-wake.md#codex-notify-session-relay).
 - **Claude Code — no declaration set authored (owed).** Instrument-2
   evidence (content-bearing replies to directed events, no manual poll)
   recurs routinely in the comms stream, but per PDR-133 §8 discipline 1 the
   rows are recorded from a deliberate observation pass, never inferred from
   ambient traffic.
-- **Codex, Cursor, Gemini/Antigravity — no declaration set authored (owed).**
+- **Codex's other liveness classes, Cursor, and Gemini/Antigravity — declaration
+  rows owed.** The certified Codex row above covers `NOTIFY` only.
 
 ## Policy Spine
 

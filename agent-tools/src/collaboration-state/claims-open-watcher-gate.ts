@@ -20,13 +20,14 @@
  * Solo-safe by construction: a session with no OTHER live agent in the locked
  * snapshot passes regardless of watcher state (the bootstrap fast-path).
  */
+import { err, unwrapOrThrow } from '@oaknational/result';
+
 import { sameAgentRoutingKey } from './active-agent-routing.js';
 import { liveAgentIdentities } from './active-agents.js';
 import { type CollaborationAgentId, type CollaborationRegistry } from './types.js';
 import {
   classifyWatcherPresence,
   commsSeenFileForCodename,
-  DEFAULT_COMMS_SEEN_DIR,
   heartbeatFileForSeen,
   type WatcherPresenceVerdict,
 } from './watcher-presence.js';
@@ -72,19 +73,19 @@ export async function resolveWatcherVerdict(input: {
 
 /**
  * Resolve the watcher verdict for a `claims open` with the production policy
- * baked in: the canonical comms-seen dir ONLY (no path override — a planted
- * heartbeat must not satisfy this load-bearing backstop), the real wall clock
- * (`Date.now()`, never the claim's `--now`, which can lag real time and
- * understate the heartbeat's age), and the production filesystem adapter. The
- * thin wrapper keeps `openClaim` free of that wiring and gives the open gate's
- * policy a single home.
+ * baked in: the caller supplies the canonical primary-home comms-seen dir
+ * (there is no comms path override on `claims open`, so a planted heartbeat
+ * cannot satisfy this load-bearing backstop), while this boundary owns the
+ * real wall clock (`Date.now()`, never the claim's `--now`) and production
+ * filesystem adapter.
  */
 export async function resolveOpenClaimWatcherVerdict(
   identity: CollaborationAgentId,
+  commsSeenDir: string,
 ): Promise<WatcherPresenceVerdict> {
   return resolveWatcherVerdict({
     selfIdentity: identity,
-    commsSeenDir: DEFAULT_COMMS_SEEN_DIR,
+    commsSeenDir,
     nowMs: Date.now(),
     io: productionWatcherStalenessIo,
   });
@@ -107,9 +108,13 @@ export function assertNotBlindWithOtherAgents(input: {
   if (!hasOtherLiveAgents(input.registry, input.nowIso, input.selfIdentity)) {
     return;
   }
-  throw new Error(
-    `refusing to open a claim while blind to comms: ${input.watcherVerdict.reason}. Other agents ` +
-      `are live in the registry; arm the all-channels comms watcher as start-right-team move 1 ` +
-      `first (see .agent/rules/comms-all-channels-watcher.md).`,
+  return unwrapOrThrow<never>(
+    err(
+      new Error(
+        `refusing to open a claim while blind to comms: ${input.watcherVerdict.reason}. Other agents ` +
+          `are live in the registry; arm the all-channels comms watcher as start-right-team move 1 ` +
+          `first (see .agent/rules/comms-all-channels-watcher.md).`,
+      ),
+    ),
   );
 }
