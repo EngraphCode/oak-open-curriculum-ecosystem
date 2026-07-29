@@ -97,14 +97,29 @@ function extractBearerToken(authHeader: string): string | undefined {
  * forgeable cookie against a URL parameter to decide whether to require a
  * login. That is not this shape: the client-supplied header is not an input
  * to the authorisation decision, it IS the credential being verified, and
- * every path it can take short of `verifyToken` returning a truthy
- * `AuthInfo` ends in a 401. Absence is rejection, not bypass. The invariant
- * — no client-controlled input reaches `next()` unverified — is asserted
- * over the states a client controls in
+ * the guard's polarity is the inverse of the rule's pattern — the value
+ * being ABSENT short-circuits to 401, being PRESENT routes into
+ * verification. Absence is rejection, not bypass.
+ *
+ * The invariant this middleware holds: **no request leaves `mcpAuth` via
+ * `next()` unless `verifyToken` returned a truthy `AuthInfo`**. It is
+ * asserted over the states a client controls in
  * `mcp-auth.integration.test.ts` ("no unverified request reaches next()"),
- * which is what the alert dismissal cites. Note also that this file's
- * `catch` calls `next(error)`, which enters Express's error pipeline and
- * skips the remaining handlers rather than reaching the MCP route.
+ * which is what the alert dismissal cites.
+ *
+ * Scope that sentence to THIS middleware, deliberately. It is NOT a claim
+ * about the `/mcp` route: `createMcpRouter` (`mcp-router.ts`) calls `next()`
+ * directly for a `resources/read` of a public resource URI, so such a
+ * request never enters `mcpAuth` at all. That exception is designed
+ * (ADR-057 / ADR-113 / ADR-205) and fail-closed — membership is exact-string
+ * against a frozen `Set` in `auth/public-resources.ts`, with no prefix or
+ * normalisation slack — but it is a route-level bypass of this file, and an
+ * attestation that claimed otherwise would be overclaiming.
+ *
+ * Note also that this file's `catch` calls `next(error)`, which enters
+ * Express's error pipeline and skips the remaining route handlers rather
+ * than reaching the MCP handler — an Express guarantee, verified against
+ * this app's own express version during the alert review.
  */
 async function verifyRequestToken(
   req: Request,

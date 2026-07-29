@@ -64,9 +64,15 @@ describe('mcpAuth middleware (Integration)', () => {
 
   /**
    * The authorisation invariant, stated over the states a CLIENT controls:
-   * nothing reaches `next()` — and therefore the MCP handler — unless
-   * `verifyToken` returned a truthy `AuthInfo`. Absence, emptiness, and a
-   * malformed or rejected credential are all rejections, never bypasses.
+   * no request leaves `mcpAuth` via `next()` unless `verifyToken` returned a
+   * truthy `AuthInfo`. Absence, emptiness, and a malformed or rejected
+   * credential are all rejections, never bypasses.
+   *
+   * Scoped to this middleware, deliberately — `createMcpRouter` skips
+   * `mcpAuth` entirely for a `resources/read` of a public resource URI
+   * (ADR-057 / ADR-113 / ADR-205), so this is not a claim about the `/mcp`
+   * route. Audience-mismatch rejection is the remaining reachable 401 and is
+   * proven in the challenge test below.
    *
    * Closes CodeQL `js/user-controlled-bypass` alert #225; see the
    * attestation on `verifyRequestToken` in `mcp-auth.ts`.
@@ -88,7 +94,32 @@ describe('mcpAuth middleware (Integration)', () => {
         verifier: alwaysVerifies,
       },
       {
-        label: 'two Authorization headers joined by the parser',
+        // The credential-free request: well-formed shape, EMPTY credential.
+        // This is the row that stops an empty-string token reaching the
+        // verifier — the presence guard never sees it, because the header
+        // itself is truthy.
+        label: 'a Bearer prefix with an empty credential',
+        headers: { authorization: 'Bearer ' },
+        verifier: alwaysVerifies,
+      },
+      {
+        label: 'a bare Bearer with no space',
+        headers: { authorization: 'Bearer' },
+        verifier: alwaysVerifies,
+      },
+      {
+        // Pins a deliberate strictness: RFC 7235 makes the auth scheme
+        // case-INsensitive, and this server rejects anyway.
+        label: 'a lower-case bearer scheme',
+        headers: { authorization: 'bearer plausible-looking-token' },
+        verifier: alwaysVerifies,
+      },
+      {
+        // Node discards a duplicate `Authorization` header rather than
+        // joining it, so this value cannot arrive from two client headers —
+        // but a proxy may forward one header carrying both, and a client can
+        // send this literal string directly.
+        label: 'a single header carrying two comma-joined credentials',
         headers: { authorization: 'Bearer a, Bearer b' },
         verifier: alwaysVerifies,
       },
@@ -111,6 +142,32 @@ describe('mcpAuth middleware (Integration)', () => {
       expect(next).not.toHaveBeenCalled();
       expect(res.statusCode).toBe(401);
       expect(req).not.toHaveProperty('auth');
+    });
+
+    /**
+     * A verifier that THROWS is the one state where `next` is legitimately
+     * called — with an error, which Express routes to its error pipeline and
+     * not on to the MCP handler. The invariant still holds where it matters:
+     * the request is not authenticated, and this middleware answers nothing
+     * itself, so it cannot accidentally return a success. The 5xx belongs to
+     * the error handler, which is why no status is asserted here.
+     */
+    it('hands a verifier failure to the error pipeline, unauthenticated and unanswered', async () => {
+      const verifier = vi
+        .fn<() => Promise<AuthInfo>>()
+        .mockRejectedValue(new Error('token verification transport failure'));
+
+      const middleware = mcpAuth(verifier, logger, ALLOWED_HOSTS);
+
+      const req = createMockExpressRequest({ token: 'plausible-looking-token', host: 'localhost' });
+      const res = createMockExpressResponse();
+      const next = vi.fn();
+
+      await middleware(req, res, next);
+
+      expect(next).toHaveBeenCalledWith(expect.any(Error));
+      expect(req).not.toHaveProperty('auth');
+      expect(res.headersSent).toBe(false);
     });
   });
 
