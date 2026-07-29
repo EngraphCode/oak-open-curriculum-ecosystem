@@ -8,6 +8,7 @@
  */
 
 import { describe, it, expect, beforeEach } from 'vitest';
+import { createFakeReadResourceExtra } from './test-helpers/fakes-product-analytics.js';
 import { SERVED_SURFACE, type ServedSurfaceDefinition } from './served-surface/served-surface.js';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { RESOURCE_MIME_TYPE } from '@modelcontextprotocol/ext-apps/server';
@@ -74,16 +75,7 @@ function createMockServer(): {
   >();
   const backingServer = new McpServer({ name: 'test-server', version: '1.0.0' });
   const originalRegisterResource = backingServer.registerResource.bind(backingServer);
-  const handlerExtra: Parameters<ReadResourceCallback>[1] = {
-    signal: AbortSignal.abort(),
-    requestId: 'test-request',
-    async sendNotification() {
-      return undefined;
-    },
-    async sendRequest() {
-      throw new Error('sendRequest is not supported in this test fake');
-    },
-  };
+  const handlerExtra: Parameters<ReadResourceCallback>[1] = createFakeReadResourceExtra();
 
   function readStaticResourceResult(
     registration: RegisteredResourceCapture,

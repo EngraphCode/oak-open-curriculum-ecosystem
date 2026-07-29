@@ -83,8 +83,15 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     '359d2f7517dff42d7ba32b2c0a2577e727c2529ec79f41ed29b5dd590a15d77a',
     ['C395', 'C396', 'C397', 'C398', 'C399', 'C400'],
   ),
+  // MCP-242: canonical verified-userId derivation for analytics identity —
+  // pure auth-context plumbing, serves no agent-facing content.
+  'apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/verified-user-id.ts': excluded(
+    'cfdd95b3968921c4dabcb48248e40cd18028eb386535019f77fe2dd79c29a586',
+    IMPLEMENTATION_ONLY,
+  ),
   // MCP-353: the under-the-hood allowlist row (C413) retired with the deleted
-  // resource; the file now composes SDK-owned URI sets only.
+  // resource (MCP-242's re-review of the pre-deletion file is superseded by
+  // that retirement); the file now composes SDK-owned URI sets only.
   'apps/oak-curriculum-mcp-streamable-http/src/auth/public-resources.ts': excluded(
     '75bbea61c4b91c53a1ec93133852f9841844f94eb448973f9bbecfd855239227',
     IMPLEMENTATION_ONLY,
@@ -118,7 +125,7 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     ['C394'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/handlers.ts': excluded(
-    'e9fdec5d9c5ddddcba5fd7d30f848ce3adb347012b0829c4f7a6c9754ba852ea',
+    '94b93129bc465885c23ba2e9155b3611e9be7471454c207c3fe491e7db4d7587',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/host-validation-error.ts': reviewed(
@@ -197,6 +204,16 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/test-helpers/auth-error-test-helpers.ts': excluded(
     '1f09358427ac9ca4f2f0027636515abcfd123c64ae6bf468574c8d767fcccd6c',
+    TEST_ONLY,
+  ),
+  // MCP-242: product-analytics test fakes extracted from fakes.ts.
+  'apps/oak-curriculum-mcp-streamable-http/src/test-helpers/fakes-product-analytics.ts': excluded(
+    'ab5e6009c82e2b213aea36a4c5fc660445e0cb5f50a3f4453973d35edd365999',
+    TEST_ONLY,
+  ),
+  // MCP-242: re-export wiring for the extracted product-analytics fakes.
+  'apps/oak-curriculum-mcp-streamable-http/src/test-helpers/fakes.ts': excluded(
+    'e38bb464d9b9976d74c795225be2b472b7cfdf47596b4c8c1b1b5084563ff3e3',
     TEST_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/test-helpers/registration-walk.ts': excluded(
