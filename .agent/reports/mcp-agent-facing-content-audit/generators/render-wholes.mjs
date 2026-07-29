@@ -72,9 +72,6 @@ try {
   parts.push(`## 1. Server instructions — delivered once at connection\n\nExact. This is the whole string an agent receives in the MCP \`initialize\` response.\n\n${fence(mcp.SERVER_INSTRUCTIONS)}\n`);
 } catch (e) { problems.push('SERVER_INSTRUCTIONS: ' + e.message); }
 
-// The per-response context hint section was removed with its channel (MCP-366):
-// tool responses carry no oakContextHint, so there is no whole to render.
-
 // 2. Server branding / Implementation. The app ships only bundled entry points with boot
 // side effects, so this section is a VERBATIM SNAPSHOT of the SSOT, labelled as such
 // (PR #337 review) — verify against server-branding.ts when it changes.
