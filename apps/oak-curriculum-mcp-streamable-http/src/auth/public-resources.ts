@@ -33,22 +33,14 @@ import {
 /**
  * Resource URIs that are publicly accessible without authentication.
  *
- * Two sources: SDK-owned documentation/widget URIs (the original ADR-057 set), plus
- * explicit APP-LOCAL public URIs that are registered inside this app rather than via
- * the SDK. The classification rule and its basis (MCP auth is server-level, so a
- * per-resource public allowlist is an Oak app pattern; classify by data-sensitivity)
- * are recorded in ADR-205. Each app-local entry is drift-guarded by a test that
- * imports the URI the resource is actually registered under.
+ * All SDK-owned: the documentation/widget URIs (the original ADR-057 set) plus the
+ * served live-set navigation-guidance URIs. The classification rule and its basis
+ * (MCP auth is server-level, so a per-resource public allowlist is an Oak app
+ * pattern; classify by data-sensitivity) are recorded in ADR-205.
  */
 const PUBLIC_RESOURCE_URIS = [
   ...DOCUMENTATION_RESOURCES.map((resource) => resource.uri),
   WIDGET_URI,
-  // App-local (ADR-205): the Oak: Under the Hood orientation pointer. Static,
-  // non-user-specific markdown pointing only to the public canonical skill + public
-  // Oak URLs — gating it would protect nothing, and its sibling getting-started.md is
-  // already public. Sourced from OAK_UNDER_THE_HOOD_RESOURCE_URI in register-resources;
-  // the literal is mirrored here and the public-resources test guards against drift.
-  'docs://oak/under-the-hood.md',
   // Agent guidance documents, SERVED LIVE-SET ONLY (ADR-205 classification made
   // explicitly, mcp-101 slice B2b): static SDK-compiled workflow guidance markdown,
   // no user-specific data — the same data-sensitivity class as getting-started.md.

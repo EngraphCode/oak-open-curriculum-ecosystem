@@ -108,6 +108,10 @@ export const OAK_DS_MANIFEST = {
     // whole suite green.
     'assets/logo-full-black.svg',
     'assets/icons/header-underline.svg',
+    // The wide wordmark lockup. Published ahead of its first in-app
+    // reference (the oak-theme.js precedent above): the brand-widget
+    // wordmark swap then adds only the reference.
+    'assets/logo-wide-black.svg',
   ],
   directories: ['assets/icons'],
 } as const;

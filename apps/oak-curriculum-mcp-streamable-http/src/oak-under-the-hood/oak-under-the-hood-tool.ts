@@ -1,20 +1,24 @@
 /**
- * The Oak: Under the Hood orientation tool (pointer shape).
+ * The Oak: Under the Hood orientation tool (baked-content shape).
  *
  * A model-controlled tool that fires on repo / effort orientation triggers —
  * "tell me about this project", "how does Oak build and deliver its curriculum",
- * "how do I engage or contribute" — and hands the connected assistant a POINTER:
- * a minimal trigger instruction plus a `resource_link` to the canonical
- * orientation method (the under-the-hood skill, fetched from the public
- * repo) and Oak's public framing sources. The assistant fetches the canonical
- * and orients.
+ * "how do I engage or contribute" — and serves the orientation METHOD inline:
+ * the audience-independent digest of the canonical under-the-hood skill,
+ * generated out of band into `../generated/oak-under-the-hood-content.js`
+ * (committed; the app build never runs the generator)
+ * and drift-gated by `validate-under-the-hood-content` (MCP-353).
  *
- * It carries NO orientation body. The canonical sources are ALWAYS reachable
- * (the repo skill on public GitHub; Oak's mission/strategy on the public Oak
- * site), so the capability is the behaviour plus pointers, never a baked or
- * generated copy. There is no fallback/degradation branch: a client that never
- * follows the pointer simply gets the trigger — that is by design, not an
- * invented-degradation path (principles.md §Strict and Complete).
+ * Why baked, not pointed: the Anthropic Software Directory policy (§2.F,
+ * https://support.claude.com/en/articles/13145358-anthropic-software-directory-policy)
+ * forbids instructional software directing the assistant to dynamically pull
+ * behavioural instructions from external sources for execution. The previous
+ * pointer shape ("fetch the canonical at this URL and follow it") was exactly
+ * that; the served artefact now carries its own reviewed instructions,
+ * versioned with the deployment. The public Oak URLs remain as INFORMATIONAL
+ * CITATIONS (owner ruling 2026-07-29): the assistant may read Oak's public
+ * pages and this repository's public documents to answer the user's own
+ * orientation questions; nothing directs it to fetch instructions to execute.
  *
  * Effort-domain ONLY (owner separation principle). Two construction-held
  * firewalls, never tests:
@@ -31,14 +35,22 @@
  * SDK universal-tools loop): the oak-under-the-hood tool is app-local, not in the
  * generated registry. It declares an explicit empty CLOSED `inputSchema` (zero-arg;
  * accepts only the empty object, per MCP 2025-11-25) and NO `outputSchema` — the
- * result body is a free-form pointer, with no object contract worth declaring. The
- * dual shape is ADR-058 (content + structuredContent), mirroring the agent-support
- * tools.
+ * result body is free-form markdown, with no object contract worth declaring. The
+ * dual shape is ADR-058 (content + structuredContent): the orientation body rides
+ * BOTH channels because major clients each deliver only one of them. Result size
+ * is measured through the same outbound token-health metric as the universal
+ * tools (`MCP tool result size`), so MCP-305's evidence lens covers this — the
+ * app's largest single result — rather than being blind to it.
  */
 
 import { z } from 'zod';
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
-import type { CallToolResult, ResourceLink, TextContent } from '@modelcontextprotocol/sdk/types.js';
+import type { CallToolResult, TextContent } from '@modelcontextprotocol/sdk/types.js';
+import type { Logger } from '@oaknational/logger';
+
+import { OAK_UNDER_THE_HOOD_ORIENTATION } from '../generated/oak-under-the-hood-content.js';
+import type { HttpObservability } from '../observability/http-observability.js';
+import { measureCallToolResult } from '../observability/tool-result-measurement.js';
 
 /**
  * Tool name — the wire identifier for the Oak: Under the Hood orientation tool.
@@ -55,22 +67,14 @@ export const OAK_UNDER_THE_HOOD_TOOL_NAME = 'oak-under-the-hood';
  */
 const OAK_UNDER_THE_HOOD_TOOL_TITLE = 'Oak: Under the Hood';
 
-/**
- * Public URL of the canonical orientation method (the under-the-hood skill), read
- * live from `main`. W2 and W3 ride the same PR (#243, DRAFT until the reframe
- * lands), so the `main` URL resolves once the PR merges. Reachability is a
- * pre-merge check, never a network-coupled test. The canonical dir is the bare
- * concept name `under-the-hood`; the `oak-` prefix is adapter-only and never
- * appears on the canonical path.
- */
-export const CANONICAL_SKILL_URL =
-  'https://raw.githubusercontent.com/oaknational/oak-open-curriculum-ecosystem/main/.agent/skills/under-the-hood/SKILL-CANONICAL.md';
-
 /** Oak's official positioning and pillars — public-site framing context. */
 const OAK_WHO_WE_ARE_URL = 'https://www.thenational.academy/about-us/who-we-are';
 
 /** Oak's official strategy, annual plan, and impact evaluations — public-site, on-interest depth. */
 const OAK_STRATEGY_DOCS_URL = 'https://www.thenational.academy/about-us/meet-the-team#documents';
+
+/** The public repository the orientation content describes. */
+const OAK_REPOSITORY_URL = 'https://github.com/oaknational/oak-open-curriculum-ecosystem';
 
 /**
  * `tools/list` description — the separation lever. Trigger-optimised for
@@ -86,65 +90,57 @@ const OAK_UNDER_THE_HOOD_TOOL_DESCRIPTION =
   'engage or contribute. Not for curriculum content questions (subjects, units, lessons, key ' +
   'stages, sequencing) — those are served by the curriculum tools.';
 
-/**
- * The pointer-trigger instruction the assistant follows. It names the method and
- * points at the canonical; it does NOT restate the method (that lives in the
- * canonical the assistant fetches). It carries the no-personal-data invariant so
- * a connected assistant honours it even before reading the canonical.
- */
-const OAK_UNDER_THE_HOOD_TOOL_TRIGGER =
-  'Orient the user to this repository (the Oak Open Curriculum Ecosystem) using the Oak Under the ' +
-  'Hood method. Fetch the canonical skill at the linked URL and follow it: discern the person’s ' +
-  'angle, the facet they want (the repo’s impact, intent, mechanisms, or value) and their ' +
-  'altitude, then explore THIS repository through that lens, framed by Oak’s public mission and ' +
-  'strategy. The canonical lists the repo source documents; Oak’s official positioning and ' +
-  'strategy are at the two public Oak URLs provided. Relay Oak’s official wording; never surface ' +
-  'a person’s name.';
-
 const OAK_UNDER_THE_HOOD_TOOL_SUMMARY =
-  'Oak: Under the Hood — fetch the linked canonical method and orient the user to this repository. ' +
-  'The method and sources are at the resource link below.';
+  'Oak: Under the Hood — the orientation method for this repository (the Oak Open Curriculum ' +
+  'Ecosystem), served in full below. Follow it to orient the user. Document paths cited below ' +
+  `are relative to the public repository at ${OAK_REPOSITORY_URL}; Oak-organisation framing ` +
+  "cites Oak's official positioning and strategy pages.";
 
 /**
- * The structured pointer payload: the trigger instruction, the canonical method
- * URL, and Oak's public framing sources. No carried orientation body; no
- * `oakContextHint` (curriculum firewall, held structurally).
+ * Builds the Oak: Under the Hood tool result: the ADR-058 dual shape — a
+ * `content` array (one-line summary, then the orientation digest as markdown)
+ * plus `structuredContent` carrying the same body and the informational
+ * citations. The body appears on BOTH channels because major clients each
+ * deliver only one. No `oakContextHint` (separation firewall, held
+ * structurally).
  */
-interface OakUnderTheHoodPointer {
-  readonly trigger: string;
-  readonly canonicalUrl: string;
-  readonly oakSources: readonly string[];
+export function buildOakUnderTheHoodToolResult(): CallToolResult {
+  const summary: TextContent = { type: 'text', text: OAK_UNDER_THE_HOOD_TOOL_SUMMARY };
+  const orientation: TextContent = { type: 'text', text: OAK_UNDER_THE_HOOD_ORIENTATION };
+  return {
+    content: [summary, orientation],
+    structuredContent: {
+      summary: OAK_UNDER_THE_HOOD_TOOL_SUMMARY,
+      orientation: OAK_UNDER_THE_HOOD_ORIENTATION,
+      repositoryUrl: OAK_REPOSITORY_URL,
+      oakSources: [OAK_WHO_WE_ARE_URL, OAK_STRATEGY_DOCS_URL],
+    },
+  };
+}
+
+/** Observability seams the registration wires the handler through. */
+export interface OakUnderTheHoodToolOptions {
+  readonly logger: Logger;
+  readonly observability: HttpObservability;
 }
 
 /**
- * Builds the Oak: Under the Hood tool result: the ADR-058 dual shape — a `content`
- * array (human-readable summary, the JSON pointer for backwards-compatible readers,
- * and a `resource_link` to the canonical) plus `structuredContent` carrying the
- * same pointer. The canonical URL appears in BOTH the `resource_link` and
- * `structuredContent` so it is model-visible regardless of how a client renders
- * content blocks. No `oakContextHint` (separation firewall, held structurally).
+ * Creates the tool handler: builds the result and routes it through the same
+ * outbound token-health metric as the universal tools (`MCP tool result size`),
+ * tagged with the tool name. Exported as a seam so the measurement wiring is
+ * directly testable (ADR-078 DI), not only reachable through protocol plumbing.
  */
-export function buildOakUnderTheHoodToolResult(): CallToolResult {
-  const pointer: OakUnderTheHoodPointer = {
-    trigger: OAK_UNDER_THE_HOOD_TOOL_TRIGGER,
-    canonicalUrl: CANONICAL_SKILL_URL,
-    oakSources: [OAK_WHO_WE_ARE_URL, OAK_STRATEGY_DOCS_URL],
-  };
-  const summary: TextContent = { type: 'text', text: OAK_UNDER_THE_HOOD_TOOL_SUMMARY };
-  const jsonBody: TextContent = { type: 'text', text: JSON.stringify(pointer) };
-  const canonicalLink: ResourceLink = {
-    type: 'resource_link',
-    uri: CANONICAL_SKILL_URL,
-    name: 'oak-under-the-hood',
-    title: 'Oak: Under the Hood — orientation method',
-    description:
-      'Canonical orientation method and source list; fetch and follow it to orient the user.',
-    mimeType: 'text/markdown',
-    annotations: { audience: ['assistant'], priority: 0.9 },
-  };
-  return {
-    content: [summary, jsonBody, canonicalLink],
-    structuredContent: { ...pointer, summary: OAK_UNDER_THE_HOOD_TOOL_SUMMARY },
+export function createOakUnderTheHoodToolHandler(
+  options: OakUnderTheHoodToolOptions,
+): () => CallToolResult {
+  return () => {
+    options.observability.setTag('mcp.tool_name', OAK_UNDER_THE_HOOD_TOOL_NAME);
+    const result = buildOakUnderTheHoodToolResult();
+    options.logger.info('MCP tool result size', {
+      toolName: OAK_UNDER_THE_HOOD_TOOL_NAME,
+      ...measureCallToolResult(result),
+    });
+    return result;
   };
 }
 
@@ -155,12 +151,16 @@ export function buildOakUnderTheHoodToolResult(): CallToolResult {
  * declares an explicit empty CLOSED `inputSchema` (`z.object({}).strict()`, which
  * the SDK serialises to `{type:'object', additionalProperties:false}` — a strict
  * raw shape `{}` alone does NOT emit `additionalProperties:false`) and no
- * `outputSchema`. `openWorldHint: true` — the tool points OUT to a fetched
- * external canonical.
+ * `outputSchema`. `openWorldHint: false` — the result is served entirely from
+ * the deployed artefact; the URLs it carries are citations, not fetch targets.
  *
  * @param server - the MCP server (narrowed to the `registerTool` capability)
+ * @param options - logger + observability for the outbound result-size metric
  */
-export function registerOakUnderTheHoodTool(server: Pick<McpServer, 'registerTool'>): void {
+export function registerOakUnderTheHoodTool(
+  server: Pick<McpServer, 'registerTool'>,
+  options: OakUnderTheHoodToolOptions,
+): void {
   server.registerTool(
     OAK_UNDER_THE_HOOD_TOOL_NAME,
     {
@@ -171,10 +171,10 @@ export function registerOakUnderTheHoodTool(server: Pick<McpServer, 'registerToo
         readOnlyHint: true,
         destructiveHint: false,
         idempotentHint: true,
-        openWorldHint: true,
+        openWorldHint: false,
         title: OAK_UNDER_THE_HOOD_TOOL_TITLE,
       },
     },
-    () => buildOakUnderTheHoodToolResult(),
+    createOakUnderTheHoodToolHandler(options),
   );
 }

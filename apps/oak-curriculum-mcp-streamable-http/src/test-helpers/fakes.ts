@@ -30,6 +30,13 @@ export { createFakeMachineAuthObject } from './fakes-clerk.js';
 /** Re-export observability fakes. */
 export { createFakeHttpObservability } from './observability-fakes.js';
 
+/** Re-export product-analytics fakes (MCP-242). */
+export {
+  createFakeReadResourceExtra,
+  createRecordingProductAnalyticsSink,
+  type RecordedAnalyticsCapture,
+} from './fakes-product-analytics.js';
+
 /**
  * Creates a properly typed fake SearchRetrievalService for tests.
  * Uses `vi.fn()` for assertion support.

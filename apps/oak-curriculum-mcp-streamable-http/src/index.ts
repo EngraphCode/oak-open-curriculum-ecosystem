@@ -5,12 +5,20 @@ import { WIDGET_HTML_CONTENT } from './generated/widget-html-content.js';
 import { readBakedLandingPageHtml } from './app/landing-page-artefact.js';
 import { createApp } from './application.js';
 import { bootstrapApp } from './bootstrap-app.js';
+import {
+  composeProductAnalyticsRuntime,
+  hostingWaitUntil,
+  operationalErrorReporter,
+  releaseInputFromRuntimeEnv,
+} from './compose-product-analytics-runtime.js';
 import { createDefaultRateLimiterFactory } from './rate-limiting/index.js';
 import {
   createHttpObservability,
   describeHttpObservabilityError,
 } from './observability/http-observability.js';
+import { liveResourceRegistrationNames } from './register-resources.js';
 import { loadRuntimeConfig } from './runtime-config.js';
+import { SERVED_SURFACE, liveToolNames } from './served-surface/served-surface.js';
 import { startConfiguredHttpServer } from './server-runtime.js';
 
 // Boot-read of the build's baked landing page: fail-fast at boot, never a
@@ -27,9 +35,6 @@ if (!result.ok) {
   process.exit(1);
 }
 
-// The product-analytics bootstrap on result.value is consumed here once
-// the runtime composition lands (MCP-241); until then only the
-// handler-facing config is used.
 const config = result.value.runtimeConfig;
 const observabilityResult = createHttpObservability(config);
 
@@ -39,14 +44,35 @@ if (!observabilityResult.ok) {
 }
 
 const observability = observabilityResult.value;
+
+// Composed once at bootstrap (MCP-241): off mode is the exact inert runtime.
+const analyticsResult = composeProductAnalyticsRuntime({
+  bootstrap: result.value.productAnalytics,
+  serverVersion: config.version,
+  releaseInput: releaseInputFromRuntimeEnv(config.env, config.version),
+  toolNames: liveToolNames(SERVED_SURFACE),
+  resourceNames: liveResourceRegistrationNames(SERVED_SURFACE),
+  waitUntil: hostingWaitUntil,
+  reportOperationalError: operationalErrorReporter(observability.createLogger()),
+});
+
+if (!analyticsResult.ok) {
+  process.stderr.write(analyticsResult.error.message + '\n');
+  process.exit(1);
+}
+
+const analytics = analyticsResult.value;
 await startConfiguredHttpServer({
   runtimeConfig: config,
   observability,
+  closeProductAnalytics: () => analytics.close(),
   createApp: (opts) =>
     createApp({
       ...opts,
       getWidgetHtml: () => WIDGET_HTML_CONTENT,
       getLandingPageHtml: () => LANDING_PAGE_HTML,
+      transportObserver: analytics.transportObserver,
+      productAnalyticsSink: analytics.sink,
       rateLimiterFactory: createDefaultRateLimiterFactory({
         isVercelRuntime: config.env.VERCEL_ENV !== undefined,
       }),

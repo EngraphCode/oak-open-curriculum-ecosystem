@@ -17,7 +17,6 @@ import {
   WIDGET_URI,
 } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
 import { SERVED_SURFACE, isUniversalToolLive, isResourceLive } from './served-surface.js';
-import { OAK_UNDER_THE_HOOD_RESOURCE_URI } from '../register-resources.js';
 
 describe('SERVED_SURFACE', () => {
   it('classifies every universal tool in the generated registry (recomputed totality)', () => {
@@ -50,7 +49,6 @@ describe('SERVED_SURFACE.resources', () => {
     const inventory = new Set<string>([
       ...ALL_MCP_RESOURCES.map((r) => r.uri),
       ...AGENT_GUIDANCE_RESOURCES.map((r) => r.uri),
-      OAK_UNDER_THE_HOOD_RESOURCE_URI,
       WIDGET_URI,
     ]);
     expect(new Set(Object.keys(SERVED_SURFACE.resources))).toEqual(inventory);

@@ -1,4 +1,4 @@
-# Cricket two-pair tally — operating record (2026-07-26 →)
+# Cricket two-pair tally — operating record (2026-07-26 → 2026-07-29, closed)
 
 Successor to the closed experiment record
 [`cricket-ab-tally-2026-07-16.md`](cricket-ab-tally-2026-07-16.md). The owner closed that
@@ -32,7 +32,7 @@ file is the storage.
   thin by design — frontmatter config (cricket: `model: sonnet`; cricket-haiku:
   `model: haiku`; both `tools: Read` with Write/Edit/Bash/Grep/Glob disallowed) plus a
   mandatory first-read pointer to the canonical template.
-- Canonical templates `.agent/sub-agents/templates/cricket.md` (judgment shape: four
+- Canonical templates `.agent/sub-agents/templates/cricket.md` (judgement shape: four
   mandatory questions — CONSUMER / DISPLACEMENT / GATES / PROPORTION — two-Read budget,
   under-200-word output contract) and `cricket-haiku.md` (compiled decision procedure:
   stakes line, intake audit incl. claims-within-items, quote-anchored four questions with
@@ -162,7 +162,7 @@ Run notes and adjudications:
 
 - Deadline-bound event waits declare a time-fallback at arm time (run 4, convergent;
   applied live by Raccoon at #621, event 7a4b9e34).
-- Cricket frames carry provenance (ruling event ids) for every condition they state (runs
+- Cricket frames carry provenance (ruling event IDs) for every condition they state (runs
   4→6).
 - Frames separate ABSORBED scope from ROUTED-AWAY findings as two labelled lists (run 7).
 - Carried forward from the closed record: frames define drive-specific vocabulary that
@@ -184,6 +184,18 @@ a22fe0a2, 33711fc8 which owns a cadence miss, 6b3931cd), and outcome events alre
 
 ## Maintenance
 
-Assembled 2026-07-29 ~08:40Z by Altair turns Infinity (7a97a1) at owner word. Future pair
-runs: post the tally comms event at occurrence (transport), then append here at occurrence
-or at the next consolidation (storage) — the Director's ruling on this split is a174d253.
+Assembled 2026-07-29 ~08:40Z by Altair turns Infinity (7a97a1) at owner word. This
+record is CLOSED (see Succession below): quartet-era runs post the tally comms event at
+occurrence (transport) and append to the successor record
+[`cricket-quartet-tally-2026-07-29.md`](cricket-quartet-tally-2026-07-29.md) (storage) —
+the transport/storage split remains the Director's ruling a174d253. Nothing further is
+appended here.
+
+## Succession
+
+The two-pair era closed 2026-07-29 at owner word: the unit widened from the A/B pair to
+the A/B/C/D quartet (Fable-low / Opus-medium / Sonnet-high / Haiku-xhigh, two stances
+per moment). The successor operating record is
+[`cricket-quartet-tally-2026-07-29.md`](cricket-quartet-tally-2026-07-29.md); this file
+is closed history — the calibration patterns above carry forward as the quartet's
+baseline.

@@ -13,6 +13,8 @@ export const CURRENT_ITEM_REVISION_OVERRIDES = {
   C354: 'modified',
   C355: 'modified',
   C313: 'unchanged',
-  C413: 'expanded',
+  // MCP-353: C337 and C413 retired with the deleted under-the-hood pointer
+  // resource — their revision verdicts now derive from lineage.
+  C690: 'unchanged',
   C479: 'modified',
 } as const;

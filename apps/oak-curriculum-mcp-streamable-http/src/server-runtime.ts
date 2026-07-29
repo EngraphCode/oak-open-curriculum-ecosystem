@@ -2,6 +2,7 @@ import type express from 'express';
 import type { Logger } from '@oaknational/logger';
 import { bootstrapApp, type BootstrapAppDeps } from './bootstrap-app.js';
 import type { HttpObservability } from './observability/http-observability.js';
+import { createProcessCloseOwner, type CloseProductAnalytics } from './process-close-owner.js';
 import type { RuntimeConfig } from './runtime-config.js';
 
 type ShutdownSignal = 'SIGINT' | 'SIGTERM';
@@ -27,6 +28,14 @@ export interface HttpServerLike {
 interface StartConfiguredHttpServerDeps {
   readonly runtimeConfig: RuntimeConfig;
   readonly observability: HttpObservability;
+  /**
+   * Closes the product-analytics runtime (MCP-243). Required, deliberately:
+   * an optional close would reinstate the silent-omission gap this slice
+   * removes. Callers pass `() => analytics.close()` so no caller depends on
+   * receiver binding — today's implementations are closures, but the
+   * interface declares a method and the type cannot enforce this.
+   */
+  readonly closeProductAnalytics: CloseProductAnalytics;
   readonly createApp: CreateAppFn;
   readonly bootstrapApp?: BootstrapExpressApp;
   readonly createServer: (app: express.Express) => HttpServerLike;
@@ -38,27 +47,11 @@ function resolvePort(runtimeConfig: RuntimeConfig): number {
   return runtimeConfig.env.PORT ? Number(runtimeConfig.env.PORT) : 3333;
 }
 
-function createShutdownObservability(
-  observability: HttpObservability,
-  bootstrapLog: Logger,
-): (exitReason: string) => Promise<void> {
-  return async (exitReason: string): Promise<void> => {
-    const closeResult = await observability.close();
-
-    if (!closeResult.ok) {
-      bootstrapLog.warn('observability.close.failed', {
-        exitReason,
-        error: closeResult.error.kind,
-      });
-    }
-  };
-}
-
 function createServerErrorHandler(
   port: number,
   bootstrapLog: Logger,
   observability: HttpObservability,
-  shutdownObservability: (exitReason: string) => Promise<void>,
+  closeRuntimes: (exitReason: string) => Promise<void>,
   exit: (code: number) => void,
 ): (error: NodeJS.ErrnoException) => void {
   return (error: NodeJS.ErrnoException): void => {
@@ -76,7 +69,7 @@ function createServerErrorHandler(
         boundary: 'server_listen_error',
         port,
       });
-      await shutdownObservability('server_error');
+      await closeRuntimes('server_error');
       exit(1);
     })();
   };
@@ -84,7 +77,7 @@ function createServerErrorHandler(
 
 function createShutdownHandler(
   bootstrapLog: Logger,
-  shutdownObservability: (exitReason: string) => Promise<void>,
+  closeRuntimes: (exitReason: string) => Promise<void>,
   exit: StartConfiguredHttpServerDeps['exit'],
 ): (signal: ShutdownSignal) => void {
   let shuttingDown = false;
@@ -96,7 +89,7 @@ function createShutdownHandler(
     shuttingDown = true;
     void (async () => {
       bootstrapLog.info('shutdown.signal.received', { signal });
-      await shutdownObservability(signal);
+      await closeRuntimes(signal);
       exit(0);
     })();
   };
@@ -118,7 +111,11 @@ export async function startConfiguredHttpServer(
   deps: StartConfiguredHttpServerDeps,
 ): Promise<HttpServerLike> {
   const bootstrapLog = deps.observability.createLogger({ name: 'streamable-http:bootstrap' });
-  const shutdownObservability = createShutdownObservability(deps.observability, bootstrapLog);
+  const closeRuntimes = createProcessCloseOwner(
+    deps.observability,
+    deps.closeProductAnalytics,
+    bootstrapLog,
+  );
   const bootstrappedApp = await (deps.bootstrapApp ?? bootstrapApp)({
     startApp: async () =>
       await deps.createApp({
@@ -127,7 +124,7 @@ export async function startConfiguredHttpServer(
       }),
     logger: bootstrapLog,
     onStartupFailure: async () => {
-      await shutdownObservability('bootstrap_failure');
+      await closeRuntimes('bootstrap_failure');
     },
     exit: deps.exit,
   });
@@ -139,16 +136,10 @@ export async function startConfiguredHttpServer(
 
   server.on(
     'error',
-    createServerErrorHandler(
-      port,
-      bootstrapLog,
-      deps.observability,
-      shutdownObservability,
-      deps.exit,
-    ),
+    createServerErrorHandler(port, bootstrapLog, deps.observability, closeRuntimes, deps.exit),
   );
 
-  const handleShutdown = createShutdownHandler(bootstrapLog, shutdownObservability, deps.exit);
+  const handleShutdown = createShutdownHandler(bootstrapLog, closeRuntimes, deps.exit);
   deps.onSignal('SIGINT', () => handleShutdown('SIGINT'));
   deps.onSignal('SIGTERM', () => handleShutdown('SIGTERM'));
 

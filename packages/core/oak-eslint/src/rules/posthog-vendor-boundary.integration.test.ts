@@ -3,7 +3,6 @@ import type { Linter as ESLintLinter } from 'eslint';
 import { plugin as typescriptEslintPlugin } from 'typescript-eslint';
 import { describe, expect, it } from 'vitest';
 
-import { strict } from '../configs/strict.js';
 import {
   appArchitectureRules,
   coreBoundaryRules,
@@ -11,6 +10,7 @@ import {
   createSdkBoundaryRules,
   POSTHOG_VENDOR_PACKAGES,
 } from './boundary.js';
+import { lintStrictVendorImport } from './strict-lint-harness.js';
 
 const VENDOR_IMPORT_SPECIFIERS = POSTHOG_VENDOR_PACKAGES.flatMap((packageName) => [
   packageName,
@@ -40,18 +40,6 @@ const DENIED_BOUNDARIES = [
 
 const linter = new Linter({ configType: 'flat' });
 
-const STRICT_FIXTURE_RULES_OFF = {
-  '@typescript-eslint/no-misused-promises': 'off',
-  '@typescript-eslint/no-floating-promises': 'off',
-  '@typescript-eslint/no-unsafe-assignment': 'off',
-  '@typescript-eslint/no-unsafe-return': 'off',
-  '@typescript-eslint/no-deprecated': 'off',
-  '@typescript-eslint/consistent-return': 'off',
-  '@typescript-eslint/consistent-type-exports': 'off',
-  'sonarjs/no-alphabetical-sort': 'off',
-  'sonarjs/void-use': 'off',
-} as const;
-
 function lintVendorImport(rules: Partial<ESLintLinter.RulesRecord>, specifier: string) {
   const restrictedImports = rules['@typescript-eslint/no-restricted-imports'];
   if (restrictedImports === undefined) {
@@ -72,31 +60,6 @@ function lintVendorImport(rules: Partial<ESLintLinter.RulesRecord>, specifier: s
       },
     ],
     { filename: 'src/fixture.ts' },
-  );
-}
-
-function lintStrictVendorImport(
-  specifier: string,
-  filename: string,
-  source = `import vendorDefault from '${specifier}';\nvoid vendorDefault;`,
-) {
-  return linter.verify(
-    source,
-    [
-      ...strict,
-      {
-        rules: {
-          '@typescript-eslint/no-restricted-imports': [
-            'error',
-            {
-              paths: [{ name: 'zod', message: "Import from 'zod/v4' instead." }],
-            },
-          ],
-        },
-      },
-      { rules: STRICT_FIXTURE_RULES_OFF },
-    ],
-    { filename },
   );
 }
 

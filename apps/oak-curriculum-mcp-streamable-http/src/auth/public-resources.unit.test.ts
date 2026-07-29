@@ -11,7 +11,6 @@ import {
 } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
 import { isPublicResourceUri } from './public-resources.js';
 import { WIDGET_URI } from '@oaknational/curriculum-sdk/public/mcp-tools';
-import { OAK_UNDER_THE_HOOD_RESOURCE_URI } from '../register-resources.js';
 
 describe('isPublicResourceUri', () => {
   describe('returns true for public resources', () => {
@@ -26,14 +25,7 @@ describe('isPublicResourceUri', () => {
     });
   });
 
-  describe('returns true for the app-local orientation pointer (ADR-205)', () => {
-    // Imports the URI the resource is actually registered under, so a future rename of
-    // the registered resource fails this test until the allowlist is updated in step
-    // (drift guard for the first app-local public resource).
-    it('returns true for the Oak: Under the Hood resource URI as registered', () => {
-      expect(isPublicResourceUri(OAK_UNDER_THE_HOOD_RESOURCE_URI)).toBe(true);
-    });
-
+  describe('classifies per ADR-205 (data-sensitivity rule)', () => {
     it('classifies the served (live) agent guidance documents as public — and only those', () => {
       for (const uri of NAVIGATION_GUIDANCE_URIS) {
         expect(isPublicResourceUri(uri), uri).toBe(true);
@@ -56,6 +48,10 @@ describe('isPublicResourceUri', () => {
     it('returns false for the removed tools and workflows doc resources (single-sourced via curriculum://model)', () => {
       expect(isPublicResourceUri('docs://oak/tools.md')).toBe(false);
       expect(isPublicResourceUri('docs://oak/workflows.md')).toBe(false);
+    });
+
+    it('returns false for the retired under-the-hood pointer resource (MCP-353)', () => {
+      expect(isPublicResourceUri('docs://oak/under-the-hood.md')).toBe(false);
     });
 
     it('returns false for empty string', () => {

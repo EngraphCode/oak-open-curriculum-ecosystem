@@ -14,11 +14,13 @@
  */
 
 import { describe, it, expect } from 'vitest';
+import { typeSafeKeys } from '@oaknational/type-helpers';
 import {
   listUniversalTools,
   generatedToolRegistry,
 } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
-import { SERVED_SURFACE, type ServedSurfaceDefinition } from './served-surface.js';
+import { SERVED_SURFACE, liveToolNames, type ServedSurfaceDefinition } from './served-surface.js';
+import { liveResourceRegistrationNames } from '../register-resources.js';
 import { walkCanonicalRegistration } from '../test-helpers/registration-walk.js';
 
 describe('served-surface registration (integration)', () => {
@@ -79,4 +81,58 @@ describe('served-surface registration (integration)', () => {
     const universalCount = listUniversalTools(generatedToolRegistry).length;
     expect(registered.size).toBe(universalCount + 1 - stillDormant);
   });
+});
+
+describe('product-analytics label closure (MCP-241)', () => {
+  it('liveToolNames matches exactly the tool set the real registration path registers', () => {
+    const walk = walkCanonicalRegistration();
+
+    expect(new Set(liveToolNames(SERVED_SURFACE))).toEqual(new Set(walk.toolConfigs.keys()));
+  });
+
+  // Since the MCP-337 descriptor, names and registrar calls derive from one
+  // unit list, so this no longer fences two hand-maintained mirrors. It
+  // still pins what no descriptor can make structural: that each entry's
+  // registrar registers under the entry's name across module boundaries
+  // (e.g. the widget name literal lives in register-widget-resource.ts),
+  // and that handlers.ts actually drives registerAllResources with the
+  // canonical definition. Multiplicity-preserving: a duplicate name cannot
+  // hide inside set semantics.
+  it('liveResourceRegistrationNames matches exactly the resource names the real registration path registers', () => {
+    const walk = walkCanonicalRegistration();
+
+    expect(
+      [...liveResourceRegistrationNames(SERVED_SURFACE)].sort((left, right) =>
+        left.localeCompare(right),
+      ),
+    ).toStrictEqual([...walk.resourceNameList].sort((left, right) => left.localeCompare(right)));
+  });
+
+  // Per-unit gate isolation: flipping any single resource row to its
+  // opposite state must keep labels and registrations in lockstep. Under
+  // the canonical surface alone, two live units could swap their
+  // advertised names and still agree as sets; a flipped gate makes a
+  // swapped name/registrar pairing diverge, so this sweep pins the pairing
+  // unit by unit (the documentation rows also exercise the all-or-nothing
+  // every-gate from both directions).
+  it.each(typeSafeKeys(SERVED_SURFACE.resources))(
+    'labels track registrations exactly when the %s row flips state',
+    (uri) => {
+      const flipped: ServedSurfaceDefinition = {
+        universalTools: SERVED_SURFACE.universalTools,
+        appLocalTools: SERVED_SURFACE.appLocalTools,
+        resources: {
+          ...SERVED_SURFACE.resources,
+          [uri]: SERVED_SURFACE.resources[uri] === 'live' ? 'dormant' : 'live',
+        },
+      };
+      const walk = walkCanonicalRegistration(flipped);
+
+      expect(
+        [...liveResourceRegistrationNames(flipped)].sort((left, right) =>
+          left.localeCompare(right),
+        ),
+      ).toStrictEqual([...walk.resourceNameList].sort((left, right) => left.localeCompare(right)));
+    },
+  );
 });

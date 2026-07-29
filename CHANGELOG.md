@@ -1,3 +1,87 @@
+# [1.117.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.116.1...v1.117.0) (2026-07-29)
+
+
+### Features
+
+* **design:** track the official Oak wide wordmark as logo-wide-black.svg (MCP-367) ([148ebba](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/148ebba1737a044454b7a26e9fada95dd0251916))
+
+## [1.116.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.116.0...v1.116.1) (2026-07-29)
+
+
+### Bug Fixes
+
+* **mcp:** inject the generator's filesystem seam, true ADR-205's conditional costs (MCP-353) ([917deb9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/917deb94adccccd58eb171f7d46fc28579c965e4))
+* **mcp:** linear fence scan, reject invalid backtick info strings, share the fixture (MCP-353) ([98c5ffd](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/98c5ffdf9d557b0d1d41a1d81b45a4f1a23d0413))
+* **mcp:** pair fences properly, complete the Result contract, cite the policy upstream (MCP-353) ([136c5d8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/136c5d842a180e58fd3722c7eefa5629f291ad01))
+* **mcp:** scan served headings for URL forms, cover the parity gate's branches (MCP-353) ([e4107fc](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e4107fcf8c04ae7b5ab68c85419fe205c79c293f))
+* **mcp:** scope the primer offer to a repo checkout and harden the digest guards (MCP-353) ([ed8bd06](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ed8bd06f93d72ac06148249402c26c7d50159351))
+* **mcp:** serve the document map and harden digest classification (MCP-353) ([e53e4ef](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e53e4ef5e567382e16a476d8457061ee89a81573))
+* **mcp:** serve under-the-hood orientation inline; delete the pointer resource (MCP-353) ([e3f7c1b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e3f7c1ba8d194d38472ba6a08415eedcf0f595de))
+* **mcp:** served URLs move to a citation allowlist; headingless preamble fails loudly (MCP-353) ([ed0336c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ed0336c96afc91ecff08291b0d26673fb0c0ecf1))
+* **mcp:** widen the markdown scanner, carry the repo locator on both channels (MCP-353) ([cfe3f6f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/cfe3f6f51d0da648ddc95fc10e570e12bacf889f))
+
+# [1.116.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.115.0...v1.116.0) (2026-07-29)
+
+
+### Bug Fixes
+
+* **mcp-app:** true the close-deadline rationale and the harness compose order ([d4f9db9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d4f9db96af7d06e64ba3fdca3ff7abc033f3a882))
+
+
+### Features
+
+* **mcp-app:** close product analytics through the shared process lifecycle ([7a0d555](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/7a0d555a2b8ce8b29b1907c22e88e8073632bcae))
+
+# [1.115.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.114.2...v1.115.0) (2026-07-29)
+
+
+### Features
+
+* **mcp-app:** observe authenticated resource reads at the registration boundary ([3e18acd](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3e18acd292474d1d6f9e2a7c175672cb5bb117c3))
+
+## [1.114.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.114.1...v1.114.2) (2026-07-29)
+
+## [1.114.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.114.0...v1.114.1) (2026-07-29)
+
+# [1.114.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.113.3...v1.114.0) (2026-07-29)
+
+
+### Bug Fixes
+
+* **oak-eslint:** fence no-substitution template-literal specifiers ([44fd911](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/44fd911d03fddf0c708eac407f4ead899715616d)), closes [#625](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/625)
+
+
+### Features
+
+* **oak-eslint:** lint-enforce the @vercel/functions compose-module boundary ([aa69ac0](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/aa69ac0ff1fd4d80253e13e99694fd87cdbda804))
+
+## [1.113.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.113.2...v1.113.3) (2026-07-29)
+
+## [1.113.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.113.1...v1.113.2) (2026-07-29)
+
+## [1.113.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.113.0...v1.113.1) (2026-07-29)
+
+# [1.113.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.112.0...v1.113.0) (2026-07-29)
+
+
+### Bug Fixes
+
+* **plugins:** track the plugin MCP config and true the graph-tool guidance (MCP-302) ([cba1fd9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/cba1fd9434357a3be224612ad74f037870ba13ff))
+
+
+### Features
+
+* **plugins:** add the Oak Open Curriculum Claude Code plugin (MCP-302) ([917cc5e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/917cc5ec6d72126c15038513e33851b2676da781))
+
+# [1.112.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.111.2...v1.112.0) (2026-07-28)
+
+
+### Features
+
+* **mcp:** compose the selected-mode product-analytics runtime once at bootstrap ([d1bf2df](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d1bf2dfb7dd773756737f185073774d9f3b12eb5))
+
+## [1.111.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.111.1...v1.111.2) (2026-07-28)
+
 ## [1.111.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.111.0...v1.111.1) (2026-07-28)
 
 # [1.111.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.110.0...v1.111.0) (2026-07-28)

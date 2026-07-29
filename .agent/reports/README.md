@@ -39,6 +39,11 @@ declared contract; stylistic preference alone is not a contract failure.
 
 ## Current Structure
 
+- `oak-ecosystem-progress-*` — the progress-report family: point-in-time
+  syntheses of where the whole effort stands, for readers who ask "where is it
+  now?". Resolve the newest by the date in the filename — and where several
+  share a date, the root `README.md`'s progress pointer names the canonical
+  one; never assume a remembered filename is the latest
 - [upstream-and-bulk-alignment-concept-exploration-2026-07-26.md](./upstream-and-bulk-alignment-concept-exploration-2026-07-26.md)
   — fleet-verified concept exploration for MCP-152/MCP-153: the spec delta
   reclassified as shape-novelty (first POST/requestBody/map response the

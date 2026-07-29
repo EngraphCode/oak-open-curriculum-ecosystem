@@ -35,6 +35,7 @@ import {
   WIDGET_URI,
   type UniversalToolName,
 } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
+import { typeSafeEntries } from '@oaknational/type-helpers';
 
 /** A served-surface element is exactly live (registered) or dormant (retained, not registered). */
 type ServedState = 'live' | 'dormant';
@@ -117,7 +118,6 @@ export const SERVED_SURFACE = {
   resources: {
     'docs://oak/getting-started.md': 'live',
     'curriculum://model': 'live',
-    'docs://oak/under-the-hood.md': 'live',
     // EEF interpretation: dormant with its tool (owner card 2026-07-23 —
     // out of the v1 live set; gated, not removed). Previously the
     // OAK_CURRICULUM_MCP_EEF_ENABLED kill-switch's resource leg, superseded
@@ -152,6 +152,22 @@ export function isAppLocalToolLive(
   name: AppLocalToolName,
 ): boolean {
   return definition.appLocalTools[name] === 'live';
+}
+
+/**
+ * Canonical live tool registration names under a definition — universal
+ * tools first, then app-local tools, each in definition order. MCP-241
+ * closes the product-analytics event labels to exactly this set; parity
+ * with the real registration path is pinned by the registration-walk
+ * integration test.
+ */
+export function liveToolNames(definition: ServedSurfaceDefinition): readonly string[] {
+  return [
+    ...typeSafeEntries(definition.universalTools),
+    ...typeSafeEntries(definition.appLocalTools),
+  ]
+    .filter(([, state]) => state === 'live')
+    .map(([name]) => name);
 }
 
 /** Whether a resource URI is live under the given definition. */

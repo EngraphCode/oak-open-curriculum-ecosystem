@@ -8,6 +8,7 @@
  */
 
 import { describe, it, expect, beforeEach } from 'vitest';
+import { createFakeReadResourceExtra } from './test-helpers/fakes-product-analytics.js';
 import { SERVED_SURFACE, type ServedSurfaceDefinition } from './served-surface/served-surface.js';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { RESOURCE_MIME_TYPE } from '@modelcontextprotocol/ext-apps/server';
@@ -74,16 +75,7 @@ function createMockServer(): {
   >();
   const backingServer = new McpServer({ name: 'test-server', version: '1.0.0' });
   const originalRegisterResource = backingServer.registerResource.bind(backingServer);
-  const handlerExtra: Parameters<ReadResourceCallback>[1] = {
-    signal: AbortSignal.abort(),
-    requestId: 'test-request',
-    async sendNotification() {
-      return undefined;
-    },
-    async sendRequest() {
-      throw new Error('sendRequest is not supported in this test fake');
-    },
-  };
+  const handlerExtra: Parameters<ReadResourceCallback>[1] = createFakeReadResourceExtra();
 
   function readStaticResourceResult(
     registration: RegisteredResourceCapture,
@@ -491,49 +483,6 @@ describe('registerAllResources registers the widget resource', () => {
     expect(resource?.contents[0]?.mimeType).toBe(RESOURCE_MIME_TYPE);
     expect(getTextContent(resource?.contents[0])).toBe(TEST_WIDGET_HTML);
     expect(widgetHtmlReadCount).toBe(1);
-  });
-});
-
-describe('registerAllResources registers the Oak: Under the Hood orientation resource (docs://oak/under-the-hood.md)', () => {
-  let server: Pick<McpServer, 'registerResource'>;
-  let registeredResources: RegisteredResourceMap;
-  let readResource: (uri: string) => Promise<ReadResourceCapture>;
-  let flush: () => Promise<void>;
-  let options: ResourceRegistrationOptions;
-
-  beforeEach(() => {
-    const mock = createMockServer();
-    server = mock.server;
-    registeredResources = mock.registeredResources;
-    readResource = mock.readResource;
-    flush = mock.flush;
-    options = createTestOptions();
-  });
-
-  it('registers docs://oak/under-the-hood.md with low-salience nested annotations', async () => {
-    registerAllResources(server, options);
-    await flush();
-
-    const resource = registeredResources.get('docs://oak/under-the-hood.md');
-    expect(resource).toBeDefined();
-    expect(resource?.metadata.mimeType).toBe('text/markdown');
-    expect(resource?.metadata.annotations?.priority).toBe(0.2);
-    expect(resource?.metadata.annotations?.audience).toContain('assistant');
-    // No lastModified: the resource serves a pointer, not a server-owned body.
-    expect(resource?.metadata.annotations?.lastModified).toBeUndefined();
-  });
-
-  it('wires the read to serve a non-empty pointer (not a baked body)', async () => {
-    registerAllResources(server, options);
-    await flush();
-
-    // Behaviour under test: the read is wired and returns a non-empty markdown pointer.
-    // The resource carries NO baked orientation body; what the pointer SAYS is a content
-    // property of the source, held by authoring and review — never pinned here.
-    const resource = await readResource('docs://oak/under-the-hood.md');
-    const text = getTextContent(resource.contents[0]);
-    expect(typeof text).toBe('string');
-    expect(text.length).toBeGreaterThan(0);
   });
 });
 

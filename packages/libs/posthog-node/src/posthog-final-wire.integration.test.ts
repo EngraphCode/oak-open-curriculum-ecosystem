@@ -6,8 +6,9 @@ import type { Transport } from '@modelcontextprotocol/sdk/shared/transport.js';
 import { SUPPORTED_PROTOCOL_VERSIONS } from '@modelcontextprotocol/sdk/types.js';
 import type { ResolvedRelease } from '@oaknational/build-metadata';
 import type { ProductAnalyticsRuntime } from '@oaknational/observability';
+import { setLogger } from '@posthog/mcp';
 import { gunzipSync } from 'node:zlib';
-import { assert, describe, expect, it } from 'vitest';
+import { afterEach, assert, describe, expect, it } from 'vitest';
 
 import type { ActivePostHogActorProjector } from './actor-pseudonym-contract.js';
 import { createPostHogProductAnalyticsRuntimeWithFetch } from './product-analytics-runtime.js';
@@ -322,6 +323,15 @@ async function expectSuccessfulFinalWireBatch(subject: Subject): Promise<void> {
   ]);
   expectNoForbiddenContent(batch);
 }
+
+// Each createSubject reaches the production factory, which installs the
+// vendor setLogger singleton at composition; the runtime's close() never
+// uninstalls it. Reset per test so a closed subject's late microtask log
+// cannot reach the next test's logger (whose reportedErrors assertions are
+// strict). Same install-then-reset shape as posthog-mcp-logger.smoke.ts.
+afterEach(() => {
+  setLogger(undefined);
+});
 
 describe('PostHog final wire', () => {
   it('sends only reconstructed manual MCP and resource rows through the real client', async () => {
