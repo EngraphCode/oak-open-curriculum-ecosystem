@@ -21,12 +21,13 @@
  * fakes instead of mutating globals (no-global-state-in-tests / ADR-078);
  * the app-wide instance below binds the real inlined runtime and storage.
  *
- * Second in-estate copy of the hub's adapter shape (the estate linter bans
- * the kit reference's mount-gated useState pattern, so this shape is the
- * only landable one); typed here with the runtime's closed theme/motion
- * unions. Consolidation lane (canonical owner: the kit's React adapter
- * story) is Director-routed alongside lib/inline-script.ts on comms event
- * 9945f53e and recorded on MCP-371.
+ * Second in-estate copy of the hub's adapter CONTRACT — the copies are
+ * deliberately DIVERGED as of PR #637: this copy holds the choice-model
+ * cure; the hub's still reads runtime.get() and carries the conflation
+ * defect live (recorded on MCP-372 with the cure shape). Canonical owner:
+ * the owned React binding tier per ADR-213 (React code never enters the
+ * CSS package) — intake recorded on MCP-134; the final shape waits on the
+ * kit's choice() accessor (MCP-388).
  */
 
 export type OakThemeName = 'light' | 'dark' | 'system' | 'high-contrast' | 'colour-safe';
@@ -68,13 +69,25 @@ export interface OakThemeStore {
  *  only by the runtime. */
 const RUNTIME_STORAGE_KEY = 'oak-theme';
 
-function resolveGlobalStoredChoice(): string | undefined {
-  try {
-    return globalThis.localStorage.getItem(RUNTIME_STORAGE_KEY) ?? undefined;
-  } catch {
-    return undefined;
-  }
+/** A stored-choice resolver over any raw reader: a throwing reader
+ *  (private mode, storage security errors) reads as no-choice, exactly as
+ *  the runtime's own stored() treats it. Exported so the conversion is
+ *  unit-testable with a throwing fake instead of an unreachable default. */
+export function createStoredChoiceResolver(
+  readItem: () => string | null,
+): () => string | undefined {
+  return () => {
+    try {
+      return readItem() ?? undefined;
+    } catch {
+      return undefined;
+    }
+  };
 }
+
+const resolveGlobalStoredChoice = createStoredChoiceResolver(() =>
+  globalThis.localStorage.getItem(RUNTIME_STORAGE_KEY),
+);
 
 /** Setters narrow the select's string through the runtime's own lists — no
  *  assertion, and an unknown value (stale option, corruption) is a no-op

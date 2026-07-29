@@ -48,7 +48,9 @@ const COLOR_FUNCTION = /(?:^|[\s(,])(?:rgba?|hsla?|hwb|oklch|oklab|lab|lch|color
 // and the Set replaces the 30-branch unit alternation (S5843). The suffix
 // class and the boundary lookahead are disjoint, so no backtracking
 // ambiguity exists between them.
-const NUMBER_WITH_SUFFIX = /(?:^|[\s(,/])[+-]?(?:\d+(?:\.\d+)?|\.\d+)([a-z%]+)(?=[\s),/]|$)/gi;
+// `*` sits in both boundary classes: CSS requires no whitespace around the
+// multiplication operator in calc(), so `calc(10px*2)` must stay scannable.
+const NUMBER_WITH_SUFFIX = /(?:^|[\s(,/*])[+-]?(?:\d+(?:\.\d+)?|\.\d+)([a-z%]+)(?=[\s),/*]|$)/gi;
 const UNITS = new Set([
   'px',
   'rem',
@@ -89,7 +91,7 @@ const UNITS = new Set([
   'ms',
   's',
 ]);
-const BARE_NUMBER = /(?:^|[\s(,])[+-]?(?:\d+(?:\.\d+)?|\.\d+)(?=[\s),]|$)/;
+const BARE_NUMBER = /(?:^|[\s(,*])[+-]?(?:\d+(?:\.\d+)?|\.\d+)(?=[\s),*]|$)/;
 const IDENTIFIER = /[a-z][a-z-]*/gi;
 const COLOR_MIX = /color-mix\([^()]*\)/gi;
 
@@ -184,9 +186,17 @@ function isLiteralDesignValue(prop: string, raw: string): boolean {
   }
   // A literal family (or any literal identifier or quoted string) on the
   // font axes: the ramp tokens own the faces — brand.css calls the display
-  // face "the single biggest 'different feel' knob".
-  if (/^font(?:-family)?$/i.test(prop) && /[a-z'"]/i.test(fontScannableValue(raw))) {
-    return true;
+  // face "the single biggest 'different feel' knob". CSS-wide keywords are
+  // NOT design values (`font: inherit` defers to the cascade where the
+  // token lives) and are subtracted before the identifier test.
+  if (/^font(?:-family)?$/i.test(prop)) {
+    const value = fontScannableValue(raw).replaceAll(
+      /(?:^|[\s(,])(?:inherit|initial|unset|revert-layer|revert)(?=[\s),]|$)/gi,
+      ' ',
+    );
+    if (/[a-z'"]/i.test(value)) {
+      return true;
+    }
   }
   return false;
 }

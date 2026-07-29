@@ -81,6 +81,11 @@ describe('findLiteralDesignValues: number grammar and structural arguments', () 
     expect(findLiteralDesignValues('.x { padding: 5pxx; }')).toHaveLength(0);
   });
 
+  it('reports literals beside the whitespace-free calc multiplication operator', () => {
+    expect(findLiteralDesignValues('.x { padding: calc(10px*2); }')).toHaveLength(1);
+    expect(findLiteralDesignValues('.x { padding: calc(2*10px); }')).toHaveLength(1);
+  });
+
   it('reports literals inside structural functions — no wholesale allowance', () => {
     const css = `.x {
       padding-inline: clamp(var(--space-16), 4vw, var(--space-24));
@@ -145,6 +150,14 @@ describe('findLiteralDesignValues: named allowances', () => {
     expect(
       findLiteralDesignValues('.x { max-width: 100%; font: var(--type-heading-1); }'),
     ).toHaveLength(0);
+  });
+
+  it('accepts CSS-wide keywords on the font axes — inherit defers to the cascade', () => {
+    expect(findLiteralDesignValues('.x { font: inherit; }')).toHaveLength(0);
+    expect(findLiteralDesignValues('.x { font-family: unset; }')).toHaveLength(0);
+    // A literal beside the keyword still fails: the keyword subtraction
+    // must not become a smuggling channel.
+    expect(findLiteralDesignValues('.x { font-family: inherit, "Arial"; }')).toHaveLength(1);
   });
 
   it('accepts color-mix over var() references only', () => {

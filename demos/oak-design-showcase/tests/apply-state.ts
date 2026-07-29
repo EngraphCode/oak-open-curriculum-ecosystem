@@ -13,7 +13,7 @@
  */
 import { AxeBuilder } from '@axe-core/playwright';
 import { expect } from '@playwright/test';
-import type { Page } from '@playwright/test';
+import type { Browser, Page } from '@playwright/test';
 
 import type { OakThemeName } from '../lib/oak-theme-store';
 import { SHOWCASE_ORIGIN } from '../tools/showcase-origin';
@@ -59,7 +59,7 @@ const EXPECTED_COLOR_SCHEME: Record<ThemeName, string> = {
  *  under abort; that does not weaken the a11y claim — the kit's contract
  *  pairs fills with borders, icons AND text, so text carries every
  *  state's meaning. */
-async function interceptExternalHosts(page: Page): Promise<Set<string>> {
+async function interceptExternalOrigins(page: Page): Promise<Set<string>> {
   const abortedOrigins = new Set<string>();
   await page.route('**/*', (route) => {
     const url = new URL(route.request().url());
@@ -72,7 +72,7 @@ async function interceptExternalHosts(page: Page): Promise<Set<string>> {
   return abortedOrigins;
 }
 
-export function assertOnlyKnownExternalHosts(abortedOrigins: ReadonlySet<string>): void {
+export function assertOnlyKnownExternalOrigins(abortedOrigins: ReadonlySet<string>): void {
   for (const origin of abortedOrigins) {
     expect(EXPECTED_THIRD_PARTY_ORIGINS, `unexpected third-party origin: ${origin}`).toContain(
       origin,
@@ -88,7 +88,7 @@ export async function openShowcase(
   page: Page,
   options: { readonly reducedMotion?: boolean } = {},
 ): Promise<Set<string>> {
-  const abortedHosts = await interceptExternalHosts(page);
+  const abortedOrigins = await interceptExternalOrigins(page);
   await page.emulateMedia({
     reducedMotion: (options.reducedMotion ?? true) ? 'reduce' : 'no-preference',
   });
@@ -96,8 +96,50 @@ export async function openShowcase(
   // Hydration gate: the Theme select exists pre-hydration as a DISABLED
   // placeholder, so visibility alone is not readiness — wait for it to
   // become enabled (keyboard tests Tab immediately and do not auto-wait).
+  // Stated blind spot: everything downstream of this gate observes the
+  // POST-hydration DOM only; the pre-hydration shell is proven by the
+  // dedicated JS-disabled geometry test, never by these helpers.
   await expect(page.getByRole('combobox', { name: 'Theme' })).toBeEnabled();
-  return abortedHosts;
+  return abortedOrigins;
+}
+
+/** Geometry snapshot of the switchboard band in its own fresh context —
+ *  masthead, switchboard section and both hydrating selects. JS disabled
+ *  is the server shell, deterministically pre-hydration; fonts are aborted
+ *  by the same interception either way, so both measurements render the
+ *  same fallback face. A fresh context inherits NO test-config options, so
+ *  the base origin is passed explicitly. */
+export async function measureSwitchboardGeometry(
+  browser: Browser,
+  width: number,
+  javaScriptEnabled: boolean,
+): Promise<unknown> {
+  const context = await browser.newContext({
+    baseURL: SHOWCASE_ORIGIN,
+    javaScriptEnabled,
+    viewport: { width, height: 900 },
+  });
+  const page = await context.newPage();
+  await interceptExternalOrigins(page);
+  await page.goto('/');
+  const themeSelect = page.getByRole('combobox', { name: 'Theme' });
+  await (javaScriptEnabled
+    ? expect(themeSelect).toBeEnabled()
+    : expect(themeSelect).toBeDisabled());
+  const boxes = await page.evaluate(() => {
+    const rect = (selector: string) => {
+      const box = document.querySelector(selector)?.getBoundingClientRect();
+      return box ? { top: box.top, height: box.height, width: box.width } : null;
+    };
+    return {
+      mast: rect('[data-region="masthead"]'),
+      switchboard: rect('section[aria-label="Brand and display settings"]'),
+      theme: rect('#oak-theme-select'),
+      motion: rect('#oak-motion-select'),
+    };
+  });
+  await context.close();
+  return boxes;
 }
 
 async function headingFontFamily(page: Page): Promise<string> {

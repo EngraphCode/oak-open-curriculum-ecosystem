@@ -14,9 +14,10 @@
  * input contract ever changes.
  *
  * Second in-estate copy of the kit's inline-embed contract (consuming-nextjs.md
- * §4); the hub carries the first. Cross-demo imports are banned; the
- * consolidation lane (canonical owner: the kit) is Director-routed on comms
- * event 9945f53e and recorded on MCP-371.
+ * §4); the hub carries the first. Cross-demo imports are architecturally
+ * forbidden (ADR-041 app independence); the consolidation lane (canonical
+ * owner: the kit) is Director-routed on comms event 9945f53e and carried on
+ * MCP-382 — both demos delete their copies at its landing.
  */
 export function escapeInlineScript(source: string): string {
   return source.replaceAll(/<\/script/gi, String.raw`<\/script`);

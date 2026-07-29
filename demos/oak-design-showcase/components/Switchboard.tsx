@@ -10,19 +10,22 @@
  * the theme runtime, and coupling its availability to an unrelated
  * subsystem's liveness would remove the page's headline interaction if the
  * pre-paint script were ever blocked (e.g. a strict CSP). The theme and
- * motion selects render as DISABLED neutral placeholders ("Page default" /
- * "Match device") until the runtime snapshot exists, so the server shell
- * carries the full switchboard geometry at every width and hydration swaps
- * state, never layout (PR #637 review: a height reservation under-reserved
- * at 320px once the selects wrapped). useSyncExternalStore serves the
- * server snapshot for both the server render and the hydration render, so
- * the swap is mismatch-free; a returning user's persisted choice appears
- * at the post-hydration render — inherent to client-only state.
+ * motion selects render as DISABLED "Page default" placeholders in their
+ * full option geometry until the runtime snapshot exists, so the server
+ * shell carries the switchboard's true shape at every width and hydration
+ * swaps state, never layout (PR #637 review: a height reservation
+ * under-reserved at 320px; a reduced-option shell re-wrapped at 737-742px
+ * — the geometry guard in tests/showcase.spec.ts pins the claim).
+ * useSyncExternalStore serves the server snapshot for both the server
+ * render and the hydration render, so the swap is mismatch-free; a
+ * returning user's persisted choice appears at the post-hydration render
+ * — inherent to client-only state.
  *
  * The label maps are typed over the closed runtime unions, so a kit theme
  * or mode added later is a compile error here (a forced label), never a
  * silently rendered raw slug.
  */
+import { typeSafeKeys } from '@oaknational/type-helpers';
 import { useSyncExternalStore } from 'react';
 import type { ReactElement } from 'react';
 
@@ -81,11 +84,23 @@ function ThemeMotionControls({
   );
 }
 
-/** The pre-hydration shell: identical geometry, static neutral option
- *  shapes (never store option fallbacks — those would render a bogus
- *  "Light"), disabled so the not-yet-interactive state is honest. A
- *  disabled select fires no change, so the live handlers are safe to
- *  bind. */
+// The placeholders carry the FULL static option lists: a select with
+// `width: auto` sizes to its widest option, so a reduced option set makes
+// the control grow at hydration and re-wrap the utility row (measured: a
+// 74px masthead drop in the 737-742px band with a single-option shell).
+// The closed label records are compile-time-complete, so geometry equality
+// is by construction, not coincidence.
+const THEME_OPTION_SHELL: readonly OakThemeName[] = typeSafeKeys(THEME_LABELS);
+const MOTION_OPTION_SHELL: readonly OakMotionMode[] = typeSafeKeys(MOTION_LABELS);
+
+/** The pre-hydration shell: identical geometry (full option lists, see
+ *  above), the no-knowledge sentinel on BOTH axes (a placeholder must
+ *  never claim a state it cannot know — a returning user's persisted
+ *  motion choice is already applied by the pre-paint script while this
+ *  control waits), and disabled so the not-yet-interactive state is
+ *  honest. Never the store's option fallbacks — those would render a
+ *  bogus "Light". A disabled select fires no change, so the live
+ *  handlers are safe to bind. */
 function ThemeMotionPlaceholders({ store }: { readonly store: OakThemeStore }): ReactElement {
   return (
     <>
@@ -93,7 +108,7 @@ function ThemeMotionPlaceholders({ store }: { readonly store: OakThemeStore }): 
         id="oak-theme-select"
         label="Theme"
         value=""
-        options={[]}
+        options={THEME_OPTION_SHELL}
         labels={THEME_LABELS}
         placeholderLabel="Page default"
         disabled
@@ -102,9 +117,10 @@ function ThemeMotionPlaceholders({ store }: { readonly store: OakThemeStore }): 
       <LabelledSelect
         id="oak-motion-select"
         label="Motion"
-        value="system"
-        options={['system']}
+        value=""
+        options={MOTION_OPTION_SHELL}
         labels={MOTION_LABELS}
+        placeholderLabel="Page default"
         disabled
         onChange={store.setMotion}
       />

@@ -6,6 +6,13 @@
  * select then reads truthfully ("Page default") AND the first real choice
  * fires a change event — a value pinned to a real option would make that
  * first click a dead control.
+ *
+ * The disabled-placeholder shape depends on React emitting `selected=""`
+ * on the value-matching option even when that option is `disabled hidden`
+ * (verified against react-dom 19's SSR): HTML's own default-selectedness
+ * rule skips disabled options, so without React's marking a placeholder
+ * whose siblings are also unselectable would render BLANK. Moving to
+ * `defaultValue` or an uncontrolled select reintroduces that blank.
  */
 import type { ReactElement } from 'react';
 

@@ -39,8 +39,8 @@ switchboard drives three axes:
   contract). Until a choice is made the control reads "Page default" — the
   state where a brand's own polarity governs (EMC² is dark-first). High
   contrast also has an OS-level route with no control interaction — a
-  `prefers-contrast: more` request auto-selects it; colour safe is
-  control-only. With
+  `prefers-contrast: more` request applies it without claiming a choice;
+  colour safe is control-only. With
   JavaScript disabled, reduced motion and forced colors still work at the
   CSS level, but the high-contrast and colour-safe themes have no route —
   they need the runtime.
@@ -87,7 +87,8 @@ that link.
 
 The counter-brand sheets reference their own web fonts and icon CDNs at
 browser time (kit-authored content, copied verbatim); the test suite aborts
-those hosts and asserts no unexpected third-party host ever appears.
+every non-same-origin request and asserts no unexpected third-party origin
+ever appears.
 
 ## Kit-asset copies
 
@@ -119,8 +120,8 @@ design system. Enforced by instrument, not review vigilance:
 - `pnpm test` — unit tests (happy-dom): component contracts as
   assistive-tech roles and structure through the view + binder split (the
   switchboard renders from an injected fake runtime store), the theme
-  store's notification contract, the instrument classifiers, and the
-  opener-command platform mapping.
+  store's choice-snapshot and notification contract, the instrument
+  classifiers, and the opener-command platform mapping.
 - `pnpm test:ui` — Playwright against the BUILT page (`pnpm start`): region
   contract in effect (live grid areas), theme/identity/motion switches
   proven through the real controls (attribute + cascade + computed-style

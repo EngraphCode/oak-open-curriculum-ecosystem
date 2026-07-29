@@ -71,7 +71,7 @@ describe('Switchboard write-through and degradation', () => {
     expect(world.appliedTheme()).toBe('high-contrast');
   });
 
-  it('renders theme and motion as disabled neutral placeholders with no runtime', () => {
+  it('renders theme and motion as disabled no-knowledge placeholders with no runtime', () => {
     render(
       <Switchboard
         store={createOakThemeStore(
@@ -81,15 +81,18 @@ describe('Switchboard write-through and degradation', () => {
       />,
     );
     expect(screen.queryByRole('combobox', { name: 'Identity' })).not.toBeNull();
-    // The placeholder shell carries the full switchboard geometry so the
-    // server render is layout-stable at every width; the controls are
-    // disabled (honestly not yet interactive) and read their neutral
-    // no-knowledge states.
+    // The placeholders are disabled (honestly not yet interactive), read
+    // the no-knowledge sentinel on both axes, and carry the SAME option
+    // lists as the live controls — a select sizes to its widest option, so
+    // option parity is the geometry contract (the rendered-geometry claim
+    // itself is pinned by the guard in tests/showcase.spec.ts).
     const themeSelect = screen.getByRole('combobox', { name: 'Theme' });
     expect(themeSelect).toHaveProperty('disabled', true);
     expect(themeSelect).toHaveProperty('value', '');
+    expect(themeSelect.querySelectorAll('option')).toHaveLength(6);
     const motionSelect = screen.getByRole('combobox', { name: 'Motion' });
     expect(motionSelect).toHaveProperty('disabled', true);
-    expect(motionSelect).toHaveProperty('value', 'system');
+    expect(motionSelect).toHaveProperty('value', '');
+    expect(motionSelect.querySelectorAll('option')).toHaveLength(4);
   });
 });

@@ -6,7 +6,7 @@
  * runtimes through the real controls.
  *
  * Hermetic by interception: every cross-origin request is aborted and the
- * aborted hosts must stay within the declared third-party set (see
+ * aborted origins must stay within the declared third-party set (see
  * apply-state.ts for why absence of web fonts and icon masks does not
  * weaken the claims).
  */
@@ -16,7 +16,8 @@ import type { Page } from '@playwright/test';
 import {
   applyIdentity,
   applyTheme,
-  assertOnlyKnownExternalHosts,
+  assertOnlyKnownExternalOrigins,
+  measureSwitchboardGeometry,
   openShowcase,
 } from './apply-state';
 
@@ -40,7 +41,7 @@ test.describe('showcase page structure', () => {
     for (const region of ['utility', 'masthead', 'main', 'footer']) {
       await expect(page.locator(`.oak-canvas > [data-region="${region}"]`)).toBeVisible();
     }
-    assertOnlyKnownExternalHosts(aborted);
+    assertOnlyKnownExternalOrigins(aborted);
   });
 
   test('applies the design-system stylesheets with the region map live', async ({ page }) => {
@@ -57,7 +58,7 @@ test.describe('showcase page structure', () => {
     });
     expect(gridAreas).not.toBeNull();
     expect(gridAreas).not.toBe('none');
-    assertOnlyKnownExternalHosts(aborted);
+    assertOnlyKnownExternalOrigins(aborted);
   });
 });
 
@@ -67,7 +68,7 @@ test.describe('theme switching', () => {
     const lightBackground = await bodyBackground(page);
     await applyTheme(page, 'dark');
     expect(await bodyBackground(page)).not.toBe(lightBackground);
-    assertOnlyKnownExternalHosts(aborted);
+    assertOnlyKnownExternalOrigins(aborted);
   });
 
   test('a theme choice survives reload through the pre-paint bootstrap', async ({ page }) => {
@@ -75,7 +76,7 @@ test.describe('theme switching', () => {
     await applyTheme(page, 'dark');
     await page.reload();
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
-    assertOnlyKnownExternalHosts(aborted);
+    assertOnlyKnownExternalOrigins(aborted);
   });
 });
 
@@ -93,7 +94,7 @@ test.describe('theme no-choice state and motion axis', () => {
     const noChoiceBackground = await bodyBackground(page);
     await applyTheme(page, 'light');
     expect(await bodyBackground(page)).not.toBe(noChoiceBackground);
-    assertOnlyKnownExternalHosts(aborted);
+    assertOnlyKnownExternalOrigins(aborted);
   });
 
   test('an OS contrast request themes the page without claiming a choice', async ({ page }) => {
@@ -105,7 +106,7 @@ test.describe('theme no-choice state and motion axis', () => {
     // default" — a claimed value would also make selecting High contrast
     // a dead first click (no change event on an already-selected value).
     await expect(page.getByRole('combobox', { name: 'Theme' })).toHaveValue('');
-    assertOnlyKnownExternalHosts(aborted);
+    assertOnlyKnownExternalOrigins(aborted);
   });
 
   test('a reduced-motion choice collapses the motion tokens', async ({ page }) => {
@@ -119,7 +120,7 @@ test.describe('theme no-choice state and motion axis', () => {
       getComputedStyle(document.documentElement).getPropertyValue('--motion-quick'),
     );
     expect(reducedMotion).not.toBe(fullMotion);
-    assertOnlyKnownExternalHosts(aborted);
+    assertOnlyKnownExternalOrigins(aborted);
   });
 });
 
@@ -131,7 +132,7 @@ test.describe('identity switching', () => {
     await applyIdentity(page, 'freedonia');
     await applyIdentity(page, 'oak');
     expect(await headingFontFamily(page)).toBe(oakHeadingFont);
-    assertOnlyKnownExternalHosts(aborted);
+    assertOnlyKnownExternalOrigins(aborted);
   });
 
   test('the dark-first counter-brand is dark with no theme chosen', async ({ page }) => {
@@ -147,7 +148,7 @@ test.describe('identity switching', () => {
     const explicitLightBackground = await bodyBackground(page);
     expect(noChoiceBackground).toBe(explicitDarkBackground);
     expect(noChoiceBackground).not.toBe(explicitLightBackground);
-    assertOnlyKnownExternalHosts(aborted);
+    assertOnlyKnownExternalOrigins(aborted);
   });
 });
 
@@ -192,8 +193,23 @@ test.describe('counter-brand to counter-brand transition', () => {
     });
     expect(sampledFaces.length).toBeGreaterThan(0);
     expect(sampledFaces).not.toContain(oakHeadingFont);
-    assertOnlyKnownExternalHosts(aborted);
+    assertOnlyKnownExternalOrigins(aborted);
   });
+});
+
+test.describe('pre-hydration shell geometry', () => {
+  // The claim under guard: hydration swaps state, never layout. The shell
+  // (JS disabled = the server render, deterministically pre-hydration) must
+  // occupy exactly the geometry the hydrated switchboard occupies. Widths:
+  // 320 (the original wrap defect), 737/740 (the measured re-wrap band of
+  // the reduced-option shell — a 74px masthead drop), 900 (single row).
+  for (const width of [320, 737, 740, 900]) {
+    test(`the server shell matches the hydrated geometry at ${width}px`, async ({ browser }) => {
+      const shell = await measureSwitchboardGeometry(browser, width, false);
+      const hydrated = await measureSwitchboardGeometry(browser, width, true);
+      expect(shell).toEqual(hydrated);
+    });
+  }
 });
 
 test.describe('system theme follows the device', () => {
@@ -208,6 +224,6 @@ test.describe('system theme follows the device', () => {
     expect(await bodyBackground(page)).toBe(darkBackground);
     await page.emulateMedia({ colorScheme: 'light' });
     await expect.poll(async () => bodyBackground(page)).not.toBe(darkBackground);
-    assertOnlyKnownExternalHosts(aborted);
+    assertOnlyKnownExternalOrigins(aborted);
   });
 });

@@ -10,7 +10,7 @@
  */
 import { describe, expect, it, vi } from 'vitest';
 
-import { createOakThemeStore } from './oak-theme-store';
+import { createOakThemeStore, createStoredChoiceResolver } from './oak-theme-store';
 import type { OakMotionMode, OakThemeName, OakThemeRuntime } from './oak-theme-store';
 
 function fakeRuntimeWorld(): {
@@ -104,7 +104,6 @@ describe('createOakThemeStore choice model', () => {
       () => world.runtime,
       () => undefined,
     );
-    expect(world.appliedTheme()).toBe('high-contrast');
     expect(store.getTheme()).toBe('');
   });
 
@@ -116,5 +115,18 @@ describe('createOakThemeStore choice model', () => {
     );
     store.setTheme('high-contrast');
     expect(store.getTheme()).toBe('high-contrast');
+  });
+});
+
+describe('createStoredChoiceResolver', () => {
+  it('passes a stored value through and reads null as no choice', () => {
+    expect(createStoredChoiceResolver(() => 'dark')()).toBe('dark');
+    expect(createStoredChoiceResolver(() => null)()).toBeUndefined();
+  });
+
+  it('reads a throwing reader as no choice (private mode, storage denied)', () => {
+    // A REAL throwing read (invalid-URL construction throws TypeError),
+    // standing in for the storage access a locked-down browser denies.
+    expect(createStoredChoiceResolver(() => new URL('not a url').href)()).toBeUndefined();
   });
 });

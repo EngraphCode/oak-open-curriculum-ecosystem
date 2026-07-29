@@ -9,10 +9,11 @@
 import { expect, test } from '@playwright/test';
 import type { Page } from '@playwright/test';
 
+import { parseColour, ringChainContrast } from '../tools/focus-ring-contrast';
 import {
   applyIdentity,
   applyTheme,
-  assertOnlyKnownExternalHosts,
+  assertOnlyKnownExternalOrigins,
   expectNoAxeViolations,
   IDENTITIES,
   openShowcase,
@@ -27,7 +28,7 @@ test.describe('OS accessibility signals', () => {
     // contrast request = the high-contrast theme, applied pre-paint.
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'high-contrast');
     await expectNoAxeViolations(page);
-    assertOnlyKnownExternalHosts(aborted);
+    assertOnlyKnownExternalOrigins(aborted);
   });
 
   test('forced-colors keeps the page renderable @a11y', async ({ page }) => {
@@ -37,72 +38,15 @@ test.describe('OS accessibility signals', () => {
       page.getByRole('heading', { level: 1, name: 'Oak Open Curriculum Design System' }),
     ).toBeVisible();
     await expectNoAxeViolations(page);
-    assertOnlyKnownExternalHosts(aborted);
+    assertOnlyKnownExternalOrigins(aborted);
   });
 });
 
-type Rgba = readonly [number, number, number, number];
-
-function parseColour(c: string): Rgba | null {
-  const m = /rgba?\(([\d.]+),\s*([\d.]+),\s*([\d.]+)(?:,\s*([\d.]+))?\)/.exec(c);
-  return m === null
-    ? null
-    : [Number(m[1]), Number(m[2]), Number(m[3]), m[4] === undefined ? 1 : Number(m[4])];
-}
-
-function luminance(c: Rgba): number {
-  const [r, g, b] = [c[0], c[1], c[2]].map((v) => {
-    const s = v / 255;
-    return s <= 0.04045 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4;
-  });
-  return 0.2126 * (r ?? 0) + 0.7152 * (g ?? 0) + 0.0722 * (b ?? 0);
-}
-
-function contrastRatio(a: Rgba, b: Rgba): number {
-  const [la, lb] = [luminance(a), luminance(b)];
-  return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05);
-}
-
-/** Split a computed box-shadow list at top-level commas only — colour
- *  functions carry commas inside their parens. */
-function splitShadowLayers(shadow: string): readonly string[] {
-  const layers: string[] = [];
-  let depth = 0;
-  let start = 0;
-  for (let i = 0; i < shadow.length; i += 1) {
-    if (shadow[i] === '(') {
-      depth += 1;
-    } else if (shadow[i] === ')') {
-      depth -= 1;
-    } else if (shadow[i] === ',' && depth === 0) {
-      layers.push(shadow.slice(start, i));
-      start = i + 1;
-    }
-  }
-  layers.push(shadow.slice(start));
-  return layers;
-}
-
-/** Best contrast of any geometry-bearing, non-transparent shadow layer
- *  against the surface colour. Zero when no layer qualifies. */
-function bestRingContrast(shadow: string, surface: Rgba): number {
-  let best = 0;
-  for (const layer of splitShadowLayers(shadow)) {
-    const geometry = [...layer.matchAll(/(-?\d*\.?\d+)px/g)].map((m) => Number(m[1]));
-    const colour = parseColour(layer);
-    if (geometry.some((n) => n !== 0) && colour !== null && colour[3] > 0) {
-      best = Math.max(best, contrastRatio(colour, surface));
-    }
-  }
-  return best;
-}
-
-/** SC 1.4.11 evidence for the focused element's ring: the best contrast
- *  ratio between any shadow layer that has real geometry and a non-zero
- *  colour, and the nearest non-transparent ancestor surface. A `none`
- *  shadow, a transparent layer, or a zero-geometry layer scores 0 — the
- *  weak `!== 'none'` assertion this replaces passed all three (PR #637
- *  review), including a hand-measured 1.12:1 ring. */
+/** Browser reads for the SC 1.4.11 ring verdict: the focused element's
+ *  computed box-shadow and the nearest non-transparent ancestor surface.
+ *  Every judgement (layer split, alpha compositing, adjacency-chain
+ *  contrast) lives in tools/focus-ring-contrast.ts, unit-tested with
+ *  literal fixtures — this helper only observes. */
 async function focusRingContrast(page: Page): Promise<number> {
   const evidence = await page.evaluate(() => {
     const active = document.activeElement;
@@ -120,11 +64,36 @@ async function focusRingContrast(page: Page): Promise<number> {
     }
     return { shadow: getComputedStyle(active).boxShadow, surface };
   });
-  if (evidence === null || evidence.shadow === 'none' || evidence.surface === null) {
+  if (evidence === null || evidence.surface === null) {
     return 0;
   }
   const surface = parseColour(evidence.surface);
-  return surface === null ? 0 : bestRingContrast(evidence.shadow, surface);
+  return surface === null ? 0 : ringChainContrast(evidence.shadow, surface);
+}
+
+/** Walk keyboard focus forward until it lands inside the selector's
+ *  element, so :focus-visible matching is genuinely keyboard-driven.
+ *  Bounded; returns whether the walk arrived. */
+async function tabInto(page: Page, selector: string, maxPresses: number): Promise<boolean> {
+  for (let i = 0; i < maxPresses; i += 1) {
+    await page.keyboard.press('Tab');
+    const inside = await page.evaluate(
+      (sel) => document.activeElement?.closest(sel) !== null,
+      selector,
+    );
+    if (inside) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/** The SC 1.4.11 poll: never a one-shot read — the :focus-visible ring's
+ *  application can lag the focus event by a frame (its base state is a
+ *  transparent two-layer shadow, so an early read scores 0). The claim is
+ *  the steady-state ring. */
+async function expectRingContrast(page: Page, message: string): Promise<void> {
+  await expect.poll(async () => focusRingContrast(page), { message }).toBeGreaterThanOrEqual(3);
 }
 
 test.describe('keyboard focus visibility', () => {
@@ -134,11 +103,7 @@ test.describe('keyboard focus visibility', () => {
     // first Tab lands on the first tabbable element: the identity select.
     await page.keyboard.press('Tab');
     await expect(page.locator('#oak-identity-select')).toBeFocused();
-    // Poll, never a one-shot read: the :focus-visible ring's application
-    // can lag the focus event by a frame (the ring's base state is a
-    // transparent two-layer shadow, so an early read scores 0). The claim
-    // is the steady-state ring.
-    await expect.poll(async () => focusRingContrast(page)).toBeGreaterThanOrEqual(3);
+    await expectRingContrast(page, 'switchboard ring, light (tools/focus-ring-contrast.ts)');
     // Under the dark palette: Chromium's sequential-navigation point
     // survives interactions, so the next Tab lands on SOME switchboard
     // select — which one is navigation state, not the claim. The claim is
@@ -148,8 +113,24 @@ test.describe('keyboard focus visibility', () => {
     await page.keyboard.press('Tab');
     const focusedId = await page.evaluate(() => document.activeElement?.id ?? '');
     expect(['oak-identity-select', 'oak-theme-select', 'oak-motion-select']).toContain(focusedId);
-    await expect.poll(async () => focusRingContrast(page)).toBeGreaterThanOrEqual(3);
-    assertOnlyKnownExternalHosts(aborted);
+    await expectRingContrast(page, 'switchboard ring, dark (tools/focus-ring-contrast.ts)');
+    assertOnlyKnownExternalOrigins(aborted);
+  });
+
+  test('the focus ring holds 3:1 on the inverted footer band in light and dark @a11y', async ({
+    page,
+  }) => {
+    // The 1.12:1 instance a previous round hand-measured lived HERE — the
+    // canonical ring's halo against the inverted band, cured per-control in
+    // globals.css with --focus-ring-inverted. This leg guards that cure:
+    // deleting the override fails this test in dark.
+    const aborted = await openShowcase(page);
+    expect(await tabInto(page, '.foot', 25)).toBe(true);
+    await expectRingContrast(page, 'footer-link ring, light');
+    await applyTheme(page, 'dark');
+    expect(await tabInto(page, '.foot', 25)).toBe(true);
+    await expectRingContrast(page, 'footer-link ring, dark');
+    assertOnlyKnownExternalOrigins(aborted);
   });
 });
 
@@ -161,7 +142,11 @@ test.describe('identity × theme matrix', () => {
         await applyIdentity(page, identity);
         await applyTheme(page, theme);
         await expectNoAxeViolations(page);
-        assertOnlyKnownExternalHosts(aborted);
+        // axe ships no focus-indicator-contrast rule; the ring measure
+        // covers the cell the axe pass just proved.
+        await page.keyboard.press('Tab');
+        await expectRingContrast(page, `switchboard ring, ${identity} × ${theme}`);
+        assertOnlyKnownExternalOrigins(aborted);
       });
     }
   }
@@ -175,7 +160,7 @@ test.describe('identity × system theme (dark OS)', () => {
       await applyIdentity(page, identity);
       await applyTheme(page, 'system');
       await expectNoAxeViolations(page);
-      assertOnlyKnownExternalHosts(aborted);
+      assertOnlyKnownExternalOrigins(aborted);
     });
   }
 });
@@ -205,7 +190,7 @@ test.describe('reflow at 320px', () => {
       );
       expect(reflow.minLeft, 'content pushed left of the origin is unreachable').toBe(0);
       await expectNoAxeViolations(page);
-      assertOnlyKnownExternalHosts(aborted);
+      assertOnlyKnownExternalOrigins(aborted);
     });
   }
 });
