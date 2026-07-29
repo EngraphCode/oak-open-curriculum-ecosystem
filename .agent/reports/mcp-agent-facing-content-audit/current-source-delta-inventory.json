@@ -397,14 +397,9 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts",
-      "semanticSha256": "8347b1d9e677dd11e3bce9749dadc4af0fde22cb3cca2b741082fc5d9e2a35bb",
-      "itemIds": [
-        "C336",
-        "C337",
-        "C338",
-        "C339",
-        "C340"
-      ]
+      "semanticSha256": "61c811db66fe6e8b32695029f751dfbaf13d3616d0a71d92b9b09d3887ef1381",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/register-widget-resource.ts",
@@ -444,6 +439,17 @@
       "semanticSha256": "50edf574104e4412b9a573b347995eb6943e7ea5365f1762b26300b83c8da79f",
       "itemIds": [],
       "exclusionReason": "Current-source validation machinery; this file does not reach an MCP consumer."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/resource-registrations.ts",
+      "semanticSha256": "0680d4c7a85d95fa829fb513d20bfedeab824b6a6358559d8e1a6e93e74f8162",
+      "itemIds": [
+        "C336",
+        "C337",
+        "C338",
+        "C339",
+        "C340"
+      ]
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/runtime-config-from-validated-env.ts",

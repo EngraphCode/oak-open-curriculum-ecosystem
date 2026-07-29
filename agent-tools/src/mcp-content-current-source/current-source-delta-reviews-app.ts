@@ -12,7 +12,6 @@ import {
   reviewed,
   TEST_ONLY,
   type CurrentSourceDeltaReview,
-  VALIDATION_ONLY,
 } from './current-source-delta-review-helpers.js';
 
 export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview>> = {
@@ -161,28 +160,6 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     '19d598ca413c7eeb9e509ddc38d44e006b761f8654c0a7e641b68b232d7c8610',
     IMPLEMENTATION_ONLY,
   ),
-  'apps/oak-curriculum-mcp-streamable-http/src/register-resource-helpers.ts': excluded(
-    '6656626f8c88298c26ed09d8c9e56474fe12c369c6f521dcd2667a255e94a135',
-    IMPLEMENTATION_ONLY,
-  ),
-  'apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts': reviewed(
-    '8347b1d9e677dd11e3bce9749dadc4af0fde22cb3cca2b741082fc5d9e2a35bb',
-    ['C336', 'C337', 'C338', 'C339', 'C340'],
-  ),
-  'apps/oak-curriculum-mcp-streamable-http/src/register-widget-resource.ts': reviewed(
-    '0ddeaa2c8e1938d0be9951b51ccaedea6eb58e77bbb255dd949fb5a1852986c4',
-    ['C690', 'C691', 'C692'],
-  ),
-  'apps/oak-curriculum-mcp-streamable-http/src/registration-proof/current-source-guidance-registration-evidence.ts':
-    excluded('49f654ce6379cab1f07621104b33c8407d7f3380c1c71a4dd31bd44423020469', VALIDATION_ONLY),
-  'apps/oak-curriculum-mcp-streamable-http/src/registration-proof/current-source-registration-proof.ts':
-    excluded('69262ce768bb2f430c74643d230ec0172c57abee0ea13f15822558c9695306c5', VALIDATION_ONLY),
-  'apps/oak-curriculum-mcp-streamable-http/src/registration-proof/guidance-list-parity.ts':
-    excluded('ebb75cfdf95db96e295c62b54fc8f63e349d0749e447dbefffedcb2355dc43df', VALIDATION_ONLY),
-  'apps/oak-curriculum-mcp-streamable-http/src/registration-proof/guidance-read-parity.ts':
-    excluded('6a8d90126daa6a0e6e786c4d71b9b79d1db8241d7db5dfec8425c8bad3fe8f67', VALIDATION_ONLY),
-  'apps/oak-curriculum-mcp-streamable-http/src/registration-proof/require-mcp-error-code.ts':
-    excluded('50edf574104e4412b9a573b347995eb6943e7ea5365f1762b26300b83c8da79f', VALIDATION_ONLY),
   'apps/oak-curriculum-mcp-streamable-http/src/runtime-config-from-validated-env.ts': excluded(
     '1b0a02d27b6f29e88a0cc9c4aa5576ee72bbf0770f44a56ccab423668acb1043',
     IMPLEMENTATION_ONLY,

@@ -84,9 +84,27 @@ const LANDING_REACT_LINEAGE_ENTRIES = [
   ['C369', [DERIVE_VIEW_PROPS]],
 ] as const;
 
+const RESOURCE_REGISTRATIONS =
+  'apps/oak-curriculum-mcp-streamable-http/src/resource-registrations.ts';
+
+/**
+ * MCP-337 turned register-resources.ts into the registration descriptor and
+ * extracted the per-resource registration bodies to resource-registrations.ts:
+ * the five registration-content rows relocated with their bodies (the
+ * descriptor file survives as gating/derivation implementation).
+ */
+const REGISTRATION_DESCRIPTOR_RELOCATIONS = [
+  ['C336', [RESOURCE_REGISTRATIONS]],
+  ['C337', [RESOURCE_REGISTRATIONS]],
+  ['C338', [RESOURCE_REGISTRATIONS]],
+  ['C339', [RESOURCE_REGISTRATIONS]],
+  ['C340', [RESOURCE_REGISTRATIONS]],
+] as const;
+
 /** All post-baseline lineage, composed for the current-item lineage map. */
 export const POST_BASELINE_LINEAGE_ENTRIES = [
   ...ORIENTATION_ERA_LINEAGE_ENTRIES,
   ...PREREQUISITE_INJECTION_RETIREMENTS,
   ...LANDING_REACT_LINEAGE_ENTRIES,
+  ...REGISTRATION_DESCRIPTOR_RELOCATIONS,
 ] as const;

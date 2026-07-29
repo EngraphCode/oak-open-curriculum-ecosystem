@@ -6839,16 +6839,16 @@
     {
       "auditId": "C336",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "relocated",
         "targets": [
           {
-            "file": "apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts",
+            "file": "apps/oak-curriculum-mcp-streamable-http/src/resource-registrations.ts",
             "anchors": [
               {
                 "tokenCount": 68,
                 "tokenSha256": "bba1b888fd59e10881a8db2354219fcd0cfce75f2dc2f9260122bf145c3a5f3e",
-                "indexToken": "getDocumentationContent",
-                "indexOffset": 18
+                "indexToken": "return",
+                "indexOffset": 23
               }
             ]
           }
@@ -6861,19 +6861,19 @@
         "revision": "unchanged",
         "targets": [
           {
-            "file": "apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts",
+            "file": "apps/oak-curriculum-mcp-streamable-http/src/resource-registrations.ts",
             "anchors": [
               {
-                "tokenCount": 12,
-                "tokenSha256": "d6ea5374585a659fd87b22fae2a65d5cf1d67bb649ba6820772bebd7f370e3ab",
+                "tokenCount": 13,
+                "tokenSha256": "0fb206797bb478eb56c327ce1eb7a54e40a65552eefa7781bc1195f31e589744",
                 "indexToken": "OAK_UNDER_THE_HOOD_RESOURCE_NAME",
-                "indexOffset": 1
+                "indexOffset": 2
               },
               {
                 "tokenCount": 20,
                 "tokenSha256": "c6fe47aad619cfc912875ca19f8265c138007d0293a6419363ca0298ba0223f8",
-                "indexToken": "docs",
-                "indexOffset": 5
+                "indexToken": "OAK_UNDER_THE_HOOD_RESOURCE_URI",
+                "indexOffset": 2
               }
             ]
           }
@@ -6883,10 +6883,10 @@
     {
       "auditId": "C338",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "relocated",
         "targets": [
           {
-            "file": "apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts",
+            "file": "apps/oak-curriculum-mcp-streamable-http/src/resource-registrations.ts",
             "anchors": [
               {
                 "tokenCount": 54,
@@ -6902,10 +6902,10 @@
     {
       "auditId": "C339",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "relocated",
         "targets": [
           {
-            "file": "apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts",
+            "file": "apps/oak-curriculum-mcp-streamable-http/src/resource-registrations.ts",
             "anchors": [
               {
                 "tokenCount": 19,
@@ -6921,10 +6921,10 @@
     {
       "auditId": "C340",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "relocated",
         "targets": [
           {
-            "file": "apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts",
+            "file": "apps/oak-curriculum-mcp-streamable-http/src/resource-registrations.ts",
             "anchors": [
               {
                 "tokenCount": 118,

@@ -89,6 +89,13 @@ describe('product-analytics label closure (MCP-241)', () => {
     expect(new Set(liveToolNames(SERVED_SURFACE))).toEqual(new Set(walk.toolConfigs.keys()));
   });
 
+  // Since the MCP-337 descriptor, names and registrar calls derive from one
+  // unit list, so this no longer fences two hand-maintained mirrors. It
+  // still pins what no descriptor can make structural: that each entry's
+  // registrar registers under the entry's name across module boundaries
+  // (e.g. the widget name literal lives in register-widget-resource.ts),
+  // and that handlers.ts actually drives registerAllResources with the
+  // canonical definition.
   it('liveResourceRegistrationNames matches exactly the resource names the real registration path registers', () => {
     const walk = walkCanonicalRegistration();
 
