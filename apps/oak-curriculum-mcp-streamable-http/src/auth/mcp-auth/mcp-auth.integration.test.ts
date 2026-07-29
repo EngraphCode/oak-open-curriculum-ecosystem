@@ -62,6 +62,58 @@ describe('mcpAuth middleware (Integration)', () => {
     });
   });
 
+  /**
+   * The authorisation invariant, stated over the states a CLIENT controls:
+   * nothing reaches `next()` — and therefore the MCP handler — unless
+   * `verifyToken` returned a truthy `AuthInfo`. Absence, emptiness, and a
+   * malformed or rejected credential are all rejections, never bypasses.
+   *
+   * Closes CodeQL `js/user-controlled-bypass` alert #225; see the
+   * attestation on `verifyRequestToken` in `mcp-auth.ts`.
+   */
+  describe('no unverified request reaches next()', () => {
+    const alwaysVerifies = (): (() => Promise<AuthInfo>) =>
+      vi.fn<() => Promise<AuthInfo>>().mockResolvedValue(createFakeAuthInfo());
+
+    it.each([
+      { label: 'no Authorization header at all', headers: {}, verifier: alwaysVerifies },
+      {
+        label: 'an empty Authorization header',
+        headers: { authorization: '' },
+        verifier: alwaysVerifies,
+      },
+      {
+        label: 'a non-Bearer scheme',
+        headers: { authorization: 'Basic YWRtaW46YWRtaW4=' },
+        verifier: alwaysVerifies,
+      },
+      {
+        label: 'two Authorization headers joined by the parser',
+        headers: { authorization: 'Bearer a, Bearer b' },
+        verifier: alwaysVerifies,
+      },
+      {
+        label: 'a well-formed token the verifier rejects',
+        headers: { authorization: 'Bearer plausible-looking-token' },
+        verifier: (): (() => Promise<undefined>) =>
+          vi.fn<() => Promise<undefined>>().mockResolvedValue(undefined),
+      },
+    ])('rejects $label', async ({ headers, verifier }) => {
+      const middleware = mcpAuth(verifier(), logger, ALLOWED_HOSTS);
+
+      const req = createMockExpressRequest({ host: 'localhost' });
+      Object.assign(req.headers, headers);
+      const res = createMockExpressResponse();
+      const next = vi.fn();
+
+      await middleware(req, res, next);
+
+      expect(next).not.toHaveBeenCalled();
+      expect(res.statusCode).toBe(401);
+      expect(req).not.toHaveProperty('auth');
+    });
+  });
+
   describe('audience mismatch challenge (RFC 8707, MCP-351)', () => {
     /** A JWT-format token carrying a chosen `aud`; decoded, never verified. */
     function tokenWithAudience(aud: string): string {

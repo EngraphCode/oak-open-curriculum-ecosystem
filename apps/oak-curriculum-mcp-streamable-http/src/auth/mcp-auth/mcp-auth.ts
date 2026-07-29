@@ -89,6 +89,22 @@ function extractBearerToken(authHeader: string): string | undefined {
  * 401 (with the PRM pointer) at the first failure. Returns the token and
  * its verified `AuthInfo` on success; `undefined` means a response has
  * already been sent.
+ *
+ * CodeQL `js/user-controlled-bypass` alert #225 flags the `authorization`
+ * presence check below as "a user-provided value controls a condition that
+ * guards a sensitive action". The rule targets servers that decide WHICH
+ * permission to check from user data — its canonical example compares a
+ * forgeable cookie against a URL parameter to decide whether to require a
+ * login. That is not this shape: the client-supplied header is not an input
+ * to the authorisation decision, it IS the credential being verified, and
+ * every path it can take short of `verifyToken` returning a truthy
+ * `AuthInfo` ends in a 401. Absence is rejection, not bypass. The invariant
+ * — no client-controlled input reaches `next()` unverified — is asserted
+ * over the states a client controls in
+ * `mcp-auth.integration.test.ts` ("no unverified request reaches next()"),
+ * which is what the alert dismissal cites. Note also that this file's
+ * `catch` calls `next(error)`, which enters Express's error pipeline and
+ * skips the remaining handlers rather than reaching the MCP route.
  */
 async function verifyRequestToken(
   req: Request,
