@@ -10,10 +10,12 @@
  * 2026-07-29: the method is baked, factual public-document references remain
  * as citations).
  *
- * Classification is TOTAL: every heading in the canonical must appear in
- * exactly one of the two lists below. A new section in the canonical fails
- * generation loudly until it is classified here — a deliberate decision
- * forcing-function, not an inconvenience.
+ * Classification is TOTAL and enforced at generation: every canonical H1–H3
+ * heading must appear in exactly one of the two lists below. An unclassified
+ * heading, a heading in both lists, a listed heading no longer in the
+ * canonical (served or excluded), or a deeper-than-H3 heading inside a served
+ * section all fail generation loudly — a deliberate decision forcing-function,
+ * not an inconvenience.
  */
 
 /** Headings whose sections are served in the MCP digest, in canonical order. */
@@ -27,6 +29,8 @@ export const SERVED_SECTION_HEADINGS: readonly string[] = [
   '### Area overview',
   '### Guided tour',
   '### Topic recipes (shared by tour and overview)',
+  '## Router Principle',
+  '### The document map (topic → source)',
   '## Headline Invariants (point to the single source — never restate them here)',
   '## Honesty Invariants',
 ];
@@ -42,9 +46,10 @@ export const EXCLUDED_SECTION_HEADINGS: ReadonlyMap<string, string> = new Map([
     'machine-state probes and guided command execution; not servable to remote MCP clients',
   ],
   [
-    '## Router Principle',
-    'carries the fetch-the-raw-GitHub-copy mechanics §2.F forbids; the factual document map ' +
-      'lives in Topic recipes and the tool result’s citation fields',
+    '### Reaching the sources',
+    'read-local vs fetch-raw-GitHub reachability mechanics (the fetch-instruction shape §2.F ' +
+      'forbids) plus the checkout-bound mismatch-flagging protocol; the factual document map ' +
+      'beside it is served',
   ],
   ['## Access-Aware Fork (teammate vs external visitor)', 'teammate-checkout routing machinery'],
   [

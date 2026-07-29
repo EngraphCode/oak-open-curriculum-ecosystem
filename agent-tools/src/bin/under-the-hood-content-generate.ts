@@ -6,7 +6,7 @@
  *   under-the-hood-content-generate            # regenerate the committed module
  *   under-the-hood-content-generate --check    # exit non-zero if the module is stale
  */
-import { argv, exit, stderr, stdout } from 'node:process';
+import { argv, stderr, stdout } from 'node:process';
 
 import { isErr } from '@oaknational/result';
 
@@ -40,10 +40,9 @@ async function main(): Promise<number> {
   return 0;
 }
 
-main().then(
-  (code) => exit(code),
-  (error: unknown) => {
-    stderr.write(`${error instanceof Error ? error.message : String(error)}\n`);
-    exit(1);
-  },
-);
+try {
+  process.exitCode = await main();
+} catch (error: unknown) {
+  stderr.write(`${error instanceof Error ? error.message : String(error)}\n`);
+  process.exitCode = 1;
+}

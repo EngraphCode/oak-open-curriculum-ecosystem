@@ -21,107 +21,95 @@ import { join } from 'node:path';
 
 import { err, isErr, ok, type Result } from '@oaknational/result';
 
+import {
+  CANONICAL_SKILL_PATH,
+  parseCanonicalSections,
+  type CanonicalSection,
+} from './canonical-parser.js';
 import { EXCLUDED_SECTION_HEADINGS, SERVED_SECTION_HEADINGS } from './sections.js';
-
-/** Repo-relative path of the canonical skill the digest derives from. */
-const CANONICAL_SKILL_PATH = '.agent/skills/under-the-hood/SKILL-CANONICAL.md';
+import { servedSectionDefect } from './served-section-guards.js';
 
 /** Repo-relative path of the emitted generated module. */
 export const GENERATED_MODULE_PATH =
   'apps/oak-curriculum-mcp-streamable-http/src/generated/oak-under-the-hood-content.ts';
 
-/** One markdown section: its exact heading line and verbatim body lines. */
-interface CanonicalSection {
-  readonly heading: string;
-  readonly lines: readonly string[];
+/** A classification: the served allowlist and the excluded map (with reasons). */
+interface SectionClassification {
+  readonly served: readonly string[];
+  readonly excluded: ReadonlyMap<string, string>;
 }
 
-/**
- * Splits the canonical into sections by heading line, fence-aware (a `#`
- * line inside a code fence is content, not a heading) and with the leading
- * YAML frontmatter block stripped.
- */
-export function parseCanonicalSections(
-  canonical: string,
-): Result<readonly CanonicalSection[], string> {
-  const stripped = stripFrontmatter(canonical.split('\n'));
-  if (isErr(stripped)) {
-    return stripped;
-  }
-  return ok(splitSections(stripped.value));
-}
-
-function splitSections(lines: readonly string[]): readonly CanonicalSection[] {
-  const sections: CanonicalSection[] = [];
-  let current: { heading: string; lines: string[] } | undefined;
-  let inFence = false;
-  for (const line of lines) {
-    if (line.trimStart().startsWith('```')) {
-      inFence = !inFence;
-    }
-    if (!inFence && /^#{1,3} /.test(line)) {
-      if (current !== undefined) {
-        sections.push(current);
-      }
-      current = { heading: line, lines: [] };
-      continue;
-    }
-    if (current !== undefined) {
-      current.lines.push(line);
-    }
-  }
-  if (current !== undefined) {
-    sections.push(current);
-  }
-  return sections;
-}
-
-function stripFrontmatter(lines: readonly string[]): Result<readonly string[], string> {
-  if (lines[0] !== '---') {
-    return ok(lines);
-  }
-  const closing = lines.indexOf('---', 1);
-  if (closing === -1) {
-    return err(`Unterminated YAML frontmatter in ${CANONICAL_SKILL_PATH}`);
-  }
-  return ok(lines.slice(closing + 1));
-}
+const CANONICAL_CLASSIFICATION: SectionClassification = {
+  served: SERVED_SECTION_HEADINGS,
+  excluded: EXCLUDED_SECTION_HEADINGS,
+};
 
 /**
  * Classifies every section and derives the served digest. Classification is
- * total: an unclassified heading, or a served heading absent from the
- * canonical, fails loudly so canonical restructuring forces a deliberate
- * decision here rather than silently changing the served payload.
+ * total: an unclassified heading, a heading classified in both lists, a
+ * classified heading absent from the canonical (served or excluded), a
+ * deeper-than-H3 heading inside a served section, or a raw-GitHub fetch-URL
+ * form inside a served section all fail loudly, so canonical restructuring
+ * forces a deliberate decision in `sections.ts` rather than silently changing
+ * the served payload. The classification is an explicit input; production
+ * callers pass `CANONICAL_CLASSIFICATION` (see `renderFromRepo`).
  */
-export function buildDigest(canonical: string): Result<string, string> {
+export function buildDigest(
+  canonical: string,
+  classification: SectionClassification,
+): Result<string, string> {
   const parsed = parseCanonicalSections(canonical);
   if (isErr(parsed)) {
     return parsed;
   }
-  const sections = parsed.value;
-  const present = new Set(sections.map((s) => s.heading));
-  const unclassified = sections
-    .map((s) => s.heading)
-    .filter((h) => !SERVED_SECTION_HEADINGS.includes(h) && !EXCLUDED_SECTION_HEADINGS.has(h));
-  if (unclassified.length > 0) {
-    return err(
-      `Unclassified section heading(s) in ${CANONICAL_SKILL_PATH} — classify each in ` +
-        `sections.ts (served or excluded, with reason):\n${unclassified.join('\n')}`,
-    );
+  const defect = classificationDefect(parsed.value, classification);
+  if (defect !== undefined) {
+    return err(defect);
   }
-  const missing = SERVED_SECTION_HEADINGS.filter((h) => !present.has(h));
-  if (missing.length > 0) {
-    return err(
-      `Served section heading(s) missing from ${CANONICAL_SKILL_PATH} — the canonical was ` +
-        `restructured; re-decide the digest in sections.ts:\n${missing.join('\n')}`,
-    );
-  }
-  const served = sections.filter((s) => SERVED_SECTION_HEADINGS.includes(s.heading));
+  const served = parsed.value.filter((s) => classification.served.includes(s.heading));
   const digest = served
     .map((s) => [s.heading, ...s.lines].join('\n').trimEnd())
     .join('\n\n')
     .trim();
   return ok(`${digest}\n`);
+}
+
+/** The first total-classification defect, or undefined when the digest is safe to build. */
+function classificationDefect(
+  sections: readonly CanonicalSection[],
+  { served, excluded }: SectionClassification,
+): string | undefined {
+  const dual = served.filter((h) => excluded.has(h));
+  if (dual.length > 0) {
+    return (
+      `Heading(s) classified as BOTH served and excluded — exactly one classification ` +
+      `is required; fix sections.ts:\n${dual.join('\n')}`
+    );
+  }
+  const headings = sections.map((s) => s.heading);
+  const unclassified = headings.filter((h) => !served.includes(h) && !excluded.has(h));
+  if (unclassified.length > 0) {
+    return (
+      `Unclassified section heading(s) in ${CANONICAL_SKILL_PATH} — classify each in ` +
+      `sections.ts (served or excluded, with reason):\n${unclassified.join('\n')}`
+    );
+  }
+  const present = new Set(headings);
+  const missingServed = served.filter((h) => !present.has(h));
+  if (missingServed.length > 0) {
+    return (
+      `Served section heading(s) missing from ${CANONICAL_SKILL_PATH} — the canonical was ` +
+      `restructured; re-decide the digest in sections.ts:\n${missingServed.join('\n')}`
+    );
+  }
+  const missingExcluded = [...excluded.keys()].filter((h) => !present.has(h));
+  if (missingExcluded.length > 0) {
+    return (
+      `Excluded section heading(s) missing from ${CANONICAL_SKILL_PATH} — stale exclusion ` +
+      `entries; remove or update them in sections.ts:\n${missingExcluded.join('\n')}`
+    );
+  }
+  return servedSectionDefect(sections, served);
 }
 
 /** Renders the generated TypeScript module for a digest. */
@@ -176,7 +164,7 @@ async function renderFromRepo(repoRoot: string): Promise<Result<string, string>>
   if (canonical === undefined) {
     return err(`Cannot read canonical skill: ${CANONICAL_SKILL_PATH}`);
   }
-  const digest = buildDigest(canonical);
+  const digest = buildDigest(canonical, CANONICAL_CLASSIFICATION);
   if (isErr(digest)) {
     return digest;
   }

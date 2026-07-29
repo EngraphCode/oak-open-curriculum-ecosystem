@@ -5,7 +5,8 @@
  * "tell me about this project", "how does Oak build and deliver its curriculum",
  * "how do I engage or contribute" — and serves the orientation METHOD inline:
  * the audience-independent digest of the canonical under-the-hood skill,
- * generated at build time into `../generated/oak-under-the-hood-content.js`
+ * generated out of band into `../generated/oak-under-the-hood-content.js`
+ * (committed; the app build never runs the generator)
  * and drift-gated by `validate-under-the-hood-content` (MCP-353).
  *
  * Why baked, not pointed: the Anthropic Software Directory policy (§2.F)

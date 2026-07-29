@@ -76,7 +76,7 @@ skills.**
    same change. One concept, one name, everywhere. Old invocation paths are retired by design, not bridged —
    git history carries the evolution.
 
-The **mode names, the discernment question contract, the live-doc router table, and the setup mechanics live
+The **mode names, the discernment question contract, the live-doc document map, and the setup mechanics live
 in the skill body**, not in this ADR. This ADR records the architectural shape (one lens; mode as a variable;
 setup distinct; seam unchanged); the skill is the source of truth for how that shape behaves.
 
@@ -124,7 +124,8 @@ the original reasoning.
 
 The cured shape:
 
-- The `oak-under-the-hood` tool serves the orientation method **inline**: the audience-independent
+- The `oak-under-the-hood` tool serves the orientation method **inline**, with the map of source
+  documents the method cites for fact: the audience-independent
   digest of the canonical skill, generated out of band into a committed module
   (`src/generated/oak-under-the-hood-content.ts`) by the total section classification in
   `agent-tools/src/under-the-hood-content-generate/`, drift-gated by `validate-under-the-hood-content`

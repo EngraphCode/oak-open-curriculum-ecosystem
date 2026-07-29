@@ -42,6 +42,7 @@ describe('buildOakUnderTheHoodToolResult (unit)', () => {
     expect(structured).not.toHaveProperty('trigger');
     expect(result.content.map((block) => block.type)).not.toContain('resource_link');
     expect(JSON.stringify(result)).not.toContain('raw.githubusercontent.com');
+    expect(JSON.stringify(result)).not.toContain('/blob/main/');
   });
 
   it('does not carry oakContextHint (curriculum firewall, held structurally)', () => {

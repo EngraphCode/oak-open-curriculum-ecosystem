@@ -1,12 +1,13 @@
 /**
- * Unit tests for the under-the-hood MCP content generator: fence-aware
- * section parsing, total classification (both failure directions), digest
- * verbatim-and-order fidelity, and the rendered module shape.
+ * Unit tests for the under-the-hood MCP content generator: total
+ * classification (every failure direction), digest verbatim-and-order
+ * fidelity, and the rendered module shape. The section parser's own tests
+ * live in `canonical-parser.unit.test.ts`.
  */
 import { isErr, unwrap, unwrapErr } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
-import { buildDigest, parseCanonicalSections, renderGeneratedModule } from './generator.js';
+import { buildDigest, renderGeneratedModule } from './generator.js';
 import { EXCLUDED_SECTION_HEADINGS, SERVED_SECTION_HEADINGS } from './sections.js';
 
 /** A minimal canonical carrying every classified heading, in list order. */
@@ -18,24 +19,15 @@ function syntheticCanonical(): string {
   return `---\nname: under-the-hood\n---\n\n${[...served, ...excluded].join('\n\n')}\n`;
 }
 
-describe('parseCanonicalSections', () => {
-  it('strips frontmatter and does not read fenced # lines as headings', () => {
-    const canonical =
-      '---\nname: x\n---\n\n# Title\n\nBody.\n\n```yaml\n# fenced comment\n```\n\n## Next\n\nMore.\n';
-    const sections = unwrap(parseCanonicalSections(canonical));
-    expect(sections.map((s) => s.heading)).toEqual(['# Title', '## Next']);
-    expect(sections[0]?.lines).toContain('# fenced comment');
-  });
-
-  it('reports unterminated frontmatter as an error', () => {
-    const result = parseCanonicalSections('---\nname: x\n\n# Title\n');
-    expect(isErr(result)).toBe(true);
-  });
-});
+/** The production classification, passed explicitly (buildDigest has no default). */
+const PRODUCTION_CLASSIFICATION = {
+  served: SERVED_SECTION_HEADINGS,
+  excluded: EXCLUDED_SECTION_HEADINGS,
+};
 
 describe('buildDigest', () => {
   it('serves exactly the allowlisted sections, verbatim, in canonical order', () => {
-    const digest = unwrap(buildDigest(syntheticCanonical()));
+    const digest = unwrap(buildDigest(syntheticCanonical(), PRODUCTION_CLASSIFICATION));
     for (const [i, heading] of SERVED_SECTION_HEADINGS.entries()) {
       expect(digest).toContain(`${heading}\n\nServed body ${i}.`);
     }
@@ -48,7 +40,7 @@ describe('buildDigest', () => {
 
   it('fails loudly on an unclassified heading', () => {
     const canonical = `${syntheticCanonical()}\n## Brand New Section\n\nSurprise.\n`;
-    const result = buildDigest(canonical);
+    const result = buildDigest(canonical, PRODUCTION_CLASSIFICATION);
     expect(isErr(result)).toBe(true);
     expect(unwrapErr(result)).toMatch(/Unclassified section heading/);
     expect(unwrapErr(result)).toMatch(/## Brand New Section/);
@@ -60,10 +52,69 @@ describe('buildDigest', () => {
       `## Honesty Invariants\n\nServed body ${honestyIndex}.`,
       '',
     );
-    const result = buildDigest(canonical);
+    const result = buildDigest(canonical, PRODUCTION_CLASSIFICATION);
     expect(isErr(result)).toBe(true);
     expect(unwrapErr(result)).toMatch(/missing from/);
     expect(unwrapErr(result)).toMatch(/## Honesty Invariants/);
+  });
+
+  it('fails loudly when an excluded heading is missing from the canonical (stale exclusion)', () => {
+    // An empty map would make the replace a no-op and fail the isErr assertion below.
+    const firstExcluded = [...EXCLUDED_SECTION_HEADINGS.keys()][0] ?? '## no-excluded-heading';
+    const canonical = syntheticCanonical().replace(`${firstExcluded}\n\nExcluded body 0.`, '');
+    const result = buildDigest(canonical, PRODUCTION_CLASSIFICATION);
+    expect(isErr(result)).toBe(true);
+    expect(unwrapErr(result)).toMatch(/stale exclusion/);
+    expect(unwrapErr(result)).toContain(firstExcluded);
+  });
+
+  it('fails loudly when a heading is classified as both served and excluded', () => {
+    const result = buildDigest('# A\n\nBody.\n', {
+      served: ['# A'],
+      excluded: new Map([['# A', 'reason']]),
+    });
+    expect(isErr(result)).toBe(true);
+    expect(unwrapErr(result)).toMatch(/BOTH served and excluded/);
+    expect(unwrapErr(result)).toMatch(/# A/);
+  });
+
+  it('fails loudly on a deeper-than-H3 heading inside a served section', () => {
+    const result = buildDigest('# A\n\nBody.\n\n#### Deep addition\n\nSurprise.\n', {
+      served: ['# A'],
+      excluded: new Map(),
+    });
+    expect(isErr(result)).toBe(true);
+    expect(unwrapErr(result)).toMatch(/deeper than the H1–H3 classification grain/);
+    expect(unwrapErr(result)).toMatch(/#### Deep addition/);
+  });
+
+  it('accepts deep headings inside excluded sections and inside fences of served sections', () => {
+    const canonical =
+      '# A\n\nBody.\n\n```md\n#### fenced example\n```\n\n## B\n\n#### machinery detail\n';
+    const digest = unwrap(
+      buildDigest(canonical, { served: ['# A'], excluded: new Map([['## B', 'machinery']]) }),
+    );
+    expect(digest).toContain('#### fenced example');
+    expect(digest).not.toContain('#### machinery detail');
+  });
+
+  it('fails loudly on any raw-GitHub URL form inside a served section', () => {
+    const result = buildDigest(
+      '# A\n\nFetch `https://github.com/oaknational/x/tree/HEAD/docs/README.md` live.\n',
+      { served: ['# A'], excluded: new Map() },
+    );
+    expect(isErr(result)).toBe(true);
+    expect(unwrapErr(result)).toMatch(/Raw-GitHub URL form/);
+    expect(unwrapErr(result)).toContain('/tree/HEAD/');
+  });
+
+  it('accepts raw-GitHub URL forms inside excluded sections', () => {
+    const canonical =
+      '# A\n\nBody.\n\n## B\n\nFetch `https://raw.githubusercontent.com/o/r/main/x.md`.\n';
+    const digest = unwrap(
+      buildDigest(canonical, { served: ['# A'], excluded: new Map([['## B', 'mechanics']]) }),
+    );
+    expect(digest).not.toContain('raw.githubusercontent.com');
   });
 });
 
