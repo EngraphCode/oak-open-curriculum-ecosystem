@@ -18,11 +18,16 @@ stamp the lifetime) and at session-open (to check it).
 1. **Stamp the cut date in the branch name**: `coordination/estate-<YYYY-MM-DD>`.
    The name is the observable clock — no side-channel state needed
    (agent-state-observable).
-2. **At session-open on a coordination branch**, read the stamp. If the
-   branch is older than 24 hours, convergence is DUE: surface it to the
-   Director (or, at n=1, act on it) before staking new work onto the
-   branch. An overdue coordination branch is a defect to route, not a
-   home to build on.
+2. **At session-open on a coordination branch**, read the stamp. The
+   check is UTC-date rollover: a branch whose stamp date is before the
+   current UTC date is DUE — the stricter reading of "at most 24 hours"
+   (a branch cut late in the day rotates sooner, never later; a
+   date-only stamp cannot express hours, so the day boundary is the
+   clock). When cut-time precision genuinely matters, the branch's
+   first own commit records it. On a DUE branch, surface convergence to
+   the Director (or, at n=1, act on it) before staking new work onto
+   the branch. An overdue coordination branch is a defect to route, not
+   a home to build on.
 3. **Converge-and-rotate shape** (the worked shape from the founding
    instance): merge `origin/main` into the coordination branch, push,
    land the branch through its PR at full condition, then cut the fresh

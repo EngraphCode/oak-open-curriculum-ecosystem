@@ -2981,7 +2981,19 @@ is EMPTY; it merges at normal cadence at the full condition. Moon minted MCP-335
 lint guard) + MCP-336 (setLogger double-install) from this lane's rehomed pointers; the
 supertest-classification tension rides the morning card.
 
-## 2026-07-28 ~23:15Z — Raccoon turns Nocturne (0f6caa): MCP-241 COMPLETE — #621 merged 62ad075e7 at full condition
+## 2026-07-28 — MCP-332 corrected direction: worktree delivery node, stale primary draft abandoned
+
+<!-- fitness exceeded by 722 lines; needs consolidation -->
+
+Moon's final ruling accepted the worktree route for tracked, committable plan
+work. The canonical MCP-332 proposal is a fresh D23 delivery node at
+`.agent/plans/delivery/mcp-output-schemas-response-validation.plan.md`; the
+June backlog record remains untouched lineage. An earlier edit to that backlog
+record is still dirty in the primary checkout, is abandoned-in-place, and must
+never be committed. Moon owns its eventual disposition; do not restore,
+checkout, stash, reset, or otherwise clear it from another seat.
+
+## 2026-07-28 ~23:15Z — Raccoon turns Nocturne (0f6caa): MCP-241 COMPLETE — #621 merged SHA:62ad075e7 at full condition
 
 Lane closed end-to-end in one post-compaction window: resume map executed in order, three expert
 rounds absorbed pre-open (code-expert REQUEST-CHANGES ×5 cured, config PASS, test-expert ×2
@@ -3002,8 +3014,8 @@ Altair's; MCP-334 holds for a fresh seat; the registration trio MCP-335/336/337 
 ## 2026-07-29 ~07:05Z — Raccoon turns Nocturne (0f6caa): FOURTH COMPACTION RESUME MAP (seat continues; owner word "prepare for compaction")
 
 **Read this first at resume; it supersedes this seat's earlier maps.** Seat state is simple now:
-**claimless, no lane, awaiting routing.** MCP-241 is COMPLETE (slice one #618 = 7b0d88a09, slice
-two #621 = 62ad075e7, both merged at full condition, Linear Done, worktree pruned after both
+**claimless, no lane, awaiting routing.** MCP-241 is COMPLETE (slice one #618 = SHA:7b0d88a09, slice
+two #621 = SHA:62ad075e7, both merged at full condition, Linear Done, worktree pruned after both
 safety proofs, branch deleted with read-back). Nothing of this seat's is uncommitted anywhere
 except napkin appends (ride-through by design); the director-handoff dirty file is the fleet's,
 not this seat's.
@@ -3053,7 +3065,7 @@ Also ruled this morning: Copilot STANDING at PR-open for source PRs (what #621 d
 doctrine); MCP-309 submission blockedBy the four upstream API defects (Aakesh's fixes, ours to
 chase).
 
-## #620 merge morning (Altair, ~07:32Z; merged 31c958349)
+## #620 merge morning (Altair, ~07:32Z; merged SHA:31c958349)
 
 1. **The install test certified my dirty tree, not the commit**: the root .gitignore silently
    swallowed the plugin's .mcp.json; `claude plugin install` read the untracked on-disk copy and
@@ -3165,7 +3177,7 @@ hazard flag, not noise.
   platform sessions (019fac* matched three this morning) — prefix-identity is coarser than
   session-identity at the platform layer.
 
-## 2026-07-29 ~09:00Z — Raccoon turns Nocturne (0f6caa): MCP-338 COMPLETE — #622 merged 2d2a45bf6; the four-round convergence ledger and its mechanics
+## 2026-07-29 ~09:00Z — Raccoon turns Nocturne (0f6caa): MCP-338 COMPLETE — #622 merged SHA:2d2a45bf6; the four-round convergence ledger and its mechanics
 
 Owner's supertest-by-boundary ruling encoded across SIX doctrine surfaces (routed as one file;
 the expert sweeps grew it honestly: testing-strategy.md, testing-patterns.md,
@@ -3308,14 +3320,14 @@ load-bearing facts are repeated here).
 
 ### What landed this window
 
-1. **MCP-338 / PR #622 MERGED** (2d2a45bf6, head 1317f1f1b, ancestor-verified). The owner's
+1. **MCP-338 / PR #622 MERGED** (SHA:2d2a45bf6, head SHA:1317f1f1b, ancestor-verified). The owner's
    supertest-by-boundary ruling now governs six surfaces: testing-strategy.md,
    testing-patterns.md, test-coverage-review-lens.md, test-immediate-fails.md (items 9+21),
    ADR-078 (five scope-words), app TESTING.md. Zero test files moved — all 14 src supertest
    integration files verified in-process first-hand.
 2. **MCP-344 E1 evidence** — comment ac0850d3 on the ticket. **MCP-307 E2 security re-pass**
    — comment 79061ca6. Both complete; verdicts below.
-3. Hygiene commit 48eebe430 (fleet append surfaces).
+3. Hygiene commit SHA:48eebe430 (fleet append surfaces).
 
 ### MCP-344 E1 — the answer, and the one client that decides it
 
@@ -3323,7 +3335,7 @@ Question: does a path-bearing PRM issuer (`https://host/mcp`) survive each clien
 discovery? Verdicts, sources read first-hand 2026-07-29:
 
 - **Claude Code: PASS, HIGH confidence.** Read out of the shipped binary
-  (~/.local/share/claude/versions/2.1.220, build 2026-07-24T22:17:45Z, sha 4073f5959): the
+  (~/.local/share/claude/versions/2.1.220, build 2026-07-24T22:17:45Z, sha SHA:4073f5959): the
   discovery-URL builder emits path-inserted OAuth first, then path-inserted OIDC, then
   path-appended OIDC. For a path-bearing issuer there is **no bare-root candidate at all** —
   Claude Code can never hit www's root well-known under the collapse layout. (Method: binary
@@ -3415,7 +3427,7 @@ first-hand before transmission (F1/F2/F3/wildcard all confirmed in source):
 ### Index of homes (the founding-instance failure is losing this map)
 
 MCP-344 E1 evidence + probe design → Linear MCP-344 comment ac0850d3. MCP-307 E2 adjudication →
-Linear MCP-307 comment 79061ca6. Doctrine → merged at 2d2a45bf6. Round ledgers and the terminal-
+Linear MCP-307 comment 79061ca6. Doctrine → merged at SHA:2d2a45bf6. Round ledgers and the terminal-
 round criterion → PR #622 comments 5115174283 / 5115266653. MCP-343 (headOfStream extraction) and
 the e2e-tier reconciliation lane (ADR-161 decision text, test-expert template §214-237,
 sentry-cli-usage §541-547, the e2e-dir sentence) → Director-held, unowned. This entry → the map.
@@ -3469,7 +3481,7 @@ with the 242-era work). Thursday chain: 4 upstream defects + MCP-353 + PostHog s
 ## 2026-07-29 ~10:33Z — Lynx: RESUME-MAP DELTA (arrivals at the compaction boundary; supersedes the 10:30Z fleet lines)
 
 - **Raccoon WRAPPED at owner word; both evidence gates COMPLETE** (claims closed with evidence,
-  napkin write-up in commit 472ba21c6; handoff 9531e8fc self-contained). Owner-named successor:
+  napkin write-up in commit SHA:472ba21c6; handoff 9531e8fc self-contained). Owner-named successor:
   **Osprey hunts Drift (1c3996)** — expect its team-start; the handoff needs nothing from this seat
   to be actionable. E1 verdicts (Linear ac0850d3): Claude Code PASSES path-inserted discovery
   (read from the shipped binary — no bare-root fetch in its candidate list); claude.ai/Desktop
@@ -3482,7 +3494,7 @@ with the 242-era work). Thursday chain: 4 upstream defects + MCP-353 + PostHog s
 - **Reordering fact (Raccoon's probe)**: the www edge route is NOT live (404s today — PR #551
   unmerged/unapplied); every "Cloudflare routes www" premise is INTENDED state; MCP-344 + MCP-307
   are ONE sequencing problem, not two tickets.
-- Verify at resume: whether this seat's 10:05–10:33Z napkin entries rode commit 472ba21c6 or await
+- Verify at resume: whether this seat's 10:05–10:33Z napkin entries rode commit SHA:472ba21c6 or await
   the next warden batch (ordering of appends vs Raccoon's commit unknown from here).
 
 ## 2026-07-29 ~10:38Z — Lynx: cricket A/B data point — ping-induced re-run flips a delivered verdict (for the tally)
@@ -3545,7 +3557,7 @@ with the 242-era work). Thursday chain: 4 upstream defects + MCP-353 + PostHog s
 
 ## 2026-07-29 ~11:45Z — Lynx (9e8a61), Director: env-ceremony window — push saga, preview project, four mints
 
-- .env.example consolidated (one PostHog section, JSON-array sinks; be978aa71 pushed). Landing took THREE
+- .env.example consolidated (one PostHog section, JSON-array sinks; SHA:be978aa71 pushed). Landing took THREE
   pre-push failures, two distinct causes, both first-hand: (1) my own .env.local rebuild selected posthog
   with a placeholder key → strict startup refusal → test:ui webServer dead (validator correct; the sandbox
   hypothesis was DISPROVEN by an unsandboxed retry — change one variable per rerun); (2) with the real key:
@@ -3645,7 +3657,7 @@ heartbeat b06ivcl3a (240s dual-surface loop, persistent, fail-loud — silence =
 b6voyd0ur (retired-only, age-stripped+squeezed keys, host-sleep guard).
 
 **Fleet**: Osprey = BRAND BATCH (MCP-366→365→367→368; the owner copy sign-off (365) and widget pixels
-(368) are CARDS from the lane); Altair = #628 settle at head ed0336c96 (ten rounds closed under the
+(368) are CARDS from the lane); Altair = #628 settle at head SHA:ed0336c96 (ten rounds closed under the
 owner's ratchet regime; at FULL CONDITION the merge-vs-hold-for-MG(policy look) question routes to THIS
 SEAT — never solo, card if owner's; MCP-303 armed, owner-attended, go PREEMPTS); Europa = MCP-360 one-PR
 landing (31-file single-invariant story, adjudicated; MCP-373 follows it); Schooner = frozen, claim
@@ -3664,7 +3676,7 @@ this branch; pair era until then); (3) cricket round 5 at resume; (4) next warde
 this boundary — the successor's FIRST mechanical act is RE-ARM all three (watcher canonical block from
 comms-all-channels-watcher.md; the 240s dual-surface heartbeat loop; F-75 v5 age-stripped+squeezed)
 plus the MANDATORY foreground gap sweep; the v2 map's "monitors survive, verify" line does NOT apply
-to this boundary. F-75 observers told: silence is not retirement. (2) #628 MERGED at f93f2898 on this
+to this boundary. F-75 observers told: silence is not retirement. (2) #628 MERGED at SHA:f93f2898 on this
 seat's merge-now ruling (MG bound to the ticket, not the PR); MCP-353 Done — MCP-309's ticket gates
 are now ONLY Aakesh's four + MCP-339. Altair's mcp-353 worktree prune was permission-denied: owner-run
 or later grant, no work at risk. (3) OWNER-DIRECT ~14:26Z: the Altair seat is REPURPOSED; MCP-303
@@ -3750,17 +3762,17 @@ MCP-362 SLO pointer. None Thursday-gating.
 
 ## 2026-07-29 ~14:58Z — Lynx (9e8a61), Director: fleet-state deltas (afternoon, post-resume)
 
-- MCP-367 MERGED end-to-end inside an hour (PR #632, merge commit 1367726, full condition): wordmark
+- MCP-367 MERGED end-to-end inside an hour (PR #632, merge commit SHA:1367726, full condition): wordmark
   tracked on main at packages/design/oak-design-system/assets/logo-wide-black.svg; Altair notified
   Osprey direct; MCP-368 unblocked (queues behind Osprey's 366→365). Altair proceeds to MCP-371 s1–2.
   The untracked RGB_logo_wide_black.svg on the primary is now redundant to main's tracked copy —
   disposition (owner call, file-deletion-is-exceptional) rides tonight's rotation report.
 - Osprey FROZEN for compaction at owner word ~14:56Z (broadcast 14:57:13Z): claim 65332972 HELD, seat
   continues, monitors stopped BY INTENT — F-75 will show Osprey retired shortly; that is the announced
-  boundary, NOT retirement; no ping/escalation. MCP-366 landed+pushed e8ea88f1c; their resume block
+  boundary, NOT retirement; no ping/escalation. MCP-366 landed+pushed SHA:e8ea88f1c; their resume block
   (on-stream) carries tombstone cure → merge main → PR open; then 365 (owner-copy CARD before merge),
   then 368.
-- Owner dep-update commit 26cc2c44b ("chore: update mcp deps": MCP SDK 1.30, @posthog/mcp 0.10.1,
+- Owner dep-update commit SHA:26cc2c44b ("chore: update mcp deps": MCP SDK 1.30, @posthog/mcp 0.10.1,
   @ai-sdk/provider-utils >=3.0.98 override) sits LOCAL-UNPUSHED on coordination; it swept in this
   seat's napkin/handoff edits (content preserved). Push left to the owner (offered the lockfile
   rebuild-survivability test + push-at-green). Index.lock collision during his commit window was the
@@ -3770,14 +3782,55 @@ MCP-362 SLO pointer. None Thursday-gating.
   supplied without checkable evidence), the calibrated known mode; substance stands, no redirection;
   cure bound = frames carry dispatch evidence verbatim. Verdict-agreement axis unaffected.
 
-## 2026-07-28 — MCP-332 corrected direction: worktree delivery node, stale primary draft abandoned
+## 2026-07-29 ~15:40Z — Lynx (9e8a61), Director: rotation in flight + owner-directed lane swap routed
 
-<!-- fitness exceeded by 722 lines; needs consolidation -->
+- ROTATION (owner word ~15:10Z, early at his ask — 24h max, not target): owner dep-update pushed
+  (SHA:26cc2c44b; first push refused by the pre-push gate = MCP-359 test:ui env shape, cured by the
+  one-invocation sinks toggle; gate also proves the dep bump green end-to-end). Merge-main committed
+  SHA:cd15b25a9 — conflicts: napkin UNION (main's MCP-332 section kept, + seam blank line for MD022);
+  tally report THEIRS (main's CLOSED two-pair record with quartet succession —
+  cricket-quartet-tally-2026-07-29.md is now the operating record; QUARTET ACTIVATES on coordination
+  at this merge, round 6+ = 8 dispatches). Hub type-check failure at push #2 was machine-local stale
+  .next (validator.ts → missing routes.js) — cured by rebuild, NOT a tree defect. PR #633 open
+  (untracked-exception class per CONTRIBUTING — daily rotation, no product story); settle watch
+  b1vc6p2wr armed (checks-by-name + MERGEABLE + runs-per-head legs). At merge: cut
+  coordination/estate-2026-07-29 from the merged tip, push, tree-preserving switch, re-home broadcast.
+- DEPCRUISE ORDERING HAZARD (Altair-routed, config-expert confirmed): adjudicated 26615c86 — the
+  demos/oak-design-showcase/ exclusion RIDES this rotation (primary-only accommodation for the
+  untracked scaffold); Altair's absorb PR merges main AFTER and removes it; no mask window in this
+  order. Residual: the primary's untracked stale scaffold copy + owner's RGB_logo_wide_black.svg
+  disposition — owner call on the rotation report.
+- OWNER-DIRECT LANE SWAP (~15:27Z, "Osprey and Europa temporarily swap lanes"): routed — Europa →
+  brand batch (adopts 65332972; Osprey's freeze broadcast = the handoff record; my 86d9189e +
+  unblock ecf1f03c after Europa awaited a reply the frozen Osprey cannot give); Osprey-at-resume →
+  MCP-360/#631 supervision + MCP-373 (my directed event + Europa's handoff record
+  c41e35d2....json; worktree per the handoff record (machine-local path in the record itself), 31-file review cure
+  UNCOMMITTED-frozen there, head SHA:48d581188). Swap broadcast sent; TEMPORARY, reverts at owner word.
+- Schooner picked up MCP-351 at owner-direct word (claim f1e7ccab, two-stage contract); MCP-143+271
+  noted blocked-on-humans on their tickets.
 
-Moon's final ruling accepted the worktree route for tracked, committable plan
-work. The canonical MCP-332 proposal is a fresh D23 delivery node at
-`.agent/plans/delivery/mcp-output-schemas-response-validation.plan.md`; the
-June backlog record remains untouched lineage. An earlier edit to that backlog
-record is still dirty in the primary checkout, is abandoned-in-place, and must
-never be committed. Moon owns its eventual disposition; do not restore,
-checkout, stash, reset, or otherwise clear it from another seat.
+## 2026-07-29 ~15:41Z — Osprey hunts Drift (1c3996): owner word on handover ceremony grade
+
+- OWNER WORD (in-session, ~15:40Z, during the Osprey↔Europa lane swap): "I expect a fully
+  handover probably needs almost a full /oak-wrap". Deliberate lane handovers carry wrap-grade
+  ceremony — safety evidence, conservation map, four-section PDR-063 record, gate-state honesty —
+  not just claim adoption. Worked instance: the brand-batch side of this swap rode a full wrap
+  (14:56Z freeze broadcast 9d9bd8f5) PLUS a claim-anchored handoff record; Europa's MCP-360 side
+  rode a four-section record with a validation table, falsifiers, and an honest
+  canonical-check-not-yet-run gap, recounted first-hand at pickup. Candidate graduation home:
+  PDR-063 §Deliberate succession (record contents should approach wrap §safety/conservation).
+
+## 2026-07-29 ~15:55Z — Osprey hunts Drift (1c3996): PR #631 fresh-eyes pass (owner-invoked)
+
+- WORKED INSTANCE, handover-verification pays: Europa's four-section MCP-360 record was excellent,
+  and its ONE unverified transmitted claim ("the local cure includes the Sonar fix") was the one
+  false claim — the uncommitted diff never touched the flagged construct. Caught by reading the
+  actual Sonar finding (single MAJOR S7746, Promise.reject in a test fake) and grepping the diff;
+  cured in-worktree before the push, saving a full CI round. The record's own falsifier list
+  pointed at exactly this ("complete canonical check or exact-head CI fails after the cure is
+  committed") — falsifier lists in handoff records WORK; verify the claim they guard first.
+- Play seed (association, not finding): three review bots on one PR, two throttled by
+  spend/quota (claude[bot] org overage skip; Copilot second-round quota fail) — this reminds me
+  of MCP-376's reviewer-delivery defects; a "review supply chain reliability" family may be
+  forming. Second seed: T2/T3 were the same defect found independently by Copilot and Codex —
+  independent-finder convergence as the strongest review signal (quartet doctrine's sibling).

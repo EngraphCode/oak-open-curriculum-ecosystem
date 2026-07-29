@@ -58,8 +58,10 @@ teacher work is already happening.
 ## Success looks like
 
 A live listing reached in one click from a shared link; early users
-signing in through the invite gate; usage visible under the ratified
-privacy posture (no teacher-level identity, no captured content);
+signing in through production Clerk (public beta from the switch —
+no invite gate, per the 2026-07-29 ruling below); usage visible under
+the ratified privacy posture (no teacher-level identity, no captured
+content);
 the expert-authored guidance served to assistants and signed off; and
 two-way signposting with Oak's web surfaces working.
 
