@@ -14,15 +14,28 @@ const ORIENTATION_GUIDANCE = 'packages/sdks/oak-curriculum-sdk/src/mcp/orientati
 /**
  * MCP-300 deleted prerequisite-guidance.ts: the orientation constants
  * relocated to orientation-guidance.ts; the three call-this-first imperative
- * strings retired with the removed behaviour.
+ * strings retired with the removed behaviour. MCP-366 then retired the
+ * per-response context hint (C005) — orientation guidance consolidated to
+ * the server instructions channel.
  */
 const ORIENTATION_ERA_LINEAGE_ENTRIES = [
   ['C001', [ORIENTATION_GUIDANCE]],
   ['C002', []],
   ['C003', []],
   ['C004', []],
-  ['C005', [ORIENTATION_GUIDANCE]],
+  ['C005', []],
   ['C006', [ORIENTATION_GUIDANCE]],
+] as const;
+
+/**
+ * MCP-366 removed the per-response context hint: the hint generator's
+ * anchored body (C056, agent-support-tool-metadata.ts) and the response
+ * inclusion line (C062, universal-tool-shared.ts) retired with the
+ * behaviour, alongside the C005 hint export above.
+ */
+const CONTEXT_HINT_RETIREMENTS = [
+  ['C056', []],
+  ['C062', []],
 ] as const;
 
 /**
@@ -127,6 +140,7 @@ const UNDER_THE_HOOD_BAKE_RETIREMENTS = [
 /** All post-baseline lineage, composed for the current-item lineage map. */
 export const POST_BASELINE_LINEAGE_ENTRIES = [
   ...ORIENTATION_ERA_LINEAGE_ENTRIES,
+  ...CONTEXT_HINT_RETIREMENTS,
   ...PREREQUISITE_INJECTION_RETIREMENTS,
   ...LANDING_REACT_LINEAGE_ENTRIES,
   ...REGISTRATION_DESCRIPTOR_RELOCATIONS,

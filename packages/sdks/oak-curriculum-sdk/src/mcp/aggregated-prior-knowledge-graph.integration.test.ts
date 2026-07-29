@@ -41,7 +41,7 @@ const knownUnitSlug: string = firstUnitSlug;
 /**
  * Schema-driven narrowing of the carrier's loose `structuredContent` — the
  * test-boundary alternative to a type assertion. Non-strict: the family
- * envelope adds `summary` / `oakContextHint` / `status` alongside the
+ * envelope adds `summary` / `status` alongside the
  * subgraph fields.
  */
 const SUBGRAPH_ENVELOPE = z.object({

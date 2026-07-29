@@ -6,7 +6,6 @@ import {
   evidenceForMoveHeadlines,
 } from '@oaknational/graph-corpus-sdk/eef-strands';
 import { typeSafeKeys } from '../types/helpers/type-helpers.js';
-import { OAK_CONTEXT_HINT } from './orientation-guidance.js';
 import {
   GET_EEF_EVIDENCE_INPUT_SCHEMA,
   GET_EEF_EVIDENCE_TOOL_DEF,
@@ -190,10 +189,11 @@ describe('eefEvidenceToCallToolResult (egress membrane — ADR-193, house dual s
     }
     expect(JSON.parse(serialised.text)).toEqual(envelope);
 
+    // toEqual is exact-match: an extra key fails, so this doubles as the
+    // absence proof that no oakContextHint rides the EEF egress (MCP-366).
     expect(vendor.structuredContent).toEqual({
       ...envelope,
       summary,
-      oakContextHint: OAK_CONTEXT_HINT,
       status: 'success',
     });
 
@@ -228,13 +228,12 @@ describe('eefEvidenceToCallToolResult (egress membrane — ADR-193, house dual s
     expect(vendor.structuredContent).toEqual({
       ...envelope,
       summary: summariseEefEnvelope(envelope, 'headline'),
-      oakContextHint: OAK_CONTEXT_HINT,
       status: 'success',
     });
   });
 
   it('pins the envelope keys so envelope growth cannot be silently clobbered by the decoration spread', () => {
-    // formatToolResponse spreads summary/oakContextHint/status AFTER the
+    // formatToolResponse spreads summary/status AFTER the
     // envelope. If the envelope ever grows a key with one of those names,
     // the decoration value overwrites the envelope's value in
     // structuredContent — this guard makes corpus-envelope key growth loud

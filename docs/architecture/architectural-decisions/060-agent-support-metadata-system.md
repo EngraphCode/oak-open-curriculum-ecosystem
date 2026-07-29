@@ -34,6 +34,14 @@ Accepted (Revised)
 > rides the `instructions` field and response-payload context hints only.
 > References to the old filename and to description-channel guidance below
 > reflect the accepted-state context.
+>
+> **Update (29 July 2026, MCP-366, owner-directed)**: channel 2 below (context
+> hints in every tool response) is RETIRED with its generator —
+> `generateContextHint` is deleted and `formatToolResponse` is test-pinned to
+> never carry `oakContextHint`. The metadata now drives one broadcast channel:
+> the server `instructions` field at initialise. References to context hints
+> below reflect the accepted-state context; ADR-058 records the accepted
+> residual risk of the consolidation.
 
 ## Context
 

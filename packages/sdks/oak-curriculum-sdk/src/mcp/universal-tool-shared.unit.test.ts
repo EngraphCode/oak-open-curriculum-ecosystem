@@ -242,30 +242,15 @@ describe('formatToolResponse', () => {
       expect(result.structuredContent).toHaveProperty('total', 5);
     });
 
-    it('includes oakContextHint by default', () => {
+    // The seam guarantee is injection-absence: the formatter adds no
+    // orientation field of its own. Caller payloads spread through verbatim
+    // by design (stripping a magic key would silently mutate tool data);
+    // estate-wide absence at the SOURCE is held by MCP-366's deletion of
+    // every producer and pinned by the content audit registry.
+    it('injects no oakContextHint — orientation guidance lives only in server instructions (MCP-366)', () => {
       const result = formatToolResponse({
         summary: 'Summary',
         data: { items: [] },
-      });
-
-      expect(result.structuredContent).toHaveProperty('oakContextHint');
-    });
-
-    it('includes oakContextHint when includeContextHint is true', () => {
-      const result = formatToolResponse({
-        summary: 'Summary',
-        data: { items: [] },
-        includeContextHint: true,
-      });
-
-      expect(result.structuredContent).toHaveProperty('oakContextHint');
-    });
-
-    it('does NOT include oakContextHint when includeContextHint is false', () => {
-      const result = formatToolResponse({
-        summary: 'Summary',
-        data: { items: [] },
-        includeContextHint: false,
       });
 
       expect(result.structuredContent).not.toHaveProperty('oakContextHint');

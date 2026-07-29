@@ -1,3 +1,28 @@
+# [1.120.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.119.0...v1.120.0) (2026-07-29)
+
+
+### Bug Fixes
+
+* **design-showcase:** derive the test server port per worktree ([57b9228](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/57b9228f25f867e4563c67f7ccf9c0b40ad92aec))
+
+
+### Features
+
+* **mcp-app:** remove the per-response oakContextHint from tool responses ([e8ea88f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e8ea88f1cbd8ef67f1bb1cd537890f42ce93ade6))
+
+# [1.119.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.118.0...v1.119.0) (2026-07-29)
+
+
+### Bug Fixes
+
+* **agent-tools:** bind watcher liveness to its watched comms source and honour the declared coordination home ([58324ee](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/58324ee0b896d996b39939268f11b1a5c67813db))
+* **agent-tools:** keep comms default private ([48d5811](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/48d581188ab78c7c9c29977cd1017f1f3b570377))
+
+
+### Features
+
+* **agent-tools:** default comms watcher paths ([12708f7](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/12708f7094df502ed5ba43d392118dc8730ee325))
+
 # [1.118.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.117.0...v1.118.0) (2026-07-29)
 
 

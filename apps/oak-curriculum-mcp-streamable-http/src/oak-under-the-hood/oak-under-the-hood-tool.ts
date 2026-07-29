@@ -101,8 +101,9 @@ const OAK_UNDER_THE_HOOD_TOOL_SUMMARY =
  * `content` array (one-line summary, then the orientation digest as markdown)
  * plus `structuredContent` carrying the same body and the informational
  * citations. The body appears on BOTH channels because major clients each
- * deliver only one. No `oakContextHint` (separation firewall, held
- * structurally).
+ * deliver only one. The curriculum separation firewall is held structurally:
+ * this file builds its result locally and takes no dependency on the
+ * curriculum SDK's response helpers (ADR-041).
  */
 export function buildOakUnderTheHoodToolResult(): CallToolResult {
   const summary: TextContent = { type: 'text', text: OAK_UNDER_THE_HOOD_TOOL_SUMMARY };

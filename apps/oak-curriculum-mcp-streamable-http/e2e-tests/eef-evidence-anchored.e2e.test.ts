@@ -59,7 +59,6 @@ const EEF_ENVELOPE = z.object({
   frontier: z.array(z.unknown()),
   provenance: z.object({ source: z.unknown(), licence: z.unknown(), caveats: z.unknown() }),
   summary: z.string(),
-  oakContextHint: z.string(),
   status: z.literal('success'),
 });
 
