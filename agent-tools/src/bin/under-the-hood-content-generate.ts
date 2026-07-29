@@ -13,6 +13,7 @@ import { isErr } from '@oaknational/result';
 import { resolveRepoRoot } from '../core/repo-root.js';
 import {
   GENERATED_MODULE_PATH,
+  NODE_FILE_IO,
   checkContentModule,
   generateContentModule,
 } from '../under-the-hood-content-generate/generator.js';
@@ -20,7 +21,7 @@ import {
 async function main(): Promise<number> {
   const repoRoot = resolveRepoRoot(import.meta.url);
   if (argv.includes('--check')) {
-    const outcome = await checkContentModule(repoRoot);
+    const outcome = await checkContentModule(repoRoot, NODE_FILE_IO);
     if (outcome.ok) {
       stdout.write(`${outcome.detail}\n`);
       return 0;
@@ -31,7 +32,7 @@ async function main(): Promise<number> {
     );
     return 1;
   }
-  const generated = await generateContentModule(repoRoot);
+  const generated = await generateContentModule(repoRoot, NODE_FILE_IO);
   if (isErr(generated)) {
     stderr.write(`${generated.error}\n`);
     return 1;

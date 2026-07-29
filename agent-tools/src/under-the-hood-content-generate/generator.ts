@@ -136,15 +136,44 @@ export const OAK_UNDER_THE_HOOD_ORIENTATION = ${JSON.stringify(digest)} as const
 `;
 }
 
+/**
+ * The generator's filesystem seam. Required (no default): the CLI passes
+ * `NODE_FILE_IO`; tests inject simple fakes as arguments (testing-strategy
+ * §Integration — the classifier is the boundary, not the tool).
+ */
+export interface GeneratorFileIo {
+  /** Resolves undefined when the file cannot be read. */
+  readonly readTextFile: (path: string) => Promise<string | undefined>;
+  /** May reject; the generator translates the failure to Err at this boundary. */
+  readonly writeTextFile: (path: string, content: string) => Promise<void>;
+}
+
+/** The production seam over node:fs. */
+export const NODE_FILE_IO: GeneratorFileIo = {
+  readTextFile: async (path: string): Promise<string | undefined> => {
+    try {
+      return await readFile(path, 'utf8');
+    } catch {
+      return undefined;
+    }
+  },
+  writeTextFile: async (path: string, content: string): Promise<void> => {
+    await writeFile(path, content, 'utf8');
+  },
+};
+
 /** Generates the module from the repo's canonical and writes it. */
-export async function generateContentModule(repoRoot: string): Promise<Result<string, string>> {
-  const module = await renderFromRepo(repoRoot);
+export async function generateContentModule(
+  repoRoot: string,
+  io: GeneratorFileIo,
+): Promise<Result<string, string>> {
+  const module = await renderFromRepo(repoRoot, io);
   if (isErr(module)) {
     return module;
   }
   const outputPath = join(repoRoot, GENERATED_MODULE_PATH);
   try {
-    await writeFile(outputPath, module.value, 'utf8');
+    await io.writeTextFile(outputPath, module.value);
   } catch (error: unknown) {
     return err(
       `Cannot write ${GENERATED_MODULE_PATH}: ` +
@@ -157,13 +186,14 @@ export async function generateContentModule(repoRoot: string): Promise<Result<st
 /** Regenerates in memory and reports drift against the committed module. */
 export async function checkContentModule(
   repoRoot: string,
+  io: GeneratorFileIo,
 ): Promise<{ readonly ok: boolean; readonly detail: string }> {
-  const expected = await renderFromRepo(repoRoot);
+  const expected = await renderFromRepo(repoRoot, io);
   if (isErr(expected)) {
     return { ok: false, detail: expected.error };
   }
   const outputPath = join(repoRoot, GENERATED_MODULE_PATH);
-  const actual = await readFileOrUndefined(outputPath);
+  const actual = await io.readTextFile(outputPath);
   if (actual === undefined) {
     return { ok: false, detail: `Missing generated module: ${GENERATED_MODULE_PATH}` };
   }
@@ -173,8 +203,11 @@ export async function checkContentModule(
   return { ok: true, detail: 'Under-the-hood content module is up to date.' };
 }
 
-async function renderFromRepo(repoRoot: string): Promise<Result<string, string>> {
-  const canonical = await readFileOrUndefined(join(repoRoot, CANONICAL_SKILL_PATH));
+async function renderFromRepo(
+  repoRoot: string,
+  io: GeneratorFileIo,
+): Promise<Result<string, string>> {
+  const canonical = await io.readTextFile(join(repoRoot, CANONICAL_SKILL_PATH));
   if (canonical === undefined) {
     return err(`Cannot read canonical skill: ${CANONICAL_SKILL_PATH}`);
   }
@@ -183,12 +216,4 @@ async function renderFromRepo(repoRoot: string): Promise<Result<string, string>>
     return digest;
   }
   return ok(renderGeneratedModule(digest.value));
-}
-
-async function readFileOrUndefined(path: string): Promise<string | undefined> {
-  try {
-    return await readFile(path, 'utf8');
-  } catch {
-    return undefined;
-  }
 }

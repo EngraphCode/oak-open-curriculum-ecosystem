@@ -101,10 +101,13 @@ data-sensitivity rule.
 
 ### Negative / cost
 
-- The public-resource set grows by one. Each addition remains a deliberate,
-  security-reviewed classification — ADR-057's discipline is retained, not relaxed.
-- App-local entries carry a small literal duplication (the URI appears in the registration
-  and the allowlist); the drift-guard test is the mitigation.
+- When an app-local resource is next classified public, the public-resource set grows by
+  one. Each such addition remains a deliberate, security-reviewed classification —
+  ADR-057's discipline is retained, not relaxed. (No app-local instance exists since
+  MCP-353 deleted the founding one; see above.)
+- Under the same future condition, an app-local entry carries a small literal duplication
+  (the URI appears in the registration and the allowlist); the drift-guard test is the
+  mitigation.
 
 ### Neutral
 

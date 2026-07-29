@@ -9,7 +9,7 @@ import { describe, expect, it } from 'vitest';
 
 import { buildDigest, renderGeneratedModule } from './generator.js';
 import { EXCLUDED_SECTION_HEADINGS, SERVED_SECTION_HEADINGS } from './sections.js';
-import { syntheticCanonical } from './test-helpers/temp-canonical-fixture.js';
+import { syntheticCanonical } from './test-helpers/synthetic-canonical.js';
 
 /** The production classification, passed explicitly (buildDigest has no default). */
 const PRODUCTION_CLASSIFICATION = {
