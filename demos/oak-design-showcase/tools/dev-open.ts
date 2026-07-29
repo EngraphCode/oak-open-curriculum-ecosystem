@@ -10,11 +10,14 @@
  * spinning out the deadline.
  */
 import { spawn } from 'node:child_process';
+import { createRequire } from 'node:module';
 import { platform } from 'node:os';
 
 import { openerCommand } from './opener-command.js';
 
-const URL_TO_OPEN = 'http://localhost:3020';
+// Keep in step with the `dev`/`start` scripts in package.json.
+const PORT = 3020;
+const URL_TO_OPEN = `http://localhost:${PORT}`;
 const POLL_INTERVAL_MS = 500;
 const OPEN_DEADLINE_MS = 60_000;
 
@@ -46,11 +49,16 @@ async function openWhenReady(devExited: AbortSignal): Promise<void> {
   }
 }
 
+// Never a PATH search (Sonar S4036, the trusted-git doctrine): the Next
+// binary is resolved to its absolute installed path and run under the
+// current node binary.
+const nextBin = createRequire(import.meta.url).resolve('next/dist/bin/next');
+
 const devExit = new AbortController();
-const dev = spawn('pnpm', ['dev'], { stdio: 'inherit' });
+const dev = spawn(process.execPath, [nextBin, 'dev', '-p', String(PORT)], { stdio: 'inherit' });
 dev.on('exit', (code, signal) => {
   devExit.abort();
   // A signal-killed server (OOM, kill) is a failure, never a success.
   process.exitCode = code ?? (signal === null ? 0 : 1);
 });
-void openWhenReady(devExit.signal);
+await openWhenReady(devExit.signal);
