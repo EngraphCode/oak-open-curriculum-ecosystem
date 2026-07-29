@@ -6,14 +6,21 @@ import { isErr, unwrapErr } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
 import { generateContentModule } from './generator.js';
-import { createTempRepoWithCanonicalOnly } from './test-helpers/temp-canonical-fixture.js';
+import {
+  createTempRepoWithCanonicalOnly,
+  removeTempRepo,
+} from './test-helpers/temp-canonical-fixture.js';
 
 describe('generateContentModule (integration)', () => {
   it('surfaces a filesystem write failure as Err, never a rejection', async () => {
     // The fixture carries the canonical but NOT the generated module's parent directory.
     const root = await createTempRepoWithCanonicalOnly();
-    const result = await generateContentModule(root);
-    expect(isErr(result)).toBe(true);
-    expect(unwrapErr(result)).toMatch(/Cannot write/);
+    try {
+      const result = await generateContentModule(root);
+      expect(isErr(result)).toBe(true);
+      expect(unwrapErr(result)).toMatch(/Cannot write/);
+    } finally {
+      await removeTempRepo(root);
+    }
   });
 });

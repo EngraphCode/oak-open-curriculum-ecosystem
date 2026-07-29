@@ -46,13 +46,36 @@ interface FenceDelimiter {
   readonly rest: string;
 }
 
+/** Linear character scan — no regex, so no backtracking (Sonar S8786). */
 function parseFenceDelimiter(line: string): FenceDelimiter | undefined {
-  const match = /^ {0,3}(`{3,}|~{3,})(.*)$/.exec(line);
-  const run = match?.[1];
-  if (run === undefined) {
+  const index = fenceIndent(line);
+  const char = line.charAt(index);
+  if (char !== '`' && char !== '~') {
     return undefined;
   }
-  return { char: run.charAt(0), length: run.length, rest: match?.[2] ?? '' };
+  let length = 0;
+  while (line.charAt(index + length) === char) {
+    length += 1;
+  }
+  const rest = line.slice(index + length);
+  return isValidFence(char, length, rest) ? { char, length, rest } : undefined;
+}
+
+/** Up to three leading spaces; more makes the line indented code, not a fence. */
+function fenceIndent(line: string): number {
+  let index = 0;
+  while (index < 3 && line.charAt(index) === ' ') {
+    index += 1;
+  }
+  return index;
+}
+
+/**
+ * CommonMark: a fence run is three or more delimiters, and a backtick
+ * fence's info string may not contain a backtick (a tilde fence's may).
+ */
+function isValidFence(char: string, length: number, rest: string): boolean {
+  return length >= 3 && !(char === '`' && rest.includes('`'));
 }
 
 /** CommonMark close: same delimiter character, an equal-or-longer run, nothing after it. */

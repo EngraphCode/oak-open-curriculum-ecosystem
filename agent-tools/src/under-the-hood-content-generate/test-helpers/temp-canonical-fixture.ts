@@ -3,14 +3,14 @@
  * for exercising the generator's filesystem boundary. Owns the real IO so
  * test files stay IO-free (ADR-078 / no-real-io-in-tests).
  */
-import { mkdir, mkdtemp, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
 import { EXCLUDED_SECTION_HEADINGS, SERVED_SECTION_HEADINGS } from '../sections.js';
 
 /** A minimal canonical carrying every classified heading, in list order. */
-function syntheticCanonical(): string {
+export function syntheticCanonical(): string {
   const served = SERVED_SECTION_HEADINGS.map((h, i) => `${h}\n\nServed body ${i}.`);
   const excluded = [...EXCLUDED_SECTION_HEADINGS.keys()].map(
     (h, i) => `${h}\n\nExcluded body ${i}.`,
@@ -31,4 +31,9 @@ export async function createTempRepoWithCanonicalOnly(): Promise<string> {
     'utf8',
   );
   return root;
+}
+
+/** Removes a fixture root created above (run in `finally` so failures clean up too). */
+export async function removeTempRepo(root: string): Promise<void> {
+  await rm(root, { recursive: true, force: true });
 }

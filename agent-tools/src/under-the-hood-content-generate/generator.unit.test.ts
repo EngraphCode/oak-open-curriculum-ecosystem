@@ -9,15 +9,7 @@ import { describe, expect, it } from 'vitest';
 
 import { buildDigest, renderGeneratedModule } from './generator.js';
 import { EXCLUDED_SECTION_HEADINGS, SERVED_SECTION_HEADINGS } from './sections.js';
-
-/** A minimal canonical carrying every classified heading, in list order. */
-function syntheticCanonical(): string {
-  const served = SERVED_SECTION_HEADINGS.map((h, i) => `${h}\n\nServed body ${i}.`);
-  const excluded = [...EXCLUDED_SECTION_HEADINGS.keys()].map(
-    (h, i) => `${h}\n\nExcluded body ${i}.`,
-  );
-  return `---\nname: under-the-hood\n---\n\n${[...served, ...excluded].join('\n\n')}\n`;
-}
+import { syntheticCanonical } from './test-helpers/temp-canonical-fixture.js';
 
 /** The production classification, passed explicitly (buildDigest has no default). */
 const PRODUCTION_CLASSIFICATION = {
