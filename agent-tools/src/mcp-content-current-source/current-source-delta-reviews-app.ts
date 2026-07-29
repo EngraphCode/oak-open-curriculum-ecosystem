@@ -110,7 +110,7 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/generated/oak-under-the-hood-content.ts': reviewed(
-    '170db37026a0426cc265eae4d92c2be5f55933cb875fe46a613d45cf4b4c2d39',
+    '775eeb6826d2538daa5c92905be153b0a7d46de53a9b60258f1d1a52e8852254',
     ['A010'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/generated/widget-html-content.ts': reviewed(

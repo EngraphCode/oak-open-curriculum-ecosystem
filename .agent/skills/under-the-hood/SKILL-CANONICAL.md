@@ -166,10 +166,10 @@ recited from memory):
   it; open a session with a start-right skill naming the outcome, close with
   `oak-wrap`); *What is all that machinery in
   `.agent/`?* (`.agent/HUMANS.md`). If the person is new to working with agentic
-  AI *in general* — not just new to this repository — offer them the repository's
-  portable `working-with-agentic-ai` primer first, a short repo-independent
-  introduction to working with AI coding agents, as a one-step declinable
-  prelude; then continue here.
+  AI *in general* — not just new to this repository — the repository carries a
+  portable `working-with-agentic-ai` primer: a short, repo-independent
+  introduction to working with AI coding agents. In a checkout of this
+  repository, offer it as a one-step declinable prelude; then continue here.
 - **Strategy and impact** order naturally as the README audience-routing block →
   `VISION.md` → `docs/domain/curriculum-guide.md` → the newest progress report
   (resolved live), with a pointer to where future reports land.

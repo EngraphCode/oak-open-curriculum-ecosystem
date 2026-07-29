@@ -87,6 +87,13 @@ function classificationDefect(
     );
   }
   const headings = sections.map((s) => s.heading);
+  const duplicates = [...new Set(headings.filter((h, i) => headings.indexOf(h) !== i))];
+  if (duplicates.length > 0) {
+    return (
+      `Duplicate section heading(s) in ${CANONICAL_SKILL_PATH} — headings must be unique or ` +
+      `a repeated section ships with no fresh classification decision:\n${duplicates.join('\n')}`
+    );
+  }
   const unclassified = headings.filter((h) => !served.includes(h) && !excluded.has(h));
   if (unclassified.length > 0) {
     return (

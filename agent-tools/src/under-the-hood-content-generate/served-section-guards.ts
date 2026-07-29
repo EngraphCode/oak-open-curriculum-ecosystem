@@ -63,9 +63,11 @@ function deepHeadingsOutsideFences(lines: readonly string[]): readonly string[] 
 /**
  * A raw-GitHub fetch-target URL form (`raw.githubusercontent.com`, or a
  * `/blob/<ref>/`, `/tree/<ref>/`, `/raw/<ref>/` path segment) matched as a
- * class, not a literal.
+ * class, not a literal. Case-insensitive: URL hostnames are case-insensitive,
+ * and over-matching a path segment is safe here (a false positive is a reword
+ * with a clear message).
  */
-const RAW_GITHUB_URL_FORM = /raw\.githubusercontent\.com|\/(?:blob|tree|raw)\/[^\s/]+\//;
+const RAW_GITHUB_URL_FORM = /raw\.githubusercontent\.com|\/(?:blob|tree|raw)\/[^\s/]+\//i;
 
 /**
  * A raw-GitHub fetch-target URL form inside a SERVED section is the

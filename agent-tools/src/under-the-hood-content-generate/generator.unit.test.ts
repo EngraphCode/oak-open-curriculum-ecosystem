@@ -108,6 +108,28 @@ describe('buildDigest', () => {
     expect(unwrapErr(result)).toContain('/tree/HEAD/');
   });
 
+  it('matches raw-GitHub URL forms case-insensitively (hostnames are case-insensitive)', () => {
+    const result = buildDigest(
+      '# A\n\nFetch `https://RAW.GITHUBUSERCONTENT.COM/o/r/main/x.md`.\n',
+      {
+        served: ['# A'],
+        excluded: new Map(),
+      },
+    );
+    expect(isErr(result)).toBe(true);
+    expect(unwrapErr(result)).toMatch(/Raw-GitHub URL form/);
+  });
+
+  it('fails loudly on duplicate canonical headings', () => {
+    const result = buildDigest('# A\n\nFirst.\n\n# A\n\nSecond copy.\n', {
+      served: ['# A'],
+      excluded: new Map(),
+    });
+    expect(isErr(result)).toBe(true);
+    expect(unwrapErr(result)).toMatch(/Duplicate section heading/);
+    expect(unwrapErr(result)).toContain('# A');
+  });
+
   it('accepts raw-GitHub URL forms inside excluded sections', () => {
     const canonical =
       '# A\n\nBody.\n\n## B\n\nFetch `https://raw.githubusercontent.com/o/r/main/x.md`.\n';
