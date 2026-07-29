@@ -61,4 +61,23 @@ describe('mcpAuth middleware (Integration)', () => {
       expect(req).not.toHaveProperty('auth');
     });
   });
+
+  describe('host validation (403, MCP-351)', () => {
+    it('rejects a disallowed Host with 403 Forbidden and no auth challenge', async () => {
+      const verifier = vi.fn<() => Promise<AuthInfo>>().mockResolvedValue(createFakeAuthInfo());
+
+      const middleware = mcpAuth(verifier, logger, ALLOWED_HOSTS);
+
+      const req = createMockExpressRequest({ token: 'test-token', host: 'evil.example' });
+      const res = createMockExpressResponse();
+      const next = vi.fn();
+
+      await middleware(req, res, next);
+
+      expect(next).not.toHaveBeenCalled();
+      expect(res.statusCode).toBe(403);
+      expect(res.getHeader('WWW-Authenticate')).toBeUndefined();
+      expect(req).not.toHaveProperty('auth');
+    });
+  });
 });

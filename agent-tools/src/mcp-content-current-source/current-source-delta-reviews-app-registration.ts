@@ -42,7 +42,7 @@ export const APP_REGISTRATION_DELTA_REVIEWS: Readonly<Record<string, CurrentSour
   'apps/oak-curriculum-mcp-streamable-http/src/registration-proof/current-source-guidance-registration-evidence.ts':
     excluded('49f654ce6379cab1f07621104b33c8407d7f3380c1c71a4dd31bd44423020469', VALIDATION_ONLY),
   'apps/oak-curriculum-mcp-streamable-http/src/registration-proof/current-source-registration-proof.ts':
-    excluded('69262ce768bb2f430c74643d230ec0172c57abee0ea13f15822558c9695306c5', VALIDATION_ONLY),
+    excluded('acc2fecf7dce1156c4d680ae61cfb930ffe485409854fca37a29a4cb8934e3fb', VALIDATION_ONLY),
   'apps/oak-curriculum-mcp-streamable-http/src/registration-proof/guidance-list-parity.ts':
     excluded('ebb75cfdf95db96e295c62b54fc8f63e349d0749e447dbefffedcb2355dc43df', VALIDATION_ONLY),
   'apps/oak-curriculum-mcp-streamable-http/src/registration-proof/guidance-read-parity.ts':

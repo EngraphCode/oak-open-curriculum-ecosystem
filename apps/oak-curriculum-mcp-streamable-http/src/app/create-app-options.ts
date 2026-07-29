@@ -23,7 +23,6 @@ export interface CreateAppOptions {
   readonly observability: HttpObservability;
   readonly toolHandlerOverrides?: ToolHandlerOverrides;
   readonly logger?: Logger;
-  readonly resourceUrl?: string;
   /** Returns built widget HTML for the MCP App resource. Prod: codegen constant; tests: trivial fake. (ADR-078) */
   readonly getWidgetHtml: () => string;
   /**

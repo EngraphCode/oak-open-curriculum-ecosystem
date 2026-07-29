@@ -86,6 +86,7 @@ describe('Oak: Under the Hood tool registration (integration)', () => {
       logger: createFakeLogger(),
       observability: createFakeHttpObservability(),
       searchRetrieval: createFakeSearchRetrieval(),
+      resourceUrl: 'https://probe.test/mcp',
       getWidgetHtml: () => '<!doctype html><html><body>test-widget</body></html>',
     });
 

@@ -1,66 +1,45 @@
-import { extractHostname } from '../../security.js';
-import { isAllowedHostname, isValidHostHeader } from '../../host-header-validation.js';
+import { ok, type Result } from '@oaknational/result';
+import { deriveSelfOrigin, type HostValidationError } from '../../host-validation-error.js';
+import { MCP_RESOURCE_PATH } from '../../served-origin.js';
 
 /**
  * Get MCP Resource URL for RFC 8707 validation.
  *
- * This function generates the canonical MCP resource URL that should be
- * present in the JWT's `aud` (audience) claim per RFC 8707.
- *
+ * Generates the canonical MCP resource URL that should be present in the
+ * JWT's `aud` (audience) claim per RFC 8707.
  */
 
 /**
  * Generates the MCP resource URL for the current request.
  *
- * This URL represents the protected resource (the MCP endpoint) and should
+ * This URL represents the protected resource (the MCP endpoint) and must
  * match the `resource` parameter used during OAuth token acquisition and
- * the `aud` claim in the resulting JWT.
+ * the `aud` claim in the resulting JWT — which is why the path is the
+ * fixed {@link MCP_RESOURCE_PATH}, exactly what the published PRM document
+ * advertises. `req.originalUrl` is deliberately not used: it carries query
+ * strings (`GET /mcp?method=…` is a supported request shape) that the
+ * advertised resource does not, and RFC 8707 §2 says resource URIs SHOULD
+ * NOT include a query component.
  *
- * When a canonical origin is configured the host is not derived from the
- * request — see {@link resolveCanonicalOrigin}. The request path still
- * identifies the endpoint, so the resource stays exact.
+ * The origin comes from {@link deriveSelfOrigin}: canonical origin first,
+ * else allowlist-validated Host with the loopback scheme rule. The
+ * request's protocol is never consulted.
  *
- * @param req - Minimal request object with protocol, host, and originalUrl
+ * @param req - Minimal request object exposing header access
  * @param allowedHosts - Hostnames this server may call itself
  * @param canonicalOrigin - Configured origin that supersedes per-request
  *   derivation, or `undefined` to derive from the request
- * @returns The MCP resource URL (e.g., "http://localhost:3333/mcp")
- *
- * @example
- * ```typescript
- * const url = getMcpResourceUrl({
- *   protocol: 'https',
- *   get: (h) => 'example.com',
- *   originalUrl: '/mcp'
- * });
- * // Returns: 'https://example.com/mcp'
- * ```
+ * @returns `Ok` with the MCP resource URL (e.g. `https://host/mcp`), or
+ *   `Err` with the host validation failure (callers map it to an HTTP 403)
  */
 export function getMcpResourceUrl(
-  req: {
-    protocol: string;
-    get: (header: string) => string | undefined;
-    originalUrl: string;
-  },
+  req: { get(name: string): string | undefined },
   allowedHosts: readonly string[],
   canonicalOrigin?: string,
-): string {
-  if (canonicalOrigin) {
-    return `${canonicalOrigin}${req.originalUrl}`;
+): Result<string, HostValidationError> {
+  const originResult = deriveSelfOrigin(req, allowedHosts, canonicalOrigin);
+  if (!originResult.ok) {
+    return originResult;
   }
-
-  const host = req.get('host');
-
-  if (!host) {
-    throw new Error('Cannot generate MCP resource URL: missing host header');
-  }
-  if (!isValidHostHeader(host)) {
-    throw new Error(`Cannot generate MCP resource URL: invalid host header format: ${host}`);
-  }
-  const hostname = extractHostname(host).toLowerCase();
-  if (!hostname || !isAllowedHostname(hostname, allowedHosts)) {
-    throw new Error(`Cannot generate MCP resource URL: host not allowed: ${hostname}`);
-  }
-
-  return `${req.protocol}://${host}${req.originalUrl}`;
+  return ok(`${originResult.value}${MCP_RESOURCE_PATH}`);
 }

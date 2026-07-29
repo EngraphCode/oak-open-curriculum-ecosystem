@@ -62,6 +62,7 @@ describe('registerHandlers — registration completeness', () => {
       logger: createFakeLogger(),
       observability: createFakeHttpObservability(),
       searchRetrieval: createFakeSearchRetrieval(),
+      resourceUrl: 'https://probe.test/mcp',
       getWidgetHtml: () => '<!doctype html><html><body>test-widget</body></html>',
     });
 
@@ -76,6 +77,7 @@ describe('registerHandlers — registration completeness', () => {
       logger: createFakeLogger(),
       observability: createFakeHttpObservability(),
       searchRetrieval: createFakeSearchRetrieval(),
+      resourceUrl: 'https://probe.test/mcp',
       getWidgetHtml: () => '<!doctype html><html><body>test-widget</body></html>',
     });
 

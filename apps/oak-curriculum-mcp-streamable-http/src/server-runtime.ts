@@ -4,6 +4,7 @@ import { bootstrapApp, type BootstrapAppDeps } from './bootstrap-app.js';
 import type { HttpObservability } from './observability/http-observability.js';
 import { createProcessCloseOwner, type CloseProductAnalytics } from './process-close-owner.js';
 import type { RuntimeConfig } from './runtime-config.js';
+import { DEFAULT_LOCAL_PORT } from './served-origin.js';
 
 type ShutdownSignal = 'SIGINT' | 'SIGTERM';
 
@@ -44,7 +45,7 @@ interface StartConfiguredHttpServerDeps {
 }
 
 function resolvePort(runtimeConfig: RuntimeConfig): number {
-  return runtimeConfig.env.PORT ? Number(runtimeConfig.env.PORT) : 3333;
+  return Number(runtimeConfig.env.PORT ?? DEFAULT_LOCAL_PORT);
 }
 
 function createServerErrorHandler(
