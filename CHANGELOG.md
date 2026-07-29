@@ -1,3 +1,10 @@
+# [1.117.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.116.1...v1.117.0) (2026-07-29)
+
+
+### Features
+
+* **design:** track the official Oak wide wordmark as logo-wide-black.svg (MCP-367) ([148ebba](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/148ebba1737a044454b7a26e9fada95dd0251916))
+
 ## [1.116.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.116.0...v1.116.1) (2026-07-29)
 
 
