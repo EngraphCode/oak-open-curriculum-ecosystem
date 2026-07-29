@@ -28,6 +28,13 @@ dependency graph, never a library.
   evidence tooling (`tools/`), and untracked vendor reference material (the
   canonical export and token sources — see its `.gitignore` for the rationale
   and its README for how to re-obtain them via the claude-design MCP).
+- [`oak-design-showcase/`](oak-design-showcase/README.md) — **Oak Design
+  Showcase**: a one-page live showcase of the Oak Open Curriculum Design
+  System consuming the kit the plain-CSS way — the aggregate stylesheet and
+  the kit's own classes, tokens, and self-hosted fonts, with no Tailwind and
+  no mapping layer. The plain-path counterpart to the hub's Tailwind-mapped
+  consumption; the identity × theme switcher tour lands with MCP-371's page
+  slice.
 
 ## Licences
 

@@ -35,9 +35,13 @@ async function openWhenReady(devExited: AbortSignal): Promise<void> {
   while (Date.now() < deadline && !devExited.aborted) {
     if (await serverAnswers()) {
       const { command, args } = openerCommand(URL_TO_OPEN, platform());
-      spawn(command, [...args], { stdio: 'ignore', detached: true }).on('error', () => {
+      const opener = spawn(command, [...args], { stdio: 'ignore', detached: true });
+      opener.on('error', () => {
         // Headless environment without an opener — the server is still up.
       });
+      // Without unref a long-lived URL handler would keep this wrapper's
+      // event loop alive after the dev server exits.
+      opener.unref();
       return;
     }
     await new Promise((resolve) => setTimeout(resolve, POLL_INTERVAL_MS));
