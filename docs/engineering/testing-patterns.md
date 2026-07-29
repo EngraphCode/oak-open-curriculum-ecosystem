@@ -21,14 +21,14 @@ For worked Red/Green/Refactor examples, see
 
 ---
 
-## In-Process E2E Tests with Dependency Injection
+## In-Process App Tests with Dependency Injection
 
-E2E tests that create the application in-process (via `createApp()`)
+Tests that create the application in-process (via `createApp()`)
 must configure it through dependency injection with explicit runtime-config
 objects or hermetic test helpers, never by reading or mutating `process.env`.
 Do not import production config loaders unless the test is directly proving
 the loader; they may read `.env` files as part of the production pipeline.
-Supertest is classified as E2E because it uses loopback socket IO; see
+Supertest classification follows the boundary, not the tool — see
 [Test File Classification](#test-file-classification).
 
 ### The Pattern
@@ -59,7 +59,7 @@ expect(response.status).toBe(200);
 
 - Do not read or write `process.env` in tests. Build literal runtime
   config objects or use hermetic test helpers that do not read disk.
-- Do not import `loadRuntimeConfig` into E2E tests unless the runtime
+- Do not import `loadRuntimeConfig` into these tests unless the runtime
   config loader is the direct unit under test.
 - For tests needing multiple configurations (e.g. auth enabled
   vs disabled), create **separate config objects** for each case.
@@ -104,7 +104,9 @@ injectability, never merely a reason to skip.
 
 ## A Test That Needs Real IO Is a Product Defect
 
-When a unit or integration test seems to need real IO, the product code
+When a unit or integration test seems to need real IO beyond the loopback
+harness exchange with an imported app (see [Test File
+Classification](#test-file-classification)), the product code
 lacks a dependency-injection seam (ADR-078) — a product defect, not a
 test-writing inconvenience. The fix is to refactor the product to be
 testable (route the read/write through an injectable dependency, as
@@ -135,11 +137,18 @@ not what the author intends:
   module-level singletons with IO must be
   `*.integration.test.ts`, even if it injects DI fakes for
   the new behaviour.
-- **Supertest is E2E, not integration**: supertest's
-  in-process HTTP server does real socket IO. The existing
-  `error-handling.integration.test.ts` is a pre-existing
-  misclassification. For middleware tests, call Express
-  directly with mocks.
+- **Supertest classifies by boundary, not tool** (owner-ratified
+  2026-07-29): `request(app)` against an imported, in-process app
+  is an integration test — the harness's loopback socket is tool
+  mechanics, not a system boundary. Supertest driven at a
+  separately running black-box system over a network interface
+  is E2E.
+- **Middleware proofs mount the middleware alone**: mount the
+  middleware on a bare `express()` app with one probe route and
+  drive it with `request(app)`; never boot the full application to
+  prove one middleware decision (review lens Q3/Q4). Worked
+  example:
+  `apps/oak-curriculum-mcp-streamable-http/src/correlation/middleware.integration.test.ts`.
 
 ## Composition Testing
 

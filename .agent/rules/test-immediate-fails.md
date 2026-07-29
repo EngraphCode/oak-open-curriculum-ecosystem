@@ -46,8 +46,13 @@ seam, extract a pure function, inject a dependency).
 8. **Any in-process test spawns a child process, fork, or
    test-authored worker.** Covered by `testing-strategy.md §No
    process spawning in in-process tests`.
-9. **Any test makes a real network call.** Only smoke tests may do
-   real network IO; smoke tests run on-demand per
+9. **Any test makes a real network call beyond its tier's protocol
+   channel.** Two channels are calling mechanics, not violations:
+   an E2E test's exchange with the separately running system under
+   test, and a harness's loopback exchange with an app the test
+   itself imported and booted in-process (owner-ratified
+   2026-07-29). All other real network IO is smoke-tier only;
+   smoke tests run on-demand per
    [ADR-161](../../docs/architecture/architectural-decisions/161-network-free-pr-check-ci-boundary.md).
 
 ## Mock/Stub Immediate Fails
@@ -100,9 +105,12 @@ seam, extract a pure function, inject a dependency).
     `*.unit.test.ts` that touches IO is a category error — either
     rename or redesign. Per `testing-strategy.md`, naming IS the
     category.
-21. **Test is named `*.integration.test.ts` but hits network or
-    spawns processes.** This is an E2E or smoke test wearing the
-    wrong name.
+21. **Test is named `*.integration.test.ts` but hits network beyond
+    a harness's loopback exchange with an app the test itself
+    imported and booted in-process, or spawns processes.** Classify
+    by the boundary, then cure: a genuine separately-running-system
+    exchange belongs at E2E/smoke tier; outbound IO from imported
+    code is a missing DI seam to fix, never a rename.
 22. **Test depends on test-execution order to pass.** Shared mutable
     state between tests is a correctness hazard. Each test must be
     self-contained.

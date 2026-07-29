@@ -4,7 +4,7 @@
 
 - Authentication is proven through deterministic mock-driven suites at unit, integration, and E2E scale.
 - All tests follow TDD discipline: write the failing test first, keep arrangements simple, and favour pure functions at unit scale.
-- IO appears only in E2E suites; unit and integration tests import code directly and inject tiny fakes where required.
+- Unit and integration tests import code directly and inject tiny fakes; a harness's loopback exchange with the imported app is calling mechanics, not prohibited IO — it is still real socket IO, just not a tier boundary (classification per the testing-strategy directive §Test Types). Real network IO beyond a tier's protocol channel is smoke-tier only.
 
 ## Authentication Testing
 
@@ -34,7 +34,7 @@
 
 ### E2E tests (`*.e2e.test.ts`)
 
-- Purpose: exercise a running server in-process spawned by the Vitest harness.
+- Purpose: drive the composed app over its HTTP surface; tier classification follows the boundary, not the tool (see `.agent/directives/testing-strategy.md` §Test Types).
 - Run: `pnpm --filter @oaknational/oak-curriculum-mcp-streamable-http test:e2e`.
 - Key files: `auth-enforcement.e2e.test.ts`, `auth-bypass.e2e.test.ts`, `tool-call-envelope.e2e.test.ts`, `server.e2e.test.ts`.
 
