@@ -340,7 +340,10 @@ function createRealAnalyticsRuntime() {
   async function collectDeliveredBatch() {
     const closed = await runtime.close();
     expect(closed.ok).toBe(true);
-    await Promise.allSettled(flushWork);
+    // Promise.all, deliberately: a rejected background flush must fail the
+    // test loudly (the posthog-final-wire harness precedent), never be
+    // swallowed into a settled array nothing inspects.
+    await Promise.all(flushWork);
     expect(deliveries).toHaveLength(1);
     const delivery = deliveries[0];
     assert(delivery !== undefined);
