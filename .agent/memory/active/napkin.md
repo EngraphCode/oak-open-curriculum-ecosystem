@@ -3660,6 +3660,21 @@ landing (Linear doc f0e5cef166d2 — owner-commissioned, three revisions today);
 convergence due ~22:34Z TONIGHT — merge main into coordination (also ACTIVATES the cricket QUARTET on
 this branch; pair era until then); (3) cricket round 5 at resume; (4) next warden batch as edits accrue.
 
+**MAP DELTA at the freeze (supersedes lines above):** (1) the owner ordered ALL MONITORS STOPPED at
+this boundary — the successor's FIRST mechanical act is RE-ARM all three (watcher canonical block from
+comms-all-channels-watcher.md; the 240s dual-surface heartbeat loop; F-75 v5 age-stripped+squeezed)
+plus the MANDATORY foreground gap sweep; the v2 map's "monitors survive, verify" line does NOT apply
+to this boundary. F-75 observers told: silence is not retirement. (2) #628 MERGED at f93f2898 on this
+seat's merge-now ruling (MG bound to the ticket, not the PR); MCP-353 Done — MCP-309's ticket gates
+are now ONLY Aakesh's four + MCP-339. Altair's mcp-353 worktree prune was permission-denied: owner-run
+or later grant, no work at risk. (3) OWNER-DIRECT ~14:26Z: the Altair seat is REPURPOSED; MCP-303
+routes back DIRECTOR-HELD at-rest (claim 32541c0c released; ticket carries the lane context;
+credentials .agent/state/mcpjam-credentials.json, expiry SOFT) — route to a seat when the owner's go
+comes (Schooner post-window or fresh); Altair's F-75 duty stood down. (4) Schooner first-hand:
+curriculum-mcp-alpha.oaknational.dev is VERCEL-DIRECT (Cloudflare DNS-only for that hostname, no CF
+WAF in path) — corrects the morning's "alpha is proxied" premise; probe designs assuming proxied-alpha
+logs re-aim at the www route. (5) MCP-271 assigned to Aakesh (MG mentioned) at owner-direct word.
+
 **Queues**: post-submission design queue MCP-369/370/371/372 (371 = showcase in demos/, plain-CSS,
 scoped); MCP-373 (post-360), MCP-374, MCP-363/364, MCP-358 hook guard, MCP-355/356/352 doctrine lanes,
 MCP-362 SLO pointer. None Thursday-gating.
