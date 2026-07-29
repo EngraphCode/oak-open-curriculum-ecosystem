@@ -58,9 +58,19 @@ tool retires them.
 
 - **`merge-bot mint-token` has no direct-run bootstrap** (2026-07-25, two
   seats): BOTH direct node entries (tsx on source and node on the built
-  cli.js) exit 0 with empty streams — a silent exit-0 on a token-minting
-  path. The working entry is `pnpm --silent agent-tools merge-bot
-  mint-token --scope <name>` (docs/engineering/merge-bot.md).
+  cli.js) exit 0 with empty streams on the MINT path — a silent exit-0 on a
+  token-minting path. The working entry is `pnpm --silent agent-tools
+  merge-bot mint-token --scope <name>` (docs/engineering/merge-bot.md).
+  Scoped to the mint path deliberately: since MCP-385 the direct node entry
+  DOES exit 2 with a proper stderr message on a `--scope` usage failure
+  (verified 2026-07-29), so the blanket "always exit 0" reading is no longer
+  true of every path.
+- **A failing mint inside `GH_TOKEN=$(…) gh …` runs as the HUMAN**
+  (2026-07-29): the substitution yields an empty string, `gh` treats an empty
+  `GH_TOKEN` as unset, and it falls back to the keyring — silently executing
+  as the signed-in, possibly bypass-capable account. Assign first and stop on
+  failure (`token=$(…) || exit 1`); never the prefix form. See
+  `.agent/rules/bot-identity-on-third-party-systems.md`.
 - **Workflow-resume caches can serve degenerate results** (2026-07-25): a
   quota-wall degradation produced literal placeholder schema-fills
   ("test") that a later resume would have cache-served as valid — inspect

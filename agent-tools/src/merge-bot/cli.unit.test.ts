@@ -144,6 +144,56 @@ describe('runMergeBotCli mint-token --scope', () => {
     expect(run.errText()).toContain('admin-everything');
     expect(run.errText()).toContain('code-scanning-alerts');
   });
+
+  it('refuses a repeated --scope rather than silently taking the last one', async () => {
+    // A wrapper appending its own default must not be able to widen a
+    // caller's chosen scope by argv order.
+    const run = runWith({
+      args: [
+        'mint-token',
+        '--scope',
+        'code-scanning-alerts',
+        '--scope',
+        'pull-request-work',
+        '--app-id',
+        '1',
+        '--private-key-path',
+        '/k.pem',
+        '--repo',
+        'o/r',
+      ],
+    });
+
+    expect(await run.exit).toBe(2);
+    expect(run.out()).toBe('');
+    expect(run.errText()).toContain('more than once');
+  });
+
+  it.each(['constructor', 'toString', '__proto__'])(
+    'rejects the inherited property name %s as a scope',
+    async (inherited) => {
+      // Membership is own-property only. Were it an `in` test, these would
+      // resolve to Object.prototype members — and a function-valued one would
+      // be dropped by JSON.stringify, minting with NO permissions key at all.
+      const run = runWith({
+        args: [
+          'mint-token',
+          '--scope',
+          inherited,
+          '--app-id',
+          '1',
+          '--private-key-path',
+          '/k.pem',
+          '--repo',
+          'o/r',
+        ],
+      });
+
+      expect(await run.exit).toBe(2);
+      expect(run.out()).toBe('');
+      expect(run.errText()).toContain('unknown --scope');
+    },
+  );
 });
 
 describe('runMergeBotCli mint-token', () => {

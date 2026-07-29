@@ -108,13 +108,14 @@ describe('resolveInstallationId', () => {
 describe('mintInstallationToken', () => {
   it('sends the permissions it was GIVEN, and scopes the mint to one repository', async () => {
     const calls: { url: string; method: string; authorization: string; body?: string }[] = [];
-    // Deliberately a set no real scope uses: a surviving hardcode inside the
-    // mint would pass against a real scope's permissions by coincidence.
+    // The READ-ONLY scope on purpose. The permission set this mint used to
+    // hardcode was the three writes, so passing that scope here could pass
+    // against a surviving hardcode by coincidence; this one cannot.
     const result = await mintInstallationToken({
       appJwt: 'the-jwt',
       installationId: 987,
       repoName: 'oak-open-curriculum-ecosystem',
-      permissions: { issues: 'read' },
+      permissions: TOKEN_SCOPES['code-scanning-alerts'],
       fetchImpl: fakeFetch(
         [{ status: 201, body: { token: 'ghs_abc', expires_at: '2026-07-21T07:30:00Z' } }],
         calls,
@@ -129,7 +130,7 @@ describe('mintInstallationToken', () => {
     expect(calls[0].method).toBe('POST');
     expect(JSON.parse(calls[0].body ?? '{}')).toEqual({
       repositories: ['oak-open-curriculum-ecosystem'],
-      permissions: { issues: 'read' },
+      permissions: { security_events: 'read' },
     });
   });
 

@@ -25,8 +25,18 @@ ruleset's bypass list**. Merging with its short-lived installation token
 gives you a credential that GitHub itself stops at any unmet requirement:
 
 ```bash
-GH_TOKEN=$(pnpm --silent agent-tools merge-bot mint-token --scope pull-request-work) gh pr merge <n> --auto --merge
+token=$(pnpm --silent agent-tools merge-bot mint-token --scope pull-request-work) || exit 1
+GH_TOKEN="$token" gh pr merge <n> --auto --merge
 ```
+
+**Assign the token first; never use the `GH_TOKEN=$(…) gh …` prefix form.** A
+prefix substitution cannot fail fast: if the mint fails for any reason — a bad
+`--scope`, an unreadable key, a `422` — the substitution yields an empty
+string, and `gh` treats an empty `GH_TOKEN` as _unset_ and falls back to the
+keyring. The command then runs as the signed-in human, who may be
+bypass-capable, which is the owner-credential fallback
+[`bot-identity-on-third-party-systems`](../../.agent/rules/bot-identity-on-third-party-systems.md)
+bans outright. A separate assignment with `|| exit 1` stops there instead.
 
 Each minted token is scoped at mint time to this repository and to exactly
 the permissions of the `--scope` you name — least-privilege by construction,
@@ -43,6 +53,13 @@ are defined in `agent-tools/src/merge-bot/token-scopes.ts`:
 | ---------------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
 | `pull-request-work`    | `pull_requests: write`, `contents: write`, `workflows: write` | merge, update-branch, push, PR create/edit, comment, review reply, thread resolution |
 | `code-scanning-alerts` | `security_events: read`                                       | reading code-scanning alerts                                                         |
+
+`pull-request-work` is wider than several of its listed uses need: the
+conversation half (comments, review replies, PR edits) requires
+`pull_requests: write` alone, while only merge, push and update-branch need
+`contents`/`workflows`. Splitting it is MCP-391, gated on establishing what
+the GraphQL thread-resolution mutation requires. Read the set as honest for
+the span as named, not as minimal for each member.
 
 **A `403` from a call made with a bot token is a wrong-`--scope` symptom, not
 a broken bot.** An ungranted permission fails the _mint_ with `HTTP 422` and
@@ -119,8 +136,9 @@ agent's: opening PRs, editing titles/descriptions, commenting, replying to
 review threads, resolving threads, requesting reviewers, arming, merging.
 
 ```bash
-GH_TOKEN=$(pnpm --silent agent-tools merge-bot mint-token --scope pull-request-work) gh pr edit <n> --body-file …
-GH_TOKEN=$(pnpm --silent agent-tools merge-bot mint-token --scope pull-request-work) gh api …/comments/<id>/replies -f body=…
+token=$(pnpm --silent agent-tools merge-bot mint-token --scope pull-request-work) || exit 1
+GH_TOKEN="$token" gh pr edit <n> --body-file …
+GH_TOKEN="$token" gh api …/comments/<id>/replies -f body=…
 ```
 
 Reads may use any credential — attribution matters for writes. Agents keep

@@ -46,8 +46,23 @@ The GitHub bot identity is `jimbot-oakington-iii[bot]` (app 4352989).
   worktree's own config resolves the bot. The `Co-Authored-By` model
   trailer stays.
 - **PR creation, comments, review replies, thread resolution, merges**: a
-  minted installation token (`agent-tools merge-bot mint-token --scope pull-request-work`) exported as
-  `GH_TOKEN` for the `gh` invocation.
+  minted installation token exported as `GH_TOKEN` for the `gh` invocation.
+  **Assign it first and stop if the mint fails** — never the
+  `GH_TOKEN=$(…) gh …` prefix form:
+
+  ```bash
+  token=$(pnpm --silent agent-tools merge-bot mint-token --scope pull-request-work) || exit 1
+  GH_TOKEN="$token" gh pr edit <n> --body-file …
+  ```
+
+  A prefix substitution cannot fail fast. When the mint fails — a bad
+  `--scope`, an unreadable key, a `422` — `GH_TOKEN` becomes the empty
+  string, `gh` treats empty as UNSET, and it falls back to the keyring,
+  running as the signed-in human who may be bypass-capable. That is the
+  owner-credential fallback this rule bans, reached silently. Verified
+  first-hand 2026-07-29: `GH_TOKEN="" gh auth status` reports the human
+  account with `repo` and `workflow` scopes, and a failing mint captures zero
+  bytes through the direct entry point.
 - **Pushes**: bot-token transport — a credential-helper that reads the token
   from the environment, e.g.
   `git -c credential.helper= -c "credential.helper=!f() { echo username=x-access-token; echo password=$GH_TOKEN; }; f" push https://github.com/<org>/<repo>.git HEAD:<branch>`.

@@ -38,9 +38,11 @@ function scopeList(): string {
  * missing flag — a stale paste then self-cures in one step.
  */
 function scopeUsageError(problem: string): Error {
+  // A literal placeholder, not the first scope name: suggesting a concrete
+  // scope steers a reader who wanted a read into minting the widest one.
   return new Error(
     `${problem} Valid scopes: ${scopeList()}.\n` +
-      `  e.g. pnpm --silent agent-tools merge-bot mint-token --scope ${TOKEN_SCOPE_NAMES[0] ?? ''}`,
+      `  e.g. token=$(pnpm --silent agent-tools merge-bot mint-token --scope <scope-name>) || exit 1`,
   );
 }
 
@@ -77,6 +79,12 @@ function collectValueFlags(
     const value = rest[i + 1];
     if (value === undefined || value.startsWith('--')) {
       return err(new Error(`${flag} needs a value`));
+    }
+    // Last-wins would let a wrapper silently widen a caller's scope by
+    // appending its own default. A credential choice must not be decided by
+    // argv order.
+    if (values[flag] !== undefined) {
+      return err(new Error(`${flag} given more than once — pass it exactly once`));
     }
     values[flag] = value;
     i += 1;

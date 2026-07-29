@@ -36,11 +36,16 @@ import { typeSafeHasOwn, typeSafeKeys } from '@oaknational/type-helpers';
 /**
  * Permission levels this mint requests. GitHub also defines `admin`; the bot
  * never needs it, so the type excludes it rather than documenting it away.
+ *
+ * Note GitHub does not offer every level on every permission — `workflows`
+ * has no read level, for instance, and requesting one is a runtime `422`.
+ * The table below is the guard against that; this type is deliberately not
+ * a model of GitHub's whole permission matrix.
  */
 type PermissionLevel = 'read' | 'write';
 
 /** A GitHub App permission set, as the token-mint request body carries it. */
-export type TokenPermissions = Readonly<Record<string, PermissionLevel>>;
+type TokenPermissionSet = Readonly<Record<string, PermissionLevel>>;
 
 export const TOKEN_SCOPES = {
   /**
@@ -60,6 +65,15 @@ export const TOKEN_SCOPES = {
    * carrying only `pull_requests` + `contents`. The head-branch/base-branch
    * distinction is the likely mechanism; the two observations are the
    * evidence, and only they are relied on here.
+   *
+   * WIDER THAN MOST OF ITS USES, knowingly. Per GitHub's endpoint→permission
+   * metadata, the conversation half of this span — comments, review replies,
+   * PR create/edit, reviewer requests — needs `pull_requests: write` ALONE;
+   * only merge, push and update-branch need the other two. Splitting it is
+   * MCP-391, gated on establishing what the GraphQL `resolveReviewThread`
+   * mutation requires, which the REST metadata does not cover. Until then
+   * this set is the honest one for the span as named, not the minimal one
+   * for each member of it.
    */
   'pull-request-work': {
     pull_requests: 'write',
@@ -87,10 +101,22 @@ export const TOKEN_SCOPES = {
   'code-scanning-alerts': {
     security_events: 'read',
   },
-} as const satisfies Readonly<Record<string, TokenPermissions>>;
+} as const satisfies Readonly<Record<string, TokenPermissionSet>>;
 
 /** The closed set of scope names, derived so there is one source. */
 export type TokenScopeName = keyof typeof TOKEN_SCOPES;
+
+/**
+ * What the mint will accept: ONLY a set drawn from the table above.
+ *
+ * Deliberately not the open `Record<string, PermissionLevel>` shape. That
+ * would let a future caller pass an inline object — including
+ * `{security_events: 'write'}`, or an empty `{}` whose meaning to GitHub is
+ * unestablished and whose absent-permissions reading is the full-installation
+ * grant the 2026-07-21 review closed. With this type the table is the policy
+ * by construction rather than by there happening to be one call site.
+ */
+export type TokenPermissions = (typeof TOKEN_SCOPES)[TokenScopeName];
 
 /** Scope names for usage text and failure messages — never hand-written. */
 export const TOKEN_SCOPE_NAMES: readonly TokenScopeName[] = typeSafeKeys(TOKEN_SCOPES);
