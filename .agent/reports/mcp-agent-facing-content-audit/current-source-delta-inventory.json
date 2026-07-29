@@ -106,7 +106,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/mcp-auth-responses.ts",
-      "semanticSha256": "c8f9376e95e7786fbbd5defc0f12e870b316a133abecf1326ceca0c1ad4e9e1f",
+      "semanticSha256": "62a933c1e0d11be1831fda411f4ff32da49694e6ea49078b3d15a13c4394b7ec",
       "itemIds": [
         "C395",
         "C396",
@@ -502,7 +502,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/served-origin.ts",
-      "semanticSha256": "df9d2ae4d79ec2e8361cec76c5f5cfaa88e7f1e96fe02f966d0a9484833ce53a",
+      "semanticSha256": "0cc2add70d350afd3957791b29b4663bc4cc56813e6e6865c4d4900977cb4b70",
       "itemIds": [
         "C355"
       ]
@@ -522,7 +522,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/server-runtime.ts",
-      "semanticSha256": "d0f7d4f7575aa0b7abe30a06817093cd405c597ac794f1a1b23161fc91c56463",
+      "semanticSha256": "b408cd0cd9df7ff44374befbb87a7ed14a505fd36bf7b80dc706151cd495b28f",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },

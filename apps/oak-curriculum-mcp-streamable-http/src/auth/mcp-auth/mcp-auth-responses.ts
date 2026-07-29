@@ -55,13 +55,32 @@ export function sendVerificationFailedResponse(res: Response, prmUrl: string): v
 }
 
 /**
+ * The challenge's `error_description` for an audience mismatch — FIXED,
+ * deliberately.
+ *
+ * `reason` embeds the token's decoded `aud` values (built in
+ * `resource-parameter-validator.ts`), and under RFC 8707 an authorization
+ * server echoes the client-supplied `resource` parameter into `aud` — so that
+ * text is client-INFLUENCED, not server-authored. RFC 6750 §3 defines
+ * `error_description` as a quoted-string that cannot carry `"` or `\`;
+ * interpolating token text here would let a `"` close the quoted value and
+ * append forged auth-params, including a second `resource_metadata=` aimed at
+ * an attacker's discovery document. The diagnostic is not lost — it goes to
+ * the JSON body (encoded, so a quote cannot escape) and to the logs.
+ */
+const AUDIENCE_MISMATCH_DESCRIPTION = 'Token audience does not match this resource';
+
+/**
  * Send 401 response for invalid resource parameter (audience mismatch).
+ *
+ * @param reason - Diagnostic detail for the body and logs, never the header
+ *   (see {@link AUDIENCE_MISMATCH_DESCRIPTION}).
  */
 export function sendInvalidResourceResponse(res: Response, prmUrl: string, reason: string): void {
   res
     .status(401)
     .set({
-      'WWW-Authenticate': `Bearer resource_metadata="${prmUrl}", error="invalid_token", error_description="${reason}"`,
+      'WWW-Authenticate': `Bearer resource_metadata="${prmUrl}", error="invalid_token", error_description="${AUDIENCE_MISMATCH_DESCRIPTION}"`,
     })
     .send({
       error: 'Unauthorized',

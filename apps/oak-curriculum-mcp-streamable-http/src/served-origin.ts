@@ -30,9 +30,10 @@
 export const MCP_RESOURCE_PATH = '/mcp';
 
 /**
- * The local-development listen port when `PORT` is unset. Shared with
- * `resolveListenPort` so the port the server listens on and the port it
- * self-describes as can never diverge.
+ * The local-development listen port when `PORT` is unset or empty. Shared
+ * with `resolvePort` in `server-runtime.ts` so the port the server listens
+ * on and the port it self-describes as can never diverge — both treat an
+ * empty `PORT` as absent.
  */
 export const DEFAULT_LOCAL_PORT = '3333';
 
@@ -45,14 +46,14 @@ export interface ServedOriginInputs {
    * Configured canonical origin (e.g. `https://www.thenational.academy`),
    * or `undefined` when no canonical host is configured.
    */
-  readonly canonicalOrigin?: string | undefined;
+  readonly canonicalOrigin?: string;
   /**
    * Vercel display hostname, scheme-free (e.g. `my-app.vercel.app`), or
    * `undefined` off Vercel.
    */
-  readonly displayHostname?: string | undefined;
+  readonly displayHostname?: string;
   /** Local-dev listen port (`env.PORT`); defaults to `3333`. */
-  readonly portEnv?: string | undefined;
+  readonly portEnv?: string;
 }
 
 /**

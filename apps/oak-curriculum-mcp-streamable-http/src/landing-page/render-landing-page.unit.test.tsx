@@ -52,6 +52,21 @@ describe('renderLandingPageHtml', () => {
       expect(html).toContain('http://localhost:3333/mcp');
     });
 
+    it('names the canonical host over the deployment host, so the origin never leaks', () => {
+      // The edge-served shape: clients reach the canonical address while the
+      // deployment only knows its own Vercel hostname. The baked page must
+      // describe the address clients actually use — the same rule the
+      // request-path metadata surfaces follow (MCP-351).
+      const behindEdge = renderLandingPageHtml({
+        vercelHost: 'origin-only.vercel.app',
+        canonicalHost: 'www.thenational.academy',
+      });
+
+      expect(behindEdge).toContain('https://www.thenational.academy/mcp');
+      expect(behindEdge).toContain('rel="canonical" href="https://www.thenational.academy"');
+      expect(behindEdge).not.toContain('origin-only.vercel.app');
+    });
+
     it('never carries a hard-coded deployment hostname', () => {
       expect(html).not.toContain('curriculum-mcp-alpha');
     });

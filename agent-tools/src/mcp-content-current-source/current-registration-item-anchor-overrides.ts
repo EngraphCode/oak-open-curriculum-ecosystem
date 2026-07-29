@@ -53,10 +53,15 @@ export const CURRENT_REGISTRATION_ITEM_ANCHOR_OVERRIDES: Readonly<
       'error_description="Token verification failed"',
     ],
   },
+  // MCP-351 review round: this sender's challenge text changed as well as
+  // moving. `error_description` was the interpolated `reason` — which carries
+  // the token's decoded `aud` — and is now a fixed constant, so no
+  // client-influenced text reaches the header. The agent-facing string the
+  // row governs is therefore the constant's value.
   C398: {
     [MCP_AUTH_RESPONSES]: [
       'export function sendInvalidResourceResponse(res: Response, prmUrl: string, reason: string): void {',
-      'error_description="${reason}"',
+      'error_description="${AUDIENCE_MISMATCH_DESCRIPTION}"',
     ],
   },
   C400: {

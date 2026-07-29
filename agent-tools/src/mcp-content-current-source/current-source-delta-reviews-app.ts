@@ -84,7 +84,7 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
   // split at the line limit); C399's fallback string stays with the
   // validation branch that composes it. Every sender body is verbatim.
   'apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/mcp-auth-responses.ts': reviewed(
-    'c8f9376e95e7786fbbd5defc0f12e870b316a133abecf1326ceca0c1ad4e9e1f',
+    '62a933c1e0d11be1831fda411f4ff32da49694e6ea49078b3d15a13c4394b7ec',
     ['C395', 'C396', 'C397', 'C398', 'C400'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/mcp-auth.ts': reviewed(
@@ -208,7 +208,7 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
   // one per-deployment self-description derivation; C355's endpoint URL
   // strings relocated with it.
   'apps/oak-curriculum-mcp-streamable-http/src/served-origin.ts': reviewed(
-    'df9d2ae4d79ec2e8361cec76c5f5cfaa88e7f1e96fe02f966d0a9484833ce53a',
+    '0cc2add70d350afd3957791b29b4663bc4cc56813e6e6865c4d4900977cb4b70',
     ['C355'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/served-surface/filter-guidance-content.ts': excluded(
@@ -222,7 +222,7 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
   // MCP-243: HTTP server bootstrap wiring the close funnel into every exit
   // path — pure lifecycle plumbing, serves no agent-facing content.
   'apps/oak-curriculum-mcp-streamable-http/src/server-runtime.ts': excluded(
-    'd0f7d4f7575aa0b7abe30a06817093cd405c597ac794f1a1b23161fc91c56463',
+    'b408cd0cd9df7ff44374befbb87a7ed14a505fd36bf7b80dc706151cd495b28f',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/server.ts': excluded(

@@ -7762,8 +7762,8 @@
               {
                 "tokenCount": 7,
                 "tokenSha256": "d6a4328900f1d89447376393137b59cf1186c2af2f155c031ae113314484c10e",
-                "indexToken": "Token",
-                "indexOffset": 3
+                "indexToken": "verification",
+                "indexOffset": 4
               }
             ]
           }
@@ -7786,9 +7786,9 @@
               },
               {
                 "tokenCount": 8,
-                "tokenSha256": "94e80f039e5918b3e3631b2532c28c50887a5d12bea159f50047644a208cf9f7",
-                "indexToken": "error_description",
-                "indexOffset": 0
+                "tokenSha256": "8d623231a7bc52fe64efbdc29937a9f38b318ed45e52acd36955c4ed9503b6bc",
+                "indexToken": "AUDIENCE_MISMATCH_DESCRIPTION",
+                "indexOffset": 5
               }
             ]
           }
