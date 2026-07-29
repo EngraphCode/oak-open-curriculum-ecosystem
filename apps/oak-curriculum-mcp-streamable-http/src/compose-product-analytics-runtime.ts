@@ -34,9 +34,11 @@ import type { ConfigError } from './runtime-config-support.js';
 /**
  * The hosting lifetime hook, re-exported so `@vercel/functions` has exactly
  * one import site in the application (Director ruling on 91a45718,
- * condition 2). Verified first-hand off-Vercel: no throw, the registration
- * is a silent no-op, and the promise still settles on the local event loop —
- * so no local fallback is needed and the roots inject it unconditionally.
+ * condition 2; lint-enforced by `@oaknational/no-vercel-functions-imports`,
+ * which exempts only this module). Verified first-hand off-Vercel: no
+ * throw, the registration is a silent no-op, and the promise still settles
+ * on the local event loop — so no local fallback is needed and the roots
+ * inject it unconditionally.
  */
 export { waitUntil as hostingWaitUntil } from '@vercel/functions';
 

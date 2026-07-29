@@ -18,6 +18,21 @@ export function isPostHogAdapterFile(filename: string): boolean {
   return normalisedFilename.includes(POSTHOG_ADAPTER_PATH);
 }
 
+export const VERCEL_FUNCTIONS_PACKAGE = '@vercel/functions';
+const VERCEL_FUNCTIONS_COMPOSE_MODULE_PATH =
+  '/apps/oak-curriculum-mcp-streamable-http/src/compose-product-analytics-runtime.ts';
+
+/**
+ * The one file the MCP-241 ruling permits to import `@vercel/functions`: the
+ * product-analytics composition root. Matched on the full path suffix so a
+ * sibling such as `compose-product-analytics-runtime.integration.test.ts`
+ * never inherits the exemption.
+ */
+export function isVercelFunctionsComposeFile(filename: string): boolean {
+  const normalisedFilename = `/${filename.replaceAll('\\', '/')}`;
+  return normalisedFilename.endsWith(VERCEL_FUNCTIONS_COMPOSE_MODULE_PATH);
+}
+
 const LIB_PACKAGE_IMPORTS = [
   '@oaknational/env-resolution',
   '@oaknational/logger',
@@ -105,8 +120,9 @@ export const POSTHOG_VENDOR_IMPORT_PATTERNS = POSTHOG_VENDOR_PACKAGES.map((packa
   message: POSTHOG_VENDOR_BOUNDARY_MESSAGE,
 }));
 
-export const postHogVendorBoundaryRules = {
+export const vendorBoundaryRules = {
   '@oaknational/no-posthog-vendor-imports': 'error',
+  '@oaknational/no-vercel-functions-imports': 'error',
 } satisfies Partial<Linter.RulesRecord>;
 
 /**
