@@ -216,11 +216,6 @@ export default {
         'dist',
         // Next.js build output — same build-output class as `dist` (owner-ratified 2026-07-02)
         '\\.next/',
-        // Un-absorbed create-next-app scaffold, deliberately untracked while
-        // MCP-371 wires it into the estate to full standards; MCP-371's
-        // absorb-and-green PR REMOVES this exclusion (owner-ruled demos/
-        // placement, 2026-07-29)
-        'demos/oak-design-showcase/',
         '\\.turbo',
         'src/types/generated/',
         '\\.cursor/',
