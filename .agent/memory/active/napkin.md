@@ -3747,3 +3747,25 @@ MCP-362 SLO pointer. None Thursday-gating.
   TRANSLATE finder vocabulary into the owner's culture before it reaches him: the right ask was "do you
   know their timing?", not "how shall we mobilise?". Handoff ruling 18 + memory carry it; the MG doc's
   "chase directly" line re-trued.
+
+## 2026-07-29 ~14:58Z — Lynx (9e8a61), Director: fleet-state deltas (afternoon, post-resume)
+
+- MCP-367 MERGED end-to-end inside an hour (PR #632, merge commit 1367726, full condition): wordmark
+  tracked on main at packages/design/oak-design-system/assets/logo-wide-black.svg; Altair notified
+  Osprey direct; MCP-368 unblocked (queues behind Osprey's 366→365). Altair proceeds to MCP-371 s1–2.
+  The untracked RGB_logo_wide_black.svg on the primary is now redundant to main's tracked copy —
+  disposition (owner call, file-deletion-is-exceptional) rides tonight's rotation report.
+- Osprey FROZEN for compaction at owner word ~14:56Z (broadcast 14:57:13Z): claim 65332972 HELD, seat
+  continues, monitors stopped BY INTENT — F-75 will show Osprey retired shortly; that is the announced
+  boundary, NOT retirement; no ping/escalation. MCP-366 landed+pushed e8ea88f1c; their resume block
+  (on-stream) carries tombstone cure → merge main → PR open; then 365 (owner-copy CARD before merge),
+  then 368.
+- Owner dep-update commit 26cc2c44b ("chore: update mcp deps": MCP SDK 1.30, @posthog/mcp 0.10.1,
+  @ai-sdk/provider-utils >=3.0.98 override) sits LOCAL-UNPUSHED on coordination; it swept in this
+  seat's napkin/handoff edits (content preserved). Push left to the owner (offered the lockfile
+  rebuild-survivability test + push-at-green). Index.lock collision during his commit window was the
+  discovery path.
+- Cricket tally (Altair lane, ~15:07Z pair): sonnet ON-TRACK vs haiku DRIFTING — ADJUDICATED (event
+  2608631f) evidence-transmission class: haiku FAIL-on-unanchored-transmitted-claim ("reviews running"
+  supplied without checkable evidence), the calibrated known mode; substance stands, no redirection;
+  cure bound = frames carry dispatch evidence verbatim. Verdict-agreement axis unaffected.
