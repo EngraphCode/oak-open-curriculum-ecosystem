@@ -1,3 +1,10 @@
+# [1.115.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.114.2...v1.115.0) (2026-07-29)
+
+
+### Features
+
+* **mcp-app:** observe authenticated resource reads at the registration boundary ([3e18acd](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3e18acd292474d1d6f9e2a7c175672cb5bb117c3))
+
 ## [1.114.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.114.1...v1.114.2) (2026-07-29)
 
 ## [1.114.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.114.0...v1.114.1) (2026-07-29)
