@@ -4,6 +4,7 @@ import { z } from 'zod';
 
 import { parseWithSchema } from '../core/schema-parse.js';
 import { err, ok, type Result } from '@oaknational/result';
+import type { TokenPermissions } from './token-scopes.js';
 
 /**
  * GitHub App installation-token minting for the oak merge bot (AIP-158).
@@ -158,32 +159,23 @@ export async function resolveInstallationId(input: {
 }
 
 /**
- * Mint a short-lived installation access token, SCOPED to one repository
- * and the three write permissions the merge path needs — least-privilege by
- * construction, not by installation topology (security review 2026-07-21:
- * an unscoped mint carries the app's full installation grant, so a second
+ * Mint a short-lived installation access token, SCOPED to one repository and
+ * to exactly the permissions the caller asks for — least-privilege by
+ * construction, not by installation topology (security review 2026-07-21: an
+ * unscoped mint carries the app's full installation grant, so a second
  * installed repo would silently widen every token).
  *
- * `workflows` is required by `updatePullRequestBranch`, which refuses with
- * "refusing to allow a GitHub App to create or update workflow ... without
- * `workflows` permission" whenever the merge it performs would touch
- * `.github/workflows/**` (observed 2026-07-26 against PR #565).
- *
- * Merging a pull request does NOT need it — observed the same day: this bot
- * merged PR #557, whose diff changed four workflow files, on a token
- * carrying only `pull_requests` + `contents`. The head-branch/base-branch
- * distinction is the likely mechanism; the two observations are the
- * evidence, and only they are relied on here.
- *
- * The scoping discipline is unchanged: still one repository, still an
- * explicit permission list, now three of the installation's grants rather
- * than all of them. The 2026-07-21 rationale below is about the REPOSITORY
- * dimension and is untouched by this permission-dimension change.
+ * The REPOSITORY dimension is owned here and is not parameterised:
+ * `repositories: [input.repoName]` is the 2026-07-21 decision above, and it
+ * stays fixed. The PERMISSION dimension is the caller's, chosen from the
+ * reviewable policy table in `token-scopes.ts` — which is also where the
+ * evidence for each scope's members lives, beside the decision it justifies.
  */
 export async function mintInstallationToken(input: {
   readonly appJwt: string;
   readonly installationId: number;
   readonly repoName: string;
+  readonly permissions: TokenPermissions;
   readonly apiBaseUrl?: string;
   readonly fetchImpl: GithubApiFetch;
 }): Promise<Result<{ token: string; expiresAt: string }, Error>> {
@@ -195,7 +187,7 @@ export async function mintInstallationToken(input: {
       headers: githubHeaders(input.appJwt),
       body: JSON.stringify({
         repositories: [input.repoName],
-        permissions: { pull_requests: 'write', contents: 'write', workflows: 'write' },
+        permissions: input.permissions,
       }),
     },
   );

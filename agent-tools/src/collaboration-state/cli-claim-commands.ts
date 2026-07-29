@@ -1,4 +1,7 @@
 import { randomUUID } from 'node:crypto';
+import { dirname } from 'node:path';
+
+import { err, unwrapOrThrow } from '@oaknational/result';
 
 import { assertNoLiveIdentityRoutingCollision } from './active-agents.js';
 import { archiveStaleClaims } from './claims.js';
@@ -9,6 +12,8 @@ import {
 import { areaFromOptions } from './cli-claim-areas.js';
 import { resolveIdentity } from './cli-identity.js';
 import { optional, required, valueOrDefault, type Options } from './cli-options.js';
+import { resolveCanonicalCommsWatchPaths } from './comms-watch-paths.js';
+import { type CliRuntime } from './cli-runtime.js';
 import { updateActiveClaimsFile, updateClaimStateFiles } from './state-io.js';
 import {
   type CollaborationAgentId,
@@ -19,6 +24,7 @@ import {
 export async function openClaim(
   options: Options,
   env: CollaborationStateEnvironment,
+  runtime: CliRuntime,
 ): Promise<string> {
   const identity = resolveIdentity(options, env).agent_id;
   const openedClaim = createClaimFromOptions(options, identity);
@@ -29,13 +35,18 @@ export async function openClaim(
   // `hasOtherLiveAgents` returns false and the solo fast-path skips the watcher
   // check even when other agents are live. Fail loud instead.
   if (Number.isNaN(Date.parse(nowIso))) {
-    throw new Error(`claims open: --now must be a valid ISO-8601 timestamp: ${nowIso}`);
+    return fail(`claims open: --now must be a valid ISO-8601 timestamp: ${nowIso}`);
   }
 
   // F-95: classify the watcher OUTSIDE the lock (one IO), then decide
   // populated-vs-solo INSIDE the locked transform so the solo-then-peer race
   // cannot slip a blind claim into a registry that became populated mid-open.
-  const watcherVerdict = await resolveOpenClaimWatcherVerdict(identity);
+  const watcherPaths = resolveCanonicalCommsWatchPaths(options, identity.agent_name, runtime);
+  const watcherVerdict = await resolveOpenClaimWatcherVerdict(
+    identity,
+    dirname(watcherPaths.seenFile),
+    watcherPaths.commsDir,
+  );
 
   await updateActiveClaimsFile({
     activePath,
@@ -159,10 +170,10 @@ export function closeSummaryFromOptions(options: Options): string {
   const summary = optional(options, 'summary');
   const closureSummary = optional(options, 'closure-summary');
   if (summary !== undefined && closureSummary !== undefined) {
-    throw new Error('claims close accepts either --summary or --closure-summary, not both');
+    return fail('claims close accepts either --summary or --closure-summary, not both');
   }
   if (summary === undefined && closureSummary === undefined) {
-    throw new Error('claims close requires either --summary or --closure-summary');
+    return fail('claims close requires either --summary or --closure-summary');
   }
 
   return summary ?? required(options, 'closure-summary');
@@ -182,8 +193,12 @@ export function closeSummaryFromOptions(options: Options): string {
  */
 export function assertClaimMatches(claims: readonly CollaborationClaim[], claimId: string): void {
   if (!claims.some((claim) => claim.claim_id === claimId)) {
-    throw new Error(`no active claim matches ${claimId}`);
+    fail(`no active claim matches ${claimId}`);
   }
+}
+
+function fail(message: string): never {
+  return unwrapOrThrow<never>(err(new Error(message)));
 }
 
 function splitClosingClaims(
@@ -205,10 +220,8 @@ function splitClosingClaims(
       remaining.push(claim);
     }
   }
-
   return [remaining, closing];
 }
-
 function closeExplicitly(
   claim: CollaborationClaim,
   input: {

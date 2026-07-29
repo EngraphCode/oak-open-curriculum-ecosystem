@@ -1,3 +1,53 @@
+# [1.121.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.120.0...v1.121.0) (2026-07-29)
+
+
+### Bug Fixes
+
+* **agent-tools:** a failing mint must not silently fall back to the human's credential (MCP-385) ([c890252](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c890252ad0b676936f5b38ed57e7220a8a0c3f47))
+
+
+### Features
+
+* **agent-tools:** bot tokens are minted per named scope, not one fixed set (MCP-385) ([27f8629](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/27f86293c4668c0b341cf7c3d02e3420a279f0c8))
+
+# [1.120.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.119.0...v1.120.0) (2026-07-29)
+
+
+### Bug Fixes
+
+* **design-showcase:** derive the test server port per worktree ([57b9228](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/57b9228f25f867e4563c67f7ccf9c0b40ad92aec))
+
+
+### Features
+
+* **mcp-app:** remove the per-response oakContextHint from tool responses ([e8ea88f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e8ea88f1cbd8ef67f1bb1cd537890f42ce93ade6))
+
+# [1.119.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.118.0...v1.119.0) (2026-07-29)
+
+
+### Bug Fixes
+
+* **agent-tools:** bind watcher liveness to its watched comms source and honour the declared coordination home ([58324ee](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/58324ee0b896d996b39939268f11b1a5c67813db))
+* **agent-tools:** keep comms default private ([48d5811](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/48d581188ab78c7c9c29977cd1017f1f3b570377))
+
+
+### Features
+
+* **agent-tools:** default comms watcher paths ([12708f7](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/12708f7094df502ed5ba43d392118dc8730ee325))
+
+# [1.118.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.117.0...v1.118.0) (2026-07-29)
+
+
+### Bug Fixes
+
+* **demos:** resolve the Next binary absolutely and top-level-await the opener (MCP-371) ([e01962a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e01962af63b97ba4f51a5e3e78f0d2ac32417e20))
+* **demos:** unref the browser-opener child; index the showcase in the demos-tier README (MCP-371) ([b693ad2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b693ad21ff95ba41884a7609dff6aafdd016c9a2))
+
+
+### Features
+
+* **demos:** absorb oak-design-showcase into the estate as the plain-CSS kit consumer (MCP-371) ([1456caa](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/1456caaa23af344144b809f6c8da3eb394e463e5))
+
 # [1.117.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.116.1...v1.117.0) (2026-07-29)
 
 

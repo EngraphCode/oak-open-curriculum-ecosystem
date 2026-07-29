@@ -18,6 +18,7 @@ const watcherIdentity: CollaborationAgentId = {
 function validHeartbeat(): WatcherHeartbeat {
   return {
     schema_version: WATCHER_HEARTBEAT_SCHEMA_VERSION,
+    watched_comms_dir: '/coordination/.agent/state/collaboration/comms',
     pid: 4242,
     started_at: '2026-05-23T12:00:00.000Z',
     last_drain_at: '2026-05-23T12:01:00.000Z',
@@ -50,6 +51,17 @@ describe('parseWatcherHeartbeat — strict reverse-parse', () => {
   it('throws TypeError when schema_version does not match the supported version', () => {
     const text = JSON.stringify({ ...validHeartbeat(), schema_version: '99.99.99' });
     expect(() => parseWatcherHeartbeat(text)).toThrow(TypeError);
+  });
+
+  it('requires the absolute comms directory whose events the watcher drains', () => {
+    const missingSource: Record<string, unknown> = { ...validHeartbeat() };
+    delete missingSource['watched_comms_dir'];
+    expect(() => parseWatcherHeartbeat(JSON.stringify(missingSource))).toThrow(TypeError);
+    expect(() =>
+      parseWatcherHeartbeat(
+        JSON.stringify({ ...validHeartbeat(), watched_comms_dir: 'relative/comms' }),
+      ),
+    ).toThrow(TypeError);
   });
 
   it('throws TypeError when pid is missing or not a number', () => {

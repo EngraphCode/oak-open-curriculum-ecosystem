@@ -2,7 +2,7 @@
  * Unit tests for agent support tool metadata.
  *
  * These tests verify the metadata structure and that the generated
- * instructions/hints include all agent support tools.
+ * server instructions include all agent support tools.
  */
 
 import { describe, it, expect } from 'vitest';
@@ -10,7 +10,6 @@ import {
   AGENT_SUPPORT_TOOL_METADATA,
   AGENT_SUPPORT_TOOL_NAMES,
   generateServerInstructions,
-  generateContextHint,
   isAgentSupportTool,
   getAgentSupportToolMetadata,
   getSeeAlsoForTool,
@@ -150,22 +149,6 @@ describe('generateServerInstructions', () => {
     // first-session prior (the curriculum↔orientation separation taken too far).
     expect(instructions).toContain('oak-under-the-hood');
     expect(instructions).toContain('not about curriculum content');
-  });
-});
-
-describe('generateContextHint', () => {
-  it('includes all agent support tools', () => {
-    const hint = generateContextHint();
-
-    for (const toolName of AGENT_SUPPORT_TOOL_NAMES) {
-      expect(hint).toContain(toolName);
-    }
-  });
-
-  it('is reasonably short (for embedding in responses)', () => {
-    const hint = generateContextHint();
-    // Should be under 300 characters for a context hint
-    expect(hint.length).toBeLessThan(300);
   });
 });
 

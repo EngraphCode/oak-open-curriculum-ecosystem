@@ -1,17 +1,15 @@
-import { readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
-
 import Ajv from 'ajv/dist/2020.js';
 import { describe, expect, it } from 'vitest';
 
+import localCommsEventSchema from '../../src/collaboration-state/schemas/comms-event.schema.json';
 import { loadWireContractText, negotiateWireFamily } from '../../src/protocol-wire/contract.js';
-import { WIRE_CONTRACT_REL_PATH, type WireContract } from '../../src/protocol-wire/types.js';
+import { type WireContract } from '../../src/protocol-wire/types.js';
 import { validateWireValue } from '../../src/protocol-wire/validate.js';
+import wireContractDocument from './inter-practice-wire.fixture.json';
 
-// The REAL core-carried contract is the primary fixture: these tests pin the
-// live artefact, not a copy that could drift from it.
-const REPO_ROOT = resolve(import.meta.dirname, '../../..');
-const REAL_CONTRACT_TEXT = readFileSync(resolve(REPO_ROOT, WIRE_CONTRACT_REL_PATH), 'utf8');
+// Schema-complete, no-IO fixture for the pure validator tests. The protocol
+// wire smoke binds the real core-carried contract to these same invariants.
+const REAL_CONTRACT_TEXT = JSON.stringify(wireContractDocument);
 
 function realContract(): WireContract {
   const loaded = loadWireContractText(REAL_CONTRACT_TEXT);
@@ -164,7 +162,8 @@ describe('validateWireValue against the real contract', () => {
 
   it('accepts a heartbeat mirroring the live watcher shape', () => {
     const heartbeat = {
-      schema_version: '0.1.0',
+      schema_version: '0.2.0',
+      watched_comms_dir: '/coordination/.agent/state/collaboration/comms',
       pid: 424242,
       started_at: '2026-01-01T00:00:00Z',
       last_drain_at: '2026-01-01T00:01:00Z',
@@ -188,7 +187,8 @@ describe('validateWireValue against the real contract', () => {
 
   it('refuses a heartbeat whose pid is not a number', () => {
     const heartbeat = {
-      schema_version: '0.1.0',
+      schema_version: '0.2.0',
+      watched_comms_dir: '/coordination/.agent/state/collaboration/comms',
       pid: '42',
       started_at: '2026-01-01T00:00:00Z',
       watcher_identity: minimalExchangeEvent()['author'],
@@ -198,9 +198,34 @@ describe('validateWireValue against the real contract', () => {
 
   it('refuses a heartbeat missing the watcher identity (the join is load-bearing)', () => {
     const heartbeat = {
+      schema_version: '0.2.0',
+      watched_comms_dir: '/coordination/.agent/state/collaboration/comms',
+      pid: 424242,
+      started_at: '2026-01-01T00:00:00Z',
+    };
+    expect(validateWireValue(realContract(), 'watcher_heartbeat', heartbeat).ok).toBe(false);
+  });
+
+  it('accepts an older wire heartbeat without the additive watched comms source', () => {
+    const heartbeat = {
       schema_version: '0.1.0',
       pid: 424242,
       started_at: '2026-01-01T00:00:00Z',
+      watcher_identity: minimalExchangeEvent()['author'],
+    };
+    expect(validateWireValue(realContract(), 'watcher_heartbeat', heartbeat)).toEqual({
+      ok: true,
+      value: undefined,
+    });
+  });
+
+  it('refuses a heartbeat whose watched comms source is relative', () => {
+    const heartbeat = {
+      schema_version: '0.2.0',
+      watched_comms_dir: 'relative/comms',
+      pid: 424242,
+      started_at: '2026-01-01T00:00:00Z',
+      watcher_identity: minimalExchangeEvent()['author'],
     };
     expect(validateWireValue(realContract(), 'watcher_heartbeat', heartbeat).ok).toBe(false);
   });
@@ -234,7 +259,8 @@ describe('validateWireValue against the real contract', () => {
     ).toBe(true);
     expect(
       validateWireValue(contract, 'watcher_heartbeat', {
-        schema_version: '0.1.0',
+        schema_version: '0.2.0',
+        watched_comms_dir: '/coordination/.agent/state/collaboration/comms',
         pid: 424242,
         started_at: '2026-01-01T00:00:00Z',
         watcher_identity: minimalExchangeEvent()['author'],
@@ -342,10 +368,7 @@ describe('version-family evolution (simulated newer minor)', () => {
 });
 
 describe('reconciliation binding: the local strict schema honours the wire contract (no second drift surface)', () => {
-  const localSchemaText = readFileSync(
-    resolve(REPO_ROOT, 'agent-tools/src/collaboration-state/schemas/comms-event.schema.json'),
-    'utf8',
-  );
+  const localSchemaText = JSON.stringify(localCommsEventSchema);
 
   function isRecord(value: unknown): value is { [key: string]: unknown } {
     return value !== null && typeof value === 'object' && !Array.isArray(value);
@@ -482,16 +505,5 @@ describe('reconciliation binding: the local strict schema honours the wire contr
     expect(validateWireValue(realContract(), 'exchange_comms_event', boundary).ok).toBe(true);
     const accepted = validateLocal(boundary);
     expect(accepted, JSON.stringify(validateLocal.errors ?? [], null, 2)).toBe(true);
-  });
-
-  it("the wire contract's family equals the declared protocol family — one version axis, not two", () => {
-    const protocolDeclaration = parseRecord(
-      readFileSync(resolve(REPO_ROOT, '.agent/practice-core/protocol.json'), 'utf8'),
-    );
-    const protocolVersion = protocolDeclaration['protocol_version'];
-    if (typeof protocolVersion !== 'string') {
-      throw new Error('protocol.json declares no protocol_version');
-    }
-    expect(realContract().family).toBe(protocolVersion.split('.')[0]);
   });
 });

@@ -1,0 +1,58 @@
+{
+  "name": "@oaknational/oak-design-showcase",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "One-page live showcase of the Oak Open Curriculum Design System: plain-CSS kit consumption with identity and theme switching.",
+  "scripts": {
+    "dev": "next dev -p 3020",
+    "dev:open": "tsx tools/dev-open.ts",
+    "build": "next build",
+    "clean": "rm -rf .next .turbo",
+    "start": "next start -p 3020",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "env -u NO_COLOR playwright test --grep-invert @a11y",
+    "test:a11y": "env -u NO_COLOR playwright test --grep @a11y"
+  },
+  "dependencies": {
+    "@oaknational/oak-design-system": "workspace:*",
+    "next": "16.2.11",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.12.1",
+    "@oaknational/eslint-plugin-standards": "workspace:*",
+    "@playwright/test": "^1.62.0",
+    "@testing-library/react": "^16.3.2",
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^10.8.0",
+    "happy-dom": "^20.11.1",
+    "tsx": "^4.23.1",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oaknational/oak-open-curriculum-ecosystem.git",
+    "directory": "demos/oak-design-showcase"
+  },
+  "bugs": {
+    "url": "https://github.com/oaknational/oak-open-curriculum-ecosystem/issues"
+  },
+  "homepage": "https://github.com/oaknational/oak-open-curriculum-ecosystem/tree/main/demos/oak-design-showcase#readme",
+  "contributors": [
+    {
+      "name": "Oak National Academy",
+      "email": "help@thenational.academy",
+      "url": "https://www.thenational.academy"
+    }
+  ],
+  "license": "MIT"
+}

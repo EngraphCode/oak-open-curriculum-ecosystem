@@ -47,6 +47,7 @@ const other: CollaborationAgentId = deriveCollaborationIdentity({
 const nowIso = '2026-06-25T08:00:00.000Z';
 const nowMs = Date.parse(nowIso);
 const commsSeenDir = '.agent/state/collaboration/comms-seen';
+const expectedCommsDir = '/coordination/.agent/state/collaboration/comms';
 
 function claimOf(agent: CollaborationAgentId, claimId: string): CollaborationClaim {
   return {
@@ -72,9 +73,10 @@ function registry(input: {
   };
 }
 
-function heartbeatText(lastEmitAt: string | null): string {
+function heartbeatText(lastEmitAt: string | null, watchedCommsDir = expectedCommsDir): string {
   return JSON.stringify({
-    schema_version: '0.1.0',
+    schema_version: '0.2.0',
+    watched_comms_dir: watchedCommsDir,
     pid: 1,
     started_at: nowIso,
     last_drain_at: lastEmitAt,
@@ -102,6 +104,7 @@ async function run(input: {
   const watcherVerdict = await resolveWatcherVerdict({
     selfIdentity: self,
     commsSeenDir,
+    expectedCommsDir,
     nowMs,
     io: input.io,
   });
@@ -137,6 +140,24 @@ describe('claims-open watcher gate (resolve + assert)', () => {
         io: io(nowMs - 10_000_000),
       }),
     ).rejects.toThrow(/blind to comms/);
+  });
+
+  it('throws when another agent is live but this session’s watcher drains a decoy source', async () => {
+    await expect(
+      run({
+        registry: registry({ claims: [claimOf(other, 'c-other')] }),
+        io: io(nowMs - 1000, heartbeatText(nowIso, '/decoy/.agent/state/collaboration/comms')),
+      }),
+    ).rejects.toThrow(/different comms source/u);
+  });
+
+  it('rejects a fresh not-yet-emitted watcher that drains a decoy source', async () => {
+    await expect(
+      run({
+        registry: registry({ claims: [claimOf(other, 'c-other')] }),
+        io: io(nowMs - 1000, heartbeatText(null, '/decoy/.agent/state/collaboration/comms')),
+      }),
+    ).rejects.toThrow(/different comms source/u);
   });
 
   it('treats an own-routing-key duplicate claim as not-other (fast-path, no watcher needed)', async () => {

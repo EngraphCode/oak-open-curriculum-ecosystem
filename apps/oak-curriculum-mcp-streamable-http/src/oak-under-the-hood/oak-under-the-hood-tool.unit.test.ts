@@ -5,7 +5,8 @@
  * These describe the SHAPE the tool returns — the ADR-058 dual shape carrying
  * the orientation body on BOTH channels (summary + markdown body in `content`,
  * the same body in `structuredContent`), with the curriculum firewall held
- * structurally (no `oakContextHint`). The body is asserted by IDENTITY with
+ * structurally (the tool builds its result locally, with no dependency on the
+ * curriculum SDK's response helpers). The body is asserted by IDENTITY with
  * the generated module, never by prose pins: content CORRECTNESS is proved by
  * the generator's parity gate (`validate-under-the-hood-content`), and a prose
  * pin here would only prove the fixture, not the behaviour.
@@ -52,10 +53,5 @@ describe('buildOakUnderTheHoodToolResult (unit)', () => {
     expect(result.content.map((block) => block.type)).not.toContain('resource_link');
     expect(JSON.stringify(result)).not.toContain('raw.githubusercontent.com');
     expect(JSON.stringify(result)).not.toContain('/blob/main/');
-  });
-
-  it('does not carry oakContextHint (curriculum firewall, held structurally)', () => {
-    const result = buildOakUnderTheHoodToolResult();
-    expect(result.structuredContent).not.toHaveProperty('oakContextHint');
   });
 });

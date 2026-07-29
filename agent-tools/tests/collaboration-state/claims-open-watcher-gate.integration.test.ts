@@ -3,8 +3,8 @@
  * CLI dispatcher and filesystem. `claims open` exposes NO comms-seen path
  * override by design (a planted heartbeat must not satisfy the load-bearing
  * backstop), so these cases exercise the canonical default dir
- * (`.agent/state/collaboration/comms-seen`, resolved relative to the process
- * cwd) directly:
+ * (`.agent/state/collaboration/comms-seen` under the primary coordination
+ * home) directly:
  *
  * - a solo registry opens with no watcher (the bootstrap fast-path — no dir
  *   dependency at all);
@@ -12,10 +12,8 @@
  *   (exit 2, registry unmutated) because this session has no live comms
  *   watcher at the canonical path.
  *
- * The "populated + live watcher → opens" path is identity- and IO-bound and is
- * covered deterministically by the unit suite (injected `WatcherStalenessIo`);
- * reproducing it here would require planting a heartbeat at the canonical path,
- * the very override this gate refuses to expose.
+ * The built linked-worktree smoke owns the composition proof that a matching
+ * default watcher heartbeat admits a populated claim.
  */
 import { join } from 'node:path';
 
@@ -107,7 +105,7 @@ function claimCount(text: string): number {
       return claims.length;
     }
   }
-  throw new Error('expected a claims registry');
+  return -1;
 }
 
 describe('claims open watcher precondition (F-95)', () => {
@@ -120,6 +118,8 @@ describe('claims open watcher precondition (F-95)', () => {
       const result = await runCollaborationStateCli({
         argv: openArgv(activePath),
         env: claimerEnv,
+        cwd: repoRoot,
+        resolveCoordinationHome: () => repoRoot,
       });
 
       expect(result.exitCode).not.toBe(0);
@@ -139,6 +139,8 @@ describe('claims open watcher precondition (F-95)', () => {
       const result = await runCollaborationStateCli({
         argv: openArgv(activePath),
         env: claimerEnv,
+        cwd: repoRoot,
+        resolveCoordinationHome: () => repoRoot,
       });
 
       expect(result.exitCode).toBe(0);

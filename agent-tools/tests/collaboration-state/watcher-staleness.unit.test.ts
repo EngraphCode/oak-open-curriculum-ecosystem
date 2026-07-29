@@ -19,7 +19,8 @@ const STALENESS_THRESHOLD_MS = HEARTBEAT_INTERVAL_MS * 3;
 
 function validHeartbeat(overrides: Partial<WatcherHeartbeat> = {}): WatcherHeartbeat {
   return {
-    schema_version: '0.1.0',
+    schema_version: '0.2.0',
+    watched_comms_dir: '/coordination/.agent/state/collaboration/comms',
     pid: 4242,
     started_at: '2026-05-23T15:00:00.000Z',
     last_drain_at: '2026-05-23T15:00:05.000Z',
@@ -64,6 +65,7 @@ describe('detectStaleWatcher — discriminated-union liveness result', () => {
     expect(result.kind).toBe('live');
     if (result.kind === 'live') {
       expect(result.identity).toStrictEqual(identity);
+      expect(result.watchedCommsDir).toBe('/coordination/.agent/state/collaboration/comms');
       expect(result.lastEmitAt).toBe('2026-05-23T15:00:05.500Z');
       expect(result.agedMs).toBe(HEARTBEAT_INTERVAL_MS);
     }
@@ -97,6 +99,7 @@ describe('detectStaleWatcher — discriminated-union liveness result', () => {
     expect(result.kind).toBe('stale-aged');
     if (result.kind === 'stale-aged') {
       expect(result.identity).toStrictEqual(identity);
+      expect(result.watchedCommsDir).toBe('/coordination/.agent/state/collaboration/comms');
       expect(result.lastEmitAt).toBe('2026-05-23T15:00:05.500Z');
       expect(result.thresholdMs).toBe(STALENESS_THRESHOLD_MS);
       expect(result.agedMs).toBe(STALENESS_THRESHOLD_MS + 1);
@@ -117,6 +120,7 @@ describe('detectStaleWatcher — discriminated-union liveness result', () => {
     expect(result.kind).toBe('stale-no-emit');
     if (result.kind === 'stale-no-emit') {
       expect(result.identity).toStrictEqual(identity);
+      expect(result.watchedCommsDir).toBe('/coordination/.agent/state/collaboration/comms');
       expect(result.emittedCount).toBe(0);
       // The variant carries mtime aging so a presence consumer can tell a
       // just-armed watcher (fresh) from a started-then-frozen one (aged).

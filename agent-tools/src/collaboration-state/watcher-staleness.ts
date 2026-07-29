@@ -49,12 +49,14 @@ export type WatcherStalenessResult =
   | {
       readonly kind: 'live';
       readonly identity: CollaborationAgentId;
+      readonly watchedCommsDir: string;
       readonly lastEmitAt: string;
       readonly agedMs: number;
     }
   | {
       readonly kind: 'stale-aged';
       readonly identity: CollaborationAgentId;
+      readonly watchedCommsDir: string;
       readonly lastEmitAt: string;
       readonly agedMs: number;
       readonly thresholdMs: number;
@@ -62,6 +64,7 @@ export type WatcherStalenessResult =
   | {
       readonly kind: 'stale-no-emit';
       readonly identity: CollaborationAgentId;
+      readonly watchedCommsDir: string;
       readonly emittedCount: number;
       readonly agedMs: number;
       readonly thresholdMs: number;
@@ -120,6 +123,7 @@ function classifyLiveness(
     return {
       kind: 'stale-no-emit',
       identity: heartbeat.watcher_identity,
+      watchedCommsDir: heartbeat.watched_comms_dir,
       emittedCount: heartbeat.emitted_count,
       agedMs,
       thresholdMs,
@@ -132,13 +136,20 @@ function classifyLiveness(
     return {
       kind: 'stale-aged',
       identity: heartbeat.watcher_identity,
+      watchedCommsDir: heartbeat.watched_comms_dir,
       lastEmitAt,
       agedMs,
       thresholdMs,
     };
   }
 
-  return { kind: 'live', identity: heartbeat.watcher_identity, lastEmitAt, agedMs };
+  return {
+    kind: 'live',
+    identity: heartbeat.watcher_identity,
+    watchedCommsDir: heartbeat.watched_comms_dir,
+    lastEmitAt,
+    agedMs,
+  };
 }
 
 export async function detectStaleWatcher(input: {

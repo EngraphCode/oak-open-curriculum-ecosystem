@@ -9,8 +9,8 @@
 <!-- current-source-summary:start -->
 > **Current-source refresh (MCP-103 phase c):**
 > `current-source.json` accounts for all 717 immutable phase-(a) `C` ids and 10 governed post-baseline additions.
-> Its 681 available baseline dispositions and 10 additions carry reviewed token evidence; 36 baseline rows are explicitly retired.
-> Revisions: 527 unchanged, 0 expanded, 84 modified, 69 relocated, and 11 added.
+> Its 678 available baseline dispositions and 10 additions carry reviewed token evidence; 39 baseline rows are explicitly retired.
+> Revisions: 524 unchanged, 0 expanded, 85 modified, 68 relocated, and 11 added.
 > Workspace scope is 611 in / 116 upstream-API out; word authority is 600 workspace, 116 API, 2 skills, and 9 external.
 > The HTTP root is also walked through initialize, tool/resource listing, resource reads, and prompt absence. Host delivery is not inferred.
 <!-- current-source-summary:end -->

@@ -240,9 +240,10 @@ wording (C009) and the generated tool-annotation blocks are authored in THIS rep
 are `this-repo`; the graph corpora's DATA derives from `oaknational/oak-curriculum-ontology`, documented in
 report §4.1 prose. Cross-links: ADR-157 + the `data-sources-governance` thread own the DATA-source side.
 
-**Highest-leverage content:** the orient-first directive ("call `get-curriculum-model` first"), restated 12+×
-incl. per-response `OAK_CONTEXT_HINT` and codegen `DOMAIN_PREREQUISITE_GUIDANCE`. Source of truth for server
-instructions + the per-response hint is `packages/sdks/oak-curriculum-sdk/src/mcp/agent-support-tool-metadata.ts`.
+**Highest-leverage content:** the orient-first directive ("call `get-curriculum-model` first") — the
+per-response `OAK_CONTEXT_HINT` and codegen `DOMAIN_PREREQUISITE_GUIDANCE` restatements are since removed
+(MCP-300/MCP-366). Source of truth for server
+instructions is `packages/sdks/oak-curriculum-sdk/src/mcp/agent-support-tool-metadata.ts`.
 
 **Confirmed defects (verified first-hand; fixable independently of any larger decision — report §8.1):**
 `classNotes` teacher free-text interpolated unsanitised into the `continue-progression` prompt (PII/injection,

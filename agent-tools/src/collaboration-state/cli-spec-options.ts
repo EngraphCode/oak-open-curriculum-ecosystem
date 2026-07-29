@@ -40,6 +40,7 @@ export const commsSendOptions = [
 export const commsWatchOptions = [
   'comms-dir',
   'seen-file',
+  'repo-root',
   'platform',
   'model',
   'agent-name',
@@ -133,6 +134,7 @@ export const claimsCloseOptions = [
 export const commsAssertWatcherLiveOptions = [
   'comms-seen-dir',
   'heartbeat-file',
+  'repo-root',
   'agent-name',
   'session-prefix',
   'platform',

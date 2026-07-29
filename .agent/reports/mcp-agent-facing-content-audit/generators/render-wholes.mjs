@@ -9,9 +9,6 @@ const OUT = `${REPO}/.agent/reports/mcp-agent-facing-content-audit/rendered-whol
 const entry = process.argv[2];
 
 const mcp = await import(entry);
-// The per-response hint is not re-exported from the public entry; import it from the sibling
-// built module so §2 renders from the BUILD, never a hardcoded copy (PR #337 review).
-const prereq = await import(entry.replace(/public\/mcp-tools\.js$/, 'mcp/prerequisite-guidance.js'));
 // Break nested triple-backticks with an explicit zero-width-space escape (visible intent,
 // no invisible-character copy/paste hazard in the source; PR #337 review).
 const fence = (s) => '```text\n' + String(s).replace(/```/g, '`\u200b``') + '\n```';
@@ -75,20 +72,15 @@ try {
   parts.push(`## 1. Server instructions — delivered once at connection\n\nExact. This is the whole string an agent receives in the MCP \`initialize\` response.\n\n${fence(mcp.SERVER_INSTRUCTIONS)}\n`);
 } catch (e) { problems.push('SERVER_INSTRUCTIONS: ' + e.message); }
 
-// 2. Per-response context hint (exact — read from the BUILT module, never hardcoded)
-try {
-  parts.push(`## 2. Per-response context hint — injected into every tool response\n\nExact (\`OAK_CONTEXT_HINT\`, in \`structuredContent.oakContextHint\` of every response; rendered from the built SDK).\n\n${fence(prereq.OAK_CONTEXT_HINT)}\n`);
-} catch (e) { problems.push('OAK_CONTEXT_HINT: ' + e.message); }
-
-// 3. Server branding / Implementation. The app ships only bundled entry points with boot
+// 2. Server branding / Implementation. The app ships only bundled entry points with boot
 // side effects, so this section is a VERBATIM SNAPSHOT of the SSOT, labelled as such
 // (PR #337 review) — verify against server-branding.ts when it changes.
-parts.push(`## 3. Server identity (Implementation metadata)\n\nVerbatim snapshot — **not machine-rendered**. SSOT: \`apps/oak-curriculum-mcp-streamable-http/src/server-branding.ts\` (\`OAK_SERVER_BRANDING\`); re-verify against it on change.\n\n${fence("title: Oak National Academy\ndescription: Search, explore, download and use Oak's free, fully sequenced and resourced curriculum resources, for KS1 to KS4.\nwebsiteUrl: https://www.thenational.academy\nicons: two themed data:image/svg+xml;base64 acorn variants (light fill #287c34, dark fill #ffffff)")}\n`);
+parts.push(`## 2. Server identity (Implementation metadata)\n\nVerbatim snapshot — **not machine-rendered**. SSOT: \`apps/oak-curriculum-mcp-streamable-http/src/server-branding.ts\` (\`OAK_SERVER_BRANDING\`); re-verify against it on change.\n\n${fence("title: Oak National Academy\ndescription: Search, explore, download and use Oak's free, fully sequenced and resourced curriculum resources, for KS1 to KS4.\nwebsiteUrl: https://www.thenational.academy\nicons: two themed data:image/svg+xml;base64 acorn variants (light fill #287c34, dark fill #ffffff)")}\n`);
 
-// 4. TOOLS — assembled title + description + params + annotations (exact)
+// 3. TOOLS — assembled title + description + params + annotations (exact)
 try {
   const tools = mcp.listUniversalTools(mcp.generatedToolRegistry);
-  parts.push(`## 4. Tools — assembled definitions (${tools.length})\n\nExact. Each is the full \`title\` + \`description\` (base + injected PREREQUISITE/notes) + parameter descriptions + behaviour annotations the agent sees in \`tools/list\`.\n`);
+  parts.push(`## 3. Tools — assembled definitions (${tools.length})\n\nExact. Each is the full \`title\` + \`description\` (as authored; routing cross-references only) + parameter descriptions + behaviour annotations the agent sees in \`tools/list\`.\n`);
   for (const t of tools) {
     const d = t.definition ?? t;
     const name = d.name ?? t.name ?? '(unknown)';
@@ -124,10 +116,10 @@ try {
   }
 } catch (e) { problems.push('TOOLS: ' + e.message + '\n' + (e.stack || '')); }
 
-// 5. PROMPTS — rendered messages with placeholder args (representative)
+// 4. PROMPTS — rendered messages with placeholder args (representative)
 try {
   const prompts = mcp.MCP_PROMPTS ?? [];
-  parts.push(`## 5. Prompts — assembled workflow messages (${prompts.length})\n\nRendered with \`{{arg}}\` placeholders where the user supplies a value. This is the message injected into the conversation when the prompt fires.\n`);
+  parts.push(`## 4. Prompts — assembled workflow messages (${prompts.length})\n\nRendered with \`{{arg}}\` placeholders where the user supplies a value. This is the message injected into the conversation when the prompt fires.\n`);
   for (const p of prompts) {
     const args = {};
     for (const a of (p.arguments ?? [])) args[a.name] = `{{${a.name}}}`;
@@ -145,23 +137,23 @@ try {
   }
 } catch (e) { problems.push('PROMPTS: ' + e.message); }
 
-// 6. Getting-started doc resource (exact)
+// 5. Getting-started doc resource (exact)
 try {
-  parts.push(`## 6. Resource — \`docs://oak/getting-started\` (getting-started markdown)\n\nExact.\n\n${fence(mcp.getGettingStartedMarkdown())}\n`);
+  parts.push(`## 5. Resource — \`docs://oak/getting-started\` (getting-started markdown)\n\nExact.\n\n${fence(mcp.getGettingStartedMarkdown())}\n`);
 } catch (e) { problems.push('getGettingStartedMarkdown: ' + e.message); }
 
-// 7. EEF interpretation resource (exact assembled markdown; corpus values are third-party)
+// 6. EEF interpretation resource (exact assembled markdown; corpus values are third-party)
 try {
   const eef = mcp.getEefInterpretationMarkdown();
-  parts.push(`## 7. Resource — \`eef://interpretation\` (assembled)\n\nExact assembled markdown, rendered IN FULL (PR #337 review: an "exact" surface must not be truncated). The interpolated corpus values (strand text, caveats, named authors) are external EEF content; the scaffold + agent-reasoning layer are Oak-authored.\n\n${fence(eef)}\n`);
+  parts.push(`## 6. Resource — \`eef://interpretation\` (assembled)\n\nExact assembled markdown, rendered IN FULL (PR #337 review: an "exact" surface must not be truncated). The interpolated corpus values (strand text, caveats, named authors) are external EEF content; the scaffold + agent-reasoning layer are Oak-authored.\n\n${fence(eef)}\n`);
 } catch (e) { problems.push('getEefInterpretationMarkdown: ' + e.message); }
 
-// 8. Curriculum-model resource (structural representative — large, part authored + API-derived slugs)
+// 7. Curriculum-model resource (structural representative — large, part authored + API-derived slugs)
 try {
   const cm = mcp.getCurriculumModelJson();
   const s = typeof cm === 'string' ? cm : JSON.stringify(cm, null, 2);
   const top = typeof cm === 'string' ? '(string)' : Object.keys(cm).join(', ');
-  parts.push(`## 8. Resource/tool — \`curriculum://model\` / \`get-curriculum-model\` (representative)\n\nThe orientation payload delivered by the priority-1.0 resource and the \`get-curriculum-model\` tool. Large (${s.length} chars). Top-level keys: \`${top}\`. First ~3000 chars shown (line-boundary truncation); the whole is repo-authored domain model + tool guidance (subject/key-stage slug lists are OpenAPI-derived, display metadata authored).\n\n${fence(truncateAtLine(s, 3000))}\n`);
+  parts.push(`## 7. Resource/tool — \`curriculum://model\` / \`get-curriculum-model\` (representative)\n\nThe orientation payload delivered by the priority-1.0 resource and the \`get-curriculum-model\` tool. Large (${s.length} chars). Top-level keys: \`${top}\`. First ~3000 chars shown (line-boundary truncation); the whole is repo-authored domain model + tool guidance (subject/key-stage slug lists are OpenAPI-derived, display metadata authored).\n\n${fence(truncateAtLine(s, 3000))}\n`);
 } catch (e) { problems.push('getCurriculumModelJson: ' + e.message); }
 
 if (problems.length) parts.push(`## Render notes\n\nItems that could not be rendered exactly (fell back to source or omitted):\n\n${problems.map((p) => '- ' + p.split('\n')[0]).join('\n')}\n`);

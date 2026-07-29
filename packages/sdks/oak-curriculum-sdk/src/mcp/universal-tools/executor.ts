@@ -42,11 +42,8 @@ import { requireGeneratedToolMetadata } from './descriptor-utils.js';
  * Extracts the data from the execution result and formats it appropriately
  * for the MCP response, handling both success and error cases.
  *
- * Includes context grounding hint in structuredContent for tools that
- * benefit from domain context (curriculum content tools).
- *
  * @param result - Execution result from a generated tool
- * @param toolName - Name of the tool (to look up requiresDomainContext)
+ * @param toolName - Name of the tool (for widget routing and title lookup)
  * @returns Formatted CallToolResult for MCP
  */
 function mapExecutionResult(
@@ -64,7 +61,6 @@ function mapExecutionResult(
   return formatToolResponse({
     summary: `${title}: ${String(result.value.status)}`,
     data: { status: result.value.status, data: result.value.data },
-    includeContextHint: descriptor.requiresDomainContext,
     toolName,
     annotationsTitle: title,
   });

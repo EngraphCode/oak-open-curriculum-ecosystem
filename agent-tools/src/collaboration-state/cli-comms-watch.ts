@@ -1,3 +1,7 @@
+import { dirname } from 'node:path';
+
+import { err, ok, unwrapOrThrow, type Result } from '@oaknational/result';
+
 import { seedSeenStateIfNeeded } from './comms-watch-auto-seed.js';
 import { validateCommsEventTags, type CommsEventTag } from './comms-tag-namespace.js';
 import { drainRelevantEvents, watchCommsLoop, type WatcherTickStatus } from './comms-use-cases.js';
@@ -6,7 +10,8 @@ import {
   writeWatcherHeartbeat,
   WATCHER_HEARTBEAT_SCHEMA_VERSION,
 } from './watcher-heartbeat.js';
-import { optional, optionalPositiveInteger, required, type Options } from './cli-options.js';
+import { resolveCommsWatchPaths, resolveWatchedCommsDir } from './comms-watch-paths.js';
+import { optional, optionalPositiveInteger, type Options } from './cli-options.js';
 import {
   cliIo,
   type CollaborationStateCliIo,
@@ -35,15 +40,11 @@ const DEFAULT_STEP_TIMEOUT_MS = 60000;
  * default (but NOT `--no-heartbeat`, which opts out entirely and takes
  * precedence over both).
  */
-function resolveHeartbeatFile(input: {
-  readonly explicit: string | undefined;
-  readonly seenFile: string;
-  readonly noHeartbeat: boolean;
-}): string | undefined {
-  if (input.noHeartbeat) {
+function resolveHeartbeatFile(options: Options, seenFile: string): string | undefined {
+  if (optional(options, 'no-heartbeat') !== undefined) {
     return undefined;
   }
-  return input.explicit ?? `${input.seenFile}${HEARTBEAT_FILE_SUFFIX}`;
+  return optional(options, 'heartbeat-file') ?? `${seenFile}${HEARTBEAT_FILE_SUFFIX}`;
 }
 
 /**
@@ -62,12 +63,13 @@ function resolveHeartbeatFile(input: {
  * Liveness surface (FM-2 cure, 2026-05-23; default-on 2026-06-10): the watcher
  * writes a substrate-typed heartbeat JSON every `--heartbeat-interval-ms`
  * milliseconds (default 30000) with `last_drain_at`, `last_emit_at`,
- * `last_error_at`, `emitted_count`, and the `pid`. The path is the seen-file's
- * derived default (`<seen-file>.heartbeat.json`) unless `--heartbeat-file`
- * overrides it; `--no-heartbeat` disables the surface. Absence of mtime
- * updates beyond 3x the interval is the stale signal external liveness checks
- * (e.g. `detectStaleWatcher`) should use — a hung process cannot self-report,
- * so this consumer check is the detection path c1's loud death cannot cover.
+ * `last_error_at`, `emitted_count`, the `pid`, and the lexically absolute
+ * comms directory actually drained. The path is the seen-file's derived
+ * default (`<seen-file>.heartbeat.json`) unless `--heartbeat-file` overrides
+ * it; `--no-heartbeat` disables the surface. Absence of mtime updates beyond
+ * 3x the interval is the stale signal external liveness checks (e.g.
+ * `detectStaleWatcher`) should use — a hung process cannot self-report, so
+ * this consumer check is the detection path c1's loud death cannot cover.
  */
 export async function watchComms(
   options: Options,
@@ -75,29 +77,29 @@ export async function watchComms(
   runtime: CliRuntime,
 ): Promise<string> {
   const io = cliIo(runtime);
-  requireStreamingStdout(runtime);
-  const commsDir = required(options, 'comms-dir');
-  const seenFile = required(options, 'seen-file');
-  const self = resolveSelfIdentity(options, env);
+  unwrapOrThrow(requireStreamingStdout(runtime));
+  const { self, commsDir, seenFile, watchedCommsDir } = resolveWatchIdentityAndPaths(
+    options,
+    env,
+    runtime,
+  );
   const { pollMs, maxEventsPerDrain, stepTimeoutMs, heartbeatIntervalMs } =
     resolveWatchTunables(options);
-  const heartbeatFile = resolveHeartbeatFile({
-    explicit: optional(options, 'heartbeat-file'),
-    seenFile,
-    noHeartbeat: optional(options, 'no-heartbeat') !== undefined,
-  });
+  const heartbeatFile = resolveHeartbeatFile(options, seenFile);
   const seedFromNow = optional(options, 'seed-from-now') !== undefined;
   const noAutoSeed = optional(options, 'no-auto-seed') !== undefined;
   const supervisorAlive = resolveSupervisorAlive(options, runtime);
   const excludeTags = resolveExcludeTags(options);
 
   await io.ensureDirectory(commsDir);
+  await io.ensureDirectory(dirname(seenFile));
   await seedSeenStateIfNeeded({ io, commsDir, seenFile, seedFromNow, noAutoSeed });
 
   const tick = composeHeartbeatTick({
     heartbeatFile,
     heartbeatIntervalMs,
     self,
+    watchedCommsDir,
     io,
     supervisorAlive,
   });
@@ -125,12 +127,28 @@ export async function watchComms(
  * would be consumed (marked seen) but delivered NOWHERE — the silent-eater
  * shape recorded 2026-07-25. Refuse before any comms IO instead.
  */
-function requireStreamingStdout(runtime: CliRuntime): void {
-  if (runtime.stdout === undefined) {
-    throw new Error(
-      'comms watch requires a streaming stdout surface: without one, drained events are marked seen but delivered nowhere',
-    );
-  }
+function requireStreamingStdout(runtime: CliRuntime): Result<void, Error> {
+  return runtime.stdout === undefined
+    ? err(
+        new Error(
+          'comms watch requires a streaming stdout surface: without one, drained events are marked seen but delivered nowhere',
+        ),
+      )
+    : ok(undefined);
+}
+
+function resolveWatchIdentityAndPaths(
+  options: Options,
+  env: CollaborationStateEnvironment,
+  runtime: CliRuntime,
+) {
+  const self = resolveSelfIdentity(options, env);
+  const paths = unwrapOrThrow(resolveCommsWatchPaths(options, self.agent_name, runtime));
+  return {
+    self,
+    ...paths,
+    watchedCommsDir: unwrapOrThrow(resolveWatchedCommsDir(paths.commsDir, runtime)),
+  };
 }
 
 /** The four numeric watch tunables, each defaulting per the constants above. */
@@ -164,6 +182,7 @@ function composeHeartbeatTick(input: {
   readonly heartbeatFile: string | undefined;
   readonly heartbeatIntervalMs: number;
   readonly self: CollaborationAgentId;
+  readonly watchedCommsDir: string;
   readonly io: CollaborationStateCliIo;
   readonly supervisorAlive: (() => boolean | Promise<boolean>) | undefined;
 }): ((status: WatcherTickStatus) => Promise<void>) | undefined {
@@ -192,6 +211,7 @@ function composeHeartbeatTick(input: {
       heartbeatFile,
       heartbeat: {
         schema_version: WATCHER_HEARTBEAT_SCHEMA_VERSION,
+        watched_comms_dir: input.watchedCommsDir,
         pid: process.pid,
         started_at: startedAt,
         last_drain_at: status.lastDrainAt,

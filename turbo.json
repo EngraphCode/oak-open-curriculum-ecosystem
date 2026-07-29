@@ -157,6 +157,29 @@
         "$TURBO_ROOT$/tsconfig.base.json"
       ]
     },
+    "@oaknational/oak-design-showcase#build": {
+      "dependsOn": ["^build"],
+      "cache": true,
+      "outputs": [".next/**", "!.next/cache/**"],
+      "inputs": ["$TURBO_DEFAULT$", "!.next/**", "$TURBO_ROOT$/tsconfig.base.json"]
+    },
+    "@oaknational/oak-design-showcase#type-check": {
+      "dependsOn": ["^build"],
+      "cache": true,
+      "outputs": [],
+      "inputs": ["$TURBO_DEFAULT$", "!.next/**", "$TURBO_ROOT$/tsconfig.base.json"]
+    },
+    "@oaknational/oak-design-showcase#lint": {
+      "dependsOn": ["^build"],
+      "cache": true,
+      "outputs": [],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "!.next/**",
+        "$TURBO_ROOT$/eslint.config.ts",
+        "$TURBO_ROOT$/tsconfig.base.json"
+      ]
+    },
     "@oaknational/oak-design-tokens#build": {
       "dependsOn": ["^build"],
       "cache": true,
