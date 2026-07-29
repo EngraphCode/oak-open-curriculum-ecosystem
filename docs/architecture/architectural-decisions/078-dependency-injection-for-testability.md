@@ -123,11 +123,11 @@ describe('my function', () => {
 
 1. Entry points (`bin/*.ts`, `index.ts`) remain the single place to read `process.env`
 2. Smoke composition roots may pass env to the system under test — child-process smoke tests use spawn `env`, while Vitest smoke suites may read ambient env in the runner config and inject the validated object
-3. In-process E2E tests that use `createApp()` directly must use DI with explicit runtime-config objects or hermetic test helpers — they share the test process and are subject to the same prohibition as unit/integration tests
+3. Tests that create the app in-process via `createApp()` must use DI with explicit runtime-config objects or hermetic test helpers — they share the test process and are subject to the same prohibition as unit/integration tests
 
 ## Prohibited Patterns
 
-The following patterns are **prohibited** in all tests (unit, integration, and in-process E2E):
+The following patterns are **prohibited** in all tests, at every tier, without exception:
 
 | Pattern                       | Why Prohibited                                   | Alternative                           |
 | ----------------------------- | ------------------------------------------------ | ------------------------------------- |
@@ -138,7 +138,7 @@ The following patterns are **prohibited** in all tests (unit, integration, and i
 | `vi.doMock('module', ...)`    | Manipulates module cache, subtle race conditions | Inject module exports as dependencies |
 | `globalThis.X = 'value'`      | Mutates global state                             | Pass as parameter                     |
 
-**In-process E2E pattern**: Tests that create the app in-process (e.g. `createApp()` + supertest) must build an explicit runtime config and pass it through DI:
+**In-process app pattern**: Tests that create the app in-process (e.g. `createApp()` + supertest) must build an explicit runtime config and pass it through DI:
 
 ```typescript
 import { createApp } from '../src/application.js';
@@ -168,12 +168,12 @@ const app = await createApp({
 
 - All unit tests pass without `isolate: true` in vitest config
 - All integration tests pass without `pool: 'forks'` in vitest config
-- No `process.env` reads or mutations in any test (unit, integration, or in-process E2E)
+- No `process.env` reads or mutations in any test (unit, integration, or any test that creates the app in-process)
 - No `vi.mock` in any test
 - No `vi.doMock` in any test
 - No `vi.stubGlobal` in any test
 - Simple fakes passed as constructor arguments, not complex mocks
-- In-process E2E tests use explicit runtime-config objects and pass observability into `createApp`
+- Tests that create the app in-process use explicit runtime-config objects and pass observability into `createApp`
 
 ## Implementation Status
 

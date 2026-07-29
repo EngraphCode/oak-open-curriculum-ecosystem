@@ -64,18 +64,21 @@ The lens catches recurring shapes that quietly accumulate around a feature:
   chain + OAuth + MCP server to exercise a branch of a pure function that maps
   `(uri → bypass | enforce)` is Q3 + Q4 failing together. Demote to a unit
   test on the function with the URI table.
-- **Supertest classification (owner-ratified 2026-05-21).** Supertest is
-  **E2E, not integration**: it boots the app on an ephemeral port
-  (`app.listen()` is the runner harness) and does real socket IO — see
-  [`testing-patterns.md`](../../../../docs/engineering/testing-patterns.md)
-  §"Supertest is E2E" and
-  [`testing-strategy.md` §Test Types](../../../directives/testing-strategy.md#test-types).
-  Do not re-file supertest tests as integration. When a supertest E2E test
-  exists only to prove a pure-function decision, the cure is Q3/Q5
-  demotion — a unit test on the function — not reclassification; that is
-  also what removes the e2e-setup shared-state surface (global `fetch`
-  mutation, network-block setup, Playwright-adjacent scheduling) the test
-  was inflating for no proof gain.
+- **Supertest classification (owner-ratified 2026-07-29).** The classifier
+  is the **boundary, not the tool**: `request(app)` against an imported,
+  in-process app is integration; supertest driven at a separately running
+  black-box system over a network interface is E2E — see
+  [`testing-strategy.md` §Test Types](../../../directives/testing-strategy.md#test-types)
+  and
+  [`testing-patterns.md` §Test File
+  Classification](../../../../docs/engineering/testing-patterns.md#test-file-classification).
+  Re-tiering a file is a classification fact,
+  never a cure for a wrong-level proof: when a supertest test exists only
+  to prove a pure-function decision, the cure is Q3/Q5 demotion — a unit
+  test on the function — not reclassification; that is also what removes
+  the setup shared-state surface (global `fetch` mutation, network-block
+  setup, Playwright-adjacent scheduling) the test was inflating for no
+  proof gain.
 
 ## Flake-Surface Corollary
 

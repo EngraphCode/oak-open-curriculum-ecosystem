@@ -227,7 +227,18 @@ SYSTEMS.
   automatically run in CI/CD and include MCP protocol compliance
   testing. **Important**: Integration tests are NOT about testing
   a deployed or running system - they test how multiple code units
-  integrate when imported and called directly.
+  integrate when imported and called directly. An HTTP exchange
+  whose counterparty is an app the test itself imported and booted
+  in-process (`supertest(app)`, or an equivalent harness) is
+  calling mechanics, not prohibited IO; an exchange with any
+  system the test did not import and boot is E2E-tier network IO.
+  The listener must be ephemeral (`listen(0)`), bound to loopback,
+  and closed within the same helper call. Every other IO the test
+  or the app performs — filesystem, outbound network from the app
+  or its collaborators, process spawning — remains prohibited;
+  upstream dependencies are still injected simple fakes. The
+  classifier is the boundary, not the tool (owner-ratified
+  2026-07-29 — full statement under E2E below).
 
 #### Out-of-process tests
 
@@ -248,21 +259,27 @@ net, and may produce side effects locally and in external systems.
   network IO inside the system), and MUST NOT spawn additional
   processes — only the runner harness boots the system. For
   HTTP-transport systems the protocol channel is real socket IO to a
-  listening server: a supertest run against an `app.listen()`-booted
-  server exchanges genuine HTTP, so supertest tests are E2E, not
-  integration (owner-ratified 2026-05-21; the supertest harness IS the
-  runner harness — see
-  [`testing-patterns.md`](../../docs/engineering/testing-patterns.md)).
+  listening server. Classification of supertest (and any HTTP test
+  harness) follows the **boundary, not the tool** (owner-ratified
+  2026-07-29): "It depends on if it is calling a black box running
+  system over a network interface (E2E), or if it is importing code
+  and running it inside the test (integration)." `supertest(app)`
+  against an imported, in-process app is an integration test — the
+  harness's loopback socket is an implementation detail of the
+  tool, not a system boundary. Supertest driven at a separately
+  running black-box system over a network interface is E2E — see
+  [`testing-patterns.md` §Test File
+  Classification](../../docs/engineering/testing-patterns.md#test-file-classification).
   Note supertest exercises the HTTP/JSON-RPC exchange but not SSE
   transport serialisation; keep MCP-client-SDK E2E tests alongside it
   for transport fidelity. Naming alone (a `.e2e.test.ts` filename)
   does NOT exempt a test from in-process restrictions; classification
-  is by **behaviour shape** (does the test drive a booted system over
-  its protocol channel?), not by filename suffix. A test that imports
-  product code and calls it directly — no protocol channel, no
-  listening server — is an integration test even if named
-  `.e2e.test.ts`. These constraints are to allow E2E tests to be
-  safely run in CI/CD.
+  is by **behaviour shape** (does the test drive a separately
+  running system it did not import, or does it import product code
+  and run it inside the test process?), not by filename suffix. A
+  test whose system under test was imported into the test process
+  is an integration test even if named `.e2e.test.ts`. These
+  constraints are to allow E2E tests to be safely run in CI/CD.
 
 - **Smoke test**: A test that proves the SHIPPED FORM of a system is
   viable — the built artefact, invoked exactly as production invokes
@@ -454,7 +471,9 @@ the slicing was wrong.
 
 - ALWAYS USE TDD at ALL levels
 - Use Vitest for all in-process tests (unit + integration)
-- Use Supertest for HTTP-level E2E tests
+- Use Supertest to drive HTTP surfaces — integration when the app is
+  imported and booted in-process, E2E when it drives a separately
+  running system (see §Test Types)
 - Use Playwright for UI E2E tests
 - Use the MCP client SDK for MCP protocol E2E tests
 - Use the canonical mocking approaches for the testing tools in use for a given test
