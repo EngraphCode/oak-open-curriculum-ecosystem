@@ -123,10 +123,12 @@ userInteractions: {
 
 ### Response seam
 
-`formatToolResponse` is the single response seam for every tool — aggregated and
-generated alike — emitting the dual result shape (a `content` summary plus
-decorated `structuredContent`). It carries no orientation field; the seam is
-test-pinned to that contract.
+`formatToolResponse` is the single response seam for the curriculum SDK's
+tools — aggregated and generated alike — emitting the dual result shape (a
+`content` summary plus decorated `structuredContent`). It injects no
+orientation field; the seam is test-pinned to that contract. The app's
+`oak-under-the-hood` effort-lens tool deliberately builds its result outside
+this seam (the ADR-041 structural firewall; see ADR-202).
 
 ### Tool Descriptor Flag — emitted, un-consumed
 
