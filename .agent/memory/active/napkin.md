@@ -4102,3 +4102,15 @@ ambient right-typed values are the SILENT twin — read the clock, ls-remote mai
 **QUEUES (all post-submission)**: design MCP-369/370/371(s3-5)/372/377/378/387/388; tooling MCP-373
 (+#638)/374/381/382/383/385(push)/386/389/390; docs MCP-379; MCP-362 SLO; MCP-102 first lane after
 Thursday. Tickets minted today: MCP-357..390 arc — the graph is current.
+
+**MAP v3 DELTA at the succession (~21:00Z, supersedes the "seat continues" line):** the owner NAMED A
+SUCCESSOR — **Bora binds Thermal (258cbb)** — so this is a DELIBERATE SUCCESSION, not a
+continues-through-compaction boundary. Executed: four-section handoff record at
+`.agent/state/collaboration/handoffs/a2286c53-c242-4a89-a472-2eafe1897503.md` (with the ratification
+ledger and first-acts list); `claims set-handoff` pointer set on a2286c53; PDR-064 Moment 1
+pre-positioning broadcast sent naming Bora — AUTHORITY REMAINS WITH LYNX until Bora's Moment 2
+active-acknowledgement. Bora's first acts are in the record (read map v3 → adopt → Moment 2 → arm own
+monitors + gap sweep → merge-main + owed push → recompute). Also at this boundary: PR #636 MERGED
+(`SHA:d113d3fd`, Director key-turn at Osprey's recount; MCP-366+384 Done); Tarsier hunts Underbrush
+(facf59) registered STANDBY successor-in-waiting to Schooner (20:51Z) — the owner is staffing the
+night shift. This seat's monitors run until its session ends and do NOT transfer.
