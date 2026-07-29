@@ -24,8 +24,8 @@ When you have a draft unit/lesson and want to compare it to Oak's equivalent.
 When sequencing a topic across lessons or years.
 
 1. `search({ query: "<concept>", scope: "threads", subject })` to find the relevant thread(s).
-2. `get-thread-progressions()` and locate the thread; read its units in `unitOrder` (lower = earlier). This is how Oak builds the concept over time.
-3. `get-prior-knowledge-graph()` to see unit prerequisites; confirm every prerequisite is taught _before_ the unit that needs it.
+2. `get-thread-progressions` anchored by that thread's slug (`threadSlug` — a corpus key, not free text); units are ordered by teaching year, and same-year units are explicitly unordered. This is how Oak builds the concept over time.
+3. `get-prior-knowledge-graph` anchored by the units' slugs (`unitSlugs`) to see unit prerequisites; confirm every prerequisite is taught _before_ the unit that needs it.
 4. **Check your draft:** does it assume knowledge Oak introduces later? Does it skip a step Oak treats as foundational? Adjust the sequence, or note the deviation and your rationale.
 
 **Anchors to sanity-check against:** `number` (110 units), `geometry-and-measure` (59), `ratio-and-proportion` (18) in maths; `exploring-the-gothic` (7) in English; `power-government-and-religion` (23) in history.
@@ -37,7 +37,7 @@ When sequencing a topic across lessons or years.
 When designing or reviewing for evidence-informed quality.
 
 1. For a specific lesson: `get-lessons-summary({ lesson })` and read `misconceptionsAndCommonMistakes[]` (each has a `misconception` and a `response`) and `teacherTips[]`.
-2. For a topic/subject sweep: `get-misconception-graph()` returns the whole graph (no filter arguments, and it is large), so filter the _results_ by subject and key stage yourself. For a single lesson, prefer the `misconceptionsAndCommonMistakes` field from `get-lessons-summary`.
+2. For a topic sweep: `get-misconception-graph` is an anchored, bounded query — discover the topic's lesson, unit, or thread slugs first (`search` scoped to the subject, or the browse tools), then call it with those slugs (corpus keys, not free text). For a single lesson, prefer the `misconceptionsAndCommonMistakes` field from `get-lessons-summary`.
 3. **Design around the real errors:** add a diagnostic question that surfaces each misconception, choose representations that pre-empt it, and write the teacher response. A lesson that ignores the best-documented pitfall for its topic is not yet evidence-informed.
 
 ---

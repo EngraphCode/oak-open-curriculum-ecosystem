@@ -19,4 +19,4 @@ Internal authorship metadata (who created or last edited a standard), edit histo
 
 ## Keeping it current
 
-The committed dataset (`assets/quality-standards.json`) is the skill's source of truth. When it changes, rebuild the reference files with `python scripts/build_quality_standards.py`. The build is deterministic and CI-checked, so the committed references always match the dataset.
+This plugin is a subset copy of Oak's private `oak-skills` repository, which owns the generator (`scripts/build_quality_standards.py` there) and its CI check. To update: regenerate in `oak-skills`, then re-sync this copy. Within this repository the committed dataset and reference files are updated together as one reviewed change.

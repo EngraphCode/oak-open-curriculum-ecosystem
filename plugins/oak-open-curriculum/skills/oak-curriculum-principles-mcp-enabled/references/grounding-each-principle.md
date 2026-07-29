@@ -39,7 +39,7 @@ pupilLessonOutcome: "I can add fractions with the same denominator."
 
 **Grounding data.** ~164 threads, each an _ordered_ set of units that build a concept across years; plus a prior-knowledge graph of unit dependencies. This is the principle's strongest data anchor.
 
-**Tools.** `get-threads` (all threads + unit counts), `get-threads-units` (units in a thread), `get-thread-progressions` (the full ordered graph; lower `unitOrder` = earlier), `get-prior-knowledge-graph` (unit prerequisites), `search({ scope: "threads" })`.
+**Tools.** `get-threads` (all threads + unit counts), `get-threads-units` (units in a thread), `get-thread-progressions` (one anchored thread's progression; units ordered by teaching year, same-year units unordered), `get-prior-knowledge-graph` (unit prerequisites), `search({ scope: "threads" })`.
 
 **What to look for.** Where your topic sits in a thread; what Oak places before and after it; whether your sequence respects the same prerequisite order.
 
@@ -51,8 +51,8 @@ pupilLessonOutcome: "I can add fractions with the same denominator."
 
 ```text
 search({ query: "fractions", scope: "threads", subject: "maths" })
-get-thread-progressions()      // find the fractions thread, read units by unitOrder
-get-prior-knowledge-graph()    // confirm prerequisites precede dependents
+get-thread-progressions({ threadSlug })   // the fractions thread, units ordered by teaching year
+get-prior-knowledge-graph({ unitSlugs })   // confirm prerequisites precede dependents
 ```
 
 **Use it:** if your unit assumes knowledge that Oak's thread teaches _later_, your sequence has a gap.
@@ -63,7 +63,7 @@ get-prior-knowledge-graph()    // confirm prerequisites precede dependents
 
 **Grounding data.** A large misconception graph — on the order of 12,800 documented misconceptions, each paired with a recommended teacher response (count is per the tool's own summary and is live/approximate) — spanning the curriculum subjects, plus per-lesson misconceptions and teacher tips.
 
-**Tools.** `get-misconception-graph` (returns the _whole_ graph — large, and takes no filter arguments, so filter the results yourself by subject and key stage), `get-lessons-summary` (`misconceptionsAndCommonMistakes[]`, `teacherTips[]` for a single lesson — usually the better first call).
+**Tools.** `get-misconception-graph` (an anchored, bounded query — pass lesson, unit, or thread slugs discovered via `search` or the browse tools; corpus keys, not free text), `get-lessons-summary` (`misconceptionsAndCommonMistakes[]`, `teacherTips[]` for a single lesson — usually the better first call).
 
 **What to look for.** The specific errors pupils make on your topic, and Oak's recommended response. Design diagnostic questions and representations around real misconceptions rather than guessed ones.
 
