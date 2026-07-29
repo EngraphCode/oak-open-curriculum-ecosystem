@@ -30,7 +30,7 @@ const ACCEPT = 'application/json, text/event-stream';
 /**
  * Schema-driven narrowing of the loose `structuredContent` record — the
  * test-boundary alternative to a type assertion. Non-strict: the family
- * envelope adds `summary` / `oakContextHint` / `status` alongside the
+ * envelope adds `summary` / `status` alongside the
  * lesson-anchored fields.
  */
 const LESSON_ENVELOPE = z.object({

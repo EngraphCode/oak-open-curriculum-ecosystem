@@ -22,6 +22,7 @@ const AUTH_ROUTES = `${APP_ROOT}/src/auth-routes.ts`;
 const WIDGET_APP = `${APP_ROOT}/widget/src/App.tsx`;
 const BRAND_BANNER = `${APP_ROOT}/widget/src/BrandBanner.tsx`;
 const ORIENTATION_GUIDANCE = 'packages/sdks/oak-curriculum-sdk/src/mcp/orientation-guidance.ts';
+const UNIVERSAL_EXECUTOR = 'packages/sdks/oak-curriculum-sdk/src/mcp/universal-tools/executor.ts';
 const TOOL_DESCRIPTION_PARTS =
   'packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/tool-description.ts';
 
@@ -31,11 +32,13 @@ export const CURRENT_AGGREGATED_ITEM_ANCHOR_OVERRIDES = {
       "export const PRIMARY_ORIENTATION_TOOL_NAME = 'get-curriculum-model' as const;",
     ],
   },
-  C005: {
-    [ORIENTATION_GUIDANCE]: ['export const OAK_CONTEXT_HINT = generateContextHint();'],
-  },
   C006: {
     [ORIENTATION_GUIDANCE]: ['export const SERVER_INSTRUCTIONS = generateServerInstructions();'],
+  },
+  // MCP-366: the baseline anchor carried the deleted includeContextHint
+  // line; the surviving formatToolResponse call anchors on its summary line.
+  C057: {
+    [UNIVERSAL_EXECUTOR]: ['summary: `${title}: ${String(result.value.status)}`,'],
   },
   C066: {
     [SEARCH_DEF]: ["description: `Search Oak's curriculum using semantic search across all four"],
@@ -193,6 +196,8 @@ export const CURRENT_AGGREGATED_ITEM_ANCHOR_OVERRIDES = {
 } as const;
 
 export const CURRENT_AGGREGATED_ITEM_REVISION_OVERRIDES = {
+  // MCP-366: the response call survives minus the hint inclusion line.
+  C057: 'modified',
   C066: 'modified',
   C067: 'modified',
   C101: 'modified',

@@ -123,13 +123,13 @@ describe('runFetchTool result structure per OpenAI Apps SDK', () => {
       expect(result.structuredContent).toHaveProperty('oakUrl', expect.any(String));
     });
 
-    it('includes oakContextHint for model context grounding', async () => {
+    it('carries no oakContextHint — orientation guidance lives only in server instructions (MCP-366)', async () => {
       const deps = createMockExecutor(ok({ status: 200, data: {} }));
 
       const result = await runFetchTool({ id: 'lesson:test' }, deps);
 
       expect(result.structuredContent).toBeDefined();
-      expect(result.structuredContent).toHaveProperty('oakContextHint');
+      expect(result.structuredContent).not.toHaveProperty('oakContextHint');
     });
   });
 
