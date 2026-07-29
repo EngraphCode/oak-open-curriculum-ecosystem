@@ -3,10 +3,10 @@ id: mcp-output-schemas-response-validation
 node_type: delivery
 name: "MCP output schemas and response validation"
 overview: "Give every live universal tool a source-derived, object-rooted output contract that the MCP server advertises and enforces."
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-07-29
+ratified_where: "Owner morning-card answer 2026-07-29, routed via the Director (comms event 9d32fcfd-bac6-430e-8144-0e16b9d067c9); merge record on PR #619"
 serves: first-major-release
 impact_areas:
   - served-surface
@@ -15,7 +15,7 @@ tickets:
   - MCP-332
 depends_on: []
 owner_gates: []
-last_updated: 2026-07-28
+last_updated: 2026-07-29
 ---
 
 # MCP output schemas and response validation
@@ -26,8 +26,9 @@ of the
 That record and its
 [audit](../../reports/output-schema-mcp-plan-audit-2026-06-02.md) remain
 lineage evidence and the owner dispositions its legacy execution contract when
-ratification lands. This born-sketch node is the only proposed execution
-contract and governs no work until owner-ratified.
+ratification lands. Owner-ratified 2026-07-29 (morning-card answer, routed via
+the Director): this node is the governing execution contract for the
+output-schema work, which remains gated on the MCP-303 live captures.
 
 ## Goal
 
