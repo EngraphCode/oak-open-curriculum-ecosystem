@@ -578,6 +578,19 @@
       ]
     },
     {
+      "file": "packages/sdks/oak-curriculum-sdk/src/mcp/agent-support-tool-metadata.ts",
+      "semanticSha256": "a39184779abe3ec3c2dd575fbd52b5c4d1b75e971ed90bed8e10ed671804f197",
+      "itemIds": [
+        "C049",
+        "C050",
+        "C051",
+        "C052",
+        "C053",
+        "C054",
+        "C055"
+      ]
+    },
+    {
       "file": "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-asset-download/definition.ts",
       "semanticSha256": "154d483475f32e0fbf31e82e82327b3a313fb61ed13ef45db8337e1f141bb4ab",
       "itemIds": [
@@ -917,10 +930,9 @@
     },
     {
       "file": "packages/sdks/oak-curriculum-sdk/src/mcp/orientation-guidance.ts",
-      "semanticSha256": "541a88e4196d1ca0c1c3fd45fc31d7f662f7cd43a228f37004d40e21b9af0641",
+      "semanticSha256": "0e1f5773d678f5177dcce1cf0e0ebb2e4906956c39f8458d858a70470ad42589",
       "itemIds": [
         "C001",
-        "C005",
         "C006"
       ]
     },
@@ -980,12 +992,11 @@
     },
     {
       "file": "packages/sdks/oak-curriculum-sdk/src/mcp/universal-tool-shared.ts",
-      "semanticSha256": "671ccee6dfe7b45ea91b65d67ccd7c72bda60a6354a62a6db648b2856240c3bf",
+      "semanticSha256": "712365ea40c230c55580d0ea74d1ae1f23a189a16959e89b6899800866f73599",
       "itemIds": [
         "C059",
         "C060",
-        "C061",
-        "C062"
+        "C061"
       ]
     },
     {
@@ -996,11 +1007,17 @@
     },
     {
       "file": "packages/sdks/oak-curriculum-sdk/src/mcp/universal-tools/executor.ts",
-      "semanticSha256": "6b3007871168f2f388a2f87b895223f03024b8ad7af8781f6a180b4ff3133d10",
+      "semanticSha256": "97b08a93960272d7b636afcd2e1f9ed76b0512227688912d4135bc9eb90b01da",
       "itemIds": [
         "C057",
         "C058"
       ]
+    },
+    {
+      "file": "packages/sdks/oak-curriculum-sdk/src/mcp/universal-tools/types.ts",
+      "semanticSha256": "1b5e4bfbcafbd4246cf35452f576fe503f748ab78f2309605c4627c6df3312e4",
+      "itemIds": [],
+      "exclusionReason": "Type-only change; no authored agent-facing content."
     },
     {
       "file": "packages/sdks/oak-sdk-codegen/code-generation/apply-deferred-paths.ts",

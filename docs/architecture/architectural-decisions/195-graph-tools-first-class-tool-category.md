@@ -108,8 +108,8 @@ and known coverage limits (for example thread-unreachable units) are stated in t
 
 The bounded subgraph travels as `structuredContent` — the canonical, complete payload the calling
 agent reasons over. No context-hint object rides the payload: model-facing guidance lives in the
-tool description (`tools/list`), never inside the response and never in `_meta` (which the model
-does not see). For this agent-facing regime the owner-settled shape is structuredContent-only
+server `instructions` field delivered at initialise (MCP-300 retired the description channel),
+never inside the response and never in `_meta` (which the model does not see). For this agent-facing regime the owner-settled shape is structuredContent-only
 (`content: []`), validated against the target clients by first-hand client research (2026-05-28);
 `get-eef-evidence` is the executed instance. The redesigned curriculum tools additionally keep the
 MCP spec's backwards-compatibility SHOULD — a summary plus the serialised JSON as `TextContent`
@@ -130,10 +130,10 @@ questions for the convergence item).
 > (commit `20ad83326`). Evidence:
 > [`oak-prod-mcp-cursor-visibility-writeup-2026-06-11.md`](../../../.agent/reports/oak-prod-mcp-cursor-visibility-writeup-2026-06-11.md)
 > and [ADR-058's client-variability note](058-context-grounding-for-ai-agents.md).
-> The no-context-hint position for graph tools remains an open item (§Open
-> questions); note `formatToolResponse` includes the hint by default, so the
-> realigned EEF response currently carries it — its cost is now measurable by
-> the outbound token health metric.
+> The no-context-hint position for graph tools was DISCHARGED estate-wide on
+> 2026-07-29 (MCP-366, owner-directed): `formatToolResponse` no longer injects
+> `oakContextHint` on any path, so §4's no-hint position now holds by
+> construction (§Open questions).
 
 ### 5. Budget is a design signal, never a runtime cap
 
@@ -220,7 +220,8 @@ projection under ADR-191, not relevance judgement.
   output-schema work touches the same envelope surface and is a natural vehicle.
   _(Resolved in part 2026-06-11: the content-shape half converged — the owner reversed
   structuredContent-only and every graph tool now emits the dual shape (§4 supersession note).
-  The context-hint half remains open.)_
+  Resolved in full 2026-07-29: MCP-366 removed the `oakContextHint` injection from
+  `formatToolResponse` estate-wide at the owner's direction, closing the context-hint half.)_
 - **Client-render evidence before ratifying a non-default response shape (general principle).**
   Beyond these four tools: ratifying any non-default MCP response shape requires first-hand evidence
   of how real agent clients _render_ it. The Cursor-vs-Claude-Code two-client matrix in §4 (Cursor

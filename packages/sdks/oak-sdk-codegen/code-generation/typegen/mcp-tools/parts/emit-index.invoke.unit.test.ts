@@ -201,7 +201,8 @@ describe('emitIndex (invoke wrapper emission)', () => {
 
     const code = emitIndex(toolName, path, method, 'getLessons', operation);
 
-    // Protected tools need domain context (get-curriculum-model)
+    // Emitted to satisfy the descriptor contract; no runtime consumer
+    // reads the field (retirement tracked as MCP-375).
     expect(code).toContain('requiresDomainContext: true');
   });
 
@@ -215,7 +216,8 @@ describe('emitIndex (invoke wrapper emission)', () => {
 
     const code = emitIndex(toolName, path, method, 'getChangelog', operation);
 
-    // Utility tools (noauth) don't need domain context
+    // Emitted to satisfy the descriptor contract; no runtime consumer
+    // reads the field (retirement tracked as MCP-375).
     expect(code).toContain('requiresDomainContext: false');
   });
 });

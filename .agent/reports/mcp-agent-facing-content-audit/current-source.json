@@ -25,12 +25,12 @@
     "itemCount": 727,
     "baselineItemCount": 717,
     "additionCount": 10,
-    "availableCount": 691,
-    "retiredCount": 36,
-    "unchangedCount": 533,
+    "availableCount": 688,
+    "retiredCount": 39,
+    "unchangedCount": 530,
     "expandedCount": 0,
-    "modifiedCount": 83,
-    "relocatedCount": 64,
+    "modifiedCount": 84,
+    "relocatedCount": 63,
     "addedCount": 11,
     "workspaceScopeInCount": 611,
     "workspaceScopeOutUpstreamApiCount": 116,
@@ -193,18 +193,11 @@
       "authority": "workspace",
       "workspaceScope": "in",
       "source": {
-        "state": "available",
-        "files": [
-          "packages/sdks/oak-curriculum-sdk/src/mcp/orientation-guidance.ts"
-        ],
-        "evidence": {
-          "revision": "relocated",
-          "anchorTargetCount": 1,
-          "anchorCount": 1
-        }
+        "state": "retired",
+        "files": []
       },
       "lineage": {
-        "disposition": "relocated",
+        "disposition": "retired",
         "baselineFile": "packages/sdks/oak-curriculum-sdk/src/mcp/prerequisite-guidance.ts"
       },
       "registrations": []
@@ -1264,18 +1257,11 @@
       "authority": "workspace",
       "workspaceScope": "in",
       "source": {
-        "state": "available",
-        "files": [
-          "packages/sdks/oak-curriculum-sdk/src/mcp/agent-support-tool-metadata.ts"
-        ],
-        "evidence": {
-          "revision": "unchanged",
-          "anchorTargetCount": 1,
-          "anchorCount": 1
-        }
+        "state": "retired",
+        "files": []
       },
       "lineage": {
-        "disposition": "retained",
+        "disposition": "retired",
         "baselineFile": "packages/sdks/oak-curriculum-sdk/src/mcp/agent-support-tool-metadata.ts"
       },
       "registrations": []
@@ -1290,7 +1276,7 @@
           "packages/sdks/oak-curriculum-sdk/src/mcp/universal-tools/executor.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
           "anchorCount": 1
         }
@@ -1390,18 +1376,11 @@
       "authority": "workspace",
       "workspaceScope": "in",
       "source": {
-        "state": "available",
-        "files": [
-          "packages/sdks/oak-curriculum-sdk/src/mcp/universal-tool-shared.ts"
-        ],
-        "evidence": {
-          "revision": "unchanged",
-          "anchorTargetCount": 1,
-          "anchorCount": 1
-        }
+        "state": "retired",
+        "files": []
       },
       "lineage": {
-        "disposition": "retained",
+        "disposition": "retired",
         "baselineFile": "packages/sdks/oak-curriculum-sdk/src/mcp/universal-tool-shared.ts"
       },
       "registrations": []

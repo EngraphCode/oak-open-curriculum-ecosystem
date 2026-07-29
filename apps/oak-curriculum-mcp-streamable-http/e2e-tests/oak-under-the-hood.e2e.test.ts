@@ -8,13 +8,14 @@
  *   tools — coexistence.
  * - Call it via tools/call and receive the ADR-058 dual-shape result carrying
  *   the orientation body on BOTH channels — with no external fetch instruction
- *   (directory policy §2.F, MCP-353) and never an `oakContextHint` (the
- *   curriculum firewall, held structurally).
+ *   (directory policy §2.F, MCP-353). The curriculum firewall is held
+ *   structurally: the tool builds its result locally, with no dependency on
+ *   the curriculum SDK's response helpers (ADR-041).
  *
  * Behaviour-only: content CORRECTNESS is proved by the generator parity gate
  * (`validate-under-the-hood-content`); nothing here pins prose. The firewalls
- * (effort-scoping, no curriculum hint) are held by construction and PR review,
- * asserted here only as structural presences/absences.
+ * (effort-scoping, curriculum separation) are held by construction and PR
+ * review, asserted here only as structural presences/absences.
  */
 
 import request from 'supertest';
@@ -114,9 +115,8 @@ describe('Oak: Under the Hood tool E2E', () => {
       expect(structured).not.toHaveProperty('canonicalUrl');
       expect(structured).not.toHaveProperty('trigger');
       expect(JSON.stringify(result)).not.toContain('raw.githubusercontent.com');
-      // Informational citations only, and no curriculum hint (structural firewall).
+      // Informational citations only (the curriculum firewall is structural).
       expect(typeof structured.repositoryUrl).toBe('string');
-      expect(structured).not.toHaveProperty('oakContextHint');
     });
   });
 });

@@ -4,7 +4,6 @@ import { typeSafeEntries, typeSafeKeys } from '../types/helpers/type-helpers.js'
 import type { ToolName } from '@oaknational/sdk-codegen/mcp-tools';
 import type { ToolExecutionResult } from './execute-tool-call.js';
 import { McpParameterError, McpToolError } from './execute-tool-call.js';
-import { OAK_CONTEXT_HINT } from './orientation-guidance.js';
 import type { SearchRetrievalService } from './search-retrieval-types.js';
 import type { GeneratedToolRegistry } from './universal-tools/types.js';
 import { createNoopLogger } from './noop-logger.js';
@@ -156,8 +155,6 @@ export interface ToolResponseOptions {
   readonly summary: string;
   /** Full data — serialised to content[1] and spread into structuredContent */
   readonly data: unknown;
-  /** Whether to include oakContextHint in structuredContent */
-  readonly includeContextHint?: boolean;
   /** Optional query string for widget context */
   readonly query?: string;
   /** Optional timestamp for widget context */
@@ -212,7 +209,6 @@ export function formatToolResponse(options: ToolResponseOptions): CallToolResult
   const structuredContent: StructuredContent = {
     ...base,
     summary: options.summary,
-    ...(options.includeContextHint !== false ? { oakContextHint: OAK_CONTEXT_HINT } : {}),
     ...(options.status !== undefined ? { status: options.status } : {}),
   };
   const summaryContent: TextContent = { type: 'text', text: options.summary };
