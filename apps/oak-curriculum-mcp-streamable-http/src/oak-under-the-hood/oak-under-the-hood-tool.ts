@@ -91,8 +91,9 @@ const OAK_UNDER_THE_HOOD_TOOL_DESCRIPTION =
 
 const OAK_UNDER_THE_HOOD_TOOL_SUMMARY =
   'Oak: Under the Hood — the orientation method for this repository (the Oak Open Curriculum ' +
-  'Ecosystem), served in full below. Follow it to orient the user. Cited sources: the public ' +
-  "repository, and Oak's official positioning and strategy pages for Oak-organisation framing.";
+  'Ecosystem), served in full below. Follow it to orient the user. Document paths cited below ' +
+  `are relative to the public repository at ${OAK_REPOSITORY_URL}; Oak-organisation framing ` +
+  "cites Oak's official positioning and strategy pages.";
 
 /**
  * Builds the Oak: Under the Hood tool result: the ADR-058 dual shape — a

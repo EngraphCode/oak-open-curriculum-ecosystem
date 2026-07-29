@@ -88,6 +88,15 @@ describe('buildDigest', () => {
     expect(unwrapErr(result)).toMatch(/#### Deep addition/);
   });
 
+  it('catches tab-form deep headings inside a served section', () => {
+    const result = buildDigest('# A\n\nBody.\n\n####\tTabbed instructions\n', {
+      served: ['# A'],
+      excluded: new Map(),
+    });
+    expect(isErr(result)).toBe(true);
+    expect(unwrapErr(result)).toMatch(/deeper than the H1–H3 classification grain/);
+  });
+
   it('accepts deep headings inside excluded sections and inside fences of served sections', () => {
     const canonical =
       '# A\n\nBody.\n\n```md\n#### fenced example\n```\n\n## B\n\n#### machinery detail\n';

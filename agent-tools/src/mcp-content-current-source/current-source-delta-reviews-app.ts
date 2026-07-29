@@ -141,7 +141,7 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
   // rows (C375, C377, C380–C383) retired via lineage; the baked orientation
   // body is A010 in src/generated/oak-under-the-hood-content.ts.
   'apps/oak-curriculum-mcp-streamable-http/src/oak-under-the-hood/oak-under-the-hood-tool.ts':
-    reviewed('796070641fd34fee095a85dad95f5a547100d1856979a08d13f41a4819014d5e', [
+    reviewed('2c28587c89c4b3c691c9f39a3b8e3e28946f470b74b235325d8c1fd7085f7a1f', [
       'C371',
       'C372',
       'C373',

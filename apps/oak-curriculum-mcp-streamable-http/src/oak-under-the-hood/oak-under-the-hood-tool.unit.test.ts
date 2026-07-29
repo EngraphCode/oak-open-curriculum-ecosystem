@@ -36,6 +36,15 @@ describe('buildOakUnderTheHoodToolResult (unit)', () => {
     const structured = result.structuredContent;
 
     expect(structured?.repositoryUrl).toMatch(/^https:\/\/github\.com\//);
+    // A content-only client (ADR-058: each client delivers ONE channel) must
+    // still be able to resolve the cited repo-relative paths: the summary text
+    // block carries the repository locator itself.
+    const summary = result.content[0];
+    if (summary?.type !== 'text') {
+      throw new Error('expected the first content block to be a text block');
+    }
+    expect(typeof structured?.repositoryUrl).toBe('string');
+    expect(summary.text).toContain(String(structured?.repositoryUrl));
     expect(Array.isArray(structured?.oakSources)).toBe(true);
     // No fetch-and-follow surface remains (directory policy §2.F, MCP-353).
     expect(structured).not.toHaveProperty('canonicalUrl');

@@ -15,11 +15,26 @@ export interface CanonicalSection {
 }
 
 /**
+ * CommonMark fence delimiter: a three-backtick or three-tilde run indented at
+ * most three spaces. Four or more spaces of indent is indented code, not a
+ * fence. Shared by the section split and the served-section guards so both
+ * track fences the same way.
+ */
+export function isFenceLine(line: string): boolean {
+  return /^ {0,3}(?:```|~~~)/.test(line);
+}
+
+/**
  * Splits the canonical into sections by heading line, fence-aware (a `#`
  * line inside a code fence is content, not a heading) and with the leading
  * YAML frontmatter block stripped. ATX levels 1–3 are the classification
  * grain; deeper headings are section content — and inside a SERVED section
- * they are rejected at classification (see `buildDigest`).
+ * they are rejected at classification (see `buildDigest`). The scanner
+ * covers CommonMark's ATX forms (space, tab, or end-of-line after the
+ * hashes) and both fence styles; the estate's markdownlint gate binds the
+ * canonical on the same commit path (hard tabs and mixed fence styles are
+ * lint errors there), so these forms are defence-in-depth, not a live
+ * dialect.
  */
 export function parseCanonicalSections(
   canonical: string,
@@ -36,10 +51,10 @@ function splitSections(lines: readonly string[]): readonly CanonicalSection[] {
   let current: { heading: string; lines: string[] } | undefined;
   let inFence = false;
   for (const line of lines) {
-    if (line.trimStart().startsWith('```')) {
+    if (isFenceLine(line)) {
       inFence = !inFence;
     }
-    if (!inFence && /^#{1,3} /.test(line)) {
+    if (!inFence && /^#{1,3}(?:[ \t]|$)/.test(line)) {
       if (current !== undefined) {
         sections.push(current);
       }

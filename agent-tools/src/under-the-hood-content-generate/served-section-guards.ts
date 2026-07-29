@@ -6,7 +6,7 @@
  * raw-GitHub fetch-URL form (the fetch-instruction shape directory policy
  * §2.F forbids). Excluded sections are exempt: their content never ships.
  */
-import type { CanonicalSection } from './canonical-parser.js';
+import { isFenceLine, type CanonicalSection } from './canonical-parser.js';
 
 /** The first served-section content defect, or undefined when all bodies are clean. */
 export function servedSectionDefect(
@@ -42,18 +42,20 @@ function servedDeepHeadingDefect(
 }
 
 /**
- * Fences are tracked per section body; a fence opened in one section and
- * closed in another is malformed markdown this scan does not model
- * (`splitSections` tracks fences globally).
+ * Fences are tracked per section body via the parser's shared `isFenceLine`;
+ * a fence opened in one section and closed in another is malformed markdown
+ * this scan does not model (`splitSections` tracks fences globally). Heading
+ * detection covers CommonMark's ATX forms (space, tab, or end-of-line after
+ * the hashes), matching the section split.
  */
 function deepHeadingsOutsideFences(lines: readonly string[]): readonly string[] {
   const found: string[] = [];
   let inFence = false;
   for (const line of lines) {
-    if (line.trimStart().startsWith('```')) {
+    if (isFenceLine(line)) {
       inFence = !inFence;
     }
-    if (!inFence && /^#{4,6} /.test(line)) {
+    if (!inFence && /^#{4,6}(?:[ \t]|$)/.test(line)) {
       found.push(line);
     }
   }

@@ -20,4 +20,17 @@ describe('parseCanonicalSections', () => {
     const result = parseCanonicalSections('---\nname: x\n\n# Title\n');
     expect(isErr(result)).toBe(true);
   });
+
+  it('recognises tab and end-of-line ATX heading forms', () => {
+    const sections = unwrap(parseCanonicalSections('# A\n\n##\tTabbed\n\nBody.\n\n##\n\nBare.\n'));
+    expect(sections.map((s) => s.heading)).toEqual(['# A', '##\tTabbed', '##']);
+  });
+
+  it('treats tilde fences as fences and deep-indented backticks as code, not fences', () => {
+    const canonical =
+      '# A\n\n~~~md\n# fenced by tildes\n~~~\n\n    ```\n## Real heading\n\nBody.\n';
+    const sections = unwrap(parseCanonicalSections(canonical));
+    expect(sections.map((s) => s.heading)).toEqual(['# A', '## Real heading']);
+    expect(sections[0]?.lines).toContain('# fenced by tildes');
+  });
 });
