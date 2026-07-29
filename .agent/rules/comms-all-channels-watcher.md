@@ -341,13 +341,17 @@ before treating any check here as proof a seat is reachable.
 The watcher writes a liveness heartbeat **on by default** at
 `<seen-file>.heartbeat.json` (every 30 s); `--heartbeat-file` relocates it
 and `--no-heartbeat` disables it. The heartbeat records `last_drain_at`,
-`last_emit_at`, `last_error_at`, `emitted_count`, and `pid`. At cycle
-boundaries, classify the watcher's liveness from this surface rather than
-trusting the supervisor's "running" status: a hung process cannot
-self-report, so an external staleness check is the detection path that the
-fail-loud per-step deadline (which dies on a hung step) cannot cover. Use the
-`collaboration-state` staleness classifier, or stat the heartbeat file and
-treat an mtime older than `3 ×` the interval as stale.
+`last_emit_at`, `last_error_at`, `emitted_count`, `pid`, and the lexically
+absolute `watched_comms_dir` it actually drains. At cycle boundaries, classify
+the watcher's liveness from this surface rather than trusting the supervisor's
+"running" status: a hung process cannot self-report, so an external staleness
+check is the detection path that the fail-loud per-step deadline (which dies on
+a hung step) cannot cover. Use the `collaboration-state` staleness classifier,
+or stat the heartbeat file and treat an mtime older than `3 ×` the interval as
+stale. Both F-95 gates also compare `watched_comms_dir` with the canonical
+coordination-home comms directory: a fresh heartbeat with the right identity
+but a different source is blind. The strict `0.2.0` heartbeat shape makes this
+fail closed; re-arm watchers created by an older CLI.
 
 **Mutual cover — the detector cannot detect itself.** In a team window,
 every agent's cycle-boundary sweep ALSO staleness-checks the DIRECTOR'S
@@ -370,7 +374,11 @@ derives the heartbeat path from the display name, so a slug-named seen-file
 leaves the watcher running and the assert red (four recorded instances;
 `ls` the directory first — pre-existing seen-files model the convention).
 An explicit `--comms-dir` / `--seen-file` pair is preserved verbatim; the
-caller therefore owns the correctness of both destinations.
+caller may therefore watch a deliberate alternate stream. That pair does not
+redefine canonical F-95: the heartbeat still records the actual absolute
+source, and `assert-watcher-live` / `claims open` reject it unless that source
+matches the canonical coordination-home comms directory. Use `--repo-root` or
+the declared coordination home when the intended canonical home itself changes.
 
 ### Dormancy polls initialise their cursor FROM the frozen seen-file
 

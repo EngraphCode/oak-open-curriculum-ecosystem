@@ -1,15 +1,11 @@
-import { join } from 'node:path';
+import { isAbsolute, join, resolve } from 'node:path';
 
-import { err, ok, type Result } from '@oaknational/result';
+import { err, ok, unwrapOrThrow, type Result } from '@oaknational/result';
 
 import { resolveCoordinationHomeForOptions } from './cli-coordination-home.js';
 import { optional, type Options } from './cli-options.js';
 import { type CliRuntime } from './cli-runtime.js';
-import {
-  commsSeenFileForCodename,
-  DEFAULT_COMMS_SEEN_DIR,
-  heartbeatFileForSeen,
-} from './watcher-presence.js';
+import { commsSeenFileForCodename, DEFAULT_COMMS_SEEN_DIR } from './watcher-presence.js';
 
 /** Canonical comms event directory relative to the coordination home. */
 const DEFAULT_COMMS_DIR = '.agent/state/collaboration/comms';
@@ -28,6 +24,34 @@ export function commsWatchPathsFromHome(
     commsDir: join(coordinationHome, DEFAULT_COMMS_DIR),
     seenFile: commsSeenFileForCodename(agentName, join(coordinationHome, DEFAULT_COMMS_SEEN_DIR)),
   };
+}
+
+/** Canonical watcher path pair under the resolved primary coordination home. */
+export function resolveCanonicalCommsWatchPaths(
+  options: Options,
+  agentName: string,
+  runtime: CliRuntime,
+): CommsWatchPaths {
+  const home = resolveCoordinationHomeForOptions(options, runtime);
+  return commsWatchPathsFromHome(unwrapOrThrow(resolveWatchedCommsDir(home, runtime)), agentName);
+}
+
+/** Lexically anchor a watched path without consulting process-global cwd. */
+export function resolveWatchedCommsDir(
+  commsDir: string,
+  runtime: CliRuntime,
+): Result<string, Error> {
+  if (isAbsolute(commsDir)) {
+    return ok(resolve(commsDir));
+  }
+  if (runtime.cwd === undefined) {
+    return err(
+      new Error(
+        'collaboration-state CLI cwd must be provided by the composition layer to resolve a relative comms path',
+      ),
+    );
+  }
+  return ok(resolve(runtime.cwd, commsDir));
 }
 
 /**
@@ -56,22 +80,5 @@ export function resolveCommsWatchPaths(
     return ok({ commsDir: explicitCommsDir, seenFile: explicitSeenFile });
   }
 
-  const coordinationHome = resolveCoordinationHomeForOptions(options, runtime);
-  return ok(commsWatchPathsFromHome(coordinationHome, agentName));
-}
-
-/** Canonical per-agent cursor directory under the primary coordination home. */
-export function resolveCanonicalCommsSeenDir(options: Options, runtime: CliRuntime): string {
-  return join(resolveCoordinationHomeForOptions(options, runtime), DEFAULT_COMMS_SEEN_DIR);
-}
-
-/** The heartbeat path consumed by both F-95 liveness readers. */
-export function resolveCanonicalWatcherHeartbeatFile(
-  options: Options,
-  agentName: string,
-  runtime: CliRuntime,
-): string {
-  return heartbeatFileForSeen(
-    commsSeenFileForCodename(agentName, resolveCanonicalCommsSeenDir(options, runtime)),
-  );
+  return ok(resolveCanonicalCommsWatchPaths(options, agentName, runtime));
 }

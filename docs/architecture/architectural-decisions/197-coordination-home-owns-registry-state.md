@@ -70,8 +70,12 @@ the registry wins, never the branch's.**
   pushed at waypoints; the branch is never PR'd mid-arc and never rebased.
 - Collaboration tooling must resolve shared-state operations to the coordination home by default,
   regardless of which linked worktree invokes it. A deliberate alternate home remains an
-  explicit caller choice. Machine-local paths are runtime inputs only and are never written into
-  a versioned file (`no-machine-local-paths`).
+  explicit caller choice through `--repo-root` or the declared
+  `PRACTICE_COORDINATION_HOME`, ahead of git-native resolution. Explicit watcher destination
+  paths may target another stream, but they do not redefine the canonical home or mint canonical
+  F-95 proof: watcher heartbeats bind to the actual absolute comms source and canonical readers
+  reject a source mismatch. Machine-local paths are runtime inputs only and are never written
+  into a versioned file (`no-machine-local-paths`).
 - The Director role, not the individual, owns the home. Role succession transfers it via
   PDR-064's two moments; the registries persist across holders.
 

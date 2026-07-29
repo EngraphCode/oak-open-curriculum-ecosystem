@@ -1,4 +1,5 @@
 import { randomUUID } from 'node:crypto';
+import { dirname } from 'node:path';
 
 import { err, unwrapOrThrow } from '@oaknational/result';
 
@@ -11,7 +12,7 @@ import {
 import { areaFromOptions } from './cli-claim-areas.js';
 import { resolveIdentity } from './cli-identity.js';
 import { optional, required, valueOrDefault, type Options } from './cli-options.js';
-import { resolveCanonicalCommsSeenDir } from './comms-watch-paths.js';
+import { resolveCanonicalCommsWatchPaths } from './comms-watch-paths.js';
 import { type CliRuntime } from './cli-runtime.js';
 import { updateActiveClaimsFile, updateClaimStateFiles } from './state-io.js';
 import {
@@ -40,9 +41,11 @@ export async function openClaim(
   // F-95: classify the watcher OUTSIDE the lock (one IO), then decide
   // populated-vs-solo INSIDE the locked transform so the solo-then-peer race
   // cannot slip a blind claim into a registry that became populated mid-open.
+  const watcherPaths = resolveCanonicalCommsWatchPaths(options, identity.agent_name, runtime);
   const watcherVerdict = await resolveOpenClaimWatcherVerdict(
     identity,
-    resolveCanonicalCommsSeenDir(options, runtime),
+    dirname(watcherPaths.seenFile),
+    watcherPaths.commsDir,
   );
 
   await updateActiveClaimsFile({
@@ -217,10 +220,8 @@ function splitClosingClaims(
       remaining.push(claim);
     }
   }
-
   return [remaining, closing];
 }
-
 function closeExplicitly(
   claim: CollaborationClaim,
   input: {

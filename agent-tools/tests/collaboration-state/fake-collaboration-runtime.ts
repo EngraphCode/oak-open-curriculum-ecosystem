@@ -132,11 +132,9 @@ function createFakeIo(state: FakeRuntimeState): CollaborationStateCliIo {
     readTextFile: async (filePath) => {
       const text = state.textByPath.get(filePath);
       if (text === undefined) {
-        return Promise.reject(
-          Object.assign(new Error(`ENOENT: no such file or directory, open '${filePath}'`), {
-            code: 'ENOENT',
-          }),
-        );
+        throw Object.assign(new Error(`ENOENT: no such file or directory, open '${filePath}'`), {
+          code: 'ENOENT',
+        });
       }
       return text;
     },

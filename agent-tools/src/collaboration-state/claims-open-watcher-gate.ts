@@ -61,6 +61,7 @@ function hasOtherLiveAgents(
 export async function resolveWatcherVerdict(input: {
   readonly selfIdentity: CollaborationAgentId;
   readonly commsSeenDir: string;
+  readonly expectedCommsDir: string;
   readonly nowMs: number;
   readonly io: WatcherStalenessIo;
 }): Promise<WatcherPresenceVerdict> {
@@ -68,7 +69,7 @@ export async function resolveWatcherVerdict(input: {
     commsSeenFileForCodename(input.selfIdentity.agent_name, input.commsSeenDir),
   );
   const result = await detectStaleWatcher({ heartbeatFile, nowMs: input.nowMs, io: input.io });
-  return classifyWatcherPresence(result, input.selfIdentity);
+  return classifyWatcherPresence(result, input.selfIdentity, input.expectedCommsDir);
 }
 
 /**
@@ -77,15 +78,18 @@ export async function resolveWatcherVerdict(input: {
  * (there is no comms path override on `claims open`, so a planted heartbeat
  * cannot satisfy this load-bearing backstop), while this boundary owns the
  * real wall clock (`Date.now()`, never the claim's `--now`) and production
- * filesystem adapter.
+ * filesystem adapter. The lower `resolveWatcherVerdict` use case remains
+ * dependency-injected for no-IO behavioural proof.
  */
 export async function resolveOpenClaimWatcherVerdict(
   identity: CollaborationAgentId,
   commsSeenDir: string,
+  expectedCommsDir: string,
 ): Promise<WatcherPresenceVerdict> {
   return resolveWatcherVerdict({
     selfIdentity: identity,
     commsSeenDir,
+    expectedCommsDir,
     nowMs: Date.now(),
     io: productionWatcherStalenessIo,
   });

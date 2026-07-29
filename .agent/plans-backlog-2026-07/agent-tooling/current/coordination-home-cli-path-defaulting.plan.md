@@ -235,7 +235,7 @@ here (drive/reference, do not duplicate).
 | --- | --- |
 | Defaulting changes behaviour for primary-checkout callers | Omitting resolves to the same place they used; explicit paths still honoured. |
 | A reviewer proposes `git rev-parse --show-toplevel` | VERIFIED TRAP — returns the current worktree; use `git worktree list --porcelain \| first`. |
-| An explicit watch pair targets a decoy | Preserve the explicit-override contract, document caller custody, and keep F-95 gates anchored to the canonical heartbeat. |
+| An explicit watch pair targets a decoy | Preserve alternate watcher destinations, but bind every heartbeat to its actual absolute comms source; canonical F-95 gates reject a source mismatch even when the heartbeat or cursor is relocated. |
 | Migrating a remaining invocation bricks a live command | WS4b tests from a real linked worktree before landing. |
 
 ## Foundation alignment

@@ -16,6 +16,7 @@ interface CollaborationStateCliInput {
     CliRuntime['waitForCollaborationStateChange']
   >;
   readonly processIsAlive?: NonNullable<CliRuntime['processIsAlive']>;
+  readonly watcherStalenessIo?: NonNullable<CliRuntime['watcherStalenessIo']>;
   readonly cwd?: string;
   readonly resolveCoordinationHome?: NonNullable<CliRuntime['resolveCoordinationHome']>;
 }
@@ -40,6 +41,7 @@ export async function runCollaborationStateCli(
         waitForCommsChange: input.waitForCommsChange,
         waitForCollaborationStateChange: input.waitForCollaborationStateChange,
         processIsAlive: input.processIsAlive,
+        watcherStalenessIo: input.watcherStalenessIo,
         cwd: input.cwd,
         resolveCoordinationHome: input.resolveCoordinationHome,
       }),

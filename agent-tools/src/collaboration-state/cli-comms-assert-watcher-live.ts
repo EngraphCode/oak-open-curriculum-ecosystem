@@ -14,8 +14,8 @@
 import { err, unwrapOrThrow } from '@oaknational/result';
 
 import { optional, type Options } from './cli-options.js';
-import { resolveCanonicalWatcherHeartbeatFile } from './comms-watch-paths.js';
-import { type CliRuntime } from './cli-runtime.js';
+import { resolveCanonicalCommsWatchPaths } from './comms-watch-paths.js';
+import { type CliRuntime, watcherStalenessIo } from './cli-runtime.js';
 import { resolveSelfIdentity } from './cli-self-identity.js';
 import { type CollaborationStateEnvironment } from './types.js';
 import {
@@ -24,7 +24,6 @@ import {
   heartbeatFileForSeen,
 } from './watcher-presence.js';
 import { detectStaleWatcher } from './watcher-staleness.js';
-import { productionWatcherStalenessIo } from './watcher-staleness-io.js';
 
 export async function assertWatcherLive(
   options: Options,
@@ -35,10 +34,11 @@ export async function assertWatcherLive(
   const codename = self.agent_name;
   const explicitHeartbeat = optional(options, 'heartbeat-file');
   const explicitCommsSeenDir = optional(options, 'comms-seen-dir');
+  const canonicalPaths = resolveCanonicalCommsWatchPaths(options, codename, runtime);
   const heartbeatFile =
     explicitHeartbeat ??
     (explicitCommsSeenDir === undefined
-      ? resolveCanonicalWatcherHeartbeatFile(options, codename, runtime)
+      ? heartbeatFileForSeen(canonicalPaths.seenFile)
       : heartbeatFileForSeen(commsSeenFileForCodename(codename, explicitCommsSeenDir)));
 
   // Liveness freshness uses the REAL wall clock only — never a caller-supplied
@@ -46,9 +46,9 @@ export async function assertWatcherLive(
   const result = await detectStaleWatcher({
     heartbeatFile,
     nowMs: Date.now(),
-    io: productionWatcherStalenessIo,
+    io: watcherStalenessIo(runtime),
   });
-  const verdict = classifyWatcherPresence(result, self);
+  const verdict = classifyWatcherPresence(result, self, canonicalPaths.commsDir);
 
   if (verdict.kind === 'blind') {
     return unwrapOrThrow<never>(

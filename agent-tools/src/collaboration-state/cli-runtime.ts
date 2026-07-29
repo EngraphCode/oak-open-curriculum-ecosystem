@@ -5,6 +5,8 @@ import { err, ok, unwrapOrThrow, type Result } from '@oaknational/result';
 
 import { type CollaborationStateCliIo, productionIo } from './cli-io-production.js';
 import { resolveCoordinationHome } from './coordination-home.js';
+import { type WatcherStalenessIo } from './watcher-staleness.js';
+import { productionWatcherStalenessIo } from './watcher-staleness-io.js';
 import { processIsAliveBySignalZero } from './watcher-supervisor.js';
 
 export { type CollaborationStateCliIo } from './cli-io-production.js';
@@ -37,6 +39,8 @@ export interface CliRuntime {
   readonly cwd?: string;
   /** Injectable primary coordination-home resolver for hermetic tests. */
   readonly resolveCoordinationHome?: CoordinationHomeResolver;
+  /** Watcher-heartbeat reader/stat adapter; production uses the filesystem binding. */
+  readonly watcherStalenessIo?: WatcherStalenessIo;
 }
 
 export function cliIo(runtime: CliRuntime): CollaborationStateCliIo {
@@ -44,6 +48,15 @@ export function cliIo(runtime: CliRuntime): CollaborationStateCliIo {
     requiredRuntimeCapability(
       runtime.io,
       'collaboration-state CLI IO must be provided by the composition layer',
+    ),
+  );
+}
+
+export function watcherStalenessIo(runtime: CliRuntime): WatcherStalenessIo {
+  return unwrapOrThrow(
+    requiredRuntimeCapability(
+      runtime.watcherStalenessIo,
+      'watcher staleness IO must be provided by the composition layer',
     ),
   );
 }
@@ -88,6 +101,7 @@ export function productionCollaborationStateRuntime(
   input: {
     readonly stdout?: Pick<NodeJS.WritableStream, 'write'>;
     readonly cwd?: string;
+    readonly coordinationHomeEnv?: string;
     readonly resolveCoordinationHome?: CoordinationHomeResolver;
   } = {},
 ): CliRuntime {
@@ -97,8 +111,17 @@ export function productionCollaborationStateRuntime(
     waitForCommsChange: waitForDirectoryChange,
     waitForCollaborationStateChange: waitForCollaborationStateChangeFromFiles,
     processIsAlive: processIsAliveBySignalZero,
+    watcherStalenessIo: productionWatcherStalenessIo,
     cwd: input.cwd ?? process.cwd(),
-    resolveCoordinationHome: input.resolveCoordinationHome ?? resolveCoordinationHome,
+    resolveCoordinationHome:
+      input.resolveCoordinationHome ??
+      ((cwd) =>
+        resolveCoordinationHome(
+          cwd,
+          input.coordinationHomeEnv === undefined
+            ? {}
+            : { coordinationHomeEnv: input.coordinationHomeEnv },
+        )),
   };
 }
 

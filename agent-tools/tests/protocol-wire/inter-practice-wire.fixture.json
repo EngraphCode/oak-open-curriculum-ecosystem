@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "inter-practice-wire.fixture.json",
+  "title": "Inter-Practice wire test fixture",
+  "version": "1.0.0",
+  "$defs": {
+    "wire_identity": {
+      "type": "object",
+      "required": ["agent_name", "platform", "model", "session_id_prefix"],
+      "properties": {
+        "agent_name": { "type": "string", "minLength": 1 },
+        "platform": { "type": "string", "minLength": 1 },
+        "model": { "type": "string", "minLength": 1 },
+        "session_id_prefix": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": true
+    },
+    "exchange_comms_event": {
+      "type": "object",
+      "required": ["schema_version", "event_id", "created_at", "kind", "author", "title", "body"],
+      "properties": {
+        "schema_version": { "type": "string", "minLength": 1 },
+        "event_id": { "type": "string", "minLength": 1 },
+        "created_at": { "type": "string", "minLength": 1 },
+        "kind": { "type": "string", "minLength": 1 },
+        "author": { "$ref": "#/$defs/wire_identity" },
+        "title": { "type": "string", "minLength": 1 },
+        "body": { "type": "string", "minLength": 1 },
+        "in_response_to": { "type": "string", "minLength": 1 },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "audience": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/wire_identity" },
+          "minItems": 1
+        },
+        "addressed_to": { "$ref": "#/$defs/wire_identity" }
+      },
+      "additionalProperties": true
+    },
+    "claim_repo_ref": {
+      "type": "object",
+      "required": ["origin"],
+      "properties": {
+        "origin": { "type": "string", "minLength": 1 },
+        "branch": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": true
+    },
+    "watcher_heartbeat": {
+      "type": "object",
+      "required": ["schema_version", "pid", "started_at", "watcher_identity"],
+      "properties": {
+        "schema_version": { "type": "string", "minLength": 1 },
+        "watched_comms_dir": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^(?:/|[A-Za-z]:[\\\\/]|\\\\\\\\)"
+        },
+        "pid": { "type": "number" },
+        "started_at": { "type": "string", "minLength": 1 },
+        "last_drain_at": { "type": ["string", "null"] },
+        "last_emit_at": { "type": ["string", "null"] },
+        "last_error_at": { "type": ["string", "null"] },
+        "emitted_count": { "type": "number" },
+        "heartbeat_interval_ms": { "type": "number" },
+        "watcher_identity": { "$ref": "#/$defs/wire_identity" }
+      },
+      "additionalProperties": true
+    },
+    "watcher_seen_file": {
+      "type": "string",
+      "pattern": "^(\\S+\\r?\\n)*(\\S+\\r?\\n?)?$"
+    }
+  }
+}

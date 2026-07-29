@@ -80,13 +80,17 @@ function captureStdout(runtime: ReturnType<typeof createFakeCollaborationRuntime
  * fire (`--no-heartbeat`, an explicit `--heartbeat-file`) to a few quiet
  * passes instead of a hang.
  */
-async function runOneWatchPass(extraOptions: Record<string, string>): Promise<{
+async function runOneWatchPass(
+  extraOptions: Record<string, string>,
+  cwd?: string,
+): Promise<{
   readonly heartbeatAt: (path: string) => string | undefined;
   readonly streamed: readonly string[];
 }> {
   let probes = 0;
   const fake = createFakeCollaborationRuntime({
     comms: { [COMMS_DIR]: [otherAgentEvent('evt-1')] },
+    cwd,
     processIsAlive: () => {
       probes += 1;
       return probes <= 8 && fake.readTextFile(DERIVED_HEARTBEAT) === undefined;
@@ -147,6 +151,7 @@ describe('watchComms — liveness default-on (Luminous c2)', () => {
     expect(heartbeatText).toBeDefined();
     const heartbeat = parseWatcherHeartbeat(heartbeatText ?? '');
     expect(heartbeat.watcher_identity.agent_name).toBe('Watcher Self');
+    expect(heartbeat.watched_comms_dir).toBe(COMMS_DIR);
   });
 
   it('writes NO heartbeat when --no-heartbeat opts out', async () => {
@@ -163,7 +168,47 @@ describe('watchComms — liveness default-on (Luminous c2)', () => {
     expect(heartbeatText).toBeDefined();
     const heartbeat = parseWatcherHeartbeat(heartbeatText ?? '');
     expect(heartbeat.watcher_identity.agent_name).toBe('Watcher Self');
+    expect(heartbeat.watched_comms_dir).toBe(COMMS_DIR);
     expect(heartbeatAt(DERIVED_HEARTBEAT)).toBeUndefined();
+  });
+
+  it('records a decoy source even when the seen-file is at a canonical-looking path', async () => {
+    const canonicalSeen = '/primary/.agent/state/collaboration/comms-seen/Watcher Self.json';
+    const heartbeatFile = `${canonicalSeen}.heartbeat.json`;
+    const { heartbeatAt } = await runOneWatchPass({
+      'comms-dir': '/decoy/.agent/state/collaboration/comms',
+      'seen-file': canonicalSeen,
+    });
+
+    const heartbeat = parseWatcherHeartbeat(heartbeatAt(heartbeatFile) ?? '');
+    expect(heartbeat.watched_comms_dir).toBe('/decoy/.agent/state/collaboration/comms');
+  });
+
+  it('records a decoy source when the heartbeat itself is explicitly relocated to the canonical path', async () => {
+    const canonicalHeartbeat =
+      '/primary/.agent/state/collaboration/comms-seen/Watcher Self.json.heartbeat.json';
+    const { heartbeatAt } = await runOneWatchPass({
+      'comms-dir': '/decoy/.agent/state/collaboration/comms',
+      'seen-file': '/decoy/seen.json',
+      'heartbeat-file': canonicalHeartbeat,
+    });
+
+    const heartbeat = parseWatcherHeartbeat(heartbeatAt(canonicalHeartbeat) ?? '');
+    expect(heartbeat.watched_comms_dir).toBe('/decoy/.agent/state/collaboration/comms');
+  });
+
+  it('anchors a relative comms source lexically to the injected invocation cwd', async () => {
+    const relativeSeen = 'state/watcher.json';
+    const { heartbeatAt } = await runOneWatchPass(
+      {
+        'comms-dir': 'state/comms',
+        'seen-file': relativeSeen,
+      },
+      '/invoking/repository',
+    );
+
+    const heartbeat = parseWatcherHeartbeat(heartbeatAt(`${relativeSeen}.heartbeat.json`) ?? '');
+    expect(heartbeat.watched_comms_dir).toBe('/invoking/repository/state/comms');
   });
 });
 

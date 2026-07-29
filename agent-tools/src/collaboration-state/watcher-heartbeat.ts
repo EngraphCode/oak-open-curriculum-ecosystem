@@ -1,15 +1,24 @@
+import { isAbsolute } from 'node:path';
+
 import { z } from 'zod';
 
-import { type CollaborationStateCliIo } from './cli-runtime.js';
 import { collaborationAgentIdSchema } from './types.js';
+
+interface WatcherHeartbeatWriter {
+  readonly writeTextFile: (input: {
+    readonly filePath: string;
+    readonly text: string;
+  }) => Promise<void>;
+}
 
 /**
  * Pre-stable schema version. The `0.x.y` prefix signals that the schema may
- * evolve before a 1.0 release (per semver convention); consumers MUST be
- * tolerant of additive field changes. The version moves to `1.0.0` only
- * when the team commits to the field set being stable across consumers.
+ * evolve before a 1.0 release (per semver convention). This local parser is
+ * deliberately strict and fail-closed: a changed attestation contract gets a
+ * new version and requires the watcher to re-arm. The version moves to `1.0.0`
+ * only when the team commits to the field set being stable across consumers.
  */
-const WATCHER_HEARTBEAT_SCHEMA_VERSION = '0.1.0';
+const WATCHER_HEARTBEAT_SCHEMA_VERSION = '0.2.0';
 
 /**
  * Suffix appended to a watcher's seen-file to derive its heartbeat path
@@ -22,6 +31,7 @@ export const HEARTBEAT_FILE_SUFFIX = '.heartbeat.json';
 const watcherHeartbeatSchema = z
   .object({
     schema_version: z.literal(WATCHER_HEARTBEAT_SCHEMA_VERSION),
+    watched_comms_dir: z.string().refine(isAbsolute, 'watched_comms_dir must be an absolute path'),
     pid: z.number(),
     started_at: z.string(),
     last_drain_at: z.string().nullable(),
@@ -52,7 +62,7 @@ const watcherHeartbeatSchema = z
 export type WatcherHeartbeat = z.infer<typeof watcherHeartbeatSchema>;
 
 export async function writeWatcherHeartbeat(input: {
-  readonly io: Pick<CollaborationStateCliIo, 'writeTextFile'>;
+  readonly io: WatcherHeartbeatWriter;
   readonly heartbeatFile: string;
   readonly heartbeat: WatcherHeartbeat;
 }): Promise<void> {

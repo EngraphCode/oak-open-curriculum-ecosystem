@@ -128,7 +128,10 @@ the special case. Run both unless that exemption applies.
    live heartbeat is found (F-95). This is a check, not just a pause — and
    `claims open` (move 7) independently refuses to stake a claim into a
    populated registry while blind to comms, so the visibility guarantee holds
-   even if this check is skipped. On Codex, keep this root-identity watcher
+   even if this check is skipped. Both gates require the heartbeat's recorded
+   absolute comms source to match the canonical coordination-home stream; a
+   relocated heartbeat from a decoy watcher does not attest visibility. On
+   Codex, keep this root-identity watcher
    running even after adding the distinct
    [`NOTIFY` relay child](../../rules/use-monitor-for-event-driven-wake.md#codex-notify-session-relay):
    the relay's separate identity/cursor can wake the root, but its heartbeat

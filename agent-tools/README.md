@@ -301,9 +301,14 @@ OAK_AGENT_IDENTITY_OVERRIDE="Frolicking Toast" pnpm agent-tools agent-identity -
   fallback and records seen event ids in a durable cursor. Omit
   `--comms-dir` and `--seen-file` together to resolve the PRIMARY coordination
   home and derive `comms-seen/<exact display name>.json`; `--repo-root`
-  overrides that derived home. The two path flags form an atomic override
-  pair and, when both are supplied, are preserved verbatim. `watch` creates
-  the comms directory and seen-file parent in either mode.
+  overrides that derived home. Resolution precedence is explicit
+  `--repo-root`, then a validated `PRACTICE_COORDINATION_HOME`, then the
+  git-native primary checkout. The two path flags form an atomic override pair
+  and, when both are supplied, are preserved verbatim. `watch` creates the
+  comms directory and seen-file parent in either mode. Its strict `0.2.0`
+  heartbeat records the lexically absolute comms source actually drained;
+  `assert-watcher-live` and the `claims open` F-95 gate accept it only when
+  that source matches the canonical coordination-home comms directory.
   `reply` swaps the source `from` / `to` identities and defaults the subject
   to `re: <source subject>` unless `--subject` is supplied.
 - `claims open|heartbeat|close|archive-stale` — mutate active and closed

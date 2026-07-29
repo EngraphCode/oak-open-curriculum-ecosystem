@@ -206,7 +206,8 @@ operational needs of the in-tree `comms watch` CLI:
 
 ```json
 {
-  "schema_version": "1.0.0",
+  "schema_version": "0.2.0",
+  "watched_comms_dir": "/absolute/coordination/home/.agent/state/collaboration/comms",
   "pid": 12345,
   "started_at": "2026-05-23T12:00:00.000Z",
   "last_drain_at": "2026-05-23T12:30:00.000Z",
@@ -225,12 +226,15 @@ Structural deltas from the minimum-viable shape above:
   rather than a generic agent reference).
 - The single `last_alive_at` is replaced by three per-action
   timestamps (`last_drain_at`, `last_emit_at`, `last_error_at`).
-  The `source` field is absent: the structured tick-tracking
-  names the source implicitly (a recent `last_emit_at` means the
-  emit path is alive; a recent `last_error_at` with no recent
-  emit means the watcher is alive but unhealthy). The doc
-  anti-pattern "Substrate-enforced source enum" still holds — the
-  canonical impl removed `source` rather than enumerating it.
+  The free-form producer-mode `source` field is absent: the structured
+  tick-tracking names that mode implicitly (a recent `last_emit_at`
+  means the emit path is alive; a recent `last_error_at` with no recent
+  emit means the watcher is alive but unhealthy).
+- `watched_comms_dir` records the lexically absolute directory the
+  watcher actually drains. It is a path, not a source-mode enum. F-95
+  readers compare it with the expected canonical comms directory, so
+  relocating a heartbeat or cursor cannot make a watcher on a decoy
+  stream attest canonical visibility.
 - Schema versioning (`schema_version`), process identity (`pid`),
   start time (`started_at`), throughput accounting
   (`emitted_count`), and cadence declaration
@@ -245,6 +249,9 @@ the watch loop.
 The canonical impl exposes `writeWatcherHeartbeat` (atomic write
 of the heartbeat file) and `parseWatcherHeartbeat` (strict
 reverse-parse; throws `TypeError` on schema mismatch). Consumers
+must re-arm a watcher after the `0.1.0` → `0.2.0` source-binding
+transition; the strict reader deliberately rejects the older shape
+rather than treating an unbound heartbeat as proof. Consumers
 that want to read heartbeats from arbitrary watcher impls should
 adapt: the minimum-viable shape above remains valid for foreign
 implementations, and the canonical shape is one phenotype of the

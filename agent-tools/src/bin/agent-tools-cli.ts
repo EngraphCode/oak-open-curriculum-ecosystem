@@ -76,6 +76,9 @@ export function agentToolsCliEnvironmentFromProcessEnv(
   return {
     ...agentIdentityCliEnvironmentFromProcessEnv(env),
     ...(env.HOME === undefined ? {} : { HOME: env.HOME }),
+    ...(env.PRACTICE_COORDINATION_HOME === undefined
+      ? {}
+      : { PRACTICE_COORDINATION_HOME: env.PRACTICE_COORDINATION_HOME }),
   };
 }
 
@@ -147,6 +150,9 @@ async function dispatchTopic(input: {
     const runtime = productionCollaborationStateRuntime({
       stdout: input.input.stdout,
       cwd: input.input.cwd,
+      ...(input.input.env.PRACTICE_COORDINATION_HOME === undefined
+        ? {}
+        : { coordinationHomeEnv: input.input.env.PRACTICE_COORDINATION_HOME }),
     });
     return runCollaborationStateCli({
       argv: input.parsed.topicArgs,
@@ -156,6 +162,7 @@ async function dispatchTopic(input: {
       waitForCommsChange: runtime.waitForCommsChange,
       waitForCollaborationStateChange: runtime.waitForCollaborationStateChange,
       processIsAlive: runtime.processIsAlive,
+      watcherStalenessIo: runtime.watcherStalenessIo,
       cwd: runtime.cwd,
       resolveCoordinationHome: runtime.resolveCoordinationHome,
     });

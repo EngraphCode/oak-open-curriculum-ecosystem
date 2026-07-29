@@ -10,6 +10,8 @@
  * `claims open` precondition. Path derivation lives here too so the two surfaces
  * resolve a session's heartbeat path identically.
  */
+import { resolve } from 'node:path';
+
 import { sameAgentRoutingKey } from './active-agent-routing.js';
 import { type CollaborationAgentId } from './types.js';
 import { HEARTBEAT_FILE_SUFFIX } from './watcher-heartbeat.js';
@@ -64,18 +66,28 @@ export function heartbeatFileForSeen(seenFile: string): string {
 function presentIfThisSession(
   heartbeatIdentity: CollaborationAgentId,
   expectedIdentity: CollaborationAgentId,
+  watchedCommsDir: string,
+  expectedCommsDir: string,
 ): WatcherPresenceVerdict {
-  if (sameAgentRoutingKey(heartbeatIdentity, expectedIdentity)) {
-    return { kind: 'present' };
+  if (!sameAgentRoutingKey(heartbeatIdentity, expectedIdentity)) {
+    return {
+      kind: 'blind',
+      reason:
+        `a live comms watcher heartbeat exists, but its identity ` +
+        `(${heartbeatIdentity.agent_name} / ${heartbeatIdentity.session_id_prefix}) is not this ` +
+        `session's — this session is not running the watcher (a foreign or copied heartbeat does ` +
+        `not count)`,
+    };
   }
-  return {
-    kind: 'blind',
-    reason:
-      `a live comms watcher heartbeat exists, but its identity ` +
-      `(${heartbeatIdentity.agent_name} / ${heartbeatIdentity.session_id_prefix}) is not this ` +
-      `session's — this session is not running the watcher (a foreign or copied heartbeat does ` +
-      `not count)`,
-  };
+  if (resolve(watchedCommsDir) !== resolve(expectedCommsDir)) {
+    return {
+      kind: 'blind',
+      reason:
+        `this session's live watcher is draining a different comms source ` +
+        `(${watchedCommsDir}) than the canonical source (${expectedCommsDir})`,
+    };
+  }
+  return { kind: 'present' };
 }
 
 /**
@@ -94,19 +106,18 @@ function presentIfThisSession(
 export function classifyWatcherPresence(
   result: WatcherStalenessResult,
   expectedIdentity: CollaborationAgentId,
+  expectedCommsDir: string,
 ): WatcherPresenceVerdict {
   switch (result.kind) {
     case 'live':
-      return presentIfThisSession(result.identity, expectedIdentity);
+      return presentIfThisSession(
+        result.identity,
+        expectedIdentity,
+        result.watchedCommsDir,
+        expectedCommsDir,
+      );
     case 'stale-no-emit':
-      if (result.agedMs > result.thresholdMs) {
-        return {
-          kind: 'blind',
-          reason:
-            'comms watcher started but has emitted nothing and its heartbeat is stale — presumed dead',
-        };
-      }
-      return presentIfThisSession(result.identity, expectedIdentity);
+      return classifyNoEmitPresence(result, expectedIdentity, expectedCommsDir);
     case 'stale-aged':
       return {
         kind: 'blind',
@@ -130,4 +141,24 @@ export function classifyWatcherPresence(
       throw new Error(`Unhandled WatcherStalenessResult kind: ${JSON.stringify(exhaustive)}`);
     }
   }
+}
+
+function classifyNoEmitPresence(
+  result: Extract<WatcherStalenessResult, { readonly kind: 'stale-no-emit' }>,
+  expectedIdentity: CollaborationAgentId,
+  expectedCommsDir: string,
+): WatcherPresenceVerdict {
+  if (result.agedMs > result.thresholdMs) {
+    return {
+      kind: 'blind',
+      reason:
+        'comms watcher started but has emitted nothing and its heartbeat is stale — presumed dead',
+    };
+  }
+  return presentIfThisSession(
+    result.identity,
+    expectedIdentity,
+    result.watchedCommsDir,
+    expectedCommsDir,
+  );
 }
