@@ -9,7 +9,8 @@
  * (committed; the app build never runs the generator)
  * and drift-gated by `validate-under-the-hood-content` (MCP-353).
  *
- * Why baked, not pointed: the Anthropic Software Directory policy (§2.F)
+ * Why baked, not pointed: the Anthropic Software Directory policy (§2.F,
+ * https://support.claude.com/en/articles/13145358-anthropic-software-directory-policy)
  * forbids instructional software directing the assistant to dynamically pull
  * behavioural instructions from external sources for execution. The previous
  * pointer shape ("fetch the canonical at this URL and follow it") was exactly

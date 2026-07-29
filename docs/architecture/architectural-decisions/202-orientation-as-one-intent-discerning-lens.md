@@ -115,7 +115,9 @@ Two changes land together (PR #243), both consistent with the original Decision:
 
 ## Amendment (2026-07-29, MCP-353): the MCP projection serves a baked, parity-gated digest
 
-The Anthropic Software Directory policy (§2.F) forbids instructional software directing the assistant
+The [Anthropic Software Directory policy](https://support.claude.com/en/articles/13145358-anthropic-software-directory-policy)
+§2.F ("Instructional Software must not direct Claude to dynamically pull behavioral instructions from
+external sources for Claude to execute") forbids instructional software directing the assistant
 to dynamically pull behavioural instructions from external sources for execution — which is precisely
 the fetch-and-follow shape the 2026-06-27 amendment chose. The internal compliance review flagged it;
 the owner confirmed the supersession (2026-07-29). The 2026-06-27 clause was reasoned from

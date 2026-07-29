@@ -143,7 +143,14 @@ export async function generateContentModule(repoRoot: string): Promise<Result<st
     return module;
   }
   const outputPath = join(repoRoot, GENERATED_MODULE_PATH);
-  await writeFile(outputPath, module.value, 'utf8');
+  try {
+    await writeFile(outputPath, module.value, 'utf8');
+  } catch (error: unknown) {
+    return err(
+      `Cannot write ${GENERATED_MODULE_PATH}: ` +
+        `${error instanceof Error ? error.message : String(error)}`,
+    );
+  }
   return ok(outputPath);
 }
 

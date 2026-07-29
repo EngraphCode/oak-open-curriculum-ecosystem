@@ -15,13 +15,51 @@ export interface CanonicalSection {
 }
 
 /**
- * CommonMark fence delimiter: a three-backtick or three-tilde run indented at
- * most three spaces. Four or more spaces of indent is indented code, not a
- * fence. Shared by the section split and the served-section guards so both
- * track fences the same way.
+ * Stateful CommonMark fence tracker. A fence opens with a backtick or tilde
+ * run of three or more, indented at most three spaces (deeper indent is
+ * code); it closes only on a run of the SAME character, at least as long,
+ * with nothing after it — so a literal three-backtick line inside a
+ * four-backtick fence stays content. The returned function answers, per line
+ * in order, "is this line a fence delimiter or fenced content?"; heading
+ * detection is suppressed for such lines. Shared by the section split and
+ * the served-section guards so both track fences the same way.
  */
-export function isFenceLine(line: string): boolean {
-  return /^ {0,3}(?:```|~~~)/.test(line);
+export function createFenceTracker(): (line: string) => boolean {
+  let open: FenceDelimiter | undefined;
+  return (line: string): boolean => {
+    const delimiter = parseFenceDelimiter(line);
+    if (delimiter === undefined) {
+      return open !== undefined;
+    }
+    if (open === undefined) {
+      open = delimiter;
+    } else if (closesFence(open, delimiter)) {
+      open = undefined;
+    }
+    return true;
+  };
+}
+
+interface FenceDelimiter {
+  readonly char: string;
+  readonly length: number;
+  readonly rest: string;
+}
+
+function parseFenceDelimiter(line: string): FenceDelimiter | undefined {
+  const match = /^ {0,3}(`{3,}|~{3,})(.*)$/.exec(line);
+  const run = match?.[1];
+  if (run === undefined) {
+    return undefined;
+  }
+  return { char: run.charAt(0), length: run.length, rest: match?.[2] ?? '' };
+}
+
+/** CommonMark close: same delimiter character, an equal-or-longer run, nothing after it. */
+function closesFence(open: FenceDelimiter, candidate: FenceDelimiter): boolean {
+  return (
+    candidate.char === open.char && candidate.length >= open.length && candidate.rest.trim() === ''
+  );
 }
 
 /**
@@ -49,12 +87,9 @@ export function parseCanonicalSections(
 function splitSections(lines: readonly string[]): readonly CanonicalSection[] {
   const sections: CanonicalSection[] = [];
   let current: { heading: string; lines: string[] } | undefined;
-  let inFence = false;
+  const fenced = createFenceTracker();
   for (const line of lines) {
-    if (isFenceLine(line)) {
-      inFence = !inFence;
-    }
-    if (!inFence && /^#{1,3}(?:[ \t]|$)/.test(line)) {
+    if (!fenced(line) && /^#{1,3}(?:[ \t]|$)/.test(line)) {
       if (current !== undefined) {
         sections.push(current);
       }

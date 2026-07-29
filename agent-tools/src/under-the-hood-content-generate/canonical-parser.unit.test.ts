@@ -33,4 +33,12 @@ describe('parseCanonicalSections', () => {
     expect(sections.map((s) => s.heading)).toEqual(['# A', '## Real heading']);
     expect(sections[0]?.lines).toContain('# fenced by tildes');
   });
+
+  it('pairs fences by delimiter character and length (a shorter run inside stays content)', () => {
+    const canonical =
+      '# A\n\n````md\nA literal example:\n```\ninner\n```\n````\n\n## After the fence\n\nBody.\n';
+    const sections = unwrap(parseCanonicalSections(canonical));
+    expect(sections.map((s) => s.heading)).toEqual(['# A', '## After the fence']);
+    expect(sections[0]?.lines).toContain('inner');
+  });
 });

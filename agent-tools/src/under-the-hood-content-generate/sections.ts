@@ -5,10 +5,12 @@
  * written for a local-checkout audience. The MCP server serves a DIGEST of it:
  * the audience-independent orientation method plus the factual-reference map,
  * with every checkout-bound or fetch-instructing section excluded (Anthropic
- * Software Directory policy §2.F: served content must not direct the assistant
- * to pull behavioural instructions from external sources; owner ruling
- * 2026-07-29: the method is baked, factual public-document references remain
- * as citations).
+ * Software Directory policy §2.F, "Instructional Software must not direct
+ * Claude to dynamically pull behavioral instructions from external sources
+ * for Claude to execute" —
+ * https://support.claude.com/en/articles/13145358-anthropic-software-directory-policy;
+ * owner ruling 2026-07-29: the method is baked, factual public-document
+ * references remain as citations).
  *
  * Classification is TOTAL and enforced at generation: every canonical H1–H3
  * heading must appear in exactly one of the two lists below. An unclassified
