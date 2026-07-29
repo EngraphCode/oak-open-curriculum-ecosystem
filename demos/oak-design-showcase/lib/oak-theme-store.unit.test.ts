@@ -1,22 +1,17 @@
 /**
- * The store's change-notification contract: subscribers are re-notified on
- * writes through the setters AND on the runtime's own reactive trigger (the
- * `prefers-contrast` media change the oak-theme runtime re-derives its default
- * from) — a runtime-driven theme change must reach React, not only control
- * writes. All collaborators are simple injected fakes (no-global-state-in-tests
- * / ADR-078): the fake runtime models the real one's contract, where set()
- * APPLIES the choice (the html data-theme attribute the store's applied-theme
- * resolver reads).
+ * The store's snapshot contract: the theme snapshot is the CHOICE model —
+ * a persisted or session choice, never the applied html attribute (the
+ * runtime's automatic prefers-contrast path also writes the attribute, so
+ * applied ≠ chosen exactly when "Page default" must render). All
+ * collaborators are simple injected fakes (no-global-state-in-tests /
+ * ADR-078): the fake runtime models the real one's contract, where set()
+ * APPLIES the choice to the page; the stored-choice resolver models the
+ * runtime's persistence.
  */
 import { describe, expect, it, vi } from 'vitest';
 
 import { createOakThemeStore } from './oak-theme-store';
-import type {
-  ContrastQuery,
-  OakMotionMode,
-  OakThemeName,
-  OakThemeRuntime,
-} from './oak-theme-store';
+import type { OakMotionMode, OakThemeName, OakThemeRuntime } from './oak-theme-store';
 
 function fakeRuntimeWorld(): {
   runtime: OakThemeRuntime;
@@ -29,7 +24,7 @@ function fakeRuntimeWorld(): {
     set: (t: OakThemeName) => {
       applied = t;
     },
-    themes: ['light', 'dark'],
+    themes: ['light', 'dark', 'high-contrast'],
     motion: {
       get: () => motion,
       set: (m: OakMotionMode) => {
@@ -41,50 +36,28 @@ function fakeRuntimeWorld(): {
   return { runtime, appliedTheme: () => applied };
 }
 
-function fakeContrastQuery(): { query: ContrastQuery; fire: () => void; listeners: () => number } {
-  const changeListeners = new Set<() => void>();
-  const query: ContrastQuery = {
-    addEventListener: (_type, listener) => {
-      changeListeners.add(listener);
-    },
-    removeEventListener: (_type, listener) => {
-      changeListeners.delete(listener);
-    },
-  };
-  return {
-    query,
-    fire: () => {
-      for (const listener of changeListeners) {
-        listener();
-      }
-    },
-    listeners: () => changeListeners.size,
-  };
-}
-
 describe('createOakThemeStore snapshots and setters', () => {
   it('reports the no-choice state as the empty sentinel, never as light', () => {
     const world = fakeRuntimeWorld();
     const store = createOakThemeStore(
       () => world.runtime,
       () => undefined,
-      world.appliedTheme,
     );
     expect(store.getTheme()).toBe('');
   });
 
-  it('notifies subscribers and reports the applied theme after a setter write', () => {
+  it('notifies subscribers, applies and reports the choice after a setter write', () => {
     const world = fakeRuntimeWorld();
     const store = createOakThemeStore(
       () => world.runtime,
       () => undefined,
-      world.appliedTheme,
     );
     const listener = vi.fn();
     store.subscribe(listener);
     store.setTheme('dark');
     expect(listener).toHaveBeenCalledTimes(1);
     expect(store.getTheme()).toBe('dark');
+    expect(world.appliedTheme()).toBe('dark');
   });
 
   it('ignores a value outside the runtime theme list without notifying', () => {
@@ -92,7 +65,6 @@ describe('createOakThemeStore snapshots and setters', () => {
     const store = createOakThemeStore(
       () => world.runtime,
       () => undefined,
-      world.appliedTheme,
     );
     const listener = vi.fn();
     store.subscribe(listener);
@@ -102,36 +74,47 @@ describe('createOakThemeStore snapshots and setters', () => {
   });
 });
 
-describe('createOakThemeStore subscription lifecycle', () => {
-  it('re-notifies subscribers when the contrast preference changes (runtime-driven change)', () => {
+describe('createOakThemeStore choice model', () => {
+  it('reports a persisted choice on a fresh store (reload shape)', () => {
     const world = fakeRuntimeWorld();
-    const contrast = fakeContrastQuery();
     const store = createOakThemeStore(
       () => world.runtime,
-      () => contrast.query,
-      world.appliedTheme,
+      () => 'dark',
     );
-    const listener = vi.fn();
-    store.subscribe(listener);
-    contrast.fire();
-    expect(listener).toHaveBeenCalledTimes(1);
+    expect(store.getTheme()).toBe('dark');
   });
 
-  it('attaches the media listener with the first subscriber and detaches with the last', () => {
+  it('treats a stored value outside the runtime theme list as no choice', () => {
     const world = fakeRuntimeWorld();
-    const contrast = fakeContrastQuery();
     const store = createOakThemeStore(
       () => world.runtime,
-      () => contrast.query,
-      world.appliedTheme,
+      () => 'sepia',
     );
-    expect(contrast.listeners()).toBe(0);
-    const unsubscribeFirst = store.subscribe(vi.fn());
-    const unsubscribeSecond = store.subscribe(vi.fn());
-    expect(contrast.listeners()).toBe(1);
-    unsubscribeFirst();
-    expect(contrast.listeners()).toBe(1);
-    unsubscribeSecond();
-    expect(contrast.listeners()).toBe(0);
+    expect(store.getTheme()).toBe('');
+  });
+
+  it('does not read the applied state as a choice — the OS contrast route stays Page default', () => {
+    const world = fakeRuntimeWorld();
+    // The runtime's automatic prefers-contrast path applies high-contrast
+    // WITHOUT persisting a choice (oak-theme.js auto()); the snapshot must
+    // stay '' so the control reads "Page default" and choosing
+    // High contrast still fires a change event.
+    world.runtime.set('high-contrast');
+    const store = createOakThemeStore(
+      () => world.runtime,
+      () => undefined,
+    );
+    expect(world.appliedTheme()).toBe('high-contrast');
+    expect(store.getTheme()).toBe('');
+  });
+
+  it('keeps a session choice visible when persistence failed (private mode)', () => {
+    const world = fakeRuntimeWorld();
+    const store = createOakThemeStore(
+      () => world.runtime,
+      () => undefined,
+    );
+    store.setTheme('high-contrast');
+    expect(store.getTheme()).toBe('high-contrast');
   });
 });

@@ -36,7 +36,6 @@ describe('Switchboard', () => {
         store={createOakThemeStore(
           () => world.runtime,
           () => undefined,
-          world.appliedTheme,
         )}
       />,
     );
@@ -63,7 +62,6 @@ describe('Switchboard write-through and degradation', () => {
         store={createOakThemeStore(
           () => world.runtime,
           () => undefined,
-          world.appliedTheme,
         )}
       />,
     );
@@ -77,7 +75,6 @@ describe('Switchboard write-through and degradation', () => {
     render(
       <Switchboard
         store={createOakThemeStore(
-          () => undefined,
           () => undefined,
           () => undefined,
         )}

@@ -96,6 +96,18 @@ test.describe('theme no-choice state and motion axis', () => {
     assertOnlyKnownExternalHosts(aborted);
   });
 
+  test('an OS contrast request themes the page without claiming a choice', async ({ page }) => {
+    await page.emulateMedia({ contrast: 'more' });
+    const aborted = await openShowcase(page);
+    // The runtime's auto path applies high-contrast pre-paint…
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'high-contrast');
+    // …but no explicit choice exists, so the control must read "Page
+    // default" — a claimed value would also make selecting High contrast
+    // a dead first click (no change event on an already-selected value).
+    await expect(page.getByRole('combobox', { name: 'Theme' })).toHaveValue('');
+    assertOnlyKnownExternalHosts(aborted);
+  });
+
   test('a reduced-motion choice collapses the motion tokens', async ({ page }) => {
     const aborted = await openShowcase(page, { reducedMotion: false });
     const fullMotion = await page.evaluate(() =>
