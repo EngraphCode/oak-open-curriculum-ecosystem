@@ -3516,3 +3516,179 @@ with the 242-era work). Thursday chain: 4 upstream defects + MCP-353 + PostHog s
   activates only when #627 lands the definitions on main): sonnet+haiku × normal+adversarial, frames carry
   event-id provenance + method notes + a deliver-once instruction on the haiku legs (10:38Z tally note
   applied at dispatch time).
+
+## 2026-07-29 ~11:10Z — Lynx (9e8a61), Director: cricket round 3 tally + adjudication
+
+- Delivered: sonnet-normal ON-TRACK, one redirection — "lead with the strategic reflection; subordinate
+  the decision asks after it" (the card preceding the reflection inverts goal-first ordering).
+  ADJUDICATION (provenance: this seat, first-hand): PARTIALLY ABSORBED. The card-first order was
+  deliberate — its answers (M2 disposition, MCP-307 convergence, the PostHog question) were INPUTS to the
+  reflection, which then reported decided state, not pending asks. The craft point BINDS for future rounds
+  where card answers are not inputs to the artefact: lead with the artefact.
+- Undelivered at idle: both haiku legs (counted undelivered per the 10:38Z dispatcher note — no ping; the
+  ping manufactures a contradictory second verdict). Sonnet-adversarial also idled without delivering; ONE
+  delivery-only nudge sent (sonnet stable across runs in round 2 — the haiku instability evidence does not
+  extend to it); verdict adjudicated when it lands.
+- Tally shape note for the quartet era: 1 delivered / 3 idle-without-delivery in a four-leg round is a
+  DELIVERY-rate problem, not a verdict-quality problem — worth carrying to the MCP-161 successor tally as
+  its own axis (verdict agreement vs delivery reliability).
+- ROUND 3 CLOSE (~11:12Z): sonnet-adversarial delivered ON-TRACK after the delivery-only nudge, verdict
+  as composed, NO re-run — the nudge is proven safe on sonnet where it provably is not on haiku (asymmetry
+  for the tally). Final: 2× ON-TRACK delivered (unanimous), 2× haiku undelivered. The two sonnet
+  redirections CONTRADICT each other on ordering (normal: reflection before asks; adversarial: M2 ask
+  before everything) — ordering advice is low-consensus even intra-model; verdict agreement is the strong
+  signal. The M2 risk the adversarial named did not materialise: card delivered same-turn, owner answered,
+  re-date + queue executed. No residual action.
+- Schooner's MCP-161-close divergence (3 ON-TRACK + 1 D-adversarial DRIFTING) adjudicated at this seat:
+  CONCUR with the timing-artefact read — the DRIFTING leg's redirection was answered by route 16d15fab
+  four minutes before the verdict landed (verified first-hand, my own event). Adjudication sent b62e1e51.
+
+## 2026-07-29 ~11:45Z — Lynx (9e8a61), Director: env-ceremony window — push saga, preview project, four mints
+
+- .env.example consolidated (one PostHog section, JSON-array sinks; be978aa71 pushed). Landing took THREE
+  pre-push failures, two distinct causes, both first-hand: (1) my own .env.local rebuild selected posthog
+  with a placeholder key → strict startup refusal → test:ui webServer dead (validator correct; the sandbox
+  hypothesis was DISPROVEN by an unsandboxed retry — change one variable per rerun); (2) with the real key:
+  posthog+noauth refusal — the observe-noauth harness INHERITS .env.local → MCP-359 (webServer pins its
+  observability env). Landed by toggle-sinks-off → push → restore ON. Also caught myself re-committing the
+  piped-exit read mid-diagnosis — third-instance threshold met → MCP-358 (hook guard), Osprey's routed cure.
+- PostHog estate: owner created preview project "OOC Ecosystem Preview" (236161); key fetched via PostHog
+  MCP switch-project; .env.local COMPLETE with zero fills (dev keyring machine-generated in-shell, never in
+  transcript); Vercel blocks delivered (prod keyring XXXX is the only owner fill). Owner rulings this hour:
+  anonymous identity class ADMITTED (MCP-357, sequenced at MCP-354); session-start counting is a named
+  requirement + capability map on MCP-354; "Sentry as a sink ... non-negotiable" → sinks
+  ["sentry","posthog"] EVERYWHERE (MCP-117 comment; schema rule verified: sentry-in-sinks ⇒ SENTRY_DSN).
+- Fleet: Europa stirs Void (019fad, Codex/GPT-5) team-started, relay NOTIFY proven; routed MCP-360 (alert
+  write-up + coordination-home WS1 slice — the seat itself found the homed plan; gate-runner election
+  declined as unnecessary). Altair divergence CONCURRED (frame asymmetry; event 0784c4cc). Osprey: owner-
+  direct four-lens Opus architecture review on the stable MCP-242 diff, PR after absorption. M2 re-dated
+  2026-08-05 at owner word. Cricket round 4 due at the ~12:00Z boundary (pair era until the convergence).
+
+## 2026-07-29 ~12:00Z — Lynx (9e8a61), Director: fixed external deadline re-offered as a choice — correction + mobilisation
+
+- The endpoint card offered "alpha Thursday" against M0's owner-named www content. Owner, verbatim:
+  "Thursday is www, this has been made clear, it is not open for questioning, we cannot simply move an
+  external deadline because it is inconvenient." TWO corrections in one: (1) the Thursday target is
+  EXTERNALLY anchored — price it as immovable; (2) decided scope re-offered as a question is re-litigation —
+  when a decided thing is AT RISK, the Director brings a MOBILISATION VERDICT (who/what/when unblocks),
+  never the decision back as options. Checklist comment e165086f re-trued in place same minute.
+- Mobilisation state (first-hand 12:00Z): Cloud-Config #551 OPEN/MERGEABLE, blocked ONLY on
+  REVIEW_REQUIRED; JR commented-not-approved (five points dispositioned on-PR + ticketed, none merge-
+  blocking per owner ruling). Ships AS OPENED (owner's recorded fallback; ChatGPT evidence unknown).
+  Chain: Cloud-Config approval+merge → Terraform apply → CANONICAL_HOST=www on prod Vercel (one env add,
+  rides the owner's PostHog session) → conformance re-run vs www (needs the MCP-303 credential remint) →
+  listing carries `www`. Interim self-description = www-wins via existing CANONICAL_HOST path; NO app code
+  is Thursday-gating; the MCP-307 edge-secret mechanism and the /mcp* collapse are follow-up revisions.
+- Round 4 crickets, adjudicated: sonnet NORMAL DRIFTING ("the pre-Thursday sweep's moment is NOW") —
+  ABSORBED, sweep executed, checklist on MCP-309; sonnet ADVERSARIAL ON-TRACK (all three candidate
+  refutations failed). Both partially right; the sweep surfaced two real items (MCP-354 presentation
+  laneless; the domain chain unmobilised) — a DRIFTING redirection that produced value. Haiku legs
+  undelivered at idle: counted undelivered per the standing no-ping discipline.
+
+## 2026-07-29 ~13:15Z — Lynx (9e8a61), Director: verdict-swing under push-back — the Tailwind lesson; F-75 v4
+
+- THE SWING (owner-caught, twice in one thread): scoping MCP-371 I ruled "strip Tailwind entirely"
+  WITHOUT reading the DS's own consuming-nextjs.md (assumed dichotomy); at the owner's "I thought our
+  design system uses tailwind?" I flipped to the guide's mapping path framed as if his recollection was
+  simply right (overshot). His third message — "ground it in reality and not my opinion" — is the
+  calibration gift: BOTH swings tracked the conversation, not the files. The grounded state (MCP-371
+  comment 63a9d084): (1) the DS core contains ZERO Tailwind (package.json + all core sheets checked);
+  (2) DECISIONS.md July 2026: consumption = a mapping, not an adapter; Tailwind optional, raw palette
+  banned, no-build path exists; (3) real consumers split — hub demo WITH mapping, MCP app + widget
+  WITHOUT. Cure shape: a verdict about an estate surface cites the governing doc AND the actual
+  consumers BEFORE it ships; a correction under push-back re-grounds in ALL layers, never just adopts
+  the challenger's frame. Sycophancy risk is live exactly at owner-correction moments — the owner being
+  right about the challenge does not make his framing the whole truth.
+- F-75 poll v3→v4: v3's delta compare included the MOVING age field ("160.3m ago") so every line read
+  as new every pass — the phantom 29-burst twice. v4 strips the age via sed before diffing (stable key:
+  status + name/prefix + last_heartbeat), fresh v4-named state files to avoid cross-format
+  contamination. Instrument-state family, self-inflicted: never diff lines containing their own clocks.
+
+## 2026-07-29 ~14:15Z — Lynx (9e8a61), Director: afternoon-window captures (12:00→14:15Z)
+
+- PROCESS RESTART ~12:56Z (new event class, distinct from compaction): the Claude Code process itself
+  restarted — every monitor died with "no completion record", ALL MCP servers reconnected. Cure ceremony
+  executed and transcript-recorded (~12:57Z): re-arm watcher + heartbeat loop + F-75 poll, foreground gap
+  sweep, argv re-verified from CLI usage lines before arming silent loops. Signature to recognise:
+  vanished tasks + servers reconnecting = restart; monitors do NOT survive it (they DO survive compaction).
+- F-75 v4→v5: v4 still emitted spurious singles — the peer-liveness tool pads columns around the age
+  field, so a digit-count change in ANY age shifts residual whitespace. v5 = age-strip + `tr -s ' '`
+  squeeze. Both noise classes closed; poll b6voyd0ur.
+- The env-ceremony arc COMPLETED end-to-end in ~90 min: owner created preview project 236161; keys placed
+  (screenshot-verified); salt key custodied in 1Password ("Oak Open Curriculum Posthog Salt Key",
+  engineering admin vault); #629+#630 merged; production probed HEALTHY post-deploy (landing 200, /mcp 406
+  protocol-correct on a header-less probe); owner confirmed events at 14:05Z ("wooooooooo") → MCP-117 Done
+  → THE ENTIRE DAY-0 ANALYTICS BLOCK ON MCP-309 DISCHARGED same-day as the morning's never-narrowed ruling.
+  Residual: preview ACTIVE_KEY_ID split (All-Environments value can only match one keyring; preview boots
+  refuse until split — flagged twice + on MCP-117).
+- Figma access VERIFIED first-hand (whoami): owner's account, Oak org, View seat — reads Mike M's mocks +
+  the official Oak Design Kit (Style Tokens page metadata pulled, 294KB). Recorded on MCP-369/370.
+- OWNER-PARALLEL-EDITS on the Linear MG doc (owner-caught): my full-content save_document rewrites
+  silently REVERTED his edits — he removed the "human hand" rule, my next full save restored it, twice.
+  Same class as stale-capture-wins, new surface (Linear docs have no merge). Discipline now bound: any
+  save to an owner-touched Linear doc gets a fresh get_document read first and sends a minimal delta on
+  the CURRENT content; never resend from my own last-sent copy.
+- Cricket cadence MISS logged honestly: round 4 at 11:53Z, no round fired through 14:15Z — a continuously
+  owner-interactive window (fourteen owner messages; every turn owner-directed). The mandate is hourly;
+  the miss's cause is real but the log is the cure. Round 5 fires at post-compaction resume.
+
+## 2026-07-29 ~14:20Z — Lynx (9e8a61), Director: COMPACTION-PREP RESUME MAP v2 (supersedes the 10:30Z map; read FIRST at resume)
+
+**Seat**: Director, claim a2286c53, CONTINUES post-compaction. Ground via handoff sitting block (now
+17 rulings) + this map; recompute every derivable (claims active-agents UTC-now, gh pr list, comms since
+~14:15Z).
+
+**Monitors at freeze (all live; they SURVIVE compaction, not process restarts)**: watcher bvyol1tkv
+(re-arm 8, armed ~13:58Z — hourly exit-124 → re-arm canonical block + direct-state check + gap sweep;
+assert-watcher-live false-negatives from fresh subshells, trust the heartbeat FILE + delivery);
+heartbeat b06ivcl3a (240s dual-surface loop, persistent, fail-loud — silence = healthy); F-75 v5
+b6voyd0ur (retired-only, age-stripped+squeezed keys, host-sleep guard).
+
+**Fleet**: Osprey = BRAND BATCH (MCP-366→365→367→368; the owner copy sign-off (365) and widget pixels
+(368) are CARDS from the lane); Altair = #628 settle at head ed0336c96 (ten rounds closed under the
+owner's ratchet regime; at FULL CONDITION the merge-vs-hold-for-MG(policy look) question routes to THIS
+SEAT — never solo, card if owner's; MCP-303 armed, owner-attended, go PREEMPTS); Europa = MCP-360 one-PR
+landing (31-file single-invariant story, adjudicated; MCP-373 follows it); Schooner = frozen, claim
+4c96a669 HELD for MCP-143 window amendments tomorrow.
+
+**Owner-held**: #551 approval chase (www; Thursday EXTERNAL+FIXED); Clerk window TOMORROW (runsheet
+staged, execute-only, switch=PUBLIC BETA); MCP-303 sitting; preview ACTIVE_KEY_ID split; sign-offs
+MCP-339 / listing copy MCP-292+306 / comms MCP-268; Aakesh four (MCP-327..330).
+
+**Standing seat commitments**: (1) refresh the MG handover doc's State-at-a-glance at each significant
+landing (Linear doc f0e5cef166d2 — owner-commissioned, three revisions today); (2) 24h branch
+convergence due ~22:34Z TONIGHT — merge main into coordination (also ACTIVATES the cricket QUARTET on
+this branch; pair era until then); (3) cricket round 5 at resume; (4) next warden batch as edits accrue.
+
+**Queues**: post-submission design queue MCP-369/370/371/372 (371 = showcase in demos/, plain-CSS,
+scoped); MCP-373 (post-360), MCP-374, MCP-363/364, MCP-358 hook guard, MCP-355/356/352 doctrine lanes,
+MCP-362 SLO pointer. None Thursday-gating.
+
+## 2026-07-29 ~14:05Z — Altair turns Infinity (7a97a1): the review ratchet (PR #628, ten rounds)
+
+- Failure mode (owner-surfaced at round 9): unbounded adversarial finder (Copilot) +
+  compliant executor + per-push re-request = a review ratchet. Rounds 4–8 were largely
+  Copilot reviewing this seat's cures to its own prior findings, three levels deep into
+  CommonMark fidelity for a first-party, markdownlint-gated, parity-checked file. Every
+  finding was CORRECT; correctness was the only axis tested. concept-exploration §Loop
+  Dynamics names the missing conjunct: individual validity is not sufficiency — correct,
+  relevant, and proportionate are separate conjuncts, tested separately.
+- The estate had already encoded the lesson (PR #570 → pr-lifecycle §review-round state
+  machine: tally store, step-back predicate ~4 settled rounds, two-class disposition).
+  It did not fire because no tally was built — "not an absent framework, but an unbuilt
+  instrument" — reproduced verbatim at #628.
+- Generators: a 100% hit rate on suppressed low-confidence comments made mining them
+  feel rigorous (the suppression bucket IS the finder's own proportionality filter;
+  overriding it every round removed the only stop condition); each push regenerated the
+  "citable forcing facts" the cricket adversarial legs then validated — a self-sustaining
+  loop wearing the clothes of responsiveness; the Copilot grant was extended unilaterally
+  from at-PR-open to re-request-per-push, fuelling the ratchet.
+- Cures adopted at the seat (2026-07-29 ~14:00Z): threads adjudicated, suppressed bucket
+  respected (triaged only when the goal axis passes); two-axis disposition with reasoned
+  DECLINE as a first-class outcome (worked instance: indented-ATX declined on the
+  default-on MD023 upstream guard, reasoning + falsifier on the thread); re-requests
+  revert to grant-as-written plus substance-triggered; build the round tally so the
+  step-back predicate has an observable surface.
+- Separate real find en route: a CONFLICTING PR silently stops pull_request CI runs
+  (four pushes with zero CI runs read as "still settling"); settle watches need a
+  MERGEABLE leg and a runs-per-head leg (recorded on MCP-373).

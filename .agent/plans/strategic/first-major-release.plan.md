@@ -165,3 +165,25 @@ onto this node — one line each, pointers never duplicates.
   edge-restored validated-host design, and its security gate (the
   bounded-selection vs header-trust distinction, fresh security pass
   required): authoritative record MCP-307 comment (2026-07-29).
+- 2026-07-29 — Capability-baseline ruling (owner): all third-party
+  integrations keep working in production; Sentry rides the
+  observability sinks alongside PostHog in every environment
+  (non-negotiable). Enforcement slice MCP-361; the goal-state surface
+  (MCP-355) carries the baseline; SLO formalisation is owner-proposed
+  pointer MCP-362. Same day: preview PostHog project 236161
+  provisioned; the anonymous identity class admitted (MCP-357,
+  sequenced at the MCP-354 sign-off); preview-deployment testability
+  named a binding requirement on the MCP-344/307 design (records on
+  those tickets).
+- 2026-07-29 — Public-beta ruling (owner, at the Clerk-window card):
+  "as soon as we switch the MCP server is in public beta" — the
+  production Clerk promotion IS the public-beta moment; no app-layer
+  invite gate exists or is planned for this phase, and the listings
+  not yet existing at the switch is an accepted state. M4's milestone
+  text re-trued accordingly; the invite-gate sentence it replaced was
+  authored 2026-07-27 and never matched the built estate. Same day:
+  the Thursday submission ruled EXTERNAL and fixed on the www endpoint
+  ("Thursday is `www`... we cannot simply move an external deadline");
+  MCP-354's four-event catalogue signed off unamended; MCP-357 finally
+  sequenced post-submission on the corrected authenticated-handshake
+  premise. Records: MCP-143, MCP-354, MCP-357, MCP-309 checklist.
