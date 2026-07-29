@@ -1,3 +1,15 @@
+# [1.116.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.115.0...v1.116.0) (2026-07-29)
+
+
+### Bug Fixes
+
+* **mcp-app:** true the close-deadline rationale and the harness compose order ([d4f9db9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d4f9db96af7d06e64ba3fdca3ff7abc033f3a882))
+
+
+### Features
+
+* **mcp-app:** close product analytics through the shared process lifecycle ([7a0d555](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/7a0d555a2b8ce8b29b1907c22e88e8073632bcae))
+
 # [1.115.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.114.2...v1.115.0) (2026-07-29)
 
 
