@@ -3834,3 +3834,78 @@ MCP-362 SLO pointer. None Thursday-gating.
   of MCP-376's reviewer-delivery defects; a "review supply chain reliability" family may be
   forming. Second seed: T2/T3 were the same defect found independently by Copilot and Codex —
   independent-finder convergence as the strongest review signal (quartet doctrine's sibling).
+
+## 2026-07-29 ~16:25Z — Altair turns Infinity (7a97a1): design-showcase lane boundary — lessons + play harvest
+
+- EXIT-CODE-PIPING REFIRED TWICE in one stretch despite the named memory (knip's failure masked
+  by `| tail`; a rejected push masked the same way — both times the truth lived elsewhere: the
+  ELIFECYCLE line, the unmoved ref). The cure that actually held was structural: capture full
+  output to a file, echo the exit unpiped, verify the ref moved. Fresh evidence for
+  passive-guidance-loses-to-artefact-gravity — the memory alone did not fire under flow.
+- GUARD-CATCHES-AUTHOR, same hour it landed: `reuseExistingServer: false` (a code-expert cure)
+  refused to green the Playwright suite against a stray server — which was MY OWN smoke-test
+  leak. Instruments beat vigilance even against their author's next mistake.
+- SMOKE-LEAK TWIN: the leak happened because my smoke killed the WRAPPER pid; the hub's own
+  dev-server tool documents the answer in the file I had read an hour earlier ("killing pnpm
+  alone orphans the next process holding the port" — kill the process GROUP). Smoke-verifying a
+  long-lived process needs the same lifecycle discipline as the tool under test.
+- COMPLEMENTARY DETECTORS, one worked day: instruments caught rule-shaped defects the four Opus
+  reviewers missed (Sonar S4036/S7785); judgment caught green-shaped defects no instrument can
+  see (turbo caching an artefact-free build "success"; Playwright proving the dev pipeline while
+  claiming the build; a font branch reserved for copy-in consumers). Neither class substitutes
+  for the other; review-stack doctrine should keep both on every source PR.
+- Play seeds (associations, not findings — confabulation guard run, two discards made):
+  (1) "Sensors may be many; actuators must be one" — the thirteen double-provisioned Lexend
+  faces (defect) beside the fleet's redundant liveness monitors (doctrine) look shaped alike
+  until you split provision from detection; the estate already applies this split to
+  coordinators vs watchers. (2) Wrong worked examples out-gravity docs ACROSS surfaces: the
+  hub's next/font shape transmitted its defect to the showcase within hours because consumers
+  copy the nearest worked example, not the doc — a wrong reference implementation is a
+  doctrine-transmitter (the kit-doc correction routed to the Director is the containment).
+
+## 2026-07-29 ~16:40Z — Osprey hunts Drift (1c3996): MCP-360 merged; the new gate bit its own author (worked instance)
+
+- PR #631 merged (34e88477b) at the Director key-turn. Within TWO MINUTES the merged source-bound
+  liveness gate refused this seat's own `claims open`: the Director's rotation rebuilt the primary
+  dist (new strict 0.2.0 + watched_comms_dir gate) while this seat's watcher still ran the old
+  binary (old-shape heartbeat). Cure: re-arm the watcher on the new build, same seen-file, verify
+  with assert-watcher-live. EVERY seat hits this once after pulling the merge — broadcast carried
+  the fleet note. The refusal is the F-95 decoy-blindness protection working exactly as designed;
+  candidate graduation: a re-arm-after-rebuild line in comms-all-channels-watcher.md if a second
+  seat trips it.
+- Grant-arrival trap: both key-turn grants arrived during the watcher's hourly-backstop re-arm
+  window; the Director's cognition-check PING + Europa's liveness-gap flag were correct process.
+  The gap sweep after re-arm absorbed them — the mandatory-sweep discipline is what bounded the
+  stall to minutes.
+
+## 2026-07-29 ~16:55Z — Lynx (9e8a61), Director: ROTATION LANDED + swap-back routed + rule minted
+
+- ROTATION COMPLETE end-to-end: #633 merged (merge SHA:8436e2c50, bot REST at pinned SHA:38bc77d5e —
+  the FIRST attempt under the owner's gh auth was refused "Waiting on code owner review from
+  mantagen": CODEOWNERS is `* @jimCresswell @mantagen`, the PR author-of-record was jimCresswell, an
+  author's own code-owner approval never counts, and ONLY THE BOT carries the ruleset bypass. The
+  documented transport is `agent-tools merge-bot mint-token` → GH_TOKEN for the gh invocation —
+  bot-identity discipline, re-learned first-hand). Fresh branch coordination/estate-2026-07-29 on
+  the remote at the merged tip; primary re-homed; rotation broadcast out. LESSON PAIR for the next
+  rotation: (1) open the convergence PR AS THE BOT (minted token), never the owner's gh — the
+  code-owner wall is author-shaped; (2) newly-arrived Next workspaces need one local build before
+  the pre-push type-check passes (missing .next generated types — hub, then showcase, same day).
+- #633 REVIEW ROUND (10 threads, Copilot+Codex): all adjudicated two-axis, one round-commit
+  (SHA:713c4ec95) + the exclusion drop (SHA:38bc77d5e). DECLINED with falsifier: the provider-utils
+  cap — GHSA-866g-f22w-33x8 affects <= 3.0.97 with NO patched 3.x (3.x tops at 3.0.30), so the
+  owner's >=3.0.98 floor is the advisory's exact complement and the suggested <4 cap is
+  UNSATISFIABLE; residual exercise-test = MCP-381 (owner supplied the pnpm-why consumer tree as
+  evidence). Mid-round owner-parallel-edit: the override vanished from the working tree + lock
+  re-resolved to vulnerable 3.0.30 — carded, owner chose restore; regenerated. ALSO: hook policy
+  blocked a Linear comment-id in the new rule file (moving-target fingerprint) — cured with durable
+  pointers; the instrument catching its adjacent author again.
+- SWAP-BACK (owner word ~16:47Z) ROUTED and executing: Europa posted the custody addendum on the
+  brand-batch handoff record (claim pointer set; cdf28fc2c local-only; ADR-058 bounded cure
+  accepted-unexecuted; conflict pre-map stale — main moved again to e4824c2f, a post-rotation
+  release commit); Osprey resumes the brand batch; Europa takes MCP-373. MCP-360 stands complete.
+- MCP-351 delivered to PR #635 by Schooner pre-freeze (two honest gaps recorded on the ticket);
+  Schooner FROZEN (third boundary, monitors stopped at owner word, re-arm on the NEW BUILD — the
+  MCP-360 source-bound liveness gate bites once a checkout rebuilds agent-tools: schema 0.2.0
+  heartbeats with watched_comms_dir; Osprey's fleet note is the migration signal).
+- Rule MINTED at owner ratification: design-values-come-from-the-system (.agent/rules/ + three
+  wrappers + RULES_INDEX row, trigger-loaded). Handoff rulings 19+20 ride this batch.
