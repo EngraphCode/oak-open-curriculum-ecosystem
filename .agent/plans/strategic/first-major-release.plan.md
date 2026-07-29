@@ -141,6 +141,22 @@ onto this node — one line each, pointers never duplicates.
   (1.29.0) implements RFC 8414 path-inserted AS discovery. Fallback if
   a named client fails: the PR #551 shape as opened. Authoritative
   record: MCP-344 comment (2026-07-29).
+- 2026-07-29 — PostHog scope narrowing NEVER owner-agreed (owner word,
+  verbatim: "I never agreed to Posthog scope being narrowed, I was
+  explicit, we need visibility of analytics events from day 0"). The
+  2026-07-27 MCP-237 narrowing (sink + integration test only) was
+  executed, not ratified; the M0 boundary as stated 2026-07-28
+  ("events flowing safely") STANDS. Enacted: MCP-117, MCP-242,
+  MCP-243, and MCP-354 (event-catalogue owner sign-off) now block
+  MCP-309 — day-0 analytics visibility gates the submission; records
+  on those tickets.
+- 2026-07-29 — Goal-holding mechanism commissioned (owner word: "we
+  need a mechanical fix, you need a way to hold the project goals,
+  not just what happens to be happening right now") — a derived,
+  recomputed-at-read goal-state surface over the milestone/gate
+  structure, plus the Director practice leg (owner-facing state
+  answers walk the goal surface first, activity second). Ticket in
+  the MCP project carries the design.
 - 2026-07-29 — Multi-host self-description (owner direction): keep the
   alpha AND www serving correctly if soundly possible; www wins
   otherwise. Nothing hardcoded — every URL/host derives from the

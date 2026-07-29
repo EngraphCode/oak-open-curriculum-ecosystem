@@ -3435,3 +3435,84 @@ boundary". The absolute stays absolute; its domain becomes explicit. That is the
 makes the rule total over a named domain. Falsifier: if a rule restated on its axis is still cited
 outside that axis, the axis was not the discriminator — find the real one. Second falsifier: if
 axis-restatement lengthens rules without changing any review outcome, it is cosmetic.
+
+## 2026-07-29 ~10:30Z — Lynx guards Whisper (9e8a61), Director: COMPACTION-PREP RESUME MAP (seat continues; read this first at resume)
+
+**Seat**: Director since 07:56Z (Moment-2 b573d009), claim a2286c53. The seat CONTINUES post-compaction.
+The durable half (12 owner rulings verbatim, records-of-event, instrument calibration) lives in
+director-handoff.md §my sitting block — read it before any routing; recompute all derivables.
+
+**Monitors at freeze (all live; harness tasks persist through compaction)**: all-channels watcher
+`b554hnpia` (re-arm 3; hourly exit-124 by design → re-arm canonical block, same seen-file, VERIFY
+assert-watcher-live UNPIPED, then ALWAYS the post-restart gap sweep — the 07:44 Moment-1 miss is
+the founding instance); F-75 poll `bdr83wlmt` (retired-only + host-sleep collapse; claimless seats
+false-fire by construction — read with claim context); heartbeat `bummxuj0t` (240s, silent-on-
+success, --now per tick). Two cricket A/B pairs in flight (cricket2-*); self-adjudicate divergences
+with event-id provenance; tally append at next consolidation.
+
+**Fleet at freeze**: Altair (7a97a1) holds MCP-353 (owner-directed, blocks MCP-309) + MCP-303 armed
+— the owner-attended go ("later this morning") PREEMPTS 353 and may reach Altair directly; Raccoon
+(0f6caa) on E1 (MCP-344 client-compat evidence) then E2 (MCP-307 security re-pass), capacity check
+between; Schooner (5492d7) on the owner's own direct task, then standby.
+
+**Queues**: fresh-seat (owner launches): MCP-242/243 (day-0 analytics) AHEAD of MCP-305, then
+MCP-334. Seat-frees queue: Clerk prep staging TONIGHT (this seat's commitment — route first);
+the next warden batch commit (napkin from 10:05Z + register 2 newest entries + handoff edits —
+knowledge already duplicated in Linear/comms, disk-only risk); doctrine lanes MCP-355/356/352 +
+the liveness-calibration rule note; one manual goal-backwards release sweep pre-Thursday (the
+MCP-355 v1). Standing: 24h branch convergence due ~22:34Z tonight.
+
+**Owner-held**: MCP-303 go; fresh seats; Aakesh (in motion, his word); Clerk TOMORROW; MCP-339
+(he takes it to the expert); listing copy; MCP-354 catalogue sign-off (presentation surface builds
+with the 242-era work). Thursday chain: 4 upstream defects + MCP-353 + PostHog set + human gates.
+
+## 2026-07-29 ~10:33Z — Lynx: RESUME-MAP DELTA (arrivals at the compaction boundary; supersedes the 10:30Z fleet lines)
+
+- **Raccoon WRAPPED at owner word; both evidence gates COMPLETE** (claims closed with evidence,
+  napkin write-up in commit 472ba21c6; handoff 9531e8fc self-contained). Owner-named successor:
+  **Osprey hunts Drift (1c3996)** — expect its team-start; the handoff needs nothing from this seat
+  to be actionable. E1 verdicts (Linear ac0850d3): Claude Code PASSES path-inserted discovery
+  (read from the shipped binary — no bare-root fetch in its candidate list); claude.ai/Desktop
+  LIKELY PASS (observation-gated); **ChatGPT UNKNOWN — the risk-bearing client**. E2 verdict
+  (Linear 79061ca6): bounded selection differs materially from the rejected shape BUT the design
+  AS WRITTEN is unsound — six blocking findings; **recommendation: edge shared secret** over
+  bounded-selection-plus-conditions.
+- **Matured owner fork, card at next owner touch**: MCP-307's mechanism choice (edge shared secret
+  vs conditioned bounded-selection vs www-wins static) now has real evidence on both sides.
+- **Reordering fact (Raccoon's probe)**: the www edge route is NOT live (404s today — PR #551
+  unmerged/unapplied); every "Cloudflare routes www" premise is INTENDED state; MCP-344 + MCP-307
+  are ONE sequencing problem, not two tickets.
+- Verify at resume: whether this seat's 10:05–10:33Z napkin entries rode commit 472ba21c6 or await
+  the next warden batch (ordering of appends vs Raccoon's commit unknown from here).
+
+## 2026-07-29 ~10:38Z — Lynx: cricket A/B data point — ping-induced re-run flips a delivered verdict (for the tally)
+
+- cricket2-haiku-adversarial delivered ON-TRACK (five refutation vectors, all failed), then on a
+  deliver-your-verdict ping — which explicitly said "do not redo the analysis; just deliver it" —
+  RE-RAN and produced a contradictory DRIFTING on the already-adjudicated watch-vs-gate misparse.
+  Second re-ask-instability instance today (Schooner's haiku-normal flip was the first), new
+  mechanism: the delivery ping itself induces the re-run. Sonnet pair: stable across both runs.
+  Dispatcher-side note for the tally: a haiku leg that went idle without delivering may be cheaper
+  to count as undelivered than to ping — the ping manufactures a contradictory second verdict.
+
+## 2026-07-29 ~10:50Z — Lynx guards Whisper (9e8a61), Director: post-compaction resume verified; goal-walk findings
+
+- Resume ceremony: monitors verified by DIRECT STATE, not the assert — watcher heartbeat file (PID 35334,
+  drain cursor 10:42:44Z, 10 emitted since the 09:51Z re-arm) plus delivered events; F-75 delivered
+  Raccoon-retired (expected, seat wrapped at the boundary); own claim heartbeat advancing (fresh_until
+  14:39:47Z). `comms assert-watcher-live` returned a FALSE NEGATIVE from a fresh subshell (identity-mismatch
+  wording) with --agent-name AND --session-prefix supplied and the env seed present — instrument quirk,
+  F-register candidate. Rule applied: when a checker contradicts direct state, read the state again; never
+  re-arm (a write) on the checker's word alone.
+- MCP-303 referent reconciliation: the TICKET completed 2026-07-28T17:08Z (pack build, PR #611). The object
+  pending the owner's "later this morning" go is the owner-attended drive RUN. Morning maps compressing
+  "MCP-303" to mean the run invite a false "go happened" read off the Done stamp — referent-narrowing cousin.
+- Goal-walk drift (recomputed from Linear 10:44Z): M2 (guidance pipeline) targets 2026-07-30 — TOMORROW — at
+  0% progress, MCP-102 Backlog/unassigned, no live lane. Carded to the owner with the expert-clock argument
+  (M2 exists to protect the experts' authoring pace; an unbuilt pipeline means the expert clock cannot start;
+  M3 gates M9). Also: 15 project tickets read "started" against 3 live implementer seats — parked lanes
+  overstate the burndown; watch-item for MCP-355's surface.
+- Cricket round 3 fired at the cycle boundary, PAIR era (Schooner's 10:38:25Z broadcast: the quartet
+  activates only when #627 lands the definitions on main): sonnet+haiku × normal+adversarial, frames carry
+  event-id provenance + method notes + a deliver-once instruction on the haiku legs (10:38Z tally note
+  applied at dispatch time).
