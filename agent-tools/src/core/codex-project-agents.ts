@@ -3,6 +3,7 @@ import { join } from 'node:path';
 import {
   CODEX_CONFIG_PATH,
   readCodexAgentRegistrations,
+  readOptionalTomlValue,
   readRequiredTomlValue,
   resolveCodexAgentConfigFilePath,
 } from './codex-project-agent-registry.js';
@@ -16,6 +17,7 @@ const CANONICAL_PATH_PATTERN = /`(\.agent\/[^`]+)`/gu;
 interface AdapterMetadata {
   readonly name: string;
   readonly description: string;
+  readonly model: string | null;
   readonly modelReasoningEffort: string;
   readonly sandboxMode: string;
   readonly approvalPolicy: string;
@@ -26,6 +28,7 @@ export interface CodexProjectAgent {
   description: string;
   configPath: string;
   adapterPath: string;
+  model: string | null;
   modelReasoningEffort: string;
   sandboxMode: string;
   approvalPolicy: string;
@@ -105,6 +108,7 @@ function readAdapterMetadata(
   return {
     name,
     description,
+    model: readOptionalTomlValue(adapterContent, 'model'),
     modelReasoningEffort: readRequiredTomlValue(
       adapterContent,
       'model_reasoning_effort',

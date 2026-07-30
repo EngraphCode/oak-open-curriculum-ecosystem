@@ -14,6 +14,7 @@
  */
 
 import path from 'node:path';
+import { readTopLevelTomlBasicStringValue } from '../../core/toml-top-level-basic-string.js';
 
 // ---------------------------------------------------------------------------
 // Regex constants
@@ -85,13 +86,7 @@ function parseTomlBasicString(rawValue: string): string {
  * @returns The decoded string value, or `null` if the key is absent.
  */
 export function readTomlBasicStringValue(content: string, key: string): string | null {
-  for (const rawLine of content.split(/\r?\n/u)) {
-    const match = TOML_BASIC_STRING_REGEX.exec(rawLine.trim());
-    if (match !== null && match[1] === key && match[2] !== undefined) {
-      return parseTomlBasicString(match[2]);
-    }
-  }
-  return null;
+  return readTopLevelTomlBasicStringValue(content, key);
 }
 
 // ---------------------------------------------------------------------------

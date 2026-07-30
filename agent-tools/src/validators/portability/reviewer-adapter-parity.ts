@@ -1,14 +1,24 @@
 /**
  * Reviewer-adapter cross-platform parity checks for the portability validator.
  *
- * Every named reviewer agent must have adapter files on all three supported
+ * Named reviewer agents normally have adapter files on all three supported
  * platforms: Cursor (`.cursor/agents/<name>.md`), Claude Code
  * (`.claude/agents/<name>.md`), and Codex (`.codex/agents/<name>.toml`).
- * This module provides the pure function that detects parity gaps given the
- * lists of existing adapter file paths.
+ * The one platform-specific panel seat is encoded explicitly below. This
+ * module provides the pure function that detects parity gaps given the lists
+ * of existing adapter file paths.
  */
 
 import { stripDirAndExtension } from './portability-constants.js';
+
+/**
+ * Cricket's high-judgement seat exists on Claude and Cursor only.
+ *
+ * Codex deliberately uses a three-seat panel (low judgement, medium
+ * judgement, and xhigh procedure), so requiring or accepting a Codex adapter
+ * for this fourth role would misrepresent the supported runtime contract.
+ */
+const CLAUDE_CURSOR_ONLY_REVIEWERS = new Set(['cricket-judgement-high']);
 
 /**
  * Options for {@link getReviewerAdapterParityIssues}.
@@ -35,9 +45,9 @@ export interface ReviewerAdapterParityIssuesOptions {
  * Returns all portability issues caused by missing reviewer adapter files.
  *
  * A canonical reviewer adapter name is any name that appears in at least one
- * of the three platform adapter lists.  For each canonical name, the function
- * checks whether a corresponding file exists on every platform and emits an
- * issue for each gap.
+ * of the three platform adapter lists. For each canonical name, the function
+ * checks whether a corresponding file exists on every applicable platform and
+ * emits an issue for each gap or unsupported adapter.
  *
  * Issue messages use the expected file path so that operators can immediately
  * identify what needs to be created.
@@ -72,9 +82,14 @@ export function getReviewerAdapterParityIssues({
         `.claude/agents/${agentName}.md: missing reviewer adapter required for cross-platform parity`,
       );
     }
-    if (!codexNames.has(agentName)) {
+    if (!codexNames.has(agentName) && !CLAUDE_CURSOR_ONLY_REVIEWERS.has(agentName)) {
       issues.push(
         `.codex/agents/${agentName}.toml: missing reviewer adapter required for cross-platform parity`,
+      );
+    }
+    if (codexNames.has(agentName) && CLAUDE_CURSOR_ONLY_REVIEWERS.has(agentName)) {
+      issues.push(
+        `.codex/agents/${agentName}.toml: reviewer adapter is unsupported because this Cricket seat is Claude and Cursor only`,
       );
     }
   }

@@ -135,6 +135,133 @@ Read and follow \`.agent/sub-agents/templates/code-expert.md\`.
     );
   });
 
+  it.each([
+    {
+      agentName: 'cricket-judgement-low',
+      model: 'gpt-5.6-sol',
+      effort: 'low',
+      template: 'cricket-judgement.md',
+    },
+    {
+      agentName: 'cricket-judgement-medium',
+      model: 'gpt-5.6-terra',
+      effort: 'medium',
+      template: 'cricket-judgement.md',
+    },
+    {
+      agentName: 'cricket-procedure-xhigh',
+      model: 'gpt-5.6-luna',
+      effort: 'xhigh',
+      template: 'cricket-procedure.md',
+    },
+  ])(
+    'accepts the $agentName Codex model, effort, and method contract',
+    ({ agentName, model, effort, template }) => {
+      const description = `Cricket panel role ${agentName}.`;
+      const { issues } = getCodexAdapterValidation({
+        codexAdapterFile: `.codex/agents/${agentName}.toml`,
+        registeredAgent: {
+          name: agentName,
+          description,
+          configFile: `agents/${agentName}.toml`,
+        },
+        content: `name = "${agentName}"
+description = "${description}"
+model = "${model}"
+model_reasoning_effort = "${effort}"
+sandbox_mode = "read-only"
+approval_policy = "never"
+
+developer_instructions = """
+Read and follow \`.agent/sub-agents/templates/${template}\`.
+"""`,
+      });
+
+      expect(issues).toStrictEqual([]);
+    },
+  );
+
+  it('rejects a Codex Cricket role whose model and effort do not match its role contract', () => {
+    const { issues } = getCodexAdapterValidation({
+      codexAdapterFile: '.codex/agents/cricket-procedure-xhigh.toml',
+      registeredAgent: {
+        name: 'cricket-procedure-xhigh',
+        description: 'Compiled Cricket procedure.',
+        configFile: 'agents/cricket-procedure-xhigh.toml',
+      },
+      content: `name = "cricket-procedure-xhigh"
+description = "Compiled Cricket procedure."
+model = "gpt-5.6-terra"
+model_reasoning_effort = "high"
+sandbox_mode = "read-only"
+approval_policy = "never"
+
+developer_instructions = """
+Read and follow \`.agent/sub-agents/templates/cricket-procedure.md\`.
+"""`,
+    });
+
+    expect(issues).toContain(
+      '.codex/agents/cricket-procedure-xhigh.toml: model must be "gpt-5.6-luna" (found: gpt-5.6-terra)',
+    );
+    expect(issues).toContain(
+      '.codex/agents/cricket-procedure-xhigh.toml: model_reasoning_effort must be "xhigh" (found: high)',
+    );
+  });
+
+  it('rejects a Codex Cricket role wired to the wrong canonical method template', () => {
+    const { issues } = getCodexAdapterValidation({
+      codexAdapterFile: '.codex/agents/cricket-procedure-xhigh.toml',
+      registeredAgent: {
+        name: 'cricket-procedure-xhigh',
+        description: 'Compiled Cricket procedure.',
+        configFile: 'agents/cricket-procedure-xhigh.toml',
+      },
+      content: `name = "cricket-procedure-xhigh"
+description = "Compiled Cricket procedure."
+model = "gpt-5.6-luna"
+model_reasoning_effort = "xhigh"
+sandbox_mode = "read-only"
+approval_policy = "never"
+
+developer_instructions = """
+Read and follow \`.agent/sub-agents/templates/cricket-judgement.md\`.
+"""`,
+    });
+
+    expect(issues).toContain(
+      '.codex/agents/cricket-procedure-xhigh.toml: developer_instructions must reference exactly .agent/sub-agents/templates/cricket-procedure.md for its Cricket method contract',
+    );
+  });
+
+  it('does not accept Cricket model or effort pins written inside developer instructions', () => {
+    const { issues } = getCodexAdapterValidation({
+      codexAdapterFile: '.codex/agents/cricket-procedure-xhigh.toml',
+      registeredAgent: {
+        name: 'cricket-procedure-xhigh',
+        description: 'Compiled Cricket procedure.',
+        configFile: 'agents/cricket-procedure-xhigh.toml',
+      },
+      content: `name = "cricket-procedure-xhigh"
+description = "Compiled Cricket procedure."
+sandbox_mode = "read-only"
+approval_policy = "never"
+
+developer_instructions = """
+Read and follow \`.agent/sub-agents/templates/cricket-procedure.md\`.
+model = "gpt-5.6-luna"
+model_reasoning_effort = "xhigh"
+"""`,
+    });
+
+    expect(issues).toContain(
+      '.codex/agents/cricket-procedure-xhigh.toml: model must be "gpt-5.6-luna" (found: missing)',
+    );
+    expect(issues).toContain(
+      '.codex/agents/cricket-procedure-xhigh.toml: model_reasoning_effort must be "xhigh" (found: missing)',
+    );
+  });
+
   it('extracts canonical template paths from developer instructions', () => {
     const developerInstructions = readCodexDeveloperInstructions(`developer_instructions = """
 Read and follow \`.agent/sub-agents/templates/code-expert.md\`.
