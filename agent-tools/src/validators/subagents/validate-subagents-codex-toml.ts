@@ -75,11 +75,11 @@ function parseTomlBasicString(rawValue: string): string {
 }
 
 /**
- * Reads the string value associated with `key` from a TOML basic-string
- * assignment anywhere in `content`.
+ * Reads the string value associated with a top-level `key` in a TOML
+ * document.
  *
- * Scans line by line and returns the first match.  Returns `null` when the
- * key is not present.
+ * Parses the document structurally, so values nested below table headers are
+ * ignored. Returns `null` when the top-level key is absent or is not a string.
  *
  * @param content - Full text of a TOML file.
  * @param key - The key to look up (e.g. `"name"` or `"sandbox_mode"`).
