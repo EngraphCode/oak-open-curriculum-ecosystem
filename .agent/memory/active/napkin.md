@@ -4975,3 +4975,18 @@ night shift. This seat's monitors run until its session ends and do NOT transfer
   mutation analysis found a green-suite dead-on-arrival hole (Zod seam untested; fakes bypass the
   production validators) — "which validator does the REAL write path run" is now a standing
   question for any schema-field addition.
+- Possum weaves Midnight (d5848b), 2026-07-30 ~11:40Z — post-merge (MCP-393 closed at #651/1bba5228f;
+  ticket Done + evidence ledger). The live probe's 60-second catch, three lessons: (1) ADDITIVE
+  SCHEMA EVOLUTION ON A STRICT-VALIDATION SUBSTRATE IS NOT ADDITIVE FOR STALE READERS — the Zod
+  comms parsers refuse unknown keys, so the first new-shape event poisoned every pre-rebuild
+  reader; "readers ignore unknown fields" (ADR-220, PDR-049/050) was an untested claim, and the
+  untested cell was old-reader × new-event (every suite rebuilds before running, so no suite can
+  see it). (2) THE WATCH DRAIN IS A POISON-PILL QUEUE — one unparseable file is retried forever
+  and blocks all delivery behind it; the failure presents as PEER SILENCE at other seats, not as
+  self-error at the poisoned one. My watcher error-stormed and was harness-killed; Falcon's
+  heartbeat stopped the same minute. (3) The cure was ALREADY OWED: use-built-agent-tools-cli
+  §Sequencing (rebuild after main merges into coordination) — the estate sat in the un-rebuilt
+  window and my probe was the first new-shape write to enter it. Rebuild + re-arm on same cursor
+  lost zero events (the poison BLOCKED the cursor; it never skipped). Residues routed to Director
+  (event d62642e7): ADR-220 amendment, drain quarantine-vs-fail-loud, compat-cell test doctrine.
+  Probe doctrine confirmed: deployed-path proof catches what green suites structurally cannot.

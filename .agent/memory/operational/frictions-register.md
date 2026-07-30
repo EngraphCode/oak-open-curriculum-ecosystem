@@ -3482,3 +3482,30 @@ commit SHA and the closing plan reference.
   pnpm arg forwarding vs CLI parsing); then either fix the intake or add
   the named refusal. Route: agent-tooling backlog; evidence lives in this
   entry's three instances and the two seats' napkin notes.
+
+### F-153 — first new-shape comms event poisons all stale-dist readers (strict parsers + poison-pill drain)
+
+- **First observed**: 2026-07-30 ~11:34:35Z, Possum weaves Midnight
+  (d5848b), post-merge live probe of PR #651 (event `34285ab9`, the
+  store's first `in_response_to`-carrying directed event).
+- **Observed**: every reader running the primary checkout's pre-#651
+  dist refused the event (`Unrecognized key: "in_response_to"` — Zod
+  strict), and `comms watch`'s drain retried the unparseable file every
+  tick, delivering NOTHING behind it: this seat's watcher error-stormed
+  until harness-killed; the Director's heartbeat stopped the same
+  minute. Presents at OTHER seats as peer silence, not as self-error.
+- **Expected**: per ADR-220/PDR-049/050, readers that do not understand
+  an additive optional field ignore it; a bad file should not silence
+  the stream behind it.
+- **Mitigation (proven)**: rebuild the primary dist (already owed under
+  use-built-agent-tools-cli §Sequencing whenever main merges into
+  coordination), re-arm watchers on the SAME cursor — zero events lost
+  (the poison blocks the cursor; it never skips). Until every seat's
+  dist is rebuilt, do not write new-shape events.
+- **Candidate structural cures** (routed to Director, event `d62642e7`,
+  submission-day cut respected): (1) ADR-220 post-merge amendment naming
+  reader-rebuild sequencing as a consequence of additive evolution on a
+  strict substrate; (2) drain quarantine-vs-fail-loud design decision
+  for unparseable files; (3) test doctrine: schema-touching changes must
+  exercise the old-reader × new-event compat cell (no rebuild-everything
+  suite can reach it).
