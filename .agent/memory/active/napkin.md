@@ -5057,3 +5057,53 @@ night shift. This seat's monitors run until its session ends and do NOT transfer
   child relay polled 48.6s late; their broadcast 12:02:29Z) — the NOTIFY liveness class failed
   independently on two platforms in one hour; PDR-133's per-platform declaration obligation is
   earning its keep.
+
+## 2026-07-30 ~14:25Z — Inferno weaves Kindling (3d8c87), submission-copy review seat
+
+- GOOGLE DOCS CANVAS SWALLOWS SYNTHETIC INPUT SILENTLY: claude-in-chrome `type`/`left_click` report
+  success while the Docs editor receives nothing (canvas render + hidden texteventtarget iframe;
+  untrusted events). Partial exception: a keydown dispatched INTO the iframe via page JS IS
+  processed (Cmd+Down moved the caret, event consumed) — but textInput / beforeinput / paste
+  insertion events are all ignored. The tool's "Typed ..." result is NOT ground truth; the
+  mobilebasic render is. Cure: treat Google Docs as READ-ONLY for browser automation (mobilebasic
+  for reads); deliver content to the human as paste-ready blocks. Three distinct write attempts
+  before stopping per the rabbit-hole rule; zero corruption (read-back verified).
+- THE WIDGET RESOURCE MAKES THE CONNECTOR AN MCP APP: `ui://widget/oak-curriculum-app-*.html` is
+  live in served-surface.ts, so the live form's carousel requirement binds (3–5 PNG ≥1000px,
+  paired prompt text). The 2026-07-28 form-inventory §6 "no screenshot requirement exists in
+  either flow" was true of the flows it surveyed but is falsified for OUR surface by the MCP-App
+  clause — report truing routed to the Director. Same review: draft says 39 tools (served: 40,
+  oak-under-the-hood missing); "no resources" claim false (six live); download-asset description
+  embeds a model directive (ack-5 risk); vendor claims re-fetched today corrected four
+  draft-carried "requirements" (SSE, #1-rejection superlative, connector-first ordering, 25k-token
+  universality).
+
+## 2026-07-30 ~15:15Z — Eclipse tracks Penumbra (407713), privacy-comparison lane wrap
+
+- GOOGLE DOCS ABSENCE VERDICTS NEED THE SUGGESTION LAYER: mobilebasic renders ACCEPTED text only.
+  My first report said "the policy has no MCP section" — true of the accepted layer, false of the
+  document: a full draft MCP section existed in suggestion mode, visible only via the editor's
+  comment/suggestion history. Extends the 14:25Z lesson (canvas swallows writes; mobilebasic for
+  reads) with a read-completeness clause: before shipping any "the doc lacks X" verdict on a
+  collaborative doc, open the comment history panel and read the suggestion layer. Cure applied
+  in-session; the corrected reading REVERSED a headline finding.
+- PRIVACY COPY FROM VENDOR-GENERIC DPIA TEXT IS A TRANSPLANT REJECTION RISK (root cause of the
+  policy defect): the draft section's false claims (IP-geo, email, prompt/response content) came
+  from DPIA text describing a browser PostHog deployment; the server-side deployment differs on
+  exactly the sensitive axes. Public data-handling copy must derive from the deployment's own
+  contract (ADR-218) plus live-data verification, never from vendor-generic DPIA prose. Live proof
+  beat both code inference and doc claims all session: the "capture not live" reading from three
+  in-repo artefacts died against one production-project query (4,159 events since 2026-07-29).
+- TRUING RESIDUES for curator lane: research/telemetry README still says "0 events at 2026-07-11"
+  (now misleading); vercel-environment-config.md line ~32 parenthetical still says capture begins
+  "when the runtime composition lands (MCP-241)" — it landed and is live. Both are one-line cures.
+- SELF-CAUGHT: two piped-exit-code slips in one session (assert tail; claims-open jq) — the
+  second produced an ambiguous write and the false-silence cure (READ registry before retry)
+  prevented a double-claim. Also: Linear patch op `insert_after` anchored on a section HEADING
+  orphans that section's body below the insertion — anchor on the section's LAST BODY LINE.
+- EXTERNAL-BOUND ERROR SIGNATURE (this seat): the docs-adr-expert caught my draft understating
+  Sentry (raw Clerk userId on per-request scope, mcp-handler.ts:169) — boundary-claim wording is
+  where external review earned its cost; point reviewers there first on privacy surfaces.
+- PLAY SEED (association, not finding): PostHog's person-scoped deletion API forces a minimal
+  Person row to exist — an erasure mechanism REQUIRING identity materialisation; same
+  strictness-inverted-at-the-boundary shape as the F-153 schema-race cluster.
