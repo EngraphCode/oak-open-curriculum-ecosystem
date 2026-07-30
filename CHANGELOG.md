@@ -1,3 +1,10 @@
+# [1.125.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.124.6...v1.125.0) (2026-07-30)
+
+
+### Features
+
+* **agent-tools:** directed comms events carry the in_response_to threading edge (ADR-220) ([92b3542](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/92b3542f5317c3168adf98ecf02c163e5a360b1c))
+
 ## [1.124.6](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.124.5...v1.124.6) (2026-07-30)
 
 
