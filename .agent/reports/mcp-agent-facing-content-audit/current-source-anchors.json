@@ -7571,10 +7571,10 @@
             "file": "apps/oak-curriculum-mcp-streamable-http/widget/src/BrandBanner.tsx",
             "anchors": [
               {
-                "tokenCount": 10,
-                "tokenSha256": "5c888581faca4348e8dadb450c198094e70315a6ecd806ef3d2792a77202fc6c",
-                "indexToken": "National",
-                "indexOffset": 4
+                "tokenCount": 24,
+                "tokenSha256": "1ee29a2f4b35cce9917d8f238b80bb2361714ac35d1e4989b4a9ec78192c5299",
+                "indexToken": "opens",
+                "indexOffset": 14
               }
             ]
           }
@@ -7590,10 +7590,10 @@
             "file": "apps/oak-curriculum-mcp-streamable-http/widget/src/BrandBanner.tsx",
             "anchors": [
               {
-                "tokenCount": 21,
-                "tokenSha256": "14b1151709495545f187436ae1cf9bbb2bba0db3f2d8c6d5737fb82cabac1c26",
+                "tokenCount": 24,
+                "tokenSha256": "1ee29a2f4b35cce9917d8f238b80bb2361714ac35d1e4989b4a9ec78192c5299",
                 "indexToken": "opens",
-                "indexOffset": 11
+                "indexOffset": 14
               }
             ]
           }
@@ -7609,10 +7609,10 @@
             "file": "apps/oak-curriculum-mcp-streamable-http/widget/src/BrandBanner.tsx",
             "anchors": [
               {
-                "tokenCount": 37,
-                "tokenSha256": "a47fa6ff152916a26520b65cd6e4c8b8ad049a65e874f92925ed01c86d7923ef",
+                "tokenCount": 35,
+                "tokenSha256": "1089b2d8d076310625ee86af4229b0cdcbe61f1c47d80f98c18dbabf23e52977",
                 "indexToken": "banner__logo",
-                "indexOffset": 34
+                "indexOffset": 26
               }
             ]
           }

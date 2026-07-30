@@ -147,6 +147,13 @@
     "500": { "$type": "dimension", "$value": "1.5rem", "$description": "Comfortable spacing" },
     "700": { "$type": "dimension", "$value": "2.5rem", "$description": "Generous spacing" }
   },
+  "size": {
+    "900": {
+      "$type": "dimension",
+      "$value": "15.875rem",
+      "$description": "Wide-wordmark natural width: the 26px-tall brand lockup at the asset's 9.7783:1 ratio (viewBox 3600/368.16)"
+    }
+  },
   "radius": {
     "md": {
       "$type": "dimension",

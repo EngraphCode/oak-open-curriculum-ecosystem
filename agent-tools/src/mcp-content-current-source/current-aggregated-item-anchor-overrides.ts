@@ -176,15 +176,26 @@ export const CURRENT_AGGREGATED_ITEM_ANCHOR_OVERRIDES = {
   C385: {
     [WIDGET_APP]: ['<h1 className="visually-hidden">Oak National Academy Curriculum</h1>'],
   },
+  // MCP-368: the visible brand text and the separate new-tab hint merged
+  // into ONE visually hidden node (the wordmark is the link's only visible
+  // content). C391 (the brand name) and C392 (the hint) both live in that
+  // merged node now; each keeps its own row.
   C391: {
-    [BRAND_BANNER]: ['<span>Oak National Academy</span>'],
+    [BRAND_BANNER]: [
+      '<span className="visually-hidden">Oak National Academy (opens in a new tab)</span>',
+    ],
   },
   C392: {
-    [BRAND_BANNER]: ['<span className="visually-hidden"> (opens in a new tab)</span>'],
+    [BRAND_BANNER]: [
+      '<span className="visually-hidden">Oak National Academy (opens in a new tab)</span>',
+    ],
   },
+  // MCP-368: the acorn became the wide wordmark (design-system asset,
+  // injected inner geometry); the anchor pins the JSX root that owns the
+  // a11y and theming contract.
   C393: {
     [BRAND_BANNER]: [
-      '<svg\n      aria-hidden="true"\n      viewBox="0 0 32 42"\n      width="20"\n      height="26"\n      className="oak-brand-banner__logo"\n    >',
+      '<svg\n      aria-hidden="true"\n      focusable="false"\n      viewBox={WORDMARK_VIEWBOX}\n      className="oak-brand-banner__logo"\n      dangerouslySetInnerHTML={wordmarkGeometry}\n    />',
     ],
   },
   C463: {
