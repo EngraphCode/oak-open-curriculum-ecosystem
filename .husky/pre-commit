@@ -50,8 +50,17 @@ echo "🧪 Running build, type-check, lint, and unit tests..."
 # absent or empty read defaults to failure.
 mkdir -p .turbo
 : > .turbo/last-gate.status
+# git exports GIT_DIR/GIT_INDEX_FILE to hooks; turbo 2.10.6 misreads GIT_DIR
+# in a LINKED WORKTREE (gitdir = .git/worktrees/<name>) and dies before any
+# task with "I/O error: Is a directory (os error 21)" — bisected first-hand
+# 2026-07-30 (GIT_DIR alone reproduces it; the identical command without it
+# runs 120/120 green). Unset the trio for the turbo child only — turbo and
+# its internal git calls re-derive the repo from cwd, which is correct in
+# every checkout shape. GIT_WORK_TREE rides along: set without GIT_DIR it
+# would itself break git discovery. No gate is narrowed: the same tasks run.
 {
-  pnpm turbo run --continue --output-logs=errors-only build type-check lint test \
+  env -u GIT_DIR -u GIT_INDEX_FILE -u GIT_WORK_TREE \
+    pnpm turbo run --continue --output-logs=errors-only build type-check lint test \
     && echo 0 > .turbo/last-gate.status \
     || echo 1 > .turbo/last-gate.status
 } 2>&1 | tee .turbo/last-gate.log
