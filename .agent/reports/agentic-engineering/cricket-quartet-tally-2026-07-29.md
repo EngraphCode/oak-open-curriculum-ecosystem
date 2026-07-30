@@ -57,6 +57,29 @@ Verdict key: ON = ON-TRACK, DR = DRIFTING, WP = WRONG-PRIORITY. One row per quar
 | 10 | same moment | a | ON | ON | ON | ON | no |
 | 11 | Director Bora binds Thermal (258cbb), round 11 — deep overnight watch, ~03:30Z (30 Jul) | n | ON | ON† | ON | — undelivered | no |
 | 12 | same moment | a | ON | DR† — declined on mechanism, ownership gap absorbed | ON | — undelivered | yes → adjudicated at the seat |
+| 13 | Implementer Thyme weaves Hedgerow (762020), owner-return boundary (~06:00Z "read Altair's handoff"), ~06:01Z (30 Jul) | n | ON | — undelivered (529 ×2) | ON | ON | no (among delivered) |
+| 14 | same moment | a | ON | — undelivered (529 ×2) | ON | ON | no (among delivered) |
+| 15 | Director Bora binds Thermal (258cbb), round 12 — SUCCESSION boundary (wrap), ~06:10Z (30 Jul) | n | ON | ON† | ON | — undelivered (INLINE arm) | no |
+| 16 | same moment | a | ON | — unretrieved at close (relay asked) | ON | — undelivered (INLINE arm) | no (among delivered) |
+
+### Round 12 axis notes (2026-07-30 ~06:20Z, Bora binds Thermal — the closing round)
+
+- **SEAT-D INLINE-ARM RESULT: STILL DARK, both stances** — frames fully inlined, names kept.
+  The file-path-pointer hypothesis is ELIMINATED at this seat; one delta remains (the `name`
+  parameter). Per the MCP-386 one-variable protocol, the NEXT quartet at the successor seat
+  drops `name` on its D legs. (Cross-seat picture now: Thyme's unnamed+inline D delivered 2/2;
+  this seat's named D dark 10/10 across both arms.)
+- **Every delivered leg ON-TRACK on the closing stretch** — and every redirection was real and
+  absorbed pre-freeze: the Thursday re-surfacing duty made an EXPLICIT transferred first-act
+  with cadence (fable-n); verification language upgraded to command+timestamp recompute style
+  (sonnet-a; validators-must-recompute); the Osprey untracked file's disposition NAMED in the
+  record (sonnet-n; custody stays with its author's live seat); the live-lane supervision
+  handover added to first-acts (opus-n's catch — "Thursday work DONE" was overstated by
+  exactly Thyme's owner-ruled carriage; the ledger now hands over Thyme/Possum/Levanter
+  supervision explicitly). The conscience system's last act of the tenure was making the
+  handoff record better; the record froze only after all four cures landed.
+- Retrieval n=11 (opus-n verbatim on one ask); opus-a composed-but-unretrieved at close — its
+  substance (if it crosses later) goes to the successor per the reopen-note discipline.
 
 ### Round 11 axis notes (2026-07-30 ~03:35Z, Bora binds Thermal)
 

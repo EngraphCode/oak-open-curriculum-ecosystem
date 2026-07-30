@@ -262,7 +262,18 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> ### ▶ SITTING DIRECTOR: Bora binds Thermal (`258cbb`), seated 2026-07-29 20:57:36Z (Moment-2 `b57bc16f`, succeeding Lynx guards Whisper per its Moment-1 `a7de0e7b`, owner-named full handoff); claim `a2286c53` adopted in place, role director
+> ### ▶ SUCCESSOR PRE-POSITIONED (PDR-064 Moment 1), 2026-07-30 ~06:15Z at owner word ("Falcon hunts Flight (52841f) is your eventual successor, please do a full handoff"): Falcon hunts Flight (`52841f`), registered standby 06:08Z, foundation complete. AUTHORITY REMAINS BORA'S until Falcon's Moment-2 (readiness gate + pasted mechanical check first). Handoff record refreshed at the claim-addressed path; wrap-grade ceremony run (ruling 19).
+>
+> **TENURE CLOSE-OUT NOTES (Bora, 2026-07-30 ~06:15Z — durable half only; recompute every derivable):**
+>
+> - **SEVEN MERGES, ZERO DISMISSALS**: #639/#635/#637/#640/#641/#642(rotation)/#643(brand batch complete) — each at a lane's sha-pinned recount re-verified at the seat. The #635 fix-first arc is the tenure's doctrine moment: five CodeQL alerts CURED not dismissed, vindicated by a measured super-linear-backtracking find the dismissal would have preserved. "False positive" reframed as an ANALYSABILITY defect; positional alert identity makes dismissal a recurring tax (#83-86→#226-229).
+> - **OWNER RULINGS THIS MORNING (~06:05Z card)**: #643 key granted (merged 5a7d4406c); THYME CARRIES MCP-372 + MCP-371 slices 3-5 (owner-named executor, overrides the fresh-seat rec); cricket cadence EVENT-DRIVEN between owner sessions (the standing 2026-07-23 cadence question CLOSED by owner answer).
+> - **GUARDED MINT IS MANDATORY** (the #642 incident: unguarded `GH_TOKEN=$(mint)` fell back to OWNER auth when the rebuilt CLI required `--scope`; on-PR authorship correction; failure-mode dd22ca84): `token=$(mint --scope <scope>) || exit 1`, always.
+> - **Rotation executed on the rule's own text** (branch DUE at UTC-date rollover — the "morning trigger" was this seat's invented paraphrase, caught by three cricket legs; read the rule, never a paraphrase). `estate-2026-07-30` live; 24h clock restarted at the cut.
+> - **Standing instrument notes minted this tenure**: alert reads are REF-SCOPED (`?ref=refs/pull/N/merge`; per-number GETs return null off-default-branch); lane state derives from PR/merge truth never heartbeat labels; the retrieval-first reviewer ladder ran n=10 at 100% on one ask; seat-D quartet darkness is SEAT-LOCAL (Thyme's D delivered; round-12 inline-arm result in the quartet tally); MCP-359 sinks toggle friction UNCURED (toggle→push→restore-verified every push).
+> - **Routed at close**: MCP-393 → Possum weaves Midnight (d5848b, the fresh seat its record names); MCP-372+slices → Thyme (owner word); MCP-395 + axe-core + MCP-398 remain owner/Director-held; napkin OVER rotation threshold (dedicated pass pending, never a closeout side-effect).
+>
+> ### ▶ prior: SITTING DIRECTOR Bora binds Thermal (`258cbb`), seated 2026-07-29 20:57:36Z (Moment-2 `b57bc16f`, succeeding Lynx guards Whisper per its Moment-1 `a7de0e7b`, owner-named full handoff); standing down at Falcon's Moment-2; claim `a2286c53` hands over by adoption
 >
 > **SEATED-BLOCK NOTES 2026-07-29 ~21:15Z — durable half only; recompute every derivable (Squall's command block below stays canonical). Rulings 1–20 in Lynx's block below REMAIN BINDING, carried by reference.**
 >

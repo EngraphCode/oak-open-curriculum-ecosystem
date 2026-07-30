@@ -54,3 +54,22 @@ verification-method-must-answer-the-question pattern (substance-probes and the
 stale-capture-wins marker probe included); the 2026-07-18 no-escape-hatches
 entry graduated to principles.md §Strict and Complete. Homes verified live. The
 commits and the homes are the record. -->
+
+## 2026-07-30 wrap capture (Tarsier hunts Underbrush, facf59)
+
+- **Boundary-crossing claims carry their derivation, or they are lookalikes**: one night, four
+  seats, five-plus first-hand instances (stale heartbeat labels read as state; boundary-trapped
+  reviewer verdicts; a send that exits 1 AFTER durably writing and, on the same surface, prints
+  usage writing nothing; per-number alert reads returning null while the ref-scoped read is
+  authoritative; a fluent "equivalent" design falsified by 142k differential pairs; an unguarded
+  mint falling back to owner auth minutes after its author broadcast the warning). The cure that
+  held every time: re-derive from the source AT THE MOMENT a claim crosses into another
+  context's hands (key-turn, retry, record, verdict, handoff), and name the deriving
+  command/ref/time in the same sentence as the claim. Internal working beliefs stay cheap — the
+  crossing pays. Home candidates: a clause in `verify-dont-trust` or PDR-133's operational
+  surfaces; promote at next consolidation. Falsifiers: (a) a provenance-carrying claim that
+  still misleads → carriage is insufficient, cure moves receiver-side; (b) a fresh seat paying a
+  new miss on a NEW surface after this entry lands → passive capture failed, rule-grade active
+  layer warranted. Sources: napkin 2026-07-29 ~21:10Z/~22:16Z/~23:00Z + 2026-07-30 ~06:15Z
+  entries; MCP-393 evidence comments; Director broadcasts (alert-read calibration 22:21Z, mint
+  guard 00:20Z).

@@ -4405,3 +4405,117 @@ night shift. This seat's monitors run until its session ends and do NOT transfer
   mandatory guarded form effective now: `token=$(mint-token --scope <s>) || exit 1` then
   `GH_TOKEN="$token" gh ...`. Transmission is not immunity — Bora hit it minutes after
   broadcasting the rebuild warning themselves; I verified my own surfaces rather than assuming.
+
+## 2026-07-30 ~06:15Z — Bora binds Thermal (258cbb), Director: TENURE CLOSE (succession to Falcon, 52841f)
+
+- Tenure ledger (20:57Z→06:15Z): seven merges zero dismissals (#639/#635/#637/#640/#641/#642/#643);
+  the rotation executed on the rule's text; the brand batch complete through its owner gates; the
+  owner's three morning rulings executed (key-turn, Thyme-carries, event-driven cadence RATIFIED).
+  Full state: the handoff record (claim-addressed) + the sitting block's tenure notes.
+- LESSONS THIS SEAT WILL NOT CARRY FORWARD SILENTLY (all with homes): the pipe-trap exit-capture
+  (3 first-person instances; cure = unpiped rc + artefact-line reads — Osprey's idiom, now habit);
+  the fabricated to-id (read-back-after-write is the working cure, n=2 catches); the invented
+  "morning trigger" paraphrase (read the rule, never a paraphrase — three cricket legs caught it);
+  the unguarded mint (guarded form now fleet-mandatory); the append-anchor table break (anchor on
+  the last ROW; bit twice, cured twice, generator named).
+- The conscience system EARNED ITS COST this tenure: rounds 7-12, every correct DRIFTING executed
+  within the hour (rotation, Thursday correction, runsheet homing, ledger discipline); the
+  fabrication axis class minted and promptable-away; the retrieval ladder n=10 at 100%; seat-D
+  discrimination cross-seat (Thyme's data + the r12 inline arm). The quartet is not ceremony — it
+  caught a rule misread, a date error, and a submission-morning single-point risk in one night.
+- Candidate distillations for the next dedicated pass (pointers, not new observations):
+  analysability-is-part-of-correctness (from #635); positional-finding-identity makes suppression
+  a recurring tax; offer-with-costless-decline as the trust-culture routing shape (three worked
+  instances: MCP-305 ×2 precedent, MCP-393 offer/decline/route arc).
+
+## 2026-07-30 ~06:20Z — Osprey hunts Drift (1c3996): session-end harvest at owner-called succession (successor: Levanter rides Jetstream, 91a217)
+
+- THE SESSION'S THROUGH-LINE (metacognition, generative): every high-value catch tonight came
+  from PROBING A GREEN SIGNAL — the healthy-looking signal was the dangerous one. Worked
+  instances, one session: (1) task notifications reporting exit 0 over real failures (trailing
+  echo eats the code); (2) pr-watch silence while mergeable_state had gone dirty under a moved
+  main; (3) a Playwright forced-colours project running 63/63 GREEN with its emulation silently
+  OFF — Playwright 1.62 ignores unknown use keys, so the whole project was a mislabeled dark
+  re-run; (4) axe green in light/dark saying nothing about forced colours, then axe RED under
+  forced colours measuring the wrong layer (author -webkit-text-fill-color vs painted pixels,
+  axe-core#3978 — pixel histogram proved white-on-black at 21:1 against a reported 1.27:1);
+  (5) a fill==currentColor equality test that stayed green for ANY ink — could not fail for its
+  claimed reason (test-expert catch; the pane-ink DIVERGENCE was the provable fact); (6) my own
+  eyes misreading CORRECT pixels as stale cache because the new wordmark deliberately resembles
+  the old lockup — the eye is also a green signal; the DOM probe (viewBox) discriminates.
+  The cure shape each time: pin a LIVENESS/DISCRIMINATION probe next to the derived signal —
+  emulation-liveness pinned per project; the axe exclusion paired with a symptom-probing
+  self-retirement; ink-divergence expected-by-project; viewBox as the discriminating fixture.
+  Candidate distillation: "a signal you rely on needs a probe that proves the signal itself can
+  still fire" — F-95 (watcher liveness) and MCP-386 (cricket delivery) are the same law; tonight
+  extended it to emulation options, rule exclusions, and theme channels.
+- Governance discovery worth keeping: the content-audit registry.json is an IMMUTABLE phase-(a)
+  baseline — the validator REFUSES edits to it ("phase-(a) is immutable"). A reviewer's
+  corpus-correction finding lands in the CURRENT-source layer (anchors/revisions/delta-review
+  comments), never the baseline. Also: hook reappraisals worked as designed twice — "carve-out"
+  blocked → the design WAS uniform stated positively (criterion scoping: rules run exactly where
+  their criterion applies — landed in accessibility-practice.md); `git checkout --` blocked →
+  forward restoration via `git show HEAD:path > path`.
+- Copilot round-1 on #643: 3 accepted (multi-root fail-fast; acorn provenance now truthfully
+  homed in server-branding.ts; symptom-probing retirement pin), 2 declined — Copilot re-read
+  no-conditional-tests against shapes the estate's test-doctrine carrier had ruled CONFORMANT
+  with clause citations; the decline cited the ruling + falsifier. Pattern: external reviewers
+  re-litigate settled doctrine; the cure is quoting the doctrine-carrier's clause, not re-arguing.
+- Play seeds (kept): "the change that looks like no change" — brand continuity makes visual
+  diffing weak and DOM/geometry proof primary; feeds the MCP-402 baseline-policy question.
+  "Hand over lanes, not tasks" — all four of tonight's successions (Schooner→Tarsier,
+  Altair→Thyme, Lynx→Bora, Osprey→Levanter) executed at AT-REST points; completion-boundary
+  batons beat mid-flight batons and the fleet's rotation practice is converging on it.
+  Visible discard: an acorn-leftmost-in-the-lockup metaphor — decorative, no operational content.
+- Successor trap-list (Levanter, 91a217): commitlint header max 100 + no sentence-case;
+  commit-queue enqueue/guard REQUIRE --id (the PDR-027 uuid) alongside the name tuple; claims
+  close REQUIRES --now; comms direct needs the full 5-part recipient tuple; the mandated mint
+  form is token=$(... mint-token --scope <s>) || exit 1 THEN GH_TOKEN="$token" (scopes:
+  pull-request-work, code-scanning-alerts); MCP-403 (raw-socket e2e parse flake) legitimately
+  blocks pushes — solo-green retry is sanctioned while open; the anchors-override file sits at
+  ~206/250 max-lines after the MCP-365 split.
+
+## 2026-07-30 ~06:15Z — Tarsier hunts Underbrush (facf59): wrap synthesis, loss-scan, and metaloss findings
+
+- CONCEPT-EXPLORATION SYNTHESIS (four movements run at wrap, frame CHANGED en route): twelve
+  observations across four seats in one night converge on one discipline — a claim crossing a
+  context boundary carries its derivation (command/ref/time) or it is a lookalike, and the
+  boundary-crossing moment (not a cadence) is when re-derivation is paid. Instances: heartbeat
+  labels lagging merges 20+ min; boundary-trapped reviewer verdicts (retrieval ladder n=4);
+  comms send exit-1-after-write AND usage-with-no-write (same surface, opposite truths); alert
+  per-number GETs null vs ref-scoped truth; "obviously equivalent" falsified at 142k pairs then
+  proven exact at ~89M; the Director's own mint fallback minutes after broadcasting the warning.
+  Selectivity nuance (the NEW bit): internal beliefs stay cheap; claims about to be CONSUMED BY
+  ANOTHER pay provenance. Falsifier: a provenance-carrying claim that still misleads breaks
+  carriage and demands receiver-side re-derivation. Homed: distilled.md (this date); candidate:
+  fold into verify-dont-trust or PDR-133 operational homes at next consolidation; deliberately
+  NOT a new rule (duplication with PDR-133 §reading-rule; rule-grade warranted only if a fresh
+  seat pays a new miss on a new surface after the distilled entry lands).
+- METALOSS PASS FINDINGS (wrap step 6, real catches): (1) my own five-hour blind window
+  (watcher down 01:07→06:12) hid Possum's arrival, Falcon's pre-positioning, #643's merge — the
+  night's biggest staleness instance was MINE; cure applied: swept before writing the handoff,
+  every record claim provenance-stamped, sweep-time claims marked [swept]. (2) Promise sweep: my
+  "seat stays claimless-available" line in the 22:59Z decline was left dangling by the 01:07
+  closeout — explicitly ENDED in the pending-handoff directed event to Possum. (3) Attribution
+  inferences flagged in the record ("label lag" = my inference from timing; PROBABLY-OWNER stop
+  classifications = inherited calibration). (4) Blind-spot bound stated: dead subagent contexts
+  (my three reviewers, eight crickets) survive only in their relayed reports — methods beyond
+  the reports are gone; error-signature for external scrutiny: my misses cluster at shell-idiom
+  edges (pipes, word-split, exit codes), point instruments there.
+- CANDIDATE (pattern-grade, second tag after the 22:16Z entry): differential-fuzz equivalence
+  measurement (old impl vs new, both directions, random corpus + hand corpus) as the STANDARD
+  proof for behaviour-preserving swaps — two independent harnesses converged on it unprompted
+  tonight (~50M + ~39M pairs); cheap, decisive, and it upgraded a "no looser" claim to "exactly
+  equivalent, measured".
+- Session-handoff step dispositions (evidence-backed, for the record): landing LANDED (#639
+  55d6cc8a3, #635 933129778); continuity-table rows owned: none (ticket lanes, Linear-tracked);
+  thread records for my lanes: none exist (verified ls); conversations/escalations: none
+  (verified grep); entry-points: pointer-shaped, no drift (verified head); platform plans
+  (~/.claude/plans): present, scanned, no artefact authored by this session; per-user memory:
+  checked, no new entries owed (existing memories cover; napkin carries the instances);
+  pending-graduations: no register updates owed (my candidates ride napkin tags per 6b);
+  ADR/PDR candidates: nothing NEW beyond tagged napkin candidates; open questions: none unowned
+  (MCP-395/398 ticket-homed); pnpm-check: singleton-consumption of the window's canonical gate
+  results (two 17/17 CI runs on my merged heads; Director's roll-up gate on the rotation tip) —
+  zero uncommitted work at this seat to gate; consolidation gate: DUE (napkin 4,429 lines;
+  repeated-correction family) — marked in repo-continuity, routed to a dedicated fresh seat.
