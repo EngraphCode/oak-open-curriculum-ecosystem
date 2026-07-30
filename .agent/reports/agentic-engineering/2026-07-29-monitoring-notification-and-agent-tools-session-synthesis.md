@@ -306,10 +306,12 @@ stderr, and stop before claim closure.
 
 #### Slice C — canonical PR settle watch
 
-**Proposal:** implement the already-planned D2
-`agent-tools pr watch <n...>` over D1's canonical `pr state` model. Emit an
-initial transition-silent baseline, semantic transitions, an explicit
-`HEAD_CHANGED` epoch reset, NDJSON, `--until`, and distinct terminal exit codes.
+**Proposal:** first extend and validate D1's canonical `pr state` model with
+the missing readiness inputs named below, including exact-head named-workflow
+presence. Then implement the already-planned D2 `agent-tools pr watch <n...>`
+over that model. Emit an initial transition-silent baseline, semantic
+transitions, an explicit `HEAD_CHANGED` epoch reset, NDJSON, `--until`, and
+distinct terminal exit codes.
 
 **Warrant:** the repository already owns a typed PR-state reader. The legacy
 top-level `pr-watch` helper captures and displays `mergeable` and
