@@ -97,6 +97,11 @@ On Claude, run the four registered Cricket roles as a panel:
 
 ## Codex dispatch
 
+Oak adapts [OpenAI's Codex subagent workflow](https://learn.chatgpt.com/docs/agent-configuration/subagents)
+into a fixed registered-role panel: unlike the upstream's general orchestration pattern, role TOML
+owns model and effort here, dispatch forks no parent context, and the adversarial wave reuses the
+same agents.
+
 On Codex, root plus the three Cricket roles fills the four-seat concurrency limit:
 
 1. Spawn all three registered Cricket roles with identical context and `STANCE: normal`.
