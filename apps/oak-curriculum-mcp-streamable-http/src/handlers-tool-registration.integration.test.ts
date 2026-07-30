@@ -191,7 +191,7 @@ describe('Tool Registration (Integration)', () => {
     }
   });
 
-  it('no registered tool description carries an imperative call-another-tool-first instruction', () => {
+  it('no registered tool description instructs the model — no sequencing imperative, no presentation directive', () => {
     // Directory compliance (acknowledgement 5), enforced at the same walk as
     // the annotations validator so the generated, aggregated, and app-local
     // registration PATHS are all reached. Two banned CLASSES: the imperative
