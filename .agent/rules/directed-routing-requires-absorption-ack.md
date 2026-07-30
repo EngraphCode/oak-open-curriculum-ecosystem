@@ -110,23 +110,33 @@ takeover input:
 
 - **The founding misses**: three absorption-dark windows on 2026-07-29
   (~16:34Z; ~17:07–17:40Z; 20:47–21:04Z) — seats EMIT-fresh on 240s
-  heartbeats while directed events sat unabsorbed 17–40+ minutes, each
-  cured by a hand-delivered unblock. The dated ledger rows, with
+  heartbeats while coordination went unabsorbed 17–40+ minutes, each
+  cured by a hand-delivered unblock. The first two were unabsorbed
+  DIRECTED events, the shape this convention reaches; the third was an
+  unabsorbed BROADCAST (a merge announcement), which the convention
+  deliberately does not reach — that shape is covered by the
+  consumer-side discipline of deriving lane state from PR/merge truth
+  rather than from any seat's signals. The dated ledger rows, with
   verbatim event identifiers, live in the
   [cross-platform matrix](../memory/executive/cross-platform-agent-surface-matrix.md)
   §Platform Liveness Declaration (MCP-393 is the cure lane).
 - **The first live ack**: 2026-07-30, on the MCP-393 lane itself — a
   narrative ack threading the Director's ratification event, written
   with the existing CLI, zero code, through the concept gates; its
-  identifiers are recorded in the same ledger section.
+  identifiers are recorded in the same ledger section. It evidences the
+  RECEIVER half only — its antecedent predates the convention and
+  carried no `ACK-REQUESTED` token, so the sender-side worked instance
+  is still to come.
 
 ## Why a Rule, Not a PDR Clause
 
 PDR-133 §Mechanism disclaims procedure ("the taxonomy is the model, the
 rules are the procedures") and its §Cascade names three host rules
-carrying class fragments — the watcher rule (`SUBSTRATE`–`DELIVERY`),
-the heartbeat rule (`EMIT`/`REGISTRY`/`PROGRESS`), and the wake rule
-(`NOTIFY`). `ABSORB` had no host-rule home; this rule is that home. The
+carrying class fragments — the watcher rule (assigned the
+`SUBSTRATE`–`DELIVERY` fragment range there; the rule's own checks
+reach the narrower `PROCESS`/`CURSOR`/`DELIVERY` set, a pre-existing
+scope difference between the two sources), the heartbeat rule
+(`EMIT`/`REGISTRY`/`PROGRESS`), and the wake rule (`NOTIFY`). `ABSORB` had no host-rule home; this rule is that home. The
 convention is an always-fired discipline at every routing send and
 absorption, which is rule-tier by the `new-rule-vs-pdr-clause`
 classifier; its substance (a subject token, a CLI verb, a wire-schema
@@ -154,9 +164,8 @@ fact) is repo phenotype that portable-core records must not carry.
 
 Behavioural at adoption: the convention is observable on the comms
 stream (the `ACK-REQUESTED` token and the threaded narrative acks are
-both permanent events). The mechanical read surface over outstanding
-challenges is the delivery plan's slice B
-(`mcp-393-delivery-signal.plan.md`, gated on its own named falsifier);
-until it lands, the observer discipline above is manual and the
-ten-minute threshold is read from event timestamps, tool-computed,
-UTC-vs-UTC.
+both permanent events). The observer discipline is manual by default —
+the ten-minute threshold is read from event timestamps, tool-computed,
+UTC-vs-UTC. Any mechanical read surface over outstanding challenges is
+owned by the MCP-393 delivery plan (`mcp-393-delivery-signal.plan.md`)
+and composes with, never replaces, the manual discipline.

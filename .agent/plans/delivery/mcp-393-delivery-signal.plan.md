@@ -9,9 +9,9 @@ ratified_date: 2026-07-30
 ratified_where: >-
   Owner card answers, both recorded 2026-07-30: "Ratify as-is" at the
   implementer seat's in-session card (~07:22Z, Possum weaves Midnight
-  d5848b), and "Ratify the sketch" at the Director's card (~06:56Z,
-  recorded in Falcon hunts Flight's directed event
-  aab0ed7c-adjudication reply of 07:23:06Z)
+  d5848b), and "Ratify the sketch" at the Director's card (~06:56Z),
+  the latter recorded on the comms stream in Falcon hunts Flight's
+  directed event 3f1348b6-9641-4181-9d79-ea15a826ac80 (07:23:06Z)
 serves: first-major-release
 impact_areas:
   - practice-and-estate
@@ -108,6 +108,12 @@ The practice first, the smallest read surface over it second.
    liveness question as the landing moment; this ticket is it).
 
 ## Dependencies and reuse (named so load-bearing proxies survive)
+
+The frontmatter `depends_on` is empty by constraint, not by absence: both
+dependencies below live in the legacy plans-backlog outside the
+plan-node estate, which the closed `depends_on` graph cannot reference —
+this section is their named home, and both are `beneficial`-class
+(informing slice B's authoring), not blocking.
 
 - **`comms-watch-storage-redesign.plan.md`** (agent-tooling backlog):
   its WS2 watermark replaces the seen-file UUID set and its WS3 moves

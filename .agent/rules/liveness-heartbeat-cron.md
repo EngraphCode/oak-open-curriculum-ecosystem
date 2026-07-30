@@ -447,7 +447,7 @@ bootstrap.
   ack convention that rule owns is the added delivery signal that
   detects a heartbeat-fresh-but-absorption-dark seat.
 - [PDR-133](../practice-core/decision-records/PDR-133-liveness-classes-and-platform-declaration.md)
-  (Proposed) — the liveness class model this rule's `EMIT` / `REGISTRY`
+  (Accepted) — the liveness class model this rule's `EMIT` / `REGISTRY`
   / `PROGRESS` coverage sits inside, and the home of the reading rule,
   the self-observation corollary, the two external instruments, the
   absence conjunction, and the platform-declaration obligation.

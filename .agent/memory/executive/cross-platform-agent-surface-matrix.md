@@ -164,7 +164,10 @@ declaration set yet. Dated observations already on record:
   lives in
   [`use-monitor-for-event-driven-wake` § Codex NOTIFY](../../rules/use-monitor-for-event-driven-wake.md#codex-notify-session-relay).
 - **Claude Code 2.1.220 — `NOTIFY`: certified for the armed-Monitor
-  path** (observed 2026-07-30, MCP-393 slice A). Directed event
+  path** (observed first-hand 2026-07-30 at the receiving implementer
+  seat Possum weaves Midnight; external observers the sitting Directors
+  — Bora binds Thermal received the primary reply, Falcon hunts Flight
+  the corroborating one; MCP-393 slice A). Directed event
   `12294923-d059-440c-aefc-b35b11d5623e` (a Director route, created
   06:11:57Z) woke the receiving seat's reasoning loop through the
   canonical `comms watch` running under the Monitor primitive, with no
@@ -176,7 +179,7 @@ declaration set yet. Dated observations already on record:
   PDR-133 §6 instrument 2 a content-engaging reply certifies the whole
   path the challenge traversed). Corroborated same-day by a second
   exchange (`3f1348b6-9641-4181-9d79-ea15a826ac80` → threaded reply
-  `1eaa4d16-5b12-4c4b-b429-cc73c61f4883`, ~75 s). The certification is
+  `1eaa4d16-5b12-4c4b-b429-cc73c61f4883`, ~138 s). The certification is
   **path-scoped** per PDR-133 §4: it covers a seat whose watcher is a
   live Monitor task and is evidence about nothing else — the
   absorption-dark instances below are the same platform with that path
@@ -196,19 +199,26 @@ declaration set yet. Dated observations already on record:
   deliberately unattributed — candidate mechanisms are separately
   attested with their own dates in the watcher rule (the
   plain-background-shell re-arm, 2026-07-25) and the heartbeat rule
-  (harness-suspension emitters, 2026-07-20/21). The **substituting
-  proxy, a named requirement of Claude Code seats' team participation**:
-  the ACK-REQUESTED absorption-ack convention plus the
+  (harness-suspension emitters, 2026-07-20/21). The founding records
+  label these instances NOTIFY-dark; the class-honest filing per
+  PDR-133 §4 is absorption-absent with mechanism unattributed, since
+  `NOTIFY` and `LOOP` failures are indistinguishable from outside. The
+  **substituting proxy, a named requirement of Claude Code seats' team
+  participation**: the ACK-REQUESTED absorption-ack convention plus the
   outstanding-challenge read in
   [`directed-routing-requires-absorption-ack`](../../rules/directed-routing-requires-absorption-ack.md)
   (MCP-393 owns the durable cure; its slice B adds the mechanical read
-  surface). Residual exposure: the proxy detects absorption-absence at
-  its threshold; it cannot wake the seat.
-- **Claude Code's remaining classes (`SUBSTRATE` through `DELIVERY`
-  individually, `CAPABILITY`, `PROGRESS`, and the outgoing set), Codex's
-  other liveness classes, Cursor, and Gemini/Antigravity — declaration
-  rows owed.** The certified rows above cover the named classes on the
-  named paths only.
+  surface). Residual exposure, both halves named: the proxy detects
+  absorption-absence at its threshold but cannot wake the seat; and it
+  covers DIRECTED challenges only — the third founding instance was a
+  BROADCAST whose relevance went unabsorbed, a shape the ack convention
+  does not reach and the consumer-side lane-state-from-PR/merge-truth
+  discipline covers instead.
+- **Claude Code's remaining classes (`DISPATCH`, `SUBSTRATE` through
+  `DELIVERY` individually, `LOOP`, `CAPABILITY`, and the outgoing
+  `EMIT`/`REGISTRY`/`PROGRESS` set), Codex's other liveness classes,
+  Cursor, and Gemini/Antigravity — declaration rows owed.** The
+  certified rows above cover the named classes on the named paths only.
 
 ## Policy Spine
 
