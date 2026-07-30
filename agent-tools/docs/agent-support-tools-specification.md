@@ -90,6 +90,13 @@ Agent support tools need to be discoverable through multiple channels to ensure 
 
 Server instructions are **dynamically generated** from `AGENT_SUPPORT_TOOL_METADATA` via `generateServerInstructions()`. This ensures they stay in sync with the metadata — adding a tool to the metadata automatically updates instructions.
 
+The generated text closes with the owner-signed Oak brand ownership and
+non-endorsement paragraph (MCP-365): the OGL v3.0 attribution statement for
+reused curriculum content, no Oak branding on derived content, no implied Oak
+endorsement, consistent with `LICENCE-DATA.md`. The expert-authored Brand
+Usage guidance document (MCP-102 pipeline) is the full form that later
+deepens or supersedes that paragraph — evolve the two together.
+
 The instructions are sent in the MCP `initialize` response. This is the primary
 orientation channel because:
 

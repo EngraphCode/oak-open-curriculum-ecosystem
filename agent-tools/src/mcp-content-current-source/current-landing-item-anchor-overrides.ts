@@ -5,6 +5,7 @@ const PAGE_SECTIONS = `${LANDING_COMPONENTS}/page-sections.tsx`;
 const RESOURCES_SECTION = `${LANDING_COMPONENTS}/resources-section.tsx`;
 const TOOLS_SECTION = `${LANDING_COMPONENTS}/tools-section.tsx`;
 const DERIVE_VIEW_PROPS = `${LANDING_ROOT}/derive-view-props.ts`;
+const SERVED_ORIGIN = 'apps/oak-curriculum-mcp-streamable-http/src/served-origin.ts';
 
 /**
  * Reviewed anchors whose current source is the MCP app landing page — the
@@ -60,9 +61,7 @@ export const CURRENT_LANDING_ITEM_ANCHOR_OVERRIDES = {
     ],
   },
   C355: {
-    [`${LANDING_ROOT}/resolve-canonical-url.ts`]: [
-      'export function resolveCanonicalUrl(vercelHost?: string): string {',
-    ],
+    [SERVED_ORIGIN]: ['export function resolveServedMcpUrl(inputs: ServedOriginInputs): string {'],
   },
   C357: {
     [RESOURCES_SECTION]: ['Resources ({resources.length})'],

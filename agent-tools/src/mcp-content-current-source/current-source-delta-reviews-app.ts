@@ -1,5 +1,7 @@
 /**
- * Reviewed post-baseline semantic deltas — App-served governed sources (bootstrap, auth, tool, and proof surfaces).
+ * Reviewed post-baseline semantic deltas — App-served governed sources
+ * (bootstrap, tool, and proof surfaces; the auth family lives in
+ * current-source-delta-reviews-app-auth.ts).
  *
  * Every entry is a compliance review act: the semantic hash pins the exact
  * reviewed state; item ids cite the audit rows the file carries, or one
@@ -27,11 +29,11 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/app/core-endpoints.ts': reviewed(
-    '978ce22917b4dc054f7263be8cca527399a08ab9202243c10f695edbdd1657fb',
+    '0c263bbcb4c3a6e920fce3ab280d89958c4c849ce5fc9c2846209583d690b1df',
     ['C323', 'C324'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/app/create-app-options.ts': excluded(
-    '24a8d136111eca039f8cd3e47e5d4e9061a3e55ba0c917efe1975e7a2fecaf7d',
+    'c6f46c27110ad8591bc9cf4546db0f39d9756690dc251c3898333d10d04d81b7',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/app/landing-page-artefact.ts': excluded(
@@ -59,40 +61,7 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/application.ts': excluded(
-    '255eec09af82f1a2fc38dc79d8e29383dea9f4dbf4b1fdea1f401bdfc022e11e',
-    IMPLEMENTATION_ONLY,
-  ),
-  'apps/oak-curriculum-mcp-streamable-http/src/auth-routes.ts': reviewed(
-    'd66cab19995a2a427d60af54b7959ef1621ea8ca23da195d017e2dddc217eec3',
-    ['C705', 'C706', 'C707', 'C708'],
-  ),
-  'apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/get-mcp-resource-url.ts': excluded(
-    '9a3c49786601405a30a0791d12e6b55f6c472c8a7646fa2ce0cbddf142410b3f',
-    IMPLEMENTATION_ONLY,
-  ),
-  'apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/get-prm-url.ts': excluded(
-    'b1f16b2ef7993d70924ef5a6da0fe4bb0bf27e5bfed796022bfa0c610fc13f41',
-    IMPLEMENTATION_ONLY,
-  ),
-  'apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/mcp-auth-clerk.ts': excluded(
-    '86cc00d1dea41e43cf51bba107b0505e4728e7498f28d7bdadf91dff44a42a72',
-    IMPLEMENTATION_ONLY,
-  ),
-  'apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/mcp-auth.ts': reviewed(
-    '359d2f7517dff42d7ba32b2c0a2577e727c2529ec79f41ed29b5dd590a15d77a',
-    ['C395', 'C396', 'C397', 'C398', 'C399', 'C400'],
-  ),
-  // MCP-242: canonical verified-userId derivation for analytics identity —
-  // pure auth-context plumbing, serves no agent-facing content.
-  'apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/verified-user-id.ts': excluded(
-    'cfdd95b3968921c4dabcb48248e40cd18028eb386535019f77fe2dd79c29a586',
-    IMPLEMENTATION_ONLY,
-  ),
-  // MCP-353: the under-the-hood allowlist row (C413) retired with the deleted
-  // resource (MCP-242's re-review of the pre-deletion file is superseded by
-  // that retirement); the file now composes SDK-owned URI sets only.
-  'apps/oak-curriculum-mcp-streamable-http/src/auth/public-resources.ts': excluded(
-    '75bbea61c4b91c53a1ec93133852f9841844f94eb448973f9bbecfd855239227',
+    '240376b016d16c344d25a7a1f6bb181234cef9d0a80cf481202d6d570bf07e7e',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/canonical-origin.ts': excluded(
@@ -124,11 +93,18 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     ['C394'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/handlers.ts': excluded(
-    '94b93129bc465885c23ba2e9155b3611e9be7471454c207c3fe491e7db4d7587',
+    '54ef89d4c749af313238024e7fe64012c509202d09ecd8bc4d326b47fb116dbf',
+    IMPLEMENTATION_ONLY,
+  ),
+  // MCP-392: wildcard host matching no longer builds a RegExp from
+  // allow-list entries (structural CodeQL cure) — pure engineering, no
+  // agent-facing content in this file.
+  'apps/oak-curriculum-mcp-streamable-http/src/host-header-validation.ts': excluded(
+    '22a5ce24820a998f391c89ded676191d64e4761275766cac748747a222662bf1',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/host-validation-error.ts': reviewed(
-    '0e9ada42470d98bc29f33ed6d8db74a34d6db6dcf6c37008c1bf4c916463a313',
+    '3873184adb7f9ef5dbb9344487a412a8fa7e891a0ddcc6aa9b2b7513a583134b',
     ['C702', 'C703', 'C704'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/index.ts': excluded(
@@ -195,6 +171,13 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     '34c260d44df8b6314b7b3958c627a3491264d916ca41aff0aafef07f2e8ab24d',
     IMPLEMENTATION_ONLY,
   ),
+  // MCP-351: the landing page's canonical-URL resolution promoted here as the
+  // one per-deployment self-description derivation; C355's endpoint URL
+  // strings relocated with it.
+  'apps/oak-curriculum-mcp-streamable-http/src/served-origin.ts': reviewed(
+    '0cc2add70d350afd3957791b29b4663bc4cc56813e6e6865c4d4900977cb4b70',
+    ['C355'],
+  ),
   'apps/oak-curriculum-mcp-streamable-http/src/served-surface/filter-guidance-content.ts': excluded(
     '9a97e4382a301bc9b2b6ea0461f8ba0dffd087d7d026e4634855e3d5682e7a12',
     IMPLEMENTATION_ONLY,
@@ -206,7 +189,7 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
   // MCP-243: HTTP server bootstrap wiring the close funnel into every exit
   // path — pure lifecycle plumbing, serves no agent-facing content.
   'apps/oak-curriculum-mcp-streamable-http/src/server-runtime.ts': excluded(
-    '60d6bd83f609921c061c9e99e01b9581795c4eb210239383207d22aa12693922',
+    'b408cd0cd9df7ff44374befbb87a7ed14a505fd36bf7b80dc706151cd495b28f',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/server.ts': excluded(

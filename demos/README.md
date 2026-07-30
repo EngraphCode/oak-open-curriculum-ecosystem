@@ -33,8 +33,8 @@ dependency graph, never a library.
   System consuming the kit the plain-CSS way — the aggregate stylesheet and
   the kit's own classes, tokens, and self-hosted fonts, with no Tailwind and
   no mapping layer. The plain-path counterpart to the hub's Tailwind-mapped
-  consumption; the identity × theme switcher tour lands with MCP-371's page
-  slice.
+  consumption: one page of markup with a live switchboard driving identity ×
+  theme × motion through the token contract.
 
 ## Licences
 

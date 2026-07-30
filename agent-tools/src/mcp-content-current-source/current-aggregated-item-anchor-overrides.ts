@@ -21,6 +21,7 @@ const UNDER_THE_HOOD = `${APP_ROOT}/src/oak-under-the-hood/oak-under-the-hood-to
 const AUTH_ROUTES = `${APP_ROOT}/src/auth-routes.ts`;
 const WIDGET_APP = `${APP_ROOT}/widget/src/App.tsx`;
 const BRAND_BANNER = `${APP_ROOT}/widget/src/BrandBanner.tsx`;
+const AGENT_SUPPORT_METADATA = `${SDK_MCP}/agent-support-tool-metadata.ts`;
 const ORIENTATION_GUIDANCE = 'packages/sdks/oak-curriculum-sdk/src/mcp/orientation-guidance.ts';
 const UNIVERSAL_EXECUTOR = 'packages/sdks/oak-curriculum-sdk/src/mcp/universal-tools/executor.ts';
 const TOOL_DESCRIPTION_PARTS =
@@ -34,6 +35,15 @@ export const CURRENT_AGGREGATED_ITEM_ANCHOR_OVERRIDES = {
   },
   C006: {
     [ORIENTATION_GUIDANCE]: ['export const SERVER_INSTRUCTIONS = generateServerInstructions();'],
+  },
+  // MCP-365: the baseline anchor ran to the template literal's closing
+  // backtick; the owner-directed brand-provenance paragraph now closes the
+  // generated instructions, so this item re-pins on its unchanged routing
+  // paragraph alone.
+  C055: {
+    [AGENT_SUPPORT_METADATA]: [
+      'For questions that are not about curriculum content — about the mechanisms by which the content is delivered, about this MCP app or its associated services, or about the repository itself — use the oak-under-the-hood tool to orient yourself to the Oak Open Curriculum Ecosystem.',
+    ],
   },
   // MCP-366: the baseline anchor carried the deleted includeContextHint
   // line; the surviving formatToolResponse call anchors on its summary line.
@@ -193,46 +203,12 @@ export const CURRENT_AGGREGATED_ITEM_ANCHOR_OVERRIDES = {
   C707: {
     [AUTH_ROUTES]: ["app.get('/.well-known/oauth-protected-resource', metadataRateLimiter,"],
   },
-} as const;
-
-export const CURRENT_AGGREGATED_ITEM_REVISION_OVERRIDES = {
-  // MCP-366: the response call survives minus the hint inclusion line.
-  C057: 'modified',
-  C066: 'modified',
-  C067: 'modified',
-  C101: 'modified',
-  C102: 'modified',
-  C120: 'modified',
-  C256: 'modified',
-  C255: 'modified',
-  C237: 'modified',
-  C236: 'modified',
-  C235: 'modified',
-  C164: 'modified',
-  C160: 'modified',
-  C075: 'modified',
-  C138: 'modified',
-  C139: 'modified',
-  C152: 'modified',
-  C153: 'modified',
-  C162: 'modified',
-  C166: 'modified',
-  C173: 'modified',
-  C174: 'modified',
-  C177: 'modified',
-  C223: 'modified',
-  C224: 'modified',
-  C231: 'modified',
-  C248: 'modified',
-  C372: 'modified',
-  C374: 'modified',
-  C376: 'modified',
-  C385: 'modified',
-  C391: 'modified',
-  C392: 'modified',
-  C393: 'modified',
-  C463: 'modified',
-  C705: 'modified',
-  C707: 'modified',
-  C717: 'added',
+  // MCP-351: the published PRM resource now composes the shared
+  // MCP_RESOURCE_PATH constant, so it cannot diverge from the RFC 8707
+  // expected audience. The served document's shape is unchanged.
+  C706: {
+    [AUTH_ROUTES]: [
+      'resource: `${selfOrigin}${MCP_RESOURCE_PATH}`,\n      authorization_servers: [selfOrigin],\n      scopes_supported: SCOPES_SUPPORTED,',
+    ],
+  },
 } as const;

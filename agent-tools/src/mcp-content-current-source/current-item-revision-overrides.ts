@@ -2,7 +2,7 @@
  * Explicit content-revision verdicts for items whose anchors are overridden
  * in place; relocated items derive their revision from lineage instead.
  */
-import { CURRENT_AGGREGATED_ITEM_REVISION_OVERRIDES } from './current-aggregated-item-anchor-overrides.js';
+import { CURRENT_AGGREGATED_ITEM_REVISION_OVERRIDES } from './current-aggregated-item-revision-overrides.js';
 import { CURRENT_GENERATED_DESCRIPTION_REVISION_OVERRIDES } from './current-generated-description-anchor-overrides.js';
 import { CURRENT_GENERATED_ITEM_REVISION_OVERRIDES } from './current-generated-item-anchor-overrides.js';
 

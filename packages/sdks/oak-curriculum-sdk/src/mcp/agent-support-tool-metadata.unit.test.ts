@@ -150,6 +150,23 @@ describe('generateServerInstructions', () => {
     expect(instructions).toContain('oak-under-the-hood');
     expect(instructions).toContain('not about curriculum content');
   });
+
+  it('carries the Oak brand ownership and non-endorsement guidance (MCP-365)', () => {
+    const instructions = generateServerInstructions();
+
+    // Owner-directed (MCP-365): the served instructions close with the
+    // owner-signed brand-provenance paragraph — the OGL v3.0 attribution
+    // statement for reused curriculum content, no implied endorsement of
+    // derived content. One ends-with assertion proves both the wiring and
+    // the required closing position (a dropped interpolation, a truncated
+    // paragraph, and a later-appended section all fail it); the owner-signed
+    // wording is pinned by the audit registry (A011 plus the reviewed
+    // semantic sha for this file), which fails the content validator with a
+    // readable diff in rendered-wholes.md.
+    expect(
+      instructions.endsWith('it must never present itself as Oak-created or Oak-endorsed.'),
+    ).toBe(true);
+  });
 });
 
 describe('isAgentSupportTool', () => {

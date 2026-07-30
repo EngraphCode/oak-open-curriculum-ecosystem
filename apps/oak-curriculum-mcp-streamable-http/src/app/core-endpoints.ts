@@ -40,7 +40,13 @@ interface CoreEndpointOptions {
   readonly runtimeConfig: RuntimeConfig;
   readonly observability: HttpObservability;
   readonly toolHandlerOverrides?: ToolHandlerOverrides;
-  readonly resourceUrl?: string;
+  /**
+   * Absolute URL of the served MCP endpoint, derived at the composition
+   * root via `resolveServedMcpUrl`. Required so no layer re-defaults it
+   * (a scattered localhost default once reached production error
+   * payloads — MCP-351).
+   */
+  readonly resourceUrl: string;
   readonly getWidgetHtml: () => string;
   /**
    * Served-surface definition override — test seam only. Production
@@ -87,10 +93,11 @@ export function initializeCoreEndpoints(
   const searchRetrieval = runtimeConfig.useStubTools
     ? createStubSearchRetrieval()
     : createSearchRetrieval(runtimeConfig.env, log);
-  const resourceUrl = options.resourceUrl ?? 'http://localhost:3333/mcp';
-  const assetBaseUrl = runtimeConfig.displayHostname
-    ? `https://${runtimeConfig.displayHostname}`
-    : new URL(resourceUrl).origin;
+  const { resourceUrl } = options;
+  // Signed asset download URLs are a served surface, so they name the same
+  // origin as every other self-description (MCP-351) — the resource URL the
+  // composition root derived, never a second precedence of their own.
+  const assetBaseUrl = new URL(resourceUrl).origin;
   const createAssetDownloadUrl = mountAssetDownloadProxy(
     app,
     assetBaseUrl,

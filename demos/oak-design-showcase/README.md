@@ -3,13 +3,14 @@
 A one-page live showcase of the
 [Oak Open Curriculum Design System](../../packages/design/oak-design-system/README.md):
 plain-CSS kit consumption — no Tailwind, no PostCSS, no mapping layer — with
-identity and theme switching over the kit's own classes and token roles.
+live identity and theme switching over the kit's own classes and token roles.
+One set of markup, many faces: every visible difference between identities
+and themes is the token contract at work.
 
 The [Curriculum Hub](../oak-curriculum-hub/README.md) demonstrates the
 Tailwind-mapped consumption path; this app demonstrates the plain path. The
-kit's `consuming-nextjs.md` documents the Tailwind path with the hub as its
-worked example; this app is the plain-path counterpart and will join that
-documentation as the showcase page lands.
+kit's `consuming-nextjs.md` names both apps as its worked examples: the hub
+for the Tailwind mapping, this app for plain package-entry consumption.
 
 ## Run it
 
@@ -23,26 +24,113 @@ That starts the dev server on port 3020 and opens the page in your browser.
 Inside this workspace, `pnpm dev` starts the server without opening a
 browser.
 
-## What is here today
+## The page
 
-The absorb slice: the workspace at estate standards (shared strict
-TypeScript, the full ESLint ruleset, Turbo-wired gates, unit + Playwright
-UI + a11y tests) serving a kit-styled placeholder. The showcase page itself —
-the foundations-first tour with the identity × theme switcher matrix — is the
-next slice of [MCP-371](https://linear.app/oaknational/issue/MCP-371).
+The kit's region contract (`.oak-canvas` over sibling `data-region`
+elements, under the shipped `home` composition map): a utility bar carrying
+the switchboard, a masthead, a main with hero and specimen regions (type
+ramp, buttons, tags, a card — all `.oak-*` classes), and a footer. The
+switchboard drives three axes:
+
+- **Theme** — all five kit themes (light / dark / match-device /
+  high-contrast / colour-safe) through the kit's `oak-theme.js` runtime,
+  inlined pre-paint in `app/layout.tsx` so a stored choice applies before
+  first paint. A theme choice persists (localStorage, the runtime's
+  contract). Until a choice is made the control reads "Page default" — the
+  state where a brand's own polarity governs (EMC² is dark-first). High
+  contrast also has an OS-level route with no control interaction — a
+  `prefers-contrast: more` request applies it without claiming a choice;
+  colour safe is control-only. With
+  JavaScript disabled, reduced motion and forced colors still work at the
+  CSS level, but the high-contrast and colour-safe themes have no route —
+  they need the runtime.
+- **Motion** — the orthogonal motion axis (match-device / reduced / full),
+  same runtime.
+- **Identity** — Oak, plus the kit's two counter-brands (Freedonia DSE and
+  EMC²), by swapping a `brand.css` link loaded after every bundled sheet so
+  the brand wins the cascade at equal specificity.
+
+Two deliberate demo-only properties, recorded so they read as decisions:
+
+- **Identity does not persist across reloads.** Persisting it would need a
+  second pre-paint bootstrap to avoid a flash of Oak brand — exactly the
+  problem `oak-theme.js` exists to solve for themes. The demo swap is
+  in-page state; a reload returns to Oak.
+- **Client-side identity switching is the showcase's mechanism, not the
+  production shape.** The kit's `consuming-nextjs.md` §5 productionises
+  identity as one server-emitted static sheet per tenant ("no flash, no
+  client logic"); a cookie + refresh shape was weighed and rejected here
+  because a live switchboard should not pay a server round trip per flick.
+  Production consumers should follow §5.
+
+The masthead is text-only by design: the kit's brand-asset mechanism is
+file replacement (`brand.css`: "replace assets/logo-\*.svg"), and no token
+role carries the logo, so a live three-identity logo swap has no kit
+mechanism to ride — a text brand-name keeps the markup honest under every
+identity.
 
 ## Consumption mechanism
 
-`app/globals.css` is one line: the kit's exported aggregate stylesheet
-(`@oaknational/oak-design-system/styles.css`), the package's single entry
-point and the source of truth for sheet composition and order. Fonts are
-the kit's own self-hosted faces — no `next/font`, no network at build.
-Page markup uses `.oak-*` classes and token roles only.
+`app/globals.css` starts with one import: the kit's exported aggregate
+stylesheet (`@oaknational/oak-design-system/styles.css`), the package's
+single entry point and the source of truth for sheet composition and order.
+Fonts are the kit's own self-hosted faces — no `next/font`, no network at
+build. Page markup uses `.oak-*` classes and token roles only; the
+page-level hook rules in `globals.css` (for example `.mast`, which
+Freedonia's expression layer restyles into the GDS masthead grammar)
+compose token roles and keywords exclusively. The utility bar deliberately
+is not an inverted band: controls on inverted surfaces need the kit's
+inverted focus ring, and a brand that re-polarises the band has no token
+to restore it — the footer, which carries one link and no controls beyond
+it, is the page's one inverted surface and scopes the inverted ring onto
+that link.
+
+The counter-brand sheets reference their own web fonts and icon CDNs at
+browser time (kit-authored content, copied verbatim); the test suite aborts
+every non-same-origin request and asserts no unexpected third-party origin
+ever appears.
+
+## Kit-asset copies
+
+`public/oak-theme.js` and `public/brands/*/…` are tracked byte-copies of
+kit files, serving constraints only (the pre-paint script is inlined by a
+plain file read; the brand sheets are swapped by URL). The workspace
+package stays the single source: `pnpm validate-kit-assets` (chained into
+the root `repo-validators:check` gate) fails on any byte drift AND
+recomputes each sheet's local import/url() closure so an incompletely
+copied set fails loudly.
+
+## No hardcoded design values
+
+Owner invariant: everywhere the showcase uses a value it must come from the
+design system. Enforced by instrument, not review vigilance:
+
+- **TSX**: the `style` attribute is banned outright (ESLint
+  `no-restricted-syntax`) — presentation lives in `globals.css` hooks
+  composed from token roles, never inline where a brand's expression layer
+  cannot reach it.
+- **CSS**: `pnpm validate-authored-css` (same root gate) parses every
+  authored stylesheet with postcss and fails on any literal design value —
+  hex colours, colour functions, unit-carrying numbers — including inside
+  `var()` fallbacks. Kit-authored copies under `public/` are definitions,
+  not consumption, and are owned by the parity validator instead.
 
 ## Tests
 
-- `pnpm test` — unit tests (happy-dom): component contracts as assistive-tech
-  roles and structure, plus the opener-command platform mapping.
-- `pnpm test:ui` — Playwright checks against the BUILT page (`pnpm start`):
-  page identity and the kit stylesheets taking effect.
-- `pnpm test:a11y` — Playwright + axe WCAG 2.2 AA checks (grep-tagged).
+- `pnpm test` — unit tests (happy-dom): component contracts as
+  assistive-tech roles and structure through the view + binder split (the
+  switchboard renders from an injected fake runtime store), the theme
+  store's choice-snapshot and notification contract, the instrument
+  classifiers, and the opener-command platform mapping.
+- `pnpm test:ui` — Playwright against the BUILT page (`pnpm start`): region
+  contract in effect (live grid areas), theme/identity/motion switches
+  proven through the real controls (attribute + cascade + computed-style
+  assertions), pre-paint persistence, and the dark-first counter-brand's
+  polarity.
+- `pnpm test:a11y` — axe WCAG 2.2 AA across the full identity × theme
+  matrix (15 cells; the match-device cells run under an emulated dark OS —
+  under the default light emulation they would replay the light cells by
+  construction), 320px reflow per identity, the OS accessibility signals
+  (`prefers-contrast: more` auto-selecting high-contrast; forced colors),
+  and keyboard focus visibility in both polarities. The `system`-follows-
+  device ride itself is a behaviour test in the UI suite.

@@ -1,6 +1,7 @@
 import { err, ok, type Result } from '@oaknational/result';
 
 import { defaultPrivateKeyPath, loadMergeBotRepoConfig } from './repo-config.js';
+import { isTokenScopeName, TOKEN_SCOPE_NAMES, type TokenScopeName } from './token-scopes.js';
 
 /**
  * Identity resolution for `merge-bot mint-token`.
@@ -22,39 +23,112 @@ export interface MintTokenConfig {
   readonly keyPath: string;
   readonly owner: string;
   readonly repoName: string;
+  /** The requested scope NAME; permissions are looked up once, at the mint. */
+  readonly scope: TokenScopeName;
   readonly json: boolean;
 }
 
-function parseFlagsForMint(
+/** The scope list, always derived, so usage text cannot drift from the table. */
+function scopeList(): string {
+  return TOKEN_SCOPE_NAMES.join(', ');
+}
+
+/**
+ * A usage failure that teaches the whole replacement command, not just the
+ * missing flag — a stale paste then self-cures in one step.
+ */
+function scopeUsageError(problem: string): Error {
+  // A literal placeholder, not the first scope name: suggesting a concrete
+  // scope steers a reader who wanted a read into minting the widest one.
+  return new Error(
+    `${problem} Valid scopes: ${scopeList()}.\n` +
+      `  e.g. token=$(pnpm --silent agent-tools merge-bot mint-token --scope <scope-name>) || exit 1`,
+  );
+}
+
+/** Every flag that takes a value. `--json` is a bare switch and is separate. */
+const VALUE_FLAGS = ['--app-id', '--private-key-path', '--repo', '--scope'] as const;
+type ValueFlag = (typeof VALUE_FLAGS)[number];
+
+/** Widened at the declaration, so membership needs no assertion. */
+const VALUE_FLAG_SET: ReadonlySet<string> = new Set(VALUE_FLAGS);
+
+function isValueFlag(flag: string): flag is ValueFlag {
+  return VALUE_FLAG_SET.has(flag);
+}
+
+/**
+ * Collects `--flag value` pairs generically, so adding a flag does not add a
+ * branch. Order-independent; a repeated flag takes its last occurrence.
+ */
+function collectValueFlags(
   rest: readonly string[],
-): Result<{ appId?: string; keyPath?: string; repo?: string; json: boolean }, Error> {
-  let appId: string | undefined;
-  let keyPath: string | undefined;
-  let repo: string | undefined;
+): Result<{ values: Partial<Record<ValueFlag, string>>; json: boolean }, Error> {
+  const values: Partial<Record<ValueFlag, string>> = {};
   let json = false;
 
   for (let i = 0; i < rest.length; i += 1) {
-    const flag = rest[i];
+    const flag = rest[i] ?? '';
     if (flag === '--json') {
       json = true;
       continue;
+    }
+    if (!isValueFlag(flag)) {
+      return err(new Error(`unknown flag "${flag}"`));
     }
     const value = rest[i + 1];
     if (value === undefined || value.startsWith('--')) {
       return err(new Error(`${flag} needs a value`));
     }
-    if (flag === '--app-id') {
-      appId = value;
-    } else if (flag === '--private-key-path') {
-      keyPath = value;
-    } else if (flag === '--repo') {
-      repo = value;
-    } else {
-      return err(new Error(`unknown flag "${flag}"`));
+    // Last-wins would let a wrapper silently widen a caller's scope by
+    // appending its own default. A credential choice must not be decided by
+    // argv order.
+    if (values[flag] !== undefined) {
+      return err(new Error(`${flag} given more than once — pass it exactly once`));
     }
+    values[flag] = value;
     i += 1;
   }
-  return ok({ appId, keyPath, repo, json });
+  return ok({ values, json });
+}
+
+function parseFlagsForMint(
+  rest: readonly string[],
+): Result<
+  { appId?: string; keyPath?: string; repo?: string; scope: TokenScopeName; json: boolean },
+  Error
+> {
+  const collected = collectValueFlags(rest);
+  if (!collected.ok) {
+    return collected;
+  }
+  const { values, json } = collected.value;
+
+  const scope = requireScope(values['--scope']);
+  if (!scope.ok) {
+    return scope;
+  }
+  return ok({
+    appId: values['--app-id'],
+    keyPath: values['--private-key-path'],
+    repo: values['--repo'],
+    scope: scope.value,
+    json,
+  });
+}
+
+/**
+ * Required, with no default: a token carries only what its mint requests, so
+ * defaulting would make the most privileged scope the silent one.
+ */
+function requireScope(scope: string | undefined): Result<TokenScopeName, Error> {
+  if (scope === undefined) {
+    return err(scopeUsageError('--scope is required.'));
+  }
+  if (!isTokenScopeName(scope)) {
+    return err(scopeUsageError(`unknown --scope "${scope}".`));
+  }
+  return ok(scope);
 }
 
 function isBlank(value: string | undefined): value is undefined | '' {
@@ -131,7 +205,7 @@ export function resolveMintTokenConfig(
   if (!flags.ok) {
     return flags;
   }
-  const { appId, keyPath, repo, json } = flags.value;
+  const { appId, keyPath, repo, scope, json } = flags.value;
 
   const identity: Result<IdentityValues, Error> =
     !isBlank(appId) && !isBlank(keyPath) && !isBlank(repo)
@@ -150,6 +224,7 @@ export function resolveMintTokenConfig(
     keyPath: identity.value.keyPath,
     owner: split.value.owner,
     repoName: split.value.repoName,
+    scope,
     json,
   });
 }
