@@ -362,10 +362,12 @@ successor (Triton→Lavender), retired at owner word; claim 68088465 pending suc
   `SHA:95bdfee3a` (commits `05ed8482c` hook env fix + `95bdfee3a` kit content; full
   gate suites green). Scaffold branch `checkpoint/mcp-372-pr1-lockfile-2026-07-30`
   local-only, delete after PR 1 lands.
-- **Fleet-relevant**: turbo 2.10.6 + GIT_DIR-in-hook-env breaks EVERY linked
-  worktree's local gate ("Is a directory (os error 21)"); cure on the pushed branch
-  (`05ed8482c`, env -u trio around the turbo invocations in both hooks), broadcast
-  ~09:55Z. If an equivalent fix lands first, rebase-drop at resume.
+- **Fleet-relevant, RESOLVED**: the turbo/GIT_DIR hook-env defect (intermittent,
+  state-dependent — "Is a directory (os error 21)" in linked worktrees) landed on
+  main via PR #650 at `SHA:094b7a145` (MCP-414 Done, owner-authorised extraction at
+  this seat ~10:05-10:45Z). Resume consequence: the design branch's twin commit
+  `05ed8482c` CONFLICTS at rebase — take main's version (its comments are the
+  review-cured invariant form).
 - **Resume order**: docs/ADR checklist → batched owner-wording card → PR 1
   open/shepherd/merge → PR 2 reworks #644 → lane rests (write-up + MCP-372/388/134
   true-ups). Linear MCP-372/MCP-371 carry matching pause comments.
