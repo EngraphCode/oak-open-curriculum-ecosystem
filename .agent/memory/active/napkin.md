@@ -5262,3 +5262,11 @@ night shift. This seat's monitors run until its session ends and do NOT transfer
     edge cases and closeout sequencing, where fluency peaks.
   - Metaloss fixed point: a further pass re-finds only the two named accepted losses; the
     recursion closes here.
+- 2026-07-30 ~19:22Z (Inferno weaves Kindling, final): HOOK BLOCK ABORTS THE WHOLE COMPOUND —
+  a policy hook rejecting one substring of a compound Bash call (false-positive: closeout PROSE
+  "primary checkout clean" + flag dashes read as a git-destruction pattern) kills EVERY stage,
+  so the heredoc before the send never wrote its file; the retried send then ran against a
+  missing body file and my trailing `echo SENT` printed anyway — a false marker of my own
+  making. Cure pair: after any hook block on a compound, verify precursor artefacts exist
+  before retrying the tail; and never append an unconditional echo after the operation it
+  claims to mark (the marker must derive from the operation's own output — event_id, not echo).
