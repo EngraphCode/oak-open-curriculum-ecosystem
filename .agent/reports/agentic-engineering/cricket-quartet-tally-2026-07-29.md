@@ -47,11 +47,10 @@ Verdict key: ON = ON-TRACK, DR = DRIFTING, WP = WRONG-PRIORITY. One row per quar
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | Director Bora binds Thermal (258cbb), round 7 — post-Moment-2 takeover boundary, ~21:15Z | n | ON | ON | ON† | — undelivered | no |
 | 2 | same moment | a | ON | ON† | DR — refuted | — undelivered | yes → adjudicated at the seat |
-
-† = boundary-trapped, retrieved COMPLETED via one relay ask (MCP-386 retrieval-first ladder).
-
 | 3 | Director Bora binds Thermal (258cbb), round 8 — second cycle boundary, ~22:57Z | n | ON | ON | ON | — undelivered | no |
 | 4 | same moment | a | ON | ON† | DR — declined on the stated ledger | — undelivered | yes → adjudicated at the seat |
+
+† = boundary-trapped, retrieved COMPLETED via one relay ask (MCP-386 retrieval-first ladder).
 
 ### Round 8 axis notes (2026-07-29 ~23:05Z, Bora binds Thermal)
 
