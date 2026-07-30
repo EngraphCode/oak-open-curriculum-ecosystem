@@ -52,17 +52,18 @@ The remaining two are a one-line manifest gap and a posture decision.
    falsified during pre-execution review — `…-kalan` is the live support-site slug — so no
    spelling sweep exists; the URL left the served surface with the directive block. Deployed
    surface verified cured (evidence on the ticket).
-2. **MCP-440 — plugin licence** (class: config). Owner-decided 2026-07-30 (card, verbatim on
-   the ticket): the plugin's licensing statement mirrors the root README's three-part model —
-   MIT for code, OGL v3.0 for Oak curriculum content, the Oak brand-usage guidance for brand
-   assets. Implement as a small single-story PR deriving the wording from the root README;
-   prove with `claude plugin validate --strict`.
-3. **MCP-439 — generated tool table** (class: code; ~3 files). A script in the MCP server app
-   workspace that emits the reviewer-facing table (name, title, description, annotations) from
-   the same registry the server registers from, excluding dormant tools. Test: the emitted table
-   contains every live tool (40 today, including oak-under-the-hood) and no dormant tool, and
-   each row's fields equal the registered definition's. The submission doc's table is regenerated
-   from its output.
+2. **MCP-440 — plugin licence** (class: config). COMPLETE: merged on PR 658 (sha-pinned
+   `2d9bf9012` → merge commit `848e61e23`). Owner-decided 2026-07-30 (card, verbatim on the
+   ticket): the licensing statement mirrors the root README's three-part model — MIT for code,
+   OGL v3.0 for Oak curriculum content, the Oak brand-usage guidance for brand assets —
+   pointer-style, in BOTH `plugin.json` and the marketplace entry (the pre-execution review
+   proved `license` is a recognised marketplace-entry field that was also absent). Both
+   manifests pass `claude plugin validate --strict`; field contract verified free-form against
+   the current plugins reference. Evidence and residues on the ticket.
+3. **MCP-439 — generated tool table** (class: code; ~3 files). COMPLETE: merged on PR 657
+   (merge commit `88116fb1e`). The renderer + generator emit the reviewer-facing table from the
+   canonical registration walk; the artefact staleness test pins the committed table to the
+   served surface, and the committed `served-tool-table.md` carries all 40 live tools.
 4. **MCP-441 — result-size posture** (class: decision; no code in this plan). Recorded verdict:
    **disclose, don't bound**. Rationale: bounding changes served behaviour for every existing
    consumer (an assistant that receives the full keyword set today would start receiving a page)

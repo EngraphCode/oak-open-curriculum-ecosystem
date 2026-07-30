@@ -5154,3 +5154,78 @@ night shift. This seat's monitors run until its session ends and do NOT transfer
   regex-linearity — a pre-flight checklist worth carrying to the next generator.
 - SONAR PR-SCOPE READ: search_sonar_issues_in_projects WITHOUT the projects filter fans out
   org-wide even with pullRequestId set — always pass projects + pullRequestId together.
+
+## 2026-07-30 ~17:15Z — Volcano binds Beeswax (982da2): seat close — owner-private document lane (subject stays unnamed; lessons context-stripped at owner word)
+
+- GOOGLE DOCS READ PATH: the `/mobilebasic` render is the reliable read surface for Google Docs in
+  browser automation — full text, no editor, no canvas. Pairs with the existing canvas-swallows-
+  synthetic-typing entry: mobilebasic for read, nothing for write.
+- NOTION ATTACHMENT LIMITS: notion-download-attachment serves ONLY the integration's own text
+  uploads (≤200KiB UTF-8), never arbitrary page attachments; page fetches sign URLs for images but
+  NOT for file blocks. Binary attachments on a Notion page are an access gap to NAME (owner
+  retrieves/exports), not to work around.
+- NOTION replace_content CHILD-PAGE GUARD: full-page replacement refuses to orphan child pages
+  unless explicitly allowed; keeping a `<page url>` tag in the new content preserves the child.
+  Preservation-first (verbatim copies landed BEFORE any replacement) turned a destructive-looking
+  owner ask into a safe minutes-long operation — the discipline paid exactly as designed.
+- CLOUDFLARE LAYERED 403s: one 403 can be several stacked products (an AI-crawler block, then a
+  managed-challenge WAF rule catching everything non-browser). The zone's firewallEventsAdaptive
+  GraphQL names the firing ruleId + userAgent per request — diagnose from EVENTS, then except the
+  exact rule; guessing product-by-product wastes rounds. Claude Code's fetcher UA is "Claude-User
+  (claude-code/…)", classed by Cloudflare as an AI agent; verified-bot/crawler allowances beat IP
+  allowlists (client IPs rotate). WebFetch caches ~15 min per URL — cache-bust with a query param
+  after server-side changes before concluding still-blocked.
+- SCOPE-INHERITED CLAIM (self-made, peer-falsified, corrected within the hour): measured one
+  repo's git authorship and wrote the conclusion for the whole estate ("no other adopters") — the
+  NUMBER was measured; the SCOPE was inherited. Cure: state the measurement's scope in the same
+  sentence that carries the claim. Scope is part of provenance (facet for the provenance-at-
+  boundary distilled entry).
+- HARD-LIMIT DOCUMENTS GET A MECHANICAL GATE: for a document with per-section word limits, a
+  scratch copy + per-section counter run at EVERY cut caught limit drift three times in one
+  afternoon; the artefact header carries the verified counts. Cheap, absolute, no vigilance —
+  structure-over-vigilance at the word level.
+- PERSISTENT-SHELL ENV CORRUPTION: mid-session one Bash invocation lost PATH (exit 127: sort/gh
+  "not found") and a for-loop's command substitutions returned uniformly empty even after the
+  PATH fix — probes that fail uniformly INSIDE a loop must be re-run STANDALONE before concluding
+  unreachable (loop-level masking; the env sibling of the persistent-cwd class).
+- CARD ANSWERS ARE FULL MESSAGES: an AskUserQuestion option-pick arrived carrying two new
+  sub-questions inside the chosen option's text — parse card answers like fresh chat turns
+  (answers-carry-directives, card flavour).
+- PLAY SEEDS (associations, not findings): (1) the lane produced a document ABOUT the practice BY
+  the practice — production-as-evidence, a self-evidencing artefact class; (2) a good maturity-
+  level definition makes the assessing framework reward exactly the genuinely-next work —
+  incentive-alignment as a design property, structure-over-vigilance at the org scale; (3) the
+  estate's verify-from-events discipline transferred cleanly to a third-party control plane
+  (WAF debugging) — the practice's reflexes are portable beyond its own substrate.
+- FINISH-LINE CLUSTER, first-hand (metacognition's "fluency failures cluster at the finish line",
+  observed in my own closeout minutes after writing the entry above): three tool-usage misses in
+  one closing sequence — a directed send missing the SENDER --platform/--model (exit 2 usage),
+  claims close missing its required --summary/--now/--platform/--model, and a stop-tool called
+  without its schema loaded. All three caught by loud failures + the state-read-before-retry
+  discipline (zero duplicates, zero losses). The cure that worked: slow the last moves, read the
+  usage line the failure prints, retry once with the named cure — never re-fire the same argv.
+
+- 2026-07-30 ~17:20Z (Falcon, Director): FALSE-ABSENCE process read — post-compaction monitor
+  verification declared the F-75 peer-liveness poll dead from two ps greps whose pattern sets
+  ("comms watch|frictions|delta", "sleep 300|F-75|heartbeat|delta") did not include the
+  process's actual command string (`comms peer-liveness`). The poll was alive (it survived the
+  boundary and later exited cleanly on its own MAX_IDLE criterion). Harmless here — the re-arm
+  briefly double-covered, then single coverage resumed — but the identical read pointed at a
+  PEER's monitor would feed a wrongful retirement verdict. Cure: before declaring a process
+  absent, grep for the exact command string the arming recipe runs (read the recipe first),
+  not paraphrases of its purpose; absence verdicts get the falsifier-first treatment like any
+  other "impossible/never" claim.
+
+- 2026-07-30 ~17:30Z (Inferno weaves Kindling, fixes lane): COMMS IDENTITY IS THE EXACT LIVE
+  TUPLE — `comms send --model fable` exited 2 with "identity route … collides with live
+  identity … claude-fable-5": the model arg is an identity component, not a label, and any
+  value other than the registered one (claude-fable-5) derives a DIFFERENT identity route that
+  collides with the live row. Same failure surfaced the persistent-cwd class again (send fired
+  from a worktree, wrong agent-tools home). Cure pair: `cd` to the primary root in the same
+  command AND pass the model exactly as the live registry records it — read it from the
+  collision error or the identity preflight, never abbreviate.
+- 2026-07-30 ~17:30Z (Inferno weaves Kindling): GITHUB→LINEAR AUTO-DONE — the GitHub
+  integration auto-transitions a linked ticket to Done seconds after its PR merges (observed
+  MCP-433 17:26Z, MCP-440 17:29Z). Closeout sequencing: read the ticket state BEFORE any manual
+  Done mutation; the manual write is usually already unnecessary (query the value, never the
+  assumption).
