@@ -25,9 +25,9 @@
     "itemCount": 728,
     "baselineItemCount": 717,
     "additionCount": 11,
-    "availableCount": 685,
-    "retiredCount": 43,
-    "unchangedCount": 519,
+    "availableCount": 684,
+    "retiredCount": 44,
+    "unchangedCount": 518,
     "expandedCount": 0,
     "modifiedCount": 86,
     "relocatedCount": 68,
@@ -3490,18 +3490,11 @@
       "authority": "workspace",
       "workspaceScope": "in",
       "source": {
-        "state": "available",
-        "files": [
-          "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-asset-download/definition.ts"
-        ],
-        "evidence": {
-          "revision": "unchanged",
-          "anchorTargetCount": 1,
-          "anchorCount": 1
-        }
+        "state": "retired",
+        "files": []
       },
       "lineage": {
-        "disposition": "retained",
+        "disposition": "retired",
         "baselineFile": "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-asset-download/definition.ts"
       },
       "registrations": []
