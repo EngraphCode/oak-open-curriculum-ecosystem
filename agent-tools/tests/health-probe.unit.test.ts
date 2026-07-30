@@ -1,6 +1,3 @@
-import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
-import { tmpdir } from 'node:os';
-import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
 import { formatAgentInfrastructureHealthReport } from '../src/core/health-probe';
@@ -8,7 +5,7 @@ import {
   evaluateHookPolicySpineCoherenceFromInputs,
   evaluatePracticeBoxState,
 } from '../src/core/health-probe-hook-state';
-import { evaluateParityChecks } from '../src/core/health-probe-parity';
+import { evaluateReviewerAdapterParityFromInputs } from '../src/core/health-probe-parity';
 import type { AgentInfrastructureHealthReport } from '../src/core/health-probe-types';
 
 const wiredClaudeSettingsText = JSON.stringify({
@@ -35,67 +32,38 @@ const documentedSurfaceMatrix = [
   'override prune block',
 ].join('\n');
 
-function writeReviewerAdapterFixture(repoRoot: string, includeCodexHighSeat: boolean): void {
-  const sharedAgentNames = [
-    'cricket-judgement-low',
-    'cricket-judgement-medium',
-    'cricket-procedure-xhigh',
-  ];
-  const claudeCursorAgentNames = [...sharedAgentNames, 'cricket-judgement-high'];
-  const codexAgentNames = includeCodexHighSeat
-    ? [...sharedAgentNames, 'cricket-judgement-high']
-    : sharedAgentNames;
-
-  for (const [relativeDir, extension, agentNames] of [
-    ['.cursor/agents', '.md', claudeCursorAgentNames],
-    ['.claude/agents', '.md', claudeCursorAgentNames],
-    ['.codex/agents', '.toml', codexAgentNames],
-  ] as const) {
-    const absoluteDir = join(repoRoot, relativeDir);
-    mkdirSync(absoluteDir, { recursive: true });
-    for (const agentName of agentNames) {
-      writeFileSync(join(absoluteDir, `${agentName}${extension}`), '', 'utf8');
-    }
-  }
-}
+const sharedCricketAgentNames = [
+  'cricket-judgement-low',
+  'cricket-judgement-medium',
+  'cricket-procedure-xhigh',
+];
+const claudeCursorCricketAgentNames = [...sharedCricketAgentNames, 'cricket-judgement-high'];
 
 describe('reviewer adapter parity health', () => {
   it('accepts the Claude and Cursor only high-judgement Cricket seat', () => {
-    const repoRoot = mkdtempSync(join(tmpdir(), 'agent-health-parity-'));
+    const result = evaluateReviewerAdapterParityFromInputs({
+      cursorAgents: claudeCursorCricketAgentNames,
+      claudeAgents: claudeCursorCricketAgentNames,
+      codexAgents: sharedCricketAgentNames,
+    });
 
-    try {
-      writeReviewerAdapterFixture(repoRoot, false);
-
-      const result = evaluateParityChecks(repoRoot).find(
-        (check) => check.key === 'reviewer-adapter-parity',
-      );
-
-      expect(result).toMatchObject({
-        status: 'pass',
-        details: [],
-      });
-    } finally {
-      rmSync(repoRoot, { recursive: true, force: true });
-    }
+    expect(result).toMatchObject({
+      status: 'pass',
+      details: [],
+    });
   });
 
   it('rejects a fake Codex adapter for the unsupported high-judgement seat', () => {
-    const repoRoot = mkdtempSync(join(tmpdir(), 'agent-health-parity-'));
+    const result = evaluateReviewerAdapterParityFromInputs({
+      cursorAgents: claudeCursorCricketAgentNames,
+      claudeAgents: claudeCursorCricketAgentNames,
+      codexAgents: [...sharedCricketAgentNames, 'cricket-judgement-high'],
+    });
 
-    try {
-      writeReviewerAdapterFixture(repoRoot, true);
-
-      const result = evaluateParityChecks(repoRoot).find(
-        (check) => check.key === 'reviewer-adapter-parity',
-      );
-
-      expect(result).toMatchObject({
-        status: 'fail',
-        details: ['Codex has unsupported reviewer adapter cricket-judgement-high.'],
-      });
-    } finally {
-      rmSync(repoRoot, { recursive: true, force: true });
-    }
+    expect(result).toMatchObject({
+      status: 'fail',
+      details: ['Codex has unsupported reviewer adapter cricket-judgement-high.'],
+    });
   });
 });
 

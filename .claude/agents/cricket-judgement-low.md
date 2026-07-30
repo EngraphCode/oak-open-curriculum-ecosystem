@@ -16,4 +16,5 @@ Your first action MUST be to read and internalise `.agent/sub-agents/templates/c
 
 This adapter explicitly waives the template's reading-discipline component to preserve
 the one-pass speed contract; the identity component remains mandatory. Judge and report
-only from the supplied context and STANCE. Never explore the repository.
+from the supplied context and STANCE, using at most the template's two targeted
+verification Reads when its speed contract permits them. Never explore the repository.

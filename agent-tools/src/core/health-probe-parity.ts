@@ -14,22 +14,48 @@ import {
   type ReviewerAdapterPlatform,
 } from './reviewer-adapter-platform-contract.js';
 
+interface ReviewerAdapterParityInputs {
+  /** Reviewer adapter basenames present on the Cursor surface. */
+  readonly cursorAgents: readonly string[];
+  /** Reviewer adapter basenames present on the Claude Code surface. */
+  readonly claudeAgents: readonly string[];
+  /** Reviewer adapter basenames present on the Codex surface. */
+  readonly codexAgents: readonly string[];
+}
+
 export function evaluateParityChecks(repoRoot: string): readonly HealthCheckResult[] {
   return [evaluateReviewerAdapterParity(repoRoot), evaluateReviewerRegistrationParity(repoRoot)];
 }
 
 function evaluateReviewerAdapterParity(repoRoot: string): HealthCheckResult {
-  const cursorAgents = listBasenames(repoRoot, CURSOR_AGENTS_DIR, '.md');
-  const claudeAgents = listBasenames(repoRoot, CLAUDE_AGENTS_DIR, '.md');
-  const codexAgents = listBasenames(repoRoot, CODEX_AGENTS_DIR, '.toml');
-  const allAgentNames = [...new Set([...cursorAgents, ...claudeAgents, ...codexAgents])].sort(
-    (a, b) => a.localeCompare(b),
-  );
-  const details = collectReviewerAdapterParityDetails(allAgentNames, {
-    cursorAgents,
-    claudeAgents,
-    codexAgents,
+  return evaluateReviewerAdapterParityFromInputs({
+    cursorAgents: listBasenames(repoRoot, CURSOR_AGENTS_DIR, '.md'),
+    claudeAgents: listBasenames(repoRoot, CLAUDE_AGENTS_DIR, '.md'),
+    codexAgents: listBasenames(repoRoot, CODEX_AGENTS_DIR, '.toml'),
   });
+}
+
+/**
+ * Evaluates reviewer-adapter parity from already enumerated platform surfaces.
+ *
+ * This pure seam keeps filesystem discovery in the production composition
+ * while allowing unit tests to exercise role-aware parity directly.
+ *
+ * @param platformAgents - Adapter basenames present on each platform surface.
+ * @returns A passing result when every adapter appears exactly where supported,
+ *   otherwise a failing result with one detail per parity violation.
+ */
+export function evaluateReviewerAdapterParityFromInputs(
+  platformAgents: ReviewerAdapterParityInputs,
+): HealthCheckResult {
+  const allAgentNames = [
+    ...new Set([
+      ...platformAgents.cursorAgents,
+      ...platformAgents.claudeAgents,
+      ...platformAgents.codexAgents,
+    ]),
+  ].sort((a, b) => a.localeCompare(b));
+  const details = collectReviewerAdapterParityDetails(allAgentNames, platformAgents);
 
   if (details.length > 0) {
     return {
@@ -52,11 +78,7 @@ function evaluateReviewerAdapterParity(repoRoot: string): HealthCheckResult {
 
 function collectReviewerAdapterParityDetails(
   allAgentNames: readonly string[],
-  platformAgents: {
-    readonly cursorAgents: readonly string[];
-    readonly claudeAgents: readonly string[];
-    readonly codexAgents: readonly string[];
-  },
+  platformAgents: ReviewerAdapterParityInputs,
 ): string[] {
   const details: string[] = [];
 

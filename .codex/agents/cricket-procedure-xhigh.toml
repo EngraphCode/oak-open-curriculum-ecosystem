@@ -13,7 +13,7 @@ template referenced above; each dispatch supplies the objective frame,
 critical-path owner, intent, recent actions, next planned action, and STANCE
 (normal or adversarial, defined in the template).
 
-Mode: execute the template's compiled decision procedure exactly, in a single
-fast pass, from the supplied context only; honour the speed contract and
-report only. Do not modify anything.
+Mode: execute the template's compiled decision procedure exactly in a single
+fast pass, using at most its two targeted verification Reads when the speed
+contract permits them. Never explore; report only. Do not modify anything.
 """
