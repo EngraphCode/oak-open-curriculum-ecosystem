@@ -12,6 +12,7 @@ import {
   excluded,
   IMPLEMENTATION_ONLY,
   reviewed,
+  TEST_ONLY,
   type CurrentSourceDeltaReview,
 } from './current-source-delta-review-helpers.js';
 
@@ -199,6 +200,12 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
   'apps/oak-curriculum-mcp-streamable-http/src/server.ts': excluded(
     'f06ab4d0a5e270a5220ce39f003ae2d59c11ee1fdd9b287035270fbd0f67d252',
     IMPLEMENTATION_ONLY,
+  ),
+  // MCP-403 review round: check-then-patch guard on the fetch sentinel so a
+  // second in-process execution cannot capture the blocking fetch as original.
+  'apps/oak-curriculum-mcp-streamable-http/src/test.setup.ts': excluded(
+    'b01e9673dddd262878ca8a768bce108bb697af23ad4a9d6957a9ed1ddaa0c1f2',
+    TEST_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/prompt-schemas.ts': excluded(
     'b72ba8cceb54d32bf4346f202d1c13193bd9c4006a3426a555869ad7f112f7ca',

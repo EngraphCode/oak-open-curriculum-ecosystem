@@ -84,18 +84,32 @@ function trackRequest(req: http.IncomingMessage, res: http.ServerResponse): void
   res.on('close', done);
 }
 
+/**
+ * Routes one incoming exchange to the current app, or terminates it with
+ * the named harness 500 when no app has been swapped in yet. Exported as
+ * a seam so the no-app state is describable deterministically, without
+ * a raw dial whose outcome depends on test order within the file.
+ */
+export function dispatch(
+  app: AppHandler | null,
+  req: http.IncomingMessage,
+  res: http.ServerResponse,
+): void {
+  if (app === null) {
+    res.statusCode = 500;
+    res.setHeader('content-type', 'text/plain');
+    res.end(
+      'loopback-request harness error (MCP-403): a request arrived before any request(app) call in this file.',
+    );
+    return;
+  }
+  app(req, res);
+}
+
 beforeAll(async () => {
   const server = http.createServer((req, res) => {
     trackRequest(req, res);
-    if (currentApp === null) {
-      res.statusCode = 500;
-      res.setHeader('content-type', 'text/plain');
-      res.end(
-        'loopback-request harness error (MCP-403): a request arrived before any request(app) call in this file.',
-      );
-      return;
-    }
-    currentApp(req, res);
+    dispatch(currentApp, req, res);
   });
   server.listen(0, '127.0.0.1');
   await once(server, 'listening');

@@ -16,12 +16,12 @@
  *    exchange. Swapping to the SAME app stays allowed (concurrent
  *    requests against one app are a legitimate pattern).
  */
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, onTestFinished, vi } from 'vitest';
 import http from 'node:http';
-import { once } from 'node:events';
+import net from 'node:net';
 import type { Express } from 'express';
 import express from 'express';
-import { request, harnessAddress } from './loopback-request.js';
+import { dispatch, request, harnessAddress } from './loopback-request.js';
 
 function markerApp(marker: string): Express {
   const app = express();
@@ -39,30 +39,21 @@ describe('loopback request helper (MCP-403)', () => {
     expect(harnessAddress().address).toBe('127.0.0.1');
   });
 
-  it('fails loudly with a named error when a request arrives before any request(app) call', async () => {
-    // Reaching the pre-swap state needs a raw dial: the helper's own
-    // `request()` always swaps an app in, so this describes the state a
-    // stray client (or a mis-sequenced test) would observe.
-    const { port } = harnessAddress();
-    const rawResponse = await new Promise<http.IncomingMessage>((resolve, reject) => {
-      http.get({ host: '127.0.0.1', port, path: '/no-app-yet-probe' }, resolve).on('error', reject);
-    });
-    let body = '';
-    rawResponse.on('data', (chunk: Buffer) => {
-      body += chunk.toString();
-    });
-    await once(rawResponse, 'end');
-    // The current app persists between tests in one file, so this test
-    // observes the named-500 contract only when it runs first; the
-    // assertion below therefore accepts either the harness error (no app
-    // yet) or the current app's 404 — and pins that the response is
-    // ALWAYS a terminated HTTP exchange, never a hang. The named-500
-    // path itself is covered deterministically by the source guard plus
-    // this test running first in file order today.
-    expect([500, 404]).toContain(rawResponse.statusCode);
-    if (rawResponse.statusCode === 500) {
-      expect(body).toContain('MCP-403');
-    }
+  it('terminates a no-app exchange with the named harness 500, never a hang', () => {
+    // The dispatch seam makes the no-app state describable
+    // deterministically, independent of test order within the file: real
+    // Node request/response objects (no network — the socket never
+    // connects), the null app the seam guards against, and the response
+    // observed through its own output surface.
+    const req = new http.IncomingMessage(new net.Socket());
+    const res = new http.ServerResponse(req);
+    const endSpy = vi.spyOn(res, 'end');
+
+    dispatch(null, req, res);
+
+    expect(res.statusCode).toBe(500);
+    expect(res.writableEnded).toBe(true);
+    expect(endSpy).toHaveBeenCalledWith(expect.stringContaining('MCP-403'));
   });
 
   it('refuses to swap apps while a different app has requests in flight', async () => {
@@ -73,6 +64,12 @@ describe('loopback request helper (MCP-403)', () => {
     });
     const gate = new Promise<void>((resolve) => {
       releaseHandler = resolve;
+    });
+    // A failed expectation below must not leave the gated response open:
+    // an unreleased handler wedges afterAll on the live connection and
+    // masks the real failure behind a hook timeout.
+    onTestFinished(() => {
+      releaseHandler();
     });
 
     const slowApp = express();
@@ -89,12 +86,18 @@ describe('loopback request helper (MCP-403)', () => {
     const settled = inFlightRequest.then((res) => res);
     await entered;
 
-    expect(() => request(markerApp('other'))).toThrow(/in flight/);
+    // The refusal names the pending exchange, so a reader of the error
+    // can see WHICH request held the swap open.
+    expect(() => request(markerApp('other'))).toThrow(/in flight \(\/slow\)/);
     // Same-app swap stays allowed while in flight.
     expect(() => request(slowApp)).not.toThrow();
 
     releaseHandler();
     const res = await settled;
     expect(res.text).toBe('released');
+
+    // After the exchange completes, the in-flight guard releases: a
+    // different-app swap is allowed again.
+    expect(() => request(markerApp('other'))).not.toThrow();
   });
 });
