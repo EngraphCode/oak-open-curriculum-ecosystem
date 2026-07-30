@@ -1,3 +1,15 @@
+# [1.123.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.122.0...v1.123.0) (2026-07-30)
+
+
+### Bug Fixes
+
+* **design-showcase:** geometry measurements wait for the fonts they render (MCP-399) ([69d85d0](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/69d85d0433a73bca24854a2acc5bcc279941ed26))
+
+
+### Features
+
+* **oak-curriculum-sdk:** server instructions carry Oak brand ownership and non-endorsement guidance ([2e6629c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2e6629c5073ac140fce54ad78d7dbbdc4243003f))
+
 # [1.122.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.121.1...v1.122.0) (2026-07-29)
 
 
