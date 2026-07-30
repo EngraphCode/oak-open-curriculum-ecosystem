@@ -93,8 +93,10 @@ adoption instruction, 2026-07-01) — and unquoted metacharacters exit 2. The
 `--body-file` argument must be a REAL readable file at an ABSOLUTE path: process
 substitution (`<(printf …)`), `/dev/stdin` heredocs, and repo-root-relative
 traversals into a scratchpad all fail. Resolve every referenced event id from
-the artefact (`ls` the comms dir), never from recall — `append
---in-response-to` does not validate its antecedent (frictions F-121).
+the artefact (`ls` the comms dir), never from recall — neither
+`append`/`send --in-response-to` nor `direct --in-response-to` validates
+its antecedent
+(frictions F-121; `comms reply` is the one verb that resolves-or-fails).
 
 The canonical communication-event directory is
 `.agent/state/collaboration/comms/`. Merges reconcile any legacy-era event

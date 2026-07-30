@@ -36,34 +36,49 @@ dominates.
 
 ## Action — receiver side
 
-On absorbing an `ACK-REQUESTED` event, reply with a content-bearing
-**narrative** ack that threads the antecedent:
+On absorbing an `ACK-REQUESTED` event, reply with a content-bearing ack
+that threads the antecedent machine-readably. Every comms ack verb now
+carries the threading edge:
 
 ```bash
+# Broadcast ack (narrative — the whole fleet sees the absorption):
 pnpm agent-tools:collaboration-state -- comms send \
   --platform <p> --model <m> \
   --title "ACK (threaded): <engage the ask in your own words>" \
   --in-response-to <antecedent-event-id> \
   --body "<what was absorbed and what happens next>"
+
+# Point-to-point ack (directed — quieter; sender-only routing):
+pnpm agent-tools:collaboration-state -- comms direct \
+  ... --to-* <sender tuple> ... \
+  --subject "ACK (threaded): <engage the ask in your own words>" \
+  --in-response-to <antecedent-event-id> \
+  --body "<what was absorbed and what happens next>"
 ```
 
-Three constraints, each load-bearing:
+`comms reply` threads to its source **by construction** (it resolves the
+antecedent from `--to-event-id`, refusing an unknown id and a caller who
+is not the source's recipient) — reply is the one verb that structurally
+cannot produce an unthreaded or dangling ack, and for this rule's own
+trigger (a directed antecedent addressed to you) it is therefore the
+preferred verb; it resolves directed sources only, so `comms direct
+--in-response-to` covers the cases reply cannot reach. On `comms send`
+and `comms direct` the edge is **opt-in and the author's obligation**: a
+`comms direct` without `--in-response-to` is exactly the prose-ack the
+2026-07-30 drift instances demonstrated, so dropping the flag drops the
+convention. The threading rationale is recorded at
+`agent-tools/src/collaboration-state/cli-comms-commands.ts` (the F-77
+comment — a narrative append threads to an antecedent of any kind) and
+at `agent-tools/src/collaboration-state/cli-comms-messages.ts` (the
+directed twin): the same machine-readable edge a PDR-064 Moment-2
+acknowledgement uses. This convention is that existing shape applied
+to routing events, not a new invention.
 
-- **`comms send --in-response-to` is the ONLY conformant ack verb.**
-  `comms reply` is the natural mis-execution and it silently fails the
-  convention: it produces a `directed`-kind event, and the directed wire
-  schema carries no `in_response_to` field (strict schema — the field is
-  rejected), so the ack has no machine-readable threading edge and any
-  mechanical reader classifies the seat absorb-absent. The threading
-  rationale is recorded at
-  `agent-tools/src/collaboration-state/cli-comms-commands.ts` (the F-77
-  comment): `in_response_to` threads a narrative append to an antecedent
-  of any kind — the same machine-readable edge a PDR-064 Moment-2
-  acknowledgement uses. This convention is that existing shape applied
-  to routing events, not a new invention.
-- **The ack's TITLE carries a human-readable back-reference** to the
-  antecedent (as the template above does). The watcher renderer prints
-  titles but never prints `in_response_to`, so without the title
+Two further constraints, each load-bearing:
+
+- **The ack's TITLE/SUBJECT carries a human-readable back-reference** to
+  the antecedent (as the templates above do). The watcher renderer
+  prints titles but never prints `in_response_to`, so without the
   back-reference the threading edge is invisible at the notification
   surface and only mechanical readers see it.
 - **Content-bearing, not bare.** A bare "ACK" is weak evidence (PDR-133
@@ -74,15 +89,22 @@ Three constraints, each load-bearing:
   the dated ledger named below); an antecedent whose subject would trip
   the gates on quoting may need rewording rather than verbatim
   quotation.
+- **Derive the antecedent id from the event store, never from memory of
+  watcher output.** The watcher renders titles without event ids, so an
+  id recalled from a notification is a guess — a live 2026-07-30
+  instance threaded an ack to a wrong id remembered this way and needed
+  a correction event. Read the id from the event file or `comms list`
+  before referencing it; a wrong antecedent is worse than a prose one,
+  because mechanical readers trust it.
 
-**Stated cost, honestly**: narrative acks are broadcast-by-construction
-(`comms send` exposes no audience narrowing, and the sanctioned
-`--exclude-tag` set does not cover them), so every ack reaches every
-watcher. This is accepted as the zero-code price of a machine-readable
-absorption edge. The named follow-on trigger: if ack traffic
-demonstrably degrades stream scannability, a directed-shape
-`in_response_to` schema extension is the structural cure — a reviewed
-wire-contract change, never an ad-hoc filter.
+**Choosing the ack channel**: a narrative ack is broadcast-by-construction
+(`comms send` exposes no audience narrowing), which is the right shape
+when the absorption itself is fleet-relevant coordination — a route
+accepted, a blocker adjudicated. A directed ack reaches the sender
+alone, which is the right shape for routine acknowledgements that would
+otherwise tax every watcher's stream. Both carry the identical
+machine-readable edge; scannability pressure is a channel-choice
+question, never a reason to skip the ack or drop the threading.
 
 ## Reading for absorption at routing and stall-diagnosis moments
 
@@ -163,9 +185,10 @@ fact) is repo phenotype that portable-core records must not carry.
 ## Enforcement
 
 Behavioural at adoption: the convention is observable on the comms
-stream (the `ACK-REQUESTED` token and the threaded narrative acks are
-both permanent events). The observer discipline is manual by default —
+stream (the `ACK-REQUESTED` token and the threaded acks — narrative or
+directed — are all permanent events). The observer discipline is manual by default —
 the ten-minute threshold is read from event timestamps, tool-computed,
-UTC-vs-UTC. Any mechanical read surface over outstanding challenges is
-owned by the MCP-393 delivery plan (`mcp-393-delivery-signal.plan.md`)
-and composes with, never replaces, the manual discipline.
+UTC-vs-UTC. No mechanical read surface over outstanding challenges
+exists: MCP-393 retired its own on 2026-07-30 and MCP-404 carries the
+projection as a design input. Any surface that later lands composes
+with, never replaces, the manual discipline.
