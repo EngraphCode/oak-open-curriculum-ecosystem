@@ -1,3 +1,10 @@
+## [1.124.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.124.0...v1.124.1) (2026-07-30)
+
+
+### Bug Fixes
+
+* **deps:** remove the @ai-sdk/provider-utils override so the mcpjam instrument boots (MCP-381) ([191d9cb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/191d9cbec11dfecc9aa967424d8ca25a6cc2f052))
+
 # [1.124.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.123.1...v1.124.0) (2026-07-30)
 
 
