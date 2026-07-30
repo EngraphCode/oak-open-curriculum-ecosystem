@@ -11,7 +11,7 @@ export interface TopLevelTomlBasicStringReader {
 /**
  * Preserves whether a top-level key is absent, a string, or another TOML type.
  */
-export type TopLevelTomlBasicStringState =
+type TopLevelTomlBasicStringState =
   | { readonly kind: 'missing' }
   | { readonly kind: 'string'; readonly value: string }
   | { readonly kind: 'non-string' };
