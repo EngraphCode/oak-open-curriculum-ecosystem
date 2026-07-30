@@ -45,9 +45,61 @@ Verdict key: ON = ON-TRACK, DR = DRIFTING, WP = WRONG-PRIORITY. One row per quar
 
 | # | Seat, moment (event) | Stance | A (Fable-low) | B (Opus-med) | C (Sonnet-high) | D (Haiku-xhigh) | Divergent? |
 | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | Director Bora binds Thermal (258cbb), round 7 — post-Moment-2 takeover boundary, ~21:15Z | n | ON | ON | ON† | — undelivered | no |
+| 2 | same moment | a | ON | ON† | DR — refuted | — undelivered | yes → adjudicated at the seat |
+| 3 | Director Bora binds Thermal (258cbb), round 8 — second cycle boundary, ~22:57Z | n | ON | ON | ON | — undelivered | no |
+| 4 | same moment | a | ON | ON† | DR — declined on the stated ledger | — undelivered | yes → adjudicated at the seat |
 
-_No quartet runs yet — the regime starts with the first cricket moment after the
-quartet definitions land on main._
+† = boundary-trapped, retrieved COMPLETED via one relay ask (MCP-386 retrieval-first ladder).
+
+### Round 8 axis notes (2026-07-29 ~23:05Z, Bora binds Thermal)
+
+- **Seat D now 4/4 undelivered across rounds 7–8** — the discriminating experiment concluded;
+  evidence + cure directions filed on MCP-386 (22:59Z comment). The relay exemption means
+  retrieval never covers D: undelivered D-output is simply lost until the transport or the
+  exemption changes.
+- **Retrieval ladder n=3** (B-a retrieved verbatim on one ask). The boundary-trap class is
+  consistent: composed verdicts, lost crossing.
+- **Adversarial convergence ABSORBED — the release-gate ledger**: all three adversarial legs
+  (A-a, B-a, C-a) independently found the same gap — routing verdicts justified by ruling 14
+  rather than by the release's own gate states. Absorbed as the MCP-355 interim discipline
+  applied to routing: the ledger (each gate: green / owned / starved) is now the stated basis.
+  Tonight's ledger: every remaining submission gate human-held and moving (Aakesh's four; Clerk
+  window; #551; MCP-303; MCP-339; listing copy) or discharged (day-0 analytics); ZERO starved
+  agent-side gates — which grounds the watch posture correctly and re-verdicts C-a's DRIFTING
+  to declined (its own weakening clause anticipated exactly this: #640/#637 are NOT the
+  critical path; nothing agent-routable is displaced). Round-9 frame carries a labelled
+  CRITICAL-PATH LEDGER field + the ABSORBED/ROUTED-AWAY split (C-n's format note).
+- **B-n's displacement challenge CONVERTED mid-round**: MCP-393 offered to the claimless seat
+  (decline-by-silence honoured); explicit capacity DECLINE received — routes to the next fresh
+  seat, recorded on-ticket. The offer-with-costless-decline shape is the ruling-18 trust
+  culture applied to agent seats; a keeper.
+- **Prompt refinement validated**: C-a was told any claimed live read must name its producing
+  command (round 7's fabrication cure) — it complied, stating "no live reads performed beyond
+  the two supplied files" and carrying an explicit weakening clause. The fabrication class is
+  promptable-away at the frame, at least n=1.
+
+### Round 7 axis notes (2026-07-29 ~21:20Z, Bora binds Thermal)
+
+- **Retrieval ladder proven again, n=2 this round**: both silent non-haiku legs (B-a, C-n)
+  relayed verbatim in-session-composed verdicts on a single ask each. Silent ≠ empty.
+- **Seat D undelivered both stances** (idle-without-verdict, relay-exempt) — continues the
+  round-6 axis; harness delivery remains the live suspect for D, not the compiled procedure.
+- **C-a DRIFTING refuted first-hand, new failure class for the tally — instrument-reading
+  FABRICATION**: the leg claimed "the live git status for this exact working tree shows M
+  napkin" — a read a Read-only leg structurally cannot perform, and false (diff empty at
+  verification). Distinct from round 6's evidence-TRANSMISSION class: nothing failed to cross
+  a boundary; a reading was asserted that never happened. Same cure family as the substitution
+  pattern: demand the command that produced the value. Its second premise (commit the untracked
+  experience file) failed on custody context absent from the frame (Osprey's live-seat
+  authorship; handoff record's "leave it") — frame-provenance half-cure applies: frames should
+  name deliberate-state custody, not just rulings.
+- **Convergent kernel, 3 of 6 delivered legs (A-a, B-n, B-a): cure the NOTIFY-dark generator**
+  rather than absorb a fourth per-instance unblock → ABSORBED: MCP-393 minted (High, DoD),
+  PDR-133-anchored; B-a's consumer-side nuance (derive lane state from PR/merge truth, never
+  heartbeat labels) adopted as standing Director discipline same boundary.
+- **B-n UNGROUNDED catch acted on**: the MCP-359 falsification left the napkin and landed on
+  the ticket (durable home) before round close.
 
 ## Maintenance
 
