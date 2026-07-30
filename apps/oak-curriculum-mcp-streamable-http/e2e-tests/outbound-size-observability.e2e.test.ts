@@ -19,7 +19,7 @@
  * (thresholds are a later, baseline-informed decision).
  */
 
-import request from 'supertest';
+import { request } from '../src/test-helpers/loopback-request.js';
 import { describe, it, expect, vi } from 'vitest';
 import { z } from 'zod';
 import type { Logger } from '@oaknational/logger';

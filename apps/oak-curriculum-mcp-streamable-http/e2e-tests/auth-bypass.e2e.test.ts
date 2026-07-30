@@ -10,7 +10,7 @@
 
 import { describe, it, expect, beforeAll } from 'vitest';
 import type { Express } from 'express';
-import request from 'supertest';
+import { request } from '../src/test-helpers/loopback-request.js';
 import { createApp } from '../src/application.js';
 import {
   createMockObservability,

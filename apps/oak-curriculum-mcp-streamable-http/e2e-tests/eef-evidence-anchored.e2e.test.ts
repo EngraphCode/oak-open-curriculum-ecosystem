@@ -22,7 +22,7 @@
  * canonical-surface case proves the gate itself end to end.
  */
 
-import request from 'supertest';
+import { request, type Response } from '../src/test-helpers/loopback-request.js';
 import { describe, it, expect } from 'vitest';
 import { z } from 'zod';
 import { createApp } from '../src/application.js';
@@ -71,7 +71,7 @@ const WITH_EEF_LIVE: ServedSurfaceDefinition = {
 async function callEefEvidence(
   args: unknown,
   servedSurface?: ServedSurfaceDefinition,
-): Promise<request.Response> {
+): Promise<Response> {
   const runtimeConfig = createMockRuntimeConfig({ dangerouslyDisableAuth: true });
   const app = await createApp({
     staticRoot: await getScratchStaticRoot(),

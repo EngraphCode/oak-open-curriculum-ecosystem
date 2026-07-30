@@ -18,7 +18,7 @@
  */
 
 import express, { type Express, type ErrorRequestHandler, type RequestHandler } from 'express';
-import request from 'supertest';
+import { request } from '../test-helpers/loopback-request.js';
 import { describe, expect, it } from 'vitest';
 
 import { createFakeLogger } from '../test-helpers/fakes.js';

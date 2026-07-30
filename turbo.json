@@ -403,7 +403,13 @@
       "dependsOn": ["build"],
       "outputs": [],
       "cache": true,
-      "inputs": ["$TURBO_DEFAULT$", "e2e-tests/**/*.ts", "vitest.e2e.config.ts"]
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "e2e-tests/**/*.ts",
+        "vitest.e2e.config.ts",
+        "$TURBO_ROOT$/vitest.e2e.config.base.ts",
+        "$TURBO_ROOT$/test.setup.no-network.ts"
+      ]
     },
     "test:ui": {
       "dependsOn": ["build"],

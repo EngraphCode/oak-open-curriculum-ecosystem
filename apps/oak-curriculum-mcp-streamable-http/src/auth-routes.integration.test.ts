@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import request from 'supertest';
+import { request } from './test-helpers/loopback-request.js';
 import { createApp } from './application.js';
 import { createFakeHttpObservability } from './test-helpers/observability-fakes.js';
 import { createFakeRateLimiterFactory } from './test-helpers/rate-limiter-fakes.js';

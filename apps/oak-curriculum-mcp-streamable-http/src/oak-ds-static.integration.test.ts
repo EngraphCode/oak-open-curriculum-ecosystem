@@ -1,4 +1,4 @@
-import request from 'supertest';
+import { request } from './test-helpers/loopback-request.js';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import type { Express } from 'express';
 

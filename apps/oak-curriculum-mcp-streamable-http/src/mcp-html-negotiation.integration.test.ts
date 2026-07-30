@@ -1,5 +1,6 @@
 import http from 'node:http';
-import request from 'supertest';
+import { once } from 'node:events';
+import { request } from './test-helpers/loopback-request.js';
 import { describe, it, expect, beforeEach } from 'vitest';
 import { createApp } from './application.js';
 import { createFakeHttpObservability } from './test-helpers/observability-fakes.js';
@@ -80,15 +81,24 @@ describe('MCP endpoint HTML negotiation (integration)', () => {
    * aborted-socket error).
    */
   const headOfStream = async (accept: string): Promise<{ status: number; contentType: string }> => {
-    const server = app.listen(0);
+    // Explicit v4 loopback bind + awaited listening (MCP-403): a host-less
+    // listen(0) binds `::` while the dial below goes to the v4 loopback,
+    // which under ambient foreign v4 listeners can reach the wrong server.
+    const server = app.listen(0, '127.0.0.1');
     try {
+      await once(server, 'listening');
       const address = server.address();
       if (address === null || typeof address !== 'object') {
         throw new Error('ephemeral server did not report a port');
       }
       return await new Promise((resolve, reject) => {
         const pending = http.get(
-          { port: address.port, path: '/mcp', headers: { Host: 'localhost', Accept: accept } },
+          {
+            host: '127.0.0.1',
+            port: address.port,
+            path: '/mcp',
+            headers: { Host: 'localhost', Accept: accept },
+          },
           (res) => {
             resolve({
               status: res.statusCode ?? 0,

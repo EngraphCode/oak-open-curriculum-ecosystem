@@ -15,7 +15,7 @@
  * re-review at .agent/plans/observability/active/pr-87-cluster-a-security-review.md.
  */
 import { describe, it, expect } from 'vitest';
-import request from 'supertest';
+import { request } from '../test-helpers/loopback-request.js';
 
 import { createApp } from '../application.js';
 import { createDefaultRateLimiterFactory } from './rate-limiter-factory.js';

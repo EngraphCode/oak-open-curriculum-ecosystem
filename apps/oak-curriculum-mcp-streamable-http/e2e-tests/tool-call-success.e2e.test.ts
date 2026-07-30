@@ -1,4 +1,4 @@
-import request from 'supertest';
+import { request, type Response } from '../src/test-helpers/loopback-request.js';
 import { describe, it, expect } from 'vitest';
 import { createApp } from '../src/application.js';
 import type { ToolHandlerOverrides } from '../src/handlers.js';
@@ -62,7 +62,7 @@ function createStubOverrides(captured: CapturedCall[]): ToolHandlerOverrides {
 }
 
 async function executeToolCall(): Promise<{
-  readonly response: request.Response;
+  readonly response: Response;
   readonly captured: CapturedCall[];
 }> {
   const captured: CapturedCall[] = [];
@@ -91,7 +91,7 @@ async function executeToolCall(): Promise<{
   return { response, captured };
 }
 
-function assertSuccessfulResponse(res: request.Response, captured: CapturedCall[]): void {
+function assertSuccessfulResponse(res: Response, captured: CapturedCall[]): void {
   expect(res.status).toBe(200);
   expect(res.text).toContain('event: message');
   expect(captured).toEqual([{ tool: 'get-key-stages', args: {} }]);

@@ -4,7 +4,7 @@
  */
 import { describe, it, expect } from 'vitest';
 import express from 'express';
-import request from 'supertest';
+import { request } from '../test-helpers/loopback-request.js';
 
 import { createOAuthProxyRoutes } from '../oauth-proxy/oauth-proxy-routes.js';
 import { createDefaultRateLimiterFactory } from './rate-limiter-factory.js';
