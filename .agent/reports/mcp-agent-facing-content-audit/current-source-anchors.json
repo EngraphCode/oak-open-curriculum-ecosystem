@@ -2974,25 +2974,6 @@
       }
     },
     {
-      "auditId": "C163",
-      "evidence": {
-        "revision": "unchanged",
-        "targets": [
-          {
-            "file": "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-asset-download/definition.ts",
-            "anchors": [
-              {
-                "tokenCount": 66,
-                "tokenSha256": "297d944fdbdcd968e3e4709cbcee47309da67bd60f2cfb86672e6b7e7d4444d2",
-                "indexToken": "thenational",
-                "indexOffset": 44
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
       "auditId": "C164",
       "evidence": {
         "revision": "modified",
