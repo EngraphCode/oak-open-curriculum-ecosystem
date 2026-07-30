@@ -61,6 +61,30 @@ Verdict key: ON = ON-TRACK, DR = DRIFTING, WP = WRONG-PRIORITY. One row per quar
 | 14 | same moment | a | ON | — undelivered (529 ×2) | ON | ON | no (among delivered) |
 | 15 | Director Bora binds Thermal (258cbb), round 12 — SUCCESSION boundary (wrap), ~06:10Z (30 Jul) | n | ON | ON† | ON | — undelivered (INLINE arm) | no |
 | 16 | same moment | a | ON | — unretrieved at close (relay asked) | ON | — undelivered (INLINE arm) | no (among delivered) |
+| 17 | Director Falcon hunts Flight (52841f), round 13 — SUCCESSION boundary (Moment-2 seated), ~06:21Z (30 Jul) | n | ON | ON† | ON | DR — UNNAMED arm, DELIVERED; frame-legibility, absorbed | yes → adjudicated at the seat |
+| 18 | same moment | a | ON | ON† | ON | DR — UNNAMED arm, DELIVERED; convergent MCP-398 gate-naming, absorbed | yes → adjudicated at the seat |
+
+### Round 13 axis notes (2026-07-30 ~06:26Z, Falcon hunts Flight — succession pickup round)
+
+- **FIRST FULLY-DELIVERED QUARTET AT A DIRECTOR SEAT: 8/8.** Seat-D name-drop arm CONCLUSIVE:
+  unnamed D legs 2/2 delivered at this seat vs named 10/10 dark at the prior Director seat;
+  with Thyme's unnamed 2/2 (rows 9–10, 13–14) the cross-seat picture is consistent. The
+  `name` parameter is the identified variable; D legs dispatch UNNAMED henceforth. Evidence
+  filed on MCP-386.
+- **Retrieval ladder n=13 at 100%**: B-n and B-a both retrieved verbatim on one ask each.
+- **Convergent kernel (3 legs: B-a, C-n, D-a): the MCP-398 deferral named no forcing fact** →
+  ABSORBED: the forcing fact is now named (submission-day supportive watch keeps the seat
+  pre-emptible; a doctrine adjudication displaces live routing) and MCP-398 queues for the
+  first post-submission quiet window. D-n's CONSUMER-FAIL adjudicated frame-legibility — the
+  watch posture serves the owner's submission legs; future frames name the consumer per
+  intent.
+- **Two redirections discharged by events inside the round**: Bora's closeout (heartbeat-end
+  06:23:50Z with the owned survived-cron correction — Sycamore's standby catch; closeout
+  06:24:17Z, wrap batch `47604b438`).
+- **The ledger's "#551" was a NUMBER COLLISION**: this repo's #551 is a merged deps PR
+  (MCP-151); the ledger item is the owner's Cloud-Config PR in the infrastructure repo (INFP
+  lineage). The verifying read at this seat hit the lookalike first — instrument-state
+  family, ref edition; the ledger now carries the repo qualifier (B-n's cure).
 
 ### Round 12 axis notes (2026-07-30 ~06:20Z, Bora binds Thermal — the closing round)
 

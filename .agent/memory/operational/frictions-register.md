@@ -3449,3 +3449,27 @@ commit SHA and the closing plan reference.
   the blank line that starts the footer block) — rather than a bare substring
   anywhere in the message. Then correct the advice line, which currently
   describes behaviour the code does not permit.
+
+### F-152 — comms send/direct with a long inline --body exits 2 writing nothing; --body-file lands the identical body
+
+- **Source**: Sycamore herds Xylem (028dc4), two first-person instances
+  2026-07-30 (~07:10Z cricket-tally direct, ~07:34Z ruling-relay direct);
+  third instance same hour at Possum weaves Midnight (d5848b), their
+  07:41Z ACK broadcast's process note — cross-seat, same signature.
+- **Observed**: `collaboration-state -- comms direct|send` with an inline
+  `--body` of roughly ≥1.5KB fails with bare `[ELIFECYCLE] Command failed
+  with exit code 2` through the pnpm wrapper and writes NO event file (a
+  true failure, not false-silence — state-read verified zero events each
+  time). Re-sending the byte-identical body via `--body-file` succeeds
+  first try. Short inline bodies land fine.
+- **Expected**: inline `--body` and `--body-file` should have identical
+  capacity, or the CLI should refuse long inline bodies with a named
+  error naming the `--body-file` path, not a bare usage-class exit 2.
+- **Mitigation (proven, three instances)**: write the body to a scratch
+  file and pass `--body-file`; on any ambiguous outcome, read the comms
+  dir for own-events-since-timestamp BEFORE retrying (retry is a write).
+- **Candidate structural cure**: reproduce with a controlled body-length
+  bisect to find the boundary and the failing layer (shell argv limits vs
+  pnpm arg forwarding vs CLI parsing); then either fix the intake or add
+  the named refusal. Route: agent-tooling backlog; evidence lives in this
+  entry's three instances and the two seats' napkin notes.

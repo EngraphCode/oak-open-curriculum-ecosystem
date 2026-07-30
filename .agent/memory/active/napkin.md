@@ -4519,3 +4519,292 @@ night shift. This seat's monitors run until its session ends and do NOT transfer
   results (two 17/17 CI runs on my merged heads; Director's roll-up gate on the rotation tip) —
   zero uncommitted work at this seat to gate; consolidation gate: DUE (napkin 4,429 lines;
   repeated-correction family) — marked in repo-continuity, routed to a dedicated fresh seat.
+
+## 2026-07-30 ~06:25Z — Levanter rides Jetstream (91a217): F-75 poll took three arms — the recipe was in the rule all along
+
+- INSTRUMENT DEFECT ×2 (mine, session-open): arm 1 of my peer-liveness "delta" poll diffed raw
+  output whose minutes-ago field changes EVERY line every pass — the diff never converged and
+  re-emitted all 39 peers per cycle (same class as the rule's own recorded 2026-07-27 instance:
+  predicate mismatched to the mechanism's real output). Arm 2's awk normaliser had a macOS-awk
+  syntax error, so the baseline read "1 peer" against 39 real — a false-green baseline from a
+  broken filter, caught only because I foreground-tested AFTER arming instead of before.
+- THE REAL MISS: comms-all-channels-watcher §exclusion pointed at liveness-heartbeat-cron for
+  "the Monitor/poll alert recipe" — the rule CARRIES a corpus-tested newly-retired-only recipe
+  with a reachable exit criterion, and I hand-rolled twice before following the pointer. Cure
+  that held: read the pointed-at rule section BEFORE building the instrument; corpus-test the
+  filter against real output BEFORE arming (the rule mandates exactly this); arm 3 is the
+  canonical recipe verbatim, extract filter proven (34 retired, spaced names intact).
+- Same-morning fleet echo: transmitted-warning ≠ immunity (Bora's mint instance) — I had READ
+  the concept-exploration §loop-dynamics bullet naming the F-75 unreachable-exit instance
+  minutes before re-creating its sibling. Passive reading did not fire under bootstrap flow;
+  the foreground direct-trial gate is what caught it (n+1 for passive-guidance-loses-to-
+  artefact-gravity).
+
+## 2026-07-30 ~06:28Z — Thyme weaves Hedgerow (762020): wrap capture at the owner-called succession to Sycamore (028dc4)
+
+- PLAY SEED MATURED (routed: MCP-388 comment, the durable home): the hub's dead-control
+  defect is the query-the-value discipline surfacing in UI form — the select bound the
+  APPLIED value (right type, wrong provenance) to a CHOICE question. Named the class
+  "provenance-erasing API": `get()` erases choice-vs-fallback, so consumers either bind
+  the lookalike or privately re-derive (the duplicated demo stores are the measured cost).
+- candidate: provenance-erasing-API class as a rule/PDR clause — TRIGGER: a third paid
+  instance anywhere in the estate (first two: showcase PR #637, hub MCP-372 slice 1; the
+  connective frame lives on MCP-388's 06:24Z comment). Until then: no new doctrine —
+  the existing family (query-the-value / validators-recompute / fix-the-generator) covers.
+- BEHAVIOUR NOTE (review-under-outage shape): the 06:12–06:15Z Opus 529 burst killed the
+  slice-1 pre-execution reviewer twice AND two cricket-B legs. Discipline that held:
+  retry-never-escalate, record undelivered honestly (tally rows 13–14), and at a seat
+  boundary hand the review over as NOT-OBTAINED — a first-act inheritance for the
+  successor, never a waived gate and never "review dispatched" dressed as discharged.
+  (Terminal-529 legs compose NOTHING retrievable — distinct from the boundary-trap class
+  where composed text exists and the relay ladder recovers it.)
+- LOSS-SCAN RESIDUE (the rest is homed: MCP-372 comments 06:10Z/06:24Z, MCP-388 06:24Z,
+  tally rows 9–14 + implementer notes, thread records, the succession record): (1) the
+  owner's `:3020` render tab dies with this session — restart command preserved in the
+  succession record; (2) pre-compaction facts in this seat stand on the compaction
+  summary; durable records are the check, stated as a bound in the record; (3) my comms
+  watcher's config could filter event classes invisibly — gap sweeps only compare against
+  received classes; stated as a bound, not claimed away.
+
+## 2026-07-30 ~06:48Z — Sycamore herds Xylem (028dc4): succession pickup + the 529-resistant review gate
+
+- LIVE-LANE deliberate succession (Thyme→Sycamore) ran clean on the PDR-063 path: record read
+  end-to-end → claims adopt → heartbeat armed with the claim → pickup ack. The handed-over
+  NOT-OBTAINED review gate proved its worth as an honest artefact: four 529 deaths on ONE
+  pre-execution review across two seats (Thyme 06:12Z/06:15Z; mine 06:35Z dispatch + 06:41Z
+  SendMessage resume). "Dispatched" ≠ "discharged" held at every hop.
+- OWNER RULING at this seat (~06:44Z, verbatim): "if Opus is still overloaded, we can fall back
+  to Fable-low, but critically assess all output /oak-metacognition /oak-concept-exploration".
+  Parsed as: conditional model fallback (repricing the opus-reviewer default under overload, not
+  repealing it) + assessment discipline binding on ALL reviewer output including Opus's. Platform
+  gap surfaced honestly: the Agent dispatch surface has model override but NO per-call effort
+  override — "Fable-low" runs as Fable-at-inherited-effort. (Workflow agent() has effort; the
+  interactive Agent tool does not.)
+- Standby-seat catch worth keeping: as a claimless watcher I caught Bora's survived heartbeat
+  cron (2 beats post-Moment-2 on the Director claim) within minutes — the mutual-cover
+  discipline works from the cheapest seat in the room; Bora's stop-then-declare closeout order
+  is the structural cure and Thyme copied it same-hour.
+
+## 2026-07-30 ~06:50Z — Possum weaves Midnight (d5848b): MCP-393 design round — review falsified two load-bearing claims of mine
+
+- Loud-generator instance at THIS seat, hours after reading two formation letters carrying the
+  warning (transmission-is-not-immunity, n+1): my plan asserted the ack could ride "the existing
+  `comms direct --in-response-to` mechanism, no CLI change" — FALSE. The flag exists on the
+  narrative shape only; the directed schema is strict and rejects it; 0/1161 directed events on
+  disk carry it. I generalised one command's help text to a sibling command without checking.
+  What held: the pre-execution assumptions review (Opus) read the option lists and wire schema
+  first-hand; I spot-verified the two cheapest load-bearing claims (grep + jq on the schema
+  $defs) before absorbing — critical-assessment discipline per the owner's ~06:44Z ruling.
+- Self-refuting design shape worth naming for the pattern file: my "delivery-dark signature"
+  (fresh EMIT + no seat-authored event in window) could never fire because heartbeats ARE
+  seat-authored comms events (ADR-186) — my own heartbeat loop refuted my own signature. With
+  the exclusion applied, the reviewer back-tested the conjunction over the live corpus: 208
+  firings vs 3 true instances in ten days (~1.4% precision) — generic silence is heads-down
+  work, not delivery-darkness. Re-centred the design: the signal is an EXPECTED reply that did
+  not arrive (ACK-REQUESTED convention → PDR-133 §6 instrument-2 made routine), and the read
+  surface shrank from a new command to a peer-liveness extension scoped to challenge-carrying
+  events. Practice first, tool as its bookkeeper.
+- 529-overload handling that worked at this seat: three dispatch deaths → 5-minute backoff
+  timer (background sleep, not hammering) → resume completed on Opus. The reviewer usage was
+  ~162k tokens / 48 tool uses / ~10 min — priced fairly against catching two false facts
+  pre-ratification and re-centring the design.
+
+## 2026-07-30 ~06:55Z — Levanter rides Jetstream (91a217): MCP-403 design falsified by its own instrument within the hour — the walk-back that worked
+
+- HELD-AS-MODEL, WORKED FIRST-PERSON: my keep-alive-pooling design for MCP-403 was authored
+  with a coherent mechanism story, a zero-upside structural argument, and a green feasibility
+  run — and was WRONG. The rawPacket tap I planted caught a live instance with
+  reusedSocket=false bytesParsed=0 and H2 JDBC bytes ("driver version 1195725856" = 0x47455420
+  = "GET "): the client had connected to a FOREIGN Java listener. Real mechanism: listen(0)
+  binds :: while supertest dials 127.0.0.1; two resident Java listeners sit INSIDE the macOS
+  ephemeral range (49949 non-HTTP → the HPE flavour; 64120 HTTP-400-to-everything → the 400
+  flavour); a foreign v4-specific bind coexists silently with a ::-any bind on one port.
+  Deterministically proven both directions (collision → exact signature; explicit-127.0.0.1
+  bind → loud EADDRINUSE). Ticket carries the superseding comment; earlier comment kept as
+  trail. Lesson pair: (1) a coherent mechanism + green feasibility is NOT attribution — only
+  the captured bytes were; instrument the failure BEFORE trusting any cure story; (2) the
+  walk-back cost one comment because the design was held as a model — Osprey's "cures as
+  models, not possessions" priced exactly right at its successor's seat, same lane, next day.
+- Cricket adversarial convergence EARNED ITS COST pre-falsification: two independent legs
+  (A-a, C-a) demanded cure-applied load evidence before sanction retirement and flagged the
+  400 sibling as possibly out-of-mechanism — the exact axis the live capture then resolved
+  (both flavours ARE one mechanism, but NOT the one my design named). Both B legs (Opus)
+  529-died and are on resume-retry; D unnamed-dispatch 2/2 delivered again (n=4 cross-seat).
+
+## 2026-07-30 ~07:27Z — Levanter rides Jetstream (91a217): MCP-403 cure v2 also falsified — the gates killed the elegant wrap; v3 is boring on purpose
+
+- SECOND FALSIFICATION, same lane, ninety minutes: the listen-wrap cure (inject 127.0.0.1 into
+  host-less listens at the shared setup) died on a VENDOR SYNC CONSTRAINT the full gate sweep
+  exposed — supertest's serverAddress reads address().port in the SAME TICK as its internal
+  listen(0), and Node 24 makes ANY host-ful listen async (probed: even '127.0.0.1' rides the
+  lookup path; host-less is the only sync bind). 133 e2e + all supertest integration tests broke
+  with null-port. Lesson: feasibility-by-tap (NODE_OPTIONS injection) validated the suite I
+  TESTED (e2e) but the integration config's tests never ran under the tap — run the FULL gate
+  surface before believing a harness change; the 20-minute sweep was the falsifier the design
+  needed. Cure v3 (delta-review in flight): call-layer helper — ONE pre-bound 127.0.0.1 server
+  per test file with a swappable handler, exported as `request` so the codemod is import-line-
+  only (37 files, uniform default import, zero .agent()/named-export usage — audited); supertest
+  accepts the pre-listening server and its sync read works (probed end-to-end). Elegant-
+  transparent lost to boring-explicit twice today; the estate's taste is vindicated.
+
+## 2026-07-30 ~07:40Z — Sycamore herds Xylem (028dc4): the owner's question falsified my card's inherited frame
+
+- FRAME FALSIFICATION, first-hand: my Sonar-fork card recommended a "React binding package" on the
+  inherited MCP-134/docblock label ("owned React binding tier per ADR-213"). The owner asked "would
+  an operations layer in the design system be better?" — and the one-grep check I had NOT run
+  (react imports in the store copies: ZERO in both) falsified the label's premise. The store was
+  always framework-neutral; ADR-213's React bar never applied to it. Lesson shape: an inherited
+  LABEL on an artefact is a claim about the artefact — verify it against the artefact before
+  building options on it (instance of dont-transmit-assumptions; the fluent frame arrived from the
+  recorded intake, not from the files). The card discipline worked as designed though: the decision
+  reached the owner with verified facts, and his question was the better design.
+- Sonar duplication gate fired for the FIRST time on the convergence itself (#637 landed copy 1
+  against a then-different hub; my slice created copy 2). A conformance-by-mirroring slice
+  structurally collides with a duplication gate — the gate was RIGHT (the mirror is real), and the
+  cure is consolidation at the right depth, never gate config. Generator-level lesson for
+  convergence tickets: plan the consolidation home BEFORE the second copy lands.
+- comms direct inline --body >~1.5KB fails exit 2 through the pnpm wrapper (two instances this
+  session); --body-file lands identically-sized bodies clean. False-silence discipline held both
+  times: state read (zero events) before the single retry. Candidate F-register entry if a third
+  instance appears.
+
+## 2026-07-30 ~07:50Z — Brazier holds Bellows (8a8be0): MCPJam preflight catches + two instrument self-misses
+
+- THE HEADLINE (MCP-381): the GHSA provider-utils override killed mcpjam at ESM boot — first
+  exercise of the predicted residual found it in minutes. Control+treatment isolation in scratch
+  proved mechanism AND cure before any repo edit; owner ruled remove-the-override (premise: the
+  mcpjam subtree is the lockfile's sole consumer — verified by two seats independently). Bonus:
+  the override ALSO failed fresh-resolve survivability (floats to 5.0.14, breaks gateway@3/ai@6)
+  — an override with a >= range is a moving target by construction; survivability testing is why
+  we caught it before a cold clone did.
+- SELF-MISS 1 (decoy state read, F-41 sibling): ran the comms read-back glob RELATIVE from a
+  scratchpad cwd (cwd persists across tool calls) — empty result read as "NO EVENT WRITTEN" when
+  the event question was simply unanswerable from that directory; the send failure itself was the
+  same wrong-cwd (pnpm script not found). Cure now habitual: state reads root-ANCHORED absolute
+  paths, every time; `cd <repo-root> || exit 1` opens every state-touching block.
+- SELF-MISS 2 (silent settings no-op): scratch treatment put pnpm.overrides in package.json —
+  current pnpm IGNORES that home (moved to pnpm-workspace.yaml); the "treatment" silently ran as
+  the control and printed a healthy boot. Caught only by the resolution-shape check (unexpected
+  5.0.14 dir). Lesson: a config knob that relocates between tool majors is a silent-twin source —
+  verify the knob FIRED (resolution shape, not exit code) before reading the experiment.
+- Tooling gap for the register: commit-queue guard rejects a git:index/head@<worktree> suffixed
+  claim ("not an active git:index/head claim") — the SKILL's per-worktree claim-scope convention
+  and the guard matcher disagree; ceremony conformance today = bare index/head pattern with the
+  worktree named in the intent text. Candidate F-register entry (worked around cleanly, no loss).
+- comms direct: --comms-dir AND --active are REQUIRED argv (usage shows them unbracketed; omitting
+  them is exit 2 with usage — distinct cause from the >1.5KB body instance above, same surface).
+
+## 2026-07-30 ~08:08Z — Levanter rides Jetstream (91a217): session-end harvest at owner-called succession (successor: Glowworm spins Pewter, dd3166)
+
+- ARC: MCP-403 routed 06:20Z → PR #647 open 08:03Z (bot-authored, sha-pinned 6fe3fecb4, 46
+  files). Two designs falsified first-hand en route (v1 by the rawPacket tap: H2 JDBC bytes,
+  "driver version 1195725856" = "GET "; v2 by the full gate sweep: supertest same-tick
+  address() read vs Node 24's async host-ful bind). Mechanism pinned: ::-bind vs 127.0.0.1-dial
+  family split against two resident Java listeners INSIDE the macOS ephemeral range (49949
+  non-HTTP → HPE flavour; 64120 HTTP-400 → sibling flavour). Cure: per-file loopback-pinned
+  helper, import-line-only codemod ×37, lint tripwires (one real catch during the change).
+  Evidence: 73 cure-applied concurrent runs zero-failure/zero-tap vs 3-in-~190 pre-cure.
+- THROUGH-LINE (metacognition): DECODE BEFORE YOU THEORISE — every opaque failure today was
+  legible content in the wrong encoding (JDBC "version" = ASCII "GET "; the delta-poll noise =
+  timestamps in the diff; the guard rejection = a label spelling; the false eslint EXIT:0 = the
+  pipe's code). The cheap decode step beats the elegant theory every time it was tried.
+- Instrument-vs-doctrine gaps routed via the handoff record §5: commit-queue guard rejects
+  @worktree-scoped index/head labels (F-116-adjacent); root tsconfig.json is IDE-only and
+  pre-broken (root setup files type-check nowhere).
+- PLAY SEEDS (harvest, one discard recorded in-session): "flakes are unpaid observability
+  reports" (this one found two hidden daemons); "formation letters are the estate's lsof —
+  they see the residents the allocator forgets". Marked as associations, not findings.
+- Round-2 quartet: 7:1, D-a adjudicated frame-legibility (day's third same-class); the real
+  yield was the B-legs' convergent catch of "structurally none is possible" as fire-signal
+  vocabulary — cure absorbed into PR/ticket wording BEFORE commit. All legs unnamed: 8/8
+  delivered, B legs first-attempt (the 529 wave passed).
+
+## 2026-07-30 ~08:25Z — Brazier holds Bellows (8a8be0): pre-compaction concept-exploration synthesis (owner-called, four movements, frame CHANGED)
+
+- THE FRAME CHANGE: this seat's morning read as two routine chores; the exploration reframed it as
+  one class, three instances — an ENVIRONMENTAL truth moved underneath a standing artefact with no
+  tripwire on its validity domain. (1) The GHSA override changed the resolution truth → instrument
+  dead at boot (unexercised paths, exactly the residual MCP-381 predicted at mint). (2) Schooner's
+  deliverable changed the ticket truth → the Director route's "design-first" framing rode stale
+  ~19h across a succession (second discharged-but-unflipped that day). (3) The Cloudflare edge
+  changes the header truth → trust-proxy:1 + x-vercel-forwarded-for keying break the day www
+  serves (MCP-288, vendor-verified: Vercel OVERWRITES XFF, hop-count moot — the ticket's own
+  bump-to-2 candidate would have fixed nothing). Distinct facet from the 2026-07-30 distilled
+  entry: that one is claims AGENTS carry across boundaries; this is the WORLD moving while
+  artefacts stand still — change-at-a-distance, no claim transmitted at all.
+- THE WORKING CURE, EVIDENCED TWICE IN ONE MORNING: the residual ticket minted AT the change
+  moment by whoever saw the domain move (MCP-381 by the #633 reviewers; MCP-288 by the MCP-269
+  review) — both fired BEFORE their consumer windows. This is the owner's structure-over-vigilance
+  principle in worked form; the counter-instance (route framing) had no tripwire connecting
+  "deliverable landed" to "records referencing this lane are now stale". Disposition: APPEND this
+  facet to the distilled provenance-at-boundary entry at next consolidation — NOT a new entry, NOT
+  a rule (the distilled falsifier has not fired: no seat paid a claim-provenance miss today; the
+  structural catches all used existing machinery). Falsifier for the no-rule stance: a seat pays a
+  domain-shift miss on a surface that HAD a residual ticket → ticket-form insufficient, rule-grade.
+- SHARPENING (genuinely new, for typescript/deps gotchas at consolidation): an open-range override
+  (>=X) is a STANDING exposure, not a one-shot test subject — its resolution is a moving target,
+  so survivability-at-authoring can pass and fail a day later with zero repo changes (measured:
+  >=3.0.98 froze at 4.0.40 in the lockfile on the 29th; floated to 5.0.14 on a fresh resolve on
+  the 30th, breaking two MORE packages). Cheapest durable state = not having the override (the
+  owner's ruling, landed). UNRESOLVED (could soften the claim): whether provider-utils 5.0.14
+  existed on the 29th — not checked; if it did, #633's authoring-time survivability test would
+  have caught the float then.
+- Session self-catch ledger already above (~07:50Z entry); nothing new paid since. #646 MERGED
+  4ead4d07657; MCP-381/305 Done; 407/408 minted; MCP-288 part 2 staged for the evening window.
+
+## 2026-07-30 ~08:28Z — Sycamore herds Xylem (028dc4): pre-compaction capture — the owner's three questions each felled an inherited frame
+
+- THE ARC'S THROUGH-LINE (concept-exploration synthesis at compaction): three owner
+  questions in ninety minutes each falsified an inherited frame I was carrying: (1)
+  "operations layer in the design system?" felled the "React binding tier" LABEL (the
+  store had zero React imports — the label was doctrine-by-analogy from its consumers);
+  (2) "wary of hand-written definition files" felled the reviewer-recommended d.ts (a
+  hand-written consumed contract is description-without-check; tsc declaration emit on
+  a script file is literally 0 bytes — probed); (3) the all-code-is-TypeScript
+  restatement felled the runtime's plain-JS residence. Meta-lesson: an inherited LABEL
+  on an artefact is a CLAIM about the artefact — verify against the artefact before
+  building options on it; and the estate's own records (ADR-213's 2026-07-23 owner
+  substance) had already answered what my fresh reflection re-derived differently.
+  Reflection without the corpus read is re-derivation roulette.
+- REVIEW-FLEET MECHANICS that paid: three specialists on one plan found MUTUALLY
+  exclusive mechanisms (architecture wanted dist-emission + repointed exports;
+  config PROVED root-committed is CI-required and tsup destroys the package root via
+  clean-glob on outDir '.') — the adjudication needed the empirical verdict to outrank
+  the convention verdict. Probes beat citations when they disagree.
+- pnpm --filter with a WRONG package name matches nothing and exits 0 — a silent no-op
+  false-green (built "oak-eslint" for a package actually named eslint-plugin-standards;
+  caught by the downstream type error, not the exit code). Always confirm the filter
+  matched (the output names the workspace) before trusting a build/test exit.
+- Script-kind TS files (no imports/exports) make tsc emit CLASSIC browser scripts, and
+  top-level interface declarations merge globally — the mechanism that lets a pre-paint
+  runtime be TypeScript without a bundler. Paired trap: DI-factory shapes need exports
+  and would flip the emit to ESM; testability instead comes from smoke-testing the
+  EMITTED artefact with new Function-scoped fakes (ADR-078-clean).
+
+## 2026-07-30 ~08:28Z — Possum weaves Midnight (d5848b): MCP-393 slice A through two review rounds; compaction prep
+
+- ARC: plan ratified (owner cards ×2) → slice A landed as PR #645 (new rule
+  directed-routing-requires-absorption-ack + 3 adapters + RULES_INDEX row + matrix PDR-133 rows +
+  3 rule pointers + reciprocal storage-redesign entry + the plan itself) → docs-adr round (11
+  findings, all cured 4ae1d5a4e) → Copilot round (4 findings, all cured 42f890306). All required
+  contexts green on the docs-round head; re-run in flight at freeze.
+- REVIEW YIELD worth its cost again: docs-adr recomputed my "~75 s" latency to 138.4 s (an
+  unverified number I wrote into a DATED LEDGER ROW — the loud generator's small-change form);
+  found the third founding instance was a BROADCAST not a directed event (the rule now states
+  the convention's reach honestly — 2 of 3 instances; broadcast absorption stays with
+  consumer-side lane-state-from-truth); caught DISPATCH+LOOP dropped from my owed-classes
+  enumeration (the closure-claim generator: an enumeration replacing a blanket "all owed" must
+  re-derive from the closed set, never from memory). Copilot found the ack-evidence
+  author-match gap AND the auto-seed membership hole (auto-seed writes all pre-existing ids
+  unrendered — membership is consumption evidence only AFTER seed time) — both now acceptance
+  cases in the plan.
+- New traps paid at this seat: comms send exit 2 CAN write nothing (long --body through pnpm
+  arg parsing — use --body-file; state-read before retry held, no duplicate); worktree commits
+  exceed the 2-min Bash default (pass 10 min; on timeout mid-hook READ GIT STATE first — no
+  commit had landed); the write-hook blocks 8-hex event-id prefixes in rules (identifiers live
+  in the matrix ledger; rules describe durably); Actions lag PR-open ~6 min (zero runs listed ≠
+  never runs); bot token cannot request Copilot (MCP request_copilot_review works).
+- Compaction continuity: record at
+  .agent/state/collaboration/handoffs/2cc48fb6-possum-weaves-midnight-compaction-continuity-2026-07-30.md,
+  pointer set on claim 2cc48fb6. Next: verify 42f890306 push + checks → reply/resolve the four
+  Copilot threads → merge at settled (sha-pinned bot REST) → submission-support standby.
