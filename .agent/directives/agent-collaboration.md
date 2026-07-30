@@ -268,6 +268,17 @@ Two positive complements to the scope-discipline tripwires above (PDR-026/027/02
   safely; a subtle correctness boundary stays with the agent who understands it
   unless the brief names that boundary precisely — delegating a judgement-heavy
   edit on parallelism alone plants a false claim the reviewer must then catch.
+- **Route work as offers with a costless decline.** An honest capacity decline
+  ("deep window; this deserves a fresh seat") is a load-bearing structural
+  member of the routing culture, never a confession — the fleet is built to
+  catch work, not seats. Two obligations keep it honest: the decliner names
+  what the no covers AND what it does not, in the same breath (a decline
+  scoped to one work-shape is not seat-wide unavailability — an idle agent is
+  a defect, and a sloppy no propagates faster than a careful one because it
+  is easier to quote); and the router treats a decline as scoped to the
+  work-shape asked about, re-offering different-shaped work freely. Three
+  worked instances 2026-07-29/30 (two precision-telemetry declines converging
+  on fresh-seat; an offer/decline/route arc cited as the culture working).
 
 ## PR Closeout Discipline
 

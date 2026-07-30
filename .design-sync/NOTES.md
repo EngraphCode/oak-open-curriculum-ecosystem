@@ -1,5 +1,14 @@
 # design-sync NOTES — oak-design-system
 
+- **Estate-declaration edits re-run the match-count check** (2026-07-25,
+  graduated from distilled 2026-07-30): `estate.json`'s keep/ship
+  declaration pairs matching `paths` arrays with provenance `sources`
+  arrays — a `sources` entry added without its `paths` twin leaves the
+  file's own delete-contract free to delete the very file being adopted
+  (first-hand near-miss, design lane). Any edit to the declaration
+  re-runs the match-count check for the touched path (must be exactly 1)
+  before commit; symmetry between parallel arrays is a review tripwire,
+  never a given.
 - Tokens-only sync (2026-07-23, first sync): the package deliberately
   exports no React components (ADR-213 §3 as landed). Owner's original
   vision includes the full building-block set — an owned React

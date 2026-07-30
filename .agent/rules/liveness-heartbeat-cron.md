@@ -318,6 +318,35 @@ the same classifier into `comms watch` as an `--alert-stale-peers` mode is a
 recorded follow-on (it would couple an absence/timer concern into the
 event-driven watcher, so it is kept a separate thin consumer).
 
+### Reading calibrations (consolidated 2026-07-30, all measured)
+
+- **The knife-edge**: "active < 4 m" against the fleet-standard 240 s beat means
+  a poll sampling seconds before the next beat reads a HEALTHY seat as offline —
+  every active→offline flicker in one measured day was followed by live
+  activity, including the observer flagging ITSELF. Alert only on transitions
+  INTO retired (≥ 10 m, the recipe above), keep margin between cadence and the
+  active window, and cross-check work-evidence before any retirement claim.
+  Under fleet load the OUTGOING liveness surface starves first, so peer-liveness
+  over-reports retirement exactly when the fleet is busiest.
+- **The shared-substrate signature**: a liveness signal naming EVERY seat
+  simultaneously — especially one naming the observer itself — is evidence about
+  a SHARED substrate (host sleep, reboot, comms home, clock), never about N
+  independent retirements. First check `sysctl kern.sleeptime kern.waketime` AND
+  `kern.boottime` (a fresh boot zeroes sleeptime); if the window covers the
+  silence it is environmental — no retirement broadcasts, re-arm and move on.
+  The host power-management posture (caffeinate/pmset during fleet windows) is
+  an owner-level decision, not agent-side retry logic.
+- **Process restart is a distinct event class from compaction**: monitors
+  SURVIVE compaction but NOT a platform process restart. The restart signature
+  is vanished tasks ("no completion record") plus MCP servers reconnecting —
+  on it, re-arm all monitors and run the foreground gap sweep; do not trust
+  any monitor's apparent continuity.
+- **Never diff lines that contain their own clocks**: a delta poll comparing
+  raw output whose age field changes every pass never converges (two measured
+  noise classes: the moving age field, then its residual column padding) —
+  strip the timestamp/age and squeeze whitespace before comparing, as the
+  recipe's `extract` does.
+
 ### Claim auto-rebalance protocol on retirement
 
 When an agent crosses the 10-minute threshold without heartbeat:

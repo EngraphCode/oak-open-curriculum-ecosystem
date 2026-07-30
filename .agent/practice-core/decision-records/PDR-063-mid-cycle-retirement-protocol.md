@@ -187,6 +187,45 @@ with when it was observed and instruct the receiving agent to
 recount at pickup. Worked instance: "the two Copilot threads" was
 true on 2026-07-03 evidence and silently false (eight) by pickup.
 
+**Writer-side record obligations** (amendment, 2026-07-30 dedicated
+consolidation; each clause carries its worked instance):
+
+- **An assumption ledger rides every handover, not only wraps.** Flag
+  each load-bearing assumption the record transmits (`Fact` /
+  `Owner's-call` / `To-verify` / `Dropped`). Writing the ledger is the
+  only instrument observed to make a record-author's own error visible
+  from the inside — "flag all assumptions" forced the admission that a
+  ticket's premise was a docstring read, and one command then falsified
+  it before anyone built on it (2026-07-27).
+- **Carried constraints are re-priced by cure cost, and the record says
+  the price.** A constraint's hardness is priced by what curing it
+  costs at time of use, never by the framing it arrived in — a
+  credentials expiry rode five compaction boundaries framed as "the
+  hard bound" when re-minting was the work of seconds (owner-corrected
+  2026-07-29). A record transmitting a "hard" constraint names the
+  cure cost or marks it unpriced.
+- **Gates hand over as NOT-OBTAINED, never dressed as discharged.** A
+  review or check that was dispatched but never delivered is inherited
+  as a first-act obligation, not a waived gate — "dispatched" is not
+  "discharged" (worked instance 2026-07-30: a pre-execution review
+  died four times across two seats under provider overload; the honest
+  NOT-OBTAINED handover held at every hop).
+- **Lane obligations can outlive the seat.** A live surface the lane
+  owes (a render server in the owner's browser, a monitor another seat
+  reads) survives the seat that started it; the record names each such
+  obligation so the successor probes and re-establishes it first-hand
+  — the freeze premise "monitors stay live" is falsifiable by the
+  platform after the fact (worked instance 2026-07-29).
+- **Decisions carry their ratification status.** For each decision the
+  record transmits, mark it owner-seen, merely-executed, or unknown —
+  executed is not ratified, and a lineage that transmits the activity
+  record over the goal record lets a never-ratified scope narrowing
+  read as settled (worked instance 2026-07-29: a ticket-scope
+  narrowing executed 2026-07-27 was carried as fact while the
+  register held the owner's contradicting boundary verbatim; no seat
+  noticed they conflicted until the owner did). The reader's closing
+  question at pickup: "what changed since the records froze?"
+
 ### Step 3 — Extend the active claim
 
 The retiring agent updates their active-claim entry with a single
@@ -330,6 +369,39 @@ protocol's five steps):
 Successors expect the shape the discriminator names; a missing
 handoff record on an at-rest lane is the correct state, not a gap.
 
+**Deliberate handovers carry wrap-grade ceremony** (owner word,
+2026-07-30, in-session during a live lane swap: "I expect a full
+handover probably needs almost a full /oak-wrap"). An owner-directed
+lane handover is not claim adoption plus a note: it carries safety
+evidence, a conservation map, the four-section record, and gate-state
+honesty (including NOT-OBTAINED gates) — the record contents approach
+the wrap workflow's safety/conservation sections. Worked instance the
+same hour: a swap whose outgoing side rode a full wrap-grade freeze
+plus claim-anchored record, and whose incoming side recounted the
+record's one unverified transmitted claim first-hand at pickup — and
+that one unverified claim was the record's one false claim.
+
+### Warm and cold pauses — the vocabulary (amendment 2026-07-30)
+
+Pause states between full activity and retirement, enacted consistently
+across three-plus instances (2026-07-28→30) and now named so enactment
+does not depend on imitation:
+
+- **Warm pause**: the seat continues; monitors STAY LIVE; resume is
+  immediate. Warm means *resumable*, not *running* — when every peer is
+  paused and the loops have no consumer, standing them down and keeping
+  a one-call re-arm is still warm (the state that makes resume cheap is
+  the durable record, never a burning loop).
+- **Cold pause**: loops stopped BY INTENT; a freeze/continuation record
+  carries the state; silence is the declared posture — observers read
+  intent, not absence (no retirement detection fires on a declared cold
+  seat).
+
+Either pause names its resume trigger (owner word, a deadline, an event).
+The freeze premise "monitors stay live" is falsifiable by the platform
+after the fact — resumers and successors verify monitor-backed
+obligations first-hand.
+
 ### Handover timing — naming a successor starts the clock (owner-taught 2026-06-28)
 
 **Naming a successor STARTS the handover; the predecessor DRIVES it to
@@ -370,6 +442,28 @@ pointer:
    and no further handoff is currently pending.
 5. Proceeds with the cycle, treating Step 2's "decisions made" as
    committed and "decisions deferred" as the open work surface.
+
+**Reader-side claim classification** (amendment, 2026-07-30 dedicated
+consolidation, from the 2026-07-27 wrap harvest that routed it here).
+A handoff record is trusted per-document, but its claims decay
+per-claim, at class-dependent rates — classify at read:
+
+- **Code-anchored claims** (a path:line, a commit, a diff) held
+  everywhere observed; cheapest to trust, cheapest to spot-check.
+- **Live-state descriptions** (branch positions, check states, counts)
+  are already recount-at-pickup doctrine above.
+- **Disposition/verdict claims** ("benign", "cured", "satisfied",
+  "equivalent") have NO mechanical contact until acted on and persist
+  wrong the longest — **touch the verdicts first**. Two founding
+  instances: a "benign — verify the fingerprint instead" guard note
+  that hard-failed (exit 1) at first contact; a verification pass
+  whose four DIVERGED claims were all estate-state descriptions while
+  every code-anchored claim held. Sharpened bound: even honest
+  verdicts decay across environment changes (a toolchain rebuild sat
+  between the writing and the reading), which is why the cure is
+  reader-side classification, never a writer-side ledger alone.
+  Falsifier: a pickup that applies the classification and still
+  enacts a false disposition.
 
 ### Discontinuity-boundary validation step
 

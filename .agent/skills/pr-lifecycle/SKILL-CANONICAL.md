@@ -207,6 +207,16 @@ surfaces. Partial reads produce false "no problems" verdicts:
 - Fix the class, not the instance: a spelling finding on two lines gets a
   repo-wide sweep of the class; a stale literal gets checked against its
   source constant convention.
+- **A cure is a claim: it gets the same verification tier as the finding it
+  cures, and it carries its paired test.** Review-round cures are the next
+  round's most likely defect surface (one round's Sonar failures were ALL
+  inside the previous round's cures; a cache-correctness fix shipped its own
+  unhashed input; a loud-failure alert was born with a silent-failure
+  default). A cure without the test that would have caught the finding is
+  half a cure — the atomic pair discipline applies to review cures exactly
+  as to features. And after absorbing cures from MULTIPLE reviews, the
+  COMPOSITION needs its own pass: two independent, individually-correct
+  cures interacted to create a third defect (worked instance 2026-07-28).
 - Disposition is content-based and binary — a comment's timestamp is
   irrelevant. "This predates my change" / "nothing new since T" is not
   addressed, and a fresh finding introduced by the fix commit itself is an
@@ -551,6 +561,40 @@ as phase-local restatements.
    merge intents survive queue/protection-rule removal and fire
    silently, so before removing any queue or protection rule, enumerate
    and disarm every armed intent.
+
+### Read mechanics the settled verdict depends on (consolidated 2026-07-30)
+
+- **Read STATUSES alongside check-runs.** Vercel is a required commit
+  STATUS that publishes NO check-run — a check-runs-only read shows green
+  with a required context pending or failed. Derive the required list from
+  `/rules/branches/<base>` and read each name across BOTH
+  `/commits/{sha}/check-runs` AND `/commits/{sha}/status`.
+- **A review-request 201 is not a registration.** The REST
+  `requested_reviewers` POST can return 201 and silently drop per-PR
+  (reproduced on two PRs, two seats, ~5 minutes apart); the roster read is
+  ambiguous in both directions (Copilot leaves it the moment it starts).
+  Verify via the issue TIMELINE's `review_requested` events; the proven
+  alternate path is the GitHub MCP `request_copilot_review` tool. Cap
+  identical REST retries at two.
+- **A review row is not a review.** Read the review BODY before counting
+  it — a `COMMENTED` row on the exact head once contained only a
+  spend-limit skip notice (the spend limit itself is never an agent
+  concern; just do not count the notice as a review). And a review PRESENT
+  on the PR is not a review OF the merge head — match its `commit_id` to
+  the head at the merge moment.
+- **Paginate reviews to exhaustion.** `/pulls/{n}/reviews` pages
+  oldest-first (default 30): an unpaginated read on a busy PR is
+  structurally guaranteed to hide the recent rows — the ones being asked
+  about. Bot reviewers are visible only via the GraphQL `... on Bot`
+  fragment; REST `requested_reviewers` and `gh pr view` omit them.
+- **Run the merge-base deletion sweep before ANY merge**:
+  `git diff "$(git merge-base origin/<base> HEAD)" -- <touched paths> |
+  grep -E "^-" | grep -v "^---"` and read every printed line — each is an
+  intended deletion or a silent revert. A stale whole-file capture
+  produces a clean, conflict-free overwrite that every gate in the chain
+  is structurally blind to (worked instance 2026-07-28: a green docs PR
+  one command from silently deleting a landed security clause; the
+  stale-capture-wins class with the consequence sharpened).
 
 ## Phase 6 — After EVERY push, re-fetch; resolve only what is settled
 
