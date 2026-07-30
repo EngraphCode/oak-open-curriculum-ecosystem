@@ -442,6 +442,10 @@ bootstrap.
   ≥10 min threshold.
 - [`comms-all-channels-watcher`](comms-all-channels-watcher.md) — the
   incoming-visibility sibling.
+- [`directed-routing-requires-absorption-ack`](directed-routing-requires-absorption-ack.md)
+  — the `ABSORB`-class sibling: heartbeats certify `EMIT` only, and the
+  ack convention that rule owns is the added delivery signal that
+  detects a heartbeat-fresh-but-absorption-dark seat.
 - [PDR-133](../practice-core/decision-records/PDR-133-liveness-classes-and-platform-declaration.md)
   (Proposed) — the liveness class model this rule's `EMIT` / `REGISTRY`
   / `PROGRESS` coverage sits inside, and the home of the reading rule,

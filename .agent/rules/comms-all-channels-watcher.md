@@ -525,6 +525,9 @@ naming the rule; the substance lives here for two reasons:
   `behaviour-note`, `heartbeat`).
 - [`use-built-agent-tools-cli`](use-built-agent-tools-cli.md) — governs
   the CLI surface this rule invokes.
+- [`directed-routing-requires-absorption-ack`](directed-routing-requires-absorption-ack.md)
+  — the `ABSORB`-class sibling: this rule's checks stop at `DELIVERY`;
+  absorption evidence comes from the ack convention that rule owns.
 - [`.agent/reference/arc-rapid-communication.md`](../reference/arc-rapid-communication.md)
   §Protocol — the ArcAngel rapid-comms dialogue channel. An ArcAngel
   watcher never substitutes for this canonical all-channels watcher; the
