@@ -5017,3 +5017,43 @@ night shift. This seat's monitors run until its session ends and do NOT transfer
 - **The reflection synthesis (owner-agreed)**: the app makes institutional knowledge trustworthy
   to machines; the Practice makes machine work trustworthy to institutions — one experiment,
   both directions; the falsifier is teacher outcomes, never listings.
+- Possum weaves Midnight (d5848b), 2026-07-30 ~11:57Z — WRAP loss-scan + metaloss findings (owner
+  standing rule: scan findings land here, never chat-only). PLAY SEEDS (associations, not
+  findings): (1) strictness INVERTED at the wrong two boundaries — the claims writer ACCEPTED a
+  shell-corrupted identity ("Quoll\ mends\ Lair" in the queue) where strictness was needed, while
+  the comms reader REFUSED an additive field where tolerance was needed; one lens for both cures.
+  (2) The F-153 poison-pill may be part feature: total fail-loud made discovery take 4 minutes;
+  quarantine-and-continue would have silently delivered everything EXCEPT the threaded event —
+  weigh discovery-speed vs availability in that design decision, don't assume skip-is-better.
+  (3) RFC 5322 In-Reply-To/References is prior art for the threading-edge resolver: the
+  References LIST is the multi-parent shape ADR-220 names as inexpressible in a single field
+  (routed to MCP-404 as an association comment). IDENTIFIER-INTEGRITY CLUSTER (exploration
+  synthesis, pending-graduations candidate): F-150 assigned twice by different sessions + the
+  wrong-id ack class + the corrupted queue identity are one problem — the corpus records truth
+  but nothing recomputes it at the touchpoint; validators-must-recompute has three uncovered
+  instantiations (claims liveness at read, F-numbers at write, id references at use).
+  ATTRIBUTION FLAGS for successors: "Falcon's watcher choked on the poison event" is
+  CORRELATION (their heartbeat stopped 11:34:24, resumed 11:38:25; mechanism unverified);
+  unpushed coordination commit efac5d724 attributed to Falcon by CONTENT (director-handoff.md),
+  not observation. SELF-CAUGHT LATE: my watcher re-arm 4 used plain background Bash — the
+  documented NOTIFY-dead shape — under incident pressure; the rule-mandated delivery check
+  caught it ~15 min later (fluency-under-pressure instance; re-arm 5 is Monitor-shaped, NOTIFY
+  proven by a live probe waking the loop). INDEX OF HOMES (this seat's day-2 durables): main
+  merge 1bba5228f (#651, ADR-220); coordination 72747646e (F-153 + napkin); Linear MCP-393
+  comment df14443d (evidence ledger + incident timeline); comms 34285ab9 (probe) / d62642e7
+  (incident+residues) / 42baf7ca (heartbeat-end); continuity record 2cc48fb6-*.md + closing
+  addendum; formation letter .agent/experience/2026-07-30-possum-weaves-midnight-formation.md.
+  EXTERNAL-BOUND ERROR SIGNATURE: today outside guards caught what my reasoning missed at
+  MECHANISM-LEVEL LIVENESS (the watcher found the poison; the delivery check found the dead
+  NOTIFY path) and IDENTIFIER COLLISIONS (F-150 near-miss caught only by a verify pass) —
+  point external scrutiny there first.
+- Possum weaves Midnight (d5848b), 2026-07-30 ~12:02Z — THIRD cwd bite in one session (threads/ ls
+  read as missing-dir; singleton-notice broadcast died on relative dist path; pre-compaction: the
+  empty-in_response_to glob) — the Bash shell's PERSISTENT cwd poisons every relative invocation
+  after any command that cd's; the cure is absolute paths or a leading cd on EVERY command, the
+  same clause the watcher rule already mandates for arms. Also: pnpm check ran GREEN at wrap
+  (exit 0, all legs) with the singleton notice unlanded — result broadcast sent after the fact
+  with the fault named. Parallel NOTIFY-dead instance at Plover's codex seat same hour (their
+  child relay polled 48.6s late; their broadcast 12:02:29Z) — the NOTIFY liveness class failed
+  independently on two platforms in one hour; PDR-133's per-platform declaration obligation is
+  earning its keep.
