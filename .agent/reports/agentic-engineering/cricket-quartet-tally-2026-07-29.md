@@ -53,7 +53,30 @@ Verdict key: ON = ON-TRACK, DR = DRIFTING, WP = WRONG-PRIORITY. One row per quar
 | 5 | Director Bora binds Thermal (258cbb), round 9 — third cycle boundary, ~00:15Z (30 Jul) | n | ON | DR — correct, absorbed | ON | — undelivered | yes → absorbed at the seat |
 | 6 | same moment | a | ON | DR — correct, absorbed | DR† — correct, absorbed | — undelivered | yes → absorbed at the seat |
 
+| 7 | Director Bora binds Thermal (258cbb), round 10 — overnight watch boundary, ~02:00Z (30 Jul) | n | ON† | ON† | ON† | — undelivered | no |
+| 8 | same moment | a | ON | DR† — correct at compose, CURED pre-retrieval | ON | — undelivered | yes → absorbed at the seat |
+
 † = boundary-trapped, retrieved COMPLETED via one relay ask (MCP-386 retrieval-first ladder).
+
+### Round 10 axis notes (2026-07-30 ~02:05Z, Bora binds Thermal)
+
+- **Strongest convergence of the tenure, executed MID-ROUND**: three independent legs (A-a,
+  B-n, B-a) found the Clerk runsheet — submission-morning-critical — living at `tmp/jim-clerk-*`
+  against `important-state-not-in-temp-files`. Cure executed before two of the three verdicts
+  crossed: full-read secret scan (placeholders only), homed verbatim on MCP-143; the sibling
+  PostHog sheet deliberately left machine-local (REAL key values — the never-in-tickets rule
+  outranks, and its content is dashboard-recoverable). The retrieval-lag effect ("late-retrieved
+  verdicts can reopen a closed round's substance") behaved exactly as the round-7 note predicted:
+  B-a's DRIFTING was correct at compose and already cured at retrieval.
+- **Boundary-trap rate spiked**: 4 of 6 non-haiku legs required relay asks this round (retrieval
+  n=8 cumulative, 100% success on first ask). Seat D dark 8/8 for the tenure.
+- **The frame discipline bit its own author, again**: C-a caught "(DOM-verified)" relayed from a
+  lane broadcast with no producing command — inherited confidence in the frame's own voice. The
+  morning card demotes the #643 render to lane-reported; the owner's glance was always the gate.
+- **Independent calendar verification**: B-n confirmed 30 July 2026 is a Thursday from its own
+  reasoning — the round-9 date correction now has a second source.
+- Residual absorbed to the morning card: MCP-303's line names the credential remint at the
+  drive run (seconds, ruling 12) so the owner meets no surprise.
 
 ### Round 9 axis notes (2026-07-30 ~00:40Z, Bora binds Thermal)
 
