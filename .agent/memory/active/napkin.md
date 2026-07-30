@@ -4320,3 +4320,61 @@ night shift. This seat's monitors run until its session ends and do NOT transfer
 - Watcher hourly exit-124 ×2 (by design); re-arms 2 & 3 clean, gap sweeps 0 both times. F-75
   fired three by-intent transitions (Lynx, Altair+Schooner successions, Tarsier claimless) —
   zero false escalations; the announced-transition + classifier-is-not-a-verdict discipline held.
+
+## 2026-07-29 ~23:00Z — Tarsier hunts Underbrush (facf59): the false-silence twin bit ME, worked instance
+
+- MCP-393 offer DECLINED on honest capacity (deep session; High design-first work deserves a
+  fresh window; Raccoon/Schooner MCP-305 precedent) — explicit decline over silent lapse so the
+  Director can route tonight. Correct call, clean exchange.
+- THE MISS: the decline's first send exited 1 with the event-write line hidden by my grep — I
+  RETRIED WITHOUT READING STATE and produced a duplicate directed event (f55e6d7d + c72928c9).
+  This is the exact exit-codes-in-band false-silence twin I carry in per-user memory ("on
+  ambiguous WRITE outcome, read the state before retrying — retry is a write"), hit at the
+  fifteenth-hour of a long day on a two-line comms send. Passive memory did not fire under
+  flow, again (passive-guidance-loses-to-artefact-gravity, n+1). Comms events are immutable;
+  duplicate left standing (self-evident retry, a third annotation event would be worse).
+  Structural cure candidate for the CLI (routed via MCP-393's design space, fittingly): comms
+  send/direct could print the event-id FIRST or exit 0 once the event file is durably written,
+  so a downstream render failure cannot masquerade as a failed send.
+
+## 2026-07-29 ~23:05Z — Thyme weaves Hedgerow (762020): CORRECTION to my 22:50Z entry — Sonar was RIGHT, three patterns running
+
+- My 22:50Z entry framed the S8786 chain as "Sonar's regex heuristics fire twice on one site →
+  stop refining". Falsified by the third instance WITH understanding: every pattern I tried at the
+  px-parse site (`\d*\.?\d+`, the one-alternation form, greedy-class-before-literal `[\d.]+px`) IS
+  genuinely super-linear on non-matching digit runs — each start position pays a linear backtrack
+  hunting the suffix. The instrument was correct each time; my "heuristic" vocabulary was an
+  assumption transmitted as fact. The refined lesson for typescript-gotchas: a
+  quantifier-before-required-literal scan is O(n²) by construction on adversarial input; when the
+  input grammar is token-shaped (computed CSS serialisations are whitespace-tokenised), parse by
+  split + endsWith + Number — linear, simpler, and the finding class ENDS rather than relocates.
+  Also recorded: this PR gate's severity arithmetic scores ONE MAJOR smell at 15 vs the 14
+  threshold — green requires zero, not fewer; count-reduction reasoning is wrong at this gate.
+
+## 2026-07-29 ~23:20Z — Thyme weaves Hedgerow (762020): PR #637 MERGED (SHA:886bb8d28) — succession-to-merge arc complete
+
+- Adopted a broken seat's lane at owner word 21:06Z; merged at 23:19Z: 14 findings dispositioned
+  fix-first (9 Copilot threads + 5 Sonar), 12 commits, six-specialist post-execution round, zero
+  dismissals. The arc's shape matches #635's same-night arc: fix-first held under three fresh
+  instrument rounds (Sonar twice on the cures' own code, one CI axe race cured at mechanism).
+- Recount craft the Director named for the fleet: verify the analysis is OF THE PINNED COMMIT
+  (Sonar analysed-commit read, not project status) — two stale-status traps in one night; name
+  the instrument's ref in the same sentence as its verdict.
+- Lane state at this entry: claim ebb3efe2 HELD (covers MCP-371 slices 3-5 + MCP-372); MCP-372
+  advances at this seat's next window post-compaction or a successor's — deep-session capacity
+  read applies (the Tarsier/MCP-393 precedent). Monitors live: watcher, dual-surface heartbeat,
+  :3020 render server on the merged build.
+
+## 2026-07-30 ~00:10Z — Thyme weaves Hedgerow (762020): MCP-399 found-to-merged in 73 minutes (PR #641, SHA:8675bf11e)
+
+- The fleet gate flake in MY OWN instrument (the #637 geometry guard) was cured same-evening:
+  the docblock's "interception silences fonts" claim was FALSE for the kit's self-hosted faces —
+  they load async and swap metrics; under load the two contexts measured across the swap. Cure =
+  document.fonts.ready both sides (works in JS-disabled contexts — the setting blocks page
+  scripts, not CSS font loading). The #637 a11y reviewer had NAMED this hazard; I skipped the
+  await on the false reasoning. Lesson pair: (1) a reviewer's method warning about YOUR
+  instrument applies to the instrument you then ship, not just the verification you ran; (2) the
+  red stated honestly as the capturing seat's record (no local repro) + green proven under
+  replicated load = sufficient evidence discipline for a mechanism-known cure.
+- Ambiguous-write discipline paid twice more tonight: two comms sends whose confirmations my
+  output filters ate — both resolved by reading the stream, zero double-sends.
