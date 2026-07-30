@@ -84,6 +84,17 @@ Quote forcing facts. Give owner rulings their author, date, and event id when av
 verification method beside any load-bearing conclusion. Keep `ABSORBED` and `ROUTED-AWAY`
 findings as separate labelled lists. Name the rule or mechanical fact behind every wait or hold.
 
+## Claude dispatch
+
+On Claude, run the four registered Cricket roles as a panel:
+
+1. Start all four roles concurrently with the identical frame and `STANCE: normal`.
+2. Keep working while the normal wave runs, then collect all four returns.
+3. Start the same four roles again with the identical frame and only `STANCE: adversarial`
+   changed.
+4. Collect all eight returns. A missing return is `UNDELIVERED`; do not replace it with a
+   generic agent or a differently pinned role.
+
 ## Codex dispatch
 
 On Codex, root plus the three Cricket roles fills the four-seat concurrency limit:
@@ -100,6 +111,23 @@ On Codex, root plus the three Cricket roles fills the four-seat concurrency limi
 After role definitions change, a fresh trusted-project Codex session is the reload boundary.
 If Luna/xhigh is rejected despite the refreshed role appearing in the spawn schema, record a
 shared-runtime admission failure. Never silently replace it with Sol, Terra, or the parent model.
+
+## Cursor dispatch
+
+On Cursor, run the four stable template adapters as a panel:
+
+1. Start the four adapters concurrently where the seat permits it, with the identical frame and
+   `STANCE: normal`. If a concurrency cap requires waves, preserve the frame and stable role
+   order.
+2. Collect all four normal returns.
+3. Start the same four adapters with the identical frame and only `STANCE: adversarial` changed,
+   using the same concurrency pattern.
+4. Collect all eight returns. Mark a missing return `UNDELIVERED`; do not substitute a generic
+   agent.
+
+Cursor adapters preserve the methods and stable role names, but Cursor does not pin their model
+or effort. Record Cursor results as template-adapter evidence, not model-plus-effort experiment
+data.
 
 ## Adjudicate the panel
 

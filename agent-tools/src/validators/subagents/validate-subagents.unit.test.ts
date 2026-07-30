@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest';
+import { createTopLevelTomlBasicStringReader } from '../../core/toml-top-level-basic-string.js';
 import {
   extractCanonicalPaths,
   getCodexAdapterValidation,
   getCodexRegistrationValidation,
   parseCodexRegistrations,
   readCodexDeveloperInstructions,
-  readTomlBasicStringValue,
   resolveCodexConfigFilePath,
 } from './validate-subagents-helpers.js';
 
@@ -101,7 +101,7 @@ describe('Codex subagent helper coverage', () => {
       '.codex/agents/code-expert.toml: model_reasoning_effort must be "high" (found: missing)',
     );
     expect(issues).toContain(
-      '.codex/agents/code-expert.toml: missing triple-quoted developer_instructions block',
+      '.codex/agents/code-expert.toml: missing top-level developer_instructions string',
     );
   });
 
@@ -275,13 +275,43 @@ model_reasoning_effort = "xhigh"
     );
   });
 
+  it('does not accept developer instructions nested inside another multiline TOML value', () => {
+    const { issues, templatePaths, canonicalPaths } = getCodexAdapterValidation({
+      codexAdapterFile: '.codex/agents/code-expert.toml',
+      registeredAgent: {
+        name: 'code-expert',
+        description: 'Gateway reviewer.',
+        configFile: 'agents/code-expert.toml',
+      },
+      content: `name = "code-expert"
+description = "Gateway reviewer."
+model_reasoning_effort = "high"
+sandbox_mode = "read-only"
+approval_policy = "never"
+
+notes = '''
+developer_instructions = """
+Read and follow \`.agent/sub-agents/templates/code-expert.md\`.
+"""
+'''
+`,
+    });
+
+    expect(issues).toContain(
+      '.codex/agents/code-expert.toml: missing top-level developer_instructions string',
+    );
+    expect(templatePaths).toStrictEqual([]);
+    expect(canonicalPaths).toStrictEqual([]);
+  });
+
   it('extracts canonical template paths from developer instructions', () => {
-    const developerInstructions = readCodexDeveloperInstructions(`developer_instructions = """
+    const developerInstructions = readCodexDeveloperInstructions(
+      createTopLevelTomlBasicStringReader(`developer_instructions = """
 Read and follow \`.agent/sub-agents/templates/code-expert.md\`.
 Read and apply \`.agent/sub-agents/components/personas/fred.md\`.
-"""`);
+"""`),
+    );
 
-    expect(readTomlBasicStringValue('approval_policy = "never"', 'approval_policy')).toBe('never');
     expect(extractCanonicalPaths(developerInstructions)).toStrictEqual([
       '.agent/sub-agents/components/personas/fred.md',
       '.agent/sub-agents/templates/code-expert.md',

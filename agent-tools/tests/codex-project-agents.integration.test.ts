@@ -162,6 +162,31 @@ model = "gpt-5.6-sol"
     expect(resolveCodexProjectAgent(repoRoot, 'code-expert').model).toBeNull();
   });
 
+  it('does not resolve developer instructions nested inside another multiline TOML value', () => {
+    const repoRoot = createTempRepoRoot();
+    writeFixtureRepo(repoRoot);
+    writeFileSync(
+      join(repoRoot, '.codex', 'agents', 'code-expert.toml'),
+      `name = "code-expert"
+description = "Gateway reviewer."
+model_reasoning_effort = "high"
+sandbox_mode = "read-only"
+approval_policy = "never"
+
+notes = '''
+developer_instructions = """
+Read and follow \`.agent/sub-agents/templates/code-expert.md\`.
+"""
+'''
+`,
+      'utf8',
+    );
+
+    expect(() => resolveCodexProjectAgent(repoRoot, 'code-expert')).toThrow(
+      /\.codex\/agents\/code-expert\.toml is missing a top-level developer_instructions string/u,
+    );
+  });
+
   it('does not satisfy a required effort pin from developer instructions', () => {
     const repoRoot = createTempRepoRoot();
     writeFixtureRepo(repoRoot);

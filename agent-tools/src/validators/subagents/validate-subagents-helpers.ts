@@ -22,7 +22,6 @@ export type { CodexRegistration } from './validate-subagents-codex-toml.js';
 
 export {
   CODEX_CONFIG_PATH,
-  readTomlBasicStringValue,
   parseCodexRegistrations,
   resolveCodexConfigFilePath,
 } from './validate-subagents-codex-toml.js';

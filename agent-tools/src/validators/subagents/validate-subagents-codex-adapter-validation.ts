@@ -181,7 +181,7 @@ export interface CodexAdapterValidationResult {
  *   `description` are consistent with that registration.
  * - All required settings (e.g. `model_reasoning_effort`, `sandbox_mode`,
  *   `approval_policy`) are set to their mandated values.
- * - A `developer_instructions` triple-quoted block is present.
+ * - A top-level string-valued `developer_instructions` field is present.
  * - The `developer_instructions` body references at least one canonical
  *   template path inside `templateDir`.
  *
@@ -223,9 +223,9 @@ export function getCodexAdapterValidation({
     requiredSettings: requiredSettings ?? getRequiredCodexSettings(adapterBasename),
     configPath,
   });
-  const developerInstructions = readCodexDeveloperInstructions(content);
+  const developerInstructions = readCodexDeveloperInstructions(readValue);
   if (!developerInstructions) {
-    issues.push(`${codexAdapterFile}: missing triple-quoted developer_instructions block`);
+    issues.push(`${codexAdapterFile}: missing top-level developer_instructions string`);
     return { issues, templatePaths: [], canonicalPaths: [] };
   }
   const canonicalPaths = extractCanonicalPaths(developerInstructions);

@@ -14,7 +14,6 @@
  */
 
 import path from 'node:path';
-import { readTopLevelTomlBasicStringValue } from '../../core/toml-top-level-basic-string.js';
 
 // ---------------------------------------------------------------------------
 // Regex constants
@@ -72,21 +71,6 @@ export interface CodexRegistration {
 function parseTomlBasicString(rawValue: string): string {
   const parsed: unknown = JSON.parse(`"${rawValue}"`);
   return typeof parsed === 'string' ? parsed : rawValue;
-}
-
-/**
- * Reads the string value associated with a top-level `key` in a TOML
- * document.
- *
- * Parses the document structurally, so values nested below table headers are
- * ignored. Returns `null` when the top-level key is absent or is not a string.
- *
- * @param content - Full text of a TOML file.
- * @param key - The key to look up (e.g. `"name"` or `"sandbox_mode"`).
- * @returns The decoded string value, or `null` if the key is absent.
- */
-export function readTomlBasicStringValue(content: string, key: string): string | null {
-  return readTopLevelTomlBasicStringValue(content, key);
 }
 
 // ---------------------------------------------------------------------------

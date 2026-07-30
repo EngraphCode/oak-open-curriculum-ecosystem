@@ -1,6 +1,9 @@
 ---
 name: cricket-procedure-xhigh
-description: Fast xhigh-effort conscience check using a compiled decision procedure with quote-anchored evidence and a mechanical verdict table. Call directly for a reproducible second opinion when priority, proportion, or a wait/gate may be drifting; returns ON-TRACK, DRIFTING, or WRONG-PRIORITY with one redirection.
+description: >-
+  Cursor adapter for the xhigh compiled-procedure role; Cursor does not pin reasoning effort.
+  Call directly for a reproducible second opinion when priority, proportion, or a wait/gate may
+  be drifting; returns ON-TRACK, DRIFTING, or WRONG-PRIORITY with one redirection.
 readonly: true
 ---
 

@@ -1,6 +1,5 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { isAbsolute, join, posix } from 'node:path';
-import { readTopLevelTomlBasicStringValue } from './toml-top-level-basic-string.js';
 
 export const CODEX_CONFIG_PATH = '.codex/config.toml';
 const CODEX_CONFIG_DIR = posix.dirname(CODEX_CONFIG_PATH);
@@ -59,19 +58,6 @@ export function resolveCodexAgentConfigFilePath(configFile: string): string {
   }
 
   return posix.normalize(posix.join(CODEX_CONFIG_DIR, configFile));
-}
-
-export function readRequiredTomlValue(content: string, key: string, adapterPath: string): string {
-  const value = readOptionalTomlValue(content, key);
-  if (value !== null) {
-    return value;
-  }
-
-  throw new Error(`${adapterPath} is missing required TOML key '${key}'.`);
-}
-
-export function readOptionalTomlValue(content: string, key: string): string | null {
-  return readTopLevelTomlBasicStringValue(content, key);
 }
 
 function parseTomlBasicString(rawValue: string): string {
