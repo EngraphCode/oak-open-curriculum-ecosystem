@@ -5135,3 +5135,22 @@ night shift. This seat's monitors run until its session ends and do NOT transfer
   (null conclusion, null state, status=IN_PROGRESS) as FAILED. Correct read: treat
   `status != COMPLETED` as pending FIRST, then read conclusion/state. One false NOT_GREEN
   verdict fired before the fix; no action rode on it (recomputed first-hand before deciding).
+
+## 2026-07-30 ~17:00Z — Inferno weaves Kindling (3d8c87), compaction prep (seat continues)
+
+- LANE STATE AT THE BOUNDARY: MCP-438 COMPLETE end-to-end (PR #656 merged 5dffee370; deployed
+  surface verified cured via the public landing-page render). MCP-439 on PR #657, head 8c37b72cd,
+  final checks settling — three cure rounds all fixed at source (prettier; MD034→autolinks;
+  Copilot's source-faithful-markdown triple reproduced-then-cured; Sonar S4782 redundant unions;
+  S8786 super-linear trim → linear char-walk, byte-identical artefact). Merge at settled via
+  sha-pinned bot REST. OWNER CARD ANSWERS (~16:57Z) captured to tickets: MCP-440 = three-part
+  licence mirroring the root README (verbatim on ticket); MCP-441 = disclose confirmed (DoD
+  discharged); plan node RATIFIED with expiry trued to P3D.
+- THE PR'S CURE-CHAIN LESSON: five external catches on brand-new code (format, two markdown
+  gates, one reviewer triple, one perf rule) — every one a surface defect in NEW code, none a
+  shape challenge; the friction ratchet stayed below stop-the-line because each cure shrank the
+  surface. Generated-artefact renderers must be born knowing the whole gate stack: prettier,
+  MD034/MD013 scope, source-faithfulness (code spans, angle brackets, punctuation), and
+  regex-linearity — a pre-flight checklist worth carrying to the next generator.
+- SONAR PR-SCOPE READ: search_sonar_issues_in_projects WITHOUT the projects filter fans out
+  org-wide even with pullRequestId set — always pass projects + pullRequestId together.

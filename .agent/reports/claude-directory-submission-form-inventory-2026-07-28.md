@@ -104,7 +104,7 @@ Step 3 flags **11 suggestions**, including "Missing annotations: title" on Brows
 Download Asset, and Explore Topic. Tools correctly carry `idempotent`; the surface is all
 read-only. Mechanical fix.
 
-### 6. No screenshot or carousel requirement exists in either flow
+### 6. [TRUED 2026-07-30 — falsified for MCP Apps; see the note below] No screenshot or carousel requirement exists in either flow
 
 > **TRUED 2026-07-30 — this finding is FALSIFIED for our surface.** It was accurate for the
 > 28 July form captures, but the live MCP Apps submission page (verified first-hand

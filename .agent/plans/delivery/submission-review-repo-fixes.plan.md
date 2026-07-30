@@ -3,7 +3,10 @@ id: submission-review-repo-fixes
 node_type: delivery
 name: "Submission-review repo fixes: served-description hygiene, generated tool table, plugin licence"
 overview: "Land the repo-side cures from the 2026-07-30 submission-copy review: strip the embedded model directive from the download-asset description with a regression guard, generate the reviewer-facing tool table from the served surface so it cannot drift again, declare the plugin's code licence in its manifest, record the tool-result-size posture, and verify the already-landed inventory truing."
-status: sketch
+status: ratified
+ratified_by: Jim Cresswell
+ratified_date: 2026-07-30
+ratified_where: "Owner decision card 2026-07-30 ~16:57Z (session Inferno weaves Kindling 3d8c87), captured verbatim on MCP-440 comment 106dc538 and MCP-441 comment 71045759"
 serves: first-major-release
 impact_areas:
   - served-surface
@@ -18,16 +21,16 @@ tickets:
 depends_on: []
 owner_gates:
   - awaiting: owner-decision
-    clears_when: "The result-size posture (MCP-441): the owner confirms disclose-in-form (this plan's recorded verdict) or names bound-at-source, which then becomes its own follow-on lane with its own tests"
-    expires: 2026-08-11
+    clears_when: "CLEARED 2026-07-30: the owner confirmed disclose-in-form via the decision card (MCP-441 comment 71045759); bound-at-source remains an optional future lane"
+    expires: 2026-08-02
 last_updated: 2026-07-30
 ---
 
 # Submission-review repo fixes
 
-**Status**: sketch. Execution of the underlying fixes proceeds on the owner's direct word
-(2026-07-30, "please move on to the fixes"); this node records the shape and slicing and awaits
-the owner's ratification stamp at his next glance. Parent ticket: MCP-437.
+**Status**: ratified (owner card, 2026-07-30 — see frontmatter). Execution ran on the owner's
+direct word ("please move on to the fixes", 2026-07-30); slices 1 and 5 verified complete and
+slice 3 in review at the stamp moment. Parent ticket: MCP-437.
 
 ## Goal
 
@@ -43,16 +46,17 @@ The remaining two are a one-line manifest gap and a posture decision.
 
 ## Slices (each a single-story PR within the PDR-132 round budget)
 
-1. **MCP-438 — served-description hygiene** (class: code; ~2 files). Remove the embedded
-   model directive (the fonts tip) from `DOWNLOAD_ASSET_TOOL_DEF.description` in
-   `packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-asset-download/definition.ts`. Add a
-   regression test describing the system state: no served tool description instructs the model
-   (no `IMPORTANT:` directive block; no presentation instructions). Sweep the repo for the
-   `kalan` misspelling wherever the tip's URL survives. If the fonts tip has a data-shaped home
-   in the download-asset RESULT payload, it may move there as content; otherwise plain removal —
-   the support site already carries the guidance.
-2. **MCP-440 — plugin licence field** (class: config; 1 file). Add `"license": "MIT"` to
-   `plugins/oak-open-curriculum/.claude-plugin/plugin.json`; prove with `claude plugin validate`.
+1. **MCP-438 — served-description hygiene** (class: code). COMPLETE: merged on PR 656 with the
+   regression test in the MCP-300 policy walk (sequencing imperatives AND presentation
+   directives banned) and the content-audit C163 retirement. The "kalan typo" premise was
+   falsified during pre-execution review — `…-kalan` is the live support-site slug — so no
+   spelling sweep exists; the URL left the served surface with the directive block. Deployed
+   surface verified cured (evidence on the ticket).
+2. **MCP-440 — plugin licence** (class: config). Owner-decided 2026-07-30 (card, verbatim on
+   the ticket): the plugin's licensing statement mirrors the root README's three-part model —
+   MIT for code, OGL v3.0 for Oak curriculum content, the Oak brand-usage guidance for brand
+   assets. Implement as a small single-story PR deriving the wording from the root README;
+   prove with `claude plugin validate --strict`.
 3. **MCP-439 — generated tool table** (class: code; ~3 files). A script in the MCP server app
    workspace that emits the reviewer-facing table (name, title, description, annotations) from
    the same registry the server registers from, excluding dormant tools. Test: the emitted table
@@ -66,10 +70,12 @@ The remaining two are a one-line manifest gap and a posture decision.
    the form honest immediately (the Connection requirements field exists for exactly these
    notes, and the host enforces its own per-surface limits regardless). Bound-at-source remains
    available as its own deliberate lane if the owner wants the behaviour; the graph tools'
-   bounded-with-honest-totals pattern is the template. The owner gate above holds this verdict.
-5. **MCP-442 — inventory truing** (class: record; no new work). Landed by a peer as
-   `SHA:34f24834d` before this plan was authored; this plan's step is verification against the
-   ticket's definition of done, then closing the ticket with the evidence.
+   bounded-with-honest-totals pattern is the template. Owner-confirmed 2026-07-30 (card;
+   the gate above is cleared).
+5. **MCP-442 — inventory truing** (class: record; no new work). Landed as `SHA:34f24834d`
+   before this plan was authored and verified against the ticket's definition of done; the
+   heading now names the falsification inline. The ticket closes once the truing commit is an
+   ancestor of `origin/main` (the coordination roll-up).
 
 ## Acceptance criteria
 
