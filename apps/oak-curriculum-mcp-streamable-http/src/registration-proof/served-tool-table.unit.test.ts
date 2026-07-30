@@ -36,12 +36,42 @@ describe('renderServedToolTable', () => {
       renderServedToolTable([
         row({
           name: 'url-tool',
-          description: 'See https://example.test/docs "and https://example.test/more".',
+          description:
+            'See https://example.test/docs. Terms at https://example.test/terms, "or https://example.test/more".',
         }),
       ]),
     );
     expect(rendered).toContain(
-      'See <https://example.test/docs> "and <https://example.test/more>".',
+      'See <https://example.test/docs>. Terms at <https://example.test/terms>, "or <https://example.test/more>".',
+    );
+  });
+
+  it('passes existing code spans through verbatim, backticks and contents untouched', () => {
+    const rendered = unwrap(
+      renderServedToolTable([
+        row({
+          name: 'code-span-tool',
+          description:
+            'Links follow `https://example.test/lessons/{lessonSlug}` (a template). See https://example.test/docs.',
+        }),
+      ]),
+    );
+    expect(rendered).toContain(
+      'Links follow `https://example.test/lessons/{lessonSlug}` (a template). See <https://example.test/docs>.',
+    );
+  });
+
+  it('escapes literal angle brackets outside code spans so they render as text', () => {
+    const rendered = unwrap(
+      renderServedToolTable([
+        row({
+          name: 'angle-tool',
+          description: 'Suitable for a <track> element; `<code>` stays as-is.',
+        }),
+      ]),
+    );
+    expect(rendered).toContain(
+      String.raw`Suitable for a \<track\> element; ` + '`<code>` stays as-is.',
     );
   });
 

@@ -26,16 +26,38 @@ export interface ServedToolRow {
 
 const HINT_ORDER = ['readOnlyHint', 'destructiveHint', 'idempotentHint', 'openWorldHint'] as const;
 
+/** Escapes literal angle brackets so prose like "<track>" stays text, not HTML. */
+function escapeAngleBrackets(segment: string): string {
+  return segment.replaceAll('<', String.raw`\<`).replaceAll('>', String.raw`\>`);
+}
+
+/** Wraps bare URLs as markdown autolinks, keeping trailing punctuation outside. */
+function wrapBareUrls(segment: string): string {
+  return segment.replaceAll(/https?:\/\/[^\s"'`\\]+/gu, (match) => {
+    const core = match.replace(/[.,;:!?)]+$/u, '');
+    return `<${core}>${match.slice(core.length)}`;
+  });
+}
+
 /**
- * Collapses a multi-line description to one honest single-line rendering.
- * Bare URLs are wrapped as markdown autolinks so the generated file passes
- * the markdown gate (MD034) without altering the description's words.
+ * Collapses a multi-line description to one honest single-line rendering,
+ * source-faithful as markdown: existing code spans pass through verbatim
+ * (backticks preserved, contents untouched); outside code spans, literal
+ * angle brackets are escaped so they render as text, and bare URLs become
+ * autolinks with sentence punctuation kept outside the link (MD034 without
+ * altering the description's words).
  */
 function flattenedDescription(description: string): string {
   return description
     .replaceAll(/\s+/gu, ' ')
     .trim()
-    .replaceAll(/(https?:\/\/[^\s"'<>]+)/gu, '<$1>');
+    .split(/(`[^`]*`)/u)
+    .map((segment) =>
+      segment.length > 1 && segment.startsWith('`') && segment.endsWith('`')
+        ? segment
+        : wrapBareUrls(escapeAngleBrackets(segment)),
+    )
+    .join('');
 }
 
 function renderAnnotations(annotations: NonNullable<ServedToolRow['annotations']>): string {
