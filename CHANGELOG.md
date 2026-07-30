@@ -1,3 +1,10 @@
+## [1.124.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.124.3...v1.124.4) (2026-07-30)
+
+
+### Bug Fixes
+
+* **mcp-http:** pin the test:ui webServer analytics axis so it stops inheriting .env.local ([901d12e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/901d12e36f0be1c84ab2c3e0f50d457999a6b00e))
+
 ## [1.124.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.124.2...v1.124.3) (2026-07-30)
 
 
