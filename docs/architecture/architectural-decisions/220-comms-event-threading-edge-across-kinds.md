@@ -32,6 +32,18 @@ privilege: every comms-event kind that can be a response carries an
 optional `in_response_to`. That is `narrative` and `directed` today, and
 `sync` when ADR-184's kind lands.
 
+`in_response_to` is the **canonical** field name. The `narrative` kind's
+sibling `in_reply_to` is a legacy alias (live corpus at this decision:
+114 `in_response_to` events, 0 `in_reply_to`) that is NOT extended to
+any further kind; where ADR-184's sync block lists both, this ADR
+narrows it to `in_response_to` alone.
+
+The edge is a **single-primary-antecedent, non-authoritative hint**. On
+its own it proves no ordering, absorption, acceptance, custody, or
+completion; a consumer drawing any such conclusion must verify the
+responder's identity against the antecedent's recipient or participants
+and engage the governing content.
+
 The field is optional and additive; `additionalProperties: false` is
 preserved on each definition; events without it continue to validate;
 readers that do not understand it ignore it (PDR-049 + PDR-050
@@ -65,6 +77,14 @@ subject remains an authoring obligation of the rule that governs acks.
   events out of the live stream, so a valid antecedent can be
   unresolvable at write time. Refuse, warn, or resolve-through-archive
   is an open decision.
+- **A resolver contract for traversal.** The hazards are named now so no
+  consumer discovers them in production: dangling, self-referencing,
+  forward (not-yet-written), and cyclic references; duplicate ids across
+  live-plus-archive after rotation or replay; cross-kind reference
+  ambiguity; multi-parent shapes a single field cannot express. Until a
+  resolver contract lands, a consumer treats unresolvable references as
+  UNKNOWN (never as evidence of absence), bounds and cycle-guards any
+  graph walk, and never silently picks the first match on duplicates.
 - **Rendering the edge** at the notification surface.
 
 ### Accepted cost
