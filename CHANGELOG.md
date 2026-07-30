@@ -1,3 +1,26 @@
+# [1.127.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.126.0...v1.127.0) (2026-07-30)
+
+
+### Bug Fixes
+
+* **agent-tools:** align Cricket verification and test purity ([c8a55a7](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c8a55a7ca24fa24881b26722074ae1f6d7313d1f))
+* **agent-tools:** align health parity with Cricket roster ([a671c17](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a671c17e7db699a355047c0f1d1719758677b444))
+* **agent-tools:** centralize reviewer parity decisions ([4ac362c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4ac362c5c7b04b84ce6fa55d0c784706e2027262))
+* **agent-tools:** distinguish invalid required adapter strings ([f0ad22b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f0ad22bdd7c8f10c79f84f5323baadf6911c277d))
+* **agent-tools:** harden Cricket adapter contracts ([31b9d8d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/31b9d8dbc205b90f12d0bf6ac5ed503b009d66f2))
+* **agent-tools:** keep TOML state internal ([2e7c683](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2e7c683e43d02d41fcec99fbfb8436268e8796ee))
+* **agent-tools:** reject non-string Codex model pins ([dd0fe2e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/dd0fe2ef8b7d5d8ba8e4257afed772da4bb61ac4))
+* **agent-tools:** report malformed Codex adapters ([dbb54ec](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/dbb54ec861017b7f8c6275e08bb16e36a5e237fb))
+* **agent-tools:** surface Cricket models in resolver output ([00266ab](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/00266abb91b616c2bd0b921ef6805efe935e4d4e))
+* **agent-tools:** unify reviewer parity enforcement ([f80e535](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f80e53521006ea5facc44bee8a7d4a8f255ec8b8))
+* **agent-tools:** use explicit ESM test import ([9140a18](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9140a18af892937a368cc0d21b99e231f16b70fc))
+* **plugin:** declare the three-part licence in both plugin manifests ([2d9bf90](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2d9bf9012371054918d90b26d684f8a11788097b))
+
+
+### Features
+
+* **agent-tools:** add Codex Cricket panel ([75d64bd](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/75d64bded54e1cb8727a42745a5673871a9a9ced))
+
 # [1.126.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.125.4...v1.126.0) (2026-07-30)
 
 
