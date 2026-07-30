@@ -5107,3 +5107,31 @@ night shift. This seat's monitors run until its session ends and do NOT transfer
 - PLAY SEED (association, not finding): PostHog's person-scoped deletion API forces a minimal
   Person row to exist — an erasure mechanism REQUIRING identity materialisation; same
   strictness-inverted-at-the-boundary shape as the F-153 schema-race cluster.
+
+## 2026-07-30 ~16:14Z — Inferno weaves Kindling (3d8c87), fixes lane self-catch
+
+- BACKGROUND-TASK EXIT IS NOT THE COMMAND'S EXIT: a backgrounded `git commit … ; echo
+  COMMIT-EXIT:$? ; git log -1` task reported "completed (exit code 0)" while the output file held
+  COMMIT-EXIT:1 (pre-commit prettier refusal) — the wrapper's exit is the LAST command's (git log,
+  green). I proceeded to push on the wrapper status and the push failed on the same leg; caught on
+  the second read. Sharpened form of the piped-exit trap: printing the marker in-band is only half
+  the discipline — READ THE MARKER FROM THE OUTPUT FILE before acting; the task notification's
+  exit code is a lookalike. Also: prettier-check the new files BEFORE the first commit attempt
+  (the gate's 💡 hint names format:root; the semantic-source digest is format-invariant, so a
+  post-hoc prettier pass does not disturb content-audit pins).
+
+## 2026-07-30 ~16:55Z — Falcon hunts Flight (52841f): two instrument lessons from the #655 key-turn
+
+- **Invented-sha 409 at the merge pin (new instance of the derive-identifiers class).** Pinning
+  the sha-pinned REST merge, this seat EXTENDED a truncated 12-char display sha to 40 chars from
+  nowhere — the pin 409'd ("Head branch was modified"), the store-derived sha then matched the
+  API byte-for-byte and merged clean. Same class as the morning's three identifier mistakes
+  (Possum's formation letter): never reproduce OR extend an identifier from memory/display;
+  derive it from the store at the moment of use. The pin is the guard that caught it — keep
+  pinning even when "sure".
+- **PR settle-watch false NOT_GREEN: CheckRun vs StatusContext field split.** `statusCheckRollup`
+  mixes CheckRuns (`status` QUEUED/IN_PROGRESS/COMPLETED + `conclusion`) and StatusContexts
+  (`state`). A filter reading only `.conclusion // .state` classifies in-progress CheckRuns
+  (null conclusion, null state, status=IN_PROGRESS) as FAILED. Correct read: treat
+  `status != COMPLETED` as pending FIRST, then read conclusion/state. One false NOT_GREEN
+  verdict fired before the fix; no action rode on it (recomputed first-hand before deciding).
