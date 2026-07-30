@@ -1,3 +1,20 @@
+# [1.126.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.125.4...v1.126.0) (2026-07-30)
+
+
+### Bug Fixes
+
+* **mcp:** make the tool-table rendering source-faithful markdown ([d3ce037](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d3ce03764cc746df51f7bc671b30e300acf19b57))
+
+
+### Features
+
+* **mcp:** generate the reviewer-facing served tool table from the composition root ([3cdeaec](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3cdeaecf0594644226b3cacce3c65bccd7ac0088))
+
+
+### Performance Improvements
+
+* **mcp:** trim trailing URL punctuation with a linear walk, not a regex ([8c37b72](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8c37b72cd0c14bce1effd09ae1018ebd81597daa))
+
 ## [1.125.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.125.3...v1.125.4) (2026-07-30)
 
 
