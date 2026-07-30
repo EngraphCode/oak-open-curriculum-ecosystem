@@ -4990,3 +4990,30 @@ night shift. This seat's monitors run until its session ends and do NOT transfer
   lost zero events (the poison BLOCKED the cursor; it never skipped). Residues routed to Director
   (event d62642e7): ADR-220 amendment, drain quarantine-vs-fail-loud, compat-cell test doctrine.
   Probe doctrine confirmed: deployed-path proof catches what green suites structurally cannot.
+
+## 2026-07-30 ~12:05Z — Falcon hunts Flight (Director): afternoon-half harvest at second compaction
+
+- **The schema-race incident (~11:34Z)**: #651 added `in_response_to` to directed events; strict
+  Zod parsers on stale pre-merge dists REFUSED the first new-shape event; the watch drain retried
+  the file forever and delivered nothing behind it (poison-pill), presenting as PEER silence.
+  Two seats cured it in parallel inside ~3 minutes. ADR-220's "old readers ignore it" was false
+  as built. Tickets: MCP-428/429/430/431. Lesson: on a strict-validation substrate, additive
+  schema evolution requires reader-rebuild BEFORE the first new-shape write; a green 1393-test
+  suite structurally cannot see the old-reader×new-event cell.
+- **Enqueue-list false-green** (Glowworm, 402a5980): commit-queue commits exactly the intent's
+  file list; late-staged files silently miss the commit while local gates run the full index.
+  Guard = MCP-417; interim: re-enqueue on staged growth, porcelain must be EMPTY post-commit.
+- **New D-catch class at the quartet**: commitment-vs-artefact (adjudication body existed only as
+  a NEXT at judgement time) — distinct from frame-legibility; both adjudicated same morning.
+- **Cross-model second opinion earned itself on first use**: Plover (GPT-5) caught the
+  `in_reply_to` legacy-alias blind spot nobody in the all-Claude chain had questioned (114-vs-0
+  corpus fact), and its ADR-220 cures pre-empted... note the same ADR still carried the
+  readers-ignore error — cross-model review reduces blind spots, does not abolish them.
+- **Wind-down pattern proven**: four owner-directed stand-downs in ~65 minutes, each with a
+  self-contained handback absorbed at the Director's seat, residues → map → tickets same hour.
+  Rotation: second same-day cut takes a `-b` suffix (date stamp stays honest).
+- **Plan-corpus contract**: `*.plan.md` requires YAML frontmatter (validator refused mine;
+  impact_areas is a closed registry at .agent/plans/impact-areas.md; status born `sketch`).
+- **The reflection synthesis (owner-agreed)**: the app makes institutional knowledge trustworthy
+  to machines; the Practice makes machine work trustworthy to institutions — one experiment,
+  both directions; the falsifier is teacher outcomes, never listings.

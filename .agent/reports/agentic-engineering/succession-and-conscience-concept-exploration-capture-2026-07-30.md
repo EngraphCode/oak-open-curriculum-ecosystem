@@ -44,3 +44,23 @@
 ## What Movements 2–4 need (the pickup map)
 
 Problem-space definition should resist collapsing the two streams into one problem too early — succession health and frame blindness may be *different kinds* (one a mature practice needing consolidation, one an open defect class needing design). Solution reflection must run the estate's own counterexamples (P2's tally question). Synthesis lands via `oak-plan` as a plan node ONLY if a multi-session workstream emerges; otherwise as PDR/rule amendments routed through new-rule-vs-pdr-clause. Evidence pointers: the cricket tally (rounds 13+ this seat), MCP-386/393/404/411 tickets, the day's comms stream (06:00–08:50Z), the six handoff records under `.agent/state/collaboration/handoffs/` (machine-local), per-user memories `structure-over-vigilance-owner-principle` / `falsifiable-structure-at-the-surface-works` / `no-change-freezes-observability-and-fast-response`.
+
+## Addendum (~12:05Z, second compaction) — afternoon material for Movements 2–4
+
+- **A fourth frame-blindness cousin**: the old-reader×new-event compat cell — every suite rebuilds
+  everything before running, so the cell is untestable BY CONSTRUCTION from inside the build; the
+  incident (11:34Z, MCP-428..431) was caught only by a deployed-path probe within 60s of the first
+  real write. Same law as the morning triple: instruments verify inside their frame; the probe
+  that steps OUTSIDE the frame (a real write against a real reader) sees what no green suite can.
+- **P5 candidate — cross-model review as structural de-blinding**: Plover's first second opinion
+  found the in_reply_to alias blind spot (single-family monoculture class). Warrant: n=1 clean
+  catch + the MCP-420 plan review. Falsifier: the SAME reviewed ADR still shipped the false
+  readers-ignore claim — cross-model review reduced but did not abolish the blind-spot class;
+  any proposal must claim reduction, never coverage.
+- **P4 strengthened**: four stand-down handbacks in one hour, each self-contained, residues
+  ticketed same-hour — the conservation-act pattern generalises from verdicts to whole seat maps.
+- **The day's through-line, owner-agreed at the reflection**: trust transferred without loss —
+  the app makes institutional knowledge legible/trustworthy to machines; the Practice makes
+  machine work legible/trustworthy to institutions. Movements 2–4 should test whether this
+  symmetry is the exploration's actual unifying frame (succession health, frame blindness, and
+  conscience instruments are all chain-of-custody mechanisms for trust across context boundaries).
