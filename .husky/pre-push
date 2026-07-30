@@ -87,7 +87,12 @@ echo "🔭 Checking schema cache staleness (advisory, non-blocking)..."
 pnpm --filter @oaknational/agent-tools ci-schema-drift-check || true
 
 echo "🔤 Running build, type-check, lint, and tests..."
-if ! pnpm turbo run --continue sdk-codegen build type-check lint test test:e2e test:ui; then
+# Same env hygiene as pre-commit's turbo step: git exports GIT_DIR to hooks
+# and turbo 2.10.6 misreads it in linked worktrees (os error 21). Unset the
+# repo-discovery trio for the turbo child only; cwd discovery is correct in
+# every checkout shape and no gate is narrowed.
+if ! env -u GIT_DIR -u GIT_INDEX_FILE -u GIT_WORK_TREE \
+  pnpm turbo run --continue sdk-codegen build type-check lint test test:e2e test:ui; then
   echo "❌ Turbo quality gate checks failed!"
   exit 1
 fi
