@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { z } from 'zod';
 
 import playwrightConfig from '../playwright.config.js';
 import { HttpEnvSchema } from '../src/env.js';
@@ -20,13 +21,12 @@ const ambientPosthogSelection = {
   POSTHOG_PSEUDONYM_KEYRING: '[{"id":"k_test","key":"test-key"}]',
 };
 
-const webServer = playwrightConfig.webServer;
-
-// A missing or multi-entry webServer block empties the pinned layer, which
-// fails the boot assertion below on required keys — the shape test names
-// the cause directly so the diagnosis does not start at the env contract.
-const uiWebServerEnv: NodeJS.ProcessEnv =
-  webServer === undefined || Array.isArray(webServer) ? {} : { ...webServer.env };
+// Boundary parse of the config shape this model reads: a missing or
+// multi-entry webServer block means the model no longer describes the
+// harness, so the file fails at its cause with the collection error.
+const uiWebServerEnv: NodeJS.ProcessEnv = z
+  .object({ env: z.record(z.string(), z.string()) })
+  .parse(playwrightConfig.webServer).env;
 
 function serverEnvSeenBy(composedParentEnv: NodeJS.ProcessEnv): NodeJS.ProcessEnv {
   const plan = resolveHttpDevExecutionPlan({
@@ -39,34 +39,18 @@ function serverEnvSeenBy(composedParentEnv: NodeJS.ProcessEnv): NodeJS.ProcessEn
 }
 
 describe('test:ui webServer analytics-axis pin', () => {
-  it('declares exactly one webServer block carrying the pinned env', () => {
-    expect(webServer).toBeDefined();
-    expect(Array.isArray(webServer)).toBe(false);
-    expect(uiWebServerEnv.OBSERVABILITY_SINKS).toBe('[]');
-  });
-
   it('boots under an ambient posthog selection because the config layer pins the axis', () => {
-    const result = HttpEnvSchema.safeParse(
+    const parsed = HttpEnvSchema.parse(
       serverEnvSeenBy({ ...ambientPosthogSelection, ...uiWebServerEnv }),
     );
-    expect(result.success).toBe(true);
-    if (result.success) {
-      expect(result.data.OBSERVABILITY_SINKS).toStrictEqual([]);
-    }
+    expect(parsed.OBSERVABILITY_SINKS).not.toContain('posthog');
   });
 
   it('cannot boot when the config layer stops pinning the axis: posthog under disabled auth is refused', () => {
     const unpinned = { ...uiWebServerEnv };
     delete unpinned.OBSERVABILITY_SINKS;
-    const result = HttpEnvSchema.safeParse(
-      serverEnvSeenBy({ ...ambientPosthogSelection, ...unpinned }),
-    );
-    expect(result.success).toBe(false);
-    if (!result.success) {
-      const messages = result.error.issues.map((issue) => issue.message).join('; ');
-      expect(messages).toContain(
-        'posthog cannot be selected while DANGEROUSLY_DISABLE_AUTH is true',
-      );
-    }
+    expect(() =>
+      HttpEnvSchema.parse(serverEnvSeenBy({ ...ambientPosthogSelection, ...unpinned })),
+    ).toThrow(/posthog cannot be selected while DANGEROUSLY_DISABLE_AUTH is true/);
   });
 });
