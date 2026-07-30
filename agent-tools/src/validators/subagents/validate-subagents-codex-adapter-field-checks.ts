@@ -14,9 +14,9 @@
  * `validate-subagents-codex-adapter-validation.ts`, which imports from here.
  */
 
+import type { TopLevelTomlBasicStringReader } from '../../core/toml-top-level-basic-string.js';
 import {
   type CodexRegistration,
-  readTomlBasicStringValue,
   resolveCodexConfigFilePath,
 } from './validate-subagents-codex-toml.js';
 
@@ -46,21 +46,21 @@ export function stripBasename(filePath: string, extension: string): string {
 
 /**
  * Validates that each required TOML setting key in `requiredSettings` is
- * present in `content` with exactly the expected value.
+ * present in the parsed adapter with exactly the expected value.
  *
  * @param adapterFile - Repository-relative path to the adapter (for messages).
- * @param content - Full text content of the adapter TOML file.
+ * @param readValue - Reader for the adapter's parsed top-level string values.
  * @param requiredSettings - Pairs of `[settingKey, expectedValue]` to verify.
  * @returns Array of issue strings for any settings that are missing or wrong.
  */
 function validateRequiredSettings(
   adapterFile: string,
-  content: string,
+  readValue: TopLevelTomlBasicStringReader,
   requiredSettings: readonly (readonly [string, string])[],
 ): string[] {
   const issues: string[] = [];
   for (const [settingKey, expectedValue] of requiredSettings) {
-    const actualValue = readTomlBasicStringValue(content, settingKey);
+    const actualValue = readValue(settingKey);
     if (actualValue !== expectedValue) {
       issues.push(
         `${adapterFile}: ${settingKey} must be "${expectedValue}" (found: ${actualValue ?? 'missing'})`,
@@ -148,8 +148,8 @@ export interface ValidateAdapterFieldsParams {
   declaredDescription: string | null;
   /** The matching registry entry, or `null`. */
   registeredAgent: CodexRegistration | null;
-  /** Full text content of the adapter TOML file. */
-  content: string;
+  /** Reader for the adapter's parsed top-level string values. */
+  readValue: TopLevelTomlBasicStringReader;
   /** Settings pairs to validate. */
   requiredSettings: readonly (readonly [string, string])[];
   /** Repository-relative path to the Codex config file. */
@@ -175,7 +175,7 @@ export function validateAdapterFields(params: ValidateAdapterFieldsParams): stri
     declaredName,
     declaredDescription,
     registeredAgent,
-    content,
+    readValue,
     requiredSettings,
     configPath,
   } = params;
@@ -200,6 +200,6 @@ export function validateAdapterFields(params: ValidateAdapterFieldsParams): stri
       registeredAgent,
       configPath,
     ),
-    ...validateRequiredSettings(adapterFile, content, requiredSettings),
+    ...validateRequiredSettings(adapterFile, readValue, requiredSettings),
   ];
 }

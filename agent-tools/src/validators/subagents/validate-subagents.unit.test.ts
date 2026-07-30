@@ -105,6 +105,19 @@ describe('Codex subagent helper coverage', () => {
     );
   });
 
+  it('reports malformed Codex adapter TOML as a file-scoped issue', () => {
+    const result = getCodexAdapterValidation({
+      codexAdapterFile: '.codex/agents/broken-expert.toml',
+      content: 'name = "unterminated',
+    });
+
+    expect(result).toStrictEqual({
+      issues: ['.codex/agents/broken-expert.toml: invalid TOML'],
+      templatePaths: [],
+      canonicalPaths: [],
+    });
+  });
+
   it('reports adapter metadata drift from the central registry', () => {
     const { issues } = getCodexAdapterValidation({
       codexAdapterFile: '.codex/agents/code-expert.toml',

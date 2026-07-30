@@ -15,10 +15,10 @@
  */
 
 import {
-  CODEX_CONFIG_PATH,
-  type CodexRegistration,
-  readTomlBasicStringValue,
-} from './validate-subagents-codex-toml.js';
+  createTopLevelTomlBasicStringReader,
+  type TopLevelTomlBasicStringReader,
+} from '../../core/toml-top-level-basic-string.js';
+import { CODEX_CONFIG_PATH, type CodexRegistration } from './validate-subagents-codex-toml.js';
 
 import {
   extractCanonicalPaths,
@@ -174,6 +174,7 @@ export interface CodexAdapterValidationResult {
  * Validates a single Codex subagent adapter TOML file.
  *
  * Checks performed:
+ * - The adapter is valid TOML; malformed input produces one file-scoped issue.
  * - Required TOML keys `name` and `description` are present.
  * - The `name` value matches the adapter's filename (without `.toml`).
  * - A matching entry exists in `.codex/config.toml`, and both `name` and
@@ -198,16 +199,27 @@ export function getCodexAdapterValidation({
   requiredSettings,
   configPath = CODEX_CONFIG_PATH,
 }: CodexAdapterValidationInput): CodexAdapterValidationResult {
+  let readValue: TopLevelTomlBasicStringReader;
+  try {
+    readValue = createTopLevelTomlBasicStringReader(content);
+  } catch {
+    return {
+      issues: [`${codexAdapterFile}: invalid TOML`],
+      templatePaths: [],
+      canonicalPaths: [],
+    };
+  }
+
   const adapterBasename = stripBasename(codexAdapterFile, '.toml');
-  const declaredName = readTomlBasicStringValue(content, 'name');
-  const declaredDescription = readTomlBasicStringValue(content, 'description');
+  const declaredName = readValue('name');
+  const declaredDescription = readValue('description');
   const issues: string[] = validateAdapterFields({
     adapterFile: codexAdapterFile,
     adapterBasename,
     declaredName,
     declaredDescription,
     registeredAgent,
-    content,
+    readValue,
     requiredSettings: requiredSettings ?? getRequiredCodexSettings(adapterBasename),
     configPath,
   });
