@@ -694,11 +694,10 @@
     },
     {
       "file": "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-asset-download/definition.ts",
-      "semanticSha256": "154d483475f32e0fbf31e82e82327b3a313fb61ed13ef45db8337e1f141bb4ab",
+      "semanticSha256": "d3a9820d7ade25c35e5c7d860fe07ac43b797d8defba55e0758a9c024116d525",
       "itemIds": [
         "C161",
         "C162",
-        "C163",
         "C164",
         "C165",
         "C166",
