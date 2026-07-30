@@ -169,7 +169,12 @@ own UI.
 
 ## React Pattern (Canonical)
 
-From `ext-apps/docs/patterns.md`:
+Adapted from `ext-apps/docs/patterns.md` — with one deliberate divergence:
+the upstream pattern applies `safeAreaInsets` as inline padding, which this
+app rejects because inline padding outranks the stylesheet and a zero-inset
+host erases the authored token padding (MCP-434). The safe-area step below
+is Oak's corrective adaptation, proven by the widget unit suite; everything
+else follows upstream.
 
 ```tsx
 import {
@@ -180,6 +185,7 @@ import {
 } from '@modelcontextprotocol/ext-apps';
 import { useApp } from '@modelcontextprotocol/ext-apps/react';
 import { useEffect, useState } from 'react';
+import { safeAreaInsetStyle } from './safe-area-insets.js';
 
 function MyApp() {
   const [hostContext, setHostContext] = useState<McpUiHostContext>();
@@ -223,24 +229,13 @@ function MyApp() {
   // host (ChatGPT/claude.ai desktop) would REPLACE the authored padding
   // with 0 (MCP-434). The stylesheet composes each side instead:
   //   padding: calc(var(--your-padding-token) + var(--oak-safe-area-inset-top, 0px)) …;
-  // See widget/src/safe-area-insets.ts for the typed helper.
+  // The typed helper (widget/src/safe-area-insets.ts) is required, not
+  // convenience: React's CSSProperties is closed to custom-property
+  // keys, so a bare object literal here does not type-check.
   const insets = hostContext?.safeAreaInsets;
 
   return (
-    <div
-      style={
-        insets
-          ? {
-              '--oak-safe-area-inset-top': `${insets.top}px`,
-              '--oak-safe-area-inset-right': `${insets.right}px`,
-              '--oak-safe-area-inset-bottom': `${insets.bottom}px`,
-              '--oak-safe-area-inset-left': `${insets.left}px`,
-            }
-          : undefined
-      }
-    >
-      {/* Your app content */}
-    </div>
+    <div style={insets ? safeAreaInsetStyle(insets) : undefined}>{/* Your app content */}</div>
   );
 }
 ```
