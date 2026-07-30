@@ -9,9 +9,10 @@ import { resolveHttpDevExecutionPlan } from './development/http-dev-contract.js'
  * The developer's ambient app `.env.local` analytics selection, modelled
  * as the lowest layer of the merge the webServer child sees. In the real
  * chain these keys arrive through `resolveEnv`'s file layers, BELOW
- * process env — so a key the config block pins is overridden and a key
- * it omits reaches the server. Spreading the file layer first reproduces
- * that precedence without reading any real env file.
+ * process env — so an ambient key the config block also pins loses to
+ * the pin, and a key the block omits reaches the server. Spreading the
+ * file layer first reproduces that precedence without reading any real
+ * env file.
  */
 const ambientPosthogSelection = {
   OBSERVABILITY_SINKS: '["posthog"]',
