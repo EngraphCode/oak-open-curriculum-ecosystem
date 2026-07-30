@@ -214,11 +214,20 @@ declaration set yet. Dated observations already on record:
   BROADCAST whose relevance went unabsorbed, a shape the ack convention
   does not reach and the consumer-side lane-state-from-PR/merge-truth
   discipline covers instead.
-- **Claude Code's remaining classes (`DISPATCH`, `SUBSTRATE` through
-  `DELIVERY` individually, `LOOP`, `CAPABILITY`, and the outgoing
-  `EMIT`/`REGISTRY`/`PROGRESS` set), Codex's other liveness classes,
-  Cursor, and Gemini/Antigravity — declaration rows owed.** The
-  certified rows above cover the named classes on the named paths only.
+- **Claude Code 2.1.220 — every remaining class: explicitly unverified**
+  (PDR-133 §8 discipline 2; recorded 2026-07-30 to complete a compliant
+  first declaration set). `DISPATCH`, `SUBSTRATE`, `PROCESS`, `BINDING`,
+  `CURSOR`, `INTEGRITY`, `DELIVERY`, `LOOP`, `CAPABILITY`, `EMIT`,
+  `REGISTRY`, `PROGRESS`: no dated deliberate observation on record for
+  any of them on this platform version — the watcher/heartbeat rules
+  define check surfaces for several, but a check surface is not a dated
+  observation, and rows are never inferred from ambient traffic. Named
+  backfill: the MCP-393 slice-B observation pass (ticket MCP-393), which
+  exercises the seen-set, sidecar, and heartbeat surfaces these rows
+  need.
+- **Codex's other liveness classes, Cursor, and Gemini/Antigravity —
+  declaration rows owed.** The certified rows above cover the named
+  classes on the named paths only.
 
 ## Policy Spine
 

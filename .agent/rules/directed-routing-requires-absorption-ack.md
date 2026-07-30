@@ -18,8 +18,8 @@ ticket MCP-393; delivery plan
 
 A team session is active (the same window as
 [`comms-all-channels-watcher`](comms-all-channels-watcher.md)), and a
-directed comms event is being SENT that carries routing, a decision, or
-an ask the sender needs absorbed — or has been RECEIVED and absorbed.
+directed comms event is being SENT that carries routing or an ask the
+sender needs absorbed — or has been RECEIVED and absorbed.
 Pure-FYI directed events and broadcast traffic are out of scope: the
 convention prices absorption evidence only where a non-reply would
 mislead routing.
