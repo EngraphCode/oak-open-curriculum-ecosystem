@@ -9,7 +9,6 @@ import {
   createMockObservability,
   createMockRuntimeConfig,
   createNoOpClerkMiddleware,
-  createNoOpRateLimiterFactory,
   createUnauthenticatedMcpAuthClerkDeps,
 } from './helpers/test-config.js';
 import { getScratchStaticRoot } from '../src/test-helpers/static-root-fixture.js';
@@ -30,7 +29,6 @@ async function createBypassedApp() {
     getWidgetHtml: () => '<!doctype html><html><body>test-widget</body></html>',
     getLandingPageHtml: () =>
       '<!doctype html><html lang="en-GB"><body>test landing page</body></html>',
-    rateLimiterFactory: createNoOpRateLimiterFactory(),
   });
 }
 
@@ -49,7 +47,6 @@ async function createEnforcedApp() {
     upstreamMetadata: TEST_UPSTREAM_METADATA,
     clerkMiddlewareFactory: createNoOpClerkMiddleware(),
     mcpAuthClerkDeps: createUnauthenticatedMcpAuthClerkDeps(),
-    rateLimiterFactory: createNoOpRateLimiterFactory(),
   });
 }
 

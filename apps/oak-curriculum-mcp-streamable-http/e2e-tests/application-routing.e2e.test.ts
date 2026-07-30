@@ -26,7 +26,6 @@ import {
   createMockObservability,
   createMockRuntimeConfig,
   createNoOpClerkMiddleware,
-  createNoOpRateLimiterFactory,
   createUnauthenticatedMcpAuthClerkDeps,
 } from './helpers/test-config.js';
 import { TEST_UPSTREAM_METADATA } from '../src/test-helpers/upstream-metadata-fixture.js';
@@ -57,7 +56,6 @@ async function createAuthEnabledApp(): Promise<Express> {
     getWidgetHtml: () => '<!doctype html><html><body>test-widget</body></html>',
     getLandingPageHtml: () =>
       '<!doctype html><html lang="en-GB"><body>test landing page</body></html>',
-    rateLimiterFactory: createNoOpRateLimiterFactory(),
     upstreamMetadata: TEST_UPSTREAM_METADATA,
     clerkMiddlewareFactory: createNoOpClerkMiddleware(),
     mcpAuthClerkDeps: createUnauthenticatedMcpAuthClerkDeps(),
@@ -283,7 +281,6 @@ describe('Application-Level Method-Aware Auth', () => {
         getWidgetHtml: () => '<!doctype html><html><body>test-widget</body></html>',
         getLandingPageHtml: () =>
           '<!doctype html><html lang="en-GB"><body>test landing page</body></html>',
-        rateLimiterFactory: createNoOpRateLimiterFactory(),
       });
     }
 

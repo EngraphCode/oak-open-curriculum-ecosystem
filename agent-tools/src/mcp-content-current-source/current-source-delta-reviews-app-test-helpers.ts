@@ -9,6 +9,7 @@
  * took that map over the file-size gate.
  */
 import {
+  DELETED_SOURCE,
   excluded,
   TEST_ONLY,
   type CurrentSourceDeltaReview,
@@ -45,5 +46,11 @@ export const APP_TEST_HELPERS_DELTA_REVIEWS: Readonly<Record<string, CurrentSour
   'apps/oak-curriculum-mcp-streamable-http/src/test-helpers/static-root-fixture.ts': excluded(
     '6350420bb5d4e36cbca9264a0a7b704ebb3dd6ce57027e6073bc60f007447a8d',
     TEST_ONLY,
+  ),
+  // MCP-411 (ADR-219): the limiter DI fakes deleted with the in-code
+  // rate limiter they faked.
+  'apps/oak-curriculum-mcp-streamable-http/src/test-helpers/rate-limiter-fakes.ts': excluded(
+    '62968b7e49ba75a36d9b72f3b4af207ded0d268b8694036456f138cc3903f234',
+    DELETED_SOURCE,
   ),
 };

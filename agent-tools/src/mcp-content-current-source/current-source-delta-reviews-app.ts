@@ -22,7 +22,7 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/app/bootstrap-finalize.ts': excluded(
-    '7011f33a6e30c2eb67bd9342259e310462bc126e37b41158c37e872f09238838',
+    '35db06b7e8a8eef7d9c768aa76addc8e99fa36dc2b974ef18e3e173404735293',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/app/bootstrap-security.ts': excluded(
@@ -30,11 +30,11 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/app/core-endpoints.ts': reviewed(
-    '0c263bbcb4c3a6e920fce3ab280d89958c4c849ce5fc9c2846209583d690b1df',
+    '06c3e987f2603d36c3405a9dd1c08a99728000f931555a3ea04f6ecbfa3348e6',
     ['C323', 'C324'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/app/create-app-options.ts': excluded(
-    'c6f46c27110ad8591bc9cf4546db0f39d9756690dc251c3898333d10d04d81b7',
+    '9be38b5d3ef623e943a6ddff0d0d008acfeee81c2e53f34173b45f80886b1522',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/app/landing-page-artefact.ts': excluded(
@@ -46,11 +46,11 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/app/oauth-and-caching-setup.ts': excluded(
-    'cfadc964d6f74706565393acb0962b6b733ca6e5b97fd0b6dff5866ed4eb60a8',
+    '98eed582f23cb0bba00b08099e3c1c16000b3e3e649fd22ea723a91348924689',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/app/orchestration.ts': excluded(
-    'b001a6245d49fdf70ca41ff77e26a7f97305e85d2270bf6574f7ea8f02a78133',
+    '884bb199bff48ee638c33fc827fe5d3cb547be740d47cf6ca4ecd484c34055f4',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/app/static-asset-paths.ts': excluded(
@@ -62,7 +62,7 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/application.ts': excluded(
-    '240376b016d16c344d25a7a1f6bb181234cef9d0a80cf481202d6d570bf07e7e',
+    'f16f8e80a7f92af82f82408e5365e92a6f2758afdd6d2d6d43886a212bb11f67',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/canonical-origin.ts': excluded(
@@ -113,7 +113,7 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     ['C702', 'C703', 'C704'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/index.ts': excluded(
-    '32c881e576b2bf44237639c5a49f6877720f1586bbd112eae8965df53701bbbc',
+    '895ee6647d2eab509c63d8384643b35dd354cbfec0b97fb9699667a91dbbc281',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/logging/index.ts': excluded(
@@ -121,7 +121,7 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/mcp-middleware.ts': excluded(
-    '7499e649d7c2e4cc5f7f8d27fe63c39b485921a1b17a1b27692b09f4652a2f04',
+    '330e97824013a4fd69bfc0c259ba7fb977e1127f11359d597a333c8d58428250',
     IMPLEMENTATION_ONLY,
   ),
   // MCP-353 (§2.F cure): the fetch trigger, canonical URL, and resource_link
@@ -198,7 +198,7 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/server.ts': excluded(
-    'f06ab4d0a5e270a5220ce39f003ae2d59c11ee1fdd9b287035270fbd0f67d252',
+    '54f8c8f08eddc4f862d3cb66382db80ce07c15ea1822d91cab6e97a0767ddcbe',
     IMPLEMENTATION_ONLY,
   ),
   // MCP-403 review round: check-then-patch guard on the fetch sentinel so a

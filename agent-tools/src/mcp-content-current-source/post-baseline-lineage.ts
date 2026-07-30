@@ -166,6 +166,18 @@ const MCP_AUTH_RESPONSE_RELOCATIONS = [
   ['C400', [MCP_AUTH_RESPONSES]],
 ] as const;
 
+/**
+ * MCP-411 removed the in-code rate limiter (ADR-219: rate limiting is an
+ * edge concern): the four profile 429 message rows retired with
+ * rate-limit-profiles.ts — the server no longer emits 429s of its own.
+ */
+const RATE_LIMITER_REMOVAL_RETIREMENTS = [
+  ['C409', []],
+  ['C410', []],
+  ['C411', []],
+  ['C412', []],
+] as const;
+
 /** All post-baseline lineage, composed for the current-item lineage map. */
 export const POST_BASELINE_LINEAGE_ENTRIES = [
   ...ORIENTATION_ERA_LINEAGE_ENTRIES,
@@ -176,4 +188,5 @@ export const POST_BASELINE_LINEAGE_ENTRIES = [
   ...UNDER_THE_HOOD_BAKE_RETIREMENTS,
   ...SERVED_ORIGIN_PROMOTION,
   ...MCP_AUTH_RESPONSE_RELOCATIONS,
+  ...RATE_LIMITER_REMOVAL_RETIREMENTS,
 ] as const;
