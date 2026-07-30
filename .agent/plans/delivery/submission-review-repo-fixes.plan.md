@@ -73,10 +73,10 @@ The remaining two are a one-line manifest gap and a posture decision.
    available as its own deliberate lane if the owner wants the behaviour; the graph tools'
    bounded-with-honest-totals pattern is the template. Owner-confirmed 2026-07-30 (card;
    the gate above is cleared).
-5. **MCP-442 — inventory truing** (class: record; no new work). Landed as `SHA:34f24834d`
-   before this plan was authored and verified against the ticket's definition of done; the
-   heading now names the falsification inline. The ticket closes once the truing commit is an
-   ancestor of `origin/main` (the coordination roll-up).
+5. **MCP-442 — inventory truing** (class: record; no new work). COMPLETE: landed as
+   `SHA:34f24834d` before this plan was authored, verified against the ticket's definition of
+   done, and closed 2026-07-30 after roll-up PR 659 (merge `81fd98053`) put the truing commit
+   into `origin/main` ancestry (verified first-hand at close).
 
 ## Acceptance criteria
 

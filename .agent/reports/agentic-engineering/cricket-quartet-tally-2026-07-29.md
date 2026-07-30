@@ -63,6 +63,8 @@ Verdict key: ON = ON-TRACK, DR = DRIFTING, WP = WRONG-PRIORITY. One row per quar
 | 16 | same moment | a | ON | — unretrieved at close (relay asked) | ON | — undelivered (INLINE arm) | no (among delivered) |
 | 17 | Director Falcon hunts Flight (52841f), round 13 — SUCCESSION boundary (Moment-2 seated), ~06:21Z (30 Jul) | n | ON | ON† | ON | DR — UNNAMED arm, DELIVERED; frame-legibility, absorbed | yes → adjudicated at the seat |
 | 18 | same moment | a | ON | ON† | ON | DR — UNNAMED arm, DELIVERED; convergent MCP-398 gate-naming, absorbed | yes → adjudicated at the seat |
+| 19 | Implementer Inferno weaves Kindling (3d8c87), fixes-lane-end/seat-disposition boundary, ~17:50Z (30 Jul) — LEGACY seat names, 3/4 template-less (post-ruling-39 path break) | n | ON ("SOUND") | ON — invert closeout order: owner report first, teardown on word; anchor claim not this lane's evidence | ON | ON — all 5 PASS | no on verdict; B's sequencing redirection adopted |
+| 20 | same moment, ~17:54Z — NEW #654 roles (judgement-low/med/high, procedure-xhigh), zero template failures | a | ON | DR — "hold awaiting owner word" is an uncited gate; offer freed capacity for routing | ON — verify nothing rides the anchor claim first | ON — PDR-078 §4 flagged unverified (verified real at the seat post-hoc) | yes → routed to Director (directed event ~18:00Z) + owner card; Director ruled no-new-lane (Matt's conn), owner card ruled "Retire now" |
 
 ### Round 13 axis notes (2026-07-30 ~06:26Z, Falcon hunts Flight — succession pickup round)
 
