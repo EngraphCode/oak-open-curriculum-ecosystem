@@ -1,3 +1,10 @@
+## [1.124.5](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.124.4...v1.124.5) (2026-07-30)
+
+
+### Bug Fixes
+
+* **tooling:** unset git hook env around turbo so worktree gates run ([993a54d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/993a54dfb1790e4e2e624216852b66a6a4021548))
+
 ## [1.124.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.124.3...v1.124.4) (2026-07-30)
 
 
