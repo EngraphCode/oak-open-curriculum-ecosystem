@@ -2091,8 +2091,9 @@ clause. Falsifier: enactments never diverge — tacit practice was enough.
 owner-mandated at-least-hourly cadence. No cure proposed here beyond the naming — the
 structural-cue question is already with the Director from the 2026-07-23 consolidation.
 
-**Small tool facts**: `comms direct` rejects `--in-response-to` (send-only flag — exit 2 with
-the cause swallowed unless unpiped); `claims close` requires --summary/--now/--platform/--model
+**Small tool facts**: `comms direct` accepts `--in-response-to` since the MCP-393 closing build
+(2026-07-30; it was send-only before — exit 2 with the cause swallowed unless unpiped);
+`claims close` requires --summary/--now/--platform/--model
 (a bare close exits 2; my first attempt read as success through a tail pipe — caught by reading
 the registry); a harness restart orphans Monitor tasks silently (both loops died marked-stopped;
 re-arm on the same seen-file + gap sweep recovered cleanly, zero known event loss).

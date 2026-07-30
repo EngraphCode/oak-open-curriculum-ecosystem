@@ -459,6 +459,13 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   server runs no in-process limiter; static-analysis findings are
   adjudicated against the actual architecture; supersedes ADR-158;
   Accepted 2026-07-30)
+- [ADR-220: The comms-event threading edge spans every respondable kind](220-comms-event-threading-edge-across-kinds.md)
+  (`in_response_to` is a substrate-wide optional affordance on every kind that
+  can be a response — `narrative` and `directed` today, `sync` when ADR-184's
+  kind lands; the edge is advisory and unvalidated, with write-time validation
+  deferred behind ADR-199's archived-antecedent question, and unrendered, so the
+  human-readable back-reference stays an authoring obligation; Accepted
+  2026-07-30)
 
 ## Key Architectural Decisions
 

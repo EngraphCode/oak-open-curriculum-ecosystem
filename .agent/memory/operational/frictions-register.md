@@ -2711,6 +2711,15 @@ commit SHA and the closing plan reference.
   comms-concept-gate test shapes.
 - **Target surface**: `agent-tools/src/collaboration-state/cli-comms-commands.ts` (append options
   resolution).
+- **Second instance + widened surface (2026-07-30, MCP-393 closing build)**: `comms direct
+  --in-response-to` (added that day) inherits the same non-validation, and the directed ack is now a
+  rule-recommended path for routine acknowledgements — so the fabricated-id class rides a busier
+  road. Same-day worked instance of the class on the append side: a codex seat threaded an
+  acknowledgement (event `922bbbfa`) to a wrong id remembered from watcher output (which renders no
+  ids) and shipped a correction event (`ffd7c635`). Design question any cure must answer before landing: ADR-199 rotation moves
+  archived events out of `comms/`, so a VALID antecedent can be unresolvable at write time — the
+  guard needs an archived-antecedent stance (refuse, warn, or resolve-through-archive), which is
+  plausibly why this friction has stayed open.
 - **Status**: open.
 - **Owner direction status**: standing (record-all-frictions); captured at session closeout.
 
