@@ -75,7 +75,7 @@ export const APP_LANDING_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDel
   // name) and C392 (new-tab hint) both re-anchor on that merged node;
   // C393 re-anchors on the wordmark's JSX root.
   'apps/oak-curriculum-mcp-streamable-http/widget/src/BrandBanner.tsx': reviewed(
-    'd4da5642fa6a6b00e7214b6cfddde81e334515ae0a0ba673284bf153295b1919',
+    '906d3077e30467c25c9080385224ae2cb82cf834982a17ff24d160d907ce1510',
     ['C390', 'C391', 'C392', 'C393'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/landing-page/escape-html.ts': excluded(

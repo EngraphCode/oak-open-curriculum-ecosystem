@@ -33,9 +33,20 @@ const OAK_URL = 'https://www.thenational.academy';
 const rootTagStart = wordmarkRaw.indexOf('<svg');
 const rootTagEnd = wordmarkRaw.indexOf('>', rootTagStart);
 const rootClose = wordmarkRaw.lastIndexOf('</svg>');
-if (rootTagStart === -1 || rootTagEnd === -1 || rootClose === -1 || rootClose < rootTagEnd) {
+if (
+  rootTagStart === -1 ||
+  rootTagEnd === -1 ||
+  rootClose === -1 ||
+  rootClose < rootTagEnd ||
+  // Exactly ONE root: a second <svg (a concatenated re-export) would
+  // otherwise pair the first opening tag with the LAST closing tag and
+  // inject the extra root as geometry; trailing non-whitespace after the
+  // close is the same class.
+  wordmarkRaw.indexOf('<svg', rootTagStart + 1) !== -1 ||
+  wordmarkRaw.slice(rootClose + '</svg>'.length).trim() !== ''
+) {
   throw new Error(
-    'logo-wide-black.svg no longer parses as a single-root SVG — refusing to inject garbage',
+    'logo-wide-black.svg no longer parses as a single-root SVG document — refusing to inject garbage',
   );
 }
 const viewBoxMatch = /viewBox="([^"]+)"/u.exec(wordmarkRaw.slice(rootTagStart, rootTagEnd + 1));

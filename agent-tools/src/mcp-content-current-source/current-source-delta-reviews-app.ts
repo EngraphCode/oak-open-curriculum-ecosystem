@@ -93,7 +93,7 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
   // visually-hidden accessible name (+20.2KB, matching the review's
   // predicted +19KB).
   'apps/oak-curriculum-mcp-streamable-http/src/generated/widget-html-content.ts': reviewed(
-    'a377cb5d18502383f8131bd3e8cad10331f7833f5a598834ceba6522d25339ef',
+    'c47281d52e75d324b44e98f00df18506a9d841874877301a54825414e45f5437',
     ['C394'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/handlers.ts': excluded(

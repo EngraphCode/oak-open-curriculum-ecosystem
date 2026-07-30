@@ -142,24 +142,25 @@ test.describe('Oak banner widget', () => {
   test('@a11y the color-contrast exclusion self-retires with its upstream cause', async ({
     page,
   }, testInfo) => {
-    // The exclusion above exists only because axe-core#3978 reads the
-    // author foreground under forced colours. The moment Chromium forces
-    // -webkit-text-fill-color (or axe reads `color`), the artefact is gone
-    // and this test fails, telling its finder to DELETE the exclusion.
-    // In the unforced projects the two properties are identical by
-    // definition, so the expectation is project-conditional data, not a
-    // conditional assertion: one deterministic path, expected value from
-    // the project name.
-    const [color, textFillColor] = await page
-      .locator('.oak-app__disclaimer')
-      .evaluate((el) => [getComputedStyle(el).color, getComputedStyle(el).webkitTextFillColor]);
+    // The exclusion above exists only because axe-core#3978 reports a
+    // false color-contrast violation under forced colours. This probes
+    // the SYMPTOM — axe run with only that rule — so it retires on EITHER
+    // upstream fix path: Chromium forcing -webkit-text-fill-color, or axe
+    // switching to read `color`. The moment the artefact disappears, the
+    // forced-colours expectation fails and its finder DELETES the
+    // exclusion. In the author-palette projects the same probe must find
+    // nothing (the real palette has proper contrast), so the expected
+    // value is project-conditional data on one deterministic assertion
+    // path.
+    const probe = await new AxeBuilder({ page }).withRules(['color-contrast']).analyze();
+    const falsePositivePresent = probe.violations.some((v) => v.id === 'color-contrast');
 
     const artefactExpected = testInfo.project.name === 'widget-forced-colors';
     expect(
-      textFillColor !== color,
+      falsePositivePresent,
       artefactExpected
-        ? `axe-core#3978 artefact is gone (color ${color} == text-fill ${textFillColor}) — delete the color-contrast exclusion above`
-        : `unforced projects must not diverge (color ${color} vs text-fill ${textFillColor}): forced-colours behaviour is leaking`,
+        ? 'axe-core#3978 artefact is gone — delete the color-contrast exclusion above'
+        : `color-contrast violations in an author-palette project:\n${JSON.stringify(probe.violations, null, 2)}`,
     ).toBe(artefactExpected);
   });
 });
