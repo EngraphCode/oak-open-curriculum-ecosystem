@@ -58,8 +58,11 @@ const BaseEnvSchema = OakApiKeyEnvSchema.extend(ElasticsearchEnvSchema.shape)
      * production — `superRefine` below makes that a hard startup
      * failure.
      *
-     * Minimum 16 chars: the secret's entropy is the abuse control (an
-     * unauthorised hit costs one 401 body and one warn log line).
+     * Provision a random (high-entropy) value: the secret gates the
+     * route's effect — an unauthorised hit costs one 401 body and one
+     * warn log line, no Sentry capture. The schema enforces only the
+     * 16-char length floor; unauthorised request volume is bounded at
+     * the edge (ADR-219).
      */
     TEST_ERROR_SECRET: z.string().min(16).optional(),
     /**

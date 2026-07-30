@@ -57,7 +57,9 @@ and it is falsified the moment the edge stops carrying the control.
 ## Consequences
 
 - The server ships no limiter middleware, no limiter dependency and no limiter
-  tests; `express-rate-limit` leaves the dependency graph.
+  tests; `express-rate-limit` leaves the application's own dependencies. (It
+  remains in the lockfile as a transitive dependency of the MCP SDK, unused
+  by this application's code.)
 - Changing a rate limit is edge-configuration work. The repository holds no
   second copy of the control to drift against it.
 - Edge configuration is load-bearing: if it is weakened or removed for a

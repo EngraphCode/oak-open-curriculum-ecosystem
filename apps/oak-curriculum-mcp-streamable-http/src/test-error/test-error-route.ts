@@ -16,11 +16,13 @@
  *   `asyncRoute` pattern in `oauth-proxy-routes.ts`).
  *
  * Authentication uses constant-time comparison on the
- * `X-Test-Error-Secret` header; the secret's env-schema-enforced
- * \>= 16-char entropy is the abuse control (an unauthorised hit costs
- * one 401 body and one warn log line — no upstream call, no Sentry
- * capture), and the route cannot exist in production (the env
- * super-refine hard-fails startup).
+ * `X-Test-Error-Secret` header. The secret gates the route's EFFECT:
+ * without it a request costs one 401 body and one warn log line — no
+ * upstream call, no Sentry capture. Operators must provision a random
+ * (high-entropy) value — the env schema enforces only the 16-char
+ * length floor, which is not itself entropy. Unauthorised request
+ * VOLUME is bounded at the edge (ADR-219), and the route cannot exist
+ * in production (the env super-refine hard-fails startup).
  *
  * Why this exists:
  *   The Phase 1 baseline probes prove the transactions stream. The

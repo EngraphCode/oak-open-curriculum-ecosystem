@@ -212,7 +212,7 @@ drift. After adding or changing a pattern file, regenerate with
 - **Validation Error Severity Separation** -- Use this when: A schema validation error message lists all absent fields alongside actually failing fields, making operators debug the wrong variables. → [validation-error-severity-separation.md](validation-error-severity-separation.md)
 - **Zod Boundaries in Sandbox-Harness Modules** -- Use this when: Authoring or reviewing a module whose files are esbuild-bundled into a sandboxed harness artefact (Workflow scripts, agent prompts), or whose zod refinements guard stage-boundary invariants. → [zod-boundaries-in-sandbox-harness-modules.md](zod-boundaries-in-sandbox-harness-modules.md)
 
-### Architecture (14)
+### Architecture (13)
 
 - **A Sandbox Constraint Is a Build Instruction, Not a Hand-Authoring Licence** -- Use this when: A runtime surface cannot import or reuse repo code (a sandbox, an embedded script, a config DSL, a remote executor) and the impulse is to hand-write a parallel copy of logic, schemas, or prompts for it. → [sandbox-constraint-is-a-build-instruction.md](sandbox-constraint-is-a-build-instruction.md)
 - **check-code-invariants-before-designing-a-field** -- Use this when: Adding a new field, enum, taxonomy, or discriminator to existing code — enumerate the invariants the surrounding code already maintains first, then choose the new shape's axis to preserve them (the invariant-safe axis is often non-obvious). → [check-code-invariants-before-designing-a-field.md](check-code-invariants-before-designing-a-field.md)
@@ -222,7 +222,6 @@ drift. After adding or changing a pattern file, regenerate with
 - **Prefer Native SDK Over Custom Plumbing** → [prefer-native-sdk-over-custom-plumbing.md](prefer-native-sdk-over-custom-plumbing.md)
 - **Principled ESLint Zoning for Build Tooling and Generated Artefacts** -- Use this when: A workspace's build tooling (generators, extractors) or generated artefacts collide with app-strict lint rules and the reflex is to disable rules or contort the tooling into app-runtime idioms. → [principled-eslint-zoning.md](principled-eslint-zoning.md)
 - **provider-neutral-types-at-boundaries** → [provider-neutral-types-at-boundaries.md](provider-neutral-types-at-boundaries.md)
-- **Rate-Limit Upstream Amplification Vectors** -- Use this when: A route produces an upstream request (API call, redirect, proxy fetch) as a side effect of handling an inbound request. → [rate-limit-upstream-amplification-vectors.md](rate-limit-upstream-amplification-vectors.md)
 - **SDK-Owned Retriever Delegation** -- Use this when: An app-layer module builds an Elasticsearch retriever shape that the SDK already owns as a shared capability. → [sdk-owned-retriever-delegation.md](sdk-owned-retriever-delegation.md)
 - **To Author a Host-Free Portable Artefact, Choose a Host-Naive Author** -- Use this when: Authoring an artefact whose value depends on containing NO host/repo-specific concepts — a portable primer, a Practice-Core doc, a vendor-neutral spec. → [host-naive-author-for-portable-artefact.md](host-naive-author-for-portable-artefact.md)
 - **TSDoc Extension Point for Future Consumers** → [tsdoc-extension-point-for-future-consumers.md](tsdoc-extension-point-for-future-consumers.md)

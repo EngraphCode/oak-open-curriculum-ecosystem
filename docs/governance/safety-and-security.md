@@ -228,8 +228,8 @@ rule.
 
 ### Amplification Vectors
 
-One pattern allows a single inbound request to produce upstream load,
-and one pattern once thought to does not:
+One pattern allows a single inbound request to produce upstream load; a
+second pattern, once thought to, does not:
 
 1. **OAuth authorise redirect — zero amplification**: `GET /oauth/authorize`
    builds a 302 redirect URL and makes no upstream call. Clerk load is
