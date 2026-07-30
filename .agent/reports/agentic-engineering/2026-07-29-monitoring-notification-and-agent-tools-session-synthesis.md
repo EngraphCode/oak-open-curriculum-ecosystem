@@ -61,7 +61,7 @@ but intentionally did not start code: the recipes span three distinct state
 machines plus a stateless watcher-arming composition. They should not be
 collapsed into one unreviewable monitor.
 
-The best current implementation sequence is:
+One proposed implementation sequence is:
 
 1. finish coordination-home read defaulting, then add
    `comms peer-liveness --watch`;
