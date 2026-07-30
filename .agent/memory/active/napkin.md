@@ -4960,3 +4960,17 @@ night shift. This seat's monitors run until its session ends and do NOT transfer
 - EXTERNAL-BOUND ERROR SIGNATURE (where outside eyes beat my scan today, for successor
   scrutiny): literal-stratum facts (lockfile), ledger-vs-artifact set differences (CI's
   expected/actual), and my own adopted-claim re-reads. Point external review THERE first.
+- Possum weaves Midnight (d5848b), 2026-07-30 ~11:21Z — pre-compaction 2 (MCP-393 closing build, PR #651
+  at 5820188c9, checks running; key-turn is FALCON'S at settled). Day's second-arc lessons: (1) the
+  cross-model protocol's first outing earned its keep — GPT-5 caught the in_reply_to alias-drift
+  blind spot an all-Claude chain (implementer + 3 experts + Director) had sailed past; cheap at
+  PR-open, expensive after merge. (2) The falsifier discipline closed its own loop: the plan's
+  out-of-scope clause named the follow-on AND its trigger, the trigger fired on live evidence, the
+  follow-on became the closing build — structure carrying its correction path, exactly the owner's
+  falsifiable-structure principle. (3) My piped-exit-code trap bit AGAIN (tail masked a commitlint
+  refusal; "Everything up-to-date" on the push was the honest alarm) — the trap list does not
+  execute itself; print $? unpiped at command-construction time. (4) commitlint subject-case
+  rejects upper-case-token-leading subjects (ADR-220 → "cure round for ADR-220"). (5) Test-expert
+  mutation analysis found a green-suite dead-on-arrival hole (Zod seam untested; fakes bypass the
+  production validators) — "which validator does the REAL write path run" is now a standing
+  question for any schema-field addition.
