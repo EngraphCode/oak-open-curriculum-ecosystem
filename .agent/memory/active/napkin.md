@@ -5229,3 +5229,36 @@ night shift. This seat's monitors run until its session ends and do NOT transfer
   MCP-433 17:26Z, MCP-440 17:29Z). Closeout sequencing: read the ticket state BEFORE any manual
   Done mutation; the manual write is usually already unnecessary (query the value, never the
   assumption).
+
+- 2026-07-30 ~19:10Z (Inferno weaves Kindling, seat closeout — loss-scan + metaloss findings,
+  written per the always-to-napkin standing rule):
+  - COMMS CONCEPT GATE discovered live: `comms send` refused a body for the word "parked"
+    ("comms concept gate: 'parked' fires the indefinite-deferral block") — the substrate
+    lints deferral vocabulary, not just structure. Cure: name the mechanism (routing,
+    on-demand re-activation), not the shelf.
+  - HEARTBEAT LOOP PINS CLAIM IDS: the 240s loop hard-codes claim ids, so closing one claim
+    turns every later beat BEAT-FAILED. Cure executed: stop + re-arm for surviving claims at
+    every claim-close moment. candidate: derive the loop's bump-set from the live registry
+    at beat time instead of pinning ids at arm time (small agent-tools improvement).
+  - SWEEP FILTERS EAT DIRECTED BODIES: my gap-sweep grep passed `^--- NEW|^title:` — directed
+    events carry `subject:`, so a directed body would render as a bare banner. No loss this
+    time (the re-armed watcher delivered it), but the filter-vocabulary rule applies to
+    inbox sweeps too: derive patterns from observed emitter output (`title:` AND `subject:`
+    AND `from:`).
+  - CRICKET TALLY (experiment data): Claude 2×4 panel on the lane-end/seat-disposition frame.
+    Normal wave on LEGACY seat names (cricket-fable/opus/cricket/haiku): SOUND, ON-TRACK,
+    ON-TRACK, ON-TRACK — 3 of 4 reported their charter template path missing. Adversarial
+    wave on NEW roles (cricket-judgement-low/medium/high, cricket-procedure-xhigh):
+    ON-TRACK, DRIFTING (judgement-medium: don't hold freed capacity on owner word — offer
+    for routing), ON-TRACK, ON-TRACK — zero template failures. Registry hot-swapped between
+    waves. INFERENCE FLAGS: "#654 caused the hot-swap" and "GitHub auto-deleted the
+    coordination branch at roll-up merge" are both inferences from timing/output, not
+    observed causation.
+  - ACCEPTED CONTEXT-ONLY LOSSES (named, bounded): full prose of the 8 panel verdicts and the
+    dead subagent contexts (reviewers, guide, crickets) — adjudicated substance is durable on
+    MCP-440/comms; the raw texts die with this context by design. External-catch signature
+    for successors: this seat's misses were caught by Copilot (renderer edge cases, #657) and
+    by the panel's Opus seats (sequencing/scope of claims) — point external eyes at artefact
+    edge cases and closeout sequencing, where fluency peaks.
+  - Metaloss fixed point: a further pass re-finds only the two named accepted losses; the
+    recursion closes here.
