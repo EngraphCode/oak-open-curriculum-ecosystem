@@ -28,6 +28,14 @@ export default defineConfig({
       ELASTICSEARCH_URL: 'http://fake-es:9200',
       ELASTICSEARCH_API_KEY: 'fake-api-key-for-playwright',
       SENTRY_MODE: 'off',
+      // This block pins DANGEROUSLY_DISABLE_AUTH=true, so it must also pin
+      // the analytics axis that flag constrains: the app refuses a posthog
+      // selection under disabled auth (src/env-product-analytics.ts), and
+      // without this the developer's .env.local selection reaches the server
+      // and it cannot start (MCP-359). processEnv is the top layer in
+      // resolveEnv, so this pin beats every .env file. '[]' is the shared
+      // schema's own default — stdout-only baseline.
+      OBSERVABILITY_SINKS: '[]',
     },
   },
   use: {
