@@ -165,40 +165,39 @@ Errors are classified and handled appropriately:
 
 The HTTP MCP server operates behind multiple defence layers. Each layer
 catches threats the others miss. No single layer is sufficient alone.
-The two edge-protection layers (Cloudflare in front of Vercel) are the
-authoritative volumetric defence; application-layer controls are
-deliberately probabilistic defence-in-depth.
+The edge-protection layers (Cloudflare in front of Vercel) are the
+authoritative volumetric defence and the only layer that counts traffic;
+application-layer controls are authentication, authorisation, and input
+validation.
 
 ### Layer Stack
 
-| Layer                        | Protection                                                                                                                                                                                                                                            | Failure Mode                                                               |
-| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| **DNS**                      | DNS rebinding guard rejects requests with unrecognised `Host` headers. Applied selectively (landing page); MCP routes use OAuth instead.                                                                                                              | Bypassed if attacker controls DNS for an allowed host                      |
-| **Cloudflare (outer edge)**  | CDN/WAF in front of Vercel: volumetric DDoS, bot management, edge rate-limit rules, TLS termination, geo-restrictions                                                                                                                                 | Bypassed by direct-origin access or low-rate attacks below edge thresholds |
-| **Vercel (inner edge)**      | Vercel platform DDoS protection, edge functions, regional routing                                                                                                                                                                                     | Bypassed by direct-origin access or low-rate attacks below edge thresholds |
-| **Application — auth**       | OAuth 2.1 via Clerk (`mcpAuth` middleware), CORS, security headers (CSP, HSTS, X-Frame-Options)                                                                                                                                                       | Bypassed if OAuth token compromised or auth disabled                       |
-| **Application — rate limit** | Per-IP rate limiting on MCP, OAuth, and asset routes (`express-rate-limit`). Probabilistic on Vercel serverless (per-instance in-memory store). See [ADR-158](../architecture/architectural-decisions/158-multi-layer-security-and-rate-limiting.md). | Distributed attacks across IPs; counter reset on cold start                |
-| **Upstream API**             | Oak API per-key rate limiting and quota management                                                                                                                                                                                                    | Exhaustible via amplification from our server                              |
+| Layer                       | Protection                                                                                                                               | Failure Mode                                                                                               |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| **DNS**                     | DNS rebinding guard rejects requests with unrecognised `Host` headers. Applied selectively (landing page); MCP routes use OAuth instead. | Bypassed if attacker controls DNS for an allowed host                                                      |
+| **Cloudflare (outer edge)** | CDN/WAF in front of Vercel: volumetric DDoS, bot management, edge rate-limit rules, TLS termination, geo-restrictions                    | Bypassed by direct-origin access or low-rate attacks below edge thresholds                                 |
+| **Vercel (inner edge)**     | Vercel platform DDoS protection, edge functions, regional routing                                                                        | Bypassed by direct-origin access or low-rate attacks below edge thresholds                                 |
+| **Application — auth**      | OAuth 2.1 via Clerk (`mcpAuth` middleware), CORS, security headers (CSP, HSTS, X-Frame-Options)                                          | Bypassed if OAuth token compromised or auth disabled                                                       |
+| **Upstream API**            | Oak API per-key rate limiting; this service's key is exempt as an internal consumer                                                      | Not a quota ceiling for this service — amplification is bounded by upstream capacity, not by per-key quota |
 
 **Read-only blast radius.** All MCP tools exposed by this server are
 read-only — there is no state-mutation surface. A successful bypass at
-any layer cannot corrupt data; the worst-case impact is exhaustion of
-upstream Oak API per-key quota or Vercel compute budget. This shapes
-proportionality across the controls below: the application-layer rate
-limiter protects quota and compute budget, not data integrity.
+any layer cannot corrupt data; the worst case is upstream load and Vercel
+compute spend. This shapes proportionality across the controls below: the
+volumetric controls that bound that load live at the edge, where traffic
+can actually be counted (see
+[ADR-219](../architecture/architectural-decisions/219-rate-limiting-is-an-edge-concern.md)).
 
 ### Trust Boundaries
 
 - **Client → CDN**: untrusted; CDN applies edge protection
-- **CDN → app origin**: semi-trusted. Rate-limit key extraction is
-  runtime-aware: on Vercel the limiter reads `x-vercel-forwarded-for`
-  (Vercel-edge-written); on non-Vercel runtimes it falls back to
-  `req.ip` (and the operator's local proxy chain must be configured for
-  that fallback to be correct). `x-vercel-forwarded-for` is **never**
-  trusted on non-Vercel runtimes — any client could spoof it. See
-  [ADR-158 §Runtime-Aware Key Extraction](../architecture/architectural-decisions/158-multi-layer-security-and-rate-limiting.md#runtime-aware-key-extraction)
-  for the load-bearing platform assumptions and configuration-drift
-  tripwires.
+- **CDN → app origin**: semi-trusted. The origin does not derive client
+  identity from forwarded-for headers: on this deployment they resolve to
+  Cloudflare egress addresses, not to clients, so they are treated as
+  diagnostic context only and never as a security or accounting key.
+  Client identity at the application layer comes from the OAuth token,
+  not from the network address (see
+  [ADR-219](../architecture/architectural-decisions/219-rate-limiting-is-an-edge-concern.md)).
 - **App → upstream API**: authenticated via `OAK_API_KEY`; our server is
   the trust principal, not the end user
 - **Iframe sandbox → host**: MCP Apps SDK widget runs in a sandboxed
@@ -229,20 +228,26 @@ rule.
 
 ### Amplification Vectors
 
-Two patterns allow a single inbound request to produce upstream load:
+One pattern allows a single inbound request to produce upstream load,
+and one pattern once thought to does not:
 
-1. **OAuth authorise redirect**: `GET /oauth/authorize` produces a 302 to
-   Clerk's authorisation server. Each hit creates a pending session at
-   Clerk, consuming per-application quota. The attacker needs no auth —
-   the redirect is public.
+1. **OAuth authorise redirect — zero amplification**: `GET /oauth/authorize`
+   builds a 302 redirect URL and makes no upstream call. Clerk load is
+   created only by a client choosing to follow the redirect, which an
+   abuser has no incentive to do.
 
 2. **HMAC-signed asset replay**: Asset download URLs are HMAC-signed with
    a 5-minute TTL but no single-use constraint. Within the window, a
-   valid URL can be replayed to generate unlimited upstream Oak API
-   requests, all authenticated with the server's `OAK_API_KEY`.
+   valid URL can be replayed to re-read one already-authorised asset
+   through the server's `OAK_API_KEY`.
 
-Both are mitigated by application-layer rate limiting (see
-[ADR-158](../architecture/architectural-decisions/158-multi-layer-security-and-rate-limiting.md)).
+The replay vector is bounded at the edge, where request volume per source
+can actually be counted; it is not bounded in the application, which
+cannot count per client on this deployment (see
+[ADR-219](../architecture/architectural-decisions/219-rate-limiting-is-an-edge-concern.md)).
+Its upstream cost is bounded by upstream capacity rather than a per-key
+quota, because this service's Oak API key is exempt from per-key rate
+limiting as an internal consumer.
 
 ## Network Security
 

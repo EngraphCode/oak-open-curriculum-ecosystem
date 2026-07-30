@@ -7,7 +7,7 @@
  * emits JSON for the repository validator. No host-delivery claim is made.
  */
 
-import express, { type RequestHandler } from 'express';
+import express from 'express';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { InMemoryTransport } from '@modelcontextprotocol/sdk/inMemory.js';
 import { ErrorCode } from '@modelcontextprotocol/sdk/types.js';
@@ -147,9 +147,6 @@ async function createConnectedClient(): Promise<Client> {
     throw new Error('Could not create inert HTTP observability for registration proof');
   }
   const app = express();
-  const passThrough: RequestHandler = (_request, _response, next) => {
-    next();
-  };
   const { mcpFactory } = initializeCoreEndpoints(
     app,
     {
@@ -159,7 +156,6 @@ async function createConnectedClient(): Promise<Client> {
       getWidgetHtml: () => '<html>current-source-validator</html>',
     },
     createLogger(),
-    passThrough,
   );
   const { server } = mcpFactory();
   const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();

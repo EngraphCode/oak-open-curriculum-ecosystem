@@ -58,9 +58,8 @@ const BaseEnvSchema = OakApiKeyEnvSchema.extend(ElasticsearchEnvSchema.shape)
      * production — `superRefine` below makes that a hard startup
      * failure.
      *
-     * Minimum 16 chars to discourage trivial brute-force; rate-
-     * limited at the route level via the existing `oauthRateLimiter`
-     * (30 req / 15 min / IP).
+     * Minimum 16 chars: the secret's entropy is the abuse control (an
+     * unauthorised hit costs one 401 body and one warn log line).
      */
     TEST_ERROR_SECRET: z.string().min(16).optional(),
     /**
