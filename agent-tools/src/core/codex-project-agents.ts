@@ -8,6 +8,7 @@ import {
 import type { CodexAgentRegistration } from './codex-project-agent-registry.js';
 import {
   createTopLevelTomlBasicStringReader,
+  readOptionalTopLevelTomlBasicString,
   type TopLevelTomlBasicStringReader,
 } from './toml-top-level-basic-string.js';
 
@@ -110,7 +111,7 @@ function readAdapterMetadata(
   return {
     name,
     description,
-    model: readValue('model'),
+    model: readOptionalTopLevelTomlBasicString(readValue, 'model', adapterPath),
     modelReasoningEffort: readRequiredAdapterValue(
       readValue,
       'model_reasoning_effort',

@@ -123,6 +123,31 @@ describe('Codex subagent helper coverage', () => {
     });
   });
 
+  it('rejects a present non-string optional model in an ordinary Codex adapter', () => {
+    const { issues } = getCodexAdapterValidation({
+      codexAdapterFile: '.codex/agents/code-expert.toml',
+      registeredAgent: {
+        name: 'code-expert',
+        description: 'Gateway reviewer.',
+        configFile: 'agents/code-expert.toml',
+      },
+      content: `name = "code-expert"
+description = "Gateway reviewer."
+model = 42
+model_reasoning_effort = "high"
+sandbox_mode = "read-only"
+approval_policy = "never"
+
+developer_instructions = """
+Read and follow \`.agent/sub-agents/templates/code-expert.md\`.
+"""`,
+    });
+
+    expect(issues).toContain(
+      '.codex/agents/code-expert.toml: model must be a TOML string when present (found: non-string)',
+    );
+  });
+
   it('reports adapter metadata drift from the central registry', () => {
     const { issues } = getCodexAdapterValidation({
       codexAdapterFile: '.codex/agents/code-expert.toml',

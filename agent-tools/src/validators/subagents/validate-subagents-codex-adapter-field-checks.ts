@@ -60,14 +60,35 @@ function validateRequiredSettings(
 ): string[] {
   const issues: string[] = [];
   for (const [settingKey, expectedValue] of requiredSettings) {
-    const actualValue = readValue(settingKey);
-    if (actualValue !== expectedValue) {
+    const state = readValue.inspect(settingKey);
+    if (state.kind !== 'string' || state.value !== expectedValue) {
       issues.push(
-        `${adapterFile}: ${settingKey} must be "${expectedValue}" (found: ${actualValue ?? 'missing'})`,
+        `${adapterFile}: ${settingKey} must be "${expectedValue}" (found: ${formatSettingState(state)})`,
       );
     }
   }
   return issues;
+}
+
+function formatSettingState(state: ReturnType<TopLevelTomlBasicStringReader['inspect']>): string {
+  if (state.kind === 'string') {
+    return state.value;
+  }
+  return state.kind === 'missing' ? 'missing' : 'non-string';
+}
+
+function validateOptionalModelType(
+  adapterFile: string,
+  readValue: TopLevelTomlBasicStringReader,
+  requiredSettings: readonly (readonly [string, string])[],
+): string[] {
+  if (requiredSettings.some(([settingKey]) => settingKey === 'model')) {
+    return [];
+  }
+  if (readValue.inspect('model').kind !== 'non-string') {
+    return [];
+  }
+  return [`${adapterFile}: model must be a TOML string when present (found: non-string)`];
 }
 
 // ---------------------------------------------------------------------------
@@ -192,6 +213,7 @@ export function validateAdapterFields(params: ValidateAdapterFieldsParams): stri
     ...(declaredDescription === null
       ? [`${adapterFile}: missing required TOML key "description"`]
       : []),
+    ...validateOptionalModelType(adapterFile, readValue, requiredSettings),
     ...validateRegistrationSync(
       adapterFile,
       adapterBasename,
