@@ -307,7 +307,7 @@ describe('getReviewerAdapterParityIssues', () => {
         codexAgentFiles: ['.codex/agents/cricket-judgement-high.toml'],
       }),
     ).toContain(
-      '.codex/agents/cricket-judgement-high.toml: reviewer adapter is unsupported because this Cricket seat is Claude and Cursor only',
+      '.codex/agents/cricket-judgement-high.toml: reviewer adapter is unsupported on codex by the shared platform contract',
     );
   });
 });

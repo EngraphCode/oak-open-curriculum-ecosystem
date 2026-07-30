@@ -4,12 +4,15 @@
  * Named reviewer agents normally have adapter files on all three supported
  * platforms: Cursor (`.cursor/agents/<name>.md`), Claude Code
  * (`.claude/agents/<name>.md`), and Codex (`.codex/agents/<name>.toml`).
- * The one platform-specific panel seat is encoded explicitly below. This
+ * Platform-specific seats are encoded in the shared support contract. This
  * module provides the pure function that detects parity gaps given the lists
  * of existing adapter file paths.
  */
 
-import { isReviewerAdapterSupportedOnPlatform } from '../../core/reviewer-adapter-platform-contract.js';
+import {
+  isReviewerAdapterSupportedOnPlatform,
+  type ReviewerAdapterPlatform,
+} from '../../core/reviewer-adapter-platform-contract.js';
 import { stripDirAndExtension } from './portability-constants.js';
 
 /**
@@ -64,28 +67,48 @@ export function getReviewerAdapterParityIssues({
   );
 
   for (const agentName of canonicalNames) {
-    if (!cursorNames.has(agentName)) {
-      issues.push(
-        `.cursor/agents/${agentName}.md: missing reviewer adapter required for cross-platform parity`,
-      );
-    }
-    if (!claudeNames.has(agentName)) {
-      issues.push(
-        `.claude/agents/${agentName}.md: missing reviewer adapter required for cross-platform parity`,
-      );
-    }
-    const supportsCodex = isReviewerAdapterSupportedOnPlatform(agentName, 'codex');
-    if (!codexNames.has(agentName) && supportsCodex) {
-      issues.push(
-        `.codex/agents/${agentName}.toml: missing reviewer adapter required for cross-platform parity`,
-      );
-    }
-    if (codexNames.has(agentName) && !supportsCodex) {
-      issues.push(
-        `.codex/agents/${agentName}.toml: reviewer adapter is unsupported because this Cricket seat is Claude and Cursor only`,
-      );
-    }
+    collectReviewerAdapterParityIssue(
+      issues,
+      agentName,
+      'cursor',
+      cursorNames,
+      `.cursor/agents/${agentName}.md`,
+    );
+    collectReviewerAdapterParityIssue(
+      issues,
+      agentName,
+      'claude-code',
+      claudeNames,
+      `.claude/agents/${agentName}.md`,
+    );
+    collectReviewerAdapterParityIssue(
+      issues,
+      agentName,
+      'codex',
+      codexNames,
+      `.codex/agents/${agentName}.toml`,
+    );
   }
 
   return issues;
+}
+
+function collectReviewerAdapterParityIssue(
+  issues: string[],
+  agentName: string,
+  platform: ReviewerAdapterPlatform,
+  agentNames: ReadonlySet<string>,
+  adapterPath: string,
+): void {
+  const hasAdapter = agentNames.has(agentName);
+  const supportsAdapter = isReviewerAdapterSupportedOnPlatform(agentName, platform);
+
+  if (!hasAdapter && supportsAdapter) {
+    issues.push(`${adapterPath}: missing reviewer adapter required for cross-platform parity`);
+  }
+  if (hasAdapter && !supportsAdapter) {
+    issues.push(
+      `${adapterPath}: reviewer adapter is unsupported on ${platform} by the shared platform contract`,
+    );
+  }
 }
