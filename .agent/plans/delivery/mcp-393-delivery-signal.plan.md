@@ -3,10 +3,15 @@ id: mcp-393-delivery-signal
 node_type: delivery
 name: "Delivery signal for directed coordination — distinguish delivery-dark from working"
 overview: "Make absorption of directed coordination mechanically visible within ~10 minutes — a practice that reaches ABSORB first, the smallest read surface over it second — without weakening heartbeat semantics."
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-07-30
+ratified_where: >-
+  Owner card answers, both recorded 2026-07-30: "Ratify as-is" at the
+  implementer seat's in-session card (~07:22Z, Possum weaves Midnight
+  d5848b), and "Ratify the sketch" at the Director's card (~06:56Z,
+  recorded in Falcon hunts Flight's directed event
+  aab0ed7c-adjudication reply of 07:23:06Z)
 serves: first-major-release
 impact_areas:
   - practice-and-estate
