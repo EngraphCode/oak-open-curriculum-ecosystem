@@ -220,8 +220,9 @@ The path is at least five independently testable layers:
 | Cognition | Was the information used? | Content-bearing reply or changed action |
 
 Outbound liveness adds two more related surfaces: comms heartbeat emission and
-claim-registry freshness. They must use the same timestamp but remain
-separately observable.
+claim-registry freshness. Current rules require every tick to update both
+separately observable surfaces using one derived timestamp. The later Slice B
+proposal packages and failure-handles that invariant; it does not introduce it.
 
 The useful invariant is:
 
@@ -310,11 +311,15 @@ stderr, and stop before claim closure.
 initial transition-silent baseline, semantic transitions, an explicit
 `HEAD_CHANGED` epoch reset, NDJSON, `--until`, and distinct terminal exit codes.
 
-**Warrant:** the repository already owns a typed PR-state reader, while the
-legacy top-level `pr-watch` helper declares success too weakly: at least one
-passing check, no failing or pending checks, and no open threads. It does not
-model combined commit status, Vercel, mergeability, a minimum check floor, or
-CI-silent workflow runs.
+**Warrant:** the repository already owns a typed PR-state reader. The legacy
+top-level `pr-watch` helper captures and displays `mergeable` and
+`mergeStateStatus`, and folds returned check runs and status contexts,
+including Vercel when present, into generic pass/fail/pending buckets. But its
+`isAllGreen` predicate declares success too weakly: one generic passing status,
+no failing or pending statuses, and no open threads. It does not independently
+require combined-status or Vercel presence, ignores the captured mergeability
+fields, hard-codes the check floor at one, and has no named-workflow-presence
+leg for CI-silent runs.
 
 **Falsifier:** if live GitHub response shapes cannot be represented without
 weakening the existing typed boundary, update and validate D1 first. Do not
