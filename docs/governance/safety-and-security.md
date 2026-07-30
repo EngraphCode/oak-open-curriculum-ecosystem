@@ -1,3 +1,7 @@
+---
+last_reviewed: 2026-07-30
+---
+
 # Safety and Security
 
 ## Overview
@@ -8,7 +12,7 @@ The Oak MCP Servers are designed with security and privacy as core principles. T
 
 1. **Principle of Least Privilege**: Read-only access by default
 2. **Defence in Depth**: Multiple layers of security controls
-3. **Privacy by Design**: Automatic PII protection
+3. **Privacy by Design**: PII protection at the ADR-160 redaction barrier
 4. **Fail Secure**: Safe defaults when errors occur
 5. **No Trust Assumptions**: Validate all inputs
 
@@ -299,10 +303,65 @@ limiting as an internal consumer.
 
 ### GDPR/Privacy
 
-- PII automatically scrubbed
-- No data persistence
-- No tracking or analytics
-- User data not stored
+The production MCP service processes personal data, and says so plainly.
+Three processors receive application-level personal data, each behind a
+defined boundary:
+
+- **Clerk** — authentication and user management (OAuth 2.1, see
+  [ADR-052](../architecture/architectural-decisions/052-oauth-2.1-for-mcp-http-authentication.md)).
+  Account data lives in Clerk, in the fields its configured sign-in
+  journey collects; this document does not restate that field list.
+  The verified Clerk principal is the service's identity source. The
+  raw Clerk identifier does not reach PostHog: analytics attribution
+  uses a derived pseudonym (below).
+- **PostHog** — product analytics, EU-hosted (`eu.i.posthog.com`), live
+  in production. Capture is bounded by
+  [ADR-218](../architecture/architectural-decisions/218-posthog-mcp-analytics-identity-session-and-privacy.md)'s
+  closed, content-free event allowlist; §3 of that ADR is the ceiling
+  and this section does not restate it. In outline: MCP interaction
+  facts (an event identifier, capability names, timings, outcome
+  categories, protocol/client/environment/release categories),
+  attributed to a keyed actor pseudonym derived from the Clerk
+  principal. Content never enters — tool arguments and responses, free
+  text, names, emails, tokens, headers, cookies, IP addresses and
+  GeoIP are excluded by construction, as are browser autocapture,
+  session replay and fingerprinting. The pseudonym is pseudonymised
+  personal data, not anonymous data: it carries transparency, access,
+  retention and erasure duties. ADR-218 §5 commits this processing to
+  a maximum 12-month retention period across PostHog and every
+  authorised copy, and to a tested person-scoped deletion route. Both
+  are commitments whose operational proof is outstanding — ADR-218's
+  maturity note states that acceptance does not assert retention,
+  access controls, or the deletion route are live — and MCP-173 tracks
+  that evidence.
+- **Sentry** — error tracking and diagnostics, behind
+  [ADR-160](../architecture/architectural-decisions/160-non-bypassable-redaction-barrier-as-principle.md)'s
+  non-bypassable redaction barrier (see §Privacy Protection above).
+  Diagnostic events carry the opaque Clerk user identifier on the
+  per-request scope, so Sentry holds a direct authentication
+  identifier where PostHog holds only a destination-scoped pseudonym.
+  No stable person identifier is therefore shared between the two.
+  Whether that identifier may flow to any further sink remains the
+  open redaction-policy question recorded in ADR-160's history.
+
+Infrastructure and upstream recipients sit alongside those three: the
+Cloudflare and Vercel layers named in §Multi-Layer Security
+Architecture see client network data at the edge, and the Oak
+Curriculum API and the Elasticsearch search backend receive request
+content in order to answer each call. This section names them so the
+recipient list is not read as closed at three; their boundaries are
+not restated here.
+
+Request content — tool arguments, including free-text search terms — is
+processed to serve each request and is not written to any Oak analytics
+or product data store. It reaches the Oak Curriculum API and the search
+backend that answer the call, and it never enters the analytics
+envelope. Conversations are not observed or stored: ADR-218 keeps
+PostHog's conversation mechanism disabled.
+
+PII scrubbing applies at the ADR-160 redaction barrier, with the proven
+coverage and the recorded gap both described in §Privacy Protection
+above.
 
 ## Security Incident Response
 
