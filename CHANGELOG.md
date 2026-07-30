@@ -1,3 +1,10 @@
+## [1.125.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.125.2...v1.125.3) (2026-07-30)
+
+
+### Bug Fixes
+
+* **mcp:** remove the download-asset description's embedded presentation directive ([cb8281a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/cb8281a89e96e50f356ff8f8b05719c48dd3b186))
+
 ## [1.125.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.125.1...v1.125.2) (2026-07-30)
 
 ## [1.125.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.125.0...v1.125.1) (2026-07-30)
