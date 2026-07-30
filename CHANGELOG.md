@@ -1,3 +1,10 @@
+## [1.125.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.125.3...v1.125.4) (2026-07-30)
+
+
+### Bug Fixes
+
+* **mcp-http:** compose safe-area insets with token padding in the widget shell (MCP-434) ([f79a863](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f79a8638877d0cb07f3c3d2961d1b4ec920ab81c))
+
 ## [1.125.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.125.2...v1.125.3) (2026-07-30)
 
 
