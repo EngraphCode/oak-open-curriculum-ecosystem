@@ -14,16 +14,14 @@ import { err, ok, type Result } from '@oaknational/result';
 /** One served tool as observed from `tools/list` or the registration walk. */
 export interface ServedToolRow {
   readonly name: string;
-  readonly title?: string | undefined;
-  readonly description?: string | undefined;
-  readonly annotations?:
-    | {
-        readonly readOnlyHint?: boolean | undefined;
-        readonly destructiveHint?: boolean | undefined;
-        readonly idempotentHint?: boolean | undefined;
-        readonly openWorldHint?: boolean | undefined;
-      }
-    | undefined;
+  readonly title?: string;
+  readonly description?: string;
+  readonly annotations?: {
+    readonly readOnlyHint?: boolean;
+    readonly destructiveHint?: boolean;
+    readonly idempotentHint?: boolean;
+    readonly openWorldHint?: boolean;
+  };
 }
 
 const HINT_ORDER = ['readOnlyHint', 'destructiveHint', 'idempotentHint', 'openWorldHint'] as const;
