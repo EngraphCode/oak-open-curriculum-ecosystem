@@ -4864,3 +4864,99 @@ night shift. This seat's monitors run until its session ends and do NOT transfer
 - BARE-IDENTIFIER GUARD beats window-property guard in a script runtime: `typeof matchMedia ===
   'function'` is safe where the global was never declared, dodges TS2774 AND prefer-global-this,
   and matches the test seam's parameter injection.
+
+## 2026-07-30 ~11:10Z — Sycamore herds Xylem (028dc4), seat close
+
+- OWN-MONITOR LIVENESS IS UNSCANNABLE FROM MEMORY: this seat missed TWO dead monitors in one
+  morning (heartbeat died at the compaction boundary while a broadcast claimed it live; the
+  comms watcher aged out silently for ~70 min). Both catches were MECHANICAL (fresh registry
+  read; the F-95 claims gate) — never the seat's own scan. Boundary discipline: verify liveness
+  from the observable surface (registry heartbeat_at, seen-file heartbeat), never from having
+  armed it.
+- INTERMITTENT-DEFECT EVIDENTIARY DISCIPLINE (worked instance, MCP-414/PR #650): when the
+  deterministic story went dormant mid-arc, re-carding the owner BEFORE ship + plain-words
+  "dormant, co-factor unidentified" in the PR + the review's crash-independent justification
+  (lock-file GIT_INDEX_FILE) made the artefact STRONGER than the original claim. Honest
+  re-truing upgraded the work; a state-dependent defect's revisit condition must not be a
+  probe (a passing probe proves nothing while dormant).
+- PLAY SEED (association, not finding): the pause's three safety axes (bytes/knowledge/
+  coherence) look shaped like the estate's durability hierarchy (git-remote/permanent docs/
+  comms transport) — the same triple at two scales. Might deserve a name if it recurs.
+- Possum weaves Midnight (d5848b), 2026-07-30 ~09:55Z — MCP-359 lane (blocked push -> routed -> landed in ~1h):
+  #648 merged at SHA:d164f5cf6; toggle-dance retired. Lessons: (1) config-expert caught a comment naming
+  an INERT cause — the block's own DANGEROUSLY_DISABLE_AUTH entry never reaches the server (the observe-noauth
+  MODE forces it in resolveServerEnv after spreading parentEnv); comment-truth class: name the layer that
+  actually binds. (2) test-doctrine throw-guard vs no-throw-statement lint warning resolved without either
+  violation via a zod boundary parse of the config shape — schema-first beats both horns. (3) zsh does NOT
+  word-split unquoted $var in for-loops: four GraphQL thread ids went as ONE malformed argument (0/4 written,
+  caught by state-read); iterate with pipe-while-read. (4) Cricket B-seat redirection (push on gateway APPROVE,
+  absorb focused specialists as the PR round) saved ~15 min wall-clock with zero discipline loss — adopted.
+  (5) Evidence conflict on the fleet GIT_DIR/turbo worktree crash: this seat's three green worktree gate runs
+  same-window vs Sycamore's first-hand bisect — logged for reconciliation at Glowworm's seat, not adjudicated here.
+
+## 2026-07-30 ~11:01Z — Brazier holds Bellows (8a8be0): stand-down entry — post-compaction catches + play seeds
+
+- VENDOR SURFACES RE-IMPOSE: MCP-293 (carousel) was cancelled on the 07-28 owner-captured form
+  inventory ("no screenshot requirement exists in either flow"); the 07-30 live submission docs
+  re-impose 3–5 PNG carousel screenshots for MCP Apps. Both lessons hold at once: re-fetch vendor
+  pages at time of use even against an authoritative dated inventory, AND the portal form remains
+  the final arbiter (the inventory's own ranking). A cancelled requirement is not a dead
+  requirement while the vendor owns the spec.
+- LIVE-PROBE BEATS BOARD for upstream gates: the four-defect submission gate was being graded from
+  ticket states until two probes (seconds each, via the connected MCP tools) confirmed the served
+  surface still defective — get-sequences 'english-secondary' → "Sequence not found" (schema still
+  serves the invalid example); get-keywords {} → "Input validation failed" against an all-optional
+  schema. Ticket state is a record of a defect, never the defect.
+- PUBLISH-DATE ≠ SUBMISSION-DATE self-catch: graded public documentation (MCP-301/308) as a
+  tonight-gate; vendor text says "required by your publish date… share docs privately with
+  Anthropic during review". Requirement deadlines attach to named moments — read the moment, not
+  the requirement's gravity.
+- Board-vs-word conflicts SURFACE, never silently resolve: MCP-354 reads Backlog against
+  yesterday's discharge word — reported with both sources named; the owner knows which is true.
+- comms direct still lacks --in-response-to at this hour: my absorption ack 58b66876 threaded its
+  antecedent in prose only (the drift class Possum's closing PR + ADR-220 cures); Plover misquoted
+  an event id remembered from watcher output (the render omits ids) and self-corrected with a
+  behaviour-note.
+- PLAY SEEDS (associations, never findings; guard ran):
+  - The day's arc is shaped like an immune response: a foreign override triggered detection (the
+    instrument dead at boot), and the estate then removed the receptor that admitted it (the whole
+    in-code limiter) and wrote the antibody into doctrine (ADR-219). Reminded-me-of, not is.
+  - "Structure over vigilance" surfaced today at every grain — guard test replacing toggle-dance,
+    absorption ack replacing hope, tripwire ticket replacing watchfulness. These look shaped
+    alike; possibly one principle expressing at N scales.
+  - DISCARDED at second look: "the watcher's hourly death is like a Sabbath" — forced; it is a
+    timeout guard and the association added nothing.
+
+## 2026-07-30 ~11:05Z — Glowworm spins Pewter (dd3166), Implementer: seat close (owner-directed stand-down)
+
+- ARC: adopted Levanter's MCP-403 lane at the PDR-063 handoff → #647 merged 6772a59b5 (sanction
+  retired falsifiably) → Director-routed MCP-411 → #649 merged 3fceb0000 (adjudicated extraction,
+  ADR-219). Full handback 6a44be38; closeout 670bbf56; all monitors stopped by owner word.
+- FAILURE-MODE CONSOLIDATION (from my session's tagged events, per ADR-183 closeout discipline):
+  - Event 402a5980: the commit-queue commits ONLY the enqueued file list — files staged
+    mid-ceremony (gate-failure retry loops) silently miss the commit while every local gate runs
+    green on the FULL INDEX. Tell: staged residue in `git status` after a queue commit. Cure:
+    re-enqueue when staging grows; verify commit-vs-status post-commit. Guard: MCP-417.
+  - Event 2831ae41: the merge-bot App lacks security_events:write — CodeQL alert dismissal is
+    owner-one-click until a grant is decided; prepared per-alert ADR-219 rationale in that event.
+  - Un-broadcast near-miss worth keeping: a grep hit inside a docblock that MENTIONS a symbol is
+    not a CONSUMER of the symbol — my trust-proxy keep rationale cited get-prm-url.ts:22 as a
+    req.protocol consumer; the line was its docblock REFUSING req.protocol. The gateway review
+    falsified it; my re-read confirmed. Same decoy family as query-the-lookalike.
+- ATTRIBUTION FLAGS (inference vs observation, for any successor): the owner's "first-hand
+  double-check" before the CodeQL one-clicks is the Director's relay, not my observation;
+  Sycamore's crash co-factor (daemon/shared-cache) is their inference. MCP-90/274 Cancelled
+  states I verified DIRECTLY; their rationale text is the ticket's.
+- PLAY SEEDS (associations, not findings): (1) both of today's bugs were failures of ADDRESS —
+  #647 the server's identity (host-less bind), #649 the client's (per-POP counting); both cures
+  moved identity resolution to the layer that could know it. (2) Review instruments see STRATA,
+  not depth-scalars — Copilot (literal stratum) caught the ADR-219 lockfile inaccuracy under
+  three Opus reviews; keep instrument diversity. (3) MCP-417's guard is double-entry
+  bookkeeping: intent list and git index are two ledgers; the guard is a trial-balance check.
+- INDEX OF HOMES (this seat's durables): merges on main 6772a59b5 + 3fceb0000; tickets
+  MCP-403/410/411/413/417 (+ 90/274 Cancelled, 288 Done); ADR-219 new, ADR-158 superseded,
+  ADR-115/122/126/162/174 + index re-trued; comms — handback 6a44be38, closeout 670bbf56,
+  failure-modes above; formation letter .agent/experience/2026-07-30-glowworm-spins-pewter-*.md.
+- EXTERNAL-BOUND ERROR SIGNATURE (where outside eyes beat my scan today, for successor
+  scrutiny): literal-stratum facts (lockfile), ledger-vs-artifact set differences (CI's
+  expected/actual), and my own adopted-claim re-reads. Point external review THERE first.
