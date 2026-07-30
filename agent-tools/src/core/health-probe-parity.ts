@@ -10,7 +10,7 @@ import {
 } from './health-probe-shared.js';
 import type { HealthCheckResult } from './health-probe-types.js';
 import {
-  isReviewerAdapterSupportedOnPlatform,
+  getReviewerAdapterPlatformViolation,
   type ReviewerAdapterPlatform,
 } from './reviewer-adapter-platform-contract.js';
 
@@ -111,13 +111,13 @@ function collectPlatformParityDetail(
   platformAgents: readonly string[],
 ): void {
   const hasAdapter = platformAgents.includes(agentName);
-  const supportsAdapter = isReviewerAdapterSupportedOnPlatform(agentName, platform);
+  const violation = getReviewerAdapterPlatformViolation(agentName, platform, hasAdapter);
 
-  if (!hasAdapter && supportsAdapter) {
-    details.push(`${platformLabel} is missing reviewer adapter ${agentName}.`);
+  if (violation?.kind === 'missing') {
+    details.push(`${platformLabel} is missing reviewer adapter ${violation.reviewerName}.`);
   }
-  if (hasAdapter && !supportsAdapter) {
-    details.push(`${platformLabel} has unsupported reviewer adapter ${agentName}.`);
+  if (violation?.kind === 'unsupported') {
+    details.push(`${platformLabel} has unsupported reviewer adapter ${violation.reviewerName}.`);
   }
 }
 

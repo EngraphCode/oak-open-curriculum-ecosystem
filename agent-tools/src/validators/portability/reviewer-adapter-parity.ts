@@ -10,7 +10,7 @@
  */
 
 import {
-  isReviewerAdapterSupportedOnPlatform,
+  getReviewerAdapterPlatformViolation,
   type ReviewerAdapterPlatform,
 } from '../../core/reviewer-adapter-platform-contract.js';
 import { stripDirAndExtension } from './portability-constants.js';
@@ -101,14 +101,14 @@ function collectReviewerAdapterParityIssue(
   adapterPath: string,
 ): void {
   const hasAdapter = agentNames.has(agentName);
-  const supportsAdapter = isReviewerAdapterSupportedOnPlatform(agentName, platform);
+  const violation = getReviewerAdapterPlatformViolation(agentName, platform, hasAdapter);
 
-  if (!hasAdapter && supportsAdapter) {
+  if (violation?.kind === 'missing') {
     issues.push(`${adapterPath}: missing reviewer adapter required for cross-platform parity`);
   }
-  if (hasAdapter && !supportsAdapter) {
+  if (violation?.kind === 'unsupported') {
     issues.push(
-      `${adapterPath}: reviewer adapter is unsupported on ${platform} by the shared platform contract`,
+      `${adapterPath}: reviewer adapter is unsupported on ${violation.platform} by the shared platform contract`,
     );
   }
 }

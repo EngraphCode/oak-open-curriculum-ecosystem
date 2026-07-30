@@ -104,6 +104,10 @@ function getCricketMethodContractIssues(
   ];
 }
 
+function formatErrorMessage(error: unknown): string {
+  return (error instanceof Error ? error.message : String(error)).trimEnd();
+}
+
 // ---------------------------------------------------------------------------
 // I/O shape interfaces
 // ---------------------------------------------------------------------------
@@ -202,9 +206,9 @@ export function getCodexAdapterValidation({
   let readValue: TopLevelTomlBasicStringReader;
   try {
     readValue = createTopLevelTomlBasicStringReader(content);
-  } catch {
+  } catch (error) {
     return {
-      issues: [`${codexAdapterFile}: invalid TOML`],
+      issues: [`${codexAdapterFile}: invalid TOML: ${formatErrorMessage(error)}`],
       templatePaths: [],
       canonicalPaths: [],
     };

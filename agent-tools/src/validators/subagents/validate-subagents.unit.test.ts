@@ -112,7 +112,12 @@ describe('Codex subagent helper coverage', () => {
     });
 
     expect(result).toStrictEqual({
-      issues: ['.codex/agents/broken-expert.toml: invalid TOML'],
+      issues: [
+        `.codex/agents/broken-expert.toml: invalid TOML: Invalid TOML document: unfinished string
+
+1:  name = "unterminated
+            ^`,
+      ],
       templatePaths: [],
       canonicalPaths: [],
     });
