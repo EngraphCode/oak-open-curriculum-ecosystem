@@ -348,3 +348,24 @@ successor (Triton→Lavender), retired at owner word; claim 68088465 pending suc
   `5a7d4406c` (current main), ZERO commits — safe to re-cut; no unpushed work anywhere.
 - **Gate not yet discharged**: the slice-1 pre-execution code-expert review (two dispatches
   died on the 06:12–06:15Z Opus 529 burst) — the successor's first act before any code.
+
+## Design lane PAUSED at durable point (2026-07-30 ~09:55Z — recompute, do not trust)
+
+- **Owner word** ~09:05Z card: "Pause at durable point" (supersedes the ~08:10Z
+  "full arc today" TIMING; the arc SHAPE stands). Seat: Sycamore herds Xylem
+  (`028dc4`), standby; claims `ebb3efe2` + `d5e70346` OPEN, both pointing at the
+  pause record `handoffs/sycamore-herds-xylem-compaction-continuation-2026-07-30.md`
+  — THAT record is the authoritative resume state; this entry is the pointer.
+- **Durable**: slice 1 in PR #644 (OPEN by design; Sonar duplication red clears only
+  at the PR-2 both-copies deletion). Kit TS-source runtime + `choice()` + toolchain
+  pushed on `jimcresswell/mcp-372-kit-ts-source-runtime-and-choice-accessor` at
+  `SHA:95bdfee3a` (commits `05ed8482c` hook env fix + `95bdfee3a` kit content; full
+  gate suites green). Scaffold branch `checkpoint/mcp-372-pr1-lockfile-2026-07-30`
+  local-only, delete after PR 1 lands.
+- **Fleet-relevant**: turbo 2.10.6 + GIT_DIR-in-hook-env breaks EVERY linked
+  worktree's local gate ("Is a directory (os error 21)"); cure on the pushed branch
+  (`05ed8482c`, env -u trio around the turbo invocations in both hooks), broadcast
+  ~09:55Z. If an equivalent fix lands first, rebase-drop at resume.
+- **Resume order**: docs/ADR checklist → batched owner-wording card → PR 1
+  open/shepherd/merge → PR 2 reworks #644 → lane rests (write-up + MCP-372/388/134
+  true-ups). Linear MCP-372/MCP-371 carry matching pause comments.

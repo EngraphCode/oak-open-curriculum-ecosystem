@@ -4843,3 +4843,24 @@ night shift. This seat's monitors run until its session ends and do NOT transfer
 - VERDICT-STRUCTURE BEAT VERDICT-CONTENT: my MCP-393 placement verdict was wrong on both
   destinations and still converged in ~4 min because it carried its own falsifier-invitation and
   the seat exercised it with evidence. Pairs with falsifiable-structure-at-the-surface-works.
+
+## 2026-07-30 ~09:20Z — Sycamore herds Xylem (028dc4), design-lane pause execution
+
+- PAUSE = THREE AXES (owner-approved framing worth keeping): "safe, stable pause" decomposes into
+  bytes durability (commit+push), knowledge durability (records/tickets a cold seat can resume
+  from), estate coherence (no ambiguous surface: PR comments, claims, broadcast). The best pause
+  point is the NEAREST point satisfying all three — neither "stop now" nor "finish the arc".
+- TSDOC CODE SPANS MUST NOT WRAP LINES: a backticked command split across docblock lines parses
+  as an unclosed code span and the wrapped `@scope/...` token fires tsdoc tag errors (3 findings,
+  emitted-runtime-parity docblock). Cure: keep the span on one line or reword around it.
+- MERGED-GLOBAL-INTERFACE UNUSED-VARS FALSE POSITIVE, structural cure: a script-file `interface
+  Window { oakTheme?: ... }` merge is invisible to no-unused-vars. Typing the assembled value as
+  `NonNullable<Window['oakTheme']>` reads the type back off the contract — uses the interface,
+  survives exactOptionalPropertyTypes, and value/declaration cannot drift.
+- SCOPED-CONFIG-WITH-RATIONALE is the sanctioned shape when a rule blocks legitimate design
+  (configure-checks-not-blindly-obey): unicorn/prefer-global-this off for the one browser classic
+  script whose CONTRACT is window.oakTheme; @oaknational/no-throw-statement off for smoke fakes
+  that must model localStorage's real throwing failure shape. Both carry docblock rationale.
+- BARE-IDENTIFIER GUARD beats window-property guard in a script runtime: `typeof matchMedia ===
+  'function'` is safe where the global was never declared, dodges TS2774 AND prefer-global-this,
+  and matches the test seam's parameter injection.
