@@ -31,11 +31,16 @@ function escapeAngleBrackets(segment: string): string {
   return segment.replaceAll('<', String.raw`\<`).replaceAll('>', String.raw`\>`);
 }
 
+const TRAILING_PUNCTUATION = new Set(['.', ',', ';', ':', '!', '?', ')']);
+
 /** Wraps bare URLs as markdown autolinks, keeping trailing punctuation outside. */
 function wrapBareUrls(segment: string): string {
   return segment.replaceAll(/https?:\/\/[^\s"'`\\]+/gu, (match) => {
-    const core = match.replace(/[.,;:!?)]+$/u, '');
-    return `<${core}>${match.slice(core.length)}`;
+    let end = match.length;
+    while (end > 0 && TRAILING_PUNCTUATION.has(match.charAt(end - 1))) {
+      end -= 1;
+    }
+    return `<${match.slice(0, end)}>${match.slice(end)}`;
   });
 }
 

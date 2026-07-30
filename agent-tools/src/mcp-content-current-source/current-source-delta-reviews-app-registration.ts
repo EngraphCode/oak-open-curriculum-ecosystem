@@ -59,7 +59,7 @@ export const APP_REGISTRATION_DELTA_REVIEWS: Readonly<Record<string, CurrentSour
   // MCP-439: the reviewer-facing tool-table renderer — validation/artefact
   // tooling over the served surface, no served content of its own.
   'apps/oak-curriculum-mcp-streamable-http/src/registration-proof/served-tool-table.ts': excluded(
-    '002748911f7951539c5fe18edf0e8a879db6116ca60de6920aa6867d30e1d24a',
+    '1dc27288d76137be66083a4d0ad364a59b0043ab58aab7439db35abdf392ff64',
     VALIDATION_ONLY,
   ),
   // MCP-337: the per-resource registration bodies extracted from
