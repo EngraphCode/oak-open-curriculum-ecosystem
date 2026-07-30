@@ -69,8 +69,10 @@ The practice first, the smallest read surface over it second.
    content-bearing narrative event threading the antecedent:
    `comms send --in-response-to <event-id>` (the `in_response_to` field
    exists on the narrative shape today — verified against the wire
-   schema; the `directed` shape does NOT carry it, so a directed-shape
-   ack is a schema extension deliberately deferred, not assumed). This
+   schema; at authoring time the `directed` shape did NOT carry it, so a
+   directed-shape ack was a schema extension deliberately deferred, not
+   assumed — SUPERSEDED 2026-07-30 by the closing build, which lands
+   `in_response_to` on the directed shape; see §Closing amendment). This
    makes PDR-133 §6 instrument 2 routine instead of exceptional. An
    unanswered `ACK-REQUESTED` event is a bounded-challenge non-reply —
    meaningful in a way generic silence is not.
@@ -204,6 +206,8 @@ actually demonstrates.
   narrative-shape ack works today with zero code; the wire-schema
   extension (JSON Schema + Zod + factory + option lists + validator) is
   a named follow-on if ack-channel noise proves real, never assumed in.
+  SUPERSEDED: the trigger fired on 2026-07-30 and the extension landed
+  as the plan's closing build — see §Closing amendment below.
 - **A new `comms ack` sugar command** — same reasoning; the convention
   uses an existing verb.
 - **Live-derived heartbeat labels** (a ticket candidate) — the
@@ -253,3 +257,32 @@ In-place amendments with dated notes (no scope change):
   ratified "routing or an ask"; the Claude Code declaration set
   completed with explicit per-class unverified rows and a named
   backfill.
+
+## Closing amendment (scope-adjudicating, not in-place)
+
+- 2026-07-30 (~10:14Z) — the slice-B falsifier FIRED
+  (owner word "sort 393 now"; the Director's consumer adjudication is
+  comms event ecfa5ea3, threaded with the convention it judges).
+  Acceptance 5's worked readings are recorded on the ticket by the
+  Director. Verdict: the full slice-B read surface is DEAD — one live
+  day of the slice-A practice showed existing instruments (F-75 poll,
+  direct ping, work-evidence cross-check) answering the liveness
+  questions that arose, and per-event class verdicts, heartbeat
+  columns, and sidecar counts did not earn their place. What the same
+  day DID earn: (1) the directed-shape `in_response_to` extension —
+  the Out-of-scope section's first named follow-on, whose trigger
+  (ack-channel noise proven real) fired three times in one hour at the
+  Director's seat as prose-antecedent acks invisible to mechanical
+  readers; it lands as this plan's closing build (schema + Zod + CLI
+  parity on `comms direct`, and `comms reply` threading by
+  construction). Acceptance disposition: 1 and 3 are WITHDRAWN with the
+  dead read surface — no classifier ships, so absorb-absent
+  discrimination and class-honest verdict labels have no object; 2
+  holds unchanged (the closing build touches no heartbeat path); 4
+  landed in slice A; 5 is recorded on the ticket. The closing build
+  carries its own red-first proofs in the agent-tools suite (schema,
+  Zod parser, CLI wiring, reply-by-construction). (2) The outstanding-asks
+  projection (recipient, age, answer-state, seen-membership) homes as
+  a named design input on MCP-404 — same attention surface, different
+  answerer — returning as its own ticket only if that design proves it
+  separable. This plan closes at the merge of the closing build.
