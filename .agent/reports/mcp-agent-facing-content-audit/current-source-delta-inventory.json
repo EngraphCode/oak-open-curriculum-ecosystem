@@ -173,7 +173,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/generated/widget-html-content.ts",
-      "semanticSha256": "7c7ce8dff941cc26621bafaef3846c6aab52769785032db708aac151b306b7a3",
+      "semanticSha256": "a377cb5d18502383f8131bd3e8cad10331f7833f5a598834ceba6522d25339ef",
       "itemIds": [
         "C394"
       ]
@@ -587,7 +587,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/widget/src/BrandBanner.tsx",
-      "semanticSha256": "57d012a77be646b3d61186f7cbbee9d7b77f3c070acb502f911915e5db0c087d",
+      "semanticSha256": "d4da5642fa6a6b00e7214b6cfddde81e334515ae0a0ba673284bf153295b1919",
       "itemIds": [
         "C390",
         "C391",

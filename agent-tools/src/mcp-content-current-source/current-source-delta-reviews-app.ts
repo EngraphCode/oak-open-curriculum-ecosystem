@@ -88,8 +88,12 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     '775eeb6826d2538daa5c92905be153b0a7d46de53a9b60258f1d1a52e8852254',
     ['A010'],
   ),
+  // MCP-368: regenerated via build:widget after the wordmark swap — the
+  // embed now carries the wide-wordmark geometry and the merged
+  // visually-hidden accessible name (+20.2KB, matching the review's
+  // predicted +19KB).
   'apps/oak-curriculum-mcp-streamable-http/src/generated/widget-html-content.ts': reviewed(
-    '7c7ce8dff941cc26621bafaef3846c6aab52769785032db708aac151b306b7a3',
+    'a377cb5d18502383f8131bd3e8cad10331f7833f5a598834ceba6522d25339ef',
     ['C394'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/handlers.ts': excluded(

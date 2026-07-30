@@ -210,31 +210,31 @@ a:focus-visible {
   text-wrap: pretty;
 }
 
-/* Brand banner — logo + "Oak National Academy" link, centred */
+/* Brand banner — the wide wordmark as the link's only visible content,
+   centred (MCP-368) */
 .oak-brand-banner {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* On the brand panel the link is inverse text like its surroundings;
-   hover affordance is the underline (no designed colour shift exists
-   against this surface), and the focus ring is the on-accent ring the
-   token bridge provides for exactly this surface. */
+/* `color` is LOAD-BEARING, not decoration: the wordmark is bare geometry
+   filled via `fill: currentColor` below, so this is the ink it renders
+   with (and it tracks focus colour changes for free). The block padding
+   keeps the link's target box comfortably past the WCAG 2.5.8 24px
+   minimum at every panel width; `min-inline-size: 0` lets the wordmark
+   shrink inside the flex row instead of forcing a horizontal scrollbar
+   in narrow host panels. The focus ring is the on-accent ring the token
+   bridge provides for exactly this surface. With no visible text there
+   is no designed hover affordance for an image-only link on this
+   surface — an owner call at the render, not a value to invent here. */
 .oak-brand-banner__link {
   display: inline-flex;
   align-items: center;
-  gap: var(--oak-component-banner-gap);
+  min-inline-size: 0;
+  padding-block: var(--oak-component-banner-link-padding-block);
   color: var(--oak-semantic-text-inverse);
-  font-family: var(--oak-component-banner-title-family);
-  font-size: var(--oak-component-banner-title-size);
-  font-weight: var(--oak-component-banner-title-weight);
   text-decoration: none;
-}
-
-.oak-brand-banner__link:hover {
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
 }
 
 .oak-brand-banner__link:focus-visible {
@@ -243,8 +243,16 @@ a:focus-visible {
   border-radius: 2px;
 }
 
+/* Width-driven with `block-size: auto`: a clamped width re-resolves the
+   height from the asset's intrinsic ratio (viewBox 3600:368.16), staying
+   ratio-exact at every panel width — height-driven sizing would let
+   preserveAspectRatio letterbox at narrow widths. */
 .oak-brand-banner__logo {
-  flex-shrink: 0;
+  display: block;
+  inline-size: 100%;
+  max-inline-size: var(--oak-component-banner-wordmark-max-width);
+  block-size: auto;
+  fill: currentColor;
 }
 
 .visually-hidden {

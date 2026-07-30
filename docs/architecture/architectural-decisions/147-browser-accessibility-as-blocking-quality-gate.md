@@ -30,6 +30,10 @@ UI-shipping workspaces.
 - **Target**: WCAG 2.2 Level AA
 - **Tolerance**: Zero — no `skipRules`, no accepted violations
 - **Themes**: Both light and dark themes must pass independently
+- **Rule scoping**: each rule runs exactly where its success criterion
+  applies — the forced-colours contrast scoping in
+  [`docs/governance/accessibility-practice.md`](../../governance/accessibility-practice.md)
+  is the worked instance (2026-07-30, MCP-368)
 
 ### Tooling
 

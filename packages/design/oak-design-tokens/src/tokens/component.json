@@ -89,18 +89,7 @@
       "$type": "color",
       "$value": "{semantic.focus-ring-on-accent}"
     },
-    "banner-title-family": {
-      "$type": "fontFamily",
-      "$value": "{semantic.font-display-family}"
-    },
-    "banner-title-size": {
-      "$type": "dimension",
-      "$value": "{semantic.font-banner-title-size}"
-    },
-    "banner-title-weight": {
-      "$type": "fontWeight",
-      "$value": "{semantic.font-weight-bold}"
-    },
-    "banner-gap": { "$type": "dimension", "$value": "{semantic.gap-sm}" }
+    "banner-wordmark-max-width": { "$type": "dimension", "$value": "{semantic.logo-max-width}" },
+    "banner-link-padding-block": { "$type": "dimension", "$value": "{semantic.gap-sm}" }
   }
 }

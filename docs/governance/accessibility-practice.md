@@ -52,7 +52,43 @@ test('passes WCAG 2.2 AA', async ({ page }) => {
   the automatable subset of WCAG 2.2 AA. Manual review remains necessary
   for criteria that cannot be machine-verified
 - **No `skipRules`** — zero-tolerance per ADR-147
-- **No `disableRules`** — violations must be resolved, not suppressed
+- **No `disableRules`** in any mode a rule's criterion applies to —
+  violations there must be resolved, not suppressed; the ONLY sanctioned
+  `disableRules` call is the forced-colours criterion scoping below
+- **Rules run exactly where their criterion applies** — see the
+  forced-colours scoping below
+
+### Contrast rules under forced colours: criterion scoping
+
+Every rule runs in every mode where its success criterion applies —
+zero-tolerance is about the criterion, not the tool invocation. WCAG
+1.4.3 measures the AUTHOR palette, so `color-contrast` runs fully in
+the light and dark projects, where the author palette paints. Under
+`forced-colors: active` the user's guaranteed system palette replaces
+the author palette, so 1.4.3 has nothing of ours to measure there —
+the rule is out of its criterion's scope, and the suite states that
+with `disableRules(['color-contrast'])` on that mode only.
+
+Independently, axe-core currently measures the wrong layer in that
+mode ([axe-core#3978](https://github.com/dequelabs/axe-core/issues/3978),
+open upstream bug): it reads the foreground via
+`-webkit-text-fill-color`, which forced colours does not replace, and
+compares it against the forced background — reporting
+author-ink-on-forced-black ratios for text that demonstrably paints in
+the forced palette (pixel-verified at 21:1 during MCP-368).
+
+Two structural requirements keep the scoping honest:
+
+1. The gate is `matchMedia('(forced-colors: active)')` — never a
+   project name — so a dead emulation re-enables the rule (fails safe).
+2. It pairs with a self-retiring assertion that fails the moment the
+   upstream artefact disappears, so the measurement-bug half of the
+   rationale cannot silently outlive its cause.
+
+The worked form lives in the widget suite
+(`tests/widget/oak-banner.spec.ts`). Any forced-colours project added
+elsewhere in the estate meets the identical facts and uses this same
+pattern.
 
 ### CI Requirements
 
