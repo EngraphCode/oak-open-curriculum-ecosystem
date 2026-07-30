@@ -30,7 +30,8 @@ App iframe (your code)
   ├── Calls: applyDocumentTheme(ctx.theme)
   ├── Calls: applyHostStyleVariables(ctx.styles.variables)
   ├── Calls: applyHostFonts(ctx.styles.css.fonts)
-  └── Applies: safeAreaInsets as padding via React state / inline styles
+  └── Applies: safeAreaInsets as --oak-safe-area-inset-* custom properties
+      (the stylesheet composes them with the authored padding)
 ```
 
 ## CSS Custom Properties
@@ -217,14 +218,26 @@ function MyApp() {
     }
   }, [hostContext]);
 
+  // Safe-area insets flow as CSS custom properties, NEVER as inline
+  // padding: inline padding outranks the stylesheet, so a zero-inset
+  // host (ChatGPT/claude.ai desktop) would REPLACE the authored padding
+  // with 0 (MCP-434). The stylesheet composes each side instead:
+  //   padding: calc(var(--your-padding-token) + var(--oak-safe-area-inset-top, 0px)) …;
+  // See widget/src/safe-area-insets.ts for the typed helper.
+  const insets = hostContext?.safeAreaInsets;
+
   return (
     <div
-      style={{
-        paddingTop: hostContext?.safeAreaInsets?.top,
-        paddingRight: hostContext?.safeAreaInsets?.right,
-        paddingBottom: hostContext?.safeAreaInsets?.bottom,
-        paddingLeft: hostContext?.safeAreaInsets?.left,
-      }}
+      style={
+        insets
+          ? {
+              '--oak-safe-area-inset-top': `${insets.top}px`,
+              '--oak-safe-area-inset-right': `${insets.right}px`,
+              '--oak-safe-area-inset-bottom': `${insets.bottom}px`,
+              '--oak-safe-area-inset-left': `${insets.left}px`,
+            }
+          : undefined
+      }
     >
       {/* Your app content */}
     </div>
