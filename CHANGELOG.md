@@ -1,3 +1,10 @@
+## [1.124.6](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.124.5...v1.124.6) (2026-07-30)
+
+
+### Bug Fixes
+
+* **mcp-app:** complete the governed-ledger split and absorb the Copilot round ([9ccc2e9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9ccc2e9543fa8fbdbf107d4ce4a54156c9f69d28))
+
 ## [1.124.5](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.124.4...v1.124.5) (2026-07-30)
 
 
