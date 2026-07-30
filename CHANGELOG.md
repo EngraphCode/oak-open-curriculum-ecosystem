@@ -1,3 +1,15 @@
+# [1.124.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.123.1...v1.124.0) (2026-07-30)
+
+
+### Bug Fixes
+
+* **mcp-app:** single-root fail-fast, acorn provenance, symptom-probing pin (PR [#643](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/643) round 1) ([521552c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/521552c61f8f1374c2cc7eb822036bfe4c80cea6))
+
+
+### Features
+
+* **mcp-app:** brand widget renders the official wide wordmark (MCP-368) ([fe697b9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/fe697b92e7d470bff9452ba658848ceb178200de)), closes [axe-core#3978](https://github.com/axe-core/issues/3978)
+
 ## [1.123.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.123.0...v1.123.1) (2026-07-30)
 
 # [1.123.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.122.0...v1.123.0) (2026-07-30)
