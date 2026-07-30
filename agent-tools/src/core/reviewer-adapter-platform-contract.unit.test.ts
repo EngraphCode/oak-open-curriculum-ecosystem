@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { getReviewerAdapterPlatformViolation } from './reviewer-adapter-platform-contract';
+import { getReviewerAdapterPlatformViolation } from './reviewer-adapter-platform-contract.js';
 
 describe('getReviewerAdapterPlatformViolation', () => {
   it('accepts adapters that match their declared platform support', () => {
