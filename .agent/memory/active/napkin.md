@@ -4812,3 +4812,34 @@ night shift. This seat's monitors run until its session ends and do NOT transfer
   first-hand; 15 review findings across two rounds all cured pre-merge). Worktree pruned on
   proof; MCP-393 In Progress for slice B (falsifier-gated); monitors stopped BY OWNER WORD at
   compaction prep — quiet ≠ retirement; claim 2cc48fb6 open with registry-addressed record.
+
+## 2026-07-30 ~08:50Z — Falcon hunts Flight (52841f), Director: seat-day harvest at owner-directed compaction prep
+
+- SUCCESSION: seated at Moment-2 06:17:02Z (full protocol; mechanical check pasted). Six clean
+  successions observed today across four variants; the exploration capture record is the durable
+  home: `.agent/reports/agentic-engineering/succession-and-conscience-concept-exploration-capture-2026-07-30.md`.
+- INSTRUMENT CATCHES AT THIS SEAT (both sides): the comms CLI's UUID-v5 gate refused a
+  typed-from-memory recipient id (the fabricated-value class biting its own preacher; cure now
+  habit — derive the id IN the sending command, read back after write). The 1500-char argv gate
+  refused two over-length bodies (body-file cure). Both are structure-over-vigilance proof.
+- THE FREEZE INSTINCT, TWICE: proposed a merge freeze (owner: "we don't do change freezes, we do
+  absolutely world class observability and the ability to respond quickly and safely"); then
+  re-wore it as "no elective changes on submission day" against MCP-411 (owner: "remove now" —
+  and removal REDUCED evening risk). Memory minted: no-change-freezes-observability-and-fast-response.
+- FRAME BLINDNESS, one finding in three costumes (bell MCP-404; flip-lagged tickets MCP-354/305/63;
+  the rate limiter MCP-411): verification instruments check premises downward, never a premise's
+  right to exist; the correction each time came from asking the OWNER the first question. My own
+  instance: routed MCP-288 from the milestone sweep with every discipline EXCEPT should-this-exist.
+- NUMBER COLLISION (instrument-state family, ref edition): the critical-path ledger's "#551" is
+  Cloud-Config#551; this repo's #551 is an unrelated merged deps PR — my verifying read hit the
+  lookalike first; cure = ledger entries carry their repo qualifier.
+- CRICKET: round 13 = first 8/8 fully-delivered quartet at a Director seat; the seat-D name-drop
+  arm CONCLUSIVE (unnamed delivers; MCP-386 ledger); three same-class D-leg DRIFTINGs today all
+  frame-legibility (cite gates by file id) — the compiled procedure works as designed.
+- MILESTONE DOCTRINE (owner, verbatim in the retired milestones' banners): simple, completable,
+  externally visible; labels carry themes. Two milestones retired, one renamed, M0 trued to the
+  Thursday-evening word. TOOL LIMIT: Linear save_issue can SET but not CLEAR a milestone — the
+  retired milestones' members + M6's residues need owner one-clicks in the UI.
+- VERDICT-STRUCTURE BEAT VERDICT-CONTENT: my MCP-393 placement verdict was wrong on both
+  destinations and still converged in ~4 min because it carried its own falsifier-invitation and
+  the seat exercised it with evidence. Pairs with falsifiable-structure-at-the-surface-works.
