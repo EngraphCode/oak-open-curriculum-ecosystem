@@ -898,7 +898,7 @@ arc-close mechanics. The plan archives at this entry.
   opinions). 22 MOVED + 4 DELETED + 1 KEPT in
   `.agent/research/notes/`; lane README absorbed the agentic-
   engineering hub README; 13 active surfaces relink-updated; bay
-  reduced to single residual (`prog-frame/`). Reviewer second-
+  reduced to single residual (`personal-item/`). Reviewer second-
   opinion gate fired pre-execution (`assumptions-reviewer` +
   `architecture-reviewer-barney`); both produced BLOCKING findings
   (live-reference list incomplete; `practice-core/` accretion
@@ -926,7 +926,7 @@ arc-close mechanics. The plan archives at this entry.
 - **Three rehoming open items** recorded as honest PDR-026
   deferrals on durable surfaces (NOT carried as new pending-
   graduations register entries that would block arc-close): (a)
-  `prog-frame/agentic-engineering-practice.md` disposition
+  `personal-item/agentic-engineering-practice.md` disposition
   decision — owner conversation required; recorded in
   `.agent/research/notes/README.md`; (b) `platform-adapter-formats.md`
   PROMOTE-TO-REFERENCE proposal — owner-vet required per PDR-032;

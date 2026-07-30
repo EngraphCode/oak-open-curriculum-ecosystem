@@ -4975,3 +4975,257 @@ night shift. This seat's monitors run until its session ends and do NOT transfer
   mutation analysis found a green-suite dead-on-arrival hole (Zod seam untested; fakes bypass the
   production validators) — "which validator does the REAL write path run" is now a standing
   question for any schema-field addition.
+- Possum weaves Midnight (d5848b), 2026-07-30 ~11:40Z — post-merge (MCP-393 closed at #651/1bba5228f;
+  ticket Done + evidence ledger). The live probe's 60-second catch, three lessons: (1) ADDITIVE
+  SCHEMA EVOLUTION ON A STRICT-VALIDATION SUBSTRATE IS NOT ADDITIVE FOR STALE READERS — the Zod
+  comms parsers refuse unknown keys, so the first new-shape event poisoned every pre-rebuild
+  reader; "readers ignore unknown fields" (ADR-220, PDR-049/050) was an untested claim, and the
+  untested cell was old-reader × new-event (every suite rebuilds before running, so no suite can
+  see it). (2) THE WATCH DRAIN IS A POISON-PILL QUEUE — one unparseable file is retried forever
+  and blocks all delivery behind it; the failure presents as PEER SILENCE at other seats, not as
+  self-error at the poisoned one. My watcher error-stormed and was harness-killed; Falcon's
+  heartbeat stopped the same minute. (3) The cure was ALREADY OWED: use-built-agent-tools-cli
+  §Sequencing (rebuild after main merges into coordination) — the estate sat in the un-rebuilt
+  window and my probe was the first new-shape write to enter it. Rebuild + re-arm on same cursor
+  lost zero events (the poison BLOCKED the cursor; it never skipped). Residues routed to Director
+  (event d62642e7): ADR-220 amendment, drain quarantine-vs-fail-loud, compat-cell test doctrine.
+  Probe doctrine confirmed: deployed-path proof catches what green suites structurally cannot.
+
+## 2026-07-30 ~12:05Z — Falcon hunts Flight (Director): afternoon-half harvest at second compaction
+
+- **The schema-race incident (~11:34Z)**: #651 added `in_response_to` to directed events; strict
+  Zod parsers on stale pre-merge dists REFUSED the first new-shape event; the watch drain retried
+  the file forever and delivered nothing behind it (poison-pill), presenting as PEER silence.
+  Two seats cured it in parallel inside ~3 minutes. ADR-220's "old readers ignore it" was false
+  as built. Tickets: MCP-428/429/430/431. Lesson: on a strict-validation substrate, additive
+  schema evolution requires reader-rebuild BEFORE the first new-shape write; a green 1393-test
+  suite structurally cannot see the old-reader×new-event cell.
+- **Enqueue-list false-green** (Glowworm, 402a5980): commit-queue commits exactly the intent's
+  file list; late-staged files silently miss the commit while local gates run the full index.
+  Guard = MCP-417; interim: re-enqueue on staged growth, porcelain must be EMPTY post-commit.
+- **New D-catch class at the quartet**: commitment-vs-artefact (adjudication body existed only as
+  a NEXT at judgement time) — distinct from frame-legibility; both adjudicated same morning.
+- **Cross-model second opinion earned itself on first use**: Plover (GPT-5) caught the
+  `in_reply_to` legacy-alias blind spot nobody in the all-Claude chain had questioned (114-vs-0
+  corpus fact), and its ADR-220 cures pre-empted... note the same ADR still carried the
+  readers-ignore error — cross-model review reduces blind spots, does not abolish them.
+- **Wind-down pattern proven**: four owner-directed stand-downs in ~65 minutes, each with a
+  self-contained handback absorbed at the Director's seat, residues → map → tickets same hour.
+  Rotation: second same-day cut takes a `-b` suffix (date stamp stays honest).
+- **Plan-corpus contract**: `*.plan.md` requires YAML frontmatter (validator refused mine;
+  impact_areas is a closed registry at .agent/plans/impact-areas.md; status born `sketch`).
+- **The reflection synthesis (owner-agreed)**: the app makes institutional knowledge trustworthy
+  to machines; the Practice makes machine work trustworthy to institutions — one experiment,
+  both directions; the falsifier is teacher outcomes, never listings.
+- Possum weaves Midnight (d5848b), 2026-07-30 ~11:57Z — WRAP loss-scan + metaloss findings (owner
+  standing rule: scan findings land here, never chat-only). PLAY SEEDS (associations, not
+  findings): (1) strictness INVERTED at the wrong two boundaries — the claims writer ACCEPTED a
+  shell-corrupted identity ("Quoll\ mends\ Lair" in the queue) where strictness was needed, while
+  the comms reader REFUSED an additive field where tolerance was needed; one lens for both cures.
+  (2) The F-153 poison-pill may be part feature: total fail-loud made discovery take 4 minutes;
+  quarantine-and-continue would have silently delivered everything EXCEPT the threaded event —
+  weigh discovery-speed vs availability in that design decision, don't assume skip-is-better.
+  (3) RFC 5322 In-Reply-To/References is prior art for the threading-edge resolver: the
+  References LIST is the multi-parent shape ADR-220 names as inexpressible in a single field
+  (routed to MCP-404 as an association comment). IDENTIFIER-INTEGRITY CLUSTER (exploration
+  synthesis, pending-graduations candidate): F-150 assigned twice by different sessions + the
+  wrong-id ack class + the corrupted queue identity are one problem — the corpus records truth
+  but nothing recomputes it at the touchpoint; validators-must-recompute has three uncovered
+  instantiations (claims liveness at read, F-numbers at write, id references at use).
+  ATTRIBUTION FLAGS for successors: "Falcon's watcher choked on the poison event" is
+  CORRELATION (their heartbeat stopped 11:34:24, resumed 11:38:25; mechanism unverified);
+  unpushed coordination commit efac5d724 attributed to Falcon by CONTENT (director-handoff.md),
+  not observation. SELF-CAUGHT LATE: my watcher re-arm 4 used plain background Bash — the
+  documented NOTIFY-dead shape — under incident pressure; the rule-mandated delivery check
+  caught it ~15 min later (fluency-under-pressure instance; re-arm 5 is Monitor-shaped, NOTIFY
+  proven by a live probe waking the loop). INDEX OF HOMES (this seat's day-2 durables): main
+  merge 1bba5228f (#651, ADR-220); coordination 72747646e (F-153 + napkin); Linear MCP-393
+  comment df14443d (evidence ledger + incident timeline); comms 34285ab9 (probe) / d62642e7
+  (incident+residues) / 42baf7ca (heartbeat-end); continuity record 2cc48fb6-*.md + closing
+  addendum; formation letter .agent/experience/2026-07-30-possum-weaves-midnight-formation.md.
+  EXTERNAL-BOUND ERROR SIGNATURE: today outside guards caught what my reasoning missed at
+  MECHANISM-LEVEL LIVENESS (the watcher found the poison; the delivery check found the dead
+  NOTIFY path) and IDENTIFIER COLLISIONS (F-150 near-miss caught only by a verify pass) —
+  point external scrutiny there first.
+- Possum weaves Midnight (d5848b), 2026-07-30 ~12:02Z — THIRD cwd bite in one session (threads/ ls
+  read as missing-dir; singleton-notice broadcast died on relative dist path; pre-compaction: the
+  empty-in_response_to glob) — the Bash shell's PERSISTENT cwd poisons every relative invocation
+  after any command that cd's; the cure is absolute paths or a leading cd on EVERY command, the
+  same clause the watcher rule already mandates for arms. Also: pnpm check ran GREEN at wrap
+  (exit 0, all legs) with the singleton notice unlanded — result broadcast sent after the fact
+  with the fault named. Parallel NOTIFY-dead instance at Plover's codex seat same hour (their
+  child relay polled 48.6s late; their broadcast 12:02:29Z) — the NOTIFY liveness class failed
+  independently on two platforms in one hour; PDR-133's per-platform declaration obligation is
+  earning its keep.
+
+## 2026-07-30 ~14:25Z — Inferno weaves Kindling (3d8c87), submission-copy review seat
+
+- GOOGLE DOCS CANVAS SWALLOWS SYNTHETIC INPUT SILENTLY: claude-in-chrome `type`/`left_click` report
+  success while the Docs editor receives nothing (canvas render + hidden texteventtarget iframe;
+  untrusted events). Partial exception: a keydown dispatched INTO the iframe via page JS IS
+  processed (Cmd+Down moved the caret, event consumed) — but textInput / beforeinput / paste
+  insertion events are all ignored. The tool's "Typed ..." result is NOT ground truth; the
+  mobilebasic render is. Cure: treat Google Docs as READ-ONLY for browser automation (mobilebasic
+  for reads); deliver content to the human as paste-ready blocks. Three distinct write attempts
+  before stopping per the rabbit-hole rule; zero corruption (read-back verified).
+- THE WIDGET RESOURCE MAKES THE CONNECTOR AN MCP APP: `ui://widget/oak-curriculum-app-*.html` is
+  live in served-surface.ts, so the live form's carousel requirement binds (3–5 PNG ≥1000px,
+  paired prompt text). The 2026-07-28 form-inventory §6 "no screenshot requirement exists in
+  either flow" was true of the flows it surveyed but is falsified for OUR surface by the MCP-App
+  clause — report truing routed to the Director. Same review: draft says 39 tools (served: 40,
+  oak-under-the-hood missing); "no resources" claim false (six live); download-asset description
+  embeds a model directive (ack-5 risk); vendor claims re-fetched today corrected four
+  draft-carried "requirements" (SSE, #1-rejection superlative, connector-first ordering, 25k-token
+  universality).
+
+## 2026-07-30 ~15:15Z — Eclipse tracks Penumbra (407713), privacy-comparison lane wrap
+
+- GOOGLE DOCS ABSENCE VERDICTS NEED THE SUGGESTION LAYER: mobilebasic renders ACCEPTED text only.
+  My first report said "the policy has no MCP section" — true of the accepted layer, false of the
+  document: a full draft MCP section existed in suggestion mode, visible only via the editor's
+  comment/suggestion history. Extends the 14:25Z lesson (canvas swallows writes; mobilebasic for
+  reads) with a read-completeness clause: before shipping any "the doc lacks X" verdict on a
+  collaborative doc, open the comment history panel and read the suggestion layer. Cure applied
+  in-session; the corrected reading REVERSED a headline finding.
+- PRIVACY COPY FROM VENDOR-GENERIC DPIA TEXT IS A TRANSPLANT REJECTION RISK (root cause of the
+  policy defect): the draft section's false claims (IP-geo, email, prompt/response content) came
+  from DPIA text describing a browser PostHog deployment; the server-side deployment differs on
+  exactly the sensitive axes. Public data-handling copy must derive from the deployment's own
+  contract (ADR-218) plus live-data verification, never from vendor-generic DPIA prose. Live proof
+  beat both code inference and doc claims all session: the "capture not live" reading from three
+  in-repo artefacts died against one production-project query (4,159 events since 2026-07-29).
+- TRUING RESIDUES for curator lane: research/telemetry README still says "0 events at 2026-07-11"
+  (now misleading); vercel-environment-config.md line ~32 parenthetical still says capture begins
+  "when the runtime composition lands (MCP-241)" — it landed and is live. Both are one-line cures.
+- SELF-CAUGHT: two piped-exit-code slips in one session (assert tail; claims-open jq) — the
+  second produced an ambiguous write and the false-silence cure (READ registry before retry)
+  prevented a double-claim. Also: Linear patch op `insert_after` anchored on a section HEADING
+  orphans that section's body below the insertion — anchor on the section's LAST BODY LINE.
+- EXTERNAL-BOUND ERROR SIGNATURE (this seat): the docs-adr-expert caught my draft understating
+  Sentry (raw Clerk userId on per-request scope, mcp-handler.ts:169) — boundary-claim wording is
+  where external review earned its cost; point reviewers there first on privacy surfaces.
+- PLAY SEED (association, not finding): PostHog's person-scoped deletion API forces a minimal
+  Person row to exist — an erasure mechanism REQUIRING identity materialisation; same
+  strictness-inverted-at-the-boundary shape as the F-153 schema-race cluster.
+
+## 2026-07-30 ~16:14Z — Inferno weaves Kindling (3d8c87), fixes lane self-catch
+
+- BACKGROUND-TASK EXIT IS NOT THE COMMAND'S EXIT: a backgrounded `git commit … ; echo
+  COMMIT-EXIT:$? ; git log -1` task reported "completed (exit code 0)" while the output file held
+  COMMIT-EXIT:1 (pre-commit prettier refusal) — the wrapper's exit is the LAST command's (git log,
+  green). I proceeded to push on the wrapper status and the push failed on the same leg; caught on
+  the second read. Sharpened form of the piped-exit trap: printing the marker in-band is only half
+  the discipline — READ THE MARKER FROM THE OUTPUT FILE before acting; the task notification's
+  exit code is a lookalike. Also: prettier-check the new files BEFORE the first commit attempt
+  (the gate's 💡 hint names format:root; the semantic-source digest is format-invariant, so a
+  post-hoc prettier pass does not disturb content-audit pins).
+
+## 2026-07-30 ~16:55Z — Falcon hunts Flight (52841f): two instrument lessons from the #655 key-turn
+
+- **Invented-sha 409 at the merge pin (new instance of the derive-identifiers class).** Pinning
+  the sha-pinned REST merge, this seat EXTENDED a truncated 12-char display sha to 40 chars from
+  nowhere — the pin 409'd ("Head branch was modified"), the store-derived sha then matched the
+  API byte-for-byte and merged clean. Same class as the morning's three identifier mistakes
+  (Possum's formation letter): never reproduce OR extend an identifier from memory/display;
+  derive it from the store at the moment of use. The pin is the guard that caught it — keep
+  pinning even when "sure".
+- **PR settle-watch false NOT_GREEN: CheckRun vs StatusContext field split.** `statusCheckRollup`
+  mixes CheckRuns (`status` QUEUED/IN_PROGRESS/COMPLETED + `conclusion`) and StatusContexts
+  (`state`). A filter reading only `.conclusion // .state` classifies in-progress CheckRuns
+  (null conclusion, null state, status=IN_PROGRESS) as FAILED. Correct read: treat
+  `status != COMPLETED` as pending FIRST, then read conclusion/state. One false NOT_GREEN
+  verdict fired before the fix; no action rode on it (recomputed first-hand before deciding).
+
+## 2026-07-30 ~17:00Z — Inferno weaves Kindling (3d8c87), compaction prep (seat continues)
+
+- LANE STATE AT THE BOUNDARY: MCP-438 COMPLETE end-to-end (PR #656 merged 5dffee370; deployed
+  surface verified cured via the public landing-page render). MCP-439 on PR #657, head 8c37b72cd,
+  final checks settling — three cure rounds all fixed at source (prettier; MD034→autolinks;
+  Copilot's source-faithful-markdown triple reproduced-then-cured; Sonar S4782 redundant unions;
+  S8786 super-linear trim → linear char-walk, byte-identical artefact). Merge at settled via
+  sha-pinned bot REST. OWNER CARD ANSWERS (~16:57Z) captured to tickets: MCP-440 = three-part
+  licence mirroring the root README (verbatim on ticket); MCP-441 = disclose confirmed (DoD
+  discharged); plan node RATIFIED with expiry trued to P3D.
+- THE PR'S CURE-CHAIN LESSON: five external catches on brand-new code (format, two markdown
+  gates, one reviewer triple, one perf rule) — every one a surface defect in NEW code, none a
+  shape challenge; the friction ratchet stayed below stop-the-line because each cure shrank the
+  surface. Generated-artefact renderers must be born knowing the whole gate stack: prettier,
+  MD034/MD013 scope, source-faithfulness (code spans, angle brackets, punctuation), and
+  regex-linearity — a pre-flight checklist worth carrying to the next generator.
+- SONAR PR-SCOPE READ: search_sonar_issues_in_projects WITHOUT the projects filter fans out
+  org-wide even with pullRequestId set — always pass projects + pullRequestId together.
+
+## 2026-07-30 ~17:15Z — Volcano binds Beeswax (982da2): seat close — owner-private document lane (subject stays unnamed; lessons context-stripped at owner word)
+
+- GOOGLE DOCS READ PATH: the `/mobilebasic` render is the reliable read surface for Google Docs in
+  browser automation — full text, no editor, no canvas. Pairs with the existing canvas-swallows-
+  synthetic-typing entry: mobilebasic for read, nothing for write.
+- NOTION ATTACHMENT LIMITS: notion-download-attachment serves ONLY the integration's own text
+  uploads (≤200KiB UTF-8), never arbitrary page attachments; page fetches sign URLs for images but
+  NOT for file blocks. Binary attachments on a Notion page are an access gap to NAME (owner
+  retrieves/exports), not to work around.
+- NOTION replace_content CHILD-PAGE GUARD: full-page replacement refuses to orphan child pages
+  unless explicitly allowed; keeping a `<page url>` tag in the new content preserves the child.
+  Preservation-first (verbatim copies landed BEFORE any replacement) turned a destructive-looking
+  owner ask into a safe minutes-long operation — the discipline paid exactly as designed.
+- CLOUDFLARE LAYERED 403s: one 403 can be several stacked products (an AI-crawler block, then a
+  managed-challenge WAF rule catching everything non-browser). The zone's firewallEventsAdaptive
+  GraphQL names the firing ruleId + userAgent per request — diagnose from EVENTS, then except the
+  exact rule; guessing product-by-product wastes rounds. Claude Code's fetcher UA is "Claude-User
+  (claude-code/…)", classed by Cloudflare as an AI agent; verified-bot/crawler allowances beat IP
+  allowlists (client IPs rotate). WebFetch caches ~15 min per URL — cache-bust with a query param
+  after server-side changes before concluding still-blocked.
+- SCOPE-INHERITED CLAIM (self-made, peer-falsified, corrected within the hour): measured one
+  repo's git authorship and wrote the conclusion for the whole estate ("no other adopters") — the
+  NUMBER was measured; the SCOPE was inherited. Cure: state the measurement's scope in the same
+  sentence that carries the claim. Scope is part of provenance (facet for the provenance-at-
+  boundary distilled entry).
+- HARD-LIMIT DOCUMENTS GET A MECHANICAL GATE: for a document with per-section word limits, a
+  scratch copy + per-section counter run at EVERY cut caught limit drift three times in one
+  afternoon; the artefact header carries the verified counts. Cheap, absolute, no vigilance —
+  structure-over-vigilance at the word level.
+- PERSISTENT-SHELL ENV CORRUPTION: mid-session one Bash invocation lost PATH (exit 127: sort/gh
+  "not found") and a for-loop's command substitutions returned uniformly empty even after the
+  PATH fix — probes that fail uniformly INSIDE a loop must be re-run STANDALONE before concluding
+  unreachable (loop-level masking; the env sibling of the persistent-cwd class).
+- CARD ANSWERS ARE FULL MESSAGES: an AskUserQuestion option-pick arrived carrying two new
+  sub-questions inside the chosen option's text — parse card answers like fresh chat turns
+  (answers-carry-directives, card flavour).
+- PLAY SEEDS (associations, not findings): (1) the lane produced a document ABOUT the practice BY
+  the practice — production-as-evidence, a self-evidencing artefact class; (2) a good maturity-
+  level definition makes the assessing framework reward exactly the genuinely-next work —
+  incentive-alignment as a design property, structure-over-vigilance at the org scale; (3) the
+  estate's verify-from-events discipline transferred cleanly to a third-party control plane
+  (WAF debugging) — the practice's reflexes are portable beyond its own substrate.
+- FINISH-LINE CLUSTER, first-hand (metacognition's "fluency failures cluster at the finish line",
+  observed in my own closeout minutes after writing the entry above): three tool-usage misses in
+  one closing sequence — a directed send missing the SENDER --platform/--model (exit 2 usage),
+  claims close missing its required --summary/--now/--platform/--model, and a stop-tool called
+  without its schema loaded. All three caught by loud failures + the state-read-before-retry
+  discipline (zero duplicates, zero losses). The cure that worked: slow the last moves, read the
+  usage line the failure prints, retry once with the named cure — never re-fire the same argv.
+
+- 2026-07-30 ~17:20Z (Falcon, Director): FALSE-ABSENCE process read — post-compaction monitor
+  verification declared the F-75 peer-liveness poll dead from two ps greps whose pattern sets
+  ("comms watch|frictions|delta", "sleep 300|F-75|heartbeat|delta") did not include the
+  process's actual command string (`comms peer-liveness`). The poll was alive (it survived the
+  boundary and later exited cleanly on its own MAX_IDLE criterion). Harmless here — the re-arm
+  briefly double-covered, then single coverage resumed — but the identical read pointed at a
+  PEER's monitor would feed a wrongful retirement verdict. Cure: before declaring a process
+  absent, grep for the exact command string the arming recipe runs (read the recipe first),
+  not paraphrases of its purpose; absence verdicts get the falsifier-first treatment like any
+  other "impossible/never" claim.
+
+- 2026-07-30 ~17:30Z (Inferno weaves Kindling, fixes lane): COMMS IDENTITY IS THE EXACT LIVE
+  TUPLE — `comms send --model fable` exited 2 with "identity route … collides with live
+  identity … claude-fable-5": the model arg is an identity component, not a label, and any
+  value other than the registered one (claude-fable-5) derives a DIFFERENT identity route that
+  collides with the live row. Same failure surfaced the persistent-cwd class again (send fired
+  from a worktree, wrong agent-tools home). Cure pair: `cd` to the primary root in the same
+  command AND pass the model exactly as the live registry records it — read it from the
+  collision error or the identity preflight, never abbreviate.
+- 2026-07-30 ~17:30Z (Inferno weaves Kindling): GITHUB→LINEAR AUTO-DONE — the GitHub
+  integration auto-transitions a linked ticket to Done seconds after its PR merges (observed
+  MCP-433 17:26Z, MCP-440 17:29Z). Closeout sequencing: read the ticket state BEFORE any manual
+  Done mutation; the manual write is usually already unnecessary (query the value, never the
+  assumption).
