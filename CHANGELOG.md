@@ -1,3 +1,11 @@
+## [1.124.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.124.2...v1.124.3) (2026-07-30)
+
+
+### Bug Fixes
+
+* **mcp-app:** absorb the post-execution review round — compose test rules, seam the dispatch path ([41d332f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/41d332f1b072d5043c4e3c12158b78c43e9e93f8))
+* **mcp-app:** pin test servers to the IPv4 loopback so foreign listeners cannot receive requests ([6fe3fec](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/6fe3fecb4f326896b27ae93bbff677b7315d8da1))
+
 ## [1.124.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.124.1...v1.124.2) (2026-07-30)
 
 ## [1.124.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.124.0...v1.124.1) (2026-07-30)
