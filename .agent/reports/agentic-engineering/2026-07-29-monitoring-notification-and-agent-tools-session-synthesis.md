@@ -57,8 +57,9 @@ at exact head `58324ee0b896d996b39939268f11b1a5c67813db`, merge commit
 The owner then asked that the remaining hand-rolled monitoring recipes be
 recorded and, where sensible, turned into standard agent tooling. MCP-373 now
 holds those recipes. This session investigated their implementation boundary
-but intentionally did not start code: the four recipes are different state
-machines and should not be collapsed into one unreviewable monitor.
+but intentionally did not start code: the recipes span three distinct state
+machines plus a stateless watcher-arming composition. They should not be
+collapsed into one unreviewable monitor.
 
 The best current implementation sequence is:
 
@@ -184,8 +185,9 @@ evidence for the next executor, not ratified decisions:
   state` code and D2 plan.
 
 Together they showed that the original “make a CLI wrapper” frame was too
-coarse. Each recipe has its own state, reset semantics, failure policy, and
-terminal condition. Shared primitives are useful; a mega-loop is not.
+coarse. The three monitors each have their own state, reset semantics, failure
+policy, and terminal condition. Watcher arming is instead a stateless
+command/setup composition. Shared primitives are useful; a mega-loop is not.
 
 No MCP-373 product files, tests, branch implementation, or delivery PR were
 created in this session.
@@ -247,8 +249,9 @@ stopped as a pair, but never conflated.
 
 The same compositional rule applies to MCP-373. Put scheduling, clocks,
 transition emission, and retry/failure plumbing in shared code where that
-reduces drift. Keep peer retirement, claim heartbeat, watcher arming, and PR
-settlement as explicit state machines.
+reduces drift. Keep peer retirement, claim heartbeat, and PR settlement as
+explicit state machines; keep watcher arming an explicit stateless command/setup
+composition.
 
 ### Movement 4: a falsifiable successor shape
 
@@ -258,8 +261,12 @@ shape.
 #### Slice A — read defaults plus peer-liveness watch
 
 **Proposal:** complete coordination-home WS1b, expose a structured
-peer-liveness report, and then add `comms peer-liveness --watch` with a silent
-initial baseline and semantic transition emission.
+peer-liveness report, and then add `comms peer-liveness --watch` with a
+transition-silent initial baseline and semantic transition emission.
+
+Here, **transition-silent** means the initial snapshot emits no semantic
+transition event. Whether it emits one operational status line remains an
+implementation choice.
 
 **Warrant:** the current one-shot reader is the right domain boundary, but
 hand-written shell dedup used rendered lines containing changing ages and
@@ -272,8 +279,8 @@ do not parse prose output.
 Open design choices for the implementation plan:
 
 - lifetime `SEEN` versus a rolling previous-state set;
-- whether “silent baseline” means truly no output or one operational status
-  line;
+- whether the transition-silent baseline also suppresses operational output or
+  emits one status line;
 - whether explicit claim closure suppresses a later retirement transition;
 - whether errors terminate, retry with a typed transition, or both.
 
@@ -300,8 +307,8 @@ stderr, and stop before claim closure.
 
 **Proposal:** implement the already-planned D2
 `agent-tools pr watch <n...>` over D1's canonical `pr state` model. Emit an
-initial silent baseline, semantic transitions, an explicit `HEAD_CHANGED`
-epoch reset, NDJSON, `--until`, and distinct terminal exit codes.
+initial transition-silent baseline, semantic transitions, an explicit
+`HEAD_CHANGED` epoch reset, NDJSON, `--until`, and distinct terminal exit codes.
 
 **Warrant:** the repository already owns a typed PR-state reader, while the
 legacy top-level `pr-watch` helper declares success too weakly: at least one
@@ -400,9 +407,10 @@ work for the co-equal ArcAngel rapid-communication channel.
    a content-bearing response. This boundary should remain explicit rather
    than be “solved” by inventing a self-certification.
 
-## Exact successor pickup
+## Proposed successor pickup
 
-For MCP-373:
+The following pickup sequence is proposed guidance for MCP-373, not ratified
+direction:
 
 1. Read MCP-373 and this report.
 2. Re-read the live source before treating any command or option in the Linear

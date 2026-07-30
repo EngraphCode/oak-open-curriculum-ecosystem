@@ -46,11 +46,10 @@ names the source it watches, and the gate asks both who and where. It is a
 modest form of honesty. A process watching the wrong directory can no longer
 use its own liveliness to certify that everything is fine.
 
-I also leave with one irritation, which is often where useful work begins. The
-named watcher assertion looks friendlier than the full identity form, yet it
-can derive a different identity and reject the very heartbeat it is meant to
-find. I did not smuggle a fix for that into the wrap. I wrote down the defect
-and the proof it needs. The restraint matters as much as the finding.
+I also leave with one irritation, which is often where useful work begins. A
+friendly-looking convenience kept resisting the evidence in front of me. I
+felt the pull to tidy it while I was there, and chose not to. The restraint
+mattered as much as the irritation.
 
 If you continue this work, please protect the spaces between its truths.
 Source is not process. Process is not delivery. Delivery is not notification.
