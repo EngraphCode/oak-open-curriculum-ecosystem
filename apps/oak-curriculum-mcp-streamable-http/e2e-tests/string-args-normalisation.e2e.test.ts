@@ -1,4 +1,4 @@
-import request from 'supertest';
+import { request } from '../src/test-helpers/loopback-request.js';
 import { describe, it, expect } from 'vitest';
 import { createApp } from '../src/application.js';
 import type { ToolHandlerOverrides } from '../src/handlers.js';

@@ -23,6 +23,11 @@ export const APP_TEST_HELPERS_DELTA_REVIEWS: Readonly<Record<string, CurrentSour
     '587ea4f25b03c4355e71548abc06ddb5b542e83d3bb3078cba215d7d1c5f0a0c',
     TEST_ONLY,
   ),
+  // MCP-403: loopback-pinned supertest entry point (test harness only).
+  'apps/oak-curriculum-mcp-streamable-http/src/test-helpers/loopback-request.ts': excluded(
+    '83cdeddd8e24e2a8f351e18013b9d4119078bf3e7a3a53c7040c45eba9779c9b',
+    TEST_ONLY,
+  ),
   // MCP-242: product-analytics test fakes extracted from fakes.ts.
   'apps/oak-curriculum-mcp-streamable-http/src/test-helpers/fakes-product-analytics.ts': excluded(
     'ab5e6009c82e2b213aea36a4c5fc660445e0cb5f50a3f4453973d35edd365999',

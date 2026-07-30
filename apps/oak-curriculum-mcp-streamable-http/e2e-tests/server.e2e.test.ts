@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { z } from 'zod';
-import request from 'supertest';
+import { request } from '../src/test-helpers/loopback-request.js';
 import { createApp } from '../src/application.js';
 import { toolNames } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
 import { TEST_UPSTREAM_METADATA } from '../src/test-helpers/upstream-metadata-fixture.js';

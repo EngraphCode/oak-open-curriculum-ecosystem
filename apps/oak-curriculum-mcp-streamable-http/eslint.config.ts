@@ -439,6 +439,45 @@ const config = defineConfigArray(
       'no-restricted-properties': 'off',
     },
   },
+  {
+    // MCP-403: test HTTP servers must own the exact loopback address test
+    // clients dial. Bare supertest boots host-less servers on `::` while
+    // its client dials 127.0.0.1, so a foreign v4 listener on the same
+    // ephemeral port silently receives the request under concurrent-graph
+    // load. The loopback-request helper is the sanctioned entry point; a
+    // host-less listen in a test is the same vulnerable shape spelled by
+    // hand. The helper itself is not a test file, so these rules never
+    // apply to it — no exemption needed.
+    files: ['**/*.test.ts', '**/*.test.tsx'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          paths: [
+            {
+              name: 'supertest',
+              message:
+                'Bare supertest boots host-less (`::`) servers whose ports foreign v4 listeners can share (MCP-403). Import { request } from the loopback-request test helper instead.',
+            },
+          ],
+        },
+      ],
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: 'CallExpression[callee.property.name="listen"][arguments.length=1]',
+          message:
+            'Host-less listen in a test binds `::` while test clients dial 127.0.0.1 (MCP-403). Pass an explicit host: listen(port, "127.0.0.1") — or use the loopback-request helper.',
+        },
+        {
+          selector:
+            'CallExpression[callee.property.name="listen"][arguments.length=2][arguments.1.type=/FunctionExpression|ArrowFunctionExpression/]',
+          message:
+            'Host-less listen(port, callback) in a test binds `::` while test clients dial 127.0.0.1 (MCP-403). Pass an explicit host: listen(port, "127.0.0.1", callback) — or use the loopback-request helper.',
+        },
+      ],
+    },
+  },
 );
 
 export default config;

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import express from 'express';
-import request from 'supertest';
+import { request } from '../test-helpers/loopback-request.js';
 import type { LogContextInput } from '@oaknational/logger';
 
 import { createOAuthProxyRoutes, type OAuthProxyConfig } from './oauth-proxy-routes.js';

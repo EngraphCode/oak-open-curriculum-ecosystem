@@ -563,6 +563,12 @@
       "exclusionReason": "Test support only; this file does not reach an MCP consumer."
     },
     {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/test-helpers/loopback-request.ts",
+      "semanticSha256": "83cdeddd8e24e2a8f351e18013b9d4119078bf3e7a3a53c7040c45eba9779c9b",
+      "itemIds": [],
+      "exclusionReason": "Test support only; this file does not reach an MCP consumer."
+    },
+    {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/test-helpers/registration-walk.ts",
       "semanticSha256": "31f49ec350f174012d723eb88b9486086c0bcd82347813b3370082d1033fec8c",
       "itemIds": [],

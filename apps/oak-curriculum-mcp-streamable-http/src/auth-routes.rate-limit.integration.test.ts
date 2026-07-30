@@ -16,7 +16,7 @@
  */
 import { describe, it, expect } from 'vitest';
 import express, { type Express } from 'express';
-import request from 'supertest';
+import { request } from './test-helpers/loopback-request.js';
 
 import { registerPublicOAuthMetadataEndpoints } from './auth-routes.js';
 import { createDefaultRateLimiterFactory } from './rate-limiting/rate-limiter-factory.js';

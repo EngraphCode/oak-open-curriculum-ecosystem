@@ -1,4 +1,4 @@
-import request from 'supertest';
+import { request } from './test-helpers/loopback-request.js';
 import { describe, it, expect, beforeEach } from 'vitest';
 import { createApp } from './application.js';
 import { createFakeHttpObservability } from './test-helpers/observability-fakes.js';
