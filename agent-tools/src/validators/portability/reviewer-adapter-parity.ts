@@ -9,16 +9,8 @@
  * of existing adapter file paths.
  */
 
+import { isReviewerAdapterSupportedOnPlatform } from '../../core/reviewer-adapter-platform-contract.js';
 import { stripDirAndExtension } from './portability-constants.js';
-
-/**
- * Cricket's high-judgement seat exists on Claude and Cursor only.
- *
- * Codex deliberately uses a three-seat panel (low judgement, medium
- * judgement, and xhigh procedure), so requiring or accepting a Codex adapter
- * for this fourth role would misrepresent the supported runtime contract.
- */
-const CLAUDE_CURSOR_ONLY_REVIEWERS = new Set(['cricket-judgement-high']);
 
 /**
  * Options for {@link getReviewerAdapterParityIssues}.
@@ -82,12 +74,13 @@ export function getReviewerAdapterParityIssues({
         `.claude/agents/${agentName}.md: missing reviewer adapter required for cross-platform parity`,
       );
     }
-    if (!codexNames.has(agentName) && !CLAUDE_CURSOR_ONLY_REVIEWERS.has(agentName)) {
+    const supportsCodex = isReviewerAdapterSupportedOnPlatform(agentName, 'codex');
+    if (!codexNames.has(agentName) && supportsCodex) {
       issues.push(
         `.codex/agents/${agentName}.toml: missing reviewer adapter required for cross-platform parity`,
       );
     }
-    if (codexNames.has(agentName) && CLAUDE_CURSOR_ONLY_REVIEWERS.has(agentName)) {
+    if (codexNames.has(agentName) && !supportsCodex) {
       issues.push(
         `.codex/agents/${agentName}.toml: reviewer adapter is unsupported because this Cricket seat is Claude and Cursor only`,
       );

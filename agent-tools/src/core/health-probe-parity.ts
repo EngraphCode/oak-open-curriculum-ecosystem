@@ -9,6 +9,10 @@ import {
   listBasenames,
 } from './health-probe-shared.js';
 import type { HealthCheckResult } from './health-probe-types.js';
+import {
+  isReviewerAdapterSupportedOnPlatform,
+  type ReviewerAdapterPlatform,
+} from './reviewer-adapter-platform-contract.js';
 
 export function evaluateParityChecks(repoRoot: string): readonly HealthCheckResult[] {
   return [evaluateReviewerAdapterParity(repoRoot), evaluateReviewerRegistrationParity(repoRoot)];
@@ -41,7 +45,7 @@ function evaluateReviewerAdapterParity(repoRoot: string): HealthCheckResult {
     key: 'reviewer-adapter-parity',
     label: 'Reviewer adapter parity',
     status: 'pass',
-    summary: `${allAgentNames.length} reviewer adapters are aligned across Cursor, Claude Code, and Codex.`,
+    summary: `${allAgentNames.length} reviewer adapters are aligned across their applicable platform surfaces.`,
     details: [],
   };
 }
@@ -57,18 +61,42 @@ function collectReviewerAdapterParityDetails(
   const details: string[] = [];
 
   for (const agentName of allAgentNames) {
-    if (!platformAgents.cursorAgents.includes(agentName)) {
-      details.push(`Cursor is missing reviewer adapter ${agentName}.`);
-    }
-    if (!platformAgents.claudeAgents.includes(agentName)) {
-      details.push(`Claude Code is missing reviewer adapter ${agentName}.`);
-    }
-    if (!platformAgents.codexAgents.includes(agentName)) {
-      details.push(`Codex is missing reviewer adapter ${agentName}.`);
-    }
+    collectPlatformParityDetail(
+      details,
+      agentName,
+      'cursor',
+      'Cursor',
+      platformAgents.cursorAgents,
+    );
+    collectPlatformParityDetail(
+      details,
+      agentName,
+      'claude-code',
+      'Claude Code',
+      platformAgents.claudeAgents,
+    );
+    collectPlatformParityDetail(details, agentName, 'codex', 'Codex', platformAgents.codexAgents);
   }
 
   return details;
+}
+
+function collectPlatformParityDetail(
+  details: string[],
+  agentName: string,
+  platform: ReviewerAdapterPlatform,
+  platformLabel: string,
+  platformAgents: readonly string[],
+): void {
+  const hasAdapter = platformAgents.includes(agentName);
+  const supportsAdapter = isReviewerAdapterSupportedOnPlatform(agentName, platform);
+
+  if (!hasAdapter && supportsAdapter) {
+    details.push(`${platformLabel} is missing reviewer adapter ${agentName}.`);
+  }
+  if (hasAdapter && !supportsAdapter) {
+    details.push(`${platformLabel} has unsupported reviewer adapter ${agentName}.`);
+  }
 }
 
 function evaluateReviewerRegistrationParity(repoRoot: string): HealthCheckResult {
