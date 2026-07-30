@@ -8,7 +8,7 @@ serves: first-major-release
 impact_areas:
   - served-surface
 tickets:
-  - MCP-419
+  - MCP-420
 depends_on: []
 owner_gates:
   - awaiting: owner-decision
@@ -23,7 +23,7 @@ last_updated: 2026-07-30
 "a decision complete plan to cover the scenario where the upstream API fixes can't happen in time,
 presumably by creating temporary overrides in the local descriptions that will automatically fail
 build once the upstream descriptions for that override change." Executes ONLY at the named trigger
-below. Ticket: MCP-419.
+below. Ticket: MCP-420.
 
 ## The problem
 
