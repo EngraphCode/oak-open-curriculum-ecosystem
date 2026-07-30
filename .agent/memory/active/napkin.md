@@ -5323,3 +5323,11 @@ night shift. This seat's monitors run until its session ends and do NOT transfer
   the first sweep was a same-argv retry. Cure applied: watcher + F-75 poll re-armed as Monitor
   tasks (hourly / persistent). Rule was right; follow it at re-arm moments too, not just at
   first arming.
+
+- 2026-07-30 ~21:05Z (Falcon, Director): Monitor-tool commands run through a zsh eval
+  wrapper — a command embedding nested single-quoted strings (a GraphQL query literal)
+  died at arm time with `(eval):2: unmatched '`, so the Phase-8 harvest silently never ran
+  until its failure notification. Cure: keep Monitor command bodies quote-simple (call a
+  script file, or build query strings without nested single quotes); treat a Monitor
+  "failed" notification as arm-time syntax death, read the task output file first. The
+  inline re-run confirmed a clean post-merge surface (#660: baseline unchanged).
