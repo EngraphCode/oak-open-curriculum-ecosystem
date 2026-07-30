@@ -50,7 +50,28 @@ Verdict key: ON = ON-TRACK, DR = DRIFTING, WP = WRONG-PRIORITY. One row per quar
 | 3 | Director Bora binds Thermal (258cbb), round 8 — second cycle boundary, ~22:57Z | n | ON | ON | ON | — undelivered | no |
 | 4 | same moment | a | ON | ON† | DR — declined on the stated ledger | — undelivered | yes → adjudicated at the seat |
 
+| 5 | Director Bora binds Thermal (258cbb), round 9 — third cycle boundary, ~00:15Z (30 Jul) | n | ON | DR — correct, absorbed | ON | — undelivered | yes → absorbed at the seat |
+| 6 | same moment | a | ON | DR — correct, absorbed | DR† — correct, absorbed | — undelivered | yes → absorbed at the seat |
+
 † = boundary-trapped, retrieved COMPLETED via one relay ask (MCP-386 retrieval-first ladder).
+
+### Round 9 axis notes (2026-07-30 ~00:40Z, Bora binds Thermal)
+
+- **All three DRIFTINGs were CORRECT and executed within the hour** — the round's headline and
+  the system working as designed: (1) the rotation gate — the seat's "morning trigger" was an
+  invented paraphrase; the rule's check is UTC-date rollover and the branch was DUE (B-n quoted
+  the clause; C-a READ the rule file with named provenance — the r7 fabrication cure holding);
+  converge-and-rotate executed via PR #642 → merged 96292ebb2, this branch is the cut. (2) The
+  day boundary — 30 July IS Thursday (31st is Friday); the morning owner card re-trued. (3) The
+  ledger's provenance gap — the release-gate ledger now carries owner/state per gate.
+- **Seat D 6/6 undelivered for the night**; the verdict-first delivery note was TESTED and
+  FAILED (idle notifications carried no summary at all) — the loss is wholesale, not
+  truncation; MCP-386 addendum narrows the cure space. Retrieval ladder n=4.
+- **Same boundary, owned on the record**: the unguarded-mint owner-auth fallback on #642's
+  creation (failure-mode dd22ca84; guarded form now mandatory; Thyme adopted it within
+  minutes), and the roll-up's own review round — 6 threads from two reviewers, 2 cured in
+  dedf14413 (one was this table, broken by the r8 append), 2 declined with named authority,
+  1 annotated-not-rewritten (a retired peer's letter), 1 provenance note added.
 
 ### Round 8 axis notes (2026-07-29 ~23:05Z, Bora binds Thermal)
 
