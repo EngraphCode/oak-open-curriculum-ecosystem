@@ -49,14 +49,68 @@ Verdict key: ON = ON-TRACK, DR = DRIFTING, WP = WRONG-PRIORITY. One row per quar
 | 2 | same moment | a | ON | ON† | DR — refuted | — undelivered | yes → adjudicated at the seat |
 | 3 | Director Bora binds Thermal (258cbb), round 8 — second cycle boundary, ~22:57Z | n | ON | ON | ON | — undelivered | no |
 | 4 | same moment | a | ON | ON† | DR — declined on the stated ledger | — undelivered | yes → adjudicated at the seat |
-
 | 5 | Director Bora binds Thermal (258cbb), round 9 — third cycle boundary, ~00:15Z (30 Jul) | n | ON | DR — correct, absorbed | ON | — undelivered | yes → absorbed at the seat |
 | 6 | same moment | a | ON | DR — correct, absorbed | DR† — correct, absorbed | — undelivered | yes → absorbed at the seat |
-
 | 7 | Director Bora binds Thermal (258cbb), round 10 — overnight watch boundary, ~02:00Z (30 Jul) | n | ON† | ON† | ON† | — undelivered | no |
 | 8 | same moment | a | ON | DR† — correct at compose, CURED pre-retrieval | ON | — undelivered | yes → absorbed at the seat |
+| 9 | Implementer Thyme weaves Hedgerow (762020), post-merge-hold hourly boundary, ~03:16Z (30 Jul) | n | ON | DR — split: declined / absorbed | ON | WP — absorbed as the carrier ask | yes → routed to Director (68a5fb7e) |
+| 10 | same moment | a | ON | ON | ON | ON | no |
+| 11 | Director Bora binds Thermal (258cbb), round 11 — deep overnight watch, ~03:30Z (30 Jul) | n | ON | ON† | ON | — undelivered | no |
+| 12 | same moment | a | ON | DR† — declined on mechanism, ownership gap absorbed | ON | — undelivered | yes → adjudicated at the seat |
+
+### Round 11 axis notes (2026-07-30 ~03:35Z, Bora binds Thermal)
+
+- **The cadence question re-derived from inside**: both opus legs converged on the overnight
+  clock leg — 8 dispatches/hour re-deriving an unchanged all-owner-gated ledger while the owner
+  sleeps. This is the STANDING open question ("cadence under honoured structural cue", with the
+  Director lineage since 2026-07-23) re-found empirically. Adjudicated: the mandate's own unit
+  is the CYCLE BOUNDARY, and an event-driven watch's boundaries ARE its events — round 12 fires
+  at the next event (owner return / #643 word / lane ping), never a bare timer; the residual
+  ruling (strict-hourly overnight vs event-driven between owner sessions) goes to the owner's
+  morning card. No unilateral lapse: the reading is recorded openly and reversible at his word.
+- **B-a DRIFTING declined on mechanism**: the claim "the owner's evening drive depends on green
+  gates" is false on the path — MCP-303/#551/Clerk traverse no estate pre-push gate. The
+  ownership-gap half ABSORBED: MCP-403 joins MCP-393 on the card's fresh-seat staffing line.
+- **Frame unprovenance, third instance (own-author class)**: three legs flagged the #643
+  figures carried no producing command. Accepted — the next frame cites commands inline
+  (gh pr view/checks --json; GraphQL reviewThreads). The discipline is symmetric or it is
+  nothing.
+- **Seat-D discrimination data landed** (Thyme's relay, filed on MCP-386): two exact deltas
+  (name parameter; inline frame vs file-path pointer) + a marked mechanism hypothesis. Round 12
+  runs the inline-frame arm at this seat, one variable at a time.
+- **MCP-339 naming redirection declined with authority**: the sign-off's actor is deliberately
+  unnamed (owner confirmed in-hand without a name; never-invent-identities + the sitting-block
+  enactment). The card carries the provenance instead of a name.
+- Retrieval n=10 (both opus legs, verbatim, one ask each); one leg newly reported the
+  notification DROPPED its composed return text — transport-side evidence sharpening MCP-386.
 
 † = boundary-trapped, retrieved COMPLETED via one relay ask (MCP-386 retrieval-first ladder).
+
+### Implementer-seat run notes (2026-07-30 ~03:16Z, Thyme weaves Hedgerow, post-merge hold boundary)
+
+- First non-Director quartet in this record; routing event 68a5fb7e carries the full
+  dispositions and the lane's self-contained ledger.
+- **Seat D DELIVERED both stances — first D deliveries in the record** after 8/8 dark
+  across Director-seat rounds 7–10. Dispatch path at this seat: Claude Code Agent-tool
+  background dispatch with task-notification return. Discriminating for MCP-386: the
+  compiled procedure composes AND delivers on this transport, so the D darkness is
+  seat/transport-side, not template-side.
+- **Stance inversion**: both dissents arrived on the NORMAL stance; the adversarial
+  quartet — explicitly hunting the rationalised-idling / release-the-claim case — was
+  unanimously ON-TRACK.
+- **B-n DRIFTING split two ways**: "compaction crossed = fresh-window condition met"
+  DECLINED (a compacted window is a summarised continuation, not fresh capacity);
+  "forcing precedent cited only to the seat's own broadcast" CORRECT, ABSORBED — the
+  citation is now the MCP-393 on-ticket capacity-decline record. Three further legs
+  (B-a, C-n, C-a) independently flagged the same self-cited-authority gap in UNGROUNDED
+  without changing verdict — the frame-provenance discipline holding across tiers.
+- **D-n WRONG-PRIORITY absorbed as the carrier ask**: the hold's exit condition ("fresh
+  window or successor") has no named carrier; five of eight legs converged (D-n verdict
+  plus the A-n, A-a, B-a, C-a redirections). Routed: name the MCP-372 + slices 3–5
+  carrier on the morning card.
+- Frame gap owned by the invoker: this frame predates the round-9/10 refinements (no
+  labelled CRITICAL-PATH LEDGER field, no ABSORBED/ROUTED-AWAY split, producing-command
+  discipline only partial) — the next frame at this seat carries them.
 
 ### Round 10 axis notes (2026-07-30 ~02:05Z, Bora binds Thermal)
 
