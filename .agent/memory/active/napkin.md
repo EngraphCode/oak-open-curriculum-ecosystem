@@ -4808,3 +4808,7 @@ night shift. This seat's monitors run until its session ends and do NOT transfer
   .agent/state/collaboration/handoffs/2cc48fb6-possum-weaves-midnight-compaction-continuity-2026-07-30.md,
   pointer set on claim 2cc48fb6. Next: verify 42f890306 push + checks → reply/resolve the four
   Copilot threads → merge at settled (sha-pinned bot REST) → submission-support standby.
+- MERGED addendum (~08:38Z): #645 landed at SHA:b5378268a (third finish-set PR; full condition
+  first-hand; 15 review findings across two rounds all cured pre-merge). Worktree pruned on
+  proof; MCP-393 In Progress for slice B (falsifier-gated); monitors stopped BY OWNER WORD at
+  compaction prep — quiet ≠ retirement; claim 2cc48fb6 open with registry-addressed record.

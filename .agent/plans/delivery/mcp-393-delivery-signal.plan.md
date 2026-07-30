@@ -82,9 +82,18 @@ The practice first, the smallest read surface over it second.
    seat; whether the event-id is a member of the seat's seen set (the
    seen-file is an unordered UUID set — membership, never "cursor
    position"; seat identity resolved from the watcher heartbeat
-   sidecar's `watcher_identity.agent_name`, never the filename);
-   whether a threading reply exists (`in_response_to` match — ABSORB
-   evidence); heartbeat freshness from the PDR-078 comms-event stream
+   sidecar's `watcher_identity.agent_name`, never the filename; and
+   SEED-PROVENANCE-AWARE — the watcher's auto-seed writes every
+   pre-existing event id into a fresh cursor without rendering them, so
+   membership counts as consumption evidence only for events created
+   after the sidecar's seed/start time, and earlier membership reports
+   as `seed-unverifiable`); whether a threading reply exists WHOSE
+   AUTHOR'S routing key equals the directed event's `to` identity
+   (`in_response_to` match + author match — ABSORB evidence; a
+   third-party or sender-authored threading reply is NOT absorption
+   evidence, and content engagement stays the reader's judgment per
+   PDR-133 §6's bare-ack caveat); heartbeat freshness from the PDR-078
+   comms-event stream
    (EMIT — never the watcher sidecar, which certifies the scheduler);
    and the sidecar's `emitted_count`/`last_emit_at` where schema `0.2.0`
    provides them, separating DELIVERY-dark from NOTIFY-dark (`0.1.0`
@@ -103,8 +112,11 @@ The practice first, the smallest read surface over it second.
    any stall diagnosis); the three 2026-07-29 instances recorded in the
    PDR-133 platform-declaration ledger
    (`cross-platform-agent-surface-matrix.md` §Platform Liveness
-   Declaration) with MCP-393 linked — which also lands the owed Claude
-   Code `NOTIFY`/`ABSORB` declaration rows (PDR-133 §8 names the first
+   Declaration) with MCP-393 linked — which also lands the Claude Code
+   `NOTIFY`/`ABSORB` declaration rows AND converts every remaining
+   Claude Code class to an explicit per-class unverified row with a
+   named backfill (PDR-133 §8 discipline 2), so the first declaration
+   set is compliant rather than partially owed (§8 names the first
    liveness question as the landing moment; this ticket is it).
 
 ## Dependencies and reuse (named so load-bearing proxies survive)
@@ -140,7 +152,12 @@ this section is their named home, and both are `beneficial`-class
    present in the seat's seen set via a consumer that never wakes a
    loop; no threading reply) classifies `absorb-absent` at threshold
    (default 10 min), while a seat with a content-bearing threading
-   reply classifies `absorbed`. Heartbeat-tagged events are excluded
+   reply classifies `absorbed`. Two further cases bind: a threading
+   reply authored by anyone other than the directed event's `to`
+   identity does NOT classify `absorbed`; and membership of an event-id
+   written by the watcher's auto-seed (event created before the
+   sidecar's seed/start time) classifies `seed-unverifiable`, never
+   consumption. Heartbeat-tagged events are excluded
    from the ABSORB evidence set (they are scheduling-layer artefacts —
    without this exclusion the classifier never fires).
    Proof: `repo-safe` — the read surface's integration tests
@@ -221,3 +238,18 @@ including two falsified load-bearing claims (the directed-shape
 `in_response_to` assumption; a signature that could not fire because
 heartbeats are themselves seat-authored events) and the corpus
 back-test that re-centred the design from tool-first to practice-first.
+
+In-place amendments with dated notes (no scope change):
+
+- 2026-07-30, PR #645 docs-adr round 1: eleven findings cured (latency
+  recomputation; owed-class enumeration; the third founding instance
+  corrected to a broadcast and named as outside the ack convention's
+  reach; provenance and reconciliation fixes).
+- 2026-07-30, PR #645 Copilot round: four findings cured — the ABSORB
+  evidence now requires reply-author identity to match the directed
+  event's `to` (third-party threading is not absorption); seen-set
+  membership is seed-provenance-aware (auto-seeded ids classify
+  `seed-unverifiable`); the rule trigger's vocabulary narrowed to the
+  ratified "routing or an ask"; the Claude Code declaration set
+  completed with explicit per-class unverified rows and a named
+  backfill.
