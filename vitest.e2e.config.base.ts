@@ -6,10 +6,11 @@ import { dirname, resolve } from 'node:path';
  * Base Vitest configuration for E2E tests.
  *
  * E2E tests verify running system behaviour. They may trigger file system
- * and STDIO IO, and they use real LOOPBACK sockets — server harnesses
- * bind `127.0.0.1` explicitly via the shared e2e request helper (MCP-403:
- * a host-less listen binds `::` and can silently share a port with a
- * foreign v4 listener in the ephemeral range). Fetch-based network calls
+ * and STDIO IO. Suites that run a local HTTP harness bind it to
+ * `127.0.0.1` explicitly — in the MCP app via its loopback request
+ * helper (MCP-403: a host-less listen binds `::` and can silently share
+ * a port with a foreign v4 listener in the ephemeral range); suites
+ * without a local server open no sockets at all. Fetch-based network calls
  * are blocked (`test.setup.no-network.ts`); suites extending this base
  * for live-service validation (smoke / experiments) restore the real
  * fetch from `__ORIGINAL_FETCH__` in their own later-running setup and

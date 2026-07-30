@@ -37,6 +37,12 @@
  *   time, so swapping to a DIFFERENT app while requests are in flight is
  *   refused loudly. Swapping to the same app stays allowed — concurrent
  *   requests against one app are a legitimate pattern.
+ * - Supertest requests dial lazily (on `await`/`.then()`/`.end()`), so
+ *   the in-flight guard cannot see a constructed-but-unstarted request:
+ *   a `Test` held un-awaited across a `request(differentApp)` call
+ *   dispatches to whichever app is current when it finally dials.
+ *   Construct-then-await immediately (every current consumer does).
+ *   Per-request app binding that removes this constraint is MCP-410.
  */
 
 import http from 'node:http';
