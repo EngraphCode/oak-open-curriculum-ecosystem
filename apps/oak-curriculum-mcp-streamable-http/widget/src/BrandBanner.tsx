@@ -7,13 +7,63 @@
  * The curriculum-model data serves the agent via text content; the human
  * sees only the brand banner.
  *
- * The inline SVG logo uses `currentColor` so it adapts to light, dark,
- * and forced-colours modes without conditional CSS or separate assets.
- * The path data is extracted from the Oak-Web-Application sprite sheet
- * (`src/image-data/generated/inline-sprite.svg`, `id="logo"`).
+ * The wide wordmark is the design-system asset
+ * (`@oaknational/oak-design-system/assets/logo-wide-black.svg`) imported
+ * raw at build time, so the design system stays the single copy — there
+ * is no second geometry to drift (MCP-368). The inner geometry is
+ * injected into a JSX-owned `<svg>` root so the accessibility and
+ * theming contract (aria-hidden, viewBox, class) lives in component
+ * code; the slice drops the asset's XML prolog and root `id`. Colour
+ * comes from CSS `fill: currentColor` on the logo class: the asset is
+ * bare geometry with no fill attributes, inline fill styles, or style
+ * elements, which the unit suite pins — a single upstream fill in any of
+ * those forms would defeat inheritance and render the wordmark black in
+ * every theme.
  */
+import wordmarkRaw from '@oaknational/oak-design-system/assets/logo-wide-black.svg?raw';
 
 const OAK_URL = 'https://www.thenational.academy';
+
+// Everything below derives from the asset at module scope — the viewBox is
+// PARSED, never hand-copied, so a re-exported asset on a different canvas
+// cannot render mis-scaled inside a stale coordinate system. Module-scope
+// throws surface at build/test time, not in a host. (The one authored copy
+// of the expected viewBox lives in the unit suite as the discriminating
+// fixture between the wide lockup and the old acorn.)
+const rootTagStart = wordmarkRaw.indexOf('<svg');
+const rootTagEnd = wordmarkRaw.indexOf('>', rootTagStart);
+const rootClose = wordmarkRaw.lastIndexOf('</svg>');
+if (
+  rootTagStart === -1 ||
+  rootTagEnd === -1 ||
+  rootClose === -1 ||
+  rootClose < rootTagEnd ||
+  // Exactly ONE root: a second <svg (a concatenated re-export) would
+  // otherwise pair the first opening tag with the LAST closing tag and
+  // inject the extra root as geometry; trailing non-whitespace after the
+  // close is the same class.
+  wordmarkRaw.indexOf('<svg', rootTagStart + 1) !== -1 ||
+  wordmarkRaw.slice(rootClose + '</svg>'.length).trim() !== ''
+) {
+  throw new Error(
+    'logo-wide-black.svg no longer parses as a single-root SVG document — refusing to inject garbage',
+  );
+}
+const viewBoxMatch = /viewBox="([^"]+)"/u.exec(wordmarkRaw.slice(rootTagStart, rootTagEnd + 1));
+if (viewBoxMatch?.[1] === undefined) {
+  throw new Error('logo-wide-black.svg carries no viewBox — the wordmark cannot be scaled');
+}
+
+/** The asset's own viewBox, parsed from the raw import — never hand-copied. */
+const WORDMARK_VIEWBOX = viewBoxMatch[1];
+
+// Inner geometry only: everything between the asset's root tags. Built at
+// module scope (never inline in JSX) per the React guidance for
+// dangerouslySetInnerHTML payloads. The markup is a committed repo asset
+// resolved by Vite at build time — a fully trusted source, no user input.
+const wordmarkGeometry = {
+  __html: wordmarkRaw.slice(rootTagEnd + 1, rootClose),
+};
 
 interface BrandBannerProps {
   /**
@@ -28,41 +78,40 @@ interface BrandBannerProps {
 }
 
 /**
- * Inline Oak acorn logo rendered with `currentColor`.
+ * Inline Oak wide wordmark rendered with CSS `fill: currentColor`.
  *
  * @remarks
- * The SVG uses `fill="currentColor"` so it inherits the CSS `color`
- * property, adapting to all themes including Windows Forced Colours Mode.
- * Hidden from assistive technology (`aria-hidden`) because the adjacent
- * text "Oak National Academy" provides the accessible name (WCAG H2).
+ * Hidden from assistive technology (`aria-hidden`) because the link's
+ * visually hidden text provides the accessible name; the wordmark is an
+ * image of that same text, so exposing both would double-announce.
+ * `focusable="false"` guards legacy engines that make SVGs tabbable.
+ * Sizing lives in CSS (width-driven with `block-size: auto`, clamped by
+ * the banner-wordmark-max-width token), never in width/height attributes.
  */
-function OakLogo(): React.JSX.Element {
+function OakWordmark(): React.JSX.Element {
   return (
     <svg
       aria-hidden="true"
-      viewBox="0 0 32 42"
-      width="20"
-      height="26"
+      focusable="false"
+      viewBox={WORDMARK_VIEWBOX}
       className="oak-brand-banner__logo"
-    >
-      <path
-        fill="currentColor"
-        d="M16.983 7.198c.86.15 1.602.243 2.328.41a14.603 14.603 0 0 1 8.09 4.962 14.964 14.964 0 0 1 3.513 8.535c.05.58.082 1.16.092 1.74.012.627-.086.738-.676.825-2.213.32-4.468.14-6.604-.522a14.778 14.778 0 0 1-3.871-1.838 13.41 13.41 0 0 1-3.74-3.803 13.242 13.242 0 0 1-2.07-5.484c-.107-.711-.124-1.434-.191-2.234a12.84 12.84 0 0 0-6.444 3.065c-2.65 2.319-4.192 5.266-4.748 8.808.536.108 1.029.224 1.532.303.447.07.71.244.724.76.046 1.658.345 3.3.887 4.865a31.671 31.671 0 0 0 1.983 4.418 16.044 16.044 0 0 0 4.608 5.383 17.553 17.553 0 0 0 3.214 1.861c.383.17 1.015-.104 1.483-.301a13.61 13.61 0 0 0 5.595-4.23c.835-1.076 1.497-2.307 2.12-3.529.755-1.482 1.063-3.115 1.258-4.761.039-.323.15-.454.481-.423.396.04.794.05 1.191.035.474-.026.675.222.613.637-.191 1.314-.306 2.66-.67 3.927a16.895 16.895 0 0 1-4.344 7.268 15.364 15.364 0 0 1-6.6 4.002c-.504.15-.926-.027-1.372-.176-2.78-.924-5.066-2.6-6.995-4.773a28.75 28.75 0 0 1-2.51-3.27 20.02 20.02 0 0 1-2.158-4.435 18.563 18.563 0 0 1-1.074-5.01.49.49 0 0 0-.303-.325c-.592-.193-1.197-.327-1.795-.493a.615.615 0 0 1-.516-.484.628.628 0 0 1-.003-.25c.154-2.56.889-5.05 2.147-7.278a16.25 16.25 0 0 1 4.174-4.84 15.683 15.683 0 0 1 6.32-2.969 1.19 1.19 0 0 1 .326-.071c1.117.102 1.404-.63 1.682-1.53a11.998 11.998 0 0 1 3.683-5.58c.5-.436.564-.436 1.01 0 .26.26.511.53.755.804.361.41.361.594-.048.967-.947.895-1.73 1.95-2.316 3.119-.286.624-.54 1.264-.76 1.915Zm11.554 14.268c-.032-.173-.065-.31-.084-.45a13.55 13.55 0 0 0-2.01-5.465 12.892 12.892 0 0 0-5.012-4.62A12.337 12.337 0 0 0 17 9.671c-.272-.03-.42.046-.414.36.056 2.427.701 4.674 2.12 6.64a11.663 11.663 0 0 0 5.268 4.082c1.465.58 2.978.754 4.564.713Z"
-      />
-    </svg>
+      dangerouslySetInnerHTML={wordmarkGeometry}
+    />
   );
 }
 
 /**
- * Brand banner — logo + "Oak National Academy" link.
+ * Brand banner — the wide wordmark as a link to the Oak website.
  *
  * @remarks
- * Logo and brand text are combined in a single `<a>` element (WCAG H2
- * technique) to avoid duplicate tab stops, with a visually hidden
- * new-tab hint completing the accessible name. External navigation uses
- * `onOpenLink` which delegates to `app.openLink()` in the connected
- * component. Service-scoped copy (the experimental disclaimer) lives in
- * the app shell, not here — this component owns brand identity only.
+ * The wordmark is the link's only visible content; a single visually
+ * hidden text node carries the whole accessible name (brand + new-tab
+ * hint), keeping the name exact by construction, translatable, and in
+ * the content-audit corpus (WCAG H2: one link, one tab stop). External
+ * navigation uses `onOpenLink` which delegates to `app.openLink()` in
+ * the connected component. Service-scoped copy (the experimental
+ * disclaimer) lives in the app shell, not here — this component owns
+ * brand identity only.
  */
 export function BrandBanner({ onOpenLink }: BrandBannerProps): React.JSX.Element {
   return (
@@ -76,9 +125,8 @@ export function BrandBanner({ onOpenLink }: BrandBannerProps): React.JSX.Element
           onOpenLink(OAK_URL, event);
         }}
       >
-        <OakLogo />
-        <span>Oak National Academy</span>
-        <span className="visually-hidden"> (opens in a new tab)</span>
+        <OakWordmark />
+        <span className="visually-hidden">Oak National Academy (opens in a new tab)</span>
       </a>
     </header>
   );

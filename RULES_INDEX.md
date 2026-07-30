@@ -79,6 +79,7 @@ without proportional value.
 | `.agent/rules/design-values-come-from-the-system.md`                       | trigger-loaded | Authoring or reviewing a design value on a consumer surface                                         |
 | `.agent/rules/design-work-for-small-prs.md`                                | always-on      | —                                                                                                   |
 | `.agent/rules/design-from-impact-not-the-cowpath.md`                       | always-on      | —                                                                                                   |
+| `.agent/rules/directed-routing-requires-absorption-ack.md`                 | trigger-loaded | Team session active; a directed event carrying routing or an ask is sent or absorbed                |
 | `.agent/rules/directive-file-context-budget.md`                            | always-on      | —                                                                                                   |
 | `.agent/rules/documentation-hygiene.md`                                    | always-on      | —                                                                                                   |
 | `.agent/rules/dont-break-build-without-fix-plan.md`                        | always-on      | —                                                                                                   |

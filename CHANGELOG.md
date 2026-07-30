@@ -1,3 +1,55 @@
+## [1.124.6](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.124.5...v1.124.6) (2026-07-30)
+
+
+### Bug Fixes
+
+* **mcp-app:** complete the governed-ledger split and absorb the Copilot round ([9ccc2e9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9ccc2e9543fa8fbdbf107d4ce4a54156c9f69d28))
+
+## [1.124.5](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.124.4...v1.124.5) (2026-07-30)
+
+
+### Bug Fixes
+
+* **tooling:** unset git hook env around turbo so worktree gates run ([993a54d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/993a54dfb1790e4e2e624216852b66a6a4021548))
+
+## [1.124.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.124.3...v1.124.4) (2026-07-30)
+
+
+### Bug Fixes
+
+* **mcp-http:** pin the test:ui webServer analytics axis so it stops inheriting .env.local ([901d12e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/901d12e36f0be1c84ab2c3e0f50d457999a6b00e))
+
+## [1.124.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.124.2...v1.124.3) (2026-07-30)
+
+
+### Bug Fixes
+
+* **mcp-app:** absorb the post-execution review round — compose test rules, seam the dispatch path ([41d332f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/41d332f1b072d5043c4e3c12158b78c43e9e93f8))
+* **mcp-app:** pin test servers to the IPv4 loopback so foreign listeners cannot receive requests ([6fe3fec](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/6fe3fecb4f326896b27ae93bbff677b7315d8da1))
+
+## [1.124.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.124.1...v1.124.2) (2026-07-30)
+
+## [1.124.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.124.0...v1.124.1) (2026-07-30)
+
+
+### Bug Fixes
+
+* **deps:** remove the @ai-sdk/provider-utils override so the mcpjam instrument boots (MCP-381) ([191d9cb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/191d9cbec11dfecc9aa967424d8ca25a6cc2f052))
+
+# [1.124.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.123.1...v1.124.0) (2026-07-30)
+
+
+### Bug Fixes
+
+* **mcp-app:** single-root fail-fast, acorn provenance, symptom-probing pin (PR [#643](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/643) round 1) ([521552c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/521552c61f8f1374c2cc7eb822036bfe4c80cea6))
+
+
+### Features
+
+* **mcp-app:** brand widget renders the official wide wordmark (MCP-368) ([fe697b9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/fe697b92e7d470bff9452ba658848ceb178200de)), closes [axe-core#3978](https://github.com/axe-core/issues/3978)
+
+## [1.123.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.123.0...v1.123.1) (2026-07-30)
+
 # [1.123.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.122.0...v1.123.0) (2026-07-30)
 
 

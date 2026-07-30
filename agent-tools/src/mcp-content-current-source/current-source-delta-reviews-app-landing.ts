@@ -69,8 +69,13 @@ export const APP_LANDING_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDel
     '798dc0c115d201f46266ca448be7df7c665d397ae14f136d72f84ccdcead28b9',
     ['C384', 'C385', 'C386', 'C387', 'C717'],
   ),
+  // MCP-368: the acorn + visible text became the wide wordmark (design
+  // system asset via ?raw, injected inner geometry) with a single
+  // visually-hidden node carrying the whole accessible name. C391 (brand
+  // name) and C392 (new-tab hint) both re-anchor on that merged node;
+  // C393 re-anchors on the wordmark's JSX root.
   'apps/oak-curriculum-mcp-streamable-http/widget/src/BrandBanner.tsx': reviewed(
-    '57d012a77be646b3d61186f7cbbee9d7b77f3c070acb502f911915e5db0c087d',
+    '906d3077e30467c25c9080385224ae2cb82cf834982a17ff24d160d907ce1510',
     ['C390', 'C391', 'C392', 'C393'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/landing-page/escape-html.ts': excluded(

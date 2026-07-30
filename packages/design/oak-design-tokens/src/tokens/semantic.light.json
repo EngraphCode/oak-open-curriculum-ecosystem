@@ -109,6 +109,10 @@
       "$type": "dimension",
       "$value": "{space.500}"
     },
+    "logo-max-width": {
+      "$type": "dimension",
+      "$value": "{size.900}"
+    },
     "shell-padding": {
       "$type": "dimension",
       "$value": "{space.700}"
