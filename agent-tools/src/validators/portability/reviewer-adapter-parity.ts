@@ -49,7 +49,7 @@ export interface ReviewerAdapterParityIssuesOptions {
  *
  * @param options - The three platform adapter file lists.
  * @returns An array of human-readable issue strings; empty means all adapters
- *   are present on all three platforms.
+ *   are aligned with their declared platform support.
  */
 export function getReviewerAdapterParityIssues({
   cursorAgentFiles,
