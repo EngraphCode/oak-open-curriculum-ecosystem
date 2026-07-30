@@ -70,3 +70,25 @@ export function readOptionalTopLevelTomlBasicString(
 
   throw new Error(`${source} TOML key '${key}' must be a string when present.`);
 }
+
+/**
+ * Read a required top-level TOML string without conflating omission with an
+ * explicitly configured value of another TOML type.
+ *
+ * @param readValue - Reader for one parsed TOML document.
+ * @param key - Required top-level key to inspect.
+ * @param source - Reader-facing source label used in validation errors.
+ * @returns The decoded required string.
+ */
+export function readRequiredTopLevelTomlBasicString(
+  readValue: TopLevelTomlBasicStringReader,
+  key: string,
+  source: string,
+): string {
+  const value = readOptionalTopLevelTomlBasicString(readValue, key, source);
+  if (value !== null) {
+    return value;
+  }
+
+  throw new Error(`${source} is missing required TOML key '${key}'.`);
+}

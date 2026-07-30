@@ -9,6 +9,7 @@ import type { CodexAgentRegistration } from './codex-project-agent-registry.js';
 import {
   createTopLevelTomlBasicStringReader,
   readOptionalTopLevelTomlBasicString,
+  readRequiredTopLevelTomlBasicString,
   type TopLevelTomlBasicStringReader,
 } from './toml-top-level-basic-string.js';
 
@@ -127,12 +128,7 @@ function readRequiredAdapterValue(
   key: string,
   adapterPath: string,
 ): string {
-  const value = readValue(key);
-  if (value !== null) {
-    return value;
-  }
-
-  throw new Error(`${adapterPath} is missing required TOML key '${key}'.`);
+  return readRequiredTopLevelTomlBasicString(readValue, key, adapterPath);
 }
 
 function validateAdapterValue(
