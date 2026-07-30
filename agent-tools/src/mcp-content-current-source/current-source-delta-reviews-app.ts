@@ -92,9 +92,11 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
   // MCP-368: regenerated via build:widget after the wordmark swap — the
   // embed now carries the wide-wordmark geometry and the merged
   // visually-hidden accessible name (+20.2KB, matching the review's
-  // predicted +19KB).
+  // predicted +19KB). MCP-434: regenerated again after safe-area insets
+  // moved from inline padding to composed custom properties; the
+  // embedded text content is unchanged.
   'apps/oak-curriculum-mcp-streamable-http/src/generated/widget-html-content.ts': reviewed(
-    'c47281d52e75d324b44e98f00df18506a9d841874877301a54825414e45f5437',
+    '4f74b032fc7ba9e144b43ee2434869a6ff2e28aa3933a7473b0ff86b033181a3',
     ['C394'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/handlers.ts': excluded(

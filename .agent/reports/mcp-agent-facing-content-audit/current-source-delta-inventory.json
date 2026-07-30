@@ -185,7 +185,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/generated/widget-html-content.ts",
-      "semanticSha256": "c47281d52e75d324b44e98f00df18506a9d841874877301a54825414e45f5437",
+      "semanticSha256": "4f74b032fc7ba9e144b43ee2434869a6ff2e28aa3933a7473b0ff86b033181a3",
       "itemIds": [
         "C394"
       ]
@@ -648,7 +648,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/widget/src/App.tsx",
-      "semanticSha256": "798dc0c115d201f46266ca448be7df7c665d397ae14f136d72f84ccdcead28b9",
+      "semanticSha256": "e97d9235f16ef00617f41b112f7ebacada3c0220501bfa3bfd7a399c4d4405c0",
       "itemIds": [
         "C384",
         "C385",
@@ -666,6 +666,12 @@
         "C392",
         "C393"
       ]
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/widget/src/safe-area-insets.ts",
+      "semanticSha256": "8b943346bfb2511ba5fa233ed81777fd223d8cfac742e8b676d03cb046442314",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
     {
       "file": "packages/sdks/oak-curriculum-sdk/src/mcp/agent-support-tool-metadata.ts",
