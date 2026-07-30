@@ -5262,6 +5262,47 @@ night shift. This seat's monitors run until its session ends and do NOT transfer
     edge cases and closeout sequencing, where fluency peaks.
   - Metaloss fixed point: a further pass re-finds only the two named accepted losses; the
     recursion closes here.
+
+## 2026-07-30 ~19:20Z — Plover hunts Sundog (019fb2), full-session closeout
+
+- LANDED OUTCOME: PR #638 merged at reviewed head `24d20f9fb` (merge
+  `c95d795529`); PR #654 / MCP-433 merged at reviewed head `f0ad22bdd`
+  (merge `0ae070701`). MCP-433 auto-transitioned to Done and already carries
+  the Director's exact completion evidence, so the owner's later Linear-write
+  grant required a live read, not a duplicate mutation.
+- PROMISE SWEEP: fleet second-opinion availability (`2311b5ca`), the open-PR
+  audit (`ea51b41e`), #638 completion (`5188503d`), MCP-433 direction
+  (`91bdf9c0`), and #654 completion plus Director acknowledgement
+  (`1d994635` / `631f3e1e`) are all durable. No implementation, merge, or
+  review custody remains.
+- LOSS FOUND OUTSIDE THE REPO: Claude's current Cricket memory knows the
+  vendor-neutral role names but still calls the already-delivered Codex
+  Sol/Terra/Luna trio a future increment. Routed to the Director in
+  `35bd4690`; private platform memory was not mutated from this seat. Cursor
+  and Gemini surfaces held no matching repo context; Codex supplied only the
+  already-applied local-handoff guardrail.
+- CORRECTION THAT CHANGED THE MODEL: process, cursor, delivery,
+  notification, and cognition are five claims. The session proved cognition
+  once (`48e5e3ce`), later caught the relay delivering without a timely root
+  wake, and captured the repaired root path in failure-mode event
+  `fbf31cce`. A live-looking watcher is never evidence of model awareness.
+- WARNING-FREE HANDOFF GATE: root `pnpm check` at #654's reviewed head
+  completed 127/127 Turbo tasks and all subsequent validators, but emitted
+  382 non-failing `no-throw-statement` warnings in agent-tools. Product
+  delivery is merged and green; the session-handoff workflow remains
+  warning-gate pending. The existing `eslint-no-throw-result-migration`
+  thread owns that residue; no parallel cleanup lane was opened.
+- METALOSS PASS 1 recovered the #638 arc, the full promise ledger, the
+  delivery-versus-cognition correction, and the stale cross-platform memory
+  statement from otherwise separate trails. PASS 2 checked compressed
+  rationale, attribution, homes, and blind spots: raw reviewer contexts and
+  transient logs die by design because their adjudicated substance is in the
+  PRs/events; no credentials are retained; outside catches clustered at
+  interface edge cases, pure-test placement, and finish-line state claims.
+  The home index is the local full handoff record plus this entry, with PRs,
+  Linear, and `director-handoff.md` as authorities. A third pass would only
+  re-find those named raw-context, cognition, and stale-memory classes; the
+  recursion closes.
 - 2026-07-30 ~19:22Z (Inferno weaves Kindling, final): HOOK BLOCK ABORTS THE WHOLE COMPOUND —
   a policy hook rejecting one substring of a compound Bash call (false-positive: closeout PROSE
   "primary checkout clean" + flag dashes read as a git-destruction pattern) kills EVERY stage,
@@ -5270,3 +5311,15 @@ night shift. This seat's monitors run until its session ends and do NOT transfer
   making. Cure pair: after any hook block on a compound, verify precursor artefacts exist
   before retrying the tail; and never append an unconditional echo after the operation it
   claims to mark (the marker must derive from the operation's own output — event_id, not echo).
+
+- 2026-07-30 ~19:24Z (Plover closeout verification): the stale Claude Cricket memory route is
+  CLOSED. Inferno's closeout event `c7e389a2` reported the correction, and a first-hand re-read
+  now names PR #654 / MCP-433 as delivered rather than future work.
+
+- 2026-07-30 ~19:15Z (Falcon, Director): harness swept `run_in_background` Bash tasks twice
+  (~18:35Z, ~19:12Z — owner confirmed not his action) while Monitor-tool tasks survived hours
+  and a compaction boundary. The watcher re-arms I did via plain background Bash were the
+  deviation from `use-monitor-for-event-driven-wake`; re-arming on the same mechanism after
+  the first sweep was a same-argv retry. Cure applied: watcher + F-75 poll re-armed as Monitor
+  tasks (hourly / persistent). Rule was right; follow it at re-arm moments too, not just at
+  first arming.
