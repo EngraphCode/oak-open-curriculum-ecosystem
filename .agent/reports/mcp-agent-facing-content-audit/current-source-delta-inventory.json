@@ -482,6 +482,12 @@
       ]
     },
     {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/registration-proof/connected-client.ts",
+      "semanticSha256": "13f24c3118a61fdf03f5097486080168c450c9ddaddbbdfe4b3351e3c4ecdaa4",
+      "itemIds": [],
+      "exclusionReason": "Current-source validation machinery; this file does not reach an MCP consumer."
+    },
+    {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/registration-proof/current-source-guidance-registration-evidence.ts",
       "semanticSha256": "49f654ce6379cab1f07621104b33c8407d7f3380c1c71a4dd31bd44423020469",
       "itemIds": [],
@@ -489,7 +495,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/registration-proof/current-source-registration-proof.ts",
-      "semanticSha256": "02e07d4c428eeb876cceb25e88566511687b7cf1610a5b133b829a5175dce644",
+      "semanticSha256": "2008c3346c080581540e09c232e29d8049286ed3c162d25ce1d7ca6ab5c3c8a7",
       "itemIds": [],
       "exclusionReason": "Current-source validation machinery; this file does not reach an MCP consumer."
     },
@@ -508,6 +514,12 @@
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/registration-proof/require-mcp-error-code.ts",
       "semanticSha256": "50edf574104e4412b9a573b347995eb6943e7ea5365f1762b26300b83c8da79f",
+      "itemIds": [],
+      "exclusionReason": "Current-source validation machinery; this file does not reach an MCP consumer."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/registration-proof/served-tool-table.ts",
+      "semanticSha256": "bd6cbcddf07e1ec3e7c5732e8f95979d62838562aa820fea13906672e2f18bc2",
       "itemIds": [],
       "exclusionReason": "Current-source validation machinery; this file does not reach an MCP consumer."
     },
