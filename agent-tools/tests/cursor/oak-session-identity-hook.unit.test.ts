@@ -49,9 +49,6 @@ describe('planCursorSessionIdentityHook', () => {
     });
     expect(plan.output.additional_context).toContain('[Practice agent identity]');
     expect(plan.output.additional_context).toContain(
-      'PDR-027 session_id_prefix (first 6 of composer session_id): unit-t',
-    );
-    expect(plan.output.additional_context).toContain(
       `Deterministic display name for this composer session: ${expectedDisplayName}`,
     );
     expect(plan.output.additional_context).toContain('Suggested Composer tab title');

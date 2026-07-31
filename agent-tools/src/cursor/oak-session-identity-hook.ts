@@ -1,5 +1,6 @@
 import { join } from 'node:path';
 
+import { sessionIdPrefix } from '../collaboration-state/identity.js';
 import { deriveIdentity } from '../core/agent-identity/index.js';
 
 const COMPOSER_MIRROR_FILE = 'oak-composer-session.local.json';
@@ -126,10 +127,6 @@ function resolveProjectDir(
     nonEmpty(environment.CLAUDE_PROJECT_DIR) ??
     fallbackProjectDir
   );
-}
-
-function sessionIdPrefix(sessionId: string): string {
-  return sessionId.length >= 6 ? sessionId.slice(0, 6) : sessionId;
 }
 
 function identityContext(input: {
