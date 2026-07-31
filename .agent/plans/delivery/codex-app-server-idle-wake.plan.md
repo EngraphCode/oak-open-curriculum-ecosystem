@@ -47,10 +47,20 @@ trigger work, but does not atomically prioritise a simultaneous external
 TUI/app-server submission. The extension must add a user-priority submission
 generation/barrier inside the same reservation transaction: if a user request
 is queued concurrently, the wake aborts and remains pending before either its
-input or settings can enter the user turn. A status read followed by
-unconditional `turn/start` is forbidden; it has no expected-status precondition
-and becomes same-turn steering when a regular turn wins the race. The existing
-native method alone is therefore a basis, not sufficient proof.
+input or settings can enter the user turn. That user-priority fence remains
+armed for the full lifetime of the native wake turn, not only its reservation.
+Every later TUI or app-server submission advances the user generation and is
+held outside the wake turn while one broker transaction marks cancellation
+pending, revokes the wake correlation or receipt and turn-local capability
+profile, and transfers any unresolved event to foreground custody. A committed
+acknowledgement intent may continue broker-side, independently of the cancelled
+model turn; an indeterminate spend is quarantined. The user turn may start only
+after native cancellation and profile removal are confirmed, so input cannot
+become same-turn steering and wake capabilities cannot leak into it. A status
+read followed by unconditional `turn/start` is forbidden; it has no
+expected-status precondition and becomes same-turn steering when a regular turn
+wins the race. The existing native method alone is therefore a basis, not
+sufficient proof.
 
 The canonical collaboration-state watch engine preserves heartbeat,
 validation, relevance, and gap-drain duties. Its injected sink accepts an event
@@ -96,6 +106,16 @@ retrieval owner in one transaction. Failed owner acceptance keeps native
 custody and blocks turn retirement; an indeterminate spend is quarantined
 rather than replayed. No terminal or waiting state may retain an unused expired
 correlation without a live retrieval owner.
+
+User-priority cancellation is another state-machine input and races atomically
+with `read_event` and `acknowledge_event`. If it wins before read, the unread
+entry transfers with the revoked correlation. If it wins after read but before
+a durable acknowledgement intent, the receipt is revoked, ephemeral content is
+destroyed with the cancelled wake context, and the unresolved entry transfers
+to foreground reconciliation custody as `read` but unacknowledged; it cannot be
+automatically reinjected. If an acknowledgement intent already committed, only
+that fixed broker-side intent may finish. Cancellation or transfer uncertainty
+quarantines the entry and keeps the user submission outside the wake turn.
 
 The body and model-authored wake content are excluded from rollout persistence,
 thread history, compaction summaries, and every later ordinary-turn context.
@@ -166,11 +186,12 @@ idempotency without generic tools, the plan may prove `NOTIFY` only and must not
 claim `ABSORB` or end-to-end completion.
 
 A small deterministic state machine records `captured`, `pending`,
-`dispatching`, `notified`, `read`, `ack_intent`, `replied`, `handover`,
-`quarantined`, `indeterminate`, and terminal failure. Correlation expiry and
-turn completion must leave `notified` through the atomic owner-transfer rule
-above; committed `ack_intent` is the sole input to reply dispatch and survives
-controller restart. The first vertical slice uses native atomic start-if-idle for
+`dispatching`, `notified`, `read`, `ack_intent`, `cancel_pending`, `replied`,
+`handover`, `quarantined`, `indeterminate`, and terminal failure. Correlation
+expiry and turn completion, plus user submission at any point in the wake-turn
+lifetime, must leave unresolved native custody through the atomic cancellation
+and owner-transfer rules above; committed `ack_intent` is the sole input to
+reply dispatch and survives controller restart. The first vertical slice uses native atomic start-if-idle for
 a fixed notification-only turn and queues every rejected or non-idle event. A
 simultaneous TUI start must win without receiving wake input or wake settings.
 Brokered read and acknowledgement follow only after their capability boundary
@@ -253,16 +274,22 @@ an idle-wake claim.
   slice retains every event rejected by native start-if-idle and retries only
   after a later idle transition. A user-priority generation barrier shares the
   reservation transaction; if a TUI submission races, the wake aborts before
-  either input or settings enter that user turn. Automated delivery never
-  steers an ordinary active turn; active, review, compaction, and other
-  non-steerable states continue to queue until a new isolated wake turn is
-  atomically reserved at idle. Status races and repeated delivery neither lose
-  an acknowledged event nor inject one event into the model twice.
+  either input or settings enter that user turn. The barrier remains live until
+  the wake turn terminates. A user submission after reservation—including
+  after `read_event`—first cancels and fences the wake, revokes its correlation
+  or receipt and capability profile, and transfers unresolved custody or
+  quarantines indeterminate work before a clean user turn may start. Automated
+  delivery never steers an ordinary active turn; active, review, compaction, and
+  other non-steerable states continue to queue until a new isolated wake turn
+  is atomically reserved at idle. Status races and repeated delivery neither
+  lose an acknowledged event nor inject one event into the model twice.
   Proof: `repo-safe` — exhaustive transition, both orderings of the
-  simultaneous-TUI-start race, no-same-turn-steering, ordinary-turn capability
-  absence, user-priority barrier, settings-isolation, ordering, and idempotency
-  tests over idle, active, Plan, pending-trigger, review, compaction,
-  reconnecting, and incompatible states.
+  simultaneous-TUI-start race, post-reservation and post-`read_event` user-start
+  races in both orderings, full-lifetime fence, cancellation-before-user-start,
+  no-same-turn-steering, ordinary-turn capability absence, user-priority
+  barrier, settings-isolation, ordering, and idempotency tests over idle,
+  active, Plan, pending-trigger, review, compaction, reconnecting, and
+  incompatible states.
 - **A controller restart resumes the same seat without a blind gap.** The host
   persists each event in a supervisor-owned outbox with one retrieval owner
   before advancing the canonical cursor, rebinds the exact native extension and
@@ -388,8 +415,10 @@ an idle-wake claim.
   Against the pinned Codex source, load a native extension into the same process
   as the app-server and user-visible thread. Prove exact binding and native
   `try_start_turn_if_idle` reservation plus a same-transaction user-priority
-  submission barrier, including both simultaneous TUI-start orderings that
-  leave the wake queued with no input/settings leakage. Extend that seam with a
+  submission barrier that remains armed through wake-turn termination,
+  including simultaneous, post-reservation, and post-`read_event` TUI-start
+  orderings that cancel or queue the wake with no input, settings, or capability
+  leakage. Extend that seam with a
   non-sticky turn-local capability and closed-output profile; prove source event
   ID, digest, and raw event text never enter user-role input or
   persistent/later-turn context, provider-authorised ephemeral broker read,
@@ -424,7 +453,10 @@ an idle-wake claim.
   notification and metadata surfaces, never broker-filled, and accepted only
   as one fixed-shape first attempt. Prove unused-correlation expiry and native
   turn completion atomically transfer the unread outbox entry to foreground
-  custody, while indeterminate spend quarantines. Prove both capabilities are
+  custody, while a user submission anywhere in the wake lifetime atomically
+  fences and cancels the wake, revokes its capability profile, and transfers
+  unresolved custody before the user turn starts; indeterminate spend
+  quarantines. Prove both capabilities are
   installed only on a newly reserved isolated wake turn; active, review,
   compaction, Plan, pending-trigger, and ambiguous states continue to queue.
 - **D — live canary and discoverability (round budget: at most two review
@@ -433,7 +465,8 @@ an idle-wake claim.
   request routing with reversible non-persistent decisions, queue-while-active
   followed by isolated idle delivery, routine acknowledgement without an
   `ABSORB` claim, the precommitted one-attempt proof-canary match,
-  expiry/turn-close handover, crash after receipt spend, durable-intent replay,
+  expiry/turn-close handover, user starts after reservation and after
+  `read_event`, crash after receipt spend, durable-intent replay,
   fallback handover, fake-secret containment, retirement, and restart recovery.
   Only after the pinned-extension exit-path gate is cleared, update the
   canonical operating rule and generated bootstrap; retain the explicit bounded
