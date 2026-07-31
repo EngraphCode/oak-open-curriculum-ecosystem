@@ -17,11 +17,8 @@ import path from 'node:path';
 
 import { isErr } from '@oaknational/result';
 
-import {
-  validatePlanFile,
-  type ParsedPlanFile,
-  type PlanConformanceFailure,
-} from './validate-plan-corpus-helpers.js';
+import { type ParsedPlanFile, type PlanConformanceFailure } from './plan-corpus-types.js';
+import { validatePlanFile } from './validate-plan-corpus-helpers.js';
 
 /** The live corpus root, relative to the repo root. */
 const CORPUS_ROOT = '.agent/plans';

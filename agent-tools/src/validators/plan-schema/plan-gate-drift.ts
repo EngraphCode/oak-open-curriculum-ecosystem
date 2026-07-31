@@ -8,9 +8,9 @@
  * expiry never auto-cancels anything."
  *
  * Drift is deliberately a DISTINCT finding class from conformance
- * (`PlanConformanceFailure` in the corpus helpers): a drifted plan is
- * well-formed; one of its gates has outlived its horizon and demands
- * an owner decision. Because the cure is a decision only the owner can
+ * (`PlanConformanceFailure` in `plan-corpus-types.ts`): a drifted plan
+ * is well-formed; one of its gates has outlived its horizon and
+ * demands an owner decision. Because the cure is a decision only the owner can
  * take, drift never blocks commits or CI (owner ruling 2026-07-31) —
  * it surfaces as a persistent alert (`check-plan-gate-drift.ts`) that
  * repeats until the gate rows change, while `validate-plan-corpus.ts`
@@ -19,25 +19,11 @@
  * @packageDocumentation
  */
 
-import { type ParsedPlanFile } from './validate-plan-corpus-helpers.js';
+import { PLAN_STATUS_PARTITION, type ParsedPlanFile } from './plan-corpus-types.js';
 import { type PlanNode } from './plan-node-schema.js';
 
 /** One owner gate, as parsed by the plan-node contract. */
 type OwnerGate = NonNullable<PlanNode['owner_gates']>[number];
-
-/**
- * The status partition: gates on `live` plans still demand decisions;
- * gates on `terminal` plans do not — which is exactly what lets the
- * "archive the plan" decision clear a drift. Expressed as an exhaustive
- * `Record` so adding a status to the schema enum breaks the build here
- * instead of silently classifying the new status as terminal.
- */
-const STATUS_PARTITION: Record<PlanNode['status'], 'live' | 'terminal'> = {
-  sketch: 'live',
-  ratified: 'live',
-  archived: 'terminal',
-  superseded: 'terminal',
-};
 
 /** One expired gate on one live plan: the decision-demanding finding. */
 export interface GateExpiryDrift {
@@ -67,7 +53,7 @@ export function detectGateExpiryDrift(
 ): readonly GateExpiryDrift[] {
   const drifts: GateExpiryDrift[] = [];
   for (const file of files) {
-    if (STATUS_PARTITION[file.node.status] !== 'live') {
+    if (PLAN_STATUS_PARTITION[file.node.status] !== 'live') {
       continue;
     }
     for (const gate of file.node.owner_gates ?? []) {

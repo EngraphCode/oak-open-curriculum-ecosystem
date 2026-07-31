@@ -51,7 +51,7 @@ Two consequences are load-bearing:
 | `ratified_where` | string | when `status: ratified` | A resolvable pointer to where the word lives (register entry, ticket comment, dated sitting record) |
 | `serves` | node or choice id | strategic + delivery; optional runbook | Exactly one edge up: strategic → a published strategic-choice ID; delivery/runbook → a strategic node id |
 | `impact_areas` | list from the registry | all | Which product areas this plan changes — [`impact-areas.md`](impact-areas.md), closed and additive |
-| `tickets` | list of Linear issue IDs | operator policy (see dated amendment below); optional otherwise | The Linear projection anchor — execution state lives there |
+| `tickets` | list of Linear issue IDs | required on a ratified delivery plan in an anchored subtree (see the 2026-07-31 delivery-ticket amendment below); optional otherwise | The Linear projection anchor — execution state lives there |
 | `depends_on` | list of `{ plan, kind: blocking \| beneficial }` | optional | A `blocking` edge clears when its target archives |
 | `owner_gates` | list of `{ awaiting, clears_when, expires }` | optional | See gates below |
 | `superseded_by` | node id | when `status: superseded` | No plan leaves the estate without naming its successor |
@@ -154,9 +154,8 @@ of Oak's strategy stays on internal surfaces.
 The estate validator (re-cut to this contract in its own lane,
 red-first) refuses: an incomplete ratification stamp on a `ratified`
 plan; open-enum drift; an `impact_areas` entry absent from the
-registry; a ratified delivery plan without a ticket where the
-governing strategic node's subtree is operator-tracked (see the dated
-amendment below); a gate without an
+registry; a ratified delivery plan without a ticket in an ANCHORED
+subtree (see the 2026-07-31 delivery-ticket amendment below); a gate without an
 absolute expiry; `superseded` without `superseded_by`; and an empty corpus
 (zero plans is a failure, never a vacuous green).
 
@@ -177,9 +176,23 @@ execution-state anchor is an operator-overlay binding under PDR-134's
 strata, so the requirement binds only within subtrees the operator
 tracks. A strategic node whose subtree the owner has ruled untracked
 (first instance: `planning-and-intent-estate`, ruling 2026-07-31)
-carries no ticket obligation for its delivery plans. The paired
-validator change (`refineRatifiedDeliveryTickets`) is routed as the
-validator lane's second story.
+carries no ticket obligation for its delivery plans. The validator
+enforces this as DERIVED anchoring consistency (landed 2026-07-31):
+a subtree is anchored when its strategic node, or any plan serving
+it, names at least one ticket, and only then must a ratified
+delivery plan name one — no tracking declaration is a schema field
+and the validator binds to none, because any such record is
+operator-stratum content, and in the public base it would be left
+standing by an overlay strip (PDR-134 §1: operator knowledge lives
+in private homes; §6: the strip test). Stated
+limit, deliberate: the rule enforces consistency of anchoring over
+the clone's own files, never conformance to an operator's tracking
+ruling — an all-ticketless subtree reads as unanchored by
+construction, and the operator's tracking discipline is an
+overlay-side obligation. Witnesses are live plans only (`sketch`,
+`ratified`): de-anchoring a subtree is the dated, reviewable act of
+archiving or superseding its last live ticketed plan — the guard
+never lifts through silence, it lifts through a visible diff.
 
 ## Relationship to ADR-200 (dated 2026-07-22)
 

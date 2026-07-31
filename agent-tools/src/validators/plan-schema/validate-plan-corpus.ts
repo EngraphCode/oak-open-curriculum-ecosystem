@@ -13,7 +13,8 @@ import {
   type ChoiceRegistry,
 } from './plan-corpus-registries.js';
 import { loadCorpus } from './plan-corpus-loading.js';
-import { validateCorpus, type PlanConformanceFailure } from './validate-plan-corpus-helpers.js';
+import { type PlanConformanceFailure } from './plan-corpus-types.js';
+import { validateCorpus } from './validate-plan-corpus-helpers.js';
 
 /**
  * Plan-corpus validator: every `*.plan.md` under the live corpus root
@@ -22,7 +23,9 @@ import { validateCorpus, type PlanConformanceFailure } from './validate-plan-cor
  * edges resolve (strategic → the published strategic-choice registry;
  * delivery/runbook → a strategic node in the corpus), `impact_areas`
  * members resolve against the closed registry, `depends_on` edges name
- * real plans, and an EMPTY corpus is a failure, never a vacuous green.
+ * real plans, ratified delivery plans satisfy execution-anchor
+ * consistency (`plan-execution-anchors.ts`), and an EMPTY corpus is a
+ * failure, never a vacuous green.
  *
  * This gate is a deterministic function of repo content — no clock,
  * by design: re-running it on any historical commit reproduces that
@@ -95,7 +98,7 @@ async function main(): Promise<number> {
     return 1;
   }
   writeLine(
-    `validate-plan-corpus: OK (${String(parsed.length)} plan file(s) conformant; serves, impact_areas, and depends_on edges resolved).`,
+    `validate-plan-corpus: OK (${String(parsed.length)} plan file(s) conformant; serves, impact_areas, and depends_on edges resolved; execution anchoring consistent).`,
   );
   return 0;
 }
