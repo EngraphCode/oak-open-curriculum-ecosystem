@@ -2,22 +2,29 @@
 id: harness-capability-observability
 node_type: delivery
 name: "Harness capability observability — probe, record, diff, signal"
-overview: "Give Codex and Claude seats a repeatable, read-only capability census whose scope-qualified run records expose additions, removals, changes, and evidence-backed rename candidates as their harnesses evolve."
-status: ratified
-ratified_by: "Jim Cresswell"
-ratified_date: 2026-07-31
-ratified_where: "PR #671 ratification provenance record: https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/671#issuecomment-5147146228"
+overview: "Give Codex and Claude seats a repeatable, read-only automated capability census, with separately authorised bounded liveness challenges, whose scope-qualified run records expose additions, removals, changes, and evidence-backed rename candidates as their harnesses evolve."
+status: sketch
+ratified_by: null
+ratified_date: null
+ratified_where: null
 serves: first-major-release
 impact_areas:
   - practice-and-estate
 tickets:
   - MCP-456
 depends_on: []
-owner_gates: []
+owner_gates:
+  - awaiting: owner-ratification
+    clears_when: "Jim Cresswell ratifies the current post-review plan head; the earlier PR #671 ratification record predates substantive evidence and recovery amendments and does not ratify them"
+    expires: 2026-08-03
 last_updated: 2026-07-31
 ---
 
 # Harness capability observability — probe, record, diff, signal
+
+The baseline linked from the earlier PR #671 ratification record was ratified
+before substantive evidence, trust-boundary, and recovery amendments. Those
+amendments return the current plan to sketch until the owner ratifies this head.
 
 ## Goal
 
@@ -37,9 +44,12 @@ One cross-platform pipeline with four shared primitives:
    run. Keep configured, exposed, self-reported, and behaviourally proven facts
    distinct. Repository collectors gather deterministic platform metadata;
    short native test cards exercise harness-only root, child, and nested-child
-   surfaces using harmless read-only canaries. Before collection, an
-   independently maintained, versioned `ProbeSetDefinition` fixes the declared
-   launch and enumerator matrix without consulting that run's observed output.
+   surfaces using harmless read-only canaries. Separately authorised,
+   owner-held liveness challenges are outside the automated collector and run
+   only when an external observer explicitly accepts the bounded write. Before
+   collection, an independently maintained, versioned `ProbeSetDefinition`
+   fixes the declared launch and enumerator matrix without consulting that
+   run's observed output.
    Separately, each platform adapter derives version-pinned discovery evidence
    from authoritative surfaces exposed by that harness version—its native tool
    and supported-launch catalogues, plus CLI or schema discovery where
@@ -117,6 +127,11 @@ for each claimed class. Observed deliverable movement certifies `LOOP`,
 movement responds to the coordination in question. `NOTIFY` requires a
 content-bearing challenge reply bound to the exact delivery path traversed;
 generic movement or a bare acknowledgement cannot certify it.
+The automated test card never sends that challenge. If Jim Cresswell or the
+serving Director has not explicitly authorised and observed the bounded
+canonical-comms exchange, the snapshot retains the class row as `not_run` or
+`unknown`; lack of authorisation is neither a failed capability nor permission
+to widen the probe.
 
 ## Acceptance criteria (each with a proof — required)
 
@@ -234,7 +249,11 @@ generic movement or a bare acknowledgement cannot certify it.
 
 - Granting, widening, or bypassing permissions.
 - Model-quality benchmarking or ranking agents by answer quality.
-- Destructive, write, privileged-escalation, or external-state probes.
+- Automated, destructive, privilege-widening, or unrelated external-state
+  probes. The only write exception is an explicitly authorised, bounded
+  owner-held canonical-comms challenge used to certify `NOTIFY` or `ABSORB`;
+  it is never run by default, never grants or widens permissions, and absence
+  of authorisation records `not_run` or `unknown`.
 - Installing optional integrations merely to make a capability appear.
 - Treating self-report, configuration, stale behaviour, or a rename heuristic
   as proof of effective current capability.
