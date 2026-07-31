@@ -68,6 +68,18 @@ coordination noise; WS5 evidence is the re-evaluation gate. Commit-window
 claims intentionally override this to 900 seconds because staging/commit
 should be brief.
 
+## Claims Are Provenance (Immutable Undertakings)
+
+The registry ROW is operationally mutable (heartbeat refresh, handoff-record
+pointer, close/adopt through the transaction helper), but the claim's
+UNDERTAKING — its boundary, intent, and role as staked at open — is immutable
+provenance of what the seat took on (owner ruling, July 2026, homed by the
+2026-07-31 comms-corpus run). A changed lane CLOSES the claim and opens a new
+one; editing scope or intent in place rewrites history and breaks the
+`claim_id` citation chain that closed-claims archiving exists to preserve.
+`claims adopt` is the one sanctioned in-place identity rewrite (mid-cycle
+pickup, PDR-063), and it deliberately preserves the undertaking unchanged.
+
 ## Write-Safety Contract
 
 Shared state is intentionally read/write. An active claim on shared-state docs

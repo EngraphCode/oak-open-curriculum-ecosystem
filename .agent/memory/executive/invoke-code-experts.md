@@ -139,6 +139,19 @@ cheap first-hand check, run the check before adjudicating — reviewer
 contradiction is a gift (a 2026-07-02 panel's opposite claims about an
 exported function were settled by one direct read of the source).
 
+## Reviewer Model Tier
+
+Every expert-reviewer dispatch passes `model: opus` explicitly — reviewer
+verdicts steer dispositions, so the judgement tier is not left to the
+default (owner standing direction; bulk mechanical sweeps may tier
+per-leg, but REVIEW legs stay on Opus). Under a live provider-overload
+wave the owner ruled a conditional fallback (2026-07-30, verbatim: *"if
+Opus is still overloaded, we can fall back to Fable-low, but critically
+assess all output"*): fall back UP in capability at lower effort — never
+downgrade to a smaller tier, never drop the review — and treat every
+fallback verdict as needing first-hand critical assessment before it
+steers a disposition.
+
 ## Delegation Snapshot
 
 Every bounded reviewer or worker lane should receive this minimum snapshot:

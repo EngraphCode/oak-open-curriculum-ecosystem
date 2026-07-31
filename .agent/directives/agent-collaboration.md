@@ -279,6 +279,16 @@ Two positive complements to the scope-discipline tripwires above (PDR-026/027/02
   work-shape asked about, re-offering different-shaped work freely. Three
   worked instances 2026-07-29/30 (two precision-telemetry declines converging
   on fresh-seat; an offer/decline/route arc cited as the culture working).
+- **Second opinions from a cross-platform seat at judgement-sized moments**
+  (owner standing directive, 2026-07-30). Contested dispositions, design
+  forks, and blind-spot-prone verdicts may route to a designated
+  second-opinion seat on a DIFFERENT model family (founding instance: a
+  Codex/GPT-5 seat) — proportional, never routine ceremony. One
+  self-contained directed event per ask; the second-opinion seat holds no
+  claim and returns opinion only; the asking seat owns the disposition. The
+  value is the different failure surface, so the seat's platform diversity
+  is the point, not its identity — the designated seat is re-derived from
+  the live roster at time of use.
 
 ## PR Closeout Discipline
 

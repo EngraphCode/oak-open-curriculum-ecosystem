@@ -113,6 +113,15 @@ what reviewers should focus on, what was deliberately left out, and what
 evidence supports merge readiness. Update the description whenever the review
 story materially changes (a reshaped scope, a new commit class).
 
+**Copilot review policy (owner grants, 2026-07-26→29, standing).** Request a
+Copilot review AT PR-OPEN for every source-touching PR; docs-only PRs stay
+selective (important-or-risky only). Cadence is at-open plus
+substance-triggered (a reshaped diff), never per cure push; Copilot's absence
+never blocks a merge. Suppressed findings are Copilot's own low-confidence
+bucket: the burden of proof is REPRODUCTION before cure — a non-reproducing
+finding gets a reasoned decline with the falsifier recorded, never a
+speculative cure or a silent skip.
+
 ### Title and description are CLAIMS about the diff — derive them from it
 
 **A description cannot check the artefact it describes.** Both come out of the

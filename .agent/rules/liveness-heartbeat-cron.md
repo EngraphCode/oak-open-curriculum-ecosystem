@@ -106,8 +106,14 @@ authoritative for intent, the registry check for age.
 Platform-specific shapes:
 
 - **Claude Code**: the `Monitor` tool with `persistent: true` and a
-  `while/sleep 240` loop emitting heartbeats; alternatively
-  `CronCreate` with `*/4 * * * *` if the cron primitive is preferred.
+  `while/sleep 240` loop emitting heartbeats. **`CronCreate` is NOT a
+  valid emitter shape** (calibrated first-hand 2026-07-31): cron
+  prompts fire only while the session is IDLE, so a seat in one long
+  working turn never fires them — the heartbeat goes dark exactly when
+  the seat is busiest, which is indistinguishable from retirement on
+  the F-75 detector (worked instance: a cron-armed seat flagged at the
+  retirement threshold ~15 minutes into an active graduation batch,
+  cleared only by the peer's work-evidence cross-check).
   A seat holding MULTIPLE active claims runs `claims heartbeat` once
   per claim-id per tick — the command updates only the named claim, so
   a singular-claim loop leaves every sibling claim silently stale (the
