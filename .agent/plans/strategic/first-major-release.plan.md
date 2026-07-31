@@ -189,3 +189,19 @@ onto this node — one line each, pointers never duplicates.
   MCP-354's four-event catalogue signed off unamended; MCP-357 finally
   sequenced post-submission on the corrected authenticated-handshake
   premise. Records: MCP-143, MCP-354, MCP-357, MCP-309 checklist.
+- 2026-07-21/25 — Owner re-aim (backfilled 2026-07-31 by the comms-corpus
+  run; no durable surface carried it): "we have drifted away from moving
+  towards the V1 release, we have been lost in detail" — release-chain
+  tickets route first; meta lanes sequence behind a named
+  release-chains-staffed-and-moving gate; the meta backlog sits under a
+  protected research floor; further implementer seats wait on the design
+  lane completing. The routing posture that produced the late-July
+  outflow discipline.
+- 2026-07-25 — Submission framing of record at the time (backfilled
+  2026-07-31): first Anthropic-directory submission Wednesday 30 July,
+  engineering-complete and production-deployed by Tuesday 29 EOD with
+  freeze discipline after; V1 delivery September; guidance chain
+  (MCP-102/121) de-gated from initial submission. Superseded in
+  sequence (→ Friday 31 July → Thursday 2026-08-06, Matt Gregory
+  holding the conn) — kept as the evolution's middle step so the
+  register's date arithmetic stays reconstructible.
