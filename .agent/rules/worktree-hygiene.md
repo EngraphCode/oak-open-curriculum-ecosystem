@@ -158,7 +158,10 @@ the map is the only surface on which a forgotten worktree becomes visible.
 
 ### 8. Operate correctly from a worktree
 
-Build before work (`pnpm install && pnpm build` — the eslint plugin dist and the
+Working-directory residency — the lane agent's session cwd IS the worktree,
+established by a session-level mechanism and stable until the agent changes it —
+is governed by [`worktree-residency`](worktree-residency.md) (owner directive
+2026-07-31). Build before work (`pnpm install && pnpm build` — the eslint plugin dist and the
 statusline both come from the build). From a worktree, collaboration-state commands need
 the primary path passed explicitly (`comms list/watch/inbox --comms-dir`, `claims
 --active`); only `comms send` auto-anchors to the primary, and a relative path silently
