@@ -124,6 +124,13 @@ authority is some home's authored file, and stores everywhere remain
 derived indexes. The moment any home violates this, a second source of
 truth exists and the design has failed its own falsifier.
 
+**Asserted-only.** No entailment regime (RDFS or OWL) materialises
+inferred statements into any store: the dataset holds what authors
+asserted, and inference — where a projection wants it — is computed at
+read time and never persisted. This is the red line applied to
+reasoning itself, and it keeps constraint validation defined against
+exactly the asserted graphs.
+
 ### 3. Identity: persistent IRIs, minted not derived
 
 Every node — document, concept, decision — gets a stable IRI minted at
@@ -142,6 +149,13 @@ first-hand 2026-07-31 against its working copy: base IRI
 `https://w3id.org/uk/oak/curriculum/ontology/`); the exact minting
 scheme is confirmed against the upstream at a pinned revision before
 `graph-knowledge-sdk` lands — a named obligation of that increment.
+
+**Referential stability and version pinning.** A published IRI, once
+referenced from any home, resolves forever — supersession chains,
+never removal (PDR-134 §2). And each home's graphs declare the
+ontology version they conform to (`owl:versionInfo`-class pinning, as
+the sibling ontology does), so mount-time validation reads conformance
+per home rather than assuming one global schema moment.
 
 ### 4. The seam: named graphs, homes, and the direction law
 
@@ -166,6 +180,16 @@ discipline of the authors.
 **The clone test is a CI validator, not a hope**: the public dataset
 must rebuild, validate, and render every projection from a cold clone
 with zero overlay graphs present.
+
+**Union semantics and constraint scope.** Statement union is monotone,
+so a mounted overlay extends but can never falsify public knowledge —
+readers with more entitlement see strictly more, never different,
+truth (a structural guarantee of the data model, claimed here as a
+design property). Closed-world constraints are not automatically
+union-stable, so every constraint declares a scope: **home-local**
+(checked at that home's rebuild) or **union-scoped** (checked at
+mount); an overlay violating a union-scoped constraint fails its own
+mount and never the public base.
 
 ### 5. Vocabularies: reuse W3C, in the sibling ontology's image
 
@@ -238,6 +262,39 @@ ADR-041's dependency matrix holds. The checks, red-first:
 5. The clone test (§4).
 6. Divergence between in-prose links and front matter subjects surfaces
    as advisory notes, never gates — no coverage quotas (PDR-134).
+7. Union-scoped constraint validation at mount (§4): the overlay under
+   mount fails on violation; the public base never does.
+
+## Mathematical grounding (dated 2026-07-31, owner-requested)
+
+Each load-bearing shape here is deliberately standard mathematics, so
+implementations inherit proven algorithms and the falsifiers have
+names:
+
+- **Ontology/instance** is the description-logic theory/model split —
+  the source of decidable validation.
+- **The direction law** is stratification in the logic-programming
+  sense: order-respecting references, validity preserved under
+  restriction to down-sets (the strip tests), termination of cross-home
+  resolution for free.
+- **Homes and mounting** are restriction-and-union over the entitlement
+  order (presheaf-shaped): a reader's world is the union over their
+  down-set, and union monotonicity is what makes overlays unable to
+  falsify public knowledge (§4).
+- **Canonicalisation** (RDFC-1.0) picks canonical representatives of
+  graph-isomorphism orbits — deterministic diffs, and canonical-form
+  hash equality as statement-level identity.
+- **The PROV spine** is a labelled transition system carrying both
+  modalities — realised traces and unrealised plans — in one
+  structure; the drift projections (§Consequences) are its fixed
+  queries.
+- **Cross-instance alignment** is the institutions shape (networks of
+  theories joined by alignment morphisms), which is why alignment
+  graphs are first-class with their own home (PDR-134 §5).
+
+What is deliberately not formalised — meaning inside prose — is a
+fragment choice, not an omission: the graph is the decidable skeleton;
+prose stays sovereign; the reading agent interprets between them.
 
 ## Alternatives considered (decision-lens run, 2026-07-31)
 
@@ -338,3 +395,12 @@ they execute in the ratification commit, not before):
 - The paused refounding programme's instruments (denominator, freeze
   rule, conservation chain) are harvested as migration tooling by the
   strategic plan that executes this decision.
+- Three guarantees come free from the mathematics and are claimed as
+  design properties: **statement-level deduplication** beneath the
+  concept level (canonical-form hash equality is identity up to
+  isomorphism); **standing drift projections** from the PROV shape
+  (plans never used, activities without plans, entities without
+  provenance — the abandoned-intent, unplanned-work, and
+  orphan-knowledge detectors are fixed queries); and **no authority
+  feedback loops** (computed confidence never feeds authored status,
+  so the epistemics cannot self-reinforce).

@@ -83,6 +83,12 @@ reference only artifacts at least as general as itself, and the same
 law now binds every edge in the knowledge graph, including a concept's
 `broader`/`related` relations.
 
+**Referential stability**: a published identifier, once referenced
+from any home, resolves forever — evolution supersedes nodes, never
+removes them, so a resolution target may be superseded (with its
+successor named) but never absent. Citation permanence is a structural
+property of the estate, not a promise.
+
 ### 3. Three carriers, one addressing principle
 
 - **Prose carries claims** — the full semantic content, irreducible,
@@ -143,6 +149,12 @@ natively. The interoperability falsifier: a second instance on a
 different stack loads the first instance's Practice-stratum knowledge
 and validates it against the shared constraints.
 
+Cross-instance concept alignments (match relations asserted between
+two instances' schemes) are their own graphs with their own home — a
+deferred home class, named now so the first alignment does not
+improvise one. An alignment belongs to neither instance's stratum
+lattice; it relates them.
+
 ### 6. Privacy by home; falsifiers by stratum
 
 Visibility is decided by which home carries a graph, never by redacting
@@ -151,6 +163,14 @@ stratum above X removed, everything at or below X still rebuilds,
 validates, and renders (external references displaying as unresolved
 names). The outermost instance is the clone test: a cold public clone
 is complete and valid with zero operator overlays present.
+
+**Union semantics are monotone by construction**: mounting a more
+specific stratum extends but can never falsify a more general one —
+readers with more entitlement see strictly more, never different,
+knowledge. Constraints therefore declare a scope: **home-local**
+(checked at each home's rebuild) or **union-scoped** (checked at
+mount); a mount that violates a union-scoped constraint fails that
+mount, never the more general base.
 
 ## Consequences
 
@@ -168,6 +188,20 @@ is complete and valid with zero operator overlays present.
 - Host repositories instantiate this contract through their own
   architectural decision records; this record deliberately names no
   host machinery.
+
+## Mathematical grounding (deliberately standard)
+
+The shapes above are chosen to be proven mathematics, not novel
+design, so any implementing stack can lean on existing results and
+algorithms: the strata with the direction law are a stratified
+knowledge base (order-respecting references; validity preserved under
+restriction to down-sets); the mount is a monotone union over the
+entitlement order; ontology-versus-instance is the classical
+theory/model split with decidable validation; identity-versus-content
+is rigid naming with a version category over it; and the
+intended-versus-actual split is a bimodal provenance structure. Host
+records name the concrete frameworks and algorithms; this record fixes
+only the properties.
 
 ## What this record forbids
 
