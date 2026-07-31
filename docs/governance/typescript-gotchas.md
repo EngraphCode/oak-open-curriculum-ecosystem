@@ -170,3 +170,8 @@ finding class ends rather than relocates.
   fields** — a scripted insertion keyed on an error location can land in
   a helper call's surrounding literal; unique-anchor asserts + type-check
   are the guard.
+- **Exporting a zod input shape as `: z.ZodRawShape` kills `.meta()` reads**
+  (bitten twice in one day, 2026-07-30): the annotation widens every field
+  to the core `$ZodType`, discarding the per-field schema types the readers
+  need. Export as `X.shape`, or constrain with `satisfies z.ZodRawShape` —
+  never the widening annotation.

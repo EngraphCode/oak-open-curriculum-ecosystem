@@ -139,6 +139,15 @@ cheap first-hand check, run the check before adjudicating — reviewer
 contradiction is a gift (a 2026-07-02 panel's opposite claims about an
 exported function were settled by one direct read of the source).
 
+## Reviewer Reports Arrive Only on Request
+
+Reviewer subagents deliver their reports ONLY on an explicit SendMessage
+request — a summary-less idle notification means NO report was emitted
+(6/6 instances, late July 2026): request the report, never infer one from
+the idle. And a long-silent consult (~12 minutes) is a DEFECTIVE dispatch —
+kill it and re-dispatch; a seat idling on a dead consult is the failure,
+not patience.
+
 ## Reviewer Model Tier
 
 Every expert-reviewer dispatch passes `model: opus` explicitly — reviewer

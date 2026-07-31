@@ -478,3 +478,10 @@ UTC-to-UTC; never a local clock).
   you already hold and isolate the layer (auth vs volume) before adopting a
   primed frame; on a `401`/unauthenticated signature check `gh auth status` and
   retry, never assume volume. (Tooling cure lives at frictions F-110.)
+- 2026-07-30 vendor-capability arity: when a review finding's premise is a
+  claim about platform or vendor capability, fetch the vendor documentation
+  first-hand at time of use before classifying — and check the capability's
+  ARITY, not just its existence: two individually-true vendor facts composed
+  can yield a false third claim (the capability exists AND the surface exists
+  does not mean the capability applies to that surface N times, in that
+  direction, or at that layer).

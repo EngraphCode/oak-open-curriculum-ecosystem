@@ -218,7 +218,12 @@ surfaces. Partial reads produce false "no problems" verdicts:
 - The three-way test, exactly one terminal state per finding:
   1. **INCORRECT → reject**, with verified reasoning in the reply
      (`dispositions-need-verified-failure-scenarios`). Rejection is a
-     first-class outcome, never a failure of nerve.
+     first-class outcome, never a failure of nerve. Every disposition
+     names its EVIDENCE CLASS: READ (reasoned from source, never
+     executed) or RUN (exercised first-hand). A whole round dispositioned
+     READ-NOT-RUN is sound as readings and is NOT test evidence — say so
+     in the disposition, so downstream consumers never upgrade a reading
+     into a proof (worked instance: #570, all findings READ-NOT-RUN).
   2. **CORRECT and relevant and proportionate → address**, fixed at source.
      ALL THREE conjuncts are required: individual validity is NOT
      sufficiency — a correct finding whose cure widens the PR beyond its

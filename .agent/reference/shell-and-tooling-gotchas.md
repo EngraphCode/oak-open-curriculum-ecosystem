@@ -176,3 +176,17 @@ tool retires them.
   repo changes (measured: froze at 4.0.40 on the 29th, floated to 5.0.14
   breaking two more packages on the 30th). The cheapest durable state is
   not having the override.
+- **Grepping a shipped binary needs `LC_ALL=C`** or grep reports a false
+  "binary file matches" zero-hit read; registry semantic hashes are
+  computable via a temp tsx file inside the package dir importing
+  `./semantic-source-sha256.js`; and a newline-joined variable passed to
+  git reads as ONE pathspec — use `xargs`, and verify with a staged-count
+  check.
+- **Operational signatures worth knowing** (2026-07-30): a model tier can
+  change WITHIN a session id, so tuple-matchers keyed on (session, model)
+  mis-match across the change; a write command is never a probe (a stray
+  all-zeros event id traced to an argument-validation "probe" that was
+  actually a write); and the security-headers integration test's
+  `Parse Error: Expected HTTP/, RTSP/ or ICE/` is a loaded-host
+  concurrency flake — a gate failure in a package the diff never touched
+  is a re-run candidate before it is a finding.
