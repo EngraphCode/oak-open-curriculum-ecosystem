@@ -19,11 +19,8 @@ tickets:
   - MCP-441
   - MCP-442
 depends_on: []
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: "CLEARED 2026-07-30: the owner confirmed disclose-in-form via the decision card (MCP-441 comment 71045759); bound-at-source remains an optional future lane"
-    expires: 2026-08-02
-last_updated: 2026-07-30
+owner_gates: []
+last_updated: 2026-07-31
 ---
 
 # Submission-review repo fixes
