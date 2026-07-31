@@ -9,6 +9,7 @@ import { TEAM_ALERT_BOOTSTRAP_HELP_TEXT } from '../src/codex/team-alert-bootstra
 
 const repoRoot = fileURLToPath(new URL('../..', import.meta.url));
 const hookPath = join(repoRoot, '.codex/hooks/practice-session-identity.mjs');
+const bootstrapCliPath = join(repoRoot, 'agent-tools/dist/src/codex/team-alert-bootstrap-cli.js');
 const input = JSON.stringify({
   session_id: '22e83599-a627-4427-b23c-fe6ce046e859',
   source: 'startup',
@@ -94,14 +95,17 @@ function isHookSpecificOutput(value: unknown): value is HookSpecificOutput {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
+function containsStackFrame(output: string): boolean {
+  return output.split('\n').some((line) => line.trimStart().startsWith('at '));
+}
+
 function verifyInvalidBootstrapInvocationDoesNotWrite(): void {
   const agentsPath = join(repoRoot, 'AGENTS.md');
   const agentsBefore = readFileSync(agentsPath);
-  const invalid = spawnSync(
-    'pnpm',
-    ['--silent', 'codex-team-alert-bootstrap:generate', '--definitely-unknown'],
-    { cwd: repoRoot, encoding: 'utf8' },
-  );
+  const invalid = spawnSync(process.execPath, [bootstrapCliPath, '--definitely-unknown'], {
+    cwd: repoRoot,
+    encoding: 'utf8',
+  });
   const agentsAfter = readFileSync(agentsPath);
 
   if (invalid.status === 0 || invalid.status === null) {
@@ -121,7 +125,7 @@ function verifyInvalidBootstrapInvocationDoesNotWrite(): void {
     );
     process.exit(1);
   }
-  if (/\n\s+at\s/u.test(invalid.stderr)) {
+  if (containsStackFrame(invalid.stderr)) {
     process.stderr.write(`Invalid bootstrap invocation leaked a stack trace:\n${invalid.stderr}`);
     process.exit(1);
   }
@@ -138,7 +142,7 @@ function verifyInvalidBootstrapInvocationDoesNotWrite(): void {
 function verifyHelpInvocationDoesNotWrite(helpFlag: '--help' | '-h'): void {
   const agentsPath = join(repoRoot, 'AGENTS.md');
   const agentsBefore = readFileSync(agentsPath);
-  const help = spawnSync('pnpm', ['--silent', 'codex-team-alert-bootstrap:generate', helpFlag], {
+  const help = spawnSync(process.execPath, [bootstrapCliPath, helpFlag], {
     cwd: repoRoot,
     encoding: 'utf8',
   });
@@ -154,8 +158,7 @@ function verifyHelpInvocationDoesNotWrite(helpFlag: '--help' | '-h'): void {
     process.stderr.write(`Bootstrap ${helpFlag} invocation omitted full help:\n${help.stdout}`);
     process.exit(1);
   }
-  const expectedPnpmEcho = `$ tsx src/codex/team-alert-bootstrap-cli.ts ${helpFlag}\n`;
-  if (help.stderr !== expectedPnpmEcho || /\n\s+at\s/u.test(`${help.stdout}\n${help.stderr}`)) {
+  if (help.stderr !== '' || containsStackFrame(`${help.stdout}\n${help.stderr}`)) {
     process.stderr.write(
       `Bootstrap ${helpFlag} invocation emitted an unexpected error or stack trace:\n` +
         `${help.stdout}${help.stderr}`,
