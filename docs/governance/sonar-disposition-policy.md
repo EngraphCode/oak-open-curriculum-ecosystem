@@ -88,6 +88,15 @@ These govern _how_ a finding is dispositioned, beneath the per-class catalogue:
   (fix-or-genuine-FP). Do NOT frame the resulting backlog as an activation-wave
   to "wait out" via push-and-reanalyse — that lesson is for STALE / zombie
   analysis against a moving target, never a fresh deliberate profile.
+- **CodeQL posture is fix-first with zero dismissals** (owner reversal,
+  2026-07-29 — _"why should I dismiss issues detected by CodeQL?"_). CodeQL
+  dismissals are per-instance and do not survive refactors (alerts #83–86
+  recurred as #226–229 after the code moved), so a dismissal buys silence,
+  not absence: cure structurally in the code instead. The posture was
+  vindicated when a flagged pattern proved to be a real
+  super-linear-backtracking ReDoS vector. Agents never dismiss CodeQL
+  alerts on their own PRs; where a genuine false positive needs a
+  server-side dismissal, that act is the owner's.
 - **Triage by cause-class, but a class splits by disposition-route.** A rule
   class (e.g. a regex backlog) does not resolve uniformly: generated output →
   fix at the generator; generator source → fix in place + regen; hand-written →

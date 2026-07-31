@@ -26,8 +26,18 @@ The one-sentence contract: **a PR is done when it is live** — opened is not
 done, green checks are not done, "ready for review" is not done; done is
 merged with every finding genuinely settled. Standing down (closeout,
 claim-close, monitor-stop) while the work is unmerged is the error: a
-feature branch with an open PR is one cleanup away from gone, and the
-owner's merge signoff is a gate, never a handoff of ownership.
+feature branch with an open PR is one cleanup away from gone, and a merge
+gate — settled-state, or owner signoff where a surface reserves it — is a
+gate, never a handoff of ownership.
+
+Standing merge doctrine (owner verbatim, 2026-07-26/29): **a green and clean
+PR — CI passing, no unresolved comments — merges without owner approval**,
+and any resulting problem makes recurrence-prevention the immediate
+priority. At genuinely-settled (all required checks green by name across
+both check-runs AND commit statuses, zero unresolved threads), the seat
+executes the merge itself under bot identity (REST merge-commit method,
+never squash). Freeze-bound surfaces and anything a rule explicitly
+reserves to the owner remain outside this grant.
 
 ## What a PR is (the intent under every phase below)
 
