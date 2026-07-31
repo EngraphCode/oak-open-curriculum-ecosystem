@@ -308,3 +308,15 @@ new-rule-vs-pdr-clause process, not as a self-executing conclusion;
 and the honest accounting is cost-REDUCTION, not waste-elimination —
 the duplicated day also produced finds a prior-art-first brief would
 likely not have surfaced. Frame the future rule that way.
+
+## EnterWorktree fresh mode is a silent-twin base (2026-07-31)
+
+Fresh mode documents branching from origin/main but based lane
+branches on the primary's checked-out HEAD — the coordination-branch
+tip, an ambient value of the right TYPE (a valid ref) standing in for
+the intended value. Query-the-value-never-the-lookalike, worktree
+edition: cost PR 673 a close-and-succeed cycle. Cure in
+worktree-residency Action 1 (explicit start point) + Action 8 (pre-PR
+`git log origin/main..HEAD` check). Badger's peer warning reached
+Moss BEFORE their PR-open — the direct-warning-at-detection pattern
+paid for itself same-hour.
