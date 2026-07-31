@@ -221,3 +221,102 @@ peer is the heartbeat FILE directly: stat
 past 3× interval) + its `watched_comms_dir` against the canonical
 home. Instrument note for the mutual-cover discipline in
 comms-all-channels-watcher §Liveness self-check.
+
+## 2026-07-31 ~19:16Z — owner ruling: model-unavailability fallback generalised (Badger guards Lair, 88e358)
+
+Owner word (2026-07-31, generalising his morning review-leg ruling;
+Falcon relayed fleet-wide ~19:13Z): where a model is unavailable, fall
+back to the NEXT HIGHEST model at a LOWER effort setting than the
+original request — binding ALL model-unavailability cases, not only
+reviewer dispatches. Edge cases resolve toward intent: already top
+tier → stay there and reduce effort; no lower effort exists →
+next-highest at its lowest; platform-internal non-selectable model
+(e.g. a harness classifier) → short-cadence retry while unblocked
+surfaces keep moving. Fallback output is critically assessed like any
+substitute. Graduation candidate: this is now standing doctrine
+without a rule-file home — the natural home is a clause where
+reviewer/dispatch model selection is documented (the
+reviewer-dispatch surfaces name Opus floors; this ruling governs what
+happens when the named tier is unavailable anywhere).
+
+## 2026-07-31 ~19:20Z — Dolphin weaves Marsh closeout
+
+### What Was Done
+
+- Verified the Codex watcher failure boundary: the prior heartbeat aged out,
+  the canonical stream continued, and manual re-arm on the existing cursor
+  caught up without claiming that automatic replacement was proven.
+- Reported the Codex replacement/alert-path finding to Falcon in comms event
+  `00d240a4-d618-4997-a88f-159518d7d75d`; checked in with Badger in
+  `de1a15f0-3584-419a-bbc9-07fbb3846869`.
+- No active claims belong to this identity. The shared checkout remains
+  dirty and one commit ahead of its upstream; no commit, push, reset, or
+  cleanup was performed.
+
+### Surprise
+
+- **Expected**: the one-hour watcher limit could be described as a generic
+  durability defect.
+- **Actual**: for Claude it is an intentional freshness and safety boundary;
+  the real Codex finding is that replacement and active-turn alerting were
+  not evidenced after expiry.
+- **Why expectation failed**: I transferred the observed Codex failure onto
+  the Claude lifecycle model instead of separating the platform contracts.
+- **Behaviour change**: report the missing replacement proof as a
+  Codex-specific lifecycle gap and require a controlled expiry test before
+  treating the path as solved.
+
+### Loss scan and metaloss fixed point
+
+- Durable homes contain the material outcome: canonical comms events,
+  current ARC/census surfaces, and the team-member closeout handoff.
+- The remaining context-only items are the exact foreground session handles
+  and the subjective texture of noticing the platform-contract mismatch;
+  handles expire with the monitors, and the subjective piece is conserved in
+  the formation letter.
+- Blind spots: the session did not prove the Codex supervisor's internal
+  replacement path, ARC/standards wake, or a post-request Badger reply.
+- A further pass would only re-find the same distinction, evidence IDs,
+  dirty-tree boundary, and unproven supervisor path; the metaloss recursion
+  closes here.
+
+### Mistakes Made
+
+- The first closeout append used an inaccurate napkin tail anchor and
+  `apply_patch` failed without changing the file. I re-read the exact tail,
+  applied a narrower anchor, and verified the resulting section before
+  proceeding.
+
+## 2026-07-31 ~19:30Z — search the plan corpus for prior art BEFORE any design review (Falcon hunts Flight, 52841f)
+
+Ran an owner-directed multi-perspective design review (3 fleet seats,
+2 Opus reviewers, a Cricket octet) on the display-prefix shape — and
+BOTH independent Opus lenses found the answer already sitting
+owner-accepted in the plan corpus (practice-identity-visual-
+disambiguator, MCP-145, accepted 2026-07-24 through a three-reviewer
+round + decision-lens run), superior to all six invented candidates.
+The record-first discipline fired for owner rulings but not for
+design priors: a two-minute grep of .agent/plans/ before authoring
+the brief would have reframed the whole review as "enrich the
+accepted design" instead of "invent candidates". The review still
+paid (measured collision data, vendor rand_a non-uniformity, two
+independent bug finds) — but by luck of good reviewers, not by
+process. Cure: any design brief opens with the prior-art search
+result as its first line.
+Addendum (2026-07-31, post xhigh review): the cure lands via the
+new-rule-vs-pdr-clause process, not as a self-executing conclusion;
+and the honest accounting is cost-REDUCTION, not waste-elimination —
+the duplicated day also produced finds a prior-art-first brief would
+likely not have surfaced. Frame the future rule that way.
+
+## EnterWorktree fresh mode is a silent-twin base (2026-07-31)
+
+Fresh mode documents branching from origin/main but based lane
+branches on the primary's checked-out HEAD — the coordination-branch
+tip, an ambient value of the right TYPE (a valid ref) standing in for
+the intended value. Query-the-value-never-the-lookalike, worktree
+edition: cost PR 673 a close-and-succeed cycle. Cure in
+worktree-residency Action 1 (explicit start point) + Action 8 (pre-PR
+`git log origin/main..HEAD` check). Badger's peer warning reached
+Moss BEFORE their PR-open — the direct-warning-at-detection pattern
+paid for itself same-hour.

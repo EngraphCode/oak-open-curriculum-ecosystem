@@ -38,7 +38,16 @@ residency with `EnterWorktree` before its first lane action.
    separate tool calls with no reset, and `ExitWorktree` restores the
    principal cleanly. Fresh-cut-from-main matters doubly under
    residency: the worktree becomes the session's working context, so a
-   stale branch means stale doctrine.
+   stale branch means stale doctrine. **Never let `EnterWorktree`
+   fresh mode CREATE the lane worktree**: fresh mode documents
+   branching from `origin/main`, but observed behaviour (2026-07-31,
+   Claude Code 2.1.220, twice at one seat) bases the new branch on the
+   PRIMARY's checked-out HEAD — on this estate a coordination-branch
+   tip — so lane PRs ship with coordination commits riding under the
+   story (PR #673 lost a close-and-succeed cycle to exactly this; #674
+   is its clean successor). Create with the explicit start point —
+   `git fetch origin && git worktree add <path> -b <branch>
+   origin/main` — then enter by path.
 2. **Secondary — residency at launch**, when a session is started FOR
    a known lane: launch in the worktree (`cd <worktree> && claude`,
    or `claude --worktree <name>` for `.claude/worktrees/` worktrees).
@@ -71,6 +80,12 @@ residency with `EnterWorktree` before its first lane action.
    pins a subagent to its OWN fresh worktree — a deliberate, different
    choice; verify a spawned worktree's HEAD before trusting it (the
    parallel-dispatch anti-pattern).
+8. **Pre-PR contamination check.** Before opening any lane PR:
+   `git log --oneline origin/main..HEAD` must list exactly the
+   story's own commits. Anything else is a contaminated base — re-cut
+   (`git switch -c <branch>-v2 origin/main`, cherry-pick the story
+   commits across; history rewrite is hook-blocked on this estate),
+   close the contaminated PR with a pointer, and open its successor.
 
 ## Platform mechanics (version-pinned)
 
@@ -96,6 +111,10 @@ clause 8 records — while `EnterWorktree` reaches sibling worktrees
 fine); and pre-approving `EnterWorktree` in `permissions.allow`
 (the 2026-07-31 probe observed no approval friction for sibling-path
 entry — re-open only if a lane observes a prompt in practice).
+`worktree.baseRef` is a candidate configuration cure for fresh-mode's
+base (unverified — verify from current platform documentation before
+relying on it; the explicit-start-point sequence in Action clause 1
+needs no configuration).
 
 ## Why a rule, not a PDR clause
 
