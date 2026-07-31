@@ -20,7 +20,11 @@ describe('auditCodexIdentityRecords', () => {
           {
             intent_id: 'queued-anonymous',
             claim_id: 'claim-queued',
-            agent_id: anonymousAgent,
+            // Anonymity (name/prefix) is orthogonal to the PDR-076a routing
+            // id: intents REQUIRE id at parse, and an anonymous seat still
+            // carries one. The id-less-intent rejection is covered by
+            // state-parsers.unit.test.ts.
+            agent_id: { ...anonymousAgent, id: 'a3c81f5e-7d2b-5c49-8e16-4f0a9d3b7c25' },
             files: ['.agent/plans/example.md'],
             commit_subject: 'docs(agent): anonymous queue',
             queued_at: '2026-04-28T11:00:00Z',
@@ -146,5 +150,38 @@ describe('auditCodexIdentityRecords', () => {
     ]);
     expect(activeText).toContain('fresh-active-anonymous');
     expect(closedText).toContain('closed-anonymous');
+  });
+
+  it('throws at parse on a legacy id-less intent instead of reporting on it (PDR-076a boundary)', () => {
+    // Behaviour change landed with the intent read-boundary tightening: an
+    // id-less intent is registry corruption, so the report-only audit now
+    // fails loudly naming the row rather than including it in the report.
+    const activeText = JSON.stringify({
+      schema_version: '1.3.0',
+      commit_queue: [
+        {
+          intent_id: 'queued-anonymous',
+          claim_id: 'claim-queued',
+          agent_id: anonymousAgent,
+          files: ['.agent/plans/example.md'],
+          commit_subject: 'docs(agent): anonymous queue',
+          queued_at: '2026-04-28T11:00:00Z',
+          updated_at: '2026-04-28T11:00:00Z',
+          expires_at: '2026-04-28T11:15:00Z',
+          phase: 'queued',
+        },
+      ],
+      claims: [],
+    });
+
+    expect(() =>
+      auditCodexIdentityRecords({
+        nowIso,
+        activeText,
+        closedText: JSON.stringify({ schema_version: '1.3.0', claims: [] }),
+        threadRecordText: '',
+        sharedLogText: '',
+      }),
+    ).toThrow(/commit_queue entry queued-anonymous carries an invalid agent_id/);
   });
 });

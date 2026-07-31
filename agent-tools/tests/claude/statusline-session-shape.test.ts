@@ -16,6 +16,7 @@ import {
 import {
   type CollaborationClaim,
   type CollaborationRegistry,
+  uuidV5Schema,
 } from '../../src/collaboration-state/types';
 
 const NOW = '2026-06-12T12:00:00Z';
@@ -229,6 +230,7 @@ describe('resolveSessionShape — team shape', () => {
             platform: 'claude-code',
             model: 'Fable 5',
             session_id_prefix: 'fernli',
+            id: uuidV5Schema.parse('7d9f5a3c-2b41-5e86-9c07-1f4a8d62b395'),
           },
           files: ['agent-tools/src/claude/statusline-render.ts'],
           commit_subject: 'feat: fixture queue entry',

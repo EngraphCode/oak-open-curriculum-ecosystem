@@ -1,12 +1,11 @@
 import { readFile } from 'node:fs/promises';
 
-import { collaborationAgentIdWriteSchema } from '../collaboration-state/agent-id.js';
+import { parseIntentAgentId } from '../collaboration-state/agent-id.js';
 import { validateCollaborationJsonFileText } from '../collaboration-state/collaboration-json-validation.js';
 import { updateJsonFileWithRetry } from '../collaboration-state/index.js';
 
 import {
   type CommitIntent,
-  type CommitQueueAgentId,
   type CommitQueueClaim,
   type CommitQueueRegistry,
   type JsonObject,
@@ -81,30 +80,6 @@ function parseIntent(value: unknown): CommitIntent {
     expires_at: requireIsoDateTime(requireStringField(value, 'expires_at'), 'expires_at'),
     phase: value.phase,
   };
-}
-
-/**
- * Boundary validation for an INTENT row's identity: the canonical
- * PDR-076a write schema (UUID v5 `id` required). Every live writer emits
- * `id` (`createIntent` parses through the same schema), so a failure here
- * means registry corruption — the error names the offending intent so a
- * blocked agent can surface it precisely. Recovery is an owner-run
- * removal of the named row; do not work around it.
- */
-function parseIntentAgentId(value: unknown, intentId: string): CommitQueueAgentId {
-  const parsed = collaborationAgentIdWriteSchema.safeParse(value);
-  if (!parsed.success) {
-    const issues = parsed.error.issues
-      .map((issue) => `${issue.path.join('.')}: ${issue.message}`)
-      .join('; ');
-    throw new Error(
-      `commit_queue entry ${intentId} carries an invalid agent_id ` +
-        `(PDR-076a requires the UUID v5 id on intents): ${issues}. ` +
-        `Every live writer emits id, so this indicates registry corruption — ` +
-        `surface to the owner; recovery is removing intent ${intentId} (owner-run).`,
-    );
-  }
-  return parsed.data;
 }
 
 /**
