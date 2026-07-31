@@ -22,6 +22,19 @@ last_updated: 2026-07-31
 
 # Planning and intent estate — one governed knowledge graph
 
+> "The knowledge flow, the learning cycle, the understanding
+> pipeline… different names for one thing, that is the absolute heart
+> of what the Practice is: the combination of persistence and learning
+> and _improvement_ for emergent systems with foundational agentic
+> elements. More poetically, a form of persistence of being for
+> agents, with strands of personal memory and of shared culture,
+> independent of model, vendor, effort."
+>
+> — the owner's kernel, ratified in-session 2026-07-31 as this
+> programme's ground. The four strata are those strands made
+> structural; the bimodal provenance holds what was meant beside what
+> happened; forgetting stays vital and what persists is chosen.
+
 ## Outcome
 
 The repository's knowledge — plans, architectural and practice
