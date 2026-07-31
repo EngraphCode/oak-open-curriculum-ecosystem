@@ -485,6 +485,14 @@ UTC-to-UTC; never a local clock).
   can yield a false third claim (the capability exists AND the surface exists
   does not mean the capability applies to that surface N times, in that
   direction, or at that layer).
+- 2026-07-3x engaged-path before mechanism: A GREP HIT IS NOT A CONSUMER —
+  a reviewer-adopted claim about a value's consumer was falsified by
+  re-reading the found site (the match existed; nothing consumed it), and
+  two expert rounds mis-read PostHog retry arithmetic until
+  `resolveCaptureMode()` settled WHICH code path was actually engaged.
+  Before reasoning about a mechanism's behaviour, settle the engaged path
+  and the actual consumer first-hand; a text match proves presence, never
+  participation.
 - 2026-07-2x captures go stale against live surfaces: a captured artefact (a
   saved page, a screenshotted portal, a studio HTML export) is a DATED
   record, not the surface — a design capture showed Resources 6 / Tools 42

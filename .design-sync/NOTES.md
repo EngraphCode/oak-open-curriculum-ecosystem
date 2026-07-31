@@ -174,3 +174,8 @@
 - **thumbnail.html reclassified** shippedFromRepo → machinery: it has no
   repo source (studio-generated; the package .gitignore records it) —
   the shippedFromRepo claim was untrue for it.
+- **Design work is shown as rendered pixels in Chrome, never artefact
+  paths** (owner standing discipline, promoted from buffer memory
+  2026-07-31 — verbatim: "show me first, then discuss"): the done-test for
+  any design change is pixels in front of the owner in the browser; a
+  verified substrate with no rendered pixel shown is not done.

@@ -104,6 +104,12 @@ These govern _how_ a finding is dispositioned, beneath the per-class catalogue:
   runtime-only → fix in place. An owner's "do X to all of them" applies cleanly
   only to the class it actually fits.
 
+## Cure Constraints (class-level, from the fix-forward arcs)
+
+- **S2871 (provide a compare function)**: never cure with `localeCompare` —
+  locale-dependent ordering breaks reproducible snapshot ordering (16 sites
+  in the founding arc). Use a code-unit comparator.
+
 ## Remediation Branch Source of Truth
 
 When a branch is opened to remediate existing main/project Sonar debt, the

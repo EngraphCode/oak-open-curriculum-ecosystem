@@ -908,7 +908,10 @@ question, not the feedback stream: a bot round composing at merge time still
 posts findings on the merged code up to ~10 minutes later. Apply the settled
 quiet window ONCE after MERGED (one final full harvest after >10 quiet
 minutes); route any real finding to a follow-up branch, never to the merged
-PR's branch.
+PR's branch. The quiet window is a PROXY predicate — it exists only because
+agents cannot see a bot review start or finish; the owner's settled word
+from his own visibility supersedes it (owner ruling, 2026-07-2x): when he
+says it is settled, it is settled, and the window is not re-imposed on him.
 
 `worktree-hygiene` §3/§6 owns the cleanup: remove the worktree and delete the
 branch (content-verified, owner-authorisation-gated for destructive ops);

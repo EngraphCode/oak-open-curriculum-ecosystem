@@ -169,7 +169,11 @@ tool retires them.
   render is the reliable read surface, but it renders ACCEPTED text only:
   an absence verdict ("the doc lacks X") also requires the
   comment/suggestion history panel, where a full draft section can live
-  invisible to mobilebasic.
+  invisible to mobilebasic. The write-side dual: Google Docs SYNTHETIC
+  TYPING silently fails — the automation tool reports success while the
+  document stays untouched — so mobilebasic is the reliable READ path and
+  browser-automation writes into Docs need an independent read-back
+  verification before any "written" claim.
 - **An open-range dependency override (`>=X`) is a standing exposure, not
   a one-shot test subject**: its resolution is a moving target, so a
   survivability test can pass at authoring and fail a day later with zero
@@ -187,9 +191,14 @@ tool retires them.
   mis-match across the change; a write command is never a probe (a stray
   all-zeros event id traced to an argument-validation "probe" that was
   actually a write); and the security-headers integration test's
-  `Parse Error: Expected HTTP/, RTSP/ or ICE/` is a loaded-host
-  concurrency flake — a gate failure in a package the diff never touched
-  is a re-run candidate before it is a finding.
+  `Parse Error: Expected HTTP/, RTSP/ or ICE/` was ROOT-CAUSED (MCP-403,
+  superseding the earlier "loaded-host flake" reading): supertest servers
+  bind `::` (IPv6-any) while clients dial `127.0.0.1`, and a resident
+  macOS Java listener on the colliding port answered the mismatch — the
+  cure is the loopback-request test helper binding client and server to
+  the same explicit loopback. A gate failure in a package the diff never
+  touched is still a re-run candidate first, but this signature now has a
+  named cause.
 - **Under an inherited `COREPACK_ROOT` the resolved standalone pnpm refuses
   the `packageManager` self-switch** (observed on an 11.9.0-resolved pnpm
   against an 11.8.0 pin): strip the corepack env (`env -u COREPACK_ROOT …`
