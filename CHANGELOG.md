@@ -1,3 +1,11 @@
+## [1.129.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.129.0...v1.129.1) (2026-07-31)
+
+
+### Bug Fixes
+
+* **agent-tools:** flatten nested template literal in intent boundary error ([cbb16ef](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/cbb16ef2839164170e11fda79098a689df840894))
+* **agent-tools:** route commit-queue identity on the PDR-076a id ([100e0d9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/100e0d94af99dec37768ac1b19b1b7be33daf76f))
+
 # [1.129.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.128.1...v1.129.0) (2026-07-31)
 
 
