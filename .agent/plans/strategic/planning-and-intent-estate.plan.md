@@ -3,19 +3,16 @@ id: planning-and-intent-estate
 node_type: strategic
 name: "Planning and intent estate — one governed knowledge graph"
 overview: "Every unit of repo knowledge — plans, decisions, lessons, concepts — graph-addressable under one contract, with the conserved planning corpora incrementally absorbed and nothing lost."
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-07-31
+ratified_where: "In-session ratification sitting cards, 2026-07-31 (Director seat, Falcon hunts Flight 52841f); the delivery-ticket gate resolved at the same sitting via the schema-amendment answer"
 serves: FRAME-1
 impact_areas:
   - practice-and-estate
 gate_expiry_default: P21D
 depends_on: []
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: "Ratification sitting resolves the delivery-ticket contract for this subtree. What this gate holds: delivery-plan RATIFICATION only — the schema's ticket rule (code-verified) binds ratified delivery plans; this node's own ratification is unaffected and sketch delivery plans may proceed meanwhile. The tension: the schema requires a Linear ticket at delivery-plan ratification, while the owner has ruled this work carries no Linear content (2026-07-31, in-session). The design recommends a resolution (ADR-221 lens-4 entry): an execution-state anchor is an operator-overlay binding, so the schema amendment makes the anchor requirement operator policy rather than a public-schema constant. The owner may instead choose a revised tracking ruling for this subtree."
-    expires: 2026-08-21
+owner_gates: []
 tickets: []
 last_updated: 2026-07-31
 ---
@@ -118,10 +115,12 @@ chain — are harvested as the ledger's own tooling.
 Delivery plans serving this node declare `serves:
 planning-and-intent-estate` — enumerate them by search, never by a
 hand-kept list. Per the owner's tracking ruling (2026-07-31) this
-subtree carries no Linear content; the open owner gate above records
-the schema tension that ruling creates and the ratification sitting
-resolves it — the gate holds delivery-plan ratification only, so
-sketch delivery plans proceed meanwhile. Sequencing follows the
+subtree carries no Linear content. The delivery-ticket gate this node
+carried was RESOLVED at the 2026-07-31 ratification sitting via the
+design-recommended schema amendment (execution-state anchors are
+operator policy, not a public-schema constant — recorded in the
+plan-node schema's dated amendment; the paired validator code change
+is routed as the validator lane's second story). Sequencing follows the
 concepts-first order stated in the bet; each delivery plan is a
 single-story step of its lane, sized within its round budget at
 authoring time (PDR-132).
