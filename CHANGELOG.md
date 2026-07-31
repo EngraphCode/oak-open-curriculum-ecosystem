@@ -1,3 +1,17 @@
+# [1.129.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.128.1...v1.129.0) (2026-07-31)
+
+
+### Bug Fixes
+
+* **agent-tools:** cure alert bootstrap Sonar findings ([1f57473](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/1f57473dce47908d3e7b5abdc477540858ebafec))
+* **agent-tools:** cure Codex alert bootstrap gates ([e120757](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e12075745815380b4ddfb44697a5f12637a60a10))
+* **agent-tools:** harden Codex alert bootstrap ([3ea39ea](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3ea39eae87a11b8c5fbc51c53a14c70071fa41b8))
+
+
+### Features
+
+* **agent-tools:** auto-load Codex team alerts ([f23584f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f23584fbdd1684c5d51c934bca15c933a7841c40))
+
 ## [1.128.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.128.0...v1.128.1) (2026-07-31)
 
 # [1.128.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.127.7...v1.128.0) (2026-07-31)
