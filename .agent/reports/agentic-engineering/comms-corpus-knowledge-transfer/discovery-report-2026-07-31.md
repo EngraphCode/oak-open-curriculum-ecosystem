@@ -258,7 +258,7 @@ before commit):
 | MAP | 23 corpus-mapper windows, sonnet/low, concurrency 4 | `map-result-2026-07-31.json` | 981 leaves, 23/23 (three windows inline-read — see §Incidents) |
 | REDUCE | 2 shards (537+444 leaves), corpus-reducer, opus/medium | `reduce-shard-{a,b}-2026-07-31.json` | 146 + 201 candidates |
 | MERGE | 1 opus agent groups; dispositions computed in code | `candidates-merged-2026-07-31.json` | 327 candidates: 138 needs-home / 184 already-homed / 5 noise |
-| META | 18 corpus-meta batches verify homes on disk | `meta-verify-2026-07-31.json` | 304/322 verified: 173 home-verified / 72 no-home-found / 22 home-missing-substance / 37 ticket-or-commit-claimed; one batch (18 ids, listed in the checkpoint) failed twice and routes to first-hand adjudication |
+| META | 18 corpus-meta batches verify homes on disk | `meta-verify-2026-07-31.json` | 322/322 verified: 189 home-verified / 73 no-home-found / 23 home-missing-substance / 37 ticket-or-commit-claimed (the twice-failed wide batch was re-verified clean by an owner-directed focused run: 3 opus/high agents at 6 candidates each) |
 
 Every keep and home claim then passes first-hand adjudication at the operating seat before any
 P3 graduation — fleet output corroborates, never substitutes.

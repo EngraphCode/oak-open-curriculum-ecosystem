@@ -1,26 +1,7 @@
 {
-  "coverage": "304/322",
-  "unverifiedByFleet": [
-    "A41",
-    "A42",
-    "A43",
-    "A44",
-    "A45",
-    "A46",
-    "A47",
-    "A49",
-    "A50",
-    "A51",
-    "A52",
-    "A53",
-    "A54",
-    "A55",
-    "A56",
-    "A57",
-    "A58",
-    "A59"
-  ],
-  "unverifiedNote": "batch04 failed twice (transient classifier error, then schema-output miss); its candidates route to first-hand adjudication, which covers every candidate regardless.",
+  "coverage": "322/322",
+  "unverifiedByFleet": [],
+  "unverifiedNote": "batch04 failed twice in the wide fleet; its 18 candidates were re-verified by a focused run of 3 opus/high agents at 6 candidates each (owner-directed narrow-and-high-power shape), 3/3 clean.",
   "results": [
     {
       "id": "M01",
@@ -1845,6 +1826,114 @@
       "verdict": "no-home-found",
       "path": "",
       "evidence": "No file named spend-errors-retry-never-escalate.md (or equivalent) exists under .agent/rules; grepped .agent/rules broadly for 'claude[bot]', 'spend limit', 'overage', 'freeze-block' with no substantive match. This durable rule appears to exist only as a per-user MEMORY.md bullet, not as a tracked repo file."
+    },
+    {
+      "id": "A41",
+      "verdict": "home-verified",
+      "path": ".agent/reports/agentic-engineering/first-class-copilot-cli-practice-support-2026-07-24.md",
+      "evidence": "All three mechanics carried by durable tracked files. Batch-envelope deadlock: report L120-130 \u2014 \"Copilot CLI 1.0.74 was observed sending a batched pre-tool-use envelope with `sessionId`, `cwd`, and `toolCalls[]`... The repository parser expects Claude-style `tool_input`/`toolInput`... returned the fail-closed error path, and Copilot correctly denied the write\"; matrix .agent/memory/executive/cross-platform-agent-surface-matrix.md L110-112 records the superseding reading. Harvested patch projection: .agent/plans/delivery/first-class-copilot-cli-policy-enforcement.plan.md L98 (\"observed Copilot CLI 1.0.75 PascalCase string-form `apply_patch` envelope... evaluate every patch change once\") plus landed code agent-tools/src/hook-policy/apply-patch-content.ts L11-17 \"Canonical content projection for structurally valid `apply_patch` documents... evaluating the raw patch as wholly-new content would falsely classify deleted text as an addition\". CLAUDE_PROJECT_DIR fallback: tracked .claude/settings.json L180/190/200 `node \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/run-pretooluse-guard.mjs\"` with the resolution rationale in .claude/hooks/run-pretooluse-guard.mjs L30-31 and L56-60. ADR-125 amendment confirmed at docs/architecture/architectural-decisions/125-agent-artefact-portability.md L19 (\"Amended: 2026-07-24\") and L158-162 (inherited PascalCase PreToolUse is the sole Copilot policy activation)."
+    },
+    {
+      "id": "A42",
+      "verdict": "home-missing-substance",
+      "path": ".agent/memory/executive/cross-platform-agent-surface-matrix.md",
+      "evidence": "Three of four platform facts are homed; one is absent. Verified: skill precedence at matrix L34 \"documented `.github/skills` \u2192 `.agents/skills` \u2192 `.claude/skills` first-found precedence\"; excludeAgent arity at matrix L42-47 \"the keyword accepts exactly one value... no array, comma-separated, or repeated-key form is documented. Whichever value is set, the other surface still reads the file\" (also ADR-125 L175-180); .github/hooks running in cloud jobs at .agent/reports/agentic-engineering/first-class-copilot-cli-practice-support-2026-07-24.md L162-164 \"GitHub documents native repository hooks under `.github/hooks`, but those files also run in Copilot cloud-agent jobs [D]\" (also ADR-125 L161-162). MISSING: the fact that local repository settings are ignored. No tracked file states it \u2014 repo-wide grep for repository-settings/config-dir language across .agent, docs, and the plan estate found only the opposite-direction target rows (matrix L37 and ADR-125 L148: \"`.github/copilot/settings.json` only where a tracked project setting is required\") and the corpus data JSONs, which are the candidate stream itself, not a home. That clause is genuinely unhomed knowledge and additionally contradicts the standing Settings row, so it needs an explicit landing in the matrix Settings row before the candidate is discharged."
+    },
+    {
+      "id": "A43",
+      "verdict": "home-verified",
+      "path": ".agent/reports/agentic-engineering/codex-cli-agentic-capability-catalogue-2026-07-25.md",
+      "evidence": "Every clause present in the tracked catalogue. Version pin L5-6 \"Installed runtime: `codex-cli 0.145.0`\" / \"Official source pin: `openai/codex` tag `rust-v0.145.0`\". Hooks stable L181 \"Codex `hooks` is stable and enabled in the installed runtime.\" Full lifecycle incl. SessionEnd L186 \"`SessionStart`, `SessionEnd`, `UserPromptSubmit`, `Stop`\". Live probes L210 \"Live `0.145.0` hook probes\", the ^apply_patch$ matcher at L296 (`hooks.PreToolUse=[{matcher=\\\"^apply_patch$\\\"...}]`) with observed payload `\"tool_name\": \"apply_patch\"` L231 and L239 \"proves installed-runtime dispatch for both shell and `apply_patch`\". `codex mcp-server` exposed-but-experimental L369 \"Exposed command; experimental protocol\". The repo-claim corrections are explicit at L488 and L498 (a surface that \"omits `SessionEnd`, and treats the Codex adapter as future\" against \"the stable `0.145.0` event surface includes it\"). ADR-180 corroborates at docs/architecture/architectural-decisions/180-codex-exec-agent-delegation-pattern.md L7-8/L31-33, and the matrix carries the corrected Codex row at L113-123 with an explicit version-pin inheritance to this catalogue."
+    },
+    {
+      "id": "A44",
+      "verdict": "home-verified",
+      "path": ".agent/rules/verify-vendor-call-shapes-at-plan-author-time.md",
+      "evidence": "Owner word homed as a tracked rule clause, L41-47: \"Capability answers come from ORIGINAL vendor sources at time of use, never from prior repo research (owner rule, 2026-07-25) \u2014 recorded capability verdicts are version-pinned so their staleness is self-declaring; internal research is provenance, never the verdict\", with the worked flip (0.144.5 negative vs vendor 0.145.0) attached. Reinforced in practice-core at .agent/practice-core/decision-records/PDR-133-liveness-classes-and-platform-declaration.md L288 \"Capability claims are version-pinned, because platform...\" and L532 (a defect signal is \"inference passing as observation, or a version-pin missing\"). The per-user memory named in the homeClaim is machine-local and not a durable repo home; the rule file is."
+    },
+    {
+      "id": "A45",
+      "verdict": "home-verified",
+      "path": ".agent/memory/active/patterns/green-parts-red-composition.md",
+      "evidence": "Despite the needs-home disposition, the incident is fully homed as a tracked anti-pattern. L31-39: \"Ruleset \u00d7 release bot: a ruleset split omitted the semantic-release app from one ruleset's bypass list. The ruleset enforced correctly; semantic-release pushed correctly; the composition (bump push through the gate) died with GH013 \u2014 production sat two days stale while every merge looked green.\" and \"Ignore script \u00d7 version bump: the Vercel ignore script cancels production builds unless the root version advanced \u2014 by design. Composed with the missing bump above, every production deploy was auto-CANCELED, silently, all day.\" The cancellation rule itself is a numbered ADR decision at docs/architecture/architectural-decisions/163-sentry-release-identifier-and-vercel-production-attribution.md \u00a710 L699-703 plus the truth table L707-713 (\"current \u2264 previous \u2192 CANCEL build\"). The only clause without a durable carrier is the trailing \"later fixed platform-side, cause unobservable from git\" colour; the mechanism, the GH013 cause, and the silent-cancel consequence are all recorded."
+    },
+    {
+      "id": "A46",
+      "verdict": "home-verified",
+      "path": "packages/sdks/oak-sdk-codegen/code-generation/resolve-schema-source.ts",
+      "evidence": "Cure is landed and compiler-adjacent. L9-17: \"(the root `sdk-codegen:refresh` script), never an ambient build... Refreshing from the live upstream [requires] the `--online` CLI flag, or `SDK_CODEGEN_MODE=online`\" and \"`VERCEL` is deliberately **not** a trigger (MCP-130): deployment builds...\"; the resolver body L38 admits only `--online`/`sdkCodegenMode === 'online'`, so VERCEL cannot reach it. The `sdk-codegen:refresh` script is tracked in the root package.json, with unit coverage at packages/sdks/oak-sdk-codegen/code-generation/resolve-schema-source.unit.test.ts. The owner's build-time-coupling framing is carried at .agent/memory/active/patterns/green-parts-red-composition.md L40-44: \"Build cache \u00d7 live-API codegen: `sdk-codegen` regenerates types from the live API on a turbo cache miss (by design)... the first PR to invalidate the core chain failed its Vercel check on code nobody wrote (MCP-130).\""
+    },
+    {
+      "id": "A47",
+      "verdict": "home-verified",
+      "path": "docs/architecture/architectural-decisions/141-mcp-apps-standard-primary.md",
+      "evidence": "ADR-141 carries a dated amendment '## Amendment \u2014 widget URI identity and cache-busting (2026-07-26, MCP-187)': WIDGET_URI generated at sdk-codegen time as 'ui://widget/oak-curriculum-app-<suffix>.html', suffix = 'literal `local` off Vercel, else the first 8 hex characters of sha256 of the build identifier \u2014 the git commit SHA on commit-identified deploys, with the per-deployment ID as the fallback'; consumers (tool _meta.ui.resourceUri, served-surface registration key, auth public-resource allowlist) all derive from the one generated constant with hand-frozen copies 'banned by an ESLint no-restricted-syntax rule'; and 'All generator-input environment variables (SDK_CODEGEN_MODE, VERCEL, VERCEL_GIT_COMMIT_SHA, VERCEL_DEPLOYMENT_ID) participate in the sdk-codegen turbo cache key'. Landed code corroborates: packages/sdks/oak-sdk-codegen/code-generation/typegen/widget-uri-suffix.ts (createHash('sha256').update(buildId).digest('hex').slice(0, 8)), cross-domain-constants.ts (BASE_WIDGET_URI composition point), widget-uri-suffix.unit.test.ts (sha256 golden vector), and turbo.json:42 \"env\": [\"SDK_CODEGEN_MODE\", \"VERCEL\", \"VERCEL_GIT_COMMIT_SHA\", \"VERCEL_DEPLOYMENT_ID\"]. The homeClaim named only the ticket+PR, but the substance is durably tracked in the ADR plus source."
+    },
+    {
+      "id": "A49",
+      "verdict": "home-verified",
+      "path": "agent-tools/src/mcp-conformance/runner.ts",
+      "evidence": "runner.ts \u00a7composeSuiteArgs doc-comment: 'Unattended oauth pins `--auth-mode headless` and omits `--conformance-checks`: the negative probes are gated upstream on a fully-successful attended flow (verified in the resolved SDK source, 2026-07-26), so requesting them headless is dead weight that misstates intent.' Same falsification restated in agent-tools/src/mcp-conformance/types.ts:21-22 ('the `--conformance-checks` OAuth negative probes are gated on a fully-successful ATTENDED main flow and cannot run headless'). The enumerated unattended-runnable legs and their baselines are homed in agent-tools/src/mcp-conformance/baselines/oauth-dcr-unattended.json \u2014 seeded {\"date\": \"2026-07-26\", \"mcpjam_version\": \"3.15.2\"}, per-leg expected states, with the consent boundary encoded as received_authorization_code {\"status\": \"fail\", \"errorIncludes\": \"Headless authorization requires auto-consent\"} \u2014 plus baselines/protocol-unattended.json and .github/workflows/mcp-conformance-unattended.yml (MCP-189 lane). Disposition was needs-home; a durable home with full substance exists."
+    },
+    {
+      "id": "A50",
+      "verdict": "home-verified",
+      "path": "apps/oak-curriculum-mcp-streamable-http/src/oauth-proxy/oauth-proxy-redirect-uri-validation.ts",
+      "evidence": "Landed code, header comment: 'Registration-time `redirect_uris` validation for the OAuth proxy (MCP-188)' citing RFC 9700 \u00a72.6 and 'RFC 8252 \u00a77.3 ... DEFINES loopback interface redirection and permits `http` for it', with the obligation attaching because the proxy advertises itself as issuer/registration endpoint (ADR-115 \u00a7Transparent Passthrough, as amended). The RFC 7591 \u00a73.2.2 shape is explicit: error: 'invalid_redirect_uri', description 'an http redirect_uri is permitted only for loopback addresses', emitted via res.status(400).json(...). Loopback set is 127.0.0.0/8 anchored regex plus '[::1]' and 'localhost'. The security-review leg's output is visible in-file (drafted-and-REMOVED hardening, first-hand 2026-07-26 probe of the deployed alpha: 400 request_body_invalid for bare-string redirect_uris vs 201 for an array carrying plain-http non-loopback, with the residual referred to MCP-200). Tests: oauth-proxy-redirect-uri-validation.unit.test.ts, oauth-proxy-routes.integration.test.ts."
+    },
+    {
+      "id": "A51",
+      "verdict": "home-verified",
+      "path": ".agent/research/telemetry-and-understanding/2026-07-26-posthog-mcp-pre-execution-probes.md",
+      "evidence": "Probe report \u00a7'Mutations and the one-client decision': instrument() 'also mutates two library-metadata methods on the supplied PostHog client: getLibraryId() changes from `posthog-node` to `posthog-node-mcp`; getLibraryVersion() changes from `5.46.1` to `0.10.0`', plus 'Supplying the package logger also changes the package's module-level logger'. Auto-observation surface: 'Both the high-level McpServer path and low-level Server path install instrumentation for only: initialize; tools/list; and tools/call' (also in .agent/plans/delivery/mcp-63-posthog-product-analytics.plan.md:71-85). Person-profile mechanic: 'The Node SDK creates that profileless shape when `$process_person_profile: false` is present.' TWO SUB-CLAIMS ARE SUPERSEDED ON DISK, not missing: the same doc rejects two-client isolation ('The settled topology is one PostHog client per live function isolate... A separate client becomes warranted only when a genuinely non-MCP product event enters the estate' \u2014 echoed by ADR-218 \u00a76) and rejects the flushAt=1/captureImmediate/awaited-shutdown delivery shape in favour of one composition-root client with Vercel waitUntil ('Oak does not use captureImmediate() for this integration'; 'shutdown() is reserved for real process teardown, not called per request')."
+    },
+    {
+      "id": "A52",
+      "verdict": "home-verified",
+      "path": "docs/architecture/architectural-decisions/218-posthog-mcp-analytics-identity-session-and-privacy.md",
+      "evidence": "ADR-218 is the ratified home (the MCP-63 plan names it as 'The durable identity, session, event, and privacy boundary'). \u00a73 'Define raw data as allowlisted facts, never content' with 'prompts, model output, resource content, search terms, query text' excluded; the actor is a keyed pseudonym, '$set, $set_once, $unset, person properties, aliases, merges, and groups remain prohibited'; the deletion carve-out is explicit \u2014 'A minimal pseudonymous Person with no [Oak-supplied properties]' exists 'for each actor pseudonym' because the bulk-deletion API 'queues event deletion' person-wise (corroborated by the probe report \u00a7'Minimal-person decision'). \u00a75 lists the pre-public-capture gates including 'a maximum 12-month retention period across PostHog and every authorised copy' and 'a tested request-for-deletion route'. EU residency and the in-code boundary are homed in docs/governance/safety-and-security.md:317-336 ('PostHog \u2014 product analytics, EU-hosted (`eu.i.posthog.com`) ... ADR-218 \u00a75 commits this processing to a maximum 12-month retention period'), with project id 221775 recorded in .agent/research/telemetry-and-understanding/README.md:66 and the in-code final-wire validator in packages/libs/posthog-node/src/posthog-final-wire.integration.test.ts plus the packages/core/oak-eslint no-posthog-vendor-imports / posthog-vendor-boundary rules. The claimed home .agent/reports/initial-release-supporting-docs/posthog-mcp-elasticsearch-observability-plan.md \u00a7\u00a74-5 exists but is lineage-only exploration superseded by ADR-218."
+    },
+    {
+      "id": "A53",
+      "verdict": "no-home-found",
+      "path": ".agent/plans/delivery/mcp-63-posthog-product-analytics.plan.md",
+      "evidence": "No durable tracked file names the superseded constraints as dead. Searched rules, ADRs (171 OBSERVABILITY_SINKS, 218), plans, docs/governance, reports, memory/patterns. Partial coverage only, and never as an explicit supersession list: .agent/memory/operational/threads/mcp-product-analytics.next-session.md:15-24 implies two of the four ('The implementation must provide ... @posthog/mcp integration in the serverless MCP application' and 'PostHog is selected and required. The implementation blocks the initial submission'), but that file declares itself 'temporary operational state'. The POSTHOG_MODE \u2192 OBSERVABILITY_SINKS supersession is NOWHERE on disk: POSTHOG_MODE appears only in .agent/memory/active/archive/napkin-2026-07-23.md and .agent/collaboration/rapid-comms/2026-07-22-implementer-lane-urchin-hunts-surf-genet-stirs-covert.md (napkin archive + comms = ephemeral tiers), while ADR-171 and the MCP-63 plan describe OBSERVABILITY_SINKS without ever naming the retired env var. The frozen spike SHA dd8df27f8 / tag mcp-63-posthog-spike-frozen likewise appears only in those two ephemeral records; .agent/reports/mcp-63-focused-successor-handoff-2026-07-27.md:53 freezes a DIFFERENT artefact (PR #576 at aac01d12dd696e4e1831a683b41fde692be721ca). Best candidate home: a supersession subsection under '## Current execution state' in .agent/plans/delivery/mcp-63-posthog-product-analytics.plan.md, with the env-var half cross-referenced from docs/architecture/architectural-decisions/171-observability-configuration-orthogonal-axes.md."
+    },
+    {
+      "id": "A54",
+      "verdict": "home-verified",
+      "path": ".agent/reports/mcp-63-succession-notification-and-focused-delivery-2026-07-26.md; .agent/plans/delivery/mcp-63-posthog-product-analytics.plan.md",
+      "evidence": "Report \u00a7'The final-wire cure' + \u00a7'The focused-PR correction' carry both halves: 'The first inherited technical action was to make the final-wire proof exercise the shipped production composition' and the three-stream order \u2014 '1. provider-neutral product-analytics port plus shared selection/locality axis; 2. PostHog adapter, boundary registration, workspace dependency, and lockfile; 3. application configuration and production composition. The adopted sequence required each dependent PR to settle before the next opened.' Plan \u00a7'Sink-axis and registry shape' (L356-376) homes the type resolution: 'ObservabilitySink<K> accepts only DiagnosticSinkKind, and SinkRegistry maps only that same union, so ObservabilitySink<'posthog'> and SinkRegistry.posthog are unrepresentable' plus 'one required ProductAnalyticsRuntime<Transport> slot: mode: 'posthog' ... otherwise the exact inert mode: 'off' runtime'. Only the 'max useful concurrency two seats' scheduling detail is unhomed (the report records strict serialisation instead); that is ephemeral seat-scheduling, not mechanism."
+    },
+    {
+      "id": "A55",
+      "verdict": "home-verified",
+      "path": "apps/oak-curriculum-mcp-streamable-http/.env.example",
+      "evidence": "L66-117 '# PostHog Product Analytics (MCP-63 family)' carries all four variables (POSTHOG_PROJECT_API_KEY, POSTHOG_PSEUDONYM_KEYRING, POSTHOG_PSEUDONYM_ACTIVE_KEY_ID, POSTHOG_HOST), the generation command 'node -e \"console.log(require('node:crypto').randomBytes(32).toString('base64url'))\"', and the custody note 'Losing a retired key breaks the erasure derivation for its era \u2014 keep durable custody outside the deployment platform.' Also records the POSTHOG_CAPTURE_MODE refusal and the diagnostic-sink-in-production requirement."
+    },
+    {
+      "id": "A56",
+      "verdict": "home-verified",
+      "path": ".agent/experience/2026-07-22-genet-stirs-covert-formation-letter.md",
+      "evidence": "\u00a7'Goal formation is a gate, not a vibe': 'Twice-corrected, once at my routing: a ratified constraint set plus a decision-complete-looking ticket is NOT a plan. I routed a build lane off exactly that, and the owner halted it at the implementer's seat with the sentence that defines the gate: \"we have not yet planned this work.\"' The implementer-side record is .agent/experience/2026-07-22-urchin-hunts-surf-the-interrupt.md ('Rigour is not authorisation'), and the doctrine gradient is carried durably in .agent/memory/active/patterns/read-surface-is-not-decide-surface.md L61 'constraint-ratified \u2260 ticket-defined \u2260 goal-formed \u2260 routed'."
+    },
+    {
+      "id": "A57",
+      "verdict": "home-verified",
+      "path": ".agent/reports/mcp-app-canonical-address-exploration-2026-07-23.md",
+      "evidence": "L29-33 'a browser-shaped GET on /mcp today returns 406 (ensureMcpAcceptHeader middleware rejects non-SSE Accepts) ... The negotiation triple therefore has to be built in the app'; L72-77 'The moved surface is larger than /mcp*' enumerating the path-scoped RFC 9728 metadata, a root PRM variant, authorization-server metadata, a stub-mode well-known, /healthz, the landing /, and signed asset-download paths; L78-83 'Self-description is host-derived: PRM and resource URLs come from the request Host per-request'; L61-68 'The zone is managed as Terraform in the organisation's Cloud-Config infrastructure repository \u2014 the change vehicle is a reviewable IaC PR' plus the main-site-on-the-same-platform rewrite option."
+    },
+    {
+      "id": "A58",
+      "verdict": "home-verified",
+      "path": "apps/oak-curriculum-mcp-streamable-http/src/served-surface/filter-guidance-content.ts; apps/oak-curriculum-mcp-streamable-http/src/served-surface/served-surface.ts",
+      "evidence": "Landed code carries the leak and the cure. filter-guidance-content.ts header: 'INTERIM app-side cure (Director disposition 2026-07-23, under the owner's standing invariant on MCP-101): the SDK's tool-guidance content structurally names tools in its category tools arrays ... This module filters those structured references to served-live entries at the serve boundary ... so guidance never advertises a tool a client cannot call.' served-surface.ts L63 'Dormant rows: the two user-search MCP App tools' with 'user-search': 'dormant', 'user-search-query': 'dormant'. Regression proof at served-surface/served-surface-dormant-absence.integration.test.tsx and registration-proof/guidance-list-parity.ts. The old render-tools-section.ts survives only in an untracked worktree copy, consistent with its replacement."
+    },
+    {
+      "id": "A59",
+      "verdict": "home-verified",
+      "path": "docs/architecture/architectural-decisions/216-plan-node-estate.md",
+      "evidence": "L8 '**Supersedes:** ADR-117 (plan ...)'; L33-36 'The replacement structure was owner-ratified on 2026-07-22 at the planning sitting (decisions register, D23) and landed with its validator and templates in PR #478'; L40-55 the flat plan-node corpus, three node types, born-sketch ratification enum; L114-115 'per-surface disposition ledger' and 'The estate validator enforces the schema's contract in CI'. Corroborating on-disk homes: .agent/plans-backlog-2026-07/README.md (prior estate at rest), .agent/plans-v0-sketch-2026-07-21/DISPOSITIONS.md (per-artefact dispositions of the V0 sketch corpus), and the Notion fence at .agent/rules/notion-strategy-page-fence.md."
     }
   ]
 }
