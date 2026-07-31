@@ -104,10 +104,17 @@ separate-framework-from-consumer:
   it here discharges row 7's "second-consumer proof" obligation, which
   was otherwise unowned.
 
-**No triplestore service.** Files are the database; the in-memory
-dataset is the query engine; canonicalisation gives deterministic
-diffs so graph changes review like code. A store server is a scale
-decision nothing here forecloses.
+**Quads as the data model; no triplestore service.** The atomic unit
+throughout is the RDF quad — the triple plus its graph name, and the
+graph name is the seam (§4) — so the data model is emphatically
+triple-shaped. What is rejected is a store _service_: files are the
+database, the in-memory dataset is the query engine, and
+canonicalisation gives deterministic diffs so graph changes review
+like code. A store server is a scale decision nothing here forecloses.
+`graph-core` gains only thin additive combinators for the seam's two
+operations — mount (dataset union) and strip (graph-name restriction)
+— plus concise-bounded-description extraction with per-node canonical
+fingerprints on the existing canon; nothing built requires rework.
 
 ### 2. Files authoritative; the graph derived — the recomputability red line
 

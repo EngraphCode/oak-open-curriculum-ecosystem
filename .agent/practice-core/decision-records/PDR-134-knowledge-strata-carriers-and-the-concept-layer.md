@@ -207,6 +207,18 @@ instantiated per axis — and extensions (new strata, new derivation
 kinds, entitlement lattices rather than chains) inherit the law by
 declaring their order, with no new doctrine.
 
+The epistemic-provenance order also decides mutability, so no separate
+policy is needed: **immutability follows epistemic kind.**
+Observations — event records, provenance, evidence, version history —
+are immutable: they record the past, and mutating the past is lying.
+Authored current-state is mutable *with history*, at two grains kept
+distinct: byte-grain history (the version-control substrate,
+automatic) and semantic-grain history (supersession edges and dated
+amendment notes, deliberate) — working surfaces are never
+event-sourced per edit. Derived state is freely rebuilt: its history
+is derivable from its sources' history, so preserving it would be a
+category error.
+
 One further shared discipline, named so it stays deliberate: the
 estate prefers **evidence-carrying equivalence over collapse** —
 concepts merge by match edges with provenance, nodes evolve by
@@ -227,6 +239,13 @@ is rigid naming with a version category over it; and the
 intended-versus-actual split is a bimodal provenance structure. Host
 records name the concrete frameworks and algorithms; this record fixes
 only the properties.
+
+And the grounding is itself subject to the membrane: **formal
+grounding is evidence, never authority.** A mathematical claim in
+doctrine is a claim like any other — it carries its falsifier, invites
+refutation, and cannot promote anything to ratified. Comprehension and
+ratification remain human acts on readable artifacts; the mathematics
+guards that arrangement and never replaces it.
 
 ## What this record forbids
 
