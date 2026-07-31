@@ -14,7 +14,7 @@ tickets:
   - MCP-456
 depends_on: []
 owner_gates:
-  - awaiting: owner-ratification
+  - awaiting: owner-decision
     clears_when: "Jim Cresswell ratifies the current post-review plan head; the earlier PR #671 ratification record predates substantive evidence and recovery amendments and does not ratify them"
     expires: 2026-08-03
 last_updated: 2026-07-31
@@ -112,14 +112,18 @@ result links—is recorded on MCP-456 and the implementation pull request.
 The never-self-certifiable classes are owned by
 [PDR-133 §5](../../practice-core/decision-records/PDR-133-liveness-classes-and-platform-declaration.md#5-the-self-observation-corollary),
 not by this plan. Every snapshot retains an explicit row for every class,
-including `unknown`, `unavailable`, and `not_run` outcomes. A root snapshot may
-assign `pass` to a class in the never-self-certifiable set only with the
-external observer and evidence reference that certified it.
+including unobserved classes. Exposure remains `present`, `absent`, or
+`unknown`, while outcome remains `pass`, `fail`, `unavailable`, `not_run`, or
+`inconclusive`; `unknown` is never an outcome. A root snapshot may assign
+`pass` to a class in the never-self-certifiable set only with the external
+observer and evidence reference that certified it.
 For the classes a seat may observe about itself, `SUBSTRATE` through
 `DELIVERY`, a `pass` requires a progress artefact read fresh in the current
 session and bound to that session's continuity ID. Cached, inherited,
-pre-continuity-boundary, or inference-only evidence records `unknown` or
-`inconclusive`, never `pass`.
+pre-continuity-boundary, or inference-only evidence records exposure `unknown`
+when exposure cannot be independently established, or outcome `inconclusive`
+when exposure is established but current-session behaviour is not; it never
+records outcome `pass`.
 Certification selects the applicable instrument from
 [PDR-133 §6](../../practice-core/decision-records/PDR-133-liveness-classes-and-platform-declaration.md#6-two-instruments-certify-what-no-self-report-reaches)
 for each claimed class. Observed deliverable movement certifies `LOOP`,
@@ -129,9 +133,10 @@ content-bearing challenge reply bound to the exact delivery path traversed;
 generic movement or a bare acknowledgement cannot certify it.
 The automated test card never sends that challenge. If Jim Cresswell or the
 serving Director has not explicitly authorised and observed the bounded
-canonical-comms exchange, the snapshot retains the class row as `not_run` or
-`unknown`; lack of authorisation is neither a failed capability nor permission
-to widen the probe.
+canonical-comms exchange, the snapshot retains the independently established
+exposure value and records outcome `not_run`; when exposure itself cannot be
+established, exposure is `unknown`. Lack of authorisation is neither a failed
+capability nor permission to widen the probe.
 
 ## Acceptance criteria (each with a proof — required)
 
@@ -253,7 +258,8 @@ to widen the probe.
   probes. The only write exception is an explicitly authorised, bounded
   owner-held canonical-comms challenge used to certify `NOTIFY` or `ABSORB`;
   it is never run by default, never grants or widens permissions, and absence
-  of authorisation records `not_run` or `unknown`.
+  of authorisation records outcome `not_run`, with exposure `unknown` only when
+  exposure cannot be independently established.
 - Installing optional integrations merely to make a capability appear.
 - Treating self-report, configuration, stale behaviour, or a rename heuristic
   as proof of effective current capability.
