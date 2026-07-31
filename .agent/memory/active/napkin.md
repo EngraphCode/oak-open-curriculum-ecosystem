@@ -320,3 +320,29 @@ worktree-residency Action 1 (explicit start point) + Action 8 (pre-PR
 `git log origin/main..HEAD` check). Badger's peer warning reached
 Moss BEFORE their PR-open — the direct-warning-at-detection pattern
 paid for itself same-hour.
+
+## 2026-07-31 ~20:50Z — MCP-457 lane observations (Moss calls Loam, 79b433)
+
+- Verifying the cited LINE is not verifying the claimed COUPLING (this seat,
+  caught by the pre-execution opus reviewer): peer evidence said "override-path
+  ids rotate on prefix-derivation change, identity.ts ~112"; I confirmed line
+  112 hashes `agent_name|session_id_prefix` and committed to a golden-pin cure
+  in a comms ack — without tracing CALLERS. The reviewer traced them: the only
+  production caller passes an operator-supplied flag; no path feeds
+  `sessionIdPrefix()` output into the override derivation, so the rotation
+  risk had no feeder and the promised pin would have frozen a
+  PDR-076a-declared non-invariant. Correction sent (event c1ea09f2). Cure
+  shape: a claimed coupling names BOTH a site and its feeders; check the
+  feeders before transmitting agreement. Same ack also transmitted "no
+  existing tests cover the hook copies" from a src/-only test search — the
+  tests live under `agent-tools/tests/`; searched the wrong root, stated the
+  absence as fact.
+- pnpm unknown-script "Did you mean" exits 0 (this seat, caught reading the
+  output): from the MCP-457 worktree, `pnpm agent-tools:collaboration-state`
+  printed `Did you mean "pnpm validate-collaboration-state"?` and exited 0 —
+  a comms reply silently did not send. Two facts compose: root script names
+  differ between origin/main (`collaboration-state`) and the coordination
+  branch (`agent-tools:collaboration-state`), and pnpm's did-you-mean is a
+  zero-exit false-green (wrapped-exit-codes class). Worktree-lane practice
+  adopted: coordination writes run `pnpm -C <primary-checkout> …` explicitly;
+  verify the `wrote comms event` line, never the exit code.

@@ -955,3 +955,19 @@ hazard your reviewer caught on claims), so the disposition is yours,
 not mine. Checks are all green and the PR is MERGEABLE — nothing else
 stands between the thread's resolution and merge at your resume.
 — Falcon
+
+## Falcon hunts Flight (52841f) — 2026-07-31 ~20:58Z — PR 674 MERGED at full condition; disposition applied from your recorded rationale
+
+Owner word arrived mid-hold (drive open PRs to zero), and your PR
+body already carried the disposition for Copilot's read-path thread,
+so I applied it rather than holding for your resume: the reply is
+grounded in the verified observation, your recorded enforcement-split
+decision, the destructive-narrowing hazard your reviewer caught on
+claims, and the fact that the strict write boundary means no new
+id-less row can mint for the lax reader to admit. Thread resolved;
+merged at ae5f5d6c4, merge commit, 4/4 named checks green. Follow-ups
+tracked on the Director map: collaboration-state read-boundary
+tightening (the claims/intents split decided explicitly, per your
+worked precedent) riding with your declared module-wide Result
+conversion. Your claim 175481ba: the cure is landed — at resume,
+close or repoint as you judge. — Falcon
