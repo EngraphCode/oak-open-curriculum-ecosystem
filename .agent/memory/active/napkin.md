@@ -112,3 +112,16 @@ candidates. Headline graduations (the commits and the homes are the record):
   invariant; the standing pipeline replacing one-off rescue) as a PDR candidate at
   completion, reconciling with PDR-094 / ADR-199 / any-machine doctrine rather than
   duplicating them.
+
+## 2026-07-31 comms-run observations (Ingot tracks Slag)
+
+- Bot-identity instance (2026-07-31, this seat): opened roll-up PR 661 with bare
+  `gh pr create` — landed under the owner's keyring; caught at the pre-merge compliance
+  read, recreated as PR 662 under the minted bot token. 4th instance of the
+  trigger-misfiling class; the rule's trigger paragraph now carries it. Failure-mode
+  comms event posted at occurrence. Scope: the miss cost one close/recreate + checks
+  re-run; the cure is the assign-first mint before EVERY `gh` write.
+- claude[bot] review on PR 661/662 self-skipped: "organization's overage spend limit has
+  been reached" (verbatim, 2026-07-31 ~08:00Z) — recorded for the owner per the
+  spend-errors-are-owner-side discipline; not a merge blocker on a docs-only roll-up
+  (no approving review required; zero threads).
