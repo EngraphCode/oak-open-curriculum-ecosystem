@@ -478,3 +478,26 @@ UTC-to-UTC; never a local clock).
   you already hold and isolate the layer (auth vs volume) before adopting a
   primed frame; on a `401`/unauthenticated signature check `gh auth status` and
   retry, never assume volume. (Tooling cure lives at frictions F-110.)
+- 2026-07-30 vendor-capability arity: when a review finding's premise is a
+  claim about platform or vendor capability, fetch the vendor documentation
+  first-hand at time of use before classifying — and check the capability's
+  ARITY, not just its existence: two individually-true vendor facts composed
+  can yield a false third claim (the capability exists AND the surface exists
+  does not mean the capability applies to that surface N times, in that
+  direction, or at that layer).
+- 2026-07-3x engaged-path before mechanism: A GREP HIT IS NOT A CONSUMER —
+  a reviewer-adopted claim about a value's consumer was falsified by
+  re-reading the found site (the match existed; nothing consumed it), and
+  two expert rounds mis-read PostHog retry arithmetic until
+  `resolveCaptureMode()` settled WHICH code path was actually engaged.
+  Before reasoning about a mechanism's behaviour, settle the engaged path
+  and the actual consumer first-hand; a text match proves presence, never
+  participation.
+- 2026-07-2x captures go stale against live surfaces: a captured artefact (a
+  saved page, a screenshotted portal, a studio HTML export) is a DATED
+  record, not the surface — a design capture showed Resources 6 / Tools 42
+  against a live serve of 5 and a different count, and a submission portal's
+  LIVE form outranked docs pages and prior captures (the portal had gained a
+  Team/Enterprise-plan requirement no doc mentioned). For any third-party
+  requirement or served-surface fact, read the live source at time of use;
+  cite captures as "as of <date>".

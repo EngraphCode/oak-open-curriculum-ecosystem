@@ -51,7 +51,13 @@ confidence axis for agents, for free. The slices, at pickup order:
    candidate outputs) and the Cricket lessons (vendor-neutral naming,
    effort-inversion where judgement is compiled, template-resolution
    health checks in the dispatch path), including their skills and
-   workflows.
+   workflows. Design input (added 2026-07-31): the owner's tiered-sight
+   architecture — foveation ladder, overlap/disagreement-field
+   sampling, and the source-access invariant — with run evidence in
+   the comms-corpus discovery report
+   (`.agent/reports/agentic-engineering/comms-corpus-knowledge-transfer/discovery-report-2026-07-31.md`
+   §"Tiered sight"); the overhauled corpus agents are that
+   architecture's first standing instantiation surface.
 4. **Practice expert** (new) — reviews Practice-doctrine changes for
    strata/direction-law/membrane coherence and rule-vs-PDR homing.
 5. **Graph expert** (new) — RDF/SKOS/PROV/SHACL and the estate's laws;

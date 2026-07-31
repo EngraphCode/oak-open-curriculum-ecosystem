@@ -100,6 +100,17 @@ It does NOT apply to:
 - `no-warning-toleration.md` (the related rule for warning-class
   signals: also fail, also do not defer)
 
+## Worked instance — stored expiry nobody recomputes (2026-07-2x)
+
+The claims registry stores `freshness_seconds` but no read surface
+recomputed it: a stale Director claim ran ~28 hours beyond its freshness
+bound with a completed handoff already recorded, and the commit queue
+accumulated ~136 never-archived abandoned entries — raw-JSON readers bypass
+any CLI-side cure, so the recompute must live in every read surface that
+renders the state, not only in the writer. (Recorded by the 2026-07-31
+comms-corpus run; the registry-side cure is tooling work for the
+agent-tooling backlog.)
+
 ## Enforcement
 
 There is no global hook for this rule because the failure mode is
