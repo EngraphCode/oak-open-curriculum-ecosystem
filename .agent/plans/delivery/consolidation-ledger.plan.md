@@ -45,6 +45,16 @@ candidate once first-implementation evidence exists (two-speed
 learning: the doctrine graduates on evidence, not authoring
 enthusiasm).
 
+Prime empirical input (added 2026-07-31, owner-directed relay): the
+comms-corpus homeless-set ontological cut —
+`.agent/reports/agentic-engineering/comms-corpus-knowledge-transfer/discovery-report-2026-07-31.md`
+§"The homeless set" — classifies 130 unhomed candidates into five
+failure-mode classes (graduation latency, stale homes, wrong
+visibility tier, shattered compounds, orphaned obligations). The
+ledger's disposition vocabulary should be checked against those
+classes at pickup: a disposition set that cannot express them
+under-measures the flow this plan exists to measure.
+
 ## Acceptance criteria (each with a proof — required)
 
 - The denominator is recomputed at every read and matches a first-hand
