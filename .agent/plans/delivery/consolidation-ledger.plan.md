@@ -1,0 +1,69 @@
+---
+id: consolidation-ledger
+node_type: delivery
+name: "The consolidation ledger — stock instrument generalised to flow"
+overview: "A distributed, closure-checked ledger over every knowledge-capture surface: computed denominator, authored dispositions, monotone re-integration."
+status: sketch
+ratified_by: null
+ratified_date: null
+ratified_where: null
+serves: planning-and-intent-estate
+impact_areas:
+  - practice-and-estate
+tickets: []
+depends_on: []
+owner_gates: []
+last_updated: 2026-07-31
+---
+
+# The consolidation ledger — stock instrument generalised to flow
+
+## Goal
+
+Every knowledge item on the estate's capture surfaces — napkin entries,
+comms events, handoff records, experience letters — carries exactly one
+recorded processing disposition, continuously, across every checkout;
+today that state exists only as convention and per-pass reports.
+(No Linear ticket by design: this subtree is owner-ruled untracked —
+plan-node schema, dated amendment 2026-07-31.)
+
+## Mechanism
+
+The ratified migration-ledger instrument (strategic node §The bet)
+applied to the ongoing stream: a **computed denominator** (scan the
+capture surfaces at read time — never hand-kept) crossed with
+**authored dispositions** (`processed-into-graph` with provenance
+pointer / `pending` / `retained-as-evidence`), with a **closure check**
+that recomputes both. Distribution comes from the ratified mathematics:
+disposition merge across checkouts is monotone union (PDR-134 §The
+unifying schema); a same-item disposition conflict is detected and
+resolved by evidence-carrying supersession, never overwrite. Comms
+events are the worked instance of a **transient local home**: raw
+observation whose value crosses the membrane only at processing —
+recorded here as design substance and flagged as a PDR-134 amendment
+candidate once first-implementation evidence exists (two-speed
+learning: the doctrine graduates on evidence, not authoring
+enthusiasm).
+
+## Acceptance criteria (each with a proof — required)
+
+- The denominator is recomputed at every read and matches a first-hand
+  scan — `repo-safe`: the ledger's own closure validator, red-first.
+- Every item has exactly one disposition state; closure is
+  recomputable — `repo-safe`: the same validator.
+- Two checkouts' ledgers merge to their union with conflicts surfaced,
+  never silently resolved — `repo-safe`: a merge test over fixture
+  ledgers.
+- A `processed-into-graph` disposition always carries a resolvable
+  provenance pointer — `repo-safe`: link-resolution leg.
+
+## Out of scope
+
+The signal surface (its own plan: `consolidation-signal`); any
+processing automation (dispositions stay authored); comms-event
+retention-policy changes.
+
+## Todos
+
+Sliced at pickup by the implementer; single-story steps within round
+budgets (PDR-132).

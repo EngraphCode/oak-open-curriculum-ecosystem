@@ -15,6 +15,8 @@ canonicalisation, and the vocabulary registry.
 
 - ADR-173 — graph stack topology.
 - ADR-179 — transport-agnostic graph substrate.
+- ADR-221 — the estate knowledge graph (consumer domain; adds thin
+  mount/strip combinators and per-node canonical fingerprints here).
 
 ## Sub-path exports
 

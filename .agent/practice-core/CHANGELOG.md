@@ -4,6 +4,15 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [oak-open-curriculum-ecosystem] 2026-07-31 — knowledge-estate RATIFIED (Falcon hunts Flight)
+
+- PDR-134 ratified Proposed → Accepted at the in-session sitting (owner card
+  answers, 2026-07-31), together with its host phenotype ADR-221 and the
+  `planning-and-intent-estate` strategic node. Obligation-5 cascade executed:
+  dated cross-references added to PDR-014 and PDR-130; PDR-081 gains the
+  curator concept-scheme stewardship note (owner-ratified same sitting);
+  consolidation skills gain concept nodes as a graduation target class.
+
 ## [oak-open-curriculum-ecosystem] 2026-07-31 — knowledge strata and the concept layer (Falcon hunts Flight)
 
 - New PDR-134 (knowledge strata, carriers, and the concept layer), status

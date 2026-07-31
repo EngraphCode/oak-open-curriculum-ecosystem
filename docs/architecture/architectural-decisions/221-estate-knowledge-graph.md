@@ -2,7 +2,9 @@
 
 ## Status
 
-**Proposed** (born-sketch; governs nothing until owner-ratified)
+**Accepted** (owner-ratified 2026-07-31, in-session ratification sitting
+— card answers at the Director seat; obligations 1–5 executed in the
+ratification commit)
 
 **Date**: 2026-07-31
 

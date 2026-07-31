@@ -4,7 +4,8 @@ pdr_kind: contract
 
 # PDR-134: Knowledge Strata, Carriers, and the Concept Layer
 
-**Status**: Proposed (born-sketch; governs nothing until owner-ratified)
+**Status**: Accepted (owner-ratified 2026-07-31, in-session ratification
+sitting — card answers at the Director seat, Falcon hunts Flight 52841f)
 **Date**: 2026-07-31
 **Related**:
 [PDR-105](PDR-105-reference-direction-invariants.md)
