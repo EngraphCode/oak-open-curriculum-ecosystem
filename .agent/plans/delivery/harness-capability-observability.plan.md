@@ -3,10 +3,10 @@ id: harness-capability-observability
 node_type: delivery
 name: "Harness capability observability — probe, record, diff, signal"
 overview: "Give Codex and Claude seats a repeatable, read-only capability census whose immutable run records expose additions, removals, changes, and evidence-backed rename candidates as their harnesses evolve."
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-07-31
+ratified_where: "Owner ruling relayed by Director Falcon hunts Flight (52841f), canonical comms event 6b69951f-8cfe-4fca-abf2-635ba2f896ba"
 serves: first-major-release
 impact_areas:
   - practice-and-estate
@@ -35,18 +35,23 @@ One cross-platform pipeline with four shared primitives:
    on every run. Keep configured, exposed, self-reported, and behaviourally
    proven facts distinct. Repository collectors gather deterministic platform
    metadata; short native test cards exercise harness-only root, child, and
-   nested-child surfaces using harmless read-only canaries.
+   nested-child surfaces using harmless read-only canaries. An external,
+   versioned `ProbeSetDefinition` names the expected launch and enumerator
+   coverage, so a snapshot cannot certify its own completeness.
 2. **Record.** The parent writes one immutable, schema-versioned, sanitised
    snapshot per run. It records the probe-set version, launch graph, model and
-   effort provenance, time and duration, harness and CLI versions where
-   observable, repository/environment fingerprints, complete ability IDs and
-   metadata, and explicit unavailable reasons. Children never share-write the
-   ledger.
+   effort provenance at thread creation and observation time, resolved tool
+   family, root activity state, wake-path evidence, time and duration, harness
+   and CLI versions where observable, repository/environment fingerprints,
+   complete ability IDs and metadata, and explicit unavailable reasons.
+   Children never share-write the ledger.
 3. **Diff.** Compare snapshots without rewriting history. Emit raw additions,
    removals, metadata changes, and behavioural changes. A rename is only an
    evidence-backed `rename_candidate` joining one removal to one addition;
-   schema or enumerator coverage changes are reported separately so a probe
-   regression cannot masquerade as a lost harness ability.
+   stable semantic launch keys, never run-local launch IDs, bind comparisons.
+   Schema, probe-set, or launch/enumerator coverage incompatibility suppresses
+   per-ability inference and is reported separately, so a probe regression
+   cannot masquerade as a lost harness ability.
 4. **Signal.** Derive a current ledger and bounded drift summary for existing
    startup/alert consumers. Signals are advisory and fail open; immutable run
    records remain the authority.
@@ -55,34 +60,43 @@ Ability IDs are stable and source-qualified (for example top-level harness,
 functions-exec, MCP, skill, CLI, or hook). Exposure and behavioural outcome are
 orthogonal fields with a validated coherence matrix. Full inventories are
 never cached; expensive behavioural evidence may be reused only when labelled
-stale with its source run and observation time.
+stale with its source run and observation time. Transport `DELIVERY`, creation
+of a reasoning turn (`NOTIFY`), and content-bearing engagement (`ABSORB`) are
+independent observations: no lower class implies a higher one.
 
 ## Acceptance criteria (each with a proof — required)
 
 - **Every run takes a fresh full census.** Supported Codex and Claude root and
   child launch paths emit complete source-qualified ability lists, counts,
   hashes, probe-set versions, and explicit unknown/unavailable observations;
-  no previous inventory can satisfy the current run.
+  no previous inventory can satisfy the current run, and completeness is
+  checked against the external probe-set definition rather than snapshot
+  self-report.
   Proof: `repo-safe` — totality, no-cache, missing-enumerator, and launch-matrix
   fixtures; `owner-held` — one fresh seat per platform records a live run.
 - **Run records are immutable, comparable, and safely attributable.** Each
   snapshot records UTC/local time, duration, run and parent/child identity,
-  launch mechanism, role/context mode, requested/configured/reported model,
-  effort, sandbox and approval state, harness/client/CLI versions with evidence
-  or explicit unavailability, repository/environment fingerprints, warnings,
-  and bounded observations. Secrets, account identifiers, connector URLs,
-  absolute machine paths, and unbounded output are rejected.
+  launch mechanism, role/context mode, thread-creation and observation-time
+  requested/configured/reported model, effort, resolved tool family, root
+  activity state, wake path, sandbox and approval state, harness/client/CLI
+  versions with evidence or explicit unavailability,
+  repository/environment fingerprints, warnings, and bounded observations.
+  Secrets, account identifiers, connector URLs, absolute machine paths, and
+  unbounded output are rejected.
   Proof: `repo-safe` — schema, immutability, sanitiser, and hostile-fixture
   tests.
 - **Evidence is class-honest.** `present | absent | unknown` exposure and
   `pass | fail | unavailable | not_run | inconclusive` outcome are validated
-  independently, with impossible combinations rejected; declared authority is
+  independently, with impossible combinations rejected; `DELIVERY`, `NOTIFY`,
+  and `ABSORB` are also recorded independently, and declared authority is
   recorded without exercising destructive or external mutations.
-  Proof: `repo-safe` — exhaustive coherence-matrix and safe-canary tests.
+  Proof: `repo-safe` — exhaustive coherence-matrix, liveness-class, and
+  safe-canary tests.
 - **Stored ledgers expose evolution.** Comparing any two compatible snapshots
   deterministically reports additions, removals, metadata changes, behavioural
-  changes, and conservative rename candidates with their evidence; schema and
-  probe-set drift remain separate dimensions.
+  changes, and conservative rename candidates with their evidence. Schema,
+  probe-set, and coverage drift remain separate dimensions and suppress unsafe
+  mass add/remove or rename inference beneath incompatible coverage.
   Proof: `repo-safe` — golden comparator fixtures covering additions,
   removals, true metadata/behaviour changes, ambiguous renames, false rename
   traps, and enumerator regression.
@@ -107,8 +121,9 @@ stale with its source run and observation time.
 ## Todos
 
 - **A — shared contract (round budget: at most two review rounds).** Land the
-  versioned schema, source-qualified IDs, sanitiser, validator, comparator,
-  immutable writer, and adversarial fixtures.
+  versioned schema and external probe-set definition, source-qualified IDs,
+  stable launch keys, sanitiser, validator, comparator, immutable writer, and
+  adversarial fixtures.
 - **B — Codex probe pack (round budget: at most two review rounds).** Add the
   deterministic collector and native root/child/CLI test card, then record the
   first complete Codex matrix.
@@ -127,3 +142,6 @@ stale with its source run and observation time.
 - Installing optional integrations merely to make a capability appear.
 - Treating self-report, configuration, stale behaviour, or a rename heuristic
   as proof of effective current capability.
+- Implementing or operating a Codex idle-wake bridge; MCP-456 records that
+  capability and its evidence, while runtime delivery belongs to the separate
+  `codex-app-server-idle-wake` plan.
