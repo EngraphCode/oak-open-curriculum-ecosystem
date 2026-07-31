@@ -164,6 +164,17 @@ downgrade to a smaller tier, never drop the review — and treat every
 fallback verdict as needing first-hand critical assessment before it
 steers a disposition.
 
+**Generalised (owner word, 2026-07-31): the fallback rule binds ALL
+model-unavailability cases, not only review legs** — where a model is
+unavailable, fall back to the next highest model at a LOWER effort
+setting than the original request. Edge cases resolve toward the rule's
+intent, sensibly: already at the top tier → stay there and reduce
+effort; no lower effort exists → next-highest model at its lowest
+effort; the unavailable model is platform-internal and not
+caller-selectable (e.g. a harness safety classifier) → retry on a short
+cadence and keep working on unblocked surfaces meanwhile. Fallback
+output is critically assessed before it steers anything.
+
 ## Delegation Snapshot
 
 Every bounded reviewer or worker lane should receive this minimum snapshot:
