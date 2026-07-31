@@ -1,3 +1,10 @@
+## [1.130.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.130.0...v1.130.1) (2026-07-31)
+
+
+### Bug Fixes
+
+* **agent-tools:** tighten collab-state intent read boundary to PDR-076a id ([4fd02ab](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4fd02ab39626e76f8ce069d4ef2a08c6e6e2c81f))
+
 # [1.130.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.129.2...v1.130.0) (2026-07-31)
 
 
