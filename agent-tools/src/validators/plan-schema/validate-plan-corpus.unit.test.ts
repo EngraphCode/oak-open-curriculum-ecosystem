@@ -1,6 +1,9 @@
+import path from 'node:path';
+
 import { isErr, isOk } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
+import { loadCorpus, type CorpusFileSystem } from './plan-corpus-loading.js';
 import {
   parseImpactAreasRegistry,
   recomputeChoiceRegistry,
@@ -520,6 +523,28 @@ describe('validateCorpus — execution-anchor consistency (the 2026-07-31 amendm
     expect(validateCorpus(files, choiceRegistry(), impactAreas())).toEqual([]);
   });
 
+  it('keeps a subtree anchored when the live ticketed witness merely moves path — de-anchoring is the status transition, never a relocation', () => {
+    const failures = validateCorpus(
+      [
+        parsedFixture('strategic/fixture-release.plan.md', STRATEGIC_LINES),
+        parsedFixture(
+          'archive/moved-but-live-with-ticket.plan.md',
+          renamed(DELIVERY_LINES, 'fixture-moved'),
+        ),
+        parsedFixture(
+          'delivery/ticketless.plan.md',
+          ratified(ticketless(renamed(DELIVERY_LINES, 'fixture-ticketless'))),
+        ),
+      ],
+      choiceRegistry(),
+      impactAreas(),
+    );
+    expect(failures.map((failure) => failure.path)).toEqual(['delivery/ticketless.plan.md']);
+    expect(failures[0]?.messages[0]).toContain(
+      'archive/moved-but-live-with-ticket.plan.md names MCP-101',
+    );
+  });
+
   it('counts a live ticketed runbook serving the subtree as anchoring evidence', () => {
     const runbookLines = [
       'id: fixture-runbook',
@@ -647,5 +672,28 @@ describe('validateCorpus — execution-anchor consistency (the 2026-07-31 amendm
       parsedFixture('runbooks/fixture-runbook.plan.md', runbookLines),
     ];
     expect(validateCorpus(files, choiceRegistry(), impactAreas())).toEqual([]);
+  });
+});
+
+describe('loadCorpus — corpus discovery', () => {
+  it('collects a plan file under any subdirectory — directory names carry no archive semantics', async () => {
+    const plansRoot = path.join('/repo', '.agent/plans');
+    const fileSystem: CorpusFileSystem = {
+      readdir: (dir) => {
+        if (dir === plansRoot) {
+          return Promise.resolve([{ name: 'archive', isDirectory: true }]);
+        }
+        if (dir === path.join(plansRoot, 'archive')) {
+          return Promise.resolve([{ name: 'moved.plan.md', isDirectory: false }]);
+        }
+        return Promise.resolve([]);
+      },
+      readFile: () => Promise.resolve(planDoc(STRATEGIC_LINES)),
+    };
+    const corpus = await loadCorpus('/repo', fileSystem);
+    expect(corpus.fileFailures).toEqual([]);
+    expect(corpus.parsed.map((file) => file.path)).toEqual([
+      path.join('.agent/plans', 'archive', 'moved.plan.md'),
+    ]);
   });
 });
