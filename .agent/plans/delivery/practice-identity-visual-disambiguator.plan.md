@@ -3,17 +3,17 @@ id: practice-identity-visual-disambiguator
 node_type: delivery
 name: "Identity visual disambiguator: prefix-anchored display token beside the session-id prefix"
 overview: "Render a derived visual-disambiguator token on identity display surfaces so seats started in the same UUIDv7 time window stay human-distinguishable, without changing the session-search prefix, its cross-estate join-key role, the derived-uuid anchor, or any stored schema."
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-07-31
+ratified_where: "Owner in-session word to the Director seat (Falcon hunts Flight, 52841f), 2026-07-31: the prefix work routed to Moss calls Loam 'if the conclusion is that work is required'; the conclusion was confirmed the same day by a fable-xhigh assumptions review plus the Director's critical assessment. The plan's mint-at-pickup ticket clause is waived by the owner's 2026-07-31 no-new-Linear-tickets ruling; the existing MCP-145 ticket stands."
 serves: first-major-release
 impact_areas:
   - practice-and-estate
 tickets: [MCP-145]
 depends_on: []
 owner_gates: []
-last_updated: 2026-07-24
+last_updated: 2026-07-31
 ---
 
 # Identity visual disambiguator
@@ -52,21 +52,30 @@ disposition.
 
 **Evidence enrichment (2026-07-31, multi-perspective review — two
 independent Opus lenses converged on this plan's design over six
-invented alternatives):** measured in the live store, 10 of 19
-UUIDv7-family prefixes collide (53%), hiding 33 distinct seats —
-`019fb9` alone covered nine agents in one afternoon; non-v7 prefixes
-collide at 1%. Independently measured over 1,712 real Codex thread
-ids: vendor `rand_a` bits are decisively non-uniform (829 distinct
-where uniform predicts ~1,400), vindicating Revision 2's choice to
-anchor entropy on the UUIDv5 `id` rather than v7 tail bits. Renderer
-width was checked as a flip risk and falsified (no truncation budget
-in the statusline surfaces). Pre-build dependency discovered twice
-independently in the same review: the prefix derivation exists in
-THREE implementations (`collaboration-state/identity.ts` canonical;
-`codex/session-identity-hook.ts` and `cursor/oak-session-identity-hook.ts`
-carry private copies; only the Claude hook imports canonical) — the
-convergence story precedes the token build so the renderer inventory
-lands on one derivation.
+invented alternatives; figures re-measured the same day by a
+fable-xhigh assumptions reviewer and independently reproduced by the
+Director):** measured over the unique (`session_id_prefix`, `id`)
+pairs in every identity block across all JSON surfaces of
+`.agent/state/collaboration/` (comms, comms-archive, archive, claims,
+conversations), 8 of 19 UUIDv7-family prefixes collide (42%), hiding
+17 seats behind the first seat shown — `019fb9` alone covers 7
+distinct seats; non-v7 prefixes collide at ~2% (3 of 171). Vendor
+`rand_a` bits are decisively non-uniform on both samples measured:
+1,009 store-local Codex thread ids yield 624 distinct `rand_a` values
+where uniform predicts ~894, and an earlier 1,712-id sample gave 829
+where uniform predicts ~1,400 — the same signal at both scales,
+vindicating Revision 2's choice to anchor entropy on the UUIDv5 `id`
+rather than v7 tail bits. Renderer width was checked as a flip risk
+and falsified (no truncation budget in the statusline surfaces). The
+prefix derivation exists in THREE implementations
+(`collaboration-state/identity.ts` canonical;
+`codex/session-identity-hook.ts` and
+`cursor/oak-session-identity-hook.ts` carry behaviourally identical
+private copies; only the Claude hook imports canonical) — convergence
+(MCP-457) is warranted parallel hygiene but does NOT gate this build:
+the token derives verbatim from the STORED `session_id_prefix` and
+`id` fields (Mechanism 1), and the hooks cannot render it because no
+UUIDv5 `id` exists at hook time.
 
 ## Goal
 

@@ -303,3 +303,8 @@ paid (measured collision data, vendor rand_a non-uniformity, two
 independent bug finds) — but by luck of good reviewers, not by
 process. Cure: any design brief opens with the prior-art search
 result as its first line.
+Addendum (2026-07-31, post xhigh review): the cure lands via the
+new-rule-vs-pdr-clause process, not as a self-executing conclusion;
+and the honest accounting is cost-REDUCTION, not waste-elimination —
+the duplicated day also produced finds a prior-art-first brief would
+likely not have surfaced. Frame the future rule that way.
