@@ -6,7 +6,7 @@ overview: "Give Codex and Claude seats a repeatable, read-only capability census
 status: ratified
 ratified_by: "Jim Cresswell"
 ratified_date: 2026-07-31
-ratified_where: "Owner ruling relayed by Director Falcon hunts Flight (52841f), canonical comms event 6b69951f-8cfe-4fca-abf2-635ba2f896ba"
+ratified_where: "PR #671 ratification provenance record: https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/671#issuecomment-5147146228"
 serves: first-major-release
 impact_areas:
   - practice-and-estate
@@ -71,6 +71,14 @@ required before behavioural-change inference. Transport `DELIVERY`, creation
 of a reasoning turn (`NOTIFY`), and content-bearing engagement (`ABSORB`) are
 independent observations: no lower class implies a higher one.
 
+Every live `owner-held` proof is verified from outside the probed seat by Jim
+Cresswell or the serving Director. Bounded evidence—run IDs, external-observer
+identity, challenge/reply or deliverable-movement references, and sanitised
+result links—is recorded on MCP-456 and the implementation pull request.
+`NOTIFY`, `LOOP`, `ABSORB`, `CAPABILITY`, and `PROGRESS` are never
+self-certifiable; a root snapshot may record those classes only with the
+external observer and evidence reference that certified them.
+
 ## Acceptance criteria (each with a proof — required)
 
 - **Every run takes a fresh full census.** Supported Codex and Claude root and
@@ -82,7 +90,9 @@ independent observations: no lower class implies a higher one.
   digest, and version/digest disagreement is rejected.
   Proof: `repo-safe` — totality, no-cache, pre-run-independence,
   version/digest, missing-enumerator, and launch-matrix fixtures; `owner-held`
-  — one fresh seat per platform records a live run.
+  — Jim Cresswell or the serving Director, external to each probed seat,
+  verifies the platform runs and records their run IDs and bounded evidence
+  links on MCP-456 and the implementation pull request.
 - **Run records are immutable, comparable, and safely attributable.** Each
   snapshot records UTC/local time, duration, run and parent/child identity,
   launch mechanism, role/context mode, thread-creation and observation-time
@@ -100,7 +110,11 @@ independent observations: no lower class implies a higher one.
   and `ABSORB` are also recorded independently, and declared authority is
   recorded without exercising destructive or external mutations.
   Proof: `repo-safe` — exhaustive coherence-matrix, liveness-class, and
-  safe-canary tests.
+  safe-canary tests; `owner-held` — Jim Cresswell or the serving Director
+  certifies every claimed never-self-certifiable class through an externally
+  observed deliverable movement or content-bearing challenge reply, and
+  records the observer, event, reply or movement reference, and result on
+  MCP-456 and the implementation pull request.
 - **Stored ledgers expose evolution.** Comparing any two compatible snapshots
   deterministically reports additions, removals, metadata changes, behavioural
   changes, and conservative rename candidates with their evidence. Schema,
@@ -119,14 +133,18 @@ independent observations: no lower class implies a higher one.
   tested version remains a required matrix row with its explicit unavailable
   reason. Platform adapters add observations but cannot fork the ledger schema
   or comparator semantics.
-  Proof: `repo-safe` — adapter contract tests; `owner-held` — recorded live
-  matrices for both platforms.
+  Proof: `repo-safe` — adapter contract tests; `owner-held` — Jim Cresswell or
+  the serving Director verifies the recorded live matrices from outside the
+  probed seats and records their run IDs and bounded evidence links on MCP-456
+  and the implementation pull request.
 - **A new seat can find and run it.** One concise Oak skill and operations
   runbook explain the safe test card, result location, diff command, evidence
   limits, and how to add a newly exposed ability or launch mechanism.
   Proof: `repo-safe` — discoverability/link checks and shipped CLI smoke;
-  `owner-held` — a fresh low-power seat produces and interprets a run without
-  oral guidance.
+  `owner-held` — Jim Cresswell or the serving Director observes a fresh
+  low-power seat producing and interpreting a run without oral guidance, then
+  records the run ID and bounded result on MCP-456 and the implementation pull
+  request.
 - **Signals remain projections, not authority.** Current-ledger and startup
   drift summaries regenerate deterministically from immutable snapshots and
   never block session startup merely because a capability cannot be observed.
