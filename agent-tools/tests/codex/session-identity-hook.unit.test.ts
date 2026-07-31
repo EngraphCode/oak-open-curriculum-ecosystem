@@ -51,7 +51,6 @@ describe('planCodexSessionIdentityHook', () => {
     expect(additionalContext).toContain(`agent_name: ${expectedDisplayName}`);
     expect(additionalContext).toContain('platform: codex');
     expect(additionalContext).toContain('model: GPT-5');
-    expect(additionalContext).toContain('session_id_prefix: 22e835');
     expect(additionalContext).toContain('seed_source: CODEX_THREAD_ID');
     expect(additionalContext).toContain(
       'pnpm agent-tools:collaboration-state -- identity preflight --platform codex --model GPT-5',

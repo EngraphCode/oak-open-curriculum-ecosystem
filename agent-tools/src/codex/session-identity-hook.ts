@@ -1,3 +1,4 @@
+import { sessionIdPrefix } from '../collaboration-state/identity.js';
 import { deriveIdentity } from '../core/agent-identity/index.js';
 
 const CODEX_PLATFORM = 'codex';
@@ -99,10 +100,6 @@ function isSessionStartPayload(value: unknown): value is SessionStartPayload {
     'session_id' in value &&
     typeof value.session_id === 'string'
   );
-}
-
-function sessionIdPrefix(sessionId: string): string {
-  return sessionId.length >= 6 ? sessionId.slice(0, 6) : sessionId;
 }
 
 function identityContext(input: {
