@@ -146,7 +146,10 @@ request — a summary-less idle notification means NO report was emitted
 (6/6 instances, late July 2026): request the report, never infer one from
 the idle. And a long-silent consult (~12 minutes) is a DEFECTIVE dispatch —
 kill it and re-dispatch; a seat idling on a dead consult is the failure,
-not patience.
+not patience. Known mechanism (MCP-386, until cured): the Agent tool's
+`name` parameter correlates with dark dispatches — named dispatches went
+dark 10/10 while unnamed ones reported; prefer unnamed reviewer dispatches
+while the ticket is open.
 
 ## Reviewer Model Tier
 

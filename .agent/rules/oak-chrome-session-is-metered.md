@@ -22,6 +22,11 @@ the official Oak account.
 - **Report a named unknown over spending quota on completeness**: when
   filling the gap would cost browser quota, surfacing "unknown — needs a
   browser step, quota-priced" is the correct output, not silent spend.
+- **READ-ONLY where the owner has ruled artefacts confidentiality-blocked**
+  (owner ruling, 2026-07-2x): for external artefacts the owner has named
+  confidentiality-blocked, the session performs reads only — retrieval or
+  any write-shaped interaction with them is the owner's manual act, offered
+  by the owner, never initiated by an agent.
 
 ## Failure mode this prevents
 

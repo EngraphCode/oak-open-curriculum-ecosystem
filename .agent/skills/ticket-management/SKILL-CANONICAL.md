@@ -61,6 +61,14 @@ lose their carriers. Curation is a periodic, deliberate pass — Director-owned 
 4. **Duplicates**: same finding from different reviewers converges on one ticket with the second
    source cited (worked instance: MCP-199 absorbing a duplicate finding without a new ticket).
 
+## Definition-of-Done Ceremony (owner discipline, MCP-356)
+
+A ticket's Definition of Done changes only by PROPOSAL COMMENT followed by
+owner ratification — never by direct edit. A DoD is the owner's acceptance
+contract; editing it in place moves the goalposts invisibly. Propose the
+change as a comment naming old text, new text, and reason; the owner's
+ratifying reply licenses the edit.
+
 ## Routing Boundaries
 
 - Owner decisions discovered during ticket work (milestone homes, blocking-posture confirmations,

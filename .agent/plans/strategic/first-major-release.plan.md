@@ -189,6 +189,16 @@ onto this node — one line each, pointers never duplicates.
   MCP-354's four-event catalogue signed off unamended; MCP-357 finally
   sequenced post-submission on the corrected authenticated-handshake
   premise. Records: MCP-143, MCP-354, MCP-357, MCP-309 checklist.
+- 2026-07-2x — Owner submission-logistics rulings (backfilled 2026-07-31):
+  NO AGENT SUBMITS the connector or plugin — submission is a manual human
+  act; the listing name is provisionally "Oak National Academy" pending
+  human review; listing copy assembles from approved sources under the
+  never-invent-public-copy discipline. Records on MCP-292/296/309.
+- 2026-07-2x — Clerk production-window ordering (backfilled 2026-07-31):
+  the DCR flip is deliberately sequenced LAST in the cutover so the
+  open-registration window shrinks to minutes; composes with the
+  2026-07-29 public-beta ruling above (the Clerk promotion IS the
+  public-beta moment, no app-layer invite gate). Records on MCP-143.
 - 2026-07-2x — Owner strategic frame (backfilled 2026-07-31): "engineering
   is nearly out of the critical path; what remains is mostly
   human-judgement gates — our job is to make those gates easy to walk

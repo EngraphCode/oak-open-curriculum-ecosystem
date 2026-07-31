@@ -122,6 +122,17 @@ Threading field: `in_response_to` is CANONICAL and `in_reply_to` does not
 exist (corpus check 2026-07-30: 114 uses vs 0) — a reader or filter written
 against `in_reply_to` silently matches nothing.
 
+Two commit-tooling traps, live until their tickets cure them (recorded
+2026-07-31): `git commit -- <paths>` commits from the TREE while the
+commit-workflow's record/verify-staged steps checksum the INDEX — staged
+DELETIONS can silently drop from the commit while every ceremony check
+passes (MCP-334; 326 staged deletions dropped in the founding instance) —
+after any pathspec commit that includes deletions, verify the commit's
+name-status against the intent; and queue-mediated commits stage only the
+ENQUEUED file list, so a late-staged file silently misses the commit while
+local gates run green on the full index (MCP-417) — re-verify the staged
+set against the intent immediately before the commit window closes.
+
 The canonical communication-event directory is
 `.agent/state/collaboration/comms/`. Merges reconcile any legacy-era event
 fragments as `exclusive-create-fragments`.
