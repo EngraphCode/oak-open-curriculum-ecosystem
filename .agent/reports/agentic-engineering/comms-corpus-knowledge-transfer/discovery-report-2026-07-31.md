@@ -305,6 +305,57 @@ permission for the run's surveys and tests, recorded verbatim in the napkin. Own
 the class: the refusals are "confirmation that there are processes in place to protect from
 that class of issue" — a good thing.
 
+## Tiered sight: the owner's architecture articulation and this run's evidence (2026-07-31)
+
+Owner articulation at the run's close (verbatim substance, the doctrine-seed's largest single
+harvest item): "we need multiple layers of agents, and we need the higher powered agents to
+see the original source material not just the output from the lower powered agents... the
+lower powered agents produce a full landscape and we accept that the lower conceptual
+resolution might hide useful information, and we have higher powered models assess that
+landscape and decide where to do the deeper assessment, and so on... that kind of pattern
+needs someone, a Fable-high instance in the case of Claude, on overwatch to sanity check
+direction... we can't have high-powered agents review everything, it's too slow and too
+expensive, but we also can't have low powered agents being the only ones that see the
+original material, the sources of truth."
+
+This run is the articulation's evidence base:
+
+- **Resolution hides; the same sources at higher power recover.** The wide sonnet META pass
+  and the focused opus/high re-run read identical materials; the focused tier produced
+  line-anchored evidence, found a candidate CONTRADICTING a standing doctrine row (A42), and
+  reversed a needs-home to fully-homed (A45). Cost calibration: ~13k tokens/candidate focused
+  vs ~5.5k wide — only ~2.4x per candidate for a tier+effort jump, because narrow scope
+  removes waste. The wide tier's real cost is its unreliable slice, and salience-routing
+  bounds it.
+- **The landscape is a ROUTING artefact, never a truth artefact.** Its job is salience —
+  where the deep reads go. Conclusions come only from tier-appropriate source reads (this
+  run's non-negotiable first-hand adjudication leg is this principle, independently arrived
+  at). The failure the principle prevents is EPISTEMIC LAUNDERING: low-resolution readings
+  acquiring authority by passing upward through summaries until the deciding tier has never
+  touched ground truth — referent-narrowing at fleet scale.
+- **Source access is a tier property, not a stage property.** What diminishes going up is
+  selectivity, never the right to descend. Foveation is the working model: full-field
+  low-resolution periphery (mappers), a high-resolution fovea (focused deep reads), and
+  saccade control (the overwatch deciding where to look next). Observed salience triggers
+  that routed deep reads this run: fleet failure (twice-failed batch), verdict class (every
+  keep), contradiction with standing doctrine, classifier blocks (routing the overwatch
+  itself to the raw bundles — whose curated leaves then served as the recall baseline for
+  the whole pipeline).
+- **Overwatch is a DYNAMICS role.** Its object is direction and convergence — the think-loop
+  was caught by turn-shape pattern, not by any output being wrong; the ten-round review
+  ratchet in the corpus was caught the same way. Cricket checks, the Director seat, and the
+  review-ratchet stop conditions are the estate's existing fragments of this role.
+- **Counterweights the corpus itself supplies:** tier does not cure transmission risk (the
+  2026-07-28 invented-rationale instance was a high-tier seat — derivation-carriage binds
+  every layer); and the layering extends ABOVE the overwatch (the platform classifier caught
+  the overwatch's canary design; the owner sanity-checked the overwatch's direction
+  throughout). No tier is the top of the epistemic stack.
+
+Graduation route: this section is the harvest record; the generalisable shape reconciles with
+PDR-122 (tier-per-leg, Opus-judges-the-frame) and PDR-134's strata at the future
+multi-machine PDR the plan's §Future doctrine seed binds — extending both with the
+source-access invariant: **no source of truth is seen only by the lowest tier**.
+
 ## The homeless set: first ontological cut (owner-directed step-back, 2026-07-31)
 
 Owner directive at the META landing (verbatim substance): no-home-found means "a deep analysis

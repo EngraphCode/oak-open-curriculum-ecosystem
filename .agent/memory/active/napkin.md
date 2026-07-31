@@ -115,6 +115,18 @@ candidates. Headline graduations (the commits and the homes are the record):
 
 ## 2026-07-31 comms-run observations (Ingot tracks Slag)
 
+- Owner architecture articulation at the run's close (2026-07-31 ~11:40Z, verbatim substance
+  — the tiered-sight principle): multiple agent layers; higher-powered agents must see the
+  ORIGINAL SOURCE MATERIAL, never only lower tiers' output; low tiers produce a full
+  landscape (lower conceptual resolution accepted as priced-in), higher tiers assess the
+  landscape and decide where deeper assessment goes, recursively; a Fable-high OVERWATCH
+  sanity-checks direction; high power can't review everything (too slow/expensive) but low
+  power must never be the only sight on sources of truth. Full harvest with this run's
+  evidence base: discovery report §Tiered sight (epistemic-laundering failure mode;
+  source-access-is-a-tier-property; foveation model; overwatch-is-dynamics; the
+  tier-does-not-cure-transmission counterweight). Graduation route: the future multi-machine
+  PDR (plan §Future doctrine seed), reconciling PDR-122 + PDR-134 with the invariant "no
+  source of truth is seen only by the lowest tier".
 - Owner directive at the META landing (2026-07-31 ~11:18Z, verbatim substance): "no home
   found means a deep analysis of what the missing homes might be, and how they relate to
   the existing estate, what seams we have, what seams we should have... it's a moment to
