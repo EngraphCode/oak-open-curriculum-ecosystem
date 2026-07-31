@@ -349,6 +349,7 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   (ideas are the fundamental unit of intent; the idea knowledge-graph is the authoritative source of truth,
   the human documents its co-equal embodiment connected by frontmatter typed-edges; built as a domain
   instance over graph-core; two drift mechanisms; the planning-estate rewrite; Accepted 2026-06-22)
+  ← **Partially superseded by [ADR-221](221-estate-knowledge-graph.md) (authority model, 2026-07-31)**
 - [ADR-201: External systems as evidence edges — integrating external state into the idea knowledge-graph](201-external-systems-evidence-integration.md)
   (external systems are typed evidence edges and the graph stays canonical; direction invariant — intent
   projects outward, services report back; capability modes + supervision + no-PII-in-VCS; unlocks the full
@@ -472,7 +473,7 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   the public/operator seam with the clone test as a CI validator; PROV-O/SKOS/DC
   vocabularies; the concept scheme lands with link-as-annotation; refines
   ADR-200 (authority model) and ADR-216, amends ADR-173/ADR-041 by activation;
-  Proposed, born-sketch, 2026-07-31)
+  Accepted, owner-ratified 2026-07-31)
 
 ## Key Architectural Decisions
 

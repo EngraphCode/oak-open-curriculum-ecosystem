@@ -16,6 +16,8 @@ have not landed.
 
 - ADR-173 — graph stack topology.
 - ADR-179 — transport-agnostic graph substrate.
+- ADR-221 — the estate knowledge graph (adds the front-matter → quads
+  ingestion mode here).
 
 ## Sub-path exports
 

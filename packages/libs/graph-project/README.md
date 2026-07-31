@@ -20,6 +20,8 @@ edges.
 
 - ADR-173 — graph stack topology.
 - ADR-179 — transport-agnostic graph substrate.
+- ADR-221 — the estate knowledge graph (consumes the projection and
+  adjacency primitives for the estate's rendered views).
 
 ## Sub-path exports
 
