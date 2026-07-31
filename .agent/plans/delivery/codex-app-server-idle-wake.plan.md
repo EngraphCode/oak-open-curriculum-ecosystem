@@ -14,10 +14,18 @@ tickets: []
 depends_on: []
 owner_gates:
   - awaiting: owner-decision
-    clears_when: "Jim Cresswell records whether every same-UID event writer and controller is inside the accepted trust boundary or requires the event broker to run under a separate OS principal and sandbox"
+    clears_when: >-
+      Jim Cresswell records one accepted trust mode: either every process able
+      to inspect or impersonate the same-UID extension and controller is inside
+      the trusted computing base, or a concrete isolated mode proves a pathless
+      inherited authenticated IPC channel available only to the exact
+      extension, controller, and broker endpoints plus an OS-enforced
+      anti-inspection boundary against same-UID FD, memory, debug, and core-dump
+      access; a separate server UID, sandbox, socket ownership, or peer
+      credentials alone does not clear this gate
     expires: 2026-08-03
   - awaiting: owner-decision
-    clears_when: "Before rollout or canonical operating-rule promotion, Jim Cresswell records whether Oak may carry a pinned native Codex extension while an atomic and capability-scoped upstream API is unavailable and, if so, records one approved exit path: a named upstream-contribution owner and acceptance deadline, or a named sunset owner, removal deadline, and removal trigger; no record by expiry defaults to no rollout"
+    clears_when: "Before rollout or canonical operating-rule promotion, Jim Cresswell records whether Oak may carry a pinned native Codex extension while an atomic and capability-scoped upstream API is unavailable and, if so, records one approved exit path: a named upstream-contribution owner and acceptance deadline, or a named sunset owner, removal deadline, and removal trigger"
     expires: 2026-08-03
 last_updated: 2026-07-31
 ---
@@ -141,13 +149,14 @@ correct routine answer is only notification/read evidence and never certifies
 The separate proof profile is available only for an owner-held safe canary
 whose exact event ID, digest, and expected answer commitment an external
 verifier registers before dispatch. The canary body contains 64 independently
-uniform four-way symbols that appear nowhere except the redacted `read_event`
-body. The model must return the exact fixed-length tuple of 64 ordinals, each
-closed to `0..3`, in one attempt. The verifier, not the broker or event, mints
-and precommits the expected tuple; the broker never derives or fills the
-model-authored tuple from the body. With no partial credit and one attempt, a
-blind match has probability `4^-64 = 2^-128`. Question and choice content remain
-ephemeral tool output.
+uniform four-way symbols held by canonical canary storage and the external
+verifier, and exposed to the model only through the redacted `read_event` body,
+never through another model-visible surface. The model must return the exact
+fixed-length tuple of 64 ordinals, each closed to `0..3`, in one attempt. The
+verifier, not the broker or event, mints and precommits the expected tuple; the
+broker never derives or fills the model-authored tuple from the body. With no
+partial credit and one attempt, a blind match has probability
+`4^-64 = 2^-128`. Question and choice content remain ephemeral tool output.
 
 `acknowledge_event` accepts only the opaque read receipt, the exact ordinal
 tuple shape fixed by its profile, and one value from each small broker-owned
@@ -258,9 +267,11 @@ an idle-wake claim.
   selection, or even a correct routine-profile answer cannot certify `ABSORB`.
   Proof: `repo-safe` — native-extension, state-machine, challenge, broker, and
   egress integration tests; `owner-held` — a safe live Plover canary whose
-  externally minted 64-symbol answer is precommitted and absent from every
-  surface except the `read_event` body records the challenge-template version,
-  commitment, selected-tuple digest, match, exact binding, and canonical reply.
+  externally minted 64-symbol answer is precommitted and reaches the model only
+  through the redacted `read_event` body, while canonical storage and the
+  external verifier retain their required copies. The evidence record contains
+  the challenge-template version, commitment, selected-tuple digest, match,
+  exact binding, and canonical reply.
   The external verifier uses that one-attempt `2^-128` proof to demonstrate
   `ABSORB`; the ordinary path demonstrates `DELIVERY` and `NOTIFY`
   independently.
@@ -311,21 +322,30 @@ an idle-wake claim.
   acknowledgement, with no-gap, no-duplicate, and indeterminate-quarantine
   assertions.
 - **The control plane is local, bounded, and single-owner.** One native
-  extension/controller pair owns a seat at a time; it uses a private runtime
-  directory and a non-symlink, current-user-owned local Unix socket, validates
-  every path component and the pinned process/thread/source/protocol versions,
-  and takes an atomic exclusive lease. Client identity strings are not
-  authentication; either every same-UID event writer/controller is explicitly
-  trusted, or the event broker runs under a separate OS principal and sandbox.
-  That boundary is owner-held. State is restrictive and untracked, routine logs
-  are metadata-only, queues are bounded, and retry backs off.
+  extension/controller pair owns a seat at a time and takes an atomic exclusive
+  lease. Client identity strings, socket ownership, peer credentials, and a
+  separate broker UID or sandbox are not authentication of the current-user
+  controller. In same-UID trust mode, every process able to connect, inspect,
+  or impersonate the extension/controller is explicitly inside the accepted
+  trusted computing base. In isolated mode, one launcher creates a pathless
+  inherited authenticated IPC channel before privilege separation and binds
+  its unexported endpoints to the exact extension, controller, and broker; an
+  OS-enforced anti-inspection boundary prevents other same-UID processes from
+  reading their FDs or memory, attaching a debugger, or collecting a core dump.
+  A filesystem socket or bearer secret readable from a current-user process
+  cannot clear that mode. The boundary is owner-held. State is restrictive and
+  untracked, routine logs are metadata-only, queues are bounded, and retry backs
+  off.
   It stops on supervisor loss, thread closure, socket replacement, identity
   mismatch, or explicit retirement and cannot resurrect a retired seat.
   Incompatible protocol or malformed state fails visibly without claiming
   liveness.
-  Proof: `repo-safe` — lock, filesystem-permission, lifecycle, compatibility,
-  overload, malformed-payload, queue-bound, reconnect, and supervisor-death
-  tests.
+  Proof: `repo-safe` — lock, lifecycle, compatibility, same-UID trusted-base
+  enumeration, inherited-channel endpoint binding and exclusivity,
+  same-UID connect/impersonate/FD-memory-inspection rejection, debug/core-dump
+  denial, peer-credential-is-not-authentication, separated-principal negative
+  controls, overload, malformed-payload, queue-bound, reconnect, and
+  supervisor-death tests.
 - **Interactive app-server requests retain a safe user-facing route.** An
   extension-created turn cannot silently approve, auto-answer, or strand
   command approval, file approval, user-input, MCP-elicitation, time, or
@@ -424,8 +444,9 @@ an idle-wake claim.
   persistent/later-turn context, provider-authorised ephemeral broker read,
   deterministic crash-safe acknowledgement, restart reconciliation,
   stale/retired rejection, exclusive lease, crash boundary, connection-affine
-  request routing, the owner-approved same-UID or separate-OS-principal trust
-  boundary, privacy/retention, and irreversible retirement. Failure of any
+  request routing, the owner-approved all-reachable-same-UID trusted base or
+  pathless inherited-channel plus OS anti-inspection isolated mode,
+  privacy/retention, and irreversible retirement. Failure of any
   condition—or refusal of either owner gate—stops the build and records the
   unsupported capability instead of adding a second control path. No rollout
   or canonical operating-rule promotion may begin until the pinned extension
