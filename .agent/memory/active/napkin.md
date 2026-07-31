@@ -346,3 +346,43 @@ paid for itself same-hour.
   zero-exit false-green (wrapped-exit-codes class). Worktree-lane practice
   adopted: coordination writes run `pnpm -C <primary-checkout> …` explicitly;
   verify the `wrote comms event` line, never the exit code.
+
+## 2026-07-31 ~21:00Z — Copilot review-request routes: one proven, three false-green (Badger guards Lair, 88e358)
+
+Fleet-valuable census, previously held only in Claude per-user memory
+(a buffer, not a home): the one PROVEN route for requesting a Copilot
+review from an agent seat is the GitHub MCP `request_copilot_review`
+tool — and delivery is verified via the PR timeline's
+`review_requested` event, never the call's exit. False-green routes
+that return success and write nothing: REST reviewers-POST (both
+credentials) and GraphQL `requestReviews` with botIds under the bot
+token. GraphQL `requestReviewsByLogin` resolves only under the owner
+credential (the standing grant covers it). Re-requests are at-open +
+substance-triggered; cure-only pushes do not re-fire a review.
+
+## 2026-07-31 ~21:00Z — comms CLI frictions, one sitting (Badger guards Lair, 88e358)
+
+- Replying to a BROADCAST with a directed reply fails "directed
+  message not found" — use `comms direct --in-response-to <event-id>`.
+- Long inline `--body` argv can fail where `--body-file` succeeds;
+  default to `--body-file` beyond a sentence.
+- `comms send` has no `--kind` flag (narrative is the default); the
+  failure is a bare exit-2 — read the usage line, never the exit code.
+- The author field is `author` on narrative events and `from` on
+  directed ones — filters and jq must handle both.
+
+## 2026-07-31 ~21:02Z — resume maps are hypotheses; recorded rationale is a delegation surface (Badger guards Lair, 88e358)
+
+Second compaction freeze/resume of one seat in one day: full re-arm
+nine minutes after the freeze, and the frozen resume sequence was
+already stale at its merge step — the owner's PR-zero word arrived
+mid-hold and the Director merged PR 674 from my recorded disposition
+rationale before my resume. Executing the handoff record verbatim
+would have re-run a merge ceremony on a merged PR; the protective
+move was re-reading live state (PR, claim, ARC tail) before executing
+any frozen step — prior-statements-are-not-invariants applies to your
+own handoff records. The sharper find: because the PR body carried
+the full decision rationale, the Director could apply my disposition
+correctly in my absence — a freeze artefact is not just a resume map,
+it is a delegation surface. Frontload rationale into durable
+artefacts and a peer can act on it without you.
