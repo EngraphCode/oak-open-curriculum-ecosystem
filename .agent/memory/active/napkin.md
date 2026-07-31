@@ -125,3 +125,27 @@ candidates. Headline graduations (the commits and the homes are the record):
   been reached" (verbatim, 2026-07-31 ~08:00Z) — recorded for the owner per the
   spend-errors-are-owner-side discipline; not a merge blocker on a docs-only roll-up
   (no approving review required; zero threads).
+- Calibrate on REAL baselines, never synthetic injections (2026-07-31, this seat): I
+  injected synthetic canary events (incl. an invented owner ruling on a fictitious
+  surface) into two P2 pilot bundles for recall calibration; the safety classifier
+  blocked the mapper as instruction poisoning — fabricated owner-words aimed at a
+  pipeline that graduates into permanent docs. The flag was correct AND the design was
+  off-pattern: the estate's own corpus machinery calibrates against real known-answer
+  baselines (recall-baseline-fixture.ts), which my blind 20-event calibration read
+  already supplied. Cure: bundles rebuilt from source (zero fabricated content), the
+  real-baseline calibration passed (all recall-critical items surfaced). Sequel: the
+  full-map relaunch was classifier-denied even clean; carded to the owner, approved,
+  relaunched with provenance in the script header. Lesson pair: (a) synthetic
+  authority-shaped content is never a calibration instrument; (b) a classifier denial
+  is an owner action-moment, not a prompt-rewording exercise.
+- Owner ruling on the canary incident (2026-07-31, verbatim substance): the run is fine;
+  "keep an eye out for your synthetic concepts making it into the real knowledge
+  surfaces, plan for a post-processing scan to be sure" — enacted as plan todo
+  p3b-synthetic-contamination-scan, structurally blocking P4 (six named fingerprints,
+  zero-hit pass outside the incident-record surfaces). And: the processing refusal "is
+  confirmation that there are processes in place to protect from that class of issue,
+  so that is a good thing" — platform-level classifier blocks are a working
+  defence-in-depth layer for knowledge-graduating pipelines; feed this into the plan's
+  §Future doctrine seed harvest (the multi-machine PDR candidate should name the
+  layered protections: real-baseline calibration, deterministic fingerprint scans,
+  platform classifiers, first-hand review before graduation).

@@ -34,10 +34,14 @@ todos:
     content: "Process the keep-set as first-class consolidation intake, evidence-tiered: novel keeps → napkin capture → same-pass graduation to highest-impact homes (rules/PDRs/patterns/governance/tickets); corroborated re-finds → verify-and-enrich the named home (PDR-098 recurrence check before any duplicate-skip); rejected/noise → reason recorded in the discovery report only (permanent-doc-is-the-consolidation-record: no separate ledger). Commits on the coordination branch as batches land."
     status: pending
     depends_on: [p2-coordination-class-sweep]
+  - id: p3b-synthetic-contamination-scan
+    content: "Owner-directed post-processing scan (2026-07-31 ruling on the pilot-canary incident): deterministic grep for the six synthetic fingerprints — the reserved canary UUID prefix 00000000-c0c0-4000, the fictitious surface term quill-sync, the invented seats Quillon guards Ledger / Fathom binds Sounding and their session prefixes aa00c1 / bb00d2 — over (a) every run checkpoint before it commits, (b) the discovery report + keep-set, and (c) the full git diff origin/main...HEAD at the P4 gate. PASS = zero hits outside the three incident-record surfaces that legitimately describe the incident (this plan, the napkin entry, the discovery report's incident section). Any other hit is contamination: quarantine the artefact and re-derive it from clean sources. Context: four synthetic calibration events were injected into two pilot bundles, safety-flagged, and cured by full bundle rebuild (zero fingerprints on rebuild, verified); the platform classifier block is confirmed as a working protection layer for this class."
+    status: pending
+    depends_on: [p3-journey-the-keeps]
   - id: p4-merge-to-main
     content: "Roll-up PR of all P1-P3 landings to main; truly-green merge. THIS is the ask's finish line: 'graduated and merged'. The successor's checkout of main then carries everything."
     status: pending
-    depends_on: [p3-journey-the-keeps]
+    depends_on: [p3-journey-the-keeps, p3b-synthetic-contamination-scan]
   - id: p5-spend-the-corpus
     content: "Disposition of the spent bytes per owner retention policy (knowledge retained = source spent): run the provenance check (0 violations required), write the pass-level watermark record ('swept through T'), then archive-move or delete. OWNER CARD embedded here: the 7-day coordination window exists to protect a LIVE working stream — with primary development moving off this checkout, does the owner rule move-all-after-absorption, or keep the windows for whatever fleet activity remains on this machine? Also card: archive vs delete for the heartbeat bytes."
     status: pending
