@@ -217,7 +217,7 @@ each thread record; this table is the repo-level index.
 | `mcp-agent-facing-content` | Audit + classified registry of repo-controlled content reaching MCP consumers (the effective agent prompt); distinct from `data-sources-governance` (DATA sources). Deliverables + lane history: thread record | [record](threads/mcp-agent-facing-content.next-session.md) | claude-code / claude-fable-5 / Urchin hunts Surf / implementer — MCP-103(a) delta-refresh MERGED (#476) / 2026-07-22 (chain: thread record) |
 | `upstream-api-alignment` | Realign SDK/MCP (and bulk export) to the evolving upstream Oak API + a repeatable observable process. Programmes-family instance shipped on PR #291 (`merge=CLEAN`, awaiting owner merge); process graduated to a permanent runbook | [record](threads/upstream-api-alignment.next-session.md) | claude / claude-opus-4-8[1m] / Vanilla stirs Spore / implementer — successor to Bonfire turns Basalt; WS2+WS4+WS6 landed, review triage cleared / 2026-07-01 |
 | `design-system-integration` | AIP-137: the Claude-Design-exported design system as a first-class integrated system (ADR-213 — repo home + studio seat, bidirectional sync); kit landing, four-theme contrast gate, hub migration (§6 slices), studio sync-back batch. Live lane state, owner rulings, and the fidelity register live in the thread record and the drive's handoff records. | [record](threads/design-system-integration.next-session.md) | claude-code / claude-fable-5 / Thyme weaves Hedgerow (762020) / design-showcase lane, MCP-372 carrier / 2026-07-30 (succession → Sycamore herds Xylem 028dc4 staged at owner word; seat chain: thread record) |
-| `agentic-engineering-enhancements` | Practice continuity and temporary curation — the multi-lane doctrine/consolidation thread. Lane history lives in the thread record's sections and identity table; this row is the index pointer only (latest lane: the 2026-07-31 comms-corpus full-journey knowledge-transfer run, Ingot tracks Slag be4ac9 — successor-checkout circumstance, P0 roll-up merged + P1 census/aggregate landed, P2+ live; detail §Next Safe Steps 0b, prior pass §0a). | [record][agentic] | claude-code / claude-fable-5 / Ingot tracks Slag (be4ac9) / curator — comms-corpus knowledge transfer / 2026-07-31 (prior lanes: thread record) |
+| `agentic-engineering-enhancements` | Practice continuity and temporary curation — the multi-lane doctrine/consolidation thread. Lane history lives in the thread record's sections and identity table; this row is the index pointer only (latest lane: the 2026-07-31 comms-corpus full-journey knowledge-transfer run, Ingot tracks Slag be4ac9 — COMPLETE, all phases discharged, knowledge on main via PR 668 + closing record PR 670; detail §Next Safe Steps 0b, prior pass §0a). | [record][agentic] | claude-code / claude-fable-5 / Ingot tracks Slag (be4ac9) / curator — comms-corpus knowledge transfer / 2026-07-31 (prior lanes: thread record) |
 | `statusline-enhancements` | Claude Code statusline: Oak-mark + session-shape indicators (complete); **primary/worktree location rows + rate-limit gauges with reset countdowns DELIVERED 2026-06-29** (`708cd57fc`); logo lane PAUSED (owner). Future lanes: COLUMNS/LINES responsive layout, research-doc refresh, trace-log observability (deprioritized — root cause upstream). Branch divergence RESOLVED (stale local branches deleted; all on main). Detail: thread record | [record][statusline] | claude / claude-fable-5 / Magma mends Sulphur / curator — record hygiene at the 2026-07-23 consolidation / 2026-07-23 ← Wyvern seeks Clinker / footer-PR-badge diagnostic / 2026-07-06 (earlier identities: thread record) |
 | `agent-naming` | PDR-027 display-name derivation: versioned schema registry, session-hook identity surfaces, wordlist eras (v2 landed; v3 + era-pinning cure queued; v3 plan now cross-linked to the knowledge-distribution-substrate direction) | [record][agent-naming] | claude / Opus 4.8 (1M) / Tuna stirs Fathom / v3-plan deep-dive + substrate-connection cross-link (no source touched) / 2026-06-30 ← claude / Opus 4.8 / Squall hunts Troposphere / thread-open + v3-plan-author / 2026-06-13 (prior identities: thread record) |
 | `agent-operability` | Agents operable in their own worktrees: launch-in-worktree as the derived `(identity→worktree→branch)` binding, worktree lifecycle (create/build/draft-PR/cleanup), seat-in-the-brief. Member of the agent-team-operations cluster. **Controlling plan ready to build (owner-approved 2026-06-28); thread record stood up + branch/ground reconciled to post-merge reality (enablers committed on `docs/consolidations`) 2026-07-01.** Ground on `docs/consolidations`; next: cwd-confirmation smoke-test → Phase 1A. | [record][agent-operability] | claude / Opus 4.8 (1M) / Tuna stirs Fathom / thread-record orphan-fix + branch reconcile (no build) / 2026-07-01 |
@@ -425,19 +425,25 @@ F-41 CLI tail).
    (Siren lifts Trench), 2026-07-14 (Dolphin weaves Reef — PDR-127/128),
    2026-07-08 (Corsair guards Channel), 2026-07-06 (Zenith wakes Perigee),
    2026-07-02 (Rosemary stirs Bracken).
-0b. **Comms-corpus full-journey knowledge-transfer run: IN PROGRESS 2026-07-31
-   (Ingot tracks Slag, be4ac9; owner-ratified plan
-   `plans-backlog-2026-07/agentic-engineering-enhancements/current/comms-corpus-full-journey-knowledge-transfer.plan.md`
-   — read its todos for live phase state).** Circumstance: primary development
-   moves to a successor on a different checkout; every comms event of every
-   type journeys to graduated-and-merged. P0 DONE: the 2026-07-30 pass's
-   graduations reached main via PR 662 (merge `529711891`). P1 DONE: census +
-   once-extracted heartbeat aggregate committed in
-   `reports/agentic-engineering/comms-corpus-knowledge-transfer/discovery-report-2026-07-31.md`
-   (P2 read surface: 2,251 body-read events + 177 re-verify). This run
-   discharges §0a's comms archive-move residual at its P5 (watermark +
-   provenance gates), and its §Future doctrine seed surfaces the multi-machine
-   PDR candidate at completion.
+0b. **Comms-corpus full-journey knowledge-transfer run: COMPLETE 2026-07-31
+   (Ingot tracks Slag, be4ac9).** Every phase discharged and verified: the
+   knowledge merged to main via PR 668 (`103af40ea`), the closing record via
+   PR 670; P5 spend executed per owner cards (4,879 events deleted through
+   2026-07-28T15:18:57Z, zero fingerprint hits, 3,592 retained in the live
+   3-day window — this DISCHARGES §0a's comms archive-move residual); P7
+   cold-reader probe 30/30 zero misses. The completed plan
+   (`plans-backlog-2026-07/agentic-engineering-enhancements/current/comms-corpus-full-journey-knowledge-transfer.plan.md`)
+   carries the full phase evidence and the keep-set recipe; the discovery
+   report
+   (`reports/agentic-engineering/comms-corpus-knowledge-transfer/discovery-report-2026-07-31.md`)
+   is the permanent run record (census, pipeline, five-class ontology +
+   accepted critique, tiered-sight articulation, spend/probe records).
+   Successor bounds, stated: comms events younger than the 3-day window were
+   NOT processed by this run (they are the live stream); the plan's
+   archive-move from `current/` is the next curation pass's routine act; the
+   §Future doctrine seed (tiered-sight / multi-machine PDR candidate) is on
+   the Director's map with the seven routed doctrine seeds (estate ARC,
+   2026-07-31T13:47Z).
 2. The relative-link integrity item is accepted as a future validator lane, not
    implemented tooling; promote the plan only on its recorded trigger.
 2a. `agent-collaboration.md` is hard-over on lines (380/360) after the injected-asymmetry doctrine

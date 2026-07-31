@@ -208,6 +208,13 @@ tool retires them.
   is a deletion exercise with data-governance weight. The free-to-fix
   window closes at the first event — configure retention in the same
   change that enables collection.
+- **Two whole-repo gate suites racing on one checkout can strand a Next
+  build lock**: `next build` refuses with "Another next build process is
+  already running" even after the racing process is gone (observed when a
+  peer's pre-commit gate overlapped a merge-commit gate on the shared
+  primary, 2026-07-31). Check `pgrep -fl "next build"` — if nothing is
+  live, the lock is stale residue and ONE retry succeeds; the singleton
+  gate-runner discipline is the prevention.
 - **A Vercel function boot-throw serves 500 `FUNCTION_INVOCATION_FAILED`
   with ZERO runtime logs** — the throw happens before the logger exists,
   so "no logs" is itself the signature: check module-load/boot-path code
