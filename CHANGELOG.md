@@ -1,3 +1,10 @@
+## [1.127.6](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.127.5...v1.127.6) (2026-07-31)
+
+
+### Bug Fixes
+
+* **agent-tools:** gate-expiry drift alerts persistently without blocking ([e06d156](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e06d156c026b7cbc5585420998467feaad21b427))
+
 ## [1.127.5](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.127.4...v1.127.5) (2026-07-31)
 
 ## [1.127.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.127.3...v1.127.4) (2026-07-31)
