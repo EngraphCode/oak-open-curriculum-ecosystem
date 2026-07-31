@@ -160,6 +160,14 @@ amendment below); a gate without an
 absolute expiry; `superseded` without `superseded_by`; and an empty corpus
 (zero plans is a failure, never a vacuous green).
 
+**Gate-expiry drift (dated amendment 2026-07-31, owner-ruled)**: expired
+owner gates on live plans (`sketch`, `ratified`) are surfaced by a
+dedicated NON-BLOCKING instrument — `check-plan-gate-drift`, run as
+`pnpm plan-gates:check` and by the session-open alert hook — which
+repeats persistently, with resolution instructions, until the gate rows
+change. It never blocks commits or CI; the conformance validator above
+stays a deterministic function of repo content, with no clock input.
+
 **Dated amendment (2026-07-31, owner-ratified at the knowledge-estate
 sitting; ADR-221 lens-4 resolution)**: the delivery-ticket requirement
 is **operator policy, not a public-schema constant** — an
