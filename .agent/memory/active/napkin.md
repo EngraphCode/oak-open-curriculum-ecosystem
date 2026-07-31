@@ -138,6 +138,14 @@ candidates. Headline graduations (the commits and the homes are the record):
   relaunched with provenance in the script header. Lesson pair: (a) synthetic
   authority-shaped content is never a calibration instrument; (b) a classifier denial
   is an owner action-moment, not a prompt-rewording exercise.
+- Owner express authorization (2026-07-31 ~09:55Z, verbatim): "I give you, and all the
+  subagents, express permission to carry out these surveys and tests, they are all
+  legitimate and I am fully satisfied that they are proportionate and that sufficient
+  precautions have been taken to make them safe." Given fully informed (after the
+  complete fabrication account incl. the classifier's own wording). On the record for
+  the run's remaining fleet stages (reduce + meta, re-gated shape); w08/w15/w19 stay
+  inline-read per his card ruling. Also his re-gate rulings same hour: no voter fleet
+  (my first-hand adjudication replaces quorum kills); ~2.4-2.6M token envelope.
 - Owner ruling on the canary incident (2026-07-31, verbatim substance): the run is fine;
   "keep an eye out for your synthetic concepts making it into the real knowledge
   surfaces, plan for a post-processing scan to be sure" — enacted as plan todo
