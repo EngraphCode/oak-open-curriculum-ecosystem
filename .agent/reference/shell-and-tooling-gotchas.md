@@ -119,3 +119,60 @@ tool retires them.
   line is read literally. Read that line before diagnosing; the
   pre-draft `check-commit-message` step in the commit skill collapses
   the whole layer.
+
+## 2026-07-30 consolidation batch (each measured first-hand in the 07-24→30 window)
+
+- **zsh does not word-split unquoted variables** (third monitor-recipe
+  instance — the row is now owed): `for c in $CLAIMS` iterates ONCE with
+  the whole string; four GraphQL ids went as one malformed argument.
+  Iterate literal values or `printf '%s\n' … | while read`. Sibling:
+  `${PIPESTATUS[0]}` is a bashism that expands EMPTY in zsh — the piped-
+  exit trap in a fourth costume.
+- **pnpm re-appends the literal `--` at EACH forwarding layer**: a root
+  alias forwarding through a workspace script delivers `['--', …]` to the
+  leaf bin, and an arg scanner reading leading `--` as its terminator sees
+  nothing. Drop the `--`; smoke the full script chain shell-level.
+- **turbo parses bare `--force` as value-taking** and eats the task name
+  (`turbo run --force sdk-codegen` runs nothing); use `--force=true`.
+- **`spawnSync` timeout sets BOTH `error` (ETIMEDOUT) and `signal`** — an
+  error-first branch swallows the captured streams the signal branch's
+  diagnostics were added for; compose stream excerpts into both.
+- **`join(root, dir)` silently mangles absolute dirs** (`join('/repo',
+  '/abs')` → `/repo/abs`); `resolve(root, dir)` is the cure; every
+  path-taking CLI option earns one absolute-input test.
+- **esquery selector regexes mute on raw slashes**: `Literal[value=/a//]`
+  parses and lint runs green but the selector NEVER fires (the `/`
+  delimiter truncates it). Escape `/` inside `String.raw`, write
+  escape-bearing config via a script, and prove it with a negative
+  control (tmp file with the banned literal → expect the error).
+- **A backtick in an inline `--body` is a live command substitution**:
+  zsh executed a phrase out of a doctrine sentence mid-send and the event
+  landed mangled at exit 0. `--body-file` is the only quoting-safe
+  transport for non-trivial bodies.
+- **`git add -- <deleted-path>` fatals (exit 128) when the deletion is
+  already staged** — pathspec matches nothing and the whole add aborts;
+  add only paths that exist on disk. And `git status --porcelain`
+  collapses untracked DIRECTORIES — enumerating files needs `-uall`.
+- **BSD grep -E has no `\s`** and a mis-quoted retry can still undercount
+  with a clean exit — calibrate any counting instrument against a KNOWN
+  count first; prefer a real parse (`matchAll`) over line-regex on
+  structured sources.
+- **Codex seat salvage paths**: a stopped Codex seat's opening prompt
+  (including any relayed predecessor plan) survives verbatim in
+  `~/.codex/history.jsonl` and `~/.codex/sessions/<date>/rollout-*.jsonl`;
+  distilled tenure summaries in `~/.codex/memories/rollout_summaries/`.
+  A 6-char PDR-027 prefix can span MULTIPLE relaunched platform sessions —
+  prefix-identity is coarser than session-identity at the platform layer.
+- **Google Docs under browser automation**: the canvas editor swallows
+  synthetic input while the tool reports success — treat Docs as
+  READ-ONLY (deliver content as paste-ready blocks). The `/mobilebasic`
+  render is the reliable read surface, but it renders ACCEPTED text only:
+  an absence verdict ("the doc lacks X") also requires the
+  comment/suggestion history panel, where a full draft section can live
+  invisible to mobilebasic.
+- **An open-range dependency override (`>=X`) is a standing exposure, not
+  a one-shot test subject**: its resolution is a moving target, so a
+  survivability test can pass at authoring and fail a day later with zero
+  repo changes (measured: froze at 4.0.40 on the 29th, floated to 5.0.14
+  breaking two more packages on the 30th). The cheapest durable state is
+  not having the override.

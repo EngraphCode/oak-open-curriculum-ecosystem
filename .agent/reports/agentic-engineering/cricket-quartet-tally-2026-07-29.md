@@ -38,6 +38,20 @@ frame-provenance cure, the standing-rule adjudication principle, the ABSORBED /
 ROUTED-AWAY frame split, tier-dependent severity mapping, the compiled-procedure
 domain check, and the (n=1) identical-re-ask instability signal.
 
+Pair-era delivery calibration, consolidated from the 2026-07-29 napkin at the
+2026-07-30 dedicated pass (dispatcher-side facts the quartet era inherits):
+the re-ask instability signal reached n=2 with a second mechanism — a
+deliver-your-verdict PING itself induced a re-run that contradicted the
+already-composed verdict (haiku leg, ~10:38Z), so an idle haiku leg is cheaper
+counted undelivered than pinged; the same delivery-only nudge is proven SAFE
+on sonnet (delivered the composed verdict, no re-run — asymmetry measured
+~11:12Z). Delivery-rate is its own tally axis, distinct from verdict quality
+(round 3 ran 1 delivered / 3 idle-without-delivery; the retrieval-first
+SendMessage ladder — MCP-386 — later recovered boundary-trapped verdicts at
+100% across n=10). Intra-model ordering advice is low-consensus (two sonnet
+redirections contradicted each other on ordering in one round); verdict
+agreement is the strong signal.
+
 ## Quartet runs
 
 Verdict key: ON = ON-TRACK, DR = DRIFTING, WP = WRONG-PRIORITY. One row per quartet

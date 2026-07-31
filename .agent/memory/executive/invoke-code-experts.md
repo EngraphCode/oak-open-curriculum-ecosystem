@@ -369,6 +369,21 @@ to their own frame). Composes with the frame clause below: specialist
 review validates correctness WITHIN a frame — tier choice decides whether
 anyone in the fleet can reject the frame at all.
 
+**Review instruments see STRATA, not depth-scalars — keep the cheap and
+literal instruments in the loop, and listen hardest when they disagree
+with the expensive ones** (consolidated 2026-07-30 from four-plus
+instances in one week): a lockfile-literal reviewer caught the one
+factual error in an ADR that three Opus specialists waved past; a bot's
+suppressed low-confidence notes found four real cross-document
+contradictions after two Opus experts and the author had read the same
+files; a dispatch-gate read settled a vendor-behaviour question two
+rounds of careful experts had studied from the wrong layer; a compiled
+xhigh procedure on the cheapest cricket seat caught a commitment-vs-
+artefact gap seven deeper seats graded ON-TRACK. Depth buys frame
+judgement; literalness buys stratum coverage — neither substitutes for
+the other, and a cheap instrument's dissent from an expensive consensus
+is a signal to investigate, never noise to average away.
+
 ### Codex Reviewer Adapter Preflight
 
 When running reviewer workflows in Codex, do not assume the runtime has
