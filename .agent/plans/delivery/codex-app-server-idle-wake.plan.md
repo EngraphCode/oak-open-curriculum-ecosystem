@@ -88,6 +88,14 @@ closed error and reveal no event body, metadata, or existence. A correlation
 cannot be refreshed or delegated; if it persists in model-visible history it
 is already spent or becomes useless when its native wake turn ends. A crash
 between spend and return is indeterminate and never reissues the correlation.
+Correlation expiry and native-turn completion are state-machine inputs, not
+passive clocks. They race atomically with `read_event`: if an unused
+correlation loses that race, the broker revokes it and transfers the still
+unread outbox entry from native `notified` custody to the bounded foreground
+retrieval owner in one transaction. Failed owner acceptance keeps native
+custody and blocks turn retirement; an indeterminate spend is quarantined
+rather than replayed. No terminal or waiting state may retain an unused expired
+correlation without a live retrieval owner.
 
 The body and model-authored wake content are excluded from rollout persistence,
 thread history, compaction summaries, and every later ordinary-turn context.
@@ -126,20 +134,24 @@ tuple shape fixed by its profile, and one value from each small broker-owned
 `disposition` and `next_action` enum. The schema has no optional keys,
 variable-length lists, arbitrary strings, source excerpts, `other` value, or
 extension point. The receipt is bound to the same root, thread, turn, and event;
-once that receipt is identified, its first answer attempt spends it on success
-or failure before comparison, so mismatch cannot become an oracle. The broker
-rejects a bare status, an unissued choice, a replay, or an invalid combination.
-On success it renders a fixed body of at most 192 UTF-8 bytes containing only
-broker vocabulary; neither the tuple nor raw canary content is emitted. The
-broker audit records the challenge-template version, answer commitment,
-selected-tuple digest, match result, and turn binding, not either raw tuple or a
-duplicate event body. Thus event text can influence the bounded selection after
-it is read, but cannot add free-form egress bytes, choose a route, or broaden the
-capability.
+once that receipt is identified, its first answer attempt enters one durable
+broker transaction. The transaction atomically spends the receipt on success
+or failure, records the bounded comparison outcome, and—on success—commits a
+sanitised acknowledgement intent containing the deterministic event ID, exact
+source/root/thread/turn binding, engagement tuple, and broker-rendered body. If
+that commit fails, neither the spend nor intent exists. This makes mismatch a
+one-attempt result without leaving a successful spend stranded before durable
+dispatch state. The broker rejects a bare status, an unissued choice, a replay,
+or an invalid combination. On success it renders a fixed body of at most 192
+UTF-8 bytes containing only broker vocabulary; neither the tuple nor raw canary
+content is emitted. The broker audit records the challenge-template version,
+answer commitment, selected-tuple digest, match result, and turn binding, not
+either raw tuple or a duplicate event body. Thus event text can influence the
+bounded selection after it is read, but cannot add free-form egress bytes,
+choose a route, or broaden the capability.
 
-Before dispatch, the controller persists the engagement tuple and a
-deterministic acknowledgement event ID derived from the source event and root
-binding. The broker creates one bounded canonical broadcast reply whose sole
+The controller dispatches only from that committed acknowledgement intent,
+never from an in-memory tool result. The broker creates one bounded canonical broadcast reply whose sole
 source reference is the constrained `in_response_to` field; event-declared
 author and route remain provenance claims and cannot select a target. On an
 existing event ID, exact source ID, digest, binding, engagement tuple, and
@@ -154,8 +166,11 @@ idempotency without generic tools, the plan may prove `NOTIFY` only and must not
 claim `ABSORB` or end-to-end completion.
 
 A small deterministic state machine records `captured`, `pending`,
-`dispatching`, `notified`, `read`, `acknowledged`, `indeterminate`, and terminal
-failure. The first vertical slice uses native atomic start-if-idle for
+`dispatching`, `notified`, `read`, `ack_intent`, `replied`, `handover`,
+`quarantined`, `indeterminate`, and terminal failure. Correlation expiry and
+turn completion must leave `notified` through the atomic owner-transfer rule
+above; committed `ack_intent` is the sole input to reply dispatch and survives
+controller restart. The first vertical slice uses native atomic start-if-idle for
 a fixed notification-only turn and queues every rejected or non-idle event. A
 simultaneous TUI start must win without receiving wake input or wake settings.
 Brokered read and acknowledgement follow only after their capability boundary
@@ -252,17 +267,22 @@ an idle-wake claim.
   persists each event in a supervisor-owned outbox with one retrieval owner
   before advancing the canonical cursor, rebinds the exact native extension and
   live thread, rejects a stale or retired thread, drains unseen comms before
-  waiting, and reconciles native wake and broker acknowledgement after a crash
-  or upgrade. Incompatibility, retirement, and indeterminate dispatch
-  atomically fence native dispatch and transfer every unresolved outbox entry
-  to the bounded foreground path; that path drains the shared outbox before
-  unseen canonical traffic and quarantines rather than replays indeterminate
-  work. A failed handover cannot release native ownership or complete
-  retirement.
+  waiting, and reconciles native wake, correlation expiry/turn completion, the
+  durable acknowledgement intent, and canonical reply after a crash or upgrade.
+  An unused token's expiry or turn completion, plus incompatibility,
+  retirement, and indeterminate dispatch, atomically fence native dispatch and
+  transfer every safely unread outbox entry to the bounded foreground path;
+  that path drains the shared outbox before unseen canonical traffic and
+  quarantines rather than replays indeterminate work. A failed handover cannot
+  release native ownership or complete retirement. A committed acknowledgement
+  intent is replayed idempotently to its deterministic event ID and is never
+  reconstructed from model output or a spent receipt.
   Proof: `repo-safe` — process-boundary and retrieval-handover integration tests
   covering crash points before and after cursor advance, native wake
-  acceptance, owner transfer, and canonical reply acknowledgement, with
-  no-gap, no-duplicate, and indeterminate-quarantine assertions.
+  acceptance, unused-token expiry, native-turn completion, receipt-spend plus
+  acknowledgement-intent commit, owner transfer, and canonical reply
+  acknowledgement, with no-gap, no-duplicate, and indeterminate-quarantine
+  assertions.
 - **The control plane is local, bounded, and single-owner.** One native
   extension/controller pair owns a seat at a time; it uses a private runtime
   directory and a non-symlink, current-user-owned local Unix socket, validates
@@ -315,8 +335,9 @@ an idle-wake claim.
   Proof: `repo-safe` — user-role exclusion, adversarial prompt,
   receipt-before-ack, non-persistence/compaction, later-turn exclusion,
   source-ID prompt/history/tool exclusion, turn-bound single-use and replay
-  rejection, uniform closed errors, deterministic reply ID and collision
-  read-back, closed challenge/output schema, sticky-permission,
+  rejection, uniform closed errors, unused-expiry/turn-completion handover,
+  atomic-spend-plus-ack-intent, deterministic reply ID and collision read-back,
+  closed challenge/output schema, sticky-permission,
   ambient-tool-denial, active-turn capability absence, provider-policy,
   redaction, and next-turn-restoration tests;
   `owner-held` — the live canary confirms no side effect beyond the constrained
@@ -358,8 +379,8 @@ an idle-wake claim.
   circuit breaker quarantine overload. A durable tombstone makes retirement
   irreversible across reconnect and supervisor restart.
   Proof: `repo-safe` — fake-secret/PII, data-classification, provider-retention,
-  mutation, disk-failure, flood, overload, ephemeral-context, tombstone, and
-  stale-process tests.
+  mutation, transaction-disk-failure, unused-correlation expiry, turn-close,
+  flood, overload, ephemeral-context, tombstone, and stale-process tests.
 
 ## Todos
 
@@ -395,12 +416,15 @@ an idle-wake claim.
   `acknowledge_event` capabilities, ephemeral non-compacting read context,
   provider-policy checks, turn-bound single-use correlations, discriminating
   routine closed-choice acknowledgements, the controller-selected owner-held
-  64-symbol proof-canary profile, pre-persisted deterministic acknowledgement
-  IDs, exact collision read-back, fixed-schema non-targeted canonical reply
-  egress, and the full user-facing route for every supported app-server request
-  class. Prove the canary tuple is verifier-minted, independently uniform,
-  absent from notification and metadata surfaces, never broker-filled, and
-  accepted only as one fixed-shape first attempt. Prove both capabilities are
+  64-symbol proof-canary profile, atomic receipt-spend plus durable
+  acknowledgement-intent commit, deterministic acknowledgement IDs, exact
+  collision read-back, fixed-schema non-targeted canonical reply egress, and
+  the full user-facing route for every supported app-server request class.
+  Prove the canary tuple is verifier-minted, independently uniform, absent from
+  notification and metadata surfaces, never broker-filled, and accepted only
+  as one fixed-shape first attempt. Prove unused-correlation expiry and native
+  turn completion atomically transfer the unread outbox entry to foreground
+  custody, while indeterminate spend quarantines. Prove both capabilities are
   installed only on a newly reserved isolated wake turn; active, review,
   compaction, Plan, pending-trigger, and ambiguous states continue to queue.
 - **D — live canary and discoverability (round budget: at most two review
@@ -408,8 +432,9 @@ an idle-wake claim.
   brokered absorption/acknowledgement, simultaneous TUI start, interactive
   request routing with reversible non-persistent decisions, queue-while-active
   followed by isolated idle delivery, routine acknowledgement without an
-  `ABSORB` claim, the precommitted one-attempt proof-canary match, fallback
-  handover, fake-secret containment, retirement, and restart recovery.
+  `ABSORB` claim, the precommitted one-attempt proof-canary match,
+  expiry/turn-close handover, crash after receipt spend, durable-intent replay,
+  fallback handover, fake-secret containment, retirement, and restart recovery.
   Only after the pinned-extension exit-path gate is cleared, update the
   canonical operating rule and generated bootstrap; retain the explicit bounded
   manual foreground path for unsupported harnesses.
