@@ -1,3 +1,10 @@
+## [1.127.7](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.127.6...v1.127.7) (2026-07-31)
+
+
+### Bug Fixes
+
+* **agent-tools:** enforce the delivery-ticket rule as derived anchoring consistency ([e143734](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e143734f097759f80046a5050f640815d5367459))
+
 ## [1.127.6](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.127.5...v1.127.6) (2026-07-31)
 
 
