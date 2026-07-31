@@ -108,6 +108,26 @@ home of durable knowledge; nothing general joins the submission project
 (enacted at capture: MCP-446/447 moved off it); every P3 graduation lands a
 repo home first, with any ticket carrying only the pointer.
 
+## Future doctrine seed (owner intent, 2026-07-31)
+
+This plan "will form the basis of a future policy, doctrine, skill" — as the
+work spreads to more machines, the estate "will need to pay much more
+attention to keeping that shared state knowledge current across those
+machines." The execution is therefore ALSO a doctrine-harvest: the executor
+records, as they run it, the generalisable shape — which state classes are
+legitimately machine-local (ephemeral coordination) versus knowledge that
+must flow to the repo; what the currency invariant is (nothing load-bearing
+exists only on one machine); and what standing cadence/mechanism replaces
+this one-off rescue (the "journey to merged" as a continuous pipeline, not a
+salvage). At completion, that harvest surfaces as a **PDR candidate**
+(Practice-governance, multi-machine — the adopter-scope test says PDR, not
+ADR), with a skill-shaped operational companion if the cadence needs a
+runnable workflow. Adjacent doctrine it must reconcile with, not duplicate:
+PDR-094 (comms substrate + retention), ADR-199 (untracked-by-design state —
+a decision made when one machine WAS the estate; this circumstance exposes
+its boundary), works-for-any-user-any-machine, and the durability hierarchy
+(only permanent docs are durable).
+
 ## Non-goals
 
 - No successor-facing briefing document is authored here — the homes on main

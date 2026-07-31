@@ -104,3 +104,11 @@ candidates. Headline graduations (the commits and the homes are the record):
   the constraint is a standing line in the plan above. Route onward: fold into the
   ticket-management skill / linear-hygiene doctrine at repo grain (this entry is the
   capture; the skill amendment is the graduation).
+- **Doctrine-seed ruling**: "this plan will form the basis of a future policy, doctrine,
+  skill... as the work spreads to more machines, we will need to pay much more attention to
+  keeping that shared state knowledge current across those machines." The plan now carries a
+  §Future doctrine seed section binding its executor to harvest the generalisable shape
+  (machine-local vs repo-bound state classes; the nothing-load-bearing-on-one-machine
+  invariant; the standing pipeline replacing one-off rescue) as a PDR candidate at
+  completion, reconciling with PDR-094 / ADR-199 / any-machine doctrine rather than
+  duplicating them.
