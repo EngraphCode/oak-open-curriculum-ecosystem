@@ -4,10 +4,13 @@ import { join } from 'node:path';
 
 import { err, isErr, ok, type Result } from '@oaknational/result';
 
+import { findRequiredStandaloneMarkerRange } from './team-alert-bootstrap-markers.js';
 import {
-  findOptionalStandaloneMarkerRange,
-  findRequiredStandaloneMarkerRange,
-} from './team-alert-bootstrap-markers.js';
+  projectionTargetMarkerDefect,
+  renderAgentsWithTeamAlertProjection,
+} from './team-alert-bootstrap-render.js';
+
+export { AGENTS_PROJECTION_END, AGENTS_PROJECTION_START } from './team-alert-bootstrap-render.js';
 
 /** Canonical source for the projected Codex team-alert tripwire. */
 const CANONICAL_RULE_PATH = '.agent/rules/use-monitor-for-event-driven-wake.md';
@@ -19,18 +22,9 @@ export const AGENTS_PATH = 'AGENTS.md';
 export const SOURCE_PROJECTION_START = '<!-- CODEX_TEAM_ALERT_BOOTSTRAP_SOURCE_START -->';
 export const SOURCE_PROJECTION_END = '<!-- CODEX_TEAM_ALERT_BOOTSTRAP_SOURCE_END -->';
 
-/** Delimiters around the generated projection in AGENTS.md. */
-export const AGENTS_PROJECTION_START = '<!-- CODEX_TEAM_ALERT_BOOTSTRAP_GENERATED_START -->';
-export const AGENTS_PROJECTION_END = '<!-- CODEX_TEAM_ALERT_BOOTSTRAP_GENERATED_END -->';
-
 /** Keep the auto-loaded projection deliberately small for low-power seats. */
 export const MAX_PROJECTION_BYTES = 1_200;
 export const MAX_PROJECTION_LINES = 16;
-
-const REQUIRED_AGENTS_POINTERS = [
-  'Read [AGENT.md](.agent/directives/AGENT.md)',
-  'See [RULES_INDEX.md](RULES_INDEX.md) for the canonical rules list.',
-] as const;
 
 /** Filesystem seam used by generation and drift checking. */
 export interface TeamAlertBootstrapFileIo {
@@ -55,6 +49,10 @@ export function extractTeamAlertProjection(canonical: string): Result<string, Er
   const projection = extractMarkedProjection(canonical);
   if (isErr(projection)) {
     return projection;
+  }
+  const markerDefect = projectionTargetMarkerDefect(projection.value);
+  if (markerDefect !== undefined) {
+    return err(new Error(markerDefect));
   }
   const budgetDefect = projectionBudgetDefect(projection.value);
   return budgetDefect === undefined ? projection : err(new Error(budgetDefect));
@@ -113,48 +111,6 @@ function projectionBudgetDefect(projection: string): string | undefined {
   return undefined;
 }
 
-/** Insert or replace the generated AGENTS.md block without changing its static pointers. */
-export function renderAgentsWithTeamAlertProjection(
-  agents: string,
-  projection: string,
-): Result<string, Error> {
-  const missingPointer = REQUIRED_AGENTS_POINTERS.find((pointer) => !agents.includes(pointer));
-  if (missingPointer !== undefined) {
-    return err(new Error(`AGENTS.md is missing its required static pointer: ${missingPointer}`));
-  }
-
-  const range = findOptionalStandaloneMarkerRange(
-    agents,
-    AGENTS_PROJECTION_START,
-    AGENTS_PROJECTION_END,
-    {
-      duplicate: 'AGENTS.md may contain at most one generated Codex team-alert projection.',
-      incomplete: 'AGENTS.md Codex team-alert projection markers are incomplete.',
-      order: 'AGENTS.md Codex team-alert projection markers are out of order.',
-      standalone: 'AGENTS.md Codex team-alert projection markers must occupy complete lines.',
-    },
-  );
-  if (isErr(range)) {
-    return range;
-  }
-
-  const generatedBlock = [
-    AGENTS_PROJECTION_START,
-    '',
-    projection.trimEnd(),
-    AGENTS_PROJECTION_END,
-  ].join('\n');
-
-  if (range.value === undefined) {
-    return ok(`${agents.trimEnd()}\n\n${generatedBlock}\n`);
-  }
-
-  const afterEnd = range.value.endIndex + AGENTS_PROJECTION_END.length;
-  const rendered =
-    `${agents.slice(0, range.value.startIndex)}${generatedBlock}` + agents.slice(afterEnd);
-  return ok(`${rendered.trimEnd()}\n`);
-}
-
 /** Generate the committed AGENTS.md projection from the canonical rule. */
 export async function generateTeamAlertBootstrap(
   repoRoot: string,
@@ -200,14 +156,13 @@ async function renderFromRepo(
   if (isErr(canonical)) {
     return canonical;
   }
-  const agents = await readRequiredText(() => io.readAgents(repoRoot), AGENTS_PATH);
-  if (isErr(agents)) {
-    return agents;
-  }
-
   const projection = extractTeamAlertProjection(canonical.value);
   if (isErr(projection)) {
     return projection;
+  }
+  const agents = await readRequiredText(() => io.readAgents(repoRoot), AGENTS_PATH);
+  if (isErr(agents)) {
+    return agents;
   }
   const rendered = renderAgentsWithTeamAlertProjection(agents.value, projection.value);
   return isErr(rendered) ? rendered : ok({ actual: agents.value, rendered: rendered.value });

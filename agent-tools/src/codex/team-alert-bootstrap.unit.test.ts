@@ -5,14 +5,11 @@ import { describe, expect, it } from 'vitest';
 import { ok, unwrapErr } from '@oaknational/result';
 
 import {
-  AGENTS_PROJECTION_END,
-  AGENTS_PROJECTION_START,
   MAX_PROJECTION_BYTES,
   MAX_PROJECTION_LINES,
   SOURCE_PROJECTION_END,
   SOURCE_PROJECTION_START,
   extractTeamAlertProjection,
-  renderAgentsWithTeamAlertProjection,
 } from './team-alert-bootstrap.js';
 
 const PROJECTION = `## Codex team-session alert bootstrap
@@ -118,139 +115,6 @@ describe('extractTeamAlertProjection', () => {
     expect(unwrapErr(result).message).toBe(
       `Codex team-alert projection exceeds its ${MAX_PROJECTION_LINES}-line budget ` +
         `(${lineCount} lines).`,
-    );
-  });
-});
-
-describe('renderAgentsWithTeamAlertProjection', () => {
-  const baseAgents = [
-    '# AGENTS.md',
-    '',
-    'Read [AGENT.md](.agent/directives/AGENT.md)',
-    '',
-    'See [RULES_INDEX.md](RULES_INDEX.md) for the canonical rules list.',
-    '',
-  ].join('\n');
-
-  it('appends a delimited projection while preserving the static entry points', () => {
-    const result = renderAgentsWithTeamAlertProjection(baseAgents, PROJECTION);
-
-    expect(result).toStrictEqual(
-      ok(
-        [
-          baseAgents.trimEnd(),
-          '',
-          AGENTS_PROJECTION_START,
-          '',
-          PROJECTION.trimEnd(),
-          AGENTS_PROJECTION_END,
-          '',
-        ].join('\n'),
-      ),
-    );
-  });
-
-  it('replaces one existing projection and is idempotent', () => {
-    const stale = [
-      baseAgents.trimEnd(),
-      '',
-      AGENTS_PROJECTION_START,
-      'stale',
-      AGENTS_PROJECTION_END,
-      '',
-    ].join('\n');
-    const first = renderAgentsWithTeamAlertProjection(stale, PROJECTION);
-    const expected = renderAgentsWithTeamAlertProjection(baseAgents, PROJECTION);
-
-    expect(first).toStrictEqual(expected);
-    expect(
-      renderAgentsWithTeamAlertProjection(
-        [
-          baseAgents.trimEnd(),
-          '',
-          AGENTS_PROJECTION_START,
-          '',
-          PROJECTION.trimEnd(),
-          AGENTS_PROJECTION_END,
-          '',
-        ].join('\n'),
-        PROJECTION,
-      ),
-    ).toStrictEqual(expected);
-  });
-
-  it('rejects duplicate target markers', () => {
-    const duplicated = [
-      baseAgents,
-      AGENTS_PROJECTION_START,
-      'one',
-      AGENTS_PROJECTION_END,
-      AGENTS_PROJECTION_START,
-      'two',
-      AGENTS_PROJECTION_END,
-    ].join('\n');
-    const result = renderAgentsWithTeamAlertProjection(duplicated, PROJECTION);
-
-    expect(unwrapErr(result).message).toBe(
-      'AGENTS.md may contain at most one generated Codex team-alert projection.',
-    );
-  });
-
-  it.each([
-    ['duplicate start only', `${AGENTS_PROJECTION_START}\n`],
-    ['duplicate end only', `${AGENTS_PROJECTION_END}\n`],
-  ])('rejects %s in AGENTS.md', (_label, extraMarker) => {
-    const malformed = [
-      baseAgents,
-      AGENTS_PROJECTION_START,
-      'one',
-      AGENTS_PROJECTION_END,
-      extraMarker,
-    ].join('\n');
-
-    expect(unwrapErr(renderAgentsWithTeamAlertProjection(malformed, PROJECTION)).message).toBe(
-      'AGENTS.md may contain at most one generated Codex team-alert projection.',
-    );
-  });
-
-  it('rejects incomplete target markers', () => {
-    const incomplete = `${baseAgents}${AGENTS_PROJECTION_START}\n`;
-
-    expect(unwrapErr(renderAgentsWithTeamAlertProjection(incomplete, PROJECTION)).message).toBe(
-      'AGENTS.md Codex team-alert projection markers are incomplete.',
-    );
-  });
-
-  it('rejects target markers that are out of order', () => {
-    const outOfOrder = [baseAgents, AGENTS_PROJECTION_END, 'content', AGENTS_PROJECTION_START].join(
-      '\n',
-    );
-
-    expect(unwrapErr(renderAgentsWithTeamAlertProjection(outOfOrder, PROJECTION)).message).toBe(
-      'AGENTS.md Codex team-alert projection markers are out of order.',
-    );
-  });
-
-  it.each([
-    ['prefixed start marker', AGENTS_PROJECTION_START, `prefix${AGENTS_PROJECTION_START}`],
-    ['suffixed start marker', AGENTS_PROJECTION_START, `${AGENTS_PROJECTION_START}suffix`],
-    ['prefixed end marker', AGENTS_PROJECTION_END, `prefix${AGENTS_PROJECTION_END}`],
-    ['suffixed end marker', AGENTS_PROJECTION_END, `${AGENTS_PROJECTION_END}suffix`],
-  ])('rejects a %s', (_label, marker, malformedMarker) => {
-    const agents = [
-      baseAgents.trimEnd(),
-      '',
-      AGENTS_PROJECTION_START,
-      '',
-      PROJECTION.trimEnd(),
-      AGENTS_PROJECTION_END,
-      '',
-    ]
-      .join('\n')
-      .replace(marker, malformedMarker);
-
-    expect(unwrapErr(renderAgentsWithTeamAlertProjection(agents, PROJECTION)).message).toBe(
-      'AGENTS.md Codex team-alert projection markers must occupy complete lines.',
     );
   });
 });

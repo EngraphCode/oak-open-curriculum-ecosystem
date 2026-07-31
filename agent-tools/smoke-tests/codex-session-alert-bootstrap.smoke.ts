@@ -1,8 +1,11 @@
 import { spawnSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { typeSafeGet } from '@oaknational/type-helpers';
+
+import { TEAM_ALERT_BOOTSTRAP_HELP_TEXT } from '../src/codex/team-alert-bootstrap-cli-args.js';
 
 const repoRoot = fileURLToPath(new URL('../..', import.meta.url));
 const hookPath = join(repoRoot, '.codex/hooks/practice-session-identity.mjs');
@@ -41,7 +44,13 @@ if (missing.length > 0) {
   process.exit(1);
 }
 
-process.stdout.write('codex-session-alert-bootstrap smoke: shipped hook context verified\n');
+verifyInvalidBootstrapInvocationDoesNotWrite();
+verifyHelpInvocationDoesNotWrite('--help');
+verifyHelpInvocationDoesNotWrite('-h');
+
+process.stdout.write(
+  'codex-session-alert-bootstrap smoke: shipped hook context and CLI refusal verified\n',
+);
 
 interface HookResponse {
   readonly hookSpecificOutput?: unknown;
@@ -83,4 +92,84 @@ function isHookResponse(value: unknown): value is HookResponse {
 
 function isHookSpecificOutput(value: unknown): value is HookSpecificOutput {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+function verifyInvalidBootstrapInvocationDoesNotWrite(): void {
+  const agentsPath = join(repoRoot, 'AGENTS.md');
+  const agentsBefore = readFileSync(agentsPath);
+  const invalid = spawnSync(
+    'pnpm',
+    ['--silent', 'codex-team-alert-bootstrap:generate', '--definitely-unknown'],
+    { cwd: repoRoot, encoding: 'utf8' },
+  );
+  const agentsAfter = readFileSync(agentsPath);
+
+  if (invalid.status === 0 || invalid.status === null) {
+    process.stderr.write(
+      `Invalid bootstrap invocation exited ${String(invalid.status)}:\n${invalid.stderr}`,
+    );
+    process.exit(1);
+  }
+  if (
+    !invalid.stderr.includes(
+      'Unsupported Codex team-alert bootstrap arguments: --definitely-unknown',
+    ) ||
+    !invalid.stderr.includes(TEAM_ALERT_BOOTSTRAP_HELP_TEXT)
+  ) {
+    process.stderr.write(
+      `Invalid bootstrap invocation omitted actionable help:\n${invalid.stderr}`,
+    );
+    process.exit(1);
+  }
+  if (/\n\s+at\s/u.test(invalid.stderr)) {
+    process.stderr.write(`Invalid bootstrap invocation leaked a stack trace:\n${invalid.stderr}`);
+    process.exit(1);
+  }
+  if (invalid.stdout.includes('Generated AGENTS.md')) {
+    process.stderr.write(`Invalid bootstrap invocation wrote success output:\n${invalid.stdout}`);
+    process.exit(1);
+  }
+  if (!agentsBefore.equals(agentsAfter)) {
+    process.stderr.write('Invalid bootstrap invocation changed AGENTS.md.\n');
+    process.exit(1);
+  }
+}
+
+function verifyHelpInvocationDoesNotWrite(helpFlag: '--help' | '-h'): void {
+  const agentsPath = join(repoRoot, 'AGENTS.md');
+  const agentsBefore = readFileSync(agentsPath);
+  const help = spawnSync('pnpm', ['--silent', 'codex-team-alert-bootstrap:generate', helpFlag], {
+    cwd: repoRoot,
+    encoding: 'utf8',
+  });
+  const agentsAfter = readFileSync(agentsPath);
+
+  if (help.status !== 0) {
+    process.stderr.write(
+      `Bootstrap ${helpFlag} invocation exited ${String(help.status)}:\n${help.stderr}`,
+    );
+    process.exit(1);
+  }
+  if (!help.stdout.includes(TEAM_ALERT_BOOTSTRAP_HELP_TEXT)) {
+    process.stderr.write(`Bootstrap ${helpFlag} invocation omitted full help:\n${help.stdout}`);
+    process.exit(1);
+  }
+  const expectedPnpmEcho = `$ tsx src/codex/team-alert-bootstrap-cli.ts ${helpFlag}\n`;
+  if (help.stderr !== expectedPnpmEcho || /\n\s+at\s/u.test(`${help.stdout}\n${help.stderr}`)) {
+    process.stderr.write(
+      `Bootstrap ${helpFlag} invocation emitted an unexpected error or stack trace:\n` +
+        `${help.stdout}${help.stderr}`,
+    );
+    process.exit(1);
+  }
+  if (help.stdout.includes('Generated AGENTS.md')) {
+    process.stderr.write(
+      `Bootstrap ${helpFlag} invocation wrote success-generation output:\n${help.stdout}`,
+    );
+    process.exit(1);
+  }
+  if (!agentsBefore.equals(agentsAfter)) {
+    process.stderr.write(`Bootstrap ${helpFlag} invocation changed AGENTS.md.\n`);
+    process.exit(1);
+  }
 }

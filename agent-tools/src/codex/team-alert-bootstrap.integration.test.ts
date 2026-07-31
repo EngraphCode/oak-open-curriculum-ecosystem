@@ -3,6 +3,8 @@ import { describe, expect, it } from 'vitest';
 import { err, ok, unwrapErr } from '@oaknational/result';
 
 import {
+  AGENTS_PROJECTION_END,
+  AGENTS_PROJECTION_START,
   checkTeamAlertBootstrap,
   generateTeamAlertBootstrap,
   type TeamAlertBootstrapFileIo,
@@ -80,6 +82,28 @@ describe('Codex team-alert projection generation', () => {
       ok({ upToDate: true }),
     );
   });
+
+  it.each([AGENTS_PROJECTION_START, AGENTS_PROJECTION_END])(
+    'rejects canonical projection containing %s without writing AGENTS.md',
+    async (targetMarker) => {
+      const writes: string[] = [];
+      const io: TeamAlertBootstrapFileIo = {
+        readCanonicalRule: () =>
+          Promise.resolve(ok(CANONICAL.replace(PROJECTION.trimEnd(), `text ${targetMarker} text`))),
+        readAgents: () => Promise.resolve(ok(BASE_AGENTS)),
+        writeAgents: (_repoRoot, content) => {
+          writes.push(content);
+          return Promise.resolve();
+        },
+      };
+
+      const failure = unwrapErr(await generateTeamAlertBootstrap(REPO_ROOT, io));
+      expect(failure.message).toBe(
+        'Codex team-alert projection must not contain AGENTS.md generated markers.',
+      );
+      expect(writes).toStrictEqual([]);
+    },
+  );
 
   it('preserves a reported read Error as the contextual cause', async () => {
     const sourceError = new Error('permission denied');
