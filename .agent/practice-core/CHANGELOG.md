@@ -4,6 +4,18 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [oak-open-curriculum-ecosystem] 2026-07-31 — knowledge strata and the concept layer (Falcon hunts Flight)
+
+- New PDR-134 (knowledge strata, carriers, and the concept layer), status
+  Proposed pending owner ratification. Names four generality strata with
+  homing questions, extends PDR-105's direction law to graph edges and
+  concept relations, fixes the three knowledge carriers (prose claims,
+  front-matter assertions, concept-scheme referents), and binds the concept
+  lifecycle (candidate → working → ratified; computed confidence vs
+  authored status, never conflated). Host phenotype: ADR-221 (the estate
+  knowledge graph) plus the `planning-and-intent-estate` strategic node,
+  presented for ratification together.
+
 ## [oak-open-curriculum-ecosystem] 2026-07-25 — liveness taxonomy (Torch mends Residue)
 
 - New PDR-133 (liveness classes and the Platform Liveness Declaration), status

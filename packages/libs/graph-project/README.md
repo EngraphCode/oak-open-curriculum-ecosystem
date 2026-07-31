@@ -12,9 +12,9 @@ invariant #6 in `graph-stack.plan.md` for the round-trip contract.
 
 ## Status
 
-Inc.1a WS3.1 establishes the scaffold only. The first product code and
-tests land in WS3.2 with the `toPropertyGraph` projection (load-bearing
-for invariant #6) and in WS3.3 with adjacency primitives.
+Landed capability: the `toPropertyGraph` and `fromPropertyGraph`
+projections and the adjacency primitives over projected nodes and
+edges.
 
 ## Architectural decisions
 

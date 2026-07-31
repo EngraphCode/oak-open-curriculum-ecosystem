@@ -6,9 +6,11 @@ workspace remains a reusable substrate library.
 
 ## Status
 
-Inc.1a WS2.1 establishes the scaffold only. The first product code and tests
-land in WS2.2 with `jsonld-compatible` ingestion and generic Turtle/SKOS
-parsing.
+Landed capability: `jsonld-compatible` ingestion, generic Turtle
+parsing, and source-path mapping. The remaining declared sub-paths
+(`strict-jsonld`, `plain-json-tree`, `records`, `node-edge-list`,
+`custom-mapping`) are pre-declared entrypoints whose implementations
+have not landed.
 
 ## Architectural decisions
 

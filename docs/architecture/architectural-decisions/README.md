@@ -466,6 +466,13 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   deferred behind ADR-199's archived-antecedent question, and unrendered, so the
   human-readable back-reference stays an authoring obligation; Accepted
   2026-07-30)
+- [ADR-221: The Estate Knowledge Graph — files-authoritative, named-graph strata, concept scheme](221-estate-knowledge-graph.md)
+  (the repo-stratum embodiment of PDR-134: authored files are authoritative and
+  the graph is a derived, per-home-recomputable index; the quad's graph name is
+  the public/operator seam with the clone test as a CI validator; PROV-O/SKOS/DC
+  vocabularies; the concept scheme lands with link-as-annotation; refines
+  ADR-200 (authority model) and ADR-216, amends ADR-173/ADR-041 by activation;
+  Proposed, born-sketch, 2026-07-31)
 
 ## Key Architectural Decisions
 

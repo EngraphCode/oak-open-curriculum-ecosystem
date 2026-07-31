@@ -19,12 +19,12 @@ overview: >
   (be4ac9), claim d0ba8352, n=2 with Director Falcon hunts Flight (52841f).
 todos:
   - id: p0-make-current-pass-durable-on-main
-    content: "Roll up coordination/estate-2026-07-30-c to main (cut branch from the tip, PR, truly-green merge per merge rulings — bot REST at settled; this seat executes if the Director is still paused). The 2026-07-30 pass's graduations (c89ce0fae + 5d31621aa) and Falcon's records currently exist ONLY on the coordination branch — invisible to a fresh checkout of main. Nothing else in this plan matters until this lands."
-    status: in_progress
+    content: "Roll up coordination/estate-2026-07-30-c to main (cut branch from the tip, PR, truly-green merge per merge rulings — bot REST at settled; this seat executes if the Director is still paused). The 2026-07-30 pass's graduations (c89ce0fae + 5d31621aa) and Falcon's records currently exist ONLY on the coordination branch — invisible to a fresh checkout of main. Nothing else in this plan matters until this lands. DONE 2026-07-31: PR 662 merged (529711891), 17/17 checks green, zero threads; snapshot branch deleted; c89ce0fae/5d31621aa/25fdb487e verified in main ancestry. (PR 661 was closed: opened under the wrong credential; recreated as 662 under the bot.)"
+    status: completed
     depends_on: []
   - id: p1-census-and-heartbeat-aggregate
-    content: "Mechanical census of the live corpus (by class/tag/author/day — jq, committed as a table in the discovery report). Then extract the heartbeat aggregate ONCE (~5,766 events → one committed section: cadence norms, seat roster over the window, label conventions, the by-intent stop/pause vocabulary in live use) following the 2026-07-23 precedent ('cadence aggregate extracted once, first'). After the aggregate, heartbeat bytes are spent."
-    status: pending
+    content: "Mechanical census of the live corpus (by class/tag/author/day — jq, committed as a table in the discovery report). Then extract the heartbeat aggregate ONCE (~5,766 events → one committed section: cadence norms, seat roster over the window, label conventions, the by-intent stop/pause vocabulary in live use) following the 2026-07-23 precedent ('cadence aggregate extracted once, first'). After the aggregate, heartbeat bytes are spent. DONE 2026-07-31: reports/agentic-engineering/comms-corpus-knowledge-transfer/discovery-report-2026-07-31.md — census conservation-checked (8,196 events; P2 read surface derived at 2,251 body-read + 177 re-verify; the 17 pre-07-23 tagged events reassigned to the body-read sweep), heartbeat aggregate extracted once (5,769 events, 46 seats)."
+    status: completed
     depends_on: [p0-make-current-pass-durable-on-main]
   - id: p2-coordination-class-sweep
     content: "The core: body-read-grade sweep of ~2,230 coordination/directed events + 515 pre-2026-07-23 residue + re-verification listing of the 195 knowledge-tagged (already absorbed 2026-07-30 — verify, don't re-extract). PROPOSED ENGINE (owner prices before execution): the estate's own corpus-analysis pipeline (PDR-122; corpus-mapper windows on an economical tier → corpus-reducer clustering → keep-set tier table with corroboratedBy home claims → corpus-meta home-verification), producing an immutable committed discovery report + keep-set — the sanctioned rescue-set shape (consolidate-docs §Discovery-Run Rescue Sets). FALLBACK if fleet spend is declined: inline windowed reads (~10-12 windows across sessions, durable per-window notes). Either way the CRITICAL-ASSESSMENT leg is non-negotiable: every keep and every corroborated-home claim verified first-hand (verify-dont-trust; subagent reports corroborate, never substitute). Known residual-risk classes to hunt: seats that died without closeout; directed routing decisions never mirrored durably; owner words relayed in events and nowhere else."
@@ -34,10 +34,14 @@ todos:
     content: "Process the keep-set as first-class consolidation intake, evidence-tiered: novel keeps → napkin capture → same-pass graduation to highest-impact homes (rules/PDRs/patterns/governance/tickets); corroborated re-finds → verify-and-enrich the named home (PDR-098 recurrence check before any duplicate-skip); rejected/noise → reason recorded in the discovery report only (permanent-doc-is-the-consolidation-record: no separate ledger). Commits on the coordination branch as batches land."
     status: pending
     depends_on: [p2-coordination-class-sweep]
+  - id: p3b-synthetic-contamination-scan
+    content: "Owner-directed post-processing scan (2026-07-31 ruling on the pilot-canary incident): deterministic grep for the six synthetic fingerprints — the reserved canary UUID prefix 00000000-c0c0-4000, the fictitious surface term quill-sync, the invented seats Quillon guards Ledger / Fathom binds Sounding and their session prefixes aa00c1 / bb00d2 — over (a) every run checkpoint before it commits, (b) the discovery report + keep-set, and (c) the full git diff origin/main...HEAD at the P4 gate. PASS = zero hits outside the three incident-record surfaces that legitimately describe the incident (this plan, the napkin entry, the discovery report's incident section). Any other hit is contamination: quarantine the artefact and re-derive it from clean sources. Context: four synthetic calibration events were injected into two pilot bundles, safety-flagged, and cured by full bundle rebuild (zero fingerprints on rebuild, verified); the platform classifier block is confirmed as a working protection layer for this class."
+    status: pending
+    depends_on: [p3-journey-the-keeps]
   - id: p4-merge-to-main
     content: "Roll-up PR of all P1-P3 landings to main; truly-green merge. THIS is the ask's finish line: 'graduated and merged'. The successor's checkout of main then carries everything."
     status: pending
-    depends_on: [p3-journey-the-keeps]
+    depends_on: [p3-journey-the-keeps, p3b-synthetic-contamination-scan]
   - id: p5-spend-the-corpus
     content: "Disposition of the spent bytes per owner retention policy (knowledge retained = source spent): run the provenance check (0 violations required), write the pass-level watermark record ('swept through T'), then archive-move or delete. OWNER CARD embedded here: the 7-day coordination window exists to protect a LIVE working stream — with primary development moving off this checkout, does the owner rule move-all-after-absorption, or keep the windows for whatever fleet activity remains on this machine? Also card: archive vs delete for the heartbeat bytes."
     status: pending
