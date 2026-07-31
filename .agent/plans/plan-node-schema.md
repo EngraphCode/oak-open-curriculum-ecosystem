@@ -162,11 +162,13 @@ absolute expiry; `superseded` without `superseded_by`; and an empty corpus
 
 **Gate-expiry drift (dated amendment 2026-07-31, owner-ruled)**: expired
 owner gates on live plans (`sketch`, `ratified`) are surfaced by a
-dedicated NON-BLOCKING instrument — `check-plan-gate-drift`, run as
-`pnpm plan-gates:check` and by the session-open alert hook — which
-repeats persistently, with resolution instructions, until the gate rows
-change. It never blocks commits or CI; the conformance validator above
-stays a deterministic function of repo content, with no clock input.
+dedicated NON-BLOCKING instrument, `check-plan-gate-drift` (run as
+`pnpm plan-gates:check`; an in-repo session-open hook shim projects the
+alert into sessions on platforms where the operator has registered it),
+which repeats persistently, with resolution instructions, until the
+gate rows change. It never blocks commits or CI; the conformance
+validator above stays a deterministic function of repo content, with no
+clock input.
 
 **Dated amendment (2026-07-31, owner-ratified at the knowledge-estate
 sitting; ADR-221 lens-4 resolution)**: the delivery-ticket requirement
