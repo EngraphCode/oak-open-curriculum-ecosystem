@@ -169,10 +169,47 @@ tool retires them.
   render is the reliable read surface, but it renders ACCEPTED text only:
   an absence verdict ("the doc lacks X") also requires the
   comment/suggestion history panel, where a full draft section can live
-  invisible to mobilebasic.
+  invisible to mobilebasic. The write-side dual: Google Docs SYNTHETIC
+  TYPING silently fails — the automation tool reports success while the
+  document stays untouched — so mobilebasic is the reliable READ path and
+  browser-automation writes into Docs need an independent read-back
+  verification before any "written" claim.
 - **An open-range dependency override (`>=X`) is a standing exposure, not
   a one-shot test subject**: its resolution is a moving target, so a
   survivability test can pass at authoring and fail a day later with zero
   repo changes (measured: froze at 4.0.40 on the 29th, floated to 5.0.14
   breaking two more packages on the 30th). The cheapest durable state is
   not having the override.
+- **Grepping a shipped binary needs `LC_ALL=C`** or grep reports a false
+  "binary file matches" zero-hit read; registry semantic hashes are
+  computable via a temp tsx file inside the package dir importing
+  `./semantic-source-sha256.js`; and a newline-joined variable passed to
+  git reads as ONE pathspec — use `xargs`, and verify with a staged-count
+  check.
+- **Operational signatures worth knowing** (2026-07-30): a model tier can
+  change WITHIN a session id, so tuple-matchers keyed on (session, model)
+  mis-match across the change; a write command is never a probe (a stray
+  all-zeros event id traced to an argument-validation "probe" that was
+  actually a write); and the security-headers integration test's
+  `Parse Error: Expected HTTP/, RTSP/ or ICE/` was ROOT-CAUSED (MCP-403,
+  superseding the earlier "loaded-host flake" reading): supertest servers
+  bind `::` (IPv6-any) while clients dial `127.0.0.1`, and a resident
+  macOS Java listener on the colliding port answered the mismatch — the
+  cure is the loopback-request test helper binding client and server to
+  the same explicit loopback. A gate failure in a package the diff never
+  touched is still a re-run candidate first, but this signature now has a
+  named cause.
+- **Under an inherited `COREPACK_ROOT` the resolved standalone pnpm refuses
+  the `packageManager` self-switch** (observed on an 11.9.0-resolved pnpm
+  against an 11.8.0 pin): strip the corepack env (`env -u COREPACK_ROOT …`
+  or a clean shell) so the pin resolves its own binary.
+- **Analytics/event-store retention config is free to fix only BEFORE first
+  collection**: before any event lands it is a settings change; after, it
+  is a deletion exercise with data-governance weight. The free-to-fix
+  window closes at the first event — configure retention in the same
+  change that enables collection.
+- **A Vercel function boot-throw serves 500 `FUNCTION_INVOCATION_FAILED`
+  with ZERO runtime logs** — the throw happens before the logger exists,
+  so "no logs" is itself the signature: check module-load/boot-path code
+  (top-level awaits, config reads, imports) before instrumenting the
+  handler.

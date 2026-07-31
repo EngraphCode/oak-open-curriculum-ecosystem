@@ -385,6 +385,23 @@ load-bearing choice:
   sitting**; the strategic node's owner gate records it beside the
   owner's alternative (a revised tracking ruling), and the choice is
   the owner's.
+  - **Resolved (2026-07-31, owner-ratified at the ratification
+    sitting).** The owner took the recommendation: the delivery-ticket
+    requirement is operator policy, not a public-schema constant, and
+    the plan-node contract now carries it as a dated amendment (the
+    plan-node schema's §Enforcement); the strategic node's owner gate
+    cleared at the same sitting. The realisation holds the stratum boundary this lens drew:
+    a declared list of operator-tracked subtrees would itself be
+    operator-stratum content left standing in the public base by an
+    overlay strip (PDR-134 §1/§6), so the estate validator derives
+    anchoring from the corpus's own execution anchors instead — a
+    subtree is anchored when its strategic node or any live plan
+    serving it already names a ticket, and only there must a ratified
+    delivery plan name one. The limit is deliberate and stated so it is
+    not mistaken for enforcement of the ruling: the check binds
+    consistency of anchoring within a clone, never conformance to an
+    operator's tracking discipline, which stays an overlay-side
+    obligation.
 - **Migration as relocation** — rejected at lens 4: the graph ingests
   artifacts where they live; migration is annotation plus a closed
   ledger, never file movement. The conserved planning corpora stay

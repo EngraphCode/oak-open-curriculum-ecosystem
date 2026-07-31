@@ -174,3 +174,25 @@
 - **thumbnail.html reclassified** shippedFromRepo → machinery: it has no
   repo source (studio-generated; the package .gitignore records it) —
   the shippedFromRepo claim was untrue for it.
+- **Design work is shown as rendered pixels in Chrome, never artefact
+  paths** (owner standing discipline, promoted from buffer memory
+  2026-07-31 — verbatim: "show me first, then discuss"): the done-test for
+  any design change is pixels in front of the owner in the browser; a
+  verified substrate with no rendered pixel shown is not done.
+- **The generality-depth gradient, defined** (cited by
+  `studio-source/PRESERVATION-README.md` as co-equal with ADR-213, promoted
+  from buffer memory 2026-07-31): deeper layers are MORE general — semantic
+  tokens are never Oak-specific; brand specificity enters only at the
+  shallow identity/theme layer (the 3×4 identity/theme matrix). A deep
+  layer that names Oak is a layering defect.
+- **Backfills from the 2026-07-31 consolidation run** (machine-local review
+  records → this surface): reviewers found BYTE-IDENTICAL duplicate pairs
+  inside the kept `assets/` set (e.g. `logo-full-black.svg` ==
+  `logo-full-official.svg`) — dedup is owed at the next asset pass; the
+  owner RATIFIED the EMC2 creature-demo quest-card layout (hero region,
+  one loud quest card) — the ledger record is the authority for its
+  specifics; the owner ruled the three studio integration docs SHIP (not
+  deleted) because the Claude Design surface needs them; and the studio
+  UUID `314dd517…` already appears on public surfaces beyond the S0 doc,
+  so any future redaction must be cross-surface or not attempted (F6,
+  2026-07-24).

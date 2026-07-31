@@ -6,7 +6,7 @@ import {
   formatGateExpiryDrift,
 } from './plan-gate-drift.js';
 import { planNodeSchema } from './plan-node-schema.js';
-import { type ParsedPlanFile } from './validate-plan-corpus-helpers.js';
+import { type ParsedPlanFile } from './plan-corpus-types.js';
 
 /**
  * The fixed "today" every case pins — deliberately NOT the wall-clock

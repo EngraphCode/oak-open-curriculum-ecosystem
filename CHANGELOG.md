@@ -1,3 +1,17 @@
+# [1.128.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.127.7...v1.128.0) (2026-07-31)
+
+
+### Features
+
+* **hooks:** register the gate-expiry drift alert at session start ([d797bef](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d797bef222ade2f376705e378baa47bf6aca3f70)), closes [#665](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/665)
+
+## [1.127.7](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.127.6...v1.127.7) (2026-07-31)
+
+
+### Bug Fixes
+
+* **agent-tools:** enforce the delivery-ticket rule as derived anchoring consistency ([e143734](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e143734f097759f80046a5050f640815d5367459))
+
 ## [1.127.6](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.127.5...v1.127.6) (2026-07-31)
 
 

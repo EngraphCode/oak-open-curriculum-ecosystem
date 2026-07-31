@@ -115,6 +115,25 @@ candidates. Headline graduations (the commits and the homes are the record):
 
 ## 2026-07-31 comms-run observations (Ingot tracks Slag)
 
+- Owner architecture articulation at the run's close (2026-07-31 ~11:40Z, verbatim substance
+  — the tiered-sight principle): multiple agent layers; higher-powered agents must see the
+  ORIGINAL SOURCE MATERIAL, never only lower tiers' output; low tiers produce a full
+  landscape (lower conceptual resolution accepted as priced-in), higher tiers assess the
+  landscape and decide where deeper assessment goes, recursively; a Fable-high OVERWATCH
+  sanity-checks direction; high power can't review everything (too slow/expensive) but low
+  power must never be the only sight on sources of truth. Full harvest with this run's
+  evidence base: discovery report §Tiered sight (epistemic-laundering failure mode;
+  source-access-is-a-tier-property; foveation model; overwatch-is-dynamics; the
+  tier-does-not-cure-transmission counterweight). Instantiation (owner, same hour): Haiku fleet with OVERLAPPING regions as the first landscape (disagreement field = free salience map; offset strides heal boundaries; ~half the cost of single-coverage Sonnet), then Sonnet, then Opus, Fable overwatch — report §Tiered sight carries the full analysis. Graduation route: the future multi-machine
+  PDR (plan §Future doctrine seed), reconciling PDR-122 + PDR-134 with the invariant "no
+  source of truth is seen only by the lowest tier".
+- Owner directive at the META landing (2026-07-31 ~11:18Z, verbatim substance): "no home
+  found means a deep analysis of what the missing homes might be, and how they relate to
+  the existing estate, what seams we have, what seams we should have... it's a moment to
+  step back and consider ontologies and epistemics before we take any action." Enacted:
+  discovery report §The homeless set (five failure-mode classes; seam proposals route
+  through the PDR-134/ADR-221 trio and to the owner before any new surface); the plan's
+  p3 todo binds the step-back as P3's opening act.
 - Reduce-stage think-loop calibration (2026-07-31, this seat): a single corpus-reducer fed
   981 leaves (est. ~105k-token prompt, opus/high) produced THREE consecutive thinking-only
   turns over ~35 minutes and never reached its schema-forced output call — the output
@@ -179,3 +198,26 @@ candidates. Headline graduations (the commits and the homes are the record):
   Two instrument notes: zsh does NOT word-split unquoted $VARS (a space-joined file list
   becomes one ENAMETOOLONG path — quote-and-splat or list args explicitly); commitlint
   subject-case rejects upper-case words ("THE RATIFICATION" bounced; keep subjects lower).
+
+- 2026-07-31 ~11:56Z (Badger's failure-mode capture, absorbed for P3 mechanics): a
+  head/tail/first-page bound silently converts "the first N" into "all" — the reader
+  carries no marker that a bound was applied; Badger's clipped grep survey transmitted
+  "one populated gate" as fact where the full enumeration found four (two expired, the
+  lane's load-bearing fact). Binding for my P3 adjudication pass: every enumeration
+  over the keep-set (candidates, meta verdicts, P6 items, grounding events) runs
+  bound-free or with the bound named IN the recorded result (count + "of total N");
+  same family as read-diagnostic-artefacts-in-full and the no-silent-caps workflow
+  discipline. Cross-check totals against the checkpoint counts (327/322/159/36)
+  before trusting any derived list.
+
+## 2026-07-31 ~12:57Z — assert-watcher-live keys off the session seed, not argv (Falcon hunts Flight, 52841f)
+
+Tried to externally verify a PEER's watcher with `comms
+assert-watcher-live --platform codex --model GPT-5` — it asserted MY
+OWN watcher (identity derives from the shell's session-id env seed;
+the platform/model argv do not retarget it). The external check on a
+peer is the heartbeat FILE directly: stat
+`comms-seen/<exact display name>.json.heartbeat.json` mtime (stale
+past 3× interval) + its `watched_comms_dir` against the canonical
+home. Instrument note for the mutual-cover discipline in
+comms-all-channels-watcher §Liveness self-check.

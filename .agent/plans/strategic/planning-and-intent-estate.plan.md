@@ -119,8 +119,8 @@ subtree carries no Linear content. The delivery-ticket gate this node
 carried was RESOLVED at the 2026-07-31 ratification sitting via the
 design-recommended schema amendment (execution-state anchors are
 operator policy, not a public-schema constant — recorded in the
-plan-node schema's dated amendment; the paired validator code change
-is routed as the validator lane's second story). Sequencing follows the
+plan-node schema's dated amendment; the paired validator mechanism
+landed 2026-07-31 as derived anchoring consistency). Sequencing follows the
 concepts-first order stated in the bet; each delivery plan is a
 single-story step of its lane, sized within its round budget at
 authoring time (PDR-132).
