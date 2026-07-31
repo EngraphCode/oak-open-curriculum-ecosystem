@@ -37,7 +37,18 @@ priority. At genuinely-settled (all required checks green by name across
 both check-runs AND commit statuses, zero unresolved threads), the seat
 executes the merge itself under bot identity (REST merge-commit method,
 never squash). Freeze-bound surfaces and anything a rule explicitly
-reserves to the owner remain outside this grant.
+reserves to the owner remain outside this grant. The dual discipline: a
+gate nobody can NAME is an INVENTED gate — a reviewer listed on a Linear
+issue is not a PR merge gate, and holding green work on an unnamed gate is
+the inverse failure of merging past a real one (owner ruling, 2026-07-30);
+a verdict that a gate exists carries its counter-consideration, and an
+owner-constitutive reading goes to him as a card.
+
+One stacked-PR mechanic that bites at open and at retarget: **a base
+retarget fires no `synchronize` event, so required checks do not re-run**
+and the PR can sit green-stale or pending forever. The cure is an empty
+commit on the head branch (`git commit-tree` against the same tree, push),
+touching no checkout.
 
 ## What a PR is (the intent under every phase below)
 
@@ -176,11 +187,21 @@ surfaces. Partial reads produce false "no problems" verdicts:
    each review's own `commit.oid` retained alongside its body (the paged
    `reviews` connection carries both) — the binding the state machine's
    tally (item 2) buckets body findings by; a Sonar gate summary or a bot
-   capability notice lives here.
+   capability notice lives here. The dual of item 1's REST-only failure: a
+   reviewThreads-ONLY harvest also structurally undercounts — Copilot's
+   "suppressed low-confidence findings" live only in review submission
+   bodies with no thread state, and those suppressed findings have run real
+   at a striking rate. A thread never auto-outdates when its fix lands in a
+   DIFFERENT file than the anchored line — reply with the actual fix
+   location and resolve manually, or it reads unaddressed forever.
 3. **All checks** — `gh pr checks`, including the external ones (SonarCloud,
    CodeQL, Vercel, Cursor Bugbot, Codex). A failed check's *first* failure is
    the root to chase: a 20-second `install` failure cascades into skipped
-   builds and a failed deployment — fix the root, not the echoes.
+   builds and a failed deployment — fix the root, not the echoes. CodeQL
+   alert reads are ref-scoped: the per-number GET returns `state=null` when
+   no default-branch instance exists; the authoritative read passes
+   `?ref=refs/pull/N/merge`, and any recorded verdict names the ref it was
+   read against in the same sentence.
 4. **Sonar quality gate** — when it fails, pull the ACTUAL issues
    (`search_sonar_issues_in_projects` with `pullRequestId`, per the
    `sonarqube-mcp-instructions` rule) and read each flagged site. The gate
@@ -372,7 +393,12 @@ as phase-local restatements.
    2026-07-16 — on #390 a review for `861bb8924` arrived after `783c567af`
    was pushed; arrival-order tallying charges findings to the wrong round
    and can falsely trigger, or mask, non-convergence). Convergence is the
-   per-round count strictly decreasing. **The step-back trigger is
+   per-round count strictly decreasing. Born-sketch PLAN PRs carry an owner
+convergence-cap ruling (2026-07-25): after round 4, further reviewer waves
+DISPOSITION to named homes rather than editing plan text — unless a finding
+shows an actual falsehood in the plan; merge at any settle-green tip whose
+deltas are cap-dispositions or falsehood-cures; hard-stop only for new
+owner parameters. **The step-back trigger is
    mechanical, with the exact predicate `c[n] >= c[n-1] AND
    c[n-1] >= c[n-2]` (two consecutive non-decreasing transitions across
    three settled counts) OR 4 total settled rounds in the epoch — and

@@ -115,6 +115,15 @@ from its operate-from-a-worktree clause.
 - `.agent/memory/active/patterns/parallel-worktree-dispatch-unreliable.md`
   — the spawned-worktree HEAD verification discipline.
 
+## Why residency also protects the commit path
+
+The primary checkout's pre-commit and pre-push hooks gate the WHOLE working
+tree, so any seat's dirty or failing file blocks every seat's commits and
+pushes from the primary — a resident lane commits and pushes from its own
+worktree instead, and the contention class disappears. Operational note for
+worktree pushes: give the push a 600s timeout — the 120s default kills the
+hook suite mid-run and produces an ambiguous write.
+
 ## Enforcement
 
 Behavioural, with a mechanical tell and an observable surface: the

@@ -110,6 +110,14 @@ the artefact (`ls` the comms dir), never from recall — neither
 its antecedent
 (frictions F-121; `comms reply` is the one verb that resolves-or-fails).
 
+Further `comms send` argv traps (recorded 2026-07-31): `--body` caps around
+1,500 characters, so `--body-file` is the only path for substantive events;
+an inline body with shell-hazard characters exits 2 and a trailing
+`| tail` pipe EATS that exit; the drain timeout is 600s; sends are rejected
+on an identity-tuple mismatch (heartbeat-tagged sends bypass that guard);
+and `comms direct` needs the recipient's FULL identity tuple, not a display
+name.
+
 The canonical communication-event directory is
 `.agent/state/collaboration/comms/`. Merges reconcile any legacy-era event
 fragments as `exclusive-create-fragments`.
