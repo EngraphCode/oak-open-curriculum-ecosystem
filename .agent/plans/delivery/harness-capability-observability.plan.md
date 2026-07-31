@@ -101,7 +101,9 @@ identity, challenge/reply or deliverable-movement references, and sanitised
 result links—is recorded on MCP-456 and the implementation pull request.
 The never-self-certifiable classes are owned by
 [PDR-133 §5](../../practice-core/decision-records/PDR-133-liveness-classes-and-platform-declaration.md#5-the-self-observation-corollary),
-not by this plan. A root snapshot may record a class in that set only with the
+not by this plan. Every snapshot retains an explicit row for every class,
+including `unknown`, `unavailable`, and `not_run` outcomes. A root snapshot may
+assign `pass` to a class in the never-self-certifiable set only with the
 external observer and evidence reference that certified it.
 For the classes a seat may observe about itself, `SUBSTRATE` through
 `DELIVERY`, a `pass` requires a progress artefact read fresh in the current
@@ -154,8 +156,9 @@ generic movement or a bare acknowledgement cannot certify it.
   and `ABSORB` are also recorded independently, and declared authority is
   recorded without exercising destructive or external mutations.
   Proof: `repo-safe` — exhaustive coherence-matrix, liveness-class,
-  same-session-progress-artefact, stale/inherited-continuity rejection, and
-  safe-canary tests; `owner-held` — Jim Cresswell or the serving Director
+  unobserved-row-retention, same-session-progress-artefact,
+  stale/inherited-continuity rejection, and safe-canary tests; `owner-held` —
+  Jim Cresswell or the serving Director
   certifies every claimed class governed by PDR-133 §5 with its applicable
   PDR-133 §6 instrument. A `NOTIFY` claim requires a content-bearing challenge
   reply over the exact tested delivery path; movement certifies `ABSORB` only
