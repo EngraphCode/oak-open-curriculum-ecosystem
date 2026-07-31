@@ -85,3 +85,22 @@ candidates. Headline graduations (the commits and the homes are the record):
   watermark + provenance gates run fresh — routed in the closeout).
 
 ## New session observations append below.
+
+## 2026-07-31 ~07:30Z — OWNER DIRECTIVES (Ingot tracks Slag, captured at occurrence, verbatim substance)
+
+- **Knowledge-transfer circumstance**: "someone else is taking over primary development on a
+  different checkout, and they need to know what we know" — all live comms events, of all
+  types, are to be "processed, through the entire journey from napkin to graduated and
+  merged". The plan is
+  `plans-backlog-2026-07/agentic-engineering-enhancements/current/comms-corpus-full-journey-knowledge-transfer.plan.md`
+  (born sketch; owner ratifies shape + prices the P2 engine). Load-bearing fact behind it:
+  `.agent/state/` is machine-local — a different checkout sees none of it; and the
+  2026-07-30 pass verified event-level absorption for the TAGGED channel only (the
+  coordination class is absorbed by construction, unverified per event).
+- **Information-homing ruling**: "all long-term important information from both runs is
+  recorded in the repo, not just in tickets; the MCP Linear project should only contain
+  information relevant to the imminent submissions; general work and knowledge stays in the
+  repo." Enacted at capture: MCP-446/447 moved off the submission project (team retained);
+  the constraint is a standing line in the plan above. Route onward: fold into the
+  ticket-management skill / linear-hygiene doctrine at repo grain (this entry is the
+  capture; the skill amendment is the graduation).
