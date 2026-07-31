@@ -93,3 +93,4 @@ history); captured here so the lineage is discoverable.
 | `Swift Gliding Zephyr` | `claude` | `Fable 5` | `aba87a` | v2 registry/derivation build; mid-cycle handoff author | 2026-06-11 | 2026-06-11 |
 | `Tuna stirs Fathom` | `claude` | `Opus 4.8 (1M)` | `9767ba` | plan deep-dive + substrate-connection cross-link (no source touched) | 2026-06-30 | 2026-06-30 |
 | `Sirocco holds Feather` | `claude` | `claude-fable-5` | `bf935d` | PR #515 fix lane: visual-disambiguator delivery plan converged through 8 review waves + owner-accepted render-time reframe (Revision 3), merged `d76eab19a`; ticket MCP-145; plan stays sketch pending owner ratification | 2026-07-24 | 2026-07-24 |
+| `Moss calls Loam` | `claude-code` | `claude-fable-5` | `79b433` | identity-lane implementer (Director: Falcon hunts Flight 52841f) — story 1 MCP-457 prefix-derivation converge; story 2 MCP-145 build staged at Director release | 2026-07-31 | 2026-07-31 |
