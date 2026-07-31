@@ -189,6 +189,31 @@ mount, never the more general base.
   architectural decision records; this record deliberately names no
   host machinery.
 
+## The unifying schema (one law, four axes)
+
+Examined together, this record's laws share a single schema: **every
+binding law is the monotonicity of a flow over a declared order.**
+Four orders are in play — **generality** (the strata; references flow
+toward the general), **time** (versions; resolution flows along
+supersession and never breaks), **epistemic provenance** (authored
+precedes derived; statistics, inference, and extraction read the
+authored layer and never mechanically enter it — the two-axes rule,
+the asserted-only commitment, and harvest-proposes-authors-ratify are
+one membrane stated three times), and **entitlement** (mounting;
+readers see the union over their down-set). Every falsifier in this
+record is a monotonicity check over one of these orders, so an
+implementation may enforce the whole family with one engine
+instantiated per axis — and extensions (new strata, new derivation
+kinds, entitlement lattices rather than chains) inherit the law by
+declaring their order, with no new doctrine.
+
+One further shared discipline, named so it stays deliberate: the
+estate prefers **evidence-carrying equivalence over collapse** —
+concepts merge by match edges with provenance, nodes evolve by
+supersession edges, and nothing is ever rewritten into identity.
+Sameness is asserted with evidence and composed; it is never imposed
+by deletion.
+
 ## Mathematical grounding (deliberately standard)
 
 The shapes above are chosen to be proven mathematics, not novel

@@ -181,6 +181,14 @@ discipline of the authors.
 must rebuild, validate, and render every projection from a cold clone
 with zero overlay graphs present.
 
+The seam's mathematics has a fifty-year lineage worth naming: monotone
+information flow over an entitlement order is the lattice model of
+secure information flow, and the clone test is its noninterference
+falsifier (public outputs unaffected by private inputs). One free
+generalisation follows: entitlement may become a lattice rather than a
+chain (incomparable per-team overlays) with no design change — the
+poset machinery already carries it.
+
 **Union semantics and constraint scope.** Statement union is monotone,
 so a mounted overlay extends but can never falsify public knowledge —
 readers with more entitlement see strictly more, never different,
@@ -265,6 +273,28 @@ ADR-041's dependency matrix holds. The checks, red-first:
 7. Union-scoped constraint validation at mount (§4): the overlay under
    mount fails on violation; the public base never does.
 
+**Validator seeds** (recorded as pointers for delivery plans, not
+committed scope — each is a mechanical check the mathematics makes
+possible):
+
+- **Fingerprint-vs-amendment**: per-node canonical fingerprints under
+  stable names make content change mechanically visible — a node whose
+  canonical form changed without a dated amendment note is a flag. The
+  amendment discipline stops depending on author memory.
+- **Preservation-class check on constraint scopes**: whether a
+  constraint survives union is largely visible in its syntactic shape
+  (existential-positive shapes are mount-safe; universal and counting
+  shapes are not) — so a counting constraint declared home-local-only
+  is itself a validator finding, and the scope declarations of §4 are
+  checkable rather than trusted.
+- **Match-edge provenance shape**: every `closeMatch`/`exactMatch`
+  carries who asserted it, when, and on what evidence — sameness is
+  always evidence-carrying (PDR-134 §The unifying schema).
+- **Lifecycle × provenance consistency** (lands with the PROV spine):
+  status enums cross-check against realisation edges — an
+  archived-complete plan with no generating activity, or an activity
+  with no plan, is a contradiction the graph itself can catch.
+
 ## Mathematical grounding (dated 2026-07-31, owner-requested)
 
 Each load-bearing shape here is deliberately standard mathematics, so
@@ -291,6 +321,15 @@ names:
 - **Cross-instance alignment** is the institutions shape (networks of
   theories joined by alignment morphisms), which is why alignment
   graphs are first-class with their own home (PDR-134 §5).
+- **The unifying schema** (PDR-134): every law here is monotonicity of
+  a flow over a declared order — generality, time, epistemic
+  provenance, entitlement — so `graph-validate`'s core can be one
+  order-checking engine instantiated per axis rather than a zoo of
+  bespoke validators.
+- **Evidence-carrying equivalence**: merging by match edges with
+  provenance rather than collapse is the setoid discipline — identity
+  as asserted, composable evidence — which is the same mathematics as
+  supersession-never-deletion, applied to sameness.
 
 What is deliberately not formalised — meaning inside prose — is a
 fragment choice, not an omission: the graph is the decidable skeleton;
