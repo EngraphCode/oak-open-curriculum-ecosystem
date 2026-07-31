@@ -13,8 +13,8 @@ depends_on: []
 owner_gates:
   - awaiting: owner-decision
     clears_when: "The trigger: at the submission form-fill moment with any of MCP-327..330 not Done, the owner (or Matt under the delegation) says execute, naming the entries; the same word rules the named tickets' blockedBy edges off MCP-309 at override-merge"
-    expires: 2026-07-31
-last_updated: 2026-07-30
+    expires: 2026-08-21
+last_updated: 2026-07-31
 ---
 
 # Upstream API override contingency — self-retiring spec patches
