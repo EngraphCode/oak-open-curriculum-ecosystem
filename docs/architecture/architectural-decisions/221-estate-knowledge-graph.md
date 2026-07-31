@@ -426,6 +426,19 @@ they execute in the ratification commit, not before):
    `graph-project` in its foundation/adapter enumeration, so the
    dependency permission this record's §7 composition relies on is
    determined rather than assumed.
+5. The consolidation-pipeline cascade: the `consolidate-docs`
+   graduation-target list gains concept nodes
+   (`candidate`/`working` per observed usage) as a target class; the
+   `consolidate-until-done` Conservation Invariant gains a dated
+   sentence citing PDR-134's homing questions (its "portable decision
+   in the PDR, not a host-local brief" test is stratum-homing already,
+   stated informally); PDR-014 and PDR-130 gain dated
+   cross-references (the concept lifecycle mechanises
+   capture→distil→graduate at concept grain, and
+   candidate/working/ratified is two-speed learning formalised); the
+   dedicated-consolidation session prompt gains its one-line pointer;
+   and the curator role's concept-scheme stewardship goes to the
+   sitting as an owner call.
 
 ## Consequences
 
