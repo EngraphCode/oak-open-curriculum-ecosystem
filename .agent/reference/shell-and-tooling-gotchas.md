@@ -190,3 +190,17 @@ tool retires them.
   `Parse Error: Expected HTTP/, RTSP/ or ICE/` is a loaded-host
   concurrency flake — a gate failure in a package the diff never touched
   is a re-run candidate before it is a finding.
+- **Under an inherited `COREPACK_ROOT` the resolved standalone pnpm refuses
+  the `packageManager` self-switch** (observed on an 11.9.0-resolved pnpm
+  against an 11.8.0 pin): strip the corepack env (`env -u COREPACK_ROOT …`
+  or a clean shell) so the pin resolves its own binary.
+- **Analytics/event-store retention config is free to fix only BEFORE first
+  collection**: before any event lands it is a settings change; after, it
+  is a deletion exercise with data-governance weight. The free-to-fix
+  window closes at the first event — configure retention in the same
+  change that enables collection.
+- **A Vercel function boot-throw serves 500 `FUNCTION_INVOCATION_FAILED`
+  with ZERO runtime logs** — the throw happens before the logger exists,
+  so "no logs" is itself the signature: check module-load/boot-path code
+  (top-level awaits, config reads, imports) before instrumenting the
+  handler.

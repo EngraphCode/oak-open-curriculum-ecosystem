@@ -485,3 +485,11 @@ UTC-to-UTC; never a local clock).
   can yield a false third claim (the capability exists AND the surface exists
   does not mean the capability applies to that surface N times, in that
   direction, or at that layer).
+- 2026-07-2x captures go stale against live surfaces: a captured artefact (a
+  saved page, a screenshotted portal, a studio HTML export) is a DATED
+  record, not the surface — a design capture showed Resources 6 / Tools 42
+  against a live serve of 5 and a different count, and a submission portal's
+  LIVE form outranked docs pages and prior captures (the portal had gained a
+  Team/Enterprise-plan requirement no doc mentioned). For any third-party
+  requirement or served-surface fact, read the live source at time of use;
+  cite captures as "as of <date>".

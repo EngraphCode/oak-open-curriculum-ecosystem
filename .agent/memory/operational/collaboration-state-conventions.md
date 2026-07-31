@@ -118,6 +118,10 @@ on an identity-tuple mismatch (heartbeat-tagged sends bypass that guard);
 and `comms direct` needs the recipient's FULL identity tuple, not a display
 name.
 
+Threading field: `in_response_to` is CANONICAL and `in_reply_to` does not
+exist (corpus check 2026-07-30: 114 uses vs 0) — a reader or filter written
+against `in_reply_to` silently matches nothing.
+
 The canonical communication-event directory is
 `.agent/state/collaboration/comms/`. Merges reconcile any legacy-era event
 fragments as `exclusive-create-fragments`.

@@ -195,6 +195,10 @@ A guard that cannot be shown to bite is decoration; the mutation check is
 one minute of work and the only direct evidence the test guards anything
 (recorded 2026-07-2x; composes with the atomic-landing invariant — the
 mutation check happens before the commit that lands test and code together).
+The same disease in existing suites: DECORATIVE assertions — asserted
+values that never enter the exercised run — read as coverage while proving
+nothing (a privacy-surface review found six under a README claiming the
+behaviour was tested); the mutation check exposes them identically.
 
 ### Test doubles model the boundary, never the engine
 

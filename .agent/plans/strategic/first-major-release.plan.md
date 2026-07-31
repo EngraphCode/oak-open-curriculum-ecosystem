@@ -189,6 +189,12 @@ onto this node — one line each, pointers never duplicates.
   MCP-354's four-event catalogue signed off unamended; MCP-357 finally
   sequenced post-submission on the corrected authenticated-handshake
   premise. Records: MCP-143, MCP-354, MCP-357, MCP-309 checklist.
+- 2026-07-2x — Owner strategic frame (backfilled 2026-07-31): "engineering
+  is nearly out of the critical path; what remains is mostly
+  human-judgement gates — our job is to make those gates easy to walk
+  through." The frame that prices reviewer-pack, guidance, and
+  submission-support work above new engineering surface; the
+  reflection-synthesis VISION candidate (Director-held) grows from it.
 - 2026-07-21/25 — Owner re-aim (backfilled 2026-07-31 by the comms-corpus
   run; no durable surface carried it): "we have drifted away from moving
   towards the V1 release, we have been lost in detail" — release-chain

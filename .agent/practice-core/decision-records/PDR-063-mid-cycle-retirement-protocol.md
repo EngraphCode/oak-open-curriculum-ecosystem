@@ -178,6 +178,16 @@ collaboration-state substrate, replay-able by any future agent
 reconstructing the cycle's history, and retained until the claim
 closes successfully.
 
+**Confabulation-from-compression is a succession signal (worked instance,
+2026-07-2x).** Beyond the budget triggers, a RISING error class of
+confabulated specifics — details asserted from compressed memory that the
+record contradicts (the instance included a fabricated-bot-identity commit
+attribution) — after a long tenure (~a week, two compactions in the
+instance) is itself grounds to surface for deliberate succession: the seat's
+compressed context is now generating false precision, and no amount of
+care inside the same context cures it. Surface the observed error class;
+the owner or Director calls the succession.
+
 **Reviewer outputs travel verbatim (owner tightening, 2026-07-24).**
 When the frozen cycle carries reviewer or fleet feedback, the handoff
 record includes every reviewer's RAW output VERBATIM as individual

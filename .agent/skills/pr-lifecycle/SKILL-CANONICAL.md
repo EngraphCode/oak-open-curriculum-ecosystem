@@ -88,6 +88,9 @@ into the permanent record):
    into the branch (never rebase-and-force-push an already-pushed branch).
    When the update touches agent memory/state files, author the union by hand
    per the `semantic-merge` skill — a git line-merge silently corrupts them.
+   Tripwire: a conflict beyond trivial union-append on `.agent`
+   continuity/state/memory files STOPS the merge and routes to the Director —
+   resolving it solo is how approved versions get silently reverted.
 2. **Tree and gates**: working tree clean; a successful push already ran the
    full pre-push gate suite, so a clean push IS the local-green proof — do not
    re-run gates just to re-confirm it.
@@ -131,7 +134,13 @@ substance-triggered (a reshaped diff), never per cure push; Copilot's absence
 never blocks a merge. Suppressed findings are Copilot's own low-confidence
 bucket: the burden of proof is REPRODUCTION before cure — a non-reproducing
 finding gets a reasoned decline with the falsifier recorded, never a
-speculative cure or a silent skip.
+speculative cure or a silent skip. Two scope facts: the Copilot-review
+ruleset does NOT bind `.design-sync/`, `.agent/plans/`, or
+`packages/design` doc paths (confirmed on PR #536's timeline — zero review
+fired), so absence there is configuration, not a skipped reviewer; and a
+claude[bot] review SKIP is a spend-limit signature, not a blocker — an
+organisation review-overage exhaustion is a capability ceiling to note,
+never a gate to wait on.
 
 ### Title and description are CLAIMS about the diff — derive them from it
 
@@ -745,7 +754,12 @@ regardless of green checks and zero unresolved threads; the SKIPPED timeout
 intent, verify the checks are green-or-progressing (PDR-132): an armed
 intent behind a red check is invisible-stuck — nothing progresses it and
 nothing alerts (live instance 2026-07-20: an armed docs PR sat ~2h behind a
-two-line lint failure believed self-landing).** Then:
+two-line lint failure believed self-landing).** Holds on a merge-ready PR
+are EVENT-released, never timer-released (adjudicated 2026-07-30): a
+zero-cost hold (waiting on a named arrival, an obsolescence check, a cost
+change) releases the moment its event fires — a hold that would release "in
+a while" is an invented gate; and a hold placed for a composing review
+covers only SUBSTANTIVE changes, never docs/comment-only deltas. Then:
 
 - **`mergeable` means POSSIBLE to merge; it does NOT mean READY to merge**
   (owner, 2026-07-08). GitHub's `mergeable: MERGEABLE` asserts only
@@ -882,6 +896,12 @@ peer seat disposition-blocked on state it could not see). In a cascade of
 merges, post-merge harvest custody is assigned PER PR — name who owns each
 merged PR's Phase-8 harvest in the broadcast, and late findings route to
 follow-up branches, never to merged ones.
+
+**Merge auto-delete overrides recorded dispositions** (worked instance: a
+merge auto-deleted a remote coordination branch despite a "branch lives on"
+disposition, leaving the primary tracking a deleted ref). If a branch must
+survive its PR's merge, re-push it immediately after — the disposition text
+does not bind GitHub's delete-on-merge setting.
 
 **One post-merge harvest before stand-down.** MERGED ends the merge-state
 question, not the feedback stream: a bot round composing at merge time still

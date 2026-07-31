@@ -247,6 +247,13 @@ the named gate evidence and exact pathspec immediately before the commit window.
 Once the hook runs, that hook output is the authority for the attempt; older
 independent probes are diagnostic context, not an override.
 
+Lockfile custody (standing, recorded 2026-07-2x): `pnpm-lock.yaml` has NO
+exclusive custodian — it is derived. Each lane declares its dependencies in
+its own workspace manifest and commits the resulting lockfile delta with its
+bundle; a lane blocking on "who owns the lockfile" has invented a custodian
+the derivation model does not have. Conflicts resolve by re-running the
+install on the merged manifests, never by hand-merging the lockfile.
+
 ### d. Cleanup Ethics for Apparently Orphaned Claims
 
 Resist unilateral cleanup; archive only via deliberate governance passes
