@@ -1,6 +1,6 @@
 ---
 name: "Comms Corpus Full-Journey Knowledge Transfer — every event processed to merged"
-status: sketch
+status: current
 impact_areas:
   - practice-and-estate
 overview: >
@@ -13,12 +13,14 @@ overview: >
   absorption for the knowledge-tagged channel only; the coordination/directed class
   (~2,230 events) is absorbed BY CONSTRUCTION (seats' closeout discipline), not
   verified per event — this plan converts that construction-claim into event-level
-  verification and closes the journey onto main. Born sketch; the owner ratifies the
-  shape and prices the P2 fleet spend before execution.
+  verification and closes the journey onto main. Shape RATIFIED by the owner
+  2026-07-31 ("this is the comms event run, as planned"); the P2 engine/spend
+  decision still cards to the owner at P2 open. Executor: Ingot tracks Slag
+  (be4ac9), claim d0ba8352, n=2 with Director Falcon hunts Flight (52841f).
 todos:
   - id: p0-make-current-pass-durable-on-main
     content: "Roll up coordination/estate-2026-07-30-c to main (cut branch from the tip, PR, truly-green merge per merge rulings — bot REST at settled; this seat executes if the Director is still paused). The 2026-07-30 pass's graduations (c89ce0fae + 5d31621aa) and Falcon's records currently exist ONLY on the coordination branch — invisible to a fresh checkout of main. Nothing else in this plan matters until this lands."
-    status: pending
+    status: in_progress
     depends_on: []
   - id: p1-census-and-heartbeat-aggregate
     content: "Mechanical census of the live corpus (by class/tag/author/day — jq, committed as a table in the discovery report). Then extract the heartbeat aggregate ONCE (~5,766 events → one committed section: cadence norms, seat roster over the window, label conventions, the by-intent stop/pause vocabulary in live use) following the 2026-07-23 precedent ('cadence aggregate extracted once, first'). After the aggregate, heartbeat bytes are spent."
