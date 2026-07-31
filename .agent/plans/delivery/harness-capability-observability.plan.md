@@ -2,7 +2,7 @@
 id: harness-capability-observability
 node_type: delivery
 name: "Harness capability observability — probe, record, diff, signal"
-overview: "Give Codex and Claude seats a repeatable, read-only capability census whose immutable run records expose additions, removals, changes, and evidence-backed rename candidates as their harnesses evolve."
+overview: "Give Codex and Claude seats a repeatable, read-only capability census whose scope-qualified run records expose additions, removals, changes, and evidence-backed rename candidates as their harnesses evolve."
 status: ratified
 ratified_by: "Jim Cresswell"
 ratified_date: 2026-07-31
@@ -22,32 +22,46 @@ last_updated: 2026-07-31
 ## Goal
 
 A fresh Codex or Claude seat can establish, from evidence rather than
-configuration alone, every capability exposed to its root and supported child
-launch paths; preserve the complete observation with enough provenance to make
-later runs comparable; and see when abilities appear, disappear, change, or
-plausibly move under a new name.
+configuration alone, the capabilities exposed through every launch and
+enumerator surface independently discovered for the tested harness version;
+preserve the observation with enough provenance to make later runs comparable;
+and see when abilities appear, disappear, change, or plausibly move under a new
+name. A platform with no independent discovery surface records that coverage as
+unknown rather than claiming completeness.
 
 ## Mechanism
 
 One cross-platform pipeline with four shared primitives:
 
-1. **Probe.** Enumerate a fresh, complete, source-qualified ability inventory
-   on every run. Keep configured, exposed, self-reported, and behaviourally
-   proven facts distinct. Repository collectors gather deterministic platform
-   metadata; short native test cards exercise harness-only root, child, and
-   nested-child surfaces using harmless read-only canaries. Before collection,
-   an independently maintained, versioned `ProbeSetDefinition` fixes the
-   expected launch and enumerator coverage without consulting that run's
-   observed output. The collector has read-only access, records the exact
+1. **Probe.** Enumerate a fresh, source-qualified ability inventory on every
+   run. Keep configured, exposed, self-reported, and behaviourally proven facts
+   distinct. Repository collectors gather deterministic platform metadata;
+   short native test cards exercise harness-only root, child, and nested-child
+   surfaces using harmless read-only canaries. Before collection, an
+   independently maintained, versioned `ProbeSetDefinition` fixes the declared
+   launch and enumerator matrix without consulting that run's observed output.
+   Separately, each platform adapter derives version-pinned discovery evidence
+   from authoritative surfaces exposed by that harness version—its native tool
+   and supported-launch catalogues, plus CLI or schema discovery where
+   available—without consulting the definition or behavioural outcomes.
+   Reconciliation requires every independently discovered surface to map to
+   exactly one declared row. An unmapped surface, unavailable discovery source,
+   or evidence from another harness version marks definition coverage
+   `unknown` or `stale` and suppresses completeness claims. The collector has
+   read-only access, records both evidence sources and the exact
    definition-content digest, and rejects a changed digest under an unchanged
-   version, so a snapshot cannot certify its own completeness.
+   version, so neither a snapshot nor its definition can certify its own
+   completeness.
 2. **Record.** The parent writes one immutable, schema-versioned, sanitised
    snapshot per run. It records the probe-set version and content digest,
-   launch graph, model and effort provenance at thread creation and observation
-   time, resolved tool family, root activity state, wake-path evidence, time
-   and duration, harness and CLI versions where observable,
-   repository/environment fingerprints, complete ability IDs and metadata,
-   and explicit unavailable reasons. Children never share-write the ledger.
+   launch graph, and—for both thread creation and observation—phase-specific
+   timestamps, evidence sources, requested/configured/reported model, effort,
+   and resolved tool family, or an explicit unavailable reason for each value.
+   It also records root activity state, wake-path evidence, run time and
+   duration, harness and CLI versions where observable,
+   repository/environment fingerprints, every ability ID and metadata observed
+   within the reconciled matrix, and explicit unavailable reasons. Children
+   never share-write the ledger.
 3. **Diff.** Compare snapshots without rewriting history. Emit raw additions,
    removals, metadata changes, and behavioural changes. A rename is only an
    evidence-backed `rename_candidate` joining one removal to one addition;
@@ -58,9 +72,14 @@ One cross-platform pipeline with four shared primitives:
    suppresses behavioural-change inference. A probe regression or stale/fresh
    comparison therefore cannot masquerade as a lost or currently changed
    harness ability.
-4. **Signal.** Derive a current ledger and bounded drift summary for existing
-   startup/alert consumers. Signals are advisory and fail open; immutable run
-   records remain the authority.
+4. **Signal.** Derive a current ledger and bounded drift summary consumed by
+   the SessionStart bootstrap alert and the capability-census operations
+   runbook. An addition sends the runbook to reconcile the definition and run a
+   safe canary; a removal prevents capability-dependent routing until it is
+   reprobed; `unknown` or stale coverage sends the reader to refresh discovery
+   evidence; and an unchanged compatible record permits the existing route.
+   Signals are advisory and fail open for session startup; immutable run records
+   remain the authority.
 
 Ability IDs are stable and source-qualified (for example top-level harness,
 functions-exec, MCP, skill, CLI, or hook). Exposure and behavioural outcome are
@@ -75,33 +94,41 @@ Every live `owner-held` proof is verified from outside the probed seat by Jim
 Cresswell or the serving Director. Bounded evidence—run IDs, external-observer
 identity, challenge/reply or deliverable-movement references, and sanitised
 result links—is recorded on MCP-456 and the implementation pull request.
-`NOTIFY`, `LOOP`, `ABSORB`, `CAPABILITY`, and `PROGRESS` are never
-self-certifiable; a root snapshot may record those classes only with the
-external observer and evidence reference that certified them.
+The never-self-certifiable classes are owned by
+[PDR-133 §5](../../practice-core/decision-records/PDR-133-liveness-classes-and-platform-declaration.md#5-the-self-observation-corollary),
+not by this plan. A root snapshot may record a class in that set only with the
+external observer and evidence reference that certified it.
 
 ## Acceptance criteria (each with a proof — required)
 
-- **Every run takes a fresh full census.** Supported Codex and Claude root and
-  child launch paths emit complete source-qualified ability lists, counts,
-  hashes, probe-set versions, and explicit unknown/unavailable observations;
-  no previous inventory can satisfy the current run, and completeness is
-  checked against the pre-run independent probe-set definition rather than
-  snapshot self-report. The snapshot binds the definition's exact content
-  digest, and version/digest disagreement is rejected.
-  Proof: `repo-safe` — totality, no-cache, pre-run-independence,
-  version/digest, missing-enumerator, and launch-matrix fixtures; `owner-held`
+- **Every run takes a fresh census of its independently reconciled matrix.**
+  Supported Codex and Claude root and child launch paths emit source-qualified
+  ability lists, counts, hashes, probe-set versions, discovery-evidence
+  versions, and explicit unknown/unavailable observations; no previous
+  inventory can satisfy the current run. Completeness is scoped to the rows
+  reconciled between the pre-run definition and independent, version-pinned
+  discovery evidence. Unmapped surfaces or unavailable/stale discovery mark
+  definition coverage `unknown` or `stale` and suppress the completeness claim.
+  The snapshot binds the definition's exact content digest, and version/digest
+  disagreement is rejected.
+  Proof: `repo-safe` — totality, no-cache, definition/discovery independence,
+  version/digest, unavailable-discovery, unmapped-surface, stale-evidence,
+  missing-enumerator, and launch-matrix fixtures; `owner-held`
   — Jim Cresswell or the serving Director, external to each probed seat,
   verifies the platform runs and records their run IDs and bounded evidence
   links on MCP-456 and the implementation pull request.
 - **Run records are immutable, comparable, and safely attributable.** Each
   snapshot records UTC/local time, duration, run and parent/child identity,
-  launch mechanism, role/context mode, thread-creation and observation-time
-  requested/configured/reported model, effort, resolved tool family, root
+  launch mechanism, role/context mode, and separate thread-creation and
+  observation provenance. Each phase records its timestamp and evidence source,
+  plus requested/configured/reported model, effort, and resolved tool family—or
+  explicit unavailability for each value. The snapshot also records root
   activity state, wake path, sandbox and approval state, harness/client/CLI
   versions with evidence or explicit unavailability, probe-definition content
-  digest, repository/environment fingerprints, warnings, and bounded
-  observations. Secrets, account identifiers, connector URLs, absolute machine
-  paths, and unbounded output are rejected.
+  digest, discovery-evidence version and source, repository/environment
+  fingerprints, warnings, and bounded observations. Secrets, account
+  identifiers, connector URLs, absolute machine paths, and unbounded output are
+  rejected.
   Proof: `repo-safe` — schema, immutability, sanitiser, and hostile-fixture
   tests.
 - **Evidence is class-honest.** `present | absent | unknown` exposure and
@@ -111,7 +138,7 @@ external observer and evidence reference that certified them.
   recorded without exercising destructive or external mutations.
   Proof: `repo-safe` — exhaustive coherence-matrix, liveness-class, and
   safe-canary tests; `owner-held` — Jim Cresswell or the serving Director
-  certifies every claimed never-self-certifiable class through an externally
+  certifies every claimed class governed by PDR-133 §5 through an externally
   observed deliverable movement or content-bearing challenge reply, and
   records the observer, event, reply or movement reference, and result on
   MCP-456 and the implementation pull request.
@@ -131,8 +158,10 @@ external observer and evidence reference that certified them.
   CLI sessions; Claude covers the main session, Agent-tool children, Agent
   Teams, and Workflow agents. A launch family disabled or unsupported in the
   tested version remains a required matrix row with its explicit unavailable
-  reason. Platform adapters add observations but cannot fork the ledger schema
-  or comparator semantics.
+  reason. Each adapter also records the version-pinned discovery source used to
+  reconcile that matrix, or marks definition coverage unknown. Platform
+  adapters add observations but cannot fork the ledger schema or comparator
+  semantics.
   Proof: `repo-safe` — adapter contract tests; `owner-held` — Jim Cresswell or
   the serving Director verifies the recorded live matrices from outside the
   probed seats and records their run IDs and bounded evidence links on MCP-456
@@ -146,28 +175,35 @@ external observer and evidence reference that certified them.
   records the run ID and bounded result on MCP-456 and the implementation pull
   request.
 - **Signals remain projections, not authority.** Current-ledger and startup
-  drift summaries regenerate deterministically from immutable snapshots and
-  never block session startup merely because a capability cannot be observed.
-  Proof: `repo-safe` — projection freshness and fail-open SessionStart tests.
+  drift summaries regenerate deterministically from immutable snapshots. The
+  SessionStart alert and capability-census runbook consume them: additions
+  require definition reconciliation and a safe canary, removals suspend the
+  affected routing assumption until reprobed, and unknown/stale evidence
+  requires refreshed discovery. None blocks session startup merely because a
+  capability cannot be observed.
+  Proof: `repo-safe` — reader-decision, projection-freshness, and fail-open
+  SessionStart tests.
 
 ## Todos
 
 - **A — shared contract (round budget: at most two review rounds).** Land the
   versioned schema and independently maintained pre-run probe-set definition,
-  definition-content binding, source-qualified IDs, stable launch keys,
-  sanitiser, validator, freshness-aware comparator, immutable writer, and
-  adversarial fixtures.
+  version-pinned independent discovery evidence, definition/discovery
+  reconciliation and coverage state, definition-content binding,
+  source-qualified IDs, stable launch keys, sanitiser, validator,
+  freshness-aware comparator, immutable writer, and adversarial fixtures.
 - **B — Codex probe pack (round budget: at most two review rounds).** Add the
   deterministic collector and native root/child/CLI test card, then record the
-  first complete Codex matrix.
+  first independently reconciled Codex matrix.
 - **B-prime — Claude probe pack (round budget: at most two review rounds).**
   Add the Claude main/Agent-tool/Agent Teams/Workflow adapters against the
-  shared contract and record the first complete Claude matrix, retaining an
-  explicit unavailable row for any launch family the tested version cannot
-  exercise.
+  shared contract and record the first independently reconciled Claude matrix,
+  retaining an explicit unavailable row for any launch family the tested
+  version cannot exercise.
 - **C — projections and signal (round budget: at most two review rounds).** Add
   ledger diff/current views, conservative rename candidates, SessionStart
-  signals, skill/runbook discoverability, and cross-platform acceptance.
+  reader decisions, skill/runbook discoverability, and cross-platform
+  acceptance.
 
 ## Out of scope
 
