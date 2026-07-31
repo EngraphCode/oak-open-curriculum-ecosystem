@@ -115,6 +115,19 @@ candidates. Headline graduations (the commits and the homes are the record):
 
 ## 2026-07-31 comms-run observations (Ingot tracks Slag)
 
+- Reduce-stage think-loop calibration (2026-07-31, this seat): a single corpus-reducer fed
+  981 leaves (est. ~105k-token prompt, opus/high) produced THREE consecutive thinking-only
+  turns over ~35 minutes and never reached its schema-forced output call — the output
+  budget burned on deliberation each turn, ~170k tokens sunk. The estate's reduce
+  precedent maxed at 580 leaves; scale past precedent was my unpriced risk. Cure trio that
+  worked: shard to under the proven scale (537+444 with a cross-shard merge stage), drop
+  reasoning effort a tier, and instruct "think briefly and START EMITTING" with a
+  concise-statement bound. Diagnostic ladder worth keeping: transcript event SHAPES
+  distinguish thinking from emitting; a file-growth tripwire distinguishes alive from
+  dead; but alive is not converging — the TURN-SHAPE PATTERN (thinking-only turns
+  repeating) is the convergence check, the subagent form of the review-ratchet lesson.
+  Candidate graduation home: PDR-122 §6 calibration notes or the corpus-analysis README.
+
 - Bot-identity instance (2026-07-31, this seat): opened roll-up PR 661 with bare
   `gh pr create` — landed under the owner's keyring; caught at the pre-merge compliance
   read, recreated as PR 662 under the minted bot token. 4th instance of the
