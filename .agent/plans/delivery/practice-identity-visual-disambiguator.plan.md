@@ -50,6 +50,24 @@ the §Warrant arithmetic and its scope paragraph, the PDR-125 join-key
 retention, and the PDR-125 display-clause amendment with its twin
 disposition.
 
+**Evidence enrichment (2026-07-31, multi-perspective review — two
+independent Opus lenses converged on this plan's design over six
+invented alternatives):** measured in the live store, 10 of 19
+UUIDv7-family prefixes collide (53%), hiding 33 distinct seats —
+`019fb9` alone covered nine agents in one afternoon; non-v7 prefixes
+collide at 1%. Independently measured over 1,712 real Codex thread
+ids: vendor `rand_a` bits are decisively non-uniform (829 distinct
+where uniform predicts ~1,400), vindicating Revision 2's choice to
+anchor entropy on the UUIDv5 `id` rather than v7 tail bits. Renderer
+width was checked as a flip risk and falsified (no truncation budget
+in the statusline surfaces). Pre-build dependency discovered twice
+independently in the same review: the prefix derivation exists in
+THREE implementations (`collaboration-state/identity.ts` canonical;
+`codex/session-identity-hook.ts` and `cursor/oak-session-identity-hook.ts`
+carry private copies; only the Claude hook imports canonical) — the
+convergence story precedes the token build so the renderer inventory
+lands on one derivation.
+
 ## Goal
 
 Two agent seats whose session ids share the 6-character
