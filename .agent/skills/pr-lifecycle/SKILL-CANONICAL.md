@@ -289,6 +289,13 @@ select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
   currency; NOT the state machine's round-owed leg, so CLEAN with an OWED
   reviewer leg is still not merge-ready — and a composite/component
   disagreement is itself a finding to chase, never noise.
+- **CI can go SILENT, and silence reads as pending forever** (recorded on
+  MCP-373, homed 2026-07-31): a PR in CONFLICTING mergeable-state silently
+  stops `pull_request` workflow runs — no failure, no event, just absence.
+  A settle watch therefore carries legs beyond checks-by-name: read
+  `MERGEABLE`/mergeable-state alongside the checks, and confirm runs exist
+  for the CURRENT head via `gh run list` filtered per-head — a checks-green
+  read against a head with zero runs is reading the PREVIOUS head's truth.
 - Run the repo's budgeted watcher in the background:
   `pnpm agent-tools:pr-watch <n> --watch --interval 60` — one line per state
   change, including new comments by author and the unresolved review-thread
@@ -863,6 +870,13 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   complete batch first, then request.
 
 ## Phase 8 — After merge
+
+**Every merge gets its own fleet broadcast, no exceptions** (obligation
+recorded 2026-07-2x: a bot merge went unbroadcast for 40 minutes and left a
+peer seat disposition-blocked on state it could not see). In a cascade of
+merges, post-merge harvest custody is assigned PER PR — name who owns each
+merged PR's Phase-8 harvest in the broadcast, and late findings route to
+follow-up branches, never to merged ones.
 
 **One post-merge harvest before stand-down.** MERGED ends the merge-state
 question, not the feedback stream: a bot round composing at merge time still

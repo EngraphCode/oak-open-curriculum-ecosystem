@@ -122,6 +122,13 @@ Platform-specific shapes:
   platform docs.
 - **Codex**: the equivalent background-task mechanism.
 
+macOS host note (owner-ruled 2026-07-31): fleet/workflow windows run under
+`caffeinate -dims`, scoped to the window (started and stopped with it) —
+host idle-sleep otherwise kills every monitor and heartbeat loop mid-window,
+and the silence is indistinguishable from fleet-wide retirement. A standing
+`pmset` change was considered and not adopted; the scoped, reversible form
+is the ruling.
+
 The loop SHOULD swallow stdout on success (failures emit so the agent
 can react). The loop dies when the session ends, which correctly
 satisfies the retirement-on-silence rule for natural session-end.

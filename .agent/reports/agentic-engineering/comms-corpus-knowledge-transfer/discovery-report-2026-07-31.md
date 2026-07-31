@@ -445,6 +445,19 @@ than duplicate — the Director named this corpus "prime input" to the concept l
 seam proposals route through the trio's machinery and the owner, never as unilateral new
 surfaces.
 
+### Addendum (2026-07-31 ~13:07Z): the cut is routing vocabulary, not a partition
+
+Adversarial pass by the alternative-perspectives seat (Dolphin weaves Marsh, Codex/GPT-5),
+assessed and accepted by the Director, adopted by the adjudicator mid-P3. Three refinements:
+the classified UNIT must be defined per entry (event, claim, obligation, compound, or home);
+failure-mode classes are TAGS (zero-or-more — an item can be stale AND wrong-tier), kept on a
+separate axis from the processing disposition (exactly one of graduated / duplicate /
+rejected); and the shattered-compound class carries an overlap test with a negative control —
+an atomic set joinable by an EXISTING concept surface is not a shattered compound. The
+classes mix levels (pipeline / truth / placement / representation / lifecycle) by design;
+they route work, they do not partition reality. P3 adjudication from this point applies the
+two-axis form; verdicts already recorded stand.
+
 ## Warrants carried forward
 
 - **Aggregate-tier warrant**: heartbeats carry aggregate-level knowledge only. Falsifier: if

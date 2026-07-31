@@ -31,8 +31,8 @@ todos:
     status: in_progress
     depends_on: [p1-census-and-heartbeat-aggregate]
   - id: p3-journey-the-keeps
-    content: "Process the keep-set as first-class consolidation intake, evidence-tiered: novel keeps → napkin capture → same-pass graduation to highest-impact homes (rules/PDRs/patterns/governance/tickets); corroborated re-finds → verify-and-enrich the named home (PDR-098 recurrence check before any duplicate-skip); rejected/noise → reason recorded in the discovery report only (permanent-doc-is-the-consolidation-record: no separate ledger). Commits on the coordination branch as batches land. OWNER RESHAPE (2026-07-31, binding): P3 OPENS with the ontological step-back — 'no home found means a deep analysis of what the missing homes might be, and how they relate to the existing estate, what seams we have, what seams we should have... consider ontologies and epistemics before we take any action.' The discovery report's §The homeless set carries the first cut (five failure-mode classes: graduation-latency, stale-home, wrong-tier, shattered-compound, orphaned-obligation); the adjudication classifies every homeless item under it, the seam proposals route through the ratified knowledge-estate trio (PDR-134/ADR-221) and TO THE OWNER before any new surface is created, and only then do graduations execute per class."
-    status: pending
+    content: "Process the keep-set as first-class consolidation intake, evidence-tiered: novel keeps → napkin capture → same-pass graduation to highest-impact homes (rules/PDRs/patterns/governance/tickets); corroborated re-finds → verify-and-enrich the named home (PDR-098 recurrence check before any duplicate-skip); rejected/noise → reason recorded in the discovery report only (permanent-doc-is-the-consolidation-record: no separate ledger). Commits on the coordination branch as batches land. OWNER RESHAPE (2026-07-31, binding): P3 OPENS with the ontological step-back — 'no home found means a deep analysis of what the missing homes might be, and how they relate to the existing estate, what seams we have, what seams we should have... consider ontologies and epistemics before we take any action.' The discovery report's §The homeless set carries the first cut (five failure-mode classes: graduation-latency, stale-home, wrong-tier, shattered-compound, orphaned-obligation) PLUS the 2026-07-31 ~13:07Z addendum (Dolphin critique, Director-accepted, adjudicator-adopted): classes are zero-or-more TAGS on a separate axis from the exactly-one processing disposition; unit defined per entry; shattered-compound carries an overlap test with negative control. Seam proposals route through the ratified knowledge-estate trio (PDR-134/ADR-221) and TO THE OWNER before any new surface is created. IN PROGRESS 2026-07-31: the seam analysis has been in front of the owner (the ontology relay + the five-class report section, owner-read) — graduations are executing in batches. Keep-set recipe (recompute from committed checkpoints): join candidates-merged with meta-verify by id; keep = every needs-home candidate + every already-homed candidate whose meta verdict is not home-verified; Tier A = keep ∩ {no-home-found, home-missing-substance} (96 items); Tier B = ticket-or-commit-claimed (37); Tier C = spot-checks (54 needs-home→home-verified disagreements, sample of 135 agreements); plus the 72 P6 items (21 carrying records × their items arrays)."
+    status: in_progress
     depends_on: [p2-coordination-class-sweep]
   - id: p3b-synthetic-contamination-scan
     content: "Owner-directed post-processing scan (2026-07-31 ruling on the pilot-canary incident): deterministic grep for the six synthetic fingerprints — the reserved canary UUID prefix 00000000-c0c0-4000, the fictitious surface term quill-sync, the invented seats Quillon guards Ledger / Fathom binds Sounding and their session prefixes aa00c1 / bb00d2 — over (a) every run checkpoint before it commits, (b) the discovery report + keep-set, and (c) the full git diff origin/main...HEAD at the P4 gate. PASS = zero hits outside the three incident-record surfaces that legitimately describe the incident (this plan, the napkin entry, the discovery report's incident section). Any other hit is contamination: quarantine the artefact and re-derive it from clean sources. Context: four synthetic calibration events were injected into two pilot bundles, safety-flagged, and cured by full bundle rebuild (zero fingerprints on rebuild, verified); the platform classifier block is confirmed as a working protection layer for this class."
@@ -142,31 +142,49 @@ its boundary), works-for-any-user-any-machine, and the durability hierarchy
   the storage-redesign lane).
 - No re-processing of the 2026-07-30 pass's verified surfaces.
 
-## Resume map (refreshed at the 2026-07-31 ~11:10Z compaction boundary)
+## Resume map (refreshed 2026-07-31 ~13:10Z, mid-P3)
 
 Ground via start-right-quick; re-derive branch state first (`git status -sb`).
-Seat: Ingot tracks Slag (be4ac9), claim d0ba8352 HELD through the boundary;
-n=3 window (Director Falcon hunts Flight 52841f on quiet watch; Badger guards
-Lair 88e358 on the validator lane); ARC estate-dialogue channel live with
-Falcon (tracked file, tail re-arms at resume). Monitors die at process
-restart: re-arm the all-channels watcher (canonical block, same seen-file),
-assert, foreground gap sweep; re-arm the ARC tail.
+Seat: Ingot tracks Slag (be4ac9), claims d0ba8352 (curator, plan/memory) and
+79149dee (curator, graduation surfaces) both HELD. Fleet: Director Falcon
+hunts Flight (52841f) supportive watch; Badger guards Lair (88e358)
+compaction-frozen on the validator lane (claim held); Dolphin weaves Marsh
+(019fb8, Codex) claimless alternative-perspectives seat — its outputs are
+critically assessed, never auto-accepted. Monitors die at process restart:
+re-arm the all-channels watcher (canonical block, same seen-file), assert,
+foreground gap sweep; re-arm the ARC estate-dialogue tail; re-arm the
+DUAL-SURFACE heartbeat Monitor loop (comms event + claims heartbeat for BOTH
+claim ids; CronCreate is NOT a valid emitter — fires only when idle,
+calibrated first-hand and homed in liveness-heartbeat-cron).
 
-STATE: P0/P1 DONE and on main (PR 662, then Falcon's roll-up 663 carried the
-P2 checkpoints too). P2: map/reduce/merge DONE — all checkpoints committed
-under the discovery report's `data/` dir (map 981 leaves; merged 327
-candidates); META home-verification fleet's verdicts land as
-`meta-verify-2026-07-31.json`. P6 DONE as a checkpoint (159 records; 21
-carrying 36 unhomed items) pending adjudication-fold. The discovery report
-carries the pipeline run record, calibration lessons, and incident section.
+STATE: P0/P1/P2/P6 complete; checkpoints under the report's `data/` dir.
+OWNER RESET (2026-07-31 ~13:05 local, binding): the run completes only when
+the knowledge is adjudicated, graduated, and MERGED TO MAIN — "no knowledge
+contained to this specific checkout". P3 graduations are EXECUTING in
+batches on coordination/estate-2026-07-31: batches 1–5 homed the owner-word
+cluster (17 items), the merge/PR-mechanics cluster (~15), and the
+obligations cluster (11, incl. three owner cards answered: archive
+mine-then-delete → MCP-450; axe-core upstream → MCP-451; caffeinate in
+fleet windows → liveness rule note). merge-bot.md TRUED against the live
+rulesets API; ADR-217 §1 carries its dated amendment (tail → MCP-448);
+census ticket MCP-449. Dolphin's ontology critique ADOPTED (two-axis form —
+see the report §homeless-set addendum). Routed to Falcon: turbo.json truing
+(→ Badger's resume), e2e re-tier (→ fold into MCP-398), two Director items.
+~46 of 187 keep-set candidates dispositioned; the keep-set recipe for
+recomputing the remainder is in the p3 todo (derived worklist is
+machine-local scratchpad — REBUILD from committed checkpoints, never trust
+a stale copy).
 
-NEXT ACTS in order: (1) first-hand adjudication of the keep-set — every
-needs-home candidate + every home-missing-substance/no-home-found meta
-verdict + the 36 P6 items; read the grounding events/records directly;
-produce the adjudication ledger in the discovery report; (2) P3 graduations
-in batches (repo homes first, tickets as pointers only — the standing
-information-homing constraint binds); (3) p3b fingerprint scan (structurally
-blocks P4); (4) P4 roll-up merge; (5) P5 spend cards to the owner; (6) P7
-cold-reader probe (fleet-shaped under the standing ultracode grant). The
+NEXT ACTS in order: (1) continue P3 batches — platform-facts cluster,
+design-kit cluster (design items likely route to .design-sync/NOTES.md or
+the design lane), meta-patterns cluster (patterns/ homes per
+new-rule-vs-pdr-clause), remaining operational items; then Tier B (37
+ticket-claimed: tickets are pointers, substance needs repo homes), Tier C
+spot-checks, and the 72 P6 items (each has fleet homeCheck to critically
+re-verify); (2) p3b fingerprint scan (blocks P4; six fingerprints + pass
+condition in the p3b todo); (3) P4 roll-up PR to main, truly-green,
+bot-identity mint at PR-open; (4) P5 spend cards; (5) P7 cold-reader probe
+(fleet-shaped under the standing grant). Enumerations bound-free or
+bound-named, cross-checked against checkpoint totals (327/322/159/72). The
 owner's express fleet authorization and ultracode grant are in the napkin
 and the P2 todo verbatim-substance.
