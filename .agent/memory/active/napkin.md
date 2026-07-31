@@ -386,3 +386,23 @@ the full decision rationale, the Director could apply my disposition
 correctly in my absence — a freeze artefact is not just a resume map,
 it is a delegation surface. Frontload rationale into durable
 artefacts and a peer can act on it without you.
+
+## 2026-07-31 ~22:42Z — twin subagent freeze: a dead dispatch is silent; stat -L is the tell (Badger guards Lair, 88e358)
+
+Two parallel Opus reviewer dispatches (type, architecture) froze at
+EXACTLY 21:38:59Z mid-run — 260KB/315KB of transcript activity, then
+nothing: no completion notification, no error, pings queued "for next
+tool round" never consumed (a wedged agent has no next round). Two
+siblings from the same batch completed normally, but the same-second
+freeze across independent agents is a shared-substrate signature.
+Cures adopted: (a) for any dispatch older than ~2x its class norm,
+check the transcript's REAL mtime — the tasks/*.output entries are
+SYMLINKS, so bare ls/stat reads the link's own size/mtime as a decoy;
+stat -L or cat. (b) Frozen-through-a-ping = dead: TaskStop it, record
+the stall on the PR (never silently drop a dispatched reviewer), and
+fall back to independently-verifiable coverage — on PR 678 the two
+stalled reviewers' single flagged questions were already answered by
+compilation-with-zero-assertions and by the gateway's first-hand
+boundary verification, so the fallback was evidence, not hope.
+(Broadcast as failure-mode event same hour; this entry is the durable
+home.)
