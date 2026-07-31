@@ -54,6 +54,7 @@ One cross-platform pipeline with four shared primitives:
    completeness.
 2. **Record.** The parent writes one immutable, schema-versioned, sanitised
    snapshot per run. It records the probe-set version and content digest,
+   the executable collector and test-card revision with a content digest,
    launch graph, and—for both thread creation and observation—phase-specific
    timestamps, evidence sources, requested/configured/reported model, effort,
    and resolved tool family, or an explicit unavailable reason for each value.
@@ -66,12 +67,14 @@ One cross-platform pipeline with four shared primitives:
    removals, metadata changes, and behavioural changes. A rename is only an
    evidence-backed `rename_candidate` joining one removal to one addition;
    stable semantic launch keys, never run-local launch IDs, bind comparisons.
-   Schema, probe-set content, launch/enumerator coverage, and behavioural
-   evidence-age drift are reported separately. Incompatible structural
-   coverage suppresses per-ability inference; incompatible freshness
-   suppresses behavioural-change inference. A probe regression or stale/fresh
-   comparison therefore cannot masquerade as a lost or currently changed
-   harness ability.
+   Schema, probe-set content, launch/enumerator coverage, executable
+   collector/test-card revision, and behavioural evidence-age drift are
+   reported separately. Incompatible structural coverage suppresses
+   per-ability inference; incompatible collector/test-card revisions or content
+   digests suppress attribution of exposure or behavioural deltas to the
+   harness; incompatible freshness suppresses behavioural-change inference. A probe implementation
+   change, probe regression, or stale/fresh comparison therefore cannot
+   masquerade as a lost or currently changed harness ability.
 4. **Signal.** Derive a current ledger and bounded drift summary consumed by
    the SessionStart bootstrap alert and the capability-census operations
    runbook. An addition sends the runbook to reconcile the definition and run a
@@ -98,6 +101,13 @@ The never-self-certifiable classes are owned by
 [PDR-133 §5](../../practice-core/decision-records/PDR-133-liveness-classes-and-platform-declaration.md#5-the-self-observation-corollary),
 not by this plan. A root snapshot may record a class in that set only with the
 external observer and evidence reference that certified it.
+Certification selects the applicable instrument from
+[PDR-133 §6](../../practice-core/decision-records/PDR-133-liveness-classes-and-platform-declaration.md#6-two-instruments-certify-what-no-self-report-reaches)
+for each claimed class. Observed deliverable movement certifies `LOOP`,
+`CAPABILITY`, and externally read `PROGRESS`, plus `ABSORB` only when the
+movement responds to the coordination in question. `NOTIFY` requires a
+content-bearing challenge reply bound to the exact delivery path traversed;
+generic movement or a bare acknowledgement cannot certify it.
 
 ## Acceptance criteria (each with a proof — required)
 
@@ -125,10 +135,10 @@ external observer and evidence reference that certified it.
   explicit unavailability for each value. The snapshot also records root
   activity state, wake path, sandbox and approval state, harness/client/CLI
   versions with evidence or explicit unavailability, probe-definition content
-  digest, discovery-evidence version and source, repository/environment
-  fingerprints, warnings, and bounded observations. Secrets, account
-  identifiers, connector URLs, absolute machine paths, and unbounded output are
-  rejected.
+  digest, executable collector/test-card revision and content digest,
+  discovery-evidence version and source, repository/environment fingerprints,
+  warnings, and bounded observations. Secrets, account identifiers, connector
+  URLs, absolute machine paths, and unbounded output are rejected.
   Proof: `repo-safe` — schema, immutability, sanitiser, and hostile-fixture
   tests.
 - **Evidence is class-honest.** `present | absent | unknown` exposure and
@@ -138,10 +148,12 @@ external observer and evidence reference that certified it.
   recorded without exercising destructive or external mutations.
   Proof: `repo-safe` — exhaustive coherence-matrix, liveness-class, and
   safe-canary tests; `owner-held` — Jim Cresswell or the serving Director
-  certifies every claimed class governed by PDR-133 §5 through an externally
-  observed deliverable movement or content-bearing challenge reply, and
-  records the observer, event, reply or movement reference, and result on
-  MCP-456 and the implementation pull request.
+  certifies every claimed class governed by PDR-133 §5 with its applicable
+  PDR-133 §6 instrument. A `NOTIFY` claim requires a content-bearing challenge
+  reply over the exact tested delivery path; movement certifies `ABSORB` only
+  when it responds to that coordination. The observer, event, traversed path,
+  reply or movement reference, and result are recorded on MCP-456 and the
+  implementation pull request.
 - **Stored ledgers expose evolution.** Comparing any two compatible snapshots
   deterministically reports additions, removals, metadata changes, behavioural
   changes, and conservative rename candidates with their evidence. Schema,
@@ -151,7 +163,8 @@ external observer and evidence reference that certified it.
   inference.
   Proof: `repo-safe` — golden comparator fixtures covering additions,
   removals, true metadata/behaviour changes, ambiguous renames, false rename
-  traps, enumerator regression, stale/fresh comparison, and
+  traps, enumerator regression, collector/test-card revision drift,
+  unchanged-revision/changed-digest drift, stale/fresh comparison, and
   freshness-compatible comparison.
 - **Both harness families use the shared contract.** Codex covers the root,
   native child roles/fork modes, nested/follow-up continuity, and representative
@@ -190,8 +203,9 @@ external observer and evidence reference that certified it.
   versioned schema and independently maintained pre-run probe-set definition,
   version-pinned independent discovery evidence, definition/discovery
   reconciliation and coverage state, definition-content binding,
-  source-qualified IDs, stable launch keys, sanitiser, validator,
-  freshness-aware comparator, immutable writer, and adversarial fixtures.
+  collector/test-card revision binding, source-qualified IDs, stable launch
+  keys, sanitiser, validator, freshness-aware comparator, immutable writer, and
+  adversarial fixtures.
 - **B — Codex probe pack (round budget: at most two review rounds).** Add the
   deterministic collector and native root/child/CLI test card, then record the
   first independently reconciled Codex matrix.
