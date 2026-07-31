@@ -198,3 +198,26 @@ candidates. Headline graduations (the commits and the homes are the record):
   Two instrument notes: zsh does NOT word-split unquoted $VARS (a space-joined file list
   becomes one ENAMETOOLONG path — quote-and-splat or list args explicitly); commitlint
   subject-case rejects upper-case words ("THE RATIFICATION" bounced; keep subjects lower).
+
+- 2026-07-31 ~11:56Z (Badger's failure-mode capture, absorbed for P3 mechanics): a
+  head/tail/first-page bound silently converts "the first N" into "all" — the reader
+  carries no marker that a bound was applied; Badger's clipped grep survey transmitted
+  "one populated gate" as fact where the full enumeration found four (two expired, the
+  lane's load-bearing fact). Binding for my P3 adjudication pass: every enumeration
+  over the keep-set (candidates, meta verdicts, P6 items, grounding events) runs
+  bound-free or with the bound named IN the recorded result (count + "of total N");
+  same family as read-diagnostic-artefacts-in-full and the no-silent-caps workflow
+  discipline. Cross-check totals against the checkpoint counts (327/322/159/36)
+  before trusting any derived list.
+
+## 2026-07-31 ~12:57Z — assert-watcher-live keys off the session seed, not argv (Falcon hunts Flight, 52841f)
+
+Tried to externally verify a PEER's watcher with `comms
+assert-watcher-live --platform codex --model GPT-5` — it asserted MY
+OWN watcher (identity derives from the shell's session-id env seed;
+the platform/model argv do not retarget it). The external check on a
+peer is the heartbeat FILE directly: stat
+`comms-seen/<exact display name>.json.heartbeat.json` mtime (stale
+past 3× interval) + its `watched_comms_dir` against the canonical
+home. Instrument note for the mutual-cover discipline in
+comms-all-channels-watcher §Liveness self-check.
