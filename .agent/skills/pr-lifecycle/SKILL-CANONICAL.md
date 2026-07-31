@@ -187,7 +187,9 @@ surfaces. Partial reads produce false "no problems" verdicts:
    the comments connection with each comment's body and its originating
    review's commit binding — i.e. the first comment's
    `pullRequestReview { commit { oid } }` — the field the review-round
-   state machine's tally store (item 2) is built from. REST issue
+   state machine's tally store (item 2) is built from.
+   `reviewThreads(first: 100)` is the API MAXIMUM, not "all" — a PR past
+   100 threads needs pagination or the harvest silently truncates. REST issue
    comments MISS inline bot threads (Copilot, Bugbot); a REST-only read is the
    canonical way to falsely conclude "no comments". Worked failure 2026-07-02:
    two REST comments were triaged as "noise" while four unresolved Copilot
@@ -210,7 +212,9 @@ surfaces. Partial reads produce false "no problems" verdicts:
    alert reads are ref-scoped: the per-number GET returns `state=null` when
    no default-branch instance exists; the authoritative read passes
    `?ref=refs/pull/N/merge`, and any recorded verdict names the ref it was
-   read against in the same sentence.
+   read against in the same sentence. GraphQL `statusCheckRollup` can show
+   a STALE "Vercel pending" long after the deployment finished — the
+   commit-status REST API is the ground truth for status-context checks.
 4. **Sonar quality gate** — when it fails, pull the ACTUAL issues
    (`search_sonar_issues_in_projects` with `pullRequestId`, per the
    `sonarqube-mcp-instructions` rule) and read each flagged site. The gate
