@@ -485,6 +485,13 @@ UTC-to-UTC; never a local clock).
   can yield a false third claim (the capability exists AND the surface exists
   does not mean the capability applies to that surface N times, in that
   direction, or at that layer).
+- 2026-07-2x "stands unchanged" claims cite their survey: any conformance
+  claim of the form "X stands unchanged" / "no impact on Y" must cite the
+  verification that established it (which files were surveyed, by what
+  method, when) — an uncited stands-claim is a status marker, and this
+  rule's first bullet already says what a status marker is worth. (A
+  recurring doctrine candidate parked three times in machine-local records
+  before landing here.)
 - 2026-07-3x engaged-path before mechanism: A GREP HIT IS NOT A CONSUMER —
   a reviewer-adopted claim about a value's consumer was falsified by
   re-reading the found site (the match existed; nothing consumed it), and

@@ -189,6 +189,13 @@ onto this node — one line each, pointers never duplicates.
   MCP-354's four-event catalogue signed off unamended; MCP-357 finally
   sequenced post-submission on the corrected authenticated-handshake
   premise. Records: MCP-143, MCP-354, MCP-357, MCP-309 checklist.
+- 2026-07-2x — Sensitivity discipline (backfilled 2026-07-31; the rule is
+  statable even though its subject matter is not): repo artefacts — PR
+  bodies, commits, docs, ADRs, comms — carry NO release dates and NO
+  vendor mentions in relation to the release; that detail lives on owner
+  surfaces only. A handoff observing that the full sensitivity-tier detail
+  "lives exclusively in local memory" is describing this policy WORKING,
+  not a homing gap.
 - 2026-07-2x — Owner submission-logistics rulings (backfilled 2026-07-31):
   NO AGENT SUBMITS the connector or plugin — submission is a manual human
   act; the listing name is provisionally "Oak National Academy" pending
