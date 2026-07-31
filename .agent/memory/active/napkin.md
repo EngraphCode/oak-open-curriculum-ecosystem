@@ -170,3 +170,12 @@ candidates. Headline graduations (the commits and the homes are the record):
   §Future doctrine seed harvest (the multi-machine PDR candidate should name the
   layered protections: real-baseline calibration, deterministic fingerprint scans,
   platform classifiers, first-hand review before graduation).
+
+- 2026-07-31 ~11:10Z (Falcon, Director): RATIFICATION-BY-CARDS worked as a sitting form —
+  the doctrine trio went sketch→Accepted via four AskUserQuestion cards in-session (one per
+  artifact + one open owner call), with the obligations pre-recorded in the ADR so the
+  ratification commit was mechanical. Pattern seed: a sitting = cards over pre-authored
+  artifacts whose obligations are self-enumerating; prose walkthroughs were never needed.
+  Two instrument notes: zsh does NOT word-split unquoted $VARS (a space-joined file list
+  becomes one ENAMETOOLONG path — quote-and-splat or list args explicitly); commitlint
+  subject-case rejects upper-case words ("THE RATIFICATION" bounced; keep subjects lower).
