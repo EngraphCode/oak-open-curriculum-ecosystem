@@ -19,18 +19,30 @@ re-arming background tasks from a lane session.
 
 ## Action
 
-1. **Establish residency at launch.** The primary mechanism is starting
-   the lane session IN the worktree (`cd <worktree> && claude`, or
-   `claude --worktree <name>` for `.claude/worktrees/` lanes). The
-   worktree then IS the session's project root: doctrine (CLAUDE.md,
-   rules, settings) loads from the lane branch — so establish residency
-   only on a branch freshly cut from `origin/main`, per the existing
-   lane convention, or the resident agent reads stale doctrine.
-2. **Mid-session residency uses the session-level switch**, never
-   `cd`: the `EnterWorktree` tool (`path` form for existing worktrees).
-   It moves the session's working directory and is approval-gated for
-   paths outside `.claude/worktrees/`; switches after the first are
-   restricted to `.claude/worktrees/` worktrees.
+**This rule is the standing project instruction that directs worktree
+use** (the `EnterWorktree` tool acts on explicit instruction from the
+user or from project instructions — this rule is that instruction): an
+agent taking up a worktree lane is explicitly instructed to establish
+residency with `EnterWorktree` before its first lane action.
+
+1. **Primary mechanism — `EnterWorktree` from the principal.** The
+   typical estate workflow (owner word, 2026-07-31) launches sessions
+   in the principal checkout; the session then decides to take a lane.
+   The residency sequence: create the worktree per `worktree-hygiene`
+   conventions (`git worktree add`, branch freshly cut from
+   `origin/main`, sibling `-worktrees/` directory), then
+   `EnterWorktree` with `path` — the session-level switch. Verified
+   first-hand 2026-07-31 (Claude Code 2.1.220): path entry reaches a
+   sibling-directory worktree on first entry from the launch
+   directory, the session cwd IS the worktree and holds stable across
+   separate tool calls with no reset, and `ExitWorktree` restores the
+   principal cleanly. Fresh-cut-from-main matters doubly under
+   residency: the worktree becomes the session's working context, so a
+   stale branch means stale doctrine.
+2. **Secondary — residency at launch**, when a session is started FOR
+   a known lane: launch in the worktree (`cd <worktree> && claude`,
+   or `claude --worktree <name>` for `.claude/worktrees/` worktrees).
+   Useful to know; not the typical estate flow.
 3. **`Shell cwd was reset` is a residency-violation signal, never
    noise.** Bash cwd persists only inside the project directory and
    additional working directories; a `cd` into a sibling-directory
@@ -72,15 +84,18 @@ the platform's current documentation when the CLI major-versions or
 this rule's mechanics disagree with observation
 (`capability-questions-from-original-sources`).
 
-Two considered-and-rejected mechanics, recorded so they are not
+Three considered-and-rejected mechanics, recorded so they are not
 re-proposed: adding the sibling `-worktrees/` directory to
 `additionalDirectories` (it would make a bare `cd` silently persist,
 hiding exactly the residency violations this rule exists to surface);
-and relocating the lane convention into `.claude/worktrees/` wholesale
-(launch-in-worktree works identically from the sibling directory, which
-stays the visible estate convention; `.claude/worktrees/` remains
-available where `EnterWorktree`-heavy flows want unrestricted
-switching).
+relocating the lane convention into `.claude/worktrees/` (that
+directory is NESTED inside the principal checkout, and nested
+worktrees give false-clean dependency runs — Node resolution walks up
+into the parent's `node_modules`, the proven leak `worktree-hygiene`
+clause 8 records — while `EnterWorktree` reaches sibling worktrees
+fine); and pre-approving `EnterWorktree` in `permissions.allow`
+(the 2026-07-31 probe observed no approval friction for sibling-path
+entry — re-open only if a lane observes a prompt in practice).
 
 ## Why a rule, not a PDR clause
 
@@ -102,7 +117,13 @@ from its operate-from-a-worktree clause.
 
 ## Enforcement
 
-Behavioural, with a mechanical tell: the harness's own
-`Shell cwd was reset` line marks every violation of clause 3 at the
-moment it happens. Lane team-start broadcasts name the residency
-(worktree path) alongside the claim.
+Behavioural, with a mechanical tell and an observable surface: the
+harness's own `Shell cwd was reset` line marks every violation of
+clause 3 at the moment it happens, and the statusline renders the
+session's residency live (owner-observed 2026-07-31: during the
+residency probe it displayed both the entered worktree and the
+principal's coordination branch — where a session lives is glanceable,
+per `agent-state-observable`). Lane team-start broadcasts name the
+residency (worktree path) alongside the claim. A future hardening
+candidate, pointer-grade: a non-blocking PostToolUse alert on the
+reset line, in the drift-alert taste.
