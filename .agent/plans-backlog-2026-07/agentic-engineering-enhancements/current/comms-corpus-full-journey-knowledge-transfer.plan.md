@@ -31,7 +31,7 @@ todos:
     status: in_progress
     depends_on: [p1-census-and-heartbeat-aggregate]
   - id: p3-journey-the-keeps
-    content: "Process the keep-set as first-class consolidation intake, evidence-tiered: novel keeps → napkin capture → same-pass graduation to highest-impact homes (rules/PDRs/patterns/governance/tickets); corroborated re-finds → verify-and-enrich the named home (PDR-098 recurrence check before any duplicate-skip); rejected/noise → reason recorded in the discovery report only (permanent-doc-is-the-consolidation-record: no separate ledger). Commits on the coordination branch as batches land."
+    content: "Process the keep-set as first-class consolidation intake, evidence-tiered: novel keeps → napkin capture → same-pass graduation to highest-impact homes (rules/PDRs/patterns/governance/tickets); corroborated re-finds → verify-and-enrich the named home (PDR-098 recurrence check before any duplicate-skip); rejected/noise → reason recorded in the discovery report only (permanent-doc-is-the-consolidation-record: no separate ledger). Commits on the coordination branch as batches land. OWNER RESHAPE (2026-07-31, binding): P3 OPENS with the ontological step-back — 'no home found means a deep analysis of what the missing homes might be, and how they relate to the existing estate, what seams we have, what seams we should have... consider ontologies and epistemics before we take any action.' The discovery report's §The homeless set carries the first cut (five failure-mode classes: graduation-latency, stale-home, wrong-tier, shattered-compound, orphaned-obligation); the adjudication classifies every homeless item under it, the seam proposals route through the ratified knowledge-estate trio (PDR-134/ADR-221) and TO THE OWNER before any new surface is created, and only then do graduations execute per class."
     status: pending
     depends_on: [p2-coordination-class-sweep]
   - id: p3b-synthetic-contamination-scan
@@ -47,8 +47,8 @@ todos:
     status: pending
     depends_on: [p4-merge-to-main]
   - id: p6-machine-local-residue-verification
-    content: "The same successor-can't-see-it exposure covers more than comms: sample-verify the absorbed-by-construction claims for the ~140 machine-local handoff records (the 2026-07-30 pass risk-sampled the recent terminal ones; this leg samples the older strata), and confirm nothing load-bearing lives only in comms-seen/scratchpads/closed-claims. Verification leg, not a re-read — widen only if a sample fails. UPGRADED to FULL COVERAGE under the owner's 2026-07-31 ultracode grant: 159 records (handoffs + conversations/sidebars/escalations) swept by an 11-batch corpus-meta fleet (launched 2026-07-31, run wf_9ae882c3-ac2); unhomed finds fold into the P3 keep-set; dependency on P4 relaxed to co-run since the doctrine roll-ups (#662/#663) already put the home universe on main."
-    status: in_progress
+    content: "The same successor-can't-see-it exposure covers more than comms: sample-verify the absorbed-by-construction claims for the ~140 machine-local handoff records (the 2026-07-30 pass risk-sampled the recent terminal ones; this leg samples the older strata), and confirm nothing load-bearing lives only in comms-seen/scratchpads/closed-claims. Verification leg, not a re-read — widen only if a sample fails. UPGRADED to FULL COVERAGE under the owner's 2026-07-31 ultracode grant: 159 records (handoffs + conversations/sidebars/escalations) swept by an 11-batch corpus-meta fleet (launched 2026-07-31, run wf_9ae882c3-ac2); unhomed finds fold into the P3 keep-set; dependency on P4 relaxed to co-run since the doctrine roll-ups (#662/#663) already put the home universe on main. SWEEP COMPLETE 2026-07-31 (checkpoint p6-machine-local-sweep-2026-07-31.json: 138 absorbed / 21 records carrying 36 unhomed items); the adjudication-fold of the 36 items is P3 work under the ontological frame."
+    status: completed
     depends_on: [p1-census-and-heartbeat-aggregate]
   - id: p7-acceptance-probe
     content: "The cold-reader test, run AFTER P4/P5: stratified random sample of N=30 archived/spent events (10 heartbeat, 15 coordination/directed, 5 tagged); for each, either its substance is findable on a fresh checkout of MAIN (named home) or its noise-disposition is stated in the discovery report. Any miss reopens P3 for that class. This probe is the plan's falsifier: if a miss survives, the construction-claim was wrong and the sweep was insufficient."
@@ -142,12 +142,31 @@ its boundary), works-for-any-user-any-machine, and the durability hierarchy
   the storage-redesign lane).
 - No re-processing of the 2026-07-30 pass's verified surfaces.
 
-## Resume map (for the post-compaction session that executes this)
+## Resume map (refreshed at the 2026-07-31 ~11:10Z compaction boundary)
 
-Ground via start-right-quick; re-derive branch state first (`git status -sb`;
-the primary may have rotated). The 2026-07-30 pass's full working state is in
-the session scratchpad `consolidation-state.md` (survives compaction, dies with
-the session — the plan itself is the durable map). Claim to open: curator/
-implementer on this plan's surfaces. The Director (Falcon hunts Flight, 52841f)
-was cold-paused 2026-07-30 ~21:04Z, resume expected 2026-07-31 — coordinate P0
-with them if seated; execute solo per merge rulings if not.
+Ground via start-right-quick; re-derive branch state first (`git status -sb`).
+Seat: Ingot tracks Slag (be4ac9), claim d0ba8352 HELD through the boundary;
+n=3 window (Director Falcon hunts Flight 52841f on quiet watch; Badger guards
+Lair 88e358 on the validator lane); ARC estate-dialogue channel live with
+Falcon (tracked file, tail re-arms at resume). Monitors die at process
+restart: re-arm the all-channels watcher (canonical block, same seen-file),
+assert, foreground gap sweep; re-arm the ARC tail.
+
+STATE: P0/P1 DONE and on main (PR 662, then Falcon's roll-up 663 carried the
+P2 checkpoints too). P2: map/reduce/merge DONE — all checkpoints committed
+under the discovery report's `data/` dir (map 981 leaves; merged 327
+candidates); META home-verification fleet's verdicts land as
+`meta-verify-2026-07-31.json`. P6 DONE as a checkpoint (159 records; 21
+carrying 36 unhomed items) pending adjudication-fold. The discovery report
+carries the pipeline run record, calibration lessons, and incident section.
+
+NEXT ACTS in order: (1) first-hand adjudication of the keep-set — every
+needs-home candidate + every home-missing-substance/no-home-found meta
+verdict + the 36 P6 items; read the grounding events/records directly;
+produce the adjudication ledger in the discovery report; (2) P3 graduations
+in batches (repo homes first, tickets as pointers only — the standing
+information-homing constraint binds); (3) p3b fingerprint scan (structurally
+blocks P4); (4) P4 roll-up merge; (5) P5 spend cards to the owner; (6) P7
+cold-reader probe (fleet-shaped under the standing ultracode grant). The
+owner's express fleet authorization and ultracode grant are in the napkin
+and the P2 todo verbatim-substance.

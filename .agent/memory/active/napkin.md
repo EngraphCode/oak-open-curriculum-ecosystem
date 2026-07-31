@@ -115,6 +115,13 @@ candidates. Headline graduations (the commits and the homes are the record):
 
 ## 2026-07-31 comms-run observations (Ingot tracks Slag)
 
+- Owner directive at the META landing (2026-07-31 ~11:18Z, verbatim substance): "no home
+  found means a deep analysis of what the missing homes might be, and how they relate to
+  the existing estate, what seams we have, what seams we should have... it's a moment to
+  step back and consider ontologies and epistemics before we take any action." Enacted:
+  discovery report §The homeless set (five failure-mode classes; seam proposals route
+  through the PDR-134/ADR-221 trio and to the owner before any new surface); the plan's
+  p3 todo binds the step-back as P3's opening act.
 - Reduce-stage think-loop calibration (2026-07-31, this seat): a single corpus-reducer fed
   981 leaves (est. ~105k-token prompt, opus/high) produced THREE consecutive thinking-only
   turns over ~35 minutes and never reached its schema-forced output call — the output

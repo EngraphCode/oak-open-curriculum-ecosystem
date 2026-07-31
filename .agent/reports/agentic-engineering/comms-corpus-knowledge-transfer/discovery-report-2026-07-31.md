@@ -246,10 +246,122 @@ find .agent/state/collaboration/comms -name '*.json' -print0 |
 Roster/cadence: group by seat, count, min/max `created_at`, span/(count−1). Vocabulary tables:
 `grep -o 'intent=[^;]*'` / `'cycle=[^;]*'` / `'branch=[^;]*'` over the TSV, `sort | uniq -c`.
 
+## P2 pipeline run record (2026-07-31)
+
+Engine: run-specific Workflow scripts on the estate's corpus agent types, owner-priced then
+re-gated, with the owner's ultracode grant superseding the re-gate envelope. The stages and
+their committed checkpoints (all in `data/`, each fingerprint- and machine-local-path-scanned
+before commit):
+
+| Stage | Shape | Checkpoint | Outcome |
+| --- | --- | --- | --- |
+| MAP | 23 corpus-mapper windows, sonnet/low, concurrency 4 | `map-result-2026-07-31.json` | 981 leaves, 23/23 (three windows inline-read — see §Incidents) |
+| REDUCE | 2 shards (537+444 leaves), corpus-reducer, opus/medium | `reduce-shard-{a,b}-2026-07-31.json` | 146 + 201 candidates |
+| MERGE | 1 opus agent groups; dispositions computed in code | `candidates-merged-2026-07-31.json` | 327 candidates: 138 needs-home / 184 already-homed / 5 noise |
+| META | 18 corpus-meta batches verify homes on disk | `meta-verify-2026-07-31.json` | 304/322 verified: 173 home-verified / 72 no-home-found / 22 home-missing-substance / 37 ticket-or-commit-claimed; one batch (18 ids, listed in the checkpoint) failed twice and routes to first-hand adjudication |
+
+Every keep and home claim then passes first-hand adjudication at the operating seat before any
+P3 graduation — fleet output corroborates, never substitutes.
+
+### Calibration lessons earned by this run (doctrine-seed harvest, running)
+
+- A single reducer fed 981 leaves entered a divergent think-loop (three thinking-only turns,
+  ~170k tokens, output call never reached). Cures that worked: shard under the pipeline's
+  proven 580-leaf scale, drop one effort tier, instruct think-briefly-then-emit. Diagnostic
+  ladder: transcript event shapes distinguish thinking from emitting; a file-growth tripwire
+  distinguishes alive from dead; the TURN-SHAPE pattern is the convergence check — alive is
+  not converging.
+- Real known-answer baselines are the only calibration instrument (see §Incidents).
+- Checkpoint-commit between separately-launched stages (PDR-122 invariant 5) paid for itself
+  twice: the think-loop kill lost only one stage, and compaction risk never threatened banked
+  spend.
+- Platform safety classifiers are a working protection layer for knowledge-graduating
+  pipelines; a classifier denial is an owner action-moment, never a prompt-rewording exercise.
+
+## P6 machine-local residue sweep (2026-07-31)
+
+Upgraded from sampling to full coverage under the owner's ultracode grant: all 159
+handoff/succession/conversation/escalation records on this machine were read in full by an
+11-batch corpus-meta fleet, each verifying claimed homes on disk before classifying. Verdicts
+(checkpoint `data/p6-machine-local-sweep-2026-07-31.json`): **138 verified
+absorbed-or-noise** (home paths grep-confirmed, supersession reasoned per record), **21
+records carrying 36 unhomed items** — owner words, dangling obligations, and technical
+findings invisible to a successor checkout. The unhomed set folds into the P3 keep-set for
+first-hand adjudication alongside the P2 candidates.
+
+## Incidents (the record the p3b contamination scan's allowlist names)
+
+Four synthetic calibration canaries (including an invented "owner ruling" on the fictitious
+quill-sync surface, reserved UUID prefix `00000000-c0c0-4000`, invented seats "Quillon guards
+Ledger" aa00c1 / "Fathom binds Sounding" bb00d2) were injected into two pilot bundles and
+safety-flagged as instruction poisoning. The flag was correct and the design was off-pattern —
+the estate calibrates on real known-answer baselines. Cure: full bundle rebuild from the real
+stream (zero fingerprints on rebuild, verified), calibration re-run on six real baselines
+(passed), and the owner-directed p3b fingerprint scan now structurally blocks the P4 merge.
+The full-map relaunch was classifier-denied even clean, carded, owner-approved, and relaunched
+with provenance in the script header; three windows remained classifier-blocked and were
+inline-read first-hand per the owner's card ruling; the owner subsequently granted express
+permission for the run's surveys and tests, recorded verbatim in the napkin. Owner's ruling on
+the class: the refusals are "confirmation that there are processes in place to protect from
+that class of issue" — a good thing.
+
+## The homeless set: first ontological cut (owner-directed step-back, 2026-07-31)
+
+Owner directive at the META landing (verbatim substance): no-home-found means "a deep analysis
+of what the missing homes might be, and how they relate to the existing estate, what seams we
+have, what seams we should have... a moment to step back and consider ontologies and
+epistemics before we take any action." This section is the first cut, written with the whole
+corpus warm; the post-boundary adjudication runs UNDER it, and no graduation acts before the
+seam analysis has been in front of the owner.
+
+The load-bearing finding: the homeless set is NOT dominated by missing seams. Classified by
+failure mode, five distinct classes emerge, each wanting a different cure:
+
+1. **Graduation latency, seam exists** — standing owner rulings stated in-stream (the metered
+   Oak-browser seat; self-limits-gated-on-asking; the record-register discipline) whose home
+   (a rule, via new-rule-vs-pdr-clause) exists as a seam but was never triggered. The cure is
+   a PIPELINE property, not a new home: ruling-to-rule latency needs a structural trigger
+   (the consolidation cascade ADR-221 obligation 5 is the candidate wiring). This is the
+   doctrine-seed's "standing cadence replacing one-off rescue" showing up empirically.
+2. **Stale or conflicting homes** — the seam exists and CONTRADICTS the corpus (M07:
+   `docs/engineering/merge-bot.md` states no-bypass while the corpus records the bot's
+   code-owner-review bypass honoured at the REST layer; the turbo.json hash-leg comment
+   falsified by probe). Cure: truing obligations, highest priority because a wrong home is
+   worse than none — it answers searches with falsehoods.
+3. **Wrong visibility tier** — knowledge homed where the wrong audience can see it: per-user
+   memory carrying estate-grade discipline (the untracked-records custody check lives in ONE
+   seat's user memory — invisible to every other seat; the per-user-memory-is-a-buffer rule
+   names the drain obligation and this instance shows the buffer not draining), machine-local
+   handoff records carrying "changed understanding" layers, tickets carrying general
+   knowledge (the owner's information-homing ruling already names this class). Cure: tier
+   migrations along the PDR-134 strata, not new seams.
+4. **Compound knowledge shattered across atomic homes** — multi-fact operating contracts
+   (the comms CLI's full send/drain/identity envelope; the settle-watch three-leg predicate;
+   the bot-token lifecycle) whose atoms sit in separate register entries while the compound
+   lives nowhere. The estate homes ATOMS well (frictions, gotchas, rule clauses) and
+   COMPOUNDS poorly. Candidate seam: per-TOOL contract reference pages (reference tier), or
+   the owning skill absorbs the compound — a genuine seam-design question for the owner and
+   the ADR-221 concept layer, which is precisely built to index concepts spanning files.
+5. **Orphaned obligations** — in-flight work whose seat died with the obligation recorded
+   nowhere durable (the stale component bundle with no owning lane; the 60-page local-render
+   gap; ADR-217 never landed off its superseded branch; the frozen #570 fixes; MCP-279's
+   wrong-author commit). The 2026-07-27 orphan-risk review was a one-off sweep of exactly
+   this class; nothing standing replaced it. Candidate seam: obligation-liveness validation
+   (Badger's gate-expiry validator lane is the adjacent live instrument; ADR-221's estate
+   graph gives obligations first-class nodes).
+
+Epistemic notes for the adjudicator: some no-home-found verdicts will be search misses
+(Sonnet-tier greps; the classes hold even where items move); every verdict gets first-hand
+re-check before action. And the just-ratified knowledge-estate trio (PDR-134 strata, ADR-221
+estate graph + concept layer) is the ontological instrument this analysis should feed rather
+than duplicate — the Director named this corpus "prime input" to the concept layer, so the
+seam proposals route through the trio's machinery and the owner, never as unilateral new
+surfaces.
+
 ## Warrants carried forward
 
 - **Aggregate-tier warrant**: heartbeats carry aggregate-level knowledge only. Falsifier: if
   the P7 cold-reader probe finds a heartbeat event carrying unique un-homed substance, this
   tier assignment was wrong and heartbeats need body-read sampling (plan §Warrants).
-- The P2 sweep sections (coordination-class keep-set, dispositions, home verifications) extend
-  this report as they land; the keep-set data files will sit beside it in this directory.
+- The P3 adjudication ledger and graduation record extend this report as they land; the
+  keep-set data files sit beside it in `data/`.
