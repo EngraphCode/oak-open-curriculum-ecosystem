@@ -6,9 +6,10 @@ consumed by `graph-ingest`, `graph-project`, and `graph-corpus-sdk`.
 
 ## Status
 
-Inc.1a foundation is active. WS1.1 established the sub-path scaffold, WS1.2
-landed the RDF Term union plus `Quad`, and WS1.3 adds DataFactory constructors
-plus the DatasetCore-compatible in-memory dataset surface.
+Landed capability: the RDF Term union plus `Quad`, DataFactory
+constructors, the DatasetCore-compatible in-memory dataset surface, the
+JSON-LD 1.1 processor with remote-context handling, RDFC-1.0 dataset
+canonicalisation, and the vocabulary registry.
 
 ## Architectural decisions
 

@@ -154,8 +154,8 @@ of Oak's strategy stays on internal surfaces.
 The estate validator (re-cut to this contract in its own lane,
 red-first) refuses: an incomplete ratification stamp on a `ratified`
 plan; open-enum drift; an `impact_areas` entry absent from the
-registry; a delivery plan without a ticket; a gate without an absolute
-expiry; `superseded` without `superseded_by`; and an empty corpus
+registry; a ratified delivery plan without a ticket; a gate without an
+absolute expiry; `superseded` without `superseded_by`; and an empty corpus
 (zero plans is a failure, never a vacuous green).
 
 ## Relationship to ADR-200 (dated 2026-07-22)
