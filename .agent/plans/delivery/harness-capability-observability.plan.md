@@ -58,8 +58,10 @@ One cross-platform pipeline with four shared primitives:
    launch graph, and—for both thread creation and observation—phase-specific
    timestamps, evidence sources, requested/configured/reported model, effort,
    and resolved tool family, or an explicit unavailable reason for each value.
-   It also records root activity state, wake-path evidence, run time and
-   duration, harness and CLI versions where observable,
+   It also records root activity state, wake-path evidence, and—for any root
+   self-observation from `SUBSTRATE` through `DELIVERY`—the fresh progress
+   artefact type, bounded reference, observation time, and current-session
+   continuity ID. It records run time and duration, harness and CLI versions where observable,
    repository/environment fingerprints, every ability ID and metadata observed
    within the reconciled matrix, and explicit unavailable reasons. Children
    never share-write the ledger.
@@ -101,6 +103,11 @@ The never-self-certifiable classes are owned by
 [PDR-133 §5](../../practice-core/decision-records/PDR-133-liveness-classes-and-platform-declaration.md#5-the-self-observation-corollary),
 not by this plan. A root snapshot may record a class in that set only with the
 external observer and evidence reference that certified it.
+For the classes a seat may observe about itself, `SUBSTRATE` through
+`DELIVERY`, a `pass` requires a progress artefact read fresh in the current
+session and bound to that session's continuity ID. Cached, inherited,
+pre-continuity-boundary, or inference-only evidence records `unknown` or
+`inconclusive`, never `pass`.
 Certification selects the applicable instrument from
 [PDR-133 §6](../../practice-core/decision-records/PDR-133-liveness-classes-and-platform-declaration.md#6-two-instruments-certify-what-no-self-report-reaches)
 for each claimed class. Observed deliverable movement certifies `LOOP`,
@@ -146,7 +153,8 @@ generic movement or a bare acknowledgement cannot certify it.
   independently, with impossible combinations rejected; `DELIVERY`, `NOTIFY`,
   and `ABSORB` are also recorded independently, and declared authority is
   recorded without exercising destructive or external mutations.
-  Proof: `repo-safe` — exhaustive coherence-matrix, liveness-class, and
+  Proof: `repo-safe` — exhaustive coherence-matrix, liveness-class,
+  same-session-progress-artefact, stale/inherited-continuity rejection, and
   safe-canary tests; `owner-held` — Jim Cresswell or the serving Director
   certifies every claimed class governed by PDR-133 §5 with its applicable
   PDR-133 §6 instrument. A `NOTIFY` claim requires a content-bearing challenge
