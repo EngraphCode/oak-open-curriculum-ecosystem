@@ -7,10 +7,10 @@ import { err, isErr, ok, type Result } from '@oaknational/result';
 import {
   findOptionalStandaloneMarkerRange,
   findRequiredStandaloneMarkerRange,
-} from './team-alert-bootstrap-markers';
+} from './team-alert-bootstrap-markers.js';
 
 /** Canonical source for the projected Codex team-alert tripwire. */
-export const CANONICAL_RULE_PATH = '.agent/rules/use-monitor-for-event-driven-wake.md';
+const CANONICAL_RULE_PATH = '.agent/rules/use-monitor-for-event-driven-wake.md';
 
 /** Codex-native repository instruction surface receiving the projection. */
 export const AGENTS_PATH = 'AGENTS.md';

@@ -13,7 +13,7 @@ import {
   SOURCE_PROJECTION_START,
   extractTeamAlertProjection,
   renderAgentsWithTeamAlertProjection,
-} from './team-alert-bootstrap';
+} from './team-alert-bootstrap.js';
 
 const PROJECTION = `## Codex team-session alert bootstrap
 

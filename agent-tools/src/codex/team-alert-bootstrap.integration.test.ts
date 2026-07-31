@@ -6,7 +6,7 @@ import {
   checkTeamAlertBootstrap,
   generateTeamAlertBootstrap,
   type TeamAlertBootstrapFileIo,
-} from './team-alert-bootstrap';
+} from './team-alert-bootstrap.js';
 
 const REPO_ROOT = '/repo';
 const AGENTS_PATH = 'AGENTS.md';
