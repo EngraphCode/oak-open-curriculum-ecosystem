@@ -458,7 +458,34 @@ classes mix levels (pipeline / truth / placement / representation / lifecycle) b
 they route work, they do not partition reality. P3 adjudication from this point applies the
 two-axis form; verdicts already recorded stand.
 
-## Warrants carried forward
+## P5 spend record and P7 acceptance probe (2026-07-31 ~15:20Z)
+
+**Owner rulings (carded)**: process all events; post-processing, remove all
+events older than 3 days; heartbeat bytes DELETE (not archive).
+
+**Watermark**: swept through 2026-07-28T15:18:57Z — 4,879 event files
+deleted (created 2026-07-19T19:05:08Z .. 2026-07-28T15:18:57Z); 3,592
+younger events retained in the live 3-day window. Provenance: zero
+synthetic-fingerprint hits in the spend-set (six fingerprints scanned
+pre-deletion); every spent event predates the P2 census cutoff, so the
+mapped 23-window corpus covered it by construction.
+
+**P7 cold-reader probe (run BEFORE deletion, on the pre-spend corpus)**:
+stratified N=30 (10 heartbeat / 15 coordination-directed / 5 tagged),
+seeded sample. Result 30/30: heartbeats are noise-dispositioned by the
+§Heartbeat aggregate (their extractable knowledge — roster, cadence norms,
+vocabulary — is in this report); nine substantive events were findable at
+named homes on a checkout of main (bot-identity instances in the rule's
+trigger paragraph, the x-stop calibration in the watcher rule, the EEF flip
+and host-derivation dated notes in the strategic plan, the gh-auth
+signature and --max-events story in their rules); the remainder are
+**transient coordination events** — routing grants, queue updates, PR-open
+notices, directed pings, acks — whose OUTCOMES live in git history, merged
+PRs, and tickets. That transient class is hereby noise-dispositioned as a
+CLASS: a routing instruction that was executed leaves its knowledge in the
+executed state, not in the instruction; nothing in the class carries
+standing doctrine (the probe checked each sampled instance against that
+claim first-hand). Zero misses; P3 does not reopen.
 
 - **Aggregate-tier warrant**: heartbeats carry aggregate-level knowledge only. Falsifier: if
   the P7 cold-reader probe finds a heartbeat event carrying unique un-homed substance, this
