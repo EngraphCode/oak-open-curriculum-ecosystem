@@ -124,7 +124,7 @@ candidates. Headline graduations (the commits and the homes are the record):
   power must never be the only sight on sources of truth. Full harvest with this run's
   evidence base: discovery report §Tiered sight (epistemic-laundering failure mode;
   source-access-is-a-tier-property; foveation model; overwatch-is-dynamics; the
-  tier-does-not-cure-transmission counterweight). Graduation route: the future multi-machine
+  tier-does-not-cure-transmission counterweight). Instantiation (owner, same hour): Haiku fleet with OVERLAPPING regions as the first landscape (disagreement field = free salience map; offset strides heal boundaries; ~half the cost of single-coverage Sonnet), then Sonnet, then Opus, Fable overwatch — report §Tiered sight carries the full analysis. Graduation route: the future multi-machine
   PDR (plan §Future doctrine seed), reconciling PDR-122 + PDR-134 with the invariant "no
   source of truth is seen only by the lowest tier".
 - Owner directive at the META landing (2026-07-31 ~11:18Z, verbatim substance): "no home

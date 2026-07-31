@@ -351,6 +351,42 @@ This run is the articulation's evidence base:
   the overwatch's canary design; the owner sanity-checked the overwatch's direction
   throughout). No tier is the top of the epistemic stack.
 
+### Proposed instantiation (owner, 2026-07-31): Haiku overlap → Sonnet → Opus → Fable overwatch
+
+Owner articulation, verbatim substance: start the architecture with "a large fleet of Haiku
+to create the initial landscape, and give them OVERLAPPING REGIONS to effectively increase
+the sampling rate of that first pass — then Sonnet, then Opus, and all with Fable overwatch."
+
+Analysis against this run's evidence, recorded for the future PDR:
+
+- **Overlap converts invisible misses into a measurable signal.** Two quasi-independent
+  sightings per region compound recall (both-miss rate → toward p²), and the DISAGREEMENT
+  FIELD between overlapping readers — one extracts a signal the other missed, or they
+  classify differently — is a free, self-generating salience map: precisely the coordinates
+  where conceptual resolution is failing, which is where the Sonnet tier's deeper reads
+  route. The estate already trusts divergence-as-signal for judgment (cricket A/B routing,
+  PDR-122 diverse-lens quorums); this applies the same move to COVERAGE.
+- **Boundary healing**: offset strides (e.g. 50%) put every event in some window's interior.
+  This run's single-coverage windows cut narratives at arbitrary edges (the PR-515 arc split
+  across w14/w15, reassembled only at reduce).
+- **Economics**: at roughly 4x cheaper than Sonnet, a double-sampled Haiku landscape costs
+  about half a single-coverage Sonnet pass — with the disagreement field as a bonus
+  instrument. The observed focused-tier arithmetic (opus/high at ~2.4x per-candidate over
+  wide sonnet) already showed the deep tier is cheaper than feared when scope is narrow.
+- **Constraints from this run's data**: independence requires DIFFERENT windowing or
+  different extraction lenses, never doubled identical prompts (identical prompt+bundle =
+  correlated blind spots); near-duplicate dedup moves up a tier, but matched pairs ARE the
+  coverage confirmation, so the cost is the instrument; Haiku suits recall-first extraction
+  only under a tight schema and the think-briefly-emit binding (the think-loop lesson bites
+  harder at low tiers), and the cricket calibration record keeps Haiku away from
+  judgment-laden calls; the standing disagreement RATE is a live regime-calibration metric
+  for the overwatch — rising disagreement means the extraction regime is degrading.
+- **The ladder**: Haiku x2-overlap (landscape + disagreement field) → Sonnet (assess
+  landscape, resolve disagreements, deep-read flagged regions) → Opus (frame judgment,
+  contradiction adjudication, seam questions) → Fable overwatch (dynamics, direction,
+  known-answer calibration via its OWN source reads). The source-access invariant holds at
+  every rung.
+
 Graduation route: this section is the harvest record; the generalisable shape reconciles with
 PDR-122 (tier-per-leg, Opus-judges-the-frame) and PDR-134's strata at the future
 multi-machine PDR the plan's §Future doctrine seed binds — extending both with the
