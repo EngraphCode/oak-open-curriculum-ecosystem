@@ -48,13 +48,18 @@ export type NamingSchemaVersion = z.infer<typeof namingSchemaVersionSchema>;
  * meaningless identity and is rejected at the parse boundary — do not relax
  * these to bare `z.string()`.
  *
- * `id` is OPTIONAL on the read side, but only CLAIM rows use that latitude:
- * a pre-sunset legacy claim is legal registry content, preserved on
- * write-back, and narrowed at the routing boundary (see `routingKeyFor` in
- * `active-agent-routing.ts`) where an id-less identity is never the same
- * live agent. Commit-queue INTENT rows require `id` AT PARSE in both
- * registry read paths (see {@link parseIntentAgentId}); the write-side
- * schema `collaborationAgentIdWriteSchema` requires `id` so write factories
+ * `id` is OPTIONAL on the read side for the two legacy populations that
+ * must stay readable: pre-sunset CLAIM rows (legal registry content,
+ * preserved on write-back, narrowed at the routing boundary — see
+ * `routingKeyFor` in `active-agent-routing.ts`, where an id-less identity
+ * is never the same live agent) and historical COMMS-EVENT identities
+ * (`state-schemas.ts` binds this schema for author/from/to; legacy events
+ * on disk lack ids, and replying to one through the id-keyed write path
+ * correctly throws — see `replyToDirectedCommsMessage`). Do NOT require
+ * `id` on this generic read schema. The one strict exception is
+ * commit-queue INTENT rows, which require `id` AT PARSE in both registry
+ * read paths (see {@link parseIntentAgentId}); the write-side schema
+ * `collaborationAgentIdWriteSchema` requires `id` so write factories
  * cannot accidentally emit legacy shape.
  *
  * Any caller that needs to parse an identity from untrusted input (JSON, env,
