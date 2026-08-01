@@ -1,12 +1,12 @@
 ---
-id: first-class-copilot-cli-practice-citizenship
+id: agent-platform-citizenship
 node_type: strategic
-name: First-class Copilot CLI Practice citizenship
-overview: "Make a locally running GitHub Copilot CLI session an equal first-class participant in the repository's canonical Practice and agentic tools."
+name: "Agent-platform Practice citizenship"
+overview: "Every capable agent platform — Copilot CLI, Codex, and those to come — can be an equal first-class participant in the repository's canonical Practice and agentic tools, joining through its own supported native surfaces; GitHub Copilot CLI is the first fully-worked instance."
 status: ratified
 ratified_by: "Jim Cresswell"
 ratified_date: 2026-07-24
-ratified_where: "PR #529 owner ratification record: https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/529#issuecomment-5079688100"
+ratified_where: "PR #529 owner ratification record (the Copilot CLI instance): https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/529#issuecomment-5079688100; WIDENED to all agent platforms by owner decision card 2026-08-01 (Director session Falcon hunts Flight 52841f) — the widening generalises the already-ruled all-platforms-are-first-class principle, with the Copilot content retained below as the first instance"
 serves: FRAME-1
 impact_areas:
   - practice-and-estate
@@ -18,10 +18,32 @@ tickets:
   - MCP-154
   - MCP-155
   - MCP-156
-last_updated: 2026-07-25
+last_updated: 2026-08-01
 ---
 
-# First-class Copilot CLI Practice citizenship
+# Agent-platform Practice citizenship
+
+## The widened node (owner-carded 2026-08-01)
+
+Citizenship is platform-general: the Practice remains canonical under
+`.agent/`, and any capable agent platform participates as an equal
+first-class citizen through its own supported native surfaces — honest
+identity, deliberate join, canonical capabilities, team comms, and
+executable proof of participation. This node was born Copilot-CLI-specific
+(id `first-class-copilot-cli-practice-citizenship`); the owner widened it
+2026-08-01 rather than minting a sibling, because the principle it encodes
+— all agent platforms are first-class citizens — was already ruled and the
+Copilot work is one instance of it, not its boundary. Two participation
+modes serve this node:
+
+- **Membership** — a platform session joins the Practice as a peer seat
+  (identity, claims, comms, its own clock). The Copilot CLI instance
+  below is the worked programme; the Codex peer seats are live practice.
+- **Invocation** — a platform is called as a bounded instrument from
+  within another platform's session, under the Subagent Invocation
+  Framework (Sif) and its per-binding annexes. Instruments are not
+  citizens; the clean line between the modes is part of the citizenship
+  design, so neither erodes the other.
 
 ## Dated notes
 
@@ -36,8 +58,13 @@ last_updated: 2026-07-25
   correctness decision, not a convenience); repository-level skills resolve
   before user-level ones. Version-pin any recorded verdict on these facts —
   the CLI's resolution order is vendor surface and can move.
+- **2026-08-01** — Widened to all agent platforms (owner card; see
+  ratified_where). The Copilot-specific bet, success criteria, and
+  execution state are retained unchanged below as the first instance.
 
-## Outcome
+## The first fully-worked instance: GitHub Copilot CLI
+
+### Outcome
 
 A GitHub Copilot CLI process running locally alongside Claude and Codex can
 enter this repository, identify itself honestly, deliberately join the same
@@ -45,7 +72,7 @@ team Practice, use the same canonical capabilities through its supported native
 surfaces, exchange team messages, and leave executable proof of that
 participation.
 
-## The bet
+### The bet
 
 First-class citizenship is behavioural, not a count of matching files. The
 Practice remains canonical under `.agent/`; thin, validated GitHub projections
@@ -58,11 +85,12 @@ skill ran. `oak-start-right-team` remains the deliberate boundary that enrols a
 session in *continuous* team participation — heartbeat emission, the
 all-channels watcher, and the handoff/retirement lifecycle.
 
-The bet is deliberately local and narrow. GitHub Copilot coding-agent or cloud
-execution, remote transport, hosted bridges, and a parallel Codex programme do
-not serve this node.
+This instance's bet is deliberately local and narrow. GitHub Copilot
+coding-agent or cloud execution, remote transport, and hosted bridges do not
+serve this instance; other platforms' citizenship programmes serve the
+widened node directly.
 
-## Success looks like
+### Success looks like
 
 - A local Copilot CLI session has stable, truthful Copilot identity and can
   choose whether to join the team Practice.
@@ -81,7 +109,7 @@ capabilities are wired before their delivery plans land and their proofs pass.
 
 ## Delivery
 
-Delivery plans serving this node declare
-`serves: first-class-copilot-cli-practice-citizenship` — enumerate them by
-search, never by a hand-kept list. Milestones and execution state live in
-MCP-150, MCP-154, MCP-155, and MCP-156.
+Delivery plans serving this node declare `serves: agent-platform-citizenship`
+— enumerate them by search, never by a hand-kept list. The Copilot instance's
+milestones and execution state live in MCP-150, MCP-154, MCP-155, and
+MCP-156.

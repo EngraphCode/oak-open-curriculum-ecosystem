@@ -7,7 +7,7 @@ status: sketch
 ratified_by: null
 ratified_date: null
 ratified_where: null
-serves: first-major-release
+serves: agent-platform-citizenship
 impact_areas:
   - practice-and-estate
 tickets: []
@@ -15,15 +15,16 @@ depends_on: []
 owner_gates:
   - awaiting: owner-decision
     clears_when: >-
-      Jim Cresswell ratifies the direct-first v1 shape at PR review: the
-      project-level codex MCP registration with the process-pinned
-      read-only/no-approvals launch args, the dialogue-protocol skill and
-      its exchange budget, the close-event record shape, and the
-      theory-of-change structures (pre-registered prior, the trial
-      window's size and decision rule, and the diversity null-hypothesis
-      baseline). The direction, name, record purpose, and
-      no-wrapper-in-v1 rulings are already his word (2026-08-01) and are
-      not re-opened by this gate.
+      MECHANICAL ONLY — the substance is RATIFIED by owner word 2026-08-01
+      (decision cards, Director session 52841f): the direct-first v1
+      shape, the close-event record, the theory-of-change structures,
+      and the trial values (12 dialogues / 14 days, decision rule at
+      close) are all his word, alongside the serves correction and the
+      agent-platform-citizenship widening. This gate clears when the
+      plan's ticket mints — the anchored subtree requires one at status
+      ratified, and Linear is embargoed until 2026-08-10 08:00 London —
+      at which point status flips to ratified with the 2026-08-01 word
+      as its record. No decision re-opens.
     expires: 2026-08-15
 last_updated: 2026-08-01
 ---
@@ -174,7 +175,9 @@ second consumer:
   confident-but-wrong dissent) and attention cost; assumptions — the
   diversity null hypothesis above, and that decision-changes surface in
   close events honestly.
-- **Feedback contract**: the close event is the signal; its provenance
+- **Feedback contract** (reporting into the
+  `outcome-informed-practice-learning` strategic strand): the close
+  event is the signal; its provenance
   is the emitting seat; its custody is the fold-committed comms stream;
   its expiry is the trial window's decision point; its PERMISSIBLE
   DECISIONS are about THIS INSTRUMENT only — close events evaluate the
