@@ -28,9 +28,13 @@ interface ReviewerAdapterParityInputs {
 }
 
 interface ReviewerRegistrationParityInputs {
+  /** Repository root used to resolve project-relative registration paths. */
   readonly repoRoot: string;
+  /** Reviewer adapter basenames present on the Codex surface. */
   readonly codexAdapterNames: readonly string[];
+  /** Reviewer names and config paths read from the Codex project registry. */
   readonly registrations: readonly { readonly name: string; readonly configFile: string }[];
+  /** Pure boundary for determining whether a resolved adapter path exists. */
   readonly pathExists: (path: string) => boolean;
 }
 
@@ -154,6 +158,16 @@ function evaluateReviewerRegistrationParity(repoRoot: string): HealthCheckResult
   }
 }
 
+/**
+ * Evaluates Codex reviewer-registration parity from discovered adapters and registrations.
+ *
+ * This pure seam keeps registry and filesystem reads in the production composition while
+ * preserving the Codex path-resolution contract for repository-relative and absolute paths.
+ *
+ * @param input - Repository context, discovered adapters, registrations, and path boundary.
+ * @returns A passing result when every adapter is registered and every registration resolves to
+ *   an existing adapter, otherwise a failing result with one detail per parity violation.
+ */
 export function evaluateReviewerRegistrationParityFromInputs(
   input: ReviewerRegistrationParityInputs,
 ): HealthCheckResult {
