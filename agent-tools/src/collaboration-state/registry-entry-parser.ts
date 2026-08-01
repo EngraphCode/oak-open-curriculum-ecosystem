@@ -22,10 +22,9 @@ import { type CollaborationCommitQueueEntry } from './types.js';
  * is deliberate — do not "fix" it by spreading intents. Reconstruction is
  * non-destructive ONLY because parseCollaborationRegistry hard-rejects any
  * schema_version other than the pinned ACTIVE_CLAIMS_SCHEMA_VERSION: a
- * newer-minor file (whose unrecognised fields the runtime contract says to
- * preserve) is refused outright, never silently stripped. Relaxing that
- * version pin without revisiting this reconstruction turns this path
- * silently destructive.
+ * file at any other version is refused outright with an actionable error,
+ * never silently stripped. Relaxing that version pin without revisiting
+ * this reconstruction turns this path silently destructive.
  */
 export function parseCommitQueueEntry(
   value: unknown,
