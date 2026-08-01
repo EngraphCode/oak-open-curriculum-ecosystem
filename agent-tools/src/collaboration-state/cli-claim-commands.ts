@@ -1,8 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { dirname } from 'node:path';
 
-import { err, unwrapOrThrow } from '@oaknational/result';
-
 import { assertNoLiveIdentityRoutingCollision } from './active-agents.js';
 import { archiveStaleClaims } from './claims.js';
 import {
@@ -10,6 +8,7 @@ import {
   resolveOpenClaimWatcherVerdict,
 } from './claims-open-watcher-gate.js';
 import { areaFromOptions } from './cli-claim-areas.js';
+import { fail } from './cli-fail.js';
 import { resolveIdentity } from './cli-identity.js';
 import { optional, required, valueOrDefault, type Options } from './cli-options.js';
 import { resolveCanonicalCommsWatchPaths } from './comms-watch-paths.js';
@@ -195,10 +194,6 @@ export function assertClaimMatches(claims: readonly CollaborationClaim[], claimI
   if (!claims.some((claim) => claim.claim_id === claimId)) {
     fail(`no active claim matches ${claimId}`);
   }
-}
-
-function fail(message: string): never {
-  return unwrapOrThrow<never>(err(new Error(message)));
 }
 
 function splitClosingClaims(

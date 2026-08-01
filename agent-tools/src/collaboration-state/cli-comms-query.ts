@@ -111,6 +111,10 @@ export async function showComms(
  * `--now` defaults to the real wall clock — correct for a liveness judgement
  * (a lagging caller-supplied time could read a silent peer as live); it is
  * accepted only so tests and replay can pin a deterministic instant.
+ *
+ * The identity column renders the visual-disambiguator token (always
+ * `<prefix>-<idTail>` here — heartbeat authors carry ids); display-only,
+ * never the `--to-session-prefix` value.
  */
 export async function peerLivenessComms(
   options: Options,

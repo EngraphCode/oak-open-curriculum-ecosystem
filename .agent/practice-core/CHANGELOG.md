@@ -4,6 +4,19 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [oak-open-curriculum-ecosystem] 2026-08-01 — derivation-source provenance clause (Moss calls Loam)
+
+- PDR-027 amended: a new derivation-source provenance clause — where a tool
+  DERIVES an identity value from the collaboration registry on an
+  operator's behalf, the source is FRESH CLAIM rows only (seed-derived at
+  claim open); commit-queue identity fields are operator-typed relays and
+  are never a derivation source; the claim∪queue union remains legitimate
+  as evidence (disagreement tests, plausibility nets, liveness and
+  collision checks), never as a source. The tool-side complement of the
+  same-day authored-surface obligation: that clause governs what a hand
+  writes, this one what a tool reads in order to write. Ruled in-session
+  2026-08-01 (Director lens-resolution); the PDR is the field-role home.
+
 ## [oak-open-curriculum-ecosystem] 2026-08-01 — identity visual-disambiguator doctrine (Moss calls Loam)
 
 - PDR-027 amended: the render-time visual-disambiguator display token (the
