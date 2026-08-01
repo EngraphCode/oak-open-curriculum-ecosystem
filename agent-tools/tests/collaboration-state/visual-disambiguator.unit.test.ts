@@ -4,7 +4,10 @@ import {
   collaborationAgentIdSchema,
   type CollaborationAgentId,
 } from '../../src/collaboration-state/types';
-import { visualDisambiguator } from '../../src/collaboration-state/visual-disambiguator';
+import {
+  displayPrefix,
+  visualDisambiguator,
+} from '../../src/collaboration-state/visual-disambiguator';
 
 // Fixtures are schema-parsed literal blocks (testing-strategy §Test Data
 // Anchoring): the parse proves each block schema-legal, and pinning the full
@@ -144,5 +147,19 @@ describe('the visual-disambiguator token an identity block renders', () => {
       id: '76e5570d-e568-55cd-9dce-119f6bd382e4',
     });
     expect(visualDisambiguator({ ...block, id: replacement.id })).toBe('22e835-2e4');
+  });
+});
+
+describe('the display prefix a renderer shows', () => {
+  it('is the token for an id-bearing block', () => {
+    const block = parsedBlock({
+      session_id_prefix: '22e835',
+      id: '1bb4df59-58e8-5b71-b41b-eebd1f587dda',
+    });
+    expect(displayPrefix(block)).toBe('22e835-dda');
+  });
+
+  it('is the bare prefix for an id-less legacy block', () => {
+    expect(displayPrefix(parsedBlock({ session_id_prefix: 'abc123' }))).toBe('abc123');
   });
 });

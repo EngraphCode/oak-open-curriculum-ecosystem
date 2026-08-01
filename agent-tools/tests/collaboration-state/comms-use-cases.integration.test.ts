@@ -8,7 +8,11 @@ import {
   replyToDirectedCommsMessage,
   writeCommsEventWithReadback,
 } from '../../src/collaboration-state/comms-use-cases';
-import { type CollaborationAgentId, type CommsEvent } from '../../src/collaboration-state/types';
+import {
+  collaborationAgentIdWriteSchema,
+  type CollaborationAgentId,
+  type CommsEvent,
+} from '../../src/collaboration-state/types';
 
 // Legacy-shape constants — used for the migration test that asserts the
 // migrator preserves verbatim legacy data on disk (no id by construction).
@@ -182,6 +186,52 @@ describe('comms use cases', () => {
         body: 'Reply attempt should be rejected.',
       }),
     ).toThrow(/id/i);
+  });
+
+  it('rejects a cross-id reply with a message that distinguishes the two seats', () => {
+    // Two seats differing ONLY by id (the same-window collision shape): the
+    // rejection message must tell them apart, which the display token does.
+    // Literal write-schema blocks — the override derivation seeds its id from
+    // name|prefix and structurally cannot produce this pair.
+    const seatA = collaborationAgentIdWriteSchema.parse({
+      agent_name: 'Fixture Agent',
+      platform: 'codex',
+      model: 'GPT-5',
+      session_id_prefix: '019f93',
+      id: '16ea4357-6424-574e-863e-4d81f7fdc508',
+    });
+    const seatB = collaborationAgentIdWriteSchema.parse({
+      agent_name: 'Fixture Agent',
+      platform: 'codex',
+      model: 'GPT-5',
+      session_id_prefix: '019f93',
+      id: '608c6e45-7a5d-5161-bdd6-f403e03ee114',
+    });
+    const source = createDirectedCommsMessage({
+      eventId: 'cross-id-source',
+      createdAt: '2026-05-13T09:50:00Z',
+      messageKind: 'coordination-request',
+      from: senderWrite,
+      to: seatA,
+      subject: 'Addressed to seat A',
+      body: 'Only seat A may reply.',
+    });
+
+    expect(() =>
+      replyToDirectedCommsMessage({
+        sourceMessages: [source],
+        sourceEventId: 'cross-id-source',
+        from: seatB,
+        eventId: 'cross-id-reply',
+        createdAt: '2026-05-13T09:51:00Z',
+        messageKind: 'coordination-ack',
+        body: 'Reply from the wrong seat.',
+      }),
+    ).toThrow(
+      'current identity Fixture Agent / codex / GPT-5 / 019f93-114 ' +
+        '/ id:608c6e45-7a5d-5161-bdd6-f403e03ee114 cannot reply to message addressed to ' +
+        'Fixture Agent / codex / GPT-5 / 019f93-508 / id:16ea4357-6424-574e-863e-4d81f7fdc508',
+    );
   });
 
   it('renders canonical comms events through an injected output sink', async () => {

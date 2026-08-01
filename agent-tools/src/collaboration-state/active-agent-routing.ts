@@ -1,4 +1,5 @@
 import { type CollaborationAgentId, type UuidV5 } from './types.js';
+import { displayPrefix } from './visual-disambiguator.js';
 
 /**
  * Routing key used to compare identities for self-exclusion, directed
@@ -69,5 +70,5 @@ export function formatRoutingKey(key: AgentRoutingKey): string {
 
 export function formatAgent(agentId: CollaborationAgentId): string {
   const idSuffix = agentId.id === undefined ? '' : ` / id:${agentId.id}`;
-  return `${agentId.agent_name} / ${agentId.platform} / ${agentId.model} / ${agentId.session_id_prefix}${idSuffix}`;
+  return `${agentId.agent_name} / ${agentId.platform} / ${agentId.model} / ${displayPrefix(agentId)}${idSuffix}`;
 }
