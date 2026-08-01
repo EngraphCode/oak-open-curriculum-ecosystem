@@ -113,7 +113,13 @@ unread outbox entry from native `notified` custody to the bounded foreground
 retrieval owner in one transaction. Failed owner acceptance keeps native
 custody and blocks turn retirement; an indeterminate spend is quarantined
 rather than replayed. No terminal or waiting state may retain an unused expired
-correlation without a live retrieval owner.
+correlation without a live retrieval owner. If expiry or native-turn completion
+instead wins after `read_event` but before a durable acknowledgement intent —
+a provider failure or an early model stop ending the wake turn — the
+turn-bound receipt is revoked and the unresolved entry transfers to foreground
+reconciliation custody as `read` but unacknowledged, exactly as under
+user-priority cancellation below; it cannot be automatically reinjected. A
+committed acknowledgement intent again finishes broker-side only.
 
 User-priority cancellation is another state-machine input and races atomically
 with `read_event` and `acknowledge_event`. If it wins before read, the unread
