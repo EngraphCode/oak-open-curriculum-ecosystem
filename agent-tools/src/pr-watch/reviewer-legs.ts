@@ -87,7 +87,28 @@ export function hasLanded(review: HarvestedReview): boolean {
 // on their FINAL line; the canonical contract excludes them from quiet-window
 // anchoring and they must not pollute a defaulted expected-reviewer set. The
 // check is two linear probes, not one ambiguous regex (S8786 backtracking).
-const SIGNATURE_SUFFIX = /\([0-9a-f]{6}\)$/u;
+// The canonical parenthesised field is the BARE session_id_prefix (the join
+// key — pr-lifecycle SKILL); the optional `-hex3` arm additionally tolerates
+// the MCP-145 display token a seat may paste from a rendered surface (the id
+// tail can be uppercase: stored ids are lowercase but externally-parsed
+// blocks are rendered verbatim). The prefix arm deliberately stays exactly
+// six lowercase hex and is NEVER widened toward the schema-unbounded prefix
+// domain: a false POSITIVE here is silently destructive at all three
+// consumers — it removes the reply from quiet-window anchoring and from
+// body-tally evidence (settlement.ts) and, most dangerously, drops its
+// author from the DEFAULTED expected-reviewer set (state-gh.ts), which can
+// settle a round without a real reviewer — while a false NEGATIVE costs a
+// bounded wait at two consumers (timeout arm; re-anchored quiet window)
+// plus one wrong body-tally evidence line at the third — so the ratified
+// non-hex,
+// uppercase-prefix, and hyphen-bearing-prefix rows (the 2a token table in
+// tests/collaboration-state/visual-disambiguator.unit.test.ts) are
+// deliberate non-matches, and this stays a predicate, never an extractor
+// (the token is non-injective; no decode of it can be correct). Reviewer-leg
+// SATISFACTION is deliberately unfiltered: a signed self-reply by a DECLARED
+// expected reviewer still satisfies that leg — the exclusion binds only the
+// anchor, the body tally, and the defaulted set.
+const SIGNATURE_SUFFIX = /\([0-9a-f]{6}(?:-[0-9a-fA-F]{3})?\)$/u;
 
 export function isSignedSelfReply(body: string): boolean {
   const lastLine = (body.trimEnd().split('\n').at(-1) ?? '').trim();

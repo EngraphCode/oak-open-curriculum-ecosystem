@@ -33,6 +33,11 @@ export interface StatuslineParts {
    * different name per repo — so the prefix is the cross-repo join key
    * (inter-Practice protocol, identity-display clause). Absent renders as
    * `unknown` per PDR-027; it never drops silently while a name shows.
+   * Deliberate MCP-145 hold-out: the statusline is a SINGLE-identity view, so
+   * it renders this bare join key and never the visual-disambiguator token —
+   * a disambiguator has nothing to separate in a set of one, and the
+   * statusline is the operator's paste source for the join key — the value
+   * shown must BE the join key.
    */
   readonly identityPrefix: string | undefined;
   /** Current workspace directory basename. */
