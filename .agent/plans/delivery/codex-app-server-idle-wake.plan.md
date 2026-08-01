@@ -12,25 +12,32 @@ impact_areas:
   - practice-and-estate
 tickets: []
 depends_on: []
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: >-
-      Jim Cresswell records one accepted trust mode: either every process able
-      to inspect or impersonate the same-UID extension and controller is inside
-      the trusted computing base, or a concrete isolated mode proves a pathless
-      inherited authenticated IPC channel available only to the exact
-      extension, controller, and broker endpoints plus an OS-enforced
-      anti-inspection boundary against same-UID FD, memory, debug, and core-dump
-      access; a separate server UID, sandbox, socket ownership, or peer
-      credentials alone does not clear this gate
-    expires: 2026-08-03
-  - awaiting: owner-decision
-    clears_when: "Before rollout or canonical operating-rule promotion, Jim Cresswell records whether Oak may carry a pinned native Codex extension while an atomic and capability-scoped upstream API is unavailable and, if so, records one approved exit path: a named upstream-contribution owner and acceptance deadline, or a named sunset owner, removal deadline, and removal trigger"
-    expires: 2026-08-03
-last_updated: 2026-07-31
+owner_gates: []
+last_updated: 2026-08-01
 ---
 
 # Codex native idle wake — one seat, host driven
+
+## Owner rulings (2026-08-01, decision cards, Director session 52841f)
+
+Both former owner gates are RULED, not expired:
+
+1. **Trust mode: same-UID processes are inside the trusted computing
+   base.** Recorded as the accepted trust mode — it matches the estate's
+   actual posture (every agent seat already runs unrestricted as the
+   owner's user). This ruling stands for whenever this plan resumes.
+2. **Pinned native extension: NO.** Oak does not carry fork-adjacent
+   native code compiled against Codex internals — the maintenance work is
+   disproportionate to the benefit. This plan is therefore **deliberately
+   deferred** (a ruling, never drift): implementation waits until a
+   supported upstream surface exists or the wake need outgrows the
+   working degraded paths (relay child + bounded foreground polling).
+   The owner-commissioned successor exploration is
+   [`codex-upstream-idle-wake-contribution`](codex-upstream-idle-wake-contribution.plan.md)
+   — the wake capability as a PR into the Codex codebase, including the
+   Codex-native loop assessment; that plan's creation was the
+   commissioned deliverable and further work from it needs fresh owner
+   word.
 
 ## Goal
 

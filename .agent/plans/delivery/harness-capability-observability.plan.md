@@ -3,28 +3,27 @@ id: harness-capability-observability
 node_type: delivery
 name: "Harness capability observability — probe, record, diff, signal"
 overview: "Give Codex and Claude seats a repeatable, read-only automated capability census, with separately authorised bounded liveness challenges, whose scope-qualified run records expose additions, removals, changes, and evidence-backed rename candidates as their harnesses evolve."
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-08-01
+ratified_where: "Owner decision card (671-delta, five themed amendments summarised with commit trail), Director session Falcon hunts Flight 52841f, 2026-08-01"
 serves: first-major-release
 impact_areas:
   - practice-and-estate
 tickets:
   - MCP-456
 depends_on: []
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: "Jim Cresswell ratifies the current post-review plan head; the earlier PR #671 ratification record predates substantive evidence and recovery amendments and does not ratify them"
-    expires: 2026-08-03
-last_updated: 2026-07-31
+owner_gates: []
+last_updated: 2026-08-01
 ---
 
 # Harness capability observability — probe, record, diff, signal
 
-The baseline linked from the earlier PR #671 ratification record was ratified
-before substantive evidence, trust-boundary, and recovery amendments. Those
-amendments return the current plan to sketch until the owner ratifies this head.
+Ratified at the current head 2026-08-01 (owner decision card; the delta from
+the earlier PR #671 baseline — evidence independence, completeness honesty,
+the liveness-challenge trust boundary, freshness/retention binding, and the
+exposure/outcome separation — was summarised with its commit trail in the
+card and ratified whole).
 
 ## Goal
 
