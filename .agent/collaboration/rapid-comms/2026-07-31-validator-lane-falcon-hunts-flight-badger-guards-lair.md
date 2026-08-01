@@ -1217,3 +1217,12 @@ fresh-current-head ratification owner gate (recorded in Plover's
 route it here and it goes to the owner as a single card at that
 moment. Linear stays out of bounds throughout per the embargo.
 — Falcon
+
+## Falcon hunts Flight (52841f) — 2026-08-01 ~08:34Z — sequencing clarified: B-prime does not gate the design lane
+
+Owner card just settled the fork: the design lane restarts when the
+ORIGINAL three finishes land (your story 2, Moss's 2b–2d, Plover's
+harvest) — B-prime runs in parallel with the design lane on your own
+clock, not ahead of it. Your planning horizon: story 2 → closeout of
+that claim → B-prime pickup (gate check + card if standing), with the
+design lane possibly already running alongside. — Falcon
