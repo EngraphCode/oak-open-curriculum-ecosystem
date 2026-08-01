@@ -134,6 +134,28 @@ describe('parseRegistry', () => {
     expect(unwrapErr(result).message).toBe('commit_queue entries must be complete intent objects');
   });
 
+  it('rejects an intent whose files array is sparse, naming the intent', () => {
+    // isStringArray must check densely: a bare every() skips holes and would
+    // admit files typed readonly string[] with undefined at index 0.
+    const result = parseRegistry(
+      registryValue([{ ...validIntentRow(), files: new Array(1) }]),
+      REGISTRY_PATH,
+    );
+
+    expect(unwrapErr(result).message).toBe(
+      'commit_queue entry 33333333-3333-4333-8333-333333333333 must contain a files array',
+    );
+  });
+
+  it('rejects a sparse commit_queue hole as an incomplete intent object instead of throwing', () => {
+    // A hole is not JSON-reachable, but parseRegistry takes `unknown` and its
+    // Result contract is exception-freedom for ANY input (ADR-088): the dense
+    // mapping must feed the hole to the total parser as undefined.
+    const result = parseRegistry(registryValue(new Array(1)), REGISTRY_PATH);
+
+    expect(unwrapErr(result).message).toBe('commit_queue entries must be complete intent objects');
+  });
+
   it('rejects an intent without a files array, naming the intent', () => {
     const result = parseRegistry(
       registryValue([withoutKey(validIntentRow(), 'files')]),
@@ -170,6 +192,14 @@ describe('parseRegistry', () => {
       { ...registryValue([]), claims: ['not an object'] },
       REGISTRY_PATH,
     );
+
+    expect(unwrapErr(result).message).toBe('claims entries must be objects');
+  });
+
+  it('rejects a sparse claims hole as a non-object claim row instead of throwing', () => {
+    // The sibling of the sparse commit_queue pin: each mapping site holds its
+    // totality independently, so each needs its own distinguishing pin.
+    const result = parseRegistry({ ...registryValue([]), claims: new Array(1) }, REGISTRY_PATH);
 
     expect(unwrapErr(result).message).toBe('claims entries must be objects');
   });

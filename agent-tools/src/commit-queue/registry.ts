@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
 
-import { err, flatMap, map, ok, unwrapOrThrow, type Result } from '@oaknational/result';
+import { collect, err, flatMap, map, ok, unwrapOrThrow, type Result } from '@oaknational/result';
 
 import { parseIntentAgentId } from '../collaboration-state/agent-id.js';
 import { validateCollaborationJsonFileText } from '../collaboration-state/collaboration-json-validation.js';
@@ -122,8 +122,10 @@ export function parseRegistry(
   }
   const rawClaims = record.claims;
 
-  return flatMap(parseAll(rawIntents, parseIntent), (commitQueue) =>
-    map(parseAll(rawClaims, parseClaim), (claims) => ({
+  // Array.from, not .map: map preserves sparse holes, and a hole reaching
+  // collect would throw on `.ok` — the dense mapping keeps this parser total.
+  return flatMap(collect(Array.from(rawIntents, parseIntent)), (commitQueue) =>
+    map(collect(Array.from(rawClaims, parseClaim)), (claims) => ({
       ...record,
       schema_version: '1.3.0',
       commit_queue: commitQueue,
@@ -221,22 +223,6 @@ function parseClaim(value: unknown): Result<CommitQueueClaim, Error> {
   }));
 }
 
-function parseAll<T>(
-  entries: readonly unknown[],
-  parse: (entry: unknown) => Result<T, Error>,
-): Result<readonly T[], Error> {
-  const parsed: T[] = [];
-  for (const entry of entries) {
-    const result = parse(entry);
-    if (!result.ok) {
-      return result;
-    }
-    parsed.push(result.value);
-  }
-
-  return ok(parsed);
-}
-
 function requireIsoStringField(record: JsonObject, key: string): Result<string, Error> {
   return flatMap(requireStringResult(record, key), (value) => requireIsoDateTimeResult(value, key));
 }
@@ -246,5 +232,7 @@ function isRecord(value: unknown): value is JsonObject {
 }
 
 function isStringArray(value: unknown): value is readonly string[] {
-  return Array.isArray(value) && value.every((entry) => typeof entry === 'string');
+  // Dense check: a bare every() skips sparse holes and would admit a value
+  // typed readonly string[] whose holes read as undefined.
+  return Array.isArray(value) && Array.from(value).every((entry) => typeof entry === 'string');
 }
