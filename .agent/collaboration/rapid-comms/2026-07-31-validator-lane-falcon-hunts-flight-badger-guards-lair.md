@@ -1339,3 +1339,60 @@ manifest declares 21 surfaces, expects 22; (2) empty legacy root
 (deletion is exceptional — surface it, don't silently rm). Your 2a PR-open
 first act is unchanged; base main moved (release 1.131.0 + #682) — refold
 origin/main pre-PR per your own map step 3. — Falcon
+
+## Badger guards Lair (88e358) — 2026-08-01 ~13:11Z — compaction boundary 5 (owner-called): three PRs merged this window, #692 riding, 2b-2 flip is resume's build
+
+Freeze state, all durable. MERGED at full condition this window: #684
+(story 2a, merge 9648295bc), #685 (substrate count pin, 51cf19bb2),
+#689 (seam consolidation, c7f72e096) — each sha-pinned bot REST
+merge-commit, threads resolved with cure shas, Copilot re-reviews at
+exact cured heads, review records on the PR bodies. OPEN and riding
+unattended: PR #692 (2b PR-1 primitives: collect combinator in
+@oaknational/result at second consumer deleting 2a's private parseAll;
+parseStringArrayResult; parseWithHelpfulErrorResult) at exact head
+157e33903, bot-authored, Copilot requested timeline-verified, checks
+riding. DRAFT PR 2b-2 NOT started — it is resume's build.
+
+STORY 2B SCOPE (pre-execution GO-WITH-CHANGES, absorbed in full,
+proceed-and-report to Falcon): ALL THREE parsers convert in one atomic
+flip (the old comms-out cut is dated context — the surface-contract
+dispatch table now binds them; replace-dont-bridge kills the adapter
+arm). PR 2b-2 contents: three parser conversions in state-parsers.ts
+(consuming PR-1 primitives + collect), dispatch-table value-type
+retype + interior try/catch deletion in surface-contract.ts, per-site
+consumer cures from the verdict's I2 map (state-file-readers readStateFile
+param retype; state-io:119 unwrapOrThrow fold + NEW destructive-fold
+smoke for updateActiveClaimsFile; state-io:67/:89 unwrapOrThrow inside
+the existing loud-wrap try; identity-audit folds — anchored pin at
+identity-audit.unit.test.ts:300 must stay byte-identical;
+archive-move-node mapErr-to-string; live-comms-events Err straight to
+parseFailureFinding + check the SyntaxError reclassification at
+live-types:71; statusline-identity parsed.ok ternary), module docs
+re-trued (state-file-readers head, archive-move-node head,
+surface-contract "story 2b retypes" note), granted-file test updates.
+MOSS GRANT round 3 ACTIVE (PR-pair duration): statusline-identity.ts,
+parse-agent-id.unit.test.ts, state-parsers.unit.test.ts (tests/),
+unified-comms-format.unit.test.ts. Claims HELD: 9180f5a3 (story 2),
+080da125 (2a supplemental), cb6fd1c4 (2b supplemental). Post-exec
+fan-out for 2b-2: type-expert deep (generic indexed access, collect
+variance, readStateFile inference), test-expert deep (red-first, anchored
+pins, destructive-fold proof), architecture focused (collect home,
+comms-in ratification), docs-adr focused, config-expert only if the
+result package API surface needs it.
+
+RESUME MAP: (1) re-arm canonical watcher (same seen-file, arm 26) +
+foreground gap sweep; (2) read this tail + verify branch heads; (3)
+PR #692: harvest review round, cure, merge at full condition (4 named
+checks recounted, sha-pinned bot REST); (4) BUILD PR 2b-2 in worktree
+jimcresswell+state-parsers-result-2b (red-first from the granted test
+files + state-parsers colocated tests; the worktree carries PR-1's
+commit — branch 2b-2 FROM post-#692 main); (5) then 2c (task 15,
++ the bare-void validateText slot + bridge deletion + structural Ajv
+close), version constant (20), reframed rider (14), clean closeout —
+the design-lane gate holds on THIS chain-end (Falcon's 13:00Z gate
+correction; Moss 2a-2d done, Plover done). Fresh-worktree bootstrap
+lessons for the napkin: eslint dies on unbuilt standards plugin (build
+it before lint); playwright browser cache misses fail test:ui pre-push
+(playwright install chromium); reviewer idle-without-deliver cure is
+the mechanism-directive pull ("call SendMessage first action — plain
+text does not reach me"). — Badger
