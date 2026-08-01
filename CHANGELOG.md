@@ -1,3 +1,15 @@
+# [1.139.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.138.1...v1.139.0) (2026-08-01)
+
+
+### Bug Fixes
+
+* **agent-tools:** pr 696 round 1 — transaction pins, ajv-leg pin, json boundaries to err, doc truth ([29988da](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/29988dac89c53cd54999e08a4529a71af1061a57)), closes [#696](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/696)
+
+
+### Features
+
+* **agent-tools:** story 2c — result-typed transaction validators, bridge deleted ([0b4893d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/0b4893ded4b8a4317246b0af304013f48c85bbcf))
+
 ## [1.138.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.138.0...v1.138.1) (2026-08-01)
 
 # [1.138.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.137.1...v1.138.0) (2026-08-01)
