@@ -1,3 +1,10 @@
+# [1.134.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.133.0...v1.134.0) (2026-08-01)
+
+
+### Features
+
+* **agent-tools:** carry the identity token onto the operator CLI lines ([de7dfe2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/de7dfe279abd3a29989e567a6b81425988fab763))
+
 # [1.133.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.132.1...v1.133.0) (2026-08-01)
 
 
