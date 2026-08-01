@@ -235,8 +235,21 @@ quoted.
 - Reusing or resuming Codex threads across dialogues.
 - Pinning the Codex model; the CLI's configured default stays outside
   this contract.
-- A Codex-initiated Claude dialogue (recorded asymmetry; the owner's
-  direction makes symmetry a natural later step, as a pointer only).
+- A Codex-initiated Claude dialogue — out of v1 scope but NO LONGER an
+  unverified asymmetry: `claude mcp serve` (probed first-hand
+  2026-08-01, Claude Code 2.1.220, server `claude/tengu`) exposes the
+  full Claude Code toolset over stdio, including the `Agent` +
+  `SendMessage` pair — spawn a named Claude interlocutor, then continue
+  it with context intact — i.e. layer-B state continuation keyed by
+  agent name rather than thread id. This is the named SECOND EXPERIMENT
+  (owner word, 2026-08-01), and it meets the factoring trigger: the
+  dialogue doctrine is now general across two verified bindings, so the
+  skill is authored two-layer from day one (general invoked-dialogue
+  doctrine + per-binding annex). Its own open question is authority:
+  the serve surface hands the caller Bash/Edit/Write — full Claude Code
+  authority — so the reverse direction needs a read-only story
+  (permission mode / allowed-tools of the serving process) proven by
+  its own probe before any dialogue runs.
 - Changes to Cricket or ARC.
 
 ## External contract references (verification status)
@@ -258,5 +271,11 @@ quoted.
   fought.
 - Claude Code MCP registration and deferred tool schemas: VERIFIED
   2026-08-01 at <https://code.claude.com/docs/en/mcp>.
+- `claude mcp serve` (the reverse binding): VERIFIED first-hand
+  2026-08-01 by live MCP probe — Claude Code 2.1.220 serves its full
+  toolset over stdio (`Agent`, `SendMessage`, `Bash`, `Read`, `Edit`,
+  `Write`, and the rest); `Agent` + `SendMessage` provide named-agent
+  multi-turn continuation. Authority pinning on this surface: OPEN —
+  its own probe gates the reverse experiment.
 - Claude Code hooks (the named hardening path only): VERIFIED 2026-08-01
   at <https://code.claude.com/docs/en/hooks>.
