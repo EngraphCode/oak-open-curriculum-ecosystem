@@ -13,7 +13,7 @@ impact_areas:
 tickets: [MCP-145]
 depends_on: []
 owner_gates: []
-last_updated: 2026-07-31
+last_updated: 2026-08-01
 ---
 
 # Identity visual disambiguator
