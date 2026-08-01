@@ -122,8 +122,10 @@ export function parseRegistry(
   }
   const rawClaims = record.claims;
 
-  return flatMap(collect(rawIntents.map(parseIntent)), (commitQueue) =>
-    map(collect(rawClaims.map(parseClaim)), (claims) => ({
+  // Array.from, not .map: map preserves sparse holes, and a hole reaching
+  // collect would throw on `.ok` — the dense mapping keeps this parser total.
+  return flatMap(collect(Array.from(rawIntents, parseIntent)), (commitQueue) =>
+    map(collect(Array.from(rawClaims, parseClaim)), (claims) => ({
       ...record,
       schema_version: '1.3.0',
       commit_queue: commitQueue,

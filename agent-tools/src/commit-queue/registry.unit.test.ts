@@ -134,6 +134,15 @@ describe('parseRegistry', () => {
     expect(unwrapErr(result).message).toBe('commit_queue entries must be complete intent objects');
   });
 
+  it('rejects a sparse commit_queue hole as an incomplete intent object instead of throwing', () => {
+    // A hole is not JSON-reachable, but parseRegistry takes `unknown` and its
+    // Result contract is exception-freedom for ANY input (ADR-088): the dense
+    // mapping must feed the hole to the total parser as undefined.
+    const result = parseRegistry(registryValue(new Array(1)), REGISTRY_PATH);
+
+    expect(unwrapErr(result).message).toBe('commit_queue entries must be complete intent objects');
+  });
+
   it('rejects an intent without a files array, naming the intent', () => {
     const result = parseRegistry(
       registryValue([withoutKey(validIntentRow(), 'files')]),

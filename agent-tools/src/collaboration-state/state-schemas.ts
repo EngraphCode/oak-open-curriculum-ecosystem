@@ -1,6 +1,7 @@
-import { err, ok, unwrapOrThrow, type Result } from '@oaknational/result';
+import { unwrapOrThrow } from '@oaknational/result';
 import { z } from 'zod';
 
+import { parseWithSchema } from '../core/schema-parse.js';
 import {
   collaborationAgentIdSchema,
   type CollaborationAgentId,
@@ -201,26 +202,14 @@ function agentId(parsed: z.infer<typeof agentIdSchema>): CollaborationAgentId {
   return parsed;
 }
 
-// The Result core (ADR-088): single home of the failed-validation literal;
-// the throwing sibling below delegates through `unwrapOrThrow`. Story 2b's
-// parser conversion consumes this directly.
-function parseWithHelpfulErrorResult<TSchema extends z.ZodType>(input: {
-  readonly label: string;
-  readonly schema: TSchema;
-  readonly value: unknown;
-}): Result<z.output<TSchema>, Error> {
-  const result = input.schema.safeParse(input.value);
-  if (result.success) {
-    return ok(result.data);
-  }
-
-  return err(new Error(`${input.label} failed validation: ${z.prettifyError(result.error)}`));
-}
-
+// The Result core is the canonical `parseWithSchema` (core/schema-parse.ts) —
+// the estate-wide single home of the failed-validation literal
+// (consolidate-at-second-consumer). Story 2b's parser conversion consumes it
+// directly; this throwing sibling delegates through `unwrapOrThrow`.
 function parseWithHelpfulError<TSchema extends z.ZodType>(input: {
   readonly label: string;
   readonly schema: TSchema;
   readonly value: unknown;
 }): z.output<TSchema> {
-  return unwrapOrThrow(parseWithHelpfulErrorResult(input));
+  return unwrapOrThrow(parseWithSchema(input));
 }
