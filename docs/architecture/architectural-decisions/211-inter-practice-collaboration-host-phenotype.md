@@ -33,8 +33,10 @@ is, so the protocol's clauses resolve to concrete surfaces here.
   summaries, and identity-contrast diagnostics) display the visual-disambiguator token
   (`<session_id_prefix>-<last 3 of id>`, bare prefix for id-less blocks) through the shared
   `displayPrefix` helper; the statusline is the DELIBERATE single-identity hold-out (the
-  operator's paste source for the join key stays the bare prefix); the agent/claims listing
-  is id-shaped by design (`name / id:<id>`, no prefix field).
+  operator's paste source for the join key stays the bare prefix); the TUI active-agents
+  routing-key label is id-shaped by design (`name / id:<id>`, no prefix field), while the
+  `claims list` / `claims active-agents` commands serialise full identity blocks, prefix
+  included.
 - **Home tooling (clause 4):** the `@oaknational/agent-tools` collaboration-state CLI is the ONLY
   write path into this repo's collaboration plane at `.agent/state/collaboration/` — guest
   sessions included, liveness files included.

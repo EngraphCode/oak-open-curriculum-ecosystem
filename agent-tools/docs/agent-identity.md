@@ -118,8 +118,10 @@ not an `agent-identity` CLI output format: `--format kebab|display|json`
 never emits it. The Claude Code statusline deliberately does NOT show the
 token: it renders one identity and is the operator's paste source for the
 join key, so it stays the bare prefix (the PDR-125 clause-5 hold-out). The
-agent/claims listing renders `name / id:<id>` with no prefix field at all —
-id-shaped by design, nothing to adopt.
+TUI active-agents routing-key label renders `name / id:<id>` with no prefix
+field — id-shaped by design, nothing to adopt — while the `claims list` and
+`claims active-agents` commands serialise full identity blocks, prefix
+included.
 
 **Display-only, always.** The token is never persisted, never a join,
 lookup, or parse key, and never hand-typed into an authored

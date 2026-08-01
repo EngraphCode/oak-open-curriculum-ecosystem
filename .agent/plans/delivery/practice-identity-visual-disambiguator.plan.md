@@ -247,9 +247,11 @@ give.
    per surface plus the sweep evidence. Re-cited 2026-08-01 against
    the amended PDR-125 clause-5 shape rule: the per-surface render
    tests and sweep stand, and one inventory member binds differently
-   BY DESIGN — the claims-registry routing render is id-shaped
-   (`formatRoutingKey` renders `name / id:<id>` with no prefix field;
-   token adoption there would be a field change, out of scope) — so
+   BY DESIGN — the routing-key label (`formatRoutingKey`, the TUI
+   active-agents surface and routing-key diagnostics) is id-shaped,
+   rendering `name / id:<id>` with no prefix field; token adoption
+   there would be a field change, out of scope; the claims CLI
+   listings serialise full identity blocks, prefix included — so
    this criterion binds the prefix-rendering members of the
    inventory. The commit-queue guard IS a prefix-rendering member: it
    renders identity only through the shared `formatAgent` helper and

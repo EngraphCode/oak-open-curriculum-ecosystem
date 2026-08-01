@@ -363,8 +363,9 @@ commit-queue entries and guard messages, active-agent routing
 summaries, and identity-contrast diagnostics) displaying the clause-5
 visual-disambiguator token through one shared display helper with the
 id-less bare-prefix fallback (landed 2026-07-31 through 2026-08-01;
-the agent/claims listing is id-shaped by design and renders no prefix
-field), the
+the TUI active-agents routing-key label is id-shaped by design and
+renders no prefix field, while the claims CLI listings serialise full
+identity blocks, prefix included), the
 `@oaknational/agent-tools` collaboration-state CLI as the home tooling
 for all writes, and the collaboration plane at
 `.agent/state/collaboration/`. The host phenotype ADR in
