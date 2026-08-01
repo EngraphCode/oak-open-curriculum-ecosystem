@@ -1,3 +1,10 @@
+# [1.136.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.135.0...v1.136.0) (2026-08-01)
+
+
+### Features
+
+* **agent-tools:** finish the identity-token render inventory ([a2e42dd](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a2e42dd2ecd8a046411c20719c82477c4c82a60b))
+
 # [1.135.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.134.2...v1.135.0) (2026-08-01)
 
 
