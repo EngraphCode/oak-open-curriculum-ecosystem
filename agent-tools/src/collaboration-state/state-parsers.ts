@@ -9,12 +9,7 @@ import {
   requireString,
 } from '../core/json.js';
 import { parseCommitQueueEntry } from './registry-entry-parser.js';
-import {
-  parseCommsEventValue,
-  parseDirectedCommsMessageValue,
-  parseLifecycleCommsEventValue,
-  parseNarrativeCommsEventValue,
-} from './state-schemas.js';
+import { parseCommsEventValue } from './state-schemas.js';
 import {
   ACTIVE_CLAIMS_SCHEMA_VERSION,
   CLOSED_CLAIMS_SCHEMA_VERSION,
@@ -25,9 +20,6 @@ import {
   type CollaborationRegistry,
   collaborationAgentIdSchema,
   type CommsEvent,
-  type DirectedCommsMessage,
-  type LifecycleCommsEvent,
-  type NarrativeCommsEvent,
 } from './types.js';
 
 /**
@@ -128,36 +120,6 @@ function parseRawJson(text: string): Result<unknown, Error> {
   } catch (error) {
     return err(failureAsError(error, 'the comms-event JSON boundary'));
   }
-}
-
-/** Parse a narrative communication event from JSON text. */
-export function parseNarrativeCommsEvent(text: string): NarrativeCommsEvent {
-  const parsed: unknown = JSON.parse(text);
-  if (!isJsonObject(parsed)) {
-    throw new Error('narrative communication event must be a JSON object');
-  }
-
-  return parseNarrativeCommsEventValue(parsed);
-}
-
-/** Parse a lifecycle communication event from JSON text. */
-export function parseLifecycleCommsEvent(text: string): LifecycleCommsEvent {
-  const parsed: unknown = JSON.parse(text);
-  if (!isJsonObject(parsed)) {
-    throw new Error('lifecycle communication event must be a JSON object');
-  }
-
-  return parseLifecycleCommsEventValue(parsed);
-}
-
-/** Parse a directed communication message from JSON text. */
-export function parseDirectedCommsMessage(text: string): DirectedCommsMessage {
-  const parsed: unknown = JSON.parse(text);
-  if (!isJsonObject(parsed)) {
-    throw new Error('directed communication message must be a JSON object');
-  }
-
-  return parseDirectedCommsMessageValue(parsed);
 }
 
 // Claims SPREAD the raw record (preservation contract: legacy content owned
