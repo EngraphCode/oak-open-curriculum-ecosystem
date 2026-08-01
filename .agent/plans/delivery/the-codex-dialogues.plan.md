@@ -133,6 +133,17 @@ home. The protocol NEVER resumes a closed thread (discipline, below) —
 but persistence is not fought: for an experiment whose records exist
 for later analysis, the Codex-side rollout is a free third analysis
 source alongside the close event and the seat's own transcript.
+Because that third source is otherwise open-ended retention of task
+context, the skill carries a data contract with three clauses:
+(a) minimisation at source — the dialogue packet is a bounded,
+composed frame (the Cricket packet shape), never a context dump, and
+no exchange may carry secrets, credentials, or personal data;
+(b) locality — rollouts live under the machine-local Codex home and
+are never committed or transmitted; (c) bounded retention — at the
+trial window's close-out, the analysis pass extracts what the
+rollouts teach and then deletes the trial dialogues' rollouts
+(knowledge is retained, bytes are not; the close events and conserved
+syntheses remain the durable record).
 
 ## Theory of change and impact — and the structures that keep them honest
 
@@ -238,6 +249,8 @@ second consumer:
    stabilised or irreconcilable positions), the one-thread discipline
    (one `codex` initialisation, every reply via `codex-reply` to that
    exact `structuredContent.threadId`), never resuming a closed thread,
+   the rollout data contract (minimisation / locality / bounded
+   retention, stated with the thread-persistence truth above),
    NEVER passing per-call sandbox/approval parameters (the authority
    discipline above), and — before opening any dialogue — checking
    `codex --version` against the probe's recorded version and running
@@ -248,13 +261,22 @@ second consumer:
    turns, so fidelity is by construction, not by discipline.
 
 3. **The record (owner-stated purpose: later analysis of an
-   experiment).** One structured comms event at each dialogue close:
-   dialogue id (the Codex thread id is NOT carried — it is closed,
-   never protocol-resumed, and operationally sensitive; a fresh opaque
-   id is), question class, turn
-   count, stop reason, harness and Codex CLI versions, outcome flag
-   (position-changed / dissent-unresolved / confirmed), and a pointer to
-   wherever the synthesis was conserved. The event rides the
+   experiment).** One canonical comms event at each dialogue close.
+   Encoding, stated against the real schemas: the strict comms event
+   schemas reject unknown top-level properties (narrative events carry
+   only a free-form `body`; lifecycle events fix their own fields), so
+   dialogue fields never ride as event properties. The close event is
+   a NARRATIVE event whose body is the canonical `key=value;` line
+   the skill composes — the same body-encoding discipline the
+   heartbeat substrate already uses — and field completeness is
+   enforced by the skill's composer and re-checked by the
+   analysis-side parser, leaving the comms schemas untouched in PR 1.
+   Fields: dialogue id (the Codex thread id is NOT carried — it is
+   closed, never protocol-resumed, and operationally sensitive; a
+   fresh opaque id is), question class, turn count, stop reason,
+   harness and Codex CLI versions, outcome flag (position-changed /
+   dissent-unresolved / confirmed), and a pointer to wherever the
+   synthesis was conserved. The event rides the
    fold-committed comms substrate: durable, greppable, analyzable — no
    bespoke store, no hooks, no CLI (owner ruling 2026-08-01, superseding
    the sketch's ledger machinery; the seat's session transcript and the
@@ -290,11 +312,18 @@ first-hand. Do not build it speculatively.
 
 Before authoring the skill: run `codex mcp-server` locally WITH the
 launch `-c` pins, drive one bounded codex → threadId → codex-reply
-exchange end-to-end, prove a write attempt is refused on a disciplined
-call, then EXPLICITLY attempt to broaden per-call (pass
-`sandbox: danger-full-access` on a call) and record which layer wins —
-the launch pins or the per-call override. That recorded outcome, not
-any source reading, is the plan's authority evidence. Record the tested
+exchange end-to-end, and prove a write attempt is refused on a
+disciplined call. The broadening NEGATIVE CONTROL — explicitly passing
+`sandbox: danger-full-access` on a call to record which layer wins,
+the launch pins or the per-call override — is OWNER-HELD, not a
+repo-safe probe: ADR-180 permits `danger-full-access` only with
+explicit owner authorisation per invocation inside an externally
+sandboxed environment, so this leg runs at the owner's word in an
+externally isolated disposable workspace (a throwaway directory
+outside every estate checkout, secrets-free environment) against a
+bounded sentinel write target — one marker file whose
+creation-or-refusal IS the recorded outcome. That recorded outcome,
+not any source reading, is the plan's authority evidence. Record the tested
 Codex CLI version. PR 1 lands this probe as a RUNNABLE script wired to
 the recorded version; the skill's version gate (dialogue-open check
 above) runs it on any CLI version mismatch, so an installed upgrade is
@@ -308,12 +337,16 @@ the tools), so the probe is the durable contract evidence.
   pins verbatim. Proof: repo-safe — config lint/pin test.
 - Dialogue round-trip: one live dialogue completes within budget; the
   synthesis quotes Codex's final position; the close event appears on
-  the canonical stream with every field. Proof: owner-held — one real
+  the canonical stream with every field present in the canonical body
+  encoding. Proof: owner-held — one real
   seat, one real uncertainty, linked from the implementation PR.
 - Authority evidenced: a disciplined call's write attempt is refused,
   AND the per-call broadening attempt's outcome is recorded (cap or
   default — whichever the harness proves). Proof: repo-safe probe
-  script output, plus the owner-held live run.
+  output for the disciplined-refusal leg; the broadening negative
+  control is owner-held per ADR-180 — explicit authorisation per
+  invocation, externally isolated disposable workspace, bounded
+  sentinel write.
 - Version gate live: the skill's dialogue-open step detects a CLI
   version mismatch against the probe record and stops until the probe
   re-runs. Proof: repo-safe — skill text + probe-record pin test.
