@@ -4,7 +4,13 @@ import { err, flatMap, map, ok, unwrapOrThrow, type Result } from '@oaknational/
 
 import { parseIntentAgentId } from '../collaboration-state/agent-id.js';
 import { validateCollaborationJsonFileText } from '../collaboration-state/collaboration-json-validation.js';
+import { isErrnoCode } from '../collaboration-state/errno.js';
 import { updateJsonFileWithRetry } from '../collaboration-state/index.js';
+import { failureAsError, type ReadTextFile } from '../collaboration-state/state-file-readers.js';
+import {
+  EMPTY_ACTIVE_CLAIMS_REGISTRY_JSON,
+  missingStateFileError,
+} from '../collaboration-state/state-file-seeds.js';
 
 import {
   type CommitIntent,
@@ -13,23 +19,39 @@ import {
   type JsonObject,
   isCommitQueuePhase,
 } from './types.js';
-import { parseJsonTextResult, requireStringResult } from '../core/json-result.js';
+import { parseJsonTextResult, requireStringResult } from '../core/json.js';
 import { requireIsoDateTimeResult } from '../core/iso-date-time.js';
+
+const readTextFileFromDisk: ReadTextFile = (path) => readFile(path, 'utf8');
 
 /**
  * Read and minimally validate the active-claims registry for queue writes.
  * IO, JSON-syntax, and contract failures all arrive on the `Err` arm
  * (ADR-088) — callers never need a try/catch around this surface.
+ * IO failures mirror the owner-ruled state-file readers
+ * (`state-file-readers.ts`, rulings 2026-07-20) for this same
+ * untracked-by-design file: ENOENT enriches into the verify-then-seed
+ * instructions, any other `Error` flows out as ITSELF, and a non-Error
+ * throwable crashes at detection. Injectable read seam per ADR-078.
  */
 export async function readRegistry(
   registryPath: string,
+  readTextFile: ReadTextFile = readTextFileFromDisk,
 ): Promise<Result<CommitQueueRegistry, Error>> {
   let content: string;
   try {
-    content = await readFile(registryPath, 'utf8');
+    content = await readTextFile(registryPath);
   } catch (error) {
-    const reason = error instanceof Error ? error.message : String(error);
-    return err(new Error(`${registryPath} could not be read: ${reason}`, { cause: error }));
+    return err(
+      isErrnoCode(error, 'ENOENT')
+        ? missingStateFileError({
+            label: 'active-claims registry',
+            path: registryPath,
+            seedJson: EMPTY_ACTIVE_CLAIMS_REGISTRY_JSON,
+            cause: error,
+          })
+        : failureAsError(error),
+    );
   }
 
   return parseRegistryText(content, registryPath);
@@ -83,6 +105,8 @@ export function parseRegistry(
   if (!isRecord(value)) {
     return err(new TypeError(`${registryPath} must contain a JSON object`));
   }
+  // Load-bearing const: the guard's narrowing does not survive into the
+  // closures below (same at every `const record = value` in this file).
   const record = value;
   if (record.schema_version !== '1.3.0') {
     return err(

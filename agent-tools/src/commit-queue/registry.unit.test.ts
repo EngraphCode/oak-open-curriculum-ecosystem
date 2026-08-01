@@ -2,7 +2,7 @@ import { unwrapErr, unwrapOrThrow } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
 import { parseIntentAgentId } from '../collaboration-state/agent-id.js';
-import { parseRegistry, parseRegistryText } from './registry.js';
+import { parseRegistry, parseRegistryText, readRegistry } from './registry.js';
 
 /**
  * Pure-value description of the commit-queue registry parse layer's Result
@@ -197,6 +197,37 @@ describe('parseRegistryText', () => {
     const result = parseRegistryText('---\nnot json', REGISTRY_PATH);
 
     expect(unwrapErr(result).message).toMatch(/^active-claims\.json is not valid JSON: /);
+  });
+});
+
+describe('readRegistry (IO failure contract, injected read seam)', () => {
+  it('enriches ENOENT into the verify-then-seed instructions for the untracked-by-design registry', async () => {
+    const result = await readRegistry(REGISTRY_PATH, async () => {
+      throw Object.assign(new Error('ENOENT: no such file or directory'), { code: 'ENOENT' });
+    });
+
+    const message = unwrapErr(result).message;
+    expect(message).toMatch(/^active-claims registry not found at active-claims\.json\./);
+    expect(message).toContain('untracked-by-design');
+    expect(message).toContain('{ "schema_version": "1.3.0", "claims": [], "commit_queue": [] }');
+  });
+
+  it('passes a non-ENOENT read failure through as the original error object', async () => {
+    const failure = Object.assign(new Error('EACCES: permission denied'), { code: 'EACCES' });
+
+    const result = await readRegistry(REGISTRY_PATH, async () => {
+      throw failure;
+    });
+
+    expect(unwrapErr(result)).toBe(failure);
+  });
+
+  it('crashes at detection on a non-Error throwable instead of admitting it to the Result channel', async () => {
+    await expect(
+      readRegistry(REGISTRY_PATH, async () => {
+        throw 'not an error object';
+      }),
+    ).rejects.toThrow('non-Error value thrown at the state-file read boundary');
   });
 });
 

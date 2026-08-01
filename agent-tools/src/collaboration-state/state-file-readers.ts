@@ -105,7 +105,7 @@ async function readStateFile<T>(
  * Result channel — it is not a legitimate failure mode of reading a state
  * file; it is a defect demanding attention.
  */
-function failureAsError(failure: unknown): Error {
+export function failureAsError(failure: unknown): Error {
   if (failure instanceof Error) {
     return failure;
   }

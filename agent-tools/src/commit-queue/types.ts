@@ -13,15 +13,9 @@ const COMMIT_QUEUE_ENTRY_STATUSES = ['active', 'expired', 'abandoned'] as const;
 type ActiveCommitQueuePhase = (typeof ACTIVE_COMMIT_QUEUE_PHASES)[number];
 export type CommitQueuePhase = (typeof COMMIT_QUEUE_PHASES)[number];
 export type CommitQueueEntryStatus = (typeof COMMIT_QUEUE_ENTRY_STATUSES)[number];
-type JsonPrimitive = string | number | boolean | null;
-type JsonValue = JsonPrimitive | JsonObject | readonly JsonValue[];
+import { type JsonObject } from '../core/json.js';
 
-/**
- * JSON object shape preserved when the queue helper updates registry state.
- */
-export interface JsonObject {
-  readonly [key: string]: JsonValue | undefined;
-}
+export type { JsonObject };
 
 /**
  * Agent identity on active CLAIMS — the PDR-076a read shape. `id` is
