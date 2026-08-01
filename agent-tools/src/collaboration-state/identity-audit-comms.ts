@@ -36,6 +36,10 @@ export function auditCommsEvents(
   );
 }
 
+// The closed set of identity fields the audit reads; keeping the union
+// exact means a typo'd record_ref suffix fails to compile (no-widening).
+type AuditedField = 'author' | 'agent_id' | 'from';
+
 // Audited blocks are the writer plus the lifecycle SUBJECT: `author` on
 // narrative/lifecycle, `agent_id` on lifecycle (the two are independently
 // migrated and can diverge), `from` on directed. Relay blocks (`to`,
@@ -43,7 +47,7 @@ export function auditCommsEvents(
 // agents and are never audited.
 function auditedBlocks(
   event: CommsEvent,
-): readonly (readonly [field: string, identity: CollaborationAgentId])[] {
+): readonly (readonly [field: AuditedField, identity: CollaborationAgentId])[] {
   if (event.kind === 'directed') {
     return [['from', event.from]];
   }

@@ -409,7 +409,7 @@ Identity derivation and schema (write-side core):
 - `agent-tools/src/collaboration-state/state-parsers.ts` (parseAgentId)
 - `agent-tools/src/collaboration-state/identity.ts` (deriveCollaborationIdentity — primary write factory)
 - `agent-tools/src/collaboration-state/cli-self-identity.ts` (CLI override path)
-- `agent-tools/src/collaboration-state/identity-audit-markdown.ts` (markdown identity-row parsing for thread records; the shared-log leg now reads comms events directly)
+- `agent-tools/src/collaboration-state/identity-audit-markdown.ts` (markdown identity-row parsing for threads and shared-log)
 - `agent-tools/src/collaboration-state/comms-migration-records.ts` (existing legacyStringToAgentId — the legacy compatibility pathway this phase extends)
 
 Identity preflight (CLI surface):
