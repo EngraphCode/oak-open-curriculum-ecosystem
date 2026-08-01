@@ -1,4 +1,4 @@
-import { err, mapErr, unwrapOrThrow, type Result } from '@oaknational/result';
+import { err, mapErr, type Result } from '@oaknational/result';
 
 import { parseJsonTextResult } from '../core/json.js';
 import { type CollaborationSchemaId } from './collaboration-json-validation.js';
@@ -24,9 +24,10 @@ import { type ClosedClaimsArchive, type CollaborationRegistry, type CommsEvent }
  * Schema-validation trap (still open): the registry parser returns a
  * field-by-field reconstruction that drops unknown fields, so Ajv
  * (`additionalProperties: false`) must ALWAYS validate the raw text's own
- * parse, never this gate's Ok product. The trap closes structurally when
- * Ajv becomes reachable only through a checked-surface path — the tracked
- * follow-on that also deletes the bridge below.
+ * parse, never this gate's Ok product. The write paths compose the two
+ * correctly in `state-io-write-validators.ts`; the structural close (Ajv
+ * reachable only through a checked-surface path, including the separate
+ * practice-substrate Ajv instance) is its own tracked story.
  */
 
 /**
@@ -126,24 +127,4 @@ export function checkCollaborationSurfaceContract<TSchemaId extends ContractSche
     CONTRACT_PARSERS[input.schemaId](input.text),
     (causeError) => new SurfaceContractError({ path: input.path, causeError }),
   );
-}
-
-/**
- * Pre-2c bridge for `Promise<void>` validateText contexts (the state-io
- * write gates): folds the check with `unwrapOrThrow` over the ORIGINAL
- * parser error (typed `causeError`). Contract failures therefore reach the
- * transaction layer byte-identical (smoke-pinned). Declared divergence on
- * the malformed-json arm: the rethrown error is now the path-labelled JSON
- * error, where the old bare gates threw a raw SyntaxError — unreachable
- * through the transaction layer, whose validateText input is always fresh
- * JSON.stringify output. This bridge is DELETED when the validateText
- * contexts return `Promise<Result<void, Error>>` and each call becomes
- * `return checkCollaborationSurfaceContract(...)` — the tracked follow-on.
- */
-export function requireCollaborationSurfaceContract(input: {
-  readonly schemaId: ContractSchemaId;
-  readonly path: string;
-  readonly text: string;
-}): void {
-  unwrapOrThrow(mapErr(checkCollaborationSurfaceContract(input), (failure) => failure.causeError));
 }

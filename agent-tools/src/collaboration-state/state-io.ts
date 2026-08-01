@@ -10,7 +10,11 @@ import {
   readClosedClaimsFile,
   type ReadTextFile,
 } from './state-file-readers.js';
-import { requireCollaborationSurfaceContract } from './surface-contract.js';
+import {
+  activeClaimsWriteValidator,
+  closedClaimsWriteValidator,
+  commsEventWriteValidator,
+} from './state-io-write-validators.js';
 import { parseCollaborationRegistry, parseCommsEvent } from './state-parsers.js';
 import {
   createJsonFileAtomically,
@@ -51,10 +55,7 @@ export async function writeCommsEvent(input: {
   await createJsonFileAtomically({
     filePath: path,
     value: event,
-    validateText: async (text) => {
-      requireCollaborationSurfaceContract({ schemaId: 'comms-event.schema.json', path, text });
-      await validateCollaborationJsonFileText(path, text);
-    },
+    validateText: commsEventWriteValidator(path),
   });
 }
 
@@ -116,10 +117,8 @@ export async function updateActiveClaimsFile(input: {
   unwrapOrThrow(await readActiveClaimsFile(input.activePath, input.readTextFile));
   await updateJsonFileWithRetry({
     filePath: input.activePath,
-    // The transaction layer's parseText slot still expects a throwing
-    // parser pre-2c; the unwrap rethrows the parser's ORIGINAL error.
-    parseText: (text) => unwrapOrThrow(parseCollaborationRegistry(text)),
-    validateText: (text) => validateActiveClaimsText(input.activePath, text),
+    parseText: parseCollaborationRegistry,
+    validateText: activeClaimsWriteValidator(input.activePath),
     transform: input.transform,
     maxAttempts: 5,
   });
@@ -157,12 +156,12 @@ export async function updateClaimStateFiles(input: {
       await writeJsonFileWithinTransaction({
         filePath: input.activePath,
         value: next.active,
-        validateText: (text) => validateActiveClaimsText(input.activePath, text),
+        validateText: activeClaimsWriteValidator(input.activePath),
       });
       await writeJsonFileWithinTransaction({
         filePath: input.closedPath,
         value: next.closed,
-        validateText: (text) => validateClosedClaimsText(input.closedPath, text),
+        validateText: closedClaimsWriteValidator(input.closedPath),
       });
     },
   });
@@ -201,7 +200,7 @@ async function readEventFiles<TEvent>(
       // ORIGINAL error, and the catch labels it with the file path exactly
       // as it labelled the thrown parser's errors.
       const event = unwrapOrThrow(parser(text));
-      await validateCollaborationJsonFileText(path, text);
+      unwrapOrThrow(await validateCollaborationJsonFileText(path, text));
       events.push(event);
     } catch (error) {
       throw new Error(
@@ -228,16 +227,6 @@ function listCommsEventIds(eventsDir: string): Promise<readonly string[]> {
 
 function eventPath(eventsDir: string, eventId: string): string {
   return join(eventsDir, `${eventId}.json`);
-}
-
-async function validateActiveClaimsText(path: string, text: string): Promise<void> {
-  requireCollaborationSurfaceContract({ schemaId: 'active-claims.schema.json', path, text });
-  await validateCollaborationJsonFileText(path, text);
-}
-
-async function validateClosedClaimsText(path: string, text: string): Promise<void> {
-  requireCollaborationSurfaceContract({ schemaId: 'closed-claims.schema.json', path, text });
-  await validateCollaborationJsonFileText(path, text);
 }
 
 function filterEvents<TKind extends CommsEvent['kind']>(

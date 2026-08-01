@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 import { basename, dirname, join, parse } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { err, ok, type Result } from '@oaknational/result';
 import type { AnySchema } from 'ajv';
 import Ajv from 'ajv/dist/2020.js';
 import { z } from 'zod';
@@ -47,15 +48,18 @@ const SCHEMAS_DIR = resolveSchemasDir();
 let cachedValidator: Promise<CollaborationJsonSchemaValidator> | undefined;
 
 export interface CollaborationJsonSchemaValidator {
-  readonly validateText: (schemaId: string, text: string) => void;
+  // Result-typed by design (ADR-088): the old bare-void slot accepted a
+  // Result-returning implementation silently — the compiler-silent seam
+  // class the surface-contract story exists to kill.
+  readonly validateText: (schemaId: string, text: string) => Result<void, Error>;
 }
 
 export async function validateCollaborationJsonFileText(
   filePath: string,
   text: string,
-): Promise<void> {
+): Promise<Result<void, Error>> {
   const validator = await cachedSchemaValidator();
-  validator.validateText(collaborationJsonSchemaId(filePath), text);
+  return validator.validateText(collaborationJsonSchemaId(filePath), text);
 }
 
 export async function createCollaborationJsonSchemaValidator(
@@ -71,15 +75,16 @@ export async function createCollaborationJsonSchemaValidator(
   }
 
   return {
-    validateText(schemaId, text): void {
+    validateText(schemaId, text): Result<void, Error> {
       const value: unknown = JSON.parse(text);
       const validate = ajv.getSchema(schemaId);
       if (validate === undefined) {
-        throw new Error(`missing schema ${schemaId}`);
+        return err(new Error(`missing schema ${schemaId}`));
       }
       if (!validate(value)) {
-        throw new Error(ajvError(validate.errors));
+        return err(new Error(ajvError(validate.errors)));
       }
+      return ok(undefined);
     },
   };
 }

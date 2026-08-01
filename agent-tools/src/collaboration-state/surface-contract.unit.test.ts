@@ -5,7 +5,6 @@ import {
   MalformedJsonError,
   SurfaceContractError,
   checkCollaborationSurfaceContract,
-  requireCollaborationSurfaceContract,
 } from './surface-contract.js';
 
 /**
@@ -112,21 +111,6 @@ describe('checkCollaborationSurfaceContract', () => {
     expect(failure.message).toBe(`${REGISTRY_PATH} is not valid JSON`);
     expect(failure.causeError.message).toMatch(
       /^\.agent\/state\/collaboration\/active-claims\.json is not valid JSON: /,
-    );
-  });
-
-  it('the BRIDGE rethrows the ORIGINAL parser error identity-intact (the state-io write-gate path)', () => {
-    // Calls the product bridge itself, not a copy of its fold: a bridge
-    // slip that rethrows the wrapper (whose message is path-prefixed)
-    // reddens this anchored pin.
-    expect(() =>
-      requireCollaborationSurfaceContract({
-        schemaId: 'active-claims.schema.json',
-        path: REGISTRY_PATH,
-        text: registryText([IDLESS_INTENT_ROW]),
-      }),
-    ).toThrow(
-      /^commit_queue entry 33333333-3333-4333-8333-333333333333 carries an invalid agent_id/,
     );
   });
 

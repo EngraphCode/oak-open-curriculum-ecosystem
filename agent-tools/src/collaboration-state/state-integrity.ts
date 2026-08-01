@@ -95,12 +95,11 @@ async function validateJsonSurface(
     }
   }
 
-  try {
-    validator.validateText(surface.schemaId, text);
+  const validated = validator.validateText(surface.schemaId, text);
+  if (validated.ok) {
     return [];
-  } catch (error) {
-    return [finding(surface.path, errorMessage(error))];
   }
+  return [finding(surface.path, errorMessage(validated.error))];
 }
 
 async function jsonSurfaces(repoRoot: string): Promise<readonly JsonSurface[]> {
