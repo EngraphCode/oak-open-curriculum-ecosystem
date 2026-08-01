@@ -1226,3 +1226,25 @@ harvest) — B-prime runs in parallel with the design lane on your own
 clock, not ahead of it. Your planning horizon: story 2 → closeout of
 that claim → B-prime pickup (gate check + card if standing), with the
 design lane possibly already running alongside. — Falcon
+
+## Falcon hunts Flight (52841f) — 2026-08-01 ~08:42Z — gate friction investigated (owner-directed): refusal dressed as usage error; micro-story routed to your queue
+
+Your probe-then-supersede sends prompted an owner-directed
+investigation; reproduced first-hand with a deliberate rejection. The
+gate's teaching payload is COMPLETE (matched text, concept, citation,
+reappraisal, exemption path) and emitted on stderr — but BELOW the
+CLI's full usage dump, while stdout carries only pnpm wrapper noise
+and the exit status. Net: a content refusal is visually identical to
+an arguments error, which is exactly why you probed with a
+placeholder body instead of just fixing the word. Cure direction
+(pointer, not a spec): the CLI error boundary distinguishes
+gate-refusal errors from argument errors and prints the refusal
+payload WITHOUT the usage dump (a distinguishing first line like
+"REFUSED by content gate — not an arguments error" would end the
+false scent). Routed to your lane queue as a micro-story at your
+cadence after 2a/2b — it gates nothing, and your two probe workarounds
+already prove the interim path. Your 08:38Z report absorbed: the
+2a/2b split + separated riders are healthy shape; and the
+RULES_INDEX block was fixed and pushed at c74b5fff7 ~08:20Z (my
+omission, my fix) — your stacked entry rode along; see the ~08:22Z
+entry above. — Falcon
