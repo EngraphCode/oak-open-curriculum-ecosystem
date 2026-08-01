@@ -1,7 +1,11 @@
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 
-import { CODEX_CONFIG_PATH, readCodexAgentRegistrations } from './codex-project-agent-registry.js';
+import {
+  CODEX_CONFIG_PATH,
+  readCodexAgentRegistrations,
+  resolveCodexAgentConfigFilePath,
+} from './codex-project-agent-registry.js';
 import {
   CLAUDE_AGENTS_DIR,
   CODEX_AGENTS_DIR,
@@ -21,6 +25,13 @@ interface ReviewerAdapterParityInputs {
   readonly claudeAgents: readonly string[];
   /** Reviewer adapter basenames present on the Codex surface. */
   readonly codexAgents: readonly string[];
+}
+
+interface ReviewerRegistrationParityInputs {
+  readonly repoRoot: string;
+  readonly codexAdapterNames: readonly string[];
+  readonly registrations: readonly { readonly name: string; readonly configFile: string }[];
+  readonly pathExists: (path: string) => boolean;
 }
 
 export function evaluateParityChecks(repoRoot: string): readonly HealthCheckResult[] {
@@ -126,25 +137,12 @@ function evaluateReviewerRegistrationParity(repoRoot: string): HealthCheckResult
 
   try {
     const registrations = readCodexAgentRegistrations(repoRoot);
-    const details = collectReviewerRegistrationDetails(repoRoot, codexAdapterNames, registrations);
-
-    if (details.length > 0) {
-      return {
-        key: 'reviewer-registration-parity',
-        label: 'Reviewer registration parity',
-        status: 'fail',
-        summary: 'Codex reviewer registrations and adapter files are out of sync.',
-        details,
-      };
-    }
-
-    return {
-      key: 'reviewer-registration-parity',
-      label: 'Reviewer registration parity',
-      status: 'pass',
-      summary: `${registrations.length} Codex reviewer registrations resolve cleanly to live adapters.`,
-      details: [],
-    };
+    return evaluateReviewerRegistrationParityFromInputs({
+      repoRoot,
+      codexAdapterNames,
+      registrations,
+      pathExists: existsSync,
+    });
   } catch (error) {
     return {
       key: 'reviewer-registration-parity',
@@ -156,15 +154,34 @@ function evaluateReviewerRegistrationParity(repoRoot: string): HealthCheckResult
   }
 }
 
-function collectReviewerRegistrationDetails(
-  repoRoot: string,
-  codexAdapterNames: readonly string[],
-  registrations: readonly { name: string; configFile: string }[],
-): string[] {
-  const registrationNames = registrations.map((registration) => registration.name);
+export function evaluateReviewerRegistrationParityFromInputs(
+  input: ReviewerRegistrationParityInputs,
+): HealthCheckResult {
+  const details = collectReviewerRegistrationDetails(input);
+  if (details.length > 0) {
+    return {
+      key: 'reviewer-registration-parity',
+      label: 'Reviewer registration parity',
+      status: 'fail',
+      summary: 'Codex reviewer registrations and adapter files are out of sync.',
+      details,
+    };
+  }
+
+  return {
+    key: 'reviewer-registration-parity',
+    label: 'Reviewer registration parity',
+    status: 'pass',
+    summary: `${input.registrations.length} Codex reviewer registrations resolve cleanly to live adapters.`,
+    details: [],
+  };
+}
+
+function collectReviewerRegistrationDetails(input: ReviewerRegistrationParityInputs): string[] {
+  const registrationNames = input.registrations.map((registration) => registration.name);
   const details: string[] = [];
 
-  for (const adapterName of codexAdapterNames) {
+  for (const adapterName of input.codexAdapterNames) {
     if (!registrationNames.includes(adapterName)) {
       details.push(
         `Codex adapter ${adapterName} is missing a registry entry in ${CODEX_CONFIG_PATH}.`,
@@ -172,8 +189,12 @@ function collectReviewerRegistrationDetails(
     }
   }
 
-  for (const registration of registrations) {
-    if (!existsSync(join(repoRoot, registration.configFile))) {
+  for (const registration of input.registrations) {
+    const resolvedPath = join(
+      input.repoRoot,
+      resolveCodexAgentConfigFilePath(registration.configFile),
+    );
+    if (!input.pathExists(resolvedPath)) {
       details.push(`${CODEX_CONFIG_PATH} points at missing adapter ${registration.configFile}.`);
     }
   }
