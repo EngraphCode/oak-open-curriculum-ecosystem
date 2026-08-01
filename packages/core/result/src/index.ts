@@ -146,6 +146,25 @@ export function flatMap<T, U, E>(
  * const mapped = mapErr(result, msg => `Error: ${msg}`);
  * ```
  */
+/**
+ * Collect an iterable of Results into one Result: all Ok values in order,
+ * or the FIRST Err unchanged (by identity — its error is not rewrapped).
+ * The Result analogue of sequencing: parse layers use it to fold
+ * per-entry Results into a whole-collection Result without a loop at
+ * every call site.
+ */
+export function collect<T, E>(results: Iterable<Result<T, E>>): Result<readonly T[], E> {
+  const values: T[] = [];
+  for (const result of results) {
+    if (!result.ok) {
+      return result;
+    }
+    values.push(result.value);
+  }
+
+  return ok(values);
+}
+
 export function mapErr<T, E, F>(result: Result<T, E>, fn: (error: E) => F): Result<T, F> {
   return result.ok ? result : err(fn(result.error));
 }

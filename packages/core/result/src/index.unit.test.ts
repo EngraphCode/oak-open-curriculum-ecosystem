@@ -13,6 +13,7 @@ import {
   map,
   flatMap,
   mapErr,
+  collect,
   unwrapOr,
   unwrapOrElse,
   unwrapOrThrow,
@@ -307,5 +308,35 @@ describe('Result type integration', () => {
     const result: Result<number, string> = ok(42);
 
     expect(result.value).toBe(42);
+  });
+});
+
+describe('collect', () => {
+  it('collects all Ok values into an Ok of a readonly array, preserving order', () => {
+    const results: readonly Result<number, Error>[] = [ok(1), ok(2), ok(3)];
+
+    expect(collect(results)).toEqual(ok([1, 2, 3]));
+  });
+
+  it('returns the FIRST Err unchanged, by identity, without evaluating past it', () => {
+    const failure = err(new Error('first failure'));
+    const later = err(new Error('later failure'));
+
+    const collected = collect([ok(1), failure, later]);
+
+    expect(collected).toBe(failure);
+  });
+
+  it('collects an empty iterable into an Ok of an empty array', () => {
+    expect(collect([])).toEqual(ok([]));
+  });
+
+  it('accepts any iterable, not only arrays', () => {
+    function* generate(): Generator<Result<string, Error>> {
+      yield ok('a');
+      yield ok('b');
+    }
+
+    expect(collect(generate())).toEqual(ok(['a', 'b']));
   });
 });

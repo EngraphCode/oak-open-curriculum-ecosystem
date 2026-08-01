@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
 
-import { err, flatMap, map, ok, unwrapOrThrow, type Result } from '@oaknational/result';
+import { collect, err, flatMap, map, ok, unwrapOrThrow, type Result } from '@oaknational/result';
 
 import { parseIntentAgentId } from '../collaboration-state/agent-id.js';
 import { validateCollaborationJsonFileText } from '../collaboration-state/collaboration-json-validation.js';
@@ -122,8 +122,8 @@ export function parseRegistry(
   }
   const rawClaims = record.claims;
 
-  return flatMap(parseAll(rawIntents, parseIntent), (commitQueue) =>
-    map(parseAll(rawClaims, parseClaim), (claims) => ({
+  return flatMap(collect(rawIntents.map(parseIntent)), (commitQueue) =>
+    map(collect(rawClaims.map(parseClaim)), (claims) => ({
       ...record,
       schema_version: '1.3.0',
       commit_queue: commitQueue,
@@ -219,22 +219,6 @@ function parseClaim(value: unknown): Result<CommitQueueClaim, Error> {
     ...record,
     claim_id: claimId,
   }));
-}
-
-function parseAll<T>(
-  entries: readonly unknown[],
-  parse: (entry: unknown) => Result<T, Error>,
-): Result<readonly T[], Error> {
-  const parsed: T[] = [];
-  for (const entry of entries) {
-    const result = parse(entry);
-    if (!result.ok) {
-      return result;
-    }
-    parsed.push(result.value);
-  }
-
-  return ok(parsed);
 }
 
 function requireIsoStringField(record: JsonObject, key: string): Result<string, Error> {

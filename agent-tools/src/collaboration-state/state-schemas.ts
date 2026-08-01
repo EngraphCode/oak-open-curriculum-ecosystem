@@ -1,3 +1,4 @@
+import { err, ok, unwrapOrThrow, type Result } from '@oaknational/result';
 import { z } from 'zod';
 
 import {
@@ -200,15 +201,26 @@ function agentId(parsed: z.infer<typeof agentIdSchema>): CollaborationAgentId {
   return parsed;
 }
 
+// The Result core (ADR-088): single home of the failed-validation literal;
+// the throwing sibling below delegates through `unwrapOrThrow`. Story 2b's
+// parser conversion consumes this directly.
+function parseWithHelpfulErrorResult<TSchema extends z.ZodType>(input: {
+  readonly label: string;
+  readonly schema: TSchema;
+  readonly value: unknown;
+}): Result<z.output<TSchema>, Error> {
+  const result = input.schema.safeParse(input.value);
+  if (result.success) {
+    return ok(result.data);
+  }
+
+  return err(new Error(`${input.label} failed validation: ${z.prettifyError(result.error)}`));
+}
+
 function parseWithHelpfulError<TSchema extends z.ZodType>(input: {
   readonly label: string;
   readonly schema: TSchema;
   readonly value: unknown;
 }): z.output<TSchema> {
-  const result = input.schema.safeParse(input.value);
-  if (result.success) {
-    return result.data;
-  }
-
-  throw new Error(`${input.label} failed validation: ${z.prettifyError(result.error)}`);
+  return unwrapOrThrow(parseWithHelpfulErrorResult(input));
 }

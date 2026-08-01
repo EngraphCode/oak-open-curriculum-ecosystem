@@ -34,12 +34,24 @@ export function requireString(record: JsonObject, key: string): string {
   return unwrapOrThrow(requireStringResult(record, key));
 }
 
-export function parseStringArray(value: unknown, label: string): readonly string[] {
+/**
+ * Require an array of strings, as an `Err` instead of a throw (ADR-088).
+ * The single home of the error literal — the throwing
+ * {@link parseStringArray} delegates here through `unwrapOrThrow`.
+ */
+export function parseStringArrayResult(
+  value: unknown,
+  label: string,
+): Result<readonly string[], Error> {
   if (Array.isArray(value) && value.every((entry) => typeof entry === 'string')) {
-    return value;
+    return ok(value);
   }
 
-  throw new Error(`${label} must be an array of strings`);
+  return err(new Error(`${label} must be an array of strings`));
+}
+
+export function parseStringArray(value: unknown, label: string): readonly string[] {
+  return unwrapOrThrow(parseStringArrayResult(value, label));
 }
 
 /**
