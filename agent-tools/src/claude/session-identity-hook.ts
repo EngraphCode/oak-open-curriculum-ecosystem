@@ -1,7 +1,6 @@
 import { sessionIdPrefix } from '../collaboration-state/identity.js';
 import { deriveIdentity } from '../core/agent-identity/index.js';
-
-const SHELL_SINGLE_QUOTE_ESCAPE = String.raw`'\''`;
+import { shellSingleQuote } from '../core/shell-single-quote.js';
 
 /**
  * Environment inputs consumed by the Claude `SessionStart` identity hook.
@@ -143,8 +142,4 @@ function nonEmpty(value: string | undefined): string | undefined {
   }
   const trimmed = value.trim();
   return trimmed.length === 0 ? undefined : trimmed;
-}
-
-function shellSingleQuote(value: string): string {
-  return `'${value.replaceAll("'", SHELL_SINGLE_QUOTE_ESCAPE)}'`;
 }
