@@ -159,6 +159,21 @@ async function proveUpdateRegistryRefusesCorruptRegistryByteIdentical(): Promise
   });
 }
 
+async function proveUpdateRegistryFreshCheckoutSurfacesSeedInstructions(): Promise<void> {
+  const dir = await mkdtemp(join(tmpdir(), 'commit-queue-registry-'));
+  try {
+    // First write command on a fresh checkout: the pre-transaction read
+    // surfaces the verify-then-seed instructions (mirrors state-io.ts
+    // updateActiveClaimsFile) instead of the transaction's bare ENOENT.
+    await assert.rejects(
+      updateRegistry(join(dir, 'active-claims.json'), (registry) => registry),
+      /^Error: active-claims registry not found/,
+    );
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
+}
+
 async function proveValidIntentRoundTripsWithRoutingId(): Promise<void> {
   await withTempRegistry(fileRegistry([validIntentRow()]), async (registryPath) => {
     const parsed = unwrapOrThrow(await readRegistry(registryPath));
@@ -207,9 +222,10 @@ async function proveActiveClaimsTransactionRejectsIdlessIntentLoudly(): Promise<
 await provePreservesLegacyIdlessClaimThroughWrite();
 await proveIdlessIntentFailsLoudlyNamingTheIntent();
 await proveUpdateRegistryRefusesCorruptRegistryByteIdentical();
+await proveUpdateRegistryFreshCheckoutSurfacesSeedInstructions();
 await proveValidIntentRoundTripsWithRoutingId();
 await proveSchemaRejectsIdlessIntentRow();
 await proveSchemaAcceptsIdlessClaimRow();
 await proveActiveClaimsTransactionPreservesRowsInRawJson();
 await proveActiveClaimsTransactionRejectsIdlessIntentLoudly();
-process.stdout.write('commit-queue registry smoke: 8/8 proofs passed\n');
+process.stdout.write('commit-queue registry smoke: 9/9 proofs passed\n');

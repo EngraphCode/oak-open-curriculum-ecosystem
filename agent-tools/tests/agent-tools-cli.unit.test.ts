@@ -1,6 +1,6 @@
 import { Readable } from 'node:stream';
 
-import { ok } from '@oaknational/result';
+import { err, ok } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
 import { runAgentToolsCli } from '../src/bin/agent-tools-cli';
@@ -44,6 +44,27 @@ describe('agent-tools unified CLI', () => {
 
     expect(result).toMatchObject({ exitCode: 0, stderr: '' });
     expect(JSON.parse(result.stdout)).toMatchObject({ total: 0, active: 0 });
+  });
+
+  it('surfaces a registry read Err through the CLI boundary as exit 2 with the message verbatim', async () => {
+    // The CLI read seam unwraps with the identity-preserving unwrapOrThrow;
+    // an exact-equality pin on stderr catches a prefixing `unwrap` slip.
+    const result = await runAgentToolsCli({
+      argv: ['commit-queue', 'status', '--now', '2026-05-12T07:52:59Z'],
+      env: {},
+      cwd: '/repo',
+      repoRoot: '/repo',
+      readCommitQueueRegistry: async () =>
+        err(
+          new Error('active-claims.json must use schema_version 1.3.0 before commit queue writes'),
+        ),
+    });
+
+    expect(result).toEqual({
+      exitCode: 2,
+      stdout: '',
+      stderr: 'active-claims.json must use schema_version 1.3.0 before commit queue writes\n',
+    });
   });
 
   it('dispatches codex-exec last-message with injected stdin', async () => {

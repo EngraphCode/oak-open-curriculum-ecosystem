@@ -27,12 +27,10 @@ const readTextFileFromDisk: ReadTextFile = (path) => readFile(path, 'utf8');
 /**
  * Read and minimally validate the active-claims registry for queue writes.
  * IO, JSON-syntax, and contract failures all arrive on the `Err` arm
- * (ADR-088) — callers never need a try/catch around this surface.
- * IO failures mirror the owner-ruled state-file readers
- * (`state-file-readers.ts`, rulings 2026-07-20) for this same
- * untracked-by-design file: ENOENT enriches into the verify-then-seed
- * instructions, any other `Error` flows out as ITSELF, and a non-Error
- * throwable crashes at detection. Injectable read seam per ADR-078.
+ * (ADR-088). IO failures mirror the owner-ruled state-file readers
+ * (rulings 2026-07-20): ENOENT enriches into verify-then-seed instructions,
+ * any other `Error` flows out as ITSELF, a non-Error throwable crashes at
+ * detection. Injectable read seam per ADR-078.
  */
 export async function readRegistry(
   registryPath: string,
@@ -42,15 +40,17 @@ export async function readRegistry(
   try {
     content = await readTextFile(registryPath);
   } catch (error) {
+    // Crash-at-detection first: non-Error throwables never enter the Err channel.
+    const failure = failureAsError(error);
     return err(
-      isErrnoCode(error, 'ENOENT')
+      isErrnoCode(failure, 'ENOENT')
         ? missingStateFileError({
             label: 'active-claims registry',
             path: registryPath,
             seedJson: EMPTY_ACTIVE_CLAIMS_REGISTRY_JSON,
-            cause: error,
+            cause: failure,
           })
-        : failureAsError(error),
+        : failure,
     );
   }
 
@@ -59,17 +59,18 @@ export async function readRegistry(
 
 /**
  * Transactionally update the active-claims registry for queue writes.
- *
  * The transaction seam folds the parse `Result` with `unwrapOrThrow` — the
- * sanctioned identity-preserving Result-to-exception edge. It must never
- * fold with a default-substituting unwrap: running the transform over a
- * substituted empty registry would write it back and silently destroy
- * every claim and intent (the corrupt-registry smoke proof pins this).
+ * sanctioned identity-preserving edge. It must never fold with a
+ * default-substituting unwrap: the transform would run over a substituted
+ * empty registry and write it back, silently destroying every claim and
+ * intent (the corrupt-registry smoke proof pins this).
  */
 export async function updateRegistry(
   registryPath: string,
   transform: (registry: CommitQueueRegistry) => CommitQueueRegistry,
 ): Promise<void> {
+  // Pre-transaction read: the fresh-checkout seed error, not a bare ENOENT (as state-io.ts).
+  unwrapOrThrow(await readRegistry(registryPath));
   await updateJsonFileWithRetry({
     filePath: registryPath,
     parseText: (text) => unwrapOrThrow(parseRegistryText(text, registryPath)),
@@ -105,8 +106,7 @@ export function parseRegistry(
   if (!isRecord(value)) {
     return err(new TypeError(`${registryPath} must contain a JSON object`));
   }
-  // Load-bearing const: the guard's narrowing does not survive into the
-  // closures below (same at every `const record = value` in this file).
+  // Load-bearing: narrowing does not survive into closures (all `const record = value` sites).
   const record = value;
   if (record.schema_version !== '1.3.0') {
     return err(

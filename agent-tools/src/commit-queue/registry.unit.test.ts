@@ -229,6 +229,18 @@ describe('readRegistry (IO failure contract, injected read seam)', () => {
       }),
     ).rejects.toThrow('non-Error value thrown at the state-file read boundary');
   });
+
+  it('crashes at detection on a non-Error throwable even when it carries an ENOENT-shaped code', async () => {
+    // The code never buys enrichment: only a real Error takes the
+    // verify-then-seed branch; a code-carrying non-Error is a seam defect.
+    const structural: Error = { name: 'Error', message: 'shaped like fs, not an instance' };
+
+    await expect(
+      readRegistry(REGISTRY_PATH, () =>
+        Promise.reject(Object.assign(structural, { code: 'ENOENT' })),
+      ),
+    ).rejects.toThrow('non-Error value thrown at the state-file read boundary');
+  });
 });
 
 describe('parseIntentAgentId (Err channel)', () => {
