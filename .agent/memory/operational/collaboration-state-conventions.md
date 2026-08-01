@@ -207,9 +207,9 @@ fields:
   it lands; schema-only surfaces (conversations, escalations) carry no
   runtime pin and validate the versions their schema enumerates.
 - **Removing a field** lands as a major-version bump
-  (`schema_version: "2.0.0"` etc.). Agents reading a file at any other
-  version bail out with an error pointing at the protocol upgrade.
-  Migration is deliberate, not silent.
+  (`schema_version: "2.0.0"` etc.). On runtime-pinned surfaces, agents
+  reading a file at any other version bail out with an error pointing at
+  the protocol upgrade. Migration is deliberate, not silent.
 - **Adding a strength gradient** (the WS1 single-level claim model
   reframed in light of evidence) lands as a major-version bump because
   the absence of an exclusivity flag was load-bearing in v1.
