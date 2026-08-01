@@ -77,9 +77,10 @@ function registryValue(commitQueue: readonly unknown[]): Record<string, unknown>
     schema_version: '1.3.0',
     commit_queue: commitQueue,
     claims: [legacyClaimRow()],
-    // Unknown top-level key: the registry's runtime compatibility contract
-    // (active-claims.schema.json $comment_compatibility) is preservation on
-    // write-back, so the top-level spread must carry it through.
+    // Unknown top-level key: parseRegistry spreads the top level, so the key
+    // survives PARSING (pinned here). Under the latest-only schema contract
+    // it is out of schema (additionalProperties false), and the composed Ajv
+    // write gate refuses any write-back that still carries it.
     custodian_note: 'top-level preservation probe',
   };
 }
