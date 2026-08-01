@@ -59,6 +59,47 @@ wrapper); the record exists for later analysis of what is explicitly an
 experimental setup, and one structured comms event at dialogue close is
 its mechanism.
 
+## Priors and lineage
+
+Sif names and generalises what the estate's prior agent-invoking-agent
+experiments did ad hoc. Placed on Sif's own axes:
+
+- **Same-vendor one-shot** (the most-travelled cell): the expert-reviewer
+  fleet, Cricket's conscience checks, and every Workflow-fleet leg —
+  purpose-built dispatch-and-return instruments.
+- **Same-vendor multi-turn**: named background agents continued via
+  SendMessage, and session forks — native plumbing, never yet designed
+  as a dialogue instrument.
+- **Cross-vendor one-shot** (the working precedent): the Cricket Codex
+  legs — the 2026-07-29 quartet tally ran both model families in one
+  panel, with the `.codex/agents` TOMLs pinning sandbox/approval, the
+  exact authority precedent this plan cites — and the informal
+  `codex exec` helper recipe. Both hand-rolled their own safety and
+  recording; neither shared a doctrine.
+- **Cross-vendor multi-turn**: empty until this instrument.
+
+Inheritances, by source: from ADR-114's three-layer subagent
+architecture, Sif's authoring shape (general doctrine + per-binding
+annex is canonical-plus-adapters applied one level up); from Cricket,
+the bounded context packet, the recording convention, the sandbox-pin
+precedent, and the measured supply-side compression loss that became
+the verbatim-dissent contract; from the Workflow experiments,
+schema-forced returns and topology lessons; from the idle-wake work,
+the verified Codex transport facts and the probe-answers-authority
+discipline; from PDR-029's perturbation framing, the warrant itself.
+
+What no prior had, and Sif adds: a named doctrine layer (authority
+layering, version gates, close-event telemetry, conservation
+contracts) where each prior hand-rolled its own; the vendor-locus axis
+made explicit as the value axis (the Cricket Codex legs were
+cross-vendor as incidental plumbing, not thesis); and the
+instrument/citizen boundary drawn deliberately. The essential contrast
+is not a cell at all: the Codex seats (Plover, Possum, Spectre,
+Caracal) are membership — identity, claims, comms, their own clocks —
+not invocation. Sif is the complement: peers for sustained lanes,
+instruments for bounded perturbation, and a clean line between them so
+neither erodes the other.
+
 ## Goal
 
 A live Claude seat, mid-task, opens a bounded multi-turn reflective
