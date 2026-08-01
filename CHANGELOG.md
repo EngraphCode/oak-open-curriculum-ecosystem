@@ -1,3 +1,15 @@
+# [1.138.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.137.1...v1.138.0) (2026-08-01)
+
+
+### Bug Fixes
+
+* **agent-tools:** pr 695 round 1 — sibling deletion, discriminating pins, doc truth ([1af2898](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/1af28984f1525a16d5920485d22260abcae7acee))
+
+
+### Features
+
+* **agent-tools:** story 2b — three collaboration-state parsers return results ([7a59996](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/7a599964de8af5b39616fe8b5765f75a00a211ff)), closes [#692](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/692)
+
 ## [1.137.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.137.0...v1.137.1) (2026-08-01)
 
 # [1.137.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.136.1...v1.137.0) (2026-08-01)
