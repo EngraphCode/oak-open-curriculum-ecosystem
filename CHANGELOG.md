@@ -1,3 +1,18 @@
+# [1.137.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.136.1...v1.137.0) (2026-08-01)
+
+
+### Bug Fixes
+
+* **agent-tools:** dense isStringArray check rejects sparse files arrays ([cf06fda](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/cf06fda6176ecfad59a1eb0b1079ada9e8756720))
+* **agent-tools:** keep parseRegistry total on sparse arrays; reuse canonical parseWithSchema ([e7c0de7](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e7c0de7cf5c0de7b9aaf3ca6333f09dcbb460b8d)), closes [#692](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/692)
+* **agent-tools:** reject sparse holes in parseStringArrayResult ([c3adf26](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c3adf260b1b29e46f9136b7d29ab25a3c7699c33)), closes [#692](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/692)
+* **result:** keep mapErr tsdoc adjacent; anchor exact-match pins in collect and json tests ([bf9e173](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bf9e1733d62420aa5a1e477107ab92c38244f665)), closes [#692](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/692)
+
+
+### Features
+
+* **result:** collect combinator at second consumer; result cores for the 2b parser conversion ([157e339](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/157e339030c27e146d518d38ec0539d91707848f))
+
 ## [1.136.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.136.0...v1.136.1) (2026-08-01)
 
 # [1.136.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.135.0...v1.136.0) (2026-08-01)
