@@ -114,13 +114,16 @@ export interface CollaborationCommitQueueEntry {
 
 /**
  * The exact schema version this code reads and writes for the active-claims
- * registry (owner ruling: only the latest schema version is supported).
- * Every parse guard and write reconstruction moves in lockstep through this
- * constant — the exact-version pin is what keeps the field-by-field intent
- * reconstruction non-destructive (registry-entry-parser.ts carries the full
- * contract), and the composed write gates keep any drift against the JSON
- * schema's own declaration loud. Test fixtures deliberately keep the raw
- * literal so a version bump reddens the contract pins.
+ * registry, under the latest-only support contract stated in
+ * active-claims.schema.json's $comment_compatibility note. Every parse
+ * guard and write reconstruction moves in lockstep through this constant —
+ * the exact-version pin is what keeps the field-by-field intent
+ * reconstruction non-destructive (registry-entry-parser.ts carries the
+ * full contract). The composed write gates redden a constant the schema's
+ * enum does not list; the reverse drift (the enum gaining a version this
+ * constant has not adopted) has no mechanical guard yet. Test fixtures and
+ * assertions deliberately keep the raw literal so a version bump reddens
+ * the contract pins; validity-constructing helpers ride the constant.
  */
 export const ACTIVE_CLAIMS_SCHEMA_VERSION = '1.3.0';
 
