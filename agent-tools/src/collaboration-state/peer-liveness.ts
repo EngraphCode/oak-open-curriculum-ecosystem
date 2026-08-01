@@ -4,6 +4,7 @@ import {
   routingKeyFor,
   sameAgentRoutingKey,
 } from './active-agent-routing.js';
+import { commsEventAuthor } from './comms-event-accessors.js';
 import { parseHeartbeatBody } from './comms-heartbeat-body.js';
 import { type CollaborationAgentId, type CommsEvent } from './types.js';
 
@@ -59,10 +60,6 @@ export type PeerLivenessReport =
   | (PeerLivenessReportBase & { readonly state: 'active' })
   | (PeerLivenessReportBase & { readonly state: 'offline' })
   | (PeerLivenessReportBase & { readonly state: 'retired' });
-
-function authorOf(event: CommsEvent): CollaborationAgentId {
-  return event.kind === 'directed' ? event.from : event.author;
-}
 
 function isHeartbeat(event: CommsEvent): boolean {
   return event.tags?.includes('heartbeat') ?? false;
@@ -177,7 +174,7 @@ function heartbeatContribution(
   event: CommsEvent,
   self: CollaborationAgentId | undefined,
 ): HeartbeatContribution | undefined {
-  const author = authorOf(event);
+  const author = commsEventAuthor(event);
   if (!isHeartbeat(event) || author.id === undefined) {
     return undefined;
   }

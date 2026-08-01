@@ -1,4 +1,5 @@
 import { assertUtcTimestampNotFuture } from './timestamps.js';
+import { displayPrefix } from './visual-disambiguator.js';
 import {
   type CommsEvent,
   type DirectedCommsMessage,
@@ -110,7 +111,7 @@ function renderNarrativeEvent(event: NarrativeCommsEvent): string {
   return [
     `## ${event.created_at} — \`${event.author.agent_name}\` / ` +
       `\`${event.author.platform}\` / \`${event.author.model}\` / ` +
-      `\`${event.author.session_id_prefix}\` — ${event.title}`,
+      `\`${displayPrefix(event.author)}\` — ${event.title}`,
     '',
     event.body,
   ].join('\n');
@@ -120,7 +121,7 @@ function renderLifecycleEvent(event: LifecycleCommsEvent): string {
   return [
     `## ${event.created_at} — \`${event.author.agent_name}\` / ` +
       `\`${event.author.platform}\` / \`${event.author.model}\` / ` +
-      `\`${event.author.session_id_prefix}\` — ` +
+      `\`${displayPrefix(event.author)}\` — ` +
       `[lifecycle:${event.event_type}] ${event.title}`,
     '',
     event.body,

@@ -230,7 +230,7 @@ pnpm agent-tools collaboration-state claims active-agents \
   --active .agent/state/collaboration/active-claims.json
 pnpm agent-tools collaboration-state comms render \
   --comms-dir .agent/state/collaboration/comms \
-  --shared-log .agent/state/collaboration/shared-comms-log.md
+  --output .agent/state/collaboration/shared-comms-log.md
 ```
 
 The automated startup smoke is intentionally separate from E2E:
