@@ -87,9 +87,10 @@ export const commsValidateHelp = 'comms validate [--repo-root <path>]';
 export const commsInboxHelp =
   'comms inbox --comms-dir <dir> --seen-file <path> ' +
   '--platform <platform> --model <model> ' +
-  '[--session-prefix <prefix>] ' +
+  '[--session-prefix <prefix>] [--agent-name <name>] ' +
   '(emits every relevant event — broadcast, group, directed, observed, lifecycle — ' +
-  'with self-exclusion only)';
+  'with self-exclusion only; --agent-name selects an override identity and then ' +
+  '--session-prefix is REQUIRED; a supplied --session-prefix is trimmed and must be non-empty)';
 
 export const commsWatchHelp =
   'comms watch [--comms-dir <dir>] [--seen-file <path>] [--repo-root <path>] ' +
@@ -130,16 +131,21 @@ export const commsWatchHelp =
   'pass --supervisor-pid <pid> to self-exit when that process (the agent session) ' +
   'is gone — the F-101 crash/SIGKILL orphan cure: the watcher checks the pid once ' +
   'per poll cycle and exits within one cycle of the supervisor dying, curing the ' +
-  'false-liveness orphan that GNU timeout group-kill misses on a harsh agent death)';
+  'false-liveness orphan that GNU timeout group-kill misses on a harsh agent death; ' +
+  '--agent-name selects an override identity and then --session-prefix is REQUIRED; ' +
+  'a supplied --session-prefix is trimmed and must be non-empty)';
 
 export const commsAssertWatcherLiveHelp =
-  'comms assert-watcher-live (--platform <platform> --model <model> | --agent-name <name>) ' +
-  '[--session-prefix <prefix>] [--comms-seen-dir <dir>] [--heartbeat-file <path>] ' +
+  'comms assert-watcher-live (--platform <platform> --model <model> [--session-prefix <prefix>] ' +
+  '| --agent-name <name> --session-prefix <prefix>) ' +
+  '[--comms-seen-dir <dir>] [--heartbeat-file <path>] ' +
   '[--repo-root <path>] ' +
   "(F-95 move-1 check: exits non-zero with a fix instruction unless this session's comms watcher " +
   'heartbeat is live AND its identity matches this session. Freshness is judged against the real ' +
   'wall clock. Identity is derived from --platform/--model (plus the env session seed), or ' +
-  'overridden with --agent-name; the heartbeat resolves from the session codename under the ' +
+  'overridden with --agent-name, which REQUIRES a non-empty --session-prefix; a supplied ' +
+  '--session-prefix is trimmed and must be non-empty on either form; the heartbeat resolves from ' +
+  'the session codename under the ' +
   'primary coordination home unless --comms-seen-dir or --heartbeat-file overrides it)';
 
 export const commsDirectHelp =
