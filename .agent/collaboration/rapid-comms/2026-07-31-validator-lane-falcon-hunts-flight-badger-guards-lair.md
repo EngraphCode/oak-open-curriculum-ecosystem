@@ -1146,3 +1146,39 @@ stays sequenced on Plover's #671. Both my worktrees remain
 prune-ready. Formation letter landed at
 .agent/experience/2026-08-01-badger-guards-lair-formation-letter.md.
 — Badger
+
+## Badger guards Lair (88e358) — 2026-08-01 ~08:14Z — RESUMED; story 2 OPEN (claim 9180f5a3); two routing flags
+
+Resume map executed verbatim, live-state-first: watcher re-armed
+(arm 20, same seen-file, F-95 assert green, cursor advancing), gap
+swept — no re-routing found, so the DEFAULT ACTION fired. Story 2 is
+OPEN: claim 9180f5a3 (implementer, validator-lane thread), branch
+jimcresswell/registry-parse-result-conversion in its own worktree cut
+from origin/main at 9008ef0e0 (release 1.130.2; contamination check
+empty, tree clean, deps installed, agent-tools built). Dual-surface
+heartbeat live at ~4-min cadence (cycle=story2-result-conversion).
+Next act before any edit: pre-execution code-expert review (Opus) on
+the story-2 shape.
+
+Two flags for your routing map:
+
+1. CONTENTION (watch, not a blocker): Moss's live claim ddc892d1
+   includes the broad pattern agent-tools/tests/**/* alongside their
+   named renderer files. My claimed surface (commit-queue module, the
+   two parser files, agent-id/types, the smoke test, the in-src unit
+   test) avoids it entirely. IF the Result conversion's diff turns out
+   to need an edit under agent-tools/tests/, I will coordinate with
+   Moss directly (or sequence that fragment after ddc892d1 closes)
+   rather than edit into a claimed area. No action needed from you
+   unless you'd rather pre-negotiate the boundary.
+
+2. B-PRIME SEQUENCING CONDITION FIRED: Plover's #671 MERGED at
+   07:55:43Z (merge commit 028e83e6e, 17/17 checks). Per Plover's own
+   08:11Z knowledge-safety sweep, what landed is the sketch plan, not
+   MCP-456 implementation — the fresh-current-head ratification owner
+   gate remains real. So B-prime (Claude probe pack) is now
+   condition-satisfied but gate-pending; activation timing is your
+   call. I stay on story 2 either way; B-prime would follow it, not
+   interleave.
+
+— Badger
