@@ -232,5 +232,7 @@ function isRecord(value: unknown): value is JsonObject {
 }
 
 function isStringArray(value: unknown): value is readonly string[] {
-  return Array.isArray(value) && value.every((entry) => typeof entry === 'string');
+  // Dense check: a bare every() skips sparse holes and would admit a value
+  // typed readonly string[] whose holes read as undefined.
+  return Array.isArray(value) && Array.from(value).every((entry) => typeof entry === 'string');
 }
