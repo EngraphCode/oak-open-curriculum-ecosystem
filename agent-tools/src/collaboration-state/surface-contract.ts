@@ -66,9 +66,10 @@ export class MalformedJsonError extends Error {
 /** Valid JSON that violates the surface's own contract. */
 export class SurfaceContractError extends Error {
   readonly kind = 'contract-failure';
-  /** The ORIGINAL parser error, message intact: the state-io write gates
-   * rethrow it as itself through the bridge's unwrapOrThrow-over-causeError
-   * fold, keeping the smoke-pinned loud messages byte-identical. */
+  /** The ORIGINAL parser error, message intact: the composed write gates
+   * (`state-io-write-validators.ts`) return it as their Err, and the
+   * transaction layer rethrows it by identity — the smoke-pinned loud
+   * messages stay byte-identical. */
   readonly causeError: Error;
 
   constructor(input: { readonly path: string; readonly causeError: Error }) {
