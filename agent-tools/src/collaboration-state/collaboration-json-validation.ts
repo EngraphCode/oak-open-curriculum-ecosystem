@@ -3,9 +3,12 @@ import { readFile } from 'node:fs/promises';
 import { basename, dirname, join, parse } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { err, ok, type Result } from '@oaknational/result';
 import type { AnySchema } from 'ajv';
 import Ajv from 'ajv/dist/2020.js';
 import { z } from 'zod';
+
+import { failureAsError } from '../core/failure-as-error.js';
 
 export const SCHEMA_FILENAMES = [
   'active-claims.schema.json',
@@ -47,15 +50,18 @@ const SCHEMAS_DIR = resolveSchemasDir();
 let cachedValidator: Promise<CollaborationJsonSchemaValidator> | undefined;
 
 export interface CollaborationJsonSchemaValidator {
-  readonly validateText: (schemaId: string, text: string) => void;
+  // Result-typed by design (ADR-088): the old bare-void slot accepted a
+  // Result-returning implementation silently — the compiler-silent seam
+  // class the surface-contract story exists to kill.
+  readonly validateText: (schemaId: string, text: string) => Result<void, Error>;
 }
 
 export async function validateCollaborationJsonFileText(
   filePath: string,
   text: string,
-): Promise<void> {
+): Promise<Result<void, Error>> {
   const validator = await cachedSchemaValidator();
-  validator.validateText(collaborationJsonSchemaId(filePath), text);
+  return validator.validateText(collaborationJsonSchemaId(filePath), text);
 }
 
 export async function createCollaborationJsonSchemaValidator(
@@ -71,15 +77,24 @@ export async function createCollaborationJsonSchemaValidator(
   }
 
   return {
-    validateText(schemaId, text): void {
-      const value: unknown = JSON.parse(text);
+    validateText(schemaId, text): Result<void, Error> {
+      // Malformed text enters the Err channel like every other failure: a
+      // throw here would be an undeclared second failure channel on a
+      // Result-typed slot (the compiler-silent class this module names).
+      let value: unknown;
+      try {
+        value = JSON.parse(text);
+      } catch (failure) {
+        return err(failureAsError(failure, 'the collaboration schema-validation JSON boundary'));
+      }
       const validate = ajv.getSchema(schemaId);
       if (validate === undefined) {
-        throw new Error(`missing schema ${schemaId}`);
+        return err(new Error(`missing schema ${schemaId}`));
       }
       if (!validate(value)) {
-        throw new Error(ajvError(validate.errors));
+        return err(new Error(ajvError(validate.errors)));
       }
+      return ok(undefined);
     },
   };
 }

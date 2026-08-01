@@ -1,3 +1,4 @@
+import { err, ok, unwrapOrThrow, type Result } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
 import { atomicTextWriter } from '../../src/collaboration-state/atomic-file';
@@ -24,8 +25,9 @@ describe('collaboration JSON atomic writes', () => {
       await writeJsonFileAtomically({
         filePath,
         value: { schema_version: 'test', body: 'line one\nline two with `ticks` and $HOME' },
-        validateText: (text) => {
+        validateText: async (text) => {
           expect(JSON.parse(text)).toHaveProperty('schema_version', 'test');
+          return ok(undefined);
         },
       });
 
@@ -46,13 +48,36 @@ describe('collaboration JSON atomic writes', () => {
         writeJsonFileAtomically({
           filePath,
           value: { schema_version: 'test' },
-          validateText: () => {
-            throw new Error('schema says no');
-          },
+          validateText: async () => err(new Error('schema says no')),
         }),
       ).rejects.toThrow('schema says no');
 
       expect(await listEntries(directory)).toStrictEqual([]);
+    } finally {
+      await removeDirectory(directory);
+    }
+  });
+
+  it('rejects with the validator Err error BY IDENTITY — the serialization fold never re-wraps', async () => {
+    // The transaction-layer half of the byte-identity guarantee: the write
+    // gate's Err carries the parser's original error, and this fold must
+    // rethrow exactly that object. A fold that wraps or re-labels breaks
+    // the smoke-pinned loud-message contract downstream.
+    const directory = await makeTempDirectory('oak-collaboration-transaction-');
+    const filePath = tempPath(directory, 'state.json');
+    const original = new Error('the original loud message');
+    try {
+      let caught: unknown;
+      try {
+        await writeJsonFileAtomically({
+          filePath,
+          value: { schema_version: 'test' },
+          validateText: async () => err(original),
+        });
+      } catch (error) {
+        caught = error;
+      }
+      expect(caught).toBe(original);
     } finally {
       await removeDirectory(directory);
     }
@@ -65,14 +90,14 @@ describe('collaboration JSON atomic writes', () => {
       await createJsonFileAtomically({
         filePath,
         value: { event_id: 'one' },
-        validateText: JSON.parse,
+        validateText: parseOnly,
       });
 
       await expect(
         createJsonFileAtomically({
           filePath,
           value: { event_id: 'two' },
-          validateText: JSON.parse,
+          validateText: parseOnly,
         }),
       ).rejects.toThrow(/EEXIST|file already exists/u);
 
@@ -131,6 +156,47 @@ describe('collaboration JSON atomic writes', () => {
     expect(writes).toStrictEqual(['{\n  "value": 3\n}\n']);
   });
 
+  it('refuses to write serialized output its own parser rejects, even when validateText passes', async () => {
+    const writes: string[] = [];
+
+    await expect(
+      updateJsonStateWithRetry({
+        maxAttempts: 1,
+        parseText: parseCounterState,
+        // Schema-blind, exactly the commit-queue/CLI shape: validateText
+        // carries no parser, so the write-back re-parse is the only check.
+        validateText: async () => ok(undefined),
+        readText: () => '{"value":1}\n',
+        writeText: (text) => {
+          writes.push(text);
+        },
+        transform: () => ({ value: Number.NaN }),
+      }),
+    ).rejects.toThrow('invalid counter state');
+    expect(writes).toStrictEqual([]);
+  });
+
+  it('refuses to transform a state its own parser rejects — the read fold never substitutes a default', async () => {
+    const writes: string[] = [];
+
+    await expect(
+      updateJsonStateWithRetry({
+        maxAttempts: 1,
+        parseText: parseCounterState,
+        validateText: validateCounterState,
+        readText: () => '{"rows":["survivor"]}\n',
+        writeText: (text) => {
+          writes.push(text);
+        },
+        // A constant valid value: under a default-substituting read fold the
+        // transform never sees the Err, the write-back re-parse passes, and
+        // the unparseable-but-recoverable original is overwritten.
+        transform: () => ({ value: 7 }),
+      }),
+    ).rejects.toThrow('invalid counter state');
+    expect(writes).toStrictEqual([]);
+  });
+
   it('serializes concurrent JSON file updates without lost writes', async () => {
     const directory = await makeTempDirectory('oak-collaboration-transaction-');
     const filePath = tempPath(directory, 'counter.json');
@@ -149,7 +215,9 @@ describe('collaboration JSON atomic writes', () => {
         ),
       );
 
-      expect(parseCounterState(await readText(filePath))).toStrictEqual({ value: 5 });
+      expect(unwrapOrThrow(parseCounterState(await readText(filePath)))).toStrictEqual({
+        value: 5,
+      });
     } finally {
       await removeDirectory(directory);
     }
@@ -160,11 +228,17 @@ interface CounterState {
   readonly value: number;
 }
 
-function validateCounterState(text: string): void {
-  parseCounterState(text);
+async function parseOnly(text: string): Promise<Result<void, Error>> {
+  JSON.parse(text);
+  return ok(undefined);
 }
 
-function parseCounterState(text: string): CounterState {
+async function validateCounterState(text: string): Promise<Result<void, Error>> {
+  const parsed = parseCounterState(text);
+  return parsed.ok ? ok(undefined) : parsed;
+}
+
+function parseCounterState(text: string): Result<CounterState, Error> {
   const parsed: unknown = JSON.parse(text);
   if (
     typeof parsed === 'object' &&
@@ -172,8 +246,8 @@ function parseCounterState(text: string): CounterState {
     'value' in parsed &&
     typeof parsed.value === 'number'
   ) {
-    return { value: parsed.value };
+    return ok({ value: parsed.value });
   }
 
-  throw new Error('invalid counter state');
+  return err(new Error('invalid counter state'));
 }

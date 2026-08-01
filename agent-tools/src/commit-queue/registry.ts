@@ -60,11 +60,10 @@ export async function readRegistry(
 
 /**
  * Transactionally update the active-claims registry for queue writes.
- * The transaction seam folds the parse `Result` with `unwrapOrThrow` — the
- * sanctioned identity-preserving edge. It must never fold with a
- * default-substituting unwrap: the transform would run over a substituted
- * empty registry and write it back, silently destroying every claim and
- * intent (the corrupt-registry smoke proof pins this).
+ * The transaction layer folds the parse `Result` with `unwrapOrThrow` (the
+ * sanctioned identity-preserving edge — the never-default-substitute
+ * warning lives at that fold); the corrupt-registry smoke proof pins the
+ * loud rejection end-to-end.
  */
 export async function updateRegistry(
   registryPath: string,
@@ -74,7 +73,7 @@ export async function updateRegistry(
   unwrapOrThrow(await readRegistry(registryPath));
   await updateJsonFileWithRetry({
     filePath: registryPath,
-    parseText: (text) => unwrapOrThrow(parseRegistryText(text, registryPath)),
+    parseText: (text) => parseRegistryText(text, registryPath),
     validateText: (text) => validateCollaborationJsonFileText(registryPath, text),
     transform,
     maxAttempts: 5,

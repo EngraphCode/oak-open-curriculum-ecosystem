@@ -11,20 +11,14 @@ import { readRegistry, updateRegistry } from '../src/commit-queue/registry';
 
 /**
  * PDR-076a registry round-trip smoke — the identity boundary over BOTH real
- * transactions that read-modify-write the shared active-claims registry:
- * `commit-queue/registry.ts` (`updateRegistry`) and
- * `collaboration-state/state-io.ts` (`updateActiveClaimsFile`, the path
- * behind every claim open/close/heartbeat/adopt).
- *
- * Proves against real files what unit tests structurally cannot see: each
- * transaction preserves a legacy id-less claim row unchanged (parse-time
- * narrowing of claims would be destructive to other agents' ownership
- * rows) and round-trips a valid intent identity intact; an id-less intent
- * row rejects loudly naming the intent — from the transaction's
- * pre-write read, with the file proven byte-identical afterwards. The
- * collaboration-state proofs compare against the RAW file JSON so any
- * reconstruction loss reddens them. Real filesystem IO makes this a
- * smoke; `test:e2e` gates it.
+ * transactions that read-modify-write the shared active-claims registry
+ * (`commit-queue/registry.ts` updateRegistry; `state-io.ts`
+ * updateActiveClaimsFile, the path behind every claim write). Proves
+ * against real files what unit tests structurally cannot: legacy id-less
+ * claim rows survive write-back unchanged, valid intent identities
+ * round-trip, and an id-less intent rejects loudly with the file proven
+ * byte-identical. Raw-JSON comparisons redden on any reconstruction loss.
+ * Real filesystem IO makes this a smoke; `test:e2e` gates it.
  */
 
 const LEGACY_CLAIM = {
@@ -184,14 +178,20 @@ async function proveValidIntentRoundTripsWithRoutingId(): Promise<void> {
 
 async function proveSchemaRejectsIdlessIntentRow(): Promise<void> {
   const idlessIntent = { ...validIntentRow(), agent_id: LEGACY_CLAIM.agent_id };
-  await assert.rejects(
-    validateCollaborationJsonFileText('active-claims.json', fileRegistry([idlessIntent])),
-    /agent_id|required/,
+  const result = await validateCollaborationJsonFileText(
+    'active-claims.json',
+    fileRegistry([idlessIntent]),
   );
+  if (result.ok) {
+    assert.fail('expected schema validation to reject the id-less intent row');
+  }
+  assert.match(result.error.message, /agent_id|required/);
 }
 
 async function proveSchemaAcceptsIdlessClaimRow(): Promise<void> {
-  await validateCollaborationJsonFileText('active-claims.json', fileRegistry([validIntentRow()]));
+  unwrapOrThrow(
+    await validateCollaborationJsonFileText('active-claims.json', fileRegistry([validIntentRow()])),
+  );
 }
 
 async function proveActiveClaimsTransactionPreservesRowsInRawJson(): Promise<void> {

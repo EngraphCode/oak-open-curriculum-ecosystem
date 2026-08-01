@@ -5,16 +5,16 @@ import {
   MalformedJsonError,
   SurfaceContractError,
   checkCollaborationSurfaceContract,
-  requireCollaborationSurfaceContract,
 } from './surface-contract.js';
 
 /**
  * The one collaboration-state-owned surface-contract gate. Failure kinds are
  * a closed union narrowed on the literal `kind` — consumers map them to
  * their own finding vocabularies without instanceof sniffing — and every
- * failure carries the original parser error as a typed `causeError`, so the
- * state-io write gates rethrow the ORIGINAL loud message identity-intact
- * through `unwrapOrThrow(mapErr(...))` (pinned anchored below).
+ * failure carries the original parser error as a typed `causeError`. The
+ * composed write gates return that `causeError` as their Err and the
+ * transaction layer rethrows it by identity; that half is pinned anchored
+ * in state-io-write-validators.integration.test.ts.
  */
 
 const REGISTRY_PATH = '.agent/state/collaboration/active-claims.json';
@@ -112,21 +112,6 @@ describe('checkCollaborationSurfaceContract', () => {
     expect(failure.message).toBe(`${REGISTRY_PATH} is not valid JSON`);
     expect(failure.causeError.message).toMatch(
       /^\.agent\/state\/collaboration\/active-claims\.json is not valid JSON: /,
-    );
-  });
-
-  it('the BRIDGE rethrows the ORIGINAL parser error identity-intact (the state-io write-gate path)', () => {
-    // Calls the product bridge itself, not a copy of its fold: a bridge
-    // slip that rethrows the wrapper (whose message is path-prefixed)
-    // reddens this anchored pin.
-    expect(() =>
-      requireCollaborationSurfaceContract({
-        schemaId: 'active-claims.schema.json',
-        path: REGISTRY_PATH,
-        text: registryText([IDLESS_INTENT_ROW]),
-      }),
-    ).toThrow(
-      /^commit_queue entry 33333333-3333-4333-8333-333333333333 carries an invalid agent_id/,
     );
   });
 
