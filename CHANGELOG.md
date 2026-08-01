@@ -1,3 +1,15 @@
+# [1.135.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.134.2...v1.135.0) (2026-08-01)
+
+
+### Bug Fixes
+
+* **agent-tools:** single schemaid vocabulary, bare-t ok arm, bridge-called pins (review round 1) ([59e30dd](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/59e30dd2413ecbb057c113eb11ca98b183f71e3f))
+
+
+### Features
+
+* **agent-tools:** consolidate collaboration surface-contract gate, delete silent validator seams ([e233de4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e233de4f53ddaf74a5dc4d4ca4098e69c87a50f5))
+
 ## [1.134.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.134.1...v1.134.2) (2026-08-01)
 
 ## [1.134.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.134.0...v1.134.1) (2026-08-01)
