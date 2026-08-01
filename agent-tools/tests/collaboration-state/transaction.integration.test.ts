@@ -156,6 +156,47 @@ describe('collaboration JSON atomic writes', () => {
     expect(writes).toStrictEqual(['{\n  "value": 3\n}\n']);
   });
 
+  it('refuses to write serialized output its own parser rejects, even when validateText passes', async () => {
+    const writes: string[] = [];
+
+    await expect(
+      updateJsonStateWithRetry({
+        maxAttempts: 1,
+        parseText: parseCounterState,
+        // Schema-blind, exactly the commit-queue/CLI shape: validateText
+        // carries no parser, so the write-back re-parse is the only check.
+        validateText: async () => ok(undefined),
+        readText: () => '{"value":1}\n',
+        writeText: (text) => {
+          writes.push(text);
+        },
+        transform: () => ({ value: Number.NaN }),
+      }),
+    ).rejects.toThrow('invalid counter state');
+    expect(writes).toStrictEqual([]);
+  });
+
+  it('refuses to transform a state its own parser rejects — the read fold never substitutes a default', async () => {
+    const writes: string[] = [];
+
+    await expect(
+      updateJsonStateWithRetry({
+        maxAttempts: 1,
+        parseText: parseCounterState,
+        validateText: validateCounterState,
+        readText: () => '{"rows":["survivor"]}\n',
+        writeText: (text) => {
+          writes.push(text);
+        },
+        // A constant valid value: under a default-substituting read fold the
+        // transform never sees the Err, the write-back re-parse passes, and
+        // the unparseable-but-recoverable original is overwritten.
+        transform: () => ({ value: 7 }),
+      }),
+    ).rejects.toThrow('invalid counter state');
+    expect(writes).toStrictEqual([]);
+  });
+
   it('serializes concurrent JSON file updates without lost writes', async () => {
     const directory = await makeTempDirectory('oak-collaboration-transaction-');
     const filePath = tempPath(directory, 'counter.json');

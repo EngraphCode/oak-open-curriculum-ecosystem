@@ -27,7 +27,8 @@ import { type ClosedClaimsArchive, type CollaborationRegistry, type CommsEvent }
  * parse, never this gate's Ok product. The write paths compose the two
  * correctly in `state-io-write-validators.ts`; the structural close (Ajv
  * reachable only through a checked-surface path, including the separate
- * practice-substrate Ajv instance) is its own tracked story.
+ * practice-substrate Ajv instance) remains unbuilt, and no durable surface
+ * tracks it yet — this note is the current record of that gap.
  */
 
 /**

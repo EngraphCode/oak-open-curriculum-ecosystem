@@ -9,8 +9,10 @@ import { activeClaimsWriteValidator } from './state-io-write-validators.js';
  * the Err arm must carry the parser's ORIGINAL error — a slip to the
  * check's wrapper (whose message is path-prefixed) reddens the anchor. The
  * transaction fold's half (the unwrap that rethrows this Err's error by
- * identity) is pinned in transaction.integration.test.ts. Both Err arms
- * return before the Ajv leg runs, so this file needs no real IO.
+ * identity) is pinned in transaction.integration.test.ts. Integration
+ * classification: importing the gate module evaluates the schema-directory
+ * walk at module level, and the Ajv-leg case below reads the real schema
+ * files.
  */
 
 const REGISTRY_PATH = '.agent/state/collaboration/active-claims.json';
@@ -50,6 +52,27 @@ describe('activeClaimsWriteValidator', () => {
   it('returns the path-labelled JSON error on malformed text, before any schema validation', async () => {
     const result = await activeClaimsWriteValidator(REGISTRY_PATH)('---\nnot json');
 
-    expect(unwrapErr(result).message).toMatch(/is not valid JSON/);
+    // Anchored: the check's MalformedJsonError wrapper carries the same
+    // prefix WITHOUT the ": <detail>" tail, so a slip to the wrapper reddens.
+    expect(unwrapErr(result).message).toMatch(
+      /^\.agent\/state\/collaboration\/active-claims\.json is not valid JSON: /,
+    );
+  });
+
+  it('rejects contract-valid text whose raw form violates the JSON schema — the Ajv leg reads the raw text', async () => {
+    // The contract parser reconstructs field-by-field and DROPS unknown
+    // fields, so it accepts this text; only the Ajv leg (raw text,
+    // additionalProperties: false) can refuse it. Dropping the schema leg
+    // would silently re-open the reconstruction-loss trap.
+    const result = await activeClaimsWriteValidator(REGISTRY_PATH)(
+      JSON.stringify({
+        schema_version: '1.3.0',
+        commit_queue: [],
+        claims: [],
+        unknown_extra: true,
+      }),
+    );
+
+    expect(unwrapErr(result).message).toMatch(/must NOT have additional properties/);
   });
 });

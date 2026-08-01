@@ -8,6 +8,8 @@ import type { AnySchema } from 'ajv';
 import Ajv from 'ajv/dist/2020.js';
 import { z } from 'zod';
 
+import { failureAsError } from '../core/failure-as-error.js';
+
 export const SCHEMA_FILENAMES = [
   'active-claims.schema.json',
   'closed-claims.schema.json',
@@ -76,7 +78,15 @@ export async function createCollaborationJsonSchemaValidator(
 
   return {
     validateText(schemaId, text): Result<void, Error> {
-      const value: unknown = JSON.parse(text);
+      // Malformed text enters the Err channel like every other failure: a
+      // throw here would be an undeclared second failure channel on a
+      // Result-typed slot (the compiler-silent class this module names).
+      let value: unknown;
+      try {
+        value = JSON.parse(text);
+      } catch (failure) {
+        return err(failureAsError(failure, 'the collaboration schema-validation JSON boundary'));
+      }
       const validate = ajv.getSchema(schemaId);
       if (validate === undefined) {
         return err(new Error(`missing schema ${schemaId}`));

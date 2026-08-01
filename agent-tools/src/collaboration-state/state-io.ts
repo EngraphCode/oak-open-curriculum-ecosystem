@@ -196,9 +196,9 @@ async function readEventFiles<TEvent>(
     const path = join(directory, filename);
     try {
       const text = await readFile(path, 'utf8');
-      // Inside the loud wrap by intent: the unwrap rethrows the parser's
-      // ORIGINAL error, and the catch labels it with the file path exactly
-      // as it labelled the thrown parser's errors.
+      // Inside the loud wrap by intent: both unwraps (the parser's, then
+      // schema validation's) rethrow their Err's ORIGINAL error, and the
+      // catch labels it with the file path.
       const event = unwrapOrThrow(parser(text));
       unwrapOrThrow(await validateCollaborationJsonFileText(path, text));
       events.push(event);

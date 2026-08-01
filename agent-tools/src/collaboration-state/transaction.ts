@@ -24,7 +24,8 @@ export async function updateJsonStateWithRetry<T>(input: {
     const originalText = await input.readText();
     // unwrapOrThrow, never a default-substituting fold: a substituted empty
     // state would run the transform over nothing and write it back,
-    // silently destroying every row (smoke-pinned at the registry).
+    // silently destroying every row (pinned in
+    // transaction.integration.test.ts — the read fold never substitutes).
     const nextValue = input.transform(unwrapOrThrow(input.parseText(originalText)));
     const verificationText = await input.readText();
 
@@ -34,9 +35,11 @@ export async function updateJsonStateWithRetry<T>(input: {
 
     await input.writeText(
       await serializeJson(nextValue, async (text) => {
-        // The write-back contract check: for callers whose validateText
-        // carries no parser (commit-queue, CLI), this is the ONLY check on
-        // serialized output — the unwrap must not be dropped.
+        // The write-back contract check: the only check enforcing the
+        // caller's PARSER contract (exact-version pins, field shapes) on
+        // serialized output — commit-queue and CLI callers pass an Ajv-only
+        // validateText, which cannot see it. The unwrap must not be dropped
+        // (pinned in transaction.integration.test.ts).
         unwrapOrThrow(input.parseText(text));
         return input.validateText(text);
       }),
@@ -132,6 +135,10 @@ export async function writeTextFileAtomically(input: {
 
 /**
  * Update a JSON file on disk with transaction-guarded temp-file rename writes.
+ *
+ * Both callbacks return `Result`: an Err from `parseText` (at the read fold
+ * or the write-back re-parse) or from `validateText` (at the serialization
+ * fold) is rethrown as its own error object, never re-wrapped.
  */
 export async function updateJsonFileWithRetry<T>(input: {
   readonly filePath: string;

@@ -7,13 +7,18 @@ import { checkCollaborationSurfaceContract, type ContractSchemaId } from './surf
  * The composed write gates for the three contract-bearing collaboration
  * surfaces: the surface-contract check first (on the raw serialized text),
  * then Ajv schema validation of the same raw text. Owned here so state-io
- * stays a thin orchestration surface and both write paths for a surface are
- * provably the same composition.
+ * stays a thin orchestration surface and every state-io write path for a
+ * surface is provably the same composition (active-claims twice,
+ * closed-claims and comms-event once each). The active-claims registry has
+ * one OTHER writer with its own differently-composed gate:
+ * commit-queue/registry.ts.
  *
- * The Err arm carries the parser's ORIGINAL error (`causeError`), never the
- * check's path-prefixed wrapper: the transaction layer's unwrap rethrows the
- * Err's error by identity, and the smoke-pinned loud messages depend on it
- * (anchored in state-io-write-validators.unit.test.ts).
+ * On a contract failure the Err arm carries the parser's ORIGINAL error
+ * (`causeError`), never the check's path-prefixed wrapper; on malformed
+ * JSON it carries the path-labelled JSON error. Either way the transaction
+ * layer's unwrap rethrows the Err's error by identity, and the smoke-pinned
+ * loud messages depend on it (anchored in
+ * state-io-write-validators.integration.test.ts).
  */
 
 type WriteValidator = (text: string) => Promise<Result<void, Error>>;

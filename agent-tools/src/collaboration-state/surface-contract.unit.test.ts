@@ -11,9 +11,10 @@ import {
  * The one collaboration-state-owned surface-contract gate. Failure kinds are
  * a closed union narrowed on the literal `kind` — consumers map them to
  * their own finding vocabularies without instanceof sniffing — and every
- * failure carries the original parser error as a typed `causeError`, so the
- * state-io write gates rethrow the ORIGINAL loud message identity-intact
- * through `unwrapOrThrow(mapErr(...))` (pinned anchored below).
+ * failure carries the original parser error as a typed `causeError`. The
+ * composed write gates return that `causeError` as their Err and the
+ * transaction layer rethrows it by identity; that half is pinned anchored
+ * in state-io-write-validators.integration.test.ts.
  */
 
 const REGISTRY_PATH = '.agent/state/collaboration/active-claims.json';
