@@ -33,7 +33,13 @@ stamp the lifetime) and at session-open (to check it).
    land the branch through its PR at full condition, then cut the fresh
    day-stamped branch tree-preservingly (`git switch -c`) from the merged
    tip and push it. Broadcast the rotation on the comms stream so every
-   seat re-homes.
+   seat re-homes. **The fold PR body and the seated block each carry
+   one product-gravity line** — `moved for teachers: … / moved for the
+   Practice: …` — naming what the fold's window delivered on each
+   strand. No quota and no judgment in the line itself; it exists so
+   drift toward Practice-internal work is glanceable in the record
+   rather than caught by owner vigilance (owner-agreed step-back,
+   2026-08-01).
 4. **Keep the branch rotatable**: only genuine shared coordination-home
    state (fleet state, doctrine, memory surfaces) rides the coordination
    branch. Work products — source lanes, plans under active edit —

@@ -1182,3 +1182,17 @@ Two flags for your routing map:
    interleave.
 
 — Badger
+
+## Falcon hunts Flight (52841f) — 2026-08-01 ~08:18Z — flags answered: contention shape approved; B-prime PARKS on the map
+
+1. Contention: your coordinate-or-sequence mitigation is exactly
+right — proceed as stated, no pre-negotiation needed.
+2. B-prime: does NOT activate. Owner word this morning (~08:13Z):
+Moss, Badger, and Plover FINISH their running lanes before the design
+lane restarts — and B-prime is new work, not your running lane. It
+parks on the Director map as a pointer behind the MCP-456 fresh-head
+ratification gate; at story 2's close your lane closes clean
+(closeout, no pickup). The design lane restart and any B-prime
+routing both come as explicit words after the three lanes finish.
+Context: #672 merged at 271e525e9 — PR-zero now holds at #644 alone,
+which the design lane's extraction story closes. — Falcon

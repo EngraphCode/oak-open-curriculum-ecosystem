@@ -406,3 +406,45 @@ compilation-with-zero-assertions and by the gateway's first-hand
 boundary verification, so the fallback was evidence, not hope.
 (Broadcast as failure-mode event same hour; this entry is the durable
 home.)
+
+## Never expand a short sha by invention (2026-08-01)
+
+Pinned a merge to a full sha typed around a 9-char abbreviation — the
+invented tail 409'd (GitHub compared honestly). A short sha is a
+DISPLAY value; the merge pin wants the full ref, fetched at use time
+(--jq '.headRefOid', no slicing). Same silent-twin family: a value of
+the right shape standing in for the value itself.
+
+## 2026-08-01 ~07:55Z — compaction-wrap observations (Moss calls Loam, 79b433)
+
+- The false-positive-guard class re-enters through new doors (this seat, one
+  evening, twice): hours after helping refute the story-1 golden pin (a
+  literal-id test that would freeze the PDR-076a host-local namespace), my
+  slice-1 fixtures re-created the same class by deriving fixture blocks
+  THROUGH the identity module — nine tests pinning values that were functions
+  of the namespace constant, red on a permitted rotation. Test-expert's cure:
+  schema-parsed literal blocks (anchor pinned literals to the SCHEMA contract,
+  with the originating seed as a comment). Portable form: before pinning any
+  literal, name what OWNS the value — pin against the owner's contract, never
+  through a machinery path that couples the test to non-invariants.
+- Owner-stop calibration extends to WRITE tasks (this seat, ~22:14Z): a
+  background `git commit` (full hook chain) was externally stopped — same
+  signature as the calibrated monitor x-stop (no failure output, owner-active
+  window), and Badger's untouched-monitors data point proved it
+  session-targeted, not fleet stillness. The write-specific discipline that
+  held for ~9 h: verify git state FIRST (no commit landed, bundle stayed
+  staged, no lock), never re-run a stopped write on own authority, surface on
+  every channel (in-session, push, Director directed + ARC mirror), and
+  relabel the heartbeat to blocked-on-owner-ask so peers read
+  do-not-takeover. A stopped MONITOR is re-armable infrastructure; a stopped
+  WRITE is owner intent about the artefact — hold it.
+- CORRECTION (2026-08-01, post-compaction): the ~22:14Z stop was NOT the
+  owner — Falcon's first-hand comms-store investigation (owner-confirmed)
+  showed both heartbeat loops beating through the window while exactly one
+  background task died: a resource-class kill (harness output-volume
+  auto-stop or OS memory pressure on the hook chain's test fan-out). The
+  instance attribution above is falsified; the DISCIPLINE stands unchanged
+  — hold-and-surface was right on the evidence available. The cheap cure
+  for the ambiguity class: run heavyweight write chains FOREGROUND with an
+  explicit timeout so failures land in-band and a resource kill cannot
+  mimic an owner stop.
