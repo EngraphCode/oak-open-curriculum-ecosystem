@@ -437,6 +437,18 @@ an idle-wake claim.
 
 ## Todos
 
+- **Pickup design decision (recorded 2026-08-01 from exact-head review;
+  decide before any reply-path build).** Deterministic reply-ID recovery
+  currently checks IDs only in the live comms dir
+  (`state-io.ts` write path) while canonical archive rotation moves
+  events out of it — so a reply written, then a controller crash before
+  `replied` is recorded, then rotation, lets replay mint a second live
+  event instead of the promised exact read-back. Choose ONE cure at
+  pickup: a single atomic ID namespace across live and archived events,
+  or rotation that refuses to move replies whose resolution is
+  unrecorded. Either choice carries a crash/rotation race proof, and
+  source revalidation becomes archive-aware. The fork is the lane
+  owner's; this entry pins the obligation so the sketch merges honest.
 - **A — bounded viability gate (round budget: at most two review rounds).**
   Against the pinned Codex source, load a native extension into the same process
   as the app-server and user-visible thread. Prove exact binding and native
