@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { typeSafeEntries } from '@oaknational/type-helpers';
 
 import { SCHEMA_FILENAMES } from '../../collaboration-state/collaboration-json-validation.js';
+import { CLOSED_CLAIMS_SCHEMA_VERSION } from '../../collaboration-state/types.js';
 
 /**
  * Real-IO temp-repo builder for practice-substrate integration tests
@@ -40,7 +41,7 @@ export async function makeTempSubstrateRepo(
   );
   await writeFile(
     join(collaborationRoot, 'closed-claims.archive.json'),
-    JSON.stringify({ schema_version: '1.3.0', claims: [] }, null, 2),
+    JSON.stringify({ schema_version: CLOSED_CLAIMS_SCHEMA_VERSION, claims: [] }, null, 2),
     'utf8',
   );
 

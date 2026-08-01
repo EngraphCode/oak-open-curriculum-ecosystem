@@ -16,6 +16,8 @@ import {
   parseNarrativeCommsEventValue,
 } from './state-schemas.js';
 import {
+  ACTIVE_CLAIMS_SCHEMA_VERSION,
+  CLOSED_CLAIMS_SCHEMA_VERSION,
   type ClosedClaimsArchive,
   type CollaborationAgentId,
   type CollaborationArea,
@@ -48,8 +50,13 @@ function parseRegistryValue(parsed: unknown): Result<CollaborationRegistry, Erro
   // registry-entry-parser.ts non-destructive — relaxing it without
   // revisiting that reconstruction silently strips unrecognised fields
   // (the asymmetry note there is the full contract).
-  if (!isJsonObject(parsed) || getJsonValue(parsed, 'schema_version') !== '1.3.0') {
-    return err(new Error('active claims registry must use schema_version 1.3.0'));
+  if (
+    !isJsonObject(parsed) ||
+    getJsonValue(parsed, 'schema_version') !== ACTIVE_CLAIMS_SCHEMA_VERSION
+  ) {
+    return err(
+      new Error(`active claims registry must use schema_version ${ACTIVE_CLAIMS_SCHEMA_VERSION}`),
+    );
   }
   const claims = getJsonValue(parsed, 'claims');
   const commitQueue = getJsonValue(parsed, 'commit_queue');
@@ -59,7 +66,7 @@ function parseRegistryValue(parsed: unknown): Result<CollaborationRegistry, Erro
 
   return flatMap(collect(Array.from(commitQueue, parseCommitQueueEntry)), (entries) =>
     map(collect(Array.from(claims, parseClaim)), (parsedClaims): CollaborationRegistry => ({
-      schema_version: '1.3.0',
+      schema_version: ACTIVE_CLAIMS_SCHEMA_VERSION,
       commit_queue: entries,
       claims: parsedClaims,
     })),
@@ -78,8 +85,13 @@ export function parseClosedClaimsArchive(text: string): Result<ClosedClaimsArchi
 }
 
 function parseArchiveValue(parsed: unknown): Result<ClosedClaimsArchive, Error> {
-  if (!isJsonObject(parsed) || getJsonValue(parsed, 'schema_version') !== '1.3.0') {
-    return err(new Error('closed claims archive must use schema_version 1.3.0'));
+  if (
+    !isJsonObject(parsed) ||
+    getJsonValue(parsed, 'schema_version') !== CLOSED_CLAIMS_SCHEMA_VERSION
+  ) {
+    return err(
+      new Error(`closed claims archive must use schema_version ${CLOSED_CLAIMS_SCHEMA_VERSION}`),
+    );
   }
   const claims = getJsonValue(parsed, 'claims');
   if (!Array.isArray(claims)) {
@@ -87,7 +99,7 @@ function parseArchiveValue(parsed: unknown): Result<ClosedClaimsArchive, Error> 
   }
 
   return map(collect(Array.from(claims, parseClaim)), (parsedClaims): ClosedClaimsArchive => ({
-    schema_version: '1.3.0',
+    schema_version: CLOSED_CLAIMS_SCHEMA_VERSION,
     claims: parsedClaims,
   }));
 }

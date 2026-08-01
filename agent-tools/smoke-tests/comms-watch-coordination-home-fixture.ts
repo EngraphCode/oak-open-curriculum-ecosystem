@@ -4,6 +4,7 @@ import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
+import { ACTIVE_CLAIMS_SCHEMA_VERSION } from '../src/collaboration-state/types';
 import { resolveTrustedGit } from '../src/core/trusted-git';
 
 export const AGENT_NAME = 'Europa stirs Void';
@@ -63,7 +64,7 @@ function eventFixture(nowIso: string): unknown {
 
 function registryFixture(nowIso: string): unknown {
   return {
-    schema_version: '1.3.0',
+    schema_version: ACTIVE_CLAIMS_SCHEMA_VERSION,
     commit_queue: [],
     claims: [
       {
