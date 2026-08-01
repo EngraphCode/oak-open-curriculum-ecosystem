@@ -172,9 +172,12 @@ below serves one of those three.
    value whose value is or carries the join key writes it as the bare
    `session_id_prefix` — authored surfaces transcribe the wire value;
    only renderer output derives. SECOND, the renderer shape rule:
-   renderer output shows `<name> (<session_id_prefix>)`; where ONE
-   rendered view holds TWO OR MORE identity blocks, the parenthesised
-   field may instead be the render-time **visual-disambiguator
+   renderer output shows the identity name beside its
+   `session_id_prefix` display component — punctuation is each
+   estate's own; this rule binds the COMPONENT, never a literal
+   template. Where ONE rendered view holds TWO OR MORE identity
+   blocks, that display component may instead be the render-time
+   **visual-disambiguator
    token** — the join key, a hyphen, and the last three characters of
    the canonical `id`, falling back to the bare join key for a block
    with no `id` — while single-identity views render the bare join
