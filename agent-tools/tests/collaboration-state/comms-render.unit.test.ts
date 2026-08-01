@@ -10,6 +10,7 @@ import {
   type CollaborationAgentId,
   type CommsEvent,
 } from '../../src/collaboration-state';
+import { collaborationAgentIdSchema } from '../../src/collaboration-state/types';
 
 const nowIso = '2026-04-28T09:37:11Z';
 
@@ -106,22 +107,7 @@ describe('renderSharedCommsLog', () => {
     expect(rendered.indexOf('lifecycle middle')).toBeLessThan(rendered.indexOf('directed last'));
   });
 
-  it('labels lifecycle and directed sections with kind-specific prefixes', () => {
-    const lifecycleEvent = {
-      schema_version: '2.0.0',
-      event_id: 'lifecycle-event-id',
-      created_at: '2026-04-28T09:10:00Z',
-      kind: 'lifecycle',
-      event_type: 'consolidation_open',
-      occurred_at: '2026-04-28T09:10:00Z',
-      author: woodland,
-      agent_id: woodland,
-      thread: 'agentic-engineering-enhancements',
-      claim_id: '',
-      title: 'lifecycle moment',
-      subject: 'lifecycle subject',
-      body: 'Lifecycle body.',
-    } satisfies CommsEvent;
+  it('labels directed sections with the message-kind prefix', () => {
     const directedMessage = {
       schema_version: '2.0.0',
       event_id: 'directed-message-id',
@@ -135,10 +121,100 @@ describe('renderSharedCommsLog', () => {
     } satisfies CommsEvent;
 
     const rendered = renderSharedCommsLog({
-      events: [directedMessage, lifecycleEvent],
+      events: [directedMessage],
     });
 
-    expect(rendered).toContain('[lifecycle:consolidation_open]');
     expect(rendered).toContain('[directed:session-handoff-summary]');
+  });
+
+  // Id-carrying authors render the visual-disambiguator token in the heading
+  // prefix field; id-less blocks keep the bare wire prefix (displayPrefix is
+  // total). The id literal is reused from the 2a-ratified token table in
+  // visual-disambiguator.unit.test.ts so the tables stay cross-checkable.
+  describe('heading identity field', () => {
+    const tokenAuthor = collaborationAgentIdSchema.parse({
+      agent_name: 'Uplifted Wheeling Sky',
+      platform: 'claude',
+      model: 'claude-fable-5',
+      session_id_prefix: '22e835',
+      id: '1bb4df59-58e8-5b71-b41b-eebd1f587dda',
+    });
+
+    it('renders the token for an id-carrying narrative author', () => {
+      const rendered = renderSharedCommsLog({
+        events: [
+          createCommsEvent(
+            {
+              schema_version: '2.0.0',
+              event_id: 'token-narrative',
+              created_at: '2026-04-28T09:00:00Z',
+              kind: 'narrative',
+              author: tokenAuthor,
+              title: 'token event',
+              body: 'Token body.',
+            },
+            { nowIso },
+          ),
+        ],
+      });
+
+      expect(rendered).toContain(
+        '## 2026-04-28T09:00:00Z — `Uplifted Wheeling Sky` / `claude` / ' +
+          '`claude-fable-5` / `22e835-dda` — token event',
+      );
+    });
+
+    it('renders the token for an id-carrying lifecycle author', () => {
+      const rendered = renderSharedCommsLog({
+        events: [
+          {
+            schema_version: '2.0.0',
+            event_id: 'token-lifecycle',
+            created_at: '2026-04-28T09:10:00Z',
+            kind: 'lifecycle',
+            event_type: 'consolidation_open',
+            occurred_at: '2026-04-28T09:10:00Z',
+            author: tokenAuthor,
+            // Discriminating fixture: agent_id differs from author so the
+            // heading pin fails if the renderer reads the wrong field.
+            agent_id: woodland,
+            thread: 'agentic-engineering-enhancements',
+            claim_id: '',
+            title: 'token lifecycle',
+            subject: 'token lifecycle subject',
+            body: 'Lifecycle body.',
+          } satisfies CommsEvent,
+        ],
+      });
+
+      expect(rendered).toContain(
+        '## 2026-04-28T09:10:00Z — `Uplifted Wheeling Sky` / `claude` / ' +
+          '`claude-fable-5` / `22e835-dda` — [lifecycle:consolidation_open] token lifecycle',
+      );
+    });
+
+    it('keeps the bare wire prefix for an id-less legacy author', () => {
+      const rendered = renderSharedCommsLog({
+        events: [
+          createCommsEvent(
+            {
+              schema_version: '2.0.0',
+              event_id: 'bare-narrative',
+              created_at: '2026-04-28T09:00:00Z',
+              kind: 'narrative',
+              author: woodland,
+              title: 'bare event',
+              body: 'Bare body.',
+            },
+            { nowIso },
+          ),
+        ],
+      });
+
+      expect(rendered).toContain(
+        '## 2026-04-28T09:00:00Z — `Woodland Creeping Petal` / `codex` / ' +
+          '`GPT-5` / `019dd3` — bare event',
+      );
+    });
   });
 });

@@ -1,7 +1,11 @@
 import { describe, expect, it } from 'vitest';
 
-import { formatWatcherEventHeader } from '../../src/collaboration-state/comms-event-format';
+import {
+  formatClassifiedEvent,
+  formatWatcherEventHeader,
+} from '../../src/collaboration-state/comms-event-format';
 import { type EventView } from '../../src/collaboration-state/comms-relevant-events';
+import { collaborationAgentIdSchema, type CommsEvent } from '../../src/collaboration-state/types';
 
 describe('formatWatcherEventHeader', () => {
   it('renders broadcast view without tags when tags is undefined', () => {
@@ -70,5 +74,60 @@ describe('formatWatcherEventHeader', () => {
     const view: EventView = 'broadcast';
     formatWatcherEventHeader(view, tags);
     expect([...tags]).toStrictEqual(snapshot);
+  });
+});
+
+// Watcher identity lines carry the visual-disambiguator token for
+// id-carrying blocks and the bare wire prefix for id-less blocks
+// (displayPrefix is total). The id literal is reused from the 2a-ratified
+// token table in visual-disambiguator.unit.test.ts.
+describe('formatClassifiedEvent identity lines', () => {
+  const tokenAgent = collaborationAgentIdSchema.parse({
+    agent_name: 'Uplifted Wheeling Sky',
+    platform: 'claude',
+    model: 'claude-fable-5',
+    session_id_prefix: '22e835',
+    id: '1bb4df59-58e8-5b71-b41b-eebd1f587dda',
+  });
+  const bareAgent = collaborationAgentIdSchema.parse({
+    agent_name: 'Woodland Creeping Petal',
+    platform: 'codex',
+    model: 'GPT-5',
+    session_id_prefix: '019dd3',
+  });
+
+  it('renders the token on the from line of an id-carrying narrative author', () => {
+    const event: CommsEvent = {
+      schema_version: '2.0.0',
+      event_id: 'token-narrative',
+      created_at: '2026-04-28T09:00:00Z',
+      kind: 'narrative',
+      author: tokenAgent,
+      title: 'token event',
+      body: 'Token body.',
+    };
+
+    const lines = formatClassifiedEvent({ event, view: 'broadcast' }).split('\n');
+
+    expect(lines).toContain('from: Uplifted Wheeling Sky / claude / 22e835-dda');
+  });
+
+  it('renders token from and bare to on a directed message with mixed blocks', () => {
+    const event: CommsEvent = {
+      schema_version: '2.0.0',
+      event_id: 'token-directed',
+      created_at: '2026-04-28T09:05:00Z',
+      kind: 'directed',
+      message_kind: 'coordination-update',
+      from: tokenAgent,
+      to: bareAgent,
+      subject: 'mixed identity blocks',
+      body: 'Directed body.',
+    };
+
+    const lines = formatClassifiedEvent({ event, view: 'directed' }).split('\n');
+
+    expect(lines).toContain('from: Uplifted Wheeling Sky / claude / 22e835-dda');
+    expect(lines).toContain('to: Woodland Creeping Petal / codex / 019dd3');
   });
 });
