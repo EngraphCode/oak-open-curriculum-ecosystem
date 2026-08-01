@@ -67,6 +67,13 @@ whether an agent-AUTHORED heartbeat subject line (`<name>
 "rendered identity surface" under the amended clause — else the next
 sweep re-opens those two doc sites.
 
+Revision 5 (2026-08-01): **slice-3 execution plan, decision-complete
+at owner word** — §"Slice 3 execution" below carries the sliced work,
+a disposition for every finding the slice-2 reviews routed here, an
+explicit definition of done, and the PDR-132 round budget. The open
+questions Revision 4 deferred are decided in that section; none
+remain.
+
 **Evidence enrichment (2026-07-31, multi-perspective review — two
 independent Opus lenses converged on this plan's design over six
 invented alternatives; figures re-measured the same day by a
@@ -284,3 +291,88 @@ give.
   plan adds a display derivation only.
 - **Versioning machinery** — no `naming_schema_version` change, no
   state-schema `schema_version` change, no new block-version field.
+
+## Slice 3 execution (decision-complete, 2026-08-01)
+
+One single-story documentation-and-doctrine PR. Round budget
+(PDR-132): one review round expected, two budgeted; a third round
+opening is the stop-and-reslice signal.
+
+### Decisions, made here — none remain open
+
+1. **PDR-125 clause 5 rewrites to the shape rule in its general
+   form**, never a re-enumeration: the token adopts where two or more
+   identity blocks share one rendered view; single-identity views
+   render the bare join key; keying sites never adopt (the token is
+   never a join, lookup, or parse key). The statusline hold-out
+   (Revision 4) is the rule's worked single-identity example; the
+   twin disposition stays `their-lane-owns-coordinate` (clause 6
+   vocabulary).
+2. **Heartbeat subject lines are disposed by the shape rule itself —
+   no new category.** A heartbeat subject renders exactly ONE
+   identity, so it is a single-identity view and keeps the bare join
+   key by the same reasoning as the statusline hold-out. The
+   amendment cites PDR-078's own words (the subject-line rendering as
+   "the chat-readable short form") and reconciles them with the
+   clause so the two portable PDRs classify the object identically
+   and no future sweep re-opens the liveness rule or the team-start
+   SKILL formats.
+3. **The authored-surface identity-row obligation is doctrinal, not
+   parsed — and it covers BOTH routed rules.** Hand-authored
+   `session_id_prefix` cells carry the bare wire prefix, never the
+   display token; the PDR-027 amendment states the obligation for
+   thread-record rows AND for the Notion edit-ledger row format
+   (`notion-page-edits-update-ledger` — the second rule the slice-2
+   routing note named; a ledger row is agent-authored, so it takes
+   the authored-surface obligation, not renderer adoption). No parser
+   change ships: the token is non-injective over a schema-unbounded
+   prefix, so no decoder or detector over a cell can be correct (the
+   slice-2b refutation applies verbatim). The audit stays blind to a
+   pasted token by design; the stated obligation plus review is the
+   guard.
+4. **PDR-029's stale audit-coverage clause trues to the shipped
+   instrument.** The clause's Layer-3 coverage list still names
+   "shared communication logs"; the shipped audit reads thread
+   records, active claims, closed claims, and the comms EVENT stream
+   — the rendered log was retired as an audit source in slice 2b
+   (a generated read model has no historical snapshot). The amendment
+   replaces the stale term with the event stream; conserved copies of
+   superseded plans stay byte-frozen wherever they live.
+
+### Work items (one PR)
+
+- PDR-027 amendment: the render-time derivation
+  (`visualDisambiguator`/`displayPrefix`), the field-role doctrine
+  (display-only; never persisted; never a key), the canonical token
+  name ("visual-disambiguator token" — the operator help's doctrine
+  anchor), the thread-record bare-prefix obligation, and the warrant
+  pointer.
+- PDR-125 clause-5 amendment per decisions 1–2.
+- PDR-029 audit-coverage true-up per decision 4.
+- `agent-tools/docs/agent-identity.md` and the README examples show
+  the token with the id-less fallback and the display-only warning.
+- Generated-example drift test: the docs' rendered example is
+  produced by the live renderer inside a unit test, so doc drift
+  fails CI.
+- The statusline-render test comment gains the hold-out carve-out in
+  the same PR (it currently cites clause 5's old enumeration as its
+  authority).
+- The practice-core CHANGELOG gains one entry for the three PDR
+  amendments (the file travels with the Practice Core package; every
+  prior amendment carries one, and nothing mechanical enforces it).
+
+### Definition of done
+
+All four decisions visible in merged doctrine text; both PDR
+amendments, the PDR-029 true-up, and the practice-core CHANGELOG
+entry merged; docs examples drift-tested green (`repo-safe`); the
+statusline-render test comment cites the shape rule; acceptance
+criteria 3 and 6 re-cite their proofs against the amended clause —
+recording explicitly that the claims-registry render is id-shaped by
+design (`formatRoutingKey` carries no prefix field; token adoption
+there would be a field change, out of scope), so acceptance 3 binds
+the prefix-rendering members of the inventory; the PR merged at full
+condition (all required checks green per the rulesets API at merge
+time, zero unresolved threads, MERGEABLE, bot REST merge-commit);
+zero new lint findings. The plan then completes and archives per the
+estate's completion contract.
