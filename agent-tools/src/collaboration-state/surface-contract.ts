@@ -1,8 +1,7 @@
-import { err, mapErr, ok, unwrapOrThrow, type Result } from '@oaknational/result';
+import { err, mapErr, unwrapOrThrow, type Result } from '@oaknational/result';
 
 import { parseJsonTextResult } from '../core/json.js';
 import { type CollaborationSchemaId } from './collaboration-json-validation.js';
-import { failureAsError } from './state-file-readers.js';
 import {
   parseClosedClaimsArchive,
   parseCollaborationRegistry,
@@ -87,14 +86,14 @@ interface CollaborationSurfaceContracts {
   readonly 'comms-event.schema.json': CommsEvent;
 }
 
-// The ONE translate boundary over the still-throwing parsers. Story 2b
-// retypes this mapped value type to
-//   (text: string) => Result<CollaborationSurfaceContracts[K], Error>
-// and deletes the try/catch in the check below; until then, a parser
-// converted to return a Result fails this table's type — the compile-time
-// forcing the deleted injection seams could not provide.
+// The per-key CONCRETE parser table (story 2b landed the Result retype this
+// seam existed to force): a parser that stops returning a Result — or
+// returns the wrong surface's product — fails this table's type here, in
+// exactly one place, at compile time.
 type ContractParsers = {
-  readonly [K in ContractSchemaId]: (text: string) => CollaborationSurfaceContracts[K];
+  readonly [K in ContractSchemaId]: (
+    text: string,
+  ) => Result<CollaborationSurfaceContracts[K], Error>;
 };
 
 const CONTRACT_PARSERS: ContractParsers = {
@@ -119,11 +118,11 @@ export function checkCollaborationSurfaceContract<TSchemaId extends ContractSche
   if (!json.ok) {
     return err(new MalformedJsonError({ path: input.path, causeError: json.error }));
   }
-  try {
-    return ok(CONTRACT_PARSERS[input.schemaId](input.text));
-  } catch (error) {
-    return err(new SurfaceContractError({ path: input.path, causeError: failureAsError(error) }));
-  }
+
+  return mapErr(
+    CONTRACT_PARSERS[input.schemaId](input.text),
+    (causeError) => new SurfaceContractError({ path: input.path, causeError }),
+  );
 }
 
 /**

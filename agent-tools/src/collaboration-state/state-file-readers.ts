@@ -19,8 +19,9 @@
  */
 import { readFile } from 'node:fs/promises';
 
-import { err, ok, type Result } from '@oaknational/result';
+import { err, type Result } from '@oaknational/result';
 
+import { failureAsError } from '../core/failure-as-error.js';
 import { isErrnoCode } from './errno.js';
 import {
   EMPTY_ACTIVE_CLAIMS_REGISTRY_JSON,
@@ -70,7 +71,7 @@ export async function readClosedClaimsFile(
 
 async function readStateFile<T>(
   path: string,
-  parse: (text: string) => T,
+  parse: (text: string) => Result<T, Error>,
   readTextFile: ReadTextFile,
   seed: { readonly label: string; readonly seedJson: string },
 ): Promise<Result<T, Error>> {
@@ -78,7 +79,8 @@ async function readStateFile<T>(
   // the ORIGINAL failure (ENOENT alone is enriched with the seed message);
   // the throw itself happens only at the result package's single
   // sanctioned edge when a caller unwraps — loud, destructive, cause
-  // chain intact. No throw statements live here.
+  // chain intact. No throw statements live here. The parse leg needs no
+  // translate since story 2b: the parsers are Err-channel themselves.
   let text: string;
   try {
     text = await readTextFile(path);
@@ -97,27 +99,5 @@ async function readStateFile<T>(
         : failure,
     );
   }
-  try {
-    return ok(parse(text));
-  } catch (error) {
-    return err(failureAsError(error));
-  }
-}
-
-/**
- * Narrow a caught failure to the `Err` channel: a real `Error` instance
- * passes through as itself. Anything else CRASHES — a non-Error throwable
- * is the system reporting a problem, and we listen rather than accommodate
- * (owner ruling, 2026-07-20): the exception names the anomaly and carries
- * the original value intact as `cause`. It deliberately does NOT enter the
- * Result channel — it is not a legitimate failure mode of reading a state
- * file; it is a defect demanding attention.
- */
-export function failureAsError(failure: unknown): Error {
-  if (failure instanceof Error) {
-    return failure;
-  }
-  throw new TypeError('non-Error value thrown at the state-file read boundary', {
-    cause: failure,
-  });
+  return parse(text);
 }

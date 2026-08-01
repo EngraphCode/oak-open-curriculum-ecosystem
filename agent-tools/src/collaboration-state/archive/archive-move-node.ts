@@ -2,11 +2,12 @@
  * The `node:fs`-backed {@link ArchiveMoveExecuteIo} for the WS7 archive-move.
  *
  * @remarks
- * The one boundary where throwing libraries (`node:fs`, `JSON.parse`, the
- * schema-first {@link parseCommsEvent}) are translated into the repository
- * {@link Result} pattern (ADR-088): each fallible operation catches and
- * re-expresses the failure as `err(message)`, keeping the orchestrators IO-free
- * and unit-testable against an in-memory seam. Reads reuse `parseCommsEvent`; the
+ * The one boundary where throwing `node:fs` calls are translated into the
+ * repository {@link Result} pattern (ADR-088): each fallible fs operation
+ * catches and re-expresses the failure as `err(message)`, keeping the
+ * orchestrators IO-free and unit-testable against an in-memory seam. Reads
+ * reuse the Err-channel `parseCommsEvent` (story 2b), folded into this
+ * module's string error channel with `mapErr`; the
  * counts reuse {@link isEventFile} so byte-preservation covers event files only
  * (never `manifest.jsonl` / `.gitkeep`); the move is a same-filesystem rename.
  *
@@ -15,7 +16,7 @@
 
 import { appendFileSync, existsSync, readdirSync, readFileSync, renameSync } from 'node:fs';
 
-import { err, ok, type Result } from '@oaknational/result';
+import { err, map, mapErr, ok, type Result } from '@oaknational/result';
 
 import { parseCommsEvent } from '../state-parsers.js';
 import { isEventFile } from './archive-move.js';
@@ -37,11 +38,14 @@ function listEventFilenames(commsDir: string): Result<readonly string[], string>
 }
 
 function readEvent(path: string): Result<ClassifiableEvent, string> {
+  let text: string;
   try {
-    return ok(toClassifiableEvent(parseCommsEvent(readFileSync(path, 'utf8'))));
+    text = readFileSync(path, 'utf8');
   } catch (cause) {
     return err(errorMessage(cause));
   }
+
+  return mapErr(map(parseCommsEvent(text), toClassifiableEvent), errorMessage);
 }
 
 function countEventFiles(dir: string): Result<number, string> {

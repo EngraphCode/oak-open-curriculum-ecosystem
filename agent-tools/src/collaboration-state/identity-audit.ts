@@ -1,3 +1,5 @@
+import { unwrapOrThrow } from '@oaknational/result';
+
 import { isExpired } from './timestamps.js';
 import { auditCommsEvents } from './identity-audit-comms.js';
 import {
@@ -71,7 +73,9 @@ export function auditCodexIdentityRecords(
 }
 
 function auditActiveText(text: string, nowIso: string): readonly CodexIdentityAuditFinding[] {
-  const registry = parseCollaborationRegistry(text);
+  // Rethrows the parser's ORIGINAL error: the audit surface's loud thrown
+  // contract is anchored-pinned (an identity-losing wrap reddens it).
+  const registry = unwrapOrThrow(parseCollaborationRegistry(text));
 
   return [
     ...registry.claims.flatMap((claim) => auditActiveClaim(claim, nowIso)),
@@ -142,7 +146,7 @@ function auditCommitQueueEntry(
 }
 
 function auditClosedText(text: string): readonly CodexIdentityAuditFinding[] {
-  const archive = parseClosedClaimsArchive(text);
+  const archive = unwrapOrThrow(parseClosedClaimsArchive(text));
 
   return archive.claims.flatMap((claim) => {
     if (!isAnonymousCodexAgent(claim.agent_id)) {

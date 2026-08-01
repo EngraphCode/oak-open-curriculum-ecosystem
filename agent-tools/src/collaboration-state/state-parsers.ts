@@ -1,15 +1,16 @@
-import { unwrapOrThrow } from '@oaknational/result';
+import { collect, err, flatMap, map, ok, type Result } from '@oaknational/result';
 
+import { failureAsError } from '../core/failure-as-error.js';
 import {
   getJsonValue,
   isJsonObject,
-  parseJsonText,
-  parseStringArray,
-  requireString,
+  parseJsonTextResult,
+  parseStringArrayResult,
+  requireStringResult,
 } from '../core/json.js';
-import { parseIntentAgentId } from './agent-id.js';
+import { parseCommitQueueEntry } from './registry-entry-parser.js';
 import {
-  parseCommsEventValue,
+  parseCommsEventValueResult,
   parseDirectedCommsMessageValue,
   parseLifecycleCommsEventValue,
   parseNarrativeCommsEventValue,
@@ -19,7 +20,6 @@ import {
   type CollaborationAgentId,
   type CollaborationArea,
   type CollaborationClaim,
-  type CollaborationCommitQueueEntry,
   type CollaborationRegistry,
   collaborationAgentIdSchema,
   type CommsEvent,
@@ -29,66 +29,91 @@ import {
 } from './types.js';
 
 /**
- * Parse the active claims registry from JSON text.
+ * Parse the active claims registry from JSON text, as a `Result` (ADR-088,
+ * story 2b). Mapping is dense (`Array.from`, never `.map`) so a sparse
+ * array handed to an interior parser yields an `Err`, never a throw.
  */
-export function parseCollaborationRegistry(text: string): CollaborationRegistry {
-  const parsed: unknown = parseJsonText(
-    text,
-    'active-claims registry (--active must point to the active-claims registry JSON, e.g. .agent/state/collaboration/active-claims.json)',
+export function parseCollaborationRegistry(text: string): Result<CollaborationRegistry, Error> {
+  return flatMap(
+    parseJsonTextResult(
+      text,
+      'active-claims registry (--active must point to the active-claims registry JSON, e.g. .agent/state/collaboration/active-claims.json)',
+    ),
+    parseRegistryValue,
   );
+}
+
+function parseRegistryValue(parsed: unknown): Result<CollaborationRegistry, Error> {
   if (!isJsonObject(parsed) || getJsonValue(parsed, 'schema_version') !== '1.3.0') {
-    throw new Error('active claims registry must use schema_version 1.3.0');
+    return err(new Error('active claims registry must use schema_version 1.3.0'));
   }
   const claims = getJsonValue(parsed, 'claims');
   const commitQueue = getJsonValue(parsed, 'commit_queue');
   if (!Array.isArray(claims) || !Array.isArray(commitQueue)) {
-    throw new Error('active claims registry must contain claims and commit_queue arrays');
+    return err(new Error('active claims registry must contain claims and commit_queue arrays'));
   }
 
-  return {
-    schema_version: '1.3.0',
-    commit_queue: commitQueue.map(parseCommitQueueEntry),
-    claims: claims.map(parseClaim),
-  };
+  return flatMap(collect(Array.from(commitQueue, parseCommitQueueEntry)), (entries) =>
+    map(collect(Array.from(claims, parseClaim)), (parsedClaims): CollaborationRegistry => ({
+      schema_version: '1.3.0',
+      commit_queue: entries,
+      claims: parsedClaims,
+    })),
+  );
 }
 
-/**
- * Parse the closed-claims archive from JSON text.
- */
-export function parseClosedClaimsArchive(text: string): ClosedClaimsArchive {
-  const parsed: unknown = parseJsonText(
-    text,
-    'closed-claims archive (--closed must point to the closed-claims archive JSON)',
+/** Parse the closed-claims archive from JSON text, as a `Result` (ADR-088). */
+export function parseClosedClaimsArchive(text: string): Result<ClosedClaimsArchive, Error> {
+  return flatMap(
+    parseJsonTextResult(
+      text,
+      'closed-claims archive (--closed must point to the closed-claims archive JSON)',
+    ),
+    parseArchiveValue,
   );
+}
+
+function parseArchiveValue(parsed: unknown): Result<ClosedClaimsArchive, Error> {
   if (!isJsonObject(parsed) || getJsonValue(parsed, 'schema_version') !== '1.3.0') {
-    throw new Error('closed claims archive must use schema_version 1.3.0');
+    return err(new Error('closed claims archive must use schema_version 1.3.0'));
   }
   const claims = getJsonValue(parsed, 'claims');
   if (!Array.isArray(claims)) {
-    throw new Error('closed claims archive must contain a claims array');
+    return err(new Error('closed claims archive must contain a claims array'));
   }
 
-  return {
+  return map(collect(Array.from(claims, parseClaim)), (parsedClaims): ClosedClaimsArchive => ({
     schema_version: '1.3.0',
-    claims: claims.map(parseClaim),
-  };
+    claims: parsedClaims,
+  }));
 }
 
 /**
- * Parse a canonical communication event from JSON text.
+ * Parse a canonical communication event from JSON text, as a `Result`
+ * (ADR-088). On malformed JSON the `Err` carries the RAW `SyntaxError`: the
+ * substrate finding classifier (live-types `parseFailureFinding`) narrows on
+ * `instanceof SyntaxError` to tell invalid JSON from schema failures.
  */
-export function parseCommsEvent(text: string): CommsEvent {
-  const parsed: unknown = JSON.parse(text);
-  if (!isJsonObject(parsed)) {
-    throw new Error('communication event must be a JSON object');
+export function parseCommsEvent(text: string): Result<CommsEvent, Error> {
+  return flatMap(parseRawJson(text), (parsed) =>
+    isJsonObject(parsed)
+      ? parseCommsEventValueResult(parsed)
+      : err(new Error('communication event must be a JSON object')),
+  );
+}
+
+// The ONE library-boundary translate in this module: JSON.parse cannot
+// return a Result, and the raw SyntaxError is load-bearing (see the
+// parseCommsEvent doc), so no labelling wrapper may replace this.
+function parseRawJson(text: string): Result<unknown, Error> {
+  try {
+    return ok(JSON.parse(text));
+  } catch (error) {
+    return err(failureAsError(error, 'the comms-event JSON boundary'));
   }
-
-  return parseCommsEventValue(parsed);
 }
 
-/**
- * Parse a narrative communication event from JSON text.
- */
+/** Parse a narrative communication event from JSON text. */
 export function parseNarrativeCommsEvent(text: string): NarrativeCommsEvent {
   const parsed: unknown = JSON.parse(text);
   if (!isJsonObject(parsed)) {
@@ -98,9 +123,7 @@ export function parseNarrativeCommsEvent(text: string): NarrativeCommsEvent {
   return parseNarrativeCommsEventValue(parsed);
 }
 
-/**
- * Parse a lifecycle communication event from JSON text.
- */
+/** Parse a lifecycle communication event from JSON text. */
 export function parseLifecycleCommsEvent(text: string): LifecycleCommsEvent {
   const parsed: unknown = JSON.parse(text);
   if (!isJsonObject(parsed)) {
@@ -110,9 +133,7 @@ export function parseLifecycleCommsEvent(text: string): LifecycleCommsEvent {
   return parseLifecycleCommsEventValue(parsed);
 }
 
-/**
- * Parse a directed communication message from JSON text.
- */
+/** Parse a directed communication message from JSON text. */
 export function parseDirectedCommsMessage(text: string): DirectedCommsMessage {
   const parsed: unknown = JSON.parse(text);
   if (!isJsonObject(parsed)) {
@@ -122,104 +143,78 @@ export function parseDirectedCommsMessage(text: string): DirectedCommsMessage {
   return parseDirectedCommsMessageValue(parsed);
 }
 
-// Intents RECONSTRUCT field-by-field (the schema's intent_to_commit sets
-// additionalProperties: false, and intents are short-lived rows every live
-// writer fully specifies) while claims SPREAD (preservation contract:
-// legacy content owned by other writers survives write-back). The asymmetry
-// is deliberate — do not "fix" it by spreading intents. Reconstruction is
-// non-destructive ONLY because parseCollaborationRegistry hard-rejects any
-// schema_version other than 1.3.0: a newer-minor file (whose unrecognised
-// fields the runtime contract says to preserve) is refused outright, never
-// silently stripped. Relaxing that version pin without revisiting this
-// reconstruction turns this path silently destructive.
-function parseCommitQueueEntry(value: unknown): CollaborationCommitQueueEntry {
+// Claims SPREAD the raw record (preservation contract: legacy content owned
+// by other writers survives write-back) while intents reconstruct — the
+// deliberate asymmetry is documented at `registry-entry-parser.ts`.
+function parseClaim(value: unknown): Result<CollaborationClaim, Error> {
   if (!isJsonObject(value)) {
-    throw new Error('commit_queue entries must be objects');
+    return err(new Error('claim entries must be objects'));
+  }
+  const record = value;
+  const claimId = requireStringResult(record, 'claim_id');
+  if (!claimId.ok) {
+    return claimId;
+  }
+  const agentId = parseAgentId(getJsonValue(record, 'agent_id'));
+  if (!agentId.ok) {
+    return agentId;
+  }
+  const thread = requireStringResult(record, 'thread');
+  if (!thread.ok) {
+    return thread;
+  }
+  const areas = parseAreas(getJsonValue(record, 'areas'));
+  if (!areas.ok) {
+    return areas;
+  }
+  const claimedAt = requireStringResult(record, 'claimed_at');
+  if (!claimedAt.ok) {
+    return claimedAt;
   }
 
-  const intentId = requireString(value, 'intent_id');
-  const stagedBundleFingerprint = getJsonValue(value, 'staged_bundle_fingerprint');
-  const stagedNameStatus = getJsonValue(value, 'staged_name_status');
-  const notes = getJsonValue(value, 'notes');
-
-  return {
-    intent_id: intentId,
-    claim_id: requireString(value, 'claim_id'),
-    // unwrapOrThrow rethrows the Err's own Error, preserving this read
-    // path's loud thrown-message contract exactly while it still throws.
-    agent_id: unwrapOrThrow(parseIntentAgentId(getJsonValue(value, 'agent_id'), intentId)),
-    files: parseStringArray(getJsonValue(value, 'files'), 'files'),
-    commit_subject: requireString(value, 'commit_subject'),
-    queued_at: requireString(value, 'queued_at'),
-    updated_at: requireString(value, 'updated_at'),
-    expires_at: requireString(value, 'expires_at'),
-    phase: parseCommitQueuePhase(getJsonValue(value, 'phase')),
-    ...(typeof stagedBundleFingerprint === 'string'
-      ? { staged_bundle_fingerprint: stagedBundleFingerprint }
-      : {}),
-    ...(typeof stagedNameStatus === 'string' ? { staged_name_status: stagedNameStatus } : {}),
-    ...(typeof notes === 'string' ? { notes } : {}),
-  };
+  return map(requireStringResult(record, 'intent'), (intent) => ({
+    ...record,
+    claim_id: claimId.value,
+    agent_id: agentId.value,
+    thread: thread.value,
+    areas: areas.value,
+    claimed_at: claimedAt.value,
+    intent,
+  }));
 }
 
-function parseClaim(value: unknown): CollaborationClaim {
-  if (!isJsonObject(value)) {
-    throw new Error('claim entries must be objects');
-  }
-
-  return {
-    ...value,
-    claim_id: requireString(value, 'claim_id'),
-    agent_id: parseAgentId(getJsonValue(value, 'agent_id')),
-    thread: requireString(value, 'thread'),
-    areas: parseAreas(getJsonValue(value, 'areas')),
-    claimed_at: requireString(value, 'claimed_at'),
-    intent: requireString(value, 'intent'),
-  };
+function parseAgentId(value: unknown): Result<CollaborationAgentId, Error> {
+  // Commandment 12: the schema IS the type. Zod parsing through
+  // `collaborationAgentIdSchema` validates the legacy required fields AND
+  // the PDR-076a v5 brand on the optional `id` in one boundary check;
+  // safeParse keeps the ZodError itself as the Err, byte-identical to the
+  // old throwing `.parse`.
+  const result = collaborationAgentIdSchema.safeParse(value);
+  return result.success ? ok(result.data) : err(result.error);
 }
 
-function parseAgentId(value: unknown): CollaborationAgentId {
-  // Commandment 12: the schema IS the type. The hand-built field-by-field
-  // construction this replaces could not enforce the PDR-076a v5 contract on
-  // the optional `id` field — Zod parsing through `collaborationAgentIdSchema`
-  // validates the legacy required fields AND the v5 brand on `id` when
-  // present, in one boundary check.
-  return collaborationAgentIdSchema.parse(value);
-}
-
-function parseAreas(value: unknown): readonly CollaborationArea[] {
+function parseAreas(value: unknown): Result<readonly CollaborationArea[], Error> {
   if (!Array.isArray(value)) {
-    throw new Error('claim areas must be an array');
+    return err(new Error('claim areas must be an array'));
   }
 
-  return value.map(parseArea);
+  return collect(Array.from(value, parseArea));
 }
 
-function parseArea(value: unknown): CollaborationArea {
+function parseArea(value: unknown): Result<CollaborationArea, Error> {
   if (!isJsonObject(value)) {
-    throw new Error('claim area must be an object');
+    return err(new Error('claim area must be an object'));
   }
 
-  return {
-    kind: parseAreaKind(getJsonValue(value, 'kind')),
-    patterns: parseStringArray(getJsonValue(value, 'patterns'), 'patterns'),
-  };
+  return flatMap(parseAreaKind(getJsonValue(value, 'kind')), (kind) =>
+    map(parseStringArrayResult(getJsonValue(value, 'patterns'), 'patterns'), (patterns) => ({
+      kind,
+      patterns,
+    })),
+  );
 }
 
-function parseCommitQueuePhase(value: unknown): 'queued' | 'staging' | 'pre_commit' | 'abandoned' {
-  if (
-    value === 'queued' ||
-    value === 'staging' ||
-    value === 'pre_commit' ||
-    value === 'abandoned'
-  ) {
-    return value;
-  }
-
-  throw new Error('unsupported commit queue phase');
-}
-
-function parseAreaKind(value: unknown): 'files' | 'workspace' | 'plan' | 'adr' | 'git' {
+function parseAreaKind(value: unknown): Result<CollaborationArea['kind'], Error> {
   if (
     value === 'files' ||
     value === 'workspace' ||
@@ -227,8 +222,8 @@ function parseAreaKind(value: unknown): 'files' | 'workspace' | 'plan' | 'adr' |
     value === 'adr' ||
     value === 'git'
   ) {
-    return value;
+    return ok(value);
   }
 
-  throw new Error('unsupported claim area kind');
+  return err(new Error('unsupported claim area kind'));
 }

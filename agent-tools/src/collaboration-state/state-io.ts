@@ -1,7 +1,7 @@
 import { mkdir, readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
-import { unwrapOrThrow } from '@oaknational/result';
+import { unwrapOrThrow, type Result } from '@oaknational/result';
 
 import { createCommsEvent } from './comms.js';
 import { validateCollaborationJsonFileText } from './collaboration-json-validation.js';
@@ -116,7 +116,9 @@ export async function updateActiveClaimsFile(input: {
   unwrapOrThrow(await readActiveClaimsFile(input.activePath, input.readTextFile));
   await updateJsonFileWithRetry({
     filePath: input.activePath,
-    parseText: parseCollaborationRegistry,
+    // The transaction layer's parseText slot still expects a throwing
+    // parser pre-2c; the unwrap rethrows the parser's ORIGINAL error.
+    parseText: (text) => unwrapOrThrow(parseCollaborationRegistry(text)),
     validateText: (text) => validateActiveClaimsText(input.activePath, text),
     transform: input.transform,
     maxAttempts: 5,
@@ -168,7 +170,7 @@ export async function updateClaimStateFiles(input: {
 
 async function readEventDirectory<TEvent>(
   directory: string,
-  parser: (text: string) => TEvent,
+  parser: (text: string) => Result<TEvent, Error>,
 ): Promise<readonly TEvent[]> {
   const filenames: readonly string[] = await readdir(directory);
   return readEventFiles(
@@ -187,7 +189,7 @@ async function readEventDirectory<TEvent>(
 async function readEventFiles<TEvent>(
   directory: string,
   filenames: readonly string[],
-  parser: (text: string) => TEvent,
+  parser: (text: string) => Result<TEvent, Error>,
 ): Promise<readonly TEvent[]> {
   const events: TEvent[] = [];
 
@@ -195,7 +197,10 @@ async function readEventFiles<TEvent>(
     const path = join(directory, filename);
     try {
       const text = await readFile(path, 'utf8');
-      const event = parser(text);
+      // Inside the loud wrap by intent: the unwrap rethrows the parser's
+      // ORIGINAL error, and the catch labels it with the file path exactly
+      // as it labelled the thrown parser's errors.
+      const event = unwrapOrThrow(parser(text));
       await validateCollaborationJsonFileText(path, text);
       events.push(event);
     } catch (error) {

@@ -17,9 +17,9 @@ export function getJsonValue(record: JsonObject, key: string): unknown {
 
 /**
  * Require a non-empty string field on a JSON object, as an `Err` instead
- * of a throw (ADR-088). The single home of the error literal — the
- * throwing {@link requireString} delegates here through `unwrapOrThrow`,
- * which rethrows the Err's own `Error`, so the two surfaces cannot drift.
+ * of a throw (ADR-088). The single home of the error literal. (The
+ * throwing `requireString` delegate lost its last consumer in story 2b's
+ * parser flip and was deleted.)
  */
 export function requireStringResult(record: JsonObject, key: string): Result<string, Error> {
   const value = getJsonValue(record, key);
@@ -28,10 +28,6 @@ export function requireStringResult(record: JsonObject, key: string): Result<str
   }
 
   return ok(value);
-}
-
-export function requireString(record: JsonObject, key: string): string {
-  return unwrapOrThrow(requireStringResult(record, key));
 }
 
 /**

@@ -1,6 +1,11 @@
+import { unwrapErr, unwrapOrThrow } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
-import { parseClosedClaimsArchive, parseCollaborationRegistry } from './state-parsers.js';
+import {
+  parseClosedClaimsArchive,
+  parseCollaborationRegistry,
+  parseCommsEvent,
+} from './state-parsers.js';
 
 describe('parseCollaborationRegistry', () => {
   it('rejects a non-JSON file (e.g. a markdown file mistakenly passed to --active) with an actionable boundary error naming --active', () => {
@@ -10,25 +15,72 @@ describe('parseCollaborationRegistry', () => {
     // caller no clue they passed the wrong file. The boundary must explain it.
     const markdown = '---\nfitness_line_target: 400\n---\n\n# Repo Continuity\n';
 
-    expect(() => parseCollaborationRegistry(markdown)).toThrow(
+    expect(unwrapErr(parseCollaborationRegistry(markdown)).message).toMatch(
       /active-claims registry[\s\S]*--active[\s\S]*not valid JSON/,
     );
   });
 
   it('parses a valid empty registry', () => {
-    const registry = parseCollaborationRegistry(
-      JSON.stringify({ schema_version: '1.3.0', commit_queue: [], claims: [] }),
+    const registry = unwrapOrThrow(
+      parseCollaborationRegistry(
+        JSON.stringify({ schema_version: '1.3.0', commit_queue: [], claims: [] }),
+      ),
     );
 
     expect(registry.claims).toEqual([]);
     expect(registry.commit_queue).toEqual([]);
   });
+
+  it('rejects a foreign schema_version with the exact loud message', () => {
+    expect(
+      unwrapErr(
+        parseCollaborationRegistry(
+          JSON.stringify({ schema_version: '1.2.0', commit_queue: [], claims: [] }),
+        ),
+      ).message,
+    ).toBe('active claims registry must use schema_version 1.3.0');
+  });
+
+  it('rejects a registry without both top-level arrays with the exact loud message', () => {
+    expect(
+      unwrapErr(parseCollaborationRegistry(JSON.stringify({ schema_version: '1.3.0', claims: [] })))
+        .message,
+    ).toBe('active claims registry must contain claims and commit_queue arrays');
+  });
 });
 
 describe('parseClosedClaimsArchive', () => {
   it('rejects a non-JSON file with an actionable boundary error naming --closed', () => {
-    expect(() => parseClosedClaimsArchive('not json at all')).toThrow(
+    expect(unwrapErr(parseClosedClaimsArchive('not json at all')).message).toMatch(
       /closed-claims archive[\s\S]*--closed[\s\S]*not valid JSON/,
+    );
+  });
+
+  it('rejects a foreign schema_version with the exact loud message', () => {
+    expect(
+      unwrapErr(parseClosedClaimsArchive(JSON.stringify({ schema_version: '1.2.0', claims: [] })))
+        .message,
+    ).toBe('closed claims archive must use schema_version 1.3.0');
+  });
+});
+
+describe('parseCommsEvent — Err channel contracts', () => {
+  it('returns the RAW SyntaxError on malformed JSON: the substrate finding classifier narrows on instanceof', () => {
+    // live-types parseFailureFinding distinguishes invalid-json from
+    // schema-incoherence via `error instanceof SyntaxError`; a wrapped or
+    // relabelled JSON error silently reclassifies every malformed file.
+    expect(unwrapErr(parseCommsEvent('not json at all'))).toBeInstanceOf(SyntaxError);
+  });
+
+  it('rejects valid non-object JSON with the exact loud message', () => {
+    expect(unwrapErr(parseCommsEvent('[]')).message).toBe(
+      'communication event must be a JSON object',
+    );
+  });
+
+  it('labels a schema-invalid object with the single-home failed-validation literal', () => {
+    expect(unwrapErr(parseCommsEvent(JSON.stringify({ kind: 'narrative' }))).message).toMatch(
+      /^communication event failed validation:/,
     );
   });
 });
@@ -86,25 +138,28 @@ describe('parseCollaborationRegistry — PDR-076a intent identity boundary', () 
       claims: [],
     });
 
-    expect(() => parseCollaborationRegistry(registry)).toThrow(
-      // Anchored at the message head: an identity-losing wrap (e.g. `unwrap`
-      // in place of `unwrapOrThrow` at the intent seam) PREFIXES the message,
-      // so only an anchored pin catches the slip.
+    expect(unwrapErr(parseCollaborationRegistry(registry)).message).toMatch(
+      // Anchored at the message head: an identity-losing wrap PREFIXES the
+      // message, so only an anchored pin catches the slip.
       /^commit_queue entry 33333333-3333-4333-8333-333333333333 carries an invalid agent_id[\s\S]*owner-run/,
     );
   });
 
   it('round-trips a valid intent row whole, with its routing id intact', () => {
-    const parsed = parseCollaborationRegistry(
-      JSON.stringify({ schema_version: '1.3.0', commit_queue: [validIntentRow()], claims: [] }),
+    const parsed = unwrapOrThrow(
+      parseCollaborationRegistry(
+        JSON.stringify({ schema_version: '1.3.0', commit_queue: [validIntentRow()], claims: [] }),
+      ),
     );
 
     expect(parsed.commit_queue[0]).toEqual(validIntentRow());
   });
 
   it('preserves an id-less legacy claim row whole — claims narrow at the comparator, never at parse', () => {
-    const parsed = parseCollaborationRegistry(
-      JSON.stringify({ schema_version: '1.3.0', commit_queue: [], claims: [legacyClaimRow()] }),
+    const parsed = unwrapOrThrow(
+      parseCollaborationRegistry(
+        JSON.stringify({ schema_version: '1.3.0', commit_queue: [], claims: [legacyClaimRow()] }),
+      ),
     );
 
     expect(parsed.claims[0]).toEqual(legacyClaimRow());
@@ -113,11 +168,13 @@ describe('parseCollaborationRegistry — PDR-076a intent identity boundary', () 
 
 describe('parseClosedClaimsArchive — PDR-076a legacy preservation', () => {
   it('parses an archived id-less claim whole: archive rows keep preservation semantics', () => {
-    const parsed = parseClosedClaimsArchive(
-      JSON.stringify({
-        schema_version: '1.3.0',
-        claims: [{ ...legacyClaimRow(), archived_at: '2026-04-28T07:00:00Z' }],
-      }),
+    const parsed = unwrapOrThrow(
+      parseClosedClaimsArchive(
+        JSON.stringify({
+          schema_version: '1.3.0',
+          claims: [{ ...legacyClaimRow(), archived_at: '2026-04-28T07:00:00Z' }],
+        }),
+      ),
     );
 
     expect(parsed.claims[0]).toEqual({ ...legacyClaimRow(), archived_at: '2026-04-28T07:00:00Z' });
@@ -130,13 +187,15 @@ describe('parseCollaborationRegistry — reconstruction lossiness (documented di
     // note (and the key-preservation rider): Ajv with
     // additionalProperties:false must always validate the raw parse of the
     // text — validating this reconstruction would pass files it must reject.
-    const parsed = parseCollaborationRegistry(
-      JSON.stringify({
-        schema_version: '1.3.0',
-        commit_queue: [],
-        claims: [],
-        custodian_note: 'top-level preservation probe',
-      }),
+    const parsed = unwrapOrThrow(
+      parseCollaborationRegistry(
+        JSON.stringify({
+          schema_version: '1.3.0',
+          commit_queue: [],
+          claims: [],
+          custodian_note: 'top-level preservation probe',
+        }),
+      ),
     );
 
     expect(parsed).not.toHaveProperty('custodian_note');

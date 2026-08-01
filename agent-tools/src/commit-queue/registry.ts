@@ -6,7 +6,8 @@ import { parseIntentAgentId } from '../collaboration-state/agent-id.js';
 import { validateCollaborationJsonFileText } from '../collaboration-state/collaboration-json-validation.js';
 import { isErrnoCode } from '../collaboration-state/errno.js';
 import { updateJsonFileWithRetry } from '../collaboration-state/index.js';
-import { failureAsError, type ReadTextFile } from '../collaboration-state/state-file-readers.js';
+import { type ReadTextFile } from '../collaboration-state/state-file-readers.js';
+import { failureAsError } from '../core/failure-as-error.js';
 import {
   EMPTY_ACTIVE_CLAIMS_REGISTRY_JSON,
   missingStateFileError,
