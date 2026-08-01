@@ -183,6 +183,14 @@ describe('parseRegistry', () => {
     expect(unwrapErr(result).message).toBe('claims entries must be objects');
   });
 
+  it('rejects a sparse claims hole as a non-object claim row instead of throwing', () => {
+    // The sibling of the sparse commit_queue pin: each mapping site holds its
+    // totality independently, so each needs its own distinguishing pin.
+    const result = parseRegistry({ ...registryValue([]), claims: new Array(1) }, REGISTRY_PATH);
+
+    expect(unwrapErr(result).message).toBe('claims entries must be objects');
+  });
+
   it('rejects a claim row without a claim_id, naming the field', () => {
     const result = parseRegistry(
       { ...registryValue([]), claims: [{ agent_id: LEGACY_IDLESS_AGENT_ID }] },
