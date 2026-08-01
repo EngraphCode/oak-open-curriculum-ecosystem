@@ -21,10 +21,11 @@ import { type CollaborationCommitQueueEntry } from './types.js';
  * legacy content owned by other writers survives write-back). The asymmetry
  * is deliberate — do not "fix" it by spreading intents. Reconstruction is
  * non-destructive ONLY because parseCollaborationRegistry hard-rejects any
- * schema_version other than 1.3.0: a newer-minor file (whose unrecognised
- * fields the runtime contract says to preserve) is refused outright, never
- * silently stripped. Relaxing that version pin without revisiting this
- * reconstruction turns this path silently destructive.
+ * schema_version other than the pinned ACTIVE_CLAIMS_SCHEMA_VERSION: a
+ * newer-minor file (whose unrecognised fields the runtime contract says to
+ * preserve) is refused outright, never silently stripped. Relaxing that
+ * version pin without revisiting this reconstruction turns this path
+ * silently destructive.
  */
 export function parseCommitQueueEntry(
   value: unknown,

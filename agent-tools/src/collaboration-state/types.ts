@@ -112,14 +112,33 @@ export interface CollaborationCommitQueueEntry {
   readonly notes?: string;
 }
 
+/**
+ * The exact schema version this code reads and writes for the active-claims
+ * registry (owner ruling: only the latest schema version is supported).
+ * Every parse guard and write reconstruction moves in lockstep through this
+ * constant — the exact-version pin is what keeps the field-by-field intent
+ * reconstruction non-destructive (registry-entry-parser.ts carries the full
+ * contract), and the composed write gates keep any drift against the JSON
+ * schema's own declaration loud. Test fixtures deliberately keep the raw
+ * literal so a version bump reddens the contract pins.
+ */
+export const ACTIVE_CLAIMS_SCHEMA_VERSION = '1.3.0';
+
+/**
+ * The exact schema version for the closed-claims archive — a separate
+ * surface pinned separately, currently versioned in lockstep with the
+ * active-claims registry.
+ */
+export const CLOSED_CLAIMS_SCHEMA_VERSION = '1.3.0';
+
 export interface CollaborationRegistry {
-  readonly schema_version: '1.3.0';
+  readonly schema_version: typeof ACTIVE_CLAIMS_SCHEMA_VERSION;
   readonly commit_queue: readonly CollaborationCommitQueueEntry[];
   readonly claims: readonly CollaborationClaim[];
 }
 
 export interface ClosedClaimsArchive {
-  readonly schema_version: '1.3.0';
+  readonly schema_version: typeof CLOSED_CLAIMS_SCHEMA_VERSION;
   readonly claims: readonly CollaborationClaim[];
 }
 

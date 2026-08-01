@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 import { collect, err, flatMap, map, ok, unwrapOrThrow, type Result } from '@oaknational/result';
 
 import { parseIntentAgentId } from '../collaboration-state/agent-id.js';
+import { ACTIVE_CLAIMS_SCHEMA_VERSION } from '../collaboration-state/types.js';
 import { validateCollaborationJsonFileText } from '../collaboration-state/collaboration-json-validation.js';
 import { isErrnoCode } from '../collaboration-state/errno.js';
 import { updateJsonFileWithRetry } from '../collaboration-state/index.js';
@@ -108,9 +109,11 @@ export function parseRegistry(
   }
   // Load-bearing: narrowing does not survive into closures (all `const record = value` sites).
   const record = value;
-  if (record.schema_version !== '1.3.0') {
+  if (record.schema_version !== ACTIVE_CLAIMS_SCHEMA_VERSION) {
     return err(
-      new Error(`${registryPath} must use schema_version 1.3.0 before commit queue writes`),
+      new Error(
+        `${registryPath} must use schema_version ${ACTIVE_CLAIMS_SCHEMA_VERSION} before commit queue writes`,
+      ),
     );
   }
   if (!Array.isArray(record.commit_queue)) {
@@ -127,7 +130,7 @@ export function parseRegistry(
   return flatMap(collect(Array.from(rawIntents, parseIntent)), (commitQueue) =>
     map(collect(Array.from(rawClaims, parseClaim)), (claims) => ({
       ...record,
-      schema_version: '1.3.0',
+      schema_version: ACTIVE_CLAIMS_SCHEMA_VERSION,
       commit_queue: commitQueue,
       claims,
     })),

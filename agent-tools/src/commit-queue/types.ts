@@ -5,6 +5,7 @@ import {
   type NamingSchemaVersion,
   type UuidV5,
 } from '../collaboration-state/agent-id.js';
+import { type ACTIVE_CLAIMS_SCHEMA_VERSION } from '../collaboration-state/types.js';
 
 const ACTIVE_COMMIT_QUEUE_PHASES = ['queued', 'staging', 'pre_commit'] as const;
 const COMMIT_QUEUE_PHASES = [...ACTIVE_COMMIT_QUEUE_PHASES, 'abandoned'] as const;
@@ -85,10 +86,11 @@ export interface CommitQueueClaim extends JsonObject {
 }
 
 /**
- * Collaboration registry subset required by the queue helper.
+ * Collaboration registry subset required by the queue helper. The version
+ * field is pinned to the same constant as the full registry type.
  */
 export interface CommitQueueRegistry extends JsonObject {
-  readonly schema_version: '1.3.0';
+  readonly schema_version: typeof ACTIVE_CLAIMS_SCHEMA_VERSION;
   readonly commit_queue: readonly CommitIntent[];
   readonly claims: readonly CommitQueueClaim[];
 }
