@@ -3,6 +3,8 @@ import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
+import { unwrapOrThrow } from '@oaknational/result';
+
 import { validateCollaborationJsonFileText } from '../src/collaboration-state/collaboration-json-validation';
 import { updateActiveClaimsFile } from '../src/collaboration-state/state-io';
 import { readRegistry, updateRegistry } from '../src/commit-queue/registry';
@@ -120,7 +122,7 @@ async function withTempRegistry(
 async function provePreservesLegacyIdlessClaimThroughWrite(): Promise<void> {
   await withTempRegistry(fileRegistry([validIntentRow()]), async (registryPath) => {
     await updateRegistry(registryPath, (current) => current);
-    const after = await readRegistry(registryPath);
+    const after = unwrapOrThrow(await readRegistry(registryPath));
     assert.deepEqual(after.claims, [LEGACY_CLAIM]);
   });
 }
@@ -128,16 +130,38 @@ async function provePreservesLegacyIdlessClaimThroughWrite(): Promise<void> {
 async function proveIdlessIntentFailsLoudlyNamingTheIntent(): Promise<void> {
   const idlessIntent = { ...validIntentRow(), agent_id: LEGACY_CLAIM.agent_id };
   await withTempRegistry(fileRegistry([idlessIntent]), async (registryPath) => {
-    await assert.rejects(
-      readRegistry(registryPath),
-      /commit_queue entry 33333333-3333-4333-8333-333333333333 carries an invalid agent_id/,
+    const result = await readRegistry(registryPath);
+    if (result.ok) {
+      assert.fail('expected readRegistry to return Err for an id-less intent row');
+    }
+    // Anchored: an identity-losing wrap upstream would PREFIX the message,
+    // and only an anchored pin catches that slip.
+    assert.match(
+      result.error.message,
+      /^commit_queue entry 33333333-3333-4333-8333-333333333333 carries an invalid agent_id/,
     );
+  });
+}
+
+async function proveUpdateRegistryRefusesCorruptRegistryByteIdentical(): Promise<void> {
+  const idlessIntent = { ...validIntentRow(), agent_id: LEGACY_CLAIM.agent_id };
+  await withTempRegistry(fileRegistry([idlessIntent]), async (registryPath) => {
+    // The transaction seam must fold the parse Err with `unwrapOrThrow`: a
+    // default-substituting fold would run the transform over an EMPTY
+    // registry and write it back — silently destroying every claim and
+    // intent. `assert.rejects` matches String(error), hence the
+    // `^Error: ` anchor.
+    await assert.rejects(
+      updateRegistry(registryPath, (registry) => registry),
+      /^Error: commit_queue entry 33333333-3333-4333-8333-333333333333 carries an invalid agent_id/,
+    );
+    assert.equal(await readFile(registryPath, 'utf8'), fileRegistry([idlessIntent]));
   });
 }
 
 async function proveValidIntentRoundTripsWithRoutingId(): Promise<void> {
   await withTempRegistry(fileRegistry([validIntentRow()]), async (registryPath) => {
-    const parsed = await readRegistry(registryPath);
+    const parsed = unwrapOrThrow(await readRegistry(registryPath));
     assert.equal(parsed.commit_queue.length, 1);
     assert.deepEqual(parsed.commit_queue[0].agent_id, VALID_INTENT_AGENT_ID);
   });
@@ -170,7 +194,7 @@ async function proveActiveClaimsTransactionRejectsIdlessIntentLoudly(): Promise<
   await withTempRegistry(fileRegistry([idlessIntent]), async (registryPath) => {
     await assert.rejects(
       updateActiveClaimsFile({ activePath: registryPath, transform: (registry) => registry }),
-      /commit_queue entry 33333333-3333-4333-8333-333333333333 carries an invalid agent_id/,
+      /^Error: commit_queue entry 33333333-3333-4333-8333-333333333333 carries an invalid agent_id/,
     );
     // The rejection fires in the pre-transaction read, before any write: the
     // registry file must be byte-identical afterwards — a loud failure that
@@ -182,9 +206,10 @@ async function proveActiveClaimsTransactionRejectsIdlessIntentLoudly(): Promise<
 
 await provePreservesLegacyIdlessClaimThroughWrite();
 await proveIdlessIntentFailsLoudlyNamingTheIntent();
+await proveUpdateRegistryRefusesCorruptRegistryByteIdentical();
 await proveValidIntentRoundTripsWithRoutingId();
 await proveSchemaRejectsIdlessIntentRow();
 await proveSchemaAcceptsIdlessClaimRow();
 await proveActiveClaimsTransactionPreservesRowsInRawJson();
 await proveActiveClaimsTransactionRejectsIdlessIntentLoudly();
-process.stdout.write('commit-queue registry smoke: 7/7 proofs passed\n');
+process.stdout.write('commit-queue registry smoke: 8/8 proofs passed\n');

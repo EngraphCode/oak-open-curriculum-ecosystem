@@ -1,16 +1,16 @@
+import { ok } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
-import { uuidV5Schema } from '../src/collaboration-state/agent-id';
+import { uuidV5Schema, type CollaborationAgentIdWrite } from '../src/collaboration-state/agent-id';
 
 import {
   runCommitQueueCli,
   type CommitIntent,
-  type CommitQueueAgentId,
   type CommitQueueRegistry,
 } from '../src/commit-queue';
 import { type CommitQueueCliOptions } from '../src/commit-queue/types';
 
-const agentId: CommitQueueAgentId = {
+const agentId: CollaborationAgentIdWrite = {
   agent_name: 'Prismatic Waxing Constellation',
   platform: 'codex',
   model: 'gpt-5.5',
@@ -142,7 +142,7 @@ describe('commit-queue CLI read commands', () => {
         options: { file: [], now: '2026-04-27T07:25:00Z' },
         repoRoot: '/repo',
         resolveGitRoot: rejectGitRootResolution,
-        readRegistry: async () => registry(),
+        readRegistry: async () => ok(registry()),
         stdout: output.stdout,
       }),
     ).resolves.toBe(0);
@@ -170,7 +170,7 @@ describe('commit-queue CLI read commands', () => {
         },
         repoRoot: '/repo',
         resolveGitRoot: rejectGitRootResolution,
-        readRegistry: async () => registry(),
+        readRegistry: async () => ok(registry()),
         stdout: output.stdout,
       }),
     ).resolves.toBe(0);
@@ -193,7 +193,7 @@ describe('commit-queue CLI read commands', () => {
         },
         repoRoot: '/repo',
         resolveGitRoot: rejectGitRootResolution,
-        readRegistry: async () => registry(),
+        readRegistry: async () => ok(registry()),
         stdout: output.stdout,
       }),
     ).resolves.toBe(0);
@@ -221,17 +221,18 @@ describe('commit-queue CLI read commands', () => {
         },
         repoRoot: '/repo',
         resolveGitRoot: rejectGitRootResolution,
-        readRegistry: async () => ({
-          schema_version: '1.3.0',
-          claims: [
-            {
-              claim_id: 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',
-              agent_id: agentId,
-              areas: [{ kind: 'git', patterns: ['index/head'] }],
-            },
-          ],
-          commit_queue: [intent({ phase: 'staging' })],
-        }),
+        readRegistry: async () =>
+          ok({
+            schema_version: '1.3.0',
+            claims: [
+              {
+                claim_id: 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',
+                agent_id: agentId,
+                areas: [{ kind: 'git', patterns: ['index/head'] }],
+              },
+            ],
+            commit_queue: [intent({ phase: 'staging' })],
+          }),
         stdout: output.stdout,
       }),
     ).resolves.toBe(0);
@@ -282,7 +283,7 @@ describe('commit-queue CLI read commands', () => {
         options: { file: [], now: '2026-02-31T07:25:00Z' },
         repoRoot: '/repo',
         resolveGitRoot: rejectGitRootResolution,
-        readRegistry: async () => registry(),
+        readRegistry: async () => ok(registry()),
       }),
     ).rejects.toThrow('invalid ISO date-time for --now: 2026-02-31T07:25:00Z');
   });

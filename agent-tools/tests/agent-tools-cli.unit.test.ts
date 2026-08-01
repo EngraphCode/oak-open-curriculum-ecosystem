@@ -1,5 +1,6 @@
 import { Readable } from 'node:stream';
 
+import { ok } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
 import { runAgentToolsCli } from '../src/bin/agent-tools-cli';
@@ -33,11 +34,12 @@ describe('agent-tools unified CLI', () => {
       env: {},
       cwd: '/repo',
       repoRoot: '/repo',
-      readCommitQueueRegistry: async () => ({
-        schema_version: '1.3.0',
-        claims: [],
-        commit_queue: [],
-      }),
+      readCommitQueueRegistry: async () =>
+        ok({
+          schema_version: '1.3.0',
+          claims: [],
+          commit_queue: [],
+        }),
     });
 
     expect(result).toMatchObject({ exitCode: 0, stderr: '' });
