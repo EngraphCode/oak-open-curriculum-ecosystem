@@ -202,7 +202,10 @@ fields:
 - **Adding a field or enum value** lands as a minor-version bump
   (`schema_version: "1.1.0"` etc.). The bump moves the schema, the
   parsers, and every writer together (latest-only support, owner ruling
-  2026-08-01): agents support exactly the current version once it lands.
+  2026-08-01): on runtime-pinned surfaces (the claims registry and the
+  closed-claims archive) agents support exactly the current version once
+  it lands; schema-only surfaces (conversations, escalations) carry no
+  runtime pin and validate the versions their schema enumerates.
 - **Removing a field** lands as a major-version bump
   (`schema_version: "2.0.0"` etc.). Agents reading a file at any other
   version bail out with an error pointing at the protocol upgrade.
