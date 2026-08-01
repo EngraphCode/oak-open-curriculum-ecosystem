@@ -1,3 +1,16 @@
+# [1.133.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.132.1...v1.133.0) (2026-08-01)
+
+
+### Bug Fixes
+
+* **agent-tools:** crash-first read contract, cli err coverage, update seed parity ([a81355a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a81355a1d7391ddffa74b6ee918e26e274f73b21))
+* **agent-tools:** re-true substrate surface-count pin to 21 with pr-213 provenance ([d80e0d1](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d80e0d15726925837e6d72ae6cb4fa47161f86be))
+
+
+### Features
+
+* **agent-tools:** convert commit-queue registry parse layer to result ([8971c99](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8971c99ac578f75c2c7e972383a1101c8aa82cf3))
+
 ## [1.132.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.132.0...v1.132.1) (2026-08-01)
 
 
