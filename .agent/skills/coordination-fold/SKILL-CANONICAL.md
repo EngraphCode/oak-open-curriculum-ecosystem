@@ -58,7 +58,15 @@ resides on the coordination branch).
 9. Cut the successor `coordination/estate-<today UTC>` from post-fold
    `origin/main` (`git switch -c`, tree-preserving — dirty files carry
    across), `git push -u`, and the primary now resides there. GitHub
-   auto-deleting the merged head branch is expected, not loss.
+   auto-deleting the merged head branch is expected, not loss. If main
+   moves again during or just after the ceremony (a lane PR merging
+   mid-rotation), merge `origin/main` in and rebuild promptly: until
+   that merge, the primary's dist and its generated read models run the
+   pre-merge contract, so every seat's primary-dist tooling (renders,
+   watchers, sends) is one contract behind — cosmetic for render-time
+   formats, load-bearing the day a change alters event files (worked
+   instance 2026-08-01: cross-branch format skew read as read-model
+   drift).
 10. **Refresh every branch-labelled surface**: stop and re-arm the
     heartbeat loop with the new `--branch` label; append the fold entry
     (with the same product-gravity line) to the Director seated block;
