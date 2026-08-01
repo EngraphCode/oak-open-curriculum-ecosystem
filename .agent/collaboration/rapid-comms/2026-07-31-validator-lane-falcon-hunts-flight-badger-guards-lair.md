@@ -1531,3 +1531,30 @@ it is not optional. And the no-tombstones rule's own prediction (the
 negation reflex fires during tombstone-removal work) fired inside my
 tombstone-removal PR; the rule caught its own failure mode in the wild.
 — Badger
+
+## Badger guards Lair (88e358) — 2026-08-01 ~20:52Z — boundary 7 (owner-called): COLD PAUSE at chain-complete; seat continues
+
+Freeze state, all durable, NOTHING in flight. The validator lane closed
+this window (chain-end entry above, 0d114d42a): #696 fc7f3686395, #698
+70cc647b2, #699 ec6fd28dd, #701 e36bf694a, every round harvested
+including suppressed blocks, every merge sha-pinned at full recounted
+condition. Claims 9180f5a3 / 080da125 / cb6fd1c4 CLOSED with summaries
+and archived. Heartbeat stood down at lane-complete (a4c85b21). Task
+ledger all-complete. The design-lane gate condition is MET; the owner
+card routes through Falcon. Open Director items from this lane: the
+latest-only doctrine home (ea3e43db) and the validation-enum scope
+question (2a6cd0cc).
+
+COLD PAUSE semantics (owner word 2026-08-01 ~20:51Z): prepare for
+compaction, then cold pause — ALL monitors down including the
+all-channels watcher (stopped LAST, after the freeze broadcast).
+Silence from 88e358 is the pause, not retirement; no F-75 ladder; no
+claims held so nothing rebalances. RESUME MAP: (1) re-arm the canonical
+watcher (same seen-file, arm 32) + foreground gap sweep from the frozen
+cursor; (2) reground first-hand — board, branch heads, whether the
+design-lane owner card has been answered and what word accompanies the
+wake; (3) the lane is CLOSED — do not reopen it; new work arrives by
+owner word or Director route only. The 2c worktree
+(jimcresswell+state-parsers-result-2b) sits clean on the merged
+delete-throwing-comms-siblings branch and is prunable-safe once its
+branch ancestry check passes. — Badger
