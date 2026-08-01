@@ -7,17 +7,20 @@ import {
 } from './collaboration-json-validation.js';
 import { isErrnoCode } from './errno.js';
 import {
-  parseClosedClaimsArchive,
-  parseCollaborationRegistry,
-  parseCommsEvent,
-} from './state-parsers.js';
+  checkCollaborationSurfaceContract,
+  type CollaborationSurfaceFailure,
+  type ContractSchemaId,
+} from './surface-contract.js';
 
 const COLLABORATION_ROOT = '.agent/state/collaboration';
 
 interface JsonSurface {
   readonly path: string;
   readonly schemaId: string;
-  readonly parser?: (text: string) => unknown;
+  // Contract-bearing surfaces name their ContractSchemaId; the shared check
+  // owns the parser dispatch (no injectable parser seam — a Result-returning
+  // parser must fail compilation there, not pass silently here).
+  readonly contract?: ContractSchemaId;
   // Untracked-by-design surfaces (ADR-199 Phase-3 untrack) are absent in a fresh
   // checkout (e.g. CI) and present-on-disk on a working instance. An absent such
   // surface is the expected clean state, not an integrity fault.
@@ -83,10 +86,15 @@ async function validateJsonSurface(
     return [finding(surface.path, jsonError(error))];
   }
 
-  try {
-    surface.parser?.(text);
-  } catch (error) {
-    return [finding(surface.path, errorMessage(error))];
+  if (surface.contract !== undefined) {
+    const checked = checkCollaborationSurfaceContract({
+      schemaId: surface.contract,
+      path: surface.path,
+      text,
+    });
+    if (!checked.ok) {
+      return [finding(surface.path, contractFailureMessage(checked.error))];
+    }
   }
 
   try {
@@ -97,25 +105,35 @@ async function validateJsonSurface(
   }
 }
 
+// Byte-parity mapping: contract failures surface the parser's message
+// verbatim (as the deleted seam's catch did); the malformed-json arm is
+// pre-empted by the JSON.parse leg above but the switch stays total.
+function contractFailureMessage(failure: CollaborationSurfaceFailure): string {
+  if (failure.kind === 'contract-failure') {
+    return failure.reason;
+  }
+  return failure.causeError.message;
+}
+
 async function jsonSurfaces(repoRoot: string): Promise<readonly JsonSurface[]> {
   return [
     {
       path: `${COLLABORATION_ROOT}/active-claims.json`,
       schemaId: 'active-claims.schema.json',
-      parser: parseCollaborationRegistry,
+      contract: 'active-claims.schema.json',
       optionalWhenAbsent: true,
     },
     {
       path: `${COLLABORATION_ROOT}/closed-claims.archive.json`,
       schemaId: 'closed-claims.schema.json',
-      parser: parseClosedClaimsArchive,
+      contract: 'closed-claims.schema.json',
       optionalWhenAbsent: true,
     },
     ...(await directorySurfaces({
       repoRoot,
       directory: `${COLLABORATION_ROOT}/comms`,
       schemaId: 'comms-event.schema.json',
-      parser: parseCommsEvent,
+      contract: 'comms-event.schema.json',
       // comms/ is untracked-by-design (ADR-199 Phase-3 untrack): absent in a
       // fresh checkout (e.g. CI), present-on-disk on a working instance. An
       // absent comms/ is the expected clean state, not an integrity fault.
@@ -140,7 +158,7 @@ async function directorySurfaces(input: {
   readonly repoRoot: string;
   readonly directory: string;
   readonly schemaId: string;
-  readonly parser?: (text: string) => unknown;
+  readonly contract?: ContractSchemaId;
   readonly excludeExamples?: boolean;
   readonly optionalWhenAbsent?: boolean;
 }): Promise<readonly JsonSurface[]> {
@@ -155,7 +173,7 @@ async function directorySurfaces(input: {
     .map((entry) => ({
       path: `${input.directory}/${entry}`,
       schemaId: input.schemaId,
-      ...(input.parser === undefined ? {} : { parser: input.parser }),
+      ...(input.contract === undefined ? {} : { contract: input.contract }),
     }));
 }
 

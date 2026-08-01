@@ -4,9 +4,9 @@ import type Ajv from 'ajv/dist/2020.js';
 
 import { renderSharedCommsLog } from '../collaboration-state/comms.js';
 import {
-  parseClosedClaimsArchive,
-  parseCollaborationRegistry,
-} from '../collaboration-state/state-io.js';
+  checkCollaborationSurfaceContract,
+  type ContractSchemaId,
+} from '../collaboration-state/surface-contract.js';
 import { readCommsEventFiles } from './live-comms-events.js';
 import {
   ACTIVE_CLAIMS_PATH,
@@ -19,6 +19,7 @@ import {
   absolutePath,
   parseFailureFinding,
   parseManifestDocument,
+  surfaceContractFinding,
   parseMigrationLedgerDocument,
   type ManifestDocument,
   type ManifestReadResult,
@@ -127,7 +128,7 @@ async function evaluateClaimSurfaces(
       surface: 'collaboration-active-claims',
       path: ACTIVE_CLAIMS_PATH,
       schemaId: 'active-claims.schema.json',
-      parser: parseCollaborationRegistry,
+      contract: 'active-claims.schema.json',
     })),
     ...(await evaluateJsonFileWithSchema({
       repoRoot,
@@ -135,7 +136,7 @@ async function evaluateClaimSurfaces(
       surface: 'collaboration-closed-claims',
       path: CLOSED_CLAIMS_PATH,
       schemaId: 'closed-claims.schema.json',
-      parser: parseClosedClaimsArchive,
+      contract: 'closed-claims.schema.json',
     })),
   ];
 }
@@ -184,18 +185,23 @@ async function evaluateJsonFileWithSchema(input: {
   readonly surface: string;
   readonly path: string;
   readonly schemaId: string;
-  readonly parser?: (text: string) => unknown;
+  // Contract-bearing surfaces name their ContractSchemaId; the shared check
+  // owns the parser dispatch (no injectable parser seam).
+  readonly contract?: ContractSchemaId;
 }): Promise<readonly SubstrateFinding[]> {
   const text = await readFile(absolutePath(input.repoRoot, input.path), 'utf8');
   const parsed = parseJsonText(input.surface, input.path, text);
   if (parsed.value === undefined) {
     return parsed.findings;
   }
-  if (input.parser !== undefined) {
-    try {
-      input.parser(text);
-    } catch (error) {
-      return [parseFailureFinding(input.surface, input.path, error)];
+  if (input.contract !== undefined) {
+    const checked = checkCollaborationSurfaceContract({
+      schemaId: input.contract,
+      path: input.path,
+      text,
+    });
+    if (!checked.ok) {
+      return [surfaceContractFinding(input.surface, input.path, checked.error)];
     }
   }
 

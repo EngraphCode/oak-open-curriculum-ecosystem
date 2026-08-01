@@ -15,6 +15,9 @@ const SCHEMA_FILENAMES = [
   'escalation.schema.json',
 ] as const;
 
+/** One collaboration schema filename — the surface-identity vocabulary. */
+export type CollaborationSchemaId = (typeof SCHEMA_FILENAMES)[number];
+
 /**
  * Absolute path to the collaboration schemas
  * (`agent-tools/src/collaboration-state/schemas/`), resolved by walking from

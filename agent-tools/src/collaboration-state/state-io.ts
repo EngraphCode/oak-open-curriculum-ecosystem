@@ -10,11 +10,8 @@ import {
   readClosedClaimsFile,
   type ReadTextFile,
 } from './state-file-readers.js';
-import {
-  parseClosedClaimsArchive,
-  parseCollaborationRegistry,
-  parseCommsEvent,
-} from './state-parsers.js';
+import { requireCollaborationSurfaceContract } from './surface-contract.js';
+import { parseCollaborationRegistry, parseCommsEvent } from './state-parsers.js';
 import {
   createJsonFileAtomically,
   runJsonStateTransaction,
@@ -28,7 +25,6 @@ import {
   type DirectedCommsMessage,
 } from './types.js';
 
-export { parseClosedClaimsArchive, parseCollaborationRegistry } from './state-parsers.js';
 export {
   readActiveClaimsFile,
   readClosedClaimsFile,
@@ -56,7 +52,7 @@ export async function writeCommsEvent(input: {
     filePath: path,
     value: event,
     validateText: async (text) => {
-      parseCommsEvent(text);
+      requireCollaborationSurfaceContract({ schemaId: 'comms-event.schema.json', path, text });
       await validateCollaborationJsonFileText(path, text);
     },
   });
@@ -230,12 +226,12 @@ function eventPath(eventsDir: string, eventId: string): string {
 }
 
 async function validateActiveClaimsText(path: string, text: string): Promise<void> {
-  parseCollaborationRegistry(text);
+  requireCollaborationSurfaceContract({ schemaId: 'active-claims.schema.json', path, text });
   await validateCollaborationJsonFileText(path, text);
 }
 
 async function validateClosedClaimsText(path: string, text: string): Promise<void> {
-  parseClosedClaimsArchive(text);
+  requireCollaborationSurfaceContract({ schemaId: 'closed-claims.schema.json', path, text });
   await validateCollaborationJsonFileText(path, text);
 }
 
