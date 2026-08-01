@@ -403,7 +403,17 @@ as phase-local restatements.
    anchor and substance, recording the dedup in the working notes where
    exercised. Under SHARED CREDENTIALS, the agent's own disposition replies
    register as reviews by the credential owner — sign every bot-visible
-   reply with the agent identity tuple, and EXCLUDE self-authored signed
+   reply with the agent identity tuple as the FINAL line, opening with an
+   em-dash: `— <name> (<session_id_prefix>)`. The parenthesised field is
+   the bare `session_id_prefix` (the join key), never the MCP-145
+   visual-disambiguator display token — the detector tolerates a pasted
+   token defensively, but the bare prefix is canonical. The auto-exclusion
+   binds only for the standard six-lowercase-hex prefix shape; a seat
+   whose prefix falls outside it (override values, a non-hex seed,
+   `unknown`) still signs — its replies are not auto-excluded, costing at
+   most a bounded settle delay. A leading `[Agent: …]` marker
+   (identify-as-agent-under-shared-credentials) composes with, never
+   replaces, the final signature line. EXCLUDE self-authored signed
    replies from the round tally and from quiet-window anchoring (drive
    precedent 2026-07-20; an unsigned self-reply reads back as owner round
    activity and falsely re-opens the round). A finding whose review binds to an ALREADY-SETTLED round's

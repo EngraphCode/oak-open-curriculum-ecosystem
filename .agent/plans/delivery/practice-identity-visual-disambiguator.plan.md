@@ -50,6 +50,23 @@ the §Warrant arithmetic and its scope paragraph, the PDR-125 join-key
 retention, and the PDR-125 display-clause amendment with its twin
 disposition.
 
+Revision 4 (2026-08-01): **single-identity hold-out, review-driven** —
+the slice-2d pre-execution review refuted statusline adoption: the
+statusline renders exactly ONE identity, so the disambiguator has
+nothing to separate there, and the statusline is the operator's paste
+source for the join key — the value shown must BE the join key. The
+Mechanism-5 inventory and acceptance 3 now bind by the SHAPE RULE: the
+token adopts where two or more identity blocks share one rendered
+view; single-identity views render the bare join key; keying sites
+never adopt (the token is never a key). The statusline is the sole
+hold-out, recorded in TSDoc at both statusline sites
+(`statusline-segments`, `statusline-indicators`); slice 3 codifies the
+shape rule as the PDR-125 clause-5 general form. Slice 3 also decides
+whether an agent-AUTHORED heartbeat subject line (`<name>
+(<session_id_prefix>)` per PDR-078 and the liveness rule) counts as a
+"rendered identity surface" under the amended clause — else the next
+sweep re-opens those two doc sites.
+
 **Evidence enrichment (2026-07-31, multi-perspective review — two
 independent Opus lenses converged on this plan's design over six
 invented alternatives; figures re-measured the same day by a
@@ -180,10 +197,13 @@ give.
    comms watch render, claims registry render, shared-comms-log
    render, `cli-comms-query` summaries, `comms-event-format`,
    `commit-queue/guard` output, `active-agent-routing`/`formatAgent`
-   (feeds TUI comms and queue views), `tui/snapshot`, and the Claude
-   statusline (`statusline-indicators`). Each adopts the derivation
-   function; a repo-wide sweep for `session_id_prefix` render sites
-   closes the set; any renderer found by the sweep joins the
+   (feeds TUI comms and queue views), and `tui/snapshot`. Each adopts
+   the derivation function. The Claude statusline
+   (`statusline-indicators`) is the Revision-4 hold-out: a
+   single-identity view rendering the bare join key. A repo-wide
+   sweep for `session_id_prefix` render sites closes the set by the
+   Revision-4 shape rule (two-plus identity blocks in one rendered
+   view); any multi-identity renderer found by the sweep joins the
    inventory and its test.
 6. **Documentation slice**: PDR-027 amendment (the derivation, the
    role doctrine, this warrant), the PDR-125 display-clause amendment
@@ -212,11 +232,12 @@ give.
    token) and a block whose `session_id_prefix` or `id` is replaced
    renders the token of its FINAL fields with no intermediate state —
    `repo-safe`: unit tests including a prefix-override fixture.
-3. Every renderer in the §Mechanism-5 inventory displays the token
-   for id-bearing blocks and the bare prefix for id-less blocks, and
-   a repo-wide sweep recorded in the landing PR shows no render site
-   outside the inventory — `repo-safe`: render unit tests per surface
-   plus the sweep evidence.
+3. Every multi-identity renderer in the §Mechanism-5 inventory (all
+   but the Revision-4 statusline hold-out) displays the token for
+   id-bearing blocks and the bare prefix for id-less blocks, and a
+   repo-wide sweep recorded in the landing PR shows no multi-identity
+   render site outside the inventory — `repo-safe`: render unit tests
+   per surface plus the sweep evidence.
 4. Nothing stored changed: the state schemas, Zod schemas, wire
    schema, and all persisted fixtures are byte-identical before and
    after the landing PRs, and the full existing validator suite
