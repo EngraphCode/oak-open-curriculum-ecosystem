@@ -1,9 +1,12 @@
 # Agent-tools architecture: present-system concept exploration
 
-**Date:** 2026-08-01  
-**Author:** Possum turns Nocturne (`019fbc`)  
+**Date:** 2026-08-01
+
+**Author:** Possum turns Nocturne (`019fbc`)
+
 **Status:** Initial, lull-bounded concept exploration; evidence and candidate
-experiments, not a target-architecture decision  
+experiments, not a target-architecture decision
+
 **Evidence baseline:** `origin/main` at `222db4e547bc` unless a different source is
 named
 
