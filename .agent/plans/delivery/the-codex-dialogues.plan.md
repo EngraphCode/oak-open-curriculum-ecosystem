@@ -30,12 +30,26 @@ last_updated: 2026-08-01
 ## Direction (owner word, 2026-08-01)
 
 This capability is the first step toward invoking third-party agents from
-within a session as ordinary capability. It is NOT a replacement for or
-alternative to Cricket: Cricket wrappers typically run the same vendor as
-the parent session, so its diversity is stance-diversity; this is
-vendor-diversity — a genuinely different model family probing the seat's
-reasoning over several real exchanges. The overlap in intention is
-partial and deliberate. Owner rulings already given, encoded here and not
+within a session as ordinary capability. Two independent axes govern the
+whole space (owner framing, 2026-08-01):
+
+- **Vendor locus** — same-vendor vs cross-vendor. This is where the
+  framework's intrinsic value lives: cross-vendor calling brings
+  diversity of thought and approach that no same-vendor instrument can,
+  however well-stanced. Cricket wrappers typically run the same vendor
+  as the parent session, so its diversity is stance-diversity.
+- **Interaction arity** — one-shot vs multi-turn. This is an
+  architecture choice matched to an instrument's purpose, not a
+  ranking: Cricket's one-shot shape is purposeful (a bounded conscience
+  check), and other legitimate one-shot instruments can exist —
+  including future CROSS-VENDOR one-shot instruments on this same
+  substrate (same registration, same authority doctrine, same
+  close-event record; a one-shot is a dialogue with an exchange budget
+  of one).
+
+This plan builds the cross-vendor MULTI-TURN cell first because nothing
+serves it; it is NOT a replacement for or alternative to Cricket, and
+the overlap in intention is partial and deliberate. Owner rulings already given, encoded here and not
 re-opened: the name is `the-codex-dialogues`; v1 is DIRECT (no conduit
 wrapper); the record exists for later analysis of what is explicitly an
 experimental setup, and one structured comms event at dialogue close is
@@ -52,11 +66,15 @@ this one: Cricket is single-shot; the `codex exec` helper recipe is
 one-shot with no thread state; ArcAngel needs a second live seat; the
 standing second-opinion grant is permission, not mechanism.
 
-Falsifier (trial-window): if a review of close events shows cross-vendor
-dialogues are not changing decisions — dissent never alters the seat's
-course — the experiment reports that honestly and the capability is
-retired or reshaped; there is no fold-into-Cricket disposition, because
-Cricket is not this instrument's alternative.
+Falsifier (trial-window), on the two axes separately: if close events
+show cross-vendor dissent never changes decisions, the CROSS-VENDOR
+value claim itself has failed and the experiment reports that honestly.
+If dissent changes decisions but dialogues routinely complete in ONE
+exchange, that falsifies only the arity choice — the evidence then
+warrants a cross-vendor ONE-SHOT sibling instrument on this same
+substrate, and this instrument reshapes rather than the capability
+retiring. There is no fold-into-Cricket disposition on either arm,
+because Cricket is not this instrument's alternative.
 
 Thread persistence, stated truthfully (review-verified against CLI
 0.146.0): Codex persists each thread's rollout locally by default
