@@ -1,7 +1,9 @@
 # ADR-211: Inter-Practice Collaboration — Host Phenotype
 
 - **Status:** Accepted (2026-07-06; authored in the coordinated cross-estate WS0 session,
-  Lapwing herds Eyrie). Amended 2026-07-13 (ceremony-and-trigger scoping mirror).
+  Lapwing herds Eyrie). Amended 2026-07-13 (ceremony-and-trigger scoping mirror). Amended
+  2026-08-01 (clause-5 display mirror: the token-adopting renderers and the deliberate
+  statusline hold-out).
 - **Mirrors:** [PDR-125: The Inter-Practice Collaboration Protocol](../../../.agent/practice-core/decision-records/PDR-125-inter-practice-collaboration-protocol.md)
   — the portable doctrine. This ADR is the host half: how this repo realises the protocol's
   mechanics. The controlling plan in the agent-tooling lane owns the HOW and the remaining
@@ -25,7 +27,16 @@ is, so the protocol's clauses resolve to concrete surfaces here.
   home that is missing or holds no recognisable substrate fails loudly (landed 2026-07-06).
 - **Join-key display (clause 5):** the statusline identity segment renders
   `<name> (<session_id_prefix>)`; a missing prefix renders `unknown` per PDR-027 (landed
-  2026-07-06).
+  2026-07-06). Amended 2026-08-01 per the clause-5 shape rule: the token-adopting
+  collaboration-state renderers (comms watch/inbox and directed headings, operator CLI query
+  and peer-liveness lines, commit-queue entries and guard messages, active-agent routing
+  summaries, and identity-contrast diagnostics) display the visual-disambiguator token
+  (`<session_id_prefix>-<last 3 of id>`, bare prefix for id-less blocks) through the shared
+  `displayPrefix` helper; the statusline is the DELIBERATE single-identity hold-out (the
+  operator's paste source for the join key stays the bare prefix); the TUI active-agents
+  routing-key label is id-shaped by design (`name / id:<id>`, no prefix field), while the
+  `claims list` / `claims active-agents` commands serialise full identity blocks, prefix
+  included.
 - **Home tooling (clause 4):** the `@oaknational/agent-tools` collaboration-state CLI is the ONLY
   write path into this repo's collaboration plane at `.agent/state/collaboration/` — guest
   sessions included, liveness files included.

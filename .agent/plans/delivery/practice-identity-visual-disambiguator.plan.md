@@ -244,7 +244,19 @@ give.
    id-bearing blocks and the bare prefix for id-less blocks, and a
    repo-wide sweep recorded in the landing PR shows no multi-identity
    render site outside the inventory — `repo-safe`: render unit tests
-   per surface plus the sweep evidence.
+   per surface plus the sweep evidence. Re-cited 2026-08-01 against
+   the amended PDR-125 clause-5 shape rule: the per-surface render
+   tests and sweep stand, and one inventory member binds differently
+   BY DESIGN — the routing-key label (`formatRoutingKey`, the TUI
+   active-agents surface and routing-key diagnostics) is id-shaped,
+   rendering `name / id:<id>` with no prefix field; token adoption
+   there would be a field change, out of scope; the claims CLI
+   listings serialise full identity blocks, prefix included — so
+   this criterion binds the prefix-rendering members of the
+   inventory. The commit-queue guard IS a prefix-rendering member: it
+   renders identity only through the shared `formatAgent` helper and
+   inherits the token with no per-site decision (PR #674 id-routed
+   its OWNERSHIP comparison, not its rendering).
 4. Nothing stored changed: the state schemas, Zod schemas, wire
    schema, and all persisted fixtures are byte-identical before and
    after the landing PRs, and the full existing validator suite
@@ -255,10 +267,22 @@ give.
    its `their-lane-owns-coordinate` twin disposition in the amendment
    text — `repo-safe`: existing PDR-125 wire conformance tests re-run
    and cited, plus the amendment diff showing the join-key clause
-   untouched.
+   untouched. Discharged in the doctrine-slice PR (2026-08-01): the
+   amendment leaves the join-key sentence and
+   `.agent/practice-core/protocol.json` untouched (`protocol_version`
+   1.0.0, `tier_floor` tier-1), the Status-block note carries the
+   twin disposition, and the wire-conformance suites
+   (`agent-tools/tests/protocol-wire/wire.unit.test.ts`,
+   `agent-tools/tests/collaboration-state/session-id-prefix-across-host-identity-hooks.unit.test.ts`)
+   are re-run and cited in that PR.
 6. Canonical identity docs match the live derivation output —
    `repo-safe`: the generated-example drift test authored in the
-   documentation slice, cited in the landing PR.
+   documentation slice, cited in the landing PR. Discharged
+   2026-08-01: the drift test
+   (`agent-tools/tests/collaboration-state/visual-disambiguator-docs-drift.unit.test.ts`)
+   rebuilds the documented example block from the live renderer,
+   proven red-first against the pre-section docs, and fails CI on any
+   drift.
 
 ## Todos (ordered; each a single-story PR, default round budget)
 
