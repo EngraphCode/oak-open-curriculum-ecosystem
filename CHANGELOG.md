@@ -1,3 +1,19 @@
+## [1.130.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.130.1...v1.130.2) (2026-08-01)
+
+## [1.130.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.130.0...v1.130.1) (2026-07-31)
+
+
+### Bug Fixes
+
+* **agent-tools:** tighten collab-state intent read boundary to PDR-076a id ([4fd02ab](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4fd02ab39626e76f8ce069d4ef2a08c6e6e2c81f))
+
+# [1.130.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.129.2...v1.130.0) (2026-07-31)
+
+
+### Features
+
+* **agent-tools:** add the visualDisambiguator render-time identity token ([90f8f0e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/90f8f0eb4a66a79596de8988eee54a274266de31))
+
 ## [1.129.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.129.1...v1.129.2) (2026-07-31)
 
 ## [1.129.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.129.0...v1.129.1) (2026-07-31)
