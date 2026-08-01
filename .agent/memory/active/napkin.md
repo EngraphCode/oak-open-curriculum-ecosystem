@@ -548,3 +548,102 @@ repo-root-relative paths. A not-found on a relative path while worktrees
 are in play is a CWD QUESTION FIRST, a missing-file conclusion second.
 Standing habit: `cd` to the primary as the first token of any compound
 that touches coordination surfaces.
+
+<!-- fitness exceeded by 114 lines before this entry; needs consolidation -->
+
+## Session: 2026-08-01 — Caracal's Practice architecture inquiry and cold pause
+
+### What Was Done
+
+- Continued a deep `agent-tools` architecture review, then widened the system
+  boundary under owner direction to human intent, portable Practice, host
+  phenotype, human-agent work, and outcome evidence.
+- Preserved the full journey, corrections, candidate connections, rejections,
+  uncertainties, and falsifiers in the Practice evolution report; Director
+  custody acknowledged at event `6611c710...`.
+- Separated the closing record into analytical report, operational boundary,
+  and first-person formation rather than asking one document to impersonate
+  every kind of continuity.
+- Entered cold pause with no active inquiry. The missing `use_this_when`
+  remediation and strict parser-boundary prevention remain independently
+  routed engineering work.
+
+### Surprise
+
+- **Expected**: A comprehensive journey report would preserve the session's
+  important knowledge.
+- **Actual**: It preserved the intellectual path but not the formation—the
+  attraction of premature coherence, the felt significance of the owner's
+  corrections, or why cold pause must constrain accumulation.
+- **Why expectation failed**: I treated proposition-level completeness as
+  continuity completeness. Analytical records and successor formation have
+  different consumers and failure modes.
+- **Behaviour change**: At closeout, ask what a factual handoff cannot carry
+  and leave a separate first-person formation record when the answer is
+  load-bearing.
+- **Source plane**: `active`
+
+### Patterns to Remember
+
+- An agent's appetite for coherence can erase information while presenting as
+  understanding. Preserve owner-defined distinctions before synthesising them.
+- Looking harder inside an established frame can increase its selection
+  pressure. Free play and deliberate altitude change are disciplined ways to
+  admit connections and counterexamples the frame suppresses.
+- A record about the Practice is itself a Practice intervention. Later uptake
+  of its vocabulary is not independent evidence for the model it describes.
+- Continuity without variation, rupture, repair, reversal, and clean loss is
+  propagation rather than demonstrated learning.
+- "Preserve all understanding" should mean that no load-bearing observation,
+  correction, rejection, uncertainty, or resumption condition remains private
+  to live context. It should not mean retaining every token. Exhaustive capture
+  can turn archive volume into a proxy for awareness and deprive successors of
+  room for novelty.
+- A cold pause is an active selection boundary: stop claims and notification
+  machinery, state the exact resume event, and let non-load-bearing context end.
+- Closeout order still matters: preserve and commit while the canonical watcher
+  is live, then emit the final event and stop it. I stopped the watcher before
+  opening the final commit claim; F-95 correctly refused a blind write and
+  forced a temporary re-arm. Also use the session's registered identity model
+  (`GPT-5`) for collaboration routes even when the effective runtime identifies
+  itself more specifically; model spelling is part of the route key.
+- The commit doctrine prescribes `index/head@<worktree>` for a linked worktree,
+  but the live commit-queue guard on 2026-08-01 rejected that claim as "not an
+  active git:index/head claim" and accepted only the bare `index/head` pattern.
+  Abandon the refused intent before reopening; do not silently rewrite its
+  audit trail. The isolated worktree still prevents index and file sweeping,
+  but the doctrine/mechanism mismatch needs a mechanical cure.
+- Bot identity is a pre-commit and pre-push gate, not merely a pre-PR check. I
+  created and pushed the first closeout commit from an isolated worktree while
+  it still inherited Jim's `user.name` and `user.email`; the later `gh api user`
+  check caught the same owner-bound identity at PR time. Cure applied without
+  rewriting pushed history: preserve that branch as abandoned, recreate the
+  verified tree from the coordination base in a fresh worktree, set and verify
+  worktree-scoped bot author/committer config while proving the primary remains
+  human, then use a minted bot token for push and PR creation. Mechanical
+  prevention should make bot-identity verification part of worktree setup and
+  refuse commit/push when the lane requires the bot but resolves the owner.
+
+### Free-Play Harvest and Visible Discards
+
+- Association retained: dormancy may be part of continuity, because what
+  survives without active performance is different from what a live agent can
+  keep rehearsing.
+- Association retained: technical report, boundary handoff, and formation
+  letter resemble different inheritance channels, but no biological analogy is
+  treated as evidence.
+- Discarded as forced: cold pause as proof of agent awareness.
+- Discarded as too neat: the Practice as an organism or immune system whose
+  persistence is inherently healthy.
+- Discarded as self-defeating: preserving the entire transcript as the safest
+  possible continuity surface.
+
+### Loss and Metaloss
+
+- Loss scan found no remaining chat-only load-bearing understanding after the
+  report, boundary closeout, formation letter, Director route, and this entry.
+- Metaloss found that the first preservation pass omitted the formation and
+  carried an unexamined equation of "all" with exhaustive capture. Both are now
+  explicit.
+- Remaining unknown, not lost: whether the Practice produces genuine learning,
+  mutual understanding, calmer human attention, or valuable outside outcomes.

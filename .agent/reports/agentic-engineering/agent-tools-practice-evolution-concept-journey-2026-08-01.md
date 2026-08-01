@@ -4,9 +4,10 @@
 
 **Author:** Caracal binds Reverie (`019fbd`)
 
-**Status:** Journey record and concept exploration. It preserves observations,
-corrections, interpretations, rejected frames, possible conclusions, and
-falsifiers. It is not a settled architecture decision, evidence-run result,
+**Status:** Conserved and cold-paused on 2026-08-01. Director Falcon hunts
+Flight acknowledged custody of the record and its four bounded dispositions in
+event `6611c710-46ed-4400-bc7e-42b67b31a43a`. This remains a journey record and
+concept exploration, not a settled architecture decision, evidence-run result,
 Practice amendment, or implementation authority.
 
 ## Review contract
@@ -657,6 +658,37 @@ quiet, abandoned, or non-use case where the record permits. Run one bounded
 trace only if either outcome can change the named decision. A single trace may
 defeat only that bounded proposition, not prove or disprove an estate-wide
 theory.
+
+## Cold-pause disposition
+
+Director custody is explicit rather than inferred. The acknowledgement records
+four current dispositions:
+
+1. The `use_this_when` repair and required-at-parser-boundary prevention remain
+   an independent, unstaffed engineering obligation on the Director map for the
+   next implementation-capable seat.
+2. No amplification-integrity evidence run or broad Practice study is
+   authorised by this inquiry.
+3. The architecture strand returns to ordinary substantive work and
+   incubation. A future trace starts only when a live decision depends on one
+   bounded candidate proposition and predeclares its rival, counterexample-first
+   selection, losing condition, and decision consequence.
+4. One trace can defeat only its bounded proposition. It cannot ratify an
+   estate-wide theory.
+
+The session's closing reflection adds one constraint on preservation itself.
+"Fully expressed" cannot mean retaining every token or making this report a
+total account. That would make archival volume a proxy for continuity and
+would work against the deliberate forgetting and variation the inquiry found
+important. It means that no load-bearing observation, correction, rejection,
+uncertainty, or resumption condition remains available only in the author's
+live context. The first-person formation record and the boundary closeout carry
+the kinds of knowledge this analytical report should not absorb.
+
+Cold pause is therefore an active disposition, not an evidentiary conclusion.
+No inquiry remains running. Resume only on a new owner word or when an actual
+architecture or Practice decision invokes one of the bounded propositions and
+either result could change that decision.
 
 ## Source map
 
