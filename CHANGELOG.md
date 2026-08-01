@@ -1,3 +1,11 @@
+# [1.140.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.139.0...v1.140.0) (2026-08-01)
+
+
+### Features
+
+* **agent-tools:** a supplied session prefix is never silently empty ([67ada7b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/67ada7b93283d02235274967cdca9385782911a7))
+* **agent-tools:** comms direct derives the recipient prefix from claim rows ([50f71bf](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/50f71bfd0e2b1690873b7fb12a71190707197f2c))
+
 # [1.139.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.138.1...v1.139.0) (2026-08-01)
 
 
