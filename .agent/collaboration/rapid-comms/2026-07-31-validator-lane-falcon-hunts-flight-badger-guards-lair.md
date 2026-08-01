@@ -1396,3 +1396,99 @@ it before lint); playwright browser cache misses fail test:ui pre-push
 (playwright install chromium); reviewer idle-without-deliver cure is
 the mechanism-directive pull ("call SendMessage first action — plain
 text does not reach me"). — Badger
+
+## Badger guards Lair (88e358) — 2026-08-01 ~16:0xZ — compaction boundary 6 (owner-called): story 2b COMPLETE, story 2c built and riding as PR #696
+
+Freeze state, all durable. STORY 2B COMPLETE this window: #692 (2b-1
+primitives) MERGED at d3ab8b19b after five adjudicated rounds (four
+sparse-hole instances of one class cured dense with red-first pins; the
+duplicate parseWithSchema core deleted; two same-process-adversary
+refinements declined on probe-grounded threat-model evidence — the round
+tally and both probes are on the PR body). #695 (2b-2 atomic three-parser
+flip) MERGED at f87a43368 after two rounds (round 1: four Opus experts all
+GO-WITH-CHANGES + Copilot + Claude reviewer, ten accepted findings cured in
+one push, two evidence-grounded declines, four named carries; round 2
+CLEAN). Moss's WS-B unblocked at the #695 merge broadcast.
+
+STORY 2C BUILT to its own pre-execution gateway verdict (GO-WITH-CHANGES,
+decision-complete map, task #15 carries the full digest): PR #696 OPEN
+bot-authored at head 10bc25658, checks + Copilot riding (request
+timeline-verified 15:52:16Z). Landed shape: transaction.ts parseText slots
+Result-typed + six validateText signatures Promise-of-Result; the
+compiler-silent CollaborationJsonSchemaValidator bare-void slot
+Result-typed; the pre-2c bridge DELETED; NEW state-io-write-validators.ts
+owns the three composed gates (Err arm carries the parser's ORIGINAL
+causeError — anchored colocated pin; serializeJson's unwrap is the single
+byte-identity rethrow point — identity pin in
+transaction.integration.test.ts); gateway C1 honoured (write-back re-parse
+fold is the ONLY serialized-output check for commit-queue/CLI callers);
+smoke proofs 6/7 reshaped at equal strength, 10/10; state-io 239/250
+exactly as the gateway's probe-grounded accounting predicted; warnings
+net −4. OUT with gateway-named homes (all on the PR body): structural Ajv
+close (own story — a second independent Ajv lives in practice-substrate),
+#20 constant (standalone; the literal guards the destructive-reconstruction
+hazard), nominal-distinctness cure (type-expert focused), registry-value-
+parsers move (standalone), one-slot checkText collapse (assumptions-expert
+on that frame — the gateway's root-cause read of the parseText double-duty
+friction).
+
+SETTLED AT FREEZE, ROUND UNHARVESTED: #696 checks 0 pending / 0 fail and
+the Copilot review completed at exact head 10bc25658 (settle watch output
+recorded). BOTH post-exec verdicts landed PRE-freeze, digests here so the
+resume round is a pure cure pass. Test-expert GO-WITH-CHANGES (merge
+precondition SATISFIED as a review; its cures gate the merge): R1 pin the
+write-back re-parse fold — probe-verified that deleting transaction.ts's
+serializeJson-callback unwrap leaves 3870 tests + smoke 10/10 GREEN while
+a scratch scenario writes corruption; the smallest pin is supplied
+verbatim in its report (counter fixtures, schema-blind validateText,
+NaN transform, expect writes empty). R2 rename
+state-io-write-validators.unit.test.ts to .integration.test.ts
+(module-level IO in the import chain: resolveSchemasDir walk + validator
+singleton) + one doc clause. S1 surface-contract.unit.test.ts module doc
+stale (names the deleted fold by mechanism — CONVERGENT with docs-adr
+finding 1). S2 anchor the malformed-arm pin (proven non-discriminating
+under the wrapper-slip probe; use the anchored path-prefixed form).
+Also: probes A/B proved the moved anchor and the identity pin BITE
+(1-failed-each under mutation); the gateway's proof-7-vacuity framing
+CORRECTED (vacuity would have been introduced-and-cured by this PR — the
+reshape sequencing was right); twin unpinned fold at state-io's read-path
+Ajv unwrap = tracked follow-on, not scope growth. Docs-adr
+GO-WITH-CHANGES: eight findings — (1) the convergent stale doc; (2) the
+fold comment's "(smoke-pinned at the registry)" evidence claim is
+unbacked (R1's pin is the real cure; re-word to name what IS pinned);
+(3) narrow the "ONLY check" claim to the parser's contract vs Ajv's;
+(4) scope the "both write paths" sentence to state-io and name the
+commit-queue writer as the surface's other gate; (5) one clause covering
+both Err arms (malformed arm carries the path-labelled JSON error);
+(6) "its own tracked story" has no locatable referent — name a durable
+home or state the gap; (7)-(8) minor comment re-trues. A live reviewer
+mutation-probe appeared in the shared worktree mid-flight (the C1 fold
+deleted, then forward-restored byte-identical) — recognition, not
+reaction; the freeze gated on reviewer completion and a verified-clean
+tree.
+
+RESUME MAP: (1) re-arm canonical watcher (same seen-file, arm 29) +
+foreground gap sweep; (2) verify branch heads (#696 head 10bc25658 on
+jimcresswell/validate-text-result-2c; worktree jimcresswell+state-parsers-
+result-2b sits on that branch, clean) and whether #696 merged or gained
+findings; (3) absorb/re-dispatch the two reviewer verdicts; harvest the
+Copilot round INCLUDING the review body's suppressed-comments block (#692
+lesson, standing); cure in ONE adjudicated push; the test-expert
+precondition must be satisfied before merge; merge at full condition (4
+required checks BY NAME via the rulesets read at the merge instant,
+MERGEABLE, 0 unresolved, Copilot at exact head, sha-pinned bot REST,
+never squash); (4) then #20 → #14 → #28 → clean closeout — the design-lane
+gate releases on THIS chain-end. Claims HELD through the freeze: 9180f5a3
+(story 2), 080da125 (2a supplemental), cb6fd1c4 (2b/2c supplemental).
+
+Napkin: no heartbeat loop was armed this window (broadcast-liveness only —
+an omission; arm one at resume if team-visible work continues). The
+watcher's hourly timeout backstop fired twice (arms 26→27→28) — re-arm on
+the exit notification is routine, cursor loses nothing. Copilot's
+SUPPRESSED comments carried every post-round-1 finding on #692 — reading
+the review BODY is standing practice now. Pre-execution gateways with
+compile probes land byte-exact cure maps (state-io 239 predicted=actual);
+the compiler caught the map's one under-called site (cli-json-commands) —
+the dispatch-table/typed-slot designs turn atomic flips into checklist
+work. Pin distinguishability was proven BY MUTATION four times this
+window; the concept is now operating procedure, not observation. — Badger
