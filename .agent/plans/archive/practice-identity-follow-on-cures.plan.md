@@ -3,7 +3,7 @@ id: practice-identity-follow-on-cures
 node_type: delivery
 name: "Identity-lane follow-on cures: shell-quote consolidation and override-identity prefix hygiene"
 overview: "Two small single-story cures accrued by the MCP-145 identity lane's reviews: consolidate the duplicated shellSingleQuote helper into one shared core util, and cure the override identity path's silent empty prefix plus the hand-typed recipient prefix on comms direct — by sourcing from the registry where it can answer, never by decoding values. Decision-complete; ratified 2026-08-01."
-status: ratified
+status: archived
 ratified_by: "Jim Cresswell"
 ratified_date: 2026-08-01
 ratified_where: "Owner action-moment card answered 'Ratify now' at 2026-08-01 ~13:45Z (first owner touch after the boundary-3 compaction), recorded at occurrence on the comms stream (event 7f182210-b42b-4550-a883-006b68d4ea70). Order stands: the visual-disambiguator plan's slice 3, then WS-B, then WS-A."
@@ -17,6 +17,20 @@ last_updated: 2026-08-01
 ---
 
 # Identity-lane follow-on cures
+
+## Disposition (archived 2026-08-01)
+
+Both workstreams discharged. WS-B merged at full condition: the
+override path rejects a missing or empty `--session-prefix`; the
+`comms direct` recipient prefix derives from fresh claim rows per the
+Director's claim-rows-only ruling, with the membership plausibility
+net, the closure-aware coverage restatement in decision 3, and the
+PDR-027 derivation-source provenance clause as the ruling's permanent
+home. WS-A — the `shellSingleQuote` consolidation into one exported
+core util with its quoting-contract test — rides the same change as
+this archive flip, exactly as the visual-disambiguator plan's flip
+rode WS-B. Acceptance criteria 1–4 proven at their declared proof
+types; the first-contact residual stands as decision 3 measures it.
 
 Two bounded cures that the MCP-145 lane's review chain surfaced and
 routed forward. Naming note (one series per surface): this plan's
