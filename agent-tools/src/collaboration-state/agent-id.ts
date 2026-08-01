@@ -1,3 +1,4 @@
+import { err, ok, type Result } from '@oaknational/result';
 import { z } from 'zod';
 
 import { NAMING_SCHEMA_VERSION_VALUES } from '../core/agent-identity/schema-registry.js';
@@ -123,28 +124,37 @@ export interface DerivedCollaborationIdentity {
 
 /**
  * Boundary validation for a commit_queue INTENT row's identity: the
- * canonical PDR-076a write schema (UUID v5 `id` required). Every live
- * writer emits `id` (intent factories parse through this same schema), so
- * a failure here means registry corruption — the error names the offending
- * intent so a blocked agent can surface it precisely. Recovery is an
- * owner-run removal of the named row; do not work around it.
+ * canonical PDR-076a write schema (UUID v5 `id` required), returned as a
+ * `Result` (ADR-088). Every live writer emits `id` (intent factories parse
+ * through this same schema), so an `Err` here means registry corruption —
+ * the error names the offending intent so a blocked agent can surface it
+ * precisely. Recovery is an owner-run removal of the named row; do not
+ * work around it.
  *
  * Shared by BOTH registry read paths (`commit-queue/registry.ts` and
  * `collaboration-state/state-parsers.ts`) per
- * consolidate-at-second-consumer — do not fork a third copy.
+ * consolidate-at-second-consumer — do not fork a third copy. The
+ * still-throwing read path unwraps with `unwrapOrThrow`, which rethrows
+ * this Err's own `Error` object, so the thrown-message contract is
+ * byte-identical there.
  */
-export function parseIntentAgentId(value: unknown, intentId: string): CollaborationAgentIdWrite {
+export function parseIntentAgentId(
+  value: unknown,
+  intentId: string,
+): Result<CollaborationAgentIdWrite, Error> {
   const parsed = collaborationAgentIdWriteSchema.safeParse(value);
   if (!parsed.success) {
     const issues = parsed.error.issues
       .map((issue) => `${issue.path.join('.')}: ${issue.message}`)
       .join('; ');
-    throw new Error(
-      `commit_queue entry ${intentId} carries an invalid agent_id ` +
-        `(PDR-076a requires the UUID v5 id on intents): ${issues}. ` +
-        `Every live writer emits id, so this indicates registry corruption — ` +
-        `surface to the owner; recovery is removing intent ${intentId} (owner-run).`,
+    return err(
+      new Error(
+        `commit_queue entry ${intentId} carries an invalid agent_id ` +
+          `(PDR-076a requires the UUID v5 id on intents): ${issues}. ` +
+          `Every live writer emits id, so this indicates registry corruption — ` +
+          `surface to the owner; recovery is removing intent ${intentId} (owner-run).`,
+      ),
     );
   }
-  return parsed.data;
+  return ok(parsed.data);
 }

@@ -1,3 +1,5 @@
+import { err, ok, unwrapOrThrow, type Result } from '@oaknational/result';
+
 type JsonPrimitive = string | number | boolean | null;
 type JsonValue = JsonPrimitive | JsonObject | readonly JsonValue[];
 
@@ -13,13 +15,23 @@ export function getJsonValue(record: JsonObject, key: string): unknown {
   return record[key];
 }
 
-export function requireString(record: JsonObject, key: string): string {
+/**
+ * Require a non-empty string field on a JSON object, as an `Err` instead
+ * of a throw (ADR-088). The single home of the error literal — the
+ * throwing {@link requireString} delegates here through `unwrapOrThrow`,
+ * which rethrows the Err's own `Error`, so the two surfaces cannot drift.
+ */
+export function requireStringResult(record: JsonObject, key: string): Result<string, Error> {
   const value = getJsonValue(record, key);
   if (typeof value !== 'string' || value.length === 0) {
-    throw new Error(`missing required string field: ${key}`);
+    return err(new Error(`missing required string field: ${key}`));
   }
 
-  return value;
+  return ok(value);
+}
+
+export function requireString(record: JsonObject, key: string): string {
+  return unwrapOrThrow(requireStringResult(record, key));
 }
 
 export function parseStringArray(value: unknown, label: string): readonly string[] {
@@ -31,19 +43,26 @@ export function parseStringArray(value: unknown, label: string): readonly string
 }
 
 /**
- * Parse JSON text at a trust boundary, converting the native `JSON.parse`
- * `SyntaxError` into an actionable error that names what the text was expected
- * to be. A raw parse failure ("No number after minus sign in JSON at position
- * 1" when a markdown file beginning with `---` is read as JSON) is position-only
- * and gives the caller no clue which surface — or which mis-passed `--active`
- * file — was malformed. The label restores that context.
+ * Parse JSON text at a trust boundary, as an `Err` instead of a throw
+ * (ADR-088), converting the native `JSON.parse` `SyntaxError` into an
+ * actionable error that names what the text was expected to be. A raw
+ * parse failure ("No number after minus sign in JSON at position 1" when a
+ * markdown file beginning with `---` is read as JSON) is position-only and
+ * gives the caller no clue which surface — or which mis-passed `--active`
+ * file — was malformed. The label restores that context; the original
+ * error rides the `cause` chain. The single home of the message shape —
+ * the throwing {@link parseJsonText} delegates here.
  */
-export function parseJsonText(text: string, label: string): unknown {
+export function parseJsonTextResult(text: string, label: string): Result<unknown, Error> {
   try {
     const value: unknown = JSON.parse(text);
-    return value;
+    return ok(value);
   } catch (error) {
     const reason = error instanceof Error ? error.message : String(error);
-    throw new Error(`${label} is not valid JSON: ${reason}`, { cause: error });
+    return err(new Error(`${label} is not valid JSON: ${reason}`, { cause: error }));
   }
+}
+
+export function parseJsonText(text: string, label: string): unknown {
+  return unwrapOrThrow(parseJsonTextResult(text, label));
 }

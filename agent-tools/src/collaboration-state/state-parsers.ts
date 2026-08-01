@@ -1,3 +1,5 @@
+import { unwrapOrThrow } from '@oaknational/result';
+
 import {
   getJsonValue,
   isJsonObject,
@@ -143,7 +145,9 @@ function parseCommitQueueEntry(value: unknown): CollaborationCommitQueueEntry {
   return {
     intent_id: intentId,
     claim_id: requireString(value, 'claim_id'),
-    agent_id: parseIntentAgentId(getJsonValue(value, 'agent_id'), intentId),
+    // unwrapOrThrow rethrows the Err's own Error, preserving this read
+    // path's loud thrown-message contract exactly while it still throws.
+    agent_id: unwrapOrThrow(parseIntentAgentId(getJsonValue(value, 'agent_id'), intentId)),
     files: parseStringArray(getJsonValue(value, 'files'), 'files'),
     commit_subject: requireString(value, 'commit_subject'),
     queued_at: requireString(value, 'queued_at'),

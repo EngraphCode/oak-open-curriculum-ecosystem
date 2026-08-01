@@ -83,10 +83,18 @@ async function readStateFile<T>(
   try {
     text = await readTextFile(path);
   } catch (error) {
+    // Crash-at-detection FIRST: a non-Error throwable never enters the Err
+    // channel, even one carrying an ENOENT-shaped code.
+    const failure = failureAsError(error);
     return err(
-      isErrnoCode(error, 'ENOENT')
-        ? missingStateFileError({ label: seed.label, path, seedJson: seed.seedJson, cause: error })
-        : failureAsError(error),
+      isErrnoCode(failure, 'ENOENT')
+        ? missingStateFileError({
+            label: seed.label,
+            path,
+            seedJson: seed.seedJson,
+            cause: failure,
+          })
+        : failure,
     );
   }
   try {
@@ -105,7 +113,7 @@ async function readStateFile<T>(
  * Result channel — it is not a legitimate failure mode of reading a state
  * file; it is a defect demanding attention.
  */
-function failureAsError(failure: unknown): Error {
+export function failureAsError(failure: unknown): Error {
   if (failure instanceof Error) {
     return failure;
   }

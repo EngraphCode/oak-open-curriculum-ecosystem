@@ -81,6 +81,16 @@ describe('readActiveClaimsFile on a fresh checkout', () => {
       readActiveClaimsFile('active-claims.json', () => Promise.reject(structural)),
     ).rejects.toThrow('non-Error value thrown at the state-file read boundary');
   });
+
+  it('crashes on a non-Error throwable even when it carries an ENOENT-shaped code — the code never buys enrichment', async () => {
+    const structural: Error = { name: 'Error', message: 'shaped like fs, not an instance' };
+
+    await expect(
+      readActiveClaimsFile('active-claims.json', () =>
+        Promise.reject(Object.assign(structural, { code: 'ENOENT' })),
+      ),
+    ).rejects.toThrow('non-Error value thrown at the state-file read boundary');
+  });
 });
 
 describe('readClosedClaimsFile on a fresh checkout', () => {

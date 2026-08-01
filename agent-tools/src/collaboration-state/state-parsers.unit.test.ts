@@ -87,7 +87,10 @@ describe('parseCollaborationRegistry — PDR-076a intent identity boundary', () 
     });
 
     expect(() => parseCollaborationRegistry(registry)).toThrow(
-      /commit_queue entry 33333333-3333-4333-8333-333333333333 carries an invalid agent_id[\s\S]*owner-run/,
+      // Anchored at the message head: an identity-losing wrap (e.g. `unwrap`
+      // in place of `unwrapOrThrow` at the intent seam) PREFIXES the message,
+      // so only an anchored pin catches the slip.
+      /^commit_queue entry 33333333-3333-4333-8333-333333333333 carries an invalid agent_id[\s\S]*owner-run/,
     );
   });
 

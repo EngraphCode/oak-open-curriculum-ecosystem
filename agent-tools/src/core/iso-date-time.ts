@@ -1,18 +1,30 @@
+import { err, ok, unwrapOrThrow, type Result } from '@oaknational/result';
+
 const ISO_DATE_TIME_PATTERN =
   /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.\d{1,3})?(Z|[+-](\d{2}):(\d{2}))$/u;
 
 /**
- * Require a complete, calendar-valid ISO date-time string — `Date.parse`
- * alone is permissive (non-ISO forms, normalised invalid dates) and would
- * let a mistyped timestamp read as a different valid instant. Shared by the
- * commit queue and `pr-throughput` (`consolidate-at-second-consumer`).
+ * Require a complete, calendar-valid ISO date-time string, as a `Result` —
+ * `Date.parse` alone is permissive (non-ISO forms, normalised invalid
+ * dates) and would let a mistyped timestamp read as a different valid
+ * instant. Shared by the commit queue and `pr-throughput`
+ * (`consolidate-at-second-consumer`); the single home of the error literal.
  */
-export function requireIsoDateTime(value: string, fieldName: string): string {
+export function requireIsoDateTimeResult(value: string, fieldName: string): Result<string, Error> {
   if (!hasValidIsoDateTimeShape(value) || !Number.isFinite(Date.parse(value))) {
-    throw new Error(`invalid ISO date-time for ${fieldName}: ${value}`);
+    return err(new Error(`invalid ISO date-time for ${fieldName}: ${value}`));
   }
 
-  return value;
+  return ok(value);
+}
+
+/**
+ * Throwing shim over {@link requireIsoDateTimeResult} for callers behind an
+ * exception boundary — `unwrapOrThrow` rethrows the Err's own `Error`, so
+ * behaviour and message are identical to the pre-Result form.
+ */
+export function requireIsoDateTime(value: string, fieldName: string): string {
+  return unwrapOrThrow(requireIsoDateTimeResult(value, fieldName));
 }
 
 function hasValidIsoDateTimeShape(value: string): boolean {
