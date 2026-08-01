@@ -5,12 +5,12 @@ import {
   getJsonValue,
   isJsonObject,
   parseJsonTextResult,
-  parseStringArrayResult,
-  requireStringResult,
+  parseStringArray,
+  requireString,
 } from '../core/json.js';
 import { parseCommitQueueEntry } from './registry-entry-parser.js';
 import {
-  parseCommsEventValueResult,
+  parseCommsEventValue,
   parseDirectedCommsMessageValue,
   parseLifecycleCommsEventValue,
   parseNarrativeCommsEventValue,
@@ -44,6 +44,10 @@ export function parseCollaborationRegistry(text: string): Result<CollaborationRe
 }
 
 function parseRegistryValue(parsed: unknown): Result<CollaborationRegistry, Error> {
+  // This exact-version pin is what makes the intent RECONSTRUCTION in
+  // registry-entry-parser.ts non-destructive — relaxing it without
+  // revisiting that reconstruction silently strips unrecognised fields
+  // (the asymmetry note there is the full contract).
   if (!isJsonObject(parsed) || getJsonValue(parsed, 'schema_version') !== '1.3.0') {
     return err(new Error('active claims registry must use schema_version 1.3.0'));
   }
@@ -97,7 +101,7 @@ function parseArchiveValue(parsed: unknown): Result<ClosedClaimsArchive, Error> 
 export function parseCommsEvent(text: string): Result<CommsEvent, Error> {
   return flatMap(parseRawJson(text), (parsed) =>
     isJsonObject(parsed)
-      ? parseCommsEventValueResult(parsed)
+      ? parseCommsEventValue(parsed)
       : err(new Error('communication event must be a JSON object')),
   );
 }
@@ -107,7 +111,8 @@ export function parseCommsEvent(text: string): Result<CommsEvent, Error> {
 // parseCommsEvent doc), so no labelling wrapper may replace this.
 function parseRawJson(text: string): Result<unknown, Error> {
   try {
-    return ok(JSON.parse(text));
+    const value: unknown = JSON.parse(text);
+    return ok(value);
   } catch (error) {
     return err(failureAsError(error, 'the comms-event JSON boundary'));
   }
@@ -151,7 +156,7 @@ function parseClaim(value: unknown): Result<CollaborationClaim, Error> {
     return err(new Error('claim entries must be objects'));
   }
   const record = value;
-  const claimId = requireStringResult(record, 'claim_id');
+  const claimId = requireString(record, 'claim_id');
   if (!claimId.ok) {
     return claimId;
   }
@@ -159,7 +164,7 @@ function parseClaim(value: unknown): Result<CollaborationClaim, Error> {
   if (!agentId.ok) {
     return agentId;
   }
-  const thread = requireStringResult(record, 'thread');
+  const thread = requireString(record, 'thread');
   if (!thread.ok) {
     return thread;
   }
@@ -167,12 +172,12 @@ function parseClaim(value: unknown): Result<CollaborationClaim, Error> {
   if (!areas.ok) {
     return areas;
   }
-  const claimedAt = requireStringResult(record, 'claimed_at');
+  const claimedAt = requireString(record, 'claimed_at');
   if (!claimedAt.ok) {
     return claimedAt;
   }
 
-  return map(requireStringResult(record, 'intent'), (intent) => ({
+  return map(requireString(record, 'intent'), (intent) => ({
     ...record,
     claim_id: claimId.value,
     agent_id: agentId.value,
@@ -207,7 +212,7 @@ function parseArea(value: unknown): Result<CollaborationArea, Error> {
   }
 
   return flatMap(parseAreaKind(getJsonValue(value, 'kind')), (kind) =>
-    map(parseStringArrayResult(getJsonValue(value, 'patterns'), 'patterns'), (patterns) => ({
+    map(parseStringArray(getJsonValue(value, 'patterns'), 'patterns'), (patterns) => ({
       kind,
       patterns,
     })),

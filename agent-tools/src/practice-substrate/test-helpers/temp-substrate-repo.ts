@@ -3,6 +3,8 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { typeSafeEntries } from '@oaknational/type-helpers';
+
 import { SCHEMA_FILENAMES } from '../../collaboration-state/collaboration-json-validation.js';
 
 /**
@@ -14,7 +16,10 @@ import { SCHEMA_FILENAMES } from '../../collaboration-state/collaboration-json-v
 
 const SCHEMAS_DIR = fileURLToPath(new URL('../../collaboration-state/schemas/', import.meta.url));
 
-export async function makeTempSubstrateRepo(activeClaims: unknown): Promise<string> {
+export async function makeTempSubstrateRepo(
+  activeClaims: unknown,
+  options?: { readonly commsEventFiles?: Readonly<Record<string, string>> },
+): Promise<string> {
   const root = await mkdtemp(join(tmpdir(), 'live-json-characterisation-'));
   const collaborationRoot = join(root, '.agent/state/collaboration');
   const schemaRoot = join(root, 'agent-tools/src/collaboration-state/schemas');
@@ -24,6 +29,9 @@ export async function makeTempSubstrateRepo(activeClaims: unknown): Promise<stri
   await mkdir(schemaRoot, { recursive: true });
   for (const schema of SCHEMA_FILENAMES) {
     await writeFile(join(schemaRoot, schema), await readFile(join(SCHEMAS_DIR, schema), 'utf8'));
+  }
+  for (const [filename, text] of typeSafeEntries(options?.commsEventFiles ?? {})) {
+    await writeFile(join(collaborationRoot, 'comms', filename), text, 'utf8');
   }
   await writeFile(
     join(collaborationRoot, 'active-claims.json'),

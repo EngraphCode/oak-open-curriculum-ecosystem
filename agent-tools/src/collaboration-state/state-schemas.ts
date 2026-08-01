@@ -85,11 +85,10 @@ const commsEventSchema = z.discriminatedUnion('kind', [
 /**
  * Parse one canonical comms event after JSON parsing has crossed the
  * boundary, as a `Result` (ADR-088): the canonical `parseWithSchema`
- * failure plus the kind-dispatch projection. Story 2b's text-level
- * `parseCommsEvent` consumes this directly; the old throwing sibling lost
- * its last consumer in the flip and was deleted.
+ * failure plus the kind-dispatch projection. The text-level
+ * `parseCommsEvent` consumes this directly.
  */
-export function parseCommsEventValueResult(value: unknown): Result<CommsEvent, Error> {
+export function parseCommsEventValue(value: unknown): Result<CommsEvent, Error> {
   return map(
     parseWithSchema({ label: 'communication event', schema: commsEventSchema, value }),
     projectCommsEvent,

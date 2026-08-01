@@ -7,13 +7,11 @@
  * Result channel — it is not a legitimate failure mode of the boundary; it
  * is a defect demanding attention.
  *
- * Hoisted from `collaboration-state/state-file-readers.ts` when the
- * state-parsers JSON boundary became a consumer that module imports FROM
- * (`consolidate-at-second-consumer`; a same-module copy would have created
- * an import cycle). `site` names the boundary in the crash message; the
- * default keeps the founding state-file wording for its original callers.
+ * `core/` is the shared home for every consuming boundary
+ * (`consolidate-at-second-consumer`). `site` names the boundary in the
+ * crash message so the exception locates its origin.
  */
-export function failureAsError(failure: unknown, site = 'the state-file read boundary'): Error {
+export function failureAsError(failure: unknown, site: string): Error {
   if (failure instanceof Error) {
     return failure;
   }

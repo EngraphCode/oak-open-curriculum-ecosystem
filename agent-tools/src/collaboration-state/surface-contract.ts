@@ -18,14 +18,15 @@ import { type ClosedClaimsArchive, type CollaborationRegistry, type CommsEvent }
  * a Result-returning parser SILENTLY and stopped detecting contract
  * failures. Here every parser sits in a per-key CONCRETELY-typed dispatch
  * table and the Ok arm IS the parsed product, so the interior cannot
- * discard a parser call — story 2b's Result conversion fails this table's
- * type at compile time, in exactly one place, loudly.
+ * discard a parser call — and a parser that stops returning a `Result`
+ * fails the table's type in exactly one place, at compile time.
  *
- * Schema-validation trap (no structural guard until story 2c): the registry
- * parser returns a field-by-field reconstruction that drops unknown fields,
- * so Ajv (`additionalProperties: false`) must ALWAYS validate the raw
- * text's own parse, never this gate's Ok product. Story 2c closes this
- * structurally by making Ajv reachable only through a checked-surface path.
+ * Schema-validation trap (still open): the registry parser returns a
+ * field-by-field reconstruction that drops unknown fields, so Ajv
+ * (`additionalProperties: false`) must ALWAYS validate the raw text's own
+ * parse, never this gate's Ok product. The trap closes structurally when
+ * Ajv becomes reachable only through a checked-surface path — the tracked
+ * follow-on that also deletes the bridge below.
  */
 
 /**
@@ -86,10 +87,12 @@ interface CollaborationSurfaceContracts {
   readonly 'comms-event.schema.json': CommsEvent;
 }
 
-// The per-key CONCRETE parser table (story 2b landed the Result retype this
-// seam existed to force): a parser that stops returning a Result — or
-// returns the wrong surface's product — fails this table's type here, in
-// exactly one place, at compile time.
+// The per-key CONCRETE parser table (the Result retype this seam existed
+// to force): a non-Result parser, a missing or unknown key, and every
+// wrong-surface pairing fail this table's type here at compile time —
+// EXCEPT the registry parser under the closed-claims key, which structural
+// typing admits (CollaborationRegistry satisfies ClosedClaimsArchive); the
+// per-key unit fixtures catch that one mis-wire at runtime.
 type ContractParsers = {
   readonly [K in ContractSchemaId]: (
     text: string,
@@ -133,9 +136,9 @@ export function checkCollaborationSurfaceContract<TSchemaId extends ContractSche
  * the malformed-json arm: the rethrown error is now the path-labelled JSON
  * error, where the old bare gates threw a raw SyntaxError — unreachable
  * through the transaction layer, whose validateText input is always fresh
- * JSON.stringify output. Story 2c retypes those validators to
- * `Promise<Result<void, Error>>`, replaces each call with
- * `return checkCollaborationSurfaceContract(...)`, and DELETES this bridge.
+ * JSON.stringify output. This bridge is DELETED when the validateText
+ * contexts return `Promise<Result<void, Error>>` and each call becomes
+ * `return checkCollaborationSurfaceContract(...)` — the tracked follow-on.
  */
 export function requireCollaborationSurfaceContract(input: {
   readonly schemaId: ContractSchemaId;

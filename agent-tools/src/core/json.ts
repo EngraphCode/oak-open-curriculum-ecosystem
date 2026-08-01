@@ -17,11 +17,9 @@ export function getJsonValue(record: JsonObject, key: string): unknown {
 
 /**
  * Require a non-empty string field on a JSON object, as an `Err` instead
- * of a throw (ADR-088). The single home of the error literal. (The
- * throwing `requireString` delegate lost its last consumer in story 2b's
- * parser flip and was deleted.)
+ * of a throw (ADR-088). The single home of the error literal.
  */
-export function requireStringResult(record: JsonObject, key: string): Result<string, Error> {
+export function requireString(record: JsonObject, key: string): Result<string, Error> {
   const value = getJsonValue(record, key);
   if (typeof value !== 'string' || value.length === 0) {
     return err(new Error(`missing required string field: ${key}`));
@@ -32,13 +30,9 @@ export function requireStringResult(record: JsonObject, key: string): Result<str
 
 /**
  * Require an array of strings, as an `Err` instead of a throw (ADR-088).
- * The single home of the error literal — the throwing
- * {@link parseStringArray} delegates here through `unwrapOrThrow`.
+ * The single home of the error literal.
  */
-export function parseStringArrayResult(
-  value: unknown,
-  label: string,
-): Result<readonly string[], Error> {
+export function parseStringArray(value: unknown, label: string): Result<readonly string[], Error> {
   // Array.from before every: every skips sparse holes, and a hole would
   // otherwise ship as undefined inside a value typed readonly string[].
   if (Array.isArray(value) && Array.from(value).every((entry) => typeof entry === 'string')) {
@@ -46,10 +40,6 @@ export function parseStringArrayResult(
   }
 
   return err(new Error(`${label} must be an array of strings`));
-}
-
-export function parseStringArray(value: unknown, label: string): readonly string[] {
-  return unwrapOrThrow(parseStringArrayResult(value, label));
 }
 
 /**

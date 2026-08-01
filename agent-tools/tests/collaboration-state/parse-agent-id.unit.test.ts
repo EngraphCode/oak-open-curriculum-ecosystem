@@ -13,8 +13,9 @@
  *   through).
  * - Required identity fields remain required.
  */
-import { unwrapOrThrow } from '@oaknational/result';
+import { unwrapErr, unwrapOrThrow } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
+import { ZodError } from 'zod';
 
 import { parseCollaborationRegistry } from '../../src/collaboration-state/state-parsers.js';
 
@@ -74,16 +75,20 @@ describe('parseAgentId (via parseCollaborationRegistry) — schema-driven (Cycle
 
   it('rejects an agent_id whose id is malformed (non-UUID-v5 string)', () => {
     expect(
-      parseCollaborationRegistry(registryWithClaim({ ...legacyAgentId, id: 'not-a-uuid' })).ok,
-    ).toBe(false);
+      unwrapErr(
+        parseCollaborationRegistry(registryWithClaim({ ...legacyAgentId, id: 'not-a-uuid' })),
+      ),
+    ).toBeInstanceOf(ZodError);
   });
 
   it('rejects an agent_id whose id is a UUID v4 (version nibble != 5)', () => {
     expect(
-      parseCollaborationRegistry(
-        registryWithClaim({ ...legacyAgentId, id: 'f47ac10b-58cc-4372-a567-0e02b2c3d479' }),
-      ).ok,
-    ).toBe(false);
+      unwrapErr(
+        parseCollaborationRegistry(
+          registryWithClaim({ ...legacyAgentId, id: 'f47ac10b-58cc-4372-a567-0e02b2c3d479' }),
+        ),
+      ),
+    ).toBeInstanceOf(ZodError);
   });
 
   it('rejects an agent_id missing a required identity field', () => {
@@ -92,6 +97,8 @@ describe('parseAgentId (via parseCollaborationRegistry) — schema-driven (Cycle
       model: legacyAgentId.model,
       session_id_prefix: legacyAgentId.session_id_prefix,
     };
-    expect(parseCollaborationRegistry(registryWithClaim(withoutName)).ok).toBe(false);
+    expect(unwrapErr(parseCollaborationRegistry(registryWithClaim(withoutName)))).toBeInstanceOf(
+      ZodError,
+    );
   });
 });

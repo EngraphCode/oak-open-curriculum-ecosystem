@@ -62,9 +62,15 @@ describe('parseClosedClaimsArchive', () => {
         .message,
     ).toBe('closed claims archive must use schema_version 1.3.0');
   });
+
+  it('rejects an archive without a claims array with the exact loud message', () => {
+    expect(
+      unwrapErr(parseClosedClaimsArchive(JSON.stringify({ schema_version: '1.3.0' }))).message,
+    ).toBe('closed claims archive must contain a claims array');
+  });
 });
 
-describe('parseCommsEvent — Err channel contracts', () => {
+describe('what parseCommsEvent reports for unusable input', () => {
   it('returns the RAW SyntaxError on malformed JSON: the substrate finding classifier narrows on instanceof', () => {
     // live-types parseFailureFinding distinguishes invalid-json from
     // schema-incoherence via `error instanceof SyntaxError`; a wrapped or

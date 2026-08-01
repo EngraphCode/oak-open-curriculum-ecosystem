@@ -132,11 +132,11 @@ export interface DerivedCollaborationIdentity {
  * work around it.
  *
  * Shared by BOTH registry read paths (`commit-queue/registry.ts` and
- * `collaboration-state/state-parsers.ts`) per
- * consolidate-at-second-consumer — do not fork a third copy. The
- * still-throwing read path unwraps with `unwrapOrThrow`, which rethrows
- * this Err's own `Error` object, so the thrown-message contract is
- * byte-identical there.
+ * `collaboration-state/registry-entry-parser.ts`) per
+ * consolidate-at-second-consumer — do not fork a third copy. Both paths
+ * propagate this Err as itself (early return / `map` fold), so consumers
+ * that unwrap at the CLI edge rethrow this Err's own `Error` object and
+ * the loud-message contract stays byte-identical.
  */
 export function parseIntentAgentId(
   value: unknown,

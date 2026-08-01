@@ -6,10 +6,10 @@
  * repository {@link Result} pattern (ADR-088): each fallible fs operation
  * catches and re-expresses the failure as `err(message)`, keeping the
  * orchestrators IO-free and unit-testable against an in-memory seam. Reads
- * reuse the Err-channel `parseCommsEvent` (story 2b), folded into this
- * module's string error channel with `mapErr`; the
- * counts reuse {@link isEventFile} so byte-preservation covers event files only
- * (never `manifest.jsonl` / `.gitkeep`); the move is a same-filesystem rename.
+ * reuse the Err-channel `parseCommsEvent`, folded into this module's string
+ * error channel with `mapErr`; the counts reuse {@link isEventFile} so
+ * byte-preservation covers event files only (never `manifest.jsonl` /
+ * `.gitkeep`); the move is a same-filesystem rename.
  *
  * @packageDocumentation
  */

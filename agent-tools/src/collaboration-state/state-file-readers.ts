@@ -87,7 +87,7 @@ async function readStateFile<T>(
   } catch (error) {
     // Crash-at-detection FIRST: a non-Error throwable never enters the Err
     // channel, even one carrying an ENOENT-shaped code.
-    const failure = failureAsError(error);
+    const failure = failureAsError(error, 'the state-file read boundary');
     return err(
       isErrnoCode(failure, 'ENOENT')
         ? missingStateFileError({

@@ -3,16 +3,17 @@ import { err, flatMap, map, ok, type Result } from '@oaknational/result';
 import {
   getJsonValue,
   isJsonObject,
-  parseStringArrayResult,
-  requireStringResult,
+  parseStringArray,
+  requireString,
   type JsonObject,
 } from '../core/json.js';
 import { parseIntentAgentId } from './agent-id.js';
 import { type CollaborationCommitQueueEntry } from './types.js';
 
 /**
- * The commit-queue entry half of the registry parser (story 2b split for
- * module cohesion; `state-parsers.ts` owns the text-level surfaces).
+ * The commit-queue entry half of the registry parsing (split for module
+ * cohesion; `state-parsers.ts` owns the text-level surfaces and the
+ * claim-row half).
  *
  * Intents RECONSTRUCT field-by-field (the schema's intent_to_commit sets
  * additionalProperties: false, and intents are short-lived rows every live
@@ -49,14 +50,14 @@ interface EntryIdentity {
   readonly files: readonly string[];
 }
 
-// Failure precedence preserved from the throwing parser: intent_id,
-// claim_id, agent_id, files — then the remaining strings, then phase.
+// Failure precedence: intent_id, claim_id, agent_id, files — then the
+// remaining strings, then phase.
 function parseEntryIdentity(record: JsonObject): Result<EntryIdentity, Error> {
-  const intentId = requireStringResult(record, 'intent_id');
+  const intentId = requireString(record, 'intent_id');
   if (!intentId.ok) {
     return intentId;
   }
-  const claimId = requireStringResult(record, 'claim_id');
+  const claimId = requireString(record, 'claim_id');
   if (!claimId.ok) {
     return claimId;
   }
@@ -65,7 +66,7 @@ function parseEntryIdentity(record: JsonObject): Result<EntryIdentity, Error> {
     return agentId;
   }
 
-  return map(parseStringArrayResult(getJsonValue(record, 'files'), 'files'), (files) => ({
+  return map(parseStringArray(getJsonValue(record, 'files'), 'files'), (files) => ({
     intentId: intentId.value,
     claimId: claimId.value,
     agentId: agentId.value,
@@ -81,20 +82,20 @@ interface EntryStrings {
 }
 
 function parseEntryStrings(record: JsonObject): Result<EntryStrings, Error> {
-  const commitSubject = requireStringResult(record, 'commit_subject');
+  const commitSubject = requireString(record, 'commit_subject');
   if (!commitSubject.ok) {
     return commitSubject;
   }
-  const queuedAt = requireStringResult(record, 'queued_at');
+  const queuedAt = requireString(record, 'queued_at');
   if (!queuedAt.ok) {
     return queuedAt;
   }
-  const updatedAt = requireStringResult(record, 'updated_at');
+  const updatedAt = requireString(record, 'updated_at');
   if (!updatedAt.ok) {
     return updatedAt;
   }
 
-  return map(requireStringResult(record, 'expires_at'), (expiresAt) => ({
+  return map(requireString(record, 'expires_at'), (expiresAt) => ({
     commitSubject: commitSubject.value,
     queuedAt: queuedAt.value,
     updatedAt: updatedAt.value,

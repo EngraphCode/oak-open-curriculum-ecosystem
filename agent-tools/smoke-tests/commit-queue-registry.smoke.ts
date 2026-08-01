@@ -225,10 +225,10 @@ async function proveActiveClaimsTransactionRejectsForeignSchemaVersionLoudly(): 
     '"schema_version": "1.2.0"',
   );
   await withTempRegistry(foreign, async (registryPath) => {
-    // Story 2b's Err-channel parser folds through `unwrapOrThrow` at the
-    // state-io seam: a default-substituting fold would run the transform
-    // over an empty registry and write it back — destroying every row.
-    // This proof pins the version-pin arm of that fold as loud-and-dry.
+    // Pins the version-pin arm END-TO-END: a parser that stops rejecting a
+    // foreign schema_version lets this transaction silently rewrite the file
+    // to 1.3.0. The rejection fires at the PRE-transaction read, shadowing
+    // the transaction's parseText fold — named carry to the validateText retype.
     await assert.rejects(
       updateActiveClaimsFile({ activePath: registryPath, transform: (registry) => registry }),
       /^Error: active claims registry must use schema_version 1\.3\.0$/,

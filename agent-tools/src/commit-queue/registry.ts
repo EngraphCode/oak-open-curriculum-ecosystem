@@ -20,7 +20,7 @@ import {
   type JsonObject,
   isCommitQueuePhase,
 } from './types.js';
-import { parseJsonTextResult, requireStringResult } from '../core/json.js';
+import { parseJsonTextResult, requireString } from '../core/json.js';
 import { requireIsoDateTimeResult } from '../core/iso-date-time.js';
 
 const readTextFileFromDisk: ReadTextFile = (path) => readFile(path, 'utf8');
@@ -42,7 +42,7 @@ export async function readRegistry(
     content = await readTextFile(registryPath);
   } catch (error) {
     // Crash-at-detection first: non-Error throwables never enter the Err channel.
-    const failure = failureAsError(error);
+    const failure = failureAsError(error, 'the state-file read boundary');
     return err(
       isErrnoCode(failure, 'ENOENT')
         ? missingStateFileError({
@@ -141,7 +141,7 @@ function parseIntent(value: unknown): Result<CommitIntent, Error> {
   }
   const record = value;
   const phase = value.phase;
-  const intentId = requireStringResult(record, 'intent_id');
+  const intentId = requireString(record, 'intent_id');
   if (!intentId.ok) {
     return intentId;
   }
@@ -176,11 +176,11 @@ function parseIntentRequiredStrings(record: JsonObject): Result<
   },
   Error
 > {
-  const claimId = requireStringResult(record, 'claim_id');
+  const claimId = requireString(record, 'claim_id');
   if (!claimId.ok) {
     return claimId;
   }
-  const commitSubject = requireStringResult(record, 'commit_subject');
+  const commitSubject = requireString(record, 'commit_subject');
   if (!commitSubject.ok) {
     return commitSubject;
   }
@@ -218,14 +218,14 @@ function parseClaim(value: unknown): Result<CommitQueueClaim, Error> {
   }
   const record = value;
 
-  return map(requireStringResult(record, 'claim_id'), (claimId) => ({
+  return map(requireString(record, 'claim_id'), (claimId) => ({
     ...record,
     claim_id: claimId,
   }));
 }
 
 function requireIsoStringField(record: JsonObject, key: string): Result<string, Error> {
-  return flatMap(requireStringResult(record, key), (value) => requireIsoDateTimeResult(value, key));
+  return flatMap(requireString(record, key), (value) => requireIsoDateTimeResult(value, key));
 }
 
 function isRecord(value: unknown): value is JsonObject {
