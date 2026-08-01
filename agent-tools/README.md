@@ -296,7 +296,12 @@ OAK_AGENT_IDENTITY_OVERRIDE="Frolicking Toast" pnpm agent-tools agent-identity -
 - `comms inbox` / `comms watch` / `comms direct` / `comms reply` — read the
   canonical comms event stream, keep a long-lived watcher open, author
   first-strike directed messages, and reply to an existing directed message
-  without hand-writing JSON. **`inbox` and `watch` default to all-channels
+  without hand-writing JSON. On `direct`, `--to-session-prefix` is optional
+  when `--to-id` resolves to a fresh CLAIM row in the live registry — the
+  prefix derives from that row; `comms direct --help` carries the full
+  arm-by-arm contract (derivation source and provenance, exact-match where
+  derived, disagreement, queue-only, unresolvable). The worked examples
+  below supply the flag because their example ids resolve nowhere. **`inbox` and `watch` default to all-channels
   behaviour**: every event relevant to the agent — broadcast narrative,
   narrative whose `audience` includes the agent, narrative `addressed_to` the
   agent, directed-kind messages to the agent, and lifecycle moments — is

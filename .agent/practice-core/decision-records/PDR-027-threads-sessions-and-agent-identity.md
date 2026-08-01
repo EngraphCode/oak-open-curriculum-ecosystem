@@ -31,6 +31,21 @@ discipline binds to this PDR's tuple format).
 
 ## Amendment Log
 
+- **2026-08-01 — derivation-source provenance: tools derive identity values
+  from claim rows only.** Where a tool DERIVES an identity value from the
+  collaboration registry on an operator's behalf — the directed-send
+  recipient `session_id_prefix` first among them — the derivation source is
+  FRESH CLAIM rows only. Claim identities are seed-derived at claim open,
+  so they carry canonical provenance; commit-queue identity fields are
+  operator-typed relays (right type, hand-typed provenance) and are never a
+  derivation source. The claim∪queue union remains legitimate as EVIDENCE —
+  disagreement tests, plausibility nets over an operator-supplied value,
+  liveness and collision checks — never as a source. This is the tool-side
+  complement of the authored-surface obligation below: that clause governs
+  what a hand WRITES; this clause governs what a tool READS in order to
+  write. Ruled in-session 2026-08-01 (Director lens-resolution, applying
+  the query-the-value-never-the-lookalike discipline); recorded here as the
+  field-role home.
 - **2026-08-01 — the visual-disambiguator display token; authored identity
   cells carry the bare join key.** Multi-identity RENDERED views may display
   `session_id_prefix` through a render-time **visual-disambiguator token**:

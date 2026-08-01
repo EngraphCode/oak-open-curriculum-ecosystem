@@ -84,27 +84,53 @@ drifting private copies.
    absence is operator error — defaulting would convert a typo into
    silent comms blindness.
 2. **Source, don't validate: `--to-session-prefix` becomes optional
-   on `comms direct`.** When the supplied `--to-id` resolves in the
-   live registry, the recipient prefix is READ from the resolved
-   row; a value the operator still supplies is honoured only if it
-   exactly matches, else a teaching error. "Resolves" is defined
-   mechanically: the union `liveAgentIdentities` already exposes
-   (fresh active claims plus active commit-queue entries), read
-   through the existing canonical reader; if the resolved rows
+   on `comms direct`.** When the supplied `--to-id` resolves to a
+   FRESH CLAIM row in the live registry, the recipient prefix is
+   READ from that row; a value the operator still supplies is
+   honoured only if it exactly matches the derived prefix, else a
+   teaching error. "Resolves" is defined mechanically AND by
+   provenance (restated at execution per the Director's 2026-08-01
+   claim-rows-only ruling, lens-resolved before a line was coded):
+   derivation reads claim rows only, because claim identities are
+   seed-derived at claim open while commit-queue identity fields are
+   operator-typed flags — a right-typed value of the wrong
+   provenance is never a source. The claim∪queue union
+   (`liveAgentIdentities`, read through the existing canonical
+   reader) is retained as EVIDENCE only — the all-agree disagreement
+   test, a membership plausibility net over a supplied value, and
+   the queue-only-vs-unresolvable error choice: if the union's rows
    disagree on the prefix for that id, the derivation is skipped and
    the flag is required (all-agree-or-derive-nothing — the registry
-   never guesses). When the id does not resolve, the flag is
-   required exactly as today.
-3. **The residual is named, with its measurement.** Against the live
-   corpus (2026-08-01): of 571 directed events carrying `to.id`, 81%
-   have the id somewhere in claims+queue history and 72.5% had a
-   freshness-covered row at the send instant; the single historical
-   prefix-typo event predates its recipient's first claim by 7m09s —
-   first contact is exactly when the registry cannot answer, and no
-   boundary mechanism can cover it. The cure's claim is therefore:
-   the typo class is REMOVED for the resolvable band and UNCHANGED
-   for first contact, where the display-only help warning (shipped in
-   slice 2c) remains the only guard.
+   never guesses), and a supplied value must then match one of the
+   observed live rows (a value matching none is refused as a
+   probable typo — evidence, never authority). An id whose only live
+   rows are commit-queue intents falls to the flag-required arm
+   exactly like an unresolvable id, and in those uninformed arms a
+   supplied value is written as-is — the pre-derivation contract,
+   unchanged. The exact-match rule binds only where a prefix was
+   derived.
+3. **The residual is named, with its measurement.** Re-measured on
+   the claim-rows-only basis at execution (2026-08-01, superseding
+   the authoring-time union-based figures of 81%/72.5% over 571
+   events): of 598 directed events carrying `to.id`, 82.1% have the
+   id in claims history — IDENTICAL to the claims+queue percentage,
+   so restricting derivation to claim rows costs nothing on the
+   id-resolution axis. Instant coverage is CLOSURE-AWARE 66.1% — a
+   fresh claim row still OPEN at the send instant, which is what the
+   live `--active` registry the mechanism reads can actually hold —
+   with 73.8% as the closure-blind upper bound; archived rows retain
+   only their final heartbeat, so true coverage lies between the
+   two. Zero prefix disagreements among fresh claim rows at any send
+   instant. (Consumed commit-queue entries are not retained on disk,
+   so the union basis has no separately computable instant coverage;
+   the id-axis identity above bounds the difference.) The single
+   historical prefix-typo event predates its recipient's first claim
+   by 7m09s — first contact is exactly when the registry cannot
+   answer, and no boundary mechanism can cover it. The cure's claim
+   is therefore: the typo class is REMOVED for the resolvable band
+   (~66% of historical directed sends, closure-aware) and UNCHANGED
+   for first contact, where the display-only help warning (shipped
+   in slice 2c) remains the only guard.
 4. **No token detection at any boundary.** The display token is
    non-injective over a schema-unbounded prefix; no decoder or
    detector over the value can be correct (the slice-2b refutation).
@@ -125,10 +151,21 @@ drifting private copies.
    `--session-prefix` with a teaching error, proven red-first —
    `repo-safe`.
 3. `comms direct` derives the recipient prefix from a cleanly
-   resolving `--to-id` (flag omitted), honours an exactly-matching
+   resolving `--to-id` (flag omitted) while reading the
+   operator-named registry exactly once, honours an exactly-matching
    supplied value, errors on a mismatch, skips derivation on
-   registry disagreement, and requires the flag for an unresolvable
-   id — each arm proven red-first — `repo-safe`.
+   registry disagreement (flag required when omitted; a supplied
+   value must match one observed live row and is refused when it
+   matches none), requires the flag for a queue-only id
+   (operator-typed provenance) and for an unresolvable, stale-claim,
+   or id-less-row id — writing a supplied value as-is in those
+   uninformed arms — rejects a malformed or case-variant `--to-id`
+   before resolution plus an empty `--to-id` or supplied-empty
+   prefix, keeps `comms reply` on the single guarded registry read,
+   and pins the derivation contract in `comms direct --help` and the
+   display-only token warning in `comms peer-liveness --help` — each
+   behaviour arm proven red-first at its introduction, with
+   current-behaviour pins recorded as pins — `repo-safe`.
 4. No read-path behaviour change: the full agent-tools suite stays
    green and the existing historical-fixture tests still parse —
    `repo-safe`.

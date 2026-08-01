@@ -3,7 +3,7 @@ id: practice-identity-visual-disambiguator
 node_type: delivery
 name: "Identity visual disambiguator: prefix-anchored display token beside the session-id prefix"
 overview: "Render a derived visual-disambiguator token on identity display surfaces so seats started in the same UUIDv7 time window stay human-distinguishable, without changing the session-search prefix, its cross-estate join-key role, the derived-uuid anchor, or any stored schema."
-status: ratified
+status: archived
 ratified_by: "Jim Cresswell"
 ratified_date: 2026-07-31
 ratified_where: "Owner in-session word to the Director seat (Falcon hunts Flight, 52841f), 2026-07-31: the prefix work routed to Moss calls Loam 'if the conclusion is that work is required'; the conclusion was confirmed the same day by a fable-xhigh assumptions review plus the Director's critical assessment. The plan's mint-at-pickup ticket clause is waived by the owner's 2026-07-31 no-new-Linear-tickets ruling; the existing MCP-145 ticket stands."
@@ -17,6 +17,21 @@ last_updated: 2026-08-01
 ---
 
 # Identity visual disambiguator
+
+## Disposition (archived 2026-08-01)
+
+Definition of done fully discharged. Slice 1 (the total
+`visualDisambiguator` derivation with its fixture matrix), slices
+2a–2d (the renderer inventory closed by the Revision-4 shape rule,
+with the statusline as a DELIBERATE hold-out), and slice 3 (the
+PDR-027/PDR-125 doctrine amendments, the PDR-029 audit-coverage
+true-up, the practice-core CHANGELOG entry, ADR-211 mirror, token
+docs, and the anchored drift test) are all merged — PRs #677, #679,
+#682, #687, #690, #694. Every acceptance criterion is proven at its declared
+proof type; schema byte-identity (acceptance 4) is proven by the
+merged diffs. The two residual cures the lane's reviews surfaced are
+carried by the ratified `practice-identity-follow-on-cures` plan
+(WS-A / WS-B), whose WS-B PR carries this archive flip.
 
 Owner-directed 2026-07-24 (working session with Deimos tracks Perigee,
 73e4ab): "we are going to need this enhancement in OCE", and, on its
