@@ -47,9 +47,13 @@ whole space (owner framing, 2026-08-01):
   close-event record; a one-shot is a dialogue with an exchange budget
   of one).
 
-This plan builds the cross-vendor MULTI-TURN cell first because nothing
-serves it; it is NOT a replacement for or alternative to Cricket, and
-the overlap in intention is partial and deliberate. Owner rulings already given, encoded here and not
+The general framework this instrument rides — the invocation doctrine
+plus its per-binding annexes — is named the **Subagent Invocation
+Framework (Sif)** (owner-named 2026-08-01, "as in Sif, Norse god of the
+earth"). Sif is the framework; `the-codex-dialogues` is its first
+instrument. This plan builds the cross-vendor MULTI-TURN cell first
+because nothing serves it; it is NOT a replacement for or alternative
+to Cricket, and the overlap in intention is partial and deliberate. Owner rulings already given, encoded here and not
 re-opened: the name is `the-codex-dialogues`; v1 is DIRECT (no conduit
 wrapper); the record exists for later analysis of what is explicitly an
 experimental setup, and one structured comms event at dialogue close is
@@ -262,8 +266,8 @@ quoted.
   agent name rather than thread id. This is the named SECOND EXPERIMENT
   (owner word, 2026-08-01), and it meets the factoring trigger: the
   dialogue doctrine is now general across two verified bindings, so the
-  skill is authored two-layer from day one (general invoked-dialogue
-  doctrine + per-binding annex). Its own open question is authority:
+  skill is authored two-layer from day one — the Subagent Invocation
+  Framework (Sif) general doctrine + per-binding annexes. Its own open question is authority:
   the serve surface hands the caller Bash/Edit/Write — full Claude Code
   authority — so the reverse direction needs a read-only story
   (permission mode / allowed-tools of the serving process) proven by
