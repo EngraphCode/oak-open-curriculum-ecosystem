@@ -448,3 +448,145 @@ the right shape standing in for the value itself.
   for the ambiguity class: run heavyweight write chains FOREGROUND with an
   explicit timeout so failures land in-band and a resource kill cannot
   mimic an owner stop.
+
+## 2026-08-01 ~09:50Z — 2b-cycle observations (Moss calls Loam, 79b433)
+
+- Anchor-to-the-owner class, third instance, now caught PRE-execution: the 2b
+  normaliser premise ("bare prefixes are ≤6 chars") anchored on the derivation
+  (slice(0,6)) instead of the SCHEMA that owns the field's domain (min(1),
+  unbounded). The reviewer's kill-shot was running the claim against the
+  2a-ratified fixture table — test any domain premise against the ratified
+  census before building on it. Familiarity is the tell: I had just converged
+  that derivation in story 1, so its contract arrived fluently as "the"
+  contract.
+- File MUTABILITY has owners too: three lenses (this seat + two opus
+  reviewers) endorsed "truing" a line in plans-backlog-2026-07 — a
+  byte-faithful conserved corpus (owner word: "we lose nothing"), governance
+  one grep away in .agent/plans/README.md. Only the zero-context outside lens
+  (Copilot) caught it. Before editing any file: who owns this file's
+  mutability? Conserved-evidence tiers are append-never.
+- Hook substring discipline bites commit MESSAGES: the word "restore" in
+  prose tripped the git-restore block. Reword rather than bypass.
+- Pre-commit gate ping-pong (a prettier round, then a knip round) costs a
+  full hook chain each: on multi-file bundles run prettier --check on the
+  staged set AND the knip gate locally BEFORE the first commit attempt.
+- Play seeds (free-play harvest — associations, not findings): (1) the token
+  work and the cricket panel look like twin instruments — identity DISPLAYED
+  for routing trust vs identity SUPPRESSED for unbiased judgement; reminded
+  me of signed vs blind review. (2) Inversion: the 22:14Z resource kill
+  designed today's better practice — the foreground-600s convention it
+  forced surfaced two hook failures in-band that a background run would have
+  made mysterious. DISCARDED at the guard: an apparent
+  adversarial-cheaper-than-normal cricket cost pattern (n=1 per cell,
+  forced).
+- Concept seed (convergent; a candidate lens for slice 3's doctrine orbit):
+  a projection with no inverse is a boundary, not a bug — any "parse the
+  rendered form back" plan step should ask (1) is the projection injective?
+  (2) does the source still exist? If the source exists, re-source; a
+  decoder is only ever compensation for a lost source.
+
+## 2026-08-01 ~10:18Z — Codex-session GitHub connector is OWNER-BOUND (platform fact)
+
+Possum's session opened PR #683 through the GitHub connector believing it
+bot-scoped; GitHub recorded author jimCresswell. The connector in Codex
+sessions is owner-bound. Standing (Director ruling, until re-scoped): Codex
+seats route GitHub WRITES through a bot-minted token or the Director
+key-turn; the owner-bound connector is a surfaced blocker, not a fallback
+(bot-identity rule). Identity on #683 cured in place by an identifying PR
+comment; merge lands under bot identity via key-turn. Reported to owner.
+
+## 2026-08-01 ~12:56Z — Moss calls Loam (79b433): PR-watch poll died silently at the exact moment it mattered
+
+Observation: the #690 settle-watch poll went quiet the moment reviews
+landed — the shell-side `jq` choked on raw control characters inside a
+review BODY, the `2>/dev/null` + empty-guard swallowed the error, and
+the monitor looked alive while blind (silence identical to
+still-running). Found only because the replacement was FAIL-LOUD.
+Diagnosis: routing full API payloads (with free-text bodies) through a
+shell variable into a second jq is fragile; the guard made the failure
+silent, the classic NOTIFY-adjacent trap.
+Cure: project INSIDE the producer (`gh --jq`) so free-text never enters
+the shell; classify non-JSON output as a loud failure line, never skip
+it. Applied as watch v3.
+Pointer: monitors that filter must emit on their own parse failures —
+"silence is not success" applies to the watcher's own plumbing, not
+just the watched process.
+
+## 2026-08-01 ~13:01Z — Moss calls Loam (79b433): quoted my own leg as the whole gate, at the moment of celebration
+
+Observation: my #690 merge broadcast declared "the design-lane gate
+RELEASES at this merge". Falcon corrected by the record: ruling
+4991f065 has THREE legs (Plover done, Moss 2a-2d done, Badger story-2
+chain-end IN FLIGHT) — the gate holds.
+Diagnosis: verdict momentum at a milestone — I re-read the clause that
+named MY leg and let completion euphoria promote it to the whole gate.
+The standing class (quote the gate clause, score exactly what it
+binds) was in memory and still lost to the moment; celebration is a
+high-risk read state.
+Cure applied: correction broadcast in-response-to the original; thread
+row and ARC trued; the next milestone read quotes the FULL clause with
+every leg enumerated before any release claim.
+Pointer: gate reads at your own milestone deserve the same adversarial
+read as a reviewer's claim — especially then.
+
+## 2026-08-01 ~13:50Z — two lessons from the Sif anchoring afternoon
+
+**Authority through repetition (owner-named failure class):** the sketch's
+`serves: first-major-release` was never true — it rode every re-true
+untouched, the fleet QUESTIONED it, and the Director closed the question by
+treating owner silence as ratification ("serves stays at the owner's
+word"). An inherited frontmatter value is a claim like any other: it needs
+its own verification, and a non-answer to a surfaced question is not an
+answer. Same class as verdict-momentum; the cure is the same — quote the
+thing, score the thing.
+
+**Worktree cwd is sticky and lies about relative paths:** three separate
+failures in one afternoon — comms event-id greps finding nothing, a
+"missing" report that existed on the primary — all because the persistent
+shell sat in a scratch worktree while commands used
+repo-root-relative paths. A not-found on a relative path while worktrees
+are in play is a CWD QUESTION FIRST, a missing-file conclusion second.
+Standing habit: `cd` to the primary as the first token of any compound
+that touches coordination surfaces.
+
+## 2026-08-01 ~14:26Z — Moss calls Loam: transcribed assertion is still a view, not the file
+
+Slice-3 cure round: the pre-execution reviewer asserted "the commit-queue
+guard renders no identity at all (id-routed since #674)" and I transcribed
+it into the plan's acceptance re-cite without opening guard.ts. The
+docs-adr reviewer refuted it first-hand — guard.ts renders formatAgent,
+which carries the display token; #674 id-routed the OWNERSHIP comparison,
+not the rendering. Projection-promoted-to-object again, one seam deeper:
+a reviewer's plausible claim about a file is a VIEW of the file. Cure
+applied; discipline adopted: any site-specific claim entering a permanent
+doc gets a first-hand read at transcription time, even inside a cure
+batch. Same round, second capture: two estate rules genuinely conflict —
+no-conditional-tests prescribes throw-guards for narrowing while the
+no-throw-statement lint warns on throw in test files (36 pre-existing
+warnings tolerated across tests/collaboration-state) — routed to the
+Director with the test-expert's .unit.test.ts+committed-artefact-IO
+taxonomy seam.
+
+## 2026-08-01 ~15:06Z — Moss calls Loam: gh pr view reviewRequests omits Bot reviewers
+
+A settle watch keyed on `gh pr view --json reviewRequests` read
+"copilotPending: 0" while Copilot's re-review request was demonstrably
+pending (timeline event 15:02:09Z, REST requested_reviewers listing
+"Copilot"). The GraphQL-backed field silently omits Bot reviewers, so
+absence-of-entity rendered as the right-typed value 0 — the silent-twin
+class on a vendor surface. False-settle caught by cross-checking the
+reviews list against the timeline before acting. Cure adopted: pending
+Copilot requests are read from REST
+`pulls/<n>/requested_reviewers` (which lists "Copilot"), never from
+`gh pr view reviewRequests`; and any settle condition that keys on an
+entity's absence must first prove the surface CAN carry that entity.
+
+- 2026-08-01 ~19:55Z (Moss calls Loam, 79b433): the right-shaped-wrong-provenance
+  class, fifth instance, NEW SURFACE — the PR DESCRIPTION itself. A scope sentence
+  written before a mid-boundary redirection ("deliberately NOT in this diff") stayed
+  in the body after the redirection put the thing IN the diff; Copilot's suppressed
+  comment caught it. Cure shape: when a redirection lands mid-flight, sweep every
+  already-authored describing surface (PR body, commit message drafts, routed comms)
+  for sentences the redirection falsified — the two-list sweep from
+  corrected-directions applies to SELF-authored descriptions too, not only owner
+  corrections.
