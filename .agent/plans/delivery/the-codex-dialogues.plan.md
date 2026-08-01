@@ -18,9 +18,12 @@ owner_gates:
       Jim Cresswell ratifies the direct-first v1 shape at PR review: the
       project-level codex MCP registration with the process-pinned
       read-only/no-approvals launch args, the dialogue-protocol skill and
-      its exchange budget, and the close-event record shape. The
-      direction, name, record purpose, and no-wrapper-in-v1 rulings are
-      already his word (2026-08-01) and are not re-opened by this gate.
+      its exchange budget, the close-event record shape, and the
+      theory-of-change structures (pre-registered prior, the trial
+      window's size and decision rule, and the diversity null-hypothesis
+      baseline). The direction, name, record purpose, and
+      no-wrapper-in-v1 rulings are already his word (2026-08-01) and are
+      not re-opened by this gate.
     expires: 2026-08-15
 last_updated: 2026-08-01
 ---
@@ -129,6 +132,60 @@ home. The protocol NEVER resumes a closed thread (discipline, below) —
 but persistence is not fought: for an experiment whose records exist
 for later analysis, the Codex-side rollout is a free third analysis
 source alongside the close event and the seat's own transcript.
+
+## Theory of change and impact — and the structures that keep them honest
+
+Audited 2026-08-01 at the owner's question. The falsifiers above give the
+plan a PARTIAL theory of change; this section closes the gaps found, and
+the owner gate ratifies these structures with the shape.
+
+**Theory of change** (mechanism → behaviour): a genuinely different
+vendor's prior, probing a seat's stated uncertainty over real exchanges,
+will change seat decisions at a rate that repays the instrument's cost.
+Three structures make this falsifiable rather than felt:
+
+1. **Pre-registered prior.** The dialogue packet records the seat's
+   position AND confidence BEFORE the first exchange; the close event
+   records the delta. Without this, the outcome flag
+   (position-changed / dissent-unresolved / confirmed) is post-hoc
+   self-report — unfalsifiable vibes with a bias toward justifying the
+   instrument.
+2. **Pre-committed trial window.** The trial's size (number of
+   dialogues or a date) and its decision rule are fixed AT RATIFICATION,
+   before the first dialogue — the loop-exit-criteria discipline applied
+   to the experiment itself, so goalposts cannot move under momentum.
+3. **Diversity null hypothesis.** The vendor-locus value claim carries
+   its own falsifier: over the trial window, compare dissent/agreement
+   rates against a same-vendor baseline (Cricket legs on comparable
+   question classes). Shared training corpora make convergence a real
+   possibility; if cross-vendor dissent is statistically
+   indistinguishable from same-vendor stance-diversity, the value axis
+   has failed its test however pleasant the dialogues felt.
+
+**Theory of impact** (behaviour → who is helped), stated as the
+FRAME-1 effect vocabulary this estate adopted 2026-08-01 — Sif is its
+second consumer:
+
+- **Effect hypothesis**: beneficiary — the seats whose decisions
+  improve, and through them the product surfaces those decisions shape
+  (the mission strand: teachers meet fewer wrong turns shipped);
+  intended outcome — wrong-course decisions caught before they land;
+  harm class — dialogue-induced churn (a seat over-updating on
+  confident-but-wrong dissent) and attention cost; assumptions — the
+  diversity null hypothesis above, and that decision-changes surface in
+  close events honestly.
+- **Feedback contract**: the close event is the signal; its provenance
+  is the emitting seat; its custody is the fold-committed comms stream;
+  its expiry is the trial window's decision point; its PERMISSIBLE
+  DECISIONS are about THIS INSTRUMENT only — close events evaluate the
+  instrument, never seat performance, and any reading of them as
+  seat-evaluation converts learning into surveillance and is out of
+  contract (the FRAME-1 boundary, made structural here); missing data
+  means the instrument went unused, not that it failed.
+- **Absorption discipline**: dialogue conclusions get the
+  verify-before-absorb leg like any cross-model claim (the estate's
+  calibration precedent) — dissent is perturbation to be tested, never
+  authority to be obeyed.
 
 ## v1 decided shape — direct connection
 
