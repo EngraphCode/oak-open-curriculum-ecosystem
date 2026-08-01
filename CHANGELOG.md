@@ -1,3 +1,10 @@
+## [1.140.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.140.1...v1.140.2) (2026-08-01)
+
+
+### Bug Fixes
+
+* **agent-tools:** pr 698 round 1 — role-based helper boundary, seed lockstep pin, tsdoc sourcing ([37c61ac](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/37c61ac1ea0acddfddf9f02a3283c1b179a056db))
+
 ## [1.140.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.140.0...v1.140.1) (2026-08-01)
 
 # [1.140.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.139.0...v1.140.0) (2026-08-01)
