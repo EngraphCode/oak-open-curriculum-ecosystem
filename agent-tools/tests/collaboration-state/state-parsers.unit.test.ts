@@ -11,6 +11,7 @@
  * These tests are the TypeScript-layer correctness gate; the schema-
  * authority gate lives in `comms-event-schema.unit.test.ts`.
  */
+import { unwrapOrThrow } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
 import {
@@ -312,9 +313,13 @@ describe('parseDirectedCommsMessage', () => {
 
 describe('parseCommsEvent', () => {
   it('dispatches canonical events through the top-level kind discriminator', () => {
-    expect(parseCommsEvent(JSON.stringify(canonicalNarrative)).kind).toBe('narrative');
-    expect(parseCommsEvent(JSON.stringify(lifecycle)).kind).toBe('lifecycle');
-    expect(parseCommsEvent(JSON.stringify(directedPostMigration)).kind).toBe('directed');
+    expect(unwrapOrThrow(parseCommsEvent(JSON.stringify(canonicalNarrative))).kind).toBe(
+      'narrative',
+    );
+    expect(unwrapOrThrow(parseCommsEvent(JSON.stringify(lifecycle))).kind).toBe('lifecycle');
+    expect(unwrapOrThrow(parseCommsEvent(JSON.stringify(directedPostMigration))).kind).toBe(
+      'directed',
+    );
   });
 });
 

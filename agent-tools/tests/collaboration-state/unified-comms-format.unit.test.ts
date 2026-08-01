@@ -1,3 +1,4 @@
+import { unwrapErr, unwrapOrThrow } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
 import {
@@ -57,9 +58,9 @@ const directed: CommsEvent = {
 
 describe('unified comms event format', () => {
   it('parses narrative, lifecycle, and directed events through one discriminated parser', () => {
-    expect(parseCommsEvent(JSON.stringify(narrative))).toStrictEqual(narrative);
-    expect(parseCommsEvent(JSON.stringify(lifecycle))).toStrictEqual(lifecycle);
-    expect(parseCommsEvent(JSON.stringify(directed))).toStrictEqual(directed);
+    expect(unwrapOrThrow(parseCommsEvent(JSON.stringify(narrative)))).toStrictEqual(narrative);
+    expect(unwrapOrThrow(parseCommsEvent(JSON.stringify(lifecycle)))).toStrictEqual(lifecycle);
+    expect(unwrapOrThrow(parseCommsEvent(JSON.stringify(directed)))).toStrictEqual(directed);
   });
 
   it('rejects a directed event that still uses the legacy kind payload field', () => {
@@ -69,7 +70,7 @@ describe('unified comms event format', () => {
       message_kind: undefined,
     };
 
-    expect(() => parseCommsEvent(JSON.stringify(legacyDirected))).toThrow(
+    expect(unwrapErr(parseCommsEvent(JSON.stringify(legacyDirected))).message).toMatch(
       /Invalid discriminator value/,
     );
   });

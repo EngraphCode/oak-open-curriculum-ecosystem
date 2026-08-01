@@ -32,6 +32,38 @@ describe('evaluateCollaborationJsonSurfaces contract-parser leg', () => {
     }
   });
 
+  it('classifies a malformed-JSON comms event as an invalid-json finding: the parser Err carries the raw SyntaxError to the classifier', async () => {
+    const root = await makeTempSubstrateRepo(
+      { schema_version: '1.3.0', commit_queue: [], claims: [] },
+      { commsEventFiles: { 'broken-event.json': 'not json at all' } },
+    );
+    try {
+      const findings = await evaluateCollaborationJsonSurfaces(root);
+      const commsFindings = findings.filter((finding) => finding.surface === 'collaboration-comms');
+      expect(commsFindings.map((finding) => finding.id)).toStrictEqual(['invalid-json']);
+    } finally {
+      await removeTempSubstrateRepo(root);
+    }
+  });
+
+  it('classifies a JSON-valid but schema-invalid comms event as schema-incoherence, never invalid-json', async () => {
+    // The discriminating pair for the classifier fold: any wrapping or
+    // relabelling of the parser Err at the comms read loop collapses this
+    // split (both cases would report the same id) and one of the two pins
+    // reddens.
+    const root = await makeTempSubstrateRepo(
+      { schema_version: '1.3.0', commit_queue: [], claims: [] },
+      { commsEventFiles: { 'wrong-shape.json': JSON.stringify({ kind: 'narrative' }) } },
+    );
+    try {
+      const findings = await evaluateCollaborationJsonSurfaces(root);
+      const commsFindings = findings.filter((finding) => finding.surface === 'collaboration-comms');
+      expect(commsFindings.map((finding) => finding.id)).toStrictEqual(['schema-incoherence']);
+    } finally {
+      await removeTempSubstrateRepo(root);
+    }
+  });
+
   it('classifies a schema-valid but contract-violating registry (schema_version 1.2.0) as exactly one schema-incoherence finding from the gate', async () => {
     const root = await makeTempSubstrateRepo({
       schema_version: '1.2.0',

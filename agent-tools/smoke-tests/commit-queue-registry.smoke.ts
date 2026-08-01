@@ -219,6 +219,24 @@ async function proveActiveClaimsTransactionRejectsIdlessIntentLoudly(): Promise<
   });
 }
 
+async function proveActiveClaimsTransactionRejectsForeignSchemaVersionLoudly(): Promise<void> {
+  const foreign = fileRegistry([validIntentRow()]).replace(
+    '"schema_version": "1.3.0"',
+    '"schema_version": "1.2.0"',
+  );
+  await withTempRegistry(foreign, async (registryPath) => {
+    // Pins the version-pin arm END-TO-END: a parser that stops rejecting a
+    // foreign schema_version lets this transaction silently rewrite the file
+    // to 1.3.0. The rejection fires at the PRE-transaction read, shadowing
+    // the transaction's parseText fold — named carry to the validateText retype.
+    await assert.rejects(
+      updateActiveClaimsFile({ activePath: registryPath, transform: (registry) => registry }),
+      /^Error: active claims registry must use schema_version 1\.3\.0$/,
+    );
+    assert.equal(await readFile(registryPath, 'utf8'), foreign);
+  });
+}
+
 await provePreservesLegacyIdlessClaimThroughWrite();
 await proveIdlessIntentFailsLoudlyNamingTheIntent();
 await proveUpdateRegistryRefusesCorruptRegistryByteIdentical();
@@ -228,4 +246,5 @@ await proveSchemaRejectsIdlessIntentRow();
 await proveSchemaAcceptsIdlessClaimRow();
 await proveActiveClaimsTransactionPreservesRowsInRawJson();
 await proveActiveClaimsTransactionRejectsIdlessIntentLoudly();
-process.stdout.write('commit-queue registry smoke: 9/9 proofs passed\n');
+await proveActiveClaimsTransactionRejectsForeignSchemaVersionLoudly();
+process.stdout.write('commit-queue registry smoke: 10/10 proofs passed\n');

@@ -1,4 +1,4 @@
-import { unwrapOrThrow } from '@oaknational/result';
+import { map, unwrapOrThrow, type Result } from '@oaknational/result';
 import { z } from 'zod';
 
 import { parseWithSchema } from '../core/schema-parse.js';
@@ -83,15 +83,19 @@ const commsEventSchema = z.discriminatedUnion('kind', [
 ]);
 
 /**
- * Parse one canonical comms event after JSON parsing has crossed the boundary.
+ * Parse one canonical comms event after JSON parsing has crossed the
+ * boundary, as a `Result` (ADR-088): the canonical `parseWithSchema`
+ * failure plus the kind-dispatch projection. The text-level
+ * `parseCommsEvent` consumes this directly.
  */
-export function parseCommsEventValue(value: unknown): CommsEvent {
-  const parsed = parseWithHelpfulError({
-    label: 'communication event',
-    schema: commsEventSchema,
-    value,
-  });
+export function parseCommsEventValue(value: unknown): Result<CommsEvent, Error> {
+  return map(
+    parseWithSchema({ label: 'communication event', schema: commsEventSchema, value }),
+    projectCommsEvent,
+  );
+}
 
+function projectCommsEvent(parsed: z.infer<typeof commsEventSchema>): CommsEvent {
   if (parsed.kind === 'narrative') {
     return narrativeEvent(parsed);
   }
