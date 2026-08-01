@@ -1,5 +1,5 @@
 import { existsSync } from 'node:fs';
-import { join } from 'node:path';
+import { resolve } from 'node:path';
 
 import {
   CODEX_CONFIG_PATH,
@@ -190,7 +190,7 @@ function collectReviewerRegistrationDetails(input: ReviewerRegistrationParityInp
   }
 
   for (const registration of input.registrations) {
-    const resolvedPath = join(
+    const resolvedPath = resolve(
       input.repoRoot,
       resolveCodexAgentConfigFilePath(registration.configFile),
     );

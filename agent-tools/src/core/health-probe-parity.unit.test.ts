@@ -18,4 +18,20 @@ describe('reviewer registration parity health', () => {
     expect(registrationCheck).toMatchObject({ status: 'pass', details: [] });
     expect(observedPaths).toEqual(['/repo/.codex/agents/code-expert.toml']);
   });
+
+  it('preserves an absolute config_file path', () => {
+    const observedPaths: string[] = [];
+    const registrationCheck = evaluateReviewerRegistrationParityFromInputs({
+      repoRoot: '/repo',
+      codexAdapterNames: ['code-expert'],
+      registrations: [{ name: 'code-expert', configFile: '/opt/agents/code-expert.toml' }],
+      pathExists: (path) => {
+        observedPaths.push(path);
+        return path === '/opt/agents/code-expert.toml';
+      },
+    });
+
+    expect(registrationCheck).toMatchObject({ status: 'pass', details: [] });
+    expect(observedPaths).toEqual(['/opt/agents/code-expert.toml']);
+  });
 });
