@@ -92,22 +92,24 @@ export function surfaceContractFinding(
   path: string,
   failure: CollaborationSurfaceFailure,
 ): SubstrateFinding {
-  if (failure.kind === 'malformed-json') {
-    return finding({
-      id: 'invalid-json',
-      surface,
-      severity: 'blocking',
-      repair: 'manual-with-provenance',
-      message: `JSON surface ${path} does not parse.`,
-      evidence: [path],
-    });
-  }
+  // Kind-keyed data keeps the mapping compile-total: a new failure kind
+  // fails this record's `satisfies` instead of silently falling through.
+  const byKind = {
+    'malformed-json': { id: 'invalid-json', message: `JSON surface ${path} does not parse.` },
+    'contract-failure': {
+      id: 'schema-incoherence',
+      message: `JSON surface ${path} does not satisfy its schema.`,
+    },
+  } as const satisfies Record<
+    CollaborationSurfaceFailure['kind'],
+    { readonly id: string; readonly message: string }
+  >;
+
   return finding({
-    id: 'schema-incoherence',
+    ...byKind[failure.kind],
     surface,
     severity: 'blocking',
     repair: 'manual-with-provenance',
-    message: `JSON surface ${path} does not satisfy its schema.`,
     evidence: [path],
   });
 }

@@ -123,3 +123,22 @@ describe('parseClosedClaimsArchive — PDR-076a legacy preservation', () => {
     expect(parsed.claims[0]).toEqual({ ...legacyClaimRow(), archived_at: '2026-04-28T07:00:00Z' });
   });
 });
+
+describe('parseCollaborationRegistry — reconstruction lossiness (documented divergence)', () => {
+  it('DROPS unknown top-level keys: the reconstruction is a domain product, never the raw value schema validation takes', () => {
+    // Pins the live lossiness behind the surface-contract module's trap
+    // note (and the key-preservation rider): Ajv with
+    // additionalProperties:false must always validate the raw parse of the
+    // text — validating this reconstruction would pass files it must reject.
+    const parsed = parseCollaborationRegistry(
+      JSON.stringify({
+        schema_version: '1.3.0',
+        commit_queue: [],
+        claims: [],
+        custodian_note: 'top-level preservation probe',
+      }),
+    );
+
+    expect(parsed).not.toHaveProperty('custodian_note');
+  });
+});

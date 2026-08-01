@@ -7,7 +7,7 @@ import type { AnySchema } from 'ajv';
 import Ajv from 'ajv/dist/2020.js';
 import { z } from 'zod';
 
-const SCHEMA_FILENAMES = [
+export const SCHEMA_FILENAMES = [
   'active-claims.schema.json',
   'closed-claims.schema.json',
   'comms-event.schema.json',

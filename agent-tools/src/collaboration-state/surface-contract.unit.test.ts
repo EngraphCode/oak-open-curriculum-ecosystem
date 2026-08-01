@@ -1,10 +1,11 @@
-import { mapErr, unwrapErr, unwrapOrThrow } from '@oaknational/result';
+import { unwrapErr, unwrapOrThrow } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
 import {
   MalformedJsonError,
   SurfaceContractError,
   checkCollaborationSurfaceContract,
+  requireCollaborationSurfaceContract,
 } from './surface-contract.js';
 
 /**
@@ -36,19 +37,11 @@ const IDLESS_INTENT_ROW = {
 };
 
 function registryText(commitQueue: readonly unknown[]): string {
-  return JSON.stringify({
-    schema_version: '1.3.0',
-    commit_queue: commitQueue,
-    claims: [],
-    // Unknown top-level key: present in the RAW json product; the domain
-    // value is the parser's reconstruction (the documented divergence) —
-    // which is exactly why `json`, never `value`, feeds schema validation.
-    custodian_note: 'raw-json preservation probe',
-  });
+  return JSON.stringify({ schema_version: '1.3.0', commit_queue: commitQueue, claims: [] });
 }
 
 describe('checkCollaborationSurfaceContract', () => {
-  it('passes a contract-satisfying registry, carrying the RAW json for schema validation and the parsed domain value', () => {
+  it('passes a contract-satisfying registry — the Ok arm IS the parsed domain product', () => {
     const result = checkCollaborationSurfaceContract({
       schemaId: 'active-claims.schema.json',
       path: REGISTRY_PATH,
@@ -56,9 +49,8 @@ describe('checkCollaborationSurfaceContract', () => {
     });
 
     const checked = unwrapOrThrow(result);
-    expect(checked.json).toMatchObject({ custodian_note: 'raw-json preservation probe' });
-    expect(checked.value.schema_version).toBe('1.3.0');
-    expect(checked.value.claims).toEqual([]);
+    expect(checked.schema_version).toBe('1.3.0');
+    expect(checked.claims).toEqual([]);
   });
 
   it('passes the other two contract surfaces on satisfying text', () => {
@@ -91,7 +83,7 @@ describe('checkCollaborationSurfaceContract', () => {
     ).toBe(true);
   });
 
-  it('classifies a contract violation with kind, path-labelled message, verbatim reason, and the original error as causeError', () => {
+  it('classifies a contract violation with kind, path-labelled message, and the ORIGINAL error as causeError', () => {
     const result = checkCollaborationSurfaceContract({
       schemaId: 'active-claims.schema.json',
       path: REGISTRY_PATH,
@@ -99,18 +91,13 @@ describe('checkCollaborationSurfaceContract', () => {
     });
 
     const failure = unwrapErr(result);
-    expect(failure).toBeInstanceOf(SurfaceContractError);
     expect(failure.kind).toBe('contract-failure');
-    if (failure.kind !== 'contract-failure') {
-      return;
-    }
-    expect(failure.reason).toMatch(
+    expect(failure.causeError.message).toMatch(
       /^commit_queue entry 33333333-3333-4333-8333-333333333333 carries an invalid agent_id/,
     );
     expect(failure.message).toBe(
-      `${REGISTRY_PATH} does not satisfy its surface contract: ${failure.reason}`,
+      `${REGISTRY_PATH} does not satisfy its surface contract: ${failure.causeError.message}`,
     );
-    expect(failure.causeError.message).toBe(failure.reason);
   });
 
   it('classifies text that is not JSON at all as malformed-json carrying the path-labelled JSON error', () => {
@@ -121,28 +108,43 @@ describe('checkCollaborationSurfaceContract', () => {
     });
 
     const failure = unwrapErr(result);
-    expect(failure).toBeInstanceOf(MalformedJsonError);
     expect(failure.kind).toBe('malformed-json');
-    if (failure.kind !== 'malformed-json') {
-      return;
-    }
     expect(failure.message).toBe(`${REGISTRY_PATH} is not valid JSON`);
     expect(failure.causeError.message).toMatch(
       /^\.agent\/state\/collaboration\/active-claims\.json is not valid JSON: /,
     );
   });
 
-  it('rethrows the ORIGINAL parser error identity-intact through the state-io fold shape', () => {
-    const result = checkCollaborationSurfaceContract({
-      schemaId: 'active-claims.schema.json',
-      path: REGISTRY_PATH,
-      text: registryText([IDLESS_INTENT_ROW]),
-    });
-
-    // The write-path gates fold exactly like this pre-2c; the anchored pin
-    // catches any wrap that would prefix or rename the loud message.
-    expect(() => unwrapOrThrow(mapErr(result, (failure) => failure.causeError))).toThrow(
+  it('the BRIDGE rethrows the ORIGINAL parser error identity-intact (the state-io write-gate path)', () => {
+    // Calls the product bridge itself, not a copy of its fold: a bridge
+    // slip that rethrows the wrapper (whose message is path-prefixed)
+    // reddens this anchored pin.
+    expect(() =>
+      requireCollaborationSurfaceContract({
+        schemaId: 'active-claims.schema.json',
+        path: REGISTRY_PATH,
+        text: registryText([IDLESS_INTENT_ROW]),
+      }),
+    ).toThrow(
       /^commit_queue entry 33333333-3333-4333-8333-333333333333 carries an invalid agent_id/,
     );
+  });
+
+  it('the failure classes compose path-labelled messages and expose the original error as causeError', () => {
+    const original = new Error('the original loud message');
+
+    const contract = new SurfaceContractError({ path: REGISTRY_PATH, causeError: original });
+    expect(contract.kind).toBe('contract-failure');
+    expect(contract.name).toBe('SurfaceContractError');
+    expect(contract.message).toBe(
+      `${REGISTRY_PATH} does not satisfy its surface contract: the original loud message`,
+    );
+    expect(contract.causeError).toBe(original);
+
+    const malformed = new MalformedJsonError({ path: REGISTRY_PATH, causeError: original });
+    expect(malformed.kind).toBe('malformed-json');
+    expect(malformed.name).toBe('MalformedJsonError');
+    expect(malformed.message).toBe(`${REGISTRY_PATH} is not valid JSON`);
+    expect(malformed.causeError).toBe(original);
   });
 });

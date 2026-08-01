@@ -1,36 +1,22 @@
 import { describe, expect, it } from 'vitest';
 
 import { evaluateCollaborationJsonSurfaces } from './live-json.js';
+import { collaborationAjv, validateWithAjv } from './live-json-support.js';
 import {
   makeTempSubstrateRepo,
   removeTempSubstrateRepo,
 } from './test-helpers/temp-substrate-repo.js';
 
 /**
- * Characterization of the live claim-surface contract-parser leg — written
- * BEFORE the seam-consolidation change and kept green through it: a
- * contract-violating registry (valid JSON, id-less intent row) must surface
- * as exactly one schema-incoherence finding, produced by the contract gate
- * BEFORE Ajv runs. Real temp-directory IO makes this an integration test;
- * the IO lives behind the test-helpers surface (ADR-078).
+ * Characterisation of the live claim-surface contract-parser leg — written
+ * before the seam consolidation and kept green through it. The failing
+ * fixture is SCHEMA-VALID but PARSER-INVALID (schema_version 1.2.0 is in
+ * the schema's enum; the contract parser pins 1.3.0 exactly), so the
+ * expected finding can ONLY come from the contract gate — deleting the
+ * gate turns this test green-to-empty, not same-finding-via-Ajv. Real
+ * temp-directory IO makes this an integration test; the IO lives behind
+ * the test-helpers surface (ADR-078).
  */
-
-const IDLESS_INTENT_ROW = {
-  intent_id: '33333333-3333-4333-8333-333333333333',
-  claim_id: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',
-  agent_id: {
-    agent_name: 'Vintage Pre-Sunset Seat',
-    platform: 'codex',
-    model: 'gpt-4.9',
-    session_id_prefix: '00aa11',
-  },
-  files: ['agent-tools/src/commit-queue/index.ts'],
-  commit_subject: 'feat(queue): exercise the parser gate',
-  queued_at: '2026-04-27T07:20:00Z',
-  updated_at: '2026-04-27T07:20:00Z',
-  expires_at: '2026-04-27T07:35:00Z',
-  phase: 'queued',
-};
 
 describe('evaluateCollaborationJsonSurfaces contract-parser leg', () => {
   it('passes a clean estate', async () => {
@@ -46,13 +32,26 @@ describe('evaluateCollaborationJsonSurfaces contract-parser leg', () => {
     }
   });
 
-  it('classifies a contract-violating registry (valid JSON, id-less intent) as exactly one schema-incoherence finding', async () => {
+  it('classifies a schema-valid but contract-violating registry (schema_version 1.2.0) as exactly one schema-incoherence finding from the gate', async () => {
     const root = await makeTempSubstrateRepo({
-      schema_version: '1.3.0',
-      commit_queue: [IDLESS_INTENT_ROW],
+      schema_version: '1.2.0',
+      commit_queue: [],
       claims: [],
     });
     try {
+      // Detection-power invariant, asserted so its decay is LOUD: the schema
+      // ALONE accepts this fixture (1.2.0 is in the enum) — if a future
+      // schema change drops 1.2.0, Ajv starts producing the identical
+      // finding and this test would silently stop detecting gate deletion.
+      expect(
+        validateWithAjv(
+          await collaborationAjv(root),
+          'active-claims.schema.json',
+          'collaboration-active-claims',
+          '.agent/state/collaboration/active-claims.json',
+          { schema_version: '1.2.0', commit_queue: [], claims: [] },
+        ),
+      ).toStrictEqual([]);
       expect(await evaluateCollaborationJsonSurfaces(root)).toStrictEqual([
         {
           id: 'schema-incoherence',

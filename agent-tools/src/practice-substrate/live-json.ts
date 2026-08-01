@@ -5,8 +5,9 @@ import type Ajv from 'ajv/dist/2020.js';
 import { renderSharedCommsLog } from '../collaboration-state/comms.js';
 import {
   checkCollaborationSurfaceContract,
-  type ContractSchemaId,
+  isContractSchemaId,
 } from '../collaboration-state/surface-contract.js';
+import { type CollaborationSchemaId } from '../collaboration-state/collaboration-json-validation.js';
 import { readCommsEventFiles } from './live-comms-events.js';
 import {
   ACTIVE_CLAIMS_PATH,
@@ -128,7 +129,6 @@ async function evaluateClaimSurfaces(
       surface: 'collaboration-active-claims',
       path: ACTIVE_CLAIMS_PATH,
       schemaId: 'active-claims.schema.json',
-      contract: 'active-claims.schema.json',
     })),
     ...(await evaluateJsonFileWithSchema({
       repoRoot,
@@ -136,7 +136,6 @@ async function evaluateClaimSurfaces(
       surface: 'collaboration-closed-claims',
       path: CLOSED_CLAIMS_PATH,
       schemaId: 'closed-claims.schema.json',
-      contract: 'closed-claims.schema.json',
     })),
   ];
 }
@@ -184,19 +183,18 @@ async function evaluateJsonFileWithSchema(input: {
   readonly ajv: Ajv;
   readonly surface: string;
   readonly path: string;
-  readonly schemaId: string;
-  // Contract-bearing surfaces name their ContractSchemaId; the shared check
-  // owns the parser dispatch (no injectable parser seam).
-  readonly contract?: ContractSchemaId;
+  // One schemaId, one vocabulary — isContractSchemaId decides which
+  // surfaces carry a runtime contract; the shared check owns the dispatch.
+  readonly schemaId: CollaborationSchemaId;
 }): Promise<readonly SubstrateFinding[]> {
   const text = await readFile(absolutePath(input.repoRoot, input.path), 'utf8');
   const parsed = parseJsonText(input.surface, input.path, text);
   if (parsed.value === undefined) {
     return parsed.findings;
   }
-  if (input.contract !== undefined) {
+  if (isContractSchemaId(input.schemaId)) {
     const checked = checkCollaborationSurfaceContract({
-      schemaId: input.contract,
+      schemaId: input.schemaId,
       path: input.path,
       text,
     });

@@ -46,7 +46,7 @@ describe('collaboration state integrity validator', () => {
   });
 
   it('reports a contract-violating active-claims registry with the parser leg’s own loud message, before schema validation', async () => {
-    // Characterization written before the seam consolidation and kept green
+    // Characterisation written before the seam consolidation and kept green
     // through it: the contract-parser gate fires ahead of Ajv, and the
     // finding carries the parser's message verbatim (anchored — a wrapping
     // slip would prefix it).

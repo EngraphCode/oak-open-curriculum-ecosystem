@@ -4,23 +4,19 @@ import { join } from 'node:path';
 import {
   createCollaborationJsonSchemaValidator,
   type CollaborationJsonSchemaValidator,
+  type CollaborationSchemaId,
 } from './collaboration-json-validation.js';
 import { isErrnoCode } from './errno.js';
-import {
-  checkCollaborationSurfaceContract,
-  type CollaborationSurfaceFailure,
-  type ContractSchemaId,
-} from './surface-contract.js';
+import { checkCollaborationSurfaceContract, isContractSchemaId } from './surface-contract.js';
 
 const COLLABORATION_ROOT = '.agent/state/collaboration';
 
 interface JsonSurface {
+  // One schemaId, one vocabulary: the shared check owns the parser dispatch
+  // (no injectable parser seam), and isContractSchemaId decides which
+  // surfaces carry a runtime contract — no second field for drift to split.
   readonly path: string;
-  readonly schemaId: string;
-  // Contract-bearing surfaces name their ContractSchemaId; the shared check
-  // owns the parser dispatch (no injectable parser seam — a Result-returning
-  // parser must fail compilation there, not pass silently here).
-  readonly contract?: ContractSchemaId;
+  readonly schemaId: CollaborationSchemaId;
   // Untracked-by-design surfaces (ADR-199 Phase-3 untrack) are absent in a fresh
   // checkout (e.g. CI) and present-on-disk on a working instance. An absent such
   // surface is the expected clean state, not an integrity fault.
@@ -86,14 +82,16 @@ async function validateJsonSurface(
     return [finding(surface.path, jsonError(error))];
   }
 
-  if (surface.contract !== undefined) {
+  if (isContractSchemaId(surface.schemaId)) {
     const checked = checkCollaborationSurfaceContract({
-      schemaId: surface.contract,
+      schemaId: surface.schemaId,
       path: surface.path,
       text,
     });
     if (!checked.ok) {
-      return [finding(surface.path, contractFailureMessage(checked.error))];
+      // Byte-parity with the deleted seam's catch: the original parser
+      // error's message, whichever failure kind carried it.
+      return [finding(surface.path, checked.error.causeError.message)];
     }
   }
 
@@ -105,35 +103,22 @@ async function validateJsonSurface(
   }
 }
 
-// Byte-parity mapping: contract failures surface the parser's message
-// verbatim (as the deleted seam's catch did); the malformed-json arm is
-// pre-empted by the JSON.parse leg above but the switch stays total.
-function contractFailureMessage(failure: CollaborationSurfaceFailure): string {
-  if (failure.kind === 'contract-failure') {
-    return failure.reason;
-  }
-  return failure.causeError.message;
-}
-
 async function jsonSurfaces(repoRoot: string): Promise<readonly JsonSurface[]> {
   return [
     {
       path: `${COLLABORATION_ROOT}/active-claims.json`,
       schemaId: 'active-claims.schema.json',
-      contract: 'active-claims.schema.json',
       optionalWhenAbsent: true,
     },
     {
       path: `${COLLABORATION_ROOT}/closed-claims.archive.json`,
       schemaId: 'closed-claims.schema.json',
-      contract: 'closed-claims.schema.json',
       optionalWhenAbsent: true,
     },
     ...(await directorySurfaces({
       repoRoot,
       directory: `${COLLABORATION_ROOT}/comms`,
       schemaId: 'comms-event.schema.json',
-      contract: 'comms-event.schema.json',
       // comms/ is untracked-by-design (ADR-199 Phase-3 untrack): absent in a
       // fresh checkout (e.g. CI), present-on-disk on a working instance. An
       // absent comms/ is the expected clean state, not an integrity fault.
@@ -157,8 +142,7 @@ async function jsonSurfaces(repoRoot: string): Promise<readonly JsonSurface[]> {
 async function directorySurfaces(input: {
   readonly repoRoot: string;
   readonly directory: string;
-  readonly schemaId: string;
-  readonly contract?: ContractSchemaId;
+  readonly schemaId: CollaborationSchemaId;
   readonly excludeExamples?: boolean;
   readonly optionalWhenAbsent?: boolean;
 }): Promise<readonly JsonSurface[]> {
@@ -173,7 +157,6 @@ async function directorySurfaces(input: {
     .map((entry) => ({
       path: `${input.directory}/${entry}`,
       schemaId: input.schemaId,
-      ...(input.contract === undefined ? {} : { contract: input.contract }),
     }));
 }
 
