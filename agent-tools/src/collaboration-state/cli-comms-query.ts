@@ -1,11 +1,8 @@
 import { optional, required, type Options } from './cli-options.js';
 import { cliIo, type CliRuntime } from './cli-runtime.js';
+import { commsEventAuthor, commsEventTitle } from './comms-event-accessors.js';
 import { peerHeartbeatLiveness, type PeerLivenessReport } from './peer-liveness.js';
-import {
-  type CollaborationAgentId,
-  type CollaborationStateEnvironment,
-  type CommsEvent,
-} from './types.js';
+import { type CollaborationStateEnvironment, type CommsEvent } from './types.js';
 
 /**
  * Default number of newest events `comms list` projects when `--tail` is
@@ -167,18 +164,10 @@ function byCreatedAtDescending(left: CommsEvent, right: CommsEvent): number {
 }
 
 function formatSummaryLine(event: CommsEvent): string {
-  const author = summaryAuthor(event);
+  const author = commsEventAuthor(event);
   const channel =
     event.tags !== undefined && event.tags.length > 0
       ? `[${event.kind}] [${event.tags.join(', ')}]`
       : `[${event.kind}]`;
-  return `${event.created_at}  ${event.event_id}  ${author.agent_name}/${author.session_id_prefix}  ${channel}  ${summaryTitle(event)}`;
-}
-
-function summaryAuthor(event: CommsEvent): CollaborationAgentId {
-  return event.kind === 'directed' ? event.from : event.author;
-}
-
-function summaryTitle(event: CommsEvent): string {
-  return event.kind === 'directed' ? event.subject : event.title;
+  return `${event.created_at}  ${event.event_id}  ${author.agent_name}/${author.session_id_prefix}  ${channel}  ${commsEventTitle(event)}`;
 }

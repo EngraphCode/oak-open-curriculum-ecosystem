@@ -16,7 +16,7 @@ export const identityPreflightHelp =
 
 export const identityAuditHelp =
   'identity audit --now <iso> --active <path> --closed <path> ' +
-  '--thread-record <path> --shared-log <path>';
+  '--thread-record <path> --comms-dir <dir>';
 
 export const commsAppendHelp =
   'comms append --comms-dir <dir> --now <iso> --created-at <iso> ' +

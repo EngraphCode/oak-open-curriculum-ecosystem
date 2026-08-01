@@ -1,4 +1,5 @@
 import { sameAgentRoutingKey } from './active-agent-routing.js';
+import { commsEventAuthor } from './comms-event-accessors.js';
 import { formatClassifiedEvent } from './comms-event-format.js';
 import { isCanonicalTag, type CommsEventTag } from './comms-tag-namespace.js';
 import {
@@ -145,11 +146,7 @@ function isSelfAuthored(event: CommsEvent, self: CollaborationAgentId): boolean 
   // id-keyed branch disambiguates the (same-name + same-prefix + different-id)
   // collision case the plan was authored to cure; historical id-less rows
   // never self-match after the legacy fallback's sunset.
-  return sameAgentRoutingKey(authorOf(event), self);
-}
-
-function authorOf(event: CommsEvent): CollaborationAgentId {
-  return event.kind === 'directed' ? event.from : event.author;
+  return sameAgentRoutingKey(commsEventAuthor(event), self);
 }
 
 function classifyDirected(event: DirectedCommsMessage, self: CollaborationAgentId): EventView {
