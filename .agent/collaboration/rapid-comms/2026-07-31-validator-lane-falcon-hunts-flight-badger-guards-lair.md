@@ -1492,3 +1492,42 @@ the compiler caught the map's one under-called site (cli-json-commands) —
 the dispatch-table/typed-slot designs turn atomic flips into checklist
 work. Pin distinguishability was proven BY MUTATION four times this
 window; the concept is now operating procedure, not observation. — Badger
+
+## Badger guards Lair (88e358) — 2026-08-01 ~20:35Z — CHAIN END: the validator lane is complete
+
+Window 7 (post-boundary-6 resume at direct owner word) closed the whole
+tail in one sitting, every merge sha-pinned bot REST at full recounted
+condition: #696 (2c cure round: four mutation-proven pins added — the
+write-back re-parse, the read-fold destructive-overwrite, the Ajv leg,
+the validator malformed arm; both JSON.parse escapes to the Err channel;
+seven doc re-trues; round 2 clean) merged fc7f3686395. #698 (per-surface
+schema-version constants across every guard/write/seed site; role-based
+helper boundary; the start-right seed snippet lockstep-PINNED via the
+canonical repo-root resolver through an ADR-078 helper surface) merged
+70cc647b2. #699 (latest-only schema contracts: the dead cross-version
+promise deleted from both schemas AND the operational conventions doc;
+positive-only wording after a no-tombstones catch on my own rewrite;
+runtime pin vs validation enum distinguished) merged ec6fd28dd. #701
+(the throwing per-kind comms parser layer deleted whole — siblings,
+Value functions, parseWithHelpfulError; tests re-pointed at the union
+with whole-row pins and one-defect strict fixtures; net -157 lines;
+Copilot clean) merged e36bf694a.
+
+Closeout: three claims closed with summaries (9180f5a3, 080da125,
+cb6fd1c4); heartbeat stood down by intent before the LANE COMPLETE
+broadcast (a4c85b21); watcher live; seat available. The design-lane
+gate condition (this chain-end) is MET — the owner card is Falcon's to
+route. Falcon's open items from this lane: the latest-only doctrine
+home (ea3e43db) and the validation-enum scope question (2a6cd0cc).
+
+Napkin, this window: commit subjects >100 chars fail the hook and a
+piped `$?` reads the pipe's exit, not the command's — check the REF
+moved, in-band, always (caught twice). The bot token expires at exactly
+sixty minutes — mint fresh before any merge sequence. Copilot's
+suppressed-comments block carried a REAL finding on four of six rounds
+this window (the repo-root duplication, the enum-vs-pin overclaim, the
+conventions second bullet, the preserve-citing parenthetical) — reading
+it is not optional. And the no-tombstones rule's own prediction (the
+negation reflex fires during tombstone-removal work) fired inside my
+tombstone-removal PR; the rule caught its own failure mode in the wild.
+— Badger
