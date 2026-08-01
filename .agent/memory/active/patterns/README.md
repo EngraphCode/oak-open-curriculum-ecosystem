@@ -179,7 +179,7 @@ drift. After adding or changing a pattern file, regenerate with
 
 ## Pattern Index
 
-### Code (30)
+### Code (31)
 
 - **\"Widen\" Is a Type Smell — Discriminate Model-Wrong From Correct-and-Violated** *(anti-pattern)* -- Use this when: About to widen a list, type, union, or allowlist to make a case pass (or an owner/reviewer flags a 'widen') — the reach for a wider shape is usually hiding a type problem. → [widen-is-a-type-smell.md](widen-is-a-type-smell.md)
 - **A Lint-Rule Pincer Is a Design Signal, Not an Obstacle** -- Use this when: Two (or more) lint rules jointly ban every shape you can think of for an in-component or in-function implementation, and the reflex is to disable one rule or contort past them. → [lint-rule-pincer-is-a-design-signal.md](lint-rule-pincer-is-a-design-signal.md)
@@ -203,6 +203,7 @@ drift. After adding or changing a pattern file, regenerate with
 - **Library Types Before Local Shapes** -- Use this when: An integration parses third-party SDK responses or errors and custom local `*Like` shapes are being considered. → [library-types-before-local-shapes.md](library-types-before-local-shapes.md)
 - **Narrow re-exports at package boundaries** -- Use this when: A wrapper library re-exports types from an underlying SDK. → [narrow-re-exports-at-boundaries.md](narrow-re-exports-at-boundaries.md)
 - **Omit unknown-carrying fields from library types** -- Use this when: Extending a library type that carries Record<string, unknown> or any on one or more fields, while the rest of the type is valuable. → [omit-unknown-from-library-types.md](omit-unknown-from-library-types.md)
+- **Parse-Time Narrowing Is Destructive in Read-Modify-Write Transactions** *(anti-pattern)* -- Use this when: adding validation to a parse layer that feeds a read → transform → write-back transaction over a shared file, and rejecting, omitting, or normalising rows at parse looks like the clean cure. → [parse-time-narrowing-destructive-in-rmw-transactions.md](parse-time-narrowing-destructive-in-rmw-transactions.md)
 - **Preprocess for Type-Preserving Coercion** -- Use this when: A Zod schema needs to accept multiple input types but preserve a narrow output type, and z.union with .transform() would widen the output. → [preprocess-for-type-preserving-coercion.md](preprocess-for-type-preserving-coercion.md)
 - **Pure Leaf Module Extraction** -- Use this when: Pure functions and I/O functions coexist in a module, and other modules need only the pure functions. → [pure-leaf-extraction.md](pure-leaf-extraction.md)
 - **String-Based Codegen Type-Safety Gap** *(anti-pattern)* -- Use this when: A code generator emits code as string templates rather than AST nodes, and the output includes API calls with specific argument names or shapes. → [string-codegen-type-safety-gap.md](string-codegen-type-safety-gap.md)

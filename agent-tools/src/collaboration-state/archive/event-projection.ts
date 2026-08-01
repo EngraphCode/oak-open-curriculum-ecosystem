@@ -12,13 +12,9 @@
  * @packageDocumentation
  */
 
+import { commsEventTitle } from '../comms-event-accessors.js';
 import type { CommsEvent } from '../types.js';
 import type { ClassifiableEvent } from './event-classification.js';
-
-/** Title for narrative/lifecycle events; subject for directed messages. */
-function titleOrSubject(event: CommsEvent): string {
-  return event.kind === 'directed' ? event.subject : event.title;
-}
 
 /** Project a parsed comms event to its classification-relevant fields. */
 export function toClassifiableEvent(event: CommsEvent): ClassifiableEvent {
@@ -27,7 +23,7 @@ export function toClassifiableEvent(event: CommsEvent): ClassifiableEvent {
     kind: event.kind,
     createdAt: event.created_at,
     tags: event.tags ?? [],
-    titleOrSubject: titleOrSubject(event),
+    titleOrSubject: commsEventTitle(event),
     bodyLength: event.body.length,
   };
 }

@@ -320,3 +320,131 @@ worktree-residency Action 1 (explicit start point) + Action 8 (pre-PR
 `git log origin/main..HEAD` check). Badger's peer warning reached
 Moss BEFORE their PR-open — the direct-warning-at-detection pattern
 paid for itself same-hour.
+
+## 2026-07-31 ~20:50Z — MCP-457 lane observations (Moss calls Loam, 79b433)
+
+- Verifying the cited LINE is not verifying the claimed COUPLING (this seat,
+  caught by the pre-execution opus reviewer): peer evidence said "override-path
+  ids rotate on prefix-derivation change, identity.ts ~112"; I confirmed line
+  112 hashes `agent_name|session_id_prefix` and committed to a golden-pin cure
+  in a comms ack — without tracing CALLERS. The reviewer traced them: the only
+  production caller passes an operator-supplied flag; no path feeds
+  `sessionIdPrefix()` output into the override derivation, so the rotation
+  risk had no feeder and the promised pin would have frozen a
+  PDR-076a-declared non-invariant. Correction sent (event c1ea09f2). Cure
+  shape: a claimed coupling names BOTH a site and its feeders; check the
+  feeders before transmitting agreement. Same ack also transmitted "no
+  existing tests cover the hook copies" from a src/-only test search — the
+  tests live under `agent-tools/tests/`; searched the wrong root, stated the
+  absence as fact.
+- pnpm unknown-script "Did you mean" exits 0 (this seat, caught reading the
+  output): from the MCP-457 worktree, `pnpm agent-tools:collaboration-state`
+  printed `Did you mean "pnpm validate-collaboration-state"?` and exited 0 —
+  a comms reply silently did not send. Two facts compose: root script names
+  differ between origin/main (`collaboration-state`) and the coordination
+  branch (`agent-tools:collaboration-state`), and pnpm's did-you-mean is a
+  zero-exit false-green (wrapped-exit-codes class). Worktree-lane practice
+  adopted: coordination writes run `pnpm -C <primary-checkout> …` explicitly;
+  verify the `wrote comms event` line, never the exit code.
+
+## 2026-07-31 ~21:00Z — Copilot review-request routes: one proven, three false-green (Badger guards Lair, 88e358)
+
+Fleet-valuable census, previously held only in Claude per-user memory
+(a buffer, not a home): the one PROVEN route for requesting a Copilot
+review from an agent seat is the GitHub MCP `request_copilot_review`
+tool — and delivery is verified via the PR timeline's
+`review_requested` event, never the call's exit. False-green routes
+that return success and write nothing: REST reviewers-POST (both
+credentials) and GraphQL `requestReviews` with botIds under the bot
+token. GraphQL `requestReviewsByLogin` resolves only under the owner
+credential (the standing grant covers it). Re-requests are at-open +
+substance-triggered; cure-only pushes do not re-fire a review.
+
+## 2026-07-31 ~21:00Z — comms CLI frictions, one sitting (Badger guards Lair, 88e358)
+
+- Replying to a BROADCAST with a directed reply fails "directed
+  message not found" — use `comms direct --in-response-to <event-id>`.
+- Long inline `--body` argv can fail where `--body-file` succeeds;
+  default to `--body-file` beyond a sentence.
+- `comms send` has no `--kind` flag (narrative is the default); the
+  failure is a bare exit-2 — read the usage line, never the exit code.
+- The author field is `author` on narrative events and `from` on
+  directed ones — filters and jq must handle both.
+
+## 2026-07-31 ~21:02Z — resume maps are hypotheses; recorded rationale is a delegation surface (Badger guards Lair, 88e358)
+
+Second compaction freeze/resume of one seat in one day: full re-arm
+nine minutes after the freeze, and the frozen resume sequence was
+already stale at its merge step — the owner's PR-zero word arrived
+mid-hold and the Director merged PR 674 from my recorded disposition
+rationale before my resume. Executing the handoff record verbatim
+would have re-run a merge ceremony on a merged PR; the protective
+move was re-reading live state (PR, claim, ARC tail) before executing
+any frozen step — prior-statements-are-not-invariants applies to your
+own handoff records. The sharper find: because the PR body carried
+the full decision rationale, the Director could apply my disposition
+correctly in my absence — a freeze artefact is not just a resume map,
+it is a delegation surface. Frontload rationale into durable
+artefacts and a peer can act on it without you.
+
+## 2026-07-31 ~22:42Z — twin subagent freeze: a dead dispatch is silent; stat -L is the tell (Badger guards Lair, 88e358)
+
+Two parallel Opus reviewer dispatches (type, architecture) froze at
+EXACTLY 21:38:59Z mid-run — 260KB/315KB of transcript activity, then
+nothing: no completion notification, no error, pings queued "for next
+tool round" never consumed (a wedged agent has no next round). Two
+siblings from the same batch completed normally, but the same-second
+freeze across independent agents is a shared-substrate signature.
+Cures adopted: (a) for any dispatch older than ~2x its class norm,
+check the transcript's REAL mtime — the tasks/*.output entries are
+SYMLINKS, so bare ls/stat reads the link's own size/mtime as a decoy;
+stat -L or cat. (b) Frozen-through-a-ping = dead: TaskStop it, record
+the stall on the PR (never silently drop a dispatched reviewer), and
+fall back to independently-verifiable coverage — on PR 678 the two
+stalled reviewers' single flagged questions were already answered by
+compilation-with-zero-assertions and by the gateway's first-hand
+boundary verification, so the fallback was evidence, not hope.
+(Broadcast as failure-mode event same hour; this entry is the durable
+home.)
+
+## Never expand a short sha by invention (2026-08-01)
+
+Pinned a merge to a full sha typed around a 9-char abbreviation — the
+invented tail 409'd (GitHub compared honestly). A short sha is a
+DISPLAY value; the merge pin wants the full ref, fetched at use time
+(--jq '.headRefOid', no slicing). Same silent-twin family: a value of
+the right shape standing in for the value itself.
+
+## 2026-08-01 ~07:55Z — compaction-wrap observations (Moss calls Loam, 79b433)
+
+- The false-positive-guard class re-enters through new doors (this seat, one
+  evening, twice): hours after helping refute the story-1 golden pin (a
+  literal-id test that would freeze the PDR-076a host-local namespace), my
+  slice-1 fixtures re-created the same class by deriving fixture blocks
+  THROUGH the identity module — nine tests pinning values that were functions
+  of the namespace constant, red on a permitted rotation. Test-expert's cure:
+  schema-parsed literal blocks (anchor pinned literals to the SCHEMA contract,
+  with the originating seed as a comment). Portable form: before pinning any
+  literal, name what OWNS the value — pin against the owner's contract, never
+  through a machinery path that couples the test to non-invariants.
+- Owner-stop calibration extends to WRITE tasks (this seat, ~22:14Z): a
+  background `git commit` (full hook chain) was externally stopped — same
+  signature as the calibrated monitor x-stop (no failure output, owner-active
+  window), and Badger's untouched-monitors data point proved it
+  session-targeted, not fleet stillness. The write-specific discipline that
+  held for ~9 h: verify git state FIRST (no commit landed, bundle stayed
+  staged, no lock), never re-run a stopped write on own authority, surface on
+  every channel (in-session, push, Director directed + ARC mirror), and
+  relabel the heartbeat to blocked-on-owner-ask so peers read
+  do-not-takeover. A stopped MONITOR is re-armable infrastructure; a stopped
+  WRITE is owner intent about the artefact — hold it.
+- CORRECTION (2026-08-01, post-compaction): the ~22:14Z stop was NOT the
+  owner — Falcon's first-hand comms-store investigation (owner-confirmed)
+  showed both heartbeat loops beating through the window while exactly one
+  background task died: a resource-class kill (harness output-volume
+  auto-stop or OS memory pressure on the hook chain's test fan-out). The
+  instance attribution above is falsified; the DISCIPLINE stands unchanged
+  — hold-and-surface was right on the evidence available. The cheap cure
+  for the ambiguity class: run heavyweight write chains FOREGROUND with an
+  explicit timeout so failures land in-band and a resource kill cannot
+  mimic an owner stop.

@@ -79,6 +79,39 @@ Verdict key: ON = ON-TRACK, DR = DRIFTING, WP = WRONG-PRIORITY. One row per quar
 | 18 | same moment | a | ON | ON† | ON | DR — UNNAMED arm, DELIVERED; convergent MCP-398 gate-naming, absorbed | yes → adjudicated at the seat |
 | 19 | Implementer Inferno weaves Kindling (3d8c87), fixes-lane-end/seat-disposition boundary, ~17:50Z (30 Jul) — LEGACY seat names, 3/4 template-less (post-ruling-39 path break) | n | ON ("SOUND") | ON — invert closeout order: owner report first, teardown on word; anchor claim not this lane's evidence | ON | ON — all 5 PASS | no on verdict; B's sequencing redirection adopted |
 | 20 | same moment, ~17:54Z — NEW #654 roles (judgement-low/med/high, procedure-xhigh), zero template failures | a | ON | DR — "hold awaiting owner word" is an uncited gate; offer freed capacity for routing | ON — verify nothing rides the anchor claim first | ON — PDR-078 §4 flagged unverified (verified real at the seat post-hoc) | yes → routed to Director (directed event ~18:00Z) + owner card; Director ruled no-new-lane (Matt's conn), owner card ruled "Retire now" |
+| 21 | Implementer Moss calls Loam (79b433), MCP-145 slice-2b landing boundary, ~09:19Z (1 Aug) — first rows under the usage-recording convention | n | ON (30,527 tok, 23s) | ON (31,425 tok, 34s) | ON (31,205 tok, 58s) | ON (23,153 tok, 82s) | no |
+| 22 | same moment, ~09:21Z | a | ON (29,810 tok, 14s) | ON (30,281 tok, 31s) | ON (33,973 tok, 53s) | ON (23,057 tok, 133s) | no |
+
+### 2026-08-01 axis notes (~09:24Z, Moss calls Loam, 79b433)
+
+- **Recording convention (owner words, 2026-08-01, in-session at this seat, standing):**
+  EVERY cricket run is recorded in this experiment record at occurrence — no unrecorded
+  runs — and each recorded run carries per-leg token usage and run time (the dispatch
+  usage block's `subagent_tokens` + `duration_ms`). Historical rows stand unmodified;
+  new-row seat cells carry `VERDICT (tokens, seconds)`.
+- **Delivery 8/8 across both waves** — a fully-delivered double-quartet at an
+  Implementer seat; the #654 role path has now run consecutive moments at this seat
+  with zero template or delivery failures.
+- **Cost shape, first recorded sample**: token cost is nearly flat across the
+  capability axis (~23–34k per leg); the compiled-procedure D leg is CHEAPEST on
+  tokens in both stances (23.2k / 23.1k) while SLOWEST on wall-clock (82s / 133s) —
+  effort dominates run time, template dominates token cost.
+- **Frame-discipline note from B-a**: the frame said "2a" unqualified where two live
+  lanes each carried a "2a" label (this lane's MERGED MCP-145 slice 2a vs the
+  validator lane's in-flight story 2a); the leg's sequencing worry was an artefact of
+  that collision. Cross-lane slice labels in frames need their lane prefix.
+- **C-n raised "Moss vs Loam" as an identity mismatch** — dissolved by the full
+  display name ("Moss calls Loam"); frames should carry the full PDR-027 display name.
+- **B-n redirection ADOPTED**: the 2b PR body attributes each of its three refactors
+  (accessors leaf, audit module split, CLI DI seam) to its named reviewer FIX-FIRST
+  cure so the diff reads as cure, not scope creep.
+- **Back-fill under the every-run mandate** — this lane's three pre-convention panels:
+  story-1/MCP-457 cycle boundary (31 Jul, 8/8 ON-TRACK), MCP-145 slice-1 boundary
+  (31 Jul, 8/8 ON-TRACK), slice-2a gate boundary (31 Jul ~22:00Z, 8/8 ON-TRACK; the
+  lane ARC recorded its two waves as 4/4 + 4/4). Verdicts preserved in the
+  identity-lane ARC channel; per-leg usage UNCAPTURED (pre-convention; compaction
+  dropped the dispatch records). Recorded so the runs exist in the experiment record —
+  the usage gap is explicit, not silent.
 
 ### Round 13 axis notes (2026-07-30 ~06:26Z, Falcon hunts Flight — succession pickup round)
 
@@ -266,5 +299,6 @@ Verdict key: ON = ON-TRACK, DR = DRIFTING, WP = WRONG-PRIORITY. One row per quar
 
 Minted 2026-07-29 by Schooner binds Trench (5492d7) at owner word, alongside the
 quartet agent definitions (MCP-161). Future quartet runs: post the tally comms event at
-occurrence (transport), then append here at occurrence or at the next consolidation
-(storage) — the Director's transport/storage ruling is a174d253.
+occurrence (transport), then append here AT OCCURRENCE (storage) — the Director's
+transport/storage ruling is a174d253, tightened by owner word 2026-08-01: every run is
+recorded, none skipped, each with per-leg token usage and run time.
