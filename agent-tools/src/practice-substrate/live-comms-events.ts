@@ -52,12 +52,20 @@ async function readUnifiedDirectory(input: {
   readonly findings: SubstrateFinding[];
 }): Promise<void> {
   for (const path of await listJsonFiles(input.repoRoot, input.root)) {
+    let text: string;
     try {
-      input.accumulator.push(
-        parseCommsEvent(await readFile(absolutePath(input.repoRoot, path), 'utf8')),
-      );
+      text = await readFile(absolutePath(input.repoRoot, path), 'utf8');
     } catch (error) {
       input.findings.push(parseFailureFinding(input.surface, path, error));
+      continue;
+    }
+    const parsed = parseCommsEvent(text);
+    if (parsed.ok) {
+      input.accumulator.push(parsed.value);
+    } else {
+      // The Err carries the parser's original error — a raw SyntaxError for
+      // invalid JSON — so the finding classifier keeps its instanceof split.
+      input.findings.push(parseFailureFinding(input.surface, path, parsed.error));
     }
   }
 }

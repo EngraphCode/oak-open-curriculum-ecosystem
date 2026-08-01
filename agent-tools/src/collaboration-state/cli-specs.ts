@@ -79,8 +79,8 @@ export const specs: Readonly<Record<string, CommandSpec>> = {
   }),
   'identity:audit': commandSpec({
     help: identityAuditHelp,
-    options: ['now', 'active', 'closed', 'thread-record', 'shared-log'],
-    handler: (options) => auditIdentity(options),
+    options: ['now', 'active', 'closed', 'thread-record', 'comms-dir'],
+    handler: (options, _env, runtime) => auditIdentity(options, runtime),
   }),
   'comms:append': commandSpec({
     help: commsAppendHelp,

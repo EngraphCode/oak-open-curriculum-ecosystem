@@ -1,13 +1,15 @@
 import { describe, expect, it } from 'vitest';
 
-import {
-  collaborationAgentIdSchema,
-  type CollaborationAgentId,
-} from '../../src/collaboration-state/types';
+import { collaborationAgentIdSchema } from '../../src/collaboration-state/types';
 import {
   displayPrefix,
   visualDisambiguator,
 } from '../../src/collaboration-state/visual-disambiguator';
+import {
+  parsedBlock,
+  UUIDV4_ANCHORED_ID,
+  UUIDV4_ANCHORED_PREFIX,
+} from './visual-disambiguator-fixtures';
 
 // Fixtures are schema-parsed literal blocks (testing-strategy §Test Data
 // Anchoring): the parse proves each block schema-legal, and pinning the full
@@ -19,25 +21,15 @@ import {
 // .unit.test.ts so the tables stay cross-checkable). Anchoring the literals
 // here rather than deriving through the identity module keeps this file
 // independent of the PDR-076a host-local namespace, which
-// identity.unit.test.ts deliberately never pins.
-function parsedBlock(fields: {
-  readonly session_id_prefix: string;
-  readonly id?: string;
-}): CollaborationAgentId {
-  return collaborationAgentIdSchema.parse({
-    agent_name: 'Fixture Agent',
-    platform: 'codex',
-    model: 'GPT-5',
-    ...fields,
-  });
-}
-
+// identity.unit.test.ts deliberately never pins. The block factory and the
+// UUIDv4 row's anchored values live in visual-disambiguator-fixtures.ts,
+// shared with the docs-drift test.
 const tokenRows = [
   // seed 22e83599-a627-4427-b23c-fe6ce046e859 (UUIDv4)
   {
     label: 'a UUIDv4-seeded block',
-    prefix: '22e835',
-    id: '1bb4df59-58e8-5b71-b41b-eebd1f587dda',
+    prefix: UUIDV4_ANCHORED_PREFIX,
+    id: UUIDV4_ANCHORED_ID,
     token: '22e835-dda',
   },
   // seed 019dd34d-cb6a-74e0-a29d-6cb8a65ea14b (UUIDv7 family)

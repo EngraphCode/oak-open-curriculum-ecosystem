@@ -24,7 +24,7 @@ for the operational-memory surfaces and authority order within them.
 | **Doctrine** | Read-and-internalise; sets stance for every session | `.agent/directives/` (AGENT.md, principles, testing-strategy, schema-first-execution, metacognition, orientation) | Session open — Ground First step 1 |
 | **Portable Doctrine** | Cross-repo Practice doctrine; travels with Practice Core | `.agent/practice-core/` (trinity, PDRs, patterns) | Orientation + when Practice questions arise |
 | **Active Memory** | Learning loop — capture, distil, graduate, enforce | `.agent/memory/active/` (napkin, distilled, patterns, archive) | Session open — Ground First step 3 |
-| **Operational Memory** | Continuity / session-resume state | `.agent/memory/operational/` (repo-continuity, threads, tracks) | Session open — Ground First step 4 |
+| **Operational Memory** | Continuity / session-resume state | `.agent/memory/operational/` (repo-continuity, threads) | Session open — Ground First step 4 |
 | **Executive Memory** | Stable organisational contracts and catalogues | `.agent/memory/executive/` (artefact inventory, reviewer catalogue, adapter matrix) | Ad-hoc lookup when taking an action the surface governs |
 | **Plans** | Scope, sequencing, acceptance criteria | `.agent/plans/` (V0 corpus: `delivery/`, `practice/`, the milestone plan; prior estate in `.agent/plans-backlog-2026-07/`) | When picking up a lane |
 | **Reference** | Curated library — owner-vetted evergreen read-to-learn material; promotion-gated ([PDR-032](../practice-core/decision-records/PDR-032-reference-tier-as-curated-library.md)) | `.agent/reference/` | When consulting promoted reference material |

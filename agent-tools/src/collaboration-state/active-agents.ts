@@ -1,4 +1,4 @@
-import { claimReport } from './claim-reports.js';
+import { claimReport, liveClaimIdentities } from './claim-reports.js';
 import {
   formatAgent,
   formatRoutingKey,
@@ -228,9 +228,7 @@ export function liveAgentIdentities(
   nowIso: string,
 ): readonly CollaborationAgentId[] {
   return [
-    ...registry.claims
-      .filter((claim) => claimReport(claim, nowIso).freshness_status === 'fresh')
-      .map((claim) => claim.agent_id),
+    ...liveClaimIdentities(registry.claims, nowIso),
     ...registry.commit_queue
       .filter((entry) => queueStatusFor(entry, nowIso) === 'active')
       .map((entry) => entry.agent_id),

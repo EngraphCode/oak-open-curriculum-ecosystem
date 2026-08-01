@@ -14,9 +14,12 @@ import {
   heartbeatFileForSeen,
 } from '../../src/collaboration-state/watcher-presence';
 import { deriveOverrideCollaborationIdentity } from '../../src/collaboration-state/identity';
+import { uuidV5Schema } from '../../src/collaboration-state/agent-id';
+import { type CollaborationAgentId } from '../../src/collaboration-state/types';
 
-// Derived (not literal) so `id` is a valid branded UuidV5; distinct names give
-// distinct routing keys so the identity-match path is exercised both ways.
+// Derived identities carry valid branded ids without hand-picked literals;
+// distinct names give distinct routing keys so the identity-match path is
+// exercised both ways. Tests needing a VISIBLE id tail parse literals inline.
 const identity = deriveOverrideCollaborationIdentity({
   agent_name: 'Seal hunts Offing',
   platform: 'claude',
@@ -96,6 +99,58 @@ describe('classifyWatcherPresence', () => {
     );
     expect(verdict).toMatchObject({ kind: 'blind' });
     expect(JSON.stringify(verdict)).toContain('not this session');
+  });
+
+  // A literal branded id (not a derived one) so the expected token tail is
+  // visible in the fixture itself: the blind reason names the foreign identity
+  // with the MCP-145 display token (prefix-idTail).
+  it('names a foreign id-bearing identity with the display token in the blind reason', () => {
+    const foreignWithId: CollaborationAgentId = {
+      agent_name: 'Woodland Creeping Petal',
+      platform: 'codex',
+      model: 'GPT-5',
+      session_id_prefix: '019dd3',
+      id: uuidV5Schema.parse('88888888-8888-5888-9888-888888888abc'),
+    };
+    const verdict = classifyWatcherPresence(
+      {
+        kind: 'live',
+        identity: foreignWithId,
+        watchedCommsDir: EXPECTED_COMMS_DIR,
+        lastEmitAt: 'x',
+        agedMs: 10,
+      },
+      identity,
+      EXPECTED_COMMS_DIR,
+    );
+    expect(verdict).toMatchObject({ kind: 'blind' });
+    expect(JSON.stringify(verdict)).toContain('(Woodland Creeping Petal / 019dd3-abc)');
+  });
+
+  // An id-less heartbeat identity still reaches the blind branch (the routing
+  // key cannot match without an id) and its reason renders the bare prefix —
+  // the display token's structural fallback.
+  it('names an id-less foreign identity with the bare prefix in the blind reason', () => {
+    const foreignIdless: CollaborationAgentId = {
+      agent_name: 'Ancient Drifting Relic',
+      platform: 'claude',
+      model: 'claude-opus-4-7',
+      session_id_prefix: 'aa0000',
+    };
+    const verdict = classifyWatcherPresence(
+      {
+        kind: 'live',
+        identity: foreignIdless,
+        watchedCommsDir: EXPECTED_COMMS_DIR,
+        lastEmitAt: 'x',
+        agedMs: 10,
+      },
+      identity,
+      EXPECTED_COMMS_DIR,
+    );
+    expect(verdict).toMatchObject({ kind: 'blind' });
+    expect(JSON.stringify(verdict)).toContain('(Ancient Drifting Relic / aa0000)');
+    expect(JSON.stringify(verdict)).not.toContain('aa0000-');
   });
 
   it('treats an absent heartbeat as blind and names the missing path', () => {

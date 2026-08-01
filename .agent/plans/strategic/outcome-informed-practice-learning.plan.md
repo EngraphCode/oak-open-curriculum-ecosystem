@@ -66,6 +66,19 @@ produce their intended effects:
 - Evidence over enthusiasm: a claim served here carries its falsifier,
   and a missing signal means "unmeasured", never "working".
 
+## Elaboration input (preserved, not yet ratified)
+
+A fuller independent elaboration of this node was authored by Possum turns
+Nocturne in the purpose-first reframe (PR #688, main commit `3d0e15012`):
+an outcome statement, the three-contract bet, detailed success criteria
+including information-governance and people-derived-data boundaries, a
+disconfirmation clause, and delivery obligations. The two versions were
+minted the same day without sight of each other; the owner's ratification
+attaches to THIS file's text. The elaboration is preserved in main's
+history at that commit and is named input to this node's first delivery
+planning; its ratification is a pending owner decision, routed at the
+next owner window.
+
 ## Delivery
 
 Plans serving this node declare `serves: outcome-informed-practice-learning`

@@ -1,3 +1,137 @@
+## [1.140.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.140.2...v1.140.3) (2026-08-01)
+
+## [1.140.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.140.1...v1.140.2) (2026-08-01)
+
+
+### Bug Fixes
+
+* **agent-tools:** pr 698 round 1 — role-based helper boundary, seed lockstep pin, tsdoc sourcing ([37c61ac](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/37c61ac1ea0acddfddf9f02a3283c1b179a056db))
+
+## [1.140.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.140.0...v1.140.1) (2026-08-01)
+
+# [1.140.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.139.0...v1.140.0) (2026-08-01)
+
+
+### Features
+
+* **agent-tools:** a supplied session prefix is never silently empty ([67ada7b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/67ada7b93283d02235274967cdca9385782911a7))
+* **agent-tools:** comms direct derives the recipient prefix from claim rows ([50f71bf](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/50f71bfd0e2b1690873b7fb12a71190707197f2c))
+
+# [1.139.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.138.1...v1.139.0) (2026-08-01)
+
+
+### Bug Fixes
+
+* **agent-tools:** pr 696 round 1 — transaction pins, ajv-leg pin, json boundaries to err, doc truth ([29988da](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/29988dac89c53cd54999e08a4529a71af1061a57)), closes [#696](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/696)
+
+
+### Features
+
+* **agent-tools:** story 2c — result-typed transaction validators, bridge deleted ([0b4893d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/0b4893ded4b8a4317246b0af304013f48c85bbcf))
+
+## [1.138.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.138.0...v1.138.1) (2026-08-01)
+
+# [1.138.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.137.1...v1.138.0) (2026-08-01)
+
+
+### Bug Fixes
+
+* **agent-tools:** pr 695 round 1 — sibling deletion, discriminating pins, doc truth ([1af2898](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/1af28984f1525a16d5920485d22260abcae7acee))
+
+
+### Features
+
+* **agent-tools:** story 2b — three collaboration-state parsers return results ([7a59996](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/7a599964de8af5b39616fe8b5765f75a00a211ff)), closes [#692](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/692)
+
+## [1.137.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.137.0...v1.137.1) (2026-08-01)
+
+# [1.137.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.136.1...v1.137.0) (2026-08-01)
+
+
+### Bug Fixes
+
+* **agent-tools:** dense isStringArray check rejects sparse files arrays ([cf06fda](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/cf06fda6176ecfad59a1eb0b1079ada9e8756720))
+* **agent-tools:** keep parseRegistry total on sparse arrays; reuse canonical parseWithSchema ([e7c0de7](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e7c0de7cf5c0de7b9aaf3ca6333f09dcbb460b8d)), closes [#692](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/692)
+* **agent-tools:** reject sparse holes in parseStringArrayResult ([c3adf26](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c3adf260b1b29e46f9136b7d29ab25a3c7699c33)), closes [#692](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/692)
+* **result:** keep mapErr tsdoc adjacent; anchor exact-match pins in collect and json tests ([bf9e173](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bf9e1733d62420aa5a1e477107ab92c38244f665)), closes [#692](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/692)
+
+
+### Features
+
+* **result:** collect combinator at second consumer; result cores for the 2b parser conversion ([157e339](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/157e339030c27e146d518d38ec0539d91707848f))
+
+## [1.136.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.136.0...v1.136.1) (2026-08-01)
+
+# [1.136.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.135.0...v1.136.0) (2026-08-01)
+
+
+### Features
+
+* **agent-tools:** finish the identity-token render inventory ([a2e42dd](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a2e42dd2ecd8a046411c20719c82477c4c82a60b))
+
+# [1.135.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.134.2...v1.135.0) (2026-08-01)
+
+
+### Bug Fixes
+
+* **agent-tools:** single schemaid vocabulary, bare-t ok arm, bridge-called pins (review round 1) ([59e30dd](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/59e30dd2413ecbb057c113eb11ca98b183f71e3f))
+
+
+### Features
+
+* **agent-tools:** consolidate collaboration surface-contract gate, delete silent validator seams ([e233de4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e233de4f53ddaf74a5dc4d4ca4098e69c87a50f5))
+
+## [1.134.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.134.1...v1.134.2) (2026-08-01)
+
+## [1.134.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.134.0...v1.134.1) (2026-08-01)
+
+# [1.134.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.133.0...v1.134.0) (2026-08-01)
+
+
+### Features
+
+* **agent-tools:** carry the identity token onto the operator CLI lines ([de7dfe2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/de7dfe279abd3a29989e567a6b81425988fab763))
+
+# [1.133.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.132.1...v1.133.0) (2026-08-01)
+
+
+### Bug Fixes
+
+* **agent-tools:** crash-first read contract, cli err coverage, update seed parity ([a81355a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a81355a1d7391ddffa74b6ee918e26e274f73b21))
+* **agent-tools:** re-true substrate surface-count pin to 21 with pr-213 provenance ([d80e0d1](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d80e0d15726925837e6d72ae6cb4fa47161f86be))
+
+
+### Features
+
+* **agent-tools:** convert commit-queue registry parse layer to result ([8971c99](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8971c99ac578f75c2c7e972383a1101c8aa82cf3))
+
+## [1.132.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.132.0...v1.132.1) (2026-08-01)
+
+
+### Bug Fixes
+
+* **agent-tools:** preserve absolute adapter paths ([c3630cb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c3630cbadb5549b86f2d2e78c7297167c75a6c16))
+* **agent-tools:** resolve Codex adapter paths in health probe ([a4f7314](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a4f7314056c92d82f46be45c0694f1f96531ea06))
+
+
+### Performance Improvements
+
+* **agent-tools:** use Set for reviewer parity lookup ([a743590](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a743590f7da9a59555d01a5d807b5af42b25651d))
+
+# [1.132.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.131.1...v1.132.0) (2026-08-01)
+
+
+### Bug Fixes
+
+* **agent-tools:** close the audited-field union; frozen backlog line back to snapshot text ([2d3a105](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2d3a105abd950724b91aaa0e88b4a3624d2d5a3c)), closes [#682](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/682)
+
+
+### Features
+
+* **agent-tools:** carry the identity token onto the comms record surfaces ([a5ef6fd](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a5ef6fdd87a669a12f76fc3cda700190917bc7da))
+
+## [1.131.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.131.0...v1.131.1) (2026-08-01)
+
 # [1.131.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.130.3...v1.131.0) (2026-08-01)
 
 

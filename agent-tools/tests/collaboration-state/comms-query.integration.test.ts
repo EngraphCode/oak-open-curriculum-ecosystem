@@ -1,11 +1,14 @@
 import { describe, expect, it } from 'vitest';
 
 import { runCollaborationStateCli } from '../../src/collaboration-state';
+import { uuidV5Schema } from '../../src/collaboration-state/agent-id';
 import { type CommsEvent } from '../../src/collaboration-state/types';
 import { createFakeCollaborationRuntime } from './fake-collaboration-runtime';
 
-// Read-side fixtures: `id` is optional on the read CollaborationAgentId and the
-// projection only reads agent_name / session_id_prefix, so it is omitted here.
+// Read-side fixtures: `id` is optional on the read CollaborationAgentId.
+// alice is deliberately id-less (a pre-PDR-076a legacy row — her summary lines
+// fall back to the bare prefix); bob carries an id, so his lines render the
+// MCP-145 display token (prefix-idTail).
 const alice = {
   agent_name: 'Wooded Spreading Thicket',
   platform: 'claude',
@@ -18,6 +21,7 @@ const bob = {
   platform: 'codex',
   model: 'GPT-5',
   session_id_prefix: '019e18',
+  id: uuidV5Schema.parse('33333333-3333-5333-9333-333333333333'),
 } as const;
 
 const commsDir = 'state/comms';
@@ -71,11 +75,64 @@ describe('comms list', () => {
     expect(lines[0]).toBe('comms list — newest 3 of 3 event(s), most recent first');
     expect(lines[1]).toContain('event-newest');
     expect(lines[1]).toContain('[directed]');
-    expect(lines[1]).toContain('Galactic Transiting Orbit/019e18');
+    // bob is id-bearing: the label carries the MCP-145 display token.
+    expect(lines[1]).toContain('Galactic Transiting Orbit/019e18-333');
     expect(lines[1]).toContain('Newest directed message');
     expect(lines[2]).toContain('event-middle');
     expect(lines[2]).toContain('[narrative] [heartbeat]');
     expect(lines[3]).toContain('event-oldest');
+    // alice is id-less: bare prefix, no token tail (the two-space delimiter
+    // before the channel pins that nothing follows the prefix).
+    expect(lines[3]).toContain('Wooded Spreading Thicket/5c8f3c  [narrative]');
+    expect(lines[3]).not.toContain('5c8f3c-');
+  });
+
+  // The MCP-145 distinct-labels case: two authors sharing agent_name AND
+  // session_id_prefix (a name+prefix collision across sessions) stay visually
+  // distinct through the id-tail token — the defect class the disambiguator
+  // exists to cure.
+  it('renders distinct summary labels for two authors sharing a name and a prefix', async () => {
+    const firstTwin = {
+      agent_name: 'Twin echoes Prefix',
+      platform: 'claude',
+      model: 'claude-opus-4-8',
+      session_id_prefix: 'abc123',
+      id: uuidV5Schema.parse('66666666-6666-5666-9666-666666666aaa'),
+    } as const;
+    const secondTwin = {
+      ...firstTwin,
+      id: uuidV5Schema.parse('77777777-7777-5777-9777-777777777bbb'),
+    } as const;
+    const twinEvents: readonly CommsEvent[] = [
+      {
+        schema_version: '2.0.0',
+        event_id: 'twin-first',
+        created_at: '2026-06-04T10:00:00Z',
+        kind: 'narrative',
+        author: firstTwin,
+        title: 'From the first seat',
+        body: 'first twin body',
+      },
+      {
+        schema_version: '2.0.0',
+        event_id: 'twin-second',
+        created_at: '2026-06-04T11:00:00Z',
+        kind: 'narrative',
+        author: secondTwin,
+        title: 'From the second seat',
+        body: 'second twin body',
+      },
+    ];
+    const fake = createFakeCollaborationRuntime({ comms: { [commsDir]: twinEvents } });
+    const result = await runCollaborationStateCli({
+      argv: ['--', 'comms', 'list', '--comms-dir', commsDir],
+      env: {},
+      io: fake.runtime.io,
+    });
+
+    expect(result.exitCode).toBe(0);
+    expect(result.stdout).toContain('Twin echoes Prefix/abc123-aaa');
+    expect(result.stdout).toContain('Twin echoes Prefix/abc123-bbb');
   });
 
   it('limits output to the requested --tail count, newest first', async () => {
