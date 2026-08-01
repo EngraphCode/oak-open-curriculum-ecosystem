@@ -1,10 +1,10 @@
 import { formatAgent, sameAgentRoutingKey } from '../collaboration-state/active-agent-routing.js';
+import { type CollaborationAgentIdWrite } from '../collaboration-state/agent-id.js';
 import { getFreshEntriesAhead } from './core.js';
 import { formatFileList, normalizeFileList } from './path-list.js';
 import {
   isActiveCommitQueuePhase,
   type CommitIntent,
-  type CommitQueueAgentId,
   type CommitQueueClaim,
   type CommitQueueRegistry,
 } from './types.js';
@@ -15,7 +15,7 @@ import { secondsUntilExpiry } from './time.js';
  */
 export function guardStageFiles(input: {
   readonly registry: CommitQueueRegistry;
-  readonly agentId: CommitQueueAgentId;
+  readonly agentId: CollaborationAgentIdWrite;
   readonly files: readonly string[];
   readonly nowIso: string;
 }):
@@ -56,7 +56,7 @@ export function guardStageFiles(input: {
 function guardIntentClaim(input: {
   readonly registry: CommitQueueRegistry;
   readonly intent: CommitIntent;
-  readonly agentId: CommitQueueAgentId;
+  readonly agentId: CollaborationAgentIdWrite;
   readonly nowIso: string;
 }):
   | { readonly ok: true; readonly intent: CommitIntent }
@@ -102,7 +102,7 @@ function guardIntentClaim(input: {
 
 function intentCoversStageRequest(input: {
   readonly intent: CommitIntent;
-  readonly agentId: CommitQueueAgentId;
+  readonly agentId: CollaborationAgentIdWrite;
   readonly files: readonly string[];
   readonly nowIso: string;
 }): boolean {
@@ -123,7 +123,7 @@ function intentCoversStageRequest(input: {
  * canonical comparator — an id-less claim identity (a legal pre-sunset
  * legacy row, preserved on write-back) is never the same live agent.
  */
-function claimBelongsToAgent(claim: CommitQueueClaim, agentId: CommitQueueAgentId): boolean {
+function claimBelongsToAgent(claim: CommitQueueClaim, agentId: CollaborationAgentIdWrite): boolean {
   return claim.agent_id !== undefined && sameAgentRoutingKey(claim.agent_id, agentId);
 }
 

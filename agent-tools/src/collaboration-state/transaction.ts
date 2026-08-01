@@ -1,5 +1,7 @@
 import { readFile } from 'node:fs/promises';
 
+import { unwrapOrThrow, type Result } from '@oaknational/result';
+
 import { writeTextAtomically } from './atomic-file.js';
 import { acquireFileTransactionLock } from './transaction-lock.js';
 
@@ -13,14 +15,18 @@ const DEFAULT_LOCK_ATTEMPTS = 100;
 export async function updateJsonStateWithRetry<T>(input: {
   readonly readText: () => string | Promise<string>;
   readonly writeText: (text: string) => void | Promise<void>;
-  readonly parseText: (text: string) => T;
-  readonly validateText: (text: string) => void | Promise<void>;
+  readonly parseText: (text: string) => Result<T, Error>;
+  readonly validateText: (text: string) => Promise<Result<void, Error>>;
   readonly transform: (value: T) => T;
   readonly maxAttempts: number;
 }): Promise<{ readonly attempts: number }> {
   for (let attempt = 1; attempt <= input.maxAttempts; attempt += 1) {
     const originalText = await input.readText();
-    const nextValue = input.transform(input.parseText(originalText));
+    // unwrapOrThrow, never a default-substituting fold: a substituted empty
+    // state would run the transform over nothing and write it back,
+    // silently destroying every row (pinned in
+    // transaction.integration.test.ts — the read fold never substitutes).
+    const nextValue = input.transform(unwrapOrThrow(input.parseText(originalText)));
     const verificationText = await input.readText();
 
     if (verificationText !== originalText) {
@@ -29,8 +35,13 @@ export async function updateJsonStateWithRetry<T>(input: {
 
     await input.writeText(
       await serializeJson(nextValue, async (text) => {
-        input.parseText(text);
-        await input.validateText(text);
+        // The write-back contract check: the only check enforcing the
+        // caller's PARSER contract (exact-version pins, field shapes) on
+        // serialized output — commit-queue and CLI callers pass an Ajv-only
+        // validateText, which cannot see it. The unwrap must not be dropped
+        // (pinned in transaction.integration.test.ts).
+        unwrapOrThrow(input.parseText(text));
+        return input.validateText(text);
       }),
     );
     return { attempts: attempt };
@@ -72,7 +83,7 @@ export async function runJsonStateTransaction<T>(input: {
 export async function writeJsonFileAtomically(input: {
   readonly filePath: string;
   readonly value: unknown;
-  readonly validateText: (text: string) => void | Promise<void>;
+  readonly validateText: (text: string) => Promise<Result<void, Error>>;
 }): Promise<void> {
   await runJsonStateTransaction({
     filePaths: [input.filePath],
@@ -86,7 +97,7 @@ export async function writeJsonFileAtomically(input: {
 export async function writeJsonFileWithinTransaction(input: {
   readonly filePath: string;
   readonly value: unknown;
-  readonly validateText: (text: string) => void | Promise<void>;
+  readonly validateText: (text: string) => Promise<Result<void, Error>>;
 }): Promise<void> {
   await writeJsonTextAtomically(
     input.filePath,
@@ -101,7 +112,7 @@ export async function writeJsonFileWithinTransaction(input: {
 export async function createJsonFileAtomically(input: {
   readonly filePath: string;
   readonly value: unknown;
-  readonly validateText: (text: string) => void | Promise<void>;
+  readonly validateText: (text: string) => Promise<Result<void, Error>>;
 }): Promise<void> {
   await writeJsonTextAtomically(
     input.filePath,
@@ -124,11 +135,15 @@ export async function writeTextFileAtomically(input: {
 
 /**
  * Update a JSON file on disk with transaction-guarded temp-file rename writes.
+ *
+ * Both callbacks return `Result`: an Err from `parseText` (at the read fold
+ * or the write-back re-parse) or from `validateText` (at the serialization
+ * fold) is rethrown as its own error object, never re-wrapped.
  */
 export async function updateJsonFileWithRetry<T>(input: {
   readonly filePath: string;
-  readonly parseText: (text: string) => T;
-  readonly validateText: (text: string) => void | Promise<void>;
+  readonly parseText: (text: string) => Result<T, Error>;
+  readonly validateText: (text: string) => Promise<Result<void, Error>>;
   readonly transform: (value: T) => T;
   readonly maxAttempts: number;
 }): Promise<{ readonly attempts: number }> {
@@ -167,10 +182,13 @@ async function writeJsonTextAtomically(
 
 async function serializeJson(
   value: unknown,
-  validateText: (text: string) => void | Promise<void>,
+  validateText: (text: string) => Promise<Result<void, Error>>,
 ): Promise<string> {
   const text = `${JSON.stringify(value, null, 2)}\n`;
   JSON.parse(text);
-  await validateText(text);
+  // THE byte-identity unwrap point: rethrows the validator Err's own error
+  // object, so the write gates' loud messages reach callers identity-intact
+  // (pinned in transaction.integration.test.ts).
+  unwrapOrThrow(await validateText(text));
   return text;
 }

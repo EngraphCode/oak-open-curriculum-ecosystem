@@ -1,3 +1,5 @@
+import { unwrapOrThrow, type Result } from '@oaknational/result';
+
 import {
   completeCommitIntent,
   enqueueCommitIntent,
@@ -49,7 +51,9 @@ export async function runCommitQueueCli(input: CommitQueueCliInput): Promise<num
   if (isCommitQueueReadCommand(input.command)) {
     return runCommitQueueReadCommand({
       command: input.command,
-      registry: await readRegistryForCli(input, registryPath),
+      // The CLI dispatch is the sanctioned exception boundary: the topic
+      // wrapper converts the thrown message into exit 2 + stderr.
+      registry: unwrapOrThrow(await readRegistryForCli(input, registryPath)),
       options: input.options,
       now,
       stdout: input.stdout,
@@ -76,7 +80,7 @@ async function dispatchWriteCommand(args: {
   }
   if (input.command === 'verify-staged') {
     return runVerifyStagedCommand({
-      registry: await readRegistry(registryPath),
+      registry: unwrapOrThrow(await readRegistry(registryPath)),
       options: input.options,
       now,
       gitRoot: input.resolveGitRoot(),
@@ -94,7 +98,7 @@ async function dispatchWriteCommand(args: {
 function readRegistryForCli(
   input: CommitQueueCliInput,
   registryPath: string,
-): Promise<CommitQueueRegistry> {
+): Promise<Result<CommitQueueRegistry, Error>> {
   return (input.readRegistry ?? readRegistry)(registryPath);
 }
 
@@ -129,7 +133,7 @@ async function runPhaseCommand(input: CommandInputWithNow): Promise<number> {
 
 async function runRecordStagedCommand(input: CommandInputWithCli): Promise<number> {
   const intentId = requireOption(input.options, 'intent-id');
-  const registryBefore = await readRegistryForCli(input.input, input.registryPath);
+  const registryBefore = unwrapOrThrow(await readRegistryForCli(input.input, input.registryPath));
   const intent = requireIntent(registryBefore, intentId);
   const narrowed = narrowIntentPathspec(intent);
   if (!narrowed.ok) {

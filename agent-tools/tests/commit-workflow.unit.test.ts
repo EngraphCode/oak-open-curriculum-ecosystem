@@ -1,12 +1,12 @@
+import { err, ok } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
-import { uuidV5Schema } from '../src/collaboration-state/agent-id';
+import { uuidV5Schema, type CollaborationAgentIdWrite } from '../src/collaboration-state/agent-id';
 
 import {
   createStagedBundleFingerprint,
   runCommitWorkflow,
   type CommitIntent,
-  type CommitQueueAgentId,
   type CommitQueueClaim,
   type CommitQueueRegistry,
 } from '../src/commit-queue';
@@ -17,7 +17,7 @@ import {
 } from '../src/commit-queue/commit-workflow';
 import { type StagedBundle } from '../src/commit-queue/types';
 
-const agentId: CommitQueueAgentId = {
+const agentId: CollaborationAgentIdWrite = {
   agent_name: 'Tempestuous Spiralling Thermal',
   platform: 'claude',
   model: 'claude-opus-4-7',
@@ -157,7 +157,7 @@ function fakeDeps(input: FakeDepsInput): {
   ];
 
   const deps: CommitWorkflowDependencies = {
-    readRegistry: async () => input.holder.current,
+    readRegistry: async () => ok(input.holder.current),
     transformRegistry: async (transform) => {
       transformationCalls.current += 1;
       input.holder.current = transform(input.holder.current);
@@ -355,6 +355,35 @@ describe('runCommitWorkflow — unknown intent id', () => {
       reason: 'unknown intent_id: ffffffff-ffff-4fff-8fff-ffffffffffff',
     });
     expect(holder.current.commit_queue).toHaveLength(1);
+    expect(calls.transformationCalls.current).toBe(0);
+    expect(calls.gitCommitCalls.current).toBe(0);
+  });
+});
+
+describe('runCommitWorkflow — corrupt registry read', () => {
+  it('reports load-intent failure carrying the parse layer message verbatim when the registry read returns Err, distinct from the unknown-id reason', async () => {
+    const holder = holderFor(initialRegistry());
+    const { deps, calls } = fakeDeps({
+      holder,
+      stagedBundles: [],
+    });
+    const parseFailure =
+      'commit_queue entry 11111111-1111-4111-8111-111111111111 carries an invalid agent_id ' +
+      '(PDR-076a requires the UUID v5 id on intents): id: Invalid input.';
+
+    const result = await runCommitWorkflow({
+      intentId: '11111111-1111-4111-8111-111111111111',
+      deps: {
+        ...deps,
+        readRegistry: async () => err(new Error(parseFailure)),
+      },
+    });
+
+    expect(result).toStrictEqual({
+      ok: false,
+      stage: 'load-intent',
+      reason: parseFailure,
+    });
     expect(calls.transformationCalls.current).toBe(0);
     expect(calls.gitCommitCalls.current).toBe(0);
   });

@@ -3,6 +3,11 @@ import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import {
+  ACTIVE_CLAIMS_SCHEMA_VERSION,
+  CLOSED_CLAIMS_SCHEMA_VERSION,
+} from '../../src/collaboration-state/types';
+
 const repoRoot = resolve(fileURLToPath(new URL('../../..', import.meta.url)));
 
 export async function makeTempDirectory(prefix: string): Promise<string> {
@@ -57,12 +62,12 @@ export async function makeTempCollaborationRepo(
   }
 
   await writeJson(join(collaborationRoot, 'active-claims.json'), {
-    schema_version: '1.3.0',
+    schema_version: ACTIVE_CLAIMS_SCHEMA_VERSION,
     commit_queue: [],
     claims: [],
   });
   await writeJson(join(collaborationRoot, 'closed-claims.archive.json'), {
-    schema_version: '1.3.0',
+    schema_version: CLOSED_CLAIMS_SCHEMA_VERSION,
     claims: [],
   });
   if (options.seedCommsEvent !== false) {

@@ -37,7 +37,9 @@ const ARC_WING = '\u{1FAB6}';
  * inter-Practice protocol, identity-display clause); a missing prefix renders
  * `unknown` per PDR-027 rather than dropping silently. Undefined identity drops
  * the whole segment (and the demark with it — a directorship needs an identity
- * to resolve).
+ * to resolve). Deliberate MCP-145 hold-out: a single-identity view renders the
+ * bare join key, never the display token — nothing to disambiguate, and the
+ * operator's paste value must be the join key.
  */
 export function formatIdentity(
   identity: string | undefined,

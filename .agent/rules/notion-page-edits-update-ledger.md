@@ -63,6 +63,10 @@ Operating credentials: <human-account-or-integration-account>
 Date: DD Month YYYY
 ```
 
+`<session-id-prefix>` is the bare wire prefix (the PDR-027 join key), never the rendered
+visual-disambiguator token (`<prefix>-<last 3 of id>`): the ledger row is an authored surface, and
+a pasted token silently mis-binds the recorded identity (PDR-027, 2026-08-01 amendment).
+
 The toggle belongs to the same ledger entry; it is not a second visible ledger item. Do not report
 the Notion edit complete until the content change, its repository line, and the collapsed identity
 toggle are all visible on the page.

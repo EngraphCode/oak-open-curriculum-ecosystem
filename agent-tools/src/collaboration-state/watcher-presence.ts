@@ -14,6 +14,7 @@ import { resolve } from 'node:path';
 
 import { sameAgentRoutingKey } from './active-agent-routing.js';
 import { type CollaborationAgentId } from './types.js';
+import { displayPrefix } from './visual-disambiguator.js';
 import { HEARTBEAT_FILE_SUFFIX } from './watcher-heartbeat.js';
 import { type WatcherStalenessResult } from './watcher-staleness.js';
 
@@ -74,7 +75,7 @@ function presentIfThisSession(
       kind: 'blind',
       reason:
         `a live comms watcher heartbeat exists, but its identity ` +
-        `(${heartbeatIdentity.agent_name} / ${heartbeatIdentity.session_id_prefix}) is not this ` +
+        `(${heartbeatIdentity.agent_name} / ${displayPrefix(heartbeatIdentity)}) is not this ` +
         `session's — this session is not running the watcher (a foreign or copied heartbeat does ` +
         `not count)`,
     };

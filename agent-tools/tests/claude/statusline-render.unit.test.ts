@@ -243,7 +243,11 @@ describe('renderStatusline — error and context usage', () => {
 describe('renderStatusline — identity shows the session join key (inter-Practice WS3)', () => {
   // One agent can carry a different name per estate (per-repo derivations); the
   // session_id_prefix is the only cross-repo join key, so the identity segment
-  // renders it beside the name (protocol clause 5: identity display).
+  // renders it beside the name. Under the PDR-125 clause-5 shape rule (as
+  // amended 2026-08-01) the statusline is the worked single-identity example
+  // and a DELIBERATE hold-out: it renders one identity and is the operator's
+  // paste source for the join key, so it shows the BARE prefix, never the
+  // multi-identity visual-disambiguator token.
   it('renders the name with the session_id_prefix', () => {
     const out = renderStatusline({
       ...base,

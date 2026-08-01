@@ -193,6 +193,74 @@ describe('renderSharedCommsLog', () => {
       );
     });
 
+    it('renders both from and to tokens on a directed heading (same-name seats separate)', () => {
+      // The MCP-145 distinct-labels case on the directed arrow: two seats
+      // sharing agent_name AND session_id_prefix differ only by id tail, so
+      // without the token the rendered heading cannot tell sender from
+      // recipient across sessions. Ids differ only in their visible tails.
+      const fromTwin = collaborationAgentIdSchema.parse({
+        agent_name: 'Twin echoes Prefix',
+        platform: 'claude',
+        model: 'claude-fable-5',
+        session_id_prefix: '22e835',
+        id: '1bb4df59-58e8-5b71-b41b-eebd1f587dda',
+      });
+      const toTwin = collaborationAgentIdSchema.parse({
+        ...fromTwin,
+        id: '1bb4df59-58e8-5b71-b41b-eebd1f587abc',
+      });
+      const rendered = renderSharedCommsLog({
+        events: [
+          {
+            schema_version: '2.0.0',
+            event_id: 'token-directed',
+            created_at: '2026-04-28T09:20:00Z',
+            kind: 'directed',
+            message_kind: 'session-handoff-summary',
+            from: fromTwin,
+            to: toTwin,
+            subject: 'token directed subject',
+            body: 'Directed body.',
+          } satisfies CommsEvent,
+        ],
+      });
+
+      expect(rendered).toContain('`Twin echoes Prefix` / `22e835-dda` → ');
+      expect(rendered).toContain('→ `Twin echoes Prefix` / `22e835-abc` — ');
+    });
+
+    it('keeps the bare wire prefix for an id-less directed recipient', () => {
+      const fromToken = collaborationAgentIdSchema.parse({
+        agent_name: 'Uplifted Wheeling Sky',
+        platform: 'claude',
+        model: 'claude-fable-5',
+        session_id_prefix: '22e835',
+        id: '1bb4df59-58e8-5b71-b41b-eebd1f587dda',
+      });
+      const rendered = renderSharedCommsLog({
+        events: [
+          {
+            schema_version: '2.0.0',
+            event_id: 'bare-to-directed',
+            created_at: '2026-04-28T09:25:00Z',
+            kind: 'directed',
+            message_kind: 'session-handoff-summary',
+            from: fromToken,
+            to: woodland,
+            subject: 'bare recipient subject',
+            body: 'Directed body.',
+          } satisfies CommsEvent,
+        ],
+      });
+
+      // woodland is id-less: the recipient field falls back to the bare wire
+      // prefix, with no token tail.
+      expect(rendered).toContain(
+        `→ \`${woodland.agent_name}\` / \`${woodland.session_id_prefix}\` — `,
+      );
+      expect(rendered).not.toContain(`${woodland.session_id_prefix}-`);
+    });
+
     it('keeps the bare wire prefix for an id-less legacy author', () => {
       const rendered = renderSharedCommsLog({
         events: [
