@@ -23,3 +23,16 @@ export function visualDisambiguator(
   }
   return `${agentId.session_id_prefix}-${agentId.id.slice(-3)}`;
 }
+
+/**
+ * The total display form of the prefix field: the visual-disambiguator token
+ * when the block carries an id, the bare prefix otherwise. Renderers adopt
+ * THIS function so the id-less fallback is structural rather than a per-site
+ * `??` each caller must remember; like the token itself, the result is
+ * display-only — never a join or lookup key.
+ */
+export function displayPrefix(
+  agentId: Pick<CollaborationAgentId, 'session_id_prefix' | 'id'>,
+): string {
+  return visualDisambiguator(agentId) ?? agentId.session_id_prefix;
+}

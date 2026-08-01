@@ -1,4 +1,4 @@
-import { sameAgentRoutingKey } from './active-agent-routing.js';
+import { formatAgent, sameAgentRoutingKey } from './active-agent-routing.js';
 import { renderSharedCommsLog } from './comms.js';
 import {
   type CollaborationAgentId,
@@ -153,8 +153,4 @@ function assertSameAgent(actual: CollaborationAgentId, expected: CollaborationAg
       `current identity ${formatAgent(actual)} cannot reply to message addressed to ${formatAgent(expected)}`,
     );
   }
-}
-
-function formatAgent(agent: CollaborationAgentId): string {
-  return `${agent.agent_name} / ${agent.platform} / ${agent.model} / ${agent.session_id_prefix}`;
 }

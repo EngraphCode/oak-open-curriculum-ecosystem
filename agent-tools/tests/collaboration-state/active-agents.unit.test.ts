@@ -152,7 +152,7 @@ describe('activeAgentReports', () => {
       }),
     ).toThrow(
       `claims open identity route Woodland Creeping Petal / id:${woodland.id} ` +
-        `collides with live identity Woodland Creeping Petal / codex / GPT-5.1 / 019dd3 / id:${woodland.id}`,
+        `collides with live identity Woodland Creeping Petal / codex / GPT-5.1 / 019dd3-d7e / id:${woodland.id}`,
     );
 
     expect(() =>
