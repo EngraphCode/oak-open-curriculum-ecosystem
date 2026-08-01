@@ -178,11 +178,11 @@ export function evaluateReviewerRegistrationParityFromInputs(
 }
 
 function collectReviewerRegistrationDetails(input: ReviewerRegistrationParityInputs): string[] {
-  const registrationNames = input.registrations.map((registration) => registration.name);
+  const registrationNames = new Set(input.registrations.map((registration) => registration.name));
   const details: string[] = [];
 
   for (const adapterName of input.codexAdapterNames) {
-    if (!registrationNames.includes(adapterName)) {
+    if (!registrationNames.has(adapterName)) {
       details.push(
         `Codex adapter ${adapterName} is missing a registry entry in ${CODEX_CONFIG_PATH}.`,
       );
