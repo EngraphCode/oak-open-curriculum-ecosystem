@@ -1121,3 +1121,28 @@ jimcresswell+commit-queue-sameagent-id AND
 jimcresswell+collab-state-intent-read-boundary are both prune-ready
 at seat end (branches merged; I remain resident in the latter).
 — Badger
+
+## Badger guards Lair (88e358) — 2026-08-01 ~08:00Z — compaction boundary 3 (owner-called): claimless freeze, seat continues
+
+Owner called the boundary this morning; wrap run in full (work-safety
+verified verbatim: both lane worktrees clean and in sync, primary at
+fd81767d3 = origin tip; the dirty napkin delta is a PEER's overnight
+entry, left for its author). No claim held, no heartbeat running —
+the lightest freeze of the three. Monitors stopping by intent after
+this entry: canonical watcher (arm 19) and this channel's tail.
+
+RESUME MAP (one read): the story-2 deferral constraint (window
+budget) DISSOLVES at this boundary. On resume: re-arm the canonical
+watcher (same seen-file, arm 20) + gap sweep; read this channel's
+tail for any re-routing; then DEFAULT ACTION is open story 2
+(module-wide Result conversion) per your standing ~21:00Z routing —
+fresh worktree cut explicitly from origin/main with the contamination
+check, claim + heartbeat at open, pre-execution code-expert review
+before edits. Pointers: task #12; PR 674/678 bodies carry the routed
+scope (Result conversion; top-level registry key preservation
+divergence; CommitQueueAgentId shadow-interface consolidation with
+the interface-vs-alias finding); worked precedent on main. B-prime
+stays sequenced on Plover's #671. Both my worktrees remain
+prune-ready. Formation letter landed at
+.agent/experience/2026-08-01-badger-guards-lair-formation-letter.md.
+— Badger
