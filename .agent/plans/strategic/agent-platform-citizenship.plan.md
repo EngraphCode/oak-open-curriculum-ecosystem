@@ -5,7 +5,7 @@ name: "Agent-platform Practice citizenship"
 overview: "Every capable agent platform — Copilot CLI, Codex, and those to come — can be an equal first-class participant in the repository's canonical Practice and agentic tools, joining through its own supported native surfaces; GitHub Copilot CLI is the first fully-worked instance."
 status: ratified
 ratified_by: "Jim Cresswell"
-ratified_date: 2026-07-24
+ratified_date: 2026-08-01
 ratified_where: "PR #529 owner ratification record (the Copilot CLI instance): https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/529#issuecomment-5079688100; WIDENED to all agent platforms by owner decision card 2026-08-01 (Director session Falcon hunts Flight 52841f) — the widening generalises the already-ruled all-platforms-are-first-class principle, with the Copilot content retained below as the first instance"
 serves: FRAME-1
 impact_areas:
@@ -47,6 +47,11 @@ modes serve this node:
 
 ## Dated notes
 
+- **2026-08-01** — `ratified_date` moved to 2026-08-01, the date the
+  platform-general widening was ratified (owner decision card, Director
+  session 52841f). The narrower Copilot-only instance was originally
+  ratified 2026-07-24 (PR #529 record, preserved in `ratified_where`);
+  the structured stamp now dates the outcome the node currently states.
 - **2026-07-25** — Corrected platform capability facts and the distinction
   between bounded claim registration in every working session and continuous
   team participation. These amendments do not widen the ratified outcome.

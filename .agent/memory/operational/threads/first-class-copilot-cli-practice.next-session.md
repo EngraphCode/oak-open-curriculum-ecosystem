@@ -24,7 +24,8 @@ participant in the repository's canonical Practice and agentic tools.
 - Superseded record: PR #522 was closed with a naming comment; its branch was
   retained for evidence, not reused
 - Controlling plan:
-  [`first-class-copilot-cli-practice-citizenship`](../../../plans/strategic/agent-platform-citizenship.plan.md)
+  [`agent-platform-citizenship`](../../../plans/strategic/agent-platform-citizenship.plan.md)
+  (formerly `first-class-copilot-cli-practice-citizenship`)
 - Delivery plans:
   - [`first-class-copilot-cli-policy-enforcement`](../../../plans/delivery/first-class-copilot-cli-policy-enforcement.plan.md)
     — MCP-150

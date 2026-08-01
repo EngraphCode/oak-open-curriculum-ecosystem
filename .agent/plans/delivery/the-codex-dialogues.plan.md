@@ -2,7 +2,7 @@
 id: the-codex-dialogues
 node_type: delivery
 name: "The Codex dialogues — direct cross-vendor reflective dialogue for a live seat"
-overview: "A live Claude seat opens a bounded multi-turn reflective dialogue with a Codex interlocutor over a direct MCP connection to a read-only-pinned codex mcp-server; one structured comms event at dialogue close is the analysis record. First step toward invoking third-party agents as ordinary in-session capability."
+overview: "A live Claude seat opens a bounded multi-turn reflective dialogue with a Codex interlocutor over a direct MCP connection to a read-only-defaulted codex mcp-server (a launch default, not an enforced cap — the restriction is skill discipline); one structured comms event at dialogue close is the analysis record. First step toward invoking third-party agents as ordinary in-session capability."
 status: sketch
 ratified_by: null
 ratified_date: null
@@ -13,18 +13,21 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates:
-  - awaiting: owner-decision
+  - awaiting: external-input
     clears_when: >-
       MECHANICAL ONLY — the substance is RATIFIED by owner word 2026-08-01
       (decision cards, Director session 52841f): the direct-first v1
       shape, the close-event record, the theory-of-change structures,
-      and the trial values (12 dialogues / 14 days, decision rule at
-      close) are all his word, alongside the serves correction and the
-      agent-platform-citizenship widening. This gate clears when the
-      plan's ticket mints — the anchored subtree requires one at status
-      ratified, and Linear is embargoed until 2026-08-10 08:00 London —
-      at which point status flips to ratified with the 2026-08-01 word
-      as its record. No decision re-opens.
+      and the trial values — with the concrete decision rule inscribed
+      in §Theory of change item 2 (12 dialogues or 14 days, whichever
+      first; fewer than 3 position-changed closes fires the two-armed
+      falsifier review) — are all his word, alongside the serves
+      correction and the agent-platform-citizenship widening. This gate
+      clears when the plan's ticket mints — the anchored subtree
+      requires one at status ratified, and Linear is embargoed until
+      2026-08-10 08:00 London — at which point status flips to ratified
+      with the 2026-08-01 word as its record. No decision re-opens; the
+      gate awaits the external condition only.
     expires: 2026-08-15
 last_updated: 2026-08-01
 ---
@@ -139,11 +142,16 @@ context, the skill carries a data contract with three clauses:
 composed frame (the Cricket packet shape), never a context dump, and
 no exchange may carry secrets, credentials, or personal data;
 (b) locality — rollouts live under the machine-local Codex home and
-are never committed or transmitted; (c) bounded retention — at the
-trial window's close-out, the analysis pass extracts what the
-rollouts teach and then deletes the trial dialogues' rollouts
-(knowledge is retained, bytes are not; the close events and conserved
-syntheses remain the durable record).
+are never committed or transmitted; (c) bounded retention with a
+deterministic handle — the skill keeps a LOCAL-ONLY cleanup mapping
+(dialogue id → Codex thread id) beside the Codex home, machine-local,
+never committed and never transmitted, existing solely so the
+close-out pass can select exactly the trial dialogues' rollouts; at
+the trial window's close-out, the analysis pass extracts what the
+rollouts teach, deletes those rollouts, and deletes the mapping with
+them (knowledge is retained, bytes are not; the close events and
+conserved syntheses remain the durable record; the close EVENT still
+never carries the thread id).
 
 ## Theory of change and impact — and the structures that keep them honest
 
@@ -162,10 +170,23 @@ Three structures make this falsifiable rather than felt:
    (position-changed / dissent-unresolved / confirmed) is post-hoc
    self-report — unfalsifiable vibes with a bias toward justifying the
    instrument.
-2. **Pre-committed trial window.** The trial's size (number of
-   dialogues or a date) and its decision rule are fixed AT RATIFICATION,
-   before the first dialogue — the loop-exit-criteria discipline applied
-   to the experiment itself, so goalposts cannot move under momentum.
+2. **Pre-committed trial window.** The trial's size and decision rule
+   are fixed AT RATIFICATION, before the first dialogue — the
+   loop-exit-criteria discipline applied to the experiment itself, so
+   goalposts cannot move under momentum. The ratified concrete rule:
+   the trial is 12 dialogues or 14 days from the first dialogue,
+   whichever comes first; if FEWER THAN 3 dialogues close
+   position-changed, the two-armed falsifier review runs — either
+   dissent changed decisions but dialogues stabilised in a single
+   exchange (the arity arm: build the cross-vendor one-shot sibling
+   and reshape) or dissent did not change decisions (the value arm:
+   the instrument retires with the honest report); 3 or more
+   position-changed closes and the instrument continues beyond the
+   trial. Missing close events do NOT count toward any threshold —
+   at trial close the events are reconciled against the seat
+   transcripts and Codex-side rollouts (the second and third analysis
+   sources), and an unexplained gap is a TELEMETRY FAILURE to
+   investigate, never evidence of non-use.
 3. **Diversity null hypothesis.** The vendor-locus value claim carries
    its own falsifier: over the trial window, compare dissent/agreement
    rates against a same-vendor baseline (Cricket legs on comparable
@@ -194,8 +215,11 @@ second consumer:
   DECISIONS are about THIS INSTRUMENT only — close events evaluate the
   instrument, never seat performance, and any reading of them as
   seat-evaluation converts learning into surveillance and is out of
-  contract (the FRAME-1 boundary, made structural here); missing data
-  means the instrument went unused, not that it failed.
+  contract (the FRAME-1 boundary, made structural here); a missing
+  signal is classified before it is read — reconciliation against the
+  seat transcript and rollout distinguishes genuine non-use from a
+  telemetry failure (a dialogue that ran without its close event), and
+  only the former reads as "unused".
 - **Absorption discipline**: dialogue conclusions get the
   verify-before-absorb leg like any cross-model claim (the estate's
   calibration precedent) — dissent is perturbation to be tested, never
@@ -203,7 +227,16 @@ second consumer:
 
 ## v1 decided shape — direct connection
 
-1. **MCP registration.** The project `.mcp.json` gains one entry:
+1. **MCP registration.** The registration surface, stated against repo
+   policy: `.mcp.json` is GITIGNORED here (local MCP config, verified
+   `.gitignore` — only `plugins/*/.mcp.json` release artefacts are
+   tracked), so PR 1 cannot ship the entry as a tracked file. PR 1
+   therefore ships a TRACKED registration template (the exact entry
+   below, carried in the skill's setup section as a copy-paste block)
+   plus a registration check at dialogue-open: if the `codex` server is
+   absent from the session's MCP set, the skill stops with the setup
+   instruction instead of failing obscurely. The local `.mcp.json`
+   gains this entry per user:
 
    ```json
    {
@@ -271,12 +304,17 @@ second consumer:
    heartbeat substrate already uses — and field completeness is
    enforced by the skill's composer and re-checked by the
    analysis-side parser, leaving the comms schemas untouched in PR 1.
-   Fields: dialogue id (the Codex thread id is NOT carried — it is
-   closed, never protocol-resumed, and operationally sensitive; a
-   fresh opaque id is), question class, turn count, stop reason,
+   Fields: dialogue id (the Codex thread id is NOT carried in the
+   event — it is closed, never protocol-resumed, and operationally
+   sensitive; a fresh opaque id is, and the thread id survives only in
+   the local-only cleanup mapping named in the data contract), question
+   class, turn count, stop reason,
    harness and Codex CLI versions, outcome flag (position-changed /
-   dissent-unresolved / confirmed), and a pointer to wherever the
-   synthesis was conserved. The event rides the
+   dissent-unresolved / confirmed), and a pointer to the conserved
+   synthesis on a DURABLE SHARED surface — a fold-committed comms
+   event, a tracked report, or the PR record, never a machine-local
+   path — so the pointer outlives the trial rollouts' deletion and
+   resolves from any checkout. The event rides the
    fold-committed comms substrate: durable, greppable, analyzable — no
    bespoke store, no hooks, no CLI (owner ruling 2026-08-01, superseding
    the sketch's ledger machinery; the seat's session transcript and the
@@ -333,8 +371,11 @@ the tools), so the probe is the durable contract evidence.
 
 ## Acceptance criteria (each with a proof)
 
-- Registration exact: the `.mcp.json` entry carries the process-level
-  pins verbatim. Proof: repo-safe — config lint/pin test.
+- Registration exact: the tracked registration template carries the
+  process-level pins verbatim, and the skill's dialogue-open check
+  detects an absent `codex` server. Proof: repo-safe — template
+  lint/pin test (the live `.mcp.json` is untracked local config by
+  repo policy and is checked at runtime, not in CI).
 - Dialogue round-trip: one live dialogue completes within budget; the
   synthesis quotes Codex's final position; the close event appears on
   the canonical stream with every field present in the canonical body
@@ -362,10 +403,10 @@ the tools), so the probe is the durable contract evidence.
 ## Delivery
 
 Ticket first, embargo-aware, and binding at RATIFICATION: this plan
-serves `first-major-release`, an anchored subtree (sibling plans carry
-tickets), so the anchoring-consistency validator requires a ratified
-delivery plan here to name a ticket — ratification itself, not just
-implementation, needs one. Linear is out of bounds until 2026-08-10
+serves `agent-platform-citizenship`, an anchored subtree (the strategic
+node names MCP-150/154/155/156), so the anchoring-consistency validator
+requires a ratified delivery plan here to name a ticket — ratification
+itself, not just implementation, needs one. Linear is out of bounds until 2026-08-10
 08:00 London (owner ruling 2026-08-01; exceptions are one-off owner
 statements only), so the plan stays `sketch` until the embargo lifts or
 an owner one-off mints the ticket; `tickets: []` stands meanwhile.
