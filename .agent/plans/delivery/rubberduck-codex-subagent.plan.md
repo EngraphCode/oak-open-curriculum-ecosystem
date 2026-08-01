@@ -1,8 +1,8 @@
 ---
 id: rubberduck-codex-subagent
 node_type: delivery
-name: "Rubberduck Codex subagent — isolated child bridge and local lineage"
-overview: "Add one Claude rubberduck wrapper that gives every child its own Codex MCP process and thread, with minimal untracked lineage from the parent Claude session through that child to the Codex thread."
+name: "Rubberduck Codex subagent — bounded multi-turn cross-model dialogue"
+overview: "One Claude wrapper that gives a live seat a bounded multi-turn reflective dialogue with a Codex interlocutor via a per-child codex mcp-server process; the returned synthesis, carrying Codex's position verbatim, is the record."
 status: sketch
 ratified_by: null
 ratified_date: null
@@ -15,253 +15,296 @@ depends_on: []
 owner_gates:
   - awaiting: owner-decision
     clears_when: >-
-      Jim Cresswell ratifies the one-child/one-process/one-thread ownership
-      boundary, the intentional Claude Sonnet 5 model pin at high effort, and
-      the machine-local lineage schema before implementation starts
+      Jim Cresswell rules on five named decisions: (1) the differentiator — a
+      named multi-turn use case that Cricket, ARC, and the codex-exec recipe
+      cannot serve, else the null option wins and this collapses to a Cricket
+      variant; (2) the instrument-not-citizen ruling and the deliberate
+      Claude-to-Codex one-directionality; (3) the
+      one-child/one-process/one-thread topology with the spawned Codex side
+      pinned sandbox read-only and approvals never; (4) the ADR-135
+      specialist classification whose model default (claude-sonnet-5, effort
+      high) is ratified as a coupled pair with the
+      labelled-verbatim-Codex-position output contract, with the reviewer-tier
+      doctrine conflict named; (5) the lineage demotion — no ledger, no
+      hooks, no CLI; the returned synthesis is the record — presented
+      explicitly so a "no" resurrects a reduced ledger deliberately. He also
+      rules the sequencing question against the codex-app-server-idle-wake
+      plan's open gates and the serves/naming/cost questions carried in the
+      decision memo.
     expires: 2026-08-15
 last_updated: 2026-08-01
 ---
 
-# Rubberduck Codex subagent — isolated child bridge and local lineage
+# Rubberduck Codex subagent — bounded multi-turn cross-model dialogue
 
-## Goal
+## Goal and differentiation
 
-A Claude parent can invoke `rubberduck-codex` through Claude Code's ordinary
-subagent mechanism and receive a reflective Codex response without loading
-Codex MCP tools into the parent. Every child invocation owns exactly one
-`codex mcp-server` process and one Codex thread. Machine-local operational
-memory can later answer which parent Claude session reached which Codex thread
-through which child Claude agent, without tracking prompts or responses.
+A Claude parent invokes `rubberduck-codex` through Claude Code's ordinary
+subagent mechanism and receives a bounded, multi-turn reflective dialogue with
+a Codex-family model: the uncertainty restated, assumptions probed over
+several genuine exchanges, and a synthesis returned that carries Codex's own
+final position verbatim. Codex MCP tools never load into the parent.
+
+This multi-turn reading is the re-true's PROPOSED intent, not the sketch's
+own words — the sketch's goal was "receive a reflective Codex response",
+which existing mechanisms already serve; gate item (1) is where the owner
+confirms this differentiator or the null option wins.
+
+The one capability this adds — and its whole warrant: Cricket
+judgement/procedure delivers single-shot cross-model verdicts; the
+oak-codex-helper `codex exec` recipe is one-shot delegation without thread
+state; ArcAngel rapid-comms requires a second live seat; the owner's standing
+second-opinion grant is permission, not mechanism. None provides stateful
+multi-turn cross-model dialogue to a solo live seat. This plan instantiates
+exactly that gap under PDR-029's perturbation framing, rather than
+re-deriving why cross-model diversity helps.
+
+Falsifier: after a trial window, review invocation turn counts. If dialogues
+routinely complete in one exchange the multi-turn delta is unused — fold the
+capability into a Cricket variant and delete this agent.
+
+## Position in the Practice
+
+The child is an instrument, not a citizen (precedent: Cricket's Codex wrapper
+legs). No identity registration, no comms presence, no claims; it exists only
+within the caller's turn; its Codex thread is process-local ephemera,
+discarded at exit. The Claude-to-Codex one-directionality is a deliberate,
+owner-visible choice; a Codex-side counterpart wrapper is a pointer only (its
+mechanism is unverified), not a spec.
 
 ## Decided shape
 
-The implementation adds a platform-independent workflow template at
-`.agent/sub-agents/templates/rubberduck-codex.md` and a thin Claude wrapper at
-`.claude/agents/rubberduck-codex.md`. The wrapper loads the template as its
-first action, following the repository's three-layer subagent architecture.
-The template owns the rubberduck workflow and response contract. Claude-only
-frontmatter, MCP lifecycle, and hook wiring stay in the Claude wrapper.
+One canonical template at `.agent/sub-agents/templates/rubberduck-codex.md`
+and one thin wrapper at `.claude/agents/rubberduck-codex.md`, per ADR-114.
+The agent is classified under ADR-135 as a specialist (narrow, fixed
+contract, agent-to-agent) reusing
+`.agent/sub-agents/components/contracts/specialist-input.md`; the context
+packet reuses Cricket's shape (OBJECTIVE FRAME / INTENT / QUESTION / RECENT
+ACTIONS) rather than minting a new format. The template's delegation triggers
+state what Cricket cannot do — multi-turn stateful dialogue — and route
+single-shot second opinions to Cricket and live-peer dialogue to ARC.
 
-The wrapper deliberately pins Claude Sonnet 5 at high effort because that is
-part of this agent's requested capability contract, rather than inheriting the
-parent model. Its frontmatter is equivalent to:
+Wrapper frontmatter equivalent:
 
 ```yaml
 ---
 name: rubberduck-codex
 description: >-
-  Use when a parent Claude session needs a bounded Codex rubberduck dialogue
-  for reflection, challenge, or design clarification.
+  Use when a live seat needs a bounded multi-turn reflective dialogue with a
+  Codex-family interlocutor and no Codex peer seat is live. Single-shot
+  second opinions route to Cricket; live-peer dialogue routes to ARC.
 model: claude-sonnet-5
 effort: high
-tools: mcp__codex__codex, mcp__codex__codex-reply
+tools: Read, mcp__codex__codex, mcp__codex__codex-reply
 mcpServers:
-  - codex:
-      type: stdio
-      command: codex
-      args: ["mcp-server"]
+  codex:
+    type: stdio
+    command: codex
+    args:
+      [
+        "mcp-server",
+        "-c",
+        "sandbox_mode=read-only",
+        "-c",
+        "approval_policy=never",
+      ]
 ---
 ```
 
-The exact model identifier is validated against the Claude wrapper schema and
-the installed Claude Code version during implementation. If the requested
-full identifier is not accepted by that version, implementation stops for an
-owner decision rather than silently substituting `sonnet` or `inherit`.
+Model policy: `claude-sonnet-5` at `effort: high` is the ADR-135
+specialist-class default, not a bespoke pin, and is ratified at the owner
+gate as a coupled pair with the verbatim-dissent output contract — with
+passthrough the Claude child is a conduit plus bounded prober and
+adjudication stays with the parent. If the response contract ever reverts to
+synthesis-only, the tier question reopens toward Opus per reviewer-tier
+doctrine. Host caveat (VERIFIED): Claude Code silently skips an excluded
+model value and runs the subagent on the inherited model — the live
+acceptance run must verify the EFFECTIVE model and that effort high is active
+on it; a silent fallback is a stop-for-owner-decision.
 
-## Ownership and lifecycle invariants
+Tools note: `Read` is required so the wrapper can load its template as its
+first action (every Cricket wrapper grants it); a two-tool grant makes that
+first action impossible.
 
-- One Claude child invocation owns one inline `codex` stdio server definition.
-  Claude starts that process for the child and disconnects it when the child
-  finishes or is cancelled.
-- The Codex server is not registered in project `.mcp.json`, parent settings,
-  or any shared daemon. The parent therefore cannot call its tools and two
-  children cannot accidentally share one process.
-- One child calls `mcp__codex__codex` exactly once. The returned
-  `structuredContent.threadId` becomes that child's sole Codex thread.
-- Every later turn calls `mcp__codex__codex-reply` with that exact thread ID.
-  Starting a second Codex thread, switching IDs, or replying before an initial
-  ID has been recorded fails closed.
-- Child completion closes the MCP transport. No Codex process or thread is
-  retained for reuse by a later Claude child.
-- Startup failure, a missing thread ID, a process exit, or lineage-write
-  failure ends the child visibly. There is no fallback to a shared server or
-  an unrecorded conversation.
+## Topology: one child, one process, one thread
 
-This boundary allows several parent or child sessions to run concurrently:
-`N` live `rubberduck-codex` children imply `N` separately spawned MCP
-processes and at most `N` separately initialised Codex threads. The design does
-not require multiple parent Claude processes, a long-lived Codex app server,
-or a new provider abstraction.
+Each child owns exactly one `codex mcp-server` stdio process, spawned at
+child start and disconnected at child end (VERIFIED inline-mcpServers
+lifecycle), and exactly one Codex thread taken from
+`structuredContent.threadId` of a single `codex` call; every later turn is
+`codex-reply` against that exact ID. No `.mcp.json` registration, no shared
+daemon, no thread reuse. N live children imply N processes.
 
-## Rubberduck protocol
+Divergence note, recorded so it is not re-derived: the documented Codex
+app-server is multi-thread-per-process with thread/resume and turn/steer and
+would suit long-lived dialogue — but that is the owner-gated
+`codex-app-server-idle-wake` plan's problem space (gates expire 2026-08-03),
+and `codex mcp-server`'s own single-process multi-thread concurrency is
+UNVERIFIABLE from documentation. Per-child processes rest entirely on
+documented behaviour and make the unverifiable question irrelevant. This
+dependency is load-bearing: any future pooling or shared-daemon change
+re-opens the unverified concurrency question and requires first-hand
+re-verification.
 
-The canonical template keeps the task narrow: restate the uncertainty, send a
-bounded context packet to Codex, probe the disagreement or hidden assumption,
-and return a concise synthesis to the parent. It does not delegate execution,
-edit files, or expose generic shell and repository tools.
+Codex authority pin — at the PROCESS, not per call: the wrapper's own
+`mcpServers` args launch `codex mcp-server -c sandbox_mode=read-only -c
+approval_policy=never` (accepted by the installed codex-cli 0.146.0,
+verified first-hand 2026-08-01), so every thread in the child's process is
+read-only/no-approvals regardless of what any individual call passes. This
+is the same mechanism as the estate precedent (the cricket-judgement Codex
+TOMLs pin `sandbox_mode = read-only`, `approval_policy = never` at config
+level) and it is repo-safe testable — `pnpm subagents:check` can assert the
+args line. The template's first `codex` call passes the per-call
+sandbox/approval parameters as belt-and-braces where the probe confirms
+them. Without a process-level pin the reflection-only claim is untrue at
+the process level: a child that skipped a per-call pin would run Codex
+under ambient machine config, which can permit writes. The Codex MODEL
+stays unpinned; the CLI's configured default remains outside this
+wrapper's contract.
 
-The first `codex` call contains the parent's question and only the minimum
-repository context supplied to the child. Follow-up calls use `codex-reply`
-only when a discriminating question materially improves the synthesis. The
-child reports Codex's thread ID only in local operational state, not in its
-normal response. The parent receives conclusions, unresolved disagreement,
-and suggested next evidence—not a transcript dump.
+Host load: one live rubberduck child per seat, bounding load to N seats.
+This is convention, not mechanism; a hook-enforced cap is a named hardening
+candidate if fleet fan-out misuse is observed.
 
-## Untracked operational lineage
+## Dialogue protocol
 
-The implementation reserves:
+Restate the uncertainty; send a bounded Cricket-shaped packet carrying only
+the minimum context the parent supplies; probe the disagreement or hidden
+assumption over at most six exchanges (default budget), stopping earlier when
+positions stabilise or diverge irreconcilably. The child never delegates
+execution, edits files, or dumps transcripts.
 
-```text
-.agent/state/collaboration/rubberduck-codex-lineage/
-```
+Response contract, in order:
 
-The directory is added to the root `.gitignore`. It is runtime operational
-memory: local to one checkout, absent from commits, and not a replacement for
-tracked collaboration records. One immutable JSON record is written per
-successful initial Codex call:
+1. A labelled verbatim (or minimally edited and marked) quote of Codex's
+   final position. Warrant, cited honestly: the Cricket tallies MEASURED
+   supply-side compression loss (summarised evidence sent into legs loses
+   forcing facts); requiring verbatim passthrough on the RETURN path is an
+   extrapolation of that measured loss class, not itself a measurement. A
+   same-family compression of the dissent would reintroduce the correlated
+   channel this feature exists to escape.
+2. The child's synthesis: what changed the caller's mind, unresolved
+   disagreement, suggested next evidence.
+3. One operational line: turn count and the tested Codex CLI version. No
+   thread ID — the thread is dead at child exit, has no consumer, and the
+   identifier class is operationally sensitive.
 
-```json
-{
-  "schema_version": "1.0.0",
-  "parent_claude_session_id": "...",
-  "child_claude_agent_id": "...",
-  "codex_thread_id": "...",
-  "created_at": "2026-08-01T00:00:00.000Z"
-}
-```
+## Invariants — stated honestly
 
-The filename is collision-resistant and sortable, derived from the UTC
-creation time plus the child-agent identifier. The writer creates the
-directory with owner-only permissions where the platform supports them,
-writes a sibling temporary file, fsyncs where available, and atomically
-renames it. Existing records are never amended in place.
+One `codex` initialisation per child, every reply to that exact thread,
+transport closed at exit: these are template discipline, not machine
+enforcement. v1 ships no guard hooks. The violation cost of the
+one-thread discipline is wasted spend and a muddled dialogue — the
+AUTHORITY invariant does not share that soft cost profile, which is
+exactly why it is pinned at process level in the wrapper args rather
+than left to discipline. The turn-count line makes thread-discipline
+violations visible to the caller. The verified hook primitives
+(PreToolUse deny, PostToolUse payload capture, SubagentStop) are the named
+hardening path if misuse is observed — a decision then, not machinery now.
+The sketch's "fails closed" language does not survive into this plan.
 
-The record deliberately excludes prompts, replies, summaries, repository
-paths, working directories, user or account identifiers, credentials, MCP
-transport data, process environment, and tool output. Session, child, and
-thread identifiers are still operationally sensitive metadata: readers must
-not print them incidentally in routine logs, and state files use restrictive
-permissions.
+## Conservation instead of telemetry
 
-## Hook and guard contract
+No lineage ledger, no hooks, no CLI. The returned synthesis is the record;
+the caller homes any decision-changing insight through the existing
+conserve-at-close / napkin / permanent-docs discipline, exactly as ARC
+dialogues fold today. A dialogue that changes nothing conserves nothing, by
+design. If systematic adoption evidence is ever wanted, the compose-correct
+retrofit is a one-line event on the existing comms surface at dialogue close
+— a pointer, not a spec.
 
-Claude subagent hooks provide the three identifiers without teaching the
-rubberduck prompt to persist them:
+## Pre-build verification
 
-1. A `PostToolUse` hook scoped to `mcp__codex__codex` receives the Claude
-   `session_id`, child `agent_id`, and successful tool response. It validates
-   `tool_response.structuredContent.threadId` as a non-empty string and writes
-   the immutable lineage record.
-2. A `PreToolUse` hook for a second `mcp__codex__codex` call denies the call
-   once that child has a lineage record.
-3. A `PreToolUse` hook for `mcp__codex__codex-reply` requires an existing
-   record for the same parent/child pair and exact equality between the
-   requested `threadId` and recorded Codex thread ID.
-4. `SubagentStop` verifies that a child which called either Codex tool has one
-   complete, coherent lineage record. It reports incomplete state visibly but
-   never invents a thread ID.
-
-Checked hook logic lives in `agent-tools`, with thin hook entrypoints and
-project wrapper configuration. Root-level script logic is not introduced.
-Schemas are closed, invalid or extra fields fail validation, and tool response
-parsing treats all provider data as untrusted input.
-
-The implementation must probe the installed Claude Code hook payloads before
-landing. The current design relies on documented `session_id`, subagent
-`agent_id`, and `PostToolUse` response fields; if any is unavailable in the
-supported host version, lineage is unsupported and the wrapper must not ship
-with a weaker inferred identity.
-
-## Reader and repair surface
-
-Add a small deterministic operator surface under the existing agent-tools
-CLI:
-
-```text
-pnpm agent-tools rubberduck-codex lineage list
-pnpm agent-tools rubberduck-codex lineage show <child-agent-id>
-pnpm agent-tools rubberduck-codex lineage check
-pnpm agent-tools rubberduck-codex lineage prune --before <UTC-instant>
-```
-
-`list` emits bounded metadata in creation order; `show` requires an exact
-child ID; `check` reports malformed, duplicate, orphaned, and internally
-inconsistent records without rewriting them. `prune` is the only deletion
-path, requires an explicit UTC boundary, previews its count unless confirmed,
-and never follows symlinks. Repair means quarantine and explain, not infer or
-rewrite missing identities.
-
-There is no automatic upload, cross-checkout synchronisation, background
-retention service, or claim that this local ledger is an audit log. Its sole
-question is: for this checkout, which parent Claude session indirectly spoke
-to which Codex thread through which child Claude agent?
+Before authoring the template: run `codex mcp-server` locally (with the
+process-level `-c` pins), drive one bounded codex → threadId → codex-reply
+exchange end-to-end, confirm the per-call sandbox/approval parameters are
+accepted, and record the tested Codex CLI version in the implementation PR.
+This probe is now the durable contract evidence: the vendor's MCP reference
+has drifted (the sketch's URL redirects to a page that no longer documents
+the tools). PR 1 lands the probe as a RUNNABLE script wired to the recorded
+CLI version, so a version-bump re-run is a one-command act; no automatic
+trigger fires it at upgrades (stated, not hidden), and a broken dialogue is
+otherwise the detection mechanism.
 
 ## Acceptance criteria (each with a proof)
 
-- **The Claude wrapper is exact and discoverable.** It is named
-  `rubberduck-codex`, loads the canonical template first, pins
-  `claude-sonnet-5`, sets `effort: high`, and grants only the two Codex MCP
-  tools. Proof: `repo-safe` — wrapper-schema, name/path, composition,
-  discoverability, and `pnpm subagents:check` tests.
-- **Every child owns its MCP process.** Two simultaneous children start two
-  distinct `codex mcp-server` PIDs; cancelling one closes only its transport
-  and leaves the other usable. Neither process appears in parent MCP config.
-  Proof: `repo-safe` — fake-stdio lifecycle/concurrency tests; `owner-held` —
-  a live Claude Code run records bounded PID and teardown evidence.
-- **Every child owns exactly one Codex thread.** A child can initialise once
-  and reply only to the returned thread ID. Second initialisation, pre-init
-  reply, switched ID, absent ID, and server failure all fail closed. Proof:
-  `repo-safe` — hook and fake-MCP integration tests; `owner-held` — two live
-  children return independent rubberduck syntheses.
-- **Lineage answers the required relationship.** A successful initial call
-  creates exactly one immutable record containing parent session, child agent,
-  Codex thread, schema version, and UTC creation time. Proof: `repo-safe` —
-  literal hook fixtures, atomic-writer tests, concurrent-child tests, and
-  list/show/check CLI golden tests.
-- **Operational memory stays untracked and bounded.** The state directory is
-  ignored, `git status --short` remains empty after a fixture run, permissions
-  are restrictive where supported, schemas reject extra or transcript-bearing
-  fields, and pruning cannot escape the directory. Proof: `repo-safe` — ignore,
-  sanitiser, hostile-path, symlink, permission, and prune dry-run tests.
-- **The supported host contract is first-hand.** The landing records the
-  Claude Code and Codex CLI versions, proves documented hook fields and inline
-  MCP behaviour, and proves that `codex` returns the thread ID consumed by
-  `codex-reply`. Proof: `owner-held` — a safe local acceptance run linked from
-  the implementation pull request, with secrets and conversation content
-  removed.
+- Wrapper exact and discoverable: named `rubberduck-codex`, loads the
+  template first, grants Read plus the two Codex tools only, declares the
+  inline server. Proof: repo-safe — wrapper-schema, composition, and
+  `pnpm subagents:check` tests.
+- Per-child isolation: two concurrent children show two distinct
+  `codex mcp-server` PIDs with independent teardown; nothing appears in
+  parent MCP config. Proof: owner-held — live run with bounded PID and
+  teardown evidence.
+- Codex authority pinned: the wrapper's `mcpServers` args carry the
+  process-level `-c sandbox_mode=read-only -c approval_policy=never` pins
+  (proof: repo-safe — wrapper-args assertion in `pnpm subagents:check`),
+  and a live probe shows a write attempt refused (proof: owner-held).
+- Response contract honoured: labelled verbatim Codex position, synthesis,
+  and turn count present; no thread ID. Proof: repo-safe golden test on the
+  template contract plus one owner-held live dialogue.
+- Effective model verified: the live run confirms `claude-sonnet-5` is
+  actually active with effort high (the host silently substitutes the
+  inherited model on excluded values). Proof: owner-held.
+- Host contract first-hand: pinned Claude Code and Codex CLI versions,
+  proven inline-MCP lifecycle and threadId round-trip, linked from the
+  implementation PR with secrets and conversation content removed. Proof:
+  owner-held.
 
-## Todos
+## Delivery
 
-- **A — contracts and adversarial fixtures (one PR; at most two review
-  rounds).** Add closed lineage schemas, hook payload fixtures, atomic storage,
-  ignore rule, deterministic reader/checker, and failure/concurrency tests.
-- **B — Claude wrapper vertical (one PR; at most two review rounds).** Add the
-  canonical rubberduck template, thin Claude Sonnet 5/high-effort wrapper,
-  inline per-child Codex MCP server, hooks, and fake-stdio end-to-end proof.
-- **C — live host proof and runbook (one PR; at most two review rounds).** Pin
-  the supported Claude Code/Codex CLI evidence, run concurrent child and
-  teardown canaries, document bounded operation and pruning, and ratify the
-  user-visible invocation contract.
-- **D — corpus integration (one PR; at most two review rounds).** Add the
-  subagent to current inventories and routing guidance, regenerate platform
-  adapters where applicable, and run the complete agent-estate validation.
+Ticket first, embargo-aware: mint an MCP-team ticket before any PR — but
+Linear is out of bounds until 2026-08-10 08:00 London (owner ruling,
+2026-08-01; exceptions are one-off owner statements only). Gate-pass
+before that date holds the lane at ticket-blocked rather than minting;
+`tickets: []` stands until the embargo lifts or the owner names an
+exception.
+
+- PR 1 (single story): the template, the Claude wrapper, the subagent
+  inventory entry, routing guidance (Cricket / ARC / here), and a short
+  usage section in the sub-agents docs, carrying the pre-build probe
+  evidence; the owner-held acceptance run is linked before merge.
+- PR 2 (optional, evidence-gated): Codex/Cursor parity wrappers for ADR-114
+  lockstep, only after PR 1 proves real use.
+
+Done-test: one real seat runs one dialogue that produces a conserved,
+decision-relevant synthesis.
 
 ## Out of scope
 
-- A generic Claude-to-arbitrary-provider subagent framework.
-- A shared or long-lived Codex MCP/app-server pool.
-- Reusing Codex threads across child invocations or resuming them later.
-- Letting the parent Claude session call Codex MCP tools directly.
-- Persisting prompts, responses, transcripts, summaries, credentials, or
-  environment details.
-- Cross-machine identity, central observability, billing attribution, or an
-  authoritative audit trail.
-- Automatic code changes or execution by the rubberduck agent.
-- Pinning the Codex model; the Codex CLI's configured default remains outside
-  this wrapper's contract.
+- Unprompted Codex wake or any long-lived shared Codex process (the
+  owner-gated codex-app-server-idle-wake plan's space).
+- Reusing or resuming Codex threads across children.
+- Parent-side Codex MCP tools.
+- Persisting prompts, responses, transcripts, summaries, or credentials.
+- Any lineage store, guard hooks, or lineage CLI (deliberate demotion — see
+  owner gate item 5).
+- Practice-citizen surfaces for the child (identity registration, comms
+  events, claims).
+- A Codex-initiated Claude rubberduck (recorded asymmetry; pointer only).
+- Pinning the Codex model.
+- Changes to Cricket or ARC.
 
-## External contract references
+## External contract references (verification status)
 
-- Claude Code subagents: <https://code.claude.com/docs/en/sub-agents>
-- Claude Code hooks: <https://code.claude.com/docs/en/hooks>
-- Codex as an MCP server: <https://developers.openai.com/codex/mcp/>
+- Claude Code sub-agents — inline per-agent `mcpServers` (stdio; connected at
+  subagent start, disconnected at finish): VERIFIED 2026-08-01.
+  <https://code.claude.com/docs/en/sub-agents>
+- Frontmatter `model` full IDs and `effort` field; silent skip of excluded
+  model values to the inherited model: VERIFIED, same source.
+- Hooks (PreToolUse deny via exit 2; PostToolUse `session_id` / `agent_id` /
+  `tool_response`; SubagentStop): VERIFIED at
+  <https://code.claude.com/docs/en/hooks> — not used in v1; named hardening
+  path only.
+- `codex mcp-server` stdio; `codex` / `codex-reply` tools;
+  `structuredContent.threadId` round-trip; per-call approval-policy and
+  sandbox-mode parameters: VERIFIED against the grounding record
+  (learn.chatgpt.com/docs/mcp-server.md and the codex-rs MCP interface doc),
+  but the original reference URL has drifted — the pre-build probe against
+  the installed CLI is the durable evidence.
+- `codex mcp-server` single-process multi-thread concurrency: UNVERIFIABLE
+  from documentation — made irrelevant by per-child processes; re-verify
+  first-hand before any pooling.
+- Codex app-server (multi-thread per process; thread/resume; turn/steer):
+  VERIFIED as a documented alternative; deliberately not used (divergence
+  note above).
