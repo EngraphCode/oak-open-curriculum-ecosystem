@@ -42,6 +42,24 @@ export function claimReport(claim: CollaborationClaim, nowIso: string): ClaimRep
   };
 }
 
+/**
+ * Identities from FRESH claim rows only. Claim identities are seed-derived
+ * at claim open (canonical provenance); commit-queue identity fields are
+ * operator-typed flags (right type, hand-typed provenance). Anything that
+ * DERIVES an identity value from the registry must read this set — never
+ * the claim∪queue union (`liveAgentIdentities` in active-agents.ts), which
+ * is evidence only. Doctrine: PDR-027 §Derivation-source provenance
+ * (2026-08-01).
+ */
+export function liveClaimIdentities(
+  claims: readonly CollaborationClaim[],
+  nowIso: string,
+): readonly CollaborationAgentId[] {
+  return claims
+    .filter((claim) => claimReport(claim, nowIso).freshness_status === 'fresh')
+    .map((claim) => claim.agent_id);
+}
+
 export function sameAgent(left: CollaborationAgentId, right: CollaborationAgentId): boolean {
   // PDR-076a id-aware claim ownership comparison (Phase 3 sunset, 2026-05-29).
   // Ownership matches by id — the cure for the same-name + same-prefix +

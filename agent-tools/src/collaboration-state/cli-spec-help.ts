@@ -76,7 +76,9 @@ export const commsPeerLivenessHelp =
   'no identity seed; --now defaults to the real wall clock and is accepted ' +
   'only for deterministic tests/replay. Pull side of peer heartbeat-silence ' +
   'detection — see liveness-heartbeat-cron.md for the Monitor/poll alert ' +
-  'recipe; treat output as input-to-verify, never an auto-retirement verdict)';
+  'recipe; treat output as input-to-verify, never an auto-retirement verdict; ' +
+  'the identity column renders the visual-disambiguator token — display-only, ' +
+  'never the --to-session-prefix value)';
 
 export const commsMigrateHelp =
   'comms migrate --events-dir <dir> --lifecycle-dir <dir> ' +
@@ -87,9 +89,10 @@ export const commsValidateHelp = 'comms validate [--repo-root <path>]';
 export const commsInboxHelp =
   'comms inbox --comms-dir <dir> --seen-file <path> ' +
   '--platform <platform> --model <model> ' +
-  '[--session-prefix <prefix>] ' +
+  '[--session-prefix <prefix>] [--agent-name <name>] ' +
   '(emits every relevant event — broadcast, group, directed, observed, lifecycle — ' +
-  'with self-exclusion only)';
+  'with self-exclusion only; --agent-name selects an override identity and then ' +
+  '--session-prefix is REQUIRED; a supplied --session-prefix is trimmed and must be non-empty)';
 
 export const commsWatchHelp =
   'comms watch [--comms-dir <dir>] [--seen-file <path>] [--repo-root <path>] ' +
@@ -130,25 +133,38 @@ export const commsWatchHelp =
   'pass --supervisor-pid <pid> to self-exit when that process (the agent session) ' +
   'is gone — the F-101 crash/SIGKILL orphan cure: the watcher checks the pid once ' +
   'per poll cycle and exits within one cycle of the supervisor dying, curing the ' +
-  'false-liveness orphan that GNU timeout group-kill misses on a harsh agent death)';
+  'false-liveness orphan that GNU timeout group-kill misses on a harsh agent death; ' +
+  '--agent-name selects an override identity and then --session-prefix is REQUIRED; ' +
+  'a supplied --session-prefix is trimmed and must be non-empty)';
 
 export const commsAssertWatcherLiveHelp =
-  'comms assert-watcher-live (--platform <platform> --model <model> | --agent-name <name>) ' +
-  '[--session-prefix <prefix>] [--comms-seen-dir <dir>] [--heartbeat-file <path>] ' +
+  'comms assert-watcher-live (--platform <platform> --model <model> [--session-prefix <prefix>] ' +
+  '| --agent-name <name> --session-prefix <prefix>) ' +
+  '[--comms-seen-dir <dir>] [--heartbeat-file <path>] ' +
   '[--repo-root <path>] ' +
   "(F-95 move-1 check: exits non-zero with a fix instruction unless this session's comms watcher " +
   'heartbeat is live AND its identity matches this session. Freshness is judged against the real ' +
   'wall clock. Identity is derived from --platform/--model (plus the env session seed), or ' +
-  'overridden with --agent-name; the heartbeat resolves from the session codename under the ' +
+  'overridden with --agent-name, which REQUIRES a non-empty --session-prefix; a supplied ' +
+  '--session-prefix is trimmed and must be non-empty on either form; the heartbeat resolves from ' +
+  'the session codename under the ' +
   'primary coordination home unless --comms-seen-dir or --heartbeat-file overrides it)';
 
 export const commsDirectHelp =
   'comms direct --comms-dir <dir> --to-agent-name <name> --to-id <uuid-v5> ' +
-  '--to-platform <platform> --to-model <model> --to-session-prefix <prefix> --kind <kind> ' +
+  '--to-platform <platform> --to-model <model> [--to-session-prefix <prefix>] --kind <kind> ' +
   '--subject <subject> (--body <body> | --body-file <path>) ' +
   '--platform <platform> --model <model> ' +
   '--active <path> [--event-id <id>] [--now <iso>] [--in-response-to <id>] [--tag <tag>...] ' +
-  '(--body and --body-file are mutually exclusive; --body-file reads the file ' +
+  '(--to-session-prefix is derived from the recipient’s fresh CLAIM row where --to-id ' +
+  'resolves in the live registry — claim identities are seed-derived; commit-queue identity ' +
+  'fields are operator-typed and are never a derivation source, though they still count in ' +
+  'the all-agree disagreement check; a supplied value is trimmed, must be non-empty, and ' +
+  'must exactly match the prefix WHERE ONE IS DERIVED; while live rows disagree a supplied ' +
+  'value must match one of them (derivation stays skipped); on a queue-only or unresolvable ' +
+  'id the flag is required and is written as-is — copy it from the recipient’s own record, ' +
+  'never the rendered visual-disambiguator token; routing is by id alone; ' +
+  '--body and --body-file are mutually exclusive; --body-file reads the file ' +
   'literally and bypasses shell interpretation; --in-response-to threads this ' +
   'message to an antecedent event_id of any kind; --tag is repeatable, accepts ' +
   'ADR-183 namespace [failure-mode, behaviour-note, heartbeat])';

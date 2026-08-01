@@ -1,5 +1,4 @@
-import { err, unwrapOrThrow } from '@oaknational/result';
-
+import { fail } from './cli-fail.js';
 import { parseOptions, type Options } from './cli-options.js';
 import { type CliRuntime } from './cli-runtime.js';
 import { type CommandSpec } from './cli-spec-factory.js';
@@ -238,8 +237,4 @@ function firstUnknownRepeatableOption(options: Options, spec: CommandSpec): stri
 
 function commandError(spec: CommandSpec, message: string): string {
   return `${spec.help}\n\nError: ${message}`;
-}
-
-function fail(message: string, options?: ErrorOptions): never {
-  return unwrapOrThrow<never>(err(new Error(message, options)));
 }
