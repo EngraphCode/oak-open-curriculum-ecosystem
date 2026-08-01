@@ -320,11 +320,15 @@ describe('collect', () => {
 
   it('returns the FIRST Err unchanged, by identity, without evaluating past it', () => {
     const failure = err(new Error('first failure'));
-    const later = err(new Error('later failure'));
+    let advancedPastErr = false;
+    function* generate(): Generator<Result<number, Error>> {
+      yield ok(1);
+      yield failure;
+      advancedPastErr = true;
+    }
 
-    const collected = collect([ok(1), failure, later]);
-
-    expect(collected).toBe(failure);
+    expect(collect(generate())).toBe(failure);
+    expect(advancedPastErr).toBe(false);
   });
 
   it('collects an empty iterable into an Ok of an empty array', () => {

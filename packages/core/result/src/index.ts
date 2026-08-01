@@ -146,6 +146,10 @@ export function flatMap<T, U, E>(
  * const mapped = mapErr(result, msg => `Error: ${msg}`);
  * ```
  */
+export function mapErr<T, E, F>(result: Result<T, E>, fn: (error: E) => F): Result<T, F> {
+  return result.ok ? result : err(fn(result.error));
+}
+
 /**
  * Collect an iterable of Results into one Result: all Ok values in order,
  * or the FIRST Err unchanged (by identity — its error is not rewrapped).
@@ -163,10 +167,6 @@ export function collect<T, E>(results: Iterable<Result<T, E>>): Result<readonly 
   }
 
   return ok(values);
-}
-
-export function mapErr<T, E, F>(result: Result<T, E>, fn: (error: E) => F): Result<T, F> {
-  return result.ok ? result : err(fn(result.error));
 }
 
 /**

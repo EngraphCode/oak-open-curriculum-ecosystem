@@ -30,6 +30,8 @@ describe('parseStringArrayResult', () => {
   });
 
   it('the throwing sibling rethrows the SAME literal via the single home', () => {
-    expect(() => parseStringArray(42, 'patterns')).toThrow('patterns must be an array of strings');
+    expect(() => parseStringArray(42, 'patterns')).toThrow(
+      /^patterns must be an array of strings$/,
+    );
   });
 });
