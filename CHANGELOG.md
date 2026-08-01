@@ -1,3 +1,10 @@
+# [1.131.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.130.3...v1.131.0) (2026-08-01)
+
+
+### Features
+
+* **agent-tools:** render the visual-disambiguator token at the routing hub ([5778d2c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5778d2cdafda2877e637df5dc9123921b0d5c7ea))
+
 ## [1.130.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.130.2...v1.130.3) (2026-08-01)
 
 ## [1.130.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.130.1...v1.130.2) (2026-08-01)
