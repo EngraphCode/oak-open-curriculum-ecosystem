@@ -1,4 +1,4 @@
-import { map, unwrapOrThrow, type Result } from '@oaknational/result';
+import { map, type Result } from '@oaknational/result';
 import { z } from 'zod';
 
 import { parseWithSchema } from '../core/schema-parse.js';
@@ -106,45 +106,6 @@ function projectCommsEvent(parsed: z.infer<typeof commsEventSchema>): CommsEvent
   return directedEvent(parsed);
 }
 
-/**
- * Parse one narrative comms event after JSON parsing has crossed the boundary.
- */
-export function parseNarrativeCommsEventValue(value: unknown): NarrativeCommsEvent {
-  const parsed = parseWithHelpfulError({
-    label: 'narrative communication event',
-    schema: narrativeCommsEventSchema,
-    value,
-  });
-
-  return narrativeEvent(parsed);
-}
-
-/**
- * Parse one lifecycle comms event after JSON parsing has crossed the boundary.
- */
-export function parseLifecycleCommsEventValue(value: unknown): LifecycleCommsEvent {
-  const parsed = parseWithHelpfulError({
-    label: 'lifecycle communication event',
-    schema: lifecycleCommsEventSchema,
-    value,
-  });
-
-  return lifecycleEvent(parsed);
-}
-
-/**
- * Parse one directed comms message after JSON parsing has crossed the boundary.
- */
-export function parseDirectedCommsMessageValue(value: unknown): DirectedCommsMessage {
-  const parsed = parseWithHelpfulError({
-    label: 'directed communication message',
-    schema: directedCommsMessageSchema,
-    value,
-  });
-
-  return directedEvent(parsed);
-}
-
 function narrativeEvent(parsed: z.infer<typeof narrativeCommsEventSchema>): NarrativeCommsEvent {
   return {
     event_id: parsed.event_id,
@@ -204,16 +165,4 @@ function agentId(parsed: z.infer<typeof agentIdSchema>): CollaborationAgentId {
   // (the exact failure mode the c0942d48 cure landed for the `id` field).
   // The return-type annotation enforces the contract at compile time.
   return parsed;
-}
-
-// The Result core is the canonical `parseWithSchema` (core/schema-parse.ts) —
-// the estate-wide single home of the failed-validation literal
-// (consolidate-at-second-consumer). Story 2b's parser conversion consumes it
-// directly; this throwing sibling delegates through `unwrapOrThrow`.
-function parseWithHelpfulError<TSchema extends z.ZodType>(input: {
-  readonly label: string;
-  readonly schema: TSchema;
-  readonly value: unknown;
-}): z.output<TSchema> {
-  return unwrapOrThrow(parseWithSchema(input));
 }
