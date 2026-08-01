@@ -81,8 +81,56 @@ Verdict key: ON = ON-TRACK, DR = DRIFTING, WP = WRONG-PRIORITY. One row per quar
 | 20 | same moment, ~17:54Z — NEW #654 roles (judgement-low/med/high, procedure-xhigh), zero template failures | a | ON | DR — "hold awaiting owner word" is an uncited gate; offer freed capacity for routing | ON — verify nothing rides the anchor claim first | ON — PDR-078 §4 flagged unverified (verified real at the seat post-hoc) | yes → routed to Director (directed event ~18:00Z) + owner card; Director ruled no-new-lane (Matt's conn), owner card ruled "Retire now" |
 | 21 | Implementer Moss calls Loam (79b433), MCP-145 slice-2b landing boundary, ~09:19Z (1 Aug) — first rows under the usage-recording convention | n | ON (30,527 tok, 23s) | ON (31,425 tok, 34s) | ON (31,205 tok, 58s) | ON (23,153 tok, 82s) | no |
 | 22 | same moment, ~09:21Z | a | ON (29,810 tok, 14s) | ON (30,281 tok, 31s) | ON (33,973 tok, 53s) | ON (23,057 tok, 133s) | no |
+| 23 | Implementer Moss calls Loam (79b433), MCP-145 slice-2c pre-commit boundary, ~10:55Z (1 Aug) | n | ON (30,248 tok, 13s) | ON (30,218 tok, 20s) | ON (32,327 tok, 27s) | ON (23,290 tok, 80s) | no |
+| 24 | same moment, ~10:58Z | a | ON (30,275 tok, 13s) | ON — redirection adopted: PR body names the 2d scoping item explicitly (31,724 tok, 32s) | ON (33,034 tok, 35s) | DR — gates-citation hygiene on the frame's prettier/knip pre-check (23,374 tok, 151s) | yes → adjudicated at the seat, split routed to Director |
+| 25 | Implementer Moss calls Loam (79b433), MCP-145 slice-2d pre-commit boundary, ~12:24Z (1 Aug) | n | ON (30,414 tok, 14s) | ON (30,387 tok, 14s) | ON (32,776 tok, 32s) | ON (28,679 tok, 91s) | no |
+| 26 | same moment, ~12:26Z | a | ON (30,458 tok, 15s) | ON — redirection adopted: heartbeat-subject carrier named in plan Revision 4 (30,834 tok, 29s) | ON (31,922 tok, 43s) | ON (23,000 tok, 98s) | no |
+| 27 | Implementer Moss calls Loam (79b433), MCP-145 slice-3 pre-commit boundary, ~14:37Z (1 Aug) | n | ON (30,257 tok, 14s) | ON — redirection: verify the two Director-routed questions cannot bind the diff (discharged by construction: worst case is a file rename) (30,677 tok, 23s) | ON (35,440 tok, 50s) | DR — proportion: boundary-crossing gate/review claims lack in-frame evidence (23,396 tok, 122s) | yes → adjudicated at the seat (substance unanimous: displacement+gates PASS on all eight legs; the evidence exists first-hand in-session), split routed to Director in the ARC landing entry |
+| 28 | same moment, ~14:39Z | a | ON (30,295 tok, 14s) | ON (30,265 tok, 15s) | ON (35,146 tok, 60s) | DR — same proportion axis as 27-n (23,290 tok, 188s) | yes → same adjudication |
+| 29 | Implementer Moss calls Loam (79b433), MCP-145 WS-B decision-2 pre-commit boundary, ~18:49Z (1 Aug) | n | ON (30,498 tok, 13s) | ON (30,923 tok, 19s) | ON (31,228 tok, 36s) | ON (30,360 tok, 108s) | no |
+| 30 | same moment, ~18:52Z | a | ON (30,533 tok, 15s) | ON — redirection adopted: WS-A opens in parallel once the PR is pushed and Copilot requested, never serialised behind the settle watch (30,896 tok, 25s) | ON (34,190 tok, 47s) | DR — proportion: the frame-evidence class again, gate/measure claims asserted without quoted outputs (23,460 tok, 135s) | yes → adjudicated at the seat, split routed to Director (directed event 02b23b5c); reporting-layer cure applied (the PR body and landing report quote verification outputs) |
+| 31 | Implementer Moss calls Loam (79b433), MCP-145 WS-A pre-commit boundary, ~19:36Z (1 Aug) — frame quotes verification outputs per the row-30 cure | n | ON (30,331 tok, 17s) | ON — redirection adopted: with #697 merged, fold the plan archive flip into the WS-A PR via an ADDITIVE merge of main (rebase hook-denied; merge is the sanctioned shape) — one merge cycle instead of two (30,725 tok, 22s) | ON (31,755 tok, 22s) | ON (22,925 tok, 70s) | no |
+| 32 | same moment, ~19:43Z | a | ON (30,412 tok, 16s) | ON — redirection declined with reason: the ARC verdict report's reader exists by construction (the Director consumes the lane channel), so the closeout is not unconsumed ceremony (30,395 tok, 19s) | ON (34,227 tok, 48s) | ON — UNGROUNDED: none (23,055 tok, 60s) | no |
 
-### 2026-08-01 axis notes (~09:24Z, Moss calls Loam, 79b433)
+### 2026-08-01 axis notes (~12:30Z, Moss calls Loam, 79b433 — slice-2d pre-commit boundary)
+
+- **Rows 25-26, 8/8 ON-TRACK, zero divergence.** The row-24 lesson closed the loop
+  in one boundary: the frame carried the forcing fact for its pre-commit gate
+  ("2b hook ping-pong, napkin") and the compiled procedure's GATES check PASSED
+  where it had failed at row 24 — frame-citation hygiene is promptable-away at
+  n=1 for this class, same as the round-7 fabrication cure.
+- **A-medium's adversarial catch ADOPTED pre-commit**: "slice-3 doctrine input is a
+  destination, not an owner" — the routed-away heartbeat-subject-line question now
+  rides the plan's Revision 4 block, which the slice-3 executor must read.
+- Cost shape consistent (third sample): ~23-33k per leg; xhigh cheapest tokens,
+  slowest wall-clock in both stances (91s/98s).
+
+### 2026-08-01 axis notes (~11:05Z, Moss calls Loam, 79b433 — slice-2c boundary)
+
+- **Owner mapping ruling (2026-08-01, in-session at this seat, standing):** the role
+  names list effort but not model, and model+effort is the experimental axis — so each
+  platform now carries an explicit mapping of base template + model + effort as the
+  authority for interpreting any recorded run. The mapping tables live in the cricket
+  SKILL-CANONICAL §"Stable roles and platform panels", verified first-hand against all
+  eleven adapter files (4 Claude frontmatter, 3 Codex TOML, 4 Cursor unpinned). Names
+  stay plain for now — clarity beats a well-crafted evocative name while we are still
+  experimenting, measuring, and reflecting.
+- **Split panel 7/8 ON, 1/8 DR (D-a)**: the compiled procedure failed the frame's GATES
+  check because the prettier/knip pre-commit pre-check named no rule file and no forcing
+  fact, and prettier had already been proven clean. Adjudication at the seat: the knip
+  leg is genuinely un-run this cycle and keeps its place with its forcing fact now named
+  (the 2b-cycle hook ping-pong, napkin 2026-08-01); the prettier staged-set re-check is
+  near-free and conceded as belt-and-braces, not a gate. The mechanical lens enforcing
+  citation hygiene on the INVOKER's own frame is the procedure template working as
+  designed — the frame, not the priority, was the defect.
+- **Cost shape, second sample, consistent with rows 21-22**: ~23-33k tokens per leg,
+  D cheapest on tokens in both stances (23.3k/23.4k) and slowest on wall-clock; D-a ran
+  1.9× its normal-stance time at equal tokens — the adversarial stance is
+  wall-clock-expensive only on the compiled procedure.
+- **Concept seed (this boundary, echoing the 2b decoder lesson):** a role name is a
+  non-injective projection of its binding tuple — two futures with different models can
+  share a name. The cure class is the same as 2b's: carry the mapping alongside the
+  surface; never try to decode the surface.
 
 - **Recording convention (owner words, 2026-08-01, in-session at this seat, standing):**
   EVERY cricket run is recorded in this experiment record at occurrence — no unrecorded
@@ -294,6 +342,53 @@ Verdict key: ON = ON-TRACK, DR = DRIFTING, WP = WRONG-PRIORITY. One row per quar
   heartbeat labels) adopted as standing Director discipline same boundary.
 - **B-n UNGROUNDED catch acted on**: the MCP-359 falsification left the napkin and landed on
   the ticket (durable home) before round close.
+
+### Rows 27-28 axis notes (2026-08-01 ~14:42Z, Moss calls Loam)
+
+- **The compiled procedure's proportion axis fired identically on both stances** — third
+  instance of the frame-evidence class (rows 24, 27, 28): the procedure marks
+  boundary-crossing gate/review claims DRIFTING when the frame carries them without embedded
+  evidence, while all six judgement legs list the same facts as UNGROUNDED yet judge them
+  non-load-bearing for the next-action verdict. The axis divergence is now stable and
+  predictable: judgement legs price trust, the procedure prices supply. Frame-authoring
+  implication for future runs: quote one line of gate output per load-bearing claim, or expect
+  the procedure pair to return DRIFTING on proportion regardless of the work's actual state.
+- **A-medium's normal-wave redirection was real and discharged by construction**: the two
+  Director-routed doctrine questions (453fdb80) cannot bind the diff's content — question 1's
+  worst outcome is a mechanical file rename binding five existing files equally; question 2's
+  both outcomes leave the landed expect-guard valid.
+
+### Rows 29-30 axis notes (2026-08-01 ~18:55Z, Moss calls Loam)
+
+- **Fourth instance of the frame-evidence class (rows 24, 27, 28, 30) — with a new
+  calibration point**: the SAME frame passed the procedure's proportion axis on the normal
+  stance (row 29) and failed it on the adversarial stance (row 30). Rows 27-28 failed on
+  both stances. The axis is therefore stance-sensitive at the margin, not purely
+  supply-determined: identical evidence supply can pass or fail depending on how hard the
+  compiled procedure is told to push. Frame-authoring implication unchanged (quote one line
+  of output per load-bearing claim); adjudication implication new — a single-stance
+  procedure DR over an identical frame that passed the other stance is weaker evidence of a
+  supply defect than a both-stance DR.
+- **The medium-adversarial leg's redirection was substantive and adopted**: WS-A
+  parallelised behind the push+Copilot moment per ship-independent-coordinate-dependent,
+  rather than serialised behind the settle watch.
+
+### Rows 31-32 axis notes (2026-08-01 ~19:45Z, Moss calls Loam)
+
+- **The frame-evidence class CLOSED on its cure**: after four instances (rows 24, 27, 28,
+  30), a frame that QUOTES one line of verification output per load-bearing claim produced
+  the first fully clean procedure verdicts on BOTH stances — the adversarial procedure leg
+  returned UNGROUNDED: none, the first empty ungrounded list in the quartet corpus. The
+  class cure is confirmed operational, not aspirational: quote outputs, and the supply
+  axis goes quiet. Unanimous 8/8 ON-TRACK; no split to route.
+- **The medium-normal redirection was substantive and adopted mid-boundary**: with #697
+  merged, the conflict-avoidance rationale for excluding the plan file from the WS-A diff
+  was stale; the plan archive flip folded into the WS-A PR via an additive merge of main
+  (the rebase attempt was hook-DENIED — the estate's no-history-rewrite policy held at the
+  tool boundary, and the denial was absorbed as the correct call rather than retried).
+- **The medium-adversarial "tier the closeout" redirection was declined with a reason**:
+  the ARC lane channel has a reader by construction (the Director), so the verdict report
+  is consumed coordination, not ceremony.
 
 ## Maintenance
 

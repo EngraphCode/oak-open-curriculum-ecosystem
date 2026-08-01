@@ -48,26 +48,46 @@ Do not call Cricket when:
 
 ## Stable roles and platform panels
 
-Role names describe the method and effort, not a vendor or an invented specialism. The judgement
-roles execute the same canonical judgement prompt; their model and effort bindings are the
-experimental axis. The smallest model executes the compiled procedure.
+Role names describe the method and effort, not a vendor or an invented specialism — a role
+name is a deliberately lossy label. The full binding is the per-platform mapping below:
+base template + model + effort. The mapping is the authority for interpreting any recorded
+run (owner ruling 2026-08-01: while the experiment is measuring and reflecting, clarity
+beats an evocative name); verify it against the platform adapter files (`.claude/agents/`,
+`.codex/agents/`, `.cursor/agents/`) when amending either side. The judgement roles execute
+the same canonical judgement template; the smallest model executes the compiled procedure.
+Base templates live in `.agent/sub-agents/templates/`.
 
-| Platform | Panel |
-| --- | --- |
-| Claude | `cricket-judgement-low`, `cricket-judgement-medium`, `cricket-judgement-high`, `cricket-procedure-xhigh` |
-| Codex | `cricket-judgement-low`, `cricket-judgement-medium`, `cricket-procedure-xhigh` |
-| Cursor | The four stable template adapters; runs are not model-plus-effort experiment data |
+Claude bindings (the effort-inversion quartet — model capability descends as effort climbs):
 
-The Codex bindings are:
-
-| Role | Model | Effort | Method |
+| Role | Base template | Model | Effort |
 | --- | --- | --- | --- |
-| `cricket-judgement-low` | `gpt-5.6-sol` | low | judgement |
-| `cricket-judgement-medium` | `gpt-5.6-terra` | medium | judgement |
-| `cricket-procedure-xhigh` | `gpt-5.6-luna` | xhigh | compiled procedure |
+| `cricket-judgement-low` | `cricket-judgement.md` | `fable` | low |
+| `cricket-judgement-medium` | `cricket-judgement.md` | `opus` | medium |
+| `cricket-judgement-high` | `cricket-judgement.md` | `sonnet` | high |
+| `cricket-procedure-xhigh` | `cricket-procedure.md` | `haiku` | xhigh |
+
+Codex bindings:
+
+| Role | Base template | Model | Effort |
+| --- | --- | --- | --- |
+| `cricket-judgement-low` | `cricket-judgement.md` | `gpt-5.6-sol` | low |
+| `cricket-judgement-medium` | `cricket-judgement.md` | `gpt-5.6-terra` | medium |
+| `cricket-procedure-xhigh` | `cricket-procedure.md` | `gpt-5.6-luna` | xhigh |
 
 Codex deliberately has no `cricket-judgement-high` role. Do not create a placeholder fourth
 seat or substitute another model.
+
+Cursor bindings:
+
+| Role | Base template | Model | Effort |
+| --- | --- | --- | --- |
+| `cricket-judgement-low` | `cricket-judgement.md` | unpinned | unpinned |
+| `cricket-judgement-medium` | `cricket-judgement.md` | unpinned | unpinned |
+| `cricket-judgement-high` | `cricket-judgement.md` | unpinned | unpinned |
+| `cricket-procedure-xhigh` | `cricket-procedure.md` | unpinned | unpinned |
+
+Cursor preserves the templates and stable role names but pins neither model nor effort;
+record Cursor runs as template-adapter evidence, not model-plus-effort experiment data.
 
 ## Build one identical frame
 
