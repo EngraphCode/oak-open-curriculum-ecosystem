@@ -68,7 +68,7 @@ audit. The current snapshot contains:
 - 94 package scripts;
 - 9 scripts invoking the built unified CLI directly;
 - 72 scripts containing a `tsx` invocation; and
-- 7 build-first scripts matching the current `pnpm build && ...` family.
+- 6 build-first scripts matching the current `pnpm [-s] build [1>&2] && ...` family.
 
 Those counts describe surfaces, not architectural quality. I inspected representative
 activation, bootstrap, health, help, collaboration-state, hook-policy, protocol-wire,
