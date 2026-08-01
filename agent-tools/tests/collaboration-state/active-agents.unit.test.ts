@@ -18,21 +18,21 @@ const nowIso = '2026-04-28T09:37:11Z';
 // only routing weight — `platform`, `model`, and `session_id_prefix` are not.
 // Distinct name/prefix seeds yield distinct ids and therefore distinct routing
 // groups.
-const woodland: CollaborationAgentId = deriveOverrideCollaborationIdentity({
+const woodland = deriveOverrideCollaborationIdentity({
   agent_name: 'Woodland Creeping Petal',
   platform: 'codex',
   model: 'GPT-5',
   session_id_prefix: '019dd3',
 });
 
-const moonlit: CollaborationAgentId = deriveOverrideCollaborationIdentity({
+const moonlit = deriveOverrideCollaborationIdentity({
   agent_name: 'Moonlit Transiting Prism',
   platform: 'cursor',
   model: 'GPT-5.5',
   session_id_prefix: 'e86710',
 });
 
-const driftwood: CollaborationAgentId = deriveOverrideCollaborationIdentity({
+const driftwood = deriveOverrideCollaborationIdentity({
   agent_name: 'Driftwood Settling Bank',
   platform: 'codex',
   model: 'GPT-5',
@@ -152,7 +152,7 @@ describe('activeAgentReports', () => {
       }),
     ).toThrow(
       `claims open identity route Woodland Creeping Petal / id:${woodland.id} ` +
-        `collides with live identity Woodland Creeping Petal / codex / GPT-5.1 / 019dd3 / id:${woodland.id}`,
+        `collides with live identity Woodland Creeping Petal / codex / GPT-5.1 / 019dd3-d7e / id:${woodland.id}`,
     );
 
     expect(() =>

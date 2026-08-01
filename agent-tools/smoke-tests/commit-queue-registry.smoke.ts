@@ -1,21 +1,28 @@
 import assert from 'node:assert/strict';
-import { mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
 import { validateCollaborationJsonFileText } from '../src/collaboration-state/collaboration-json-validation';
+import { updateActiveClaimsFile } from '../src/collaboration-state/state-io';
 import { readRegistry, updateRegistry } from '../src/commit-queue/registry';
 
 /**
- * PDR-076a registry round-trip smoke — the identity boundary over the REAL
- * transaction.
+ * PDR-076a registry round-trip smoke — the identity boundary over BOTH real
+ * transactions that read-modify-write the shared active-claims registry:
+ * `commit-queue/registry.ts` (`updateRegistry`) and
+ * `collaboration-state/state-io.ts` (`updateActiveClaimsFile`, the path
+ * behind every claim open/close/heartbeat/adopt).
  *
- * Proves against real files what unit tests structurally cannot see: the
- * parse → transform → write-back cycle preserves a legacy id-less claim row
- * unchanged (parse-time narrowing of claims would be destructive to other
- * agents' ownership rows), rejects an id-less intent row loudly naming the
- * intent, and round-trips a valid intent identity intact. Real filesystem
- * IO makes this a smoke; `test:e2e` gates it.
+ * Proves against real files what unit tests structurally cannot see: each
+ * transaction preserves a legacy id-less claim row unchanged (parse-time
+ * narrowing of claims would be destructive to other agents' ownership
+ * rows) and round-trips a valid intent identity intact; an id-less intent
+ * row rejects loudly naming the intent — from the transaction's
+ * pre-write read, with the file proven byte-identical afterwards. The
+ * collaboration-state proofs compare against the RAW file JSON so any
+ * reconstruction loss reddens them. Real filesystem IO makes this a
+ * smoke; `test:e2e` gates it.
  */
 
 const LEGACY_CLAIM = {
@@ -30,6 +37,11 @@ const LEGACY_CLAIM = {
   areas: [{ kind: 'files', patterns: ['notes/**'] }],
   claimed_at: '2026-04-27T07:00:00Z',
   intent: 'Pre-sunset legacy row exercising the write-back preservation contract.',
+  // Fields OUTSIDE the parsers' reconstructed set: a parser that rebuilds
+  // claim rows field-by-field (instead of spreading) drops these, and the
+  // raw-JSON preservation proofs redden.
+  freshness_seconds: 14400,
+  role: 'implementer',
 };
 
 const VALID_INTENT_AGENT_ID = {
@@ -58,6 +70,9 @@ interface RawIntentRow {
   readonly updated_at: string;
   readonly expires_at: string;
   readonly phase: string;
+  readonly staged_bundle_fingerprint?: string;
+  readonly staged_name_status?: string;
+  readonly notes?: string;
 }
 
 function validIntentRow(): RawIntentRow {
@@ -71,6 +86,12 @@ function validIntentRow(): RawIntentRow {
     updated_at: '2026-04-27T07:20:00Z',
     expires_at: '2026-04-27T07:35:00Z',
     phase: 'queued',
+    // Exercises ALL THREE conditional-extras branches of intent
+    // reconstruction: a parser that stops carrying any optional field drops
+    // it, and the raw-JSON preservation proof reddens.
+    staged_bundle_fingerprint: 'fingerprint-preservation-probe',
+    staged_name_status: 'M\tagent-tools/src/commit-queue/index.ts',
+    notes: 'optional-field preservation probe',
   };
 }
 
@@ -134,9 +155,36 @@ async function proveSchemaAcceptsIdlessClaimRow(): Promise<void> {
   await validateCollaborationJsonFileText('active-claims.json', fileRegistry([validIntentRow()]));
 }
 
+async function proveActiveClaimsTransactionPreservesRowsInRawJson(): Promise<void> {
+  await withTempRegistry(fileRegistry([validIntentRow()]), async (registryPath) => {
+    await updateActiveClaimsFile({ activePath: registryPath, transform: (registry) => registry });
+    const raw: unknown = JSON.parse(await readFile(registryPath, 'utf8'));
+    // Whole-document raw comparison: any field the write-back reconstructs
+    // away (legacy claim content OR intent fields) reddens this proof.
+    assert.deepEqual(raw, JSON.parse(fileRegistry([validIntentRow()])));
+  });
+}
+
+async function proveActiveClaimsTransactionRejectsIdlessIntentLoudly(): Promise<void> {
+  const idlessIntent = { ...validIntentRow(), agent_id: LEGACY_CLAIM.agent_id };
+  await withTempRegistry(fileRegistry([idlessIntent]), async (registryPath) => {
+    await assert.rejects(
+      updateActiveClaimsFile({ activePath: registryPath, transform: (registry) => registry }),
+      /commit_queue entry 33333333-3333-4333-8333-333333333333 carries an invalid agent_id/,
+    );
+    // The rejection fires in the pre-transaction read, before any write: the
+    // registry file must be byte-identical afterwards — a loud failure that
+    // mutated the file would be the destructive shape this suite exists to
+    // prevent.
+    assert.equal(await readFile(registryPath, 'utf8'), fileRegistry([idlessIntent]));
+  });
+}
+
 await provePreservesLegacyIdlessClaimThroughWrite();
 await proveIdlessIntentFailsLoudlyNamingTheIntent();
 await proveValidIntentRoundTripsWithRoutingId();
 await proveSchemaRejectsIdlessIntentRow();
 await proveSchemaAcceptsIdlessClaimRow();
-process.stdout.write('commit-queue registry smoke: 5/5 proofs passed\n');
+await proveActiveClaimsTransactionPreservesRowsInRawJson();
+await proveActiveClaimsTransactionRejectsIdlessIntentLoudly();
+process.stdout.write('commit-queue registry smoke: 7/7 proofs passed\n');

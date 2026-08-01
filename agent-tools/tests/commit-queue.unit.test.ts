@@ -298,7 +298,7 @@ describe('guardStageFiles', () => {
       ok: false,
       reason:
         'no fresh active commit-queue intent for Prismatic Waxing Constellation / ' +
-        'codex / gpt-5.5 / 019dcd / id:e2e793c7-923e-5baa-97f0-2bedfb9b6b50 ' +
+        'codex / gpt-5.5 / 019dcd-b50 / id:e2e793c7-923e-5baa-97f0-2bedfb9b6b50 ' +
         'matches requested files: ' +
         'agent-tools/src/commit-queue/index.ts. Enqueue the bundle before ' +
         'staging: pnpm agent-tools:commit-queue -- enqueue ...',
@@ -351,7 +351,7 @@ describe('guardStageFiles', () => {
       ok: false,
       reason:
         'no fresh active commit-queue intent for Prismatic Waxing Constellation / ' +
-        'codex / gpt-5.5 / 019dcd / id:e2e793c7-923e-5baa-97f0-2bedfb9b6b50 ' +
+        'codex / gpt-5.5 / 019dcd-b50 / id:e2e793c7-923e-5baa-97f0-2bedfb9b6b50 ' +
         'matches requested files: ' +
         'agent-tools/src/commit-queue/index.ts. Enqueue the bundle before ' +
         'staging: pnpm agent-tools:commit-queue -- enqueue ...',
@@ -383,7 +383,7 @@ describe('guardStageFiles', () => {
       reason:
         'queued intent 11111111-1111-4111-8111-111111111111 claim ' +
         'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa does not belong to ' +
-        'Prismatic Waxing Constellation / codex / gpt-5.5 / 019dcd ' +
+        'Prismatic Waxing Constellation / codex / gpt-5.5 / 019dcd-b50 ' +
         '/ id:e2e793c7-923e-5baa-97f0-2bedfb9b6b50',
     });
   });
@@ -411,7 +411,7 @@ describe('guardStageFiles', () => {
       reason:
         'queued intent 11111111-1111-4111-8111-111111111111 claim ' +
         'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa does not belong to ' +
-        'Prismatic Waxing Constellation / codex / gpt-5.5 / 019dcd ' +
+        'Prismatic Waxing Constellation / codex / gpt-5.5 / 019dcd-b50 ' +
         '/ id:e2e793c7-923e-5baa-97f0-2bedfb9b6b50',
     });
   });

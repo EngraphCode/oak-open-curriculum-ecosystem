@@ -88,8 +88,8 @@ describe('buildCollaborationTuiSnapshot', () => {
     expect(snapshot.directed).toMatchObject([
       {
         id: 'directed-1',
-        from: `Shadowed Dimming Veil / codex / GPT-5 / 019e1c / id:${codexAgent.id}`,
-        to: `Moonlit Transiting Prism / cursor / GPT-5.5 / e86710 / id:${cursorAgent.id}`,
+        from: `Shadowed Dimming Veil / codex / GPT-5 / 019e1c-${codexAgent.id.slice(-3)} / id:${codexAgent.id}`,
+        to: `Moonlit Transiting Prism / cursor / GPT-5.5 / e86710-${cursorAgent.id.slice(-3)} / id:${cursorAgent.id}`,
       },
     ]);
     // PDR-076a §Decision item 2: the routing key is `(agent_name, id)` —

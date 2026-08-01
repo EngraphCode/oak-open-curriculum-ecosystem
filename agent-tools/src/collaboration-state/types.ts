@@ -1,4 +1,4 @@
-import type { CollaborationAgentId } from './agent-id.js';
+import type { CollaborationAgentId, CollaborationAgentIdWrite } from './agent-id.js';
 
 export {
   collaborationAgentIdSchema,
@@ -95,7 +95,12 @@ export interface CollaborationClaim {
 export interface CollaborationCommitQueueEntry {
   readonly intent_id: string;
   readonly claim_id: string;
-  readonly agent_id: CollaborationAgentId;
+  /**
+   * Intent identity is the PDR-076a WRITE shape: `id` is required at parse
+   * in both registry read paths (see `parseIntentAgentId` in agent-id.ts).
+   * Claims keep the read shape — legacy id-less rows are preserved there.
+   */
+  readonly agent_id: CollaborationAgentIdWrite;
   readonly files: readonly string[];
   readonly commit_subject: string;
   readonly queued_at: string;

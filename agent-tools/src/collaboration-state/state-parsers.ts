@@ -5,6 +5,7 @@ import {
   parseStringArray,
   requireString,
 } from '../core/json.js';
+import { parseIntentAgentId } from './agent-id.js';
 import {
   parseCommsEventValue,
   parseDirectedCommsMessageValue,
@@ -119,19 +120,30 @@ export function parseDirectedCommsMessage(text: string): DirectedCommsMessage {
   return parseDirectedCommsMessageValue(parsed);
 }
 
+// Intents RECONSTRUCT field-by-field (the schema's intent_to_commit sets
+// additionalProperties: false, and intents are short-lived rows every live
+// writer fully specifies) while claims SPREAD (preservation contract:
+// legacy content owned by other writers survives write-back). The asymmetry
+// is deliberate — do not "fix" it by spreading intents. Reconstruction is
+// non-destructive ONLY because parseCollaborationRegistry hard-rejects any
+// schema_version other than 1.3.0: a newer-minor file (whose unrecognised
+// fields the runtime contract says to preserve) is refused outright, never
+// silently stripped. Relaxing that version pin without revisiting this
+// reconstruction turns this path silently destructive.
 function parseCommitQueueEntry(value: unknown): CollaborationCommitQueueEntry {
   if (!isJsonObject(value)) {
     throw new Error('commit_queue entries must be objects');
   }
 
+  const intentId = requireString(value, 'intent_id');
   const stagedBundleFingerprint = getJsonValue(value, 'staged_bundle_fingerprint');
   const stagedNameStatus = getJsonValue(value, 'staged_name_status');
   const notes = getJsonValue(value, 'notes');
 
   return {
-    intent_id: requireString(value, 'intent_id'),
+    intent_id: intentId,
     claim_id: requireString(value, 'claim_id'),
-    agent_id: parseAgentId(getJsonValue(value, 'agent_id')),
+    agent_id: parseIntentAgentId(getJsonValue(value, 'agent_id'), intentId),
     files: parseStringArray(getJsonValue(value, 'files'), 'files'),
     commit_subject: requireString(value, 'commit_subject'),
     queued_at: requireString(value, 'queued_at'),

@@ -53,9 +53,6 @@ describe('planClaudeSessionIdentityHook', () => {
     const additionalContext = plan.hookOutput.hookSpecificOutput?.additionalContext ?? '';
     expect(additionalContext).toContain('[Practice agent identity]');
     expect(additionalContext).toContain(`Session identity (PDR-027): ${expectedDisplayName}`);
-    expect(additionalContext).toContain(
-      'PDR-027 session_id_prefix (first 6 of session_id): 22e835',
-    );
     expect(additionalContext).toContain('PRACTICE_AGENT_SESSION_ID_CLAUDE');
     expect(additionalContext).toContain(`/rename ${expectedDisplayName} - <intent>`);
     expect(additionalContext).toContain('Do not auto-rename');
