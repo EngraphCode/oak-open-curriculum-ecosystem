@@ -5,7 +5,7 @@
 - **Status:** Evidence and target architecture ratified; runtime delivery has
   not yet landed
 - **Controlling plan:**
-  [First-class Copilot CLI Practice citizenship](../../plans/strategic/first-class-copilot-cli-practice-citizenship.plan.md)
+  [First-class Copilot CLI Practice citizenship](../../plans/strategic/agent-platform-citizenship.plan.md)
 - **Delivery tickets:** MCP-150, MCP-154, MCP-155, MCP-156
 
 ## Evidence labels

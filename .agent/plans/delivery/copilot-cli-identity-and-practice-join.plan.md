@@ -7,7 +7,7 @@ status: ratified
 ratified_by: "Jim Cresswell"
 ratified_date: 2026-07-24
 ratified_where: "PR #529 owner ratification record: https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/529#issuecomment-5079688100"
-serves: first-class-copilot-cli-practice-citizenship
+serves: agent-platform-citizenship
 impact_areas:
   - practice-and-estate
 tickets:
