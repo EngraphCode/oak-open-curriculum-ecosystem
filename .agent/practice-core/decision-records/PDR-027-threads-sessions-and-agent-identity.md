@@ -31,6 +31,42 @@ discipline binds to this PDR's tuple format).
 
 ## Amendment Log
 
+- **2026-08-01 — the visual-disambiguator display token; authored identity
+  cells carry the bare join key.** Multi-identity RENDERED views may display
+  `session_id_prefix` through a render-time **visual-disambiguator token**:
+  the join key, a hyphen, and the last three characters of the canonical
+  `id`; a block with no `id` renders the bare join key. The token is a
+  distinct display object derived at render time — never persisted, never a
+  join, lookup, or parse key. The `session_id_prefix` field's value,
+  derivation, wire meaning, and join-key role are unchanged by this
+  amendment. Warrant, recorded here: the token appends twelve bits of the
+  canonical `id`, taking pairwise collision inside a shared-prefix window to
+  1 in 4096, and it is display-only, so even a collision cannot corrupt
+  state. WHERE renderers adopt it is governed by the inter-Practice display
+  clause (PDR-125 clause 5): renderer output adopts where one rendered view
+  holds two or more identity blocks; single-identity views render the bare
+  join key. The discriminator is confusability, not literal block count: a
+  diagnostic naming one identity in contrast to another is a
+  disambiguation context and may adopt, while a view with nothing to
+  tell apart is a single-identity view; and independently of both, the
+  view an estate sanctions as the copy source for the join key renders it
+  bare, because the mis-bind begins at the copy, not the paste. The
+  AUTHORED-surface obligation is the prior rule and is
+  general: any hand-authored cell, field, or flag value whose value is or
+  carries the join key — identity-row `session_id_prefix` cells in thread
+  records, page-edit ledger rows, review-signature lines, CLI flag
+  values, and any surface like them — writes the bare wire prefix, never
+  the token. The
+  failure this obligation prevents is a silent MIS-BIND, not a loud error:
+  an identity-table parser accepts a pasted token as a plausible prefix
+  string and writes it into `session_id_prefix`, after which downstream
+  prefix-equality consumers — the cross-estate identity-row join first
+  among them, and any prefix-keyed lookup — silently never match. No
+  parser or detector change accompanies this amendment: the
+  token is non-injective over a schema-unbounded prefix, so no decoder or
+  detector over a stored value can be correct; the stated obligation plus
+  review is the guard. §Identity schema restates the obligation at the
+  point of use.
 - **2026-07-23 — forks and duplicates: identity derives from the session,
   never from inherited context.** Session forking (a harness's
   fork-session mechanism) and harness-restart duplicates create processes
@@ -314,6 +350,15 @@ keys describe different identities and remain as separate rows.
 `session_id_prefix`, `platform`, `model`, `role`, `first_session`, and
 `last_session` are descriptive — they annotate the identity but do not
 participate in key matching.
+
+A hand-authored `session_id_prefix` cell — in this table's identity rows or
+in any other authored surface whose value is the join key — carries the
+bare wire prefix, never the render-time visual-disambiguator token that
+token-adopting RENDERED views may display (per the 2026-08-01 amendment).
+A pasted token does not fail loudly: identity-table parsers accept it as a
+plausible prefix string and silently mis-bind the field, after which
+exact-match consumers never match. Rendered views derive; authored cells
+transcribe the wire value.
 
 ### The additive-identity rule
 

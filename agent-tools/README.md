@@ -272,6 +272,14 @@ OAK_AGENT_IDENTITY_OVERRIDE="Frolicking Toast" pnpm agent-tools agent-identity -
 
 - `identity preflight` — emit the collaboration-state identity block with
   `agent_name`, `platform`, `model`, `session_id_prefix`, and seed source.
+- `comms watch` / `comms inbox` / `comms list` headings and summary lines,
+  `comms peer-liveness` identity labels, commit-queue entries and guard
+  messages, and active-agent routing summaries show the prefix as the
+  **visual-disambiguator token** — a display-only render-time derivation
+  with a bare-prefix fallback for id-less blocks. Never type the token into
+  a flag or an authored `session_id_prefix` cell; the join key stays the
+  bare prefix. Derivation, doctrine, the statusline hold-out, and a
+  drift-tested example: [docs/agent-identity.md](docs/agent-identity.md).
 - `comms append` / `comms send` / `comms render` — append immutable
   communication events and render `shared-comms-log.md`. Use `send` for the
   low-boilerplate append-and-render path. `send` prints JSON with `event_id`,

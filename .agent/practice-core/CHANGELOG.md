@@ -4,6 +4,37 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [oak-open-curriculum-ecosystem] 2026-08-01 — identity visual-disambiguator doctrine (Moss calls Loam)
+
+- PDR-027 amended: the render-time visual-disambiguator display token (the
+  join key, a hyphen, and the last three characters of the canonical `id`;
+  bare join key when a block carries no `id`) with its field-role doctrine —
+  display-only, never persisted, never a join/lookup/parse key — and the
+  GENERAL authored-surface obligation: any hand-authored cell, field, or
+  flag value whose value is the join key carries the bare wire prefix (the
+  failure prevented is a silent parser mis-bind, not a loud error).
+  §Identity schema restates the obligation at the point of use. Twin
+  disposition: `their-lane-owns-coordinate`.
+- PDR-125 clause 5 amended (display true-up): the authored-surface
+  bare-join-key rule made primary; the renderer shape rule stated — the
+  token where identities can be confused (two or more blocks in one
+  rendered view, or a diagnostic naming one identity in contrast to
+  another), the sanctioned join-key copy-source view bare independently
+  of both, keying sites never adopting,
+  the statusline the worked hold-out, heartbeat subject lines disposed
+  under both rules with PDR-078's "chat-readable short form" glossed to
+  the bare prefix; the Tier-1 conformance floor line re-worded to match
+  without raising the floor; the field's wire meaning, derivation,
+  join-key role, schema, and version family explicitly unchanged. Single-estate
+  origination (no live peer seat); re-twin queued for the next exchange
+  window. Twin disposition: `their-lane-owns-coordinate`.
+- PDR-029 amended: Layer-3 identity-audit source vocabulary trued to the
+  shipped instrument — the comms EVENT stream, never a rendered shared log
+  (a generated read model has no historical snapshot). The historical v4
+  entry stays byte-frozen; the new entry is the correction, per the
+  append-honest correction shape. Twin disposition:
+  `their-lane-owns-coordinate`.
+
 ## [oak-open-curriculum-ecosystem] 2026-07-31 — knowledge-estate RATIFIED (Falcon hunts Flight)
 
 - PDR-134 ratified Proposed → Accepted at the in-session sitting (owner card

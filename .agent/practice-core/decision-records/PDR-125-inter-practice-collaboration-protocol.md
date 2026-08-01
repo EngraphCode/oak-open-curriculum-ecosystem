@@ -23,8 +23,21 @@ event and never box-file frontmatter): this amendment originated in ONE
 estate of the exchange pair and was not twinned at authoring time (no
 live peer seat); its re-twin is queued for the next exchange window,
 with per-item dispositions in the originating estate's Practice-Core
-changelog (which names the estate — provenance lives in the ledger). The 2026-07-08 diff-proof describes that
-window's landed text, not the 2026-07-13 amendment.
+changelog (which names the estate — provenance lives in the ledger).
+Amended 2026-08-01 (clause-5 display true-up: the authored-surface
+bare-join-key rule made primary and the renderer shape rule stated —
+the visual-disambiguator token where identities can be confused (two
+or more blocks in one rendered view, or a diagnostic naming one
+identity in contrast to another), the sanctioned join-key copy-source
+view bare independently of both, keying sites never adopting; the
+Tier-1 floor line
+re-worded to match; the field's wire meaning, derivation, join-key
+role, schema, and version family explicitly unchanged): originated in
+this estate with no live peer seat; re-twin queued for the next
+exchange window with twin disposition `their-lane-owns-coordinate`;
+per-item dispositions in this estate's Practice-Core changelog. The
+2026-07-08 diff-proof describes that window's landed text, not the
+2026-07-13 or 2026-08-01 amendments.
 **Date**: 2026-07-06
 **Related**: PDR-005 (transplantation and provenance), PDR-024
 (vital integration surfaces and outbound routing), PDR-027 (identity
@@ -152,9 +165,45 @@ below serves one of those three.
    per-estate DERIVED names joined by the prefix. An owner-assigned or
    operator-overridden `agent_name` outranks derivation (as in each
    estate's own identity contract); the override is declared as an
-   override at registration, and the prefix join key binds unchanged. Every rendered identity
-   surface — statusline, comms headings, claim listings — shows
-   `<name> (<session_id_prefix>)`. The **session_id_prefix is the join
+   override at registration, and the prefix join key binds unchanged.
+   Identity display carries the join key under two ordered rules
+   (amended 2026-08-01). FIRST, the authored-surface rule, which is
+   prior and unconditional: any hand-authored cell, field, or flag
+   value whose value is or carries the join key writes it as the bare
+   `session_id_prefix` — authored surfaces transcribe the wire value;
+   only renderer output derives. SECOND, the renderer shape rule:
+   renderer output shows `<name> (<session_id_prefix>)`; where ONE
+   rendered view holds TWO OR MORE identity blocks, the parenthesised
+   field may instead be the render-time **visual-disambiguator
+   token** — the join key, a hyphen, and the last three characters of
+   the canonical `id`, falling back to the bare join key for a block
+   with no `id` — while single-identity views render the bare join
+   key and keying sites never adopt the token (it is never a join,
+   lookup, or parse key). The discriminator is CONFUSABILITY, not
+   literal block count: a single-identity view is one with nothing to
+   tell apart, while a diagnostic naming one identity IN CONTRAST to
+   another — a foreign-heartbeat verdict against the session's own,
+   an ownership mismatch against the acting seat, a lookup miss
+   against whoever owns the record — is a disambiguation context and
+   may adopt; and INDEPENDENTLY of block count and confusability, the
+   view an estate sanctions as the COPY SOURCE for the join key
+   renders it bare, because the authored-surface rule's silent
+   mis-bind begins at the copy, not the paste. The token is a distinct
+   display object derived at render time: the `session_id_prefix`
+   field's value,
+   derivation, join-key role, wire schema, and version family are
+   UNCHANGED by this clause — a reader never parses a rendered token
+   back into a prefix, and token adoption is each estate's own
+   display concern, never a conformance-floor item. The statusline is
+   the worked example: it renders one identity AND is the estate's
+   sanctioned copy source for the join key, so it shows the bare
+   prefix on both grounds. Heartbeat subject lines keep the bare prefix under both
+   rules: their composed titles are authored surfaces and they render
+   exactly one identity — and PDR-078's own words, "the subject-line
+   rendering is the chat-readable short form", already name the bare
+   prefix, since in PDR-027's vocabulary the chat-readable short form
+   IS the bare `session_id_prefix`; this clause leaves that rendering
+   unchanged. The **session_id_prefix is the join
    key**, and it identifies a SESSION: one session presents different
    DERIVED names across estates (a declared override may present the
    same name everywhere). A SUCCESSOR is a NEW session — new prefix,
@@ -265,8 +314,11 @@ claims in prose.
   exchange payload. Proof type: `artifact` (box path present),
   `artifact` (protocol record present in the decision-record set).
 - **Tier 1 — session hosting** (can host visiting sessions): a
-  threadable comms substrate, identity-with-prefix on every rendered
-  surface (clause 5), and a declared coordination home (clause 2).
+  threadable comms substrate, identity-with-join-key on every rendered
+  surface (clause 5 — the bare prefix, or the visual-disambiguator
+  token, which contains the prefix but is never parsed to recover
+  it; token adoption is a display concern, never a floor item), and
+  a declared coordination home (clause 2).
   Proof type: `gate` (watcher liveness assertion), `artifact`
   (identity + home declarations).
 - **Extensions — version-advertised, never floor**: comms threading,
@@ -300,7 +352,16 @@ demand it:
 This estate's local phenotype: the `PRACTICE_COORDINATION_HOME`
 declared-home override implemented in `resolveCoordinationHome`
 (landed 2026-07-06), the statusline rendering the `name (prefix)` join
-key beside the identity (landed 2026-07-06), the
+key beside the identity (landed 2026-07-06; the deliberate clause-5
+single-identity hold-out — it stays the bare join key), the
+token-adopting collaboration-state renderers (comms watch/inbox and
+directed headings, operator CLI query and peer-liveness lines,
+commit-queue entries and guard messages, active-agent routing
+summaries, and identity-contrast diagnostics) displaying the clause-5
+visual-disambiguator token through one shared display helper with the
+id-less bare-prefix fallback (landed 2026-07-31 through 2026-08-01;
+the agent/claims listing is id-shaped by design and renders no prefix
+field), the
 `@oaknational/agent-tools` collaboration-state CLI as the home tooling
 for all writes, and the collaboration plane at
 `.agent/state/collaboration/`. The host phenotype ADR in

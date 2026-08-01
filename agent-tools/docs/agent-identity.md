@@ -103,6 +103,43 @@ Override JSON results use `kind: "override"` with
 slots. The same environment variable is used by operator-provided names and by
 platform session hooks after they derive a name for the current session.
 
+## Visual-Disambiguator Token
+
+Token-adopting collaboration-state renderers (comms watch and inbox lines,
+directed headings, operator CLI query and peer-liveness lines, commit-queue
+entries and guard messages, active-agent routing summaries — views where
+identities can be confused) display the prefix through the
+**visual-disambiguator token**: `<session_id_prefix>-<last 3 of the id>`,
+derived at render time from two fields every derived identity block already
+carries. A block with no `id` (legacy rows, migration output) renders the
+bare prefix — the fallback is structural, inside the renderer helper, not a
+per-site default. This is a `collaboration-state` render-time derivation,
+not an `agent-identity` CLI output format: `--format kebab|display|json`
+never emits it. The Claude Code statusline deliberately does NOT show the
+token: it renders one identity and is the operator's paste source for the
+join key, so it stays the bare prefix (the PDR-125 clause-5 hold-out). The
+agent/claims listing renders `name / id:<id>` with no prefix field at all —
+id-shaped by design, nothing to adopt.
+
+**Display-only, always.** The token is never persisted, never a join,
+lookup, or parse key, and never hand-typed into an authored
+`session_id_prefix` cell or flag value — the wire field and cross-estate
+join key remain the bare prefix, unchanged (PDR-027 field-role doctrine;
+PDR-125 clause 5). The token is not injective over a schema-unbounded
+prefix, so nothing may attempt to detect or decode it from a stored value.
+
+The example below is generated: a unit test rebuilds it from the live
+renderer and fails on any drift.
+
+<!-- drift-test:visual-disambiguator-example -->
+
+```text
+session_id_prefix: 22e835
+id:                1bb4df59-58e8-5b71-b41b-eebd1f587dda
+rendered:          22e835-dda
+rendered (no id):  22e835
+```
+
 ## Naming Schema Registry (ADR-198)
 
 The seed-to-name projection is versioned. Each era is registered in

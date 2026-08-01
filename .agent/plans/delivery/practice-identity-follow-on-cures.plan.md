@@ -2,8 +2,11 @@
 id: practice-identity-follow-on-cures
 node_type: delivery
 name: "Identity-lane follow-on cures: shell-quote consolidation and override-identity prefix hygiene"
-overview: "Two small single-story cures accrued by the MCP-145 identity lane's reviews: consolidate the duplicated shellSingleQuote helper into one shared core util, and cure the override identity path's silent empty prefix plus the hand-typed recipient prefix on comms direct — by sourcing from the registry where it can answer, never by decoding values. Decision-complete; born sketch awaiting ratification."
-status: sketch
+overview: "Two small single-story cures accrued by the MCP-145 identity lane's reviews: consolidate the duplicated shellSingleQuote helper into one shared core util, and cure the override identity path's silent empty prefix plus the hand-typed recipient prefix on comms direct — by sourcing from the registry where it can answer, never by decoding values. Decision-complete; ratified 2026-08-01."
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-08-01
+ratified_where: "Owner action-moment card answered 'Ratify now' at 2026-08-01 ~13:45Z (first owner touch after the boundary-3 compaction), recorded at occurrence on the comms stream (event 7f182210-b42b-4550-a883-006b68d4ea70). Order stands: the visual-disambiguator plan's slice 3, then WS-B, then WS-A."
 serves: first-major-release
 impact_areas:
   - practice-and-estate
