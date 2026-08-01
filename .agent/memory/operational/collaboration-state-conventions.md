@@ -3,7 +3,7 @@ fitness_line_target: 150
 fitness_line_limit: 220
 fitness_char_limit: 12000
 fitness_line_length: 100
-split_strategy: "Extract per-surface lifecycle detail to companion docs as new state surfaces are installed (conversations/, escalations/); keep this file as the operational guide to all collaboration state."
+split_strategy: 'Extract per-surface lifecycle detail to companion docs as new state surfaces are installed (conversations/, escalations/); keep this file as the operational guide to all collaboration state.'
 merge_class: index-narrative-tables
 ---
 
@@ -40,18 +40,18 @@ All collaboration-state timestamps are UTC ISO 8601 strings with a trailing
 `Z`. Owner-local time can be mentioned in prose when useful, but UTC is the
 canonical value for staleness and freshness calculations and durable state.
 
-| Surface | Shape | Lifecycle | Authority |
-| --- | --- | --- | --- |
-| [`comms-events/`][comms-events] | One immutable JSON file per communication event | Exclusive-create append; render into the shared log; archive old rendered history rather than deleting it | CSW |
-| [`shared-comms-log.md`][log] | Generated markdown read model | Human/agent discovery surface rendered from comms events; legacy rendered history remains preserved during migration | WS0 + CSW |
-| [`active-claims.json`][active-claims] | Structured JSON; queryable registry plus `commit_queue` | Mutate through the collaboration-state transaction helper; remove claims after durable close; remove successful queue entries after commit; stale-archive by consolidation | WS1 + queue + CSW |
-| [`active-claims.schema.json`][active-claims-schema] | JSON Schema (Draft 2020-12) | Versioned; additive-only within major; major bump = field reduction or breaking shape change | WS1/WS3A |
-| [`closed-claims.schema.json`][closed-claims-schema] | JSON Schema (Draft 2020-12) | Versioned; additive-only within major; major bump = field reduction or breaking shape change | WS3A |
-| [`closed-claims.archive.json`][closed-claims] | JSON archive preserving claim body plus closure metadata | Append-on-explicit-close, stale archive, or owner-forced close; never deleted; permanent reference for `claim_id` citations | WS1/WS3A |
-| [`conversation.schema.json`][conversation-schema] | JSON Schema (Draft 2020-12) | Versioned; additive-only within major; major bump = field reduction or breaking shape change | WS3A/WS3B/joint decisions |
-| [`conversations/`][conversations-dir] | Structured per-topic JSON decision threads | Created on decision-thread open; sidebars and joint decisions append entries; closed with a `resolution` when the topic is done | WS3A/WS3B/joint decisions |
-| [`escalation.schema.json`][escalation-schema] | JSON Schema (Draft 2020-12) | Versioned; additive-only within major; escalation files close by referencing the conversation entry that resolved them | WS3B |
-| [`escalations/`][escalations-dir] | One file per active owner escalation | Created after a conversation entry exists; closed after owner resolution is written back to that conversation | WS3B |
+| Surface                                             | Shape                                                    | Lifecycle                                                                                                                                                                  | Authority                 |
+| --------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- |
+| [`comms-events/`][comms-events]                     | One immutable JSON file per communication event          | Exclusive-create append; render into the shared log; archive old rendered history rather than deleting it                                                                  | CSW                       |
+| [`shared-comms-log.md`][log]                        | Generated markdown read model                            | Human/agent discovery surface rendered from comms events; legacy rendered history remains preserved during migration                                                       | WS0 + CSW                 |
+| [`active-claims.json`][active-claims]               | Structured JSON; queryable registry plus `commit_queue`  | Mutate through the collaboration-state transaction helper; remove claims after durable close; remove successful queue entries after commit; stale-archive by consolidation | WS1 + queue + CSW         |
+| [`active-claims.schema.json`][active-claims-schema] | JSON Schema (Draft 2020-12)                              | Versioned; additive-only within major; major bump = field reduction or breaking shape change                                                                               | WS1/WS3A                  |
+| [`closed-claims.schema.json`][closed-claims-schema] | JSON Schema (Draft 2020-12)                              | Versioned; additive-only within major; major bump = field reduction or breaking shape change                                                                               | WS3A                      |
+| [`closed-claims.archive.json`][closed-claims]       | JSON archive preserving claim body plus closure metadata | Append-on-explicit-close, stale archive, or owner-forced close; never deleted; permanent reference for `claim_id` citations                                                | WS1/WS3A                  |
+| [`conversation.schema.json`][conversation-schema]   | JSON Schema (Draft 2020-12)                              | Versioned; additive-only within major; major bump = field reduction or breaking shape change                                                                               | WS3A/WS3B/joint decisions |
+| [`conversations/`][conversations-dir]               | Structured per-topic JSON decision threads               | Created on decision-thread open; sidebars and joint decisions append entries; closed with a `resolution` when the topic is done                                            | WS3A/WS3B/joint decisions |
+| [`escalation.schema.json`][escalation-schema]       | JSON Schema (Draft 2020-12)                              | Versioned; additive-only within major; escalation files close by referencing the conversation entry that resolved them                                                     | WS3B                      |
+| [`escalations/`][escalations-dir]                   | One file per active owner escalation                     | Created after a conversation entry exists; closed after owner resolution is written back to that conversation                                                              | WS3B                      |
 
 ## Schema Provenance
 
@@ -172,17 +172,17 @@ is the reality signal if handoff prose and fresh monitor events disagree.
 Detailed recipes live in [`collaboration-state-lifecycle.md`][lifecycle].
 This file keeps the operational index compact.
 
-| Action | State surface | Durable outcome |
-| --- | --- | --- |
-| Open / refresh active work | `active-claims.json` | Fresh claim with `claimed_at`, optional `heartbeat_at`, and visible areas |
-| Queue commit intent | `active-claims.json` root `commit_queue` | FIFO advisory entry with files, subject, phase, expiry, and staged-bundle fingerprint |
-| Close active work | `closed-claims.archive.json` | Claim copied with `closure.kind: "explicit"` and evidence refs |
-| Archive stale work | `closed-claims.archive.json` | Stale claim preserved with `closure.kind: "stale"` |
-| Open structured coordination | `conversations/<id>.json` | Decision-thread event list with concrete entries and evidence |
-| Request sidebar | `conversations/<id>.json` | `sidebar_*` entries grouped by `sidebar_id`; timeout is reporting only |
-| Record joint commitment | `conversations/<id>.json` | `joint_decision*` entries with decider, recorder, actor, ack, and evidence |
-| Escalate to owner | `escalations/<id>.json` + conversation | Live case closes only after owner resolution is written back to conversation |
-| Consolidate observability | `consolidate-docs § 7e` | Active/stale claims, queue entries, threads, sidebars, decisions, escalations, and malformed state reported |
+| Action                       | State surface                            | Durable outcome                                                                                             |
+| ---------------------------- | ---------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| Open / refresh active work   | `active-claims.json`                     | Fresh claim with `claimed_at`, optional `heartbeat_at`, and visible areas                                   |
+| Queue commit intent          | `active-claims.json` root `commit_queue` | FIFO advisory entry with files, subject, phase, expiry, and staged-bundle fingerprint                       |
+| Close active work            | `closed-claims.archive.json`             | Claim copied with `closure.kind: "explicit"` and evidence refs                                              |
+| Archive stale work           | `closed-claims.archive.json`             | Stale claim preserved with `closure.kind: "stale"`                                                          |
+| Open structured coordination | `conversations/<id>.json`                | Decision-thread event list with concrete entries and evidence                                               |
+| Request sidebar              | `conversations/<id>.json`                | `sidebar_*` entries grouped by `sidebar_id`; timeout is reporting only                                      |
+| Record joint commitment      | `conversations/<id>.json`                | `joint_decision*` entries with decider, recorder, actor, ack, and evidence                                  |
+| Escalate to owner            | `escalations/<id>.json` + conversation   | Live case closes only after owner resolution is written back to conversation                                |
+| Consolidate observability    | `consolidate-docs § 7e`                  | Active/stale claims, queue entries, threads, sidebars, decisions, escalations, and malformed state reported |
 
 ## Trusted-Agents Threat Model
 
@@ -200,13 +200,13 @@ drives refinement amendments. Refinements may add, remove, or reshape
 fields:
 
 - **Adding a field or enum value** lands as a minor-version bump
-  (`schema_version: "1.1.0"` etc.). Older agents preserve unrecognised
-  fields and opaque enum values on write-back; maintained schemas narrow
-  older-version validation where an enum shape changed.
+  (`schema_version: "1.1.0"` etc.). The bump moves the schema, the
+  parsers, and every writer together (latest-only support, owner ruling
+  2026-08-01): agents support exactly the current version once it lands.
 - **Removing a field** lands as a major-version bump
-  (`schema_version: "2.0.0"` etc.). Agents reading older-major files
-  bail out with an error pointing at the protocol upgrade. Migration
-  is deliberate, not silent.
+  (`schema_version: "2.0.0"` etc.). Agents reading a file at any other
+  version bail out with an error pointing at the protocol upgrade.
+  Migration is deliberate, not silent.
 - **Adding a strength gradient** (the WS1 single-level claim model
   reframed in light of evidence) lands as a major-version bump because
   the absence of an exclusivity flag was load-bearing in v1.
