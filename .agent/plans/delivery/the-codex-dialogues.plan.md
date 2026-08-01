@@ -58,6 +58,15 @@ course — the experiment reports that honestly and the capability is
 retired or reshaped; there is no fold-into-Cricket disposition, because
 Cricket is not this instrument's alternative.
 
+Thread persistence, stated truthfully (review-verified against CLI
+0.146.0): Codex persists each thread's rollout locally by default
+(`Config.ephemeral` defaults to `false`), so a closed dialogue is
+resumable in principle and its transcript survives under the Codex
+home. The protocol NEVER resumes a closed thread (discipline, below) —
+but persistence is not fought: for an experiment whose records exist
+for later analysis, the Codex-side rollout is a free third analysis
+source alongside the close event and the seat's own transcript.
+
 ## v1 decided shape — direct connection
 
 1. **MCP registration.** The project `.mcp.json` gains one entry:
@@ -78,12 +87,23 @@ Cricket is not this instrument's alternative.
    }
    ```
 
-   The authority pin is at the PROCESS, in the launch args (accepted by
-   the installed codex-cli 0.146.0, verified first-hand 2026-08-01):
-   every thread in the process is read-only/no-approvals regardless of
-   per-call parameters, which remain belt-and-braces where the probe
-   confirms them. Tool schemas are deferred by the harness, so the
-   registration's ambient cost to unrelated sessions is names-only.
+   The launch pins are the process DEFAULT — deliberately not claimed
+   as a cap. Review evidence from the upstream source (codex-rs
+   `mcp_server/codex_tool_config.rs`: per-call `sandbox` values include
+   `danger-full-access`, and `into_config` builds a fresh config from
+   per-call overrides without carrying the launch overrides) says a
+   caller passing per-call authority parameters can BROADEN a thread
+   past these pins, and `approval_policy=never` suppresses prompts
+   rather than denying execution. The pre-build probe settles this
+   empirically (below) rather than inscribing either reading as fact.
+   Authority therefore rests on three layers stated in order of real
+   strength: the estate's same-UID trust ruling (the calling seat is
+   already trusted with full user authority — this tool adds no new
+   authority class); the skill's hard rule that a dialogue call NEVER
+   passes per-call sandbox/approval parameters; and the launch-arg
+   defaults for any call that omits them. Tool schemas are deferred by
+   the harness, so the registration's ambient cost to unrelated
+   sessions is names-only.
 
 2. **Dialogue-protocol skill.** A canonical skill (three-layer:
    `.agent/skills/the-codex-dialogues/SKILL-CANONICAL.md` plus generated
@@ -94,32 +114,44 @@ Cricket is not this instrument's alternative.
    not re-minted), the exchange budget (default six, stop earlier on
    stabilised or irreconcilable positions), the one-thread discipline
    (one `codex` initialisation, every reply via `codex-reply` to that
-   exact `structuredContent.threadId`), and the conservation contract:
-   the conserved synthesis QUOTES Codex's final position — in direct
-   mode the seat holds the verbatim turns, so fidelity is by
-   construction, not by discipline.
+   exact `structuredContent.threadId`), never resuming a closed thread,
+   NEVER passing per-call sandbox/approval parameters (the authority
+   discipline above), and — before opening any dialogue — checking
+   `codex --version` against the probe's recorded version and running
+   the landed probe script first on any mismatch (the version gate that
+   makes an unverified CLI upgrade a loud stop instead of a silent
+   drift). The conservation contract: the conserved synthesis QUOTES
+   Codex's final position — in direct mode the seat holds the verbatim
+   turns, so fidelity is by construction, not by discipline.
 
 3. **The record (owner-stated purpose: later analysis of an
    experiment).** One structured comms event at each dialogue close:
-   dialogue id (the thread id is NOT carried — it is dead at close and
-   operationally sensitive; a fresh opaque id is), question class, turn
+   dialogue id (the Codex thread id is NOT carried — it is closed,
+   never protocol-resumed, and operationally sensitive; a fresh opaque
+   id is), question class, turn
    count, stop reason, harness and Codex CLI versions, outcome flag
    (position-changed / dissent-unresolved / confirmed), and a pointer to
    wherever the synthesis was conserved. The event rides the
    fold-committed comms substrate: durable, greppable, analyzable — no
    bespoke store, no hooks, no CLI (owner ruling 2026-08-01, superseding
-   the sketch's ledger machinery; the session transcript is a free
-   second analysis source in direct mode).
+   the sketch's ledger machinery; the seat's session transcript and the
+   Codex-side rollout that persists by default under the Codex home are
+   free second and third analysis sources in direct mode).
 
 ## Invariants — stated honestly
 
-One initialisation per dialogue and reply-to-exact-thread are SKILL
-discipline, not machine enforcement; the violation cost is wasted spend
-and a muddled dialogue, made visible by the close event's turn count.
-The AUTHORITY invariant does not share that soft cost profile and is
-therefore pinned at process level in the launch args. No guard hooks in
-v1; the verified hook primitives (PreToolUse deny, PostToolUse capture,
-SubagentStop) are the named hardening path if misuse is observed.
+One initialisation per dialogue, reply-to-exact-thread, no resumption of
+closed threads, and no per-call authority parameters are ALL skill
+discipline, not machine enforcement. The thread-discipline violations
+cost wasted spend and a muddled dialogue, made visible by the close
+event's turn count. The authority discipline sits inside the estate's
+recorded same-UID trust ruling — the calling seat already holds full
+user authority, so a seat electing to pass a broadening parameter is
+the same trust question as every other tool it holds; the launch-arg
+defaults cover every disciplined call, and the probe records what the
+harness actually enforces. No guard hooks in v1; the verified hook
+primitives (PreToolUse deny, PostToolUse capture, SubagentStop) are the
+named hardening path if misuse is observed.
 
 ## Evidence-gated follow-on — the conduit wrapper (pointer, not spec)
 
@@ -134,14 +166,18 @@ first-hand. Do not build it speculatively.
 ## Pre-build verification
 
 Before authoring the skill: run `codex mcp-server` locally WITH the
-process-level `-c` pins, drive one bounded codex → threadId →
-codex-reply exchange end-to-end, prove a write attempt is refused, and
-record the tested Codex CLI version. PR 1 lands this probe as a RUNNABLE
-script wired to the recorded version, so a version-bump re-run is a
-one-command act; no automatic trigger fires it at upgrades (stated, not
-hidden). The vendor's MCP reference has drifted (the original sketch's
-URL no longer documents the tools), so the probe is the durable contract
-evidence.
+launch `-c` pins, drive one bounded codex → threadId → codex-reply
+exchange end-to-end, prove a write attempt is refused on a disciplined
+call, then EXPLICITLY attempt to broaden per-call (pass
+`sandbox: danger-full-access` on a call) and record which layer wins —
+the launch pins or the per-call override. That recorded outcome, not
+any source reading, is the plan's authority evidence. Record the tested
+Codex CLI version. PR 1 lands this probe as a RUNNABLE script wired to
+the recorded version; the skill's version gate (dialogue-open check
+above) runs it on any CLI version mismatch, so an installed upgrade is
+a loud stop rather than a silently unverified surface. The vendor's MCP
+reference has drifted (the original sketch's URL no longer documents
+the tools), so the probe is the durable contract evidence.
 
 ## Acceptance criteria (each with a proof)
 
@@ -151,8 +187,13 @@ evidence.
   synthesis quotes Codex's final position; the close event appears on
   the canonical stream with every field. Proof: owner-held — one real
   seat, one real uncertainty, linked from the implementation PR.
-- Authority pinned: a live write attempt inside a dialogue is refused.
-  Proof: owner-held, alongside the round-trip run.
+- Authority evidenced: a disciplined call's write attempt is refused,
+  AND the per-call broadening attempt's outcome is recorded (cap or
+  default — whichever the harness proves). Proof: repo-safe probe
+  script output, plus the owner-held live run.
+- Version gate live: the skill's dialogue-open step detects a CLI
+  version mismatch against the probe record and stops until the probe
+  re-runs. Proof: repo-safe — skill text + probe-record pin test.
 - Routing stated: the skill names the Cricket / ArcAngel / here
   boundaries so keyword routing does not misfire against Cricket's
   rubber-ducking triggers (the rename to `the-codex-dialogues` kills
@@ -164,11 +205,14 @@ evidence.
 
 ## Delivery
 
-Ticket first, embargo-aware: Linear is out of bounds until 2026-08-10
+Ticket first, embargo-aware, and binding at RATIFICATION: this plan
+serves `first-major-release`, an anchored subtree (sibling plans carry
+tickets), so the anchoring-consistency validator requires a ratified
+delivery plan here to name a ticket — ratification itself, not just
+implementation, needs one. Linear is out of bounds until 2026-08-10
 08:00 London (owner ruling 2026-08-01; exceptions are one-off owner
-statements only). Gate-pass before that date holds the lane at
-ticket-blocked rather than minting; `tickets: []` stands until the
-embargo lifts or the owner names an exception.
+statements only), so the plan stays `sketch` until the embargo lifts or
+an owner one-off mints the ticket; `tickets: []` stands meanwhile.
 
 - PR 1 (single story): the `.mcp.json` registration, the canonical
   skill + generated adapters, the runnable probe script with its
@@ -203,8 +247,15 @@ quoted.
   original reference URL drifted — the runnable probe against the
   installed CLI is the durable evidence.
 - `codex mcp-server -c sandbox_mode=read-only -c approval_policy=never`
-  accepted at launch (process-level pin): VERIFIED first-hand against
-  codex-cli 0.146.0, 2026-08-01.
+  accepted at launch: VERIFIED first-hand against codex-cli 0.146.0,
+  2026-08-01. Whether launch pins CAP per-call overrides: OPEN — review
+  evidence from the upstream source says per-call `sandbox` builds a
+  fresh config that ignores launch overrides; the pre-build probe's
+  recorded broadening attempt is the deciding evidence.
+- `Config.ephemeral` defaults `false` — Codex persists thread rollouts
+  locally across process exit: review-verified against CLI 0.146.0;
+  embraced by this plan as the third analysis source rather than
+  fought.
 - Claude Code MCP registration and deferred tool schemas: VERIFIED
   2026-08-01 at <https://code.claude.com/docs/en/mcp>.
 - Claude Code hooks (the named hardening path only): VERIFIED 2026-08-01
