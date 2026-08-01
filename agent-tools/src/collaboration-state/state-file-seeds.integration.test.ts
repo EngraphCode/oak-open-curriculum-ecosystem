@@ -1,10 +1,9 @@
-import { existsSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
-import { dirname, join, parse } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { join } from 'node:path';
 
 import { describe, expect, it } from 'vitest';
 
+import { resolveRepoRoot } from '../core/repo-root.js';
 import {
   EMPTY_ACTIVE_CLAIMS_REGISTRY_JSON,
   EMPTY_CLOSED_CLAIMS_ARCHIVE_JSON,
@@ -17,24 +16,11 @@ import {
  * literals from the constants and reddens when the two drift apart.
  */
 
-function repoRoot(): string | undefined {
-  let dir = dirname(fileURLToPath(import.meta.url));
-  const filesystemRoot = parse(dir).root;
-  while (dir !== filesystemRoot) {
-    if (existsSync(join(dir, 'pnpm-workspace.yaml'))) {
-      return dir;
-    }
-    dir = dirname(dir);
-  }
-  return undefined;
-}
-
 describe('start-right seeding snippet', () => {
   it('carries both canonical seed strings verbatim — the snippet cannot import them, so this pin is the lockstep', async () => {
-    const root = repoRoot();
-    expect(root).toBeDefined();
+    const root = resolveRepoRoot(import.meta.url, { projectDir: undefined });
     const skill = await readFile(
-      join(root ?? '', '.agent/skills/start-right-quick/shared/start-right.md'),
+      join(root, '.agent/skills/start-right-quick/shared/start-right.md'),
       'utf8',
     );
 
