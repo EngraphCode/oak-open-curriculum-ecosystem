@@ -1,3 +1,15 @@
+# [1.132.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.131.1...v1.132.0) (2026-08-01)
+
+
+### Bug Fixes
+
+* **agent-tools:** close the audited-field union; frozen backlog line back to snapshot text ([2d3a105](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2d3a105abd950724b91aaa0e88b4a3624d2d5a3c)), closes [#682](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/682)
+
+
+### Features
+
+* **agent-tools:** carry the identity token onto the comms record surfaces ([a5ef6fd](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a5ef6fdd87a669a12f76fc3cda700190917bc7da))
+
 ## [1.131.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.131.0...v1.131.1) (2026-08-01)
 
 # [1.131.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.130.3...v1.131.0) (2026-08-01)
