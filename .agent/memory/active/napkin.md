@@ -494,3 +494,57 @@ seats route GitHub WRITES through a bot-minted token or the Director
 key-turn; the owner-bound connector is a surfaced blocker, not a fallback
 (bot-identity rule). Identity on #683 cured in place by an identifying PR
 comment; merge lands under bot identity via key-turn. Reported to owner.
+
+## 2026-08-01 ~12:56Z — Moss calls Loam (79b433): PR-watch poll died silently at the exact moment it mattered
+
+Observation: the #690 settle-watch poll went quiet the moment reviews
+landed — the shell-side `jq` choked on raw control characters inside a
+review BODY, the `2>/dev/null` + empty-guard swallowed the error, and
+the monitor looked alive while blind (silence identical to
+still-running). Found only because the replacement was FAIL-LOUD.
+Diagnosis: routing full API payloads (with free-text bodies) through a
+shell variable into a second jq is fragile; the guard made the failure
+silent, the classic NOTIFY-adjacent trap.
+Cure: project INSIDE the producer (`gh --jq`) so free-text never enters
+the shell; classify non-JSON output as a loud failure line, never skip
+it. Applied as watch v3.
+Pointer: monitors that filter must emit on their own parse failures —
+"silence is not success" applies to the watcher's own plumbing, not
+just the watched process.
+
+## 2026-08-01 ~13:01Z — Moss calls Loam (79b433): quoted my own leg as the whole gate, at the moment of celebration
+
+Observation: my #690 merge broadcast declared "the design-lane gate
+RELEASES at this merge". Falcon corrected by the record: ruling
+4991f065 has THREE legs (Plover done, Moss 2a-2d done, Badger story-2
+chain-end IN FLIGHT) — the gate holds.
+Diagnosis: verdict momentum at a milestone — I re-read the clause that
+named MY leg and let completion euphoria promote it to the whole gate.
+The standing class (quote the gate clause, score exactly what it
+binds) was in memory and still lost to the moment; celebration is a
+high-risk read state.
+Cure applied: correction broadcast in-response-to the original; thread
+row and ARC trued; the next milestone read quotes the FULL clause with
+every leg enumerated before any release claim.
+Pointer: gate reads at your own milestone deserve the same adversarial
+read as a reviewer's claim — especially then.
+
+## 2026-08-01 ~13:50Z — two lessons from the Sif anchoring afternoon
+
+**Authority through repetition (owner-named failure class):** the sketch's
+`serves: first-major-release` was never true — it rode every re-true
+untouched, the fleet QUESTIONED it, and the Director closed the question by
+treating owner silence as ratification ("serves stays at the owner's
+word"). An inherited frontmatter value is a claim like any other: it needs
+its own verification, and a non-answer to a surfaced question is not an
+answer. Same class as verdict-momentum; the cure is the same — quote the
+thing, score the thing.
+
+**Worktree cwd is sticky and lies about relative paths:** three separate
+failures in one afternoon — comms event-id greps finding nothing, a
+"missing" report that existed on the primary — all because the persistent
+shell sat in a scratch worktree while commands used
+repo-root-relative paths. A not-found on a relative path while worktrees
+are in play is a CWD QUESTION FIRST, a missing-file conclusion second.
+Standing habit: `cd` to the primary as the first token of any compound
+that touches coordination surfaces.
