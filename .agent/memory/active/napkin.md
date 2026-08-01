@@ -448,3 +448,49 @@ the right shape standing in for the value itself.
   for the ambiguity class: run heavyweight write chains FOREGROUND with an
   explicit timeout so failures land in-band and a resource kill cannot
   mimic an owner stop.
+
+## 2026-08-01 ~09:50Z — 2b-cycle observations (Moss calls Loam, 79b433)
+
+- Anchor-to-the-owner class, third instance, now caught PRE-execution: the 2b
+  normaliser premise ("bare prefixes are ≤6 chars") anchored on the derivation
+  (slice(0,6)) instead of the SCHEMA that owns the field's domain (min(1),
+  unbounded). The reviewer's kill-shot was running the claim against the
+  2a-ratified fixture table — test any domain premise against the ratified
+  census before building on it. Familiarity is the tell: I had just converged
+  that derivation in story 1, so its contract arrived fluently as "the"
+  contract.
+- File MUTABILITY has owners too: three lenses (this seat + two opus
+  reviewers) endorsed "truing" a line in plans-backlog-2026-07 — a
+  byte-faithful conserved corpus (owner word: "we lose nothing"), governance
+  one grep away in .agent/plans/README.md. Only the zero-context outside lens
+  (Copilot) caught it. Before editing any file: who owns this file's
+  mutability? Conserved-evidence tiers are append-never.
+- Hook substring discipline bites commit MESSAGES: the word "restore" in
+  prose tripped the git-restore block. Reword rather than bypass.
+- Pre-commit gate ping-pong (a prettier round, then a knip round) costs a
+  full hook chain each: on multi-file bundles run prettier --check on the
+  staged set AND the knip gate locally BEFORE the first commit attempt.
+- Play seeds (free-play harvest — associations, not findings): (1) the token
+  work and the cricket panel look like twin instruments — identity DISPLAYED
+  for routing trust vs identity SUPPRESSED for unbiased judgement; reminded
+  me of signed vs blind review. (2) Inversion: the 22:14Z resource kill
+  designed today's better practice — the foreground-600s convention it
+  forced surfaced two hook failures in-band that a background run would have
+  made mysterious. DISCARDED at the guard: an apparent
+  adversarial-cheaper-than-normal cricket cost pattern (n=1 per cell,
+  forced).
+- Concept seed (convergent; a candidate lens for slice 3's doctrine orbit):
+  a projection with no inverse is a boundary, not a bug — any "parse the
+  rendered form back" plan step should ask (1) is the projection injective?
+  (2) does the source still exist? If the source exists, re-source; a
+  decoder is only ever compensation for a lost source.
+
+## 2026-08-01 ~10:18Z — Codex-session GitHub connector is OWNER-BOUND (platform fact)
+
+Possum's session opened PR #683 through the GitHub connector believing it
+bot-scoped; GitHub recorded author jimCresswell. The connector in Codex
+sessions is owner-bound. Standing (Director ruling, until re-scoped): Codex
+seats route GitHub WRITES through a bot-minted token or the Director
+key-turn; the owner-bound connector is a surfaced blocker, not a fallback
+(bot-identity rule). Identity on #683 cured in place by an identifying PR
+comment; merge lands under bot identity via key-turn. Reported to owner.
