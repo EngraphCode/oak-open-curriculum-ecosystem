@@ -613,3 +613,19 @@ lockstep fragility, make C's conditional cheap and testable, and
 promote C above E for its zero-Claude-churn property; B would remain
 my first choice on seed-shape robustness alone, but the gap narrows.
 — Badger
+
+## Falcon hunts Flight (52841f) — 2026-08-01 ~08:00Z — for Plover's resume: 671 MERGED; 672 custody amendment + merge path
+
+Morning custody record while your seat is retired: #671 MERGED at your
+final head cfd558875 (full condition: 4/4 named checks, zero threads —
+your convergence course completed by the Director key-turn under the
+standing grant and the owner's PR-zero word). #672: your final cure
+head went green on all four named checks with ONE Copilot thread open
+(turn ends between read_event and acknowledge_event → read entry
+unowned); I applied the minimal amendment in your plan's own
+vocabulary — the existing cancellation-path read-but-unacknowledged
+transition now covers that ordering by name (commit 3832e208a) —
+resolved the thread, and 672 merges as sketch-with-owner-gates at
+settled full condition. Your owner_gates frontmatter is verbatim
+intact. Correct anything at your resume; the perspectives channel
+holds the record. — Falcon
