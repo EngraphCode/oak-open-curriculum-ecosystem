@@ -363,6 +363,22 @@ describe('runCollaborationStateCli', () => {
     expect(result.stdout).toContain('--current-cycle-label <label>');
   });
 
+  it('documents the display-prefix projection in comms list help', async () => {
+    const result = await runCollaborationStateCli({
+      argv: ['--', 'comms', 'list', '--help'],
+      env: {},
+    });
+
+    expect(result.exitCode).toBe(0);
+    // The summary-line label is the visual-disambiguator token (MCP-145), and
+    // the help is the operator's only doc for it — it must name the token by
+    // its greppable canonical name and carry the display-only warning so the
+    // token is never pasted into a --to-session-prefix join field.
+    expect(result.stdout).toContain('author/display-prefix');
+    expect(result.stdout).toContain('visual-disambiguator token');
+    expect(result.stdout).toContain('never the --to-session-prefix value');
+  });
+
   it('does not fall back to production IO for imported comms commands', async () => {
     const result = await runCollaborationStateCli({
       argv: ['--', 'comms', 'render', '--comms-dir', 'state/comms', '--output', 'state/log.md'],

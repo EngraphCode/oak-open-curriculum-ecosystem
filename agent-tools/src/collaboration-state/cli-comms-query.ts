@@ -3,6 +3,7 @@ import { cliIo, type CliRuntime } from './cli-runtime.js';
 import { commsEventAuthor, commsEventTitle } from './comms-event-accessors.js';
 import { peerHeartbeatLiveness, type PeerLivenessReport } from './peer-liveness.js';
 import { type CollaborationStateEnvironment, type CommsEvent } from './types.js';
+import { displayPrefix } from './visual-disambiguator.js';
 
 /**
  * Default number of newest events `comms list` projects when `--tail` is
@@ -21,9 +22,11 @@ const DEFAULT_LIST_TAIL = 20;
  * Read-only orientation surface: unlike `comms inbox` / `comms watch` (which
  * self-exclude against the caller's identity and track a seen-file), `list`
  * needs no identity seed and mutates no state. Each line projects
- * `created_at`, `event_id`, `author/session_prefix`, `[kind]` (plus any
- * `[tags]`), and the title/subject — the fields needed to decide which event
- * to `comms show`.
+ * `created_at`, `event_id`, `author/display-prefix` (the MCP-145
+ * visual-disambiguator token via {@link displayPrefix} —
+ * `<prefix>-<idTail>`, bare prefix for id-less blocks), `[kind]` (plus
+ * any `[tags]`), and the title/subject — the fields needed to decide which
+ * event to `comms show`.
  *
  * `--since <iso>` (F-70) narrows to events at or after the boundary instant
  * (inclusive), so an agent opening hours into a thread can read exactly the
@@ -140,7 +143,7 @@ function parseNow(raw: string | undefined): number {
 
 function formatPeerLivenessLine(report: PeerLivenessReport): string {
   const ageMinutes = (report.ageMs / 60_000).toFixed(1);
-  const who = `${report.identity.agent_name}/${report.identity.session_id_prefix}`;
+  const who = `${report.identity.agent_name}/${displayPrefix(report.identity)}`;
   return `${report.state.padEnd(7)}  ${ageMinutes.padStart(6)}m ago  ${who}  last_heartbeat=${report.lastHeartbeatAt}`;
 }
 
@@ -169,5 +172,5 @@ function formatSummaryLine(event: CommsEvent): string {
     event.tags !== undefined && event.tags.length > 0
       ? `[${event.kind}] [${event.tags.join(', ')}]`
       : `[${event.kind}]`;
-  return `${event.created_at}  ${event.event_id}  ${author.agent_name}/${author.session_id_prefix}  ${channel}  ${commsEventTitle(event)}`;
+  return `${event.created_at}  ${event.event_id}  ${author.agent_name}/${displayPrefix(author)}  ${channel}  ${commsEventTitle(event)}`;
 }

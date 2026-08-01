@@ -56,7 +56,9 @@ export const commsRenderHelp = 'comms render --comms-dir <dir> --output <path>';
 export const commsListHelp =
   'comms list --comms-dir <dir> [--since <iso>] [--tail <n>] ' +
   '(newest-first one-line summary per event: created_at, event_id, ' +
-  'author/session_prefix, [kind] (plus any [tags]), and title; --since keeps ' +
+  'author/display-prefix (the visual-disambiguator token — prefix + id ' +
+  'tail; bare prefix for id-less blocks; display-only, never the ' +
+  '--to-session-prefix value), [kind] (plus any [tags]), and title; --since keeps ' +
   'events at or after the ISO instant (inclusive); default tail 20; read-only, ' +
   'no identity seed required; pass an event_id to `comms show` for the full ' +
   'body)';
