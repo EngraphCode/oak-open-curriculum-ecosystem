@@ -43,7 +43,9 @@ export function parseStringArrayResult(
   value: unknown,
   label: string,
 ): Result<readonly string[], Error> {
-  if (Array.isArray(value) && value.every((entry) => typeof entry === 'string')) {
+  // Array.from before every: every skips sparse holes, and a hole would
+  // otherwise ship as undefined inside a value typed readonly string[].
+  if (Array.isArray(value) && Array.from(value).every((entry) => typeof entry === 'string')) {
     return ok(value);
   }
 
