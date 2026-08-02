@@ -298,12 +298,12 @@ canonical rules and triggers, not the number of layers.
 
 **Cursor** has granular activation via `.cursor/rules/*.mdc` frontmatter:
 
-| Activation     | Mechanism                    | Example                                                 |
-| -------------- | ---------------------------- | ------------------------------------------------------- |
-| Always-on      | `alwaysApply: true`          | `apply-architectural-principles.mdc` (consolidated)     |
-| File-scoped    | `globs: "**/*.test.ts"`      | `no-skipped-tests.mdc`, `no-global-state-in-tests.mdc`  |
-| File-scoped    | `globs: '**/*.{ts,tsx,mts}'` | `use-result-pattern.mdc`, `generator-first-mindset.mdc` |
-| Agent-selected | `description: "..."`         | Agent decides based on relevance                        |
+| Activation     | Mechanism                    | Example                                                    |
+| -------------- | ---------------------------- | ---------------------------------------------------------- |
+| Always-on      | `alwaysApply: true`          | `apply-architectural-principles.mdc` (consolidated)        |
+| File-scoped    | `globs: "**/*.test.ts"`      | `no-conditional-tests.mdc`, `no-global-state-in-tests.mdc` |
+| File-scoped    | `globs: '**/*.{ts,tsx,mts}'` | `use-result-pattern.mdc`, `generator-first-mindset.mdc`    |
+| Agent-selected | `description: "..."`         | Agent decides based on relevance                           |
 
 **Claude Code** has two activation mechanisms: always-on policies via the entry-point chain (`CLAUDE.md` → `AGENT.md` → `principles.md`), and path-scoped rules via `.claude/rules/*.md` with `paths` frontmatter. Path-scoped rules only load when Claude opens matching files, reducing context consumption for domain-specific policies (e.g., test rules only when editing test files). Only glob-scoped triggers have Claude rule equivalents — always-on triggers are already covered by the entry-point chain.
 
