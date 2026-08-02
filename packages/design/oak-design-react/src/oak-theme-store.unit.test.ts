@@ -93,16 +93,6 @@ describe('createOakThemeStore setters', () => {
     expect(world.appliedTheme()).toBe('dark');
   });
 
-  it('ignores a value outside the runtime theme list without notifying', () => {
-    const world = fakeRuntimeWorld();
-    const store = storeOver(world.runtime);
-    const listener = vi.fn();
-    store.subscribe(listener);
-    store.setTheme('not-a-theme');
-    expect(listener).not.toHaveBeenCalled();
-    expect(store.getTheme()).toBe('');
-  });
-
   it('writes a motion mode through the motion axis and reflects it', () => {
     const world = fakeRuntimeWorld();
     const store = storeOver(world.runtime);
@@ -126,5 +116,29 @@ describe('createOakThemeStore setters', () => {
     // listener's silence is unsubscription, not a dead notifier.
     expect(removed).not.toHaveBeenCalled();
     expect(retained).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('createOakThemeStore setter guards', () => {
+  // The shared setter contract: a value outside the runtime's own list is a
+  // no-op on BOTH axes — nothing written, nobody notified.
+  it('ignores a value outside the runtime theme list without notifying', () => {
+    const world = fakeRuntimeWorld();
+    const store = storeOver(world.runtime);
+    const listener = vi.fn();
+    store.subscribe(listener);
+    store.setTheme('not-a-theme');
+    expect(listener).not.toHaveBeenCalled();
+    expect(store.getTheme()).toBe('');
+  });
+
+  it('ignores a value outside the runtime motion list without notifying', () => {
+    const world = fakeRuntimeWorld();
+    const store = storeOver(world.runtime);
+    const listener = vi.fn();
+    store.subscribe(listener);
+    store.setMotion('not-a-mode');
+    expect(listener).not.toHaveBeenCalled();
+    expect(store.getMotion()).toBe('system');
   });
 });

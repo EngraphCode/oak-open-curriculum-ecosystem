@@ -444,7 +444,7 @@ export function createDesignBoundaryRules(designName: DesignPackage): Partial<Li
           '@oaknational/oak-design-react',
           '@oaknational/oak-design-system',
         ],
-        `Design workspace '${designName}' depends on '@oaknational/oak-design-tokens' only. Follow ADR-041's packages/design dependency direction.`,
+        `Design workspace '${designName}' can depend on '@oaknational/oak-design-tokens' and '@oaknational/design-tokens-core' only. Follow ADR-041's packages/design dependency direction.`,
       );
     }
     if (designName === 'oak-design-react') {
