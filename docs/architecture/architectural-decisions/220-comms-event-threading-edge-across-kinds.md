@@ -44,10 +44,16 @@ completion; a consumer drawing any such conclusion must verify the
 responder's identity against the antecedent's recipient or participants
 and engage the governing content.
 
-The field is optional and additive; `additionalProperties: false` is
-preserved on each definition; events without it continue to validate;
-readers that do not understand it ignore it (PDR-049 + PDR-050
-additive-extension discipline, as ADR-182 applies it).
+The field is optional; `additionalProperties: false` is preserved on
+each definition; events without it continue to validate. (Corrected
+2026-08-02: this section originally claimed "readers that do not
+understand it ignore it" per a "PDR-049 + PDR-050 additive-extension
+discipline" — a phantom citation, and the claim was falsified in
+operation on 2026-07-30 when strict pre-rebuild readers refused the
+first event carrying this very field. The actual contract is PDR-050
+§Latest-schema-version-only: readers reject unknown properties within
+a pinned version, so a field rollout requires consumer rebuild before
+emitter adoption.)
 
 The edge is **advisory and unvalidated at write time**: no authoring
 surface resolves the antecedent id except the reply verb, which resolves

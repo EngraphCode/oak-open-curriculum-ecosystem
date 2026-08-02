@@ -566,10 +566,11 @@ layer is a category error.
 
 **Why an optional schema field, not a new claim kind.** A new claim
 kind forces every claim reader to disambiguate "ordinary" versus
-"mid-cycle" claims at every read site. An optional pointer field is
-additive: readers that do not understand it ignore it; readers that
-do understand it branch on its presence. Matches the additive-
-extension discipline in PDR-049 and PDR-050.
+"mid-cycle" claims at every read site. An optional pointer field lets
+readers that understand it branch on its presence without that
+forced disambiguation. (Corrected 2026-08-02: the "additive-extension
+discipline in PDR-049 and PDR-050" originally cited here was a
+phantom citation; PDR-050 §Latest-schema-version-only governs.)
 
 **Why a value-on-existing-field discriminator on comms-events.**
 Strict readers already accept arbitrary discriminator values on the

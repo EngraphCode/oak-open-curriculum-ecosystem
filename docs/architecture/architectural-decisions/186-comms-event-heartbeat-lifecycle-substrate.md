@@ -217,8 +217,12 @@ that prescribes the emission shape) to land the new shape in the
 same change. ADR-183's tag-namespace rendering already provides
 backward-compatible `[HEARTBEAT]` rendering for narrative+tag
 heartbeats; the lifecycle-heartbeat shape can land alongside
-without breaking the operational substrate. This matches the
-PDR-049 + PDR-050 additive-extension discipline.
+without breaking the operational substrate. (Corrected 2026-08-02:
+the "PDR-049 + PDR-050 additive-extension discipline" originally
+cited here was a phantom citation; PDR-050
+§Latest-schema-version-only governs schema versions. The dual-shape
+migration window itself is unchanged — it is a value-space
+transition inside one schema version, not version tolerance.)
 
 ## Consequences
 

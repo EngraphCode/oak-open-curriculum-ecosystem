@@ -120,18 +120,27 @@ Monitor:
 For coordinated Codex work, load `$oak-start-right-team` before claiming and
 keep the root watcher live. Then follow the Codex relay procedure at
 `.agent/rules/use-monitor-for-event-driven-wake.md#codex-notify-session-relay`.
-If the relay child exposes `collaboration.send_message`, use the relay;
-otherwise declare NOTIFY degraded and follow that rule's bounded-poll fallback.
-Watcher liveness is not proof of reasoning wake, and canonical comms monitoring
-does not cover file-only ARC or standards channels.
+The relay is an ACTIVE-TURN ALERT, not idle wake: `collaboration.send_message`
+reaches a root mid-turn but does not start a turn on an idle root, so bounded
+foreground polling plus the post-restart gap sweep are a named requirement of
+Codex participation, with or without the relay. Watcher liveness is not proof
+of reasoning wake, and canonical comms monitoring does not cover file-only ARC
+or standards channels.
 <!-- CODEX_TEAM_ALERT_BOOTSTRAP_SOURCE_END -->
 
 ## Codex NOTIFY: session relay
 
-Codex CLI `0.146.0` has a certified `NOTIFY` composition for the canonical
-comms watcher. It adds a distinct collaboration child as a live relay; a
-watcher process, cursor, or stdout file owned only by the root does not wake
-the root reasoning loop and therefore does not satisfy `NOTIFY`.
+Codex CLI `0.146.0` has a certified **active-turn alert** composition for
+the canonical comms watcher — NOT full `NOTIFY` (narrowed 2026-08-02:
+first-hand census probes showed `collaboration.send_message` reaches an
+ACTIVE root turn promptly but does not start a turn on an idle root, and
+PDR-133 defines `NOTIFY` independently of the loop already running). It
+adds a distinct collaboration child as a live relay; a watcher process,
+cursor, or stdout file owned only by the root does not wake the root
+reasoning loop. Because the relay alerts only active turns, bounded
+foreground polling plus the post-restart gap sweep are a NAMED
+REQUIREMENT of Codex participation (PDR-133 discipline 4's substituting
+proxy), not a degraded fallback.
 
 The relay is an **additional notification watcher**, not the participating
 root's watcher. Keep the root-identity watcher from `start-right-team` armed:
