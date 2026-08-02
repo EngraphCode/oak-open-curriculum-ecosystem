@@ -5,7 +5,7 @@
 //
 // PROVENANCE NOTE (PR #337 review): the pass-1/pass-2 audit outputs were ephemeral
 // session artefacts and are deliberately NOT committed — they embed machine-local
-// absolute paths, which the repo's no-machine-local-paths rule (PII) forbids landing.
+// absolute paths, which the repo's no-machine-local-paths invariant (PII) forbids landing.
 // The committed `registry.json` IS the durable snapshot and the SSOT for the views
 // (registry.md / content-registry.html regenerate from it). This script is retained
 // as provenance documentation of the derivation rules, not as a reproducible pipeline.
