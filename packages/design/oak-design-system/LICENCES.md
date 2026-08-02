@@ -2,9 +2,9 @@
 
 Everything third-party this project loads, vendors, or recommends, with its licence. This file travels with every export; a white-label re-brand that swaps assets must keep its own copy accurate. Oak's own marks are NOT open-licensed — see the last section.
 
-## The system's own code (MIT)
+## Oak-authored code and content
 
-Everything in this workspace that is not an enumerated Oak mark (last section) or a third-party item (tables below) is Oak's own code and is covered by the repository's MIT licence — see the root [LICENCE](../../../LICENCE). The constrained surface is the exception, never the default: code MIT, curriculum content OGL (see the root [LICENCE-DATA.md](../../../LICENCE-DATA.md)), Oak brand copyright Oak National Academy and not licensed.
+Oak-authored CODE in this workspace — the shipped CSS/JS, the DTCG export, compiled components, specimens, template sources — is covered by the repository's MIT licence (root [LICENCE](../../../LICENCE)). Oak-authored PROSE and embedded curriculum content (the consumption docs, the system records' prose, template-embedded material) are © Oak National Academy under OGL v3.0 (root [LICENCE-DATA.md](../../../LICENCE-DATA.md)). Oak marks (last section) are copyright and not licensed; third-party items keep the licences tabled below. The constrained surface stays the exception, never the default, and the per-file-class authority is [LICENSING-MANIFEST.md](LICENSING-MANIFEST.md).
 
 ## Fonts
 
