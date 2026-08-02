@@ -993,3 +993,27 @@ already externally checked.
   wrapper pass, contested rows last) — over-loading, the safe
   direction, per the ratified sequencing. Gates green at authoring:
   prettier canonical, markdownlint 0, link validator OK.
+- 2026-08-02 ~17:00Z — **RECLASSIFICATION ENACTMENT STEP 2: the
+  wrapper pass.** Worklist derived mechanically from the converted
+  index against `.cursor/rules/`: 28 situational rows carried
+  `alwaysApply: true` wrappers (flip + description needed); 15 were
+  already conformant; 4 (`generator-first-mindset`, `lint-after-edit`,
+  `no-conditional-tests`, `use-result-pattern`) are glob-scoped
+  auto-attach — Cursor's mechanical realisation of their `surface:*`
+  triggers, conformant in substance and untouched; the index's
+  four-forms contract sentence gains that arm. The 28 descriptions
+  were drafted by three parallel subagents against the
+  naming-and-description bar (each grounded in the canonical rule +
+  the sweep's per-rule evidence; the contested seven briefed on
+  their challenge-table rows), then adjudicated at this seat: every
+  numeric and citation claim verified first-hand against the
+  canonical rules before application (30% directive budget,
+  50/100/150 thresholds, ADR-168 §4, PR #315, PR #115, the 372-line
+  bundling incident, four-minute ping deadline, marshal role,
+  five-consecutive idle default, ledger-per-change-set,
+  SHA:-prefix allowlist, vendored per-workspace Next docs,
+  middleware→proxy rename). Colon-space in unquoted description
+  values verified as existing house practice (five live wrappers).
+  Applied by script with refuse-on-missing gates. Landing shape per
+  the ratified sequencing: non-contested 21 first, the contested 7
+  as their own follow-up commit in the same window.

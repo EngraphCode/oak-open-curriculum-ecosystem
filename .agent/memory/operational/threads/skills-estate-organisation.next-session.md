@@ -41,10 +41,13 @@
   relevance-sketch is dirty on the primary, owner-version-wins).
   Resume order: (1) reclassification enactment continues —
   conversion DONE 2026-08-02 (75 core / 47 situational, graduate-8
-  held, vocabulary + loader contract in the index prose); NEXT the
-  step-2 wrapper pass (flip `alwaysApply` + author descriptions for
-  newly situational rows, contested rows last, description bar
-  applies), then the four proven graduations, then loader config for
+  held, vocabulary + loader contract in the index prose); wrapper
+  pass DONE 2026-08-02 (28 flips with bar-conformant descriptions,
+  all specifics first-hand verified; 4 glob-scoped wrappers kept as
+  the Cursor `surface:*` loader realisation); NEXT the four proven
+  graduations (no-skipped-tests, no-type-shortcuts,
+  unknown-is-type-destruction, no-machine-local-paths — each lands
+  with its verified mechanism named), then loader config for
   `surface:*`/`tool:*` instances — the R2 mint's loader-config
   disposition rides there; (2) WS6 landing legs incl. the three cross-family
   routing edges (reason stop-gate commissioning seam,

@@ -18,9 +18,11 @@ Each rule has four on-disk forms:
   pointer to the canonical file).
 - Cursor platform forwarder lives under `.cursor/rules/` (with `.mdc`
   extension; frontmatter mirrors the classification — core rules set
-  `alwaysApply: true`, situational rules set
-  `alwaysApply: false` plus a description — and carries a pointer to
-  the canonical file).
+  `alwaysApply: true`; situational rules set
+  `alwaysApply: false` plus a description, or scope by `globs` where
+  the trigger is a file-surface match (auto-attach is the `surface:*`
+  loader realised on Cursor) — and carries a pointer to the canonical
+  file).
 - `.agents/` directory carries the same one-line forwarder for other
   platforms that load adapters from there.
 

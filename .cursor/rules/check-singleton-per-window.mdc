@@ -1,6 +1,6 @@
 ---
-description: Only one agent runs the whole-repo gate sweep (pnpm check, pnpm test) per coordination window; multiple parallel runs duplicate work and provide no marginal signal. Broadcast before invoking; defer when a peer's in-flight broadcast is on the stream.
-alwaysApply: true
+description: Before any whole-repo gate sweep (pnpm check, pnpm test, large turbo runs) in a multi-agent window, check the comms stream for an in-flight run: at most one agent sweeps per coordination window — broadcast start and ETA, broadcast the result with HEAD SHA, peers defer and consume it (the runner claims --role marshal). Not for solo sessions, per-workspace scoped gates, or targeted single-file runs — those are parallel-safe. Failure shape — pnpm check's opening clean step deleting shared agent-tools/dist under every concurrent peer, killing their CLIs and watchers for the rebuild window.
+alwaysApply: false
 ---
 
 Read and follow `.agent/rules/check-singleton-per-window.md`.
