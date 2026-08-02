@@ -81,6 +81,19 @@ parallel scheme ADR-221 forbids.
    workstream is conditional on his ruling there. The
    kind/stratum/intent draft below is ONE candidate, preserved as
    WS0 input.
+   EXECUTION (implementer-authored at pickup, 2026-08-02): WS0 runs
+   as the concept-exploration workflow's own four movements — never a
+   parallel structure; the living execution surface with per-movement
+   exit criteria and the sitting map is
+   [the WS0 working record](../../reports/agentic-engineering/skills-estate-organisation-ws0-working-record.md).
+   Movement 1's ratified-vocabulary sweep includes ADR-189's
+   audience-led capability taxonomy and
+   `agent-capability-vocabulary.md` (adjacent RATIFIED vocabulary the
+   exploration report does not cite); movement 2 states each
+   candidate's relation to ADR-189's axes. The owner's conservation
+   word (2026-08-02, in-session) binds the value gate: simpler
+   "without compromising quality OR functionality" — no candidate,
+   the null included, may regress current lever behaviour.
 1. **WS1 — Vocabulary mint (concepts-first; conditional on WS0's
    owner ruling).** KIND (six values +
    collaboration-protocol from the rules corpus; primary/secondary
@@ -133,7 +146,12 @@ parallel scheme ADR-221 forbids.
    link, and rule whether such links are allowed in each file class
    given the core-vs-vendor skills pattern (the docs link validator
    passed the staged set at preservation, so any finding also names
-   the validator gap). (b) CONSISTENCY REVIEW: compare the RPIF
+   the validator gap). Evidence split (implementer-authored
+   2026-08-02): the PATTERN-level audit (depth classes, link-class
+   policy, the validator gap) runs with WS0 movement 1 — stable under
+   the owner's live drafting; the link-by-link fix list is authored
+   at the landing leg only, where instance findings stop being
+   perishable. (b) CONSISTENCY REVIEW: compare the RPIF
    report and the skills for consistency within and between
    themselves, and harvest report concepts that did not reach the
    skills but would be beneficial in them in some form.
@@ -162,6 +180,11 @@ parallel scheme ADR-221 forbids.
 - The grounding-direction check finds the two known inversions
   (proportionality, concept-exploration) before WS5 cures them, and
   zero after — the validator proves itself on known positives.
+- Functional conservation (owner word 2026-08-02): every current
+  lever behaviour — skill summons, always-applied rule loading,
+  subagent dispatch, adapter generation, vendored-external operation
+  — is preserved, or its change is owner-ruled; simplification never
+  subtracts capability silently.
 
 ## Delivery
 

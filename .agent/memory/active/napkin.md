@@ -715,3 +715,14 @@ Both worktrees named above were pruned clean. The branch head moved
 `SHA:838aebd26` (main merge) → `SHA:55c70043a` and onward through the
 review-cure commits; the PR's merged head is the observable final state,
 and this entry freezes with it.
+
+## 2026-08-02 ~11:05Z — heartbeat-loop arming contract (Skylark hunts Nimbus, e856d5)
+
+Arming the PDR-078 loop cost two re-arms; both contracts are fail-loud but
+elided at the operational rule's cited shape: (a) `comms send --tag heartbeat`
+REQUIRES the four typed state args `--claim-id --intent-id --branch
+--current-cycle-label` (the heartbeat body is composed from them); (b)
+`claims heartbeat` REQUIRES explicit `--now <iso>` (no F-89-style default,
+unlike `claims open`). The liveness rule's §Canonical invocation hides both
+behind an ellipsis. Instrument note for the next seat arming a loop; candidate
+one-line amendment to liveness-heartbeat-cron §Canonical invocation.
