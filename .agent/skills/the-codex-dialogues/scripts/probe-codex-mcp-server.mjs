@@ -98,14 +98,31 @@ async function main() {
   const workspace = await mkdtemp(join(tmpdir(), 'sif-probe-'));
   const session = new McpStdioSession('codex', LAUNCH_ARGS, workspace, CALL_TIMEOUT_MS);
   try {
-    await runProbeLegs(session, workspace, installedVersion);
+    try {
+      await runProbeLegs(session, installedVersion);
+    } finally {
+      await session.dispose();
+    }
+    // The load-bearing no-write check runs only AFTER the server has
+    // actually exited (dispose awaits the child's exit): a delayed or
+    // background write cannot land after this assertion, so PROBE PASS
+    // can never precede the evidence it reports.
+    await assertSentinelAbsent(workspace, SENTINEL_NAME);
+    process.stdout.write(
+      'no-write leg: the sentinel was not created on disk after the write-attempt turn ' +
+        '(checked after server termination); the verbatim turn-2 reply is corroborating, ' +
+        'not load-bearing\n',
+    );
+    process.stdout.write(
+      'note: the probe thread carries no task context; its rollout is deletable\n',
+    );
+    process.stdout.write('PROBE PASS: all legs green\n');
   } finally {
-    await session.dispose();
     await removeWorkspaceIfClean(workspace, SENTINEL_NAME);
   }
 }
 
-async function runProbeLegs(session, workspace, installedVersion) {
+async function runProbeLegs(session, installedVersion) {
   const proposedProtocol = '2025-06-18';
   const init = await session.request('initialize', {
     protocolVersion: proposedProtocol,
@@ -131,7 +148,7 @@ async function runProbeLegs(session, workspace, installedVersion) {
   if (init.capabilities?.tools === undefined) {
     throw new Error('initialize did not negotiate the tools capability — hosts may hide the tools');
   }
-  session.notify('notifications/initialized', {});
+  await session.notify('notifications/initialized', {});
 
   const tools = await session.request('tools/list', {});
   assertToolContract(tools);

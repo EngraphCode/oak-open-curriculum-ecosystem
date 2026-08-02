@@ -58,8 +58,25 @@ export class McpStdioSession {
     });
   }
 
+  /**
+   * Notification writes report failure through the returned promise —
+   * a fire-and-forget write to a dead child's stdin emits an unhandled
+   * EPIPE that bypasses the probe's controlled PROBE FAIL path.
+   */
   notify(method, params) {
-    this.#child.stdin.write(`${JSON.stringify({ jsonrpc: '2.0', method, params })}\n`);
+    if (this.#terminalReason !== undefined) {
+      return Promise.reject(new Error(`session already terminal: ${this.#terminalReason}`));
+    }
+    const payload = JSON.stringify({ jsonrpc: '2.0', method, params });
+    return new Promise((resolve, reject) => {
+      this.#child.stdin.write(`${payload}\n`, (writeError) => {
+        if (writeError !== null && writeError !== undefined) {
+          reject(new Error(`stdin write failed for notification ${method}: ${writeError.message}`));
+          return;
+        }
+        resolve();
+      });
+    });
   }
 
   /**

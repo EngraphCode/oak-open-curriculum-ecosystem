@@ -63,8 +63,13 @@ function assertAuthoritySurface(codexTool) {
     'compact-prompt',
   ];
   for (const name of recordedProperties) {
-    if (properties[name] === undefined) {
-      throw new Error(`tool contract: codex input schema no longer declares ${name}`);
+    const schema = properties[name];
+    if (typeof schema !== 'object' || schema === null) {
+      throw new Error(
+        `tool contract: codex input schema no longer carries an object schema for ${name} ` +
+          `(found ${JSON.stringify(schema)}) — key presence alone is not acceptance: a ` +
+          'false/boolean/rejecting shape means the recorded broadening surface is stale',
+      );
     }
   }
   assertExactEnum(properties.sandbox, ['read-only', 'workspace-write', 'danger-full-access'], 'sandbox');

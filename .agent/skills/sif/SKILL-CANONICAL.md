@@ -56,7 +56,16 @@ name — the record belongs to the invoking seat.
 ## Doctrine — what every instrument carries
 
 Every Sif instrument states these six planks in its own skill; the
-framework defines what each plank must contain.
+framework defines what each plank must contain. The contract binds at
+adoption:
+[`the-codex-dialogues`](../the-codex-dialogues/SKILL-CANONICAL.md) is
+the first conforming instrument.
+[`cricket`](../cricket/SKILL-CANONICAL.md) and
+[`codex-helper`](../codex-helper/SKILL-CANONICAL.md) PRE-DATE the
+framework and do not yet state all six planks — the cell map above
+routes to them as invocation instruments, but they are not claimed as
+six-plank-conforming; migrating them is a routed follow-on of this
+framework, never a silent grandfathering.
 
 1. **Authority layering, probe-evidenced.** State the authority layers
    in order of real strength. In this estate that order is: the same-UID
