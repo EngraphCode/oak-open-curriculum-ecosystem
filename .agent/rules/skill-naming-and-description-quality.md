@@ -41,6 +41,22 @@ a routing defect to record, not silently accept).
   (≤1024 characters) and earns its tokens — the description corpus is
   a priced, always-loaded context surface.
 
+## Scope: all three lever corpora (owner rulings, 2026-08-02)
+
+The contract binds SKILLS, RULES, and SUBAGENTS alike — "they are all
+aspects of an underlying descriptive framework" (owner verbatim).
+Every agentic lever exposes a name and a description to the one
+constant consumer, the what-applies-now routing decision: a rule's
+trigger line in RULES_INDEX and its platform-adapter description, and
+a subagent's description (the high-stakes case — proactive
+auto-dispatch clauses fire from it), are routing surfaces exactly as
+a skill description is. All carry the same three optimisation
+targets. The corpus-wide rule-description backfill sequences AFTER
+the owner ratifies the core/situational reclassification sweep, so
+descriptions are written once against final classes; description
+collision measurement runs as a UNION across all three corpora (one
+router reads them all), in the commissioned evals pilot's scope.
+
 ## Application
 
 - New skills and renames meet the bar at landing (the landing
