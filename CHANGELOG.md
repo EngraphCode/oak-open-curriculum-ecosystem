@@ -1,3 +1,41 @@
+## [1.143.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.143.0...v1.143.1) (2026-08-02)
+
+# [1.143.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.142.6...v1.143.0) (2026-08-02)
+
+
+### Bug Fixes
+
+* **skills:** cure round 1 on the codex-dialogues probe and lockstep pins ([2bb17c7](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2bb17c7b0515ff98acc6e64c41886c82bc4d90af))
+* **skills:** cure round 2 — narrowed no-write claim, authority-surface pin, aborted closes ([514fa8a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/514fa8af5fbf3f63526a840cae460a51ea249316))
+* **skills:** cure round 3 — thread-id redaction, isolation guard, full contract pins ([ba9f453](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ba9f453049a505e9c6fc5dbd4b8987263875d868))
+* **skills:** cure round 4 — protocol strictness, exact contract pins, claude-host guard ([b21ffcf](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b21ffcfded39f8d286711fcdb294b50d424ac6b1))
+* **skills:** cure round 5 — claim vocabulary converged, fail-closed guard, identity pin ([f83e060](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f83e060dddb65ebf77c8905c440d30ff758a7029))
+* **skills:** cure round 6 — mcpServers wrapper, isError guards, terminal transport state ([e041e62](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e041e62182a79b52c573c7790945759fc8c8e5be))
+* **skills:** round-10 cures — retention contract, spawn-safe dispose, exact property-set pin ([dabd259](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/dabd259834cb29a105170d1e4bc6aaf20ba7e748))
+* **skills:** round-11 cures — reply property-set pin, stdin error containment ([e862953](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e862953a37d2e10f754c35b98538f9b61d6dd863))
+* **skills:** round-12 cure — exact-set sweep kills the presence-only class whole ([5f3a522](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5f3a522d1138caa37b42d4814e557bdf6c21c9a6))
+* **skills:** round-13 cures — claude-only baseline, env-proof guard, write-request phrasing ([b7b6219](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b7b62199353f9a7e2941b2e843adf3f4f9aae166))
+* **skills:** round-14 cures — lstat sentinel, sanitised server env, declared-surface honesty ([b2069c7](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b2069c74f63ce30b64443de62e75e781341052b6))
+* **skills:** round-15 cures — tracked trial tally, total decision rule, narrowed no-write claim ([d424c5d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d424c5d02b3f5b8ea71ed2e3573d4926b2008f5b))
+* **skills:** round-16 cures — complete-entry registration check, kill-failure-safe dispose ([fdaaa5e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/fdaaa5e242508088b28f817c5a9a238057e4872d))
+* **skills:** round-17 cure — compose-order example no longer lists an untracked event id ([5429db9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5429db9cd973a280cc7eaf3d6404637193df0c01))
+* **skills:** round-18 cure — tally rows count only once integrated on main ([41cebad](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/41cebad859f136505871ec01c0b4bf21bec00fc6))
+* **skills:** round-20 cures — exact additionalProperties pin, restart-after-upgrade clause ([438495a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/438495a4229476c6690995d6b3e896797ef6e3e7))
+* **skills:** round-7 cures + close-schema v1 for the codex dialogues ([9715add](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9715addf53f1d6cf368f5ff764344816db8c9fe4)), closes [#713](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/713)
+* **skills:** round-8 cures — probe evidence ordering, registration conformance, plank scoping ([2a67292](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2a67292402af064e489e4cbe9d80a646ce99f5dc))
+* **skills:** round-9 cures — single post-termination pass emission, full authority surface ([8744d55](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8744d552c94776401f6003bc33312de84c860a91))
+
+
+### Features
+
+* **skills:** add sif doctrine and the-codex-dialogues instrument (probe-first pr 1) ([137f6a2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/137f6a262c5ed249125c65dc966475ebb98891b1))
+
+## [1.142.6](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.142.5...v1.142.6) (2026-08-02)
+
+## [1.142.5](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.142.4...v1.142.5) (2026-08-02)
+
+## [1.142.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.142.3...v1.142.4) (2026-08-02)
+
 ## [1.142.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.142.2...v1.142.3) (2026-08-02)
 
 ## [1.142.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.142.1...v1.142.2) (2026-08-02)
