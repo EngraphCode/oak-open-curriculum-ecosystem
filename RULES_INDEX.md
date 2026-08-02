@@ -17,8 +17,9 @@ Each rule has four on-disk forms:
 - Claude Code platform forwarder lives under `.claude/rules/` (one-line
   pointer to the canonical file).
 - Cursor platform forwarder lives under `.cursor/rules/` (with `.mdc`
-  extension; frontmatter sets `alwaysApply: true` plus a pointer to the
-  canonical file).
+  extension; frontmatter mirrors the classification — `alwaysApply:
+true` for always-on rules, `alwaysApply: false` with a description
+  for trigger-loaded ones — plus a pointer to the canonical file).
 - `.agents/` directory carries the same one-line forwarder for other
   platforms that load adapters from there.
 
@@ -73,6 +74,7 @@ start; a situational rule loads at its trigger's moment.
 | `.agent/rules/agents-default-no-gender.md`                                 | always-on      | —                                                                                                   |
 | `.agent/rules/apply-architectural-principles.md`                           | always-on      | —                                                                                                   |
 | `.agent/rules/bot-identity-on-third-party-systems.md`                      | always-on      | —                                                                                                   |
+| `.agent/rules/capability-landing-decision-procedure.md`                    | trigger-loaded | Landing, converting, or re-homing a capability — any lever kind; not content edits in a landed home |
 | `.agent/rules/capture-practice-tool-feedback.md`                           | always-on      | —                                                                                                   |
 | `.agent/rules/check-singleton-per-window.md`                               | always-on      | —                                                                                                   |
 | `.agent/rules/closed-shape-design-optionality.md`                          | always-on      | —                                                                                                   |
