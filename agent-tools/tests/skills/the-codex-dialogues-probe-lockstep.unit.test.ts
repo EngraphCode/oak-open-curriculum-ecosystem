@@ -65,10 +65,12 @@ describe('the-codex-dialogues probe evidence lockstep', () => {
     const fenced = /```json\n([\s\S]*?)```/.exec(skill)?.[1] ?? '"TEMPLATE-FENCE-MISSING"';
     const template: unknown = JSON.parse(fenced);
     expect(template).toStrictEqual({
-      codex: {
-        type: 'stdio',
-        command: 'codex',
-        args: PINNED_REGISTRATION_ARGS,
+      mcpServers: {
+        codex: {
+          type: 'stdio',
+          command: 'codex',
+          args: PINNED_REGISTRATION_ARGS,
+        },
       },
     });
   });

@@ -55,20 +55,23 @@ Route elsewhere when:
 `.mcp.json` is gitignored in this repository (local MCP config; only
 `plugins/*/.mcp.json` release artefacts are tracked), so the
 registration cannot land as a tracked file. This block is the TRACKED
-TEMPLATE — copy the entry into your local `.mcp.json` servers map:
+TEMPLATE — a complete `.mcp.json`; if you already have one, merge the
+`codex` entry into your existing `mcpServers` map:
 
 ```json
 {
-  "codex": {
-    "type": "stdio",
-    "command": "codex",
-    "args": [
-      "mcp-server",
-      "-c",
-      "sandbox_mode=read-only",
-      "-c",
-      "approval_policy=never"
-    ]
+  "mcpServers": {
+    "codex": {
+      "type": "stdio",
+      "command": "codex",
+      "args": [
+        "mcp-server",
+        "-c",
+        "sandbox_mode=read-only",
+        "-c",
+        "approval_policy=never"
+      ]
+    }
   }
 }
 ```

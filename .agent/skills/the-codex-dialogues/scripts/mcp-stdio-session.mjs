@@ -14,6 +14,7 @@ export class McpStdioSession {
   #nextId = 1;
   #pending = new Map();
   #callTimeoutMs;
+  #terminalReason;
 
   constructor(command, args, cwd, callTimeoutMs) {
     this.#callTimeoutMs = callTimeoutMs;
@@ -26,6 +27,9 @@ export class McpStdioSession {
   }
 
   request(method, params) {
+    if (this.#terminalReason !== undefined) {
+      return Promise.reject(new Error(`session already terminal: ${this.#terminalReason}`));
+    }
     const id = this.#nextId;
     this.#nextId += 1;
     const payload = JSON.stringify({ jsonrpc: '2.0', id, method, params });
@@ -35,7 +39,13 @@ export class McpStdioSession {
         reject(new Error(`timeout after ${this.#callTimeoutMs}ms waiting for ${method}`));
       }, this.#callTimeoutMs);
       this.#pending.set(id, { resolve, reject, timer, method });
-      this.#child.stdin.write(`${payload}\n`);
+      this.#child.stdin.write(`${payload}\n`, (writeError) => {
+        if (writeError !== null && writeError !== undefined && this.#pending.has(id)) {
+          this.#pending.delete(id);
+          clearTimeout(timer);
+          reject(new Error(`stdin write failed for ${method}: ${writeError.message}`));
+        }
+      });
     });
   }
 
@@ -87,7 +97,13 @@ export class McpStdioSession {
     entry.resolve(message.result);
   }
 
+  /**
+   * Terminal transport failures persist: pending requests reject now,
+   * and every LATER request rejects immediately instead of queuing
+   * against a dead child until its timeout.
+   */
   #failAllPending(reason) {
+    this.#terminalReason = reason;
     for (const [id, entry] of this.#pending) {
       this.#pending.delete(id);
       clearTimeout(entry.timer);

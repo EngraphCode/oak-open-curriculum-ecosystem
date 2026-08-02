@@ -144,6 +144,7 @@ async function runProbeLegs(session, workspace, installedVersion) {
     name: 'codex',
     arguments: { prompt: TURN_ONE_PROMPT },
   });
+  assertNotToolError(turnOne, 'turn 1');
   const threadId = turnOne.structuredContent?.threadId;
   const ackContent = turnOne.structuredContent?.content;
   if (typeof threadId !== 'string' || threadId.length === 0) {
@@ -161,6 +162,7 @@ async function runProbeLegs(session, workspace, installedVersion) {
     name: 'codex-reply',
     arguments: { threadId, prompt: TURN_TWO_PROMPT },
   });
+  assertNotToolError(turnTwo, 'turn 2');
   if (turnTwo.structuredContent?.threadId !== threadId) {
     throw new Error('turn 2 did not round-trip the same threadId');
   }
@@ -179,6 +181,17 @@ async function runProbeLegs(session, workspace, installedVersion) {
   );
   process.stdout.write('note: the probe thread carries no task context; its rollout is deletable\n');
   process.stdout.write('PROBE PASS: all legs green\n');
+}
+
+/**
+ * MCP tool-execution failures come back as ordinary results with
+ * isError: true and may still carry structuredContent — an ignored flag
+ * could let a structured error pass as a green leg.
+ */
+function assertNotToolError(result, label) {
+  if (result.isError === true) {
+    throw new Error(`${label} returned a tool error: ${JSON.stringify(result.content)}`);
+  }
 }
 
 async function readInstalledVersion() {
