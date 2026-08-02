@@ -1,3 +1,11 @@
+## [1.142.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.142.0...v1.142.1) (2026-08-02)
+
+
+### Bug Fixes
+
+* **agent-tools:** lock-aware --clear and hard-fail on skipped canonicals ([8da3c7f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8da3c7f50231aa3bc55a0b43f6b09e3151a4f839))
+* **agent-tools:** surface errors abort --clear; ADR-125 carries one lock model ([5f933cf](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5f933cfa1d7abe51e6457d40078a2d0487adacee))
+
 # [1.142.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.141.2...v1.142.0) (2026-08-02)
 
 
