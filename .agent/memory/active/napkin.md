@@ -779,3 +779,40 @@ cure for the skill at resume — the close-event section can state
 prose. Same boundary also re-proved the 60-minute bot-token wall twice
 (expiry mid-push, expiry mid-comment — mint at the START of any
 merge/comment sequence, not on failure).
+
+## 2026-08-02 ~13:40Z — Badger guards Lair: three captures from the succession wrap
+
+**Untracked-by-design is a durability class, not a filing detail.** The
+round-7 adjudication — five verified defects with failure scenarios, the
+most valuable reasoning this seat held — was first written ONLY into a
+handoff record under `.agent/state/`, which is untracked by design
+(ADR-199 / PDR-094 Invariant 6). One machine loss and the reasoning is
+gone, while the artefact it adjudicates (the PR) lives on GitHub
+indefinitely. Cure adopted: review reasoning homes on the PR itself at
+occurrence (posted as comment 5158266963), and the handoff record
+POINTS at it rather than being its only copy. General shape: when
+choosing a home, rank by substrate durability, not by which surface the
+current ceremony names.
+
+**Peer-liveness assertions must be derived at WRITE time, not compose
+time.** A succession broadcast asserted "the successor is not yet
+observable on comms or the registry, so the no-live-recipient transport
+applies" — true when composed, false by one minute when it was written:
+the successor had registered at 13:36:47Z. The Director caught it. This
+is the hand-extended-SHA class one surface over — a value that was
+correct when derived and stale when used — and it is exactly the class
+`query-the-value-never-the-lookalike` names. Cure: any claim about
+another seat's existence or state is re-derived in the same tool call
+that emits it, never carried from an earlier read.
+
+**Where to point external scrutiny, measured:** across seven review
+rounds on PR 713, Copilot's SUPPRESSED comment block carried real,
+accepted findings in 7 of 7 — including two in round 7 that were
+internal contradictions in doctrine THIS SEAT AUTHORED (an annex
+asserting "verified first-hand" against the same document's own
+probe-evidence rule two sections below; a pre-registered null hypothesis
+with no computable baseline). Self-authored documents are the structural
+blind spot: the author reads intent, a reader reads text. The
+error-signature to conserve for successors — never dismiss a suppressed
+block as noise, and aim external review at your OWN doctrine's internal
+consistency first.
