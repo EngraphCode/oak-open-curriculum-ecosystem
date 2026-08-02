@@ -24,6 +24,7 @@ function event(overrides: Partial<ClassifiableEvent> = {}): ClassifiableEvent {
     tags: [],
     titleOrSubject: 'Team start: Some Agent',
     bodyLength: 120,
+    isHeartbeatShaped: false,
     ...overrides,
   };
 }
@@ -43,8 +44,8 @@ function dispositionInput(overrides: Partial<DispositionInput> = {}): Dispositio
 }
 
 describe('classifyTier', () => {
-  it('classifies a heartbeat-tagged event as heartbeat', () => {
-    expect(classifyTier(event({ tags: ['heartbeat'] }))).toBe('heartbeat');
+  it('classifies a projection-flagged heartbeat as heartbeat (ADR-186 dual-filter verdict computed at the projection seam — covers legacy tag AND lifecycle shapes)', () => {
+    expect(classifyTier(event({ isHeartbeatShaped: true }))).toBe('heartbeat');
   });
 
   it('classifies an untagged "Heartbeat:" title as heartbeat', () => {
@@ -75,7 +76,15 @@ describe('classifyTier', () => {
     // Research signal must be absorbed before the event can move, even when the
     // event is also a heartbeat — research-precious takes precedence over the
     // age-movable heartbeat tier.
-    expect(classifyTier(event({ tags: ['heartbeat', 'failure-mode'] }))).toBe('research-precious');
+    expect(
+      classifyTier(event({ tags: ['heartbeat', 'failure-mode'], isHeartbeatShaped: true })),
+    ).toBe('research-precious');
+  });
+
+  it('research-precious still wins over a lifecycle-shaped heartbeat verdict (precedence is shape-independent)', () => {
+    expect(
+      classifyTier(event({ kind: 'lifecycle', tags: ['failure-mode'], isHeartbeatShaped: true })),
+    ).toBe('research-precious');
   });
 
   it('never infers diagnostic-test-noise from a test-shaped title alone (the 3cc1fb93 falsifier)', () => {
@@ -157,7 +166,7 @@ describe('decideDisposition — research-precious (until graduated, never age-tr
 
 describe('decideDisposition — heartbeat tier (48h, aggregate-gated)', () => {
   const heartbeat = (createdAt: string) =>
-    event({ tags: ['heartbeat'], createdAt, bodyLength: 90 });
+    event({ tags: ['heartbeat'], isHeartbeatShaped: true, createdAt, bodyLength: 90 });
 
   it('keeps a within-window heartbeat live', () => {
     const decision = decideDisposition(

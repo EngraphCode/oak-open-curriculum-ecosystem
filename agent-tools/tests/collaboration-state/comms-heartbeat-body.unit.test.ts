@@ -3,8 +3,10 @@ import { describe, expect, it } from 'vitest';
 import {
   composeHeartbeatBody,
   heartbeatBodyStateSchema,
+  isHeartbeatEvent,
   parseHeartbeatBody,
 } from '../../src/collaboration-state/comms-heartbeat-body';
+import { type CommsEvent } from '../../src/collaboration-state/types';
 
 describe('composeHeartbeatBody (Lane A — PDR-078 §5 mechanical state-binding)', () => {
   it('composes a deterministic single-line body from typed state', () => {
@@ -88,5 +90,90 @@ describe('parseHeartbeatBody (inverse of composeHeartbeatBody — SSOT for the b
   it('returns undefined for a non-heartbeat body', () => {
     expect(parseHeartbeatBody('some narrative prose')).toBeUndefined();
     expect(parseHeartbeatBody('active; claim=c1; branch=feat/x')).toBeUndefined();
+  });
+});
+
+describe('isHeartbeatEvent (ADR-186 §Migration discipline dual filter — deliberate strict superset)', () => {
+  const author = {
+    agent_name: 'Anvil spins Bronze',
+    platform: 'claude',
+    model: 'claude-opus-4-8',
+    session_id_prefix: '9cd858',
+  } as const;
+
+  function lifecycleEvent(eventType: string, tags?: readonly string[]): CommsEvent {
+    return {
+      schema_version: '2.0.0',
+      event_id: 'evt-lifecycle',
+      created_at: '2026-08-02T19:00:00Z',
+      kind: 'lifecycle',
+      event_type: eventType,
+      occurred_at: '2026-08-02T19:00:00Z',
+      author,
+      agent_id: author,
+      thread: 'estate-coordination',
+      claim_id: 'claim-1',
+      title: 'Heartbeat: Anvil spins Bronze',
+      subject: 'Heartbeat: Anvil spins Bronze',
+      body: 'active; claim=c; intent=i; branch=b; cycle=y',
+      ...(tags === undefined ? {} : { tags }),
+    };
+  }
+
+  function narrativeEvent(tags?: readonly string[]): CommsEvent {
+    return {
+      schema_version: '2.0.0',
+      event_id: 'evt-narrative',
+      created_at: '2026-08-02T19:00:00Z',
+      kind: 'narrative',
+      author,
+      title: 'Heartbeat: Anvil spins Bronze',
+      body: 'active; claim=c; intent=i; branch=b; cycle=y',
+      ...(tags === undefined ? {} : { tags }),
+    };
+  }
+
+  it("recognises the lifecycle shape by event_type 'heartbeat' alone (no tag)", () => {
+    expect(isHeartbeatEvent(lifecycleEvent('heartbeat'))).toBe(true);
+  });
+
+  it('recognises the legacy narrative + tag shape', () => {
+    expect(isHeartbeatEvent(narrativeEvent(['heartbeat']))).toBe(true);
+  });
+
+  it('recognises a migration-window event carrying BOTH discriminators', () => {
+    expect(isHeartbeatEvent(lifecycleEvent('heartbeat', ['heartbeat']))).toBe(true);
+  });
+
+  it("does not recognise a lifecycle event whose event_type is the near-miss typo 'heatbeat' with no tag — the ADR-186 §What-this-costs typo exposure", () => {
+    expect(isHeartbeatEvent(lifecycleEvent('heatbeat'))).toBe(false);
+  });
+
+  it("still recognises a typo'd lifecycle event when the migration-window tag is present (the tag clause is the safety net)", () => {
+    expect(isHeartbeatEvent(lifecycleEvent('heatbeat', ['heartbeat']))).toBe(true);
+  });
+
+  it('does not recognise an untagged narrative event, whatever its title', () => {
+    expect(isHeartbeatEvent(narrativeEvent())).toBe(false);
+  });
+
+  it('does not recognise a lifecycle event of a different event_type', () => {
+    expect(isHeartbeatEvent(lifecycleEvent('claim_lifecycle'))).toBe(false);
+  });
+
+  it('recognises a heartbeat-tagged directed event — the tag clause is deliberately kind-agnostic (a superset can only over-count liveness, never under-count into false retirement)', () => {
+    const directed: CommsEvent = {
+      schema_version: '2.0.0',
+      event_id: 'evt-directed',
+      created_at: '2026-08-02T19:00:00Z',
+      kind: 'directed',
+      message_kind: 'coordination-notice',
+      from: author,
+      to: author,
+      subject: 'carries heartbeat semantics compositionally',
+      body: 'x',
+      tags: ['heartbeat'],
+    };
+    expect(isHeartbeatEvent(directed)).toBe(true);
   });
 });
