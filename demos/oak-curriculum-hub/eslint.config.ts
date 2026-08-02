@@ -24,9 +24,10 @@ export default [
   // by gitignore, not by per-path exception.
   includeIgnoreFile(join(thisDir, '.gitignore')),
   // Build outputs, plus the design system's vanilla-JS theme runtime: tracked
-  // as a served asset in public/ (byte-parity-tested against the workspace
-  // package in app/oak-theme-parity.test.ts); served assets are not
-  // typed-lint sources.
+  // as a served asset in public/ (byte-parity with the workspace package is
+  // gated by demos/oak-design-showcase/tools/validate-kit-assets.ts, in the
+  // root repo-validators:check chain); served assets are not typed-lint
+  // sources.
   globalIgnores(['.next/**', 'out/**', 'next-env.d.ts', 'node_modules/**', 'public/oak-theme.js']),
   // `configs.strict` is the TypeScript base (typescript-eslint parser + strict
   // rules); `configs.next` adds React + Next.js rules on top (react-only, no
