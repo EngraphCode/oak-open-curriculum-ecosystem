@@ -109,7 +109,7 @@ async function main() {
     // can never precede the evidence it reports.
     await assertSentinelAbsent(workspace, SENTINEL_NAME);
     process.stdout.write(
-      'no-write leg: the sentinel was not created on disk after the write-attempt turn ' +
+      'no-write leg: the sentinel was not created on disk after the write-request turn ' +
         '(checked after server termination); the verbatim turn-2 reply is corroborating, ' +
         'not load-bearing\n',
     );

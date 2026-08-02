@@ -313,10 +313,13 @@ close-out seat improvises):
   `dissent-unresolved`, as AGREEMENT when `confirmed` (`non-evaluable`
   closes are excluded here exactly as they are from the primary
   threshold).
-- **Same-vendor baseline** — Cricket runs recorded in the cricket
-  tally over the same window, judged over their DELIVERED legs only
-  (the tally's own "among delivered" convention; a run with zero
-  delivered legs is excluded). The tally records no question field, so
+- **Same-vendor baseline** — CLAUDE-PLATFORM Cricket runs recorded in
+  the cricket tally over the same window (Cricket defines per-platform
+  panels, and only Claude-panel rows are same-vendor for this
+  Claude-only instrument — its Codex legs are cross-vendor one-shot
+  observations, never part of this denominator), judged over their
+  DELIVERED legs only (the tally's own "among delivered" convention; a
+  run with zero delivered legs is excluded). The tally records no question field, so
   classification into this instrument's `question_class` enum
   (`design-fork` | `consensus-check` | `plan-pressure` | `other`)
   happens at analysis time from the run's recorded seat/moment text; a
@@ -355,7 +358,7 @@ for every call that omits them.
 Probe-verified 2026-08-02 against the pinned `codex_cli_version` in
 [`probe-record.md`](./probe-record.md) (the version literal lives ONLY
 there — doctrine references it, never restates it): a disciplined
-call's write-attempt turn produced NO WRITE on disk (sentinel verified
+call's write-request turn produced NO WRITE on disk (sentinel verified
 absent, ENOENT-only; the interlocutor's refusal self-report is
 recorded verbatim as corroboration, not proof of the sandbox's
 internals). The `codex` tool schema ACCEPTS

@@ -65,7 +65,7 @@ not claimed as a cap (see the authority observation below).
 
 ## No-write leg (verified 2026-08-02)
 
-What is mechanically proven: after the write-attempt turn, the sentinel
+What is mechanically proven: after the write-request turn, the sentinel
 file was verified ABSENT on disk in the isolated workspace (ENOENT-only
 absence — any other inspection failure fails the probe), and the reply
 engaged the sentinel prompt. The interlocutor's refusal self-report

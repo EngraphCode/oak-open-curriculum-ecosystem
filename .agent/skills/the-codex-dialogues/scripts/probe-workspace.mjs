@@ -1,6 +1,6 @@
 /**
  * Workspace isolation and sentinel evidence for the codex mcp-server
- * probe. The write-attempt leg's mechanical evidence lives here: the
+ * probe. The write-request leg's mechanical evidence lives here: the
  * sentinel's presence/absence on disk, with absence proven ONLY by
  * ENOENT, and an isolation guard that fails closed when it cannot
  * positively establish the temp root is outside every git worktree.
@@ -21,16 +21,24 @@ const execFileAsync = promisify(execFile);
  * result passes; any other git failure fails closed.
  */
 export async function assertOutsideGitWorktree(directory) {
+  // Discovery must depend on the DIRECTORY alone: inherited GIT_*
+  // variables (GIT_DIR, GIT_WORK_TREE, GIT_CEILING_DIRECTORIES, ...)
+  // can redirect or stop repository discovery and make git emit the
+  // exact "not a git repository" text this guard treats as success —
+  // a caller-controlled bypass of the isolation guarantee.
+  const env = Object.fromEntries(
+    Object.entries(process.env).filter(([name]) => !name.startsWith('GIT_')),
+  );
   let failure;
   try {
-    await execFileAsync('git', ['-C', directory, 'rev-parse', '--show-toplevel']);
+    await execFileAsync('git', ['-C', directory, 'rev-parse', '--show-toplevel'], { env });
   } catch (error) {
     failure = error;
   }
   if (failure === undefined) {
     throw new Error(
       `temp root ${directory} is inside a git worktree (TMPDIR override?) — ` +
-        'refusing to run the write-attempt leg there',
+        'refusing to run the write-request leg there',
     );
   }
   const detail = `${failure instanceof Error ? failure.message : String(failure)}`;
