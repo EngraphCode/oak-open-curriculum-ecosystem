@@ -116,8 +116,13 @@ to unrelated sessions is names-only.
    installed version while the old pin stands; the dialogue proceeds
    only after that run passes and the record is updated with the new
    version's verbatim evidence in a reviewed change (which turns the
-   default, gated mode green again). An installed upgrade is a loud
-   stop, never a silently unverified surface.
+   default, gated mode green again). After the pin updates, RESTART
+   the Claude session before dialoguing: the session's stdio server
+   was launched by the pre-upgrade binary and keeps serving it —
+   `codex --version` and the candidate run inspect a freshly launched
+   binary, not the session's live server — then re-run checks 1 and 2
+   in the new session. An installed upgrade is a loud stop, never a
+   silently unverified surface.
 3. **Pre-registered prior.** Write down your position AND confidence on
    the question BEFORE the first exchange — it goes in the packet and
    the close event records the delta. No prior, no dialogue.

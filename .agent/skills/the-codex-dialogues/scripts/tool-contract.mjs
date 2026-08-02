@@ -76,12 +76,13 @@ function assertAuthoritySurface(codexTool) {
   // The complete recorded DECLARED input property set: an ADDED
   // declared property is a new per-call control the record has never
   // classified, so it must fail a re-probe rather than ride along
-  // unrecorded. Two residuals, stated: a property mutating to a
-  // rejecting object shape at the SAME pinned version is not
-  // detectable here, and JSON Schema accepts undeclared keys unless
-  // additionalProperties is explicitly false (asserted below at its
-  // recorded state) — both are bounded by the version gate, which
-  // stops any new CLI version before this check runs.
+  // unrecorded. The undeclared-key surface is pinned separately below
+  // (additionalProperties exactly false, first-hand at the pinned
+  // version), so an opened surface also fails. One residual, stated:
+  // a property mutating to a rejecting object shape at the SAME
+  // pinned version is not detectable here — bounded by the version
+  // gate in gated mode and by the reviewed record update that
+  // candidate-mode evidence feeds.
   const recordedInputPropertySet = ['prompt', ...recordedProperties].sort();
   const actualInputPropertySet = Object.keys(properties).sort();
   if (JSON.stringify(actualInputPropertySet) !== JSON.stringify(recordedInputPropertySet)) {
@@ -91,12 +92,19 @@ function assertAuthoritySurface(codexTool) {
         'declared property changes the recorded authority surface',
     );
   }
+  // Recorded first-hand at the pinned version: the codex input schema
+  // declares additionalProperties: false — a CLOSED surface, so the
+  // named properties are the complete accepted per-call input set. An
+  // OMITTED additionalProperties accepts undeclared keys in JSON
+  // Schema, so a candidate CLI flipping false to undefined silently
+  // opens the surface; the pin is the exact observed value, never
+  // undefined-or-false.
   const additional = codexTool.inputSchema?.additionalProperties;
-  if (additional !== undefined && additional !== false) {
+  if (additional !== false) {
     throw new Error(
       `tool contract: codex input additionalProperties is ${JSON.stringify(additional)}, ` +
-        'record has it undeclared-or-false — an explicitly opened surface changes the ' +
-        'recorded authority contract',
+        'record has it exactly false (closed surface) — an opened or reshaped undeclared-key ' +
+        'surface changes the recorded authority contract',
     );
   }
   for (const name of recordedProperties) {
