@@ -29,7 +29,14 @@ export class McpStdioSession {
 
   constructor(command, args, cwd, callTimeoutMs) {
     this.#callTimeoutMs = callTimeoutMs;
-    this.#child = spawn(command, args, { cwd, stdio: ['pipe', 'pipe', 'pipe'] });
+    // The child runs with inherited GIT_* variables stripped, matching
+    // the workspace isolation guard: GIT_DIR / GIT_WORK_TREE could
+    // redirect the server's own git activity into a checkout even
+    // though the temp-root check passed.
+    const env = Object.fromEntries(
+      Object.entries(process.env).filter(([name]) => !name.startsWith('GIT_')),
+    );
+    this.#child = spawn(command, args, { cwd, env, stdio: ['pipe', 'pipe', 'pipe'] });
     this.#child.stderr.resume();
     this.#child.stdout.setEncoding('utf8');
     this.#child.stdout.on('data', (chunk) => this.#onData(chunk));

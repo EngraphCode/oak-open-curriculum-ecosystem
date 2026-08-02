@@ -73,20 +73,30 @@ function assertAuthoritySurface(codexTool) {
     'developer-instructions',
     'compact-prompt',
   ];
-  // The COMPLETE recorded input property set: an ADDED property is a
-  // new per-call control the record has never classified, so it must
-  // fail a re-probe rather than ride along unrecorded. Residual
-  // accepted: a property mutating to a rejecting object shape at the
-  // SAME pinned version is not detectable here — a real reshape ships
-  // in a new CLI version, which the version gate stops before this
-  // check runs.
+  // The complete recorded DECLARED input property set: an ADDED
+  // declared property is a new per-call control the record has never
+  // classified, so it must fail a re-probe rather than ride along
+  // unrecorded. Two residuals, stated: a property mutating to a
+  // rejecting object shape at the SAME pinned version is not
+  // detectable here, and JSON Schema accepts undeclared keys unless
+  // additionalProperties is explicitly false (asserted below at its
+  // recorded state) — both are bounded by the version gate, which
+  // stops any new CLI version before this check runs.
   const recordedInputPropertySet = ['prompt', ...recordedProperties].sort();
   const actualInputPropertySet = Object.keys(properties).sort();
   if (JSON.stringify(actualInputPropertySet) !== JSON.stringify(recordedInputPropertySet)) {
     throw new Error(
       `tool contract: codex input property set is ${JSON.stringify(actualInputPropertySet)}, ` +
         `record says exactly ${JSON.stringify(recordedInputPropertySet)} — an added or removed ` +
-        'property changes the recorded authority surface',
+        'declared property changes the recorded authority surface',
+    );
+  }
+  const additional = codexTool.inputSchema?.additionalProperties;
+  if (additional !== undefined && additional !== false) {
+    throw new Error(
+      `tool contract: codex input additionalProperties is ${JSON.stringify(additional)}, ` +
+        'record has it undeclared-or-false — an explicitly opened surface changes the ' +
+        'recorded authority contract',
     );
   }
   for (const name of recordedProperties) {

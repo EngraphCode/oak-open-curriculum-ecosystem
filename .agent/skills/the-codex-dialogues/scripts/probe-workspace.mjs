@@ -6,7 +6,7 @@
  * positively establish the temp root is outside every git worktree.
  */
 import { execFile } from 'node:child_process';
-import { rm, stat } from 'node:fs/promises';
+import { lstat, rm } from 'node:fs/promises';
 import { join } from 'node:path';
 import { promisify } from 'node:util';
 
@@ -61,13 +61,16 @@ export async function assertSentinelAbsent(workspace, sentinelName) {
 }
 
 /**
- * Absence is proven ONLY by ENOENT. Any other stat failure (EACCES, EIO,
- * ...) is an inspection failure and must fail the probe rather than pass
- * as absence.
+ * Absence is proven ONLY by ENOENT, on the directory entry ITSELF:
+ * lstat, never stat — stat follows symlinks, so a dangling symlink
+ * created at the sentinel path would read as ENOENT and pass as
+ * absence even though a write occurred. Any other failure (EACCES,
+ * EIO, ...) is an inspection failure and must fail the probe rather
+ * than pass as absence.
  */
 async function sentinelExists(sentinelPath) {
   try {
-    await stat(sentinelPath);
+    await lstat(sentinelPath);
     return true;
   } catch (error) {
     if (error instanceof Error && 'code' in error && error.code === 'ENOENT') {

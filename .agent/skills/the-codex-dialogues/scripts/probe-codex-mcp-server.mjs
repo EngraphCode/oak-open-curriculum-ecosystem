@@ -104,9 +104,13 @@ async function main() {
       await session.dispose();
     }
     // The load-bearing no-write check runs only AFTER the server has
-    // actually exited (dispose awaits the child's exit): a delayed or
-    // background write cannot land after this assertion, so PROBE PASS
-    // can never precede the evidence it reports.
+    // actually exited (dispose awaits the child's exit), so a write
+    // from the server or its directly-managed work cannot land after
+    // this assertion and PROBE PASS never precedes the evidence it
+    // reports. Stated bound: a deliberately DETACHED descendant could
+    // outlive the server — the launch pins' read-only sandbox binds
+    // descendants too, and the recorded claim stays "no file appeared
+    // after the write-request turn", never a stronger one.
     await assertSentinelAbsent(workspace, SENTINEL_NAME);
     process.stdout.write(
       'no-write leg: the sentinel was not created on disk after the write-request turn ' +
