@@ -1072,3 +1072,52 @@ surface is an instance of the reports' Principle 3 pattern
 precedent both reports cite). Cures verified on main this sitting:
 PDR-078's substrate-category section now reads clause 2 as retired
 with heartbeats emitting on cadence regardless.
+
+### 2026-08-02 ~21:12Z — STEP 3 LANDED (three of four) + the day's arc; freeze boundary
+
+Reclassification step 3, executed as authority transitions per the
+task-15 integration. LANDED on origin (2423b6818..d45a0d74d):
+no-type-shortcuts 85c7a6dc8, no-skipped-tests 62fff5e79 (ADR-011/121
+provenance re-sited into testing-strategy's own bullet),
+unknown-is-type-destruction d0ccd3fd8 (preservation-test payload
+relocated whole into typescript-practice §Preserving Type
+Information; sweep's lint-coverage warrant corrected honestly to 1/4
+bullets). Closure evidence at push: classification gate 6/6,
+portability parity 119 canonical rules across four surfaces, index
+72 core / 47 situational. Reader censuses ran as four parallel
+subagents; every disposition first-hand verified before editing.
+Conserved corpora untouched throughout.
+
+The census also caught a live defect: the step-1 conversion had left
+rules-index-classification.unit.test.ts 5/6 RED on the branch
+(vocabulary renamed, paired validator not re-trued — invisible to
+docs-ceremony hooks). Owned, cured via reviewed bot PR #724, merged
+b9a246bb1 (Copilot clean; opus code-expert APPROVE with independent
+contract recompute + mutation checks). Its six non-blocking findings
+are dispositioned on the PR; findings 1-4 form the loader-contract
+follow-up unit (relocate the classification contract into
+rules-index-checks.ts with literal fixtures; add the
+trigger-vocabulary pin; drop per-row config tests; delete the
+live-tree read). Source-side citation re-points are PR #726 (open,
+Copilot requested; drive to merge at resume).
+
+PENDING: no-machine-local-paths (D) — window granted, deferred at
+the owner's ~21:10Z freeze word. Shape (census delivered, in the
+session scratchpad as census-no-machine-local-paths.md + the
+graduation-worklist.md): the rule file is part of the hook's own
+enforcement config (policy.json:317 exclude_paths names it; :322
+citation; :326 description); the cure DEFANGS relocated literals so
+the exclusion entry is deleted, not moved. Homes: principles.md §No
+machine-local paths absorbs statement+destination-test;
+safety-and-security.md takes the forbidden-shape enumeration +
+worked examples (defanged) including the ..-escape class (its only
+statement anywhere; validator cannot detect it — coverage gap to
+state to the Director); important-state-not-in-temp-files takes the
+tmp/<scratch> conventions. Operative readers: important-state (self-
+described specialisation), principles:314+577, ADR-197:26,
+PDR-038:43+247, practice-index:200. Source bits (validator :149
+message, helpers test :79) ride D's arc. Owner-directed reflection
+artefact landed at d45a0d74d
+(stack-reflection-and-building-blocks-2026-08-02.md) — the
+building-block identification routes into the backfill + evals
+pilot.

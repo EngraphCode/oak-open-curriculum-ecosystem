@@ -887,3 +887,227 @@ Consumer.
   scoping requires the explicit `--worktree` flag; and cwd-pinned shells make
   "cd primary && verify" silently run in the worktree (use `git -C <path>`).
   Worked instance cured in ~2 min, zero impact; broadcast eee0e1e0.
+
+## 2026-08-02 ~16:45Z — R2 landing window (Skylark)
+
+- Warden sweeps absorb uncommitted primary-tree edits: the Director's
+  prettier true-up committed AND pushed my in-flight RULES_INDEX row
+  mid-authoring, making the land-all-forms contract transiently false
+  on origin. Cure shape: author primary-tree changes commit-ready
+  (or in scratchpad), request the window, apply+land inside it.
+- Granted-window mechanics: the commit-queue guard enforces claim
+  OWNERSHIP, so a warden grant is enacted by `claims adopt` of the
+  index/head claim, re-adopted by the warden at push-complete.
+- commit-queue `commit` auto-completes the intent: post-commit
+  `complete`/`show` return "unknown intent_id" (exit 2) — done, not
+  broken. Third instance of this shape; read the log, not the queue.
+- MD004 prose trap second recurrence at my own hand: a wrapped prose
+  line starting "+ " reads as a list marker. Reword the line; never
+  blind --fix. Budget line-wraps when editing bullet prose.
+
+**Prose with no uncited claim is the terminal review state (design lane,
+2026-08-02).** Five review rounds on one licensing paragraph converged
+only when the text reached the shape where every claim named its
+authority and no citation lived in two places — each earlier round's
+finding was a claim outrunning its evidence (a boundary stated wider
+than the ruling, an authority cited for a scope it doesn't govern, a
+provenance assertion with no source). The generalisation of
+`falsifiable-structure-at-the-surface`: reviewers stop finding wording
+defects exactly when the wording carries its own verification paths.
+Corollary practised the same hour: when a reviewer asks you to
+strengthen "is recorded" to "exists", keep the form that matches what
+you verified — the epistemically honest variant IS the compliant one.
+
+## 2026-08-02 ~17:20Z — graduation step-3 scoping discoveries (Skylark)
+
+- The four proven graduations split by weight: no-type-shortcuts and
+  no-skipped-tests are pointer rules (receiving homes already carry
+  the substance — verify testing-strategy carries the external-
+  resource fail-fast line). unknown-is-type-destruction carries a
+  judgement payload (the preservation test, permitted boundaries)
+  that must relocate into docs/governance/typescript-practice.md in
+  the SAME commit that removes the rule. no-machine-local-paths is
+  221 lines of conventions (tmp/ dir, <scratch> placeholder, tilde
+  shapes, defanged teaching content) the validator does not teach —
+  AND the PreToolUse hook's block message cites
+  no-machine-local-paths.md by name: re-point the citation in
+  .agent/hooks/policy.json (or its guard script) in the same motion,
+  else the enforcement surface cites a deleted file.
+- Inbound links: all four rules have inbound references (e.g.
+  no-conditional-tests cross-refs no-skipped-tests) — run
+  validate-markdown-links + reference-direction after each removal;
+  they catch the breakage mechanically.
+- Graduation commits also update RULES_INDEX (row removal; counts
+  75/47 → 71/47 when all four land) and dispatch docs-adr-expert +
+  onboarding-expert (significant doctrine change).
+
+## 2026-08-02 ~17:20Z — OWNER STANDING DIRECTIVE captured at occurrence (Magnetar binds Oblivion, Director)
+
+Owner word, verbatim (in-session at this seat 17:15Z: "Let's get that PR count moving towards
+zero"; fleet-wide arm relayed via Charcoal 9d3a21 at 17:18Z): "whenever you, or any agent, has
+downtime, please let the Director know that you are available to help move some of the older
+PRs, draft or ready, towards merge". Standing, continuous, fleet-wide — waiting seats DECLARE
+availability to the Director; the Director routes oldest-first from the live board. Composes
+with the 2026-08-02 drive-PRs-to-zero standing word. First enactment same-minute: Charcoal's
+r17-wait availability took the #707 split. Graduation route: PDR-117 §Routing craft or
+agent-collaboration at the next doctrine window; propagation broadcast 2ad28d81.
+
+- Graduation sizing (final): inbound references are the dominant cost
+  — no-type-shortcuts ~22 referencing files, no-skipped-tests ~23
+  (incl. rules test-immediate-fails / never-disable-checks /
+  no-conditional-tests, directives, practice-index, ADR-125, the
+  test-expert template). Each graduation = distinguish prose-mention
+  vs live link, re-point the links, THEN remove the four forms +
+  index row. All four graduations are one full fresh sitting;
+  testing-strategy already carries the external-resource fail-fast
+  line (verified L123-125), so no content gap for no-skipped-tests.
+
+## 2026-08-02 ~19:20Z — OWNER DIRECTIVE at the freeze boundary (Skylark)
+
+Post-compaction opening moves, owner-worded, IN ORDER and BEFORE the
+standing resume map: (1) discuss the current state of our MUTUAL
+lanes with Charcoal seeks Tongs (their seat is at rest, watcher live
+— direct comms works; the natural seams: subagents are the third
+lever corpus in the descriptive-framework scope, so my
+description-backfill + union collision matrix touches their
+subagent-invocation-framework lane; the R2 landing procedure governs
+subagent landings; their codex-dialogues/probe-hardening stories may
+carry landing candidates). (2) Execute task 15 — the
+governed-forgetting + authority-transition reports integration
+(both verified landed on main via #717 at 4bed8337b, corrected at
+bb6ec504d; null experiment EXTEND at 9b8556cac; cures via #722).
+The graduations and the rest of the resume map follow AFTER these
+two.
+
+## 2026-08-02 ~21:30Z — design-seat v2-authoring captures (Corsair hunts Surf, 4d3282)
+
+- **Observed-output is per-SUBCOMMAND, not per-tool-family** (this seat, one
+  evening, twice): `comms direct` prints `wrote comms event <id>` while
+  `comms send` emits JSON (`"event_id"`) — a heartbeat-loop success grep
+  derived from direct's output false-positived on send's first tick (caught
+  because the "failure" line carried the successful JSON). Same family:
+  `comms direct` REQUIRES explicit `--comms-dir` where `comms watch`/`send`
+  have the omit-path default — a bare exit-2 whose error line my `tail -4`
+  swallowed (read the full output before retrying). Cure shape: derive
+  success filters from THAT subcommand's observed output at first use.
+- **The plan-corpus validator refuses `depends_on` ids outside the anchored
+  estate** (verified live: a frontmatter edge to the backlog
+  `design-system-integration` plan is validator-red; the cure is a
+  body-carried §Relationships dependency). Load-bearing consequence: the
+  anchored corpus and the conserved backlog are formally different id-spaces
+  — cross-tier dependencies are prose, never machine edges. Recorded in
+  dispositions.v2.md rows E54/E69.
+- **Quiet-pause monitoring shape WORKED (owner-priced)**: a warm-paused
+  seat's full watcher delivered ~15 empty heartbeat ticks/hour into
+  context; the owner asked for "just enough for the Director to wake you".
+  The shape that satisfied both the rule and the economy: `comms watch
+  --exclude-tag heartbeat` (directed/group always surface) + the mandatory
+  F-75 pairing run as a DIFF-ONLY anomaly poll (peer-liveness every 10 min,
+  baseline seeded at arm so known-retired seats never emit, emitting only
+  newly-degraded peers). Zero empty ticks; a directed activation reached the
+  seat instantly. Candidate home at next curation: a standby-seat
+  configuration clause beside comms-all-channels-watcher §Sanctioned tag
+  exclusion / the start-right-team standby contract. Falsifier: a
+  quiet-configured standby missing coordination a full watcher would have
+  delivered (exposure is heartbeat-borne info only, which the poll covers).
+- **Corpus-cure execution beats corpus-cure transcription** (v2 authoring):
+  four of 129 adjudicated cures were deviated-from with recorded grounds,
+  two FORCED by running the cure against the live tree (the validator
+  boundary above; the born-sketch ratification discipline vs E63's
+  stamp-now). A finding fleet reviews the text; only execution reviews the
+  system. Both deviations are flagged in the ledger for the re-review.
+- **Play seeds** (associations, not findings): (a) the owner's two same-day
+  rejections — the specimen-grid showcase and the plumbing-first plan — look
+  like ONE rejection at two altitudes: inventory presented where composition
+  was wanted (corroborates the corpus's F0, not novel). (b) The W0.7
+  design-review instrument calibrated on exactly (export pages = pass,
+  rejected showcase = fail) is shaped like a two-point supervised
+  classifier; the wow pipeline reads as tiered-sight applied to aesthetics
+  — cheap instrumented look before the expensive owner oracle. May enrich
+  W0.7's execution. (c) DISCARDED as forced: dressing the five hard-coded
+  theme lists in the frame-free-absolutes pattern's vocabulary (they are
+  ordinary hard-coding; the pattern adds nothing). (d) "ALL X" requirements
+  inherit X's internal class structure — the export's 81 pages split into
+  studio-reference vs composed classes, and "express ALL export pages" was
+  ambiguous until enumerate-then-classify dissolved it. Small sharp
+  observation, no routing yet.
+
+## 2026-08-02 ~20:25Z — subagent reply-path silence: the verdict existed, delivery failed twice (Magnetar binds Oblivion, Director)
+
+An Opus verifier (r6, TS-estate contract) went idle twice without its verdict arriving —
+including once AFTER an explicit deliver-now message it demonstrably consumed. The verdict
+existed in full in its transcript (7,243 chars, composed as its final text); only the
+SendMessage-back leg failed, silently, both times. Recovery: read the agent transcript's
+last assistant text block directly (python over the JSONL; never a bare Read of the .output
+symlink) and relay from there. Same family as PDR-133 NOTIFY-dead: composition is not
+delivery; an idle notification carrying no "[to main]" summary is the tell that the reply
+leg did not fire. Cure habit adopted: on a second idle-without-delivery, go straight to the
+transcript — a third ping interrogates a path already proven broken.
+
+## 2026-08-02 ~20:25Z — conversion broke its own validator; census caught it (Skylark hunts Nimbus, e856d5)
+
+The step-1 RULES_INDEX conversion renamed the classification vocabulary
+(always-on/trigger-loaded to core/situational) without re-truing the gate
+that pins it: agent-tools/tests/rules/rules-index-classification.unit.test.ts
+went 5/6 RED on the coordination branch at 7b29c2299 and stayed red through
+four ceremony commits — the docs-ceremony pre-commit/pre-push chains never
+run that suite, so nothing fired. Found by a graduation census subagent;
+verified first-hand 20:23Z. Main unaffected (old vocabulary + old test both
+live there). Cure: vocabulary re-true via reviewed bot PR INTO the
+coordination branch — a main-targeted cure would break main; the
+branch-paired cure folds to main atomically at the coordination merge.
+Class: validators-must-recompute — the same-motion validator re-true was a
+missed step-1 obligation; the conversion script's refuse-on-unmapped gate
+protected the TABLE but nothing enumerated the table's CONSUMERS. Cure
+shape for the class: any vocabulary/taxonomy rename greps for consumers of
+the old tokens across code and tests BEFORE landing. Bonus observation:
+reader-census subagent sweeps double as gate audits — the census brief's
+MECHANISM class is what surfaced this.
+
+## 2026-08-02 ~20:55Z — Director compaction-prep captures (Magnetar binds Oblivion, 74d914)
+
+- **A napkin note is not a guard (long-argv edition):** the "--body beyond a sentence uses
+  --body-file" instrument note (napkined 2026-07-31 by another seat) was in this session's
+  loaded context and STILL violated at this seat — Corsair's activation brief clipped to
+  one line, caught only because the send partially succeeded. Passive-guidance-loses-to-
+  artefact-gravity, N+1th instance; the class wants an active layer (a comms-CLI argv
+  length refusal), not another note.
+- **Plan-of-consequence → tiered fleet review, graduation candidate:** the 31-agent
+  low/middle/high + experts + frame-challenger topology over a Director-authored plan
+  caught 23 blocking defects incl. the author's shallow grounding, for one fleet run
+  (~2.9M subagent tokens, 19 min). Owner-endorsed in-session. PDR-130 prediction line: a
+  plan of consequence reviewed this way before execution avoids its class of
+  wrong-thing-built; falsified if a fleet-passed plan still fails at execution on a
+  defect class the topology claims to catch. Route: new-rule-vs-pdr-clause at the next
+  doctrine window.
+
+## ~21:08Z (Magnetar/74d914, Director): comms direct has NO dry-run — never probe by sending
+
+Deriving Corsair's routing id, I composed a `comms direct` call as a "probe" with
+placeholder subject/body ("x") — and it SENT: junk event 849ed823 landed on a working
+seat's watcher and cost them an interpretive turn (they read it charitably as a
+delivery probe). The CLI also accepted a nonsense `--in-response-to` value ("5725").
+Cure shape: derive recipient ids with READ commands (jq on the claims registry),
+then send ONCE with real content. A send-capable command is never a probe; same
+class as exit-codes-in-band (the tool's happy path masks the semantic error).
+Candidate: `--to-agent-name`+`--to-id` cross-check already exists; an
+`--in-response-to` existence check would have caught half of this — tool-feedback
+worth routing to agent-tools.
+
+## 2026-08-02 ~21:12Z — three instrument notes from the graduation landings (Skylark hunts Nimbus, e856d5)
+
+- zsh unquoted-dollar-VAR word-split bit this seat too (a --file list
+  passed as one argument; ceremony re-run with literal args) —
+  Falcon's 2026-07-31 note, second seat, now first-hand.
+- A compound chain MUST gate on the guard step: the reflection-commit
+  ceremony's guard REFUSED (second window; adopt not yet re-run) and
+  the un-gated chain proceeded to a landed commit. Authorisation
+  existed (granted window) so the end state is owner-intended; the
+  miss was mechanical and DISCLOSED to the warden. Cure: chain with
+  a hard stop after guard, always; claims adopt is PER-WINDOW, never
+  per-session.
+- The pre-push full-tree markdownlint reads OTHER seats' dirty files:
+  a frozen peer's uncommitted lint-red edits block any push from the
+  primary. Cured once by owner-carded formatting-only fix with
+  disclosure; the structural question (whose lint state gates whose
+  push) routes to the Director at resume.
