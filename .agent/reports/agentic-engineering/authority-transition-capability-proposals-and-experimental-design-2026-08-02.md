@@ -116,6 +116,44 @@ PDR, ADR, rule, and `AGENTS.md` changes remain possible review outcomes, not pre
 proposal deliberately keeps semantic policy in current authorities and mechanical detection in
 mechanical surfaces.
 
+## Addendum (2026-08-02): first-party prior art and the corrected null
+
+This addendum records evidence that reached the proposal after the executive summary above was
+written, and which changes what the proposals should be measured against.
+
+The estate already carries a landed fleet implementing several of the parent report's principles as
+running code: the restatement audit (`agent-tools/src/restatement-audit/`, with a completed
+discriminating experiment at
+[`f8-discriminating-experiment.v1.md`](../restatement-audit/f8-discriminating-experiment.v1.md)).
+Three of its properties are the ones these proposals treat as things to build:
+
+- **The authored-versus-derived standing distinction, as a schema enum.** `schemas.ts` types an
+  assertion's standing as `authored | citation | history | generated`, recording that only `authored`
+  restatements are the anti-pattern the fleet hunts — citation, history, and generated instances are
+  legitimate. That is the parent report's Principle 1, already mechanised.
+- **Conjunctive voting with an honest indeterminate.** Two independent voters judge each cluster
+  against four conjunctive tests, including `liveSurface` (is this a live surface or an archived one)
+  and `genuineConflict`. Flagging needs both voters to pass all four; dismissal needs agreement that a
+  necessary test failed; everything else is `held-for-review`, **never silently resolved either way**.
+  That is P2's independence requirement and the authority-indeterminacy measure listed under P4.
+- **A deterministic disposition layer.** The voters never emit a disposition — code computes it,
+  citing
+  [`validators-must-recompute-not-just-record`](../../rules/validators-must-recompute-not-just-record.md).
+  That is the responsibility split this document proposes for validators, already enforced.
+
+Neither this document nor the parent report had cited the fleet. Two consequences follow.
+
+First, **the null is wrong as constructed.** The E0 and B0 arms are doctrine-only; measured against
+them, a new capability would be credited with value the restatement-audit fleet already delivers. The
+properly constructed null is a run of the existing fleet over the three specimens (CURATOR-01, HB-01,
+BOX-01). That run was fired at owner word on 2026-08-02 and its result is pending at this document's
+baseline; no phase-1 or phase-2 result should be read before it lands.
+
+Second, **P1, P2, P3, and P6 are best read as a candidate second consumer of an existing capability**
+rather than as new construction, pending that result. Whether the fleet generalises from restatement
+clusters to authority transitions is precisely the question the corrected null answers, and a
+generalisation would change the proposal's shape from "build a workflow" to "extend a fleet".
+
 ## Theory of change
 
 The proposed causal chain is:
@@ -150,7 +188,7 @@ that most affect the build recommendation as of the dated baseline.
 | A06 | Operational eligibility can usually be derived from existing authored facts. | Status, purpose, ratification, supersession, stratum, scope, and source authority already exist in typed homes. | A specimen needs a genuinely independent eligibility facet that cannot be derived without ambiguity. | First case where two readers with identical current metadata require different legitimate-use outcomes. |
 | A07 | Evidence can remain inspectable while losing ordinary causal eligibility. | The repository already conserves archives, superseded plans, and historical decision records while current sources govern action. | Purpose-gating materially damages audit, dissent, rare-safety recall, or rederivation. | Any historical-reconstruction or SAFE-01 guardrail failure. |
 | A08 | One canonical Agent Skill can serve Claude Code and Codex through a PDR-051-shaped adapter architecture. | PDR-051 already defines a canonical skill plus generated `.agents` and Claude-native surfaces; both vendors document Agent Skills. The current generator is narrower than this proposal requires. | Required behaviour depends on incompatible invocation, context, or tool semantics that cannot be expressed in canonical content plus thin metadata. | Any cross-harness test where the same semantic task needs divergent workflows rather than adapters. |
-| A09 | Manual invocation is an adequate initial safety boundary, and the adapter system can project it faithfully. | Claude Code supports `disable-model-invocation: true`; Codex supports `policy.allow_implicit_invocation: false`. The current repository generator does not yet emit either setting, making P8 a prerequisite rather than an existing capability. | A supported primary harness ignores the explicit-only policy, the proposed generator extension cannot express it safely, or an adapter silently drops it. | Vendor update, generator change, or invocation red test. |
+| A09 | Manual invocation is an adequate initial safety boundary, and the adapter system can project it faithfully. | Claude Code supports `disable-model-invocation: true`. The Codex `policy.allow_implicit_invocation: false` claim is a **dated single-source vendor observation, not yet corroborated by the estate's own research** — [`standardising-skills`](../../research/agentic-engineering/standardising-skills.md) describes `agents/openai.yaml` as UI-facing metadata only (display name, short description, default prompt) and at :366 rates `disable-model-invocation` as "cross-client experimental rather than fully portable", where this report has been treating the control as settled. The current repository generator does not yet emit either setting, making P8 a prerequisite rather than an existing capability. | A supported primary harness ignores the explicit-only policy, the proposed generator extension cannot express it safely, or an adapter silently drops it. | Vendor update, generator change, invocation red test, or first-hand verification of the Codex policy field against current vendor documentation. |
 | A10 | A fresh subagent can add useful epistemic independence. | Both primary harnesses support fresh delegated contexts and configurable read-only custom agents. Effective isolation still depends on the full instruction chain and runtime overrides. | The reviewer inherits the incumbent interpretation through project instructions, skill content, prompt framing, shared files, the parent's brief, or a sandbox override and returns no independent predictions. | First isolation audit and every material instruction-chain or runtime-configuration change. |
 | A11 | Hooks can improve timing without becoming the correctness boundary. | Both primary harnesses expose lifecycle hooks; command hooks can cheaply inspect changed paths and run deterministic checks. | Useful detection requires semantic judgement, hook false positives block legitimate work, or a harness lacks trustworthy hook execution. | Shadow-hook results or any consequential false block. |
 | A12 | Behavioural fixtures can distinguish effect from learning theatre. | The parent report already defines paired stale-action, live-loss, reconstruction, safety, and cost measures. | Fixture labels leak the answer, graders cannot establish current-source oracles, or success reduces to vocabulary recitation. | Calibration red test and first blinded review. |
@@ -161,6 +199,7 @@ that most affect the build recommendation as of the dated baseline.
 | A17 | The cited current source is authentic, integral, and controlling within the claimed scope. | Existing precedence, provenance, review, and owner-decision mechanisms provide evidence beyond mere file presence. | A forged, poisoned, lower-precedence, or out-of-scope terminal marker passes the workflow's authority check. | Every authority dispute, integrity failure, or source-precedence change. |
 | A18 | Claude Code and Codex remain the primary consuming harnesses for this capability. | This is the current design premise supplied for the proposal and aligns with existing adapter surfaces. | Maintainers change the supported-harness set or representative usage shows another harness is material. | Any PDR-051 or adapter-policy change, or each dated capability review. |
 | A19 | Semantic reconciliation and deterministic regeneration can retain separate authority boundaries. | Existing generators already own projections, while source meaning remains reviewable prose. | Safe use repeatedly requires one opaque operation to decide semantic edits and mutate projections together. | First write-capable prototype or generator whose output changes authority-bearing prose. |
+| A20 | Recall-dependent firing is an adequate delivery mode for P1. | P1 is a manually invoked skill, so it fires only when an agent remembers the capability exists at the decision point. This assumption was implicit in the proposal and is registered here because ratified doctrine argues against it: [PDR-098](../../practice-core/decision-records/PDR-098-doctrine-traction-firing-detection-response.md) decomposes doctrine traction into firing × detection × response and locates the estate's gap as the empty quadrant — **mechanical-firing + cognitive-detection + advisory-response**, concluding on the firing axis "do not depend on recall; fire environmentally" (composing [PDR-029](../../practice-core/decision-records/PDR-029-perturbation-mechanism-bundle.md)'s advisory-response constraint and [PDR-044](../../practice-core/decision-records/PDR-044-memetic-immune-system.md)'s innate/adaptive detection split). P1 sits in the recall-dependent quadrant PDR-098 predicts loses at action time; P5, the shadow hook, is the shape it predicts works — and P5 is deferred to phase 7 of 8. | A recall-invoked P1 fires reliably at real decision points across representative fresh-context trials, or an environmentally fired P5 shows no timing advantage over it. | **Named risk:** phases 1–5 may produce false negatives for a reason unrelated to the forgetting hypothesis — the capability may be sound but never fire. If E1/E2 trials fail on non-invocation rather than on poor output, the phase order may need inverting so a shadow hook establishes the firing channel before the workflow's content is judged. Re-examine at the first phase-1 or phase-2 result, and at any trial where the agent did not invoke the capability unprompted. |
 
 ## Proposed responsibility split
 
@@ -287,7 +326,13 @@ adapters. A possible package—not created by this PR—could be:
 
 The Agent Skills specification supports a `SKILL.md` plus optional `references/`, `scripts/`, and
 `assets/`, with progressive disclosure. The repository's canonical filename and adapter generation
-would remain governed by PDR-051 rather than copied from this illustrative tree. This package shape
+would remain governed by their actual owners rather than copied from this illustrative tree, and the
+two strata are distinct: PDR-051 decides the portable property — that the canonical filename is
+_non-discoverable_ by every documented vendor scanner — while
+[ADR-125](../../../docs/architecture/architectural-decisions/125-agent-artefact-portability.md)
+§Skills Structure Contract carries the repo-stratum specifics, item 2 naming the filename
+`SKILL-CANONICAL.md` and item 6 fixing the adapter surfaces at exactly two (`.agents/skills/` and
+`.claude/skills/`, no others emitted). This package shape
 is not supported end to end by the present adapter generator: it currently emits only a stub
 `SKILL.md` carrying `name` and `description`. Proposal P8 describes the generator and validator
 extension that the explicit-invocation and forked-review hypotheses would depend on.
@@ -435,7 +480,7 @@ requirement that the simpler baseline be allowed to win.
 | --- | --- | --- | --- |
 | PR717-01 | PDR-078 retired clause 2 before PR #717's original report commit was written. | Commit `4679a1e` inherited the older inquiry's “two unresolved” frame; the current revision corrects it. | Current source defeats the stale premise while git history preserves the red fixture. |
 | HB-01 | Emit-side suppression is retired. | Later PDR passages still describe suppression as live. | No retired work is scheduled; residual readers are surfaced. |
-| CURATOR-01 | The per-pass log is explicitly superseded. | Steps 2–5 and 7, Closeout, and Cascade still ask readers to use or finalise it. | Current terminal decision wins; live readers are identified without deleting history. |
+| CURATOR-01 | The per-pass log is explicitly superseded, **and the skill warns at :161-164 that the step-prose above still references it**. | Steps 2–5 and 7 sit below that warning; only Closeout and Cascade ask readers to use or assume it unqualified. | Current terminal decision wins; live readers are identified without deleting history. **Discriminating power is reduced:** because the warning is in-source, this fixture cannot cleanly separate E0 from E1 — it tests deferral discharge (an unowned "next curator use" trigger), not undetected propagation. Treat it as a deferral-discipline fixture and pair it with a specimen carrying no in-source warning before reading any E0/E1 difference. |
 | BOX-01 | `.agent/practice-core/incoming/` is canonical. | The final integration step names `decision-records/incoming/`. | The stale path cannot govern current clearing behaviour. |
 | BASE-01 | An old idea gains genuinely new current support. | Anti-resurrection wording makes novelty seem mandatory. | Deliberate rederivation remains possible. |
 | SAFE-01 | A rare high-severity safeguard remains applicable. | Age and low retrieval resemble retirement signals. | The safeguard survives and fires only in scope. |
@@ -595,7 +640,15 @@ reviewer_context: fresh-read-only
 ```
 
 This is illustrative configuration, not a proposed schema. Review would need to choose whether the
-canonical source belongs in frontmatter or a sidecar owned by PDR-051.
+canonical source belongs in frontmatter or a sidecar. PDR-051 owns the portable half of that question;
+the repo stratum of the same surface is owned by
+[ADR-125](../../../docs/architecture/architectural-decisions/125-agent-artefact-portability.md)
+§Externally installed skills as amended 2026-08-02, which rules that third-party skills are vendored
+into `.agents/skills/` under their upstream names, lock-pinned in `skills-lock.json`, and never
+canonicalised. That amendment is directly relevant to P8's checker hypothesis because it records two
+named gaps of its own: nothing recomputes the content hash against the vendored tree, and nothing yet
+reports unlocked full content in adapter directories. A checker that re-renders owned adapter files
+would inherit both.
 
 A corresponding projection experiment could produce:
 
@@ -628,13 +681,28 @@ authored. The same live skill still instructs the reader to record surfaces, rou
 defects, and owner decisions in the pass log, then names or finalises it during closeout and assumes
 the substrate in Cascade.
 
-**Theory:** the terminal decision exists, but operational readers within the same source retain the
-old workflow's causal force. A reader may follow the more numerous concrete steps rather than the
-single terminal section.
+**Correction to the original framing (2026-08-02).** The skill declares this residue itself.
+[`SKILL-CANONICAL.md:161-164`](../../skills/curator-pass/SKILL-CANONICAL.md) states that "the
+step-prose above that still mentions 'the per-pass log' references this superseded surface and aligns
+to a commit-plus-broadcast record on next curator use". Steps 2–5 and 7 therefore sit _below_ an
+explicit, in-source warning; only §Closeout (which still names the pass log file among the closeout
+artefacts) and §Cascade (which assumes the substrate exists) fall outside its stated scope, because
+the warning is scoped to the prose above it.
+
+**Theory (revised):** this specimen evidences **deferral discipline with an unowned trigger**, not
+undetected propagation failure. The author saw the residue, named it, and deferred the sweep to a
+future occasion — but "on next curator use" names no owner, no date, and no closure evidence, so
+nothing guarantees the deferral is ever discharged. The unqualified residue is confined to Closeout
+and Cascade. A reader may still follow the more numerous concrete steps rather than the terminal
+section, but that is now a question about whether an in-source warning is _sufficient_, not about
+whether the transition went unnoticed.
 
 **Proposed experiment:** compare E0, E1, and E2 on a fresh curator task. Grade whether the agent
 authors or asks to finalise a per-pass log, whether it preserves the intended durable record through
-the current commit-plus-broadcast model, and whether it can explain the historical transition.
+the current commit-plus-broadcast model, and whether it can explain the historical transition. Note
+the revised discriminating power below: because the warning is present, this specimen tests whether
+explicit framing beats an _already-explicit in-source warning_, which is a harder and narrower test
+than the one originally proposed.
 
 **Assumptions under test:** A02, A03, A04, A07, and A12.
 

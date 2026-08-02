@@ -19,6 +19,12 @@ It complements, rather than replaces:
 
 ## Current Promoted Synthesis
 
+### Proposal syntheses
+
+Proposal-status, **explicitly non-doctrine**: these two documents propose and
+argue; they do not decide anything. Their analysis-and-integration was routed
+2026-08-02.
+
 - [governed-forgetting-and-temporally-governed-authority-2026-08-02.md](./governed-forgetting-and-temporally-governed-authority-2026-08-02.md)
   — cross-disciplinary synthesis of how retained history can lose operational
   eligibility without losing evidence, with current-Practice mapping, worked
@@ -29,6 +35,9 @@ It complements, rather than replaces:
   independent reviewers, reader discovery, evals, hooks, validators, and
   possible decision-record homes, with an explicit assumption register,
   cross-harness degradation model, worked examples, and kill conditions
+
+### Other promoted syntheses
+
 - [agent-tools-practice-evolution-concept-journey-2026-08-01.md](./agent-tools-practice-evolution-concept-journey-2026-08-01.md)
   — journey record from a mechanism-level agent-tools review through owner-led
   corrections to a defeasible inquiry into Practice evolution, relational

@@ -102,12 +102,13 @@ as acceptance; the document does not constrain the reviewer's own method or auth
 6. [Candidate application principles](#candidate-application-principles)
 7. [Worked examples](#worked-examples)
 8. [Integration with the knowledge estate](#integration-with-the-knowledge-estate)
-9. [Evaluation and measurement](#evaluation-and-measurement)
-10. [A restrained sequence](#a-restrained-sequence)
-11. [Failure modes and anti-patterns](#failure-modes-and-anti-patterns)
-12. [What was not asked](#what-was-not-asked)
-13. [Review surface](#review-surface)
-14. [References](#references)
+9. [Addendum (2026-08-02): first-party prior art and the corrected null](#addendum-2026-08-02-first-party-prior-art-and-the-corrected-null)
+10. [Evaluation and measurement](#evaluation-and-measurement)
+11. [A restrained sequence](#a-restrained-sequence)
+12. [Failure modes and anti-patterns](#failure-modes-and-anti-patterns)
+13. [What was not asked](#what-was-not-asked)
+14. [Review surface](#review-surface)
+15. [References](#references)
 
 ## Executive synthesis
 
@@ -473,6 +474,12 @@ Adding an `authority:` field to every Markdown file would not solve this. The ga
 needed property is that action eligibility can be determined from current authored sources and
 their relationships, not inferred from fluent prose alone.
 
+One artefact family already solves this. The per-user-memory lifecycle
+([`per-user-memory-is-a-buffer`](../../rules/per-user-memory-is-a-buffer.md), §Per-User Memory
+Lifecycle) makes eligibility structural rather than interpretive: presence of a `MEMORY.md` index line
+means ambiently loadable, and a “Graduated to `<repo-path>`” marker on a retained entry means
+audit-trail only. The pattern is not generalised beyond that family.
+
 ### 2. Direct supersession is stronger than transitive reconciliation
 
 PDR-107 is a strong local contract: current owner direction wins and the conflicting accepted record
@@ -489,9 +496,18 @@ enumerate every affected:
 - external tracker or operator-overlay binding; and
 - behaviour already taught to a human or encoded in a model outside repository control?
 
-Not every descendant should be changed. The gap is the absence of a proven disposition for each
-material descendant. ADR-221's PROV spine and named-graph strata create the right substrate; the
-research supplies the review question and evaluation target.
+Not every descendant should be changed. The obligation itself is already ratified:
+[PDR-089](../../practice-core/decision-records/PDR-089-conservation-reflex-external-check.md)
+Decision 4 holds that a reshaped or corrected decision is “done” only when the correction is
+propagated to every reference, and names the cure as the same verb applied to the correction itself —
+sweep and replace _every_ instance. What is not ratified is how that sweep is carried out: the
+discovery method, the per-descendant disposition vocabulary, and the closure evidence a completed
+sweep should produce. That, not the duty, is the residual gap.
+
+ADR-221's PROV spine and named-graph strata are the right substrate for it, but they are decided
+rather than built: the front-matter-to-quads ingestion mode ADR-221 adds to `graph-ingest` has not
+landed, and no estate-wide graph exists to query. The research supplies the review question and
+evaluation target.
 
 ### 3. Intention termination exists in schemas but is not yet an estate property
 
@@ -541,6 +557,12 @@ targeted content dominates generation ([Zou et al., 2025](https://www.usenix.org
 Authority gates must therefore consider provenance, purpose, status, sensitivity, and capability,
 not merely semantic fit.
 
+Here too one artefact family already solves the retrieval half of the problem. The per-user-memory
+lifecycle ([`per-user-memory-is-a-buffer`](../../rules/per-user-memory-is-a-buffer.md), §Per-User
+Memory Lifecycle) withdraws a graduated entry from the session-injected index while retaining the
+entry itself, so ambient retrieval and evidentiary availability are separately controlled by
+construction. The pattern is not generalised to the retrieval surfaces this gap describes.
+
 ### 5. Consolidation can redistribute authority invisibly
 
 PDR-046 correctly protects substance from in-process fitness pressure. PDR-016 correctly requires
@@ -556,8 +578,17 @@ points while losing:
 
 The transformed artefact may then be loaded more often than its evidence. This is “summary
 cannibalism”: the abstraction consumes its sources' practical authority while appearing to be only a
-compression. The knowledge graph can expose source relationships, but no structural edge proves that
-the prose preserved the right distinctions. That remains a semantic review and an evaluation problem.
+compression.
+
+Part of this is already ratified doctrine.
+[PDR-089](../../practice-core/decision-records/PDR-089-conservation-reflex-external-check.md)
+Decision 6 holds that a compiled evidence base is a frame whose claims must be tiered by verification
+status — primary-verified, single-source, or frame-dependent convergence — and that a convergence
+inherits the frame it was voted in, so when a shared premise is invalidated every convergence
+downstream of it must be re-graded rather than inherited. The residual gap is narrower than the whole
+phenomenon: the knowledge graph can expose source relationships, but no structural edge proves that
+the prose preserved the right distinctions, and no tier label proves that a summary carried its
+sources' uncertainty. That remains a semantic review and an evaluation problem.
 
 ### 6. Inter-Practice exchange lacks an explicit anti-resurrection test
 
@@ -595,8 +626,13 @@ near-term, local, and apparently successful experience
 
 The Practice deliberately reduces the energy required for new agents to become mutually intelligible.
 That is a major strength. It also means every agent may inherit the same abstraction before seeing the
-primary evidence. The independent review already required by ADR-200/221 is a partial cure. The
-residual opportunity is to use clean-room or differently socialised reviewers at the interpretation
+primary evidence. The independent review already required by ADR-200/221 is a partial cure, and the
+principle itself is already stated:
+[PDR-089](../../practice-core/decision-records/PDR-089-conservation-reflex-external-check.md)
+Decision 6 holds that **review-count is not coverage** — “zero findings” from a reviewer group briefed
+inside the author's frame means “clean with recall < 1”, because the value is an independent frame, or
+a single contrary fact, not review volume. The residual opportunity is therefore not the principle but
+its mechanism: how to constitute clean-room or differently socialised reviewers at the interpretation
 layer while preserving shared constitutional and safety constraints.
 
 ### 8. Mechanism evidence can outrun effect evidence
@@ -669,7 +705,12 @@ obligation, `completed`, `cancelled`, `expired`, `invalidated`, `retired`, or `s
 
 Writing “done” into episodic prose does not establish this invariant. The plan estate gets close for
 plans; the heartbeat specimen asks whether the same closure can be demonstrated for accepted
-decision-record obligations.
+decision-record obligations. One artefact family already implements the invariant end to end: the
+per-user-memory lifecycle
+([`per-user-memory-is-a-buffer`](../../rules/per-user-memory-is-a-buffer.md), §Per-User Memory
+Lifecycle) requires a graduated entry to keep a “Graduated to `<repo-path>`” marker carrying the
+original substance as audit trail while its `MEMORY.md` index line is retired — evidentiary standing
+retained, ambient retrieval withdrawn, in one ratified operation.
 
 ### Principle 4 — Supersession is a graph operation
 
@@ -683,7 +724,9 @@ descendant disposition.
 
 This makes provenance consequential. “Where did this come from?” becomes “what must be reconsidered
 when this changes?” The knowledge graph's files-authoritative and per-home-recomputable design is an
-excellent fit because the graph can discover candidates without acquiring authority to change them.
+excellent fit because a graph of that shape can discover candidates without acquiring authority to
+change them. That fitness is a property of the ratified design; the estate graph is not yet built, so
+the principle is stated as a prediction about it rather than an observation of it.
 
 ### Principle 5 — Retrieval proposes context; authority permits action
 
@@ -1074,9 +1117,16 @@ through the existing files-authoritative knowledge estate:
 - the four strata and direction law continue to govern privacy and portability; and
 - external bindings remain operator overlays rather than leaking into public doctrine.
 
-ADR-200 is relevant historical architecture, but its graph-authoritative claim was superseded by
-ADR-221. Any proposal that treats a graph field or retrieval score as authority would reintroduce the
-rejected model.
+ADR-200 remains **Accepted** and is only _partially_ superseded, which matters because this report
+relies on parts of it that are still standing. ADR-221 §The ADR-200 reconciliation states the split
+precisely: ADR-200 §1's authority claim (the idea-graph as the authoritative source of truth) and the
+projections-of-the-store framing are superseded by ADR-221 §2 — authored files are authoritative and
+every store is a derived, per-home-recomputable index. ADR-200 §2's co-equal human documents are
+conserved and strengthened (now authoritative rather than merely co-equal), and §5's two-direction
+independent no-loss audit is deferred with a named home rather than dropped — inherited by the
+migration ledger's closure validator plus independent review at each corpus sweep. The strengths
+table above depends on that §5 survival. Nothing in ADR-200 is dropped. Any proposal that treats a
+graph field or retrieval score as authority would reintroduce the superseded model.
 
 ### Proposal boundary — no parallel epistemic schema
 
@@ -1132,8 +1182,8 @@ or that changes no decision is learning theatre and should be removed.
 
 ### Preserve distinctions that the graph cannot decide
 
-The graph can prove identity, relation, status, stratum, provenance shape, and recomputability. It
-cannot prove:
+The graph, once it exists, will be able to prove identity, relation, status, stratum, provenance
+shape, and recomputability. It will not be able to prove:
 
 - that prose still means what its edges imply;
 - that a summary preserved the material uncertainty;
@@ -1144,6 +1194,46 @@ cannot prove:
 
 Those questions require semantic review, experiments, external evidence, or legitimate human
 judgement. The framework is strongest when it states that boundary explicitly.
+
+## Addendum (2026-08-02): first-party prior art and the corrected null
+
+This addendum records evidence that reached the report after its main body was written, and which
+changes one of its methodological claims.
+
+The estate already carries a landed fleet that implements several of this report's principles as
+running code: the restatement audit (`agent-tools/src/restatement-audit/`, with a completed
+discriminating experiment at
+[`f8-discriminating-experiment.v1.md`](../restatement-audit/f8-discriminating-experiment.v1.md)).
+Read against the principles above, three correspondences are exact rather than approximate:
+
+- **Principle 1 as a schema enum.** `schemas.ts` types an assertion's standing as
+  `authored | citation | history | generated`, and records that only `authored` restatements are the
+  anti-pattern the fleet exists to find — citation, history, and generated instances are legitimate.
+  That is the preserve-evidentiary-standing / govern-sovereignty distinction, already mechanised for
+  one estate-wide property.
+- **Conjunctive voting with an honest indeterminate.** Two independent voters judge each cluster
+  against four conjunctive tests including `liveSurface` (is this a live surface or an archived one)
+  and `genuineConflict`. Flagging requires both voters to pass all four; dismissal requires agreement
+  that a necessary test failed; anything else is `held-for-review`, **never silently resolved either
+  way**. That is the report's authority-indeterminacy requirement, already built.
+- **A deterministic disposition layer.** The voters never emit a disposition; code computes it, citing
+  [`validators-must-recompute-not-just-record`](../../rules/validators-must-recompute-not-just-record.md).
+  That is Principle 5's retrieval-proposes / authority-permits split enacted at the tool boundary.
+
+Neither this report nor its companion proposal document had cited this fleet. Two consequences follow.
+
+First, **the B0 baseline below must include the estate's own tooling, not doctrine alone.** B0 is
+defined in §Baselines must be able to win as “accepted rules, PDRs, ADRs, start-right, and ordinary
+reviewer judgement without new framing” — a doctrine-only arm that omits the landed fleet. So defined,
+it understates what the estate can already do, and any capability measured against it would be
+credited with value the restatement-audit fleet already delivers. The properly constructed null is a
+run of the existing fleet over the three specimens; that run was fired at owner word on 2026-08-02 and
+its result is pending at this report's baseline.
+
+Second, and consequently, much of what the companion document proposes as P1, P2, P3, and P6 should
+be read as a candidate **second consumer of an existing capability** rather than as new construction,
+pending that result. Whether the fleet generalises from restatement clusters to authority transitions
+is exactly the question the corrected null answers.
 
 ## Evaluation and measurement
 
