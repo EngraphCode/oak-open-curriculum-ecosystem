@@ -190,14 +190,9 @@ async function runProbeLegs(session, installedVersion) {
       'turn 2 reply does not engage the sentinel prompt — the exchange did not carry the turn',
     );
   }
-
-  await assertSentinelAbsent(workspace, SENTINEL_NAME);
-  process.stdout.write(
-    'no-write leg: the sentinel was not created on disk after the write-attempt turn; ' +
-      'the verbatim reply above (a refusal self-report) is corroborating, not load-bearing\n',
-  );
-  process.stdout.write('note: the probe thread carries no task context; its rollout is deletable\n');
-  process.stdout.write('PROBE PASS: all legs green\n');
+  // The no-write sentinel check and PROBE PASS live in main(), strictly
+  // after the awaited server termination — the single pass emission
+  // follows the evidence, never precedes it.
 }
 
 /**

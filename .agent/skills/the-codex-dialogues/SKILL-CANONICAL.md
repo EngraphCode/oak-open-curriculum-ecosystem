@@ -143,10 +143,16 @@ or personal data.
   stabilised (nothing new in the last exchange) or are irreconcilable
   with reasons already on the table.
 - **Authority discipline (hard rule)**: a dialogue call NEVER passes
-  per-call `sandbox`, `approval-policy`, `cwd`, `model`, or `config`
-  parameters. Disciplined calls ride the launch pins. This is skill
-  discipline, not machine enforcement — the schema accepts those
-  parameters; passing any of them is out of contract.
+  ANY recorded per-call authority parameter — `sandbox`,
+  `approval-policy`, `cwd`, `model`, `config`, `base-instructions`,
+  `developer-instructions`, or `compact-prompt`: the full recorded
+  authority surface, canonical in
+  [`probe-record.md`](./probe-record.md) and machine-pinned by the
+  probe's tool-contract check, which updates this list in the same
+  reviewed change if the surface ever reshapes. Disciplined calls ride
+  the launch pins. This is skill discipline, not machine enforcement —
+  the schema accepts those parameters; passing any of them is out of
+  contract.
 - **Never resume a closed thread.** A closed dialogue stays closed; a
   new question is a new dialogue with a fresh thread. (Codex persists
   rollouts locally regardless — see Data contract.)
