@@ -105,19 +105,35 @@
         "src/**/*.ts",
         "!src/**/*.test.ts",
         "!src/**/*.spec.ts",
-        // The design system is copied into public/oak-ds at build time. It
-        // has no build script, but its file changes still reach this task's
-        // hash through ^build (probed 2026-07-31 on Turbo 2.10.6: a
-        // scriptless workspace dependency's file change moved the
-        // dependent's #build hash). These explicit inputs pin the
-        // stale-bundle invalidation contract to the files themselves rather
-        // than riding that implicit, version-dependent graph hashing.
+        // The design system is copied into public/oak-ds at build time. Its
+        // build script covers only src/oak-theme.ts -> dist (synced to the
+        // committed root oak-theme.js), so these input globs remain for the
+        // CSS/asset tiers no build step covers, pinning the stale-bundle
+        // invalidation contract to the files themselves. dist/ and .turbo/
+        // are excluded: they are the kit's own build output, and hashing them
+        // would make this task's key depend on whether the kit built first.
         "$TURBO_ROOT$/packages/design/oak-design-system/**",
         "!$TURBO_ROOT$/packages/design/oak-design-system/studio-source/**",
-        // Same contract for the brand artwork: copied at build time, no
-        // build script of its own; the explicit leg keeps its invalidation
-        // pinned too.
+        "!$TURBO_ROOT$/packages/design/oak-design-system/dist/**",
+        "!$TURBO_ROOT$/packages/design/oak-design-system/.turbo/**",
+        // Same reasoning for the brand artwork: copied at build time, no build
+        // script of its own, so nothing else contributes a hash leg for it.
         "$TURBO_ROOT$/packages/design/oak-design-assets/**"
+      ]
+    },
+    "@oaknational/oak-design-system#test": {
+      // Own `build` (which already implies ^build): the integration suites read the
+      // emitted dist/oak-theme.js and compare it to the committed root copy,
+      // and this workspace's build is that file's sole writer.
+      "dependsOn": ["build"],
+      "cache": true,
+      "outputs": [],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "src/**/*.ts",
+        "oak-theme.js",
+        "vitest.config.ts",
+        "$TURBO_ROOT$/vitest.config.base.ts"
       ]
     },
     "@oaknational/oak-curriculum-mcp-streamable-http#test": {

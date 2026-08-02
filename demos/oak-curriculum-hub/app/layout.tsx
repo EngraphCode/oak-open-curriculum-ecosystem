@@ -20,8 +20,10 @@ const lexend = Lexend({
 // The design system's theme/motion state owner, inlined pre-paint (the kit
 // docs §4 shape: a plain relative read against the app root — bundler module
 // resolution mangles fs paths under Turbopack). public/oak-theme.js is a
-// tracked copy of the workspace package's file; app/oak-theme-parity.test.ts
-// turns any drift between the two into a red test. A raw inline <head>
+// tracked copy of the workspace package's file;
+// demos/oak-design-showcase/tools/validate-kit-assets.ts (root
+// repo-validators:check chain, so pre-commit and CI both) turns any drift
+// into a red gate. A raw inline <head>
 // script is the only shape that cannot flash: it executes during parse,
 // before first paint — next/script beforeInteractive does not block
 // hydration and its external fetch can let first paint precede theme

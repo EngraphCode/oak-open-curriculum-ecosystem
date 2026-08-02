@@ -21,6 +21,7 @@
     "validate-kit-assets": "tsx tools/validate-kit-assets.ts"
   },
   "dependencies": {
+    "@oaknational/oak-design-react": "workspace:*",
     "@oaknational/oak-design-system": "workspace:*",
     "@oaknational/type-helpers": "workspace:*",
     "next": "16.2.11",

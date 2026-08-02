@@ -100,6 +100,16 @@ The native session-start adapter should return Copilot CLI's documented
 launcher, but they must not be relabelled as Codex or Claude provenance and
 must not become the only identity source **[I]**.
 
+**Dated addendum (2026-08-02, evidence extraction from the superseded
+original report):** the pre-supersession report preserved on PR #708
+(`docs/first-class-copilot-agent-support`, commit `4ead1345b`) recorded the
+literal environment signals this section abstracts, version-pinned to
+Copilot CLI 1.0.74 **[V]**: `COPILOT_AGENT_SESSION_ID` (observed value a
+stable UUID; a documentation search found no published contract for it at
+observation time), `COPILOT_CLI=1`, `COPILOT_CLI_BINARY_VERSION=1.0.74`,
+and `COPILOT_LOADER_PID`. These are dated observations, not contracts —
+re-derive from the live binary at any future binding moment.
+
 ### 2. Native bootstrap and team join are different acts
 
 Every Copilot CLI session in the repository should receive enough context to be

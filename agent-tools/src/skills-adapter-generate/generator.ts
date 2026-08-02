@@ -11,7 +11,7 @@
  * Adapters are stub pointers: their body links back to the canonical, which
  * remains the single source of truth for workflow content.
  */
-import { mkdir, readFile, readdir, rm, stat, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, readdir, stat, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 
 import { parse as parseYaml, stringify as stringifyYaml } from 'yaml';
@@ -221,18 +221,11 @@ function toTitleCase(id: string): string {
 }
 
 /**
- * Remove every adapter directory under `.claude/skills/` and `.agents/skills/`
- * before a fresh generation pass, so stale adapters don't outlive their
- * canonicals. Idempotent.
+ * A skipped directory means a canonical the generator could not read —
+ * content sitting in the corpus that no harness can summon. That state
+ * must fail loudly rather than ride a warning line to a zero exit
+ * (which is how an unsummonable corpus stays silently green).
  */
-export async function clearGeneratedAdapters(repoRoot: string): Promise<void> {
-  for (const surface of ['.claude/skills', '.agents/skills']) {
-    const root = join(repoRoot, surface);
-    const dirents = await readdir(root, { withFileTypes: true }).catch(() => []);
-    for (const dirent of dirents) {
-      if (dirent.isDirectory()) {
-        await rm(join(root, dirent.name), { recursive: true, force: true });
-      }
-    }
-  }
+export function generateExitCode(outcome: GenerateOutcome): number {
+  return outcome.skipped.length > 0 ? 1 : 0;
 }

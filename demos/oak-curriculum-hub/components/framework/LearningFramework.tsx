@@ -3,7 +3,7 @@
 import { useEffect, useState, useSyncExternalStore } from 'react';
 import type { ReactElement } from 'react';
 
-import { oakThemeStore } from '@/lib/oak-theme-store';
+import { oakThemeStore } from '@oaknational/oak-design-react';
 
 import { LearningFrameworkStatic } from './LearningFrameworkStatic';
 import LearningFrameworkAnimation from './LearningFrameworkAnimation';

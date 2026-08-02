@@ -15,7 +15,7 @@ import { AxeBuilder } from '@axe-core/playwright';
 import { expect } from '@playwright/test';
 import type { Browser, Page } from '@playwright/test';
 
-import type { OakThemeName } from '../lib/oak-theme-store';
+import type { OakThemeName } from '@oaknational/oak-design-react';
 import { SHOWCASE_ORIGIN } from '../tools/showcase-origin';
 
 export const IDENTITIES = ['oak', 'freedonia', 'creature'] as const;

@@ -4,6 +4,7 @@ import { checkAdapters, type CheckerFs } from '../../src/skills-adapter-generate
 import {
   adapterTargetPath,
   buildAdapterFrontmatter,
+  generateExitCode,
   parseFrontmatter,
   renderAdapter,
   type AdapterSurface,
@@ -176,5 +177,15 @@ describe('checkAdapters', () => {
 
     expect(result.missing).toEqual([agents.path]);
     expect(result.drifted).toEqual([]);
+  });
+});
+
+describe('generateExitCode', () => {
+  it('returns success when nothing was skipped', () => {
+    expect(generateExitCode({ written: ['a', 'b'], skipped: [] })).toBe(0);
+  });
+
+  it('fails hard when any canonical directory was skipped', () => {
+    expect(generateExitCode({ written: ['a'], skipped: ['cognition'] })).toBe(1);
   });
 });

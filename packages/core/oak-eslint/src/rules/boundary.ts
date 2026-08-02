@@ -41,11 +41,22 @@ const LIB_PACKAGE_IMPORTS = [
   '@oaknational/sentry-node',
 ] as const;
 
-type DesignPackageImport =
-  | '@oaknational/design-tokens-core'
-  | '@oaknational/oak-design-ink'
-  | '@oaknational/oak-design-system'
-  | '@oaknational/oak-design-tokens';
+/**
+ * The full packages/design workspace inventory — every design-tier package
+ * specifier, including members that build no lint rules of their own
+ * (oak-design-assets ships assets only, with no source or eslint config).
+ * Exported as a runtime tuple so validate-boundaries.ts can compare it
+ * against the live workspace inventory, exactly like LIB_PACKAGES.
+ */
+export const DESIGN_PACKAGE_IMPORTS = [
+  '@oaknational/design-tokens-core',
+  '@oaknational/oak-design-assets',
+  '@oaknational/oak-design-ink',
+  '@oaknational/oak-design-react',
+  '@oaknational/oak-design-system',
+  '@oaknational/oak-design-tokens',
+] as const;
+type DesignPackageImport = (typeof DESIGN_PACKAGE_IMPORTS)[number];
 
 export const SDK_PACKAGE_IMPORTS = [
   '@oaknational/curriculum-sdk',
@@ -232,12 +243,29 @@ export const LIB_PACKAGES = [...FOUNDATION_LIB_PACKAGES, ...ADAPTER_LIB_PACKAGES
 
 type LibPackage = (typeof LIB_PACKAGES)[number];
 const FOUNDATION_LIB_PACKAGE_SET: ReadonlySet<LibPackage> = new Set(FOUNDATION_LIB_PACKAGES);
-type DesignPackage = 'design-tokens-core' | 'oak-design-ink' | 'oak-design-tokens';
+type DesignPackage =
+  | 'design-tokens-core'
+  | 'oak-design-ink'
+  | 'oak-design-react'
+  | 'oak-design-system'
+  | 'oak-design-tokens';
 const SEARCH_CONTRACTS_LIB = 'search-contracts' as const;
 const LIB_SDK_BOUNDARY_MESSAGE =
   'Libraries cannot depend on SDKs unless ADR-041 documents an approved generated-surface exception.';
 const SEARCH_CONTRACTS_SDK_EXCEPTION_MESSAGE =
   'Foundation library search-contracts may consume approved @oaknational/sdk-codegen subpath exports only; it must not depend on other SDK packages, the root sdk-codegen package, or deep internal SDK paths.';
+
+/**
+ * Exhaustiveness backstop for the design-boundary builders: a DesignPackage
+ * member added without its explicit branch must fail compilation AND throw at
+ * runtime, never fall through to an empty (vacuously green) rule set — the
+ * silent-no-op failure mode this file previously carried.
+ */
+function assertNever(value: never): never {
+  throw new Error(
+    `Unhandled DesignPackage '${String(value)}'. Add its explicit branch in boundary.ts.`,
+  );
+}
 
 function isLibPackage(libName: string): libName is LibPackage {
   // Equality-form membership per ADR-153 §Membership Without Widening: a
@@ -383,11 +411,13 @@ export function createDesignBoundaryRules(designName: DesignPackage): Partial<Li
     if (designName === 'design-tokens-core') {
       return createPackageSpecifierPatterns(
         [
+          '@oaknational/oak-design-assets',
           '@oaknational/oak-design-ink',
+          '@oaknational/oak-design-react',
           '@oaknational/oak-design-system',
           '@oaknational/oak-design-tokens',
         ],
-        `Design workspace '${designName}' cannot depend on '@oaknational/oak-design-ink', '@oaknational/oak-design-system', or '@oaknational/oak-design-tokens'. Follow ADR-041's packages/design dependency direction.`,
+        `Design workspace '${designName}' cannot depend on '@oaknational/oak-design-assets', '@oaknational/oak-design-ink', '@oaknational/oak-design-react', '@oaknational/oak-design-system', or '@oaknational/oak-design-tokens'. Follow ADR-041's packages/design dependency direction.`,
       );
     }
     if (designName === 'oak-design-tokens') {
@@ -396,8 +426,12 @@ export function createDesignBoundaryRules(designName: DesignPackage): Partial<Li
       // consumes the design system's dtcg export as validator input
       // (ADR-041 §2026-07-19 amendment; ADR-213 §4).
       return createPackageSpecifierPatterns(
-        ['@oaknational/oak-design-ink'],
-        createDesignRestrictionMessage('@oaknational/oak-design-ink'),
+        [
+          '@oaknational/oak-design-assets',
+          '@oaknational/oak-design-ink',
+          '@oaknational/oak-design-react',
+        ],
+        `Design workspace '${designName}' can depend on '@oaknational/design-tokens-core' and the design system's dtcg export only. Follow ADR-041's packages/design dependency direction.`,
       );
     }
     if (designName === 'oak-design-ink') {
@@ -405,52 +439,134 @@ export function createDesignBoundaryRules(designName: DesignPackage): Partial<Li
       // (oak-design-tokens), never the design system directly
       // (ADR-041 §2026-07-19 amendment; ADR-213 §4).
       return createPackageSpecifierPatterns(
-        ['@oaknational/oak-design-system'],
-        createDesignRestrictionMessage('@oaknational/oak-design-system'),
+        [
+          '@oaknational/oak-design-assets',
+          '@oaknational/oak-design-react',
+          '@oaknational/oak-design-system',
+        ],
+        `Design workspace '${designName}' can depend on '@oaknational/oak-design-tokens' and '@oaknational/design-tokens-core' only. Follow ADR-041's packages/design dependency direction.`,
       );
     }
-    return [];
+    if (designName === 'oak-design-react') {
+      // The React binding tier (ADR-213 §3). The deliberate absence of an
+      // '@oaknational/oak-design-system' restriction declares the §4 map
+      // edge (oak-design-system → tier package); today the tier's only kit
+      // edge is contract-only (a re-declared runtime interface), and the
+      // package import materialises with the first component.
+      return createPackageSpecifierPatterns(
+        [
+          '@oaknational/design-tokens-core',
+          '@oaknational/oak-design-assets',
+          '@oaknational/oak-design-ink',
+          '@oaknational/oak-design-tokens',
+        ],
+        `Design workspace '${designName}' can depend on '@oaknational/oak-design-system' only (the ADR-213 §4 tier edge). Follow ADR-041's packages/design dependency direction.`,
+      );
+    }
+    if (designName === 'oak-design-system') {
+      // The neutral trunk imports NOTHING from the design tier (ADR-041's
+      // design row; ADR-213 §4 "zero runtime monorepo dependencies") — and,
+      // unlike every other design workspace, nothing from core either: the
+      // shared design rules permit core packages, so the kit's zero-runtime
+      // contract needs its own explicit core restriction (both specifier and
+      // path forms; the path zone covers future core packages by construction).
+      return [
+        ...createPackageSpecifierPatterns(
+          [
+            '@oaknational/design-tokens-core',
+            '@oaknational/oak-design-assets',
+            '@oaknational/oak-design-ink',
+            '@oaknational/oak-design-react',
+            '@oaknational/oak-design-tokens',
+          ],
+          `Design workspace '${designName}' cannot depend on any design-tier sibling. The kit is the neutral trunk (ADR-213 §4): it imports nothing from the monorepo at runtime.`,
+        ),
+        ...createPackageSpecifierPatterns(
+          [
+            '@oaknational/build-metadata',
+            '@oaknational/env',
+            '@oaknational/eslint-plugin-standards',
+            '@oaknational/graph-core',
+            '@oaknational/observability',
+            '@oaknational/openapi-zod-client-adapter',
+            '@oaknational/result',
+            '@oaknational/safe-path',
+            '@oaknational/type-helpers',
+          ],
+          `Design workspace '${designName}' cannot depend on core packages. The kit is the neutral trunk (ADR-213 §4): it imports nothing from the monorepo at runtime.`,
+        ),
+      ];
+    }
+    // Exhaustive: a new DesignPackage member without its branch must fail
+    // loudly here, never lint as an empty (vacuously green) rule set.
+    return assertNever(designName);
   };
   const restrictedDesignImportPatterns = buildRestrictedDesignImportPatterns();
   const buildRestrictedDesignPathZones = () => {
+    // Path-zone twin of the specifier branches above. Each zone derives its
+    // path and message from the sibling's package specifier (every design
+    // directory is the specifier without its scope), so a zone's path cannot
+    // drift from its own specifier. Membership stays hand-enumerated per
+    // member in BOTH builders; the pairwise design-boundary test enforces
+    // that parity.
+    const createDesignSiblingZones = (siblings: readonly DesignPackageImport[]) =>
+      siblings.map((sibling) => ({
+        target: './src/**' as const,
+        from: `../${sibling.slice('@oaknational/'.length)}/**`,
+        message: createDesignRestrictionMessage(sibling),
+      }));
     if (designName === 'design-tokens-core') {
-      return [
-        {
-          target: './src/**' as const,
-          from: '../oak-design-tokens/**' as const,
-          message: createDesignRestrictionMessage('@oaknational/oak-design-tokens'),
-        },
-        {
-          target: './src/**' as const,
-          from: '../oak-design-ink/**' as const,
-          message: createDesignRestrictionMessage('@oaknational/oak-design-ink'),
-        },
-        {
-          target: './src/**' as const,
-          from: '../oak-design-system/**' as const,
-          message: createDesignRestrictionMessage('@oaknational/oak-design-system'),
-        },
-      ];
+      return createDesignSiblingZones([
+        '@oaknational/oak-design-tokens',
+        '@oaknational/oak-design-ink',
+        '@oaknational/oak-design-system',
+        '@oaknational/oak-design-react',
+        '@oaknational/oak-design-assets',
+      ]);
     }
     if (designName === 'oak-design-tokens') {
-      return [
-        {
-          target: './src/**' as const,
-          from: '../oak-design-ink/**' as const,
-          message: createDesignRestrictionMessage('@oaknational/oak-design-ink'),
-        },
-      ];
+      return createDesignSiblingZones([
+        '@oaknational/oak-design-ink',
+        '@oaknational/oak-design-react',
+        '@oaknational/oak-design-assets',
+      ]);
     }
     if (designName === 'oak-design-ink') {
+      return createDesignSiblingZones([
+        '@oaknational/oak-design-system',
+        '@oaknational/oak-design-react',
+        '@oaknational/oak-design-assets',
+      ]);
+    }
+    if (designName === 'oak-design-react') {
+      // No '../oak-design-system/**' zone: the §4 tier edge — see the
+      // specifier branch above.
+      return createDesignSiblingZones([
+        '@oaknational/design-tokens-core',
+        '@oaknational/oak-design-ink',
+        '@oaknational/oak-design-tokens',
+        '@oaknational/oak-design-assets',
+      ]);
+    }
+    if (designName === 'oak-design-system') {
       return [
+        ...createDesignSiblingZones([
+          '@oaknational/design-tokens-core',
+          '@oaknational/oak-design-ink',
+          '@oaknational/oak-design-tokens',
+          '@oaknational/oak-design-react',
+          '@oaknational/oak-design-assets',
+        ]),
         {
           target: './src/**' as const,
-          from: '../oak-design-system/**' as const,
-          message: createDesignRestrictionMessage('@oaknational/oak-design-system'),
+          from: '../../core/**' as const,
+          message:
+            "Design workspace 'oak-design-system' cannot depend on core packages. The kit is the neutral trunk (ADR-213 §4): it imports nothing from the monorepo at runtime.",
         },
       ];
     }
-    return [];
+    // Exhaustive: see buildRestrictedDesignImportPatterns.
+    return assertNever(designName);
   };
   const restrictedDesignPathZones = buildRestrictedDesignPathZones();
 

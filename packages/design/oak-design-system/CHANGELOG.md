@@ -27,6 +27,16 @@
 
 **Fixed — zero-network consumable surface.** Roboto Mono localised: the `colors_and_type.css` Google Fonts `@import` (the kit's only runtime network call, KNOWN-ISSUES #12) is replaced by the tracked local variable font `fonts/RobotoMono-VariableFont_wght.ttf` (`@font-face`, weights 100–700, same pattern as Lexend). Licence is SIL OFL 1.1 — corrects #12's stale Apache-2.0 note; `LICENCES.md` and the licensing manifest gain the rows, and both faces' verbatim upstream notices + OFL texts now ship beside the fonts (`fonts/Lexend-OFL.txt`, `fonts/RobotoMono-OFL.txt` — OFL condition 2 for redistributed copies). Side effect: `--weight-light` mono renders a true 300 (the old three-weight import snapped it to 400). Authored repo-side (AIP-137); reaches the studio via the design-sync batch, which assigns the version at that sync.
 
+## 1.8.0 — 2026-08-02
+
+**Added — TypeScript-authored theme runtime with the `choice()` accessor (MCP-372/MCP-388; design-lane PR-1).**
+
+- `src/oak-theme.ts` is now the runtime's source. The committed root `oak-theme.js` is its tsc type-erasure emit (comments survive; classic browser script, no module wrapper), byte-parity-gated by the workspace's `emitted-runtime-parity` suite. Edit the source, then run the workspace `build` and `sync:runtime` scripts.
+- **New public accessor `oakTheme.choice()`**: the EXPLICIT theme choice — this session's `set()` or the persisted value — and `null` when none exists. `get()` keeps collapsing no-choice to the applied theme (pre-paint needs a concrete value), so controls that must distinguish "chosen" from "applied" read `choice()`. This is the kit-contract accessor the shared theme store consumes.
+- Theme and motion attribute writes now go through `documentElement.dataset` (behaviour unchanged; Sonar S7761).
+- Real workspace toolchain lands with the source: `build` (tsc + prettier on the emit), `test` (vitest, happy-dom, integration-class suites on the emitted artefact), `lint`, `type-check`; the design-boundary lint rules now restrict the kit from every design sibling AND all core packages — the neutral trunk imports nothing from the monorepo at runtime (ADR-213 §4).
+- MINOR per the versioning policy below: one new public API member (`choice()`), no breaking change. Version assigned repo-side because package consumers pin against the runtime API; the studio-bound "Unreleased (repo-side)" entries above remain with the design-sync batch.
+
 ## 1.7.1 — 2026-07-20
 
 **Fixed — theme-runtime robustness (three consumer-reported defects, one review arc).**

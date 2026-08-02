@@ -8,9 +8,7 @@ It complements, rather than replaces:
 - [analysis/README.md](../../analysis/README.md) for investigations and
   evidence
 - [research/agentic-engineering/README.md](../../research/agentic-engineering/README.md)
-  for themed source-material routing
-- [reference/agentic-engineering/README.md](../../research/agentic-engineering/README.md)
-  for the concept map and seed deep dives
+  for themed source-material routing, the concept map, and seed deep dives
 
 ## Sub-Lanes
 
@@ -20,6 +18,25 @@ It complements, rather than replaces:
   — formal report versions of concept deep dives
 
 ## Current Promoted Synthesis
+
+### Proposal syntheses
+
+Proposal-status, **explicitly non-doctrine**: these two documents propose and
+argue; they do not decide anything. Their analysis-and-integration was routed
+2026-08-02.
+
+- [governed-forgetting-and-temporally-governed-authority-2026-08-02.md](./governed-forgetting-and-temporally-governed-authority-2026-08-02.md)
+  — cross-disciplinary synthesis of how retained history can lose operational
+  eligibility without losing evidence, with current-Practice mapping, worked
+  specimens, anti-patterns, and an evaluation programme designed to detect
+  stale authority without manufacturing learning theatre
+- [authority-transition-capability-proposals-and-experimental-design-2026-08-02.md](./authority-transition-capability-proposals-and-experimental-design-2026-08-02.md)
+  — review-only build proposals for a bounded authority-transition skill,
+  independent reviewers, reader discovery, evals, hooks, validators, and
+  possible decision-record homes, with an explicit assumption register,
+  cross-harness degradation model, worked examples, and kill conditions
+
+### Other promoted syntheses
 
 - [agent-tools-practice-evolution-concept-journey-2026-08-01.md](./agent-tools-practice-evolution-concept-journey-2026-08-01.md)
   — journey record from a mechanism-level agent-tools review through owner-led

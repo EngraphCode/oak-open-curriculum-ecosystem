@@ -57,7 +57,9 @@ spot-verification of the three highest-stakes claims before any ruling was reque
 - **Kept 5**: `main`; `feat/plan-corpus-refounding-s0` and `feat/plan-corpus-refounding-s1-zodiac`
   (live lanes — the latter holds conservation commit `42b27e3eb`, the 49 MB S1 artefact bundle,
   local-only until a post-merge regeneration re-verify against the recorded hashes proves
-  containment); `feat/plan-corpus-refounding-s1-evidence` (PR #382, merged `de3cc54c1`);
+  containment; dated note 2026-08-02: the re-verify ran at the pinned base — two rounds,
+  byte-identical to the manifest — so containment is proven; preservation PR #706 closed,
+  branch deleted); `feat/plan-corpus-refounding-s1-evidence` (PR #382, merged `de3cc54c1`);
   `docs/graph-team-direction-2026-06-10` (until this PR's re-homed content merges).
 
 ### Conserved BEFORE deletion

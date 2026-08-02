@@ -1,3 +1,49 @@
+## [1.142.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.142.2...v1.142.3) (2026-08-02)
+
+## [1.142.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.142.1...v1.142.2) (2026-08-02)
+
+## [1.142.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.142.0...v1.142.1) (2026-08-02)
+
+
+### Bug Fixes
+
+* **agent-tools:** lock-aware --clear and hard-fail on skipped canonicals ([8da3c7f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8da3c7f50231aa3bc55a0b43f6b09e3151a4f839))
+* **agent-tools:** surface errors abort --clear; ADR-125 carries one lock model ([5f933cf](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5f933cfa1d7abe51e6457d40078a2d0487adacee))
+
+# [1.142.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.141.2...v1.142.0) (2026-08-02)
+
+
+### Bug Fixes
+
+* **design:** absorb PR [#715](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/715) round 1 — inert mirror deleted, options delta ([235f021](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/235f0211a6840664ec082be998b5898e25d44d95))
+* **design:** absorb the round-2 head's suppressed-comment harvest ([58dd736](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/58dd73654c77273ac35785d3c25a39d7457fb71d))
+* **design:** absorb the third suppressed-comment harvest - three cures ([f7bb24c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f7bb24c8c55cfc750a2081e841c6c3adc838530d))
+
+
+### Features
+
+* **design:** extract the shared theme store to @oaknational/oak-design-react ([eb80d30](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/eb80d301d6cb3341286421b6e4f440e6836fe88f))
+
+## [1.141.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.141.1...v1.141.2) (2026-08-02)
+
+## [1.141.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.141.0...v1.141.1) (2026-08-02)
+
+# [1.141.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.140.7...v1.141.0) (2026-08-02)
+
+
+### Bug Fixes
+
+* **design:** absorb PR [#710](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/710) review round — boundary, taxonomy, changelog ([bf8b4d6](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bf8b4d6279e7458f0c940324dc34740f8c6e3387))
+* **design:** adopt dataset writes in the theme runtime (Sonar S7761) ([cd12a41](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/cd12a417c16bba03f3765ab403e30073ac10b7b0)), closes [#710](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/710)
+* **tooling:** unset git hook env around turbo so worktree gates run ([05ed848](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/05ed8482c3e8b26cf067ed6bbb3852dac1f20aad))
+
+
+### Features
+
+* **design:** kit runtime as TS source with choice() and toolchain ([95bdfee](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/95bdfee3ab8f1931658781ecff9132c70b15c8c1))
+
+## [1.140.7](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.140.6...v1.140.7) (2026-08-02)
+
 ## [1.140.6](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.140.5...v1.140.6) (2026-08-02)
 
 ## [1.140.5](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.140.4...v1.140.5) (2026-08-01)

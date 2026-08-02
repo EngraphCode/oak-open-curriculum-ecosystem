@@ -39,10 +39,10 @@ export default {
           'bucket-c-analysis\\.ts',
           // Test files are standalone entry points (Vitest + Playwright)
           '\\.(test|spec)\\.(ts|js)$',
-          // Browser-loaded entry script of the design system (ADR-213):
-          // shipped via <script src>, imports nothing — an entry point, not
-          // dead code.
-          'packages/design/oak-design-system/oak-theme\\.js$',
+          // Browser-loaded entry script of the design system (ADR-213) and
+          // its TypeScript source: shipped via <script src>, imports
+          // nothing — an entry point, not dead code.
+          'packages/design/oak-design-system/(src/)?oak-theme\\.(ts|js)$',
           // Browser-served static copies under the MCP app's public/ —
           // `public/oak-ds/` (the design system, from copy-oak-ds.ts) and
           // `public/oak-assets/` (brand artwork). Generated, gitignored, and

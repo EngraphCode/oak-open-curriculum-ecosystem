@@ -12,18 +12,28 @@ merge_class: index-narrative-tables
 
 ## Current Continuation
 
-- **Owner pause boundary (2026-07-16): implementation is paused.** Do not resume debugging, run
-  another reviewer/model call, commit, or push until the owner explicitly resumes this lane.
-- Branch: `fix/claude-hook-hardening`, HEAD `SHA:b5d37665c`, exactly equal to its upstream at this
+- **LANE RETIRED at owner ruling (2026-08-02, card at the Director seat).** The experiment
+  is closed, loss-free: the research report is landed at its recorded home
+  (`.agent/research/developer-experience/codex-hook-context-bounded-non-interactive-exploration-2026-07-15.md`)
+  with the hand-labelled corpora beside it
+  (`.agent/research/developer-experience/codex-hook-review-corpora/` — calibration +
+  calibration-hard + three held-out difficulty tiers, the expensive-to-recreate assets).
+  Preservation PR #705 (which had superseded the closed #403 as the branch's safety
+  surface under the 2026-08-02 retention ruling) closes at that landing and the branch
+  `fix/claude-hook-hardening` deletes — commits stay reachable via the PR refs (#403,
+  #705). The negative results and the restart sequence below are preserved as HISTORY: any
+  future fast semantic pre-tool-review attempt starts from the landed report on a fresh
+  branch (post-embargo, a ticket may be minted pointing at the report; until 2026-08-10
+  08:00 London this record is the pointer).
+- Historical continuation state (pre-retirement, kept verbatim): Branch
+  `fix/claude-hook-hardening`, HEAD `SHA:b5d37665c`, exactly equal to its upstream at that
   snapshot (`ahead=0`, `behind=0`). **Superseded 2026-07-16 ~21:52Z (truing 2026-07-17): the
   owner-directed preservation pass committed the working-tree state as `SHA:c4fae0b83` on the same
-  branch, pushed, and opened draft PR #403 — the "uncommitted working-tree state" claims in this
-  snapshot describe the pre-preservation moment and are no longer the live durability state.
+  branch, pushed, and opened draft PR #403 — the "uncommitted working-tree state" claims in that
+  snapshot describe the pre-preservation moment.
   Outcome (2026-07-20): PR #403 was CLOSED UNMERGED at 07:50:30Z; the preserved state
-  remains durable on the pushed branch `fix/claude-hook-hardening` at `SHA:c4fae0b83`. A
-  resumed session starts from the fresh-branch step, not from re-adjudicating the closed
-  PR.** Discover its sibling worktree with `git worktree list`; do not
-  rely on a machine-local path from a handoff.
+  remained durable on the pushed branch at `SHA:c4fae0b83` until the 2026-08-02 extraction
+  above.**
 - Invocation pointer: read this record, then the
   [pair ARC](../../../../collaboration/rapid-comms/2026-07-16-codex-hook-experiment-lupin-herds-bark-and-zephyr-turns-crosswind.md),
   then re-read the feature and primary checkout statuses, live claims, commit queue, and recent
@@ -286,8 +296,10 @@ smallest official configuration proof:
 
 1. ~~Merge or otherwise disposition draft PR #403~~ DONE (2026-07-20): PR #403
    was CLOSED UNMERGED at 07:50:30Z with the state preserved on the pushed
-   branch `fix/claude-hook-hardening` at `SHA:c4fae0b83` — no PR disposition
-   remains; a resumed session starts directly at step 2.
+   branch `fix/claude-hook-hardening` at `SHA:c4fae0b83`. **DONE AGAIN, terminally
+   (2026-08-02): the lane is RETIRED at owner ruling; the report + corpora are landed
+   (see Current Continuation), preservation PR #705 closed, the branch deleted — a
+   future attempt starts directly at step 2, from the landed report.**
 2. Start a normal fresh branch from current `main`.
 3. Follow the official Codex hook configuration shape exactly and prove one deterministic
    `PreToolUse` command is listed by `/hooks` in a fresh trusted session.
