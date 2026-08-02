@@ -224,7 +224,7 @@ Field rules:
   URL is undecodable.
 - **Compose-order check**: `synthesis_ref`'s target must EXIST —
   verified resolvable (the PR comment posted and its id known, the
-  report path committed, the event id written) — BEFORE the close
+  report path committed) — BEFORE the close
   event is composed. A predicted or placeholder ref is a protocol
   violation, not a convenience; conserve-then-compose is part of the
   close sequence itself (worked instance: trial dialogue 2's close
