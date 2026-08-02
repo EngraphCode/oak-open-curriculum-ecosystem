@@ -1,9 +1,10 @@
 /**
  * The theme runtime's behaviour contract, proven on the SHIPPED FORM: each
- * test evaluates the emitted dist/oak-theme.js (smoke class —
- * testing-strategy.md §Smoke) inside a scope of per-test injected fakes, so
- * the artefact browsers actually load is what is proven, and no test touches
- * a real global (no-global-state-in-tests / ADR-078). The fakes model the
+ * test evaluates the emitted dist/oak-theme.js (integration class by
+ * behaviour shape — the system under test runs inside the test process
+ * against injected fakes, testing-strategy.md §Test Types), so the artefact
+ * browsers actually load is what is proven, and no test touches a real
+ * global (no-global-state-in-tests / ADR-078). The fakes model the
  * runtime's real collaborators: documentElement attributes, localStorage
  * (including the throwing private-mode shape), and matchMedia's
  * prefers-contrast query.

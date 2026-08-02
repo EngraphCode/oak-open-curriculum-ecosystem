@@ -424,15 +424,35 @@ export function createDesignBoundaryRules(designName: DesignPackage): Partial<Li
     }
     if (designName === 'oak-design-system') {
       // The neutral trunk imports NOTHING from the design tier (ADR-041's
-      // design row; ADR-213 §4 "zero runtime monorepo dependencies").
-      return createPackageSpecifierPatterns(
-        [
-          '@oaknational/design-tokens-core',
-          '@oaknational/oak-design-ink',
-          '@oaknational/oak-design-tokens',
-        ],
-        `Design workspace '${designName}' cannot depend on any design-tier sibling. The kit is the neutral trunk (ADR-213 §4): it imports nothing from the monorepo at runtime.`,
-      );
+      // design row; ADR-213 §4 "zero runtime monorepo dependencies") — and,
+      // unlike every other design workspace, nothing from core either: the
+      // shared design rules permit core packages, so the kit's zero-runtime
+      // contract needs its own explicit core restriction (both specifier and
+      // path forms; the path zone covers future core packages by construction).
+      return [
+        ...createPackageSpecifierPatterns(
+          [
+            '@oaknational/design-tokens-core',
+            '@oaknational/oak-design-ink',
+            '@oaknational/oak-design-tokens',
+          ],
+          `Design workspace '${designName}' cannot depend on any design-tier sibling. The kit is the neutral trunk (ADR-213 §4): it imports nothing from the monorepo at runtime.`,
+        ),
+        ...createPackageSpecifierPatterns(
+          [
+            '@oaknational/build-metadata',
+            '@oaknational/env',
+            '@oaknational/eslint-plugin-standards',
+            '@oaknational/graph-core',
+            '@oaknational/observability',
+            '@oaknational/openapi-zod-client-adapter',
+            '@oaknational/result',
+            '@oaknational/safe-path',
+            '@oaknational/type-helpers',
+          ],
+          `Design workspace '${designName}' cannot depend on core packages. The kit is the neutral trunk (ADR-213 §4): it imports nothing from the monorepo at runtime.`,
+        ),
+      ];
     }
     // Exhaustive: a new DesignPackage member without its branch must fail
     // loudly here, never lint as an empty (vacuously green) rule set.
@@ -493,6 +513,12 @@ export function createDesignBoundaryRules(designName: DesignPackage): Partial<Li
           target: './src/**' as const,
           from: '../oak-design-tokens/**' as const,
           message: createDesignRestrictionMessage('@oaknational/oak-design-tokens'),
+        },
+        {
+          target: './src/**' as const,
+          from: '../../core/**' as const,
+          message:
+            "Design workspace 'oak-design-system' cannot depend on core packages. The kit is the neutral trunk (ADR-213 §4): it imports nothing from the monorepo at runtime.",
         },
       ];
     }

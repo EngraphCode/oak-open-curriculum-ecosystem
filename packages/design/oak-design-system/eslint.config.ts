@@ -65,14 +65,14 @@ const config = defineConfigArray(
     settings: createImportResolverSettings({ project: wsTsProject }),
     rules: { ...testRules },
   },
-  // Smoke suites prove the SHIPPED artefact (testing-strategy.md §Smoke:
-  // "Smoke tests CAN trigger all IO types") — reading the emitted and
-  // committed runtime off disk is constitutive of the category, so the
-  // hermetic-test IO restriction does not apply here (the estate precedent
-  // is apps/oak-search-cli's smoke block). Value composition on top of the
+  // These integration suites' system under test IS the emitted
+  // dist/oak-theme.js on disk — reading it (and the committed root copy)
+  // is constitutive of what they prove; a no-IO seam would test the
+  // source instead of the shipped bytes. The hermetic-test IO restriction
+  // therefore does not apply to them. Value composition on top of the
   // testRules block above — never replacement.
   {
-    files: ['**/*.smoke.test.ts'],
+    files: ['**/*.integration.test.ts'],
     rules: {
       '@oaknational/no-real-io-in-tests': 'off',
       // The storage fakes must model the REAL browser API's failure shape —

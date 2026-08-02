@@ -10,16 +10,17 @@ import { baseTestConfig } from '../../../vitest.config.base';
  * the mandatory e2e exclusion are inherited unchanged.
  *
  * Category note (testing-strategy.md §Test Types): this workspace's suites
- * are SMOKE-class — they read the emitted dist/oak-theme.js off disk and
- * exercise the shipped form (invoked exactly as a browser would, with
- * per-test injected fakes), or assert byte parity between the emitted and
- * committed copies. They are named *.smoke.test.ts; the include below is
- * scoped to exactly that category so the taxonomy's one-category-per-config
- * rule holds.
+ * are INTEGRATION-class by behaviour shape — the system under test (the
+ * emitted dist/oak-theme.js) is evaluated inside the test process against
+ * injected fakes, or compared byte-for-byte with the committed copy. They
+ * are not smoke tests: smoke invokes the artefact exactly as production
+ * does, with no fakes and no feature assertions. They are named
+ * *.integration.test.ts; the include below is scoped to exactly that
+ * category so the taxonomy's one-category-per-config rule holds.
  */
 export default mergeConfig(baseTestConfig, {
   test: {
     environment: 'happy-dom',
-    include: ['src/**/*.smoke.test.ts'],
+    include: ['src/**/*.integration.test.ts'],
   },
 });

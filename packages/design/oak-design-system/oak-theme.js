@@ -2,7 +2,7 @@
 /* oak-theme.js — tiny theme switcher for the Oak design system.
    GENERATED from src/oak-theme.ts (tsc type-erasure only; comments survive).
    Edit the source, then run the workspace build and sync:runtime scripts —
-   the committed root copy is byte-parity-gated by the smoke suite.
+   the committed root copy is byte-parity-gated by the workspace test suite.
    Themes: "light" (default) | "dark" | "system" | "high-contrast" | "colour-safe".
    Persists to localStorage("oak-theme"); applies before first paint when
    loaded synchronously in <head> as a script element with src "oak-theme.js".
