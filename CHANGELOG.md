@@ -1,3 +1,5 @@
+## [1.142.6](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.142.5...v1.142.6) (2026-08-02)
+
 ## [1.142.5](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.142.4...v1.142.5) (2026-08-02)
 
 ## [1.142.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.142.3...v1.142.4) (2026-08-02)
