@@ -47,7 +47,10 @@
   the Cursor `surface:*` loader realisation); NEXT the four proven
   graduations (no-skipped-tests, no-type-shortcuts,
   unknown-is-type-destruction, no-machine-local-paths — each lands
-  with its verified mechanism named), then loader config for
+  with its verified mechanism named and executes as an authority
+  transition per the task-15 integration: reader census, per-reader
+  disposition, closure evidence, fourth-specimen watch — see the
+  working record's ~19:55Z entry), then loader config for
   `surface:*`/`tool:*` instances — the R2 mint's loader-config
   disposition rides there; (2) WS6 landing legs incl. the three cross-family
   routing edges (reason stop-gate commissioning seam,
@@ -55,8 +58,11 @@
   depth-mode escalation — never before summonability); (3) R4 scoped
   pass; (4) three-corpora description backfill + union collision
   matrix with the evals pilot; (5) governed-forgetting integration
-  (null-test verdict EXTEND absorbed — one
-  status-dependent-operative-prose class, gated at recurrence). DONE
+  DONE 2026-08-02 (task 15: reports + null experiment read in full;
+  EXTEND verdict gated at the owner's recurrence card; graduations
+  execute as authority transitions; evals pilot inherits the P4
+  baseline discipline; HB-02 dispositioning live in Charcoal's
+  ADR-186 lane — full record in the working record's ~19:55Z entry). DONE
   2026-08-02: **R2 LANDED** —
   `.agent/rules/capability-landing-decision-procedure.md` (four
   forms + index row) with `.agent/skills/README.md` carrying the

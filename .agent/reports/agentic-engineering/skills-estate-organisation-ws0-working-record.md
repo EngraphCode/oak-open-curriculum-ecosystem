@@ -1017,3 +1017,58 @@ already externally checked.
   Applied by script with refuse-on-missing gates. Landing shape per
   the ratified sequencing: non-contested 21 first, the contested 7
   as their own follow-up commit in the same window.
+### 2026-08-02 ~19:55Z — TASK 15 INTEGRATED: governed-forgetting + authority-transition reports absorbed into the enactment stream
+
+Owner-worded task (post-compaction directive, second opening move).
+Sources read in full first-hand from main: the governed-forgetting
+synthesis (1,856 lines), the capability-proposals companion (889
+lines), and the specimen null experiment (verdict EXTEND, don't
+build). Integration points, each verified first-hand before
+recording:
+
+1. **The isolated facet is already landed — nothing double-lands.**
+   The null experiment isolated one missing capability class
+   (status-dependent operative prose joined against status
+   assertions). Its landing-check form is live in
+   `capability-landing-decision-procedure.md` L106-110
+   (Status-independence check). Verified this sitting.
+2. **The four graduations execute as authority transitions.** The
+   reports' discipline maps onto reclassification step 3 directly:
+   the ratified table is the authorised transition; execution runs a
+   full inbound-reader census (prose-mention vs live link
+   distinguished), a per-reader disposition from the bounded
+   vocabulary (retain as independently supported / recompute / amend
+   / retire), a terminal-state-as-behavioural-invariant check (the
+   `.agent/hooks/policy.json` citation re-point for
+   no-machine-local-paths is a residual-live-reader cure, the same
+   class as HB-01's cured PDR-078 prose), closure evidence from
+   validate-markdown-links plus reference-direction, and a
+   repository-boundary-only closure claim.
+3. **Fourth-specimen recognition duty.** The EXTEND verdict is gated
+   at the owner's recurrence card: a fourth
+   terminal-decision-with-live-readers specimen in a materially
+   different artefact family, appearing after the #722 cures. The
+   graduation and backfill sweeps are this lane's most likely
+   encounter surfaces; any find routes to the Director with the gate
+   named, never self-built.
+4. **The evals pilot inherits the P4 baseline discipline.** The
+   commissioned pilot's scope-and-plan (owner-gated, before any
+   build) will carry: baselines that can win (current-practice and
+   task-local-paragraph arms), red-mutation fixture calibration,
+   named kill conditions, and decision-yield-over-ceremony grading.
+5. **HB-02 is being dispositioned by a live peer lane.** ADR-186
+   (comms-event heartbeat lifecycle substrate; PDR-078 its named
+   portable genotype) is in flight at Charcoal seeks Tongs on
+   `jimcresswell/adr-186-heartbeat-lifecycle-migration`. Verified
+   against ADR-186's own text; noted on the mutual-lanes ARC channel.
+   Not this lane's surface.
+
+Alignment notes (no action): the index's loader contract ("a
+situational rule with no functioning recognition path is a deleted
+rule") is corroborated by PDR-098's fire-environmentally finding via
+the companion's A20 register entry; and the core/situational index
+surface is an instance of the reports' Principle 3 pattern
+(eligibility structural, not interpretive — the per-user-memory
+precedent both reports cite). Cures verified on main this sitting:
+PDR-078's substrate-category section now reads clause 2 as retired
+with heartbeats emitting on cadence regardless.
