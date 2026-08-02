@@ -19,36 +19,41 @@ export function assertToolContract(tools) {
 }
 
 function assertCodexShape(codexTool) {
-  if (!(codexTool.inputSchema?.required ?? []).includes('prompt')) {
-    throw new Error('tool contract: codex input schema no longer requires prompt');
-  }
-  const outputRequired = codexTool.outputSchema?.required ?? [];
-  for (const name of ['threadId', 'content']) {
-    if (codexTool.outputSchema?.properties?.[name] === undefined || !outputRequired.includes(name)) {
-      throw new Error(`tool contract: codex output schema no longer requires ${name}`);
-    }
+  // Exact sets throughout (the record describes the exact schema, so
+  // presence-only checks admit silent additions — the class killed in
+  // one sweep: input required, output properties, output required).
+  assertExactSet(codexTool.inputSchema?.required, ['prompt'], 'codex input required');
+  assertExactSet(
+    Object.keys(codexTool.outputSchema?.properties ?? {}),
+    ['content', 'threadId'],
+    'codex output properties',
+  );
+  assertExactSet(codexTool.outputSchema?.required, ['content', 'threadId'], 'codex output required');
+}
+
+function assertExactSet(actual, recorded, label) {
+  const actualSorted = [...(actual ?? [])].sort();
+  const recordedSorted = [...recorded].sort();
+  if (JSON.stringify(actualSorted) !== JSON.stringify(recordedSorted)) {
+    throw new Error(
+      `tool contract: ${label} is ${JSON.stringify(actualSorted)}, record says exactly ` +
+        `${JSON.stringify(recordedSorted)}`,
+    );
   }
 }
 
 function assertReplyShape(replyTool) {
   // Complete key set, same discipline as the codex tool: an added
   // reply property is an unclassified per-call control and must fail a
-  // re-probe rather than ride along unrecorded.
-  const recordedReplyPropertySet = ['conversationId', 'prompt', 'threadId'];
-  const actualReplyPropertySet = Object.keys(replyTool.inputSchema?.properties ?? {}).sort();
-  if (JSON.stringify(actualReplyPropertySet) !== JSON.stringify(recordedReplyPropertySet)) {
-    throw new Error(
-      `tool contract: codex-reply input property set is ${JSON.stringify(actualReplyPropertySet)}, ` +
-        `record says exactly ${JSON.stringify(recordedReplyPropertySet)}`,
-    );
-  }
-  const required = [...(replyTool.inputSchema?.required ?? [])].sort();
-  if (JSON.stringify(required) !== JSON.stringify(['prompt'])) {
-    throw new Error(
-      `tool contract: codex-reply required set is ${JSON.stringify(required)}, record says ` +
-        'exactly ["prompt"] (threadId stays optional for back-compatibility)',
-    );
-  }
+  // re-probe rather than ride along unrecorded. threadId stays
+  // schema-optional for back-compatibility, so required is exactly
+  // ["prompt"].
+  assertExactSet(
+    Object.keys(replyTool.inputSchema?.properties ?? {}),
+    ['conversationId', 'prompt', 'threadId'],
+    'codex-reply input properties',
+  );
+  assertExactSet(replyTool.inputSchema?.required, ['prompt'], 'codex-reply input required');
 }
 
 /**
