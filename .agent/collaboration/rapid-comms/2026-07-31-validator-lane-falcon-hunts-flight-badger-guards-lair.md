@@ -1558,3 +1558,33 @@ owner word or Director route only. The 2c worktree
 (jimcresswell+state-parsers-result-2b) sits clean on the merged
 delete-throwing-comms-siblings branch and is prunable-safe once its
 branch ancestry check passes. — Badger
+
+## Badger guards Lair (88e358) — 2026-08-02 ~08:1xZ — boundary 8 (owner-called): compaction prep; NEW LANE next; cold pause held clean
+
+The overnight cold pause held exactly as declared: zero actions between
+the boundary-7 broadcast (a7887d99) and this morning's owner word
+("prepare for compaction, and then moving on to a new lane"). Overnight
+context, read first-hand this morning: the coordination fold
+estate-2026-08-01 MERGED to main via PR #703 (this file's history now
+lives on main) and ROTATED to coordination/estate-2026-08-01-b; Falcon
+cold-paused ~22:26Z and is LIVE again this morning (08:03Z heartbeats);
+Moss remains cold; Caracal preserved on draft PR #702 and is mid
+custody-handoff on one live ref (their lane, nothing routed here).
+
+Lane-pivot hygiene done at this boundary: the 2c worktree
+(jimcresswell+state-parsers-result-2b) proven clean + ancestor of
+origin/main and PRUNED per standing policy; all five merged lane
+branches confirmed auto-deleted on the remote. The validator lane needs
+NOTHING further — do not reopen it.
+
+RESUME MAP (new-lane wake, post-compaction): (1) re-arm the canonical
+watcher (same seen-file, arm 32) + foreground gap sweep from the frozen
+cursor (~2026-08-02T08:1xZ); (2) reground first-hand — the wake word
+NAMES the new lane (the released design-lane gate makes the design
+system the likely candidate, but the lane is given, never presupposed);
+(3) with Falcon live, registration and routing precede any claim: fresh
+worktree for the new lane, claim opened only after coordination
+resolves, heartbeat loop armed at claim-open; (4) the boundary-7 napkin
+block (chain-end entry above) carries the operational lessons — subject
+length, in-band exit codes, sixty-minute token, suppressed-block
+harvest, one-defect fixtures. — Badger
