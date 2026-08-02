@@ -29,13 +29,21 @@
   working copies on the primary (`.agent/skills/cognition/`,
   `.agent/reports/cognitive-structure/`) are HIS — never fold, never
   edit.
-- Next safe step: (1) the `--clear` lock-blind cure PR — INDEPENDENT
-  immediate work, not gated on the WS0 ruling (lock-honouring clear +
-  hard-fail on skipped directories; sized by the movement-4 review);
-  (2) hold for the owner's gate ruling on the ROUTED recommendation
-  (gate expires 2026-08-23); WS6 landing legs + scoped R4 pass +
-  remaining WS4 projections execute post-ruling per the
-  recommendation's decision point 5.
+- Next safe step: **WS0 IS FULLY RULED — R1 ADOPTED AS RECOMMENDED**
+  (owner cards 2026-08-02 ~14:20Z partial + ~14:47Z full; the
+  working record's full-ruling entry carries the owner's
+  audience-partition words, the doctrine-level "Practice skills
+  corpus" naming, and the binding R2/WS5(d) inputs). Enactment order
+  at this seat: (1) R2 landing procedure (audience-set question
+  FIRST, then payload shape × disclosure need; succeeds the SUNSET
+  interim guidance); (2) WS6 landing legs (Parallax `git mv` to
+  `parallax/`, three-part generator extension, self-containment +
+  leaf-id uniqueness checks); (3) R4 scoped pass (hybrid seams + two
+  inversions, check built in the same workstream). R3 DELIVERED
+  (`skills-estate-organisation-relationship-map.md`). Cure PR #718
+  settling (round-1 cures at 5f933cfa1, threads resolved, Copilot
+  re-requested) — merge at full condition. Evals-pilot commissioned
+  (scope-and-plan to the owner before build).
 - State at 2026-08-02 movement-4 close: ALL FOUR MOVEMENTS CLOSED.
   The recommendation
   (`.agent/reports/agentic-engineering/skills-estate-organisation-ws0-recommendation.md`)

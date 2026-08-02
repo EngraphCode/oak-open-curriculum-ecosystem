@@ -877,3 +877,37 @@ already externally checked.
   residual window named in the PR body). (3) R2 authoring next
   (individual-or-family leg carries the R1-HELD marker, deferring to
   the in-force interim guidance); then the R4 scoped pass.
+- 2026-08-02 ~14:47Z — **WS0 FULLY RULED: R1 ADOPTED AS RECOMMENDED**
+  at owner card (Director event ~14:47Z), closing the gate with the
+  whole recommendation adopted. The owner's discussion produced
+  binding clarifications, recorded here at occurrence:
+  1. **Audience partition (owner words)**: `.agent/skills` is THE
+     PRACTICE SKILLS corpus — "about creating the repo and its
+     contents and mechanisms, and enabling future mechanisms, not
+     about pedagogy or Oak content." Curriculum/teacher skills are a
+     separate domain+audience+delivery (first version:
+     `.claude-plugin/marketplace.json`); further audience sets land
+     deliberately. **Naming lands in DOCTRINE, not the path**: the
+     corpus README + derived index say "the Practice skills corpus";
+     the path stays `.agent/skills`.
+  2. **R1 enactment unblocked**: no category tier; flat + family
+     bundles; Parallax relocates `cognition/parallax/` → `parallax/`
+     (git mv, owner content untouched) at the WS6 landing leg;
+     generator family support + hard-fail + leaf-id uniqueness as
+     scoped; re-open conditions stand recorded.
+  3. **R5.2 FIRED**: the interim landing guidance SUNSET at this
+     ruling (its named condition); R2 succeeds it once authored.
+  4. **R2 inputs from the discussion**: the FIRST landing question is
+     now the audience set, before payload shape × disclosure need;
+     preamble candidate — the Practice mechanisms as one
+     disclosure-and-hardness gradient (always-loaded
+     directives/rules → trigger-loaded rules → summoned skills →
+     dispatched subagents → zero-context hooks/validators), where R2
+     places capability and the metabolism moves it.
+  5. **WS5(d) input**: a one-line audience-set registry (audience,
+     home, delivery mechanism per set; ADR-189 applied inbound).
+  Enactment sequencing at this seat: R2 authoring → WS6 landing legs
+  → R4 scoped pass; #718 (the independent cure) settling in parallel
+  (round-1 Copilot findings — all three verified real, 8-of-8 for
+  the suppressed-block record — cured at 5f933cfa1, threads
+  resolved, Copilot re-requested).
