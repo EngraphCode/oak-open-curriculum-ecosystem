@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { uuidV5Schema } from '../src/collaboration-state/agent-id';
+import { uuidV5Schema, type CollaborationAgentIdWrite } from '../src/collaboration-state/agent-id';
 
 import {
   completeCommitIntent,
@@ -12,14 +12,13 @@ import {
   getFreshEntriesAhead,
   guardStageFiles,
   type CommitIntent,
-  type CommitQueueAgentId,
   type CommitQueueClaim,
   type CommitQueueClaimAgentId,
   type CommitQueueRegistry,
   verifyStagedBundle,
 } from '../src/commit-queue';
 
-const agentId: CommitQueueAgentId = {
+const agentId: CollaborationAgentIdWrite = {
   agent_name: 'Prismatic Waxing Constellation',
   platform: 'codex',
   model: 'gpt-5.5',
@@ -306,7 +305,7 @@ describe('guardStageFiles', () => {
   });
 
   it('accepts an intent and claim whose display tuple drifted when the routing id matches', () => {
-    const driftedTuple: CommitQueueAgentId = {
+    const driftedTuple: CollaborationAgentIdWrite = {
       agent_name: 'Prismatic Waxing Constellation (renamed)',
       platform: 'codex',
       model: 'gpt-5.6',
@@ -330,7 +329,7 @@ describe('guardStageFiles', () => {
   });
 
   it('rejects an intent whose identity matches every display field but carries a different routing id', () => {
-    const prefixCollider: CommitQueueAgentId = {
+    const prefixCollider: CollaborationAgentIdWrite = {
       ...agentId,
       id: uuidV5Schema.parse('0a105546-2c71-5107-ae67-e04a133bd2ba'),
     };
@@ -389,7 +388,7 @@ describe('guardStageFiles', () => {
   });
 
   it('rejects a claim whose identity matches every display field but carries a different routing id', () => {
-    const prefixCollider: CommitQueueAgentId = {
+    const prefixCollider: CollaborationAgentIdWrite = {
       ...agentId,
       id: uuidV5Schema.parse('0a105546-2c71-5107-ae67-e04a133bd2ba'),
     };

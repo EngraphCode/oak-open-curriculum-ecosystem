@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { computeReviewerLegs, mostBlockingLeg } from './reviewer-legs.js';
+import { computeReviewerLegs, isSignedSelfReply, mostBlockingLeg } from './reviewer-legs.js';
 import type { HarvestedReview } from './reviewer-legs.js';
 
 /**
@@ -273,5 +273,43 @@ describe('computeReviewerLegs — explicit non-quota skip markers (r5 regression
     });
     expect(legs[0]?.state).toBe('SATISFIED');
     expect(legs[1]?.state).toBe('SKIPPED');
+  });
+});
+
+// The signature's canonical parenthesised field is the BARE session_id_prefix
+// (the join key, pr-lifecycle SKILL); the detector additionally tolerates the
+// MCP-145 visual-disambiguator token because a seat may paste its rendered
+// identity. The asymmetry drives every row below: a false POSITIVE silently
+// excludes a real reviewer at all three consumers (quiet-window anchoring,
+// body-tally evidence, and the defaulted expected-reviewer set — the
+// load-bearing one), so the prefix arm stays exactly six lowercase hex —
+// the ratified rows with
+// non-hex, uppercase, or hyphen-bearing prefixes are DELIBERATE non-matches
+// (their cost is only a bounded wait via the timeout arm).
+describe('isSignedSelfReply', () => {
+  it('accepts the canonical bare-prefix signature', () => {
+    expect(isSignedSelfReply('Fixed at source.\n\n— Moth mends Dreamscape (92e9d6)')).toBe(true);
+  });
+
+  it('accepts a token-form signature (prefix-idTail pasted from a rendered surface)', () => {
+    expect(isSignedSelfReply('Fixed at source.\n\n— Moth mends Dreamscape (92e9d6-9c1)')).toBe(
+      true,
+    );
+  });
+
+  it('accepts an uppercase id tail in a token signature (ratified 22e835-DDA row)', () => {
+    expect(isSignedSelfReply('Cured.\n\n— Uplifted Wheeling Sky (22e835-DDA)')).toBe(true);
+  });
+
+  it('rejects lookalike last lines in the safe direction', () => {
+    // Non-hex prefix (ratified antigr row), uppercase prefix (ratified 22E835
+    // row), hyphen-bearing override prefix, human prose, and a signature line
+    // without the em-dash opener — none may read as a self-reply, because a
+    // false positive drops a real review from the round.
+    expect(isSignedSelfReply('— Antigravity seat (antigr-33e)')).toBe(false);
+    expect(isSignedSelfReply('— Loud Seat (22E835-675)')).toBe(false);
+    expect(isSignedSelfReply('— Operator seat (override-prefix-265)')).toBe(false);
+    expect(isSignedSelfReply('— see the note above (line 42)')).toBe(false);
+    expect(isSignedSelfReply('Moth mends Dreamscape (92e9d6)')).toBe(false);
   });
 });

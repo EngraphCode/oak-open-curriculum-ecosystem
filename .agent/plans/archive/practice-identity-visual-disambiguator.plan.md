@@ -3,7 +3,7 @@ id: practice-identity-visual-disambiguator
 node_type: delivery
 name: "Identity visual disambiguator: prefix-anchored display token beside the session-id prefix"
 overview: "Render a derived visual-disambiguator token on identity display surfaces so seats started in the same UUIDv7 time window stay human-distinguishable, without changing the session-search prefix, its cross-estate join-key role, the derived-uuid anchor, or any stored schema."
-status: ratified
+status: archived
 ratified_by: "Jim Cresswell"
 ratified_date: 2026-07-31
 ratified_where: "Owner in-session word to the Director seat (Falcon hunts Flight, 52841f), 2026-07-31: the prefix work routed to Moss calls Loam 'if the conclusion is that work is required'; the conclusion was confirmed the same day by a fable-xhigh assumptions review plus the Director's critical assessment. The plan's mint-at-pickup ticket clause is waived by the owner's 2026-07-31 no-new-Linear-tickets ruling; the existing MCP-145 ticket stands."
@@ -13,10 +13,25 @@ impact_areas:
 tickets: [MCP-145]
 depends_on: []
 owner_gates: []
-last_updated: 2026-07-31
+last_updated: 2026-08-01
 ---
 
 # Identity visual disambiguator
+
+## Disposition (archived 2026-08-01)
+
+Definition of done fully discharged. Slice 1 (the total
+`visualDisambiguator` derivation with its fixture matrix), slices
+2a–2d (the renderer inventory closed by the Revision-4 shape rule,
+with the statusline as a DELIBERATE hold-out), and slice 3 (the
+PDR-027/PDR-125 doctrine amendments, the PDR-029 audit-coverage
+true-up, the practice-core CHANGELOG entry, ADR-211 mirror, token
+docs, and the anchored drift test) are all merged — PRs #677, #679,
+#682, #687, #690, #694. Every acceptance criterion is proven at its declared
+proof type; schema byte-identity (acceptance 4) is proven by the
+merged diffs. The two residual cures the lane's reviews surfaced are
+carried by the ratified `practice-identity-follow-on-cures` plan
+(WS-A / WS-B), whose WS-B PR carries this archive flip.
 
 Owner-directed 2026-07-24 (working session with Deimos tracks Perigee,
 73e4ab): "we are going to need this enhancement in OCE", and, on its
@@ -49,6 +64,30 @@ standing from today's rulings: the honest-probabilistic goal wording,
 the §Warrant arithmetic and its scope paragraph, the PDR-125 join-key
 retention, and the PDR-125 display-clause amendment with its twin
 disposition.
+
+Revision 4 (2026-08-01): **single-identity hold-out, review-driven** —
+the slice-2d pre-execution review refuted statusline adoption: the
+statusline renders exactly ONE identity, so the disambiguator has
+nothing to separate there, and the statusline is the operator's paste
+source for the join key — the value shown must BE the join key. The
+Mechanism-5 inventory and acceptance 3 now bind by the SHAPE RULE: the
+token adopts where two or more identity blocks share one rendered
+view; single-identity views render the bare join key; keying sites
+never adopt (the token is never a key). The statusline is the sole
+hold-out, recorded in TSDoc at both statusline sites
+(`statusline-segments`, `statusline-indicators`); slice 3 codifies the
+shape rule as the PDR-125 clause-5 general form. Slice 3 also decides
+whether an agent-AUTHORED heartbeat subject line (`<name>
+(<session_id_prefix>)` per PDR-078 and the liveness rule) counts as a
+"rendered identity surface" under the amended clause — else the next
+sweep re-opens those two doc sites.
+
+Revision 5 (2026-08-01): **slice-3 execution plan, decision-complete
+at owner word** — §"Slice 3 execution" below carries the sliced work,
+a disposition for every finding the slice-2 reviews routed here, an
+explicit definition of done, and the PDR-132 round budget. The open
+questions Revision 4 deferred are decided in that section; none
+remain.
 
 **Evidence enrichment (2026-07-31, multi-perspective review — two
 independent Opus lenses converged on this plan's design over six
@@ -180,10 +219,13 @@ give.
    comms watch render, claims registry render, shared-comms-log
    render, `cli-comms-query` summaries, `comms-event-format`,
    `commit-queue/guard` output, `active-agent-routing`/`formatAgent`
-   (feeds TUI comms and queue views), `tui/snapshot`, and the Claude
-   statusline (`statusline-indicators`). Each adopts the derivation
-   function; a repo-wide sweep for `session_id_prefix` render sites
-   closes the set; any renderer found by the sweep joins the
+   (feeds TUI comms and queue views), and `tui/snapshot`. Each adopts
+   the derivation function. The Claude statusline
+   (`statusline-indicators`) is the Revision-4 hold-out: a
+   single-identity view rendering the bare join key. A repo-wide
+   sweep for `session_id_prefix` render sites closes the set by the
+   Revision-4 shape rule (two-plus identity blocks in one rendered
+   view); any multi-identity renderer found by the sweep joins the
    inventory and its test.
 6. **Documentation slice**: PDR-027 amendment (the derivation, the
    role doctrine, this warrant), the PDR-125 display-clause amendment
@@ -212,11 +254,24 @@ give.
    token) and a block whose `session_id_prefix` or `id` is replaced
    renders the token of its FINAL fields with no intermediate state —
    `repo-safe`: unit tests including a prefix-override fixture.
-3. Every renderer in the §Mechanism-5 inventory displays the token
-   for id-bearing blocks and the bare prefix for id-less blocks, and
-   a repo-wide sweep recorded in the landing PR shows no render site
-   outside the inventory — `repo-safe`: render unit tests per surface
-   plus the sweep evidence.
+3. Every multi-identity renderer in the §Mechanism-5 inventory (all
+   but the Revision-4 statusline hold-out) displays the token for
+   id-bearing blocks and the bare prefix for id-less blocks, and a
+   repo-wide sweep recorded in the landing PR shows no multi-identity
+   render site outside the inventory — `repo-safe`: render unit tests
+   per surface plus the sweep evidence. Re-cited 2026-08-01 against
+   the amended PDR-125 clause-5 shape rule: the per-surface render
+   tests and sweep stand, and one inventory member binds differently
+   BY DESIGN — the routing-key label (`formatRoutingKey`, the TUI
+   active-agents surface and routing-key diagnostics) is id-shaped,
+   rendering `name / id:<id>` with no prefix field; token adoption
+   there would be a field change, out of scope; the claims CLI
+   listings serialise full identity blocks, prefix included — so
+   this criterion binds the prefix-rendering members of the
+   inventory. The commit-queue guard IS a prefix-rendering member: it
+   renders identity only through the shared `formatAgent` helper and
+   inherits the token with no per-site decision (PR #674 id-routed
+   its OWNERSHIP comparison, not its rendering).
 4. Nothing stored changed: the state schemas, Zod schemas, wire
    schema, and all persisted fixtures are byte-identical before and
    after the landing PRs, and the full existing validator suite
@@ -227,10 +282,22 @@ give.
    its `their-lane-owns-coordinate` twin disposition in the amendment
    text — `repo-safe`: existing PDR-125 wire conformance tests re-run
    and cited, plus the amendment diff showing the join-key clause
-   untouched.
+   untouched. Discharged in the doctrine-slice PR (2026-08-01): the
+   amendment leaves the join-key sentence and
+   `.agent/practice-core/protocol.json` untouched (`protocol_version`
+   1.0.0, `tier_floor` tier-1), the Status-block note carries the
+   twin disposition, and the wire-conformance suites
+   (`agent-tools/tests/protocol-wire/wire.unit.test.ts`,
+   `agent-tools/tests/collaboration-state/session-id-prefix-across-host-identity-hooks.unit.test.ts`)
+   are re-run and cited in that PR.
 6. Canonical identity docs match the live derivation output —
    `repo-safe`: the generated-example drift test authored in the
-   documentation slice, cited in the landing PR.
+   documentation slice, cited in the landing PR. Discharged
+   2026-08-01: the drift test
+   (`agent-tools/tests/collaboration-state/visual-disambiguator-docs-drift.unit.test.ts`)
+   rebuilds the documented example block from the live renderer,
+   proven red-first against the pre-section docs, and fails CI on any
+   drift.
 
 ## Todos (ordered; each a single-story PR, default round budget)
 
@@ -263,3 +330,88 @@ give.
   plan adds a display derivation only.
 - **Versioning machinery** — no `naming_schema_version` change, no
   state-schema `schema_version` change, no new block-version field.
+
+## Slice 3 execution (decision-complete, 2026-08-01)
+
+One single-story documentation-and-doctrine PR. Round budget
+(PDR-132): one review round expected, two budgeted; a third round
+opening is the stop-and-reslice signal.
+
+### Decisions, made here — none remain open
+
+1. **PDR-125 clause 5 rewrites to the shape rule in its general
+   form**, never a re-enumeration: the token adopts where two or more
+   identity blocks share one rendered view; single-identity views
+   render the bare join key; keying sites never adopt (the token is
+   never a join, lookup, or parse key). The statusline hold-out
+   (Revision 4) is the rule's worked single-identity example; the
+   twin disposition stays `their-lane-owns-coordinate` (clause 6
+   vocabulary).
+2. **Heartbeat subject lines are disposed by the shape rule itself —
+   no new category.** A heartbeat subject renders exactly ONE
+   identity, so it is a single-identity view and keeps the bare join
+   key by the same reasoning as the statusline hold-out. The
+   amendment cites PDR-078's own words (the subject-line rendering as
+   "the chat-readable short form") and reconciles them with the
+   clause so the two portable PDRs classify the object identically
+   and no future sweep re-opens the liveness rule or the team-start
+   SKILL formats.
+3. **The authored-surface identity-row obligation is doctrinal, not
+   parsed — and it covers BOTH routed rules.** Hand-authored
+   `session_id_prefix` cells carry the bare wire prefix, never the
+   display token; the PDR-027 amendment states the obligation for
+   thread-record rows AND for the Notion edit-ledger row format
+   (`notion-page-edits-update-ledger` — the second rule the slice-2
+   routing note named; a ledger row is agent-authored, so it takes
+   the authored-surface obligation, not renderer adoption). No parser
+   change ships: the token is non-injective over a schema-unbounded
+   prefix, so no decoder or detector over a cell can be correct (the
+   slice-2b refutation applies verbatim). The audit stays blind to a
+   pasted token by design; the stated obligation plus review is the
+   guard.
+4. **PDR-029's stale audit-coverage clause trues to the shipped
+   instrument.** The clause's Layer-3 coverage list still names
+   "shared communication logs"; the shipped audit reads thread
+   records, active claims, closed claims, and the comms EVENT stream
+   — the rendered log was retired as an audit source in slice 2b
+   (a generated read model has no historical snapshot). The amendment
+   replaces the stale term with the event stream; conserved copies of
+   superseded plans stay byte-frozen wherever they live.
+
+### Work items (one PR)
+
+- PDR-027 amendment: the render-time derivation
+  (`visualDisambiguator`/`displayPrefix`), the field-role doctrine
+  (display-only; never persisted; never a key), the canonical token
+  name ("visual-disambiguator token" — the operator help's doctrine
+  anchor), the thread-record bare-prefix obligation, and the warrant
+  pointer.
+- PDR-125 clause-5 amendment per decisions 1–2.
+- PDR-029 audit-coverage true-up per decision 4.
+- `agent-tools/docs/agent-identity.md` and the README examples show
+  the token with the id-less fallback and the display-only warning.
+- Generated-example drift test: the docs' rendered example is
+  produced by the live renderer inside a unit test, so doc drift
+  fails CI.
+- The statusline-render test comment gains the hold-out carve-out in
+  the same PR (it currently cites clause 5's old enumeration as its
+  authority).
+- The practice-core CHANGELOG gains one entry for the three PDR
+  amendments (the file travels with the Practice Core package; every
+  prior amendment carries one, and nothing mechanical enforces it).
+
+### Definition of done
+
+All four decisions visible in merged doctrine text; both PDR
+amendments, the PDR-029 true-up, and the practice-core CHANGELOG
+entry merged; docs examples drift-tested green (`repo-safe`); the
+statusline-render test comment cites the shape rule; acceptance
+criteria 3 and 6 re-cite their proofs against the amended clause —
+recording explicitly that the claims-registry render is id-shaped by
+design (`formatRoutingKey` carries no prefix field; token adoption
+there would be a field change, out of scope), so acceptance 3 binds
+the prefix-rendering members of the inventory; the PR merged at full
+condition (all required checks green per the rulesets API at merge
+time, zero unresolved threads, MERGEABLE, bot REST merge-commit);
+zero new lint findings. The plan then completes and archives per the
+estate's completion contract.

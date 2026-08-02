@@ -137,7 +137,7 @@ Per PDR-027 and
 | `agent_name` | Persistent descriptive name for this agent on this thread (owner-assigned or descriptive default). Carries across sessions. |
 | `platform` | `claude-code`, `cursor`, `codex`, `gemini`, etc. |
 | `model` | Canonical model id (e.g. `claude-opus-4-7-1m`). |
-| `session_id_prefix` | First 6 characters of the harness session ID; `unknown` if not exposed. |
+| `session_id_prefix` | First 6 characters of the harness session ID; `unknown` if not exposed. Authored cells carry this bare wire value, never the rendered visual-disambiguator token (`<prefix>-<last 3 of id>`) — a pasted token silently mis-binds the field (PDR-027, 2026-08-01 amendment). |
 | `role` | Free-form short label (`drafter`, `executor`, `reviewer`, `initiator`, …). |
 | `first_session` | Date identity first touched the thread (YYYY-MM-DD). |
 | `last_session` | Date identity most recently touched the thread (YYYY-MM-DD). |

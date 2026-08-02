@@ -402,6 +402,28 @@ describe('computePrVerdict — quiet window and settlement (SKILL item 4)', () =
     expect(verdict.state).toBe('SETTLE-READY');
   });
 
+  it('a token-signed self-reply never re-opens the quiet window either', () => {
+    // Same anchoring exclusion, signature carrying the MCP-145 display token
+    // (prefix-idTail) instead of the bare prefix — a seat pasting its rendered
+    // identity must not turn its own disposition reply into a round anchor.
+    const verdict = computePrVerdict(
+      settledReading({
+        reviews: [
+          ...settledReading().reviews,
+          {
+            author: 'jimCresswell',
+            state: 'COMMENTED',
+            body: 'Fixed at source in abc1234.\n\n— Moth mends Dreamscape (92e9d6-9c1)',
+            commitOid: TIP,
+            submittedAt: '2026-07-21T12:58:00Z',
+          },
+        ],
+      }),
+      '2026-07-21T13:02:00Z',
+    );
+    expect(verdict.state).toBe('SETTLE-READY');
+  });
+
   it('an undeclared expected set is named in evidence, never silent', () => {
     const verdict = computePrVerdict(settledReading({ expectedDeclared: false }), LATE_NOW);
     expect(verdict.evidence.join('\n')).toContain('DEFAULTED from the observed surface');

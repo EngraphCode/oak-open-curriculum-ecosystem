@@ -1,5 +1,6 @@
-import { unwrapOrThrow } from '@oaknational/result';
+import { err, ok, unwrapOrThrow, type Result } from '@oaknational/result';
 
+import { failureAsError } from '../core/failure-as-error.js';
 import { getJsonValue, isJsonObject } from '../core/json.js';
 import { validateCollaborationJsonFileText } from './collaboration-json-validation.js';
 import { cliIo, type CliRuntime } from './cli-runtime.js';
@@ -75,18 +76,23 @@ export async function checkState(
   return 'ok\n';
 }
 
-function parseEntriesFile(text: string): EntriesFile {
-  const parsed: unknown = JSON.parse(text);
+function parseEntriesFile(text: string): Result<EntriesFile, Error> {
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(text);
+  } catch (failure) {
+    return err(failureAsError(failure, 'the conversation-file JSON boundary'));
+  }
   if (!isJsonObject(parsed)) {
-    throw new Error('conversation file must contain entries array');
+    return err(new Error('conversation file must contain entries array'));
   }
   const entries = getJsonValue(parsed, 'entries');
   if (Array.isArray(entries)) {
-    return {
+    return ok({
       ...parsed,
       entries,
-    };
+    });
   }
 
-  throw new Error('conversation file must contain entries array');
+  return err(new Error('conversation file must contain entries array'));
 }

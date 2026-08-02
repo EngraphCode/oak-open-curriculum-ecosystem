@@ -297,6 +297,6 @@ describe('auditCodexIdentityRecords', () => {
         threadRecordText: '',
         commsEvents: [],
       }),
-    ).toThrow(/commit_queue entry queued-anonymous carries an invalid agent_id/);
+    ).toThrow(/^commit_queue entry queued-anonymous carries an invalid agent_id/);
   });
 });

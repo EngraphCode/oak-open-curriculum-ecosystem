@@ -5,6 +5,8 @@ import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
+import { unwrapOrThrow } from '@oaknational/result';
+
 import { runAgentToolsCli } from '../src/bin/agent-tools-cli';
 import type { CommitIntent, CommitQueueRegistry } from '../src/commit-queue';
 import { readRegistry } from '../src/commit-queue/registry';
@@ -101,19 +103,15 @@ async function makeFixture(): Promise<WorktreeFixture> {
   return { root, primary, linked };
 }
 
-async function stageIntentRenameInWorktree(fixture: WorktreeFixture): Promise<void> {
-  git(fixture.linked, 'mv', RENAME_SOURCE, RENAME_DESTINATION);
-}
-
 async function readPrimaryIntent(fixture: WorktreeFixture): Promise<CommitIntent | undefined> {
-  const registry = await readRegistry(join(fixture.primary, REGISTRY_REL));
+  const registry = unwrapOrThrow(await readRegistry(join(fixture.primary, REGISTRY_REL)));
   return registry.commit_queue.find((entry) => entry.intent_id === INTENT_ID);
 }
 
 async function proveRecordStagedUsesWorktreeIndex(): Promise<void> {
   const fixture = await makeFixture();
   try {
-    await stageIntentRenameInWorktree(fixture);
+    git(fixture.linked, 'mv', RENAME_SOURCE, RENAME_DESTINATION);
 
     const result = await runAgentToolsCli({
       argv: ['commit-queue', 'record-staged', '--intent-id', INTENT_ID],
@@ -140,7 +138,7 @@ async function proveRecordStagedUsesWorktreeIndex(): Promise<void> {
 async function proveVerifyStagedUsesWorktreeIndex(): Promise<void> {
   const fixture = await makeFixture();
   try {
-    await stageIntentRenameInWorktree(fixture);
+    git(fixture.linked, 'mv', RENAME_SOURCE, RENAME_DESTINATION);
 
     const recorded = await runAgentToolsCli({
       argv: ['commit-queue', 'record-staged', '--intent-id', INTENT_ID],
@@ -171,7 +169,7 @@ async function proveVerifyStagedUsesWorktreeIndex(): Promise<void> {
 async function proveCommitLandsOnWorktreeBranch(): Promise<void> {
   const fixture = await makeFixture();
   try {
-    await stageIntentRenameInWorktree(fixture);
+    git(fixture.linked, 'mv', RENAME_SOURCE, RENAME_DESTINATION);
     const primaryHeadBefore = git(fixture.primary, 'rev-parse', 'HEAD').trim();
 
     const recorded = await runAgentToolsCli({

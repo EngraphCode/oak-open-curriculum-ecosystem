@@ -1,7 +1,7 @@
 import { mkdir, readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
-import { unwrapOrThrow } from '@oaknational/result';
+import { unwrapOrThrow, type Result } from '@oaknational/result';
 
 import { createCommsEvent } from './comms.js';
 import { validateCollaborationJsonFileText } from './collaboration-json-validation.js';
@@ -11,10 +11,11 @@ import {
   type ReadTextFile,
 } from './state-file-readers.js';
 import {
-  parseClosedClaimsArchive,
-  parseCollaborationRegistry,
-  parseCommsEvent,
-} from './state-parsers.js';
+  activeClaimsWriteValidator,
+  closedClaimsWriteValidator,
+  commsEventWriteValidator,
+} from './state-io-write-validators.js';
+import { parseCollaborationRegistry, parseCommsEvent } from './state-parsers.js';
 import {
   createJsonFileAtomically,
   runJsonStateTransaction,
@@ -28,7 +29,6 @@ import {
   type DirectedCommsMessage,
 } from './types.js';
 
-export { parseClosedClaimsArchive, parseCollaborationRegistry } from './state-parsers.js';
 export {
   readActiveClaimsFile,
   readClosedClaimsFile,
@@ -55,10 +55,7 @@ export async function writeCommsEvent(input: {
   await createJsonFileAtomically({
     filePath: path,
     value: event,
-    validateText: async (text) => {
-      parseCommsEvent(text);
-      await validateCollaborationJsonFileText(path, text);
-    },
+    validateText: commsEventWriteValidator(path),
   });
 }
 
@@ -121,7 +118,7 @@ export async function updateActiveClaimsFile(input: {
   await updateJsonFileWithRetry({
     filePath: input.activePath,
     parseText: parseCollaborationRegistry,
-    validateText: (text) => validateActiveClaimsText(input.activePath, text),
+    validateText: activeClaimsWriteValidator(input.activePath),
     transform: input.transform,
     maxAttempts: 5,
   });
@@ -159,12 +156,12 @@ export async function updateClaimStateFiles(input: {
       await writeJsonFileWithinTransaction({
         filePath: input.activePath,
         value: next.active,
-        validateText: (text) => validateActiveClaimsText(input.activePath, text),
+        validateText: activeClaimsWriteValidator(input.activePath),
       });
       await writeJsonFileWithinTransaction({
         filePath: input.closedPath,
         value: next.closed,
-        validateText: (text) => validateClosedClaimsText(input.closedPath, text),
+        validateText: closedClaimsWriteValidator(input.closedPath),
       });
     },
   });
@@ -172,7 +169,7 @@ export async function updateClaimStateFiles(input: {
 
 async function readEventDirectory<TEvent>(
   directory: string,
-  parser: (text: string) => TEvent,
+  parser: (text: string) => Result<TEvent, Error>,
 ): Promise<readonly TEvent[]> {
   const filenames: readonly string[] = await readdir(directory);
   return readEventFiles(
@@ -191,7 +188,7 @@ async function readEventDirectory<TEvent>(
 async function readEventFiles<TEvent>(
   directory: string,
   filenames: readonly string[],
-  parser: (text: string) => TEvent,
+  parser: (text: string) => Result<TEvent, Error>,
 ): Promise<readonly TEvent[]> {
   const events: TEvent[] = [];
 
@@ -199,8 +196,11 @@ async function readEventFiles<TEvent>(
     const path = join(directory, filename);
     try {
       const text = await readFile(path, 'utf8');
-      const event = parser(text);
-      await validateCollaborationJsonFileText(path, text);
+      // Inside the loud wrap by intent: both unwraps (the parser's, then
+      // schema validation's) rethrow their Err's ORIGINAL error, and the
+      // catch labels it with the file path.
+      const event = unwrapOrThrow(parser(text));
+      unwrapOrThrow(await validateCollaborationJsonFileText(path, text));
       events.push(event);
     } catch (error) {
       throw new Error(
@@ -227,16 +227,6 @@ function listCommsEventIds(eventsDir: string): Promise<readonly string[]> {
 
 function eventPath(eventsDir: string, eventId: string): string {
   return join(eventsDir, `${eventId}.json`);
-}
-
-async function validateActiveClaimsText(path: string, text: string): Promise<void> {
-  parseCollaborationRegistry(text);
-  await validateCollaborationJsonFileText(path, text);
-}
-
-async function validateClosedClaimsText(path: string, text: string): Promise<void> {
-  parseClosedClaimsArchive(text);
-  await validateCollaborationJsonFileText(path, text);
 }
 
 function filterEvents<TKind extends CommsEvent['kind']>(

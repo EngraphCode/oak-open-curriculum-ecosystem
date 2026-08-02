@@ -54,8 +54,9 @@ preamble, this capability claim expires: re-check the current official
 documentation before relying on it.
 
 The repository
-[`first-class-copilot-cli-practice-citizenship`](../../plans/strategic/first-class-copilot-cli-practice-citizenship.plan.md)
-node and its serving delivery plans are authoritative for target and mechanism.
+[`agent-platform-citizenship`](../../plans/strategic/agent-platform-citizenship.plan.md)
+node (formerly `first-class-copilot-cli-practice-citizenship`) and its
+serving delivery plans are authoritative for target and mechanism.
 MCP-150, MCP-154, MCP-155, and MCP-156 are supplementary Linear projections
 for execution state and sensitive details.
 

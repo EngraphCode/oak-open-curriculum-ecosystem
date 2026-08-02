@@ -7,19 +7,20 @@
  * claims" (the F-41 decoy-path failure class).
  */
 
+import { ACTIVE_CLAIMS_SCHEMA_VERSION, CLOSED_CLAIMS_SCHEMA_VERSION } from './types.js';
+
 /**
  * The minimal valid active-claims registry content. Offered verbatim in the
  * missing-registry error so a fresh checkout can seed the file without
  * reverse-engineering the parser's expectations.
  */
-export const EMPTY_ACTIVE_CLAIMS_REGISTRY_JSON =
-  '{ "schema_version": "1.3.0", "claims": [], "commit_queue": [] }';
+export const EMPTY_ACTIVE_CLAIMS_REGISTRY_JSON = `{ "schema_version": "${ACTIVE_CLAIMS_SCHEMA_VERSION}", "claims": [], "commit_queue": [] }`;
 
 /**
  * The minimal valid closed-claims archive content, offered in the
  * missing-archive error for the same fresh-checkout seeding path.
  */
-export const EMPTY_CLOSED_CLAIMS_ARCHIVE_JSON = '{ "schema_version": "1.3.0", "claims": [] }';
+export const EMPTY_CLOSED_CLAIMS_ARCHIVE_JSON = `{ "schema_version": "${CLOSED_CLAIMS_SCHEMA_VERSION}", "claims": [] }`;
 
 /**
  * Build the actionable missing-state-file error for a reader that met ENOENT.

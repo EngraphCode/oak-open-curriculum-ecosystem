@@ -100,13 +100,6 @@ packages/sdks/oak-sdk-codegen/reference/*.json
 .agent/reference-local/**/*
 !.agent/reference-local/.gitignore
 
-# Runtime tactical track cards are *tracked*, not gitignored: multi-agent
-# and multi-location collaboration on a track happens via git, the same
-# coordination channel the rest of the repo uses. Single-writer-per-card
-# still holds; multiple cards disambiguate multiple writers via the
-# <workstream>--<agent>--<branch>.md naming convention.
-# See .agent/memory/operational/tracks/README.md.
-
 # Logs
 *.log
 .logs/*

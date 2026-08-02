@@ -8,6 +8,8 @@ import {
 } from '../../src/collaboration-state/cli-runtime';
 import { type GitWorktree } from '../../src/collaboration-state/git-worktree-list';
 import {
+  ACTIVE_CLAIMS_SCHEMA_VERSION,
+  CLOSED_CLAIMS_SCHEMA_VERSION,
   type ClosedClaimsArchive,
   type CollaborationRegistry,
   type CommsEvent,
@@ -16,13 +18,13 @@ import {
 import { FAKE_COMMS_CONCEPT_GATE_BLOCKS } from './fake-collaboration-runtime-fixtures';
 
 const emptyActiveClaims: CollaborationRegistry = {
-  schema_version: '1.3.0',
+  schema_version: ACTIVE_CLAIMS_SCHEMA_VERSION,
   commit_queue: [],
   claims: [],
 };
 
 const emptyClosedClaims: ClosedClaimsArchive = {
-  schema_version: '1.3.0',
+  schema_version: CLOSED_CLAIMS_SCHEMA_VERSION,
   claims: [],
 };
 

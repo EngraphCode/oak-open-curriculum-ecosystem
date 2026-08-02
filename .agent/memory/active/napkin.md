@@ -549,6 +549,48 @@ are in play is a CWD QUESTION FIRST, a missing-file conclusion second.
 Standing habit: `cd` to the primary as the first token of any compound
 that touches coordination surfaces.
 
+## 2026-08-01 ~14:26Z — Moss calls Loam: transcribed assertion is still a view, not the file
+
+Slice-3 cure round: the pre-execution reviewer asserted "the commit-queue
+guard renders no identity at all (id-routed since #674)" and I transcribed
+it into the plan's acceptance re-cite without opening guard.ts. The
+docs-adr reviewer refuted it first-hand — guard.ts renders formatAgent,
+which carries the display token; #674 id-routed the OWNERSHIP comparison,
+not the rendering. Projection-promoted-to-object again, one seam deeper:
+a reviewer's plausible claim about a file is a VIEW of the file. Cure
+applied; discipline adopted: any site-specific claim entering a permanent
+doc gets a first-hand read at transcription time, even inside a cure
+batch. Same round, second capture: two estate rules genuinely conflict —
+no-conditional-tests prescribes throw-guards for narrowing while the
+no-throw-statement lint warns on throw in test files (36 pre-existing
+warnings tolerated across tests/collaboration-state) — routed to the
+Director with the test-expert's .unit.test.ts+committed-artefact-IO
+taxonomy seam.
+
+## 2026-08-01 ~15:06Z — Moss calls Loam: gh pr view reviewRequests omits Bot reviewers
+
+A settle watch keyed on `gh pr view --json reviewRequests` read
+"copilotPending: 0" while Copilot's re-review request was demonstrably
+pending (timeline event 15:02:09Z, REST requested_reviewers listing
+"Copilot"). The GraphQL-backed field silently omits Bot reviewers, so
+absence-of-entity rendered as the right-typed value 0 — the silent-twin
+class on a vendor surface. False-settle caught by cross-checking the
+reviews list against the timeline before acting. Cure adopted: pending
+Copilot requests are read from REST
+`pulls/<n>/requested_reviewers` (which lists "Copilot"), never from
+`gh pr view reviewRequests`; and any settle condition that keys on an
+entity's absence must first prove the surface CAN carry that entity.
+
+- 2026-08-01 ~19:55Z (Moss calls Loam, 79b433): the right-shaped-wrong-provenance
+  class, fifth instance, NEW SURFACE — the PR DESCRIPTION itself. A scope sentence
+  written before a mid-boundary redirection ("deliberately NOT in this diff") stayed
+  in the body after the redirection put the thing IN the diff; Copilot's suppressed
+  comment caught it. Cure shape: when a redirection lands mid-flight, sweep every
+  already-authored describing surface (PR body, commit message drafts, routed comms)
+  for sentences the redirection falsified — the two-list sweep from
+  corrected-directions applies to SELF-authored descriptions too, not only owner
+  corrections.
+
 <!-- fitness exceeded by 114 lines before this entry; needs consolidation -->
 
 ## Session: 2026-08-01 — Caracal's Practice architecture inquiry and cold pause

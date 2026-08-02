@@ -74,6 +74,25 @@ describe('planClaudeSessionIdentityHook', () => {
     });
   });
 
+  it('escapes an apostrophe-bearing session id in the env-file export line', () => {
+    // Pins that the host CALLS the quoter: naive interpolation renders
+    // 'it's-a-session-seed' (a syntactically broken export line), and every
+    // later Bash call in the session would fail to source the env file.
+    const sessionId = "it's-a-session-seed";
+    const displayName = deriveIdentity(sessionId).displayName;
+    const plan = planClaudeSessionIdentityHook({
+      stdinText: JSON.stringify({ session_id: sessionId }),
+      environment: { CLAUDE_ENV_FILE: 'mem://claude-env-file-quote' },
+    });
+
+    expect(plan.envFileWrite).toStrictEqual({
+      absolutePath: 'mem://claude-env-file-quote',
+      appendLine:
+        `export PRACTICE_AGENT_SESSION_ID_CLAUDE=${String.raw`'it'\''s-a-session-seed'`}\n` +
+        `export OAK_AGENT_IDENTITY_OVERRIDE='${displayName}'\n`,
+    });
+  });
+
   it('omits the env-file write when CLAUDE_ENV_FILE is missing', () => {
     const plan = planClaudeSessionIdentityHook({
       stdinText: JSON.stringify({ session_id: 'session-id-without-env-file' }),

@@ -384,7 +384,7 @@ describe('collaboration-state comms integration', () => {
     expect(result.stderr).toContain('--to-id');
   });
 
-  it('rejects --to-id that is not a valid UUID v5 (write-schema parse boundary)', async () => {
+  it('rejects --to-id that is not a valid UUID v5 (pre-resolution boundary)', async () => {
     const fake = createFakeCollaborationRuntime();
 
     const result = await runCollaborationStateCli({
