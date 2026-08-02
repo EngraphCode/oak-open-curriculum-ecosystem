@@ -71,12 +71,15 @@ disclosure is evidence that this residual is necessary, not permission for blank
 **Custody and conservation.** Mussel rides Coral (`6f8857`) retains Director authority under
 claim `0f4be777`, adopted from the now-retired Schooner guards Whirlpool seat. The five large
 generated outputs are ignored and intentionally absent from PR #382;
-their clean 49 MB conservation commit `SHA:42b27e3eb` remains on the local-only branch
-`feat/plan-corpus-refounding-s1-zodiac`, unpushed and untouched pending Director disposition.
-That state is safe from accidental PR inclusion but is not a remote backup; do not delete,
-reset, or reinterpret it as ordinary untracked residue. Next safe step = the running `s1-reader-sample-b1` batch closes on its declared loss-check
-proofs; its verbatim-anchored findings feed the J3 adjudication queue; the conservation-copy
-regeneration re-verify then clears the local branch; S2 tiling and the divergence report follow.
+their clean 49 MB conservation commit `SHA:42b27e3eb` was pushed and preserved as draft
+PR #706 under the 2026-08-02 retention ruling, then DISCHARGED the same day: the recorded
+regeneration re-verify ran at the pinned base `SHA:0a04617d4` — two full rounds, all five
+outputs byte-identical to the pinned manifest
+(`.agent/plans-refounding/proofs/s1-deterministic-evidence.v1.md`; `shasum -c` all OK,
+`wc -lc` matching) — so the bundle is proven-redundant; PR #706 closes on that proof and
+its branch deletes (commits stay reachable via the PR ref). Next safe step = the
+`s1-reader-sample-b1` batch closes on its declared loss-check proofs; its verbatim-anchored
+findings feed the J3 adjudication queue; S2 tiling and the divergence report follow.
 
 ## Where We Were (2026-07-14 evening, Quasar mends Umbra 52b4de outgoing Director — RULE RATIFIED, S0 WINDOW OPEN, seat → Barnacle calls Spray)
 

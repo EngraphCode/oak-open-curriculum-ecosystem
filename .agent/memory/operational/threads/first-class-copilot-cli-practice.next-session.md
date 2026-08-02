@@ -5,7 +5,10 @@ participant in the repository's canonical Practice and agentic tools.
 
 ## Current continuation
 
-- Branch: `docs/copilot-cli-practice-citizenship`
+- Branch: none live — the replacement record landed via PR #529 (merged).
+  The pre-supersession draft is preserved on PR #707
+  (`docs/copilot-cli-practice-citizenship`, freeze commit `f96149836`),
+  which closes at MCP-183's landing (the ruled test-slice harvest)
 - Base: current `main` at the start of the replacement record landing
 - Owner ratification (2026-07-24): direct in-session `Implement the plan`,
   recorded durably in the
@@ -21,8 +24,10 @@ participant in the repository's canonical Practice and agentic tools.
   owner ratification at an owner card; the
   [`first-class-copilot-cli-policy-enforcement`](../../../plans/delivery/first-class-copilot-cli-policy-enforcement.plan.md)
   plan records `ratified_by: "Jim Cresswell"`, `ratified_date: 2026-07-25`
-- Superseded record: PR #522 was closed with a naming comment; its branch was
-  retained for evidence, not reused
+- Superseded record: PR #522 was closed with a naming comment; its branch's
+  evidence is extracted (the report's Finding 1 dated addendum, 2026-08-02,
+  carries the version-pinned environment signals); preservation PR #708
+  closes at that addendum's landing — commits stay reachable via the PR ref
 - Controlling plan:
   [`agent-platform-citizenship`](../../../plans/strategic/agent-platform-citizenship.plan.md)
   (formerly `first-class-copilot-cli-practice-citizenship`)
