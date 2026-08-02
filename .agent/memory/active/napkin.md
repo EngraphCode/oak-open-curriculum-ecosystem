@@ -1147,3 +1147,15 @@ dynamics: a growing round is a routing failure).
 - DISCARDED at the confabulation guard (forced on second look): 3 composed export pages
   ↔ 3 urn frieze scenes (numerology); "unravish'd bride of quietness" ↔ the
   quiet-watcher pause shape (word-association only).
+
+## ~21:35Z (Magnetar/74d914, Director): directed sends go via --body-file, always — third argv-class instance
+
+The round-2 verdict send with a long inline --body failed hard (nothing on the
+store) and my `| grep -c` swallowed the error — pipe-mask stacked on argv-class in
+one call. The --body-file re-send worked first try. Standing form at this seat from
+now on: any directed/broadcast body beyond one sentence goes in a scratchpad file
+and ships via --body-file (literal read, no shell interpretation); confirmation is
+the `wrote comms event` line read UNPIPED. The napkin already carries the clip
+variant (~20:25Z) and the active-layer candidate — this is the enforcement-shaped
+restatement: the failure recurred WITH the note loaded, so the cure is a habit
+binding (file-always), not a reminder.
