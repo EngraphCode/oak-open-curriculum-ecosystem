@@ -138,9 +138,11 @@ and runnable probe script live with the instrument:
   `sandbox` (including `danger-full-access`), `approval-policy`, `cwd`,
   `model`, and `config`. The disciplined-call rule (plank 1) is
   therefore skill discipline, not machine enforcement; the probe proves
-  a disciplined call's write attempt is refused by the read-only
-  sandbox. Whether launch pins cap a per-call broadening override
-  remains OPEN pending the owner-held negative control (ADR-180).
+  a disciplined call's requested write produced NO SENTINEL on disk
+  (the interlocutor's refusal self-report is corroborating — the probe
+  does not observe the sandbox's internals). Whether launch pins cap a
+  per-call broadening override remains OPEN pending the owner-held
+  negative control (ADR-180).
 - Persistence: Codex persists thread rollouts locally by default
   (machine-local, under the Codex home) — embraced as an analysis
   source under the plank-5 data contract, never committed or

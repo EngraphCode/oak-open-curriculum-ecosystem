@@ -31,7 +31,7 @@ function assertCodexShape(codexTool) {
 }
 
 function assertReplyShape(replyTool) {
-  for (const name of ['threadId', 'prompt']) {
+  for (const name of ['threadId', 'prompt', 'conversationId']) {
     if (replyTool.inputSchema?.properties?.[name] === undefined) {
       throw new Error(`tool contract: codex-reply input schema no longer declares ${name}`);
     }

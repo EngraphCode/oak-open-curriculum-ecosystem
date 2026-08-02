@@ -273,8 +273,9 @@ drifted; the probe against the installed CLI is the durable source). It
 launches `codex mcp-server` WITH the launch pins in an isolated
 temporary directory outside every checkout, verifies the tool contract
 (`codex`, `codex-reply`, `structuredContent.threadId` round-trip),
-drives one bounded two-turn exchange, proves the disciplined-refusal
-leg (write attempt refused; sentinel absent on disk), and compares the
+drives one bounded two-turn exchange, proves the no-write leg (the
+requested write produced no sentinel on disk; the refusal self-report
+is corroborating, not observation), and compares the
 installed CLI version against the pin in
 [`probe-record.md`](./probe-record.md) — exiting non-zero on any
 mismatch or failed leg. Run it at every version-gate stop and before
