@@ -1,0 +1,254 @@
+---
+name: the-codex-dialogues
+classification: active
+description: >-
+  Open a bounded multi-turn reflective dialogue with a Codex interlocutor
+  over a direct MCP connection, to probe a stated uncertainty against a
+  different vendor's prior. Use mid-task at a genuine fork or
+  uncertainty; not for task delegation (codex-helper), not for a fast
+  one-shot conscience check (cricket), not for live-peer collaboration
+  (a second seat + ArcAngel). Every dialogue closes with one structured
+  comms event.
+---
+
+# The Codex dialogues
+
+A live Claude seat, mid-task, opens a bounded multi-turn reflective
+dialogue with a Codex-family model: it restates an uncertainty, is
+probed against a different vendor's prior over several genuine turns,
+and conserves a synthesis quoting Codex's final position — without a
+second Practice seat being live. This is the first cross-vendor
+multi-turn instrument riding the
+[Subagent Invocation Framework (Sif)](../sif/SKILL-CANONICAL.md); the
+general doctrine (authority layering, version gates, close-event
+telemetry, conservation, data contract, pre-registered prior) lives
+there, and this skill states each plank concretely for the
+`codex mcp-server` binding (Sif Annex A). v1 is DIRECT: the seat holds
+the dialogue and adjudicates first-hand — no conduit wrapper.
+
+This is an experimental instrument inside a pre-committed trial window
+(below). The records exist for later analysis of the experiment.
+
+## When to use — and when not
+
+Open a dialogue when you hold a genuine, articulable uncertainty at a
+decision point — a design fork, a suspicious consensus, a
+confident-but-unpressured plan — and a different vendor's prior probing
+it over real exchanges could change your position.
+
+Route elsewhere when:
+
+- you want a fast bounded second opinion on priority, framing, or
+  proportion — [`cricket`](../cricket/SKILL-CANONICAL.md) (one-shot
+  conscience panel; its rubber-ducking triggers are NOT this skill's);
+- you want a task done and a result returned —
+  [`codex-helper`](../codex-helper/SKILL-CANONICAL.md) (`codex exec`
+  delegation, one-shot);
+- you want sustained collaboration on a lane — that is membership, not
+  invocation: a live peer seat, with an ArcAngel channel for pairwise
+  dialogue.
+
+## Setup — MCP registration (per user, local)
+
+`.mcp.json` is gitignored in this repository (local MCP config; only
+`plugins/*/.mcp.json` release artefacts are tracked), so the
+registration cannot land as a tracked file. This block is the TRACKED
+TEMPLATE — copy the entry into your local `.mcp.json` servers map:
+
+```json
+{
+  "codex": {
+    "type": "stdio",
+    "command": "codex",
+    "args": [
+      "mcp-server",
+      "-c",
+      "sandbox_mode=read-only",
+      "-c",
+      "approval_policy=never"
+    ]
+  }
+}
+```
+
+The launch pins are the process DEFAULT for every disciplined call —
+deliberately not claimed as a cap: the tool schema accepts per-call
+authority parameters (probe-verified; see Authority below). Tool
+schemas are deferred by the harness, so the registration's ambient cost
+to unrelated sessions is names-only.
+
+## Dialogue-open checks (all three, in order, every dialogue)
+
+1. **Registration check.** If the `codex` MCP server is absent from the
+   session's MCP set (no `mcp__codex__*` tools resolvable via
+   ToolSearch), STOP with the setup instruction above — never fail
+   obscurely or fall back to another transport.
+2. **Version gate.** Compare `codex --version` against the
+   `codex_cli_version` pin in
+   [`probe-record.md`](./probe-record.md). On ANY mismatch, STOP and run
+   [`scripts/probe-codex-mcp-server.mjs`](./scripts/probe-codex-mcp-server.mjs)
+   first; the dialogue proceeds only after the probe passes and the
+   record is updated with the new version's verbatim evidence in a
+   reviewed change. An installed upgrade is a loud stop, never a
+   silently unverified surface.
+3. **Pre-registered prior.** Write down your position AND confidence on
+   the question BEFORE the first exchange — it goes in the packet and
+   the close event records the delta. No prior, no dialogue.
+
+## The dialogue packet
+
+Compose a bounded frame — reuse Cricket's field vocabulary, do not
+re-mint it:
+
+1. **OBJECTIVE FRAME** — the controlling objective and its source.
+2. **INTENT** — what you are doing and why the fork matters now.
+3. **QUESTION** — the uncertainty, stated neutrally, with your
+   pre-registered position and confidence.
+4. **RECENT ACTIONS** — the last few concrete actions bearing on it.
+
+Minimisation at source is a hard rule: the packet is a composed frame,
+never a context dump, and no exchange may carry secrets, credentials,
+or personal data.
+
+## Protocol
+
+- **Open**: one `codex` call carrying the packet as the initial prompt.
+  Capture `structuredContent.threadId` from the result.
+- **Continue**: every subsequent turn is a `codex-reply` call to that
+  EXACT `threadId`. One `codex` initialisation per dialogue, one thread
+  per dialogue, never a second initialisation mid-dialogue.
+- **Budget**: default SIX exchanges. Stop earlier when positions have
+  stabilised (nothing new in the last exchange) or are irreconcilable
+  with reasons already on the table.
+- **Authority discipline (hard rule)**: a dialogue call NEVER passes
+  per-call `sandbox`, `approval-policy`, `cwd`, `model`, or `config`
+  parameters. Disciplined calls ride the launch pins. This is skill
+  discipline, not machine enforcement — the schema accepts those
+  parameters; passing any of them is out of contract.
+- **Never resume a closed thread.** A closed dialogue stays closed; a
+  new question is a new dialogue with a fresh thread. (Codex persists
+  rollouts locally regardless — see Data contract.)
+- **Close**: conserve the synthesis, QUOTING Codex's final position
+  verbatim (direct mode holds the raw turns, so fidelity is by
+  construction), then compose and append the close event.
+
+Absorption after close: dialogue conclusions get the
+verify-before-absorb leg like any cross-model claim — dissent is
+perturbation to be tested, never authority to be obeyed.
+
+## The close event (one per dialogue, no exceptions)
+
+One canonical comms event at dialogue close is the analysis record. It
+is a NARRATIVE event — the strict comms schemas are untouched; every
+dialogue field rides in the body as the canonical `key=value;` line
+(the same body-encoding discipline the heartbeat substrate uses):
+
+```text
+dialogue_id=<fresh opaque id, e.g. dlg-YYYYMMDD-xxxx>; question_class=<design-fork|consensus-check|plan-pressure|other>; turn_count=<n>; stop_reason=<budget|stabilised|irreconcilable>; outcome=<position-changed|dissent-unresolved|confirmed>; prior_confidence=<low|medium|high>; harness_version=<claude-code x.y.z>; codex_cli_version=<x.y.z>; synthesis_ref=<durable shared surface>;
+```
+
+Field rules:
+
+- `dialogue_id` is a FRESH opaque id. The Codex thread id is NEVER
+  carried in the event — it is closed, never protocol-resumed, and
+  operationally sensitive; it survives only in the local-only cleanup
+  mapping (Data contract).
+- `synthesis_ref` must resolve from a DURABLE SHARED surface — a
+  fold-committed comms event id, a tracked report path, or the PR
+  record. Never a machine-local path: the pointer must outlive the
+  trial rollouts' deletion and resolve from any checkout.
+- Field completeness is enforced by the composing seat and re-checked
+  by the analysis-side parser; a close event with missing fields is a
+  telemetry defect to fix at source.
+
+Close events evaluate THIS INSTRUMENT, never the seat that ran the
+dialogue — any reading of them as seat-evaluation is out of contract
+(the FRAME-1 boundary, structural in the plan's feedback contract).
+
+## Data contract (rollouts and retention)
+
+Codex persists each thread's rollout locally by default — a third
+analysis source alongside the close event and the seat's own
+transcript, embraced rather than fought, under three clauses:
+
+- **Minimisation at source** — the packet rule above.
+- **Locality** — rollouts live under the machine-local Codex home and
+  are never committed or transmitted.
+- **Bounded retention** — the seat keeps a LOCAL-ONLY cleanup mapping
+  (`dialogue_id` → Codex thread id) beside the Codex home,
+  machine-local, never committed and never transmitted, existing solely
+  so the trial close-out pass can select exactly the trial dialogues'
+  rollouts. At the trial window's close-out: extract what the rollouts
+  teach, delete those rollouts, delete the mapping with them. Knowledge
+  is retained; bytes are not. The close events and conserved syntheses
+  remain the durable record.
+
+## Trial window (pre-committed at ratification — the decision rule)
+
+The trial is **12 dialogues or 14 days from the first dialogue,
+whichever comes first**. If FEWER THAN 3 dialogues close
+`position-changed`, the two-armed falsifier review runs:
+
+- **Arity arm**: dissent changed decisions but dialogues routinely
+  stabilised in a single exchange — build the cross-vendor ONE-SHOT
+  sibling instrument on this same substrate and reshape; the
+  capability does not retire.
+- **Value arm**: dissent did not change decisions — the cross-vendor
+  value claim failed its test and the instrument retires with the
+  honest report.
+
+Three or more `position-changed` closes and the instrument continues
+beyond the trial. There is no fold-into-Cricket disposition on either
+arm — Cricket is not this instrument's alternative. The diversity null
+hypothesis rides the same window: compare dissent/agreement rates
+against a same-vendor baseline (Cricket legs on comparable question
+classes); if cross-vendor dissent is statistically indistinguishable
+from same-vendor stance-diversity, the value axis has failed however
+pleasant the dialogues felt.
+
+Missing close events do NOT count toward any threshold: at trial close,
+events are reconciled against seat transcripts and Codex-side rollouts,
+and an unexplained gap is a TELEMETRY FAILURE to investigate, never
+evidence of non-use.
+
+## Authority — evidence, not assertion
+
+Layers in order of real strength (Sif plank 1): the estate's same-UID
+trust ruling (the calling seat already holds full user authority — this
+tool adds no new authority class); this skill's hard rule that dialogue
+calls never pass per-call authority parameters; the launch-arg defaults
+for every call that omits them.
+
+Probe-verified 2026-08-02 against codex-cli 0.146.0
+([`probe-record.md`](./probe-record.md)): a disciplined call's write
+attempt is REFUSED by the read-only sandbox (verbatim refusal recorded;
+sentinel verified absent on disk). The `codex` tool schema ACCEPTS
+per-call `sandbox` values including `danger-full-access` — the
+broadening surface exists; whether launch pins cap it is OPEN. The
+broadening negative control is OWNER-HELD per ADR-180: explicit owner
+authorisation per invocation, externally isolated disposable workspace
+outside every estate checkout, bounded sentinel write target. Never
+self-start that leg; its recorded outcome, not any source reading, is
+the deciding authority evidence.
+
+All protocol invariants (one thread, no resumption, no per-call
+authority parameters) are skill discipline, not machine enforcement.
+Thread-discipline violations cost wasted spend and a muddled dialogue,
+made visible by the close event's turn count. The verified hook
+primitives (PreToolUse deny, PostToolUse capture, SubagentStop) are the
+named hardening path if misuse is observed; no guard hooks in v1.
+
+## The probe
+
+[`scripts/probe-codex-mcp-server.mjs`](./scripts/probe-codex-mcp-server.mjs)
+is the runnable contract evidence (the vendor's MCP reference has
+drifted; the probe against the installed CLI is the durable source). It
+launches `codex mcp-server` WITH the launch pins in an isolated
+temporary directory outside every checkout, verifies the tool contract
+(`codex`, `codex-reply`, `structuredContent.threadId` round-trip),
+drives one bounded two-turn exchange, proves the disciplined-refusal
+leg (write attempt refused; sentinel absent on disk), and compares the
+installed CLI version against the pin in
+[`probe-record.md`](./probe-record.md) — exiting non-zero on any
+mismatch or failed leg. Run it at every version-gate stop and before
+re-ratifying the record.
