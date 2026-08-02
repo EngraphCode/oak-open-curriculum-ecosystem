@@ -2,7 +2,7 @@
 id: skills-estate-organisation
 node_type: delivery
 name: "Skills-estate organisation — one concept scheme across skills, rules, and subagents"
-overview: "Mint the shared KIND/STRATUM/INTENT vocabulary as concept nodes, annotate the three artifact corpora (38 skills, 119 rules, the subagent families) on their canonical files, derive the indexes as generated projections, and guard with the ratified concept-layer validators — instantiating PDR-134/ADR-221, never inventing a parallel taxonomy."
+overview: "Reflection-first organisation of the agentic levers (skills, rules, subagents): a deep-reflection movement weighs candidate schemes — kind-centric, concern-centric, per-corpus-light — against a named value gate before anything is minted; whatever survives lands as concept nodes on canonical files with derived projections and ratified-validator guards, instantiating PDR-134/ADR-221, never a parallel taxonomy."
 status: sketch
 ratified_by: null
 ratified_date: null
@@ -15,13 +15,14 @@ depends_on: []
 owner_gates:
   - awaiting: owner-decision
     clears_when: >-
-      The owner ratifies the concept vocabulary and the annotated
-      scheme after WS2's skills-corpus annotation is visible for
-      review (visibility-before-validation: WS4's validators land
-      only after this gate clears). The commissioning word is on
-      record (2026-08-02, in-session): foundational work, long-term
-      returns, "I would not be surprised if rules and subagents
-      followed a related structure."
+      TWO owner moments: first, the owner rules on WS0's
+      deep-reflection recommendation (which scheme shape, if any,
+      proceeds — his 2026-08-02 word binds: shared scheme only if it
+      adds value and makes sense); second, if a scheme proceeds, the
+      owner ratifies the annotated corpus after WS2 is visible for
+      review (visibility-before-validation: WS4's validators land only
+      after that). The commissioning word is on record (2026-08-02,
+      in-session): foundational work, long-term returns.
     expires: 2026-08-23
 last_updated: 2026-08-02
 ---
@@ -54,7 +55,29 @@ parallel scheme ADR-221 forbids.
 
 ## Workstreams
 
-1. **WS1 — Vocabulary mint (concepts-first).** KIND (six values +
+0. **WS0 — THE DEEP REFLECTION (owner word 2026-08-02: a shared scheme
+   across all agentic levers "only if it adds value and makes sense,
+   and what that scheme should be is a matter for deep reflection").**
+   A genuine multi-sitting concept-exploration at the Skills seat,
+   starting from the exploration report's addendum tensions: (a) the
+   HOMONYMY RISK — the levers differ in mode of action (a skill is
+   summoned, a rule binds, a subagent is consulted); does one kind
+   vocabulary name one thing or three?; (b) the CONCERN-CENTRIC
+   ALTERNATIVE — one concern node per underlying discipline, its
+   manifestations across levers as edges (stance / method /
+   perspective; worked trio: verify-dont-trust / reason / adversarial
+   reviewers), kind vocabulary staying native per lever, stratum and
+   intent shared; (c) the METADATA-THEATRE TEST — before any
+   annotation, name the DECISIONS the scheme will change (routing,
+   loading, portability packaging, discovery); the null hypothesis is
+   three light per-corpus organisations, and the shared scheme must
+   beat it on named decisions, not elegance. WS0's output is a
+   recommendation with falsifiers to the owner; EVERY later
+   workstream is conditional on his ruling there. The
+   kind/stratum/intent draft below is ONE candidate, preserved as
+   WS0 input.
+1. **WS1 — Vocabulary mint (concepts-first; conditional on WS0's
+   owner ruling).** KIND (six values +
    collaboration-protocol from the rules corpus; primary/secondary
    hybrid convention; `platform-binding` deliberately excluded — the
    stratum axis carries portability) and INTENT (seven families) enter

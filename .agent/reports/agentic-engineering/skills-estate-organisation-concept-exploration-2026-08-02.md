@@ -197,3 +197,54 @@ brief. The full per-skill inventory, the dependency graph with its SCC
 analysis, and the doctrine quotes live in this session's two grounding
 reads; the plan names what must be re-derived mechanically rather than
 copied.
+
+## Addendum — the owner's word demotes the verdict to a candidate (2026-08-02, same morning)
+
+Owner, verbatim intent, on reading the direction of this work: a shared
+scheme across all agentic levers is wanted "only if it adds value and
+makes sense, and what that scheme should be is a matter for deep
+reflection." Applied here, honestly: the Recommendation above
+crystallised too early. What stands from this exploration is the
+evidence (the corpus reads, the dependency graph, the two-graph
+finding, the ratified machinery) — what demotes to CANDIDATE status is
+the KIND/STRATUM/INTENT scheme itself and the assumption that one
+scheme should span skills, rules, and subagents at all.
+
+The reflection this word prompted has already moved the ground, and the
+deep-reflection phase should start from these three tensions rather
+than from the scheme above:
+
+1. **The homonymy risk.** The levers differ in mode of action — a
+   skill is SUMMONED (a method you enter), a rule BINDS (a stance
+   always in force), a subagent is CONSULTED (a perspective you
+   dispatch). "Instrument-of-thought" may name three different things
+   at the three levers; a shared enum that ignores mode-of-action
+   would be a category error wearing unification's clothes. The
+   surveys' observation that "the same kinds recur" is evidence of a
+   real underlying structure OR of one vocabulary stretched over three
+   — the reflection must decide which.
+2. **The concern-centric alternative.** The deeper candidate that
+   emerged: perhaps the unifying object is not KIND but the CONCERN —
+   one concept node whose manifestations across levers are edges.
+   Worked trio: the verification concern manifests as
+   `verify-dont-trust` (rule — the standing stance), `reason`'s
+   warrant discipline (skill — the deliberate method), and the
+   adversarial reviewers (subagents — the externalised perspective).
+   Metacognition likewise: no-hedging/records-technical (stance),
+   `metacognition` (method), cricket (perspective). Under this shape,
+   kind vocabulary stays NATIVE per lever, stratum and intent remain
+   shared (both already lever-independent, one already ratified), and
+   the concept layer names each concern once and links its three
+   manifestations. Navigability of concerns, not symmetry of labels.
+3. **The metadata-theatre test.** A classification that drives no
+   decision (routing, loading, portability packaging, discovery) is
+   the theatre hypothesis applied to taxonomy. The value gate for ANY
+   scheme: name the decisions the annotations will change, before
+   annotating. The null hypothesis is three light per-corpus
+   organisations (fix the composition map; RULES_INDEX and the
+   subagent README already exist) — the shared scheme must beat that
+   on named decisions, not on elegance.
+
+The companion plan is re-shaped reflection-first accordingly; the
+per-skill classifications above remain useful as EVIDENCE for the
+reflection, whatever scheme survives it.
