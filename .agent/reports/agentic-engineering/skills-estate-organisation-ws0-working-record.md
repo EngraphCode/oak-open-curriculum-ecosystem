@@ -1121,3 +1121,75 @@ artefact landed at d45a0d74d
 (stack-reflection-and-building-blocks-2026-08-02.md) — the
 building-block identification routes into the backfill + evals
 pilot.
+
+### 2026-08-02 ~21:38Z — STEP 3 COMPLETE (four of four): no-machine-local-paths landed as an authority transition
+
+Resumed at owner word minutes after the freeze; the owner pacing
+directive (21:23:33Z — deliberate pace, no parallel bursts, cold
+pause when the lane empties) was absorbed as the first post-resume
+act. The Director granted the D window on top of the fold commit
+e3574388b (grant event 585759ed) and holds the #714 fold merge for
+this push-complete so D rides tonight's fold in one check-cycle.
+
+The relocation map (census in the session scratchpad,
+census-no-machine-local-paths.md — 119 hits across 95 files; the 73
+conserved hits retained untouched):
+
+- principles.md §No machine-local paths absorbs the rule statement,
+  the destination-not-syntax test, and the 2026-06-12 owner ruling
+  (whole-repo, retroactive, no exceptions); the works-for-any-user
+  lens paragraph re-pointed.
+- safety-and-security.md gains §Machine-local paths (new, under
+  Privacy Protection beside the PII-estate section): the three
+  forbidden shapes INCLUDING the dot-dot-escape class, the three
+  permitted shapes with the reference-style-link prohibition, the
+  sweep's authoring conventions, the tilde-recontamination warning,
+  the code-class follow-on lane, the detection description, and the
+  three worked examples — all DEFANGED (placeholder forms
+  throughout; the two live-matching machine-temp literals are named
+  in words so the fanged strings live in the policy file alone).
+- important-state-not-in-temp-files absorbs the repo-root tmp/ and
+  scratch-placeholder authoring conventions; its specialisation
+  framing re-anchored from the rule file to the principle (opening
+  block, composition entry, Related list).
+- Operative readers re-pointed: ADR-197 operationalisation line +
+  registry-state line; PDR-038 worked-instance narrative and
+  instance list (present-truth graduation note, structural surface
+  named as surviving); PDR-125 origin/checkout clause; the
+  practice-index PDR-038 row removed; the ARC reference's
+  repo-root-relative clause; repo-continuity's invariant line; two
+  session prompts (hook concept name trued; rule → principle).
+- policy.json: the citation string re-pointed to the two receiving
+  homes IN THIS COMMIT — verified first-hand that only the
+  machine-local helpers unit test reads the live policy, and it
+  pins patterns + exclusion behaviour, not the citation. The
+  exclude-entry deletion and group-description truing are DEFERRED
+  to the source leg: the helpers test asserts the rule path is
+  skipped by the LIVE exclude set, so the atomic pair
+  (entry deletion + fixture re-target) rides the reviewed source PR
+  on the #726 branch (base = this coordination branch) together
+  with the validator gate-message re-point and three TSDoc/comment
+  mentions (merge-bot repo-config, transcript-locator, the
+  content-audit build-registry generator). Every landed state is
+  green by construction on both legs — the class cure from the
+  step-1 red-gate lesson applied at plan time.
+
+COVERAGE GAP stated to the Director: the dot-dot-escape forbidden
+shape has NO mechanical detection — no regex in the pattern set
+covers a relative chain escaping into a per-user surface; review is
+the only net. The safety-governance section states the gap in
+place; a validator extension is routed as a pointer, not built in
+this lane.
+
+Index counts: 72 → 71 core, 47 situational unchanged. All four
+on-disk forms removed in this commit. One conserved-corpus cure the
+census's class map predicted as a link: the backlog plan
+claim-liveness-crash-reconciliation §Risks carried the estate's
+single RESOLVING link to the rule file outside excluded archives —
+the link validator flagged it at removal and it is de-linked to
+dated prose in this commit (the frozen-v1 mirror sits under an
+excluded archive path and stays untouched). Closure evidence
+recorded at push in the ceremony chain (classification gate,
+portability parity, repo validators, link validators, the
+machine-local helpers suite proven green against the interim policy
+state).

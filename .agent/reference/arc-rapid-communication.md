@@ -52,7 +52,8 @@ the evaluation evidence (conserved from the live experiment channel on
   Observed delivery latency is seconds (~15s worst case with a polling
   wrapper). The channel path is written **repo-root-relative** everywhere
   (announce events, entries, this doc) per the no-machine-local-paths
-  rule; each participant resolves it against the PRIMARY checkout's root
+  principle (`.agent/directives/principles.md` §No machine-local
+  paths); each participant resolves it against the PRIMARY checkout's root
   at tail/append time — never against a worktree root, and never by
   deriving from an announce title (the worktree silent-retarget and
   stray-path traps both live in the RESOLUTION step, so the convention

@@ -196,7 +196,6 @@ surfaces of portable doctrine. The canonical rule files live at
 | [`plan-body-first-principles-check.md`](rules/plan-body-first-principles-check.md) | PDR-014 §Composition discipline + §Amendment Log | Plan-body Class A.1 tripwire (firing the first-principles check on plan promotion) |
 | [`executive-memory-drift-capture.md`](rules/executive-memory-drift-capture.md) | PDR-028 (operationalising rule) | The `active → executive` memory feedback path |
 | [`never-disable-checks.md`](rules/never-disable-checks.md) | PDR-038 (worked instance — gate-off-fix-gate-on) | Quality-gate dismissal discipline |
-| [`no-machine-local-paths.md`](rules/no-machine-local-paths.md) | PDR-038 (worked instance — months-stable principle that caught its own author) | Machine-local paths are never durable; principle requires a structural enforcement surface |
 | [`subagent-practice-core-protection.md`](rules/subagent-practice-core-protection.md) | PDR-003 (host adoption) | Sub-agent permission rule operationalising the foundational-doc protection doctrine |
 | [`precedence-is-not-approval.md`](rules/precedence-is-not-approval.md) | PDR-091 (host enforcement of the portable doctrine) | A prior act — decision, annotation, label, verdict, convention, ordering — is never authority by itself; locate and check live approval |
 
