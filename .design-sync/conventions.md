@@ -10,8 +10,8 @@ name below exists in the shipped CSS.
 - Wrap page content in `class="oak-scope"` — headings, prose, and links
   get Oak's typographic defaults only inside it.
 - Theming: set `data-theme` on the root element — `"light"` (default),
-  `"dark"`, `"high-contrast"`, `"colour-safe"` — or call
-  `window.OakDS`'s theme switcher if the bundle is loaded
+  `"dark"`, `"high-contrast"`, `"colour-safe"` — or call the
+  `window.oakTheme` runtime if `oak-theme.js` is loaded
   (`oakTheme.set("dark")`, `oakTheme.get()`, `oakTheme.themes`).
 - Fonts ship locally: **Lexend** (all UI text) and **Roboto Mono**
   (code). Never import webfonts.
@@ -48,9 +48,10 @@ alone never reaches the ring).
 Read `styles.css` and its import `_ds_bundle.css` — all three token
 tiers plus the entire class library, with a11y baked in. DTCG token
 JSON is under `tokens/`. `guidelines/pairing-base-ui.md` is the
-composition doctrine: interactive behaviour comes from headless
-primitives (Base UI idiom) styled with these classes — the system
-deliberately ships behaviourless CSS.
+composition doctrine: the CSS is deliberately behaviourless; the
+system's one shipped behaviour is the pre-paint theme applier
+(`oak-theme.js`). Interactive behaviour comes from headless primitives
+(Base UI idiom) styled with these classes.
 
 ## Idiomatic snippet
 
