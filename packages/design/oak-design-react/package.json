@@ -3,6 +3,7 @@
   "version": "0.0.0-development",
   "private": true,
   "description": "React binding tier for the Oak Open Curriculum Design System (ADR-213 §3): framework-covariant adapters over the kit's framework-neutral surface. First resident: the useSyncExternalStore theme-store adapter (non-visual; no React dependency until the first component export arms the ADR-147 gate).",
+  "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

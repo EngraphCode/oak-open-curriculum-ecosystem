@@ -57,7 +57,7 @@ audit). One system, two surfaces; never a fork, never a record.
 <!-- optional: persisted theme switcher -->
 ```
 
-**No-build install (copy path):** copy `colors_and_type.css`, `oak-icons.css`, `components.css`, `print.css`, `oak-theme.js`, `assets/icons/`, and `fonts/` — link the four CSS files in that order (equivalent to `styles.css`, which only `@import`s them; some serve contexts drop `@import`-only sheets — see `KNOWN-ISSUES.md` (studio: `guidelines/KNOWN-ISSUES.md`); `oak-icons.css` must stay root-adjacent to `components.css`). Versioning and what-changed: `CHANGELOG.md` (studio: `guidelines/CHANGELOG.md`).
+**No-build install (copy path):** copy `colors_and_type.css`, `oak-icons.css`, `components.css`, `print.css`, `oak-theme.js`, `assets/icons/`, and `fonts/` — link the four CSS files in that order (equivalent to `styles.css`, which only `@import`s them; some serve contexts drop `@import`-only sheets — see `KNOWN-ISSUES.md` (studio: `guidelines/KNOWN-ISSUES.md`); `oak-icons.css` must stay root-adjacent to `components.css`). The copy path stays build-free for consumers: `oak-theme.js` is generated in this repo from `src/oak-theme.ts` (type-erasure only) and committed, with a repo gate holding the emitted file byte-identical to its source — copy it as-is. Versioning and what-changed: `CHANGELOG.md` (studio: `guidelines/CHANGELOG.md`).
 
 Then build with **classes** and **semantic tokens**:
 

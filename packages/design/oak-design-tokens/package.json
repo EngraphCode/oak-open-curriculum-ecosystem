@@ -3,6 +3,7 @@
   "version": "0.0.0-development",
   "private": true,
   "description": "Oak token source files and generated CSS custom properties",
+  "license": "MIT",
   "type": "module",
   "exports": {
     "./index.css": "./dist/index.css",
