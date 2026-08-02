@@ -54,12 +54,9 @@ function fakeRuntime(): {
   return { runtime, set, motionSet };
 }
 
-/** A store over the fake runtime with no media query — the ADR-078 seam. */
+/** A store over the injected fake runtime — the ADR-078 seam. */
 function storeWith(runtime: OakThemeRuntime | undefined) {
-  return createOakThemeStore(
-    () => runtime,
-    () => undefined,
-  );
+  return createOakThemeStore(() => runtime);
 }
 
 describe('ThemeSwitcher rendering contract', () => {

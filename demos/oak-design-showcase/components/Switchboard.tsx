@@ -67,7 +67,7 @@ function ThemeMotionControls({
         id="oak-theme-select"
         label="Theme"
         value={theme}
-        options={store.themeOptions()}
+        options={store.themeOptions() ?? []}
         labels={THEME_LABELS}
         placeholderLabel="Page default"
         onChange={store.setTheme}
@@ -76,7 +76,7 @@ function ThemeMotionControls({
         id="oak-motion-select"
         label="Motion"
         value={motion}
-        options={store.motionOptions()}
+        options={store.motionOptions() ?? []}
         labels={MOTION_LABELS}
         onChange={store.setMotion}
       />

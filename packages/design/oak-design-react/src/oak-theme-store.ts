@@ -13,23 +13,27 @@
  * `choice()` accessor — the kit contract for exactly this distinction
  * (MCP-388) — and renders '' when no explicit choice exists.
  *
- * The runtime also re-derives its default when the OS contrast preference
- * changes (oak-theme.js attaches its own `prefers-contrast` listener) but
- * exposes no change event, so the store mirrors that same media trigger and
- * re-notifies subscribers — runtime-driven changes reach React, not only
- * writes through the setters.
+ * The store deliberately carries NO contrast-media mirror: under the choice
+ * model the OS-contrast route changes only the APPLIED theme (the kit's
+ * auto() path writes the attribute without touching choice()), so no
+ * exposed snapshot can change and a re-notification would always bail out
+ * of useSyncExternalStore. The hub's old mirror existed because its store
+ * exposed the applied theme — the conflation the choice model cures. An
+ * applied-theme surface (and its mirror) can land at first materialised
+ * need as its own accessor.
  *
- * The store is a factory (`createOakThemeStore`) with the runtime and
- * contrast-query resolvers injected, so tests build a store over simple
- * fakes instead of mutating globals (no-global-state-in-tests / ADR-078);
- * the app-wide instance below binds the real inlined runtime and the real
- * media query.
+ * The store is a factory (`createOakThemeStore`) with the runtime resolver
+ * injected, so tests build a store over a simple fake instead of mutating
+ * globals (no-global-state-in-tests / ADR-078); the app-wide instance
+ * below binds the real inlined runtime.
  *
- * This package's edge to `@oaknational/oak-design-system` is CONTRACT-ONLY:
- * `OakThemeRuntime` re-declares the runtime's public API verbatim (the kit
- * ships no type declarations, and the boundary rules bar a package import
- * in both directions — ADR-213 §3/§4). The interface below is the estate's
- * canonical `oakTheme` typing for consumers.
+ * This package's edge to `@oaknational/oak-design-system` is CONTRACT-ONLY
+ * today: `OakThemeRuntime` re-declares the runtime's public API verbatim
+ * (the kit ships no type declarations). The boundary rules PERMIT this
+ * package's kit edge — the ADR-213 §4 tier edge, whose package import
+ * materialises with the first component — and bar every other design-tier
+ * import in both directions. The interface below is the estate's canonical
+ * `oakTheme` typing for consumers.
  */
 
 export type OakThemeName = 'light' | 'dark' | 'system' | 'high-contrast' | 'colour-safe';
@@ -67,22 +71,8 @@ export interface OakThemeStore {
   getServerSnapshot(): undefined;
   setTheme(theme: string): void;
   setMotion(mode: string): void;
-  themeOptions(): OakThemeName[];
-  motionOptions(): OakMotionMode[];
-}
-
-/** The slice of MediaQueryList the store needs — injectable so tests pass a
- *  simple fake instead of stubbing the global matchMedia (a real
- *  MediaQueryList satisfies it structurally). */
-export interface ContrastQuery {
-  addEventListener(type: 'change', listener: () => void): void;
-  removeEventListener(type: 'change', listener: () => void): void;
-}
-
-function resolveGlobalContrastQuery(): ContrastQuery | undefined {
-  return typeof globalThis.matchMedia === 'function'
-    ? globalThis.matchMedia('(prefers-contrast: more)')
-    : undefined;
+  themeOptions(): OakThemeName[] | undefined;
+  motionOptions(): OakMotionMode[] | undefined;
 }
 
 /** Setters narrow the select's string through the runtime's own lists — no
@@ -114,37 +104,8 @@ function createSetters(
   };
 }
 
-/** Subscription with the contrast mirror built in: one shared media
- *  listener, attached with the first subscriber and detached with the last —
- *  the same query the runtime itself reacts to. */
-function createContrastMirroringSubscribe(
-  listeners: Set<Listener>,
-  emit: () => void,
-  resolveContrastQuery: () => ContrastQuery | undefined,
-): OakThemeStore['subscribe'] {
-  let contrastQuery: ContrastQuery | undefined;
-  const onContrastChange = (): void => {
-    emit();
-  };
-  return (listener: Listener): (() => void) => {
-    if (listeners.size === 0) {
-      contrastQuery = resolveContrastQuery();
-      contrastQuery?.addEventListener('change', onContrastChange);
-    }
-    listeners.add(listener);
-    return () => {
-      listeners.delete(listener);
-      if (listeners.size === 0 && contrastQuery !== undefined) {
-        contrastQuery.removeEventListener('change', onContrastChange);
-        contrastQuery = undefined;
-      }
-    };
-  };
-}
-
 export function createOakThemeStore(
   resolveRuntime: () => OakThemeRuntime | undefined,
-  resolveContrastQuery: () => ContrastQuery | undefined = resolveGlobalContrastQuery,
 ): OakThemeStore {
   const listeners = new Set<Listener>();
   const emit = (): void => {
@@ -153,7 +114,12 @@ export function createOakThemeStore(
     }
   };
   return {
-    subscribe: createContrastMirroringSubscribe(listeners, emit, resolveContrastQuery),
+    subscribe: (listener: Listener) => {
+      listeners.add(listener);
+      return () => {
+        listeners.delete(listener);
+      };
+    },
     // Theme reads the CHOICE model through the runtime's own accessor. The
     // result is two-level by design: undefined = no runtime (the demos'
     // hydration gate), '' = runtime present but no explicit choice. The kit
@@ -172,10 +138,10 @@ export function createOakThemeStore(
     ...createSetters(resolveRuntime, emit),
     // Call contract: consumers read options only after the snapshot gate
     // (theme/motion defined ⇒ runtime present); pre-hydration placeholders
-    // carry their own static option shapes. The fallbacks are a type-level
-    // floor, not a rendered no-runtime path.
-    themeOptions: () => resolveRuntime()?.themes ?? ['light'],
-    motionOptions: () => resolveRuntime()?.motion.modes ?? ['system'],
+    // carry their own static option shapes. An absent runtime reads
+    // undefined — the store fabricates no option values it cannot back.
+    themeOptions: () => resolveRuntime()?.themes,
+    motionOptions: () => resolveRuntime()?.motion.modes,
   };
 }
 

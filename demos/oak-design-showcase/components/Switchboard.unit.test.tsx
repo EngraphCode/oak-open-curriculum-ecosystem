@@ -33,14 +33,7 @@ function fakeRuntimeWorld(): {
 describe('Switchboard', () => {
   it('offers identity, theme and motion in a named settings landmark', () => {
     const world = fakeRuntimeWorld();
-    render(
-      <Switchboard
-        store={createOakThemeStore(
-          () => world.runtime,
-          () => undefined,
-        )}
-      />,
-    );
+    render(<Switchboard store={createOakThemeStore(() => world.runtime)} />);
     expect(screen.queryByRole('region', { name: 'Brand and display settings' })).not.toBeNull();
     expect(
       screen.getByRole('combobox', { name: 'Identity' }).querySelectorAll('option'),
@@ -59,14 +52,7 @@ describe('Switchboard', () => {
 describe('Switchboard write-through and degradation', () => {
   it('writes a theme choice through to the runtime, including from no-choice', () => {
     const world = fakeRuntimeWorld();
-    render(
-      <Switchboard
-        store={createOakThemeStore(
-          () => world.runtime,
-          () => undefined,
-        )}
-      />,
-    );
+    render(<Switchboard store={createOakThemeStore(() => world.runtime)} />);
     fireEvent.change(screen.getByRole('combobox', { name: 'Theme' }), {
       target: { value: 'high-contrast' },
     });
@@ -74,14 +60,7 @@ describe('Switchboard write-through and degradation', () => {
   });
 
   it('renders theme and motion as disabled no-knowledge placeholders with no runtime', () => {
-    render(
-      <Switchboard
-        store={createOakThemeStore(
-          () => undefined,
-          () => undefined,
-        )}
-      />,
-    );
+    render(<Switchboard store={createOakThemeStore(() => undefined)} />);
     expect(screen.queryByRole('combobox', { name: 'Identity' })).not.toBeNull();
     // The placeholders are disabled (honestly not yet interactive), read
     // the no-knowledge sentinel on both axes, and carry the SAME option

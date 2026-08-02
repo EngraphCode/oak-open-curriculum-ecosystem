@@ -1,7 +1,8 @@
 'use client';
 /* Theme + motion controls for the Oak design system (kit
    docs/nextjs-theme-switcher.tsx.txt, adapted to useSyncExternalStore over
-   the @oaknational/oak-design-react theme-store adapter). Pairs with the kit's oak-theme.js served
+   the @oaknational/oak-design-react theme-store adapter). Pairs with the
+   kit's oak-theme.js served
    as a raw inline <head> script from app/layout.tsx (ADR-213: never
    next/script beforeInteractive — it does not block first paint). The server
    snapshot is undefined, so server HTML renders no controls and the client
@@ -92,7 +93,7 @@ export default function ThemeSwitcher({
         id="oak-theme-select"
         label="Theme"
         value={theme}
-        options={store.themeOptions()}
+        options={store.themeOptions() ?? []}
         labels={THEME_LABELS}
         onChange={store.setTheme}
         placeholderLabel="Page default"
@@ -101,7 +102,7 @@ export default function ThemeSwitcher({
         id="oak-motion-select"
         label="Motion"
         value={motion}
-        options={store.motionOptions()}
+        options={store.motionOptions() ?? []}
         labels={MOTION_LABELS}
         onChange={store.setMotion}
       />

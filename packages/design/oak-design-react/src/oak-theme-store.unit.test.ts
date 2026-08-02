@@ -7,20 +7,16 @@
  * contrast route staying no-choice, session choice surviving failed
  * persistence, membership validation of stored values) are the KIT's
  * behaviour, pinned by its own integration suite — re-asserting them here
- * through a fake runtime would test the fake. Subscribers are re-notified
- * on setter writes AND on the runtime's own reactive trigger (the
- * `prefers-contrast` media change). All collaborators are simple injected
- * fakes (no-global-state-in-tests / ADR-078).
+ * through a fake runtime would test the fake. The store carries no
+ * contrast-media mirror by design (see the module docblock): no exposed
+ * snapshot can change on that trigger under the choice model. All
+ * collaborators are simple injected fakes (no-global-state-in-tests /
+ * ADR-078).
  */
 import { describe, expect, it, vi } from 'vitest';
 
 import { createOakThemeStore } from './oak-theme-store';
-import type {
-  ContrastQuery,
-  OakMotionMode,
-  OakThemeName,
-  OakThemeRuntime,
-} from './oak-theme-store';
+import type { OakMotionMode, OakThemeName, OakThemeRuntime } from './oak-theme-store';
 
 function fakeRuntimeWorld(seededChoice: OakThemeName | null = null): {
   runtime: OakThemeRuntime;
@@ -51,39 +47,27 @@ function fakeRuntimeWorld(seededChoice: OakThemeName | null = null): {
   return { runtime, appliedTheme: () => applied };
 }
 
-function fakeContrastQuery(): { query: ContrastQuery; fire: () => void; listeners: () => number } {
-  const changeListeners = new Set<() => void>();
-  const query: ContrastQuery = {
-    addEventListener: (_type, listener) => {
-      changeListeners.add(listener);
-    },
-    removeEventListener: (_type, listener) => {
-      changeListeners.delete(listener);
-    },
-  };
-  return {
-    query,
-    fire: () => {
-      for (const listener of changeListeners) {
-        listener();
-      }
-    },
-    listeners: () => changeListeners.size,
-  };
-}
-
-function storeOver(
-  runtime: OakThemeRuntime | undefined,
-  resolveContrastQuery: () => ContrastQuery | undefined = () => undefined,
-) {
-  return createOakThemeStore(() => runtime, resolveContrastQuery);
+function storeOver(runtime: OakThemeRuntime | undefined) {
+  return createOakThemeStore(() => runtime);
 }
 
 describe('createOakThemeStore snapshots', () => {
-  it('reports undefined for theme and motion when no runtime exists (hydration gate)', () => {
+  it('reports undefined for theme, motion, and options when no runtime exists', () => {
     const store = storeOver(undefined);
     expect(store.getTheme()).toBeUndefined();
     expect(store.getMotion()).toBeUndefined();
+    // The store fabricates no option values it cannot back (the recorded
+    // options-fallbacks-to-undefined delta); consumers floor at their
+    // hydration gate.
+    expect(store.themeOptions()).toBeUndefined();
+    expect(store.motionOptions()).toBeUndefined();
+  });
+
+  it('forwards the runtime option lists when a runtime exists', () => {
+    const { runtime } = fakeRuntimeWorld();
+    const store = storeOver(runtime);
+    expect(store.themeOptions()).toEqual(['light', 'dark', 'high-contrast']);
+    expect(store.motionOptions()).toEqual(['system', 'reduced', 'full']);
   });
 
   it('reports the no-choice state as the empty sentinel, never as light', () => {
@@ -127,31 +111,5 @@ describe('createOakThemeStore setters', () => {
     store.setMotion('reduced');
     expect(listener).toHaveBeenCalledTimes(1);
     expect(store.getMotion()).toBe('reduced');
-  });
-});
-
-describe('createOakThemeStore contrast subscription', () => {
-  it('re-notifies subscribers when the contrast preference changes (runtime-driven change)', () => {
-    const { runtime } = fakeRuntimeWorld();
-    const contrast = fakeContrastQuery();
-    const store = storeOver(runtime, () => contrast.query);
-    const listener = vi.fn();
-    store.subscribe(listener);
-    contrast.fire();
-    expect(listener).toHaveBeenCalledTimes(1);
-  });
-
-  it('attaches the media listener with the first subscriber and detaches with the last', () => {
-    const { runtime } = fakeRuntimeWorld();
-    const contrast = fakeContrastQuery();
-    const store = storeOver(runtime, () => contrast.query);
-    expect(contrast.listeners()).toBe(0);
-    const unsubscribeFirst = store.subscribe(vi.fn());
-    const unsubscribeSecond = store.subscribe(vi.fn());
-    expect(contrast.listeners()).toBe(1);
-    unsubscribeFirst();
-    expect(contrast.listeners()).toBe(1);
-    unsubscribeSecond();
-    expect(contrast.listeners()).toBe(0);
   });
 });

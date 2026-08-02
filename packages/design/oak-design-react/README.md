@@ -12,9 +12,10 @@ adapter over the kit's `oakTheme` runtime. The theme snapshot is the CHOICE
 model read through the runtime's `choice()` accessor: `undefined` means no
 runtime (server render — HTML stays theme-neutral), `''` means no explicit
 choice (render a "Page default" placeholder, never pin a concrete theme).
-The store re-notifies subscribers on the same `prefers-contrast` media
-change the runtime itself reacts to, so runtime-driven theme changes reach
-React.
+The store carries no contrast-media mirror: under the choice model the
+OS-contrast route changes only the applied theme, never `choice()`, so no
+exposed snapshot can change on that trigger — an applied-theme accessor
+(with its mirror) lands at first materialised need.
 
 The adapter is factory-pure and has **no React dependency**: consumers hand
 its members to `useSyncExternalStore`. React itself arrives with the tier's

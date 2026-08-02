@@ -444,6 +444,11 @@ oak-design-system ───┘     projections)           primitives)
   canonical source)
 ```
 
+```text
+oak-design-system ───→  oak-design-react  →  React app consumers
+                         (binding tier; landed 2026-08-02 — §3 dated amendment)
+```
+
 (Corrected 2026-07-23 to match ADR-041's 2026-07-21 correction, which this section had
 continued to contradict: the earlier linear chain drew a
 `design-tokens-core → oak-design-system` edge that does not exist — the two workspaces
@@ -457,7 +462,9 @@ never imports other design workspaces, apps, or sdks; its public surface is buil
 theme-switcher JS (`oak-theme.js`), plus the generated DTCG export artefact — no React,
 permanently (amended 2026-07-23: the §3-amendment component tier is a separate downstream
 package; at its landing the map gains an `oak-design-system → <tier package>` edge for React
-app consumers, and this workspace's surface is unchanged by it). `oak-design-tokens` depends on the design system (validator
+app consumers, and this workspace's surface is unchanged by it — LANDED 2026-08-02 as
+`oak-design-react`, the second map block above; the edge is contract-only until the tier's
+first component). `oak-design-react` depends on `oak-design-system` only. `oak-design-tokens` depends on the design system (validator
 consumer of the DTCG export from PR3's dual-gate window — §2 amendment 2026-07-20; token data
 source at Stage B) plus `design-tokens-core`. `oak-design-ink` depends on
 `oak-design-tokens` only. Apps and demos consume the design system's built CSS and the

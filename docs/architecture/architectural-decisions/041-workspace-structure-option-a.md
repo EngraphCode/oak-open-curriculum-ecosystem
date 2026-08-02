@@ -30,9 +30,11 @@ Adopt Option A (conventional) with clear directories:
   `oak-design-system`, `oak-design-tokens`, `oak-design-ink`,
   `oak-design-assets`, and `oak-design-react` (the ADR-213 §3 React binding
   tier). See ADR-148 and ADR-213.
-- `demos/` – demonstration apps consuming published package surfaces only
-  (`oak-curriculum-hub`, `oak-design-showcase`); never imported by packages
-  (row added 2026-08-02 — the directory predates it).
+- `demos/` – demonstration apps consuming workspace package surfaces only
+  (`oak-curriculum-hub`, `oak-design-showcase`). Recorded intent: never
+  imported by packages — no boundary rule enforces the inbound direction
+  yet; enforcement lands at need, mirroring the design-inventory leg (row
+  added 2026-08-02 — the directory predates it).
 - `agent-tools/` – optional TypeScript implementation of Practice-
   operational tooling (collaboration-state, commit-queue, agent-
   identity, comms CLIs). The phenotype boundary is set by ADR-165;
