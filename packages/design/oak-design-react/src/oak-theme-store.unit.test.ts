@@ -112,4 +112,19 @@ describe('createOakThemeStore setters', () => {
     expect(listener).toHaveBeenCalledTimes(1);
     expect(store.getMotion()).toBe('reduced');
   });
+
+  it('stops notifying a listener after its unsubscribe cleanup runs', () => {
+    const world = fakeRuntimeWorld();
+    const store = storeOver(world.runtime);
+    const removed = vi.fn();
+    const retained = vi.fn();
+    const unsubscribe = store.subscribe(removed);
+    store.subscribe(retained);
+    unsubscribe();
+    store.setTheme('dark');
+    // The retained listener proves the write notified — the removed
+    // listener's silence is unsubscription, not a dead notifier.
+    expect(removed).not.toHaveBeenCalled();
+    expect(retained).toHaveBeenCalledTimes(1);
+  });
 });

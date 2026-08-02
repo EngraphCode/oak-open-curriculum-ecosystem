@@ -7,8 +7,11 @@ package holds what is React-covariant.
 
 ## First resident: the theme-store adapter
 
-`createOakThemeStore` / `oakThemeStore` — a `useSyncExternalStore`-shaped
-adapter over the kit's `oakTheme` runtime. The theme snapshot is the CHOICE
+`createOakThemeStore` / `oakThemeStore` — a
+[`useSyncExternalStore`](https://react.dev/reference/react/useSyncExternalStore)-shaped
+adapter over the kit's `oakTheme` runtime (the store side of React's
+contract: a stable `subscribe` plus snapshot readers, handed to the hook by
+consumers). The theme snapshot is the CHOICE
 model read through the runtime's `choice()` accessor: `undefined` means no
 runtime (server render — HTML stays theme-neutral), `''` means no explicit
 choice (render a "Page default" placeholder, never pin a concrete theme).
