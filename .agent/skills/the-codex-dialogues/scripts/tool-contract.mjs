@@ -31,10 +31,16 @@ function assertCodexShape(codexTool) {
 }
 
 function assertReplyShape(replyTool) {
-  for (const name of ['threadId', 'prompt', 'conversationId']) {
-    if (replyTool.inputSchema?.properties?.[name] === undefined) {
-      throw new Error(`tool contract: codex-reply input schema no longer declares ${name}`);
-    }
+  // Complete key set, same discipline as the codex tool: an added
+  // reply property is an unclassified per-call control and must fail a
+  // re-probe rather than ride along unrecorded.
+  const recordedReplyPropertySet = ['conversationId', 'prompt', 'threadId'];
+  const actualReplyPropertySet = Object.keys(replyTool.inputSchema?.properties ?? {}).sort();
+  if (JSON.stringify(actualReplyPropertySet) !== JSON.stringify(recordedReplyPropertySet)) {
+    throw new Error(
+      `tool contract: codex-reply input property set is ${JSON.stringify(actualReplyPropertySet)}, ` +
+        `record says exactly ${JSON.stringify(recordedReplyPropertySet)}`,
+    );
   }
   const required = [...(replyTool.inputSchema?.required ?? [])].sort();
   if (JSON.stringify(required) !== JSON.stringify(['prompt'])) {

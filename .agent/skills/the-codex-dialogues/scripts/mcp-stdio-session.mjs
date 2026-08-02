@@ -48,6 +48,13 @@ export class McpStdioSession {
       this.#endedResolve();
       this.#failAllPending(`server error: ${error.message}`);
     });
+    // A write callback receives its own failure, but the stream ALSO
+    // emits 'error' (e.g. an async EPIPE when the child closes stdin
+    // between the terminal check and a write) — unhandled, that event
+    // crashes the process outside the controlled PROBE FAIL path.
+    this.#child.stdin.on('error', (error) => {
+      this.#failAllPending(`stdin error: ${error.message}`);
+    });
   }
 
   request(method, params) {
