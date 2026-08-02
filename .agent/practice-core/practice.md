@@ -295,8 +295,9 @@ then choose the home.
 The previous `practice-core/patterns/` and `practice-context/`
 surfaces were retired 2026-04-29 (PDR-007 amendment). Universal
 patterns now graduate as PDRs; engineering patterns live host-side
-at `.agent/memory/active/patterns/`. Inbound exchange uses
-`decision-records/incoming/`; outbound routes by shape per PDR-024.
+at `.agent/memory/active/patterns/`. Inbound exchange uses the
+Practice Box at `.agent/practice-core/incoming/`; outbound routes by
+shape per PDR-024.
 
 ## The Review System
 
@@ -477,9 +478,9 @@ how exchange, branching, and transplantation move the lineage forward across rep
 governance decisions and universal patterns travel as **Core content** in
 `practice-core/decision-records/` (the latter as PDRs with `pdr_kind: pattern`).
 The previous `practice-context/` ephemeral exchange surface was retired
-2026-04-29 (PDR-007 amendment); inbound substance now arrives via
-`decision-records/incoming/` and outbound substance routes by shape per
-PDR-024.
+2026-04-29 (PDR-007 amendment); inbound substance now arrives via the
+Practice Box at `.agent/practice-core/incoming/` and outbound substance
+routes by shape per PDR-024.
 
 **Self-containment**: all travelling content must carry the concept
 itself — what it is, how it works, why it matters — never a pointer to

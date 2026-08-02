@@ -24,6 +24,7 @@ recompute live state from claims/comms/git at pickup.
 | 2026-07-26 | Schooner binds Trench | claude-code / claude-fable-5 | `5492d7` | MCP-128 restack successor (Skipper→Schooner, PDR-063 at owner word); continues PR-3 from the frozen inventory |
 | 2026-07-30 | Thyme weaves Hedgerow | claude-code / claude-fable-5 | `762020` | design-showcase lane (adopted claim `ebb3efe2` from Altair turns Infinity `7a97a1` at owner word 2026-07-29 — Altair held the lane 2026-07-29 unregistered on this table); landed #637 + #641; MCP-372 carrier at owner ruling; deliberate succession → Sycamore herds Xylem `028dc4` 2026-07-30 |
 | 2026-08-02 | Moss calls Loam | claude-code / claude-fable-5 | `79b433` | Design-lane seat at direct owner word (Director: Falcon hunts Flight `52841f`); movement 1: PR #710 MERGED `58e5be461` — kit 1.8.0 TS-runtime + choice() on main |
+| 2026-08-02 | Corsair hunts Surf | claude-code / claude-fable-5 | `4d3282` | Design-lane successor seat at direct owner word (evening, post-Moss retirement); standby, warm pause — activation gated on the ratified design-system completion plan node + Director/owner word |
 
 ## Board state at writing (recompute, do not trust)
 
@@ -386,12 +387,40 @@ successor (Triton→Lavender), retired at owner word; claim 68088465 pending suc
   testing-strategy's behaviour-shape test; CHANGELOG 1.8.0 entry), comment
   true-up `cc8523581`. Kit 1.8.0 with `choice()` is on main — PR-2's hard
   sequencing is satisfied.
-- **Movement 2 next**: the shared theme-store extraction per this record's
-  §PR-2 inventory (the Sycamore pause record + verdict pointers); **#644
-  CLOSES-WITH-POINTER at PR-2's open**; the Codex-parity execution framing
+- **Movement 2: PR #715 OPEN at `eb80d301d`** — the tier lands as
+  `@oaknational/oak-design-react` (ADR-213 §3 name-at-landing; ADR-041/213
+  dated amendments ride the PR): union store (choice-model + the hub's
+  contrast subscription; param-2 `resolveContrastQuery` seam kept), both
+  demo copies + suites deleted, hub "Page default" placeholder port with
+  the red-first guard test, boundary completeness in both forms +
+  `DESIGN_PACKAGE_IMPORTS` runtime tuple + the validate-boundaries design
+  leg. **#644 CLOSED with pointer** at the open, per the brief. All suites
+  green at the head (sibling 8/8, plugin 359/359, hub 358/358, showcase
+  65/65, kit 13/13). **Round 1 ABSORBED at `235f0211a`** (opus gateway
+  FINDINGS-no-must-fix + Copilot's two threads, one batch): the contrast
+  mirror was probe-proven INERT under the choice model and deleted with
+  its seam/tests/claims (an applied-theme accessor lands at first
+  materialised need); the options-fallbacks-to-undefined delta
+  implemented (floor moved to the demos' gated call sites); docblock
+  boundary claim trued; table-driven pairwise boundary test added
+  (allowed-edge map matches the live rules — the open
+  ink→design-tokens-core edge is recorded visibly, tightening is its own
+  decision); ADR-213 §4 landing promise paid; ADR-041 demos row softened
+  to recorded intent. Both Copilot threads replied+resolved; disposition
+  comment on the PR; Copilot re-requested at `235f0211a`. **Next at
+  resume**: harvest Copilot + checks at the new head (no settle watch
+  armed — compaction freeze), REST merge at full condition (4 named
+  checks + zero unresolved threads + MERGEABLE + Copilot at exact head);
+  then the lane's docs pass with the batched owner-wording card
+  (licensing reclass, kit README headline, conventions.md — plus the
+  pre-existing hub fs-warning ownership), MCP-372/388/134 true-ups at
+  rest, and #709 as input. Suites at freeze: plugin 365/365, sibling
+  7/7, hub 358/358, showcase 65/65. The Codex-parity execution framing
   stays PAUSED at owner gate. #709 adjudicates as lane input (fable
   adjudicator: development-lane; its branch-only value is the unbuilt
-  restack tail PRs 4-6).
+  restack tail PRs 4-6). Claim `44616c39` HELD through the compaction
+  freeze (2026-08-02 afternoon, owner word; monitors stopped at the
+  freeze — the resuming seat re-arms via start-right).
 - Claim `44616c39` (`packages/design/**` + `demos/**`) live at this seat;
   lane comms events `2ae5943a`/`df156c7d`/`acbf47fe` carry the movement-1
   arc.
@@ -407,3 +436,292 @@ successor (Triton→Lavender), retired at owner word; claim 68088465 pending suc
   `jimcresswell/mcp-372-shared-theme-store-extraction` off `58e5be461`).
   The D1/D2/D3/D5 temp file is unrecoverable (encrypted transcript); its
   applied form survives in the pause record + the absorption record.
+
+## Session update 2026-08-02 post-compaction (Moss calls Loam, 79b433 — additive; #715 MERGED)
+
+- **PR #715 MERGED at `SHA:81decaa3b`** (head `SHA:f7bb24c8c`, sha-pinned bot
+  REST merge at full condition; Copilot's final pass clean — no comments, no
+  suppressed block). `@oaknational/oak-design-react` is on main. Post-freeze
+  review arc, all absorbed: **round 2** (`SHA:672bd6185`) cured the Sonar
+  new-duplication red (10.1% > 3%, all 66 lines in the path-zone member
+  branches) at the generator — `createDesignSiblingZones` derives each
+  zone's path AND message from the sibling's package specifier; membership
+  stays hand-enumerated in both builders with parity enforced by the
+  pairwise test (the opus per-cycle reviewer's one revision: the comment
+  must not overclaim drift-immunity) — and trued the two records Copilot's
+  suppressed comment caught contradicting the round-1 mirror deletion (PR
+  body; absorption record's dated round-1 supersession addendum).
+  **Harvest pushes** `SHA:58dd73654` (useSyncExternalStore upstream link per
+  documentation-hygiene §2; unsubscribe cleanup test — a union obligation,
+  the deleted hub suite carried the only cleanup coverage) and
+  `SHA:f7bb24c8c` (ink diagnostic names both permitted deps — the message
+  was this-PR-authored; tsconfig matchMedia comment trued; unknown-motion
+  no-op twin test in a setter-guards describe). Review-ratchet operator stop
+  was declared on the PR before the final pass; it converged clean without
+  firing. Suites at merge: sibling 9/9, plugin 365/365, hub 358/358,
+  showcase 65/65.
+- **Owner licensing ruling (2026-08-02, chat, ratified)**: the code is MIT,
+  the curriculum content is OGL, the Oak brand is copyright Oak and is not
+  licensed; UK spelling (licence noun / license verb) owned by the agent.
+  Prior framing was "unnecessarily complex" — apply, never re-open.
+  Execution shape for the docs pass (corrected same-session: root `LICENCE`
+  and `LICENCE-DATA.md` ALREADY exist and state the MIT/OGL split — an
+  earlier "no licence file exists" claim was a glob artefact):
+  `"license": "MIT"` on design-tokens-core/ink/react/tokens, kit + assets
+  keep `SEE LICENSE IN LICENCES.md` with LICENCES.md gaining the three-way
+  split stated as everything-MIT-except-the-enumerated-marks. Owner also
+  elaborated the constraint-surface corollary of framework/instance
+  thinness (napkin capture, graduation candidate for `principles.md`
+  §Separate Framework from Consumer).
+- **Docs pass remaining**: three-question owner card (kit README no-build
+  phrasing; conventions.md `window.OakDS`→`oakTheme` factual fix +
+  "behaviourless" rephrase; hub `oak-theme-parity.test.ts` fs-read
+  ownership) — prepared, surfacing at the card moment; then the docs PR off
+  fresh main. B4's original full text is unrecoverable (encrypted blobs,
+  session 028dc48b task a25da45f13765f578) — the licensing item above is
+  the re-derived, owner-ratified replacement. MCP-372/388/134 true-ups
+  BLOCKED by the Linear embargo (until 08:00 Europe/London 2026-08-10) —
+  they fire at the embargo's end or owner exception. #709 stays lane input
+  (fable adjudicator verdict recorded pre-freeze). Claim `44616c39` HELD.
+
+## Session update 2026-08-02 late afternoon (Moss calls Loam, 79b433 — additive; docs pass LANDED)
+
+- **The card was answered and the docs pass is fully merged.** Owner
+  answers: kit README delegated ("decide what is sensible, describe it
+  accurately"); conventions rephrase = the recommended scoped wording; hub
+  fs test = "cure now in this lane". **PR #719 MERGED `SHA:b3efa938e`**
+  (licensing ruling executed: MIT fields on the four pure-code design
+  packages; LICENCES.md "Oak-authored code and content" section pairing
+  each claim with its actual authority — root `LICENCE` for code, kit
+  README §Licence for docs prose, `LICENCE-DATA.md` for API curriculum
+  content — deferring per-file classification to LICENSING-MANIFEST.md;
+  kit README copy-path trued to committed-vs-build-output parity;
+  conventions.md `window.OakDS`→`window.oakTheme` + the behaviourless
+  rephrase; conventions.md verified AUTHORED, the config's `readmeHeader`,
+  with `OakDS` being the sync bundle's wrapper global). Review arc: three
+  one-finding suppressed rounds absorbed, final item dispositioned under a
+  declared operator stop. **PR #720 MERGED `SHA:5fef92640`** (hub guard
+  consolidation): kit-asset manifest repo-scoped (hub runtime copy as a
+  deliberate cross-demo row; `KIT_ASSET_COPIES`/`manifestRoot` renames;
+  resolved-path failure messages), the hub parity test deleted whole on
+  opus-reviewer-verified conservation (realpath-identical kit resolution;
+  escape assertions subsumed by lib/inline-script.test.ts + the kit
+  chain), red-proven live (one byte → validator exit 1 naming the hub
+  path). Hub eslint clean at `--max-warnings 0`.
+- **The docs-prose fork RESOLVED same-day, twice** (final word wins): the
+  owner first answered the card with a subject split (design-docs OGL /
+  general MIT — briefly landed on PR #721's first commit), then
+  superseded it with the standing PROVENANCE ruling (verbatim intent:
+  docs WE authored are MIT; docs already published on an existing Oak
+  surface other than this repo or its apps are OGL — which explains
+  curriculum content's OGL with no special case). PR #721 carries the
+  provenance form across all three licence surfaces; `brand_voice.txt`
+  verified first-hand as a page-marked extraction of the Oak-published
+  brand voice toolkit v2.0 → OGL by provenance.
+- Remaining at this seat: #709 adjudication fold (lane input); MCP
+  true-ups at embargo end. Claim `44616c39` HELD. Merged local branches
+  (`jimcresswell/mcp-372-design-docs-pass`,
+  `jimcresswell/mcp-372-hub-parity-guard-consolidation`,
+  `jimcresswell/mcp-372-shared-theme-store-extraction`) are owner-one-click
+  deletions (branch -D is permission-denied at the seat).
+- **#709 ADJUDICATED (2026-08-02, recorded on the PR)**: SUPERSEDE for the
+  design lane (its design-consumption substance landed via ADR-217, #710,
+  #715, and the merged restack PRs); RETAIN as development-lane reference
+  for the unbuilt restack tail (PRs 4–6). The draft stays OPEN per the
+  owner's same-day retention ruling; merge-or-supersede transfers with the
+  lane that builds the tail; the tail's routing question rides the lane's
+  rest report to the Director. The owner has further design work in mind
+  for this lane once the current set completes (his word 2026-08-02
+  ~16:10Z) — the lane rests READY, not closed.
+- **PR #721 MERGED `SHA:c87d31454`** (head `SHA:05818b14a`) — the
+  provenance ruling on all three licence surfaces, every claim cited
+  (brand_voice.txt's source per the private-upstream clause: the
+  byte-preserved capture, the 2026-07-24 commit ruling, the
+  no-public-URL-recorded statement), the "this repo or its apps"
+  boundary identical everywhere, manifest row 4's two decision dates
+  split (July = tracking, August = licence). Review rounds: boundary
+  consistency → dual-date cell → source citation → final tally under a
+  declared hard stop (two residual phrasing nits recorded on the PR, no
+  cure). **THE SEAT'S ROUTED BRIEF IS FULLY DISCHARGED** — lane-rest
+  broadcast 2813303a carries the Director routing inputs (restack-tail
+  lane question; continuation candidates; the owner's coming design
+  work takes precedence). Claim `44616c39` HELD, monitors live, seat
+  READY.
+- **COMPACTION FREEZE (boundary 8, 2026-08-02 evening, owner word)**:
+  the seat froze at rest with ZERO open work — no open PRs, no
+  unresolved threads, no uncommitted worktree state (the primary's
+  dirty thread record + napkin ride the Director's fold per
+  no-handover-commits). Monitors stopped at the freeze (heartbeat
+  first, watcher last); claim `44616c39` HELD through it. The resuming
+  seat re-arms via start-right and picks up at: the OWNER'S NEXT DESIGN
+  WORD (announced, pending — his word takes precedence), else Director
+  routing per broadcast 2813303a; task #23 (Linear true-ups) fires at
+  the 2026-08-10 embargo end.
+- Estate context at this update: Director Falcon hunts Flight resumed
+  post-compaction (14:28Z heartbeats); coordination branch rolled to
+  `coordination/estate-2026-08-02` — this record was written on a checkout
+  still at `coordination/estate-2026-07-31` and rides the Director's fold.
+
+## Session close 2026-08-02 evening (Moss calls Loam, 79b433 — RETIRED at owner word)
+
+- Owner word (2026-08-02 ~19:20Z): announce retirement and pass all
+  responsibilities back to the Director. A deliberate stand-down of an
+  at-rest lane — tracked-surfaces-only per PDR-063 §Deliberate
+  succession: no in-flight state, no handoff record, no claim to adopt.
+- Claim `44616c39` CLOSED (archived to the closed-claims archive; no
+  retained claims). Responsibility pass to Director Magnetar binds
+  Oblivion (74d914) via directed event `b8b8b691`: (1) the owner's
+  announced further design work takes precedence — route a fresh lane at
+  his word, seeded from this record; (2) the lane-rest routing inputs per
+  broadcast `2813303a` transfer unchanged (restack-tail PRs 4–6 question
+  with #709 as development-lane reference; MCP-371 slices 3–5; hub §6
+  component-class PRs; release-gate items incl. the licence-field census
+  pointer); (3) MCP-372/388/134 Linear true-ups at the embargo's end
+  (08:00 Europe/London 2026-08-10; earlier only on a fresh express owner
+  exception) — this record's session updates are the source; (4) the four
+  merged local branches remain owner-one-click deletions.
+- The design-showcase-lane worktree PRUNED at this closeout under the
+  standing prune policy (clean tree + head `SHA:05818b14a` proven an
+  ancestor of origin/main, both proofs run at closeout).
+- Monitors stopped in order (heartbeat loop first, watcher last);
+  heartbeat-end event `d0709711`; the retirement broadcast is the seat's
+  final event — silence from 79b433 after it is retirement by owner word.
+  This record and the napkin ride the Director's fold per
+  no-handover-commits.
+
+## Session update 2026-08-02 ~20:05Z (Corsair hunts Surf, 4d3282 — additive; successor seat registered, WARM PAUSE)
+
+- Seat registered at direct owner word ("you will be taking on the design
+  lane, please get up to speed, then warm pause"). Full grounding run:
+  this record end to end, routing inputs `2813303a`, responsibility pass
+  `b8b8b691`, live claims/comms/git/host. Team-start broadcast `0fdb373f`;
+  Director ack `69ae1223`; absorption ack `cf87b001`. Standby liveness
+  contract (PDR-078 §4): watcher live (F-95 green), no heartbeat cron, no
+  claim.
+- **SUPERSESSION (recompute at pickup, but this bound is Director-stated,
+  event `69ae1223`)**: the 2813303a continuation candidates and Moss-era
+  candidate routing are SUPERSEDED by a design-system completion plan the
+  owner is defining in-session at the Director's seat (Magnetar binds
+  Oblivion, 74d914), nearing ratification. Headline shape as relayed:
+  showcase owner-rejected on visual quality; W0 census/stabilise + Demos
+  Charter; W1 identity/theme contract (schema, arbitrary-N-identities
+  falsifier, off-horizontal token dimension, contrast/a11y gate matrix,
+  ADR-147 extension); W2 ship oak-design-react in full; W3 showcase
+  rebuilt React+Tailwind expressing ALL export pages + generated
+  token-reference page, owner render checkpoints; W4 consumption-paths
+  family (plain HTML+CSS demo + per-engine how-tos). Hub STAYS
+  Tailwind-mapped by owner word; #709 closes at ratification with a
+  value-transfer pointer.
+- **Activation trigger for this seat**: the ratified plan node landing +
+  the owner's or Director's word; the plan file path arrives with the
+  activation route. Until then the seat holds warm — no candidate work,
+  no claim. The 2026-08-10 Linear true-ups (MCP-372/388/134) remain at
+  the Director's seat per `b8b8b691`.
+
+## 2026-08-02 ~20:50Z — v2-authoring inputs for the Corsair seat (Director handoff entry, Magnetar binds Oblivion 74d914)
+
+Appended at the owner-directed focussed handoff before the Director seat's compaction
+boundary. Everything below is input the v1 corpus and briefs do NOT durably carry;
+the canonical set for the lane remains: the v1 plan (`6f3221e1e`), the review corpus +
+adjudication (`.agent/reports/design/plan-review-2026-08-02/`, on origin at
+`2423b6818`), and the activation briefs (comms events `6b0ea7f4` + `54ab2556`).
+
+- **Owner taste evidence from the day (the wow bar's only calibration data):**
+  REJECTED out of hand: the current showcase page — bare type-ramp specimens, native
+  form-control switchboard, monochrome first paint ("a piece of crap… visually I would
+  reject it out of hand as incompetent"; "it is a *design* showcase"). CALLED GOOD
+  (with unenumerated tweaks pending): the canonical export's own pages — the Identity
+  Switchboard switching a REAL lesson-page specimen ("The water cycle", masthead, nav,
+  breadcrumb, brand panel), proper toggle-button identity controls. The bar phrase
+  evolved in one day: "a professional designer would look at and think 'wow, that
+  looks good'" → "I want to look at each and every demo and think 'wow, that looks
+  *amazing*'". The export's visual language is the demonstrated taste anchor.
+- **The viewing context behind the verdict:** three tabs in the owner's Chrome —
+  hub dev server port 3010 (`pnpm --filter @oaknational/oak-curriculum-hub dev`),
+  showcase port 3020 (`pnpm --filter @oaknational/oak-design-showcase dev`), and the
+  canonical export served statically on 3030 (`python3 -m http.server 3030` from the
+  export's `project/` dir). All three servers STOPPED at the Director's compaction
+  boundary; restart is the commands above.
+- **The export-tweaks intake is OPEN and UNENUMERATED** — the owner said "it has
+  tweaks that I need made" and has not yet listed them (v1 W0.5 carries the intake;
+  the list itself is future owner input, and iteration is LOCAL per his post-v1
+  ruling — no Claude Design round-trips except at his instigation).
+- **The lost-agreement provenance** (original pure-HTML hub assignment, unrecorded,
+  drift normalised by ADR-213-era docs, deliberately superseded at his 2026-08-02
+  card) is recorded in the v1 plan's W0.3 charter provenance — carry it into v2's
+  charter story; the docs-adr corpus finding E56 corrects its ADR-213 attribution.
+- **Seat chain at this entry:** Moss calls Loam retired at owner word 19:53Z (lane
+  closeout clean, responsibilities at the Director); Corsair hunts Surf (4d3282)
+  activated 20:44Z in the v2 AUTHORING phase; Director = Magnetar binds Oblivion
+  (74d914, seated 17:13Z from Falcon hunts Flight). The #714 fold carries this
+  file's dirty state to origin at the next fold window.
+
+## Session update 2026-08-02 ~21:15Z (Corsair hunts Surf, 4d3282 — additive; plan v2 DRAFT-COMPLETE)
+
+- **Plan v2 authored and validator-green** at this seat per the activation brief
+  (events `6b0ea7f4` + `54ab2556`): full grounding run first (adjudication →
+  all 129 corpus findings including the 31 dropped-at-cap → v1 + strategic
+  sketch → ADR-213 end to end → plan-estate collision sweep → theme/DTCG
+  machinery, export inventory, hub runtime all FIRST-HAND — the 81-page count,
+  the five closed theme lists, the `$type` gaps, and the hub's existing
+  pre-paint + store-backed selection each re-verified against the live tree).
+- **Three files, UNCOMMITTED in the primary tree** (dirty tracked state riding
+  the next fold/window per no-handover-commits; prettier + markdownlint +
+  `validate-plan-corpus` all green, 37 plans conformant):
+  1. `.agent/plans/delivery/design-system-completion.plan.md` — the v2 rewrite
+     in place (same id; v1 was born-sketch, never ratified). Shape: W0 ground
+     truth/stabilise/instruments/charter → W1 FIRST LIGHT (the plain demo as
+     the first rendered wow checkpoint — F2's cure) → W2 identity/theme
+     contract (manifest schema + emitter + generated roster + parameterised
+     overlays + per-identity gates + standing falsifiers + off-horizontal +
+     asset delivery + identity design authorship + re-homed ADR-147 extension)
+     → W3 curated React tier on the ADR-213 §3 shape → W4 showcase rebuilt
+     inside a design grammar → W5 styled demo → W6 cross-demo closure.
+  2. `.agent/reports/design/plan-review-2026-08-02/dispositions.v2.md` — one
+     recorded decision per corpus finding (E0–E79, F0–F7, D0–D9, X0–X30).
+  3. `.agent/plans/strategic/design-system-as-configured-framework.plan.md` —
+     the E65 companion edit (`serves` → TOOLS-2 with APP-1 in prose).
+- **One live deviation worth the re-reviewers' eyes**: the `depends_on` edge to
+  the backlog `design-system-integration` plan is BODY-carried (§Relationships)
+  because the validator refuses frontmatter ids outside the anchored corpus —
+  E54/E69/X2 dispositions record it.
+- **Next**: the Director (resumed ~21:03Z) re-runs the fleet topology
+  (resumable `wf_b02eb59a-e81`) over the v2 text; draft-complete declared by
+  directed event at their live seat.
+  Iteration to a zero-finding round; implementation only at the owner's word.
+  Claim `953f9f8c` (the two plan files) HELD; heartbeat loop + quiet watcher
+  live at this seat.
+
+## COMPACTION FREEZE 2026-08-02 ~21:35Z (Corsair hunts Surf, 4d3282 — seat continues; resume map)
+
+- Owner word at the boundary: prepare for compaction, make understanding
+  durable (metacognition + concept-exploration + free-play + wrap lenses
+  run; harvest in the napkin ~21:30Z entry), stop monitors. Seat CONTINUES
+  post-compaction; silence from 4d3282 after the freeze broadcast is the
+  boundary, not retirement. Claim `953f9f8c` RETAINED.
+- **Resume state, exact**: the v2 draft is COMPLETE and DECLARED (event
+  `ca2620b7`, Director-acked with the fleet re-review LAUNCHING at their
+  seat ~21:05Z). The re-review's findings will land while this seat is
+  dark — at resume: re-arm via start-right (watcher first, foreground gap
+  sweep, heartbeat loop against the retained claim), then FIRST ACT = read
+  the re-review round's verdicts + any Director routing, absorb, iterate
+  the v2 text toward the zero-finding round. Implementation starts ONLY at
+  the owner's word after that round.
+- **The durable set** (all dirty-tracked on the primary, riding the
+  Director's fold per no-handover-commits; prettier + markdownlint +
+  validate-plan-corpus green at freeze): the v2 plan (amend-in-place,
+  same id), `dispositions.v2.md` (all 129 findings), the strategic node's
+  E65 companion edit, this record's ~21:15Z + this entry, the napkin
+  ~21:30Z captures, and a formation letter under `.agent/experience/`.
+- **Known-at-freeze bounds a successor should hold**: the four §Decision
+  log seat-verdicts are THIS SEAT'S design calls (flagged to the
+  re-review, not owner words); the owner's taste evidence is
+  Director-relayed (thread ~20:50Z entry), not first-observed; W0.2's
+  gates-green claim is deliberately UNVERIFIED (the plan makes verifying
+  it W0.2's first act); no page was rendered this session — all design
+  understanding is text-derived. Error signature: this seat's misses
+  clustered at cross-surface contract boundaries (subcommand output
+  shapes; anchored-vs-backlog id-spaces) — point external scrutiny there.
+- Monitors stopped in canonical order at this freeze (heartbeat loop
+  first — heartbeat-end event follows — peer-liveness poll, watcher
+  last after the freeze broadcast).

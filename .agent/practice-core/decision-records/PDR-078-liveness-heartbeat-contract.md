@@ -65,6 +65,8 @@ Two distinct failure modes shaped the contract:
    substrate volume and noises the comms surface. The contract
    names a redundancy rule that suppresses the heartbeat when a
    substantive event from the same role has fired recently.
+   (That clause — §2 — was retired 2026-08-02; the substrate
+   economy it was written for is now carried reader-side.)
 
 2. **Heartbeat blockage during legitimate quiet windows.** Some
    work shapes legitimately exceed the heartbeat cadence between
@@ -199,10 +201,11 @@ where chat-visibility makes the async-detection consumer absent.
 
 Heartbeat events are categorically **liveness-signal
 infrastructure**, not a delivery substrate for inter-agent
-content. The category is invariant: the cron-redundancy rule
-(§2) governs the cadence relationship between heartbeats and
-substantive events, but it does not collapse the category
-distinction.
+content. The category is invariant and stands on its own: it
+held while the cron-redundancy rule (§2) governed the cadence
+relationship between heartbeats and substantive events, and it
+holds unchanged now that clause is retired (2026-08-02) and
+heartbeats emit on cadence regardless.
 
 Two consequences flow from the category invariant:
 
@@ -211,9 +214,8 @@ Two consequences flow from the category invariant:
   acknowledgement, or any peer-directed content MUST emit it
   via the appropriate event class (broadcast, directed,
   acknowledgement). Re-tagging such an event as a heartbeat to
-  satisfy cadence is forbidden; the cron-redundancy rule
-  already permits the substantive event to suppress the
-  cadence-scheduled heartbeat, so the tag-overload pattern
+  satisfy cadence is forbidden; the cadence-scheduled heartbeat
+  fires on its own tick regardless, so the tag-overload pattern
   serves no liveness purpose and corrupts both surfaces.
 - **Heartbeat events do not carry substantive payloads.** The
   one-line posture summary named in §1 binds mechanically to
@@ -222,8 +224,8 @@ Two consequences flow from the category invariant:
   retirement threshold (§3) and by peers confirming a role is
   observed-live. It is not a free-form delivery channel for
   peer-directed content; if substantive content arises, the
-  agent emits the appropriate event class and the
-  cron-redundancy rule suppresses the next scheduled heartbeat.
+  agent emits the appropriate event class and the scheduled
+  heartbeat continues on cadence alongside it.
 
 The category is portable: any host implementing this contract
 applies the same invariant on its own comms-event substrate,
@@ -287,7 +289,7 @@ by per-host watcher tooling that tails the comms-event stream
 and applies the threshold window per identity-row.
 
 The contract names the boundary discipline (cadence, threshold,
-redundancy rule, exemptions) and the substrate-shape invariants
+exemptions) and the substrate-shape invariants
 (comms-event stream + identity tuple + a host-chosen canonical
 heartbeat discriminator). The host-specific implementation
 (which event kind, which discriminator field, which scheduler,
@@ -366,8 +368,10 @@ PDR-082's second-instance path."
 - A portable liveness signal that any host adopting this
   contract can implement against its own scheduler, watcher,
   and event-stream substrate.
-- A non-noisy heartbeat surface: substantive work skips
-  heartbeats; quiet work emits them; unobserved quiet retires.
+- A non-noisy heartbeat surface: heartbeats emit on cadence and
+  reader-side filtering (heartbeat-excluded watchers paired with
+  the freshness poll) keeps the substantive surface clean;
+  unobserved quiet retires.
 - A bounded threshold mechanism that peers can apply
   consistently without per-role disambiguation: every role
   that opens an exemption-class window emits the opening event;
@@ -405,8 +409,9 @@ PDR-082's second-instance path."
 ### Accepted Costs
 
 - Substrate volume from periodic heartbeats. Bounded by the
-  cron-redundancy rule; observed cost is acceptable against the
-  liveness signal it provides.
+  cadence itself (one event per role per window, §1) and absorbed
+  by reader-side filtering; observed cost is acceptable against
+  the liveness signal it provides.
 - Per-host implementation work: scheduler + watcher + filter on
   the canonical heartbeat tag. The host phenotype ADR records
   the chosen implementation.
@@ -539,3 +544,10 @@ substrate economy. The §5 category invariant is untouched; two
 §Forbids bullets and one falsifiability axis are re-pointed in the
 same amendment. Disposition ratified by owner card 2026-08-02 in the
 five-item doctrine pass (Director session 52841f).
+
+A propagation sweep the same day aligned the residual readers that
+still described the suppression relationship as operative: §Context
+carries a dated bracket on the framing that named the clause, and
+§5's category prose, §Mechanism's boundary-discipline list, §Enables,
+and §Accepted Costs now state the emit-every-tick behaviour and the
+reader-side economy that carries it.

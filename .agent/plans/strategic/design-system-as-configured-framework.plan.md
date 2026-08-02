@@ -7,7 +7,7 @@ status: sketch
 ratified_by: null
 ratified_date: null
 ratified_where: null
-serves: APP-1
+serves: TOOLS-2
 impact_areas:
   - design-system
 gate_expiry_default: P21D
@@ -36,7 +36,11 @@ last_updated: 2026-08-02
 
 The identity-as-configuration thesis is the same split the licensing model makes legible
 (code MIT, content OGL, marks reserved — owner ruling 2026-08-02): the reusability
-argument and the constraint-surface argument are one architecture seen from two sides.
+argument and the constraint-surface argument are one architecture seen from two sides —
+the open-by-default bet this node serves (TOOLS-2); the demos it powers are the visual
+front door of the MCP-app strand (APP-1), which consumes this strand's outcome without
+owning it. (Serves edge re-pointed APP-1 → TOOLS-2, 2026-08-02, v1-review finding E65:
+the node's own argument makes the choice.)
 Every delivery decision in this strand resolves against the kernel above: mechanism
 generalises downward, identity thins upward, and quality claims become structural
 (schemas, gates, generated documentation) rather than remembered.

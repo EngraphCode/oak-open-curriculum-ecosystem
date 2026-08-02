@@ -1111,3 +1111,39 @@ worth routing to agent-tools.
   primary. Cured once by owner-carded formatting-only fix with
   disclosure; the structural question (whose lint state gates whose
   push) routes to the Director at resume.
+
+## 2026-08-02 ~21:20Z — sitting harvest: beauty–truth–accessibility (Corsair hunts Surf, 4d3282)
+
+Owner-invoked four-lens sitting (free-play/metacognition/reason/concept-exploration) on
+'"Beauty is truth, truth beauty," — that is all. But also accessibility.' (Stamp is
+clock-true; this seat's earlier ~21:30Z stamp at the v2-authoring entry was an
+over-estimate — the napkin is append-ordered.) Plan v2 text deliberately untouched: it is
+frozen under the fleet re-review, and a mid-round edit grows the round's surface (loop
+dynamics: a growing round is a routing failure).
+
+- CONCEPT (grown shape; routed to the post-re-review iteration, adjudicated there):
+  accessibility is the falsifier set for beauty's implicit universality claim. Calling a
+  page beautiful claims others ought to be able to share the judgement; accessibility
+  gates are where that claim meets observation. The lane already holds the mechanical
+  form: per-identity contrast gate matrix (W2), prefers-contrast cure (W0.2c), Tab-walk
+  focus-order check (W4.2). Focus-order divergence is the cleanest instance — visual
+  order (the beauty claim) and DOM order (the truth) coming apart, observable only to
+  the users the visual channel excludes. Consequence for framing: an accessibility
+  failure reads "this page's beauty claim is false for these users", never "this page
+  owes a compliance fee". The inherited beauty-vs-compliance trade-off frame was never
+  ratified; it is an industry cowpath.
+- CANDIDATE for the post-re-review iteration (decide there; never smuggle in as prose):
+  run the W1 wow checkpoint with at least one non-default viewing condition
+  (prefers-contrast: more, a keyboard-only walk, or 200% zoom). Warrant: makes the
+  universality claim owner-observable at the same moment as the taste claim, at a cost
+  of minutes. Falsifier: adjudicated as ceremony in that round → drop it.
+- PLAY SEEDS (associations, never findings): the hub's 548 Tailwind arbitrary-value
+  literals read as 548 local contradictions of the token system — reframes the W4
+  literal migration as truth-restoration rather than hygiene. "Describe renders from
+  renders" is ekphrastic discipline — claims about a visual artefact grounded only in
+  looking at it. The estate splits Keats's negative capability: banned for claims
+  (verify eagerly, first-hand), mandated for frames (free-play forbids an entry problem
+  statement).
+- DISCARDED at the confabulation guard (forced on second look): 3 composed export pages
+  ↔ 3 urn frieze scenes (numerology); "unravish'd bride of quietness" ↔ the
+  quiet-watcher pause shape (word-association only).

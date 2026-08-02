@@ -151,8 +151,10 @@ travel) and the self-containment rule are in
 mechanism**: how an instance receives and integrates learning from a sibling.
 
 The previous `.agent/practice-context/` peer companion ephemeral exchange surface was retired
-2026-04-29 (PDR-007 amendment); inbound substance now arrives via `decision-records/incoming/` and
-outbound substance routes by shape per PDR-024.
+2026-04-29 (PDR-007 amendment); inbound substance now arrives via the Practice Box at
+`.agent/practice-core/incoming/` and outbound substance routes by shape per PDR-024. (Path
+harmonised 2026-08-02 against PDR-007, which names the Core's own `incoming/` directory as the
+Practice Box.)
 
 Estate-to-estate exchange runs in **two modes of one class, on shared substrate** (named
 2026-07-06): **transformation** — dead material taken up at a pin, one direction, integrated later
@@ -206,7 +208,7 @@ When Practice Core files appear in the Practice Box:
    bridge's truthfulness, activation-parity) hold. See
    [practice-verification.md](practice-verification.md) for the full audit.
 9. **Clear transient exchange material.** Remove the incoming files
-   from `.agent/practice-core/decision-records/incoming/`. The
+   from the Practice Box at `.agent/practice-core/incoming/`. The
    integration is complete.
 
 If nothing clears the bar, record that in the napkin too — the
