@@ -7,10 +7,12 @@
  *   skills-adapter-generate --check    # exit non-zero if any adapter is stale
  *   skills-adapter-generate --clear    # clear all adapter dirs before generating
  */
+import { join } from 'node:path';
 import { argv, exit, stderr, stdout } from 'node:process';
 
 import { checkAdapters } from '../skills-adapter-generate/checker.js';
-import { clearGeneratedAdapters, generateAdapters } from '../skills-adapter-generate/generator.js';
+import { clearGeneratedAdapters, readLockedSkillIds } from '../skills-adapter-generate/clear.js';
+import { generateAdapters, generateExitCode } from '../skills-adapter-generate/generator.js';
 
 interface CliFlags {
   readonly clear: boolean;
@@ -54,15 +56,26 @@ async function runCheck(repoRoot: string, prefix: string): Promise<number> {
 
 async function runGenerate(repoRoot: string, flags: CliFlags): Promise<number> {
   if (flags.clear) {
-    await clearGeneratedAdapters(repoRoot);
-    stdout.write('Cleared adapter directories.\n');
+    const lockResult = await readLockedSkillIds(join(repoRoot, 'skills-lock.json'));
+    if (lockResult.kind === 'error') {
+      stderr.write(`--clear refused: ${lockResult.message}\n`);
+      return 1;
+    }
+    await clearGeneratedAdapters(repoRoot, lockResult.value);
+    stdout.write(
+      `Cleared adapter directories (${String(lockResult.value.size)} lock-pinned preserved).\n`,
+    );
   }
   const outcome = await generateAdapters({ repoRoot, prefix: flags.prefix });
   stdout.write(`Wrote ${String(outcome.written.length)} adapter files.\n`);
   if (outcome.skipped.length > 0) {
-    stderr.write(`Skipped (no canonical SKILL): ${outcome.skipped.join(', ')}\n`);
+    stderr.write(
+      `ERROR — canonical directories with no readable SKILL-CANONICAL.md: ${outcome.skipped.join(', ')}\n` +
+        'These skills exist in the corpus but cannot be summoned in any harness. ' +
+        'Fix the canonical (or land the family-aware generator extension) before regenerating.\n',
+    );
   }
-  return 0;
+  return generateExitCode(outcome);
 }
 
 async function main(): Promise<number> {

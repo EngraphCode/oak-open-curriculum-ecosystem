@@ -500,20 +500,29 @@ and remain governed by disposition and stale-output validation.
 
 ### Externally installed skills
 
-External tools may install full skill content into platform adapter
-directories, especially `.agents/skills/`. In this repository that content
-is canonicalised immediately into `.agent/skills/<name>/`, recorded in
-`skills-lock.json`, and replaced in every platform directory with a thin
-wrapper. Validation treats full content in adapter directories as drift, not
-as an exclusion.
+Third-party skills are never canonicalised into `.agent/skills/` — the
+canonical corpus holds Oak-authored, Practice-governed content only.
+External skill content enters the estate exclusively through the
+external-skill vendoring class: installed under `.agents/skills/<id>/`
+(the cross-tool adapter surface), pinned in `skills-lock.json` (source,
+source type, content hash), with a `.claude/skills/<id>` symlink where
+the Claude surface needs it. Upstream keeps the maintenance burden; the
+lock's hash makes drift detectable; the portability validator
+cross-references the lock. This is ADR-189's distribution axis read
+inbound: vendored externals are packaging-tier residents, never
+category members of the Practice-governed core. Validation treats
+unlocked full content in adapter directories as drift; lock-pinned
+entries are the sanctioned class, and the adapter generator's `--clear`
+preserves them (refusing to run at all when the lock is unreadable,
+since generation cannot re-create vendored content).
 
-After canonicalisation, retaining the vendor-installed source plugin is a
-separate operational decision. The default is to remove or disable any plugin
-whose only remaining purpose is to duplicate the now-canonical skill content.
-Keep the plugin only when it still supplies a distinct runtime capability,
-update mechanism, or source-of-truth refresh path; record that reason beside
-the artefact inventory or lock entry. Canonical content in `.agent/` remains
-the source agents read during repository work.
+Retaining the vendor-installed source plugin alongside the vendored
+copy is a separate operational decision. The default is to remove or
+disable any plugin whose only remaining purpose is to duplicate the
+vendored skill content. Keep the plugin only when it still supplies a
+distinct runtime capability, update mechanism, or source-of-truth
+refresh path; record that reason beside the artefact inventory or lock
+entry.
 
 ## Amendments
 
@@ -662,6 +671,22 @@ The amendment is restricted to Copilot CLI running locally. Coding-agent/cloud
 execution, remote transport, hosted bridges, and unrelated Codex parity work
 are excluded. The target-versus-wired truth lives in the cross-platform
 surface matrix.
+
+### 2026-08-02 — Externally installed skills: vendored class replaces canonicalise-into-core
+
+The original §Externally installed skills instructed canonicalising external
+content into `.agent/skills/`. Owner word (2026-08-02, in-session): that
+approach "was true, a long time ago, that approach was abandoned". The
+section now records the live rule — externals vendor into `.agents/skills/`
+lock-pinned via `skills-lock.json` and never enter the canonical core
+(worked instances: the clerk family and mcp-inspector at commit `93ffa8aed`;
+the owner-invoked skill-creator install landed the same way on
+2026-08-02). The plugin-retention guidance from the
+original section remains valid and is preserved in place. In the same
+change, the adapter generator's `--clear` gained lock awareness (vendored
+externals are never removed; an unreadable lock refuses the clear) and a
+skipped canonical directory became a hard failure instead of a warning on a
+zero exit.
 
 ## References
 
