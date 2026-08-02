@@ -36,17 +36,21 @@ const senderWithId = deriveCollaborationIdentity({
 /**
  * Registry seed for the claim-anchored cases: heartbeats REQUIRE an
  * active claim row (F-73's settled disposition; PDR-078 §4 — a standby
- * neither needs nor can emit a heartbeat), and the row supplies the
- * lifecycle event's thread.
+ * neither needs nor can emit a heartbeat), the row must belong to the
+ * emitting identity, and the row supplies the lifecycle event's thread.
  */
-function registryWithClaim(claimId: string, thread: string): CollaborationRegistry {
+function registryWithClaim(
+  claimId: string,
+  thread: string,
+  holder: typeof senderWithId = senderWithId,
+): CollaborationRegistry {
   return {
     schema_version: ACTIVE_CLAIMS_SCHEMA_VERSION,
     commit_queue: [],
     claims: [
       {
         claim_id: claimId,
-        agent_id: senderWithId,
+        agent_id: holder,
         thread,
         areas: [{ kind: 'git', patterns: ['docs/test-branch'] }],
         claimed_at: '2026-05-24T10:00:00Z',
@@ -346,6 +350,62 @@ describe('comms heartbeat mode — ADR-186 lifecycle shape (append/send emitter)
     expect(result.stderr).toMatch(/require an active claim/);
     expect(result.stderr).toMatch(/PDR-078 §4; F-73/);
     expect(result.stderr).toMatch(/open a claim first/);
+    expect(fake.readCommsEvents('state/comms')).toStrictEqual([]);
+  });
+
+  it("rejects a peer's claim id — a heartbeat anchors to the emitting seat's OWN active claim", async () => {
+    const peerWithId = deriveCollaborationIdentity({
+      platform: sender.platform,
+      model: sender.model,
+      env: {
+        OAK_AGENT_IDENTITY_OVERRIDE: 'Distant Roaming Peer',
+        PRACTICE_AGENT_SESSION_ID_CLAUDE: 'ffee12',
+      },
+    }).agentId;
+    const fake = createFakeCollaborationRuntime({
+      activeClaims: registryWithClaim('claim-peer', 'peer-thread', peerWithId),
+    });
+
+    const result = await runCollaborationStateCli({
+      argv: [
+        '--',
+        'comms',
+        'append',
+        '--active',
+        'state/active-claims.json',
+        '--comms-dir',
+        'state/comms',
+        '--now',
+        '2026-05-24T10:18:00Z',
+        '--created-at',
+        '2026-05-24T10:18:00Z',
+        '--title',
+        'Heartbeat: Test Agent — Test lane',
+        '--tag',
+        'heartbeat',
+        '--claim-id',
+        'claim-peer',
+        '--intent-id',
+        'lane-test',
+        '--branch',
+        'docs/test-branch',
+        '--current-cycle-label',
+        'test-cycle',
+        '--platform',
+        'claude-code',
+        '--model',
+        sender.model,
+      ],
+      env: {
+        OAK_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
+        PRACTICE_AGENT_SESSION_ID_CLAUDE: sender.session_id_prefix,
+      },
+      io: fake.runtime.io,
+    });
+
+    expect(result.exitCode).not.toBe(0);
+    expect(result.stderr).toMatch(/own active claim/);
+    expect(result.stderr).toMatch(/belongs to 'Distant Roaming Peer'/);
     expect(fake.readCommsEvents('state/comms')).toStrictEqual([]);
   });
 

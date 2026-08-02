@@ -85,8 +85,11 @@ authoritative source of substance.
   `thread`, derived from the active claim row named by `--claim-id` —
   the row is REQUIRED (heartbeats are claim-anchored liveness; a
   standby neither needs nor can emit one, per §Exemptions below and
-  F-73's settled disposition) and is the thread's only source — a
-  heartbeat's thread is its claim's thread by construction.
+  F-73's settled disposition), must be the emitting seat's OWN claim
+  (author-match on the PDR-076a routing key — anchoring to a peer's
+  claim would manufacture false liveness tied to another seat's work),
+  and is the thread's only source — a heartbeat's thread is its claim's
+  thread by construction.
   Legacy `narrative + tags: ["heartbeat"]` events stay
   valid during the window, and every consumer counts BOTH shapes via
   the shared dual filter (ADR-186 §Migration discipline). The

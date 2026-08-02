@@ -33,7 +33,7 @@ export const commsAppendHelp =
   'args instead — --body and --body-file are rejected, and --claim-id <id> ' +
   '--intent-id <id> --branch <branch> --current-cycle-label <label> are required; ' +
   'the event lands as kind=lifecycle event_type=heartbeat (ADR-186), tag retained; ' +
-  'the active claim row named by --claim-id is REQUIRED and supplies the thread ' +
+  "the caller's own active claim row named by --claim-id is REQUIRED and supplies the thread " +
   '(PDR-078 §4 / F-73); --in-response-to is rejected)';
 
 export const commsSendHelp =
@@ -50,7 +50,7 @@ export const commsSendHelp =
   'args instead — --body and --body-file are rejected, and --claim-id <id> ' +
   '--intent-id <id> --branch <branch> --current-cycle-label <label> are required; ' +
   'the event lands as kind=lifecycle event_type=heartbeat (ADR-186), tag retained; ' +
-  'the active claim row named by --claim-id is REQUIRED and supplies the thread ' +
+  "the caller's own active claim row named by --claim-id is REQUIRED and supplies the thread " +
   '(PDR-078 §4 / F-73); --in-response-to is rejected) ' +
   '(identity seed: PRACTICE_AGENT_SESSION_ID_CLAUDE, ' +
   'PRACTICE_AGENT_SESSION_ID_CURSOR, PRACTICE_AGENT_SESSION_ID_GEMINI, ' +

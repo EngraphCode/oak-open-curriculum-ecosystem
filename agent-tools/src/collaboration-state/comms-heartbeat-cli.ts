@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto';
 
+import { sameAgentRoutingKey } from './active-agent-routing.js';
 import { optional, required, valueOrDefault, type Options } from './cli-options.js';
 import { composeHeartbeatBody, HEARTBEAT_EVENT_TYPE } from './comms-heartbeat-body.js';
 import { type CollaborationRegistry, type LifecycleCommsEvent } from './types.js';
@@ -124,7 +125,7 @@ export async function buildGatedHeartbeatLifecycleEvent(input: {
     occurred_at: createdAt,
     author,
     agent_id: author,
-    thread: resolveHeartbeatThread(input.registry, claimId),
+    thread: resolveHeartbeatThread(input.registry, claimId, author),
     claim_id: claimId,
     title,
     subject: title,
@@ -134,23 +135,35 @@ export async function buildGatedHeartbeatLifecycleEvent(input: {
 
 /**
  * Resolve the lifecycle heartbeat's required `thread` from the active
- * claim row named by `--claim-id`. The row is REQUIRED unconditionally
- * and is the thread's only source — a heartbeat's thread is its claim's
- * thread by construction (heartbeats are claim-anchored liveness by
+ * claim row named by `--claim-id`. The row is REQUIRED unconditionally,
+ * MUST belong to the emitting identity (PDR-076a routing-key match — a
+ * heartbeat asserts "this seat is alive on its own claim", so a row
+ * held by a peer would manufacture false liveness tied to another
+ * seat's work), and is the thread's only source — a heartbeat's thread
+ * is its claim's thread by construction (claim-anchored liveness by
  * settled doctrine: F-73's disposition — the pre-claim gap is
  * intentional; PDR-078 §4 / `liveness-heartbeat-cron` §Exemptions — a
  * standby neither needs nor can emit a heartbeat, and minting a marker
  * purely to anchor one is forbidden). The row comes from the SAME
  * registry snapshot the identity-write guard already loaded (the
  * `comms direct` single-read precedent — a second read would tear the
- * snapshots). A missing row is a cure-naming error, so armed heartbeat
- * loops fail loud, never silent.
+ * snapshots). A missing or foreign row is a cure-naming error, so armed
+ * heartbeat loops fail loud, never silent.
  */
-function resolveHeartbeatThread(registry: CollaborationRegistry, claimId: string): string {
+function resolveHeartbeatThread(
+  registry: CollaborationRegistry,
+  claimId: string,
+  author: LifecycleCommsEvent['author'],
+): string {
   const row = registry.claims.find((claim) => claim.claim_id === claimId);
   if (row === undefined) {
     throw new Error(
       `heartbeat-tagged events require an active claim and no claim '${claimId}' exists in the registry. Heartbeats are claim-anchored liveness (PDR-078 §4; F-73): open a claim first, or — for a claimless at-rest seat — do not heartbeat (the consumer-absent exemption applies).`,
+    );
+  }
+  if (!sameAgentRoutingKey(row.agent_id, author)) {
+    throw new Error(
+      `heartbeat-tagged events must anchor to the emitting seat's own active claim and claim '${claimId}' belongs to '${row.agent_id.agent_name}'. Heartbeats are claim-anchored liveness (PDR-078 §4): open your own claim first — never anchor to a peer's claim id.`,
     );
   }
   return row.thread;
