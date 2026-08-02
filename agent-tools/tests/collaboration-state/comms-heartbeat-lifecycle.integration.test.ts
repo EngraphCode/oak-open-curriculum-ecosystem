@@ -1,10 +1,10 @@
-import Ajv from 'ajv/dist/2020.js';
 import { describe, expect, it } from 'vitest';
 
 import {
   deriveCollaborationIdentity,
   runCollaborationStateCli,
 } from '../../src/collaboration-state';
+import { createCollaborationAjv } from '../../src/collaboration-state/collaboration-json-validation';
 import {
   ACTIVE_CLAIMS_SCHEMA_VERSION,
   type CollaborationRegistry,
@@ -36,8 +36,8 @@ const senderWithId = deriveCollaborationIdentity({
 /**
  * Registry seed for the claim-anchored cases: heartbeats REQUIRE an
  * active claim row (F-73's settled disposition; PDR-078 §4 — a standby
- * neither needs nor can emit a heartbeat), and --thread only overrides
- * the VALUE derived from that real row.
+ * neither needs nor can emit a heartbeat), and the row supplies the
+ * lifecycle event's thread.
  */
 function registryWithClaim(claimId: string, thread: string): CollaborationRegistry {
   return {
@@ -180,10 +180,8 @@ describe('comms heartbeat mode — ADR-186 lifecycle shape (append/send emitter)
     expect(result.stderr).toMatch(/--current-cycle-label/);
   });
 
-  it('emits the ADR-186 lifecycle shape with an explicit --thread overriding the real claim row value via comms append --tag heartbeat', async () => {
+  it('emits the ADR-186 lifecycle shape with thread derived from the real claim row via comms append --tag heartbeat', async () => {
     const commsDir = 'state/comms';
-    // The row exists (claim-anchored requirement) with a DIFFERENT thread —
-    // proving --thread overrides the derived value, never the row's existence.
     const fake = createFakeCollaborationRuntime({
       activeClaims: registryWithClaim('claim-7c3f', 'estate-registry-thread'),
     });
@@ -213,8 +211,6 @@ describe('comms heartbeat mode — ADR-186 lifecycle shape (append/send emitter)
         'docs/test-branch',
         '--current-cycle-label',
         'test-cycle',
-        '--thread',
-        'estate-test-thread',
         '--event-id',
         'message-heartbeat-composed',
         '--platform',
@@ -240,7 +236,7 @@ describe('comms heartbeat mode — ADR-186 lifecycle shape (append/send emitter)
         occurred_at: '2026-05-24T10:18:00Z',
         author: senderWithId,
         agent_id: senderWithId,
-        thread: 'estate-test-thread',
+        thread: 'estate-registry-thread',
         claim_id: 'claim-7c3f',
         title: 'Heartbeat: Test Agent — Test lane',
         subject: 'Heartbeat: Test Agent — Test lane',
@@ -281,8 +277,6 @@ describe('comms heartbeat mode — ADR-186 lifecycle shape (append/send emitter)
         'docs/test-branch',
         '--current-cycle-label',
         'test-cycle',
-        '--thread',
-        'estate-test-thread',
         '--event-id',
         'message-heartbeat-schema',
         '--platform',
@@ -300,9 +294,10 @@ describe('comms heartbeat mode — ADR-186 lifecycle shape (append/send emitter)
     expect(result.exitCode).toBe(0);
     // The fake runtime's writeCommsEvent never runs the product Ajv gate, so
     // schema conformance of the new shape is proven HERE against the same
-    // canonical schema module the product validator loads.
-    const ajv = new Ajv({ allErrors: true, strict: false, validateFormats: false });
-    const validate = ajv.compile(commsEventSchema);
+    // canonical schema module the product validator loads — through the SAME
+    // exported Ajv construction the product validator uses (formats
+    // validated), so this gate cannot drift blind to a malformed date-time.
+    const validate = createCollaborationAjv().compile(commsEventSchema);
     const [written] = fake.readCommsEvents(commsDir);
     expect(validate(written), JSON.stringify(validate.errors)).toBe(true);
   });
@@ -354,56 +349,7 @@ describe('comms heartbeat mode — ADR-186 lifecycle shape (append/send emitter)
     expect(fake.readCommsEvents('state/comms')).toStrictEqual([]);
   });
 
-  it('rejects an explicit --thread when no active claim row matches --claim-id — --thread overrides the derived value, never the row requirement', async () => {
-    const fake = createFakeCollaborationRuntime();
-
-    const result = await runCollaborationStateCli({
-      argv: [
-        '--',
-        'comms',
-        'append',
-        '--active',
-        'state/active-claims.json',
-        '--comms-dir',
-        'state/comms',
-        '--now',
-        '2026-05-24T10:18:00Z',
-        '--created-at',
-        '2026-05-24T10:18:00Z',
-        '--title',
-        'Heartbeat: Test Agent — Test lane',
-        '--tag',
-        'heartbeat',
-        '--claim-id',
-        'claim-with-no-row',
-        '--intent-id',
-        'lane-test',
-        '--branch',
-        'docs/test-branch',
-        '--current-cycle-label',
-        'test-cycle',
-        '--thread',
-        'invented-thread',
-        '--platform',
-        'claude-code',
-        '--model',
-        sender.model,
-      ],
-      env: {
-        OAK_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
-        PRACTICE_AGENT_SESSION_ID_CLAUDE: sender.session_id_prefix,
-      },
-      io: fake.runtime.io,
-    });
-
-    expect(result.exitCode).not.toBe(0);
-    expect(result.stderr).toMatch(/require an active claim/);
-    expect(fake.readCommsEvents('state/comms')).toStrictEqual([]);
-  });
-
-  it('rejects a whitespace-only --thread in heartbeat mode with a cure-naming error', async () => {
-    // A real row is seeded so the emptiness gate (which sits BEHIND the
-    // claim-anchored row requirement) is the check actually reached.
+  it('rejects --thread argv as an unknown option — the thread has no override surface (closed shape)', async () => {
     const fake = createFakeCollaborationRuntime({
       activeClaims: registryWithClaim('claim-7c3f', 'estate-registry-thread'),
     });
@@ -434,7 +380,7 @@ describe('comms heartbeat mode — ADR-186 lifecycle shape (append/send emitter)
         '--current-cycle-label',
         'test-cycle',
         '--thread',
-        '   ',
+        'invented-thread',
         '--platform',
         'claude-code',
         '--model',
@@ -448,7 +394,8 @@ describe('comms heartbeat mode — ADR-186 lifecycle shape (append/send emitter)
     });
 
     expect(result.exitCode).not.toBe(0);
-    expect(result.stderr).toMatch(/--thread must be non-empty/);
+    expect(result.stderr).toMatch(/unknown option/);
+    expect(result.stderr).toMatch(/--thread/);
     expect(fake.readCommsEvents('state/comms')).toStrictEqual([]);
   });
 
@@ -480,8 +427,6 @@ describe('comms heartbeat mode — ADR-186 lifecycle shape (append/send emitter)
         'docs/test-branch',
         '--current-cycle-label',
         'test-cycle',
-        '--thread',
-        'estate-test-thread',
         '--in-response-to',
         'some-antecedent-event',
         '--platform',

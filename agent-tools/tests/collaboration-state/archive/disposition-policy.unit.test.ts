@@ -17,9 +17,7 @@ function ev(overrides: Partial<ClassifiableEvent> & { eventId: string }): Classi
 
 describe('buildTierPolicyLedger', () => {
   it('auto-dispositions a heartbeat event as routine with body-read unconfirmed', () => {
-    const ledger = buildTierPolicyLedger([
-      ev({ eventId: 'aaaaaaaa', tags: ['heartbeat'], isHeartbeatShaped: true }),
-    ]);
+    const ledger = buildTierPolicyLedger([ev({ eventId: 'aaaaaaaa', isHeartbeatShaped: true })]);
     expect(ledger.get('aaaaaaaa')).toEqual({ disposition: 'routine', bodyReadConfirmed: false });
   });
 
@@ -46,7 +44,7 @@ describe('buildTierPolicyLedger', () => {
 
   it('builds entries only for the heartbeat events in a mixed batch', () => {
     const ledger = buildTierPolicyLedger([
-      ev({ eventId: 'aaaaaaaa', tags: ['heartbeat'], isHeartbeatShaped: true }),
+      ev({ eventId: 'aaaaaaaa', isHeartbeatShaped: true }),
       ev({ eventId: 'bbbbbbbb', titleOrSubject: 'team start' }),
       // cccccccc keeps isHeartbeatShaped false: the Heartbeat-end TITLE
       // heuristic alone must still carry it into the ledger.

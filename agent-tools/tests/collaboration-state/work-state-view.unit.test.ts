@@ -169,10 +169,9 @@ describe('projectWorkState — derived cross-worktree work-state view (F-98 / sp
   });
 
   it('binds a worktree to its agent through an UNTAGGED ADR-186 lifecycle-shaped heartbeat', () => {
-    eventCounter += 1;
     const lifecycleHeartbeat: CommsEvent = {
       schema_version: '2.0.0',
-      event_id: `evt-${eventCounter}`,
+      event_id: 'evt-lifecycle-bound',
       created_at: new Date(NOW_MS - 30_000).toISOString(),
       kind: 'lifecycle',
       event_type: 'heartbeat',

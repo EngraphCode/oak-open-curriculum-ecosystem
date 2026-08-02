@@ -124,7 +124,7 @@ export async function buildGatedHeartbeatLifecycleEvent(input: {
     occurred_at: createdAt,
     author,
     agent_id: author,
-    thread: resolveHeartbeatThread(options, input.registry, claimId),
+    thread: resolveHeartbeatThread(input.registry, claimId),
     claim_id: claimId,
     title,
     subject: title,
@@ -133,39 +133,25 @@ export async function buildGatedHeartbeatLifecycleEvent(input: {
 }
 
 /**
- * Resolve the lifecycle heartbeat's required `thread`. The active claim
- * row named by `--claim-id` is REQUIRED unconditionally — heartbeats are
- * claim-anchored liveness by settled doctrine (F-73's disposition: the
- * pre-claim gap is intentional; PDR-078 §4 / `liveness-heartbeat-cron`
- * §Exemptions: a standby neither needs nor can emit a heartbeat, and
- * minting a marker purely to anchor one is forbidden). The row comes
- * from the SAME registry snapshot the identity-write guard already
- * loaded (the `comms direct` single-read precedent — a second read
- * would tear the snapshots). `--thread` (trimmed, non-empty) overrides
- * only the derived VALUE for that real claim; it is never an
- * existence bypass. A missing row is a cure-naming error, so armed
- * heartbeat loops fail loud, never silent.
+ * Resolve the lifecycle heartbeat's required `thread` from the active
+ * claim row named by `--claim-id`. The row is REQUIRED unconditionally
+ * and is the thread's only source — a heartbeat's thread is its claim's
+ * thread by construction (heartbeats are claim-anchored liveness by
+ * settled doctrine: F-73's disposition — the pre-claim gap is
+ * intentional; PDR-078 §4 / `liveness-heartbeat-cron` §Exemptions — a
+ * standby neither needs nor can emit a heartbeat, and minting a marker
+ * purely to anchor one is forbidden). The row comes from the SAME
+ * registry snapshot the identity-write guard already loaded (the
+ * `comms direct` single-read precedent — a second read would tear the
+ * snapshots). A missing row is a cure-naming error, so armed heartbeat
+ * loops fail loud, never silent.
  */
-function resolveHeartbeatThread(
-  options: Options,
-  registry: CollaborationRegistry,
-  claimId: string,
-): string {
+function resolveHeartbeatThread(registry: CollaborationRegistry, claimId: string): string {
   const row = registry.claims.find((claim) => claim.claim_id === claimId);
   if (row === undefined) {
     throw new Error(
       `heartbeat-tagged events require an active claim and no claim '${claimId}' exists in the registry. Heartbeats are claim-anchored liveness (PDR-078 §4; F-73): open a claim first, or — for a claimless at-rest seat — do not heartbeat (the consumer-absent exemption applies).`,
     );
   }
-  const explicit = optional(options, 'thread');
-  if (explicit === undefined) {
-    return row.thread;
-  }
-  const trimmed = explicit.trim();
-  if (trimmed.length === 0) {
-    throw new Error(
-      'heartbeat-tagged events: --thread must be non-empty when supplied. Pass the coordination thread name, or omit --thread to derive it from the active claim named by --claim-id.',
-    );
-  }
-  return trimmed;
+  return row.thread;
 }

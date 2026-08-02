@@ -344,7 +344,7 @@ describe('runCollaborationStateCli', () => {
     expect(result.stdout).toContain('--branch <branch>');
     expect(result.stdout).toContain('--current-cycle-label <label>');
     expect(result.stdout).toContain('kind=lifecycle');
-    expect(result.stdout).toContain('--thread <thread>');
+    expect(result.stdout).toContain('REQUIRED and supplies the thread');
   });
 
   it('documents heartbeat-mode typed state args in comms send help', async () => {
@@ -364,7 +364,7 @@ describe('runCollaborationStateCli', () => {
     expect(result.stdout).toContain('--branch <branch>');
     expect(result.stdout).toContain('--current-cycle-label <label>');
     expect(result.stdout).toContain('kind=lifecycle');
-    expect(result.stdout).toContain('--thread <thread>');
+    expect(result.stdout).toContain('REQUIRED and supplies the thread');
   });
 
   it('documents the display-prefix projection in comms list help', async () => {

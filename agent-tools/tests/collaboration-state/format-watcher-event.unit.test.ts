@@ -165,17 +165,41 @@ describe('formatClassifiedEvent — ADR-186 lifecycle-shaped heartbeat render', 
   it('renders the [LIFECYCLE] view with exactly ONE [HEARTBEAT] token (the ADR-186 at-most-once render guarantee)', () => {
     const text = formatClassifiedEvent({ event: lifecycleHeartbeat(), view: 'lifecycle' });
 
-    expect(text.split('\n')[0]).toBe('--- NEW [LIFECYCLE] [HEARTBEAT] EVENT ---');
+    expect(text).toContain('--- NEW [LIFECYCLE] [HEARTBEAT] EVENT ---');
     expect(text.match(/\[HEARTBEAT\]/g)).toHaveLength(1);
   });
 
-  it('omits the duplicate subject and occurred_at lines when they equal title and created_at (heartbeat render volume stays flat)', () => {
+  it('omits the duplicate subject and occurred_at lines when they equal title and created_at (the dedup is kind-wide, not heartbeat-special)', () => {
     const lines = formatClassifiedEvent({ event: lifecycleHeartbeat(), view: 'lifecycle' }).split(
       '\n',
     );
 
     expect(lines).toContain('title: Heartbeat: Uplifted Wheeling Sky (22e835) — test lane');
     expect(lines).toContain('created_at: 2026-08-02T19:00:00Z');
+    expect(lines.some((line) => line.startsWith('subject:'))).toBe(false);
+    expect(lines.some((line) => line.startsWith('occurred_at:'))).toBe(false);
+  });
+
+  it('applies the same dedup to a non-heartbeat lifecycle event_type', () => {
+    const event: CommsEvent = {
+      schema_version: '2.0.0',
+      event_id: 'lifecycle-cycle-complete',
+      created_at: '2026-08-02T19:00:00Z',
+      kind: 'lifecycle',
+      event_type: 'cycle-complete',
+      occurred_at: '2026-08-02T19:00:00Z',
+      author,
+      agent_id: author,
+      thread: 'estate-coordination',
+      claim_id: 'claim-1',
+      title: 'Cycle complete: review round closed',
+      subject: 'Cycle complete: review round closed',
+      body: 'round closed with zero findings',
+    };
+
+    const lines = formatClassifiedEvent({ event, view: 'lifecycle' }).split('\n');
+
+    expect(lines).toContain('title: Cycle complete: review round closed');
     expect(lines.some((line) => line.startsWith('subject:'))).toBe(false);
     expect(lines.some((line) => line.startsWith('occurred_at:'))).toBe(false);
   });
