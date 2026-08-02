@@ -44,6 +44,11 @@ function createWorld(options?: {
   storageThrows?: boolean;
 }): FakeWorld {
   const attributes = new Map<string, string>();
+  // dataset mirrors the real DOMStringMap contract: property writes and
+  // deletes are the same state as the data-* attributes, so the attributes
+  // Map stays the single source of truth for every assertion.
+  const datasetAttributeName = (property: string): string =>
+    `data-${property.replaceAll(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)}`;
   const documentFake = {
     documentElement: {
       setAttribute: (name: string, value: string) => {
@@ -52,6 +57,20 @@ function createWorld(options?: {
       removeAttribute: (name: string) => {
         attributes.delete(name);
       },
+      dataset: new Proxy<Record<string, string | undefined>>(
+        {},
+        {
+          get: (_target, property: string) => attributes.get(datasetAttributeName(property)),
+          set: (_target, property: string, value: string) => {
+            attributes.set(datasetAttributeName(property), String(value));
+            return true;
+          },
+          deleteProperty: (_target, property: string) => {
+            attributes.delete(datasetAttributeName(property));
+            return true;
+          },
+        },
+      ),
     },
   };
   const store = new Map<string, string>();

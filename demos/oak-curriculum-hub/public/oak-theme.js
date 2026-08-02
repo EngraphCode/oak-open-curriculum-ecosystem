@@ -42,9 +42,9 @@
     // Explicit choices (including "light") SET the attribute so they beat a
     // polarity-flipped brand default (see brand.css); no choice = no attribute.
     if (!t) {
-      el.removeAttribute('data-theme');
+      delete el.dataset.theme;
     } else {
-      el.setAttribute('data-theme', t);
+      el.dataset.theme = t;
     }
   }
   function stored() {
@@ -124,9 +124,9 @@
     function mapply(m) {
       const el = document.documentElement;
       if (!m || m === 'system') {
-        el.removeAttribute('data-motion');
+        delete el.dataset.motion;
       } else {
-        el.setAttribute('data-motion', m);
+        el.dataset.motion = m;
       }
     }
     function mget() {
