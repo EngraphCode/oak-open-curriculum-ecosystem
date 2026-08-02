@@ -57,13 +57,16 @@ not claimed as a cap (see the authority observation below).
   Exact error: `zsh:1: operation not permitted: sif-probe-sentinel.txt`
   ```
 
-## Disciplined-refusal leg (verified 2026-08-02)
+## No-write leg (verified 2026-08-02)
 
-The write attempt on a disciplined call was refused by the read-only
-sandbox. Hard evidence: the sentinel file was verified ABSENT on disk
-in the isolated workspace after the exchange (the model's self-report
-above is corroborating, not load-bearing). The probe script re-proves
-this leg mechanically on every run.
+What is mechanically proven: after the write-attempt turn, the sentinel
+file was verified ABSENT on disk in the isolated workspace (ENOENT-only
+absence — any other inspection failure fails the probe), and the reply
+engaged the sentinel prompt. The interlocutor's refusal self-report
+above is corroborating, not load-bearing: the probe does not observe
+the sandbox's internals, so the recorded claim is "no write occurred",
+never "a refusal was observed". The probe script re-proves this leg on
+every run.
 
 ## Owner-held leg (NOT run — by design)
 

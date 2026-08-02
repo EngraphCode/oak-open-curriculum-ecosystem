@@ -146,8 +146,18 @@ dialogue field rides in the body as the canonical `key=value;` line
 (the same body-encoding discipline the heartbeat substrate uses):
 
 ```text
-dialogue_id=<fresh opaque id, e.g. dlg-YYYYMMDD-xxxx>; question_class=<design-fork|consensus-check|plan-pressure|other>; turn_count=<n>; stop_reason=<budget|stabilised|irreconcilable>; outcome=<position-changed|dissent-unresolved|confirmed>; prior_confidence=<low|medium|high>; harness_version=<claude-code x.y.z>; codex_cli_version=<x.y.z>; synthesis_ref=<durable shared surface>;
+dialogue_id=<fresh opaque id, e.g. dlg-YYYYMMDD-xxxx>; question_class=<design-fork|consensus-check|plan-pressure|other>; turn_count=<n>; stop_reason=<budget|stabilised|irreconcilable|aborted>; outcome=<position-changed|dissent-unresolved|confirmed|non-evaluable>; prior_confidence=<low|medium|high>; harness_version=<claude-code x.y.z>; codex_cli_version=<x.y.z>; synthesis_ref=<durable shared surface>;
 ```
+
+A dialogue that ends without a semantic conclusion — a `codex-reply`
+failure or timeout, the server exiting, an operator abort — still gets
+its close event ("one per dialogue, no exceptions" includes broken
+dialogues): `stop_reason=aborted; outcome=non-evaluable`, with
+`synthesis_ref` pointing at whatever partial record exists. Non-evaluable
+closes are EXCLUDED from the trial's dialogue count and its
+position-changed threshold — they are reliability telemetry about the
+instrument, not evidence on the value axis — and at trial close they
+reconcile as accounted-for rather than missing.
 
 Field rules:
 
@@ -225,9 +235,11 @@ calls never pass per-call authority parameters; the launch-arg defaults
 for every call that omits them.
 
 Probe-verified 2026-08-02 against codex-cli 0.146.0
-([`probe-record.md`](./probe-record.md)): a disciplined call's write
-attempt is REFUSED by the read-only sandbox (verbatim refusal recorded;
-sentinel verified absent on disk). The `codex` tool schema ACCEPTS
+([`probe-record.md`](./probe-record.md)): a disciplined call's
+write-attempt turn produced NO WRITE on disk (sentinel verified absent,
+ENOENT-only; the interlocutor's refusal self-report is recorded
+verbatim as corroboration, not proof of the sandbox's internals). The
+`codex` tool schema ACCEPTS
 per-call `sandbox` values including `danger-full-access` — the
 broadening surface exists; whether launch pins cap it is OPEN. The
 broadening negative control is OWNER-HELD per ADR-180: explicit owner

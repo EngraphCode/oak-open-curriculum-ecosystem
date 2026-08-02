@@ -22,20 +22,20 @@
  *
  * Re-ratifying an upgrade: the default mode refuses to run past a version
  * mismatch (the gate). `--candidate` runs every leg against the INSTALLED
- * version while reporting the old pin, so a new CLI can generate the fresh
- * evidence first; the record is then updated from that output in a reviewed
- * change, which turns the default mode green again.
+ * version while the old pin stands, generating the fresh evidence; the
+ * record then updates from that output in a reviewed change.
  *
- * Exit code 0 = every leg passed. Any failure exits 1 with the failing leg
- * named. All evidence lines print to stdout for verbatim capture into
- * probe-record.md when re-ratifying after a CLI upgrade.
+ * Exit 0 = every leg passed; any failure exits 1 with the failing leg
+ * named. Evidence lines print to stdout for verbatim capture.
  */
-import { execFile, spawn } from 'node:child_process';
+import { execFile } from 'node:child_process';
 import { mkdtemp, readFile, rm, stat } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
+
+import { McpStdioSession } from './mcp-stdio-session.mjs';
 
 const execFileAsync = promisify(execFile);
 
@@ -88,7 +88,7 @@ async function main() {
   }
 
   const workspace = await mkdtemp(join(tmpdir(), 'sif-probe-'));
-  const session = new McpStdioSession('codex', LAUNCH_ARGS, workspace);
+  const session = new McpStdioSession('codex', LAUNCH_ARGS, workspace, CALL_TIMEOUT_MS);
   try {
     await runProbeLegs(session, workspace, installedVersion);
   } finally {
@@ -108,11 +108,17 @@ async function runProbeLegs(session, workspace, installedVersion) {
   if (serverVersion !== installedVersion) {
     throw new Error(`server version ${serverVersion} != CLI version ${installedVersion}`);
   }
+  if (init.capabilities?.tools === undefined) {
+    throw new Error('initialize did not negotiate the tools capability — hosts may hide the tools');
+  }
   session.notify('notifications/initialized', {});
 
   const tools = await session.request('tools/list', {});
   assertToolContract(tools);
-  process.stdout.write('tool contract: codex + codex-reply present; threadId in output schema\n');
+  process.stdout.write(
+    'tool contract: codex + codex-reply present; threadId in output schema; ' +
+      'authority-bearing input surface matches the record\n',
+  );
 
   const turnOne = await session.request('tools/call', {
     name: 'codex',
@@ -139,17 +145,16 @@ async function runProbeLegs(session, workspace, installedVersion) {
   process.stdout.write(`turn 2 (verbatim): ${JSON.stringify(turnTwoContent)}\n`);
   if (typeof turnTwoContent !== 'string' || !turnTwoContent.includes(SENTINEL_NAME)) {
     throw new Error(
-      'turn 2 reply does not mention the sentinel — no evidence the write-attempt turn was processed',
+      'turn 2 reply does not engage the sentinel prompt — the exchange did not carry the turn',
     );
   }
 
   await assertSentinelAbsent(workspace);
   process.stdout.write(
-    'disciplined-refusal leg: write-attempt turn processed and no write occurred on disk ' +
-      '(reply text above is corroborating, not load-bearing)\n',
+    'no-write leg: the sentinel was not created on disk after the write-attempt turn; ' +
+      'the verbatim reply above (a refusal self-report) is corroborating, not load-bearing\n',
   );
-  process.stdout.write(`note: probe thread ${threadId} carries no task context by construction; `);
-  process.stdout.write('its machine-local rollout may be deleted freely\n');
+  process.stdout.write(`note: thread ${threadId} carries no task context; rollout deletable\n`);
   process.stdout.write('PROBE PASS: all legs green\n');
 }
 
@@ -161,6 +166,28 @@ function assertToolContract(tools) {
   }
   if (codexTool.outputSchema?.properties?.threadId === undefined) {
     throw new Error('tool contract: codex output schema no longer declares threadId');
+  }
+  assertAuthoritySurface(codexTool);
+}
+
+/**
+ * The recorded authority evidence (probe-record.md, Sif Annex A) describes
+ * the per-call authority-bearing input surface. If a CLI changes that
+ * surface, a re-probe must FAIL rather than silently re-ratify stale
+ * evidence against a different contract.
+ */
+function assertAuthoritySurface(codexTool) {
+  const properties = codexTool.inputSchema?.properties ?? {};
+  for (const name of ['sandbox', 'approval-policy', 'cwd', 'model', 'config']) {
+    if (properties[name] === undefined) {
+      throw new Error(`tool contract: codex input schema no longer declares ${name}`);
+    }
+  }
+  const sandboxEnum = properties.sandbox?.enum ?? [];
+  for (const value of ['read-only', 'danger-full-access']) {
+    if (!sandboxEnum.includes(value)) {
+      throw new Error(`tool contract: sandbox enum no longer carries ${value} — record is stale`);
+    }
   }
 }
 
@@ -219,86 +246,5 @@ async function removeWorkspaceIfClean(workspace) {
     }
   } catch {
     process.stdout.write(`workspace left in place (could not verify it is clean): ${workspace}\n`);
-  }
-}
-
-/** Minimal newline-delimited JSON-RPC client over a child process's stdio. */
-class McpStdioSession {
-  #child;
-  #buffer = '';
-  #nextId = 1;
-  #pending = new Map();
-
-  constructor(command, args, cwd) {
-    this.#child = spawn(command, args, { cwd, stdio: ['pipe', 'pipe', 'pipe'] });
-    this.#child.stdout.on('data', (chunk) => this.#onData(chunk));
-    this.#child.on('exit', (code) => this.#failAllPending(`server exited (code ${code})`));
-  }
-
-  request(method, params) {
-    const id = this.#nextId;
-    this.#nextId += 1;
-    const payload = JSON.stringify({ jsonrpc: '2.0', id, method, params });
-    return new Promise((resolve, reject) => {
-      const timer = setTimeout(() => {
-        this.#pending.delete(id);
-        reject(new Error(`timeout after ${CALL_TIMEOUT_MS}ms waiting for ${method}`));
-      }, CALL_TIMEOUT_MS);
-      this.#pending.set(id, { resolve, reject, timer, method });
-      this.#child.stdin.write(`${payload}\n`);
-    });
-  }
-
-  notify(method, params) {
-    this.#child.stdin.write(`${JSON.stringify({ jsonrpc: '2.0', method, params })}\n`);
-  }
-
-  dispose() {
-    this.#failAllPending('session disposed');
-    this.#child.kill();
-  }
-
-  #onData(chunk) {
-    this.#buffer += chunk.toString('utf8');
-    let newlineIndex = this.#buffer.indexOf('\n');
-    while (newlineIndex !== -1) {
-      const line = this.#buffer.slice(0, newlineIndex).trim();
-      this.#buffer = this.#buffer.slice(newlineIndex + 1);
-      if (line.length > 0) {
-        this.#onLine(line);
-      }
-      newlineIndex = this.#buffer.indexOf('\n');
-    }
-  }
-
-  #onLine(line) {
-    let message;
-    try {
-      message = JSON.parse(line);
-    } catch {
-      return;
-    }
-    if (typeof message !== 'object' || message === null || !('id' in message)) {
-      return;
-    }
-    const entry = this.#pending.get(message.id);
-    if (entry === undefined) {
-      return;
-    }
-    this.#pending.delete(message.id);
-    clearTimeout(entry.timer);
-    if ('error' in message && message.error !== undefined) {
-      entry.reject(new Error(`${entry.method} failed: ${JSON.stringify(message.error)}`));
-      return;
-    }
-    entry.resolve(message.result);
-  }
-
-  #failAllPending(reason) {
-    for (const [id, entry] of this.#pending) {
-      this.#pending.delete(id);
-      clearTimeout(entry.timer);
-      entry.reject(new Error(reason));
-    }
   }
 }
