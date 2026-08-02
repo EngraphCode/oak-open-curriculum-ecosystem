@@ -17,9 +17,10 @@ Each rule has four on-disk forms:
 - Claude Code platform forwarder lives under `.claude/rules/` (one-line
   pointer to the canonical file).
 - Cursor platform forwarder lives under `.cursor/rules/` (with `.mdc`
-  extension; frontmatter mirrors the classification — `alwaysApply:
-true` for always-on rules, `alwaysApply: false` with a description
-  for trigger-loaded ones — plus a pointer to the canonical file).
+  extension; frontmatter mirrors the classification — always-on rules
+  set `alwaysApply: true`, trigger-loaded rules set
+  `alwaysApply: false` plus a description — and carries a pointer to
+  the canonical file).
 - `.agents/` directory carries the same one-line forwarder for other
   platforms that load adapters from there.
 

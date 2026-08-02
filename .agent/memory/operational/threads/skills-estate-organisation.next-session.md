@@ -39,24 +39,31 @@
   landed at `e55fb9681`; enactment sequence in the task list —
   RULES_INDEX conversion COORDINATES WITH FALCON FIRST, his
   relevance-sketch is dirty on the primary, owner-version-wins).
-  Resume order: (1) R2 landing procedure — unblocked (final class
-  names = core/situational, ratified; audience-set question FIRST;
-  the descriptive-framework interface preamble per the ~15:25Z
-  ruling; description bar as landing check); (2) RULES_INDEX
-  conversion (or a fresh enactment seat via the Director); (3) WS6
-  landing legs incl. the three cross-family routing edges (reason
-  stop-gate commissioning seam, concept-exploration surviving-question
-  handoff, proportionality depth-mode escalation — never before
-  summonability); (4) R4 scoped pass; (5) three-corpora description
-  backfill + union collision matrix with the evals pilot. DONE this
-  session: R3 delivered (`skills-estate-organisation-relationship-map.md`);
-  cure PR #718 MERGED to main at `7fde660de`; the
-  naming/description rule minted + scoped to all three corpora at
-  the owner's rulings (`01129ba3a`); WS0 gate CLOSED. The
-  commit-warden singleton was handed back to the Director at this
-  freeze (cadence-drop clause); the lane claim 327d2f89 is RETAINED
-  — the seat continues at owner word and re-grounds live state
-  before acting.
+  Resume order: (1) RULES_INDEX conversion to core/situational (the
+  ratified reclassification; coordinate the window with the
+  Director), landing the sweep's loader contract for ALL situational
+  rows in the same motion — the R2 mint's loader-config disposition
+  rides here; (2) WS6 landing legs incl. the three cross-family
+  routing edges (reason stop-gate commissioning seam,
+  concept-exploration surviving-question handoff, proportionality
+  depth-mode escalation — never before summonability); (3) R4 scoped
+  pass; (4) three-corpora description backfill + union collision
+  matrix with the evals pilot; (5) governed-forgetting integration
+  (null-test verdict EXTEND absorbed — one
+  status-dependent-operative-prose class, gated at recurrence). DONE
+  2026-08-02: **R2 LANDED** —
+  `.agent/rules/capability-landing-decision-procedure.md` (four
+  forms + index row) with `.agent/skills/README.md` carrying the
+  Practice-skills-corpus naming and the WS5(d) audience-set
+  registry; opus-reviewed, all findings adjudicated (see the working
+  record's ~16:40Z entry); the interim landing guidance is
+  SUPERSEDED by it. Also DONE: R3 delivered
+  (`skills-estate-organisation-relationship-map.md`); cure PR #718
+  MERGED to main at `7fde660de`; the naming/description rule minted
+  and scoped to all three corpora (`01129ba3a`); WS0 gate CLOSED. The
+  commit-warden singleton sits with the Director; the lane claim
+  327d2f89 is RETAINED — the seat continues at owner word and
+  re-grounds live state before acting.
 - State at 2026-08-02 movement-4 close: ALL FOUR MOVEMENTS CLOSED.
   The recommendation
   (`.agent/reports/agentic-engineering/skills-estate-organisation-ws0-recommendation.md`)
@@ -77,7 +84,8 @@
   promoted to owner decision point 4. Cricket M1→M2 panel 7-1 and
   M4 panel 7-1 both adjudicated (same dissenting cell,
   procedure-xhigh adversarial, both on frame-provenance gaps).
-  Interim landing guidance still in force; sunsets at the ruling.
+  Interim landing guidance: sunset FIRED at the ruling; superseded
+  2026-08-02 by `.agent/rules/capability-landing-decision-procedure.md`.
   Commit-queue ceremony ACTIVE; this seat holds the commit-warden
   singleton (git:index/head claim 7754dd82) — hand-back clause:
   when WS0 commit cadence drops. #711 close carded to the owner

@@ -926,3 +926,46 @@ already externally checked.
   (3) the vendoring gate records description quality for externals.
   The rule is the ruled successor to the recommendation's decision
   point 4 — the owner answered it by ruling the bar into doctrine.
+- 2026-08-02 ~16:40Z — **R2 ENACTED: the landing decision procedure
+  minted** as `.agent/rules/capability-landing-decision-procedure.md`
+  (trigger-loaded; four on-disk forms + the RULES_INDEX row), with
+  the two ruled dependent surfaces in the same motion:
+  `.agent/skills/README.md` carries the Practice-skills-corpus
+  naming (the ruling's doctrine home) and the WS5(d) one-line
+  audience-set registry that the procedure's step 1 writes to.
+  Content as ruled: audience set FIRST; the disclosure-and-hardness
+  gradient preamble with the lever interface (name + description per
+  the naming rule, binding mode, trigger); payload shape ×
+  disclosure need with the
+  complex-merge/pre-merge-divergence-analysis worked pair (and the
+  dispatch + zero-context arms completing the table);
+  who-recognises-the-trigger as the situational gate; companion pair
+  first-class (commit/napkin named as harm evidence converging at
+  next touch, not as exemplar); R1 family test (skills only);
+  vendoring gate; landing checks = description bar +
+  status-independence (the null-test facet: operative dependence on
+  a terminal status) + consumer-with-element + rules-land-whole.
+  Interim-guidance succession discharged in the rule's preamble and
+  both stale homes trued (this entry + the thread record).
+  Pre-landing review (docs-adr-expert on opus): 1 critical + 6 major
+  + 7 minor, all adjudicated; spine, step order, worked pair, links,
+  and house conventions verified clean first-hand by the reviewer.
+  Notable dispositions: the overwide index cell (critical — it had
+  triggered a whole-table re-pad) cured to a 99-char cell carrying
+  the do-not-fire clause; the no-loader-config finding (step 4
+  applied to the rule itself) dispositioned to the reclassification
+  enactment, where the ratified sweep's loader contract ("a
+  situational rule with no loader entry is a deleted rule") lands
+  for ALL situational rows in one motion — the enactment story
+  carries it explicitly; the index's stale alwaysApply-always-true
+  contract clause trued (frontmatter mirrors classification,
+  matching live practice across six verified `.mdc` adapters).
+  Window event at occurrence: the warden's prettier true-up
+  15e066907 absorbed this seat's in-flight index edits mid-authoring
+  (row + contract clause) and pushed, making the
+  land-all-forms-in-one-commit contract transiently false on origin;
+  caught by first-hand diff reading, completing bundle landed in the
+  granted window (Falcon's 16:37Z grant), closing the violation as a
+  two-commit history window. Lesson napkined: uncommitted edits on
+  the shared primary are visible to every warden sweep —
+  stage-by-pathspec protects the ceremony, not the tree.
