@@ -614,3 +614,96 @@ already externally checked.
      rode `639c0f037`) — the COMMIT-QUEUE CEREMONY is now ACTIVE for
      every commit on the primary, both seats; a standing draft PR on
      the coordination branch adds check visibility.
+- 2026-08-02 ~13:35Z — MOVEMENT 3: solution-space reflection over the
+  narrowed space (metacognition inward; fluency interrogated per the
+  movement contract; run post-compaction with the full record re-read
+  this session). Verdicts per candidate, value stated only in
+  movement-1 consumer decisions:
+  1. **Structure standard — the question DECOMPOSES into two tiers
+     with opposite verdicts.** Run through the homonymy-test analog
+     (what consumer decision does each directory tier drive?): the
+     FAMILY tier (`parallax/<skill>/`) carries three real decisions —
+     the packaging/vendoring boundary (the lock pipeline's unit), the
+     WS6(a) up-traversal validator's bundle-class scope (the
+     directory IS the enforcement boundary), and generation grouping
+     (the WS6(d) two-level extension) — plus the owner's stated
+     purpose (c), structure legible "on the file system". The
+     CATEGORY tier (`cognition/`) drives NO consumer decision on the
+     movement-1 table: summon-routing rides descriptions, generation
+     rides name+description, validators ride membership — a category
+     directory is metadata-theatre in directory form, and as a
+     filesystem taxonomy beside the ADR-221 concept layer it is the
+     parallel-taxonomy risk by construction. The meta-learning
+     lesson-3 tension RESOLVES on the canonical/emitted distinction:
+     the lesson binds the PACKAGED form ("standards-level packaging
+     is flat ... express composition through artifacts"), and our
+     adapter tier already emits flat spec-conformant `oak-<id>`
+     dirs; the canonical tier may bundle families without touching
+     packaged flatness. Surviving shape for movement 4: flat
+     individuals + self-contained family bundles at corpus root, NO
+     category tier; emitted tier stays flat; category/thematic views
+     live as derived projections and graph edges, never directories.
+     Falsifier: a mechanical consumer for a category tier named
+     before the gate revives it — and the prior is the owner's to
+     keep at the gate; this challenges `cognition/`, not the family
+     bundle, which the evidence SUPPORTS. Fluency check recorded:
+     the canonical/emitted resolution partially rescues the owner's
+     prior — tested for deference bias by re-running the category
+     tier through the same consumer table; it fails regardless.
+  2. **Stratum annotations: SURVIVE CONDITIONALLY.** Value: the
+     grounding-direction check (proves itself on the two known
+     inversions) + portability packaging legibility. Condition
+     (named To-verify for movement 4, validators-must-recompute
+     discipline): if stratum is fully DERIVABLE from location
+     (practice-core vs repo paths), frontmatter keys are redundant —
+     the check derives, a projection renders, nothing is annotated.
+     Probe: map PDR-134's four strata against the live directory
+     layout; annotate only the residue. The probe is movement 4's
+     opening act.
+  3. **Concern links: SURVIVE, REFINED in form** — the fluency
+     interrogation the movement contract demanded (the recorded
+     attraction to concern-centric elegance) changed the shape:
+     per-file concern frontmatter would mint 40+ maintained
+     annotation sites whose only reader is map generation; the
+     consumer (the owner's standing relational ask + naming the
+     three heterogeneous cross-lever binding mechanisms) is served
+     by ONE curated relations-graph artifact with a derived rendered
+     map (lesson 17 manifests-authoritative; the family's own 8 JSON
+     graphs are the demonstrated direction; the owner's "elements in
+     a graph" purpose names the surface). Falsifier: if the map is
+     never re-queried after first authoring (the composition-map
+     decay signature), even the graph form was over-built — fold to
+     a static report section.
+  4. **Shared KIND and INTENT annotation keys: DROPPED** (the
+     movement-2 prune formalised): zero mechanical consumers at any
+     lever; native vocabularies do the same navigation work without
+     homonymy. Revival condition recorded: a BUILT
+     derived-navigation consumer that demonstrably needs cross-lever
+     keys.
+  5. **Disclosure-tier landing doctrine: SURVIVES as the synthesis
+     spine.** It dissolves rather than answers the homonymy
+     question: the lever difference IS a disclosure-tier fact
+     (always / on-match / at-dispatch), so cross-lever kind
+     vocabulary is unnecessary by construction. Consumer: the
+     authoring decision "where does this capability land" — the live
+     two-conventions divergence is its harm evidence; the
+     napkin/commit companion-rule cases are its worked instances.
+     Falsifier: landing divergence recurring after adoption.
+  6. **Native kinds: KEPT** (conservation; the vocabulary-null's own
+     content).
+  7. **The null C, scored honestly:** its structure half is dead by
+     owner word; its vocabulary half survives INTO the synthesis —
+     the emerging recommendation is C-plus (native vocabularies
+     kept, no new cross-lever taxonomy) + structure standard +
+     landing doctrine + one relations graph + conditional stratum.
+     Distance from C is four named elements, each carrying its
+     consumer — exactly the value gate the owner set.
+  **Exit criteria: MET** — every candidate leaves with a
+  decision-value case and falsifier, or a drop reason + revival
+  condition. Movement biting evidence (the contract's own test): the
+  movement changed concern-links' form (frontmatter → graph
+  artifact), decomposed the structure question into tiers with
+  opposite verdicts, resolved lesson-3 vs the prior on the
+  canonical/emitted seam, and conditionalised stratum on a
+  derivability probe. Movement 4 (synthesis + reviewed
+  recommendation) opens with the stratum derivability probe.
