@@ -754,3 +754,28 @@ append-only logs deserve a structural check, not trust. Instrument note:
 `commit-queue complete` exits 2 after the `commit` primitive has run —
 apparently already-completed; end state correct both times (queue shows no
 live intent); read the queue, not the exit.
+
+## 2026-08-02 ~13:25Z — Badger guards Lair: two Sif-lane captures at the compaction boundary
+
+**Hand-extended SHA is the silent twin, verbatim class:** a settle watch
+was armed on a full SHA constructed by extending the push output's short
+form — plausible bytes, right type, nonexistent commit. It polled a
+404 forever and its silence read as still-pending; caught only by
+refusing to trust silence and probing first-hand ("No commit found for
+SHA"). Cures adopted: full SHAs only ever from rev-parse/ls-remote at
+the moment of use, and a settle watch's FIRST tick must show a non-zero
+checks count before its silence is trusted (silence-is-not-success made
+mechanical).
+
+**The finish-line cluster prediction fired exactly as written:** under
+the compaction word, dialogue 2's close event was composed BEFORE its
+synthesis surface existed — violating the-codex-dialogues' own
+conserve-then-compose order, on the skill's second-ever execution, by
+the seat that WROTE the sequence, minutes after re-reading it. Dialogue
+1 (no time pressure) did it correctly. Cure: correction-by-reply event
+threading the resolved ref (events immutable); candidate structural
+cure for the skill at resume — the close-event section can state
+"synthesis_ref must exist before the event is composed" as a check, not
+prose. Same boundary also re-proved the 60-minute bot-token wall twice
+(expiry mid-push, expiry mid-comment — mint at the START of any
+merge/comment sequence, not on failure).
