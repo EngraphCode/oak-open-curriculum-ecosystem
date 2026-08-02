@@ -1,3 +1,12 @@
+import type { Result } from '@oaknational/result';
+
+import {
+  type CollaborationAgentIdWrite,
+  type NamingSchemaVersion,
+  type UuidV5,
+} from '../collaboration-state/agent-id.js';
+import { type ACTIVE_CLAIMS_SCHEMA_VERSION } from '../collaboration-state/types.js';
+
 const ACTIVE_COMMIT_QUEUE_PHASES = ['queued', 'staging', 'pre_commit'] as const;
 const COMMIT_QUEUE_PHASES = [...ACTIVE_COMMIT_QUEUE_PHASES, 'abandoned'] as const;
 const COMMIT_QUEUE_ENTRY_STATUSES = ['active', 'expired', 'abandoned'] as const;
@@ -5,32 +14,22 @@ const COMMIT_QUEUE_ENTRY_STATUSES = ['active', 'expired', 'abandoned'] as const;
 type ActiveCommitQueuePhase = (typeof ACTIVE_COMMIT_QUEUE_PHASES)[number];
 export type CommitQueuePhase = (typeof COMMIT_QUEUE_PHASES)[number];
 export type CommitQueueEntryStatus = (typeof COMMIT_QUEUE_ENTRY_STATUSES)[number];
-type JsonPrimitive = string | number | boolean | null;
-type JsonValue = JsonPrimitive | JsonObject | readonly JsonValue[];
+import { type JsonObject } from '../core/json.js';
+
+export type { JsonObject };
 
 /**
- * JSON object shape preserved when the queue helper updates registry state.
+ * Agent identity on active CLAIMS — the PDR-076a read shape. `id` is
+ * optional: legacy id-less rows are legal, preserved on write-back, and
+ * never match a live agent in the ownership comparison.
  */
-export interface JsonObject {
-  readonly [key: string]: JsonValue | undefined;
-}
-
-/**
- * Agent identity stored on active claims and commit-queue entries.
- *
- * `id` is the canonical PDR-076a UUID v5 disambiguator. New write paths
- * (createIntent + downstream commit ceremony) MUST emit `id`; the field is
- * required here so callers cannot silently omit it at compile time. Read
- * paths over legacy registries with missing-id rows fail loudly at parse,
- * which is intentional under the PDR-076b enforce-at-consumer doctrine
- * (no silent legacy passthrough on the commit-queue write surface).
- */
-export interface CommitQueueAgentId extends JsonObject {
+export interface CommitQueueClaimAgentId extends JsonObject {
   readonly agent_name: string;
   readonly platform: string;
   readonly model: string;
   readonly session_id_prefix: string;
-  readonly id: string;
+  readonly id?: UuidV5;
+  readonly naming_schema_version?: NamingSchemaVersion;
 }
 
 /**
@@ -47,7 +46,24 @@ interface CommitQueueClaimArea extends JsonObject {
 export interface CommitIntent extends JsonObject {
   readonly intent_id: string;
   readonly claim_id: string;
-  readonly agent_id: CommitQueueAgentId;
+  /**
+   * Agent identity on commit-queue INTENTS — the schema-derived PDR-076a
+   * write shape (Commandment 12: the schema IS the type; the mapped type's
+   * implicit index signature keeps it JsonObject-compatible for registry
+   * round-tripping, so no hand-built shadow interface is needed).
+   *
+   * `id` is the canonical PDR-076a UUID v5 routing disambiguator and is
+   * required: write paths cannot omit it at compile time (`createIntent`
+   * parses through `collaborationAgentIdWriteSchema`), and `parseIntent`
+   * enforces the same canonical schema at the read boundary, so an id-less
+   * intent row fails loudly naming the offending intent. Claims use
+   * {@link CommitQueueClaimAgentId} instead: `id` stays optional there
+   * because a pre-sunset legacy claim row is legal registry content that
+   * must be preserved byte-identical on write-back — it is simply never
+   * the same live agent (PDR-076a §Sunset; the guard narrows through the
+   * canonical `sameAgentRoutingKey`).
+   */
+  readonly agent_id: CollaborationAgentIdWrite;
   readonly files: readonly string[];
   readonly commit_subject: string;
   readonly queued_at: string;
@@ -64,16 +80,17 @@ export interface CommitIntent extends JsonObject {
  */
 export interface CommitQueueClaim extends JsonObject {
   readonly claim_id: string;
-  readonly agent_id?: CommitQueueAgentId;
+  readonly agent_id?: CommitQueueClaimAgentId;
   readonly areas?: readonly CommitQueueClaimArea[];
   readonly intent_to_commit?: string;
 }
 
 /**
- * Collaboration registry subset required by the queue helper.
+ * Collaboration registry subset required by the queue helper. The version
+ * field is pinned to the same constant as the full registry type.
  */
 export interface CommitQueueRegistry extends JsonObject {
-  readonly schema_version: '1.3.0';
+  readonly schema_version: typeof ACTIVE_CLAIMS_SCHEMA_VERSION;
   readonly commit_queue: readonly CommitIntent[];
   readonly claims: readonly CommitQueueClaim[];
 }
@@ -156,7 +173,7 @@ export interface CommitQueueCliInput {
   readonly options: CommitQueueCliOptions;
   readonly repoRoot: string;
   readonly resolveGitRoot: () => string;
-  readonly readRegistry?: (registryPath: string) => Promise<CommitQueueRegistry>;
+  readonly readRegistry?: (registryPath: string) => Promise<Result<CommitQueueRegistry, Error>>;
   readonly commitWorkflow?: CommitWorkflowCliRunner;
   readonly stdout?: {
     write(chunk: string): void;

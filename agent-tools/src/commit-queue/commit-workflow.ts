@@ -17,6 +17,8 @@
  * `.husky/commit-msg`. See PDR-053 and ADR-176.
  */
 
+import type { Result } from '@oaknational/result';
+
 import { completeCommitIntent, updateCommitIntentPhase, verifyStagedBundle } from './core.js';
 import { narrowIntentPathspec, type CommitWorkflowPathspec } from './pathspec.js';
 import { type CommitIntent, type CommitQueueRegistry, type StagedBundle } from './types.js';
@@ -40,7 +42,7 @@ export interface CommitWorkflowGitCommitResult extends CommitWorkflowProcessResu
  * Dependencies injected into the pure workflow orchestrator.
  */
 export interface CommitWorkflowDependencies {
-  readonly readRegistry: () => Promise<CommitQueueRegistry>;
+  readonly readRegistry: () => Promise<Result<CommitQueueRegistry, Error>>;
   readonly transformRegistry: (
     transform: (registry: CommitQueueRegistry) => CommitQueueRegistry,
   ) => Promise<void>;
@@ -150,15 +152,19 @@ async function loadIntent(
   | { readonly ok: false; readonly failure: CommitWorkflowResult }
 > {
   const registry = await input.deps.readRegistry();
-  const intent = registry.commit_queue.find((entry) => entry.intent_id === input.intentId);
+  if (!registry.ok) {
+    // Corruption relays the parse layer's message on the existing failure
+    // channel — never fold to a default registry (misreads as unknown-id).
+    return {
+      ok: false,
+      failure: { ok: false, stage: 'load-intent', reason: registry.error.message },
+    };
+  }
+  const intent = registry.value.commit_queue.find((entry) => entry.intent_id === input.intentId);
   if (intent === undefined) {
     return {
       ok: false,
-      failure: {
-        ok: false,
-        stage: 'load-intent',
-        reason: `unknown intent_id: ${input.intentId}`,
-      },
+      failure: { ok: false, stage: 'load-intent', reason: `unknown intent_id: ${input.intentId}` },
     };
   }
 

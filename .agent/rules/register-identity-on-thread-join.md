@@ -137,7 +137,7 @@ Per PDR-027 and
 | `agent_name` | Persistent descriptive name for this agent on this thread (owner-assigned or descriptive default). Carries across sessions. |
 | `platform` | `claude-code`, `cursor`, `codex`, `gemini`, etc. |
 | `model` | Canonical model id (e.g. `claude-opus-4-7-1m`). |
-| `session_id_prefix` | First 6 characters of the harness session ID; `unknown` if not exposed. |
+| `session_id_prefix` | First 6 characters of the harness session ID; `unknown` if not exposed. Authored cells carry this bare wire value, never the rendered visual-disambiguator token (`<prefix>-<last 3 of id>`) — a pasted token silently mis-binds the field (PDR-027, 2026-08-01 amendment). |
 | `role` | Free-form short label (`drafter`, `executor`, `reviewer`, `initiator`, …). |
 | `first_session` | Date identity first touched the thread (YYYY-MM-DD). |
 | `last_session` | Date identity most recently touched the thread (YYYY-MM-DD). |
@@ -208,3 +208,12 @@ is applicable at install time, not merely documented.
 - [PDR-026 Per-Session Landing Commitment](../practice-core/decision-records/PDR-026-per-session-landing-commitment.md)
   — per-thread-per-session commitment that determines which thread(s) this
   session registers on.
+
+## Name-collision discipline
+
+When two live seats share a first name token (two "Falcon …" seats, two
+"Badger …" seats), FULL display names are required in every comms event,
+commit message, and record — in both directions: the colliding seats write
+their own full names, and every peer referring to either writes the full
+name too. A bare first name in a shared window is an ambiguous reference
+that mis-attributes work at read time (recorded 2026-07-2x).

@@ -3,7 +3,7 @@
   "$id": "comms-event.schema.json",
   "title": "Communication Protocol Event",
   "description": "Single source of truth for the inter-agent communication protocol. The protocol is one canonical schema and one canonical directory: .agent/state/collaboration/comms/. Each event carries schema_version 2.0.0 and a top-level kind discriminator. Governed by .agent/directives/agent-collaboration.md.",
-  "$comment_compatibility": "Major-version mismatch causes strict readers to bail out. The $defs are deliberately strict (additionalProperties false) so an authoring agent cannot accidentally introduce a fourth shape under an existing $def; new event kinds are introduced as new kind values with explicit parser and renderer support. Field provenance is documented inline against each $def.",
+  "$comment_compatibility": "Latest-version-only (PDR-050 latest-schema-version-only, owner-ruled 2026-08-01): runtime readers pin the current schema_version by equality and refuse ANY mismatch, not only major-version mismatches. The $defs are deliberately strict (additionalProperties false) so an authoring agent cannot accidentally introduce a fourth shape under an existing $def; new event kinds are introduced as new kind values with explicit parser and renderer support. Field provenance is documented inline against each $def.",
   "oneOf": [
     { "$ref": "#/$defs/narrative" },
     { "$ref": "#/$defs/lifecycle" },
@@ -193,6 +193,11 @@
         },
         "subject": { "type": "string", "minLength": 1 },
         "body": { "type": "string", "minLength": 1 },
+        "in_response_to": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Optional reference to an earlier event_id this message responds to. Threading affordance (parity with the narrative kind), so a directed acknowledgement carries its antecedent machine-readably instead of naming it in prose. Readers that do not understand this field MUST ignore it (additive-extension discipline per PDR-049 + PDR-050)."
+        },
         "tags": {
           "type": "array",
           "items": { "type": "string" },

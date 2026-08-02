@@ -1,3 +1,4 @@
+import { err, ok, type Result } from '@oaknational/result';
 import { z } from 'zod';
 
 import { NAMING_SCHEMA_VERSION_VALUES } from '../core/agent-identity/schema-registry.js';
@@ -48,11 +49,19 @@ export type NamingSchemaVersion = z.infer<typeof namingSchemaVersionSchema>;
  * meaningless identity and is rejected at the parse boundary — do not relax
  * these to bare `z.string()`.
  *
- * `id` is OPTIONAL on the read side to accept legacy rows written before the
- * PDR-076a contract landed. The write-side schema
- * `collaborationAgentIdWriteSchema` requires `id` so write factories cannot
- * accidentally emit legacy shape; consumers narrow at the routing boundary
- * (see `routingKeyFor` in `active-agent-routing.ts`).
+ * `id` is OPTIONAL on the read side for the two legacy populations that
+ * must stay readable: pre-sunset CLAIM rows (legal registry content,
+ * preserved on write-back, narrowed at the routing boundary — see
+ * `routingKeyFor` in `active-agent-routing.ts`, where an id-less identity
+ * is never the same live agent) and historical COMMS-EVENT identities
+ * (`state-schemas.ts` binds this schema for author/from/to; legacy events
+ * on disk lack ids, and replying to one through the id-keyed write path
+ * correctly throws — see `replyToDirectedCommsMessage`). Do NOT require
+ * `id` on this generic read schema. The one strict exception is
+ * commit-queue INTENT rows, which require `id` AT PARSE in both registry
+ * read paths (see {@link parseIntentAgentId}); the write-side schema
+ * `collaborationAgentIdWriteSchema` requires `id` so write factories
+ * cannot accidentally emit legacy shape.
  *
  * Any caller that needs to parse an identity from untrusted input (JSON, env,
  * external source) MUST use this schema rather than hand-crafting a
@@ -111,4 +120,41 @@ export type CollaborationAgentIdWrite = Readonly<z.infer<typeof collaborationAge
 export interface DerivedCollaborationIdentity {
   readonly agentId: CollaborationAgentIdWrite;
   readonly seed_source: string;
+}
+
+/**
+ * Boundary validation for a commit_queue INTENT row's identity: the
+ * canonical PDR-076a write schema (UUID v5 `id` required), returned as a
+ * `Result` (ADR-088). Every live writer emits `id` (intent factories parse
+ * through this same schema), so an `Err` here means registry corruption —
+ * the error names the offending intent so a blocked agent can surface it
+ * precisely. Recovery is an owner-run removal of the named row; do not
+ * work around it.
+ *
+ * Shared by BOTH registry read paths (`commit-queue/registry.ts` and
+ * `collaboration-state/registry-entry-parser.ts`) per
+ * consolidate-at-second-consumer — do not fork a third copy. Both paths
+ * propagate this Err as itself (early return / `map` fold), so consumers
+ * that unwrap at the CLI edge rethrow this Err's own `Error` object and
+ * the loud-message contract stays byte-identical.
+ */
+export function parseIntentAgentId(
+  value: unknown,
+  intentId: string,
+): Result<CollaborationAgentIdWrite, Error> {
+  const parsed = collaborationAgentIdWriteSchema.safeParse(value);
+  if (!parsed.success) {
+    const issues = parsed.error.issues
+      .map((issue) => `${issue.path.join('.')}: ${issue.message}`)
+      .join('; ');
+    return err(
+      new Error(
+        `commit_queue entry ${intentId} carries an invalid agent_id ` +
+          `(PDR-076a requires the UUID v5 id on intents): ${issues}. ` +
+          `Every live writer emits id, so this indicates registry corruption — ` +
+          `surface to the owner; recovery is removing intent ${intentId} (owner-run).`,
+      ),
+    );
+  }
+  return ok(parsed.data);
 }

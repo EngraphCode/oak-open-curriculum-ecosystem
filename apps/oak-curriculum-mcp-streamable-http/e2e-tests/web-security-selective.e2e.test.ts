@@ -6,7 +6,6 @@ import { createFakeHttpObservability } from '../src/test-helpers/observability-f
 import { TEST_UPSTREAM_METADATA } from '../src/test-helpers/upstream-metadata-fixture.js';
 import {
   createNoOpClerkMiddleware,
-  createNoOpRateLimiterFactory,
   createUnauthenticatedMcpAuthClerkDeps,
 } from './helpers/test-config.js';
 import { getScratchStaticRoot } from '../src/test-helpers/static-root-fixture.js';
@@ -42,7 +41,6 @@ async function createTestApp() {
     upstreamMetadata: TEST_UPSTREAM_METADATA,
     clerkMiddlewareFactory: createNoOpClerkMiddleware(),
     mcpAuthClerkDeps: createUnauthenticatedMcpAuthClerkDeps(),
-    rateLimiterFactory: createNoOpRateLimiterFactory(),
   });
 }
 

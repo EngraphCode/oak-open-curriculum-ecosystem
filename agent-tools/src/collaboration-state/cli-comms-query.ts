@@ -1,11 +1,9 @@
 import { optional, required, type Options } from './cli-options.js';
 import { cliIo, type CliRuntime } from './cli-runtime.js';
+import { commsEventAuthor, commsEventTitle } from './comms-event-accessors.js';
 import { peerHeartbeatLiveness, type PeerLivenessReport } from './peer-liveness.js';
-import {
-  type CollaborationAgentId,
-  type CollaborationStateEnvironment,
-  type CommsEvent,
-} from './types.js';
+import { type CollaborationStateEnvironment, type CommsEvent } from './types.js';
+import { displayPrefix } from './visual-disambiguator.js';
 
 /**
  * Default number of newest events `comms list` projects when `--tail` is
@@ -24,9 +22,11 @@ const DEFAULT_LIST_TAIL = 20;
  * Read-only orientation surface: unlike `comms inbox` / `comms watch` (which
  * self-exclude against the caller's identity and track a seen-file), `list`
  * needs no identity seed and mutates no state. Each line projects
- * `created_at`, `event_id`, `author/session_prefix`, `[kind]` (plus any
- * `[tags]`), and the title/subject — the fields needed to decide which event
- * to `comms show`.
+ * `created_at`, `event_id`, `author/display-prefix` (the MCP-145
+ * visual-disambiguator token via {@link displayPrefix} —
+ * `<prefix>-<idTail>`, bare prefix for id-less blocks), `[kind]` (plus
+ * any `[tags]`), and the title/subject — the fields needed to decide which
+ * event to `comms show`.
  *
  * `--since <iso>` (F-70) narrows to events at or after the boundary instant
  * (inclusive), so an agent opening hours into a thread can read exactly the
@@ -111,6 +111,10 @@ export async function showComms(
  * `--now` defaults to the real wall clock — correct for a liveness judgement
  * (a lagging caller-supplied time could read a silent peer as live); it is
  * accepted only so tests and replay can pin a deterministic instant.
+ *
+ * The identity column renders the visual-disambiguator token (always
+ * `<prefix>-<idTail>` here — heartbeat authors carry ids); display-only,
+ * never the `--to-session-prefix` value.
  */
 export async function peerLivenessComms(
   options: Options,
@@ -143,7 +147,7 @@ function parseNow(raw: string | undefined): number {
 
 function formatPeerLivenessLine(report: PeerLivenessReport): string {
   const ageMinutes = (report.ageMs / 60_000).toFixed(1);
-  const who = `${report.identity.agent_name}/${report.identity.session_id_prefix}`;
+  const who = `${report.identity.agent_name}/${displayPrefix(report.identity)}`;
   return `${report.state.padEnd(7)}  ${ageMinutes.padStart(6)}m ago  ${who}  last_heartbeat=${report.lastHeartbeatAt}`;
 }
 
@@ -167,18 +171,10 @@ function byCreatedAtDescending(left: CommsEvent, right: CommsEvent): number {
 }
 
 function formatSummaryLine(event: CommsEvent): string {
-  const author = summaryAuthor(event);
+  const author = commsEventAuthor(event);
   const channel =
     event.tags !== undefined && event.tags.length > 0
       ? `[${event.kind}] [${event.tags.join(', ')}]`
       : `[${event.kind}]`;
-  return `${event.created_at}  ${event.event_id}  ${author.agent_name}/${author.session_id_prefix}  ${channel}  ${summaryTitle(event)}`;
-}
-
-function summaryAuthor(event: CommsEvent): CollaborationAgentId {
-  return event.kind === 'directed' ? event.from : event.author;
-}
-
-function summaryTitle(event: CommsEvent): string {
-  return event.kind === 'directed' ? event.subject : event.title;
+  return `${event.created_at}  ${event.event_id}  ${author.agent_name}/${displayPrefix(author)}  ${channel}  ${commsEventTitle(event)}`;
 }

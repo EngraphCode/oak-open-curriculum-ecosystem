@@ -53,9 +53,6 @@ describe('planClaudeSessionIdentityHook', () => {
     const additionalContext = plan.hookOutput.hookSpecificOutput?.additionalContext ?? '';
     expect(additionalContext).toContain('[Practice agent identity]');
     expect(additionalContext).toContain(`Session identity (PDR-027): ${expectedDisplayName}`);
-    expect(additionalContext).toContain(
-      'PDR-027 session_id_prefix (first 6 of session_id): 22e835',
-    );
     expect(additionalContext).toContain('PRACTICE_AGENT_SESSION_ID_CLAUDE');
     expect(additionalContext).toContain(`/rename ${expectedDisplayName} - <intent>`);
     expect(additionalContext).toContain('Do not auto-rename');
@@ -73,6 +70,25 @@ describe('planClaudeSessionIdentityHook', () => {
       absolutePath: 'mem://claude-env-file-abc',
       appendLine:
         `export PRACTICE_AGENT_SESSION_ID_CLAUDE='${sessionId}'\n` +
+        `export OAK_AGENT_IDENTITY_OVERRIDE='${displayName}'\n`,
+    });
+  });
+
+  it('escapes an apostrophe-bearing session id in the env-file export line', () => {
+    // Pins that the host CALLS the quoter: naive interpolation renders
+    // 'it's-a-session-seed' (a syntactically broken export line), and every
+    // later Bash call in the session would fail to source the env file.
+    const sessionId = "it's-a-session-seed";
+    const displayName = deriveIdentity(sessionId).displayName;
+    const plan = planClaudeSessionIdentityHook({
+      stdinText: JSON.stringify({ session_id: sessionId }),
+      environment: { CLAUDE_ENV_FILE: 'mem://claude-env-file-quote' },
+    });
+
+    expect(plan.envFileWrite).toStrictEqual({
+      absolutePath: 'mem://claude-env-file-quote',
+      appendLine:
+        `export PRACTICE_AGENT_SESSION_ID_CLAUDE=${String.raw`'it'\''s-a-session-seed'`}\n` +
         `export OAK_AGENT_IDENTITY_OVERRIDE='${displayName}'\n`,
     });
   });

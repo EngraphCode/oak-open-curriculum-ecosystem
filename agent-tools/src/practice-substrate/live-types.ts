@@ -1,5 +1,6 @@
 import { join } from 'node:path';
 
+import { type CollaborationSurfaceFailure } from '../collaboration-state/surface-contract.js';
 import { finding } from './finding.js';
 import { type JsonFieldMap } from './report-evaluators.js';
 import { type SubstrateFinding } from './types.js';
@@ -76,6 +77,39 @@ export function parseFailureFinding(
     message: invalidJson
       ? `JSON surface ${path} does not parse.`
       : `JSON surface ${path} does not satisfy its schema.`,
+    evidence: [path],
+  });
+}
+
+/**
+ * Map a surface-contract failure to a substrate finding by its literal
+ * `kind` — replacing the `instanceof SyntaxError` sniff for this leg, which
+ * misclassifies wrapped JSON errors (the SyntaxError rides the cause
+ * chain). Message bytes are identical to {@link parseFailureFinding}'s.
+ */
+export function surfaceContractFinding(
+  surface: string,
+  path: string,
+  failure: CollaborationSurfaceFailure,
+): SubstrateFinding {
+  // Kind-keyed data keeps the mapping compile-total: a new failure kind
+  // fails this record's `satisfies` instead of silently falling through.
+  const byKind = {
+    'malformed-json': { id: 'invalid-json', message: `JSON surface ${path} does not parse.` },
+    'contract-failure': {
+      id: 'schema-incoherence',
+      message: `JSON surface ${path} does not satisfy its schema.`,
+    },
+  } as const satisfies Record<
+    CollaborationSurfaceFailure['kind'],
+    { readonly id: string; readonly message: string }
+  >;
+
+  return finding({
+    ...byKind[failure.kind],
+    surface,
+    severity: 'blocking',
+    repair: 'manual-with-provenance',
     evidence: [path],
   });
 }

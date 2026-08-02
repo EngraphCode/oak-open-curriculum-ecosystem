@@ -38,6 +38,21 @@ accumulation signal).
 
 ## Amendment Log
 
+- **2026-08-01 — Class A.2 Layer-3 audit-source vocabulary trued to the
+  shipped instrument (Moss calls Loam / claude / claude-fable-5;
+  identity-lane doctrine slice).** The 2026-04-28 v4 entry below names
+  "thread records, active claims, closed claims, and shared communication
+  logs" as valid Layer-3 identity-audit coverage. The term "shared
+  communication logs" is superseded: a report-only identity audit's valid
+  sources are thread records, active claims, closed claims, and the comms
+  EVENT stream. A RENDERED shared log is a generated read model — a full
+  constructive overwrite with no historical snapshot — so it cannot
+  witness history and is not an audit source. The v4 entry stays
+  byte-frozen as authored; this entry is the correction, per the
+  append-honest correction shape (corrections are new entries, never
+  rewrites in place). §Class A.2 Layer 3 itself needed no change: it
+  names no sources, so nothing normative was stale.
+
 - **2026-06-07 — metacognition directive sharpened: friction-handling clause
   (Hidden Prowling Owl / claude / claude-opus-4-8; owner-directed graduation of a
   session lesson).** The metacognition directive gains a **"Friction Is Rarely the

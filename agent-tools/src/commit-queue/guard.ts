@@ -1,9 +1,10 @@
+import { formatAgent, sameAgentRoutingKey } from '../collaboration-state/active-agent-routing.js';
+import { type CollaborationAgentIdWrite } from '../collaboration-state/agent-id.js';
 import { getFreshEntriesAhead } from './core.js';
 import { formatFileList, normalizeFileList } from './path-list.js';
 import {
   isActiveCommitQueuePhase,
   type CommitIntent,
-  type CommitQueueAgentId,
   type CommitQueueClaim,
   type CommitQueueRegistry,
 } from './types.js';
@@ -14,7 +15,7 @@ import { secondsUntilExpiry } from './time.js';
  */
 export function guardStageFiles(input: {
   readonly registry: CommitQueueRegistry;
-  readonly agentId: CommitQueueAgentId;
+  readonly agentId: CollaborationAgentIdWrite;
   readonly files: readonly string[];
   readonly nowIso: string;
 }):
@@ -55,7 +56,7 @@ export function guardStageFiles(input: {
 function guardIntentClaim(input: {
   readonly registry: CommitQueueRegistry;
   readonly intent: CommitIntent;
-  readonly agentId: CommitQueueAgentId;
+  readonly agentId: CollaborationAgentIdWrite;
   readonly nowIso: string;
 }):
   | { readonly ok: true; readonly intent: CommitIntent }
@@ -101,14 +102,14 @@ function guardIntentClaim(input: {
 
 function intentCoversStageRequest(input: {
   readonly intent: CommitIntent;
-  readonly agentId: CommitQueueAgentId;
+  readonly agentId: CollaborationAgentIdWrite;
   readonly files: readonly string[];
   readonly nowIso: string;
 }): boolean {
   if (
     !isActiveCommitQueuePhase(input.intent.phase) ||
     secondsUntilExpiry(input.intent.expires_at, input.nowIso) < 0 ||
-    !sameAgent(input.intent.agent_id, input.agentId)
+    !sameAgentRoutingKey(input.intent.agent_id, input.agentId)
   ) {
     return false;
   }
@@ -117,8 +118,13 @@ function intentCoversStageRequest(input: {
   return input.files.every((file) => intentFiles.includes(file));
 }
 
-function claimBelongsToAgent(claim: CommitQueueClaim, agentId: CommitQueueAgentId): boolean {
-  return claim.agent_id !== undefined && sameAgent(claim.agent_id, agentId);
+/**
+ * PDR-076a ownership check: single-path on the routing `id` via the
+ * canonical comparator — an id-less claim identity (a legal pre-sunset
+ * legacy row, preserved on write-back) is never the same live agent.
+ */
+function claimBelongsToAgent(claim: CommitQueueClaim, agentId: CollaborationAgentIdWrite): boolean {
+  return claim.agent_id !== undefined && sameAgentRoutingKey(claim.agent_id, agentId);
 }
 
 function claimCoversGitIndexHead(claim: CommitQueueClaim): boolean {
@@ -128,19 +134,6 @@ function claimCoversGitIndexHead(claim: CommitQueueClaim): boolean {
         area.kind === 'git' && normalizeFileList(area.patterns.join('\n')).includes('index/head'),
     ) ?? false
   );
-}
-
-function sameAgent(left: CommitQueueAgentId, right: CommitQueueAgentId): boolean {
-  return (
-    left.agent_name === right.agent_name &&
-    left.platform === right.platform &&
-    left.model === right.model &&
-    left.session_id_prefix === right.session_id_prefix
-  );
-}
-
-function formatAgent(agentId: CommitQueueAgentId): string {
-  return `${agentId.agent_name} / ${agentId.platform} / ${agentId.model} / ${agentId.session_id_prefix}`;
 }
 
 function formatIntentIds(entries: readonly CommitIntent[]): string {

@@ -4,21 +4,26 @@
  * The canonical comms-event schema at
  * `.agent/state/collaboration/comms-event.schema.json` defines three event
  * shapes ($defs.narrative, $defs.lifecycle, $defs.directed). The TypeScript
- * parsers in `state-parsers.ts` project the schema's $defs into the type
- * system as three single-schema parsers plus the top-level discriminated
- * parser.
+ * layer projects the schema's $defs through ONE union value parser
+ * (`parseCommsEventValue`, kind-discriminated) plus the text-level Result
+ * parser (`parseCommsEvent`). Per-kind field assertions here narrow through
+ * the union, so every case also exercises the kind dispatch.
  *
  * These tests are the TypeScript-layer correctness gate; the schema-
- * authority gate lives in `comms-event-schema.unit.test.ts`.
+ * authority gate lives in `comms-event-schema.unit.test.ts`, and the
+ * text-level arms (malformed JSON, non-object JSON) are pinned by the
+ * colocated `state-parsers.unit.test.ts` beside the source.
  */
+import { unwrapErr, unwrapOrThrow } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
+import { parseCommsEvent } from '../../src/collaboration-state/state-parsers.js';
+import { parseCommsEventValue } from '../../src/collaboration-state/state-schemas.js';
 import {
-  parseCommsEvent,
-  parseDirectedCommsMessage,
-  parseLifecycleCommsEvent,
-  parseNarrativeCommsEvent,
-} from '../../src/collaboration-state/state-parsers.js';
+  type DirectedCommsMessage,
+  type LifecycleCommsEvent,
+  type NarrativeCommsEvent,
+} from '../../src/collaboration-state/types.js';
 
 const woodland = {
   agent_name: 'Woodland Creeping Petal',
@@ -104,275 +109,200 @@ const directedPostMigration = {
   body: 'Directed message body.',
 } as const;
 
-describe('parseNarrativeCommsEvent', () => {
-  it('parses a canonical narrative event with the five required fields', () => {
-    const event = parseNarrativeCommsEvent(JSON.stringify(canonicalNarrative));
+// Kind-narrowing helpers: unwrap the union, then narrow by discriminant.
+// A wrong-kind parse returns undefined, so every field assertion below
+// fails loudly on a dispatch defect instead of narrowing past it.
+function asNarrative(value: unknown): NarrativeCommsEvent | undefined {
+  const event = unwrapOrThrow(parseCommsEventValue(value));
+  return event.kind === 'narrative' ? event : undefined;
+}
 
-    expect(event.schema_version).toBe('2.0.0');
-    expect(event.kind).toBe('narrative');
-    expect(event.event_id).toBe('00de9e88-44a5-41c1-a9a5-6488a890ff07');
-    expect(event.created_at).toBe('2026-05-07T15:49:02Z');
-    expect(event.author).toEqual(woodland);
-    expect(event.title).toBe('Canonical narrative event title');
-    expect(event.body).toBe('Canonical narrative event body.');
+function asLifecycle(value: unknown): LifecycleCommsEvent | undefined {
+  const event = unwrapOrThrow(parseCommsEventValue(value));
+  return event.kind === 'lifecycle' ? event : undefined;
+}
+
+function asDirected(value: unknown): DirectedCommsMessage | undefined {
+  const event = unwrapOrThrow(parseCommsEventValue(value));
+  return event.kind === 'directed' ? event : undefined;
+}
+
+function rejectionMessage(value: unknown): string {
+  return unwrapErr(parseCommsEventValue(value)).message;
+}
+
+function omit(record: Record<string, unknown>, key: string): Record<string, unknown> {
+  return Object.fromEntries(Object.entries(record).filter(([entryKey]) => entryKey !== key));
+}
+
+describe('narrative events through the union value parser', () => {
+  it('parses a canonical narrative event, whole-row equal to the fixture', () => {
+    expect(asNarrative(canonicalNarrative)).toEqual(canonicalNarrative);
   });
 
   it('preserves every optional routing and threading affordance on a narrative event', () => {
-    const event = parseNarrativeCommsEvent(JSON.stringify(narrativeWithAffordances));
-
-    expect(event.audience).toEqual([sylvan]);
-    expect(event.addressed_to).toEqual(sylvan);
-    expect(event.in_response_to).toBe('earlier-event-id');
-    expect(event.in_reply_to).toBe('another-earlier-event-id');
+    expect(asNarrative(narrativeWithAffordances)).toEqual(narrativeWithAffordances);
   });
 
   it('rejects a legacy string-form addressed_to (post-WS1 tuple is canonical)', () => {
-    expect(() =>
-      parseNarrativeCommsEvent(
-        JSON.stringify({
-          ...canonicalNarrative,
-          addressed_to: 'Riverine Drifting Lighthouse',
-        }),
-      ),
-    ).toThrow(/addressed_to/);
+    expect(
+      rejectionMessage({
+        ...canonicalNarrative,
+        addressed_to: 'Riverine Drifting Lighthouse',
+      }),
+    ).toMatch(/addressed_to/);
   });
 
   it('rejects a partial 2-field addressed_to tuple missing platform/model', () => {
-    expect(() =>
-      parseNarrativeCommsEvent(
-        JSON.stringify({
-          ...canonicalNarrative,
-          addressed_to: {
-            agent_name: 'Riverine Drifting Lighthouse',
-            session_id_prefix: 'd1105c',
-          },
-        }),
-      ),
-    ).toThrow(/addressed_to/);
+    expect(
+      rejectionMessage({
+        ...canonicalNarrative,
+        addressed_to: {
+          agent_name: 'Riverine Drifting Lighthouse',
+          session_id_prefix: 'd1105c',
+        },
+      }),
+    ).toMatch(/addressed_to/);
   });
 
   it('rejects legacy null threading fields', () => {
-    expect(() =>
-      parseNarrativeCommsEvent(JSON.stringify({ ...canonicalNarrative, in_response_to: null })),
-    ).toThrow(/in_response_to/);
-    expect(() =>
-      parseNarrativeCommsEvent(JSON.stringify({ ...canonicalNarrative, in_reply_to: null })),
-    ).toThrow(/in_reply_to/);
+    expect(rejectionMessage({ ...canonicalNarrative, in_response_to: null })).toMatch(
+      /in_response_to/,
+    );
+    expect(rejectionMessage({ ...canonicalNarrative, in_reply_to: null })).toMatch(/in_reply_to/);
   });
 
   it('rejects a narrative event missing the required body field', () => {
-    const withoutBody = {
-      event_id: canonicalNarrative.event_id,
-      created_at: canonicalNarrative.created_at,
-      author: canonicalNarrative.author,
-      title: canonicalNarrative.title,
-    };
-
-    expect(() => parseNarrativeCommsEvent(JSON.stringify(withoutBody))).toThrow(/body/);
+    expect(rejectionMessage(omit({ ...canonicalNarrative }, 'body'))).toMatch(/body/);
   });
 
   it('round-trips an optional tags array on a narrative event', () => {
-    const event = parseNarrativeCommsEvent(
-      JSON.stringify({ ...canonicalNarrative, tags: ['failure-mode'] }),
-    );
+    const event = asNarrative({ ...canonicalNarrative, tags: ['failure-mode'] });
 
-    expect(event.tags).toEqual(['failure-mode']);
+    expect(event?.tags).toEqual(['failure-mode']);
   });
 
-  it('rejects a non-object payload', () => {
-    expect(() => parseNarrativeCommsEvent('null')).toThrow(/must be a JSON object/);
-    expect(() => parseNarrativeCommsEvent('"a string"')).toThrow(/must be a JSON object/);
-    expect(() => parseNarrativeCommsEvent('42')).toThrow(/must be a JSON object/);
-  });
-
-  it('rejects malformed JSON', () => {
-    expect(() => parseNarrativeCommsEvent('{not-json')).toThrow(SyntaxError);
+  it('reports a non-object value as an Err at the union boundary', () => {
+    expect(rejectionMessage(42)).toMatch(/communication event/);
   });
 });
 
-describe('parseLifecycleCommsEvent', () => {
-  it('parses a lifecycle event with the full required field set', () => {
-    const event = parseLifecycleCommsEvent(JSON.stringify(lifecycle));
-
-    expect(event.schema_version).toBe('2.0.0');
-    expect(event.kind).toBe('lifecycle');
-    expect(event.event_type).toBe('comms_event');
-    expect(event.occurred_at).toBe('2026-04-29T14:30:00Z');
-    expect(event.agent_id).toEqual(woodland);
-    expect(event.thread).toBe('agentic-engineering-enhancements');
-    expect(event.claim_id).toBe('fe4acc7e-1234-4abc-9def-0123456789ab');
-    expect(event.subject).toBe('Lifecycle event subject');
+describe('lifecycle events through the union value parser', () => {
+  it('parses a lifecycle event, whole-row equal to the fixture', () => {
+    expect(asLifecycle(lifecycle)).toEqual(lifecycle);
   });
 
   it('accepts an empty claim_id for non-claim-scoped lifecycle events', () => {
-    const event = parseLifecycleCommsEvent(JSON.stringify({ ...lifecycle, claim_id: '' }));
+    const event = asLifecycle({ ...lifecycle, claim_id: '' });
 
-    expect(event.claim_id).toBe('');
+    expect(event?.claim_id).toBe('');
   });
 
   it('rejects a lifecycle event missing the event_type discriminator field', () => {
-    const withoutEventType = {
-      schema_version: lifecycle.schema_version,
-      event_id: lifecycle.event_id,
-      created_at: lifecycle.created_at,
-      occurred_at: lifecycle.occurred_at,
-      author: lifecycle.author,
-      agent_id: lifecycle.agent_id,
-      thread: lifecycle.thread,
-      claim_id: lifecycle.claim_id,
-      title: lifecycle.title,
-      subject: lifecycle.subject,
-      body: lifecycle.body,
-    };
-
-    expect(() => parseLifecycleCommsEvent(JSON.stringify(withoutEventType))).toThrow(/event_type/);
-  });
-
-  it('rejects a narrative payload that lacks the lifecycle-required fields', () => {
-    expect(() => parseLifecycleCommsEvent(JSON.stringify(canonicalNarrative))).toThrow(
-      /event_type/,
-    );
+    expect(rejectionMessage(omit({ ...lifecycle }, 'event_type'))).toMatch(/event_type/);
   });
 
   it('round-trips an optional tags array on a lifecycle event', () => {
-    const event = parseLifecycleCommsEvent(
-      JSON.stringify({ ...lifecycle, tags: ['failure-mode'] }),
-    );
+    const event = asLifecycle({ ...lifecycle, tags: ['failure-mode'] });
 
-    expect(event.tags).toEqual(['failure-mode']);
+    expect(event?.tags).toEqual(['failure-mode']);
   });
 });
 
-describe('parseDirectedCommsMessage', () => {
-  it('parses a directed message in the post-migration shape (created_at)', () => {
-    const event = parseDirectedCommsMessage(JSON.stringify(directedPostMigration));
-
-    expect(event.schema_version).toBe('2.0.0');
-    expect(event.kind).toBe('directed');
-    expect(event.message_kind).toBe('session-handoff-summary');
-    expect(event.from).toEqual(woodland);
-    expect(event.to).toEqual(sylvan);
-    expect(event.subject).toBe('Session-handoff summary');
-    expect(event.created_at).toBe('2026-05-10T18:15:00Z');
+describe('directed messages through the union value parser', () => {
+  it('parses a directed message in the post-migration shape, whole-row equal to the fixture', () => {
+    expect(asDirected(directedPostMigration)).toEqual(directedPostMigration);
   });
 
   it('rejects the legacy directed shape that carries timestamp instead of created_at', () => {
     const legacyShape = {
-      schema_version: directedPostMigration.schema_version,
-      event_id: directedPostMigration.event_id,
+      ...omit({ ...directedPostMigration }, 'created_at'),
       timestamp: directedPostMigration.created_at,
-      kind: directedPostMigration.kind,
-      message_kind: directedPostMigration.message_kind,
-      from: directedPostMigration.from,
-      to: directedPostMigration.to,
-      subject: directedPostMigration.subject,
-      body: directedPostMigration.body,
     };
 
-    expect(() => parseDirectedCommsMessage(JSON.stringify(legacyShape))).toThrow(/created_at/);
+    expect(rejectionMessage(legacyShape)).toMatch(/created_at/);
   });
 
   it('rejects a directed message missing the to field', () => {
-    const withoutTo = {
-      schema_version: directedPostMigration.schema_version,
-      event_id: directedPostMigration.event_id,
-      created_at: directedPostMigration.created_at,
-      kind: directedPostMigration.kind,
-      message_kind: directedPostMigration.message_kind,
-      from: directedPostMigration.from,
-      subject: directedPostMigration.subject,
-      body: directedPostMigration.body,
-    };
-
-    expect(() => parseDirectedCommsMessage(JSON.stringify(withoutTo))).toThrow(/to/);
-  });
-
-  it('rejects a narrative payload that lacks the directed-required fields', () => {
-    expect(() => parseDirectedCommsMessage(JSON.stringify(canonicalNarrative))).toThrow(
-      /message_kind/,
-    );
+    expect(rejectionMessage(omit({ ...directedPostMigration }, 'to'))).toMatch(/to/);
   });
 
   it('round-trips an optional tags array on a directed message', () => {
-    const event = parseDirectedCommsMessage(
-      JSON.stringify({ ...directedPostMigration, tags: ['failure-mode'] }),
-    );
+    const event = asDirected({ ...directedPostMigration, tags: ['failure-mode'] });
 
-    expect(event.tags).toEqual(['failure-mode']);
+    expect(event?.tags).toEqual(['failure-mode']);
+  });
+
+  it('round-trips the optional in_response_to threading edge on a directed message', () => {
+    const event = asDirected({ ...directedPostMigration, in_response_to: 'antecedent-event-1' });
+
+    expect(event?.in_response_to).toBe('antecedent-event-1');
   });
 });
 
 describe('parseCommsEvent', () => {
   it('dispatches canonical events through the top-level kind discriminator', () => {
-    expect(parseCommsEvent(JSON.stringify(canonicalNarrative)).kind).toBe('narrative');
-    expect(parseCommsEvent(JSON.stringify(lifecycle)).kind).toBe('lifecycle');
-    expect(parseCommsEvent(JSON.stringify(directedPostMigration)).kind).toBe('directed');
+    expect(unwrapOrThrow(parseCommsEvent(JSON.stringify(canonicalNarrative))).kind).toBe(
+      'narrative',
+    );
+    expect(unwrapOrThrow(parseCommsEvent(JSON.stringify(lifecycle))).kind).toBe('lifecycle');
+    expect(unwrapOrThrow(parseCommsEvent(JSON.stringify(directedPostMigration))).kind).toBe(
+      'directed',
+    );
   });
 });
 
 describe('PDR-076a §Cascade item 3 — agent identity id field round-trip', () => {
   it('round-trips id on a narrative event author', () => {
-    const event = parseNarrativeCommsEvent(
-      JSON.stringify({ ...canonicalNarrative, author: woodlandWithId }),
-    );
+    const event = asNarrative({ ...canonicalNarrative, author: woodlandWithId });
 
-    expect(event.author.id).toBe(TEST_AGENT_ALPHA_ID);
-    expect(event.author.agent_name).toBe('Woodland Creeping Petal');
+    expect(event?.author.id).toBe(TEST_AGENT_ALPHA_ID);
+    expect(event?.author.agent_name).toBe('Woodland Creeping Petal');
   });
 
   it('round-trips id on every routing role of a narrative event (author, addressed_to, audience)', () => {
-    const event = parseNarrativeCommsEvent(
-      JSON.stringify({
-        ...narrativeWithAffordances,
-        author: woodlandWithId,
-        addressed_to: sylvanWithId,
-        audience: [sylvanWithId, woodlandWithId],
-      }),
-    );
+    const event = asNarrative({
+      ...narrativeWithAffordances,
+      author: woodlandWithId,
+      addressed_to: sylvanWithId,
+      audience: [sylvanWithId, woodlandWithId],
+    });
 
-    expect(event.author.id).toBe(TEST_AGENT_ALPHA_ID);
-    expect(event.addressed_to?.id).toBe(TEST_AGENT_BETA_ID);
-    expect(event.audience).toEqual([sylvanWithId, woodlandWithId]);
+    expect(event?.author.id).toBe(TEST_AGENT_ALPHA_ID);
+    expect(event?.addressed_to?.id).toBe(TEST_AGENT_BETA_ID);
+    expect(event?.audience).toEqual([sylvanWithId, woodlandWithId]);
   });
 
   it('round-trips id on a lifecycle event author and agent_id', () => {
-    const event = parseLifecycleCommsEvent(
-      JSON.stringify({ ...lifecycle, author: woodlandWithId, agent_id: woodlandWithId }),
-    );
+    const event = asLifecycle({ ...lifecycle, author: woodlandWithId, agent_id: woodlandWithId });
 
-    expect(event.author.id).toBe(TEST_AGENT_ALPHA_ID);
-    expect(event.agent_id.id).toBe(TEST_AGENT_ALPHA_ID);
+    expect(event?.author.id).toBe(TEST_AGENT_ALPHA_ID);
+    expect(event?.agent_id.id).toBe(TEST_AGENT_ALPHA_ID);
   });
 
   it('round-trips id on a directed message from and to', () => {
-    const event = parseDirectedCommsMessage(
-      JSON.stringify({
-        ...directedPostMigration,
-        from: woodlandWithId,
-        to: sylvanWithId,
-      }),
-    );
+    const event = asDirected({
+      ...directedPostMigration,
+      from: woodlandWithId,
+      to: sylvanWithId,
+    });
 
-    expect(event.from.id).toBe(TEST_AGENT_ALPHA_ID);
-    expect(event.to.id).toBe(TEST_AGENT_BETA_ID);
+    expect(event?.from.id).toBe(TEST_AGENT_ALPHA_ID);
+    expect(event?.to.id).toBe(TEST_AGENT_BETA_ID);
   });
 
   it('still parses legacy identities without an id field (additive migration window)', () => {
-    const event = parseNarrativeCommsEvent(JSON.stringify(canonicalNarrative));
+    const event = asNarrative(canonicalNarrative);
 
-    expect(event.author).toEqual(woodland);
-    expect(event.author.id).toBeUndefined();
+    expect(event?.author).toEqual(woodland);
+    expect(event?.author.id).toBeUndefined();
   });
 
   it('rejects a non-UUID-v5 id on the author (refines on the version nibble)', () => {
     const v4Id = '00000000-0000-4000-8000-000000000000';
-    expect(() =>
-      parseNarrativeCommsEvent(
-        JSON.stringify({
-          ...canonicalNarrative,
-          author: { ...woodland, id: v4Id },
-        }),
-      ),
-    ).toThrow(/UUID v5|version nibble/i);
+
+    expect(rejectionMessage({ ...canonicalNarrative, author: { ...woodland, id: v4Id } })).toMatch(
+      /UUID v5|version nibble/i,
+    );
   });
 });

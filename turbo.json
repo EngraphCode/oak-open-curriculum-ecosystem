@@ -108,8 +108,9 @@
         // The design system is copied into public/oak-ds at build time. Its
         // build script covers only src/oak-theme.ts -> dist (synced to the
         // committed root oak-theme.js), so these input globs remain for the
-        // CSS/asset tiers no build step covers. dist/ and .turbo/ are
-        // excluded: they are the kit's own build output, and hashing them
+        // CSS/asset tiers no build step covers, pinning the stale-bundle
+        // invalidation contract to the files themselves. dist/ and .turbo/
+        // are excluded: they are the kit's own build output, and hashing them
         // would make this task's key depend on whether the kit built first.
         "$TURBO_ROOT$/packages/design/oak-design-system/**",
         "!$TURBO_ROOT$/packages/design/oak-design-system/studio-source/**",
@@ -429,6 +430,19 @@
         "vitest.e2e.config.ts",
         "$TURBO_ROOT$/vitest.e2e.config.base.ts",
         "$TURBO_ROOT$/test.setup.no-network.ts"
+      ]
+    },
+    "@oaknational/agent-tools#test:e2e": {
+      "dependsOn": ["build"],
+      "outputs": [],
+      "cache": true,
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "e2e-tests/**/*.ts",
+        "vitest.e2e.config.ts",
+        "$TURBO_ROOT$/vitest.e2e.config.base.ts",
+        "$TURBO_ROOT$/test.setup.no-network.ts",
+        "$TURBO_ROOT$/.codex/hooks/practice-session-identity.mjs"
       ]
     },
     "test:ui": {

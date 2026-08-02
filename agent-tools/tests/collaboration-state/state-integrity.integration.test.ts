@@ -45,6 +45,48 @@ describe('collaboration state integrity validator', () => {
     }
   });
 
+  it('reports a contract-violating active-claims registry with the parser leg’s own loud message, before schema validation', async () => {
+    // Characterisation written before the seam consolidation and kept green
+    // through it: the contract-parser gate fires ahead of Ajv, and the
+    // finding carries the parser's message verbatim (anchored — a wrapping
+    // slip would prefix it).
+    const repoRoot = await makeTempCollaborationRepo();
+    try {
+      await writeJson(join(repoRoot, '.agent/state/collaboration/active-claims.json'), {
+        schema_version: '1.3.0',
+        commit_queue: [
+          {
+            intent_id: '33333333-3333-4333-8333-333333333333',
+            claim_id: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',
+            agent_id: {
+              agent_name: 'Vintage Pre-Sunset Seat',
+              platform: 'codex',
+              model: 'gpt-4.9',
+              session_id_prefix: '00aa11',
+            },
+            files: ['agent-tools/src/commit-queue/index.ts'],
+            commit_subject: 'feat(queue): exercise the parser gate',
+            queued_at: '2026-04-27T07:20:00Z',
+            updated_at: '2026-04-27T07:20:00Z',
+            expires_at: '2026-04-27T07:35:00Z',
+            phase: 'queued',
+          },
+        ],
+        claims: [],
+      });
+
+      const report = await validateCollaborationStateIntegrity({ repoRoot });
+
+      expect(report.findings).toHaveLength(1);
+      expect(report.findings[0]?.path).toBe('.agent/state/collaboration/active-claims.json');
+      expect(report.findings[0]?.message).toMatch(
+        /^commit_queue entry 33333333-3333-4333-8333-333333333333 carries an invalid agent_id/,
+      );
+    } finally {
+      await removeDirectory(repoRoot);
+    }
+  });
+
   it('reports schema-invalid true-JSON files without stopping at the first finding', async () => {
     const repoRoot = await makeTempCollaborationRepo();
     try {

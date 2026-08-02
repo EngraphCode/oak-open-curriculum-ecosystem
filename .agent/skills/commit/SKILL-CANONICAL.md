@@ -58,7 +58,9 @@ These scripts make this skill actionable end-to-end:
   on a draft message in isolation from the tree-state gates.
 - **`pnpm agent-tools:commit-queue --`** — runs the `agent-tools` TypeScript
   commit-queue CLI for advisory `commit_queue` entries in
-  `active-claims.json` v1.3.0. Use it to enqueue the intended file bundle
+  `active-claims.json` (the surface's current schema version — pinned by
+  the named constant in `agent-tools`, not by prose here; PDR-050
+  §Latest-schema-version-only). Use it to enqueue the intended file bundle
   before staging, record the staged-bundle fingerprint after staging, verify
   the staged set immediately before `git commit`, and clear the queue entry
   after success. It is repo-owned and cross-vendor; no platform-native queue

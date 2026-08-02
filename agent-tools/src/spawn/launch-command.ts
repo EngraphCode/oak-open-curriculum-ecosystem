@@ -1,19 +1,5 @@
+import { shellSingleQuote } from '../core/shell-single-quote.js';
 import { type SpawnedWorktree } from './create.js';
-
-const SHELL_SINGLE_QUOTE_ESCAPE = String.raw`'\''`;
-
-/**
- * Single-quote a value for safe pasting into a POSIX shell, so a worktree path
- * containing spaces (or other shell metacharacters) stays a single argument.
- *
- * @remarks
- * A second copy of the same primitive lives in `../claude/session-identity-hook.ts`.
- * Two consumers meets the consolidate-at-second-consumer threshold, so this is
- * consolidation-debt: hoist both to a shared `core/` shell-quote util.
- */
-function shellSingleQuote(value: string): string {
-  return `'${value.replaceAll("'", SHELL_SINGLE_QUOTE_ESCAPE)}'`;
-}
 
 /**
  * Render the copy-paste launch command for a freshly-spawned lane (spawn-flow 1E).

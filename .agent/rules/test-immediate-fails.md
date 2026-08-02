@@ -34,7 +34,16 @@ seam, extract a pure function, inject a dependency).
 4. **Unit test triggers any IO.** Unit tests are for pure functions
    only — no filesystem reads/writes, no network calls, no child
    process spawning, no timers that interact with the runtime, no
-   SDK init calls with side effects.
+   SDK init calls with side effects. ONE named sanctioned shape
+   (owner-carded ruling 2026-08-02): a `.unit.test.ts` MAY read
+   COMMITTED repo artefacts through an owned `test-helpers/` fixture
+   surface anchored at `import.meta.dirname` (the
+   `mcp-conformance/test-helpers/fixture-loader.ts` precedent) —
+   committed bytes are fixtures by provenance, not runtime IO; the
+   helper must exist to pin real committed fixtures at their
+   canonical paths (never to make the test runnable — item 2's
+   complex-helper prohibition still binds), and the classification
+   axis stays the boundary, never the mechanism.
 5. **Any test (unit/integration/E2E in-process) touches
    `process.env`.** Reading OR writing `process.env` is prohibited.
    Pass literal inputs; do not inherit from shell state.
@@ -104,7 +113,11 @@ seam, extract a pure function, inject a dependency).
 20. **Test category does not match its file name.** A
     `*.unit.test.ts` that touches IO is a category error — either
     rename or redesign. Per `testing-strategy.md`, naming IS the
-    category.
+    category. The one exception is item 4's sanctioned shape:
+    helper-mediated reads of COMMITTED artefacts via an owned
+    `test-helpers/` fixture surface remain `.unit` — renaming such a
+    test to `.integration` cures nothing, since integration also
+    forbids filesystem IO.
 21. **Test is named `*.integration.test.ts` but hits network beyond
     a harness's loopback exchange with an app the test itself
     imported and booted in-process, or spawns processes.** Classify

@@ -13,6 +13,7 @@ import {
   type LifecycleCommsEvent,
   type NarrativeCommsEvent,
 } from './types.js';
+import { displayPrefix } from './visual-disambiguator.js';
 import { type EventView } from './comms-event-views.js';
 
 export function formatClassifiedEvent(entry: {
@@ -102,7 +103,7 @@ function formatClassifiedLifecycle(event: LifecycleCommsEvent): string {
 }
 
 function formatIdentity(agent: CollaborationAgentId): string {
-  return `${agent.agent_name} / ${agent.platform} / ${agent.session_id_prefix}`;
+  return `${agent.agent_name} / ${agent.platform} / ${displayPrefix(agent)}`;
 }
 
 function formatNarrativeAddressee(event: NarrativeCommsEvent): string {

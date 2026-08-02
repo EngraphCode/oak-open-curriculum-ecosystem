@@ -151,6 +151,25 @@ export function mapErr<T, E, F>(result: Result<T, E>, fn: (error: E) => F): Resu
 }
 
 /**
+ * Collect an iterable of Results into one Result: all Ok values in order,
+ * or the FIRST Err unchanged (by identity — its error is not rewrapped).
+ * The Result analogue of sequencing: parse layers use it to fold
+ * per-entry Results into a whole-collection Result without a loop at
+ * every call site.
+ */
+export function collect<T, E>(results: Iterable<Result<T, E>>): Result<readonly T[], E> {
+  const values: T[] = [];
+  for (const result of results) {
+    if (!result.ok) {
+      return result;
+    }
+    values.push(result.value);
+  }
+
+  return ok(values);
+}
+
+/**
  * Exhaustiveness guard that returns an `Err` instead of throwing.
  *
  * Call in the `default` branch of an exhaustive `switch` (or the final `else`)

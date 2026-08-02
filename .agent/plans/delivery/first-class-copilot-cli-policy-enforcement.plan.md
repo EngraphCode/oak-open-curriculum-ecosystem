@@ -7,7 +7,7 @@ status: ratified
 ratified_by: "Jim Cresswell"
 ratified_date: 2026-07-25
 ratified_where: "MCP-150 ticket comment 'Owner ratification record — the durable, resolvable anchor for the restructured plan' (comment 2774bf0f-251a-4394-9091-4e8d0a989012 on https://linear.app/oaknational/issue/MCP-150/first-class-copilot-cli-hook-support-canonical-policy-core-and-native), recording the owner card answered in-session on 2026-07-25 by Jim Cresswell — ratified as restructured; Director-executes exception owner-named at the preceding card"
-serves: first-class-copilot-cli-practice-citizenship
+serves: agent-platform-citizenship
 impact_areas:
   - practice-and-estate
 tickets:

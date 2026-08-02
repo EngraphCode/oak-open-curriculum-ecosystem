@@ -1,4 +1,4 @@
-import type { CollaborationAgentId } from './agent-id.js';
+import type { CollaborationAgentId, CollaborationAgentIdWrite } from './agent-id.js';
 
 export {
   collaborationAgentIdSchema,
@@ -95,7 +95,12 @@ export interface CollaborationClaim {
 export interface CollaborationCommitQueueEntry {
   readonly intent_id: string;
   readonly claim_id: string;
-  readonly agent_id: CollaborationAgentId;
+  /**
+   * Intent identity is the PDR-076a WRITE shape: `id` is required at parse
+   * in both registry read paths (see `parseIntentAgentId` in agent-id.ts).
+   * Claims keep the read shape — legacy id-less rows are preserved there.
+   */
+  readonly agent_id: CollaborationAgentIdWrite;
   readonly files: readonly string[];
   readonly commit_subject: string;
   readonly queued_at: string;
@@ -107,14 +112,36 @@ export interface CollaborationCommitQueueEntry {
   readonly notes?: string;
 }
 
+/**
+ * The exact schema version this code reads and writes for the active-claims
+ * registry, under the latest-only support contract stated in
+ * active-claims.schema.json's $comment_compatibility note. Every parse
+ * guard and write reconstruction moves in lockstep through this constant —
+ * the exact-version pin is what keeps the field-by-field intent
+ * reconstruction non-destructive (registry-entry-parser.ts carries the
+ * full contract). The composed write gates redden a constant the schema's
+ * enum does not list; the reverse drift (the enum gaining a version this
+ * constant has not adopted) has no mechanical guard yet. Test fixtures and
+ * assertions deliberately keep the raw literal so a version bump reddens
+ * the contract pins; validity-constructing helpers ride the constant.
+ */
+export const ACTIVE_CLAIMS_SCHEMA_VERSION = '1.3.0';
+
+/**
+ * The exact schema version for the closed-claims archive — a separate
+ * surface pinned separately, currently versioned in lockstep with the
+ * active-claims registry.
+ */
+export const CLOSED_CLAIMS_SCHEMA_VERSION = '1.3.0';
+
 export interface CollaborationRegistry {
-  readonly schema_version: '1.3.0';
+  readonly schema_version: typeof ACTIVE_CLAIMS_SCHEMA_VERSION;
   readonly commit_queue: readonly CollaborationCommitQueueEntry[];
   readonly claims: readonly CollaborationClaim[];
 }
 
 export interface ClosedClaimsArchive {
-  readonly schema_version: '1.3.0';
+  readonly schema_version: typeof CLOSED_CLAIMS_SCHEMA_VERSION;
   readonly claims: readonly CollaborationClaim[];
 }
 
@@ -172,6 +199,7 @@ export interface DirectedCommsMessage extends BaseCommsEvent {
   readonly to: CollaborationAgentId;
   readonly subject: string;
   readonly body: string;
+  readonly in_response_to?: string;
   readonly tags?: readonly string[];
 }
 

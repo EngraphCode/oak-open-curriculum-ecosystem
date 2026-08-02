@@ -83,13 +83,48 @@ describe('comms peer-liveness', () => {
         '(PDR-078: active <4m / offline 4-10m / retired >=10m)',
     );
     // Most-stale-first: Pangolin (retired) leads, classified off its LATEST heartbeat.
+    // The who-label carries the MCP-145 display token (prefix-idTail); every
+    // reported peer is id-bearing by construction (id-less authors are skipped).
     expect(lines[1]).toContain('retired');
-    expect(lines[1]).toContain('Pangolin weaves Nightfall/c680e4');
+    expect(lines[1]).toContain('Pangolin weaves Nightfall/c680e4-111');
     expect(lines[1]).toContain('last_heartbeat=2026-06-28T11:49:00Z');
     expect(lines[2]).toContain('active');
-    expect(lines[2]).toContain('Avocet tracks Crag/30fe5b');
+    expect(lines[2]).toContain('Avocet tracks Crag/30fe5b-222');
     // The id-less historical row is skipped (PDR-076a: not a live peer).
     expect(result.stdout).not.toContain('Ancient Drifting Relic');
+  });
+
+  // The MCP-145 distinct-labels case: two seats sharing agent_name AND
+  // session_id_prefix (a name+prefix collision across sessions) are distinct
+  // peers by id, and the id-tail token keeps their report lines visually
+  // distinct — the defect class the disambiguator exists to cure.
+  it('renders distinct who-labels for two peers sharing a name and a prefix', async () => {
+    const firstTwin: CollaborationAgentId = {
+      agent_name: 'Twin echoes Prefix',
+      platform: 'claude',
+      model: 'claude-opus-4-8',
+      session_id_prefix: 'dd44ee',
+      id: uuidV5Schema.parse('44444444-4444-5444-9444-444444444abc'),
+    };
+    const secondTwin: CollaborationAgentId = {
+      ...firstTwin,
+      id: uuidV5Schema.parse('55555555-5555-5555-9555-555555555def'),
+    };
+    const events: readonly CommsEvent[] = [
+      heartbeat(firstTwin, 'first-twin-latest', '2026-06-28T11:58:00Z'),
+      heartbeat(secondTwin, 'second-twin-latest', '2026-06-28T11:59:00Z'),
+    ];
+    const fake = createFakeCollaborationRuntime({ comms: { [commsDir]: events } });
+
+    const result = await runCollaborationStateCli({
+      argv: ['--', 'comms', 'peer-liveness', '--comms-dir', commsDir, '--now', NOW],
+      env: {},
+      io: fake.runtime.io,
+    });
+
+    expect(result.exitCode).toBe(0);
+    expect(result.stdout).toContain('Twin echoes Prefix/dd44ee-abc');
+    expect(result.stdout).toContain('Twin echoes Prefix/dd44ee-def');
   });
 
   it('reports no peer heartbeats when the stream has none', async () => {

@@ -1,35 +1,19 @@
+import { unwrapOrThrow } from '@oaknational/result';
+
 import { isExpired } from './timestamps.js';
+import { auditCommsEvents } from './identity-audit-comms.js';
 import {
-  findSharedLogIdentityRows,
-  findThreadRecordIdentityRows,
-} from './identity-audit-markdown.js';
+  isAnonymousCodexAgent,
+  type CodexIdentityAuditClassification,
+  type CodexIdentityAuditFinding,
+} from './identity-audit-findings.js';
+import { findThreadRecordIdentityRows } from './identity-audit-markdown.js';
 import { parseClosedClaimsArchive, parseCollaborationRegistry } from './state-parsers.js';
 import {
-  type CollaborationAgentId,
   type CollaborationClaim,
   type CollaborationCommitQueueEntry,
+  type CommsEvent,
 } from './types.js';
-
-/**
- * Classification applied to anonymous Codex identity records.
- */
-type CodexIdentityAuditClassification = 'live-risk' | 'historical-no-repair' | 'needs-evidence';
-
-/**
- * Source family for a Codex identity audit finding.
- */
-type CodexIdentityAuditSource = 'active' | 'closed' | 'thread-record' | 'shared-log';
-
-/**
- * One report-only finding for an anonymous Codex identity record.
- */
-interface CodexIdentityAuditFinding {
-  readonly source: CodexIdentityAuditSource;
-  readonly record_ref: string;
-  readonly classification: CodexIdentityAuditClassification;
-  readonly agent_id: CollaborationAgentId;
-  readonly reason: string;
-}
 
 /**
  * Summary counts for a Codex identity audit.
@@ -53,21 +37,22 @@ interface CodexIdentityAuditReport {
 }
 
 /**
- * Pure audit input. File contents are injected by the CLI boundary.
+ * Pure audit input; contents and events are injected by the CLI boundary.
+ * Comms history reads the event stream, never the rendered-log read model.
  */
 interface CodexIdentityAuditInput {
   readonly nowIso: string;
   readonly activeText: string;
   readonly closedText: string;
   readonly threadRecordText: string;
-  readonly sharedLogText: string;
+  readonly commsEvents: readonly CommsEvent[];
 }
 
 /**
- * Audit explicit collaboration-state and thread/log texts for existing
+ * Audit explicit collaboration-state texts and comms events for existing
  * anonymous Codex identity records without repairing or mutating them.
  *
- * @param input - Current UTC timestamp and source texts.
+ * @param input - Current UTC timestamp, source texts, and comms events.
  * @returns JSON-serialisable report grouping anonymous Codex records by risk.
  */
 export function auditCodexIdentityRecords(
@@ -77,7 +62,7 @@ export function auditCodexIdentityRecords(
     ...auditActiveText(input.activeText, input.nowIso),
     ...auditClosedText(input.closedText),
     ...auditThreadRecord(input.threadRecordText),
-    ...auditSharedLog(input.sharedLogText),
+    ...auditCommsEvents(input.commsEvents),
   ];
 
   return {
@@ -88,7 +73,9 @@ export function auditCodexIdentityRecords(
 }
 
 function auditActiveText(text: string, nowIso: string): readonly CodexIdentityAuditFinding[] {
-  const registry = parseCollaborationRegistry(text);
+  // Rethrows the parser's ORIGINAL error: the audit surface's loud thrown
+  // contract is anchored-pinned (an identity-losing wrap reddens it).
+  const registry = unwrapOrThrow(parseCollaborationRegistry(text));
 
   return [
     ...registry.claims.flatMap((claim) => auditActiveClaim(claim, nowIso)),
@@ -159,7 +146,7 @@ function auditCommitQueueEntry(
 }
 
 function auditClosedText(text: string): readonly CodexIdentityAuditFinding[] {
-  const archive = parseClosedClaimsArchive(text);
+  const archive = unwrapOrThrow(parseClosedClaimsArchive(text));
 
   return archive.claims.flatMap((claim) => {
     if (!isAnonymousCodexAgent(claim.agent_id)) {
@@ -199,34 +186,6 @@ function auditThreadRecord(text: string): readonly CodexIdentityAuditFinding[] {
       },
     ];
   });
-}
-
-function auditSharedLog(text: string): readonly CodexIdentityAuditFinding[] {
-  return findSharedLogIdentityRows(text).flatMap((row) => {
-    if (!isAnonymousCodexAgent(row.agentId)) {
-      return [];
-    }
-
-    return [
-      {
-        source: 'shared-log',
-        record_ref: row.createdAt,
-        classification: 'historical-no-repair',
-        agent_id: row.agentId,
-        reason: 'Rendered shared-log entry is historical communication evidence; do not rewrite.',
-      },
-    ];
-  });
-}
-
-function isAnonymousCodexAgent(agentId: CollaborationAgentId): boolean {
-  // Primary discriminator is session_id_prefix per WS1 / PDR-027; agent_name
-  // remains a secondary fallback for legacy anonymous Codex writes that carry
-  // `Codex` as the display name with no prefix yet derived.
-  return (
-    agentId.platform === 'codex' &&
-    (agentId.session_id_prefix === 'unknown' || agentId.agent_name === 'Codex')
-  );
 }
 
 function summarise(findings: readonly CodexIdentityAuditFinding[]): CodexIdentityAuditSummary {

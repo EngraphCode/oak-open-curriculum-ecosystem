@@ -1,7 +1,11 @@
 import { existsSync } from 'node:fs';
-import { join } from 'node:path';
+import { resolve } from 'node:path';
 
-import { CODEX_CONFIG_PATH, readCodexAgentRegistrations } from './codex-project-agent-registry.js';
+import {
+  CODEX_CONFIG_PATH,
+  readCodexAgentRegistrations,
+  resolveCodexAgentConfigFilePath,
+} from './codex-project-agent-registry.js';
 import {
   CLAUDE_AGENTS_DIR,
   CODEX_AGENTS_DIR,
@@ -9,23 +13,64 @@ import {
   listBasenames,
 } from './health-probe-shared.js';
 import type { HealthCheckResult } from './health-probe-types.js';
+import {
+  getReviewerAdapterPlatformViolation,
+  type ReviewerAdapterPlatform,
+} from './reviewer-adapter-platform-contract.js';
+
+interface ReviewerAdapterParityInputs {
+  /** Reviewer adapter basenames present on the Cursor surface. */
+  readonly cursorAgents: readonly string[];
+  /** Reviewer adapter basenames present on the Claude Code surface. */
+  readonly claudeAgents: readonly string[];
+  /** Reviewer adapter basenames present on the Codex surface. */
+  readonly codexAgents: readonly string[];
+}
+
+interface ReviewerRegistrationParityInputs {
+  /** Repository root used to resolve project-relative registration paths. */
+  readonly repoRoot: string;
+  /** Reviewer adapter basenames present on the Codex surface. */
+  readonly codexAdapterNames: readonly string[];
+  /** Reviewer names and config paths read from the Codex project registry. */
+  readonly registrations: readonly { readonly name: string; readonly configFile: string }[];
+  /** Pure boundary for determining whether a resolved adapter path exists. */
+  readonly pathExists: (path: string) => boolean;
+}
 
 export function evaluateParityChecks(repoRoot: string): readonly HealthCheckResult[] {
   return [evaluateReviewerAdapterParity(repoRoot), evaluateReviewerRegistrationParity(repoRoot)];
 }
 
 function evaluateReviewerAdapterParity(repoRoot: string): HealthCheckResult {
-  const cursorAgents = listBasenames(repoRoot, CURSOR_AGENTS_DIR, '.md');
-  const claudeAgents = listBasenames(repoRoot, CLAUDE_AGENTS_DIR, '.md');
-  const codexAgents = listBasenames(repoRoot, CODEX_AGENTS_DIR, '.toml');
-  const allAgentNames = [...new Set([...cursorAgents, ...claudeAgents, ...codexAgents])].sort(
-    (a, b) => a.localeCompare(b),
-  );
-  const details = collectReviewerAdapterParityDetails(allAgentNames, {
-    cursorAgents,
-    claudeAgents,
-    codexAgents,
+  return evaluateReviewerAdapterParityFromInputs({
+    cursorAgents: listBasenames(repoRoot, CURSOR_AGENTS_DIR, '.md'),
+    claudeAgents: listBasenames(repoRoot, CLAUDE_AGENTS_DIR, '.md'),
+    codexAgents: listBasenames(repoRoot, CODEX_AGENTS_DIR, '.toml'),
   });
+}
+
+/**
+ * Evaluates reviewer-adapter parity from already enumerated platform surfaces.
+ *
+ * This pure seam keeps filesystem discovery in the production composition
+ * while allowing unit tests to exercise role-aware parity directly.
+ *
+ * @param platformAgents - Adapter basenames present on each platform surface.
+ * @returns A passing result when every adapter appears exactly where supported,
+ *   otherwise a failing result with one detail per parity violation.
+ */
+export function evaluateReviewerAdapterParityFromInputs(
+  platformAgents: ReviewerAdapterParityInputs,
+): HealthCheckResult {
+  const allAgentNames = [
+    ...new Set([
+      ...platformAgents.cursorAgents,
+      ...platformAgents.claudeAgents,
+      ...platformAgents.codexAgents,
+    ]),
+  ].sort((a, b) => a.localeCompare(b));
+  const details = collectReviewerAdapterParityDetails(allAgentNames, platformAgents);
 
   if (details.length > 0) {
     return {
@@ -41,34 +86,54 @@ function evaluateReviewerAdapterParity(repoRoot: string): HealthCheckResult {
     key: 'reviewer-adapter-parity',
     label: 'Reviewer adapter parity',
     status: 'pass',
-    summary: `${allAgentNames.length} reviewer adapters are aligned across Cursor, Claude Code, and Codex.`,
+    summary: `${allAgentNames.length} reviewer adapters are aligned across their applicable platform surfaces.`,
     details: [],
   };
 }
 
 function collectReviewerAdapterParityDetails(
   allAgentNames: readonly string[],
-  platformAgents: {
-    readonly cursorAgents: readonly string[];
-    readonly claudeAgents: readonly string[];
-    readonly codexAgents: readonly string[];
-  },
+  platformAgents: ReviewerAdapterParityInputs,
 ): string[] {
   const details: string[] = [];
 
   for (const agentName of allAgentNames) {
-    if (!platformAgents.cursorAgents.includes(agentName)) {
-      details.push(`Cursor is missing reviewer adapter ${agentName}.`);
-    }
-    if (!platformAgents.claudeAgents.includes(agentName)) {
-      details.push(`Claude Code is missing reviewer adapter ${agentName}.`);
-    }
-    if (!platformAgents.codexAgents.includes(agentName)) {
-      details.push(`Codex is missing reviewer adapter ${agentName}.`);
-    }
+    collectPlatformParityDetail(
+      details,
+      agentName,
+      'cursor',
+      'Cursor',
+      platformAgents.cursorAgents,
+    );
+    collectPlatformParityDetail(
+      details,
+      agentName,
+      'claude-code',
+      'Claude Code',
+      platformAgents.claudeAgents,
+    );
+    collectPlatformParityDetail(details, agentName, 'codex', 'Codex', platformAgents.codexAgents);
   }
 
   return details;
+}
+
+function collectPlatformParityDetail(
+  details: string[],
+  agentName: string,
+  platform: ReviewerAdapterPlatform,
+  platformLabel: string,
+  platformAgents: readonly string[],
+): void {
+  const hasAdapter = platformAgents.includes(agentName);
+  const violation = getReviewerAdapterPlatformViolation(agentName, platform, hasAdapter);
+
+  if (violation?.kind === 'missing') {
+    details.push(`${platformLabel} is missing reviewer adapter ${violation.reviewerName}.`);
+  }
+  if (violation?.kind === 'unsupported') {
+    details.push(`${platformLabel} has unsupported reviewer adapter ${violation.reviewerName}.`);
+  }
 }
 
 function evaluateReviewerRegistrationParity(repoRoot: string): HealthCheckResult {
@@ -76,25 +141,12 @@ function evaluateReviewerRegistrationParity(repoRoot: string): HealthCheckResult
 
   try {
     const registrations = readCodexAgentRegistrations(repoRoot);
-    const details = collectReviewerRegistrationDetails(repoRoot, codexAdapterNames, registrations);
-
-    if (details.length > 0) {
-      return {
-        key: 'reviewer-registration-parity',
-        label: 'Reviewer registration parity',
-        status: 'fail',
-        summary: 'Codex reviewer registrations and adapter files are out of sync.',
-        details,
-      };
-    }
-
-    return {
-      key: 'reviewer-registration-parity',
-      label: 'Reviewer registration parity',
-      status: 'pass',
-      summary: `${registrations.length} Codex reviewer registrations resolve cleanly to live adapters.`,
-      details: [],
-    };
+    return evaluateReviewerRegistrationParityFromInputs({
+      repoRoot,
+      codexAdapterNames,
+      registrations,
+      pathExists: existsSync,
+    });
   } catch (error) {
     return {
       key: 'reviewer-registration-parity',
@@ -106,24 +158,57 @@ function evaluateReviewerRegistrationParity(repoRoot: string): HealthCheckResult
   }
 }
 
-function collectReviewerRegistrationDetails(
-  repoRoot: string,
-  codexAdapterNames: readonly string[],
-  registrations: readonly { name: string; configFile: string }[],
-): string[] {
-  const registrationNames = registrations.map((registration) => registration.name);
+/**
+ * Evaluates Codex reviewer-registration parity from discovered adapters and registrations.
+ *
+ * This pure seam keeps registry and filesystem reads in the production composition while
+ * preserving the Codex path-resolution contract for repository-relative and absolute paths.
+ *
+ * @param input - Repository context, discovered adapters, registrations, and path boundary.
+ * @returns A passing result when every adapter is registered and every registration resolves to
+ *   an existing adapter, otherwise a failing result with one detail per parity violation.
+ */
+export function evaluateReviewerRegistrationParityFromInputs(
+  input: ReviewerRegistrationParityInputs,
+): HealthCheckResult {
+  const details = collectReviewerRegistrationDetails(input);
+  if (details.length > 0) {
+    return {
+      key: 'reviewer-registration-parity',
+      label: 'Reviewer registration parity',
+      status: 'fail',
+      summary: 'Codex reviewer registrations and adapter files are out of sync.',
+      details,
+    };
+  }
+
+  return {
+    key: 'reviewer-registration-parity',
+    label: 'Reviewer registration parity',
+    status: 'pass',
+    summary: `${input.registrations.length} Codex reviewer registrations resolve cleanly to live adapters.`,
+    details: [],
+  };
+}
+
+function collectReviewerRegistrationDetails(input: ReviewerRegistrationParityInputs): string[] {
+  const registrationNames = new Set(input.registrations.map((registration) => registration.name));
   const details: string[] = [];
 
-  for (const adapterName of codexAdapterNames) {
-    if (!registrationNames.includes(adapterName)) {
+  for (const adapterName of input.codexAdapterNames) {
+    if (!registrationNames.has(adapterName)) {
       details.push(
         `Codex adapter ${adapterName} is missing a registry entry in ${CODEX_CONFIG_PATH}.`,
       );
     }
   }
 
-  for (const registration of registrations) {
-    if (!existsSync(join(repoRoot, registration.configFile))) {
+  for (const registration of input.registrations) {
+    const resolvedPath = resolve(
+      input.repoRoot,
+      resolveCodexAgentConfigFilePath(registration.configFile),
+    );
+    if (!input.pathExists(resolvedPath)) {
       details.push(`${CODEX_CONFIG_PATH} points at missing adapter ${registration.configFile}.`);
     }
   }

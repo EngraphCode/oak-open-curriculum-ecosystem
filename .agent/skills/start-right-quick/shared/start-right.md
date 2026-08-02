@@ -1,6 +1,6 @@
 ---
 prompt_id: start-right-quick
-title: "Start Right (Quick)"
+title: 'Start Right (Quick)'
 type: workflow
 status: active
 last_updated: 2026-07-29
@@ -69,7 +69,7 @@ Read in order; stop at whichever answers your next-step question:
 
 1. @.agent/memory/operational/repo-continuity.md — canonical continuity contract
 2. @.agent/memory/operational/threads/README.md — thread convention + identity discipline (PDR-027)
-3. `.agent/memory/operational/threads/<slug>.next-session.md` — the thread record for any thread the session will touch (carries identity, next-session landing, *and lane state*)
+3. `.agent/memory/operational/threads/<slug>.next-session.md` — the thread record for any thread the session will touch (carries identity, next-session landing, _and lane state_)
 4. `.agent/state/collaboration/active-claims.json` — active-claims
    registry and ordered advisory `commit_queue`
 5. `.agent/state/collaboration/shared-comms-log.md` — generated recent
@@ -92,7 +92,7 @@ landing notes or explicit hold-state. Some legitimate slices become visible
 there before a claim or comms event exists.
 
 Apply the
-   [`register-active-areas-at-session-open`](../../../rules/register-active-areas-at-session-open.md)
+[`register-active-areas-at-session-open`](../../../rules/register-active-areas-at-session-open.md)
 rule before any edit: enumerate the areas you intend to touch, register
 your own active claim through the collaboration-state helper when available,
 and leave an artefact proving the registry was
@@ -279,9 +279,10 @@ else
   # whole block loudly instead of being masked by a later success.
   # Seed shapes: the canonical source is
   # agent-tools/src/collaboration-state/state-file-seeds.ts (and the
-  # readers' own error messages, which embed it). If a reader rejects
-  # these seeds, that file is truth and this block has drifted — fix it
-  # here in the same change.
+  # readers' own error messages, which embed it). This block cannot import
+  # that file (it must run on a fresh checkout before any build), so the
+  # lockstep is PINNED: state-file-seeds.integration.test.ts reddens when
+  # these literals drift from the constants — fix both in the same change.
   mkdir -p "$COORD_HOME/.agent/state/collaboration" \
   && { ( set -C; printf '%s\n' '{ "schema_version": "1.3.0", "claims": [], "commit_queue": [] }' \
     > "$COORD_HOME/.agent/state/collaboration/active-claims.json" ) 2>/dev/null \
@@ -405,7 +406,7 @@ rewrites and high-stakes planning.
 
 **Commit** to excellence in systems architecture, software engineering,
 and developer experience. Choose architectural correctness over
-short-term expediency. This requires critical and *long-term*
+short-term expediency. This requires critical and _long-term_
 thinking.
 
 ## Schema-First Nuance

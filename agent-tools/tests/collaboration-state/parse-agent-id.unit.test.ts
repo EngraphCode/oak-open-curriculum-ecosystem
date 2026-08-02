@@ -13,9 +13,15 @@
  *   through).
  * - Required identity fields remain required.
  */
+import { unwrapErr, unwrapOrThrow } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
+import { ZodError } from 'zod';
 
 import { parseCollaborationRegistry } from '../../src/collaboration-state/state-parsers.js';
+
+function parseRegistry(text: string) {
+  return unwrapOrThrow(parseCollaborationRegistry(text));
+}
 
 function registryWithClaim(agentId: unknown): string {
   return JSON.stringify({
@@ -46,7 +52,7 @@ const v5AgentId = {
   id: '886313e1-3b8a-5372-9b90-0c9aee199e5d',
 };
 
-function firstClaim(registry: ReturnType<typeof parseCollaborationRegistry>) {
+function firstClaim(registry: ReturnType<typeof parseRegistry>) {
   const claim = registry.claims[0];
   if (claim === undefined) {
     throw new Error('expected at least one claim in the registry');
@@ -56,29 +62,33 @@ function firstClaim(registry: ReturnType<typeof parseCollaborationRegistry>) {
 
 describe('parseAgentId (via parseCollaborationRegistry) — schema-driven (Cycle 4)', () => {
   it('parses a legacy registry entry without id (additive migration path)', () => {
-    const registry = parseCollaborationRegistry(registryWithClaim(legacyAgentId));
+    const registry = parseRegistry(registryWithClaim(legacyAgentId));
     expect(firstClaim(registry).agent_id).toStrictEqual(legacyAgentId);
   });
 
   it('parses a post-PDR-076a registry entry carrying a v5 id and preserves it', () => {
-    const registry = parseCollaborationRegistry(registryWithClaim(v5AgentId));
+    const registry = parseRegistry(registryWithClaim(v5AgentId));
     const agentId = firstClaim(registry).agent_id;
     expect(agentId.id).toBe(v5AgentId.id);
     expect(agentId.agent_name).toBe(v5AgentId.agent_name);
   });
 
   it('rejects an agent_id whose id is malformed (non-UUID-v5 string)', () => {
-    expect(() =>
-      parseCollaborationRegistry(registryWithClaim({ ...legacyAgentId, id: 'not-a-uuid' })),
-    ).toThrow();
+    expect(
+      unwrapErr(
+        parseCollaborationRegistry(registryWithClaim({ ...legacyAgentId, id: 'not-a-uuid' })),
+      ),
+    ).toBeInstanceOf(ZodError);
   });
 
   it('rejects an agent_id whose id is a UUID v4 (version nibble != 5)', () => {
-    expect(() =>
-      parseCollaborationRegistry(
-        registryWithClaim({ ...legacyAgentId, id: 'f47ac10b-58cc-4372-a567-0e02b2c3d479' }),
+    expect(
+      unwrapErr(
+        parseCollaborationRegistry(
+          registryWithClaim({ ...legacyAgentId, id: 'f47ac10b-58cc-4372-a567-0e02b2c3d479' }),
+        ),
       ),
-    ).toThrow();
+    ).toBeInstanceOf(ZodError);
   });
 
   it('rejects an agent_id missing a required identity field', () => {
@@ -87,6 +97,8 @@ describe('parseAgentId (via parseCollaborationRegistry) — schema-driven (Cycle
       model: legacyAgentId.model,
       session_id_prefix: legacyAgentId.session_id_prefix,
     };
-    expect(() => parseCollaborationRegistry(registryWithClaim(withoutName))).toThrow();
+    expect(unwrapErr(parseCollaborationRegistry(registryWithClaim(withoutName)))).toBeInstanceOf(
+      ZodError,
+    );
   });
 });

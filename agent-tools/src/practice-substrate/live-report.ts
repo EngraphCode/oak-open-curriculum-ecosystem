@@ -17,7 +17,12 @@ import { finding } from './finding.js';
 import { readOptionalString, readString, type ManifestDocument } from './live-types.js';
 import { type SubstrateFinding } from './types.js';
 
-const EXPECTED_MANIFEST_SURFACES = 22;
+// Subtraction guard, not a moving mirror: this pin forces a provenance-carrying
+// edit here whenever a manifest surface is added or retired. 21 since the
+// owner-authored estate restructure (#213, 2026-06-23) retired
+// memory-operational-tracks wholesale; update this constant in the same PR as
+// any future surface addition or retirement.
+const EXPECTED_MANIFEST_SURFACES = 21;
 
 /**
  * Build the read-only report from live repo state.

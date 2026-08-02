@@ -54,8 +54,9 @@ preamble, this capability claim expires: re-check the current official
 documentation before relying on it.
 
 The repository
-[`first-class-copilot-cli-practice-citizenship`](../../plans/strategic/first-class-copilot-cli-practice-citizenship.plan.md)
-node and its serving delivery plans are authoritative for target and mechanism.
+[`agent-platform-citizenship`](../../plans/strategic/agent-platform-citizenship.plan.md)
+node (formerly `first-class-copilot-cli-practice-citizenship`) and its
+serving delivery plans are authoritative for target and mechanism.
 MCP-150, MCP-154, MCP-155, and MCP-156 are supplementary Linear projections
 for execution state and sensitive details.
 
@@ -151,18 +152,30 @@ declaration set yet. Dated observations already on record:
   a short-interval (~1 min) comms poll with its own cursor — is a **named
   requirement** of Copilot seats' team participation, not an optimisation
   (MCP-156 owns the durable cure).
-- **Codex CLI 0.146.0 — `NOTIFY`: certified** (observed first-hand
-  2026-07-29 by distinct external observer child **Cutter rides Sandbar**).
-  Root **Europa stirs Void** was woken through watcher → relay → root by
-  directed event `b6a4103c-e7fe-4ac6-9447-0a102d55dbbd` from **Lynx guards
-  Whisper**, created at `2026-07-29T11:43:23.686Z`, without a root manual poll
-  or user prompt. Earlier event `0a84b103-873d-495c-8aeb-e4d93ecea97c`
-  corroborated the same route. The composition used `agent-tools` `0.1.0`;
-  the collaboration host does not expose a version. The observed notification
-  interval was bounded by the relay's watcher-output waits of no more than 30
-  seconds; no exact end-to-end latency is asserted. The operational procedure
-  lives in
-  [`use-monitor-for-event-driven-wake` § Codex NOTIFY](../../rules/use-monitor-for-event-driven-wake.md#codex-notify-session-relay).
+- **Codex CLI 0.146.0 — `NOTIFY`: NOT certified; ACTIVE-TURN ALERT
+  certified for the watcher → relay → root composition** (row narrowed
+  2026-08-02 by owner-carded doctrine pass, re-observed at the SAME
+  version per PDR-133 discipline 5). The 2026-07-29 external-observer
+  certification stands as evidence for its path: root **Europa stirs
+  Void** was woken through watcher → relay → root by directed event
+  `b6a4103c-e7fe-4ac6-9447-0a102d55dbbd` from **Lynx guards Whisper**
+  (`2026-07-29T11:43:23.686Z`; corroborated by
+  `0a84b103-873d-495c-8aeb-e4d93ecea97c`; `agent-tools 0.1.0`; relay
+  watcher-output waits ≤30s). Two later first-hand boundary probes
+  (2026-07-31 capability census, 19:14Z: Fulmar's post-final child
+  send; Cormorant's blind bounded-poll challenge) showed
+  `collaboration.send_message` delivers promptly into an ACTIVE root
+  turn but does NOT start a turn on an IDLE root — and PDR-133 defines
+  `NOTIFY` independently of `LOOP`, so a mechanism requiring the loop
+  already running cannot certify that class. Per PDR-133 discipline 4,
+  the substituting proxy is a **named requirement** of Codex seats'
+  participation: bounded foreground polling plus the post-restart gap
+  sweep, with the relay retained as the active-turn alert mode. Native
+  idle activation stays deliberately deferred (owner ruling 2026-08-01;
+  independently corroborated by the event-driven-wake inquiry,
+  `agent-tools-operational-criticality-event-driven-wake-inquiry-2026-08-01.md`).
+  The operational procedure lives in
+  [`use-monitor-for-event-driven-wake` § Codex active-turn alert](../../rules/use-monitor-for-event-driven-wake.md#codex-notify-session-relay).
 - **Claude Code 2.1.220 — `NOTIFY`: certified for the armed-Monitor
   path** (observed first-hand 2026-07-30 at the receiving implementer
   seat Possum weaves Midnight; external observers the sitting Directors

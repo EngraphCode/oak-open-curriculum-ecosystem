@@ -3,7 +3,7 @@ fitness_line_target: 150
 fitness_line_limit: 220
 fitness_char_limit: 12000
 fitness_line_length: 100
-split_strategy: "Extract per-surface lifecycle detail to companion docs as new state surfaces are installed (conversations/, escalations/); keep this file as the operational guide to all collaboration state."
+split_strategy: 'Extract per-surface lifecycle detail to companion docs as new state surfaces are installed (conversations/, escalations/); keep this file as the operational guide to all collaboration state.'
 merge_class: index-narrative-tables
 ---
 
@@ -40,18 +40,18 @@ All collaboration-state timestamps are UTC ISO 8601 strings with a trailing
 `Z`. Owner-local time can be mentioned in prose when useful, but UTC is the
 canonical value for staleness and freshness calculations and durable state.
 
-| Surface | Shape | Lifecycle | Authority |
-| --- | --- | --- | --- |
-| [`comms-events/`][comms-events] | One immutable JSON file per communication event | Exclusive-create append; render into the shared log; archive old rendered history rather than deleting it | CSW |
-| [`shared-comms-log.md`][log] | Generated markdown read model | Human/agent discovery surface rendered from comms events; legacy rendered history remains preserved during migration | WS0 + CSW |
-| [`active-claims.json`][active-claims] | Structured JSON; queryable registry plus `commit_queue` | Mutate through the collaboration-state transaction helper; remove claims after durable close; remove successful queue entries after commit; stale-archive by consolidation | WS1 + queue + CSW |
-| [`active-claims.schema.json`][active-claims-schema] | JSON Schema (Draft 2020-12) | Versioned; additive-only within major; major bump = field reduction or breaking shape change | WS1/WS3A |
-| [`closed-claims.schema.json`][closed-claims-schema] | JSON Schema (Draft 2020-12) | Versioned; additive-only within major; major bump = field reduction or breaking shape change | WS3A |
-| [`closed-claims.archive.json`][closed-claims] | JSON archive preserving claim body plus closure metadata | Append-on-explicit-close, stale archive, or owner-forced close; never deleted; permanent reference for `claim_id` citations | WS1/WS3A |
-| [`conversation.schema.json`][conversation-schema] | JSON Schema (Draft 2020-12) | Versioned; additive-only within major; major bump = field reduction or breaking shape change | WS3A/WS3B/joint decisions |
-| [`conversations/`][conversations-dir] | Structured per-topic JSON decision threads | Created on decision-thread open; sidebars and joint decisions append entries; closed with a `resolution` when the topic is done | WS3A/WS3B/joint decisions |
-| [`escalation.schema.json`][escalation-schema] | JSON Schema (Draft 2020-12) | Versioned; additive-only within major; escalation files close by referencing the conversation entry that resolved them | WS3B |
-| [`escalations/`][escalations-dir] | One file per active owner escalation | Created after a conversation entry exists; closed after owner resolution is written back to that conversation | WS3B |
+| Surface                                             | Shape                                                    | Lifecycle                                                                                                                                                                  | Authority                 |
+| --------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- |
+| [`comms-events/`][comms-events]                     | One immutable JSON file per communication event          | Exclusive-create append; render into the shared log; archive old rendered history rather than deleting it                                                                  | CSW                       |
+| [`shared-comms-log.md`][log]                        | Generated markdown read model                            | Human/agent discovery surface rendered from comms events; legacy rendered history remains preserved during migration                                                       | WS0 + CSW                 |
+| [`active-claims.json`][active-claims]               | Structured JSON; queryable registry plus `commit_queue`  | Mutate through the collaboration-state transaction helper; remove claims after durable close; remove successful queue entries after commit; stale-archive by consolidation | WS1 + queue + CSW         |
+| [`active-claims.schema.json`][active-claims-schema] | JSON Schema (Draft 2020-12)                              | Versioned; additive-only within major; major bump = field reduction or breaking shape change                                                                               | WS1/WS3A                  |
+| [`closed-claims.schema.json`][closed-claims-schema] | JSON Schema (Draft 2020-12)                              | Versioned; additive-only within major; major bump = field reduction or breaking shape change                                                                               | WS3A                      |
+| [`closed-claims.archive.json`][closed-claims]       | JSON archive preserving claim body plus closure metadata | Append-on-explicit-close, stale archive, or owner-forced close; never deleted; permanent reference for `claim_id` citations                                                | WS1/WS3A                  |
+| [`conversation.schema.json`][conversation-schema]   | JSON Schema (Draft 2020-12)                              | Versioned; additive-only within major; major bump = field reduction or breaking shape change                                                                               | WS3A/WS3B/joint decisions |
+| [`conversations/`][conversations-dir]               | Structured per-topic JSON decision threads               | Created on decision-thread open; sidebars and joint decisions append entries; closed with a `resolution` when the topic is done                                            | WS3A/WS3B/joint decisions |
+| [`escalation.schema.json`][escalation-schema]       | JSON Schema (Draft 2020-12)                              | Versioned; additive-only within major; escalation files close by referencing the conversation entry that resolved them                                                     | WS3B                      |
+| [`escalations/`][escalations-dir]                   | One file per active owner escalation                     | Created after a conversation entry exists; closed after owner resolution is written back to that conversation                                                              | WS3B                      |
 
 ## Schema Provenance
 
@@ -67,6 +67,18 @@ noise while still cycling within a day. Premature staleness creates false
 coordination noise; WS5 evidence is the re-evaluation gate. Commit-window
 claims intentionally override this to 900 seconds because staging/commit
 should be brief.
+
+## Claims Are Provenance (Immutable Undertakings)
+
+The registry ROW is operationally mutable (heartbeat refresh, handoff-record
+pointer, close/adopt through the transaction helper), but the claim's
+UNDERTAKING — its boundary, intent, and role as staked at open — is immutable
+provenance of what the seat took on (owner ruling, July 2026, homed by the
+2026-07-31 comms-corpus run). A changed lane CLOSES the claim and opens a new
+one; editing scope or intent in place rewrites history and breaks the
+`claim_id` citation chain that closed-claims archiving exists to preserve.
+`claims adopt` is the one sanctioned in-place identity rewrite (mid-cycle
+pickup, PDR-063), and it deliberately preserves the undertaking unchanged.
 
 ## Write-Safety Contract
 
@@ -93,8 +105,33 @@ adoption instruction, 2026-07-01) — and unquoted metacharacters exit 2. The
 `--body-file` argument must be a REAL readable file at an ABSOLUTE path: process
 substitution (`<(printf …)`), `/dev/stdin` heredocs, and repo-root-relative
 traversals into a scratchpad all fail. Resolve every referenced event id from
-the artefact (`ls` the comms dir), never from recall — `append
---in-response-to` does not validate its antecedent (frictions F-121).
+the artefact (`ls` the comms dir), never from recall — neither
+`append`/`send --in-response-to` nor `direct --in-response-to` validates
+its antecedent
+(frictions F-121; `comms reply` is the one verb that resolves-or-fails).
+
+Further `comms send` argv traps (recorded 2026-07-31): `--body` caps around
+1,500 characters, so `--body-file` is the only path for substantive events;
+an inline body with shell-hazard characters exits 2 and a trailing
+`| tail` pipe EATS that exit; the drain timeout is 600s; sends are rejected
+on an identity-tuple mismatch (heartbeat-tagged sends bypass that guard);
+and `comms direct` needs the recipient's FULL identity tuple, not a display
+name.
+
+Threading field: `in_response_to` is CANONICAL and `in_reply_to` does not
+exist (corpus check 2026-07-30: 114 uses vs 0) — a reader or filter written
+against `in_reply_to` silently matches nothing.
+
+Two commit-tooling traps, live until their tickets cure them (recorded
+2026-07-31): `git commit -- <paths>` commits from the TREE while the
+commit-workflow's record/verify-staged steps checksum the INDEX — staged
+DELETIONS can silently drop from the commit while every ceremony check
+passes (MCP-334; 326 staged deletions dropped in the founding instance) —
+after any pathspec commit that includes deletions, verify the commit's
+name-status against the intent; and queue-mediated commits stage only the
+ENQUEUED file list, so a late-staged file silently misses the commit while
+local gates run green on the full index (MCP-417) — re-verify the staged
+set against the intent immediately before the commit window closes.
 
 The canonical communication-event directory is
 `.agent/state/collaboration/comms/`. Merges reconcile any legacy-era event
@@ -135,17 +172,17 @@ is the reality signal if handoff prose and fresh monitor events disagree.
 Detailed recipes live in [`collaboration-state-lifecycle.md`][lifecycle].
 This file keeps the operational index compact.
 
-| Action | State surface | Durable outcome |
-| --- | --- | --- |
-| Open / refresh active work | `active-claims.json` | Fresh claim with `claimed_at`, optional `heartbeat_at`, and visible areas |
-| Queue commit intent | `active-claims.json` root `commit_queue` | FIFO advisory entry with files, subject, phase, expiry, and staged-bundle fingerprint |
-| Close active work | `closed-claims.archive.json` | Claim copied with `closure.kind: "explicit"` and evidence refs |
-| Archive stale work | `closed-claims.archive.json` | Stale claim preserved with `closure.kind: "stale"` |
-| Open structured coordination | `conversations/<id>.json` | Decision-thread event list with concrete entries and evidence |
-| Request sidebar | `conversations/<id>.json` | `sidebar_*` entries grouped by `sidebar_id`; timeout is reporting only |
-| Record joint commitment | `conversations/<id>.json` | `joint_decision*` entries with decider, recorder, actor, ack, and evidence |
-| Escalate to owner | `escalations/<id>.json` + conversation | Live case closes only after owner resolution is written back to conversation |
-| Consolidate observability | `consolidate-docs § 7e` | Active/stale claims, queue entries, threads, sidebars, decisions, escalations, and malformed state reported |
+| Action                       | State surface                            | Durable outcome                                                                                             |
+| ---------------------------- | ---------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| Open / refresh active work   | `active-claims.json`                     | Fresh claim with `claimed_at`, optional `heartbeat_at`, and visible areas                                   |
+| Queue commit intent          | `active-claims.json` root `commit_queue` | FIFO advisory entry with files, subject, phase, expiry, and staged-bundle fingerprint                       |
+| Close active work            | `closed-claims.archive.json`             | Claim copied with `closure.kind: "explicit"` and evidence refs                                              |
+| Archive stale work           | `closed-claims.archive.json`             | Stale claim preserved with `closure.kind: "stale"`                                                          |
+| Open structured coordination | `conversations/<id>.json`                | Decision-thread event list with concrete entries and evidence                                               |
+| Request sidebar              | `conversations/<id>.json`                | `sidebar_*` entries grouped by `sidebar_id`; timeout is reporting only                                      |
+| Record joint commitment      | `conversations/<id>.json`                | `joint_decision*` entries with decider, recorder, actor, ack, and evidence                                  |
+| Escalate to owner            | `escalations/<id>.json` + conversation   | Live case closes only after owner resolution is written back to conversation                                |
+| Consolidate observability    | `consolidate-docs § 7e`                  | Active/stale claims, queue entries, threads, sidebars, decisions, escalations, and malformed state reported |
 
 ## Trusted-Agents Threat Model
 
@@ -163,13 +200,16 @@ drives refinement amendments. Refinements may add, remove, or reshape
 fields:
 
 - **Adding a field or enum value** lands as a minor-version bump
-  (`schema_version: "1.1.0"` etc.). Older agents preserve unrecognised
-  fields and opaque enum values on write-back; maintained schemas narrow
-  older-version validation where an enum shape changed.
+  (`schema_version: "1.1.0"` etc.). The bump moves the schema, the
+  parsers, and every writer together (latest-only support, owner ruling
+  2026-08-01): on runtime-pinned surfaces (the claims registry and the
+  closed-claims archive) agents support exactly the current version once
+  it lands; schema-only surfaces (conversations, escalations) carry no
+  runtime pin and validate the versions their schema enumerates.
 - **Removing a field** lands as a major-version bump
-  (`schema_version: "2.0.0"` etc.). Agents reading older-major files
-  bail out with an error pointing at the protocol upgrade. Migration
-  is deliberate, not silent.
+  (`schema_version: "2.0.0"` etc.). On runtime-pinned surfaces, agents
+  reading a file at any other version bail out with an error pointing at
+  the protocol upgrade. Migration is deliberate, not silent.
 - **Adding a strength gradient** (the WS1 single-level claim model
   reframed in light of evidence) lands as a major-version bump because
   the absence of an exclusivity flag was load-bearing in v1.

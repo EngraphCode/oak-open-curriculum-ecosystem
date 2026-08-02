@@ -26,7 +26,7 @@ import {
 } from '../../src/collaboration-state/types';
 import { type WatcherStalenessIo } from '../../src/collaboration-state/watcher-staleness';
 
-const self: CollaborationAgentId = deriveCollaborationIdentity({
+const self = deriveCollaborationIdentity({
   platform: 'claude-code',
   model: 'claude-opus-4-7-1m',
   env: {
@@ -35,7 +35,7 @@ const self: CollaborationAgentId = deriveCollaborationIdentity({
   },
 }).agentId;
 
-const other: CollaborationAgentId = deriveCollaborationIdentity({
+const other = deriveCollaborationIdentity({
   platform: 'codex',
   model: 'GPT-5',
   env: {

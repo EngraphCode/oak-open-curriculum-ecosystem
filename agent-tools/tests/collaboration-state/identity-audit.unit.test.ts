@@ -1,18 +1,29 @@
 import { describe, expect, it } from 'vitest';
 
-import { auditCodexIdentityRecords } from '../../src/collaboration-state';
+import { auditCodexIdentityRecords, type CommsEvent } from '../../src/collaboration-state';
+import { collaborationAgentIdSchema } from '../../src/collaboration-state/types';
 
 const nowIso = '2026-04-28T11:05:00Z';
 
-const anonymousAgent = {
+// Schema-parsed literal blocks (testing-strategy §Test Data Anchoring): the
+// parse proves each block strict-schema-legal, which plain typed literals
+// declared as separate consts cannot (no excess-property check at use sites).
+const anonymousAgent = collaborationAgentIdSchema.parse({
   agent_name: 'Codex',
   platform: 'codex',
   model: 'GPT-5',
   session_id_prefix: 'unknown',
-};
+});
+
+const namedAgent = collaborationAgentIdSchema.parse({
+  agent_name: 'Woodland Creeping Petal',
+  platform: 'codex',
+  model: 'GPT-5',
+  session_id_prefix: '019dd3',
+});
 
 describe('auditCodexIdentityRecords', () => {
-  it('reports anonymous Codex records without mutating source texts', () => {
+  it('reports anonymous Codex records across all four sources', () => {
     const activeText = JSON.stringify(
       {
         schema_version: '1.3.0',
@@ -20,7 +31,11 @@ describe('auditCodexIdentityRecords', () => {
           {
             intent_id: 'queued-anonymous',
             claim_id: 'claim-queued',
-            agent_id: anonymousAgent,
+            // Anonymity (name/prefix) is orthogonal to the PDR-076a routing
+            // id: intents REQUIRE id at parse, and an anonymous seat still
+            // carries one. The id-less-intent rejection is covered by
+            // state-parsers.unit.test.ts.
+            agent_id: { ...anonymousAgent, id: 'a3c81f5e-7d2b-5c49-8e16-4f0a9d3b7c25' },
             files: ['.agent/plans/example.md'],
             commit_subject: 'docs(agent): anonymous queue',
             queued_at: '2026-04-28T11:00:00Z',
@@ -82,27 +97,94 @@ describe('auditCodexIdentityRecords', () => {
       '**Prior refresh**: 2026-04-28 (Codex / codex / GPT-5 / unknown — old row.)',
       '',
     ].join('\n');
-    const sharedLogText = [
-      '# Agent-to-Agent Shared Communication Log',
-      '',
-      '## 2026-04-28T09:00:00Z — `Codex` / `codex` / `GPT-5` / `unknown` — old event',
-      '',
-      'Anonymous historical event.',
-      '',
-    ].join('\n');
+    // Comms events are audited from the event stream (the source of truth),
+    // never from the rendered shared log (a generated read model whose
+    // heading field carries the render-time display token). Coverage is the
+    // author block on narrative/lifecycle events and the from block on
+    // directed messages; to blocks are address relays built from --to-*
+    // flags and evidence what the SENDER knew, so they are never audited.
+    const commsEvents: readonly CommsEvent[] = [
+      {
+        schema_version: '2.0.0',
+        event_id: 'anon-narrative-event',
+        created_at: '2026-04-28T09:00:00Z',
+        kind: 'narrative',
+        author: anonymousAgent,
+        title: 'old event',
+        body: 'Anonymous historical event.',
+      },
+      {
+        schema_version: '2.0.0',
+        event_id: 'anon-lifecycle-event',
+        created_at: '2026-04-28T09:02:00Z',
+        kind: 'lifecycle',
+        event_type: 'claim_lifecycle',
+        occurred_at: '2026-04-28T09:02:00Z',
+        author: anonymousAgent,
+        // Discriminating fixture: agent_id differs from author so the test
+        // fails if the audit reads the wrong lifecycle identity field.
+        agent_id: namedAgent,
+        thread: 'agentic-engineering-enhancements',
+        claim_id: 'claim-anon',
+        title: 'anonymous lifecycle',
+        subject: 'anonymous lifecycle subject',
+        body: 'Anonymous lifecycle body.',
+      },
+      {
+        schema_version: '2.0.0',
+        event_id: 'anon-from-directed',
+        created_at: '2026-04-28T09:05:00Z',
+        kind: 'directed',
+        message_kind: 'coordination-update',
+        from: anonymousAgent,
+        to: namedAgent,
+        subject: 'anonymous sender',
+        body: 'Directed body.',
+      },
+      {
+        schema_version: '2.0.0',
+        event_id: 'anon-subject-lifecycle',
+        created_at: '2026-04-28T09:12:00Z',
+        kind: 'lifecycle',
+        event_type: 'claim_lifecycle',
+        occurred_at: '2026-04-28T09:12:00Z',
+        // The two lifecycle identity blocks are independently sourced by the
+        // migration; a named author with an anonymous subject is reported
+        // against the agent_id block alone.
+        author: namedAgent,
+        agent_id: anonymousAgent,
+        thread: 'agentic-engineering-enhancements',
+        claim_id: 'claim-anon-subject',
+        title: 'anonymous subject lifecycle',
+        subject: 'anonymous subject',
+        body: 'Lifecycle body.',
+      },
+      {
+        schema_version: '2.0.0',
+        event_id: 'named-narrative-event',
+        created_at: '2026-04-28T09:15:00Z',
+        kind: 'narrative',
+        author: namedAgent,
+        // Relay blocks on narrative events are excluded for the same reason
+        // as directed `to`: they evidence what the writer knew.
+        addressed_to: anonymousAgent,
+        title: 'named event',
+        body: 'Named body.',
+      },
+    ];
 
     const report = auditCodexIdentityRecords({
       nowIso,
       activeText,
       closedText,
       threadRecordText,
-      sharedLogText,
+      commsEvents,
     });
 
     expect(report.summary).toStrictEqual({
-      total: 7,
+      total: 10,
       by_classification: {
-        'historical-no-repair': 3,
+        'historical-no-repair': 6,
         'live-risk': 2,
         'needs-evidence': 2,
       },
@@ -139,12 +221,82 @@ describe('auditCodexIdentityRecords', () => {
         classification: 'historical-no-repair',
       },
       {
-        source: 'shared-log',
-        record_ref: '2026-04-28T09:00:00Z',
+        source: 'comms-event',
+        record_ref: 'event:anon-narrative-event#author',
+        classification: 'historical-no-repair',
+      },
+      {
+        source: 'comms-event',
+        record_ref: 'event:anon-lifecycle-event#author',
+        classification: 'historical-no-repair',
+      },
+      {
+        source: 'comms-event',
+        record_ref: 'event:anon-from-directed#from',
+        classification: 'historical-no-repair',
+      },
+      {
+        source: 'comms-event',
+        record_ref: 'event:anon-subject-lifecycle#agent_id',
         classification: 'historical-no-repair',
       },
     ]);
-    expect(activeText).toContain('fresh-active-anonymous');
-    expect(closedText).toContain('closed-anonymous');
+  });
+
+  it('does not report an anonymous addressee on a directed message', () => {
+    const report = auditCodexIdentityRecords({
+      nowIso,
+      activeText: JSON.stringify({ schema_version: '1.3.0', commit_queue: [], claims: [] }),
+      closedText: JSON.stringify({ schema_version: '1.3.0', claims: [] }),
+      threadRecordText: '',
+      commsEvents: [
+        {
+          schema_version: '2.0.0',
+          event_id: 'anon-to-directed',
+          created_at: '2026-04-28T09:10:00Z',
+          kind: 'directed',
+          message_kind: 'coordination-update',
+          from: namedAgent,
+          to: anonymousAgent,
+          subject: 'named sender to anonymous address',
+          body: 'Directed body.',
+        },
+      ],
+    });
+
+    expect(report.findings).toStrictEqual([]);
+  });
+
+  it('throws at parse on a legacy id-less intent instead of reporting on it (PDR-076a boundary)', () => {
+    // Behaviour change landed with the intent read-boundary tightening: an
+    // id-less intent is registry corruption, so the report-only audit now
+    // fails loudly naming the row rather than including it in the report.
+    const activeText = JSON.stringify({
+      schema_version: '1.3.0',
+      commit_queue: [
+        {
+          intent_id: 'queued-anonymous',
+          claim_id: 'claim-queued',
+          agent_id: anonymousAgent,
+          files: ['.agent/plans/example.md'],
+          commit_subject: 'docs(agent): anonymous queue',
+          queued_at: '2026-04-28T11:00:00Z',
+          updated_at: '2026-04-28T11:00:00Z',
+          expires_at: '2026-04-28T11:15:00Z',
+          phase: 'queued',
+        },
+      ],
+      claims: [],
+    });
+
+    expect(() =>
+      auditCodexIdentityRecords({
+        nowIso,
+        activeText,
+        closedText: JSON.stringify({ schema_version: '1.3.0', claims: [] }),
+        threadRecordText: '',
+        commsEvents: [],
+      }),
+    ).toThrow(/^commit_queue entry queued-anonymous carries an invalid agent_id/);
   });
 });

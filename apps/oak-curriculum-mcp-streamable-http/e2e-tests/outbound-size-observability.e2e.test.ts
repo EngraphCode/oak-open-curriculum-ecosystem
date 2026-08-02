@@ -33,7 +33,7 @@ import {
 import { ok } from '@oaknational/result';
 import { createFakeHttpObservability } from '../src/test-helpers/observability-fakes.js';
 import { stubSearchRetrieval } from './helpers/stub-search-retrieval.js';
-import { createMockRuntimeConfig, createNoOpRateLimiterFactory } from './helpers/test-config.js';
+import { createMockRuntimeConfig } from './helpers/test-config.js';
 import { getScratchStaticRoot } from '../src/test-helpers/static-root-fixture.js';
 
 const ACCEPT = 'application/json, text/event-stream';
@@ -86,7 +86,6 @@ async function createAppWithRecordingLogger() {
     getWidgetHtml: () => '<!doctype html><html><body>test-widget</body></html>',
     getLandingPageHtml: () =>
       '<!doctype html><html lang="en-GB"><body>test landing page</body></html>',
-    rateLimiterFactory: createNoOpRateLimiterFactory(),
   });
   return { app, logger };
 }

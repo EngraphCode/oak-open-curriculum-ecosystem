@@ -17,7 +17,7 @@ export {
 } from './status.js';
 export type {
   CommitIntent,
-  CommitQueueAgentId,
   CommitQueueClaim,
+  CommitQueueClaimAgentId,
   CommitQueueRegistry,
 } from './types.js';

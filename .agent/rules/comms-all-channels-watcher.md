@@ -392,7 +392,11 @@ fell in the hole and needed a re-ping) and the success (a poll seeded
 SINCE the cursor-freeze time with a dedup set of pre-arm matches caught
 its wake within one poll). Corpus-test the wake FILTER before arming
 (directed-match, zero leaks), and verify the CURSOR INIT separately —
-the two defects are independent.
+the two defects are independent. Build the poll from the canonical
+watcher/inbox tooling, never hand-rolled field filters: a hand-rolled poll
+matched on `addressed_to` where the schema's live field is `to`, making a
+directed wake invisible (the same schema-vs-observed-output discipline as
+the notification-filter paragraph above).
 
 ### No hand-rolled fallback
 

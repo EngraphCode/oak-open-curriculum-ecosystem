@@ -45,7 +45,6 @@ import {
   createMockObservability,
   createMockRuntimeConfig,
   createNoOpClerkMiddleware,
-  createNoOpRateLimiterFactory,
   createUnauthenticatedMcpAuthClerkDeps,
 } from './helpers/test-config.js';
 import { TEST_UPSTREAM_METADATA } from '../src/test-helpers/upstream-metadata-fixture.js';
@@ -146,7 +145,6 @@ async function createAuthApp(): Promise<Express> {
     upstreamMetadata: TEST_UPSTREAM_METADATA,
     clerkMiddlewareFactory: createNoOpClerkMiddleware(),
     mcpAuthClerkDeps: createUnauthenticatedMcpAuthClerkDeps(),
-    rateLimiterFactory: createNoOpRateLimiterFactory(),
   });
 }
 

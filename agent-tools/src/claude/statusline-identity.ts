@@ -188,13 +188,14 @@ function gatherSessionShape(
  * resolver treats that as no visible team).
  */
 function readActiveClaimsRegistry(primaryRoot: string): CollaborationRegistry | undefined {
+  let text: string;
   try {
-    return parseCollaborationRegistry(
-      readFileSync(join(primaryRoot, '.agent/state/collaboration/active-claims.json'), 'utf8'),
-    );
+    text = readFileSync(join(primaryRoot, '.agent/state/collaboration/active-claims.json'), 'utf8');
   } catch {
     return undefined;
   }
+  const parsed = parseCollaborationRegistry(text);
+  return parsed.ok ? parsed.value : undefined;
 }
 
 function listExperiments(primaryRoot: string): readonly ExperimentsEntry[] | undefined {

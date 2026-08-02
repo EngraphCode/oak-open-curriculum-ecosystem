@@ -136,6 +136,37 @@ provenance before changing location: original path, content identity, source
 evidence, and rationale. Archived references remain evidence unless a reviewer
 classifies them as live instructions.
 
+### Latest-schema-version-only on local substrates
+
+Schema evolution on LOCAL substrate surfaces (state and memory files
+consumed within one Practice instance — the claims registry, comms
+events, commit queue, and their siblings) supports ONLY the latest
+schema version: one named version constant per surface, an equality
+pin at every parse/validation/seed site, and replace-old-with-new at
+every version change. No additive-tolerance, preserve-unknown-fields,
+or cross-version read promise is made for local substrates — hardcoded
+version tolerance is a future-bug source, and the "readers ignore
+unknown fields" claim previously attributed to this PDR and PDR-049
+was never stated by either record and was empirically falsified
+(2026-07-30: strict readers refused the first new-shape event; the
+untested cell was old-reader × new-event). Concurrent-peer row
+preservation — a writer preserving OTHER LIVE WRITERS' rows on
+write-back — is a concurrency contract, not version compatibility, and
+survives unchanged. Validation sets narrow with the runtime: live
+substrate surfaces validate at the latest version only; ARCHIVED files
+are preserved bytes outside current-schema validation scope.
+
+SCOPE BOUNDARY: this clause binds local substrates only. The
+inter-practice WIRE is governed by PDR-125 §Version-family
+compatibility, which requires backward and forward tolerance across
+minor versions on that boundary — the two contracts coexist because
+they bind different surfaces. Separately, ADR-186 pre-commits any
+stricter validation of the comms `event_type` VALUE space to its own
+ADR; this clause governs schema VERSIONS, not enum tolerance.
+(Ruled by the owner 2026-08-01, in-session, standing; enacted in
+tooling via the named-constant and latest-only-contract changes of
+PRs #698/#699.)
+
 ## Immune Layer
 
 Each Practice substrate surface participates in a two-layer immune system:
@@ -230,3 +261,20 @@ specification repository. The Practice remains a philosophy and commitment; its
 specification aspect is a powerful portability tool. The transferable-vs-host
 split may apply to other agentic engineering processes when they need the same
 implementation-agnostic treatment.
+
+### 2026-08-02 — Latest-schema-version-only clause (owner-ruled 2026-08-01)
+
+Adds §Latest-schema-version-only on local substrates to the Decision.
+The owner's standing ruling ("we support only the latest schema
+version, no significant backwards-compatibility effort, replace old
+with new") gains its durable doctrine home here because this PDR owns
+the substrate contracts the ruling binds. The amendment also corrects
+a phantom citation: five downstream records (ADR-182, ADR-186,
+ADR-220, PDR-063, PDR-066) cited a "PDR-049 + PDR-050
+additive-extension discipline" that neither record ever stated; those
+citations are re-pointed to this clause in the same pass.
+Falsifiability: a live local-substrate flow that legitimately must
+read an older-version file defeats the latest-only narrowing — surface
+it against this clause rather than working around it; a wire-boundary
+break traced to this clause means the scope boundary failed and
+PDR-125 governs.

@@ -1,13 +1,17 @@
 import { describe, expect, it } from 'vitest';
 
 import {
+  formatAgent,
   formatRoutingKey,
   routingKeyFor,
   sameAgentRoutingKey,
   sameIdentity,
 } from '../../src/collaboration-state/active-agent-routing';
 import { deriveOverrideCollaborationIdentity } from '../../src/collaboration-state/identity';
-import { type CollaborationAgentId } from '../../src/collaboration-state/types';
+import {
+  collaborationAgentIdSchema,
+  type CollaborationAgentId,
+} from '../../src/collaboration-state/types';
 
 // Two distinct id-bearing identities, derived through the production override
 // path so each id is a valid UUID v5 without coupling the test to the v5
@@ -104,5 +108,52 @@ describe('formatRoutingKey — human-readable id-keyed form', () => {
     expect(formatRoutingKey(routingKeyFor(galactic))).toBe(
       `${galactic.agent_name} / id:${galactic.id}`,
     );
+  });
+});
+
+describe('formatAgent — the display label an identity block renders', () => {
+  // Literal blocks and literal expected strings: the label is a display
+  // contract, so a token-derivation or field-order change must turn these red.
+  it('renders the visual-disambiguator token for an id-bearing identity', () => {
+    const block = collaborationAgentIdSchema.parse({
+      agent_name: 'Fixture Agent',
+      platform: 'codex',
+      model: 'GPT-5',
+      session_id_prefix: '22e835',
+      id: '1bb4df59-58e8-5b71-b41b-eebd1f587dda',
+    });
+    expect(formatAgent(block)).toBe(
+      'Fixture Agent / codex / GPT-5 / 22e835-dda / id:1bb4df59-58e8-5b71-b41b-eebd1f587dda',
+    );
+  });
+
+  it('renders the bare prefix for an id-less legacy identity', () => {
+    const legacy = collaborationAgentIdSchema.parse({
+      agent_name: 'Legacy Agent',
+      platform: 'claude',
+      model: 'opus-4-5',
+      session_id_prefix: 'abc123',
+    });
+    expect(formatAgent(legacy)).toBe('Legacy Agent / claude / opus-4-5 / abc123');
+  });
+
+  it('renders distinct labels for same-name same-prefix different-id identities', () => {
+    // The property assertSameAgent's rejection message depends on: two seats
+    // that differ only by id must be tellable apart in any rendered label.
+    const first = collaborationAgentIdSchema.parse({
+      agent_name: 'Fixture Agent',
+      platform: 'codex',
+      model: 'GPT-5',
+      session_id_prefix: '019f93',
+      id: '16ea4357-6424-574e-863e-4d81f7fdc508',
+    });
+    const second = collaborationAgentIdSchema.parse({
+      agent_name: 'Fixture Agent',
+      platform: 'codex',
+      model: 'GPT-5',
+      session_id_prefix: '019f93',
+      id: '608c6e45-7a5d-5161-bdd6-f403e03ee114',
+    });
+    expect(formatAgent(first)).not.toBe(formatAgent(second));
   });
 });

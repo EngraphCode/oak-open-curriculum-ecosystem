@@ -21,6 +21,10 @@ It complements, rather than replaces:
 
 ## Current Promoted Synthesis
 
+- [agent-tools-practice-evolution-concept-journey-2026-08-01.md](./agent-tools-practice-evolution-concept-journey-2026-08-01.md)
+  — journey record from a mechanism-level agent-tools review through owner-led
+  corrections to a defeasible inquiry into Practice evolution, relational
+  continuity, selection pressure, attention, and learning theatre
 - [governance-concepts-and-integration-report.md](./deep-dive-syntheses/governance-concepts-and-integration-report.md)
   — abstracted findings on governance planes, trust boundaries, supervised
   execution, signal ecology, and the local routing map for those concepts

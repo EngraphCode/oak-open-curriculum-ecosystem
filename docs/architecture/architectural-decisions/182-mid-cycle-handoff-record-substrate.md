@@ -59,9 +59,12 @@ have a worked instance.
 A new optional field `handoff_record_path` is added to the
 active-claims schema (`active-claims.schema.json`). Its presence
 signals "this claim is mid-cycle and carries a handoff record"; its
-absence signals normal active-claim semantics. Existing readers
-ignore the field without breakage (per the additive-extension
-discipline in PDR-049 and PDR-050).
+absence signals normal active-claim semantics. (Corrected 2026-08-02:
+the "additive-extension discipline in PDR-049 and PDR-050" originally
+cited here was a phantom citation — neither record stated it. The
+governing contract is PDR-050 §Latest-schema-version-only: the field
+landed within the surface's coordinated schema version, and readers
+pin that version rather than tolerating unknown shapes.)
 
 ### Comms-event message_kind value
 
@@ -127,9 +130,11 @@ directory aligns with the existing PDR / ADR / plan convention
 **Why an optional schema field, not a new claim kind.** A new claim
 kind forces every claim reader to disambiguate "ordinary" versus
 "mid-cycle" at every read site. An optional `handoff_record_path`
-field is additive: readers that do not understand it ignore it;
-readers that do understand it branch on its presence. Matches
-PDR-049 + PDR-050 additive-extension discipline.
+field lets readers that understand it branch on its presence without
+forcing a disambiguation at every read site. (Corrected 2026-08-02:
+the "PDR-049 + PDR-050 additive-extension discipline" this rationale
+originally cited was a phantom citation; PDR-050
+§Latest-schema-version-only governs.)
 
 **Why a new `message_kind` value, not a new event kind.** Adding a
 value to an existing field surface is the smallest change that

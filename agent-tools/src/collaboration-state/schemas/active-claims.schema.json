@@ -4,7 +4,7 @@
   "$merge_class": "index-narrative-tables",
   "title": "Active Agent Claims Registry",
   "description": "Live, signal-like registry of which agents are currently working on which areas of the repo. Advisory, not enforcing. Claims inform agent judgement; the protocol does not refuse entry to claimed areas. Governed by .agent/directives/agent-collaboration.md.",
-  "$comment_compatibility": "Additive-only schema evolution within a major version. v1.x agents reading v1.y files (y > x) ignore unrecognised fields and preserve them on write-back; v1.2.0 also treats area.kind enum expansion as additive, so older runtime readers preserve unknown area kinds as opaque claimed areas rather than rejecting the registry. major-version mismatch causes the agent to bail out with an error pointing at the protocol upgrade. additionalProperties is set to false on the authored shape for the matching schema_version: it constrains agents who are AUTHORING entries against this schema (use only the named fields; new fields require a coordinated schema_version bump), and constrains the consolidate-docs § 7e schema-validation step. The maintained latest schema validates supported v1.x files and narrows v1.1.0 validation where enum shape changed; do not validate v1.2.0 files with an older v1.1.0 schema. It is NOT a runtime read-gate at session-open: agents reading entries written under a newer-minor schema preserve unrecognised fields and opaque enum values rather than rejecting the file. The runtime contract is preservation; the authoring/validation contract is no-free-form-expansion. Claim closure metadata is defined here so closed-claims.schema.json can reuse the claim contract without duplicating agent identity or area shapes; closure remains a semantic anomaly in active-claims.json and is required only by closed-claims.schema.json.",
+  "$comment_compatibility": "Latest-only runtime support (owner ruling 2026-08-01): the runtime registry parsers pin exactly one schema_version and hard-reject any other, older or newer, with an actionable error. The schema_version enum lists every version this schema file validates in non-runtime flows (the consolidate-docs § 7e schema-validation step and substrate validation) - a wider set than the runtime pin. Schema evolution lands as a coordinated schema_version bump that moves this schema, the parsers, and every writer together. additionalProperties is set to false on the authored shape: it constrains agents who are AUTHORING entries against this schema (use only the named fields; new fields require the coordinated bump), and constrains the consolidate-docs § 7e schema-validation step. A separate runtime multi-writer contract holds alongside the version pin: concurrent-peer claim-row preservation - claim rows are spread on read-modify-write write-back so another live writer's row content survives. Within the collaboration-state parser, commit-queue intent rows reconstruct field-by-field under the exact-version pin (registry-entry-parser.ts documents the deliberate asymmetry with the claim-row spread; the commit-queue module's own registry writer spreads whole records). Claim closure metadata is defined here so closed-claims.schema.json can reuse the claim contract without duplicating agent identity or area shapes; closure remains a semantic anomaly in active-claims.json and is required only by closed-claims.schema.json.",
   "type": "object",
   "additionalProperties": false,
   "required": ["schema_version", "commit_queue", "claims"],
@@ -62,14 +62,7 @@
     "claim": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "claim_id",
-        "agent_id",
-        "thread",
-        "areas",
-        "claimed_at",
-        "intent"
-      ],
+      "required": ["claim_id", "agent_id", "thread", "areas", "claimed_at", "intent"],
       "properties": {
         "claim_id": {
           "type": "string",
@@ -185,7 +178,15 @@
           "description": "Active claim this queue entry belongs to."
         },
         "agent_id": {
-          "$ref": "#/$defs/agent_id"
+          "allOf": [
+            {
+              "$ref": "#/$defs/agent_id"
+            },
+            {
+              "required": ["id"]
+            }
+          ],
+          "$comment_provenance": "Amended 2026-07-31: intents require the PDR-076a UUID v5 id (every live writer emits it via collaborationAgentIdWriteSchema; the read boundary enforces the same shape). Claims keep the shared optional-id def — legacy rows are legal, preserved on write-back, and never match a live agent."
         },
         "files": {
           "type": "array",
@@ -263,7 +264,7 @@
         "id": {
           "type": "string",
           "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-5[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
-          "description": "PDR-076a §Cascade item 3 deterministic UUID v5 derived from the stable session seed. Optional during the additive migration window; promoted to required when the legacy-fallback diagnostic count reaches zero across one calendar week (PDR-076a §Cascade item 2 sunset)."
+          "description": "PDR-076a §Cascade item 3 deterministic UUID v5 derived from the stable session seed. The routing key: same-agent comparisons are single-path on this field, and an id-less identity is never the same live agent (PDR-076a §Sunset, landed 2026-05-29). Optional HERE only for legacy claim rows, which are preserved on write-back; commit_queue intents require it via their allOf overlay (2026-07-31)."
         },
         "naming_schema_version": {
           "enum": ["v1-adjective-verb-noun", "v2-noun-verb-noun", "override"],
@@ -295,13 +296,7 @@
     "closure": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "kind",
-        "closed_at",
-        "closed_by",
-        "summary",
-        "evidence"
-      ],
+      "required": ["kind", "closed_at", "closed_by", "summary", "evidence"],
       "properties": {
         "kind": {
           "type": "string",

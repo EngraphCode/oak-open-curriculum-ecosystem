@@ -99,18 +99,25 @@ The heartbeat event:
   filter heartbeats from substantive events at the namespace
   layer.
 
-### 2. Emit-side: cron-redundancy rule
+### 2. Emit-side: cron-redundancy rule — RETIRED 2026-08-02
 
-A scheduled heartbeat fire MUST be suppressed when the same
-role-identity has authored any substantive comms event
-(broadcast, directed, acknowledgement) within the cadence window
-preceding the scheduled fire time. Substantive events imply
-liveness, so the heartbeat would be a redundant signal.
-
-The rule's effect is that a role doing substantive work skips
-heartbeats opportunistically; a role legitimately quiet emits
-them on cadence; a role unobserved-quiet stops emitting and is
-detected by the observe-side threshold.
+RETIRED by owner-carded disposition (2026-08-02, applying the
+latest-schema-only/enacted-truth review of accepted-but-unenacted
+obligations). The clause required suppressing a scheduled heartbeat
+when the same role-identity had authored a substantive comms event
+within the cadence window. In fourteen weeks of operation it was
+never enacted: the operational rule (`liveness-heartbeat-cron`)
+prescribes unconditional emission on both liveness surfaces every
+tick, no suppression predicate exists in tooling, and this clause's
+own falsifiability axis described exactly that inconsistency.
+Doctrine now follows the enacted truth: emit every tick;
+substrate volume is cheap and reader-side filtering
+(heartbeat-excluded watchers paired with the freshness poll)
+carries the economy instead. A suppression predicate would add a
+failure mode to a liveness-critical path to save substrate that
+readers already filter. Retirement changes no category boundary:
+§5's substantive-vs-heartbeat distinction stands on its own, and
+the former text remains above for the record.
 
 ### 3. Observe-side: retirement threshold
 
@@ -380,15 +387,15 @@ PDR-082's second-instance path."
 - Tagging a substantive comms event (broadcast, directed,
   acknowledgement) with the canonical heartbeat tag to satisfy
   cadence. Per §5, heartbeat substrate is liveness
-  infrastructure; substantive events suppress the next
-  cadence-scheduled heartbeat via §2, but they do not become
-  heartbeats by tag.
+  infrastructure; substantive events never become heartbeats by
+  tag (§2's suppression coupling is retired — heartbeats emit on
+  cadence regardless).
 - Embedding substantive payloads (peer queries, decision
   prompts, sidebar requests, escalation triggers) in heartbeat
   event bodies. Per §5, the heartbeat body binds mechanically
   to current state; substantive content emits via the
-  appropriate event class and the cron-redundancy rule
-  suppresses the redundant heartbeat.
+  appropriate event class (the on-cadence heartbeat simply
+  continues alongside it).
 - Treating heartbeat presence alone as proof that the role is
   actively processing its coordinated lane when no substantive
   event has landed for two or more cadence windows. Per §6, that
@@ -408,10 +415,11 @@ PDR-082's second-instance path."
 
 This contract is falsifiable on six axes:
 
-- A role observed actively working (substantive events firing
-  at less than the threshold interval) that is nevertheless
-  treated as retired by peers — direct evidence the
-  cron-redundancy rule is not being applied consistently.
+- (Axis retired with §2, 2026-08-02 — it measured suppression
+  consistency for a clause that never reached tooling; its firing
+  condition was the standing state, which is what retired the
+  clause. A role actively working yet read as retired now
+  indicates an observe-side or emitter defect, covered below.)
 - A role legitimately quiet under a named exemption whose
   threshold fires anyway — direct evidence the exemption-
   observability discipline is breaking down (opening events
@@ -518,3 +526,16 @@ rerouted.
   Substance preserved verbatim across the amendment surfaces:
   the new category invariant elaborates the cron-redundancy rule
   in §2 without contradicting it.
+
+### 2026-08-02 — §2 cron-redundancy rule retired (owner-carded)
+
+The emit-side suppression clause is retired: never enacted in
+fourteen weeks (unconditional dual-surface emission is the working
+phenotype; no suppression predicate exists in tooling), and its own
+falsifiability axis described the standing inconsistency. Doctrine
+follows the enacted truth — emit every tick; reader-side filtering
+(heartbeat-excluded watchers + the freshness poll) carries the
+substrate economy. The §5 category invariant is untouched; two
+§Forbids bullets and one falsifiability axis are re-pointed in the
+same amendment. Disposition ratified by owner card 2026-08-02 in the
+five-item doctrine pass (Director session 52841f).

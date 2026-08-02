@@ -8,14 +8,21 @@ import {
   writeCommsEventWithReadback,
 } from './comms-use-cases.js';
 import { resolveIdentity } from './cli-identity.js';
-import { optional, required, valueOrDefault, type Options } from './cli-options.js';
+import { recipientAgent } from './cli-comms-recipient.js';
+import {
+  nonEmptyRequired,
+  optional,
+  required,
+  valueOrDefault,
+  type Options,
+} from './cli-options.js';
 import { cliIo, type CollaborationStateCliIo, type CliRuntime } from './cli-runtime.js';
 import { validateCommsEventTags } from './comms-tag-namespace.js';
-import { assertIdentityCanWrite } from './identity-write-guard.js';
+import { registryForIdentityWrite } from './identity-write-guard.js';
 import { validateSharedStateAgentId } from './identity.js';
 import {
   type CollaborationAgentIdWrite,
-  collaborationAgentIdWriteSchema,
+  type CollaborationRegistry,
   type CollaborationStateEnvironment,
   type DirectedCommsMessage,
 } from './types.js';
@@ -33,14 +40,22 @@ export async function directComms(
   const eventId = valueOrDefault(options, 'event-id', randomUUID());
   const nowIso = valueOrDefault(options, 'now', new Date().toISOString());
   const tags = validateCommsEventTags(options.tags);
+  const inResponseTo = optional(options, 'in-response-to');
+  // Sender resolution is hoisted so its write-guard registry read can be
+  // reused for the recipient-prefix derivation — one read per invocation.
+  const { agentId: from, registry } = await currentAgent(options, env, 'comms direct', io, nowIso);
   const message = createDirectedCommsMessage({
     eventId,
     createdAt: nowIso,
     messageKind: nonEmptyRequired(options, 'kind'),
-    from: await currentAgent(options, env, 'comms direct', io, nowIso),
-    to: recipientAgent(options),
+    from,
+    to: recipientAgent(options, registry, nowIso),
     subject: nonEmptyRequired(options, 'subject'),
     body: await resolveNonEmptyBody(options, io),
+    // `in_response_to` threads a directed message to an antecedent event —
+    // parity with `comms send`, so a directed acknowledgement carries its
+    // antecedent machine-readably instead of naming it in prose (MCP-393).
+    ...(inResponseTo === undefined ? {} : { inResponseTo }),
     tags,
   });
   await enforceCommsConceptGates(io, {
@@ -68,6 +83,9 @@ export async function replyComms(
   const io = cliIo(runtime);
   const eventId = valueOrDefault(options, 'event-id', randomUUID());
   const nowIso = valueOrDefault(options, 'now', new Date().toISOString());
+  // `comms reply` takes its recipient from the antecedent event, so it needs
+  // only the guard side of the sender resolution — the registry is unused.
+  const { agentId: replyFrom } = await currentAgent(options, env, 'comms reply', io, nowIso);
   // `--tag` on reply exists so the concept-gate's capture-tag exemption is
   // EXECUTABLE on this surface: replying to a legitimately-exempt capture
   // event whose subject quotes a pathogen inherits that subject ("re: ..."),
@@ -76,7 +94,7 @@ export async function replyComms(
   const message = replyToDirectedCommsMessage({
     sourceMessages: await sourceMessagesForReply(options, io),
     sourceEventId: nonEmptyRequired(options, 'to-event-id'),
-    from: await currentAgent(options, env, 'comms reply', io, nowIso),
+    from: replyFrom,
     eventId,
     createdAt: nowIso,
     messageKind: nonEmptyRequired(options, 'kind'),
@@ -135,13 +153,16 @@ async function currentAgent(
   surface: string,
   io: CollaborationStateCliIo,
   nowIso: string,
-): Promise<CollaborationAgentIdWrite> {
+): Promise<{
+  readonly agentId: CollaborationAgentIdWrite;
+  readonly registry: CollaborationRegistry;
+}> {
   const identity = resolveIdentity(options, env);
   const validation = validateSharedStateAgentId({ agentId: identity.agent_id, env });
   if (!validation.ok) {
     throw new Error(validation.reason);
   }
-  await assertIdentityCanWrite({
+  const registry = await registryForIdentityWrite({
     options,
     agentId: identity.agent_id,
     nowIso,
@@ -149,26 +170,7 @@ async function currentAgent(
     readActiveClaimsFile: io.readActiveClaimsFile,
   });
 
-  return identity.agent_id;
-}
-
-function recipientAgent(options: Options): CollaborationAgentIdWrite {
-  return collaborationAgentIdWriteSchema.parse({
-    agent_name: nonEmptyRequired(options, 'to-agent-name'),
-    platform: nonEmptyRequired(options, 'to-platform'),
-    model: nonEmptyRequired(options, 'to-model'),
-    session_id_prefix: nonEmptyRequired(options, 'to-session-prefix'),
-    id: nonEmptyRequired(options, 'to-id'),
-  });
-}
-
-function nonEmptyRequired(options: Options, key: string): string {
-  const value = required(options, key).trim();
-  if (value.length === 0) {
-    throw new Error(`--${key} must not be empty`);
-  }
-
-  return value;
+  return { agentId: identity.agent_id, registry };
 }
 
 async function resolveNonEmptyBody(options: Options, io: CollaborationStateCliIo): Promise<string> {
