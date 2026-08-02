@@ -97,11 +97,9 @@ export function parseHeartbeatBody(body: string): HeartbeatBodyState | undefined
  * emitters and consumers cite this constant by name; string-literal
  * duplication of the token across emitter sites violates the ADR, because
  * the renderer tolerates unknown sub-kinds and a typo'd `event_type` would
- * silently vanish from retirement detection. Module-local until the
- * emitter leg lands and imports it (the consumer leg cites it through
- * {@link isHeartbeatEvent}).
+ * silently vanish from retirement detection.
  */
-const HEARTBEAT_EVENT_TYPE = 'heartbeat';
+export const HEARTBEAT_EVENT_TYPE = 'heartbeat';
 
 /**
  * ADR-186 §"Migration discipline" heartbeat discriminator, shared by every

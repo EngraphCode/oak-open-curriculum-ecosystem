@@ -31,7 +31,10 @@ export const commsAppendHelp =
   '(e.g. a PDR-064 Moment-2 ack referencing a broadcast pre-position); ' +
   'HEARTBEAT MODE: with --tag heartbeat the body is composed from typed state ' +
   'args instead — --body and --body-file are rejected, and --claim-id <id> ' +
-  '--intent-id <id> --branch <branch> --current-cycle-label <label> are required)';
+  '--intent-id <id> --branch <branch> --current-cycle-label <label> are required; ' +
+  'the event lands as kind=lifecycle event_type=heartbeat (ADR-186), tag retained; ' +
+  '--thread <thread> optional — omitted, it derives from the active claim named ' +
+  'by --claim-id; --in-response-to is rejected in heartbeat mode)';
 
 export const commsSendHelp =
   'comms send --title <title> (--body <body> | --body-file <path>) ' +
@@ -45,7 +48,10 @@ export const commsSendHelp =
   '--in-response-to threads this event to an antecedent event_id of any kind; ' +
   'HEARTBEAT MODE: with --tag heartbeat the body is composed from typed state ' +
   'args instead — --body and --body-file are rejected, and --claim-id <id> ' +
-  '--intent-id <id> --branch <branch> --current-cycle-label <label> are required) ' +
+  '--intent-id <id> --branch <branch> --current-cycle-label <label> are required; ' +
+  'the event lands as kind=lifecycle event_type=heartbeat (ADR-186), tag retained; ' +
+  '--thread <thread> optional — omitted, it derives from the active claim named ' +
+  'by --claim-id; --in-response-to is rejected in heartbeat mode) ' +
   '(identity seed: PRACTICE_AGENT_SESSION_ID_CLAUDE, ' +
   'PRACTICE_AGENT_SESSION_ID_CURSOR, PRACTICE_AGENT_SESSION_ID_GEMINI, ' +
   'PRACTICE_AGENT_SESSION_ID_CODEX, CODEX_THREAD_ID, Antigravity conversationId, ' +
