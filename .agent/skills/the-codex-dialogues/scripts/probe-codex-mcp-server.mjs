@@ -99,11 +99,35 @@ async function main() {
   await assertOutsideGitWorktree(tmpdir());
   const workspace = await mkdtemp(join(tmpdir(), 'sif-probe-'));
   const session = new McpStdioSession('codex', LAUNCH_ARGS, workspace, CALL_TIMEOUT_MS);
+  let disposed = false;
   try {
+    // dispose() can THROW (a kill failure is a loud disposal failure,
+    // never silent termination). Two seams handled explicitly: a leg
+    // failure must never skip disposal, and a disposal failure must
+    // never MASK the primary leg failure — the diagnosis outranks the
+    // teardown error, which prints as a secondary line.
+    let legsError;
     try {
       await runProbeLegs(session, installedVersion);
-    } finally {
+    } catch (error) {
+      legsError = error;
+    }
+    try {
       await session.dispose();
+      disposed = true;
+    } catch (disposeError) {
+      if (legsError === undefined) {
+        legsError = disposeError;
+      } else {
+        process.stdout.write(
+          `also: disposal failed after the primary failure: ${
+            disposeError instanceof Error ? disposeError.message : String(disposeError)
+          }\n`,
+        );
+      }
+    }
+    if (legsError !== undefined) {
+      throw legsError;
     }
     // The load-bearing no-write check runs only AFTER the server has
     // actually exited (dispose awaits the child's exit), so a write
@@ -125,7 +149,17 @@ async function main() {
     );
     process.stdout.write('PROBE PASS: all legs green\n');
   } finally {
-    await removeWorkspaceIfClean(workspace, SENTINEL_NAME);
+    // Removal only after a COMPLETED disposal: on a disposal failure
+    // the server may still be alive, and inspecting-then-deleting its
+    // workspace is exactly the race the dispose deadline refuses to
+    // paper over — the workspace stays in place as evidence instead.
+    if (disposed) {
+      await removeWorkspaceIfClean(workspace, SENTINEL_NAME);
+    } else {
+      process.stdout.write(
+        `workspace left in place as evidence (disposal did not complete): ${workspace}\n`,
+      );
+    }
   }
 }
 

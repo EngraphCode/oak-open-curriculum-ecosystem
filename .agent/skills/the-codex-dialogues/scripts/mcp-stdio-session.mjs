@@ -40,10 +40,16 @@ export class McpStdioSession {
     this.#child.stderr.resume();
     this.#child.stdout.setEncoding('utf8');
     this.#child.stdout.on('data', (chunk) => this.#onData(chunk));
-    // #ended resolves on EITHER exit or error: a spawn failure (ENOENT)
-    // emits 'error' and is never guaranteed a later 'exit', so a
-    // dispose() awaiting 'exit' alone can hang forever on a process
-    // that never started.
+    // #ended resolves on 'exit', plus on 'error' ONLY for a child
+    // that never spawned (no pid): a spawn failure (ENOENT) is never
+    // guaranteed a later 'exit', so a dispose() awaiting 'exit' alone
+    // can hang forever on a process that never started. A post-spawn
+    // 'error' is NOT proof the process ended — Node also emits it
+    // when killing an already-spawned child fails, and 'exit' may
+    // never follow — so treating it as termination would let
+    // dispose() return while the server is still alive, reopening the
+    // inspect-after-termination race it exists to close; that path
+    // surfaces through dispose()'s bounded deadline instead.
     this.#ended = new Promise((resolve) => {
       this.#endedResolve = resolve;
     });
@@ -52,7 +58,9 @@ export class McpStdioSession {
       this.#failAllPending(`server exited (code ${code})`);
     });
     this.#child.on('error', (error) => {
-      this.#endedResolve();
+      if (this.#child.pid === undefined) {
+        this.#endedResolve();
+      }
       this.#failAllPending(`server error: ${error.message}`);
     });
     // A write callback receives its own failure, but the stream ALSO
@@ -110,11 +118,14 @@ export class McpStdioSession {
 
   /**
    * Terminates the child and resolves only once it has actually ended:
-   * SIGTERM first, bounded SIGKILL escalation after 5s. An unawaited
-   * kill() lets a slow or SIGTERM-ignoring server outlive disposal and
-   * race the workspace inspection/removal that follows it. Awaits the
-   * constructor's exit-or-error promise, so a spawn-failed child (which
-   * may never emit 'exit') cannot hang disposal.
+   * SIGTERM first, bounded SIGKILL escalation after 5s, and a hard
+   * 15s deadline after which disposal FAILS LOUDLY instead of
+   * returning — a kill failure must never read as termination, or the
+   * workspace inspection that follows disposal races a live server.
+   * An unawaited kill() lets a slow or SIGTERM-ignoring server outlive
+   * disposal the same way. Awaits the constructor's
+   * exit-or-spawn-failure promise, so a spawn-failed child (which may
+   * never emit 'exit') cannot hang disposal.
    */
   async dispose() {
     this.#failAllPending('session disposed');
@@ -123,8 +134,32 @@ export class McpStdioSession {
     }
     this.#child.kill();
     const killTimer = setTimeout(() => this.#child.kill('SIGKILL'), 5_000);
-    await this.#ended;
-    clearTimeout(killTimer);
+    let deadlineTimer;
+    const deadline = new Promise((_, reject) => {
+      deadlineTimer = setTimeout(() => {
+        // The undead child's piped stdio keeps this process's event
+        // loop referenced, which would turn the loud failure into an
+        // announced HANG (the process never exits). Releasing the
+        // parent-side pipes and unref-ing frees the probe to exit
+        // non-zero; the child itself stays untouched as evidence.
+        this.#child.stdin.destroy();
+        this.#child.stdout.destroy();
+        this.#child.stderr.destroy();
+        this.#child.unref();
+        reject(
+          new Error(
+            'dispose: child still running 15s after SIGTERM (SIGKILL escalation failed) — ' +
+              'not treating as terminated',
+          ),
+        );
+      }, 15_000);
+    });
+    try {
+      await Promise.race([this.#ended, deadline]);
+    } finally {
+      clearTimeout(killTimer);
+      clearTimeout(deadlineTimer);
+    }
   }
 
   #onData(chunk) {

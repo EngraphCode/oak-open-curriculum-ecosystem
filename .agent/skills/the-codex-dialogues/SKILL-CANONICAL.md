@@ -97,12 +97,17 @@ to unrelated sessions is names-only.
    ToolSearch), STOP with the setup instruction above — never fail
    obscurely or fall back to another transport. Presence is not
    conformance: before proceeding, read the live registration's `codex`
-   entry (the local `.mcp.json`) and compare its `command` and `args`
-   against the tracked template VERBATIM — a legacy or user-level
-   `codex` entry without the launch pins runs every "disciplined" call
-   under broader process defaults and silently invalidates the
-   authority evidence. Any mismatch is a STOP: bring the registration
-   to the template, restart the session, re-run this check.
+   entry (the local `.mcp.json`) and compare the COMPLETE entry
+   against the tracked template VERBATIM — every field equal AND no
+   extra fields. `command`/`args` equality alone is not conformance: an
+   added `env` (e.g. `env.PATH` steering the launch to a different
+   `codex` binary than the one `codex --version` gates) or `cwd`
+   changes what actually runs while a partial check still passes, and
+   a legacy or user-level `codex` entry without the launch pins runs
+   every "disciplined" call under broader process defaults — either
+   way the authority evidence is silently invalidated. Any mismatch or
+   extra field is a STOP: bring the registration to the template,
+   restart the session, re-run this check.
 2. **Version gate.** Compare `codex --version` against the
    `codex_cli_version` pin in
    [`probe-record.md`](./probe-record.md). On ANY mismatch, STOP and run

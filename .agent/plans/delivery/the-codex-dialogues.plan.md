@@ -304,8 +304,11 @@ second consumer:
    a NARRATIVE event whose body is the canonical `key=value;` line
    the skill composes — the same body-encoding discipline the
    heartbeat substrate already uses — and field completeness is
-   enforced by the skill's composer and re-checked by the
-   analysis-side parser, leaving the comms schemas untouched in PR 1.
+   enforced by the skill's composer at close time; the analysis-side
+   parser that re-checks the corpus lands with the trial close-out
+   pass (it has nothing to read before dialogues exist), so the
+   composer's check is the only PR-1 enforcement, and the comms
+   schemas stay untouched in PR 1.
    Fields: dialogue id (the Codex thread id is NOT carried in the
    event — it is closed, never protocol-resumed, and operationally
    sensitive; a fresh opaque id is, and the thread id survives only in
