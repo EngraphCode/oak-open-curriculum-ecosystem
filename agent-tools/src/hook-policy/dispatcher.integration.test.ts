@@ -271,4 +271,26 @@ describe('dispatchPreToolUse', () => {
     expect(stderr.chunks).toHaveLength(1);
     expect(stderr.chunks[0]).toContain('did not match any policy route');
   });
+
+  it('fails closed on the Copilot toolArgs envelope: no production route matches it', async () => {
+    const stderr = collector();
+    const renderer = countingRender();
+
+    const result = await dispatchPreToolUse([...claudePolicyRoutes], renderer.render, {
+      stdin: stdinFromJson({
+        sessionId: 'copilot-session',
+        timestamp: 1_753_426_800_000,
+        cwd: '/repo',
+        toolName: 'create',
+        toolArgs: JSON.stringify({ path: '/repo/new-file.md', file_text: 'new file content' }),
+      }),
+      stdout: collector(),
+      stderr,
+    });
+
+    expect(result).toStrictEqual({ exitCode: 2 });
+    expect(renderer.rendered).toStrictEqual([]);
+    expect(stderr.chunks).toHaveLength(1);
+    expect(stderr.chunks[0]).toContain('did not match any policy route');
+  });
 });
