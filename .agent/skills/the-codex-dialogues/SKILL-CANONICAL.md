@@ -244,12 +244,13 @@ tool adds no new authority class); this skill's hard rule that dialogue
 calls never pass per-call authority parameters; the launch-arg defaults
 for every call that omits them.
 
-Probe-verified 2026-08-02 against codex-cli 0.146.0
-([`probe-record.md`](./probe-record.md)): a disciplined call's
-write-attempt turn produced NO WRITE on disk (sentinel verified absent,
-ENOENT-only; the interlocutor's refusal self-report is recorded
-verbatim as corroboration, not proof of the sandbox's internals). The
-`codex` tool schema ACCEPTS
+Probe-verified 2026-08-02 against the pinned `codex_cli_version` in
+[`probe-record.md`](./probe-record.md) (the version literal lives ONLY
+there — doctrine references it, never restates it): a disciplined
+call's write-attempt turn produced NO WRITE on disk (sentinel verified
+absent, ENOENT-only; the interlocutor's refusal self-report is
+recorded verbatim as corroboration, not proof of the sandbox's
+internals). The `codex` tool schema ACCEPTS
 per-call `sandbox` values including `danger-full-access` — the
 broadening surface exists; whether launch pins cap it is OPEN. The
 broadening negative control is OWNER-HELD per ADR-180: explicit owner

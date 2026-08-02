@@ -5,12 +5,16 @@ import { readRepoDocument } from '../../src/collaboration-state/test-helpers/rep
 /**
  * Lockstep pins for the codex mcp-server binding evidence (Sif Annex A).
  *
- * The probe record's `codex_cli_version` pin is machine-read by the probe
- * script's version gate, cited by the instrument skill's dialogue-open
- * check, and asserted by the Sif annex — four surfaces, one version. These
- * tests redden when any surface drifts from the record; fix all surfaces in
- * the same change alongside a reviewed probe re-run (ADR-078
- * helper-mediated committed-artefact reads).
+ * Design settled by the instrument's own first dialogue
+ * (dlg-20260802-lockstep-pins, outcome position-changed): the probe
+ * record's fenced `codex_cli_version` line is the CANONICAL version
+ * authority — machine-read by the probe script's version gate and by
+ * these tests. Dependent doctrine references that field through
+ * resolving links and never restates the literal, so these tests assert
+ * reference-PRESENCE (a semantic pointer exists), never value extraction
+ * from prose. Deliberately duplicated machine artefacts (the copy-paste
+ * registration template vs the script's launch args) stay whole-array
+ * equality-pinned. ADR-078 helper-mediated committed-artefact reads.
  */
 
 const RECORD_PATH = '.agent/skills/the-codex-dialogues/probe-record.md';
@@ -27,26 +31,33 @@ const PINNED_REGISTRATION_ARGS = [
   'approval_policy=never',
 ];
 
-async function recordedVersion(): Promise<string> {
-  const record = await readRepoDocument(RECORD_PATH);
-  return /^codex_cli_version: (\d+\.\d+\.\d+)$/m.exec(record)?.[1] ?? 'RECORD-PIN-MISSING';
-}
-
 describe('the-codex-dialogues probe evidence lockstep', () => {
-  it('pins the instrument skill probe citation to the recorded version', async () => {
-    const skill = await readRepoDocument(INSTRUMENT_SKILL_PATH);
-    const cited =
-      /Probe-verified \d{4}-\d{2}-\d{2} against codex-cli (\d+\.\d+\.\d+)/.exec(skill)?.[1] ??
-      'SKILL-CITATION-MISSING';
-    expect(cited).toBe(await recordedVersion());
+  it('parses a canonical codex_cli_version pin from the probe record', async () => {
+    const record = await readRepoDocument(RECORD_PATH);
+    const pin = /^codex_cli_version: (\d+\.\d+\.\d+)$/m.exec(record)?.[1] ?? 'RECORD-PIN-MISSING';
+    expect(pin).toMatch(/^\d+\.\d+\.\d+$/);
   });
 
-  it('pins the Sif Annex A citation to the recorded version', async () => {
+  it('keeps the instrument skill referencing the canonical pin, not restating it', async () => {
+    const skill = await readRepoDocument(INSTRUMENT_SKILL_PATH);
+    expect(skill, 'semantic pointer to the canonical field').toContain(
+      'the pinned `codex_cli_version` in',
+    );
+    expect(skill, 'resolving link to the record').toContain('](./probe-record.md)');
+    expect(skill, 'no restated version literal outside the record').not.toMatch(
+      /codex-cli \d+\.\d+\.\d+/,
+    );
+  });
+
+  it('keeps the Sif annex referencing the canonical pin, not restating it', async () => {
     const sif = await readRepoDocument(SIF_SKILL_PATH);
-    const cited =
-      /Verified first-hand \d{4}-\d{2}-\d{2} against codex-cli (\d+\.\d+\.\d+)/.exec(sif)?.[1] ??
-      'ANNEX-CITATION-MISSING';
-    expect(cited).toBe(await recordedVersion());
+    expect(sif, 'semantic pointer to the canonical field').toContain('`codex_cli_version`');
+    expect(sif, 'resolving link to the record').toContain(
+      '](../the-codex-dialogues/probe-record.md)',
+    );
+    expect(sif, 'no restated version literal outside the record').not.toMatch(
+      /codex-cli \d+\.\d+\.\d+/,
+    );
   });
 
   it('pins the tracked registration template to the exact launch contract', async () => {

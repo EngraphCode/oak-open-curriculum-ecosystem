@@ -121,9 +121,11 @@ authority to be obeyed.
 
 ## Annex A — binding: `codex mcp-server` (stdio)
 
-Verified first-hand 2026-08-02 against codex-cli 0.146.0 (probe record
-and runnable probe script live with the instrument:
-[`the-codex-dialogues/probe-record.md`](../the-codex-dialogues/probe-record.md),
+Verified first-hand 2026-08-02 against the pinned `codex_cli_version`
+in
+[`the-codex-dialogues/probe-record.md`](../the-codex-dialogues/probe-record.md)
+(the record is the sole holder of the version literal; the runnable
+probe lives beside it at
 [`the-codex-dialogues/scripts/probe-codex-mcp-server.mjs`](../the-codex-dialogues/scripts/probe-codex-mcp-server.mjs)):
 
 - Transport: stdio MCP server via
