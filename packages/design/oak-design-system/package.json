@@ -1,11 +1,18 @@
 {
   "name": "@oaknational/oak-design-system",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "private": true,
   "description": "The Oak design system — the estate's design source of truth (ADR-213): token CSS, class library, print layer, brand override contract, theme switcher, DTCG export, contrast manifest, consumption docs, specimens, and white-label proofs.",
   "license": "SEE LICENSE IN LICENCES.md",
   "scripts": {
-    "build:flat": "cat colors_and_type.css oak-icons.css components.css print.css > oak-flat.generated.css"
+    "build": "tsc -p tsconfig.build.json && prettier --write --log-level warn dist/oak-theme.js",
+    "build:flat": "cat colors_and_type.css oak-icons.css components.css print.css > oak-flat.generated.css",
+    "clean": "rm -rf dist .turbo",
+    "sync:runtime": "cp dist/oak-theme.js oak-theme.js",
+    "type-check": "tsc -p tsconfig.lint.json --noEmit",
+    "test": "vitest run",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   },
   "exports": {
     ".": "./styles.css",
@@ -19,5 +26,18 @@
     "./fonts/*": "./fonts/*",
     "./assets/*": "./assets/*",
     "./dtcg/*": "./dtcg/*"
+  },
+  "devDependencies": {
+    "@oaknational/eslint-plugin-standards": "workspace:*",
+    "@types/node": "^24.13.3",
+    "eslint": "^10.8.0",
+    "globals": "^17.7.0",
+    "happy-dom": "^20.11.1",
+    "prettier": "~3.9.6",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.10"
+  },
+  "engines": {
+    "node": "24.x"
   }
 }

@@ -1,4 +1,8 @@
+'use strict';
 /* oak-theme.js — tiny theme switcher for the Oak design system.
+   GENERATED from src/oak-theme.ts (tsc type-erasure only; comments survive).
+   Edit the source, then run the workspace build and sync:runtime scripts —
+   the committed root copy is byte-parity-gated by the workspace test suite.
    Themes: "light" (default) | "dark" | "system" | "high-contrast" | "colour-safe".
    Persists to localStorage("oak-theme"); applies before first paint when
    loaded synchronously in <head> as a script element with src "oak-theme.js".
@@ -8,48 +12,83 @@
    Access commitment: with no stored choice, an OS-level request for more
    contrast (prefers-contrast: more) gets the high-contrast theme
    automatically. An explicit user choice always wins.
-   API: oakTheme.set("dark"), oakTheme.get(), oakTheme.themes.
+   API: oakTheme.set("dark"), oakTheme.get(), oakTheme.choice(), oakTheme.themes.
+   choice() returns the EXPLICIT choice (this session's set() or the persisted
+   value) and null when none exists — get() collapses no-choice into the
+   applied theme by design (pre-paint application needs a concrete value), so
+   controls that must distinguish "chosen" from "applied" read choice().
    Motion axis (orthogonal to themes): oakTheme.motion.set("system"|"reduced"|"full"),
    .get(), .modes — persists to localStorage("oak-motion"); default follows the
-   OS prefers-reduced-motion; explicit choice wins (school-managed devices). */
+   OS prefers-reduced-motion; explicit choice wins (school-managed devices).
+   Motion has no choice(): "system" IS its no-choice semantic (no attribute). */
 (function () {
-  var KEY = 'oak-theme';
-  var THEMES = ['light', 'dark', 'system', 'high-contrast', 'colour-safe'];
+  const KEY = 'oak-theme';
+  const THEMES = ['light', 'dark', 'system', 'high-contrast', 'colour-safe'];
+  // Equality-form membership so the raw storage string narrows without a
+  // type assertion (ADR-153 §Membership Without Widening).
+  function isThemeName(s) {
+    return (
+      s !== null &&
+      THEMES.some(function (known) {
+        return known === s;
+      })
+    );
+  }
   // The applied-this-session value: keeps get() truthful when persistence
   // fails (private mode, quota) — applied state must never desync from get().
-  var current = null;
+  let current = null;
   function apply(t) {
-    var el = document.documentElement;
+    const el = document.documentElement;
     // Explicit choices (including "light") SET the attribute so they beat a
     // polarity-flipped brand default (see brand.css); no choice = no attribute.
-    if (!t) el.removeAttribute('data-theme');
-    else el.setAttribute('data-theme', t);
+    if (!t) {
+      delete el.dataset.theme;
+    } else {
+      el.dataset.theme = t;
+    }
   }
   function stored() {
     try {
-      var s = localStorage.getItem(KEY);
+      const s = localStorage.getItem(KEY);
       // A persisted value from another version (or corruption) is treated as
       // absent — only current members of THEMES may reach data-theme.
-      return THEMES.indexOf(s) === -1 ? null : s;
-    } catch (e) {
+      return isThemeName(s) ? s : null;
+    } catch {
       return null;
     }
   }
   function auto() {
     try {
-      if (window.matchMedia && matchMedia('(prefers-contrast: more)').matches)
+      // Runtime guard kept for engines without matchMedia (the DOM lib types
+      // it always-present; real browsers may not agree). The bare-identifier
+      // typeof read is safe even where the global was never declared.
+      if (typeof matchMedia === 'function' && matchMedia('(prefers-contrast: more)').matches) {
         return 'high-contrast';
-    } catch (e) {}
+      }
+    } catch {
+      return null;
+    }
     return null;
   }
   function get() {
     return current || stored() || auto() || 'light';
   }
+  // The explicit choice, or null when none exists. The kit-contract accessor
+  // (MCP-388): downstream stores render "no choice" honestly from this,
+  // instead of re-deriving the storage read (the applied value from get()
+  // cannot serve — the automatic contrast route also applies a theme).
+  function choice() {
+    return current || stored();
+  }
   function set(t) {
-    if (THEMES.indexOf(t) === -1) return;
+    if (!isThemeName(t)) {
+      return;
+    }
     try {
       localStorage.setItem(KEY, t);
-    } catch (e) {}
+    } catch {
+      // Persistence is best-effort: the in-memory choice below still wins.
+    }
     current = t;
     apply(t);
   }
@@ -59,34 +98,74 @@
   // must still win over an automatic theme change.
   try {
     matchMedia('(prefers-contrast: more)').addEventListener('change', function () {
-      if (!current && !stored()) apply(auto() || null);
+      if (!current && !stored()) {
+        apply(auto() || null);
+      }
     });
-  } catch (e) {}
-  window.oakTheme = { set: set, get: get, themes: THEMES.slice() };
-  var MKEY = 'oak-motion';
-  var MODES = ['system', 'reduced', 'full'];
-  var mcurrent = null;
-  function mapply(m) {
-    var el = document.documentElement;
-    if (!m || m === 'system') el.removeAttribute('data-motion');
-    else el.setAttribute('data-motion', m);
+  } catch {
+    // No matchMedia (or no event support): the pre-paint application above
+    // already ran; live OS contrast changes simply will not re-apply.
   }
-  function mget() {
-    if (mcurrent) return mcurrent;
-    try {
-      var s = localStorage.getItem(MKEY);
-      if (s && MODES.indexOf(s) !== -1) return s;
-    } catch (e) {}
-    return 'system';
+  // The motion axis is orthogonal to themes (see the header), so its whole
+  // assembly — keys, membership, application, persistence — lives here and
+  // only the finished API joins the runtime object below.
+  function createMotion() {
+    const MKEY = 'oak-motion';
+    const MODES = ['system', 'reduced', 'full'];
+    function isMotionMode(s) {
+      return (
+        s !== null &&
+        MODES.some(function (known) {
+          return known === s;
+        })
+      );
+    }
+    let mcurrent = null;
+    function mapply(m) {
+      const el = document.documentElement;
+      if (!m || m === 'system') {
+        delete el.dataset.motion;
+      } else {
+        el.dataset.motion = m;
+      }
+    }
+    function mget() {
+      if (mcurrent) {
+        return mcurrent;
+      }
+      try {
+        const s = localStorage.getItem(MKEY);
+        if (isMotionMode(s)) {
+          return s;
+        }
+      } catch {
+        return 'system';
+      }
+      return 'system';
+    }
+    function mset(m) {
+      if (!isMotionMode(m)) {
+        return;
+      }
+      try {
+        localStorage.setItem(MKEY, m);
+      } catch {
+        // Persistence is best-effort: the in-memory mode below still wins.
+      }
+      mcurrent = m;
+      mapply(m);
+    }
+    mapply(mget());
+    return { set: mset, get: mget, modes: MODES.slice() };
   }
-  function mset(m) {
-    if (MODES.indexOf(m) === -1) return;
-    try {
-      localStorage.setItem(MKEY, m);
-    } catch (e) {}
-    mcurrent = m;
-    mapply(m);
-  }
-  mapply(mget());
-  window.oakTheme.motion = { set: mset, get: mget, modes: MODES.slice() };
+  // Typed from the Window contract it fulfils, so the global declaration
+  // above and the assembled value cannot drift apart.
+  const runtime = {
+    set: set,
+    get: get,
+    choice: choice,
+    themes: THEMES.slice(),
+    motion: createMotion(),
+  };
+  window.oakTheme = runtime;
 })();

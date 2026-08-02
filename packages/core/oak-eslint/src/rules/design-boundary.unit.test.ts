@@ -132,4 +132,35 @@ describe('createDesignBoundaryRules', () => {
     expect(groups).toContain('@oaknational/agent-tools');
     expect(groups).toContain('@oaknational/env-resolution');
   });
+
+  it('keeps oak-design-system (the neutral trunk) independent of every design sibling and tier', () => {
+    const rules = createDesignBoundaryRules('oak-design-system');
+    const zones = getRestrictedPathZones(rules);
+    const groups = getRestrictedImportPatterns(rules).flatMap((pattern) => pattern.group);
+
+    // ADR-213 §4: the kit imports nothing from the monorepo at runtime; every
+    // design sibling is restricted — non-empty by construction (the exhaustive
+    // guard in boundary.ts makes a silent empty rule set unrepresentable).
+    expect(zones.some((zone) => zone.from === '../design-tokens-core/**')).toBe(true);
+    expect(zones.some((zone) => zone.from === '../oak-design-ink/**')).toBe(true);
+    expect(zones.some((zone) => zone.from === '../oak-design-tokens/**')).toBe(true);
+    expect(zones.some((zone) => zone.from === '../../../apps/**')).toBe(true);
+    expect(zones.some((zone) => zone.from === '../../../packages/sdks/**')).toBe(true);
+    expect(zones.some((zone) => zone.from === '../../../packages/libs/**')).toBe(true);
+    expect(zones.some((zone) => zone.from === '../../../agent-tools/**')).toBe(true);
+    expect(groups).toContain('@oaknational/design-tokens-core');
+    expect(groups).toContain('@oaknational/oak-design-ink');
+    expect(groups).toContain('@oaknational/oak-design-tokens');
+    expect(groups).toContain('@oaknational/oak-search-sdk');
+    expect(groups).toContain('@oaknational/agent-tools');
+    expect(groups).toContain('@oaknational/env-resolution');
+
+    // Unlike every other design workspace, the trunk also bars core — the
+    // shared design rules permit core packages, so both restriction forms
+    // must come from the kit's own branch (ADR-213 §4 zero-runtime contract).
+    expect(zones.some((zone) => zone.from === '../../core/**')).toBe(true);
+    expect(groups).toContain('@oaknational/result');
+    expect(groups).toContain('@oaknational/eslint-plugin-standards');
+    expect(groups).toContain('@oaknational/safe-path');
+  });
 });

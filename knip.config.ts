@@ -244,11 +244,15 @@ const config: KnipConfig = {
     },
     'packages/design/oak-design-system': {
       // The consumable surface stays analysed (owner ruling 2026-07-19:
-      // production code gets no analysis exceptions): oak-theme.js is the
-      // browser-loaded entry script. studio-source/ is the explicitly
-      // separated non-production studio material (see its README) and is
-      // the only part out of scope.
-      project: ['*.js'],
+      // production code gets no analysis exceptions). src/oak-theme.ts is
+      // the TypeScript source of the browser-loaded entry script — no
+      // importer exists by design, so it is declared as an entry rather
+      // than reported unused. The committed root oak-theme.js is its build
+      // output, kept in `project` because it is the file consumers actually
+      // load. studio-source/ is the explicitly separated non-production
+      // studio material (see its README) and is the only part out of scope.
+      entry: ['src/oak-theme.ts'],
+      project: ['src/**/*.ts', '*.js'],
     },
     'packages/design/oak-design-tokens': {
       // Source entry behind the dist-pointing `./terminal-theme` export

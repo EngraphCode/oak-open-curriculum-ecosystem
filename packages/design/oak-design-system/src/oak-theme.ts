@@ -1,4 +1,3 @@
-'use strict';
 /* oak-theme.js — tiny theme switcher for the Oak design system.
    GENERATED from src/oak-theme.ts (tsc type-erasure only; comments survive).
    Edit the source, then run the workspace build and sync:runtime scripts —
@@ -21,12 +20,33 @@
    .get(), .modes — persists to localStorage("oak-motion"); default follows the
    OS prefers-reduced-motion; explicit choice wins (school-managed devices).
    Motion has no choice(): "system" IS its no-choice semantic (no attribute). */
-(function () {
+
+// Script-kind source by design: no imports/exports, so tsc emits a classic
+// browser script (an ESM emit would break the synchronous pre-paint contract).
+// Top-level declarations in a script file merge into the global scope — the
+// Window augmentation below is the estate's canonical oakTheme typing.
+
+type OakThemeName = 'light' | 'dark' | 'system' | 'high-contrast' | 'colour-safe';
+type OakMotionMode = 'system' | 'reduced' | 'full';
+
+interface OakThemeRuntime {
+  set(t: OakThemeName): void;
+  get(): OakThemeName;
+  choice(): OakThemeName | null;
+  themes: OakThemeName[];
+  motion: { set(m: OakMotionMode): void; get(): OakMotionMode; modes: OakMotionMode[] };
+}
+
+interface Window {
+  oakTheme?: OakThemeRuntime;
+}
+
+(function (): void {
   const KEY = 'oak-theme';
-  const THEMES = ['light', 'dark', 'system', 'high-contrast', 'colour-safe'];
+  const THEMES: OakThemeName[] = ['light', 'dark', 'system', 'high-contrast', 'colour-safe'];
   // Equality-form membership so the raw storage string narrows without a
   // type assertion (ADR-153 §Membership Without Widening).
-  function isThemeName(s) {
+  function isThemeName(s: string | null): s is OakThemeName {
     return (
       s !== null &&
       THEMES.some(function (known) {
@@ -36,8 +56,8 @@
   }
   // The applied-this-session value: keeps get() truthful when persistence
   // fails (private mode, quota) — applied state must never desync from get().
-  let current = null;
-  function apply(t) {
+  let current: OakThemeName | null = null;
+  function apply(t: OakThemeName | null): void {
     const el = document.documentElement;
     // Explicit choices (including "light") SET the attribute so they beat a
     // polarity-flipped brand default (see brand.css); no choice = no attribute.
@@ -47,7 +67,7 @@
       el.dataset.theme = t;
     }
   }
-  function stored() {
+  function stored(): OakThemeName | null {
     try {
       const s = localStorage.getItem(KEY);
       // A persisted value from another version (or corruption) is treated as
@@ -57,7 +77,7 @@
       return null;
     }
   }
-  function auto() {
+  function auto(): OakThemeName | null {
     try {
       // Runtime guard kept for engines without matchMedia (the DOM lib types
       // it always-present; real browsers may not agree). The bare-identifier
@@ -70,17 +90,17 @@
     }
     return null;
   }
-  function get() {
+  function get(): OakThemeName {
     return current || stored() || auto() || 'light';
   }
   // The explicit choice, or null when none exists. The kit-contract accessor
   // (MCP-388): downstream stores render "no choice" honestly from this,
   // instead of re-deriving the storage read (the applied value from get()
   // cannot serve — the automatic contrast route also applies a theme).
-  function choice() {
+  function choice(): OakThemeName | null {
     return current || stored();
   }
-  function set(t) {
+  function set(t: OakThemeName): void {
     if (!isThemeName(t)) {
       return;
     }
@@ -109,10 +129,10 @@
   // The motion axis is orthogonal to themes (see the header), so its whole
   // assembly — keys, membership, application, persistence — lives here and
   // only the finished API joins the runtime object below.
-  function createMotion() {
+  function createMotion(): OakThemeRuntime['motion'] {
     const MKEY = 'oak-motion';
-    const MODES = ['system', 'reduced', 'full'];
-    function isMotionMode(s) {
+    const MODES: OakMotionMode[] = ['system', 'reduced', 'full'];
+    function isMotionMode(s: string | null): s is OakMotionMode {
       return (
         s !== null &&
         MODES.some(function (known) {
@@ -120,8 +140,8 @@
         })
       );
     }
-    let mcurrent = null;
-    function mapply(m) {
+    let mcurrent: OakMotionMode | null = null;
+    function mapply(m: OakMotionMode | null): void {
       const el = document.documentElement;
       if (!m || m === 'system') {
         delete el.dataset.motion;
@@ -129,7 +149,7 @@
         el.dataset.motion = m;
       }
     }
-    function mget() {
+    function mget(): OakMotionMode {
       if (mcurrent) {
         return mcurrent;
       }
@@ -143,7 +163,7 @@
       }
       return 'system';
     }
-    function mset(m) {
+    function mset(m: OakMotionMode): void {
       if (!isMotionMode(m)) {
         return;
       }
@@ -160,7 +180,7 @@
   }
   // Typed from the Window contract it fulfils, so the global declaration
   // above and the assembled value cannot drift apart.
-  const runtime = {
+  const runtime: NonNullable<Window['oakTheme']> = {
     set: set,
     get: get,
     choice: choice,
