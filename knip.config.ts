@@ -42,7 +42,8 @@ const config: KnipConfig = {
     // The design system's vanilla-JS theme runtime, tracked as a served asset:
     // the hub layout inlines it via readFileSync('public/oak-theme.js') — a
     // string path knip's module graph cannot see. Byte-parity with the
-    // workspace package is enforced by the hub's oak-theme-parity test.
+    // workspace package is enforced by the showcase's validate-kit-assets
+    // gate, whose manifest carries this copy alongside the showcase's own.
     'demos/oak-curriculum-hub/public/oak-theme.js',
     // The showcase's tracked copies of kit-authored served assets: the theme
     // runtime (inlined by the same string-path readFileSync shape) and the

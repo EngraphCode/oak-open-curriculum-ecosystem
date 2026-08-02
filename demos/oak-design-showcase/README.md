@@ -98,7 +98,10 @@ plain file read; the brand sheets are swapped by URL). The workspace
 package stays the single source: `pnpm validate-kit-assets` (chained into
 the root `repo-validators:check` gate) fails on any byte drift AND
 recomputes each sheet's local import/url() closure so an incompletely
-copied set fails loudly.
+copied set fails loudly. The manifest is repo-scoped, not
+showcase-scoped: it also carries the hub's serving copy of the theme
+runtime (`../oak-curriculum-hub/public/oak-theme.js`), so the whole
+copy-set has one guard home.
 
 ## No hardcoded design values
 

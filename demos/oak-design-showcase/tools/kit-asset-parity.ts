@@ -1,11 +1,14 @@
 /**
- * Pure helpers for the kit-asset parity validator: the declared manifest of
- * kit files this workspace serves as tracked copies, the local-CSS
- * dependency walker, and the closure check the validator uses to PROVE the
- * manifest complete (validators must recompute, not just record — a copy
- * whose sheet pulls in a sibling outside the manifest is an incomplete
- * copy even when every listed pair is byte-identical). Zero IO here:
- * validate-kit-assets.ts owns the filesystem.
+ * Pure helpers for the kit-asset parity validator: the repo's declared
+ * manifest of kit files served as tracked copies (the validator runs in the
+ * root repo-validators:check chain, so the manifest is repo-scoped — copy
+ * paths resolve from THIS workspace's root and may traverse into a sibling
+ * demo), the local-CSS dependency walker, and the closure check the
+ * validator uses to PROVE the manifest complete (validators must recompute,
+ * not just record — a copy whose sheet pulls in a sibling outside the
+ * manifest is an incomplete copy even when every listed pair is
+ * byte-identical). Zero IO here: validate-kit-assets.ts owns the
+ * filesystem.
  *
  * Accepted reference forms (each tested): `url(x)` with optional quotes
  * and interior whitespace, bare-quoted import targets, and import preludes
@@ -20,7 +23,11 @@ import { posix } from 'node:path';
 export interface KitAssetPair {
   /** Path relative to the design-system package root. */
   readonly source: string;
-  /** Path relative to this workspace root. */
+  /**
+   * Path resolved from the showcase workspace root (the manifest's
+   * resolution anchor, not a containment boundary — a `../` traversal into
+   * a sibling demo is a supported, deliberate shape).
+   */
   readonly copy: string;
 }
 
@@ -28,8 +35,12 @@ export interface KitAssetPair {
  *  the brand contract's own name (brand.css); its internal import of
  *  brand-a.css resolves against the served URL, so the sibling geometry is
  *  preserved by the copy layout. */
-export const SHOWCASE_KIT_ASSETS: readonly KitAssetPair[] = [
+export const KIT_ASSET_COPIES: readonly KitAssetPair[] = [
   { source: 'oak-theme.js', copy: 'public/oak-theme.js' },
+  // The hub's serving copy of the same runtime — a deliberate cross-demo
+  // row (owner disposition 2026-08-02): the copy-set has ONE guard home
+  // instead of a per-demo test-time fs read.
+  { source: 'oak-theme.js', copy: '../oak-curriculum-hub/public/oak-theme.js' },
   {
     source: 'studio-source/whitelabel/freedonia/brand-full.css',
     copy: 'public/brands/freedonia/brand.css',
