@@ -12,8 +12,8 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import { describe, expect, it, vi } from 'vitest';
 
-import { createOakThemeStore } from '@/lib/oak-theme-store';
-import type { OakThemeRuntime } from '@/lib/oak-theme-store';
+import { createOakThemeStore } from '@oaknational/oak-design-react';
+import type { OakMotionMode, OakThemeName, OakThemeRuntime } from '@oaknational/oak-design-react';
 
 import ThemeSwitcher from './ThemeSwitcher';
 
@@ -25,25 +25,29 @@ expect.extend(toHaveNoViolations);
 // bound, not a silent cap.
 const axeOptions = { rules: { 'color-contrast': { enabled: false } } };
 
-const THEMES = ['light', 'dark', 'system', 'high-contrast', 'colour-safe'];
-const MODES = ['system', 'reduced', 'full'];
+const THEMES: OakThemeName[] = ['light', 'dark', 'system', 'high-contrast', 'colour-safe'];
+const MODES: OakMotionMode[] = ['system', 'reduced', 'full'];
 
 function fakeRuntime(): {
   runtime: OakThemeRuntime;
   set: ReturnType<typeof vi.fn>;
   motionSet: ReturnType<typeof vi.fn>;
 } {
-  let theme = 'light';
-  let motion = 'system';
-  const set = vi.fn((t: string) => {
-    theme = t;
+  // Mirrors the real runtime's contract: set() records the in-memory
+  // current choice, which choice() reports; with no set() there is no
+  // explicit choice and choice() is null while get() collapses to light.
+  let current: OakThemeName | null = null;
+  let motion: OakMotionMode = 'system';
+  const set = vi.fn((t: OakThemeName) => {
+    current = t;
   });
-  const motionSet = vi.fn((m: string) => {
+  const motionSet = vi.fn((m: OakMotionMode) => {
     motion = m;
   });
   const runtime: OakThemeRuntime = {
-    get: () => theme,
+    get: () => current ?? 'light',
     set,
+    choice: () => current,
     themes: [...THEMES],
     motion: { get: () => motion, set: motionSet, modes: [...MODES] },
   };
@@ -58,7 +62,7 @@ function storeWith(runtime: OakThemeRuntime | undefined) {
   );
 }
 
-describe('ThemeSwitcher', () => {
+describe('ThemeSwitcher rendering contract', () => {
   it('offers all five themes and all three motion modes through labelled selects', async () => {
     const { runtime } = fakeRuntime();
     const store = storeWith(runtime);
@@ -67,11 +71,39 @@ describe('ThemeSwitcher', () => {
     const motionSelect = screen.getByLabelText('Motion');
     const themeValues = Array.from(themeSelect.querySelectorAll('option')).map((o) => o.value);
     const motionValues = Array.from(motionSelect.querySelectorAll('option')).map((o) => o.value);
-    expect(themeValues).toEqual(THEMES);
+    // Five themes plus the non-choosable "Page default" placeholder ('') —
+    // the truthful rendering of the no-choice snapshot. Motion has no
+    // placeholder: 'system' is its concrete no-choice semantic.
+    expect(themeValues).toEqual(['', ...THEMES]);
     expect(motionValues).toEqual(MODES);
     expect(await axe(container, axeOptions)).toHaveNoViolations();
   });
 
+  it('renders nothing when the oak-theme runtime is absent (theme-neutral HTML)', () => {
+    const store = storeWith(undefined);
+    const { container } = render(<ThemeSwitcher store={store} />);
+    expect(container.innerHTML).toBe('');
+  });
+
+  it('renders the Page default placeholder, never a blank control, with no explicit choice', () => {
+    // The choice model: with no explicit user choice the snapshot is '' —
+    // the select must read truthfully as the placeholder ("Page default"),
+    // not pin a concrete theme the page is not necessarily showing, and
+    // never render as a blank control (a controlled select with no matching
+    // option). Guard written red-first against the pre-choice-model hub.
+    const { runtime } = fakeRuntime();
+    const store = storeWith(runtime);
+    render(<ThemeSwitcher store={store} />);
+    const themeSelect = screen.getByLabelText<HTMLSelectElement>('Theme');
+    expect(themeSelect.value).toBe('');
+    const placeholder = Array.from(themeSelect.querySelectorAll('option')).find(
+      (option) => option.value === '',
+    );
+    expect(placeholder?.textContent).toBe('Page default');
+  });
+});
+
+describe('ThemeSwitcher write-through contract', () => {
   it('writes a theme choice through to the oak-theme runtime and reflects it', () => {
     const { runtime, set } = fakeRuntime();
     const store = storeWith(runtime);
@@ -90,11 +122,5 @@ describe('ThemeSwitcher', () => {
     fireEvent.change(motionSelect, { target: { value: 'reduced' } });
     expect(motionSet).toHaveBeenCalledWith('reduced');
     expect(motionSelect.value).toBe('reduced');
-  });
-
-  it('renders nothing when the oak-theme runtime is absent (theme-neutral HTML)', () => {
-    const store = storeWith(undefined);
-    const { container } = render(<ThemeSwitcher store={store} />);
-    expect(container.innerHTML).toBe('');
   });
 });

@@ -25,8 +25,14 @@ Adopt Option A (conventional) with clear directories:
     substrate, no vendor adapter nature)
   - adapter libs (`sentry-node`)
 - `packages/sdks/` – SDK packages (curriculum-sdk, oak-search-sdk)
-- `packages/design/` – design token workspaces producing CSS artefacts
-  (design-tokens-core, oak-design-tokens). See ADR-148.
+- `packages/design/` – design-tier workspaces (row trued 2026-08-02; the
+  original two-name enumeration had gone stale by three): `design-tokens-core`,
+  `oak-design-system`, `oak-design-tokens`, `oak-design-ink`,
+  `oak-design-assets`, and `oak-design-react` (the ADR-213 §3 React binding
+  tier). See ADR-148 and ADR-213.
+- `demos/` – demonstration apps consuming published package surfaces only
+  (`oak-curriculum-hub`, `oak-design-showcase`); never imported by packages
+  (row added 2026-08-02 — the directory predates it).
 - `agent-tools/` – optional TypeScript implementation of Practice-
   operational tooling (collaboration-state, commit-queue, agent-
   identity, comms CLIs). The phenotype boundary is set by ADR-165;
@@ -168,6 +174,25 @@ plus the sanctioned terminal-theme TS contract". `depcruise` and any lint
 rules deriving allowed-import sets must be regenerated for the new workspace;
 the executable update is sequenced in the implementing plan
 (design-system-integration, AIP-137), not in this ADR.
+
+Dated amendment (2026-08-02, the ADR-213 §3 tier landing — design-lane
+PR-2): `oak-design-react` joins `packages/design/` as the React binding
+tier, its name settled at this landing per ADR-213 §3. Edges:
+
+- `oak-design-react` may depend on `oak-design-system` only (the ADR-213 §4
+  tier edge). At this landing the edge is contract-only — the theme-store
+  adapter re-declares the `oakTheme` runtime interface rather than importing
+  the package (the kit ships no type declarations); the package import
+  materialises with the tier's first component.
+- No design workspace imports `oak-design-react`; the kit's zero-runtime
+  enumeration now names it (and `oak-design-assets`) in both boundary forms.
+- The demos consume `oak-design-react` for the shared `useSyncExternalStore`
+  theme-store adapter; the two prior in-demo copies are deleted at this
+  landing.
+- The design boundary inventory is machine-checked from this landing:
+  `DESIGN_PACKAGE_IMPORTS` (`packages/core/oak-eslint/src/rules/boundary.ts`)
+  must equal the live `packages/design/` inventory (the validate-boundaries
+  design leg).
 
 ## Links
 

@@ -1,8 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
-import { createOakThemeStore } from '../lib/oak-theme-store';
-import type { OakMotionMode, OakThemeName, OakThemeRuntime } from '../lib/oak-theme-store';
+import { createOakThemeStore } from '@oaknational/oak-design-react';
+import type { OakMotionMode, OakThemeName, OakThemeRuntime } from '@oaknational/oak-design-react';
 import Switchboard from './Switchboard';
 
 function fakeRuntimeWorld(): {
@@ -16,6 +16,8 @@ function fakeRuntimeWorld(): {
     set: (t: OakThemeName) => {
       applied = t;
     },
+    // Mirrors the real runtime: a set() through this session IS the choice.
+    choice: () => applied ?? null,
     themes: ['light', 'dark', 'system', 'high-contrast', 'colour-safe'],
     motion: {
       get: () => motion,

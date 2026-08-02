@@ -162,5 +162,39 @@ describe('createDesignBoundaryRules', () => {
     expect(groups).toContain('@oaknational/result');
     expect(groups).toContain('@oaknational/eslint-plugin-standards');
     expect(groups).toContain('@oaknational/safe-path');
+
+    // The sibling enumeration stays complete as the tier grows: the React
+    // binding tier and the assets package are barred in both forms too.
+    expect(zones.some((zone) => zone.from === '../oak-design-react/**')).toBe(true);
+    expect(zones.some((zone) => zone.from === '../oak-design-assets/**')).toBe(true);
+    expect(groups).toContain('@oaknational/oak-design-react');
+    expect(groups).toContain('@oaknational/oak-design-assets');
+  });
+
+  it('gives oak-design-react (the binding tier) exactly one design edge: the kit', () => {
+    const rules = createDesignBoundaryRules('oak-design-react');
+    const zones = getRestrictedPathZones(rules);
+    const groups = getRestrictedImportPatterns(rules).flatMap((pattern) => pattern.group);
+
+    // Every design-tier package EXCEPT the kit is restricted in both forms.
+    expect(zones.some((zone) => zone.from === '../design-tokens-core/**')).toBe(true);
+    expect(zones.some((zone) => zone.from === '../oak-design-ink/**')).toBe(true);
+    expect(zones.some((zone) => zone.from === '../oak-design-tokens/**')).toBe(true);
+    expect(zones.some((zone) => zone.from === '../oak-design-assets/**')).toBe(true);
+    expect(groups).toContain('@oaknational/design-tokens-core');
+    expect(groups).toContain('@oaknational/oak-design-ink');
+    expect(groups).toContain('@oaknational/oak-design-tokens');
+    expect(groups).toContain('@oaknational/oak-design-assets');
+
+    // The deliberate absence: the ADR-213 §4 map edge
+    // (oak-design-system → tier package) stays open in both forms.
+    expect(zones.some((zone) => zone.from === '../oak-design-system/**')).toBe(false);
+    expect(groups).not.toContain('@oaknational/oak-design-system');
+
+    // The shared design-workspace tiers still bind.
+    expect(zones.some((zone) => zone.from === '../../../apps/**')).toBe(true);
+    expect(zones.some((zone) => zone.from === '../../../packages/libs/**')).toBe(true);
+    expect(groups).toContain('@oaknational/oak-search-sdk');
+    expect(groups).toContain('@oaknational/agent-tools');
   });
 });

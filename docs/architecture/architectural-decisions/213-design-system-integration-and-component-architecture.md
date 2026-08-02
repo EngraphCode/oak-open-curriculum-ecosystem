@@ -395,6 +395,19 @@ need — the shape is decided here, packages only ever at need.
   fixtures-parity clauses carry dated amendments in THIS change, so no live plan
   encodes the superseded architecture.
 
+**Dated amendment (2026-08-02 — the tier landed as `@oaknational/oak-design-react`,
+design-lane PR-2):** the binding package is named at this landing per this section.
+Its first resident is non-visual: the shared `useSyncExternalStore` theme-store
+adapter (the MCP-388 `choice()` consumer), extracted from the two in-demo copies.
+The package ships with no React dependency — the adapter is factory-pure — and its
+kit edge is contract-only (a re-declared `OakThemeRuntime` interface; the kit ships
+no type declarations). The landing-sequence hard gate above is unchanged and stays
+ARMED: it binds the first COMPONENT export, and a store is not a component export;
+React, the ADR-147 gate extension, and the component seed arrive together at that
+later landing. The §4 map edge (`oak-design-system` → `oak-design-react`) exists
+from this landing in the boundary rules: the tier may import the kit, and nothing
+else in the design tier may import the tier.
+
 App-shell prerequisites for Base UI (Next 16 / React 19): `isolation: isolate` on the app root
 container (portal stacking) and `position: relative` on `body` (iOS 26+). Composed widgets are
 leaf `'use client'` files; pages and layouts stay server components.

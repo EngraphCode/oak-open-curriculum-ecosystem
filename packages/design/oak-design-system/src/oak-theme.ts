@@ -24,7 +24,9 @@
 // Script-kind source by design: no imports/exports, so tsc emits a classic
 // browser script (an ESM emit would break the synchronous pre-paint contract).
 // Top-level declarations in a script file merge into the global scope — the
-// Window augmentation below is the estate's canonical oakTheme typing.
+// Window augmentation below types this file's own assignment. The estate's
+// consumer-facing oakTheme typing is @oaknational/oak-design-react's
+// re-declared OakThemeRuntime (the single ambient declarer for consumers).
 
 type OakThemeName = 'light' | 'dark' | 'system' | 'high-contrast' | 'colour-safe';
 type OakMotionMode = 'system' | 'reduced' | 'full';

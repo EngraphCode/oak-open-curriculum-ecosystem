@@ -2,6 +2,7 @@ import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import {
   APP_PACKAGE_IMPORTS,
+  DESIGN_PACKAGE_IMPORTS,
   LIB_PACKAGES,
   SDK_PACKAGE_IMPORTS,
   TOOLING_PACKAGE_IMPORTS,
@@ -71,6 +72,13 @@ function main(): void {
     'SDK boundary inventory',
     [...SDK_PACKAGE_IMPORTS].sort((a, b) => a.localeCompare(b)),
     actualSdkPackageNames,
+  );
+
+  const actualDesignPackageNames = readWorkspacePackageNames('packages/design');
+  assertEqual(
+    'Design boundary inventory',
+    [...DESIGN_PACKAGE_IMPORTS].sort((a, b) => a.localeCompare(b)),
+    actualDesignPackageNames,
   );
 
   const toolingPackagePath = resolve(repoRoot, 'agent-tools/package.json');

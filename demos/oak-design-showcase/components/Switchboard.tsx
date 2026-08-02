@@ -29,8 +29,8 @@ import { typeSafeKeys } from '@oaknational/type-helpers';
 import { useSyncExternalStore } from 'react';
 import type { ReactElement } from 'react';
 
-import { oakThemeStore } from '../lib/oak-theme-store';
-import type { OakMotionMode, OakThemeName, OakThemeStore } from '../lib/oak-theme-store';
+import { oakThemeStore } from '@oaknational/oak-design-react';
+import type { OakMotionMode, OakThemeName, OakThemeStore } from '@oaknational/oak-design-react';
 import { LabelledSelect } from './LabelledSelect';
 import { useIdentity } from './useIdentity';
 
