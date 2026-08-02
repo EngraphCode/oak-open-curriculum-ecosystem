@@ -33,6 +33,29 @@ const senderWithId = deriveCollaborationIdentity({
   },
 }).agentId;
 
+/**
+ * Registry seed for the claim-anchored cases: heartbeats REQUIRE an
+ * active claim row (F-73's settled disposition; PDR-078 §4 — a standby
+ * neither needs nor can emit a heartbeat), and --thread only overrides
+ * the VALUE derived from that real row.
+ */
+function registryWithClaim(claimId: string, thread: string): CollaborationRegistry {
+  return {
+    schema_version: ACTIVE_CLAIMS_SCHEMA_VERSION,
+    commit_queue: [],
+    claims: [
+      {
+        claim_id: claimId,
+        agent_id: senderWithId,
+        thread,
+        areas: [{ kind: 'git', patterns: ['docs/test-branch'] }],
+        claimed_at: '2026-05-24T10:00:00Z',
+        intent: 'heartbeat claim-anchor seed',
+      },
+    ],
+  };
+}
+
 describe('comms heartbeat mode — ADR-186 lifecycle shape (append/send emitter)', () => {
   it('rejects --body argv on a heartbeat-tagged append (Lane A — PDR-078 §5 typed-origin)', async () => {
     const fake = createFakeCollaborationRuntime();
@@ -157,9 +180,13 @@ describe('comms heartbeat mode — ADR-186 lifecycle shape (append/send emitter)
     expect(result.stderr).toMatch(/--current-cycle-label/);
   });
 
-  it('emits the ADR-186 lifecycle shape with an explicit --thread via comms append --tag heartbeat', async () => {
+  it('emits the ADR-186 lifecycle shape with an explicit --thread overriding the real claim row value via comms append --tag heartbeat', async () => {
     const commsDir = 'state/comms';
-    const fake = createFakeCollaborationRuntime();
+    // The row exists (claim-anchored requirement) with a DIFFERENT thread —
+    // proving --thread overrides the derived value, never the row's existence.
+    const fake = createFakeCollaborationRuntime({
+      activeClaims: registryWithClaim('claim-7c3f', 'estate-registry-thread'),
+    });
 
     const result = await runCollaborationStateCli({
       argv: [
@@ -225,7 +252,9 @@ describe('comms heartbeat mode — ADR-186 lifecycle shape (append/send emitter)
 
   it('validates the emitted lifecycle heartbeat against the canonical comms-event schema', async () => {
     const commsDir = 'state/comms';
-    const fake = createFakeCollaborationRuntime();
+    const fake = createFakeCollaborationRuntime({
+      activeClaims: registryWithClaim('claim-7c3f', 'estate-registry-thread'),
+    });
 
     const result = await runCollaborationStateCli({
       argv: [
@@ -278,7 +307,7 @@ describe('comms heartbeat mode — ADR-186 lifecycle shape (append/send emitter)
     expect(validate(written), JSON.stringify(validate.errors)).toBe(true);
   });
 
-  it('rejects heartbeat mode without --thread when no active claim row matches --claim-id, naming both cures', async () => {
+  it('rejects heartbeat mode when no active claim row matches --claim-id (claim-anchored liveness, F-73 disposition)', async () => {
     const fake = createFakeCollaborationRuntime();
 
     const result = await runCollaborationStateCli({
@@ -319,13 +348,65 @@ describe('comms heartbeat mode — ADR-186 lifecycle shape (append/send emitter)
     });
 
     expect(result.exitCode).not.toBe(0);
-    expect(result.stderr).toMatch(/--thread <thread> explicitly/);
-    expect(result.stderr).toMatch(/claim id of an open claim/);
+    expect(result.stderr).toMatch(/require an active claim/);
+    expect(result.stderr).toMatch(/PDR-078 §4; F-73/);
+    expect(result.stderr).toMatch(/open a claim first/);
+    expect(fake.readCommsEvents('state/comms')).toStrictEqual([]);
+  });
+
+  it('rejects an explicit --thread when no active claim row matches --claim-id — --thread overrides the derived value, never the row requirement', async () => {
+    const fake = createFakeCollaborationRuntime();
+
+    const result = await runCollaborationStateCli({
+      argv: [
+        '--',
+        'comms',
+        'append',
+        '--active',
+        'state/active-claims.json',
+        '--comms-dir',
+        'state/comms',
+        '--now',
+        '2026-05-24T10:18:00Z',
+        '--created-at',
+        '2026-05-24T10:18:00Z',
+        '--title',
+        'Heartbeat: Test Agent — Test lane',
+        '--tag',
+        'heartbeat',
+        '--claim-id',
+        'claim-with-no-row',
+        '--intent-id',
+        'lane-test',
+        '--branch',
+        'docs/test-branch',
+        '--current-cycle-label',
+        'test-cycle',
+        '--thread',
+        'invented-thread',
+        '--platform',
+        'claude-code',
+        '--model',
+        sender.model,
+      ],
+      env: {
+        OAK_AGENT_IDENTITY_OVERRIDE: sender.agent_name,
+        PRACTICE_AGENT_SESSION_ID_CLAUDE: sender.session_id_prefix,
+      },
+      io: fake.runtime.io,
+    });
+
+    expect(result.exitCode).not.toBe(0);
+    expect(result.stderr).toMatch(/require an active claim/);
     expect(fake.readCommsEvents('state/comms')).toStrictEqual([]);
   });
 
   it('rejects a whitespace-only --thread in heartbeat mode with a cure-naming error', async () => {
-    const fake = createFakeCollaborationRuntime();
+    // A real row is seeded so the emptiness gate (which sits BEHIND the
+    // claim-anchored row requirement) is the check actually reached.
+    const fake = createFakeCollaborationRuntime({
+      activeClaims: registryWithClaim('claim-7c3f', 'estate-registry-thread'),
+    });
 
     const result = await runCollaborationStateCli({
       argv: [

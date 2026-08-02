@@ -1,6 +1,9 @@
 # ADR-186: Comms-Event Heartbeat Lifecycle Substrate
 
-**Status**: Accepted 2026-05-24
+**Status**: Accepted 2026-05-24; amended in place 2026-08-02
+(migration executed — implemented superset predicate recorded,
+tag retention made mandatory until closure, closure cycle
+retargeted; dated notes inline)
 **Date**: 2026-05-24
 **Related**:
 PDR-078 (liveness-heartbeat contract — the portable genotype this
@@ -80,13 +83,16 @@ The chosen realisation for this repository:
 - **Event sub-kind**: `event_type='heartbeat'`. The `event_type`
   field is open-string with `minLength: 1` per the existing
   schema; no schema amendment is required to admit the new value.
-- **Tag composition**: an emitted heartbeat MAY also carry
-  `tags: ["heartbeat"]` per ADR-183's namespace during the
-  transition window; once all emitters use `lifecycle +
-event_type='heartbeat'`, the tag becomes redundant on heartbeat
-  events specifically (but the tag remains valid for other event
-  kinds that want to carry heartbeat semantics for compositional
-  reasons).
+- **Tag composition** (restated 2026-08-02 at emitter migration):
+  an emitted heartbeat MUST also carry `tags: ["heartbeat"]` per
+  ADR-183's namespace until the §Migration-discipline closure
+  signal fires — the tag is what keeps F-146 watcher tag
+  exclusion, the `[HEARTBEAT]` render token, and pre-migration
+  tag-only consumers working through the window, so dropping it
+  early breaks all three. Only at closure does the tag become
+  redundant on heartbeat events specifically (it remains valid
+  for other event kinds that carry heartbeat semantics
+  compositionally).
 - **Identity discipline**: per PDR-027 + PDR-076a, every
   heartbeat carries the emitting agent's identity tuple `(agent_name,
 platform, model, session_id_prefix)` in the standard
@@ -194,12 +200,19 @@ comms-event stream confirms zero recent `narrative + tags:
 ["heartbeat"]` events across one full team-session cycle. At
 that point a follow-on tidy cycle removes the dual-filter
 predicate's TAG clause (restated 2026-08-02 against the
-implemented superset predicate below — removing it from the
+implemented superset predicate above — removing it from the
 shared `isHeartbeatEvent` updates every consumer in one move),
-drops the tag from the emitter, and introduces the
+drops the tag from the emitter, introduces the
 lifecycle-special-case `[HEARTBEAT]` render token the tag path
-currently supplies. Until that closure cycle lands, consumers
-carry the dual filter and emitters retain the tag.
+currently supplies, and gives the F-146 watcher tag-exclusion
+mechanism a successor keyed on the lifecycle discriminator —
+exclusion is purely tag-keyed, so a tagless lifecycle heartbeat
+would otherwise re-flood every seat running the sanctioned
+`--exclude-tag heartbeat` configuration (F-146 is a cured
+friction, and hand-rolled watcher-boundary suppression is
+rule-forbidden, so no seat could patch around the regression).
+Until that closure cycle lands, consumers carry the dual filter
+and emitters retain the tag.
 
 ## Rationale
 
@@ -260,9 +273,9 @@ event_type='heartbeat'` shape; the substrate names the
   `event_type='claim-rebalance'` for retirement-rebalance
   moments) land without schema or renderer amendments.
 - Consolidation surfaces (PDR-014 capture → distil pipeline) can
-  filter the comms stream cleanly by `kind='lifecycle' AND
-event_type='heartbeat'` rather than by tag-string match against
-  narrative events.
+  filter the comms stream cleanly by
+  `kind='lifecycle' AND event_type='heartbeat'` rather than by
+  tag-string match against narrative events.
 - PDR-078's portable contract is honoured by this repo's
   phenotype without forcing other host repos to adopt the same
   realisation. A host repo with a different substrate (e.g. no
@@ -336,22 +349,26 @@ acceptance criteria:
    operational shape). When lifecycle-shaped heartbeats land, the
    renderer's tolerate-unknown rule guarantees they continue to
    surface, with the conventional `[HEARTBEAT]` token introduced
-   per the render rule above.
+   per the render rule above. (Superseded in part 2026-08-02: the
+   emitter migration landed — lifecycle-shaped heartbeats are now
+   the emitted shape and render `[LIFECYCLE] [HEARTBEAT]` via the
+   retained tag.)
 4. The ADR index at
    `docs/architecture/architectural-decisions/README.md` includes
    the ADR-186 entry.
 5. `pnpm check` passes; `pnpm --filter @oaknational/agent-tools
 test` passes.
 
-The lifecycle-shape first-instance emission (an actual `lifecycle
-
-- event_type='heartbeat'` event in the comms stream) is a Cycle 8
-  verification step concurrent with PDR-078 ratification, not an
-  ADR-186 prerequisite. ADR-186's substrate guarantees are
-  validated against the schema and renderer surfaces that already
-  exist; the lifecycle emission lands when the canonical agent-tools
-  CLI heartbeat surface migrates to the typed constant per §What
-  this costs.
+The lifecycle-shape first-instance emission (an actual
+`lifecycle + event_type='heartbeat'` event in the comms stream)
+is a Cycle 8 verification step concurrent with PDR-078
+ratification, not an ADR-186 prerequisite. ADR-186's substrate
+guarantees are validated against the schema and renderer surfaces
+that already exist; the lifecycle emission lands when the
+canonical agent-tools CLI heartbeat surface migrates to the typed
+constant per §What this costs. (Done 2026-08-02: the CLI
+heartbeat surface migrated to the typed constant; lifecycle
+emissions follow as seats rebuild.)
 
 ## Notes
 

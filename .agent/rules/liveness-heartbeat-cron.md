@@ -82,9 +82,11 @@ authoritative source of substance.
   `heartbeat` tag RETAINED through the migration window (the tag keeps
   F-146 exclusion, the `[HEARTBEAT]` render token, and unrebuilt
   seats' tag-only consumers working). The lifecycle envelope needs a
-  `thread`: omitted, it derives from the active claim row named by
-  `--claim-id`; `--thread` overrides for F-73 standby/placeholder
-  claim-ids. Legacy `narrative + tags: ["heartbeat"]` events stay
+  `thread`, derived from the active claim row named by `--claim-id` —
+  the row is REQUIRED (heartbeats are claim-anchored liveness; a
+  standby neither needs nor can emit one, per §Exemptions below and
+  F-73's settled disposition), and `--thread` overrides only the
+  derived value. Legacy `narrative + tags: ["heartbeat"]` events stay
   valid during the window, and every consumer counts BOTH shapes via
   the shared dual filter (ADR-186 §Migration discipline). The
   identity-tuple subject-line format:

@@ -33,8 +33,8 @@ export const commsAppendHelp =
   'args instead — --body and --body-file are rejected, and --claim-id <id> ' +
   '--intent-id <id> --branch <branch> --current-cycle-label <label> are required; ' +
   'the event lands as kind=lifecycle event_type=heartbeat (ADR-186), tag retained; ' +
-  '--thread <thread> optional — omitted, it derives from the active claim named ' +
-  'by --claim-id; --in-response-to is rejected in heartbeat mode)';
+  'the active claim row named by --claim-id is REQUIRED (PDR-078 §4 / F-73) and ' +
+  '--thread <thread> overrides only its derived thread; --in-response-to is rejected)';
 
 export const commsSendHelp =
   'comms send --title <title> (--body <body> | --body-file <path>) ' +
@@ -50,8 +50,8 @@ export const commsSendHelp =
   'args instead — --body and --body-file are rejected, and --claim-id <id> ' +
   '--intent-id <id> --branch <branch> --current-cycle-label <label> are required; ' +
   'the event lands as kind=lifecycle event_type=heartbeat (ADR-186), tag retained; ' +
-  '--thread <thread> optional — omitted, it derives from the active claim named ' +
-  'by --claim-id; --in-response-to is rejected in heartbeat mode) ' +
+  'the active claim row named by --claim-id is REQUIRED (PDR-078 §4 / F-73) and ' +
+  '--thread <thread> overrides only its derived thread; --in-response-to is rejected) ' +
   '(identity seed: PRACTICE_AGENT_SESSION_ID_CLAUDE, ' +
   'PRACTICE_AGENT_SESSION_ID_CURSOR, PRACTICE_AGENT_SESSION_ID_GEMINI, ' +
   'PRACTICE_AGENT_SESSION_ID_CODEX, CODEX_THREAD_ID, Antigravity conversationId, ' +
