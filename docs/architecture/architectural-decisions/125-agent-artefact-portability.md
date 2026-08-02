@@ -58,7 +58,7 @@ Live skill counts surface in the directory listing — counts in this ADR drift;
 
 ### Layer 2: Platform Adapters (thin wrappers)
 
-Each platform has thin wrappers that reference canonical content. Skill adapters are emitted by the `agent-tools:skills-adapter-generate` CLI; manual edits are forbidden by header comment in every emitted file. Owned skills carry a configurable prefix (default `oak-`) in adapter directories; ingested skills (recorded in `skills-lock.json`) keep their canonical name.
+Each platform has thin wrappers that reference canonical content. Skill adapters are emitted by the `agent-tools:skills-adapter-generate` CLI; manual edits are forbidden by header comment in every emitted file. Owned skills carry a configurable prefix (default `oak-`) in adapter directories. Vendored external skills (recorded in `skills-lock.json`) are not adapters and are not generated: they live directly in `.agents/skills/` under their upstream names and are never canonicalised (see §Externally installed skills).
 
 #### Cross-tool skill alias (`.agents/`)
 
@@ -233,9 +233,10 @@ configurable prefix in adapter directories. The source default is
 empty; the effective prefix `oak-` is passed explicitly via
 `--prefix=oak-` in `package.json` scripts (`pnpm skills:check`).
 Contributors who want a different prefix override at the call site.
-Ingested skills (recorded in `skills-lock.json`) keep their canonical
-name. The prefix is applied only at adapter emission; canonical
-identity is unprefixed.
+Vendored external skills (recorded in `skills-lock.json`) sit outside
+the prefix scheme entirely — they keep their upstream names in
+`.agents/skills/` and have no canonical. The prefix is applied only at
+adapter emission; canonical identity is unprefixed.
 
 | Platform                 | Invocation                   | Source                             |
 | ------------------------ | ---------------------------- | ---------------------------------- |
@@ -347,7 +348,7 @@ A trigger file MUST NOT:
 2. **Canonical filename**: the canonical body is named `SKILL-CANONICAL.md` — non-discoverable by every documented vendor scanner. Discovery filenames (`SKILL.md`) appear only in adapter directories.
 3. **Stable naming**: paired modes use explicit IDs (`start-right-quick`, `start-right-thorough`).
 4. **Supporting files**: optional `references/`, `scripts/`, `assets/` directories under canonical, copied bytewise into both adapter trees by the generator.
-5. **Owned vs ingested**: every canonical skill is either owned (`metadata.owned: true`) or ingested (recorded in `skills-lock.json`). Validator refuses both-or-neither.
+5. **Owned vs vendored**: every canonical skill under `.agent/skills/` is Oak-authored and Practice-governed. Third-party skills never become canonicals — they are vendored into `.agents/skills/` and recorded in `skills-lock.json` (see §Externally installed skills); the portability validator cross-references lock entries against the adapter tree.
 6. **Adapter surfaces**: exactly two — `.agents/skills/` (cross-tool alias, read by Cursor/Copilot CLI/Codex/Gemini/Amp) and `.claude/skills/` (Claude Code only). No other skill adapter surfaces are emitted.
 7. **Generator-mandatory**: adapters are emitted by `agent-tools:skills-adapter-generate`. Manual edits forbidden by header comment in every emitted file; drift gate fails CI on divergence.
 8. **No compatibility aliases**: canonical IDs are stable; only the configurable owned-skill prefix is applied at adapter emission.
@@ -507,14 +508,17 @@ external-skill vendoring class: installed under `.agents/skills/<id>/`
 (the cross-tool adapter surface), pinned in `skills-lock.json` (source,
 source type, content hash), with a `.claude/skills/<id>` symlink where
 the Claude surface needs it. Upstream keeps the maintenance burden; the
-lock's hash makes drift detectable; the portability validator
-cross-references the lock. This is ADR-189's distribution axis read
-inbound: vendored externals are packaging-tier residents, never
-category members of the Practice-governed core. Validation treats
-unlocked full content in adapter directories as drift; lock-pinned
-entries are the sanctioned class, and the adapter generator's `--clear`
-preserves them (refusing to run at all when the lock is unreadable,
-since generation cannot re-create vendored content).
+lock records provenance and a content hash, and the portability
+validator cross-references lock membership. Two checks are recorded
+here as named gaps, not claimed: nothing recomputes the content hash
+against the vendored tree, and nothing yet reports unlocked full
+content appearing in adapter directories — both are candidate cures on
+the external-skill boundary workstream. This is ADR-189's distribution
+axis read inbound: vendored externals are packaging-tier residents,
+never category members of the Practice-governed core. The adapter
+generator's `--clear` preserves lock-pinned entries (refusing to run
+at all when the lock is unreadable, since generation cannot re-create
+vendored content).
 
 Retaining the vendor-installed source plugin alongside the vendored
 copy is a separate operational decision. The default is to remove or
@@ -684,9 +688,12 @@ the owner-invoked skill-creator install landed the same way on
 2026-08-02). The plugin-retention guidance from the
 original section remains valid and is preserved in place. In the same
 change, the adapter generator's `--clear` gained lock awareness (vendored
-externals are never removed; an unreadable lock refuses the clear) and a
-skipped canonical directory became a hard failure instead of a warning on a
-zero exit.
+externals are never removed; an unreadable lock or an unreadable surface
+refuses the clear) and a skipped canonical directory became a hard failure
+instead of a warning on a zero exit. The Layer 2 wrapper description, the
+prefix paragraph, and structural invariant 5 — which still described the
+abandoned canonicalise-ingested model — were updated to the vendored model
+in the same amendment, so the ADR carries one model for lock entries.
 
 ## References
 

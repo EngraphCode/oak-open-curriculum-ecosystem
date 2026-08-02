@@ -61,7 +61,11 @@ async function runGenerate(repoRoot: string, flags: CliFlags): Promise<number> {
       stderr.write(`--clear refused: ${lockResult.message}\n`);
       return 1;
     }
-    await clearGeneratedAdapters(repoRoot, lockResult.value);
+    const clearResult = await clearGeneratedAdapters(repoRoot, lockResult.value);
+    if (clearResult.kind === 'error') {
+      stderr.write(`--clear failed: ${clearResult.message}\n`);
+      return 1;
+    }
     stdout.write(
       `Cleared adapter directories (${String(lockResult.value.size)} lock-pinned preserved).\n`,
     );

@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import {
   clearGeneratedAdapters,
+  isMissingSurface,
   readLockedSkillIds,
   type ClearFs,
 } from '../../src/skills-adapter-generate/clear';
@@ -14,7 +15,7 @@ function makeClearFs(subdirectories: ReadonlyMap<string, readonly string[]>): {
   return {
     fs: {
       async listSubdirectoryNames(path) {
-        return subdirectories.get(path) ?? [];
+        return { kind: 'ok', names: subdirectories.get(path) ?? [] };
       },
       async removeDirectory(path) {
         removed.push(path);
@@ -35,8 +36,9 @@ describe('clearGeneratedAdapters', () => {
     const { fs, removed } = makeClearFs(surfaces);
     const lockedIds = new Set(['clerk', 'skill-creator']);
 
-    await clearGeneratedAdapters(repoRoot, lockedIds, fs);
+    const result = await clearGeneratedAdapters(repoRoot, lockedIds, fs);
 
+    expect(result).toEqual({ kind: 'ok' });
     expect(new Set(removed)).toEqual(
       new Set(['/repo/.claude/skills/oak-commit', '/repo/.agents/skills/oak-commit']),
     );
@@ -45,8 +47,9 @@ describe('clearGeneratedAdapters', () => {
   it('removes every subdirectory when the lock pins nothing', async () => {
     const { fs, removed } = makeClearFs(surfaces);
 
-    await clearGeneratedAdapters(repoRoot, new Set<string>(), fs);
+    const result = await clearGeneratedAdapters(repoRoot, new Set<string>(), fs);
 
+    expect(result).toEqual({ kind: 'ok' });
     expect(new Set(removed)).toEqual(
       new Set([
         '/repo/.claude/skills/oak-commit',
@@ -56,6 +59,36 @@ describe('clearGeneratedAdapters', () => {
         '/repo/.agents/skills/skill-creator',
       ]),
     );
+  });
+
+  it('aborts with an error and removes nothing when a surface cannot be listed', async () => {
+    const removed: string[] = [];
+    const fs: ClearFs = {
+      async listSubdirectoryNames() {
+        return { kind: 'error', message: 'cannot list /repo/.claude/skills: EACCES' };
+      },
+      async removeDirectory(path) {
+        removed.push(path);
+      },
+    };
+
+    const result = await clearGeneratedAdapters(repoRoot, new Set<string>(), fs);
+
+    expect(result.kind).toBe('error');
+    expect(removed).toEqual([]);
+  });
+});
+
+describe('isMissingSurface', () => {
+  it('classifies an absent surface (ENOENT) as missing — read as empty, not an error', () => {
+    expect(isMissingSurface({ code: 'ENOENT', message: 'no such file' })).toBe(true);
+  });
+
+  it('classifies every other failure as an error, never an empty surface', () => {
+    expect(isMissingSurface({ code: 'EACCES', message: 'permission denied' })).toBe(false);
+    expect(isMissingSurface({ code: 'ENOTDIR', message: 'not a directory' })).toBe(false);
+    expect(isMissingSurface(new Error('plain error, no code'))).toBe(false);
+    expect(isMissingSurface(undefined)).toBe(false);
   });
 });
 
