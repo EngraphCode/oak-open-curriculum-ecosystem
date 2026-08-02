@@ -503,126 +503,60 @@ export function createDesignBoundaryRules(designName: DesignPackage): Partial<Li
   };
   const restrictedDesignImportPatterns = buildRestrictedDesignImportPatterns();
   const buildRestrictedDesignPathZones = () => {
+    // Path-zone twin of the specifier branches above. Each zone derives its
+    // path and message from the sibling's package specifier (every design
+    // directory is the specifier without its scope), so a zone's path cannot
+    // drift from its own specifier. Membership stays hand-enumerated per
+    // member in BOTH builders; the pairwise design-boundary test enforces
+    // that parity.
+    const createDesignSiblingZones = (siblings: readonly DesignPackageImport[]) =>
+      siblings.map((sibling) => ({
+        target: './src/**' as const,
+        from: `../${sibling.slice('@oaknational/'.length)}/**`,
+        message: createDesignRestrictionMessage(sibling),
+      }));
     if (designName === 'design-tokens-core') {
-      return [
-        {
-          target: './src/**' as const,
-          from: '../oak-design-tokens/**' as const,
-          message: createDesignRestrictionMessage('@oaknational/oak-design-tokens'),
-        },
-        {
-          target: './src/**' as const,
-          from: '../oak-design-ink/**' as const,
-          message: createDesignRestrictionMessage('@oaknational/oak-design-ink'),
-        },
-        {
-          target: './src/**' as const,
-          from: '../oak-design-system/**' as const,
-          message: createDesignRestrictionMessage('@oaknational/oak-design-system'),
-        },
-        {
-          target: './src/**' as const,
-          from: '../oak-design-react/**' as const,
-          message: createDesignRestrictionMessage('@oaknational/oak-design-react'),
-        },
-        {
-          target: './src/**' as const,
-          from: '../oak-design-assets/**' as const,
-          message: createDesignRestrictionMessage('@oaknational/oak-design-assets'),
-        },
-      ];
+      return createDesignSiblingZones([
+        '@oaknational/oak-design-tokens',
+        '@oaknational/oak-design-ink',
+        '@oaknational/oak-design-system',
+        '@oaknational/oak-design-react',
+        '@oaknational/oak-design-assets',
+      ]);
     }
     if (designName === 'oak-design-tokens') {
-      return [
-        {
-          target: './src/**' as const,
-          from: '../oak-design-ink/**' as const,
-          message: createDesignRestrictionMessage('@oaknational/oak-design-ink'),
-        },
-        {
-          target: './src/**' as const,
-          from: '../oak-design-react/**' as const,
-          message: createDesignRestrictionMessage('@oaknational/oak-design-react'),
-        },
-        {
-          target: './src/**' as const,
-          from: '../oak-design-assets/**' as const,
-          message: createDesignRestrictionMessage('@oaknational/oak-design-assets'),
-        },
-      ];
+      return createDesignSiblingZones([
+        '@oaknational/oak-design-ink',
+        '@oaknational/oak-design-react',
+        '@oaknational/oak-design-assets',
+      ]);
     }
     if (designName === 'oak-design-ink') {
-      return [
-        {
-          target: './src/**' as const,
-          from: '../oak-design-system/**' as const,
-          message: createDesignRestrictionMessage('@oaknational/oak-design-system'),
-        },
-        {
-          target: './src/**' as const,
-          from: '../oak-design-react/**' as const,
-          message: createDesignRestrictionMessage('@oaknational/oak-design-react'),
-        },
-        {
-          target: './src/**' as const,
-          from: '../oak-design-assets/**' as const,
-          message: createDesignRestrictionMessage('@oaknational/oak-design-assets'),
-        },
-      ];
+      return createDesignSiblingZones([
+        '@oaknational/oak-design-system',
+        '@oaknational/oak-design-react',
+        '@oaknational/oak-design-assets',
+      ]);
     }
     if (designName === 'oak-design-react') {
       // No '../oak-design-system/**' zone: the §4 tier edge — see the
       // specifier branch above.
-      return [
-        {
-          target: './src/**' as const,
-          from: '../design-tokens-core/**' as const,
-          message: createDesignRestrictionMessage('@oaknational/design-tokens-core'),
-        },
-        {
-          target: './src/**' as const,
-          from: '../oak-design-ink/**' as const,
-          message: createDesignRestrictionMessage('@oaknational/oak-design-ink'),
-        },
-        {
-          target: './src/**' as const,
-          from: '../oak-design-tokens/**' as const,
-          message: createDesignRestrictionMessage('@oaknational/oak-design-tokens'),
-        },
-        {
-          target: './src/**' as const,
-          from: '../oak-design-assets/**' as const,
-          message: createDesignRestrictionMessage('@oaknational/oak-design-assets'),
-        },
-      ];
+      return createDesignSiblingZones([
+        '@oaknational/design-tokens-core',
+        '@oaknational/oak-design-ink',
+        '@oaknational/oak-design-tokens',
+        '@oaknational/oak-design-assets',
+      ]);
     }
     if (designName === 'oak-design-system') {
       return [
-        {
-          target: './src/**' as const,
-          from: '../design-tokens-core/**' as const,
-          message: createDesignRestrictionMessage('@oaknational/design-tokens-core'),
-        },
-        {
-          target: './src/**' as const,
-          from: '../oak-design-ink/**' as const,
-          message: createDesignRestrictionMessage('@oaknational/oak-design-ink'),
-        },
-        {
-          target: './src/**' as const,
-          from: '../oak-design-tokens/**' as const,
-          message: createDesignRestrictionMessage('@oaknational/oak-design-tokens'),
-        },
-        {
-          target: './src/**' as const,
-          from: '../oak-design-react/**' as const,
-          message: createDesignRestrictionMessage('@oaknational/oak-design-react'),
-        },
-        {
-          target: './src/**' as const,
-          from: '../oak-design-assets/**' as const,
-          message: createDesignRestrictionMessage('@oaknational/oak-design-assets'),
-        },
+        ...createDesignSiblingZones([
+          '@oaknational/design-tokens-core',
+          '@oaknational/oak-design-ink',
+          '@oaknational/oak-design-tokens',
+          '@oaknational/oak-design-react',
+          '@oaknational/oak-design-assets',
+        ]),
         {
           target: './src/**' as const,
           from: '../../core/**' as const,

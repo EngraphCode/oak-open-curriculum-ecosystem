@@ -101,3 +101,20 @@ correct. MISSING from the inventory: the factory CALL sites
 Both demos already depend on the kit (`workspace:*`); the sibling dep is a
 plain package.json + lockfile addition; neither demo has design-boundary
 ESLint rules to edit.
+
+## Round-1 supersession addendum (2026-08-02, additive)
+
+Blocking revisions 1 and 2 above record this PRE-EXECUTION review's verdict
+as adjudicated before the build, and the build landed them. Review round 1
+(opus gateway + Copilot, absorbed at `SHA:235f0211a`) then probe-proved the
+contrast-media mirror INERT under the ratified choice model: the kit's
+OS-contrast path writes only the applied attribute, never `choice()`, so no
+exposed snapshot could change on that trigger and every mirror
+re-notification bailed out of `useSyncExternalStore`. The capability those
+items protected (a select tracking the applied theme) is the conflation the
+choice model exists to cure, so round 1 deleted the mirror, the
+`resolveContrastQuery` factory parameter, and both lifecycle tests together;
+an applied-theme accessor (with a mirror that then has a consumer) lands at
+first materialised need. The round-1 disposition comment on PR #715 carries
+the adjudication. Items 1–2 are therefore historical (superseded by that
+probe); item 3 (the placeholder port) stands as landed.
