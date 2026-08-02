@@ -167,6 +167,7 @@ without proportional value.
 | `.agent/rules/subagent-practice-core-protection.md`                        | always-on      | —                                                                                                   |
 | `.agent/rules/tdd-for-refactoring.md`                                      | always-on      | —                                                                                                   |
 | `.agent/rules/test-immediate-fails.md`                                     | always-on      | —                                                                                                   |
+| `.agent/rules/third-party-skills-require-security-review.md`               | always-on      | —                                                                                                   |
 | `.agent/rules/unknown-is-type-destruction.md`                              | always-on      | —                                                                                                   |
 | `.agent/rules/use-agent-comms-log.md`                                      | always-on      | —                                                                                                   |
 | `.agent/rules/use-built-agent-tools-cli.md`                                | always-on      | —                                                                                                   |

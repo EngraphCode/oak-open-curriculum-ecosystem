@@ -1,0 +1,6 @@
+---
+description: No third-party skill, pack, or plugin enters the estate — vendored, installed, or lock-pinned — without a recorded security review of its executable content at the covered SHA; pin bumps re-fire the gate for changed executables; no default script execution.
+alwaysApply: true
+---
+
+Read and follow `.agent/rules/third-party-skills-require-security-review.md`.
