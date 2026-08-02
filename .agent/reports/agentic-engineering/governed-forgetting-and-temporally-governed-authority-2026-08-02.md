@@ -277,9 +277,9 @@ _affected-party standing_.
 
 “The Practice forgot X” is incomplete. A useful claim identifies:
 
-\[
+$$
 \mathcal{F}=\langle x,c,l,b,m,d,g,r,p,e\rangle
-\]
+$$
 
 where:
 
