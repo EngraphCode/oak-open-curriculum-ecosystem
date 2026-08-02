@@ -58,6 +58,11 @@ parallel scheme ADR-221 forbids.
 0. **WS0 — THE DEEP REFLECTION (owner word 2026-08-02: a shared scheme
    across all agentic levers "only if it adds value and makes sense,
    and what that scheme should be is a matter for deep reflection").**
+   OWNER PRIOR (card answer, 2026-08-02): the `cognition/` category
+   directory and the family-bundle shape the Parallax landing
+   introduced are DELIBERATE-BUT-CHALLENGEABLE — WS0 treats them as
+   the owner's prior, may recommend against them with evidence, and
+   he rules at the gate.
    A genuine multi-sitting concept-exploration at the Skills seat,
    starting from the exploration report's addendum tensions: (a) the
    HOMONYMY RISK — the levers differ in mode of action (a skill is
@@ -111,7 +116,39 @@ parallel scheme ADR-221 forbids.
    cricket's experiment-record (binding-tally authority) beside the
    tally with the skill keeping method + pointer; (c) regenerate and
    re-scope skill-composition.md as a derived view, its two
-   composition rules preserved as ratified doctrine.
+   composition rules preserved as ratified doctrine; (d) the
+   Oak-vs-external boundary (owner aside, 2026-08-02): no third-party
+   skills in `.agent/skills` — externals enter only via the
+   external-skill class in `.agents/skills` (lock-pinned, vendored;
+   the `skill add` philosophy) so upstream keeps the maintenance
+   burden and intent delineation stays clean. Core verified clean of
+   third-party skills at that date; the cure is a rule naming the
+   boundary plus a validator refusing third-party landings in core.
+6. **WS6 — Parallax family integration (owner word 2026-08-02; the
+   four asks below are verbatim lane scope).** The family is in-repo:
+   preservation draft PR #711 is the safety surface while the owner
+   keeps drafting; canonical landing happens through this workstream.
+   (a) LINK AUDIT: relative links inside the family are probably
+   slightly depth-incorrect after the nesting — audit every in-family
+   link, and rule whether such links are allowed in each file class
+   given the core-vs-vendor skills pattern (the docs link validator
+   passed the staged set at preservation, so any finding also names
+   the validator gap). (b) CONSISTENCY REVIEW: compare the RPIF
+   report and the skills for consistency within and between
+   themselves, and harvest report concepts that did not reach the
+   skills but would be beneficial in them in some form.
+   (c) RELATIONSHIP MAP: relate the Parallax skills to metacognition,
+   reason, concept-exploration, free-play, proportionality, and the
+   other cognitive skills — overlap, summons edges, grounding
+   direction. (d) MECHANICS: frontmatter reconciliation
+   (`metadata.owned/version/collection` vs `classification`);
+   adapter-generator extension for the nested family shape; the
+   Python-tools scoping ruling vs source-is-typescript-esm-only; the
+   family's eval-suite convention as a candidate general mechanism.
+   SEQUENCING (owner word): "the organisation of the skills directory
+   will make this work easier" — WS6's review legs (a–c) run
+   alongside WS0 as evidence-gathering that informs the reflection;
+   landing and any restructuring follow the WS0 ruling.
 
 ## Acceptance (falsifiable, from the report's own falsifiers)
 
