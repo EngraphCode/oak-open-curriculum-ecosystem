@@ -22,8 +22,11 @@ Operationalises
   concrete schema exists, `z.record(z.string(), z.unknown())`,
   or hand-crafted Zod schemas that duplicate generated shapes.
   `as const` and `satisfies SomeType` are permitted because they
-  tighten compile-time information instead of disabling it. See
-  `.agent/rules/no-type-shortcuts.md`.
+  tighten compile-time information instead of disabling it.
+  (Operationalises
+  [ADR-034](../architecture/architectural-decisions/034-system-boundaries-and-type-assertions.md)
+  and
+  [ADR-038](../architecture/architectural-decisions/038-compilation-time-revolution.md).)
 - **`unknown` is type destruction** — `unknown`, `z.unknown()`, and
   `Record<string, unknown>` erase structural type information.
   They are permitted only at named external boundaries and are

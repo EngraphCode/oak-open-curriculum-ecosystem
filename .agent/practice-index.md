@@ -70,7 +70,6 @@ Representative rules:
 | [read-diagnostic-artefacts-in-full.md](rules/read-diagnostic-artefacts-in-full.md) | Read complete diagnostic output before hypothesising |
 | [consolidate-at-second-consumer.md](rules/consolidate-at-second-consumer.md) | Canonicalise duplicated shapes at the second consumer |
 | [tdd-for-refactoring.md](rules/tdd-for-refactoring.md)     | Enforce RED → GREEN → REFACTOR during refactoring     |
-| [no-type-shortcuts.md](rules/no-type-shortcuts.md)         | Prevent type-erasing shortcuts and assertion drift    |
 | [invoke-code-experts.md](rules/invoke-code-experts.md) | Require the reviewer matrix after non-trivial changes |
 
 ### Collaboration State Surface

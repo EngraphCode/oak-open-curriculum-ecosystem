@@ -10,7 +10,7 @@
 [ADR-191](191-deterministic-data-surface-agent-reasons.md) — the consuming agent is the only reasoner over `structuredContent`;
 [ADR-038](038-compilation-time-revolution.md) — compilation-time strict typing via `as const` compile-time-known data;
 [ADR-141](141-mcp-apps-standard-primary.md) — MCP Apps standard as the only UI surface (the `_meta.ui` convention on tool results that egress functions produce).
-Operationalised by the rules `strict-validation-at-boundary`, `unknown-is-type-destruction`, `no-type-shortcuts`, `never-disable-checks`.
+Operationalised by the rules `strict-validation-at-boundary`, `unknown-is-type-destruction`, and `never-disable-checks`, and by `docs/governance/typescript-practice.md` §Compiler-time Types and Runtime Validation.
 
 ## Context
 
@@ -86,7 +86,7 @@ This boundary governs everything we hand to the MCP SDK — **tools** (`CallTool
 - **Give the domain type an index signature / `& Record<string, unknown>` so it is vendor-assignable.** Rejected: pulls the vendor's allow-anything shape into our strict domain type, inverting the boundary (the external contract belongs at the membrane, not in the domain).
 - **Thread strict types through executor/auth/registration to `server.registerTool` (the generic spine).** Maximally strict per line, but large complexity (generic transport chain + per-tool registration to defeat runtime union-dispatch) for type-purity in code whose currency is already the vendor type — no significant, clear value, so excluded by the governing principle.
 - **Fork or module-augment the SDK** to type `structuredContent` precisely. Rejected: do not control vendor internals. Upstream contribution is the legitimate path and is separate.
-- **`as` cast / runtime launder at the boundary.** Rejected: forbidden by `no-type-shortcuts`; the fresh-object egress construction achieves the crossing without them.
+- **`as` cast / runtime launder at the boundary.** Rejected: forbidden by the type-shortcuts prohibition (`docs/governance/typescript-practice.md` §Compiler-time Types and Runtime Validation); the fresh-object egress construction achieves the crossing without them.
 
 ## Open questions / future revision
 

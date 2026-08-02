@@ -82,8 +82,8 @@ baseline directive cost beyond the
 without proportional value.
 
 For a non-auto-loading platform, _relevant_ is mechanically decidable
-from this index alone: every `core` (always-on) row, plus any
-`situational` (trigger-loaded) row whose Trigger / Loading Signal
+from this index alone: every `core` row, plus any
+`situational` row whose Trigger / Loading Signal
 matches the session's work. Nothing else needs reading at session
 start; a situational rule loads at its trigger's moment.
 
@@ -159,7 +159,6 @@ start; a situational rule loads at its trigger's moment.
 | `.agent/rules/no-speed-pressure.md`                                        | core           | —                                                                                                                          |
 | `.agent/rules/no-tombstones-for-removed-ideas.md`                          | core           | —                                                                                                                          |
 | `.agent/rules/no-unbounded-host-load.md`                                   | core           | —                                                                                                                          |
-| `.agent/rules/no-type-shortcuts.md`                                        | core           | —                                                                                                                          |
 | `.agent/rules/no-verify-requires-fresh-authorisation.md`                   | core           | —                                                                                                                          |
 | `.agent/rules/no-warning-toleration.md`                                    | core           | —                                                                                                                          |
 | `.agent/rules/notion-page-edits-update-ledger.md`                          | situational    | tool:notion                                                                                                                |
