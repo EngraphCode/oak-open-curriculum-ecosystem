@@ -100,6 +100,13 @@ describe('the-codex-dialogues probe evidence lockstep', () => {
   it('pins the probe script launch args to the same contract, whole-array', async () => {
     const script = await readRepoDocument(PROBE_SCRIPT_PATH);
     const declaration = /const LAUNCH_ARGS = \[([\s\S]*?)\];/.exec(script)?.[1] ?? '';
+    // The literal extraction alone is blind to non-literal entries — a
+    // `...EXTRA_ARGS` spread would leave the extracted array identical to
+    // the pins while the probe launches extra arguments. Reject any
+    // residual syntax beyond quoted literals, commas, and whitespace
+    // BEFORE comparing, so the pin binds the whole declaration.
+    const residue = declaration.replaceAll(/'[^']*'/g, '').replaceAll(/[\s,]/g, '');
+    expect(residue, 'LAUNCH_ARGS must contain only quoted string literals').toBe('');
     const args = [...declaration.matchAll(/'([^']*)'/g)].map((entry) => entry[1]);
     expect(args).toStrictEqual(PINNED_REGISTRATION_ARGS);
   });
