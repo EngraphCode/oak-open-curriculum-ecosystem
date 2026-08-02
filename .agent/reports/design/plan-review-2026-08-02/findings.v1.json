@@ -1,0 +1,1104 @@
+{
+ "run_id": "wf_b02eb59a-e81",
+ "reviewed_commit": "6f3221e1e",
+ "agents": 31,
+ "subagent_tokens": 2891061,
+ "logs": [
+  "landscape: 51 raw findings, 51 after dedupe",
+  "verify cap: 31 lowest-order findings dropped at the cap - listed in the return",
+  "verify: 10 of 20 findings survive",
+  "experts: 80 findings; frame: 8"
+ ],
+ "result": {
+  "landscapeSurvivors": [
+   {
+    "severity": "important",
+    "section": "W3 \u2014 The showcase, rebuilt to the wow bar",
+    "claim": "Export pages enumeration and coverage acceptance criteria missing",
+    "evidence": "W3.2 requires 'Express ALL export pages' but the plan does not enumerate which pages exist in the design system export file. The acceptance criteria for W3 (section 'Acceptance: coverage matrix 100% or each gap owner-accepted') refers to the feature-coverage matrix defined in W3.4, which explicitly covers 'every W0.1 census feature' (kit features), not pages from the design export. Only three example pages are named: Identity Switchboard, Identity White-Labelling, Example Front Pages. No acceptance criterion states 'all N export pages are demonstrated in the showcase' or links page coverage to the coverage matrix.",
+    "suggested_cure": "Add to W3.4 acceptance criteria an explicit statement like 'coverage matrix includes all export pages from the design system export file enumerated in W0; each page demonstrated or explicitly deferred with owner acceptance.' Alternatively, clarify in W3.2 which specific export pages must be expressed, or create an acceptance criterion in W0 (perhaps W0.3 Demos Charter) that enumerates all export pages and confirms their assignment to demo apps with a citation in the coverage matrix.",
+    "lens": "completeness",
+    "verdict": {
+     "verified": true,
+     "corrected_severity": "important",
+     "reason": "Confirmed first-hand against the plan file at commit 6f3221e1e (full text read, W0/W1/W2/W3 sections and acceptance bullets) and against the actual export directory (packages/design/design-import/claude-design/Oak Open Curriculum Design System/, mirrored at packages/design/oak-design-system/). The export contains ~80 distinct page-level HTML files: 3 top-level pages (Identity Switchboard, Identity White-Labelling, Example Front Pages), ~65 files under preview/ (buttons, colors-*, spacing, radii, motion, type-*, tabs, modal, a11y-charter, etc.), plus templates/lesson-deck, templates/worksheet, ui_kits/oak/index.html, whitelabel/creature/{index,card}, whitelabel/freedonia/{index,card}, whitelabel/specimen.html, integrations/revealjs, docs/headless-a11y-frameworks.html, and thumbnail.html. W3.2 names only the 3 top-level pages under \"Express ALL export pages,\" with no census or count backing the \"ALL\" claim. W3.4's feature-coverage matrix is explicitly scoped to \"every W0.1 census feature\" (kit features: tier-1/tier-2 tokens, component class library, themes, composition tokens, print/deck/worksheet targets \u2014 not a page inventory), and W3's other acceptance bullet, \"fidelity register against the export with every divergence dispositioned,\" checks fidelity of pages that ARE demonstrated, not completeness of the page set. No acceptance criterion anywhere in W3 (or W0.1's census, which is feature-scoped not page-scoped) requires or checks that every export page is represented or explicitly deferred. This is a real gap against a verbatim, emphasized owner requirement (point 4: \"including all pages from the design system export\"), and it recreates the exact failure class the plan's own Quality-bar section says it is curing (\"every prior gate was machine-checkable and nothing forced anyone to look\") \u2014 nothing here is checkable. Severity corrected to \"important\": it does not block W0\u2013W2 execution and is fixable by adding an explicit page census/enumeration item plus a page-coverage acceptance line before W3 lands, but left as-is it lets the showcase pass its own gates while still missing dozens of the export's compositional pages (templates, whitelabel demos, ui_kits index) that were never named or dispositioned."
+    }
+   },
+   {
+    "severity": "minor",
+    "section": "W0 \u2014 Ground truth, stabilise, charter",
+    "claim": "Export-pages inventory not captured as workstream deliverable",
+    "evidence": "W0.1 Feature census documents 'every kit feature' but does not enumerate export pages. The Demos Charter (W0.3) is assigned to document 'the assignment table' but the plan does not require W0.3's acceptance to include 'enumeration of all export pages with assignment to demo.' This creates a risk that the executing seat may discover mid-execution that export pages were not comprehensively scoped.",
+    "suggested_cure": "Add to W0.1 or W0.3 acceptance criteria: 'all pages in the design system export file enumerated and assigned to one or more of the four demos (hub, showcase, plain, styled-components) with rationale for any pages assigned to demos outside the showcase.'",
+    "lens": "completeness",
+    "verdict": {
+     "verified": true,
+     "corrected_severity": "important",
+     "reason": "Confirmed against the plan at 6f3221e1e and the actual export directory (packages/design/oak-open-curriculum-design-system-tna-24072026-1141/project/). W0.1 (Feature census, lines 98-102) is explicitly feature-scoped \u2014 tier-1/2 tokens, component classes, themes, print/deck/worksheet targets, icons, DTCG source \u2014 with no 'page' as a census unit. W0.3 (Demos Charter, lines 106-112) is explicitly scoped to the demo-assignment table (which of the four demos shows what), not to a page-level inventory. Neither W0 story's acceptance criterion (lines 119-120: 'census checklist committed... charter landed and cited from all four demo READMEs') requires a verified enumeration of export pages. The only place the plan actually names export pages is W3.2 ('Express ALL export pages... Identity Switchboard, Identity White-Labelling, Example Front Pages') and W4.1 ('the export's three pages re-pointed at the live workspace kit') \u2014 both at execution time, not at W0 ground-truth time, and both asserting a count of exactly three. First-hand inspection of the export directory shows this is already an undercount: alongside the three named HTML files, the export's own README file-index (and its 'Starting points' prose) names `ui_kits/oak/index.html` as 'a full homepage reference build' \u2014 a distinct page-level artifact not enumerated anywhere in the plan \u2014 plus `thumbnail.html` and `whitelabel/*` proof pages. So the risk the reviewer frames as hypothetical ('may discover mid-execution') has already manifested: the plan's own page count is wrong in two places (W3.2, W4.1), and no W0 deliverable exists to catch it, against the owner's explicit numbered requirement #4, 'ALL pages from the design system export.' Downgraded from a stricter reading toward important rather than blocking because backstops exist that would eventually surface the gap (W3.4's fidelity register against the export, and its coverage matrix), so the plan isn't unexecutable as written \u2014 but the gap is real, first-hand-confirmed, and should be cured by adding an explicit page-inventory deliverable to W0.1 or W0.3 and correcting the 'three pages' undercount before W3/W4 execution."
+    }
+   },
+   {
+    "severity": "minor",
+    "section": "Frontmatter / Owner Gates",
+    "claim": "W1 off-horizontal design-input gate does not explicitly block W1.1/W1.3 story starts",
+    "evidence": "The plan states W1.3 is 'Blocked only on the owner design-input gate (frontmatter),' and the gate section records: 'W1 off-horizontal design input... Scheduled by the executing seat when W1 opens; W1's other stories do not block on it.' This creates potential for W1.1 (Identity schema) to complete without waiting for off-horizontal token definitions, then W1.3 to backfill. No explicit acceptance criterion in W1 requires the schema to include off-horizontal token shape before W1.1 acceptance.",
+    "suggested_cure": "Clarify in W1.1 acceptance criteria: 'Identity schema includes token shapes for off-horizontal dimensions (rotation, tilt) with placeholder values pending W1.3 owner input, validated structurally but not functionally tested until W1.3 completes.' Or gate W1.1 acceptance on W1.3 completion with owner input.",
+    "lens": "completeness",
+    "verdict": {
+     "verified": true,
+     "corrected_severity": "minor",
+     "reason": "Both quotes are verified verbatim in the plan at commit 6f3221e1e. Frontmatter owner_gates (lines 29-36): \"W1 off-horizontal design input: ... Scheduled by the executing seat when W1 opens; W1's other stories do not block on it.\" W1.3 (lines 131-134): \"Off-horizontal dimension: ... Blocked only on the owner design-input gate (frontmatter); scaffold the token shape first so the session prices real options.\" W1's acceptance line (140-143) reads only \"schema validates all three live identities; the \u2116N falsifier demonstrably fails on a framework-code touch...; matrix gate wired into `pnpm check`\" \u2014 no clause ties off-horizontal token shape to W1.1's schema acceptance.\n\nSo the underlying facts are accurate: nothing in the plan text forces W1.1 (Identity schema) to include or wait for the off-horizontal token shape that W1.3 introduces, and only W1.3's own bullet \u2014 not an acceptance criterion \u2014 carries the \"scaffold the token shape first\" mitigation. This is a real gap in plan precision.\n\nHowever the claimed severity is overstated. The plan already names the mitigation explicitly (\"scaffold the token shape first so the session prices real options\"), which is precisely the mechanism that avoids the rework scenario the reviewer worries about. W1.1's schema is explicitly designed to be data-extensible (\"Adding a theme is data, not code\"), so a later-arriving off-horizontal field is a natural extension, not a breaking backfill. No owner requirement is violated \u2014 Freedonia's off-horizontal grammar and Oak's zero value are still guaranteed by W1.3 and the W1.4 gate matrix regardless of story ordering. And the plan uses workstream-level (not per-story) acceptance criteria throughout, so this isn't a special omission unique to W1.1/W1.3 \u2014 it's the document's uniform granularity. This reads as a minor plan-clarity nit (worth a one-line acceptance addition tying schema completeness to the off-horizontal shape) rather than a blocking or important structural defect."
+    }
+   },
+   {
+    "severity": "blocking",
+    "section": "Frontmatter vs. Sequencing",
+    "claim": "Wow bar scope contradicts between overview and execution",
+    "evidence": "Frontmatter overview (line 5) states 'every demo meeting the owner's wow bar at rendered checkpoints'. Sequencing (line 224) specifies 'Renders to the owner at every W3/W4 page landing' \u2014 excluding the hub (a W0 artifact). The hub is one of four demos yet isn't included in rendering checkpoints despite frontmatter and Direction claiming 'every demo'.",
+    "suggested_cure": "Clarify whether hub is wow-bar-gated. If yes, add to rendering checkpoint list. If no (hub is exempted as existing product gaining theme support only), amend overview to 'showcase + plain + styled demos' not 'every demo'. Current state prevents owner from inspecting hub against the wow bar per plan text.",
+    "lens": "consistency",
+    "verdict": {
+     "verified": true,
+     "corrected_severity": "important",
+     "reason": "Confirmed first-hand against commit 6f3221e1e. Frontmatter (line 5) and Direction (lines 58-59, verbatim owner word) both commit to \"every demo\" \u2014 hub explicitly included per the Charter (line 107) and Decision log (line 231) \u2014 meeting the wow bar \"at rendered checkpoints.\" The Sequencing section's actual render-checkpoint mechanism (lines 224-225: \"Renders to the owner at every W3/W4 page landing\") fires only for W3/W4 page landings. Grepping every \"hub\" mention in the file confirms the hub's sole required change (theme detection/selection, lines 197-198) sits under the unnumbered Cross-demo acceptance section with no W0-W4 workstream assignment and thus no W3/W4 landing to trigger a render. So the plan's concrete execution mechanism has no checkpoint that would bring the hub to the owner's Chrome for a wow-bar verdict, contradicting the \"every demo\" commitment in both frontmatter and Direction. This is a real, narrow, easily-fixable planning gap (not a structural flaw invalidating the whole document, and it doesn't block W0-W3/W4.1/W4.2 from proceeding independently), so I'm setting severity to \"important\" rather than \"blocking.\""
+    }
+   },
+   {
+    "severity": "blocking",
+    "section": "W0 Acceptance Criteria",
+    "claim": "Charter citation requirement creates forward dependency beyond W0 gate closure",
+    "evidence": "W0 acceptance (line 119-120) requires 'charter...cited from all four demo READMEs (two exist, two are created in W4)'. Only two READMEs exist during W0; the other two are created in W4. W0 cannot verify full acceptance until W4.3 completes, making W0 gate closure impossible under stated criteria.",
+    "suggested_cure": "Revise W0 acceptance to: 'charter landed in demos/README.md; cited from two existing demo READMEs; remaining citations will be added when W4 READMEs are created (tracked forward dependency, not gate-blocking).' Record as handoff obligation.",
+    "lens": "consistency",
+    "verdict": {
+     "verified": true,
+     "corrected_severity": "minor",
+     "reason": "The textual claim is accurate. Plan file (commit 6f3221e1e), W0 Acceptance line (lines 119-120): \"Acceptance: census checklist committed; gates green with evidence; charter landed and cited from all four demo READMEs (two exist, two are created in W4).\" Repo state confirms the parenthetical: only demos/oak-curriculum-hub/README.md and demos/oak-design-showcase/README.md exist today; demos/oak-plain-pages and demos/oak-styled-components (W4.1/W4.2) don't exist yet. So this W0 acceptance item, read literally, cannot be fully true until after W4 creates the other two READMEs and they cite the charter \u2014 a genuine forward reference embedded in an earlier workstream's acceptance line.\n\nHowever, the severity the claim implies (\"W0 cannot verify full acceptance until W4.3 completes, making W0 gate closure impossible\") overstates the practical effect and should be corrected down to minor:\n\n1. The parenthetical is the plan authors' own explicit disclosure of the two-exist/two-created-later split, not a hidden oversight the reviewer uncovered \u2014 it's documented in the same sentence.\n2. Nothing in this plan or in the repo's plan schema (.agent/plans/plan-node-schema.md) establishes that a workstream's informal \"Acceptance:\" line is a hard, literal, all-clauses-true gate blocking the next workstream. The schema's actual required \"Acceptance criteria (each with a proof)\" construct applies at the whole-node level (this file uses informal per-workstream Acceptance lines instead, a separate, unrelated deviation from the template).\n3. The plan's own Sequencing section explicitly permits parallelism that undercuts strict serial gating: \"W4.1 may start after W0 ... W4.2 after W2\" \u2014 so the two missing READMEs can come into existence well before W3 finishes, and nothing stops W1-W3 from proceeding in the interim.\n\nNet: this is a real drafting imprecision worth a small rewording fix (e.g., scope the W0 clause to the two READMEs that exist at W0 close, and let W4's own acceptance carry the citation requirement for the READMEs it creates), not a defect that blocks or invalidates the plan's gate structure."
+    }
+   },
+   {
+    "severity": "blocking",
+    "section": "W1 Acceptance vs. Owner-Decision Gate",
+    "claim": "Identity schema acceptance claims validation of 'live identities' before Freedonia design details exist",
+    "evidence": "W1 acceptance requires 'schema validates all three live identities' but frontmatter owner-decision gate makes Freedonia off-horizontal design input a separate gate (expires 2026-08-31) not blocking W1. Meaning W1 can complete without Freedonia design finalized. Term 'live identities' is ambiguous: schema-valid only, or finalized design values?",
+    "suggested_cure": "Define W1 acceptance precisely: 'schema structure validated and Oak/EMC\u00b2 values finalized; Freedonia scaffold complete, values pending design-input gate closure.' Current phrasing allows W1 sign-off with Freedonia TBD, risking assumptions about Freedonia completeness in W2/W3.",
+    "lens": "consistency",
+    "verdict": {
+     "verified": true,
+     "corrected_severity": "minor",
+     "reason": "First-hand read of `.agent/plans/delivery/design-system-completion.plan.md` at 6f3221e1e confirms the literal facts cited: W1's acceptance line reads exactly \"schema validates all three live identities; the \u2116N falsifier demonstrably fails on a framework-code touch (proven once, red-then-green); matrix gate wired into `pnpm check`.\" \u2014 the phrase \"live identities\" is not defined anywhere else in the document (single occurrence). The frontmatter's second owner_gates entry is exactly as described: awaiting owner-decision, \"W1 off-horizontal design input... Scheduled by the executing seat when W1 opens; W1's other stories do not block on it,\" expires 2026-08-31 \u2014 textually separate from and non-blocking to W1's other stories. So the evidence offered is accurate as quoted.\n\nHowever, the claimed defect is weaker than presented once the workstream structure is read as a whole. W1.1 (\"Identity schema\") defines the schema as \"tokens + assets + voice + composition preferences + polarity default\" \u2014 it does not include off-horizontal/tilt. Off-horizontal is scoped as its own separate item, W1.3, which explicitly says: \"Blocked only on the owner design-input gate (frontmatter); scaffold the token shape first so the session prices real options.\" That is a deliberate, stated scaffold-now/values-later sequencing, not a silent gap: the plan already anticipates that the off-horizontal token *shape* can exist and validate before the owner supplies Freedonia's actual tilt values. Under that reading, \"schema validates all three live identities\" most naturally maps to the W1.1 base identity contract (which has no off-horizontal dependency), not to finalized Freedonia design values \u2014 narrowing, though not eliminating, the ambiguity.\n\nMore importantly, the plan carries downstream enforcement that would catch exactly the failure mode the claim worries about (Freedonia shipping visually indistinguishable from Oak because W1 \"completed\" on schema-validity alone): the W3 \"Quality bar \u2014 the wow checkpoint\" requires every demo/page to be rendered in the owner's Chrome and pass his verdict, and W3.4's feature-coverage matrix must be \"100% or each gap owner-accepted.\" Point 9 (Freedonia more off-horizontal, Oak none) is squarely inside that checkpoint. So even if W1's acceptance line is read loosely, the plan does not let an under-differentiated Freedonia reach completion undetected.\n\nNet: the ambiguity in the term \"live identities\" is real and worth a one-line clarification (e.g., explicitly scoping W1's acceptance to the base schema and treating W1.3's real-value completion as tracked separately), but it is a wording/documentation gap rather than a structural planning defect \u2014 the plan's own sequencing (scaffold-first, gate named and dated) and its later mechanical+owner-rendered gates already guard against the substantive risk. Downgrading from whatever severity was implied to minor."
+    }
+   },
+   {
+    "severity": "blocking",
+    "section": "Gate Dependencies and Sequencing",
+    "claim": "Export-tweaks blocking condition lacks surfacing mechanism",
+    "evidence": "W0.5 (line 116-117) states tweaks 'none block later workstreams unless the owner marks one blocking'. No section specifies: how seat learns which tweaks are blocking, who surfaces this, what tracking surface is used, when the decision is made. Policy exists but execution surface is missing.",
+    "suggested_cure": "Add to W0.5: 'Blocking-tweak intake: [channel/ticket] read by executing seat at [date/gate]. Owner's blocking decision recorded [surface] by [role] no later than [milestone]. Tweaks not marked blocking by [date] proceed non-blocking.' Commit a specific decision point before W1 starts.",
+    "lens": "consistency",
+    "verdict": {
+     "verified": true,
+     "corrected_severity": "important",
+     "reason": "Confirmed against .agent/plans/delivery/design-system-completion.plan.md at commit 6f3221e1e. W0.5 (lines 115-117) reads: \"Export-tweaks intake: open the owner's tweak list channel; tweaks route through the design-sync path (ADR-213); none block later workstreams unless the owner marks one blocking.\" Grepped the whole file for \"tweak\" \u2014 the only other mention is the in-scope list at line 68 (\"the export-tweaks intake\"); no other passage defines a tracking surface, a check-in moment, or an owner-to-seat notification path for a tweak that gets marked blocking.\n\nChecked the two things the clause points to, first-hand: (1) ADR-213 (docs/architecture/architectural-decisions/213-design-system-integration-and-component-architecture.md) defines \"design-sync\" only as the studio<->repo incremental-sync discipline (line 62) \u2014 it has no \"tweak list,\" no blocking-flag concept, and no owner-mark mechanism. (2) The repo's actual .design-sync/ directory (NOTES.md, conventions.md) has zero occurrences of \"tweak\" or \"block.\" So \"the owner's tweak list channel\" is a term coined fresh in this plan with no defined referent anywhere in the repo \u2014 the reviewer's core claim (policy stated, no execution surface named: no tracking artefact, no rule for how a seat learns a given tweak is blocking, no timing for the check) is accurate.\n\nMitigating factor the reviewer didn't credit: the plan's own frontmatter demonstrates a standing, well-specified owner_gates schema (awaiting/clears_when/expires, lines 15-38) used twice in this same document for exactly this kind of owner-conditioned block, and the repo's general practice (owner-attention-at-action-moments, surface-user-decisions-as-questions, use-agent-comms-log) gives a plausible generic answer a competent executing seat would reach for. But W0.5 never wires the tweak-blocking case into that mechanism, so the gap is real, not fabricated \u2014 it just isn't unrecoverable, since a seat that hits an owner-marked-blocking tweak has an established generic pattern (a new owner_gate entry) to fall back on even though this plan node doesn't say so.\n\nOne citation imprecision: no heading literally reads \"Gate Dependencies and Sequencing\" \u2014 the nearest section is \"Sequencing and PR discipline\" (line 217) plus the owner_gates frontmatter block. This doesn't change the substance of the finding, only its section label.\n\nSeverity: not blocking \u2014 the default (tweaks never block) is safe and well-defined, and nothing in the plan's own execution is halted by the gap. But it is more than cosmetic: a concrete failure scenario exists (owner marks a tweak blocking via some out-of-band channel; no defined surface propagates that mark to the executing seat; a later workstream proceeds when it should have waited), so \"important\" fits better than \"minor.\""
+    }
+   },
+   {
+    "severity": "important",
+    "section": "Motion Axis Scope and Matrix Coverage",
+    "claim": "Motion axis handling undefined in W1.4 gate matrix and acceptance criteria",
+    "evidence": "W0.1 census mentions 'five themes + motion axis' suggesting motion is separate dimension. W1.4 builds 'Gate matrix: contrast + a11y per identity \u00d7 theme \u00d7 component' without mentioning motion. W1 acceptance says 'matrix gate wired into pnpm check' without clarifying motion inclusion. Standing requirement doesn't mention motion explicitly.",
+    "suggested_cure": "Clarify W1.4: 'Gate matrix dimensions: (identity \u00d7 theme \u00d7 component) \u00d7 (contrast + a11y + motion-compliance)' or confirm motion is handled separately. Update W1 acceptance to enumerate motion as explicit matrix axis if required for cross-demo theme detection.",
+    "lens": "consistency",
+    "verdict": {
+     "verified": true,
+     "corrected_severity": "important",
+     "reason": "Checked commit 6f3221e1e's .agent/plans/delivery/design-system-completion.plan.md directly. All four evidentiary quotes are accurate: (1) line 99, W0.1 census reads 'five themes + motion axis' \u2014 explicitly treating motion as an axis ORTHOGONAL to theme, not one of the five themes; (2) line 135, W1.4 reads 'Gate matrix: contrast + a11y per identity \u00d7 theme \u00d7 component in CI' \u2014 three declared matrix dimensions, motion is not a fourth; (3) lines 141-143, W1's acceptance line reads 'matrix gate wired into `pnpm check`' with no motion clause; (4) the owner's standing requirements as given in the task (light/dark/high-contrast non-negotiable, colour-safe default, etc.) do not name motion either. Given the census's own framing splits motion out from the theme axis, a matrix declared only as identity\u00d7theme\u00d7component genuinely omits it as a fourth dimension, and no other clause in the plan names a mechanical CI mechanism for verifying motion-preference handling. This is a real specification gap, not a misreading.\n\nHowever it is materially mitigated, so 'blocking' would overstate it: motion is not absent from the plan overall \u2014 W2.3 requires prefers-reduced-motion detection+selection as part of the theme runtime contract, W3.2 requires 'full theme + motion switching' in the showcase, W3.3 requires motion content on the token-reference page, and the Cross-demo acceptance section (owner amendment, binds all four demos) explicitly requires 'reduced motion honoured.' Also plausible by design: the W1.4 matrix explicitly generalises 'the existing four-theme CONTRAST gate' (packages/design/oak-design-tokens/src/design-system-contrast.ts), a computed-colour-value check structurally unlike verifying that animations are actually suppressed, so folding motion into that specific mechanical matrix isn't a natural fit without further design.\n\nNet: verified real gap in how (or whether) the motion axis gets a mechanical/CI verification path, worth closing before or during W1.4 authoring, but not a blocker to ratifying or starting the plan given the strong owner-facing acceptance criterion already present at the cross-demo/DoD level."
+    }
+   },
+   {
+    "severity": "important",
+    "section": "Quality Bar Enforcement and DoD Process",
+    "claim": "Wow-bar DoD gate lacks defined process, timing, and verdicts surface",
+    "evidence": "\u00a7Quality bar establishes 'The owner's verdict is the gate' and 'checkpoint is a DoD line' but doesn't specify: when owner renders, what interface captures verdicts per page, how seat knows render is approved, what escalation path exists if owner unavailable, how verdicts are recorded in fidelity register. DoD is principle without operational definition.",
+    "suggested_cure": "Add to \u00a7Quality bar: 'Owner rendering process: W3/W4 PRs include [checklist] enumerating render checkpoints. Seat files render artifact by [date]. Owner records verdict [comment/label] on each. No merge until all verdicts posted and green. Verdicts conserved in fidelity register.' Define surface and timing explicitly.",
+    "lens": "consistency",
+    "verdict": {
+     "verified": true,
+     "reason": "Checked against the plan at commit 6f3221e1e (`.agent/plans/delivery/design-system-completion.plan.md`, \u00a7\"Quality bar \u2014 the wow checkpoint\", lines 203\u2013215, plus \u00a7Sequencing line 223 and \u00a7Review record lines 255\u2013260).\n\nThe two quoted phrases are verbatim-accurate: \"The owner's verdict is the gate\" (line 206\u2013207) and \"the checkpoint is a DoD line, not advice\" (line 213) both appear as claimed.\n\nOf the five specific absences the reviewer lists, three hold up as real textual gaps and two are overstated or misdirected:\n\n- **Verdict-capture interface** \u2014 genuinely absent. The plan names inputs feeding the checkpoint (Chrome render, fidelity register, vision-critique leg, mechanical gate matrix) but never names how the owner's \"wow\"/\"not yet\" call itself gets recorded or signalled back to the seat.\n- **Approval signal to the seat** \u2014 genuinely absent. \"A page failing the checkpoint iterates within its PR\" implies pass unblocks merge, but no mechanism (PR approval, a card answer, a checklist tick) is named as the seat's cue that it passed.\n- **Owner-unavailable escalation** \u2014 genuinely absent from this section and not covered by the repo's `ping-before-escalate.md` (which governs peer-agent liveness, not owner availability for a render verdict).\n\nTwo of the five are weaker than claimed:\n- **\"When owner renders\"** is actually specified at a coarse but real level: \"at each page/demo checkpoint\" (line 205) and \"Renders to the owner at every W3/W4 page landing\" (line 223, \u00a7Sequencing). The reviewer's evidence omits this cross-reference, making the claim read stronger than the text supports.\n- **\"How verdicts are recorded in fidelity register\"** conflates two distinct things the plan deliberately keeps parallel: the fidelity register tracks export-vs-implementation divergence dispositions (a separate, pre-existing mechanism per the `oak-fidelity-review` skill and prior handoff records), not the owner's subjective wow verdict. The plan never claims verdicts land in the register, so faulting it for not saying \"how\" is a misreading rather than a real gap.\n\nNet: the underlying observation \u2014 the DoD gate names *that* the owner's verdict blocks merge but not the concrete signal/interface by which that verdict is captured, communicated to the seat, or escalated if the owner is unavailable \u2014 is real and worth a plan-refinement note. But it is not that \"process is undefined\": timing is stated, the gate's blocking nature is stated, and standing repo-wide conventions (`owner-attention-at-action-moments.md`'s \"blocking asks are ALWAYS cards,\" the \"render in Chrome, pixels are the done-test\" practice already cited in the plan itself as \"standing practice\") already supply a default mechanism this plan can inherit without restating. Correcting severity down from what the evidence implies: this is a minor specification gap suitable for a short addition (naming the card-based verdict signal and an unavailable-owner fallback) rather than a structural defect blocking the plan.",
+     "corrected_severity": "minor"
+    }
+   },
+   {
+    "severity": "minor",
+    "section": "Demos Charter Forward Reference",
+    "claim": "Demos Charter is normative but production phase spans W0 and W4",
+    "evidence": "W0.3 produces 'Demos Charter (demos/README.md \u00a7Charter, normative)' but only as section of that file. W0 acceptance requires 'charter...cited from all four demo READMEs' but W4 creates the other two READMEs. Charter is a two-phase artifact: W0 produces partial version, W4 completes citations.",
+    "suggested_cure": "Clarify W0 acceptance: 'Demos Charter section landed with assignment table for all four demos; charter references point to [future] W4 READMEs (tracked forward dependency).' Or separate Demos Charter into its own file finalized in W0, with demo READMEs citing it.",
+    "lens": "consistency",
+    "verdict": {
+     "verified": true,
+     "corrected_severity": "minor",
+     "reason": "Checked against the plan at commit 6f3221e1e (.agent/plans/delivery/design-system-completion.plan.md, lines 106-120). The reviewer's direct quotes are accurate verbatim: W0.3 reads 'The Demos Charter (`demos/README.md` \u00a7Charter, normative)' and W0's Acceptance line reads 'charter landed and cited from all four demo READMEs (two exist, two are created in W4)'. W4.1/W4.2 (lines 180-189) do create the plain-HTML and styled-components demos whose READMEs are the missing two. So the core fact holds: an acceptance criterion nested inside W0's own 'Acceptance' block cannot literally be satisfied until artifacts from W4 exist -- a genuine cross-workstream dependency embedded in a single workstream's exit criteria, which sits oddly against the plan's stated sequencing 'W0 -> W1 -> W2 -> W3' (W1 nominally starts once W0 'accepts').\n\nOne correction to the reviewer's framing: calling the Charter itself 'a two-phase artifact' where 'W0 produces partial version' overstates the case. The charter's actual content -- the assignment table with all four demo rows (hub/showcase/plain/styled) plus the provenance note -- is fully authored in W0.3; nothing about the document's substance is partial or gets added to in W4. What is deferred to W4 is not charter production but citation-coverage verification: two files that will reference the already-complete charter don't exist yet. So the two-phase thing is the cross-file citation check, not the charter artifact itself.\n\nSeverity: minor, not blocking. The plan already discloses the dependency transparently in the same sentence via the '(two exist, two are created in W4)' parenthetical -- it names a concrete, falsifiable completion point (W4.1/W4.2 landing) rather than a bare 'deferred' status, which is exactly the sequencing-optionality cure the estate's own plan-body-first-principles-check calls for. Sequencing text also explicitly allows W4.1 to start right after W0, so the gap self-resolves quickly rather than stalling until the end of the plan. No executing seat is likely to be confused or blocked by it; it's a minor precision/wording nit in how the W0 acceptance line is scoped, not a hidden contradiction."
+    }
+   }
+  ],
+  "droppedAtCap": [
+   {
+    "severity": "minor",
+    "section": "Review Record Section Empty",
+    "claim": "Review record section is empty placeholder but gates reference it",
+    "evidence": "Lines 256-260 define \u00a7Review record as section where 'Tiered fleet review...findings and dispositions recorded...by the Director before hand-off'. However, section contains no findings or dispositions. Plan is in sketch status awaiting review, so empty section is expected, but leaves review gate opaque to executing seat.",
+    "suggested_cure": "Document in hand-off instructions: 'Plan hand-off awaits tiered fleet review completion. Review findings and dispositions will be recorded in \u00a7Review record before seat activation. Empty \u00a7Review record proves plan has not passed tiered review.' Treat empty section as proof review is pending.",
+    "lens": "consistency"
+   },
+   {
+    "severity": "blocking",
+    "section": "W0.3 Demos Charter acceptance criteria",
+    "claim": "W0 cannot achieve full acceptance without W4 artifacts: acceptance says 'charter landed and cited from all four demo READMEs (two exist, two are created in W4)', but plain and styled demo READMEs don't exist until W4.1 and W4.2 complete",
+    "evidence": "Acceptance criteria: 'charter landed and cited from all four demo READMEs'; W4 workstreams explicitly create demos/oak-plain-pages and demos/oak-styled-components, their READMEs don't exist yet",
+    "suggested_cure": "Revise W0.3 acceptance to separate 'charter drafted' (before W4) from 'all four demo READMEs cite charter' (after W4.1/W4.2 land); or defer charter citation validation to W4 completion gate, not W0 acceptance",
+    "lens": "sequencing"
+   },
+   {
+    "severity": "blocking",
+    "section": "W1.5 and W2 entry: ADR-147 accessibility-gate extension",
+    "claim": "ADR-147 is explicitly named as 'the named blocker on the React tier's first component export' (W1.5) but is not listed in plan's depends_on array, creating hidden critical-path dependency",
+    "evidence": "W1.5: 'ADR-147 accessibility-gate extension: land it for oak-design-react \u2014 the named blocker on the React tier's first component export'; plan YAML: 'depends_on: []'; if ADR-147 is incomplete, W2 cannot start",
+    "suggested_cure": "Add explicit depends_on entry pointing to ADR-147 completion or verification; verify at plan-authoring time (not story-open time) that ADR-147 is ratified or in-flight; document ADR-147 status in first-principles check",
+    "lens": "sequencing"
+   },
+   {
+    "severity": "blocking",
+    "section": "W1 critical-path gate: owner design-input expiry",
+    "claim": "W1 full acceptance requires W1.3 (off-horizontal) completion, but W1.3 blocks on owner design-input gate expiring 2026-08-31; if input doesn't arrive, W1 cannot achieve acceptance and downstream chains (W2\u2192W3) stall",
+    "evidence": "W1.3: 'Blocked only on the owner design-input gate (frontmatter)'; W1 acceptance: 'schema validates all three live identities' (requires W1.3); owner-gate: 'expires: 2026-08-31'",
+    "suggested_cure": "Explicitly separate W1 into (a) W1-core (W1.1,1.2,1.4,1.5) that can complete without W1.3, and (b) W1-off-horizontal (W1.3) as a gated follow-on; revise acceptance criteria or add soft gate for W1.3 with fallback path if owner input doesn't arrive by expiry",
+    "lens": "sequencing"
+   },
+   {
+    "severity": "blocking",
+    "section": "Linear embargo and plan landing: ticket minting timing",
+    "claim": "Gate description conflates ticket minting with embargo: says 'when the plan's ticket mints \u2014 Linear is embargoed until 2026-08-10 08:00', leaving ambiguous whether (a) ticket can mint before embargo but work starts after, or (b) nothing including minting can happen before embargo",
+    "evidence": "Owner-gate text: 'at which point status flips to ratified' (implies minting possible before embargo); but also 'Linear is embargoed until 2026-08-10' (suggests embargo blocks action); no explicit start date for work",
+    "suggested_cure": "Clarify gate: state explicitly whether (1) ticket can mint before 2026-08-10 with work deferred to after embargo, or (2) both ticket minting and work are embargoed until 2026-08-10; if (1), update gate text to 'ticket mints before embargo; work starts after 2026-08-10'; if (2), add explicit embargo-lift date as plan-unblock gate",
+    "lens": "sequencing"
+   },
+   {
+    "severity": "important",
+    "section": "W2.3 Theme runtime: implicit rather than explicit blocker on W3/W4/cross-demo",
+    "claim": "W2.3 (theme runtime binding) is required by all four demos and cross-demo acceptance criteria ('working theme detection AND selection'), but W2 acceptance criteria doesn't explicitly list W2.3 completion as required before W3/W4 start; if W2.3 slips, no demo can pass cross-demo criteria",
+    "evidence": "W2 acceptance says 'component coverage table complete; tier consumed by W3; a11y gate green' but doesn't mention W2.3 theme runtime; cross-demo acceptance: 'Working theme detection AND selection in every demo'",
+    "suggested_cure": "Revise W2 acceptance criteria to explicitly include 'W2.3 OakThemeRuntime contract edge: detection and persistence exposed to all consuming demos'; or add W2.3 as explicit blocking dependency for W3/W4 entry gates",
+    "lens": "sequencing"
+   },
+   {
+    "severity": "important",
+    "section": "W0.2 Stabilise: current gate status unknown",
+    "claim": "W0.2 requires 'all existing design gates run green (validate-authored-css, validate-kit-assets, contrast and a11y suites)' but doesn't state whether these currently pass; if any gate is broken, W0.2 cannot complete",
+    "evidence": "W0.2: 'all existing design gates run green'; plan doesn't state current gate status or whether W0.2 includes fixing broken gates or only verifying existing green gates",
+    "suggested_cure": "Add to first-principles check: explicit verification that all named gates currently pass, or revise W0.2 to include fixing any failing gates as part of 'Stabilise' work; state gate status at plan-authoring time",
+    "lens": "sequencing"
+   },
+   {
+    "severity": "important",
+    "section": "W0.4 Identity census feeds W1.1/W1.3 but dependency is implicit",
+    "claim": "W0.4 (identity census) produces inputs for W1.1 (identity schema) and W1.3 (off-horizontal dimension), but plan doesn't explicitly state W0.4 must complete before W1 entry; if W1 starts before W0.4 output is ready, W1.1 has incomplete input",
+    "evidence": "W0.4: 'Identity census: what differentiates Oak / EMC\u00b2 / Freedonia today... \u2014 W1's input'; but no explicit 'W0.4 \u2192 W1' edge in sequencing diagram or acceptance criteria",
+    "suggested_cure": "Add explicit edge: W0.4 \u2192 W1 (W1.1 specifically) in sequencing section; revise W1 entry gate to require W0.4 output (identity census document) ready before W1 story open",
+    "lens": "sequencing"
+   },
+   {
+    "severity": "important",
+    "section": "Quality bar (wow checkpoint): unbounded iteration risk on subjective gate",
+    "claim": "'The owner's verdict is the gate' on aesthetic quality 'looks amazing', with no definition of what makes something 'amazing' or objective criteria; quality bar is a hard DoD line ('iterates within its PR') but has no bounded iteration budget, creating risk of indefinite re-renders if owner's aesthetic bar rises",
+    "evidence": "Quality bar section: 'The owner's verdict is the gate... nobody else's'; 'looks amazing' is his call; 'A page failing the checkpoint iterates within its PR; the checkpoint is a DoD line'",
+    "suggested_cure": "Define operationally what 'amazing' means: e.g., 'passes professional-designer review (vision-based leg), fidelity register 100% or owner-accepted, all mechanical gates green'; OR add iteration budget (e.g., max 3 render rounds per page, then escalate to Director if still not approved)",
+    "lens": "sequencing"
+   },
+   {
+    "severity": "important",
+    "section": "W4.2 styled-components vendor verification: lazy binding",
+    "claim": "Plan defers vendor compatibility verification (styled-components v6, API shape, ThemeProvider interop) to 'W4 story open' (read-nextjs-docs-before-coding), creating risk that mid-stream the story discovers unsupported or breaking API surface and unblocks the entire W4.2 workstream",
+    "evidence": "W4.2 first-principles check: 'styled-components demo's vendor surface (v6, styled, ThemeProvider interop)... must be re-verified against current upstream docs by the executing seat at W4 story open'",
+    "suggested_cure": "Pre-plan: verify styled-components v6 API (styled, ThemeProvider, CSS custom properties interop) meets requirements at plan-authoring time; document findings; if high risk, add styled-components vendor verification as explicit blocker BEFORE W4 entry gate",
+    "lens": "sequencing"
+   },
+   {
+    "severity": "important",
+    "section": "W0.1 census is point-in-time but W2 depends on it; kit drift after W0.1 creates gap risk",
+    "claim": "W0.1 produces 'feature census: first-hand enumeration of every kit feature'; W2.1 depends on it ('every W0.1 component class gains its component'); but if kit gains new component classes after W0.1 completes, W2 will miss them because census was a snapshot",
+    "evidence": "W2.1: 'census-driven; every W0.1 component class gains its component'; no statement that W0.1 is locked immutable or that kit is frozen after W0.1",
+    "suggested_cure": "Add to W0 acceptance criteria: 'kit feature set frozen after W0.1 complete; any new components discovered during W2 route through design-system change-control, not core W2 scope'; or add W0.1 post-acceptance review to verify kit hasn't changed",
+    "lens": "sequencing"
+   },
+   {
+    "severity": "important",
+    "section": "W0.5 export-tweaks intake: no completion gate, W3 targets drift if tweaks keep arriving",
+    "claim": "W0.5 opens 'owner's tweak list channel; tweaks route through design-sync; none block later workstreams unless owner marks blocking'; but no gate says when tweaks intake CLOSES; W3 depends on 'fidelity register against the export' but if tweaks keep landing, the export target keeps moving and W3 coherence drifts",
+    "evidence": "W0.5: 'none block later workstreams unless owner marks one blocking' (implies tweaks can arrive anytime); W3.3: 'fidelity register against export'; no statement that export is frozen for W3",
+    "suggested_cure": "Add to W0 acceptance: 'export tweak intake closed by [date/event]; only blocking tweaks after [date] route to separate backlog'; or revise W3 to acknowledge tweak-drift by including 'tweak response' as part of W3 scope with a bounded tweak-response budget",
+    "lens": "sequencing"
+   },
+   {
+    "severity": "important",
+    "section": "W4.1 plain-HTML demo: sequencing says 'after W0' but cross-demo criteria require W2.3 theme runtime",
+    "claim": "Plan says 'W4.1 may start after W0 (consumes kit directly)' but cross-demo acceptance criteria require 'working theme detection AND selection in every demo'; if W4.1 starts immediately after W0, W2.3 (theme runtime) isn't ready yet; demos can't be checked against cross-demo criteria until W2.3 lands",
+    "evidence": "Sequencing section: 'W4.1 may start after W0'; cross-demo acceptance: 'Working theme detection AND selection in every demo'; W2.3 ships with W2 completion, which comes AFTER W1",
+    "suggested_cure": "Revise sequencing diagram to show W4.1 entry gate depends on W2.3 completion (not just W0), or revise W4.1 acceptance to separate 'basic HTML+CSS consumption' (can start after W0) from 'cross-demo theme criteria' (requires W2.3)",
+    "lens": "sequencing"
+   },
+   {
+    "severity": "important",
+    "section": "PR-709 disposition: not in depends_on but noted as 'closing' at plan landing",
+    "claim": "Plan says 'PR-709 (landing-page port retention draft) CLOSES at this plan's landing' but PR-709 is not listed in depends_on; if PR-709 has open review threads or failing checks, plan landing is blocked but this dependency is invisible",
+    "evidence": "PR-709 section: 'CLOSES at this plan's landing'; plan YAML: 'depends_on: []'",
+    "suggested_cure": "Add explicit depends_on entry for PR-709 or add PR-709 closure to plan-landing gate; verify PR-709 status (merged/closed/review-ready) before plan lands; document adjudicated disposition in plan",
+    "lens": "sequencing"
+   },
+   {
+    "severity": "important",
+    "section": "W4.3 scope assumption: identity switching deferred to owner decision",
+    "claim": "W4.3 states 'identity switching is showcase-only scope unless owner extends it (recorded assumption \u2014 cheap to correct)'; this is a conditional blocker: if owner decides post-W4 to add identity switching to plain or styled demos, W4 scope explodes; 'cheap to correct' assumption isn't formally tracked as a gate or risk",
+    "evidence": "W4.3: 'Both demos: Oak identity default; identity switching is showcase-only scope unless the owner extends it'",
+    "suggested_cure": "Reframe as explicit gate: add owner decision point 'identity switching scope for plain/styled demos?' as a W4 entry gate or planning meeting; document decision with clear scope impact if extended; if deferred, add to backlog with blocked-by pointer",
+    "lens": "sequencing"
+   },
+   {
+    "severity": "minor",
+    "section": "Review record section and plan ratification",
+    "claim": "Plan is in sketch status and review record section is empty; findings from tiered-fleet review are not yet visible, creating risk of hidden blockers discovered during review that will deadlock plan landing",
+    "evidence": "Plan YAML: 'status: sketch'; 'ratified_by: null'; Review record section: only states 'findings and dispositions recorded in this section by the Director' with no actual findings",
+    "suggested_cure": "Plan landing gate should require review round 0 complete with zero surviving findings; findings and disposition recorded in Review record section before plan lands; this is process, not sequencing, but is a latent blocker",
+    "lens": "sequencing"
+   },
+   {
+    "severity": "blocking",
+    "section": "Quality bar (W3/W4)",
+    "claim": "Quality bar acceptance is circular: \"The owner's verdict is the gate; 'looks amazing' is his call, nobody else's\" \u2014 this is not an acceptance criterion a seat can verify independently.",
+    "evidence": "Section states only subjective assessment method with no testable definition of 'passed.' A seat cannot prove completion without owner re-evaluation at submission time.",
+    "suggested_cure": "Define specific visual design review checklist (e.g., contrast levels, typography hierarchy, spacing consistency, motion smoothness, component clarity) that a reviewer can assess before owner look, OR explicitly state acceptance is 'owner visual sign-off required' with documented sign-off evidence as proof.",
+    "lens": "testability"
+   },
+   {
+    "severity": "blocking",
+    "section": "Cross-demo acceptance: theme detection",
+    "claim": "\"No flash of wrong theme\" is unmeasurable \u2014 'flash' is a subjective perception of timing, not a mechanical property.",
+    "evidence": "Criterion depends on human visual perception of frame timing, which varies by observer, display refresh rate, and network conditions. No timing specification (e.g., 'must render correct theme within 100ms') is provided.",
+    "suggested_cure": "Replace with mechanically verifiable criterion: 'Correct theme CSS loads before first paint (verified via performance timeline)' OR 'theme attribute/class set before render via OS detection or stored preference, with zero FOUC-indicative repaints.'",
+    "lens": "testability"
+   },
+   {
+    "severity": "blocking",
+    "section": "Cross-demo acceptance: theme selection",
+    "claim": "\"High-contrast and colour-safe reachable\" \u2014 'reachable' is undefined. Does it mean UI control exists? Is it one click? Can keyboard users reach it? No spec.",
+    "evidence": "Criterion lacks definition of location (toolbar? settings? modal?), interaction count, keyboard accessibility, and visibility requirement. A seat could ship a buried theme control and claim it's 'reachable.'",
+    "suggested_cure": "Specify: 'High-contrast and colour-safe theme options are accessible via [named UI location]; keyboard navigation works within [N] tab stops; visible focus indicator present; no additional DOM manipulation required.'",
+    "lens": "testability"
+   },
+   {
+    "severity": "blocking",
+    "section": "Cross-demo acceptance: reduced motion",
+    "claim": "\"Reduced motion honoured\" has no specification of expected behavior \u2014 should motion be disabled, slowed, or removed?",
+    "evidence": "Criterion name references system preference but provides no definition of how 'honour' translates to code behavior. A seat could apply `prefers-reduced-motion` without actually changing any animations.",
+    "suggested_cure": "Define: 'When OS `prefers-reduced-motion` is active, all animated transitions [must be instant OR must be slowed to minimum 1s]. Transitions applied to: [list specific properties]. Tested via: [mechanism, e.g., devtools emulation].'",
+    "lens": "testability"
+   },
+   {
+    "severity": "blocking",
+    "section": "W3 acceptance: coverage matrix gaps",
+    "claim": "\"Coverage matrix 100% or each gap owner-accepted\" \u2014 second clause creates an escape hatch; 'owner-accepted' is never proven with visible evidence.",
+    "evidence": "Criterion allows gaps without explicit, verifiable owner sign-off. No mechanism defined to capture/prove acceptance (e.g., GitHub comment, Linear card, specific document section).",
+    "suggested_cure": "Specify: 'Coverage matrix 100% complete, OR each gap documented with explicit owner approval (recorded in [named artifact: GitHub comment/Linear card/dedicated doc section]) and linked in matrix.'",
+    "lens": "testability"
+   },
+   {
+    "severity": "blocking",
+    "section": "W3: fidelity register divergence disposition",
+    "claim": "Acceptance requires 'every divergence dispositioned' but neither authority nor process for disposition is defined \u2014 who decides? What makes a disposition valid?",
+    "evidence": "Plan states 'fidelity register against the export with every divergence dispositioned' but does not specify: who has disposition authority, what options exist (fix/defer/intentional), approval flow, or documentation method.",
+    "suggested_cure": "Define: 'Fidelity register [location] captures: [list each component/page], export baseline, current render, divergence category (layout/color/spacing/etc.), decision (fix/defer/intentional-override), and owner approval (if override). Zero divergences without [named decision category].'",
+    "lens": "testability"
+   },
+   {
+    "severity": "blocking",
+    "section": "W1 acceptance: falsifier test discipline",
+    "claim": "Acceptance states the \u2116N falsifier is 'proven once, red-then-green' \u2014 'once' is too vague and does not prevent regression.",
+    "evidence": "Criterion 'proven once' could mean a single successful test run, which does not ensure the falsifier is locked into CI/build checks. Falsifier could regress on the next commit.",
+    "suggested_cure": "Specify: 'The identity-\u2116N falsifier is wired into `pnpm check` (or named CI stage) and cannot be bypassed. Proof: CI fails when framework code is touched during config-only identity mint. This test cannot be disabled, skipped, or worked around.'",
+    "lens": "testability"
+   },
+   {
+    "severity": "blocking",
+    "section": "W0 acceptance: charter citation timing",
+    "claim": "Acceptance requires 'charter landed and cited from all four demo READMEs' but acceptance is evaluated at W0 while two demos are created in W4 \u2014 sequential dependency not acknowledged.",
+    "evidence": "Criterion says '(two exist, two are created in W4)' but acceptance criteria cannot reference work that doesn't exist yet. A seat at W0 could claim 'charter is ready' without verifying it can be cited from demos that don't exist.",
+    "suggested_cure": "Split into two criteria: 'W0 complete: charter document exists and is cited from existing demo READMEs (hub, showcase). W4 complete: all four demo READMEs exist and cite the charter via [specific section link].'",
+    "lens": "testability"
+   },
+   {
+    "severity": "important",
+    "section": "W0.1 acceptance: feature census",
+    "claim": "Acceptance requires 'census checklist committed' but the structure of a 'complete' census is undefined \u2014 what constitutes a valid checklist?",
+    "evidence": "Criterion says 'first-hand enumeration of every kit feature' but provides no schema, format, or completeness criteria. A seat could commit a minimal list and claim completion without explicit coverage definition (kit tiers, themes, components, print/deck/worksheet, icons, fonts, behaviors, tokens).",
+    "suggested_cure": "Specify: 'Census checklist [location] includes: tier-1 primitives [count], tier-2 roles [count], component classes [count], themes [names], icons [count], fonts [names], motion axis coverage, composition tokens [names], print/deck/worksheet targets, oak-theme.js behaviors [list], DTCG source items. Completeness measured against [reference document].'",
+    "lens": "testability"
+   },
+   {
+    "severity": "important",
+    "section": "W0 acceptance: gates and evidence",
+    "claim": "Acceptance says 'gates green with evidence' \u2014 'evidence' is not defined; what constitutes valid evidence of a passing gate?",
+    "evidence": "Criterion does not specify log location, pass/fail output format, or retention method. A seat could report 'gates are green' without providing logs or CI artifacts.",
+    "suggested_cure": "Specify: 'All design gates (validate-authored-css, validate-kit-assets, contrast suite, a11y suite) run and pass. Evidence: CI logs [location], screenshot of green status, or [named artifact format]. Each gate output retained in [specific branch/artifact repository].'",
+    "lens": "testability"
+   },
+   {
+    "severity": "important",
+    "section": "W1 acceptance: identity schema validation",
+    "claim": "Acceptance requires 'schema validates all three live identities' but validation checks are not specified \u2014 what does validation mean?",
+    "evidence": "Criterion does not list which schema checks are required (DTCG compliance? tokens present? assets exist? voice docs complete?). A schema could be created that does minimal checks and still pass criterion.",
+    "suggested_cure": "Specify: 'Identity schema [location] validates, for each identity [names]: tokens present [token list], assets exist [asset types], voice document [URL], composition preferences [named fields], polarity default [value]. Validation runs in CI and fails if any check missing.'",
+    "lens": "testability"
+   },
+   {
+    "severity": "important",
+    "section": "W2 acceptance: component coverage table",
+    "claim": "Acceptance requires 'component coverage table complete' but completeness is not explicitly tied to W0.1's census \u2014 a seat could create their own subset.",
+    "evidence": "Criterion does not mandate that coverage table must include every component from W0.1 census or reference W0.1 as the source of truth. Seat could claim completion with partial coverage.",
+    "suggested_cure": "Specify: 'Component coverage table [location] includes one row per component class from W0.1 census. Each row: component name, export status (shipped/pending/rationale for deferral), test URL, accessibility gate status.'",
+    "lens": "testability"
+   },
+   {
+    "severity": "important",
+    "section": "W2 acceptance: zero-literal requirement fragility",
+    "claim": "Acceptance says 'tier consumed by W3 with zero component-local literals' \u2014 this defers verification to W3 and creates ordering risk.",
+    "evidence": "Criterion places the mechanical check in downstream work (W3), not in W2 acceptance. A component could ship without this check in W2. If W3 is delayed or modified, the check may never happen.",
+    "suggested_cure": "Add W2 acceptance criterion: 'Spot-check of [N] high-visibility components confirms zero color/spacing/typography literals in component code; all values sourced from design tokens via [Tailwind/CSS variables/named import].'",
+    "lens": "testability"
+   },
+   {
+    "severity": "important",
+    "section": "W3.4: token-reference page not explicitly in acceptance",
+    "claim": "W3.3 requires token-reference page generation but W3 acceptance criteria do not explicitly mandate it \u2014 a seat could claim 'coverage matrix complete' without it.",
+    "evidence": "Story W3.3 specifies token-reference page per-identity from DTCG source, but acceptance uses only 'coverage matrix' language; matrix might not include the token-reference page row.",
+    "suggested_cure": "Explicit acceptance row: 'Coverage matrix [location] includes token-reference page row showing: light, dark, high-contrast rendering per identity, DTCG source linked, manual edits [none/recorded].'",
+    "lens": "testability"
+   },
+   {
+    "severity": "minor",
+    "section": "Cross-demo acceptance: keyboard completeness",
+    "claim": "Acceptance requires 'keyboard-complete' but does not define scope \u2014 all elements or only interactive elements?",
+    "evidence": "Criterion says 'keyboard-complete' with no specification of which elements must be keyboard-navigable or what 'complete' means (e.g., tab order correct? skip links present? focus visible everywhere?).",
+    "suggested_cure": "Specify: 'All interactive elements keyboard-navigable in logical tab order via [Tab/Shift+Tab]. Focus indicator visible and [minimum contrast ratio]. Theme/identity/motion controls reachable without mouse. Tested via: keyboard-only navigation of every demo page.'",
+    "lens": "testability"
+   }
+  ],
+  "expertFindings": [
+   {
+    "severity": "blocking",
+    "section": "W3.3 (token-reference page) / W0.1 (census)",
+    "claim": "W3.3's \"content GENERATED from the DTCG source so it cannot drift\" is not achievable against the current export: most tokens have no determinable `$type`, so any generator must guess presentation by inspecting values \u2014 which DTCG 2025.10 explicitly forbids, and which reintroduces exactly the drift the clause promises to eliminate.",
+    "evidence": "Counted across `packages/design/oak-design-system/dtcg/`: `component.json` 68 of 74 leaves carry no `$type` (btn.min-h, btn.pad, gap.*, \u2026); `semantic.light.json` 54 of 146 (motion.*, shadow.*, focus.ring, type.*); `primitives.json` 5 of 98 \u2014 including all three `font.family.*` tokens; `semantic.high-contrast.json` 6 (shadow.*, focus.ring). Zero group-level `$type` exists in any tree (checked every group in palette/primitives/semantic.light/component), so no ancestor supplies the type. DTCG 2025.10 \u00a7type resolution: the type resolves token \u2192 group \u2192 ancestor group, otherwise \"Token becomes invalid\", and \"Tools MUST NOT attempt to guess the type of a token by inspecting the contents of its value\". `dtcg/README.md` also states `$type` is \"heuristic\" and \"composite values (shadows, font shorthands) omit it\".",
+    "suggested_cure": "Add a W0.2 story: make the export generator emit group-level `$type` at every root group and composite `$type` (shadow, typography, border, transition) where the spec defines one, plus a `validateTypeCompleteness` check in `design-tokens-core` that fails on any leaf with no resolvable type. Gate W3.3 on that check being green; state in W3.3 that the page dispatches on `$type` only, never on value shape or path prefix.",
+    "source": "design-system-expert"
+   },
+   {
+    "severity": "blocking",
+    "section": "W0.1 / W3.3 (\"the DTCG source\")",
+    "claim": "The plan treats two DTCG trees as one \"source\", and they run in opposite generation directions; worse, making the token-reference page a shipped consumer of the export breaks a ratified ADR-213 constraint that the plan never mentions (Stage B / the dual-gate window).",
+    "evidence": "`packages/design/oak-design-system/dtcg/README.md`: \"generated from the CSS source of truth \u2026 The CSS is canonical; regenerate these files after any token change \u2014 do not hand-edit\". `packages/design/oak-design-tokens/src/build-css.ts` builds CSS *from* hand-authored trees, and its `src/tokens/` holds only palette + semantic.light + semantic.dark + component (no high-contrast, no colour-safe). ADR-213 lines 105\u2013110 and the 2026-07-20 amendment (lines 172\u2013178), echoed in `oak-design-tokens/src/design-system-contrast.ts`'s header: the export trees are consumed \"as a validator-consumer only \u2026 no shipped artefact derives from the dtcg trees until Stage B\", and Stage B deletes the hand-authored trees, their manifest and their gate atomically. Stage B is unlanded (`docs/governance/design-token-practice.md` lines 28\u201331: \"Until ADR-213's Stage B atomic switch lands \u2026 the DTCG trees described here remain the live mechanism\"). So W3.3 reading the export ships from a validator-only source; reading the hand-authored trees renders 2 of the 5 themes and builds on a tree scheduled for deletion.",
+    "suggested_cure": "Name the exact tree W3.3 reads, and record Stage B as a dependency \u2014 either a W0 story that lands Stage B (its ADR-213 boundary conditions are already enumerated: re-root at `color.`/`semantic.`/`component.`, resolve dialect aliases, pre-compute expression values, schema-validate the manifest) or an owner-recorded exception permitting one shipped consumer during the window. Fix W0.1's census bullet to describe the two trees and their directions separately.",
+    "source": "design-system-expert"
+   },
+   {
+    "severity": "blocking",
+    "section": "W1.1 / W1.4 (themes per identity)",
+    "claim": "\"Themes per identity \u2026 the schema REQUIRES light, dark, and high-contrast\" is unimplementable against the shipped theme and brand contracts: high-contrast and colour-safe are authored as Oak-palette overrides that outrank every identity override and reference primitives the brand contract declares private. Every identity collapses to Oak's palette in exactly the two themes the owner made non-negotiable.",
+    "evidence": "`colors_and_type.css:598-599` and `:690-691` author the two themes as `[data-theme='x'], :root[data-theme='x']` \u2014 the second arm is specificity (0,2,0), beating an identity sheet's `:root` (0,1,0). Counted in those blocks: high-contrast = 71 declarations, 68 of them resolving to 10 distinct Oak tier-1 primitives (`--oak-black-true`, `--oak-navy120`, `--oak-hc-red/green/ink-*`, `--oak-lemon`); colour-safe = 12 declarations, all 12 on 6 `--oak-ci-*` primitives. `brand.css` STABILITY clause: \"Tier-1 --oak-* primitives \u2026 are PRIVATE: do not override them\", and its contract states outright that \"The [data-theme=\\\"high-contrast\\\"] and [data-theme=\\\"colour-safe\\\"] themes keep working untouched\" \u2014 i.e. identity is *designed* to be overridden there. `studio-source/whitelabel/freedonia/*.css` contains zero high-contrast or colour-safe handling; creature carries one ad-hoc `.oak-scope[data-theme='high-contrast']` block.",
+    "suggested_cure": "Add a W1 story that parameterises the theme overlays over identity-supplied palette slots (theme roles reference an identity palette namespace, not `--oak-*`), and amend the brand.css contract accordingly through the ADR-213 design-sync path. Change W1's acceptance from \"schema validates all three live identities\" to \"each identity renders its own high-contrast and colour-safe palettes, gate-proven\".",
+    "source": "design-system-expert"
+   },
+   {
+    "severity": "blocking",
+    "section": "W1.1 (\"Adding a theme is data, not code\")",
+    "claim": "The claim is falsified by at least five closed, hand-maintained theme lists that no W1 story generalises, and W1.2's falsifier only tests identities \u2014 so nothing catches the theme case. Executing W1 as written yields identity config that can declare a theme no runtime can apply and no gate can validate.",
+    "evidence": "`packages/design/oak-design-system/src/oak-theme.ts:31` (`type OakThemeName = 'light' | 'dark' | 'system' | 'high-contrast' | 'colour-safe'`) and `:48` (`const THEMES: OakThemeName[] = [...]`, with `:76` allowing only current members to reach `data-theme`); `packages/design/oak-design-react/src/oak-theme-store.ts:39` repeats the union; `packages/design/oak-design-tokens/src/design-system-expectations.ts` pins `DESIGN_SYSTEM_THEMES`, `THEME_GATE_LEVELS`, per-theme `SEMANTIC_ROOTS` and `EXPECTED_COMPARAND_SIZE`; the CSS theme blocks are hand-authored; `demos/oak-curriculum-hub/components/ThemeSwitcher.tsx:18-24` hard-codes `THEME_LABELS`.",
+    "suggested_cure": "Add a theme-\u2116N falsifier alongside W1.2 (CI mints a test theme for a test identity from config only; a build touching any of the five lists fails), and a story that makes the theme roster a generated artefact consumed by the runtime, the React types, the gate expectations and the demo label maps.",
+    "source": "design-system-expert"
+   },
+   {
+    "severity": "blocking",
+    "section": "W1.1 (identity schema)",
+    "claim": "\"A DTCG-shaped identity definition (tokens + assets + voice + composition preferences + polarity default)\" is a category error against DTCG, and its stated acceptance \u2014 \"schema validates all three live identities\" \u2014 is unreachable because the live identities are largely non-token CSS.",
+    "evidence": "DTCG 2025.10 base types are color, dimension, fontFamily, fontWeight, duration, cubicBezier, number; composites are strokeStyle, border, transition, shadow, gradient, typography \u2014 no asset/file, no prose/text, no polarity type; a leaf with no resolvable `$type` is invalid; and `$extensions` is specified for \"optional meta-data that is not crucial to understanding that token's value\", which load-bearing identity data is not. The live identities are CSS: `studio-source/whitelabel/freedonia/brand-full.css` has 6 rule blocks of which 5 are non-`:root` (`[data-page='unit']`, `[data-page='proof']`, `.mast`, `.mast .oak-link`, `.headline`); `creature/brand-full.css` has 12 of which 11 are non-`:root`, including `.oak-scope .oak-btn:hover/:active`, `.oak-scope .oak-btn--secondary:hover/:active` and a `[data-theme='high-contrast']` block.",
+    "suggested_cure": "Split the artefact: a JSON-Schema identity manifest (assets, voice, polarity, composition, icon set, theme roster) that *references* a DTCG token file for the token block alone; plus a declared, bounded \"identity CSS layer\" with its own rule (permitted selector shapes, no component-internal selectors). Add a W1 story that re-expresses the existing non-`:root` identity CSS as composition/component tokens, and make W1 acceptance the count of identity CSS rules that survive outside the declared layer.",
+    "source": "design-system-expert"
+   },
+   {
+    "severity": "important",
+    "section": "W1.2 (identity-\u2116N falsifier)",
+    "claim": "\"CI mints a test identity from config only\" presupposes a config \u2192 brand-CSS/assets generator that no story in the plan creates and that does not exist in the repo. Without it the falsifier cannot be built, or is built as a trivially-passing check.",
+    "evidence": "Identity is authored CSS today: `brand.css` is described in its own header as \"the WHITE-LABEL OVERRIDE CONTRACT \u2026 Copy it, uncomment what you change, and load it AFTER styles.css\"; the showcase ships static copies at `demos/oak-design-showcase/public/brands/{creature,freedonia}/brand.css`; `demos/oak-design-showcase/components/useIdentity.ts` switches identity by swapping a `<link>` element. `packages/design/design-tokens-core/src/index.ts` exports only `flattenDesignTokens`, `emitCssVariables`, `createCssBlock`, `validateTierReferences` \u2014 no identity or brand emitter anywhere in the package.",
+    "suggested_cure": "Add an explicit W1 story for the identity emitter (manifest \u2192 brand CSS + asset/icon manifest + theme roster), and rewrite W1.2 so the falsifier consumes that emitter: red-then-green proof is \"identity \u2116N added as one manifest file, zero diffs outside the identity directory\".",
+    "source": "design-system-expert"
+   },
+   {
+    "severity": "important",
+    "section": "W1.4 (gate matrix)",
+    "claim": "\"Contrast + a11y per identity \u00d7 theme \u00d7 component in CI, generalising the existing four-theme contrast gate\" is not a generalisation \u2014 the existing gate resolves DTCG trees, and identities have neither DTCG trees nor contrast manifests. As written the story will be sized as an extension and discovered mid-flight to be a new mechanism.",
+    "evidence": "The existing gate (`oak-design-tokens/src/design-system-contrast.ts`) imports only Oak's `dtcg/palette.json`, four `semantic.*.json` and `dtcg/contrast-pairings.json`, and pins `EXPECTED_COMPARAND_SIZE` per composed theme. `find packages/design/oak-design-system -name '*contrast*'` returns only Oak's manifest, the high-contrast tree and `studio-source/preview/contrast-audit.html`; the whitelabel directories contain only `brand-a.css`, `brand-full.css`, `icons.css`, `logo.svg`, `BRAND.md`, `card.html`, `index.html`. Identity contrast is checked today only interactively \u2014 `studio-source/preview/contrast-audit.html:121-124` offers the brand sheets as dropdown options for in-browser computation.",
+    "suggested_cure": "State the mechanism explicitly: either per-identity DTCG projections plus per-identity contrast manifests (then the pinned-count structures in `design-system-expectations.ts` become per-identity), or a browser-computed gate over rendered identity \u00d7 theme pages. Size the W1.4 story against the chosen mechanism and record the pinned-expectation multiplication.",
+    "source": "design-system-expert"
+   },
+   {
+    "severity": "important",
+    "section": "Direction point 9 / W1.3 (off-horizontal)",
+    "claim": "Off-horizontal is attributed to the wrong identity relative to the landed definitions: Freedonia is the repo's maximally orthogonal identity and has zero tilt, while EMC\u00b2/creature is the one with rotations and diagonals. Executing W1.3 as written either contradicts the Freedonia brand definition or silently re-designs it, and the owner design-input gate will be primed with an inverted premise.",
+    "evidence": "`studio-source/whitelabel/freedonia/BRAND.md`: \"Sharp as cut paper: radius 0 on everything \u2026 Flat signature: every decorative shadow `none`\", \"a document tradition that acquired a website\", rules/folios/ledger grammar. Grep for `rotate|skew|deg` across `freedonia/brand-full.css`, `brand-a.css`, `icons.css`: zero matches. By contrast `creature/BRAND.md` names \"sticker rotations on shelf cards\" and \"candy tone-bands with DIAGONAL gradients\"; `creature/brand-full.css:38,71,122,130` carry `linear-gradient(135deg/160deg)` and `creature/index.html:63,71` carry `transform: rotate(-1.5deg)` and `rotate(8deg)` \u2014 page-local and untokened.",
+    "suggested_cure": "Attach this evidence to the W1.3 owner-decision gate so the session prices a real choice. If Freedonia is to tilt, add a story to re-author `freedonia/BRAND.md` and its sheets through the ADR-213 design-sync path; in the same story tokenise creature's existing page-local rotations so the new dimension has at least one already-designed consumer.",
+    "source": "design-system-expert"
+   },
+   {
+    "severity": "important",
+    "section": "W1.3 (off-horizontal token shape)",
+    "claim": "The plan scaffolds \"rotation/tilt as tokened identity attributes\" without an encoding decision, but DTCG has no angle type and the repo's tier detector will reject the obvious placements \u2014 so the scaffold will be authored twice.",
+    "evidence": "DTCG 2025.10 supports color, dimension, fontFamily, fontWeight, duration, cubicBezier, number plus six composites; there is no angle/rotation type, and `dimension` admits px/rem only. `packages/design/design-tokens-core/src/index.ts` `getTokenTier` classifies any root segment other than `semantic`/`component` as palette, and `validateTokenReferenceDirection` then throws \"Palette tokens must use raw values.\" on any reference \u2014 so a new `rotation.*` root cannot reference anything. Separately, a naive \"Oak has no rotation\" gate would fire on existing glyph mechanics: `components.css:637,685,842,847,899,903,908` use `rotate(45deg)`/`rotate(225deg)` for chevrons and carets.",
+    "suggested_cure": "Decide in W1.3: `$type: number` with a documented degrees convention, composed into `transform` at emission; the tokens live under `semantic.` (identity-overridable roles) and `component.` per the tier detector; Oak's value is a structural literal zero, and the gate asserts the *token values*, never the absence of `transform` in kit CSS.",
+    "source": "design-system-expert"
+   },
+   {
+    "severity": "important",
+    "section": "Cross-demo acceptance (hub clause)",
+    "claim": "\"The hub gains this where it lacks it \u2014 the one change the hub takes while otherwise staying as-is\" states an unverified repository claim that is false at 6f3221e1e. Acting on it invites an unnecessary change to the one demo the owner ruled stays as-is.",
+    "evidence": "`demos/oak-curriculum-hub/app/layout.tsx:34,47` reads `public/oak-theme.js` and inlines it as a raw pre-paint `<script>` (with `suppressHydrationWarning` noted at :41) \u2014 detection. `demos/oak-curriculum-hub/components/ThemeSwitcher.tsx` provides selection over `oakThemeStore` from `@oaknational/oak-design-react`, offering all five themes (`light, dark, system, high-contrast, colour-safe` at :18-24) plus the motion axis (`system, reduced, full` at :25-29), with `ThemeSwitcher.test.tsx` beside it. `app/globals.css:9` also records that the raw-hex `@theme` mirror \"is gone\" and the hub maps `@theme inline` onto kit role tokens.",
+    "suggested_cure": "Replace the clause with a verification story: assert the hub already satisfies the cross-demo criteria (pre-paint, persisted selection, five themes, motion, no flash) via its existing tests plus one rendered check, and open a change only if that assertion fails.",
+    "source": "design-system-expert"
+   },
+   {
+    "severity": "important",
+    "section": "W4.2 (styled-components demo)",
+    "claim": "The plan leaves the single largest tier-violation risk of the styled-components demo unruled: a `ThemeProvider` theme object holding token values. That is a parallel token system, and it cannot see `light-dark()` or `[data-theme]` scopes, so it would also break theme switching in the very demo whose acceptance is working theme detection and selection.",
+    "evidence": "The plan's first-principles check names \"`ThemeProvider` interop with CSS custom properties\" as a vendor surface to verify but states no rule. ADR-148's invariant, carried forward by ADR-213 \u00a72, is that secondary outputs are \"projections of the token source, never a parallel token system\". ADR-213 \u00a72 also records that `light-dark()` resolves against `color-scheme`, not `[data-theme]`, and that a `[data-theme='dark'] { color-scheme: dark }` bridge rule is required where design-system CSS reaches a sandboxed view \u2014 a JS theme object bypasses both mechanisms.",
+    "suggested_cure": "Add a cross-demo criterion: no framework theme object may hold token values \u2014 a `ThemeProvider` value carries `var(--role)` references or nothing, and every styled component reads roles through `var()`. Add the `color-scheme` bridge to the W4.2 story's checklist, and make \"zero literal token values in TS/JS\" a mechanical check for the demo.",
+    "source": "design-system-expert"
+   },
+   {
+    "severity": "important",
+    "section": "W3.2 / W0.2 (three identities at all times)",
+    "claim": "Rendering three identities (or several themes) simultaneously means subtree theming, which lands on an open, explicitly unruled kit defect. W0.2's generic KNOWN-ISSUES triage does not name it, so W3 can reach the wow checkpoint with visibly wrong colours in two of the five themes.",
+    "evidence": "`packages/design/oak-design-system/KNOWN-ISSUES.md` item 14: \"`:root`-declared aliases freeze under SUBTREE high-contrast / colour-safe theming \u2026 Affects `--border-accent`, `--bg-selected`, and the whole Oak-dialect alias block (`--surface-mint` \u2026)\", and it closes \"What stays open here is only the alias-block breadth question \u2026 until ruled, avoid dialect aliases inside HC/colour-safe *subtrees*\". Item 1 is also live for W4.1: `@import`-only stylesheets (`styles.css`) \"parse to zero rules for pages served inside this project\" \u2014 plain pages must link the four sheets directly.",
+    "suggested_cure": "Promote item 14 to a named W0.2 story with a required ruling (re-declare every dialect alias per theme block, or narrow the subtree contract), and make it an explicit predecessor of W3.2. Record item 1 in the W4.1 story's consumption path.",
+    "source": "design-system-expert"
+   },
+   {
+    "severity": "minor",
+    "section": "W0.4 / W1.1 (identity assets)",
+    "claim": "Identity asset delivery is undecided and currently broken in the showcase: the two counter-identities depend on CDN icon fonts, and the showcase's identity payload omits their icon sheets entirely \u2014 so \"three identities present at all times\" is partial today and would remain so unless a story decides asset delivery.",
+    "evidence": "`studio-source/whitelabel/creature/icons.css` opens with `@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded\u2026')`; `freedonia/icons.css` with `@import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/\u2026')`. `KNOWN-ISSUES.md` item 3 records this as a known network dependency and item 4 adds Public Sans from Google Fonts for Freedonia. `demos/oak-design-showcase/public/brands/creature/` and `.../freedonia/` contain only `brand.css` and `brand-a.css` \u2014 no `icons.css`, no logo. ADR-148's delivery posture for MCP views is no CDN.",
+    "suggested_cure": "Add a W1 story deciding identity asset delivery (vendor icon fonts/SVGs into the identity directory, offline-safe, licence notices beside them as the kit does for Lexend/Roboto Mono), make the icon set a required field of the identity manifest, and extend the showcase identity payload to carry icons and logo so each identity renders complete.",
+    "source": "design-system-expert"
+   },
+   {
+    "severity": "minor",
+    "section": "W3.3 (reference-page dimensions)",
+    "claim": "The enumerated dimension list is narrower than the kit's actual token surface, and one listed dimension (iconography) has no DTCG representation at all \u2014 so the page can be \"complete\" against the plan while silently omitting whole token roots, which is the drift W3.3 exists to prevent.",
+    "evidence": "Listed: colour, typography, spacing, radius, borders, shadows, motion, iconography, layers. Actual roots \u2014 `dtcg/semantic.light.json`: bg, border, color, control, ease, filter, focus, motion, scrim, shadow, state, surface, text, type; `dtcg/primitives.json`: border, font, layer, leading, measure, radius, size, space, tracking, weight. Unrepresented by the list: state, focus, filter, scrim, control/density, size (target and icon), measure, ease, leading/tracking/weight, and the composition tokens (`components.css:33-35` `--flow-columns`, `--flow-gap`, `--key-align`; `:1234-1263` `--main-areas`). `dtcg/README.md`: \"Icon URL tokens (`--i-*` and the `--ic-*` roles, `oak-icons.css`) are deliberately not exported\".",
+    "suggested_cure": "Derive the page's section list from the token tree's root groups at build time, with a check that fails when a root has no rendering treatment \u2014 so a new root cannot be silently unrepresented. Declare the iconography section as sourced from `icons.json`/`assets/icons/` with its own drift check, not from DTCG.",
+    "source": "design-system-expert"
+   },
+   {
+    "severity": "blocking",
+    "section": "W2.1 \u2014 The React component tier",
+    "claim": "W2.1 (\"Ship the full component set in `oak-design-react`, mirroring the kit's class library \u2026 every W0.1 component class gains its component or a recorded rationale why not\") is the exact shape ADR-213 \u00a73 rejects as a settled standing rule. Executing it as written lands an architecture the estate's own ADR forbids, with no amendment.",
+    "evidence": "<repo>/docs/architecture/architectural-decisions/213-design-system-integration-and-component-system-architecture.md \u00a73 Standing rules: \"**Re-wrapping the class library in a framework component layer remains rejected** (it would fork the tier-3 contract). This question is settled here and is not re-litigated per widget.\" The 2026-07-23 amendment reaffirms it under \"Stands unchanged\": \"the rejection of re-wrapping the _class library itself_ in a component layer therefore also stands\", and defines the tier as \"a **curated, owned React component tier** \u2026 components adopted from `studio-source/` **with ownership**\" seeded by the four studio components (verified present: `packages/design/oak-design-system/studio-source/components/{OakButton,OakTag,OakIcon,OakSubjectChip}`). `components.css` carries 102 distinct `.oak-*` selectors, most of them modifiers (`.oak-card--aqua`, `.oak-tag--mint`) and layout primitives (`.oak-stack`, `.oak-cluster`, `.oak-flow`, `.oak-canvas`), not component recipes. The plan cites ADR-213 nowhere and carries no amendment.",
+    "suggested_cure": "Re-write W2.1 as curated adoption on the ADR-213 shape: (a) a class\u2192construct mapping rule stated in W0.1 (recipe class \u2192 component; modifier class \u2192 prop/variant union; layout primitive \u2192 composition component; utility \u2192 `className` passthrough only), (b) the coverage table records the mapping decision per class rather than a component per class, and (c) if the owner genuinely wants a 1:1 mirror, carry a dated ADR-213 \u00a73 amendment with grounds inside this plan before W2 opens \u2014 an ADR contradiction discovered mid-execution is a stop.",
+    "source": "react-component-expert"
+   },
+   {
+    "severity": "blocking",
+    "section": "W2.1 vs W2.2 \u2014 which layer paints",
+    "claim": "The plan never decides whether the React tier's components paint via kit classes or via Tailwind utilities. W2.1 says components mirror \"the kit's class library\"; W2.2 says \"The Tailwind mapping as first-class consumption (the showcase's engine)\". Both cannot be the engine, and each branch has a different downstream cost the plan has not priced.",
+    "evidence": "Verified: `packages/design/oak-design-system/docs/nextjs-theme-mapping.css` maps Tailwind's utility vocabulary onto role tokens only (`--color-ink: var(--text-primary)` \u2026), i.e. it re-exposes tier-2 roles \u2014 it does not reproduce any component recipe. The recipes live in `components.css` (1350 lines, `.oak-btn`, `.oak-card`, `.oak-quiz-answer`, focus rings, state rules). The showcase today has no Tailwind at all (`demos/oak-design-showcase/package.json` has no tailwindcss dependency; `app/globals.css` header: \"owner ruling 2026-07-29: no Tailwind, no PostCSS, no mapping layer \u2014 the kit's own classes and token roles ARE the styling vocabulary\"). If tier components emit kit classes, Tailwind is decorative in the showcase and W2.2's \"engine\" claim is false; if they emit Tailwind utilities, the recipes are duplicated in a second vocabulary that the plain demo (W4.1) and the styled demo (W4.2) cannot consume.",
+    "suggested_cure": "Add a Decision-log row: components paint via kit component classes (tier-3 contract, shared by all four demos) and Tailwind's role-mapped utilities are used only for page/layout composition inside the showcase \u2014 plus a W3 exit check that no kit recipe is re-expressed as utilities. Restate W2.2 as \"the Tailwind role mapping wired and demonstrated as the showcase's composition vocabulary\", not \"the engine\".",
+    "source": "react-component-expert"
+   },
+   {
+    "severity": "blocking",
+    "section": "W2 / W3.2 / W4.3 \u2014 identity runtime binding is unassigned",
+    "claim": "Every workstream treats identity as build-time data (W1.1 schema, W1.2 falsifier), but the live identity binder is demo-local, hardcoded, and deliberately non-persistent. W3 turns a one-page showcase into a multi-page one; executed as written, identity resets to Oak on reload, deep link, and any full navigation \u2014 visible failure of \"three identities present at all times\" and of the wow bar.",
+    "evidence": "`<repo>/demos/oak-design-showcase/components/useIdentity.ts` holds a hardcoded `const IDENTITIES = ['oak','freedonia','creature'] as const`, resolves sheets by convention `/brands/${identity}/brand.css`, and its docblock states: \"Identity deliberately does NOT persist across reloads: persistence would need a second pre-paint bootstrap to avoid a flash of Oak brand (the exact problem oak-theme.js solves for themes).\" W3.2/W3.3 add Identity Switchboard, White-Labelling, Example Front Pages and the token-reference page, each needing the identity axis. W2 lists only theme runtime binding (W2.3); W4.3 defers identity to \"showcase-only scope\". W1.2's falsifier only checks that a mint \"touches framework code\" \u2014 a new identity would still require editing this demo-side union, so the falsifier passes while identity \u21164 is unreachable in the only demo that shows identities.",
+    "suggested_cure": "Add W2.4 \"identity runtime binding\": a config-driven identity list (fed by W1.1's schema output, no hardcoded union), a layout-level provider so state survives client-side navigation, and a pre-paint identity bootstrap alongside `oak-theme.js` so reload/deep-link renders the chosen identity without a flash of Oak. Extend W1.2's falsifier to fail if minting identity \u2116N requires editing any demo source.",
+    "source": "react-component-expert"
+   },
+   {
+    "severity": "important",
+    "section": "W2.3 \u2014 theme runtime binding",
+    "claim": "W2.3 requires the runtime binding to expose detection of `prefers-color-scheme`, `prefers-contrast` and `prefers-reduced-motion`. The landed store's contract deliberately exposes none of that, and adding it naively breaks React's server-snapshot rule. The plan states an outcome without stating the contract delta, so the seat will either re-open a settled design or hand-roll listeners per demo.",
+    "evidence": "`packages/design/oak-design-react/src/oak-theme-store.ts` docblock: \"The store deliberately carries NO contrast-media mirror \u2026 no exposed snapshot can change and a re-notification would always bail out of useSyncExternalStore\", and the snapshot \"is the CHOICE model, never the applied html attribute\". `packages/design/oak-design-system/oak-theme.js` handles `prefers-contrast` in JS only (auto() + one change listener) and leaves colour-scheme and reduced-motion entirely to CSS (`light-dark()`, no attribute when 'system'). react.dev/reference/react/useSyncExternalStore: `getServerSnapshot` \"must return the same exact data on initial client render as on the server\", and `getSnapshot` must return cached/immutable values \u2014 \"Always returning different objects causes infinite loops\".",
+    "suggested_cure": "Name the delta in W2.3: (1) detection stays CSS-owned for styling \u2014 no React branch may select styles from media state; (2) if display of the *applied* theme is required, add an `applied()` accessor plus a matchMedia subscription inside the kit runtime and surface it as a separate scalar snapshot (never a composite object) with `getServerSnapshot` returning the neutral value; (3) state that any media-derived control state appears only post-hydration.",
+    "source": "react-component-expert"
+   },
+   {
+    "severity": "important",
+    "section": "W2.3 / Cross-demo acceptance \u2014 \"one mechanism\"",
+    "claim": "The claim that one mechanism serves every demo fails at the notification boundary. The React adapter emits change notifications only for writes made through itself; the kit runtime has no subscribe. With four demos (one of them plain HTML writing directly to `window.oakTheme`), any write outside the React store leaves React controls stale.",
+    "evidence": "`packages/design/oak-design-react/src/oak-theme-store.ts`: `emit()` is called only inside `createSetters`' `setTheme`/`setMotion`; `subscribe` maintains a local listener Set with no `storage` event and no runtime hook. `packages/design/oak-design-system/oak-theme.js` exposes `set/get/choice/themes/motion` and no subscribe/observer; its only listener is the internal `prefers-contrast` change handler. W4.1's plain demo is specified to use \"`oak-theme.js` for detection and selection\" \u2014 i.e. writes that bypass the store entirely; the same holds for a cross-tab change or any kit-shipped control.",
+    "suggested_cure": "Schedule a kit story (framework-neutral trunk, W0.2 or W2.3): add `oakTheme.subscribe(listener)` fired on every `set`/`motion.set` plus a `storage`-event bridge, and re-point the React adapter's `subscribe` at it, keeping `emit` only as a fallback. Then \"one mechanism\" is structural rather than per-consumer discipline.",
+    "source": "react-component-expert"
+   },
+   {
+    "severity": "important",
+    "section": "W4.2 / W2.1 \u2014 styled-components interop contract",
+    "claim": "W4.2 is unimplementable against the tier as currently specified: `styled(Component)` requires the wrapped component to accept and apply `className`, and the seed components accept only a `style` prop. The plan also never says whether the styled demo consumes `oak-design-react` or forks its own components \u2014 which decides whether the accessibility audit cost is 1+N or 2N.",
+    "evidence": "styled-components docs (styled-components.com/docs/advanced, fetched 2026-08-02) plus the Next.js App Router guide (nextjs.org/docs/app/guides/css-in-js, v16.2.12) confirm the `styled()` wrapper works by passing a generated class through `className`, and require `compiler: { styledComponents: true }` plus a `useServerInsertedHTML` registry client component. The seed components verified in-repo take no `className`: `studio-source/components/OakButton/OakButton.jsx` signature is `({children, variant, size, iconLeft, iconRight, disabled, href, onClick, type, style})`; `OakTag.jsx` likewise ends at `style`. ADR-213 \u00a73 records the \"honest **1+N audit accounting**\" rule for shared widgets \u2014 forking doubles the visual pass per surface.",
+    "suggested_cure": "Add to W2.1's acceptance a prop-API contract every tier component must satisfy: `className` accepted and merged after the kit classes, ref accepted as a prop (React 19), semantic element choice explicit (`as`/dedicated `Link` variant) rather than inferred, and no `style` prop. Add a Decision-log row stating whether W4.2 consumes the tier (preferred; then it is the tier's second consumer and proves the thinness claim) or forks, with the audit accounting stated either way.",
+    "source": "react-component-expert"
+   },
+   {
+    "severity": "important",
+    "section": "W2.1 \u2014 adoption of the studio seed components",
+    "claim": "The four seed components the ADR designates as the tier's seed are inline-style components that track hover, press and focus in React state. Adopting them without a stated rewrite lands code that violates the estate's own no-hardcoded-values instrument and replaces CSS state semantics with JS state \u2014 which breaks forced-colors, print, and the brand expression layer. W2 contains no conversion story.",
+    "evidence": "`packages/design/oak-design-system/studio-source/components/OakButton/OakButton.jsx`: `const [hover, setHover] = React.useState(false); const [press, setPress] = React.useState(false); const [focus, setFocus] = React.useState(false);` with a `base` object of inline style declarations and variant maps selecting colours off `hover`/`disabled`. `OakTag.jsx` renders `<span style={{\u2026}}>` and an `<img style={{\u2026}}>`. The showcase bans exactly this: `demos/oak-design-showcase/eslint.config.ts` `no-restricted-syntax` on `JSXAttribute[name.name='style']` \u2014 \"Inline styles cap what a brand's expression layer can transform (kit specimen HOOK-CLEAN CONTRACT)\". `packages/design/oak-design-system/CLAUDE.md` requires the double focus ring on `:focus-visible` and forced-colors support, neither of which survives JS-tracked focus state.",
+    "suggested_cure": "Add an explicit W2.1 story: adoption rewrites each seed to consume its kit class (`.oak-btn`, `.oak-tag`, \u2026) with variants as props, deletes all `useState` hover/press/focus tracking in favour of `:hover`/`:active`/`:focus-visible`, and removes the `style` prop from the public API. Pin the equivalence with a fixtures-as-parity test against the kit markup (ADR-213 \u00a73 already names that instrument).",
+    "source": "react-component-expert"
+   },
+   {
+    "severity": "important",
+    "section": "Cross-demo acceptance \u2014 the hub clause",
+    "claim": "\"The hub gains this where it lacks it \u2014 the one change the hub takes while otherwise staying as-is\" is false as authored: the hub already has working pre-paint detection and full theme + motion selection through the shared store. A seat reading this clause will look for, or manufacture, a change that is not needed.",
+    "evidence": "`demos/oak-curriculum-hub/app/layout.tsx` inlines the kit runtime pre-paint (`escapeInlineScript(readFileSync('public/oak-theme.js','utf8'))` in a raw `<head>` script, `suppressHydrationWarning` on `<html>`). `demos/oak-curriculum-hub/components/ThemeSwitcher.tsx` is `useSyncExternalStore` over `oakThemeStore` from `@oaknational/oak-design-react`, offering all five themes and all three motion modes (\"the access themes (high-contrast, colour-safe) are not optional extras\"), and it is mounted \u2014 `components/SiteFooter.tsx:19` renders `<ThemeSwitcher />`. Its own tests exist (`components/ThemeSwitcher.test.tsx`).",
+    "suggested_cure": "Replace the clause with the verified state and the real delta if any: the hub's remaining gap is that it renders no controls at all pre-hydration (server snapshot undefined) whereas the showcase renders a geometry-stable disabled shell \u2014 state whether convergence onto one shared control component is in scope, or record the hub's delta as zero.",
+    "source": "react-component-expert"
+   },
+   {
+    "severity": "important",
+    "section": "W3.3 \u2014 the token-reference page",
+    "claim": "\"Content GENERATED from the DTCG source so it cannot drift\" plus \"per-identity via the switcher\" cannot both hold: the DTCG export covers the Oak base only, and the brand identities exist solely as CSS override sheets. The seat's natural route \u2014 reading `getComputedStyle` in an effect \u2014 is derived state in an effect, produces hydration-time emptiness, and must be run per identity \u00d7 theme (15 combinations).",
+    "evidence": "`packages/design/oak-design-system/dtcg/` contains palette, primitives, semantic.{light,dark,high-contrast,colour-safe}, component, contrast-pairings \u2014 no brand trees; `grep -l \"freedonia\\|creature\" dtcg/` returns nothing. `dtcg/README.md`: \"generated from the CSS source of truth \u2026 **The CSS is canonical; regenerate these files after any token change**\". Brand overrides live in `demos/oak-design-showcase/public/brands/{creature,freedonia}/brand.css` and `packages/design/oak-design-system/studio-source/whitelabel/*`. react.dev's effect guidance (synchronisation only, not derived state) plus `useSyncExternalStore`'s server-snapshot rule make the computed-style route a documented anti-pattern here.",
+    "suggested_cure": "Make W3.3 consume W1.1's output rather than `dtcg/` directly: W1.1's identity schema must emit a per-identity token tree (generated from each brand.css, gated for orphans exactly as the theme overlays are), and W3.3 renders from that build-time data for all identity \u00d7 theme cells. Add an explicit prohibition on runtime `getComputedStyle` as the value source, with a single computed-style *parity test* (not the page's data path) proving generated values match the rendered cascade.",
+    "source": "react-component-expert"
+   },
+   {
+    "severity": "important",
+    "section": "W3.2 \u2014 \"ALL export pages\"",
+    "claim": "W3.2 enumerates three pages as \"ALL export pages\", but the export carries far more. Since W2.1's coverage target is census-driven and W3.4's matrix is the exit checklist, the under-enumeration silently shrinks both the component tier and the owner's requirement (4) (\"including all pages from the design system export\").",
+    "evidence": "First-hand count in `packages/design/oak-design-system/studio-source/` (and mirrored in `packages/design/oak-open-curriculum-design-system-tna-24072026-1141/project/`): 3 top-level pages (Identity Switchboard, Identity White-Labelling, Example Front Pages) **plus** 62 `preview/*.html` pages (buttons, card, inputs, modal, tabs, tooltip, toast, pagination, quiz-*, breadcrumbs, composition-regions, a11y-charter, contrast-audit \u2026), 4 component pages (`components/*/oak*.html`), 5 template pages under `iteration-pull-preservation-2026-07-23/templates/`, `templates/lesson-deck` + `templates/worksheet`, the reveal deck, and 5 whitelabel pages. W3.2 names only the 3.",
+    "suggested_cure": "Have W0.1 enumerate the export page set as a committed list, then set W3.2's target from that list with an explicit disposition per page (express / fold into a specimen surface / owner-accepted exclusion). Derive W2.1's component coverage from the same list so the tier is sized by evidence rather than by three page names.",
+    "source": "react-component-expert"
+   },
+   {
+    "severity": "important",
+    "section": "W3.1 \u2014 deleting the current showcase page",
+    "claim": "\"Its plumbing assertions survive as tests, not as a page\" is not executable as written: the assertions in question are page-bound end-to-end specs, and several encode hard-won behaviours (pre-hydration geometry, counter-brand load-then-swap) that a from-scratch rebuild will silently lose.",
+    "evidence": "`demos/oak-design-showcase/tests/showcase.spec.ts` describes: region contract, theme choice + reload persistence, no-choice \"Page default\", OS contrast without claiming a choice, motion collapse, identity switching, \"switching between counter-brands never shows the Oak base\", and \"pre-hydration shell geometry\" parameterised by viewport width. `tests/showcase-a11y.spec.ts` runs the identity \u00d7 theme axe matrix, identity \u00d7 system-theme matrix, focus-ring contrast on the switchboard and inverted footer, and 320px reflow. The behaviours they pin are documented in `components/Switchboard.tsx` (320px under-reservation; 737\u2013742px re-wrap) and `components/useIdentity.ts` (load-then-swap with a generation counter, React 19 `<link precedence>` rejected on documented semantics).",
+    "suggested_cure": "Change W3.1 to: the rejected page's *markup* is deleted; the existing Playwright specs are re-pointed at the new surfaces and must stay green as the regression floor, and the switchboard's hydration-geometry and load-then-swap invariants move with the components into the tier (or into the layout-level provider) with their tests attached. List any spec deliberately dropped with its reason.",
+    "source": "react-component-expert"
+   },
+   {
+    "severity": "minor",
+    "section": "Cross-demo acceptance \u2014 \"zero raw literals at point of use\"",
+    "claim": "Introducing Tailwind into the showcase opens a hole in the no-hardcoded-values instrument: neither half of it can see Tailwind arbitrary-value utilities in `className` strings, so the cross-demo acceptance criterion becomes unenforced exactly where the new consumption path lands.",
+    "evidence": "`demos/oak-design-showcase/tools/validate-authored-css.ts` walks only files ending `.css` (\"Walks every authored .css file in the workspace\"); the TSX half is a `no-restricted-syntax` ban on the `style` attribute and `<style>` element (`demos/oak-design-showcase/eslint.config.ts`). Neither sees `class=\"bg-[#123456] p-[7px] text-[13px]\"`. Verified there is no Tailwind-aware lint rule in the repo: grep for \"tailwind\" across `packages/core/oak-eslint/src` and `demos/oak-curriculum-hub/eslint.config.ts` returns nothing.",
+    "suggested_cure": "Add a W2.2 story: an ESLint check failing any JSX class string containing an arbitrary-value utility (`-\\[` pattern) in the Tailwind-consuming demos, plus a positive check that colour/spacing utilities resolve to mapped role names. Land it in the same PR that adds Tailwind to the showcase, so the gate never lags the consumption path.",
+    "source": "react-component-expert"
+   },
+   {
+    "severity": "minor",
+    "section": "W2 \u2014 server/client boundary policy",
+    "claim": "The plan states no `'use client'` policy for the tier or for the rebuilt multi-page showcase. With a layout-level provider for identity plus interactive components, the default path a seat takes is a client boundary at the root, converting the whole showcase to client rendering and undermining the pre-paint/no-flash claims that depend on server-emitted HTML.",
+    "evidence": "react.dev/reference/rsc/use-client: the directive marks the boundary and everything imported below it becomes part of the client bundle. Today's showcase keeps the boundary low \u2014 `app/layout.tsx` and `app/page.tsx` are server components and only `components/Switchboard.tsx` / `useIdentity.ts` carry `'use client'`. W3.2/W3.3 add a persistent switcher across pages and a data-driven token-reference page; W4.2's styled-components tree is client by construction (Next.js CSS-in-JS guide: \"The following libraries are supported in Client Components in the `app` directory\").",
+    "suggested_cure": "State the rule in W2's acceptance: presentational tier components ship without `'use client'`; only interactive residents carry it; providers accept `children` as a slot so server-rendered subtrees pass through unchanged. Add a W3 exit check that the showcase's page and layout modules remain server components.",
+    "source": "react-component-expert"
+   },
+   {
+    "severity": "blocking",
+    "section": ".agent/plans/delivery/design-system-completion.plan.md \u00a7Cross-demo acceptance + \u00a7W0.2 (hub \"stays as-is\")",
+    "claim": "The hub has NO accessibility proof surface at all, and no workstream in the plan creates one \u2014 so the cross-demo criterion \"WCAG 2.2 AA per the demos-tier standard\" is unsatisfiable for one of the four demos as written.",
+    "evidence": "<repo>/demos/oak-curriculum-hub/package.json declares no `test:a11y` (scripts: dev, build, clean, start, type-check, lint, test, tool:*); `find . -name playwright*.config.ts` returns only apps/oak-curriculum-mcp-streamable-http (2) and demos/oak-design-showcase. Root `check` and .github/workflows/ci.yml:230 both run `turbo run ... test:a11y`, so the hub contributes zero cells. demos/README.md states the tier is held to \"WCAG 2.2 AA\". The hub is a multi-route app (app/course, /lesson, /curriculum, /rubrics, /standards, /wiki) with a disclosure-based MobileHubNav and search results \u2014 none of it axe-tested.",
+    "suggested_cure": "Add an explicit W0 story \"hub a11y proof surface\": playwright.config.ts + `test:a11y` over the hub's routes and interactive chrome (SiteNav sticky header, MobileHubNav disclosure, HubSearch, ResultCards, lesson pages) across the theme cells the hub offers, and make it a W0.2 stabilise exit criterion. \"Stays as-is\" governs the hub's visual design, not its absent gate.",
+    "source": "accessibility-expert"
+   },
+   {
+    "severity": "blocking",
+    "section": ".agent/plans/delivery/design-system-completion.plan.md \u00a7Cross-demo acceptance (\"high-contrast and colour-safe reachable\", \"OS signals respected pre-paint\")",
+    "claim": "The single theme mechanism the plan mandates for all four demos silently drops the OS high-contrast route for two large user classes: anyone who selects the \"Match device\"/system theme, and anyone without JS. There is no CSS-level `prefers-contrast` fallback anywhere in the kit, so honouring WCAG-relevant OS contrast preference is entirely JS-dependent.",
+    "evidence": "<repo>/packages/design/oak-design-system/oak-theme.js: `auto()` (lines 60-72) is the only `prefers-contrast: more` consumer; line 95 `apply(stored() || auto() || null)` short-circuits `auto()` whenever anything is stored \u2014 and 'system' IS a storable member of THEMES (line 26); the live listener (lines 99-104) bails on `if (!current && !stored())`. `grep -rn \"prefers-contrast\" packages/design --include=\"*.css\"` returns nothing: colors_and_type.css keys high-contrast solely on `[data-theme='high-contrast']` (lines 598-599). demos/oak-curriculum-hub/components/ThemeSwitcher.tsx labels 'system' \"Match device\" \u2014 the user-facing promise is precisely OS-following.",
+    "suggested_cure": "Make this a named W0.2 stabilise defect with a red-then-green cure: (a) add `@media (prefers-contrast: more)` CSS mapping to the high-contrast token block, scoped so an explicit non-system choice still wins, so the guarantee survives JS-off; (b) make the runtime consult `auto()` when the stored choice is 'system'. Add two cross-demo gate cells: stored 'system' + `emulateMedia({contrast:'more'})` \u2192 high-contrast applied; `javaScriptEnabled:false` + contrast 'more' \u2192 high-contrast applied.",
+    "source": "accessibility-expert"
+   },
+   {
+    "severity": "blocking",
+    "section": ".agent/plans/delivery/design-system-completion.plan.md \u00a7W3.4 (\"non-trivial composition re-ordering live\")",
+    "claim": "CSS-driven page re-ordering is demonstrated as a headline feature with zero acceptance criteria for reading order or focus order. SC 1.3.2 Meaningful Sequence (A) and 2.4.3 Focus Order (A) are exactly what visual re-ordering breaks, and axe ships no rule for either \u2014 the mechanical matrix will stay green while the demo ships a keyboard-hostile page.",
+    "evidence": "Plan \u00a7W3.4 requires \"non-trivial composition re-ordering live\"; \u00a7Cross-demo acceptance names only \"keyboard-complete; visible focus\". The composition mechanism is grid-template-areas driven (packages/design/oak-design-system/KNOWN-ISSUES.md item 7: maps under `[data-page=...]`, region\u2192area assignment), i.e. visual position changes with DOM order fixed. demos/oak-design-showcase/tests/showcase-a11y.spec.ts contains no focus-order assertion \u2014 only axe, ring contrast and 320px reflow.",
+    "suggested_cure": "Add to W3.4 acceptance: for every composition variant demonstrated, a scripted check that the sequential focus order matches visual order (walk Tab, compare `getBoundingClientRect()` top/left monotonicity) and that heading/landmark reading order remains meaningful. State in the Charter that a variant whose DOM order and visual order diverge is a defect to re-author in DOM order, not a feature to showcase.",
+    "source": "accessibility-expert"
+   },
+   {
+    "severity": "blocking",
+    "section": ".agent/plans/delivery/design-system-completion.plan.md \u00a7W1.2 (identity-\u2116N falsifier) + \u00a7W1.4 (\"generalising the existing four-theme contrast gate\")",
+    "claim": "The contrast gate cannot be \"generalised\" to identity \u00d7 theme as written: it is a DTCG-token + hand-authored-pairings gate that exists only for the Oak identity. Counter-brands ship CSS-only `:root` overrides with no token trees, no pairings manifest and no per-theme blocks. As specified, W1.2's config-only identity mint would produce identities with zero contrast proof, and the owner-ratified per-theme gate LEVELS have no carrier in the new schema.",
+    "evidence": "<repo>/packages/design/oak-design-tokens/src/design-system-contrast.ts imports only Oak trees (`@oaknational/oak-design-system/dtcg/semantic.{light,dark,high-contrast,colour-safe}.json` + palette + contrast-pairings). design-system-expectations.ts:21-28 pins THEME_GATE_LEVELS `'high-contrast': 'AAA'`, others 'AA', commented \"Ratified gate level per theme (owner, 2026-07-20)\". packages/design/oak-open-curriculum-design-system-tna-24072026-1141/project/whitelabel/{freedonia,creature}/ contain only BRAND.md, brand-a.css, brand-full.css, icons.css, logo.svg, card.html, index.html \u2014 `grep -rn data-theme` across both returns nothing, and freedonia/brand-a.css has a single `:root {` token block.",
+    "suggested_cure": "W1.1's identity schema must require per-identity semantic token trees per required theme plus a pairings manifest (inheriting the base manifest by default), and W1.2's falsifier must additionally assert that the minted identity is automatically contrast-gated across all required themes at the ratified levels (high-contrast at AAA). No identity may be mintable without contrast coverage; that is the accessibility half of \"trivially arbitrary identities\".",
+    "source": "accessibility-expert"
+   },
+   {
+    "severity": "important",
+    "section": ".agent/plans/delivery/design-system-completion.plan.md \u00a7W0.2 (\"KNOWN-ISSUES triage (fix / accept-with-record / defer)\")",
+    "claim": "The triage disposition set admits \"accept-with-record\" and \"defer\" for entries that are live WCAG failures, contradicting ADR-147 zero-tolerance; and one of those entries is a hard prerequisite for W3.2's three-identity/theme rendering, not a deferrable nicety.",
+    "evidence": "packages/design/oak-design-system/KNOWN-ISSUES.md item 13: dark body links on lemon bands measure \"4.48:1, gate-measured\" \u2014 below SC 1.4.3 AA (4.5:1) \u2014 and pass CI only because that pairing is absent from dtcg/contrast-pairings.json (closed-list blindness). Item 14: `:root`-declared aliases freeze under SUBTREE high-contrast/colour-safe theming, with the standing instruction \"until ruled, avoid dialect aliases inside HC/colour-safe subtrees\". ADR-147 \u00a7Standard: \"Tolerance: Zero \u2014 no skipRules, no accepted violations\". The kit's own CLAUDE.md: \"Every colour pairing at least 4.5:1 text ... in every theme\".",
+    "suggested_cure": "State in W0.2 that accessibility-class KNOWN-ISSUES entries have exactly one disposition \u2014 fix \u2014 and add the missing dark-link-on-lemon pairing to dtcg/contrast-pairings.json so the gate measures what the register admits. Make item 14's open alias-breadth question an owner-ruled W1 prerequisite that lands before any HC/colour-safe subtree is rendered in W3.",
+    "source": "accessibility-expert"
+   },
+   {
+    "severity": "important",
+    "section": ".agent/plans/delivery/design-system-completion.plan.md \u00a7W3.2 / \u00a7W1.4 (\"three identities present at all times\")",
+    "claim": "\"Three identities at all times\" is ambiguous between simultaneous on-page rendering and always-reachable switching, and the simultaneous reading is not supported by the current brand contract \u2014 brand tokens are document-scoped, so simultaneous rendering means subtree theming, which KNOWN-ISSUES 14 says is broken for high-contrast and colour-safe. Executing the simultaneous reading as written ships unaudited colour in the two access themes.",
+    "evidence": "packages/design/oak-open-curriculum-design-system-tna-24072026-1141/project/whitelabel/freedonia/brand-a.css declares tokens in a single `:root {` block (one `:root` occurrence, no `[data-...]` scoping). demos/oak-design-showcase/tests/apply-state.ts `applyIdentity` swaps a single document-level `link[data-oak-brand]` and waits for it to join `document.styleSheets` \u2014 one identity at a time by construction. KNOWN-ISSUES 14 restricts dialect aliases inside HC/colour-safe subtrees.",
+    "suggested_cure": "Resolve the reading in the Charter. If simultaneous: add a W1 story to scope brand tokens under a subtree selector with per-theme overrides re-declared inside it, fix KNOWN-ISSUES 14 first, and run the gate matrix on subtree cells (not just root cells). If sequential: reword to \"all three identities reachable at all times from the switchboard\", so the matrix gate and the owner's point-8 mean the same thing.",
+    "source": "accessibility-expert"
+   },
+   {
+    "severity": "important",
+    "section": ".agent/plans/delivery/design-system-completion.plan.md \u00a7Cross-demo acceptance (\"WCAG 2.2 AA per the demos-tier standard; keyboard-complete; visible focus\")",
+    "claim": "The cross-demo acceptance line under-specifies WCAG 2.2 AA relative to both the estate's existing proofs and the kit's own standing commitments. Two brand-new demos built to the literal criteria will ship below the bar the current showcase already meets.",
+    "evidence": "Absent from the criteria but present in today's proofs or the kit's contract: forced-colours mode (demos/oak-design-showcase/tests/showcase-a11y.spec.ts 'forced-colors keeps the page renderable @a11y', and docs/governance/accessibility-practice.md \u00a7Contrast rules under forced colours mandates its matchMedia-gated pattern for \"Any forced-colours project added elsewhere in the estate\"); SC 1.4.10 reflow at 320px (same suite, per identity) and 400% zoom (kit CLAUDE.md); SC 2.5.8 target size, where the kit's floor is \"at least 44px (md 48px)\" against WCAG's 24\u00d724; SC 2.4.1 skip links (kit ships `.oak-skip-link`, components.css:1049); SC 3.1.1 lang; SC 1.4.12 text spacing.",
+    "suggested_cure": "Turn the demos-tier a11y DoD into an enumerated criterion list in the W0.3 Charter and require every demo's suite to carry: a forced-colours cell using the practice doc's matchMedia gate + self-retiring assertion, 320px reflow and 400% zoom, target-size measurement at the kit's 44px floor, skip link, `lang`, and text-spacing. Each new demo cites the list rather than the two-word summary.",
+    "source": "accessibility-expert"
+   },
+   {
+    "severity": "important",
+    "section": ".agent/plans/delivery/design-system-completion.plan.md \u00a7W3.1 (\"Its plumbing assertions survive as tests, not as a page\")",
+    "claim": "Deleting the rejected showcase page deletes the estate's only browser-level instruments for the WCAG criteria axe cannot measure. \"Plumbing assertions survive\" names no a11y instrument, so the rebuild can land with a green matrix and materially less coverage than today.",
+    "evidence": "Instruments that exist only in that workspace: demos/oak-design-showcase/tools/focus-ring-contrast.ts + the `expectRingContrast` legs (\"axe ships no focus-indicator-contrast rule\" \u2014 SC 1.4.11 ring-vs-surface measurement, including the cure for a hand-measured 1.12:1 instance on the inverted footer band); the 320px reflow probe with its minLeft check; the forced-colors cell; and tests/apply-state.ts `measureSwitchboardGeometry(..., javaScriptEnabled:false)` \u2014 the only JS-disabled shell proof in the estate.",
+    "suggested_cure": "Add a W3.1 acceptance line: \"no accessibility instrument is deleted, only re-pointed\", with a named inventory (ring-contrast tool, 320px reflow probe, forced-colours cell, JS-disabled shell, identity\u00d7theme axe matrix) and a red-then-green re-point recorded per instrument before the old page is removed.",
+    "source": "accessibility-expert"
+   },
+   {
+    "severity": "important",
+    "section": ".agent/plans/delivery/design-system-completion.plan.md \u00a7Quality bar \u2014 the wow checkpoint",
+    "claim": "The per-page definition of done has a vision-based design-review leg and a mechanical gate, but no manual accessibility review leg \u2014 which reproduces, in the accessibility dimension, exactly the class failure the section says it cures (\"every prior gate was machine-checkable and nothing forced anyone to look\").",
+    "evidence": "\u00a7Quality bar item 2 names only \"the fidelity register\", \"a vision-based design-review leg\" and \"the mechanical gate matrix green first\". ADR-147 \u00a7Why Playwright + axe-core: \"Manual review remains necessary for criteria that cannot be machine-verified\"; docs/governance/accessibility-practice.md repeats it. The pages in scope carry APG widget patterns (export preview set includes modal.html, tabs.html, accordion.html, disclosure.html, tooltip.html, toast.html, quiz-*.html) whose keyboard and announcement behaviour axe cannot judge.",
+    "suggested_cure": "Add an accessibility-expert review-mode dispatch to the same checkpoint as the vision leg, per page and per demo, run before the render is shown to the owner; record its findings alongside the fidelity register so the a11y verdict is as visible as the visual one.",
+    "source": "accessibility-expert"
+   },
+   {
+    "severity": "important",
+    "section": ".agent/plans/delivery/design-system-completion.plan.md \u00a7W2.1/\u00a7W2 Acceptance (\"a11y gate green per component\")",
+    "claim": "The React tier ships \"the full component set\" with axe-per-component as its only accessibility acceptance. axe cannot verify the keyboard interaction models, focus management or announcement behaviour these widgets require, and component-scoped runs are structurally blind to the page-level criteria.",
+    "evidence": "The class library to be mirrored includes APG-pattern widgets: packages/design/oak-open-curriculum-design-system-tna-24072026-1141/project/preview/{modal,tabs,accordion,disclosure,tooltip,toast,pagination,select,choice-groups,step-cycle,quiz-answers,quiz-order-match,quiz-results}.html. Plan \u00a7W2 acceptance reads \"component coverage table complete; tier consumed by W3 with zero component-local literals; a11y gate green per component\".",
+    "suggested_cure": "Per interactive component require: the APG pattern named in the component doc, plus keyboard-model tests (roving tabindex and Arrow keys for tabs, Escape + focus trap + focus return for modal, aria-expanded/aria-controls for disclosure and accordion, role=status/live-region announcement for toast, hover+focus dismissal for tooltip per SC 1.4.13). Gate page-level criteria (heading order, landmark structure, reflow, SC 2.4.11 focus-not-obscured under the sticky header) at page level, not per component.",
+    "source": "accessibility-expert"
+   },
+   {
+    "severity": "important",
+    "section": ".agent/plans/delivery/design-system-completion.plan.md \u00a7Cross-demo acceptance (\"pre-paint (no flash of wrong theme)\") + \u00a7W4.2",
+    "claim": "The pre-paint criterion names no mechanism and no instrument, and the styled-components demo carries a first-paint hazard worse than a theme flash that the plan never states: without the Next App Router style registry, server-rendered HTML paints unstyled until hydration, which fails contrast, focus visibility and reading-order expectations for that whole frame.",
+    "evidence": "Verified against the live Next.js 16.2.12 doc nextjs.org/docs/app/guides/css-in-js: styled-components@6 requires `compiler.styledComponents` plus a client-component registry using `ServerStyleSheet` + `useServerInsertedHTML` so \"style rules are placed before any content that might use them\"; the libraries are supported \"in Client Components\" only. The estate already solved the theme half with a raw inline `<head>` script \u2014 demos/oak-design-showcase/app/layout.tsx and demos/oak-curriculum-hub/app/layout.tsx both note \"A raw inline <head> script is the only shape that cannot flash ... next/script beforeInteractive does not block hydration\". Today's suite proves post-hydration state (apply-state.ts waits for the Theme combobox to be enabled), not pre-paint.",
+    "suggested_cure": "Name the pre-paint mechanism per demo in the W0.3 Charter (raw inline head script for the three Next demos; parser-blocking `<script src>` in `<head>` for the plain demo) and name a mechanical proof for \"no flash\" (first-paint capture or a parse-time attribute assertion, plus a JS-disabled cell). Add the styled-components registry, with a no-unstyled-first-paint assertion, as an explicit W4.2 acceptance line rather than leaving it to the W4 vendor re-verification note.",
+    "source": "accessibility-expert"
+   },
+   {
+    "severity": "important",
+    "section": ".agent/plans/delivery/design-system-completion.plan.md \u00a7W1.1 (\"Adding a theme is data, not code\")",
+    "claim": "Arbitrary themes as data contradicts the shipped runtime and CSS, and the accessibility consequence is specific: the OS-signal-to-theme binding is hard-coded to Oak's literal theme names, so a config-defined identity whose access theme is named anything else silently loses the automatic OS-contrast route while still satisfying the schema's \"high-contrast required\" clause.",
+    "evidence": "packages/design/oak-design-system/oak-theme.js:26 `const THEMES = ['light','dark','system','high-contrast','colour-safe']` (a closed literal union, mirrored in src/oak-theme.ts:31 and 48); `auto()` returns the literal string 'high-contrast' (line 66); colors_and_type.css keys every theme block on literal attribute values (`[data-theme='high-contrast']` 598-599, `[data-theme='colour-safe']` 690-691). Adding a theme therefore edits framework code and kit CSS \u2014 the exact touch W1.2's falsifier is meant to forbid.",
+    "suggested_cure": "Have the W1.1 schema carry per-theme OS-signal bindings (which theme answers `prefers-color-scheme: dark`, `prefers-contrast: more`, `forced-colors: active`) and have the runtime read the identity's declared theme list rather than a compiled-in union. Then \"light, dark, high-contrast non-negotiable\" is checkable as a schema obligation with a live OS-signal route, not as a naming coincidence.",
+    "source": "accessibility-expert"
+   },
+   {
+    "severity": "minor",
+    "section": ".agent/plans/delivery/design-system-completion.plan.md \u00a7W3.2/\u00a7W3.3 vs owner requirement 4 (\"ALL pages from the design system export\")",
+    "claim": "W3.2 enumerates three export pages; the export ships 62 preview pages, three of which are the system's own accessibility surfaces. Omitting them drops the published guarantee/obligation split that the kit's contract treats as canonical, and drops the human-facing contrast instrument the kit tells consumers to validate with.",
+    "evidence": "packages/design/oak-open-curriculum-design-system-tna-24072026-1141/project/preview/ contains 62 HTML pages including a11y-charter.html (\"The holistic commitment \u2014 what the system guarantees, and what every build must still do\"), a11y-combinations.html (\"Legal text-on-fill pairings, focus ring, hit targets\") and contrast-audit.html. packages/design/oak-design-system/CLAUDE.md: \"validate with `preview/contrast-audit.html`\" and \"`preview/a11y-charter.html` is the canonical split of what the system guarantees vs what every build must still do\".",
+    "suggested_cure": "Name the accessibility trio explicitly in the W3 page inventory, and apply W3.3's generated-from-source rule to them: the charter's guarantee column and the contrast audit's numbers should render from the DTCG source and the gate's own report, so the published accessibility claims cannot drift from what CI measures.",
+    "source": "accessibility-expert"
+   },
+   {
+    "severity": "minor",
+    "section": ".agent/plans/delivery/design-system-completion.plan.md \u00a7W1.3 (off-horizontal dimension)",
+    "claim": "The off-horizontal token dimension is scoped purely as visual grammar with no accessibility constraints, and the owner design session is scheduled to price angles before those constraints exist \u2014 so the session can ratify options that later fail reflow, target-size or motion criteria.",
+    "evidence": "\u00a7W1.3 defines the work as \"rotation/tilt as tokened identity attributes\" and asks the owner only \"which elements tilt for Freedonia, at what angles, and where the personality lives\". Rotation interacts directly with criteria the plan already owes: rotated boxes overflow horizontally and break the 320px reflow proof the showcase runs per identity (SC 1.4.10); a rotated control's hit area is not its bounding box (SC 2.5.8, kit floor 44px); animated tilt must collapse with the kit's token-level motion axis under `prefers-reduced-motion` (colors_and_type.css:504-520); tilted running text degrades readability for low-vision and dyslexic readers.",
+    "suggested_cure": "Scaffold the token shape with its constraints attached before the owner session: no tilt on text-bearing blocks above a bounded angle, tilt never applied to interactive targets unless the untransformed hit area still meets the kit's 44px floor, any animated tilt driven by the existing motion tokens so it collapses automatically, and the identity's 320px reflow cell re-run as part of the W1.4 matrix. Then the owner prices options that are already inside the accessibility envelope.",
+    "source": "accessibility-expert"
+   },
+   {
+    "severity": "blocking",
+    "section": "W3 \u2014 The showcase, rebuilt to the wow bar (W3.1)",
+    "claim": "W3.1 ('Delete the current showcase page \u2026 Its plumbing assertions survive as tests, not as a page') is a standalone delete story that cannot land green: four existing test files describe that exact page, so the commit either lands a red tree (forbidden by the atomic-landing invariant) or deletes the description along with the page and lets W3.2's replacement arrive test-last \u2014 the audit-shaped outcome the plan is trying to cure.",
+    "evidence": "<repo>/demos/oak-design-showcase/app/page.unit.test.tsx line 4 imports the page directly (`import ShowcasePage from './page';`); <repo>/demos/oak-design-showcase/components/Switchboard.unit.test.tsx renders the page's switchboard; <repo>/demos/oak-design-showcase/tests/showcase.spec.ts asserts page-bound locators (`.oak-canvas > [data-region=\"\u2026\"]`, h1 name 'Oak Open Curriculum Design System', comboboxes 'Theme'/'Motion'); <repo>/demos/oak-design-showcase/tests/showcase-a11y.spec.ts runs the identity \u00d7 theme axe matrix over the same page. `.agent/directives/tdd-as-design.md` \u00a7The Atomic Landing Invariant forbids a commit that ends with a failing test or with product code whose description arrives later.",
+    "suggested_cure": "Delete the W3.1 delete-story. Replace it with per-page migration landings: in one commit, rewrite the describing test at the affected scale to specify the NEW page (Playwright spec + unit test), add the React/Tailwind page that greens it, and remove the old markup \u2014 the sequence in docs/engineering/testing-tdd-recipes.md \u00a7Updating E2E Tests After Implementation and .agent/directives/testing-strategy.md \u00a7When Behaviour Changes. State explicitly which of the current assertions are retained verbatim, which are re-expressed against the new DOM, and which are dropped with a reason.",
+    "source": "test-expert"
+   },
+   {
+    "severity": "blocking",
+    "section": "W1 \u2014 Identity and theme contract, gates (W1.2 identity-\u2116N falsifier)",
+    "claim": "The identity-\u2116N falsifier as specified ('CI mints a test identity from config only; if the mint touches framework code, the build fails \u2026 proven once, red-then-green') cannot be red for the reason the strategic parent needs it to be red. A CI job that mints from config by construction never touches framework code (unfalsifiable, permanent green); implemented instead as 'the build fails when framework files change', it fires on every legitimate framework commit (permanent false positive). Neither shape detects the actual thesis failure \u2014 an identity whose requirements are not expressible in the schema.",
+    "evidence": "Plan W1.2 and its acceptance line ('the \u2116N falsifier demonstrably fails on a framework-code touch (proven once, red-then-green)'); strategic node <repo>/.agent/plans/strategic/design-system-as-configured-framework.plan.md \u00a7Falsifiability states the real thesis failure as 'adding or modifying an identity requires framework-code changes'. A once-off human demonstration is not a standing guard: .agent/directives/testing-strategy.md \u00a7Prove the guard bites requires a gap-closing test to be shown biting by mutation, and the guard to remain in the suite.",
+    "suggested_cure": "Re-specify the falsifier as two standing, discriminating cases: (a) a synthetic identity fixture that lives outside the framework's importable tree and exercises EVERY census axis (colour, type, spacing, radius, shadow, motion, iconography, polarity default, rotation/off-horizontal, composition ordering, assets), rendered in the same identity \u00d7 theme matrix as the live three \u2014 it goes red the moment an axis is unreachable from config; (b) schema-rejection fixtures (identity missing high-contrast, missing colour-safe default, unknown axis) proving the schema discriminates. Enforce thinness with the existing dependency-boundary mechanism (`validate-boundaries` in the root repo-validators chain) rather than a diff heuristic. Cite docs/engineering/testing-patterns.md \u00a7Discriminating Fixtures.",
+    "source": "test-expert"
+   },
+   {
+    "severity": "blocking",
+    "section": "Cross-demo acceptance (all four, owner amendment 2026-08-02)",
+    "claim": "'Styling sourced solely from the design system \u2026 zero raw literals at point of use' is asserted for all four demos, but it is already false for the hub, which the same plan says stays as-is, and no existing or planned check can see the two syntaxes the criterion now has to cover (Tailwind arbitrary values, styled-components template literals). As written the criterion is either an unbudgeted mass refactor of the hub or an unenforced sentence.",
+    "evidence": "First-hand count in tracked hub source: 548 arbitrary-value class occurrences under <repo>/demos/oak-curriculum-hub/{components,app}, top forms `text-[13px]` (40), `text-[15px]` (32), `tracking-[0.05em]` (12), `rounded-[14px]` (10), `border-[3px]` (11). The only literal guard walks CSS files only: <repo>/demos/oak-design-showcase/tools/validate-authored-css.ts line 37 (`entry.name.endsWith('.css')`), doc-comment 'Walks every authored .css file'. Plan \u00a7Direction point 5 and \u00a7Decision log: 'the hub STAYS as-is'.",
+    "suggested_cure": "Split the criterion per demo in the Demos Charter row: state the hub's literal debt as measured (cite the count), record it as accepted or give it its own remediation story with a budget; and, for the showcase and styled-components demos, land a class-string / template-literal literal detector as a pure function with literal fixtures in the same landing as the first demo that needs it \u2014 the existing precedent is <repo>/demos/oak-design-showcase/tools/css-literal-values.unit.test.ts (positive and negative cases per axis).",
+    "source": "test-expert"
+   },
+   {
+    "severity": "important",
+    "section": "Cross-demo acceptance \u2014 'The hub gains this where it lacks it'",
+    "claim": "The hub's single stated change is misdiagnosed: it already has pre-paint theme detection and persisted selection. The story therefore has no available RED at the behaviour scale, and it names the wrong gap \u2014 what the hub actually lacks is any rendered-scale proof surface for those behaviours.",
+    "evidence": "<repo>/demos/oak-curriculum-hub/app/layout.tsx line 34 inlines the kit runtime pre-paint (`escapeInlineScript(readFileSync('public/oak-theme.js','utf8'))`); <repo>/demos/oak-curriculum-hub/components/ThemeSwitcher.tsx offers all five themes plus the motion axis over `useSyncExternalStore` with localStorage-backed choice. Proof gap: the hub has no playwright.config.ts and no `test:ui`/`test:a11y` scripts (package.json scripts are dev/build/start/type-check/lint/test/tools only), and <repo>/demos/oak-curriculum-hub/components/a11y-axe.test.tsx disables `color-contrast` because jsdom has no canvas.",
+    "suggested_cure": "Restate the hub story as 'land the browser proof surface that describes the hub's existing theme detection and selection' \u2014 Playwright + axe under the four categories in .agent/directives/testing-strategy.md \u00a7Browser Proof Surfaces, wired as `test:ui`/`test:a11y` so turbo and CI run them (.github/workflows/ci.yml line 230). RED comes from the missing assertions, not from missing product behaviour; verify the current behaviour first-hand before writing the story.",
+    "source": "test-expert"
+   },
+   {
+    "severity": "important",
+    "section": "W1.4 Gate matrix",
+    "claim": "'contrast + a11y per identity \u00d7 theme \u00d7 component in CI' names no matrix unit and no budget. Read literally against the kit's class library it is ~121 components \u00d7 3+ identities \u00d7 4 themes per demo, i.e. four figures of axe runs, and it grows with the 'trivially arbitrary' identity count \u2014 the gate would be either unbuildable or a CI-time hazard, and the plan gives the executing seat no ceiling to design against.",
+    "evidence": "121 unique class selectors in <repo>/packages/design/oak-design-system/components.css. The gate the plan says it generalises is page-scale, not component-scale: <repo>/demos/oak-design-showcase/tests/showcase-a11y.spec.ts loops IDENTITIES(3) \u00d7 PALETTE_THEMES(4) = 12 axe cells plus 3 system cells and 3 reflow cells; the four-theme contrast gate it also references is in-process token-pair maths (<repo>/packages/design/oak-design-tokens/src/design-system-contrast.integration.test.ts, DESIGN_SYSTEM_THEMES = light/dark/high-contrast/colour-safe).",
+    "suggested_cure": "State the matrix unit explicitly: (i) token-pair contrast stays in-process per identity \u00d7 theme (cheap, deterministic, scales with identities); (ii) rendered a11y runs over a specimen page per identity \u00d7 theme that carries every component class once \u2014 keeping the browser cell count at identities \u00d7 themes, not \u00d7 components; (iii) record the expected cell count in the plan as the exit number so a silently shrinking matrix is visible. Cite the existing loop shape in showcase-a11y.spec.ts as the pattern to generalise.",
+    "source": "test-expert"
+   },
+   {
+    "severity": "important",
+    "section": "W3.4 Feature-coverage matrix / W0.1 Feature census",
+    "claim": "The coverage matrix is specified as a hand-maintained exit checklist over a hand-made census, and 'demonstrated on a named showcase surface' is a presence claim. Both drift silently and neither proves the feature renders correctly \u2014 the same failure mode the plan cures for the token page one bullet earlier.",
+    "evidence": "Plan W3.4 ('every W0.1 census feature demonstrated on a named showcase surface \u2026 The matrix is the workstream's exit checklist') against W3.3 ('content GENERATED from the DTCG source so it cannot drift'). Repo estate makes derivation available: the DTCG source ships in the export and `oak-design-tokens`, and the class library is enumerable from packages/design/oak-design-system/components.css (121 selectors). Estate doctrine: .agent/rules/validators-must-recompute-not-just-record.md.",
+    "suggested_cure": "Derive the census mechanically (token groups from the DTCG source, component classes from components.css) and make the matrix a generated artefact whose gate fails when (a) a census entry has no demonstrating surface and (b) a demonstrating surface carries no passing assertion id. Bind each matrix row to a named test (spec title or test id), so the exit check recomputes 'every feature has a green assertion' rather than recording a tick.",
+    "source": "test-expert"
+   },
+   {
+    "severity": "important",
+    "section": "Workstreams (all) \u2014 missing describing surfaces and cycle decomposition",
+    "claim": "No workstream names where its state is observable from a test, at what scale, or what the first RED is; acceptance is written per workstream, not per landing. W2.1 ('Ship the full component set \u2026 mirroring the kit's class library') is a single story over ~121 classes with acceptance 'component coverage table complete'. This is exactly the plan-author-time omission the foundational directive says causes scaffolding tests and test-last work.",
+    "evidence": ".agent/directives/tdd-as-design.md \u00a7One State, One Describing Surface: 'The cure fires at plan-author time, not at test-review time: state the describing surface in one sentence before the cycle decomposition is settled, and tag each cycle's test boundary against it.' The plan's W0\u2013W4 bullets carry no test-scale assignment; \u00a7Sequencing and PR discipline covers PR mechanics (bot identity, Copilot, review-round budget) but says nothing about the atomic-landing invariant or the mutation check.",
+    "suggested_cure": "Add one line per story: describing surface (rendered page / kit stylesheet / schema validation output), test scale and file-naming (`*.unit.test.ts(x)`, `*.integration.test.ts`, Playwright spec), and the RED it starts from. Slice W2.1 by component family so each landing is one test+code pair. Add the atomic-landing invariant and .agent/directives/testing-strategy.md \u00a7Prove the guard bites to \u00a7Sequencing and PR discipline.",
+    "source": "test-expert"
+   },
+   {
+    "severity": "important",
+    "section": "W4 \u2014 The plain and styled-components demos",
+    "claim": "The two new demo workspaces are specified without a test contract: no naming taxonomy, no vitest config pattern, no obligation to wire browser tasks so CI reaches them, and no hermeticity requirement \u2014 yet both brands the demos must show load fonts and icons from third-party origins, which would put real network IO into PR CI.",
+    "evidence": "Reachability and CI wiring: .github/workflows/ci.yml line 230 runs `turbo run test:e2e test:ui test:a11y test:widget`, so a Playwright spec in a workspace without `test:ui`/`test:a11y` scripts is unreachable. Hermeticity precedent: <repo>/demos/oak-design-showcase/tests/apply-state.ts aborts cross-origin requests and fails loudly on unknown origins (`assertOnlyKnownExternalOrigins`, lines 63-103); the need is real per <repo>/packages/design/oak-design-system/KNOWN-ISSUES.md items 3 and 4 (creature loads Material Symbols from Google Fonts, freedonia loads Bootstrap Icons from jsDelivr and Public Sans from Google Fonts). Copying existing precedent bakes in drift: the hub's vitest config uses a broad `**/*.test.{ts,tsx}` include with no `**/*.e2e.test.ts` exclude, against .agent/directives/testing-strategy.md \u00a7Canonical Vitest Configuration.",
+    "suggested_cure": "Add a W4.0 line stating the new-workspace test contract: Pattern 1 config from `vitest.config.base.ts` (or Pattern 2 with the mandated e2e exclude), explicit `*.unit.test.ts` / `*.integration.test.ts` naming, Playwright specs wired to `test:ui` and `test:a11y` scripts, and the hermetic cross-origin interception helper reused from the showcase. Note in the plan that existing demo-tier naming drift is precedent, not licence (.agent/rules/\u2026 precedent-is-not-correctness).",
+    "source": "test-expert"
+   },
+   {
+    "severity": "important",
+    "section": "Cross-demo acceptance \u2014 'OS signals respected pre-paint (no flash of wrong theme)'",
+    "claim": "'No flash of wrong theme' is stated in a form no test can observe, so it will be discharged by eyeball or by an assertion that does not describe it. The estate already has the observable form of the claim; the plan should state that form, and it must state the extra case the styled-components demo introduces (CSS-in-JS style injection at SSR is a distinct flash mechanism from the kit's inline pre-paint script).",
+    "evidence": "The existing observable shape: <repo>/demos/oak-design-showcase/tests/showcase.spec.ts asserts `html` carries `data-theme='dark'` after reload (pre-paint bootstrap) and showcase-a11y.spec.ts asserts `data-theme='high-contrast'` under `emulateMedia({contrast:'more'})`. Neither samples paint; both describe the resolved attribute. The plan's W4.2 mentions styled-components 'wrappers where the engine needs them' with no proof obligation attached.",
+    "suggested_cure": "Restate the criterion as the mechanically observable claim: the resolved theme and motion attributes are present on the document element before first paint under each emulated OS signal, and survive reload; plus, for the styled-components demo, one case proving server-rendered styles arrive with the first HTML (no post-hydration restyle) using the same attribute-level assertions rather than a subjective flash judgement.",
+    "source": "test-expert"
+   },
+   {
+    "severity": "minor",
+    "section": "W1 acceptance \u2014 'schema validates all three live identities'",
+    "claim": "A green-only acceptance criterion: a schema that accepts everything satisfies it. Nothing in W1's acceptance forces the schema's non-negotiables (light, dark, high-contrast required; colour-safe default on) to bite.",
+    "evidence": "Plan W1.1 states the requirement ('the schema REQUIRES light, dark, and high-contrast and defaults colour-safe on') but W1's acceptance only requires validation of the three live identities. The estate's live theme set is four (DESIGN_SYSTEM_THEMES = light, dark, high-contrast, colour-safe in <repo>/packages/design/oak-design-tokens/src/design-system-expectations.ts line 15), so valid-only fixtures cannot distinguish a required-theme rule from no rule at all.",
+    "suggested_cure": "Add rejection fixtures to the acceptance line: an identity missing high-contrast fails; an identity with colour-safe absent fails or defaults on observably; an identity declaring an unmodelled axis fails. Apply the mutation check (.agent/directives/testing-strategy.md \u00a7Prove the guard bites) to each before the landing that adds the schema.",
+    "source": "test-expert"
+   },
+   {
+    "severity": "minor",
+    "section": "W3.2 acceptance \u2014 'three identities present at all times'",
+    "claim": "The plan maps owner point 8 to a CI render matrix ('All three identities render across all themes in CI \u2014 the point-8 \"at all times\" as structure'). Rendering each identity in CI proves capability, not that every showcase surface continuously offers all three \u2014 the requirement as stated is about the surface, and no acceptance line describes it.",
+    "evidence": "Plan W1.4 and W3.2; the existing suite's identity assertions are switch-driven, not presence-driven (<repo>/demos/oak-design-showcase/tests/apply-state.ts exports IDENTITIES = ['oak','freedonia','creature'] and the specs call `applyIdentity` per case). The current page test asserts only that an Identity combobox exists (<repo>/demos/oak-design-showcase/app/page.unit.test.tsx line 21).",
+    "suggested_cure": "Add one assertion per showcase page that the identity control offers exactly the three configured identities, and that the set is unchanged after theme, motion and identity switches \u2014 a description of the surface requirement, alongside (not instead of) the render matrix.",
+    "source": "test-expert"
+   },
+   {
+    "severity": "minor",
+    "section": "PR-709",
+    "claim": "The PR-709 disposition transfers named test-bearing value ('appearance baselines, theme-control guards') into W2.3, W3.2 and the cross-demo criteria, but nothing binds those artefacts to a landing, so the transfer can be recorded as done while the guards are never re-authored.",
+    "evidence": "Plan \u00a7PR-709: 'its adjudicated development-lane value \u2014 island hydration + ADR-217 amendment, appearance baselines, theme-control guards \u2014 transfers into W2.3, W3.2, and the cross-demo theme criteria \u2026 Commits remain reachable via the PR ref.' No workstream bullet names those artefacts; W2.3 and W3.2 make no reference to inherited baselines or guards.",
+    "suggested_cure": "Enumerate the transferring artefacts by file, and attach each to the specific story that must land it with its describing test; make the PR-709 closure comment list the destination story ids so the transfer is checkable rather than asserted.",
+    "source": "test-expert"
+   },
+   {
+    "severity": "blocking",
+    "section": "delivery plan \u2014 whole node (no \u00a7ADR obligations section)",
+    "claim": "The plan names no ADR update obligation anywhere, yet at least three of its workstreams change surfaces that live ADRs currently describe. Executed as written it lands architecture that contradicts the ADR corpus with no dated amendment.",
+    "evidence": "(1) `docs/architecture/architectural-decisions/041-workspace-structure-option-a.md:33-34` enumerates the tier by name \u2014 \"`demos/` \u2013 demonstration apps consuming workspace package surfaces only (`oak-curriculum-hub`, `oak-design-showcase`)\" \u2014 while W4.1/W4.2 create two more demo workspaces; the same ADR's `packages/design/` row two lines above carries the warning in its own words: \"row trued 2026-08-02; the original two-name enumeration had gone stale by three\", and the ADR-213 \u00a73 landing sequence set the precedent (\"At landing: ADR-041's workspace map gains the new package (dated, additive)\"). (2) W1.1's identity schema (\"a DTCG-shaped identity definition \u2026 validated at build \u2026 Adding a theme is data, not code\") sits directly on top of ADR-213 \u00a72's amended interchange contract (\"The interchange is a per-consumer projection contract, not a normalised tree\" plus the three declared projections), with no amendment named. (3) W1.4's \"contrast + a11y per identity \u00d7 theme \u00d7 component in CI\" generalises ADR-147, which as it actually reads says \"**Themes**: Both light and dark themes must pass independently\" (147-\u2026md, \u00a7Standard) and whose gate position/coverage matrix is mirrored in ADR-121.",
+    "suggested_cure": "Add an explicit \u00a7ADR obligations section listing, per workstream, the dated amendment it lands in the same change: ADR-041 demos row (W4), ADR-213 \u00a72 (W1.1\u2013W1.2 identity/theme layer), ADR-147 \u00a7Standard + ADR-121 coverage matrix (W1.4\u2013W1.5). Make each amendment an acceptance line of the workstream that triggers it.",
+    "source": "docs-adr-expert"
+   },
+   {
+    "severity": "blocking",
+    "section": "delivery plan \u2014 W1.5, W2.1, frontmatter `depends_on: []`",
+    "claim": "W1.5 and W2.1 take over workstreams that a conserved-but-cited plan still owns, and ADR-213 \u00a73 names that plan by name as the executor of its hard gate. The plan neither cites nor amends it, so the ADR's pointer and the older plan's todos go stale silently \u2014 the exact failure ADR-213 legislated against.",
+    "evidence": "`.agent/plans-backlog-2026-07/architecture-and-infrastructure/current/design-system-integration.plan.md` (header: \"\ud83d\udfe2 EXECUTING\") carries `ws-gate-extension` (status pending \u2014 \"ADR-147 gate extension per the RESOLVED owner ruling \u2026 CI promotion of test:a11y\") and `ws-owned-component-tier` (status pending, `depends_on: [ws-gate-extension]`, Linear MCP-134), plus `ws-fixtures-parity` and `ws-hub-migration`. ADR-213 \u00a73 cites it directly: \"the first component export requires the ADR-147 gate extension (`ws-gate-extension` in the design-system-integration plan \u2026) landed for that package\", and the same section states the discipline: \"The design-system-integration backlog plan's React-fencing and fixtures-parity clauses carry dated amendments in THIS change, so no live plan encodes the superseded architecture.\" The new node declares `depends_on: []` and never mentions the plan.",
+    "suggested_cure": "In the landing change, add dated amendments to the backlog plan's `ws-gate-extension`, `ws-owned-component-tier` and `ws-fixtures-parity` todos re-homing them to this node, and update ADR-213 \u00a73's executor pointer to name this node (or, better, name the outcome and drop the plan-name pointer). Record the relationship in this node's body so the two records cannot disagree.",
+    "source": "docs-adr-expert"
+   },
+   {
+    "severity": "important",
+    "section": "delivery plan \u2014 W0.3 The Demos Charter",
+    "claim": "The Charter is specified as normative decision content inside `demos/README.md`, an index surface. That puts an architectural decision (which demo demonstrates which consumption path, and the reversal of a prior owner agreement) in a file whose job is to point, and it duplicates content the same file already carries.",
+    "evidence": "ADR-127 \u00a75: \"**Stable indexes** \u2014 READMEs and index surfaces are APIs: they point, they do not carry\", and \"**DRY** \u2014 duplicated content drifts like copy-paste code\". `demos/README.md` \u00a7Projects already carries per-demo consumption descriptions (the showcase entry reads \"consuming the kit the plain-CSS way \u2026 with no Tailwind and no mapping layer\"), which the Charter table would restate and contradict. PDR-019's reusability test puts a decision every adopter would otherwise re-derive in an ADR, and PDR-019's 2026-04-21 amendment keeps the WHAT in the ADR with sequencing in the plan.",
+    "suggested_cure": "Home the assignment decision as a dated ADR-213 amendment (or a new ADR, per PDR-019) and reduce `demos/README.md` to a pointer plus a row-per-demo table whose rows are the demo's own-concern content; rewrite \u00a7Projects to point at the charter row instead of restating the consumption path.",
+    "source": "docs-adr-expert"
+   },
+   {
+    "severity": "important",
+    "section": "delivery plan \u2014 W0.3 provenance note",
+    "claim": "The provenance note attributes to ADR-213 a normalisation it does not record, and leaves the 2026-08-02 owner word with no resolvable home other than this plan \u2014 a permanent doc whose authority is a plan, on a surface no validator polices.",
+    "evidence": "W0.3 requires \"the provenance note (the lost original agreement, the drift ADR-213 normalised, the 2026-08-02 deliberate re-assignment)\". ADR-213 nowhere records a prior agreement that any demo would be plain HTML/CSS; what it actually carries is \u00a73 (\"**Tailwind consumption** is a mapping, not an adapter \u2026 The hub's raw-hex block is replaced by this mapping in its convergence lane\") and \u00a74 (\"Named convergence consumers: \u2026 `demos/oak-curriculum-hub` (its hex mirror is a parallel token system this decision exists to kill)\"). PDR-105's durability axis is enforced by `agent-tools/src/validators/reference-direction/validate-reference-direction.ts`, whose `POLICED_ROOTS` are `.agent/practice-core`, `.agent/rules`, `.agent/directives`, `docs/architecture/architectural-decisions`, `docs/governance` \u2014 `demos/` is not policed, so a README citing a plan as authority fails silently.",
+    "suggested_cure": "Cite ADR-213 \u00a73/\u00a74 for exactly what they say; record the superseded agreement and the 2026-08-02 re-assignment in the ADR amendment proposed above; have the charter's provenance line cite that ADR section only.",
+    "source": "docs-adr-expert"
+   },
+   {
+    "severity": "important",
+    "section": "delivery plan \u2014 W0.3 acceptance; W3 (showcase re-assignment)",
+    "claim": "Re-assigning the showcase from plain-CSS to React+Tailwind falsifies four landed permanent surfaces, and the plan's only doc obligation is \"each demo README cites the charter row it implements\" \u2014 the kit-side correction ADR-213 mandates is not named.",
+    "evidence": "`packages/design/oak-design-system/docs/consuming-nextjs.md:3`: \"Two working proofs live in the oak-open-curriculum-ecosystem monorepo: `demos/oak-curriculum-hub` (Next 16 + Tailwind v4 \u2026) and `demos/oak-design-showcase` (the plain path \u2014 no Tailwind \u2026)\". `demos/oak-design-showcase/README.md` opens \"plain-CSS kit consumption \u2014 no Tailwind, no PostCSS, no mapping layer\"; its `package.json` description repeats it; `demos/README.md` \u00a7Projects and `docs/\u2026/041-\u2026md:33-34` both name it. ADR-213 \u00a73 requires the kit-doc route explicitly: \"(Feed this correction back into the system's `docs/consuming-nextjs.md` through the normal design-sync flow.)\" \u2014 and the backlog plan's `ws-design-sync-corrections` is the standing sync-back lane.",
+    "suggested_cure": "Add the correction set to W0.3/W3 acceptance by path: kit `docs/consuming-nextjs.md` (via the design-sync sync-back), showcase README + package.json description, `demos/README.md` \u00a7Projects, ADR-041 demos row \u2014 each landing in the change that flips the showcase's consumption path.",
+    "source": "docs-adr-expert"
+   },
+   {
+    "severity": "important",
+    "section": "delivery plan \u2014 \u00a7PR-709",
+    "claim": "The PR-709 disposition is factually stale on landing and mis-states where the residual obligation lives: it claims value transfers into demo workstreams that cannot discharge it, while ADR-217 records that tail as owned elsewhere and still live in code.",
+    "evidence": "`gh pr view 709`: state CLOSED, closedAt 2026-08-02T20:13:37Z; the plan commit 6f3221e1e is dated 2026-08-02 21:10 \u2014 so \"PR number 709 \u2026 CLOSES at this plan's landing\" describes a past event as future. The \"ADR-217 amendment\" named as transferring value is already on main (`git log` for `217-server-rendered-html-in-the-mcp-app.md` \u2192 3acc1e2f9, dated amendment 2026-07-31). The PR's own adjudication comment scopes the residue as \"reference value for the UNBUILT restack tail (PRs 4\u20136 of the MCP-128 stack \u2014 island hydration + theme + the ADR-217 amendment \u2026). That is development-lane work\", and ADR-217 \u00a71's amendment says that tail \"is owned by MCP-448; until it lands, the code deliberately bakes static markup at build time\" \u2014 the MCP app is outside this plan's declared scope.",
+    "suggested_cure": "Restate \u00a7PR-709 as a dated fact (closed 2026-08-02, comment link). Split the transfer: the demo-lane theme-runtime substance into W2.3/cross-demo criteria; the MCP-app island-hydration/theme-control tail named as remaining with MCP-448 under ADR-217 and routed, not absorbed.",
+    "source": "docs-adr-expert"
+   },
+   {
+    "severity": "important",
+    "section": "delivery plan \u2014 W4.1, W3.2",
+    "claim": "Both workstreams plan to consume `studio-source/` export pages, which triggers an ADR-213 \u00a71 obligation the plan does not name: such files leave `studio-source/` and come under the full gate in the same change.",
+    "evidence": "W4.1: \"candidate shape: the export's three pages re-pointed at the live workspace kit, static markup, kit stylesheets\". ADR-213 \u00a71: \"non-production Claude Design source material (specimens, proofs, reference build, templates, reference components, integration examples, proof pages) lives under `studio-source/`; quality-gate scope exemptions bind that path alone \u2026 A studio-source file that becomes consumed by product code moves out and under the full gate in the same change.\" The pages exist at `packages/design/oak-design-system/studio-source/{Example Front Pages,Identity Switchboard,Identity White-Labelling}.html`, and `demos/README.md` puts demos under the full tier gate (\"strict TypeScript, the full shared ESLint ruleset, TDD, and WCAG 2.2 AA\").",
+    "suggested_cure": "Add to W4.1/W3.2 acceptance: any studio-source artefact a demo consumes moves out of `studio-source/` and under the demo tier's gate in the same PR, with its licensing-manifest row updated; if the demo re-authors rather than consumes, say so explicitly so the boundary rule reads as considered.",
+    "source": "docs-adr-expert"
+   },
+   {
+    "severity": "important",
+    "section": "delivery plan \u2014 W3.2, W3.4",
+    "claim": "\"ALL export pages\" is an undefined closure claim, and the plan's own enumeration covers three of a much larger set \u2014 so the coverage matrix can be 100% green against a definition that never met the owner requirement.",
+    "evidence": "W3.2 says \"Express ALL export pages via the React tier + Tailwind: Identity Switchboard \u2026, Identity White-Labelling, Example Front Pages\". First-hand inventory of `packages/design/oak-design-system/studio-source/`: three top-level HTML pages, 63 files under `preview/`, `whitelabel/specimen.html`, plus `templates/{lesson-deck,worksheet}`, `ui_kits/oak`, `integrations/revealjs`. The owner requirement is \"ALL pages from the design system export\". The no-moving-targets rule's open-set clause binds here by its own terms: it applies to \"plan proof clauses\" and names \"closed class-sets\" and \"'global'/'complete' audit-scope assertions\" as closure-shaped.",
+    "suggested_cure": "Make W0.1 define the page set by filesystem enumeration at a dated commit and disposition each member (demonstrate / covered-by-another-surface / owner-accepted gap); have W3.4's matrix derive its rows from that census artefact rather than a hand-typed list, so the count is read-time-derived and non-load-bearing.",
+    "source": "docs-adr-expert"
+   },
+   {
+    "severity": "important",
+    "section": "delivery plan \u2014 Cross-demo acceptance",
+    "claim": "The clause \"The hub gains this where it lacks it \u2014 the one change the hub takes while otherwise staying as-is\" states a repository condition that is false; the hub already ships pre-paint detection and full five-theme plus motion selection.",
+    "evidence": "`demos/oak-curriculum-hub/app/layout.tsx:34` reads the kit runtime (`const oakThemeSource = escapeInlineScript(readFileSync('public/oak-theme.js', 'utf8'))`) and line 47 renders it as a raw inline `<script>` in head; `demos/oak-curriculum-hub/components/ThemeSwitcher.tsx` drives theme and motion axes over `oakThemeStore` from `@oaknational/oak-design-react` with labels for light / dark / system / high-contrast / colour-safe, and is mounted via `components/SiteFooter.tsx:19`, rendered from `app/layout.tsx:53`.",
+    "suggested_cure": "Replace the clause with the verified baseline and reduce the hub's cross-demo obligation to a verification step (prove no flash-of-wrong-theme, persistence, forced-colors, reduced motion against the existing wiring), naming any specific axis found missing at that check rather than asserting absence now.",
+    "source": "docs-adr-expert"
+   },
+   {
+    "severity": "important",
+    "section": "delivery plan \u2014 Acceptance lines in W0\u2013W4 and \u00a7Quality bar",
+    "claim": "No acceptance criterion names the evidence class the plan-node schema requires, so the node does not meet its own type contract and the owner-held wow checkpoint has no recorded home.",
+    "evidence": "`.agent/plans/plan-node-schema.md` \u00a7Per-type contracts \u2192 Delivery: \"**Acceptance criteria \u2014 each with a proof, required.** A proof names its evidence class: `repo-safe` (a test, validator, or CI check \u2014 cite the instrument) or `owner-held` (an external console or dashboard \u2014 name who verifies and where it is recorded).\" The plan's lines read \"gates green with evidence\", \"coverage matrix 100% or each gap owner-accepted\", \"the wow checkpoint (\u00a7Quality bar) passed per page\" \u2014 no class, no instrument cited, and \u00a7Quality bar names the verifier (\"The owner's verdict is the gate\") but not where the verdict is recorded.",
+    "suggested_cure": "Label every acceptance criterion `repo-safe` (naming the instrument \u2014 e.g. `pnpm repo-validators:check`, `test:a11y`, the identity-\u2116N CI job) or `owner-held` (naming the owner as verifier and the PR/comment where the wow verdict is recorded).",
+    "source": "docs-adr-expert"
+   },
+   {
+    "severity": "important",
+    "section": "delivery plan \u2014 frontmatter (`status`, `owner_gates[0]`)",
+    "claim": "The node withholds its ratification stamp on a misreading of the ticket rule, leaving a plan that \"governs no work\" as the routing target for an execution seat; and the gate carries multi-paragraph decision narrative in frontmatter.",
+    "evidence": "Frontmatter is `status: sketch`, `ratified_by/date/where: null`, with the gate stating the flip to ratified waits on the ticket mint. `.agent/plans/plan-node-schema.md` separates the two: the stamp is `ratified_by` + `ratified_date` + `ratified_where`, while the 2026-07-31 amendment binds the ticket obligation only \"within subtrees the operator tracks \u2026 a subtree is anchored when its strategic node, or any plan serving it, names at least one ticket\" \u2014 here both this node and `design-system-as-configured-framework` carry `tickets: []`, so the subtree is unanchored by construction and no ticket is owed. `.agent/plans/README.md`: \"Every plan is born `sketch` and governs no work until it carries a complete owner-ratification stamp\", while \u00a7Execution seat routes Corsair to begin at W0. The delivery contract also states \"(PDR-018: narrative in the body, never frontmatter)\"; `owner_gates[0].clears_when` runs ten lines of decision provenance.",
+    "suggested_cure": "Stamp `ratified` now with `ratified_where` pointing at the resolvable record of the 2026-08-02 owner word; keep the ticket-mint condition as a short external-input gate (`clears_when`: one sentence) and move its provenance narrative into the body's \u00a7Decision log.",
+    "source": "docs-adr-expert"
+   },
+   {
+    "severity": "minor",
+    "section": "delivery plan \u2014 node name, overview, \u00a7Direction, W2.1, W3.4",
+    "claim": "The plan's proof clauses are closure-shaped against sets that have already moved once today, which the authoring-time open-set clause explicitly binds for plans.",
+    "evidence": "`.agent/rules/no-moving-targets-in-permanent-docs.md` \u00a7Authoring-Time Open-Set Clause: closure claims bind \"any prose artefact that will be read against a living surface \u2014 reports, PR narratives and descriptions, plan proof clauses, audit appendices \u2026\", naming counts and closed class-sets as the failure shape, with the cure \"state open sets as classes with dated exemplars\" and \"make counts and closure claims non-load-bearing by default\". The node's name and overview hard-code \"four demos\" (the set grew two\u2192four the same day by owner amendment), \u00a7Direction pins \"the eleven-point mandate\", W0.1 promises \"every kit feature\", W2.1 \"the full component set\", W3.4 \"coverage matrix 100%\".",
+    "suggested_cure": "Name the node by outcome rather than count; state the demo set as \"one row per demo workspace under `demos/`\" derived at read time; state census and component coverage as dated exemplars of an explicitly open set with the census artefact as the read-time source.",
+    "source": "docs-adr-expert"
+   },
+   {
+    "severity": "minor",
+    "section": "strategic plan \u2014 frontmatter `serves: APP-1`",
+    "claim": "The strategic node's `serves` edge is not supported by the node's own rationale, weakening the traceability spine the strategy README defines.",
+    "evidence": "`docs/strategy/stream-mcp-app.md:35` defines APP-1 as \"Meet teachers inside the assistants they already use. Bring Oak to where planning already happens, rather than building a destination.\" The node's \u00a7Why strategic argues reusability and the licensing split (\"code MIT, content OGL, marks reserved \u2026 the reusability argument and the constraint-surface argument are one architecture seen from two sides\"), which reads against TOOLS-2 (\"Open by default. Openly licensed code over open data; no lock-in\", `docs/strategy/stream-engineering-tools.md:40`). `docs/strategy/README.md`: \"A plan resolves to exactly one choice, which rolls up to its stream and Oak goal \u2026 the spine reads upward for coherence.\"",
+    "suggested_cure": "Either re-point `serves` at the choice the node's own argument makes (TOOLS-2), or add one sentence to \u00a7Why strategic tracing identity-as-configuration to APP-1's advantage claim so the edge reads for coherence.",
+    "source": "docs-adr-expert"
+   },
+   {
+    "severity": "blocking",
+    "section": "W2.1 (The React component tier)",
+    "claim": "W2.1 mandates the exact component shape ADR-213 \u00a73 has a standing rejection of, and the plan schedules no ADR amendment to carry the owner's newer word.",
+    "evidence": "Plan: \"Ship the full component set in `oak-design-react`, mirroring the kit's class library (census-driven; every W0.1 component class gains its component or a recorded rationale why not).\" ADR-213 \u00a73 standing rules (docs/architecture/architectural-decisions/213-design-system-integration-and-component-architecture.md): \"**Re-wrapping the class library in a framework component layer remains rejected** (it would fork the tier-3 contract). This question is settled here and is not re-litigated per widget\", reaffirmed in the 2026-07-23 amendment's \"Stands unchanged\" list (\"the rejection of re-wrapping the _class library itself_ in a component layer therefore also stands\"), where the tier is defined as \"a **curated, owned React component tier** \u2026 adopted from `studio-source/` **with ownership**\" and \"packages only ever at need\". The plan mentions no ADR-213 amendment anywhere.",
+    "suggested_cure": "Add a W2.0 story that lands a dated ADR-213 \u00a73 amendment recording the owner's \"full optional React component set\" word as the superseding substance and re-stating the tier-3 invariant the rejection protected (components consume tier-3 tokens identically, no forked contract). In the same story carry the landing-sequence obligations ADR-213 attaches to the first component export and that W2 currently omits: the ADR-041 map/roster edit, the `.design-sync/conventions.md` \"exports no React components\" rewrite plus re-sync, and the fixtures-as-parity migration from `oak-design-system` into the tier package.",
+    "source": "architecture-expert-fred"
+   },
+   {
+    "severity": "blocking",
+    "section": "W1.1 (Identity schema)",
+    "claim": "A \"DTCG-shaped identity definition \u2026 validated at build\" inverts ADR-213 \u00a72's ratified source-of-truth direction and creates a second authored token source; the plan also names no home package for it.",
+    "evidence": "ADR-213 \u00a72: \"The design system's CSS is the token source of truth; DTCG JSON trees are a **generated interchange projection** of it\"; packages/design/oak-design-system/dtcg/README.md: \"generated from the CSS source of truth \u2026 **The CSS is canonical; regenerate these files after any token change** \u2014 do not hand-edit.\" Identity data today is authored CSS only: packages/design/oak-design-system/brand.css and studio-source/whitelabel/{creature,freedonia}/brand-full.css. The plan's In-scope line says only \"the kit and token packages under `packages/design/`\" and never names which workspace owns the schema, its validator, or the emission direction.",
+    "suggested_cure": "State the direction explicitly in W1.1: identity remains CSS-authored and the schema validates a *generated* identity projection (with the generator named), or land a dated ADR-213 \u00a72 amendment admitting an authored identity tree. Name the owning workspace (`design-tokens-core` is the existing framework/validation home; the kit's public surface is built CSS + `oak-theme.js` + `dtcg/` and cannot host a zod/TS schema).",
+    "source": "architecture-expert-fred"
+   },
+   {
+    "severity": "blocking",
+    "section": "W3.3 (Token-reference page)",
+    "claim": "\"Per-identity via the switcher\" plus \"content GENERATED from the DTCG source\" is not satisfiable against the actual export: the DTCG surface carries no identity data at all, and iconography is deliberately excluded from it.",
+    "evidence": "`grep -c 'freedonia|creature|brand' packages/design/oak-design-system/dtcg/*.json` returns 0 for palette.json, primitives.json, component.json and 1 (the word \"brand\" in prose) for the semantic trees \u2014 the export is the Oak base only; identity overrides exist solely as CSS (`brand.css`, `whitelabel/*/brand-full.css`). dtcg/README.md: \"**Icon URL tokens (`--i-*` and the `--ic-*` roles, `oak-icons.css`) are deliberately not exported**\", yet W3.3 lists \"iconography\" among the generated dimensions.",
+    "suggested_cure": "Re-specify W3.3's generator source: either extract from the canonical CSS (the actual source of truth, and the only surface carrying identity overrides), or add an explicit identity\u2192DTCG projection story with its own total-coverage check before W3.3 depends on it. Drop iconography from the generated set or record the separate asset-path mechanism that supplies it.",
+    "source": "architecture-expert-fred"
+   },
+   {
+    "severity": "blocking",
+    "section": "Frontmatter `depends_on` / plan estate",
+    "claim": "The plan silently duplicates workstreams owned by a live EXECUTING plan, with no dependency edge, supersession, or dated amendment on either side.",
+    "evidence": ".agent/plans-backlog-2026-07/architecture-and-infrastructure/current/design-system-integration.plan.md is \"\ud83d\udfe2 EXECUTING\" and owns `ws-gate-extension` (the ADR-147 extension \u2014 the plan's W1.5, verbatim the same deliverable), `ws-owned-component-tier` (MCP-134 \u2014 the plan's W2), `ws-fixtures-parity`, `ws-stage-b-convergence`, and `ws-design-sync-corrections`, all `status: pending`. The completion plan carries `depends_on: []` and never names that plan. Its `ws-hub-migration` todo is also stale against the tree (demos/oak-curriculum-hub/app/globals.css already carries the `@theme inline` mapping with zero hex literals).",
+    "suggested_cure": "Add `depends_on` edges (`{plan: design-system-integration, kind: blocking}` for `ws-gate-extension`) and, in the same change, put dated amendment notes on the integration plan's overlapping todos naming this node as their new carrier \u2014 so exactly one plan owns each workstream. True the stale `ws-hub-migration` status while there.",
+    "source": "architecture-expert-fred"
+   },
+   {
+    "severity": "important",
+    "section": "W0.2 / Out of scope",
+    "claim": "Stage B is not landed, the dual-token-source window is open with a standing prohibition on new consumers, and the plan neither names it nor records it as a deferral while adding two new consumers.",
+    "evidence": "packages/design/oak-design-tokens/src/tokens/{palette,component,semantic.light,semantic.dark}.json still exist \u2014 the hand-authored trees Stage B deletes. The integration plan's PR sequence: \"Between PR2 and Stage B the repo carries two token systems \u2026 **no new consumer may adopt the hand-authored `oak-design-tokens` trees during the window**.\" The completion plan's Out-of-scope list names css-modules, RTL, data-vis, terminal/print/deck and Linear true-ups \u2014 Stage B appears nowhere in the node.",
+    "suggested_cure": "Record Stage B in Out-of-scope with its owner (the integration plan) and add a one-line binding to each new demo's acceptance: consumption is the kit's own CSS surface (`@oaknational/oak-design-system/*`), never `oak-design-tokens`' `index.css`, for the duration of the window.",
+    "source": "architecture-expert-fred"
+   },
+   {
+    "severity": "important",
+    "section": "Cross-demo acceptance / W4",
+    "claim": "The \"zero raw literals at point of use\" criterion has an instrument in exactly one of the four demos; the plan doubles the tier without re-homing the instrument.",
+    "evidence": "demos/oak-design-showcase/tools/validate-authored-css.ts sets `workspaceRoot = join(dirname(...), '..')` \u2014 it walks only the showcase workspace. The other half of the instrument is the JSX rule set in demos/oak-design-showcase/eslint.config.ts (`selector: \"JSXAttribute[name.name='style']\"`); `grep -n 'JSXAttribute|style' demos/oak-curriculum-hub/eslint.config.ts` returns nothing. Both halves are invoked from root `repo-validators:check` as `pnpm --filter @oaknational/oak-design-showcase \u2026`. The same inversion holds for the kit-copy guard: KIT_ASSET_COPIES in demos/oak-design-showcase/tools/kit-asset-parity.ts hand-traverses into the hub (`copy: '../oak-curriculum-hub/public/oak-theme.js'`), and apps/oak-curriculum-mcp-streamable-http/build-scripts/copy-oak-ds.ts is a third copier outside it.",
+    "suggested_cure": "Add a W0 story that re-homes both instruments above the demos tier (design tier or root validators) with the demo roster derived from the workspace inventory rather than hand-listed, so a new demo is covered by construction. Sequence it before W4 creates workspaces.",
+    "source": "architecture-expert-fred"
+   },
+   {
+    "severity": "important",
+    "section": "W4.2 (styled-components demo)",
+    "claim": "The styled-components consumption path is structurally invisible to both halves of the no-hardcoded-values instrument, so its cross-demo acceptance criterion is unprovable as written.",
+    "evidence": "The CSS half walks files ending `.css` (validate-authored-css.ts `entry.name.endsWith('.css')`); the JSX half bans the `style` attribute and `<style>` elements. A styled-components tagged template (``styled.div`color: #fff` ``) is neither. The plan nonetheless asserts for all four demos: \"Styling sourced solely from the design system through each demo's declared consumption path; zero raw literals at point of use.\"",
+    "suggested_cure": "Name the instrument in W4.2's acceptance and land it red-first: a lint rule over styled/css tagged templates reusing the existing pure classifier `findLiteralDesignValues` (demos/oak-design-showcase/tools/css-literal-values.ts), plus the non-vacuity leg the CSS walker already models (zero templates scanned is a failure).",
+    "source": "architecture-expert-fred"
+   },
+   {
+    "severity": "important",
+    "section": "W4 (new demo workspaces)",
+    "claim": "Creating two workspaces has no plumbing or boundary story; the demos tier has no machine-checked inventory and no enforced inbound rule, and ADR-041 explicitly enumerates the current two demos.",
+    "evidence": "pnpm-workspace.yaml lists demos individually (`demos/oak-curriculum-hub`, `demos/oak-design-showcase`) \u2014 there is no `demos/*` glob, unlike `packages/design/*`. ADR-041: \"`demos/` \u2013 demonstration apps consuming workspace package surfaces only (`oak-curriculum-hub`, `oak-design-showcase`). Recorded intent: never imported by packages \u2014 no boundary rule enforces the inbound direction yet; enforcement lands at need, mirroring the design-inventory leg (row added 2026-08-02).\" packages/core/oak-eslint/scripts/validate-boundaries.ts machine-checks packages/libs, apps, packages/sdks, packages/design and agent-tools \u2014 demos are absent; `grep -rn demos packages/core/oak-eslint/src/` returns nothing; .dependency-cruiser.mjs has no packages\u2192demos or cross-demo rule (rule names: no-core-to-*, no-libs-to-*, no-sdks-to-apps, \u2026).",
+    "suggested_cure": "Add an explicit W4.0 plumbing story: pnpm-workspace registration, a dated ADR-041 demos-row amendment, a demos inventory leg in validate-boundaries.ts (the \"enforcement lands at need\" trigger the ADR names \u2014 four demos is that need), depcruise `no-packages-to-demos` and `no-cross-demo` rules, and knip/prettier/markdownlint entries.",
+    "source": "architecture-expert-fred"
+   },
+   {
+    "severity": "important",
+    "section": "W3.2 / W4.1 (export pages)",
+    "claim": "Both stories consume `studio-source/` proof pages without invoking ADR-213 \u00a71's move-out-under-gate mechanism or accounting for the design-sync estate that ships those pages.",
+    "evidence": "The three pages are tracked at packages/design/oak-design-system/studio-source/{Example Front Pages,Identity Switchboard,Identity White-Labelling}.html and are gate-exempt: `'studio-source/**'` in packages/design/oak-design-system/eslint.config.ts, `'packages/design/oak-design-system/studio-source/'` in .dependency-cruiser.mjs, plus prettier/markdownlint excludes. ADR-213 \u00a71: \"A studio-source file that becomes consumed by product code moves out and under the full gate in the same change.\" The same three filenames are literal `shippedFromRepo` entries in .design-sync/estate.json, whose reconciliation contract deletes remote files lacking a repo counterpart.",
+    "suggested_cure": "State in W3.2/W4.1 which mechanism applies: demos author fresh markup against the kit (pages stay studio-source), or the pages move out under the full gate \u2014 and in the latter case the `.design-sync/estate.json` entries and their repo canonicals move in the same change, per the single-home rule.",
+    "source": "architecture-expert-fred"
+   },
+   {
+    "severity": "important",
+    "section": "W1.2 (identity-\u2116N falsifier)",
+    "claim": "The falsifier is not mechanisable as stated: a build cannot observe that a data-only mint \"touched framework code\", and the red-then-green proof contradicts the gate's own description.",
+    "evidence": "Plan: \"CI mints a test identity from config only; if the mint touches framework code, the build fails\" with acceptance \"the \u2116N falsifier demonstrably fails on a framework-code touch (proven once, red-then-green)\". A mint that is config-only has no observable relation to framework-source edits at build time; proving the red arm requires editing framework code, which the gate as described does not observe.",
+    "suggested_cure": "Restate as two checkable legs: (a) a fixture identity living in a data-only directory, with a boundary rule (depcruise/eslint) asserting no framework module imports identity data and no identity data imports framework source; (b) the mint pipeline runs green over that fixture with a non-vacuity check. Define the red proof against the boundary rule (an illegal import), not against an unobservable \"touch\".",
+    "source": "architecture-expert-fred"
+   },
+   {
+    "severity": "important",
+    "section": "W0.2 (Stabilise) / W3.3",
+    "claim": "The anti-drift claim rests on a consistency gate that covers only two of the four theme trees; the two extra themes the identity contract makes non-negotiable are unguarded.",
+    "evidence": "packages/design/oak-design-tokens/scripts/validate-design-system-consistency.ts reads `palette.json`, `primitives.json`, `component.json`, `semantic.light.json`, `semantic.dark.json` only; packages/design/oak-design-system/dtcg/ also contains `semantic.high-contrast.json` and `semantic.colour-safe.json`, and the mismatch type in src/design-system-consistency.ts is typed `theme: 'light' | 'dark'`. dtcg/README.md notes the same limitation for the contrast gate (\"would need to run it against all four theme trees, not just light/dark\"). W3.3 asserts generation \"so it cannot drift\".",
+    "suggested_cure": "Add a W0.2 story extending the dtcg\u2194CSS consistency validator to all four theme trees (and pointing W1.4's matrix at the extended surface) before W3.3's generated page is claimed drift-proof.",
+    "source": "architecture-expert-fred"
+   },
+   {
+    "severity": "minor",
+    "section": "\u00a7PR-709",
+    "claim": "The stated disposition is already discharged and the named value-transfer targets cannot receive the value, because every file in that PR is outside the plan's declared scope.",
+    "evidence": "`gh pr view 709`: state CLOSED, isDraft true, title \"docs(design): retention surface \u2014 landing-page port, design-lane input\"; its files are all under apps/oak-curriculum-mcp-streamable-http (landing-page CSS/JS, `build-scripts/copy-oak-ds.ts`, visual-baseline config) plus .dependency-cruiser.mjs and .github/workflows/ci.yml. The plan says \"#709 CLOSES at this plan's landing\" and that its value \u2014 \"island hydration + ADR-217 amendment, appearance baselines, theme-control guards\" \u2014 \"transfers into W2.3, W3.2, and the cross-demo theme criteria\", all of which are scoped to `oak-design-react` and `demos/`; `apps/` appears nowhere in the In-scope list.",
+    "suggested_cure": "Restate the disposition as recorded-closed (with the pointer comment as the remaining act), and either add the MCP-app landing-page carrier to In-scope or name the receiving plan/ticket for the ADR-217 amendment and the appearance baselines, so no adjudicated value is closed without a carrier.",
+    "source": "architecture-expert-fred"
+   },
+   {
+    "severity": "minor",
+    "section": "W1.3 (Off-horizontal dimension)",
+    "claim": "The tilt-per-identity assignment contradicts the tracked identity corpus and leaves the third identity unspecified.",
+    "evidence": "packages/design/oak-design-system/studio-source/whitelabel/creature/BRAND.md (EMC\u00b2 \u2014 \"Educate My Creature Too\") declares rotation as ITS grammar: \"candy tone-bands with DIAGONAL gradients \u2026 angled bevelled shadows (8px 10px + glow), sticker rotations on shelf cards\"; freedonia/BRAND.md is the restraint identity (\"a **document tradition that acquired a website** \u2026 authority is carried by restraint and permanence\"). Neither brand CSS carries any rotation today (`grep -c 'rotate|--tilt|skew'` = 0 in both brand-full.css). W1.3 gives values for Freedonia and Oak only.",
+    "suggested_cure": "Put all three identities' tilt values on the owner design-input gate agenda (the gate already exists in frontmatter), and schedule the BRAND.md canonical updates in the same change \u2014 they are `shippedFromRepo` to the studio, so a divergence propagates.",
+    "source": "architecture-expert-fred"
+   },
+   {
+    "severity": "minor",
+    "section": "Acceptance lines (all workstreams)",
+    "claim": "Acceptance criteria omit the evidence classes the delivery-node contract requires, so most acceptance lines are unfalsifiable as written.",
+    "evidence": ".agent/plans/plan-node-schema.md, Delivery contract: \"**Acceptance criteria \u2014 each with a proof, required.** A proof names its evidence class: `repo-safe` (a test, validator, or CI check \u2014 cite the instrument) or `owner-held` (an external console or dashboard \u2014 name who verifies and where it is recorded).\" The plan's acceptance lines (e.g. \"census checklist committed; gates green with evidence; charter landed and cited from all four demo READMEs\", \"component coverage table complete; tier consumed by W3 with zero component-local literals\") name outcomes without an instrument or class.",
+    "suggested_cure": "Annotate each acceptance line with its class and instrument \u2014 e.g. `repo-safe: pnpm --filter \u2026 validate-authored-css`, `repo-safe: validate-boundaries demos inventory`, `owner-held: rendered checkpoint in the owner's Chrome, recorded at the PR` \u2014 which also gives the wow checkpoint a recorded home.",
+    "source": "architecture-expert-fred"
+   }
+  ],
+  "frameFindings": [
+   {
+    "severity": "blocking",
+    "section": "W3.4 Feature-coverage matrix / Quality bar",
+    "claim": "The coverage-matrix logic structurally regenerates the rejected showcase's shape: 'every W0.1 census feature demonstrated on a named showcase surface' is the recipe for specimen-inventory pages, and the plan binds coverage surfaces to no design grammar.",
+    "evidence": "The rejected page is exactly this shape \u2014 the live showcase is ButtonsSpecimen.tsx, TagsSpecimen.tsx, CardSpecimen.tsx, TypeSpecimen.tsx (demos/oak-design-showcase/components/). The export has only three pages; the census (five themes, motion axis, composition tokens, print/deck/worksheet targets, icons, fonts) will contain dozens of features with no export reference, so most coverage surfaces are NEW pages designed by an engineering process. W3.2's 'real lesson-page specimen' hints at the cure but W3.4's exit checklist is feature-per-surface, which a specimen grid satisfies at 100%.",
+    "suggested_cure": "Add a normative composition clause to W3.4: coverage is demonstrated only inside realistic product-grade compositions in the export's own layout grammar (lesson pages, front pages, worksheets) \u2014 a surface whose primary content is the feature itself (a specimen grid) fails the matrix by definition. Name the small set of composed pages first, then map features onto them, not the reverse.",
+    "source": "frame-overwatch"
+   },
+   {
+    "severity": "blocking",
+    "section": "Quality bar \u2014 the wow checkpoint, item 2",
+    "claim": "The sole pre-owner aesthetic instrument \u2014 the 'vision-based design-review leg' \u2014 is one unspecified line with no rubric, no reference corpus, no defined failure criterion, and no named reviewer, so it is precisely a gate that can pass while the demo looks mediocre.",
+    "evidence": "Plan line: 'a vision-based design-review leg (screenshot critique against professional design craft) run before any render is shown'. Every mechanical gate in the plan (contrast matrix, \u2116N falsifier, coverage matrix) is specified to red-green precision; the one gate that carries the wow bar for all non-export-derived surfaces has none. The plan's own diagnosis of the class failure \u2014 'every prior gate was machine-checkable and nothing forced anyone to look' \u2014 is answered with a gate whose looking has no bar.",
+    "suggested_cure": "Specify the leg as an instrument in W0: a rubric derived from the export's own design language (type scale usage, spatial rhythm, hierarchy, colour discipline), side-by-side comparison against an owner-passed reference page, an adversarial 'would a professional designer reject this' framing, and an explicit fail state that blocks the render from reaching the owner. Calibrate it once against the export pages (which must pass) and the rejected showcase (which must fail) \u2014 red-then-green, like the \u2116N falsifier.",
+    "source": "frame-overwatch"
+   },
+   {
+    "severity": "important",
+    "section": "Sequencing and PR discipline",
+    "claim": "The decomposition is infrastructure-first (W0 census/schema \u2192 W1 gates \u2192 W2 full React tier \u2192 W3 pages), so the owner's first wow verdict arrives after three workstreams of sunk investment; if the aesthetic direction is wrong, the feedback is maximally late and expensive.",
+    "evidence": "W3 is the first workstream that renders a page to the owner ('Renders to the owner at every W3/W4 page landing'). W4.1 \u2014 the export's three pages re-pointed at the live kit with zero build machinery \u2014 is the cheapest full-page wow test in the whole plan, yet it is sequenced as permitted-after-W0 rather than required-early.",
+    "suggested_cure": "Re-sequence for earliest wow signal: make W4.1 (or a single W3 export page as a vertical slice) a mandatory early checkpoint whose owner verdict lands before W2 completes. Its pass also calibrates the design-review instrument against a page the owner actually said wow to.",
+    "source": "frame-overwatch"
+   },
+   {
+    "severity": "important",
+    "section": "W0.1 / owner requirement 3",
+    "claim": "Owner requirement 3 ('enumerate and implement what is missing') is mapped to a census of what EXISTS whose output is a demonstration checklist; no workstream performs a requirements-vs-kit gap analysis or owns implementing kit-level gaps (missing token dimensions, missing kit component classes, missing theme machinery).",
+    "evidence": "W0.1: 'first-hand enumeration of every kit feature\u2026 Output: the coverage checklist W3 consumes.' W1 owns contract gaps and W2 owns the React tier, but a gap in the kit itself \u2014 e.g. a standing-requirement token dimension the DTCG source lacks, or a component class the export shows and the kit omits \u2014 has no discovering step and no implementing home. W0.2 covers broken, not absent.",
+    "suggested_cure": "Add a gap-census output to W0.1 (kit-vs-standing-requirements and kit-vs-export deltas, not just an inventory) and name the workstream that implements each gap class \u2014 kit gaps are W0/W1 work, not silently absorbed into W3 demonstration.",
+    "source": "frame-overwatch"
+   },
+   {
+    "severity": "important",
+    "section": "Cross-demo acceptance / Quality bar",
+    "claim": "The hub is inside 'each and every demo' for the wow bar but the plan grants it 'stays as-is' with theme controls as 'the one change the hub takes' \u2014 an unresolved structural conflict that will surface mid-execution as either a silent wow exemption or an unplanned hub redesign.",
+    "evidence": "Quality bar: 'every demo, every page'. Cross-demo acceptance: 'the one change the hub takes while otherwise staying as-is.' If the hub as rendered today fails the owner's wow verdict, the plan contains no lane for curing it and no recorded exemption either.",
+    "suggested_cure": "Resolve explicitly in the plan: the owner's 'as-is' ruling covers architecture (Tailwind-mapped, plain path elsewhere), not visual quality; the hub goes through the same wow checkpoint, and a fail opens scoped visual-cure work \u2014 or record an owner-worded wow exemption for the hub. Card it if neither reading is certain.",
+    "source": "frame-overwatch"
+   },
+   {
+    "severity": "important",
+    "section": "W0.4 / W1.3 / W3.2 \u2014 identity visual quality",
+    "claim": "No workstream allocates design authorship to making EMC\u00b2 and Freedonia visually excellent; the \u2116N falsifier proves identities need no framework code, but nothing tests that a non-Oak identity looks like anything more than token-swapped Oak \u2014 and the showcase shows all three 'at all times', so a flat EMC\u00b2 fails the wow verdict directly.",
+    "evidence": "W0.4 censuses what differentiates the identities today; W1.3 gates Freedonia's off-horizontal grammar on an owner session; EMC\u00b2 appears nowhere as a design task. The strategic kernel's falsifier ('adding an identity requires framework-code changes') is purely mechanical \u2014 an identity of mediocre config values passes it while failing the visual bar the same kernel states.",
+    "suggested_cure": "Add an identity-design story (W1 or W3): each of the three identities gets deliberate visual authorship of its config values (palette, type voice, composition preferences, polarity, tilt grammar), each passing the design-review instrument in its own right \u2014 so identity-as-configuration is proven with three configurations worth configuring.",
+    "source": "frame-overwatch"
+   },
+   {
+    "severity": "minor",
+    "section": "W0.5 / Quality bar",
+    "claim": "Fidelity-to-export caps visual quality at the July-24 export's level, and the only channel for exceeding it (the export-tweaks intake) is default-non-blocking \u2014 so if the owner's strengthened 'amazing' bar exceeds the export's current state, the plan structurally deprioritises the very work that would meet it.",
+    "evidence": "W0.5: 'none block later workstreams unless the owner marks one blocking.' Quality bar item 2 measures export-derived pages by 'the fidelity register against the export' \u2014 a page can be pixel-faithful to the export and still draw a not-amazing verdict, at which point the cure is an export/design change routed through a channel the plan marks non-blocking.",
+    "suggested_cure": "Note in the Quality bar that a wow-checkpoint failure on a fidelity-clean page automatically promotes the corresponding design change to blocking in the tweaks intake \u2014 the owner verdict, not the intake default, decides priority.",
+    "source": "frame-overwatch"
+   },
+   {
+    "severity": "minor",
+    "section": "Sequencing and PR discipline / Quality bar item 3",
+    "claim": "The review-round budget of THREE per PR and the wow DoD ('a page failing the checkpoint iterates within its PR') can collide: a page needing four-plus visual iterations hits tally-stop and routes to the Director, structurally stalling exactly the iteration loop the wow bar depends on.",
+    "evidence": "Plan: 'review-round budget THREE with the tally-stop discipline at budget (PDR-132)' alongside 'a page failing the checkpoint iterates within its PR; the checkpoint is a DoD line'. Visual iteration under a design-literate eye routinely exceeds three rounds; the plan does not say whether owner wow iterations count against the review budget.",
+    "suggested_cure": "State that owner wow-checkpoint iterations are a distinct loop that does not consume PDR-132 review rounds (or give W3/W4 page PRs an explicit larger visual-iteration budget), so the budget discipline cannot become a pressure to land below the bar.",
+    "source": "frame-overwatch"
+   }
+  ]
+ }
+}
