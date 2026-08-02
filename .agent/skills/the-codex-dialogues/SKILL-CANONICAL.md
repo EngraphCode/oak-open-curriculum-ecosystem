@@ -176,7 +176,13 @@ or personal data.
   conserved only when it LANDS (committed and pushed with the close,
   on whichever lane carries the dialogue's work — a row that exists
   only in a working tree is not yet durable, and the comms event may
-  have rotated by the time anyone looks).
+  have rotated by the time anyone looks). A row COUNTS toward the
+  trial thresholds only once its commit is integrated on main — the
+  sole integration point (`no-parallel-long-lived-branches`); until
+  then it is in-flight, and the trial window's counts are always read
+  from MAIN's copy of the tally, so concurrent closes on separate
+  lanes reconcile through the ordinary merge flow, never a bespoke
+  reconciliation step.
 
 Absorption after close: dialogue conclusions get the
 verify-before-absorb leg like any cross-model claim — dissent is

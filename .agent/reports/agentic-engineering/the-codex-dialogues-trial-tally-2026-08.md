@@ -7,7 +7,9 @@ the close sequence. Comms events are transport — this file is the
 storage (the same discipline as the
 [cricket tallies](cricket-quartet-tally-2026-07-29.md); close events
 are instance-tier untracked state under ADR-199/PDR-094, so the trial's
-decision rule reads THIS corpus, which resolves from any checkout).
+decision rule reads THIS corpus — always MAIN's copy of it, the sole
+integration point: a row on an unmerged lane is in-flight and does not
+count until its commit reaches main).
 
 Each row conserves the close event's canonical `key=value;` body line
 VERBATIM, decoded by the schema-version definitions in the SKILL
