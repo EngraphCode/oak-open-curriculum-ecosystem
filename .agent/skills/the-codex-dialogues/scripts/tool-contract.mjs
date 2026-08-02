@@ -62,6 +62,22 @@ function assertAuthoritySurface(codexTool) {
     'developer-instructions',
     'compact-prompt',
   ];
+  // The COMPLETE recorded input property set: an ADDED property is a
+  // new per-call control the record has never classified, so it must
+  // fail a re-probe rather than ride along unrecorded. Residual
+  // accepted: a property mutating to a rejecting object shape at the
+  // SAME pinned version is not detectable here — a real reshape ships
+  // in a new CLI version, which the version gate stops before this
+  // check runs.
+  const recordedInputPropertySet = ['prompt', ...recordedProperties].sort();
+  const actualInputPropertySet = Object.keys(properties).sort();
+  if (JSON.stringify(actualInputPropertySet) !== JSON.stringify(recordedInputPropertySet)) {
+    throw new Error(
+      `tool contract: codex input property set is ${JSON.stringify(actualInputPropertySet)}, ` +
+        `record says exactly ${JSON.stringify(recordedInputPropertySet)} — an added or removed ` +
+        'property changes the recorded authority surface',
+    );
+  }
   for (const name of recordedProperties) {
     const schema = properties[name];
     if (typeof schema !== 'object' || schema === null) {

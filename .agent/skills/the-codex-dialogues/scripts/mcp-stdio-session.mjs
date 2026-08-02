@@ -24,6 +24,8 @@ export class McpStdioSession {
   #pending = new Map();
   #callTimeoutMs;
   #terminalReason;
+  #ended;
+  #endedResolve;
 
   constructor(command, args, cwd, callTimeoutMs) {
     this.#callTimeoutMs = callTimeoutMs;
@@ -31,8 +33,21 @@ export class McpStdioSession {
     this.#child.stderr.resume();
     this.#child.stdout.setEncoding('utf8');
     this.#child.stdout.on('data', (chunk) => this.#onData(chunk));
-    this.#child.on('exit', (code) => this.#failAllPending(`server exited (code ${code})`));
-    this.#child.on('error', (error) => this.#failAllPending(`server error: ${error.message}`));
+    // #ended resolves on EITHER exit or error: a spawn failure (ENOENT)
+    // emits 'error' and is never guaranteed a later 'exit', so a
+    // dispose() awaiting 'exit' alone can hang forever on a process
+    // that never started.
+    this.#ended = new Promise((resolve) => {
+      this.#endedResolve = resolve;
+    });
+    this.#child.on('exit', (code) => {
+      this.#endedResolve();
+      this.#failAllPending(`server exited (code ${code})`);
+    });
+    this.#child.on('error', (error) => {
+      this.#endedResolve();
+      this.#failAllPending(`server error: ${error.message}`);
+    });
   }
 
   request(method, params) {
@@ -80,22 +95,21 @@ export class McpStdioSession {
   }
 
   /**
-   * Terminates the child and resolves only once it has actually exited:
+   * Terminates the child and resolves only once it has actually ended:
    * SIGTERM first, bounded SIGKILL escalation after 5s. An unawaited
    * kill() lets a slow or SIGTERM-ignoring server outlive disposal and
-   * race the workspace inspection/removal that follows it.
+   * race the workspace inspection/removal that follows it. Awaits the
+   * constructor's exit-or-error promise, so a spawn-failed child (which
+   * may never emit 'exit') cannot hang disposal.
    */
   async dispose() {
     this.#failAllPending('session disposed');
     if (this.#child.exitCode !== null || this.#child.signalCode !== null) {
       return;
     }
-    const exited = new Promise((resolve) => {
-      this.#child.once('exit', resolve);
-    });
     this.#child.kill();
     const killTimer = setTimeout(() => this.#child.kill('SIGKILL'), 5_000);
-    await exited;
+    await this.#ended;
     clearTimeout(killTimer);
   }
 

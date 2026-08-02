@@ -151,7 +151,9 @@ probe lives beside it at
   is deprecated).
 - Authority surface: the `codex` tool schema ACCEPTS per-call
   `sandbox` (including `danger-full-access`), `approval-policy`, `cwd`,
-  `model`, and `config`. The disciplined-call rule (plank 1) is
+  `model`, `config`, `base-instructions`, `developer-instructions`, and
+  `compact-prompt` — the full recorded set; disciplined calls pass none
+  of them. The disciplined-call rule (plank 1) is
   therefore skill discipline, not machine enforcement; the probe proves
   a disciplined call's requested write produced NO SENTINEL on disk
   (the interlocutor's refusal self-report is corroborating — the probe

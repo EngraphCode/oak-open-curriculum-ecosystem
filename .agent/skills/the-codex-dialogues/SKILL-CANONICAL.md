@@ -135,7 +135,11 @@ or personal data.
 ## Protocol
 
 - **Open**: one `codex` call carrying the packet as the initial prompt.
-  Capture `structuredContent.threadId` from the result.
+  Capture `structuredContent.threadId` from the result, and APPEND the
+  cleanup-mapping row for it immediately — before the first reply turn
+  (the exact path and format are in the Data contract's bounded-
+  retention clause; a dialogue with no mapping row is invisible to the
+  trial close-out pass).
 - **Continue**: every subsequent turn is a `codex-reply` call to that
   EXACT `threadId`. One `codex` initialisation per dialogue, one thread
   per dialogue, never a second initialisation mid-dialogue.
@@ -266,13 +270,18 @@ transcript, embraced rather than fought, under three clauses:
 - **Locality** — rollouts live under the machine-local Codex home and
   are never committed or transmitted.
 - **Bounded retention** — the seat keeps a LOCAL-ONLY cleanup mapping
-  (`dialogue_id` → Codex thread id) beside the Codex home,
-  machine-local, never committed and never transmitted, existing solely
-  so the trial close-out pass can select exactly the trial dialogues'
-  rollouts. At the trial window's close-out: extract what the rollouts
-  teach, delete those rollouts, delete the mapping with them. Knowledge
-  is retained; bytes are not. The close events and conserved syntheses
-  remain the durable record.
+  (`dialogue_id` → Codex thread id) at the CANONICAL path
+  `~/.codex/sif-dialogue-cleanup-map.jsonl`: one JSON object per line,
+  fields exactly `dialogue_id` and `thread_id`, appended at thread
+  capture (the Protocol's Open step). Machine-local, never committed
+  and never transmitted, existing solely so the trial close-out pass
+  can select exactly the trial dialogues' rollouts — a seat that
+  improvises a different location or format breaks that selection, so
+  the path and shape above are the contract, not a suggestion. At the
+  trial window's close-out: extract what the rollouts teach, delete
+  those rollouts, delete the mapping with them. Knowledge is retained;
+  bytes are not. The close events and conserved syntheses remain the
+  durable record.
 
 ## Trial window (pre-committed at ratification — the decision rule)
 
