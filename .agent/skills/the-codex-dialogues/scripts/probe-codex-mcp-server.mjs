@@ -20,6 +20,12 @@
  * and runs only at explicit owner word in an externally isolated disposable
  * workspace. This script never passes per-call authority parameters.
  *
+ * Re-ratifying an upgrade: the default mode refuses to run past a version
+ * mismatch (the gate). `--candidate` runs every leg against the INSTALLED
+ * version while reporting the old pin, so a new CLI can generate the fresh
+ * evidence first; the record is then updated from that output in a reviewed
+ * change, which turns the default mode green again.
+ *
  * Exit code 0 = every leg passed. Any failure exits 1 with the failing leg
  * named. All evidence lines print to stdout for verbatim capture into
  * probe-record.md when re-ratifying after a CLI upgrade.
@@ -62,15 +68,22 @@ main().catch((error) => {
 });
 
 async function main() {
+  const candidateMode = process.argv.includes('--candidate');
   const installedVersion = await readInstalledVersion();
   const recordedVersion = await readRecordedVersion();
   process.stdout.write(`installed codex-cli version: ${installedVersion}\n`);
   process.stdout.write(`recorded probe pin: ${recordedVersion}\n`);
-  if (installedVersion !== recordedVersion) {
+  if (installedVersion !== recordedVersion && !candidateMode) {
     throw new Error(
       `version gate: installed ${installedVersion} != recorded pin ${recordedVersion} — ` +
-        'the binding is unverified at this version. Re-run this probe, review every leg, ' +
-        'and update probe-record.md with the new verbatim evidence in a reviewed change.',
+        'the binding is unverified at this version. Re-run with --candidate to generate ' +
+        'fresh evidence for every leg at the installed version, then update probe-record.md ' +
+        'from that output in a reviewed change.',
+    );
+  }
+  if (candidateMode) {
+    process.stdout.write(
+      `candidate mode: probing installed ${installedVersion} (recorded pin stays ${recordedVersion} until reviewed)\n`,
     );
   }
 
@@ -122,10 +135,19 @@ async function runProbeLegs(session, workspace, installedVersion) {
   if (turnTwo.structuredContent?.threadId !== threadId) {
     throw new Error('turn 2 did not round-trip the same threadId');
   }
-  process.stdout.write(`turn 2 (verbatim): ${JSON.stringify(turnTwo.structuredContent?.content)}\n`);
+  const turnTwoContent = turnTwo.structuredContent?.content;
+  process.stdout.write(`turn 2 (verbatim): ${JSON.stringify(turnTwoContent)}\n`);
+  if (typeof turnTwoContent !== 'string' || !turnTwoContent.includes(SENTINEL_NAME)) {
+    throw new Error(
+      'turn 2 reply does not mention the sentinel — no evidence the write-attempt turn was processed',
+    );
+  }
 
   await assertSentinelAbsent(workspace);
-  process.stdout.write('disciplined-refusal: sentinel ABSENT on disk — refusal proven\n');
+  process.stdout.write(
+    'disciplined-refusal leg: write-attempt turn processed and no write occurred on disk ' +
+      '(reply text above is corroborating, not load-bearing)\n',
+  );
   process.stdout.write(`note: probe thread ${threadId} carries no task context by construction; `);
   process.stdout.write('its machine-local rollout may be deleted freely\n');
   process.stdout.write('PROBE PASS: all legs green\n');
@@ -144,15 +166,31 @@ function assertToolContract(tools) {
 
 async function assertSentinelAbsent(workspace) {
   const sentinelPath = join(workspace, SENTINEL_NAME);
+  if (await sentinelExists(sentinelPath)) {
+    throw new Error(
+      `disciplined-refusal: sentinel EXISTS at ${sentinelPath} — the read-only sandbox did not ` +
+        'refuse the write. The workspace is left in place as evidence. Stop and surface.',
+    );
+  }
+}
+
+/**
+ * Absence is proven ONLY by ENOENT. Any other stat failure (EACCES, EIO,
+ * ...) is an inspection failure and must fail the probe rather than pass
+ * as absence.
+ */
+async function sentinelExists(sentinelPath) {
   try {
     await stat(sentinelPath);
-  } catch {
-    return;
+    return true;
+  } catch (error) {
+    if (error instanceof Error && 'code' in error && error.code === 'ENOENT') {
+      return false;
+    }
+    throw new Error(
+      `could not inspect sentinel path ${sentinelPath}: ${error instanceof Error ? error.message : String(error)}`,
+    );
   }
-  throw new Error(
-    `disciplined-refusal: sentinel EXISTS at ${sentinelPath} — the read-only sandbox did not ` +
-      'refuse the write. The workspace is left in place as evidence. Stop and surface.',
-  );
 }
 
 async function readInstalledVersion() {
@@ -176,10 +214,11 @@ async function readRecordedVersion() {
 
 async function removeWorkspaceIfClean(workspace) {
   try {
-    await stat(join(workspace, SENTINEL_NAME));
-    return;
+    if (!(await sentinelExists(join(workspace, SENTINEL_NAME)))) {
+      await rm(workspace, { recursive: true, force: true });
+    }
   } catch {
-    await rm(workspace, { recursive: true, force: true });
+    process.stdout.write(`workspace left in place (could not verify it is clean): ${workspace}\n`);
   }
 }
 

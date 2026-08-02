@@ -62,10 +62,10 @@ describe('the-codex-dialogues probe evidence lockstep', () => {
     });
   });
 
-  it('pins the probe script launch args to the same contract', async () => {
+  it('pins the probe script launch args to the same contract, whole-array', async () => {
     const script = await readRepoDocument(PROBE_SCRIPT_PATH);
-    for (const arg of PINNED_REGISTRATION_ARGS) {
-      expect(script, `probe script carries launch arg ${arg}`).toContain(`'${arg}'`);
-    }
+    const declaration = /const LAUNCH_ARGS = \[([\s\S]*?)\];/.exec(script)?.[1] ?? '';
+    const args = [...declaration.matchAll(/'([^']*)'/g)].map((entry) => entry[1]);
+    expect(args).toStrictEqual(PINNED_REGISTRATION_ARGS);
   });
 });

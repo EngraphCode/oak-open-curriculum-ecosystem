@@ -87,10 +87,12 @@ to unrelated sessions is names-only.
    `codex_cli_version` pin in
    [`probe-record.md`](./probe-record.md). On ANY mismatch, STOP and run
    [`scripts/probe-codex-mcp-server.mjs`](./scripts/probe-codex-mcp-server.mjs)
-   first; the dialogue proceeds only after the probe passes and the
-   record is updated with the new version's verbatim evidence in a
-   reviewed change. An installed upgrade is a loud stop, never a
-   silently unverified surface.
+   `--candidate` first — candidate mode runs every leg against the
+   installed version while the old pin stands; the dialogue proceeds
+   only after that run passes and the record is updated with the new
+   version's verbatim evidence in a reviewed change (which turns the
+   default, gated mode green again). An installed upgrade is a loud
+   stop, never a silently unverified surface.
 3. **Pre-registered prior.** Write down your position AND confidence on
    the question BEFORE the first exchange — it goes in the packet and
    the close event records the delta. No prior, no dialogue.
@@ -157,9 +159,12 @@ Field rules:
   fold-committed comms event id, a tracked report path, or the PR
   record. Never a machine-local path: the pointer must outlive the
   trial rollouts' deletion and resolve from any checkout.
-- Field completeness is enforced by the composing seat and re-checked
-  by the analysis-side parser; a close event with missing fields is a
-  telemetry defect to fix at source.
+- Field completeness is enforced by the composing seat at close time; a
+  close event with missing fields is a telemetry defect to fix at
+  source. The analysis-side parser that re-checks the corpus lands with
+  the trial close-out pass (it has nothing to read before dialogues
+  exist), so until then the composing seat's check is the only
+  enforcement — deferred by the plan, not an oversight.
 
 Close events evaluate THIS INSTRUMENT, never the seat that ran the
 dialogue — any reading of them as seat-evaluation is out of contract
