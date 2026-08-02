@@ -381,11 +381,17 @@ learning-loop; WS5's seed harvest reads across all of them.
 ## Schema Evolution
 
 JSON schemas in `.agent/state/collaboration/` carry `schema_version` from
-their first commit. Compatibility is **additive-only within a major
-version**: v1.x agents reading v1.y files (`y > x`) ignore unrecognised
-fields and preserve them on write-back; major-version mismatch causes the
-agent to bail out. The contract is documented in each schema's
-`$comment_compatibility` block; field reductions land as major-version
+their first commit. The contract is **latest-version-only** (owner-ruled
+2026-08-01; PDR-050 §Latest-schema-version-only): each surface pins one
+named version constant, every parse/validation/seed site checks it by
+equality, and a version change replaces old with new — there is no
+cross-version read tolerance and no preserve-unknown-fields promise.
+Preserving OTHER LIVE WRITERS' rows on write-back is a concurrency
+contract and stands; archived files are preserved bytes outside
+current-schema validation. The inter-practice wire is the one surface
+with a compatibility contract, and PDR-125 owns it. Each schema's
+`$comment_compatibility` block documents the latest-only contract;
+field reductions land as version
 bumps. Field provenance is co-located with each field via
 `$comment_provenance`; lifecycle and evolution detail live in
 [`collaboration-state-conventions.md`](../memory/operational/collaboration-state-conventions.md).

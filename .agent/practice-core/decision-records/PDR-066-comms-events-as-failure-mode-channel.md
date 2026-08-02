@@ -184,8 +184,10 @@ kind would require parser amendment, renderer amendment, reader
 compatibility, and a schema migration with a discriminator value.
 The narrative kind already carries title + body + audience; a
 semantic tag on the existing kind adds the discriminator without
-restructuring. The additive-extension discipline (PDR-049 +
-PDR-050) governs the substrate implementation.
+restructuring. (Corrected 2026-08-02: the "additive-extension
+discipline (PDR-049 + PDR-050)" originally cited here was a phantom
+citation; PDR-050 §Latest-schema-version-only governs the substrate
+implementation.)
 
 **Why two tags (`failure-mode`, `behaviour-note`), not one.** The
 boundary between "substantive failure that requires a doctrine
