@@ -408,3 +408,45 @@ already externally checked.
   time, never carry; (2) Badger's cross-lane note confirms no
   collision with WS0 (reflection-only) and any later reorg sweeps the
   two new skills with the rest.
+- 2026-08-02 ~12:50Z — OWNER WORDS absorbed (direct to this seat +
+  routed via Director events 0875a858/queue-ceremony; all inscribed):
+  1. **Parallax's purposes, owner-stated (verbatim substance):** the
+     new skills serve (a) cognitive and investigative skill
+     PROVISION, (b) improved skill QUALITY demonstration, and (c) the
+     more advanced skill STRUCTURE AND METADATA — "both as elements
+     in a graph, and on the file system". Reframes the family from
+     extensibility-test to REFERENCE MODEL on three axes. The graph
+     clause joins the movement-2 problem space: organisation has TWIN
+     SURFACES — filesystem structure AND graph-element metadata
+     (consonant with ADR-221's concept layer; the family itself
+     ships 8 JSON graphs in reference/parallax/graphs/ as the
+     demonstrated direction).
+  2. **Standardised structure IS the direction** (owner verbatim:
+     "We should be working towards a standardised structure"). WS0's
+     recommendation must name THE standard structure for the skills
+     corpus plus a convergence path for every landing (Sif's two flat
+     skills and the nested family both converge); flat/nested
+     coexistence is TRANSITIONAL only; "no standard" is OFF THE
+     TABLE. Movement-2 consequence: the null hypothesis SPLITS — the
+     structure-axis null (leave per-corpus layouts as-is) is dead by
+     owner word; the vocabulary/concept-axis null (three light
+     per-corpus organisations) remains live and must still be beaten
+     on named decisions. The nesting prior stays
+     deliberate-but-challengeable.
+  3. **The relationship map is a wanted owner deliverable**
+     ("eventually... how the new skills relate to" metacognition,
+     reason, concept-exploration, free-play, proportionality, plan) —
+     the WS6(c) evidence notes above are its seed; the full artefact
+     lands with movement 4 (or earlier at owner word).
+  4. **Parallax is now TRACKED at the owner's own commit
+     `5fa0b2a0a`** (his originals, in place — safety binds the
+     referent). Write-scope note updates: owner-owned AND tracked,
+     never edit content without his word. **Audit citation RE-PINNED:
+     sweep re-run against the `5fa0b2a0a` tree — IDENTICAL (50 .md
+     files, 144 links, 92 external, 0 dangling, 0 up-traversal).**
+     #711 is redundant, close carded to the owner — cite nothing new
+     to its tip.
+  5. Ops: second staging race confirmed (Falcon's correction record
+     rode `639c0f037`) — the COMMIT-QUEUE CEREMONY is now ACTIVE for
+     every commit on the primary, both seats; a standing draft PR on
+     the coordination branch adds check visibility.

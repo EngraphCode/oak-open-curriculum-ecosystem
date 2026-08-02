@@ -63,6 +63,16 @@ parallel scheme ADR-221 forbids.
    introduced are DELIBERATE-BUT-CHALLENGEABLE — WS0 treats them as
    the owner's prior, may recommend against them with evidence, and
    he rules at the gate.
+   OWNER DIRECTION (2026-08-02, verbatim: "We should be working
+   towards a standardised structure"): the WS0 recommendation names
+   THE standard structure for the skills corpus and a convergence
+   path for every landing; flat/nested coexistence is transitional
+   only; "no standard" is off the table. The owner's stated Parallax
+   purposes bind the frame: cognitive/investigative provision,
+   skill-quality demonstration, and the advanced structure+metadata
+   "both as elements in a graph, and on the file system" — the
+   organisation question carries TWIN SURFACES, filesystem structure
+   and graph-element metadata.
    A genuine multi-sitting concept-exploration at the Skills seat,
    starting from the exploration report's addendum tensions: (a) the
    HOMONYMY RISK — the levers differ in mode of action (a skill is
@@ -138,9 +148,12 @@ parallel scheme ADR-221 forbids.
    third-party skills at that date; the cure is a rule naming the
    boundary plus a validator refusing third-party landings in core.
 6. **WS6 — Parallax family integration (owner word 2026-08-02; the
-   four asks below are verbatim lane scope).** The family is in-repo:
-   preservation draft PR #711 is the safety surface while the owner
-   keeps drafting; canonical landing happens through this workstream.
+   four asks below are verbatim lane scope).** The family is in-repo
+   and TRACKED at the owner's own commit `5fa0b2a0a` (2026-08-02;
+   safety binds the referent); #711 is redundant and its close is
+   carded to the owner. Canonical landing (structure convergence per
+   the standardised-structure direction) happens through this
+   workstream.
    (a) LINK AUDIT: relative links inside the family are probably
    slightly depth-incorrect after the nesting — audit every in-family
    link, and rule whether such links are allowed in each file class
