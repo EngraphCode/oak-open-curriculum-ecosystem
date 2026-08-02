@@ -1,3 +1,17 @@
+# [1.141.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.140.7...v1.141.0) (2026-08-02)
+
+
+### Bug Fixes
+
+* **design:** absorb PR [#710](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/710) review round — boundary, taxonomy, changelog ([bf8b4d6](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bf8b4d6279e7458f0c940324dc34740f8c6e3387))
+* **design:** adopt dataset writes in the theme runtime (Sonar S7761) ([cd12a41](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/cd12a417c16bba03f3765ab403e30073ac10b7b0)), closes [#710](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/710)
+* **tooling:** unset git hook env around turbo so worktree gates run ([05ed848](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/05ed8482c3e8b26cf067ed6bbb3852dac1f20aad))
+
+
+### Features
+
+* **design:** kit runtime as TS source with choice() and toolchain ([95bdfee](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/95bdfee3ab8f1931658781ecff9132c70b15c8c1))
+
 ## [1.140.7](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.140.6...v1.140.7) (2026-08-02)
 
 ## [1.140.6](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.140.5...v1.140.6) (2026-08-02)
